@@ -210,7 +210,7 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
      * @generated
      * @ordered
      */
-    protected static final int TIMEOUT_UNKNOWN_STATE_EDEFAULT = -1;
+    protected static final int TIMEOUT_UNKNOWN_STATE_EDEFAULT = 120;
 
     /**
      * The cached value of the '{@link #getTimeoutUnknownState() <em>Timeout Unknown State</em>}' attribute.

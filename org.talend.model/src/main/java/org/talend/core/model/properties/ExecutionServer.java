@@ -250,7 +250,7 @@ public interface ExecutionServer extends EObject {
 
     /**
      * Returns the value of the '<em><b>Timeout Unknown State</b></em>' attribute.
-     * The default value is <code>"-1"</code>.
+     * The default value is <code>"120"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Timeout Unknown State</em>' attribute isn't clear,
@@ -260,7 +260,7 @@ public interface ExecutionServer extends EObject {
      * @return the value of the '<em>Timeout Unknown State</em>' attribute.
      * @see #setTimeoutUnknownState(int)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionServer_TimeoutUnknownState()
-     * @model default="-1"
+     * @model default="120"
      * @generated
      */
     int getTimeoutUnknownState();

@@ -581,7 +581,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="monitoringPort" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"
         defaultValueLiteral="-1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeoutUnknownState" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"
-        defaultValueLiteral="-1"/>
+        defaultValueLiteral="120"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="username" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="password" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
