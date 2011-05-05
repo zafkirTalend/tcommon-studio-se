@@ -142,7 +142,7 @@
 	</test>
 
 
-	<test name="TestLogin">
+		<test name="TestLogin">
 		<classes>
 			<parameter name="userName" value="wrongadmin@company.com" />
 			<class name="com.talend.tac.cases.TestLogin">
@@ -166,11 +166,24 @@
 		<classes>
 			<class name="com.talend.tac.cases.TestLogin">
 				<methods>
-					<include name="testLogin" />
+					<include name="testLogin"/>
 				</methods>
 			</class>
 		</classes>
 	</test>
+	
+	
+	<test name="TestLogin">
+		<classes>
+			<class name="com.talend.tac.cases.TestLogin">
+				<methods>
+					<include name="testSaveLoginOrNot"/>
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	
 	
 	<test name="TestWelcomePage">
 		<classes>
