@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.collections.map.MultiKeyMap;
+import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 
 /**
@@ -26,6 +27,8 @@ import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
  * 
  */
 public class JDBCDriverLoader {
+
+    public static final String SHUTDOWN_PARAM = ";shutdown=true"; //$NON-NLS-1$
 
     private static MultiKeyMap classLoadersMap = new MultiKeyMap();
 
@@ -90,6 +93,10 @@ public class JDBCDriverLoader {
                 connection = wapperDriver.connect(url, info);
 
             } else {
+                if (dbType.equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())
+                        && additionalParams.indexOf(SHUTDOWN_PARAM) == -1) {
+                    url = url + SHUTDOWN_PARAM;
+                }
                 connection = wapperDriver.connect(url, info);
             }
             // DriverManager.deregisterDriver(wapperDriver);

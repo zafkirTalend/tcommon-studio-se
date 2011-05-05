@@ -42,6 +42,13 @@ public enum EDatabaseVersion4Drivers {
     AS400_V5R2_V5R4(new DbVersion4Drivers(EDatabaseTypeName.AS400, "V5R2 to V5R4", "V5R2 to V5R4", "jt400_V5R2.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     //
     INTERBASE(new DbVersion4Drivers(EDatabaseTypeName.INTERBASE, "interclient.jar")), //$NON-NLS-1$
+
+    //
+    HSQLDB(new DbVersion4Drivers(EDatabaseTypeName.HSQLDB, "hsqldb.jar")), //$NON-NLS-1$
+    HSQLDB_IN_PROGRESS(new DbVersion4Drivers(EDatabaseTypeName.HSQLDB_IN_PROGRESS, "hsqldb.jar")), //$NON-NLS-1$
+    HSQLDB_SERVER(new DbVersion4Drivers(EDatabaseTypeName.HSQLDB_SERVER, "hsqldb.jar")), //$NON-NLS-1$
+    HSQLDB_WEBSERVER(new DbVersion4Drivers(EDatabaseTypeName.HSQLDB_WEBSERVER, "hsqldb.jar")), //$NON-NLS-1$
+
     //
     JAVADB_EMBEDED(new DbVersion4Drivers(EDatabaseTypeName.JAVADB_EMBEDED, "derby.jar")), //$NON-NLS-1$
     SQLITE(new DbVersion4Drivers(EDatabaseTypeName.SQLITE, "sqlitejdbc_v037_nested.jar")), //$NON-NLS-1$
