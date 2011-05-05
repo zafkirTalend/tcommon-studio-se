@@ -133,15 +133,10 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
     }    
     
 	
-    //add a method of remove all triggers
-    @Test(groups={"AddSimpleTrigger"},dependsOnGroups={"ModifyTask"})
-    public void clearTriggers() {
-    	
-    	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-    	selenium.setSpeed(MID_SPEED);
-    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
-    	selenium.setSpeed(MIN_SPEED);
-    	selenium.mouseDown("//span[text()='testModifyTask']");//select a exist task
+    //add a method of remove triggers
+    public void clearTriggers(String taskLabel) {
+    
+    	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task
     	selenium.setSpeed(MID_SPEED);
     	if(selenium.isElementPresent("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/" +
     			"parent::ul/parent::div/parent::div/parent::div/parent::div//div[@class='x-grid3-cell-inner" +
@@ -181,9 +176,31 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	 	}
 
     }
+  
+    //add a method of remove all triggers
+    @Test(groups={"AddSimpleTrigger"})
+//    ,dependsOnGroups={"ModifyTask"})
+    @Parameters({"labelTRunJobByTaskRun","labelRefProJobByMainProTRunJobRun","labelReferenceproTjava",
+    	"modifyTask","duplicateTask"})
+    public void clearsAllTriggers(String labelTRunJobByTaskRun,String labelRefProJobByMainProTRunJobRun,
+    		String labelReferenceproTjava,String modifyTask,String duplicateTask ) {
+    	
+    	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
+    	selenium.setSpeed(MID_SPEED);
+    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+    	selenium.setSpeed(MIN_SPEED);
+    	
+    	clearTriggers(labelTRunJobByTaskRun);
+    	clearTriggers(labelRefProJobByMainProTRunJobRun);
+    	clearTriggers(labelReferenceproTjava);
+    	clearTriggers(modifyTask);
+    	clearTriggers(duplicateTask);
+    	
+    }
     
-  //add a overdue(start date) simpleTrigger
-    @Test(dependsOnMethods={"clearTriggers"})
+  /**add a simpleTrigger, set its 'NumberOfTriggerings'(1)
+    when after trigger task second run finish---trigger will auto stop**/
+    @Test(dependsOnMethods={"clearsAllTriggers"})
 	@Parameters({"modifyTask","addSimpleTriggerNumberOfTriggeringsRunnedAutoStopLabel",
 		"addSimpleTriggerNumberOfTriggeringsRunnedAutoStopDescription"})
     public void testAddSimpleTriggerNumberOfTriggeringsRunnedAutoStop(String taskLabel, String label, String description) {
@@ -215,6 +232,8 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	    selenium.click("//span[text()='Add simple trigger']/parent::legend/parent::fieldset/parent::form/" +
 		"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
 		selenium.setSpeed(MIN_SPEED);
+    	selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::div/" +
+		"parent::div/parent::div//button[text()='Refresh']");
 		waitForElementPresent("//span[text()='2 / 2']",WAIT_TIME);
 	  			
 		selenium.setSpeed(MID_SPEED);
@@ -226,7 +245,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
     
     
 	// add a simpleTrigger
-	@Test(dependsOnMethods={"clearTriggers"})
+	@Test(dependsOnMethods={"clearsAllTriggers"})
 	@Parameters({"modifyTask", "addSimpleTriggerLabel","addSimpleTriggerDescription"})
 	public void testAddTriggerAddSimpleTrigger(String taskLable, String label, String description) {
 	  
@@ -245,9 +264,9 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	    selenium.setSpeed(MIN_SPEED);
 	}
 	
-	// add a simpleTrigger use default date
+	// add a simpleTrigger use default date, selected job is TRunJob(use tRunJob run child'job)
 	@Test(dependsOnMethods={"testAddTriggerAddSimpleTrigger"})
-	@Parameters({"modifyTask", "addSimpleTriggerLabelNotChooseDate","addSimpleTriggerNotChooseDateDescription"})
+	@Parameters({"labelTRunJobByTaskRun", "addSimpleTriggerLabelNotChooseDate","addSimpleTriggerNotChooseDateDescription"})
 	public void testAddTriggerAddSimpleTriggerNotChooseDate(String taskLabel, String label, String description) {
 		    
 	    	       
@@ -353,7 +372,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	    
 	}
 	
-	//add a overdue(start date) simpleTrigger
+	//add a overdue(end date) simpleTrigger
 	@Test(dependsOnMethods={"testAddTriggerAddSimpleTriggerAddOverdueStartData"})
 	@Parameters({"modifyTask","addSimpleTriggerOverdueEndDatalabel","addSimpleTriggerOverdueEndDataDescription"})
     public void testAddTriggerAddSimpleTriggerAddOverdueEndData(String taskLabel, String label, String description) {
