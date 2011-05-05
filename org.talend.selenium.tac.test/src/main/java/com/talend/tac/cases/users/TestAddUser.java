@@ -50,7 +50,7 @@ public class TestAddUser extends Login {
 	}
 	
 	//clear all users---modify firstname and lastname to "admin,admin" ---user'role change to 'administrator'
-//    @Test(groups={"AddUser"})
+    @Test(groups={"AddUser"})
     @Parameters({"userName"})
     public void clearAllUsers(String userName) {
     	 List<String> users = new ArrayList<String>(); 
@@ -103,8 +103,7 @@ public class TestAddUser extends Login {
     }
     
     //add a user of user'role are all roles
-//    @Test(dependsOnMethods={"clearAllUsers"})
-    @Test(groups={"AddUser"})
+    @Test(dependsOnMethods={"clearAllUsers"})
     @Parameters({"userNameAllRoles","FirstName","LastName","PassWord","SvnLogin","SvnPassWord"})
 	public void testAddUserAllRoles(String userName,String FirstName,String LastName,String PassWord,String SvnLogin,
 			String SvnPassWord) throws Exception {
