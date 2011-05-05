@@ -336,8 +336,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
                                 gc.setFont(new Font(parent.getDisplay(), "Arial", 10, SWT.NONE));
 
-                                gc.drawText(Messages.getString("tips.viewAndEdit"), (imageWith - 10) / 7 + 5,
-                                        (imageHeight * 10) / 17 - 5, true);
+                                // gc.drawText(Messages.getString("tips.viewAndEdit"), (imageWith - 10) / 7 + 5,
+                                // (imageHeight * 10) / 17 - 5, true);
                                 gc.drawText(Messages.getString("tips.viewResults"), (imageWith * 10) / 19 - 3,
                                         (imageHeight * 10) / 14 + 18, true);
 
@@ -472,7 +472,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 paletteData.left = new FormAttachment(0, ((imageWith - 10) * 10) / 17);
                                 paletteData.right = new FormAttachment(0, imageWith - 50);
                                 paletteData.top = new FormAttachment(0, (imageHeight * 2) / 5 + 15);
-                                paletteData.height = 45;
+                                paletteData.height = 48;
                                 palette.setLayoutData(paletteData);
                                 palette.setBackground(new Color(null, 255, 255, 204));
                                 palette.setFont(new Font(parent.getDisplay(), "Arial", 10, SWT.NONE));
@@ -498,14 +498,14 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 Link component = new Link(foreGroundComposite, SWT.NONE);
                                 FormData componentData = new FormData();
                                 componentData.left = new FormAttachment(0, (imageWith - 10) / 7 + 5);
-                                componentData.width = componentWidth + 5;
-                                componentData.top = new FormAttachment(0, (imageHeight * 10) / 17 + 10);
-                                componentData.height = 16;
+                                componentData.right = new FormAttachment(50, 0);
+                                componentData.top = new FormAttachment(0, (imageHeight * 10) / 17 - 5);
+                                componentData.height = 45;
                                 component.setLayoutData(componentData);
                                 component.setBackground(new Color(null, 255, 255, 204));
                                 component.setForeground(new Color(null, 0, 0, 0));
                                 component.setFont(new Font(parent.getDisplay(), "Arial", 10, SWT.NONE));
-                                component.setText(componentText);
+                                component.setText(Messages.getString("tips.viewAndEdit") + componentText);
                                 component.addListener(SWT.Selection, new Listener() {
 
                                     public void handleEvent(Event event) {
