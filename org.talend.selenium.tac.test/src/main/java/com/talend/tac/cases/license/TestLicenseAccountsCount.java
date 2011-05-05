@@ -11,7 +11,7 @@ import com.talend.tac.cases.Login;
 public class TestLicenseAccountsCount extends Login {
 
 	
-//	@Test
+	@Test
 	public void testAddDIChangeToDQ() throws InterruptedException{
 		cleanAllExceptAdmin();
 		int n = getDQcounts();
@@ -115,7 +115,7 @@ public class TestLicenseAccountsCount extends Login {
 		"Data Integration");
 		cleanAllExceptAdmin();
 	}
-//	@Test
+	@Test
 	public void testAddDQChangeToDI() throws InterruptedException{
 		cleanAllExceptAdmin();
 		int n = getDQcounts();
@@ -265,7 +265,7 @@ public class TestLicenseAccountsCount extends Login {
 		cleanAllExceptAdmin();
 		
 	}
-//	@Test
+	@Test
 	public void testAddMaxAmountsDIUsersAllowed() throws InterruptedException {
 		cleanAllExceptAdmin();
 		int n = getDIcounts();
@@ -301,7 +301,7 @@ public class TestLicenseAccountsCount extends Login {
 		cleanAllExceptAdmin();
 	}
 
-//	@Test
+	@Test
 	public void testAddMaxAmountsDQUsersAllowed() throws InterruptedException {
 		cleanAllExceptAdmin();
 		int n = getDQcounts();
@@ -429,7 +429,7 @@ public class TestLicenseAccountsCount extends Login {
 		cleanAllExceptAdmin();
 	}
 
-//	@Test
+	@Test
 	public void testDIUsersMoreOverUnactive() throws InterruptedException {
 		cleanAllExceptAdmin();
 		int n = getDIcounts();
@@ -465,7 +465,7 @@ public class TestLicenseAccountsCount extends Login {
 		cleanAllExceptAdmin();
 	}
 
-//	@Test
+	@Test
 	public void testDIUsersMoreOverUnactiveReactive()
 			throws InterruptedException {
 		cleanAllExceptAdmin();
@@ -626,7 +626,7 @@ public class TestLicenseAccountsCount extends Login {
 
 	}
 
-//	@Test
+	@Test
 	public void testDQUsersMoreOverUnactive() throws InterruptedException {
 		cleanAllExceptAdmin();
 		int n = getDQcounts();
@@ -704,7 +704,7 @@ public class TestLicenseAccountsCount extends Login {
 		cleanAllExceptAdmin();
 	}
 
-//	@Test
+	@Test
 	public void testDQUsersMoreOverUnactiveReactive()
 			throws InterruptedException {
 		cleanAllExceptAdmin();
