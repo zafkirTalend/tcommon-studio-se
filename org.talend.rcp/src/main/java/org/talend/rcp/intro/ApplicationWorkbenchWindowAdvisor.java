@@ -422,7 +422,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 textSecondTitle.setFont(new Font(foreGroundComposite.getDisplay(), "Arial", titleSize, SWT.NONE));
                                 textSecondTitle.setBackground(new Color(null, 255, 255, 204));
                                 textSecondTitle.setForeground(new Color(null, 0, 0, 0));
-                                textSecondTitle.setText(secondTitle + " " + Messages.getString("tips.title"));
+                                textSecondTitle.setText(Messages.getString("tips.title"));
 
                                 Label textThirdTitle = new Label(foreGroundComposite, SWT.CENTER);
                                 FormData textTitleData3 = new FormData();
@@ -505,7 +505,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 component.setBackground(new Color(null, 255, 255, 204));
                                 component.setForeground(new Color(null, 0, 0, 0));
                                 component.setFont(new Font(parent.getDisplay(), "Arial", 10, SWT.NONE));
-                                component.setText(Messages.getString("tips.viewAndEdit") + componentText);
+                                component.setText(Messages.getString("tips.viewAndEdit") + " " + componentText);
                                 component.addListener(SWT.Selection, new Listener() {
 
                                     public void handleEvent(Event event) {
