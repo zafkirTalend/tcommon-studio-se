@@ -105,11 +105,11 @@ public class TestAddTask  extends Login {
 	}
 	
 
-
+	//add a task for test run tRunJob
 	@Test(dependsOnMethods={"testAddTask"})
 	@Parameters({"labelTRunJobByTaskRun","labelTRunJobByTaskRunDescription","AddcommonProjectname","branchNameTrunk","jobNameTRunJob","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
-	public void testAddTaskForTRunJob(String label, String labelDescription,String commonpro,String branch,String jobName,
+	public void testAddTaskForTestRunTRunJob(String label, String labelDescription,String commonpro,String branch,String jobName,
 			String version,String context,String jobServer,String statistic) {
 		
 		addTask(label, labelDescription, commonpro, branch, jobName, version, context, jobServer, statistic);
@@ -125,7 +125,7 @@ public class TestAddTask  extends Login {
 	
 	//add a task for test run RefJobByMaintRunJobRun
 	@Test(dependsOnMethods={"testAddTask"})
-	@Parameters({"labelRefJobByMaintRunJobRun","labelRefJobByMaintRunJobRunDescription","AddcommonProjectname","branchNameTrunk","jobNameRefJobByMaintRunJobRun","version0.1",
+	@Parameters({"labelRefProJobByMainProTRunJobRun","labelRefJobByMaintRunJobRunDescription","AddcommonProjectname","branchNameTrunk","jobNameRefJobByMaintRunJobRun","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
 	public void testAddTaskForTestRefJobByMaintRunJobRun(String label, String labelDescription,String commonpro,String branch,String jobName,
 			String version,String context,String jobServer,String statistic) {
