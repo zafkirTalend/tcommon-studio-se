@@ -117,6 +117,7 @@ public class SalesforceModuleParseAPI {
             currentAPI.setLogin(login);
             returnValues = currentAPI.login(endPoint, username, password, timeOut);
         }
+        login = true;
         return returnValues;
     }
 

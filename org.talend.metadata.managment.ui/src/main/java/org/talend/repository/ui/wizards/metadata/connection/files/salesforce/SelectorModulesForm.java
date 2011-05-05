@@ -52,43 +52,33 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.SearchPattern;
-import org.eclipse.ui.internal.dialogs.EventLoopProgressMonitor;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
-import org.talend.commons.ui.swt.dialogs.ProgressDialog;
 import org.talend.commons.ui.swt.formtools.Form;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable.LAYOUT_MODE;
 import org.talend.commons.utils.data.text.IndiceHelper;
 import org.talend.commons.utils.threading.TalendCustomThreadPoolExecutor;
-import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
-import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit;
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
-import org.talend.core.model.metadata.builder.database.EDatabaseSchemaOrCatalogMapping;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase.ETableTypes;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
-import org.talend.core.model.metadata.types.JavaTypesManager;
-import org.talend.core.model.metadata.types.PerlTypesManager;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
-import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.cwm.helper.ConnectionHelper;
-import org.talend.cwm.helper.PackageHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdColumn;
@@ -97,13 +87,12 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.ui.swt.utils.AbstractSalesforceStepForm;
 import org.talend.repository.ui.utils.ManagerConnection;
 import org.talend.salesforce.SforceManagementImpl;
+import orgomg.cwm.objectmodel.core.CoreFactory;
 
 import com.salesforce.soap.partner.DescribeGlobal;
 import com.salesforce.soap.partner.DescribeGlobalSObjectResult;
 import com.salesforce.soap.partner.SessionHeader;
 import com.sforce.soap.enterprise.DescribeGlobalResult;
-
-import orgomg.cwm.objectmodel.core.CoreFactory;
 
 /**
  * @author cantoine
@@ -1408,7 +1397,7 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
                 }
 
             }
-            createAllItems(false, list);
+            // createAllItems(false, list);
             return list;
 
         } catch (Exception ex) {
