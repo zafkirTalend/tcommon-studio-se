@@ -26,6 +26,8 @@ public class TestDuplicateTrigger extends Login {
     
     	selenium.click("//span[text()='Add simple trigger']/parent::legend/parent::fieldset/parent::form/" +
     			"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
+    	selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::div/" +
+		"parent::div/parent::div//button[text()='Refresh']");
     	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+duplicateTrigger+"']"));
     	selenium.setSpeed(MIN_SPEED);
