@@ -10,8 +10,10 @@ import com.talend.tac.cases.Login;
 public class TestModifyTask extends Login {
     
 	@Test(groups={"ModifyTask"},dependsOnGroups={"DeleteTask"})
-	@Parameters({"label","modifyTask","AddcommonProjectname","jobName"})
-	public void testModifyTask(String label,String modifyLabel,String projectName,String jobName) {
+	@Parameters({"label","modifyTask","AddreferenceProjectname","branchNameTrunk","jobNameReferencetjava","version0.1",
+		"context","ServerForUseAvailable","statisticEnabled"})
+	public void testModifyTask(String label,String modifyLabel,String projectName,String branchName,String jobName,
+			String version,String context,String jobServer,String statistic) {
 		
 		if(!selenium.isElementPresent("//span[text()='"+modifyLabel+"']")) {
 			
@@ -23,12 +25,21 @@ public class TestModifyTask extends Login {
 
 			
 			this.typeString("//input[@name='label']", modifyLabel);//task name /Label
-			selenium.click("idCommonProjectListBox");//select a project 
-			selenium.mouseDownAt("//div[text()='"+projectName+"']",""+Event.ENTER); 
-			
-			selenium.click("idCommonJobListBox()");
-			this.waitForElementPresent("//div[text()='"+jobName+"']", WAIT_TIME);
-			selenium.mouseDownAt("//div[text()='"+jobName+"']",""+Event.ENTER);
+			selenium.click("//label[text()='Project:']/parent::div/div/div/div");//modify project
+			this.waitForElementPresent("//div[text()='"+projectName+"' and @role='listitem']", WAIT_TIME);
+			selenium.mouseDownAt("//div[text()='"+projectName+"' and @role='listitem']",""+Event.ENTER); 
+			selenium.click("//label[text()='Branch:']/parent::div/div/div/div");//modify branch
+			this.waitForElementPresent("//div[text()='"+branchName+"' and @role='listitem']", WAIT_TIME);
+			selenium.mouseDownAt("//div[text()='"+branchName+"' and @role='listitem']",""+Event.ENTER); 
+			selenium.click("//label[text()='Job:']/parent::div/div/div/div");//modify job
+			this.waitForElementPresent("//div[text()='"+jobName+"' and @role='listitem']", WAIT_TIME);
+			selenium.mouseDownAt("//div[text()='"+jobName+"' and @role='listitem']",""+Event.ENTER);
+			selenium.click("//label[text()='Version:']/parent::div/div/div/div");//version
+			this.waitForElementPresent("//div[text()='"+version+"' and @role='listitem']", WAIT_TIME);
+			selenium.mouseDownAt("//div[text()='"+version+"' and @role='listitem']",""+Event.ENTER);
+			selenium.click("//label[text()='Context:']/parent::div/div/div/div");//context
+			this.waitForElementPresent("//div[text()='"+context+"' and @role='listitem']", WAIT_TIME);
+			selenium.mouseDownAt("//div[text()='"+context+"' and @role='listitem']",""+Event.ENTER);
 			
 			selenium.click("idFormSaveButton");
 			Assert.assertTrue(selenium.isElementPresent("//span[text()='"+modifyLabel+"']"));
