@@ -318,10 +318,15 @@ public class XPathPrefixHandler {
     private int resolvePath(PathSegment[] path) {
         int fixed = 0;
         for (PathSegment p : path) {
+            List<NodeInfo> list = nameNodesMap.get(p.originalPath);
             if (p.originalPath.indexOf(":") > -1) { //$NON-NLS-1$
                 p.resolved = true;
                 p.transformPath = p.originalPath;
-                p.info = nameNodesMap.get(p.originalPath).get(0);
+                /* handle NPE for 0020293 */
+                if (list != null) {
+                    p.info = list.get(0);
+                } else
+                    p.info = null;
                 fixed++;
             } else if (p.originalPath.indexOf(".") > -1 || p.originalPath.equals("")) { //$NON-NLS-1$ //$NON-NLS-2$
                 p.resolved = true;
@@ -329,7 +334,7 @@ public class XPathPrefixHandler {
                 p.info = null;
                 fixed++;
             } else {
-                List<NodeInfo> nodes = nameNodesMap.get(p.originalPath);
+                List<NodeInfo> nodes = list;
                 // has only one node
                 if (nodes != null && nodes.size() == 1) {
                     p.resolved = true;
