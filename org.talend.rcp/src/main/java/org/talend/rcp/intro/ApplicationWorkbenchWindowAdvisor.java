@@ -444,7 +444,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 Link jobDesign = new Link(foreGroundComposite, SWT.NONE);
                                 FormData layoutData = new FormData();
                                 layoutData.left = new FormAttachment(0, (imageWith - 10) / 7);
-                                layoutData.right = new FormAttachment(0, jobDesignWidth + (imageWith - 10) / 7 + 100);
+                                // layoutData.right = new FormAttachment(0, jobDesignWidth + (imageWith - 10) / 7 +
+                                // 100);
                                 layoutData.top = new FormAttachment(0, (imageHeight - 10) / 3 - 2);
                                 layoutData.height = 16;
                                 // layoutData.bottom = new FormAttachment(0, (image.getBounds().height + 30) / 3);
@@ -470,7 +471,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 FormData paletteData = new FormData();
                                 paletteData.left = new FormAttachment(0, ((imageWith - 10) * 10) / 17);
                                 paletteData.right = new FormAttachment(0, imageWith - 50);
-                                paletteData.top = new FormAttachment(0, (imageHeight * 2) / 5 + 20);
+                                paletteData.top = new FormAttachment(0, (imageHeight * 2) / 5 + 15);
                                 paletteData.height = 45;
                                 palette.setLayoutData(paletteData);
                                 palette.setBackground(new Color(null, 255, 255, 204));
