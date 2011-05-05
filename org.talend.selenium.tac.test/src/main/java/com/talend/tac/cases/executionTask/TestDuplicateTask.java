@@ -16,8 +16,9 @@ public class TestDuplicateTask  extends Login {
 	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
 		selenium.click("idSubModuleRefreshButton");
 		if(!selenium.isElementPresent("//span[text()='"+duplicateLabel+"']")) {
-			
-			
+			selenium.mouseDown("//span[text()='"+label+"']");//select a exist task
+	        selenium.click("idSubModuleDuplicateButton");
+	        					
 			selenium.click("idFormSaveButton");
 			Assert.assertTrue(selenium.isElementPresent("//span[text()='"+duplicateLabel+"']"));
 			selenium.setSpeed(MIN_SPEED);
