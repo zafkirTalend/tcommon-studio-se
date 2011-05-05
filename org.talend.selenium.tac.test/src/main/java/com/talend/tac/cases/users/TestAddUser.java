@@ -116,30 +116,14 @@ public class TestAddUser extends Login {
 	    selenium.setSpeed(MID_SPEED);
 	    Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
 	   
-//	    selenium.mouseMove("//div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
-//	    selenium.click("//div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
-//	    selenium.mouseMove("idValidateButton");
-//	    selenium.mouseUp("//div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
-//	    selenium.mouseDown("//div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
-//	    selenium.click("//span[text()='Role']/parent::div[not(contains(@style,'display: none'))]/" +
-//	    		"parent::td[not(contains(@style,'display: none'))]/preceding-sibling::td" +
-//	    		"[not(contains(@style,'display: none'))]/div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
-	    selenium.controlKeyDown();
-	    selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"+ rb.getString("menu.role.administrator") + "']" +
-		"/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-		selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"+ rb.getString("menu.role.viewer") + "']" +
-		"/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-		selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"+ rb.getString("menu.role.operationManager") + "']" +
-		"/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-		selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"+ rb.getString("menu.role.designer") + "']" +
-		"/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-	    selenium.controlKeyUp();
+	    selenium.click("//span[text()='Role']/parent::div[not(contains(@style,'display: none'))]/" +
+	    		"parent::td[not(contains(@style,'display: none'))]/preceding-sibling::td" +
+	    		"[not(contains(@style,'display: none'))]/div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
+
 	    selenium.setSpeed(MIN_SPEED);
 	    selenium.click("idValidateButton");
 	    selenium.setSpeed(MID_SPEED);
-//	    selenium.fireEvent("idActiveInput", "blur");
         Assert.assertEquals(selenium.getValue("idActiveInput"), roles);
-        
         selenium.click("idFormSaveButton");
         Assert.assertTrue(selenium.isTextPresent(userName));
         selenium.setSpeed(MIN_SPEED);
