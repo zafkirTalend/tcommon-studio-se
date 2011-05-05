@@ -7,13 +7,12 @@ import com.talend.tac.cases.Login;
 public class TestWelcomePage extends Login {
 	@Test
 	public void testAccessFromWelcomePage() {
-		AccessProcessInWelcomePage("Accounts");
+		AccessProcessInWelcomePage("Users");
 		AccessProcessInWelcomePage("Projects");
 		AccessProcessInWelcomePage("Projects authorizations");
 		AccessProcessInWelcomePage("Projects references");
 		AccessProcessInWelcomePage("License");
 		AccessProcessInWelcomePage("Configuration");
-		AccessProcessInWelcomePage("Accounts");
 		AccessProcessInWelcomePage_Group("User settings");
 
 	}
