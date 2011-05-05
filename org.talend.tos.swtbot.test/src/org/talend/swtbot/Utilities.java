@@ -1296,6 +1296,10 @@ public class Utilities {
             treeNode.getNode(itemName + " 0.1").contextMenu("Edit SAP connection").click();
             shell = gefBot.shell("SAP Connection").activate();
             break;
+        case JOBLET_DESIGNS:
+            treeNode.getNode(itemName + " 0.1").contextMenu("Edit Properties").click();
+            shell = gefBot.shell("!!!PropertiesWizard.EditPropertiesPageTitle!!!").activate();
+            break;
         default:
             treeNode.getNode(itemName + " 0.1").contextMenu("Edit properties").click();
             shell = gefBot.shell("Edit properties").activate();
@@ -1323,6 +1327,10 @@ public class Utilities {
 
     public static void renameJob(SWTGefBot gefBot, SWTBotTreeItem treeNode, String jobName, String newJobName) {
         rename(TalendItemType.JOB_DESIGNS, gefBot, treeNode, jobName, newJobName);
+    }
+
+    public static void renameJoblet(SWTGefBot gefBot, SWTBotTreeItem treeNode, String jobName, String newJobName) {
+        rename(TalendItemType.JOBLET_DESIGNS, gefBot, treeNode, jobName, newJobName);
     }
 
     /**
