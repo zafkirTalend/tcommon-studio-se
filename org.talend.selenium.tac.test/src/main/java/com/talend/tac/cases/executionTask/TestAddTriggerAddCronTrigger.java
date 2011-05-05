@@ -11,13 +11,13 @@ public class TestAddTriggerAddCronTrigger extends Login{
     
     TriggerDate date = new TriggerDate().getFuture(24);
 	
-	public void addTriggerAddCronTrigger(String labelCronTrigger, String descriptionSronTrigger,String years,
+	public void addTriggerAddCronTrigger(String taskLabel,String labelCronTrigger, String descriptionSronTrigger,String years,
 			String weeksStart, String weeksEnd, String monthsStart, String monthsEnd) {
     	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
     	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.setSpeed(MIN_SPEED);
-    	selenium.mouseDown("//span[text()='testModifyTask']");//select a exist task
+    	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task
 		selenium.click("//button[text()='Add trigger...']");//add a trigger
 		selenium.click("//a[text()='Add CRON trigger']");//add a  CronTrigger
 		selenium.setSpeed(MID_SPEED);
@@ -55,12 +55,13 @@ public class TestAddTriggerAddCronTrigger extends Login{
 		
 	}
 	
-	//add a cron triiger, set date is by UI
+	/***add a cron triiger, set date is by UI
+	selected job is TRunJob(use tRunJob run child'job)**/
 	@Test(groups={"AddCronTrigger"},dependsOnGroups={"DeleteTrigger"})
-	@Parameters({"addCronTriggerLabel","addCronTriggerDescription"})
-    public void testAddTriggerAddCronTrigger(String cronTriggerLabel,String description) {
+	@Parameters({"labelRefProJobByMainProTRunJobRun","addCronTriggerLabel","addCronTriggerDescription"})
+    public void testAddTriggerAddCronTrigger(String taskLabel,String cronTriggerLabel,String description) {
 		
-		addTriggerAddCronTrigger(cronTriggerLabel, description, "2011", 
+		addTriggerAddCronTrigger(taskLabel,cronTriggerLabel, description, "2011", 
 				"Sunday", "Saturday", "January", "December");
     			
 		selenium.click("//span[text()='Add Cron trigger']/parent::legend/parent::fieldset/parent::form/" +
@@ -75,15 +76,15 @@ public class TestAddTriggerAddCronTrigger extends Login{
 	
 	//add a exist cron triiger, set date is by UI
 	@Test(dependsOnMethods={"testAddTriggerAddCronTrigger"})
-	@Parameters({"addCronTriggerLabel","addCronTriggerExistTriggerDescription"})
-    public void testAddExistTriggerAddCronTrigger(String cronTriggerLabel, String description) {
+	@Parameters({"labelRefProJobByMainProTRunJobRun","addCronTriggerLabel","addCronTriggerExistTriggerDescription"})
+    public void testAddExistTriggerAddCronTrigger(String taskLabel,String cronTriggerLabel, String description) {
 		
 		//open to execution task add trigger page
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
     	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.setSpeed(MIN_SPEED);
-       	selenium.mouseDown("//span[text()='testModifyTask']");
+       	selenium.mouseDown("//span[text()='"+taskLabel+"']");
 		selenium.click("//button[text()='Add trigger...']");
 		selenium.click("//a[text()='Add CRON trigger']");
 
@@ -119,12 +120,12 @@ public class TestAddTriggerAddCronTrigger extends Login{
 	
 	//add a cron triiger of date is overdue, set date is by UI
 	@Test(dependsOnMethods={"testAddExistTriggerAddCronTrigger"})
-	@Parameters({"addCronTriggerOverdue","addCronTriggerOverdueDescription"})
-    public void testAddOverdueTriggerAddCronTrigger(String cronTriggerLabel, String description) {
+	@Parameters({"labelRefProJobByMainProTRunJobRun","addCronTriggerOverdue","addCronTriggerOverdueDescription"})
+    public void testAddOverdueTriggerAddCronTrigger(String taskLabel,String cronTriggerLabel, String description) {
 		
 		selenium.refresh();
 		
-		addTriggerAddCronTrigger(cronTriggerLabel, description, "2010", 
+		addTriggerAddCronTrigger(taskLabel,cronTriggerLabel, description, "2010", 
 				"Sunday", "Saturday", "January", "December");
     	selenium.setSpeed(MID_SPEED);		
 		selenium.click("//span[text()='Add Cron trigger']/parent::legend/parent::fieldset/parent::form/" +
@@ -135,17 +136,17 @@ public class TestAddTriggerAddCronTrigger extends Login{
 	    selenium.setSpeed(MIN_SPEED); 	
     }
 	
-	//add a CronTrigger
+	//add a CronTrigger,selected job is referencetjava(tjava(from referecepro))**/
 	@Test(dependsOnMethods={"testAddOverdueTriggerAddCronTrigger"})
-	@Parameters({ "addCronTriggerByHandInputDateLabel", "addCronTriggerByHandInputDateDescription"})
-	public void testAddCronByHandInputDateTrigger(String addCronTrigger,String addCronTriggerDescription) throws InterruptedException{
+	@Parameters({ "labelReferenceproTjava","addCronTriggerByHandInputDateLabel", "addCronTriggerByHandInputDateDescription"})
+	public void testAddCronByHandInputDateTrigger(String taskLabel,String addCronTrigger,String addCronTriggerDescription) throws InterruptedException{
 	
 		//open to execution task add trigger page
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
     	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.setSpeed(MIN_SPEED);
-       	selenium.mouseDown("//span[text()='testModifyTask']");
+       	selenium.mouseDown("//span[text()='"+taskLabel+"']");
 		selenium.click("//button[text()='Add trigger...']");
 		selenium.click("//a[text()='Add CRON trigger']");
 //		selenium.setSpeed(MID_SPEED);
