@@ -309,32 +309,50 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 parent.redraw();
                                 int width = parent.getBounds().width;
                                 int hight = parent.getBounds().height;
-                                if (width < 700) {
-                                    width = 700;
-                                } else if (width > 860) {
+//                                if (width < 700) {
+//                                    width = 700;
+//                                } else if (width > 860) {
+//                                    width = 860;
+//                                }
+//                                if (hight < 370) {
+//                                    hight = 370;
+//                                } else if (hight > 460) {
+//                                    hight = 460;
+//                                }
+                                Image image = null;
+                                int tipsFontSize = 10;
+                                int titleSize = width / 65;
+                                if ((width>=844)&&(hight>=445)) {
+                                    image = Activator.getImageDescriptor("icons/WelcomeScreenMockup.png").createImage();
                                     width = 860;
-                                }
-                                if (hight < 370) {
-                                    hight = 370;
-                                } else if (hight > 460) {
                                     hight = 460;
+                                    tipsFontSize=10;
+                                    titleSize = width / 65;
+                                } else  { //if ((width>=650)&&(hight>=343))
+                                    image = Activator.getImageDescriptor("icons/WelcomeScreenMockupSmall.png").createImage();
+                                    width = 710;
+                                    hight = 379;
+                                    tipsFontSize=8;
+                                    titleSize = 9;
                                 }
-                                Image image = Activator.getImageDescriptor("icons/WelcomeScreenMockup.png").createImage();
-                                ImageData id = image.getImageData();
-                                id = id.scaledTo(width - 10, hight - 10);
-                                image = new Image(null, id);
+//                                } else {
+//                                    image = Activator.getImageDescriptor("icons/WelcomeScreenMockupVerySmall.png").createImage();
+//                                }
+//                                ImageData id = image.getImageData();
+//                                id = id.scaledTo(width - 10, hight - 10);
+//                                image = new Image(null, id);
                                 Image icon = Activator.getImageDescriptor("icons/createJob.png").createImage();
                                 int imageWith = image.getBounds().width;
                                 GC gc = new GC(image);
                                 gc.setForeground(new Color(null, 0, 0, 0));
-                                gc.setFont(new Font(parent.getDisplay(), "Arial", 10, SWT.NONE));
+                                gc.setFont(new Font(parent.getDisplay(), "Arial", tipsFontSize, SWT.NONE));
                                 String tipsClickText = Messages.getString("tips.clickChoose");
                                 int imageHeight = image.getBounds().height;
 
                                 // gc.drawText(Messages.getString("tips.addDataSource"), ((imageWith - 10) * 10) / 17,
                                 // (imageHeight * 2) / 5 + 20, true);
 
-                                gc.setFont(new Font(parent.getDisplay(), "Arial", 10, SWT.NONE));
+                                gc.setFont(new Font(parent.getDisplay(), "Arial", tipsFontSize, SWT.NONE));
 
                                 // gc.drawText(Messages.getString("tips.viewAndEdit"), (imageWith - 10) / 7 + 5,
                                 // (imageHeight * 10) / 17 - 5, true);
@@ -357,7 +375,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 clickChoose.setLayoutData(clickChooseData);
                                 clickChoose.setBackground(new Color(null, 255, 255, 204));
                                 clickChoose.setForeground(new Color(null, 0, 0, 0));
-                                clickChoose.setFont(new Font(parent.getDisplay(), "Arial", 10, SWT.NONE));
+                                clickChoose.setFont(new Font(parent.getDisplay(), "Arial", tipsFontSize, SWT.NONE));
                                 clickChoose.setText(tipsClickText);
 
                                 Label imageLabel = new Label(foreGroundComposite, SWT.NONE);
@@ -373,7 +391,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 optionMenuData.left = new FormAttachment(imageLabel, 2);
                                 optionMenuData.top = new FormAttachment(0, (imageHeight - 10) / 3 + 19);
                                 optionMenuData.height = 15;
-                                optionMenu.setFont(new Font(parent.getDisplay(), "Arial", 10, SWT.NONE));
+                                optionMenu.setFont(new Font(parent.getDisplay(), "Arial", tipsFontSize, SWT.NONE));
                                 optionMenu.setLayoutData(optionMenuData);
                                 optionMenu.setBackground(new Color(null, 255, 255, 204));
                                 optionMenu.setForeground(new Color(null, 0, 0, 0));
@@ -386,9 +404,9 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 textTitleData.top = new FormAttachment(0, 12);
                                 textTitleData.bottom = new FormAttachment(0, 50);
                                 textTitle.setLayoutData(textTitleData);
-                                int fontSize = width / 34;
+                                int titleFontSize = width / 34;
                                 int titleLegth = 0;
-                                gc.setFont(new Font(parent.getDisplay(), "Arial", fontSize, SWT.BOLD));
+                                gc.setFont(new Font(parent.getDisplay(), "Arial", titleFontSize, SWT.BOLD));
                                 String titleText = Messages.getString("tips.welcome") + " " + title;
                                 for (int l = 0; l < titleText.length(); l++) {
                                     titleLegth += gc.getCharWidth(titleText.charAt(l)) + 1;
@@ -399,14 +417,14 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 }
                                 while (titleLegth > defaultWidth) {
                                     titleLegth = 0;
-                                    fontSize = fontSize - 1;
-                                    gc.setFont(new Font(parent.getDisplay(), "Arial", fontSize, SWT.BOLD));
+                                    titleFontSize = titleFontSize - 1;
+                                    gc.setFont(new Font(parent.getDisplay(), "Arial", titleFontSize, SWT.BOLD));
                                     for (int l = 0; l < titleText.length(); l++) {
                                         titleLegth += gc.getCharWidth(titleText.charAt(l)) + 1;
                                     }
                                 }
-                                gc.setFont(new Font(parent.getDisplay(), "Arial", 10, SWT.NONE));
-                                textTitle.setFont(new Font(foreGroundComposite.getDisplay(), "Arial", fontSize, SWT.BOLD));
+                                gc.setFont(new Font(parent.getDisplay(), "Arial", titleFontSize, SWT.NONE));
+                                textTitle.setFont(new Font(foreGroundComposite.getDisplay(), "Arial", titleFontSize, SWT.BOLD));
                                 textTitle.setBackground(new Color(null, 255, 255, 204));
                                 textTitle.setForeground(new Color(null, 0, 0, 0));
                                 textTitle.setText(titleText);
@@ -418,7 +436,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 textTitleData2.top = new FormAttachment(0, 50);
                                 textTitleData2.bottom = new FormAttachment(0, 70);
                                 textSecondTitle.setLayoutData(textTitleData2);
-                                int titleSize = width / 65;
+                                
                                 textSecondTitle.setFont(new Font(foreGroundComposite.getDisplay(), "Arial", titleSize, SWT.NONE));
                                 textSecondTitle.setBackground(new Color(null, 255, 255, 204));
                                 textSecondTitle.setForeground(new Color(null, 0, 0, 0));
@@ -452,7 +470,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 jobDesign.setLayoutData(layoutData);
                                 jobDesign.setBackground(new Color(null, 255, 255, 204));
                                 jobDesign.setForeground(new Color(null, 0, 0, 0));
-                                jobDesign.setFont(new Font(parent.getDisplay(), "Arial", 10, SWT.NONE));
+                                jobDesign.setFont(new Font(parent.getDisplay(), "Arial", tipsFontSize, SWT.NONE));
                                 jobDesign.setText(jobDesignText);
 
                                 jobDesign.addListener(SWT.Selection, new Listener() {
@@ -471,11 +489,13 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 FormData paletteData = new FormData();
                                 paletteData.left = new FormAttachment(0, ((imageWith - 10) * 10) / 17);
                                 paletteData.right = new FormAttachment(0, imageWith - 50);
+                                paletteData.right = new FormAttachment(0, imageWith - 80); //
                                 paletteData.top = new FormAttachment(0, (imageHeight * 2) / 5 + 15);
                                 paletteData.height = 48;
+                                paletteData.height = 36; //
                                 palette.setLayoutData(paletteData);
                                 palette.setBackground(new Color(null, 255, 255, 204));
-                                palette.setFont(new Font(parent.getDisplay(), "Arial", 10, SWT.NONE));
+                                palette.setFont(new Font(parent.getDisplay(), "Arial", tipsFontSize, SWT.NONE));
                                 palette.setForeground(new Color(null, 0, 0, 0));
                                 palette.setText(Messages.getString("tips.addDataSource"));
                                 palette.addListener(SWT.Selection, new Listener() {
@@ -504,7 +524,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 component.setLayoutData(componentData);
                                 component.setBackground(new Color(null, 255, 255, 204));
                                 component.setForeground(new Color(null, 0, 0, 0));
-                                component.setFont(new Font(parent.getDisplay(), "Arial", 10, SWT.NONE));
+                                component.setFont(new Font(parent.getDisplay(), "Arial", tipsFontSize, SWT.NONE));
                                 component.setText(Messages.getString("tips.viewAndEdit") + " " + componentText);
                                 component.addListener(SWT.Selection, new Listener() {
 
@@ -526,7 +546,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 runJobData.height = 16;
                                 runJob.setLayoutData(runJobData);
                                 runJob.setBackground(new Color(null, 255, 255, 204));
-                                runJob.setFont(new Font(parent.getDisplay(), "Arial", 10, SWT.NONE));
+                                runJob.setFont(new Font(parent.getDisplay(), "Arial", tipsFontSize, SWT.NONE));
                                 runJob.setForeground(new Color(null, 0, 0, 0));
                                 runJob.setText(Messages.getString("tips.finallyText"));
                                 runJob.addListener(SWT.Selection, new Listener() {
