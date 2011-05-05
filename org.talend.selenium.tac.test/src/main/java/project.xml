@@ -57,7 +57,8 @@
 	<parameter name="ServerUsername" value="" />
 	<parameter name="ServerPassword" value="" />
 	<parameter  name ="ServerForUseAvailable" value="use_server_available"/>
-    <parameter  name ="ServerForUseUnavailable" value="use_server_unavailable"/>
+    <parameter  name ="ServerForUseUnavailable" value="use_server_unactive"/>
+    <parameter  name ="ServerForUseDownlabel" value="use_server_down"/>
     <parameter  name ="ServeravailableHost" value="192.168.0.94"/>
 	<!-- <test name="projectPerl"> 
 		<parameter name ="Prolanguage" value ="Perl"/> 
@@ -70,7 +71,7 @@
 		<class name="com.talend.tac.cases.projects.TestBranchManageAddExistbranch"/> 
 		<class name="com.talend.tac.cases.projects.TestCleanProject"/> <class name="com.talend.tac.cases.projects.TestAddPerlproject"/> 
 		</classes> 
-		</test> -->
+		</test> --><!--
 		
 		<test name="projectJava"> 
 		<classes> 
@@ -91,10 +92,11 @@
 		<class name="com.talend.tac.cases.projects.TestAddprojects"/> </classes> 
 		</test> 
 		
-	<test name="server">
-
-		<!--Environment needed to configured 1.start a job server on localhost 
-			2.start a job server on remote linux 3.start a job server on remote windows -->
+	    --><test name="server">
+        <!--
+		Environment needed to configured 1.start a job server on localhost 
+			2.start a job server on remote linux 3.start a job server on remote windows 
+		-->
 		<classes>
 			<class name="com.talend.tac.cases.jobconductor.TestAddServer" />
 			<class name="com.talend.tac.cases.jobconductor.TestAddServerWithStringPortsInput" />
@@ -105,11 +107,10 @@
 			<class name="com.talend.tac.cases.jobconductor.TestLinktoLinuxAndWindows" />
 			<class name="com.talend.tac.cases.jobconductor.TestCleanServers" />
 			<class name="com.talend.tac.cases.jobconductor.TestAddServerWithInvalidports" />
+			<class name="com.talend.tac.cases.jobconductor.TestAddServerLabelWithSpecialChar"/>
 	        <class name="com.talend.tac.cases.jobconductor.TestAddServerForUse"/>	
 		</classes>
 	</test>
-
-
 	<!--<test name = "executionplan"> <parameter name = "plan.label" value = 
 		"testPlan"/> <parameter name="plan.description" value="testPlan.des" /> <parameter 
 		name="plan.modifyLabel" value="testModifyPlan" /> <parameter name="plan.modifyDescription" 
