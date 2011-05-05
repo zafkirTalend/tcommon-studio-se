@@ -8,6 +8,13 @@
 	<parameter name="existLabelDescription" value="test add a exist task" />
 	<parameter name="labelNotChooseActive" value="testTaskNotChooseActive"/>
 	<parameter name="notChooseLabelDescription" value="test add a task of not choose active" />
+    
+	<parameter name="labelTRunJobByTaskRun" value="testTaskRunTRunJob" />
+	<parameter name="labelTRunJobByTaskRunDescription" value="test tRunJob by task run" />
+	<parameter name="labelRefJobByMaintRunJobRun" value="testAddTaskForTestRefJobByMaintRunJobRun"/>
+	<parameter name="labelRefJobByMaintRunJobRunDescription" value="test RefJobByMaintRunJobRun by task run" />
+	<parameter name="labelReferenceproTjava" value="testAddTaskForTestReferenceproTjava"/>
+	<parameter name="labelReferenceproTjavaDescription" value="test add a task for test run tjava(from referencepro)" />
     <!-- add task -->
            
     <!-- duplicate modify task -->
@@ -56,7 +63,25 @@
     <parameter name="duplicateTriggerLabel" value="Copy_of_TestSimpleTrigger"/>
     <!-- duplicate trigger -->
     
+    <!--branchName version context Statistic jodName serverName-->
+    <parameter name="branchNameTrunk" value="trunk" />
+    <parameter name="version0.1" value="0.1" />
+    <parameter name="versionLatest" value="Latest" /> 
+    <parameter name="context" value="Default" />
     
+    <parameter name="statisticEnabled" value="enabled" />
+    <parameter name="statisticDisabled" value="disabled" />
+    <parameter name="statisticRemoved" value="removed" />
+    
+    <parameter name="jobNameTJava" value="tjava"/>
+    <parameter name="jobNameTRunJob" value="tRunJob"/>
+    <parameter name="jobNameRefJobByMaintRunJobRun" value="refJobByMaintRunJobRun"/>
+    <parameter name="jobNameTMsg" value="tmsg"/>
+    <parameter name="jobNameReferencetjava" value="referencetjava"/>
+    <parameter  name ="ServerForUseAvailable" value="use_server_available"/>
+    <parameter  name ="ServerForUseUnavailable" value="use_server_unactive"/>
+    <parameter  name ="ServerForUseDownlabel" value="use_server_down"/><parameter name="jobServer" value="user_server_aiviable"/>
+    <!-- jodName -->
     <test  name="test_task"  annotations="JDK">
         <classes><!--
         
@@ -66,8 +91,8 @@
             <class name="com.talend.tac.cases.executionTask.TestDuplicateTask"/>
             <class name="com.talend.tac.cases.executionTask.TestDeteleTask"/>
             <class name="com.talend.tac.cases.executionTask.TestModifyTask"/> 
-     		<class name="com.talend.tac.cases.executionTask.TestAddJVMParametersForTask"/>
-            <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddSimpleTrigger"/>
+     		<!--<class name="com.talend.tac.cases.executionTask.TestAddJVMParametersForTask"/>
+            --><class name="com.talend.tac.cases.executionTask.TestAddTriggerAddSimpleTrigger"/>
              <!--  
             <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddFileTrigger"/>
             -->
