@@ -1,8 +1,6 @@
 package com.talend.tac.cases.dbConfig;
 
-import static org.testng.Assert.*;
-
-import org.testng.annotations.AfterTest;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -57,7 +55,7 @@ public class TestDbConfig extends DbConfig {
 		waitForElementPresent("idLoginInput", WAIT_TIME);
 	}
 
-	@AfterTest
+	@AfterClass
 	public void killBrowser() {
 		selenium.stop();
 	}
