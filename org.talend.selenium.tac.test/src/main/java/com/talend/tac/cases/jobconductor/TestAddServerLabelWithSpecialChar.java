@@ -17,6 +17,7 @@ public class TestAddServerLabelWithSpecialChar extends Login {
 		selenium.click("!!!menu.executionServers.element!!!");
 		selenium.refresh();
 		this.waitForElementPresent("idSubModuleAddButton", WAIT_TIME);
+		Thread.sleep(3000);
 		selenium.click("idSubModuleAddButton");
 		Thread.sleep(3000);
 		// lable

@@ -16,7 +16,7 @@ public class TestDuplicateServer extends Login {
 	public void testDuplicateServer(String lable, String invalidLable,
 			String description, String host, String commondport,
 			String transfortport, String monitorport, String time,
-			String username, String password) {
+			String username, String password) throws InterruptedException {
 		selenium.setSpeed(MAX_SPEED);
 		if (selenium.isVisible("!!!menu.executionServers.element!!!")) {
 			selenium.click("!!!menu.executionServers.element!!!");
@@ -36,13 +36,16 @@ public class TestDuplicateServer extends Login {
 
 	}
 
-	public void duplicateServer(String duplicatedServername) {
+	public void duplicateServer(String duplicatedServername) throws InterruptedException {
 		selenium.setSpeed(MAX_SPEED);
 		selenium.refresh();
 		selenium.mouseDown("//div[text()='" + duplicatedServername + "']");
 		selenium.click("idSubModuleDuplicateButton");
 		selenium.click("idFormSaveButton");
-		selenium.click("idSubModuleRefreshButton");
+		Thread.sleep(5000);
+//		selenium.click("idSubModuleRefreshButton");
+		selenium.refresh();
+		Thread.sleep(3000);
 		Assert.assertTrue(
 				selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='Copy_of_"+duplicatedServername+"')]"),
 				"server  duplicated failed!");
