@@ -15,7 +15,7 @@ public class TestAddTasksNotification extends Login {
 		
 		addNotification(1, categoryTask, 1, eventTaskFailed, descriptionTaskFailed);	
 		
-		selenium.click("//i[text()='Suscribe to receive a mail when specified tasks failed']/parent::div/parent::td/parent::tr/" +
+		selenium.click("//i[text()='"+descriptionTaskFailed+"']/parent::div/parent::td/parent::tr/" +
 				"parent::tbody//div[text()='Recipients: ']/parent::td/parent::tr//button");
 		selenium.mouseDown("//div[text()='testMulripleRoles@company.com']/parent::td/preceding-sibling::td");//choose event trigger users
 		selenium.click("//button[text()='Apply']");
@@ -42,7 +42,7 @@ public class TestAddTasksNotification extends Login {
 		Assert.assertFalse(selenium.isChecked("idActiveInput"));
 		selenium.setSpeed(MIN_SPEED);
 		
-		selenium.click("//i[text()='Suscribe to receive a mail when specified tasks failed']/parent::div/parent::td/parent::tr/" +
+		selenium.click("//i[text()='"+descriptionTaskFailed+"']/parent::div/parent::td/parent::tr/" +
 		"parent::tbody//div[text()='Recipients: ']/parent::td/parent::tr//button");
 		
 		selenium.mouseDown("//div[text()='testMulripleRoles@company.com']/parent::td/preceding-sibling::td");//choose event trigger users
