@@ -17,19 +17,9 @@ public class TestDuplicateServer extends Login {
 			String description, String host, String commondport,
 			String transfortport, String monitorport, String time,
 			String username, String password) throws InterruptedException {
-		selenium.setSpeed(MAX_SPEED);
-		if (selenium.isVisible("!!!menu.executionServers.element!!!")) {
-			selenium.click("!!!menu.executionServers.element!!!");
-			waitForElementPresent("idSubModuleAddButton", 30000);
-
-		} else {
-			selenium.click("!!!menu.jobConductor.element!!!");
-			selenium.setSpeed(MID_SPEED);
-			selenium.click("!!!menu.executionServers.element!!!");
-			waitForElementPresent("idSubModuleAddButton", 30000);
-
-		}
-	
+		this.waitForElementPresent("!!!menu.executionServers.element!!!", WAIT_TIME);
+		selenium.click("!!!menu.executionServers.element!!!");
+		this.waitForElementPresent("idSubModuleAddButton", 30000);
 		duplicateServer(lable);
 		// addServerwithInvalideports(invalidLable);
 		selenium.setSpeed(MIN_SPEED);
@@ -37,15 +27,17 @@ public class TestDuplicateServer extends Login {
 	}
 
 	public void duplicateServer(String duplicatedServername) throws InterruptedException {
-		selenium.setSpeed(MAX_SPEED);
+		
 		selenium.refresh();
+		this.waitForElementPresent("//div[text()='" + duplicatedServername + "']", WAIT_TIME);
 		selenium.mouseDown("//div[text()='" + duplicatedServername + "']");
 		selenium.click("idSubModuleDuplicateButton");
+		selenium.setSpeed(MAX_SPEED);
 		selenium.click("idFormSaveButton");
 		Thread.sleep(5000);
 //		selenium.click("idSubModuleRefreshButton");
 		selenium.refresh();
-		Thread.sleep(3000);
+		Thread.sleep(5000);
 		Assert.assertTrue(
 				selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='Copy_of_"+duplicatedServername+"')]"),
 				"server  duplicated failed!");
