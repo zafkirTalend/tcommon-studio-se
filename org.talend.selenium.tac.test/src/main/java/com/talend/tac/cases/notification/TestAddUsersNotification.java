@@ -1,6 +1,5 @@
 package com.talend.tac.cases.notification;
 
-import java.awt.event.KeyEvent;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -73,7 +72,7 @@ public class TestAddUsersNotification extends Login {
 		
 		addNotification(2, categoryUser, 3, eventUserDeletion, descriptionUserDeletion);
 		selenium.setSpeed(MID_SPEED);
-		selenium.click("//i[text()='Subscribe to receive a mail when a user is deleted']/parent::div/parent::td/parent::tr" +
+		selenium.click("//i[text()='Suscribe to receive a mail when a user is deleted']/parent::div/parent::td/parent::tr" +
 				"/parent::tbody//button");
 		selenium.click("//div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");//choose event trigger users
 		selenium.click("//button[text()='Apply']");
@@ -86,7 +85,7 @@ public class TestAddUsersNotification extends Login {
  		
 	}
 	//add a user notification(Uncheck Active)
-	@Test(dependsOnMethods={"testAddUsersUserDeletionNotification"})
+	@Test(dependsOnMethods={"testAddUsersUserCreationNotification"})
 	@Parameters({"categoryUser","eventNewUser","descriptionNewUser"})
 	public void testAddUsersNotificationUncheckActive(String categoryUser, String eventNewUser, 
 			String descriptionNewUser) {
@@ -107,7 +106,8 @@ public class TestAddUsersNotification extends Login {
 /**add a  user notificaton of user 'jackzhang@gmail.com', then into user page and 
 	delete 'jackzhang@gmail.com', return notification page and check corresponding
 	 notification is deleted **/
-	@Test(dependsOnMethods={"testAddUsersNotificationUncheckActive"})
+//	@Test
+//	(dependsOnMethods={"testAddUsersNotificationUncheckActive"})
 	@Parameters({"categoryUser","eventUserCreation","descriptionUserCreation","LoginName"})
 	public void testAaddUserNotificationOfLoginUser(String categoryUser, String eventUserCreation, 
 			String descriptionUserCreation, String loginName) {
@@ -135,10 +135,11 @@ public class TestAddUsersNotification extends Login {
 		selenium.mouseDown("//div[text()='"+loginName+"']");//Select an existing user
 		selenium.setSpeed(MIN_SPEED);
 		selenium.chooseOkOnNextConfirmation();
-		selenium.click("//div[text()='Accounts']/ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder" +
-				" x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");//delete a user 
+		selenium.mouseDown("//div[text()='Users']/ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");//delete a user 
+		selenium.mouseUp("//div[text()='Users']/ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");//delete a user 
+		selenium.click("//button[@id='idSubModuleDeleteButton']");//delete a user 
 		selenium.setSpeed(MID_SPEED);
-	    Assert.assertTrue(selenium.getConfirmation().matches("^"+other.getString("delete.User.confirmation")+" [\\s\\S]$"));
+	    Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to remove the selected user [\\s\\S]$"));
 	    selenium.setSpeed(MIN_SPEED);
 	    this.clickWaitForElementPresent("!!!menu.notification.element!!!");//into notification
  		selenium.setSpeed(MID_SPEED);
@@ -156,19 +157,16 @@ public class TestAddUsersNotification extends Login {
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//img[@class='gwt-Image x-component ']"));
 		selenium.setSpeed(MIN_SPEED);
-		selenium.click("idLabelInput");//choose a notification type
-		selenium.mouseDownAt("//div[@role='listitem']["+LabelInput+"]", ""+KeyEvent.VK_ENTER);
+		this.selectDropDownList("//input[@id='idLabelInput']", LabelInput);//choose a notification type
 		Assert.assertEquals(selenium.getValue("idLabelInput"), LabelInputValue);
-		selenium.click("idDescriptionInput");//choose a event
-		selenium.mouseDownAt("//div[@role='listitem']["+DescriptionInput+"]", ""+KeyEvent.VK_ENTER);
+		this.selectDropDownList("//input[@id='idDescriptionInput']", DescriptionInput);//choose a event
 		String description = selenium.getValue("idDescriptionInput");
 		System.out.println(description);
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertEquals(description , DescriptionInputValue);
 		Assert.assertTrue(selenium.isTextPresent(notificationInformation));
         selenium.setSpeed(MIN_SPEED);
-		selenium.click("idLabelInput");
-		selenium.mouseDownAt("//div[@role='listitem']["+LabelInput+"]", ""+KeyEvent.VK_ENTER);
+        this.selectDropDownList("//input[@id='idLabelInput']", LabelInput);//choose a notification type
 
 		
 		
