@@ -9,42 +9,36 @@
         <!-- add notification -->
         <parameter name="categoryUser" value="Users"/>
         <parameter name="eventNewUser" value="MailNewUserNotification"/>
-        <parameter name="descriptionNewUser" value="Send a mail when to a new user at creation"/>
+        <parameter name="descriptionNewUser" value="Send an email notification to the new user to alert them that their account has been created"/>
         
         <parameter name="eventUserCreation" value="UserCreationNotification"/>
         <parameter name="descriptionUserCreation" value="Suscribe to receive a mail when a user is created"/>
         
         <parameter name="eventUserDeletion" value="UserDeletionNotification"/>
-        <parameter name="descriptionUserDeletion" value="Subscribe to receive a mail when a user is deleted"/>
-        
+        <parameter name="descriptionUserDeletion" value="Suscribe to receive a mail when a user is deleted"/>
+                                                         
         <parameter name="categoryTask" value="Tasks"/>
         <parameter name="eventTaskFailed" value="TaskFailedNotification"/>
         <parameter name="descriptionTaskFailed" value="Suscribe to receive a mail when specified tasks failed"/>
         
         <parameter name="categoryJobServer" value="JobServers"/>
         <parameter name="eventJobServerAlert" value="JobServerAlertNotification"/>
-        <parameter name="descriptionJobServerAlert" value="Subscribe to receive a mail when jobserve has changed status"/>
-        <!-- add notification -->
+        <parameter name="descriptionJobServerAlert" value="Subscribe to receive a mail when the jobserver has changed status"/>
+        <!-- add notification -->                             
         
         <!-- receiver userName -->
         <parameter name="LoginName" value="jackzhang@gamil.com" />
         <!-- receiver username -->
         <classes>  
-         <!--
-            ***add user'notification and task'notification>>>Chaotic business***
-         -->   
+        
             <class name="com.talend.tac.cases.notification.TestAddUsersNotification"/> 
-            <class name="com.talend.tac.cases.notification.TestAddTasksNotification">
-                <methods>
-                    <exclude name="testAddTaskFailedNotification"></exclude>
-                    <exclude name="testAddTaskNotificationUncheckActive"></exclude>
-                </methods>
-            </class>
+            <class name="com.talend.tac.cases.notification.TestAddTasksNotification"/>
             <class name="com.talend.tac.cases.notification.TestAddJobserverNotification"/>
+            <class name="com.talend.tac.cases.notification.TestDuplicationNotification"/>
             <class name="com.talend.tac.cases.notification.TestDeleteNotification"/>
             <class name="com.talend.tac.cases.notification.TestModifyNotification"/>
-             
-        </classes> 
+           
+       </classes> 
 	</test>
 	
 </suite>
