@@ -24,9 +24,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.utils.data.list.ListUtils;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
@@ -63,6 +67,8 @@ import org.talend.utils.sql.metadata.constants.MetaDataConstants;
 import org.talend.utils.sql.metadata.constants.TableType;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
+
+import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.ColumnSet;
@@ -268,10 +274,28 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 // MOD gdbu 2011-4-12 bug : 18975
                 // catalogs.close();
                 // ~18975
-                if (isLinked() && returnSchemas.size() > 1) {
+                Set<MetadataTable> tableSet = ConnectionHelper.getTables(dbConn);
+                // oldSchemas is use for record tables when click finish,then tables will be replace and null.
+                List<Schema> oldSchemas = new ArrayList<Schema>();
+                for (MetadataTable table : tableSet) {
+                    EObject eContainer = table.eContainer();
+                    if (eContainer != null && eContainer instanceof Schema && !oldSchemas.contains(eContainer)) {
+                        oldSchemas.add((Schema) eContainer);
+                    }
+                }
+                if (isLinked() && !returnSchemas.isEmpty()) {
                     ConnectionHelper.addSchemas(returnSchemas, dbConn);
-                } else if (isLinked() && returnSchemas.size() == 1) {
-                    ConnectionHelper.addSchema(returnSchemas.get(0), dbConn);
+                }
+                // if have same schema in current connection,need to fill tables.
+                for (Schema schema : oldSchemas) {
+                    List<Schema> list = new ArrayList<Schema>();
+                    String name = schema.getName();
+                    Schema s = (Schema) ConnectionHelper.getPackage(name, dbConn, Schema.class);
+                    if (s != null) {
+                        list.add(s);
+                        ConnectionHelper.removeSchemas(list, dbConn);
+                        ConnectionHelper.addSchema(schema, dbConn);
+                    }
                 }
             }
         } catch (SQLException e) {
@@ -371,12 +395,38 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         }
                     }
                 }
-                int catSize = catalogList.size();
-                if (this.isLinked() && catSize > 1) {
-                        ConnectionHelper.addCatalogs(catalogList, dbConn);
-                } else if (this.isLinked() && catSize == 1) {
-                        ConnectionHelper.addCatalog(catalogList.get(0), dbConn);
+
+                Set<MetadataTable> tableSet = ConnectionHelper.getTables(dbConn);
+                // oldCatalogs is use for record tables when click finish,then tables will be replace and null.
+                List<Catalog> oldCatalogs = new ArrayList<Catalog>();
+                for (MetadataTable table : tableSet) {
+                    EObject eContainer = table.eContainer();
+                    if (eContainer != null) {
+                        if (eContainer instanceof Catalog && !oldCatalogs.contains(eContainer)) {
+                            oldCatalogs.add((Catalog) eContainer);
+                        } else if (eContainer instanceof Schema) {
+                            EObject parent = eContainer.eContainer();
+                            if (parent != null && parent instanceof Catalog && !oldCatalogs.contains(parent)) {
+                                oldCatalogs.add((Catalog) parent);
+                            }
+                        }
+                    }
                 }
+                if (this.isLinked() && !catalogList.isEmpty()) {
+                    ConnectionHelper.addCatalogs(catalogList, dbConn);
+                }
+                // if have same schema in current connection,need to fill tables.
+                for (Catalog catalog : oldCatalogs) {
+                    List<Catalog> list = new ArrayList<Catalog>();
+                    String name = catalog.getName();
+                    Catalog c = (Catalog) ConnectionHelper.getPackage(name, dbConn, Catalog.class);
+                    if (c != null) {
+                        list.add(c);
+                        ConnectionHelper.removeCatalogs(list, dbConn);
+                        ConnectionHelper.addCatalog(catalog, dbConn);
+                    }
+                }
+
             }
         } catch (SQLException e) {
             log.warn("JDBC getCatalogs() method is not available with this driver.", e);
