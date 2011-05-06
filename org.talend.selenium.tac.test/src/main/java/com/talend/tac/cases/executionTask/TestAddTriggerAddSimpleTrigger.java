@@ -178,8 +178,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
     }
   
     //add a method of remove all triggers
-    @Test(groups={"AddSimpleTrigger"})
-//    ,dependsOnGroups={"ModifyTask"})
+    @Test(groups={"AddSimpleTrigger"},dependsOnGroups={"ModifyTask"})
     @Parameters({"labelTRunJobByTaskRun","labelRefProJobByMainProTRunJobRun","labelReferenceproTjava",
     	"modifyTask","duplicateTask"})
     public void clearsAllTriggers(String labelTRunJobByTaskRun,String labelRefProJobByMainProTRunJobRun,
