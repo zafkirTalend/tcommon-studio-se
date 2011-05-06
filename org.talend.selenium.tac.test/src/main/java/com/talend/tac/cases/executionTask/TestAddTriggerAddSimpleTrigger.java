@@ -225,8 +225,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	   
         this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
         		"//input[@name='repeatInterval']", "5");//Time interval (s)
-	       
-				
+	       		
 	   
 	    selenium.setSpeed(MID_SPEED);
 	    selenium.click("//span[text()='Add simple trigger']/parent::legend/parent::fieldset/parent::form/" +
