@@ -38,6 +38,7 @@ import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.model.IConnParamName;
+import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
  * ggu class global comment. Detailled comment
@@ -451,6 +452,19 @@ public final class DBConnectionContextUtils {
         conn.setPort(port);
         conn.setUiSchema(schemaOracle);
         conn.setServerName(server);
+
+        // fix for 19315 , catalog name is exported to context model in some previous version
+        if (conn.getDataPackage() != null) {
+            for (orgomg.cwm.objectmodel.core.Package dataPackage : conn.getDataPackage()) {
+                if (dataPackage instanceof ModelElement) {
+                    ModelElement element = (ModelElement) dataPackage;
+                    if (conn.getSID() != null && conn.getSID().equals(element.getName())) {
+                        element.setName(sidOrDatabase);
+                    }
+                }
+            }
+        }
+
         conn.setSID(sidOrDatabase);
         conn.setUsername(username);
         // hshen
