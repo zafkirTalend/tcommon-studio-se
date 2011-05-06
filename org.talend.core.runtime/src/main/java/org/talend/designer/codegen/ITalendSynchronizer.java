@@ -42,6 +42,8 @@ public interface ITalendSynchronizer {
 
     public void syncRoutine(RoutineItem routineItem, boolean copyToTemp) throws SystemException;
 
+    public void syncRoutine(RoutineItem routineItem) throws SystemException;
+
     public void syncBean(BeanItem beanItem, boolean copyToTemp) throws SystemException;
 
     public IFile getFile(Item item) throws SystemException;
