@@ -14,6 +14,7 @@ package org.talend.designer.core;
 
 import java.util.ResourceBundle;
 
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.talend.core.IService;
 
 /**
@@ -42,4 +43,6 @@ public interface ILocalProviderService extends IService {
             super(parent);
         }
     }
+
+    public AbstractUIPlugin getPlugin();
 }
