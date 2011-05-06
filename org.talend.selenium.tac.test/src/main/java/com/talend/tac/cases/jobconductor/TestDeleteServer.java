@@ -9,7 +9,7 @@ import com.talend.tac.cases.Login;
 public class TestDeleteServer extends Login{
 	@Test(groups = { "DeleteServer" },dependsOnGroups = { "Duplicate"})
 	@Parameters({ "ServerUnused"})
-	public void deleteServerUnused(String unusedServername) {
+	public void deleteServerUnused(String unusedServername) throws InterruptedException {
 		selenium.setSpeed(MID_SPEED);
 		if (selenium.isVisible("!!!menu.executionServers.element!!!")) {
 			selenium.click("!!!menu.executionServers.element!!!");
@@ -29,6 +29,9 @@ public class TestDeleteServer extends Login{
 		selenium.setSpeed(MAX_SPEED);
 		selenium.click("idSubModuleDeleteButton");
 		selenium.getConfirmation();
+		Thread.sleep(5000);
+		selenium.refresh();
+		Thread.sleep(5000);
 		Assert.assertFalse(
 				selenium.isElementPresent("//div[text()='" + unusedServername
 						+ "']"), "Unused server delete failed!");
