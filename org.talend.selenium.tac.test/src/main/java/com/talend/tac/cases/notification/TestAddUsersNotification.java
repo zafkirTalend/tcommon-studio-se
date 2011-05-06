@@ -52,7 +52,7 @@ public class TestAddUsersNotification extends Login {
 		
 		addNotification(2, categoryUser, 2,  eventUserCreation, descriptionUserCreation);
 		selenium.setSpeed(MID_SPEED);
-		selenium.click("//i[text()='Suscribe to receive a mail when a user is created']/parent::div/parent::td/parent::tr/parent::tbody" +
+		selenium.click("//i[text()='"+descriptionUserCreation+"']/parent::div/parent::td/parent::tr/parent::tbody" +
 				"//div[text()='Recipients: ']/parent::td/parent::tr//button");
 		selenium.click("//div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");//choose event trigger users
 		selenium.click("//button[text()='Apply']");
@@ -72,7 +72,7 @@ public class TestAddUsersNotification extends Login {
 		
 		addNotification(2, categoryUser, 3, eventUserDeletion, descriptionUserDeletion);
 		selenium.setSpeed(MID_SPEED);
-		selenium.click("//i[text()='Suscribe to receive a mail when a user is deleted']/parent::div/parent::td/parent::tr" +
+		selenium.click("//i[text()='"+descriptionUserDeletion+"']/parent::div/parent::td/parent::tr" +
 				"/parent::tbody//button");
 		selenium.click("//div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");//choose event trigger users
 		selenium.click("//button[text()='Apply']");
