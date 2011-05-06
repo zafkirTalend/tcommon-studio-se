@@ -178,7 +178,8 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
     }
   
     //add a method of remove all triggers
-    @Test(groups={"AddSimpleTrigger"},dependsOnGroups={"ModifyTask"})
+    @Test(groups={"AddSimpleTrigger"})
+//    ,dependsOnGroups={"ModifyTask"})
     @Parameters({"labelTRunJobByTaskRun","labelRefProJobByMainProTRunJobRun","labelReferenceproTjava",
     	"modifyTask","duplicateTask"})
     public void clearsAllTriggers(String labelTRunJobByTaskRun,String labelRefProJobByMainProTRunJobRun,
@@ -231,8 +232,13 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	    selenium.click("//span[text()='Add simple trigger']/parent::legend/parent::fieldset/parent::form/" +
 		"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
 		selenium.setSpeed(MIN_SPEED);
-    	selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::div/" +
-		"parent::div/parent::div//button[text()='Refresh']");
+		if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
+    		
+			selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::div/" +
+			"parent::div/parent::div//button[text()='Refresh']");
+			
+    	}
+    	
 		waitForElementPresent("//span[text()='2 / 2']",WAIT_TIME);
 	  			
 		selenium.setSpeed(MID_SPEED);
@@ -256,9 +262,11 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
     	selenium.setSpeed(MIN_SPEED);
     	System.out.println(selenium.getValue("//span[text()='Add simple trigger']/parent::legend/parent::fieldset//input[@name='startTime']"));
     	System.out.println(selenium.getValue("//span[text()='Add simple trigger']/parent::legend/parent::fieldset//input[@name='endTime']"));
-    	selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::div/" +
-    			"parent::div/parent::div//button[text()='Refresh']");
-    	selenium.setSpeed(MID_SPEED);
+		selenium.setSpeed(MID_SPEED);
+    	if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
+			selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::div/" +
+			"parent::div/parent::div//button[text()='Refresh']");
+    	}
     	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+label+"']"));
 	    selenium.setSpeed(MIN_SPEED);
 	}
@@ -293,10 +301,12 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 				
     	selenium.click("//span[text()='Add simple trigger']/parent::legend/parent::fieldset/parent::form/" +
     			"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
-    	
-    	selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::div/" +
-    			"parent::div/parent::div//button[text()='Refresh']");
+  
     	selenium.setSpeed(MID_SPEED);
+    	if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
+			selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::div/" +
+			"parent::div/parent::div//button[text()='Refresh']");
+    	}
     	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+label+"']"));
 	    selenium.setSpeed(MIN_SPEED);
 	}
