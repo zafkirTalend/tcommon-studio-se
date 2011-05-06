@@ -86,11 +86,11 @@
         <classes><!--
         
              these execution are need configurations(project/SVN/job)     
-            --><!--  
+            --> 
             <class name="com.talend.tac.cases.executionTask.TestAddTask"/>
             <class name="com.talend.tac.cases.executionTask.TestDuplicateTask"/>
             <class name="com.talend.tac.cases.executionTask.TestDeteleTask"/>
-            <class name="com.talend.tac.cases.executionTask.TestModifyTask"/> -->
+            <class name="com.talend.tac.cases.executionTask.TestModifyTask"/> 
      		<!--<class name="com.talend.tac.cases.executionTask.TestAddJVMParametersForTask"/>
             --><class name="com.talend.tac.cases.executionTask.TestAddTriggerAddSimpleTrigger"/>
              <!--  
