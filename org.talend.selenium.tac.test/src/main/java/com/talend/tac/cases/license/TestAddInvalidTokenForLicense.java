@@ -5,7 +5,7 @@ import static org.testng.Assert.*;
 import com.talend.tac.cases.Login;
 
 public class TestAddInvalidTokenForLicense extends Login {
-	@Test(enabled=false,description="this case is out of date since 4.2")
+	@Test
 	public void testAddInvalidTokenForLicense() {
 		waitForElementPresent("idMenuLicenseElement", 30);
 		assertTrue(selenium.isElementPresent("idMenuLicenseElement"));
@@ -28,7 +28,7 @@ public class TestAddInvalidTokenForLicense extends Login {
 
 		assertTrue(selenium.isTextPresent(rb
 				.getString("license.token.prompt.error")));
-		selenium.click("//button[text()= 'Ok']");// click 'ok' of the popup
+//		selenium.click("//button[text()= 'Ok']");// click 'ok' of the popup
 
 	}
 }

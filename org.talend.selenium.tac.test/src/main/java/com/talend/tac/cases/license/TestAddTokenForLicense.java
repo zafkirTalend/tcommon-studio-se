@@ -5,7 +5,7 @@ import static org.testng.Assert.*;
 import com.talend.tac.cases.Login;
 
 public class TestAddTokenForLicense extends Login {
-	@Test(enabled=false, description="this feture of tac is not work now")
+	@Test
 	public void testAddTokenForLicense() {
 		waitForElementPresent("idMenuLicenseElement", 30);
 		assertTrue(selenium.isElementPresent("idMenuLicenseElement"));

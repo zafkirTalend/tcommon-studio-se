@@ -219,6 +219,12 @@
 			</class>
 		</classes>
 	</test>
+	<test name="TestAddTokenForLicense"> 
+		<classes>
+			<class name="com.talend.tac.cases.license.TestAddTokenForLicense" />
+			<class name="com.talend.tac.cases.license.TestAddInvalidTokenForLicense" />
+		</classes>
+	 </test>
 	<!--  
 	<test name="testLicenseAccountsCount">
 	<classes>
