@@ -46,7 +46,7 @@ public class TestLicenseAccountsCount extends Login {
 					"blur");
 //			selenium.click("idTypeInput");
 //			selenium.mouseDownAt("//div[@role='listitem'][2]", "" + Event.ENTER);
-			this.selectDropDownList("idTypeInput", 2);
+			this.selectDropDownList("//input[@id='idTypeInput']", 2);
 			Assert.assertEquals(selenium.getValue("idTypeInput"),
 					"Data Quality");
 			String roles = rb.getString("menu.role.administrator") + "/"
@@ -98,7 +98,7 @@ public class TestLicenseAccountsCount extends Login {
 		Thread.sleep(2000);
 //		selenium.click("idTypeInput");
 //		selenium.mouseDownAt("//div[@role='listitem'][2]", "" + Event.ENTER);
-		this.selectDropDownList("idTypeInput", 2);
+		this.selectDropDownList("//input[@id='idTypeInput']", 2);
 		Assert.assertEquals(selenium.getValue("idTypeInput"),
 				"Data Quality");
 		selenium.setSpeed(MID_SPEED);
@@ -150,7 +150,7 @@ public class TestLicenseAccountsCount extends Login {
 					"blur");
 //			selenium.click("idTypeInput");
 //			selenium.mouseDownAt("//div[@role='listitem'][2]", "" + Event.ENTER);
-			this.selectDropDownList("idTypeInput", 2);
+			this.selectDropDownList("//input[@id='idTypeInput']", 2);
 			Assert.assertEquals(selenium.getValue("idTypeInput"),
 					"Data Quality");
 			String roles = rb.getString("menu.role.administrator") + "/"
@@ -212,7 +212,7 @@ public class TestLicenseAccountsCount extends Login {
 //			selenium.click("idTypeInput");
 //			selenium.mouseDownAt("//div[@role='listitem'][1]", "" + Event.ENTER);
 //			selenium.fireEvent("idTypeInput", "blur");
-			this.selectDropDownList("idTypeInput", 1);
+			this.selectDropDownList("//input[@id='idTypeInput']", 1);
 			System.out.println("¹þ¹þ"+selenium.getValue("idTypeInput"));
 			Assert.assertEquals(selenium.getValue("idTypeInput"),
 					"Data Integration");
@@ -336,7 +336,7 @@ public class TestLicenseAccountsCount extends Login {
 					"blur");
 //			selenium.click("idTypeInput");
 //			selenium.mouseDownAt("//div[@role='listitem'][2]", "" + Event.ENTER);
-			this.selectDropDownList("idTypeInput", 2);
+			this.selectDropDownList("//input[@id='idTypeInput']", 2);
 			Assert.assertEquals(selenium.getValue("idTypeInput"),
 					"Data Quality");
 			String roles = rb.getString("menu.role.administrator") + "/"
@@ -569,7 +569,7 @@ public class TestLicenseAccountsCount extends Login {
 					"blur");
 //			selenium.click("idTypeInput");
 //			selenium.mouseDownAt("//div[@role='listitem'][2]", "" + Event.ENTER);
-			this.selectDropDownList("idTypeInput", 2);
+			this.selectDropDownList("//input[@id='idTypeInput']", 2);
 			Assert.assertEquals(selenium.getValue("idTypeInput"),
 					"Data Quality");
 			String roles = rb.getString("menu.role.administrator") + "/"
@@ -660,7 +660,7 @@ public class TestLicenseAccountsCount extends Login {
 					"blur");
 //			selenium.click("idTypeInput");
 //			selenium.mouseDownAt("//div[@role='listitem'][2]", "" + Event.ENTER);
-			this.selectDropDownList("idTypeInput", 2);
+			this.selectDropDownList("//input[@id='idTypeInput']", 2);
 			Assert.assertEquals(selenium.getValue("idTypeInput"),
 					"Data Quality");
 			String roles = rb.getString("menu.role.administrator") + "/"
@@ -739,7 +739,7 @@ public class TestLicenseAccountsCount extends Login {
 					"blur");
 //			selenium.click("idTypeInput");
 //			selenium.mouseDownAt("//div[@role='listitem'][2]", "" + Event.ENTER);
-			this.selectDropDownList("idTypeInput", 2);
+			this.selectDropDownList("//input[@id='idTypeInput']", 2);
 			Assert.assertEquals(selenium.getValue("idTypeInput"),
 					"Data Quality");
 			String roles = rb.getString("menu.role.administrator") + "/"

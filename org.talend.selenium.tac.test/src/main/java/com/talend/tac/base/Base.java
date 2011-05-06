@@ -211,14 +211,15 @@ public class Base {
 //		selenium.click("//input[@id='"+xpath+"']"
 //				+ "/following-sibling::div[@class='x-form-trigger x-form-trigger-arrow ']");
 //		selenium.click("//label[text()='Type:']/parent::div//div[@class='x-form-trigger x-form-trigger-arrow']");
-		selenium.click("//input[@id='"+xpath+"']/following-sibling::div[@class='x-form-trigger x-form-trigger-arrow']");
+//		selenium.click("//input[@id='"+xpath+"']/following-sibling::div[@class='x-form-trigger x-form-trigger-arrow']");
+		selenium.click(xpath+"/following-sibling::div[@class='x-form-trigger x-form-trigger-arrow']");
 		selenium.mouseDownAt("//div[@role='listitem'][" + item + "]", ""
 				+ Event.ENTER);
 	}
 
 	public void selectDropDownList(String xpath, String item) {
 		selenium.click("//input[@id='"+xpath+"']"
-				+ "/following-sibling::div[@class='x-form-trigger x-form-trigger-arrow ']");
+				+ "/following-sibling::div[@class='x-form-trigger x-form-trigger-arrow']");
 		selenium.mouseDown("//div[text()='" + item + "']");
 		selenium.fireEvent("idProjectTypeComboBox", "blur");
 
