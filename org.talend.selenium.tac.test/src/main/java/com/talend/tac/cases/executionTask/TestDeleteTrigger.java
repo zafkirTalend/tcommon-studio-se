@@ -9,7 +9,7 @@ import com.talend.tac.cases.Login;
 public class TestDeleteTrigger extends Login {
     
 	//delete a trigger
-	@Test(groups={"DeleteTrigger"},dependsOnGroups={"DuplicateTrigger"})
+	@Test(groups={"DeleteTrigger"},dependsOnGroups={"AddSimpleTrigger"})
 	@Parameters({"modifyTask","addSimpleTriggerLabel"})
 	public void testDeleteTrigger(String task, String trigger) {
 		
