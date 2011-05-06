@@ -88,6 +88,7 @@ public class TestAddConnection extends Login {
 		//check connections status
 		selenium.click("idCheckUrlButton");
 		waitForCheckConnectionStatus(4);
+		this.clickWaitForElementPresent("//span[text()='Check connection']/preceding-sibling::div//div");
 		// save button
 		selenium.mouseDown("idFormSaveButton");
 		selenium.keyPressNative(Event.ENTER + "");
