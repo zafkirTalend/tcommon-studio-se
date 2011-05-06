@@ -138,9 +138,9 @@ public class TestDisplayUser extends Login {
 		
 
 		if(selenium.isElementPresent("//span[text()='"+xpathName+"']")) {
-			selenium.click("//a[text()='"+xpathName+"']/img[@class=' x-menu-item-icon']");
 			selenium.setSpeed(MID_SPEED);
-		    Assert.assertFalse(selenium.isElementPresent("//span[text()='"+xpathName+"']"));
+			selenium.click("//a[text()='"+xpathName+"']/img[@class=' x-menu-item-icon']");
+			Assert.assertFalse(selenium.isElementPresent("//span[text()='"+xpathName+"']"));
 		    selenium.setSpeed(MIN_SPEED);
 		} else {
 			
