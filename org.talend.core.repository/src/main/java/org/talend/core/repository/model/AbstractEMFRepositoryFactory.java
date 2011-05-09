@@ -928,6 +928,10 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
     }
 
     public LockInfo getLockInfo(Item item) {
-        return new LockInfo(item.getState().getLocker().getLogin(), "studio", item.getState().getLockDate());//$NON-NLS-1$
+        try {
+            return new LockInfo(item.getState().getLocker().getLogin(), "studio", item.getState().getLockDate());//$NON-NLS-1$
+        } catch (Exception e) {
+            return new LockInfo("", "", null);
+        }
     }
 }
