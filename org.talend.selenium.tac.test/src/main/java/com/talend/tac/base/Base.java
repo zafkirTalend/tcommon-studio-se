@@ -201,12 +201,20 @@ public class Base {
 		return strs;
 	}
 
+	public void typeAndBlur(String xpath, String value) {
+		this.typeAndFireEnvent(xpath, value, "blur");
+	}
+	
 	public void typeString(String xpath, String value) {
 		selenium.click(xpath);
-		selenium.type(xpath, value);
-		selenium.fireEvent(xpath, "blur");
+		this.typeAndFireEnvent(xpath, value, "blur");
 	}
-
+	
+	public void typeAndFireEnvent(String xpath,String value, String event) {
+		selenium.type(xpath, value);
+		selenium.fireEvent(xpath, event);
+	}
+	
 	public void selectDropDownList(String xpath, int item) {
 //		selenium.click("//input[@id='"+xpath+"']"
 //				+ "/following-sibling::div[@class='x-form-trigger x-form-trigger-arrow ']");
