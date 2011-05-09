@@ -823,6 +823,7 @@ public abstract class RepositoryUpdateManager {
                     if (result.getJob() != null) {
                         result.setJob(null);
                     }
+                    result.setFromItem(true);
                     result.setObjectId(item.getProperty().getId());
                 }
             }

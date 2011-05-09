@@ -21,6 +21,8 @@ public abstract class UpdateResult {
 
     private boolean checked = true;
 
+    private boolean fromItem = false;
+
     private Object object = null;
 
     private EUpdateResult resultType = null;
@@ -76,7 +78,7 @@ public abstract class UpdateResult {
     /**
      * only for repository item update.
      */
-    private Object processOrItem = null;
+    // private Object processOrItem = null;
 
     /**
      * ggu UpdateCheckResult constructor comment.
@@ -133,13 +135,13 @@ public abstract class UpdateResult {
         return this.job;
     }
 
-    public Object getItemProcess() {
-        return this.processOrItem;
-    }
-
-    public void setItemProcess(Object processOrItem) {
-        this.processOrItem = processOrItem;
-    }
+    // public Object getItemProcess() {
+    // return this.processOrItem;
+    // }
+    //
+    // public void setItemProcess(Object processOrItem) {
+    // this.processOrItem = processOrItem;
+    // }
 
     public boolean isReadOnly() {
         return this.readOnly;
@@ -249,6 +251,14 @@ public abstract class UpdateResult {
 
     public void setUpdateObject(Object object) {
         this.object = object;
+    }
+
+    public boolean isFromItem() {
+        return this.fromItem;
+    }
+
+    public void setFromItem(boolean fromItem) {
+        this.fromItem = fromItem;
     }
 
 }
