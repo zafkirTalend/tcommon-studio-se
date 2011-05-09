@@ -28,6 +28,7 @@ import org.talend.core.runtime.i18n.Messages;
  * $Id: talend-code-templates.xml 1 2006-09-29 17:06:40 +0000 (鏄熸湡浜� 29 涔?鏈�2006) nrousseau $
  * 
  */
+// TODO remove this class and use OSGI dynamic services
 public class GlobalServiceRegister {
 
     // The shared instance
@@ -36,6 +37,7 @@ public class GlobalServiceRegister {
     private static IConfigurationElement[] configurationElements;
 
     private static IConfigurationElement[] configurationDQModelElements;
+
     public static GlobalServiceRegister getDefault() {
         return instance;
     }
@@ -49,7 +51,6 @@ public class GlobalServiceRegister {
         configurationElements = registry.getConfigurationElementsFor("org.talend.core.runtime.service"); //$NON-NLS-1$
         configurationDQModelElements = registry.getConfigurationElementsFor("org.talend.core.runtime.dq_EMFModel_provider"); //$NON-NLS-1$
     }
-
 
     public AbstractDQModelService getDQModelService(Class<?> klass) {
         AbstractDQModelService dqModelserviceInst = dqModelServices.get(klass);
@@ -73,6 +74,7 @@ public class GlobalServiceRegister {
         }
         return true;
     }
+
     public boolean isServiceRegistered(Class klass) {
         IService service = services.get(klass);
         if (service == null) {
@@ -113,19 +115,22 @@ public class GlobalServiceRegister {
         String key = klass.getName();
         for (int i = 0; i < configurationElements.length; i++) {
             IConfigurationElement element = configurationElements[i];
-            String id = element.getAttribute("serviceId"); //$NON-NLS-1$
-
-            if (!key.endsWith(id)) {
-                continue;
-            }
-            try {
-                Object service = element.createExecutableExtension("class"); //$NON-NLS-1$
-                if (klass.isInstance(service)) {
-                    return (IService) service;
+            if (element.isValid()) {
+                String id = element.getAttribute("serviceId"); //$NON-NLS-1$
+                if (!key.endsWith(id)) {
+                    continue;
                 }
-            } catch (CoreException e) {
-                ExceptionHandler.process(e);
-            }
+                try {
+                    Object service = element.createExecutableExtension("class"); //$NON-NLS-1$
+                    if (klass.isInstance(service)) {
+                        return (IService) service;
+                    }
+                } catch (CoreException e) {
+                    ExceptionHandler.process(e);
+                }
+            }// else element is not valid because the bundle may have been stoped or uninstalled and the extension point
+             // registry is still holding values
+             // has mentionned in the class TODO, this class should be removed and OSGI dynamic services used.
         }
         return null;
     }
