@@ -1,11 +1,14 @@
 package com.talend.cases.dashboard.connection;
 
 import static org.testng.Assert.*;
+
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.annotations.Parameters;
 
 import java.awt.Event;
 
+import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
 public class TestAddConnection extends Login {
@@ -45,6 +48,45 @@ public class TestAddConnection extends Login {
 		addConnection(label, dbname, dbtype, host, serverport, username,
 				password, datasourse, additional, stat, logs);
 
+	}
+	@Test
+	@Parameters( { "Mysql_Connectionlabel", "Mysql_Dbname", "Mysql_Dbtype",
+		"Mysql_Host", "Mysql_Serverport", "Mysql_Username",
+		"Mysql_Password", "Mysql_Datasourse", "Mysql_Additional",
+		"Mysql_Stattable", "Mysql_Logstable" })
+	public void deleteConnection(String label, String dbname, String dbtype,
+			String host, String serverport, String username, String password,
+			String datasourse, String additional, String stat, String logs) {
+		addConnection("test_"+label, dbname, dbtype, host, serverport, username,
+				password, datasourse, additional, stat, logs);
+		String warningmessage = other.getString("delete.connetion.warning");
+		//delete choose cancel
+		selenium.refresh();
+		this.waitForElementPresent(
+				"//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='test_"+ label + "')]", Base.WAIT_TIME);
+		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='test_"+ label + "')]");
+		selenium.chooseCancelOnNextConfirmation();
+		selenium.setSpeed(MID_SPEED);
+		selenium.click("//div[text()='Connections']/ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");
+//		selenium.getConfirmation();
+		assert (selenium.getConfirmation().equals(warningmessage));
+		Assert.assertTrue(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='test_"+ label + "')]"), "delete cancel failed!");
+		selenium.setSpeed(MIN_SPEED);
+		//delete choose ok
+		selenium.refresh();
+		this.waitForElementPresent(
+				"//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='test_"+ label + "')]", Base.WAIT_TIME);
+		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='test_"+ label + "')]");
+		selenium.chooseOkOnNextConfirmation();
+		selenium.setSpeed(MID_SPEED);
+		selenium.click("//div[text()='Connections']/ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");
+//		System.out.println(selenium.getConfirmation());
+		assert (selenium.getConfirmation().equals(warningmessage));
+		Assert.assertFalse(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='test_"+ label + "')]"), "delete choose ok failed!");
+		selenium.setSpeed(MIN_SPEED);
+		
+		
+		
 	}
 
 	public void addConnection(String label, String dbname, String dbtype,
