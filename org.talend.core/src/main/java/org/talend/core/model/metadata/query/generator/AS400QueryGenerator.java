@@ -17,6 +17,7 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.metadata.QueryUtil;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.query.AbstractQueryGenerator;
 import org.talend.core.model.process.EParameterFieldType;
@@ -76,6 +77,15 @@ public class AS400QueryGenerator extends AbstractQueryGenerator {
         } else {
             return '/';
         }
+    }
+
+    protected String getTableNameWithDBAndSchema(final String dbName, final String schema, String tableName) {
+        if (tableName == null || EMPTY.equals(tableName.trim())) {
+            tableName = QueryUtil.DEFAULT_TABLE_NAME;
+        }
+        final StringBuffer tableNameWithDBAndSchema = new StringBuffer();
+        tableNameWithDBAndSchema.append(checkContextAndAddQuote(tableName));
+        return tableNameWithDBAndSchema.toString();
     }
 
 }
