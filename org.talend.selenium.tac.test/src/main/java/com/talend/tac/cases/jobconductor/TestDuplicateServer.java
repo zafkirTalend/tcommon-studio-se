@@ -31,13 +31,14 @@ public class TestDuplicateServer extends Login {
 		selenium.refresh();
 		this.waitForElementPresent("//div[text()='" + duplicatedServername + "']", WAIT_TIME);
 		selenium.mouseDown("//div[text()='" + duplicatedServername + "']");
-		selenium.click("idSubModuleDuplicateButton");
+		selenium.click("//div[text()='Servers']/ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDuplicateButton']");
 		selenium.setSpeed(MAX_SPEED);
 		selenium.click("idFormSaveButton");
 		Thread.sleep(5000);
 //		selenium.click("idSubModuleRefreshButton");
 		selenium.refresh();
 		Thread.sleep(5000);
+		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+duplicatedServername+"')]", WAIT_TIME);
 		Assert.assertTrue(
 				selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='Copy_of_"+duplicatedServername+"')]"),
 				"server  duplicated failed!");

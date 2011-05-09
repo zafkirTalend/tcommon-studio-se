@@ -27,7 +27,7 @@ public class TestDeleteServer extends Login{
 		selenium.chooseOkOnNextConfirmation();
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+unusedServername+"')]");
 		selenium.setSpeed(MAX_SPEED);
-		selenium.click("idSubModuleDeleteButton");
+		selenium.click("//div[text()='Servers']/ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");
 		selenium.getConfirmation();
 		Thread.sleep(5000);
 		selenium.refresh();
