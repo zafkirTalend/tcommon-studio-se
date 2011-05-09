@@ -55,7 +55,7 @@ public class TacCleaner {
 				selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and text()='"+servers.get(i)+"']");
 				Thread.sleep(3000);
 				selenium.chooseOkOnNextConfirmation();
-				selenium.click("idSubModuleDeleteButton");
+				selenium.click("//div[text()='Servers']/ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");
 				  selenium.getConfirmation();
 			}
 
@@ -69,7 +69,7 @@ public class TacCleaner {
 				selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and text()='"+servers.get(i)+"']");
 				Thread.sleep(3000);
 				selenium.chooseOkOnNextConfirmation();
-				selenium.click("idSubModuleDeleteButton");
+				selenium.click("//div[text()='Servers']/ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");
 				  selenium.getConfirmation();
 			}
 

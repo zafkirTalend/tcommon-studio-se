@@ -38,7 +38,7 @@ public class TestBranchManageAddExistbranch extends Login {
 			selenium.click("//button[text()='"
 					+ other.getString("project.branchmanage.add.conform.ok")
 					+ "']");
-			selenium.setSpeed(MAX_SPEED);
+			selenium.setSpeed(MID_SPEED);
 			Assert.assertTrue(selenium
 					.isTextPresent("Failed to create branch: Project already contains a branch 'branches/branch' -- For more information see your log file"));
 			// if (selenium
@@ -61,11 +61,7 @@ public class TestBranchManageAddExistbranch extends Login {
 		selenium.click("//button[text()='"
 				+ other.getString("project.branchmanage.delete.confor.ok")
 				+ "']");
-
 		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");// close
-																					// the
-																					// branch
-																					// window
 		selenium.setSpeed(MIN_SPEED);
 		// check the new close button
 		selenium.refresh();

@@ -11,7 +11,7 @@ import com.talend.tac.cases.Login;
 
 public class TestAddProjectWithWrongSvnUrl extends Login {
 
-	@Test(groups = { "Add" },dependsOnGroups = { "cleanbefore" })
+	@Test(groups = { "AddElse" })
 	@Parameters({"AddcommontestProjectWrongSvn", "Prolanguage", "ProjectType"})
 	public void testAddpro(String proname, String language, String type) throws Exception {
 

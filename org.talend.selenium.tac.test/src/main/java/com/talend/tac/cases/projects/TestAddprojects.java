@@ -14,7 +14,7 @@ import com.thoughtworks.selenium.Selenium;
 
 public class TestAddprojects extends Login {
 
-	@Test
+	@Test(groups = { "else" })
 	@Parameters({ "SVNurl","ProjectType", "SVNuserName", "SVNuserPassword",
 			"AddcommonProjectname", "AddreferenceProjectname","Prolanguage"  })
 	public void testAddpro(String url,String type, String user, String password,

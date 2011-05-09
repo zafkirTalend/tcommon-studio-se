@@ -11,7 +11,7 @@ import com.talend.tac.cases.Login;
 
 public class TestAddProjectWithNullLabel extends Login {
 
-	@Test(groups = { "Add" },dependsOnGroups = { "cleanbefore" })
+	@Test(groups = { "AddElse" })
 	@Parameters({ "SVNurl", "SVNuserName", "SVNuserPassword",
 			"AddcommontestProjectname", "Prolanguage", "ProjectType" })
 	public void testAddpro(String url, String user, String password,

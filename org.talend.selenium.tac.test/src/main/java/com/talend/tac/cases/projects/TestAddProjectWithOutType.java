@@ -11,7 +11,7 @@ import com.talend.tac.cases.Login;
 
 public class TestAddProjectWithOutType extends Login {
 
-	@Test(groups = { "Add" },dependsOnGroups = { "cleanbefore" })
+	@Test(groups = { "AddElse" })
 	@Parameters({"SVNProjecturl","SVNuserName", "SVNuserPassword","ProjectWithOutType", "Prolanguage", "ProjectType"})
 	public void testAddpro(String url,String username,String password,String proname, String language, String type) throws Exception {
 

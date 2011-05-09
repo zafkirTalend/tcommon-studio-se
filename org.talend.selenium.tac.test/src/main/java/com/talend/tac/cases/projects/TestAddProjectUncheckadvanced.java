@@ -26,7 +26,7 @@ import com.talend.tac.cases.Login;
 public class TestAddProjectUncheckadvanced extends Login {
 	TestDeletepro delete = new TestDeletepro();
 
-	@Test
+	@Test(groups = { "else" })
 	@Parameters({"uncheckAdvancedProject" ,"ProjectType", "Prolanguage" })
 	public void testAddPerlproject(String namecommon,String type, String language)
 			throws InterruptedException {
