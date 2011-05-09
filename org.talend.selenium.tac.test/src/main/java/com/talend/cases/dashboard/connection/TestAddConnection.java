@@ -112,10 +112,10 @@ public class TestAddConnection extends Login {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			flag = selenium.getXpathCount("//div[text()='OK']").intValue() >= OK_Num;
+			flag = selenium.getXpathCount("//div[text()='OK' or contains(text(),'Ok (')]").intValue() >= OK_Num;
 			seconds_Counter++;
 			if (seconds_Counter >= WAIT_TIME)
-				assertTrue(selenium.getXpathCount("//div[text()='OK']")
+				assertTrue(selenium.getXpathCount("//div[text()='OK' or contains(text(),'Ok (')]")
 						.intValue() >= OK_Num);
 		}
 
