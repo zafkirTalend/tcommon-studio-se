@@ -755,7 +755,7 @@ public class DeleteAction extends AContextualAction {
                 if (!resChangeService.handleResourceChange(((ConnectionItem) item).getConnection())) {
                     return true;
                 }
-                //MOD klliu 2011-04-28 bug 20204 removing connection is synced to the connection view of SQL explore 
+                // MOD klliu 2011-04-28 bug 20204 removing connection is synced to the connection view of SQL explore
                 if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
                     ITDQRepositoryService tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
                             ITDQRepositoryService.class);
@@ -873,6 +873,9 @@ public class DeleteAction extends AContextualAction {
                 case SIMPLE_FOLDER:
                     Object obj = node.getProperties(EProperties.LABEL);
                     String label = null;
+                    IRepositoryViewObject folderObj = node.getObject();
+                    ERepositoryStatus statusFolder = folderObj.getRepositoryStatus();
+                    boolean isDeletedFolder = statusFolder == ERepositoryStatus.DELETED;
                     if (obj instanceof String) {
                         label = (String) obj;
                     }
@@ -881,8 +884,13 @@ public class DeleteAction extends AContextualAction {
                             || RepositoryConstants.USER_DEFINED.equals(label)) {
                         visible = false;
                     } else {
-                        this.setText(DELETE_LOGICAL_TITLE);
-                        this.setToolTipText(DELETE_LOGICAL_TOOLTIP);
+                        if (isDeletedFolder) {
+                            this.setText(DELETE_FOREVER_TITLE);
+                            this.setToolTipText(DELETE_FOREVER_TOOLTIP);
+                        } else {
+                            this.setText(DELETE_LOGICAL_TITLE);
+                            this.setToolTipText(DELETE_LOGICAL_TOOLTIP);
+                        }
 
                         if (node.hasChildren()) {
                             visible = true;
