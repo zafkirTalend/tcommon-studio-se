@@ -810,7 +810,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
             authorText.setText(StringUtils.trimToEmpty(property.getAuthor().getLogin()));
             lockerText.setText(""); //$NON-NLS-1$
             try {
-                lockerText.setText(property.getItem().getState().getLocker().getLogin());
+                if (property.getItem().getState().isLocked())
+                    lockerText.setText(property.getItem().getState().getLocker().getLogin());
             } catch (Exception e) {
                 // ignore null pointer exceptions
             }
