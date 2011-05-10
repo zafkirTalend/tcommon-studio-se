@@ -32,8 +32,10 @@ import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.talend.swtbot.items.TalendEdiItem;
 
 /**
  * DOC sgandon class global comment. Detailled comment <br/>
@@ -1667,5 +1669,48 @@ public class Utilities {
             }
         }
         SWTBotPreferences.TIMEOUT = defaultTimeout;
+    }
+
+    public static void createEDI(TalendEdiItem ediItem, SWTGefBot gefBot, SWTBotTreeItem treeNode) {
+        treeNode.contextMenu("Create EDI").click();
+        shell = gefBot.shell("Create new EDI schema").activate();
+        gefBot.textWithLabel("Name").setText(ediItem.getItemName());
+        boolean isNextButtonEnable = gefBot.button("Next >").isEnabled();
+        if (!isNextButtonEnable) {
+            shell.close();
+            Assert.assertTrue("edi item is not created, maybe the item name already exist", isNextButtonEnable);
+        }
+        gefBot.button("Next >").click();
+
+        try {
+            gefBot.tree().expandNode(ediItem.getStandard()).getNode(ediItem.getRelease()).click();
+            gefBot.button("Next >").click();
+
+            String[] schemas = ediItem.getSchema();
+            for (int i = 0; i < schemas.length; i++) {
+                SWTBotTreeItem sourceItem = gefBot.tree(0).expandNode("BGM(Beginning_of_message)", "DOCUMENT_MESSAGE_NAME")
+                        .getNode(schemas[i]).click();
+                SWTBotTable targetItem = gefBot.tableInGroup("Schema");
+                DndUtil dndUtil = new DndUtil(shell.display);
+                dndUtil.dragAndDrop(sourceItem, targetItem);
+            }
+            gefBot.button("Next >").click();
+            gefBot.button("Finish").click();
+        } catch (WidgetNotFoundException wnfe) {
+            shell.close();
+            Assert.fail(wnfe.getCause().getMessage());
+        } catch (Exception e) {
+            shell.close();
+            Assert.fail(e.getMessage());
+        }
+
+        SWTBotTreeItem newEDIItem = null;
+        try {
+            newEDIItem = treeNode.expand().select(ediItem.getItemName() + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("validation EDI item is not created", newEDIItem);
+        }
     }
 }
