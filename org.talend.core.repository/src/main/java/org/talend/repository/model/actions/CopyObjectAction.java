@@ -211,7 +211,7 @@ public class CopyObjectAction {
                         synDuplicatedBean((BeanItem) newItem);
                     }
                     if (newItem instanceof ProcessItem || newItem instanceof JobletProcessItem) {
-                        RelationshipItemBuilder.getInstance().addOrUpdateItem((ProcessItem) newItem);
+                        RelationshipItemBuilder.getInstance().addOrUpdateItem(newItem);
                     }
                     if (newItem instanceof ConnectionItem) {
                         ConnectionItem connectionItem = (ConnectionItem) newItem;
