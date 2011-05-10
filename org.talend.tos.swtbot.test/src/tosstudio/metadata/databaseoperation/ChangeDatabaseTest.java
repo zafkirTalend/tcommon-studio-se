@@ -42,23 +42,27 @@ public class ChangeDatabaseTest extends TalendSwtBotForTos {
 
     private static final String DBNAME = "mysql";
 
+    private static final String DATABASE_NAME = "autotest2";
+
     @Before
     public void createDBConnection() {
         view = Utilities.getRepositoryView(gefBot);
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.DB_CONNECTIONS);
         Utilities.createDbConnection(gefBot, treeNode, Utilities.DbConnectionType.MYSQL, DBNAME);
+        String sql = "create database " + DATABASE_NAME;
+        Utilities.executeSQL(gefBot, treeNode.getNode(DBNAME + " 0.1"), sql);
     }
 
     @Test
     public void changeDatabase() {
         SWTBotShell schemaShell = null;
-        SWTBotTreeItem tableItem = null;
+        SWTBotTreeItem treeItem = null;
         try {
             treeNode.getNode(DBNAME + " 0.1").doubleClick();
             schemaShell = gefBot.shell("Database Connection").activate();
             gefBot.button("Next >").click();
-            gefBot.textWithLabel("DataBase").setText("test2");
+            gefBot.textWithLabel("DataBase").setText(DATABASE_NAME);
             gefBot.button("Finish").click();
             gefBot.shell("Modification").activate();
             gefBot.button("No").click();
@@ -66,21 +70,22 @@ public class ChangeDatabaseTest extends TalendSwtBotForTos {
             treeNode.getNode(DBNAME + " 0.1").contextMenu("Retrieve Schema").click();
             schemaShell = gefBot.shell("Schema").activate();
             gefBot.button("Next >").click();
-            tableItem = gefBot.tree(0).getTreeItem("test2");
+            treeItem = gefBot.treeInGroup("Select Schema to create").getTreeItem(DATABASE_NAME);
             schemaShell.close();
+            Assert.assertNotNull("database did not change", treeItem);
         } catch (WidgetNotFoundException wnfe) {
             schemaShell.close();
             Assert.fail(wnfe.getCause().getMessage());
         } catch (Exception e) {
             schemaShell.close();
             Assert.fail(e.getMessage());
-        } finally {
-            Assert.assertNotNull("database did not change", tableItem);
         }
     }
 
     @After
     public void removePreviouslyCreateItems() {
+        String sql = "drop database " + DATABASE_NAME;
+        Utilities.executeSQL(gefBot, treeNode.getNode(DBNAME + " 0.1"), sql);
         Utilities.cleanUpRepository(treeNode);
         Utilities.emptyRecycleBin(gefBot, tree);
     }

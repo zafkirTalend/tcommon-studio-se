@@ -28,6 +28,7 @@ import org.eclipse.core.runtime.URIUtil;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
+import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
@@ -1627,6 +1628,8 @@ public class Utilities {
      * @param sql sql you want to execute
      */
     public static void executeSQL(SWTGefBot gefBot, SWTBotTreeItem dbItem, String sql) {
+        long defaultTimeout = SWTBotPreferences.TIMEOUT;
+        SWTBotPreferences.TIMEOUT = 100;
         if (sql != null) {
             try {
                 dbItem.contextMenu("Edit queries").click();
@@ -1655,5 +1658,6 @@ public class Utilities {
                 shell.close();
             }
         }
+        SWTBotPreferences.TIMEOUT = defaultTimeout;
     }
 }
