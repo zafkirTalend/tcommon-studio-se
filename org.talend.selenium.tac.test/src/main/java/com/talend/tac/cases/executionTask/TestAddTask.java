@@ -165,7 +165,7 @@ public class TestAddTask  extends Login {
 	
 	@Test(dependsOnMethods={"testAddTaskForTestChooseReferecePro"})
 	@Parameters({"labelAddJVMParametersForTask","labelAddJVMParametersForTaskDescription","AddcommonProjectname","branchNameTrunk",
-		"jobNameTJava","version0.1","ServerForUseAvailable","statisticEnabled","statisticEnabled"})
+		"jobNameTJava","version0.1","context","ServerForUseAvailable","statisticEnabled"})
 	public void testAddSimpleTask(String label,String description,String projectName,String branchName,
 			String jobName,String version,String context,String serverName,String statisticName) {
 		
