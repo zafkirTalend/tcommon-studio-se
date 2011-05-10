@@ -24,7 +24,8 @@
          id="org.talend.libraries.apache"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="true"/>
 
    <plugin
          id="org.talend.utils"
@@ -37,7 +38,8 @@
          id="org.talend.libraries.javacsv"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="true"/>
 
    <plugin
          id="org.junit"
