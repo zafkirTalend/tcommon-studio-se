@@ -91,6 +91,8 @@ public abstract class AContextualAction extends Action implements ITreeContextua
 
     protected RepositoryNode repositoryNode;
 
+    private Item oldItem;
+
     public boolean isEditAction() {
         return editAction;
     }
@@ -519,12 +521,32 @@ public abstract class AContextualAction extends Action implements ITreeContextua
     @Override
     public void run() {
         String name = "User action : " + getText(); //$NON-NLS-1$
+        IRepositoryViewObject object = getCurrentRepositoryNode().getObject();
+        if (object != null) {
+            Property oldProperty = getCurrentRepositoryNode().getObject().getProperty();
+            if (oldProperty != null) {
+                oldItem = oldProperty.getItem();
+            }
+        }
+
         RepositoryWorkUnit<Object> repositoryWorkUnit = new RepositoryWorkUnit<Object>(name, this) {
 
             @Override
             protected void run() throws LoginException, PersistenceException {
-                // updateNodeToLastVersion();
-                doRun();
+                boolean exist = false;
+                if (getCurrentRepositoryNode().getObject() != null) {
+                    Property property = getCurrentRepositoryNode().getObject().getProperty();
+                    // only avoid NPE if item has been deleted in svn
+                    if (property != null) {
+                        exist = true;
+                        doRun();
+                    }
+                    if (!exist) {
+                        refreshRelatedItem(getOldItem());
+                    }
+                } else {
+                    doRun();
+                }
             }
         };
         repositoryWorkUnit.setAvoidUnloadResources(avoidUnloadResources);
@@ -597,6 +619,19 @@ public abstract class AContextualAction extends Action implements ITreeContextua
 
     public boolean isAvoidUnloadResources() {
         return avoidUnloadResources;
+    }
+
+    public Item getOldItem() {
+        return this.oldItem;
+    }
+
+    protected void refreshRelatedItem(Item item) {
+        if (item == null) {
+            return;
+        }
+        IRepositoryView viewPart = getViewPart();
+        ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(item);
+        viewPart.refresh(itemType);
     }
 
 }
