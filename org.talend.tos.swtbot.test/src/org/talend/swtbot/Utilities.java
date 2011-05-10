@@ -236,56 +236,64 @@ public class Utilities {
             Assert.assertTrue("next button is not enabled, maybe the item name is exist,", nextButtonIsEnabled);
         }
 
-        switch (itemType) {
-        case FILE_DELIMITED:
-            gefBot.textWithLabel("File").setText(
-                    getFileFromCurrentPluginSampleFolder(System.getProperty("fileDelimited.filepath")).getAbsolutePath());
-            gefBot.button("Next >").click();
-            break;
-        case FILE_EXCEL:
-            gefBot.textWithLabel("File").setText(
-                    getFileFromCurrentPluginSampleFolder(System.getProperty("fileExcel.filepath")).getAbsolutePath());
-            gefBot.treeWithLabel("Set sheets parameters").getTreeItem("All sheets/DSelect sheet").check();
-            gefBot.button("Next >").click();
-            break;
-        case FILE_LDIF:
-            gefBot.textWithLabel("File").setText(
-                    getFileFromCurrentPluginSampleFolder(System.getProperty("fileLdif.filepath")).getAbsolutePath());
-            gefBot.button("Next >").click();
-            for (int i = 0; i < 5; i++) {
-                gefBot.tableInGroup("List Attributes of Ldif file").getTableItem(i).check();
-            }
-            break;
-        case FILE_POSITIONAL:
-            gefBot.textWithLabel("File").setText(
-                    getFileFromCurrentPluginSampleFolder(System.getProperty("filePositional.filepath")).getAbsolutePath());
-            gefBot.textWithLabel("Field Separator").setText("5,7,7,*");
-            gefBot.textWithLabel("Marker position").setText("5,12,19");
-            gefBot.button("Next >").click();
-            break;
-        case FILE_REGEX:
-            gefBot.textWithLabel("File").setText(
-                    getFileFromCurrentPluginSampleFolder(System.getProperty("fileRegex.filepath")).getAbsolutePath());
-            gefBot.button("Next >").click();
-            break;
-        case FILE_XML:
-            gefBot.button("Next >").click();
-            gefBot.textWithLabel("XML").setText(
-                    getFileFromCurrentPluginSampleFolder(System.getProperty("fileXml.filepath")).getAbsolutePath());
-            gefBot.button("Next >").click();
+        try {
+            switch (itemType) {
+            case FILE_DELIMITED:
+                gefBot.textWithLabel("File").setText(
+                        getFileFromCurrentPluginSampleFolder(System.getProperty("fileDelimited.filepath")).getAbsolutePath());
+                gefBot.button("Next >").click();
+                break;
+            case FILE_EXCEL:
+                gefBot.textWithLabel("File").setText(
+                        getFileFromCurrentPluginSampleFolder(System.getProperty("fileExcel.filepath")).getAbsolutePath());
+                gefBot.treeWithLabel("Set sheets parameters").getTreeItem("All sheets/DSelect sheet").check();
+                gefBot.button("Next >").click();
+                break;
+            case FILE_LDIF:
+                gefBot.textWithLabel("File").setText(
+                        getFileFromCurrentPluginSampleFolder(System.getProperty("fileLdif.filepath")).getAbsolutePath());
+                gefBot.button("Next >").click();
+                for (int i = 0; i < 5; i++) {
+                    gefBot.tableInGroup("List Attributes of Ldif file").getTableItem(i).check();
+                }
+                break;
+            case FILE_POSITIONAL:
+                gefBot.textWithLabel("File").setText(
+                        getFileFromCurrentPluginSampleFolder(System.getProperty("filePositional.filepath")).getAbsolutePath());
+                gefBot.textWithLabel("Field Separator").setText("5,7,7,*");
+                gefBot.textWithLabel("Marker position").setText("5,12,19");
+                gefBot.button("Next >").click();
+                break;
+            case FILE_REGEX:
+                gefBot.textWithLabel("File").setText(
+                        getFileFromCurrentPluginSampleFolder(System.getProperty("fileRegex.filepath")).getAbsolutePath());
+                gefBot.button("Next >").click();
+                break;
+            case FILE_XML:
+                gefBot.button("Next >").click();
+                gefBot.textWithLabel("XML").setText(
+                        getFileFromCurrentPluginSampleFolder(System.getProperty("fileXml.filepath")).getAbsolutePath());
+                gefBot.button("Next >").click();
 
-            gefBot.tableInGroup("Target Schema", 0).click(0, 2);
-            gefBot.text().setText(System.getProperty("filexml.loop"));
-            for (int i = 0; i < 3; i++) {
-                gefBot.buttonWithTooltip("Add").click();
-                gefBot.tableInGroup("Target Schema", 1).click(i, 2);
-                gefBot.text().setText("@" + System.getProperty("filexml.schema" + i));
-                gefBot.tableInGroup("Target Schema", 1).click(i, 3);
-                gefBot.text().setText(System.getProperty("filexml.schema" + i));
+                gefBot.tableInGroup("Target Schema", 0).click(0, 2);
+                gefBot.text().setText(System.getProperty("filexml.loop"));
+                for (int i = 0; i < 3; i++) {
+                    gefBot.buttonWithTooltip("Add").click();
+                    gefBot.tableInGroup("Target Schema", 1).click(i, 2);
+                    gefBot.text().setText("@" + System.getProperty("filexml.schema" + i));
+                    gefBot.tableInGroup("Target Schema", 1).click(i, 3);
+                    gefBot.text().setText(System.getProperty("filexml.schema" + i));
+                }
+                break;
+            default:
+                break;
             }
-            break;
-        default:
-            break;
+        } catch (WidgetNotFoundException wnfe) {
+            shell.close();
+            Assert.fail(wnfe.getCause().getMessage());
+        } catch (Exception e) {
+            shell.close();
+            Assert.fail(e.getMessage());
         }
 
         gefBot.waitUntil(new DefaultCondition() {
@@ -296,7 +304,7 @@ public class Utilities {
             }
 
             public String getFailureMessage() {
-                gefBot.shell(shellTitle).close();
+                shell.close();
                 return "next button was never enabled";
             }
         }, 60000);
@@ -309,7 +317,7 @@ public class Utilities {
             }
 
             public String getFailureMessage() {
-                gefBot.shell(shellTitle).close();
+                shell.close();
                 return "finish button was never enabled";
             }
         });
