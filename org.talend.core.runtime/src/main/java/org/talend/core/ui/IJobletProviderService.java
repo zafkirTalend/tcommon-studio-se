@@ -88,12 +88,14 @@ public interface IJobletProviderService extends IService {
 
     public boolean isLock(INode in);
 
+    public boolean isReadOnly(INode in);
+
     public boolean lockJoblet(INode node);
 
-    public void unlockJoblet(INode node);
+    public void unlockJoblet(INode node, boolean needAsk);
 
-    public void checkAddNodes(IElement jobletContainer);
+    public List<INode> checkAddNodes(IElement jobletContainer);
 
-    public void checkDeleteNodes(IElement jobletContainer);
+    public List<INode> checkDeleteNodes(IElement jobletContainer);
 
 }
