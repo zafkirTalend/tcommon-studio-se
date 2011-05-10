@@ -60,6 +60,7 @@ import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.properties.TDQItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -826,6 +827,15 @@ public class DeleteAction extends AContextualAction {
                             }
                         }
                     } else {
+                        // MOD qiongli 2011-5-10,bug 21189.should remove dependency after showing the question dialog of
+                        // physical delete.
+                        if (item instanceof TDQItem || item instanceof ConnectionItem) {
+                            AbstractResourceChangesService resourceChangeService = TDQServiceRegister.getInstance()
+                                    .getResourceChangeService(AbstractResourceChangesService.class);
+                            if (resourceChangeService != null) {
+                                resourceChangeService.removeAllDependecies(item);
+                            }
+                        }
                         factory.deleteObjectPhysical(objToDelete);
                         ExpressionPersistance.getInstance().jobDeleted(objToDelete.getLabel());
                     }

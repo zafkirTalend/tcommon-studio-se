@@ -51,4 +51,9 @@ public class AbstractResourceChangesService implements IService {
     public boolean isAnalysisOrReportItem(Item item) {
         return false;
     };
+
+    // ADD qiongli 2011-5-10.should remove dependecy after showing the question of physical delete and confirm.
+    public void removeAllDependecies(Item item) {
+
+    }
 }
