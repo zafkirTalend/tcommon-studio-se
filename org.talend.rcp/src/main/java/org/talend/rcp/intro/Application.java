@@ -72,7 +72,7 @@ public class Application implements IApplication {
                 repositoryService.setRCPMode();
             }
 
-            if (!ArrayUtils.contains(Platform.getApplicationArgs(), "--disableLoginDialog")) {
+            if (!ArrayUtils.contains(Platform.getApplicationArgs(), "--disableLoginDialog") && !Boolean.parseBoolean(System.getProperty("talend.project.Startable"))) {//$NON-NLS-1$ //$NON-NLS-2$
                 openLicenseAndRegister(shell);
             }
 
@@ -96,6 +96,13 @@ public class Application implements IApplication {
                     shell.dispose();
                 }
             }
+
+            // if some commands are set to relaunch (not restart) the eclipse then relaunch it
+            // this happens when project type does not match the running product type
+            if (System.getProperty(org.eclipse.equinox.app.IApplicationContext.EXIT_DATA_PROPERTY) != null) {
+                return IApplication.EXIT_RELAUNCH;
+            }
+
             if (LoginComposite.isRestart) {
                 return IApplication.EXIT_RESTART;
             }
@@ -104,7 +111,11 @@ public class Application implements IApplication {
 
             int returnCode = PlatformUI.createAndRunWorkbench(display, new ApplicationWorkbenchAdvisor());
             if (returnCode == PlatformUI.RETURN_RESTART) {
-                return IApplication.EXIT_RESTART;
+                // use relaunch instead of restart to remove change the restart property that may have been added in the
+                // previous
+                // relaunch
+                System.setProperty(org.eclipse.equinox.app.IApplicationContext.EXIT_DATA_PROPERTY, "-talendRestart false");
+                return IApplication.EXIT_RELAUNCH;
             } else {
                 return IApplication.EXIT_OK;
             }
