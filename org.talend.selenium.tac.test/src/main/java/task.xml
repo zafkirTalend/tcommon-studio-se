@@ -118,7 +118,7 @@
             <!--<class name="com.talend.tac.cases.executionTask.TestDuplicateTrigger"/>
             --><class name="com.talend.tac.cases.executionTask.TestDeleteTrigger"/>
             <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddCronTrigger"/>
-            
+             <class name="com.talend.tac.cases.jobconductor.TestTaskDisplay"/> 
             <!--<class name="com.talend.tac.cases.executionTask.TestTriggerBarPauseResume"/> 
         -->
         </classes> 
