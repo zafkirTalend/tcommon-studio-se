@@ -78,6 +78,9 @@
     <parameter name="statisticEnabled" value="enabled" />
     <parameter name="statisticDisabled" value="disabled" />
     <parameter name="statisticRemoved" value="removed" />
+    <parameter name="statisticRemoved(regeneration needed, fastest)" value="removed (regeneration needed, fastest)" />
+    <parameter name="statisticRemoved(fastest)" value="removed (fastest)" />
+    <parameter name="statisticEnabled(regeneration needed)" value="enabled (regeneration needed)" />
     
     <parameter name="jobNameTJava" value="tjava"/>
     <parameter name="jobNameTRunJob" value="tRunJob"/>
