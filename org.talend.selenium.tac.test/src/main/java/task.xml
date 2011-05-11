@@ -4,9 +4,10 @@
 
     <!-- add task -->
 	<parameter name="label" value="testTask" />
+	<parameter name="TaskWithtRunjob" value="testTask"/>
 	<parameter name="TaskBaseBranch" value="BranchTask"/>
 	<parameter name="ProjectBranch" value="test_branch"/>
-	
+	<parameter name="labelStatisticViewTask" value="TASK" />
 	<parameter name="jobNameBranchJob" value="BranchTjava"/>
 	
 	<parameter name="labelDescription" value="test add a task" />
@@ -96,21 +97,22 @@
         
              these execution are need configurations(project/SVN/job)     
             -->
-            <class name="com.talend.tac.cases.executionTask.TestAddTask"/>
+            <class name="com.talend.tac.cases.executionTask.TestAddTaskBaseBranchProject"/>
+            <class name="com.talend.tac.cases.executionTask.TestTaskWithTRunjob"/><!--
             <class name="com.talend.tac.cases.executionTask.TestDuplicateTask"/>
             <class name="com.talend.tac.cases.executionTask.TestDeteleTask"/>
-            <class name="com.talend.tac.cases.executionTask.TestModifyTask"/> <!-- 
-     		<class name="com.talend.tac.cases.executionTask.TestAddJVMParametersForTask"/> -->
+            <class name="com.talend.tac.cases.executionTask.TestModifyTask"/>  
+     		<class name="com.talend.tac.cases.executionTask.TestAddJVMParametersForTask"/> 
             <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddSimpleTrigger"/>
-             <!--  
+               
             <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddFileTrigger"/>
-            -->
+            
            
-            <!--<class name="com.talend.tac.cases.executionTask.TestDuplicateTrigger"/>
-            --><class name="com.talend.tac.cases.executionTask.TestDeleteTrigger"/>
+            <class name="com.talend.tac.cases.executionTask.TestDuplicateTrigger"/>
+            <class name="com.talend.tac.cases.executionTask.TestDeleteTrigger"/>
             <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddCronTrigger"/>
             
-            <!--<class name="com.talend.tac.cases.executionTask.TestTriggerBarPauseResume"/> 
+            --><!--<class name="com.talend.tac.cases.executionTask.TestTriggerBarPauseResume"/> 
         --></classes> 
 	</test>
 	
