@@ -4,6 +4,11 @@
 
     <!-- add task -->
 	<parameter name="label" value="testTask" />
+	<parameter name="TaskBaseBranch" value="BranchTask"/>
+	<parameter name="ProjectBranch" value="test_branch"/>
+	
+	<parameter name="jobNameBranchJob" value="BranchTjava"/>
+	
 	<parameter name="labelDescription" value="test add a task" />
 	<parameter name="existLabelDescription" value="test add a exist task" />
 	<parameter name="labelNotChooseActive" value="testTaskNotChooseActive"/>
@@ -65,6 +70,7 @@
     
     <!--branchName version context Statistic jodName serverName-->
     <parameter name="branchNameTrunk" value="trunk" />
+    
     <parameter name="version0.1" value="0.1" />
     <parameter name="versionLatest" value="Latest" /> 
     <parameter name="context" value="Default" />
