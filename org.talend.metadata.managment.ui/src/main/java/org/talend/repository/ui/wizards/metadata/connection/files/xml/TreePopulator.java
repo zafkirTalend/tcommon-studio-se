@@ -64,9 +64,9 @@ public class TreePopulator {
     public boolean populateTree(String filePath, ATreeNode treeNode, String selectedEntity) {
         availableXmlTree.removeAll();
         xPathToTreeItem.clear();
-        CopyDeleteFileUtil util = new CopyDeleteFileUtil();
-        String newFilePath = util.copyToTemp(filePath);
         if (filePath != null && !filePath.equals("")) { //$NON-NLS-1$
+            CopyDeleteFileUtil util = new CopyDeleteFileUtil();
+            String newFilePath = util.copyToTemp(filePath);
             try {
                 treeNode = SchemaPopulationUtil.getSchemaTree(newFilePath, true, limit);
             } catch (MalformedURLException e) {
