@@ -19,6 +19,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -33,6 +34,7 @@ import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTableItem;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.talend.swtbot.items.TalendEdiItem;
@@ -1558,46 +1560,57 @@ public class Utilities {
         }
         gefBot.button("Next >").click();
 
-        try {
-            SWTBotTree tree = gefBot.tree();
-            SWTBotTreeItem metadataNode = getTalendItemNode(tree, metadataType);
-            if (TalendItemType.DB_CONNECTIONS.equals(metadataType)) {
-                metadataNode.expandNode(metadataName + " 0.1", "Table schemas").select("test");
-            }
+        // try {
+        SWTBotTree tree = gefBot.tree();
+        SWTBotTreeItem metadataNode = getTalendItemNode(tree, metadataType);
+        if (TalendItemType.DB_CONNECTIONS.equals(metadataType)) {
+            metadataNode.expandNode(metadataName + " 0.1", "Table schemas").select("test");
+        } else {
             metadataNode.expandNode(metadataName + " 0.1").select("metadata");
-            gefBot.button("Select All").click();
-            gefBot.button("Next >").click();
-
-            if ("Reference Check".equals(ruleType)) {
-                gefBot.radio(0).click();
-                gefBot.button("Next >").click();
-                // problem - how to drag columns with SWTBot, wait...
-            } else if ("Basic Value Check".equals(ruleType)) {
-                gefBot.radio(1).click();
-                gefBot.button("Next >").click();
-                gefBot.buttonWithTooltip("Add").click();
-                gefBot.tableWithLabel("Conditions").click(0, 2);
-                gefBot.ccomboBox().setSelection("Column0");
-                gefBot.tableWithLabel("Conditions").click(0, 3);
-                gefBot.ccomboBox().setSelection("Empty");
-                gefBot.tableWithLabel("Conditions").click(0, 4);
-                gefBot.ccomboBox().setSelection("Greater");
-                gefBot.tableWithLabel("Conditions").click(0, 5);
-                gefBot.text().setText("50");
-            } else if ("Custom Check".equals(ruleType)) {
-                gefBot.radio(2).click();
-                gefBot.button("Next >").click();
-                gefBot.styledText().setText("true");
-            }
-            gefBot.button("Next >").click();
-            gefBot.button("Finish").click();
-        } catch (WidgetNotFoundException wnfe) {
-            shell.close();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            shell.close();
-            Assert.fail(e.getMessage());
         }
+        gefBot.button("Select All").click();
+        gefBot.button("Next >").click();
+
+        if ("Reference Check".equals(ruleType)) {
+            gefBot.radio(0).click();
+            gefBot.button("Next >").click();
+            metadataNode = getTalendItemNode(gefBot.tree(0), TalendItemType.DB_CONNECTIONS);
+            metadataNode.expandNode(metadataName + " 0.1", "Table schemas").select("reference");
+            gefBot.button("Next >").click();
+            DndUtil dndUtil = new DndUtil(shell.display);
+            SWTBotTableItem sourceItem = null;
+            SWTBotTableItem targetItem = null;
+            for (int i = 0; i < gefBot.table(0).rowCount(); i++) {
+                sourceItem = gefBot.table(0).getTableItem(i);
+                targetItem = gefBot.table(1).getTableItem(i);
+                dndUtil.dragAndDrop(sourceItem, targetItem);
+            }
+        } else if ("Basic Value Check".equals(ruleType)) {
+            gefBot.radio(1).click();
+            gefBot.button("Next >").click();
+            gefBot.buttonWithTooltip("Add").click();
+            gefBot.tableWithLabel("Conditions").click(0, 2);
+            gefBot.ccomboBox().setSelection("Column0");
+            gefBot.tableWithLabel("Conditions").click(0, 3);
+            gefBot.ccomboBox().setSelection("Empty");
+            gefBot.tableWithLabel("Conditions").click(0, 4);
+            gefBot.ccomboBox().setSelection("Greater");
+            gefBot.tableWithLabel("Conditions").click(0, 5);
+            gefBot.text().setText("50");
+        } else if ("Custom Check".equals(ruleType)) {
+            gefBot.radio(2).click();
+            gefBot.button("Next >").click();
+            gefBot.styledText().setText("true");
+        }
+        gefBot.button("Next >").click();
+        gefBot.button("Finish").click();
+        // } catch (WidgetNotFoundException wnfe) {
+        // shell.close();
+        // Assert.fail(wnfe.getCause().getMessage());
+        // } catch (Exception e) {
+        // shell.close();
+        // Assert.fail(e.getMessage());
+        // }
 
         SWTBotTreeItem newRuleItem = null;
         try {
@@ -1711,6 +1724,35 @@ public class Utilities {
             e.printStackTrace();
         } finally {
             Assert.assertNotNull("validation EDI item is not created", newEDIItem);
+        }
+    }
+
+    /**
+     * DOC fzhong Comment method "retrieveDbSchema".
+     * 
+     * @param gefBot
+     * @param treeNode db connection node
+     * @param itemName db item name
+     * @param schemas schemas to retrieve
+     */
+    public static void retrieveDbSchema(SWTGefBot gefBot, SWTBotTreeItem treeNode, String itemName, String... schemas) {
+        SWTBotShell tempShell = null;
+        try {
+            treeNode.getNode(itemName + " 0.1").contextMenu("Retrieve Schema").click();
+            tempShell = gefBot.shell("Schema").activate();
+            gefBot.button("Next >").click();
+            List<String> schemaList = new ArrayList<String>(Arrays.asList(schemas));
+            for (String schema : schemaList) {
+                gefBot.tree(0).expandNode(System.getProperty("mysql.dataBase")).getNode(schema).check();
+            }
+            gefBot.button("Next >").click();
+            gefBot.button("Finish").click();
+        } catch (WidgetNotFoundException wnfe) {
+            tempShell.close();
+            Assert.fail(wnfe.getCause().getMessage());
+        } catch (Exception e) {
+            tempShell.close();
+            Assert.fail(e.getMessage());
         }
     }
 }

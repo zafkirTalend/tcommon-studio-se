@@ -10,7 +10,10 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tosstudio.metadata.databaseoperation;
+package tisstudio.metadata.validationrules;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
@@ -19,7 +22,6 @@ import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +32,7 @@ import org.talend.swtbot.Utilities;
  * DOC fzhong class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class RetrieveSchemaWizardTest extends TalendSwtBotForTos {
+public class CreateReferenceCheckRulesTest extends TalendSwtBotForTos {
 
     private SWTBotView view;
 
@@ -38,34 +40,38 @@ public class RetrieveSchemaWizardTest extends TalendSwtBotForTos {
 
     private SWTBotTreeItem treeNode;
 
-    private static final String DBNAME = "mysql";
+    private SWTBotTreeItem metadataNode;
 
-    private static final String TABLENAME = "autotest";
+    private static final String VALIDATION_RULES_NAME = "rulesTest";
+
+    private static final String DB_NAME = "testDB";
+
+    private static final String RULE_TYPE = "Reference Check";
 
     @Before
-    public void createDBConnection() {
+    public void initialisePrivateFields() throws IOException, URISyntaxException {
         view = Utilities.getRepositoryView(gefBot);
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.DB_CONNECTIONS);
-        Utilities.createDbConnection(gefBot, treeNode, Utilities.DbConnectionType.MYSQL, DBNAME);
-        String sql = "create table " + TABLENAME + "(id int, name varchar(20))";
-        Utilities.executeSQL(gefBot, treeNode.getNode(DBNAME + " 0.1"), sql);
+        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.VALIDATION_RULES);
+        metadataNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.DB_CONNECTIONS);
+        Utilities.createDbConnection(gefBot, metadataNode, Utilities.DbConnectionType.MYSQL, DB_NAME);
+        String sql = "create table test(id int, name varchar(12));\n" + "create table reference(id int, name varchar(12));";
+        Utilities.executeSQL(gefBot, metadataNode.getNode(DB_NAME + " 0.1"), sql);
+        Utilities.retrieveDbSchema(gefBot, metadataNode, DB_NAME, "test", "reference");
     }
 
     @Test
-    public void retrieveSchema() {
-        int rowCount = 0;
-        Utilities.retrieveDbSchema(gefBot, treeNode, DBNAME, TABLENAME);
-
-        rowCount = treeNode.expandNode(DBNAME + " 0.1").getNode("Table schemas").rowCount();
-        Assert.assertEquals("schemas be retrieved even cancel the wizard of retrieving schema", 0, rowCount);
+    public void createReferenceCheckRules() {
+        Utilities.createValidationRules(RULE_TYPE, Utilities.TalendItemType.DB_CONNECTIONS, DB_NAME, VALIDATION_RULES_NAME,
+                gefBot, treeNode);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        String sql = "drop table " + TABLENAME;
-        Utilities.executeSQL(gefBot, treeNode.expandNode(DBNAME + " 0.1"), sql);
+        String sql = "drop table test;\n" + "drop table reference;";
+        Utilities.executeSQL(gefBot, metadataNode.getNode(DB_NAME + " 0.1"), sql);
         Utilities.cleanUpRepository(treeNode);
+        Utilities.cleanUpRepository(metadataNode);
         Utilities.emptyRecycleBin(gefBot, tree);
     }
 }

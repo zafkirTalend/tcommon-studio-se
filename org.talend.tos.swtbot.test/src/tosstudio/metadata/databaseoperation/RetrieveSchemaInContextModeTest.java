@@ -68,24 +68,18 @@ public class RetrieveSchemaInContextModeTest extends TalendSwtBotForTos {
             gefBot.button("Finish").click();
             gefBot.shell("Modification").activate();
             gefBot.button("No").click();
-
-            treeNode.getNode(DBNAME + " 0.1").contextMenu("Retrieve Schema").click();
-            tempShell = gefBot.shell("Schema").activate();
-            gefBot.button("Next >").click();
-            gefBot.tree(0).expandNode(System.getProperty("mysql.dataBase")).getNode(TABLENAME).check();
-            gefBot.button("Next >").click();
-            gefBot.button("Finish").click();
-
-            tableItem = treeNode.expandNode(DBNAME + " 0.1", "Table schemas").getNode(TABLENAME);
         } catch (WidgetNotFoundException wnfe) {
             tempShell.close();
             Assert.fail(wnfe.getCause().getMessage());
         } catch (Exception e) {
             tempShell.close();
             Assert.fail(e.getMessage());
-        } finally {
-            Assert.assertNotNull("schemas did not retrieve", tableItem);
         }
+        Utilities.retrieveDbSchema(gefBot, treeNode, DBNAME, TABLENAME);
+
+        tableItem = treeNode.expandNode(DBNAME + " 0.1", "Table schemas").getNode(TABLENAME);
+        Assert.assertNotNull("schemas did not retrieve", tableItem);
+
     }
 
     @After

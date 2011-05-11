@@ -58,14 +58,8 @@ public class ModifyMetadataSchemaTest extends TalendSwtBotForTos {
     public void modifyMetadataSchema() {
         SWTBotShell schemaShell = null;
         int rowCount = 2;
+        Utilities.retrieveDbSchema(gefBot, treeNode, DBNAME, TABLENAME);
         try {
-            treeNode.getNode(DBNAME + " 0.1").contextMenu("Retrieve Schema").click();
-            schemaShell = gefBot.shell("Schema").activate();
-            gefBot.button("Next >").click();
-            gefBot.tree(0).expandNode(System.getProperty("mysql.dataBase")).getNode(TABLENAME).check();
-            gefBot.button("Next >").click();
-            gefBot.button("Finish").click();
-
             treeNode.expandNode(DBNAME + " 0.1", "Table schemas").getNode(TABLENAME).doubleClick();
             schemaShell = gefBot.shell("Schema").activate();
             gefBot.buttonWithTooltip("Add").click();
