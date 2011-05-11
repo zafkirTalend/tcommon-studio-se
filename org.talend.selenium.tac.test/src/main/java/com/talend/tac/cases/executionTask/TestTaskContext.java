@@ -96,7 +96,7 @@ public class TestTaskContext extends Login {
 				"//span[text()='Custom value']//ancestor::div[@class='x-grid3-viewport']//div[text()='age']//ancestor::div[@class='x-grid3-scroller']//input",
 				contextNewage);
 		//modify context birth
-		String contextNewbirth = "1999-08-13 00:00:00";
+		String contextNewbirth = " yyyy-MM-dd HH:mm:ss;2012-01-01 00:00:00";
 		selenium.click("//div[text()='birth']/ancestor::table[@class='x-grid3-row-table']//img");
 		this.typeString(
 				"//span[text()='Custom value']//ancestor::div[@class='x-grid3-viewport']//div[text()='birth']//ancestor::div[@class='x-grid3-scroller']//input",
