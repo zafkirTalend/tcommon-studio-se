@@ -49,6 +49,7 @@ public class ResourceService implements IResourceService {
 
     private final static String RESOURCES = "resources"; //$NON-NLS-1$
 
+    private final static String TDQEEDEMOJAVA = "TDQEEDEMOJAVA";//$NON-NLS-1$
     /*
      * (non-Javadoc)
      * 
@@ -92,11 +93,17 @@ public class ResourceService implements IResourceService {
         }
     }
 
-    public String getDemoDescription(ECodeLanguage language) {
+    public String getDemoDescription(ECodeLanguage language, String projectname) {
         if (language == null) {
             language = ECodeLanguage.PERL;
         }
 
-        return Messages.getString("demodescription.html", language.getCaseName()); //$NON-NLS-1$
+        // MOD gdbu 2011-5-10 bug : 21138
+        if (projectname.equals(TDQEEDEMOJAVA)) {
+            return Messages.getString("tdqdemodescription.html", "Data Quality"); //$NON-NLS-1$ //$NON-NLS-2$ 
+        } else {
+            return Messages.getString("demodescription.html", language.getCaseName()); //$NON-NLS-1$
+        }
+        // ~21138
     }
 }

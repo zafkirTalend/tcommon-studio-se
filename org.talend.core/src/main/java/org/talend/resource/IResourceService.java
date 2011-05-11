@@ -27,5 +27,7 @@ public interface IResourceService extends IService {
 
     public String getResourcesPath();
 
-    public String getDemoDescription(ECodeLanguage language);
+    // MOD gdbu 2011-5-10 bug : 21138
+    public String getDemoDescription(ECodeLanguage language, String projectname);
+    // ~21138
 }
