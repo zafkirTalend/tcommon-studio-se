@@ -81,6 +81,7 @@ import org.talend.repository.ui.utils.ShadowProcessHelper;
 import org.talend.repository.ui.wizards.CheckLastVersionRepositoryWizard;
 import org.talend.repository.ui.wizards.PropertiesWizardPage;
 import org.talend.repository.ui.wizards.metadata.connection.Step0WizardPage;
+import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.CopyDeleteFileUtil;
 import orgomg.cwm.resource.record.RecordFactory;
 import orgomg.cwm.resource.record.RecordFile;
 
@@ -718,6 +719,11 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
         if (xsdFile.exists()) {
             xsdFile.delete();
         }
-    }
+        CopyDeleteFileUtil util = new CopyDeleteFileUtil();
 
+        for (String fileName : CopyDeleteFileUtil.fileList) {
+            util.delFile(temPath + File.separator + fileName);
+        }
+        CopyDeleteFileUtil.fileList.clear();
+    }
 }

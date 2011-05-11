@@ -24,6 +24,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.model.utils.RepositoryManagerHelper;
+import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.CopyDeleteFileUtil;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -63,9 +64,11 @@ public class TreePopulator {
     public boolean populateTree(String filePath, ATreeNode treeNode, String selectedEntity) {
         availableXmlTree.removeAll();
         xPathToTreeItem.clear();
+        CopyDeleteFileUtil util = new CopyDeleteFileUtil();
+        String newFilePath = util.copyToTemp(filePath);
         if (filePath != null && !filePath.equals("")) { //$NON-NLS-1$
             try {
-                treeNode = SchemaPopulationUtil.getSchemaTree(filePath, true, limit);
+                treeNode = SchemaPopulationUtil.getSchemaTree(newFilePath, true, limit);
             } catch (MalformedURLException e) {
                 ExceptionHandler.process(e);
             } catch (OdaException e) {
