@@ -187,15 +187,15 @@ public class ProcessorUtilities {
      * @return
      */
     public static IProcessor getProcessor(IProcess process, Property property) {
-        // if (process.getProcessor() == null) {
+        Property curProperty = property;
+        if (property == null && process instanceof IProcess2) {
+            curProperty = ((IProcess2) process).getProperty();
+        }
+
         IRunProcessService service = CorePlugin.getDefault().getRunProcessService();
-        IProcessor processor = service.createCodeProcessor(process, property, ((RepositoryContext) CorePlugin.getContext()
+        IProcessor processor = service.createCodeProcessor(process, curProperty, ((RepositoryContext) CorePlugin.getContext()
                 .getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage(), true);
-        // process.setProcessor(processor);
         return processor;
-        // } else {
-        // return process.getProcessor();
-        // }
     }
 
     private static boolean isCodeGenerationNeeded(JobInfo jobInfo, boolean statistics, boolean trace) {
@@ -1031,7 +1031,11 @@ public class ProcessorUtilities {
     public static String[] getCommandLine(String targetPlatform, boolean externalUse, IProcess currentProcess,
             String contextName, boolean needContext, int statisticPort, int tracePort, String... codeOptions)
             throws ProcessorException {
-        return getCommandLine(targetPlatform, externalUse, currentProcess, null, contextName, needContext, statisticPort,
+        Property curProperty = null;
+        if (currentProcess instanceof IProcess2) {
+            curProperty = ((IProcess2) currentProcess).getProperty();
+        }
+        return getCommandLine(targetPlatform, externalUse, currentProcess, curProperty, contextName, needContext, statisticPort,
                 tracePort, codeOptions);
     }
 
