@@ -63,9 +63,11 @@ import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.CoreRepositoryPlugin;
+import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.metadata.managment.ui.i18n.Messages;
+import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IProxyRepositoryService;
 import org.talend.repository.model.RepositoryConstants;
@@ -809,11 +811,12 @@ public abstract class PropertiesWizardPage extends WizardPage {
             descriptionText.setText(StringUtils.trimToEmpty(property.getDescription()));
             authorText.setText(StringUtils.trimToEmpty(property.getAuthor().getLogin()));
             lockerText.setText(""); //$NON-NLS-1$
-            try {
-                if (property.getItem().getState().isLocked())
-                    lockerText.setText(property.getItem().getState().getLocker().getLogin());
-            } catch (Exception e) {
-                // ignore null pointer exceptions
+            ProxyRepositoryFactory instance = ProxyRepositoryFactory.getInstance();
+            Item item = property.getItem();
+            if (instance.getStatus(item) == ERepositoryStatus.LOCK_BY_USER
+                    || (instance.getStatus(item) == ERepositoryStatus.LOCK_BY_OTHER)) {
+                String locker = instance.getLockInfo(item).getUser();
+                lockerText.setText(locker);
             }
             versionText.setText(property.getVersion());
             statusText.setText(statusHelper.getStatusLabel(property.getStatusCode()));
