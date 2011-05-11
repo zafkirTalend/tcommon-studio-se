@@ -328,7 +328,7 @@ public class DatabaseTableForm extends AbstractForm {
             List<MetadataColumn> list = metadataEditor.getMetadataColumnList();
             for (MetadataColumn column : list) {
                 if (!isCnorEn(column.getLabel())) {
-                    String label = metadataEditor.getNextGeneratedColumnName("newColumn");
+                    String label = metadataEditor.getNextGeneratedColumnName("newColumn"); //$NON-NLS-1$
                     column.setLabel(label);
                 }
             }
@@ -358,7 +358,8 @@ public class DatabaseTableForm extends AbstractForm {
         }
         String sourceName = metadataTable.getName();
         // tableCombo.setReadOnly(sourceName != null);
-        tableCombo.setText(sourceName);
+        // tableCombo.setText(sourceName);
+        initTableComboItem();
         updateRetreiveSchemaButton();
         nameText.forceFocus();
     }
@@ -373,6 +374,36 @@ public class DatabaseTableForm extends AbstractForm {
             handleDefaultValue(metadataColumn);
         }
 
+    }
+
+    private void initTableComboItem() {
+        TableInfoParameters parameter = new TableInfoParameters();
+        List<String> comboTableNames;
+        try {
+            comboTableNames = ExtractMetaDataFromDataBase.returnTablesFormConnection(iMetadataConnection, parameter);
+        } catch (Exception e) {
+            comboTableNames = new ArrayList<String>();
+        }
+        if (comboTableNames != null && !comboTableNames.isEmpty()) {
+            int size = comboTableNames.size();
+            if (size > LabelledCombo.MAX_VISIBLE_ITEM_COUNT) {
+                size = LabelledCombo.MAX_VISIBLE_ITEM_COUNT;
+            }
+            tableCombo.setVisibleItemCount(size);
+            tableCombo.removeAll();
+            boolean selected = false;
+            for (int i = 0; i < comboTableNames.size(); i++) {
+                tableCombo.add(comboTableNames.get(i));
+                if (comboTableNames.get(i).equals(metadataTable.getName())) {
+                    tableCombo.select(i);
+                    selected = true;
+                }
+            }
+            if (!selected) {
+                tableCombo.select(0);
+            }
+
+        }
     }
 
     /**
@@ -404,7 +435,7 @@ public class DatabaseTableForm extends AbstractForm {
                 String returnBoolean = TalendQuoteUtils.removeQuotes(returnValue);
                 // modified by nma, there maybe null pb.
                 if (returnBoolean != null && returnBoolean.length() > 0 && returnBoolean.getBytes()[0] == 1) {
-                    returnValue = TalendQuoteUtils.addQuotes("1");
+                    returnValue = TalendQuoteUtils.addQuotes("1"); //$NON-NLS-1$
                     bean.setDefaultValue(returnValue);
                 }
             }
@@ -638,8 +669,9 @@ public class DatabaseTableForm extends AbstractForm {
                     removeTableButton.setEnabled(true);
                     TableItem[] selection = tableNavigator.getSelection();
                     if (selection != null && selection.length > 0) {
-                        boolean openConfirm = MessageDialog.openConfirm(getShell(), "Confirm",
-                                "Are you sure to delete this schema ?");
+                        boolean openConfirm = MessageDialog.openConfirm(getShell(),
+                                Messages.getString("DatabaseTableForm.confirm"), //$NON-NLS-1$
+                                Messages.getString("DatabaseTableForm.detete_table")); //$NON-NLS-1$
                         if (openConfirm) {
                             for (TableItem item : selection) {
                                 if (tableNavigator.indexOf(item) != -1) {
@@ -965,7 +997,7 @@ public class DatabaseTableForm extends AbstractForm {
                 updateStatus(IStatus.ERROR, Messages.getString("CommonWizard.nameAlreadyExist") + " \"" + table.getLabel() + "\""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                 return false;
             } else if (!MetadataToolHelper.isValidSchemaName(table.getLabel())) {
-                updateStatus(IStatus.ERROR, Messages.getString("DatabaseTableForm.invalidChar", table.getLabel())); //$NON-NLS-1$
+                updateStatus(IStatus.ERROR, "");
                 return false;
             }
             // bug 17442
@@ -1038,11 +1070,13 @@ public class DatabaseTableForm extends AbstractForm {
                         Messages.getString("DatabaseTableForm.retreiveButtonConfirmationMessage")); //$NON-NLS-1$
             }
             if (doit) {
-                int selectionIndex = tableCombo.getSelectionIndex();
-                if (selectionIndex < 0) {
-                    tableString = editSchemaTableName;
-                } else {
-                    tableString = tableCombo.getItem(selectionIndex);
+                tableString = tableCombo.getText();
+                if (tableCombo.getCombo().indexOf(tableString) == -1) {
+                    MessageDialog
+                            .openError(
+                                    getShell(),
+                                    Messages.getString("DatabaseTableForm.no_such_table"), Messages.getString("DatabaseTableForm.type_another_name")); //$NON-NLS-1$ //$NON-NLS-2$
+                    return;
                 }
 
                 List<TdColumn> metadataColumns = new ArrayList<TdColumn>();
@@ -1083,6 +1117,13 @@ public class DatabaseTableForm extends AbstractForm {
         String tableName = tableCombo.getText();
         CsvArray array;
         try {
+            if (tableCombo.getCombo().indexOf(tableName) == -1) {
+                MessageDialog
+                        .openError(
+                                getShell(),
+                                Messages.getString("DatabaseTableForm.no_such_table"), Messages.getString("DatabaseTableForm.type_another_name")); //$NON-NLS-1$ //$NON-NLS-2$
+                return;
+            }
             IMetadataTable table = UpdateRepositoryUtils.getTableByName(connectionItem, tableName);
             if (table == null) {
                 return;
