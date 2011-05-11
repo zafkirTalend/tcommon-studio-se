@@ -6,6 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
 public class TestTaskWithTRunjob extends Login {
@@ -39,7 +40,7 @@ public class TestTaskWithTRunjob extends Login {
 		Thread.sleep(3000);
 		selenium.click("//button[@id='idJobConductorTaskRunButton()'  and @class='x-btn-text ' and text()='Run']");
 //		Date start = new Date();
-		boolean success = (waitForCondition("//label[text()='Ok']", 30));
+		boolean success = (waitForCondition("//label[text()='Ok']", Base.WAIT_TIME));
 		// close the pop window
 		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
 		// System.out.println(checkContextValue(start));
