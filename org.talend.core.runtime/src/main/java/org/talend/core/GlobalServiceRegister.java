@@ -20,7 +20,6 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.core.runtime.i18n.Messages;
 
 /**
  * DOC qian class global comment. A global service register provides the service registration and acquirement. <br/>
@@ -98,7 +97,9 @@ public class GlobalServiceRegister {
         if (service == null) {
             service = findService(klass);
             if (service == null) {
-                throw new RuntimeException(Messages.getString("GlobalServiceRegister.ServiceNotRegistered", klass.getName())); //$NON-NLS-1$ //$NON-NLS-2$
+                // DEL by msjian 2011-5-12 21241: TOP don't need the service "IRepositoryService", don't need to throw
+                // this exception
+                // throw new RuntimeException(Messages.getString("GlobalServiceRegister.ServiceNotRegistered", klass.getName())); //$NON-NLS-1$ //$NON-NLS-2$
             }
             services.put(klass, service);
         }
