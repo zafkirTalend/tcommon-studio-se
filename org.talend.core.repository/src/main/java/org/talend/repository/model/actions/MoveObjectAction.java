@@ -74,9 +74,10 @@ public class MoveObjectAction {
         }
 
         IRepositoryViewObject objectToCopy = sourceNode.getObject();
-        
-        // can't drag a recycle bin item
-        if (objectToCopy != null && ProxyRepositoryFactory.getInstance().getStatus(objectToCopy) == ERepositoryStatus.DELETED) {
+
+        // can't drag an item in recycle bin
+        if (isDnd && objectToCopy != null
+                && ProxyRepositoryFactory.getInstance().getStatus(objectToCopy) == ERepositoryStatus.DELETED) {
             return false;
         }
 
