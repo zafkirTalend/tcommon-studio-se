@@ -813,8 +813,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
             lockerText.setText(""); //$NON-NLS-1$
             ProxyRepositoryFactory instance = ProxyRepositoryFactory.getInstance();
             Item item = property.getItem();
-            if (item.getState() != null
-                    && (instance.getStatus(item) == ERepositoryStatus.LOCK_BY_USER || (instance.getStatus(item) == ERepositoryStatus.LOCK_BY_OTHER))) {
+            if (instance.getStatus(item) == ERepositoryStatus.LOCK_BY_USER
+                    || (instance.getStatus(item) == ERepositoryStatus.LOCK_BY_OTHER)) {
                 String locker = instance.getLockInfo(item).getUser();
                 lockerText.setText(locker);
             }

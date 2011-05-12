@@ -2313,7 +2313,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * @see org.talend.repository.model.IRepositoryFactory#getStatus(org.talend.core .model.properties.Item)
      */
     public ERepositoryStatus getStatus(Item item) {
-        if (item != null) {
+        if (item != null && item.getState() != null) {
             if (item.getState().isDeleted()) {
                 return ERepositoryStatus.DELETED;
             }
