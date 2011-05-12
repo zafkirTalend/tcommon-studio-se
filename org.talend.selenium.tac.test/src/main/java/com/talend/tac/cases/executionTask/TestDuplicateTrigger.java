@@ -8,9 +8,8 @@ import com.talend.tac.cases.Login;
 
 public class TestDuplicateTrigger extends Login {
     
-	@Test(dependsOnGroups={"AddSimpleTrigger"})
-	@Parameters({"modifyTask","addSimpleTriggerLabel","duplicateTriggerLabel"})
-	public void testDuplicateTrigger(String task, String trigger, String duplicateTrigger) {
+	//add method for duplication trigger
+	public void duplicateTrigger(String task, String trigger, String triggerType) {
 	   
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
     	selenium.setSpeed(MID_SPEED);
@@ -24,15 +23,36 @@ public class TestDuplicateTrigger extends Login {
     			"div/parent::div/parent::div/parent::div//button[@id='idSubModuleDuplicateButton']");
     	
     
-    	selenium.click("//span[text()='Add simple trigger']/parent::legend/parent::fieldset/parent::form/" +
+    	selenium.click("//span[text()='"+triggerType+"']/parent::legend/parent::fieldset/parent::form/" +
     			"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
     	selenium.setSpeed(MID_SPEED);
-    	if(!selenium.isElementPresent("//span[text()='"+duplicateTrigger+"']")) {
+    	
+    	if(!selenium.isElementPresent("//span[text()='Copy_of_"+trigger+"']")) {
 			selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::div/" +
 			"parent::div/parent::div//button[text()='Refresh']");
     	}
 
-    	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+duplicateTrigger+"']"));
-    	selenium.setSpeed(MIN_SPEED);    	
+    	Assert.assertTrue(selenium.isElementPresent("//span[text()='Copy_of_"+trigger+"']"));
+    	selenium.setSpeed(MIN_SPEED);   
+    	
 	}
+	
+	//test duplication a simple trigger
+	@Test(dependsOnGroups={"AddCronTrigger"})
+	@Parameters({"labelTRunJobByTaskRun","addSimpleTriggerLabelNotChooseDate","simpleTriggerType"})
+	public void testDuplicationSimpleTrigger(String task, String trigger, String triggerType) {
+		
+		duplicateTrigger(task, trigger, triggerType);
+		
+	}
+	
+	//test duplication a Cron trigger
+	@Test(dependsOnMethods={"testDuplicationSimpleTrigger"})
+	@Parameters({"labelRefProJobByMainProTRunJobRun","cronTiggerLabelAfterModified","cronTriggerType"})
+	public void testDuplicationCronTrigger(String task, String trigger, String triggerType) {
+		
+		duplicateTrigger(task, trigger, triggerType);
+		
+	}
+	
 }
