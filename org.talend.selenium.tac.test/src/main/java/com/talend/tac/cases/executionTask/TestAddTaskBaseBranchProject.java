@@ -9,6 +9,13 @@ import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
 public class TestAddTaskBaseBranchProject  extends Login {
+	public int getTotalExecutionTimes(){
+		int total = 0;
+		
+		
+		return total;
+		
+	}
 	public String getLogsValue() {
 		String logs = null;
 		selenium.click("//span//span[text()='Logs']");
@@ -52,17 +59,19 @@ public class TestAddTaskBaseBranchProject  extends Login {
         Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addSimpleTrigger")+"']"));
         
         this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
-        		"//input[@name='label']", "testSimpletrigger");//label
+        		"//input[@name='label']", "deactiveTaskSimpletrigger");//label
 		
         this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
 				"//input[@name='description']", "testdescription");//description
         this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
-        		"//input[@name='repeatInterval']", "30");//Time interval (s)
+        		"//input[@name='repeatInterval']", timeInterval);//Time interval (s)
 	
         selenium.setSpeed(MID_SPEED);
+        //click save button to save trigger
 	    selenium.click("//span[text()='Add simple trigger']/parent::legend/parent::fieldset/parent::form/" +
 		"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
-	    
+	    Assert.assertTrue(selenium.isElementPresent("//span[text()='deactiveTaskSimpletrigger']"));
+		selenium.setSpeed(MIN_SPEED);
 	
 	}
 	public void addTask(String label, String projectName, String branchName,
@@ -98,6 +107,35 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		this.waitForElementPresent("//div[text()='"+statisticName+"' and @role='listitem']", WAIT_TIME);
 		selenium.mouseDownAt("//div[text()='"+statisticName+"' and @role='listitem']",""+Event.ENTER);
 				
+	}
+	
+	@Test
+	@Parameters({"AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
+		"context","ServerForUseAvailable","statisticEnabled"})
+	public void testDeactiveTaskWithSimpleTrigger(String projectName, String branchName,
+			 String jobName, String version, String context, String serverName, String statisticName) throws InterruptedException{
+		String label = "taskwithsimpletrigger";
+		addTask(label, projectName,branchName,jobName,version,context,serverName,statisticName);
+        if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
+			
+			selenium.click("idFormSaveButton");
+	        selenium.setSpeed(MID_SPEED);
+			Assert.assertTrue(selenium.isElementPresent("//span[text()='"+label+"']"));
+			selenium.setSpeed(MIN_SPEED);
+			
+		}
+        //add a simple trigger for the task
+        addSimpleTrigger(label,"25");
+        //wait for 160 seconds so that the task run several times
+        Thread.sleep(160000);
+        //see task logs ,count the execution times
+        selenium.click("//span//span[text()='Logs']");
+		selenium.setSpeed(MID_SPEED);
+		selenium.click("");
+		Assert.assertTrue(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']"), "task run failed!");
+		
+		Assert.assertTrue(getTotalExecutionTimes() > 0, "task run failed!");
+		
 	}
 	@Test
 	@Parameters({"TaskBaseBranch","AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
@@ -157,6 +195,11 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		if(waitForCondition("//span[@class='x-window-header-text' and text()='Real time statistics']", 15)){
 			Assert.fail("test statistic view disable failed!");
 		}
+		//undo disable select
+		this.selectDropDownList("//input[@id='idJobConductorTaskStatisticsListBox()']", 1);
+		selenium.setSpeed(MID_SPEED);
+		selenium.click("idFormSaveButton");
+		selenium.setSpeed(MIN_SPEED);
 	}
 	@Test
 	@Parameters({"labelStatisticViewTask"})
