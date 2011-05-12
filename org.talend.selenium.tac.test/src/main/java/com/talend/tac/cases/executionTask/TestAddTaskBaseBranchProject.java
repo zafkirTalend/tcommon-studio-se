@@ -9,6 +9,22 @@ import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
 public class TestAddTaskBaseBranchProject  extends Login {
+	public boolean deleteTask(String taskLabel) throws InterruptedException{
+		boolean deleteOk = true;
+		selenium.refresh();
+		this.waitForElementPresent("//span[text()='" + taskLabel + "']",
+				WAIT_TIME);
+		selenium.mouseDown("//span[text()='" + taskLabel + "']");
+		Thread.sleep(3000);
+		selenium.chooseOkOnNextConfirmation();
+		selenium.click("idSubModuleDeleteButton");
+		selenium.getConfirmation();
+		Thread.sleep(3000);
+		if(selenium.isElementPresent("//span[text()='" + taskLabel + "']")){
+			deleteOk = false;
+		}
+		return deleteOk;
+	}
 	public int getTotalExecutionTimes(){
 		int total = 0;
 		selenium.click("//span//span[text()='Logs']");
@@ -59,6 +75,23 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		// System.out.println(checkContextValue(start));
         return success;
 	}
+	
+	public void runTask(String tasklabel,int times) throws InterruptedException{
+		for (int i = 0; i < times; i++) {
+			selenium.refresh();
+			this.waitForElementPresent("//span[text()='" + tasklabel + "']",
+					WAIT_TIME);
+			selenium.mouseDown("//span[text()='" + tasklabel + "']");
+			Thread.sleep(3000);
+			selenium.click("//button[@id='idJobConductorTaskRunButton()'  and @class='x-btn-text ' and text()='Run']");
+			// Date start = new Date();
+			Assert.assertTrue(
+					waitForCondition("//label[text()='Ok']", Base.WAIT_TIME),
+					"task run failed!");
+			// close the pop window
+			selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
+		}
+		}
 	public void addSimpleTrigger(String tasklabel,String timeInterval){
 		selenium.refresh();
 		this.waitForElementPresent("//span[text()='"+tasklabel+"']", WAIT_TIME);
@@ -118,6 +151,51 @@ public class TestAddTaskBaseBranchProject  extends Login {
 				
 	}
 	
+	@Test
+	@Parameters({"AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
+		"context","ServerForUseAvailable","statisticEnabled"})
+	public void testDeleteTaskExecutionLogs(String projectName,
+			String branchName, String jobName, String version, String context,
+			String serverName, String statisticName) throws InterruptedException {
+		String label = "taskDeleteLogs";
+		addTask(label, projectName, branchName, jobName, version, context,
+				serverName, statisticName);
+		if (!selenium.isElementPresent("//span[text()='" + label + "']")) {
+			selenium.click("idFormSaveButton");
+			selenium.setSpeed(MID_SPEED);
+			Assert.assertTrue(selenium.isElementPresent("//span[text()='"
+					+ label + "']"));
+			selenium.setSpeed(MIN_SPEED);
+		}
+		runTask(label,5);
+		selenium.click("//span//span[text()='Logs']");
+		Thread.sleep(3000);
+		Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==5,"task run generate logs failed !");
+		selenium.chooseOkOnNextConfirmation();
+		selenium.click("idJobConductorJobLogClearLogButton()");
+		selenium.getConfirmation();
+		Thread.sleep(3000);
+		Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==0,"task run generate logs failed !");
+		if(deleteTask(label)){
+			addTask(label, projectName, branchName, jobName, version, context,
+					serverName, statisticName);
+			if (!selenium.isElementPresent("//span[text()='" + label + "']")) {
+				selenium.click("idFormSaveButton");
+				selenium.setSpeed(MID_SPEED);
+				Assert.assertTrue(selenium.isElementPresent("//span[text()='"
+						+ label + "']"));
+				selenium.setSpeed(MIN_SPEED);
+			}
+			selenium.setSpeed(MID_SPEED);
+			selenium.mouseDown("//span[text()='"
+						+ label + "']");
+			selenium.click("//span//span[text()='Logs']");
+			Thread.sleep(3000);
+			Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==0,"delete  logs through delete task failed !");
+			selenium.setSpeed(MIN_SPEED);
+		}
+	}
+	
 	@Test(dependsOnGroups={"AddTask"})
 	@Parameters({"AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
@@ -171,6 +249,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		selenium.mouseDown("//span[text()='"+label+"']");
 		Assert.assertFalse( getTotalExecutionTimes()> totalafterdeactive, "task deactive failed!");
 		selenium.setSpeed(MIN_SPEED);
+		deleteTask(label);
 	}
 	@Test(dependsOnMethods={"testDeactiveTaskWithSimpleTrigger"})
 	@Parameters({"TaskBaseBranch","AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
