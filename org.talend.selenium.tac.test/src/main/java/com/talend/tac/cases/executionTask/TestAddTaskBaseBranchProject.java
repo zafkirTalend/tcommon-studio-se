@@ -109,7 +109,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 				
 	}
 	
-	@Test
+	@Test(dependsOnGroups={"AddTask"})
 	@Parameters({"AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
 	public void testDeactiveTaskWithSimpleTrigger(String projectName, String branchName,
@@ -137,7 +137,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		Assert.assertTrue(getTotalExecutionTimes() > 0, "task run failed!");
 		
 	}
-	@Test
+	@Test(dependsOnMethods={"testDeactiveTaskWithSimpleTrigger"})
 	@Parameters({"TaskBaseBranch","AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
 	public void testAddTaskBaseBranch(String label, String projectName, String branchName,
@@ -173,7 +173,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		
 	}
 	
-	@Test
+	@Test(dependsOnMethods={"testRunTaskBaseBranch"})
 	@Parameters({"labelStatisticViewTask"})
 	public void testTaskStatisticViewDisable(String tasklabel) throws InterruptedException{
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
