@@ -11,10 +11,19 @@ import com.talend.tac.cases.Login;
 public class TestAddTaskBaseBranchProject  extends Login {
 	public int getTotalExecutionTimes(){
 		int total = 0;
+		selenium.click("//span//span[text()='Logs']");
+		selenium.setSpeed(MID_SPEED);
+		selenium.click("//img[@src='gxt/themes/access/images/grid/refresh.gif']");
+		String strContains = selenium.getText("//div[@class='my-paging-display x-component ']");
+		String to = (strContains.split("of")[1].trim());
+		selenium.setSpeed(MIN_SPEED);
+		return total=Integer.parseInt(to);
 		
-		
-		return total;
-		
+	}
+	public void inputCheckBoxUncheck(String xpathinputBox){
+		if(selenium.getValue(xpathinputBox).equals("on")){
+			selenium.click(xpathinputBox);
+		}
 	}
 	public String getLogsValue() {
 		String logs = null;
@@ -114,9 +123,12 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		"context","ServerForUseAvailable","statisticEnabled"})
 	public void testDeactiveTaskWithSimpleTrigger(String projectName, String branchName,
 			 String jobName, String version, String context, String serverName, String statisticName) throws InterruptedException{
-		String label = "taskwithsimpletrigger";
-		addTask(label, projectName,branchName,jobName,version,context,serverName,statisticName);
-        if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
+		 String label = "taskwithsimpletrigger";
+		 int executiontime = 120000;
+		 if(!selenium.isElementPresent("//span[text()='"+label+"']")){
+			 addTask(label, projectName,branchName,jobName,version,context,serverName,statisticName);
+		 }
+		 if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
 			
 			selenium.click("idFormSaveButton");
 	        selenium.setSpeed(MID_SPEED);
@@ -127,15 +139,38 @@ public class TestAddTaskBaseBranchProject  extends Login {
         //add a simple trigger for the task
         addSimpleTrigger(label,"25");
         //wait for 160 seconds so that the task run several times
-        Thread.sleep(160000);
+        Thread.sleep(executiontime);
         //see task logs ,count the execution times
         selenium.click("//span//span[text()='Logs']");
 		selenium.setSpeed(MID_SPEED);
-		selenium.click("");
+//		selenium.click("");
 		Assert.assertTrue(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']"), "task run failed!");
-		
 		Assert.assertTrue(getTotalExecutionTimes() > 0, "task run failed!");
-		
+		selenium.setSpeed(MIN_SPEED);
+		selenium.refresh();
+		this.waitForElementPresent("//span[text()='"+label+"']", WAIT_TIME);
+		selenium.setSpeed(MID_SPEED);
+		selenium.mouseDown("//span[text()='"+label+"']");
+		this.waitForElementPresent("//span[text()='Execution task']/ancestor::fieldset//label[text()='Active:']/ancestor::div[@class='x-form-item ']//input", WAIT_TIME);
+		inputCheckBoxUncheck("//span[text()='Execution task']/ancestor::fieldset//label[text()='Active:']/ancestor::div[@class='x-form-item ']//input");
+//		selenium.setSpeed(MID_SPEED);
+		selenium.click("idFormSaveButton");
+		Thread.sleep(3000);
+		selenium.setSpeed(MIN_SPEED);
+		Thread.sleep(3000);
+		selenium.refresh();
+		this.waitForElementPresent("//span[text()='"+label+"']", WAIT_TIME);
+		selenium.setSpeed(MID_SPEED);
+		selenium.mouseDown("//span[text()='"+label+"']");
+		int totalafterdeactive = getTotalExecutionTimes();
+		selenium.setSpeed(MIN_SPEED);
+		Thread.sleep(executiontime);
+		selenium.refresh();
+		this.waitForElementPresent("//span[text()='"+label+"']", WAIT_TIME);
+		selenium.setSpeed(MID_SPEED);
+		selenium.mouseDown("//span[text()='"+label+"']");
+		Assert.assertFalse( getTotalExecutionTimes()> totalafterdeactive, "task deactive failed!");
+		selenium.setSpeed(MIN_SPEED);
 	}
 	@Test(dependsOnMethods={"testDeactiveTaskWithSimpleTrigger"})
 	@Parameters({"TaskBaseBranch","AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
@@ -201,7 +236,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MIN_SPEED);
 	}
-	@Test
+	@Test(dependsOnMethods={"testTaskStatisticViewDisable"})
 	@Parameters({"labelStatisticViewTask"})
 	public void testTaskStatisticViewEnable(String tasklabel) throws InterruptedException{
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
