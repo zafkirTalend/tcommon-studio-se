@@ -11,8 +11,9 @@ import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
 public class TestTaskContext extends Login {
-//	@Test
-	@Parameters({ "ContextTask" })
+	
+	@Test(groups={"TaskContext"},dependsOnGroups={"AddTask"})
+	@Parameters({ "label" })
 	public void testChangeContextValue(String tasklabel) throws InterruptedException {
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"
@@ -44,8 +45,8 @@ public class TestTaskContext extends Login {
 
 	}
 
-//	@Test
-	@Parameters({ "ContextTask" })
+	@Test(dependsOnMethods={"testChangeContextValue"})
+	@Parameters({ "label" })
 	public void testCheckDefaultContext(String tasklabel)
 			throws InterruptedException {
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
@@ -69,8 +70,8 @@ public class TestTaskContext extends Login {
 	}
 
 	
-	@Test
-	@Parameters({ "ContextTask" })
+	@Test(dependsOnMethods={"testCheckDefaultContext"})
+	@Parameters({ "label" })
 	public void testResetContext(String tasklabel)
 			throws InterruptedException {
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
