@@ -225,11 +225,11 @@ public class Base {
 				+ Event.ENTER);
 	}
 
-	public void selectDropDownList(String xpath, String item) {
-		selenium.click("//input[@id='"+xpath+"']"
+	public void selectDropDownList(String id, String item) {
+		selenium.click("//input[@id='"+id+"']"
 				+ "/following-sibling::div[@class='x-form-trigger x-form-trigger-arrow']");
 		selenium.mouseDown("//div[text()='" + item + "']");
-		selenium.fireEvent("idProjectTypeComboBox", "blur");
+		selenium.fireEvent("//input[@id='"+id+"']", "blur");
 
 	}
 
