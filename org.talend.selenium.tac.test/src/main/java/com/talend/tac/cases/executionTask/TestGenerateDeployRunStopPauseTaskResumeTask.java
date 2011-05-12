@@ -40,9 +40,8 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 		 
 		
 		generateDeployRunTask(taskLabel,"idJobConductorTaskGenerateButton()");//click generate button
-		selenium.setSpeed(MID_SPEED);
-	   	Assert.assertTrue(selenium.isTextPresent("Generating..."));
-    	selenium.setSpeed(MIN_SPEED);
+		this.waitForElementPresent("//span[text()='Generating...']", WAIT_TIME);
+	   	Assert.assertTrue(selenium.isElementPresent("//span[text()='Generating...']"));
     	this.waitForElementPresent("//span[text()='Ready to deploy']", WAIT_TIME);
     	Assert.assertTrue(selenium.isElementPresent("//span[text()='Ready to deploy']"));
     	
@@ -85,14 +84,14 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 		selenium.setSpeed(MID_SPEED);
 	   	Assert.assertTrue(selenium.isTextPresent("Generating..."));
     	selenium.setSpeed(MIN_SPEED);
-		this.waitForElementPresent("//label[text()='Ok']", WAIT_TIME);
+		this.waitForElementPresent("//label[text()='Ok']", 20);
 		Assert.assertTrue(selenium.isElementPresent("//label[text()='Ok']"));
 		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
 		
 	}
 	
 	//test generating a task using remote CommandLine
-	@Test(dependsOnMethods={"testRunTaskWithJobContainingSubjob"})
+	@Test(dependsOnMethods={"testRunSimpleTask"})
 	@Parameters({"remotehostAddress", "modifyTask"})
 	public void testGenerateTaskUsingRemoteCommandLine(String remotehostAddress, String taskLabel) {
 		
