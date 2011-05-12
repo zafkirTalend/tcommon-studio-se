@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.talend.tac.cases.Login;
-@Test(groups={"DuplicateTask"},dependsOnGroups={"AddTask"})
+@Test(groups={"DuplicateTask"},dependsOnGroups={"TaskContext"})
 public class TestDuplicateTask  extends Login {
     
 	@Test
