@@ -17,7 +17,9 @@ import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.core.runtime.IExtension;
+import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.GroupMarker;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IContributionManager;
 import org.eclipse.jface.action.ICoolBarManager;
@@ -39,6 +41,7 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
+import org.eclipse.ui.internal.PluginActionContributionItem;
 import org.eclipse.ui.internal.SaveAllAction;
 import org.eclipse.ui.internal.WorkbenchMessages;
 import org.eclipse.ui.internal.WorkbenchPlugin;
@@ -68,6 +71,7 @@ import org.talend.core.ui.perspective.PerspectiveMenuManager;
 import org.talend.rcp.exportLogs.ExportLogsAction;
 import org.talend.rcp.intro.linksbar.Workbench3xImplementation4CoolBar;
 import org.talend.repository.RepositoryWorkUnit;
+import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.ui.actions.toolbar.ProjectSettingsAction;
 
 /**
@@ -432,6 +436,11 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         hideEditActions();
         // for bug 12937
         // hideCoolBarActions();
+        IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+        if (factory.isUserReadOnlyOnCurrentProject()) {
+            enableFileMenuActions();
+            enableCoolBarActions();
+        }
 
         boolean useJava = LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA;
 
@@ -498,6 +507,52 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         }
         for (IPreferenceNode node : prefsToDelete) {
             window.getWorkbench().getPreferenceManager().remove(node);
+        }
+    }
+
+    // bug 20871
+    protected void enableCoolBarActions() {
+        String[] enableCoolBarActionSetIds = { "org.talend.repository.localprovider.actionSet" }; //$NON-NLS-1$
+        String[] enableCoolBarActionIds = { "org.talend.repository.localprovider.ui.actions.ImportItemAction" }; //$NON-NLS-1$
+        IContributionItem[] items = coolBar.getItems();
+        for (IContributionItem iContributionItem : items) {
+            if (iContributionItem != null && iContributionItem instanceof ToolBarContributionItem) {
+                for (String setId : enableCoolBarActionSetIds) {
+                    if (setId.equals(iContributionItem.getId())) {
+                        IContributionItem[] cis = ((ToolBarContributionItem) iContributionItem).getToolBarManager().getItems();
+                        for (IContributionItem iContributionItem2 : cis) {
+                            if (iContributionItem2 != null && iContributionItem2 instanceof PluginActionContributionItem) {
+                                for (String id : enableCoolBarActionIds) {
+                                    if (id.equals(iContributionItem2.getId())) {
+                                        ((PluginActionContributionItem) iContributionItem2).getAction().setEnabled(false);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    protected void enableFileMenuActions() {
+        String[] enableFileMenuIds = { "import" }; //$NON-NLS-1$
+        IContributionItem[] items = fileMenu.getItems();
+        for (IContributionItem iContributionItem : items) {
+            if (iContributionItem != null && iContributionItem instanceof ActionContributionItem) {
+                IAction action = ((ActionContributionItem) iContributionItem).getAction();
+                for (String id : enableFileMenuIds) {
+                    if (id.equals(iContributionItem.getId()) && action != null) {
+                        action.setEnabled(false);
+                    }
+                }
+                // "Edit Project properties" file menu
+                if (action != null && action instanceof ProjectSettingsAction) {
+                    if ("Edit Project properties".equals(action.getText())) {
+                        action.setEnabled(false);
+                    }
+                }
+            }
         }
     }
 
