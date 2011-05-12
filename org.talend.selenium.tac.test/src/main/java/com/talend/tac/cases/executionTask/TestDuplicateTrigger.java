@@ -8,7 +8,7 @@ import com.talend.tac.cases.Login;
 
 public class TestDuplicateTrigger extends Login {
     
-	@Test(groups={"DuplicateTrigger"},dependsOnGroups={"AddSimpleTrigger"})
+	@Test(dependsOnGroups={"AddSimpleTrigger"})
 	@Parameters({"modifyTask","addSimpleTriggerLabel","duplicateTriggerLabel"})
 	public void testDuplicateTrigger(String task, String trigger, String duplicateTrigger) {
 	   
@@ -26,11 +26,13 @@ public class TestDuplicateTrigger extends Login {
     
     	selenium.click("//span[text()='Add simple trigger']/parent::legend/parent::fieldset/parent::form/" +
     			"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
-    	selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::div/" +
-		"parent::div/parent::div//button[text()='Refresh']");
     	selenium.setSpeed(MID_SPEED);
+    	if(!selenium.isElementPresent("//span[text()='"+duplicateTrigger+"']")) {
+			selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::div/" +
+			"parent::div/parent::div//button[text()='Refresh']");
+    	}
+
     	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+duplicateTrigger+"']"));
-    	selenium.setSpeed(MIN_SPEED);
-    	
+    	selenium.setSpeed(MIN_SPEED);    	
 	}
 }
