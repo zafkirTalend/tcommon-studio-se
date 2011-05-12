@@ -114,7 +114,7 @@
         <classes><!--
         
              these execution are need configurations(project/SVN/job)     
-            --><!--            
+            -->           
             <class name="com.talend.tac.cases.executionTask.TestAddTask"/>
             <class name="com.talend.tac.cases.executionTask.TestAddTaskBaseBranchProject"/>
             <class name="com.talend.tac.cases.executionTask.TestTaskContext"/> 
@@ -126,14 +126,14 @@
      		<class name="com.talend.tac.cases.executionTask.TestAddJVMParametersForTask"/> 
             <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddSimpleTrigger"/>
                
-            <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddFileTrigger"/>
-            <class name="com.talend.tac.cases.executionTask.TestDuplicateTrigger"/>
+            <!--<class name="com.talend.tac.cases.executionTask.TestAddTriggerAddFileTrigger"/>
+            --><class name="com.talend.tac.cases.executionTask.TestDuplicateTrigger"/>
             <class name="com.talend.tac.cases.executionTask.TestDeleteTrigger"/>
             <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddCronTrigger"/>
             <class name="com.talend.tac.cases.jobconductor.TestTaskDisplay"/> 
-            --><!--<class name="com.talend.tac.cases.executionTask.TestTriggerBarPauseResume"/> 
+            <!--<class name="com.talend.tac.cases.executionTask.TestTriggerBarPauseResume"/> 
         -->
-              <class name="com.talend.tac.cases.executionTask.TestModifyTrigger"/> 
+            <class name="com.talend.tac.cases.executionTask.TestModifyTrigger"/> 
         </classes> 
 	</test>
 	
