@@ -289,9 +289,6 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 		
         this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
 				"//input[@name='description']", description);//description
-
-        this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
-	    		"//input[@name='repeatCount']", "20");//Number of triggerings
 	   
         this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
         		"//input[@name='repeatInterval']", "20");//Time interval (s)
