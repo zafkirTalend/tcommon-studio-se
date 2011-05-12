@@ -4,11 +4,12 @@
 
     <!-- add task -->
 	<parameter name="label" value="testTask" />
-	<parameter name="TaskWithtRunjob" value="testTask"/>
+	<parameter name="TaskWithtRunjob" value="testTaskRunTRunJob"/>
 	<parameter name="TaskBaseBranch" value="BranchTask"/>
 	<parameter name="ProjectBranch" value="test_branch"/>
-	<parameter name="labelStatisticViewTask" value="TASK" />
-	
+	<parameter name="labelStatisticViewTask" value="testAddTaskForTestReferenceproTjava" />
+	<parameter name="labelAddJVMParametersForTask" value="testAddsimpleTask" />
+	<parameter name="labelAddJVMParametersForTaskDescription" value="test add a simple task" />
 	
 	<parameter name="labelDescription" value="test add a task" />
 	<parameter name="existLabelDescription" value="test add a exist task" />
@@ -69,6 +70,15 @@
     <parameter name="duplicateTriggerLabel" value="Copy_of_TestSimpleTrigger"/>
     <!-- duplicate trigger -->
     
+    <!--Modify trigger-->
+    <parameter name="simpleTiggerLabelAfterModified" value="simpleTiggerLabelAfterModified" />
+    <parameter name="simpleTiggerLabelAfterModifiedDescription" value="test change a simple trigger label" /> 
+    <parameter name="simpleTriggerType" value="Add simple trigger" />    
+    <parameter name="cronTiggerLabelAfterModified" value="cronTiggerLabelAfterModified" />
+    <parameter name="cronTiggerLabelAfterModifiedDescription" value="test change a cron trigger label" />    
+    <parameter name="cronTriggerType" value="Add Cron trigger" />
+    <!--Modify trigger-->
+    
     <!--branchName version context Statistic jodName serverName-->
     <parameter name="branchNameTrunk" value="trunk" />
     
@@ -100,27 +110,30 @@
     <!-- commandLine HostAddress -->
     
     
-    <test  name="test_task"  annotations="JDK">
+    <test  name="test_task"  annotations="JDK" preserve-order="true">
         <classes><!--
         
              these execution are need configurations(project/SVN/job)     
-            -->
+            --><!--            
+            <class name="com.talend.tac.cases.executionTask.TestAddTask"/>
             <class name="com.talend.tac.cases.executionTask.TestAddTaskBaseBranchProject"/>
-            <class name="com.talend.tac.cases.executionTask.TestTaskWithTRunjob"/>
+            <class name="com.talend.tac.cases.executionTask.TestTaskContext"/> 
             <class name="com.talend.tac.cases.executionTask.TestDuplicateTask"/>
             <class name="com.talend.tac.cases.executionTask.TestDeteleTask"/>
             <class name="com.talend.tac.cases.executionTask.TestModifyTask"/> 
+            <class name="com.talend.tac.cases.executionTask.TestTaskWithTRunjob"/>
             <class name="com.talend.tac.cases.executionTask.TestGenerateDeployRunStopPauseTaskResumeTask"/>  
      		<class name="com.talend.tac.cases.executionTask.TestAddJVMParametersForTask"/> 
             <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddSimpleTrigger"/>
                
             <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddFileTrigger"/>
-            <!--<class name="com.talend.tac.cases.executionTask.TestDuplicateTrigger"/>
-            --><class name="com.talend.tac.cases.executionTask.TestDeleteTrigger"/>
+            <class name="com.talend.tac.cases.executionTask.TestDuplicateTrigger"/>
+            <class name="com.talend.tac.cases.executionTask.TestDeleteTrigger"/>
             <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddCronTrigger"/>
-             <class name="com.talend.tac.cases.jobconductor.TestTaskDisplay"/> 
-            <!--<class name="com.talend.tac.cases.executionTask.TestTriggerBarPauseResume"/> 
+            <class name="com.talend.tac.cases.jobconductor.TestTaskDisplay"/> 
+            --><!--<class name="com.talend.tac.cases.executionTask.TestTriggerBarPauseResume"/> 
         -->
+              <class name="com.talend.tac.cases.executionTask.TestModifyTrigger"/> 
         </classes> 
 	</test>
 	
