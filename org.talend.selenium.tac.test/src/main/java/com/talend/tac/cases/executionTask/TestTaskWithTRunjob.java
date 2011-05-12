@@ -10,7 +10,7 @@ import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
 public class TestTaskWithTRunjob extends Login {
-	@Test
+	@Test(dependsOnGroups={"AddTask"})
 	@Parameters({ "TaskWithtRunjob" })
 	public void testTrunjob(String tasklabel) throws InterruptedException {
 //		String tasklabel = "testTask";
