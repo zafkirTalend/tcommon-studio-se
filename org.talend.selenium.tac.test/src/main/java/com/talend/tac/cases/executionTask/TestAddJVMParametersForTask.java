@@ -8,7 +8,7 @@ import com.talend.tac.cases.Login;
 
 public class TestAddJVMParametersForTask  extends Login {
     
-	@Test
+	@Test(dependsOnGroups={"AddTask"})
     @Parameters({"labelAddJVMParametersForTask"})
 	public void testAddJVMParametersForTask(String label) {
     	
