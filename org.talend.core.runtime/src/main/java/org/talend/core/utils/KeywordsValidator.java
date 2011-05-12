@@ -53,6 +53,9 @@ public class KeywordsValidator {
         // added by nma, for AIX commandline NPE, 7950.
         if (words == null)
             return false;
+        if (word == null) {
+            return false;
+        }
         if (word.equalsIgnoreCase("class")) { //$NON-NLS-1$
             return true;
         }

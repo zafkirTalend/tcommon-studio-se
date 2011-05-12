@@ -38,6 +38,7 @@ import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
 import org.talend.commons.ui.swt.tableviewer.celleditor.DialogErrorForCellEditorListener;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.commons.utils.data.list.ListenableListEvent;
+import org.talend.commons.utils.data.list.UniqueStringGenerator;
 import org.talend.core.model.metadata.builder.connection.ConceptTarget;
 import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.mdm.model.MDMXSDExtractorFieldModel;
@@ -288,6 +289,11 @@ public class ExtractionFieldsWithMDMEditorView extends AbstractDataTableEditorVi
         int lstSize = list.size();
         for (int i = 0; i < lstSize; i++) {
             String name = list.get(i).getTargetName();
+
+            if (name == null || name.trim().equals("")) {
+                return "Column name can't be null";
+            }
+
             if (names.contains(name)) {
                 conflictNames.add(name);
             } else {
@@ -371,7 +377,20 @@ public class ExtractionFieldsWithMDMEditorView extends AbstractDataTableEditorVi
 
                     @Override
                     protected Object getObjectToAdd() {
-                        return getModel().createNewSchemaTarget();
+                        UniqueStringGenerator<ConceptTarget> generator = new UniqueStringGenerator<ConceptTarget>("column",
+                                getModel().getBeansList()) {
+
+                            @Override
+                            protected String getBeanString(ConceptTarget bean) {
+                                // TODO Auto-generated method stub
+                                return bean.getTargetName();
+                            }
+
+                        };
+                        ConceptTarget tarhe = getModel().createNewSchemaTarget();
+                        tarhe.setRelativeLoopExpression(generator.getUniqueString());
+                        tarhe.setTargetName(generator.getUniqueString());
+                        return tarhe;
                     }
 
                 };
