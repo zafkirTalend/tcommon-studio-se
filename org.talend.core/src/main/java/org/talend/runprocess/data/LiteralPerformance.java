@@ -54,7 +54,7 @@ public class LiteralPerformance extends CommonPerformance {
 
     public String createHtmlText(String literal) {
         StringBuilder html = new StringBuilder();
-        String pattern = "<font color='%1$s'>%2$s</font><br>"; //$NON-NLS-1$
+        String pattern = "<font style='font-size:11px' color='%1$s'>%2$s</font><br>"; //$NON-NLS-1$
         html.append(String.format(pattern, getColorStatus(literal), literal));
         return html.toString();
     }

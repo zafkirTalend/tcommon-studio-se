@@ -134,7 +134,7 @@ public class ParallelPerformance extends CommonPerformance {
         long processingTime = data.getProcessingTime();
         double avg = processingTime > 0 ? lineCount * 1000.0 / processingTime : 0.0;
         String color = COLOR_RUNNING;
-        String pattern = "<font color='%1$s'>exec %2$s : %3$5d rows, %4$5.0f rows/second</font><br>"; //$NON-NLS-1$
+        String pattern = "<font style='font-size:11px' color='%1$s'>exec %2$s : %3$5d rows, %4$5.0f rows/second</font><br>"; //$NON-NLS-1$
         if (data.getAction().equals(IPerformanceData.ACTION_STOP)) {
             color = COLOR_FINISHED;
         }

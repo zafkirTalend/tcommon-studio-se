@@ -83,7 +83,7 @@ public class IteratePerformance extends CommonPerformance {
     public String createHtmlText(int size) {
         StringBuilder html = new StringBuilder(150);
 
-        String pattern = "<font color='%1$s'>%2$s %3$s</font><br>"; //$NON-NLS-1$
+        String pattern = "<font style='font-size:11px' color='%1$s'>%2$s %3$s</font><br>"; //$NON-NLS-1$
 
         if (runningExecutionId.size() > 0) {
             int runningSize = webData ? size : runningExecutionId.size();
