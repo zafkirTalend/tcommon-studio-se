@@ -23,7 +23,7 @@ public class DbConfig extends Base {
 			waitForElementPresent("idLoginOpenDbConfigButton", WAIT_TIME);
 			selenium.click("idLoginOpenDbConfigButton");
 		}
-
+		this.waitForElementPresent("idDbConfigLoginPasswordInput", WAIT_TIME);
 		selenium.type("idDbConfigLoginPasswordInput", "admin");
 		selenium.click("idDbConfigSubmitButton");
 		selenium.type("idDbConfigUrlInput", url);
