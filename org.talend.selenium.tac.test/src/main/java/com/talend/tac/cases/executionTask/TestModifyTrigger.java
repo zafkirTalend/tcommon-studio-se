@@ -1,6 +1,5 @@
 package com.talend.tac.cases.executionTask;
 
-import java.awt.Event;
 
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -50,8 +49,40 @@ public class TestModifyTrigger extends Login {
 		
 	}
 	
-	//test rename a simple trigger
+	
+	
+	//test pause and resume a simple trigger
 	@Test(dependsOnGroups={"AddCronTrigger"})
+	@Parameters({"labelTRunJobByTaskRun", "addSimpleTriggerLabelNotChooseDate", "fileTiggerLabelAfterModified",
+		"fileTiggerLabelAfterModifiedDescription", "simpleTriggerType"})
+	public void testPauseResumeSimpleTrigger(String taskLabel, String triggerLabel, String triggerType) {
+		
+
+		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");//into JobConductor page
+    	selenium.setSpeed(MID_SPEED);
+    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+    	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']"));  
+    	selenium.setSpeed(MIN_SPEED);
+    	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task    	  	
+    	
+    	selenium.setSpeed(MID_SPEED);
+       	selenium.mouseDown("//span[text()='"+triggerLabel+"']");//select a exist trigger
+       	
+       	selenium.click("//button[text()='Pause trigger']");
+       	this.waitForElementPresent("//span[text()='TestSimpleTriggerNotChooseDate']//" +
+       			"ancestor::tbody[@role='presentation']//img[@alt='Paused']", WAIT_TIME);
+       	Assert.assertTrue(selenium.isElementPresent("//span[text()='TestSimpleTriggerNotChooseDate']//" +
+       			"ancestor::tbody[@role='presentation']//img[@alt='Paused']"));
+       	selenium.click("//button[text()='Resume trigger']");
+    	this.waitForElementPresent("//span[text()='TestSimpleTriggerNotChooseDate']//" +
+       			"ancestor::tbody[@role='presentation']//img[@alt='Normal']", WAIT_TIME);
+       	Assert.assertTrue(selenium.isElementPresent("//span[text()='TestSimpleTriggerNotChooseDate']//" +
+       			"ancestor::tbody[@role='presentation']//img[@alt='Normal']"));
+		
+	}
+	
+	//test rename a simple trigger
+	@Test(dependsOnMethods={"testPauseResumeSimpleTrigger"})
 	@Parameters({"modifyTask", "addSimpleTriggerNumberOfTriggeringsRunnedAutoStopLabel", "simpleTiggerLabelAfterModified",
 		"simpleTiggerLabelAfterModifiedDescription", "simpleTriggerType"})
 	public void testRanameSimpleTrigger(String taskLabel, String labelBeforeModify,String labelAfterModified
@@ -142,6 +173,17 @@ public class TestModifyTrigger extends Login {
 	  	selenium.mouseDown("//span[text()='"+triggerLabel+"']");//select a exist trigger
        	Assert.assertEquals(selenium.getValue(timeIntervalXpath), "40");
        	selenium.setSpeed(MIN_SPEED);
+		
+	}
+	
+	//test rename a file trigger
+	@Test(dependsOnMethods={"testModifySimpleTriggerTimeInterval"})
+	@Parameters({"TaskBaseBranch", "addFileTriggerOfExist", "fileTiggerLabelAfterModified",
+		"fileTiggerLabelAfterModifiedDescription", "fileTriggerType"})
+	public void testRanameFileTrigger(String taskLabel, String labelBeforeModify,String labelAfterModified
+			, String description, String triggerType) {
+		
+		renameTrigger(taskLabel, labelBeforeModify, labelAfterModified, description, triggerType);
 		
 	}
 	
