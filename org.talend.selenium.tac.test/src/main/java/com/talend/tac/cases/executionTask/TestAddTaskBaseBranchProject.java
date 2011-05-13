@@ -150,51 +150,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		selenium.mouseDownAt("//div[text()='"+statisticName+"' and @role='listitem']",""+Event.ENTER);
 				
 	}
-	
-	@Test
-	@Parameters({"AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
-	public void testDeleteTaskExecutionLogs(String projectName,
-			String branchName, String jobName, String version, String context,
-			String serverName, String statisticName) throws InterruptedException {
-		String label = "taskDeleteLogs";
-		addTask(label, projectName, branchName, jobName, version, context,
-				serverName, statisticName);
-		if (!selenium.isElementPresent("//span[text()='" + label + "']")) {
-			selenium.click("idFormSaveButton");
-			selenium.setSpeed(MID_SPEED);
-			Assert.assertTrue(selenium.isElementPresent("//span[text()='"
-					+ label + "']"));
-			selenium.setSpeed(MIN_SPEED);
-		}
-		runTask(label,5);
-		selenium.click("//span//span[text()='Logs']");
-		Thread.sleep(3000);
-		Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==5,"task run generate logs failed !");
-		selenium.chooseOkOnNextConfirmation();
-		selenium.click("idJobConductorJobLogClearLogButton()");
-		selenium.getConfirmation();
-		Thread.sleep(3000);
-		Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==0,"task run generate logs failed !");
-		if(deleteTask(label)){
-			addTask(label, projectName, branchName, jobName, version, context,
-					serverName, statisticName);
-			if (!selenium.isElementPresent("//span[text()='" + label + "']")) {
-				selenium.click("idFormSaveButton");
-				selenium.setSpeed(MID_SPEED);
-				Assert.assertTrue(selenium.isElementPresent("//span[text()='"
-						+ label + "']"));
-				selenium.setSpeed(MIN_SPEED);
-			}
-			selenium.setSpeed(MID_SPEED);
-			selenium.mouseDown("//span[text()='"
-						+ label + "']");
-			selenium.click("//span//span[text()='Logs']");
-			Thread.sleep(3000);
-			Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==0,"delete  logs through delete task failed !");
-			selenium.setSpeed(MIN_SPEED);
-		}
-	}
+
 	
 	@Test(dependsOnGroups={"AddTask"})
 	@Parameters({"AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
@@ -338,6 +294,53 @@ public class TestAddTaskBaseBranchProject  extends Login {
 			"test statistic view disable failed!");
 		
 	}
+	
+	
+	@Test(dependsOnMethods={"testTaskStatisticViewEnable"})
+	@Parameters({"AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
+		"context","ServerForUseAvailable","statisticEnabled"})
+	public void testDeleteTaskExecutionLogs(String projectName,
+			String branchName, String jobName, String version, String context,
+			String serverName, String statisticName) throws InterruptedException {
+		String label = "taskDeleteLogs";
+		addTask(label, projectName, branchName, jobName, version, context,
+				serverName, statisticName);
+		if (!selenium.isElementPresent("//span[text()='" + label + "']")) {
+			selenium.click("idFormSaveButton");
+			selenium.setSpeed(MID_SPEED);
+			Assert.assertTrue(selenium.isElementPresent("//span[text()='"
+					+ label + "']"));
+			selenium.setSpeed(MIN_SPEED);
+		}
+		runTask(label,5);
+		selenium.click("//span//span[text()='Logs']");
+		Thread.sleep(3000);
+		Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==5,"task run generate logs failed !");
+		selenium.chooseOkOnNextConfirmation();
+		selenium.click("idJobConductorJobLogClearLogButton()");
+		selenium.getConfirmation();
+		Thread.sleep(3000);
+		Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==0,"task run generate logs failed !");
+		if(deleteTask(label)){
+			addTask(label, projectName, branchName, jobName, version, context,
+					serverName, statisticName);
+			if (!selenium.isElementPresent("//span[text()='" + label + "']")) {
+				selenium.click("idFormSaveButton");
+				selenium.setSpeed(MID_SPEED);
+				Assert.assertTrue(selenium.isElementPresent("//span[text()='"
+						+ label + "']"));
+				selenium.setSpeed(MIN_SPEED);
+			}
+			selenium.setSpeed(MID_SPEED);
+			selenium.mouseDown("//span[text()='"
+						+ label + "']");
+			selenium.click("//span//span[text()='Logs']");
+			Thread.sleep(3000);
+			Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==0,"delete  logs through delete task failed !");
+			selenium.setSpeed(MIN_SPEED);
+		}
+	}
+	
 	public boolean waitForCondition(String locator,int seconds) throws InterruptedException{
 		boolean conditionPresent = true;
 		for (int second = 0;; second++) {
