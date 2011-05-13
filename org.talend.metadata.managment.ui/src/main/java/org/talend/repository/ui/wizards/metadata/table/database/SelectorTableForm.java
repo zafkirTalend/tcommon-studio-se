@@ -781,196 +781,196 @@ public class SelectorTableForm extends AbstractForm {
                 MetadataFillFactory.getDBInstance().fillSchemas(dbConn, sqlConn.getMetaData(),
                         MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData(), false));
 
-                EList<Package> nps = dbConn.getDataPackage();
-                EList<Package> ops = getConnection().getDataPackage();
-                if (ops != null && !ops.isEmpty()) {
-                    for (Package op : ops) {
-                        if (op instanceof Catalog) {
-                            Catalog c = (Catalog) ConnectionHelper.getPackage(((Catalog) op).getName(), dbConn, Catalog.class);
-                            if (nps != null && !nps.isEmpty()) {
-                                Package p = nps.get(0);
-                                if (p instanceof Catalog && c == null) {
-                                    // EList<ModelElement> ownedElement = op.getOwnedElement();
-                                    // if (ownedElement != null && !ownedElement.isEmpty()) {
-                                    // Iterator<ModelElement> iterator = ownedElement.iterator();
-                                    // while (iterator.hasNext()) {
-                                    // ModelElement o = iterator.next();
-                                    // if (o instanceof Schema) {
-                                    // Iterator<ModelElement> i = ((Schema) o).getOwnedElement().iterator();
-                                    // while (i.hasNext()) {
-                                    // i.remove();
-                                    // }
-                                    // } else if (o instanceof MetadataTable) {
-                                    // iterator.remove();
-                                    // }
-                                    // }
-                                    // }
-                                    ConnectionHelper.addCatalog((Catalog) op, dbConn);
-                                }
-                            }
-                        } else if (op instanceof Schema) {
-                            Schema s = (Schema) ConnectionHelper.getPackage(((Schema) op).getName(), dbConn, Schema.class);
-                            if (nps != null && !nps.isEmpty()) {
-                                Package p = nps.get(0);
-                                if (p instanceof Schema && s == null) {
-                                    // Iterator<ModelElement> iterator = op.getOwnedElement().iterator();
-                                    // while (iterator.hasNext()) {
-                                    // iterator.remove();
-                                    // }
-                                    ConnectionHelper.addSchema((Schema) op, dbConn);
-                                }
-                            }
-                        }
-                    }
-                }
+                // EList<Package> nps = dbConn.getDataPackage();
+                // EList<Package> ops = getConnection().getDataPackage();
+                // if (ops != null && !ops.isEmpty()) {
+                // for (Package op : ops) {
+                // if (op instanceof Catalog) {
+                // Catalog c = (Catalog) ConnectionHelper.getPackage(((Catalog) op).getName(), dbConn, Catalog.class);
+                // if (nps != null && !nps.isEmpty()) {
+                // Package p = nps.get(0);
+                // if (p instanceof Catalog && c == null) {
+                // // EList<ModelElement> ownedElement = op.getOwnedElement();
+                // // if (ownedElement != null && !ownedElement.isEmpty()) {
+                // // Iterator<ModelElement> iterator = ownedElement.iterator();
+                // // while (iterator.hasNext()) {
+                // // ModelElement o = iterator.next();
+                // // if (o instanceof Schema) {
+                // // Iterator<ModelElement> i = ((Schema) o).getOwnedElement().iterator();
+                // // while (i.hasNext()) {
+                // // i.remove();
+                // // }
+                // // } else if (o instanceof MetadataTable) {
+                // // iterator.remove();
+                // // }
+                // // }
+                // // }
+                // ConnectionHelper.addCatalog((Catalog) op, dbConn);
+                // }
+                // }
+                // } else if (op instanceof Schema) {
+                // Schema s = (Schema) ConnectionHelper.getPackage(((Schema) op).getName(), dbConn, Schema.class);
+                // if (nps != null && !nps.isEmpty()) {
+                // Package p = nps.get(0);
+                // if (p instanceof Schema && s == null) {
+                // // Iterator<ModelElement> iterator = op.getOwnedElement().iterator();
+                // // while (iterator.hasNext()) {
+                // // iterator.remove();
+                // // }
+                // ConnectionHelper.addSchema((Schema) op, dbConn);
+                // }
+                // }
+                // }
+                // }
+                // }
 
                 // compare with current connection
-                Set<MetadataTable> tables = ConnectionHelper.getTables(getConnection());
-                EList<Package> dataPackage = dbConn.getDataPackage();
+                // Set<MetadataTable> tables = ConnectionHelper.getTables(getConnection());
+                // EList<Package> dataPackage = dbConn.getDataPackage();
 
-                for (MetadataTable table : tables) {
-                    if (table != null && dataPackage != null) {
-                        MetadataTable newTable = EcoreUtil.copy(table);
-                        EObject eContainer = table.eContainer();
-                        if (eContainer != null) {
-                            if (eContainer instanceof Catalog) {
-                                String name = ((Catalog) eContainer).getName();
-                                for (Package p : dataPackage) {
-                                    if (p instanceof Catalog) {
-                                        Catalog c = (Catalog) ConnectionHelper.getPackage(name, dbConn, Catalog.class);
-                                        if (c != null) {
-                                            EList<ModelElement> ownedElement = c.getOwnedElement();
-                                            if (ownedElement == null || ownedElement.isEmpty()) {
-                                                PackageHelper.addMetadataTable(newTable, c);
-                                                break;
-                                            } else {
-                                                List<Schema> schemas = CatalogHelper.getSchemas(c);
-                                                if (!schemas.isEmpty()) {
-                                                    boolean added = false;
-                                                    for (Schema s : schemas) {
-                                                        EList<ModelElement> model = s.getOwnedElement();
-                                                        if (model == null || model.isEmpty()) {
-                                                            PackageHelper.addMetadataTable(newTable, s);
-                                                            added = true;
-                                                            break;
-                                                        } else {
-                                                            boolean exist = false;
-                                                            for (ModelElement m : model) {
-                                                                if (m != null && m instanceof MetadataTable) {
-                                                                    if (((MetadataTable) m).getLabel().equals(table.getLabel())) {
-                                                                        exist = true;
-                                                                        break;
-                                                                    }
-                                                                }
-                                                            }
-                                                            if (!exist) {
-                                                                PackageHelper.addMetadataTable(newTable, s);
-                                                                added = true;
-                                                                break;
-                                                            }
-                                                        }
-                                                    }
-                                                    if (added) {
-                                                        break;
-                                                    }
-                                                } else {
-                                                    boolean exist = false;
-                                                    for (ModelElement m : ownedElement) {
-                                                        if (m != null && m instanceof MetadataTable) {
-                                                            if (((MetadataTable) m).getLabel().equals(table.getLabel())) {
-                                                                exist = true;
-                                                                break;
-                                                            }
-                                                        }
-                                                    }
-                                                    if (!exist) {
-                                                        PackageHelper.addMetadataTable(newTable, c);
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                        } else {
-                                            EList<ModelElement> ownedElement = p.getOwnedElement();
-                                            if (ownedElement == null || ownedElement.isEmpty()) {
-                                                PackageHelper.addMetadataTable(newTable, p);
-                                                break;
-                                            } else {
-                                                List<Schema> schemas = CatalogHelper.getSchemas((Catalog) p);
-                                                if (!schemas.isEmpty()) {
-                                                    PackageHelper.addMetadataTable(newTable, schemas.get(0));
-                                                    break;
-                                                } else {
-                                                    PackageHelper.addMetadataTable(newTable, p);
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    } else if (p instanceof Schema) {
-                                        PackageHelper.addMetadataTable(newTable, p);
-                                        break;
-                                    }
-                                }
-                            } else if (eContainer instanceof Schema) {
-                                String name = ((Schema) eContainer).getName();
-                                for (Package p : dataPackage) {
-                                    if (p instanceof Catalog) {
-                                        EList<ModelElement> ownedElement = p.getOwnedElement();
-                                        if (ownedElement == null || ownedElement.isEmpty()) {
-                                            PackageHelper.addMetadataTable(newTable, p);
-                                            break;
-                                        } else {
-                                            List<Schema> schemas = CatalogHelper.getSchemas((Catalog) p);
-                                            boolean isSchema = false;
-                                            boolean exist = false;
-                                            if (!schemas.isEmpty()) {
-                                                isSchema = true;
-                                                for (Schema schema : schemas) {
-                                                    if (schema.getName().equals(name)) {
-                                                        exist = true;
-                                                        PackageHelper.addMetadataTable(newTable, schema);
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                            if (!isSchema) {
-                                                PackageHelper.addMetadataTable(newTable, p);
-                                                break;
-                                            } else if (!exist) {
-                                                PackageHelper.addMetadataTable(newTable, schemas.get(0));
-                                                break;
-                                            }
-                                        }
-                                    } else if (p instanceof Schema) {
-                                        Schema s = (Schema) ConnectionHelper.getPackage(name, dbConn, Schema.class);
-                                        if (s != null) {
-                                            EList<ModelElement> ownedElement = s.getOwnedElement();
-                                            if (ownedElement == null || ownedElement.isEmpty()) {
-                                                PackageHelper.addMetadataTable(newTable, s);
-                                                break;
-                                            } else {
-                                                boolean exist = false;
-                                                for (ModelElement m : ownedElement) {
-                                                    if (m != null && m instanceof MetadataTable) {
-                                                        if (((MetadataTable) m).getLabel().equals(table.getLabel())) {
-                                                            exist = true;
-                                                            break;
-                                                        }
-                                                    }
-                                                }
-                                                if (!exist) {
-                                                    PackageHelper.addMetadataTable(newTable, s);
-                                                    break;
-                                                }
-                                            }
-                                        } else {
-                                            PackageHelper.addMetadataTable(newTable, p);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                // for (MetadataTable table : tables) {
+                // if (table != null && dataPackage != null) {
+                // MetadataTable newTable = EcoreUtil.copy(table);
+                // EObject eContainer = table.eContainer();
+                // if (eContainer != null) {
+                // if (eContainer instanceof Catalog) {
+                // String name = ((Catalog) eContainer).getName();
+                // for (Package p : dataPackage) {
+                // if (p instanceof Catalog) {
+                // Catalog c = (Catalog) ConnectionHelper.getPackage(name, dbConn, Catalog.class);
+                // if (c != null) {
+                // EList<ModelElement> ownedElement = c.getOwnedElement();
+                // if (ownedElement == null || ownedElement.isEmpty()) {
+                // PackageHelper.addMetadataTable(newTable, c);
+                // break;
+                // } else {
+                // List<Schema> schemas = CatalogHelper.getSchemas(c);
+                // if (!schemas.isEmpty()) {
+                // boolean added = false;
+                // for (Schema s : schemas) {
+                // EList<ModelElement> model = s.getOwnedElement();
+                // if (model == null || model.isEmpty()) {
+                // PackageHelper.addMetadataTable(newTable, s);
+                // added = true;
+                // break;
+                // } else {
+                // boolean exist = false;
+                // for (ModelElement m : model) {
+                // if (m != null && m instanceof MetadataTable) {
+                // if (((MetadataTable) m).getLabel().equals(table.getLabel())) {
+                // exist = true;
+                // break;
+                // }
+                // }
+                // }
+                // if (!exist) {
+                // PackageHelper.addMetadataTable(newTable, s);
+                // added = true;
+                // break;
+                // }
+                // }
+                // }
+                // if (added) {
+                // break;
+                // }
+                // } else {
+                // boolean exist = false;
+                // for (ModelElement m : ownedElement) {
+                // if (m != null && m instanceof MetadataTable) {
+                // if (((MetadataTable) m).getLabel().equals(table.getLabel())) {
+                // exist = true;
+                // break;
+                // }
+                // }
+                // }
+                // if (!exist) {
+                // PackageHelper.addMetadataTable(newTable, c);
+                // break;
+                // }
+                // }
+                // }
+                // } else {
+                // EList<ModelElement> ownedElement = p.getOwnedElement();
+                // if (ownedElement == null || ownedElement.isEmpty()) {
+                // PackageHelper.addMetadataTable(newTable, p);
+                // break;
+                // } else {
+                // List<Schema> schemas = CatalogHelper.getSchemas((Catalog) p);
+                // if (!schemas.isEmpty()) {
+                // PackageHelper.addMetadataTable(newTable, schemas.get(0));
+                // break;
+                // } else {
+                // PackageHelper.addMetadataTable(newTable, p);
+                // break;
+                // }
+                // }
+                // }
+                // } else if (p instanceof Schema) {
+                // PackageHelper.addMetadataTable(newTable, p);
+                // break;
+                // }
+                // }
+                // } else if (eContainer instanceof Schema) {
+                // String name = ((Schema) eContainer).getName();
+                // for (Package p : dataPackage) {
+                // if (p instanceof Catalog) {
+                // EList<ModelElement> ownedElement = p.getOwnedElement();
+                // if (ownedElement == null || ownedElement.isEmpty()) {
+                // PackageHelper.addMetadataTable(newTable, p);
+                // break;
+                // } else {
+                // List<Schema> schemas = CatalogHelper.getSchemas((Catalog) p);
+                // boolean isSchema = false;
+                // boolean exist = false;
+                // if (!schemas.isEmpty()) {
+                // isSchema = true;
+                // for (Schema schema : schemas) {
+                // if (schema.getName().equals(name)) {
+                // exist = true;
+                // PackageHelper.addMetadataTable(newTable, schema);
+                // break;
+                // }
+                // }
+                // }
+                // if (!isSchema) {
+                // PackageHelper.addMetadataTable(newTable, p);
+                // break;
+                // } else if (!exist) {
+                // PackageHelper.addMetadataTable(newTable, schemas.get(0));
+                // break;
+                // }
+                // }
+                // } else if (p instanceof Schema) {
+                // Schema s = (Schema) ConnectionHelper.getPackage(name, dbConn, Schema.class);
+                // if (s != null) {
+                // EList<ModelElement> ownedElement = s.getOwnedElement();
+                // if (ownedElement == null || ownedElement.isEmpty()) {
+                // PackageHelper.addMetadataTable(newTable, s);
+                // break;
+                // } else {
+                // boolean exist = false;
+                // for (ModelElement m : ownedElement) {
+                // if (m != null && m instanceof MetadataTable) {
+                // if (((MetadataTable) m).getLabel().equals(table.getLabel())) {
+                // exist = true;
+                // break;
+                // }
+                // }
+                // }
+                // if (!exist) {
+                // PackageHelper.addMetadataTable(newTable, s);
+                // break;
+                // }
+                // }
+                // } else {
+                // PackageHelper.addMetadataTable(newTable, p);
+                // }
+                // }
+                // }
+                // }
+                // }
+                // }
+                // }
             }
         } catch (Exception e) {
             ExceptionHandler.process(e);
@@ -1005,9 +1005,10 @@ public class SelectorTableForm extends AbstractForm {
                         // need to check catalog/schema if import a old db connection
                         updatePackage(iMetadataConnection);
                         // update the connection
-                        EList<Package> dp = ((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getDataPackage();
-                        Collection<Package> newDataPackage = EcoreUtil.copyAll(dp);
-                        ConnectionHelper.addPackages(newDataPackage, getConnection());
+                        // EList<Package> dp = ((DatabaseConnection)
+                        // iMetadataConnection.getCurrentConnection()).getDataPackage();
+                        // Collection<Package> newDataPackage = EcoreUtil.copyAll(dp);
+                        // ConnectionHelper.addPackages(newDataPackage, getConnection());
 
                         // need to enhance later
                         if (ExtractMetaDataUtils.isUseAllSynonyms()
@@ -1689,13 +1690,18 @@ public class SelectorTableForm extends AbstractForm {
                                 int t = ((TableNode) item.getData()).getType();
                                 if (t == TableNode.SCHEMA) {
                                     for (TreeItem i : item.getItems()) {
-                                        if (i.getText(0).equals(table.getLabel()) && !item.getText(0).equals(name)
-                                                && i.getChecked()) {
-                                            return i;
+                                        if (i.getText(0).equals(table.getLabel()) && i.getChecked()) {
+                                            if (item.getText(0).equals(name)) {
+                                                String parentName = ((orgomg.cwm.objectmodel.core.Package) table.eContainer()
+                                                        .eContainer()).getName();
+                                                if (parentName.equals(treeItem.getText(0))) {
+                                                    return i;
+                                                }
+                                            }
                                         }
                                     }
                                 } else if (t == TableNode.TABLE) {
-                                    if (item.getText(0).equals(table.getLabel()) && !treeItem.getText(0).equals(name)
+                                    if (item.getText(0).equals(table.getLabel()) && treeItem.getText(0).equals(name)
                                             && item.getChecked()) {
                                         return item;
                                     }

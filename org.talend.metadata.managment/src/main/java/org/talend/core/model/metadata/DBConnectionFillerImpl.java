@@ -295,6 +295,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         list.add(s);
                         ConnectionHelper.removeSchemas(list, dbConn);
                         ConnectionHelper.addSchema(schema, dbConn);
+                    } else {
+                        ConnectionHelper.addSchema(schema, dbConn);
                     }
                 }
             }
@@ -423,6 +425,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     if (c != null) {
                         list.add(c);
                         ConnectionHelper.removeCatalogs(list, dbConn);
+                        ConnectionHelper.addCatalog(catalog, dbConn);
+                    } else {
                         ConnectionHelper.addCatalog(catalog, dbConn);
                     }
                 }

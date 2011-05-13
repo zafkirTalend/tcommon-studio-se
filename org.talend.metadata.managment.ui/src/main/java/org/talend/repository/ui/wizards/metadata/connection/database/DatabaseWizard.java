@@ -16,9 +16,11 @@ import java.sql.Driver;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.INewWizard;
@@ -40,6 +42,7 @@ import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.properties.ConnectionItem;
@@ -63,6 +66,7 @@ import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.wizards.CheckLastVersionRepositoryWizard;
 import org.talend.repository.ui.wizards.PropertiesWizardPage;
 import org.talend.repository.ui.wizards.metadata.connection.Step0WizardPage;
+import orgomg.cwm.resource.relational.Catalog;
 
 /**
  * DatabaseWizard present the DatabaseForm. Use to manage the metadata connection.
@@ -416,6 +420,23 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
     public ConnectionItem getConnectionItem() {
         return this.connectionItem;
     }
+
+    // private List<String> getFilters(DatabaseConnection connection,boolean isCatalog,List<String> filters){
+    // List<String> list=new ArrayList<String>();
+    // Set<MetadataTable> tables = ConnectionHelper.getTables(connection);
+    // for(MetadataTable table:tables){
+    // EObject eContainer = table.eContainer();
+    // if(eContainer instanceof Catalog){
+    // if
+    // }
+    // }
+    //
+    // if(isCatalog){
+    //
+    // }else{
+    //
+    // }
+    // }
 
     /**
      * 
