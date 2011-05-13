@@ -28,11 +28,12 @@ public class TestAddTaskBaseBranchProject  extends Login {
 	public int getTotalExecutionTimes(){
 		int total = 0;
 		selenium.click("//span//span[text()='Logs']");
-		selenium.setSpeed(MID_SPEED);
+		selenium.setSpeed(MAX_SPEED);
 		selenium.click("//img[@src='gxt/themes/access/images/grid/refresh.gif']");
 		String strContains = selenium.getText("//div[@class='my-paging-display x-component ']");
 		String to = (strContains.split("of")[1].trim());
 		selenium.setSpeed(MIN_SPEED);
+		System.out.println(to);
 		return total=Integer.parseInt(to);
 		
 	}
@@ -158,7 +159,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 	public void testDeactiveTaskWithSimpleTrigger(String projectName, String branchName,
 			 String jobName, String version, String context, String serverName, String statisticName) throws InterruptedException{
 		 String label = "taskwithsimpletrigger";
-		 int executiontime = 120000;
+		 int executiontime = 30000;
 		 if(!selenium.isElementPresent("//span[text()='"+label+"']")){
 			 addTask(label, projectName,branchName,jobName,version,context,serverName,statisticName);
 		 }
@@ -170,8 +171,10 @@ public class TestAddTaskBaseBranchProject  extends Login {
 			selenium.setSpeed(MIN_SPEED);
 			
 		}
+		 
+		 runTask(label,1);
         //add a simple trigger for the task
-        addSimpleTrigger(label,"25");
+        addSimpleTrigger(label,"5");
         //wait for 160 seconds so that the task run several times
         Thread.sleep(executiontime);
         //see task logs ,count the execution times
