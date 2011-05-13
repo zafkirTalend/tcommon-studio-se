@@ -29,6 +29,7 @@ public class Base {
 	public static String MIN_SPEED = "0";
 	public static String MAX_SPEED = "5000";
 	public static int WAIT_TIME = 160;
+	public static int MAX_WAIT_TIME = 500;
 
 	@BeforeClass
 	@Parameters({ "server", "port", "browser", "url", "language", "country",
@@ -38,8 +39,8 @@ public class Base {
 		server = this.setDefaultValue(server, "localhost");
 		port = this.setDefaultValue(port, 4444 + "");
 		browser = this.setDefaultValue(browser, "*firefox");
-		url = this.setDefaultValue(url, "http://localhost:8080/");
-		root = this.setDefaultValue(root, "/org.talend.administrator/");
+		url = this.setDefaultValue(url, "http://localhost:8081/");
+		root = this.setDefaultValue(root, "/org.talend.administrator60384/");
 
 		language = this.setDefaultValue(language, "en");
 		country = this.setDefaultValue(country, "US");

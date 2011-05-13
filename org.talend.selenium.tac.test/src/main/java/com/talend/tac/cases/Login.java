@@ -13,9 +13,10 @@ public class Login extends Base {
 	@Parameters( { "userName", "userPassword" })
 	public void login(String user, String password) {
 
-		selenium.setSpeed(MID_SPEED);
+//		selenium.setSpeed(MID_SPEED);
 		
 		selenium.windowMaximize();
+		this.waitForElementPresent("idLoginInput", WAIT_TIME);
 		selenium.type("idLoginInput", user);
 		
 		String pwValue = selenium.getValue("idLoginPasswordInput");
@@ -24,7 +25,7 @@ public class Login extends Base {
 		} 
 		this.waitForElementPresent("idLoginInput", Base.WAIT_TIME);
 		selenium.click("idLoginButton");
-		
+		selenium.setSpeed(MID_SPEED);
 		if (selenium
 				.isTextPresent("Failed to log on: user admin@company.com already logged on to webapp")) {
 			selenium.click("idLoginForceLogoutButton");
