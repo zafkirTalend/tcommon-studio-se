@@ -421,23 +421,6 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
         return this.connectionItem;
     }
 
-    // private List<String> getFilters(DatabaseConnection connection,boolean isCatalog,List<String> filters){
-    // List<String> list=new ArrayList<String>();
-    // Set<MetadataTable> tables = ConnectionHelper.getTables(connection);
-    // for(MetadataTable table:tables){
-    // EObject eContainer = table.eContainer();
-    // if(eContainer instanceof Catalog){
-    // if
-    // }
-    // }
-    //
-    // if(isCatalog){
-    //
-    // }else{
-    //
-    // }
-    // }
-
     /**
      * 
      * DOC Comment method "updateConnectionInformation".
