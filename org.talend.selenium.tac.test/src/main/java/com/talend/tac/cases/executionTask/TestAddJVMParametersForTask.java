@@ -8,7 +8,7 @@ import com.talend.tac.cases.Login;
 
 public class TestAddJVMParametersForTask  extends Login {
     
-	@Test(dependsOnGroups={"AddTask"})
+	@Test//(dependsOnGroups={"AddTask"})
     @Parameters({"labelAddJVMParametersForTask"})
 	public void testAddJVMParametersForTask(String label) {
     	
@@ -33,10 +33,12 @@ public class TestAddJVMParametersForTask  extends Login {
 		selenium.keyDown("//span[text()='Description']//ancestor::div[@class='x-grid3-viewport']//input", "\\13");
 	    selenium.setSpeed(MIN_SPEED);
 	    
-	    selenium.click("idJobConductorTaskRunButton()");
+	    selenium.click("//button[@id='idJobConductorTaskRunButton()'  and @class='x-btn-text ' and text()='Run']");
 	    this.waitForElementPresent("//label[text()='Ok']", WAIT_TIME);
-	    Assert.assertTrue(selenium.isElementPresent("//label[text()='Ok']"));
 	    selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
+	    
+	    //assert the jvm parameters,now tac didn't show this.
+	    //бнбн
 	    
 		
     }

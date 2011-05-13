@@ -26,7 +26,6 @@ public class TestTaskDisplay extends Login {
 		//expand the group
 		selenium.mouseDown("//div[contains(text(),'Project: referencepro')]");
 		this.waitForElementPresent("//div[@class='x-grid3-row  x-unselectable-single ']//span[text()='"+TaskLable+"']", WAIT_TIME);
-		assertTrue(selenium.isElementPresent("//div[@class='x-grid3-row  x-unselectable-single ']//span[text()='"+TaskLable+"']"));
 		
 	}
 
