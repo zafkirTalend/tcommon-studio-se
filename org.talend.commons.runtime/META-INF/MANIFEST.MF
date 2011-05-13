@@ -37,6 +37,9 @@ Export-Package: org.talend.commons,
  org.talend.commons.utils.workbench.preferences,
  org.talend.commons.xml,
  org.talend.fakejdbc,
+ org.talend.fileprocess,
+ org.talend.fileprocess.delimited,
  org.talend.repository.model
 Bundle-ClassPath: .,
- fakejdbc_driver.jar
+ fakejdbc_driver.jar,
+ lib/talend_file_enhanced_20070724.jar
