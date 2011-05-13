@@ -40,7 +40,7 @@ public class TestTokenINDbConfigPage extends DbConfig {
 		selenium.type("idTokenInput", tokenTXT);
 		selenium.click("idEnterValidationButton");
 		assertTrue(selenium.isTextPresent(rb
-				.getString("license.token.prompt.error")));
+				.getString("license.token.setOk")));
 		waitForCheckConnectionStatus("//div[text()='OK']", 5);
 
 	}
