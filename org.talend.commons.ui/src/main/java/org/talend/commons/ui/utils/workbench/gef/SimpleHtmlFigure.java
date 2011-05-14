@@ -54,11 +54,13 @@ public class SimpleHtmlFigure extends Figure {
 
     private static final String TAG_ITALIC_END = "</i>"; //$NON-NLS-1$
 
-    private static final String TAG_COLOR_BEG_1 = "<font color='"; //$NON-NLS-1$
+    private static final String TAG_FONT_BEG_1 = "<font"; //$NON-NLS-1$
 
-    private static final String TAG_COLOR_BEG_2 = "'>"; //$NON-NLS-1$
+    private static final String TAG_FONT_COLOR_BEG_1 = "color='"; //$NON-NLS-1$
 
-    private static final String TAG_COLOR_END = "</font>"; //$NON-NLS-1$
+    private static final String TAG_FONT_BEG_2 = "'>"; //$NON-NLS-1$
+
+    private static final String TAG_FONT_END = "</font>"; //$NON-NLS-1$
 
     private static final String TAG_BR = "<br>"; //$NON-NLS-1$
 
@@ -152,11 +154,11 @@ public class SimpleHtmlFigure extends Figure {
         // Find first tag
         int boldIndex = newText.indexOf(TAG_BOLD_BEG);
         int italicIndex = newText.indexOf(TAG_ITALIC_BEG);
-        int colorIndex = newText.indexOf(TAG_COLOR_BEG_1);
+        int fontIndex = newText.indexOf(TAG_FONT_BEG_1);
         int brIndex = newText.indexOf(TAG_BR);
         int newFontCode = fontCode;
 
-        if (isFirstIndex(boldIndex, italicIndex, colorIndex, brIndex)) {
+        if (isFirstIndex(boldIndex, italicIndex, fontIndex, brIndex)) {
             if (boldIndex > 0) {
                 String begText = newText.substring(0, boldIndex);
                 buildFigures(begText, newFontCode, colorStack);
@@ -175,7 +177,7 @@ public class SimpleHtmlFigure extends Figure {
 
             newFontCode = newFontCode ^ SWT.BOLD;
             buildFigures(endText, newFontCode, colorStack);
-        } else if (isFirstIndex(italicIndex, boldIndex, colorIndex, brIndex)) {
+        } else if (isFirstIndex(italicIndex, boldIndex, fontIndex, brIndex)) {
             if (italicIndex > 0) {
                 String begText = newText.substring(0, italicIndex);
                 buildFigures(begText, newFontCode, colorStack);
@@ -194,15 +196,17 @@ public class SimpleHtmlFigure extends Figure {
             newFontCode = newFontCode ^ SWT.ITALIC;
 
             buildFigures(endText, newFontCode, colorStack);
-        } else if (isFirstIndex(colorIndex, boldIndex, italicIndex, brIndex)) {
-            if (colorIndex > 0) {
-                String begText = newText.substring(0, colorIndex);
+        } else if (isFirstIndex(fontIndex, boldIndex, italicIndex, brIndex)) {
+            if (fontIndex > 0) {
+                String begText = newText.substring(0, fontIndex);
                 buildFigures(begText, newFontCode, colorStack);
             }
+            int colorIndex = newText.indexOf(TAG_FONT_COLOR_BEG_1);
+
             Color color;
-            int colorIndex2 = newText.indexOf(TAG_COLOR_BEG_2);
+            int colorIndex2 = newText.indexOf(TAG_FONT_BEG_2);
             if (colorIndex2 != -1) {
-                String colorCode = newText.substring(TAG_COLOR_BEG_1.length(), colorIndex2);
+                String colorCode = newText.substring(colorIndex + TAG_FONT_COLOR_BEG_1.length(), colorIndex2);
                 color = getColor(colorCode);
             } else {
                 color = colorStack.get(colorStack.size() - 1);
@@ -210,18 +214,18 @@ public class SimpleHtmlFigure extends Figure {
             colorStack.add(color);
 
             String endText;
-            int endColorIndex = newText.indexOf(TAG_COLOR_END);
+            int endColorIndex = newText.indexOf(TAG_FONT_END);
             if (endColorIndex != -1) {
-                String colorText = newText.substring(colorIndex2 + TAG_COLOR_BEG_2.length(), endColorIndex);
-                endText = newText.substring(endColorIndex + TAG_COLOR_END.length());
+                String colorText = newText.substring(colorIndex2 + TAG_FONT_BEG_2.length(), endColorIndex);
+                endText = newText.substring(endColorIndex + TAG_FONT_END.length());
                 buildFigures(colorText, newFontCode, colorStack);
             } else {
-                endText = newText.substring(colorIndex2 + TAG_COLOR_BEG_2.length());
+                endText = newText.substring(colorIndex2 + TAG_FONT_BEG_2.length());
             }
 
             colorStack.remove(colorStack.size() - 1);
             buildFigures(endText, newFontCode, colorStack);
-        } else if (isFirstIndex(brIndex, boldIndex, italicIndex, colorIndex)) {
+        } else if (isFirstIndex(brIndex, boldIndex, italicIndex, fontIndex)) {
             if (brIndex > 0) {
                 String begText = newText.substring(0, brIndex);
                 buildFigures(begText, newFontCode, colorStack);
