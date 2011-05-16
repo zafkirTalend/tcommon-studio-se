@@ -771,10 +771,10 @@ public abstract class RepositoryUpdateManager {
             IUpdateManager updateManager = process2.getUpdateManager();
             if (updateManager instanceof AbstractUpdateManager) {
                 AbstractUpdateManager manager = (AbstractUpdateManager) updateManager;
-                if (!getSchemaRenamedMap().isEmpty()) {
+                if (getSchemaRenamedMap() != null && !getSchemaRenamedMap().isEmpty()) {
                     manager.setSchemaRenamedMap(getSchemaRenamedMap());
                 }
-                if (!getDeletedOrReselectTablesMap().isEmpty()) {
+                if (getDeletedOrReselectTablesMap() != null && !getDeletedOrReselectTablesMap().isEmpty()) {
                     manager.setDeletedOrReselectTablesMap(getDeletedOrReselectTablesMap());
                 }
                 manager.setFromRepository(true);
