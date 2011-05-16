@@ -521,11 +521,16 @@ public abstract class AContextualAction extends Action implements ITreeContextua
     @Override
     public void run() {
         String name = "User action : " + getText(); //$NON-NLS-1$
-        IRepositoryViewObject object = getCurrentRepositoryNode().getObject();
-        if (object != null) {
-            Property oldProperty = getCurrentRepositoryNode().getObject().getProperty();
-            if (oldProperty != null) {
-                oldItem = oldProperty.getItem();
+
+        oldItem = null;
+        final IRepositoryNode node = getCurrentRepositoryNode();
+        if (node != null) {
+            IRepositoryViewObject object = node.getObject();
+            if (object != null) {
+                Property oldProperty = node.getObject().getProperty();
+                if (oldProperty != null) {
+                    oldItem = oldProperty.getItem();
+                }
             }
         }
 
@@ -534,8 +539,8 @@ public abstract class AContextualAction extends Action implements ITreeContextua
             @Override
             protected void run() throws LoginException, PersistenceException {
                 boolean exist = false;
-                if (getCurrentRepositoryNode().getObject() != null) {
-                    Property property = getCurrentRepositoryNode().getObject().getProperty();
+                if (node != null && node.getObject() != null) {
+                    Property property = node.getObject().getProperty();
                     // only avoid NPE if item has been deleted in svn
                     if (property != null) {
                         exist = true;
@@ -551,6 +556,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         };
         repositoryWorkUnit.setAvoidUnloadResources(avoidUnloadResources);
         CoreRuntimePlugin.getInstance().getProxyRepositoryFactory().executeRepositoryWorkUnit(repositoryWorkUnit);
+        oldItem = null;
     }
 
     protected abstract void doRun();
