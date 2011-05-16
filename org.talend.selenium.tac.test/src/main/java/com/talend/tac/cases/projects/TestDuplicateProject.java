@@ -83,6 +83,8 @@ public class TestDuplicateProject extends Login {
 		selenium.click("idDescriptionInput");
 		selenium.click("idFormSaveButton");
 		Thread.sleep(5000);
+		selenium.refresh();
+		Thread.sleep(5000);
 		Assert.assertTrue(
 				selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 						+ "Copy_of_" + proname + "')]"),
