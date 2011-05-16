@@ -55,7 +55,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 		generateDeployRunTask(taskLabel,"//button[@id='idJobConductorTaskRunButton' and text()='Deploy']");//click Deploy button
 		this.waitForElementPresent("//span[text()='Ready to run']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='Ready to run']"));
-		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
+//		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
 		
 	}
 	
@@ -69,7 +69,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='Real time statistics']"));
 		this.waitForElementPresent("//label[text()='Ok']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//label[text()='Ok']"));
-		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
+//		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
 				
 	}
 	
