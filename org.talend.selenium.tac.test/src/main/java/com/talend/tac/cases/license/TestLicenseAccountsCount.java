@@ -9,12 +9,13 @@ import org.testng.annotations.Test;
 import com.talend.tac.cases.Login;
 
 public class TestLicenseAccountsCount extends Login {
-   public  float moreOver = 0.25f;
+   public  double moreOver = 0.20;
 	
-	@Test
+//	@Test
 	public void testAddDIChangeToDQ() throws InterruptedException{
 		cleanAllExceptAdmin();
 		int n = getDQcounts();
+		System.out.println(n);
 		this.waitForElementPresent("idMenuUserElement", WAIT_TIME);
 		selenium.setSpeed(MIN_SPEED);
 		selenium.click("idMenuUserElement");
@@ -23,7 +24,7 @@ public class TestLicenseAccountsCount extends Login {
 				WAIT_TIME);
 		String username = "";
 		String name = "";
-		for (int i = 0; i < n - 1; i++) {
+		for (int i = 0; i < n ; i++) {
 			username = "DQ_" + i + "@talend.com";
 			name = "DQ_" + i;
 			//
@@ -113,19 +114,25 @@ public class TestLicenseAccountsCount extends Login {
 		"Data Integration");
 		cleanAllExceptAdmin();
 	}
-	@Test
+//	@Test
 	public void testAddDQChangeToDI() throws InterruptedException{
 		cleanAllExceptAdmin();
-		int n = getDQcounts();
+		int n = getDIcounts();
+		System.out.println("Di users :"+n);
 		this.waitForElementPresent("idMenuUserElement", WAIT_TIME);
 		selenium.setSpeed(MIN_SPEED);
 		selenium.click("idMenuUserElement");
 		this.waitForElementPresent(
 				"//div[@class='x-grid3-cell-inner x-grid3-col-login' and text()='admin@company.com']",
 				WAIT_TIME);
+		//add max amounts of DI users
+		addUserallowed(1,n-1);
+		
+		//
+		
 		String username = "";
 		String name = "";
-		for (int i = 0; i < n - 1; i++) {
+		for (int i = 0; i < 1; i++) {
 			username = "DQ_" + i + "@talend.com";
 			name = "DQ_" + i;
 			//
@@ -193,7 +200,7 @@ public class TestLicenseAccountsCount extends Login {
 			selenium.setSpeed(MIN_SPEED);
 		}
 		//change DQ users added type from DI to DQ
-		for (int i = 0; i < n-1; i++) {
+		for (int i = 0; i < 1; i++) {
 			username = "DQ_" + i + "@talend.com";
 			selenium.refresh();
 			Thread.sleep(3000);
@@ -248,7 +255,7 @@ public class TestLicenseAccountsCount extends Login {
 			Thread.sleep(3000);
 			String valueafter = selenium.getValue("idTypeInput");
 			System.out.println("nishi :"+valueafter);
-			if (i == n - 2) {
+			if (i == 0) {
 				// Assert.assertTrue(selenium.isTextPresent("Save failed: You are using "+(n-1)+" DQ users, but your license allows only "+(n-1)+", please contact your talend account manager -- For more information see your log file"),
 				// "test failed!");
 				Assert.assertFalse(valueafter.equals("Data Integration"));
@@ -260,7 +267,7 @@ public class TestLicenseAccountsCount extends Login {
 		cleanAllExceptAdmin();
 		
 	}
-	@Test
+//	@Test
 	public void testAddMaxAmountsDIUsersAllowed() throws InterruptedException {
 		cleanAllExceptAdmin();
 		int n = getDIcounts();
@@ -296,7 +303,7 @@ public class TestLicenseAccountsCount extends Login {
 		cleanAllExceptAdmin();
 	}
 
-	@Test
+//	@Test
 	public void testAddMaxAmountsDQUsersAllowed() throws InterruptedException {
 		cleanAllExceptAdmin();
 		int n = getDQcounts();
@@ -308,7 +315,7 @@ public class TestLicenseAccountsCount extends Login {
 				WAIT_TIME);
 		String username = "";
 		String name = "";
-		for (int i = 0; i < n - 1; i++) {
+		for (int i = 0; i < n; i++) {
 			username = "DQ_" + i + "@talend.com";
 			name = "DQ_" + i;
 			//
@@ -406,7 +413,7 @@ public class TestLicenseAccountsCount extends Login {
 			usernamepre="MDM_";
 			namepre="MDM";
 		}
-		for (int i = 0; i < n - 1; i++) {
+		for (int i = 0; i < n ; i++) {
 			username = usernamepre + i + "@talend.com";
 			name = namepre + i;
 			//
@@ -474,7 +481,7 @@ public class TestLicenseAccountsCount extends Login {
 			selenium.setSpeed(MIN_SPEED);
 		}
 
-		cleanAllExceptAdmin();
+//		cleanAllExceptAdmin();
 		
 	}
 	public void addUsersMoreOver(int type,int n) throws InterruptedException{
@@ -505,7 +512,7 @@ public class TestLicenseAccountsCount extends Login {
 			usernamepre="MDM_";
 			namepre="MDM";
 		}
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i <= n; i++) {
 			username = usernamepre + i + "@talend.com";
 			name = namepre + i;
 			//
@@ -563,7 +570,7 @@ public class TestLicenseAccountsCount extends Login {
 			//
 			selenium.click("idFormSaveButton");
 			Thread.sleep(5000);
-			if (i != n - 1) {
+			if (i != n ) {
 				Assert.assertTrue(selenium.isTextPresent(username),
 						"test "+namepre+" users more over failed!");
 			} else {
@@ -582,10 +589,11 @@ public class TestLicenseAccountsCount extends Login {
 		cleanAllExceptAdmin();
 	}
 	
-	@Test
+//	@Test
 	public void testAddMaxAmountsMDMUsersAllowed() throws InterruptedException{
 		cleanAllExceptAdmin();
 		int n = getMDMcounts();
+		System.out.println("MDM:"+n);
 		addUserallowed(3, n);
 		
 	}
@@ -596,7 +604,7 @@ public class TestLicenseAccountsCount extends Login {
 		addUsersMoreOver(3,n);
 	}
 
-	@Test
+//	@Test
 	public void testDIUsersMoreOver() throws InterruptedException {
 		cleanAllExceptAdmin();
 		int n = getDIcounts();
@@ -608,7 +616,7 @@ public class TestLicenseAccountsCount extends Login {
 				WAIT_TIME);
 		String username = selenium
 				.getText("//div[@class='x-grid3-cell-inner x-grid3-col-login' and text()='admin@company.com']");
-		for (int i = 0; i < n - 1; i++) {
+		for (int i = 0; i < n ; i++) {
 			selenium.refresh();
 			Thread.sleep(3000);
 			selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-login' and text()='"
@@ -621,7 +629,7 @@ public class TestLicenseAccountsCount extends Login {
 			this.typeString("idUserPasswordInput", "admin");
 			selenium.click("idFormSaveButton");
 			Thread.sleep(5000);
-			if (i != n - 2) {
+			if (i != n - 1) {
 				Assert.assertTrue(selenium.isTextPresent(username),
 						"test di users more over failed!");
 			} else {
@@ -639,7 +647,7 @@ public class TestLicenseAccountsCount extends Login {
 		cleanAllExceptAdmin();
 	}
 
-	@Test
+//	@Test
 	public void testDIUsersMoreOverUnactive() throws InterruptedException {
 		cleanAllExceptAdmin();
 		int n = getDIcounts();
@@ -675,7 +683,7 @@ public class TestLicenseAccountsCount extends Login {
 		cleanAllExceptAdmin();
 	}
 
-	@Test
+//	@Test
 	public void testDIUsersMoreOverUnactiveReactive()
 			throws InterruptedException {
 		cleanAllExceptAdmin();
@@ -709,7 +717,7 @@ public class TestLicenseAccountsCount extends Login {
 			Assert.assertTrue(selenium.isTextPresent(username),
 					"user duplicated failed!");
 		}
-		for (int j = 0; j < n - 1; j++) {
+		for (int j = 0; j < n ; j++) {
 			selenium.refresh();
 			Thread.sleep(3000);
 			usernameReuse = "Copy_of_" + usernameReuse;
@@ -731,7 +739,7 @@ public class TestLicenseAccountsCount extends Login {
 			Thread.sleep(3000);
 			String valueafter = selenium.getValue("//input[@name='active']");
 			// System.out.println(valueafter);
-			if (j == n - 2) {// the message needs to be make sure whether is
+			if (j == n - 1) {// the message needs to be make sure whether is
 								// right
 				// Assert.assertTrue(selenium.isTextPresent("Save failed: You are using "+(n-1)+" DI users, but your license allows only "+(n-1)+", please contact your talend account manager -- For more information see your log file"),
 				// "test failed!");
@@ -757,7 +765,7 @@ public class TestLicenseAccountsCount extends Login {
 				WAIT_TIME);
 		String username = "";
 		String name = "";
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i <= n; i++) {
 			username = "DQ_" + i + "@talend.com";
 			name = "DQ_" + i;
 			//
@@ -815,7 +823,7 @@ public class TestLicenseAccountsCount extends Login {
 			//
 			selenium.click("idFormSaveButton");
 			Thread.sleep(5000);
-			if (i != n - 1) {
+			if (i != n ) {
 				Assert.assertTrue(selenium.isTextPresent(username),
 						"test dq users more over failed!");
 			} else {
@@ -1021,7 +1029,7 @@ public class TestLicenseAccountsCount extends Login {
 					"user duplicated failed!");
 			selenium.setSpeed(MIN_SPEED);
 		}
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i <= n; i++) {
 			username = usernamepre + i + "@talend.com";
 			selenium.refresh();
 			Thread.sleep(3000);
@@ -1039,7 +1047,7 @@ public class TestLicenseAccountsCount extends Login {
 					+ username + "']");
 			Thread.sleep(3000);
 			String valueafter = selenium.getValue("//input[@name='active']");
-			if (i == n - 1) {
+			if (i == n) {
 				// Assert.assertTrue(selenium.isTextPresent("Save failed: You are using "+(n-1)+" DQ users, but your license allows only "+(n-1)+", please contact your talend account manager -- For more information see your log file"),
 				// "test failed!");
 				Assert.assertFalse(valueafter.equals("on"));
@@ -1050,7 +1058,7 @@ public class TestLicenseAccountsCount extends Login {
 		cleanAllExceptAdmin();
 	}
 	
-@Test
+//@Test
 public void testMDMUsersMoreOverUnactive() throws InterruptedException{
 	cleanAllExceptAdmin();
 	int n = getMDMcounts();
@@ -1147,6 +1155,7 @@ public void testMDMUsersMoreOverUnactiveReactive() throws InterruptedException{
 			throws InterruptedException {
 		cleanAllExceptAdmin();
 		int n = getDQcounts();
+		System.out.println("DQ:"+n);
 		this.waitForElementPresent("idMenuUserElement", WAIT_TIME);
 		selenium.setSpeed(MIN_SPEED);
 		selenium.click("idMenuUserElement");
@@ -1218,7 +1227,7 @@ public void testMDMUsersMoreOverUnactiveReactive() throws InterruptedException{
 					"user duplicated failed!");
 			selenium.setSpeed(MIN_SPEED);
 		}
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i <= n; i++) {
 			username = "DQ_" + i + "@talend.com";
 			selenium.refresh();
 			Thread.sleep(3000);
@@ -1236,7 +1245,7 @@ public void testMDMUsersMoreOverUnactiveReactive() throws InterruptedException{
 					+ username + "']");
 			Thread.sleep(3000);
 			String valueafter = selenium.getValue("//input[@name='active']");
-			if (i == n - 1) {
+			if (i == n) {
 				// Assert.assertTrue(selenium.isTextPresent("Save failed: You are using "+(n-1)+" DQ users, but your license allows only "+(n-1)+", please contact your talend account manager -- For more information see your log file"),
 				// "test failed!");
 				Assert.assertFalse(valueafter.equals("on"));
@@ -1260,7 +1269,7 @@ public void testMDMUsersMoreOverUnactiveReactive() throws InterruptedException{
 			e.printStackTrace();
 		}
 		String allowedDI = selenium
-				.getText("//div[@class='x-progress-text x-progress-text-back']//div[text()='Defined Data Integration users 1 / 5']");
+				.getText("//div[text()='Data Integration']/ancestor::div[@class='x-column-inner']//div[@class='x-progress-text x-progress-text-back']//div");
 		String num = allowedDI.split("/")[1];
 		num = num.substring(num.indexOf(" ") + 1, num.length());
 		return ((int) Math.ceil((Integer.parseInt(num)) * (moreOver + 1.0)));
@@ -1280,7 +1289,7 @@ public void testMDMUsersMoreOverUnactiveReactive() throws InterruptedException{
 			e.printStackTrace();
 		}
 		String allowedDI = selenium
-				.getText("//div[@class='x-progress-text x-progress-text-back']//div[text()='Defined Data Quality users 0 / 5']");
+				.getText("//div[text()='Data Quality']/ancestor::div[@class='x-column-inner']//div[@class='x-progress-text x-progress-text-back']//div");
 		String num = allowedDI.split("/")[1];
 		num = num.substring(num.indexOf(" ") + 1, num.length());
 		return ((int) Math.ceil((Integer.parseInt(num)) * (moreOver + 1.0)));
@@ -1299,9 +1308,10 @@ public void testMDMUsersMoreOverUnactiveReactive() throws InterruptedException{
 			e.printStackTrace();
 		}
 		String allowedMDM = selenium
-				.getText("//div[@class='x-progress-text x-progress-text-back']//div[text()='Defined Master Data Managment users 0 / 5']");
+				.getText("//div[text()='Master Data Management']/ancestor::div[@class='x-column-inner']//div[@class='x-progress-text x-progress-text-back']//div");
 		String num = allowedMDM.split("/")[1];
 		num = num.substring(num.indexOf(" ") + 1, num.length());
+		System.out.println("mdm num:"+num);
 		return ((int) Math.ceil((Integer.parseInt(num)) * (moreOver + 1.0)));
 	}
 	
