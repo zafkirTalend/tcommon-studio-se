@@ -22,6 +22,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -270,15 +271,19 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 // MOD gdbu 2011-4-12 bug : 18975
                 // catalogs.close();
                 // ~18975
-                Set<MetadataTable> tableSet = ConnectionHelper.getTables(dbConn);
-                // oldSchemas is use for record tables when click finish,then tables will be replace and null.
-                List<Schema> oldSchemas = new ArrayList<Schema>();
-                for (MetadataTable table : tableSet) {
-                    EObject eContainer = table.eContainer();
-                    if (eContainer != null && eContainer instanceof Schema && !oldSchemas.contains(eContainer)) {
-                        oldSchemas.add((Schema) eContainer);
-                    }
+                Set<MetadataTable> tableSet = new HashSet<MetadataTable>();
+                if (dbConn != null) {
+                    tableSet.addAll(ConnectionHelper.getTables(dbConn));
                 }
+                    // oldSchemas is use for record tables when click finish,then tables will be replace and null.
+                    List<Schema> oldSchemas = new ArrayList<Schema>();
+                    for (MetadataTable table : tableSet) {
+                        EObject eContainer = table.eContainer();
+                        if (eContainer != null && eContainer instanceof Schema && !oldSchemas.contains(eContainer)) {
+                            oldSchemas.add((Schema) eContainer);
+                        }
+                    }
+
                 if (isLinked() && !returnSchemas.isEmpty()) {
                     ConnectionHelper.addSchemas(returnSchemas, dbConn);
                 }
