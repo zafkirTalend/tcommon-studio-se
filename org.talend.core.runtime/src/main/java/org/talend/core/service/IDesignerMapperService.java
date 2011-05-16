@@ -70,6 +70,8 @@ public interface IDesignerMapperService extends IService {
      */
     public void updateMapperTableEntries(IExternalData nodeData, String schemaId, IMetadataTable metadataTable);
 
+    public void renameMapperTable(IExternalData nodeData, String schemaId, String newSchemaId, IMetadataTable metadataTable);
+
     /**
      * DOC ycbai Comment method "isSameMetadata".
      * 
