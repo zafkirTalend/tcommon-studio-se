@@ -68,7 +68,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 				WAIT_TIME);
 		selenium.mouseDown("//span[text()='" + tasklabel + "']");
 		Thread.sleep(3000);
-		selenium.click("//button[@id='idJobConductorTaskRunButton()'  and @class='x-btn-text ' and text()='Run']");
+		selenium.click("//button[@id='idJobConductorTaskRunButton'  and @class='x-btn-text ' and text()='Run']");
 //		Date start = new Date();
 		boolean success = (waitForCondition("//label[text()='Ok']", Base.WAIT_TIME));
 		// close the pop window
