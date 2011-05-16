@@ -65,4 +65,16 @@ public class TestTaskDisplay extends Login {
 		assertEquals(selenium.getValue("idJobConductorTaskStatisticsListBox()"), "enabled");
 	}
 	
+	@Test(description="check if the trigger belong to a task is displayed well ")
+	@Parameters({"labelReferenceproTjava","addCronTriggerByHandInputDateLabel"})
+	public void testTriggerOfTaskDisplay (String TaskLable,String triggerLabel){
+		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
+		this.waitForElementPresent("//span[text()='"+TaskLable+"']", WAIT_TIME);
+		selenium.mouseDown("//span[text()='"+TaskLable+"']");
+		this.waitForElementPresent("//span[@title='"+ triggerLabel +"']", WAIT_TIME);
+		// we can check the other task's trigger display well or not. 
+		//We must organize the order and the name of parameters( like the trigger belong to a task).make it standard and easy recognized.
+
+	}
+	
 }
