@@ -24,7 +24,13 @@ public class TestDeleteTrigger extends Login {
     	selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent" +
 		"::ul/parent::div/parent::div/parent::div/parent::div//button[@id='idSubModuleDeleteButton']");
 		Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to remove the selected trigger [\\s\\S]$"));
+		
+		selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::div/" +
+		"parent::div/parent::div//button[text()='Refresh']");
+		
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(!selenium.isElementPresent("//span[text()='"+trigger+"']"));
-    	
+    	selenium.setSpeed(MIN_SPEED);
+		
 	}
 }
