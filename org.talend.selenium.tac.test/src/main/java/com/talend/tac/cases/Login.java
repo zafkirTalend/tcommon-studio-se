@@ -23,7 +23,7 @@ public class Login extends Base {
 		
 		String pwValue = selenium.getValue("idLoginPasswordInput");
 		if( pwValue==null || "".equals(pwValue) ) {
-//			selenium.typeKeys("idLoginPasswordInput", password);
+			selenium.typeKeys("idLoginPasswordInput", password);
 			selenium.type("idLoginPasswordInput", password);
 		} 
 		selenium.keyPressNative(Event.TAB +"");
