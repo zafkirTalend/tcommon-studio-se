@@ -28,9 +28,7 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.utils.data.list.ListUtils;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
@@ -67,8 +65,6 @@ import org.talend.utils.sql.metadata.constants.MetaDataConstants;
 import org.talend.utils.sql.metadata.constants.TableType;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
-
-import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.ColumnSet;
@@ -496,13 +492,14 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     // the case for mssql
                     // dbJDBCMetadata.getDatabaseMajorVersion() > 8 it mean that the column TABLE_CATALOG is exist.
                     // dbJDBCMetadata.getDriverMajorVersion() > 1 mean that the connection use 2005/2008 driver
-                    if (MetadataConnectionUtils.isMssql(dbJDBCMetadata.getConnection())
-                            && dbJDBCMetadata.getDatabaseMajorVersion() > 8 && dbJDBCMetadata.getDriverMajorVersion() > 1) {
-                        if (catalogName == null) {
-                            continue;
-                        }
-                        schemaName = catalogName;
-                    } else if (schemaName == null || catalogName != null && !catalogName.equals(catalog.getName())) {
+                    // if (MetadataConnectionUtils.isMssql(dbJDBCMetadata.getConnection())
+                    // && dbJDBCMetadata.getDatabaseMajorVersion() > 8 && dbJDBCMetadata.getDriverMajorVersion() > 1) {
+                    // if (catalogName != null && catalogName != schemaName) {
+                    // schemaName = catalogName;
+                    // }
+                    // }
+                    if (schemaName == null || !MetadataConnectionUtils.isMssql(dbJDBCMetadata.getConnection())
+                            && catalogName != null && !catalogName.equals(catalog.getName())) {
                         // the case for olap
                         // if (schemaName == null) {
                         continue;
