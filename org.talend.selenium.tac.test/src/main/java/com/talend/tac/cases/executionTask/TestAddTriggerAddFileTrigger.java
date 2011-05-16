@@ -19,6 +19,17 @@ public class TestAddTriggerAddFileTrigger extends Login {
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.setSpeed(MIN_SPEED);
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task
+    	
+    	if(!selenium.isChecked("//input[@name='active']")) {
+    		
+    		selenium.click("//input[@name='active']");//check active
+        	Assert.assertTrue(selenium.isChecked("//input[@name='active']"));
+        	selenium.click("idFormSaveButton");
+    		
+    	}
+    
+    	
+    	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task again
 		selenium.click("//button[text()='Add trigger...']");//add a trigger
 		selenium.click("//a[text()='Add file trigger']");//add a FileTrigger
         Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addFileTrigger")+"']"));
@@ -38,7 +49,7 @@ public class TestAddTriggerAddFileTrigger extends Login {
 		selenium.click("//input[@class=' x-form-checkbox' and @name='exist']");//*.txt is exist
 		Assert.assertTrue(selenium.isChecked("//input[@class=' x-form-checkbox' and @name='exist']"));
 		selenium.setSpeed(MID_SPEED);
-	
+		
 		selenium.click("//label[text()='Check file server:']/parent::div//input[@name='executionServerId']");
 		selenium.mouseDown("//div[text()='" + serverName + "']");
 		
@@ -51,7 +62,8 @@ public class TestAddTriggerAddFileTrigger extends Login {
     	}
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+triggerLabel+"']"));
-		Assert.assertTrue(selenium.isElementPresent("//span[text()='Generating...']"));
+		this.waitForElementPresent("//span[text()='Ready to run']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//span[text()='Ready to run']"));
 		selenium.setSpeed(MIN_SPEED);
 		
 	 }
