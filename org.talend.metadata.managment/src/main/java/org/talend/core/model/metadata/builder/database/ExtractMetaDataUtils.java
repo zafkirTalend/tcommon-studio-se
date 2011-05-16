@@ -290,6 +290,9 @@ public class ExtractMetaDataUtils {
 
     // hywang add for bug 7575
     public static String getDbTypeByClassName(String driverClassName) {
+        if ("oracle.jdbc.driver.OracleDriver".equals(driverClassName)) {
+            driverClassName = "oracle.jdbc.OracleDriver";
+        }
         List<EDatabase4DriverClassName> t4d = EDatabase4DriverClassName.indexOfByDriverClass(driverClassName);
         if (t4d.size() > 0) {
             return t4d.get(0).getDbTypeName(); // first default
@@ -302,6 +305,9 @@ public class ExtractMetaDataUtils {
     }
 
     public static String getDbTypeByClassNameAndDriverJar(String driverClassName, String driverJar) {
+        if ("oracle.jdbc.driver.OracleDriver".equals(driverClassName)) {
+            driverClassName = "oracle.jdbc.OracleDriver";
+        }
         List<EDatabase4DriverClassName> t4d = EDatabase4DriverClassName.indexOfByDriverClass(driverClassName);
         if (t4d.size() == 1) {
             return t4d.get(0).getDbTypeName();
