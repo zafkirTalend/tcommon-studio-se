@@ -52,9 +52,9 @@ public enum EDatabase4DriverClassName {
     MYSQL2(EDatabaseTypeName.MYSQL, "com.mysql.jdbc.Driver"), //$NON-NLS-1$
     NETEZZA(EDatabaseTypeName.NETEZZA, "org.netezza.Driver"), //$NON-NLS-1$
 
-    ORACLEFORSID(EDatabaseTypeName.ORACLEFORSID, "oracle.jdbc.OracleDriver"), //$NON-NLS-1$
-    ORACLESN(EDatabaseTypeName.ORACLESN, "oracle.jdbc.OracleDriver"), //$NON-NLS-1$
-    ORACLE_OCI(EDatabaseTypeName.ORACLE_OCI, "oracle.jdbc.OracleDriver"), //$NON-NLS-1$
+    ORACLEFORSID(EDatabaseTypeName.ORACLEFORSID, "oracle.jdbc.OracleDriver", "oracle.jdbc.driver.OracleDriver"), //$NON-NLS-1$ //$NON-NLS-2$
+    ORACLESN(EDatabaseTypeName.ORACLESN, "oracle.jdbc.OracleDriver", "oracle.jdbc.driver.OracleDriver"), //$NON-NLS-1$ //$NON-NLS-2$
+    ORACLE_OCI(EDatabaseTypeName.ORACLE_OCI, "oracle.jdbc.OracleDriver", "oracle.jdbc.driver.OracleDriver"), //$NON-NLS-1$ //$NON-NLS-2$
 
     PARACCEL(EDatabaseTypeName.PARACCEL, "com.paraccel.Driver"), //$NON-NLS-1$
 
@@ -80,11 +80,22 @@ public enum EDatabase4DriverClassName {
 
     private EDatabaseTypeName dbType;
 
-    private String driverClass;
+    private String[] usingDriverClasses;
+
+    private String[] deprecatedDriverClasses;
+
+    EDatabase4DriverClassName(EDatabaseTypeName dbType, String usingDriverClasses[], String deprecatedDriverClasses[]) {
+        this.dbType = dbType;
+        this.usingDriverClasses = usingDriverClasses;
+        this.deprecatedDriverClasses = deprecatedDriverClasses;
+    }
+
+    EDatabase4DriverClassName(EDatabaseTypeName dbType, String driverClass, String deprecatedDriverClass) {
+        this(dbType, new String[] { driverClass }, new String[] { deprecatedDriverClass });
+    }
 
     EDatabase4DriverClassName(EDatabaseTypeName dbType, String driverClass) {
-        this.dbType = dbType;
-        this.driverClass = driverClass;
+        this(dbType, new String[] { driverClass }, new String[0]);
     }
 
     public EDatabaseTypeName getDbType() {
@@ -96,7 +107,18 @@ public enum EDatabase4DriverClassName {
     }
 
     public String getDriverClass() {
-        return this.driverClass;
+        if (usingDriverClasses != null && usingDriverClasses.length > 0) {
+            return usingDriverClasses[0]; // use the first one by default
+        }
+        return null;
+    }
+
+    public String[] getDriverClasses() {
+        return this.usingDriverClasses;
+    }
+
+    public String[] getDeprecatedDriverClasses() {
+        return this.deprecatedDriverClasses;
     }
 
     public static EDatabase4DriverClassName indexOfByDbType(String dbType) {
@@ -116,8 +138,24 @@ public enum EDatabase4DriverClassName {
     public static List<EDatabase4DriverClassName> indexOfByDriverClass(String driverClass) {
         List<EDatabase4DriverClassName> dbType4Drivers = new ArrayList<EDatabase4DriverClassName>();
         for (EDatabase4DriverClassName t4d : EDatabase4DriverClassName.values()) {
-            if (t4d.getDriverClass().equals(driverClass)) {
-                dbType4Drivers.add(t4d);
+            String[] drivers = t4d.getDriverClasses();
+            if (drivers != null) {
+                for (String driver : drivers) {
+                    if (driver.equals(driverClass)) {
+                        dbType4Drivers.add(t4d);
+                        break;
+                    }
+                }
+            }
+            // from deprecated drivers
+            drivers = t4d.getDeprecatedDriverClasses();
+            if (drivers != null && !dbType4Drivers.contains(t4d)) {
+                for (String driver : drivers) {
+                    if (driver.equals(driverClass)) {
+                        dbType4Drivers.add(t4d);
+                        break;
+                    }
+                }
             }
         }
         return dbType4Drivers;

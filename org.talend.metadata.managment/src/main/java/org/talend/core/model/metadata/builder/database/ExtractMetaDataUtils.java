@@ -290,24 +290,10 @@ public class ExtractMetaDataUtils {
 
     // hywang add for bug 7575
     public static String getDbTypeByClassName(String driverClassName) {
-        if ("oracle.jdbc.driver.OracleDriver".equals(driverClassName)) {
-            driverClassName = "oracle.jdbc.OracleDriver";
-        }
-        List<EDatabase4DriverClassName> t4d = EDatabase4DriverClassName.indexOfByDriverClass(driverClassName);
-        if (t4d.size() > 0) {
-            return t4d.get(0).getDbTypeName(); // first default
-            /*
-             * if driverClassName is " oracle.jdbc.driver.OracleDriver",just return "oracle with sid",don't care whether
-             * is "oracle with sid" or "oracle with service name"
-             */
-        }
-        return null;
+        return getDbTypeByClassNameAndDriverJar(driverClassName, null);
     }
 
     public static String getDbTypeByClassNameAndDriverJar(String driverClassName, String driverJar) {
-        if ("oracle.jdbc.driver.OracleDriver".equals(driverClassName)) {
-            driverClassName = "oracle.jdbc.OracleDriver";
-        }
         List<EDatabase4DriverClassName> t4d = EDatabase4DriverClassName.indexOfByDriverClass(driverClassName);
         if (t4d.size() == 1) {
             return t4d.get(0).getDbTypeName();
