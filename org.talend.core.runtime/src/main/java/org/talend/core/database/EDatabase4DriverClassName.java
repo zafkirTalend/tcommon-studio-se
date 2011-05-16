@@ -52,9 +52,9 @@ public enum EDatabase4DriverClassName {
     MYSQL2(EDatabaseTypeName.MYSQL, "com.mysql.jdbc.Driver"), //$NON-NLS-1$
     NETEZZA(EDatabaseTypeName.NETEZZA, "org.netezza.Driver"), //$NON-NLS-1$
 
-    ORACLEFORSID(EDatabaseTypeName.ORACLEFORSID, "oracle.jdbc.OracleDriver"), //$NON-NLS-1$
-    ORACLESN(EDatabaseTypeName.ORACLESN, "oracle.jdbc.OracleDriver"), //$NON-NLS-1$
-    ORACLE_OCI(EDatabaseTypeName.ORACLE_OCI, "oracle.jdbc.OracleDriver"), //$NON-NLS-1$
+    ORACLEFORSID(EDatabaseTypeName.ORACLEFORSID, "oracle.jdbc.driver.OracleDriver"), //$NON-NLS-1$
+    ORACLESN(EDatabaseTypeName.ORACLESN, "oracle.jdbc.driver.OracleDriver"), //$NON-NLS-1$
+    ORACLE_OCI(EDatabaseTypeName.ORACLE_OCI, "oracle.jdbc.driver.OracleDriver"), //$NON-NLS-1$
 
     PARACCEL(EDatabaseTypeName.PARACCEL, "com.paraccel.Driver"), //$NON-NLS-1$
 
