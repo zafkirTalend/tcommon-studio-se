@@ -37,7 +37,7 @@ public class TestAddConnection extends Login {
 
 	}
 
-	@Test(groups = "AddConnection")
+//	@Test(groups = "AddConnection")
 	@Parameters( { "Oracle_Connectionlabel", "Oracle_Dbname", "Oracle_Dbtype",
 			"Oracle_Host", "Oracle_Serverport", "Oracle_Username",
 			"Oracle_Password", "Oracle_Datasourse", "Oracle_Additional",
@@ -135,7 +135,16 @@ public class TestAddConnection extends Login {
 		selenium.mouseDown("idFormSaveButton");
 		selenium.keyPressNative(Event.ENTER + "");
 		selenium.keyUpNative(Event.ENTER + "");
+		selenium.mouseUp("idFormSaveButton");
 		// check whether add success
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		selenium.refresh();
+		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+ label + "')]", WAIT_TIME);
 		assertTrue(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+ label + "')]"), "DBConnection type: "+ dbtype + " added failed!");
 	}
 

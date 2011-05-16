@@ -6,6 +6,8 @@ import org.testng.annotations.Parameters;
 
 import java.awt.Event;
 
+import bsh.This;
+
 import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 import com.thoughtworks.selenium.Selenium;
@@ -16,9 +18,9 @@ public class TestDuplicateConnection extends Login {
 	@Parameters({ "Mysql_Connectionlabel" })
 	public void testDuplicateConnectionMysql(String label)
 			throws InterruptedException {
-		this.waitForElementPresent("!!!menu.connections.element!!!", 30);
+		waitForElement(this.selenium,"!!!menu.connections.element!!!", 30);
 		selenium.click("!!!menu.connections.element!!!");
-		this.waitForElementPresent("idSubModuleAddButton", 30);
+		waitForElement(this.selenium,"idSubModuleAddButton", 30);
 		Connection toDuplicate = new Connection(this.selenium, label);
 		duplicateConnection(label);
 		Connection afterDuplicate = new Connection(this.selenium, "Copy_of_"
@@ -28,17 +30,42 @@ public class TestDuplicateConnection extends Login {
 	}
 
 	public void duplicateConnection(String label) throws InterruptedException {
-		selenium.refresh();
 		selenium.setSpeed(MID_SPEED);
+		selenium.refresh();
+		waitForElement(this.selenium,"//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+				+ label + "')]", Base.WAIT_TIME);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ label + "')]");
 		Thread.sleep(3000);
 		selenium.click("//div[text()='Connections']/ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDuplicateButton']");
 		selenium.click("idFormSaveButton");
+		Thread.sleep(5000);
+		selenium.refresh();
+		waitForElement(this.selenium,"//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='Copy_of_"
+				+ label + "')]", WAIT_TIME);
 		Assert.assertTrue(
 				selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='Copy_of_"
 						+ label + "')]"), "duplicate connection failed!");
 		selenium.setSpeed(MIN_SPEED);
+	}
+	public void waitForElement(Selenium selenium,String locator, int seconds) {
+		for (int second = 0;; second++) {
+			if (second >= seconds)
+				// org.testng.Assert.fail("wait for element "+ locator +
+				// " to be present,time out");
+				org.testng.Assert
+						.assertTrue(selenium.isElementPresent(locator));
+			try {
+				if (selenium.isElementPresent(locator))
+					break;
+			} catch (Exception e) {
+			}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	class Connection extends Base {
@@ -57,10 +84,13 @@ public class TestDuplicateConnection extends Login {
 		public Connection(Selenium selenium, String label)
 				throws InterruptedException {
 
-			selenium.refresh();
+			
 			// this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+label+"')]",
 			// WAIT_TIME);
 			selenium.setSpeed(MID_SPEED);
+			selenium.refresh();
+//			Thread.sleep(8000);
+		   waitForElement(selenium,"//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+ label + "')]", WAIT_TIME);
 			selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 					+ label + "')]");
 			Thread.sleep(3000);

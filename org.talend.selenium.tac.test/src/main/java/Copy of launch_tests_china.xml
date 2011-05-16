@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="false">
+
+	<!-- Selenium parameters -->
+	<parameter  name ="server"	value ="192.168.0.94"/>
+	<parameter  name ="port"	value ="4444"/>
+	<parameter  name ="browser"	value ="*firefox"/>
+	
+	<!-- TAC Webapp parameters -->
+	<parameter  name ="url"		value ="http://192.168.0.94:8080/"/>
+	<parameter  name ="root"	value ="/org.talend.administrator/"/>
+	
+	<!-- SVN parameters -->
+	<parameter  name ="SVNurl" value ="https://192.168.0.216:8443/svn/test"/>
+	
+	<parameter  name ="SVNProjecturl" value ="https://192.168.0.216:8443/svn/testing/"/>
+  	<parameter  name ="SVNPerlProjecturl" value ="https://192.168.0.216:8443/svn/perl/"/>
+  	<parameter  name ="SVNuserName" value ="admin"/>
+  	<parameter  name ="SVNuserPassword" value ="admin"/>
+  	
+  	<!-- Language parameters -->
+  	<parameter  name ="language"	value ="en"/>
+  	<parameter  name ="country"	value ="US"/>
+  	<parameter  name ="resourceBundle"	value ="messages"/>
+
+	<!-- Login user -->
+	<parameter name="userName" value="admin@company.com" />
+	<parameter name="userPassword" value="admin" />
+	
+	<!-- projects for task and soamanager -->
+	<parameter  name ="AddcommonProjectname"	value ="commonpro"/>
+  	<parameter  name ="AddreferenceProjectname"	value ="referencepro"/>
+  	
+	<suite-files>
+	<!--<suite-file path="executionplan.xml"/>
+		--><!-- --> 
+		 <!-- --> 
+		 <suite-file path="dashboard.xml"/>
+		 
+		<!--<suite-file path="license_china.xml"/>
+		 --><!--<suite-file path="user.xml"/>
+		 --><!--<suite-file path="project.xml"/>
+		 
+		  --><!--<suite-file path="notification.xml"/>
+		  <suite-file path="dashboard.xml"/>
+		 --><!--<suite-file path="task.xml"/>
+		 --><!--<suite-file path="license_china.xml"/>
+		 --><!--<suite-file path="license_china.xml"/>	
+		 --><!-- Need configuration
+		 <suite-file path="dashboard.xml"/>
+		 <suite-file path="jobconductor.xml"/>
+		 <suite-file path="task.xml"/>
+		 <suite-file path="Plans.xml"/>
+		 <suite-file path="notification.xml"/>
+		 -->	 
+
+	</suite-files>
+</suite>
