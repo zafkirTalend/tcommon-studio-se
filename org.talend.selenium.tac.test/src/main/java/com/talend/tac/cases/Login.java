@@ -1,5 +1,7 @@
 package com.talend.tac.cases;
 
+import java.awt.Event;
+
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -21,8 +23,10 @@ public class Login extends Base {
 		
 		String pwValue = selenium.getValue("idLoginPasswordInput");
 		if( pwValue==null || "".equals(pwValue) ) {
-			selenium.typeKeys("idLoginPasswordInput", password);
+//			selenium.typeKeys("idLoginPasswordInput", password);
+			selenium.type("idLoginPasswordInput", password);
 		} 
+		selenium.keyPressNative(Event.TAB +"");
 		this.waitForElementPresent("idLoginInput", Base.WAIT_TIME);
 		selenium.click("idLoginButton");
 		selenium.setSpeed(MID_SPEED);
