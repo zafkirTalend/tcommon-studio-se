@@ -95,9 +95,10 @@ public final class SchemaHelper {
         boolean added = false;
         if ((schema != null) && (elements != null)) {
             List<ModelElement> elementList = schema.getOwnedElement();
-            if (elementList != null && elementList.size() > 0) {
-                elementList.clear();
-            }
+            // DEL by msjian 2011-5-16 20875: "reload table list" for oracle have some issue
+            // if (elementList != null && elementList.size() > 0) {
+            // elementList.clear();
+            // }
             Resource eResource = schema.eResource();
             if (eResource != null) {
                 eResource.getContents().addAll(elements);
