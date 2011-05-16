@@ -39,7 +39,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 	public void testGenerateTask(String taskLabel) {
 		 
 		
-		generateDeployRunTask(taskLabel,"idJobConductorTaskGenerateButton()");//click generate button
+		generateDeployRunTask(taskLabel,"idJobConductorTaskGenerateButton");//click generate button
 		this.waitForElementPresent("//span[text()='Generating...']", WAIT_TIME);
 	   	Assert.assertTrue(selenium.isElementPresent("//span[text()='Generating...']"));
     	this.waitForElementPresent("//span[text()='Ready to deploy']", WAIT_TIME);
@@ -52,7 +52,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 	@Parameters({"modifyTask"})
 	public void testDoployTask(String taskLabel) {
 		
-		generateDeployRunTask(taskLabel,"//button[@id='idJobConductorTaskRunButton()' and text()='Deploy']");//click Deploy button
+		generateDeployRunTask(taskLabel,"//button[@id='idJobConductorTaskRunButton' and text()='Deploy']");//click Deploy button
 		this.waitForElementPresent("//span[text()='Ready to run']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='Ready to run']"));
 		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
@@ -64,7 +64,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 	@Parameters({"modifyTask"})
 	public void testRunSimpleTask(String taskLabel) {
 		 
-		generateDeployRunTask(taskLabel,"//button[@id='idJobConductorTaskRunButton()' and text()='Run']");//click Run button
+		generateDeployRunTask(taskLabel,"//button[@id='idJobConductorTaskRunButton' and text()='Run']");//click Run button
 		this.waitForElementPresent("//span[text()='Real time statistics']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='Real time statistics']"));
 		this.waitForElementPresent("//label[text()='Ok']", WAIT_TIME);
@@ -78,7 +78,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 	@Parameters({"labelTRunJobByTaskRun"})
 	public void testRunTaskWithJobContainingSubjob(String taskLabel) {
 		
-		generateDeployRunTask(taskLabel, "//button[@id='idJobConductorTaskRunButton()' and text()='Run']");//click Run button
+		generateDeployRunTask(taskLabel, "//button[@id='idJobConductorTaskRunButton' and text()='Run']");//click Run button
 		this.waitForElementPresent("//span[text()='Real time statistics']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='Real time statistics']"));
 		selenium.setSpeed(MID_SPEED);
@@ -97,7 +97,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 		
 		changeCommandLineConfig(remotehostAddress);
 		
-		generateDeployRunTask(taskLabel,"idJobConductorTaskGenerateButton()");//click generate button
+		generateDeployRunTask(taskLabel,"idJobConductorTaskGenerateButton");//click generate button
 		selenium.setSpeed(MID_SPEED);
 	   	Assert.assertTrue(selenium.isTextPresent("Generating..."));
     	selenium.setSpeed(MIN_SPEED);
@@ -133,7 +133,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
     	
     	selenium.setSpeed(MIN_SPEED);
 		selenium.click("idFormSaveButton");
-		selenium.click("//button[@id='idJobConductorTaskRunButton()' and text()='Run']");//click Run button
+		selenium.click("//button[@id='idJobConductorTaskRunButton' and text()='Run']");//click Run button
 		
 		selenium.setSpeed(MID_SPEED);
 		selenium.mouseDown("//span[text()='"+taskLabel+"']");//select an simple task
