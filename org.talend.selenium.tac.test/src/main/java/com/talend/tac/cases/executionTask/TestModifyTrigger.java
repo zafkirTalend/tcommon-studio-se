@@ -32,20 +32,26 @@ public class TestModifyTrigger extends Login {
         this.typeString("//span[text()='"+triggerType+"']/parent::legend/parent::fieldset" +
 				"//input[@name='description']", description);//modify description
         selenium.setSpeed(MIN_SPEED);
+         
+        if(selenium.isElementPresent("//label[text()='Check file server:']/parent::div//input[@name='executionServerId']")) {
+    		
+        	selenium.click("//label[text()='Check file server:']/parent::div//input[@name='executionServerId']");
+    		this.waitForElementPresent("//div[text()='use_server_available']", WAIT_TIME);
+    		selenium.mouseDown("//div[text()='use_server_available']");
+        
+        }
         
         selenium.setSpeed(MID_SPEED);
 	    selenium.click("//span[text()='"+triggerType+"']/parent::legend/parent::fieldset/parent::form/" +
 		"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");//click save button
 		selenium.setSpeed(MIN_SPEED);
-		if(!selenium.isElementPresent("//span[text()='"+labelAfterModified+"']")) {
-    		
-			selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::div/" +
-			"parent::div/parent::div//button[text()='Refresh']");//click refresh button
-			
-    	}
 		
+		selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::div/" +
+			"parent::div/parent::div//button[text()='Refresh']");//click refresh button
+        selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(!selenium.isElementPresent("//span[text()='"+labelBeforeModify+"']"));
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+labelAfterModified+"']"));
+		selenium.setSpeed(MIN_SPEED);
 		
 	}
 	
@@ -53,9 +59,8 @@ public class TestModifyTrigger extends Login {
 	
 	//test pause and resume a simple trigger
 	@Test(dependsOnGroups={"AddCronTrigger"})
-	@Parameters({"labelTRunJobByTaskRun", "addSimpleTriggerLabelNotChooseDate", "fileTiggerLabelAfterModified",
-		"fileTiggerLabelAfterModifiedDescription", "simpleTriggerType"})
-	public void testPauseResumeSimpleTrigger(String taskLabel, String triggerLabel, String triggerType) {
+	@Parameters({"labelTRunJobByTaskRun", "addSimpleTriggerLabelNotChooseDate"})
+	public void testPauseResumeSimpleTrigger(String taskLabel, String triggerLabel) {
 		
 
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");//into JobConductor page
