@@ -152,65 +152,8 @@ public class TestAddTaskBaseBranchProject  extends Login {
 				
 	}
 
-	
+
 	@Test(dependsOnGroups={"AddTask"})
-	@Parameters({"AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
-	public void testDeactiveTaskWithSimpleTrigger(String projectName, String branchName,
-			 String jobName, String version, String context, String serverName, String statisticName) throws InterruptedException{
-		 String label = "taskwithsimpletrigger";
-		 int executiontime = 30000;
-		 if(!selenium.isElementPresent("//span[text()='"+label+"']")){
-			 addTask(label, projectName,branchName,jobName,version,context,serverName,statisticName);
-		 }
-		 if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
-			
-			selenium.click("idFormSaveButton");
-	        selenium.setSpeed(MID_SPEED);
-			Assert.assertTrue(selenium.isElementPresent("//span[text()='"+label+"']"));
-			selenium.setSpeed(MIN_SPEED);
-			
-		}
-		 
-		 runTask(label,1);
-        //add a simple trigger for the task
-        addSimpleTrigger(label,"5");
-        //wait for 160 seconds so that the task run several times
-        Thread.sleep(executiontime);
-        //see task logs ,count the execution times
-        selenium.click("//span//span[text()='Logs']");
-		selenium.setSpeed(MID_SPEED);
-//		selenium.click("");
-		Assert.assertTrue(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']"), "task run failed!");
-		Assert.assertTrue(getTotalExecutionTimes() > 0, "task run failed!");
-		selenium.setSpeed(MIN_SPEED);
-		selenium.refresh();
-		this.waitForElementPresent("//span[text()='"+label+"']", WAIT_TIME);
-		selenium.setSpeed(MID_SPEED);
-		selenium.mouseDown("//span[text()='"+label+"']");
-		this.waitForElementPresent("//span[text()='Execution task']/ancestor::fieldset//label[text()='Active:']/ancestor::div[@class='x-form-item ']//input", WAIT_TIME);
-		inputCheckBoxUncheck("//span[text()='Execution task']/ancestor::fieldset//label[text()='Active:']/ancestor::div[@class='x-form-item ']//input");
-//		selenium.setSpeed(MID_SPEED);
-		selenium.click("idFormSaveButton");
-		Thread.sleep(3000);
-		selenium.setSpeed(MIN_SPEED);
-		Thread.sleep(3000);
-		selenium.refresh();
-		this.waitForElementPresent("//span[text()='"+label+"']", WAIT_TIME);
-		selenium.setSpeed(MID_SPEED);
-		selenium.mouseDown("//span[text()='"+label+"']");
-		int totalafterdeactive = getTotalExecutionTimes();
-		selenium.setSpeed(MIN_SPEED);
-		Thread.sleep(executiontime);
-		selenium.refresh();
-		this.waitForElementPresent("//span[text()='"+label+"']", WAIT_TIME);
-		selenium.setSpeed(MID_SPEED);
-		selenium.mouseDown("//span[text()='"+label+"']");
-		Assert.assertFalse( getTotalExecutionTimes()> totalafterdeactive, "task deactive failed!");
-		selenium.setSpeed(MIN_SPEED);
-		deleteTask(label);
-	}
-	@Test(dependsOnMethods={"testDeactiveTaskWithSimpleTrigger"})
 	@Parameters({"TaskBaseBranch","AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
 	public void testAddTaskBaseBranch(String label, String projectName, String branchName,
@@ -274,6 +217,65 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MIN_SPEED);
 	}
+	
+	
+	@Test(dependsOnMethods={"testTaskStatisticViewDisable"})
+	@Parameters({"AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
+		"context","ServerForUseAvailable","statisticEnabled"})
+	public void testDeactiveTaskWithSimpleTrigger(String projectName, String branchName,
+			 String jobName, String version, String context, String serverName, String statisticName) throws InterruptedException{
+		 String label = "taskwithsimpletrigger";
+		 int executiontime = 60000;
+		 if(!selenium.isElementPresent("//span[text()='"+label+"']")){
+			 addTask(label, projectName,branchName,jobName,version,context,serverName,statisticName);
+		 }
+		 if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
+			
+			selenium.click("idFormSaveButton");
+	        selenium.setSpeed(MID_SPEED);
+			Assert.assertTrue(selenium.isElementPresent("//span[text()='"+label+"']"));
+			selenium.setSpeed(MIN_SPEED);
+			
+		}
+		 
+		 runTask(label,1);
+        //add a simple trigger for the task
+        addSimpleTrigger(label,"25");
+        //wait for 160 seconds so that the task run several times
+        Thread.sleep(executiontime);
+        //see task logs ,count the execution times
+        selenium.click("//span//span[text()='Logs']");
+		selenium.setSpeed(MID_SPEED);
+//		selenium.click("");
+		Assert.assertTrue(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']"), "task run failed!");
+		Assert.assertTrue(getTotalExecutionTimes() > 0, "task run failed!");
+		selenium.setSpeed(MIN_SPEED);
+		selenium.refresh();
+		this.waitForElementPresent("//span[text()='"+label+"']", WAIT_TIME);
+		selenium.setSpeed(MID_SPEED);
+		selenium.mouseDown("//span[text()='"+label+"']");
+		this.waitForElementPresent("//span[text()='Execution task']/ancestor::fieldset//label[text()='Active:']/ancestor::div[@class='x-form-item ']//input", WAIT_TIME);
+		inputCheckBoxUncheck("//span[text()='Execution task']/ancestor::fieldset//label[text()='Active:']/ancestor::div[@class='x-form-item ']//input");
+//		selenium.setSpeed(MID_SPEED);
+		selenium.click("idFormSaveButton");
+		Thread.sleep(3000);
+		selenium.setSpeed(MIN_SPEED);
+		Thread.sleep(3000);
+		selenium.refresh();
+		this.waitForElementPresent("//span[text()='"+label+"']", WAIT_TIME);
+		selenium.setSpeed(MID_SPEED);
+		selenium.mouseDown("//span[text()='"+label+"']");
+		int totalafterdeactive = getTotalExecutionTimes();
+		selenium.setSpeed(MIN_SPEED);
+		Thread.sleep(executiontime);
+		selenium.refresh();
+		this.waitForElementPresent("//span[text()='"+label+"']", WAIT_TIME);
+		selenium.setSpeed(MID_SPEED);
+		selenium.mouseDown("//span[text()='"+label+"']");
+		Assert.assertFalse( getTotalExecutionTimes()> totalafterdeactive, "task deactive failed!");
+		selenium.setSpeed(MIN_SPEED);
+		deleteTask(label);
+	}
 	@Test(dependsOnMethods={"testTaskStatisticViewDisable"})
 	@Parameters({"labelStatisticViewTask"})
 	public void testTaskStatisticViewEnable(String tasklabel) throws InterruptedException{
@@ -315,8 +317,9 @@ public class TestAddTaskBaseBranchProject  extends Login {
 					+ label + "']"));
 			selenium.setSpeed(MIN_SPEED);
 		}
+		
 		runTask(label,5);
-		selenium.click("//span//span[text()='Logs']");
+		this.clickWaitForElementPresent("//span//span[text()='Logs']");
 		Thread.sleep(3000);
 		Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==5,"task run generate logs failed !");
 		selenium.chooseOkOnNextConfirmation();
