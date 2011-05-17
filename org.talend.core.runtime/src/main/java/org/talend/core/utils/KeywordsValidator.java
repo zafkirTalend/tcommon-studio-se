@@ -103,9 +103,7 @@ public class KeywordsValidator {
         if (Platform.getOS().equals(Platform.OS_AIX)) {
             return false;
         }
-        if ("ORACLE".equals(product)) {
-            return false;
-        }
+
         List<String> productKeywords = null;
         if (sqlKeywords.isEmpty() && tsqlKeyWords != null) {
             sqlKeywords.addAll(Arrays.asList(tsqlKeyWords.get("KEYWORD1"))); //$NON-NLS-1$
