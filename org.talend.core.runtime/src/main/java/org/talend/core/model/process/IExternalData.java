@@ -50,4 +50,10 @@ public interface IExternalData extends Serializable, Cloneable {
     public Map<IExternalMapTable, List<IExternalMapEntry>> getExpressionColumns(String expression, ExternalDataType... types);
 
     public List<String> getJoinedTableNames(String mainTable);
+
+    public List<? extends IExternalMapTable> getOutputTables();
+
+    public List<? extends IExternalMapTable> getInputTables();
+
+    public List<? extends IExternalMapTable> getVarsTables();
 }
