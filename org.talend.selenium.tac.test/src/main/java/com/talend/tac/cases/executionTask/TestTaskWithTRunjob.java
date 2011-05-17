@@ -38,7 +38,7 @@ public class TestTaskWithTRunjob extends Login {
 				WAIT_TIME);
 		selenium.mouseDown("//span[text()='" + tasklabel + "']");
 		Thread.sleep(3000);
-		selenium.click("//button[@id='idJobConductorTaskRunButton()'  and @class='x-btn-text ' and text()='Run']");
+		selenium.click("//button[@id='idJobConductorTaskRunButton'  and @class='x-btn-text ' and text()='Run']");
 //		Date start = new Date();
 		boolean success = (waitForCondition("//label[text()='Ok']", Base.WAIT_TIME));
 		// close the pop window
@@ -80,7 +80,7 @@ public class TestTaskWithTRunjob extends Login {
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']");
 		selenium.setSpeed(MID_SPEED);
 		logs = selenium
-				.getValue("//table[@class=' x-btn x-form-file-btn x-component x-btn-text-icon']/ancestor::div[@class='x-form-item ']//textarea");
+				.getValue("//textarea[@name='log']");
 		selenium.setSpeed(MIN_SPEED);
 		System.out.println(logs);
 		return logs;

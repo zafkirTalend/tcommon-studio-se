@@ -29,7 +29,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		int total = 0;
 		selenium.click("//span//span[text()='Logs']");
 		selenium.setSpeed(MAX_SPEED);
-		selenium.click("//img[@src='gxt/themes/access/images/grid/refresh.gif']");
+//		selenium.click("//img[@src='gxt/themes/access/images/grid/refresh.gif']");
 		String strContains = selenium.getText("//div[@class='my-paging-display x-component ']");
 		String to = (strContains.split("of")[1].trim());
 		selenium.setSpeed(MIN_SPEED);
@@ -324,8 +324,9 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		selenium.chooseOkOnNextConfirmation();
 		selenium.click("idJobConductorJobLogClearLogButton");
 		selenium.getConfirmation();
-		Thread.sleep(3000);
+		Thread.sleep(3000);	
 		Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==0,"task run generate logs failed !");
+		runTask(label,5);
 		if(deleteTask(label)){
 			addTask(label, projectName, branchName, jobName, version, context,
 					serverName, statisticName);
@@ -335,13 +336,14 @@ public class TestAddTaskBaseBranchProject  extends Login {
 				Assert.assertTrue(selenium.isElementPresent("//span[text()='"
 						+ label + "']"));
 				selenium.setSpeed(MIN_SPEED);
-			}
+			}	
 			selenium.setSpeed(MID_SPEED);
 			selenium.mouseDown("//span[text()='"
 						+ label + "']");
 			selenium.click("//span//span[text()='Logs']");
 			Thread.sleep(3000);
-			Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==0,"delete  logs through delete task failed !");
+			Assert.assertFalse(waitForCondition("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']",Base.WAIT_TIME/4), "delete  logs through delete task failed !");
+//			Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==0,"delete  logs through delete task failed !");
 			selenium.setSpeed(MIN_SPEED);
 		}
 	}
