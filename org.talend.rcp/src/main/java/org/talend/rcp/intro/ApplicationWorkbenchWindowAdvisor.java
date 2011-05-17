@@ -31,7 +31,6 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
@@ -263,6 +262,9 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                 // ~ 15756
             }
         });
+
+        // MOD yyi 2011-05-17 19088: add perspective change listener for cheatsheet view of tdq
+        PlatformUI.getWorkbench().getActiveWorkbenchWindow().addPerspectiveListener(new CheatSheetPerspectiveAdapter());
     }
 
     private void clearEditorAreaBG(boolean flag) {
