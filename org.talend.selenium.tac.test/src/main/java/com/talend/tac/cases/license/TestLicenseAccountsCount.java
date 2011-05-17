@@ -11,7 +11,7 @@ import com.talend.tac.cases.Login;
 public class TestLicenseAccountsCount extends Login {
    public  double moreOver = 0.20;
 	
-//	@Test
+	@Test
 	public void testAddDIChangeToDQ() throws InterruptedException{
 		cleanAllExceptAdmin();
 		int n = getDQcounts();
@@ -114,7 +114,7 @@ public class TestLicenseAccountsCount extends Login {
 		"Data Integration");
 		cleanAllExceptAdmin();
 	}
-//	@Test
+	@Test
 	public void testAddDQChangeToDI() throws InterruptedException{
 		cleanAllExceptAdmin();
 		int n = getDIcounts();
@@ -267,7 +267,7 @@ public class TestLicenseAccountsCount extends Login {
 		cleanAllExceptAdmin();
 		
 	}
-//	@Test
+	@Test
 	public void testAddMaxAmountsDIUsersAllowed() throws InterruptedException {
 		cleanAllExceptAdmin();
 		int n = getDIcounts();
@@ -303,7 +303,7 @@ public class TestLicenseAccountsCount extends Login {
 		cleanAllExceptAdmin();
 	}
 
-//	@Test
+	@Test
 	public void testAddMaxAmountsDQUsersAllowed() throws InterruptedException {
 		cleanAllExceptAdmin();
 		int n = getDQcounts();
@@ -589,7 +589,7 @@ public class TestLicenseAccountsCount extends Login {
 		cleanAllExceptAdmin();
 	}
 	
-//	@Test
+	@Test
 	public void testAddMaxAmountsMDMUsersAllowed() throws InterruptedException{
 		cleanAllExceptAdmin();
 		int n = getMDMcounts();
@@ -604,7 +604,7 @@ public class TestLicenseAccountsCount extends Login {
 		addUsersMoreOver(3,n);
 	}
 
-//	@Test
+	@Test
 	public void testDIUsersMoreOver() throws InterruptedException {
 		cleanAllExceptAdmin();
 		int n = getDIcounts();
@@ -647,7 +647,7 @@ public class TestLicenseAccountsCount extends Login {
 		cleanAllExceptAdmin();
 	}
 
-//	@Test
+	@Test
 	public void testDIUsersMoreOverUnactive() throws InterruptedException {
 		cleanAllExceptAdmin();
 		int n = getDIcounts();
@@ -683,7 +683,7 @@ public class TestLicenseAccountsCount extends Login {
 		cleanAllExceptAdmin();
 	}
 
-//	@Test
+	@Test
 	public void testDIUsersMoreOverUnactiveReactive()
 			throws InterruptedException {
 		cleanAllExceptAdmin();
@@ -1058,7 +1058,7 @@ public class TestLicenseAccountsCount extends Login {
 		cleanAllExceptAdmin();
 	}
 	
-//@Test
+@Test
 public void testMDMUsersMoreOverUnactive() throws InterruptedException{
 	cleanAllExceptAdmin();
 	int n = getMDMcounts();
