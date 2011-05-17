@@ -197,13 +197,22 @@ public interface ComponentCachePackage extends EPackage {
     int COMPONENT_INFO__PATH_SOURCE = 10;
 
     /**
+     * The feature id for the '<em><b>Repository Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPONENT_INFO__REPOSITORY_TYPE = 11;
+
+    /**
      * The number of structural features of the '<em>Component Info</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COMPONENT_INFO_FEATURE_COUNT = 11;
+    int COMPONENT_INFO_FEATURE_COUNT = 12;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.component_cache.impl.ComponentEntryMapImpl <em>Component Entry Map</em>}' class.
@@ -396,6 +405,17 @@ public interface ComponentCachePackage extends EPackage {
     EAttribute getComponentInfo_PathSource();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.component_cache.ComponentInfo#getRepositoryType <em>Repository Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Repository Type</em>'.
+     * @see org.talend.core.model.component_cache.ComponentInfo#getRepositoryType()
+     * @see #getComponentInfo()
+     * @generated
+     */
+    EAttribute getComponentInfo_RepositoryType();
+
+    /**
      * Returns the meta object for class '{@link java.util.Map.Entry <em>Component Entry Map</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -566,6 +586,14 @@ public interface ComponentCachePackage extends EPackage {
          * @generated
          */
         EAttribute COMPONENT_INFO__PATH_SOURCE = eINSTANCE.getComponentInfo_PathSource();
+
+        /**
+         * The meta object literal for the '<em><b>Repository Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute COMPONENT_INFO__REPOSITORY_TYPE = eINSTANCE.getComponentInfo_RepositoryType();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.component_cache.impl.ComponentEntryMapImpl <em>Component Entry Map</em>}' class.

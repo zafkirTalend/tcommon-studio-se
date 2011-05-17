@@ -46,6 +46,7 @@ import org.talend.designer.core.model.utils.emf.component.IMPORTType;
  *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#isIsVisibleInComponentDefinition <em>Is Visible In Component Definition</em>}</li>
  *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#getUriString <em>Uri String</em>}</li>
  *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#getPathSource <em>Path Source</em>}</li>
+ *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#getRepositoryType <em>Repository Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -241,6 +242,26 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
      * @ordered
      */
     protected String pathSource = PATH_SOURCE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getRepositoryType() <em>Repository Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRepositoryType()
+     * @generated
+     * @ordered
+     */
+    protected static final String REPOSITORY_TYPE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getRepositoryType() <em>Repository Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRepositoryType()
+     * @generated
+     * @ordered
+     */
+    protected String repositoryType = REPOSITORY_TYPE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -470,6 +491,27 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getRepositoryType() {
+        return repositoryType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setRepositoryType(String newRepositoryType) {
+        String oldRepositoryType = repositoryType;
+        repositoryType = newRepositoryType;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentCachePackage.COMPONENT_INFO__REPOSITORY_TYPE, oldRepositoryType, repositoryType));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
@@ -509,6 +551,8 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
                 return getUriString();
             case ComponentCachePackage.COMPONENT_INFO__PATH_SOURCE:
                 return getPathSource();
+            case ComponentCachePackage.COMPONENT_INFO__REPOSITORY_TYPE:
+                return getRepositoryType();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -558,6 +602,9 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
             case ComponentCachePackage.COMPONENT_INFO__PATH_SOURCE:
                 setPathSource((String)newValue);
                 return;
+            case ComponentCachePackage.COMPONENT_INFO__REPOSITORY_TYPE:
+                setRepositoryType((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -603,6 +650,9 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
             case ComponentCachePackage.COMPONENT_INFO__PATH_SOURCE:
                 setPathSource(PATH_SOURCE_EDEFAULT);
                 return;
+            case ComponentCachePackage.COMPONENT_INFO__REPOSITORY_TYPE:
+                setRepositoryType(REPOSITORY_TYPE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -637,6 +687,8 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
                 return URI_STRING_EDEFAULT == null ? uriString != null : !URI_STRING_EDEFAULT.equals(uriString);
             case ComponentCachePackage.COMPONENT_INFO__PATH_SOURCE:
                 return PATH_SOURCE_EDEFAULT == null ? pathSource != null : !PATH_SOURCE_EDEFAULT.equals(pathSource);
+            case ComponentCachePackage.COMPONENT_INFO__REPOSITORY_TYPE:
+                return REPOSITORY_TYPE_EDEFAULT == null ? repositoryType != null : !REPOSITORY_TYPE_EDEFAULT.equals(repositoryType);
         }
         return super.eIsSet(featureID);
     }
@@ -671,6 +723,8 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
         result.append(uriString);
         result.append(", pathSource: ");
         result.append(pathSource);
+        result.append(", repositoryType: ");
+        result.append(repositoryType);
         result.append(')');
         return result.toString();
     }

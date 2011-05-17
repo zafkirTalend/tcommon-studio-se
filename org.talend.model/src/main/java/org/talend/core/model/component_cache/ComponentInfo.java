@@ -31,6 +31,7 @@ import org.talend.designer.core.model.utils.emf.component.IMPORTType;
  *   <li>{@link org.talend.core.model.component_cache.ComponentInfo#isIsVisibleInComponentDefinition <em>Is Visible In Component Definition</em>}</li>
  *   <li>{@link org.talend.core.model.component_cache.ComponentInfo#getUriString <em>Uri String</em>}</li>
  *   <li>{@link org.talend.core.model.component_cache.ComponentInfo#getPathSource <em>Path Source</em>}</li>
+ *   <li>{@link org.talend.core.model.component_cache.ComponentInfo#getRepositoryType <em>Repository Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -297,5 +298,31 @@ public interface ComponentInfo extends EObject {
      * @generated
      */
     void setPathSource(String value);
+
+    /**
+     * Returns the value of the '<em><b>Repository Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Repository Type</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Repository Type</em>' attribute.
+     * @see #setRepositoryType(String)
+     * @see org.talend.core.model.component_cache.ComponentCachePackage#getComponentInfo_RepositoryType()
+     * @model
+     * @generated
+     */
+    String getRepositoryType();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.component_cache.ComponentInfo#getRepositoryType <em>Repository Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Repository Type</em>' attribute.
+     * @see #getRepositoryType()
+     * @generated
+     */
+    void setRepositoryType(String value);
 
 } // ComponentInfo

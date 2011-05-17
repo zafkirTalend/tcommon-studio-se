@@ -22,6 +22,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute component_cache.ecore#//ComponentInfo/isVisibleInComponentDefinition"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute component_cache.ecore#//ComponentInfo/uriString"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute component_cache.ecore#//ComponentInfo/pathSource"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute component_cache.ecore#//ComponentInfo/repositoryType"/>
     </genClasses>
     <genClasses ecoreClass="component_cache.ecore#//ComponentEntryMap">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute component_cache.ecore#//ComponentEntryMap/key"/>
