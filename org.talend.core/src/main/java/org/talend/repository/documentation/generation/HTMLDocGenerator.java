@@ -760,7 +760,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
     private void hideSourcecodePassword(IProcess process) {
         List<? extends IElementParameter> processParam = process.getElementParameters();
         for (IElementParameter elementParameter : processParam) {
-            if (elementParameter.getRepositoryValue() != null && elementParameter.getRepositoryValue().equals("PASSWORD") //$NON-NLS-1$
+            if (elementParameter.getRepositoryValue() != null && elementParameter.getRepositoryValue().contains("PASSWORD") //$NON-NLS-1$
                     && !ContextParameterUtils.containContextVariables((String) elementParameter.getValue())) {
                 elementParameter.setValue("******"); //$NON-NLS-1$
 
@@ -771,7 +771,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         for (INode node : nodes) {
             List<? extends IElementParameter> nodeParamList = node.getElementParameters();
             for (IElementParameter nodeParam : nodeParamList) {
-                if (nodeParam.getRepositoryValue() != null && nodeParam.getRepositoryValue().equals("PASSWORD") //$NON-NLS-1$
+                if (nodeParam.getRepositoryValue() != null && nodeParam.getRepositoryValue().contains("PASSWORD") //$NON-NLS-1$
                         && !ContextParameterUtils.containContextVariables((String) nodeParam.getValue())) {
                     nodeParam.setValue("******"); //$NON-NLS-1$
 

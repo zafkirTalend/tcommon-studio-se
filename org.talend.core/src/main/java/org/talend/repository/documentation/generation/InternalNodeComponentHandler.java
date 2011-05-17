@@ -154,15 +154,13 @@ public class InternalNodeComponentHandler extends AbstractComponentHandler {
                     String repositoryValueForPropertyType = getRepositoryValueForPropertyType(copyElementParameterList,
                             "REPOSITORY_PROPERTY_TYPE"); //$NON-NLS-1$
                     value = repositoryValueForPropertyType == null ? IHTMLDocConstants.REPOSITORY_BUILT_IN : value.toString()
-                            .toLowerCase()
-                            + ": " + repositoryValueForPropertyType; //$NON-NLS-1$
+                            .toLowerCase() + ": " + repositoryValueForPropertyType; //$NON-NLS-1$
                 } else if (elemparameter.getName().equals(EParameterFieldType.SCHEMA_TYPE.getName())
                         && value.equals(IHTMLDocConstants.REPOSITORY)) {
                     String repositoryValueForSchemaType = getRepositoryValueForSchemaType(copyElementParameterList,
                             "REPOSITORY_SCHEMA_TYPE"); //$NON-NLS-1$
                     value = repositoryValueForSchemaType == null ? IHTMLDocConstants.REPOSITORY_BUILT_IN : value.toString()
-                            .toLowerCase()
-                            + ": " + repositoryValueForSchemaType; //$NON-NLS-1$
+                            .toLowerCase() + ": " + repositoryValueForSchemaType; //$NON-NLS-1$
                 }
 
                 else if (elemparameter.getName().equals(EParameterFieldType.QUERYSTORE_TYPE.getName())
@@ -171,15 +169,14 @@ public class InternalNodeComponentHandler extends AbstractComponentHandler {
                     String repositoryValueForQueryStoreType = getRepositoryValueForQueryStoreType(copyElementParameterList,
                             "REPOSITORY_QUERYSTORE_TYPE"); //$NON-NLS-1$
                     value = repositoryValueForQueryStoreType == null ? IHTMLDocConstants.REPOSITORY_BUILT_IN : value.toString()
-                            .toLowerCase()
-                            + ": " + repositoryValueForQueryStoreType; //$NON-NLS-1$
+                            .toLowerCase() + ": " + repositoryValueForQueryStoreType; //$NON-NLS-1$
                 }
                 // } else if (type.getName().equals("TYPE")) {
                 // int index = type.getIndexOfItemFromList(type.getDisplayName());
                 // value = checkString(type.getListItemsDisplayName()[index]);
                 // }
                 else if (elemparameter.getRepositoryValue() != null
-                        && elemparameter.getRepositoryValue().equals("PASSWORD") //$NON-NLS-1$
+                        && elemparameter.getRepositoryValue().contains("PASSWORD") //$NON-NLS-1$
                         && ProjectManager.getInstance().getCurrentProject().getEmfProject().isHidePassword()
                         && !ContextParameterUtils.containContextVariables((String) elemparameter.getValue())) {
                     value = "******"; //$NON-NLS-1$
