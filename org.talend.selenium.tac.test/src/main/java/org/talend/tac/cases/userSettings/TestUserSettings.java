@@ -7,17 +7,23 @@ import static org.testng.Assert.*;
 import com.talend.tac.cases.Login;
 
 public class TestUserSettings extends Login {
-	@Test(enabled = false)
-	public void testChangeSVNaCCOUNT() {
+	@Test
+	@Parameters( { "userName" ,"userSetting.CurrentUser.newSvnLogin","userSetting.CurrentUser.newSvnPasswd"})
+	public void testChangeSVNaCCOUNT(String CurrentLoginName,String newSvnLogin,String newSvnPasswd) {
 
-		selenium.click("userSettingMenu");
-		selenium.type("idChangePwdNewPwdInput", "newPasswd");
-		selenium.type("idChangePwdConfirmPwdInput", "");
-		selenium.click("idChangePwdValidateButton");
+		this.clickWaitForElementPresent("idMenuChangePasswordElement");
+		selenium.type("idChangePwdSvnLoginInput", newSvnLogin);
+		selenium.type("idChangePwdSvnPasswdInput", newSvnPasswd);
+		selenium.click("idChangePwdSaveButton");
+		selenium.click("idMenuUserElement");
+		this.waitForElementPresent("//div[text()='"+ CurrentLoginName + "']", WAIT_TIME);
+		selenium.mouseDown("//div[text()='"+ CurrentLoginName + "']");
+		assertEquals(selenium.getValue("idSvnLogin"), newSvnLogin);
+		
 	}
 
 	@Test
-	@Parameters( { "userSetting.newPasswd" })
+	@Parameters( { "userSetting.currentUser.newPasswd" })
 	public void testChangePasswdOfCurrentUser(String newPasswd) {
 
 		doModify(newPasswd);
