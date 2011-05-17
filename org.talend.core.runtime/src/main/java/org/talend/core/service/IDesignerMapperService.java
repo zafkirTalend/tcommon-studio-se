@@ -18,6 +18,7 @@ import org.talend.core.IService;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.IConnection;
 import org.talend.core.model.process.IExternalData;
+import org.talend.core.model.process.IExternalNode;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.designer.core.model.utils.emf.talendfile.AbstractExternalData;
@@ -68,9 +69,9 @@ public interface IDesignerMapperService extends IService {
      * @param schemaId
      * @param metadataTable
      */
-    public void updateMapperTableEntries(IExternalData nodeData, String schemaId, IMetadataTable metadataTable);
+    public void updateMapperTableEntries(IExternalNode externalNode, String schemaId, IMetadataTable metadataTable);
 
-    public void renameMapperTable(IExternalData nodeData, String schemaId, String newSchemaId, IMetadataTable metadataTable);
+    public void renameMapperTable(IExternalNode externalNode, String schemaId, String newSchemaId, IMetadataTable metadataTable);
 
     /**
      * DOC ycbai Comment method "isSameMetadata".
@@ -80,5 +81,5 @@ public interface IDesignerMapperService extends IService {
      * @param metadataTable
      * @return
      */
-    public boolean isSameMetadata(IExternalData nodeData, String schemaId, IMetadataTable metadataTable);
+    public boolean isSameMetadata(IExternalNode externalNode, String schemaId, IMetadataTable metadataTable);
 }
