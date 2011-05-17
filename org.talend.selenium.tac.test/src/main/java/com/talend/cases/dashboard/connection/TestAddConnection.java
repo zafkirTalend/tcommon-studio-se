@@ -100,27 +100,27 @@ public class TestAddConnection extends Login {
 
 		// configure database parameters
 		// DB label
-		type(other.getString("inputname.id.connection.add.label"), label);
+		typeAndBlur(other.getString("inputname.id.connection.add.label"), label);
 		// database server port
-		type(other.getString("inputname.id.connection.add.port"), serverport);
+		typeAndBlur(other.getString("inputname.id.connection.add.port"), serverport);
 		// database host
-		type(other.getString("inputname.id.connection.add.host"), host);
+		typeAndBlur(other.getString("inputname.id.connection.add.host"), host);
 		// database name
-		type(other.getString("inputname.id.connection.add.database"), dbname);
+		typeAndBlur(other.getString("inputname.id.connection.add.database"), dbname);
 		// database user name
-		type(other.getString("inputname.id.connection.add.username"), username);
+		typeAndBlur(other.getString("inputname.id.connection.add.username"), username);
 		// database password
-		type(other.getString("inputname.id.connection.add.password"), password);
+		typeAndBlur(other.getString("inputname.id.connection.add.password"), password);
 		// data source
-		type(other.getString("inputname.id.connection.add.dataSource"),
+		typeAndBlur(other.getString("inputname.id.connection.add.dataSource"),
 				datasourse);
 		// additional parameters
-		type(other.getString("inputname.id.connection.add.additionnalParams"),
+		typeAndBlur(other.getString("inputname.id.connection.add.additionnalParams"),
 				additional);
 		// database state table
-		type(other.getString("inputname.id.connection.add.statTable"), stat);
+		typeAndBlur(other.getString("inputname.id.connection.add.statTable"), stat);
 		// database logs table
-		type(other.getString("inputname.id.connection.add.logTable"), logs);
+		typeAndBlur(other.getString("inputname.id.connection.add.logTable"), logs);
 		selenium.setSpeed(MID_SPEED);
 		// select db type
 		selenium.click(other.getString("inputname.id.connection.add.dbtype"));
@@ -146,11 +146,6 @@ public class TestAddConnection extends Login {
 		selenium.refresh();
 		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+ label + "')]", WAIT_TIME);
 		assertTrue(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+ label + "')]"), "DBConnection type: "+ dbtype + " added failed!");
-	}
-
-	public void type(String locator, String value) {
-		selenium.type(locator, value);
-		selenium.fireEvent(locator, "blur");
 	}
 
 	public void waitForCheckConnectionStatus(int OK_Num) {
