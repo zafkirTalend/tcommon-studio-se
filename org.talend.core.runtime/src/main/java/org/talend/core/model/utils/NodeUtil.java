@@ -47,6 +47,45 @@ public class NodeUtil {
      * @param node
      * @return List<? extends IConnection>
      */
+    
+    public static List<? extends IConnection> getOutgoingCamelSortedConnections(INode node) {
+        List<IConnection> conns = null;
+
+        List<? extends IConnection> outgoingConnections = node.getOutgoingConnections();
+        if (outgoingConnections != null) {
+            conns = new ArrayList<IConnection>(outgoingConnections);
+            Collections.sort(conns, new Comparator<IConnection>() {
+
+                public int compare(IConnection o1, IConnection o2) {
+                    if(EConnectionType.ROUTE_WHEN==o1.getLineStyle())
+                        return -1;
+                    if(EConnectionType.ROUTE_OTHER==o1.getLineStyle())
+                        if(EConnectionType.ROUTE_WHEN==o2.getLineStyle())
+                            return 1;
+                    if(EConnectionType.ROUTE_ENDBLOCK==o1.getLineStyle()) {
+                        if(EConnectionType.ROUTE_WHEN==o2.getLineStyle() || EConnectionType.ROUTE_OTHER==o2.getLineStyle())
+                            return 2;
+                        if(EConnectionType.ROUTE_TRY==o2.getLineStyle() || EConnectionType.ROUTE_CATCH==o2.getLineStyle() || EConnectionType.ROUTE_FINALLY==o2.getLineStyle())
+                            return 3;
+                    }
+                    if(EConnectionType.ROUTE_TRY==o1.getLineStyle())
+                        return -1;
+                    if(EConnectionType.ROUTE_CATCH==o1.getLineStyle())
+                        if(EConnectionType.ROUTE_TRY==o2.getLineStyle())
+                            return 1;
+                    if(EConnectionType.ROUTE_FINALLY==o1.getLineStyle())
+                        if(EConnectionType.ROUTE_TRY==o2.getLineStyle() || EConnectionType.ROUTE_CATCH==o2.getLineStyle())
+                            return 2;
+                    
+                    return 0;                 
+                }
+
+            });
+        }
+
+        return conns;
+    }
+    
     public static List<? extends IConnection> getOutgoingSortedConnections(INode node) {
 
         List<IConnection> conns = null;

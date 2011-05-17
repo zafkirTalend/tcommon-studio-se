@@ -164,6 +164,8 @@ public interface INode extends IElement {
     public boolean isThereLinkWithHash();
 
     public List<? extends IConnection> getOutgoingSortedConnections();
+    
+    public List<? extends IConnection> getOutgoingCamelSortedConnections();
 
     public List<? extends IConnection> getMainOutgoingConnections();
 

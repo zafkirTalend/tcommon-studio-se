@@ -431,6 +431,10 @@ public abstract class AbstractNode implements INode {
     public List<? extends IConnection> getOutgoingSortedConnections() {
         return org.talend.core.model.utils.NodeUtil.getOutgoingSortedConnections(this);
     }
+    
+    public List<? extends IConnection> getOutgoingCamelSortedConnections() {
+        return org.talend.core.model.utils.NodeUtil.getOutgoingCamelSortedConnections(this);
+    }
 
     public List<? extends IConnection> getMainOutgoingConnections() {
         return org.talend.core.model.utils.NodeUtil.getMainOutgoingConnections(this);
