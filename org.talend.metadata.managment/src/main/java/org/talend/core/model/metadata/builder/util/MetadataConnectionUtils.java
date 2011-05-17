@@ -150,7 +150,6 @@ public class MetadataConnectionUtils {
      * after use it.
      */
     public static TypedReturnCode<java.sql.Connection> checkConnection(IMetadataConnection metadataBean) {
-
         TypedReturnCode<java.sql.Connection> rc = new TypedReturnCode<java.sql.Connection>();
         rc.setOk(false);
         if (metadataBean == null) {
@@ -202,21 +201,22 @@ public class MetadataConnectionUtils {
                 rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
             } catch (InstantiationException e) {
                 log.error(e, e);
+                rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
             } catch (IllegalAccessException e) {
                 log.error(e, e);
+                rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
             } catch (ClassNotFoundException e) {
                 log.error(e, e);
+                rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
             }
-
         } else {
-            if (!StringUtils.isNotBlank(dbUrl)) {
+            if (StringUtils.isNotBlank(dbUrl)) {
                 rc.setMessage("the driver of connection parameter can not be null");
             } else {
                 rc.setMessage("the url of connection parameter can not be null");
             }
         }
         return rc;
-
     }
 
     /**
