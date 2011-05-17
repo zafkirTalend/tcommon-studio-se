@@ -57,7 +57,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']");
 		selenium.setSpeed(MID_SPEED);
 		logs = selenium
-				.getValue("//table[@class=' x-btn x-form-file-btn x-component x-btn-text-icon']/ancestor::div[@class='x-form-item ']//textarea");
+				.getValue("//textarea[@name='log']");
 		selenium.setSpeed(MIN_SPEED);
 		System.out.println(logs);
 		return logs;
@@ -111,8 +111,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 	
         selenium.setSpeed(MID_SPEED);
         //click save button to save trigger
-	    selenium.click("//span[text()='Add simple trigger']/parent::legend/parent::fieldset/parent::form/" +
-		"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
+	    selenium.click("idSimpleTriggerSave");
 	    Assert.assertTrue(selenium.isElementPresent("//span[text()='deactiveTaskSimpletrigger']"));
 		selenium.setSpeed(MIN_SPEED);
 	
@@ -198,7 +197,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		// select a exist task
 		selenium.mouseDown("//span[text()='"+tasklabel+"']");
 		this.clickWaitForElementPresent("//span[text()='Edition']");
-		this.selectDropDownList("//input[@id='idJobConductorTaskStatisticsListBox()']", 2);
+		this.selectDropDownList("//input[@id='idJobConductorTaskStatisticsListBox']", 2);
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MIN_SPEED);
@@ -207,12 +206,12 @@ public class TestAddTaskBaseBranchProject  extends Login {
 				WAIT_TIME);
 		selenium.mouseDown("//span[text()='" + tasklabel + "']");
 		Thread.sleep(3000);
-		selenium.click("//button[@id='idJobConductorTaskRunButton()'  and @class='x-btn-text ' and text()='Run']");
+		selenium.click("//button[@id='idJobConductorTaskRunButton'  and @class='x-btn-text ' and text()='Run']");
 		if(waitForCondition("//span[@class='x-window-header-text' and text()='Real time statistics']", 15)){
 			Assert.fail("test statistic view disable failed!");
 		}
 		//undo disable select
-		this.selectDropDownList("//input[@id='idJobConductorTaskStatisticsListBox()']", 1);
+		this.selectDropDownList("//input[@id='idJobConductorTaskStatisticsListBox']", 1);
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MIN_SPEED);
@@ -285,7 +284,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		// select a exist task
 		selenium.mouseDown("//span[text()='"+tasklabel+"']");
 		this.clickWaitForElementPresent("//span[text()='Edition']");
-		this.selectDropDownList("//input[@id='idJobConductorTaskStatisticsListBox()']", 1);
+		this.selectDropDownList("//input[@id='idJobConductorTaskStatisticsListBox']", 1);
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MIN_SPEED);
@@ -294,7 +293,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 				WAIT_TIME);
 		selenium.mouseDown("//span[text()='" + tasklabel + "']");
 		Thread.sleep(3000);
-		selenium.click("//button[@id='idJobConductorTaskRunButton()'  and @class='x-btn-text ' and text()='Run']");
+		selenium.click("//button[@id='idJobConductorTaskRunButton'  and @class='x-btn-text ' and text()='Run']");
 		Assert.assertTrue((waitForCondition("//span[@class='x-window-header-text' and text()='Real time statistics']", Base.WAIT_TIME)),
 			"test statistic view disable failed!");
 		
@@ -323,7 +322,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		Thread.sleep(3000);
 		Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==5,"task run generate logs failed !");
 		selenium.chooseOkOnNextConfirmation();
-		selenium.click("idJobConductorJobLogClearLogButton()");
+		selenium.click("idJobConductorJobLogClearLogButton");
 		selenium.getConfirmation();
 		Thread.sleep(3000);
 		Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==0,"task run generate logs failed !");
