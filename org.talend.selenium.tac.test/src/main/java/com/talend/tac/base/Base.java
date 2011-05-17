@@ -39,8 +39,8 @@ public class Base {
 		server = this.setDefaultValue(server, "localhost");
 		port = this.setDefaultValue(port, 4444 + "");
 		browser = this.setDefaultValue(browser, "*firefox");
-		url = this.setDefaultValue(url, "http://localhost:8081/");
-		root = this.setDefaultValue(root, "/org.talend.administrator60384/");
+		url = this.setDefaultValue(url, "http://localhost:8080/");
+		root = this.setDefaultValue(root, "/org.talend.administrator/");
 
 		language = this.setDefaultValue(language, "en");
 		country = this.setDefaultValue(country, "US");
@@ -96,7 +96,7 @@ public class Base {
 				org.testng.Assert
 						.assertTrue(selenium.isElementPresent(locator));
 			try {
-				if (selenium.isElementPresent(locator))
+				if (selenium.isElementPresent(locator)||selenium.isTextPresent(locator))
 					break;
 			} catch (Exception e) {
 			}
@@ -226,10 +226,11 @@ public class Base {
 				+ Event.ENTER);
 	}
 
-	public void selectDropDownList(String id, String item) {
+	public void selectDropDownList(String id, String itemName) {
 		selenium.click("//input[@id='"+id+"']"
 				+ "/following-sibling::div[@class='x-form-trigger x-form-trigger-arrow']");
-		selenium.mouseDown("//div[text()='" + item + "']");
+		this.waitForElementPresent("//div[text()='" + itemName + "']", WAIT_TIME);
+		selenium.mouseDown("//div[text()='" + itemName + "']");
 		selenium.fireEvent("//input[@id='"+id+"']", "blur");
 
 	}

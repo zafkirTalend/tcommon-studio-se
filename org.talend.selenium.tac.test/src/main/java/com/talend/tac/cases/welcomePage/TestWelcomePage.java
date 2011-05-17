@@ -35,9 +35,18 @@ public class TestWelcomePage extends Login {
 	//Francais 
 	@Test
 	public void testInternationalization() {
+		//to Francis 
 		this.clickWaitForElementPresent("idLeftMenuTreeLangButton");
 		this.clickWaitForElementPresent("//a[text()='Francais']");
 		this.waitForElementPresent("//span[text()='Utilisateurs']", WAIT_TIME);
-		//......
+		this.clickWaitForElementPresent("idLeftMenuTreeLogoutButton");
+		this.clickWaitForElementPresent("idLoginButton");
+		this.waitForElementPresent("//span[text()='Utilisateurs']", WAIT_TIME);
+		//trun back to English 
+		this.clickWaitForElementPresent("idLeftMenuTreeLangButton");
+		this.clickWaitForElementPresent("//a[text()='English']");
+		this.waitForElementPresent("//span[text()='Users']", WAIT_TIME);
+		
+		
 	}
 }

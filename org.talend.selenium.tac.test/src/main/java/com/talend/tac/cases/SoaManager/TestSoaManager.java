@@ -22,39 +22,24 @@ public class TestSoaManager extends Login {
 		selenium.click("idFormSaveButton");
 	}
 
-	@Test(enabled = false,description = "Add a operation with the defined project",dependsOnMethods = { "testAddSoaManagerService" })
+	
+	@Test(description = "Add a operation with the defined project",dependsOnMethods = { "testAddSoaManagerService" })
 	@Parameters ({"AddcommonProjectname"})
 	public void testAddOperationToService(String projectName) {
 		// selenium.mouseDown("//")
 		selenium.click("!!!menu.soamanager.element!!!");
 		waitForElementPresent("//*[text()='TestService']", WAIT_TIME);
 		selenium.mouseDown("//*[text()='TestService']");
-		waitForElementPresent("//button[@id='idSubModuleAddButton' and @aria-disabled='false']", WAIT_TIME);
-		selenium.click("//button[@id='idSubModuleAddButton' and @aria-disabled='false']");
-		selenium.type("idSoaOperationNameInput", "TestOperation");
-		selenium.fireEvent("idSoaOperationNameInput", "blur");
-		selenium.type("idSoaOperationDescInput", "This is testOperation");
-		selenium.fireEvent("idSoaOperationDescInput", "blur");
-
-		// //div[not(contains(@class,'disabled'))]/input[@id='idCommonProjectListBox']
+		this.clickWaitForElementPresent("idSoaOperationAdd");
+		this.typeAndBlur("idSoaOperationNameInput", "TestOperation");
+		this.typeAndBlur("idSoaOperationDescInput", "This is testOperation");
 		// select project
-		selenium
-				.click("//div[not(contains(@class,'disabled'))]/input[@id='idCommonProjectListBox']/following-sibling::div");
-		waitForElementPresent("//div[@role='listitem' and text()='"+projectName+"']", WAIT_TIME);
-		assertTrue(selenium.isElementPresent("//div[@role='listitem' and text()='"+projectName+"']"));
-		selenium.mouseDown("//div[@role='listitem' and text()='"+projectName+"']");
-		assertFalse(selenium.isElementPresent("//div[@role='listitem' and text()='"+projectName+"']"));
-
-		// select trunk,branches
-		selenium
-				.click("//div[not(contains(@class,'disabled'))]/input[@id='idCommonBranchListBox()']/following-sibling::div");
-		waitForElementPresent("//div[@role='listitem' and text()='trunk']", WAIT_TIME);
-		assertTrue(selenium.isElementPresent("//div[@role='listitem' and text()='trunk']"));
-		selenium.mouseDown("//div[@role='listitem' and text()='trunk']");
-		assertFalse(selenium.isElementPresent("//div[@role='listitem' and text()='trunk']"));
+		this.selectDropDownList("idCommonProjectListBox", projectName);
+		// select trunk,branches 
+		this.selectDropDownList("idCommonBranchListBox", "trunk");
 		// select job, the job name should be parameterd latter
 		selenium
-				.click("//div[not(contains(@class,'disabled'))]/input[@id='idCommonJobListBox()']/following-sibling::div");
+		.click("//input[@id='idCommonJobListBox']/following-sibling::div");
 		//if we confirm the job name we can use ://div[@role='listitem' and text()='EndRunningJob']
 		waitForElementPresent("//div[@role='listitem'][1]", WAIT_TIME);
 		assertTrue(selenium.isElementPresent("//div[@role='listitem'][1]"));
@@ -62,24 +47,11 @@ public class TestSoaManager extends Login {
 		assertFalse(selenium.isElementPresent("//div[@role='listitem'][1]"));
 
 		// select version
-		waitForElementPresent("//div[not(contains(@class,'disabled'))]/input[@id='idCommonContextListBox()' and @name='jobVersion']/following-sibling::div", WAIT_TIME);
-		selenium
-				.click("//div[not(contains(@class,'disabled'))]/input[@id='idCommonContextListBox()' and @name='jobVersion']/following-sibling::div");
-		waitForElementPresent("//div[@role='listitem' and text()='0.1']", WAIT_TIME);
-		assertTrue(selenium.isElementPresent("//div[@role='listitem' and text()='0.1']"));
-		selenium.mouseDown("//div[@role='listitem' and text()='0.1']");
-		assertFalse(selenium.isElementPresent("//div[@role='listitem' and text()='0.1']"));
-
+		this.selectDropDownList("idCommonVersionListBox", "0.1");
 		// select context
-		waitForElementPresent("//div[not(contains(@class,'disabled'))]/input[@id='idCommonContextListBox()' and @name='contextName']/following-sibling::div", WAIT_TIME);
-		selenium
-				.click("//div[not(contains(@class,'disabled'))]/input[@id='idCommonContextListBox()' and @name='contextName']/following-sibling::div");
-		waitForElementPresent("//div[@role='listitem' and text()='Default']", WAIT_TIME);
-		assertTrue(selenium.isElementPresent("//div[@role='listitem' and text()='Default']"));
-		selenium.mouseDown("//div[@role='listitem' and text()='Default']");
-		assertFalse(selenium.isElementPresent("//div[@role='listitem' and text()='Default']"));
-		selenium.click("idFormSaveButton");
-		System.out.println("save clicked");
+		this.selectDropDownList("idCommonContextListBox", "Default");
+		selenium.click("idSoaOperationSave");
+		
 	}
 	
 	@Test(description = "duplicate a service",dependsOnMethods = { "testAddSoaManagerService" })
@@ -90,24 +62,27 @@ public class TestSoaManager extends Login {
 		this.clickWaitForElementPresent("idSubModuleDuplicateButton");
 //		assertEquals(selenium.getText("idSoaServiceNameInput"), "Copy_of_TestService");
 		selenium.click("idFormSaveButton");
+		
 	}
-	@Test(enabled =false,description = "duplicate a operation, NOW, the ID is the same")
+	@Test(description = "duplicate a operation,there should be a warning and duplication can't be done",dependsOnMethods = { "testAddOperationToService" })
 	public void testDuplicateSoaManagerOperation(){
 		this.clickWaitForElementPresent("!!!menu.soamanager.element!!!");
+		this.waitForElementPresent("//div[text()='TestService']", WAIT_TIME);
 		selenium.mouseDown("//div[text()='TestService']");//select the service 
-		this.clickWaitForElementPresent("//div[text()='TestOperation']");
-		this.clickWaitForElementPresent("idSubModuleDuplicateButton");
+		this.waitForElementPresent("//div[text()='TestOperation']",WAIT_TIME);
+		selenium.mouseDown("//div[text()='TestOperation']");
+		this.clickWaitForElementPresent("idSoaOperationDuplicate");
+		selenium.click("idSoaOperationSave");
+		//this.waitForElementPresent(rb.getString("soamanager.parameter.error"), WAIT_TIME);
 	}
 	@Test (description = "Delete a soaManager service",dependsOnMethods = { "testAddSoaManagerService","testDuplicateSoaManagerService" })
 	public void testDeleteSoaManagerService() {
 		this.clickWaitForElementPresent("!!!menu.soamanager.element!!!");
-		this.waitForElementPresent("//div[text()='TestService']", WAIT_TIME);
-		selenium.mouseDown("//div[text()='TestService']");//select the service 
+		this.waitForElementPresent("//div[text()='Copy_of_TestService']", WAIT_TIME);
+		selenium.mouseDown("//div[text()='Copy_of_TestService']");//select the service 
 		selenium.chooseOkOnNextConfirmation();
 		this.clickWaitForElementPresent("idSubModuleDeleteButton");
 		
 		selenium.getConfirmation().equals("Are you sure you want to remove the selected item(s) ?");
-		//selenium.waitForFrameToLoad("selenium.isTextPresent(\"Delete Done\")", WAIT_TIME*1000+"");
-		//delete done finished,should improve this also.
 	}
 }
