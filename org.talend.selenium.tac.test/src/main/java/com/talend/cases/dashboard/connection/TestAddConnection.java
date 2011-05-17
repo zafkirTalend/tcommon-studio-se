@@ -78,10 +78,17 @@ public class TestAddConnection extends Login {
 				"//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='test_"+ label + "')]", Base.WAIT_TIME);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='test_"+ label + "')]");
 		selenium.chooseOkOnNextConfirmation();
-		selenium.setSpeed(MID_SPEED);
+		selenium.setSpeed(MAX_SPEED);
 		selenium.click("//div[text()='Connections']/ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");
 //		System.out.println(selenium.getConfirmation());
 		assert (selenium.getConfirmation().equals(warningmessage));
+		selenium.refresh();
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Assert.assertFalse(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='test_"+ label + "')]"), "delete choose ok failed!");
 		selenium.setSpeed(MIN_SPEED);
 		
@@ -133,8 +140,9 @@ public class TestAddConnection extends Login {
 		this.clickWaitForElementPresent("//span[text()='Check connection']/preceding-sibling::div//div");
 		// save button
 		selenium.mouseDown("idFormSaveButton");
-		selenium.keyPressNative(Event.ENTER + "");
-		selenium.keyUpNative(Event.ENTER + "");
+//		selenium.keyPressNative(Event.ENTER + "");
+//		selenium.keyUpNative(Event.ENTER + "");
+		selenium.click("idFormSaveButton");
 		selenium.mouseUp("idFormSaveButton");
 		// check whether add success
 		try {
