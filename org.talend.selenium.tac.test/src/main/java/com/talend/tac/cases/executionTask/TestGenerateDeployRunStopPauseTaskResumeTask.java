@@ -81,10 +81,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 		generateDeployRunTask(taskLabel, "//button[@id='idJobConductorTaskRunButton' and text()='Run']");//click Run button
 		this.waitForElementPresent("//span[text()='Real time statistics']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='Real time statistics']"));
-		selenium.setSpeed(MID_SPEED);
-	   	Assert.assertTrue(selenium.isTextPresent("Generating..."));
-    	selenium.setSpeed(MIN_SPEED);
-		this.waitForElementPresent("//label[text()='Ok']", 20);
+		this.waitForElementPresent("//label[text()='Ok']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//label[text()='Ok']"));
 		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
 		
@@ -108,10 +105,10 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 	
 	//test stop a running task
 	@Test(dependsOnMethods={"testGenerateTaskUsingRemoteCommandLine"})
-	@Parameters({"remotehostAddress", "modifyTask", "statisticRemoved(regeneration needed, fastest)", "statisticEnabled(regeneration needed)"})
-	public void testStopARunningTask(String remotehostAddress, String taskLabel, String statisticRemovedRegeneration, String statisticEnabledReGeneration) {
+	@Parameters({"localhostAddress", "modifyTask", "statisticRemoved(regeneration needed, fastest)", "statisticEnabled(regeneration needed)"})
+	public void testStopARunningTask(String localhostAddress	, String taskLabel, String statisticRemovedRegeneration, String statisticEnabledReGeneration) {
 		
-		changeCommandLineConfig(remotehostAddress);
+		changeCommandLineConfig(localhostAddress);
 		
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");//into executiontask page
     	selenium.setSpeed(MID_SPEED);
