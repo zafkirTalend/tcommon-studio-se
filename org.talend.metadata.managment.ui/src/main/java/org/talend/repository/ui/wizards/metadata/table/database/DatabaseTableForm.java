@@ -1027,12 +1027,10 @@ public class DatabaseTableForm extends AbstractForm {
             } else if (!MetadataToolHelper.isValidSchemaName(table.getLabel())) {
                 updateStatus(IStatus.ERROR, Messages.getString("DatabaseTableForm.illegalChar", table.getLabel())); //$NON-NLS-1$
                 return false;
+            } else if (!managerConnection.check(getIMetadataConnection())) {// bug 17422
+                updateStatus(IStatus.ERROR, Messages.getString("DatabaseForm.checkFailure")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                return false;
             }
-            // bug 17442
-            // else if (!managerConnection.check(getIMetadataConnection())) {
-            //                updateStatus(IStatus.ERROR, Messages.getString("DatabaseForm.checkFailure")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-            // return false;
-            // }
 
             // if (table.getColumns().size() == 0) {// this one has been removed,see bug 0016029
             //                updateStatus(IStatus.ERROR, Messages.getString("FileStep3.itemAlert") + " \"" + table.getLabel() + "\""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -1099,7 +1097,7 @@ public class DatabaseTableForm extends AbstractForm {
             }
             if (doit) {
                 tableString = tableCombo.getText();
-                if (tableCombo.getCombo().indexOf(tableString) == -1) {
+                if (tableCombo.isEnabled() && tableCombo.getCombo().indexOf(tableString) == -1) {
                     MessageDialog
                             .openError(
                                     getShell(),
@@ -1145,7 +1143,7 @@ public class DatabaseTableForm extends AbstractForm {
         String tableName = tableCombo.getText();
         CsvArray array;
         try {
-            if (tableCombo.getCombo().indexOf(tableName) == -1) {
+            if (tableCombo.isEnabled() && tableCombo.getCombo().indexOf(tableName) == -1) {
                 MessageDialog
                         .openError(
                                 getShell(),
