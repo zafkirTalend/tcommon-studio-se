@@ -311,38 +311,39 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 parent.redraw();
                                 int width = parent.getBounds().width;
                                 int hight = parent.getBounds().height;
-//                                if (width < 700) {
-//                                    width = 700;
-//                                } else if (width > 860) {
-//                                    width = 860;
-//                                }
-//                                if (hight < 370) {
-//                                    hight = 370;
-//                                } else if (hight > 460) {
-//                                    hight = 460;
-//                                }
+                                // if (width < 700) {
+                                // width = 700;
+                                // } else if (width > 860) {
+                                // width = 860;
+                                // }
+                                // if (hight < 370) {
+                                // hight = 370;
+                                // } else if (hight > 460) {
+                                // hight = 460;
+                                // }
                                 Image image = null;
                                 int tipsFontSize = 10;
                                 int titleSize = width / 65;
-                                if ((width>=844)&&(hight>=445)) {
+                                if ((width >= 844) && (hight >= 445)) {
                                     image = Activator.getImageDescriptor("icons/WelcomeScreenMockup.png").createImage();
                                     width = 860;
                                     hight = 460;
-                                    tipsFontSize=10;
+                                    tipsFontSize = 10;
                                     titleSize = width / 65;
-                                } else  { //if ((width>=650)&&(hight>=343))
+                                } else { // if ((width>=650)&&(hight>=343))
                                     image = Activator.getImageDescriptor("icons/WelcomeScreenMockupSmall.png").createImage();
                                     width = 710;
                                     hight = 379;
-                                    tipsFontSize=8;
+                                    tipsFontSize = 8;
                                     titleSize = 9;
                                 }
-//                                } else {
-//                                    image = Activator.getImageDescriptor("icons/WelcomeScreenMockupVerySmall.png").createImage();
-//                                }
-//                                ImageData id = image.getImageData();
-//                                id = id.scaledTo(width - 10, hight - 10);
-//                                image = new Image(null, id);
+                                // } else {
+                                // image =
+                                // Activator.getImageDescriptor("icons/WelcomeScreenMockupVerySmall.png").createImage();
+                                // }
+                                // ImageData id = image.getImageData();
+                                // id = id.scaledTo(width - 10, hight - 10);
+                                // image = new Image(null, id);
                                 Image icon = Activator.getImageDescriptor("icons/createJob.png").createImage();
                                 int imageWith = image.getBounds().width;
                                 GC gc = new GC(image);
@@ -413,7 +414,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 for (int l = 0; l < titleText.length(); l++) {
                                     titleLegth += gc.getCharWidth(titleText.charAt(l)) + 1;
                                 }
-                                int defaultWidth = imageWith - 135;
+                                int defaultWidth = imageWith - 150;
                                 if (imageWith == 850) {
                                     defaultWidth = 670;
                                 }
@@ -438,7 +439,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                                 textTitleData2.top = new FormAttachment(0, 50);
                                 textTitleData2.bottom = new FormAttachment(0, 70);
                                 textSecondTitle.setLayoutData(textTitleData2);
-                                
+
                                 textSecondTitle.setFont(new Font(foreGroundComposite.getDisplay(), "Arial", titleSize, SWT.NONE));
                                 textSecondTitle.setBackground(new Color(null, 255, 255, 204));
                                 textSecondTitle.setForeground(new Color(null, 0, 0, 0));
