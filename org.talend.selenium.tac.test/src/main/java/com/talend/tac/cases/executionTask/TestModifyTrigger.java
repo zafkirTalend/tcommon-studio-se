@@ -26,28 +26,43 @@ public class TestModifyTrigger extends Login {
     	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+labelBeforeModify+"']")); 
     	selenium.mouseDown("//span[text()='"+labelBeforeModify+"']");//select a exist trigger 
-    	this.typeString("//span[text()='"+triggerType+"']/parent::legend/parent::fieldset" +
-        		"//input[@name='label']", labelAfterModified);//modify label
-		
-        this.typeString("//span[text()='"+triggerType+"']/parent::legend/parent::fieldset" +
-				"//input[@name='description']", description);//modify description
+    	
+    	if(selenium.isElementPresent("idJobConductor"+triggerType+"TriggerLableInput")) {
+    		
+    		this.typeString("idJobConductor"+triggerType+"TriggerLableInput", labelAfterModified);//modify label
+    		
+    	} else {
+    		
+    		this.typeString("idJobConductor"+triggerType+"TriggerLabelInput", labelAfterModified);//modify label
+    		
+    	}
+    	
+        this.typeString("idJobConductor"+triggerType+"TriggerDescInput", description);//modify description
         selenium.setSpeed(MIN_SPEED);
          
-        if(selenium.isElementPresent("//label[text()='Check file server:']/parent::div//input[@name='executionServerId']")) {
+        if(selenium.isElementPresent("//input[@id='idJobConductorFileTriggerFileServerListBox']/parent::div//div[@class='x-form-trigger x-form-trigger-arrow ']")) {
     		
-        	selenium.click("//label[text()='Check file server:']/parent::div//input[@name='executionServerId']");
+        	selenium.click("//input[@id='idJobConductorFileTriggerFileServerListBox']/parent::div//div[@class='x-form-trigger x-form-trigger-arrow ']");
     		this.waitForElementPresent("//div[text()='use_server_available']", WAIT_TIME);
     		selenium.mouseDown("//div[text()='use_server_available']");
         
         }
         
         selenium.setSpeed(MID_SPEED);
-	    selenium.click("//span[text()='"+triggerType+"']/parent::legend/parent::fieldset/parent::form/" +
-		"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");//click save button
+	   
+        if(selenium.isElementPresent("id"+triggerType+"tTriggerSave")) {
+        	
+        	selenium.click("id"+triggerType+"tTriggerSave");//click save button
+        	
+        } else {
+        	
+        	selenium.click("id"+triggerType+"TriggerSave");//click save button
+        	
+        }
+        
 		selenium.setSpeed(MIN_SPEED);
 		
-		selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::div/" +
-			"parent::div/parent::div//button[text()='Refresh']");//click refresh button
+		selenium.click("idTriggerRefresh");//click refresh button
         selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(!selenium.isElementPresent("//span[text()='"+labelBeforeModify+"']"));
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+labelAfterModified+"']"));
@@ -58,7 +73,8 @@ public class TestModifyTrigger extends Login {
 	
 	
 	//test pause and resume a simple trigger
-	@Test(dependsOnGroups={"AddCronTrigger"})
+	@Test(groups={"ModifyTrigger"})
+//		,dependsOnGroups={"AddCronTrigger"})
 	@Parameters({"labelTRunJobByTaskRun", "addSimpleTriggerLabelNotChooseDate"})
 	public void testPauseResumeSimpleTrigger(String taskLabel, String triggerLabel) {
 		
@@ -73,15 +89,15 @@ public class TestModifyTrigger extends Login {
     	selenium.setSpeed(MID_SPEED);
        	selenium.mouseDown("//span[text()='"+triggerLabel+"']");//select a exist trigger
        	
-       	selenium.click("//button[text()='Pause trigger']");
+       	selenium.click("idTriggerPause trigger");
        	this.waitForElementPresent("//span[text()='TestSimpleTriggerNotChooseDate']//" +
        			"ancestor::tbody[@role='presentation']//img[@alt='Paused']", WAIT_TIME);
        	Assert.assertTrue(selenium.isElementPresent("//span[text()='TestSimpleTriggerNotChooseDate']//" +
        			"ancestor::tbody[@role='presentation']//img[@alt='Paused']"));
-       	selenium.click("//button[text()='Resume trigger']");
+       	selenium.click("idTriggerResume trigger");
     	this.waitForElementPresent("//span[text()='TestSimpleTriggerNotChooseDate']//" +
        			"ancestor::tbody[@role='presentation']//img[@alt='Normal']", WAIT_TIME);
-       	Assert.assertTrue(selenium.isElementPresent("//span[text()='TestSimpleTriggerNotChooseDate']//" +
+	       	Assert.assertTrue(selenium.isElementPresent("//span[text()='TestSimpleTriggerNotChooseDate']//" +
        			"ancestor::tbody[@role='presentation']//img[@alt='Normal']"));
 		
 	}
@@ -162,18 +178,15 @@ public class TestModifyTrigger extends Login {
 		
 	
     
-        String timeIntervalXpath = "//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
-        		"//input[@name='repeatInterval']";
+        String timeIntervalXpath = "idJobConductorSimpleTriggerRptIntervalInput";
        	
        	Assert.assertEquals(selenium.getValue(timeIntervalXpath), "20");
     	this.typeString(timeIntervalXpath, "40");//Time interval (s)
     	
         selenium.setSpeed(MID_SPEED);
-	    selenium.click("//span[text()='"+triggerType+"']/parent::legend/parent::fieldset/parent::form/" +
-		"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");//click save button
+	    selenium.click("id"+triggerType+"TriggerSave");//click save button
 		selenium.setSpeed(MIN_SPEED);
-		selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::div/" +
-		"parent::div/parent::div//button[text()='Refresh']");//click refresh button
+		selenium.click("idTriggerRefresh");//click refresh button
         selenium.setSpeed(MID_SPEED);
 	  	selenium.mouseDown("//span[text()='"+triggerLabel+"']");//select a exist trigger
        	Assert.assertEquals(selenium.getValue(timeIntervalXpath), "40");
