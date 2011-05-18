@@ -19,15 +19,13 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.setSpeed(MIN_SPEED);
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task
-		selenium.click("//button[text()='Add trigger...']");//add a trigger
+		selenium.click("idTriggerAdd trigger...");//add a trigger
 		selenium.click("//a[text()='Add simple trigger']");//add a SimpleTrigger
         Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addSimpleTrigger")+"']"));
         
-        this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
-        		"//input[@name='label']", triggerlabel);//label
+        this.typeString("idJobConductorSimpleTriggerLableInput", triggerlabel);//label
 		
-        this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
-				"//input[@name='description']", triggerdescription);//description
+        this.typeString("idJobConductorSimpleTriggerDescInput", triggerdescription);//description
    
        
     	
@@ -124,11 +122,9 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
     	   }
     	
     	}
-        this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
-	    		"//input[@name='repeatCount']", triggerCount);//Number of triggerings
+        this.typeString("idJobConductorSimpleTriggerRptCountInput", triggerCount);//Number of triggerings
 	   
-        this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
-        		"//input[@name='repeatInterval']", repeatInterval);//Time interval (s)
+        this.typeString("idJobConductorSimpleTriggerRptIntervalInput", repeatInterval);//Time interval (s)
 	    
     }    
     
@@ -155,8 +151,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 					"parent::ul/parent::div/parent::div/parent::div/parent::div//div[@class='x-grid3-cell-inner" +
 					" x-grid3-col-label']");
 					selenium.chooseOkOnNextConfirmation();
-					selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent" +
-							"::ul/parent::div/parent::div/parent::div/parent::div//button[@id='idSubModuleDeleteButton']");
+					selenium.click("idTriggerDelete");
 					
 					Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to remove the selected trigger [\\s\\S]$"));
 				    								
@@ -175,7 +170,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	 		
 	 	}
 
-    }
+    }		
   
     //add a method of remove all triggers
     @Test(groups={"AddSimpleTrigger"},dependsOnGroups={"TestGenerateDeployRun"})
@@ -214,34 +209,27 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 		selenium.click("//a[text()='Add simple trigger']");//add a SimpleTrigger
         Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addSimpleTrigger")+"']"));
         
-        this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
-        		"//input[@name='label']", label);//label
+        this.typeString("idJobConductorSimpleTriggerLableInput", label);//label
 		
-        this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
-				"//input[@name='description']", description);//description
+        this.typeString("idJobConductorSimpleTriggerDescInput", description);//description
 
-        this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
-	    		"//input[@name='repeatCount']", "1");//Number of triggerings
+        this.typeString("idJobConductorSimpleTriggerRptCountInput", "1");//Number of triggerings
 	   
-        this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
-        		"//input[@name='repeatInterval']", "5");//Time interval (s)
+        this.typeString("idJobConductorSimpleTriggerRptIntervalInput", "5");//Time interval (s)
 	       		
-	   
 	    selenium.setSpeed(MID_SPEED);
-	    selenium.click("//span[text()='Add simple trigger']/parent::legend/parent::fieldset/parent::form/" +
-		"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
+	    selenium.click("idSimpleTriggerSave");
 		selenium.setSpeed(MIN_SPEED);
 		if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
     		
-			selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::div/" +
-			"parent::div/parent::div//button[text()='Refresh']");
+			selenium.click("idTriggerRefresh");
 			
     	}
     	
 		waitForElementPresent("//span[text()='2 / 2']",WAIT_TIME);
 	  			
 		selenium.setSpeed(MID_SPEED);
-		Assert.assertTrue(selenium.isElementPresent("//span[@title='All triggers completed']/img"));
+		Assert.assertTrue(selenium.isElementPresent("//span[text()='testAddSimpleTriggerNumberOfTriggeringsRunnedAutoStopLabel']//ancestor::tr//img"));
 		selenium.setSpeed(MIN_SPEED);
 			
 		
@@ -256,19 +244,20 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 		addSimpleTrigger(taskLable, label, description, date.getFuture(24), date.getFuture(48), "5", "20","future"  );
 		
 		selenium.setSpeed(MID_SPEED);
-    	selenium.click("//span[text()='Add simple trigger']/parent::legend/parent::fieldset/parent::form/" +
-    			"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
-    	selenium.setSpeed(MIN_SPEED);
+	    selenium.click("idSimpleTriggerSave");
+		selenium.setSpeed(MIN_SPEED);
     	System.out.println(selenium.getValue("//span[text()='Add simple trigger']/parent::legend/parent::fieldset//input[@name='startTime']"));
     	System.out.println(selenium.getValue("//span[text()='Add simple trigger']/parent::legend/parent::fieldset//input[@name='endTime']"));
+		
+		if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
+    		
+			selenium.click("idTriggerRefresh");
+			
+		}
 		selenium.setSpeed(MID_SPEED);
-    	if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
-			selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::div/" +
-			"parent::div/parent::div//button[text()='Refresh']");
-    	}
     	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+label+"']"));
 	    selenium.setSpeed(MIN_SPEED);
-	}
+	}	
 	
 	// add a simpleTrigger use default date, selected job is TRunJob(use tRunJob run child'job)
 	@Test(dependsOnMethods={"testAddTriggerAddSimpleTrigger"})
@@ -285,25 +274,22 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 		selenium.click("//a[text()='Add simple trigger']");//add a SimpleTrigger
         Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addSimpleTrigger")+"']"));
         
-        this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
-        		"//input[@name='label']", label);//label
+        this.typeString("idJobConductorSimpleTriggerLableInput", label);//label
 		
-        this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
-				"//input[@name='description']", description);//description
+        this.typeString("idJobConductorSimpleTriggerDescInput", description);//description
 	   
-        this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
-        		"//input[@name='repeatInterval']", "20");//Time interval (s)
-	       
-				
-    	selenium.click("//span[text()='Add simple trigger']/parent::legend/parent::fieldset/parent::form/" +
-    			"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
-  
-    	selenium.setSpeed(MID_SPEED);
-    	if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
-			selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::div/" +
-			"parent::div/parent::div//button[text()='Refresh']");
+        this.typeString("idJobConductorSimpleTriggerRptIntervalInput", "20");//Time interval (s)
+	       		
+	    selenium.setSpeed(MID_SPEED);
+	    selenium.click("idSimpleTriggerSave");
+		selenium.setSpeed(MIN_SPEED);
+		if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
+    		
+			selenium.click("idTriggerRefresh");
+			
     	}
-    	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+label+"']"));
+		selenium.setSpeed(MID_SPEED);
+	    Assert.assertTrue(selenium.isElementPresent("//span[text()='"+label+"']"));
 	    selenium.setSpeed(MIN_SPEED);
 	}
 	
@@ -315,8 +301,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 		addSimpleTrigger(taskLabel, label, description, date.getFuture(24), date.getFuture(24), "5", "20", "future");
 		
 	    selenium.setSpeed(MID_SPEED);
-	    selenium.click("//span[text()='Add simple trigger']/parent::legend/parent::fieldset/parent::form/" +
-		"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
+	    selenium.click("idSimpleTriggerSave");
 		selenium.setSpeed(MIN_SPEED);
 		selenium.setSpeed("1000");
 	    Assert.assertTrue(selenium.isTextPresent(rb.getString("trigger.error.uniqueLabel")));
@@ -335,25 +320,21 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.setSpeed(MIN_SPEED);
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task
-		selenium.click("//button[text()='Add trigger...']");//add a trigger
+		selenium.click("idTriggerAdd trigger...");//add a trigger
 		selenium.click("//a[text()='Add simple trigger']");//add a SimpleTrigger
         Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addSimpleTrigger")+"']"));
         
-        this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
-        		"//input[@name='label']", label);//label
+        this.typeString("idJobConductorSimpleTriggerLableInput", label);//label
     	selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='Add simple trigger']//ancestor::fieldset//label[text()='Label:']/parent::div//img"));
 		selenium.setSpeed(MIN_SPEED);
-        this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
-				"//input[@name='description']", description);//description
+        this.typeString("idJobConductorSimpleTriggerDescInput", description);//description
       
-        this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
-	    		"//input[@name='repeatCount']", numberOfTriggering);//Number of triggerings
+        this.typeString("idJobConductorSimpleTriggerRptCountInput", numberOfTriggering);//Number of triggerings
     	selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='Add simple trigger']//ancestor::fieldset//label[text()='Number of triggerings:']/parent::div//img"));
 		selenium.setSpeed(MIN_SPEED);
-        this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
-        		"//input[@name='repeatInterval']", timeInterval);//Time interval (s)
+        this.typeString("idJobConductorSimpleTriggerRptIntervalInput", timeInterval);//Time interval (s)
        	selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='Add simple trigger']//ancestor::fieldset//label[text()='Time interval (s):']/parent::div//img"));
 		selenium.setSpeed(MIN_SPEED);
@@ -368,8 +349,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 		addSimpleTrigger(taskLabel, label, description, date.getPast(24), date.getCurrent(), "5", "20", "past");
 	
 	    selenium.setSpeed(MID_SPEED);
-	    selenium.click("//span[text()='Add simple trigger']/parent::legend/parent::fieldset/parent::form/" +
-		"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
+	    selenium.click("idSimpleTriggerSave");
 		selenium.setSpeed(MIN_SPEED);
 		selenium.setSpeed(MID_SPEED); 
 	    Assert.assertTrue(selenium.isTextPresent(rb.getString("trigger.simpleTrigger.error.startTimeLessThenServerTime")));
@@ -385,8 +365,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	    addSimpleTrigger(taskLabel, label, description, date.getCurrent(), date.getPast(24), "5", "20", "past");
 	    System.out.println(date.getPast(24).months+"/-/-/-/-");
 	    selenium.setSpeed(MID_SPEED);
-	    selenium.click("//span[text()='Add simple trigger']/parent::legend/parent::fieldset/parent::form/" +
-		"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
+	    selenium.click("idSimpleTriggerSave");
 		selenium.setSpeed(MIN_SPEED);
 		selenium.setSpeed("1000"); 
 	    Assert.assertTrue(selenium.isTextPresent("End time cannot be before start time"));
