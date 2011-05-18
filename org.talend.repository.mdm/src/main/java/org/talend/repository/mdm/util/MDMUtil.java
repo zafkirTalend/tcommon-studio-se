@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.mdm.util;
 
+import java.io.File;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,8 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xsd.XSDElementDeclaration;
 import org.eclipse.xsd.XSDSchema;
@@ -94,5 +97,15 @@ public class MDMUtil {
 
         return null;
 
+    }
+
+    public static File getTempTemplateXSDFile() {
+        IPath tempPath = new Path(System.getProperty("user.dir")).append("temp"); //$NON-NLS-1$ //$NON-NLS-1$ //$NON-NLS-2$
+        File tempFile = tempPath.toFile();
+        if (!tempFile.exists()) {
+            tempFile.mkdirs();
+        }
+        File file = new File(tempFile, "template.xsd"); //$NON-NLS-1$
+        return file;
     }
 }

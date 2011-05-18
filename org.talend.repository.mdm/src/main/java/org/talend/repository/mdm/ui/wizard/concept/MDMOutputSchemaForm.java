@@ -18,9 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuListener;
@@ -77,6 +75,7 @@ import org.talend.cwm.xml.TdXmlSchema;
 import org.talend.cwm.xml.XmlFactory;
 import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.mdm.ui.wizard.dnd.MDMSchema2TreeLinker;
+import org.talend.repository.mdm.util.MDMUtil;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.action.CreateAttributeAction;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.action.CreateElementAction;
@@ -553,13 +552,9 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
 
     @Override
     protected void initialize() {
-        IPath tempPath = new Path(System.getProperty("user.dir")).append("temp"); //$NON-NLS-1$ //$NON-NLS-1$ //$NON-NLS-2$
-        File tempFile = tempPath.toFile();
-        if (!tempFile.exists()) {
-            tempFile.mkdirs();
-        }
-        xsdFilePath = tempPath.toOSString();
-        File file = new File(xsdFilePath + "\\template.xsd"); //$NON-NLS-1$
+
+        File file = MDMUtil.getTempTemplateXSDFile();
+        xsdFilePath = file.getParentFile().getAbsolutePath();
         if (!file.exists()) {
             try {
                 super.initialize();

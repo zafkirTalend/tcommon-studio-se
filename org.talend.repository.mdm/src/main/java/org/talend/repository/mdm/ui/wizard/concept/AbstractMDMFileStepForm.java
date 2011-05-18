@@ -19,8 +19,6 @@ import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.util.List;
 
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -38,6 +36,7 @@ import org.talend.mdm.webservice.WSUniversePK;
 import org.talend.mdm.webservice.XtentisBindingStub;
 import org.talend.mdm.webservice.XtentisPort;
 import org.talend.mdm.webservice.XtentisServiceLocator;
+import org.talend.repository.mdm.util.MDMUtil;
 import org.talend.repository.ui.swt.utils.AbstractXmlStepForm;
 import org.talend.repository.ui.utils.OtherConnectionContextUtils.EParamName;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
@@ -198,13 +197,7 @@ public abstract class AbstractMDMFileStepForm extends AbstractXmlStepForm {
     }
 
     private void writeInFile(String schema) {
-        IPath tempPath = new Path(System.getProperty("user.dir")).append("temp"); //$NON-NLS-1$ //$NON-NLS-1$ //$NON-NLS-2$
-        File tempFile = tempPath.toFile();
-        if (!tempFile.exists()) {
-            tempFile.mkdirs();
-        }
-        String parentPath = tempPath.toOSString();
-        File file = new File(parentPath + "\\template.xsd"); //$NON-NLS-1$
+        File file = MDMUtil.getTempTemplateXSDFile();
         xsdFilePath = file.getAbsolutePath();
         StringReader reader = new StringReader(schema);
 

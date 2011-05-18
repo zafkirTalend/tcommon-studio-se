@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.mdm.ui.wizard.dnd;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,9 +27,7 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -79,6 +78,7 @@ import org.talend.repository.mdm.model.MDMXSDExtractorFieldModel;
 import org.talend.repository.mdm.model.MDMXSDExtractorLoopModel;
 import org.talend.repository.mdm.ui.wizard.table.ExtractionFieldsWithMDMEditorView;
 import org.talend.repository.mdm.ui.wizard.table.ExtractionLoopWithMDMEditorView;
+import org.talend.repository.mdm.util.MDMUtil;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.TreePopulator;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.extraction.XmlExtractorBgRefresher;
@@ -130,8 +130,9 @@ public class MDMLinker extends TreeToTablesLinker<Object, Object> {
     public MDMLinker(Composite commonParent, boolean isTemplateExist) {
         super(commonParent);
         this.isTemplateExist = isTemplateExist;
-        IPath tempPath = new Path(System.getProperty("user.dir")).append("temp"); //$NON-NLS-1$ //$NON-NLS-1$
-        xsdFilepath = tempPath.toOSString() + "\\template.xsd"; //$NON-NLS-1$
+        File tempTemplateXSDFile = MDMUtil.getTempTemplateXSDFile();
+        xsdFilepath = tempTemplateXSDFile.getAbsolutePath();
+
     }
 
     public void init(Tree tree, ExtractionLoopWithMDMEditorView loopTableEditorView,

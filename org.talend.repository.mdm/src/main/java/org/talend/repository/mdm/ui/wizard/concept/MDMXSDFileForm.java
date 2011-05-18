@@ -27,9 +27,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.XPathPopulationUtil;
 import org.eclipse.jface.wizard.WizardPage;
@@ -91,6 +89,7 @@ import org.talend.repository.mdm.model.MDMXSDExtractorLoopModel;
 import org.talend.repository.mdm.ui.wizard.dnd.MDMLinker;
 import org.talend.repository.mdm.ui.wizard.table.ExtractionFieldsWithMDMEditorView;
 import org.talend.repository.mdm.ui.wizard.table.ExtractionLoopWithMDMEditorView;
+import org.talend.repository.mdm.util.MDMUtil;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.preview.AsynchronousPreviewHandler;
 import org.talend.repository.preview.IPreviewHandlerListener;
@@ -196,13 +195,8 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
      */
     @Override
     protected void initialize() {
-        IPath tempPath = new Path(System.getProperty("user.dir")).append("temp"); //$NON-NLS-1$ //$NON-NLS-1$
-        File tempFile = tempPath.toFile();
-        if (!tempFile.exists()) {
-            tempFile.mkdirs();
-        }
-        xsdFilePath = tempPath.toOSString();
-        File file = new File(xsdFilePath + "\\template.xsd"); //$NON-NLS-1$
+        File file = MDMUtil.getTempTemplateXSDFile();
+        xsdFilePath = file.getParentFile().getAbsolutePath();
         if (!file.exists()) {
             try {
                 super.initialize();
