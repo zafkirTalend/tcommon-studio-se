@@ -19,17 +19,22 @@ public class TestDuplicateTrigger extends Login {
     	
     	selenium.mouseDown("//span[text()='"+trigger+"']");//select a exist task
     	
-    	selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::" +
-    			"div/parent::div/parent::div/parent::div//button[@id='idSubModuleDuplicateButton']");
+    	selenium.click("idTriggerDuplicate");
     	
-    
-    	selenium.click("//span[text()='"+triggerType+"']/parent::legend/parent::fieldset/parent::form/" +
-    			"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
+        if(selenium.isElementPresent("id"+triggerType+"tTriggerSave")) {
+        	
+        	selenium.click("id"+triggerType+"tTriggerSave");
+        	
+        } else {
+        	
+        	selenium.click("id"+triggerType+"TriggerSave");
+        	
+        }
+    	
     	selenium.setSpeed(MID_SPEED);
     	
     	if(!selenium.isElementPresent("//span[text()='Copy_of_"+trigger+"']")) {
-			selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::div/" +
-			"parent::div/parent::div//button[text()='Refresh']");
+			selenium.click("idTriggerRefresh");
     	}
 
     	Assert.assertTrue(selenium.isElementPresent("//span[text()='Copy_of_"+trigger+"']"));
@@ -38,7 +43,7 @@ public class TestDuplicateTrigger extends Login {
 	}
 	
 	//test duplication a simple trigger
-	@Test(dependsOnGroups={"AddCronTrigger"})
+	@Test(dependsOnGroups={"ModifyTrigger"})
 	@Parameters({"labelTRunJobByTaskRun","addSimpleTriggerLabelNotChooseDate","simpleTriggerType"})
 	public void testDuplicationSimpleTrigger(String task, String trigger, String triggerType) {
 		
