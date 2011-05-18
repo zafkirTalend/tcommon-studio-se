@@ -24,7 +24,7 @@ public class TestModifyTask extends Login {
 			selenium.mouseDown("//span[text()='"+label+"']");//select a exist task
 
 			
-			this.typeString("//input[@name='label']", modifyLabel);//task name /Label
+			this.typeString("idJobConductorTaskLabelInput", modifyLabel);//task name /Label
 			selenium.click("//label[text()='Project:']/parent::div/div/div/div");//modify project
 			this.waitForElementPresent("//div[text()='"+projectName+"' and @role='listitem']", WAIT_TIME);
 			selenium.mouseDownAt("//div[text()='"+projectName+"' and @role='listitem']",""+Event.ENTER); 
