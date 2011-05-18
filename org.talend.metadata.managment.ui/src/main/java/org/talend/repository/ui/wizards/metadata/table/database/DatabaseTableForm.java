@@ -25,6 +25,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.IWizardPage;
@@ -52,6 +53,8 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.ui.runtime.image.EImage;
+import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.ui.swt.formtools.Form;
 import org.talend.commons.ui.swt.formtools.LabelledCombo;
@@ -166,6 +169,8 @@ public class DatabaseTableForm extends AbstractForm {
     private LabelledText commentText;
 
     private LabelledCombo tableCombo;
+
+    private Button button;
 
     private Button streamDetachCheckbox;
 
@@ -358,8 +363,7 @@ public class DatabaseTableForm extends AbstractForm {
         }
         String sourceName = metadataTable.getName();
         // tableCombo.setReadOnly(sourceName != null);
-        // tableCombo.setText(sourceName);
-        initTableComboItem();
+        tableCombo.setText(sourceName);
         updateRetreiveSchemaButton();
         nameText.forceFocus();
     }
@@ -376,34 +380,65 @@ public class DatabaseTableForm extends AbstractForm {
 
     }
 
-    private void initTableComboItem() {
-        TableInfoParameters parameter = new TableInfoParameters();
-        List<String> comboTableNames;
-        try {
-            comboTableNames = ExtractMetaDataFromDataBase.returnTablesFormConnection(iMetadataConnection, parameter);
-        } catch (Exception e) {
-            comboTableNames = new ArrayList<String>();
-        }
-        if (comboTableNames != null && !comboTableNames.isEmpty()) {
-            int size = comboTableNames.size();
-            if (size > LabelledCombo.MAX_VISIBLE_ITEM_COUNT) {
-                size = LabelledCombo.MAX_VISIBLE_ITEM_COUNT;
-            }
-            tableCombo.setVisibleItemCount(size);
-            tableCombo.removeAll();
-            boolean selected = false;
-            for (int i = 0; i < comboTableNames.size(); i++) {
-                tableCombo.add(comboTableNames.get(i));
-                if (comboTableNames.get(i).equals(metadataTable.getName())) {
-                    tableCombo.select(i);
-                    selected = true;
+    private void refreshTableComboItem() {
+        ProgressMonitorDialog progressDialog = new ProgressMonitorDialog(this.getShell());
+        IRunnableWithProgress runnable = new IRunnableWithProgress() {
+
+            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                try {
+                    monitor.beginTask("", IProgressMonitor.UNKNOWN); //$NON-NLS-1$
+                    if (!monitor.isCanceled()) {
+
+                        TableInfoParameters parameter = new TableInfoParameters();
+                        List<String> comboTableNames;
+                        try {
+                            comboTableNames = ExtractMetaDataFromDataBase.returnTablesFormConnection(iMetadataConnection,
+                                    parameter);
+                        } catch (Exception e) {
+                            comboTableNames = new ArrayList<String>();
+                        }
+                        if (comboTableNames != null && !comboTableNames.isEmpty()) {
+                            int size = comboTableNames.size();
+                            if (size > LabelledCombo.MAX_VISIBLE_ITEM_COUNT) {
+                                size = LabelledCombo.MAX_VISIBLE_ITEM_COUNT;
+                            }
+                            final List<String> items = comboTableNames;
+                            final int count = size;
+                            Display.getDefault().syncExec(new Runnable() {
+
+                                public void run() {
+                                    tableCombo.setVisibleItemCount(count);
+                                    tableCombo.removeAll();
+                                    boolean selected = false;
+                                    for (int i = 0; i < items.size(); i++) {
+                                        tableCombo.add(items.get(i));
+                                        if (items.get(i).equals(metadataTable.getName())) {
+                                            tableCombo.select(i);
+                                            selected = true;
+                                        }
+                                    }
+                                    if (!selected) {
+                                        tableCombo.select(0);
+                                    }
+                                }
+                            });
+                        }
+                    }
+                } catch (Exception e) {
+                    ExceptionHandler.process(e);
+                } finally {
+                    monitor.done();
                 }
             }
-            if (!selected) {
-                tableCombo.select(0);
-            }
-
+        };
+        try {
+            progressDialog.run(true, true, runnable);
+        } catch (InvocationTargetException e) {
+            ExceptionHandler.process(e);
+        } catch (InterruptedException e) {
+            ExceptionHandler.process(e);
         }
+
     }
 
     /**
@@ -486,20 +521,26 @@ public class DatabaseTableForm extends AbstractForm {
 
         gridData = new GridData(SWT.FILL, SWT.BOTTOM, true, false);
         gridData.widthHint = rightCompositeWidth;
-        gridData.horizontalSpan = 3;
+        gridData.horizontalSpan = 4;
 
         // Header Fields
-        Composite composite1 = Form.startNewDimensionnedGridLayout(rightComposite, 3, rightCompositeWidth, headerCompositeHeight);
-        nameText = new LabelledText(composite1, Messages.getString("DatabaseTableForm.name"), 2); //$NON-NLS-1$
-        commentText = new LabelledText(composite1, Messages.getString("DatabaseTableForm.comment"), 2); //$NON-NLS-1$
+        Composite composite1 = Form.startNewDimensionnedGridLayout(rightComposite, 4, rightCompositeWidth, headerCompositeHeight);
+        nameText = new LabelledText(composite1, Messages.getString("DatabaseTableForm.name"), 3); //$NON-NLS-1$
+        commentText = new LabelledText(composite1, Messages.getString("DatabaseTableForm.comment"), 3); //$NON-NLS-1$
 
         typeText = new Label(composite1, SWT.NONE);
         typeText.setLayoutData(gridData);
 
         // Combo Table
+        // Composite comboComposite = Form.startNewGridLayout(rightComposite, 3, false, SWT.LEFT, SWT.TOP);
         tableCombo = new LabelledCombo(composite1, Messages.getString("DatabaseTableForm.table"), Messages //$NON-NLS-1$
                 .getString("DatabaseTableForm.tableTip"), //$NON-NLS-1$  
                 itemTableName != null ? itemTableName.toArray(new String[0]) : null, 1, true, SWT.NONE);
+        tableCombo.setEnabled(false);
+
+        button = new Button(composite1, SWT.PUSH);
+        button.setImage(ImageProvider.getImage(EImage.REFRESH_ICON));
+        button.setToolTipText(Messages.getString("DatabaseTableForm.refresh.text")); //$NON-NLS-1$
 
         // Button retreiveSchema
         Composite compositeRetreiveSchemaButton = Form.startNewGridLayout(composite1, 3, false, SWT.CENTER, SWT.TOP);
@@ -612,6 +653,16 @@ public class DatabaseTableForm extends AbstractForm {
      * 
      */
     protected void addUtilsButtonListeners() {
+        button.addSelectionListener(new SelectionAdapter() {
+
+            public void widgetSelected(final SelectionEvent e) {
+                if (button.getEnabled()) {
+                    refreshTableComboItem();
+                    tableCombo.setEnabled(true);
+                    metadataTable.setName(tableCombo.getText());
+                }
+            }
+        });
 
         // Event retreiveSchemaButton
         retreiveSchemaButton.addSelectionListener(new SelectionAdapter() {
@@ -880,30 +931,7 @@ public class DatabaseTableForm extends AbstractForm {
             public void widgetSelected(SelectionEvent e) {
                 String schemaLabel = tableNavigator.getSelection()[0].getText();
                 metadataTable = TableHelper.findByLabel(getConnection(), schemaLabel);
-                // initExistingNames();
-                TableInfoParameters tableInfoParameters = new TableInfoParameters();
-                List<String> filterTableNames;
-                try {
-                    filterTableNames = ExtractMetaDataFromDataBase.returnTablesFormConnection(iMetadataConnection,
-                            tableInfoParameters);
-                } catch (Exception e1) {
-                    filterTableNames = new ArrayList<String>();
-                }
-                if (filterTableNames != null && !filterTableNames.isEmpty()) {
-                    int visiblecount = filterTableNames.size();
-                    if (visiblecount > LabelledCombo.MAX_VISIBLE_ITEM_COUNT) {
-                        visiblecount = LabelledCombo.MAX_VISIBLE_ITEM_COUNT;
-                    }
-                    tableCombo.setVisibleItemCount(visiblecount);
-                    // bug 17442
-                    tableCombo.removeAll();
-                    for (int i = 0; i < filterTableNames.size(); i++) {
-                        tableCombo.add(filterTableNames.get(i));
-                        if (filterTableNames.get(i).equals(metadataTable.getName())) {
-                            tableCombo.select(i);
-                        }
-                    }
-                }
+                tableCombo.setText(schemaLabel);
                 initMetadataForm();
                 if (isReadOnly()) {
                     addTableButton.setEnabled(false);
@@ -997,7 +1025,7 @@ public class DatabaseTableForm extends AbstractForm {
                 updateStatus(IStatus.ERROR, Messages.getString("CommonWizard.nameAlreadyExist") + " \"" + table.getLabel() + "\""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                 return false;
             } else if (!MetadataToolHelper.isValidSchemaName(table.getLabel())) {
-                updateStatus(IStatus.ERROR, "");
+                updateStatus(IStatus.ERROR, Messages.getString("DatabaseTableForm.illegalChar", table.getLabel())); //$NON-NLS-1$
                 return false;
             }
             // bug 17442
