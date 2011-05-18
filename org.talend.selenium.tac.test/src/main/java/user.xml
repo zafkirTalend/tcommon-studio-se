@@ -4,7 +4,7 @@
 	
 	<!-- Add User -->
 	<parameter name="LoginName" value="jackzhang@gamil.com" />
-	<parameter name="LoginNameNotChooseActive" value="aaa@gmail.com" />
+	<parameter name="LoginNameNotChooseActive" value="testUserUncheckActive@gmail.com" />
 	<parameter name="LoginNameChooseAdministratorRole" value="testAdmin@company.com" />
 	<parameter name="LoginNameChooseMulripleRoles" value="testMulripleRoles@company.com" />
 	<parameter name="LoginNameChooseExistRoleUser" value="testExistRoleUser@company.com" />
@@ -22,9 +22,9 @@
 	
     <!--Add  Duplicate Cancel Delete User  Delete User -->
     <parameter name="DeleteUser" value="//div[text()='testAdmin@company.com']"/>
-    <parameter name="DulicateUser" value="//div[text()='aaa@gmail.com']"/>
-    <parameter name="DulicatedUser" value="//div[text()='Copy_of_aaa@gmail.com']"/>
-    <parameter name="CopyUser" value="Copy_of_aaa@gmail.com"/>
+    <parameter name="DulicateUser" value="//div[text()='testUserUncheckActive@gmail.com']"/>
+    <parameter name="DulicatedUser" value="//div[text()='Copy_of_testUserUncheckActive@gmail.com']"/>
+    <parameter name="CopyUser" value="Copy_of_testUserUncheckActive@gmail.com"/>
     <!--Add  Duplicate Cancel Delete User  Delete User -->
     
     <!-- ModifiyUserName -->
