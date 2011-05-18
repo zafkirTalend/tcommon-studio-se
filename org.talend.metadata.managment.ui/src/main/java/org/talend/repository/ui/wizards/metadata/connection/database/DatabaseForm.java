@@ -41,6 +41,10 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.ui.swt.formtools.Form;
@@ -67,6 +71,7 @@ import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.ui.swt.utils.AbstractForm;
@@ -656,6 +661,43 @@ public class DatabaseForm extends AbstractForm {
 
         List<String> dbTypeDisplayList = EDatabaseConnTemplate.getDBTypeDisplay();
 
+        // added by dlin for 21721,only a temporary approach to resolve it -begin
+        IWorkbenchWindow workBenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+        if (workBenchWindow != null) {
+            IWorkbenchPage page = workBenchWindow.getActivePage();
+            if (page != null) {
+                String perId = page.getPerspective().getId();
+                if ((!"".equals(perId) && null != perId)) {
+                    // eg : use DI, then switch to DQ : All view from DI must be hidden when switch
+                    if (perId.equalsIgnoreCase(IBrandingConfiguration.PERSPECTIVE_DI_ID)) {
+                        if (dbTypeDisplayList != null) {
+                            ArrayList<String> newList = new ArrayList<String>(dbTypeDisplayList);
+                            for (int i = 0; i < newList.size(); i++) {
+                                if (newList.get(i).equalsIgnoreCase(("Microsoft SQL Server 2005/2008"))) {
+                                    newList.remove(i);
+                                }
+                            }
+                            dbTypeDisplayList = newList;
+                        }
+                    } else if (perId.equalsIgnoreCase(IBrandingConfiguration.PERSPECTIVE_DQ_ID)) {
+                        if (dbTypeDisplayList != null) {
+                            ArrayList<String> newList = new ArrayList<String>(dbTypeDisplayList);
+                            if (!newList.contains(("Microsoft SQL Server 2005/2008"))) {
+                                for (int i = 0; i < newList.size(); i++) {
+                                    if (newList.get(i).equalsIgnoreCase(("Microsoft SQL Server"))) {
+                                        newList.add(i, "Microsoft SQL Server 2005/2008");
+                                        break;
+                                    }
+                                }
+                            }
+                            dbTypeDisplayList = newList;
+                        }
+                    }
+                }
+            }
+        }
+
+        // added by dlin for 21721,only a temporary approach to resolve it -end
         if (isTOPStandaloneMode()) {
             dbTypeDisplayList = filterUnavailableType(dbTypeDisplayList);
         }
