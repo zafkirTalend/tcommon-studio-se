@@ -124,9 +124,17 @@ public class TestAddTaskBaseBranchProject  extends Login {
 	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
 	    selenium.setSpeed(MIN_SPEED);
 	    selenium.click("idSubModuleAddButton");
-		this.typeString("//input[@name='label']", label);//plan name /Label
-		this.typeString("//span[text()='Execution task']/parent::legend/" +
-				"parent::fieldset/div/div[2]//input", "branchJobTask");//plan name /Label
+		this.typeString("idJobConductorTaskLabelInput", label);//plan name /Label	
+    	
+    	if(!selenium.isChecked("idJobConductorTaskActiveListBox")) {
+    		
+    		System.out.println("/******************/");
+    		selenium.click("idJobConductorTaskActiveListBox");//check active
+        	Assert.assertTrue(selenium.isChecked("idJobConductorTaskActiveListBox"));	
+        	System.out.println("/******************/");
+        	
+    	}    
+    	
 		selenium.click("//label[text()='Project:']/parent::div/div/div/div");//select a project 
 		this.waitForElementPresent("//div[text()='"+projectName+"' and @role='listitem']", WAIT_TIME);
 		selenium.mouseDownAt("//div[text()='"+projectName+"' and @role='listitem']",""+Event.ENTER); 
@@ -148,11 +156,15 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		selenium.click("//label[text()='Statistic:']/parent::div/div/div/div");//statistic
 		this.waitForElementPresent("//div[text()='"+statisticName+"' and @role='listitem']", WAIT_TIME);
 		selenium.mouseDownAt("//div[text()='"+statisticName+"' and @role='listitem']",""+Event.ENTER);
+		selenium.click("//label[text()='On unavailable JobServer:']/parent::div/div/div/div");//statistic
+		this.waitForElementPresent("//div[text()='Wait' and @role='listitem']", WAIT_TIME);
+		selenium.mouseDownAt("//div[text()='Wait' and @role='listitem']",""+Event.ENTER);
 				
 	}
 
 
-	@Test(dependsOnGroups={"AddTask"})
+	@Test
+//	(dependsOnGroups={"AddTask"})
 	@Parameters({"TaskBaseBranch","AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
 	public void testAddTaskBaseBranch(String label, String projectName, String branchName,
