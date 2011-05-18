@@ -1,4 +1,4 @@
-package com.talend.tac.cases.executionTask;
+	package com.talend.tac.cases.executionTask;
 
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -18,16 +18,14 @@ public class TestAddTriggerAddCronTrigger extends Login{
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.setSpeed(MIN_SPEED);
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task
-		selenium.click("//button[text()='Add trigger...']");//add a trigger
+		selenium.click("idTriggerAdd trigger...");//add a trigger
 		selenium.click("//a[text()='Add CRON trigger']");//add a  CronTrigger
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addCronTrigger")+"']"));
 		selenium.setSpeed(MIN_SPEED);
-		this.typeString("//span[text()='Add Cron trigger']/parent::legend/parent::fieldset" +
-				"//input[@name='label']", labelCronTrigger);//label
-		//			                                                                      " x-form-field x-form-text x-form-invalid"
-		this.typeString("//span[text()='Add Cron trigger']/parent::legend/parent::fieldset" +
-				"//input[@name='description']", descriptionSronTrigger);//description
+		this.typeString("idJobConductorCronTriggerLabelInput", labelCronTrigger);//label
+
+		this.typeString("idJobConductorCronTriggerDescInput", descriptionSronTrigger);//description
 			
 		selenium.click("idSchedulingUiConfigButton");//choose data
 		
@@ -64,13 +62,11 @@ public class TestAddTriggerAddCronTrigger extends Login{
 		addTriggerAddCronTrigger(taskLabel,cronTriggerLabel, description, "2011", 
 				"Sunday", "Saturday", "January", "December");
     			
-		selenium.click("//span[text()='Add Cron trigger']/parent::legend/parent::fieldset/parent::form/" +
-    			"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
+		selenium.click("idCrontTriggerSave");
 				
 		selenium.setSpeed(MID_SPEED);
 		if(!selenium.isElementPresent("//span[text()='"+cronTriggerLabel+"']")) {
-			selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::div/" +
-			"parent::div/parent::div//button[text()='Refresh']");
+			selenium.click("idTriggerRefresh");
     	}
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+cronTriggerLabel+"']"));
 		selenium.setSpeed(MIN_SPEED);
@@ -87,33 +83,24 @@ public class TestAddTriggerAddCronTrigger extends Login{
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.setSpeed(MIN_SPEED);
        	selenium.mouseDown("//span[text()='"+taskLabel+"']");
-		selenium.click("//button[text()='Add trigger...']");
+		selenium.click("idTriggerAdd trigger...");
 		selenium.click("//a[text()='Add CRON trigger']");
 
-		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
-				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='label']",cronTriggerLabel);
+		this.typeString("idJobConductorCronTriggerLabelInput",cronTriggerLabel);
 		//type  description
-		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
-				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='description']", description);
+		this.typeString("idJobConductorCronTriggerDescInput", description);
     	//type minutes
-		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
-				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='minutes']", date.minutes);
+		this.typeString("idJobConductorCronTriggerMintInput", date.minutes);
 		//type hours
-		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
-				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='hours']", date.hours);
+		this.typeString("idJobConductorCronTriggerHourInput", date.hours);
 		//type days
-		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
-				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='daysOfMonth']", date.days);
+		this.typeString("idJobConductorCronTriggerDayOfMonthInput", date.days);
 		//type months
-		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
-				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='months']", date.months);
+		this.typeString("idJobConductorCronTriggerMonthInput", date.months);
 		//type years
-		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
-				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='years']", date.years);	
+		this.typeString("idJobConductorCronTriggerYearInput", date.years);	
 		//click save button
-		selenium.setSpeed(MID_SPEED);
-		selenium.click("//span[text()='Add Cron trigger']/parent::legend/parent::fieldset/parent::form/" +
-    			"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
+		selenium.click("idCrontTriggerSave");
         selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent("Save failed: An execution trigger with this name already exists -- For more information see your log file"));
 		selenium.setSpeed(MIN_SPEED);
@@ -130,8 +117,7 @@ public class TestAddTriggerAddCronTrigger extends Login{
 		addTriggerAddCronTrigger(taskLabel,cronTriggerLabel, description, "2010", 
 				"Sunday", "Saturday", "January", "December");
     	selenium.setSpeed(MID_SPEED);		
-		selenium.click("//span[text()='Add Cron trigger']/parent::legend/parent::fieldset/parent::form/" +
-    			"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
+		selenium.click("idCrontTriggerSave");
 		selenium.setSpeed(MIN_SPEED);
 		selenium.setSpeed(MID_SPEED);
 	   	Assert.assertTrue(selenium.isTextPresent(rb.getString("trigger.error.trigger_will_never_fire")));
@@ -149,41 +135,32 @@ public class TestAddTriggerAddCronTrigger extends Login{
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.setSpeed(MIN_SPEED);
        	selenium.mouseDown("//span[text()='"+taskLabel+"']");
-		selenium.click("//button[text()='Add trigger...']");
+		selenium.click("idTriggerAdd trigger...");
 		selenium.click("//a[text()='Add CRON trigger']");
 //		selenium.setSpeed(MID_SPEED);
 		Thread.sleep(5000);
 		selenium.setSpeed(MIN_SPEED);
 		//type  label
-		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
-				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='label']",addCronTrigger);
+		this.typeString("idJobConductorCronTriggerLabelInput",addCronTrigger);
 		//type  description
-		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
-				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='description']", addCronTriggerDescription);
+		this.typeString("idJobConductorCronTriggerDescInput", addCronTriggerDescription);
     	//type minutes
-		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
-				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='minutes']", date.minutes);
+		this.typeString("idJobConductorCronTriggerMintInput", date.minutes);
 		//type hours
-		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
-				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='hours']", date.hours);
+		this.typeString("idJobConductorCronTriggerHourInput", date.hours);
 		//type days
-		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
-				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='daysOfMonth']", date.days);
+		this.typeString("idJobConductorCronTriggerDayOfMonthInput", date.days);
 		//type months
-		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
-				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='months']", date.months);
+		this.typeString("idJobConductorCronTriggerMonthInput", date.months);
 		//type years
-		this.typeString("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
-				"//span[text()='Add Cron trigger']//ancestor::fieldset//input[@name='years']", date.years);	
+		this.typeString("idJobConductorCronTriggerYearInput", date.years);	
 		//click save button
 		selenium.setSpeed(MID_SPEED);
-		selenium.click("//span[text()='Add Cron trigger']/parent::legend/parent::fieldset/parent::form/" +
-    			"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
+		selenium.click("idCrontTriggerSave");
 						
 		selenium.setSpeed(MID_SPEED);
 		if(!selenium.isElementPresent("//span[text()='"+addCronTrigger+"']")) {
-			selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::div/" +
-			"parent::div/parent::div//button[text()='Refresh']");
+			selenium.click("idTriggerRefresh");
     	}
 	    Assert.assertTrue(selenium.isElementPresent("//span[text()='"+addCronTrigger+"']"));
 	    selenium.setSpeed(MIN_SPEED);
