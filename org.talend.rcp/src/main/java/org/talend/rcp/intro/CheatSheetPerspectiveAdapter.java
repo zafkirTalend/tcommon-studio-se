@@ -60,7 +60,7 @@ public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
         }
         cheetSheetInPerspective.put(perspective.getId(), null != cheetSheet);
         // Always hide cheatsheet first on switching perspective
-        // hideCheetSheet();
+        hideCheetSheet();
         super.perspectivePreDeactivate(page, perspective);
     }
 
