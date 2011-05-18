@@ -20,51 +20,48 @@ public class TestAddTriggerAddFileTrigger extends Login {
     	selenium.setSpeed(MIN_SPEED);
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task
     	
-    	if(!selenium.isChecked("//input[@name='active']")) {
+    	if(!selenium.isChecked("idJobConductorTaskActiveListBox")) {
     		
-    		selenium.click("//input[@name='active']");//check active
-        	Assert.assertTrue(selenium.isChecked("//input[@name='active']"));
+    		selenium.click("idJobConductorTaskActiveListBox");//check active
+        	Assert.assertTrue(selenium.isChecked("idJobConductorTaskActiveListBox"));
         	selenium.click("idFormSaveButton");
     		
     	}
     
     	
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task again
-		selenium.click("//button[text()='Add trigger...']");//add a trigger
+		selenium.click("idTriggerAdd trigger...");//add a trigger
 		selenium.click("//a[text()='Add file trigger']");//add a FileTrigger
         Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addFileTrigger")+"']"));
 		
-    	this.typeString("//span[text()='Add file trigger']/parent::legend/parent::fieldset" +
-				"//input[@name='label']", triggerLabel);//label
+    	this.typeString("idJobConductorFileTriggerLabelInput", triggerLabel);//label
 				                                                                     
-		this.typeString("//span[text()='Add file trigger']/parent::legend/parent::fieldset" +
-				"//input[@name='description']", triggerDescription);//description
+		this.typeString("idJobConductorFileTriggerDescInput", triggerDescription);//description
 		
-		this.typeString("//input[@name='checkTimeInterval']", "20");//checkTimeInterval
+		this.typeString("idJobConductorFileTriggerCheckTimeIntervalInput", "20");//checkTimeInterval
 		
-		this.typeString("//input[@name='folderPath']", folderPath);//folderPath
+		this.typeString("idJobConductorFileTriggerFolderPathInput", folderPath);//folderPath
 		
-		this.typeString("//input[@name='fileMask']", "*.txt");//fileMask
+		this.typeString("idJobConductorFileTriggerFileMaskInput", "*.txt");//fileMask
 		
-		selenium.click("//input[@class=' x-form-checkbox' and @name='exist']");//*.txt is exist
-		Assert.assertTrue(selenium.isChecked("//input[@class=' x-form-checkbox' and @name='exist']"));
+		selenium.click("idJobConductorFileTriggerFtExitCheckBox");//*.txt is exist
+		Assert.assertTrue(selenium.isChecked("idJobConductorFileTriggerFtExitCheckBox"));
 		selenium.setSpeed(MID_SPEED);
 		
-		selenium.click("//label[text()='Check file server:']/parent::div//input[@name='executionServerId']");
+		selenium.click("idJobConductorFileTriggerFileServerListBox");
 		selenium.mouseDown("//div[text()='" + serverName + "']");
 		
-		selenium.click("//span[text()='Add file trigger']/parent::legend/parent::fieldset/parent::form/" +
-		"parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
+		selenium.click("idFileTriggerSave");
 		selenium.setSpeed(MIN_SPEED);
 		if(!selenium.isElementPresent("//span[text()='"+triggerLabel+"']")) {
-			selenium.click("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/parent::ul/parent::div/" +
-			"parent::div/parent::div//button[text()='Refresh']");
+			selenium.click("idTriggerRefresh");
     	}
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+triggerLabel+"']"));
-		this.waitForElementPresent("//span[text()='Ready to run']", WAIT_TIME);
-		Assert.assertTrue(selenium.isElementPresent("//span[text()='Ready to run']"));
 		selenium.setSpeed(MIN_SPEED);
+		this.waitForElementPresent("//span[text()='Running...']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//span[text()='Running...']"));
+		
 		
 	 }
 	
