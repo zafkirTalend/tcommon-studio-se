@@ -33,13 +33,23 @@ import org.eclipse.ui.internal.util.PrefUtil;
  */
 public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
 
-    private static Logger log = Logger.getLogger(CheatSheetPerspectiveAdapter.class);
-
-    private static final String DQ_PERSPECTIVE_ID = "org.talend.dataprofiler.DataProfilingPerspective";//$NON-NLS-1$
+    public static final String DQ_CHEATSHEET_START_ID = "org.talend.dataprofiler.core.talenddataprofiler";//$NON-NLS-1$
 
     protected String cheetSheetID;
 
     protected HashMap<String, Boolean> cheetSheetInPerspective = new HashMap<String, Boolean>();
+
+    private static Logger log = Logger.getLogger(CheatSheetPerspectiveAdapter.class);
+
+    private static final String DQ_PERSPECTIVE_ID = "org.talend.dataprofiler.DataProfilingPerspective";//$NON-NLS-1$
+
+
+    public CheatSheetPerspectiveAdapter(String startId) {
+        CheatSheetView cheetSheet = findCheetSheet();
+        if (cheetSheet != null) {
+            cheetSheet.setInput(startId);
+        }
+    }
 
     @Override
     public void perspectivePreDeactivate(IWorkbenchPage page, IPerspectiveDescriptor perspective) {
@@ -50,7 +60,7 @@ public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
         }
         cheetSheetInPerspective.put(perspective.getId(), null != cheetSheet);
         // Always hide cheatsheet first on switching perspective
-        hideCheetSheet();
+        // hideCheetSheet();
         super.perspectivePreDeactivate(page, perspective);
     }
 

@@ -264,7 +264,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         });
 
         // MOD yyi 2011-05-17 19088: add perspective change listener for cheatsheet view of tdq
-        PlatformUI.getWorkbench().getActiveWorkbenchWindow().addPerspectiveListener(new CheatSheetPerspectiveAdapter());
+        PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+                .addPerspectiveListener(new CheatSheetPerspectiveAdapter(CheatSheetPerspectiveAdapter.DQ_CHEATSHEET_START_ID));
     }
 
     private void clearEditorAreaBG(boolean flag) {
