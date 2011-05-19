@@ -23,4 +23,8 @@ public interface IServerConfiguration {
     public String getHost();
 
     public int getPort();
+
+    public String getUser();
+
+    public String getPassword();
 }
