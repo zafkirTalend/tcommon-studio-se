@@ -25,12 +25,15 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.ColumnSetHelper;
@@ -372,6 +375,27 @@ public final class DqRepositoryViewService {
         Connection prov = tdDataProviders.iterator().next();
         rc.setObject(prov);
         return rc;
+    }
+
+    /**
+     * DOC bZhou Comment method "getAllRepositoryResourceObjects".
+     * 
+     * Use this method to get all repository view objects used in TDQ Repository.
+     * 
+     * @param withDeleted
+     * @return
+     * @throws PersistenceException
+     */
+    public static List<IRepositoryViewObject> getAllRepositoryResourceObjects(boolean withDeleted) throws PersistenceException {
+        List<IRepositoryViewObject> allObjectList = new ArrayList<IRepositoryViewObject>();
+
+        for (ERepositoryObjectType type : (ERepositoryObjectType[]) ERepositoryObjectType.values()) {
+            if (type.isDQItemType() && type.isResourceItem()) {
+                allObjectList.addAll(ProxyRepositoryFactory.getInstance().getAll(type, withDeleted));
+            }
+        }
+
+        return allObjectList;
     }
 
     /**

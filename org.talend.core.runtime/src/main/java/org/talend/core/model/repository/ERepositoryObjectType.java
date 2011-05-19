@@ -267,7 +267,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     // MOD mzhao feature 9207
     public final static ERepositoryObjectType TDQ_ELEMENT = new ERepositoryObjectType(
-            "repository.tdqelement", "", "TDQ_ELEMENT", 62, true, "repository.tdqelement.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.tdqelement", "", "TDQ_ELEMENT", 62, true, "repository.tdqelement.alias", new String[] { "DQ" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     // MOD mzhao feature 13114, 2010-05-19
     public final static ERepositoryObjectType TDQ_ANALYSIS_ELEMENT = new ERepositoryObjectType(
@@ -290,72 +290,72 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             "repository.tdqelement.jrxml", "TDQ_Libraries/JRXML Template", "TDQ_JRAXML_ELEMENT", 69, true, "repository.tdqelement.jrxml.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType TDQ_FOLDER_NODE = new ERepositoryObjectType(
-            "repository.tdqelement.folderNode", "", "TDQ_FOLDER_NODE", 70, true, "repository.tdqelement.folderNode.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.tdqelement.folderNode", "", "TDQ_FOLDER_NODE", 70, true, "repository.tdqelement.folderNode.alias", new String[] { "DQ" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     // MOD klliu feature 15750
     public final static ERepositoryObjectType TDQ_DATA_PROFILING = new ERepositoryObjectType(
-            "repository.dataprofiling", "TDQ_Data Profiling", "TDQ_DATA_PROFILING", 71, true, "repository.dataprofiling.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.dataprofiling", "TDQ_Data Profiling", "TDQ_DATA_PROFILING", 71, true, "repository.dataprofiling.alias", new String[] { "DQ" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType TDQ_LIBRARIES = new ERepositoryObjectType(
-            "repository.libraries", "TDQ_Libraries", "TDQ_LIBRARIES", 74, true, "repository.libraries.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.libraries", "TDQ_Libraries", "TDQ_LIBRARIES", 74, true, "repository.libraries.alias", new String[] { "DQ" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType TDQ_PATTERN_REGEX = new ERepositoryObjectType(
-            "repository.patternRegex", "TDQ_Libraries/Patterns/Regex", "TDQ_PATTERN_REGEX", 76, true, "repository.patternRegex.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.patternRegex", "TDQ_Libraries/Patterns/Regex", "TDQ_PATTERN_REGEX", 76, true, "repository.patternRegex.alias", new String[] { "DQ" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType TDQ_PATTERN_SQL = new ERepositoryObjectType(
-            "repository.patternSql", "TDQ_Libraries/Patterns/SQL", "TDQ_PATTERN_SQL", 77, true, "repository.patternSql.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.patternSql", "TDQ_Libraries/Patterns/SQL", "TDQ_PATTERN_SQL", 77, true, "repository.patternSql.alias", new String[] { "DQ" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType TDQ_RULES = new ERepositoryObjectType(
             "repository.rules", "TDQ_Libraries/Rules", "TDQ_RULES", 79, true, "repository.rules.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType TDQ_RULES_SQL = new ERepositoryObjectType(
-            "repository.rulesSql", "TDQ_Libraries/Rules/SQL", "TDQ_RULES_SQL", 80, true, "repository.rulesSql.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.rulesSql", "TDQ_Libraries/Rules/SQL", "TDQ_RULES_SQL", 80, true, "repository.rulesSql.alias", new String[] { "DQ" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     // MOD klliu 2010-11-26 definition type
     public final static ERepositoryObjectType TDQ_SYSTEM_INDICATORS = new ERepositoryObjectType(
-            "repository.systemIndicators", "TDQ_Libraries/Indicators/System Indicators", "TDQ_SYSTEM_INDICATORS", 83, true, "repository.systemIndicators.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.systemIndicators", "TDQ_Libraries/Indicators/System Indicators", "TDQ_SYSTEM_INDICATORS", 83, true, "repository.systemIndicators.alias", new String[] { "DQ" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType TDQ_USERDEFINE_INDICATORS = new ERepositoryObjectType(
-            "repository.userDefineIndicators", "TDQ_Libraries/Indicators/User Defined Indicators", "TDQ_USERDEFINE_INDICATORS", 84, true, "repository.userDefineIndicators.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.userDefineIndicators", "TDQ_Libraries/Indicators/User Defined Indicators", "TDQ_USERDEFINE_INDICATORS", 84, true, "repository.userDefineIndicators.alias", new String[] { "DQ" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType TDQ_USERDEFINE_INDICATORS_LIB = new ERepositoryObjectType(
-            "repository.userDefineIndicators.lib", "", "TDQ_USERDEFINE_INDICATORS_LIB", 85, true, "repository.userDefineIndicators.lib.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.userDefineIndicators.lib", "", "TDQ_USERDEFINE_INDICATORS_LIB", 85, true, "repository.userDefineIndicators.lib.alias", new String[] { "DQ" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType SYSTEM_INDICATORS_ADVANCED_STATISTICS = new ERepositoryObjectType(
-            "repository.systemIndicators.advancedStatistics", "TDQ_Libraries/Indicators/System Indicators/Advanced Statistics", "SYSTEM_INDICATORS_ADVANCED_STATISTICS", 86, true, "repository.systemIndicators.advancedStatistics.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.systemIndicators.advancedStatistics", "TDQ_Libraries/Indicators/System Indicators/Advanced Statistics", "SYSTEM_INDICATORS_ADVANCED_STATISTICS", 86, true, "repository.systemIndicators.advancedStatistics.alias", new String[] { "DQ" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType SYSTEM_INDICATORS_BUSINESS_RULES = new ERepositoryObjectType(
-            "repository.systemIndicators.businessRules", "TDQ_Libraries/Indicators/System Indicators/Business Rules", "SYSTEM_INDICATORS_BUSINESS_RULES", 87, true, "repository.systemIndicators.businessRules.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.systemIndicators.businessRules", "TDQ_Libraries/Indicators/System Indicators/Business Rules", "SYSTEM_INDICATORS_BUSINESS_RULES", 87, true, "repository.systemIndicators.businessRules.alias", new String[] { "DQ" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType SYSTEM_INDICATORS_CORRELATION = new ERepositoryObjectType(
-            "repository.systemIndicators.correlation", "TDQ_Libraries/Indicators/System Indicators/Correlation", "SYSTEM_INDICATORS_CORRELATION", 88, true, "repository.systemIndicators.correlation.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.systemIndicators.correlation", "TDQ_Libraries/Indicators/System Indicators/Correlation", "SYSTEM_INDICATORS_CORRELATION", 88, true, "repository.systemIndicators.correlation.alias", new String[] { "DQ" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType SYSTEM_INDICATORS_FUNCTIONAL_DEPENDENCY = new ERepositoryObjectType(
-            "repository.systemIndicators.functionalDependency", "TDQ_Libraries/Indicators/System Indicators/Functional Dependency", "SYSTEM_INDICATORS_FUNCTIONAL_DEPENDENCY", 89, true, "repository.systemIndicators.functionalDependency.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.systemIndicators.functionalDependency", "TDQ_Libraries/Indicators/System Indicators/Functional Dependency", "SYSTEM_INDICATORS_FUNCTIONAL_DEPENDENCY", 89, true, "repository.systemIndicators.functionalDependency.alias", new String[] { "DQ" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType SYSTEM_INDICATORS_OVERVIEW = new ERepositoryObjectType(
-            "repository.systemIndicators.overview, repository.systemIndicators.overview.alias", "TDQ_Libraries/Indicators/System Indicators/Overview", "SYSTEM_INDICATORS_OVERVIEW", true, 90, new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.systemIndicators.overview, repository.systemIndicators.overview.alias", "TDQ_Libraries/Indicators/System Indicators/Overview", "SYSTEM_INDICATORS_OVERVIEW", true, 90, new String[] { "DQ" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType SYSTEM_INDICATORS_PATTERN_FINDER = new ERepositoryObjectType(
-            "repository.systemIndicators.patternFinder", "TDQ_Libraries/Indicators/System Indicators/Pattern Finder", "SYSTEM_INDICATORS_PATTERN_FINDER", 91, true, "repository.systemIndicators.patternFinder.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.systemIndicators.patternFinder", "TDQ_Libraries/Indicators/System Indicators/Pattern Finder", "SYSTEM_INDICATORS_PATTERN_FINDER", 91, true, "repository.systemIndicators.patternFinder.alias", new String[] { "DQ" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType SYSTEM_INDICATORS_PATTERN_MATCHING = new ERepositoryObjectType(
-            "repository.systemIndicators.patternMatching", "TDQ_Libraries/Indicators/System Indicators/Pattern Matching", "SYSTEM_INDICATORS_PATTERN_MATCHING", 92, true, "repository.systemIndicators.patternMatching.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.systemIndicators.patternMatching", "TDQ_Libraries/Indicators/System Indicators/Pattern Matching", "SYSTEM_INDICATORS_PATTERN_MATCHING", 92, true, "repository.systemIndicators.patternMatching.alias", new String[] { "DQ" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType SYSTEM_INDICATORS_ROW_COMPARISON = new ERepositoryObjectType(
-            "repository.systemIndicators.rowComparison", "TDQ_Libraries/Indicators/System Indicators/Row Comparison", "SYSTEM_INDICATORS_ROW_COMPARISON", 93, true, "repository.systemIndicators.rowComparison.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.systemIndicators.rowComparison", "TDQ_Libraries/Indicators/System Indicators/Row Comparison", "SYSTEM_INDICATORS_ROW_COMPARISON", 93, true, "repository.systemIndicators.rowComparison.alias", new String[] { "DQ" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType SYSTEM_INDICATORS_SIMPLE_STATISTICS = new ERepositoryObjectType(
-            "repository.systemIndicators.simpleStatistics", "TDQ_Libraries/Indicators/System Indicators/Simple Statistics", "SYSTEM_INDICATORS_SIMPLE_STATISTICS", 94, true, "repository.systemIndicators.simpleStatistics.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.systemIndicators.simpleStatistics", "TDQ_Libraries/Indicators/System Indicators/Simple Statistics", "SYSTEM_INDICATORS_SIMPLE_STATISTICS", 94, true, "repository.systemIndicators.simpleStatistics.alias", new String[] { "DQ" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType SYSTEM_INDICATORS_SOUNDEX = new ERepositoryObjectType(
-            "repository.systemIndicators.soundex", "TDQ_Libraries/Indicators/System Indicators/Soundex", "SYSTEM_INDICATORS_SOUNDEX", 95, true, "repository.systemIndicators.soundex.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.systemIndicators.soundex", "TDQ_Libraries/Indicators/System Indicators/Soundex", "SYSTEM_INDICATORS_SOUNDEX", 95, true, "repository.systemIndicators.soundex.alias", new String[] { "DQ" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType SYSTEM_INDICATORS_SUMMARY_STATISTICS = new ERepositoryObjectType(
-            "repository.systemIndicators.summaryStatistics", "TDQ_Libraries/Indicators/System Indicators/Summary Statistics", "SYSTEM_INDICATORS_SUMMARY_STATISTICS", 96, true, "repository.systemIndicators.summaryStatistics.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.systemIndicators.summaryStatistics", "TDQ_Libraries/Indicators/System Indicators/Summary Statistics", "SYSTEM_INDICATORS_SUMMARY_STATISTICS", 96, true, "repository.systemIndicators.summaryStatistics.alias", new String[] { "DQ" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType SYSTEM_INDICATORS_TEXT_STATISTICS = new ERepositoryObjectType(
-            "repository.systemIndicators.textStatistics", "TDQ_Libraries/Indicators/System Indicators/Text Statistics", "SYSTEM_INDICATORS_TEXT_STATISTICS", 97, true, "repository.systemIndicators.textStatistics.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.systemIndicators.textStatistics", "TDQ_Libraries/Indicators/System Indicators/Text Statistics", "SYSTEM_INDICATORS_TEXT_STATISTICS", 97, true, "repository.systemIndicators.textStatistics.alias", new String[] { "DQ" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType TDQ_EXCHANGE = new ERepositoryObjectType(
             "repository.tdqExchange", "TDQ_Libraries/Exchange", "TDQ_EXCHANGE", 98, true, "repository.tdqExchange.alias", new String[] { "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$

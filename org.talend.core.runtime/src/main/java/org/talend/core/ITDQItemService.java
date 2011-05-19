@@ -14,38 +14,17 @@ package org.talend.core;
 
 import java.io.File;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.TDQItem;
-import org.talend.core.model.repository.ERepositoryObjectType;
 
 /**
  * DOC bZhou class global comment. Detailled comment
  */
 public interface ITDQItemService extends IService {
-
-    /**
-     * DOC bZhou Comment method "getAllItems".
-     * 
-     * This function is to just get all items by current default version.
-     * 
-     * @return
-     */
-    public List<Item> getAllItems();
-
-    /**
-     * DOC bZhou Comment method "getAllVersion".
-     * 
-     * This function is to get all items with all versions.
-     * 
-     * @param type
-     * @return
-     */
-    public List<Item> getAllVersion(ERepositoryObjectType type);
 
     /**
      * DOC bZhou Comment method "getVersion".
@@ -57,27 +36,6 @@ public interface ITDQItemService extends IService {
      * @return
      */
     public String getVersion(TDQItem item);
-
-    /**
-     * DOC bZhou Comment method "getItemPathMap".
-     * 
-     * This function is to make a map to show the structure of current workspace, it's used for the listItem command in
-     * the CommandLine.
-     * 
-     * @return
-     */
-    public Map<String, List<TDQItem>> getItemPathMap();
-
-    /**
-     * DOC bZhou Comment method "deleteItem".
-     * 
-     * This function is to delete a item in the current workspace. Specially, it can't be deleted if one item is
-     * depended by others. This is used for the deleteItem command in the CommandLine.
-     * 
-     * @param item
-     * @throws Exception
-     */
-    public void deleteItem(Item item) throws Exception;
 
     /**
      * DOC bZhou Comment method "changeItemStatus".
@@ -133,7 +91,8 @@ public interface ITDQItemService extends IService {
      * Invoked by GenerateGrammarController class, and return a file will be created in routines
      * 
      * DOC ytao
-     * @param node, properties of component 
+     * 
+     * @param node, properties of component
      * @return
      */
     public File fileCreatedInRoutines(INode node, String className);
