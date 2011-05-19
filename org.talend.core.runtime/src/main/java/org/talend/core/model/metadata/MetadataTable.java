@@ -32,8 +32,6 @@ public class MetadataTable implements IMetadataTable, Cloneable {
 
     private boolean readOnly = false;
 
-    private boolean need = false;
-
     private String dbms;
 
     private String attachedConnector;
@@ -340,13 +338,5 @@ public class MetadataTable implements IMetadataTable, Cloneable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public void setNeedSource(boolean need) {
-        this.need = need;
-    }
-
-    public boolean isNeedSource() {
-        return this.need;
     }
 }

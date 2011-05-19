@@ -491,10 +491,6 @@ public final class MetadataToolHelper {
         target.getListColumns().addAll(columnsTAdd);
         target.sortCustomColumns();
         target.setLabel(source.getLabel());
-        if (target.isNeedSource()) {
-            target.setTableName(source.getTableName());
-        }
-
     }
 
     /**

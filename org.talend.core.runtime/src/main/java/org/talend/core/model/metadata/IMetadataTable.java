@@ -84,7 +84,4 @@ public interface IMetadataTable {
 
     public IMetadataColumn getDynamicColumn();
 
-    public void setNeedSource(boolean need);
-
-    public boolean isNeedSource();
 }
