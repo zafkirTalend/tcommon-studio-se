@@ -22,9 +22,10 @@ import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.SchemaPopulationUtil;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.model.utils.RepositoryManagerHelper;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.CopyDeleteFileUtil;
+import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.CopyDeleteFileUtilForWizard;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -65,8 +66,12 @@ public class TreePopulator {
         availableXmlTree.removeAll();
         xPathToTreeItem.clear();
         if (filePath != null && !filePath.equals("")) { //$NON-NLS-1$
-            CopyDeleteFileUtil util = new CopyDeleteFileUtil();
-            String newFilePath = util.copyToTemp(filePath);
+            String newFilePath;
+            try {
+                newFilePath = CopyDeleteFileUtilForWizard.copyToTemp(filePath);
+            } catch (PersistenceException e1) {
+                newFilePath = filePath;
+            }
             try {
                 treeNode = SchemaPopulationUtil.getSchemaTree(newFilePath, true, limit);
             } catch (MalformedURLException e) {

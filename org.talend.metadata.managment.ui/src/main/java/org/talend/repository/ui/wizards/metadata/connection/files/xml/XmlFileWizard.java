@@ -12,13 +12,11 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.connection.files.xml;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
@@ -40,7 +38,6 @@ import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
-import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -62,7 +59,6 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.core.prefs.ui.MetadataTypeLengthConstants;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
-import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.utils.CsvArray;
 import org.talend.core.utils.TalendQuoteUtils;
@@ -81,7 +77,7 @@ import org.talend.repository.ui.utils.ShadowProcessHelper;
 import org.talend.repository.ui.wizards.CheckLastVersionRepositoryWizard;
 import org.talend.repository.ui.wizards.PropertiesWizardPage;
 import org.talend.repository.ui.wizards.metadata.connection.Step0WizardPage;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.CopyDeleteFileUtil;
+import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.CopyDeleteFileUtilForWizard;
 import orgomg.cwm.resource.record.RecordFactory;
 import orgomg.cwm.resource.record.RecordFile;
 
@@ -698,32 +694,6 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
     }
 
     private void deleteTemFile() {
-        Project project = ProjectManager.getInstance().getCurrentProject();
-        IProject fsProject = null;
-        try {
-            fsProject = ResourceModelUtils.getProject(project);
-        } catch (PersistenceException e2) {
-            ExceptionHandler.process(e2);
-        }
-        if (fsProject == null) {
-            return;
-        }
-        String temPath = fsProject.getLocationURI().getPath() + File.separator + "temp";
-        String xmlName = "tempXMLFile.xml";
-        String xsdName = "tempXSDFile.xsd";
-        File xmlfile = new File(temPath + File.separator + xmlName);
-        if (xmlfile.exists()) {
-            xmlfile.delete();
-        }
-        File xsdFile = new File(temPath + File.separator + xsdName);
-        if (xsdFile.exists()) {
-            xsdFile.delete();
-        }
-        CopyDeleteFileUtil util = new CopyDeleteFileUtil();
-
-        for (String fileName : CopyDeleteFileUtil.fileList) {
-            util.delFile(temPath + File.separator + fileName);
-        }
-        CopyDeleteFileUtil.fileList.clear();
+        CopyDeleteFileUtilForWizard.deleteWizardTempFiles();
     }
 }

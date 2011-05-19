@@ -140,20 +140,19 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
     protected void initialize() {
         getConnection().setInputModel(false);
         this.treePopulator = new TreePopulator(availableXmlTree);
-        if (getConnection().getFileContent() != null && getConnection().getFileContent().length > 0) {
-            initFileContent();
-        } else {
-            if (getConnection().getXmlFilePath() != null) {
-                xmlXsdFilePath.setText(getConnection().getXmlFilePath().replace("\\\\", "\\"));
-                checkFieldsValue();
-                String xmlXsdPath = xmlXsdFilePath.getText();
-                if (isContextMode()) {
-                    ContextType contextType = ConnectionContextHelper
-                            .getContextTypeForContextMode(connectionItem.getConnection());
-                    xmlXsdPath = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType,
-                            xmlXsdFilePath.getText()));
-                }
+        if (getConnection().getXmlFilePath() != null) {
+            xmlXsdFilePath.setText(getConnection().getXmlFilePath().replace("\\\\", "\\"));
+            checkFieldsValue();
+            String xmlXsdPath = xmlXsdFilePath.getText();
+            if (isContextMode()) {
+                ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection());
+                xmlXsdPath = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType,
+                        xmlXsdFilePath.getText()));
+            }
+            if (new File(xmlXsdPath).exists()) {
                 valid = this.treePopulator.populateTree(xmlXsdPath, treeNode);
+            } else if (getConnection().getFileContent() != null && getConnection().getFileContent().length > 0) {
+                initFileContent();
             }
         }
 

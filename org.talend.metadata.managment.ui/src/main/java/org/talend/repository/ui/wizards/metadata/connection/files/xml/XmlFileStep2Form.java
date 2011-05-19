@@ -845,10 +845,10 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
                         true);
                 pathStr = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, pathStr));
             }
-            if (getConnection().getFileContent() != null && getConnection().getFileContent().length > 0) {
-                initFileContent();
-            } else {
+            if (new File(pathStr).exists()) {
                 this.treePopulator.populateTree(pathStr, treeNode);
+            } else if (getConnection().getFileContent() != null && getConnection().getFileContent().length > 0) {
+                initFileContent();
             }
 
             ScrollBar verticalBar = availableXmlTree.getVerticalBar();
