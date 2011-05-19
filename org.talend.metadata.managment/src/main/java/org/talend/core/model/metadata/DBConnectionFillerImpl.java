@@ -113,7 +113,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             dbconn.setName(metadataBean.getLabel());
             dbconn.setLabel(metadataBean.getLabel());
             dbconn.setVersion(metadataBean.getVersion());
-            dbconn.setUiSchema(metadataBean.getSchema());
+            // MOD klliu bug 21074 2011-05-19
+            dbconn.setUiSchema(metadataBean.getUiSchema());
         }
         try {
             if (sqlConnection == null || sqlConnection.isClosed()) {
@@ -886,8 +887,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                             .getIntMetaDataInfo(columns, "COLUMN_SIZE"), ExtractMetaDataUtils.getIntMetaDataInfo(columns, //$NON-NLS-1$
                             "DECIMAL_DIGITS")); //$NON-NLS-1$
                     column.setTalendType(talendType);
-                    column.setSourceType(MetadataTalendType.getMappingTypeRetriever(dbConnection.getDbmsId())
-                            .getDefaultSelectedDbType(talendType));
+                    String defaultSelectedDbType = MetadataTalendType.getMappingTypeRetriever(dbConnection.getDbmsId())
+                            .getDefaultSelectedDbType(talendType);
+                    column.setSourceType(defaultSelectedDbType);
                 }
                 try {
                     column.setNullable("YES".equals(columns.getString(GetColumn.IS_NULLABLE.name()))); //$NON-NLS-1$

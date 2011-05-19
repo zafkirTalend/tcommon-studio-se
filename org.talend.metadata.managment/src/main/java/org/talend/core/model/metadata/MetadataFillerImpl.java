@@ -193,6 +193,8 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
                 metadataConnection.setDataSourceName(ParamValue);
             } else if ("dbmsId".equalsIgnoreCase(paramKey) && metadataConnection.getMapping() == null) {
                 metadataConnection.setMapping(ParamValue);
+            } else if ("uiSchema".equalsIgnoreCase(paramKey) && metadataConnection.getMapping() == null) {
+                metadataConnection.setUiSchema(ParamValue);
             }
         }
         return metadataConnection;

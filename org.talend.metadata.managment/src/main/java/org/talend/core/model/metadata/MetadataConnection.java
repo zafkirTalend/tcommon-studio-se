@@ -94,6 +94,8 @@ public class MetadataConnection implements IMetadataConnection {
 
     private String dbName;
 
+    private String uiSchema;
+
     // ~
 
 
@@ -662,6 +664,14 @@ public class MetadataConnection implements IMetadataConnection {
 
     public void setDbName(String dbName) {
         this.dbName = dbName;
+    }
+
+    public String getUiSchema() {
+        return this.uiSchema;
+    }
+
+    public void setUiSchema(String uiSchema) {
+        this.uiSchema = uiSchema;
     }
 
 }

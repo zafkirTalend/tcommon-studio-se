@@ -168,4 +168,8 @@ public interface IMetadataConnection extends IMetadata {
 
     public void setDbName(String dbName);
 
+    public String getUiSchema();
+
+    public void setUiSchema(String schema);
+
 }
