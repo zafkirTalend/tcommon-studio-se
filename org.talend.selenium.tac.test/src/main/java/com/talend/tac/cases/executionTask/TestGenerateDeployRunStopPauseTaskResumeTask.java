@@ -106,7 +106,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 	//test stop a running task
 	@Test(dependsOnMethods={"testGenerateTaskUsingRemoteCommandLine"})
 	@Parameters({"localhostAddress", "modifyTask", "statisticRemoved(regeneration needed, fastest)", "statisticEnabled(regeneration needed)"})
-	public void testStopARunningTask(String localhostAddress	, String taskLabel, String statisticRemovedRegeneration, String statisticEnabledReGeneration) {
+	public void testStopARunningTask(String localhostAddress, String taskLabel, String statisticRemovedRegeneration, String statisticEnabledReGeneration) {
 		
 		changeCommandLineConfig(localhostAddress);
 		
