@@ -66,8 +66,8 @@ public class TestDisplayUser extends Login {
     
     //Modify the user display order  
 	@Test(dependsOnMethods={"testModifyDisplayUsersColumns"})
-	@Parameters({"userName","LoginNameChooseMulripleRoles","CopyUser","LastName","_LastName","FirstName","_FirstName"})
-	public void testModifyDisplayUsersOrder(String userName,String LoginNameChooseMulripleRoles,String CopyUser,
+	@Parameters({"userName","LoginNameNotChooseActive","CopyUser","LastName","_LastName","FirstName","_FirstName"})
+	public void testModifyDisplayUsersOrder(String userName,String LoginNameNotChooseActive,String CopyUser,
 			String lastName,String _lastName,String firstName,String _firstName) throws Exception {
 		
 		this.clickWaitForElementPresent("idMenuUserElement");
@@ -78,7 +78,7 @@ public class TestDisplayUser extends Login {
 		selenium.click("//a[text()='Show in Groups']");
 		selenium.setSpeed(MIN_SPEED);
 		   
-		modifyDisplayUsersOrder("login",LoginNameChooseMulripleRoles,CopyUser);
+		modifyDisplayUsersOrder("login",LoginNameNotChooseActive,CopyUser);
 		
 		modifyDisplayUsersOrder("role",rb.getString("menu.role.viewer")+"/"+rb.getString("menu.role.designer"),
 				rb.getString("menu.role.administrator"));
