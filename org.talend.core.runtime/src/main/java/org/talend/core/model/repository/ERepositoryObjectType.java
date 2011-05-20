@@ -248,7 +248,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             "repository.joblet", "joblets", "JOBLET", true, 55, new String[] { "DI" }); //$NON-NLS-1$
 
     public final static ERepositoryObjectType LIBS = new ERepositoryObjectType(
-            "repository.libs", "libs", "LIBS", true, 56, new String[] { "DI" }); //$NON-NLS-1$
+            "repository.libs", "libs", "LIBS", true, 56, new String[] { "DI" }, false); //$NON-NLS-1$
 
     public final static ERepositoryObjectType METADATA_WSDL_SCHEMA = new ERepositoryObjectType(
             "repository.metadataWSDLSchema", "metadata/WSDLSchema", "METADATA_WSDL_SCHEMA", 57, true, "repository.metadataWSDLSchema.alias", new String[] { "DI" }); //$NON-NLS-1$ //$NON-NLS-2$
@@ -263,7 +263,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             "repository.headerFooterConnections", "metadata/header_footer", "METADATA_HEADER_FOOTER", 60, true, "repository.headerFooterConnections.alias", new String[] { "DI" }); //$NON-NLS-1$
 
     public final static ERepositoryObjectType COMPONENTS = new ERepositoryObjectType(
-            "repository.components", "components", "COMPONENTS", true, 61, new String[] { "DI" }); //$NON-NLS-1$
+            "repository.components", "components", "COMPONENTS", true, 61, new String[] { "DI" }, false); //$NON-NLS-1$
 
     // MOD mzhao feature 9207
     public final static ERepositoryObjectType TDQ_ELEMENT = new ERepositoryObjectType(
