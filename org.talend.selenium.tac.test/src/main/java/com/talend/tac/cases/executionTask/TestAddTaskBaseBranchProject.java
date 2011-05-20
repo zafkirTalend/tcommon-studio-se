@@ -1,6 +1,6 @@
 package com.talend.tac.cases.executionTask;
 
-import java.awt.Event;
+ 
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -124,41 +124,22 @@ public class TestAddTaskBaseBranchProject  extends Login {
 	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
 	    selenium.setSpeed(MIN_SPEED);
 	    selenium.click("idSubModuleAddButton");
-		this.typeString("idJobConductorTaskLabelInput", label);//plan name /Label	
+		this.typeString("idJobConductorTaskLabelInput", label);//plan name /Label
     	
     	if(!selenium.isChecked("idJobConductorTaskActiveListBox")) {
     		
-    		System.out.println("/******************/");
     		selenium.click("idJobConductorTaskActiveListBox");//check active
         	Assert.assertTrue(selenium.isChecked("idJobConductorTaskActiveListBox"));	
-        	System.out.println("/******************/");
-        	
+    		
     	}    
-    	
-		selenium.click("//label[text()='Project:']/parent::div/div/div/div");//select a project 
-		this.waitForElementPresent("//div[text()='"+projectName+"' and @role='listitem']", WAIT_TIME);
-		selenium.mouseDownAt("//div[text()='"+projectName+"' and @role='listitem']",""+Event.ENTER); 
-		selenium.click("//label[text()='Branch:']/parent::div/div/div/div");//select a project 
-		this.waitForElementPresent("//div[text()='"+branchName+"' and @role='listitem']", WAIT_TIME);
-		selenium.mouseDownAt("//div[text()='"+branchName+"' and @role='listitem']",""+Event.ENTER); 
-		selenium.click("//label[text()='Job:']/parent::div/div/div/div");//job
-		this.waitForElementPresent("//div[text()='"+jobName+"' and @role='listitem']", WAIT_TIME);
-		selenium.mouseDownAt("//div[text()='"+jobName+"' and @role='listitem']",""+Event.ENTER);
-		selenium.click("//label[text()='Version:']/parent::div/div/div/div");//version
-		this.waitForElementPresent("//div[text()='"+version+"' and @role='listitem']", WAIT_TIME);
-		selenium.mouseDownAt("//div[text()='"+version+"' and @role='listitem']",""+Event.ENTER);
-		selenium.click("//label[text()='Context:']/parent::div/div/div/div");//context
-		this.waitForElementPresent("//div[text()='"+context+"' and @role='listitem']", WAIT_TIME);
-		selenium.mouseDownAt("//div[text()='"+context+"' and @role='listitem']",""+Event.ENTER);
-		selenium.click("//label[text()='Execution server:']/parent::div/div/div/div");//server
-		this.waitForElementPresent("//div[text()='"+serverName+"' and @role='listitem']", WAIT_TIME);
-		selenium.mouseDownAt("//div[text()='"+serverName+"' and @role='listitem']",""+Event.ENTER);
-		selenium.click("//label[text()='Statistic:']/parent::div/div/div/div");//statistic
-		this.waitForElementPresent("//div[text()='"+statisticName+"' and @role='listitem']", WAIT_TIME);
-		selenium.mouseDownAt("//div[text()='"+statisticName+"' and @role='listitem']",""+Event.ENTER);
-		selenium.click("//label[text()='On unavailable JobServer:']/parent::div/div/div/div");//statistic
-		this.waitForElementPresent("//div[text()='Wait' and @role='listitem']", WAIT_TIME);
-		selenium.mouseDownAt("//div[text()='Wait' and @role='listitem']",""+Event.ENTER);
+    	this.selectDropDownList("idTaskProjectListBox", projectName);
+    	this.selectDropDownList("idTaskBranchListBox", branchName);
+    	this.selectDropDownList("idTaskJobListBox", jobName);
+    	this.selectDropDownList("idTaskVersionListBox", version);
+    	this.selectDropDownList("idTaskContextListBox", context);
+    	this.selectDropDownList("idJobConductorExecutionServerListBox", serverName);
+    	this.selectDropDownList("idJobConductorTaskStatisticsListBox", statisticName);
+    	this.selectDropDownList("idJobConductorOnUnavailableJobServerListBox", "Wait");
 				
 	}
 
