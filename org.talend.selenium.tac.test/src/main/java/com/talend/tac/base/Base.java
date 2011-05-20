@@ -229,8 +229,8 @@ public class Base {
 	public void selectDropDownList(String id, String itemName) {
 		selenium.click("//input[@id='"+id+"']"
 				+ "/following-sibling::div[@class='x-form-trigger x-form-trigger-arrow']");
-		this.waitForElementPresent("//div[text()='" + itemName + "']", WAIT_TIME);
-		selenium.mouseDown("//div[text()='" + itemName + "']");
+		this.waitForElementPresent("//div[text()='" + itemName + "' and @role='listitem']", WAIT_TIME);
+		selenium.mouseDown("//div[text()='" + itemName + "' and @role='listitem']");
 		selenium.fireEvent("//input[@id='"+id+"']", "blur");
 
 	}
