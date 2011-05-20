@@ -284,6 +284,8 @@
 		name="com.talend.tac.cases.projects.TestAddcommonpro" /> </classes>
 		</test>
 	-->
+	<parameter name="soaManager.service.name" value="testService" />
+	<parameter name="soaManager.operation.UsedTrunJob.name" value="testOperationUsedTrunJob" />
 	<test name="TestSoaManger">
 		<classes>
 			<class name="com.talend.tac.cases.SoaManager.TestSoaManager" />
