@@ -151,14 +151,14 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
         Object buildId = Activator.getDefault().getBundle().getHeaders().get(org.osgi.framework.Constants.BUNDLE_VERSION);
 
-        String appName = configurer.getTitle(); // BrandingService.getInstance().getFullProductName();
+        IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
+        IBrandingConfiguration brandingConfiguration = service.getBrandingConfiguration();
+        String appName = service.getFullProductName();
         PreferenceManipulator prefManipulator = new PreferenceManipulator(CorePlugin.getDefault().getPreferenceStore());
         configurer
                 .setTitle(appName
                         + " (" + buildId + ") | " + repositoryContext.getUser() + " | " + project.getLabel() + " (" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
                         + Messages.getString("ApplicationWorkbenchWindowAdvisor.repositoryConnection") + ": " + prefManipulator.getLastConnection() + ")"); //$NON-NLS-1$ //$NON-NLS-2$
-        IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
-        IBrandingConfiguration brandingConfiguration = service.getBrandingConfiguration();
         ActionBarBuildHelper helper = (ActionBarBuildHelper) brandingConfiguration.getHelper();
         if (helper == null) {
             helper = new ActionBarBuildHelper();
