@@ -25,18 +25,12 @@ public class TestAddUser extends Login {
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//img[@class='gwt-Image x-component ']"));
 		selenium.setSpeed(MIN_SPEED);
-		selenium.type("idUserLoginInput", user);//user name
-		selenium.fireEvent("idUserLoginInput", "blur");
-		selenium.type("idUserFirstNameInput", firstname);
-		selenium.fireEvent("idUserFirstNameInput", "blur");
-		selenium.type("idUserLastNameInput", lastname);
-		selenium.fireEvent("idUserLastNameInput", "blur");
-		selenium.type("idUserPasswordInput", password);
-		selenium.fireEvent("idUserPasswordInput", "blur");
-		selenium.type("//input[@name='authenticationLogin']", SvnLogin);
-		selenium.fireEvent("//input[@name='authenticationLogin']", "blur");
-		selenium.type("//input[@name='authenticationPassword']", SvnPassWord);
-		selenium.fireEvent("//input[@name='authenticationPassword']", "blur");	
+		this.typeString("idUserLoginInput", user);//user name
+		this.typeString("idUserFirstNameInput", firstname);
+		this.typeString("idUserLastNameInput", lastname);
+		this.typeString("idUserPasswordInput", password);
+		this.typeString("idSvnLogin", SvnLogin);
+		this.typeString("idSvnPwd", SvnPassWord);
 	    
 		selenium.click("//label[text()='Type:']/parent::div//div[@class='x-form-trigger x-form-trigger-arrow']");
 		this.waitForElementPresent("//div[contains(@class, 'x-combo-list')]/" +
@@ -74,11 +68,8 @@ public class TestAddUser extends Login {
       	 if(!selenium.isElementPresent("//b[text()='admin, admin']")) {
 			 selenium.setSpeed(MIN_SPEED);
       		 selenium.mouseDown("//div[text()='"+userName+"']");
-			 selenium.fireEvent("idUserLoginInput", "blur");
-			 selenium.type("idUserFirstNameInput", "admin");
-			 selenium.fireEvent("idUserFirstNameInput", "blur");
-			 selenium.type("idUserLastNameInput", "admin");
-			 selenium.fireEvent("idUserLastNameInput", "blur");
+			 this.typeString("idUserFirstNameInput", "admin");
+			 this.typeString("idUserLastNameInput", "admin");
 			 selenium.setSpeed(MID_SPEED);
 			 selenium.click("idFormSaveButton");
 			 selenium.setSpeed(MIN_SPEED);
