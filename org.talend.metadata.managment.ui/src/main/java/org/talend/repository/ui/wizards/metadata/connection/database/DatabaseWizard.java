@@ -16,11 +16,9 @@ import java.sql.Driver;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.INewWizard;
@@ -42,7 +40,6 @@ import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
-import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.properties.ConnectionItem;
@@ -52,6 +49,8 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.repository.utils.AbstractResourceChangesService;
+import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SwitchHelpers;
@@ -66,7 +65,6 @@ import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.wizards.CheckLastVersionRepositoryWizard;
 import org.talend.repository.ui.wizards.PropertiesWizardPage;
 import org.talend.repository.ui.wizards.metadata.connection.Step0WizardPage;
-import orgomg.cwm.resource.relational.Catalog;
 
 /**
  * DatabaseWizard present the DatabaseForm. Use to manage the metadata connection.
@@ -384,9 +382,27 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     tdqRepService.refresh();
                 }
             }
+            updateTdqDependencies();
             return true;
         } else {
             return false;
+        }
+    }
+
+    /**
+     * DOC xqliu Comment method "updateTdqDependencies".
+     */
+    private void updateTdqDependencies() {
+        if (connectionItem != null) {
+            String oldVersion = this.originalVersion;
+            String newVersioin = connectionItem.getProperty().getVersion();
+            if (oldVersion != null && newVersioin != null && !newVersioin.equals(oldVersion)) {
+                AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
+                        AbstractResourceChangesService.class);
+                if (resChangeService != null) {
+                    resChangeService.updateDependeciesWhenVersionChange(connectionItem, oldVersion, newVersioin);
+                }
+            }
         }
     }
 

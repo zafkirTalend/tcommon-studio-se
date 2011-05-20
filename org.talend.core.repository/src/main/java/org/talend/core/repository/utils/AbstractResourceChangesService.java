@@ -16,16 +16,15 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.core.IService;
+import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
- * 
  * DOC mzhao Abstract unload resource service which can be extended by client.
  */
 public class AbstractResourceChangesService implements IService {
-
 
     public void handleUnload(Resource toBeUnloadedResource) {
     }
@@ -55,5 +54,15 @@ public class AbstractResourceChangesService implements IService {
     // ADD qiongli 2011-5-10.should remove dependecy after showing the question of physical delete and confirm.
     public void removeAllDependecies(Item item) {
 
+    }
+
+    /**
+     * update the connection item's dependencies when the version changed.
+     * 
+     * @param connItem
+     * @param oldVersion
+     * @param newVersion
+     */
+    public void updateDependeciesWhenVersionChange(ConnectionItem connItem, String oldVersion, String newVersion) {
     }
 }
