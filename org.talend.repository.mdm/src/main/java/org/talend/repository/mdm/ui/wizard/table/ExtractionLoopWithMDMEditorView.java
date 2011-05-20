@@ -205,7 +205,11 @@ public class ExtractionLoopWithMDMEditorView extends AbstractDataTableEditorView
             }
 
             public void set(Concept bean, Integer value) {
-                bean.setLoopLimit(value.intValue());
+                if (value == null) {
+                    bean.setLoopLimit(0);
+                } else {
+                    bean.setLoopLimit(value.intValue());
+                }
             }
 
         });
