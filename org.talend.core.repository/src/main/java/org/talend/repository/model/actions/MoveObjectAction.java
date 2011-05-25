@@ -207,6 +207,19 @@ public class MoveObjectAction {
         }
     }
 
+    public boolean isLock(RepositoryNode sourceNode) {
+        boolean isLock = false;
+        IRepositoryViewObject objectToCopy = sourceNode.getObject();
+        if (ProxyRepositoryFactory.getInstance().getStatus(objectToCopy) == ERepositoryStatus.LOCK_BY_USER) {
+            isLock = true;
+        }
+
+        if (ProxyRepositoryFactory.getInstance().getStatus(objectToCopy) == ERepositoryStatus.LOCK_BY_OTHER) {
+            isLock = true;
+        }
+        return isLock;
+    }
+
     public void execute(RepositoryNode sourceNode, RepositoryNode targetNode, boolean isDnd) throws Exception {
         execute(sourceNode, targetNode, null, isDnd);
     }
