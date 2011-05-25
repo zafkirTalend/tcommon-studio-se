@@ -33,9 +33,9 @@
 	<parameter name="Prolanguage" value="" />
 	<parameter name="duplicateproname" value="test@common" />
 	<parameter name="DeleteProjectname" value="test@reference" />
-	<parameter name="BranchProject" value="test@common" />
+	<parameter name="BranchProject" value="commonpro" />
 	<parameter name="BranchName" value="branch" />
-	<parameter name="DeleteBranchProject" value="test@common" />
+	<parameter name="DeleteBranchProject" value="commonpro" />
 	<parameter name="DeleteBranchName" value="branch" />
 	<parameter name="NumbersOfprojects" value="2" />
 
@@ -73,7 +73,7 @@
 		</classes> 
 		</test> -->
 	
-	<!-- 	
+	<!--  -->	
 		<test name="projectJava"> 
 		<classes> 
 		<class name="com.talend.tac.cases.projects.TestClean"/> 
@@ -92,7 +92,7 @@
 		<class name="com.talend.tac.cases.projects.TestAddProjectUncheckadvanced"/> 
 		<class name="com.talend.tac.cases.projects.TestAddprojects"/> </classes> 
 		</test> 
-		 -->
+		
 	 <test name="server">
         <!--
 		Environment needed to configured 1.start a job server on localhost 
@@ -112,6 +112,14 @@
 	        <class name="com.talend.tac.cases.jobconductor.TestAddServerForUse"/>	
 		</classes>
 	</test>
+	
+	<test name="TestAudit">
+	<classes>
+		<class name="com.talend.tac.cases.audit.TestAudit">
+		</class>
+	</classes>
+	</test>
+	
 	<!--<test name = "executionplan"> <parameter name = "plan.label" value = 
 		"testPlan"/> <parameter name="plan.description" value="testPlan.des" /> <parameter 
 		name="plan.modifyLabel" value="testModifyPlan" /> <parameter name="plan.modifyDescription" 
@@ -126,5 +134,13 @@
 		<class name="com.talend.tac.cases.executePlan.TestDuplicateSimpleTrigger"/> 
 		<class name="com.talend.tac.cases.executePlan.DeletePlan" /> <class name="com.talend.tac.cases.executePlan.TestAddTriggerAddSimpleTrigger"/> 
 		</classes> </test> -->
+	
+	<parameter name="soaManager.service.name" value="testService" />
+	<parameter name="soaManager.operation.UsedTrunJob.name" value="testOperationUsedTrunJob" />
+	<test name="TestSoaManger">
+		<classes>
+			<class name="com.talend.tac.cases.SoaManager.TestSoaManager" />
+		</classes>
+	</test>
 </suite>
 
