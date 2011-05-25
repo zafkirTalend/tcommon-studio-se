@@ -13,15 +13,7 @@ public class TestAddTasksNotification extends Login {
 	@Parameters({"categoryTask","eventTaskFailed","descriptionTaskFailed"})
 	public void testAddTaskFailedNotification(String categoryTask, String eventTaskFailed, String descriptionTaskFailed) {
 		
-		addNotification(1, categoryTask, 1, eventTaskFailed, descriptionTaskFailed);	
-		
-		selenium.click("//i[text()='"+descriptionTaskFailed+"']/parent::div/parent::td/parent::tr/" +
-				"parent::tbody//div[text()='Recipients: ']/parent::td/parent::tr//button");
-		selenium.mouseDown("//div[text()='testMulripleRoles@company.com']/parent::td/preceding-sibling::td");//choose event trigger users
-		selenium.click("//button[text()='Apply']");
-		selenium.click("//div[text()='Tasks: ']/parent::td/parent::tr//button");
-		selenium.mouseDown("//div[text()='testModifyTask']/parent::td/preceding-sibling::td");//choose event trigger task
-		selenium.click("//button[text()='Apply']");	
+		addNotification(1, categoryTask, 1, eventTaskFailed, descriptionTaskFailed);
 		
 		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MID_SPEED);
@@ -41,16 +33,7 @@ public class TestAddTasksNotification extends Login {
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertFalse(selenium.isChecked("idActiveInput"));
 		selenium.setSpeed(MIN_SPEED);
-		
-		selenium.click("//i[text()='"+descriptionTaskFailed+"']/parent::div/parent::td/parent::tr/" +
-		"parent::tbody//div[text()='Recipients: ']/parent::td/parent::tr//button");
-		
-		selenium.mouseDown("//div[text()='testMulripleRoles@company.com']/parent::td/preceding-sibling::td");//choose event trigger users
-		selenium.click("//button[text()='Apply']");
-		selenium.click("//div[text()='Tasks: ']/parent::td/parent::tr//button");
-		selenium.mouseDown("//div[text()='testModifyTask']/parent::td/preceding-sibling::td");//choose event trigger task
-		selenium.click("//button[text()='Apply']");	
-		
+				
 		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+eventTaskFailed+"']/" +
@@ -75,6 +58,12 @@ public class TestAddTasksNotification extends Login {
 		Assert.assertEquals(description , DescriptionInputValue);
 		Assert.assertTrue(selenium.isTextPresent(notificationInformation));
 	
-		
+		selenium.click("//i[text()='"+notificationInformation+"']//ancestor::tbody//" +
+				"button[@id='idNotificationRepUserButton']");
+		selenium.mouseDown("//div[text()='testMulripleRoles@company.com']/parent::td/preceding-sibling::td");//choose event trigger users
+		selenium.click("//button[text()='Apply']");
+		selenium.click("idNotificationTaskButton");
+		selenium.mouseDown("//div[text()='testModifyTask']/parent::td/preceding-sibling::td");//choose event trigger task
+		selenium.click("//button[text()='Apply']");	
 	}
 }
