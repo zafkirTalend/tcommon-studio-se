@@ -145,6 +145,7 @@ public class MetadataTableRepositoryObject extends MetadataTable implements ISub
         if (property == null) {
             return;
         }
+
         Connection connection = null;
         Item item = property.getItem();
         if (item instanceof ConnectionItem) {
@@ -154,7 +155,16 @@ public class MetadataTableRepositoryObject extends MetadataTable implements ISub
         if (connection == null) {
             return;
         }
-        Set tables = ConnectionHelper.getTables(connection);
+
+        Set tables = null;
+
+        if (table.eContainer() instanceof SAPFunctionUnit) {
+            SAPFunctionUnit funUnit = (SAPFunctionUnit) table.eContainer();
+            tables = ConnectionHelper.getTables(connection, funUnit);
+        } else {
+            tables = ConnectionHelper.getTables(connection);
+        }
+
         if (tables != null) {
             Iterator iterator = tables.iterator();
             while (iterator.hasNext()) {

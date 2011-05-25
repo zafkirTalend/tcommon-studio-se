@@ -31,6 +31,8 @@ import org.talend.core.model.metadata.builder.connection.FileConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.connection.SAPConnection;
+import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit;
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
 import org.talend.cwm.relational.TdColumn;
@@ -669,11 +671,38 @@ public class ConnectionHelper {
                 }
             }
             return result;
+        } else if (connection instanceof SAPConnection) {
+            SAPConnection sapConnection = (SAPConnection) connection;
+            final EList<SAPFunctionUnit> funtions = sapConnection.getFuntions();
+            for (SAPFunctionUnit unit : funtions) {
+                result.addAll(unit.getTables());
+            }
+            return result;
         }
+
         EList<Package> packages = connection.getDataPackage();
         for (Package pack : packages) {
             PackageHelper.getAllTables(pack, result);
         }
+        return result;
+    }
+
+    public static Set<MetadataTable> getTables(Connection connection, SAPFunctionUnit functionUnit) {
+        HashSet<MetadataTable> result = new HashSet<MetadataTable>();
+        if (functionUnit == null) {
+            return result;
+        }
+        if (connection instanceof SAPConnection) {
+            SAPConnection sapConnection = (SAPConnection) connection;
+            final EList<SAPFunctionUnit> funtions = sapConnection.getFuntions();
+            for (SAPFunctionUnit unit : funtions) {
+                if (functionUnit.getLabel() != null && functionUnit.getLabel().equals(unit.getLabel())) {
+                    result.addAll(unit.getTables());
+                }
+            }
+            return result;
+        }
+
         return result;
     }
 
