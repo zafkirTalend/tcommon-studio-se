@@ -610,11 +610,24 @@ public class ExtractMetaDataUtils {
                         String jars[] = driverJarPathArg.split(";");
                         for (int i = 0; i < jars.length; i++) {
                             Path path = new Path(jars[i]);
-                            jarPathList.add(getJavaLibPath() + path.lastSegment());
+                            // fix for 19020
+                            String jarUnderLib = getJavaLibPath() + path.lastSegment();
+                            File file = new File(jarUnderLib);
+                            if (file.exists()) {
+                                jarPathList.add(jarUnderLib);
+                            } else {
+                                jarPathList.add(jars[i]);
+                            }
                         }
                     } else {
                         Path path = new Path(driverJarPathArg);
-                        jarPathList.add(getJavaLibPath() + path.lastSegment());
+                        String jarUnderLib = getJavaLibPath() + path.lastSegment();
+                        File file = new File(jarUnderLib);
+                        if (file.exists()) {
+                            jarPathList.add(jarUnderLib);
+                        } else {
+                            jarPathList.add(driverJarPathArg);
+                        }
                     }
                 } else {
                     if (driverJarPathArg.contains(";")) {
