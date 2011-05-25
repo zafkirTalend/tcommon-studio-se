@@ -276,14 +276,14 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 if (dbConn != null) {
                     tableSet.addAll(ConnectionHelper.getTables(dbConn));
                 }
-                    // oldSchemas is use for record tables when click finish,then tables will be replace and null.
-                    List<Schema> oldSchemas = new ArrayList<Schema>();
-                    for (MetadataTable table : tableSet) {
-                        EObject eContainer = table.eContainer();
-                        if (eContainer != null && eContainer instanceof Schema && !oldSchemas.contains(eContainer)) {
-                            oldSchemas.add((Schema) eContainer);
-                        }
+                // oldSchemas is use for record tables when click finish,then tables will be replace and null.
+                List<Schema> oldSchemas = new ArrayList<Schema>();
+                for (MetadataTable table : tableSet) {
+                    EObject eContainer = table.eContainer();
+                    if (eContainer != null && eContainer instanceof Schema && !oldSchemas.contains(eContainer)) {
+                        oldSchemas.add((Schema) eContainer);
                     }
+                }
 
                 if (isLinked() && !returnSchemas.isEmpty()) {
                     ConnectionHelper.addSchemas(returnSchemas, dbConn);
@@ -411,7 +411,21 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         } else if (eContainer instanceof Schema) {
                             EObject parent = eContainer.eContainer();
                             if (parent != null && parent instanceof Catalog && !oldCatalogs.contains(parent)) {
-                                oldCatalogs.add((Catalog) parent);
+                                List<Schema> filterSchemas = new ArrayList<Schema>();
+                                Catalog c = (Catalog) parent;
+                                List<Schema> schemas = CatalogHelper.getSchemas(c);
+                                for (Schema schema : schemas) {
+                                    if (filterList != null) {
+                                        if (filterList.contains(schema.getName())) {
+                                            filterSchemas.add(schema);
+                                        } else if (schema.getOwnedElement() != null && !schema.getOwnedElement().isEmpty()) {
+                                            filterSchemas.add(schema);
+                                        }
+                                    }
+                                }
+                                c.getOwnedElement().clear();
+                                CatalogHelper.addSchemas(filterSchemas, c);
+                                oldCatalogs.add(c);
                             }
                         }
                     }
