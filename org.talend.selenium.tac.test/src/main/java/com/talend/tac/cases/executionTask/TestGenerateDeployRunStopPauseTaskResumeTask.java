@@ -88,6 +88,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 	}
 	
 	//test generating a task using remote CommandLine
+	/*needed start a remote commandLine*/
 	@Test(dependsOnMethods={"testRunSimpleTask"})
 	@Parameters({"remotehostAddress", "modifyTask"})
 	public void testGenerateTaskUsingRemoteCommandLine(String remotehostAddress, String taskLabel) {
@@ -136,7 +137,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 		selenium.mouseDown("//span[text()='"+taskLabel+"']");//select an simple task
 		selenium.setSpeed(MIN_SPEED);
 		selenium.chooseOkOnNextConfirmation();		
-		selenium.click("//button[text()='Stop']");//click stop button
+		selenium.click("idJobConductorTaskStopButton");//click stop button
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to stop the task " +
 				"'"+taskLabel+"' before its normal end [\\s\\S]$"));
