@@ -31,7 +31,7 @@
         <!-- receiver username -->
         <classes>  
         
-            <class name="com.talend.tac.cases.notification.TestAddUsersNotification"/> 
+            <class name="com.talend.tac.cases.notification.TestAddUsersNotification"/>
             <class name="com.talend.tac.cases.notification.TestAddTasksNotification"/>
             <class name="com.talend.tac.cases.notification.TestAddJobserverNotification"/>
             <class name="com.talend.tac.cases.notification.TestDuplicationNotification"/>
