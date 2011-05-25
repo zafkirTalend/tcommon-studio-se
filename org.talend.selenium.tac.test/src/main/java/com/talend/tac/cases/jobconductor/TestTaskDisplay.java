@@ -59,10 +59,10 @@ public class TestTaskDisplay extends Login {
 		this.waitForElementPresent("//span[text()='"+TaskLable+"']", WAIT_TIME);
 		selenium.mouseDown("//span[text()='"+TaskLable+"']");
 		//change the status of statistic 
-		this.selectDropDownList("idJobConductorTaskStatisticsListBox()", "disabled");
-		assertEquals(selenium.getValue("idJobConductorTaskStatisticsListBox()"), "disabled");
-		this.selectDropDownList("idJobConductorTaskStatisticsListBox()", "enabled");
-		assertEquals(selenium.getValue("idJobConductorTaskStatisticsListBox()"), "enabled");
+		this.selectDropDownList("idJobConductorTaskStatisticsListBox", "disabled");
+		assertEquals(selenium.getValue("idJobConductorTaskStatisticsListBox"), "disabled");
+		this.selectDropDownList("idJobConductorTaskStatisticsListBox", "enabled");
+		assertEquals(selenium.getValue("idJobConductorTaskStatisticsListBox"), "enabled");
 	}
 	
 	@Test(description="check if the trigger belong to a task is displayed well ")
