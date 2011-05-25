@@ -23,10 +23,9 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.AbstractDQModelService;
-import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ICamelItemService;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.properties.BRMSConnectionItem;
-import org.talend.core.model.properties.BeanItem;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.CSVFileConnectionItem;
 import org.talend.core.model.properties.ContextItem;
@@ -70,7 +69,6 @@ import org.talend.core.model.properties.util.PropertiesSwitch;
 import org.talend.core.repository.IExtendRepositoryNode;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
-import org.talend.core.ui.branding.IBrandingService;
 
 /**
  * DOC hywang class global comment. Detailled comment
@@ -89,8 +87,9 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType PROCESS = new ERepositoryObjectType("repository.process", "process", "PROCESS",
             true, 4, new String[] { "DI" });
 
-    public final static ERepositoryObjectType ROUTES = new ERepositoryObjectType("repository.routes", "routes", "ROUTES", true,
-            5, new String[] { "DI" });
+    // public final static ERepositoryObjectType ROUTES = new ERepositoryObjectType("repository.routes", "routes",
+    // "ROUTES", true,
+    // 5, new String[] { "DI" });
 
     public final static ERepositoryObjectType CONTEXT = new ERepositoryObjectType("repository.context", "context", "CONTEXT",
             true, 6, new String[] { "DI" });
@@ -98,8 +97,9 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType ROUTINES = new ERepositoryObjectType("repository.routines", "code/routines",
             "ROUTINES", true, 7, new String[] { "DI" });
 
-    public final static ERepositoryObjectType BEANS = new ERepositoryObjectType("repository.beans", "code/beans", "BEANS", true,
-            8, new String[] { "DI" });
+    // public final static ERepositoryObjectType BEANS = new ERepositoryObjectType("repository.beans", "code/beans",
+    // "BEANS", true,
+    // 8, new String[] { "DI" });
 
     public final static ERepositoryObjectType JOB_SCRIPT = new ERepositoryObjectType("repository.jobscript", "code/jobscripts",
             "JOB_SCRIPT", true, 9, new String[] { "DI" });
@@ -427,16 +427,22 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
                     String label = element.getAttribute("label");//$NON-NLS-N$
                     String type = element.getAttribute("type");//$NON-NLS-N$
                     String folder = element.getAttribute("folder");//$NON-NLS-N$
+                    String isResouce = element.getAttribute("isResouce");//$NON-NLS-N$
+
                     String productsAttribute = element.getAttribute("products");//$NON-NLS-N$
                     String[] products = productsAttribute.split("\\|");//$NON-NLS-N$
-                    boolean[] isResource = new boolean[] { false };
+                    boolean isResource = false;
+                    if (isResouce != null) {
+                        isResource = Boolean.parseBoolean(isResouce);
+                    }
+                    boolean[] resource = new boolean[] { isResource };
                     if (products == null) {
                         products = new String[] { productsAttribute };
                     }
                     int ordinal = diyNode.getOrdinal();
                     Constructor<E> dynamicConstructor = getConstructor(clazz, new Class[] { String.class, String.class,
                             String.class, boolean.class, int.class, String[].class, boolean[].class });
-                    dynamicConstructor.newInstance(label, folder, type, false, ordinal, products, isResource);
+                    dynamicConstructor.newInstance(label, folder, type, false, ordinal, products, resource);
 
                 }
             }
@@ -677,6 +683,10 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         if (repObjType != null) {
             return repObjType;
         }
+        repObjType = getCamelRepObjectType(item);
+        if (repObjType != null) {
+            return repObjType;
+        }
         return (ERepositoryObjectType) new PropertiesSwitch() {
 
             @Override
@@ -727,9 +737,9 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
                 return ROUTINES;
             }
 
-            public Object caseBeanItem(BeanItem object) {
-                return BEANS;
-            }
+            // public Object caseBeanItem(BeanItem object) {
+            // return BEANS;
+            // }
 
             public Object caseJobScriptItem(JobScriptItem object) {
                 return JOB_SCRIPT;
@@ -747,12 +757,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             }
 
             public Object caseProcessItem(ProcessItem object) {
-                IBrandingService breaningService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
-                        IBrandingService.class);
-                String processLabel = breaningService.getBrandingConfiguration().getJobDesignName();
-                if (processLabel.equals("Routes")) {
-                    return ROUTES;
-                }
+
                 return PROCESS;
             }
 
@@ -892,6 +897,14 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         AbstractDQModelService dqModelService = CoreRuntimePlugin.getInstance().getDQModelService();
         if (dqModelService != null) {
             return dqModelService.getTDQRepObjType(item);
+        }
+        return null;
+    }
+
+    private static ERepositoryObjectType getCamelRepObjectType(Item item) {
+        ICamelItemService camelService = CoreRuntimePlugin.getInstance().getCamelService();
+        if (camelService != null) {
+            return camelService.getCamelRepObjType(item);
         }
         return null;
     }

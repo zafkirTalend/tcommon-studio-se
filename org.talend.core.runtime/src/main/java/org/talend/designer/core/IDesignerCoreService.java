@@ -175,4 +175,12 @@ public interface IDesignerCoreService extends IService {
      * @param item
      */
     public void refreshComponentView(Item item);
+
+    /**
+     * DOC guanglong.du Comment method "createEmptyPalette".
+     * 
+     * @return
+     */
+    public PaletteRoot createEmptyPalette();
+
 }

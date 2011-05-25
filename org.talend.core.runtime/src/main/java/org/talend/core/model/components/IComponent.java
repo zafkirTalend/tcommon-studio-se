@@ -133,4 +133,8 @@ public interface IComponent {
     public String getCombine();
 
     public IProcess getProcess();
+
+    public String getPaletteType();
+
+    public void setPaletteType(String paletteType);
 }

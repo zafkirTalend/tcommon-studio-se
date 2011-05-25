@@ -15,7 +15,9 @@ package org.talend.core.ui.images;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.IImage;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.designer.core.ICamelDesignerCoreService;
 
 /**
  * ggu class global comment. Detailled comment
@@ -23,19 +25,18 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 public class RepositoryImageProvider {
 
     public static IImage getIcon(ERepositoryObjectType type) {
+
         if (type == ERepositoryObjectType.SVN_ROOT) {
             return ECoreImage.SVN_ROOT_ICON;
         } else if (type == ERepositoryObjectType.BUSINESS_PROCESS) {
             return ECoreImage.BUSINESS_PROCESS_ICON;
         } else if (type == ERepositoryObjectType.PROCESS) {
             return ECoreImage.PROCESS_ICON;
-        } else if (type == ERepositoryObjectType.ROUTES) {
-            return ECoreImage.PROCESS_ICON;
         } else if (type == ERepositoryObjectType.JOBLET) {
             return ECoreImage.JOBLET_ICON;
         } else if (type == ERepositoryObjectType.CONTEXT) {
             return ECoreImage.CONTEXT_ICON;
-        } else if (type == ERepositoryObjectType.ROUTINES || type == ERepositoryObjectType.BEANS) {
+        } else if (type == ERepositoryObjectType.ROUTINES) {
             return ECoreImage.ROUTINE_ICON;
         } else if (type == ERepositoryObjectType.JOB_SCRIPT) {
             return ECoreImage.JOB_SCRIPTS_ICON;
@@ -109,6 +110,17 @@ public class RepositoryImageProvider {
         } else if (type == ERepositoryObjectType.METADATA_EDIFACT) {
             return ECoreImage.METADATA_EDIFACT_ICON;
         } else {
+            IImage image = null;
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+                ICamelDesignerCoreService service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                        ICamelDesignerCoreService.class);
+                image = service.getCamelIcon(type);
+                if (image != null) {
+                    return image;
+                } else {
+                    return EImage.DEFAULT_IMAGE;
+                }
+            }
             return EImage.DEFAULT_IMAGE;
         }
     }

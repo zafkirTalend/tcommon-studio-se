@@ -19,7 +19,6 @@ import java.util.Map;
 import org.eclipse.core.resources.IFile;
 import org.talend.commons.exception.SystemException;
 import org.talend.core.model.process.JobInfo;
-import org.talend.core.model.properties.BeanItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -42,19 +41,19 @@ public interface ITalendSynchronizer {
 
     public void syncRoutine(RoutineItem routineItem, boolean copyToTemp) throws SystemException;
 
-    public void syncBean(BeanItem beanItem, boolean copyToTemp) throws SystemException;
+    public void syncBean(Item beanItem, boolean copyToTemp) throws SystemException;
 
     public IFile getFile(Item item) throws SystemException;
 
     public IFile getProcessFile(JobInfo jobInfo) throws SystemException;
 
-    public IFile getRoutinesFile(RoutineItem routineItem) throws SystemException;
+    public IFile getRoutinesFile(Item routineItem) throws SystemException;
 
     public void forceSyncRoutine(RoutineItem routineItem);
 
     public abstract void renameRoutineClass(RoutineItem routineItem);
 
-    public abstract void renameBeanClass(BeanItem beanItem);
+    public abstract void renameBeanClass(Item beanItem);
 
     public Map<String, List<URI>> getUserRoutineModules();
 

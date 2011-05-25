@@ -98,7 +98,7 @@ public class ComponentUtilities {
 
     public static PaletteRoot getPaletteRoot() {
         if (paletteRoot == null) {
-            updatePalette();
+            paletteRoot = CorePlugin.getDefault().getDesignerCoreService().createEmptyPalette();
         }
         return paletteRoot;
     }
@@ -156,6 +156,7 @@ public class ComponentUtilities {
             return;
         }
         IComponentsFactory components = ComponentsFactoryProvider.getInstance();
+
         if (paletteRoot != null) {
             List oldRoots = new ArrayList(paletteRoot.getChildren());
 
@@ -169,11 +170,9 @@ public class ComponentUtilities {
             // paletteRoot.getChildren().clear();
             // }
             paletteRoot = CorePlugin.getDefault().getDesignerCoreService().createPalette(components, paletteRoot, isFavorite);
-
         } else {
             paletteRoot = CorePlugin.getDefault().getDesignerCoreService().createPalette(components, isFavorite);
         }
-
         if (extraPaletteEntry == null || extraPaletteEntry.size() == 0) {
             extraPaletteEntry = CorePlugin.getDefault().getDesignerCoreService().createJobletEtnry();
         }
@@ -664,6 +663,51 @@ public class ComponentUtilities {
             }
         }
         return null;
+    }
+
+    /**
+     * DOC guanglong.du Comment method "updateFromRepositoryType".
+     * 
+     * @param itemType
+     */
+    public static void updateFromRepositoryType(ERepositoryObjectType itemType) {
+        updatePalette(faState);
+
+        // if (ERepositoryObjectType.PROCESS.equals(itemType) || ERepositoryObjectType.JOBLET.equals(itemType)) {
+        // isCamel = false;
+        // // show all components
+        // for (Object objectEntry : getPaletteEntriesGroupMap().get("tos")) {
+        // if (objectEntry instanceof PaletteEntry) {
+        // ((PaletteEntry) objectEntry).setVisible(true);
+        // }
+        // }
+        // // hide camel
+        // for (Object entry : getPaletteEntriesGroupMap().get("camel")) {
+        // if (entry instanceof PaletteEntry) {
+        // ((PaletteEntry) entry).setVisible(true);
+        // }
+        // }
+        // } else {
+        // updatePalette();
+        //
+        // isCamel = true;
+        // // hide all components
+        // for (Object objectEntry : getPaletteEntriesGroupMap().get("tos")) {
+        // if (objectEntry instanceof PaletteEntry) {
+        // // ((PaletteEntry) objectEntry).setVisible(false);
+        // paletteRoot.getChildren().remove(objectEntry);
+        // }
+        // }
+        // // show only the camel components
+        // for (Object entry : getPaletteEntriesGroupMap().get("camel")) {
+        // if (entry instanceof PaletteEntry) {
+        // ((PaletteEntry) entry).setVisible(true);
+        // }
+        // }
+        //
+        // }
+
+        setExtraEntryVisible(ERepositoryObjectType.JOBLET.equals(itemType));
     }
 
 }

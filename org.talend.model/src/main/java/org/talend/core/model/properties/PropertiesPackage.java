@@ -7646,88 +7646,6 @@ public interface PropertiesPackage extends EPackage {
     int EDIFACT_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
 
     /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.BeanItemImpl <em>Bean Item</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.BeanItemImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getBeanItem()
-     * @generated
-     */
-    int BEAN_ITEM = 93;
-
-    /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BEAN_ITEM__PROPERTY = FILE_ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BEAN_ITEM__STATE = FILE_ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BEAN_ITEM__PARENT = FILE_ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BEAN_ITEM__NAME = FILE_ITEM__NAME;
-
-    /**
-     * The feature id for the '<em><b>Extension</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BEAN_ITEM__EXTENSION = FILE_ITEM__EXTENSION;
-
-    /**
-     * The feature id for the '<em><b>Content</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BEAN_ITEM__CONTENT = FILE_ITEM__CONTENT;
-
-    /**
-     * The feature id for the '<em><b>Imports</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BEAN_ITEM__IMPORTS = FILE_ITEM_FEATURE_COUNT + 0;
-
-    /**
-     * The number of structural features of the '<em>Bean Item</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BEAN_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 1;
-
-    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -7735,7 +7653,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 94;
+    int FOLDER_TYPE = 93;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -7744,7 +7662,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 95;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 94;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserModuleAuthorizationType <em>User Module Authorization Type</em>}' enum.
@@ -7753,7 +7671,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 96;
+    int USER_MODULE_AUTHORIZATION_TYPE = 95;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.InformationLevel <em>Information Level</em>}' enum.
@@ -7762,7 +7680,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 97;
+    int INFORMATION_LEVEL = 96;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.Status <em>Status</em>}'. <!--
@@ -12140,27 +12058,6 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EClass getEDIFACTConnectionItem();
-
-    /**
-     * Returns the meta object for class '{@link org.talend.core.model.properties.BeanItem <em>Bean Item</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Bean Item</em>'.
-     * @see org.talend.core.model.properties.BeanItem
-     * @generated
-     */
-    EClass getBeanItem();
-
-    /**
-     * Returns the meta object for the containment reference list '{@link org.talend.core.model.properties.BeanItem#getImports <em>Imports</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the containment reference list '<em>Imports</em>'.
-     * @see org.talend.core.model.properties.BeanItem#getImports()
-     * @see #getBeanItem()
-     * @generated
-     */
-    EReference getBeanItem_Imports();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionPlan <em>Execution Plan</em>}'.
@@ -16661,24 +16558,6 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EClass EDIFACT_CONNECTION_ITEM = eINSTANCE.getEDIFACTConnectionItem();
-
-        /**
-         * The meta object literal for the '{@link org.talend.core.model.properties.impl.BeanItemImpl <em>Bean Item</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @see org.talend.core.model.properties.impl.BeanItemImpl
-         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getBeanItem()
-         * @generated
-         */
-        EClass BEAN_ITEM = eINSTANCE.getBeanItem();
-
-        /**
-         * The meta object literal for the '<em><b>Imports</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference BEAN_ITEM__IMPORTS = eINSTANCE.getBeanItem_Imports();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionPlanImpl <em>Execution Plan</em>}' class.

@@ -125,5 +125,5 @@ public interface IRunProcessService extends IService {
 
     public IProcess getActiveProcess();
 
-    public boolean checkExportProcess(IStructuredSelection selection);
+    public boolean checkExportProcess(IStructuredSelection selection, boolean isJob);
 }

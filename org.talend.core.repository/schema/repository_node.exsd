@@ -102,6 +102,13 @@ like this: DI|DQ ....
                </documentation>
             </annotation>
          </attribute>
+         <attribute name="isResouce" type="boolean">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 

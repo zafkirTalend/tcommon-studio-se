@@ -24,7 +24,6 @@ import org.talend.commons.exception.SystemException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
-import org.talend.core.model.properties.BeanItem;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
@@ -38,6 +37,7 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.ui.ICDCProviderService;
 import org.talend.designer.codegen.ICodeGeneratorService;
+import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -207,8 +207,14 @@ public class CopyObjectAction {
                     if (newItem instanceof RoutineItem) {
                         synDuplicatedRoutine((RoutineItem) newItem);
                     }
-                    if (newItem instanceof BeanItem) {
-                        synDuplicatedBean((BeanItem) newItem);
+                    ICamelDesignerCoreService service = null;
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+                        service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                                ICamelDesignerCoreService.class);
+                    }
+                    if (service != null && service.isInstanceofCamelBeans(item)) {
+                        // for camel
+                        synDuplicatedBean(newItem);
                     }
                     if (newItem instanceof ProcessItem || newItem instanceof JobletProcessItem) {
                         RelationshipItemBuilder.getInstance().addOrUpdateItem(newItem);
@@ -261,13 +267,13 @@ public class CopyObjectAction {
         }
     }
 
-    private void synDuplicatedBean(BeanItem item) {
+    private void synDuplicatedBean(Item item) {
         ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
                 ICodeGeneratorService.class);
         if (codeGenService != null) {
-            codeGenService.createRoutineSynchronizer().renameBeanClass((BeanItem) item);
+            codeGenService.createCamelBeanSynchronizer().renameBeanClass(item);
             try {
-                codeGenService.createRoutineSynchronizer().syncBean((BeanItem) item, true);
+                codeGenService.createCamelBeanSynchronizer().syncBean(item, true);
             } catch (SystemException e) {
                 ExceptionHandler.process(e);
             }

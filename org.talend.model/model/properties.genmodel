@@ -607,8 +607,5 @@
     <genClasses ecoreClass="properties.ecore#//BRMSConnectionItem"/>
     <genClasses ecoreClass="properties.ecore#//JobScriptItem"/>
     <genClasses ecoreClass="properties.ecore#//EDIFACTConnectionItem"/>
-    <genClasses ecoreClass="properties.ecore#//BeanItem">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//BeanItem/imports"/>
-    </genClasses>
   </genPackages>
 </genmodel:GenModel>

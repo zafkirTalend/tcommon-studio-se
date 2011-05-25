@@ -28,6 +28,7 @@ import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.platform.PluginChecker;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.FolderType;
 import org.talend.core.model.properties.Item;
@@ -36,6 +37,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
+import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
@@ -80,17 +82,22 @@ public class RepositoryNodeUtilities {
                 return getPath(node.getParent()).append(label);
             }
         } else {
+            ICamelDesignerCoreService camelService = null;
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+                camelService = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                        ICamelDesignerCoreService.class);
+            }
             if (!isMetadataLabel(label) && !label.equals(ERepositoryObjectType.PROCESS.toString())
                     && !label.equals(ERepositoryObjectType.JOBLET.toString())
                     && !label.equals(ERepositoryObjectType.CONTEXT.toString())
                     && !label.equals(ERepositoryObjectType.ROUTINES.toString())
-                    && !label.equals(ERepositoryObjectType.BEANS.toString())
+                    && (camelService != null && !label.equals(camelService.getBeansType().toString()))
                     && !label.equals(ERepositoryObjectType.JOB_SCRIPT.toString())
                     && !label.equals(ERepositoryObjectType.SQLPATTERNS.toString())
                     && !label.equals(ERepositoryObjectType.DOCUMENTATION.toString())
                     && !label.equals(ERepositoryObjectType.BUSINESS_PROCESS.toString())
                     && !label.equals(ERepositoryObjectType.METADATA_HEADER_FOOTER.toString())
-                    && !label.equals(ERepositoryObjectType.ROUTES.toString())) {
+                    && (camelService != null && !label.equals(camelService.getRoutes().toString()))) {
                 return getPath(node.getParent()).append(label);
             } else {
                 return getPath(node.getParent());

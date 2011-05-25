@@ -97,8 +97,7 @@ public abstract class AbstractComponentsProvider {
         String componentsPath = IComponentsFactory.COMPONENTS_LOCATION;
         IBrandingService breaningService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                 IBrandingService.class);
-        String processLabel = breaningService.getBrandingConfiguration().getJobDesignName();
-        if (processLabel.equals("Routes")) {
+        if (breaningService.isPoweredOnlyCamel()) {
             componentsPath = IComponentsFactory.CAMEL_COMPONENTS_LOCATION;
         }
         Bundle b = Platform.getBundle(componentsPath);

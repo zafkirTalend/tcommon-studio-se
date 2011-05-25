@@ -20,4 +20,8 @@ public abstract class AbstractTalendBrandingService extends AbstractBrandingServ
     public boolean isPoweredbyTalend() {
         return true;
     }
+
+    public boolean isPoweredOnlyCamel() {
+        return false;
+    }
 }

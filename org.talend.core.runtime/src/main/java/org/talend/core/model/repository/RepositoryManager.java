@@ -37,6 +37,7 @@ import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.IJobletProviderService;
 import org.talend.designer.codegen.ICodeGeneratorService;
+import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
@@ -234,22 +235,29 @@ public final class RepositoryManager {
                     ExceptionHandler.process(e);
                 }
             }
-        } else if (type.equals(ERepositoryObjectType.BEANS)) {
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
-                ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
-                        ICodeGeneratorService.class);
-                try {
-                    codeGenService.createRoutineSynchronizer().syncAllBeans();
-                } catch (SystemException e) {
-                    ExceptionHandler.process(e);
-                }
-            }
         } else if (type.equals(ERepositoryObjectType.JOBLET)) {
             if (PluginChecker.isJobLetPluginLoaded()) {
                 IJobletProviderService jobletService = (IJobletProviderService) GlobalServiceRegister.getDefault().getService(
                         IJobletProviderService.class);
                 if (jobletService != null) {
                     jobletService.loadComponentsFromProviders();
+                }
+            }
+        } else {
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+                ICamelDesignerCoreService service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                        ICamelDesignerCoreService.class);
+                if (type.equals(service.getBeansType())) {
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
+                        ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault()
+                                .getService(ICodeGeneratorService.class);
+
+                        try {
+                            codeGenService.createCamelBeanSynchronizer().syncAllBeans();
+                        } catch (SystemException e) {
+                            ExceptionHandler.process(e);
+                        }
+                    }
                 }
             }
         }

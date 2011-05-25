@@ -34,4 +34,8 @@ public abstract class AbstractBrandingService implements IBrandingService {
     public boolean isPoweredbyTalend() {
         return false;
     }
+
+    public boolean isPoweredOnlyCamel() {
+        return false;
+    }
 }

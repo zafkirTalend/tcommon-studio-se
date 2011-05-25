@@ -18,6 +18,7 @@ import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.BundleContext;
 import org.talend.core.AbstractDQModelService;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ICamelItemService;
 import org.talend.core.ICoreService;
 import org.talend.core.IManagementService;
 import org.talend.core.IService;
@@ -111,6 +112,14 @@ public class CoreRuntimePlugin extends Plugin {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
             IService service = GlobalServiceRegister.getDefault().getService(ICoreService.class);
             return (ICoreService) service;
+        }
+        return null;
+    }
+
+    public ICamelItemService getCamelService() {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelItemService.class)) {
+            IService service = GlobalServiceRegister.getDefault().getService(ICamelItemService.class);
+            return (ICamelItemService) service;
         }
         return null;
     }

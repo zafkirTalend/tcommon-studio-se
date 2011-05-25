@@ -75,7 +75,6 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.core.model.properties.BRMSConnectionItem;
-import org.talend.core.model.properties.BeanItem;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.ByteArray;
 import org.talend.core.model.properties.ConnectionItem;
@@ -129,6 +128,7 @@ import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.core.service.ICorePerlService;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SubItemHelper;
+import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.localprovider.exceptions.IncorrectFileException;
@@ -1759,9 +1759,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             case PropertiesPackage.EDIFACT_CONNECTION_ITEM:
                 itemResource = save((EDIFACTConnectionItem) item);
                 break;
-            case PropertiesPackage.BEAN_ITEM:
-                itemResource = save((BeanItem) item);
-                break;
             default:
                 throw new UnsupportedOperationException();
             }
@@ -1773,7 +1770,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 // xmiResourceManager.saveResource(item.eResource());
                 // return;
             } else {
-                throw new UnsupportedOperationException();
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+                    ICamelDesignerCoreService service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault()
+                            .getService(ICamelDesignerCoreService.class);
+                    itemResource = service.saveCamel(item);
+                } else {
+                    throw new UnsupportedOperationException();
+                }
             }
             // ~ 15750
         }
@@ -1815,10 +1818,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
             createResource.load(in, null);
             Item newItem = copyFromResource(createResource, changeLabelWithCopyPrefix);
-            if (ERepositoryObjectType.getItemType(newItem) == ERepositoryObjectType.ROUTES) {
-                createCamel(getRepositoryContext().getProject(), newItem, path);
+            ERepositoryObjectType type = null;
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+                ICamelDesignerCoreService service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                        ICamelDesignerCoreService.class);
+                type = service.createCamelResource(newItem);
             }
-            if (ERepositoryObjectType.getItemType(newItem) == ERepositoryObjectType.BEANS) {
+            if (type != null && ERepositoryObjectType.getItemType(newItem) == type) {
                 createCamel(getRepositoryContext().getProject(), newItem, path);
             } else {
                 create(getRepositoryContext().getProject(), newItem, path);
@@ -1868,33 +1874,26 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         item.setState(itemState);
         IProject project2 = ResourceModelUtils.getProject(project);
         Resource itemResource = null;
-        EClass eClass = item.eClass();
-        if (eClass.eContainer() == PropertiesPackage.eINSTANCE) {
-            switch (eClass.getClassifierID()) {
-            case PropertiesPackage.PROCESS_ITEM:
-                itemResource = create(project2, (ProcessItem) item, path, ERepositoryObjectType.ROUTES);
-                break;
-            case PropertiesPackage.BEAN_ITEM:
-                itemResource = create(project2, (BeanItem) item, path, ERepositoryObjectType.BEANS);
-                break;
-            default:
-                throw new UnsupportedOperationException();
-            }
-
-        } else {
-            if (itemResource == null) {
-                throw new UnsupportedOperationException();
+        ERepositoryObjectType type = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+            ICamelDesignerCoreService service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                    ICamelDesignerCoreService.class);
+            type = service.createCamelResource(item);
+            if (type != null) {
+                itemResource = service.createCamel(project2, item, path, type);
             }
         }
+        if (itemResource == null) {
+            throw new UnsupportedOperationException();
+        }
+
         Resource propertyResource = xmiResourceManager.createPropertyResource(itemResource);
         propertyResource.getContents().add(item.getProperty());
         propertyResource.getContents().add(item.getState());
         propertyResource.getContents().add(item);
         String parentPath = "";
-        if (item instanceof BeanItem) {
-            parentPath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.BEANS) + IPath.SEPARATOR + path.toString();
-        } else if (item instanceof ProcessItem) {
-            parentPath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTES) + IPath.SEPARATOR + path.toString();
+        if (type != null) {
+            parentPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString();
         }
 
         FolderHelper folderHelper = getFolderHelper(project.getEmfProject());

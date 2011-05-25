@@ -17,7 +17,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
@@ -36,7 +39,6 @@ import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.Project;
-import org.talend.core.model.properties.BeanItem;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
@@ -51,6 +53,7 @@ import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.designer.codegen.ICodeGeneratorService;
+import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -260,12 +263,29 @@ public class DuplicateAction extends AContextualAction {
     private boolean isKeyword(String itemName) {
         ERepositoryObjectType itemType = sourceNode.getObjectType();
         ERepositoryObjectType[] types = { ERepositoryObjectType.PROCESS, ERepositoryObjectType.ROUTINES,
-                ERepositoryObjectType.BEANS, ERepositoryObjectType.JOBS, ERepositoryObjectType.JOBLET,
-                ERepositoryObjectType.JOBLETS, ERepositoryObjectType.JOB_SCRIPT };
-        if (Arrays.asList(types).contains(itemType)) {
+                ERepositoryObjectType.JOBS, ERepositoryObjectType.JOBLET, ERepositoryObjectType.JOBLETS,
+                ERepositoryObjectType.JOB_SCRIPT };
+        List<ERepositoryObjectType> arraysList = Arrays.asList(types);
+        addExtensionRepositoryNodes(arraysList);
+        if (arraysList.contains(itemType)) {
             return KeywordsValidator.isKeyword(itemName);
         }
         return false;
+    }
+
+    private void addExtensionRepositoryNodes(List<ERepositoryObjectType> arraysList) {
+        IExtensionRegistry registry = Platform.getExtensionRegistry();
+        IConfigurationElement[] configurationElements = registry
+                .getConfigurationElementsFor("org.talend.core.repository.repository_node_provider");
+        for (int i = 0; i < configurationElements.length; i++) {
+            IConfigurationElement element = configurationElements[i];
+            String type = element.getAttribute("type");
+            ERepositoryObjectType repositoryNodeType = (ERepositoryObjectType) ERepositoryObjectType.valueOf(
+                    ERepositoryObjectType.class, type);
+            if (repositoryNodeType != null) {
+                arraysList.add(repositoryNodeType);
+            }
+        }
     }
 
     private Item createNewItem() {
@@ -321,8 +341,6 @@ public class DuplicateAction extends AContextualAction {
                     item = PropertiesFactory.eINSTANCE.createProcessItem();
                 } else if (repositoryType == ERepositoryObjectType.ROUTINES) {
                     item = PropertiesFactory.eINSTANCE.createRoutineItem();
-                } else if (repositoryType == ERepositoryObjectType.BEANS) {
-                    item = PropertiesFactory.eINSTANCE.createBeanItem();
                 } else if (repositoryType == ERepositoryObjectType.JOB_SCRIPT) {
                     item = PropertiesFactory.eINSTANCE.createJobScriptItem();
                 } else if (repositoryType == ERepositoryObjectType.SNIPPETS) {
@@ -334,6 +352,12 @@ public class DuplicateAction extends AContextualAction {
                 } else if (repositoryType == ERepositoryObjectType.METADATA_EDIFACT) {
                     item = PropertiesFactory.eINSTANCE.createEDIFACTConnectionItem();
                 }
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+                    ICamelDesignerCoreService service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault()
+                            .getService(ICamelDesignerCoreService.class);
+                    item = service.createNewCamelItem(repositoryType);
+                }
+
             }
         }
         if (item != null) {
@@ -425,10 +449,15 @@ public class DuplicateAction extends AContextualAction {
                     if (newItem instanceof RoutineItem) {
                         synDuplicatedRoutine((RoutineItem) newItem);
                     }// end
-                    if (newItem instanceof BeanItem) {
-                        synDuplicatedBean((BeanItem) newItem);
+                    ICamelDesignerCoreService service = null;
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+                        service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                                ICamelDesignerCoreService.class);
                     }
-
+                    if (service != null && service.isInstanceofCamelBeans(item)) {
+                        // for camel
+                        synDuplicatedBean(newItem);
+                    }
                     if (newItem instanceof ProcessItem) {
                         RelationshipItemBuilder.getInstance().addOrUpdateItem((ProcessItem) newItem);
                     }
@@ -481,13 +510,13 @@ public class DuplicateAction extends AContextualAction {
         }
     }
 
-    private void synDuplicatedBean(BeanItem item) {
+    private void synDuplicatedBean(Item item) {
         ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
                 ICodeGeneratorService.class);
         if (codeGenService != null) {
-            codeGenService.createRoutineSynchronizer().renameBeanClass((BeanItem) item);
+            codeGenService.createCamelBeanSynchronizer().renameBeanClass(item);
             try {
-                codeGenService.createRoutineSynchronizer().syncBean((BeanItem) item, true);
+                codeGenService.createCamelBeanSynchronizer().syncBean(item, true);
             } catch (SystemException e) {
                 ExceptionHandler.process(e);
             }

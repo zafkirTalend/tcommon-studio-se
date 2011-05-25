@@ -31,7 +31,6 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.QueriesConnection;
 import org.talend.core.model.metadata.builder.connection.Query;
 import org.talend.core.model.properties.BRMSConnectionItem;
-import org.talend.core.model.properties.BeanItem;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.CSVFileConnectionItem;
 import org.talend.core.model.properties.ContextItem;
@@ -80,6 +79,7 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
+import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -228,9 +228,10 @@ public class RepositoryObject implements IRepositoryObject {
                 return ERepositoryObjectType.ROUTINES;
             }
 
-            public Object caseBeanItem(BeanItem object) {
-                return ERepositoryObjectType.BEANS;
-            }
+            //
+            // public Object caseBeanItem(BeanItem object) {
+            // return ERepositoryObjectType.BEANS;
+            // }
 
             public Object caseJobScriptItem(JobScriptItem object) {
                 return ERepositoryObjectType.JOB_SCRIPT;
@@ -390,6 +391,11 @@ public class RepositoryObject implements IRepositoryObject {
             }
 
             public Object defaultCase(EObject object) {
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+                    ICamelDesignerCoreService service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault()
+                            .getService(ICamelDesignerCoreService.class);
+                    return service.createCamelResource(property.getItem());
+                }
                 throw new IllegalStateException();
             }
         }.doSwitch(property.getItem());

@@ -163,7 +163,10 @@ public class CorePlugin extends AbstractUIPlugin {
     }
 
     public IDiagramModelService getDiagramModelService() {
-        return (IDiagramModelService) GlobalServiceRegister.getDefault().getService(IDiagramModelService.class);
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IDiagramModelService.class)) {
+            return (IDiagramModelService) GlobalServiceRegister.getDefault().getService(IDiagramModelService.class);
+        }
+        return null;
     }
 
     public IResourceService getResourceService() {
