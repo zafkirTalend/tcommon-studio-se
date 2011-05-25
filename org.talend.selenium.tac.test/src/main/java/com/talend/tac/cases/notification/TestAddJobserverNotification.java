@@ -17,19 +17,12 @@ public class TestAddJobserverNotification extends Login {
 		
 		addNotification(3, categoryJobServer, 1, eventJobServerAlert, descriptionJobServerAlert);
 	    
-		selenium.click("//i[text()='"+descriptionTaskFailed+"']/parent::div/parent::td" +
-		"/parent::tr/parent::tbody//div[text()='Recipients: ']/parent::td/parent::tr//button");//choose event trigger users
-		selenium.mouseDown("//div[text()='testChooseTypeDataQuality@126.com']/parent::td/preceding-sibling::td");//choose event trigger users
-		selenium.click("//button[text()='Apply']");
-		selenium.click("//div[text()='jobServers: ']/parent::td/parent::tr//button");
-		selenium.mouseDown("//div[text()='test_RemoteLinux']/parent::td/preceding-sibling::td");//choose event trigger jobServer
-		selenium.click("//button[text()='Apply']");	
-
-		selenium.click("idFormSaveButton");
+		selenium.click("idFormSaveButton");//clcik 'save'
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+eventJobServerAlert+"']/" +
 		"parent::td/parent::tr//img[@class='gwt-Image' and @title='true']"));
 		selenium.setSpeed(MIN_SPEED);
+		
 	}
 	//add a jobserver'notification(uncheck Active)
 	@Test(dependsOnMethods={"testAddJobserversJobServerAlertNotification"})
@@ -43,19 +36,11 @@ public class TestAddJobserverNotification extends Login {
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertFalse(selenium.isChecked("idActiveInput"));
 		selenium.setSpeed(MIN_SPEED);
-		
-		selenium.click("//i[text()='"+descriptionTaskFailed+"']/parent::div/parent::td" +
-		"/parent::tr/parent::tbody//div[text()='Recipients: ']/parent::td/parent::tr//button");//choose event trigger users
-		selenium.mouseDown("//div[text()='testChooseTypeDataQuality@126.com']/parent::td/preceding-sibling::td");//choose event trigger users
-		selenium.click("//button[text()='Apply']");
-		selenium.click("//div[text()='jobServers: ']/parent::td/parent::tr//button");
-		selenium.mouseDown("//div[text()='test_RemoteLinux']/parent::td/preceding-sibling::td");//choose event trigger jobServer
-		selenium.click("//button[text()='Apply']");	
-		
+				
 		selenium.click("idFormSaveButton");//clcik 'save'
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+eventJobServerAlert+"']/" +
-		"parent::td/parent::tr//img[@class='gwt-Image' and @title='true']"));
+		"parent::td/parent::tr//img[@class='gwt-Image' and @title='false']"));
 		selenium.setSpeed(MIN_SPEED);
 	}
 	
@@ -63,7 +48,7 @@ public class TestAddJobserverNotification extends Login {
 			String DescriptionInputValue,String notificationInformation) {
 		
 		this.clickWaitForElementPresent("!!!menu.notification.element!!!");//into notification
-		selenium.click("idSubModuleAddButton");
+		selenium.click("idSubModuleAddButton");//click add button
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//img[@class='gwt-Image x-component ']"));
 		selenium.setSpeed(MIN_SPEED);
@@ -78,6 +63,15 @@ public class TestAddJobserverNotification extends Login {
 		selenium.setSpeed(MIN_SPEED);
 		selenium.click("idLabelInput");
 		selenium.mouseDownAt("//div[@role='listitem']["+LabelInput+"]", ""+KeyEvent.VK_ENTER);
+		
+		selenium.click("//i[text()='"+notificationInformation+"']//ancestor::tbody//" +
+		"button[@id='idNotificationRepUserButton']");//choose event trigger users
+		selenium.mouseDown("//div[text()='testChooseTypeDataQuality@126.com']/parent::td/preceding-sibling::td");//choose event trigger users
+		selenium.click("//button[text()='Apply']");
+		selenium.click("idNotificationJobserverButton");
+		selenium.mouseDown("//div[text()='test_RemoteLinux']/parent::td/preceding-sibling::td");//choose event trigger jobServer
+		selenium.click("//button[text()='Apply']");	
+
 
 	}
 }
