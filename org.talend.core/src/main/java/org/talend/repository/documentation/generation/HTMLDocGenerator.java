@@ -1377,34 +1377,6 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         element.addAttribute("i18n.job.ended", Messages.getString("HTMLDocGenerator.ended")); //$NON-NLS-1$ //$NON-NLS-2$
         element.addAttribute("i18n.job.content", Messages.getString("HTMLDocGenerator.content")); //$NON-NLS-1$ //$NON-NLS-2$
 
-        // tRowgenerator.xsl
-        element.addAttribute("i18n.rowgenerator.info.for", Messages.getString("HTMLDocGenerator.row_generator_info")); //$NON-NLS-1$ //$NON-NLS-2$
-        element.addAttribute("i18n.rowgenerator.default", Messages.getString("HTMLDocGenerator.row_default")); //$NON-NLS-1$ //$NON-NLS-2$
-        element.addAttribute("i18n.rowgenerator.functions", Messages.getString("HTMLDocGenerator.row_functions")); //$NON-NLS-1$ //$NON-NLS-2$
-        element.addAttribute("i18n.rowgenerator.parameters", Messages.getString("HTMLDocGenerator.row_parameters")); //$NON-NLS-1$ //$NON-NLS-2$
-
-        // mapperComponent.xsl
-        element.addAttribute("i18n.mapper.table.for", Messages.getString("HTMLDocGenerator.mapper.table.for")); //$NON-NLS-1$ //$NON-NLS-2$
-        element.addAttribute("i18n.mapper.table.properties", Messages.getString("HTMLDocGenerator.mapper.table.properties")); //$NON-NLS-1$ //$NON-NLS-2$
-        element.addAttribute("i18n.mapper.table.name", Messages.getString("HTMLDocGenerator.mapper.table.name")); //$NON-NLS-1$ //$NON-NLS-2$
-        element.addAttribute("i18n.mapper.table.alias", Messages.getString("HTMLDocGenerator.mapper.alias")); //$NON-NLS-1$ //$NON-NLS-2$
-        element.addAttribute("i18n.mapper.table.join.type", Messages.getString("HTMLDocGenerator.mapper.join.type")); //$NON-NLS-1$ //$NON-NLS-2$
-        element.addAttribute("i18n.mapper.table.isminimized", Messages.getString("HTMLDocGenerator.mapper.iaminimized")); //$NON-NLS-1$ //$NON-NLS-2$
-        element.addAttribute(
-                "i18n.mapper.table.metadata.entries", Messages.getString("HTMLDocGenerator.mapper.metadatatable.entries")); //$NON-NLS-1$ //$NON-NLS-2$
-        element.addAttribute("i18n.mapper.table.expression", Messages.getString("HTMLDocGenerator.mapper.expression")); //$NON-NLS-1$ //$NON-NLS-2$
-        element.addAttribute("i18n.mapper.table.operator", Messages.getString("HTMLDocGenerator.mapper.operator")); //$NON-NLS-1$ //$NON-NLS-2$
-        element.addAttribute("i18n.mapper.table.isJoin", Messages.getString("HTMLDocGenerator.mapper.isjoin")); //$NON-NLS-1$ //$NON-NLS-2$
-        element.addAttribute("i18n.mapper.table.condition.entries", Messages.getString("HTMLDocGenerator.mapper.entries")); //$NON-NLS-1$ //$NON-NLS-2$
-
-        // tMap.xsl
-        element.addAttribute("i18n.tmap.matching.mode", Messages.getString("HTMLDocGenerator.tmap.matching.mode")); //$NON-NLS-1$ //$NON-NLS-2$
-        element.addAttribute("i18n.tmap.isreject", Messages.getString("HTMLDocGenerator.tmap.isreject")); //$NON-NLS-1$ //$NON-NLS-2$
-        element.addAttribute("i18n.tmap.isrejectinnnerjoin", Messages.getString("HTMLDocGenerator.tmap.isrejectinner")); //$NON-NLS-1$ //$NON-NLS-2$
-        element.addAttribute("i18n.tmap.isinnerjoin", Messages.getString("HTMLDocGenerator.tmap.isinnerjoin")); //$NON-NLS-1$ //$NON-NLS-2$
-        element.addAttribute("i18n.tmap.isnullable", Messages.getString("HTMLDocGenerator.tmap.isnullable")); //$NON-NLS-1$ //$NON-NLS-2$
-        element.addAttribute("i18n.tmap.constraint.entries", Messages.getString("HTMLDocGenerator.tmap.constraint.entries")); //$NON-NLS-1$ //$NON-NLS-2$
-
         return element;
     }
 
