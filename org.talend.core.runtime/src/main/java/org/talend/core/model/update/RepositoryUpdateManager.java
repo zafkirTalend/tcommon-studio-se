@@ -448,6 +448,8 @@ public abstract class RepositoryUpdateManager {
                 if (result.getRemark() != null) {
                     if (result.getRemark().startsWith(source)) {
                         return true;
+                    } else if (result.isReadOnlyProcess()) {
+                        return true;
                     } else {
                         // for bug 10365
                         String[] split = result.getRemark().split(UpdatesConstants.SEGMENT_LINE);
