@@ -342,6 +342,7 @@ public class RegisterWizardPage1 extends AbstractBasicWizardDialog {
             dialog.open();
         } else if (IDialogConstants.CANCEL_ID == buttonId) {
             RegisterManagement.decrementTry();
+            RegisterManagement.increaseFailRegisterTimes();
             close();
         } else if (IDialogConstants.HELP_ID == buttonId) {
             NetworkSettingDialog netSettingDialog = new NetworkSettingDialog(getParentShell());

@@ -18,9 +18,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 
+import org.apache.commons.lang.StringUtils;
 import org.dom4j.DocumentException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.adaptor.LocationManager;
@@ -36,6 +40,8 @@ public class ConnectionUserPerReader {
     private static ConnectionUserPerReader con = new ConnectionUserPerReader();
 
     private String perfileName = "connection_user.properties"; //$NON-NLS-1$
+
+    public static final String CONNECTION_REGISTFAILTIMES = "connection.registFailTimes"; //$NON-NLS-1$
 
     private String path = null;
 
@@ -224,6 +230,17 @@ public class ConnectionUserPerReader {
         return perfile.exists();
     }
 
+    /**
+     * DOC ycbai Comment method "readRegistFailTimes".
+     * 
+     * @return
+     */
+    public String readRegistFailTimes() {
+        if (!isRead)
+            this.readProperties();
+        return StringUtils.trimToEmpty(proper.getProperty(CONNECTION_REGISTFAILTIMES));
+    }
+
     public String readRegistration() {
         if (!isRead)
             this.readProperties();
@@ -264,6 +281,33 @@ public class ConnectionUserPerReader {
         proper.setProperty("connection.readRegistrationDone", Integer.toString(prefStore.getInt("REGISTRATION_DONE")));
         try {
 
+            FileOutputStream out = new FileOutputStream(perfile);
+            proper.store(out, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * DOC ycbai Comment method "saveRegistoryBean".
+     * 
+     * @param propertyMap
+     */
+    public void saveRegistoryBean(Map<String, String> propertyMap) {
+        if (propertyMap == null)
+            return;
+        if (!isHaveUserPer())
+            createPropertyFile();
+        if (!isRead)
+            this.readProperties();
+        Iterator<Entry<String, String>> iter = propertyMap.entrySet().iterator();
+        while (iter.hasNext()) {
+            Entry<String, String> entry = iter.next();
+            String key = entry.getKey();
+            String val = entry.getValue();
+            proper.setProperty(key, val);
+        }
+        try {
             FileOutputStream out = new FileOutputStream(perfile);
             proper.store(out, null);
         } catch (Exception e) {

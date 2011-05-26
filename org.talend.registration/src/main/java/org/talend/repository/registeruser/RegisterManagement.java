@@ -19,6 +19,8 @@ import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import org.eclipse.core.runtime.Path;
@@ -48,7 +50,11 @@ import org.talend.repository.ui.login.connections.ConnectionUserPerReader;
  */
 public class RegisterManagement {
 
-    private static final int REGISTRATION_MAX_TRIES = 6;
+    private static final String REGISTRATION_TRIES = "REGISTRATION_TRIES"; //$NON-NLS-1$
+
+    private static final String REGISTRATION_FAIL_TIMES = "REGISTRATION_FAIL_TIMES"; //$NON-NLS-1$
+
+    private static final int REGISTRATION_MAX_FAIL_TIMES = 6;
 
     // REGISTRATION_DONE = 1 : registration OK
     private static final int REGISTRATION_DONE = 2;
@@ -194,6 +200,7 @@ public class RegisterManagement {
             }
         } catch (RemoteException e) {
             decrementTry();
+            increaseFailRegisterTimes();
             throw new BusinessException(e);
         }
         if (result != null) {
@@ -272,6 +279,7 @@ public class RegisterManagement {
             }
         } catch (RemoteException e) {
             decrementTry();
+            increaseFailRegisterTimes();
             throw new BusinessException(e);
         }
         return result.signum() > 0;
@@ -404,8 +412,17 @@ public class RegisterManagement {
     public boolean isProductRegistered() {
         initPreferenceStore();
         ConnectionUserPerReader read = ConnectionUserPerReader.getInstance();
+        String registFailTimes = read.readRegistFailTimes();
         String registration = read.readRegistration();
         String registration_done = read.readRegistrationDone();
+        int failTimes = 0;
+        try {
+            failTimes = Integer.parseInt(registFailTimes);
+        } catch (NumberFormatException e) {
+        }
+        if (failTimes > REGISTRATION_MAX_FAIL_TIMES) {
+            return true;
+        }
         if (!registration.equals("2") && !registration_done.equals("1")) { //$NON-NLS-1$ //$NON-NLS-2$
             return false;
         }
@@ -430,11 +447,31 @@ public class RegisterManagement {
     }
 
     /**
+     * DOC ycbai Comment method "saveRegistoryBean".
+     */
+    public static void saveRegistoryBean(Map<String, String> propertyMap) {
+        ConnectionUserPerReader read = ConnectionUserPerReader.getInstance();
+        read.saveRegistoryBean(propertyMap);
+    }
+
+    /**
      * DOC mhirt Comment method "incrementTryNumber".
      */
     public static void decrementTry() {
         IPreferenceStore prefStore = PlatformUI.getPreferenceStore();
-        prefStore.setValue("REGISTRATION_TRIES", prefStore.getInt("REGISTRATION_TRIES") - 1); //$NON-NLS-1$ //$NON-NLS-2$
+        prefStore.setValue(REGISTRATION_TRIES, prefStore.getInt(REGISTRATION_TRIES) - 1);
+    }
+
+    /**
+     * DOC ycbai Comment method "increaseFailRegisterTimes".
+     */
+    public static void increaseFailRegisterTimes() {
+        IPreferenceStore prefStore = PlatformUI.getPreferenceStore();
+        int times = prefStore.getInt(REGISTRATION_FAIL_TIMES) + 1;
+        prefStore.setValue(REGISTRATION_FAIL_TIMES, times);
+        Map<String, String> map = new HashMap<String, String>();
+        map.put(ConnectionUserPerReader.CONNECTION_REGISTFAILTIMES, String.valueOf(times));
+        saveRegistoryBean(map);
     }
 
     // public static void main(String[] args) {
