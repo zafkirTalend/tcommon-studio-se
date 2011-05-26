@@ -11,22 +11,27 @@ public class ModifyPlan extends Login {
 	//modify a plan
 	@Test(groups={"modifyPlan"},dependsOnGroups={"addExist"})
 	@Parameters({"plan.label","plan.modifyLabel","plan.modifyDescription"})
-	public void testModifyPlan(String label,String newlabel,String newdescription) {
+	public void testModifyPlan(String label,String newlabel,String newdescription) throws InterruptedException {
 		
-		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");//into 'executionplan'
-		Assert.assertTrue(selenium.isElementPresent("//div[@class='header-title' and text()='Execution plan']"));
-		selenium.click("idSubModuleRefreshButton");
-		selenium.mouseDown("//div[text()='"+label+"']");//select a exist plan
+		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
+		this.waitForElementPresent("//div[@class='header-title' and text()='Execution Plan']", WAIT_TIME);
+		Assert.assertTrue(selenium
+				.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
+//		selenium.setSpeed(MID_SPEED);
+		this.clickWaitForElementPresent("idSubModuleRefreshButton");
+		this.waitForElementPresent("//span[text()='"+label+"']", WAIT_TIME);
+		Thread.sleep(2000);
+		selenium.mouseDown("//span[text()='"+label+"']");//select a exist plan
 		
-        selenium.setSpeed(MID_SPEED);
-        selenium.type("//input[@name='label']", newlabel);//label
-		selenium.fireEvent("//input[@name='label']","blur");
-		selenium.type("//input[@class=' x-form-field x-form-text' and @name='description']", newdescription);//description
-		selenium.fireEvent("//input[@name='description']","blur");
+//        selenium.setSpeed(MID_SPEED);
+        this.typeString("idExecutionPlanPlanFormLabelInput",newlabel);//label
 		
-	    selenium.click("//button[@class='x-btn-text ' and @id='idFormSaveButton']");
-	    selenium.setSpeed(MID_SPEED);
-	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+newlabel+"']"));
+        this.typeString("idExecutionPlanPlanFormDescInput",newdescription);//description
+		
+		
+        selenium.click("//button[@class='x-btn-text ' and @id='idFormSaveButton']");
+	  this.waitForElementPresent("//span[text()='"+newlabel+"']", WAIT_TIME);
+	    Assert.assertTrue(selenium.isElementPresent("//span[text()='"+newlabel+"']"));
 	    selenium.setSpeed(MIN_SPEED);
 
 	}

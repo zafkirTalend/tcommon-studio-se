@@ -11,17 +11,23 @@ public class DeletePlan extends Login {
 	//delete a plan (choose 'Cancel')
 	@Test(dependsOnGroups={"modifyPlan"})
 	@Parameters({"plan.delete.label"})
-	public void testCancelDeletePlan(String deletelabel) {
+	public void testCancelDeletePlan(String deletelabel) throws InterruptedException {
 		
-		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");//into 'executionplan'
-		Assert.assertTrue(selenium.isElementPresent("//div[@class='header-title' and text()='Execution plan']"));
-		selenium.click("idSubModuleRefreshButton");
-		selenium.mouseDown("//div[text()='"+deletelabel+"']");//choose a exist plan
+		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
+		this.waitForElementPresent("//div[@class='header-title' and text()='Execution Plan']", WAIT_TIME);
+		Assert.assertTrue(selenium
+				.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
+//		selenium.setSpeed(MID_SPEED);
+		this.clickWaitForElementPresent("idSubModuleRefreshButton");
+		this.waitForElementPresent("//span[text()='"+deletelabel+"']", WAIT_TIME);
+		Thread.sleep(2000);
+		selenium.mouseDown("//span[text()='"+deletelabel+"']");//choose a exist plan
+		Thread.sleep(2000);
 		selenium.chooseCancelOnNextConfirmation();//choose 'Cancel'
 		selenium.click("idSubModuleDeleteButton");//click 'Delete' button
 		Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to remove the selected execution plan [\\s\\S]$"));
 		selenium.setSpeed(MID_SPEED);
-		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+deletelabel+"']"));
+		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+deletelabel+"']"));
 		selenium.setSpeed(MIN_SPEED);
 		
 	}
@@ -29,16 +35,23 @@ public class DeletePlan extends Login {
 	//delete a plan (choose 'Ok')
 	@Test(dependsOnMethods={"testCancelDeletePlan"})
 	@Parameters({"plan.delete.label"})
-	public void testDeletePlan(String deletelabel) {
+	public void testDeletePlan(String deletelabel) throws InterruptedException {
 		
 		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
-		Assert.assertTrue(selenium.isElementPresent("//div[@class='header-title' and text()='Execution plan']"));
-		selenium.mouseDown("//div[text()='"+deletelabel+"']");//choose a exist plan
+		this.waitForElementPresent("//div[@class='header-title' and text()='Execution Plan']", WAIT_TIME);
+		Assert.assertTrue(selenium
+				.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
+//		selenium.setSpeed(MID_SPEED);
+		this.clickWaitForElementPresent("idSubModuleRefreshButton");
+		this.waitForElementPresent("//span[text()='"+deletelabel+"']", WAIT_TIME);
+		Thread.sleep(2000);
+		selenium.mouseDown("//span[text()='"+deletelabel+"']");//choose a exist plan
+		Thread.sleep(2000);
 		selenium.chooseOkOnNextConfirmation();//choose 'Ok'
 		selenium.click("idSubModuleDeleteButton");//click 'Delete' button
 		Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to remove the selected execution plan [\\s\\S]$"));
 		selenium.setSpeed(MID_SPEED);
-		Assert.assertFalse(selenium.isElementPresent("//div[text()='"+deletelabel+"']"));
+		Assert.assertFalse(selenium.isElementPresent("//span[text()='"+deletelabel+"']"));
 		selenium.setSpeed(MIN_SPEED);
 		
 	}
