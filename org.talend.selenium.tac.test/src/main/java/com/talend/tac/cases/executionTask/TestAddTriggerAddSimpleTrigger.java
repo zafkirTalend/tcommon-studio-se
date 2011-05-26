@@ -20,7 +20,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
     	selenium.setSpeed(MIN_SPEED);
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task
 		selenium.click("idTriggerAdd trigger...");//add a trigger
-		selenium.click("//a[text()='Add simple trigger']");//add a SimpleTrigger
+		selenium.click("idTriggerAdd simple trigger");//add a SimpleTrigger
         Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addSimpleTrigger")+"']"));
         
         this.typeString("idJobConductorSimpleTriggerLableInput", triggerlabel);//label
@@ -205,8 +205,8 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.setSpeed(MIN_SPEED);
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task
-		selenium.click("//button[text()='Add trigger...']");//add a trigger
-		selenium.click("//a[text()='Add simple trigger']");//add a SimpleTrigger
+		selenium.click("idTriggerAdd trigger...");//add a trigger
+		selenium.click("idTriggerAdd simple trigger");//add a SimpleTrigger
         Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addSimpleTrigger")+"']"));
         
         this.typeString("idJobConductorSimpleTriggerLableInput", label);//label
@@ -246,8 +246,8 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 		selenium.setSpeed(MID_SPEED);
 	    selenium.click("idSimpleTriggerSave");
 		selenium.setSpeed(MIN_SPEED);
-    	System.out.println(selenium.getValue("//span[text()='Add simple trigger']/parent::legend/parent::fieldset//input[@name='startTime']"));
-    	System.out.println(selenium.getValue("//span[text()='Add simple trigger']/parent::legend/parent::fieldset//input[@name='endTime']"));
+    	System.out.println(selenium.getValue("idJobConductorSimpleTriggerStartTime"));
+    	System.out.println(selenium.getValue("idJobConductorSimpleTriggerEndTime"));
 		
 		if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
     		
@@ -270,8 +270,8 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.setSpeed(MIN_SPEED);
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task
-		selenium.click("//button[text()='Add trigger...']");//add a trigger
-		selenium.click("//a[text()='Add simple trigger']");//add a SimpleTrigger
+		selenium.click("idTriggerAdd trigger...");//add a trigger
+		selenium.click("idTriggerAdd simple trigger");//add a SimpleTrigger
         Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addSimpleTrigger")+"']"));
         
         this.typeString("idJobConductorSimpleTriggerLableInput", label);//label
@@ -321,7 +321,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
     	selenium.setSpeed(MIN_SPEED);
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task
 		selenium.click("idTriggerAdd trigger...");//add a trigger
-		selenium.click("//a[text()='Add simple trigger']");//add a SimpleTrigger
+		selenium.click("idTriggerAdd simple trigger");//add a SimpleTrigger
         Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addSimpleTrigger")+"']"));
         
         this.typeString("idJobConductorSimpleTriggerLableInput", label);//label
