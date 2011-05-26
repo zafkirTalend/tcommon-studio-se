@@ -11,6 +11,7 @@ public class TestBranchManageAdd extends Login {
 	@Parameters({ "BranchProject", "BranchName" })
 	public void testAddProjectbranch(String project, String branchname) throws InterruptedException {
 		// first add a branch to a project
+		selenium.setSpeed(MIN_SPEED);
 		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
 
 		selenium.click("!!!menu.project.element!!!");//
@@ -20,17 +21,23 @@ public class TestBranchManageAdd extends Login {
 				+ project + "')]");// the selected project's id
 		selenium.click("idBranchManagementButton");
 		selenium.setSpeed(MID_SPEED);
-		selenium.click("idBranchManagementSourceInput");
+		this.clickWaitForElementPresent("idBranchManagementSourceInput");
+		this.waitForElementPresent("//div[text()='trunk']", WAIT_TIME);
 		selenium.mouseDown("//div[text()='trunk']");
 		selenium.fireEvent("idBranchManagementSourceInput", "blur");
 		selenium.setSpeed(MIN_SPEED);
-		selenium.click("idBranchManagementTargetInput");
-		selenium.type("idBranchManagementTargetInput", branchname);
-		selenium.fireEvent("idBranchManagementTargetInput", "blur");
-		selenium.setSpeed(MID_SPEED);
+		this.typeString("idBranchManagementTargetInput", branchname);
+//		selenium.setSpeed(MID_SPEED);
 		selenium.click("idBranchManagementCreateButton");
+		this.waitForElementPresent("//span[text()='"
+				+ other.getString("project.branchmanage.add.conform") + "']", WAIT_TIME);
+		selenium.click("//button[text()='"
+				+ other.getString("project.branchmanage.add.conform.ok")
+				+ "']");
+		this.waitForElementPresent("//span[text()='" + branchname + "']", WAIT_TIME);
+		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
 		
-		if (selenium.isElementPresent("//span[text()='"
+		/*if (selenium.isElementPresent("//span[text()='"
 				+ other.getString("project.branchmanage.add.conform") + "']")) {
 			
 			selenium.click("//button[text()='"
@@ -50,7 +57,7 @@ public class TestBranchManageAdd extends Login {
 //			}
 		} else {
 			Assert.fail("Can not found the conformation!");
-		}
+		}*/
 		selenium.setSpeed(MIN_SPEED);
 		//
 		selenium.refresh();
@@ -60,36 +67,22 @@ public class TestBranchManageAdd extends Login {
 				+ project + "')]");// the selected project's id
 		selenium.click("idBranchManagementButton");
 		selenium.setSpeed(MID_SPEED);
-		Thread.sleep(3000);
-		selenium.click("idBranchManagementSourceInput");
+		this.clickWaitForElementPresent("idBranchManagementSourceInput");
+		this.waitForElementPresent("//div[text()='trunk']", WAIT_TIME);
 		selenium.mouseDown("//div[text()='trunk']");
 		selenium.fireEvent("idBranchManagementSourceInput", "blur");
 		selenium.setSpeed(MIN_SPEED);
-		selenium.click("idBranchManagementTargetInput");
-		selenium.type("idBranchManagementTargetInput", "test_"+branchname);
-		selenium.fireEvent("idBranchManagementTargetInput", "blur");
-		selenium.setSpeed(MID_SPEED);
+		branchname = "test_"+branchname;
+		this.typeString("idBranchManagementTargetInput", branchname);
+//		selenium.setSpeed(MID_SPEED);
 		selenium.click("idBranchManagementCreateButton");
-		
-		if (selenium.isElementPresent("//span[text()='"
-				+ other.getString("project.branchmanage.add.conform") + "']")) {
-			
-			selenium.click("//button[text()='"
-					+ other.getString("project.branchmanage.add.conform.ok")
-					+ "']");
-			if (selenium
-					.isElementPresent("//span[text()='" +"test_"+ branchname + "']")) {
-				selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
-			} else {
-				Assert.fail("branch added failed");
-				selenium.click("//button[text()='"
-						+ other.getString("project.branchmanage.add.conform.ok.warning")
-						+ "']");
-			}
-		} else {
-			Assert.fail("Can not found the conformation!");
-		}
-		//
+		this.waitForElementPresent("//span[text()='"
+				+ other.getString("project.branchmanage.add.conform") + "']", WAIT_TIME);
+		selenium.click("//button[text()='"
+				+ other.getString("project.branchmanage.add.conform.ok")
+				+ "']");
+		this.waitForElementPresent("//span[text()='" + branchname + "']", WAIT_TIME);
+		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
 		selenium.setSpeed(MIN_SPEED);
 
 	}

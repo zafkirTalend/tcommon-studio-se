@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import org.testng.Assert;
 
+import com.talend.tac.base.Base;
 import com.thoughtworks.selenium.Selenium;
 
 public class TacCleaner {
@@ -23,18 +24,20 @@ public class TacCleaner {
 //		this.clickWaitForElementPresent("idMenuUserElement");
 	 selenium.click("!!!menu.project.element!!!");
 	 Thread.sleep(5000);
+	 selenium.setSpeed(MIN_SPEED);
 		projects = this.findSpecialMachedStrings(selenium,".*@[a-zA-Z0-9]*");
 		// users = this.findSpecialMachedStrings(".[A-Za-z]*\\ to ");
 		for (int i = 0; i < projects.size(); i++) {
 			// System.out.println(users.get(i));
+			 selenium.setSpeed(MIN_SPEED);
 			if (projects.get(i).startsWith("test")||projects.get(i).startsWith("Copy_of_")) {
 				selenium.refresh();
-				Thread.sleep(5000);
+				this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and text()='"+projects.get(i)+"']", Base.WAIT_TIME, selenium);
 				selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and text()='"+projects.get(i)+"']");
-				Thread.sleep(3000);
+				Thread.sleep(2000);	
 				selenium.chooseOkOnNextConfirmation();
 				selenium.click("//div[text()='Projects']/ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");
-				selenium.setSpeed(MAX_SPEED);
+//				selenium.setSpeed(MAX_SPEED);
 				assert (selenium.getConfirmation()
 						.matches(other.getString("delete.project.warning")));
 				selenium.setSpeed(MIN_SPEED);
@@ -121,5 +124,25 @@ public class TacCleaner {
 			}
 		}
 		return strs;
+	}
+ 
+ public void waitForElementPresent(String locator, int seconds, Selenium selenium) {
+		for (int second = 0;; second++) {
+			if (second >= seconds)
+				// org.testng.Assert.fail("wait for element "+ locator +
+				// " to be present,time out");
+				org.testng.Assert
+						.assertTrue(selenium.isElementPresent(locator));
+			try {
+				if (selenium.isElementPresent(locator))
+					break;
+			} catch (Exception e) {
+			}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

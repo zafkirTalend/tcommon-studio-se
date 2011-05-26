@@ -30,13 +30,16 @@ public class TestAddProjectUncheckadvanced extends Login {
 	@Parameters({"uncheckAdvancedProject" ,"ProjectType", "Prolanguage" })
 	public void testAddPerlproject(String namecommon,String type, String language)
 			throws InterruptedException {
+		selenium.setSpeed(MIN_SPEED);
 		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
 //		String namecommon = "DefaultProUncheck";
-		selenium.setSpeed(MID_SPEED);
+//		selenium.setSpeed(MID_SPEED);
+		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
 		selenium.click("!!!menu.project.element!!!");
+		this.waitForElementPresent("idSubModuleAddButton", Base.WAIT_TIME);
 		selenium.click("idSubModuleAddButton");
-		Thread.sleep(5000);
-		selenium.setSpeed(MID_SPEED);
+//		Thread.sleep(5000);
+//		selenium.setSpeed(MID_SPEED);
 		// add the type select option selenium.setSpeed("2000");
 		if (selenium.isVisible("idProjectTypeComboBox")) {
 			selenium.click("idProjectTypeComboBox");
@@ -44,7 +47,7 @@ public class TestAddProjectUncheckadvanced extends Login {
 //			selenium.fireEvent("idProjectTypeComboBox", "blur");
 			
 		}
-		selenium.setSpeed(MIN_SPEED);
+//		selenium.setSpeed(MIN_SPEED);
 		// type project label
 		this.typeString("idLabelInput", namecommon);
 	
@@ -84,16 +87,28 @@ public class TestAddProjectUncheckadvanced extends Login {
 		// selenium.keyDownNative(""+KeyEvent.VK_ENTER);
 		// selenium.keyUpNative(""+KeyEvent.VK_ENTER);
 		System.out.println("before click "+selenium.getValue("idProjectTypeComboBox"));
-		selenium.setSpeed(MAX_SPEED);
+//		selenium.setSpeed(MAX_SPEED);
 		selenium.click("idFormSaveButton");
-		Thread.sleep(5000);
+//		Thread.sleep(5000);
+		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+				+ namecommon + "')]", Base.WAIT_TIME);
 		Assert.assertTrue(
 				selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 						+ namecommon + "')]")
 						&& (selenium.isElementPresent("//img[@title='java']")),
 				"javadefault project added failed");
 
-		delete.okDelete(selenium, namecommon);
+//		delete.okDelete(selenium, namecommon);
+		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+				+ namecommon + "')]");
+		selenium.chooseOkOnNextConfirmation();
+		selenium.click("idSubModuleDeleteButton");
+		selenium.getConfirmation();
+		Thread.sleep(2000);
+		Assert.assertFalse(
+				selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+						+ namecommon + "')]"), "delete project " + namecommon
+						+ " failed!");
 		selenium.setSpeed(MIN_SPEED);
 	}
 }

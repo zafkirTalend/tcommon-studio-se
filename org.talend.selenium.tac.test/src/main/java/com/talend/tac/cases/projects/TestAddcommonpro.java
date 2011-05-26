@@ -47,32 +47,37 @@ public class TestAddcommonpro extends Login {
 
 	public void testaddcommon(String namecommon,String language,String type, String svnurl, String user,
 			String password) throws Exception {
+		selenium.setSpeed(MIN_SPEED);
 		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
 //		selenium.setSpeed(MID_SPEED);
-		Thread.sleep(5000);
-		selenium.click("!!!menu.project.element!!!");
-		selenium.click("idSubModuleAddButton");
-		Thread.sleep(5000);
-		selenium.setSpeed(MIN_SPEED);
+//		Thread.sleep(5000);
+		this.clickWaitForElementPresent("!!!menu.project.element!!!");
+		
+		this.clickWaitForElementPresent("idSubModuleAddButton");
+//		Thread.sleep(5000);
+		
 		//type project label
 		this.typeString("idLabelInput", namecommon);
-		selenium.setSpeed(MID_SPEED);
+//		selenium.setSpeed(MID_SPEED);
 		// add the type select option selenium.setSpeed("2000");
 		if (selenium.isVisible("idProjectTypeComboBox")) {
 			selenium.click("idProjectTypeComboBox");
+			this.waitForElementPresent("//div[text()='" + type + "']", WAIT_TIME);
 			selenium.mouseDown("//div[text()='" + type + "']");
 			selenium.fireEvent("idProjectTypeComboBox", "blur");
 			
 		}
-		selenium.setSpeed(MIN_SPEED);
+//		selenium.setSpeed(MIN_SPEED);
 		//select project language
 		if ("Java".equals(language) || "".equals(language)) {
 			selenium.click("idLanguageInput");
+			this.waitForElementPresent("//div[@role='listitem'][1]", Base.WAIT_TIME);
 			selenium.mouseDownAt("//div[@role='listitem'][1]", ""
 					+ KeyEvent.VK_ENTER);
 		} else {
 
 			selenium.click("idLanguageInput");
+			this.waitForElementPresent("//div[@role='listitem'][2]", Base.WAIT_TIME);
 			selenium.mouseDownAt("//div[@role='listitem'][2]", ""
 					+ KeyEvent.VK_ENTER);
 		}
@@ -88,23 +93,25 @@ public class TestAddcommonpro extends Login {
 		this.typeString("idLoginInput", user);
 		//type svn password
 		this.typeString("idPasswordInput", password);
-		//select svn commit mode 
-		selenium.click("idSvnCommitInput");
-		selenium.mouseDownAt("//div[@role='listitem'][2]", ""
-				+ KeyEvent.VK_ENTER);
-		//select svn lock mode
-		selenium.click("idSvnLockInput");
-		selenium.mouseDownAt("//div[@role='listitem'][2]", ""
-				+ KeyEvent.VK_ENTER);
-		//check svn user log checkbox
-		selenium.click("idSvnUserLogInput");
-//		selenium.setSpeed(MAX_SPEED);
+//		//select svn commit mode 
+//		selenium.click("idSvnCommitInput");
+//		selenium.mouseDownAt("//div[@role='listitem'][2]", ""
+//				+ KeyEvent.VK_ENTER);
+//		//select svn lock mode
+//		selenium.click("idSvnLockInput");
+//		selenium.mouseDownAt("//div[@role='listitem'][2]", ""
+//				+ KeyEvent.VK_ENTER);
+//		//check svn user log checkbox
+//		selenium.click("idSvnUserLogInput");
+////		selenium.setSpeed(MAX_SPEED);
 		this.typeString("idDescriptionInput", "description_" + namecommon);
 		// selenium.focus("idFormSaveButton");
 		// selenium.keyDownNative(""+KeyEvent.VK_ENTER);
 		// selenium.keyUpNative(""+KeyEvent.VK_ENTER);
 		selenium.click("idFormSaveButton");
-		Thread.sleep(5000);
+//		Thread.sleep(5000);
+		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+						+ namecommon + "')]", WAIT_TIME);
 		Assert.assertTrue(
 				selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 						+ namecommon + "')]"), "reference project added failed");
@@ -122,22 +129,24 @@ public class TestAddcommonpro extends Login {
 		//type project label
 		this.typeString("idLabelInput", namereference);
 		// add the type select option selenium.setSpeed("2000");
-		selenium.setSpeed(MID_SPEED);
+//		selenium.setSpeed(MID_SPEED);
 		if (selenium.isVisible("idProjectTypeComboBox")) {
 			selenium.click("idProjectTypeComboBox");
 			this.waitForElementPresent("//div[text()='" + type + "']", WAIT_TIME);
 			selenium.mouseDown("//div[text()='" + type + "']");
 			selenium.fireEvent("idProjectTypeComboBox", "blur");
 		}
-		selenium.setSpeed(MIN_SPEED);
+//		selenium.setSpeed(MIN_SPEED);
 		//select project language
 		if ("Java".equals(language) || "".equals(language)) {
 			selenium.click("idLanguageInput");
+			this.waitForElementPresent("//div[@role='listitem'][1]", Base.WAIT_TIME);
 			selenium.mouseDownAt("//div[@role='listitem'][1]", ""
 					+ KeyEvent.VK_ENTER);
 		} else {
 
 			selenium.click("idLanguageInput");
+			this.waitForElementPresent("//div[@role='listitem'][2]", Base.WAIT_TIME);
 			selenium.mouseDownAt("//div[@role='listitem'][2]", ""
 					+ KeyEvent.VK_ENTER);
 		}
@@ -151,16 +160,16 @@ public class TestAddcommonpro extends Login {
 		this.typeString("idLoginInput",  user);
 		//type svn password
 		this.typeString("idPasswordInput", password);
-		//select svn commit mode 
-		selenium.click("idSvnCommitInput");
-		selenium.mouseDownAt("//div[@role='listitem'][2]", ""
-				+ KeyEvent.VK_ENTER);
-		//select svn lock mode
-		selenium.click("idSvnLockInput");
-		selenium.mouseDownAt("//div[@role='listitem'][2]", ""
-				+ KeyEvent.VK_ENTER);
-		//check svn user log checkbox
-		selenium.click("idSvnUserLogInput");
+//		//select svn commit mode 
+//		selenium.click("idSvnCommitInput");
+//		selenium.mouseDownAt("//div[@role='listitem'][2]", ""
+//				+ KeyEvent.VK_ENTER);
+//		//select svn lock mode
+//		selenium.click("idSvnLockInput");
+//		selenium.mouseDownAt("//div[@role='listitem'][2]", ""
+//				+ KeyEvent.VK_ENTER);
+//		//check svn user log checkbox
+//		selenium.click("idSvnUserLogInput");
 
 //		selenium.setSpeed(MAX_SPEED);
 		//type project descroption
@@ -169,7 +178,8 @@ public class TestAddcommonpro extends Login {
 		// selenium.keyDownNative(""+KeyEvent.VK_ENTER);
 		// selenium.keyUpNative(""+KeyEvent.VK_ENTER);
 		selenium.click("idFormSaveButton");
-		Thread.sleep(5000);
+		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+				+ namereference + "')]", WAIT_TIME);
 		Assert.assertTrue(
 				selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 						+ namereference + "')]"),

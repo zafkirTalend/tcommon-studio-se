@@ -21,16 +21,15 @@ public class TestAddProjectWithOutType extends Login {
 
 	public void testAddProjectWithOutType(String url,String username,String password,String proname, String language, String type)
 			throws Exception {
+		selenium.setSpeed(MIN_SPEED);
 		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
-		selenium.setSpeed(MID_SPEED);
-		selenium.click("!!!menu.project.element!!!");
-		selenium.click("idSubModuleAddButton");
-		Thread.sleep(5000);
-		selenium.setSpeed(MIN_SPEED);
+		this.clickWaitForElementPresent("!!!menu.project.element!!!");
+		this.clickWaitForElementPresent("idSubModuleAddButton");
+		Thread.sleep(2000);
 		this.typeString("idLabelInput", proname);
-		selenium.setSpeed(MIN_SPEED);
 		if (!"Java".equals(language) && !"".equals(language)) {
 			selenium.click("idLanguageInput");
+			this.waitForElementPresent("//div[@role='listitem'][2]", WAIT_TIME);
 			selenium.mouseDownAt("//div[@role='listitem'][2]", ""
 					+ KeyEvent.VK_ENTER);
 		}

@@ -22,23 +22,23 @@ public class TestAddProjectWithWrongSvnUrl extends Login {
 	public void testAddexistproject(String namecommon, String language,
 			String type)
 			throws Exception {
-		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
-		selenium.setSpeed(MID_SPEED);
-		selenium.click("!!!menu.project.element!!!");
-		selenium.click("idSubModuleAddButton");
-		Thread.sleep(5000);
 		selenium.setSpeed(MIN_SPEED);
+		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
+		this.clickWaitForElementPresent("!!!menu.project.element!!!");
+		this.clickWaitForElementPresent("idSubModuleAddButton");
+		Thread.sleep(2000);
 		this.typeString("idLabelInput", namecommon);
 		// add the type select option selenium.setSpeed("2000");
-		selenium.setSpeed(MID_SPEED);
 		if (selenium.isVisible("idProjectTypeComboBox")) {
 			selenium.click("idProjectTypeComboBox");
+			this.waitForElementPresent("//div[text()='" + type + "']", WAIT_TIME);
 			selenium.mouseDown("//div[text()='" + type + "']");
 			selenium.fireEvent("idProjectTypeComboBox", "blur");
 		}
 		selenium.setSpeed(MIN_SPEED);
 		if (!"Java".equals(language) && !"".equals(language)) {
 			selenium.click("idLanguageInput");
+			this.waitForElementPresent("//div[@role='listitem'][2]", WAIT_TIME);
 			selenium.mouseDownAt("//div[@role='listitem'][2]", ""
 					+ KeyEvent.VK_ENTER);
 		}
@@ -46,13 +46,13 @@ public class TestAddProjectWithWrongSvnUrl extends Login {
 		this.typeString("idUrlInput", "svnurl");// svn
 		this.typeString("idLoginInput", "svnuser");// svn account
 		this.typeString("idPasswordInput", "svnpassword");// svn password
-		selenium.click("idSvnCommitInput");
-		selenium.mouseDownAt("//div[@role='listitem'][2]", ""
-				+ KeyEvent.VK_ENTER);
-		selenium.click("idSvnLockInput");
-		selenium.mouseDownAt("//div[@role='listitem'][2]", ""
-				+ KeyEvent.VK_ENTER);
-		selenium.click("idSvnUserLogInput");
+//		selenium.click("idSvnCommitInput");
+//		selenium.mouseDownAt("//div[@role='listitem'][2]", ""
+//				+ KeyEvent.VK_ENTER);
+//		selenium.click("idSvnLockInput");
+//		selenium.mouseDownAt("//div[@role='listitem'][2]", ""
+//				+ KeyEvent.VK_ENTER);
+//		selenium.click("idSvnUserLogInput");
 		this.typeString("idDescriptionInput", "adf");
 		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MID_SPEED);

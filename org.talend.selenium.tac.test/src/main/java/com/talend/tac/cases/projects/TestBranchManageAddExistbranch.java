@@ -12,12 +12,14 @@ public class TestBranchManageAddExistbranch extends Login {
 	@Parameters({ "BranchProject", "BranchName" })
 	public void testAddProjectbranchexist(String project, String branchname) throws InterruptedException {
 		// first add a branch to a project
-		Thread.sleep(5000);
+//		Thread.sleep(5000);
 		
 		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
-		selenium.setSpeed(MID_SPEED);
-		selenium.click("!!!menu.project.element!!!");//
+//		selenium.setSpeed(MID_SPEED);
+		this.clickWaitForElementPresent("!!!menu.project.element!!!");//
 		// System.out.println(selenium.getBodyText());
+		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+				+ project + "')]", WAIT_TIME);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ project + "')]");// the selected project's id
 		selenium.click("idBranchManagementButton");
@@ -70,18 +72,18 @@ public class TestBranchManageAddExistbranch extends Login {
 	}
 
 	public void closeButton(String project, String branchname) {
-		selenium.setSpeed(MID_SPEED);
+//		selenium.setSpeed(MID_SPEED);
+		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+				+ project + "')]", WAIT_TIME);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ project + "')]");// the selected project's id
 		selenium.click("idBranchManagementButton");
-
+		selenium.setSpeed(MID_SPEED);
 		selenium.click("idBranchManagementSourceInput");
 		selenium.mouseDown("//div[text()='trunk']");
 		selenium.fireEvent("idBranchManagementSourceInput", "blur");
 		selenium.setSpeed(MIN_SPEED);
-		selenium.click("idBranchManagementTargetInput");
-		selenium.type("idBranchManagementTargetInput", branchname);
-		selenium.fireEvent("idBranchManagementTargetInput", "blur");
+		this.typeString("idBranchManagementTargetInput", branchname);
 		selenium.click("idBranchManagementCloseButton");
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertFalse(
