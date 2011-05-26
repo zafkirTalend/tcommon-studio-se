@@ -42,6 +42,11 @@ public class TestAddTaskBaseBranchProject  extends Login {
 			selenium.click(xpathinputBox);
 		}
 	}
+	public void inputCheckBoxChecked(String xpathinputBox){
+		if(!selenium.getValue(xpathinputBox).equals("on")){
+			selenium.click(xpathinputBox);
+		}
+	}
 	public String getLogsValue() {
 		String logs = null;
 		selenium.click("//span//span[text()='Logs']");
@@ -93,7 +98,24 @@ public class TestAddTaskBaseBranchProject  extends Login {
 			selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
 		}
 		}
-	public void addSimpleTrigger(String tasklabel,String timeInterval){
+	
+	public void addFileTrigger(String tasklabel,String filetriggerlabel,String filePath,String seconds,String fileMarks,String servername){
+		this.waitForElementPresent("//span[text()='"+tasklabel+"']", WAIT_TIME);
+		selenium.mouseDown("//span[text()='"+tasklabel+"']");
+		selenium.click("//button[text()='Add trigger...']");//add a trigger
+		selenium.click("//a[text()='Add file trigger']");//add a SimpleTrigger
+		this.typeString("idJobConductorFileTriggerLabelInput", filetriggerlabel);
+		this.typeString("idJobConductorFileTriggerCheckTimeIntervalInput", seconds);
+		this.typeString("idJobConductorFileTriggerFolderPathInput", filePath);
+		this.typeString("idJobConductorFileTriggerFileMaskInput", fileMarks);
+		inputCheckBoxChecked("idJobConductorFileTriggerFtExitCheckBox");
+		this.selectDropDownList("idJobConductorFileTriggerFileServerListBox", servername);
+		selenium.click("idFileTriggerSave");
+		this.waitForElementPresent("//span[text()='"+filetriggerlabel+"']", WAIT_TIME);
+	
+	}
+	
+	public void addSimpleTrigger(String tasklabel,String simplelabel,String timeInterval){
 		selenium.refresh();
 		this.waitForElementPresent("//span[text()='"+tasklabel+"']", WAIT_TIME);
 		selenium.mouseDown("//span[text()='"+tasklabel+"']");
@@ -102,7 +124,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
         Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addSimpleTrigger")+"']"));
         
         this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
-        		"//input[@name='label']", "deactiveTaskSimpletrigger");//label
+        		"//input[@name='label']",simplelabel);//label
 		
         this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
 				"//input[@name='description']", "testdescription");//description
@@ -112,7 +134,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
         selenium.setSpeed(MID_SPEED);
         //click save button to save trigger
 	    selenium.click("idSimpleTriggerSave");
-	    Assert.assertTrue(selenium.isElementPresent("//span[text()='deactiveTaskSimpletrigger']"));
+	    Assert.assertTrue(selenium.isElementPresent("//span[text()='"+simplelabel+"']"));
 		selenium.setSpeed(MIN_SPEED);
 	
 	}
@@ -144,7 +166,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 	}
 
 
-	@Test
+//	@Test
 //	(dependsOnGroups={"AddTask"})
 	@Parameters({"TaskBaseBranch","AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
@@ -160,7 +182,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 			
 		}
 	}
-	@Test(dependsOnMethods={"testAddTaskBaseBranch"})
+//	@Test(dependsOnMethods={"testAddTaskBaseBranch"})
 	@Parameters({"TaskBaseBranch"})
 	public void testRunTaskBaseBranch(String tasklabel) throws InterruptedException{
 //		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
@@ -181,7 +203,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		
 	}
 	
-	@Test(dependsOnMethods={"testRunTaskBaseBranch"})
+//	@Test(dependsOnMethods={"testRunTaskBaseBranch"})
 	@Parameters({"labelStatisticViewTask"})
 	public void testTaskStatisticViewDisable(String tasklabel) throws InterruptedException{
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
@@ -211,7 +233,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 	}
 	
 	
-	@Test(dependsOnMethods={"testTaskStatisticViewDisable"})
+//	@Test(dependsOnMethods={"testTaskStatisticViewDisable"})
 	@Parameters({"AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
 	public void testDeactiveTaskWithSimpleTrigger(String projectName, String branchName,
@@ -232,7 +254,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		 
 		 runTask(label,1);
         //add a simple trigger for the task
-        addSimpleTrigger(label,"25");
+        addSimpleTrigger(label,"testDeactivesimpltrigger","25");
         //wait for 160 seconds so that the task run several times
         Thread.sleep(executiontime);
         //see task logs ,count the execution times
@@ -268,7 +290,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		selenium.setSpeed(MIN_SPEED);
 		deleteTask(label);
 	}
-	@Test(dependsOnMethods={"testTaskStatisticViewDisable"})
+//	@Test(dependsOnMethods={"testTaskStatisticViewDisable"})
 	@Parameters({"labelStatisticViewTask"})
 	public void testTaskStatisticViewEnable(String tasklabel) throws InterruptedException{
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
@@ -293,7 +315,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 	}
 	
 	
-	@Test(dependsOnMethods={"testTaskStatisticViewEnable"})
+//	@Test(dependsOnMethods={"testTaskStatisticViewEnable"})
 	@Parameters({"AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
 	public void testDeleteTaskExecutionLogs(String projectName,
@@ -339,6 +361,87 @@ public class TestAddTaskBaseBranchProject  extends Login {
 //			Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==0,"delete  logs through delete task failed !");
 			selenium.setSpeed(MIN_SPEED);
 		}
+	}
+	
+	@Test
+	@Parameters({"AddcommonProjectname","ProjectBranch","jobWithContexts","version0.1",
+		"context","ServerForUseAvailable","statisticEnabled","FolderPath","FileMask","ServerForUseAvailable"})
+	public void testRemoveTaskWithComplicatedItems(String projectName,
+			String branchName, String jobName, String version, String context,
+			String serverName, String statisticName,String path,String mark,String server) throws InterruptedException{
+		//add a task with several context
+		String tasklabel = "testTaskWithItems";
+		String simpletrigger = "testTaskRemoveSimpleTrigger";
+		addTask(tasklabel, projectName, branchName, jobName, version, context,
+				serverName, statisticName);
+		if (!selenium.isElementPresent("//span[text()='" + tasklabel + "']")) {
+			selenium.click("idFormSaveButton");
+			selenium.setSpeed(MID_SPEED);
+			Assert.assertTrue(selenium.isElementPresent("//span[text()='"
+					+ tasklabel + "']"));
+			selenium.setSpeed(MIN_SPEED);
+
+		}
+		//add a simple trigger for task added
+		addSimpleTrigger(tasklabel,simpletrigger,"15");
+		String filetriggerlabel = "testFileTrigger";
+		//add a file trigger for task added
+		addFileTrigger(tasklabel,filetriggerlabel ,path,"30",mark,server);
+		//active one context of task
+		selenium.mouseDown("//span[text()='"+tasklabel+"']");	
+		this.clickWaitForElementPresent("//span[text()='Context parameters']");
+		Thread.sleep(2000);
+		if(selenium.isElementPresent("//div[text()='age']/ancestor::table[@class='x-grid3-row-table']//div[@class='x-grid3-check-col x-grid3-check-col x-grid3-cc-override']")){
+			selenium.mouseDown("//div[text()='age']/ancestor::table[@class='x-grid3-row-table']//div[@class='x-grid3-check-col x-grid3-check-col x-grid3-cc-override']");
+		
+		}
+		Assert.assertTrue(selenium.isElementPresent("//div[text()='age']/ancestor::table[@class='x-grid3-row-table']//div[@class='x-grid3-check-col x-grid3-check-col-on x-grid3-cc-override']"), "active context age failed!");
+		//add a jvm parameter for task
+//		addJVM();
+		//then delete the task.
+		Assert.assertTrue(deleteTask(tasklabel));
+		//add a task with same name ,to see if these items exist still
+		addTask(tasklabel, projectName, branchName, jobName, version, context,
+				serverName, statisticName);
+		if (!selenium.isElementPresent("//span[text()='" + tasklabel + "']")) {
+			selenium.click("idFormSaveButton");
+			selenium.setSpeed(MID_SPEED);
+			Assert.assertTrue(selenium.isElementPresent("//span[text()='"
+					+ tasklabel + "']"));
+			selenium.setSpeed(MIN_SPEED);
+
+		}
+		selenium.mouseDown("//span[text()='"
+				+ tasklabel + "']");
+		this.clickWaitForElementPresent("//span[text()='Context parameters']");
+		Thread.sleep(5000);
+		Assert.assertFalse(selenium.isElementPresent("//div[text()='age']/ancestor::table[@class='x-grid3-row-table']//div[@class='x-grid3-check-col x-grid3-check-col-on x-grid3-cc-override']"), "task delete context failed!");
+		this.clickWaitForElementPresent("//span[@class='x-tab-strip-text  ' and text()='Triggers']");
+		Thread.sleep(5000);
+		Assert.assertFalse(selenium.isElementPresent("//span[text()='"+filetriggerlabel+"']"), "test task remove failed!");
+		Assert.assertFalse(selenium.isElementPresent("//span[text()='"+simpletrigger+"']"), "test task remove failed!");
+	
+	}
+	public void addJVM(){
+		this.clickWaitForElementPresent("//span[text()='JVM parameters']");
+		this.clickWaitForElementPresent("idJobConductorCmdPrmAddButton");
+		//jvm parameters
+		this.clickWaitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-parameter']");
+		this.waitForElementPresent("//span[text()='JVM parameter']//ancestor::div[@class='x-grid3-viewport']//input", WAIT_TIME);//jvm
+		selenium.click("//span[text()='JVM parameter']//ancestor::div[@class='x-grid3-viewport']//input");
+		selenium.type("//span[text()='JVM parameter']//ancestor::div[@class='x-grid3-viewport']//input","-Xms356M -Xmx1024M");
+		//description
+		this.clickWaitForElementPresent("//span[text()='Description']//ancestor::div[@class='x-grid3-viewport']//td[@class='x-grid3-col x-grid3" +
+				"-cell x-grid3-td-description x-grid3-cell-last ']//img[@title='Click to edit']");
+		this.waitForElementPresent("//span[text()='Description']//ancestor::div[@class='x-grid3-viewport']", WAIT_TIME);//jvm
+		selenium.click("//span[text()='Description']//ancestor::div[@class='x-grid3-viewport']//input");
+		selenium.type("//span[text()='Description']//ancestor::div[@class='x-grid3-viewport']//input","jvm set in task");
+		selenium.keyDown("//span[text()='Description']//ancestor::div[@class='x-grid3-viewport']//input", "\\13");
+	    selenium.setSpeed(MIN_SPEED);
+	    
+	    selenium.click("//button[@id='idJobConductorTaskRunButton()'  and @class='x-btn-text ' and text()='Run']");
+	    this.waitForElementPresent("//label[text()='Ok']", WAIT_TIME);
+	    selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
 	}
 	
 	public boolean waitForCondition(String locator,int seconds) throws InterruptedException{
