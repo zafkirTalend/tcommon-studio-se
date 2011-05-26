@@ -17,7 +17,7 @@ public class TestAddServer extends Login {
 			String description, String host, String commondport,
 			String transfortport, String monitorport, String time,
 			String username, String password) throws InterruptedException {
-		Thread.sleep(5000);
+//		Thread.sleep(5000);
 		this.waitForElementPresent("!!!menu.executionServers.element!!!", WAIT_TIME);
 		
 			selenium.click("!!!menu.executionServers.element!!!");

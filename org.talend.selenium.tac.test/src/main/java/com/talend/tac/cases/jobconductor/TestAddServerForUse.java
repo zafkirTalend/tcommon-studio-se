@@ -28,15 +28,19 @@ public class TestAddServerForUse extends Login {
 		selenium.refresh();
 		this.waitForElementPresent("idSubModuleAddButton", WAIT_TIME);
 		selenium.click("idSubModuleAddButton");
-		Thread.sleep(5000);
+		Thread.sleep(2000);
 		// lable
 		this.typeString(other.getString("inputname.id.server.add.label"), lable);
 		// host
 		this.typeString(other.getString("inputname.id.server.add.host"), host);
 		// save
-		selenium.setSpeed(MAX_SPEED);
+//		selenium.setSpeed(MAX_SPEED);
 		selenium.click("idFormSaveButton");
 		Thread.sleep(3000);
+		selenium.refresh();
+		this.waitForElementPresent("//div[text()='" + lable
+				+ "']", WAIT_TIME);
+		Thread.sleep(2000);
 		Assert.assertTrue((selenium.isElementPresent("//div[text()='" + lable
 				+ "']"))&&selenium.isElementPresent("//span[@class='serv-value' and (text()='UP')]"),"add server available failed!");
 		selenium.setSpeed(MIN_SPEED);
@@ -48,7 +52,7 @@ public class TestAddServerForUse extends Login {
 		selenium.refresh();
 		this.waitForElementPresent("idSubModuleAddButton", WAIT_TIME);
 		selenium.click("idSubModuleAddButton");
-		Thread.sleep(5000);
+		Thread.sleep(2000);
 		// lable
 		this.typeString(other.getString("inputname.id.server.add.label"),
 				unactivelabel);
@@ -56,11 +60,13 @@ public class TestAddServerForUse extends Login {
 		this.typeString(other.getString("inputname.id.server.add.host"), host);
 		selenium.click("//input[@class=' x-form-checkbox' and @type='checkbox' and @name='active']");
 		// save
-		selenium.setSpeed(MAX_SPEED);
+//		selenium.setSpeed(MAX_SPEED);
 		selenium.click("idFormSaveButton");
 		Thread.sleep(8000);
 		selenium.refresh();
-		Thread.sleep(3000);
+		this.waitForElementPresent("//div[text()='"
+				+ unactivelabel + "']", WAIT_TIME);
+		Thread.sleep(2000);
 		Assert.assertTrue((selenium.isElementPresent("//div[text()='"
 				+ unactivelabel + "']"))
 				&& (selenium
@@ -72,14 +78,14 @@ public class TestAddServerForUse extends Login {
 		selenium.refresh();
 		this.waitForElementPresent("idSubModuleAddButton", WAIT_TIME);
 		selenium.click("idSubModuleAddButton");
-		Thread.sleep(5000);
+		Thread.sleep(2000);
 		// lable
 		this.typeString(other.getString("inputname.id.server.add.label"),
 				serverdown);
 		// host
 		this.typeString(other.getString("inputname.id.server.add.host"), "unknownhost");
 		// save
-		selenium.setSpeed(MAX_SPEED);
+//		selenium.setSpeed(MAX_SPEED);
 		selenium.click("idFormSaveButton");
 		Thread.sleep(10000);
 		selenium.refresh();

@@ -10,21 +10,23 @@ public class TestDeactiveAndReactiveServer extends Login{
 	@Test(groups = { "DeactiveReactive" },dependsOnGroups = { "AddServer" })
 	@Parameters({ "DeactiveServerlable" })
 	public void serverDeactiveAndReactive(String deactiveServername) throws InterruptedException {
-		Thread.sleep(5000);
+//		Thread.sleep(5000);
 		this.waitForElementPresent("!!!menu.executionServers.element!!!", WAIT_TIME);
 		selenium.click("!!!menu.executionServers.element!!!");
-		Thread.sleep(5000);
+//		Thread.sleep(5000);
 		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+deactiveServername+"')]", WAIT_TIME);
-		
+		Thread.sleep(2000);
 			selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+deactiveServername+"')]");
 			// uncheck the active optioon
 			Thread.sleep(3000);
 			selenium.click("//input[@class=' x-form-checkbox' and @type='checkbox' and @name='active']");
 			// click the save button
-			selenium.setSpeed(MID_SPEED);
+//			selenium.setSpeed(MID_SPEED);
 			selenium.click("idFormSaveButton");
 			// refresh
-			selenium.click("idSubModuleRefreshButton");
+			selenium.refresh();
+//			selenium.click("idSubModuleRefreshButton");
+			this.waitForElementPresent("//span[@class='serv-value' and (text()='INACTIVE')]", WAIT_TIME);
 			Assert.assertTrue(
 					(selenium
 							.isElementPresent("//span[@class='serv-value' and (text()='INACTIVE')]")),
@@ -33,15 +35,17 @@ public class TestDeactiveAndReactiveServer extends Login{
 			//reactive the server
 			selenium.refresh();
 			this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+deactiveServername+"')]", WAIT_TIME);
+			Thread.sleep(3000);
 			selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+deactiveServername+"')]");
 			// checked the active optioon
 			Thread.sleep(3000);
 			selenium.click("//input[@class=' x-form-checkbox' and @type='checkbox' and @name='active']");
 			// click the save button
-			selenium.setSpeed(MID_SPEED);
+//			selenium.setSpeed(MID_SPEED);
 			selenium.click("idFormSaveButton");
 			// refresh
-			selenium.click("idSubModuleRefreshButton");
+			selenium.refresh();
+			this.waitForElementPresent("//span[@class='serv-value' and (text()='UP')]", WAIT_TIME);
 			Assert.assertTrue(
 					(selenium
 							.isElementPresent("//span[@class='serv-value' and (text()='UP')]")),

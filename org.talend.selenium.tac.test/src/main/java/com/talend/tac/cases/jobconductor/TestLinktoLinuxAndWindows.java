@@ -10,9 +10,10 @@ public class TestLinktoLinuxAndWindows extends Login {
   @Test(groups = { "left" }, dependsOnGroups = { "CleanServer" })
   @Parameters({ "RemoteLinuxServerIp", "RemoteWindowServerIp"})
   public void linktoLinuxAndWindows(String linuxIp,String windowsIp) throws InterruptedException {
-	    Thread.sleep(5000);
-	    selenium.setSpeed(MAX_SPEED);
-	    selenium.click("!!!menu.executionServers.element!!!");
+//	    Thread.sleep(5000);
+//	    selenium.setSpeed(MAX_SPEED);
+	  
+	    this.clickWaitForElementPresent("!!!menu.executionServers.element!!!");
 //		if (selenium.isVisible("!!!menu.executionServers.element!!!")) {
 //			selenium.click("!!!menu.executionServers.element!!!");
 //			waitForElementPresent("idSubModuleAddButton", 30000);
@@ -31,6 +32,7 @@ public class TestLinktoLinuxAndWindows extends Login {
 		
   }
   public void addRemoteServerRuninLinux(String Linuxserverip){
+	  this.waitForElementPresent("idSubModuleAddButton", WAIT_TIME);
 		if (selenium.isElementPresent("idSubModuleAddButton")) {
 			selenium.click("idSubModuleAddButton");
 			// lable
@@ -40,12 +42,12 @@ public class TestLinktoLinuxAndWindows extends Login {
 			this.typeString(other.getString("inputname.id.server.add.host"), Linuxserverip);
 			// save
 			selenium.click("idFormSaveButton");
-			selenium.setSpeed(MID_SPEED);
+//			selenium.setSpeed(MID_SPEED);
 			// refresh
-			selenium.click("idSubModuleRefreshButton");
+			selenium.refresh();
+			this.waitForElementPresent("//div[text()='test_RemoteLinux']", WAIT_TIME);
 			
-
-			if ((selenium.isElementPresent("//div[text()='RemoteLinux']"))&&(selenium
+			if ((selenium.isElementPresent("//div[text()='test_RemoteLinux']"))&&(selenium
 					.isElementPresent("//span[@class='serv-value' and (text()='UP')]"))) {
 
 			} else {
@@ -57,6 +59,7 @@ public class TestLinktoLinuxAndWindows extends Login {
 		}
   }
   public void addRemoteServerRuninWindows(String windowsserverip){
+	  this.waitForElementPresent("idSubModuleAddButton", WAIT_TIME);
 		if (selenium.isElementPresent("idSubModuleAddButton")) {
 			selenium.click("idSubModuleAddButton");
 			// lable
@@ -68,8 +71,9 @@ public class TestLinktoLinuxAndWindows extends Login {
 			selenium.setSpeed(MID_SPEED);
 			selenium.click("idFormSaveButton");
 			// refresh
-			selenium.click("idSubModuleRefreshButton");
-			if ((selenium.isElementPresent("//div[text()='RemoteWindows']"))&&(selenium
+			selenium.refresh();
+			this.waitForElementPresent("//div[text()='test_RemoteWindows']", WAIT_TIME);
+			if ((selenium.isElementPresent("//div[text()='test_RemoteWindows']"))&&(selenium
 					.isElementPresent("//span[@class='serv-value' and (text()='UP')]"))) {
 
 			} else {
@@ -80,11 +84,13 @@ public class TestLinktoLinuxAndWindows extends Login {
 
 		}
   }
-  public void deleteServer(String serverlabel){
+  public void deleteServer(String serverlabel) throws InterruptedException{
 	  selenium.setSpeed(MID_SPEED);
-	  if(selenium.isElementPresent("//div[text()='RemoteLinux']")){
+	  if(selenium.isElementPresent("//div[text()='"+serverlabel+"']")){
 			selenium.refresh();
+			this.waitForElementPresent("//div[text()='"+serverlabel+"']", WAIT_TIME);
 			selenium.chooseOkOnNextConfirmation();
+			Thread.sleep(2000);
 			selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+serverlabel+"')]");
 			selenium.click("idSubModuleDeleteButton");
 			selenium.getConfirmation();

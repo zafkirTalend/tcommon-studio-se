@@ -17,37 +17,13 @@ public class TestAddServerWithInvalidports extends Login {
 			String description, String host, String commondport,
 			String transfortport, String monitorport, String time,
 			String username, String password) {
-		selenium.setSpeed(MAX_SPEED);
-		if (selenium.isVisible("!!!menu.executionServers.element!!!")) {
-			selenium.click("!!!menu.executionServers.element!!!");
-			waitForElementPresent("idSubModuleAddButton", 30000);
-
-		} else {
-			selenium.click("!!!menu.jobConductor.element!!!");
-			selenium.setSpeed(MID_SPEED);
-			selenium.click("!!!menu.executionServers.element!!!");
-			waitForElementPresent("idSubModuleAddButton", 30000);
-
-		}
-		selenium.setSpeed(MAX_SPEED);
-		// System.out.println("click add before !");
-		if (selenium.isElementPresent("idSubModuleAddButton")) {
-			addServerwithInvalideports(invalidLable);
-			// save
-			selenium.setSpeed(MAX_SPEED);
-			selenium.click("idFormSaveButton");
-			// refresh
-			selenium.click("idSubModuleRefreshButton");
-//			if (selenium.isElementPresent("//div[text()='" + lable + "']")) {
-//
-//			} else {
-//				Assert.fail("Server added failed !");
-//			}
-			Assert.assertFalse(selenium.isElementPresent("//div[text()='" + invalidLable + "']"),"Test add server with invalid ports failed!");
-		} else {
-			Assert.fail("add button can not be seen !");
-
-		}
+		this.waitForElementPresent("!!!menu.executionServers.element!!!",
+				WAIT_TIME);
+		selenium.click("!!!menu.executionServers.element!!!");
+		selenium.refresh();
+		this.waitForElementPresent("idSubModuleAddButton", WAIT_TIME);
+		addServerwithInvalideports(invalidLable);
+		
 		selenium.setSpeed(MIN_SPEED);
 
 	}
