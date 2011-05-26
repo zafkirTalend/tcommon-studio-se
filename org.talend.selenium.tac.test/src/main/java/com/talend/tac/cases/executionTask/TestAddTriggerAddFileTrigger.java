@@ -31,7 +31,7 @@ public class TestAddTriggerAddFileTrigger extends Login {
     	
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task again
 		selenium.click("idTriggerAdd trigger...");//add a trigger
-		selenium.click("//a[text()='Add file trigger']");//add a FileTrigger
+		selenium.click("idTriggerAdd file trigger");//add a FileTrigger
         Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addFileTrigger")+"']"));
 		
     	this.typeString("idJobConductorFileTriggerLabelInput", triggerLabel);//label
