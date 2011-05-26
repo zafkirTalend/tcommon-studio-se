@@ -87,16 +87,18 @@ public class TestAddTaskBaseBranchProject  extends Login {
 			selenium.refresh();
 			this.waitForElementPresent("//span[text()='" + tasklabel + "']",
 					WAIT_TIME);
+			Thread.sleep(2000);
 			selenium.mouseDown("//span[text()='" + tasklabel + "']");
-			Thread.sleep(3000);
+			Thread.sleep(2000);
 			selenium.click("//button[@id='idJobConductorTaskRunButton'  and @class='x-btn-text ' and text()='Run']");
 			// Date start = new Date();
+			this.waitForElementPresent("//span[text()='Real time statistics']", Base.WAIT_TIME);
 			Assert.assertTrue(
 					waitForCondition("//label[text()='Ok']", Base.WAIT_TIME),
 					"task run failed!");
 			// close the pop window
 			selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
-		}
+		   }
 		}
 	
 	public void addFileTrigger(String tasklabel,String filetriggerlabel,String filePath,String seconds,String fileMarks,String servername){
