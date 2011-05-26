@@ -112,7 +112,12 @@ public class Base {
 		this.waitForElementPresent(locator, Base.WAIT_TIME);
 		selenium.click(locator);
 	}
-
+	
+	public void typeWaitForElementPresent(String locator,String value) {
+		this.waitForElementPresent(locator, Base.WAIT_TIME);
+		selenium.type(locator,value);
+	}
+	
 	/**
 	 * find the first String which match regex
 	 * 
