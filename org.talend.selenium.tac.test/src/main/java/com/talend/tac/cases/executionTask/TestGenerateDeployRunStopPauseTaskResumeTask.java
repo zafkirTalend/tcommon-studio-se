@@ -1,6 +1,5 @@
 package com.talend.tac.cases.executionTask;
 
-import java.awt.Event;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -117,20 +116,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
     	selenium.setSpeed(MIN_SPEED);
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select an simple task
     	selenium.click("//label[text()='Statistic:']/parent::div/div/div/div");//statistic
-    	selenium.setSpeed(MID_SPEED);
-    	
-    	if(selenium.isElementPresent("//div[text()='"+statisticRemovedRegeneration+"' and @role='listitem']")) {
-    		
-    		selenium.mouseDownAt("//div[text()='"+statisticRemovedRegeneration+"' and @role='listitem']",""+Event.ENTER);
-    		
-    	} else {
-    		
-    		selenium.mouseDownAt("//div[text()='"+statisticEnabledReGeneration+"' and @role='listitem']",""+Event.ENTER);
-    		
-    	}
-    	
-    	selenium.setSpeed(MIN_SPEED);
-		selenium.click("idFormSaveButton");
+    
 		selenium.click("//button[@id='idJobConductorTaskRunButton' and text()='Run']");//click Run button
 		
 		selenium.setSpeed(MID_SPEED);
