@@ -166,8 +166,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 	}
 
 
-//	@Test
-//	(dependsOnGroups={"AddTask"})
+	@Test(dependsOnGroups={"AddTask"})
 	@Parameters({"TaskBaseBranch","AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
 	public void testAddTaskBaseBranch(String label, String projectName, String branchName,
@@ -182,7 +181,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 			
 		}
 	}
-//	@Test(dependsOnMethods={"testAddTaskBaseBranch"})
+	@Test(dependsOnMethods={"testAddTaskBaseBranch"})
 	@Parameters({"TaskBaseBranch"})
 	public void testRunTaskBaseBranch(String tasklabel) throws InterruptedException{
 //		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
@@ -203,7 +202,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		
 	}
 	
-//	@Test(dependsOnMethods={"testRunTaskBaseBranch"})
+	@Test(dependsOnMethods={"testRunTaskBaseBranch"})
 	@Parameters({"labelStatisticViewTask"})
 	public void testTaskStatisticViewDisable(String tasklabel) throws InterruptedException{
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
@@ -233,7 +232,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 	}
 	
 	
-//	@Test(dependsOnMethods={"testTaskStatisticViewDisable"})
+	@Test(dependsOnMethods={"testTaskStatisticViewDisable"})
 	@Parameters({"AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
 	public void testDeactiveTaskWithSimpleTrigger(String projectName, String branchName,
@@ -290,7 +289,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		selenium.setSpeed(MIN_SPEED);
 		deleteTask(label);
 	}
-//	@Test(dependsOnMethods={"testTaskStatisticViewDisable"})
+	@Test(dependsOnMethods={"testTaskStatisticViewDisable"})
 	@Parameters({"labelStatisticViewTask"})
 	public void testTaskStatisticViewEnable(String tasklabel) throws InterruptedException{
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
@@ -315,7 +314,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 	}
 	
 	
-//	@Test(dependsOnMethods={"testTaskStatisticViewEnable"})
+	@Test(dependsOnMethods={"testTaskStatisticViewEnable"})
 	@Parameters({"AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
 	public void testDeleteTaskExecutionLogs(String projectName,
@@ -363,7 +362,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		}
 	}
 	
-	@Test
+	@Test(dependsOnMethods={"testAddTaskBaseBranch"})
 	@Parameters({"AddcommonProjectname","ProjectBranch","jobWithContexts","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled","FolderPath","FileMask","ServerForUseAvailable"})
 	public void testRemoveTaskWithComplicatedItems(String projectName,
