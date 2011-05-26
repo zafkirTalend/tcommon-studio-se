@@ -19,7 +19,7 @@ public class TestAddTriggerAddCronTrigger extends Login{
     	selenium.setSpeed(MIN_SPEED);
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task
 		selenium.click("idTriggerAdd trigger...");//add a trigger
-		selenium.click("//a[text()='Add CRON trigger']");//add a  CronTrigger
+		selenium.click("idTriggerAdd CRON trigger");//add a  CronTrigger
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addCronTrigger")+"']"));
 		selenium.setSpeed(MIN_SPEED);
@@ -84,7 +84,7 @@ public class TestAddTriggerAddCronTrigger extends Login{
     	selenium.setSpeed(MIN_SPEED);
        	selenium.mouseDown("//span[text()='"+taskLabel+"']");
 		selenium.click("idTriggerAdd trigger...");
-		selenium.click("//a[text()='Add CRON trigger']");
+		selenium.click("idTriggerAdd CRON trigger");
 
 		this.typeString("idJobConductorCronTriggerLabelInput",cronTriggerLabel);
 		//type  description
@@ -121,11 +121,11 @@ public class TestAddTriggerAddCronTrigger extends Login{
 		selenium.setSpeed(MIN_SPEED);
 		selenium.setSpeed(MID_SPEED);
 	   	Assert.assertTrue(selenium.isTextPresent(rb.getString("trigger.error.trigger_will_never_fire")));
-	    selenium.setSpeed(MIN_SPEED); 	
+	    selenium.setSpeed(MIN_SPEED); 	                        
     }
 	
 	//add a CronTrigger,selected job is referencetjava(tjava(from referecepro))**/
-	@Test(dependsOnMethods={"testAddOverdueTriggerAddCronTrigger"})
+	@Test(dependsOnMethods={"testAddTriggerAddCronTrigger"})
 	@Parameters({ "labelReferenceproTjava","addCronTriggerByHandInputDateLabel", "addCronTriggerByHandInputDateDescription"})
 	public void testAddCronByHandInputDateTrigger(String taskLabel,String addCronTrigger,String addCronTriggerDescription) throws InterruptedException{
 	
@@ -136,7 +136,7 @@ public class TestAddTriggerAddCronTrigger extends Login{
     	selenium.setSpeed(MIN_SPEED);
        	selenium.mouseDown("//span[text()='"+taskLabel+"']");
 		selenium.click("idTriggerAdd trigger...");
-		selenium.click("//a[text()='Add CRON trigger']");
+		selenium.click("idTriggerAdd CRON trigger");
 //		selenium.setSpeed(MID_SPEED);
 		Thread.sleep(5000);
 		selenium.setSpeed(MIN_SPEED);
