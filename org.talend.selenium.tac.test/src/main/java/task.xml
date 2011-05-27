@@ -69,7 +69,9 @@
     <parameter name="addFileTriggerOfExistDescription" value="test add a cronTrigger" />
     <parameter name="FolderPath" value="/d:/" />
     <parameter name="FileMask" value="*.txt" />
-    <parameter name="triggerExistCondition" value="exist" />
+
+    <parameter name="addFileTriggerOfExistWrongForm" value="$$@@" />
+    <parameter name="addFileTriggerOfExistDescriptionWrongForm" value="test add a cronTrigger use wrong form value" />
     <!-- add trigger -->
     
     <!-- duplicate trigger -->
@@ -138,18 +140,15 @@
             <class name="com.talend.tac.cases.executionTask.TestTaskWithTRunjob"/>
             <class name="com.talend.tac.cases.executionTask.TestGenerateDeployRunStopPauseTaskResumeTask"/>  
      		<!--<class name="com.talend.tac.cases.executionTask.TestAddJVMParametersForTask"/> 
-            -->
-            <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddSimpleTrigger"/>
+            
+            --><class name="com.talend.tac.cases.executionTask.TestAddTriggerAddSimpleTrigger"/>
             <class name="com.talend.tac.cases.executionTask.TestDeleteTrigger"/>
             <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddCronTrigger"/>      
             <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddFileTrigger"/>
             <class name="com.talend.tac.cases.executionTask.TestModifyTrigger"/>
             <class name="com.talend.tac.cases.executionTask.TestDuplicateTrigger"/>
             <class name="com.talend.tac.cases.jobconductor.TestTaskDisplay"/> 	
-           	<!--             	
-           <class name="com.talend.tac.cases.executionTask.TestTriggerBarPauseResume"/> 
-           -->
-
+          
         </classes> 
 	</test>
 	
