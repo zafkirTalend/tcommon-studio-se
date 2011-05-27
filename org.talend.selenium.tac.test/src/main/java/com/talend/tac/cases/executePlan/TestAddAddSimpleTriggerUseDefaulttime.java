@@ -18,12 +18,11 @@ public class TestAddAddSimpleTriggerUseDefaulttime extends Login{
 	@Parameters({ "plan.toaddsimpletrigger.label", "plan.simpletrigger.defaulttime.label"})
 	public void testAddTriggerAddSimpleTrigger(String addsimpletriggerplan,String defaulttimeSimpletrigger) {
 		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
-    	selenium.setSpeed(MID_SPEED);
-    	Assert.assertTrue(selenium.isElementPresent("//div[@class='header-title' and text()='EXECUTION PLAN']"));
-    	selenium.setSpeed(MIN_SPEED);
-    	selenium.click("idSubModuleRefreshButton");
-    	selenium.mouseDown("//div[text()='"+addsimpletriggerplan+"']");//select a exist task
-		selenium.click("//button[text()='Add trigger...']");//add a trigger
+		this.waitForElementPresent("//div[@class='header-title' and text()='Execution Plan']", WAIT_TIME);
+		Assert.assertTrue(selenium
+				.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
+    	selenium.mouseDown("//span[text()='"+addsimpletriggerplan+"']");//select a exist task
+		selenium.click("idTriggerAdd trigger...");//add a trigger
 		selenium.click("//a[text()='Add simple trigger']");//add a SimpleTrigger
         Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addSimpleTrigger")+"']"));
         selenium.setSpeed(MIN_SPEED);

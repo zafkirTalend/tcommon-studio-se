@@ -18,12 +18,11 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	@Test(groups={"plan.addtrigger"})
 	@Parameters({ "plan.toaddsimpletrigger.label", "plan.simpletrigger.label"})
 	public void testAddTriggerAddSimpleTrigger(String plantoaddsimletrigger,String simpletriggerlabel) throws InterruptedException {
-    	this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
-    	selenium.setSpeed(MID_SPEED);
-    	Assert.assertTrue(selenium.isElementPresent("//div[@class='header-title' and text()='Execution plan']"));
-    	selenium.setSpeed(MIN_SPEED);
-    	selenium.click("idSubModuleRefreshButton");
-    	selenium.mouseDown("//div[text()='"+plantoaddsimletrigger+"']");//select a exist task
+		 this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
+			this.waitForElementPresent("//div[@class='header-title' and text()='Execution Plan']", WAIT_TIME);
+			Assert.assertTrue(selenium
+					.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
+    	selenium.mouseDown("//span[text()='"+plantoaddsimletrigger+"']");//select a exist task
 		selenium.click("//button[text()='Add trigger...']");//add a trigger
 		selenium.click("//a[text()='Add simple trigger']");//add a SimpleTrigger
         Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addSimpleTrigger")+"']"));
@@ -45,8 +44,9 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
         this.typeString("//div[@class=' x-panel x-component ']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader']/div[@class=' x-panel-noborder x-panel x-component']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder']/form[@class=' x-form-label-left']/fieldset[@class=' x-fieldset x-component']/div[@class=' x-form-label-left']/div[@class='x-form-item ']/div/div[@class=' x-form-field-wrap  x-component ']/input[@name='repeatInterval']", "15");//Number of triggerings
 //	    selenium.click("//span[text()='Add simple trigger']/parent::legend/parent::fieldset/parent::form/parent::div/parent::div/parent::div/parent::div/parent::div//button[@id='idFormSaveButton']");
 	    selenium.click("//div[@class=' x-panel x-component ']/div[@class='x-panel-bwrap']/div[@class='x-panel-footer']/div[@class=' x-panel-btns']/div[@class=' x-small-editor x-panel-btns-center x-panel-fbar x-component x-toolbar-layout-ct']/table[@class='x-toolbar-ct']/tbody/tr/td[@class='x-toolbar-left']/table/tbody/tr[@class='x-toolbar-left-row']/td[@class='x-toolbar-cell']/table[@class=' x-btn x-component x-btn-text-icon ']/tbody[@class='x-btn-small x-btn-icon-small-left']/tr/td[@class='x-btn-mc']/em/button[@class='x-btn-text ' and text()='Save']");
-	    selenium.setSpeed(MID_SPEED); 
-	    Thread.sleep(5000);
+//	    selenium.setSpeed(MID_SPEED); 
+//	    Thread.sleep(5000);
+	    this.waitForElementPresent("//span[text()='"+simpletriggerlabel+"']", WAIT_TIME);
 	    Assert.assertTrue(selenium.isElementPresent("//span[text()='"+simpletriggerlabel+"']"));
 	    selenium.setSpeed(MIN_SPEED);
 	}

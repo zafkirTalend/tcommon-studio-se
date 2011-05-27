@@ -53,11 +53,11 @@ public class TestAddExistPlan extends Login {
 		selenium.mouseUp("//button[@class='x-btn-text ' and @id='idFormSaveButton']");
 //		this.waitForElementPresent("//span[text()='" + label
 //				+ "']", WAIT_TIME);
-		selenium.setSpeed(MID_SPEED);
-		Assert.assertTrue(selenium.isTextPresent("Save failed: A execution Plan with this label already exists -- For more information see your log file"));
+//		selenium.setSpeed(MID_SPEED);
+		Assert.assertTrue(this.waitForTextPresent("Save failed: A execution Plan with this label already exists -- For more information see your log file",WAIT_TIME));
 		selenium.setSpeed(MIN_SPEED);
 	}      
-
+	
 	
 	//add a plan 
 	@Test(groups={"addExist"},dependsOnGroups={"addplan"})

@@ -18,13 +18,12 @@ public class TestAddTriggerAddCronTriggerUsePasttime extends Login{
 	public void testAddCronTriggerOverdated(String planlabel,String crongtriggerpast) throws InterruptedException{
 	    TriggerDate date = new TriggerDate().getPast(48);
 		//open to execution plan add trigger page
-		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
-    	selenium.setSpeed(MID_SPEED);
-    	Assert.assertTrue(selenium.isElementPresent("//div[@class='header-title' and text()='Execution plan']"));
-    	selenium.setSpeed(MIN_SPEED);
-    	selenium.click("idSubModuleRefreshButton");
-    	selenium.mouseDown("//div[text()='"+planlabel+"']");
-		selenium.click("//button[text()='Add trigger...']");
+	    this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
+		this.waitForElementPresent("//div[@class='header-title' and text()='Execution Plan']", WAIT_TIME);
+		Assert.assertTrue(selenium
+				.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
+    	selenium.mouseDown("//span[text()='"+planlabel+"']");
+		selenium.click("idTriggerAdd trigger...");
 		selenium.click("//a[text()='Add CRON trigger']");
 //		selenium.setSpeed(MID_SPEED);
 		Thread.sleep(5000);
