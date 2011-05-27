@@ -136,6 +136,11 @@ public class Base {
 		this.waitForElementPresent(locator, Base.WAIT_TIME);
 		selenium.click(locator);
 	}
+	public void MouseDownWaitForElementPresent(String locator) {
+		this.waitForElementPresent(locator, Base.WAIT_TIME);
+		selenium.mouseDown(locator);
+	}
+	
 	
 	public void typeWaitForElementPresent(String locator,String value) {
 		this.waitForElementPresent(locator, Base.WAIT_TIME);
@@ -257,7 +262,7 @@ public class Base {
 
 	public void selectDropDownList(String id, String itemName) {
 		selenium.click("//input[@id='"+id+"']"
-				+ "/following-sibling::div[@class='x-form-trigger x-form-trigger-arrow']");
+				+ "/following-sibling::div");
 		this.waitForElementPresent("//div[text()='" + itemName + "' and @role='listitem']", WAIT_TIME);
 		selenium.mouseDown("//div[text()='" + itemName + "' and @role='listitem']");
 		selenium.fireEvent("//input[@id='"+id+"']", "blur");
