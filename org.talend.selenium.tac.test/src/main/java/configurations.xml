@@ -1,7 +1,19 @@
 <suite name="Suite" parallel="false">
-  <test name="Test">
-    <classes>
-      <class name="com.talend.tac.cases.configuration.TestConfigurations"/>
-    </classes>
-  </test>
+	<test name="Test">
+		<classes>
+		<parameter  name ="commandline.conf.primary.host"	value ="127.0.0.1"/>
+		<parameter  name ="commandline.conf.primary.port"	value ="8002"/>
+		<parameter  name ="commandline.conf.primary.archivePath"	value ="c:/Talend/CommandLine/exports"/>
+		<parameter  name ="commandline.conf.secondary.host"	value ="127.0.0.1"/>
+		<parameter  name ="commandline.conf.secondary.port"	value ="8003"/>
+		<parameter  name ="commandline.conf.secondary.archivePath"	value ="c:/Talend/CommandLine/exports"/>
+		
+		
+			<class name="com.talend.cases.configuration.TestConfigurations" />
+			<methods>
+				<include name="testSetCommandlinePrimary" />
+				<include name="testSetCommandlineSecondary" />
+			</methods>
+		</classes>
+	</test>
 </suite>
