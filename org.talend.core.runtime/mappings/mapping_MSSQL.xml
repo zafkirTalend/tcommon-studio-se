@@ -122,9 +122,9 @@
 					<dbType type="UNIQUEIDENTIFIER" />
 				</talendType>
 				<talendType type="id_Short">
-					<dbType type="TINYINT" default="true" />
+					<dbType type="SMALLINT" default="true" />
 					<dbType type="SMALLINT IDENTITY" />
-					<dbType type="SMALLINT" />
+					<dbType type="TINYINT" />
 					<dbType type="TINYINT IDENTITY" />
 					<dbType type="BIGINT" />
 					<dbType type="BIGINT IDENTITY" />
