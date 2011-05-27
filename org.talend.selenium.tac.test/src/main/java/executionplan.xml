@@ -4,7 +4,7 @@
 
 <test name = "executionplan">
       <parameter name ="plan.label" value = "testPlan"/>
-      <parameter name ="plan.task" value = ""/>
+      <parameter name ="plan.task" value = "TASK"/>
       <parameter name="plan.description" value="testPlan.des" /> 
       <parameter name="plan.modifyLabel" value="testModifyPlan" /> 
       <parameter name="plan.modifyDescription" value="testModifyPlan.des" />
@@ -18,6 +18,22 @@
       <parameter name="plan.crontrigger.byui.label" value="CrontriggerFutureUI"/>
       <parameter name="plan.crontrigger.past.label" value="CrontriggerPast"/>
       <parameter name="plan.toaddsimpletrigger.label" value="PLAN"/>
+      <parameter name="plan.toaddfiletrigger.label" value="PLAN"/>
+      
+       <parameter name="plan.filetrigger.server" value="use_server_available"/>
+      <parameter name="plan.filetrigger.exist.label" value="fileTriggerExist"/>
+      <parameter name="plan.filetrigger.exist.forderpath" value="F:\\"/>
+      <parameter name="plan.filetrigger.exist.timeinterval" value="30"/>
+      <parameter name="plan.filetrigger.exist.filemask" value="*.txt"/>
+      <parameter name="plan.filetrigger.create.label" value="fileTriggerCreate"/>
+       <parameter name="plan.filetrigger.create.forderpath" value="F:\\"/>
+      <parameter name="plan.filetrigger.create.timeinterval" value="30"/>
+      <parameter name="plan.filetrigger.create.filemask" value="*.txt"/>
+      <parameter name="plan.filetrigger.modify.label" value="fileTriggerModify"/>
+         <parameter name="plan.filetrigger.modify.forderpath" value="F:\\"/>
+      <parameter name="plan.filetrigger.modify.timeinterval" value="30"/>
+      <parameter name="plan.filetrigger.modify.filemask" value="*.txt"/>
+      
       <parameter name="plan.simpletrigger.label" value="testSimpleTrigger"/>
       <parameter name="plan.simpletrigger.byui.label" value="testSimpleTriggerUI"/>
       <parameter name="plan.simpletrigger.byui.endbeforestart.label" value="simpleTriggerEndStart"/>
@@ -26,21 +42,20 @@
       <parameter name="plan.simpletrigger.duplicate.label" value="testSimpleTriggerUI"/>
       <parameter name="plan.crontrigger.duplicate.label" value="CrontriggerFuture"/>
 <classes>
-        <!-- plan -->
+          
         <!--<class name="com.talend.tac.cases.executePlan.TestCleanPlan" /> 
-        <class name="com.talend.tac.cases.executePlan.AddPlan" /> 
+        --><class name="com.talend.tac.cases.executePlan.AddPlan" /> 
         <class name="com.talend.tac.cases.executePlan.TestAddExistPlan" /> 
         <class name="com.talend.tac.cases.executePlan.ModifyPlan" /> 
         <class name="com.talend.tac.cases.executePlan.DeletePlan" /> 
-        <class name="com.talend.tac.cases.executePlan.TestPlanedTreeViewManage" /> 
+        <!--<class name="com.talend.tac.cases.executePlan.TestPlanedTreeViewManage" /> 
         <class name="com.talend.tac.cases.executePlan.TestPlanedTreeViewManageDeleteRoottask" /> 
         
 
 		--><!-- plan.trigger -->
-		
-		<class name="com.talend.tac.cases.executePlan.TestAddAddSimpleTriggerUseDefaulttime"/>
 		<!--<class name="com.talend.tac.cases.executePlan.TestAddAddSimpleTriggerUseOutdatedtime"/>
-		--><class name="com.talend.tac.cases.executePlan.TestAddAddSimpleTriggerUseOutdatedTimeByUI"/>
+		--><class name="com.talend.tac.cases.executePlan.TestAddAddSimpleTriggerUseDefaulttime"/>
+		<class name="com.talend.tac.cases.executePlan.TestAddAddSimpleTriggerUseOutdatedTimeByUI"/>
 		<class name="com.talend.tac.cases.executePlan.TestAddTriggerAddCronTrigger"/>
 		<class name="com.talend.tac.cases.executePlan.TestAddTriggerAddCronTriggerByUI"/>
 		<class name="com.talend.tac.cases.executePlan.TestAddTriggerAddCronTriggerUsePasttime"/>
@@ -49,8 +64,7 @@
 		<class name="com.talend.tac.cases.executePlan.TestAddTriggerAddSimpleTriggerByUIendbeforestart"/>
 		<class name="com.talend.tac.cases.executePlan.TestDuplicateCrontrigger"/>
 		<class name="com.talend.tac.cases.executePlan.TestDuplicateSimpletrigger"/>
-		<!-- unfinished plan.trigger -->
-		<!--<class name="com.talend.tac.cases.executePlan.TestAddTriggerAddFileTrigger" /> 
+		<class name="com.talend.tac.cases.executePlan.TestAddTriggerAddFileTrigger" /><!-- 
         <class name="com.talend.tac.cases.executePlan.TestDuplicateFiletrigger" /> 
         <class name="com.talend.tac.cases.executePlan.TestTriggerPauseAndResume" /> 
 
