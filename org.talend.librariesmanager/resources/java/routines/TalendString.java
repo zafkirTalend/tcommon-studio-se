@@ -238,13 +238,15 @@ public class TalendString {
      * {example} removeAccents("Accès à la base")
      */
     public static String removeAccents(String text) {
-        StringBuffer result = new StringBuffer(text);
+        StringBuffer result = new StringBuffer();
 
-        for (int bcl = 0; bcl < result.length(); bcl++) {
-            int carVal = text.charAt(bcl);
-            if (carVal >= MIN && carVal <= MAX) { // Remplacement
-                String newVal = (String) map.get(carVal - MIN);
-                result.replace(bcl, bcl + 1, newVal);
+        for (int bcl = 0; bcl < text.length(); bcl++) {
+            char carVal = text.charAt(bcl);
+            if (carVal >= 192 && carVal <= 255) {
+                String newVal = (String) map.get(carVal - 192);
+                result.append(newVal);
+            } else {
+                result.append(carVal);
             }
         }
         return result.toString();
