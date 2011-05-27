@@ -87,6 +87,30 @@ public class Base {
 		}
 
 	}
+	
+	public boolean waitForTextPresent(String text,int seconds){
+		boolean present = true;
+		for (int second = 0;; second++) {
+			if (second >= seconds){
+				// org.testng.Assert.fail("wait for element "+ locator +
+				// " to be present,time out");
+				present = false;
+				break;
+			}
+			try {
+				if (selenium.isTextPresent(text))
+					break;
+			} catch (Exception e) {
+			}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return present;
+	}
 
 	public void waitForElementPresent(String locator, int seconds) {
 		for (int second = 0;; second++) {
