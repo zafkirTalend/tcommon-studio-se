@@ -38,21 +38,22 @@ public class TestSoaManager extends Login {
 		this.selectDropDownList("idCommonProjectListBox", projectName);
 		// select trunk,branches 
 		this.selectDropDownList("idCommonBranchListBox", "trunk");
-		// select job, the job name should be parameterd latter
-		selenium
-		.click("//input[@id='idCommonJobListBox']/following-sibling::div");
-		//if we confirm the job name we can use ://div[@role='listitem' and text()='EndRunningJob']
-		waitForElementPresent("//div[@role='listitem'][1]", WAIT_TIME);
-		assertTrue(selenium.isElementPresent("//div[@role='listitem'][1]"));
-		selenium.mouseDown("//div[@role='listitem'][1]");
-		assertFalse(selenium.isElementPresent("//div[@role='listitem'][1]"));
+		
+//		// select job, the job name should be parameterd latter
+//		this.clickWaitForElementPresent("//input[@id='idCommonJobListBox']/following-sibling::div");
+//		//if we confirm the job name we can use ://div[@role='listitem' and text()='EndRunningJob']
+//		waitForElementPresent("//div[@role='listitem'][1]", WAIT_TIME);
+//		assertTrue(selenium.isElementPresent("//div[@role='listitem'][1]"));
+//		selenium.mouseDown("//div[@role='listitem'][1]");	
+//		assertFalse(selenium.isElementPresent("//div[@role='listitem'][1]"));
+		this.selectDropDownList("idCommonJobListBox", "testJob");
 
 		// select version
 		this.selectDropDownList("idCommonVersionListBox", "0.1");
 		// select context
 		this.selectDropDownList("idCommonContextListBox", "Default");
 		selenium.click("idSoaOperationSave");
-		
+		System.out.println();
 	}
 	
 	@Test(description = "duplicate a service",dependsOnMethods = { "testAddSoaManagerService" },alwaysRun=true)
@@ -90,26 +91,26 @@ public class TestSoaManager extends Login {
 		this.waitForElementPresent("//img[@title='GENERATED']",MAX_WAIT_TIME);
 		
 	}
-	@Test (enabled = true,description = "generate,deploy,start a operation",dependsOnMethods = { "testGenerateService"})
+	@Test (enabled = true,description = "generate,deploy,start a operation")
 	@Parameters ({"soaManager.service.name","soaManager.operation.name"})
 	public void testDeployService(String serviceName,String operationName) {
 		this.clickWaitForElementPresent("!!!menu.soamanager.element!!!");
 		waitForElementPresent("//*[text()='"+serviceName+"']", WAIT_TIME);
 		selenium.mouseDown("//*[text()='"+serviceName+"']");//select the service
-		this.clickWaitForElementPresent("idSoaServiceDeployButton");
+		selenium.click("idSoaServiceDeployButton    ");
 		this.waitForElementPresent("//img[@title='DEPLOYED']",MAX_WAIT_TIME);
 	}
-	@Test (enabled = true,description = "generate,deploy,start a operation",dependsOnMethods = { "testDeployService"})
+	@Test (enabled = true,description = "generate,deploy,start a operation")
 	@Parameters ({"soaManager.service.name","soaManager.operation.name"})
 	public void testStartService(String serviceName,String operationName) {
 		this.clickWaitForElementPresent("!!!menu.soamanager.element!!!");
 		waitForElementPresent("//*[text()='"+serviceName+"']", WAIT_TIME);
 		selenium.mouseDown("//*[text()='"+serviceName+"']");//select the service
-		this.clickWaitForElementPresent("idSoaServiceRunButton");
+		this.clickWaitForElementPresent("idSoaServiceRunButton    ");
 		this.waitForElementPresent("//img[@title='RUNNING']",MAX_WAIT_TIME);
 	}
 	
-	@Test (enabled = true,description = "generate,deploy,start a operation",dependsOnMethods = { "testDeployService"})
+	@Test (enabled = true,description = "generate,deploy,start a operation")
 	@Parameters ({"soaManager.service.name","soaManager.operation.name"})
 	public void testStopService(String serviceName,String operationName) {
 		this.clickWaitForElementPresent("!!!menu.soamanager.element!!!");
