@@ -11,11 +11,11 @@ public class TestAddJobserverNotification extends Login {
 	
     //add a jobserver'notification(JobServerAlertNotification)
 	@Test(groups={"AddJobserverNotification"}, dependsOnGroups={"AddTaskNotification"})
-	@Parameters({"categoryJobServer","descriptionTaskFailed","eventJobServerAlert","descriptionJobServerAlert"})
+	@Parameters({"categoryJobServer","descriptionTaskFailed","eventJobServerAlert","descriptionJobServerAlert","ServerForUseAvailable"})
 	public void testAddJobserversJobServerAlertNotification(String categoryJobServer,String descriptionTaskFailed, String eventJobServerAlert,
-			String descriptionJobServerAlert) {
+			String descriptionJobServerAlert, String jobServer) {
 		
-		addNotification(3, categoryJobServer, 1, eventJobServerAlert, descriptionJobServerAlert);
+		addNotification(3, categoryJobServer, 1, eventJobServerAlert, descriptionJobServerAlert, jobServer);
 	    
 		selenium.click("idFormSaveButton");//clcik 'save'
 		selenium.setSpeed(MID_SPEED);
@@ -26,11 +26,11 @@ public class TestAddJobserverNotification extends Login {
 	}
 	//add a jobserver'notification(uncheck Active)
 	@Test(dependsOnMethods={"testAddJobserversJobServerAlertNotification"})
-	@Parameters({"categoryJobServer","descriptionTaskFailed","eventJobServerAlert","descriptionJobServerAlert"})
+	@Parameters({"categoryJobServer","descriptionTaskFailed","eventJobServerAlert","descriptionJobServerAlert","ServerForUseAvailable"})
 	public void testAddJobserversNotificationUncheckActive(String categoryJobServer, String descriptionTaskFailed,String eventJobServerAlert,
-			String descriptionJobServerAlert) {
+			String descriptionJobServerAlert,String jobServer) {
 		
-		addNotification(3, categoryJobServer, 1, eventJobServerAlert, descriptionJobServerAlert);
+		addNotification(3, categoryJobServer, 1, eventJobServerAlert, descriptionJobServerAlert, jobServer);
 
 		selenium.click("idActiveInput");//uncheck  'Active'
 		selenium.setSpeed(MID_SPEED);
@@ -45,7 +45,7 @@ public class TestAddJobserverNotification extends Login {
 	}
 	
 	public void addNotification(int LabelInput,String LabelInputValue,int DescriptionInput,
-			String DescriptionInputValue,String notificationInformation) {
+			String DescriptionInputValue,String notificationInformation,String jobServer) {
 		
 		this.clickWaitForElementPresent("!!!menu.notification.element!!!");//into notification
 		selenium.click("idSubModuleAddButton");//click add button
@@ -69,7 +69,7 @@ public class TestAddJobserverNotification extends Login {
 		selenium.mouseDown("//div[text()='testChooseTypeDataQuality@126.com']/parent::td/preceding-sibling::td");//choose event trigger users
 		selenium.click("//button[text()='Apply']");
 		selenium.click("idNotificationJobserverButton");
-		selenium.mouseDown("//div[text()='test_RemoteLinux']/parent::td/preceding-sibling::td");//choose event trigger jobServer
+		selenium.mouseDown("//div[text()='"+jobServer+"']/parent::td/preceding-sibling::td");//choose event trigger jobServer
 		selenium.click("//button[text()='Apply']");	
 
 
