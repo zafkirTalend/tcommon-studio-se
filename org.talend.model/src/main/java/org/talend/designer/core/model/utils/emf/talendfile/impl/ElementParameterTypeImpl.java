@@ -145,7 +145,7 @@ public class ElementParameterTypeImpl extends EObjectImpl implements ElementPara
      * 
      * @generated
      */
-    public ElementParameterTypeImpl() {
+    protected ElementParameterTypeImpl() {
         super();
     }
 
