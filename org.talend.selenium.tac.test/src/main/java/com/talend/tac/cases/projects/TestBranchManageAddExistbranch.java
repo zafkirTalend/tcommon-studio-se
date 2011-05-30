@@ -9,7 +9,7 @@ import com.talend.tac.cases.Login;
 
 public class TestBranchManageAddExistbranch extends Login {
 	@Test(dependsOnGroups = { "AddBranch" })
-	@Parameters({ "BranchProject", "BranchName" })
+	@Parameters({ "AddcommonProjectname", "BranchName" })
 	public void testAddProjectbranchexist(String project, String branchname) throws InterruptedException {
 		// first add a branch to a project
 //		Thread.sleep(5000);
@@ -40,7 +40,7 @@ public class TestBranchManageAddExistbranch extends Login {
 			selenium.click("//button[text()='"
 					+ other.getString("project.branchmanage.add.conform.ok")
 					+ "']");
-			selenium.setSpeed(MID_SPEED);
+			selenium.setSpeed(MAX_SPEED);
 			Assert.assertTrue(selenium
 					.isTextPresent("Failed to create branch: Project already contains a branch 'branches/branch' -- For more information see your log file"));
 			// if (selenium

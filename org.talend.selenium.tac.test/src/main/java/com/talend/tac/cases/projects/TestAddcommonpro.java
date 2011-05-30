@@ -30,6 +30,8 @@ public class TestAddcommonpro extends Login {
 				+ name2 + "')]")){
         	existReference = 1;
         	
+        	
+        	
         }
         selenium.setSpeed(MIN_SPEED);
 		if(existCommon == 0){
