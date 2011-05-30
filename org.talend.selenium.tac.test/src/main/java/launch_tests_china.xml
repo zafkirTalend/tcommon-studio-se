@@ -7,26 +7,31 @@
 	<parameter  name ="browser"	value ="*firefox"/>
 	
 	<!-- TAC Webapp parameters -->
-	<parameter  name ="url"		value ="http://192.168.0.34:8080"/>
+	<parameter  name ="url"		value ="http://192.168.0.144:8080"/>
 	<parameter  name ="root"	value ="/org.talend.administrator/"/>
 	
 	<!-- SVN parameters -->
-	<parameter  name ="SVNurl" value ="https://192.168.0.85/svn/test"/>
-	<parameter  name ="SVNProjecturl" value ="https://192.168.0.85/svn/testing/"/>
-  	<parameter  name ="SVNPerlProjecturl" value ="https://192.168.0.85/svn/perl/"/>
+	<parameter  name ="SVNurl" value ="https://192.168.0.144/svn/test"/>
+	
+	<parameter  name ="SVNProjecturl" value ="https://192.168.0.144/svn/testing/"/>
+  	<parameter  name ="SVNPerlProjecturl" value ="https://192.168.0.144/svn/perl/"/>
   	<parameter  name ="SVNuserName" value ="test"/>
   	<parameter  name ="SVNuserPassword" value ="testing"/>
-  	
+  		
   	<!-- Language parameters -->
   	<parameter  name ="language"	value ="en"/>
   	<parameter  name ="country"	value ="US"/>
   	<parameter  name ="resourceBundle"	value ="messages"/>
   	
   	<!-- License parameters -->
-  	<parameter  name ="license.file.path"	value ="/home/automation/Automation/license"/>
+  	<parameter  name ="license.file.path"	value ="C:\Users\Administrator\Desktop\license_42_MDM_TDQ_EE_MPX"/>
+  	<parameter  name ="license.fileInvalid.path" value ="\\license_Invalid"/>
   	
   	<parameter name="db.url"
 		value="jdbc:h2:/home/automation/databases/database/talend_administrator;AUTO_SERVER=TRUE;MVCC=TRUE" />
+  	
+  	<!-- dbConfig import parameters -->
+  	<parameter  name ="dbConfig.importParameters.path"	value ="C:\Users\Administrator\Desktop\administrator_config.txt"/>
   	
 	<!-- Login user -->
 	<parameter name="userName" value="admin@company.com" />
@@ -36,16 +41,48 @@
 	<!-- projects for task and soamanager -->
 	<parameter  name ="AddcommonProjectname"	value ="commonpro"/>
   	<parameter  name ="AddreferenceProjectname"	value ="referencepro"/>
+
+	<!-- Servers for use -->
+	<parameter name="RemoteWindowServerIp" value="test_windowsip" />
+	<parameter name="RemoteLinuxServerIp" value="test_linuxip" />
+	
+	<parameter  name ="ServerForUseAvailable" value="use_server_available"/>
+    <parameter  name ="ServerForUseUnavailable" value="use_server_unactive"/>
+    <parameter  name ="ServerForUseDownlabel" value="use_server_down"/>
+    <parameter  name ="ServeravailableHost" value="192.168.0.94"/>
+  	
+    <!-- commandLine HostAddress -->
+    <!-- needed start a remote commandline -->
+    <parameter  name ="localhostAddress" value="192.168.0.144"/>
+    <parameter  name ="remotehostAddress" value="192.168.0.94"/>
+    <parameter  name ="remotehostAddressWithWrong" value="192.168.0.g"/>
+  	
 	<suite-files>
+	
+		<suite-file path="org/talend/tac/conf/license.xml"/>
+		<suite-file path="org/talend/tac/conf/login.xml"/>
+		<suite-file path="org/talend/tac/conf/user.xml"/>
+		<suite-file path="org/talend/tac/conf/privilege.xml"/>
+		<suite-file path="org/talend/tac/conf/project.xml"/>
+		<suite-file path="org/talend/tac/conf/server.xml"/>
+		<suite-file path="org/talend/tac/conf/task.xml"/>
+		<suite-file path="org/talend/tac/conf/soa.xml"/>
+		<suite-file path="org/talend/tac/conf/connection.xml"/>
+		<suite-file path="org/talend/tac/conf/notification.xml"/>
+		 <!--<suite-file path="user.xml"/>
 		
-		 <suite-file path="license.xml"/>	
+		 <suite-file path="project.xml"/>			 	     
+		 --><!--
 		 <suite-file path="user.xml"/>
-		 <suite-file path="project.xml"/>
-		 
-		 <!-- Need configuration
+		 <suite-file path="project.xml"/>	
+        	
+         <suite-file path="project.xml"/>
+          
+         <suite-file path="task.xml"/>-->
+			 <!-- Need configuration
 		 <suite-file path="dashboard.xml"/>
 		 <suite-file path="jobconductor.xml"/>
-		 <suite-file path="task.xml"/>
+		 	
 		 <suite-file path="Plans.xml"/>
 		 <suite-file path="notification.xml"/>
 		 -->	 
