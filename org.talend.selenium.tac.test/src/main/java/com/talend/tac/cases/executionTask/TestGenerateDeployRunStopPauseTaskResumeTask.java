@@ -86,27 +86,9 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
 		
 	}
-    
-	
-	//Run a task with a Inactive server
-	@Test(dependsOnMethods={"testRunTaskWithJobContainingSubjob"})
-	@Parameters({"TaskWithInactiveServer","labelDescription","AddcommonProjectname","branchNameTrunk",
-		"jobNameTJava","version0.1","context","ServerForUseUnavailable","statisticEnabled"})
-	public void testRunTaskWithInactiveServer(String label,String description,String projectName,String branchName,
-			String jobName,String version,String context,String serverName,String statisticName) {
-				
-		generateDeployRunTask(label, "//button[@id='idJobConductorTaskRunButton' and text()='Run']");//click Run button
-		this.waitForElementPresent("//span[text()='JobServer is inactive']", WAIT_TIME);
-		Assert.assertTrue(selenium.isElementPresent("//span[text()='JobServer is inactive']"));
-		this.waitForElementPresent("//label[text()='JobServer is inactive']", WAIT_TIME);
-		Assert.assertTrue(selenium.isElementPresent("//label[text()='JobServer is inactive']"));
-		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
-		
-		
-	}
-	
+
 	//test stop a running task
-	@Test(dependsOnMethods={"testRunTaskWithInactiveServer"})
+	@Test(dependsOnMethods={"testRunTaskWithJobContainingSubjob"})
 	@Parameters({"modifyTask", "statisticRemoved(regeneration needed, fastest)", "statisticEnabled(regeneration needed)"})
 	public void testStopARunningTask(String taskLabel, String statisticRemovedRegeneration, String statisticEnabledReGeneration) {
 		
@@ -134,7 +116,8 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 				"//span[text()='Killed by user']"));
     	
 	}
-
+    
+	
 	//test generating a task using remote CommandLine
 	/*needed start a remote commandLine*/
 	@Test(dependsOnMethods={"testStopARunningTask"})
@@ -171,6 +154,25 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
     	
     	changeCommandLineConfig(localhostAddress);
     	
+	}
+	
+    
+	
+	//Run a task with a Inactive server
+	@Test(dependsOnMethods={"testGenerateTaskUsingRemoteWrongCommandLine"})
+	@Parameters({"TaskWithInactiveServer","labelDescription","AddcommonProjectname","branchNameTrunk",
+		"jobNameTJava","version0.1","context","ServerForUseUnavailable","statisticEnabled"})
+	public void testRunTaskWithInactiveServer(String label,String description,String projectName,String branchName,
+			String jobName,String version,String context,String serverName,String statisticName) {
+				
+		generateDeployRunTask(label, "//button[@id='idJobConductorTaskRunButton' and text()='Run']");//click Run button
+		this.waitForElementPresent("//span[text()='JobServer is inactive']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//span[text()='JobServer is inactive']"));
+		this.waitForElementPresent("//label[text()='JobServer is inactive']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//label[text()='JobServer is inactive']"));
+		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
+		
+		
 	}
 	
 }
