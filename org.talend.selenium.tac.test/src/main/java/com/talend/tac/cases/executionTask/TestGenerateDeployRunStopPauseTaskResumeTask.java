@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import com.talend.tac.cases.Login;
 
 public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
-   
+	
 	public void generateDeployRunTask(String taskLabel, String buttonXpath) {
 		
     	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");//into executiontask page
@@ -22,6 +22,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 	public void changeCommandLineConfig(String hostAddress) {
 		
 		this.clickWaitForElementPresent("idMenuConfigElement");//into Configuration page
+        selenium.click("idConfigRefreshButton");
 		this.waitForElementPresent("//div[text()=' Command line/primary (4 Parameters)']", 20);
 		selenium.mouseDown("//div[text()=' Command line/primary (4 Parameters)']");
 		this.clickWaitForElementPresent("//div[text()=' Command line/primary (4 Parameters)']//ancestor::div[@class='x-grid-group ']" +
@@ -85,30 +86,29 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
 		
 	}
+    
 	
-	//test generating a task using remote CommandLine
-	/*needed start a remote commandLine*/
-	@Test(dependsOnMethods={"testRunSimpleTask"})
-	@Parameters({"remotehostAddress", "modifyTask"})
-	public void testGenerateTaskUsingRemoteCommandLine(String remotehostAddress, String taskLabel) {
+	//Run a task with a Inactive server
+	@Test(dependsOnMethods={"testRunTaskWithJobContainingSubjob"})
+	@Parameters({"TaskWithInactiveServer","labelDescription","AddcommonProjectname","branchNameTrunk",
+		"jobNameTJava","version0.1","context","ServerForUseUnavailable","statisticEnabled"})
+	public void testRunTaskWithInactiveServer(String label,String description,String projectName,String branchName,
+			String jobName,String version,String context,String serverName,String statisticName) {
+				
+		generateDeployRunTask(label, "//button[@id='idJobConductorTaskRunButton' and text()='Run']");//click Run button
+		this.waitForElementPresent("//span[text()='JobServer is inactive']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//span[text()='JobServer is inactive']"));
+		this.waitForElementPresent("//label[text()='JobServer is inactive']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//label[text()='JobServer is inactive']"));
+		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
 		
-		changeCommandLineConfig(remotehostAddress);
 		
-		generateDeployRunTask(taskLabel,"idJobConductorTaskGenerateButton");//click generate button
-		selenium.setSpeed(MID_SPEED);
-	   	Assert.assertTrue(selenium.isTextPresent("Generating..."));
-    	selenium.setSpeed(MIN_SPEED);
-    	this.waitForElementPresent("//span[text()='Ready to deploy']", WAIT_TIME);
-    	Assert.assertTrue(selenium.isElementPresent("//span[text()='Ready to deploy']"));
-    	    	    	
 	}
 	
 	//test stop a running task
-	@Test(dependsOnMethods={"testGenerateTaskUsingRemoteCommandLine"})
-	@Parameters({"localhostAddress", "modifyTask", "statisticRemoved(regeneration needed, fastest)", "statisticEnabled(regeneration needed)"})
-	public void testStopARunningTask(String localhostAddress, String taskLabel, String statisticRemovedRegeneration, String statisticEnabledReGeneration) {
-		
-		changeCommandLineConfig(localhostAddress);
+	@Test(dependsOnMethods={"testRunTaskWithInactiveServer"})
+	@Parameters({"modifyTask", "statisticRemoved(regeneration needed, fastest)", "statisticEnabled(regeneration needed)"})
+	public void testStopARunningTask(String taskLabel, String statisticRemovedRegeneration, String statisticEnabledReGeneration) {
 		
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");//into executiontask page
     	selenium.setSpeed(MID_SPEED);
@@ -132,6 +132,44 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 				"//span[text()='Killed by user']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr[@role='presentation']" +
 				"//span[text()='Killed by user']"));
+    	
+	}
+
+	//test generating a task using remote CommandLine
+	/*needed start a remote commandLine*/
+	@Test(dependsOnMethods={"testStopARunningTask"})
+	@Parameters({"remotehostAddress", "modifyTask", "localhostAddress",})
+	public void testGenerateTaskUsingRemoteCommandLine(String remotehostAddress, String taskLabel,String localhostAddress) {
+		
+		changeCommandLineConfig(remotehostAddress);
+		
+		generateDeployRunTask(taskLabel,"idJobConductorTaskGenerateButton");//click generate button
+		selenium.setSpeed(MID_SPEED);
+	   	Assert.assertTrue(selenium.isTextPresent("Generating..."));
+    	selenium.setSpeed(MIN_SPEED);
+    	this.waitForElementPresent("//span[text()='Ready to deploy']", WAIT_TIME);
+    	Assert.assertTrue(selenium.isElementPresent("//span[text()='Ready to deploy']"));
+    	
+    	changeCommandLineConfig(localhostAddress);
+    	
+	}
+    
+
+	//test generating a task using remote wrong CommandLine
+	@Test(dependsOnMethods={"testGenerateTaskUsingRemoteCommandLine"})
+	@Parameters({"remotehostAddressWithWrong", "modifyTask", "localhostAddress"})
+	public void testGenerateTaskUsingRemoteWrongCommandLine(String remotehostAddressWithWrong, String taskLabel,String localhostAddress) {
+		
+		changeCommandLineConfig(remotehostAddressWithWrong);
+		
+		generateDeployRunTask(taskLabel,"idJobConductorTaskGenerateButton");//click generate button
+		selenium.setSpeed(MID_SPEED);
+	   	Assert.assertTrue(selenium.isTextPresent("Generating..."));
+    	selenium.setSpeed(MIN_SPEED);
+    	this.waitForElementPresent("//span[text()='"+rb.getString("executionTask.errorStatus.connectionToCommandLineFailed")+"']", WAIT_TIME);
+    	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("executionTask.errorStatus.connectionToCommandLineFailed")+"']"));
+    	
+    	changeCommandLineConfig(localhostAddress);
     	
 	}
 	
