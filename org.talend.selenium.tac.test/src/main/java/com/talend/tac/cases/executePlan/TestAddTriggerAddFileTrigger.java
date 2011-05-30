@@ -1,6 +1,8 @@
 package com.talend.tac.cases.executePlan;
 
 import java.io.File;
+import java.io.FileFilter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -14,6 +16,7 @@ import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
 public class TestAddTriggerAddFileTrigger extends Login {
+	
 	@Test
 	// (groups={"plan.addtrigger.fi"})
 	@Parameters({ "plan.toaddfiletrigger.label",
@@ -33,6 +36,42 @@ public class TestAddTriggerAddFileTrigger extends Login {
 		addFileTrigger(plantoaddfiletrigger, filetriggerlabel, foldpath,
 				interval, mask, serverName, 0);
 		triggerExistCheck(filetriggerlabel);
+	}
+	
+	@Test
+	// (groups={"plan.addtrigger.fi"})
+	@Parameters({ "plan.toaddfiletrigger.label",
+			"plan.filetrigger.exist.label",
+			"plan.filetrigger.exist.forderpath",
+			"plan.filetrigger.exist.timeinterval",
+			"plan.filetrigger.exist.filemask", "plan.filetrigger.server" })
+	public void testDuplicateFileTrigger(String plantoaddfiletrigger,
+			String filetriggerlabel, String foldpath, String interval,
+			String mask, String serverName) throws InterruptedException {
+		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
+		this.waitForElementPresent(
+				"//div[@class='header-title' and text()='Execution Plan']",
+				WAIT_TIME);
+		Assert.assertTrue(selenium
+				.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
+		addFileTrigger(plantoaddfiletrigger, filetriggerlabel, foldpath,
+				interval, mask, serverName, 0);
+		 selenium.refresh();
+	        this.waitForElementPresent("//span[text()='" + plantoaddfiletrigger + "']",
+					WAIT_TIME);
+			selenium.mouseDown("//span[text()='" + plantoaddfiletrigger + "']");
+	        this.waitForElementPresent("//span[text()='" + filetriggerlabel + "']",
+					WAIT_TIME);
+	        Thread.sleep(2000);
+	        selenium.mouseDown("//span[text()='" + filetriggerlabel + "']");
+	        Thread.sleep(2000);
+	        selenium.click("idTriggerDuplicate");
+	        Thread.sleep(1000);
+	        selenium.click("idFileTriggerSave");
+			this.waitForElementPresent("//span[text()='Copy_of_" + filetriggerlabel + "']",
+					WAIT_TIME);
+		
+		
 	}
 
 	@Test
@@ -57,14 +96,13 @@ public class TestAddTriggerAddFileTrigger extends Login {
 				Base.WAIT_TIME);
 		this.waitForElementPresent("//span[text()='Ended...']", Base.WAIT_TIME);
 		System.out.println("THE FIRST TIME ENDED:");
-		if(new FileTrigger().createNewFile(foldpath)){
+		if (new FileTrigger().createNewFile(foldpath)) {
 			System.out.println("fiLE CREATED!");
-		}
-		else{
+		} else {
 			System.out.println("fiLE CREATED  failed!");
 		}
 		triggerCreateCheck(filetriggerlabel);
-		
+
 	}
 
 	@Test
@@ -84,7 +122,24 @@ public class TestAddTriggerAddFileTrigger extends Login {
 				.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
 		addFileTrigger(plantoaddfiletrigger, filetriggerlabel, foldpath,
 				interval, mask, serverName, 2);
-
+		selenium.mouseDown("//span[text()='" + plantoaddfiletrigger + "']");
+		Thread.sleep(2000);
+		selenium.click("idJobConductorTaskRunButton");
+		this.waitForElementPresent("//span[text()='Running...']",
+				Base.WAIT_TIME);
+		this.waitForElementPresent("//span[text()='Ready to run']",
+				Base.WAIT_TIME);
+		
+		//modify a file exist
+		if(new FileTrigger().modifyFile(foldpath, mask.substring((mask.indexOf(".")) + 1))){
+		//check the file trigger modify 
+			System.out.println("file modified!");
+		triggerCreateCheck(filetriggerlabel);
+		}
+		else{
+			System.out.println("ssdfsdfdf");
+		}
+        
 	}
 
 	public void addFileTrigger(String planLabel, String fileTriggerLabel,
@@ -116,30 +171,32 @@ public class TestAddTriggerAddFileTrigger extends Login {
 		selenium.click("idFileTriggerSave");
 		this.waitForElementPresent("//span[text()='" + fileTriggerLabel + "']",
 				WAIT_TIME);
-//		this.waitForElementPresent("//span[text()='Running...']",
-//				Base.WAIT_TIME);
-//		this.waitForElementPresent("//span[text()='Ended...']", Base.WAIT_TIME);
-//		selenium.mouseDown("//span[text()='" + fileTriggerLabel + "']");
-//		selenium.chooseOkOnNextConfirmation();
-//		Thread.sleep(2000);
-//		selenium.click("idTriggerDelete");
-//		selenium.getConfirmation();	
-//		Thread.sleep(3000);
-//		Assert.assertFalse(
-//				selenium.isElementPresent("//span[text()='" + fileTriggerLabel
-//						+ "']"), "trigger delete failed!");
+		// this.waitForElementPresent("//span[text()='Running...']",
+		// Base.WAIT_TIME);
+		// this.waitForElementPresent("//span[text()='Ended...']",
+		// Base.WAIT_TIME);
+		// selenium.mouseDown("//span[text()='" + fileTriggerLabel + "']");
+		// selenium.chooseOkOnNextConfirmation();
+		// Thread.sleep(2000);
+		// selenium.click("idTriggerDelete");
+		// selenium.getConfirmation();
+		// Thread.sleep(3000);
+		// Assert.assertFalse(
+		// selenium.isElementPresent("//span[text()='" + fileTriggerLabel
+		// + "']"), "trigger delete failed!");
 
 	}
 
 	public void triggerCreateCheck(String fileTriggerLabel) {
 		this.waitForElementPresent("//span[text()='Running...']",
 				Base.WAIT_TIME);
-		this.waitForElementPresent("//span[text()='Ready to run']", Base.WAIT_TIME);
+		this.waitForElementPresent("//span[text()='Ready to run']",
+				Base.WAIT_TIME);
 		selenium.mouseDown("//span[text()='" + fileTriggerLabel + "']");
 		selenium.chooseOkOnNextConfirmation();
 		try {
 			Thread.sleep(2000);
-		} catch (InterruptedException e) {	
+		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -155,6 +212,7 @@ public class TestAddTriggerAddFileTrigger extends Login {
 				selenium.isElementPresent("//span[text()='" + fileTriggerLabel
 						+ "']"), "trigger delete failed!");
 	}
+
 	public void triggerExistCheck(String fileTriggerLabel) {
 		this.waitForElementPresent("//span[text()='Running...']",
 				Base.WAIT_TIME);
@@ -163,7 +221,7 @@ public class TestAddTriggerAddFileTrigger extends Login {
 		selenium.chooseOkOnNextConfirmation();
 		try {
 			Thread.sleep(2000);
-		} catch (InterruptedException e) {	
+		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -192,8 +250,6 @@ public class TestAddTriggerAddFileTrigger extends Login {
 		}
 	}
 
-
-
 	class FileTrigger {
 		public boolean createNewFile(String path) {
 			boolean createSuccess = false;
@@ -201,38 +257,79 @@ public class TestAddTriggerAddFileTrigger extends Login {
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:MM:ss");
 			String s = df.format(date);// system date
 			String filename = s.replaceAll(":", "-").replaceAll(" ", "-");
-			filename = filename+".txt";
-			 File newFile = new File(path,filename);
-			if((new File(path)).isDirectory()){
-			    if(newFile.exists()){
-			    	System.out.println("file already exist!");
-			    }
-			    else{
-			    	try {
+			filename = filename + ".txt";
+			File newFile = new File(path, filename);
+			if ((new File(path)).isDirectory()) {
+				if (newFile.exists()) {
+					System.out.println("file already exist!");
+				} else {
+					try {
 						newFile.createNewFile();
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-			    	
-			    }
-			    }
-				else{
-					System.out.println("the path is not a directory!");
+
 				}
-            if(newFile.exists()){
-            	createSuccess = true;
-            }
-          
+			} else {
+				System.out.println("the path is not a directory!");
+			}
+			if (newFile.exists()) {
+				createSuccess = true;
+			}
+
 			return createSuccess;
 
 		}
 
-		public boolean modifyFile(String path) {
-			boolean modifySuccess = false;
-
+		public boolean modifyFile(String path, String extensionStr) {
+			boolean modifySuccess = true;
+			ExtensionFileFilter fileter = new ExtensionFileFilter(extensionStr);
+			File newFile = new File(path);
+//			for (int i = 0; i < newFile.listFiles(fileter).length; i++) {
+//				System.out.println(newFile.listFiles(fileter)[i]);
+//			}
+			Date date = new Date();
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:MM:ss");
+			String s = df.format(date);// system date
+			FileWriter fw = null;
+			try {
+				fw = new FileWriter(newFile.listFiles(fileter)[0],true);
+				fw.write(s);
+				fw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				System.out.println("file modified failed!");
+				modifySuccess = false;
+			}
+			
 			return modifySuccess;
 		}
 	}
-	
+
+	class ExtensionFileFilter implements FileFilter {
+		private String extension;
+
+		public ExtensionFileFilter(String extension) {
+			this.extension = extension;
+		}
+
+		public boolean accept(File file) {
+			if (file.isDirectory()) {
+				return false;
+			}
+			String name = file.getName();
+			// find the last
+			int index = name.lastIndexOf(".");
+			if (index == -1) {
+				return false;
+			} else if (index == name.length() - 1) {
+				return false;
+			} else {
+				return this.extension.equals(name.substring((index + 1)));
+			}
+
+		}
+	}
+
 }
