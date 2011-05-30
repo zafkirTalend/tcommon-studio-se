@@ -401,31 +401,60 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 }
 
                 Set<MetadataTable> tableSet = ConnectionHelper.getTables(dbConn);
-                // oldCatalogs is use for record tables when click finish,then tables will be replace and null.
-                List<Catalog> oldCatalogs = new ArrayList<Catalog>();
+                // replaceCatalogs is use for record tables when click finish, then set to current connection.
+                List<Catalog> replaceCatalogs = new ArrayList<Catalog>();
+                List<String> catalogName = new ArrayList<String>();
                 for (MetadataTable table : tableSet) {
                     EObject eContainer = table.eContainer();
                     if (eContainer != null) {
-                        if (eContainer instanceof Catalog && !oldCatalogs.contains(eContainer)) {
-                            oldCatalogs.add((Catalog) eContainer);
+                        if (eContainer instanceof Catalog) {
+                            Catalog c = (Catalog) eContainer;
+                            String name = c.getName();
+                            if (!catalogName.contains(name)) {
+                                replaceCatalogs.add(c);
+                                catalogName.add(name);
+                            }
                         } else if (eContainer instanceof Schema) {
                             EObject parent = eContainer.eContainer();
-                            if (parent != null && parent instanceof Catalog && !oldCatalogs.contains(parent)) {
-                                List<Schema> filterSchemas = new ArrayList<Schema>();
+                            if (parent != null && parent instanceof Catalog) {
                                 Catalog c = (Catalog) parent;
-                                List<Schema> schemas = CatalogHelper.getSchemas(c);
-                                for (Schema schema : schemas) {
-                                    if (filterList != null) {
-                                        if (filterList.contains(schema.getName())) {
-                                            filterSchemas.add(schema);
-                                        } else if (schema.getOwnedElement() != null && !schema.getOwnedElement().isEmpty()) {
-                                            filterSchemas.add(schema);
+                                String name = c.getName();
+                                if (!catalogName.contains(name)) {
+                                    List<Schema> filterSchemas = new ArrayList<Schema>();
+                                    List<String> schemaName = new ArrayList<String>();
+                                    List<Schema> schemas = CatalogHelper.getSchemas(c);
+                                    for (Schema schema : schemas) {
+                                        if (filterList != null) {
+                                            if (filterList.contains(schema.getName())) {
+                                                filterSchemas.add(schema);
+                                                schemaName.add(schema.getName());
+                                            } else if (schema.getOwnedElement() != null && !schema.getOwnedElement().isEmpty()) {
+                                                filterSchemas.add(schema);
+                                                schemaName.add(schema.getName());
+                                            }
                                         }
                                     }
+                                    // get schema in current connection
+                                    for (Catalog catalog : catalogList) {
+                                        if (catalog.getName().equals(name)) {
+                                            boolean added = false;
+                                            for (Schema schema : CatalogHelper.getSchemas(catalog)) {
+                                                if (!schemaName.contains(schema.getName())) {
+                                                    filterSchemas.add(schema);
+                                                    added = true;
+                                                }
+                                            }
+                                            if (added) {
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    c.getOwnedElement().clear();
+                                    CatalogHelper.addSchemas(filterSchemas, c);
+                                    replaceCatalogs.add(c);
+                                    catalogName.add(name);
                                 }
-                                c.getOwnedElement().clear();
-                                CatalogHelper.addSchemas(filterSchemas, c);
-                                oldCatalogs.add(c);
                             }
                         }
                     }
@@ -434,7 +463,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     ConnectionHelper.addCatalogs(catalogList, dbConn);
                 }
                 // if have same schema in current connection,need to fill tables.
-                for (Catalog catalog : oldCatalogs) {
+                for (Catalog catalog : replaceCatalogs) {
                     List<Catalog> list = new ArrayList<Catalog>();
                     String name = catalog.getName();
                     Catalog c = (Catalog) ConnectionHelper.getPackage(name, dbConn, Catalog.class);
