@@ -7,6 +7,8 @@
 	<parameter name="TaskWithtRunjob" value="testTaskRunTRunJob"/>
 	<parameter name="TaskBaseBranch" value="BranchTask"/>
 	<parameter name="ProjectBranch" value="test_branch"/>
+	<parameter name="TaskDeleteLogs" value="taskDeleteLogs"/>
+	<parameter name="TaskWithInactiveServer" value="taskWithInactiveServer"/>
 	<parameter name="labelStatisticViewTask" value="testAddTaskForTestReferenceproTjava" />
 	<parameter name="labelAddJVMParametersForTask" value="testAddsimpleTask" />
 	<parameter name="labelAddJVMParametersForTaskDescription" value="test add a simple task" />
@@ -116,13 +118,13 @@
     <parameter  name ="ServerForUseAvailable" value="use_server_available"/>
     <parameter  name ="ServerForUseUnavailable" value="use_server_unactive"/>
     <parameter  name ="ServerForUseDownlabel" value="use_server_down"/>
-    <parameter name="jobServer" value="user_server_aiviable"/>
     <!--branchName version context Statistic jodName serverName-->
     
     <!-- commandLine HostAddress -->
     <!-- needed start a remote commandline -->
     <parameter  name ="localhostAddress" value="192.168.0.216"/>
     <parameter  name ="remotehostAddress" value="192.168.0.94"/>
+    <parameter  name ="remotehostAddressWithWrong" value="192.168.0.g"/>
     <!-- commandLine HostAddress -->	
     
     
@@ -131,15 +133,25 @@
         
              these execution are need configurations(project/SVN/job)     
             -->
-            <class name="com.talend.tac.cases.executionTask.TestAddTask"/>	
+            <class name="com.talend.tac.cases.executionTask.TestAddTask">
+               <methods>
+	              <exclude name='testAddTaskWithInactiveServer'></exclude>
+	           </methods>
+            </class>
             <class name="com.talend.tac.cases.executionTask.TestAddTaskBaseBranchProject"/>
             <class name="com.talend.tac.cases.executionTask.TestTaskContext"/> 
             <class name="com.talend.tac.cases.executionTask.TestDuplicateTask"/>
             <class name="com.talend.tac.cases.executionTask.TestDeteleTask"/>
             <class name="com.talend.tac.cases.executionTask.TestModifyTask"/> 
             <class name="com.talend.tac.cases.executionTask.TestTaskWithTRunjob"/>
-            <class name="com.talend.tac.cases.executionTask.TestGenerateDeployRunStopPauseTaskResumeTask"/>  
-     		<!--<class name="com.talend.tac.cases.executionTask.TestAddJVMParametersForTask"/> 
+            <class name="com.talend.tac.cases.executionTask.TestGenerateDeployRunStopPauseTaskResumeTask">
+               <methods>
+	              <exclude name='testRunTaskWithInactiveServer'></exclude>
+	              <exclude name='testGenerateTaskUsingRemoteWrongCommandLine'></exclude>
+	           </methods>
+            </class>
+            <!--  
+     		<class name="com.talend.tac.cases.executionTask.TestAddJVMParametersForTask"/> 	
             
             --><class name="com.talend.tac.cases.executionTask.TestAddTriggerAddSimpleTrigger"/>
             <class name="com.talend.tac.cases.executionTask.TestDeleteTrigger"/>
@@ -148,8 +160,7 @@
             <class name="com.talend.tac.cases.executionTask.TestModifyTrigger"/>
             <class name="com.talend.tac.cases.executionTask.TestDuplicateTrigger"/>
             <class name="com.talend.tac.cases.jobconductor.TestTaskDisplay"/> 	
-          
-        </classes> 
+       </classes> 
 	</test>
 	
 </suite>
