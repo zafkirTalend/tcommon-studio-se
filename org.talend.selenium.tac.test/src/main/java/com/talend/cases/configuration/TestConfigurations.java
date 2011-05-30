@@ -13,6 +13,8 @@ import com.talend.tac.cases.Login_NotLogoutUntilAllTestsFinished;
  * are executed with only once login and logout.
  */
 public class TestConfigurations extends Login_NotLogoutUntilAllTestsFinished {
+
+	public String locatorOfAllInputTags = other.getString("commandline.conf.all.input");
 	@Override
 	public void typeWaitForElementPresent(String locator,String value) {
 		this.waitForElementPresent(locator, Base.WAIT_TIME);
@@ -20,107 +22,118 @@ public class TestConfigurations extends Login_NotLogoutUntilAllTestsFinished {
 		selenium.keyPress(locator, "\\13");
 	}
 	
+	/**
+	 * type a value in configuration menu.click the edit button firstly to wait for the input to appear.
+	 * @param locatorOfEditButton
+	 * @param locatorOfInput
+	 * @param value
+	 */
+	public void typeWordsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){
+		 this.clickWaitForElementPresent(locatorOfEditButton);//click the edit button to make the input tag shown.
+		 this.typeWaitForElementPresent(locatorOfInput, value);
+		
+	}
+	
 	@BeforeClass
-	public void OpenConfigurationMenu(){
+	public void OpenConfigurationMenuPage(){
 		  this.clickWaitForElementPresent("idMenuConfigElement");
-		  selenium.setSpeed("1000");
+		  selenium.setSpeed("500");
 	}
   @Test
   @Parameters ({"commandline.conf.primary.host","commandline.conf.primary.port","commandline.conf.primary.archivePath"})
   public void testSetCommandlinePrimary(String commandlineHost,String commandlinePort,String commandlinePath) {
 	
 	  this.MouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
-	  this.clickWaitForElementPresent(other.getString("commandline.conf.primary.host.editButton"));
-	  this.typeWaitForElementPresent(other.getString("commandline.conf.primary.input"), commandlineHost);
-	  this.clickWaitForElementPresent(other.getString("commandline.conf.primary.port.editButton"));
-	  this.typeWaitForElementPresent(other.getString("commandline.conf.primary.input"), commandlinePort);
-	  this.clickWaitForElementPresent(other.getString("commandline.conf.primary.host.editButton"));
-	  this.typeWaitForElementPresent(other.getString("commandline.conf.primary.input"), commandlinePath);
+	  this.typeWordsInConfigurationMenu(other.getString("commandline.conf.primary.host.editButton"),other.getString("commandline.conf.all.input"), commandlineHost);
+	  this.typeWordsInConfigurationMenu(other.getString("commandline.conf.primary.port.editButton"),other.getString("commandline.conf.all.input"), commandlinePort);
+	  this.typeWordsInConfigurationMenu(other.getString("commandLine.conf.primary.archivePath.editButton"),other.getString("commandline.conf.all.input"), commandlinePath);
 
-//	  //assertEquals
-//	  assertEquals(selenium.getValue("HOstId"), commandlineHost);
-//	  assertEquals(selenium.getValue("portId"), commandlinePort);
-//	  assertEquals(selenium.getValue("pathId"),commandlinePath);
-  }//String commandlineHost,String commandlinePort,String commandlinePath
+  }
   @Test
   @Parameters ({"commandline.conf.secondary.host","commandline.conf.secondary.port","commandline.conf.secondary.archivePath"})
   public void testSetCommandlineSecondary(String commandlineHost,String commandlinePort,String commandlinePath) {
 	 
 	  this.MouseDownWaitForElementPresent("//div[contains(text(),' Command line/secondary')]");
-	  this.clickWaitForElementPresent(other.getString("commandline.conf.secondary.host.editButton"));
-	  this.typeWaitForElementPresent(other.getString("commandline.conf.secondary.input"), commandlineHost);
-	  this.clickWaitForElementPresent(other.getString("commandline.conf.secondary.port.editButton"));
-	  this.typeWaitForElementPresent(other.getString("commandline.conf.secondary.input"), commandlinePort);
-	  this.clickWaitForElementPresent(other.getString("commandline.conf.secondary.host.editButton"));
-	  this.typeWaitForElementPresent(other.getString("commandline.conf.secondary.input"), commandlinePath);
+	  this.typeWordsInConfigurationMenu(other.getString("commandline.conf.secondary.host.editButton"),other.getString("commandline.conf.all.input"), commandlineHost);
+	  this.typeWordsInConfigurationMenu(other.getString("commandline.conf.secondary.port.editButton"),other.getString("commandline.conf.all.input"), commandlinePort);
+	  this.typeWordsInConfigurationMenu(other.getString("commandLine.conf.secondary.archivePath.editButton"),other.getString("commandline.conf.all.input"), commandlinePath);
 	  
   }
   @Test
+  @Parameters ({"LDAP.conf.useLDAPAutentication","LDAP.conf.ldapServerIp","LDAP.conf.ldapServerPort","LDAP.conf.ldapRoot","LDAP.conf.ldapPrincipalDNPrefix",
+	  "LDAP.conf.ldapAdminPassword","LDAP.conf.ldap.fields.mail","LDAP.conf.ldap.fields.firstname","LDAP.conf.ldap.fields.lastname"})
   public void testSetLDAP(String useLDAPAutentication,String ldapServerIp,String ldapServerPort,String ldapRoot,String ldapPrincipalDNPrefix,String ldapAdminPassword,String ldapFieldsMail,String ldapFieldsFirstName,String ldapFieldsLastName ) {
-	  this.clickWaitForElementPresent("idMenuConfigElement");
-	  this.clickWaitForElementPresent("//div[contains(text(),'LDAP (9 Parameters)')]");
-	  this.typeWaitForElementPresent("",useLDAPAutentication );
-	  this.typeWaitForElementPresent("",ldapServerIp );
-	  this.typeWaitForElementPresent("",ldapServerPort );
-	  this.typeWaitForElementPresent("", ldapRoot);
-	  this.typeWaitForElementPresent("",ldapPrincipalDNPrefix );
-	  this.typeWaitForElementPresent("",ldapAdminPassword );
-	  this.typeWaitForElementPresent("", ldapFieldsMail);
-	  this.typeWaitForElementPresent("",ldapFieldsFirstName );
-	  this.typeWaitForElementPresent("", ldapFieldsLastName);
-//	  this.typeWaitForElementPresent("", ldapRoot);
+	  this.MouseDownWaitForElementPresent("//div[contains(text(),'LDAP (9 Parameters)')]");
+	  this.typeWordsInConfigurationMenu(other.getString("LDAP.conf.useLDAPAutentication.editButton"), other.getString("commandline.conf.all.input"), useLDAPAutentication);
+	  this.typeWordsInConfigurationMenu(other.getString("LDAP.conf.ldapServerIp.editButton"), other.getString("commandline.conf.all.input"), ldapServerIp);
+	  this.typeWordsInConfigurationMenu(other.getString("LDAP.conf.ldapServerPort.editButton"), other.getString("commandline.conf.all.input"), ldapServerPort);
+	  this.typeWordsInConfigurationMenu(other.getString("LDAP.conf.ldapRoot.editButton"), other.getString("commandline.conf.all.input"), ldapRoot);
+	  this.typeWordsInConfigurationMenu(other.getString("LDAP.conf.ldapPrincipalDNPrefix.editButton"), other.getString("commandline.conf.all.input"), ldapPrincipalDNPrefix);
+	  this.typeWordsInConfigurationMenu(other.getString("LDAP.conf.ldapAdminPassword.editButton"), other.getString("commandline.conf.all.input"), ldapAdminPassword);
+	  this.typeWordsInConfigurationMenu(other.getString("LDAP.conf.ldap.fields.mail.editButton"), other.getString("commandline.conf.all.input"), ldapFieldsMail);
+	  this.typeWordsInConfigurationMenu(other.getString("LDAP.conf.ldap.fields.firstname.editButton"), other.getString("commandline.conf.all.input"), ldapFieldsFirstName);
+	  this.typeWordsInConfigurationMenu(other.getString("LDAP.conf.ldap.fields.lastname.editButton"), other.getString("commandline.conf.all.input"), ldapFieldsLastName);
+	
 	//assertEquals
   }
 
   @Test
+  @Parameters ({"log4j.conf.logsPath"})
   public void testSetLog4j(String logsPath){
-	  this.clickWaitForElementPresent("idMenuConfigElement");
-	  this.clickWaitForElementPresent("//div[contains(text(),'Log4j')]"); 
-	  this.typeWaitForElementPresent("", logsPath);
+	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Log4j (2')]");
+	  this.typeWordsInConfigurationMenu(other.getString("log4j.conf.logsPath.editButton"), other.getString("commandline.conf.all.input"), logsPath);
   }
   @Test
-  public void testSetSMTP(String useSmtp,String mailServerHost,String mailServerPort,String mailUserName,String mailPassword){//String serverRequireSSL
-	  this.clickWaitForElementPresent("idMenuConfigElement");
+  @Parameters ({"smtp.conf.useSmtp","smtp.conf.mailServerHost","smtp.conf.mailServerPort","smtp.conf.mailUserName","smtp.conf.mailPassword","smtp.conf.serverRequireSSL"})
+  public void testSetSMTP(String useSmtp,String mailServerHost,String mailServerPort,String mailUserName,String mailPassword,String serverRequireSSL){//String serverRequireSSL
+	 
 	  this.clickWaitForElementPresent("//div[contains(text(),'SMTP (6 Parameters)')]");  
-	  this.typeWaitForElementPresent("", useSmtp);
-	  this.typeWaitForElementPresent("", mailServerHost);
-	  this.typeWaitForElementPresent("", mailServerPort);
-	  this.typeWaitForElementPresent("", mailUserName);
-	  this.typeWaitForElementPresent("", mailPassword);
+	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.useSmtp.editButton"), other.getString("commandline.conf.all.input"), useSmtp);
+	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.mailServerHost.editButton"), other.getString("commandline.conf.all.input"), mailServerHost);
+	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.mailServerPort.editButton"), other.getString("commandline.conf.all.input"), mailServerPort);
+	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.mailUserName.editButton"), other.getString("commandline.conf.all.input"), mailUserName);
+	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.mailPassword.editButton"), other.getString("commandline.conf.all.input"), mailPassword);
+	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.serverRequireSSL.editButton"), other.getString("commandline.conf.all.input"), serverRequireSSL);
+	  
 	//assertEquals
   }
   
   @Test
+  @Parameters ({"soaManager.conf.jobsDeployPath","soaManager.conf.serverAddress","soaManager.conf.serverPort"})
   public void testSetSoaManager(String soaJobDeployedPath,String soaMangerHost,String soaMangerProt){
-	  this.clickWaitForElementPresent("idMenuConfigElement");
-	  this.clickWaitForElementPresent("//div[contains(text(),'Soa manager (')]"); 
-	  this.typeWaitForElementPresent("", soaJobDeployedPath);
-	  this.typeWaitForElementPresent("", soaMangerHost);
-	  this.typeWaitForElementPresent("", soaMangerProt);
-//	  this.typeWaitForElementPresent("", );
+	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Soa manager (')]"); 
+	  this.typeWordsInConfigurationMenu(other.getString("soaManager.conf.jobsDeployPath.editButton"), other.getString("commandline.conf.all.input"), soaJobDeployedPath);
+	  this.typeWordsInConfigurationMenu(other.getString("soaManager.conf.serverAddress.editButton"), other.getString("commandline.conf.all.input"), soaMangerHost);
+	  this.typeWordsInConfigurationMenu(other.getString("soaManager.conf.serverPort.editButton"), other.getString("commandline.conf.all.input"), soaMangerProt);
+		
 	//assertEquals
   }
   
   @Test
-  public void testSetSVN(String svnServerLocationUrl, String svnServer,String svnServerUser,String svnServerPassword){
-	  this.clickWaitForElementPresent("idMenuConfigElement");
-	  this.clickWaitForElementPresent("//div[contains(text(),'Svn (')]"); 
-	  this.typeWaitForElementPresent("",svnServerLocationUrl );
-	  this.typeWaitForElementPresent("", svnServer);
-	  this.typeWaitForElementPresent("", svnServerUser);
-	  this.typeWaitForElementPresent("", svnServerPassword);
+  @Parameters ({"svn.conf.serverLocationURL","svn.conf.serverUser","svn.conf.serverPassword"})
+  public void testSetSVN(String svnServerLocationUrl,String svnServerUser,String svnServerPassword){
+	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Svn (')]"); 
+	  this.typeWordsInConfigurationMenu(other.getString("svn.conf.serverLocationURL.editButton"), other.getString("commandline.conf.all.input"), svnServerLocationUrl);
+	  this.typeWordsInConfigurationMenu(other.getString("soaManager.conf.serverPort.editButton"), other.getString("commandline.conf.all.input"), svnServerUser);
+	  this.typeWordsInConfigurationMenu(other.getString("svn.conf.serverPassword.editButton"), other.getString("commandline.conf.all.input"), svnServerPassword);
+		
 	//assertEquals
   }
   
   @Test
+  @Parameters ({"suite.link.dqportal","suite.link.drools","suite.link.mdm"})
   public void testLinkToTalendSuite(String dqportal,String drools,String mdm){
-	  this.clickWaitForElementPresent("idMenuConfigElement");
-	  this.clickWaitForElementPresent("//div[contains(text(),'Talend suite')]"); 
-	  this.typeWaitForElementPresent("",dqportal );
+	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Talend suite')]"); 
+	  
+//	  this.typeWordsInConfigurationMenu(other.getString("suite.link.dqportal.editButton"), other.getString("commandline.conf.all.input"), dqportal);
+//	  this.typeWordsInConfigurationMenu(other.getString("suite.link.drools.editButton"), other.getString("commandline.conf.all.input"), drools);
+//	  this.typeWordsInConfigurationMenu(other.getString("suite.link.mdm.editButton"), other.getString("commandline.conf.all.input"), mdm);
+	
+	  this.typeWordsInConfigurationMenu(other.getString("suite.link.dqportal.editButton"), other.getString("commandline.conf.all.input"), dqportal);
 	  this.waitForElementPresent("!!!menu.dqportal.element!!!",WAIT_TIME);
-	  this.typeWaitForElementPresent("",drools );
+	  this.typeWordsInConfigurationMenu(other.getString("suite.link.drools.editButton"), other.getString("commandline.conf.all.input"), drools);
 	  this.waitForElementPresent("!!!menu.drools.element!!!",WAIT_TIME);
-	  this.typeWaitForElementPresent("",mdm );
+	  this.typeWordsInConfigurationMenu(other.getString("suite.link.mdm.editButton"), other.getString("commandline.conf.all.input"), mdm);
 	  this.waitForElementPresent("!!!menu.mdm.element!!!",WAIT_TIME);
 	  //assertEquals
   }
