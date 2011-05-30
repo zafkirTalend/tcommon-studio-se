@@ -41,6 +41,13 @@
 	<!-- projects for task and soamanager -->
 	<parameter  name ="AddcommonProjectname"	value ="commonpro"/>
   	<parameter  name ="AddreferenceProjectname"	value ="referencepro"/>
+	<!-- Servers for use -->
+	<parameter name="RemoteWindowServerIp" value="test_windowsip" />
+	<parameter name="RemoteLinuxServerIp" value="test_linuxip" />
+	<parameter  name ="ServerForUseAvailable" value="use_server_available"/>
+    <parameter  name ="ServerForUseUnavailable" value="use_server_unactive"/>
+    <parameter  name ="ServerForUseDownlabel" value="use_server_down"/>
+    <parameter  name ="ServeravailableHost" value="192.168.0.94"/>
 	
 	<suite-files>
 		 <suite-file path="license.xml"/>		 
