@@ -3,11 +3,10 @@ package com.talend.tac.cases.executionTask;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import com.talend.tac.cases.Login;
 
 public class TestAddTask  extends Login {
-    
+	
 	//creat a method of add task
 	public void addTask(String label, String description, String projectName, String branchName,
 			 String jobName, String version, String context, String serverName, String statisticName) {
@@ -36,7 +35,6 @@ public class TestAddTask  extends Login {
     	
 
 	}
-	
 	//add a task
 	@Test(groups={"AddTask"})
 	@Parameters({"label","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
@@ -162,7 +160,7 @@ public class TestAddTask  extends Login {
 	public void testAddSimpleTask(String label,String description,String projectName,String branchName,
 			String jobName,String version,String context,String serverName,String statisticName) {
 		
-        addTask(label, description, projectName, branchName, jobName, version, context, serverName, statisticName);
+		addTask(label, description, projectName, branchName, jobName, version, context, serverName, statisticName);
 		
 		if(!selenium.isElementPresent("//span[text()='"+label+"']")) {	
 			selenium.click("idFormSaveButton");
@@ -174,4 +172,22 @@ public class TestAddTask  extends Login {
 		
 	}
 	
+	//add a task with a unactive server
+	@Test(dependsOnMethods={"testAddSimpleTask"})
+	@Parameters({"TaskWithInactiveServer","labelDescription","AddcommonProjectname","branchNameTrunk",
+		"jobNameTJava","version0.1","context","ServerForUseUnavailable","statisticEnabled"})
+	public void testAddTaskWithInactiveServer(String label,String description,String projectName,String branchName,
+			String jobName,String version,String context,String serverName,String statisticName) {
+		
+		addTask(label, description, projectName, branchName, jobName, version, context, serverName, statisticName);
+		
+		if(!selenium.isElementPresent("//span[text()='"+label+"']")) {	
+			selenium.click("idFormSaveButton");
+	        selenium.setSpeed(MID_SPEED);
+			Assert.assertTrue(selenium.isElementPresent("//span[text()='"+label+"']"));
+			selenium.setSpeed(MIN_SPEED);
+			
+		}
+		
+	}
 }
