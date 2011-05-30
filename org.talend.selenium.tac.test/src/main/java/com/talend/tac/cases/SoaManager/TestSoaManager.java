@@ -46,14 +46,13 @@ public class TestSoaManager extends Login {
 //		assertTrue(selenium.isElementPresent("//div[@role='listitem'][1]"));
 //		selenium.mouseDown("//div[@role='listitem'][1]");	
 //		assertFalse(selenium.isElementPresent("//div[@role='listitem'][1]"));
-		this.selectDropDownList("idCommonJobListBox", "testJob");
+		this.selectDropDownList("idCommonJobListBox", UsedJobName);
 
 		// select version
 		this.selectDropDownList("idCommonVersionListBox", "0.1");
 		// select context
 		this.selectDropDownList("idCommonContextListBox", "Default");
 		selenium.click("idSoaOperationSave");
-		System.out.println();
 	}
 	
 	@Test(description = "duplicate a service",dependsOnMethods = { "testAddSoaManagerService" },alwaysRun=true)
