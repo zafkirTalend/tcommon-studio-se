@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="false">
+
+	
+	<!-- Add User -->
+	<parameter name="LoginName" value="jackzhang@gamil.com" />
+	<parameter name="LoginNameNotChooseActive" value="testUserUncheckActive@gmail.com" />
+	<parameter name="LoginNameChooseAdministratorRole" value="testAdmin@company.com" />
+	<parameter name="LoginNameChooseMulripleRoles" value="testMulripleRoles@company.com" />
+	<parameter name="LoginNameChooseExistRoleUser" value="testExistRoleUser@company.com" />
+	<parameter name="LoginNameChooseTypeDataQuality" value="testChooseTypeDataQuality@126.com"/>
+	<parameter name="LoginNameWrongForm" value="testWrongUserNameForm@"/>
+	<parameter name="userNameAllRoles" value="talend@company.com"/>
+	<parameter name="LoginNameUnderMySql" value="testUnderMySql@company.com"/>
+	<parameter name="FirstName" value="jack" />
+	<parameter name="LastName" value="zhang" />
+	<parameter name="PassWord" value="a" />
+	<parameter name="PassWordww" value="asdf" />
+	<parameter name="SvnLogin" value="admin" />
+	<parameter name="SvnPassWord" value="admin" />
+	<!-- Add User -->
+	
+    <!--Add  Duplicate Cancel Delete User  Delete User -->
+    <parameter name="DeleteUser" value="//div[text()='testAdmin@company.com']"/>
+    <parameter name="DulicateUser" value="//div[text()='testUserUncheckActive@gmail.com']"/>
+    <parameter name="DulicatedUser" value="//div[text()='Copy_of_testUserUncheckActive@gmail.com']"/>
+	    <parameter name="UncheckActiveUser" value="Copy_of_testUserUncheckActive@gmail.com"/>
+    <parameter name="CopyUser" value="Copy_of_testUserUncheckActive@gmail.com"/>
+    <!--Add  Duplicate Cancel Delete User  Delete User -->
+    
+    <!-- ModifiyUserName -->
+    <parameter name="ModifiyUserName" value="account@company.com"/>
+    <parameter name="_FirstName" value="admin"/>
+    <parameter name="_LastName" value="admin"/>
+    <!-- ModifiyLoginName -->
+	<test name="User" preserve-order="flase">
+    
+        <classes>
+      
+            <class name="com.talend.tac.cases.users.TestAddUser">
+               <methods>
+                    <exclude name="testUnderMysqlAddUser"></exclude>
+               </methods>
+            </class>
+            <class name="com.talend.tac.cases.users.TestDeleteUser"/>
+            <class name="com.talend.tac.cases.users.TestDuplicateUser"/>
+            <class name="com.talend.tac.cases.users.TestDisplayUser"/>
+            <class name="com.talend.tac.cases.users.TestModifyUser"/>
+            <class name="com.talend.tac.cases.users.ClearUser"/>
+            <!--<class name="com.talend.tac.cases.users.TestAddUserImportUser"/>
+        --></classes>
+
+	</test>
+	
+	<test name="TestLogin">
+		<classes>
+			<class name="com.talend.tac.cases.TestLogin">
+				<methods>
+					<include name="testDeactivatedUserLogin" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+</suite>
+
