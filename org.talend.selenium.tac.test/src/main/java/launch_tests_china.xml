@@ -23,15 +23,16 @@
   	<parameter  name ="country"	value ="US"/>
   	<parameter  name ="resourceBundle"	value ="messages"/>
   	
-  	<!-- License parameters -->
-  	<parameter  name ="license.file.path"	value ="C:\Users\Administrator\Desktop\license_42_MDM_TDQ_EE_MPX"/>
-  	<parameter  name ="license.fileInvalid.path" value ="\\license_Invalid"/>
-  	
+
   	<parameter name="db.url"
-		value="jdbc:h2:/home/automation/databases/database/talend_administrator;AUTO_SERVER=TRUE;MVCC=TRUE" />
+		value="jdbc:h2:F:\automation\databases\database2\talend_administrator;AUTO_SERVER=TRUE;MVCC=TRUE" />
+  	
+  	<!-- License parameters -->
+  	<parameter  name ="license.file.path"	value ="F:\license"/>
+  	<parameter  name ="license.fileInvalid.path" value ="F:\license_Invalid"/>
   	
   	<!-- dbConfig import parameters -->
-  	<parameter  name ="dbConfig.importParameters.path"	value ="C:\Users\Administrator\Desktop\administrator_config.txt"/>
+  	<parameter  name ="dbConfig.importParameters.path"	value ="F:\administrator_config.txt"/>
   	
 	<!-- Login user -->
 	<parameter name="userName" value="admin@company.com" />
@@ -58,17 +59,30 @@
     <parameter  name ="remotehostAddressWithWrong" value="192.168.0.g"/>
   	
 	<suite-files>
-	
+		<!-- 
 		<suite-file path="org/talend/tac/conf/license.xml"/>
 		<suite-file path="org/talend/tac/conf/login.xml"/>
-		<suite-file path="org/talend/tac/conf/user.xml"/>
 		<suite-file path="org/talend/tac/conf/privilege.xml"/>
+		<suite-file path="org/talend/tac/conf/user.xml"/>
+		
+		 
 		<suite-file path="org/talend/tac/conf/project.xml"/>
+		<suite-file path="org/talend/tac/conf/audit.xml"/>
+		-->
+		
 		<suite-file path="org/talend/tac/conf/server.xml"/>
+		 
+		 <!-- 
 		<suite-file path="org/talend/tac/conf/task.xml"/>
+		
+		
 		<suite-file path="org/talend/tac/conf/soa.xml"/>
+		 
+		
 		<suite-file path="org/talend/tac/conf/connection.xml"/>
 		<suite-file path="org/talend/tac/conf/notification.xml"/>
+		
+		 -->
 		 <!--<suite-file path="user.xml"/>
 		
 		 <suite-file path="project.xml"/>			 	     
