@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?> 
  <suite name="Suite" parallel="false">
-  
+
+  <parameter name="ProjectType" value="Data Integration" /> 
+  <parameter name="WrongSVNProjecturl" value="wrongSvnurl" /> 
+
+  <parameter name="ProlableName" value="test@Pro" /> 
+  <parameter name="NullLabelProject" value="" /> 
+  <parameter name="AddcommontestProjectWrongSvn" value="test@wrongsvnurl" /> 
+  <parameter name="ProjectWithOutType" value="test@Withouttype" /> 
+  <parameter name="uncheckAdvancedProject" value="test@DefaultUncheckAdvanced" /> 
+  <parameter name="AddcommontestProjectname" value="test@common" /> 
+  <parameter name="AddreferencetestProjectname" value="test@reference" /> 
+  <parameter name="Prolanguage" value="" /> 
+  <parameter name="duplicateproname" value="test@common" /> 
+  <parameter name="DeleteProjectname" value="test@reference" /> 
+  <parameter name="BranchProject" value="commonpro" /> 
+  <parameter name="BranchName" value="branch" /> 
+  <parameter name="DeleteBranchProject" value="commonpro" /> 
+  <parameter name="DeleteBranchName" value="branch" /> 
+  <parameter name="NumbersOfprojects" value="2" /> 
   <parameter name="ChangeServerLablename" value="test_ServerChangeports" /> 
   <parameter name="NullLabelServerHost" value="192.168.0.94" /> 
   <parameter name="LabelServerStringPorts" value="test_ServerStringPorts" /> 
@@ -11,7 +29,6 @@
   <parameter name="RemoteLinuxServerIp" value="test_linuxip" /> 
   <parameter name="ServerUnused" value="test_serverTest" /> 
   <parameter name="ServerDescription" value="server" /> 
-  
   <parameter name="ServerHost" value="localhost" /> 
   <parameter name="ServerCommondport" value="8000" /> 
   <parameter name="ServerFiletransfortport" value="8001" /> 
@@ -19,13 +36,30 @@
   <parameter name="ServerTimeout" value="120" /> 
   <parameter name="ServerUsername" value="" /> 
   <parameter name="ServerPassword" value="" /> 
-  
-  
   <parameter name="ServerForUseAvailable" value="use_server_available" /> 
   <parameter name="ServerForUseUnavailable" value="use_server_unactive" /> 
   <parameter name="ServerForUseDownlabel" value="use_server_down" /> 
-  <parameter name="ServeravailableHost" value="192.168.0.144" /> 
+  <parameter name="ServeravailableHost" value="192.168.144" /> 
 
+ <test name="projectJava">
+ <classes>
+  <class name="com.talend.tac.cases.projects.TestClean" /> 
+  <class name="com.talend.tac.cases.projects.TestAddcommonpro" /> 
+  <class name="com.talend.tac.cases.projects.TestAddProjectWithExistlable" /> 
+  <class name="com.talend.tac.cases.projects.TestAddProjectWithNullLabel" /> 
+  <class name="com.talend.tac.cases.projects.TestAddProjectWithOutType" /> 
+  <class name="com.talend.tac.cases.projects.TestAddProjectWithWrongSvnUrl" /> 
+  <class name="com.talend.tac.cases.projects.TestCheckConnection" /> 
+  <class name="com.talend.tac.cases.projects.TestDuplicateProject" /> 
+  <class name="com.talend.tac.cases.projects.TestModification" /> 
+  <class name="com.talend.tac.cases.projects.TestDeletepro" /> 
+  <class name="com.talend.tac.cases.projects.TestBranchManageAdd" /> 
+  <class name="com.talend.tac.cases.projects.TestBranchManageAddExistbranch" /> 
+  <class name="com.talend.tac.cases.projects.TestCleanProject" /> 
+  <class name="com.talend.tac.cases.projects.TestAddProjectUncheckadvanced" /> 
+  <class name="com.talend.tac.cases.projects.TestAddprojects" /> 
+  </classes>
+  </test>
  <test name="server">
  <!-- 		Environment needed to configured 1.start a job server on localhost 
 			2.start a job server on remote linux 3.start a job server on remote windows 

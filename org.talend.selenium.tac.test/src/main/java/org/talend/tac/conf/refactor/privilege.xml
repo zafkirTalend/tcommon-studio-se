@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="false">
+	<test name="testCreateAllRolesInAdvance" preserve-order="true">
+		<classes>
+			<class name="com.talend.tac.cases.user.TestCreatUsersInAdvance" />
+		</classes>
+	</test>
+
+	<test name="TestAdminPrivilege">
+		<parameter name="userName" value="admin@tac.com" />
+		<parameter name="userPassword" value="adminPasswd" />
+		<classes>
+			<class name="com.talend.tac.cases.rolesRights.TestCheckRoleAdminPrivilege">
+			</class>
+		</classes>
+	</test>
+	<test name="TestOperationManagerPrivilege">
+		<parameter name="userName" value="operation@tac.com" />
+		<parameter name="userPassword" value="operationPasswd" />
+		<classes>
+			<class
+				name="com.talend.tac.cases.rolesRights.TestCheckRoleOperationManagerPrivilege" />
+		</classes>
+	</test>
+	<test name="TestdesignerPrivilege">
+		<parameter name="userName" value="designer@tac.com" />
+		<parameter name="userPassword" value="designerPasswd" />
+		<classes>
+			<class
+				name="com.talend.tac.cases.rolesRights.TestCheckRoleOperationManagerPrivilege"></class>
+		</classes>
+	</test>
+	<test name="TestViewerPrivilege">
+		<parameter name="userName" value="viewer@tac.com" />
+		<parameter name="userPassword" value="viewerPasswd" />
+		<classes>
+			<class
+				name="com.talend.tac.cases.rolesRights.TestCheckRoleViewerPrivilege"></class>
+		</classes>
+	</test>
+</suite>
+

@@ -1,5 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Suite" parallel="false">
+
+	<!-- ############### User role parameters ################-->
+	<parameter name="user.allRole.svnLogin" value="tisadmin" />
+	<parameter name="user.allRole.svnPasswd" value="tisadmin" />
+
+	<parameter name="user.admin.login" value="admin@tac.com" />
+	<parameter name="user.admin.firstName" value="adminFirstName" />
+	<parameter name="user.admin.lastName" value="adminLastName" />
+	<parameter name="user.admin.passwd" value="adminPasswd" />
+	<parameter name="user.admin.userRole" value="menu.role.administrator" />
+
+	<parameter name="user.operationManager.login" value="operation@tac.com" />
+	<parameter name="user.operationManager.firstName" value="operationFirstName" />
+	<parameter name="user.operationManager.lastName" value="operatinLastName" />
+	<parameter name="user.operationManager.passwd" value="operationPasswd" />
+	<parameter name="user.operationManager.userRole" value="menu.role.operationManager" />
+
+	<parameter name="user.designer.login" value="designer@tac.com" />
+	<parameter name="user.designer.firstName" value="designerFirstName" />
+	<parameter name="user.designer.lastName" value="designerLastName" />
+	<parameter name="user.designer.passwd" value="designerPasswd" />
+	<parameter name="user.designer.userRole" value="menu.role.designer" />
+
+	<parameter name="user.viewer.login" value="viewer@tac.com" />
+	<parameter name="user.viewer.firstName" value="viewerFirstName" />
+	<parameter name="user.viewer.lastName" value="viewerlastName" />
+	<parameter name="user.viewer.passwd" value="viewerPasswd" />
+	<parameter name="user.viewer.userRole" value="menu.role.viewer" />
+
+
+
 	<test name="TestLogin">
 		<classes>
 			<parameter name="userName" value="wrongadmin@company.com" />

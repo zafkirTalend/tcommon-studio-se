@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Suite" parallel="false">
-
-	<parameter name="db.userName" value="tisadmin" />
-	<parameter name="db.userPassWd" value="tisadmin" />
-	<parameter name="db.driver" value="org.h2.Driver" />
-	<parameter name="db.url.wrong" value="wrongURL" />
-	<parameter name="db.userName.wrong" value="tisadmin_wrong" />
-	<parameter name="db.userPassWd.wrong" value="tisadmin_wrong" />
-	<parameter name="db.driver.wrong" value="org.h2.Driver_wrong" />
-
 	<!-- ############### User role parameters ################-->
 	<parameter name="user.allRole.svnLogin" value="tisadmin" />
 	<parameter name="user.allRole.svnPasswd" value="tisadmin" />
@@ -81,13 +72,6 @@
 		<classes>
 			<class
 				name="com.talend.tac.cases.rolesRights.TestCheckRoleViewerPrivilege"></class>
-		</classes>
-	</test>
-
-	<!-- test forgetPasswd using user created maunully -->
-	<test name="TestForgetPassword">
-		<classes>
-			<class name="com.talend.tac.cases.TestForgetPassword" />
 		</classes>
 	</test>
 </suite>

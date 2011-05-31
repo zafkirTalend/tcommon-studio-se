@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Suite" parallel="false">
 
+	<!-- DB parameters -->
 	<parameter name="db.userName" value="tisadmin" />
 	<parameter name="db.userPassWd" value="tisadmin" />
 	<parameter name="db.driver" value="org.h2.Driver" />
@@ -8,6 +9,14 @@
 	<parameter name="db.userName.wrong" value="tisadmin_wrong" />
 	<parameter name="db.userPassWd.wrong" value="tisadmin_wrong" />
 	<parameter name="db.driver.wrong" value="org.h2.Driver_wrong" />
+
+	<!-- ############### project related ################-->
+	<!--
+		Automation should determine a project used by task,soamanger,audit and
+		even the job name which will be used,so it's better to make the nameS
+		standard
+	-->
+	<parameter name="project.automationProject.name" value="automationProject"></parameter>
 
 	<test name="TestDbConfig">
 		<classes>
