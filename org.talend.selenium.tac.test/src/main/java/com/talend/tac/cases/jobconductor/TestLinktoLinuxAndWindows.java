@@ -47,8 +47,7 @@ public class TestLinktoLinuxAndWindows extends Login {
 			selenium.refresh();
 			this.waitForElementPresent("//div[text()='test_RemoteLinux']", WAIT_TIME);
 			
-			if ((selenium.isElementPresent("//div[text()='test_RemoteLinux']"))&&(selenium
-					.isElementPresent("//span[@class='serv-value' and (text()='UP')]"))) {
+			if ((selenium.isElementPresent("//div[text()='test_RemoteLinux']//ancestor::div[@class='x-grid3-row  x-unselectable-single x-grid3-row-selected x-grid3-highlightrow x-grid3-row-expanded']//span[@class='serv-key' and contains(text(),'Status server is')]//parent::li//span[@class='serv-value' and text()='UP']"))) {
 
 			} else {
 				Assert.fail("Remote Linux Server added failed !");
@@ -73,8 +72,7 @@ public class TestLinktoLinuxAndWindows extends Login {
 			// refresh
 			selenium.refresh();
 			this.waitForElementPresent("//div[text()='test_RemoteWindows']", WAIT_TIME);
-			if ((selenium.isElementPresent("//div[text()='test_RemoteWindows']"))&&(selenium
-					.isElementPresent("//span[@class='serv-value' and (text()='UP')]"))) {
+			if ((selenium.isElementPresent("//div[text()='test_RemoteWindows']//ancestor::div[@class='x-grid3-row  x-unselectable-single x-grid3-row-selected x-grid3-highlightrow x-grid3-row-expanded']//span[@class='serv-key' and contains(text(),'Status server is')]//parent::li//span[@class='serv-value' and text()='UP']"))) {
 
 			} else {
 				Assert.fail("Remote Windows Server added failed !");
