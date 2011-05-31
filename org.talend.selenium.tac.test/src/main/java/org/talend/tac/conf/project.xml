@@ -54,6 +54,7 @@
   <class name="com.talend.tac.cases.projects.TestAddProjectWithNullLabel" /> 
   <class name="com.talend.tac.cases.projects.TestAddProjectWithOutType" /> 
   <class name="com.talend.tac.cases.projects.TestAddProjectWithWrongSvnUrl" /> 
+  <class name="com.talend.tac.cases.projects.TestAddProjectWithWrongSvnPassword" /> 
   <class name="com.talend.tac.cases.projects.TestCheckConnection" /> 
   <class name="com.talend.tac.cases.projects.TestDuplicateProject" /> 
   <class name="com.talend.tac.cases.projects.TestModification" /> 
@@ -65,24 +66,5 @@
   <class name="com.talend.tac.cases.projects.TestAddprojects" /> 
   </classes>
   </test>
- <test name="server">
- <!-- 		Environment needed to configured 1.start a job server on localhost 
-			2.start a job server on remote linux 3.start a job server on remote windows 
-		
-  --> 
- <classes>
-  <class name="com.talend.tac.cases.jobconductor.TestAddServer" /> 
-  <class name="com.talend.tac.cases.jobconductor.TestAddServerWithStringPortsInput" /> 
-  <class name="com.talend.tac.cases.jobconductor.TestAddServerWithNullLabel" /> 
-  <class name="com.talend.tac.cases.jobconductor.TestDeactiveAndReactiveServer" /> 
-  <class name="com.talend.tac.cases.jobconductor.TestDuplicateServer" /> 
-  <class name="com.talend.tac.cases.jobconductor.TestDeleteServer" /> 
-  <class name="com.talend.tac.cases.jobconductor.TestLinktoLinuxAndWindows" /> 
-  <class name="com.talend.tac.cases.jobconductor.TestCleanServers" /> 
-  <class name="com.talend.tac.cases.jobconductor.TestAddServerWithInvalidports" /> 
-  <class name="com.talend.tac.cases.jobconductor.TestAddServerLabelWithSpecialChar" /> 
-  <class name="com.talend.tac.cases.jobconductor.TestAddServerForUse" /> 
-  </classes>
-  </test>
-  
+ 
 </suite>
