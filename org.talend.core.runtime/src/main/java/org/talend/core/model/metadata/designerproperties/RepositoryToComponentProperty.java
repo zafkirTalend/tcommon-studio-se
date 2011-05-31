@@ -1262,6 +1262,9 @@ public class RepositoryToComponentProperty {
         if (value.equals("PATTERN")) { //$NON-NLS-1$
             return connection.getFieldSeparatorValue();
         }
+        if (value.equals("INCLUDEHEADER")) {
+            return connection.isFirstLineCaption();
+        }
         return null;
     }
 
