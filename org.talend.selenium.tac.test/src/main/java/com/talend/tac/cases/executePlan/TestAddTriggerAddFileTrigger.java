@@ -13,9 +13,8 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.talend.tac.base.Base;
-import com.talend.tac.cases.Login;
 
-public class TestAddTriggerAddFileTrigger extends Login {
+public class TestAddTriggerAddFileTrigger extends Plan {
 	
 	@Test
 	// (groups={"plan.addtrigger.fi"})
@@ -36,6 +35,29 @@ public class TestAddTriggerAddFileTrigger extends Login {
 		addFileTrigger(plantoaddfiletrigger, filetriggerlabel, foldpath,
 				interval, mask, serverName, 0);
 		triggerExistCheck(filetriggerlabel);
+	}
+	
+	@Test
+	// (groups={"plan.addtrigger.fi"})
+	@Parameters({ "plan.toaddfiletrigger.label",
+			"plan.filetrigger.exist.label",
+			"plan.filetrigger.exist.forderpathFalse",
+			"plan.filetrigger.exist.timeinterval",
+			"plan.filetrigger.exist.filemask", "plan.filetrigger.server" })
+	public void testAddTriggerAddFileTriggerExistFalse(String plantoaddfiletrigger,
+			String filetriggerlabel, String foldpath, String interval,
+			String mask, String serverName) throws InterruptedException {
+		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
+		this.waitForElementPresent(
+				"//div[@class='header-title' and text()='Execution Plan']",
+				WAIT_TIME);
+		Assert.assertTrue(selenium
+				.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
+		filetriggerlabel = filetriggerlabel + "false";
+		addFileTrigger(plantoaddfiletrigger, filetriggerlabel, foldpath,
+				interval, mask, serverName, 0);
+//		triggerExistCheck(filetriggerlabel);
+		triggerCheckFalse(filetriggerlabel);
 	}
 	
 	@Test
@@ -70,7 +92,8 @@ public class TestAddTriggerAddFileTrigger extends Login {
 	        selenium.click("idFileTriggerSave");
 			this.waitForElementPresent("//span[text()='Copy_of_" + filetriggerlabel + "']",
 					WAIT_TIME);
-		
+			this.deleteTrigger("Copy_of_" + filetriggerlabel);
+			this.deleteTrigger(filetriggerlabel);
 		
 	}
 
@@ -103,6 +126,33 @@ public class TestAddTriggerAddFileTrigger extends Login {
 		}
 		triggerCreateCheck(filetriggerlabel);
 
+	}
+	
+	@Test
+	@Parameters({ "plan.toaddfiletrigger.label",
+			"plan.filetrigger.create.label",
+			"plan.filetrigger.create.forderpath",
+			"plan.filetrigger.create.timeinterval",
+			"plan.filetrigger.create.filemask", "plan.filetrigger.server" })
+	public void testAddTriggerAddFileTriggerCreateFalse(String plantoaddfiletrigger,
+			String filetriggerlabel, String foldpath, String interval,
+			String mask, String serverName) throws InterruptedException {
+		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
+		this.waitForElementPresent(
+				"//div[@class='header-title' and text()='Execution Plan']",
+				WAIT_TIME);
+		Assert.assertTrue(selenium
+				.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
+		filetriggerlabel = filetriggerlabel + "false";
+		addFileTrigger(plantoaddfiletrigger, filetriggerlabel, foldpath,
+				interval, mask, serverName, 1);
+		System.out.println("THE FIRST TIME:");
+		this.waitForElementPresent("//span[text()='Running...']",
+				Base.WAIT_TIME);
+		this.waitForElementPresent("//span[text()='Ended...']", Base.WAIT_TIME);
+		//do not create any new file,check directly
+//		triggerCreateCheck(filetriggerlabel);
+		triggerCheckFalse(filetriggerlabel);
 	}
 
 	@Test
@@ -137,8 +187,40 @@ public class TestAddTriggerAddFileTrigger extends Login {
 		triggerCreateCheck(filetriggerlabel);
 		}
 		else{
-			System.out.println("ssdfsdfdf");
+			System.out.println("file modified failed!");
 		}
+        
+	}
+	
+	@Test
+	@Parameters({ "plan.toaddfiletrigger.label",
+			"plan.filetrigger.modify.label",
+			"plan.filetrigger.modify.forderpath",
+			"plan.filetrigger.modify.timeinterval",
+			"plan.filetrigger.modify.filemask", "plan.filetrigger.server" })
+	public void testAddTriggerAddFileTriggerModifyFalse(String plantoaddfiletrigger,
+			String filetriggerlabel, String foldpath, String interval,
+			String mask, String serverName) throws InterruptedException {
+		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
+		this.waitForElementPresent(
+				"//div[@class='header-title' and text()='Execution Plan']",
+				WAIT_TIME);
+		Assert.assertTrue(selenium
+				.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
+		filetriggerlabel = filetriggerlabel + "false";
+		addFileTrigger(plantoaddfiletrigger, filetriggerlabel, foldpath,
+				interval, mask, serverName, 2);
+		selenium.mouseDown("//span[text()='" + plantoaddfiletrigger + "']");
+		Thread.sleep(2000);
+		selenium.click("idJobConductorTaskRunButton");
+		this.waitForElementPresent("//span[text()='Running...']",
+				Base.WAIT_TIME);
+		this.waitForElementPresent("//span[text()='Ready to run']",
+				Base.WAIT_TIME);
+		
+		//do not modify a file existed,check directly
+		triggerCheckFalse(filetriggerlabel);
+		
         
 	}
 
@@ -236,6 +318,30 @@ public class TestAddTriggerAddFileTrigger extends Login {
 		Assert.assertFalse(
 				selenium.isElementPresent("//span[text()='" + fileTriggerLabel
 						+ "']"), "trigger delete failed!");
+	}
+	
+	public void triggerCheckFalse(String filetriggerlabel){
+		Assert.assertFalse(this.waitElement("//span[text()='Running...']", WAIT_TIME),"testAddTriggerAddFileTriggerExistFalse failed!");
+		selenium.mouseDown("//span[text()='" + filetriggerlabel + "']");
+		selenium.chooseOkOnNextConfirmation();
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		selenium.click("idTriggerDelete");
+		selenium.getConfirmation();
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Assert.assertFalse(
+				selenium.isElementPresent("//span[text()='" + filetriggerlabel
+						+ "']"), "trigger delete failed!");
+		
 	}
 
 	public void inputCheckBoxChecked(String xpathinputBox) {
