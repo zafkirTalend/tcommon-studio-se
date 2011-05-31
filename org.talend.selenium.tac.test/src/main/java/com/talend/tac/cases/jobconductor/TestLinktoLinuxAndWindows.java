@@ -26,9 +26,9 @@ public class TestLinktoLinuxAndWindows extends Login {
 //
 //		}
 		addRemoteServerRuninLinux(linuxIp);
-		deleteServer("RemoteLinux");
+		deleteServer("test_RemoteLinux");
 		addRemoteServerRuninWindows(windowsIp);
-		deleteServer("RemoteWindows");
+		deleteServer("test_RemoteWindows");
 		
   }
   public void addRemoteServerRuninLinux(String Linuxserverip){
