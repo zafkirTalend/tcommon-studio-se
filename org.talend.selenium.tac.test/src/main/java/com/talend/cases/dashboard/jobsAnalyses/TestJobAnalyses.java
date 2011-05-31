@@ -18,7 +18,7 @@ public class TestJobAnalyses extends Login {
 		this.MouseDownWaitForElementPresent("//div[contains(@class,'x-combo-list-item ') and text()=' "+ connection +"']");
 		this.waitForElementPresent("//img[@title='Ok']", WAIT_TIME);
 		//select a connection and simulate a click
-		selenium.mouseDown("//img[@title='Ok']");
+		selenium.mouseDown("//img[@title='Ok']/ancestor::table");
 		//not less than one "Ok"s are displayed
 		assertTrue(selenium.getXpathCount("//img[@title='Ok']").intValue() > 1);
 		//System.out.println(selenium.getXpathCount("//img[@title='Ok']"));
