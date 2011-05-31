@@ -4,8 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.talend.tac.cases.Login;
-public class TestAddTriggerAddCronTrigger extends Login{
+public class TestAddTriggerAddCronTrigger extends Plan{
     	
     
 	@Test

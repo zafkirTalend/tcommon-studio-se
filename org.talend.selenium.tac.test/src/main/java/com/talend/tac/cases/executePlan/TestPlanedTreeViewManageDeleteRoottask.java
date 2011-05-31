@@ -4,9 +4,8 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.talend.tac.cases.Login;
 
-public class TestPlanedTreeViewManageDeleteRoottask extends Login {
+public class TestPlanedTreeViewManageDeleteRoottask extends Plan {
 	@Test
 	@Parameters({ "plan.tasktreeviewmanage.label" })
 	public void testDeleteRoottask(String plan) {

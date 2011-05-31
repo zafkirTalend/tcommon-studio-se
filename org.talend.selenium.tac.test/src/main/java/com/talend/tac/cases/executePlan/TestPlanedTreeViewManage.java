@@ -2,7 +2,7 @@ package com.talend.tac.cases.executePlan;
 
 import org.testng.annotations.Test;
 
-public class TestPlanedTreeViewManage {
+public class TestPlanedTreeViewManage extends Plan{
   @Test
   public void testTreeManage() {
   }

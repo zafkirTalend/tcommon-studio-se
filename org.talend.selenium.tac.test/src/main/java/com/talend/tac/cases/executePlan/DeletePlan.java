@@ -4,9 +4,8 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.talend.tac.cases.Login;
 
-public class DeletePlan extends Login {
+public class DeletePlan extends Plan {
     
 	//delete a plan (choose 'Cancel')
 	@Test(dependsOnGroups={"modifyPlan"})

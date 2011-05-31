@@ -9,9 +9,8 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.talend.tac.cases.Login;
 @SuppressWarnings("deprecation")
-public class TestAddTriggerAddSimpleTrigger extends Login{
+public class TestAddTriggerAddSimpleTrigger extends Plan{
     	
 	TriggerDate date = new TriggerDate();
 	// add a simpleTrigger
@@ -49,6 +48,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	    this.waitForElementPresent("//span[text()='"+simpletriggerlabel+"']", WAIT_TIME);
 	    Assert.assertTrue(selenium.isElementPresent("//span[text()='"+simpletriggerlabel+"']"));
 	    selenium.setSpeed(MIN_SPEED);
+	    this.deleteTrigger(simpletriggerlabel);
 	}
 
 }

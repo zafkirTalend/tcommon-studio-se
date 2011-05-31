@@ -8,10 +8,9 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.talend.tac.cases.Login;
 
 @SuppressWarnings("deprecation")
-public class TestAddTriggerAddSimpleTriggerByUIendbeforestart extends Login {
+public class TestAddTriggerAddSimpleTriggerByUIendbeforestart extends Plan {
 
 	TriggerDate date = new TriggerDate();
 

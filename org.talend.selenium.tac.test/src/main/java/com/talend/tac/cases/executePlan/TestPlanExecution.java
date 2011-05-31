@@ -5,9 +5,8 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.talend.tac.base.Base;
-import com.talend.tac.cases.Login;
 
-public class TestPlanExecution extends Login {
+public class TestPlanExecution extends Plan {
 
 	public void addTask(String label, String description, String projectName,
 			String branchName, String jobName, String version, String context,

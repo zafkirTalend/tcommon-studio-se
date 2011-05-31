@@ -5,9 +5,8 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.talend.tac.cases.Login;
 
-public class TestTriggerPauseAndResume extends Login {
+public class TestTriggerPauseAndResume extends Plan {
 
 	@Test
 	@Parameters({ "plan.toaddsimpletrigger.label", "plan.trigger.pauseandresume.label"})

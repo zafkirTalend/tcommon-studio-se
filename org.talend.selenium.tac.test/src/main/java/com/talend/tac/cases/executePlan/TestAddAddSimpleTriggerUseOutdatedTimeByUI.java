@@ -5,8 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.talend.tac.cases.Login;
-public class TestAddAddSimpleTriggerUseOutdatedTimeByUI extends Login{
+public class TestAddAddSimpleTriggerUseOutdatedTimeByUI extends Plan{
     	
 	TriggerDate date = new TriggerDate();
    

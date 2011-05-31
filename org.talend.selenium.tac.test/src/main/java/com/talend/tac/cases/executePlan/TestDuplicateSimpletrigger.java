@@ -18,7 +18,7 @@ public class TestDuplicateSimpletrigger extends Login {
 	@Parameters({ "plan.toaddsimpletrigger.label",
 	"plan.simpletrigger.duplicate.label" })
 	
-	public void testAddTriggerAddSimpleTrigger(String plan,String simpleTriggerToduplicate) throws InterruptedException {
+	public void testDuplicateSimpleTrigger(String plan,String simpleTriggerToduplicate) throws InterruptedException {
 		 this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
 			this.waitForElementPresent("//div[@class='header-title' and text()='Execution Plan']", WAIT_TIME);
 			Assert.assertTrue(selenium

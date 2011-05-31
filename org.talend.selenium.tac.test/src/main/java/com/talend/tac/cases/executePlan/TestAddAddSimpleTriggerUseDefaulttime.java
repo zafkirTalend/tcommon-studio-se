@@ -9,14 +9,13 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.talend.tac.cases.Login;
 @SuppressWarnings("deprecation")
-public class TestAddAddSimpleTriggerUseDefaulttime extends Login{
+public class TestAddAddSimpleTriggerUseDefaulttime extends Plan{
  
 	// add a simpleTrigger use default start time and end time
 	@Test(groups={"plan.addtrigger"})
 	@Parameters({ "plan.toaddsimpletrigger.label", "plan.simpletrigger.defaulttime.label"})
-	public void testAddTriggerAddSimpleTrigger(String addsimpletriggerplan,String defaulttimeSimpletrigger) {
+	public void testAddTriggerAddSimpleTriggerDefaulttime(String addsimpletriggerplan,String defaulttimeSimpletrigger) {
 		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
 		this.waitForElementPresent("//div[@class='header-title' and text()='Execution Plan']", WAIT_TIME);
 		Assert.assertTrue(selenium
@@ -41,6 +40,7 @@ public class TestAddAddSimpleTriggerUseDefaulttime extends Login{
 //	    Thread.sleep(5000);
 	    Assert.assertTrue(selenium.isElementPresent("//span[text()='"+defaulttimeSimpletrigger+"']"));
 	    selenium.setSpeed(MIN_SPEED);
+	    this.deleteTrigger(defaulttimeSimpletrigger);
 	}
 
 }

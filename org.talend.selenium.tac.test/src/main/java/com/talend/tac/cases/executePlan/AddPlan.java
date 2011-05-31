@@ -6,9 +6,8 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.talend.tac.cases.Login;
 
-public class AddPlan extends Login {
+public class AddPlan extends Plan {
 
 	// add a method(add Plan)
 	public void addPlan(String label, String description, String task) {

@@ -12,7 +12,7 @@ public class TestDuplicateCrontrigger extends Login {
 	// (groups={"plan.trigger.duplicate"})
 	@Parameters({ "plan.toaddcrontrigger.label",
 			"plan.crontrigger.duplicate.label" })
-	public void testDuplicateSimpleTrigger(String plan,
+	public void testDuplicateCronTrigger(String plan,
 			String triggertoduplicate) throws InterruptedException {
 		TriggerDate date = new TriggerDate().getFuture(48);
 		 this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");

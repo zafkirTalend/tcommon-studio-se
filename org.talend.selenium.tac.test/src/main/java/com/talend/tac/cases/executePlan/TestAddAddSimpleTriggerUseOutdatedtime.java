@@ -9,9 +9,8 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.talend.tac.cases.Login;
 @SuppressWarnings("deprecation")
-public class TestAddAddSimpleTriggerUseOutdatedtime extends Login{
+public class TestAddAddSimpleTriggerUseOutdatedtime extends Plan{
     	
 	TriggerDate date = new TriggerDate();
    

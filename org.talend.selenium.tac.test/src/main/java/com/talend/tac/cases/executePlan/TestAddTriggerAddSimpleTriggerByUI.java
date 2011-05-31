@@ -19,7 +19,7 @@ public class TestAddTriggerAddSimpleTriggerByUI extends Login {
 	@Test(groups = { "plan.addtrigger" })
 	@Parameters({ "plan.toaddsimpletrigger.label",
 			"plan.simpletrigger.byui.label" })
-	public void testAddTriggerAddSimpleTrigger(String plantoaddsimletrigger,
+	public void testAddTriggerAddSimpleTriggerUI(String plantoaddsimletrigger,
 			String simpletriggerlabel) throws InterruptedException {
 		 this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
 			this.waitForElementPresent("//div[@class='header-title' and text()='Execution Plan']", WAIT_TIME);
