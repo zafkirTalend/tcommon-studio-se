@@ -21,8 +21,8 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 	
 	public void changeCommandLineConfig(String hostAddress) {
 		
+		selenium.refresh();
 		this.clickWaitForElementPresent("idMenuConfigElement");//into Configuration page
-        selenium.click("idConfigRefreshButton");
 		this.waitForElementPresent("//div[text()=' Command line/primary (4 Parameters)']", 20);
 		selenium.mouseDown("//div[text()=' Command line/primary (4 Parameters)']");
 		this.clickWaitForElementPresent("//div[text()=' Command line/primary (4 Parameters)']//ancestor::div[@class='x-grid-group ']" +
