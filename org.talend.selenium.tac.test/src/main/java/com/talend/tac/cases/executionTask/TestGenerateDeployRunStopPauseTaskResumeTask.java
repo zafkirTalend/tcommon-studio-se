@@ -23,9 +23,9 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 		
 		selenium.refresh();
 		this.clickWaitForElementPresent("idMenuConfigElement");//into Configuration page
-		this.waitForElementPresent("//div[text()=' Command line/primary (4 Parameters)']", 20);
-		selenium.mouseDown("//div[text()=' Command line/primary (4 Parameters)']");
-		this.clickWaitForElementPresent("//div[text()=' Command line/primary (4 Parameters)']//ancestor::div[@class='x-grid-group ']" +
+		this.waitForElementPresent("//div[contains(text(),'Command line/primary')]", WAIT_TIME);
+		selenium.mouseDown("//div[contains(text(),'Command line/primary')]");
+		this.clickWaitForElementPresent("//div[contains(text(),'Command line/primary')]//ancestor::div[@class='x-grid-group ']" +
 				"//div[text()='Host']//ancestor::tr[@role='presentation']//img[@title='Click to edit']");
 		this.waitForElementPresent("//div[@class=' x-form-field-wrap  x-component']//input", WAIT_TIME); 
 		System.out.println("*--------------*");
