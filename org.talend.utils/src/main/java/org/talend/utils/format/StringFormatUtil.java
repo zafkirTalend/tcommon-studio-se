@@ -57,12 +57,26 @@ public final class StringFormatUtil {
             if (checkInput(input)) {
                 DecimalFormat format = null;
 
+                // MOD qiongli 2011-6-1 bug 21589,if input is out of the decimal precision,replace it with threshold.
+                BigDecimal zero = new BigDecimal(0);
+                BigDecimal temp = new BigDecimal(input.toString());
+                BigDecimal min = new BigDecimal(10E-5);
+                BigDecimal max = new BigDecimal(9999 * 10E-5);
                 switch (style) {
                 case 0:
+                    if (temp.compareTo(min) == -1 && temp.compareTo(zero) == 1) {
+                        input = min.toString();
+                    } else if (temp.compareTo(max) == 1 && temp.compareTo(new BigDecimal(1)) == -1) {
+                        input = max.toString();
+                    }
                     format = (DecimalFormat) DecimalFormat.getPercentInstance(Locale.ENGLISH);
                     format.applyPattern("0.00%");
                     break;
                 case 1:
+                    min = new BigDecimal(10E-3);
+                    if (temp.compareTo(min) == -1 && temp.compareTo(zero) == 1) {
+                        input = min.toString();
+                    }
                     format = (DecimalFormat) DecimalFormat.getNumberInstance(Locale.ENGLISH);
                     format.applyPattern("0.00");
                     break;
