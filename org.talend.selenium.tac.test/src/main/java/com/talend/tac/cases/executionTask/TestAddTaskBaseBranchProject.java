@@ -121,17 +121,14 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		selenium.refresh();
 		this.waitForElementPresent("//span[text()='"+tasklabel+"']", WAIT_TIME);
 		selenium.mouseDown("//span[text()='"+tasklabel+"']");
-		selenium.click("//button[text()='Add trigger...']");//add a trigger
-		selenium.click("//a[text()='Add simple trigger']");//add a SimpleTrigger
+		selenium.click("idTriggerAdd trigger...");//add a trigger
+		selenium.click("idTriggerAdd simple trigger");//add a SimpleTrigger
         Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addSimpleTrigger")+"']"));
         
-        this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
-        		"//input[@name='label']",simplelabel);//label
+        this.typeString("idJobConductorSimpleTriggerLableInput",simplelabel);//label
 		
-        this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
-				"//input[@name='description']", "testdescription");//description
-        this.typeString("//span[text()='Add simple trigger']/parent::legend/parent::fieldset" +
-        		"//input[@name='repeatInterval']", timeInterval);//Time interval (s)
+        this.typeString("idJobConductorSimpleTriggerDescInput", "testdescription");//description
+        this.typeString("idJobConductorSimpleTriggerRptIntervalInput", timeInterval);//Time interval (s)
 	
         selenium.setSpeed(MID_SPEED);
         //click save button to save trigger
