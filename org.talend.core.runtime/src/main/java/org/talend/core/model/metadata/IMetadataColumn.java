@@ -130,4 +130,8 @@ public interface IMetadataColumn {
     public void setRelatedEntity(String relatedEntity);
 
     public void setRelationshipType(String relationshipType);
+
+    public String getExpression();
+
+    public void setExpression(String expression);
 }

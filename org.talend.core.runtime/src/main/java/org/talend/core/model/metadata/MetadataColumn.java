@@ -58,6 +58,8 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
 
     private String relationshipType = "";
 
+    private String expression = "";
+
     public MetadataColumn() {
         super();
         this.id = getNewId();
@@ -577,5 +579,13 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      */
     public void setRelationshipType(String relationshipType) {
         this.relationshipType = relationshipType;
+    }
+
+    public String getExpression() {
+        return this.expression;
+    }
+
+    public void setExpression(String expression) {
+        this.expression = expression;
     }
 }
