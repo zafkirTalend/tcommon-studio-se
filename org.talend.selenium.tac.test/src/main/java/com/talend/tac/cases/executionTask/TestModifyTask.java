@@ -43,6 +43,7 @@ public class TestModifyTask extends Login {
 			selenium.mouseDownAt("//div[text()='"+context+"' and @role='listitem']",""+Event.ENTER);
 			
 			selenium.click("idFormSaveButton");
+			this.waitForElementPresent("//span[text()='"+modifyLabel+"']", WAIT_TIME);
 			Assert.assertTrue(selenium.isElementPresent("//span[text()='"+modifyLabel+"']"));
 			selenium.setSpeed(MIN_SPEED);
 			
