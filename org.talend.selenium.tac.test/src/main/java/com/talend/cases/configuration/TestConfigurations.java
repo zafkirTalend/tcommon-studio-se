@@ -8,38 +8,9 @@ import org.testng.annotations.Test;
 import com.talend.tac.base.Base;
 
 import com.talend.tac.cases.Login;
-/*
- * opening configuration pages causes a long time ,
- * so this class extends Login_NotLogoutUntilAllTestsFinished,
- * then all the cases of configurations
- * are executed with only once login and logout.
- */
 public class TestConfigurations extends Login {
 
 	public String locatorOfAllInputTags = other.getString("commandline.conf.all.input");
-	
-	@BeforeClass
-	@Override
-	@Parameters( { "userName", "userPassword" })
-	public void login(String user, String password) {
-		super.login(user, password);
-		this.clickWaitForElementPresent("idMenuConfigElement");
-		selenium.setSpeed("500");
-	}
-
-	@AfterClass
-	@Override
-	public void logout() {
-		selenium.click("idLeftMenuTreeLogoutButton");
-		selenium.stop();
-	}
-
-	@Override
-	public void typeWaitForElementPresent(String locator,String value) {
-		this.waitForElementPresent(locator, Base.WAIT_TIME);
-		selenium.type(locator,value);
-		selenium.keyPress(locator, "\\13");
-	}
 	
 	/**
 	 * type a value in configuration menu.click the edit button firstly to wait for the input to appear.
@@ -52,13 +23,6 @@ public class TestConfigurations extends Login {
 		 this.typeWaitForElementPresent(locatorOfInput, value);
 		
 	}
-	
-//	@BeforeClass
-//	public void OpenConfigurationMenuPage(){
-//		  this.clickWaitForElementPresent("idMenuConfigElement");
-//		  selenium.setSpeed("500");
-//	}
-	
   @Test
   @Parameters ({"commandline.conf.primary.host","commandline.conf.primary.port","commandline.conf.primary.archivePath"})
   public void testSetCommandlinePrimary(String commandlineHost,String commandlinePort,String commandlinePath) {
@@ -157,4 +121,32 @@ public class TestConfigurations extends Login {
 	  this.waitForElementPresent("!!!menu.mdm.element!!!",WAIT_TIME);
 	  //assertEquals
   }
+  
+	
+	@BeforeClass
+	@Override
+	@Parameters( { "userName", "userPassword" })
+	public void login(String user, String password) {
+		super.login(user, password);
+		this.clickWaitForElementPresent("idMenuConfigElement");
+		selenium.setSpeed("500");
+	}
+
+	@AfterClass
+	@Override
+	public void logout() {
+		selenium.click("idLeftMenuTreeLogoutButton");
+		selenium.stop();
+	}
+
+	@Override
+	public void typeWaitForElementPresent(String locator,String value) {
+		this.waitForElementPresent(locator, Base.WAIT_TIME);
+		selenium.type(locator,value);
+		selenium.keyPress(locator, "\\13");
+	}
+
+	@Override
+	public void killBroswer() {
+	}
 }
