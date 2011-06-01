@@ -20,9 +20,10 @@ public class TestModifyTask extends Login {
 			this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
 			selenium.setSpeed(MID_SPEED);
 		    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
-			selenium.click("idSubModuleRefreshButton");
+			
+		    selenium.click("idSubModuleRefreshButton");
 			selenium.mouseDown("//span[text()='"+label+"']");//select a exist task
-
+            selenium.setSpeed(MIN_SPEED);
 			
 			this.typeString("idJobConductorTaskLabelInput", modifyLabel);//task name /Label
 			selenium.click("//label[text()='Project:']/parent::div/div/div/div");//modify project
