@@ -1,20 +1,39 @@
 package com.talend.cases.configuration;
 
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.talend.tac.base.Base;
-import com.talend.tac.cases.Login_NotLogoutUntilAllTestsFinished;
+
+import com.talend.tac.cases.Login;
 /*
  * opening configuration pages causes a long time ,
  * so this class extends Login_NotLogoutUntilAllTestsFinished,
  * then all the cases of configurations
  * are executed with only once login and logout.
  */
-public class TestConfigurations extends Login_NotLogoutUntilAllTestsFinished {
+public class TestConfigurations extends Login {
 
 	public String locatorOfAllInputTags = other.getString("commandline.conf.all.input");
+	
+	@BeforeClass
+	@Override
+	@Parameters( { "userName", "userPassword" })
+	public void login(String user, String password) {
+		super.login(user, password);
+		this.clickWaitForElementPresent("idMenuConfigElement");
+		selenium.setSpeed("500");
+	}
+
+	@AfterClass
+	@Override
+	public void logout() {
+		selenium.click("idLeftMenuTreeLogoutButton");
+		selenium.stop();
+	}
+
 	@Override
 	public void typeWaitForElementPresent(String locator,String value) {
 		this.waitForElementPresent(locator, Base.WAIT_TIME);
@@ -34,11 +53,12 @@ public class TestConfigurations extends Login_NotLogoutUntilAllTestsFinished {
 		
 	}
 	
-	@BeforeClass
-	public void OpenConfigurationMenuPage(){
-		  this.clickWaitForElementPresent("idMenuConfigElement");
-		  selenium.setSpeed("500");
-	}
+//	@BeforeClass
+//	public void OpenConfigurationMenuPage(){
+//		  this.clickWaitForElementPresent("idMenuConfigElement");
+//		  selenium.setSpeed("500");
+//	}
+	
   @Test
   @Parameters ({"commandline.conf.primary.host","commandline.conf.primary.port","commandline.conf.primary.archivePath"})
   public void testSetCommandlinePrimary(String commandlineHost,String commandlinePort,String commandlinePath) {
