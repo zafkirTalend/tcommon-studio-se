@@ -173,8 +173,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
     }		
   
     //add a method of remove all triggers
-//    @Test
-//    (groups={"AddSimpleTrigger"},dependsOnGroups={"TestGenerateDeployRun"})
+    @Test(groups={"AddSimpleTrigger"},dependsOnGroups={"TestGenerateDeployRun"})
     @Parameters({"labelTRunJobByTaskRun","labelRefProJobByMainProTRunJobRun","labelReferenceproTjava",
     	"modifyTask","duplicateTask","TaskBaseBranch"})
     public void clearsAllTriggers(String labelTRunJobByTaskRun,String labelRefProJobByMainProTRunJobRun,
@@ -196,7 +195,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
     
   /**add a simpleTrigger, set its 'NumberOfTriggerings'(1)
     when after trigger task second run finish---trigger will auto stop**/
-//    @Test(dependsOnMethods={"clearsAllTriggers"})
+    @Test(dependsOnMethods={"clearsAllTriggers"})
 	@Parameters({"modifyTask","addSimpleTriggerNumberOfTriggeringsRunnedAutoStopLabel",
 		"addSimpleTriggerNumberOfTriggeringsRunnedAutoStopDescription"})
     public void testAddSimpleTriggerNumberOfTriggeringsRunnedAutoStop(String taskLabel, String label, String description) {
@@ -238,7 +237,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
     
     
 	// add a simpleTrigger
-//	@Test(dependsOnMethods={"clearsAllTriggers"})
+	@Test(dependsOnMethods={"clearsAllTriggers"})
 	@Parameters({"modifyTask", "addSimpleTriggerLabel","addSimpleTriggerDescription"})
 	public void testAddTriggerAddSimpleTrigger(String taskLable, String label, String description) {
 	  
@@ -261,7 +260,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	}	
 	
 	// add a simpleTrigger use default date, selected job is TRunJob(use tRunJob run child'job)
-//	@Test(dependsOnMethods={"testAddTriggerAddSimpleTrigger"})
+	@Test(dependsOnMethods={"testAddTriggerAddSimpleTrigger"})
 	@Parameters({"labelTRunJobByTaskRun", "addSimpleTriggerLabelNotChooseDate","addSimpleTriggerNotChooseDateDescription"})
 	public void testAddTriggerAddSimpleTriggerNotChooseDate(String taskLabel, String label, String description) {
 		    
@@ -295,7 +294,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	}
 	
 	//add a exist simpleTrigger
-//	@Test(dependsOnMethods={"testAddTriggerAddSimpleTriggerNotChooseDate"})
+	@Test(dependsOnMethods={"testAddTriggerAddSimpleTriggerNotChooseDate"})
 	@Parameters({"modifyTask", "addSimpleTriggerLabel","addSimpleTriggerExistTriggerDescription"})
     public void testAddTriggerAddSimpleTriggerAddExist(String taskLabel, String label, String description) {
     	
@@ -310,7 +309,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	}
 	
 //	add a simpleTrigger of wrong form time interval 
-//	@Test(dependsOnMethods={"testAddTriggerAddSimpleTriggerAddExist"})
+	@Test(dependsOnMethods={"testAddTriggerAddSimpleTriggerAddExist"})
 	@Parameters({"modifyTask", "addSimpleTriggerWrongFormLabel","addSimpleTriggerWrongFormDescription","addSimpleTriggerWrongFormStartTime",
 		"addSimpleTriggerWrongFormEndTime","addSimpleTriggerWrongFormNumberOfTriggers","addSimpleTriggerWrongFormTimeInterval"})
     public void testAddTriggerAddSimpleTriggerAddWrongFormFileds(String taskLabel, String label, String description
@@ -343,8 +342,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
 	 }
 	
 	//add a overdue(start date) simpleTrigger
-//	@Test(dependsOnMethods={"testAddTriggerAddSimpleTriggerAddWrongFormFileds"})
-	@Test(groups={"AddSimpleTrigger"})	
+	@Test(dependsOnMethods={"testAddTriggerAddSimpleTriggerAddWrongFormFileds"})
 	@Parameters({"modifyTask", "addSimpleTriggerOverdueStartDataLabel","addSimpleTriggerOverdueStartDataDescription"})
     public void testAddTriggerAddSimpleTriggerAddOverdueStartData(String taskLabel, String label, String description) {
     	
