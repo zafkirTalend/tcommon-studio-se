@@ -182,8 +182,8 @@ public class Problem {
             jobInfo = new BasicJobInfo(((INode) element).getProcess().getId(), null, ((INode) element).getProcess().getVersion());
             jobInfo.setJobName(((INode) element).getProcess().getName());
             type = ProblemType.JOB;
-
-            nodeName = ((INode) element).getLabel();
+            /* nodeName should use uniqueName,see bug 20560 */
+            nodeName = ((INode) element).getUniqueName();
             componentName = ((INode) element).getComponent().getName();
         }
     }
