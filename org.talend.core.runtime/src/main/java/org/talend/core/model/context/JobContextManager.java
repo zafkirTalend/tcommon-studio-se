@@ -210,7 +210,8 @@ public class JobContextManager implements IContextManager {
      */
     public boolean checkValidParameterName(String contextName) {
         for (IContextParameter contextParameter : listContext.get(0).getContextParameterList()) {
-            if (contextParameter.getName().equals(contextName)) {
+            if (contextParameter.getName().equals(contextName)
+                    || contextParameter.getName().toLowerCase().equals(contextName.toLowerCase())) {
                 return false;
             }
         }
