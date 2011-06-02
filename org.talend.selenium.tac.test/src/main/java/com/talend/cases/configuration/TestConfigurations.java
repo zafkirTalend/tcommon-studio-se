@@ -184,7 +184,7 @@ public class TestConfigurations extends Login {
 	public void login(String user, String password) {
 		super.login(user, password);
 		this.clickWaitForElementPresent("idMenuConfigElement");
-		selenium.setSpeed("500");
+//		selenium.setSpeed("500");
 	}
 
 	@AfterClass

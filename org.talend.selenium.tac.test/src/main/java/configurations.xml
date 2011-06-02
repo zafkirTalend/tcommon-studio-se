@@ -50,11 +50,11 @@
 	<parameter name="ldap.user.dn" value="uid=tod, ou=People, dc=talend,dc=com" />
 	<parameter name="ldap.user.userName" value="liuyu@sina.com" />
 
-	<!--
+	
 		<test name="TestConfigurations"> <classes> <class
 		name="com.talend.cases.configuration.TestConfigurations" /> </classes>
 		</test>
-	-->
+	
 
 	<test name="TestCreateLdapUser">
 		<classes>
