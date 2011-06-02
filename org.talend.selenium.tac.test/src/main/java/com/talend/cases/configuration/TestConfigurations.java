@@ -107,7 +107,7 @@ public class TestConfigurations extends Login {
   @Test
   @Parameters ({"smtp.conf.useSmtp","smtp.conf.mailServerHost","smtp.conf.mailServerPort","smtp.conf.mailUserName","smtp.conf.mailPassword","smtp.conf.serverRequireSSL"})
   public void testSetSMTP(String useSmtp,String mailServerHost,String mailServerPort,String mailUserName,String mailPassword,String serverRequireSSL){//String serverRequireSSL
-	 
+	  this.clickWaitForElementPresent("//div[contains(text(),'SMTP (6 Parameters')]");
 	  this.clickWaitForElementPresent("//div[contains(text(),'SMTP (6 Parameters')]");  
 	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.useSmtp.editButton"), other.getString("commandline.conf.all.input"), useSmtp);
 	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.mailServerHost.editButton"), other.getString("commandline.conf.all.input"), mailServerHost);
@@ -159,7 +159,7 @@ public class TestConfigurations extends Login {
 	//assertEquals
   }
   
-  @Test
+  @Test(enabled=false)
   @Parameters ({"suite.link.dqportal","suite.link.drools","suite.link.mdm"})
   public void testLinkToTalendSuite(String dqportal,String drools,String mdm){
 	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Talend suite')]"); 

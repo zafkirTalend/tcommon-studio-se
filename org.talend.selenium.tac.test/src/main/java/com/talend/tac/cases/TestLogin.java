@@ -86,10 +86,10 @@ this.waitForElementPresent("//div[text()='" + rb.getString("login.error.badPassw
 	@Test
 	@Parameters( { "userName", "userPassword" })
 	public void testLogin(String user, String password) {
-		waitForElementPresent("idLoginInput", 20);
-		waitForElementPresent("idLoginPasswordInput", 20);
+		waitForElementPresent("idLoginInput", WAIT_TIME);
+		waitForElementPresent("idLoginPasswordInput", WAIT_TIME);
 		selenium.windowMaximize();
-		selenium.setSpeed(MID_SPEED);
+		
 		selenium.type("idLoginInput", user);
 		selenium.type("idLoginPasswordInput", password);
 		selenium.keyDown("idLoginPasswordInput", "\\13");
@@ -102,6 +102,7 @@ this.waitForElementPresent("//div[text()='" + rb.getString("login.error.badPassw
 //		} catch (InterruptedException e) {
 //			e.printStackTrace();
 //		}
+		selenium.setSpeed(MID_SPEED);
 		if (selenium.isTextPresent("Failed to log on: user " + user
 				+ " already logged on to webapp")) {
 			selenium.click("idLoginForceLogoutButton");
@@ -109,9 +110,25 @@ this.waitForElementPresent("//div[text()='" + rb.getString("login.error.badPassw
 		}
 		selenium.setSpeed(MIN_SPEED);
 		// assertTrue(selenium.isElementPresent("idLeftMenuTreeLogoutButton"));
-		this.waitForElementPresent("idLeftMenuTreeLogoutButton", 20);
+		this.waitForElementPresent("idLeftMenuTreeLogoutButton", WAIT_TIME);
 		selenium.click("idLeftMenuTreeLogoutButton");
 	}
+	
+	@Test
+	@Parameters( { "userName", "userPassword" })
+	public void testLoginWithLdapUserWhenLdapIsDisabled(String user, String password) {
+		waitForElementPresent("idLoginInput", WAIT_TIME);
+		waitForElementPresent("idLoginPasswordInput", WAIT_TIME);
+		selenium.windowMaximize();
+		selenium.type("idLoginInput", user);
+		selenium.type("idLoginPasswordInput", password);
+		selenium.keyDown("idLoginPasswordInput", "\\13");
+		selenium.keyUp("idLoginPasswordInput", "\\13");
+		selenium.click("idLoginButton");
+
+		this.waitForElementPresent("You are using a Ldap account with non Ldap authentication.", WAIT_TIME);
+	}
+
 
 	@AfterTest
 	public void logout() {
