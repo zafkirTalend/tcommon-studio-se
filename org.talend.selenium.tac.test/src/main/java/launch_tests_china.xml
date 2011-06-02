@@ -25,7 +25,7 @@
   	
 
   	<parameter name="db.url"
-		value="jdbc:h2:F:\automation\databases\database2\talend_administrator;AUTO_SERVER=TRUE;MVCC=TRUE" />
+		value="jdbc:h2:F:\automation\databases\database3\talend_administrator;AUTO_SERVER=TRUE;MVCC=TRUE" />
   	
   	<!-- License parameters -->
   	<parameter  name ="license.file.path"	value ="F:\license"/>
@@ -51,6 +51,11 @@
     <parameter  name ="ServerForUseUnavailable" value="use_server_unactive"/>
     <parameter  name ="ServerForUseDownlabel" value="use_server_down"/>
     <parameter  name ="ServeravailableHost" value="192.168.0.94"/>
+    
+
+	<!-- configuration for File Trigger -->
+    <parameter name="FolderPath" value="/d:/" />
+    <parameter name="FileMask" value="*.txt" />
   	
     <!-- commandLine HostAddress -->
     <!-- needed start a remote commandline -->
@@ -59,30 +64,32 @@
     <parameter  name ="remotehostAddressWithWrong" value="192.168.0.g"/>
   	
 	<suite-files>
-		<!-- 
+		<!--  
 		<suite-file path="org/talend/tac/conf/license.xml"/>
 		<suite-file path="org/talend/tac/conf/login.xml"/>
 		<suite-file path="org/talend/tac/conf/privilege.xml"/>
+		
+		  
 		<suite-file path="org/talend/tac/conf/user.xml"/>
 		
-		 
 		<suite-file path="org/talend/tac/conf/project.xml"/>
+		
 		<suite-file path="org/talend/tac/conf/audit.xml"/>
-		-->
+		
 		
 		<suite-file path="org/talend/tac/conf/server.xml"/>
 		 
-		 <!-- 
+		 -->
 		<suite-file path="org/talend/tac/conf/task.xml"/>
 		
 		
 		<suite-file path="org/talend/tac/conf/soa.xml"/>
-		 
+		 	
 		
 		<suite-file path="org/talend/tac/conf/connection.xml"/>
 		<suite-file path="org/talend/tac/conf/notification.xml"/>
 		
-		 -->
+		<!--  -->
 		 <!--<suite-file path="user.xml"/>
 		
 		 <suite-file path="project.xml"/>			 	     

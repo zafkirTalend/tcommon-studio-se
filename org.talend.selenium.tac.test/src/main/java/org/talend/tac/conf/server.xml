@@ -12,6 +12,7 @@
   <parameter name="ServerUnused" value="test_serverTest" /> 
   <parameter name="ServerDescription" value="server" /> 
   
+  <!-- local server -->
   <parameter name="ServerHost" value="localhost" /> 
   <parameter name="ServerCommondport" value="8000" /> 
   <parameter name="ServerFiletransfortport" value="8001" /> 
@@ -20,12 +21,14 @@
   <parameter name="ServerUsername" value="" /> 
   <parameter name="ServerPassword" value="" /> 
   
-  
+ <!--  
   <parameter name="ServerForUseAvailable" value="use_server_available" /> 
   <parameter name="ServerForUseUnavailable" value="use_server_unactive" /> 
   <parameter name="ServerForUseDownlabel" value="use_server_down" /> 
   <parameter name="ServeravailableHost" value="192.168.0.144" /> 
-
+ -->
+ 
+ 
  <test name="server">
  <!-- 		Environment needed to configured 1.start a job server on localhost 
 			2.start a job server on remote linux 3.start a job server on remote windows 

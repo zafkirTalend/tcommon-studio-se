@@ -18,18 +18,20 @@
   <parameter name="DeleteBranchProject" value="commonpro" /> 
   <parameter name="DeleteBranchName" value="branch" /> 
   <parameter name="NumbersOfprojects" value="2" /> 
+  
+  <!-- 
   <parameter name="ChangeServerLablename" value="test_ServerChangeports" /> 
   <parameter name="NullLabelServerHost" value="192.168.0.94" /> 
   <parameter name="LabelServerStringPorts" value="test_ServerStringPorts" /> 
   <parameter name="ServerLablename" value="test_serverTest" /> 
   <parameter name="DeactiveServerlable" value="test_serverTest" /> 
   <parameter name="PortInvalidServer" value="test_PortInvalidserver" /> 
-  
+   -->
   <!-- 
   <parameter name="RemoteWindowServerIp" value="test_windowsip" /> 
   <parameter name="RemoteLinuxServerIp" value="test_linuxip" /> 
    -->
-  
+  <!-- 
   <parameter name="ServerUnused" value="test_serverTest" /> 
   <parameter name="ServerDescription" value="server" /> 
   <parameter name="ServerHost" value="localhost" /> 
@@ -39,7 +41,7 @@
   <parameter name="ServerTimeout" value="120" /> 
   <parameter name="ServerUsername" value="" /> 
   <parameter name="ServerPassword" value="" /> 
-  
+   -->
   <!-- 
   <parameter name="ServerForUseAvailable" value="use_server_available" /> 
   <parameter name="ServerForUseUnavailable" value="use_server_unactive" /> 

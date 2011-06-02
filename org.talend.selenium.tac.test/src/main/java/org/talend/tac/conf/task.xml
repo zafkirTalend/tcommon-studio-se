@@ -67,8 +67,12 @@
     
     <parameter name="addFileTriggerOfExist" value="TestAddFileTriggerOfExist" />
     <parameter name="addFileTriggerOfExistDescription" value="test add a cronTrigger" />
+    
+    <!-- need configurate -->
+    <!-- 
     <parameter name="FolderPath" value="/d:/" />
     <parameter name="FileMask" value="*.txt" />
+	 -->
 
     <parameter name="addFileTriggerOfExistWrongForm" value="$$@@" />
     <parameter name="addFileTriggerOfExistDescriptionWrongForm" value="test add a cronTrigger use wrong form value" />
@@ -113,16 +117,21 @@
     <parameter name="jobNameRefJobByMaintRunJobRun" value="refJobByMaintRunJobRun"/>
     <parameter name="jobNameTMsg" value="tmsg"/>
     <parameter name="jobNameReferencetjava" value="referencetjava"/>
+    
+    <!-- 
     <parameter  name ="ServerForUseAvailable" value="use_server_available"/>
     <parameter  name ="ServerForUseUnavailable" value="use_server_unactive"/>
     <parameter  name ="ServerForUseDownlabel" value="use_server_down"/>
+     -->
+    
     <parameter name="jobServer" value="user_server_aiviable"/>
     <!--branchName version context Statistic jodName serverName-->
     
     <!-- commandLine HostAddress -->
-    <!-- needed start a remote commandline -->
+    <!-- needed start a remote commandline 
     <parameter  name ="localhostAddress" value="192.168.0.144"/>
     <parameter  name ="remotehostAddress" value="192.168.0.94"/>
+    -->
     <!-- commandLine HostAddress -->	
     
     
