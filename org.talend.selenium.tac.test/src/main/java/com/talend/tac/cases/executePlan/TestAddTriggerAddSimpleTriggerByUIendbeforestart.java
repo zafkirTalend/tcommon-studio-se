@@ -41,6 +41,9 @@ public class TestAddTriggerAddSimpleTriggerByUIendbeforestart extends Plan {
 				"SimpleTrigger");// description
 		// type simple trigger start time
 		selenium.click("//input[@name='startTime']/parent::div/div[@class='x-form-trigger x-form-date-trigger']");
+		if(TriggerDate.isClickFutureMonthButton(date.getFuture(48))){
+    		this.clickWaitForElementPresent("//div[contains(@class,'x-icon-btn x-nodrag x-date-right-icon x-component')]");
+        }
 		this.clickWaitForElementPresent("//td[@class='x-date-active']/a/span[text()='" + date.getFuture(48).days + "']");
 		/*selenium.setSpeed(MAX_SPEED);
 		// selenium.click("//div[@class=' x-icon-btn x-nodrag x-date-left-icon x-component ']");
@@ -50,6 +53,9 @@ public class TestAddTriggerAddSimpleTriggerByUIendbeforestart extends Plan {
 		// date.getFuture("24"));//description
 		// type simple trigger end time
 		selenium.click("//input[@name='endTime']/parent::div/div[@class='x-form-trigger x-form-date-trigger']");
+		if(TriggerDate.isClickFutureMonthButton(date.getFuture(24))){
+    		this.clickWaitForElementPresent("//div[contains(@class,'x-icon-btn x-nodrag x-date-right-icon x-component')]");
+        }
 		this.clickWaitForElementPresent("//td[@class='x-date-active']/a/span[text()='" + date.getFuture(24).days + "']");
 		/*selenium.setSpeed(MAX_SPEED);
 		// selenium.click("//div[@class=' x-icon-btn x-nodrag x-date-left-icon x-component ']");
