@@ -24,7 +24,8 @@ public class TestModifyTrigger extends Login {
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task    	  	
     	
     	selenium.setSpeed(MID_SPEED);
-    	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+labelBeforeModify+"']")); 
+	    Assert.assertTrue(selenium.isElementPresent("//span[text()='"+labelBeforeModify+"']")); 
+	    selenium.setSpeed(MIN_SPEED);
     	selenium.mouseDown("//span[text()='"+labelBeforeModify+"']");//select a exist trigger 
     	
     	if(selenium.isElementPresent("idJobConductor"+triggerType+"TriggerLableInput")) {
@@ -34,11 +35,10 @@ public class TestModifyTrigger extends Login {
     	} else {
     		
     		this.typeString("idJobConductor"+triggerType+"TriggerLabelInput", labelAfterModified);//modify label
-    		
+    		                 
     	}
     	
         this.typeString("idJobConductor"+triggerType+"TriggerDescInput", description);//modify description
-        selenium.setSpeed(MIN_SPEED);
          
         if(selenium.isElementPresent("//input[@id='idJobConductorFileTriggerFileServerListBox']/parent::div//div[@class='x-form-trigger x-form-trigger-arrow ']")) {
     		
@@ -47,8 +47,6 @@ public class TestModifyTrigger extends Login {
     		selenium.mouseDown("//div[text()='use_server_available']");
         
         }
-        
-        selenium.setSpeed(MID_SPEED);
 	   
         if(selenium.isElementPresent("id"+triggerType+"tTriggerSave")) {
         	
@@ -59,10 +57,13 @@ public class TestModifyTrigger extends Login {
         	selenium.click("id"+triggerType+"TriggerSave");//click save button
         	
         }
-        
-		selenium.setSpeed(MIN_SPEED);
-		
-		selenium.click("idTriggerRefresh");//click refresh button
+   		
+        if(!selenium.isElementPresent("//span[text()='"+labelAfterModified+"']")) {
+        	
+    		selenium.click("idTriggerRefresh");//click refresh button
+        	
+        }
+
         selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(!selenium.isElementPresent("//span[text()='"+labelBeforeModify+"']"));
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+labelAfterModified+"']"));
