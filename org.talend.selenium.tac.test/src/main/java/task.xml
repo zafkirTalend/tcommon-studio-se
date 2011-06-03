@@ -141,20 +141,18 @@
             <class name="com.talend.tac.cases.executionTask.TestModifyTask"/> 
             <class name="com.talend.tac.cases.executionTask.TestTaskWithTRunjob"/>
             <class name="com.talend.tac.cases.executionTask.TestGenerateDeployRunStopPauseTaskResumeTask"/>         
-     		
-     		<!--<class name="com.talend.tac.cases.executionTask.TestAddJVMParametersForTask"/> 	
-            
-            --><class name="com.talend.tac.cases.executionTask.TestAddTriggerAddSimpleTrigger"/>
+     	    <class name="com.talend.tac.cases.executionTask.TestAddJVMParametersForTask"/> 	
+            <class name="com.talend.tac.cases.executionTask.TestDeleteJVMParameter"/>
+            <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddSimpleTrigger"/>
             <class name="com.talend.tac.cases.executionTask.TestDeleteTrigger"/>
             <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddCronTrigger"/>      
             <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddFileTrigger"/>
             <class name="com.talend.tac.cases.executionTask.TestModifyTrigger"/>
             <class name="com.talend.tac.cases.executionTask.TestDuplicateTrigger"/>
-            <class name="com.talend.tac.cases.jobconductor.TestTaskDisplay"/> 	
-      
+            <class name="com.talend.tac.cases.jobconductor.TestTaskDisplay"/>
             <class name="com.talend.tac.cases.executionTask.TestChangeAutoRefreshDisableEnable"/>
             <class name="com.talend.tac.cases.executionTask.ClearTaskTrigger"/>
-       </classes> 
+         </classes> 
 	</test>
 	
 </suite>
