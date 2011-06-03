@@ -41,7 +41,6 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
@@ -281,12 +280,24 @@ public class DatabaseForm extends AbstractForm {
         generalJdbcClassNameText.setText(getConnection().getDriverClass());
         generalJdbcUserText.setText(getConnection().getUsername());
         generalJdbcPasswordText.setText(getConnection().getPassword());
-        if (getConnection().getDatabaseType().equals(EDatabaseTypeName.GENERAL_JDBC.getXmlName())
-                && generalJdbcUrlText.getText().contains("sqlserver")) {//$NON-NLS-1$
-            jDBCschemaText.setText(getConnection().getUiSchema());
-        }
+
         generalJdbcDriverjarText.setText(getConnection().getDriverJarPath());
         generalMappingFileText.setText(getConnection().getDbmsId());
+
+        String jdbcUrlString = "";
+        if (isContextMode()) {
+            ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(getShell(), getConnection(), true);
+            if (contextType != null) {
+                jdbcUrlString = ConnectionContextHelper.getOriginalValue(contextType, getConnection().getURL());
+            }
+        } else {
+            jdbcUrlString = generalJdbcUrlText.getText();
+        }
+        if (jdbcUrlString.contains("sqlserver")) {//$NON-NLS-1$
+            jDBCschemaText.setText(getConnection().getUiSchema());
+        } else {
+            jDBCschemaText.setHideWidgets(true);
+        }
     }
 
     private void checkAS400SpecificCase() {
@@ -2003,13 +2014,24 @@ public class DatabaseForm extends AbstractForm {
                 schemaText.setEditable(true);
                 addContextParams(EDBParamName.Schema, true);
             } else if (template == EDatabaseConnTemplate.GENERAL_JDBC) {
-                if (generalJdbcUrlText.getText().contains("sqlserver")) {//$NON-NLS-1$
-                    jDBCschemaText.show();
-                    jDBCschemaText.setEditable(true);
+                String jdbcUrlString = "";
+                if (isContextMode()) {
+                    ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(getShell(), getConnection(),
+                            true);
+                    if (contextType != null) {
+                        jdbcUrlString = ConnectionContextHelper.getOriginalValue(contextType, getConnection().getURL());
+                    }
                 } else {
-                    jDBCschemaText.hide();
+                    jdbcUrlString = generalJdbcUrlText.getText();
                 }
-                addContextParams(EDBParamName.Schema, true);
+                if (jdbcUrlString.contains("sqlserver")) {//$NON-NLS-1$
+                    jDBCschemaText.setHideWidgets(false);
+                    addContextParams(EDBParamName.Schema, true);
+                } else {
+                    jDBCschemaText.setHideWidgets(true);
+                    addContextParams(EDBParamName.Schema, false);
+                }
+
             } else {
                 // schemaText.hide();
                 schemaTextIsShow = false;
@@ -2107,10 +2129,6 @@ public class DatabaseForm extends AbstractForm {
             if (EDatabaseConnTemplate.isSchemaNeeded(getConnection().getDatabaseType())) {
                 schemaText.show();
                 schemaText.setEditable(visible);
-                addContextParams(EDBParamName.Schema, visible);
-            } else if (template == EDatabaseConnTemplate.GENERAL_JDBC && generalJdbcUrlText.getText().contains("sqlserver")) {//$NON-NLS-1$
-                jDBCschemaText.show();
-                jDBCschemaText.setEditable(visible);
                 addContextParams(EDBParamName.Schema, visible);
             } else {
                 if (!schemaTextIsShow) {

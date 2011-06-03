@@ -446,4 +446,26 @@ public class LabelledText {
         return this.text;
     }
 
+    /**
+     * 
+     * DOC YeXiaowei Comment method "hideWidgets".
+     * 
+     * @param hide
+     */
+    public void setHideWidgets(final boolean hide) {
+
+        GridData dataLabel = (GridData) label.getLayoutData();
+        dataLabel.exclude = hide;
+        label.setLayoutData(dataLabel);
+        GridData dataCombo = (GridData) text.getLayoutData();
+        dataCombo.exclude = hide;
+        text.setLayoutData(dataCombo);
+
+        setVisible(!hide);// Must also set exclude and visible can affect the
+        // layout
+
+        if (text.getParent() != null)
+            text.getParent().layout();
+    }
+
 }

@@ -219,7 +219,7 @@ public final class ConnectionContextHelper {
         if (contextObjectList != null) {
             for (IRepositoryViewObject object : contextObjectList) {
                 Item item = object.getProperty().getItem();
-                if (item.getProperty().getLabel().equals(name)) {
+                if (item.getProperty().getLabel().equalsIgnoreCase(name)) {
                     return false;
                 }
             }
