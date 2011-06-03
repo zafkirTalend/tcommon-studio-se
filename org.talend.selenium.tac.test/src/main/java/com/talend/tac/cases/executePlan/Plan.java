@@ -28,6 +28,17 @@ public class Plan extends Login {
 				+ planLabel + "']"));
 		selenium.setSpeed(MIN_SPEED);
 	}
+	
+	public void deletePlan(String planLabel){
+		this.waitForElementPresent("//span[text()='" + planLabel + "']",
+				WAIT_TIME);
+		this.sleep(2000);
+		selenium.mouseDown("//span[text()='" + planLabel + "']");
+		selenium.click("idSubModuleDeleteButton");
+		this.sleep(3000);
+		Assert.assertFalse(selenium.isElementPresent("//span[text()='" + planLabel + "']"), "plan "+planLabel +" delete failed! ");
+	}
+	
 
 	public void runPlan(String planLabel) {
 		this.waitForElementPresent("//span[text()='" + planLabel + "']",
@@ -36,6 +47,24 @@ public class Plan extends Login {
 		selenium.mouseDown("//span[text()='" + planLabel + "']");
 		selenium.click("idJobConductorTaskRunButton");
 
+	}
+	
+	public void runPlanAndCheck(String planLabel,String taskName,int executeTimes){
+		selenium.refresh();
+		this.waitForElementPresent("//span[text()='" + planLabel + "']",
+				WAIT_TIME);
+		this.sleep(2000);
+		selenium.mouseDown("//span[text()='" + planLabel + "']");
+		for (int i = 0; i < executeTimes; i++) {
+			selenium.click("idJobConductorTaskRunButton");
+			this.waitForElementPresent("//span[text()='Running...']", WAIT_TIME);
+			this.waitForElementPresent("//span[text()='Ready to run']",
+					WAIT_TIME);
+			this.waitForElementPresent(
+					"//span[@class='x-tree3-node-text' and text()='" + taskName
+							+ " : [OK]']", MAX_WAIT_TIME);
+		}
+		
 	}
 
 	public void deleteTrigger(String fileTriggerLabel) {
