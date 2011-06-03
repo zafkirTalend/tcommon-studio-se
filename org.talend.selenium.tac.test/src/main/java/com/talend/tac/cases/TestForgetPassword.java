@@ -8,7 +8,7 @@ import com.talend.tac.base.Base;
 
 public class TestForgetPassword extends Base {
 
-	@Test(enabled = false,description = "test changePassword using adminRole user created before.")
+	@Test(description = "test changePassword using adminRole user created before.")
 	@Parameters( { "user.admin.login", "user.admin.passwd" })
 	public void testForgetPassword(String userName,String userPassword){
 		this.waitForElementPresent("idForgetButton", WAIT_TIME);

@@ -50,11 +50,13 @@
 	<parameter name="ldap.user.dn" value="uid=tod, ou=People, dc=talend,dc=com" />
 	<parameter name="ldap.user.userName" value="liuyu@sina.com" />
 
-	
-		<test name="TestConfigurations"> <classes> <class
-		name="com.talend.cases.configuration.TestConfigurations" /> </classes>
-		</test>
-	
+
+	<test name="TestConfigurations">
+		<classes>
+			<class name="com.talend.cases.configuration.TestConfigurations" />
+		</classes>
+	</test>
+
 
 	<test name="TestCreateLdapUser">
 		<classes>
@@ -94,7 +96,7 @@
 			</class>
 		</classes>
 	</test>
-	
+
 	<test name="TestLoginWithNormalUserAfterLdapDisabled">
 		<classes>
 			<class name="com.talend.tac.cases.TestLogin">
@@ -104,7 +106,7 @@
 			</class>
 		</classes>
 	</test>
-	
+
 	<test name="TestLoginWithLdapUserAfterLdapDisabled">
 		<classes>
 			<parameter name="userName" value="liuyu@sina.com" />
@@ -116,5 +118,24 @@
 			</class>
 		</classes>
 	</test>
+
+	<test name="TestForgetPasswordAfterSmtpEnabled" preserve-order="true">
+		<classes>
+			<class name="com.talend.tac.cases.user.TestCreatUsersInAdvance">
+				<parameter name="user.allRole.svnLogin" value="tisadmin" />
+				<parameter name="user.allRole.svnPasswd" value="tisadmin" />
+				<parameter name="user.admin.login" value="lindy512@163.com" />
+				<parameter name="user.admin.firstName" value="adminFirstName" />
+				<parameter name="user.admin.lastName" value="adminLastName" />
+				<parameter name="user.admin.passwd" value="adminPasswd" />
+				<parameter name="user.admin.userRole" value="menu.role.administrator" />
+				<methods>
+					<include name="testCreateRoleAdministrator" />
+				</methods>
+			</class>
+			<class name="com.talend.tac.cases.TestForgetPassword" />
+		</classes>
+	</test>
+
 
 </suite>
