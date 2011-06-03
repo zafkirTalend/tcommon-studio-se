@@ -58,5 +58,10 @@
 		</classes>
 	</test>
 	
+	<test name="testLicenseAccountsCount">
+		<classes>
+			<class name="com.talend.tac.cases.license.TestLicenseAccountsCount"/>
+		</classes>
+	</test>
 </suite>
 
