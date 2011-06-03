@@ -145,10 +145,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 		
 		changeCommandLineConfig(remotehostAddressWithWrong);
 		
-		generateDeployRunTask(taskLabel,"idJobConductorTaskGenerateButton");//click generate button
-		selenium.setSpeed(MID_SPEED);
-	   	Assert.assertTrue(selenium.isTextPresent("Generating..."));
-    	selenium.setSpeed(MIN_SPEED);
+		generateDeployRunTask(taskLabel,"idJobConductorTaskGenerateButton");//click generate button	
     	this.waitForElementPresent("//span[text()='"+rb.getString("executionTask.errorStatus.connectionToCommandLineFailed")+"']", WAIT_TIME);
     	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("executionTask.errorStatus.connectionToCommandLineFailed")+"']"));
     	
