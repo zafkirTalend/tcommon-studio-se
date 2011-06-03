@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.talend.org/mapper" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="demo">
   <context confirmationNeeded="false" name="demo">
-    <contextParameter comment="" name="root" prompt="Set the path of the dir to store the example files folder:" promptNeeded="false" repositoryContextId="_dn7XwGT9Edyrh8knyihGHw" type="id_String" value="/home/nfrancisco/Bureau/"/>
+    <contextParameter comment="" name="root" prompt="Set the path of the dir to store the example files folder:" promptNeeded="false" repositoryContextId="_dn7XwGT9Edyrh8knyihGHw" type="id_String" value="C:\TalendDemoFiles\"/>
   </context>
   <parameters>
-    <elementParameter field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="/home/nfrancisco/Talend/Logiciels/TOS/4.0.0/Install/TOS-All-r39896-V4.0.0/workspace"/>
-    <elementParameter field="DIRECTORY" name="COMP_DEFAULT_PROJECT_DIR" value="/home/nfrancisco/Talend/Logiciels/TOS/4.0.0/Install/TOS-All-r39896-V4.0.0/workspace/TALENDDEMOSJAVA"/>
+    <elementParameter field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="C:/Users/jlamiel/Talend/Install/Talend-4.2/TOS/TOS-All-r59885-V4.2.0/workspace"/>
+    <elementParameter field="DIRECTORY" name="PRODUCT_ROOT_DIR" value="C:/Users/jlamiel/Talend/Install/Talend-4.2/TOS/TOS-All-r59885-V4.2.0"/>
+    <elementParameter field="DIRECTORY" name="COMP_DEFAULT_PROJECT_DIR" value="C:/Users/jlamiel/Talend/Install/Talend-4.2/TOS/TOS-All-r59885-V4.2.0/workspace/TALENDDEMOSJAVA"/>
     <elementParameter field="TEXT" name="JOB_RUN_VM_ARGUMENTS" value=" -Xms256M -Xmx1024M"/>
     <elementParameter field="CHECK" name="JOB_RUN_VM_ARGUMENTS_OPTION" value="false"/>
     <elementParameter field="TEXT" name="AUTHOR" value="ocarbone@talend.com"/>
@@ -58,6 +59,9 @@
     <elementParameter field="CHECK" name="ON_DATABASE_FLAG" value="false"/>
     <elementParameter field="CLOSED_LIST" name="DB_TYPE" value="tDBOutput"/>
     <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="ojdbc14-10g.jar"/>
+    <elementParameter field="TEXT" name="URL" value="&quot;&quot;"/>
+    <elementParameter field="TABLE" name="DRIVER_JAR"/>
+    <elementParameter field="TEXT" name="DRIVER_CLASS" value="&quot;&quot;"/>
     <elementParameter field="TEXT" name="HOST" value="&quot;&quot;"/>
     <elementParameter field="TEXT" name="PORT" value="&quot;&quot;"/>
     <elementParameter field="TEXT" name="DATASOURCE" value="&quot;&quot;"/>
@@ -75,6 +79,16 @@
     <elementParameter field="CHECK" name="CATCH_USER_ERRORS" value="true"/>
     <elementParameter field="CHECK" name="CATCH_USER_WARNING" value="true"/>
     <elementParameter field="CHECK" name="CATCH_REALTIME_STATS" value="false"/>
+    <elementParameter field="TEXT" name="HEADERFOOTER_HEADERID" value=""/>
+    <elementParameter field="CHECK" name="HEADER_ENABLED" value="false"/>
+    <elementParameter field="TEXT" name="HEADER_LIBRARY" value=""/>
+    <elementParameter field="TEXT" name="HEADER_CODE" value=""/>
+    <elementParameter field="TEXT" name="HEADER_IMPORT" value=""/>
+    <elementParameter field="TEXT" name="HEADERFOOTER_FOOTERID" value=""/>
+    <elementParameter field="CHECK" name="FOOTER_ENABLED" value="false"/>
+    <elementParameter field="TEXT" name="FOOTER_LIBRARY" value=""/>
+    <elementParameter field="TEXT" name="FOOTER_CODE" value=""/>
+    <elementParameter field="TEXT" name="FOOTER_IMPORT" value=""/>
     <routinesParameter id="_BzsnoJWBEd2-2urAiuZBEg" name="DataOperation"/>
     <routinesParameter id="_B9YvIJWBEd2-2urAiuZBEg" name="Mathematical"/>
     <routinesParameter id="_B9rqE5WBEd2-2urAiuZBEg" name="Numeric"/>
@@ -105,6 +119,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
     <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT states.idstate, states.labelstate FROM states&quot;"/>
+    <elementParameter field="MAPPING_TYPE" name="MAPPING" value="mysql_id"/>
     <elementParameter field="TEXT" name="PROPERTIES" value="&quot;&quot;"/>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
@@ -121,36 +136,39 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <elementParameter field="CHECK" name="INFORMATION" value="false"/>
     <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
     <metadata connector="FLOW" name="tMysqlInput_1">
       <column comment="" defaultValue="0" key="true" length="10" name="idstate" nullable="false" pattern="" precision="0" sourceType="INT" type="id_Integer"/>
       <column comment="" key="false" length="14" name="labelstate" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String"/>
     </metadata>
   </node>
-  <node binaryData="" stringData="" componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="384" posY="512">
+  <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="384" posY="512">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMap_1"/>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
     <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value="&quot;C:/Talend/Logiciels/TOS/TOS2.4.2/Install/TOS-All-r17347-V2.4.2/workspace/temp&quot;"/>
     <elementParameter field="IMAGE" name="PREVIEW" value="_2BwcsIkhEd244dQM-KCINQ-tMap_1-PREVIEW.bmp"/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true"/>
+    <elementParameter field="CHECK" name="LKUP_PARALLELIZE" value="false"/>
     <elementParameter field="TEXT" name="ROWS_BUFFER_SIZE" value="2000000"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <elementParameter field="CHECK" name="INFORMATION" value="false"/>
     <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
     <metadata connector="FLOW" label="ToSCDTable" name="ToSCDTable">
       <column comment="" defaultValue="0" key="true" length="10" name="idstate" nullable="false" pattern="" precision="0" sourceType="INT" type="id_Integer"/>
       <column comment="" key="false" length="14" name="labelstate" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String"/>
       <column comment="" key="false" length="29" name="date" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" sourceType="" type="id_String"/>
     </metadata>
     <nodeData xsi:type="MapperData">
-      <uiProperties shellMaximized="true"/>
+      <uiProperties/>
       <varTables sizeState="INTERMEDIATE" name="Var" minimized="true"/>
       <outputTables sizeState="INTERMEDIATE" name="ToSCDTable">
         <mapperTableEntries name="idstate" expression="row1.idstate " type="id_Integer"/>
         <mapperTableEntries name="labelstate" expression="row1.labelstate " type="id_String" nullable="true"/>
         <mapperTableEntries name="date" expression="TalendDate.getDate(&quot;CCYY-MM-DD hh:mm:ss&quot;) " type="id_String" nullable="true"/>
       </outputTables>
-      <inputTables sizeState="INTERMEDIATE" name="row1" matchingMode="UNIQUE_MATCH">
+      <inputTables sizeState="INTERMEDIATE" name="row1" matchingMode="UNIQUE_MATCH" lookupMode="LOAD_ONCE">
         <mapperTableEntries name="idstate" type="id_Integer"/>
         <mapperTableEntries name="labelstate" type="id_String" nullable="true"/>
       </inputTables>
@@ -211,6 +229,7 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <elementParameter field="CHECK" name="INFORMATION" value="false"/>
     <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
     <metadata connector="FLOW" name="tMysqlSCD_1">
       <column comment="" defaultValue="0" key="true" length="10" name="idstate" nullable="false" pattern="" precision="0" sourceType="INT" type="id_Integer"/>
       <column comment="" key="false" length="14" name="labelstate" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String"/>
@@ -243,6 +262,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
     <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT scdstates.idstate, scdstates.labelstate, scdstates.date FROM scdstates&quot;"/>
+    <elementParameter field="MAPPING_TYPE" name="MAPPING" value="mysql_id"/>
     <elementParameter field="TEXT" name="PROPERTIES" value="&quot;&quot;"/>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
@@ -261,6 +281,7 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <elementParameter field="CHECK" name="INFORMATION" value="false"/>
     <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
     <metadata connector="FLOW" name="tMysqlInput_2">
       <column comment="" defaultValue="0" key="true" length="10" name="idstate" nullable="false" pattern="" precision="0" sourceType="INT" type="id_Integer"/>
       <column comment="" key="false" length="14" name="labelstate" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String"/>
@@ -291,6 +312,7 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <elementParameter field="CHECK" name="INFORMATION" value="false"/>
     <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
     <metadata connector="FLOW" name="tLogRow_1">
       <column comment="" defaultValue="0" key="true" length="10" name="idstate" nullable="false" pattern="" precision="0" sourceType="INT" type="id_Integer"/>
       <column comment="" key="false" length="14" name="labelstate" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String"/>
@@ -304,39 +326,54 @@
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" value="_agCZsMvyEdu0-pmJiEk0sg"/>
     <elementParameter field="CLOSED_LIST" name="DBTYPE" value="MYSQL"/>
     <elementParameter field="CLOSED_LIST" name="TABLEACTION" value="DROP_IF_EXIST_CREATE"/>
-    <elementParameter field="CHECK" name="TEMPTABLE" value="false"/>
-    <elementParameter field="CLOSED_LIST" name="DB_AS400_VERSION" value="jt400_V5R3.jar"/>
+    <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="HOST" value="&quot;localhost&quot;"/>
     <elementParameter field="TEXT" name="DBNAME" value="&quot;demoproject&quot;"/>
+    <elementParameter field="TEXT" name="LOCAL_SERVICE_NAME" value="&quot;&quot;"/>
+    <elementParameter field="TEXT" name="JDBC_URL" value="&quot;jdbc:oracle:oci:/@db10g_test&quot;"/>
     <elementParameter field="TEXT" name="USER" value="&quot;root&quot;"/>
     <elementParameter field="TEXT" name="PASS" value="&quot;toor&quot;"/>
-    <elementParameter field="FILE" name="DBFILE_ACCESS" value="&quot;C:/Talend/Logiciels/TOS/TOS2.4.2/Install/TOS-All-r17347-V2.4.2/workspace/in.mdb&quot;"/>
     <elementParameter field="TEXT" name="PORT" value="&quot;3306&quot;"/>
+    <elementParameter field="TEXT" name="SCHEMA_DB" value="&quot;&quot;"/>
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION_ACCESS" value=""/>
+    <elementParameter field="FILE" name="DBFILE_ACCESS" value="&quot;C:/Talend/Logiciels/TOS/TOS2.4.2/Install/TOS-All-r17347-V2.4.2/workspace/in.mdb&quot;"/>
+    <elementParameter field="CLOSED_LIST" name="DB_AS400_VERSION" value="jt400_V5R3.jar"/>
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION_AS400" value=""/>
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION_DB2" value=""/>
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION_FIREBIRD" value=""/>
     <elementParameter field="FILE" name="DBFILE_FIREBIRD" value="&quot;C:/Talend/Logiciels/TOS/TOS2.4.2/Install/TOS-All-r17347-V2.4.2/workspace/in.FDB&quot;"/>
     <elementParameter field="CLOSED_LIST" name="RUNNING_MODE" value="HSQLDB_SERVER"/>
     <elementParameter field="CHECK" name="TLS" value="false"/>
     <elementParameter field="DIRECTORY" name="DBPATH_HSQL" value="&quot;&quot;"/>
     <elementParameter field="TEXT" name="DBNAME_HSQL" value="&quot;&quot;"/>
     <elementParameter field="TEXT" name="DATABASE_ALIAS" value="&quot;&quot;"/>
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION_INFORMIX" value=""/>
     <elementParameter field="TEXT" name="DBSERVER" value="&quot;&quot;"/>
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION_INGRES" value=""/>
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION_INTERBASE" value=""/>
     <elementParameter field="TEXT" name="DBFILE_INTERBASE" value="&quot;C:\Talend\Logiciels\TOS\TOS2.4.2\Install\TOS-All-r17347-V2.4.2\workspace/in.gdb&quot;"/>
     <elementParameter field="CLOSED_LIST" name="FRAMEWORK_TYPE" value="EMBEDED"/>
     <elementParameter field="CHECK" name="CONNECTION_FLAG" value="false"/>
     <elementParameter field="TEXT" name="DBNAME_JAVADB" value="&quot;&quot;"/>
     <elementParameter field="DIRECTORY" name="DBROOTPATH" value="&quot;&quot;"/>
-    <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION_MSSQL" value=""/>
+    <elementParameter field="CHECK" name="TEMPTABLE" value="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION_MYSQL" value=""/>
+    <elementParameter field="CLOSED_LIST" name="DB_MYSQL_VERSION" value="mysql-connector-java-5.1.0-bin.jar"/>
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION_NETEZZA" value=""/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION_ORACLE" value=""/>
     <elementParameter field="CLOSED_LIST" name="CONNECTION_TYPE" value="ORACLE_SID"/>
     <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="ojdbc5-11g.jar"/>
-    <elementParameter field="TEXT" name="SCHEMA_DB" value="&quot;&quot;"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION_POSTGRE" value=""/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION_POSTGREPLUS" value=""/>
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION_SQLITE" value=""/>
     <elementParameter field="FILE" name="DBFILE_SQLITE" value="&quot;C:/Talend/Logiciels/TOS/TOS2.4.2/Install/TOS-All-r17347-V2.4.2/workspace/talend.db&quot;"/>
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION_SYBASE" value=""/>
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION_TERADATA" value=""/>
     <elementParameter field="TEXT" name="ODBCNAME" value="&quot;&quot;"/>
     <elementParameter field="TEXT" name="TABLE" value="&quot;scdstates&quot;"/>
     <elementParameter field="MAPPING_TYPE" name="MAPPING" value="mysql_id"/>
+    <elementParameter field="CLOSED_LIST" name="CREATE_TABLE_TYPE" value="SET"/>
     <elementParameter field="TEXT" name="PROPERTIES" value="&quot;prompt=false&quot;"/>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
@@ -344,6 +381,7 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <elementParameter field="CHECK" name="INFORMATION" value="false"/>
     <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
     <metadata connector="FLOW" name="tCreateTable_1">
       <column comment="" defaultValue="0" key="true" length="10" name="idstate" nullable="false" pattern="" precision="0" sourceType="INT" type="id_Integer"/>
       <column comment="" key="false" length="14" name="labelstate" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String"/>

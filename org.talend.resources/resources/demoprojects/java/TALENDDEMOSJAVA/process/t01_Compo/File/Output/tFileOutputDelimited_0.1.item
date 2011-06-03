@@ -2,11 +2,12 @@
 <talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="demo">
   <context confirmationNeeded="false" name="demo">
     <contextParameter comment="This var is just used on t04_Context/repositoryContext" name="sampleInt" prompt="please define an sample int:" promptNeeded="false" type="id_Integer" value="100"/>
-    <contextParameter comment="" name="root" prompt="Set the path of the dir to store the example files folder:" promptNeeded="false" repositoryContextId="_dn7XwGT9Edyrh8knyihGHw" type="id_String" value="/home/nfrancisco/Bureau/"/>
+    <contextParameter comment="" name="root" prompt="Set the path of the dir to store the example files folder:" promptNeeded="false" repositoryContextId="_dn7XwGT9Edyrh8knyihGHw" type="id_String" value="C:\TalendDemoFiles\"/>
   </context>
   <parameters>
-    <elementParameter field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="/home/nfrancisco/Talend/Logiciels/TOS/4.0.0/Install/TOS-All-r39896-V4.0.0/workspace"/>
-    <elementParameter field="DIRECTORY" name="COMP_DEFAULT_PROJECT_DIR" value="/home/nfrancisco/Talend/Logiciels/TOS/4.0.0/Install/TOS-All-r39896-V4.0.0/workspace/TALENDDEMOSJAVA"/>
+    <elementParameter field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="C:/Users/jlamiel/Talend/Install/Talend-4.2/TOS/TOS-All-r59885-V4.2.0/workspace"/>
+    <elementParameter field="DIRECTORY" name="PRODUCT_ROOT_DIR" value="C:/Users/jlamiel/Talend/Install/Talend-4.2/TOS/TOS-All-r59885-V4.2.0"/>
+    <elementParameter field="DIRECTORY" name="COMP_DEFAULT_PROJECT_DIR" value="C:/Users/jlamiel/Talend/Install/Talend-4.2/TOS/TOS-All-r59885-V4.2.0/workspace/TALENDDEMOSJAVA"/>
     <elementParameter field="TEXT" name="JOB_RUN_VM_ARGUMENTS" value=" -Xms256M -Xmx1024M"/>
     <elementParameter field="CHECK" name="JOB_RUN_VM_ARGUMENTS_OPTION" value="false"/>
     <elementParameter field="TEXT" name="AUTHOR" value="training@talend.com"/>
@@ -59,6 +60,9 @@
     <elementParameter field="CHECK" name="ON_DATABASE_FLAG" value="false"/>
     <elementParameter field="CLOSED_LIST" name="DB_TYPE" value=""/>
     <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="ojdbc14-10g.jar"/>
+    <elementParameter field="TEXT" name="URL" value="&quot;&quot;"/>
+    <elementParameter field="TABLE" name="DRIVER_JAR"/>
+    <elementParameter field="TEXT" name="DRIVER_CLASS" value="&quot;&quot;"/>
     <elementParameter field="TEXT" name="HOST" value="&quot;&quot;"/>
     <elementParameter field="TEXT" name="PORT" value="&quot;&quot;"/>
     <elementParameter field="TEXT" name="DATASOURCE" value="&quot;&quot;"/>
@@ -76,6 +80,16 @@
     <elementParameter field="CHECK" name="CATCH_USER_ERRORS" value="true"/>
     <elementParameter field="CHECK" name="CATCH_USER_WARNING" value="true"/>
     <elementParameter field="CHECK" name="CATCH_REALTIME_STATS" value="false"/>
+    <elementParameter field="TEXT" name="HEADERFOOTER_HEADERID" value=""/>
+    <elementParameter field="CHECK" name="HEADER_ENABLED" value="false"/>
+    <elementParameter field="TEXT" name="HEADER_LIBRARY" value=""/>
+    <elementParameter field="TEXT" name="HEADER_CODE" value=""/>
+    <elementParameter field="TEXT" name="HEADER_IMPORT" value=""/>
+    <elementParameter field="TEXT" name="HEADERFOOTER_FOOTERID" value=""/>
+    <elementParameter field="CHECK" name="FOOTER_ENABLED" value="false"/>
+    <elementParameter field="TEXT" name="FOOTER_LIBRARY" value=""/>
+    <elementParameter field="TEXT" name="FOOTER_CODE" value=""/>
+    <elementParameter field="TEXT" name="FOOTER_IMPORT" value=""/>
     <routinesParameter id="_BzsnoJWBEd2-2urAiuZBEg" name="DataOperation"/>
     <routinesParameter id="_B9YvIJWBEd2-2urAiuZBEg" name="Mathematical"/>
     <routinesParameter id="_B9rqE5WBEd2-2urAiuZBEg" name="Numeric"/>
@@ -106,6 +120,7 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <elementParameter field="CHECK" name="INFORMATION" value="false"/>
     <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
     <metadata comment="" connector="FLOW" name="tRowGenerator_2">
       <column comment="" key="false" length="3" name="number" nullable="false" pattern="" sourceType="" type="id_Integer"/>
       <column comment="" key="false" length="20" name="txt" nullable="false" pattern="" sourceType="" type="id_String"/>
@@ -142,6 +157,7 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <elementParameter field="CHECK" name="INFORMATION" value="false"/>
     <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
     <metadata connector="FLOW" name="tFileOutputDelimited_1">
       <column comment="" key="false" length="3" name="number" nullable="false" pattern="" sourceType="" type="id_Integer"/>
       <column comment="" key="false" length="20" name="txt" nullable="false" pattern="" sourceType="" type="id_String"/>
