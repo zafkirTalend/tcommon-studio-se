@@ -18,7 +18,7 @@ public class TestPlanParameters extends Plan {
         String logs = (this.getPlanLogsValue(planParameters,taskLabel, null));
         Assert.assertTrue((logs.contains("name: JackZhang"))&&(logs.contains("age: 23")), "test failed!");
 	}
-	@Test(dependsOnMethods="checkPlanExecutionLogs")
+	@Test(dependsOnMethods="testCheckPlanExecutionLogs")
 	 @Parameters({ "parameters.plan.label",
 	 "parameters.plan.roottask"})
 	public void testChangePlanParametersNotClickOverride(String planParameters,String taskLabel) {
@@ -27,7 +27,6 @@ public class TestPlanParameters extends Plan {
 				WAIT_TIME);
 		this.sleep(2000);
 		selenium.mouseDown("//span[text()='" + planParameters + "']");
-		selenium.setSpeed(MID_SPEED);
 		this.ChangePlanParamter("name", "talend");
 		this.runPlan(taskLabel);
 		this.waitForElementPresent("//span[@class='x-tree3-node-text' and text()='"+taskLabel+" : [OK]']", MAX_WAIT_TIME);
@@ -36,7 +35,7 @@ public class TestPlanParameters extends Plan {
 	   selenium.setSpeed(MIN_SPEED);
 	}
 	
-	@Test(dependsOnMethods="checkPlanExecutionLogs")
+	@Test(dependsOnMethods="testChangePlanParametersNotClickOverride")
 	 @Parameters({ "parameters.plan.label",
 	 "parameters.plan.roottask"})
 	public void testChangePlanParametersAndClickOverride(String planParameters,String taskLabel) {
@@ -46,10 +45,16 @@ public class TestPlanParameters extends Plan {
 		this.sleep(2000);
 		selenium.mouseDown("//span[text()='" + planParameters + "']");
 		String newname = "talend";
-		selenium.setSpeed(MID_SPEED);
 		this.ChangePlanParamter("name", newname);
+		this.waitForElementPresent("//button[text()='Override']",WAIT_TIME);
+//		selenium.setSpeed(MID_SPEED);
+		selenium.mouseDown("//button[text()='Override']");
 		selenium.click("//button[text()='Override']");
+		selenium.mouseUp("//button[text()='Override']");
+		this.waitForTextPresent("Override successfully", WAIT_TIME);
 		this.runPlan(taskLabel);
+		this.waitForElementPresent("//span[text()='Running...']", WAIT_TIME);
+		this.waitForElementPresent("//span[text()='Ready to run']", WAIT_TIME);
 		this.waitForElementPresent("//span[@class='x-tree3-node-text' and text()='"+taskLabel+" : [OK]']", MAX_WAIT_TIME);
       String logs = (this.getPlanLogsValue(planParameters,taskLabel, null));
       Assert.assertTrue((logs.contains("name: "+newname+""))&&(logs.contains("age: 23")), "test failed!");
@@ -61,18 +66,15 @@ public class TestPlanParameters extends Plan {
 		this.clickWaitForElementPresent("//span[@class='x-tab-strip-text  ' and text()='Parameter']");
 		this.clickWaitForElementPresent("idJobConductorCmdPrmAddButton");
 		this.clickWaitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-parameter']");
-		this.input(context);
+		this.input("//input[contains(@class,'x-form-field x-form-text x-form-focus')]",context);
 		this.clickWaitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-description']");
-	    this.input(value);
+	    this.input("//input[contains(@class,'x-form-field x-form-text')]",value);
 	}
 	
-	public void input(String value){
-		selenium.type(
-				"//input[@class=' x-form-field x-form-text x-form-focus']",
-				"name");
-		selenium.keyDown(
-				"//input[@class=' x-form-field x-form-text x-form-focus']",
-				"\\13");
+	public void input(String inputXpath,String value){
+		this.waitForElementPresent(inputXpath, WAIT_TIME);
+		selenium.type(inputXpath,value);
+		selenium.keyDown(inputXpath,"\\13");
 	}
 	
 	public String getPlanLogsValue(String planLabel,String rootTask,String executeDate){
