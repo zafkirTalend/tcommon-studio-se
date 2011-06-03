@@ -4,6 +4,7 @@ import org.testng.Assert;
 import com.talend.tac.cases.Login;
 
 public class Plan extends Login {
+	public static int TriggerCheckTime = 40;
 
 	public void addPlan(String planLabel, String rootTask, String description) {
 
@@ -26,6 +27,15 @@ public class Plan extends Login {
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"
 				+ planLabel + "']"));
 		selenium.setSpeed(MIN_SPEED);
+	}
+
+	public void runPlan(String planLabel) {
+		this.waitForElementPresent("//span[text()='" + planLabel + "']",
+				WAIT_TIME);
+		this.sleep(2000);
+		selenium.mouseDown("//span[text()='" + planLabel + "']");
+		selenium.click("idJobConductorTaskRunButton");
+
 	}
 
 	public void deleteTrigger(String fileTriggerLabel) {
@@ -51,15 +61,15 @@ public class Plan extends Login {
 				selenium.isElementPresent("//span[text()='" + fileTriggerLabel
 						+ "']"), "trigger delete failed!");
 	}
-	
-	public void sleep(int seconds){
+
+	public void sleep(int seconds) {
 		try {
 			Thread.sleep(seconds);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }
