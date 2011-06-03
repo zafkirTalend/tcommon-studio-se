@@ -31,11 +31,13 @@ import org.talend.utils.sugars.ReturnCode;
 public final class ConnectionUtils {
 
     private static Logger log = Logger.getLogger(ConnectionUtils.class);
+
     private static List<String> sybaseDBProductsNames;
 
     public static final String IBM_DB2_ZOS_PRODUCT_NAME = "DB2";
 
     public static final String SYBASE_LANGUAGE = "Adaptive Server Enterprise | Sybase Adaptive Server IQ";
+
     /**
      * The query to execute in order to verify the connection.
      */
@@ -226,6 +228,23 @@ public final class ConnectionUtils {
         return sybaseDBProductsNames.toArray(new String[sybaseDBProductsNames.size()]);
     }
 
+    /**
+     * 
+     * DOC klliu Comment method "isOdbcTeradata".
+     * 
+     * @param metadata
+     * @return
+     * @throws SQLException
+     */
+    public static boolean isOdbcTeradata(DatabaseMetaData metadata) throws SQLException {
+        if (metadata.getDriverName() != null
+                && metadata.getDriverName().toLowerCase().startsWith("jdbc-odbc bridge (tdata32.dll)")
+                && metadata.getDatabaseProductName() != null
+                && metadata.getDatabaseProductName().toLowerCase().indexOf("teradata") > -1) {
+            return true;
+        }
+        return false;
+    }
     /**
      * only for db2 on z/os right now. 2009-07-13 bug 7888.
      * 

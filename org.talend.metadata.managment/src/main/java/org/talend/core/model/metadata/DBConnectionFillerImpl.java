@@ -242,13 +242,16 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 boolean hasSchema = false;
                 String schemaName = null;
                 while (schemas.next()) {
-
-                    schemaName = schemas.getString(MetaDataConstants.TABLE_SCHEM.name());
-                    if (schemaName == null) {
-                        schemaName = schemas.getString(DatabaseConstant.ODBC_ORACLE_SCHEMA_NAME);
-                    }
-                    if (schemaName == null) {
-                        // try to get first column
+                    if (!ConnectionUtils.isOdbcTeradata(dbJDBCMetadata)) {
+                        schemaName = schemas.getString(MetaDataConstants.TABLE_SCHEM.name());
+                        if (schemaName == null) {
+                            schemaName = schemas.getString(DatabaseConstant.ODBC_ORACLE_SCHEMA_NAME);
+                        }
+                        if (schemaName == null) {
+                            // try to get first column
+                            schemaName = schemas.getString(1);
+                        }
+                    } else {
                         schemaName = schemas.getString(1);
                     }
                     hasSchema = true;
@@ -316,6 +319,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         try {
             if (dbJDBCMetadata.getDatabaseProductName() != null
                     && dbJDBCMetadata.getDatabaseProductName().indexOf(EDatabaseTypeName.ORACLEFORSID.getProduct()) > -1) {
+                return catalogList;
+            }
+            if (ConnectionUtils.isOdbcTeradata(dbJDBCMetadata)) {
                 return catalogList;
             }
             ResultSet catalogNames = null;
