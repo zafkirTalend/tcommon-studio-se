@@ -1,8 +1,0 @@
-<suite name="Suite" parallel="false">
- <test name="TestAudit">
-	<classes>
-		<class name="com.talend.tac.cases.audit.TestAudit">
-		</class>
-	</classes>
-	</test>
-</suite>
