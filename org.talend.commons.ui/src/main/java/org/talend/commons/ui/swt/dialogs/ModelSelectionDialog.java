@@ -130,6 +130,14 @@ public class ModelSelectionDialog extends SelectionDialog {
             buildIn.setEnabled(false);
             repository.setEnabled(false);
         }
+        // set default selection
+        if (selectionType == ESelectionType.SCHEMA) {
+            showSchema.setSelection(true);
+        } else if (selectionType == ESelectionType.QUERY) {
+            showQuery.setSelection(true);
+        } else {
+            repository.setSelection(true);
+        }
     }
 
     /*
