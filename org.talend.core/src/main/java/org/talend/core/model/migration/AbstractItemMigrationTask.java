@@ -71,6 +71,7 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
 
                 Item item = object.getProperty().getItem();
                 execute = execute(item);
+                unloadObject(object);
                 // if (item.getProperty().eResource().isModified()) {
                 // factory.save(item, true);
                 // item.getProperty().eResource().setModified(false);
@@ -101,6 +102,11 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
     }
 
     public abstract ExecutionResult execute(Item item);
+
+    // if need to unload the object ,overide this method,see bug 21587
+    protected void unloadObject(IRepositoryViewObject object) {
+
+    };
 
     public List<ERepositoryObjectType> getTypes() {
         return Arrays.asList((ERepositoryObjectType[]) ERepositoryObjectType.values());
