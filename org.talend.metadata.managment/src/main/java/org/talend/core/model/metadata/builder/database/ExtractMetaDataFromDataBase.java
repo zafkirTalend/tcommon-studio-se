@@ -546,6 +546,43 @@ public class ExtractMetaDataFromDataBase {
      */
     public static String getTableNameBySynonym(Connection conn, String name) {
         try {
+            if (conn.getMetaData().getDatabaseProductName().equals("DB2/NT")) {
+                String sql = "SELECT NAME,BASE_NAME FROM SYSIBM.SYSTABLES where TYPE='A' and  name ='" + name + "'";
+                Statement sta = conn.createStatement();
+                ExtractMetaDataUtils.setQueryStatementTimeout(sta);
+                ResultSet resultSet = sta.executeQuery(sql);
+                while (resultSet.next()) {
+                    String baseName = resultSet.getString("base_name").trim();
+                    return baseName;
+
+                }
+            }
+        } catch (SQLException e) {
+            log.error(e.toString());
+            throw new RuntimeException(e);
+        }
+
+        try {
+            if (conn.getMetaData().getDatabaseProductName().equals("Microsoft SQL Server")) {
+                String sql = "SELECT object_id ,parent_object_id as parentid, name AS object_name ,   base_object_name as base_name from sys.synonyms where  name ='"
+                        + name + "'";
+                Statement sta = conn.createStatement();
+                ExtractMetaDataUtils.setQueryStatementTimeout(sta);
+                ResultSet resultSet = sta.executeQuery(sql);
+                while (resultSet.next()) {
+                    String baseName = resultSet.getString("base_name").trim();
+                    if (baseName.contains(".") && baseName.length() > 2) {
+                        return baseName.substring(baseName.indexOf(".") + 2, baseName.length() - 1);
+                    }
+
+                }
+            }
+        } catch (SQLException e) {
+            log.error(e.toString());
+            throw new RuntimeException(e);
+        }
+
+        try {
             String sql = "select TABLE_NAME from ALL_SYNONYMS where SYNONYM_NAME = '" + name + "'"; //$NON-NLS-1$ //$NON-NLS-2$ 
             // String sql = "select * from all_tab_columns where upper(table_name)='" + name + "' order by column_id";
             Statement sta;

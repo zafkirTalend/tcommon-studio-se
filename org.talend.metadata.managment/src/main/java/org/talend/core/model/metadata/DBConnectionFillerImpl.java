@@ -672,6 +672,56 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 }
                 list.add(metadatatable);
             }
+            if (dbJDBCMetadata.getDatabaseProductName().equals("Microsoft SQL Server")) {
+                for (int i = 0; i < tableType.length; i++) {
+                    if (tableType[i].equals("SYNONYM")) {
+                        Statement stmt = ExtractMetaDataUtils.conn.createStatement();
+                        ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
+                        String schemaname = catalogName + "." + schemaPattern + ".sysobjects";
+                        String sql = "select name from " + schemaname + " where xtype='SN'";
+                        // SELECT name AS object_name ,SCHEMA_NAME(schema_id) AS schema_name FROM sys.objects where
+                        // type='SN'
+                        ResultSet rsTables = stmt.executeQuery(sql);
+                        while (rsTables.next()) {
+                            String nameKey = rsTables.getString("name").trim();
+
+                            MetadataTable metadatatable = null;
+                            metadatatable = RelationalFactory.eINSTANCE.createTdTable();
+
+                            metadatatable.setName(nameKey);
+                            metadatatable.setTableType(ETableTypes.TABLETYPE_SYNONYM.getName());
+                            metadatatable.setLabel(metadatatable.getName());
+                            if (schemaPattern != null) {
+                                ColumnSetHelper.setTableOwner(schemaPattern, metadatatable);
+                            }
+                            list.add(metadatatable);
+                        }
+                    }
+                }
+            } else if (dbJDBCMetadata.getDatabaseProductName().equals("DB2/NT")) {
+                for (int i = 0; i < tableType.length; i++) {
+                    if (tableType[i].equals("SYNONYM")) {
+                        Statement stmt = ExtractMetaDataUtils.conn.createStatement();
+                        ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
+                        String sql = "SELECT NAME FROM SYSIBM.SYSTABLES where TYPE='A' and BASE_SCHEMA = '" + schemaPattern + "'";
+                        ResultSet rsTables = stmt.executeQuery(sql);
+                        while (rsTables.next()) {
+                            String nameKey = rsTables.getString("NAME").trim();
+
+                            MetadataTable metadatatable = null;
+                            metadatatable = RelationalFactory.eINSTANCE.createTdTable();
+
+                            metadatatable.setName(nameKey);
+                            metadatatable.setTableType(ETableTypes.TABLETYPE_SYNONYM.getName());
+                            metadatatable.setLabel(metadatatable.getName());
+                            if (schemaPattern != null) {
+                                ColumnSetHelper.setTableOwner(schemaPattern, metadatatable);
+                            }
+                            list.add(metadatatable);
+                        }
+                    }
+                }
+            }
             if (isLinked()) {
                 PackageHelper.addMetadataTable(ListUtils.castList(MetadataTable.class, list), pack);
             }
