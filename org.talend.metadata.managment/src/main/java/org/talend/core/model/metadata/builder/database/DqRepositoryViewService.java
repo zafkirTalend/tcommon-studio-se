@@ -192,6 +192,17 @@ public final class DqRepositoryViewService {
         }
     }
 
+    public static List<TdTable> getTables(Connection dataProvider, Package pack, String tablePattern, boolean loadFromDB)
+            throws Exception {
+        if (pack instanceof Schema) {
+            return getTables(dataProvider, (Schema) pack, tablePattern, loadFromDB);
+        } else if (pack instanceof Catalog) {
+            return getTables(dataProvider, (Catalog) pack, tablePattern, loadFromDB);
+        }
+        return new ArrayList<TdTable>();
+
+    }
+
     public static List<TdView> getViews(Connection dataProvider, Catalog catalog, String viewPattern, boolean loadFromDB)
             throws Exception {
         if (loadFromDB) {
@@ -210,6 +221,16 @@ public final class DqRepositoryViewService {
         } else {
             return SchemaHelper.getViews(schema);
         }
+    }
+
+    public static List<TdView> getViews(Connection dataProvider, Package pack, String viewPattern, boolean loadFromDB)
+            throws Exception {
+        if (pack instanceof Schema) {
+            return getViews(dataProvider, (Schema) pack, viewPattern, loadFromDB);
+        } else if (pack instanceof Catalog) {
+            return getViews(dataProvider, (Catalog) pack, viewPattern, loadFromDB);
+        }
+        return new ArrayList<TdView>();
     }
 
     /**
