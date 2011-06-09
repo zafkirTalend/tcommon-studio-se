@@ -1,15 +1,12 @@
 package com.talend.tac.cases.executePlan;
 
-import java.awt.event.KeyEvent;
-
-import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class AddPlan extends Plan {
 
 	// add a plan
-	@Test(groups = { "addplan" })
+	@Test(groups = { "addplan" },dependsOnGroups={"Menu"})
 	// , dependsOnGroups = { "cleanplan" }
 	@Parameters({ "plan.label", "plan.description", "plan.task" })
 	public void testAddPlan(String label, String description, String task) {
