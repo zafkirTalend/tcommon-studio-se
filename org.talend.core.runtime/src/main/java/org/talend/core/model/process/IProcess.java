@@ -37,6 +37,8 @@ public interface IProcess extends IElement {
     public static final String DEFAULT_TABLE_CONNECTION_NAME = "table"; //$NON-NLS-1$
 
     public static final String DEFAULT_ITERATE_CONNECTION_NAME = "iterate"; //$NON-NLS-1$
+    
+    public static final String DEFAULT_ROUTE_CONNECTION_NAME = "route"; //$NON-NLS-1$
 
     public static final String SCREEN_OFFSET_X = "SCREEN_OFFSET_X"; //$NON-NLS-1$
 

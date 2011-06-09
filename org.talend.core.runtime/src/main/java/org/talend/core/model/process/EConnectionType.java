@@ -121,8 +121,8 @@ public enum EConnectionType implements IConnectionCategory, IDraw2dGraphics {
                 new RGB(0, 50, 150)),
     ROUTE(14, "ROUTE", //$NON-NLS-1$
                 EConnectionCategory.MAIN,
-                CAMEL,
-                "Route", "Route", //$NON-NLS-1$ //$NON-NLS-2$
+                CAMEL | UNIQUE_NAME,
+                "Route", Messages.getString("EConnectionType.route"), //$NON-NLS-1$ //$NON-NLS-2$
                 new Integer(LINE_SOLID),
                 new RGB(230, 100, 0)),
     ROUTE_WHEN(15, "ROUTE_WHEN", //$NON-NLS-1$
