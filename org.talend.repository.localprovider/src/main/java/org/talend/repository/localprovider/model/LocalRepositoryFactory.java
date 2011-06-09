@@ -267,6 +267,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     // create folder
                     currentFolderItem = folderHelper.createFolder(((IFolder) objectFolder).getProjectRelativePath()
                             .toPortableString());
+                } else {
+                    currentFolderItem.getChildren().clear();
                 }
             }
             physicalFolder = (IFolder) objectFolder;
