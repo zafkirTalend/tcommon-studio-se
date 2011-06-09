@@ -168,11 +168,6 @@ public class ExtractMetaDataFromDataBase {
                 }
             } else if (as400) {
                 schema = ExtractMetaDataUtils.retrieveSchemaPatternForAS400(iMetadataConnection.getUrl());
-            } else if (EDatabaseTypeName.SYBASEASE.getProduct().equals(iMetadataConnection.getProduct())) {
-                String username = iMetadataConnection.getUsername();
-                if (username != null) {
-                    iMetadataConnection.setSchema(username);
-                }
             }
         }
         if (dbMetaData.equals(oldMetadata) && schema.equals(oldSchema) && limit.equals(oldLimit)
