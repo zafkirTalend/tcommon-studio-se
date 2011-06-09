@@ -5,15 +5,19 @@ import com.talend.tac.cases.Login;
 
 public class Plan extends Login {
 	public static int TriggerCheckTime = 40;
-
-	public void addPlan(String planLabel, String rootTask, String description) {
-
+	
+	public void openExecutionPlanMenu(){
 		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
 		this.waitForElementPresent(
 				"//div[@class='header-title' and text()='Execution Plan']",
 				WAIT_TIME);
 		Assert.assertTrue(selenium
 				.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
+	}
+
+	public void addPlan(String planLabel, String rootTask, String description) {
+
+		this.openExecutionPlanMenu();
 		this.clickWaitForElementPresent("//button[text()='Add plan']");
 		this.typeString("idExecutionPlanPlanFormLabelInput", planLabel);
 		this.typeString("idExecutionPlanPlanFormDescInput", description);
