@@ -28,6 +28,8 @@
         
         <!-- receiver userName -->
         <parameter name="LoginName" value="jackzhang@gamil.com" />
+        <parameter name="TaskBaseBranch" value="BranchTask"/>
+        <parameter name="duplicateTask" value="Copy_of_testTaskNotChooseActive" />
         <!-- receiver username -->
         <classes>  
         
