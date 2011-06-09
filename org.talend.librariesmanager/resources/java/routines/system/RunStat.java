@@ -220,12 +220,12 @@ public class RunStat implements Runnable {
     }
 
     public void stopThreadStat() {
-        if (!openSocket) {
-            return;
-        }
-        jobIsFinished = true;
+    	jobIsFinished = true;      
         try {
             sendMessages();
+            if (!openSocket) {
+                return;
+            }
             if (pred != null) {
                 pred.close();
             }
