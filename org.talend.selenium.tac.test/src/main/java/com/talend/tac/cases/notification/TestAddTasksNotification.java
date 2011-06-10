@@ -23,12 +23,12 @@ public class TestAddTasksNotification extends AddNotification {
 	}
 
 	//add a task'notification(Uncheck Active)
-	@Test(dependsOnMethods={"testAddTaskFailedNotification"})
-	@Parameters({"categoryTask","eventTaskFailed","descriptionTaskFailed","duplicateTask"})
+	@Test(dependsOnMethods={"testAddTaskFailedNotification"})              
+	@Parameters({"categoryTask","eventTaskFailed","descriptionTaskFailed","labelAddJVMParametersForTask"})
 	public void testAddTaskNotificationUncheckActive(String categoryTask, String eventTaskFailed,
-			String descriptionTaskFailed, String Copy_of_testTaskNotChooseActive) {
+			String descriptionTaskFailed, String testAddsimpleTask) {
 		
-		this.addTaskNotification(1, categoryTask, 1, eventTaskFailed, descriptionTaskFailed,Copy_of_testTaskNotChooseActive);
+		this.addTaskNotification(1, categoryTask, 1, eventTaskFailed, descriptionTaskFailed,testAddsimpleTask);
 		selenium.click("idActiveInput");
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertFalse(selenium.isChecked("idActiveInput"));
