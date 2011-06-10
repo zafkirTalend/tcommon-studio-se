@@ -54,6 +54,12 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		Assert.assertTrue(selenium
 				.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
 		filetriggerlabel = filetriggerlabel + "false";
+		//*****************************************
+		this.runPlan(plantoaddfiletrigger);
+		this.waitForElementPresent("//span[text()='Running...']", WAIT_TIME);
+		this.waitForElementPresent("//span[text()='Ready to run']",
+				WAIT_TIME);
+		//******************************************
 		addFileTrigger(plantoaddfiletrigger, filetriggerlabel, foldpath,
 				interval, mask, serverName, 0);
 //		triggerExistCheck(filetriggerlabel);
@@ -73,7 +79,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
 		this.waitForElementPresent(
 				"//div[@class='header-title' and text()='Execution Plan']",
-				WAIT_TIME);
+				WAIT_TIME);	
 		Assert.assertTrue(selenium
 				.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
 		addFileTrigger(plantoaddfiletrigger, filetriggerlabel, foldpath,
@@ -81,14 +87,15 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		 selenium.refresh();
 	        this.waitForElementPresent("//span[text()='" + plantoaddfiletrigger + "']",
 					WAIT_TIME);
+	        this.sleep(3000);
 			selenium.mouseDown("//span[text()='" + plantoaddfiletrigger + "']");
 	        this.waitForElementPresent("//span[text()='" + filetriggerlabel + "']",
 					WAIT_TIME);
-	        Thread.sleep(2000);
+	        this.sleep(3000);
 	        selenium.mouseDown("//span[text()='" + filetriggerlabel + "']");
-	        Thread.sleep(2000);
+	        this.sleep(3000);
 	        selenium.click("idTriggerDuplicate");
-	        Thread.sleep(1000);
+	        this.sleep(2000);
 	        selenium.click("idFileTriggerSave");
 			this.waitForElementPresent("//span[text()='Copy_of_" + filetriggerlabel + "']",
 					WAIT_TIME);
@@ -146,7 +153,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		filetriggerlabel = filetriggerlabel + "false";
 		addFileTrigger(plantoaddfiletrigger, filetriggerlabel, foldpath,
 				interval, mask, serverName, 1);
-		System.out.println("THE FIRST TIME:");
+		System.out.println("THE FIRST TIME:");	
 		this.waitForElementPresent("//span[text()='Running...']",
 				Base.WAIT_TIME);
 		Assert.assertTrue(this.waitElement("//span[text()='Ended...']",
@@ -155,7 +162,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 //		this.waitForElementPresent("//span[text()='Ended...']", Base.WAIT_TIME);
 		//do not create any new file,check directly
 //		triggerCreateCheck(filetriggerlabel);
-		triggerCheckFalse(filetriggerlabel);
+				triggerCheckFalse(filetriggerlabel);	
 	}
 
 	@Test
@@ -211,6 +218,13 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		Assert.assertTrue(selenium
 				.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
 		filetriggerlabel = filetriggerlabel + "false";
+		//*****************************************
+		this.runPlan(plantoaddfiletrigger);
+		this.waitForElementPresent("//span[text()='Running...']", WAIT_TIME);
+		this.waitForElementPresent("//span[text()='Ready to run']",
+				WAIT_TIME);
+		//******************************************
+		
 		addFileTrigger(plantoaddfiletrigger, filetriggerlabel, foldpath,
 				interval, mask, serverName, 2);
 		selenium.mouseDown("//span[text()='" + plantoaddfiletrigger + "']");
@@ -309,7 +323,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		selenium.chooseOkOnNextConfirmation();
 		try {
 			Thread.sleep(2000);
-		} catch (InterruptedException e) {
+		} catch (InterruptedException e) {	
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
