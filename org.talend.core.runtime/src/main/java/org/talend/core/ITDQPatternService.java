@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core;
 
+import org.talend.core.model.process.IElementParameter;
 
 /**
  * DOC bZhou class global comment. Detailled comment
@@ -30,4 +31,11 @@ public interface ITDQPatternService extends IService {
      */
     public String[][][] retrieveTDQPatterns();
 
+    /**
+     * This method is to override the patter list in a pattern matching component.
+     * 
+     * @param dbTypeParam
+     * @param patternParam
+     */
+    public void overridePatternList(IElementParameter dbTypeParam, IElementParameter patternParam);
 }
