@@ -51,14 +51,22 @@ public class TestPlanParameters extends Plan {
 		selenium.mouseDown("//button[text()='Override']");
 		selenium.click("//button[text()='Override']");
 		selenium.mouseUp("//button[text()='Override']");
+		selenium.setSpeed(MIN_SPEED);
 		this.waitForTextPresent("Override successfully", WAIT_TIME);
+//		// regenerate the plan
+//		selenium.click("//div[text()='Execution Plan']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idJobConductorTaskGenerateButton']");
+//		this.sleep(30000);
+//		selenium.click("//div[text()='Execution Plan']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idJobConductorTaskDeployButton']");
+//		this.sleep(10000);
+//		//
 		this.runPlan(taskLabel);
 		this.waitForElementPresent("//span[text()='Running...']", WAIT_TIME);
 		this.waitForElementPresent("//span[text()='Ready to run']", WAIT_TIME);
 		this.waitForElementPresent("//span[@class='x-tree3-node-text' and text()='"+taskLabel+" : [OK]']", MAX_WAIT_TIME);
       String logs = (this.getPlanLogsValue(planParameters,taskLabel, null));
+      System.out.println("after override parameters:\n"+logs);
       Assert.assertTrue((logs.contains("name: "+newname+""))&&(logs.contains("age: 23")), "test failed!");
-	selenium.setSpeed(MIN_SPEED);
+	
 	}
 	
 	public void ChangePlanParamter(String context,String value){
