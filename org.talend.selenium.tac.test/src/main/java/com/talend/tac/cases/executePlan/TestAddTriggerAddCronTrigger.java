@@ -8,14 +8,11 @@ public class TestAddTriggerAddCronTrigger extends Plan{
     	
     
 	@Test
-	@Parameters({ "plan.toaddcrontrigger.label", "plan.crontrigger.label"})
-	public void testAddCronTrigger(String planlabel,String crongtriggerlabel) throws InterruptedException{
+	@Parameters({ "plan.toaddcrontrigger.label","plan.toaddcrontrigger.task", "plan.crontrigger.label"})
+	public void testAddCronTrigger(String planlabel,String task,String crongtriggerlabel) throws InterruptedException{
 	    TriggerDate date = new TriggerDate().getFuture(24);
 		//open to execution plan add trigger page
-	    this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
-		this.waitForElementPresent("//div[@class='header-title' and text()='Execution Plan']", WAIT_TIME);
-		Assert.assertTrue(selenium
-				.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
+	    this.addPlan(planlabel, task, "testPlanCrontrigger");
     	selenium.mouseDown("//span[text()='"+planlabel+"']");
 		selenium.click("//button[text()='Add trigger...']");
 		selenium.click("//a[text()='Add CRON trigger']");
