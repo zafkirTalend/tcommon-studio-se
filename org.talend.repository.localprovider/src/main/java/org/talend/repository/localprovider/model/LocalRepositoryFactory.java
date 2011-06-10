@@ -69,8 +69,10 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.general.TalendNature;
 import org.talend.core.model.metadata.MetadataManager;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.core.model.properties.BRMSConnectionItem;
 import org.talend.core.model.properties.BusinessProcessItem;
@@ -124,6 +126,8 @@ import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.core.repository.utils.URIHelper;
 import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.core.service.ICorePerlService;
+import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.cwm.helper.SubItemHelper;
 import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
@@ -2203,8 +2207,32 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     if (((Property) object).getItem() != null && ((Property) object).getItem().getParent() != null
                             && (((Property) object).getItem().getParent()) instanceof FolderItem) {
 
+                        // bug 17768 :
+                        boolean toKeepInMemorySinceDeleted = false;
+
+                        if (((Property) object).getItem().getState().isDeleted()) {
+                            toKeepInMemorySinceDeleted = true;
+                        } else if (((Property) object).getItem() instanceof ConnectionItem) {
+                            // should check if item is ConnectionItem, then check if any of the table is deleted.
+                            // if yes, then don't unload all.
+                            Connection connection = ((ConnectionItem) ((Property) object).getItem()).getConnection();
+
+                            boolean haveTableDeleted = false;
+
+                            for (MetadataTable table : ConnectionHelper.getTables(connection)) {
+                                if (SubItemHelper.isDeleted(table)) {
+                                    haveTableDeleted = true;
+                                    break;
+                                }
+                            }
+
+                            if (haveTableDeleted) {
+                                toKeepInMemorySinceDeleted = true;
+                            }
+                        }
+
                         // to free memory or parent will still hold the item
-                        if (!((Property) object).getItem().getState().isDeleted()) {
+                        if (!toKeepInMemorySinceDeleted) {
                             ((FolderItem) ((Property) object).getItem().getParent()).getChildren().remove(
                                     ((Property) object).getItem());
                             ((Property) object).getItem().setParent(null);
