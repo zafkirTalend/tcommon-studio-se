@@ -94,7 +94,7 @@ public class AddNotification extends Login {
 		
 		selenium.click("//i[text()='"+notificationInformation+"']//ancestor::tbody//" +
 		"button[@id='idNotificationRepUserButton']");//choose event trigger users
-		selenium.mouseDown("//div[text()='testChooseTypeDataQuality@126.com']/parent::td/preceding-sibling::td");//choose event trigger users
+		selenium.mouseDown("//div[text()='admin@company.com']/parent::td/preceding-sibling::td");//choose event trigger users
 		selenium.click("//button[text()='Apply']");
 		selenium.click("idNotificationJobserverButton");
 		selenium.mouseDown("//div[text()='"+jobServer+"']/parent::td/preceding-sibling::td");//choose event trigger jobServer
