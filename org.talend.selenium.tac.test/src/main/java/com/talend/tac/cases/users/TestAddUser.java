@@ -31,17 +31,20 @@ public class TestAddUser extends Login {
 		this.typeString("idUserPasswordInput", password);
 		this.typeString("idSvnLogin", SvnLogin);
 		this.typeString("idSvnPwd", SvnPassWord);
-	    
-		selenium.click("//label[text()='Type:']/parent::div//div[@class='x-form-trigger x-form-trigger-arrow']");
-		this.waitForElementPresent("//div[contains(@class, 'x-combo-list')]/" +
-				"descendant::div[contains(@class, 'x-combo-list-item')][text()='"+typeName+"']", WAIT_TIME);
-		if(selenium.isElementPresent("//div[contains(@class, 'x-combo-list')]/" +
-				"descendant::div[contains(@class, 'x-combo-list-item')][text()='"+typeName+"']")) {
-			selenium.mouseDownAt("//div[contains(@class, 'x-combo-list')]/" +
-				"descendant::div[contains(@class, 'x-combo-list-item')][text()='"+typeName+"']", ""+Event.ENTER); 
-		    Assert.assertEquals(selenium.getValue("idTypeInput"), typeName);
-		}
-	    
+	    if(selenium.isVisible("//label[text()='Type:']/parent::div//div[@class='x-form-trigger x-form-trigger-arrow']")) {
+	    	
+	    	selenium.click("//label[text()='Type:']/parent::div//div[@class='x-form-trigger x-form-trigger-arrow']");
+			this.waitForElementPresent("//div[contains(@class, 'x-combo-list')]/" +
+					"descendant::div[contains(@class, 'x-combo-list-item')][text()='"+typeName+"']", WAIT_TIME);
+			if(selenium.isElementPresent("//div[contains(@class, 'x-combo-list')]/" +
+					"descendant::div[contains(@class, 'x-combo-list-item')][text()='"+typeName+"']")) {
+				selenium.mouseDownAt("//div[contains(@class, 'x-combo-list')]/" +
+					"descendant::div[contains(@class, 'x-combo-list-item')][text()='"+typeName+"']", ""+Event.ENTER); 
+			    Assert.assertEquals(selenium.getValue("idTypeInput"), typeName);
+			}
+		    
+	    }
+		
 	}
 	
 	//clear all users---modify firstname and lastname to "admin,admin" ---user'role change to 'administrator'
