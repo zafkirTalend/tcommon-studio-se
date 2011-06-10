@@ -11,7 +11,7 @@ public class TestDuplicateCrontrigger extends Login {
 	@Test
 	// (groups={"plan.trigger.duplicate"})
 	@Parameters({ "plan.toaddcrontrigger.label",
-			"plan.crontrigger.duplicate.label" })
+			"plan.crontrigger.duplicate.label" })	
 	public void testDuplicateCronTrigger(String plan,
 			String triggertoduplicate) throws InterruptedException {
 		TriggerDate date = new TriggerDate().getFuture(48);
