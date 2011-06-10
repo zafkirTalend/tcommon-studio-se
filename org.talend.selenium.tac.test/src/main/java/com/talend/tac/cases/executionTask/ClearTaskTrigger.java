@@ -36,7 +36,7 @@ public class ClearTaskTrigger extends Login {
     //remove tasks
     @Test
     @Parameters({"labelAddJVMParametersForTask","labelRefProJobByMainProTRunJobRun","TaskDeleteLogs",
-    	"duplicateTask","labelReferenceproTjava","TaskWithInactiveServer"})
+    	"labelReferenceproTjava","TaskWithInactiveServer"})
     public void clearsTasks(String labelAddJVMParametersForTask, String labelRefProJobByMainProTRunJobRun, 
     		String taskDeleteLogs,
     		String testAddTaskForTestReferenceproTjava,String TaskWithInactiveServer) {
