@@ -6,9 +6,8 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.talend.tac.base.Base;
-import com.talend.tac.cases.Login;
 
-public class TestAddTaskBaseBranchProject  extends Login {
+public class TestAddTaskBaseBranchProject  extends AddTask {
 	public boolean deleteTask(String taskLabel) throws InterruptedException{
 		boolean deleteOk = true;
 		selenium.refresh();
@@ -137,40 +136,13 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		selenium.setSpeed(MIN_SPEED);
 	
 	}
-	public void addTask(String label, String projectName, String branchName,
-			 String jobName, String version, String context, String serverName, String statisticName) {
-		branchName="branches/"+branchName;
-		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-        selenium.setSpeed(MID_SPEED);
-	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
-	    selenium.setSpeed(MIN_SPEED);
-	    selenium.click("idSubModuleAddButton");
-		this.typeString("idJobConductorTaskLabelInput", label);//plan name /Label
-    	
-    	if(!selenium.isChecked("idJobConductorTaskActiveListBox")) {
-    		
-    		selenium.click("idJobConductorTaskActiveListBox");//check active
-        	Assert.assertTrue(selenium.isChecked("idJobConductorTaskActiveListBox"));	
-    		
-    	}    
-    	this.selectDropDownList("idTaskProjectListBox", projectName);
-    	this.selectDropDownList("idTaskBranchListBox", branchName);
-    	this.selectDropDownList("idTaskJobListBox", jobName);
-    	this.selectDropDownList("idTaskVersionListBox", version);
-    	this.selectDropDownList("idTaskContextListBox", context);
-    	this.selectDropDownList("idJobConductorExecutionServerListBox", serverName);
-    	this.selectDropDownList("idJobConductorTaskStatisticsListBox", statisticName);
-    	this.selectDropDownList("idJobConductorOnUnavailableJobServerListBox", "Wait");
-				
-	}
-
 
 	@Test(dependsOnGroups={"AddTask"})
 	@Parameters({"TaskBaseBranch","AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
 	public void testAddTaskBaseBranch(String label, String projectName, String branchName,
 			 String jobName, String version, String context, String serverName, String statisticName){
-		addTask(label,projectName, branchName, jobName, version, context, serverName, statisticName);
+		this.addTask(label,"",projectName,branchName, jobName, version, context, serverName, statisticName);
 		if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
 			
 			selenium.click("idFormSaveButton");
@@ -239,7 +211,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		 String label = "taskwithsimpletrigger";
 		 int executiontime = 60000;
 		 if(!selenium.isElementPresent("//span[text()='"+label+"']")){
-			 addTask(label, projectName,branchName,jobName,version,context,serverName,statisticName);
+			 addTask(label, "",projectName,branchName,jobName,version,context,serverName,statisticName);
 		 }
 		 if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
 			
@@ -320,7 +292,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 			String branchName, String jobName, String version, String context,
 			String serverName, String statisticName) throws InterruptedException {
 		String label = "taskDeleteLogs";
-		addTask(label, projectName, branchName, jobName, version, context,
+		addTask(label, "",projectName, branchName, jobName, version, context,
 				serverName, statisticName);
 		if (!selenium.isElementPresent("//span[text()='" + label + "']")) {
 			selenium.click("idFormSaveButton");
@@ -341,7 +313,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==0,"task run generate logs failed !");
 		runTask(label,5);
 		if(deleteTask(label)){
-			addTask(label, projectName, branchName, jobName, version, context,
+			addTask(label,"", projectName, branchName, jobName, version, context,
 					serverName, statisticName);
 			if (!selenium.isElementPresent("//span[text()='" + label + "']")) {
 				selenium.click("idFormSaveButton");
@@ -370,7 +342,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		//add a task with several context
 		String tasklabel = "testTaskWithItems";
 		String simpletrigger = "testTaskRemoveSimpleTrigger";
-		addTask(tasklabel, projectName, branchName, jobName, version, context,
+		addTask(tasklabel,"", projectName, branchName, jobName, version, context,
 				serverName, statisticName);
 		if (!selenium.isElementPresent("//span[text()='" + tasklabel + "']")) {
 			selenium.click("idFormSaveButton");
@@ -399,7 +371,7 @@ public class TestAddTaskBaseBranchProject  extends Login {
 		//then delete the task.
 		Assert.assertTrue(deleteTask(tasklabel));
 		//add a task with same name ,to see if these items exist still
-		addTask(tasklabel, projectName, branchName, jobName, version, context,
+		addTask(tasklabel,"", projectName, branchName, jobName, version, context,
 				serverName, statisticName);
 		if (!selenium.isElementPresent("//span[text()='" + tasklabel + "']")) {
 			selenium.click("idFormSaveButton");
