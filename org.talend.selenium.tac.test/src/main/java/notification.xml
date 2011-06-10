@@ -29,7 +29,7 @@
         <!-- receiver userName -->
         <parameter name="LoginName" value="jackzhang@gamil.com" />
         <parameter name="TaskBaseBranch" value="BranchTask"/>
-        <parameter name="duplicateTask" value="Copy_of_testTaskNotChooseActive" />
+        <parameter name="labelAddJVMParametersForTask" value="testAddsimpleTask" />
         <!-- receiver username -->
         <classes>  
         
