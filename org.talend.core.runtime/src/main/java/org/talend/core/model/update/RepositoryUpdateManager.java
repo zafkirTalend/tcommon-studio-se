@@ -37,17 +37,27 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
+import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.context.JobContext;
 import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
+import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
+import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
 import org.talend.core.model.metadata.builder.connection.QueriesConnection;
 import org.talend.core.model.metadata.builder.connection.Query;
+import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.metadata.builder.connection.SAPIDocUnit;
+import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
+import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
+import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
+import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
@@ -489,6 +499,341 @@ public abstract class RepositoryUpdateManager {
             }
         }
         return false;
+    }
+
+    private void updateConnection(ContextItem citem) throws PersistenceException {
+        Map<ContextItem, Map<String, String>> renameMap = getContextRenamedMap();
+        Map<String, String> valueMap = renameMap.get(citem);
+        Set<String> set = valueMap.keySet();
+        List<String> list = new ArrayList<String>(set);
+        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+        for (String newValue : list) {
+            String oldValue = valueMap.get(newValue);
+            oldValue = "context." + oldValue;
+            newValue = "context." + newValue;
+            List<IRepositoryViewObject> dbConnList = factory.getAll(ERepositoryObjectType.METADATA_CONNECTIONS, true);
+            for (IRepositoryViewObject obj : dbConnList) {
+                Item item = obj.getProperty().getItem();
+                if (item instanceof ConnectionItem) {
+                    Connection conn = ((ConnectionItem) item).getConnection();
+                    if (conn.isContextMode()) {
+                        ContextItem contextItem = ContextUtils.getContextItemById2(conn.getContextId());
+                        if (contextItem == null) {
+                            continue;
+                        }
+                        if (citem == contextItem) {
+                            if (conn instanceof DatabaseConnection) {
+                                DatabaseConnection dbConn = (DatabaseConnection) conn;
+                                if (dbConn.getAdditionalParams() != null && dbConn.getAdditionalParams().equals(oldValue)) {
+                                    dbConn.setAdditionalParams(newValue);
+                                } else if (dbConn.getUsername() != null && dbConn.getUsername().equals(oldValue)) {
+                                    dbConn.setUsername(newValue);
+                                } else if (dbConn.getPassword() != null && dbConn.getPassword().equals(oldValue)) {
+                                    dbConn.setPassword(newValue);
+                                } else if (dbConn.getServerName() != null && dbConn.getServerName().equals(oldValue)) {
+                                    dbConn.setServerName(newValue);
+                                } else if (dbConn.getPort() != null && dbConn.getPort().equals(oldValue)) {
+                                    dbConn.setPort(newValue);
+                                } else if (dbConn.getSID() != null && dbConn.getSID().equals(oldValue)) {
+                                    dbConn.setSID(newValue);
+                                }
+                                factory.save(item);
+                            }
+                        }
+
+                    }
+                }
+            }
+            List<IRepositoryViewObject> excelConnList = factory.getAll(ERepositoryObjectType.METADATA_FILE_EXCEL, true);
+            for (IRepositoryViewObject obj : excelConnList) {
+                Item item = obj.getProperty().getItem();
+                if (item instanceof ConnectionItem) {
+                    Connection conn = ((ConnectionItem) item).getConnection();
+                    if (conn.isContextMode()) {
+                        ContextItem contextItem = ContextUtils.getContextItemById2(conn.getContextId());
+                        if (contextItem == null) {
+                            continue;
+                        }
+                        if (citem == contextItem) {
+                            if (conn instanceof FileExcelConnection) {
+                                if (((FileExcelConnection) conn).getFirstColumn() != null
+                                        && ((FileExcelConnection) conn).getFirstColumn().equals(oldValue)) {
+                                    ((FileExcelConnection) conn).setFirstColumn(newValue);
+                                } else if (((FileExcelConnection) conn).getLastColumn() != null
+                                        && ((FileExcelConnection) conn).getLastColumn().equals(oldValue)) {
+                                    ((FileExcelConnection) conn).setLastColumn(newValue);
+                                } else if (((FileExcelConnection) conn).getThousandSeparator() != null
+                                        && ((FileExcelConnection) conn).getThousandSeparator().equals(oldValue)) {
+                                    ((FileExcelConnection) conn).setThousandSeparator(newValue);
+                                } else if (((FileExcelConnection) conn).getDecimalSeparator() != null
+                                        && ((FileExcelConnection) conn).getDecimalSeparator().equals(oldValue)) {
+                                    ((FileExcelConnection) conn).setDecimalSeparator(newValue);
+                                } else if (((FileExcelConnection) conn).getFilePath() != null
+                                        && ((FileExcelConnection) conn).getFilePath().equals(oldValue)) {
+                                    ((FileExcelConnection) conn).setFilePath(newValue);
+                                } else if (((FileExcelConnection) conn).getEncoding() != null
+                                        && ((FileExcelConnection) conn).getEncoding().equals(oldValue)) {
+                                    ((FileExcelConnection) conn).setEncoding(newValue);
+                                } else if (((FileExcelConnection) conn).getLimitValue() != null
+                                        && ((FileExcelConnection) conn).getLimitValue().equals(oldValue)) {
+                                    ((FileExcelConnection) conn).setLimitValue(newValue);
+                                } else if (((FileExcelConnection) conn).getHeaderValue() != null
+                                        && ((FileExcelConnection) conn).getHeaderValue().equals(oldValue)) {
+                                    ((FileExcelConnection) conn).setHeaderValue(newValue);
+                                } else if (((FileExcelConnection) conn).getFooterValue() != null
+                                        && ((FileExcelConnection) conn).getFooterValue().equals(oldValue)) {
+                                    ((FileExcelConnection) conn).setFooterValue(newValue);
+                                }
+                                factory.save(item);
+                            }
+                        }
+                    }
+                }
+            }
+
+            List<IRepositoryViewObject> deliConnList = factory.getAll(ERepositoryObjectType.METADATA_FILE_DELIMITED, true);
+            for (IRepositoryViewObject obj : deliConnList) {
+                Item item = obj.getProperty().getItem();
+                if (item instanceof ConnectionItem) {
+                    Connection conn = ((ConnectionItem) item).getConnection();
+                    if (conn.isContextMode()) {
+                        ContextItem contextItem = ContextUtils.getContextItemById2(conn.getContextId());
+                        if (contextItem == null) {
+                            continue;
+                        }
+                        if (citem == contextItem) {
+                            if (conn instanceof DelimitedFileConnection) {
+                                if (((DelimitedFileConnection) conn).getFilePath() != null
+                                        && ((DelimitedFileConnection) conn).getFilePath().equals(oldValue)) {
+                                    ((DelimitedFileConnection) conn).setFilePath(newValue);
+                                } else if (((DelimitedFileConnection) conn).getEncoding() != null
+                                        && ((DelimitedFileConnection) conn).getEncoding().equals(oldValue)) {
+                                    ((DelimitedFileConnection) conn).setEncoding(newValue);
+                                } else if (((DelimitedFileConnection) conn).getLimitValue() != null
+                                        && ((DelimitedFileConnection) conn).getLimitValue().equals(oldValue)) {
+                                    ((DelimitedFileConnection) conn).setLimitValue(newValue);
+                                } else if (((DelimitedFileConnection) conn).getHeaderValue() != null
+                                        && ((DelimitedFileConnection) conn).getHeaderValue().equals(oldValue)) {
+                                    ((DelimitedFileConnection) conn).setHeaderValue(newValue);
+                                } else if (((DelimitedFileConnection) conn).getFooterValue() != null
+                                        && ((DelimitedFileConnection) conn).getFooterValue().equals(oldValue)) {
+                                    ((DelimitedFileConnection) conn).setFooterValue(newValue);
+                                } else if (((DelimitedFileConnection) conn).getRowSeparatorValue() != null
+                                        && ((DelimitedFileConnection) conn).getRowSeparatorValue().equals(oldValue)) {
+                                    ((DelimitedFileConnection) conn).setRowSeparatorValue(newValue);
+                                } else if (((DelimitedFileConnection) conn).getFieldSeparatorValue() != null
+                                        && ((DelimitedFileConnection) conn).getFieldSeparatorValue().equals(oldValue)) {
+                                    ((DelimitedFileConnection) conn).setFieldSeparatorValue(newValue);
+                                }
+                                factory.save(item);
+                            }
+
+                        }
+                    }
+                }
+            }
+            List<IRepositoryViewObject> regConnList = factory.getAll(ERepositoryObjectType.METADATA_FILE_REGEXP, true);
+            for (IRepositoryViewObject obj : regConnList) {
+                Item item = obj.getProperty().getItem();
+                if (item instanceof ConnectionItem) {
+                    Connection conn = ((ConnectionItem) item).getConnection();
+                    if (conn.isContextMode()) {
+                        ContextItem contextItem = ContextUtils.getContextItemById2(conn.getContextId());
+                        if (contextItem == null) {
+                            continue;
+                        }
+                        if (citem == contextItem) {
+                            if (conn instanceof RegexpFileConnection) {
+                                if (((RegexpFileConnection) conn).getFilePath() != null
+                                        && ((RegexpFileConnection) conn).getFilePath().equals(oldValue)) {
+                                    ((RegexpFileConnection) conn).setFilePath(newValue);
+                                } else if (((RegexpFileConnection) conn).getEncoding() != null
+                                        && ((RegexpFileConnection) conn).getEncoding().equals(oldValue)) {
+                                    ((RegexpFileConnection) conn).setEncoding(newValue);
+                                } else if (((RegexpFileConnection) conn).getLimitValue() != null
+                                        && ((RegexpFileConnection) conn).getLimitValue().equals(oldValue)) {
+                                    ((RegexpFileConnection) conn).setLimitValue(newValue);
+                                } else if (((RegexpFileConnection) conn).getHeaderValue() != null
+                                        && ((RegexpFileConnection) conn).getHeaderValue().equals(oldValue)) {
+                                    ((RegexpFileConnection) conn).setHeaderValue(newValue);
+                                } else if (((RegexpFileConnection) conn).getFooterValue() != null
+                                        && ((RegexpFileConnection) conn).getFooterValue().equals(oldValue)) {
+                                    ((RegexpFileConnection) conn).setFooterValue(newValue);
+                                } else if (((RegexpFileConnection) conn).getRowSeparatorValue() != null
+                                        && ((RegexpFileConnection) conn).getRowSeparatorValue().equals(oldValue)) {
+                                    ((RegexpFileConnection) conn).setRowSeparatorValue(newValue);
+                                } else if (((RegexpFileConnection) conn).getFieldSeparatorValue() != null
+                                        && ((RegexpFileConnection) conn).getFieldSeparatorValue().equals(oldValue)) {
+                                    ((RegexpFileConnection) conn).setFieldSeparatorValue(newValue);
+                                }
+                                factory.save(item);
+                            }
+
+                        }
+                    }
+                }
+            }
+            List<IRepositoryViewObject> ldifConnList = factory.getAll(ERepositoryObjectType.METADATA_FILE_LDIF, true);
+            for (IRepositoryViewObject obj : ldifConnList) {
+                Item item = obj.getProperty().getItem();
+                if (item instanceof ConnectionItem) {
+                    Connection conn = ((ConnectionItem) item).getConnection();
+                    if (conn.isContextMode()) {
+                        ContextItem contextItem = ContextUtils.getContextItemById2(conn.getContextId());
+                        if (contextItem == null) {
+                            continue;
+                        }
+                        if (citem == contextItem) {
+                            if (conn instanceof LdifFileConnection) {
+                                LdifFileConnection dbConn = (LdifFileConnection) conn;
+                                if (dbConn.getFilePath() != null && dbConn.getFilePath().equals(oldValue)) {
+                                    dbConn.setFilePath(newValue);
+                                }
+                                factory.save(item);
+                            }
+                        }
+                    }
+                }
+            }
+            List<IRepositoryViewObject> posiConnList = factory.getAll(ERepositoryObjectType.METADATA_FILE_POSITIONAL, true);
+            for (IRepositoryViewObject obj : posiConnList) {
+                Item item = obj.getProperty().getItem();
+                if (item instanceof ConnectionItem) {
+                    Connection conn = ((ConnectionItem) item).getConnection();
+                    if (conn.isContextMode()) {
+                        ContextItem contextItem = ContextUtils.getContextItemById2(conn.getContextId());
+                        if (contextItem == null) {
+                            continue;
+                        }
+                        if (citem == contextItem) {
+                            if (conn instanceof PositionalFileConnection) {
+                                PositionalFileConnection dbConn = (PositionalFileConnection) conn;
+                                if (dbConn.getFilePath() != null && dbConn.getFilePath().equals(oldValue)) {
+                                    dbConn.setFilePath(newValue);
+                                } else if (dbConn.getEncoding() != null && dbConn.getEncoding().equals(oldValue)) {
+                                    dbConn.setEncoding(newValue);
+                                } else if (dbConn.getLimitValue() != null && dbConn.getLimitValue().equals(oldValue)) {
+                                    dbConn.setLimitValue(newValue);
+                                } else if (dbConn.getHeaderValue() != null && dbConn.getHeaderValue().equals(oldValue)) {
+                                    dbConn.setHeaderValue(newValue);
+                                } else if (dbConn.getFooterValue() != null && dbConn.getFooterValue().equals(oldValue)) {
+                                    dbConn.setFooterValue(newValue);
+                                } else if (dbConn.getRowSeparatorValue() != null
+                                        && dbConn.getRowSeparatorValue().equals(oldValue)) {
+                                    dbConn.setRowSeparatorValue(newValue);
+                                } else if (dbConn.getFieldSeparatorValue() != null
+                                        && dbConn.getFieldSeparatorValue().equals(oldValue)) {
+                                    dbConn.setFieldSeparatorValue(newValue);
+                                }
+                                factory.save(item);
+                            }
+
+                        }
+                    }
+                }
+            }
+            List<IRepositoryViewObject> xmlConnList = factory.getAll(ERepositoryObjectType.METADATA_FILE_XML, true);
+            for (IRepositoryViewObject obj : xmlConnList) {
+                Item item = obj.getProperty().getItem();
+                if (item instanceof ConnectionItem) {
+                    Connection conn = ((ConnectionItem) item).getConnection();
+                    if (conn.isContextMode()) {
+                        ContextItem contextItem = ContextUtils.getContextItemById2(conn.getContextId());
+                        if (contextItem == null) {
+                            continue;
+                        }
+                        if (citem == contextItem) {
+                            if (conn instanceof XmlFileConnection) {
+                                XmlFileConnection dbConn = (XmlFileConnection) conn;
+                                if (dbConn.getXmlFilePath() != null && dbConn.getXmlFilePath().equals(oldValue)) {
+                                    dbConn.setXmlFilePath(newValue);
+                                } else if (dbConn.getEncoding() != null && dbConn.getEncoding().equals(oldValue)) {
+                                    dbConn.setEncoding(newValue);
+                                } else if (dbConn.getOutputFilePath() != null && dbConn.getOutputFilePath().equals(oldValue)) {
+                                    dbConn.setOutputFilePath(newValue);
+                                }
+                                EList schema = dbConn.getSchema();
+                                if (schema != null && schema.size() > 0) {
+                                    if (schema.get(0) instanceof XmlXPathLoopDescriptor) {
+                                        XmlXPathLoopDescriptor descriptor = (XmlXPathLoopDescriptor) schema.get(0);
+                                        if (descriptor.getAbsoluteXPathQuery() != null
+                                                && descriptor.getAbsoluteXPathQuery().equals(oldValue)) {
+                                            descriptor.setAbsoluteXPathQuery(newValue);
+                                        }
+                                    }
+                                }
+                                factory.save(item);
+                            }
+                        }
+                    }
+                }
+            }
+            List<IRepositoryViewObject> saleConnList = factory.getAll(ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA, true);
+            for (IRepositoryViewObject obj : saleConnList) {
+                Item item = obj.getProperty().getItem();
+                if (item instanceof ConnectionItem) {
+                    Connection conn = ((ConnectionItem) item).getConnection();
+                    if (conn.isContextMode()) {
+                        ContextItem contextItem = ContextUtils.getContextItemById2(conn.getContextId());
+                        if (contextItem == null) {
+                            continue;
+                        }
+                        if (citem == contextItem) {
+                            if (conn instanceof SalesforceSchemaConnection) {
+                                SalesforceSchemaConnection dbConn = (SalesforceSchemaConnection) conn;
+                                if (dbConn.getWebServiceUrl() != null && dbConn.getWebServiceUrl().equals(oldValue)) {
+                                    dbConn.setWebServiceUrl(newValue);
+                                } else if (dbConn.getPassword() != null && dbConn.getPassword().equals(oldValue)) {
+                                    dbConn.setPassword(newValue);
+                                } else if (dbConn.getUserName() != null && dbConn.getUserName().equals(oldValue)) {
+                                    dbConn.setUserName(newValue);
+                                } else if (dbConn.getTimeOut() != null && dbConn.getTimeOut().equals(oldValue)) {
+                                    dbConn.setTimeOut(newValue);
+                                } else if (dbConn.getBatchSize() != null && dbConn.getBatchSize().equals(oldValue)) {
+                                    dbConn.setBatchSize(newValue);
+                                } else if (dbConn.getQueryCondition() != null && dbConn.getQueryCondition().equals(oldValue)) {
+                                    dbConn.setQueryCondition(newValue);
+                                }
+                                factory.save(item);
+                            }
+                        }
+                    }
+                }
+            }
+            List<IRepositoryViewObject> wsdlConnList = factory.getAll(ERepositoryObjectType.METADATA_WSDL_SCHEMA, true);
+            for (IRepositoryViewObject obj : wsdlConnList) {
+                Item item = obj.getProperty().getItem();
+                if (item instanceof ConnectionItem) {
+                    Connection conn = ((ConnectionItem) item).getConnection();
+                    if (conn.isContextMode()) {
+                        ContextItem contextItem = ContextUtils.getContextItemById2(conn.getContextId());
+                        if (contextItem == null) {
+                            continue;
+                        }
+                        if (citem == contextItem) {
+                            if (conn instanceof WSDLSchemaConnection) {
+                                WSDLSchemaConnection dbConn = (WSDLSchemaConnection) conn;
+                                if (dbConn.getUserName() != null && dbConn.getUserName().equals(oldValue)) {
+                                    dbConn.setUserName(newValue);
+                                } else if (dbConn.getPassword() != null && dbConn.getPassword().equals(oldValue)) {
+                                    dbConn.setPassword(newValue);
+                                } else if (dbConn.getProxyHost() != null && dbConn.getProxyHost().equals(oldValue)) {
+                                    dbConn.setProxyHost(newValue);
+                                } else if (dbConn.getProxyPassword() != null && dbConn.getProxyPassword().equals(oldValue)) {
+                                    dbConn.setProxyPassword(newValue);
+                                } else if (dbConn.getProxyUser() != null && dbConn.getProxyUser().equals(oldValue)) {
+                                    dbConn.setProxyUser(newValue);
+                                } else if (dbConn.getProxyPort() != null && dbConn.getProxyPort().equals(oldValue)) {
+                                    dbConn.setProxyPort(newValue);
+                                }
+                                factory.save(item);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
     public static IEditorReference[] getEditors() {
@@ -1593,6 +1938,11 @@ public abstract class RepositoryUpdateManager {
             }
             repositoryUpdateManager.setNewParametersMap(newParametersMap);
 
+        }
+        try {
+            repositoryUpdateManager.updateConnection(item);
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
         }
         return repositoryUpdateManager.doWork(show, onlySimpleShow);
     }
