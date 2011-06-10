@@ -3,38 +3,10 @@ package com.talend.tac.cases.executionTask;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import com.talend.tac.cases.Login;
 
-public class TestAddTask  extends Login {
+public class TestAddTask  extends AddTask {
 	
-	//creat a method of add task
-	public void addTask(String label, String description, String projectName, String branchName,
-			 String jobName, String version, String context, String serverName, String statisticName) {
-		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-        selenium.setSpeed(MID_SPEED);
-	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
-	    selenium.setSpeed(MIN_SPEED);
-	    selenium.click("idSubModuleAddButton");
-		this.typeString("idJobConductorTaskLabelInput", label);//plan name /Label
-		this.typeString("idJobConductorTaskDescInput", description);//plan name /Label
-    	
-    	if(!selenium.isChecked("idJobConductorTaskActiveListBox")) {
-    		
-    		selenium.click("idJobConductorTaskActiveListBox");//check active
-        	Assert.assertTrue(selenium.isChecked("idJobConductorTaskActiveListBox"));	
-    		
-    	}    
-    	this.selectDropDownList("idTaskProjectListBox", projectName);
-    	this.selectDropDownList("idTaskBranchListBox", branchName);
-    	this.selectDropDownList("idTaskJobListBox", jobName);
-    	this.selectDropDownList("idTaskVersionListBox", version);
-    	this.selectDropDownList("idTaskContextListBox", context);
-    	this.selectDropDownList("idJobConductorExecutionServerListBox", serverName);
-    	this.selectDropDownList("idJobConductorTaskStatisticsListBox", statisticName);
-    	this.selectDropDownList("idJobConductorOnUnavailableJobServerListBox", "Wait");
-    	
 
-	}
 	//add a task
 	@Test(groups={"AddTask"})
 	@Parameters({"label","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
@@ -42,7 +14,7 @@ public class TestAddTask  extends Login {
 	public void testAddTask(String label, String labelDescription,String commonpro,String branch,String jobName,
 			String version,String context,String jobServer,String statistic) {
 	   	
-		addTask(label, labelDescription, commonpro, branch, jobName, version, context, jobServer, statistic);
+		this.addTask(label, labelDescription, commonpro, branch, jobName, version, context, jobServer, statistic);
 		if(!selenium.isElementPresent("//span[text()='"+label+"']")) {	
 			selenium.click("idFormSaveButton");
 	        selenium.setSpeed(MID_SPEED);
@@ -62,7 +34,7 @@ public class TestAddTask  extends Login {
 		
 		selenium.refresh();
 		
-		addTask(label, labelDescription, commonpro, branch, jobName, version, context, jobServer, statistic);
+		this.addTask(label, labelDescription, commonpro, branch, jobName, version, context, jobServer, statistic);
 
 		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MID_SPEED);
@@ -80,7 +52,7 @@ public class TestAddTask  extends Login {
 		
 		
 	
-		addTask(label, labelDescription, commonpro, branch, jobName, version, context, jobServer, statistic);
+		this.addTask(label, labelDescription, commonpro, branch, jobName, version, context, jobServer, statistic);
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("//input[@class=' x-form-checkbox' and @type='checkbox' and @name='active']");//uncheck "Active"
 		Assert.assertFalse(selenium.isChecked("//input[@class=' x-form-checkbox' and @type='checkbox' and @name='active']"));
@@ -103,7 +75,7 @@ public class TestAddTask  extends Login {
 	public void testAddTaskForTestRunTRunJob(String label, String labelDescription,String commonpro,String branch,String jobName,
 			String version,String context,String jobServer,String statistic) {
 		
-		addTask(label, labelDescription, commonpro, branch, jobName, version, context, jobServer, statistic);
+		this.addTask(label, labelDescription, commonpro, branch, jobName, version, context, jobServer, statistic);
 		if(!selenium.isElementPresent("//span[text()='"+label+"']")) {	
 			selenium.click("idFormSaveButton");
 	        selenium.setSpeed(MID_SPEED);
@@ -122,7 +94,7 @@ public class TestAddTask  extends Login {
 			String version,String context,String jobServer,String statistic) {
 		
 		
-		addTask(label, labelDescription, commonpro, branch, jobName, version, context, jobServer, statistic);
+		this.addTask(label, labelDescription, commonpro, branch, jobName, version, context, jobServer, statistic);
 		if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
 					
 			selenium.click("idFormSaveButton");
@@ -143,7 +115,7 @@ public class TestAddTask  extends Login {
 		
 		
 			
-		addTask(label, labelDescription, referencepro, branch, jobName, version, context, jobServer, statistic);
+		this.addTask(label, labelDescription, referencepro, branch, jobName, version, context, jobServer, statistic);
 		if(!selenium.isElementPresent("//span[text()='"+label+"']")) {	
 			selenium.click("idFormSaveButton");
 	        selenium.setSpeed(MID_SPEED);
@@ -160,7 +132,7 @@ public class TestAddTask  extends Login {
 	public void testAddSimpleTask(String label,String description,String projectName,String branchName,
 			String jobName,String version,String context,String serverName,String statisticName) {
 		
-		addTask(label, description, projectName, branchName, jobName, version, context, serverName, statisticName);
+		this.addTask(label, description, projectName, branchName, jobName, version, context, serverName, statisticName);
 		
 		if(!selenium.isElementPresent("//span[text()='"+label+"']")) {	
 			selenium.click("idFormSaveButton");
@@ -179,7 +151,7 @@ public class TestAddTask  extends Login {
 	public void testAddTaskWithInactiveServer(String label,String description,String projectName,String branchName,
 			String jobName,String version,String context,String serverName,String statisticName) {
 		
-		addTask(label, description, projectName, branchName, jobName, version, context, serverName, statisticName);
+		this.addTask(label, description, projectName, branchName, jobName, version, context, serverName, statisticName);
 		
 		if(!selenium.isElementPresent("//span[text()='"+label+"']")) {	
 			selenium.click("idFormSaveButton");
