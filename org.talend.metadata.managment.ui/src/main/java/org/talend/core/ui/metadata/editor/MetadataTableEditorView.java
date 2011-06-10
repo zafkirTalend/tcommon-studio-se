@@ -378,7 +378,7 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
                         bean.setType(TypesManager.getDBTypeFromTalendType(dbms, value));
                     }
                 }
-                if (currentBeanHasJavaDateType(bean)) {
+                if (currentBeanHasJavaDateType(bean) || isCurrentBeanHasType(bean, "id_Dynamic")) { //$NON-NLS-1$
                     bean.setPattern(new JavaSimpleDateFormatProposalProvider().getProposals(null, 0)[0].getContent());
                 }
             }

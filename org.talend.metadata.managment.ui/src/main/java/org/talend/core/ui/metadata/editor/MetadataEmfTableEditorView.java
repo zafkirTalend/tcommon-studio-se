@@ -299,7 +299,7 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
                         bean.setSourceType(TypesManager.getDBTypeFromTalendType(dbms, value));
                     }
                 }
-                if (currentBeanHasJavaDateType(bean)) {
+                if (currentBeanHasJavaDateType(bean) || isCurrentBeanHasType(bean, "id_Dynamic")) { //$NON-NLS-1$
                     bean.setPattern(new JavaSimpleDateFormatProposalProvider().getProposals(null, 0)[0].getContent());
                     // adaptLengthAndPrecision(bean, dbms);
                 }

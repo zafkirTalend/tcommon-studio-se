@@ -399,7 +399,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
                 public boolean canModify(Object bean) {
                     boolean typeIsDate = currentBeanHasJavaDateType(bean) && !isReadOnly();
-                    return typeIsDate;
+                    boolean typeIsDynamic = isCurrentBeanHasType(bean, "id_Dynamic") && !isReadOnly(); //$NON-NLS-1$
+                    return typeIsDate || typeIsDynamic;
                 }
 
             };
@@ -425,7 +426,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
                  * @see org.talend.commons.ui.swt.tableviewer.behavior.IColumnLabelProvider#getLabel(java.lang.Object)
                  */
                 public String getLabel(Object bean) {
-                    if (!currentBeanHasJavaDateType(bean)) {
+                    if (!currentBeanHasJavaDateType(bean) && !isCurrentBeanHasType(bean, "id_Dynamic")) {
                         return ""; //$NON-NLS-1$
                     }
                     return null;
@@ -827,6 +828,20 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         return typeIsDate;
     }
 
+    /**
+     * DOC ycbai Comment method "isCurrentBeanHasType".
+     * 
+     * @param element
+     * @param typeId
+     * @return
+     */
+    public boolean isCurrentBeanHasType(Object element, String typeId) {
+        if (element == null || typeId == null)
+            return false;
+        String talendType = getTalendTypeAccessor().get((B) element);
+        return typeId.equals(talendType);
+    }
+
     public boolean isShowTalendTypeColumn() {
         return this.showTalendTypeColumn;
     }
@@ -852,8 +867,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
     /*
      * When the type is Date in java, set the default pattern.
      */
-    public String getJavaDateTypeForDefaultPattern(Object bean) {
-        if (currentBeanHasJavaDateType(bean)) {
+    public String getJavaDateOrDynTypeForDefaultPattern(Object bean) {
+        if (currentBeanHasJavaDateType(bean) || isCurrentBeanHasType(bean, "id_Dynamic")) { //$NON-NLS-1$
             return new JavaSimpleDateFormatProposalProvider().getProposals(null, 0)[0].getContent();
         }
         return ""; //$NON-NLS-1$
