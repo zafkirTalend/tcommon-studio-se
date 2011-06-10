@@ -79,8 +79,8 @@ public class TestPlanExecution extends Plan {
 		this.waitForElementPresent("//span[text()='" + planlabel + "']", WAIT_TIME);
 		Thread.sleep(2000);
 		selenium.mouseDown("//span[text()='" + planlabel + "']");
-		selenium.click("idJobConductorTaskGenerateButton");
-		this.waitForElementPresent("//span[text()='Generating...']", WAIT_TIME);
+		selenium.click("//div[text()='Execution Plan']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idJobConductorTaskGenerateButton']");
+		this.waitForElementPresent("//span[text()='Generating...']", 20);
 		this.waitForElementPresent("//span[text()='Ready to deploy']", WAIT_TIME);
 	}
 	
@@ -96,7 +96,7 @@ public class TestPlanExecution extends Plan {
 			e.printStackTrace();
 		}
 		selenium.mouseDown("//span[text()='" + planLabel + "']");
-		selenium.click("idJobConductorTaskDeployButton");
+		selenium.click("//div[text()='Execution Plan']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idJobConductorTaskDeployButton']");
 		this.waitForElementPresent("//span[text()='Ready to run']", WAIT_TIME);
 		
 	}
@@ -113,7 +113,7 @@ public class TestPlanExecution extends Plan {
 			e.printStackTrace();
 		}
 		selenium.mouseDown("//span[text()='" + planLabel + "']");
-		selenium.click("idJobConductorTaskRunButton");
+		selenium.click("//div[text()='Execution Plan']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idJobConductorTaskRunButton']");
 		this.waitForElementPresent("//span[text()='Running...']", WAIT_TIME);
 		this.waitForElementPresent("//span[text()='Ready to run']", WAIT_TIME);
 	}

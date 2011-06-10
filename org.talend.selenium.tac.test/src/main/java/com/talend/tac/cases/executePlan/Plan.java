@@ -49,7 +49,7 @@ public class Plan extends Login {
 				WAIT_TIME);
 		this.sleep(2000);
 		selenium.mouseDown("//span[text()='" + planLabel + "']");
-		selenium.click("idJobConductorTaskRunButton");
+		selenium.click("//div[text()='Execution Plan']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idJobConductorTaskRunButton']");
 
 	}
 	
@@ -60,7 +60,7 @@ public class Plan extends Login {
 		this.sleep(2000);
 		selenium.mouseDown("//span[text()='" + planLabel + "']");
 		for (int i = 0; i < executeTimes; i++) {
-			selenium.click("idJobConductorTaskRunButton");
+			selenium.click("//div[text()='Execution Plan']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idJobConductorTaskRunButton']");
 			this.waitForElementPresent("//span[text()='Running...']", WAIT_TIME);
 			this.waitForElementPresent("//span[text()='Ready to run']",
 					WAIT_TIME);
