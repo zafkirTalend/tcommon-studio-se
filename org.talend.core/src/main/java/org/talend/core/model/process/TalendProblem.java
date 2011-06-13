@@ -12,7 +12,10 @@
 // ============================================================================
 package org.talend.core.model.process;
 
+import java.util.List;
+
 import org.eclipse.core.resources.IMarker;
+import org.talend.core.CorePlugin;
 
 /**
  * DOC xhuang class global comment. Detailled comment <br/>
@@ -39,6 +42,16 @@ public class TalendProblem extends Problem {
         super();
         setDescription(markerErrorMessage);
         setStatus(status);
+
+        List<IProcess2> openedProcessList = CorePlugin.getDefault().getDesignerCoreService().getOpenedProcess(getEditors());
+        for (IProcess2 process : openedProcessList) {
+            if (javaUnitName != null && javaUnitName.equals(process.getName())) {
+                BasicJobInfo jobInfo = new BasicJobInfo(process.getId(), null, process.getVersion());
+                jobInfo.setJobName(process.getName());
+                setJobInfo(jobInfo);
+            }
+        }
+
         this.javaUnitName = javaUnitName;
         this.marker = marker;
         this.lineNumber = lineNumber;
@@ -47,6 +60,7 @@ public class TalendProblem extends Problem {
         this.charEnd = charEnd;
         this.version = version;
         setType(type);
+        setNodeName(uniName);
     }
 
     public String getVersion() {
@@ -89,7 +103,7 @@ public class TalendProblem extends Problem {
         return this.type.getTypeName() + ":" + this.getName() + " (line:" + this.getLineNumber() + ")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
 
-    //    
+    //
 
     public IMarker getMarker() {
         return this.marker;

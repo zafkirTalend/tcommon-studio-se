@@ -12,8 +12,14 @@
 // ============================================================================
 package org.talend.core.model.process;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.PlatformUI;
 
 /**
  * Class that will be used in the ProblemsView. <br/>
@@ -108,6 +114,23 @@ public class Problem {
      */
     public BasicJobInfo getJobInfo() {
         return this.jobInfo;
+    }
+
+    public void setJobInfo(BasicJobInfo jobInfo) {
+        this.jobInfo = jobInfo;
+    }
+
+    public static IEditorReference[] getEditors() {
+        final List<IEditorReference> list = new ArrayList<IEditorReference>();
+        Display.getDefault().syncExec(new Runnable() {
+
+            public void run() {
+                IEditorReference[] reference = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+                        .getEditorReferences();
+                list.addAll(Arrays.asList(reference));
+            }
+        });
+        return list.toArray(new IEditorReference[0]);
     }
 
     /*
@@ -271,6 +294,10 @@ public class Problem {
      */
     public String getNodeName() {
         return this.nodeName;
+    }
+
+    protected void setNodeName(String nodeName) {
+        this.nodeName = nodeName;
     }
 
     /**
