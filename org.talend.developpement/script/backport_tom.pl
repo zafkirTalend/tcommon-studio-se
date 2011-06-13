@@ -12,7 +12,7 @@ $ENV{'LANG'} = "en_US.utf8";
 $ENV{'LC_ALL'}="en_US.utf8";
 
 my $svncommand = "/usr/bin/svn";
-
+my $folder="tom";
 
 #check svn version
 my $svnversioncommand = $svncommand." --version";
@@ -73,7 +73,7 @@ for my $arg(@ARGV) {
 	   $type = 2;
        } else {
 	   usage;
-	   die $arg." must be x.x or x.y.z or or trunk";
+	   die $arg." must be x.x or trunk";
        }
    } elsif ($type == 2) {
        if ($arg eq "trunk") {
@@ -82,12 +82,12 @@ for my $arg(@ARGV) {
        } elsif ($arg =~ m/^(\d+)\.(\d+)$/) {
 	   $to = "branch ".$1.".".$2;
 	   $tourl = "branches/branch-".$1."_".$2;
-       } elsif ($arg =~ m/^(\d+)\.(\d+)\.(.*)$/) {
+       }elsif ($arg =~ m/^(\d+)\.(\d+)\.(.*)$/) {
 	   $to = "branch ".$1.".".$2.".".$3;
 	   $tourl = "branches/branch-".$1."_".$2."_".$3;
-       } else {
+       }else {
 	   usage;
-	   die $arg." must be x.x or x.y.z or trunk";
+	   die $arg." must be x.x or trunk";
        }
    }
 }
@@ -115,7 +115,7 @@ if ($to eq $from) {
 #do merge
 for my $rev (@revs) {
     #log
-    my $msglogcommand = $svncommand." log -r".$rev." ".$rooturl;
+    my $msglogcommand = $svncommand." log -r".$rev." ".$rooturl."/".$folder;
     my $msglog = `$msglogcommand`;
     my @msgloglines = split("\n", $msglog);
     open(LOGFILE, ">", $logfile) || die "cannot open file $logfile";
@@ -127,7 +127,7 @@ for my $rev (@revs) {
     close(LOGFILE);
 
     #modified files
-    my $pathlogcommand = $svncommand." log --xml -v -r".$rev." ".$rooturl;
+    my $pathlogcommand = $svncommand." log --xml -v -r".$rev." ".$rooturl."/".$folder;
     my @files;
     my $pathlog = `$pathlogcommand`;
     while($pathlog =~ m{<path[^>]+>([^<]+)</path>}g) {
@@ -141,7 +141,7 @@ for my $rev (@revs) {
     
     #checkout root
     unless(-d $rootpath) {
-	my $checkoutcommand = $svncommand." checkout -N ".$rooturl." ".$rootpath;
+	my $checkoutcommand = $svncommand." checkout -N ".$rooturl."/".$folder." ".$rootpath."/".$folder;
 	print $checkoutcommand, "\n";
 	system $checkoutcommand;
     }
@@ -192,16 +192,16 @@ for my $rev (@revs) {
 
 	if ($result eq "c") {
 	    #commit
-	    my $svncommitcommand = $svncommand." commit -F ".$logfile." ".$rootpath;
+	    my $svncommitcommand = $svncommand." commit -F ".$logfile." ".$rootpath."/".$folder;
 	    print $svncommitcommand, "\n";
 	    system $svncommitcommand;
 	    $continue = 0;
 	} elsif ($result eq "s") {
-	    my $statuscommand = $svncommand." status ".$rootpath;
+	    my $statuscommand = $svncommand." status ".$rootpath."/".$folder;
 	    print $statuscommand, "\n";
 	    system($statuscommand);
 	} elsif ($result eq "r") {
-	    my $revertcommand = $svncommand." revert -R ".$rootpath;
+	    my $revertcommand = $svncommand." revert -R ".$rootpath."/".$folder;
 	    print $revertcommand, "\n";
 	    system($revertcommand);
 	} elsif ($result eq "m") {
@@ -220,11 +220,11 @@ for my $rev (@revs) {
             close($logfile_ifh);
             print "--------------------------------------------------\n\n";
 	} elsif ($result eq "d") {
-	    my $diffcommand = $svncommand." diff ".$rootpath;
+	    my $diffcommand = $svncommand." diff ".$rootpath."/".$folder;
 	    print $diffcommand, "\n";
 	    system($diffcommand);
 	} elsif ($result eq "k") {
-	    my $diffcommand = $svncommand." diff ".$rootpath." | kompare -";
+	    my $diffcommand = $svncommand." diff ".$rootpath."/".$folder." | kompare -";
 	    print $diffcommand, "\n";
 	    system($diffcommand);
         }
