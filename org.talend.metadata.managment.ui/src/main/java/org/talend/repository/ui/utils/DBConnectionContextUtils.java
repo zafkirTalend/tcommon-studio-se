@@ -19,6 +19,7 @@ import java.util.Set;
 
 import org.talend.commons.bridge.ReponsitoryContextBridge;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.ui.utils.PathUtils;
 import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
@@ -102,7 +103,16 @@ public final class DBConnectionContextUtils {
                     break;
                 // hshen
                 case JdbcUrl:
-                    ConnectionContextHelper.createParameters(varList, paramName, conn.getURL());
+
+                    String url = conn.getURL();
+                    String h2Prefix = "jdbc:h2:";
+                    if (url.startsWith(h2Prefix)) {
+                        String path = url.substring(h2Prefix.length(), url.length());
+                        path = PathUtils.getPortablePath(path);
+                        url = h2Prefix + path;
+                    }
+
+                    ConnectionContextHelper.createParameters(varList, paramName, url);
                     break;
                 case DriverJar:
                     ConnectionContextHelper.createParameters(varList, paramName, conn.getDriverJarPath());

@@ -48,6 +48,8 @@ public class TalendTextUtils {
 
     public static final String QUOTATION_MARK = TalendQuoteUtils.QUOTATION_MARK;
 
+    public static final String QUOTATION_ESC_MARK = TalendQuoteUtils.QUOTATION_ESC_MARK;
+
     public static final String LBRACKET = TalendQuoteUtils.LBRACKET;
 
     public static final String RBRACKET = TalendQuoteUtils.RBRACKET;
@@ -299,7 +301,9 @@ public class TalendTextUtils {
             // for bug 12092
             boolean isSqlKeyword = KeywordsValidator.isSqlKeyword(temp, name.getProduct()); //$NON-NLS-1$  
 
-            if (!matcher.matches() || matcher2.matches() || isSqlKeyword) {
+            boolean isH2 = EDatabaseTypeName.H2 == name;
+
+            if ((!matcher.matches() || matcher2.matches() || isSqlKeyword) && !isH2) {
                 isCheck = true; // contain other char
             }
 

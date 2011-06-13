@@ -240,7 +240,8 @@ public class TextUtil {
         boolean isPostgresql = dbType.equalsIgnoreCase(EDatabaseTypeName.PSQL.getXmlName());
         boolean isGreenplum = dbType.equalsIgnoreCase(EDatabaseTypeName.GREENPLUM.getXmlName());
         boolean isParaccel = dbType.equalsIgnoreCase(EDatabaseTypeName.PARACCEL.getXmlName());
-        return isPostgresql || isGreenplum || isParaccel;
+        boolean isH2 = dbType.equalsIgnoreCase(EDatabaseTypeName.H2.getXmlName());
+        return isPostgresql || isGreenplum || isParaccel || isH2;
     }
 
     /**

@@ -30,6 +30,8 @@ public final class TalendQuoteUtils {
 
     public static final String QUOTATION_MARK = "\""; //$NON-NLS-1$
 
+    public static final String QUOTATION_ESC_MARK = "\""; //$NON-NLS-1$
+
     public static final String LBRACKET = "["; //$NON-NLS-1$
 
     public static final String RBRACKET = "]"; //$NON-NLS-1$
@@ -340,6 +342,8 @@ public final class TalendQuoteUtils {
             return getBracket();
         case TERADATA:
             return QUOTATION_MARK;
+        case H2:
+            return QUOTATION_ESC_MARK;
             // case JAVADB_DERBYCLIENT:
             // return QUOTATION_MARK;
             // case JAVADB_JCCJDBC:

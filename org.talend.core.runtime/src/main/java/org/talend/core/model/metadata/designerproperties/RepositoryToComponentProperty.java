@@ -24,6 +24,7 @@ import java.util.Set;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.ui.utils.PathUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
@@ -928,9 +929,16 @@ public class RepositoryToComponentProperty {
         }
 
         if (value.equals("URL")) { //$NON-NLS-1$
-            if (isContextMode(connection, connection.getURL())) {
-                return connection.getURL();
+            String url = connection.getURL();
+            if (isContextMode(connection, url)) {
+                return url;
             } else {
+                String h2Prefix = "jdbc:h2:";
+                if (url.startsWith(h2Prefix)) {
+                    String path = url.substring(h2Prefix.length(), url.length());
+                    path = PathUtils.getPortablePath(path);
+                    url = h2Prefix + path;
+                }
                 return TalendQuoteUtils.addQuotes(connection.getURL());
             }
         }
