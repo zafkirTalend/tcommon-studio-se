@@ -571,7 +571,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
     public void deleteObjectPhysical(Project project, IRepositoryViewObject objToDelete, String version)
             throws PersistenceException {
-        deleteObjectPhysical(project, objToDelete, null, false);
+        deleteObjectPhysical(project, objToDelete, version, false);
     }
 
     public void deleteObjectPhysical(Project project, IRepositoryViewObject objToDelete, String version,
