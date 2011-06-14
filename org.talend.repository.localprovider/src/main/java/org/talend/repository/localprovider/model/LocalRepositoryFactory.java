@@ -73,6 +73,11 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.connection.QueriesConnection;
+import org.talend.core.model.metadata.builder.connection.Query;
+import org.talend.core.model.metadata.builder.connection.SAPConnection;
+import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
+import org.talend.core.model.metadata.builder.connection.SAPIDocUnit;
 import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.core.model.properties.BRMSConnectionItem;
 import org.talend.core.model.properties.BusinessProcessItem;
@@ -2221,6 +2226,40 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                 if (SubItemHelper.isDeleted(table)) {
                                     haveTableDeleted = true;
                                     break;
+                                }
+                            }
+                            if (!haveTableDeleted) {
+                                QueriesConnection queriesConnection = connection.getQueries();
+                                if (queriesConnection != null) {
+                                    for (Query query : queriesConnection.getQuery()) {
+                                        if (SubItemHelper.isDeleted(query)) {
+                                            haveTableDeleted = true;
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                if (connection instanceof SAPConnection) {
+                                    SAPConnection sapConn = (SAPConnection) connection;
+                                    if (!haveTableDeleted) {
+                                        EList<SAPFunctionUnit> funtions = sapConn.getFuntions();
+                                        for (SAPFunctionUnit unit : funtions) {
+                                            if (SubItemHelper.isDeleted(unit)) {
+                                                haveTableDeleted = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if (!haveTableDeleted) {
+                                        EList<SAPIDocUnit> iDocs = sapConn.getIDocs();
+                                        for (SAPIDocUnit iDoc : iDocs) {
+                                            if (SubItemHelper.isDeleted(iDoc)) {
+                                                haveTableDeleted = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+
                                 }
                             }
 
