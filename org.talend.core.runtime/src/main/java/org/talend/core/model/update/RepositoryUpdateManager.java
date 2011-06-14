@@ -124,10 +124,18 @@ public abstract class RepositoryUpdateManager {
 
     private List<RelationshipItemBuilder.Relation> relations;
 
-    private static IRepositoryService repistoryService = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
-            IRepositoryService.class);
+    private static IRepositoryService repistoryService = null;
 
-    private static ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+    private static ICoreService coreService = null;
+
+    static {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
+            repistoryService = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
+        }
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
+            coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+        }
+    }
 
     public RepositoryUpdateManager(Object parameter) {
         super();
@@ -1518,7 +1526,6 @@ public abstract class RepositoryUpdateManager {
     private static boolean updateDeleteOrReselectSchema(Object table, ConnectionItem connItem,
             Map<String, EUpdateResult> deletedOrReselectTablesMap, boolean show, boolean onlySimpleShow) {
 
-        IProxyRepositoryFactory factory = repistoryService.getProxyRepositoryFactory();
         List<IRepositoryViewObject> updateList = new ArrayList<IRepositoryViewObject>();
         List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
                 ((ConnectionItem) connItem).getProperty().getId(), ItemCacheManager.LATEST_VERSION,
