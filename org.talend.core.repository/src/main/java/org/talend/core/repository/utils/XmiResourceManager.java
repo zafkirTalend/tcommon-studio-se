@@ -12,9 +12,7 @@
 // ============================================================================
 package org.talend.core.repository.utils;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -55,8 +53,6 @@ import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.repository.utils.ResourceFilenameHelper.FileName;
-import org.talend.mdm.repository.model.mdmproperties.MDMItem;
-import org.talend.mdm.repository.model.mdmproperties.MDMServerDefItem;
 import org.talend.repository.ProjectManager;
 
 /**
@@ -231,16 +227,7 @@ public class XmiResourceManager {
         if (item instanceof TDQItem) {
             IPath fileName = new Path(((TDQItem) item).getFilename());
             itemResourceURI = getItemResourceURI(getItemURI(item), fileName.getFileExtension());
-        }else  if (item instanceof MDMItem) {
-            itemResourceURI = getItemResourceURI(getItemURI(item));
-            Resource itemResource = resourceSet.getResource(itemResourceURI, false);
-            if(itemResource==null){
-                itemResource = resourceSet.createResource(itemResourceURI);
-                itemResource.getContents().add(item);
-                
-            }
-            return itemResource;
-        }else {
+        } else {
             itemResourceURI = getItemResourceURI(getItemURI(item));
         }
         Resource itemResource = resourceSet.getResource(itemResourceURI, false);
@@ -260,9 +247,8 @@ public class XmiResourceManager {
         ProjectManager pManager = ProjectManager.getInstance();
         org.talend.core.model.general.Project project = new org.talend.core.model.general.Project(pManager.getProject(item));
         // referenced item
-        String folder = null;
         if (project != null && !project.equals(pManager.getCurrentProject())) {
-
+            String folder = null;
             if (item instanceof JobDocumentationItem) {
                 folder = ERepositoryObjectType.getFolderName(ERepositoryObjectType.JOB_DOC);
             } else if (item instanceof JobletDocumentationItem) {
@@ -279,19 +265,15 @@ public class XmiResourceManager {
                 folder = ERepositoryObjectType.getFolderName(ERepositoryObjectType.METADATA_VALIDATION_RULES);
             }
 
-        }
-        if (item instanceof MDMServerDefItem) {
-            folder = ERepositoryObjectType.getFolderName(ERepositoryObjectType.METADATA_MDM_SERVER_DEF);
-            
-        }
-        if (folder != null) {
-            IPath path = new Path(project.getTechnicalLabel());
-            path = path.append(folder);
-            path = path.append(item.getState().getPath());
-            Property property = item.getProperty();
-            String itemStr = property.getLabel() + "_" + property.getVersion() + "." + FileConstants.PROPERTIES_EXTENSION; //$NON-NLS-1$ //$NON-NLS-2$
-            path = path.append(itemStr);
-            return URIHelper.convert(path);
+            if (folder != null) {
+                IPath path = new Path(project.getTechnicalLabel());
+                path = path.append(folder);
+                path = path.append(item.getState().getPath());
+                Property property = item.getProperty();
+                String itemStr = property.getLabel() + "_" + property.getVersion() + "." + FileConstants.PROPERTIES_EXTENSION; //$NON-NLS-1$ //$NON-NLS-2$
+                path = path.append(itemStr);
+                return URIHelper.convert(path);
+            }
         }
         return item.getProperty().eResource().getURI();
     }
