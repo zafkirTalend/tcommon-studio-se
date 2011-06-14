@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.2"?>
 <plugin>
-   <extension
-         point="org.eclipse.ui.perspectives">
-      <perspective
-            class="org.talend.rcp.perspective.Perspective"
-            icon="icons/appli_16x16.png"
-            id="org.talend.rcp.perspective"
-            name="Data Integration">
-      </perspective>
-   </extension>
    
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
@@ -49,9 +40,6 @@
 </extension>
 <extension
       point="org.talend.core.talendperspectives">
-   <TalendPerspective
-         refPerspectiveId="org.talend.rcp.perspective"
-         talendPerspectiveId="org.talend.rcp.DesignPerspective"/>
    <TalendPerspective
          refPerspectiveId="org.eclipse.debug.ui.DebugPerspective"
          talendPerspectiveId="org.talend.rcp.DebugPerspective"/>
