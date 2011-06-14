@@ -62,6 +62,7 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.LockInfo;
 import org.talend.core.repository.CoreRepositoryPlugin;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -815,8 +816,13 @@ public abstract class PropertiesWizardPage extends WizardPage {
             Item item = property.getItem();
             if (instance.getStatus(item) == ERepositoryStatus.LOCK_BY_USER
                     || (instance.getStatus(item) == ERepositoryStatus.LOCK_BY_OTHER)) {
-                String locker = instance.getLockInfo(item).getUser();
-                lockerText.setText(locker);
+                LockInfo lockInfo = instance.getLockInfo(item);
+                if (lockInfo != null) {
+                    String locker = lockInfo.getUser();
+                    if (locker != null) {
+                        lockerText.setText(locker);
+                    }
+                }
             }
             versionText.setText(property.getVersion());
             statusText.setText(statusHelper.getStatusLabel(property.getStatusCode()));
