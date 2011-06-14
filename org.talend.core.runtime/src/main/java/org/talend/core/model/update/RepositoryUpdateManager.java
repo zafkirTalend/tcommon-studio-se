@@ -503,7 +503,13 @@ public abstract class RepositoryUpdateManager {
 
     private void updateConnection(ContextItem citem) throws PersistenceException {
         Map<ContextItem, Map<String, String>> renameMap = getContextRenamedMap();
+        if (renameMap == null) {
+            return;
+        }
         Map<String, String> valueMap = renameMap.get(citem);
+        if (valueMap == null) {
+            return;
+        }
         Set<String> set = valueMap.keySet();
         List<String> list = new ArrayList<String>(set);
         IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
