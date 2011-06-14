@@ -35,8 +35,6 @@ import java.util.concurrent.ThreadPoolExecutor;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.Viewer;
@@ -109,10 +107,11 @@ import org.talend.repository.ui.swt.utils.AbstractForm;
 import org.talend.repository.ui.utils.ManagerConnection;
 import orgomg.cwm.objectmodel.core.CoreFactory;
 import orgomg.cwm.objectmodel.core.ModelElement;
-import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.NamedColumnSet;
 import orgomg.cwm.resource.relational.Schema;
+import orgomg.cwm.resource.relational.impl.CatalogImpl;
+import orgomg.cwm.resource.relational.impl.SchemaImpl;
 
 /**
  * @author cantoine
@@ -1570,6 +1569,46 @@ public class SelectorTableForm extends AbstractForm {
         }
     }
 
+    private void clearTableItem(TableNode item, boolean deleteFromConnection) {
+        if (item == null) {
+            return;
+        }
+        if (item != null && item instanceof TableNode) {
+            TableNode node = (TableNode) item;
+            if (node.getType() == TableNode.TABLE) {
+                if (deleteFromConnection) {
+                    deleteTable(item);
+                }
+            }
+        }
+    }
+
+    protected void deleteTable(TableNode tableItem) {
+        Collection<MetadataTable> tables = new ArrayList<MetadataTable>();
+        Iterator<MetadataTable> iterate = ConnectionHelper.getTables(getConnection()).iterator();
+        while (iterate.hasNext()) {
+            MetadataTable metadata = iterate.next();
+            if (metadata != null && metadata.getLabel().equals(tableItem.getValue())) {
+                tables.add(metadata);
+            }
+        }
+        TableNode parent = tableItem.getParent();
+        String catalog = "";
+        String schema = "";
+        if (parent != null) {
+            if (parent.getType() == TableNode.CATALOG) {
+                catalog = parent.getValue();
+            } else if (parent.getType() == TableNode.SCHEMA) {
+                schema = parent.getValue();
+                TableNode catalogNode = parent.getParent();
+                if (catalogNode != null) {
+                    catalog = catalogNode.getValue();
+                }
+            }
+        }
+        ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, schema, getConnection(), tables);
+    }
+
     /**
      * DOC ocarbone Comment method "initExistingNames".
      * 
@@ -1633,11 +1672,18 @@ public class SelectorTableForm extends AbstractForm {
                         + existTable.getLabel() + "' already exist in \"" + pack.getName() + "\", do you want to cover it?");
                 if (confirm) {
                     TreeItem existItem = getExistItem(existTable);
-                    if (existItem == null) {
-                        return;
+                    TableNode existTableItem = getExistCheckedTable((TableNode) item.getData());
+                    if (existItem == null) { // if the TreeItem has not been expanded,the existItem will always be
+                                             // null,so will find the same name table by model
+                        if (existTableItem == null) {
+                            return;
+                        } else {
+                            clearTableItem(existTableItem, true);
+                        }
+                    } else {
+                        clearTableItem(existItem);
+                        existItem.setChecked(false);
                     }
-                    clearTableItem(existItem);
-                    existItem.setChecked(false);
                     item.setText(3, Messages.getString("SelectorTableForm.Pending")); //$NON-NLS-1$
                     countPending++;
                     parentWizardPage.setPageComplete(false);
@@ -1784,6 +1830,141 @@ public class SelectorTableForm extends AbstractForm {
             }
         }
         return false;
+    }
+
+    private TableNode transferTableToTableNode(MetadataTable tableItem, TableNode parentNode) {
+        TableNode existTableNode = null;
+        if (tableItem instanceof TdTable) {
+            TdTable td = (TdTable) tableItem;
+            existTableNode = new TableNode();
+            existTableNode.setType(TableNode.TABLE);
+            existTableNode.setValue(td.getLabel());
+            existTableNode.setItemType(td.getTableType());
+            existTableNode.setTable(td);
+            existTableNode.setParent(parentNode);
+            parentNode.addChild(existTableNode);
+        } else if (tableItem instanceof TdView) {
+            TdView tv = (TdView) tableItem;
+            existTableNode = new TableNode();
+            existTableNode.setType(TableNode.TABLE);
+            existTableNode.setValue(tv.getLabel());
+            existTableNode.setItemType(tv.getTableType());
+            existTableNode.setView(tv);
+            existTableNode.setParent(parentNode);
+            parentNode.addChild(existTableNode);
+        }
+        return existTableNode;
+    }
+
+    /**
+     * 
+     * ldong Comment method "getExistCheckedTable".
+     * 
+     * @param tableNode
+     * @return
+     */
+    private TableNode getExistCheckedTable(TableNode tableNode) {
+        if (tableNode != null && tableNode.getType() == TableNode.TABLE) {
+            EList<ModelElement> ownedElement = null;
+            List<TableNode> tableNodes = getTableNodeInfo();
+            TableNode parent = tableNode.getParent();
+            int type = parent.getType();
+            if (type == TableNode.CATALOG) {
+                for (TableNode catalogNode : tableNodes) { // two level catalog->table find same name table in
+                                                           // different
+                                                           // catalog
+                    if (catalogNode.getType() == type) {
+                        if (!catalogNode.getValue().equals(parent.getValue())) {
+                            if (catalogNode.getCatalog() != null) {
+                                ownedElement = catalogNode.getCatalog().getOwnedElement();
+                                for (ModelElement m : ownedElement) {
+                                    if (m instanceof MetadataTable) {
+                                        String label = ((MetadataTable) m).getLabel();
+                                        if (label.equals(tableNode.getValue())) {
+                                            if (((CatalogImpl) m.eContainer()).getName().equals(catalogNode.getValue())) {
+                                                return transferTableToTableNode((MetadataTable) m, catalogNode);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else if (type == TableNode.SCHEMA) { // two level schema->table find same name table in different
+                                                   // schema
+                TableNode p = parent.getParent();
+                if (p == null) {
+                    for (TableNode schemaNode : tableNodes) {
+                        if (schemaNode.getType() == type) {
+                            if (!schemaNode.getValue().equals(parent.getValue())) {
+                                if (schemaNode.getSchema() != null) {
+                                    ownedElement = schemaNode.getSchema().getOwnedElement();
+                                    for (ModelElement m : ownedElement) {
+                                        if (m instanceof MetadataTable) {
+                                            String label = ((MetadataTable) m).getLabel();
+                                            if (label.equals(tableNode.getValue())) {
+                                                if (((SchemaImpl) m.eContainer()).getName().equals(schemaNode.getValue())) {
+                                                    return transferTableToTableNode((MetadataTable) m, schemaNode);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else { // three level catalog->schema->table
+                    for (TableNode catalogNode : tableNodes) {
+                        if (catalogNode.getType() == TableNode.CATALOG) {
+                            if (catalogNode.getCatalog() != null) {
+                                if (catalogNode.getValue().equals(p.getValue())) { // same catalog,different Schema
+                                    List<Schema> schemas = CatalogHelper.getSchemas(catalogNode.getCatalog());
+                                    for (Schema schs : schemas) {
+                                        ownedElement = schs.getOwnedElement();
+                                        for (ModelElement m : ownedElement) {
+                                            if (m instanceof MetadataTable) {
+                                                String label = ((MetadataTable) m).getLabel();
+                                                if (label.equals(tableNode.getValue())) {
+                                                    List<TableNode> schemaNodeList = catalogNode.getChildren();
+                                                    for (TableNode parentSchema : schemaNodeList) {
+                                                        if (((SchemaImpl) m.eContainer()).getName().equals(
+                                                                parentSchema.getValue())
+                                                                && !parentSchema.getValue().equals(parent.getValue())) {
+                                                            return transferTableToTableNode((MetadataTable) m, parentSchema);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    List<Schema> schemas = CatalogHelper.getSchemas(catalogNode.getCatalog());
+                                    for (Schema schs : schemas) {
+                                        ownedElement = schs.getOwnedElement();
+                                        for (ModelElement m : ownedElement) {
+                                            if (m instanceof MetadataTable) {
+                                                String label = ((MetadataTable) m).getLabel();
+                                                if (label.equals(tableNode.getValue())) {
+                                                    List<TableNode> schemaNodeList = catalogNode.getChildren();
+                                                    for (TableNode parentSchema : schemaNodeList) {
+                                                        if (((SchemaImpl) m.eContainer()).getName().equals(
+                                                                parentSchema.getValue())) {
+                                                            return transferTableToTableNode((MetadataTable) m, parentSchema);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     /**
