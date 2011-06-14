@@ -69,7 +69,6 @@ import org.talend.core.model.properties.util.PropertiesSwitch;
 import org.talend.core.repository.IExtendRepositoryNode;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
-import org.talend.mdm.repository.model.mdmproperties.MDMServerDefItem;
 
 /**
  * DOC hywang class global comment. Detailled comment
@@ -364,11 +363,6 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType METADATA_SALESFORCE_MODULE = new ERepositoryObjectType(
             "repository.metadataSalesforceModule", "METADATA_SALESFORCE_MODULE", 99, true, true, new String[] { "DI" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
-    
-    public final static ERepositoryObjectType METADATA_MDM_SERVER_DEF = new ERepositoryObjectType(
-            "repository.metadataMDMServerDef", "metadata/MDMServerDef", "METADATA_CONNECTIONS", 200, true, "repository.metadataMDMServerDef.alias", new String[] { "DI", "DQ" }); //$NON-NLS-1$ //$NON-NLS-2$
-
-    
     private String alias;
 
     private String folder = ""; //$NON-NLS-N$
@@ -682,19 +676,10 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         // return "job";
         // }
     }
-    private static ERepositoryObjectType getMDMRepObjType(Item item){
-        if(item instanceof MDMServerDefItem){
-            return METADATA_MDM_SERVER_DEF;
-        }
-        return null;
-    }
+
     public static ERepositoryObjectType getItemType(Item item) {
-        
+
         ERepositoryObjectType repObjType = getTDQRepObjType(item);
-        if (repObjType != null) {
-            return repObjType;
-        }
-        repObjType = getMDMRepObjType(item);
         if (repObjType != null) {
             return repObjType;
         }

@@ -79,8 +79,7 @@ Require-Bundle: org.eclipse.gef,
  org.talend.libraries.dom4j-jaxen,
  org.eclipse.jface.text,
  org.eclipse.ui.editors,
- org.talend.libraries.javacsv;resolution:=optional,
- org.talend.mdm.repository.model;bundle-version="1.0.0"
+ org.talend.libraries.javacsv;resolution:=optional
 Import-Package: org.eclipse.debug.core
 Bundle-Activator: org.talend.core.runtime.CoreRuntimePlugin
 Bundle-ActivationPolicy: lazy
