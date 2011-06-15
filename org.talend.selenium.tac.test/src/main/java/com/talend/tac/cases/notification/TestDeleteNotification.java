@@ -87,8 +87,8 @@ public class TestDeleteNotification extends AddNotification {
 	delete 'BranchTask', return notification page and check corresponding
 	 notification is deleted**/
 	@Test(dependsOnMethods={"testDeleteUserNotification"})
-	@Parameters({"eventTaskFailed","duplicateTask"})
-	public void testDeleteTaskByDeleteTask(String eventTaskFailed, String Copy_of_testTaskNotChooseActive) {
+	@Parameters({"eventTaskFailed","labelAddJVMParametersForTask"})
+	public void testDeleteTaskByDeleteTask(String eventTaskFailed, String testAddsimpleTask) {
 		
 		this.clickWaitForElementPresent("!!!menu.notification.element!!!");//into notification
 		
@@ -102,14 +102,14 @@ public class TestDeleteNotification extends AddNotification {
 	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
 		selenium.setSpeed(MIN_SPEED);
 	    selenium.click("idSubModuleRefreshButton"); //click "Refresh"
-		selenium.mouseDown("//span[text()='"+Copy_of_testTaskNotChooseActive+"']");//select a exist task
+		selenium.mouseDown("//span[text()='"+testAddsimpleTask+"']");//select a exist task
 		selenium.chooseOkOnNextConfirmation();
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("//div[text()='Job Conductor' and @class='header-title']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");//clcik "Delete"
 		selenium.setSpeed(MIN_SPEED);//clcik "Delete"
 		Assert.assertTrue(selenium.getConfirmation().matches(other.getString("delete.plan.warning")));
 		selenium.setSpeed(MID_SPEED);
-		Assert.assertFalse(selenium.isElementPresent("//span[text()='"+Copy_of_testTaskNotChooseActive+"']"));//the task cannot appear
+		Assert.assertFalse(selenium.isElementPresent("//span[text()='"+testAddsimpleTask+"']"));//the task cannot appear
 		selenium.setSpeed(MIN_SPEED);
 		
         this.clickWaitForElementPresent("!!!menu.notification.element!!!");//into notification
