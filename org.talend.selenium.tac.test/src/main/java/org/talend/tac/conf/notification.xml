@@ -4,8 +4,6 @@
 
 
     <test name="notification" preserve-order="true"> 
-
-        
         <!-- add notification -->
         <parameter name="categoryUser" value="Users"/>
         <parameter name="eventNewUser" value="MailNewUserNotification"/>
@@ -28,7 +26,10 @@
         
         <!-- receiver userName -->
         <parameter name="LoginName" value="jackzhang@gamil.com" />
-        <!-- receiver username -->
+        <parameter name="TaskBaseBranch" value="BranchTask"/>
+        <parameter name="labelAddJVMParametersForTask" value="testAddsimpleTask" />
+
+        
         <classes>  
         
             <class name="com.talend.tac.cases.notification.TestAddUsersNotification"/>
