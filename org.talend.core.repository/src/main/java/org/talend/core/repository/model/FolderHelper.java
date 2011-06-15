@@ -156,6 +156,10 @@ public abstract class FolderHelper {
             }
             folder = child;
             folder.setParent(parent);
+            final String folderPath = getFolderPath(folder, null);
+            if (folderPath != null) {
+                folder.getState().setPath(folderPath);
+            }
             parent = folder;
         }
     }
@@ -318,6 +322,33 @@ public abstract class FolderHelper {
         ItemState itemState = PropertiesFactory.eINSTANCE.createItemState();
         folder.setState(itemState);
         doCreateItemState(folder);
+    }
+
+    private String getFolderPath(FolderItem folder, String path) {
+        if (FolderType.FOLDER_LITERAL.equals(folder.getType())) {
+            final EObject parent = folder.getParent();
+            if (parent instanceof FolderItem) {
+                FolderItem parentFolder = (FolderItem) parent;
+                if (parentFolder.getParent() instanceof Project) {
+                    if (path == null) {
+                        path = "";
+                    }
+                    return path;
+                }
+
+                if (path == null || "".equals(path)) {
+                    path = parentFolder.getProperty().getLabel();
+                } else {
+                    path = parentFolder.getProperty().getLabel() + "/" + path;
+                }
+                return getFolderPath(parentFolder, path);
+            }
+            return path;
+
+        } else {
+            return path;
+        }
+
     }
 
     public abstract void doCreateItemState(FolderItem folder);
