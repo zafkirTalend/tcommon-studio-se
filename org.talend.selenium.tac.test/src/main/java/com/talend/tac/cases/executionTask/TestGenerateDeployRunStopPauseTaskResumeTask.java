@@ -50,9 +50,9 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 	//test deploy a simple task
 	@Test(dependsOnMethods={"testGenerateTask"})
 	@Parameters({"modifyTask"})
-	public void testDoployTask(String taskLabel) {
+	public void testDeployTask(String taskLabel) {
 		
-		generateDeployRunTask(taskLabel,"//button[@id='idJobConductorTaskRunButton' and text()='Deploy']");//click Deploy button
+		generateDeployRunTask(taskLabel,"//button[@id='idJobConductorTaskDeployButton' and text()='Deploy']");//click Deploy button
 		this.waitForElementPresent("//span[text()='Ready to run']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='Ready to run']"));
 //		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
@@ -60,7 +60,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 	}
 	
 	//test run a simple task
-	@Test(dependsOnMethods={"testDoployTask"})
+	@Test(dependsOnMethods={"testDeployTask"})
 	@Parameters({"modifyTask"})
 	public void testRunSimpleTask(String taskLabel) {
 		 
