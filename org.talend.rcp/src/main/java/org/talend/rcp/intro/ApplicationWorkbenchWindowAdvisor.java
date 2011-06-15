@@ -107,10 +107,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
     private static String processViewId = "org.talend.designer.runprocess.ui.views.processview";
 
-    private static final String TOS_PERSPECTIVE_ID = "org.talend.rcp.perspective"; //$NON-NLS-N$
-
-    private static final String TOP_PERSPECTIVE_ID = "org.talend.dataprofiler.DataProfilingPerspective"; //$NON-NLS-N$
-
     private Composite foreGroundComposite;
 
     private Composite parentComposite;
@@ -235,7 +231,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                 // MOD xqliu 2010-10-14 bug 15756
                 String pId = perspective.getId();
                 IRepositoryView view = RepositoryManager.getRepositoryView();
-                if (TOS_PERSPECTIVE_ID.equals(pId)) {
+                if (IBrandingConfiguration.PERSPECTIVE_DI_ID.equals(pId)) {
                     if (isTos == true) {
                         isTos = false;
                         setEditorAreaBG();
@@ -245,10 +241,11 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                     clearEditorAreaBG(false);
                 }
                 if (view != null) {
-                    if (TOS_PERSPECTIVE_ID.equals(pId)) {
+                    if (IBrandingConfiguration.PERSPECTIVE_DI_ID.equals(pId)
+                            || IBrandingConfiguration.PERSPECTIVE_CAMEL_ID.equals(pId)) {
                         /* 0016610 need to refresh not only databaseconnection but only trash bin */
                         view.refresh();
-                    } else if (TOP_PERSPECTIVE_ID.equals(pId)) {
+                    } else if (IBrandingConfiguration.PERSPECTIVE_DQ_ID.equals(pId)) {
                         if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
                             ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) GlobalServiceRegister
                                     .getDefault().getService(ITDQRepositoryService.class);

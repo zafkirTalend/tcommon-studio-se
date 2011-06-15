@@ -36,7 +36,6 @@ import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.language.ECodeLanguage;
-import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.service.ICorePerlService;
 import org.talend.core.tis.ICoreTisService;
 import org.talend.repository.model.IRepositoryNode;
@@ -92,35 +91,9 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
      * 
      * @see org.talend.core.ui.branding.IBrandingConfiguration#getHiddenRepositoryCategory()
      */
-    public List<IRepositoryNode> getHiddenRepositoryCategory(IRepositoryNode parent) {
+    public List<IRepositoryNode> getHiddenRepositoryCategory(IRepositoryNode parent, String type) {
 
         List<IRepositoryNode> nodes = new ArrayList<IRepositoryNode>();
-
-        // // 2.1 Joblet
-        // RepositoryNode jobletNode = new RepositoryNode(null, parent, ENodeType.SYSTEM_FOLDER);
-        // jobletNode.setProperties(EProperties.LABEL, ERepositoryObjectType.JOBLET);
-        // jobletNode.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.JOBLET);
-        // nodes.add(jobletNode);
-        //
-        // // SAP
-        // RepositoryNode metadataSAPConnectionNode = new RepositoryNode(null, parent, ENodeType.SYSTEM_FOLDER);
-        // metadataSAPConnectionNode.setProperties(EProperties.LABEL, ERepositoryObjectType.METADATA_SAPCONNECTIONS);
-        // metadataSAPConnectionNode.setProperties(EProperties.CONTENT_TYPE,
-        // ERepositoryObjectType.METADATA_SAPCONNECTIONS);
-        // nodes.add(metadataSAPConnectionNode);
-        //
-        // // EBCDIC
-        // RepositoryNode metadataEbcdicConnectionNode = new RepositoryNode(null, parent, ENodeType.SYSTEM_FOLDER);
-        // metadataEbcdicConnectionNode.setProperties(EProperties.LABEL, ERepositoryObjectType.METADATA_FILE_EBCDIC);
-        // metadataEbcdicConnectionNode.setProperties(EProperties.CONTENT_TYPE,
-        // ERepositoryObjectType.METADATA_FILE_EBCDIC);
-        // nodes.add(metadataEbcdicConnectionNode);
-        //
-        // // Reference Projects
-        // RepositoryNode refProject = new RepositoryNode(null, parent, ENodeType.SYSTEM_FOLDER);
-        // refProject.setProperties(EProperties.LABEL, ERepositoryObjectType.REFERENCED_PROJECTS);
-        // refProject.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.REFERENCED_PROJECTS);
-        // nodes.add(refProject);
 
         return nodes;
     }
@@ -358,63 +331,4 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
         this.useProductRegistration = useProductRegistration;
     }
 
-    /*
-     * (non-Jsdoc)
-     * 
-     * @see org.talend.core.ui.branding.IBrandingConfiguration#getJobDesignName()
-     */
-    public String getJobDesignName() {
-        // TODO Auto-generated method stub
-        return ERepositoryObjectType.PROCESS.name();
-    }
-
-    /*
-     * (non-Jsdoc)
-     * 
-     * @see org.talend.core.ui.branding.IBrandingConfiguration#getJobSystemName()
-     */
-    public String getJobSystemName() {
-        // TODO Auto-generated method stub
-        return "CreateProcess.createJob";
-    }
-
-    /*
-     * (non-Jsdoc)
-     * 
-     * @see org.talend.core.ui.branding.IBrandingConfiguration#getReadJobName()
-     */
-    public String getReadJobName() {
-        // TODO Auto-generated method stub
-        return "ReadProcess.label";
-    }
-
-    /*
-     * (non-Jsdoc)
-     * 
-     * @see org.talend.core.ui.branding.IBrandingConfiguration#getEditJobName()
-     */
-    public String getEditJobName() {
-        // TODO Auto-generated method stub
-        return "EditProcess.editJob";
-    }
-
-    /*
-     * (non-Jsdoc)
-     * 
-     * @see org.talend.core.ui.branding.IBrandingConfiguration#getRunJobName()
-     */
-    public String getRunJobName() {
-        // TODO Auto-generated method stub
-        return "RunProcess.runJob";
-    }
-
-    /*
-     * (non-Jsdoc)
-     * 
-     * @see org.talend.core.ui.branding.IBrandingConfiguration#getOpenJobName()
-     */
-    public String getOpenJobName() {
-        // TODO Auto-generated method stub
-        return "EditProcess.openJob";
-    }
 }
