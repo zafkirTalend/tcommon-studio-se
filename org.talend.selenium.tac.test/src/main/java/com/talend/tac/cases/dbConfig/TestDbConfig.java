@@ -13,7 +13,7 @@ public class TestDbConfig extends DbConfig {
 			String driver, String license,String invalidLicense) {
 
 		this.DbConfigProcess(url, userName, userPassWd, driver);
-		waitForCheckConnectionStatus("//div[text()='OK']",4);
+		waitForCheckConnectionStatus("//div[text()='OK']",3);
 		// simulate clicking ENTER to make button enabled.
 		selenium.keyDown("idDbConfigDriverInput", "\\13");
 		selenium.keyUp("idDbConfigDriverInput", "\\13");
@@ -32,7 +32,7 @@ public class TestDbConfig extends DbConfig {
 		selenium.click("//button[text()='Set new license']");
 		selenium.click("//button[text()='Upload']");
 		selenium.waitForCondition("selenium.isTextPresent(\"Invalid license key\")", WAIT_TIME*1000+"");
-		clickWaitForElementPresent("//button[text()='Ok']");
+		clickWaitForElementPresent("//button[text()='OK']");
 		this.clickWaitForElementPresent("//span[text()='New license set']/preceding-sibling::div//div");//close window
 			
 		//incorrect licence
@@ -40,7 +40,7 @@ public class TestDbConfig extends DbConfig {
 		selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", invalidLicense);
 		selenium.click("//button[text()='Upload']");
 		selenium.waitForCondition("selenium.isTextPresent(\"Invalid license key\")", WAIT_TIME*1000+"");
-		clickWaitForElementPresent("//button[text()='Ok']");
+		clickWaitForElementPresent("//button[text()='OK']");
 		this.clickWaitForElementPresent("//span[text()='New license set']/preceding-sibling::div//div");//close window
 			
 		//correct licnese
@@ -48,7 +48,7 @@ public class TestDbConfig extends DbConfig {
 		selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", license);
 		selenium.click("//button[text()='Upload']");
 		selenium.waitForCondition("selenium.isTextPresent(\"New license set\")", WAIT_TIME*1000+"");
-		clickWaitForElementPresent("//button[text()='Ok']");
+		clickWaitForElementPresent("//button[text()='OK']");
 		waitForCheckConnectionStatus("//div[text()='OK']",5);
 
 		selenium.click("idDbConfigLogoutButton");
