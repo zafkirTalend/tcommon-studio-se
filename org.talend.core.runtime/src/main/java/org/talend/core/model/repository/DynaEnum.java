@@ -143,4 +143,8 @@ public class DynaEnum<E extends DynaEnum<E>> {
     public boolean isStaticNode() {
         return this.isStaticNode;
     }
+
+    public String getType() {
+        return type;
+    }
 }

@@ -48,7 +48,7 @@ public interface IBrandingConfiguration extends IActionBarHelper {
      * 
      * @return
      */
-    public List<IRepositoryNode> getHiddenRepositoryCategory(IRepositoryNode parent);
+    public List<IRepositoryNode> getHiddenRepositoryCategory(IRepositoryNode parent, String type);
 
     /**
      * returns null if all components are available.
@@ -80,7 +80,5 @@ public interface IBrandingConfiguration extends IActionBarHelper {
     public void setUseMailLoginCheck(boolean useMainLoginCheck);
 
     public void setUseProductRegistration(boolean useProductRegistration);
-
-    public String getJobDesignName();
 
 }

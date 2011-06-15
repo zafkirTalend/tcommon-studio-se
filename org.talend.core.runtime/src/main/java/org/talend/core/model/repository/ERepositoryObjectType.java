@@ -92,14 +92,13 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     // 5, new String[] { "DI" });
 
     public final static ERepositoryObjectType CONTEXT = new ERepositoryObjectType("repository.context", "context", "CONTEXT",
-            true, 6, new String[] { "DI" });
+            true, 6, new String[] { "DI", "CAMEL" });
+
+    public final static ERepositoryObjectType CODE = new ERepositoryObjectType("repository.code", "code", "CODE", true, 7,
+            new String[] { "DI", "CAMEL" });
 
     public final static ERepositoryObjectType ROUTINES = new ERepositoryObjectType("repository.routines", "code/routines",
             "ROUTINES", true, 7, new String[] { "DI" });
-
-    // public final static ERepositoryObjectType BEANS = new ERepositoryObjectType("repository.beans", "code/beans",
-    // "BEANS", true,
-    // 8, new String[] { "DI" });
 
     public final static ERepositoryObjectType JOB_SCRIPT = new ERepositoryObjectType("repository.jobscript", "code/jobscripts",
             "JOB_SCRIPT", true, 9, new String[] { "DI" });
@@ -153,7 +152,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             "repository.xmlElementType", "MDM_ELEMENT_TYPE", 25, true, true, new String[] { "DI" }, false);//$NON-NLS-1$
 
     public final static ERepositoryObjectType RECYCLE_BIN = new ERepositoryObjectType("repository.recyclebin", "", "RECYCLE_BIN",
-            true, 26, new String[] { "DI" }, false);
+            true, 26, new String[] { "DI", "CAMEL" }, false);
 
     public final static ERepositoryObjectType METADATA_COLUMN = new ERepositoryObjectType("repository.column", "",
             "METADATA_COLUMN", true, 27, new String[] { "DI" }, false);

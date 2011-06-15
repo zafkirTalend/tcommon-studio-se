@@ -121,4 +121,6 @@ public interface IProcess2 extends IRepositoryObject, IProcess {
 
     public void setLastRunContext(IContext context);
 
+    boolean isSubjobEnabled();
+
 }
