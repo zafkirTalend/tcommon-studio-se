@@ -769,7 +769,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             while (tables.next()) {
                 // tableCatalog never called and will cause problem for specific db.
                 // String tableCatalog = tables.getString(GetTable.TABLE_CAT.name());
-                String tableSchema = tables.getString(GetTable.TABLE_SCHEM.name());
+                // String tableSchema = tables.getString(GetTable.TABLE_SCHEM.name());
                 String tableName = tables.getString(GetTable.TABLE_NAME.name());
                 String temptableType = tables.getString(GetTable.TABLE_TYPE.name());
                 // if TableType is view type don't create it at here.
@@ -783,7 +783,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 }
                 String tableOwner = null;
                 if (MetadataConnectionUtils.isSybase(dbJDBCMetadata.getConnection())) {
-                    tableOwner = tableSchema;
+                    tableOwner = tables.getString(GetTable.TABLE_SCHEM.name());
                 }
                 // common
                 boolean flag = true;
@@ -952,10 +952,14 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         // data type it is null and results in a NPE
                     }
                 }
-                int column_size = columns.getInt(GetColumn.COLUMN_SIZE.name());
-                column.setLength(column_size);
-                decimalDigits = columns.getInt(GetColumn.DECIMAL_DIGITS.name());
-                numPrecRadix = columns.getInt(GetColumn.NUM_PREC_RADIX.name());
+                try {
+                    int column_size = columns.getInt(GetColumn.COLUMN_SIZE.name());
+                    column.setLength(column_size);
+                    decimalDigits = columns.getInt(GetColumn.DECIMAL_DIGITS.name());
+                    numPrecRadix = columns.getInt(GetColumn.NUM_PREC_RADIX.name());
+                } catch (Exception e1) {
+                    log.warn(e1, e1);
+                }
 
                 // SqlDataType
                 TdSqlDataType sqlDataType = MetadataConnectionUtils.createDataType(dataType, typeName, decimalDigits,
