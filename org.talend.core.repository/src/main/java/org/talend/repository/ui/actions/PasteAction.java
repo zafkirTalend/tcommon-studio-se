@@ -26,6 +26,7 @@ import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -115,6 +116,16 @@ public class PasteAction extends AContextualAction {
             setEnabled(false);
             return;
         }
+
+        if (target.getObject() != null && target.getObject().getProperty() != null
+                && target.getObject().getProperty().getItem() != null) {
+            Item item = target.getObject().getProperty().getItem();
+            if (item.getState() != null && item.getState().isDeleted()) {
+                setEnabled(false);
+                return;
+            }
+        }
+
         TreeSelection selectionInClipboard = (TreeSelection) LocalSelectionTransfer.getTransfer().getSelection();
         IProxyRepositoryFactory proxyFactory = ProxyRepositoryFactory.getInstance();
         IRepositoryViewObject object = target.getObject();
