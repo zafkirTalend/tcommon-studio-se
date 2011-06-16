@@ -82,4 +82,6 @@ public interface IDesignerMapperService extends IService {
      * @return
      */
     public boolean isSameMetadata(IExternalNode externalNode, String schemaId, IMetadataTable metadataTable);
+
+    public List<String> getExpressionFilter(IExternalData nodeData);
 }
