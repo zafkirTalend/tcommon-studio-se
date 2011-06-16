@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.ui.actions;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -266,8 +267,10 @@ public class DuplicateAction extends AContextualAction {
                 ERepositoryObjectType.JOBS, ERepositoryObjectType.JOBLET, ERepositoryObjectType.JOBLETS,
                 ERepositoryObjectType.JOB_SCRIPT };
         List<ERepositoryObjectType> arraysList = Arrays.asList(types);
-        addExtensionRepositoryNodes(arraysList);
-        if (arraysList.contains(itemType)) {
+        List<ERepositoryObjectType> typeList = new ArrayList<ERepositoryObjectType>();
+        addExtensionRepositoryNodes(typeList);
+        typeList.addAll(arraysList);
+        if (typeList.contains(itemType)) {
             return KeywordsValidator.isKeyword(itemName);
         }
         return false;
@@ -405,7 +408,7 @@ public class DuplicateAction extends AContextualAction {
                                 isfirst = false;
                             }
                             copy.getProperty().setId(id);
-                            copy.getProperty().setLabel(label);
+                            copy.getProperty().setLabel(newJobName);
                             if (needSys && originalItem instanceof RoutineItem) {
                                 String lastestVersion = getLastestVersion(selectedVersionItems);
                                 if (lastestVersion.equals(copy.getProperty().getVersion())) {
