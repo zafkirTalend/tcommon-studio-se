@@ -26,9 +26,14 @@ import junit.framework.Assert;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.URIUtil;
+import org.eclipse.draw2d.FigureCanvas;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
+import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
+import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefFigureCanvas;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
+import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
@@ -951,7 +956,7 @@ public class Utilities {
             dbProperty = "postgresql";
             break;
         case MSSQL:
-            dbSelect = "Microsoft SQL Server 2005/2008";
+            dbSelect = "Microsoft SQL Server";
             dbProperty = "mssql";
             break;
         case ORACLE:
@@ -1047,36 +1052,37 @@ public class Utilities {
      */
     private static void setConnectionInfo(SWTGefBot gefBot, String dbType, String db) throws IOException, URISyntaxException {
         gefBot.comboBoxWithLabel("DB Type").setSelection(dbType);
-        if (System.getProperty(db + ".dbVersion") != null)
+        if (System.getProperty(db + ".dbVersion") != null && !"".equals(System.getProperty(db + ".dbVersion")))
             gefBot.comboBoxWithLabel("Db Version").setSelection(System.getProperty(db + ".dbVersion"));
-        if (System.getProperty(db + ".login") != null)
+        if (System.getProperty(db + ".login") != null && !"".equals(System.getProperty(db + ".login")))
             gefBot.textWithLabel("Login").setText(System.getProperty(db + ".login"));
-        if (System.getProperty(db + ".password") != null)
+        if (System.getProperty(db + ".password") != null && !"".equals(System.getProperty(db + ".password")))
             gefBot.textWithLabel("Password").setText(System.getProperty(db + ".password"));
-        if (System.getProperty(db + ".server") != null)
+        if (System.getProperty(db + ".server") != null && !"".equals(System.getProperty(db + ".server")))
             gefBot.textWithLabel("Server").setText(System.getProperty(db + ".server"));
-        if (System.getProperty(db + ".port") != null)
+        if (System.getProperty(db + ".port") != null && !"".equals(System.getProperty(db + ".port")))
             gefBot.textWithLabel("Port").setText(System.getProperty(db + ".port"));
-        if (System.getProperty(db + ".dataBase") != null)
+        if (System.getProperty(db + ".dataBase") != null && !"".equals(System.getProperty(db + ".dataBase")))
             gefBot.textWithLabel("DataBase").setText(System.getProperty(db + ".dataBase"));
-        if (System.getProperty(db + ".schema") != null)
+        if (System.getProperty(db + ".schema") != null && !"".equals(System.getProperty(db + ".schema")))
             gefBot.textWithLabel("Schema").setText(System.getProperty(db + ".schema"));
-        if (System.getProperty(db + ".serviceName") != null)
+        if (System.getProperty(db + ".serviceName") != null && !"".equals(System.getProperty(db + ".serviceName")))
             gefBot.textWithLabel("Local service name").setText(System.getProperty(db + ".serviceName"));
-        if (System.getProperty(db + ".instance") != null)
+        if (System.getProperty(db + ".instance") != null && !"".equals(System.getProperty(db + ".instance")))
             gefBot.textWithLabel("Instance").setText(System.getProperty(db + ".instance"));
-        if (System.getProperty(db + ".url") != null)
+        if (System.getProperty(db + ".url") != null && !"".equals(System.getProperty(db + ".url")))
             gefBot.textWithLabel("JDBC URL").setText(System.getProperty(db + ".url"));
-        if (System.getProperty(db + ".driver") != null)
+        if (System.getProperty(db + ".driver") != null && !"".equals(System.getProperty(db + ".driver")))
             gefBot.textWithLabel("Driver jar").setText(
                     getFileFromCurrentPluginSampleFolder(System.getProperty(db + ".driver")).getAbsolutePath());
-        if (System.getProperty(db + ".className") != null)
+        if (System.getProperty(db + ".className") != null && !"".equals(System.getProperty(db + ".className")))
             gefBot.comboBoxWithLabel("Class name").setText(System.getProperty(db + ".className"));
-        if (System.getProperty(db + ".userName") != null)
+        if (System.getProperty(db + ".userName") != null && !"".equals(System.getProperty(db + ".userName")))
             gefBot.textWithLabel("User name ").setText(System.getProperty(db + ".userName"));
-        if (System.getProperty(db + ".sid") != null)
+        if (System.getProperty(db + ".sid") != null && !"".equals(System.getProperty(db + ".sid")))
             gefBot.textWithLabel("Sid").setText(System.getProperty(db + ".sid"));
-        if (System.getProperty(db + ".additionalParameters") != null)
+        if (System.getProperty(db + ".additionalParameters") != null
+                && !"".equals(System.getProperty(db + ".additionalParameters")))
             gefBot.textWithLabel("Additional parameters").setText(System.getProperty(db + ".additionalParameters"));
     }
 
@@ -1754,5 +1760,51 @@ public class Utilities {
             tempShell.close();
             Assert.fail(e.getMessage());
         }
+    }
+
+    /**
+     * DOC fzhong Comment method "dndPaletteToolOntoJob". Drag and drop component from palette onto job.
+     * 
+     * @param gefBot
+     * @param jobEditor job editor
+     * @param toolLabel component label
+     * @param locationOnJob the specific location on job
+     */
+    public static void dndPaletteToolOntoJob(SWTGefBot gefBot, SWTBotGefEditor jobEditor, String toolLabel, Point locationOnJob) {
+        // jobEditor.activateTool(toolLabel).click(locationOnJob.x, locationOnJob.y);
+        gefBot.viewByTitle("Palette").setFocus();
+        gefBot.text(0).setText(toolLabel);
+        gefBot.toolbarButtonWithTooltip("Search").click();
+        gefBot.sleep(400);
+
+        SWTBotGefFigureCanvas paletteFigureCanvas = new SWTBotGefFigureCanvas((FigureCanvas) gefBot.widget(WidgetOfType
+                .widgetOfType(FigureCanvas.class)));
+        SWTBotGefFigureCanvas jobFigureCanvas = new SWTBotGefFigureCanvas((FigureCanvas) gefBot.widget(
+                WidgetOfType.widgetOfType(FigureCanvas.class), jobEditor.getWidget()));
+
+        DndUtil dndUtil = new DndUtil(jobEditor.getWidget().getDisplay());
+        dndUtil.dragAndDrop(paletteFigureCanvas, new Point(50, 70), jobFigureCanvas, locationOnJob);
+    }
+
+    /**
+     * DOC fzhong Comment method "dndMetadataOntoJob". Drag and drop metadata from repository onto job in specific
+     * component type.
+     * 
+     * @param gefBot
+     * @param jobEditor job editor
+     * @param sourceItem metadata item in reporitory
+     * @param componentLabel the label of specific component type
+     * @param locationOnJob the specific location on job
+     */
+    public static void dndMetadataOntoJob(SWTGefBot gefBot, SWTBotGefEditor jobEditor, SWTBotTreeItem sourceItem,
+            String componentLabel, Point locationOnJob) {
+        SWTBotGefFigureCanvas figureCanvas = new SWTBotGefFigureCanvas((FigureCanvas) gefBot.widget(
+                WidgetOfType.widgetOfType(FigureCanvas.class), jobEditor.getWidget()));
+        DndUtil dndUtil = new DndUtil(jobEditor.getWidget().getDisplay());
+
+        dndUtil.dragAndDrop(sourceItem, figureCanvas, locationOnJob);
+        gefBot.shell("Components").activate();
+        gefBot.table(0).getTableItem(componentLabel).click();
+        gefBot.button("OK").click();
     }
 }

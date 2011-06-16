@@ -100,6 +100,7 @@ public class FilterItemsTest extends TalendSwtBotForTos {
                 tempTreeNode = Utilities.getTalendItemNode(gefBot.tree(0), itemType);
                 tempTreeNode.check();
             }
+            gefBot.button("OK").click();
         } catch (WidgetNotFoundException wnfe) {
             tempShell.close();
             Assert.fail(wnfe.getCause().getMessage());
