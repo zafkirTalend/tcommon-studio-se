@@ -6,7 +6,7 @@
 	<parameter name="label" value="testTask" />
 	<parameter name="TaskWithtRunjob" value="testTaskRunTRunJob"/>
 	<parameter name="TaskBaseBranch" value="BranchTask"/>
-	<parameter name="ProjectBranch" value="test_branch"/>
+	<parameter name="ProjectBranch" value="branches/test_branch"/>
 	<parameter name="TaskDeleteLogs" value="taskDeleteLogs"/>
 	<parameter name="TaskWithInactiveServer" value="taskWithInactiveServer"/>
 	<parameter name="labelStatisticViewTask" value="testAddTaskForTestReferenceproTjava" />
