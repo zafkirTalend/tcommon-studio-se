@@ -14,8 +14,10 @@ package tosstudio.metadata.databaseoperation;
 
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
+import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -55,7 +57,21 @@ public class RetrieveSchemaWizardTest extends TalendSwtBotForTos {
     @Test
     public void retrieveSchema() {
         int rowCount = 0;
-        Utilities.retrieveDbSchema(gefBot, treeNode, DBNAME, TABLENAME);
+        SWTBotShell tempShell = null;
+        try {
+            treeNode.getNode(DBNAME + " 0.1").contextMenu("Retrieve Schema").click();
+            tempShell = gefBot.shell("Schema").activate();
+            gefBot.button("Next >").click();
+            gefBot.tree(0).expandNode(System.getProperty("mysql.dataBase")).getNode(TABLENAME).check();
+            gefBot.button("Next >").click();
+            gefBot.button("Cancel").click();
+        } catch (WidgetNotFoundException wnfe) {
+            tempShell.close();
+            Assert.fail(wnfe.getCause().getMessage());
+        } catch (Exception e) {
+            tempShell.close();
+            Assert.fail(e.getMessage());
+        }
 
         rowCount = treeNode.expandNode(DBNAME + " 0.1").getNode("Table schemas").rowCount();
         Assert.assertEquals("schemas be retrieved even cancel the wizard of retrieving schema", 0, rowCount);
