@@ -76,7 +76,7 @@ import org.talend.core.runtime.i18n.Messages;
 public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     public final static ERepositoryObjectType SVN_ROOT = new ERepositoryObjectType("repository.svnroot", "", "SVN_ROOT", true, 1,
-            new String[] { "DI" }, false);
+            new String[] { "DI", "CAMEL" }, false);
 
     public final static ERepositoryObjectType BUSINESS_PROCESS = new ERepositoryObjectType("repository.businessProcess",
             "businessProcess", "BUSINESS_PROCESS", true, 2, new String[] { "DI" });
