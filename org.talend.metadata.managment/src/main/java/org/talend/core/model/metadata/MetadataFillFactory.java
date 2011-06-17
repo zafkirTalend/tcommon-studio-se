@@ -13,6 +13,7 @@
 package org.talend.core.model.metadata;
 
 import java.sql.DatabaseMetaData;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -287,6 +288,14 @@ public class MetadataFillFactory {
 
     public List<Schema> fillSchemaToCatalog(Connection dbConn, DatabaseMetaData dbJDBCMetadata, Catalog catalog,
             List<String> schemaFilter) {
-        return metadataFiller.fillSchemaToCatalog(dbConn, dbJDBCMetadata, catalog, schemaFilter);
+    
+            
+                try {
+                    return metadataFiller.fillSchemaToCatalog(dbConn, dbJDBCMetadata, catalog, schemaFilter);
+                } catch (Throwable e) {
+                    log.error(e, e);
+                }
+            
+      return new ArrayList<Schema>();
     }
 }

@@ -74,6 +74,8 @@ import orgomg.cwm.resource.relational.PrimaryKey;
 import orgomg.cwm.resource.relational.Schema;
 import orgomg.cwm.resource.relational.enumerations.NullableType;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+
 /**
  * @author zshen
  * 
@@ -404,12 +406,19 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 // --- release the result set.
                 catalogNames.close();
                 if (!isHive) {
+                    List<Catalog> removeCatalogList = new ArrayList<Catalog>();
                     for (Catalog catalog : catalogList) {
-                        List<Schema> schemaList = fillSchemaToCatalog(dbConn, dbJDBCMetadata, catalog, filterList);
+                        List<Schema> schemaList = new ArrayList<Schema>();
+                        try {
+                            schemaList = fillSchemaToCatalog(dbConn, dbJDBCMetadata, catalog, filterList);
                         if (!schemaList.isEmpty() && schemaList.size() > 0) {
                             CatalogHelper.addSchemas(schemaList, catalog);
                         }
+                        } catch (Throwable e) {
+                            removeCatalogList.add(catalog);
+                        }
                     }
+                    catalogList.removeAll(removeCatalogList);
                 }
 
                 Set<MetadataTable> tableSet = ConnectionHelper.getTables(dbConn);
@@ -497,7 +506,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
     }
 
     public List<Schema> fillSchemaToCatalog(Connection dbConn, DatabaseMetaData dbJDBCMetadata, Catalog catalog,
-            List<String> schemaFilter) {
+            List<String> schemaFilter) throws Throwable {
 
         ResultSet schemaRs = null;
         try {
@@ -512,6 +521,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         } catch (IllegalArgumentException e) {
         } catch (IllegalAccessException e) {
         } catch (InvocationTargetException e) {
+            // Case of JDK1.5
+            if (e.getTargetException().getClass().toString().equals(SQLServerException.class.toString())) {
+                throw e.getTargetException();
+            }
         } catch (SQLException e) {
             log.error(e, e);
         }
@@ -553,12 +566,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     // the case for mssql
                     // dbJDBCMetadata.getDatabaseMajorVersion() > 8 it mean that the column TABLE_CATALOG is exist.
                     // dbJDBCMetadata.getDriverMajorVersion() > 1 mean that the connection use 2005/2008 driver
-                    // if (MetadataConnectionUtils.isMssql(dbJDBCMetadata.getConnection())
-                    // && dbJDBCMetadata.getDatabaseMajorVersion() > 8 && dbJDBCMetadata.getDriverMajorVersion() > 1) {
-                    // if (catalogName != null && catalogName != schemaName) {
-                    // schemaName = catalogName;
-                    // }
-                    // }
+                    if (MetadataConnectionUtils.isMssql(dbJDBCMetadata.getConnection())
+                            && dbJDBCMetadata.getDatabaseMajorVersion() > 8 && dbJDBCMetadata.getDriverMajorVersion() > 1) {
+                        if (catalogName != null && catalogName != schemaName) {
+                            schemaName = catalogName;
+                        }
+                    }
                     if (schemaName == null || !MetadataConnectionUtils.isMssql(dbJDBCMetadata.getConnection())
                             && catalogName != null && !catalogName.equals(catalog.getName())) {
                         // the case for olap

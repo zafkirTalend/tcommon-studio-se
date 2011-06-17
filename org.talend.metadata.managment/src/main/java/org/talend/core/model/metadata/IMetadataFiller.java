@@ -194,7 +194,9 @@ public interface IMetadataFiller {
      * @param catalog
      * @param schemaFilter
      * @return
+     * @throws Throwable
+     * 
      */
     public List<Schema> fillSchemaToCatalog(Connection dbConn, DatabaseMetaData dbJDBCMetadata, Catalog catalog,
-            List<String> schemaFilter);
+            List<String> schemaFilter) throws Throwable;
 }
