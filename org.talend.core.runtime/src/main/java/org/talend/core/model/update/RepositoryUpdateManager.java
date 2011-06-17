@@ -1562,7 +1562,9 @@ public abstract class RepositoryUpdateManager {
         // set renamed schema
         repositoryUpdateManager.setDeletedOrReselectTablesMap(deletedOrReselectTablesMap);
 
-        return repositoryUpdateManager.doWork(show, onlySimpleShow);
+        final boolean doWork = repositoryUpdateManager.doWork(show, onlySimpleShow);
+        repositoryUpdateManager.deletedOrReselectTablesMap.clear();
+        return doWork;
 
     }
 
