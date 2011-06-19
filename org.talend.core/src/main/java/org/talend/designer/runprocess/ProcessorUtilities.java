@@ -499,7 +499,7 @@ public class ProcessorUtilities {
 
             processor.setContext(currentContext);
             // main job will use stats / traces
-            processor.generateCode(statistics, trace, properties);
+            processor.generateCode(statistics, trace, properties, exportAsOSGI);
             if (jobInfo.getProcessItem() != null) {
                 designerCoreService.getLastGeneratedJobsDateMap().put(jobInfo.getJobId(),
                         jobInfo.getProcessItem().getProperty().getModificationDate());
@@ -774,6 +774,8 @@ public class ProcessorUtilities {
     }
 
     static List<JobInfo> jobList = new ArrayList<JobInfo>();
+    
+    static boolean exportAsOSGI = false;
 
     /**
      * This function will generate the code of the process and all of this sub process.
@@ -832,6 +834,13 @@ public class ProcessorUtilities {
         return result;
     }
 
+    public static IProcessor generateCode(ProcessItem process, String contextName, String version, boolean statistics,
+            boolean trace, boolean applyContextToChildren, boolean isExportedAsOSGI, IProgressMonitor... monitors) throws ProcessorException {
+        exportAsOSGI = isExportedAsOSGI;
+        IProcessor result = generateCode(process, contextName, version, statistics, trace, applyContextToChildren, monitors);
+        exportAsOSGI = false;
+        return result;
+    }
     public static IProcessor generateCode(ProcessItem process, String contextName, String version, boolean statistics,
             boolean trace, boolean applyContextToChildren, IProgressMonitor... monitors) throws ProcessorException {
         IProgressMonitor monitor = null;
