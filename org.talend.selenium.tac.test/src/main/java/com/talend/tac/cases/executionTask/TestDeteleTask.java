@@ -33,8 +33,10 @@ public class TestDeteleTask  extends Login {
 	    selenium.click("idSubModuleRefreshButton"); //click "Refresh"
 		selenium.mouseDown("//span[text()='testTaskNotChooseActive']");//select a exist task
 		selenium.chooseOkOnNextConfirmation();
+		selenium.chooseOkOnNextConfirmation();
 		selenium.click("idSubModuleDeleteButton");//clcik "Delete"
 		Assert.assertTrue(selenium.getConfirmation().matches(other.getString("delete.plan.warning")));
+		Assert.assertEquals(selenium.getConfirmation(), "Do you want to remove all of the related logs and archives");
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertFalse(selenium.isElementPresent("//span[text()='testTaskNotChooseActive']"));//the plan cannot appear
 		selenium.setSpeed(MIN_SPEED);
