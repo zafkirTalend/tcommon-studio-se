@@ -128,6 +128,8 @@ public abstract class RepositoryUpdateManager {
 
     private static ICoreService coreService = null;
 
+    private boolean isDetectAndUpdate = false;
+
     static {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
             repistoryService = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
@@ -140,6 +142,12 @@ public abstract class RepositoryUpdateManager {
     public RepositoryUpdateManager(Object parameter) {
         super();
         this.parameter = parameter;
+    }
+
+    public RepositoryUpdateManager(Object parameter, boolean isDetectAndUpdate) {
+        super();
+        this.parameter = parameter;
+        this.isDetectAndUpdate = isDetectAndUpdate;
     }
 
     public RepositoryUpdateManager(Object parameter, List<RelationshipItemBuilder.Relation> relations) {
@@ -984,6 +992,9 @@ public abstract class RepositoryUpdateManager {
                 }
                 parentMonitor.worked(1);
             }
+            if (isDetectAndUpdate) {
+                resultList = updateAllProcess(parentMonitor, resultList, openedProcessList, types, onlySimpleShow);
+            }
 
             if (!onlyOpeningJob) {
                 // Ok, you also need to update the job setting in "create job with template"
@@ -999,6 +1010,65 @@ public abstract class RepositoryUpdateManager {
         }
 
         return null;
+    }
+
+    private List<UpdateResult> updateAllProcess(IProgressMonitor parentMonitor, List<UpdateResult> resultList,
+            List<IProcess2> openedProcessList, final Set<EUpdateItemType> types, final boolean onlySimpleShow) {
+        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+        if (factory == null) {
+            return resultList;
+        }
+        IDesignerCoreService designerCoreService = CoreRuntimePlugin.getInstance().getDesignerCoreService();
+        if (designerCoreService == null) {
+            return resultList;
+        }
+        List<IRepositoryViewObject> processRep = new ArrayList<IRepositoryViewObject>();
+        List<IProcess> processList = new ArrayList<IProcess>();
+        try {
+            processRep.addAll(factory.getAll(ERepositoryObjectType.PROCESS, true));
+            processRep.addAll(factory.getAll(ERepositoryObjectType.JOBLET, true));
+            for (IRepositoryViewObject obj : processRep) {
+                Item item = obj.getProperty().getItem();
+                IProcess process = null;
+                if (item instanceof ProcessItem) {
+                    process = designerCoreService.getProcessFromProcessItem((ProcessItem) item);
+                } else if (item instanceof JobletProcessItem) {
+                    process = designerCoreService.getProcessFromJobletProcessItem((JobletProcessItem) item);
+                }
+                processList.add(process);
+            }
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
+
+        // all the jobs
+        for (IProcess process : processList) {
+            if (process instanceof IProcess2) {
+                IProcess2 ip2 = (IProcess2) process;
+                boolean found = false;
+                for (IProcess2 open : openedProcessList) {
+                    if (open.getId().equals(ip2.getId())) {
+                        found = true;
+                    }
+                }
+                if (found) {
+                    continue;
+                }
+                checkMonitorCanceled(parentMonitor);
+                parentMonitor.subTask(getUpdateJobInfor(ip2.getProperty()));
+
+                // List<UpdateResult> resultFromProcess = getResultFromProcess(process, types, onlySimpleShow);
+
+                List<UpdateResult> resultFromProcess = getUpdatesNeededFromItems(parentMonitor, ((IProcess2) process)
+                        .getProperty().getItem(), types, onlySimpleShow);
+                if (resultFromProcess != null) {
+                    resultList.addAll(resultFromProcess);
+                }
+                parentMonitor.worked(1);
+            }
+
+        }
+        return resultList;
     }
 
     private void checkMonitorCanceled(IProgressMonitor monitor) {
@@ -1972,6 +2042,22 @@ public abstract class RepositoryUpdateManager {
 
     public static boolean updateAllJob() {
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(null) {
+
+            @Override
+            public Set<EUpdateItemType> getTypes() {
+                Set<EUpdateItemType> types = new HashSet<EUpdateItemType>();
+                for (EUpdateItemType type : EUpdateItemType.values()) {
+                    types.add(type);
+                }
+                return types;
+            }
+
+        };
+        return repositoryUpdateManager.doWork();
+    }
+
+    public static boolean updateAllJob(boolean isDetectAndUpdate) {
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(null, isDetectAndUpdate) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
