@@ -939,7 +939,7 @@ public class RepositoryToComponentProperty {
                     path = PathUtils.getPortablePath(path);
                     url = h2Prefix + path;
                 }
-                return TalendQuoteUtils.addQuotes(connection.getURL());
+                return TalendQuoteUtils.addQuotes(url);
             }
         }
 
