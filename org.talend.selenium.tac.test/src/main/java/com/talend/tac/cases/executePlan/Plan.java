@@ -1,6 +1,8 @@
 package com.talend.tac.cases.executePlan;
 
 import org.testng.Assert;
+
+import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
 public class Plan extends Login {
@@ -15,6 +17,40 @@ public class Plan extends Login {
 				.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
 	}
 
+	public void addTask(String label, String description, String projectName,
+			String branchName, String jobName, String version, String context,
+			String serverName, String statisticName) {
+		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
+		selenium.setSpeed(MID_SPEED);
+		Assert.assertTrue(selenium.isElementPresent("//div[text()='"
+				+ rb.getString("menu.jobConductor") + "']"));
+		selenium.setSpeed(MIN_SPEED);
+		selenium.click("idSubModuleAddButton");
+		this.typeString("idJobConductorTaskLabelInput", label);// plan name
+		this.typeString("idJobConductorTaskDescInput", description);// plan name
+		if (!selenium.isChecked("idJobConductorTaskActiveListBox")) {
+			selenium.click("idJobConductorTaskActiveListBox");// check active
+			Assert.assertTrue(selenium
+					.isChecked("idJobConductorTaskActiveListBox"));
+		}
+		this.selectDropDownList("idTaskProjectListBox", projectName);
+		this.selectDropDownList("idTaskBranchListBox", branchName);
+		this.selectDropDownList("idTaskJobListBox", jobName);
+		this.selectDropDownList("idTaskVersionListBox", version);
+		this.selectDropDownList("idTaskContextListBox", context);
+		this.selectDropDownList("idJobConductorExecutionServerListBox",
+				serverName);
+		this.selectDropDownList("idJobConductorTaskStatisticsListBox",
+				statisticName);
+		this.selectDropDownList("idJobConductorOnUnavailableJobServerListBox",
+				"Wait");
+		if (!selenium.isElementPresent("//span[text()='" + label + "']")) {
+			selenium.click("//span[@class='x-fieldset-header-text' and text()='Execution task']/ancestor::div[@class=' x-panel x-component']//button[@id='idFormSaveButton']");
+			this.waitForElementPresent("//span[text()='" + label + "']",
+					Base.WAIT_TIME);
+		}
+	}
+	
 	public void addPlan(String planLabel, String rootTask, String description) {
 
 		this.openExecutionPlanMenu();
@@ -23,9 +59,9 @@ public class Plan extends Login {
 		this.typeString("idExecutionPlanPlanFormDescInput", description);
 		this.selectDropDownList("String idExecutionPlanPlanFormTaskComboBox",
 				rootTask);
-		selenium.mouseDown("//button[@class='x-btn-text ' and @id='idFormSaveButton']");
-		selenium.click("//button[@class='x-btn-text ' and @id='idFormSaveButton']");
-		selenium.mouseUp("//button[@class='x-btn-text ' and @id='idFormSaveButton']");
+		selenium.mouseDown("//span[@class='x-fieldset-header-text' and text()='Execution Plan']/ancestor::div[@class=' x-panel x-component']//button[@id='idFormSaveButton']");
+		selenium.click("//span[@class='x-fieldset-header-text' and text()='Execution Plan']/ancestor::div[@class=' x-panel x-component']//button[@id='idFormSaveButton']");
+		selenium.mouseUp("//span[@class='x-fieldset-header-text' and text()='Execution Plan']/ancestor::div[@class=' x-panel x-component']//button[@id='idFormSaveButton']");
 		this.waitForElementPresent("//span[text()='" + planLabel + "']",
 				WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"
@@ -49,6 +85,7 @@ public class Plan extends Login {
 				WAIT_TIME);
 		this.sleep(2000);
 		selenium.mouseDown("//span[text()='" + planLabel + "']");
+		this.sleep(2000);
 		selenium.click("//div[text()='Execution Plan']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idJobConductorTaskRunButton']");
 
 	}
