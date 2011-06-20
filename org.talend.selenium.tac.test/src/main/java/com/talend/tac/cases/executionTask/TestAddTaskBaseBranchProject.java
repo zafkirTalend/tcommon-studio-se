@@ -16,8 +16,10 @@ public class TestAddTaskBaseBranchProject  extends AddTask {
 		selenium.mouseDown("//span[text()='" + taskLabel + "']");
 		Thread.sleep(3000);
 		selenium.chooseOkOnNextConfirmation();
-		selenium.click("idSubModuleDeleteButton");
-		selenium.getConfirmation();
+		selenium.chooseOkOnNextConfirmation();
+		selenium.click("idSubModuleDeleteButton");//clcik "Delete"
+		Assert.assertTrue(selenium.getConfirmation().matches(other.getString("delete.plan.warning")));
+		Assert.assertEquals(selenium.getConfirmation(), "Do you want to remove all of the related logs and archives");
 		Thread.sleep(3000);
 		if(selenium.isElementPresent("//span[text()='" + taskLabel + "']")){
 			deleteOk = false;
@@ -327,8 +329,8 @@ public class TestAddTaskBaseBranchProject  extends AddTask {
 						+ label + "']");
 			selenium.click("//span//span[text()='Logs']");
 			Thread.sleep(3000);
-			Assert.assertFalse(waitForCondition("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']",Base.WAIT_TIME/4), "delete  logs through delete task failed !");
-//			Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==0,"delete  logs through delete task failed !");
+//			Assert.assertFalse(waitForCondition("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']",Base.WAIT_TIME/4), "delete  logs through delete task failed !");
+			Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==0,"delete  logs through delete task successful !");
 			selenium.setSpeed(MIN_SPEED);
 		}
 	}
