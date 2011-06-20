@@ -79,9 +79,11 @@ import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.impl.FolderItemImpl;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
+import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.IRepositoryWorkUnitListener;
 import org.talend.core.model.repository.LockInfo;
+import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.core.repository.constants.FileConstants;
@@ -91,7 +93,6 @@ import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.cwm.helper.TableHelper;
-import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.documentation.ERepositoryActionName;
@@ -518,14 +519,16 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         // log.debug("Logical deletion [" + objToDelete + "] by " + getRepositoryContext().getUser() + ".");
         String str[] = new String[] { object + "", getRepositoryContext().getUser() + "" };//$NON-NLS-1$ //$NON-NLS-2$
         log.debug(Messages.getString("ProxyRepositoryFactory.log.logicalDeletion", str)); //$NON-NLS-1$
-        boolean isCamel = false;
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
-            ICamelDesignerCoreService service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
-                    ICamelDesignerCoreService.class);
-            isCamel = service.isCamelRepObjType(object.getRepositoryObjectType());
+        boolean isExtendPoint = false;
+        ERepositoryObjectType repositoryObjectType = object.getRepositoryObjectType();
+        for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+            isExtendPoint = handler.isRepObjType(repositoryObjectType);
+            if (isExtendPoint == true) {
+                break;
+            }
         }
         // TODO this need to be refactered after M2.
-        if (isCamel || object.getRepositoryObjectType() == ERepositoryObjectType.PROCESS
+        if (isExtendPoint || object.getRepositoryObjectType() == ERepositoryObjectType.PROCESS
                 || object.getRepositoryObjectType() == ERepositoryObjectType.JOBLET
                 || object.getRepositoryObjectType() == ERepositoryObjectType.ROUTINES
                 || object.getRepositoryObjectType() == ERepositoryObjectType.JOB_SCRIPT) {
@@ -581,42 +584,43 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         }
         // RepositoryViewObject is dynamic, so force to use in all case the RepositoryObject with fixed object.
         IRepositoryViewObject object = new RepositoryObject(objToDelete.getProperty());
-        boolean isCamel = false;
-        ICamelDesignerCoreService camelService = null;
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
-            camelService = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
-                    ICamelDesignerCoreService.class);
-            isCamel = camelService.isCamelRepObjType(object.getRepositoryObjectType());
+        boolean isExtendPoint = false;
+
+        ERepositoryObjectType repositoryObjectType = object.getRepositoryObjectType();
+        for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+            isExtendPoint = handler.isRepObjType(repositoryObjectType);
+            if (isExtendPoint == true) {
+                if (repositoryObjectType == handler.getProcessType()) {
+                    fireRepositoryPropertyChange(ERepositoryActionName.JOB_DELETE_FOREVER.getName(), null, object);
+                    coreService.removeJobLaunch(object);
+                }
+                if (repositoryObjectType == handler.getCodeType()) {
+                    try {
+                        coreService.deleteBeanfile(object);
+                    } catch (Exception e) {
+                        ExceptionHandler.process(e);
+                    }
+                }
+                break;
+            }
         }
-        if (isCamel || object.getRepositoryObjectType() == ERepositoryObjectType.PROCESS
-                || object.getRepositoryObjectType() == ERepositoryObjectType.JOBLET
-                || object.getRepositoryObjectType() == ERepositoryObjectType.ROUTINES) {
+        if (repositoryObjectType == ERepositoryObjectType.PROCESS || repositoryObjectType == ERepositoryObjectType.JOBLET
+                || repositoryObjectType == ERepositoryObjectType.ROUTINES) {
             fireRepositoryPropertyChange(ERepositoryActionName.JOB_DELETE_FOREVER.getName(), null, object);
-            if ((camelService != null && object.getRepositoryObjectType() == camelService.getRoutes())
-                    || object.getRepositoryObjectType() == ERepositoryObjectType.PROCESS) {
+            if (repositoryObjectType == ERepositoryObjectType.PROCESS) {
                 // delete the job launch, for bug 8878
                 coreService.removeJobLaunch(object);
             }
 
-            if (object.getRepositoryObjectType() == ERepositoryObjectType.ROUTINES) {
+            if (repositoryObjectType == ERepositoryObjectType.ROUTINES) {
                 try {
                     coreService.deleteRoutinefile(object);
                 } catch (Exception e) {
                     ExceptionHandler.process(e);
                 }
-
             }
-
-            if (camelService != null && object.getRepositoryObjectType() == camelService.getBeansType()) {
-                try {
-                    coreService.deleteBeanfile(object);
-                } catch (Exception e) {
-                    ExceptionHandler.process(e);
-                }
-            }
-
         }
-        if (object.getRepositoryObjectType() == ERepositoryObjectType.BUSINESS_PROCESS) {
+        if (repositoryObjectType == ERepositoryObjectType.BUSINESS_PROCESS) {
             fireRepositoryPropertyChange(ERepositoryActionName.BUSINESS_DELETE_FOREVER.getName(), null, object);
         }
 
@@ -644,13 +648,15 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         // "\".");
         String str[] = new String[] { objToRestore + "", getRepositoryContext().getUser() + "", path + "" };//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         log.debug(Messages.getString("ProxyRepositoryFactory.log.Restoration", str)); //$NON-NLS-1$
-        boolean isCamel = false;
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
-            ICamelDesignerCoreService service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
-                    ICamelDesignerCoreService.class);
-            isCamel = service.isCamelRepObjType(objToRestore.getRepositoryObjectType());
+        boolean isExtendPoint = false;
+        ERepositoryObjectType repositoryObjectType = objToRestore.getRepositoryObjectType();
+        for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+            isExtendPoint = handler.isRepObjType(repositoryObjectType);
+            if (isExtendPoint == true) {
+                break;
+            }
         }
-        if (isCamel || objToRestore.getRepositoryObjectType() == ERepositoryObjectType.PROCESS
+        if (isExtendPoint || objToRestore.getRepositoryObjectType() == ERepositoryObjectType.PROCESS
                 || objToRestore.getRepositoryObjectType() == ERepositoryObjectType.JOBLET
                 || objToRestore.getRepositoryObjectType() == ERepositoryObjectType.ROUTINES) {
             fireRepositoryPropertyChange(ERepositoryActionName.JOB_RESTORE.getName(), null, objToRestore);
@@ -685,13 +691,17 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         String str[] = new String[] { objToMove + "", targetPath + "" }; //$NON-NLS-1$ //$NON-NLS-2$
         log.debug(Messages.getString("ProxyRepositoryFactory.log.move", str)); //$NON-NLS-1$
         // unlock(getItem(objToMove));
-        ICamelDesignerCoreService service = null;
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
-            service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(ICamelDesignerCoreService.class);
-        }
 
-        if ((service != null && objToMove.getRepositoryObjectType() == service.getRoutes())
-                || objToMove.getRepositoryObjectType() == ERepositoryObjectType.PROCESS) {
+        boolean isExtendPoint = false;
+        ERepositoryObjectType repositoryObjectType = objToMove.getRepositoryObjectType();
+        for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+            ERepositoryObjectType type = handler.getProcessType();
+            if (type != null && repositoryObjectType == type) {
+                isExtendPoint = true;
+                break;
+            }
+        }
+        if (isExtendPoint || objToMove.getRepositoryObjectType() == ERepositoryObjectType.PROCESS) {
             if (sourcePath != null && sourcePath.length == 1) {
                 fireRepositoryPropertyChange(ERepositoryActionName.JOB_MOVE.getName(), objToMove, new IPath[] { sourcePath[0],
                         targetPath });
@@ -1018,39 +1028,16 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         create(projectManager.getCurrentProject(), item, path, isImportItem);
     }
 
-    public void createCamel(Item item, IPath path, boolean... isImportItem) throws PersistenceException {
-        Project project = projectManager.getCurrentProject();
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
-            ICamelDesignerCoreService service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
-                    ICamelDesignerCoreService.class);
-            try {
-
-                if (service.isInstanceofCamelRoutes(item)) {
-                    coreService.checkJob(item.getProperty().getLabel());
-                }
-
-            } catch (BusinessException e) {
-                throw new PersistenceException(e);
-            } catch (RuntimeException e) {
-                // don't do anything
-            }
-            checkFileNameAndPath(project, item, RepositoryConstants.getPattern(ERepositoryObjectType.getItemType(item)), path,
-                    false, isImportItem);
-            this.repositoryFactoryFromProvider.createCamel(project, item, path, isImportItem);
-            if (service.isInstanceofCamelRoutes(item) && isImportItem.length == 0) {
-                fireRepositoryPropertyChange(ERepositoryActionName.JOB_CREATE.getName(), null, item);
-            }
-            // if ((item instanceof BeanItem) && (isImportItem.length == 0)) {
-            // fireRepositoryPropertyChange(ERepositoryActionName.JOB_CREATE.getName(), null, item);
-            // }
-            if (isImportItem.length == 1) {
-                this.repositoryFactoryFromProvider.unloadResources(item.getProperty());
+    public void create(Project project, Item item, IPath path, boolean... isImportItem) throws PersistenceException {
+        boolean isOherProcess = false;
+        for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+            isOherProcess = handler.isProcess(item);
+            if (isOherProcess) {
+                break;
             }
         }
-    }
 
-    public void create(Project project, Item item, IPath path, boolean... isImportItem) throws PersistenceException {
-        if (item instanceof ProcessItem) {
+        if (isOherProcess || item instanceof ProcessItem) {
             try {
                 coreService.checkJob(item.getProperty().getLabel());
             } catch (BusinessException e) {
@@ -1534,11 +1521,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synch.repo.items"), 1); //$NON-NLS-1$
             try {
                 coreService.syncAllRoutines();
-
-                if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
-                    // PTODO need refactor later, this is not good, I think
-                    coreService.syncAllBeans();
-                }
+                // PTODO need refactor later, this is not good, I think
+                coreService.syncAllBeans();
             } catch (SystemException e1) {
                 //
             }

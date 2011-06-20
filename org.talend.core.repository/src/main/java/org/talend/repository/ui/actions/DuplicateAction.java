@@ -48,7 +48,9 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
@@ -355,12 +357,13 @@ public class DuplicateAction extends AContextualAction {
                 } else if (repositoryType == ERepositoryObjectType.METADATA_EDIFACT) {
                     item = PropertiesFactory.eINSTANCE.createEDIFACTConnectionItem();
                 }
-                if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
-                    ICamelDesignerCoreService service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault()
-                            .getService(ICamelDesignerCoreService.class);
-                    item = service.createNewCamelItem(repositoryType);
-                }
 
+                for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+                    item = handler.createNewItem(repositoryType);
+                    if (item != null) {
+                        break;
+                    }
+                }
             }
         }
         if (item != null) {

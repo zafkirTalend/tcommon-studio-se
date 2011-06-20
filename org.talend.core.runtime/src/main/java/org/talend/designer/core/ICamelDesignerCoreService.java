@@ -12,13 +12,8 @@
 // ============================================================================
 package org.talend.designer.core;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.IEditorPart;
-import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.ui.runtime.image.IImage;
 import org.talend.core.IService;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -34,21 +29,11 @@ public interface ICamelDesignerCoreService extends IService {
 
     public IAction getCreateBeanAction(boolean isToolbar);
 
-    public ERepositoryObjectType createCamelResource(Item item);
-
-    public Resource createCamel(IProject project, Item item, IPath path, ERepositoryObjectType type) throws PersistenceException;
-
-    public Resource saveCamel(Item item) throws PersistenceException;
-
-    public IImage getCamelIcon(ERepositoryObjectType type);
-
     public boolean isInstanceofCamelRoutes(Item item);
 
     public ERepositoryObjectType getRoutes();
 
     public ProcessType getCamelProcessType(Item item);
-
-    public Item createNewCamelItem(ERepositoryObjectType type);
 
     public ITalendSynchronizer createCamelJavaSynchronizer();
 
@@ -59,8 +44,6 @@ public interface ICamelDesignerCoreService extends IService {
     public boolean isInstanceofCamel(Item item);
 
     public boolean isInstanceofCamelBeans(Item item);
-
-    public boolean isCamelRepObjType(ERepositoryObjectType type);
 
     public boolean isCamelMulitPageEditor(IEditorPart editor);
 }

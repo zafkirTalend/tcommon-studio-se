@@ -15,9 +15,9 @@ package org.talend.core.ui.images;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.IImage;
-import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.designer.core.ICamelDesignerCoreService;
+import org.talend.core.model.repository.IRepositoryContentHandler;
+import org.talend.core.model.repository.RepositoryContentManager;
 
 /**
  * ggu class global comment. Detailled comment
@@ -111,14 +111,10 @@ public class RepositoryImageProvider {
             return ECoreImage.METADATA_EDIFACT_ICON;
         } else {
             IImage image = null;
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
-                ICamelDesignerCoreService service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
-                        ICamelDesignerCoreService.class);
-                image = service.getCamelIcon(type);
+            for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+                image = handler.getIcon(type);
                 if (image != null) {
                     return image;
-                } else {
-                    return EImage.DEFAULT_IMAGE;
                 }
             }
             return EImage.DEFAULT_IMAGE;

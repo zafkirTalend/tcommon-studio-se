@@ -233,8 +233,6 @@ public interface IRepositoryFactory {
 
     public void create(Project project, Item item, IPath path, boolean... isImportItem) throws PersistenceException;
 
-    public void createCamel(Project project, Item item, IPath path, boolean... isImportItem) throws PersistenceException;
-
     public void save(Project project, Item item) throws PersistenceException;
 
     public void save(Project project, Property property) throws PersistenceException;

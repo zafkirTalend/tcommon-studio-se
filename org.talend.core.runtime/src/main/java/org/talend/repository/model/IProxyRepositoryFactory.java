@@ -325,8 +325,6 @@ public interface IProxyRepositoryFactory {
     // public abstract String isServerValid();
     public abstract void create(Item item, IPath path, boolean... isImportItem) throws PersistenceException;
 
-    public abstract void createCamel(Item item, IPath path, boolean... isImportItem) throws PersistenceException;
-
     public abstract void create(Project project, Item item, IPath path, boolean... isImportItem) throws PersistenceException;
 
     public abstract void save(Item item, boolean... isMigrationTask) throws PersistenceException;

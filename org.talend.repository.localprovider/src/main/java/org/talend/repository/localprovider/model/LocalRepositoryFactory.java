@@ -115,7 +115,9 @@ import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.ValidationRulesConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
+import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.core.repository.constants.FileConstants;
@@ -133,7 +135,6 @@ import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.core.service.ICorePerlService;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SubItemHelper;
-import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.localprovider.exceptions.IncorrectFileException;
@@ -1685,7 +1686,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         computePropertyMaxInformationLevel(item.getProperty());
 
         item.getProperty().setModificationDate(new Date());
-        Resource itemResource;
+        Resource itemResource = null;
         EClass eClass = item.eClass();
         if (eClass.eContainer() == PropertiesPackage.eINSTANCE) {
             switch (eClass.getClassifierID()) {
@@ -1775,11 +1776,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 // xmiResourceManager.saveResource(item.eResource());
                 // return;
             } else {
-                if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
-                    ICamelDesignerCoreService service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault()
-                            .getService(ICamelDesignerCoreService.class);
-                    itemResource = service.saveCamel(item);
-                } else {
+                for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+                    itemResource = handler.save(item);
+                    if (itemResource != null) {
+                        break;
+                    }
+                }
+                if (itemResource == null) {
                     throw new UnsupportedOperationException();
                 }
             }
@@ -1823,17 +1826,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
             createResource.load(in, null);
             Item newItem = copyFromResource(createResource, changeLabelWithCopyPrefix);
-            ERepositoryObjectType type = null;
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
-                ICamelDesignerCoreService service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
-                        ICamelDesignerCoreService.class);
-                type = service.createCamelResource(newItem);
-            }
-            if (type != null && ERepositoryObjectType.getItemType(newItem) == type) {
-                createCamel(getRepositoryContext().getProject(), newItem, path);
-            } else {
-                create(getRepositoryContext().getProject(), newItem, path);
-            }
+            create(getRepositoryContext().getProject(), newItem, path);
+
             return newItem;
         } catch (IOException e) {
             // e.printStackTrace();
@@ -1847,73 +1841,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         List<IRepositoryViewObject> allVersionToMove = getAllVersion(project, property.getId(), false);
         for (IRepositoryViewObject object : allVersionToMove) {
             xmiResourceManager.propagateFileName(property, object.getProperty());
-        }
-    }
-
-    public void createCamel(Project project, Item item, IPath path, boolean... isImportItem) throws PersistenceException {
-        computePropertyMaxInformationLevel(item.getProperty());
-
-        if (item.getProperty().getVersion() == null) {
-            item.getProperty().setVersion(VersionUtils.DEFAULT_VERSION);
-        }
-        if (item.getProperty().getAuthor() == null) {
-            item.getProperty().setAuthor(getRepositoryContext().getUser());
-        }
-
-        if (item.getProperty().getCreationDate() == null) {
-            item.getProperty().setCreationDate(new Date());
-        }
-
-        if (item.getProperty().getModificationDate() == null) {
-            item.getProperty().setModificationDate(item.getProperty().getCreationDate());
-        }
-
-        ItemState itemState = PropertiesFactory.eINSTANCE.createItemState();
-        if (item.getState() != null) {
-            itemState.setDeleted(item.getState().isDeleted());
-        } else {
-            itemState.setDeleted(false);
-        }
-        itemState.setPath(path.toString());
-
-        item.setState(itemState);
-        IProject project2 = ResourceModelUtils.getProject(project);
-        Resource itemResource = null;
-        ERepositoryObjectType type = null;
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
-            ICamelDesignerCoreService service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
-                    ICamelDesignerCoreService.class);
-            type = service.createCamelResource(item);
-            if (type != null) {
-                itemResource = service.createCamel(project2, item, path, type);
-            }
-        }
-        if (itemResource == null) {
-            throw new UnsupportedOperationException();
-        }
-
-        Resource propertyResource = xmiResourceManager.createPropertyResource(itemResource);
-        propertyResource.getContents().add(item.getProperty());
-        propertyResource.getContents().add(item.getState());
-        propertyResource.getContents().add(item);
-        String parentPath = "";
-        if (type != null) {
-            parentPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString();
-        }
-
-        FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
-        FolderItem parentFolderItem = folderHelper.getFolder(parentPath);
-        boolean add = parentFolderItem.getChildren().add(item);
-        if (add) {
-            item.setParent(parentFolderItem);
-        }
-        // item.setParent(parentFolderItem);
-
-        xmiResourceManager.saveResource(itemResource);
-        xmiResourceManager.saveResource(propertyResource);
-
-        if (isImportItem.length == 0 || !isImportItem[0]) {
-            saveProject(project);
         }
     }
 
@@ -1945,7 +1872,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         item.setState(itemState);
         IProject project2 = ResourceModelUtils.getProject(project);
-        Resource itemResource;
+        Resource itemResource = null;
         EClass eClass = item.eClass();
         if (eClass.eContainer() == PropertiesPackage.eINSTANCE) {
             switch (eClass.getClassifierID()) {
@@ -2064,19 +1991,29 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 itemResource = create(project2, (EDIFACTConnectionItem) item, ERepositoryObjectType.METADATA_EDIFACT, path);
                 break;
             default:
+
                 throw new UnsupportedOperationException();
             }
 
         } else {
-            // MOD mzhao resource change listener so that TOP can react the changes.
-            AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
-                    AbstractResourceChangesService.class);
-            if (resChangeService.isAnalysisOrReportItem(item)) {
-                path = Path.EMPTY;
-            }
-            itemResource = resChangeService.create(project2, item, eClass.getClassifierID(), path);
-            if (itemResource == null) {
-                throw new UnsupportedOperationException();
+            if (item instanceof TDQItem) {
+                // MOD mzhao resource change listener so that TOP can react the changes.
+                AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
+                        AbstractResourceChangesService.class);
+                if (resChangeService.isAnalysisOrReportItem(item)) {
+                    path = Path.EMPTY;
+                }
+                itemResource = resChangeService.create(project2, item, eClass.getClassifierID(), path);
+                if (itemResource == null) {
+                    throw new UnsupportedOperationException();
+                }
+            } else {
+                for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+                    itemResource = handler.create(project2, item, eClass.getClassifierID(), path);
+                    if (itemResource != null) {
+                        break;
+                    }
+                }
             }
         }
 

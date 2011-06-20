@@ -79,7 +79,6 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
-import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -391,11 +390,14 @@ public class RepositoryObject implements IRepositoryObject {
             }
 
             public Object defaultCase(EObject object) {
-                if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
-                    ICamelDesignerCoreService service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault()
-                            .getService(ICamelDesignerCoreService.class);
-                    return service.createCamelResource(property.getItem());
+
+                for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+                    ERepositoryObjectType type = handler.createResource(property.getItem());
+                    if (type != null) {
+                        return type;
+                    }
                 }
+
                 throw new IllegalStateException();
             }
         }.doSwitch(property.getItem());
