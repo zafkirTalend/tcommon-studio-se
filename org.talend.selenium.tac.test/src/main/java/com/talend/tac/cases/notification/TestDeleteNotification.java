@@ -104,10 +104,12 @@ public class TestDeleteNotification extends AddNotification {
 	    selenium.click("idSubModuleRefreshButton"); //click "Refresh"
 		selenium.mouseDown("//span[text()='"+testAddsimpleTask+"']");//select a exist task
 		selenium.chooseOkOnNextConfirmation();
+		selenium.chooseOkOnNextConfirmation();
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("//div[text()='Job Conductor' and @class='header-title']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");//clcik "Delete"
-		selenium.setSpeed(MIN_SPEED);//clcik "Delete"
+		selenium.setSpeed(MIN_SPEED);
 		Assert.assertTrue(selenium.getConfirmation().matches(other.getString("delete.plan.warning")));
+		Assert.assertEquals(selenium.getConfirmation(), "Do you want to remove all of the related logs and archives");
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertFalse(selenium.isElementPresent("//span[text()='"+testAddsimpleTask+"']"));//the task cannot appear
 		selenium.setSpeed(MIN_SPEED);
