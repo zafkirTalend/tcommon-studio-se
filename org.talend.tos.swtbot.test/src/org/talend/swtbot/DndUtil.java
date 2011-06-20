@@ -129,6 +129,24 @@ public class DndUtil {
     }
 
     /**
+     * DOC fzhong Comment method "dragAndDrop". Performs a DND operation starting at an arbitrary location, targeting at
+     * the given location of the target.
+     * 
+     * @param source From where to start dragging
+     * @param locationOnSource
+     * @param target Where to drop onto
+     * @param locationOnTarget
+     */
+    public void dragAndDrop(final AbstractSWTBot<? extends Widget> source, final Point locationOnSource,
+            final AbstractSWTBot<? extends Widget> target, final Point locationOnTarget) {
+        Rectangle sourceRectangle = absoluteLocation(source);
+        Point dragSource = new Point(sourceRectangle.x + locationOnSource.x, sourceRectangle.y + locationOnSource.y);
+        Rectangle targetRectangle = absoluteLocation(target);
+        Point dropTarget = new Point(targetRectangle.x + locationOnTarget.x, targetRectangle.y + locationOnTarget.y);
+        doDragAndDrop(dragSource, dropTarget);
+    }
+
+    /**
      * Performs a DND operation starting at an arbitrary location, targeting the given widget.
      * 
      * @param source From where to start dragging
