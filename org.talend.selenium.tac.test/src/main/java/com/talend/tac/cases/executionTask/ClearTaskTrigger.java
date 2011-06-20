@@ -21,9 +21,10 @@ public class ClearTaskTrigger extends Login {
 			
 			selenium.mouseDown("//span[text()='"+taskLabel+"']");//select  exist task
 			selenium.chooseOkOnNextConfirmation();
+			selenium.chooseOkOnNextConfirmation();
 			selenium.click("idSubModuleDeleteButton");//clcik "Delete"
 			Assert.assertTrue(selenium.getConfirmation().matches(other.getString("delete.plan.warning")));
-		    
+			Assert.assertEquals(selenium.getConfirmation(), "Do you want to remove all of the related logs and archives");
 			
 		} else {
 			
