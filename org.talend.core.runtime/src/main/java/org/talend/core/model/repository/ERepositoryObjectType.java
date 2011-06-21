@@ -23,7 +23,6 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.AbstractDQModelService;
-import org.talend.core.ICamelItemService;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.properties.BRMSConnectionItem;
 import org.talend.core.model.properties.BusinessProcessItem;
@@ -682,10 +681,14 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         if (repObjType != null) {
             return repObjType;
         }
-        repObjType = getCamelRepObjectType(item);
-        if (repObjType != null) {
-            return repObjType;
+
+        for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+            repObjType = handler.createResource(item);
+            if (repObjType != null) {
+                return repObjType;
+            }
         }
+
         return (ERepositoryObjectType) new PropertiesSwitch() {
 
             @Override
@@ -896,14 +899,6 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         AbstractDQModelService dqModelService = CoreRuntimePlugin.getInstance().getDQModelService();
         if (dqModelService != null) {
             return dqModelService.getTDQRepObjType(item);
-        }
-        return null;
-    }
-
-    private static ERepositoryObjectType getCamelRepObjectType(Item item) {
-        ICamelItemService camelService = CoreRuntimePlugin.getInstance().getCamelService();
-        if (camelService != null) {
-            return camelService.getCamelRepObjType(item);
         }
         return null;
     }
