@@ -13,6 +13,7 @@ public class TestAddTaskBaseBranchProject  extends AddTask {
 		selenium.refresh();
 		this.waitForElementPresent("//span[text()='" + taskLabel + "']",
 				WAIT_TIME);
+		Thread.sleep(3000);
 		selenium.mouseDown("//span[text()='" + taskLabel + "']");
 		Thread.sleep(3000);
 		selenium.chooseOkOnNextConfirmation();
@@ -176,15 +177,15 @@ public class TestAddTaskBaseBranchProject  extends AddTask {
 	}
 	
 	@Test(dependsOnMethods={"testRunTaskBaseBranch"})
-	@Parameters({"labelStatisticViewTask"})
-	public void testTaskStatisticViewDisable(String tasklabel) throws InterruptedException{
+	@Parameters({"labelStatisticViewTask", "statisticDisabled", "statisticEnabled"})
+	public void testTaskStatisticViewDisable(String tasklabel, String statisticDisabled, String statisticEnabled) throws InterruptedException{
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"
 				+ rb.getString("menu.jobConductor") + "']"));
 		// select a exist task
 		selenium.mouseDown("//span[text()='"+tasklabel+"']");
 		this.clickWaitForElementPresent("//span[text()='Edition']");
-		this.selectDropDownList("//input[@id='idJobConductorTaskStatisticsListBox']", 2);
+		this.selectDropDownList("idJobConductorTaskStatisticsListBox", statisticDisabled);
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MIN_SPEED);
@@ -198,7 +199,7 @@ public class TestAddTaskBaseBranchProject  extends AddTask {
 			Assert.fail("test statistic view disable failed!");
 		}
 		//undo disable select
-		this.selectDropDownList("//input[@id='idJobConductorTaskStatisticsListBox']", 1);
+		this.selectDropDownList("idJobConductorTaskStatisticsListBox", statisticEnabled);
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MIN_SPEED);
@@ -263,15 +264,15 @@ public class TestAddTaskBaseBranchProject  extends AddTask {
 		deleteTask(label);
 	}
 	@Test(dependsOnMethods={"testTaskStatisticViewDisable"})
-	@Parameters({"labelStatisticViewTask"})
-	public void testTaskStatisticViewEnable(String tasklabel) throws InterruptedException{
+	@Parameters({"labelStatisticViewTask", "statisticEnabled"})
+	public void testTaskStatisticViewEnable(String tasklabel, String statisticEnabled) throws InterruptedException{
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"
 				+ rb.getString("menu.jobConductor") + "']"));
 		// select a exist task
 		selenium.mouseDown("//span[text()='"+tasklabel+"']");
 		this.clickWaitForElementPresent("//span[text()='Edition']");
-		this.selectDropDownList("//input[@id='idJobConductorTaskStatisticsListBox']", 1);
+		this.selectDropDownList("idJobConductorTaskStatisticsListBox", statisticEnabled);
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MIN_SPEED);
