@@ -33,7 +33,7 @@ public class TestAddAddSimpleTriggerUseOutdatedTimeByUI extends Plan{
           //selenium.typeKeys("//input[@name='startTime']", "2011-04-10 09:30:15");
 //        this.typeString("//div[@class=' x-panel x-component ']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader']/div[@class=' x-panel-noborder x-panel x-component']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder']/form[@class=' x-form-label-left']/fieldset[@class=' x-fieldset x-component']/div[@class=' x-form-label-left']/div[@class='x-form-item ']/div/div[@class=' x-form-field-wrap  x-component ']/input[@name='startTime']", date.getFuture("24"));//description
        
-       selenium.click("//input[@name='startTime']/parent::div/div[@class='x-form-trigger x-form-date-trigger']");
+       selenium.click("//input[@name='startTime']/parent::div//img[@class='x-form-trigger x-form-date-trigger']");
        if(TriggerDate.isClickPastMonthButton(date.getPast(48))){
     	   this.clickWaitForElementPresent("//div[contains(@class,'x-icon-btn x-nodrag x-date-left-icon x-component')]");
        }
@@ -47,7 +47,7 @@ public class TestAddAddSimpleTriggerUseOutdatedTimeByUI extends Plan{
 //        selenium.typeKeys("//input[@name='endTime']", "2011-04-16 09:08:34");
 //        this.typeString("//input[@name='endTime']", date.getPast("24"));
 //        this.typeString("//div[@class=' x-panel x-component ']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader']/div[@class=' x-panel-noborder x-panel x-component']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder']/form[@class=' x-form-label-left']/fieldset[@class=' x-fieldset x-component']/div[@class=' x-form-label-left']/div[@class='x-form-item ']/div/div[@class=' x-form-field-wrap  x-component ']/input[@name='endTime']", date.getFuture("48"));//description
-        selenium.click("//input[@name='endTime']/parent::div/div[@class='x-form-trigger x-form-date-trigger']");
+        selenium.click("//input[@name='endTime']/parent::div//img[@class='x-form-trigger x-form-date-trigger']");
         if(TriggerDate.isClickPastMonthButton(date.getPast(24))){
         		this.clickWaitForElementPresent("//div[contains(@class,'x-icon-btn x-nodrag x-date-left-icon x-component')]");
         }

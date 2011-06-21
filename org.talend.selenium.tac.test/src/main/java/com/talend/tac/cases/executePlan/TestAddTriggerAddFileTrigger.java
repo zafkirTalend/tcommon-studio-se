@@ -227,14 +227,14 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		
 		addFileTrigger(plantoaddfiletrigger, filetriggerlabel, foldpath,
 				interval, mask, serverName, 2);
-		selenium.mouseDown("//span[text()='" + plantoaddfiletrigger + "']");
+		/*selenium.mouseDown("//span[text()='" + plantoaddfiletrigger + "']");
 		Thread.sleep(2000);
-		selenium.click("idJobConductorTaskRunButton");
+		selenium.click("//div[text()='Execution Plan']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idJobConductorTaskRunButton']");
 		this.waitForElementPresent("//span[text()='Running...']",
 				Base.WAIT_TIME);
 		this.waitForElementPresent("//span[text()='Ready to run']",
 				Base.WAIT_TIME);
-		
+		*/
 		//do not modify a file existed,check directly
 		triggerCheckFalse(filetriggerlabel);
 		

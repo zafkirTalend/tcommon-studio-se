@@ -42,7 +42,7 @@ public class TestAddTriggerAddSimpleTriggerByUI extends Login {
 				"//div[@class=' x-panel x-component ']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader']/div[@class=' x-panel-noborder x-panel x-component']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder']/form[@class=' x-form-label-left']/fieldset[@class=' x-fieldset x-component']/div[@class=' x-form-label-left']/div[@class='x-form-item ']/div/div[@class=' x-form-field-wrap  x-component ']/input[@name='description']",
 				"SimpleTrigger");// description
 		// type simple trigger start time
-		selenium.click("//input[@name='startTime']/parent::div/div[@class='x-form-trigger x-form-date-trigger']");
+		selenium.click("//input[@name='startTime']/parent::div//img[@class='x-form-trigger x-form-date-trigger']");
 		if(TriggerDate.isClickFutureMonthButton(date.getFuture(24))){
     		this.clickWaitForElementPresent("//div[contains(@class,'x-icon-btn x-nodrag x-date-right-icon x-component')]");
         }
@@ -54,7 +54,7 @@ public class TestAddTriggerAddSimpleTriggerByUI extends Login {
 		// this.typeString("//div[@class=' x-panel x-component ']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader']/div[@class=' x-panel-noborder x-panel x-component']/div[@class='x-panel-bwrap']/div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder']/form[@class=' x-form-label-left']/fieldset[@class=' x-fieldset x-component']/div[@class=' x-form-label-left']/div[@class='x-form-item ']/div/div[@class=' x-form-field-wrap  x-component ']/input[@name='startTime']",
 		// date.getFuture("24"));//description
 		// type simple trigger end time
-		selenium.click("//input[@name='endTime']/parent::div/div[@class='x-form-trigger x-form-date-trigger']");
+		selenium.click("//input[@name='endTime']/parent::div//img[@class='x-form-trigger x-form-date-trigger']");
 		if(TriggerDate.isClickFutureMonthButton(date.getFuture(48))){
     		this.clickWaitForElementPresent("//div[contains(@class,'x-icon-btn x-nodrag x-date-right-icon x-component')]");
         }

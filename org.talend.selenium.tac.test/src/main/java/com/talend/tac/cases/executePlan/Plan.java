@@ -104,6 +104,7 @@ public class Plan extends Login {
 			this.waitForElementPresent(
 					"//span[@class='x-tree3-node-text' and text()='" + taskName
 							+ " : [OK]']", MAX_WAIT_TIME);
+			this.sleep(2000);
 		}
 		
 	}
