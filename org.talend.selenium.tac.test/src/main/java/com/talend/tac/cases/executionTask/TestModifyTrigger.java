@@ -143,7 +143,7 @@ public class TestModifyTrigger extends Login {
        	selenium.mouseDown("//span[text()='"+triggerLabel+"']");//select a exist trigger
         this.waitForElementPresent("//input[@name='startTime']", WAIT_TIME);    
 //        selenium.keyDown("//input[@name='startTime']", ""+Event.BACK_SPACE);
-    	selenium.click("//label[text()='Start time:']/parent::div//div/div/div");//start date
+    	selenium.click("//label[text()='Start time:']/parent::div//img");//start date
 		if(date.isClickFutureMonthButton(date.getFuture(24))) {//type in start time
 			
         	selenium.setSpeed(MID_SPEED);
@@ -160,7 +160,7 @@ public class TestModifyTrigger extends Login {
         	
         }
 		
-		selenium.click("//label[text()='End time:']/parent::div//div/div/div");//start date
+		selenium.click("//label[text()='End time:']/parent::div//img");//start date
 		if(date.isClickFutureMonthButton(date.getFuture(48))) {//type in start time
 			
         	selenium.setSpeed(MID_SPEED);
