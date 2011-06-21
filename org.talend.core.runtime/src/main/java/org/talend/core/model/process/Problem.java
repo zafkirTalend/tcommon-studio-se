@@ -122,12 +122,16 @@ public class Problem {
 
     public static IEditorReference[] getEditors() {
         final List<IEditorReference> list = new ArrayList<IEditorReference>();
+
         Display.getDefault().syncExec(new Runnable() {
 
             public void run() {
-                IEditorReference[] reference = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-                        .getEditorReferences();
-                list.addAll(Arrays.asList(reference));
+                // workbench should be created,bug 22659
+                if (PlatformUI.isWorkbenchRunning()) {
+                    IEditorReference[] reference = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+                            .getEditorReferences();
+                    list.addAll(Arrays.asList(reference));
+                }
             }
         });
         return list.toArray(new IEditorReference[0]);
