@@ -1,7 +1,5 @@
 package com.talend.tac.cases.executionTask;
 
-import java.awt.Event;
-
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -24,24 +22,14 @@ public class TestModifyTask extends Login {
 		    selenium.click("idSubModuleRefreshButton");
 			selenium.mouseDown("//span[text()='"+label+"']");//select a exist task
             selenium.setSpeed(MIN_SPEED);
-			
-			this.typeString("idJobConductorTaskLabelInput", modifyLabel);//task name /Label
-			selenium.click("//label[text()='Project:']/parent::div/div/div/div");//modify project
-			this.waitForElementPresent("//div[text()='"+projectName+"' and @role='listitem']", WAIT_TIME);
-			selenium.mouseDownAt("//div[text()='"+projectName+"' and @role='listitem']",""+Event.ENTER); 
-			selenium.click("//label[text()='Branch:']/parent::div/div/div/div");//modify branch
-			this.waitForElementPresent("//div[text()='"+branchName+"' and @role='listitem']", WAIT_TIME);
-			selenium.mouseDownAt("//div[text()='"+branchName+"' and @role='listitem']",""+Event.ENTER); 
-			selenium.click("//label[text()='Job:']/parent::div/div/div/div");//modify job
-			this.waitForElementPresent("//div[text()='"+jobName+"' and @role='listitem']", WAIT_TIME);
-			selenium.mouseDownAt("//div[text()='"+jobName+"' and @role='listitem']",""+Event.ENTER);
-			selenium.click("//label[text()='Version:']/parent::div/div/div/div");//version
-			this.waitForElementPresent("//div[text()='"+version+"' and @role='listitem']", WAIT_TIME);
-			selenium.mouseDownAt("//div[text()='"+version+"' and @role='listitem']",""+Event.ENTER);
-			selenium.click("//label[text()='Context:']/parent::div/div/div/div");//context
-			this.waitForElementPresent("//div[text()='"+context+"' and @role='listitem']", WAIT_TIME);
-			selenium.mouseDownAt("//div[text()='"+context+"' and @role='listitem']",""+Event.ENTER);
-			
+            this.typeString("idJobConductorTaskLabelInput", modifyLabel);//task name /Label
+            
+            this.selectDropDownList("idTaskProjectListBox", projectName);
+        	this.selectDropDownList("idTaskBranchListBox", branchName);
+        	this.selectDropDownList("idTaskJobListBox", jobName);
+        	this.selectDropDownList("idTaskVersionListBox", version);
+        	this.selectDropDownList("idTaskContextListBox", context);
+ 
 			selenium.click("idFormSaveButton");
 			this.waitForElementPresent("//span[text()='"+modifyLabel+"']", WAIT_TIME);
 			Assert.assertTrue(selenium.isElementPresent("//span[text()='"+modifyLabel+"']"));
