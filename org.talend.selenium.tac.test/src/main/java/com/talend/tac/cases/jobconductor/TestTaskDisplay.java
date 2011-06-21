@@ -45,7 +45,7 @@ public class TestTaskDisplay extends Login {
 		assertFalse(selenium.isElementPresent("//span[text()='"+TaskLable+"']"));
 		selenium.setSpeed(MIN_SPEED);
 		//clear the keyWrods
-		selenium.click("//button[text()='Filter tasks']/ancestor::td/following-sibling::td//input/following-sibling::div");
+		selenium.click("//button[text()='Filter tasks']/ancestor::td/following-sibling::td//input/following-sibling::img");
 		assertTrue(selenium.isElementPresent("//span[text()='"+TaskLable+"']"));
 		//type a the name of task as a keyword
 		selenium.typeKeys("//button[text()='Filter tasks']/ancestor::td/following-sibling::td//input",TaskLable);
