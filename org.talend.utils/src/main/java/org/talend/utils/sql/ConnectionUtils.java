@@ -92,7 +92,10 @@ public final class ConnectionUtils {
                 Class.forName(driver.getClass().getName());
                 connection = DriverManager.getConnection(url, props);
             } catch (ClassNotFoundException e) {// MOD zshen for mssql2008
-                connection = driver.connect(url, props);
+                try {
+                    connection = driver.connect(url, props);
+                } catch (Exception exception) {
+                }
             }
             // connection = DriverManager.getConnection(url, props.getProperty("user"), props.getProperty("password"));
 
