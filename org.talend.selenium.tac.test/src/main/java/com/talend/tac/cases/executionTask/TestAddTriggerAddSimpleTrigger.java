@@ -33,7 +33,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
         System.out.println("+++----"+endDate.days);
         System.out.println("+++----"+date.getCurrent().days); 	
     	if("future".equals(type)) {
-    		selenium.click("//label[text()='Start time:']/parent::div//div/div/div");//start date
+    		selenium.click("//label[text()='Start time:']/parent::div//img");//start date
     		if(date.isClickFutureMonthButton(startDate)) {//type in start time
     			
             	selenium.setSpeed(MID_SPEED);
@@ -49,7 +49,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
             	selenium.setSpeed(MIN_SPEED);
             	
             }
-    		selenium.click("//label[text()='End time:']/parent::div//div/div/div");//start date
+    		selenium.click("//label[text()='End time:']/parent::div//img");//start date
     		if(date.isClickFutureMonthButton(endDate)) {//type in start time
     			
             	selenium.setSpeed(MID_SPEED);
@@ -71,7 +71,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
     	
     	else {
     	
-    		selenium.click("//label[text()='Start time:']/parent::div//div/div/div");//start date
+    		selenium.click("//label[text()='Start time:']/parent::div//img");//start date
     	
     	    if(date.isClickPastMonthButton(startDate)) {//type in start time
     			
@@ -96,7 +96,7 @@ public class TestAddTriggerAddSimpleTrigger extends Login{
             	selenium.setSpeed(MIN_SPEED);
             	
             } 
-    		selenium.click("//label[text()='End time:']/parent::div//div/div/div");//start date
+    		selenium.click("//label[text()='End time:']/parent::div//img");//start date
     		if(date.isClickPastMonthButton(endDate)) {//type in start time
     			
             	selenium.setSpeed(MID_SPEED);
