@@ -30,7 +30,7 @@ public class TestDbConfigImportParameters extends DbConfig {
 		selenium.type("Path", dbConfigParametersPath);
 		this.clickWaitForElementPresent("//button[text()='Upload']");
 		this.waitForElementPresent("//span[text()='Import succeed.']", WAIT_TIME);
-		selenium.click("//button[text()='Ok']");
+		selenium.click("//button[text()='OK']");
 		selenium.click("idDbConfigCheckButton");
 		this.waitForCheckConnectionStatus("//div[text()='OK']", 4);
 		//upload license
@@ -38,7 +38,7 @@ public class TestDbConfigImportParameters extends DbConfig {
 		selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", license);
 		selenium.click("//button[text()='Upload']");
 		selenium.waitForCondition("selenium.isTextPresent(\"New license set\")", WAIT_TIME*1000+"");
-		clickWaitForElementPresent("//button[text()='Ok']");
+		clickWaitForElementPresent("//button[text()='OK']");
 		waitForCheckConnectionStatus("//div[text()='OK']",5);
 
 		selenium.click("idDbConfigLogoutButton");
