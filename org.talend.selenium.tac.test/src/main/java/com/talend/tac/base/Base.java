@@ -28,7 +28,7 @@ public class Base {
 	public static String MID_SPEED = "3000";
 	public static String MIN_SPEED = "0";
 	public static String MAX_SPEED = "5000";
-	public static int WAIT_TIME = 160;
+	public static int WAIT_TIME = 500;
 	public static int MAX_WAIT_TIME = 500;
 
 	@BeforeClass
@@ -284,8 +284,20 @@ public class Base {
 	}
 
 	public void selectDropDownList(String id, String itemName) {
-		selenium.click("//input[@id='"+id+"']"
-				+ "/following-sibling::div");
+		
+		if(selenium.isElementPresent("//input[@id='"+id+"']"
+				+ "/following-sibling::div")) {
+			
+			selenium.click("//input[@id='"+id+"']"
+					+ "/following-sibling::div");
+			
+		} else {
+			
+			selenium.click("//input[@id='"+id+"']"
+					+ "/following-sibling::img");
+			
+		}
+		
 		this.waitForElementPresent("//div[text()='" + itemName + "' and @role='listitem']", WAIT_TIME);
 		selenium.mouseDown("//div[text()='" + itemName + "' and @role='listitem']");
 		selenium.fireEvent("//input[@id='"+id+"']", "blur");
