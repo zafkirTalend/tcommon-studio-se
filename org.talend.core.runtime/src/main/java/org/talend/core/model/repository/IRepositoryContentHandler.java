@@ -24,8 +24,6 @@ import org.talend.core.model.properties.Item;
  */
 public interface IRepositoryContentHandler {
 
-    public ERepositoryObjectType createResource(Item item);
-
     public Resource create(IProject project, Item item, int classifierID, IPath path) throws PersistenceException;
 
     public Resource save(Item item) throws PersistenceException;
@@ -41,4 +39,6 @@ public interface IRepositoryContentHandler {
     public ERepositoryObjectType getProcessType();
 
     public ERepositoryObjectType getCodeType();
+
+    public ERepositoryObjectType getRepositoryObjectType(Item item);
 }

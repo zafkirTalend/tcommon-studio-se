@@ -681,14 +681,10 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         if (repObjType != null) {
             return repObjType;
         }
-
-        for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
-            repObjType = handler.createResource(item);
-            if (repObjType != null) {
-                return repObjType;
-            }
+        repObjType = getRepositoryObjectType(item);
+        if (repObjType != null) {
+            return repObjType;
         }
-
         return (ERepositoryObjectType) new PropertiesSwitch() {
 
             @Override
@@ -901,6 +897,17 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             return dqModelService.getTDQRepObjType(item);
         }
         return null;
+    }
+
+    private static ERepositoryObjectType getRepositoryObjectType(Item item) {
+        ERepositoryObjectType type = null;
+        for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+            type = handler.getRepositoryObjectType(item);
+            if (type != null) {
+                break;
+            }
+        }
+        return type;
     }
 
     public boolean isSubItem() {
