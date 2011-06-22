@@ -90,7 +90,7 @@ public final class SAPConnectionUtils {
      */
     public static boolean sameParamterTableWith(final SAPFunctionUnit unit, final List<Map<String, Object>> value2, boolean input) {
         List<Map<String, Object>> source = new ArrayList<Map<String, Object>>();
-        RepositoryToComponentProperty.getSAPInputAndOutputValue(unit.getConnection(), source, unit.getName(), input);
+        RepositoryToComponentProperty.getSAPInputAndOutputValue(unit.getConnection(), source, unit.getLabel(), input);
         if (value2 == null) {
             return false;
         }
@@ -108,7 +108,14 @@ public final class SAPConnectionUtils {
                         value.put("SAP_PARAMETER_VALUE", ""); //$NON-NLS-1$ //$NON-NLS-2$
                     }
                 }
+
+                for (Map<String, Object> value : value2) {
+                    if (value.get("SAP_PARAMETER_VALUE") == null) { //$NON-NLS-1$
+                        value.put("SAP_PARAMETER_VALUE", ""); //$NON-NLS-1$ //$NON-NLS-2$
+                    }
+                }
             }
+
             return source.containsAll(value2) && value2.containsAll(source);
         } else {
             return false;
