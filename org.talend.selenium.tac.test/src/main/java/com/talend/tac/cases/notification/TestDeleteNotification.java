@@ -33,7 +33,8 @@ public class TestDeleteNotification extends AddNotification {
 		this.clickWaitForElementPresent("!!!menu.notification.element!!!");//into notification
 		selenium.setSpeed(MID_SPEED);
 				
-    	selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-category']");//choose a notification type
+    	selenium.mouseDown("//div[text()='"+eventNewUser+"']/" +
+		"parent::td/parent::tr//img[@class='gwt-Image' and @title='true']");//choose a notification type
 		selenium.chooseOkOnNextConfirmation();
 		selenium.click("idSubModuleDeleteButton");//click 'Delete' button
 		selenium.setSpeed(MID_SPEED);
