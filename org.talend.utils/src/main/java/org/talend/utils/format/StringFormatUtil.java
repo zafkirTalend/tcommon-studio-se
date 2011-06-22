@@ -62,10 +62,11 @@ public final class StringFormatUtil {
                 BigDecimal temp = new BigDecimal(input.toString());
                 BigDecimal min = new BigDecimal(10E-5);
                 BigDecimal max = new BigDecimal(9999 * 10E-5);
+                boolean isUseScientific = false;
                 switch (style) {
                 case 0:
                     if (temp.compareTo(min) == -1 && temp.compareTo(zero) == 1) {
-                        input = min.toString();
+                        isUseScientific = true;
                     } else if (temp.compareTo(max) == 1 && temp.compareTo(new BigDecimal(1)) == -1) {
                         input = max.toString();
                     }
@@ -75,7 +76,7 @@ public final class StringFormatUtil {
                 case 1:
                     min = new BigDecimal(10E-3);
                     if (temp.compareTo(min) == -1 && temp.compareTo(zero) == 1) {
-                        input = min.toString();
+                        isUseScientific = true;
                     }
                     format = (DecimalFormat) DecimalFormat.getNumberInstance(Locale.ENGLISH);
                     format.applyPattern("0.00");
@@ -83,6 +84,9 @@ public final class StringFormatUtil {
                 default:
                     format = (DecimalFormat) DecimalFormat.getInstance(Locale.getDefault());
                     return format.parse(input.toString());
+                }
+                if (isUseScientific) {
+                    format.applyPattern("0.###E0%");
                 }
 
                 return format.format(new Double(input.toString()));
