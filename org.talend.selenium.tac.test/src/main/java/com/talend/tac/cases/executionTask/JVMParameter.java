@@ -68,10 +68,12 @@ public class JVMParameter extends Login{
 	    
 	    this.waitForElementPresent("//label[text()='JVM Values:']//ancestor::div[contains" +
 	    		"(@class,'x-form-item')]//textarea[contains(@class,'x-form-field x-form-textarea')]", WAIT_TIME);
+	    selenium.setSpeed(MID_SPEED);
 	    String lastRunEndTime = selenium.getValue("//label[text()='Task:']//ancestor::div" +
 	    		"[@class=' x-form-label-left']/div[3]//input[@class=' x-form-field x-form-text']");
 	    String jvmValue = selenium.getValue("//label[text()='JVM Values:']//ancestor::div[contains" +
 	    		"(@class,'x-form-item')]//textarea[contains(@class,'x-form-field x-form-textarea')]");
+	    selenium.setSpeed(MIN_SPEED);
 	    System.out.println(jvmValue);
 	    System.out.println(lastRunEndTime);
 	    Assert.assertEquals(jvmValue, jvmParameterValue);
