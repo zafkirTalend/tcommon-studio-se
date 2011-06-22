@@ -1259,7 +1259,28 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         jobElement.addAttribute("modification", HTMLDocUtils.checkDate(property.getModificationDate())); //$NON-NLS-1$
 
         Element descr = jobElement.addElement("description"); //$NON-NLS-1$
-        descr.addCDATA(HTMLDocUtils.checkString(property.getDescription()).replaceAll("\\r\\n", "<br/>")); //$NON-NLS-1$ //$NON-NLS-2$
+        // bug 22608
+        String jobDescriptionStr = HTMLDocUtils.checkString(property.getDescription()).replaceAll("\\r\\n", "<br/>");
+        StringBuffer sb = new StringBuffer();
+        if (jobDescriptionStr != null) {
+            String[] jobDescriptions = jobDescriptionStr.split("<br/>");
+            for (String str : jobDescriptions) {
+                String ss = str;
+                if (str != null && str.length() > 120) {
+                    while (ss.length() > 120) {
+                        int k = ss.length() / 120;
+                        for (int i = 0; i < k; i++) {
+                            sb.append(ss.substring(0, 120) + "<br/>");
+                            ss = ss.substring(120, ss.length());
+                        }
+                    }
+                    sb.append(ss);
+                } else {
+                    sb.append(str + "<br/>");
+                }
+            }
+        }
+        descr.addCDATA(sb.toString()); //$NON-NLS-1$ //$NON-NLS-2$
 
         String picName = jobName + "_" + jobVersion + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX; //$NON-NLS-1$
         IPath filePath = null;
