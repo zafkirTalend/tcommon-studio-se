@@ -1934,4 +1934,9 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
         return result.toString();
     }
 
+    @Override
+    public String getName() {
+        // MOD yyi 2011-06-23 22700: override the method for flatfile column
+        return this.getId();
+    }
 } // MetadataColumnImpl
