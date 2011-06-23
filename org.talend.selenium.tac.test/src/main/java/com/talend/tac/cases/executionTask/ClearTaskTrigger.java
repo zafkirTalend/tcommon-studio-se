@@ -37,10 +37,11 @@ public class ClearTaskTrigger extends Login {
     //remove tasks
     @Test
     @Parameters({"labelRefProJobByMainProTRunJobRun","TaskDeleteLogs",
-    	"labelReferenceproTjava","TaskWithInactiveServer","duplicateTask"})
+    	"labelReferenceproTjava","TaskWithInactiveServer","duplicateTask","taskWithTjavaWithMulripleCheckpoint","taskWithTrunjobWithCheckpoint"})
     public void clearsTasks(String labelRefProJobByMainProTRunJobRun, 
     		String taskDeleteLogs,String testAddTaskForTestReferenceproTjava,
-    		String TaskWithInactiveServer,String Copy_of_testTaskNotChooseActive) {
+    		String TaskWithInactiveServer,String Copy_of_testTaskNotChooseActive,String taskWithTjavaWithMulripleCheckpoint
+    		,String taskWithTrunjobWithCheckpoint) {
 
          clearTask(labelRefProJobByMainProTRunJobRun);
          clearTask("testTaskWithItems");
@@ -48,7 +49,9 @@ public class ClearTaskTrigger extends Login {
          clearTask(testAddTaskForTestReferenceproTjava);
          clearTask(TaskWithInactiveServer);
          clearTask(Copy_of_testTaskNotChooseActive);
-
+         clearTask(taskWithTjavaWithMulripleCheckpoint);
+         clearTask(taskWithTrunjobWithCheckpoint);
+         
     }
     
     //add a method of remove triggers
