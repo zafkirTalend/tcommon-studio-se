@@ -57,6 +57,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		//*****************************************
 		this.runPlan(plantoaddfiletrigger);
 		this.waitForElementPresent("//span[text()='Running...']", WAIT_TIME);
+		this.sleep(10000);
 		this.waitForElementPresent("//span[text()='Ready to run']",
 				WAIT_TIME);
 		//******************************************
@@ -221,9 +222,10 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		//*****************************************
 		this.runPlan(plantoaddfiletrigger);
 		this.waitForElementPresent("//span[text()='Running...']", WAIT_TIME);
+		this.sleep(10000);
 		this.waitForElementPresent("//span[text()='Ready to run']",
 				WAIT_TIME);
-		//******************************************
+		//******************************************	
 		
 		addFileTrigger(plantoaddfiletrigger, filetriggerlabel, foldpath,
 				interval, mask, serverName, 2);
