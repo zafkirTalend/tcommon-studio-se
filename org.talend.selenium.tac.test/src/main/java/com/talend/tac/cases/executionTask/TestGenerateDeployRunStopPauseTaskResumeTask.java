@@ -40,10 +40,14 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 		 
 		
 		generateDeployRunTask(taskLabel,"idJobConductorTaskGenerateButton");//click generate button
-		this.waitForElementPresent("//span[text()='Generating...']", WAIT_TIME);
-	   	Assert.assertTrue(selenium.isElementPresent("//span[text()='Generating...']"));
-    	this.waitForElementPresent("//span[text()='Ready to deploy']", WAIT_TIME);
-    	Assert.assertTrue(selenium.isElementPresent("//span[text()='Ready to deploy']"));
+		this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
+				"//span[text()='Generating...']", WAIT_TIME);
+	   	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
+	   			"//span[text()='Generating...']"));
+    	this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
+    			"//span[text()='Ready to deploy']", WAIT_TIME);
+    	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
+    			"//span[text()='Ready to deploy']"));
     	
 	}
 	
@@ -53,8 +57,10 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 	public void testDeployTask(String taskLabel) {
 		
 		generateDeployRunTask(taskLabel,"//button[@id='idJobConductorTaskDeployButton' and text()='Deploy']");//click Deploy button
-		this.waitForElementPresent("//span[text()='Ready to run']", WAIT_TIME);
-		Assert.assertTrue(selenium.isElementPresent("//span[text()='Ready to run']"));
+		this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
+				"//span[text()='Ready to run']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
+				"//span[text()='Ready to run']"));
 //		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
 		
 	}
@@ -128,8 +134,10 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 		selenium.setSpeed(MID_SPEED);
 	   	Assert.assertTrue(selenium.isTextPresent("Generating..."));
     	selenium.setSpeed(MIN_SPEED);
-    	this.waitForElementPresent("//span[text()='Ready to deploy']", WAIT_TIME);
-    	Assert.assertTrue(selenium.isElementPresent("//span[text()='Ready to deploy']"));
+    	this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
+    			"//span[text()='Ready to deploy']", WAIT_TIME);
+    	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
+    			"//span[text()='Ready to deploy']"));
     	
     	changeCommandLineConfig(localhostAddress);
     	
