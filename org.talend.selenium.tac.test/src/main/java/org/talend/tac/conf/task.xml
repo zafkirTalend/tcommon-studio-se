@@ -164,7 +164,7 @@
             <class name="com.talend.tac.cases.executionTask.ClearTaskTrigger"/>
             <class name="com.talend.tac.cases.executionTask.TestAddJVMParametersForTask"/> 	
             <class name="com.talend.tac.cases.executionTask.TestDeleteJVMParameter"/>
-            
+            <class name="com.talend.tac.cases.executionTask.TestCheckRegenerateTask"/>
         </classes> 
 	</test>
 	
