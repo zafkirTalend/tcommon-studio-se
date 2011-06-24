@@ -74,7 +74,10 @@ public class Plan extends Login {
 				WAIT_TIME);
 		this.sleep(2000);
 		selenium.mouseDown("//span[text()='" + planLabel + "']");
+		selenium.chooseOkOnNextConfirmation();
 		selenium.click("idSubModuleDeleteButton");
+		this.sleep(1000);
+		selenium.getConfirmation();
 		this.sleep(3000);
 		Assert.assertFalse(selenium.isElementPresent("//span[text()='" + planLabel + "']"), "plan "+planLabel +" delete failed! ");
 	}
@@ -112,6 +115,7 @@ public class Plan extends Login {
 	public void deleteTrigger(String fileTriggerLabel) {
 		this.waitForElementPresent("//span[text()='" + fileTriggerLabel + "']",
 				WAIT_TIME);
+		this.sleep(2000);
 		selenium.mouseDown("//span[text()='" + fileTriggerLabel + "']");
 		selenium.chooseOkOnNextConfirmation();
 		try {
@@ -120,7 +124,7 @@ public class Plan extends Login {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		selenium.click("idTriggerDelete");
+		selenium.click("//div[text()='Execution Plan']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idTriggerDelete']");
 		selenium.getConfirmation();
 		try {
 			Thread.sleep(3000);
