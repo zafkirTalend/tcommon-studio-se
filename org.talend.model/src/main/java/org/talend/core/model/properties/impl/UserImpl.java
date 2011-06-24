@@ -52,6 +52,7 @@ import org.talend.core.model.properties.UserRole;
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getLdapId <em>Ldap Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getLanguage <em>Language</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getAdditionnalData <em>Additionnal Data</em>}</li>
  * </ul>
  * </p>
  *
@@ -475,6 +476,26 @@ public class UserImpl extends EObjectImpl implements User {
      * @ordered
      */
     protected String type = TYPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getAdditionnalData() <em>Additionnal Data</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getAdditionnalData()
+     * @generated
+     * @ordered
+     */
+    protected static final String ADDITIONNAL_DATA_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getAdditionnalData() <em>Additionnal Data</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getAdditionnalData()
+     * @generated
+     * @ordered
+     */
+    protected String additionnalData = ADDITIONNAL_DATA_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -932,6 +953,27 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getAdditionnalData() {
+        return additionnalData;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setAdditionnalData(String newAdditionnalData) {
+        String oldAdditionnalData = additionnalData;
+        additionnalData = newAdditionnalData;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__ADDITIONNAL_DATA, oldAdditionnalData, additionnalData));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1012,6 +1054,8 @@ public class UserImpl extends EObjectImpl implements User {
                 return getLanguage();
             case PropertiesPackage.USER__TYPE:
                 return getType();
+            case PropertiesPackage.USER__ADDITIONNAL_DATA:
+                return getAdditionnalData();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1093,6 +1137,9 @@ public class UserImpl extends EObjectImpl implements User {
             case PropertiesPackage.USER__TYPE:
                 setType((String)newValue);
                 return;
+            case PropertiesPackage.USER__ADDITIONNAL_DATA:
+                setAdditionnalData((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1172,6 +1219,9 @@ public class UserImpl extends EObjectImpl implements User {
             case PropertiesPackage.USER__TYPE:
                 setType(TYPE_EDEFAULT);
                 return;
+            case PropertiesPackage.USER__ADDITIONNAL_DATA:
+                setAdditionnalData(ADDITIONNAL_DATA_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1228,6 +1278,8 @@ public class UserImpl extends EObjectImpl implements User {
                 return LANGUAGE_EDEFAULT == null ? language != null : !LANGUAGE_EDEFAULT.equals(language);
             case PropertiesPackage.USER__TYPE:
                 return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+            case PropertiesPackage.USER__ADDITIONNAL_DATA:
+                return ADDITIONNAL_DATA_EDEFAULT == null ? additionnalData != null : !ADDITIONNAL_DATA_EDEFAULT.equals(additionnalData);
         }
         return super.eIsSet(featureID);
     }

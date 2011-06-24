@@ -2247,12 +2247,21 @@ public interface PropertiesPackage extends EPackage {
     int USER__TYPE = 22;
 
     /**
+     * The feature id for the '<em><b>Additionnal Data</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__ADDITIONNAL_DATA = 23;
+
+    /**
      * The number of structural features of the '<em>User</em>' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int USER_FEATURE_COUNT = 23;
+    int USER_FEATURE_COUNT = 24;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -8973,6 +8982,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getUser_Type();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.User#getAdditionnalData <em>Additionnal Data</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Additionnal Data</em>'.
+     * @see org.talend.core.model.properties.User#getAdditionnalData()
+     * @see #getUser()
+     * @generated
+     */
+    EAttribute getUser_AdditionnalData();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.FolderItem <em>Folder Item</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Folder Item</em>'.
@@ -14102,6 +14122,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute USER__TYPE = eINSTANCE.getUser_Type();
+
+        /**
+         * The meta object literal for the '<em><b>Additionnal Data</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute USER__ADDITIONNAL_DATA = eINSTANCE.getUser_AdditionnalData();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.FolderItemImpl <em>Folder Item</em>}' class.

@@ -191,6 +191,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/ldapId"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/language"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/additionnalData"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//FolderItem">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//FolderItem/children"/>

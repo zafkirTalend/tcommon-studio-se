@@ -42,6 +42,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.User#getLdapId <em>Ldap Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.User#getLanguage <em>Language</em>}</li>
  *   <li>{@link org.talend.core.model.properties.User#getType <em>Type</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.User#getAdditionnalData <em>Additionnal Data</em>}</li>
  * </ul>
  * </p>
  *
@@ -631,5 +632,31 @@ public interface User extends EObject {
      * @generated
      */
     void setType(String value);
+
+    /**
+     * Returns the value of the '<em><b>Additionnal Data</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Additionnal Data</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Additionnal Data</em>' attribute.
+     * @see #setAdditionnalData(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getUser_AdditionnalData()
+     * @model unique="false"
+     * @generated
+     */
+    String getAdditionnalData();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.User#getAdditionnalData <em>Additionnal Data</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Additionnal Data</em>' attribute.
+     * @see #getAdditionnalData()
+     * @generated
+     */
+    void setAdditionnalData(String value);
 
 } // User
