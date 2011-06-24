@@ -117,10 +117,9 @@ public class TestAddTriggerAddCronTrigger extends Login{
 		addTriggerAddCronTrigger(taskLabel,cronTriggerLabel, description, "2010", 
 				"Sunday", "Saturday", "January", "December");
     	selenium.setSpeed(MID_SPEED);		
-		selenium.click("//div[text()='Job Conductor' and @class='header-title']//ancestor::div//span[text()='Add Cron trigger']" +
-				"//ancestor::div[@class='x-panel-bwrap']//button[@id='idCrontTriggerSave']");
+		selenium.click("//button[@id='idCrontTriggerSave']");
 		selenium.setSpeed(MIN_SPEED);
-		selenium.setSpeed(MID_SPEED);
+		selenium.setSpeed("5000");
 	   	Assert.assertTrue(selenium.isTextPresent(rb.getString("trigger.error.trigger_will_never_fire")));
 	    selenium.setSpeed(MIN_SPEED); 	                        
     }
