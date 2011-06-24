@@ -75,17 +75,18 @@
 		<parameter name="planexecutionlogsdisplay.plan.roottask" value="BranchTask" />
         
 		<classes>
-		<!--<class name="com.talend.tac.cases.executePlan.TestPlanedTreeViewManage"/>
-		--><class name="com.talend.tac.cases.executePlan.TestPlanParameters" />
-		<!--<class name="com.talend.tac.cases.executePlan.TestCleanPlan" /> -->
-			<class name="com.talend.tac.cases.executePlan.AddPlan" />
-			<class name="com.talend.tac.cases.executePlan.TestAddExistPlan" />
-			<class name="com.talend.tac.cases.executePlan.ModifyPlan" />
-			<class name="com.talend.tac.cases.executePlan.DeletePlan" />
-			<!--<class name="com.talend.tac.cases.executePlan.TestPlanedTreeViewManage" />
-			--><class name="com.talend.tac.cases.executePlan.TestPlanedTreeViewManageDeleteRoottask" /> 
-			<!-- plan.trigger -->
+		<class name="com.talend.tac.cases.executePlan.TestPlanParameters" />
+		<class name="com.talend.tac.cases.executePlan.AddPlan" />
+		<class name="com.talend.tac.cases.executePlan.TestAddExistPlan" />
+		<class name="com.talend.tac.cases.executePlan.ModifyPlan" />
+		<class name="com.talend.tac.cases.executePlan.DeletePlan" />
+		<class name="com.talend.tac.cases.executePlan.TestPlanedTreeViewManageDeleteRoottask" /> 
+		<class name="com.talend.tac.cases.executePlan.TestPlanedTreeViewManage" />
+			
+	    <!-- plan.trigger -->
 			<!--<class name="com.talend.tac.cases.executePlan.TestAddAddSimpleTriggerUseOutdatedtime"/> -->
+			
+			
 			<class
 				name="com.talend.tac.cases.executePlan.TestAddAddSimpleTriggerUseOutdatedTimeByUI" />
 			<class
@@ -108,12 +109,17 @@
 				name="com.talend.tac.cases.executePlan.TestAddTriggerAddFileTrigger" />
 		    <class name="com.talend.tac.cases.executePlan.TestPlanExecution" />
 		    <class name="com.talend.tac.cases.executePlan.TestExecutionPlanMenu"/>
-			<!--<class name="com.talend.tac.cases.executePlan.TestTriggerPauseAndResume" /> 
+			<class name="com.talend.tac.cases.executePlan.TestChangeRootTaskNameOfPlan"/>
 				
-		--></classes>
+			<class name="com.talend.tac.cases.executePlan.TestPlanedTreeViewManage" />
+			<class name="com.talend.tac.cases.executePlan.TestPlanExecutionLogsDisplay"/>
+		    <class name="com.talend.tac.cases.executePlan.TestTriggerPauseAndResume" /> 
+		    <class name="com.talend.tac.cases.executePlan.TestRunPlan" /> 
+		    
+		</classes>
 	</test>
 </suite>
-<!-- 
+<!-- 	
 testModifyTask
 Copy_of_testTaskNotChooseActive
 testTaskRunTRunJob
