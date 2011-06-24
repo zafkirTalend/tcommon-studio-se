@@ -68,8 +68,10 @@ public class TestAddTriggerAddFileTrigger extends Login {
 		this.waitForElementPresent("//span[text()='"+triggerLabel+"']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+triggerLabel+"']"));
 		selenium.setSpeed(MIN_SPEED);
-		this.waitForElementPresent("//span[text()='Running...']", WAIT_TIME);
-		Assert.assertTrue(selenium.isElementPresent("//span[text()='Running...']"));
+		this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
+				"//span[text()='Running...']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
+				"//span[text()='Running...']"));
 		
 		
 	}
