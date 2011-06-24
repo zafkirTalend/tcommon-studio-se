@@ -331,4 +331,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
         this.useProductRegistration = useProductRegistration;
     }
 
+    public boolean isOnlyRemoteConnection() {
+        return false;
+    }
 }
