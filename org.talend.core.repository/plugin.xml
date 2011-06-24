@@ -5,6 +5,7 @@
    <extension-point id="resource_change" name="resource change" schema="schema/resource_change.exsd"/>
    <extension-point id="repository_node_provider" name="Repository node provider" schema="schema/repository_node.exsd"/>
    <extension-point id="repository_content" name="Repository content" schema="schema/repository_content.exsd"/>
+   <extension-point id="repository_handler" name="Repository handler" schema="schema/repository_handler.exsd"/>
 
    <extension
          point="org.talend.core.runtime.service">

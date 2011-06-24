@@ -18,7 +18,7 @@
       </annotation>
       <complexType>
          <sequence minOccurs="1" maxOccurs="unbounded">
-            <element ref="repositoryNode" minOccurs="1" maxOccurs="unbounded"/>
+            <element ref="repositoryNode"/>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -103,6 +103,13 @@ like this: DI|DQ ....
             </annotation>
          </attribute>
          <attribute name="isResouce" type="boolean">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="user_right" type="string">
             <annotation>
                <documentation>
                   

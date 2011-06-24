@@ -71,7 +71,9 @@ import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
 import org.talend.core.model.metadata.designerproperties.PropertyConstants.CDCTypeMode;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
+import org.talend.core.model.repository.DragAndDropManager;
 import org.talend.core.model.utils.ContextParameterUtils;
+import org.talend.core.model.utils.IDragAndDropServiceHandler;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.service.IMetadataManagmentService;
 import org.talend.core.service.IMetadataManagmentUiService;
@@ -136,6 +138,12 @@ public class RepositoryToComponentProperty {
 
         if (connection instanceof EDIFACTConnection) {
             return getEDIFACTSchemaValue((EDIFACTConnection) connection, value);
+        }
+
+        for (IDragAndDropServiceHandler handler : DragAndDropManager.getHandlers()) {
+            if (handler.canHandle(connection)) {
+                // return handler.getComponentValue(connection, value);
+            }
         }
         return null;
     }
