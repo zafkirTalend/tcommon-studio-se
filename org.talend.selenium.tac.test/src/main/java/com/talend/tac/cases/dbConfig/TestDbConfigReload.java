@@ -13,8 +13,8 @@ public class TestDbConfigReload extends DbConfig {
 			String driver, String license) {
 
 		this.DbConfigProcess(url, userName, userPassWd, driver);
-		//check the number of xpath,3 errors and 2 OK
-		waitForCheckConnectionStatus("//div[contains(text(),'Cannot instantiate')]",3);
+		//check the number of xpath >=2
+		waitForCheckConnectionStatus("//div[contains(text(),'Cannot instantiate')]",2);
 //		waitForCheckConnectionStatus("//div[text()='OK']",2);
 		waitForCheckConnectionStatus("//td[@align='LEFT']/img", 5);//tac changes, does't show "OK" if set wrong prarmeters
 		selenium.click("idDbConfigReloadButton");
