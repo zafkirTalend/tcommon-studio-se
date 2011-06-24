@@ -14,6 +14,7 @@ package org.talend.commons.debug;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.osgi.framework.debug.Debug;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.CommonExceptionHandler;
 
@@ -23,7 +24,7 @@ import org.talend.commons.exception.CommonExceptionHandler;
  * add the function for debug "--talendDebug"
  */
 public final class TalendDebugHandler {
-
+    public static final String TALEND_DEBUG="--talendDebug"; //$NON-NLS-1$
     /**
      * 
      * ggu Comment method "debug".
@@ -69,7 +70,8 @@ public final class TalendDebugHandler {
         }
     }
 
+    @SuppressWarnings("restriction")
     public static boolean isEclipseDebug() {
-        return ArrayUtils.contains(Platform.getApplicationArgs(), "-debug"); //$NON-NLS-1$
+        return Debug.DEBUG_ENABLED;
     }
 }

@@ -19,6 +19,7 @@ import java.net.URL;
 import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
+import org.talend.commons.debug.TalendDebugHandler;
 
 /**
  * Activator for Code Generator.
@@ -66,9 +67,9 @@ public class CommonsPlugin extends Plugin {
     }
 
     public static boolean isDebugMode() {
-        return ArrayUtils.contains(Platform.getApplicationArgs(), "--talendDebug");
+        return ArrayUtils.contains(Platform.getApplicationArgs(), TalendDebugHandler.TALEND_DEBUG);
     }
-
+    
     /**
      * Answer the file associated with name. This handles the case of running as a plugin and running standalone which
      * happens during testing.

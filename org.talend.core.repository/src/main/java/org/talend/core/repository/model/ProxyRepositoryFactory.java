@@ -1474,101 +1474,102 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             TimeMeasure.measureActive = CommonsPlugin.isDebugMode();
 
             TimeMeasure.begin("logOnProject");
-            fullLogonFinished = false;
-            SubMonitor subMonitor = SubMonitor.convert(monitor, MAX_TASKS);
-            SubMonitor currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
-
-            currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.logonInProgress"), 1); //$NON-NLS-1$
-            LanguageManager.reset();
-            getRepositoryContext().setProject(project);
-
-            currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
-            currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.initializeProjectConnection"), 1); //$NON-NLS-1$
-            this.repositoryFactoryFromProvider.beforeLogon(project);
-            // monitorWrap.worked(1);
-            TimeMeasure.step("logOnProject", "beforeLogon");
-
-            currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
-            currentMonitor.beginTask("Execute before logon migrations tasks", 1); //$NON-NLS-1$
-            executeMigrations(project, true, currentMonitor);
-            // monitorWrap.worked(1);
-            TimeMeasure.step("logOnProject", "executeMigrations(beforeLogonTasks)");
-
-            currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
-            currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.logonInProgress"), 1); //$NON-NLS-1$
-            this.repositoryFactoryFromProvider.logOnProject(project);
-            // monitorWrap.worked(1);
-            TimeMeasure.step("logOnProject", "logOnProject");
-
-            emptyTempFolder(project);
-
-            currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
-            currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.load.componnents"), 1); //$NON-NLS-1$
-            coreService.componentsReset();
-            coreService.initializeComponents(currentMonitor);
-            // monitorWrap.worked(1);
-            TimeMeasure.step("logOnProject", "initializeComponents");
-
-            currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
-            currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.exec.migration.tasks"), 1); //$NON-NLS-1$
-            executeMigrations(project, false, currentMonitor);
-            TimeMeasure.step("logOnProject", "executeMigrations(afterLogonTasks)");
-
-            // clean workspace
-            coreService.deleteAllJobs(false);
-
-            currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
-            currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synch.repo.items"), 1); //$NON-NLS-1$
             try {
-                coreService.syncAllRoutines();
-                // PTODO need refactor later, this is not good, I think
-                coreService.syncAllBeans();
-            } catch (SystemException e1) {
-                //
+                fullLogonFinished = false;
+                SubMonitor subMonitor = SubMonitor.convert(monitor, MAX_TASKS);
+                SubMonitor currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
+
+                currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.logonInProgress"), 1); //$NON-NLS-1$
+                LanguageManager.reset();
+                getRepositoryContext().setProject(project);
+
+                currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
+                currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.initializeProjectConnection"), 1); //$NON-NLS-1$
+                this.repositoryFactoryFromProvider.beforeLogon(project);
+                // monitorWrap.worked(1);
+                TimeMeasure.step("logOnProject", "beforeLogon");
+
+                currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
+                currentMonitor.beginTask("Execute before logon migrations tasks", 1); //$NON-NLS-1$
+                executeMigrations(project, true, currentMonitor);
+                // monitorWrap.worked(1);
+                TimeMeasure.step("logOnProject", "executeMigrations(beforeLogonTasks)");
+
+                currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
+                currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.logonInProgress"), 1); //$NON-NLS-1$
+                this.repositoryFactoryFromProvider.logOnProject(project);
+                // monitorWrap.worked(1);
+                TimeMeasure.step("logOnProject", "logOnProject");
+
+                emptyTempFolder(project);
+
+                currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
+                currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.load.componnents"), 1); //$NON-NLS-1$
+                coreService.componentsReset();
+                coreService.initializeComponents(currentMonitor);
+                // monitorWrap.worked(1);
+                TimeMeasure.step("logOnProject", "initializeComponents");
+
+                currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
+                currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.exec.migration.tasks"), 1); //$NON-NLS-1$
+                executeMigrations(project, false, currentMonitor);
+                TimeMeasure.step("logOnProject", "executeMigrations(afterLogonTasks)");
+
+                // clean workspace
+                coreService.deleteAllJobs(false);
+
+                currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
+                currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synch.repo.items"), 1); //$NON-NLS-1$
+                try {
+                    coreService.syncAllRoutines();
+                    // PTODO need refactor later, this is not good, I think
+                    coreService.syncAllBeans();
+                } catch (SystemException e1) {
+                    //
+                }
+                // rules
+                if (PluginChecker.isRulesPluginLoaded()) {
+                    coreService.syncAllRules();
+                }
+                TimeMeasure.step("logOnProject", "sync repository (routines/rules/beans)");
+
+                currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
+                currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synchronizeLibraries"), 1); //$NON-NLS-1$
+                coreService.syncLibraries(currentMonitor);
+                TimeMeasure.step("logOnProject", "sync components libraries");
+
+                // sap
+                if (PluginChecker.isSAPWizardPluginLoaded()) {
+                    coreService.synchronizeSapLib();
+                }
+
+                if (!CommonsPlugin.isHeadless()) {
+                    coreService.initializeTemplates();
+                }
+
+                coreService.resetUniservLibraries();
+                TimeMeasure.step("logOnProject", "sync specific libraries");
+
+                // remove the auto-build to enhance the build speed and application's use
+                IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                IWorkspaceDescription description = workspace.getDescription();
+                description.setAutoBuilding(false);
+                try {
+                    workspace.setDescription(description);
+                } catch (CoreException e) {
+                    // do nothing
+                }
+                coreService.createStatsLogAndImplicitParamter(project);
+
+                coreService.synchronizeMapptingXML();
+
+                fullLogonFinished = true;
+            } finally {
+                TimeMeasure.end("logOnProject");
+                TimeMeasure.display = false;
+                TimeMeasure.displaySteps = false;
+                TimeMeasure.measureActive = false;
             }
-            // rules
-            if (PluginChecker.isRulesPluginLoaded()) {
-                coreService.syncAllRules();
-            }
-            TimeMeasure.step("logOnProject", "sync repository (routines/rules/beans)");
-
-            currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
-            currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synchronizeLibraries"), 1); //$NON-NLS-1$
-            coreService.syncLibraries(currentMonitor);
-            TimeMeasure.step("logOnProject", "sync components libraries");
-
-            // sap
-            if (PluginChecker.isSAPWizardPluginLoaded()) {
-                coreService.synchronizeSapLib();
-            }
-
-            if (!CommonsPlugin.isHeadless()) {
-                coreService.initializeTemplates();
-            }
-
-            coreService.resetUniservLibraries();
-            TimeMeasure.step("logOnProject", "sync specific libraries");
-
-            // remove the auto-build to enhance the build speed and application's use
-            IWorkspace workspace = ResourcesPlugin.getWorkspace();
-            IWorkspaceDescription description = workspace.getDescription();
-            description.setAutoBuilding(false);
-            try {
-                workspace.setDescription(description);
-            } catch (CoreException e) {
-                // do nothing
-            }
-            coreService.createStatsLogAndImplicitParamter(project);
-
-            coreService.synchronizeMapptingXML();
-
-            fullLogonFinished = true;
-
-            TimeMeasure.end("logOnProject");
-            TimeMeasure.display = false;
-            TimeMeasure.displaySteps = false;
-            TimeMeasure.measureActive = false;
-
             String str[] = new String[] { getRepositoryContext().getUser() + "", projectManager.getCurrentProject() + "" }; //$NON-NLS-1$ //$NON-NLS-2$        
             log.info(Messages.getString("ProxyRepositoryFactory.log.loggedOn", str)); //$NON-NLS-1$
         } catch (LoginException e) {
