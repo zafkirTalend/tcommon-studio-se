@@ -22,6 +22,9 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ui.branding.IBrandingService;
+import org.talend.repository.model.RepositoryConstants;
 
 /**
  * Provides, using extension points, implementation of many factories.
@@ -41,6 +44,9 @@ public class RepositoryFactoryProvider {
             "RepositoryFactory", 1, -1); //$NON-NLS-1$
 
     public static List<IRepositoryFactory> getAvailableRepositories() {
+        IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
+                IBrandingService.class);
+        boolean isOnlyRemoteConnection = brandingService.getBrandingConfiguration().isOnlyRemoteConnection();
         if (list == null) {
             list = new ArrayList<IRepositoryFactory>();
             List<IConfigurationElement> extension = ExtensionImplementationProvider.getInstanceV2(REPOSITORY_PROVIDER);
@@ -79,8 +85,15 @@ public class RepositoryFactoryProvider {
                         }
                         currentAction.getChoices().add(key);
                     }
+                    // feature 5,hide local connection for Uniserv in loginDialog
+                    if (!isOnlyRemoteConnection) {
+                        list.add(currentAction);
+                    } else {
+                        if (currentAction.getId().equals(RepositoryConstants.REPOSITORY_REMOTE_ID)) {
+                            list.add(currentAction);
+                        }
+                    }
 
-                    list.add(currentAction);
                 } catch (CoreException e) {
                     // e.printStackTrace();
                     ExceptionHandler.process(e);
