@@ -21,7 +21,9 @@
 	<parameter name="LDAP.conf.ldap.fields.firstname" value="homePhone" />
 
 	<!-- Log4j parameters -->
-	<parameter name="log4j.conf.logsPath" value="C:\Talend\TacLogs" />
+	<parameter name="log4j.conf.logsPath" value="C:\Talend\TacLogs\" />
+	<parameter name="log4j.conf.logsName" value="TACLOG.TXT" />
+	
 
 	<!-- SMTP parameters -->
 	<parameter name="smtp.conf.useSmtp" value="true" />

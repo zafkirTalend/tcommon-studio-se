@@ -1,5 +1,7 @@
 package com.talend.cases.configuration;
 
+import java.io.File;
+
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -96,12 +98,12 @@ public class TestConfigurations extends Login {
   }
 
   @Test
-  @Parameters ({"log4j.conf.logsPath"})
-  public void testSetLog4j(String logsPath){
+  @Parameters ({"log4j.conf.logsPath","log4j.conf.logsName"})
+  public void testSetLog4j(String logsPath,String logsName){
 	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Log4j (2')]");
-	  this.typeWordsInConfigurationMenu(other.getString("log4j.conf.logsPath.editButton"), other.getString("commandline.conf.all.input"), logsPath);
+	  this.typeWordsInConfigurationMenu(other.getString("log4j.conf.logsPath.editButton"), other.getString("commandline.conf.all.input"), logsPath+logsName);
  
-	  this.AssertEqualsInConfigurationMenu(other.getString("log4j.conf.logsPath.editButton"), other.getString("commandline.conf.all.input"), logsPath);
+	  this.AssertEqualsInConfigurationMenu(other.getString("log4j.conf.logsPath.editButton"), other.getString("commandline.conf.all.input"), logsPath+logsName);
 	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Log4j (2')]");
   }
   @Test
@@ -176,7 +178,58 @@ public class TestConfigurations extends Login {
 	  this.waitForElementPresent("!!!menu.mdm.element!!!",WAIT_TIME);
 	  //assertEquals
   }
-  
+	@Test(enabled=false,dependsOnMethods="testSetLog4j")
+	 @Parameters ({"firefox.download.path","log4j.conf.logsName"})
+	
+	public void testDownloadLog(String downloadPath,String logsName) {
+		this.MouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
+		this.clickWaitForElementPresent("//button[text()='Download Log']");
+//		File file = new File(
+//				"C:\\Users\\Administrator\\Downloads\\422NBS.txt.zip");
+		File file = new File(
+				downloadPath+logsName+".zip");
+		for (int seconds = 0;; seconds++) {
+			if (seconds >= WAIT_TIME) {
+				assertTrue(file.exists());
+			}
+			if (file.exists()) {
+				break;
+			}
+			try {
+				Thread.sleep(1000);
+				System.out.println(seconds);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Test(enabled=false)
+	@Parameters ({"firefox.download.path"})
+	public void testExportParameters(String downloadPath) {
+		// Export parameters
+		this.MouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
+		this.clickWaitForElementPresent("//button[text()='Export parameters']");
+		File file = new File(
+				downloadPath + "administrator_config.txt");
+		for (int seconds = 0;; seconds++) {
+			if (seconds >= WAIT_TIME) {
+				assertTrue(file.exists());
+			}
+			if (file.exists()) {
+				break;
+			}
+			try {
+				Thread.sleep(1000);
+				System.out.println(seconds);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	
 	@BeforeClass
 	@Override
