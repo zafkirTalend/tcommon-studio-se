@@ -71,6 +71,8 @@ public interface IBrandingConfiguration extends IActionBarHelper {
 
     public boolean isUseDemoProjects();
 
+    public boolean isOnlyRemoteConnection();
+
     public String getAdditionalTitle();
 
     public void setAdditionalTitle(String title);
