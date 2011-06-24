@@ -1,10 +1,6 @@
 package com.talend.tac.cases.executePlan;
 
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -12,7 +8,7 @@ import org.testng.annotations.Test;
 public class TestAddTriggerAddCronTriggerUsePasttime extends Plan{
     	
     
-	@Test
+	@Test(dependsOnGroups={"TriggerPlan"})
 	@Parameters({ "plan.toaddcrontrigger.label", "plan.crontrigger.past.label"})
 	public void testAddCronTriggerOverdated(String planlabel,String crongtriggerpast) throws InterruptedException{
 	    TriggerDate date = new TriggerDate().getPast(48);

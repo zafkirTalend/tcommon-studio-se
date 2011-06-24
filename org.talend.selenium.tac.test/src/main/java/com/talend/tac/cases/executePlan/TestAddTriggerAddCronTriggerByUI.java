@@ -9,9 +9,9 @@ import org.testng.annotations.Test;
 public class TestAddTriggerAddCronTriggerByUI extends Plan{
     	
     
-	@Test
+	@Test(dependsOnGroups={"TriggerPlan"})
 	@Parameters({ "plan.toaddcrontrigger.label", "plan.crontrigger.byui.label"})
-	public void testAddCronTrigger(String planlabel,String crongtriggerlabel) throws InterruptedException{
+	public void testAddCronTriggerByUI(String planlabel,String crongtriggerlabel) throws InterruptedException{
 	    TriggerDate date = new TriggerDate().getFuture(24);
 	    HashMap<String, String> map = date.getMonthmap();
 		//open to execution plan add trigger page

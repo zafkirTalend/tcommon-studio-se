@@ -157,6 +157,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		System.out.println("THE FIRST TIME:");	
 		this.waitForElementPresent("//span[text()='Running...']",
 				Base.WAIT_TIME);
+		this.sleep(10000);
 		Assert.assertTrue(this.waitElement("//span[text()='Ended...']",
 				TriggerCheckTime)||this.waitElement("//span[text()='Ready to run']",
 						TriggerCheckTime), "test failed! ");

@@ -6,10 +6,10 @@ import org.testng.annotations.Test;
 
 import com.talend.tac.cases.Login;
 
-public class TestDuplicateCrontrigger extends Login {
+public class TestDuplicateCrontrigger extends Plan {
 
 	@Test
-	// (groups={"plan.trigger.duplicate"})
+	 (dependsOnGroups={"TriggerPlan"})
 	@Parameters({ "plan.toaddcrontrigger.label",
 			"plan.crontrigger.duplicate.label" })	
 	public void testDuplicateCronTrigger(String plan,
@@ -58,6 +58,9 @@ public class TestDuplicateCrontrigger extends Login {
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"
 				+ "Copy_of_" + triggertoduplicate + "']"));
 		selenium.setSpeed(MIN_SPEED);
+		
+		//delete planforcrontrigger
+		this.deletePlan(plan);
 	}
 
 }
