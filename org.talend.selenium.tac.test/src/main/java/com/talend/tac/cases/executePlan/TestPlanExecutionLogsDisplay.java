@@ -19,7 +19,7 @@ public class TestPlanExecutionLogsDisplay extends Plan {
 		int defaultCounts = Integer.parseInt(selenium.getValue("//div[@class='header-title' and text()='Execution Plan']//ancestor::div[@class=' x-panel-noborder x-panel x-component']//div[@title='Enter the number of items per page']//input"));
 		System.out.println("defaultCounts: " +defaultCounts);
 		System.out.println("logs get is: "+selenium.getXpathCount("//img[@class='gwt-Image' and @title='Ok']").intValue());
-		Assert.assertTrue(selenium.getXpathCount("//img[@class='gwt-Image' and @title='Ok']").intValue()==defaultCounts, "test plan execution logs per page failed!");
+		Assert.assertTrue((selenium.getXpathCount("//img[@class='gwt-Image' and @title='Ok']").intValue()+selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-basicStatus' and text()='ERROR']").intValue())==defaultCounts, "test plan execution logs per page failed!");
 	}////div[@class='header-title' and text()='Execution Plan']//ancestor::div[@class=' x-panel-noborder x-panel x-component']
 	
 	@Test(dependsOnMethods="testCheckPlanLogsPerpage")
@@ -42,8 +42,8 @@ public class TestPlanExecutionLogsDisplay extends Plan {
 		typeAndPressEnter("//div[@class='my-paging-text x-component ' and text()='Page']//ancestor::td[@class='x-toolbar-cell']/following-sibling::td//input[@class='gwt-TextBox x-component ']", "1");
 		typeAndPressEnter("//div[@class=' x-form-field-wrap  x-component ' and @title='Enter the number of items per page']//input", ""+newNum);
 		this.sleep(3000);
-		System.out.println("after modified,logs get is: "+selenium.getXpathCount("//img[@class='gwt-Image' and @title='Ok']").intValue());
-		Assert.assertTrue(selenium.getXpathCount("//img[@class='gwt-Image' and @title='Ok']").intValue()==newNum, "test plan execution logs per page failed!");
+		System.out.println("after modified,logs get is: "+(selenium.getXpathCount("//img[@class='gwt-Image' and @title='Ok']").intValue()+selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-basicStatus' and text()='ERROR']").intValue()));
+		Assert.assertTrue((selenium.getXpathCount("//img[@class='gwt-Image' and @title='Ok']").intValue()+selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-basicStatus' and text()='ERROR']").intValue())==newNum, "test plan execution logs per page failed!");
 	}
 	
 	public void typeAndPressEnter(String xpath,String value){
