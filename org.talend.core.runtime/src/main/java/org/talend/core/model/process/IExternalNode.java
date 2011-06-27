@@ -95,4 +95,6 @@ public interface IExternalNode extends INode {
     public void setExternalEmfData(AbstractExternalData externalEmfData);
 
     public void buildExternalData(AbstractExternalData abstractData);
+
+    public List<String> checkNeededRoutines(List<String> possibleRoutines, String additionalString);
 }

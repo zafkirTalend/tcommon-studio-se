@@ -129,4 +129,9 @@ public abstract class AbstractExternalNode extends AbstractNode implements IExte
         // TODO Auto-generated method stub
 
     }
+
+    public List<String> checkNeededRoutines(List<String> possibleRoutines, String additionalString) {
+        return null;
+
+    }
 }
