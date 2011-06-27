@@ -29,7 +29,7 @@ public class TestConfigurations extends Login {
 	/**
 	 * assertions,check the value in input tag is as expected.
 	 * @param locatorOfEditButton
-	 * @param locatorOfInput
+	 * @param locatorOfInput	
 	 * @param value
 	 */
 	public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){
@@ -154,10 +154,10 @@ public class TestConfigurations extends Login {
 	  this.typeWordsInConfigurationMenu(other.getString("svn.conf.serverPassword.editButton"), other.getString("commandline.conf.all.input"), svnServerPassword);
 		
 	  this.AssertEqualsInConfigurationMenu(other.getString("svn.conf.serverLocationURL.editButton"), other.getString("commandline.conf.all.input"), svnServerLocationUrl);
-	  this.AssertEqualsInConfigurationMenu(other.getString("soaManager.conf.serverPort.editButton"), other.getString("commandline.conf.all.input"), svnServerUser);
+	  this.AssertEqualsInConfigurationMenu(other.getString("svn.conf.serverUser.editButton"), other.getString("commandline.conf.all.input"), svnServerUser);
 	  this.AssertEqualsInConfigurationMenu(other.getString("svn.conf.serverPassword.editButton"), other.getString("commandline.conf.all.input"), svnServerPassword);
 	 
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Svn (')]"); 
+	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Svn (')]"); 	
 	//assertEquals
   }
   

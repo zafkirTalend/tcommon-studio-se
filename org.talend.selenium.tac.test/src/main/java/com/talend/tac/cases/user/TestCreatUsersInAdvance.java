@@ -117,8 +117,7 @@ public class TestCreatUsersInAdvance extends Login {
 			selenium.click("idValidateButton");
 			selenium.setSpeed("3000");
 			selenium.click("idFormSaveButton");
-			Assert.assertTrue(selenium.isElementPresent("//div[text()='"
-					+ LoginName + "']"));
+			waitForElementPresent("//div[text()='" + LoginName + "']" ,WAIT_TIME);
 			selenium.setSpeed("0");
 		}
 	}
