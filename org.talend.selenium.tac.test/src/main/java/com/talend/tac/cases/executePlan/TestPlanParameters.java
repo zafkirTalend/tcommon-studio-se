@@ -15,8 +15,8 @@ public class TestPlanParameters extends Plan {
 		this.runPlan(planParameters);		
 		this.waitForElementPresent("//span[@class='x-tree3-node-text' and text()='"+taskLabel+" : [OK]']", MAX_WAIT_TIME);
         String logs = (this.getPlanLogsValue(planParameters,taskLabel, null));
-        Assert.assertTrue((logs.contains("name=JackZhang")), "test failed!");
-        Assert.assertTrue((logs.contains("age=23")), "test failed!");
+        Assert.assertTrue((logs.contains("name: JackZhang")), "test failed!");
+        Assert.assertTrue((logs.contains("age: 23")), "test failed!");
 	}
 	@Test(dependsOnMethods="testCheckPlanExecutionLogs")
 	 @Parameters({ "parameters.plan.label",
@@ -31,7 +31,7 @@ public class TestPlanParameters extends Plan {
 		this.runPlan(planParameters);
 		this.waitForElementPresent("//span[@class='x-tree3-node-text' and text()='"+taskLabel+" : [OK]']", MAX_WAIT_TIME);
        String logs = (this.getPlanLogsValue(planParameters,taskLabel, null));
-       Assert.assertTrue((logs.contains("name=JackZhang"))&&(logs.contains("age=23")), "test failed!");
+       Assert.assertTrue((logs.contains("name: JackZhang"))&&(logs.contains("age: 23")), "test failed!");
 	   selenium.setSpeed(MIN_SPEED);
 	}
 	
@@ -67,7 +67,7 @@ public class TestPlanParameters extends Plan {
 		this.waitForElementPresent("//span[@class='x-tree3-node-text' and text()='"+taskLabel+" : [OK]']", MAX_WAIT_TIME);
         String logs = (this.getPlanLogsValue(planParameters,taskLabel, null));
         System.out.println("after override parameters:\n"+logs);
-        Assert.assertTrue((logs.contains("name=JackZhang"))&&(logs.contains("age=50")), "test failed!");
+        Assert.assertTrue((logs.contains("name: JackZhang"))&&(logs.contains("age: 50")), "test failed!");
 //	    this.deletePlan(planParameters);
 	}
 	
