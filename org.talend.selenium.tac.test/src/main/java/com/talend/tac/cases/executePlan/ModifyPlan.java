@@ -51,19 +51,21 @@ public class ModifyPlan extends Plan {
 		selenium.mouseDown("//span[text()='" + newlabel + "']");// select a exist
 																// plan
 		this.sleep(2000);
-		// selenium.setSpeed(MID_SPEED);
+		selenium.setSpeed(MID_SPEED);
 		String roottask1 = selenium
 				.getValue("String idExecutionPlanPlanFormTaskComboBox");
 		this.selectDropDownList("String idExecutionPlanPlanFormTaskComboBox",
 				task);
+		selenium.mouseDown("//button[@class='x-btn-text ' and @id='idFormSaveButton']");
 		selenium.click("//button[@class='x-btn-text ' and @id='idFormSaveButton']");
+		selenium.mouseUp("//button[@class='x-btn-text ' and @id='idFormSaveButton']");
 		this.sleep(5000);
 		selenium.refresh();
 		this.waitForElementPresent("//span[text()='" + newlabel + "']",	
 				WAIT_TIME);
 		selenium.mouseDown("//span[text()='" + newlabel + "']");
 		this.sleep(2000);
-		Assert.assertEquals(roottask1, selenium.getValue("String idExecutionPlanPlanFormTaskComboBox"));
+		Assert.assertTrue(!roottask1.equals(selenium.getValue("String idExecutionPlanPlanFormTaskComboBox")));
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"
 				+ newlabel + "']"));
 		selenium.setSpeed(MIN_SPEED);
