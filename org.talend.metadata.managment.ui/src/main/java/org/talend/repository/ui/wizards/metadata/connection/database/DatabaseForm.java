@@ -14,6 +14,7 @@ package org.talend.repository.ui.wizards.metadata.connection.database;
 
 import java.io.File;
 import java.sql.Driver;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -66,6 +67,7 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.prefs.ITalendCorePrefConstants;
@@ -78,6 +80,7 @@ import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.DBConnectionContextUtils;
 import org.talend.repository.ui.utils.DBConnectionContextUtils.EDBParamName;
 import org.talend.repository.ui.utils.ManagerConnection;
+import org.talend.utils.sql.ConnectionUtils;
 
 /**
  * @author ocarbone
@@ -823,7 +826,10 @@ public class DatabaseForm extends AbstractForm {
                     setPropertiesFormEditable(true);
                 }
             }
-
+            String msg = checkDBVersion();
+            if (msg != null) {
+                updateStatus(IStatus.WARNING, msg);
+            }
         } else {
             String mainMsg = Messages.getString("DatabaseForm.checkFailure") + " " //$NON-NLS-1$ //$NON-NLS-2$
                     + Messages.getString("DatabaseForm.checkFailureTip"); //$NON-NLS-1$
@@ -2314,5 +2320,36 @@ public class DatabaseForm extends AbstractForm {
 
     public boolean isDbTypenull() {
         return dbTypeCombo.getText().trim().length() == 0;
+    }
+
+    private String checkDBVersion() {
+        String msg = null;
+        EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(dbVersionCombo.getText());
+        DatabaseConnection connection = getConnection();
+        List<EDatabaseVersion4Drivers> dbTypeList = EDatabaseVersion4Drivers.indexOfByDbType(connection.getDatabaseType());
+        if (version != null && dbTypeList.size() > 1) {
+            EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(getConnection().getDatabaseType());
+            if (connection.getDriverClass() == null && dbType != EDatabaseTypeName.GENERAL_JDBC) {
+                String driverClass = ExtractMetaDataUtils.getDriverClassByDbType(connection.getDatabaseType());
+                connection.setDriverClass(driverClass);
+            }
+            java.sql.Connection sqlConn = (java.sql.Connection) MetadataConnectionUtils.checkConnection(connection).getObject();
+            if (sqlConn != null) {
+                try {
+                    int versionNum = sqlConn.getMetaData().getDatabaseMajorVersion();
+                    String[] strArray = version.getVersionValue().split("_"); //$NON-NLS-1$
+                    if (strArray.length > 1 && strArray[1].startsWith(Integer.toString(versionNum))) {
+                        msg = null;
+                    } else {
+                        msg = "Version detected on server is \"" + strArray[0] + " " + versionNum + "\".";
+                    }
+                } catch (SQLException exp) {
+                    ExceptionHandler.process(exp);
+                } finally {
+                    ConnectionUtils.closeConnection(sqlConn);
+                }
+            }
+        }
+        return msg;
     }
 }
