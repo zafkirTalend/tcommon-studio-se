@@ -558,6 +558,14 @@ public abstract class RepositoryUpdateManager {
                                     dbConn.setPort(newValue);
                                 } else if (dbConn.getSID() != null && dbConn.getSID().equals(oldValue)) {
                                     dbConn.setSID(newValue);
+                                } else if (dbConn.getDbmsId() != null && dbConn.getDbmsId().equals(oldValue)) {
+                                    dbConn.setDbmsId(newValue);
+                                } else if (dbConn.getDriverClass() != null && dbConn.getDriverClass().equals(oldValue)) {
+                                    dbConn.setDriverClass(newValue);
+                                } else if (dbConn.getDriverJarPath() != null && dbConn.getDriverJarPath().equals(oldValue)) {
+                                    dbConn.setDriverJarPath(newValue);
+                                } else if (dbConn.getURL() != null && dbConn.getURL().equals(oldValue)) {
+                                    dbConn.setURL(newValue);
                                 }
                                 factory.save(item);
                             }
