@@ -178,9 +178,17 @@ public class TestConfigurations extends Login {
 	  this.waitForElementPresent("!!!menu.mdm.element!!!",WAIT_TIME);
 	  //assertEquals
   }
-	@Test(enabled=false,dependsOnMethods="testSetLog4j")
+  
+  /**
+   * using firefox profile to start server, this is mainly to avoid the popup windows when loading a file.
+   * java -jar selenium-server.jar -firefoxProfileTemplate C:\Talend\ff\profile
+   * (copy mimeTypes.rdf and prefs.js to this folder C:\Talend\ff\profile\)
+   * @param downloadPath
+   * @param logsName
+   */
+		  
+	@Test//(enabled=true,dependsOnMethods="testSetLog4j")
 	 @Parameters ({"firefox.download.path","log4j.conf.logsName"})
-	
 	public void testDownloadLog(String downloadPath,String logsName) {
 		this.MouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
 		this.clickWaitForElementPresent("//button[text()='Download Log']");
@@ -193,22 +201,20 @@ public class TestConfigurations extends Login {
 				assertTrue(file.exists());
 			}
 			if (file.exists()) {
+				System.out.println(seconds + "' used to download");
 				break;
 			}
 			try {
 				Thread.sleep(1000);
-				System.out.println(seconds);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
 
-	@Test(enabled=false)
+	@Test//(enabled=false)
 	@Parameters ({"firefox.download.path"})
 	public void testExportParameters(String downloadPath) {
-		// Export parameters
 		this.MouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
 		this.clickWaitForElementPresent("//button[text()='Export parameters']");
 		File file = new File(
@@ -218,13 +224,12 @@ public class TestConfigurations extends Login {
 				assertTrue(file.exists());
 			}
 			if (file.exists()) {
+				System.out.println(seconds + "' used to download");
 				break;
 			}
 			try {
 				Thread.sleep(1000);
-				System.out.println(seconds);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
