@@ -33,7 +33,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.talend.commons.utils.data.list.ListUtils;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
-import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -129,8 +128,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             }
             // software
             DatabaseMetaData dbMetadata = MetadataConnectionUtils.getConnectionMetadata(sqlConnection);
-            String connectionDbType = metadataBean.getDbType();
-            List<EDatabaseVersion4Drivers> dbTypeList = EDatabaseVersion4Drivers.indexOfByDbType(connectionDbType);
+            // for bug 22113, annotate it.
+            // String connectionDbType = metadataBean.getDbType();
+            // List<EDatabaseVersion4Drivers> dbTypeList = EDatabaseVersion4Drivers.indexOfByDbType(connectionDbType);
             boolean isHive = dbconn.getDatabaseType().equals(EDatabaseTypeName.HIVE.getDisplayName());
             boolean isHiveJdbc = dbconn.getDatabaseType().equals(EDatabaseTypeName.GENERAL_JDBC.getDisplayName())
                     && dbconn.getDriverClass() != null
@@ -143,27 +143,29 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 // identifierQuote
                 String identifierQuote = dbMetadata.getIdentifierQuoteString();
                 ConnectionHelper.setIdentifierQuoteString(identifierQuote == null ? "" : identifierQuote, dbconn);
+                // for bug 22113, annotate it.
                 // dbversion
-                int versionNum = 0;
-                try {
-                    versionNum = sqlConnection.getMetaData().getDatabaseMajorVersion();
-                } catch (RuntimeException e) {
-                    // happens for Sybase for example
-                    if (log.isDebugEnabled()) {
-                        log.debug(e, e);
-                    }
-                }
-                if (dbTypeList.size() == 1) {
-                    dbconn.setDbVersionString(dbTypeList.get(0).getVersionValue());
-                } else if (dbTypeList.size() > 1) {
-                    for (EDatabaseVersion4Drivers eDatabaseVersion : dbTypeList) {
-                        String[] strArray = eDatabaseVersion.getVersionValue().split("_");
-                        if (strArray.length > 1 && strArray[1].startsWith(Integer.toString(versionNum))) {
-                            dbconn.setDbVersionString(eDatabaseVersion.getVersionValue());
-                            break;
-                        }
-                    }
-                }
+                // int versionNum = 0;
+                // try {
+                // versionNum = sqlConnection.getMetaData().getDatabaseMajorVersion();
+                // } catch (RuntimeException e) {
+                // // happens for Sybase for example
+                // if (log.isDebugEnabled()) {
+                // log.debug(e, e);
+                // }
+                // }
+
+                // if (dbTypeList.size() == 1) {
+                // dbconn.setDbVersionString(dbTypeList.get(0).getVersionValue());
+                // } else if (dbTypeList.size() > 1) {
+                // for (EDatabaseVersion4Drivers eDatabaseVersion : dbTypeList) {
+                // String[] strArray = eDatabaseVersion.getVersionValue().split("_");
+                // if (strArray.length > 1 && strArray[1].startsWith(Integer.toString(versionNum))) {
+                // dbconn.setDbVersionString(eDatabaseVersion.getVersionValue());
+                // break;
+                // }
+                // }
+                // }
             }
             // uiSchema
             // EDatabaseTypeName edatabasetypeInstance = EDatabaseTypeName.getTypeFromDisplayName(connectionDbType);
@@ -411,9 +413,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         List<Schema> schemaList = new ArrayList<Schema>();
                         try {
                             schemaList = fillSchemaToCatalog(dbConn, dbJDBCMetadata, catalog, filterList);
-                        if (!schemaList.isEmpty() && schemaList.size() > 0) {
-                            CatalogHelper.addSchemas(schemaList, catalog);
-                        }
+                            if (!schemaList.isEmpty() && schemaList.size() > 0) {
+                                CatalogHelper.addSchemas(schemaList, catalog);
+                            }
                         } catch (Throwable e) {
                             removeCatalogList.add(catalog);
                         }
