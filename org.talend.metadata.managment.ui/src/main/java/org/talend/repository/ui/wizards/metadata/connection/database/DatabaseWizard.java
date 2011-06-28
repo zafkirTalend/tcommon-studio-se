@@ -459,6 +459,8 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
         } catch (SQLException e) {
             log.error(e, e);
         } finally {
+            // bug 22619
+            ExtractMetaDataUtils.closeConnection();
             Driver driver = MetadataConnectionUtils.getDerbyDriver();
             if (driver != null) {
                 try {

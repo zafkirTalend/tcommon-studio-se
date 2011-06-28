@@ -416,6 +416,8 @@ public class ExtractMetaDataFromDataBase {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            // bug 22619
+            ExtractMetaDataUtils.closeConnection();
             if (wapperDriver != null
                     && (iMetadataConnection.getDriverClass().equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())
                             || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())

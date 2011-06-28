@@ -39,6 +39,7 @@ import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.metadata.builder.database.TableNode;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
+import org.talend.utils.sql.ConnectionUtils;
 
 /**
  * wzhang class global comment. Detailled comment
@@ -120,6 +121,8 @@ public class SelectorTreeViewerProvider extends LabelProvider implements ITreeCo
         } catch (Exception e) {
             ExceptionHandler.process(e);
         } finally {
+            // bug 22619
+            ExtractMetaDataUtils.closeConnection();
             // for specific db such as derby
             if (driver != null) {
                 String driverClass = metadataConn.getDriverClass();
