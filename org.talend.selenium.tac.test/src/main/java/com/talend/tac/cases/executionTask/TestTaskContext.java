@@ -1,18 +1,15 @@
 package com.talend.tac.cases.executionTask;
 
-import java.awt.Event;
 import java.util.Date;
 
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
-import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
 public class TestTaskContext extends Login {
 	
-	@Test(groups={"TaskContext"},dependsOnGroups={"AddTask"})
+	@Test(groups={"TaskContext"})
 	@Parameters({ "label" })
 	public void testChangeContextValue(String tasklabel) throws InterruptedException {
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
