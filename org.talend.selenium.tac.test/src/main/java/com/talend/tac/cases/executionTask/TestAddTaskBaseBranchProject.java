@@ -86,7 +86,7 @@ public class TestAddTaskBaseBranchProject  extends AddTask {
 	
 	public void runTask(String tasklabel,int times) throws InterruptedException{
 		for (int i = 0; i < times; i++) {
-			selenium.refresh();
+//			selenium.refresh();
 			this.waitForElementPresent("//span[text()='" + tasklabel + "']",
 					WAIT_TIME);
 			Thread.sleep(2000);
@@ -140,7 +140,8 @@ public class TestAddTaskBaseBranchProject  extends AddTask {
 	
 	}
 
-	@Test(dependsOnGroups={"AddTask"})
+	@Test
+//	(dependsOnGroups={"AddTask"})
 	@Parameters({"TaskBaseBranch","AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
 	public void testAddTaskBaseBranch(String label, String projectName, String branchName,
@@ -305,16 +306,16 @@ public class TestAddTaskBaseBranchProject  extends AddTask {
 			selenium.setSpeed(MIN_SPEED);
 		}
 		
-		runTask(label,5);
+		runTask(label,2);
 		this.clickWaitForElementPresent("//span//span[text()='Logs']");
 		Thread.sleep(3000);
-		Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==5,"task run generate logs failed !");
+		Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==2,"task run generate logs failed !");
 		selenium.chooseOkOnNextConfirmation();
 		selenium.click("idJobConductorJobLogClearLogButton");
 		selenium.getConfirmation();
 		Thread.sleep(3000);	
 		Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==0,"task run generate logs failed !");
-		runTask(label,5);
+		runTask(label,2);
 		if(deleteTask(label)){
 			addTask(label,"", projectName, branchName, jobName, version, context,
 					serverName, statisticName);
