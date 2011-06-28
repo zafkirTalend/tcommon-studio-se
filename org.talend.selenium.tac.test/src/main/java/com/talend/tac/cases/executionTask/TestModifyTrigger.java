@@ -74,8 +74,7 @@ public class TestModifyTrigger extends Login {
 	
 	
 	//test pause and resume a simple trigger
-	@Test(groups={"ModifyTrigger"})
-//		,dependsOnGroups={"AddCronTrigger"})
+	@Test
 	@Parameters({"labelTRunJobByTaskRun", "addSimpleTriggerLabelNotChooseDate"})
 	public void testPauseResumeSimpleTrigger(String taskLabel, String triggerLabel) {
 		
