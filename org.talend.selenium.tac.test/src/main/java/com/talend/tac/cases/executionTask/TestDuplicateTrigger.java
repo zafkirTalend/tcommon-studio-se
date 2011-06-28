@@ -43,7 +43,8 @@ public class TestDuplicateTrigger extends Login {
 	}
 	
 	//test duplication a simple trigger
-	@Test(dependsOnGroups={"ModifyTrigger"})
+	@Test
+//	(dependsOnGroups={"ModifyTrigger"})
 	@Parameters({"labelTRunJobByTaskRun","addSimpleTriggerLabelNotChooseDate","simpleTriggerType"})
 	public void testDuplicationSimpleTrigger(String task, String trigger, String triggerType) {
 		
