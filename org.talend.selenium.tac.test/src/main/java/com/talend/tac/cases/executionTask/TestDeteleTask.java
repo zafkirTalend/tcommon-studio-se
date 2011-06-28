@@ -1,9 +1,9 @@
- package com.talend.tac.cases.executionTask;
+package com.talend.tac.cases.executionTask;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.talend.tac.cases.Login;
-@Test(groups={"DeleteTask"},dependsOnGroups={"DuplicateTask"})
+@Test(groups={"DeleteTask"})
 public class TestDeteleTask  extends Login {
     
 	
