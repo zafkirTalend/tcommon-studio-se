@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="false">
+
+
+	<test name="grid">
+		<parameter name="grid.task.label" value="gridTask" />
+		<parameter name="testGridFutureDisplay.trigger.label" value="futureExexutionsDisplay" />
+        <parameter name="plan.unexecuted.tasklabel" value="unexecutedTask" />
+		<parameter name="labelDescription" value="test add a task" />
+		<parameter name="branchNameTrunk" value="trunk" />
+		<parameter name="jobNameTJava" value="tjava" />
+		<parameter name="version0.1" value="0.1" />
+		<parameter name="context" value="Default" />
+		<parameter name="statisticEnabled" value="enabled" />
+		<parameter name="ServerForUseAvailable" value="use_server_available" />
+		<classes>
+		<class name="com.talend.tac.cases.grid.TestPastExecutionsDisplay" />
+		</classes>
+	</test>
+</suite>
+<!-- 	
+testModifyTask
+Copy_of_testTaskNotChooseActive
+testTaskRunTRunJob
+BranchTask -->
