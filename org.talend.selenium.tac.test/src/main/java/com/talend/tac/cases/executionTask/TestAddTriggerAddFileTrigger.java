@@ -52,7 +52,8 @@ public class TestAddTriggerAddFileTrigger extends Login {
 	}
 	
 	//test add a file trigger
-	@Test(dependsOnGroups={"AddCronTrigger"})
+	@Test
+//	(dependsOnGroups={"AddCronTrigger"})
 	@Parameters({"TaskBaseBranch","addFileTriggerOfExist","addFileTriggerOfExistDescription","FolderPath",
 		"FileMask","ServerForUseAvailable"})
     public void testAddTriggerAddFileTriggerAddExist(String taskLabel,String triggerLabel,String triggerDescription,
