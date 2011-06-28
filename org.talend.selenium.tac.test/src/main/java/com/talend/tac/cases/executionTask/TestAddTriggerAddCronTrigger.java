@@ -1,4 +1,4 @@
-	package com.talend.tac.cases.executionTask;
+package com.talend.tac.cases.executionTask;
 
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -55,7 +55,8 @@ public class TestAddTriggerAddCronTrigger extends Login{
 	
 	/***add a cron triiger, set date is by UI
 	selected job is TRunJob(use tRunJob run child'job)**/
-	@Test(groups={"AddCronTrigger"},dependsOnGroups={"DeleteTrigger"})
+	@Test
+//	(groups={"AddCronTrigger"},dependsOnGroups={"DeleteTrigger"})
 	@Parameters({"labelRefProJobByMainProTRunJobRun","addCronTriggerLabel","addCronTriggerDescription"})
     public void testAddTriggerAddCronTrigger(String taskLabel,String cronTriggerLabel,String description) {
 		
