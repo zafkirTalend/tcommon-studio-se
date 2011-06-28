@@ -34,7 +34,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 	}
 	
 	//test deploy a simple task
-	@Test(groups={"TestGenerateDeployRun"},dependsOnGroups={"ModifyTask"})
+	@Test
 	@Parameters({"modifyTask"})
 	public void testGenerateTask(String taskLabel) {
 		 
