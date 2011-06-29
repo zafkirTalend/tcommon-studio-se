@@ -1,5 +1,7 @@
 package com.talend.tac.cases.grid;
 
+import java.awt.event.KeyEvent;
+
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -68,5 +70,23 @@ public class TestPastExecutionsDisplay extends Grid {
 	Assert.assertTrue(selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-taskLabel' and text()='Task: "+label+"']").intValue()+selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-taskLabel' and text()='Task: "+label2+"']").intValue()==6,"Run task through Grid interface displayed failed!");
 	selenium.setSpeed(MIN_SPEED);
 	}
+	
+	@Test(dependsOnMethods={"testRunTaskByGridInterface"})
+	@Parameters({"grid.task.label","testGridFutureDisplay.trigger.label"})
+	public void testGridFuture2011Display(String label, String TriggerLabel) {
+	this.deleteSimpleTriggerOfTask(label, TriggerLabel);
+	this.addSimpleTriggerForTask(label, TriggerLabel, "800", "");
+	this.openGridMenu();
+	this.sleep(5000);	
+//	this.typeString("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//div[@title='Go to date...']//input", "2100-06-08 13:54:01");
+//	selenium.keyPressNative(""+KeyEvent.VK_ENTER);
+	selenium.type("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//div[@title='Go to date...']//input", "2100-06-08 13:54:01");
+	selenium.keyDown("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//div[@title='Go to date...']//input","\\13");
+	this.sleep(5000);
+	Assert.assertTrue(selenium.getXpathCount("//span[@title='Waiting for triggering...' and text()='Waiting for triggering...']").intValue()==10,"Grid Future 2100 execution display failed!");
+	
+	
+	}
+	
 	
 }
