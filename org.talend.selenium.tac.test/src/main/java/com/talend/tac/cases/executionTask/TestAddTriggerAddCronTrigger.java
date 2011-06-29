@@ -4,55 +4,12 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.talend.tac.cases.Login;
 import com.talend.tac.cases.executePlan.TriggerDate;
 
-public class TestAddTriggerAddCronTrigger extends Login{
+public class TestAddTriggerAddCronTrigger extends AddTrigger {
     
     TriggerDate date = new TriggerDate().getFuture(24);
-	
-	public void addTriggerAddCronTrigger(String taskLabel,String labelCronTrigger, String descriptionSronTrigger,String years,
-			String weeksStart, String weeksEnd, String monthsStart, String monthsEnd) {
-    	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-    	selenium.setSpeed(MID_SPEED);
-    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
-    	selenium.setSpeed(MIN_SPEED);
-    	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task
-		selenium.click("idTriggerAdd trigger...");//add a trigger
-		selenium.click("idTriggerAdd CRON trigger");//add a  CronTrigger
-		selenium.setSpeed(MID_SPEED);
-		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addCronTrigger")+"']"));
-		selenium.setSpeed(MIN_SPEED);
-		this.typeString("idJobConductorCronTriggerLabelInput", labelCronTrigger);//label
-
-		this.typeString("idJobConductorCronTriggerDescInput", descriptionSronTrigger);//description
-			
-		selenium.click("idSchedulingUiConfigButton");//choose data
 		
-		selenium.mouseDown("//div[text()='"+years+"']");//choose years
-		selenium.mouseDown("//div[text()='"+weeksStart+"']");//choose day of weeks
-		selenium.shiftKeyDown();
-		selenium.mouseDown("//div[text()='"+weeksEnd+"']");
-		selenium.shiftKeyUp();
-		selenium.mouseDown("//div[text()='"+monthsStart+"']");//choose months
-		selenium.shiftKeyDown();
-		selenium.mouseDown("//div[text()='"+monthsEnd+"']");
-		selenium.mouseDown("//div[@class='x-column-inner']/div[2]/div[2]/div/div/div[text()='00']");//choose hours
-		selenium.shiftKeyDown();
-		selenium.mouseDown("//div[@class='x-column-inner']/div[2]/div[2]/div/div/div[text()='23']");
-		selenium.shiftKeyUp();
-		selenium.mouseDown("//div[text()='00']");//choose minutes
-		selenium.shiftKeyDown();
-		selenium.mouseDown("//div[text()='29']");
-		selenium.shiftKeyUp();
-		selenium.mouseDown("//div[text()='30']");
-		selenium.shiftKeyDown();
-		selenium.mouseDown("//div[text()='59']");
-		selenium.shiftKeyUp();
-		selenium.click("idSchedulingApplyButton");//save data
-		
-	}
-	
 	/***add a cron triiger, set date is by UI
 	selected job is TRunJob(use tRunJob run child'job)**/
 	@Test
