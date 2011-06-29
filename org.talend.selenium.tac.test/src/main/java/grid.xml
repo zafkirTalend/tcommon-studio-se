@@ -15,11 +15,8 @@
 		<parameter name="ServerForUseAvailable" value="use_server_available" />
 		<classes>
 		<class name="com.talend.tac.cases.grid.TestPastExecutionsDisplay" />
+		<class name="com.talend.tac.cases.grid.TestGridExecutionsPageDisplay"/>
 		</classes>
 	</test>
 </suite>
-<!-- 	
-testModifyTask
-Copy_of_testTaskNotChooseActive
-testTaskRunTRunJob
-BranchTask -->
+
