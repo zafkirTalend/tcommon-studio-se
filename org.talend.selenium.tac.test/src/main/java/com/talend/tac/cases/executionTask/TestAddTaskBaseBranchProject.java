@@ -184,6 +184,7 @@ public class TestAddTaskBaseBranchProject  extends AddTask {
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"
 				+ rb.getString("menu.jobConductor") + "']"));
 		// select a exist task
+		this.waitForElementPresent("//span[text()='"+tasklabel+"']", WAIT_TIME);
 		selenium.mouseDown("//span[text()='"+tasklabel+"']");
 		this.clickWaitForElementPresent("//span[text()='Edition']");
 		this.selectDropDownList("idJobConductorTaskStatisticsListBox", statisticDisabled);
@@ -271,6 +272,7 @@ public class TestAddTaskBaseBranchProject  extends AddTask {
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"
 				+ rb.getString("menu.jobConductor") + "']"));
 		// select a exist task
+		this.waitForElementPresent("//span[text()='"+tasklabel+"']", WAIT_TIME);
 		selenium.mouseDown("//span[text()='"+tasklabel+"']");
 		this.clickWaitForElementPresent("//span[text()='Edition']");
 		this.selectDropDownList("idJobConductorTaskStatisticsListBox", statisticEnabled);
