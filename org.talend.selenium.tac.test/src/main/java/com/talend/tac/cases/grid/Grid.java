@@ -33,13 +33,14 @@ public class Grid extends Plan {
 	}
 	
 	public void runTask(String tasklabel,int times) {
+		selenium.refresh();
+		this.waitForElementPresent("//span[text()='" + tasklabel + "']",
+				WAIT_TIME);
+		this.sleep(2000);
+		selenium.mouseDown("//span[text()='" + tasklabel + "']");
+		this.sleep(2000);
 		for (int i = 0; i < times; i++) {
-			selenium.refresh();
-			this.waitForElementPresent("//span[text()='" + tasklabel + "']",
-					WAIT_TIME);
-			this.sleep(2000);
-			selenium.mouseDown("//span[text()='" + tasklabel + "']");
-			this.sleep(2000);
+			
 			selenium.click("//button[@id='idJobConductorTaskRunButton'  and @class='x-btn-text ' and text()='Run']");
 			// Date start = new Date();
 			this.waitForElementPresent("//span[text()='Real time statistics']", Base.WAIT_TIME);
@@ -48,7 +49,8 @@ public class Grid extends Plan {
 					"task run failed!");
 			// close the pop window
 			selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
-		   }
+		this.sleep(1000) ;  
+		}
 		}
 	
 	public void addSimpleTriggerForTask(String taskLabel, String TriggerLabel,
@@ -77,6 +79,24 @@ public class Grid extends Plan {
 
 	}
 
+	public void deleteSimpleTriggerOfTask(String task,String trigger){
+		this.openTaskMenu();
+		this.waitForElementPresent("//span[text()='" + task + "']",
+				Base.WAIT_TIME);
+		this.sleep(2000);
+		selenium.mouseDown("//span[text()='" + task + "']");
+		this.waitForElementPresent("//span[text()='" + trigger + "']", WAIT_TIME);
+		this.sleep(2000);
+		selenium.mouseDown("//span[text()='" + trigger + "']");
+		this.sleep(2000);
+		selenium.chooseOkOnNextConfirmation();
+		selenium.click("idTriggerDelete");
+		selenium.getConfirmation();
+		this.sleep(3000);
+		Assert.assertFalse(this.waitElement("//span[text()='" + trigger + "']", 15));
+		
+	}
+	
 	public void deleteTask(String taskLabel) {
 		this.openTaskMenu();
 		this.waitForElementPresent("//span[text()='" + taskLabel + "']",
