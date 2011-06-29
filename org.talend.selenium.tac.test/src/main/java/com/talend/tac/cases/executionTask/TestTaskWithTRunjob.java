@@ -18,6 +18,7 @@ public class TestTaskWithTRunjob extends Login {
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"
 				+ rb.getString("menu.jobConductor") + "']"));
 		// select a exist task
+		this.waitForElementPresent("//span[text()='"+tasklabel+"']", WAIT_TIME);
 		selenium.mouseDown("//span[text()='"+tasklabel+"']");
 		boolean ok= runtask(tasklabel);
 		if(ok){
