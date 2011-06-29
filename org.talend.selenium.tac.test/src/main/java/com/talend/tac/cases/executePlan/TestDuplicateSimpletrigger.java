@@ -29,10 +29,14 @@ public class TestDuplicateSimpletrigger extends Login {
 		// select trigger to duplicate
 		selenium.mouseDown("//span[text()='" + simpleTriggerToduplicate + "']");//
 		// click duplicate trigger button
-		selenium.click("idTriggerDuplicate");
+		selenium.click("//div[@class='header-title' and text()='Execution Plan']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idTriggerDuplicate']");
 		// configure trigger informations:start time,end time and so on
 		// type simple trigger start time
+		
 		selenium.click("//input[@name='startTime']/parent::div//img[@class='x-form-trigger x-form-date-trigger']");
+		if(TriggerDate.isClickFutureMonthButton(date.getFuture(24))){
+    		this.clickWaitForElementPresent("//div[contains(@class,'x-icon-btn x-nodrag x-date-right-icon x-component')]");
+        }
 		this.clickWaitForElementPresent("//td[@class='x-date-active']/a/span[text()='" + date.getFuture(24).days + "']");
 		/*selenium.setSpeed(MAX_SPEED);
 		// selenium.click("//div[@class=' x-icon-btn x-nodrag x-date-left-icon x-component ']");
@@ -42,6 +46,9 @@ public class TestDuplicateSimpletrigger extends Login {
 		// date.getFuture("24"));//description
 		// type simple trigger end time
 		selenium.click("//input[@name='endTime']/parent::div//img[@class='x-form-trigger x-form-date-trigger']");
+		if(TriggerDate.isClickFutureMonthButton(date.getFuture(72))){
+    		this.clickWaitForElementPresent("//div[contains(@class,'x-icon-btn x-nodrag x-date-right-icon x-component')]");
+        }
 		this.clickWaitForElementPresent("//td[@class='x-date-active']/a/span[text()='" + date.getFuture(72).days + "']");
 		/*selenium.setSpeed(MAX_SPEED);
 		// selenium.click("//div[@class=' x-icon-btn x-nodrag x-date-left-icon x-component ']");
