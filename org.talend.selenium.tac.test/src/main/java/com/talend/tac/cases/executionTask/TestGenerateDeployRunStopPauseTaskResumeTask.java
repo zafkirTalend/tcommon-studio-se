@@ -14,6 +14,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
     	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.setSpeed(MIN_SPEED);
+    	this.waitForElementPresent("//span[text()='"+taskLabel+"']", WAIT_TIME);
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select an simple task
     	selenium.click(buttonXpath);//click function button
           	
