@@ -4,8 +4,9 @@
 	<test name="TestBusinessModeler" preserve-order="flase">
 		<classes>
 			<parameter name="branches" value="trunk" />
-			<parameter name="bussinesModel.name" value="businessModel" />
-			<class name=" com.talend.tac.cases.bussinessModeler.TestBusinessModeler">
+			<parameter name="bussinesModel.name" value="testModel" />
+			<parameter  name ="Mysql_Connectionlabel" value ="Mysqlconnection"/>
+			<class name="com.talend.tac.cases.bussinessModeler.TestBusinessModeler">
 			</class>
 		</classes>
 	</test>
