@@ -225,8 +225,4 @@ public class TdColumnImpl extends MetadataColumnImpl implements TdColumn {
         return super.eIsSet(featureID);
     }
 
-    @Override
-    public String getName() {
-        return name;
-    }
 } // TdColumnImpl
