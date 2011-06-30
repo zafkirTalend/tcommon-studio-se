@@ -45,7 +45,7 @@ public class TestTriggerPauseAndResume extends Plan {
     	//click pause trigger button
     	selenium.mouseDown("//span[text()='"+triggerPauseAndResume+"']");
     	selenium.click("//div[text()='Execution Plan']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idTriggerPause trigger']");
-    	this.sleep(5000);
+    	this.sleep(10000);
     	Assert.assertFalse(this.waitElement("//span[text()='Running...']", TriggerCheckTime),"test trigger pause failed!");
 	    selenium.click("//div[text()='Execution Plan']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idTriggerResume trigger']");
 	    this.sleep(3000);
