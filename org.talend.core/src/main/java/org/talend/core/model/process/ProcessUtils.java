@@ -210,8 +210,11 @@ public final class ProcessUtils {
                     if (propertyParam != null) {
                         Map<String, IElementParameter> propertyChildParameters = propertyParam.getChildParameters();
                         if (propertyChildParameters != null) {
-                            repositoryMetadataId = (String) propertyChildParameters.get("REPOSITORY_PROPERTY_TYPE") //$NON-NLS-1$
-                                    .getValue();
+                            IElementParameter subPropertyTypeElement = propertyChildParameters.get("REPOSITORY_PROPERTY_TYPE");
+                            if (subPropertyTypeElement != null) {
+                                repositoryMetadataId = (String) subPropertyTypeElement //$NON-NLS-1$
+                                        .getValue();
+                            }
                         }
                         addRepositoryObject(repositoryMetadataId, repositoryObjects);
                     }
@@ -219,8 +222,11 @@ public final class ProcessUtils {
                     if (schemaParam != null) {
                         Map<String, IElementParameter> schemaChildParameters = schemaParam.getChildParameters();
                         if (schemaChildParameters != null) {
-                            repositoryMetadataId = (String) schemaChildParameters.get("REPOSITORY_SCHEMA_TYPE") //$NON-NLS-1$
-                                    .getValue();
+                            IElementParameter subSchemaElement = schemaChildParameters.get("REPOSITORY_SCHEMA_TYPE");
+                            if (subSchemaElement != null) {
+                                repositoryMetadataId = (String) subSchemaElement //$NON-NLS-1$
+                                        .getValue();
+                            }
                         }
                         addRepositoryObject(repositoryMetadataId, repositoryObjects);
                     }
@@ -228,7 +234,10 @@ public final class ProcessUtils {
                     if (querystoreParam != null) {
                         Map<String, IElementParameter> queryChildParameters = querystoreParam.getChildParameters();
                         if (queryChildParameters != null) {
-                            repositoryMetadataId = (String) queryChildParameters.get("REPOSITORY_QUERYSTORE_TYPE").getValue(); //$NON-NLS-1$
+                            IElementParameter subQueryElement = queryChildParameters.get("REPOSITORY_QUERYSTORE_TYPE");
+                            if (subQueryElement != null) {
+                                repositoryMetadataId = (String) subQueryElement.getValue(); //$NON-NLS-1$
+                            }
                         }
                         addRepositoryObject(repositoryMetadataId, repositoryObjects);
                     }
