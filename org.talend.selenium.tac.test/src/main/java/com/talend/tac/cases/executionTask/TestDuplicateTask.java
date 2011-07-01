@@ -20,6 +20,7 @@ public class TestDuplicateTask  extends Login {
 	        selenium.click("idSubModuleDuplicateButton");
 	        					
 			selenium.click("idFormSaveButton");
+			this.waitForElementPresent("//span[text()='"+duplicateLabel+"']", WAIT_TIME);
 			Assert.assertTrue(selenium.isElementPresent("//span[text()='"+duplicateLabel+"']"));
 			selenium.setSpeed(MIN_SPEED);
 			
