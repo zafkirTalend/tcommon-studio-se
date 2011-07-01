@@ -21,9 +21,10 @@ public class TestModifyTrigger extends Login {
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']"));  
     	selenium.setSpeed(MIN_SPEED);
+    	this.waitForElementPresent("//span[text()='"+taskLabel+"']", WAIT_TIME);
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task    	  	
-    	
-    	selenium.setSpeed(MID_SPEED);
+    		
+    	this.waitForElementPresent("//span[text()='"+labelBeforeModify+"']", WAIT_TIME);
 	    Assert.assertTrue(selenium.isElementPresent("//span[text()='"+labelBeforeModify+"']")); 
 	    selenium.setSpeed(MIN_SPEED);
     	selenium.mouseDown("//span[text()='"+labelBeforeModify+"']");//select a exist trigger 
