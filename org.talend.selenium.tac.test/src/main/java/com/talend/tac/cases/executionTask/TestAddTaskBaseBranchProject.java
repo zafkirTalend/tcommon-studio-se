@@ -148,11 +148,10 @@ public class TestAddTaskBaseBranchProject  extends AddTask {
 			 String jobName, String version, String context, String serverName, String statisticName){
 		this.addTask(label,"",projectName,branchName, jobName, version, context, serverName, statisticName);
 		if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
-			
+				
 			selenium.click("idFormSaveButton");
-	        selenium.setSpeed(MID_SPEED);
+	        this.waitForElementPresent("//span[text()='"+label+"']", WAIT_TIME);
 			Assert.assertTrue(selenium.isElementPresent("//span[text()='"+label+"']"));
-			selenium.setSpeed(MIN_SPEED);
 			
 		}
 	}
@@ -375,13 +374,14 @@ public class TestAddTaskBaseBranchProject  extends AddTask {
 		//add a jvm parameter for task
 //		addJVM();
 		//then delete the task.
-		Assert.assertTrue(deleteTask(tasklabel));
+		deleteTask(tasklabel);
 		//add a task with same name ,to see if these items exist still
 		addTask(tasklabel,"", projectName, branchName, jobName, version, context,
 				serverName, statisticName);
 		if (!selenium.isElementPresent("//span[text()='" + tasklabel + "']")) {
 			selenium.click("idFormSaveButton");
-			selenium.setSpeed(MID_SPEED);
+			this.waitForElementPresent("//span[text()='"
+					+ tasklabel + "']", WAIT_TIME);
 			Assert.assertTrue(selenium.isElementPresent("//span[text()='"
 					+ tasklabel + "']"));
 			selenium.setSpeed(MIN_SPEED);
