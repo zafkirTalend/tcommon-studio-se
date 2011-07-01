@@ -12,7 +12,25 @@ public class TestAddTriggerAddCronTrigger extends AddTrigger {
 		
 	/***add a cron triiger, set date is by UI
 	selected job is TRunJob(use tRunJob run child'job)**/
+	
+  //add a cron triiger of date is overdue, set date is by UI
 	@Test
+	@Parameters({"labelRefProJobByMainProTRunJobRun","addCronTriggerOverdue","addCronTriggerOverdueDescription"})
+    public void testAddOverdueTriggerAddCronTrigger(String taskLabel,String cronTriggerLabel, String description) {
+		
+		selenium.refresh();
+		
+		addTriggerAddCronTrigger(taskLabel,cronTriggerLabel, description, "2010", 
+				"Sunday", "Saturday", "January", "December");
+    	selenium.setSpeed(MID_SPEED);		
+		selenium.click("//button[@id='idCrontTriggerSave']");
+		selenium.setSpeed(MIN_SPEED);
+		selenium.setSpeed("5000");
+	   	Assert.assertTrue(selenium.isTextPresent(rb.getString("trigger.error.trigger_will_never_fire")));
+	    selenium.setSpeed(MIN_SPEED); 	                        
+    }
+	
+    @Test(dependsOnMethods={"testAddOverdueTriggerAddCronTrigger"})
 //	(groups={"AddCronTrigger"},dependsOnGroups={"DeleteTrigger"})
 	@Parameters({"labelRefProJobByMainProTRunJobRun","addCronTriggerLabel","addCronTriggerDescription"})
     public void testAddTriggerAddCronTrigger(String taskLabel,String cronTriggerLabel,String description) {
@@ -65,22 +83,6 @@ public class TestAddTriggerAddCronTrigger extends AddTrigger {
 		
     }
 	
-	//add a cron triiger of date is overdue, set date is by UI
-	@Test(dependsOnMethods={"testAddExistTriggerAddCronTrigger"})
-	@Parameters({"labelRefProJobByMainProTRunJobRun","addCronTriggerOverdue","addCronTriggerOverdueDescription"})
-    public void testAddOverdueTriggerAddCronTrigger(String taskLabel,String cronTriggerLabel, String description) {
-		
-		selenium.refresh();
-		
-		addTriggerAddCronTrigger(taskLabel,cronTriggerLabel, description, "2010", 
-				"Sunday", "Saturday", "January", "December");
-    	selenium.setSpeed(MID_SPEED);		
-		selenium.click("//button[@id='idCrontTriggerSave']");
-		selenium.setSpeed(MIN_SPEED);
-		selenium.setSpeed("5000");
-	   	Assert.assertTrue(selenium.isTextPresent(rb.getString("trigger.error.trigger_will_never_fire")));
-	    selenium.setSpeed(MIN_SPEED); 	                        
-    }
 	
 	//add a CronTrigger,selected job is referencetjava(tjava(from referecepro))**/
 	@Test(dependsOnMethods={"testAddTriggerAddCronTrigger"})
