@@ -16,6 +16,7 @@
 		<classes>
 		<class name="com.talend.tac.cases.grid.TestPastExecutionsDisplay" />
 		<class name="com.talend.tac.cases.grid.TestGridExecutionsPageDisplay"/>
+		<class name="com.talend.tac.cases.grid.TestGridUICalendarFilter"/>
 		</classes>
 	</test>
 </suite>
