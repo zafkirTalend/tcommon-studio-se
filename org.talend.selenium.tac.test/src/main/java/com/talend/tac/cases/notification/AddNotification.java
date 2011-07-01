@@ -33,9 +33,8 @@ public class AddNotification extends Login {
         	
         	selenium.click("//i[text()='"+notificationInformation+"']//ancestor::tbody//" +
 				"button[@id='idNotificationRepUserButton']");
-			selenium.setSpeed(MID_SPEED);
+			this.waitForElementPresent("//div[text()='"+LoginUser+"']/parent::td/preceding-sibling::td", WAIT_TIME);
 			selenium.mouseDown("//div[text()='"+LoginUser+"']/parent::td/preceding-sibling::td");//choose event trigger users
-			selenium.setSpeed(MIN_SPEED);
 			selenium.click("//button[text()='Apply']");
 			Assert.assertTrue(selenium.isElementPresent("//i[text()=' - "+LoginUser+"']"));
 			selenium.setSpeed(MIN_SPEED);
@@ -61,12 +60,14 @@ public class AddNotification extends Login {
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertEquals(description , DescriptionInputValue);
 		Assert.assertTrue(selenium.isTextPresent(notificationInformation));
-	
+	    selenium.setSpeed(MIN_SPEED);		
 		selenium.click("//i[text()='"+notificationInformation+"']//ancestor::tbody//" +
 				"button[@id='idNotificationRepUserButton']");
+		this.waitForElementPresent("//div[text()='testMulripleRoles@company.com']/parent::td/preceding-sibling::td", WAIT_TIME);
 		selenium.mouseDown("//div[text()='testMulripleRoles@company.com']/parent::td/preceding-sibling::td");//choose event trigger users
 		selenium.click("//button[text()='Apply']");
 		selenium.click("idNotificationTaskButton");
+		this.waitForElementPresent("//div[text()='"+taskName+"']/parent::td/preceding-sibling::td", WAIT_TIME);
 		selenium.mouseDown("//div[text()='"+taskName+"']/parent::td/preceding-sibling::td");//choose event trigger task
 		selenium.click("//button[text()='Apply']");	
 	}
@@ -94,9 +95,11 @@ public class AddNotification extends Login {
 		
 		selenium.click("//i[text()='"+notificationInformation+"']//ancestor::tbody//" +
 		"button[@id='idNotificationRepUserButton']");//choose event trigger users
+		this.waitForElementPresent("//div[text()='admin@company.com']/parent::td/preceding-sibling::td", WAIT_TIME);
 		selenium.mouseDown("//div[text()='admin@company.com']/parent::td/preceding-sibling::td");//choose event trigger users
 		selenium.click("//button[text()='Apply']");
 		selenium.click("idNotificationJobserverButton");
+		this.waitForElementPresent("//div[text()='"+jobServer+"']/parent::td/preceding-sibling::td", WAIT_TIME);
 		selenium.mouseDown("//div[text()='"+jobServer+"']/parent::td/preceding-sibling::td");//choose event trigger jobServer
 		selenium.click("//button[text()='Apply']");	
 
