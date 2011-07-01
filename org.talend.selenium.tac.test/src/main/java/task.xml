@@ -13,6 +13,10 @@
 	<parameter name="labelAddJVMParametersForTask" value="testAddsimpleTask" />
 	<parameter name="labelAddJVMParametersForTaskDescription" value="test add a simple task" />
 	
+	<parameter name="taskWithTjavaWithMulripleCheckpoint" value="taskWithTjavaWithMulripleCheckpoint" />
+	<parameter name="taskWithTrunjobWithCheckpoint" value="taskWithTrunjobWithCheckpoint" />
+
+	<parameter name="TaskWithtRunjob" value="testTaskRunTRunJob"/>
 	<parameter name="labelDescription" value="test add a task" />
 	<parameter name="existLabelDescription" value="test add a exist task" />
 	<parameter name="labelNotChooseActive" value="testTaskNotChooseActive"/>
@@ -107,7 +111,9 @@
     <parameter name="statisticRemoved(regeneration needed, fastest)" value="removed (regeneration needed, fastest)" />
     <parameter name="statisticRemoved(fastest)" value="removed (fastest)" />
     <parameter name="statisticEnabled(regeneration needed)" value="enabled (regeneration needed)" />
-    
+     
+    <parameter name="trunjobWithCheckpoint" value="trunjobWithCheckpoint" />
+    <parameter name="tjavaWithMulripleCheckpoint" value="tjavaWithMulripleCheckPoint"/>
     <parameter name="jobNameBranchJob" value="BranchTjava"/>
     <parameter name="jobNameTJava" value="tjava"/>
     <parameter name="jobWithContexts" value="tjava"/>
@@ -132,7 +138,7 @@
         <classes><!--
         
              these execution are need configurations(project/SVN/job)     
-            -->
+            --> 
             <class name="com.talend.tac.cases.executionTask.TestAddTask"/>
             <class name="com.talend.tac.cases.executionTask.TestAddTaskBaseBranchProject"/>
             <class name="com.talend.tac.cases.executionTask.TestTaskContext"/> 
@@ -149,12 +155,14 @@
             <class name="com.talend.tac.cases.executionTask.TestDuplicateTrigger"/>
             <class name="com.talend.tac.cases.jobconductor.TestTaskDisplay"/>
             <class name="com.talend.tac.cases.executionTask.TestChangeAutoRefreshDisableEnable"/>
-            <class name="com.talend.tac.cases.executionTask.ClearTaskTrigger"/>
+            <class name="com.talend.tac.cases.executionTask.TestCheckpoint"/><!--
+            <class name="com.talend.tac.cases.executionTask.TestCheckAllCheckpointDisplay"/>    
+            --><class name="com.talend.tac.cases.executionTask.ClearTaskTrigger"/>
             <class name="com.talend.tac.cases.executionTask.TestAddJVMParametersForTask"/> 	
-            <class name="com.talend.tac.cases.executionTask.TestDeleteJVMParameter"/>
-         </classes> 
+            <class name="com.talend.tac.cases.executionTask.TestDeleteJVMParameter"/> 
+        </classes> 
 	</test>
-	
+		
 </suite>
 
 
