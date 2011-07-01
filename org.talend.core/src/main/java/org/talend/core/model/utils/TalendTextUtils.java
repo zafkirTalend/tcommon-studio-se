@@ -180,15 +180,23 @@ public class TalendTextUtils {
     private static String getAfterString(String quoteStyle, String string) {
         String after = ""; //$NON-NLS-1$
         if (string.length() > LINE_MAX_NUM) {
-            String substring = string.substring(0, LINE_MAX_NUM);
-            substring = substring.substring(0, getLastWord(string, substring, quoteStyle));
-            String temp = substring;
-            temp = temp.replaceAll(" ", "").replaceAll("\n", ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-            if (!"".equals(temp)) { //$NON-NLS-1$
-                after += substring + "\"+\n\""; //$NON-NLS-1$
+            String substring = "";
+            // bug21945 mssql contains FROM
+            if (string.contains(" FROM ")) {
+                int length = string.indexOf(" FROM ");
+                substring = string.substring(0, length) + " ";
             } else {
-                after += substring;
+                substring = string.substring(0, LINE_MAX_NUM);
             }
+            substring = substring.substring(0, getLastWord(string, substring, quoteStyle));
+            after += substring + "\n "; //$NON-NLS-1$ 
+            // String temp = substring;
+            //            temp = temp.replaceAll(" ", "").replaceAll("\n", ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            //            if (!"".equals(temp)) { //$NON-NLS-1$
+            //                after += substring + "\"+\n\""; //$NON-NLS-1$
+            // } else {
+            // after += substring;
+            // }
             after += getAfterString(quoteStyle, string.substring(substring.length()));
         } else {
             after += string;
