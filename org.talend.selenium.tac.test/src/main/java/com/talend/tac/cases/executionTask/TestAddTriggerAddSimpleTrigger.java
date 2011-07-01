@@ -29,6 +29,7 @@ public class TestAddTriggerAddSimpleTrigger extends AddTrigger {
 		    			" x-grid3-col-label']")) {
 				   
 			 		selenium.setSpeed(MIN_SPEED);
+			 		this.waitForElementPresent("//span[text()='"+taskLabel+"']", WAIT_TIME);
 					selenium.mouseDown("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/" +
 					"parent::ul/parent::div/parent::div/parent::div/parent::div//div[@class='x-grid3-cell-inner" +
 					" x-grid3-col-label']");
