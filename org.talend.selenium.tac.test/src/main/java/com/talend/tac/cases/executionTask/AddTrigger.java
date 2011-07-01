@@ -16,6 +16,7 @@ public class AddTrigger extends Login {
     	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.setSpeed(MIN_SPEED);
+    	this.waitForElementPresent("//span[text()='"+taskLabel+"']", WAIT_TIME);		
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task
 		selenium.click("idTriggerAdd trigger...");//add a trigger
 		selenium.click("idTriggerAdd simple trigger");//add a SimpleTrigger
@@ -133,6 +134,7 @@ public class AddTrigger extends Login {
     	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.setSpeed(MIN_SPEED);
+    	this.waitForElementPresent("//span[text()='"+taskLabel+"']", WAIT_TIME);
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task
 		selenium.click("idTriggerAdd trigger...");//add a trigger
 		selenium.click("idTriggerAdd CRON trigger");//add a  CronTrigger
@@ -170,6 +172,7 @@ public class AddTrigger extends Login {
     	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.setSpeed(MIN_SPEED);
+    	this.waitForElementPresent("//span[text()='"+taskLabel+"']", WAIT_TIME);
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task
     	
     	if(!selenium.isChecked("idJobConductorTaskActiveListBox")) {
