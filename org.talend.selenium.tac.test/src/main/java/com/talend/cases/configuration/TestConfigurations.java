@@ -73,7 +73,7 @@ public class TestConfigurations extends Login {
   @Parameters ({"LDAP.conf.useLDAPAutentication","LDAP.conf.ldapServerIp","LDAP.conf.ldapServerPort","LDAP.conf.ldapRoot","LDAP.conf.ldapPrincipalDNPrefix",
 	  "LDAP.conf.ldapAdminPassword","LDAP.conf.ldap.fields.mail","LDAP.conf.ldap.fields.firstname","LDAP.conf.ldap.fields.lastname"})
   public void testSetLDAP(String useLDAPAutentication,String ldapServerIp,String ldapServerPort,String ldapRoot,String ldapPrincipalDNPrefix,String ldapAdminPassword,String ldapFieldsMail,String ldapFieldsFirstName,String ldapFieldsLastName ) {
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'LDAP (9 Parameters)')]");
+	  this.MouseDownWaitForElementPresent("//div[contains(text(),'LDAP (9 Parameters')]");
 	  this.typeWordsInConfigurationMenu(other.getString("LDAP.conf.useLDAPAutentication.editButton"), other.getString("commandline.conf.all.input"), useLDAPAutentication);
 	  this.typeWordsInConfigurationMenu(other.getString("LDAP.conf.ldapServerIp.editButton"), other.getString("commandline.conf.all.input"), ldapServerIp);
 	  this.typeWordsInConfigurationMenu(other.getString("LDAP.conf.ldapServerPort.editButton"), other.getString("commandline.conf.all.input"), ldapServerPort);
@@ -94,7 +94,7 @@ public class TestConfigurations extends Login {
 	  this.AssertEqualsInConfigurationMenu(other.getString("LDAP.conf.ldap.fields.firstname.editButton"), other.getString("commandline.conf.all.input"), ldapFieldsFirstName);
 	  this.AssertEqualsInConfigurationMenu(other.getString("LDAP.conf.ldap.fields.lastname.editButton"), other.getString("commandline.conf.all.input"), ldapFieldsLastName);
 	
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'LDAP (9 Parameters)')]");
+	  this.MouseDownWaitForElementPresent("//div[contains(text(),'LDAP (9 Parameters')]");
   }
 
   @Test
