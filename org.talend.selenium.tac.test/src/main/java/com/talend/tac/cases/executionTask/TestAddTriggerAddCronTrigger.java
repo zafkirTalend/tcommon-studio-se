@@ -58,10 +58,10 @@ public class TestAddTriggerAddCronTrigger extends AddTrigger {
     	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
     	selenium.setSpeed(MIN_SPEED);
+    	this.waitForElementPresent("//span[text()='"+taskLabel+"']", WAIT_TIME);
        	selenium.mouseDown("//span[text()='"+taskLabel+"']");
 		selenium.click("idTriggerAdd trigger...");
 		selenium.click("idTriggerAdd CRON trigger");
-
 		this.typeString("idJobConductorCronTriggerLabelInput",cronTriggerLabel);
 		//type  description
 		this.typeString("idJobConductorCronTriggerDescInput", description);
@@ -77,7 +77,6 @@ public class TestAddTriggerAddCronTrigger extends AddTrigger {
 		this.typeString("idJobConductorCronTriggerYearInput", date.years);	
 		//click save button
 		selenium.click("idCrontTriggerSave");
-        selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent("Save failed: An execution trigger with this name already exists -- For more information see your log file"));
 		selenium.setSpeed(MIN_SPEED);
 		
@@ -85,7 +84,7 @@ public class TestAddTriggerAddCronTrigger extends AddTrigger {
 	
 	
 	//add a CronTrigger,selected job is referencetjava(tjava(from referecepro))**/
-	@Test(dependsOnMethods={"testAddTriggerAddCronTrigger"})
+	@Test(dependsOnMethods={"testAddExistTriggerAddCronTrigger"})
 	@Parameters({ "labelReferenceproTjava","addCronTriggerByHandInputDateLabel", "addCronTriggerByHandInputDateDescription"})
 	public void testAddCronByHandInputDateTrigger(String taskLabel,String addCronTrigger,String addCronTriggerDescription) throws InterruptedException{
 	
