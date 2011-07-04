@@ -155,11 +155,11 @@
             <class name="com.talend.tac.cases.executionTask.TestDuplicateTrigger"/>
             <class name="com.talend.tac.cases.jobconductor.TestTaskDisplay"/>
             <class name="com.talend.tac.cases.executionTask.TestChangeAutoRefreshDisableEnable"/>
-            <class name="com.talend.tac.cases.executionTask.TestCheckpoint"/>
-            <class name="com.talend.tac.cases.executionTask.TestCheckAllCheckpointDisplay"/>    
+            <class name="com.talend.tac.cases.executionTask.TestCheckpoint"/>   
             <class name="com.talend.tac.cases.executionTask.ClearTaskTrigger"/>
             <class name="com.talend.tac.cases.executionTask.TestAddJVMParametersForTask"/> 	
             <class name="com.talend.tac.cases.executionTask.TestDeleteJVMParameter"/> 
+            <class name="com.talend.tac.cases.executionTask.TestCheckRegenerateTask"/>
             <class name="com.talend.tac.cases.executionTask.TestDeleteProjectUsedBytask"/>
             <class name="com.talend.tac.cases.executionTask.TestDeleteServerUsedBytask"/>
         </classes> 
