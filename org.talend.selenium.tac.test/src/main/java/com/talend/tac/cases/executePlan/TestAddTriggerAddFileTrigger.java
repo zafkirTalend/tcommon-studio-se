@@ -29,7 +29,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
 		this.waitForElementPresent(
 				"//div[@class='header-title' and text()='Execution Plan']",
-				WAIT_TIME);
+				WAIT_TIME);	
 		Assert.assertTrue(selenium
 				.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
 		addFileTrigger(plantoaddfiletrigger, filetriggerlabel, foldpath,
@@ -122,10 +122,10 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 				.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
 		addFileTrigger(plantoaddfiletrigger, filetriggerlabel, foldpath,
 				interval, mask, serverName, 1);
-		System.out.println("THE FIRST TIME:");
+		System.out.println("THE FIRST TIME:");	
 		this.waitForElementPresent("//span[text()='Running...']",
 				Base.WAIT_TIME);
-		this.waitForElementPresent("//span[text()='Ended...']", Base.WAIT_TIME);
+		this.waitForElementPresent("//span[@class='x-tree3-node-text' and contains(text(),'[OK]')]", Base.WAIT_TIME);
 		System.out.println("THE FIRST TIME ENDED:");
 		if (new FileTrigger().createNewFile(foldpath)) {
 			System.out.println("fiLE CREATED!");
@@ -292,7 +292,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 	public void triggerCreateCheck(String fileTriggerLabel) {
 		this.waitForElementPresent("//span[text()='Running...']",
 				Base.WAIT_TIME);
-		this.waitForElementPresent("//span[text()='Ready to run']",
+		this.waitForElementPresent("//span[@class='x-tree3-node-text' and contains(text(),'[OK]')]",
 				Base.WAIT_TIME);
 		Assert.assertTrue(this.waitElement("//span[text()='Ended...']",
 				TriggerCheckTime)||this.waitElement("//span[text()='Ready to run']",
