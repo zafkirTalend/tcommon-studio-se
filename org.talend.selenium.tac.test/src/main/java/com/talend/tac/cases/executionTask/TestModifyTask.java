@@ -47,7 +47,7 @@ public class TestModifyTask extends Login {
 	
 	//test modify label of generating task and check warn info
 	@Test(dependsOnMethods={"testModifyTask"})
-	@Parameters({"TaskBaseBranch"})
+	@Parameters({"modifyTask"})
 	public void testModifyLabelOfGeneratingTaskAndCheckWarnInfo(String label) {
 		
 		modifiedTask();		
@@ -69,10 +69,9 @@ public class TestModifyTask extends Login {
 	
 	//test modify job of generating task and check warn info
 	@Test(dependsOnMethods={"testModifyTask"})
-	@Parameters({"TaskBaseBranch","modifyTask","AddreferenceProjectname","branchNameTrunk","jobNameReferencetjava","version0.1",
+	@Parameters({"TaskBaseBranch","jobNameTRunJob","version0.1",
 		"context"})
-	public void testModifyJobOfGeneratingTaskAndCheckWarnInfo(String label,String modifyLabel,String projectName,String branchName,String jobName,
-			String version,String context) throws InterruptedException {
+	public void testModifyJobOfGeneratingTaskAndCheckWarnInfo(String label,String jobName,String version,String context) throws InterruptedException {
 		
 		modifiedTask();		
 		
@@ -82,16 +81,26 @@ public class TestModifyTask extends Login {
 		selenium.click("idJobConductorTaskGenerateButton");//generate task
 		selenium.setSpeed(MIN_SPEED);
 		Thread.sleep(3000);       
-        this.selectDropDownList("idTaskProjectListBox", projectName);
-    	this.selectDropDownList("idTaskBranchListBox", branchName);
+
     	this.selectDropDownList("idTaskJobListBox", jobName);
     	this.selectDropDownList("idTaskVersionListBox", version);
     	this.selectDropDownList("idTaskContextListBox", context);
 		selenium.setSpeed(MIN_SPEED);
 		selenium.click("idFormSaveButton");
+		
 		selenium.setSpeed(MAX_SPEED);
-		Assert.assertTrue(selenium.isTextPresent(rb.getString("executionTask.locked")));
-		selenium.setSpeed(MIN_SPEED);	
+		if(selenium.isTextPresent(rb.getString("executionTask.locked"))) {			
+			
+			Assert.assertTrue(selenium.isTextPresent(rb.getString("executionTask.locked")));
+				
+			
+		} else {
+			
+			Assert.assertTrue(selenium.isTextPresent("Another operation is locking the" +
+			" task '"+label+"', please retry later "));
+			
+		}
+		selenium.setSpeed(MIN_SPEED);
 		
 	}
 	
