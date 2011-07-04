@@ -101,6 +101,7 @@ public class TestAddTriggerAddCronTrigger extends AddTrigger {
 		this.typeString("idJobConductorCronTriggerYearInput", date.years);	
 		//click save button
 		selenium.click("idCrontTriggerSave");
+		selenium.setSpeed("5000");
 		Assert.assertTrue(selenium.isTextPresent("Save failed: An execution trigger with this name already exists -- For more information see your log file"));
 		selenium.setSpeed(MIN_SPEED);
 		
