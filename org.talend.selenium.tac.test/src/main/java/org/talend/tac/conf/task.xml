@@ -165,6 +165,8 @@
             <class name="com.talend.tac.cases.executionTask.TestAddJVMParametersForTask"/> 	
             <class name="com.talend.tac.cases.executionTask.TestDeleteJVMParameter"/>
             <class name="com.talend.tac.cases.executionTask.TestCheckRegenerateTask"/>
+            <class name="com.talend.tac.cases.executionTask.TestDeleteProjectUsedBytask"/>
+            <class name="com.talend.tac.cases.executionTask.TestDeleteServerUsedBytask"/>
         </classes> 
 	</test>
 	
