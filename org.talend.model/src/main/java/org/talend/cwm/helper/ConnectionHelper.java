@@ -600,6 +600,14 @@ public class ConnectionHelper {
                 DatabaseConnection dbConn = (DatabaseConnection) element;
                 String sid = dbConn.getSID();
                 if (sid != null && !"".equals(sid.trim())) {
+                    // MOD klliu bug 22900
+                    TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.RETRIEVE_ALL,
+                            element.getTaggedValue());
+                    String value = taggedValue.getValue();
+                    if (value.equals("true")) {
+                        return true;
+                    }
+                    // ~
                     if (isOracle(dbConn) || isPostgresql(dbConn)) {
                         String uiSchema = dbConn.getUiSchema();
                         if (uiSchema != null && !"".equals(uiSchema.trim())) {
