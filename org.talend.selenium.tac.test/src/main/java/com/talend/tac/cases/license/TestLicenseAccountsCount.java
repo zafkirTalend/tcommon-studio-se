@@ -571,7 +571,9 @@ public class TestLicenseAccountsCount extends Login {
 		// cleanAllExceptAdmin();
 		int n = getMDMcounts();
 		// System.out.println("MDM:"+n);
+		if(n!=-1){
 		addUserallowed(3, n);
+		}
 
 	}
 
@@ -579,6 +581,7 @@ public class TestLicenseAccountsCount extends Login {
 	public void testMDMUsersMoreOver() throws InterruptedException {
 		// cleanAllExceptAdmin();
 		int n = getMDMcounts();
+		if(n!=-1){
 		this.waitForElementPresent("idMenuUserElement", WAIT_TIME);
 		selenium.setSpeed(MIN_SPEED);
 		selenium.click("idMenuUserElement");
@@ -597,6 +600,7 @@ public class TestLicenseAccountsCount extends Login {
 		Thread.sleep(5000);
 		Assert.assertFalse(selenium.isTextPresent(username),
 				"test mdm users more over failed!");
+		}
 	}
 
 	@Test(dependsOnMethods = { "testAddDQChangeToDI" })
@@ -1121,10 +1125,11 @@ public class TestLicenseAccountsCount extends Login {
 	public void testMDMUsersMoreOverUnactive() throws InterruptedException {
 		// cleanAllExceptAdmin();
 		int n = getMDMcounts();
+		if(n!=-1){
 		String username = "";
 		String name = "";
 		for (int i = 0; i < 1; i++) {
-			username = "MDM_over@talend.com";
+			username = "MDM_over@talend.com";		
 			name = "DQ_" + i;
 			//
 			selenium.refresh();
@@ -1185,6 +1190,7 @@ public class TestLicenseAccountsCount extends Login {
 					"MDM inactive user test failed!");
 			selenium.setSpeed(MIN_SPEED);
 		}
+		}
 		// addUsersMoreOverUnactive(3,n);
 
 	}
@@ -1194,6 +1200,7 @@ public class TestLicenseAccountsCount extends Login {
 			throws InterruptedException {
 		// cleanAllExceptAdmin();
 		int n = getMDMcounts();
+		if(n!=-1){
 		this.waitForElementPresent("idMenuUserElement", WAIT_TIME);
 		selenium.setSpeed(MIN_SPEED);
 		selenium.click("idMenuUserElement");
@@ -1274,6 +1281,7 @@ public class TestLicenseAccountsCount extends Login {
 		Assert.assertFalse(
 				selenium.getValue("//input[@name='active']").equals("on"),
 				"dq inactive  failed!");
+		}
 	}
 
 	@Test(dependsOnMethods = { "testDIUsersMoreOverUnactiveReactive" })
@@ -1557,12 +1565,20 @@ public class TestLicenseAccountsCount extends Login {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
+		
+		if(this.findSpecialMachedString("^Defined Master Data Management users.*").equals("")){
+			return -1;
+		}
+		else{
 		String allowedMDM = selenium
 				.getText("//div[text()='Master Data Management']/ancestor::div[@class='x-column-inner']//div[@class='x-progress-text x-progress-text-back']//div");
 		String num = allowedMDM.split("/")[1];
 		num = num.substring(num.indexOf(" ") + 1, num.length());
 		System.out.println("mdm num:" + num);
 		return ((int) Math.ceil((Integer.parseInt(num)) * (moreOver + 1.0)));
+	      }
 	}
 
 	public void cleanAllExceptAdmin() {
