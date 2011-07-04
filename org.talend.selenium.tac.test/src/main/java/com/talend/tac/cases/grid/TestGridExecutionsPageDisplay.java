@@ -110,7 +110,7 @@ public class TestGridExecutionsPageDisplay extends Grid {
 		this.sleep(5000);
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("//div[@qtip='Expected triggering date']//a[@class='x-grid3-hd-btn']");
-		selenium.click("//a[@class=' x-menu-item x-component' and text()='Sort Descending']");
+		selenium.click("//a[@class=' x-menu-item x-component' and text()='Sort Ascending']");
 		selenium.setSpeed(MIN_SPEED);
 		this.sleep(2000);
 		String dateFuture = selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-expectedTriggeringDate']");
