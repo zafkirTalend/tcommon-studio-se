@@ -146,19 +146,19 @@ public class AddTrigger extends Login {
 		this.typeString("idJobConductorCronTriggerDescInput", descriptionSronTrigger);//description
 			
 		selenium.click("idSchedulingUiConfigButton");//choose data
-		
-		selenium.mouseDown("//div[text()='"+years+"']");//choose years
-		selenium.mouseDown("//div[text()='"+weeksStart+"']");//choose day of weeks
+
+		selenium.mouseDown("//div[contains(@class,'x-view-item') and text()='"+years+"']");//choose years
+		selenium.mouseDown("//div[contains(@class,'x-view-item') and text()='"+weeksStart+"']");//choose day of weeks
 		selenium.shiftKeyDown();
-		selenium.mouseDown("//div[text()='"+weeksEnd+"']");
-		selenium.mouseDown("//div[text()='"+monthsStart+"']");//choose months
-		selenium.mouseDown("//div[text()='"+monthsEnd+"']");
+		selenium.mouseDown("//div[contains(@class,'x-view-item') and text()='"+weeksEnd+"']");
+		selenium.mouseDown("//div[contains(@class,'x-view-item') and text()='"+monthsStart+"']");//choose months
+		selenium.mouseDown("//div[contains(@class,'x-view-item') and text()='"+monthsEnd+"']");
 		selenium.mouseDown("//div[@class='x-column-inner']/div[2]/div[2]/div/div/div[text()='00']");//choose hours
 		selenium.mouseDown("//div[@class='x-column-inner']/div[2]/div[2]/div/div/div[text()='23']");
-		selenium.mouseDown("//div[text()='00']");//choose minutes
-		selenium.mouseDown("//div[text()='29']");
-		selenium.mouseDown("//div[text()='30']");
-		selenium.mouseDown("//div[text()='59']");
+		selenium.mouseDown("//div[contains(@class,'x-view-item') and text()='00']");//choose minutes
+		selenium.mouseDown("//div[contains(@class,'x-view-item') and text()='29']");
+		selenium.mouseDown("//div[contains(@class,'x-view-item') and text()='30']");
+		selenium.mouseDown("//div[contains(@class,'x-view-item') and text()='59']");
 		selenium.shiftKeyUp();
 		selenium.click("idSchedulingApplyButton");//save data
 		
