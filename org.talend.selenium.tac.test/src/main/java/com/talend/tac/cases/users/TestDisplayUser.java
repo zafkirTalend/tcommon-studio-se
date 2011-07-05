@@ -19,7 +19,7 @@ public class TestDisplayUser extends Login {
 		
 		Assert.assertTrue(selenium.isTextPresent(userName));
 		selenium.setSpeed(MID_SPEED);
-		selenium.click("//div[@class=' x-grid3-hd-inner x-grid3-hd-login x-component sort-asc ']/a[1] ");
+		selenium.click("//div[contains(@class,'grid3-hd-inner x-grid3-hd-login')]/a");
 		selenium.setSpeed(MIN_SPEED);
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("//a[text()='Show in Groups']");
@@ -38,8 +38,10 @@ public class TestDisplayUser extends Login {
 		this.clickWaitForElementPresent("idMenuUserElement");
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent(userName));
-		selenium.click("//div[@class=' x-grid3-hd-inner x-grid3-hd-login x-component sort-asc ']/a[1] ");
 		selenium.setSpeed(MIN_SPEED);
+		this.waitForElementPresent("//div[contains(@class,'grid3-hd-inner x-grid3-hd-login')]/a", WAIT_TIME);
+		selenium.click("//div[contains(@class,'grid3-hd-inner x-grid3-hd-login')]/a");
+
 		selenium.setSpeed(MID_SPEED);
 		selenium.mouseOver("//a[text()='Columns']");
 	    selenium.setSpeed(MIN_SPEED);
@@ -74,7 +76,7 @@ public class TestDisplayUser extends Login {
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent(userName));
 	
-		selenium.click("//div[@class=' x-grid3-hd-inner x-grid3-hd-login x-component sort-asc ']/a[1] ");
+		selenium.click("//div[contains(@class,'grid3-hd-inner x-grid3-hd-login')]/a");
 		selenium.click("//a[text()='Show in Groups']");
 		selenium.setSpeed(MIN_SPEED);
 		   
@@ -156,7 +158,7 @@ public class TestDisplayUser extends Login {
 	public void modifyDisplayUsersOrder(String xpathName,String value,String value1) {
 		
 		selenium.setSpeed(MID_SPEED);  
-		selenium.click("//div[@class=' x-grid3-hd-inner x-grid3-hd-"+xpathName+" x-component']/a[1]");
+		selenium.click("//div[contains(@class,'grid3-hd-inner x-grid3-hd-"+xpathName+"')]/a");
 		selenium.setSpeed(MIN_SPEED);
 		selenium.click("//a[text()='Sort Descending']");
 		System.out.println(selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-"+xpathName+"']"));
@@ -164,7 +166,7 @@ public class TestDisplayUser extends Login {
         
        
         selenium.setSpeed(MID_SPEED);
-        selenium.click("//div[@class=' x-grid3-hd-inner x-grid3-hd-"+xpathName+" x-component sort-desc ']/a[1]");
+        selenium.click("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-"+xpathName+"')]/a");
         selenium.setSpeed(MIN_SPEED);  
 		selenium.click("//a[text()='Sort Ascending']");
 		System.out.println(selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-"+xpathName+"']"));
