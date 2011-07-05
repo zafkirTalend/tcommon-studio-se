@@ -75,7 +75,7 @@
 		
 		<suite-file path="org/talend/tac/conf/user.xml"/>
 		  
-		  
+		  <!--
 		<suite-file path="org/talend/tac/conf/project.xml"/>
 		
 		
@@ -93,10 +93,10 @@
 		 	
 		
 		<suite-file path="org/talend/tac/conf/connection.xml"/>
-		 <!-- -->
+		  -->
+		 <!--
 		<suite-file path="org/talend/tac/conf/notification.xml"/>
-		
-		<!--  -->
+		  -->
 		 <!--<suite-file path="user.xml"/>
 		
 		 <suite-file path="project.xml"/>			 	     
