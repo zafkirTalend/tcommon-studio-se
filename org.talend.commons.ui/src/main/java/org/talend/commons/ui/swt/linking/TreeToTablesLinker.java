@@ -189,7 +189,7 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
             IExtremityLink<TreeItem, D1> extremity1 = link.getExtremity1();
             IExtremityLink<Table, D2> extremity2 = link.getExtremity2();
 
-            TreeItem treeItem = TreeUtils.getTreeItem(tree, (Object) extremity1.getDataItem());
+            TreeItem treeItem = getTreeItem(tree, (Object) extremity1.getDataItem(), (Object) extremity2.getDataItem());
 
             TreeItem firstExpandedAscTreeItem = TreeUtils.findFirstVisibleItemAscFrom(treeItem);
 
@@ -252,6 +252,10 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
 
         }
 
+    }
+
+    protected TreeItem getTreeItem(Tree tree, Object dataOfTreeItem, Object dataOfTableItem) {
+        return TreeUtils.getTreeItem(tree, dataOfTreeItem);
     }
 
     /**

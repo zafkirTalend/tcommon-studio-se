@@ -457,6 +457,52 @@ public class XmlToXPathLinker extends TreeToTablesLinker<Object, Object> {
         gc.setClipping((Rectangle) null);
     }
 
+    protected TreeItem getTreeItem(Tree tree, Object dataOfTreeItem, Object dataOfTableItem) {
+        String path = null;
+        if (dataOfTableItem instanceof SchemaTarget) {
+            SchemaTarget target = (SchemaTarget) dataOfTableItem;
+            path = target.getRelativeXPathQuery();
+        } else if (dataOfTableItem instanceof XmlXPathLoopDescriptor) {
+            XmlXPathLoopDescriptor target = (XmlXPathLoopDescriptor) dataOfTableItem;
+            path = target.getAbsoluteXPathQuery();
+        }
+        if (path == null)
+            return super.getTreeItem(tree, dataOfTreeItem, dataOfTableItem);
+
+        boolean expressionIsAbsolute = false;
+        if (path.trim().startsWith("/")) { //$NON-NLS-1$
+            expressionIsAbsolute = true;
+        }
+
+        String fullPath = ""; //$NON-NLS-1$
+        if (!expressionIsAbsolute) {
+            if (loopXpathNodes.size() > 0) {
+                fullPath = loopXpathNodes.get(0) + "/"; //$NON-NLS-1$
+            }
+            // adapt relative path
+            String[] relatedSplitedPaths = path.split("\\.\\./"); //$NON-NLS-1$
+            if (relatedSplitedPaths.length > 1) {
+                int pathsToRemove = relatedSplitedPaths.length - 1;
+                String[] fullPathSplited = fullPath.split("/"); //$NON-NLS-1$
+                fullPath = ""; //$NON-NLS-1$
+                for (int j = 1; j < (fullPathSplited.length - pathsToRemove); j++) {
+                    fullPath += "/" + fullPathSplited[j]; //$NON-NLS-1$
+                }
+                fullPath += "/" + relatedSplitedPaths[pathsToRemove]; //$NON-NLS-1$
+            } else {
+                fullPath += path;
+            }
+        } else {
+            fullPath = path;
+        }
+        TreeItem treeItem = treePopulator.getTreeItem(fullPath);
+        if (treeItem != null) {
+            return treeItem;
+        } else {
+            return super.getTreeItem(tree, dataOfTreeItem, dataOfTableItem);
+        }
+    }
+
     private void handleListenableListBeforeTableViewerRefreshedEvent(ListenableListEvent<SchemaTarget> event) {
         if (event.type == TYPE.REMOVED) {
             Collection<SchemaTarget> removedObjects = event.removedObjects;
