@@ -603,9 +603,12 @@ public class ConnectionHelper {
                     // MOD klliu bug 22900
                     TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.RETRIEVE_ALL,
                             element.getTaggedValue());
-                    String value = taggedValue.getValue();
-                    if (value.equals("true")) {
-                        return true;
+                    // if connection is created by 4.2 or 5.0 ,the tagedValue(RETRIEVE_ALL) has been removed.
+                    if (taggedValue != null) {
+                        String value = taggedValue.getValue();
+                        if (value.equals("true")) {
+                            return true;
+                        }
                     }
                     // ~
                     if (isOracle(dbConn) || isPostgresql(dbConn)) {
