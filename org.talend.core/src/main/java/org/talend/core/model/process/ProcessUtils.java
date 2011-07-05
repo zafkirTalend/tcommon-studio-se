@@ -31,6 +31,7 @@ import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.SQLPatternItem;
+import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.routines.RoutinesUtil;
@@ -140,7 +141,64 @@ public final class ProcessUtils {
     }
 
     public static Collection<IRepositoryViewObject> getAllProcessDependencies(Collection<Item> items) {
-        return getAllProcessDependencies(items, true);
+        final List<IRepositoryViewObject> repositoryObjects = new ArrayList<IRepositoryViewObject>();
+        if (items == null) {
+            return repositoryObjects;
+        }
+        for (Item item : items) {
+            checkItemDependencies(item, repositoryObjects);
+        }
+        return repositoryObjects;
+    }
+
+    private static void checkItemDependencies(Item item, List<IRepositoryViewObject> repositoryObjects) {
+        if (item == null) {
+            return;
+        }
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        RelationshipItemBuilder builder = RelationshipItemBuilder.getInstance();
+
+        List<RelationshipItemBuilder.Relation> relations = builder.getItemsRelatedTo(item.getProperty().getId(), item
+                .getProperty().getVersion(), RelationshipItemBuilder.JOB_RELATION);
+        for (RelationshipItemBuilder.Relation relation : relations) {
+            IRepositoryViewObject obj = null;
+            try {
+                if (RelationshipItemBuilder.ROUTINE_RELATION.equals(relation.getType())) {
+                    obj = RoutinesUtil.getRoutineFromName(relation.getId());
+                } else {
+                    obj = factory.getLastVersion(relation.getId());
+                }
+                if (obj != null) {
+                    if (!repositoryObjects.contains(obj)) {
+                        repositoryObjects.add(obj);
+                        checkAllVerSionLatest(repositoryObjects, obj);
+                        checkItemDependencies(obj.getProperty().getItem(), repositoryObjects);
+                    }
+                }
+            } catch (PersistenceException et) {
+                ExceptionHandler.process(et);
+            }
+        }
+    }
+
+    private static void checkAllVerSionLatest(List<IRepositoryViewObject> repositoryObjects, IRepositoryViewObject object) {
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        RelationshipItemBuilder builder = RelationshipItemBuilder.getInstance();
+        List<RelationshipItemBuilder.Relation> relations = builder.getItemsJobRelatedTo(object.getId(), object.getVersion(),
+                RelationshipItemBuilder.JOB_RELATION);
+        for (RelationshipItemBuilder.Relation relation : relations) {
+            try {
+                IRepositoryViewObject obj = factory.getLastVersion(relation.getId());
+                if (obj != null) {
+                    if (!repositoryObjects.contains(obj)) {
+                        repositoryObjects.add(obj);
+                        checkAllVerSionLatest(repositoryObjects, obj);
+                    }
+                }
+            } catch (PersistenceException et) {
+                ExceptionHandler.process(et);
+            }
+        }
     }
 
     public static Collection<IRepositoryViewObject> getAllProcessDependencies(Collection<Item> items, boolean withSystem) {
