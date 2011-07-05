@@ -35,7 +35,21 @@
 		standard
 	-->
 	<parameter name="project.automationProject.name" value="automationProject"></parameter>
-
+<!--  
+	<suite-files>
+		<suite-file path="cleaner.xml" />
+	</suite-files>
+-->	
+	<test name="UserCleaner" preserve-order="flase">
+		<classes>
+			<class name="com.talend.tac.cases.users.TestAddUser">
+				<methods>
+					<include name="clearAllUsers"></include>
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
 	<test name="testCreateAllRolesInAdvance" preserve-order="true">
 		<classes>
 			<class name="com.talend.tac.cases.user.TestCreatUsersInAdvance" />
@@ -63,7 +77,7 @@
 		<parameter name="userPassword" value="designerPasswd" />
 		<classes>
 			<class
-				name="com.talend.tac.cases.rolesRights.TestCheckRoleOperationManagerPrivilege"></class>
+				name="com.talend.tac.cases.rolesRights.TestCheckRoleDesignerPrivilege"></class>
 		</classes>
 	</test>
 	<test name="TestViewerPrivilege">

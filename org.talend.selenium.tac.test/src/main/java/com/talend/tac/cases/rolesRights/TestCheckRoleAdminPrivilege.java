@@ -12,7 +12,10 @@ public class TestCheckRoleAdminPrivilege extends Login {
 	public void testCheckRoleAdminPrivilege() {
 		waitForElementPresent("idLeftMenuTreeLogoutButton",WAIT_TIME );
 		assertTrue(selenium.isElementPresent("idMenuUserElement"));//user
+		
 		assertTrue(selenium.isElementPresent("!!!menu.project.element!!!"));//projects
+		assertTrue(selenium.isElementPresent("!!!menu.projectsauthorizations.element!!!"));
+		assertTrue(selenium.isElementPresent("!!!menu.refprojects.element!!!"));
 		assertTrue(selenium.isElementPresent("idMenuLicenseElement"));//license
 		assertTrue(selenium.isElementPresent("idMenuConfigElement"));//configurations
 		assertTrue(selenium.isElementPresent("idMenuChangePasswordElement"));//user Settings

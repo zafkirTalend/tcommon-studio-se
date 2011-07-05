@@ -13,7 +13,9 @@ public class TestCheckRoleViewerPrivilege extends Login {
 		waitForElementPresent("idLeftMenuTreeLogoutButton",WAIT_TIME );
 		
 		assertTrue(selenium.isElementPresent("!!!menu.executionTasks.element!!!"));
+		assertTrue(selenium.isElementPresent("!!!menu.executionPlan.element!!!"));
 		assertTrue(selenium.isElementPresent("!!!menu.executionServers.element!!!"));
+		assertTrue(selenium.isElementPresent("!!!menu.virtual_server.element!!!"));
 		assertTrue(selenium.isElementPresent("!!!menu.soamanager.element!!!"));
 		assertTrue(selenium.isElementPresent("!!!menu.audit.element!!!"));
 		assertTrue(selenium.isElementPresent("idMenuChangePasswordElement"));//user Settings
