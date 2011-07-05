@@ -33,6 +33,7 @@ package org.talend.core.model.metadata.builder.connection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.FileConnection#getEscapeChar <em>Escape Char</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.FileConnection#getTextEnclosure <em>Text Enclosure</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.FileConnection#isCsvOption <em>Csv Option</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.FileConnection#getRowSeparatorLimit <em>Row Separator Limit</em>}</li>
  * </ul>
  * </p>
  *
@@ -572,5 +573,32 @@ public interface FileConnection extends Connection {
      * @generated
      */
     void setCsvOption(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Row Separator Limit</b></em>' attribute.
+     * The default value is <code>"1"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Row Separator Limit</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Row Separator Limit</em>' attribute.
+     * @see #setRowSeparatorLimit(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getFileConnection_RowSeparatorLimit()
+     * @model default="1"
+     * @generated
+     */
+    String getRowSeparatorLimit();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.FileConnection#getRowSeparatorLimit <em>Row Separator Limit</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Row Separator Limit</em>' attribute.
+     * @see #getRowSeparatorLimit()
+     * @generated
+     */
+    void setRowSeparatorLimit(String value);
 
 } // FileConnection

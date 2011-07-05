@@ -1298,6 +1298,13 @@ public class ComponentToRepositoryProperty {
                 connection.setRowSeparatorValue(value);
             }
         }
+
+        if ("ROW_SEPARATOR_LIMIT".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(connection, node, "ROWSEPARATOR_LIMIT"); //$NON-NLS-1$
+            if (value != null) {
+                connection.setRowSeparatorLimit(value);
+            }
+        }
         if ("FIELD_SEPARATOR".equals(repositoryValue)) { //$NON-NLS-1$
             String value = getParameterValue(connection, node, "FIELDSEPARATOR"); //$NON-NLS-1$
             if (value != null) {

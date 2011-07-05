@@ -41,6 +41,7 @@ import org.talend.core.model.metadata.builder.connection.RowSeparator;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.FileConnectionImpl#getEscapeChar <em>Escape Char</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.FileConnectionImpl#getTextEnclosure <em>Text Enclosure</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.FileConnectionImpl#isCsvOption <em>Csv Option</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.FileConnectionImpl#getRowSeparatorLimit <em>Row Separator Limit</em>}</li>
  * </ul>
  * </p>
  *
@@ -446,6 +447,26 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
      * @ordered
      */
     protected boolean csvOption = CSV_OPTION_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getRowSeparatorLimit() <em>Row Separator Limit</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRowSeparatorLimit()
+     * @generated
+     * @ordered
+     */
+    protected static final String ROW_SEPARATOR_LIMIT_EDEFAULT = "1";
+
+    /**
+     * The cached value of the '{@link #getRowSeparatorLimit() <em>Row Separator Limit</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRowSeparatorLimit()
+     * @generated
+     * @ordered
+     */
+    protected String rowSeparatorLimit = ROW_SEPARATOR_LIMIT_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -909,6 +930,28 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getRowSeparatorLimit() {
+        return rowSeparatorLimit;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setRowSeparatorLimit(String newRowSeparatorLimit) {
+        String oldRowSeparatorLimit = rowSeparatorLimit;
+        rowSeparatorLimit = newRowSeparatorLimit;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.FILE_CONNECTION__ROW_SEPARATOR_LIMIT,
+                    oldRowSeparatorLimit, rowSeparatorLimit));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
@@ -952,6 +995,8 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
             return getTextEnclosure();
         case ConnectionPackage.FILE_CONNECTION__CSV_OPTION:
             return isCsvOption();
+        case ConnectionPackage.FILE_CONNECTION__ROW_SEPARATOR_LIMIT:
+            return getRowSeparatorLimit();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1023,6 +1068,9 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
             return;
         case ConnectionPackage.FILE_CONNECTION__CSV_OPTION:
             setCsvOption((Boolean) newValue);
+            return;
+        case ConnectionPackage.FILE_CONNECTION__ROW_SEPARATOR_LIMIT:
+            setRowSeparatorLimit((String) newValue);
             return;
         }
         super.eSet(featureID, newValue);
@@ -1096,6 +1144,9 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
         case ConnectionPackage.FILE_CONNECTION__CSV_OPTION:
             setCsvOption(CSV_OPTION_EDEFAULT);
             return;
+        case ConnectionPackage.FILE_CONNECTION__ROW_SEPARATOR_LIMIT:
+            setRowSeparatorLimit(ROW_SEPARATOR_LIMIT_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -1150,6 +1201,9 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
             return TEXT_ENCLOSURE_EDEFAULT == null ? textEnclosure != null : !TEXT_ENCLOSURE_EDEFAULT.equals(textEnclosure);
         case ConnectionPackage.FILE_CONNECTION__CSV_OPTION:
             return csvOption != CSV_OPTION_EDEFAULT;
+        case ConnectionPackage.FILE_CONNECTION__ROW_SEPARATOR_LIMIT:
+            return ROW_SEPARATOR_LIMIT_EDEFAULT == null ? rowSeparatorLimit != null : !ROW_SEPARATOR_LIMIT_EDEFAULT
+                    .equals(rowSeparatorLimit);
         }
         return super.eIsSet(featureID);
     }
@@ -1205,6 +1259,8 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
         result.append(textEnclosure);
         result.append(", CsvOption: ");
         result.append(csvOption);
+        result.append(", RowSeparatorLimit: ");
+        result.append(rowSeparatorLimit);
         result.append(')');
         return result.toString();
     }

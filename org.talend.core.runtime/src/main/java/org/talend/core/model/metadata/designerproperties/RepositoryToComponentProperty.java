@@ -1094,6 +1094,11 @@ public class RepositoryToComponentProperty {
         if (value.equals("ROW_SEPARATOR")) { //$NON-NLS-1$
             return connection.getRowSeparatorValue();
         }
+
+        if (value.equals("ROW_SEPARATOR_LIMIT")) { //$NON-NLS-1$
+            return connection.getRowSeparatorLimit();
+        }
+
         if (value.equals("FIELD_SEPARATOR")) { //$NON-NLS-1$
             return connection.getFieldSeparatorValue();
         }
