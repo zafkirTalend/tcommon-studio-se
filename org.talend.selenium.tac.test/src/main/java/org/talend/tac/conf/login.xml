@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Suite" parallel="false">
+	<parameter name="user.admin.login" value="admin@tac.com" />
+	<parameter name="user.admin.passwd" value="adminPasswd" />
 	<test name="TestLogin">
 		<classes>
 			<parameter name="userName" value="wrongadmin@company.com" />
