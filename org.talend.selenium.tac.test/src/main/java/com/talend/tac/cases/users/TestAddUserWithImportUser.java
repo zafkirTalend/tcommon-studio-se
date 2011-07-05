@@ -1,5 +1,8 @@
 package com.talend.tac.cases.users;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -27,10 +30,37 @@ public class TestAddUserWithImportUser extends Login{
 		
 	}
 	
+	//clear all users
+    public void clearAllUsers() {
+    	 this.clickWaitForElementPresent("idMenuUserElement");
+		 Assert.assertTrue(selenium.isTextPresent("admin@company.com"));
+		 
+    	 List<String> users = new ArrayList<String>(); 
+    	 this.clickWaitForElementPresent("idMenuUserElement");   
+    	
+      	 users = this.findSpecialMachedStrings(".*@[a-zA-Z0-9]*\\.com");
+
+    	 for(int i=0;i<users.size();i++) {
+    		 System.out.println(users.get(i));
+    		 if(!"admin@company.com".equals(users.get(i))) {
+    			selenium.mouseDown("//div[text()='"+users.get(i)+"']");
+  				selenium.chooseOkOnNextConfirmation();
+  				selenium.click("idSubModuleDeleteButton");
+  				selenium.setSpeed(MID_SPEED);
+  			    Assert.assertTrue(selenium.getConfirmation().matches("^"+other.getString("delete.User.confirmation")+" [\\s\\S]$"));
+    		    selenium.setSpeed(MIN_SPEED);
+    		 } 
+    	 }
+    	 selenium.setSpeed(MIN_SPEED);
+    }
+    
+	
 	//test import user with a '.cvs' file and check info
 	@Test(groups={"importUser"})
 	@Parameters({"filePathOfCvsFile","addUserOfCvsFileInfo"})
 	public void testAddUserImportUserWithCVSFile(String filePath,String info) {
+		
+		clearAllUsers();//clear user
 		
 		addUserWithImportUser(filePath, info);
 		
