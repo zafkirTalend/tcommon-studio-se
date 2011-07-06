@@ -25,14 +25,14 @@
   	
 
   	<parameter name="db.url"
-		value="jdbc:h2:F:\automation\databases\database3\talend_administrator;AUTO_SERVER=TRUE;MVCC=TRUE" />
+		value="jdbc:h2:/home/automation/Automation/automation/databases/database3/talend_administrator;AUTO_SERVER=TRUE;MVCC=TRUE" />
   	
   	<!-- License parameters -->
-  	<parameter  name ="license.file.path"	value ="F:\hudson_test\product_home\filefolder\license"/>
-  	<parameter  name ="license.fileInvalid.path" value ="F:\license_Invalid"/>
+  	<parameter  name ="license.file.path"	value ="org/talend/tac/fileFolder/license"/>
+  	<parameter  name ="license.fileInvalid.path" value ="org/talend/tac/fileFolder/license_Invalid"/>
   	
   	<!-- dbConfig import parameters -->
-  	<parameter  name ="dbConfig.importParameters.path"	value ="F:\hudson_test\product_home\filefolder\administrator_config.txt"/>
+  	<parameter  name ="dbConfig.importParameters.path"	value ="/home/automation/hudson_selenium/product_home/filefolder/administrator_config.txt"/>
   	
   	
 	<!-- Login user -->
