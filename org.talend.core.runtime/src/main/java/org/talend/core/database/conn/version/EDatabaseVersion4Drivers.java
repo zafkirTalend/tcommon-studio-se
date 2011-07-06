@@ -76,6 +76,7 @@ public enum EDatabaseVersion4Drivers {
     VERTICA_3_5(new DbVersion4Drivers(EDatabaseTypeName.VERTICA, "VERTICA 3.5", "VERTICA_3.5", "vertica_3.5_jdk_5.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     // for bug 0017930
+    GREENPLUM(new DbVersion4Drivers(EDatabaseTypeName.GREENPLUM, "postgresql-8.3-603.jdbc3.jar")), //$NON-NLS-1$ 
     PSQL(new DbVersion4Drivers(EDatabaseTypeName.PSQL, "postgresql-8.3-603.jdbc3.jar")), //$NON-NLS-1$ 
     PLUSPSQL(new DbVersion4Drivers(EDatabaseTypeName.PLUSPSQL, "postgresql-8.3-603.jdbc3.jar")), //$NON-NLS-1$
     IBMDB2(new DbVersion4Drivers(EDatabaseTypeName.IBMDB2, new String[] { "db2jcc.jar", "db2jcc_license_cu.jar", //$NON-NLS-1$ //$NON-NLS-2$
