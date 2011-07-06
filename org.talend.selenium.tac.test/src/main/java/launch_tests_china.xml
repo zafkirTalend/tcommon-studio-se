@@ -7,7 +7,7 @@
 	<parameter  name ="browser"	value ="*firefox"/>
 	
 	<!-- TAC Webapp parameters -->
-	<parameter  name ="url"		value ="http://192.168.0.144:8080"/>
+	<parameter  name ="url"		value ="http://192.168.0.39:8080"/>
 	<parameter  name ="root"	value ="/org.talend.administrator/"/>
 	
 	<!-- SVN parameters -->
@@ -45,13 +45,13 @@
   	<parameter  name ="AddreferenceProjectname"	value ="referencepro"/>
 
 	<!-- Servers for use -->
-	<parameter name="RemoteWindowServerIp" value="192.168.0.144" />
+	<parameter name="RemoteWindowServerIp" value="192.168.0.94" />
 	<parameter name="RemoteLinuxServerIp" value="192.168.0.39" />
 	
 	<parameter  name ="ServerForUseAvailable" value="use_server_available"/>
     <parameter  name ="ServerForUseUnavailable" value="use_server_unactive"/>
     <parameter  name ="ServerForUseDownlabel" value="use_server_down"/>
-    <parameter  name ="ServeravailableHost" value="192.168.0.144"/>
+    <parameter  name ="ServeravailableHost" value="192.168.0.39"/>
     
 
 	<!-- configuration for File Trigger -->
@@ -60,7 +60,7 @@
   	
     <!-- commandLine HostAddress -->
     <!-- needed start a remote commandline -->
-    <parameter  name ="localhostAddress" value="192.168.0.144"/>
+    <parameter  name ="localhostAddress" value="192.168.0.39"/>
     <parameter  name ="remotehostAddress" value="192.168.0.94"/>
     <parameter  name ="remotehostAddressWithWrong" value="192.168.0.g"/>
   	
