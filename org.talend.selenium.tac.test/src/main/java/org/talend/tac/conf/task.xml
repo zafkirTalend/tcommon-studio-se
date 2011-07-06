@@ -114,6 +114,8 @@
     <parameter name="statisticRemoved(fastest)" value="removed (fastest)" />
     <parameter name="statisticEnabled(regeneration needed)" value="enabled (regeneration needed)" />
     
+    <parameter name="trunjobWithCheckpoint" value="trunjobWithCheckpoint" />
+    <parameter name="tjavaWithMulripleCheckpoint" value="tjavaWithMulripleCheckPoint"/>
     <parameter name="jobNameBranchJob" value="BranchTjava"/>
     <parameter name="jobNameTJava" value="tjava"/>
     <parameter name="jobWithContexts" value="tjava"/>
@@ -167,6 +169,7 @@
             <class name="com.talend.tac.cases.executionTask.TestCheckRegenerateTask"/>
             <class name="com.talend.tac.cases.executionTask.TestDeleteProjectUsedBytask"/>
             <class name="com.talend.tac.cases.executionTask.TestDeleteServerUsedBytask"/>
+            <class name="com.talend.tac.cases.executionTask.TestCheckpoint"/>
         </classes> 
 	</test>
 	
