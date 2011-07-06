@@ -20,16 +20,29 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.dialogs.IDialogSettings;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.internal.IWorkbenchHelpContextIds;
+import org.eclipse.ui.internal.WorkbenchPlugin;
+import org.eclipse.ui.internal.dialogs.ImportExportWizard;
 import org.talend.rcp.i18n.Messages;
+import org.talend.repository.ui.wizards.newproject.copyfromeclipse.TalendImportExportWizard;
 
 /**
  * ggu class global comment. Detailled comment
  */
 public class ExportCommandAction extends Action {
+
+    private static final int SIZING_WIZARD_WIDTH = 470;
+
+    private static final int SIZING_WIZARD_HEIGHT = 550;
 
     private IWorkbenchAction exportAction;
 
@@ -67,8 +80,28 @@ public class ExportCommandAction extends Action {
             job.setPriority(Job.BUILD);
             job.schedule();
 
+            TalendImportExportWizard wizard = new TalendImportExportWizard(ImportExportWizard.EXPORT);
+            IStructuredSelection selectionToPass = StructuredSelection.EMPTY;
+
+            IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+            wizard.init(activeWorkbenchWindow.getWorkbench(), selectionToPass);
+            IDialogSettings workbenchSettings = WorkbenchPlugin.getDefault().getDialogSettings();
+            IDialogSettings wizardSettings = workbenchSettings.getSection("ImportExportAction"); //$NON-NLS-1$
+            if (wizardSettings == null) {
+                wizardSettings = workbenchSettings.addNewSection("ImportExportAction"); //$NON-NLS-1$
+            }
+            wizard.setDialogSettings(wizardSettings);
+            wizard.setForcePreviousAndNextButtons(true);
+
+            Shell parent = activeWorkbenchWindow.getShell();
+            WizardDialog dialog = new WizardDialog(parent, wizard);
+            dialog.create();
+            dialog.getShell().setSize(Math.max(SIZING_WIZARD_WIDTH, dialog.getShell().getSize().x), SIZING_WIZARD_HEIGHT);
+            activeWorkbenchWindow.getWorkbench().getHelpSystem()
+                    .setHelp(dialog.getShell(), IWorkbenchHelpContextIds.EXPORT_WIZARD);
+            dialog.open();
             // call system export
-            exportAction.run();
+            // exportAction.run();
         }
     }
 
