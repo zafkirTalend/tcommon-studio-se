@@ -68,7 +68,7 @@
 		<!--  --><!-- -->
 		<suite-file path="org/talend/tac/conf/license.xml"/>
 		<suite-file path="org/talend/tac/conf/login.xml"/>
-		<!--
+		
 		<suite-file path="org/talend/tac/conf/privilege.xml"/>
 		
 		<suite-file path="org/talend/tac/conf/license_account.xml"/>
@@ -94,10 +94,10 @@
 		 	
 		
 		<suite-file path="org/talend/tac/conf/connection.xml"/>
-		  -->
-		 <!--
+		 <!-- -->
+		 
 		<suite-file path="org/talend/tac/conf/notification.xml"/>
-		  -->
+		 <!-- -->
 		 <!--<suite-file path="user.xml"/>
 		
 		 <suite-file path="project.xml"/>			 	     
