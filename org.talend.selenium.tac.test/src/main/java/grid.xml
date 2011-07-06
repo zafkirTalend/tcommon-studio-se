@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Suite" parallel="false">
-
-
-	
 		<parameter name="grid.task.label" value="gridTask" />
 		<parameter name="testGridFutureDisplay.trigger.label" value="futureExexutionsDisplay" />
         <parameter name="plan.unexecuted.tasklabel" value="unexecutedTask" />
@@ -32,6 +29,12 @@
 		<class name="com.talend.tac.cases.grid.TestPastExecutionsDisplay" />
 		<class name="com.talend.tac.cases.grid.TestGridExecutionsPageDisplay"/>
 		<class name="com.talend.tac.cases.grid.TestGridUICalendarFilter"/>
+		</classes>
+	</test>
+	
+	<test name="gridcleantask">
+	<classes>
+		<class name="com.talend.tac.cases.grid.TestGridCleanTask" />
 		</classes>
 	</test>
 
