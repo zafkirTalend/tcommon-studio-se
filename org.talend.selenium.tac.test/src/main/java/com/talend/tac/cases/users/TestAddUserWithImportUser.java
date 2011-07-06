@@ -1,5 +1,6 @@
 package com.talend.tac.cases.users;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class TestAddUserWithImportUser extends Login{
 		selenium.click("//button[text()='Import users']");//click import user button
 		
 		this.waitForElementPresent("//input[@name='Path']", WAIT_TIME);
-		selenium.type("//input[@name='Path']", filePath);//select import file
+		selenium.type("//input[@name='Path']", parseRelativePath(filePath));//select import file
 		selenium.click("idLicenseUploadButton");//click upload user
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent(infoAfterUpload));
