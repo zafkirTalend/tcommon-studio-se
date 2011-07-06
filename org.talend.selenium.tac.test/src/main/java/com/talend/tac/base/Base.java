@@ -1,6 +1,7 @@
 package com.talend.tac.base;
 
 import java.awt.Event;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -302,6 +303,14 @@ public class Base {
 		selenium.mouseDown("//div[text()='" + itemName + "' and @role='listitem']");
 		selenium.fireEvent("//input[@id='"+id+"']", "blur");
 
+	}
+	
+	public String parseRelativePath(String filePath) {
+		
+		String newFilePath = Thread.currentThread().getContextClassLoader().getResource(filePath)+"";
+		System.out.println(Thread.currentThread().getContextClassLoader().getResource(filePath));
+		return newFilePath;		
+		
 	}
 
 }
