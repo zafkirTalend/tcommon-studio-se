@@ -57,6 +57,7 @@ Require-Bundle: org.eclipse.core.runtime;visibility:=reexport,
  org.talend.commons,
  org.eclipse.xsd,
  org.talend.utils,
- org.apache.log4j
+ org.apache.log4j,
+ org.talend.dataprofiler.datamart
 Eclipse-LazyStart: true
 Bundle-Activator: org.talend.core.model.ModelPlugin
