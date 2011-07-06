@@ -61,8 +61,17 @@ public class TestModifyTask extends Login {
 		selenium.setSpeed(MIN_SPEED);
 		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MAX_SPEED);
-		Assert.assertTrue(selenium.isTextPresent("Another operation is locking the" +
+		if(selenium.isTextPresent(rb.getString("executionTask.locked"))) {			
+			
+			Assert.assertTrue(selenium.isTextPresent(rb.getString("executionTask.locked")));
+				
+			
+		} else {
+			
+			Assert.assertTrue(selenium.isTextPresent("Another operation is locking the" +
 				" task 'modifyGeneratingTask', please retry later "));
+			
+		}
 		selenium.setSpeed(MIN_SPEED);	
 		
 	}
