@@ -48,7 +48,7 @@ public class TestAddUser extends Login {
 	}
 	
 	//clear all users---modify firstname and lastname to "admin,admin" ---user'role change to 'administrator'
-    @Test(groups={"AddUser"},dependsOnGroups={"importUser"})
+    @Test(groups={"AddUser"})
     @Parameters({"userName"})
     public void clearAllUsers(String userName) {
     	 List<String> users = new ArrayList<String>(); 
