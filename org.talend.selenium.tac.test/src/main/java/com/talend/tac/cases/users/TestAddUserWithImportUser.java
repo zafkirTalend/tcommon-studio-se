@@ -1,6 +1,5 @@
 package com.talend.tac.cases.users;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +56,7 @@ public class TestAddUserWithImportUser extends Login{
     
 	
 	//test import user with a '.cvs' file and check info
-	@Test(groups={"importUser"})
+	@Test
 	@Parameters({"filePathOfCvsFile","addUserOfCvsFileInfo"})
 	public void testAddUserImportUserWithCVSFile(String filePath,String info) {
 		
