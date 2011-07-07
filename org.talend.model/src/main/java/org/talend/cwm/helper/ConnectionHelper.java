@@ -39,8 +39,8 @@ import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.softwaredeployment.TdSoftwareSystem;
 import org.talend.cwm.xml.TdXmlElementType;
 import org.talend.cwm.xml.TdXmlSchema;
-import org.talend.dataprofiler.datamart.utils.DatamartUtils;
 import org.talend.utils.security.CryptoHelper;
+import org.talend.utils.sql.ConnectionUtils;
 import orgomg.cwm.foundation.softwaredeployment.Component;
 import orgomg.cwm.foundation.softwaredeployment.DataManager;
 import orgomg.cwm.objectmodel.core.ModelElement;
@@ -61,7 +61,7 @@ public class ConnectionHelper {
 
     // MOD xqliu 2011-07-04 feature 22201
     //public static final String PASSPHRASE = "99ZwBDt1L9yMX2ApJx fnv94o99OeHbCGuIHTy22 V9O6cZ2i374fVjdV76VX9g49DG1r3n90hT5c1"; //$NON-NLS-1$
-    public static final String PASSPHRASE = DatamartUtils.PASSPHRASE;
+    public static final String PASSPHRASE = ConnectionUtils.PASSPHRASE;
 
     // ~
 

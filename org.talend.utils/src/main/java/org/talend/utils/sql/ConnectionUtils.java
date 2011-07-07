@@ -32,6 +32,8 @@ public final class ConnectionUtils {
 
     private static Logger log = Logger.getLogger(ConnectionUtils.class);
 
+    public static final String PASSPHRASE = "99ZwBDt1L9yMX2ApJx fnv94o99OeHbCGuIHTy22 V9O6cZ2i374fVjdV76VX9g49DG1r3n90hT5c1"; //$NON-NLS-1$
+
     private static List<String> sybaseDBProductsNames;
 
     public static final String IBM_DB2_ZOS_PRODUCT_NAME = "DB2";
