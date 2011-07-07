@@ -1885,12 +1885,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 break;
             case PropertiesPackage.DATABASE_CONNECTION_ITEM:
                 itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_CONNECTIONS, path);
-                // bug 17996
-                DatabaseConnection dbconn = (DatabaseConnection) EcoreUtil.getObjectByType(itemResource.getContents(),
-                        ConnectionPackage.eINSTANCE.getDatabaseConnection());
-                if (itemResource != null && itemResource instanceof XMLResource) {
-                    XMLResource xmlResource = (XMLResource) itemResource;
-                    xmlResource.setID(dbconn, EcoreUtil.generateUUID());
+                if (isImportItem.length == 0 || !isImportItem[0]) {
+                    // bug 17996
+                    DatabaseConnection dbconn = (DatabaseConnection) EcoreUtil.getObjectByType(itemResource.getContents(),
+                            ConnectionPackage.eINSTANCE.getDatabaseConnection());
+                    if (itemResource != null && itemResource instanceof XMLResource) {
+                        XMLResource xmlResource = (XMLResource) itemResource;
+                        xmlResource.setID(dbconn, EcoreUtil.generateUUID());
+                    }
                 }
                 break;
             case PropertiesPackage.SAP_CONNECTION_ITEM:
