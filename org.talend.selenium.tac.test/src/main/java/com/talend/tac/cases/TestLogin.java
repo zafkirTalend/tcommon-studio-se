@@ -130,6 +130,22 @@ this.waitForElementPresent("//div[text()='" + rb.getString("login.error.badPassw
 	}
 
 
+	@Test
+	@Parameters( { "importUserName", "importPassWord" })
+	public void testLoginWithImportUser(String user, String password) {
+		waitForElementPresent("idLoginInput", WAIT_TIME);
+		waitForElementPresent("idLoginPasswordInput", WAIT_TIME);
+		selenium.windowMaximize();
+		selenium.type("idLoginInput", user);
+		selenium.type("idLoginPasswordInput", password);
+		selenium.keyDown("idLoginPasswordInput", "\\13");
+		selenium.keyUp("idLoginPasswordInput", "\\13");
+		selenium.click("idLoginButton");
+
+		this.waitForTextPresent("Welcome", WAIT_TIME);
+	}
+
+
 	@AfterTest
 	public void logout() {
 		// selenium.click("idLeftMenuTreeLogoutButton");
