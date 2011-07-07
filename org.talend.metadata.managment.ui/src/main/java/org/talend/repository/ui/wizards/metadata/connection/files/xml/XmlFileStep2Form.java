@@ -564,12 +564,12 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
         fieldsTableEditorView.getExtendedTableModel().addModifiedBeanListener(new IModifiedBeanListener<SchemaTarget>() {
 
             public void handleEvent(ModifiedBeanEvent<SchemaTarget> event) {
-
-                updateStatus(IStatus.OK, null);
-                String msg = fieldsTableEditorView.checkColumnNames();
-                if (!StringUtils.isEmpty(msg)) {
-                    updateStatus(IStatus.ERROR, msg);
-                }
+                checkFieldsValue();
+                // updateStatus(IStatus.OK, null);
+                // String msg = fieldsTableEditorView.checkColumnNames();
+                // if (!StringUtils.isEmpty(msg)) {
+                // updateStatus(IStatus.ERROR, msg);
+                // }
             }
         });
     }
@@ -615,6 +615,8 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
         if (!StringUtils.isEmpty(msg)) {
             updateStatus(IStatus.ERROR, msg);
             return false;
+        } else {
+            previewButton.setEnabled(true);
         }
 
         // Labelled Checkbox Combo (Row to Skip and Limit)
