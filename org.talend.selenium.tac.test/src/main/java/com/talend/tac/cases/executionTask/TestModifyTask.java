@@ -45,37 +45,6 @@ public class TestModifyTask extends Login {
 		selenium.setSpeed(MIN_SPEED);
 	}
 	
-	//test modify label of generating task and check warn info
-	@Test(dependsOnMethods={"testModifyTask"})
-	@Parameters({"modifyTask"})
-	public void testModifyLabelOfGeneratingTaskAndCheckWarnInfo(String label) {
-		
-		modifiedTask();		
-		
-		this.waitForElementPresent("//span[text()='"+label+"']", WAIT_TIME);
-		selenium.mouseDown("//span[text()='"+label+"']");//select a exist task
-        selenium.setSpeed(MID_SPEED);
-		selenium.click("idJobConductorTaskGenerateButton");//generate task
-		
-		this.typeString("idJobConductorTaskLabelInput", "modifyGeneratingTask");//task name /Label   
-		selenium.setSpeed(MIN_SPEED);
-		selenium.click("idFormSaveButton");
-		selenium.setSpeed(MAX_SPEED);
-		if(selenium.isTextPresent(rb.getString("executionTask.locked"))) {			
-			
-			Assert.assertTrue(selenium.isTextPresent(rb.getString("executionTask.locked")));
-				
-			
-		} else {
-			
-			Assert.assertTrue(selenium.isTextPresent("Another operation is locking the" +
-				" task 'modifyGeneratingTask', please retry later "));
-			
-		}
-		selenium.setSpeed(MIN_SPEED);	
-		
-	}
-	
 	//test modify job of generating task and check warn info
 	@Test(dependsOnMethods={"testModifyTask"})
 	@Parameters({"TaskBaseBranch","jobNameTRunJob","version0.1",
