@@ -8,7 +8,7 @@ import com.talend.tac.cases.Login;
 public class TestUploadLicense extends Login {
 	
 	@Test
-	public void testAddNoLicense() {
+	public void testUploadNoLicense() {
 		waitForElementPresent("idMenuLicenseElement", 30);
 		selenium.click("idMenuLicenseElement");
 		waitForElementPresent("//button[text()='Upload']", WAIT_TIME);
@@ -18,11 +18,11 @@ public class TestUploadLicense extends Login {
 	
 	@Test
 	@Parameters( { "license.fileInvalid.path" })
-	public void testAddInvalidLicense(String license) {
+	public void testUploadInvalidLicense(String license) {
 		waitForElementPresent("idMenuLicenseElement", 30);
 		selenium.click("idMenuLicenseElement");
 		waitForElementPresent("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", WAIT_TIME);
-		selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", license);
+		selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", parseRelativePath(license));
 		selenium.click("//button[text()='Upload']");
 		//assertTrue(selenium.isTextPresent("License not set: License invalid"));
 		
@@ -30,11 +30,11 @@ public class TestUploadLicense extends Login {
 	
 	@Test
 	@Parameters( { "license.file.path" })
-	public void testAddValidLicense(String license) {
+	public void testUploadValidLicense(String license) {
 		waitForElementPresent("idMenuLicenseElement", 30);
 		selenium.click("idMenuLicenseElement");
 		waitForElementPresent("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", WAIT_TIME);
-		selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", license);
+		selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", parseRelativePath(license));
 		selenium.click("//button[text()='Upload']");
 		
 	}

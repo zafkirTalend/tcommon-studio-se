@@ -37,7 +37,7 @@ public class TestDbConfig extends DbConfig {
 			
 		//incorrect licence
 		selenium.click("//button[text()='Set new license']");
-		selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", invalidLicense);
+		selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", parseRelativePath(invalidLicense));
 		selenium.click("//button[text()='Upload']");
 		selenium.waitForCondition("selenium.isTextPresent(\"Invalid license key\")", WAIT_TIME*1000+"");
 		clickWaitForElementPresent("//button[text()='OK']");
@@ -45,7 +45,7 @@ public class TestDbConfig extends DbConfig {
 			
 		//correct licnese
 		selenium.click("//button[text()='Set new license']");
-		selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", license);
+		selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", parseRelativePath(license));
 		selenium.click("//button[text()='Upload']");
 		selenium.waitForCondition("selenium.isTextPresent(\"New license set\")", WAIT_TIME*1000+"");
 		clickWaitForElementPresent("//button[text()='OK']");
