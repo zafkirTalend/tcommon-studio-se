@@ -2,6 +2,9 @@
 <suite name="Suite" parallel="false">
 
 	<!-- Import User -->
+	<parameter name="importUserName" value="userWithCvsFile@talend.com"/>
+	<parameter name="importPassWord" value="admin"/>
+	
 	<parameter name="filePathOfCvsFile" value="org/talend/tac/fileFolder/user1.cvs" />
 	<parameter name="addUserOfCvsFileInfo" value="User 'userWithCvsFile@talend.com' successfully added." />
 	<parameter name="addUserUseExistLabelOfCvsFileInfo" value="User 'userWithCvsFile@talend.com' not added (Login already in use)" /> 
@@ -53,10 +56,20 @@
     <parameter name="_FirstName" value="admin"/>
     <parameter name="_LastName" value="admin"/>
     <!-- ModifiyLoginName -->
-	<test name="User" preserve-order="true">
     
+    <test name="Import user">
         <classes>
             <class name="com.talend.tac.cases.users.TestAddUserWithImportUser"/>
+            <class name="com.talend.tac.cases.TestLogin">
+                <methods>
+                    <include name="testLoginWithImportUser"></include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+	<test name="User" preserve-order="true">
+        <classes>
             <class name="com.talend.tac.cases.users.TestAddUser">
                <methods>
                     <exclude name="testUnderMysqlAddUser"></exclude>
@@ -67,8 +80,7 @@
             <class name="com.talend.tac.cases.users.TestDisplayUser"/>
             <class name="com.talend.tac.cases.users.TestModifyUser"/>
             <class name="com.talend.tac.cases.users.ClearUser"/>
-            <!--<class name="com.talend.tac.cases.users.TestAddUserImportUser"/>
-        --></classes>
+        </classes>
 
 	</test>
 	
