@@ -17,7 +17,11 @@ public class TestAddTriggerAddFileTrigger extends AddTrigger {
     public void testAddTriggerAddFileTriggerAddExist(String taskLabel,String triggerLabel,String triggerDescription,
     		String folderPath,String fileMask,String serverName) {
     	
-		addFileTrigger(taskLabel, triggerLabel, triggerDescription, "60", folderPath, fileMask, serverName);
+		String FilePath = this.parseRelativePath(folderPath);
+		
+		String newFilePath = FilePath.substring(6);
+		System.out.println(newFilePath);
+		addFileTrigger(taskLabel, triggerLabel, triggerDescription, "15", newFilePath, fileMask, serverName);
 		
 		selenium.click("idFileTriggerSave");
 	
@@ -35,7 +39,7 @@ public class TestAddTriggerAddFileTrigger extends AddTrigger {
 		
 	}
 	
-	//test add a	 file trigger of label is exist
+	//test add a	file trigger of label is exist
 	@Test(dependsOnMethods={"testAddTriggerAddFileTriggerAddExist"})
 	@Parameters({"TaskBaseBranch","addFileTriggerOfExist","addFileTriggerOfExistDescription","FolderPath",
 		"FileMask","ServerForUseAvailable"})
