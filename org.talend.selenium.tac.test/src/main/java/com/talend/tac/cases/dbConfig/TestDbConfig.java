@@ -37,7 +37,7 @@ public class TestDbConfig extends DbConfig {
 			
 		//incorrect licence
 		selenium.click("//button[text()='Set new license']");
-		selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", parseRelativePath(this.getClass(),invalidLicense));
+		selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", parseRelativePath(invalidLicense));
 		System.out.println("-------------");
 		selenium.click("//button[text()='Upload']");
 		selenium.waitForCondition("selenium.isTextPresent(\"Invalid license key\")", WAIT_TIME*1000+"");

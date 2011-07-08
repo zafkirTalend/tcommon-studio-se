@@ -1,6 +1,8 @@
 package com.talend.tac.base;
 
 import java.awt.Event;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -306,17 +308,12 @@ public class Base {
 	}
 	
 	public String parseRelativePath(String filePath) {
-		String newFilePath = Thread.currentThread().getContextClassLoader().getResource(filePath)+"";
-		System.out.println(Thread.currentThread().getContextClassLoader().getResource(filePath) + "----");
-		System.out.println(Base.class.getResource(filePath) + "-- class");
-		return newFilePath;		
-	}
-
-	public String parseRelativePath(Class clazz, String filePath) {
-		String newFilePath = this.getClass().getCanonicalName();
-		System.out.println(Thread.currentThread().getContextClassLoader().getResource(filePath) + "----");
-		System.out.println(clazz.getClassLoader().getResource(filePath) + "-- class");
-		System.out.println(Base.class.getClassLoader().getResource(filePath) + "Base");
-		return newFilePath;		
+//		String newFilePath = Thread.currentThread().getContextClassLoader().getResource(filePath)+"";
+//		System.out.println(Thread.currentThread().getContextClassLoader().getResource(filePath) + "----");
+//		System.out.println(Base.class.getResource(filePath) + "-- class");
+//		return newFilePath;
+		
+		File file = new File(filePath);
+		return file.getAbsolutePath();
 	}
 }
