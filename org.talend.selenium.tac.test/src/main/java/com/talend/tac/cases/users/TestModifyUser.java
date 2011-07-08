@@ -5,7 +5,8 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.talend.tac.cases.Login;
-@Test(groups={"ModifyUser"},dependsOnGroups={"DisplayUser"})
+@Test
+//(groups={"ModifyUser"},dependsOnGroups={"DisplayUser"})
 public class TestModifyUser extends Login {
 
    
