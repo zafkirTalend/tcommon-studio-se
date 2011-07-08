@@ -3,6 +3,7 @@ package com.talend.tac.base;
 import java.awt.Event;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -307,13 +308,21 @@ public class Base {
 
 	}
 	
-	public String parseRelativePath(String filePath) {
-//		String newFilePath = Thread.currentThread().getContextClassLoader().getResource(filePath)+"";
-//		System.out.println(Thread.currentThread().getContextClassLoader().getResource(filePath) + "----");
-//		System.out.println(Base.class.getResource(filePath) + "-- class");
-//		return newFilePath;
+	public String parseRelativePath(String filePath){
+		String newFilePath = Thread.currentThread().getContextClassLoader().getResource(filePath)+"";
+		System.out.println(Thread.currentThread().getContextClassLoader().getResource(filePath) + "----");
+		System.out.println(Base.class.getResource(filePath) + "-- class");
 		
-		File file = new File(filePath);
-		return file.getAbsolutePath();
+		File file = new File(filePath).getAbsoluteFile();
+		System.out.println(file.getAbsolutePath() + "fap");
+		System.out.println(file.getAbsoluteFile() + "gaf");
+		
+		String fileUrl = null;
+		try {
+			return fileUrl= file.toURL()+"";
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		return fileUrl;
 	}
 }
