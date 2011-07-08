@@ -7,7 +7,8 @@ import com.talend.tac.cases.Login;
 
 public class ClearUser extends Login{
   
-	@Test(dependsOnGroups={"ModifyUser"})
+	@Test
+//	(dependsOnGroups={"ModifyUser"})
 	@Parameters({"userName","_FirstName","_LastName"})
 	public void clearUsers(String userName,String FirstName,String LastName) throws Exception {
    
