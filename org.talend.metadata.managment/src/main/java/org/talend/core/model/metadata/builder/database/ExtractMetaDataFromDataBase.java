@@ -325,9 +325,9 @@ public class ExtractMetaDataFromDataBase {
             if (tableType == null) {
                 tableType = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, 4);
             }
-            if (tableType.startsWith("A")) {
-                System.out.println("AA");
-            }
+            // if (tableType.startsWith("A")) {
+            // System.out.println("AA");
+            // }
             if ("T".equals(tableType)) { //$NON-NLS-1$
                 tableType = ETableTypes.TABLETYPE_TABLE.getName();
             }
@@ -939,7 +939,7 @@ public class ExtractMetaDataFromDataBase {
             checkUniqueKeyConstraint(medataTable.getLabel(), primaryKeys, connection);
             String tableName = medataTable.getLabel();
             ResultSet columns;
-
+            ResultSetMetaData resultMetadata = null;
             if (ExtractMetaDataUtils.isUseAllSynonyms()) {
                 String sql = "select * from all_tab_columns where table_name='" + tableName + "' "; //$NON-NLS-1$ //$NON-NLS-2$
                 Statement stmt = ExtractMetaDataUtils.conn.createStatement();
@@ -953,7 +953,7 @@ public class ExtractMetaDataFromDataBase {
                 }
             }
             boolean isMYSQL = EDatabaseTypeName.MYSQL.getDisplayName().equals(metadataConnection.getDbType());
-            ResultSetMetaData resultMetadata = null;
+
             if (isMYSQL) {
                 Statement statement = connection.createStatement();
                 String query = "SELECT * FROM `" + tableName + "` limit 1"; //$NON-NLS-1$ //$NON-NLS-2$
@@ -1027,10 +1027,14 @@ public class ExtractMetaDataFromDataBase {
                     dbType = handleDBtype(dbType);
                     metadataColumn.setSourceType(dbType);
                     Integer columnSize;
-                    if (isMYSQL) {
-                        columnSize = ExtractMetaDataUtils.getMysqlIntMetaDataInfo(resultMetadata, columnIndex);
+                    if (ExtractMetaDataUtils.isUseAllSynonyms()) {
+                        columnSize = ExtractMetaDataUtils.getOracleIntMatadataInfo(columns, "DATA_LENGTH");
                     } else {
-                        columnSize = ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE");
+                        if (isMYSQL) {
+                            columnSize = ExtractMetaDataUtils.getMysqlIntMetaDataInfo(resultMetadata, columnIndex);
+                        } else {
+                            columnSize = ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE");
+                        }
                     }
                     metadataColumn.setLength(columnSize); //$NON-NLS-1$
                     // Convert dbmsType to TalendType

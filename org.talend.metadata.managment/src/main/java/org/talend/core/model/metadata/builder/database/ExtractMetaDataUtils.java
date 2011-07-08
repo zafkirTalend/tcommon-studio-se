@@ -230,6 +230,23 @@ public class ExtractMetaDataUtils {
         return metaDataInfo;
     }
 
+    public static Integer getOracleIntMatadataInfo(ResultSet columns, String infoType) {
+        Integer metaDataInfo = new Integer(0);
+        try {
+            metaDataInfo = new Integer(columns.getInt(infoType));
+            if (columns.getString("CHAR_USED").equals("C")) {
+                metaDataInfo = metaDataInfo / 2;
+            }
+        } catch (SQLException e) {
+            // log.error(e.toString());
+            return metaDataInfo;
+        } catch (Exception e) {
+            // log.error(e.toString());
+            return metaDataInfo;
+        }
+        return metaDataInfo;
+    }
+
     public static Integer getMysqlIntMetaDataInfo(ResultSetMetaData rMetadata, int columnIndex) {
         Integer metaDataInfo = new Integer(0);
         try {
