@@ -21,7 +21,7 @@ public class TestDeleteUser extends Login {
 	  
 	}
 	
-	@Test(groups={"DeleteUser"},dependsOnGroups={"AddUser"})
+	@Test(groups={"DeleteUser"})
 	@Parameters({"userName","LoginNameChooseAdministratorRole"})
 	public void testCancleDeleteUser(String userName,String deleteUser) throws Exception {
 		this.clickWaitForElementPresent("idMenuUserElement");
