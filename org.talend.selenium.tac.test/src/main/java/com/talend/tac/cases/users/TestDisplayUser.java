@@ -68,7 +68,7 @@ public class TestDisplayUser extends Login {
 	}
     
     //Modify the user display order  
-	@Test(dependsOnMethods={"testModifyDisplayUsersColumns"})
+	@Test(dependsOnMethods={"testDidplayUsers"})
 	@Parameters({"userName","importUserName","CopyUser"})
 	public void testModifyDisplayUsersOrder(String userName,String importUserName,String CopyUser) throws Exception {
 		
@@ -87,7 +87,7 @@ public class TestDisplayUser extends Login {
      
 	}
     //hidden users/display users
-	@Test(dependsOnMethods={"testModifyDisplayUsersOrder"})
+	@Test(dependsOnMethods={"testDidplayUsers"})
 	@Parameters({"userName","LoginName","LoginNameNotChooseActive","LoginNameChooseMulripleRoles"})
 	public void testHiddenDidplayUsers(String userName,String LoginName,
 			String LoginNameNotChooseActive,String LoginNameChooseMulripleRoles) throws Exception {
