@@ -309,20 +309,17 @@ public class Base {
 	}
 	
 	public String parseRelativePath(String filePath){
-		String newFilePath = Thread.currentThread().getContextClassLoader().getResource(filePath)+"";
-		System.out.println(Thread.currentThread().getContextClassLoader().getResource(filePath) + "----");
-		System.out.println(Base.class.getResource(filePath) + "-- class");
-		
-		File file = new File(filePath).getAbsoluteFile();
-		System.out.println(file.getAbsolutePath() + "fap");
-		System.out.println(file.getAbsoluteFile() + "gaf");
-		
-		String fileUrl = null;
+		URL fileUrl = null;
+		String onHudson = System.getProperty("tests.on.hudson");
 		try {
-			return fileUrl= file.toURL()+"";
+			if(onHudson != null && !"".equals(onHudson.trim())) {
+				fileUrl = new File(System.getProperty("selenium.target.src") + filePath).toURL();
+			} else {
+				fileUrl = Base.class.getClassLoader().getResource(filePath);
+			}
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-		return fileUrl;
+		return fileUrl.toString();
 	}
 }
