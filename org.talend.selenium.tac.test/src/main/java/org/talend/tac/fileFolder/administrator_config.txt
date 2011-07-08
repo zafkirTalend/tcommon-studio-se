@@ -1,0 +1,116 @@
+config.scheduler,config.scheduler.archiveAndExecutionLogsPath,c:/Talend/Administrator/archiveJobs,true
+config.scheduler,config.scheduler.recoveryLogsPath,c:/Talend/Administrator/executionLogs,true
+config.scheduler,config.scheduler.quarzServlet,Initialized,true
+config.primary.commandLine,config.commandLine.host,127.0.0.1,true
+config.primary.commandLine,config.commandLine.port,8002,false
+config.primary.commandLine,config.commandLine.archivePath,c:/Talend/CommandLine/exports,null
+config.primary.commandLine,config.commandLine.userComponentPath,,null
+config.secondary.commandLine,config.commandLine.host,127.0.0.1,true
+config.secondary.commandLine,config.commandLine.port,8003,false
+config.secondary.commandLine,config.commandLine.archivePath,c:/Talend/CommandLine/exports,null
+config.secondary.commandLine,config.commandLine.userComponentPath,,null
+config.database,config.database.url,jdbc:h2:F:/home/automation/Automation/automation/databases/database3/talend_administrator;AUTO_SERVER=TRUE;MVCC=TRUE,true
+config.database,config.database.user,tisadmin,true
+config.database,config.database.password,tisadmin,true
+config.database,config.database.driver,org.h2.Driver,true
+config.database,config.database.link,<a href="http://192.168.0.245:8088//org.talend.administrator64035/h2console" target="_blank">http://192.168.0.245:8088//org.talend.administrator64035/h2console</a>,true
+config.log4j,config.log4j.talendAppender,C:/Talend/TacLogs/TACLOG.TXT,true
+config.log4j,config.log4j.talendAppender.threshold,WARN,true
+config.general,config.general.webAppVersion,5.0.0NB.64035,null
+config.general,config.general.dbModelVersion,5.0.0NB.64035,null
+config.general,config.general.location,http://192.168.0.245:8088//org.talend.administrator64035,true
+config.soaManager,config.soaManager.jobsDeployFolder,c:/soaDeploy,true
+config.soaManager,config.soaManager.defaultServiceNameSpace,http://www.talend.org,null
+config.soaManager,config.soaManager.host,127.0.0.1,false
+config.svn,config.svn.serverLocationUrl,https://192.168.0.245:8443/svn/auto/,true
+config.svn,config.svn.username,tisadmin,true
+config.svn,config.svn.password,tisadmin,true
+config.soaManager,config.soaManager.port,8004,false
+config.smtp,config.smtp.useSmtp,true,true
+config.smtp,config.smtp.host,smtp.163.com,true
+config.smtp,config.smtp.port,25,true
+config.smtp,config.smtp.requireSSL,false,true
+config.smtp,config.smtp.userName,lindy512,true
+config.smtp,config.smtp.password,talend,true
+config.ldap,config.ldap.useLDAPAutentication,false,true
+config.ldap,config.ldap.host,192.168.0.27,true
+config.ldap,config.ldap.port,389,true
+config.ldap,config.ldap.root,dc=talend,dc=com,true
+config.ldap,config.ldap.principalDNPrefix,cn=Manager,dc=talend,dc=com,true
+config.ldap,config.ldap.adminPassword,talend,true
+config.ldap,config.ldap.emailField,mail,true
+config.ldap,config.ldap.firstName,homePhone,true
+config.ldap,config.ldap.lastName,givenName,true
+label.suite,menu.dqportal,,null
+label.suite,menu.drools,,null
+label.suite,menu.mdm,,null
+dynamic.link,menu.dynamicLink.url,,null
+----------------------------------------------------
+Exported at Fri Jul 08 10:55:12 CST 2011
+----------------------------------------------------
+java.runtime.name=Java(TM) SE Runtime Environment
+sun.boot.library.path=D:\Program Files\Java\jdk1.6.0_11\jre\bin
+java.vm.version=11.0-b16
+shared.loader=
+java.vm.vendor=Sun Microsystems Inc.
+java.vendor.url=http://java.sun.com/
+path.separator=;
+java.vm.name=Java HotSpot(TM) Server VM
+tomcat.util.buf.StringCache.byte.enabled=true
+file.encoding.pkg=sun.io
+java.util.logging.config.file=d:\Program Files\Apache Software Foundation\Tomcat 6.0\conf\logging.properties
+user.country=CN
+sun.os.patch.level=
+java.vm.specification.name=Java Virtual Machine Specification
+user.dir=d:\Program Files\Apache Software Foundation\Tomcat 6.0
+java.runtime.version=1.6.0_11-b03
+java.awt.graphicsenv=sun.awt.Win32GraphicsEnvironment
+java.endorsed.dirs=d:\Program Files\Apache Software Foundation\Tomcat 6.0\endorsed
+os.arch=x86
+java.io.tmpdir=d:\Program Files\Apache Software Foundation\Tomcat 6.0\temp
+line.separator=
+
+java.vm.specification.vendor=Sun Microsystems Inc.
+user.variant=
+java.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+java.naming.factory.url.pkgs=org.apache.naming
+os.name=Windows Vista
+sun.jnu.encoding=GBK
+java.library.path=d:\Program Files\Apache Software Foundation\Tomcat 6.0\bin;.;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Windows7Master;C:\Program Files\Common Files\Thunder Network\KanKan\Codecs;C:\Program Files\Microsoft SQL Server\80\Tools\Binn\;C:\Program Files\Microsoft SQL Server\90\Tools\binn\;C:\Program Files\Microsoft SQL Server\90\DTS\Binn\;C:\Program Files\Microsoft SQL Server\90\Tools\Binn\VSShell\Common7\IDE\;D:\Program Files\TortoiseSVN\bin;
+java.specification.name=Java Platform API Specification
+java.class.version=50.0
+sun.management.compiler=HotSpot Tiered Compilers
+os.version=6.1
+user.home=C:\
+user.timezone=Asia/Shanghai
+catalina.useNaming=true
+java.awt.printerjob=sun.awt.windows.WPrinterJob
+java.specification.version=1.6
+file.encoding=GBK
+catalina.home=d:\Program Files\Apache Software Foundation\Tomcat 6.0
+user.name=LWANG$
+java.class.path=d:\Program Files\Apache Software Foundation\Tomcat 6.0\bin\bootstrap.jar
+java.naming.factory.initial=org.apache.naming.java.javaURLContextFactory
+package.definition=sun.,java.,org.apache.catalina.,org.apache.coyote.,org.apache.tomcat.,org.apache.jasper.
+java.vm.specification.version=1.0
+sun.arch.data.model=32
+java.home=D:\Program Files\Java\jdk1.6.0_11\jre
+svnkit.ssh2.persistent=false
+java.specification.vendor=Sun Microsystems Inc.
+user.language=zh
+awt.toolkit=sun.awt.windows.WToolkit
+java.vm.info=mixed mode
+java.version=1.6.0_11
+java.ext.dirs=D:\Program Files\Java\jdk1.6.0_11\jre\lib\ext;C:\Windows\Sun\Java\lib\ext
+sun.boot.class.path=D:\Program Files\Java\jdk1.6.0_11\jre\lib\resources.jar;D:\Program Files\Java\jdk1.6.0_11\jre\lib\rt.jar;D:\Program Files\Java\jdk1.6.0_11\jre\lib\sunrsasign.jar;D:\Program Files\Java\jdk1.6.0_11\jre\lib\jsse.jar;D:\Program Files\Java\jdk1.6.0_11\jre\lib\jce.jar;D:\Program Files\Java\jdk1.6.0_11\jre\lib\charsets.jar;D:\Program Files\Java\jdk1.6.0_11\jre\classes
+java.vendor=Sun Microsystems Inc.
+server.loader=
+catalina.base=d:\Program Files\Apache Software Foundation\Tomcat 6.0
+file.separator=\
+java.vendor.url.bug=http://java.sun.com/cgi-bin/bugreport.cgi
+common.loader=${catalina.home}/lib,${catalina.home}/lib/*.jar
+sun.cpu.endian=little
+sun.io.unicode.encoding=UnicodeLittle
+package.access=sun.,org.apache.catalina.,org.apache.coyote.,org.apache.tomcat.,org.apache.jasper.,sun.beans.
+sun.desktop=windows
+sun.cpu.isalist=pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86
