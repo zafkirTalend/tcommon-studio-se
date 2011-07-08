@@ -6,7 +6,7 @@ public class TestGridCleanTask extends Grid {
 
 	@Test
 	
-	public void testGridShowStatisticView() {
+	public void testGridCleanAllTasks() {
 		this.cleanTask();
 	}
 
