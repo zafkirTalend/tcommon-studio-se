@@ -313,9 +313,10 @@ public class Base {
 	}
 
 	public String parseRelativePath(Class clazz, String filePath) {
-		String newFilePath = clazz.getClassLoader().getResource(filePath)+"";
+		String newFilePath = this.getClass().getCanonicalName();
 		System.out.println(Thread.currentThread().getContextClassLoader().getResource(filePath) + "----");
 		System.out.println(clazz.getClassLoader().getResource(filePath) + "-- class");
+		System.out.println(Base.class.getClassLoader().getResource(filePath) + "Base");
 		return newFilePath;		
 	}
 }
