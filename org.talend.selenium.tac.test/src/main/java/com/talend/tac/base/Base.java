@@ -313,7 +313,7 @@ public class Base {
 		String onHudson = System.getProperty("tests.on.hudson");
 		try {
 			if(onHudson != null && !"".equals(onHudson.trim())) {
-				fileUrl = new File(System.getProperty("selenium.target.src") + filePath).toURL();
+				fileUrl = new File(System.getProperty("selenium.target.src") + File.separator + filePath).toURL();
 			} else {
 				fileUrl = Base.class.getClassLoader().getResource(filePath);
 			}
