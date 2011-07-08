@@ -320,6 +320,7 @@ public class Base {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
+		System.out.println(fileUrl.toString());
 		return fileUrl.toString();
 	}
 }
