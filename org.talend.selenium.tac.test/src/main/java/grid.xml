@@ -11,11 +11,10 @@
 		<parameter name="statisticEnabled" value="enabled" />
 		<parameter name="ServerForUseAvailable" value="use_server_available" />
 		
-		<test name="recoveryManagement">
+	    <test name="recoveryManagement">
 		<classes>
 		<class name="com.talend.tac.cases.grid.TestGridRecoveryManagement"/>
 		</classes>
-		
 		</test>
 		
 		<test name="testRegenerate">
@@ -30,13 +29,13 @@
 		<class name="com.talend.tac.cases.grid.TestGridExecutionsPageDisplay"/>
 		<class name="com.talend.tac.cases.grid.TestGridUICalendarFilter"/>
 		</classes>
-	</test>
+	    </test>
 	
-	<test name="gridcleantask">
-	<classes>
+	    <test name="gridcleantask">
+	    <classes>
 		<class name="com.talend.tac.cases.grid.TestGridCleanTask" />
 		</classes>
-	</test>
+	    </test>
 
 </suite>
 
