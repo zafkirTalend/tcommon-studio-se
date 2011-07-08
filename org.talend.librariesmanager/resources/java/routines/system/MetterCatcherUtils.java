@@ -178,8 +178,8 @@ public class MetterCatcherUtils {
             for (MetterCatcherMessage scm : messages) {
                 messagesToSend.add(scm);
             }
+            messages.clear();
         }
-        messages.clear();
         return messagesToSend;
     }
 
