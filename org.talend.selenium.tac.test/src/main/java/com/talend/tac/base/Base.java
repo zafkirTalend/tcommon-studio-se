@@ -306,11 +306,16 @@ public class Base {
 	}
 	
 	public String parseRelativePath(String filePath) {
-		
 		String newFilePath = Thread.currentThread().getContextClassLoader().getResource(filePath)+"";
-		System.out.println(Thread.currentThread().getContextClassLoader().getResource(filePath));
+		System.out.println(Thread.currentThread().getContextClassLoader().getResource(filePath) + "----");
+		System.out.println(Base.class.getResource(filePath) + "-- class");
 		return newFilePath;		
-		
 	}
 
+	public String parseRelativePath(Class clazz, String filePath) {
+		String newFilePath = clazz.getClassLoader().getResource(filePath)+"";
+		System.out.println(Thread.currentThread().getContextClassLoader().getResource(filePath) + "----");
+		System.out.println(clazz.getClassLoader().getResource(filePath) + "-- class");
+		return newFilePath;		
+	}
 }
