@@ -34,16 +34,24 @@ public class Base {
 	public static String MAX_SPEED = "5000";
 	public static int WAIT_TIME = 500;
 	public static int MAX_WAIT_TIME = 500;
+	
+	public static boolean onHudson = false;
 
 	@BeforeClass
 	@Parameters({ "server", "port", "browser", "url", "language", "country",
 			"root" })
 	public void initSelenium(String server, String port, String browser,
 			String url, String language, String country, String root) {
-		server = this.setDefaultValue(server, "localhost");
+		
+		server = this.setDefaultValue("localhost", System.getProperty("selenium.server"), server);
+//		server = this.setDefaultValue(server, "localhost");
+		
 		port = this.setDefaultValue(port, 4444 + "");
 		browser = this.setDefaultValue(browser, "*firefox");
-		url = this.setDefaultValue(url, "http://localhost:8080/");
+		
+		url = this.setDefaultValue("http://localhost:8080/", System.getProperty("tomcat.url"), url);
+//		url = this.setDefaultValue(url, "http://localhost:8080/");
+		
 		root = this.setDefaultValue(root, "/org.talend.administrator/");
 
 		language = this.setDefaultValue(language, "en");
@@ -61,6 +69,16 @@ public class Base {
 		selenium.open(root);
 	}
 
+	public boolean isOnHudson(){
+		String testsOnHudson = System.getProperty("tests.on.hudson");
+		if(testsOnHudson != null && !"".equals(testsOnHudson.trim())) {
+			onHudson = true;
+		}
+		return onHudson;
+	}
+		
+
+	
 	public String setDefaultValue(String variable, String value) {
 		String setValue = variable;
 		if ("".equals(variable) || variable == null) {
@@ -69,6 +87,31 @@ public class Base {
 		return setValue;
 	}
 
+	/**
+	 * Get value one by one, if one of value is not null and "" return.
+	 * If all of them doesn't set, return the default value
+	 * @param defaultValue
+	 * @param values
+	 * @return
+	 */
+	public String setDefaultValue(String defaultValue, String...values ){
+		
+		String setValue = "";
+		
+		for(int i=0; i<values.length-1; i++) {
+			setValue = this.setDefaultValue(values[i], values[i+1]);
+			System.out.println("The " + i + " value =" + setValue);
+			if(!"".equals(setValue)) {
+				break;
+			}
+		}
+		if("".equals(setValue)) {
+			setValue = defaultValue;
+		}
+		System.out.println("Finally =" + setValue);
+		return setValue;
+	}
+	
 	public String getString(String key, String[] params) {
 		String value = rb.getString(key);
 
@@ -310,9 +353,9 @@ public class Base {
 	
 	public String parseRelativePath(String filePath){
 		URL fileUrl = null;
-		String onHudson = System.getProperty("tests.on.hudson");
+//		String onHudson = System.getProperty("tests.on.hudson");
 		try {
-			if(onHudson != null && !"".equals(onHudson.trim())) {
+			if(this.isOnHudson()) {
 				fileUrl = new File(System.getProperty("selenium.target.src") + File.separator + filePath).toURL();
 			} else {
 				fileUrl = Base.class.getClassLoader().getResource(filePath);
