@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.runtime.Path;
 import org.talend.commons.bridge.ReponsitoryContextBridge;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.utils.PathUtils;
@@ -115,7 +116,18 @@ public final class DBConnectionContextUtils {
                     ConnectionContextHelper.createParameters(varList, paramName, url);
                     break;
                 case DriverJar:
-                    ConnectionContextHelper.createParameters(varList, paramName, conn.getDriverJarPath());
+                    // fix for 23031
+                    String path = conn.getDriverJarPath();
+                    PathUtils.getOSPath(path);
+                    if (path.contains("\\")) {
+                        Path p = new Path(path);
+                        String newPath = p.getDevice();
+                        for (int i = 0; i < p.segmentCount(); i++) {
+                            newPath = newPath + "\\\\" + p.segment(i);
+                        }
+                        path = newPath;
+                    }
+                    ConnectionContextHelper.createParameters(varList, paramName, path);
                     break;
                 case MappingFile:
                     ConnectionContextHelper.createParameters(varList, paramName, conn.getDbmsId());
