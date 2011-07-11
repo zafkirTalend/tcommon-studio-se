@@ -301,6 +301,8 @@ public class TestAddTaskBaseBranchProject  extends AddTask {
 				serverName, statisticName);
 		if (!selenium.isElementPresent("//span[text()='" + label + "']")) {
 			selenium.click("idFormSaveButton");
+			this.waitForElementPresent("//span[text()='"
+					+ label + "']", WAIT_TIME);
 			selenium.setSpeed(MID_SPEED);
 			Assert.assertTrue(selenium.isElementPresent("//span[text()='"
 					+ label + "']"));
