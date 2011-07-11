@@ -171,8 +171,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return singleton;
     }
 
-    protected boolean projectModified;
-
     /**
      * DOC smallet Comment method "getObjectFromFolder".
      * 
@@ -316,12 +314,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                             addToHistory(property.getId(), type, property.getItem().getState().getPath());
                         } else {
                             invalidItems.add(curItem);
-                            projectModified = true;
                         }
                     }
                 } else {
                     invalidItems.add(curItem);
-                    projectModified = true;
                 }
             }
             for (Item item : invalidItems) {
@@ -388,7 +384,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                             cont.setProperty(property);
                             cont.setId(property.getId());
                             addFolderMembers(project, type, cont, (IFolder) current, onlyLastVersion, options);
-                            projectModified = true;
                         }
                         if (current.getName().equals(BIN)) {
                             // if empty directory, just delete it
@@ -420,12 +415,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         }
                         if (!physicalPropertyFounds.contains(name)) {
                             itemsDeleted.add(curItem);
-                            projectModified = true;
                         }
                     } else {
                         if (!physicalDirectoryFounds.contains(curItem.getProperty().getLabel())) {
                             itemsDeleted.add(curItem);
-                            projectModified = true;
                         }
                     }
                 }
@@ -524,10 +517,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         List<IRepositoryViewObject> toReturn = new VersionList(allVersion);
         FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
 
-        if (recursiveCall.length == 0 || !recursiveCall[0]) {
-            projectModified = false;
-        }
-
         if (folder != null) {
             IFolder physicalFolder;
             FolderItem currentFolderItem = null;
@@ -578,7 +567,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 }
                 if (toRemoveFromFolder.size() != 0) {
                     currentFolderItem.getChildren().removeAll(toRemoveFromFolder);
-                    projectModified = true;
                 }
             }
             // check the items from physical folder, in case any item has been added (or deleted) manually (or from copy
@@ -610,7 +598,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                             && !currentFolderItem.getChildren().contains(property.getItem())) {
                                         currentFolderItem.getChildren().add(property.getItem());
                                         property.getItem().setParent(currentFolderItem);
-                                        projectModified = true;
                                     }
                                 } else {
                                     log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
@@ -629,7 +616,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                     parentFolder = folderHelper.createFolder(current.getProjectRelativePath().toString());
                                 }
                                 parentFolder.setParent(currentFolderItem);
-                                projectModified = true;
                                 toReturn.addAll(getSerializableFromFolder(project, (IFolder) current, id, type, allVersion, true,
                                         withDeleted, avoidSaveProject, true));
                             }
@@ -664,12 +650,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                             }
                             if (!physicalPropertyFounds.contains(name)) {
                                 itemsDeleted.add(curItem);
-                                projectModified = true;
                             }
                         } else if (searchInChildren && ProxyRepositoryFactory.getInstance().isFullLogonFinished()) {
                             if (!physicalDirectoryFounds.contains(curItem.getProperty().getLabel())) {
                                 itemsDeleted.add(curItem);
-                                projectModified = true;
                             }
                         }
                     }
@@ -781,7 +765,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             }
         }
         xmiResourceManager.saveResource(projectResource);
-        projectModified = false;
     }
 
     /**
@@ -2212,7 +2195,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                             ((FolderItem) ((Property) object).getItem().getParent()).getChildren().remove(
                                     ((Property) object).getItem());
                             ((Property) object).getItem().setParent(null);
-                            projectModified = true;
                         }
                     }
                     possibleItemsURItoUnload.add(xmiResourceManager.getItemResourceURI(resource.getURI()));
@@ -2440,13 +2422,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     public void executeRepositoryWorkUnit(RepositoryWorkUnit workUnit) {
         Project currentProject = ProjectManager.getInstance().getCurrentProject();
         if (currentProject != null && currentProject.isLocal()) {
-            if (projectModified) {
-                try {
-                    saveProject(currentProject);
-                } catch (PersistenceException e) {
-                    workUnit.setPersistenceException(e);
-                }
-            }
             if (!workUnit.isAvoidUnloadResources()) { // 14969
                 unloadUnlockedResources();
             }
@@ -2505,7 +2480,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     addToHistory(property.getId(), itemType, property.getItem().getState().getPath());
                 } else {
                     invalidItems.add(curItem);
-                    projectModified = true;
                 }
             }
         }
