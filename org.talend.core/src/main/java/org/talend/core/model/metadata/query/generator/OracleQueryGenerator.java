@@ -29,16 +29,14 @@ public class OracleQueryGenerator extends AbstractQueryGenerator {
     public String generateQueryDelegate() {
 
         if (getMetadataTable() != null && !getMetadataTable().getListColumns().isEmpty()) {
-            String dbName = null;
             String tableName = null;
-            String schemaName = null;
+            String schemaName = schema;
             if (getElement() != null) {
-                dbName = getDBName(getElement());
                 tableName = getDBTableName(getElement());
-                schemaName = getSchema(getElement());
+                // schemaName = getSchema(getElement());
             } else {
                 tableName = realTableName;
-                schemaName = schema;
+                // schemaName = schema;
             }
             final String tableNameWithDBAndSchema = getTableNameWithDBAndSchema("", schemaName, tableName);
 

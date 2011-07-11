@@ -797,9 +797,10 @@ public class DatabaseForm extends AbstractForm {
                     isGeneralJDBC() ? generalJdbcUrlText.getText() : urlConnectionStringText.getText(), serverText.getText(),
                     isGeneralJDBC() ? generalJdbcUserText.getText() : usernameText.getText(),
                     isGeneralJDBC() ? generalJdbcPasswordText.getText() : passwordText.getText(), sidOrDatabaseText.getText(),
-                    portText.getText(), fileField.getText(), datasourceText.getText(), isGeneralJDBC() ? "" : schemaText //$NON-NLS-1$
-                            .getText(), additionParamText.getText(), generalJdbcClassNameText.getText(), generalJdbcDriverjarText
-                            .getText(), enableDbVersion() ? versionStr : null);
+                    portText.getText(), fileField.getText(), datasourceText.getText(), isGeneralJDBC() ? jDBCschemaText.getText()
+                            : schemaText //$NON-NLS-1$
+                                    .getText(), additionParamText.getText(), generalJdbcClassNameText.getText(),
+                    generalJdbcDriverjarText.getText(), enableDbVersion() ? versionStr : null);
 
             managerConnection.setDbRootPath(directoryField.getText());
 
