@@ -55,7 +55,7 @@
     
 
 	<!-- configuration for File Trigger -->
-    <parameter name="FolderPath" value="/d:/" />
+    <parameter name="FolderPath" value="org/talend/tac/fileFolder/" />
     <parameter name="FileMask" value="*.txt" />
   	
     <!-- commandLine HostAddress -->
