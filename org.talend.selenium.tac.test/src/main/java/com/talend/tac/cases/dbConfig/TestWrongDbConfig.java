@@ -12,6 +12,7 @@ public class TestWrongDbConfig extends DbConfig {
 			String userPassWd, String driver) {
 		this.DbConfigProcess(url, userName, userPassWd, driver);
 		selenium.waitForCondition("selenium.isTextPresent(\"Driver cannot understand url\")",1000*WAIT_TIME+"");
+		waitForCheckConnectionStatus("//td[@align='LEFT']/img", 5);//wait for the 5 icon(Ok and error) to show a good performance
 		selenium.click("idDbConfigLogoutButton");
 //		waitForElementPresent("idLoginInput", WAIT_TIME);
 	}
@@ -22,6 +23,7 @@ public class TestWrongDbConfig extends DbConfig {
 			String userPassWd, String driver) {
 		this.DbConfigProcess(url, userName, userPassWd, driver);
 		selenium.waitForCondition("selenium.isTextPresent(\"Cannot instantiate\")",1000*WAIT_TIME+"");
+		waitForCheckConnectionStatus("//td[@align='LEFT']/img", 5);
 		selenium.click("idDbConfigLogoutButton");
 //		waitForElementPresent("idLoginInput", WAIT_TIME);
 	}
@@ -32,13 +34,14 @@ public class TestWrongDbConfig extends DbConfig {
 			String userPassWd, String driver) {
 		this.DbConfigProcess(url, userName, userPassWd, driver);
 		selenium.waitForCondition("selenium.isTextPresent(\"Wrong user name or password\")",1000*WAIT_TIME+"");
+		waitForCheckConnectionStatus("//td[@align='LEFT']/img", 5);
 		selenium.click("idDbConfigLogoutButton");
 //		waitForElementPresent("idLoginInput", WAIT_TIME);
 	}
 
 	@AfterClass
 	public void killBrowser() {
-		selenium.stop();
+		selenium.stop();	
 	}
 
 }
