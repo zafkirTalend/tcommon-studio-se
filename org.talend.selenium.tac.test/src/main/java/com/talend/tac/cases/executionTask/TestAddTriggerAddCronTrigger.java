@@ -122,6 +122,12 @@ public class TestAddTriggerAddCronTrigger extends AddTrigger {
     	}
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+cronTriggerLabel+"']"));
 		selenium.setSpeed(MIN_SPEED);
+		
+		this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
+					"//span[text()='Running...']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
+					"//span[text()='Running...']"));
+		
     }
 	
 }
