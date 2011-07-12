@@ -175,6 +175,11 @@ public class TestAddTriggerAddSimpleTrigger extends AddTrigger {
 		selenium.setSpeed(MID_SPEED);
 	    Assert.assertTrue(selenium.isElementPresent("//span[text()='"+label+"']"));
 	    selenium.setSpeed(MIN_SPEED);
+	    this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
+				"//span[text()='Running...']", WAIT_TIME);
+	    Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
+				"//span[text()='Running...']"));
+	    
 	}
 	
 	//add a exist simpleTrigger
