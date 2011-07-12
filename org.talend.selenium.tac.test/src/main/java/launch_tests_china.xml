@@ -11,10 +11,10 @@
 	<parameter  name ="root"	value ="/org.talend.administrator/"/>
 	
 	<!-- SVN parameters -->
-	<parameter  name ="SVNurl" value ="https://192.168.0.144/svn/test"/>
+	<parameter  name ="SVNurl" value ="https://192.168.0.216:8443/svn/test_tac"/>
 	
-	<parameter  name ="SVNProjecturl" value ="https://192.168.0.144/svn/testing/"/>
-  	<parameter  name ="SVNPerlProjecturl" value ="https://192.168.0.144/svn/perl/"/>
+	<parameter  name ="SVNProjecturl" value ="https://192.168.0.216:8443/svn/testing/"/>
+  	<parameter  name ="SVNPerlProjecturl" value ="https://192.168.0.216:8443/svn/perl/"/>
   	<parameter  name ="SVNuserName" value ="test"/>
   	<parameter  name ="SVNuserPassword" value ="testing"/>
   		
@@ -88,13 +88,8 @@
 		
 		<suite-file path="org/talend/tac/conf/task.xml"/>
 		
-		
-		
 		<suite-file path="org/talend/tac/conf/soa.xml"/>
-		 	
-		
 		<suite-file path="org/talend/tac/conf/connection.xml"/>
-		  -->
 		 
 		<suite-file path="org/talend/tac/conf/notification.xml"/>
 		 <!-- -->
