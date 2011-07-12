@@ -4,23 +4,23 @@
 
 
     <test name="notification" preserve-order="true"> 
-        <!-- add notification -->
+       <!-- add notification -->
         <parameter name="categoryUser" value="Users"/>
-        <parameter name="eventNewUser" value="MailNewUserNotification"/>
+        <parameter name="eventNewUser" value="On creation mailTo itself"/>
         <parameter name="descriptionNewUser" value="Send an email notification to the new user to alert them that their account has been created"/>
         
-        <parameter name="eventUserCreation" value="UserCreationNotification"/>
+        <parameter name="eventUserCreation" value="On user creation"/>
         <parameter name="descriptionUserCreation" value="Suscribe to receive a mail when a user is created"/>
         
-        <parameter name="eventUserDeletion" value="UserDeletionNotification"/>
+        <parameter name="eventUserDeletion" value="On user deletion"/>
         <parameter name="descriptionUserDeletion" value="Suscribe to receive a mail when a user is deleted"/>
                                                          
         <parameter name="categoryTask" value="Tasks"/>
-        <parameter name="eventTaskFailed" value="TaskFailedNotification"/>
+        <parameter name="eventTaskFailed" value="On task failed"/>
         <parameter name="descriptionTaskFailed" value="Suscribe to receive a mail when specified tasks failed"/>
         
         <parameter name="categoryJobServer" value="JobServers"/>
-        <parameter name="eventJobServerAlert" value="JobServerAlertNotification"/>
+        <parameter name="eventJobServerAlert" value="On jobServer change status"/>
         <parameter name="descriptionJobServerAlert" value="Subscribe to receive a mail when the jobserver has changed status"/>
         <!-- add notification -->                             
         
