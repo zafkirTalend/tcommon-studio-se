@@ -889,13 +889,13 @@ public class MetadataConnectionUtils {
         } catch (SQLException e) {
             log.error(e, e);
         } finally {
-            if (derbyDriver != null) {
-                try {
-                    derbyDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
-                } catch (SQLException e) {
-                    // exception of shutdown success. no need to catch.
-                }
-            }
+            // if (derbyDriver != null) {
+            // try {
+            //                    derbyDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
+            // } catch (SQLException e) {
+            // // exception of shutdown success. no need to catch.
+            // }
+            // }
         }
         return dbConn;
     }
