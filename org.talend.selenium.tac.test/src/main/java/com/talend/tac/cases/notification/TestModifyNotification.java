@@ -18,9 +18,9 @@ public class TestModifyNotification extends Login {
 		
 		this.clickWaitForElementPresent("!!!menu.notification.element!!!");//into notification
 		selenium.setSpeed(MID_SPEED);
-		selenium.mouseDown("//div[text()='UserCreationNotification']/parent::td/" +
+		selenium.mouseDown("//div[text()='"+eventUserCreation+"']/parent::td/" +
 				"parent::tr//img[@class='gwt-Image' and @title='true']");//click a exist notification
-		Assert.assertTrue(selenium.isElementPresent("//div[text()='UserCreationNotification']"));
+		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+eventUserCreation+"']"));
 		String oldEvent = selenium.getValue("idDescriptionInput");
 			
 		selenium.click("idLabelInput");//modify category 
@@ -39,7 +39,7 @@ public class TestModifyNotification extends Login {
 		selenium.click("//span[text()='Notification']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel" +
 				"-body-noborder x-border-layout-ct']//button[@id='idFormSaveButton']");
 		selenium.setSpeed(MID_SPEED);
-		Assert.assertTrue(selenium.isElementPresent("//div[text()='MailNewUserNotification']/parent::td" +
+		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+eventNewUser+"']/parent::td" +
 				"/parent::tr//img[@class='gwt-Image' and @title='true']"));
 		selenium.setSpeed(MIN_SPEED);
 			
