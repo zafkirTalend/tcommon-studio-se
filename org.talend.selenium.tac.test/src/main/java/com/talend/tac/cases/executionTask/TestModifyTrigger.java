@@ -98,8 +98,6 @@ public class TestModifyTrigger extends Login {
        	selenium.click("idTriggerResume trigger");
     	this.waitForElementPresent("//span[text()='TestSimpleTriggerNotChooseDate']//" +
        			"ancestor::tbody[@role='presentation']//img[@alt='Normal']", WAIT_TIME);
-	       	Assert.assertTrue(selenium.isElementPresent("//span[text()='TestSimpleTriggerNotChooseDate']//" +
-       			"ancestor::tbody[@role='presentation']//img[@alt='Normal']"));
 		
 	}
 	
