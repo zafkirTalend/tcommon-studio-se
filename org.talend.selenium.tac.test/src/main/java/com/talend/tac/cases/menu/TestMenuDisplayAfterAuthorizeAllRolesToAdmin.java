@@ -6,7 +6,7 @@ import com.talend.tac.cases.Login;
 
 public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 	public void waitForElementDispear(String element, int timeout) {
-		this.sleep(5000);
+		this.sleep(8000);
 		if (selenium.isElementPresent(element)) {
 			for (int second = 0;; second++) {
 				if (second >= timeout)
@@ -85,7 +85,10 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 		this.waitForElementPresent(
 				"//div[@class='header-title' and text()='Servers']//ancestor::div[@class=' x-viewport x-component x-border-layout-ct']//span[@class='x-fieldset-header-text' and text()='Execution server']",
 				WAIT_TIME);
-		this.waitForElementDispear("//div[text()='Loading...']", WAIT_TIME);
+		//div[@class='header-title' and text()='Servers']
+		this.waitForElementPresent("//div[@class='header-title' and text()='Servers']", WAIT_TIME);
+		this.sleep(5000);
+		this.waitForElementDispear("//div[@class='header-title' and text()='Servers']//ancestor::div[@class=' x-viewport x-component x-border-layout-ct']//div[text()='Loading...']", WAIT_TIME);
 		selenium.refresh();
 		this.sleep(5000);
 		this.waitForElementDispear("//div[text()='Loading...']", WAIT_TIME);
@@ -105,7 +108,7 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 		this.waitForElementPresent("!!!menu.notification.element!!!", WAIT_TIME);
 		selenium.click("!!!menu.notification.element!!!");
 		this.waitForElementPresent(
-				"//div[@class='x-grid3-cell-inner x-grid3-col-event' and text()='MailNewUserNotification']",
+				"//div[@class='x-grid3-cell-inner x-grid3-col-event' and text()='On creation mailTo itself']",
 				WAIT_TIME);
 	}
 
@@ -121,6 +124,31 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 		this.waitForElementDispear("//div[text()='Loading...']", WAIT_TIME);
 	}
 
+	@Test
+	public void testMenuSoaManager() {
+		this.waitForElementPresent("!!!menu.soamanager.element!!!", WAIT_TIME);
+		selenium.click("!!!menu.soamanager.element!!!");
+		this.waitForElementPresent(
+				"//div[@class='header-title' and text()='SOA Manager']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-fieldset-header-text' and text()='Metadata']",
+				WAIT_TIME);
+		this.waitForElementPresent("//div[@class='header-title' and text()='SOA Manager']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-fieldset-header-text' and text()='Binding']", WAIT_TIME);
+		selenium.refresh();
+		this.sleep(3000);
+		this.waitForElementDispear("//div[text()='Loading...']", WAIT_TIME);
+	}
+	
+	@Test
+	public void testMenuBusinessModeler() {
+		this.waitForElementPresent("!!!menu.businessModeler.element!!!", WAIT_TIME);
+		selenium.click("!!!menu.businessModeler.element!!!");
+		this.waitForElementPresent(
+				"//div[@class='header-title' and text()='Business modeler']",
+				WAIT_TIME);
+		selenium.refresh();
+		this.sleep(3000);
+		this.waitForElementPresent("//div[@class='ext-el-mask']", WAIT_TIME);
+	}
+	
 	@Test
 	public void testMenuDashboard() {
 		this.waitForElementPresent("!!!menu.dashboard.element!!!", WAIT_TIME);
