@@ -66,64 +66,6 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 				.isElementPresent("!!!menu.graphic_task_executions_history.element!!!"));
 		Assert.assertFalse(selenium
 				.isElementPresent("!!!menu.audit.element!!!"));
-		
-		// test for user page contents
-		selenium.click("idMenuUserElement");
-		this.waitForElementPresent(
-				"//div[@class='x-grid-group-div' and text()='Role: Administrator (1 Member)']",
-				WAIT_TIME);
-		this.waitForElementPresent(
-				"//div[@class='x-grid3-cell-inner x-grid3-col-login' and text()='admin@company.com']",
-				WAIT_TIME);
-		// test for configuration page contents
-		selenium.click("idMenuConfigElement");
-		this.sleep(3000);
-		this.waitForElementPresent(
-				"//div[contains(text(),'Svn (3 Parameters)')]", WAIT_TIME);
-		// check for license page contents
-		selenium.click("idMenuLicenseElement");
-		this.waitForElementPresent(
-				"//span[@class='x-panel-header-text' and text()='License Parameters'] ",
-				WAIT_TIME);
-		this.waitForElementPresent("idLicenseUploadButton", WAIT_TIME);
-		// check for project page contents
-		selenium.click("!!!menu.project.element!!!");
-		this.waitForElementPresent(
-				"//div[@class='header-title' and text()='Projects']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-fieldset-header-text' and text()='Project'] ",
-				WAIT_TIME);
-		// check for project authorization page contents
-		selenium.click("!!!menu.projectsauthorizations.element!!!");
-		this.waitForElementPresent(
-				"//div[@class='header-title' and text()='Projects authorizations']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-panel-header-text' and text()='Users']",
-				WAIT_TIME);
-		this.waitForElementPresent(
-				"//div[@class='header-title' and text()='Projects authorizations']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-panel-header-text' and text()='Projects']",
-				WAIT_TIME);
-		Assert.assertFalse(selenium.isElementPresent("//div[@class='header-title' and text()='Projects authorizations']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//div[@class='x-grid3-cell-inner x-grid3-col-login' and text()='admin@company.com']"),"admin user should not display here,only designers!");
-		this.waitForElementPresent(
-				"//div[@class='header-title' and text()='Projects authorizations']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-panel-header-text' and text()='Projects']//ancestor::div[@class=' x-panel x-component']//span[@class='x-tree3-node-text' and text()='Data Integration']",
-				WAIT_TIME);
-		this.waitForElementPresent(
-				"//div[@class='header-title' and text()='Projects authorizations']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-panel-header-text' and text()='Projects']//ancestor::div[@class=' x-panel x-component']//span[@class='x-tree3-node-text' and text()='Data Quality']",
-				WAIT_TIME);
-		this.waitForElementPresent(
-				"//div[@class='header-title' and text()='Projects authorizations']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-panel-header-text' and text()='Projects']//ancestor::div[@class=' x-panel x-component']//span[@class='x-tree3-node-text' and text()='Master Data Management']",
-				WAIT_TIME);
-		//***************
-		//check for project references page contents
-		selenium.click("!!!menu.refprojects.element!!!");
-		this.waitForElementPresent(
-				"//div[@class='header-title' and text()='Projects references']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-panel-header-text' and text()='Projects available as reference']",
-				WAIT_TIME);
-		this.waitForElementPresent(
-				"//div[@class='header-title' and text()='Projects references']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-panel-header-text' and text()='Projects']",
-				WAIT_TIME);
-		//check for user setting page contents
-		selenium.click("idMenuChangePasswordElement");
-		this.waitForElementPresent("//div[@class='header-title' and text()='User settings']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-fieldset-header-text' and text()='Svn Account']",
-				WAIT_TIME);
-		this.waitForElementPresent("//div[@class='header-title' and text()='User settings']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-fieldset-header-text' and text()='User Password']",
-				WAIT_TIME);
 		 //check setting expend and close
 		selenium.click("//div[@id='!!!menu.settings.element!!!']//img[@class=' x-tree3-node-joint']");
 		this.sleep(5000);
@@ -167,26 +109,91 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 				.isVisible("idMenuConfigElement"));
 		//menu user setting
 		this.waitForElementPresent("idMenuChangePasswordElement", WAIT_TIME);
-		
-		//authorize all roles to admin
-		selenium.click("idMenuUserElement");
+	}
+	@Test(dependsOnMethods={"testMenuBeforeAuthorizeAllRolesToAdmin"})
+	public void testMenuUsers(){
+		// test for user page contents
+		this.clickWaitForElementPresent("idMenuUserElement");
+		this.waitForElementPresent(
+				"//div[@class='x-grid-group-div' and text()='Role: Administrator (1 Member)']",
+				WAIT_TIME);
 		this.waitForElementPresent(
 				"//div[@class='x-grid3-cell-inner x-grid3-col-login' and text()='admin@company.com']",
 				WAIT_TIME);
-		this.sleep(2000);
-		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-login' and text()='admin@company.com']");
-	    this.sleep(2000);
-	    selenium.click("idRoleButton");
-		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
-		selenium.setSpeed(MID_SPEED);
-		selenium.click("//div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
-		selenium.click("idValidateButton");
-		selenium.click("idFormSaveButton");
-        selenium.setSpeed(MIN_SPEED);
-        this.waitForElementPresent("//div[@class='x-grid-group-div' and text()='Role: Administrator/Viewer/Operation manager/Designer (1 Member)']", WAIT_TIME);
-	   
+	}
+	
+	@Test(dependsOnMethods={"testMenuBeforeAuthorizeAllRolesToAdmin"})
+	public void testMenuConfiguration(){
+		// test for configuration page contents
+		this.clickWaitForElementPresent("idMenuConfigElement");
+		this.sleep(3000);
+		this.waitForElementPresent(
+				"//div[contains(text(),'Svn (3 Parameters')]", WAIT_TIME);
+	}
+	@Test(dependsOnMethods={"testMenuBeforeAuthorizeAllRolesToAdmin"})
+	public void testMenuLicense(){
+		// check for license page contents
+		this.clickWaitForElementPresent("idMenuLicenseElement");
+		this.waitForElementPresent(
+				"//span[@class='x-panel-header-text' and text()='License Parameters'] ",
+				WAIT_TIME);
+		this.waitForElementPresent("idLicenseUploadButton", WAIT_TIME);
+	}
+	@Test(dependsOnMethods={"testMenuBeforeAuthorizeAllRolesToAdmin"})
+	public void testMenuProject(){
+		// check for project page contents
+		this.clickWaitForElementPresent("!!!menu.project.element!!!");
+		this.waitForElementPresent(
+				"//div[@class='header-title' and text()='Projects']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-fieldset-header-text' and text()='Project'] ",
+				WAIT_TIME);
+		
+	}
+	@Test(dependsOnMethods={"testMenuBeforeAuthorizeAllRolesToAdmin"})
+	public void testMenuProjectAuthorization(){
+	
+		// check for project authorization page contents
+		this.clickWaitForElementPresent("!!!menu.projectsauthorizations.element!!!");
+		this.waitForElementPresent(
+				"//div[@class='header-title' and text()='Projects authorizations']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-panel-header-text' and text()='Users']",
+				WAIT_TIME);
+		this.waitForElementPresent(
+				"//div[@class='header-title' and text()='Projects authorizations']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-panel-header-text' and text()='Projects']",
+				WAIT_TIME);
+		Assert.assertFalse(selenium.isElementPresent("//div[@class='header-title' and text()='Projects authorizations']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//div[@class='x-grid3-cell-inner x-grid3-col-login' and text()='admin@company.com']"),"admin user should not display here,only designers!");
+		this.waitForElementPresent(
+				"//div[@class='header-title' and text()='Projects authorizations']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-panel-header-text' and text()='Projects']//ancestor::div[@class=' x-panel x-component']//span[@class='x-tree3-node-text' and text()='Data Integration']",
+				WAIT_TIME);
+		this.waitForElementPresent(
+				"//div[@class='header-title' and text()='Projects authorizations']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-panel-header-text' and text()='Projects']//ancestor::div[@class=' x-panel x-component']//span[@class='x-tree3-node-text' and text()='Data Quality']",
+				WAIT_TIME);
+		this.waitForElementPresent(
+				"//div[@class='header-title' and text()='Projects authorizations']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-panel-header-text' and text()='Projects']//ancestor::div[@class=' x-panel x-component']//span[@class='x-tree3-node-text' and text()='Master Data Management']",
+				WAIT_TIME);
+	}
+		//***************
+	
+	@Test(dependsOnMethods={"testMenuBeforeAuthorizeAllRolesToAdmin"})
+	public void testMenuProjectReferences(){
+		//check for project references page contents
+		this.clickWaitForElementPresent("!!!menu.refprojects.element!!!");
+		this.waitForElementPresent(
+				"//div[@class='header-title' and text()='Projects references']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-panel-header-text' and text()='Projects available as reference']",
+				WAIT_TIME);
+		this.waitForElementPresent(
+				"//div[@class='header-title' and text()='Projects references']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-panel-header-text' and text()='Projects']",
+				WAIT_TIME);
+	}
+	
+	@Test(dependsOnMethods={"testMenuBeforeAuthorizeAllRolesToAdmin"})
+	public void testMenuUserSetting(){
+		//check for user setting page contents
+		this.clickWaitForElementPresent("idMenuChangePasswordElement");
+		this.waitForElementPresent("//div[@class='header-title' and text()='User settings']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-fieldset-header-text' and text()='Svn Account']",
+				WAIT_TIME);
+		this.waitForElementPresent("//div[@class='header-title' and text()='User settings']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-fieldset-header-text' and text()='User Password']",
+				WAIT_TIME);
+	}
         
 	}
 
 
-}
