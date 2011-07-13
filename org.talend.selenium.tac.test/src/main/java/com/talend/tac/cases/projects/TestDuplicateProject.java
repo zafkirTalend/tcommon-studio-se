@@ -53,7 +53,9 @@ public class TestDuplicateProject extends Login {
 		this.waitForElementPresent("idDescriptionInput", Base.WAIT_TIME);
 		selenium.click("idDescriptionInput");
 		selenium.click("idFormSaveButton");
-		selenium.setSpeed(MID_SPEED);
+//		selenium.setSpeed(MID_SPEED);
+		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+				+ "Copy_of_" + duplicateproname + "')]", WAIT_TIME);
 		Assert.assertTrue(
 				selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 						+ "Copy_of_" + duplicateproname + "')]"),
