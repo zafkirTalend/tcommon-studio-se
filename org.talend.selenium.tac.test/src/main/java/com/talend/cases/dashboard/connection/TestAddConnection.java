@@ -66,11 +66,12 @@ public class TestAddConnection extends Login {
 				"//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='test_"+ label + "')]", Base.WAIT_TIME);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='test_"+ label + "')]");
 		selenium.chooseCancelOnNextConfirmation();
-		selenium.setSpeed(MID_SPEED);
+//		selenium.setSpeed(MID_SPEED);
 		selenium.click("//div[text()='Connections']/ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");
 //		selenium.getConfirmation();
 		assert (selenium.getConfirmation().equals(warningmessage));
-		Assert.assertTrue(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='test_"+ label + "')]"), "delete cancel failed!");
+		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='test_"+ label + "')]", WAIT_TIME);
+//			Assert.assertTrue(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='test_"+ label + "')]"), "delete cancel failed!");
 		selenium.setSpeed(MIN_SPEED);
 		//delete choose ok
 		selenium.refresh();
