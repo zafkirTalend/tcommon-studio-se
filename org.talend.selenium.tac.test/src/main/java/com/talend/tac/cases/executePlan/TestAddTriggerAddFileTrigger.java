@@ -157,14 +157,15 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		System.out.println("THE FIRST TIME:");	
 		this.waitForElementPresent("//span[text()='Running...']",
 				Base.WAIT_TIME);
-		this.sleep(10000);
+		this.waitForElementPresent("//span[@class='x-tree3-node-text' and contains(text(),': [OK]')]", WAIT_TIME);
 		Assert.assertTrue(this.waitElement("//span[text()='Ended...']",
 				TriggerCheckTime)||this.waitElement("//span[text()='Ready to run']",
 						TriggerCheckTime), "test failed! ");
+		
 //		this.waitForElementPresent("//span[text()='Ended...']", Base.WAIT_TIME);
 		//do not create any new file,check directly
 //		triggerCreateCheck(filetriggerlabel);
-				triggerCheckFalse(filetriggerlabel);	
+		triggerCheckFalse(filetriggerlabel);	
 	}
 
 	@Test
