@@ -443,8 +443,10 @@ public class ConnectionHelper {
         boolean added = false;
         if ((connection != null) && (pack != null)) {
             for (Package oldPack : connection.getDataPackage()) {
-                if (pack.getName().equals(oldPack.getName()))
-                    return added;
+                if (pack.getName() != null && oldPack.getName() != null) {
+                    if (pack.getName().equals(oldPack.getName()))
+                        return added;
+                }
             }
             added = connection.getDataPackage().add(pack);
         }

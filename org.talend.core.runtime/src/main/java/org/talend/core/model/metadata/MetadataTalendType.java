@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -41,11 +42,16 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.metadata.types.PerlTypesManager;
+import org.talend.core.model.properties.ContextItem;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.repository.model.IProxyRepositoryFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -390,6 +396,7 @@ public final class MetadataTalendType {
      * @return the dbms from the given id
      */
     public static Dbms getDbms(String dbmsId) {
+        boolean hasGet = false;
         if (dbmsId == null) {
             throw new IllegalArgumentException();
         }
@@ -397,9 +404,44 @@ public final class MetadataTalendType {
         for (int i = 0; i < allDbmsArray.length; i++) {
             Dbms dbms = allDbmsArray[i];
             if (dbmsId.equals(dbms.getId())) {
+                hasGet = true;
                 return dbms;
             }
         }
+        // bug 23018
+        if (!hasGet && dbmsId.startsWith("context.")) {
+            String contextStr = dbmsId.substring("context.".length(), dbmsId.length());
+            List<ContextItem> contextItemList = ContextUtils.getAllContextItem();
+            for (ContextItem contextItem : contextItemList) {
+                if (contextItem != null && contextItem instanceof ContextItem) {
+                    List list = contextItem.getContext();
+                    Iterator it = list.iterator();
+                    while (it.hasNext()) {
+                        Object o = it.next();
+                        if (o instanceof ContextType) {
+                            ContextType contextType = (ContextType) o;
+                            List contextList = contextType.getContextParameter();
+                            for (int i = 0; i < contextList.size(); i++) {
+                                Object obj = contextList.get(i);
+                                if (obj instanceof ContextParameterType) {
+                                    ContextParameterType type = (ContextParameterType) obj;
+                                    if (type.getName().equals(contextStr)) {
+                                        contextStr = type.getValue();
+                                        for (int j = 0; j < allDbmsArray.length; j++) {
+                                            Dbms dbms = allDbmsArray[j];
+                                            if (contextStr != null && !"".equals(contextStr) && contextStr.equals(dbms.getId())) {
+                                                return dbms;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         throw new IllegalArgumentException(Messages.getString("MetadataTalendType.dbIdNotFound", dbmsId)); //$NON-NLS-1$
     }
 
