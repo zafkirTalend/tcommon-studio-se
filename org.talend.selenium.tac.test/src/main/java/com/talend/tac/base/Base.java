@@ -320,6 +320,15 @@ public class Base {
 		selenium.fireEvent(xpath, event);
 	}
 	
+	public void sleep(int times){
+		try {
+			Thread.sleep(times);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void selectDropDownList(String xpath, int item) {
 //		selenium.click("//input[@id='"+xpath+"']"
 //				+ "/following-sibling::div[@class='x-form-trigger x-form-trigger-arrow ']");
@@ -330,6 +339,21 @@ public class Base {
 				+ Event.ENTER);
 	}
 
+	public void clickDropDownList(String id){
+		if(selenium.isElementPresent("//input[@id='"+id+"']"
+				+ "/following-sibling::div")) {
+			
+			selenium.click("//input[@id='"+id+"']"
+					+ "/following-sibling::div");
+			
+		} else {
+			
+			selenium.click("//input[@id='"+id+"']"
+					+ "/following-sibling::img");
+			
+		}
+	}
+	
 	public void selectDropDownList(String id, String itemName) {
 		
 		if(selenium.isElementPresent("//input[@id='"+id+"']"
