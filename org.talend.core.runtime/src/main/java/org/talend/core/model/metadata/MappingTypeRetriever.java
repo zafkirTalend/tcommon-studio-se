@@ -21,8 +21,12 @@ import java.util.Set;
 import org.apache.commons.collections.MultiMap;
 import org.apache.commons.collections.map.MultiValueMap;
 import org.apache.log4j.Logger;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.talend.core.IManagementService;
 import org.talend.core.model.metadata.types.DBTypeUtil;
 import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.runtime.CoreRuntimePlugin;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -292,12 +296,16 @@ public class MappingTypeRetriever {
                 return MetadataTalendType.getDefaultTalendType();
             }
         }
-        TalendTypePreLenRetriever talendTypePre = new TalendTypePreLenRetriever(mappingTypeOrigin, length, precison);
-        String mappingType = talendTypePre.getMappingType();
-        if (listMappingtype.size() != 0) {
-            for (MappingType type : listMappingtype) {
-                if (type.getTalendType().equals(mappingType)) {
-                    return type.getTalendType();
+        IManagementService managementSerivce = CoreRuntimePlugin.getInstance().getManagementService();
+        IPreferenceStore preferenceStore = managementSerivce.getDesignerCorePreferenceStore();
+        if (preferenceStore != null && !preferenceStore.getBoolean(ITalendCorePrefConstants.FORBIDDEN_MAPPING_LENGTH_PREC_LOGIC)) {
+            TalendTypePreLenRetriever talendTypePre = new TalendTypePreLenRetriever(mappingTypeOrigin, length, precison);
+            String mappingType = talendTypePre.getMappingType();
+            if (listMappingtype.size() != 0) {
+                for (MappingType type : listMappingtype) {
+                    if (type.getTalendType().equals(mappingType)) {
+                        return type.getTalendType();
+                    }
                 }
             }
         }

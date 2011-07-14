@@ -163,6 +163,9 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
         CorePlugin.getDefault().getPreferenceStore()
                 .setDefault(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS, false);
+
+        CorePlugin.getDefault().getPreferenceStore()
+                .setDefault(ITalendCorePrefConstants.FORBIDDEN_MAPPING_LENGTH_PREC_LOGIC, false);
     }
 
     // unused method : call remove for 2.3

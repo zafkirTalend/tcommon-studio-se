@@ -98,4 +98,6 @@ public interface ITalendCorePrefConstants {
     String USE_CSS_TEMPLATE = "use_css_template";
 
     String CSS_FILE_PATH = "css_file_path";
+
+    String FORBIDDEN_MAPPING_LENGTH_PREC_LOGIC = "forbidden_mapping_length_prec_logic";
 }
