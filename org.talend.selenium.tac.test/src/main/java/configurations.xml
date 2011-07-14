@@ -29,7 +29,7 @@
 	<parameter name="smtp.conf.useSmtp" value="true" />
 	<parameter name="smtp.conf.mailServerHost" value="smtp.163.com" />
 	<parameter name="smtp.conf.mailServerPort" value="25" />
-	<parameter name="smtp.conf.mailUserName" value="lindy512" />
+	<parameter name="smtp.conf.mailUserName" value="lindy512@163.com" />
 	<parameter name="smtp.conf.mailPassword" value="talend" />
 	<parameter name="smtp.conf.serverRequireSSL" value="false" />
 
