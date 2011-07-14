@@ -1,5 +1,6 @@
 package com.talend.tac.cases.executionTask;
 
+import java.awt.Event;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -176,6 +177,65 @@ public class CheckLogs extends Login {
 		Assert.assertEquals(firstPageNumber, "1");
 		Assert.assertTrue(selenium.isTextPresent("Displaying 1 - 2 of 6"));
 		/*test first page*/
+		
+	}
+	
+	//test modify page number in page input
+	@Test
+	@Parameters({"modifyTask"})
+	public void testPageInput(String taskLabel) {
+		
+		intoJobConductor(taskLabel);
+		
+		enterTheNumberOfItemsPerPage("2", "3", 2);
+		
+		selenium.setSpeed(MID_SPEED);
+		selenium.type("//span[text()='Logs']//ancestor::div[contains(@class," +
+				"'x-tab-panel x-component')]//td[5]//input", "3");//modify of page numbers
+		
+		selenium.focus("//span[text()='Logs']//ancestor::div[contains(@class," +
+				"'x-tab-panel x-component')]//td[5]//input");
+		selenium.keyDownNative(""+KeyEvent.VK_ENTER);
+		
+		Assert.assertTrue(selenium.isTextPresent("Displaying 5 - 6 of 6"));
+		selenium.setSpeed(MIN_SPEED);
+		
+	}
+	
+	//test display and hide of logs info 
+//	@Test
+	@Parameters({"modifyTask"})
+	public void testHideDisplayLogs(String taskLabel) throws InterruptedException {
+		
+		intoJobConductor(taskLabel);
+		
+		selenium.setSpeed(MID_SPEED);
+		selenium.click("//span[text()='Logs']");
+		selenium.setSpeed(MIN_SPEED);
+		
+		this.waitForElementPresent("//span[text()='Logs']//ancestor::div[contains(@class,'x-tab-panel x-component')]" +
+		"//div[contains(@class,'grid3-body')]//div[1]//div[contains(@class,'grid3-cell-inner" +
+				" x-grid3-col-expander')]", WAIT_TIME);
+		selenium.focus("//span[text()='Logs']//ancestor::div[contains(@class,'x-tab-panel x-component')]" +
+				"//div[contains(@class,'grid3-body')]//div[1]//div[contains(@class,'grid3-cell-inner" +
+						" x-grid3-col-expander')]");
+		selenium.click("//span[text()='Logs']//ancestor::div[contains(@class,'x-tab-panel x-component')]" +
+				"//div[contains(@class,'grid3-body')]//div[1]//div[contains(@class,'grid3-cell-inner" +
+						" x-grid3-col-expander')]");//click display logs info
+		
+		Thread.sleep(5000);
+		selenium.setSpeed(MID_SPEED);
+		Assert.assertTrue(selenium.isTextPresent("Summary:"));
+		Assert.assertTrue(selenium.isTextPresent(" [statistics] connecting to socket on port 10112 [statistics] connected ... " +
+				"(2 hidden lines) ref_88-08-13 [statistics] disconnected"));
+		selenium.setSpeed(MIN_SPEED);
+		
+		selenium.click("//span[text()='Logs']//ancestor::div[contains(@class,'tab-panel x-component')]//div[contains(@class,'rid3-body')]//div[1]//div[contains(@class,'rid3-cell-inner x-grid3-col-expander')]");//click hide logs info
+		selenium.setSpeed(MID_SPEED);
+		Assert.assertFalse(selenium.isTextPresent("Summary:"));
+		Assert.assertFalse(selenium.isTextPresent(" [statistics] connecting to socket on port 10112 [statistics] connected ... " +
+				"(2 hidden lines) ref_88-08-13 [statistics] disconnected"));
+		selenium.setSpeed(MIN_SPEED);
 		
 	}
 	
