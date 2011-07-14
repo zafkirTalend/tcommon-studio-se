@@ -319,6 +319,35 @@ public final class FilesUtils {
         return rc;
     }
 
+    /*
+     * zip file with apache to avoid inappropriate encoding
+     */
+
+    public static void zipDirWithApache(String zipFileName, String inputFile) throws Exception {
+        org.apache.tools.zip.ZipOutputStream out = new org.apache.tools.zip.ZipOutputStream(new FileOutputStream(zipFileName));
+        zipDirWithApache(out, new File(inputFile), "");
+        out.close();
+    }
+
+    private static void zipDirWithApache(org.apache.tools.zip.ZipOutputStream out, File f, String base) throws Exception {
+        if (f.isDirectory()) {
+            File[] fl = f.listFiles();
+            out.putNextEntry(new org.apache.tools.zip.ZipEntry(base + "/"));
+            base = base.length() == 0 ? "" : base + "/";
+            for (int i = 0; i < fl.length; i++) {
+                zipDirWithApache(out, fl[i], base + fl[i].getName());
+            }
+        } else {
+            out.putNextEntry(new org.apache.tools.zip.ZipEntry(base));
+            FileInputStream in = new FileInputStream(f);
+            int b;
+            while ((b = in.read()) != -1) {
+                out.write(b);
+            }
+            in.close();
+        }
+    }
+
     public static void main(String[] args) {
         try {
             ReturnCode rc = createFoldersIfNotExists("/c:\\test\\test1/test2", false);
@@ -457,9 +486,11 @@ public final class FilesUtils {
         ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zippedFileName));
         zip(out, sourceFile, null);
     }
+
     /**
      * 
      * DOC zshen Comment method "zips".
+     * 
      * @param sourceFile
      * @param zippedFileName
      * @throws Exception
@@ -548,9 +579,7 @@ public final class FilesUtils {
             in.close();
             out.flush();
 
-
         }
-
 
     }
 
