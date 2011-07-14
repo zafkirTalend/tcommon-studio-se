@@ -8,10 +8,33 @@ import com.talend.tac.cases.Login;
 
 public class TestAddTriggerAddFileTrigger extends AddTrigger {
  
+	//test add a cronTrigger use wrong form value
+	@Test
+	@Parameters({"TaskBaseBranch","addFileTriggerOfExistWrongForm","addFileTriggerOfExistDescriptionWrongForm"
+		,"ServerForUseAvailable"})
+    public void testAddTriggerAddFileTriggerWrongFormValue(String taskLabel,String triggerLabel,String triggerDescription,
+    		String serverName) {
+    	
+		addFileTrigger(taskLabel, triggerLabel, triggerDescription, "ss", "", "", serverName);
+		
+		Assert.assertTrue(selenium.isElementPresent("//input[@id='idJobConductorFileTriggerLabelInput']//ancestor::div" +
+				"[@class='x-form-item ']//img[@class='gwt-Image x-component ']"));//add assert for "label"  
+		Assert.assertTrue(selenium.isElementPresent("//input[@id='idJobConductorFileTriggerCheckTimeIntervalInput']" +
+				"//ancestor::div[@class='x-form-item ']//img[@class='gwt-Image x-component ']"));//add assert for "Pollint (s):"  
+		Assert.assertTrue(selenium.isElementPresent("//input[@id='idJobConductorFileTriggerFolderPathInput']" +
+				"//ancestor::div[@class='x-form-item ']//img[@class='gwt-Image x-component ']"));//add assert for "Folder path:" 
+		Assert.assertTrue(selenium.isElementPresent("//input[@id='idJobConductorFileTriggerFileMaskInput']//ancestor::div" +
+				"[@class='x-form-item ']//img[@class='gwt-Image x-component ']"));//add assert for "File mask:" 
+        
+		selenium.click("idFileTriggerSave");
+		selenium.setSpeed(MID_SPEED);
+		Assert.assertTrue(selenium.isTextPresent("Fix errors in form before save"));
+		selenium.setSpeed(MIN_SPEED);
+		
+	 }
 	
 	//test add a file trigger
-	@Test
-//	(dependsOnGroups={"AddCronTrigger"})
+	@Test(dependsOnMethods={"testAddTriggerAddFileTriggerWrongFormValue"})
 	@Parameters({"TaskBaseBranch","addFileTriggerOfExist","addFileTriggerOfExistDescription","FolderPath",
 		"FileMask","ServerForUseAvailable"})
     public void testAddTriggerAddFileTriggerAddExist(String taskLabel,String triggerLabel,String triggerDescription,
@@ -53,33 +76,6 @@ public class TestAddTriggerAddFileTrigger extends AddTrigger {
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("trigger.error.uniqueLabel")));
 		selenium.setSpeed(MIN_SPEED);
 		
-	}
-	
-	
-	//test add a cronTrigger use wrong form value
-	@Test(dependsOnMethods={"testAddTriggerAddFileTriggerAddExist"})
-	@Parameters({"TaskBaseBranch","addFileTriggerOfExistWrongForm","addFileTriggerOfExistDescriptionWrongForm"
-		,"ServerForUseAvailable"})
-    public void testAddTriggerAddFileTriggerWrongFormValue(String taskLabel,String triggerLabel,String triggerDescription,
-    		String serverName) {
-    	
-		addFileTrigger(taskLabel, triggerLabel, triggerDescription, "ss", "", "", serverName);
+	}	
 		
-		Assert.assertTrue(selenium.isElementPresent("//input[@id='idJobConductorFileTriggerLabelInput']//ancestor::div" +
-				"[@class='x-form-item ']//img[@class='gwt-Image x-component ']"));//add assert for "label"  
-		Assert.assertTrue(selenium.isElementPresent("//input[@id='idJobConductorFileTriggerCheckTimeIntervalInput']" +
-				"//ancestor::div[@class='x-form-item ']//img[@class='gwt-Image x-component ']"));//add assert for "Pollint (s):"  
-		Assert.assertTrue(selenium.isElementPresent("//input[@id='idJobConductorFileTriggerFolderPathInput']" +
-				"//ancestor::div[@class='x-form-item ']//img[@class='gwt-Image x-component ']"));//add assert for "Folder path:" 
-		Assert.assertTrue(selenium.isElementPresent("//input[@id='idJobConductorFileTriggerFileMaskInput']//ancestor::div" +
-				"[@class='x-form-item ']//img[@class='gwt-Image x-component ']"));//add assert for "File mask:" 
-        
-		selenium.click("idFileTriggerSave");
-		selenium.setSpeed(MID_SPEED);
-		Assert.assertTrue(selenium.isTextPresent("Fix errors in form before save"));
-		selenium.setSpeed(MIN_SPEED);
-		
-	 }
-	
-	
 }
