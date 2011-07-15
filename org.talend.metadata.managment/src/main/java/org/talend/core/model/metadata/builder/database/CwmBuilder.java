@@ -40,7 +40,7 @@ abstract class CwmBuilder {
      * 
      * @param conn a connection
      */
-    private CwmBuilder(Connection conn) {
+    public CwmBuilder(Connection conn) {
         this.connection = conn;
     }
 

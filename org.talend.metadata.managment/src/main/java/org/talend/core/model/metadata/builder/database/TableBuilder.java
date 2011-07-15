@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.model.metadata.builder.database;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -51,14 +52,15 @@ public class TableBuilder extends AbstractTableBuilder<TdTable> {
 
     private Map<String, ForeignKey> name2fk = new HashMap<String, ForeignKey>();
 
+    public TableBuilder(Connection conn) {
+        super(conn, TableType.TABLE);
+    }
+
     /**
      * TableBuilder constructor.
      * 
      * @param conn the connection from which the tables will be created.
      */
-    // public TableBuilder(Connection conn) {
-    // super(conn, TableType.TABLE);
-    // }
     public TableBuilder(org.talend.core.model.metadata.builder.connection.Connection conn) {
         super(conn, TableType.TABLE);
     }

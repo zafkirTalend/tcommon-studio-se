@@ -13,6 +13,7 @@
 
 package org.talend.core.model.metadata.builder.database;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -42,19 +43,20 @@ public abstract class AbstractTableBuilder<T extends NamedColumnSet> extends Cwm
 
     private boolean columnsRequested = false;
 
+    public AbstractTableBuilder(Connection conn, TableType type) {
+        super(conn);
+        if (type == null) {
+            throw new IllegalArgumentException(Messages.getString("AbstractTableBuilder.NoTypeGiven")); //$NON-NLS-1$
+        }
+        this.tableType = new String[] { type.toString() };
+    }
+
     /**
      * DOC scorreia AbstractTableBuilder constructor comment.
      * 
      * @param conn
      * @param type the type of columnSet
      */
-    // public AbstractTableBuilder(Connection conn, TableType type) {
-    // super(conn);
-    // if (type == null) {
-    //            throw new IllegalArgumentException(Messages.getString("AbstractTableBuilder.NoTypeGiven")); //$NON-NLS-1$
-    // }
-    // this.tableType = new String[] { type.toString() };
-    // }
     public AbstractTableBuilder(org.talend.core.model.metadata.builder.connection.Connection conn, TableType type) {
         super(conn);
         if (type == null) {
