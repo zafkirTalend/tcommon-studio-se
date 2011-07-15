@@ -105,8 +105,6 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.ProjectNodeHelper;
 import org.talend.repository.ui.swt.utils.AbstractForm;
 import org.talend.repository.ui.utils.ManagerConnection;
-import org.talend.utils.sql.ConnectionUtils;
-
 import orgomg.cwm.objectmodel.core.CoreFactory;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.relational.Catalog;
@@ -1619,7 +1617,7 @@ public class SelectorTableForm extends AbstractForm {
      * @param connection
      * @param metadataTable
      */
-    private void initExistingNames() {
+    private synchronized void initExistingNames() {
         String[] exisNames;
         if (dbtable != null) {
             exisNames = TableHelper.getTableNames(getConnection(), dbtable.getLabel());
