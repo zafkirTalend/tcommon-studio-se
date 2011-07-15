@@ -22,6 +22,13 @@
         <parameter name="categoryJobServer" value="JobServers"/>
         <parameter name="eventJobServerAlert" value="On jobServer change status"/>
         <parameter name="descriptionJobServerAlert" value="Subscribe to receive a mail when the jobserver has changed status"/>
+        
+        <parameter name="categoryLicense" value="License"/>
+        <parameter name="eventOnLicenseExpiration" value="On license expiration"/>
+        <parameter name="descriptionOnLicenseExpiration" value="Suscribe to receive a mail when the license is going to expire"/>
+        
+        <parameter name="eventOnTokenExpiration" value="On token expiration"/>
+        <parameter name="descriptionOnTokenExpiration" value="Suscribe to receive a mail when the token is going to expire"/>
         <!-- add notification -->                             
         
         <!-- receiver userName -->
@@ -30,15 +37,14 @@
         <parameter name="labelAddJVMParametersForTask" value="testAddsimpleTask" />
 
         
-        <classes>  
-        
+        <classes>
             <class name="com.talend.tac.cases.notification.TestAddUsersNotification"/>
             <class name="com.talend.tac.cases.notification.TestAddTasksNotification"/>
             <class name="com.talend.tac.cases.notification.TestAddJobserverNotification"/>
+            <class name="com.talend.tac.cases.notification.TestLicenseNotification"/>
             <class name="com.talend.tac.cases.notification.TestDuplicationNotification"/>
             <class name="com.talend.tac.cases.notification.TestDeleteNotification"/>
             <class name="com.talend.tac.cases.notification.TestModifyNotification"/>
-           
        </classes> 
 	</test>
 	
