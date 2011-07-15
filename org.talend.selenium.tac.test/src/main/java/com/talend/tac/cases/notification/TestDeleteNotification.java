@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public class TestDeleteNotification extends AddNotification {
     
 	//delete a notification(cancel Delete user Notification)
-	@Test(groups={"DeleteNotification"},dependsOnGroups={"AddJobserverNotification"})
+	@Test(groups={"DeleteNotification"},dependsOnGroups={"duplicationNotification"})
 	@Parameters({"eventNewUser"})
 	public void testCancelDeleteUserNotification(String eventNewUser) {
 		
