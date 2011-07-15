@@ -26,7 +26,7 @@ config.svn,config.svn.serverLocationUrl,https://192.168.0.216:8443/svn/test_tac,
 config.svn,config.svn.username,admin,true
 config.svn,config.svn.password,admin,true
 config.soaManager,config.soaManager.port,8004,true
-config.smtp,config.smtp.useSmtp,false,true
+config.smtp,config.smtp.useSmtp,true,true
 config.smtp,config.smtp.host,smtp.163.com,true
 config.smtp,config.smtp.port,25,true
 config.smtp,config.smtp.requireSSL,false,true
