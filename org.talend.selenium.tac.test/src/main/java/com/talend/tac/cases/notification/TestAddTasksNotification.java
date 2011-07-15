@@ -7,7 +7,8 @@ import org.testng.annotations.Test;
 public class TestAddTasksNotification extends AddNotification {
     
     //add a task'notification(TaskFailedNotification)
-	@Test(groups={"AddTaskNotification"}, dependsOnGroups={"AddUserNotification"})
+	@Test
+//	(groups={"AddTaskNotification"}, dependsOnGroups={"AddUserNotification"})
 	@Parameters({"categoryTask","eventTaskFailed","descriptionTaskFailed","TaskBaseBranch"})
 	public void testAddTaskFailedNotification(String categoryTask, String eventTaskFailed, 
 			String descriptionTaskFailed,String taskBaseBranch) {
