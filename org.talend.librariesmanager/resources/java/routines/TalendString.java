@@ -108,12 +108,12 @@ public class TalendString {
         }
         String sPaddingChar = java.util.regex.Matcher.quoteReplacement(Character.toString(padding_char));
 
-        if (align < 0) {
+        if (align > 0) {// positive integer to trim left
             origin = origin.replaceAll("^" + sPaddingChar + "+", "");
-        } else if (align == 0) {
+        } else if (align == 0) {// zero to trim both left and right
             origin = origin.replaceAll("^" + sPaddingChar + "+", "");
             origin = origin.replaceAll(sPaddingChar + "+$", "");
-        } else if (align > 0) {
+        } else if (align < 0) {// negative integer to trim right
             origin = origin.replaceAll(sPaddingChar + "+$", "");
         }
 
