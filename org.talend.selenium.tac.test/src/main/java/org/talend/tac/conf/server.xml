@@ -7,8 +7,10 @@
   <parameter name="ServerLablename" value="test_serverTest" /> 
   <parameter name="DeactiveServerlable" value="test_serverTest" /> 
   <parameter name="PortInvalidServer" value="test_PortInvalidserver" /> 
+  <!-- 
   <parameter name="RemoteWindowServerIp" value="test_windowsip" /> 
-  <parameter name="RemoteLinuxServerIp" value="test_linuxip" /> 
+  <parameter name="RemoteLinuxServerIp" value="test_linuxip" />
+   --> 
   <parameter name="ServerUnused" value="test_serverTest" /> 
   <parameter name="ServerDescription" value="server" /> 
   
