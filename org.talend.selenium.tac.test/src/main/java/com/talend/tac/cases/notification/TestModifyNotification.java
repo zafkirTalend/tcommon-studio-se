@@ -10,7 +10,8 @@ import com.talend.tac.cases.Login;
 
 public class TestModifyNotification extends Login {
     
-	@Test(dependsOnGroups={"DeleteNotification"})
+	@Test
+//	(dependsOnGroups={"DeleteNotification"})
 	@Parameters({"categoryUser","eventUserCreation","descriptionUserCreation","eventNewUser",
 		"descriptionNewUser"})
 	public void testModifyNotification(String categoryUser, String eventUserCreation, String descriptionUserCreation,
