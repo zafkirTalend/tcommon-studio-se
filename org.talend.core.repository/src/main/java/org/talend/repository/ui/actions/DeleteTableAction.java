@@ -140,6 +140,11 @@ public class DeleteTableAction extends AContextualAction {
                             if (confirm) {
                                 subRepositoryObject.removeFromParent();
                             }
+                        }
+                        // bug 20963
+                        else if (item instanceof SalesforceSchemaConnectionItem && parentNodeType.getType() != null
+                                && parentNodeType.getType().equals("METADATA_SALESFORCE_MODULE")) {
+                            // Nothing to do
                         } else {
                             SubItemHelper.setDeleted(abstractMetadataObject, true);
                         }
