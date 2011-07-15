@@ -8,7 +8,8 @@ import org.testng.annotations.Test;
 public class TestAddJobserverNotification extends AddNotification {
 	
     //add a jobserver'notification(JobServerAlertNotification)
-	@Test(groups={"AddJobserverNotification"}, dependsOnGroups={"AddTaskNotification"})
+	@Test
+//	(groups={"AddJobserverNotification"}, dependsOnGroups={"AddTaskNotification"})
 	@Parameters({"categoryJobServer","descriptionTaskFailed","eventJobServerAlert","descriptionJobServerAlert","ServerForUseUnavailable"})
 	public void testAddJobserversJobServerAlertNotification(String categoryJobServer,String descriptionTaskFailed, String eventJobServerAlert,
 			String descriptionJobServerAlert, String jobServer) {
