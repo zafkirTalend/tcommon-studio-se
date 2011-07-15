@@ -152,18 +152,22 @@ public class TestGridExecutionsPageDisplay extends Grid {
         	
 	}
 	
-//	@Test
+	@Test(dependsOnMethods={"testGridNoFutureExecutionsAfterAFutureDate"})
 	@Parameters({"grid.task.label","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
-	public void testGridGoToFirstPageByUIButton(String label, String description, String projectName, String branchName, String jobName, String version, String context, String serverName, String statisticName) {
+	public void testGridGoTonNextPageByUIButton(String label, String description, String projectName, String branchName, String jobName, String version, String context, String serverName, String statisticName) {
 		String label2 = label+"second";
         this.openGridMenu();
         this.sleep(5000);
-        Assert.assertTrue(selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-taskLabel' and text()='Task: "+label+"']").intValue()+selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-taskLabel' and text()='Task: "+label2+"']").intValue()==2,"Grid past execution display failed!");
+        Assert.assertTrue(selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-taskLabel' and text()='Task: "+label+"']").intValue()+selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-taskLabel' and text()='Task: "+label2+"']").intValue()==5,"Grid past execution display failed!");
 	    Assert.assertTrue(selenium.getValue("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[@class='gwt-TextBox x-component ']").equals("3"));
-	    selenium.click("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//td[@class='x-toolbar-left']//tr[@class='x-toolbar-left-row']//td[1]");
+	    selenium.type("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[@class='gwt-TextBox x-component ']", "1");
+	    selenium.keyDown("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[@class='gwt-TextBox x-component ']","\\13");
 	    this.sleep(5000);
-	    Assert.assertTrue(selenium.getValue("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[@class='gwt-TextBox x-component ']").equals("1"),"Go to first page by button failed!");
+	    Assert.assertTrue(selenium.getValue("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[@class='gwt-TextBox x-component ']").equals("1"), "go to first page failed!");
+	    selenium.click("//div[text()='Task execution monitoring']//ancestor::div[contains(@class,'panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]//td[8]/table[contains(@class,'x-component x-unselectable')]//button");
+	    this.sleep(5000);
+	    Assert.assertTrue(selenium.getValue("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[@class='gwt-TextBox x-component ']").equals("2"),"Go to next page by button failed!");
 	}
 	
 	
