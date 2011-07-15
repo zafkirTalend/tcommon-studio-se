@@ -8,7 +8,7 @@ import com.talend.tac.cases.Login;
 
 
 public class TestDuplicationNotification extends Login {
-	@Test(dependsOnGroups={"AddTaskNotification"})
+	@Test(groups={"duplicationNotification"}, dependsOnGroups={"AddUserNotification"})
 	@Parameters({"eventUserDeletion"})
 	public void testDuplicationNotification(String eventUserDeletion) {
 		
