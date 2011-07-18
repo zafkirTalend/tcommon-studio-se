@@ -18,6 +18,7 @@ import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.VersionUtils;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -34,11 +35,14 @@ import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.repositoryObject.MetadataTableRepositoryObject;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.service.IMetadataManagmentUiService;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import orgomg.cwm.objectmodel.core.Package;
 
@@ -68,11 +72,11 @@ public class CopyToGenericSchemaHelper {
         String connectionLabel;
 
         String dbmsId = null;
-
+        DatabaseConnection dbConnectiona = null;
         if (tableToMove.getProperty().getItem() instanceof DatabaseConnectionItem) {
             Connection connection = ((DatabaseConnectionItem) tableToMove.getProperty().getItem()).getConnection();
-            DatabaseConnection dbConnection = (DatabaseConnection) connection;
-            dbmsId = dbConnection.getDbmsId();
+            dbConnectiona = (DatabaseConnection) connection;
+            dbmsId = dbConnectiona.getDbmsId();
             connectionLabel = tableToMove.getLabel();
         } else if (tableToMove.getProperty().getItem() instanceof GenericSchemaConnectionItem) {
             Connection connection = ((GenericSchemaConnectionItem) tableToMove.getProperty().getItem()).getConnection();
@@ -87,9 +91,22 @@ public class CopyToGenericSchemaHelper {
         GenericSchemaConnectionItem connectionItem = PropertiesFactory.eINSTANCE.createGenericSchemaConnectionItem();
         GenericSchemaConnection connection = ConnectionFactory.eINSTANCE.createGenericSchemaConnection();
 
+        // bug 23018
         if (dbmsId != null && dbmsId.length() > 0) {
-            connection.setMappingTypeId(dbmsId);
-            connection.setMappingTypeUsed(true);
+            if (ContextParameterUtils.containContextVariables(dbmsId)) {
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(IMetadataManagmentUiService.class)) {
+                    IMetadataManagmentUiService mmUIService = (IMetadataManagmentUiService) GlobalServiceRegister.getDefault()
+                            .getService(IMetadataManagmentUiService.class);
+                    ContextType contextType = mmUIService.getContextTypeForContextMode(dbConnectiona);
+                    if (contextType != null) {
+                        String context = mmUIService.getOriginalValue(contextType, dbmsId);
+                        if (context != null) {
+                            connection.setMappingTypeId(context);
+                            connection.setMappingTypeUsed(true);
+                        }
+                    }
+                }
+            }
         }
 
         MetadataTable metadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();

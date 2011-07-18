@@ -15,9 +15,12 @@ package org.talend.metadata.managment.ui;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.window.Window;
 import org.eclipse.ui.PlatformUI;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.service.IMetadataManagmentUiService;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.ui.dialog.OpenXSDFileDialog;
+import org.talend.repository.ui.utils.ConnectionContextHelper;
 
 /**
  * 
@@ -35,6 +38,14 @@ public class MetadataManagmentUiService implements IMetadataManagmentUiService {
             return openXSDFileDialog.getNewValue();
         }
         return null; // don't set
+    }
+
+    public ContextType getContextTypeForContextMode(Connection connection) {
+        return ConnectionContextHelper.getContextTypeForContextMode(connection);
+    }
+
+    public String getOriginalValue(ContextType contextType, String value) {
+        return ConnectionContextHelper.getOriginalValue(contextType, value);
     }
 
 }

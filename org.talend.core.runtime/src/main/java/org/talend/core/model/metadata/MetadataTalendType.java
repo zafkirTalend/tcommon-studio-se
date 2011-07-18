@@ -396,7 +396,6 @@ public final class MetadataTalendType {
      * @return the dbms from the given id
      */
     public static Dbms getDbms(String dbmsId) {
-        boolean hasGet = false;
         if (dbmsId == null) {
             throw new IllegalArgumentException();
         }
@@ -404,41 +403,7 @@ public final class MetadataTalendType {
         for (int i = 0; i < allDbmsArray.length; i++) {
             Dbms dbms = allDbmsArray[i];
             if (dbmsId.equals(dbms.getId())) {
-                hasGet = true;
                 return dbms;
-            }
-        }
-        // bug 23018
-        if (!hasGet && dbmsId.startsWith("context.")) {
-            String contextStr = dbmsId.substring("context.".length(), dbmsId.length());
-            List<ContextItem> contextItemList = ContextUtils.getAllContextItem();
-            for (ContextItem contextItem : contextItemList) {
-                if (contextItem != null && contextItem instanceof ContextItem) {
-                    List list = contextItem.getContext();
-                    Iterator it = list.iterator();
-                    while (it.hasNext()) {
-                        Object o = it.next();
-                        if (o instanceof ContextType) {
-                            ContextType contextType = (ContextType) o;
-                            List contextList = contextType.getContextParameter();
-                            for (int i = 0; i < contextList.size(); i++) {
-                                Object obj = contextList.get(i);
-                                if (obj instanceof ContextParameterType) {
-                                    ContextParameterType type = (ContextParameterType) obj;
-                                    if (type.getName().equals(contextStr)) {
-                                        contextStr = type.getValue();
-                                        for (int j = 0; j < allDbmsArray.length; j++) {
-                                            Dbms dbms = allDbmsArray[j];
-                                            if (contextStr != null && !"".equals(contextStr) && contextStr.equals(dbms.getId())) {
-                                                return dbms;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
             }
         }
 
