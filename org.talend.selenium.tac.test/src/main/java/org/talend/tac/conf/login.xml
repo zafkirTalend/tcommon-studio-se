@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Suite" parallel="false">
+<!-- 
 	<parameter name="user.admin.login" value="admin@tac.com" />
 	<parameter name="user.admin.passwd" value="adminPasswd" />
+ -->
 	<test name="TestLogin">
 		<classes>
 			<parameter name="userName" value="wrongadmin@company.com" />
@@ -67,12 +69,14 @@
 		</classes>
 	 </test>	
 
-	<!-- test forgetPasswd using user created maunully -->
+	<!-- test forgetPasswd using user created maunully
 	<test name="TestForgetPassword">
 		<classes>
 			<class name="com.talend.tac.cases.TestForgetPassword" />
 		</classes>
 	</test>
+	 -->
+	 
 	<test name="TestUserSettings">
 		<classes>
 			<parameter name="userSetting.currentUser.newPasswd" value="pass" />

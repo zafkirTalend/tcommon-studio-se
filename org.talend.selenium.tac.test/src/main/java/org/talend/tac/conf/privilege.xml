@@ -88,5 +88,12 @@
 				name="com.talend.tac.cases.rolesRights.TestCheckRoleViewerPrivilege"></class>
 		</classes>
 	</test>
+	
+	<!-- test forgetPasswd using user created maunully -->
+	<test name="TestForgetPassword">
+		<classes>
+			<class name="com.talend.tac.cases.TestForgetPassword" />
+		</classes>
+	</test>
 </suite>
 
