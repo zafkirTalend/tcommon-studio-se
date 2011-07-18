@@ -169,7 +169,7 @@
             <class name="com.talend.tac.cases.executionTask.TestCheckRegenerateTask"/>
             <class name="com.talend.tac.cases.executionTask.TestDeleteProjectUsedBytask"/>
             <class name="com.talend.tac.cases.executionTask.TestDeleteServerUsedBytask"/>
-            <class name="com.talend.tac.cases.executionTask.CheckLogs"/>            
+            <class name="com.talend.tac.cases.executionTask.TestCheckLogs"/>            
         </classes> 
 	</test>
 	
