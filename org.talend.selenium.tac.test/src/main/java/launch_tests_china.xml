@@ -65,51 +65,17 @@
     <parameter  name ="remotehostAddressWithWrong" value="192.168.0.g"/>
   	
 	<suite-files>
-		<!--  --><!-- -->
-		<suite-file path="org/talend/tac/conf/license.xml"/>
-		<suite-file path="org/talend/tac/conf/login.xml"/>
-		
-		<suite-file path="org/talend/tac/conf/privilege.xml"/>
-		
-		<suite-file path="org/talend/tac/conf/license_account.xml"/>
-		 
-		
-		<suite-file path="org/talend/tac/conf/user.xml"/>
-		  
-		  
-		<suite-file path="org/talend/tac/conf/project.xml"/>
-		
-		
-		<suite-file path="org/talend/tac/conf/audit.xml"/>
-		
-		
-		<suite-file path="org/talend/tac/conf/server.xml"/>
-		
-		
-		<suite-file path="org/talend/tac/conf/task.xml"/>
-		
-		<suite-file path="org/talend/tac/conf/soa.xml"/>
-		<suite-file path="org/talend/tac/conf/connection.xml"/>
-		 
-		<suite-file path="org/talend/tac/conf/notification.xml"/>
-		 <!-- -->
-		 <!--<suite-file path="user.xml"/>
-		
-		 <suite-file path="project.xml"/>			 	     
-		 --><!--
-		 <suite-file path="user.xml"/>
-		 <suite-file path="project.xml"/>	
-        	
-         <suite-file path="project.xml"/>
-          
-         <suite-file path="task.xml"/>-->
-			 <!-- Need configuration
-		 <suite-file path="dashboard.xml"/>
-		 <suite-file path="jobconductor.xml"/>
-		 	
-		 <suite-file path="Plans.xml"/>
-		 <suite-file path="notification.xml"/>
-		 -->	 
-
+		<suite-file path='org/talend/tac/conf/license.xml'/>
+		<suite-file path='org/talend/tac/conf/login.xml'/>
+		<suite-file path='org/talend/tac/conf/privilege.xml'/>
+		<suite-file path='org/talend/tac/conf/license_account.xml'/>
+		<suite-file path='org/talend/tac/conf/user.xml'/>
+		<suite-file path='org/talend/tac/conf/project.xml'/>
+		<suite-file path='org/talend/tac/conf/audit.xml'/>
+		<suite-file path='org/talend/tac/conf/server.xml'/>
+		<suite-file path='org/talend/tac/conf/task.xml'/>
+		<suite-file path='org/talend/tac/conf/soa.xml'/>
+		<suite-file path='org/talend/tac/conf/connection.xml'/>
+		<suite-file path='org/talend/tac/conf/notification.xml'/>
 	</suite-files>
 </suite>
