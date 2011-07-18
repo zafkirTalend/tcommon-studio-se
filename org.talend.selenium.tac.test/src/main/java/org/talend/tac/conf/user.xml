@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Suite" parallel="false">
 
-	<!-- Import User -->
+	<!-- Import User -->nullCvsFile
 	<parameter name="importUserName" value="userWithCvsFile@talend.com"/>
 	<parameter name="importPassWord" value="admin"/>
+	
+	<parameter name="filePathOfNullCvsFile" value="org/talend/tac/fileFolder/nullCvsFile.cvs" />
+	<parameter name="addUserOfNullCvsFileInfo" value="" />
 	
 	<parameter name="filePathOfCvsFile" value="org/talend/tac/fileFolder/user1.cvs" />
 	<parameter name="addUserOfCvsFileInfo" value="User 'userWithCvsFile@talend.com' successfully added." />
