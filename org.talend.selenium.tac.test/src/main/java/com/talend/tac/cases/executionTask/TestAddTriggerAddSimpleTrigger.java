@@ -53,16 +53,38 @@ public class TestAddTriggerAddSimpleTrigger extends AddTrigger {
 	 		
 	 	}
 
-    }		
-  
+    }	
+    
+    //check host of commandline, change it to localhost 
+    public void changeCommandLineConfig(String hostAddress) {
+		
+		selenium.refresh();
+		this.clickWaitForElementPresent("idMenuConfigElement");//into Configuration page
+		this.waitForElementPresent("//div[contains(text(),'Command line/primary')]", WAIT_TIME);
+		selenium.mouseDown("//div[contains(text(),'Command line/primary')]");
+		selenium.setSpeed(MID_SPEED);
+		if(!selenium.isElementPresent("//div[contains(@class,'x-grid3-cell-inner x-grid3-col-value') and contains(text(),'192.168.0.94')]")) {
+			
+			this.clickWaitForElementPresent("//div[contains(text(),'Command line/primary')]//ancestor::div[@class='x-grid-group ']" +
+			"//div[text()='Host']//ancestor::tr[@role='presentation']//img[@title='Click to edit']");
+			this.waitForElementPresent("//div[@class=' x-form-field-wrap  x-component']//input", WAIT_TIME); 
+			System.out.println("*--------------*");
+			this.typeString("//div[@class=' x-form-field-wrap  x-component']//input",hostAddress);
+			
+		}
+		selenium.setSpeed(MIN_SPEED);
+		
+			
+	}
+	
     //add a method of remove all triggers
     @Test
 //    (groups={"AddSimpleTrigger"},dependsOnGroups={"TestGenerateDeployRun"})
-    @Parameters({"labelTRunJobByTaskRun","labelRefProJobByMainProTRunJobRun","labelReferenceproTjava",
+    @Parameters({"localhostAddress","labelTRunJobByTaskRun","labelRefProJobByMainProTRunJobRun","labelReferenceproTjava",
     	"modifyTask","duplicateTask","TaskBaseBranch"})
-    public void clearsAllTriggers(String labelTRunJobByTaskRun,String labelRefProJobByMainProTRunJobRun,
+    public void clearsAllTriggers(String localhostAddress,String labelTRunJobByTaskRun,String labelRefProJobByMainProTRunJobRun,
     		String labelReferenceproTjava,String modifyTask,String duplicateTask, String TaskBaseBranch ) {
-    	
+    	changeCommandLineConfig(localhostAddress);
     	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
     	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
