@@ -68,6 +68,15 @@ public class TestAddUserWithImportUser extends Login{
 		
 	}	
 	
+	//test import user with a null'.cvs' file and check info
+	@Test(dependsOnMethods={"testAddUserImportUserWithCVSFile"})
+	@Parameters({"filePathOfNullCvsFile","addUserOfNullCvsFileInfo"})
+	public void testAddUserImportUserWithNullFile(String filePath,String info) {
+			
+		addUserWithImportUser(filePath, info);		
+		
+	}	
+	
 	//test import user with a '.cvs' file, use a exist label and check info
 	@Test(dependsOnMethods={"testAddUserImportUserWithCVSFile"})
 	@Parameters({"filePathOfCvsFile","addUserUseExistLabelOfCvsFileInfo"})
