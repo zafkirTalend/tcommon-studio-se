@@ -234,7 +234,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         // teradata use db name to filter schema
         if (dbConn != null && EDatabaseTypeName.TERADATA.getProduct().equals(((DatabaseConnection) dbConn).getProductId())) {
             String sid = ((DatabaseConnection) dbConn).getSID();
-            schemaFilter.add(sid);
+            if (sid != null && sid.length() > 0) {
+                schemaFilter.add(sid);
+            }
         }
 
         try {
