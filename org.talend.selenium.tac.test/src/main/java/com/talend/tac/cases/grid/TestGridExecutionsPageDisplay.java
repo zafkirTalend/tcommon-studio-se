@@ -171,18 +171,45 @@ public class TestGridExecutionsPageDisplay extends Grid {
 	}
 	
 	
-//	@Test//(dependsOnMethods={"testGridGoToFirstPageByUIButton"})
+	@Test(dependsOnMethods={"testGridGoToFirstPage"})
 	@Parameters({"grid.task.label","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
-	public void testGridGoToPreviousPage(String label, String description, String projectName, String branchName, String jobName, String version, String context, String serverName, String statisticName) {
+	public void testGridGoToPreviousPageByUIButton(String label, String description, String projectName, String branchName, String jobName, String version, String context, String serverName, String statisticName) {
 		String label2 = label+"second";
         this.openGridMenu();
 	    Assert.assertTrue(selenium.getValue("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[@class='gwt-TextBox x-component ']").equals("3"), "go to last page failed!");
-	    Assert.assertTrue(selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-taskLabel' and text()='Task: "+label+"']").intValue()+selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-taskLabel' and text()='Task: "+label2+"']").intValue()==2,"Grid past execution display failed!");
-        selenium.click("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//td[@class='x-toolbar-left']//tr[@class='x-toolbar-left-row']//td//table[@class=' x-btn x-component x-unselectable  x-btn-icon ']");
-        this.sleep(3000);
-        Assert.assertTrue(selenium.getValue("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[@class='gwt-TextBox x-component ']").equals("2"), "go to last page failed!");
-	    Assert.assertTrue(selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-taskLabel' and text()='Task: "+label+"']").intValue()+selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-taskLabel' and text()='Task: "+label2+"']").intValue()==10,"Grid past execution display failed!");
+        selenium.click("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//td[@class='x-toolbar-left']//tr[@class='x-toolbar-left-row']//td[2]//table//button");
+        this.sleep(5000);
+        Assert.assertTrue(selenium.getValue("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[@class='gwt-TextBox x-component ']").equals("2"), "go to previous page failed!");
+        
+	}
+	
+	@Test(dependsOnMethods={"testGridGoToFirstPage"})
+	@Parameters({"grid.task.label","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
+		"context","ServerForUseAvailable","statisticEnabled"})
+	public void testGridGoToFirstPageByUIButton(String label, String description, String projectName, String branchName, String jobName, String version, String context, String serverName, String statisticName) {
+		String label2 = label+"second";
+        this.openGridMenu();
+	    Assert.assertTrue(selenium.getValue("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[@class='gwt-TextBox x-component ']").equals("3"), "go to last page failed!");
+        selenium.click("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//td[@class='x-toolbar-left']//tr[@class='x-toolbar-left-row']//td[1]//table//button");
+        this.sleep(5000);
+        Assert.assertTrue(selenium.getValue("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[@class='gwt-TextBox x-component ']").equals("1"), "go to first page by UI button failed!");
+        
+	}
+	
+	@Test(dependsOnMethods={"testGridGoToFirstPage"})
+	@Parameters({"grid.task.label","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
+		"context","ServerForUseAvailable","statisticEnabled"})
+	public void testGridGoToLastPageByUIButton(String label, String description, String projectName, String branchName, String jobName, String version, String context, String serverName, String statisticName) {
+		String label2 = label+"second";
+        this.openGridMenu();
+	    Assert.assertTrue(selenium.getValue("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[@class='gwt-TextBox x-component ']").equals("3"), "go to last page failed!");
+        selenium.click("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//td[@class='x-toolbar-left']//tr[@class='x-toolbar-left-row']//td[1]//table//button");
+        this.sleep(5000);
+        Assert.assertTrue(selenium.getValue("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[@class='gwt-TextBox x-component ']").equals("1"), "go to first page by UI button failed!");
+        selenium.click("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//td[@class='x-toolbar-left']//tr[@class='x-toolbar-left-row']//td[9]//table//button");
+        this.sleep(5000);
+        Assert.assertTrue(selenium.getValue("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[@class='gwt-TextBox x-component ']").equals("3"), "go to first page by UI button failed!");
         
 	}
 	
