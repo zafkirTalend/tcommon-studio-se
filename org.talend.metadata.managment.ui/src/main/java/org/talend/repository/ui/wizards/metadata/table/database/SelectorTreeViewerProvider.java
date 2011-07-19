@@ -121,12 +121,18 @@ public class SelectorTreeViewerProvider extends LabelProvider implements ITreeCo
         } catch (Exception e) {
             ExceptionHandler.process(e);
         } finally {
+            String dbType = metadataConn.getDbType();
             // bug 22619
-            ExtractMetaDataUtils.closeConnection();
+            if (dbType != null
+                    && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
+                            || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
+                            || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                ExtractMetaDataUtils.closeConnection();
+            }
             // for specific db such as derby
             if (driver != null) {
                 String driverClass = metadataConn.getDriverClass();
-                String dbType = metadataConn.getDbType();
                 if ((driverClass != null && driverClass.equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass()))
                         || (dbType != null && (dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                                 || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())

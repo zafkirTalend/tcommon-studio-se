@@ -445,6 +445,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
      */
     private void updateConnectionInformation(DatabaseConnection dbConn) {
         java.sql.Connection sqlConn = null;
+        String dbType = null;
         try {
             IMetadataConnection metaConnection = MetadataFillFactory.getDBInstance().fillUIParams(dbConn);
             dbConn = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(metaConnection, dbConn);
@@ -456,11 +457,18 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                 MetadataFillFactory.getDBInstance().fillSchemas(dbConn, sqlConn.getMetaData(),
                         MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData(), false));
             }
+            dbType = metaConnection.getDbType();
         } catch (SQLException e) {
             log.error(e, e);
         } finally {
             // bug 22619
-            ExtractMetaDataUtils.closeConnection();
+            if (dbType != null
+                    && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
+                            || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
+                            || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                ExtractMetaDataUtils.closeConnection();
+            }
             Driver driver = MetadataConnectionUtils.getDerbyDriver();
             if (driver != null) {
                 try {

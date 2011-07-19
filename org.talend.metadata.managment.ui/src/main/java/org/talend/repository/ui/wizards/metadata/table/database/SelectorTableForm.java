@@ -759,12 +759,13 @@ public class SelectorTableForm extends AbstractForm {
         }
         Driver derbyDriver = null;
         Connection sqlConn = null;
+        String dbType = null;
         DatabaseConnection dbConn = (DatabaseConnection) iMetadataConnection.getCurrentConnection();
         List list = MetadataConnectionUtils.getConnection(iMetadataConnection);
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i) instanceof Driver) {
                 String driverClass = iMetadataConnection.getDriverClass();
-                String dbType = iMetadataConnection.getDbType();
+                dbType = iMetadataConnection.getDbType();
                 if (MetadataConnectionUtils.isDerbyRelatedDb(driverClass, dbType)) {
                     derbyDriver = (Driver) list.get(i);
                 }
@@ -975,7 +976,13 @@ public class SelectorTableForm extends AbstractForm {
             ExceptionHandler.process(e);
         } finally {
             // bug 22619
-            ExtractMetaDataUtils.closeConnection();
+            if (dbType != null
+                    && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
+                            || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
+                            || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                ExtractMetaDataUtils.closeConnection();
+            }
             if (derbyDriver != null) {
                 try {
                     derbyDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$

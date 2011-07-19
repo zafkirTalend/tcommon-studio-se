@@ -417,7 +417,13 @@ public class ExtractMetaDataFromDataBase {
             e.printStackTrace();
         } finally {
             // bug 22619
-            ExtractMetaDataUtils.closeConnection();
+            if (dbType != null
+                    && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
+                            || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
+                            || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                ExtractMetaDataUtils.closeConnection();
+            }
             if (wapperDriver != null
                     && (iMetadataConnection.getDriverClass().equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())
                             || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
