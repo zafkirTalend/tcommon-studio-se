@@ -71,7 +71,6 @@ import org.talend.core.model.general.TalendNature;
 import org.talend.core.model.metadata.MetadataManager;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
-import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.QueriesConnection;
 import org.talend.core.model.metadata.builder.connection.Query;
@@ -1811,6 +1810,15 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             Item newItem = copyFromResource(createResource, changeLabelWithCopyPrefix);
             create(getRepositoryContext().getProject(), newItem, path);
 
+            if (newItem instanceof ConnectionItem) {
+                ConnectionItem connectionItem = (ConnectionItem) newItem;
+                Resource itemResource = xmiResourceManager.getItemResource(connectionItem);
+                if (itemResource != null && itemResource instanceof XMLResource) {
+                    XMLResource xmlResource = (XMLResource) itemResource;
+                    xmlResource.setID(connectionItem.getConnection(), EcoreUtil.generateUUID());
+                }
+            }
+
             return newItem;
         } catch (IOException e) {
             // e.printStackTrace();
@@ -1868,15 +1876,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 break;
             case PropertiesPackage.DATABASE_CONNECTION_ITEM:
                 itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_CONNECTIONS, path);
-                if (isImportItem.length == 0 || !isImportItem[0]) {
-                    // bug 17996
-                    DatabaseConnection dbconn = (DatabaseConnection) EcoreUtil.getObjectByType(itemResource.getContents(),
-                            ConnectionPackage.eINSTANCE.getDatabaseConnection());
-                    if (itemResource != null && itemResource instanceof XMLResource) {
-                        XMLResource xmlResource = (XMLResource) itemResource;
-                        xmlResource.setID(dbconn, EcoreUtil.generateUUID());
-                    }
-                }
                 break;
             case PropertiesPackage.SAP_CONNECTION_ITEM:
                 itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_SAPCONNECTIONS, path);
