@@ -60,4 +60,20 @@ public interface RoutineItem extends FileItem {
      */
     EList getImports();
 
+    /**
+     * Returns the value of the '<em><b>Package Type</b></em>' attribute.
+     * The default value is <code>"routines"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Package Type</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Package Type</em>' attribute.
+     * @see org.talend.core.model.properties.PropertiesPackage#getRoutineItem_PackageType()
+     * @model default="routines" dataType="org.eclipse.emf.ecore.xml.type.String" transient="true" changeable="false"
+     * @generated
+     */
+    String getPackageType();
+
 } // RoutineItem

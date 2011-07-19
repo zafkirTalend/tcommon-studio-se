@@ -130,6 +130,7 @@
     <genClasses ecoreClass="properties.ecore#//RoutineItem">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//RoutineItem/builtIn"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//RoutineItem/imports"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//RoutineItem/packageType"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//ConnectionItem">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ConnectionItem/connection"/>

@@ -67,6 +67,26 @@ public class RoutineItemImpl extends FileItemImpl implements RoutineItem {
     protected EList imports;
 
     /**
+     * The default value of the '{@link #getPackageType() <em>Package Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getPackageType()
+     * @generated
+     * @ordered
+     */
+    protected static final String PACKAGE_TYPE_EDEFAULT = "routines";
+
+    /**
+     * The cached value of the '{@link #getPackageType() <em>Package Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getPackageType()
+     * @generated
+     * @ordered
+     */
+    protected String packageType = PACKAGE_TYPE_EDEFAULT;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -120,6 +140,15 @@ public class RoutineItemImpl extends FileItemImpl implements RoutineItem {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getPackageType() {
+        return packageType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.ROUTINE_ITEM__IMPORTS:
@@ -139,6 +168,8 @@ public class RoutineItemImpl extends FileItemImpl implements RoutineItem {
                 return isBuiltIn() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.ROUTINE_ITEM__IMPORTS:
                 return getImports();
+            case PropertiesPackage.ROUTINE_ITEM__PACKAGE_TYPE:
+                return getPackageType();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -189,6 +220,8 @@ public class RoutineItemImpl extends FileItemImpl implements RoutineItem {
                 return builtIn != BUILT_IN_EDEFAULT;
             case PropertiesPackage.ROUTINE_ITEM__IMPORTS:
                 return imports != null && !imports.isEmpty();
+            case PropertiesPackage.ROUTINE_ITEM__PACKAGE_TYPE:
+                return PACKAGE_TYPE_EDEFAULT == null ? packageType != null : !PACKAGE_TYPE_EDEFAULT.equals(packageType);
         }
         return super.eIsSet(featureID);
     }
@@ -204,6 +237,8 @@ public class RoutineItemImpl extends FileItemImpl implements RoutineItem {
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (builtIn: ");
         result.append(builtIn);
+        result.append(", packageType: ");
+        result.append(packageType);
         result.append(')');
         return result.toString();
     }

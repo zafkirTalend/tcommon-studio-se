@@ -1423,6 +1423,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getRoutineItem_PackageType() {
+        return (EAttribute)routineItemEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -5048,6 +5057,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         routineItemEClass = createEClass(ROUTINE_ITEM);
         createEAttribute(routineItemEClass, ROUTINE_ITEM__BUILT_IN);
         createEReference(routineItemEClass, ROUTINE_ITEM__IMPORTS);
+        createEAttribute(routineItemEClass, ROUTINE_ITEM__PACKAGE_TYPE);
 
         connectionItemEClass = createEClass(CONNECTION_ITEM);
         createEReference(connectionItemEClass, CONNECTION_ITEM__CONNECTION);
@@ -5743,6 +5753,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(routineItemEClass, RoutineItem.class, "RoutineItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getRoutineItem_BuiltIn(), ecorePackage.getEBoolean(), "builtIn", "false", 0, 1, RoutineItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getRoutineItem_Imports(), theComponentPackage.getIMPORTType(), null, "imports", null, 0, -1, RoutineItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getRoutineItem_PackageType(), theXMLTypePackage.getString(), "packageType", "routines", 0, 1, RoutineItem.class, IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(connectionItemEClass, ConnectionItem.class, "ConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getConnectionItem_Connection(), theConnectionPackage.getConnection(), null, "connection", null, 0, 1, ConnectionItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

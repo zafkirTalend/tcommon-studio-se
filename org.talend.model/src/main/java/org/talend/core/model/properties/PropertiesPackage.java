@@ -1229,13 +1229,22 @@ public interface PropertiesPackage extends EPackage {
     int ROUTINE_ITEM__IMPORTS = FILE_ITEM_FEATURE_COUNT + 1;
 
     /**
+     * The feature id for the '<em><b>Package Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ROUTINE_ITEM__PACKAGE_TYPE = FILE_ITEM_FEATURE_COUNT + 2;
+
+    /**
      * The number of structural features of the '<em>Routine Item</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 
      * @generated
      * @ordered
      */
-    int ROUTINE_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 2;
+    int ROUTINE_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 3;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -8534,6 +8543,17 @@ public interface PropertiesPackage extends EPackage {
     EReference getRoutineItem_Imports();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.RoutineItem#getPackageType <em>Package Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Package Type</em>'.
+     * @see org.talend.core.model.properties.RoutineItem#getPackageType()
+     * @see #getRoutineItem()
+     * @generated
+     */
+    EAttribute getRoutineItem_PackageType();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ByteArray <em>Byte Array</em>}'. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -13750,6 +13770,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference ROUTINE_ITEM__IMPORTS = eINSTANCE.getRoutineItem_Imports();
+
+        /**
+         * The meta object literal for the '<em><b>Package Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ROUTINE_ITEM__PACKAGE_TYPE = eINSTANCE.getRoutineItem_PackageType();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ByteArrayImpl <em>Byte Array</em>}' class.
