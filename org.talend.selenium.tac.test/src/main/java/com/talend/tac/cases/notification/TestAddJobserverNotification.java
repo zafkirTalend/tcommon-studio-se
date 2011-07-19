@@ -10,8 +10,8 @@ public class TestAddJobserverNotification extends AddNotification {
     //add a jobserver'notification(JobServerAlertNotification)
 	@Test
 //	(groups={"AddJobserverNotification"}, dependsOnGroups={"AddTaskNotification"})
-	@Parameters({"categoryJobServer","descriptionTaskFailed","eventJobServerAlert","descriptionJobServerAlert","ServerForUseUnavailable"})
-	public void testAddJobserversJobServerAlertNotification(String categoryJobServer,String descriptionTaskFailed, String eventJobServerAlert,
+	@Parameters({"categoryJobServer","eventJobServerAlert","descriptionJobServerAlert","ServerForUseUnavailable"})
+	public void testAddJobserversJobServerAlertNotification(String categoryJobServer, String eventJobServerAlert,
 			String descriptionJobServerAlert, String jobServer) {
 		
 		this.addJobServerNotification(3, categoryJobServer, 1, eventJobServerAlert, descriptionJobServerAlert, jobServer);
@@ -25,8 +25,8 @@ public class TestAddJobserverNotification extends AddNotification {
 	}
 	//add a jobserver'notification(uncheck Active)
 	@Test(dependsOnMethods={"testAddJobserversJobServerAlertNotification"})
-	@Parameters({"categoryJobServer","descriptionTaskFailed","eventJobServerAlert","descriptionJobServerAlert","ServerForUseAvailable"})
-	public void testAddJobserversNotificationUncheckActive(String categoryJobServer, String descriptionTaskFailed,String eventJobServerAlert,
+	@Parameters({"categoryJobServer","eventJobServerAlert","descriptionJobServerAlert","ServerForUseAvailable"})
+	public void testAddJobserversNotificationUncheckActive(String categoryJobServer,String eventJobServerAlert,
 			String descriptionJobServerAlert,String jobServer) {
 		
 		this.addJobServerNotification(3, categoryJobServer, 1, eventJobServerAlert, descriptionJobServerAlert, jobServer);
