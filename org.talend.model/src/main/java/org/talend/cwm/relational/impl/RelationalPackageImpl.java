@@ -430,6 +430,15 @@ public class RelationalPackageImpl extends EPackageImpl implements RelationalPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getTdExpression_Name() {
+        return (EAttribute) tdExpressionEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public RelationalFactory getRelationalFactory() {
         return (RelationalFactory) getEFactoryInstance();
     }
@@ -477,6 +486,7 @@ public class RelationalPackageImpl extends EPackageImpl implements RelationalPac
         tdExpressionEClass = createEClass(TD_EXPRESSION);
         createEAttribute(tdExpressionEClass, TD_EXPRESSION__VERSION);
         createEAttribute(tdExpressionEClass, TD_EXPRESSION__MODIFICATION_DATE);
+        createEAttribute(tdExpressionEClass, TD_EXPRESSION__NAME);
     }
 
     /**
@@ -577,6 +587,8 @@ public class RelationalPackageImpl extends EPackageImpl implements RelationalPac
         initEAttribute(getTdExpression_ModificationDate(), theCorePackage.getTime(), "modificationDate", null, 0, 1,
                 TdExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
                 IS_ORDERED);
+        initEAttribute(getTdExpression_Name(), theCorePackage.getString(), "name", null, 0, 1, TdExpression.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Create annotations
         // http://www.eclipse.org/emf/2002/GenModel

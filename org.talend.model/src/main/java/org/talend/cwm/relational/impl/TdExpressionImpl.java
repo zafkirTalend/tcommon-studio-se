@@ -25,6 +25,7 @@ import orgomg.cwm.objectmodel.core.impl.ExpressionImpl;
  * <ul>
  *   <li>{@link org.talend.cwm.relational.impl.TdExpressionImpl#getVersion <em>Version</em>}</li>
  *   <li>{@link org.talend.cwm.relational.impl.TdExpressionImpl#getModificationDate <em>Modification Date</em>}</li>
+ *   <li>{@link org.talend.cwm.relational.impl.TdExpressionImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -71,6 +72,26 @@ public class TdExpressionImpl extends ExpressionImpl implements TdExpression {
      * @ordered
      */
     protected String modificationDate = MODIFICATION_DATE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getName()
+     * @generated
+     * @ordered
+     */
+    protected static final String NAME_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getName()
+     * @generated
+     * @ordered
+     */
+    protected String name = NAME_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -139,6 +160,27 @@ public class TdExpressionImpl extends ExpressionImpl implements TdExpression {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setName(String newName) {
+        String oldName = name;
+        name = newName;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.TD_EXPRESSION__NAME, oldName, name));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
@@ -146,6 +188,8 @@ public class TdExpressionImpl extends ExpressionImpl implements TdExpression {
             return getVersion();
         case RelationalPackage.TD_EXPRESSION__MODIFICATION_DATE:
             return getModificationDate();
+        case RelationalPackage.TD_EXPRESSION__NAME:
+            return getName();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -163,6 +207,9 @@ public class TdExpressionImpl extends ExpressionImpl implements TdExpression {
             return;
         case RelationalPackage.TD_EXPRESSION__MODIFICATION_DATE:
             setModificationDate((String) newValue);
+            return;
+        case RelationalPackage.TD_EXPRESSION__NAME:
+            setName((String) newValue);
             return;
         }
         super.eSet(featureID, newValue);
@@ -182,6 +229,9 @@ public class TdExpressionImpl extends ExpressionImpl implements TdExpression {
         case RelationalPackage.TD_EXPRESSION__MODIFICATION_DATE:
             setModificationDate(MODIFICATION_DATE_EDEFAULT);
             return;
+        case RelationalPackage.TD_EXPRESSION__NAME:
+            setName(NAME_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -199,6 +249,8 @@ public class TdExpressionImpl extends ExpressionImpl implements TdExpression {
         case RelationalPackage.TD_EXPRESSION__MODIFICATION_DATE:
             return MODIFICATION_DATE_EDEFAULT == null ? modificationDate != null : !MODIFICATION_DATE_EDEFAULT
                     .equals(modificationDate);
+        case RelationalPackage.TD_EXPRESSION__NAME:
+            return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
         }
         return super.eIsSet(featureID);
     }
@@ -218,6 +270,8 @@ public class TdExpressionImpl extends ExpressionImpl implements TdExpression {
         result.append(version);
         result.append(", modificationDate: ");
         result.append(modificationDate);
+        result.append(", name: ");
+        result.append(name);
         result.append(')');
         return result.toString();
     }

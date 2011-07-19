@@ -2716,13 +2716,22 @@ public interface RelationalPackage extends EPackage {
     int TD_EXPRESSION__MODIFICATION_DATE = CorePackage.EXPRESSION_FEATURE_COUNT + 1;
 
     /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_EXPRESSION__NAME = CorePackage.EXPRESSION_FEATURE_COUNT + 2;
+
+    /**
      * The number of structural features of the '<em>Td Expression</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TD_EXPRESSION_FEATURE_COUNT = CorePackage.EXPRESSION_FEATURE_COUNT + 2;
+    int TD_EXPRESSION_FEATURE_COUNT = CorePackage.EXPRESSION_FEATURE_COUNT + 3;
 
     /**
      * Returns the meta object for class '{@link org.talend.cwm.relational.TdTable <em>Td Table</em>}'.
@@ -2905,6 +2914,17 @@ public interface RelationalPackage extends EPackage {
     EAttribute getTdExpression_ModificationDate();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.cwm.relational.TdExpression#getName <em>Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Name</em>'.
+     * @see org.talend.cwm.relational.TdExpression#getName()
+     * @see #getTdExpression()
+     * @generated
+     */
+    EAttribute getTdExpression_Name();
+
+    /**
      * Returns the factory that creates the instances of the model.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3076,6 +3096,14 @@ public interface RelationalPackage extends EPackage {
          * @generated
          */
         EAttribute TD_EXPRESSION__MODIFICATION_DATE = eINSTANCE.getTdExpression_ModificationDate();
+
+        /**
+         * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TD_EXPRESSION__NAME = eINSTANCE.getTdExpression_Name();
 
     }
 

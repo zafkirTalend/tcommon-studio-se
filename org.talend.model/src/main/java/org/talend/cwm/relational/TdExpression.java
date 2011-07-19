@@ -17,6 +17,7 @@ import orgomg.cwm.objectmodel.core.Expression;
  * <ul>
  *   <li>{@link org.talend.cwm.relational.TdExpression#getVersion <em>Version</em>}</li>
  *   <li>{@link org.talend.cwm.relational.TdExpression#getModificationDate <em>Modification Date</em>}</li>
+ *   <li>{@link org.talend.cwm.relational.TdExpression#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -77,5 +78,31 @@ public interface TdExpression extends Expression {
      * @generated
      */
     void setModificationDate(String value);
+
+    /**
+     * Returns the value of the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Name</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Name</em>' attribute.
+     * @see #setName(String)
+     * @see org.talend.cwm.relational.RelationalPackage#getTdExpression_Name()
+     * @model dataType="orgomg.cwm.objectmodel.core.String"
+     * @generated
+     */
+    String getName();
+
+    /**
+     * Sets the value of the '{@link org.talend.cwm.relational.TdExpression#getName <em>Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Name</em>' attribute.
+     * @see #getName()
+     * @generated
+     */
+    void setName(String value);
 
 } // TdExpression
