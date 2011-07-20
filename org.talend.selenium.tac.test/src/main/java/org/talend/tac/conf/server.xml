@@ -48,6 +48,7 @@
   <class name="com.talend.tac.cases.jobconductor.TestAddServerWithInvalidports" /> 
   <class name="com.talend.tac.cases.jobconductor.TestAddServerLabelWithSpecialChar" /> 
   <class name="com.talend.tac.cases.jobconductor.TestAddServerForUse" /> 
+  <class name="com.talend.tac.cases.jobconductor.TestDefaultJobServerPorts" /> 
   </classes>
   </test>
   
