@@ -14,16 +14,22 @@ package org.talend.repository.ui.wizards.metadata.connection.files.xml.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.xerces.impl.xs.XMLSchemaLoader;
-import org.apache.xerces.xs.XSModel;
-import org.apache.xerces.xs.XSNamespaceItem;
+import org.dom4j.Attribute;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
@@ -53,6 +59,7 @@ public class CopyDeleteFileUtilForWizard {
         String newFile;
         try {
             newFile = copyNeededFiles(oldFile, temPath);
+            getImportFiles(oldFile, temPath);
         } catch (IOException e) {
             throw new PersistenceException(e);
         } catch (URISyntaxException e) {
@@ -86,20 +93,55 @@ public class CopyDeleteFileUtilForWizard {
         if (!fileName.toUpperCase().endsWith(".XSD")) {
             return newFile.getAbsolutePath();
         }
-        XMLSchemaLoader xsLoader = new XMLSchemaLoader();
-        XSModel xsModel = xsLoader.loadURI(uri.toString());
-        for (int i = 0; i < xsModel.getNamespaceItems().getLength(); i++) {
-            XSNamespaceItem item = xsModel.getNamespaceItems().item(i);
-            for (int j = 0; j < item.getDocumentLocations().getLength(); j++) {
-                String location = item.getDocumentLocations().item(j);
-                URL url = new URL(location);
-                if (!fileName.equals(url.getFile())) {
-                    copyNeededFiles(url.getFile(), newPath);
-                }
-            }
-        }
+        // XMLSchemaLoader xsLoader = new XMLSchemaLoader();
+        // XSModel xsModel = xsLoader.loadURI(uri.toString());
+        // for (int i = 0; i < xsModel.getNamespaceItems().getLength(); i++) {
+        // XSNamespaceItem item = xsModel.getNamespaceItems().item(i);
+        // for (int j = 0; j < item.getDocumentLocations().getLength(); j++) {
+        // String location = item.getDocumentLocations().item(j);
+        // URL url = new URL(location);
+        // if (!fileName.equals(url.getFile())) {
+        // copyNeededFiles(url.getFile(), newPath);
+        // }
+        // }
+        // }
 
         return newFile.getAbsolutePath();
+    }
+
+    private static void getImportFiles(String xsdFile, String newPath) {
+        File file = new File(xsdFile);
+        IPath path = new Path(xsdFile);
+        if ((path.segments().length < 2) || !file.exists()) {
+            return;
+        }
+
+        String xsdFolder = path.removeLastSegments(1).toString();
+        SAXReader saxReader = new SAXReader();
+        Document doc;
+        try {
+            URL url = file.toURI().toURL();
+            doc = saxReader.read(url.getFile());
+            Element root = doc.getRootElement();
+            List<Element> elementsList = root.elements("import");
+            for (Element n : elementsList) {
+                Attribute attr = n.attribute("schemaLocation");
+                if (attr != null) {
+                    String importFile = xsdFolder + File.separator + attr.getValue();
+                    File f = new File(importFile);
+                    if (f.exists()) {
+                        File newFile = new File(newPath + attr.getValue());
+                        FilesUtils.copyFile(f, newFile);
+                    }
+                }
+            }
+        } catch (DocumentException e) {
+            ExceptionHandler.process(e);
+        } catch (MalformedURLException e) {
+            ExceptionHandler.process(e);
+        } catch (IOException e) {
+            ExceptionHandler.process(e);
+        }
     }
 
     public static void deleteWizardTempFiles() {
