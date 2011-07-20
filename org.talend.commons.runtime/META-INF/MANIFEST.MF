@@ -8,8 +8,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.talend.libraries.jackson,
  org.apache.log4j;visibility:=reexport,
  org.talend.libraries.apache,
- org.apache.commons.httpclient,
- org.talend.libraries.jexcel
+ org.apache.commons.httpclient
 Export-Package: org.talend.commons,
  org.talend.commons.debug,
  org.talend.commons.emf,
