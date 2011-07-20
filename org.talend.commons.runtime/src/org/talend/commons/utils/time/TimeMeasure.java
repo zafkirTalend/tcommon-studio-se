@@ -61,13 +61,11 @@ public class TimeMeasure {
 
     public static boolean displaySteps = true;
 
-    public static boolean isLogToFile = true;
+    public static boolean isLogToFile = false;
 
     public static boolean printMemoryUsed = true;
 
     public static String logFilePath;
-
-    public static boolean isFromMainTest = false;
 
     // key represent the idTimer,value map represent the log rows.
     private static Map<String, List<Map<Integer, Object>>> logValue = new HashMap<String, List<Map<Integer, Object>>>();
@@ -210,7 +208,7 @@ public class TimeMeasure {
                                     newRowValue.put(ELogFileColumnConstant.MEMO_USED.locationY, usedMemory);
                                 }
                                 // current time
-                                // newRowValue.put(ELogFileColumnConstant.TIMETRACE.locationY, now);
+                                newRowValue.put(ELogFileColumnConstant.TIMETRACE.locationY, now);
                                 values.add(newRowValue);
                             }
                             foundTimerKey = true;
@@ -437,6 +435,7 @@ public class TimeMeasure {
 
     public static void main(String[] args) {
         try {
+            isLogToFile = true;
             logFilePath = "D:\\test.xls"; //$NON-NLS-N$
             TimeMeasure.begin("a"); //$NON-NLS-1$
             // TimeMeasure.end("b");
@@ -450,6 +449,7 @@ public class TimeMeasure {
             Thread.sleep(2000);
             TimeMeasure.end("a"); //$NON-NLS-1$
             logFilePath = ""; //$NON-NLS-N$
+            isLogToFile = false;
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
