@@ -26,6 +26,34 @@ import java.util.Map;
 /**
  * Timer to measure elapsed time of any process or between steps.
  * 
+ * Can write in a file by adding the JVM argument
+ * 
+ * -DstatsTracerPathFile=/myPathFile
+ * 
+ * and calling the method print()
+ * 
+ * Example of use:
+ * 
+ * <pre>
+ * StatisticsTracer myTracerTest1 = StatisticsTracer.getTracer(&quot;myTracerTest1&quot;);
+ * 
+ * myTracerTest1.traceToFile(&quot;/myPathFileToTrace&quot;, false);
+ * 
+ * int sleepTime = 100;
+ * int executionsCount = 10;
+ * 
+ * for (int i = 0; i &lt; 10; i++) {
+ *     long id = myTracerTest1.start();
+ *     Thread.sleep(sleepTime);
+ *     myTracerTest1.stop(id);
+ * }
+ * 
+ * long averageWorkTime = myTracerTest1.getAverageWorkTime();
+ * long elapsedTimeSinceFirstStart = myTracerTest1.getElapsedTimeSinceFirstStart();
+ * long countExecutions = myTracerTest1.getCountExecutions();
+ * 
+ * StatisticsTracer.removeTracer(&quot;myTracerTest1&quot;);
+ * </pre>
  */
 public final class StatisticsTracer {
 
@@ -55,7 +83,9 @@ public final class StatisticsTracer {
 
     private static final Object[] STATIC_LOCK = new Object[0];
 
-    private static Writer tracerFileWriter;
+    private Writer tracerFileWriter;
+
+    private static String staticTracerFilePath;
 
     static {
         String statsTracerProperty = "statsTracerPathFile";
@@ -63,14 +93,7 @@ public final class StatisticsTracer {
         System.out.println("System property \"" + statsTracerProperty + "\" with value '" + systemPropertyTracerPathFile
                 + "' used.");
         if (systemPropertyTracerPathFile != null) {
-            try {
-                File file = new File(systemPropertyTracerPathFile);
-                tracerFileWriter = new FileWriter(file, false);
-                tracerFileWriter.write(TRACE_FILE_HEADER);
-                tracerFileWriter.flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            staticTracerFilePath = systemPropertyTracerPathFile;
         }
     }
 
@@ -129,6 +152,13 @@ public final class StatisticsTracer {
 
     private StatisticsTracer(String name) {
         this.name = name;
+        if (staticTracerFilePath != null) {
+            traceToFile(staticTracerFilePath, false);
+        }
+    }
+
+    public void traceToFile(String pathFile, boolean append) {
+        initFile(pathFile, append);
     }
 
     public static synchronized StatisticsTracer getTracer(String name) {
@@ -235,25 +265,25 @@ public final class StatisticsTracer {
     }
 
     public String toString() {
-        long averageTime = getAverageTime();
-        long totalWithStoppedTime = getTotalWithStoppedTime();
+        long averageTime = getAverageWorkTime();
+        long totalWithStoppedTime = getElapsedTimeSinceFirstStart();
         return "Print " + name + " : " + counter + " executions, average: " + averageTime + " ms, total execution: "
                 + elapsedTime + " ms, total with stopped time " + totalWithStoppedTime + " ms)";
     }
 
     public String toDataRow() {
-        long averageTime = getAverageTime();
-        long totalWithStoppedTime = getTotalWithStoppedTime();
+        long averageTime = getAverageWorkTime();
+        long totalWithStoppedTime = getElapsedTimeSinceFirstStart();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String date = simpleDateFormat.format(new Date());
         return date + ";" + name + ";" + counter + ";" + averageTime + ";" + elapsedTime + ";" + totalWithStoppedTime;
     }
 
-    public long getTotalWithStoppedTime() {
+    public long getElapsedTimeSinceFirstStart() {
         return getCurrentTime() - this.startTime;
     }
 
-    public long getAverageTime() {
+    public long getAverageWorkTime() {
         long averageTime = 0;
         if (counter != 0) {
             averageTime = elapsedTime / counter;
@@ -284,7 +314,27 @@ public final class StatisticsTracer {
     }
 
     public static synchronized void removeTracer(String timerId) {
-        tracers.remove(timerId);
+        StatisticsTracer removed = tracers.remove(timerId);
+        if (removed.tracerFileWriter != null) {
+            try {
+                removed.tracerFileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void initFile(String filePath, boolean append) {
+        try {
+            File file = new File(filePath);
+            boolean exists = file.exists();
+            tracerFileWriter = new FileWriter(file, append);
+            if (!exists)
+                tracerFileWriter.write(TRACE_FILE_HEADER);
+            tracerFileWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
