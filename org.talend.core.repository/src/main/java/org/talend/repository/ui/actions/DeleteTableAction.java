@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -34,6 +35,7 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.SubscriberTable;
+import org.talend.core.model.metadata.builder.connection.impl.SalesforceModuleUnitImpl;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.Item;
@@ -130,6 +132,14 @@ public class DeleteTableAction extends AContextualAction {
                         }
                     }
                     if (isSave) {
+                        //
+                        String sfm = null;
+                        String sf = null;
+                        EObject eContainer = abstractMetadataObject.eContainer();
+                        if (eContainer != null && eContainer instanceof SalesforceModuleUnitImpl) {
+                            sfm = ((SalesforceModuleUnitImpl) eContainer).getModuleName();
+                            sf = abstractMetadataObject.getLabel();
+                        }
                         if (SubItemHelper.isDeleted(abstractMetadataObject) && isSave) {
                             if (confirm == null) {
                                 String title = Messages.getString("DeleteAction.dialog.title"); //$NON-NLS-1$
@@ -143,7 +153,8 @@ public class DeleteTableAction extends AContextualAction {
                         }
                         // bug 20963
                         else if (item instanceof SalesforceSchemaConnectionItem && parentNodeType.getType() != null
-                                && parentNodeType.getType().equals("METADATA_SALESFORCE_MODULE")) {
+                                && parentNodeType.getType().equals("METADATA_SALESFORCE_MODULE") && sfm != null && sf != null
+                                && sfm.equals(sf)) {
                             // Nothing to do
                         } else {
                             SubItemHelper.setDeleted(abstractMetadataObject, true);
