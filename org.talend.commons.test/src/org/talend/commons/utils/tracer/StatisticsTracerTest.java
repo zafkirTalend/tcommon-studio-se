@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.commons.utils.tracer;
 
+import static org.junit.Assert.*;
+
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -20,8 +22,6 @@ import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
-
-import junit.framework.Assert;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -52,15 +52,15 @@ public class StatisticsTracerTest {
         }
 
         long averageWorkTime = myTracerTest1.getAverageWorkTime();
-        Assert.assertTrue(averageWorkTime >= sleepTime && averageWorkTime < sleepTime + 10);
+        assertTrue(averageWorkTime >= sleepTime && averageWorkTime < sleepTime + 10);
 
         int exepectedElapsedTimeSinceFirstStart = sleepTime * executionsCount;
         long elapsedTimeSinceFirstStart = myTracerTest1.getElapsedTimeSinceFirstStart();
-        Assert.assertTrue(elapsedTimeSinceFirstStart >= exepectedElapsedTimeSinceFirstStart
+        assertTrue(elapsedTimeSinceFirstStart >= exepectedElapsedTimeSinceFirstStart
                 && elapsedTimeSinceFirstStart < exepectedElapsedTimeSinceFirstStart + 50);
 
         long countExecutions = myTracerTest1.getCountExecutions();
-        Assert.assertEquals(executionsCount, countExecutions);
+        assertEquals(executionsCount, countExecutions);
 
         StatisticsTracer.removeTracer(MY_TRACER_TEST1);
 
@@ -76,7 +76,7 @@ public class StatisticsTracerTest {
         try {
             refClassFile = new File(new URI(resource.toString()));
         } catch (URISyntaxException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         File folder = refClassFile.getParentFile();
 
@@ -94,19 +94,19 @@ public class StatisticsTracerTest {
         }
 
         long averageWorkTime = myTracerTest1.getAverageWorkTime();
-        Assert.assertTrue(averageWorkTime >= sleepTime && averageWorkTime < sleepTime + 10);
+        assertTrue(averageWorkTime >= sleepTime && averageWorkTime < sleepTime + 10);
 
         int exepectedElapsedTimeSinceFirstStart = sleepTime * executionsCount;
         long elapsedTimeSinceFirstStart = myTracerTest1.getElapsedTimeSinceFirstStart();
-        Assert.assertTrue(elapsedTimeSinceFirstStart >= exepectedElapsedTimeSinceFirstStart
+        assertTrue(elapsedTimeSinceFirstStart >= exepectedElapsedTimeSinceFirstStart
                 && elapsedTimeSinceFirstStart < exepectedElapsedTimeSinceFirstStart + 50);
 
         long countExecutions = myTracerTest1.getCountExecutions();
-        Assert.assertEquals(executionsCount, countExecutions);
+        assertEquals(executionsCount, countExecutions);
 
         File file = new File(pathFile);
-        Assert.assertTrue(file.canRead());
-        Assert.assertTrue(file.length() > 550);
+        assertTrue(file.canRead());
+        assertTrue(file.length() > 550);
         file.delete();
 
         StatisticsTracer.removeTracer(MY_TRACER_TEST1);
@@ -169,19 +169,17 @@ public class StatisticsTracerTest {
         boolean testAverageWorkTime = averageWorkTime >= sleepTime && averageWorkTime < sleepTime + 100;
         // log.info("averageWorkTime=" + averageWorkTime);
         // System.out.println("averageWorkTime=" + averageWorkTime);
-        Assert.assertTrue(testAverageWorkTime);
+        assertTrue(testAverageWorkTime);
 
         int expectedElapsedTimeSinceFirstStart = sleepTime * executionsCount;
         long elapsedTimeSinceFirstStart = myTracerTest1.getElapsedTimeSinceFirstStart();
-        boolean testElapsedTimeSinceFirstStart = elapsedTimeSinceFirstStart >= expectedElapsedTimeSinceFirstStart
-                && elapsedTimeSinceFirstStart < expectedElapsedTimeSinceFirstStart + 1200;
         // log.info("elapsedTimeSinceFirstStart=" + elapsedTimeSinceFirstStart);
         // System.out.println("elapsedTimeSinceFirstStart=" + elapsedTimeSinceFirstStart);
-        Assert.assertTrue(testElapsedTimeSinceFirstStart);
+        assertEquals(expectedElapsedTimeSinceFirstStart, elapsedTimeSinceFirstStart, 1500);
 
         // log.info("executionsCount=" + myTracerTest1.getCountExecutions());
         // System.out.println("executionsCount=" + myTracerTest1.getCountExecutions());
-        Assert.assertEquals(executionsCount * concurrentExecutionsCount, myTracerTest1.getCountExecutions());
+        assertEquals(executionsCount * concurrentExecutionsCount, myTracerTest1.getCountExecutions());
 
         StatisticsTracer.removeTracer(MY_TRACER_TEST2);
     }

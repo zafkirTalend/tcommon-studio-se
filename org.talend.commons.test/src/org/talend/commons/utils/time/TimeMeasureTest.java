@@ -1,4 +1,4 @@
-package commons.utils.time;
+package org.talend.commons.utils.time;
 
 import junit.framework.TestCase;
 
