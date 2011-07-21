@@ -1,46 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Test_plan" parallel="false">
-
-	<parameter name="server" value="" />
-	<parameter name="port" value="" />
-	<parameter name="browser" value="" />
-	<parameter name="url" value="" />
-	<parameter name="root" value="" />
-
-	<parameter name="language" value="en" />
-	<parameter name="country" value="US" />
-	<parameter name="resourceBundle" value="messages" />
+<suite name="Suite" parallel="false">
 
 
-	<parameter name="userName" value="admin@company.com" />
-	<parameter name="userPassword" value="admin" />
-	
-	<!-- plan -->
-	<parameter name="label" value="testAddPlan" />
-	<parameter name="description" value="Test add a Plan" />
-	<parameter name="modifyLabel" value="testModifyPlan" />
-	<parameter name="modifyDescription" value="test modify a plan" />
-	<!-- plan -->
-	
-    <test  name="test_paln"  annotations="JDK">
+	<test name="executionplan">
+		<parameter name="plan.label" value="testPlan" />
 
-      <classes>  
-      
-         <class name="com.talend.tac.cases.executePlan.AddPlan"/> 
-         <class name="com.talend.tac.cases.executePlan.ModifyPlan"/>
-         <class name="com.talend.tac.cases.executePlan.DeletePlan"/>
-         
-    
-         <!--  missing id(label,description)   
-               save failed
-               this is execute failed      
-         <class name="com.talend.tac.cases.executePlan.TestAddTriggerAddSimpleTrigger"/>
-         -->  
-                
-      </classes> 
+		<parameter name="plan.unexecuted.label" value="unexecutedPlan" />
+		<parameter name="plan.unexecuted.tasklabel" value="unexecutedTask" />
+		<parameter name="labelDescription" value="test add a task" />
+		<parameter name="branchNameTrunk" value="trunk" />
+		<parameter name="jobNameTJava" value="tjava" />
+		<parameter name="version0.1" value="0.1" />
+		<parameter name="context" value="Default" />
+		<parameter name="statisticEnabled" value="enabled" />
+		<parameter name="ServerForUseAvailable" value="use_server_available" />
+
+		<parameter name="plan.task" value="BranchTask" />
+		<parameter name="plan.description" value="testPlan.des" />
+		<parameter name="plan.modifyLabel" value="testModifyPlan" />
+		<parameter name="plan.modifyDescription" value="testModifyPlan.des" />
+		<parameter name="plan.modifyTask" value = "testTaskRunTRunJob"/>
+		<parameter name="plan.delete.label" value="testModifyPlan" />
+		<parameter name="plan.tasktreeviewmanage.label" value="planforSimpleTrigger" />
+		<parameter name="plan.tasktreeviewmanage.task" value="BranchTask" />
+		<!-- plan tree view manage -->
+		<parameter name="plan.tasktreemanage.task1" value="TASK_MSG" />
+		<parameter name="plan.tasktreemanage.task2" value="TASK_TJAVA" />
+		<parameter name="plan.toaddcrontrigger.label" value="planforCrontrigger" />
+		<parameter name="plan.toaddcrontrigger.task" value="BranchTask"/>
+		<parameter name="plan.trigger.pauseandresume.label" value="triggerPauseResume" />
+		<parameter name="plan.crontrigger.label" value="CrontriggerFuture" />
+		<parameter name="plan.crontrigger.byui.label" value="CrontriggerFutureUI" />
+		<parameter name="plan.crontrigger.past.label" value="CrontriggerPast" />
+		<parameter name="plan.toaddsimpletrigger.label" value="planforSimpleTrigger" />
+		<parameter name="plan.toaddfiletrigger.label" value="unexecutedPlan" />
+
+		<parameter name="plan.filetrigger.server" value="use_server_available" />
+		<parameter name="plan.filetrigger.exist.label" value="fileTriggerExist" />
+		<parameter name="plan.filetrigger.exist.forderpath" value="F:\\" />
+		<parameter name="plan.filetrigger.exist.forderpathFalse"
+			value="F:\\notexist" />
+		<parameter name="plan.filetrigger.exist.timeinterval" value="30" />
+		<parameter name="plan.filetrigger.exist.filemask" value="*.txt" />
+		<parameter name="plan.filetrigger.create.label" value="fileTriggerCreate" />
+		<parameter name="plan.filetrigger.create.forderpath" value="F:\\" />
+		<parameter name="plan.filetrigger.create.timeinterval"
+			value="30" />
+		<parameter name="plan.filetrigger.create.filemask" value="*.txt" />	
+		<parameter name="plan.filetrigger.modify.label" value="fileTriggerModify" />
+		<parameter name="plan.filetrigger.modify.forderpath" value="F:\\" />
+		<parameter name="plan.filetrigger.modify.timeinterval"
+			value="30" />
+		<parameter name="plan.filetrigger.modify.filemask" value="*.txt" />
+
+		<parameter name="plan.simpletrigger.label" value="testSimpleTrigger" />
+		<parameter name="plan.toaddsimpletrigger.roottask" value="BranchTask"/>
+		<parameter name="plan.simpletrigger.byui.label" value="testSimpleTriggerUI" />
+		<parameter name="plan.simpletrigger.byui.endbeforestart.label" value="simpleTriggerEndStart" />
+		<parameter name="plan.simpletrigger.defaulttime.label" value="defaulttimeSimpleTrigger" />
+		<parameter name="plan.simpletrigger.outdated.label" value="simpleTirggerOutdated" />
+		<parameter name="plan.simpletrigger.duplicate.label" value="testSimpleTriggerUI" />
+		<parameter name="plan.crontrigger.duplicate.label" value="CrontriggerFuture" />
+		<!-- plan tree view manage -->
+		<parameter name="treeviewmanage.plan.label" value="treeviewmanage" />
+		<parameter name="treeviewmanage.plan.roottask" value="BranchTask" />
+		<parameter name="treeviewmanage.plan.taskok" value="testTaskRunTRunJob" />
+		<parameter name="treeviewmanage.plan.taskerror" value="testModifyTask" />
+		<parameter name="treeviewmanage.plan.taskafter" value="Copy_of_testTaskNotChooseActive" />
+        
+        <!-- plan parameters -->
+		<parameter name="parameters.plan.label" value="testPlanParameters" />
+		<parameter name="parameters.plan.roottask" value="unexecutedTask" />
+		<parameter name="planexecutionlogsdisplay.plan.label" value="testPlanlogsdisplay" />
+		<parameter name="planexecutionlogsdisplay.plan.roottask" value="BranchTask" />
+        
+		<classes>
+		<class name="com.talend.tac.cases.executePlan.TestPlanParameters" />
+		<class name="com.talend.tac.cases.executePlan.AddPlan" />
+		<class name="com.talend.tac.cases.executePlan.TestAddExistPlan" />
+		<class name="com.talend.tac.cases.executePlan.ModifyPlan" />
+		<class name="com.talend.tac.cases.executePlan.DeletePlan" />
+		<class name="com.talend.tac.cases.executePlan.TestPlanedTreeViewManageDeleteRoottask" /> 
+		<class name="com.talend.tac.cases.executePlan.TestPlanedTreeViewManage" />
+			
+	    <!-- plan.trigger -->
+			<!--<class name="com.talend.tac.cases.executePlan.TestAddAddSimpleTriggerUseOutdatedtime"/> -->
+			
+			
+			<class
+				name="com.talend.tac.cases.executePlan.TestAddAddSimpleTriggerUseOutdatedTimeByUI" />
+			<class
+				name="com.talend.tac.cases.executePlan.TestAddAddSimpleTriggerUseDefaulttime" />
+			<class
+				name="com.talend.tac.cases.executePlan.TestAddTriggerAddCronTrigger" />
+			<class
+				name="com.talend.tac.cases.executePlan.TestAddTriggerAddCronTriggerByUI" />
+			<class
+				name="com.talend.tac.cases.executePlan.TestAddTriggerAddCronTriggerUsePasttime" />
+			<class
+				name="com.talend.tac.cases.executePlan.TestAddTriggerAddSimpleTrigger" />
+			<class
+				name="com.talend.tac.cases.executePlan.TestAddTriggerAddSimpleTriggerByUI" />
+			<class
+				name="com.talend.tac.cases.executePlan.TestAddTriggerAddSimpleTriggerByUIendbeforestart" />
+			<class name="com.talend.tac.cases.executePlan.TestDuplicateCrontrigger" />
+			<class name="com.talend.tac.cases.executePlan.TestDuplicateSimpletrigger" />
+			<class
+				name="com.talend.tac.cases.executePlan.TestAddTriggerAddFileTrigger" />
+		    <class name="com.talend.tac.cases.executePlan.TestPlanExecution" />
+		    <class name="com.talend.tac.cases.executePlan.TestExecutionPlanMenu"/>
+			<class name="com.talend.tac.cases.executePlan.TestChangeRootTaskNameOfPlan"/>
+				
+			<class name="com.talend.tac.cases.executePlan.TestPlanedTreeViewManage" />
+			<class name="com.talend.tac.cases.executePlan.TestPlanExecutionLogsDisplay"/>
+		    <class name="com.talend.tac.cases.executePlan.TestTriggerPauseAndResume" /> 
+		    <class name="com.talend.tac.cases.executePlan.TestRunPlan" /> 
+		    
+		</classes>
 	</test>
-	
 </suite>
-
-
+<!-- 	
+testModifyTask
+Copy_of_testTaskNotChooseActive
+testTaskRunTRunJob
+BranchTask -->
