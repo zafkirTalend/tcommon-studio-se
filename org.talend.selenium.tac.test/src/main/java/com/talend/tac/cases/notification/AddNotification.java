@@ -26,7 +26,7 @@ public class AddNotification extends Login {
 		Assert.assertEquals(description , DescriptionInputValue);
 		Assert.assertTrue(selenium.isTextPresent(notificationInformation));
         selenium.setSpeed(MIN_SPEED);
-        this.selectDropDownList("//input[@id='idLabelInput']", LabelInput);//choose a notification type
+//        this.selectDropDownList("//input[@id='idLabelInput']", LabelInput);//choose a notification type
         
         if(selenium.isElementPresent("//i[text()='"+notificationInformation+"']//ancestor::tbody//" +
 				"button[@id='idNotificationRepUserButton']")) {
@@ -97,9 +97,7 @@ public class AddNotification extends Login {
 		Assert.assertEquals(description , DescriptionInputValue);
 		Assert.assertTrue(selenium.isTextPresent(notificationInformation));
 		selenium.setSpeed(MIN_SPEED);
-		selenium.click("idLabelInput");
-		selenium.mouseDownAt("//div[@role='listitem']["+LabelInput+"]", ""+KeyEvent.VK_ENTER);
-		
+				
 		selenium.click("//i[text()='"+notificationInformation+"']//ancestor::tbody//" +
 		"button[@id='idNotificationRepUserButton']");//choose event trigger users
 		this.waitForElementPresent("//div[text()='admin@company.com']/parent::td/preceding-sibling::td", WAIT_TIME);
@@ -138,8 +136,6 @@ public class AddNotification extends Login {
 		Assert.assertEquals(description , DescriptionInputValue);
 		Assert.assertTrue(selenium.isTextPresent(notificationInformation));
 		selenium.setSpeed(MIN_SPEED);
-		selenium.click("idLabelInput");
-		selenium.mouseDownAt("//div[@role='listitem']["+LabelInput+"]", ""+KeyEvent.VK_ENTER);
 		
 		selenium.click("//i[text()='"+notificationInformation+"']//ancestor::tbody//" +
 		"button[@id='idNotificationRepUserButton']");//choose event trigger users
