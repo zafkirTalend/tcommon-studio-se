@@ -1027,7 +1027,7 @@ public class DatabaseTableForm extends AbstractForm {
             } else if (!MetadataToolHelper.isValidSchemaName(table.getLabel())) {
                 updateStatus(IStatus.ERROR, Messages.getString("DatabaseTableForm.illegalChar", table.getLabel())); //$NON-NLS-1$
                 return false;
-            } else if (!managerConnection.check(getIMetadataConnection())) {// bug 17422
+            } else if (!managerConnection.check(getIMetadataConnection(), true)) {// bug 17422
                 updateStatus(IStatus.ERROR, Messages.getString("DatabaseForm.checkFailure")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                 return false;
             }

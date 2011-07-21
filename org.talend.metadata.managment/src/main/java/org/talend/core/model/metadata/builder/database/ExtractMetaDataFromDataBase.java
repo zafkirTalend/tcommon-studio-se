@@ -479,37 +479,38 @@ public class ExtractMetaDataFromDataBase {
             dbType = iMetadataConnection.getDbType();
             DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
 
-            List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase
-                    .extractTablesFromDB(dbMetaData, iMetadataConnection);
-            Iterator iterate = metadataTables.iterator();
-            IMetadataTable metaTable1 = new MetadataTable();
-            while (iterate.hasNext()) {
-                IMetadataTable metaTable = (IMetadataTable) iterate.next();
-                if (metaTable.getLabel().equals(tableLabel)) {
-                    metaTable1 = metaTable;
-                    break;
-                }
-            }
+            // List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase
+            // .extractTablesFromDB(dbMetaData, iMetadataConnection);
+            // Iterator iterate = metadataTables.iterator();
+            // IMetadataTable metaTable1 = new MetadataTable();
+            // while (iterate.hasNext()) {
+            // IMetadataTable metaTable = (IMetadataTable) iterate.next();
+            // if (metaTable.getLabel().equals(tableLabel)) {
+            // metaTable1 = metaTable;
+            // break;
+            // }
+            // }
+            //
+            // String name = getTableTypeByTableName(metaTable1.getLabel());
+            // boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType());
+            // // StringUtils.trimToEmpty(name) is because bug 4547
+            // if (name != null && StringUtils.trimToEmpty(name).equals(ETableTypes.TABLETYPE_SYNONYM.getName()) &&
+            // !isAccess) {
+            // String tableName = getTableNameBySynonym(ExtractMetaDataUtils.conn, metaTable1.getTableName());
+            // if (tableName.contains("/")) {
+            // tableName = tableName.replace("/", "");
+            // }
+            // metaTable1.setLabel(tableName);
+            // metaTable1.setTableName(tableName);
+            // } else {
+            // if (tableLabel.contains("/")) {
+            // tableLabel = tableLabel.replace("/", "");
+            // }
+            // metaTable1.setLabel(tableLabel);
+            // metaTable1.setTableName(tableLabel);
+            // }
 
-            String name = getTableTypeByTableName(metaTable1.getLabel());
-            boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType());
-            // StringUtils.trimToEmpty(name) is because bug 4547
-            if (name != null && StringUtils.trimToEmpty(name).equals(ETableTypes.TABLETYPE_SYNONYM.getName()) && !isAccess) {
-                String tableName = getTableNameBySynonym(ExtractMetaDataUtils.conn, metaTable1.getTableName());
-                if (tableName.contains("/")) {
-                    tableName = tableName.replace("/", "");
-                }
-                metaTable1.setLabel(tableName);
-                metaTable1.setTableName(tableName);
-            } else {
-                if (tableLabel.contains("/")) {
-                    tableLabel = tableLabel.replace("/", "");
-                }
-                metaTable1.setLabel(tableLabel);
-                metaTable1.setTableName(tableLabel);
-            }
-
-            metadataColumns = ExtractMetaDataFromDataBase.extractMetadataColumnsFormTable(dbMetaData, metaTable1,
+            metadataColumns = ExtractMetaDataFromDataBase.extractMetadataColumnsFormTable(dbMetaData, tableLabel,
                     iMetadataConnection, dbType);
 
             if (needCreateAndClose) {
@@ -898,7 +899,7 @@ public class ExtractMetaDataFromDataBase {
      * @param MetadataTable medataTable
      * @return Collection of MetadataColumn Object
      */
-    public static List<TdColumn> extractMetadataColumnsFormTable(DatabaseMetaData dbMetaData, IMetadataTable medataTable,
+    public static List<TdColumn> extractMetadataColumnsFormTable(DatabaseMetaData dbMetaData, String medataLabel,
             IMetadataConnection metadataConnection, String databaseType) {
         columnIndex = 0;
         List<TdColumn> metadataColumns = new ArrayList<TdColumn>();
@@ -907,8 +908,8 @@ public class ExtractMetaDataFromDataBase {
         try {
             // qli modified to fix the bug 6850.
             String originSchema = null;
-            if (!"".equals(medataTable.getLabel()) && medataTable.getLabel() != null) {//$NON-NLS-1$
-                originSchema = tableSchemaMap.get(medataTable.getLabel());
+            if (!"".equals(medataLabel) && medataLabel != null) {//$NON-NLS-1$
+                originSchema = tableSchemaMap.get(medataLabel);
             }
             if (!"".equals(metadataConnection.getSchema()) && (metadataConnection.getSchema() != null)) { //$NON-NLS-1$
                 originSchema = metadataConnection.getSchema();
@@ -919,15 +920,15 @@ public class ExtractMetaDataFromDataBase {
                 ResultSet keys;
                 if (dbMetaData.supportsSchemasInDataManipulation() && (originSchema != null)) {
                     if (!isAccess) {
-                        keys = dbMetaData.getPrimaryKeys(null, originSchema, medataTable.getLabel());
+                        keys = dbMetaData.getPrimaryKeys(null, originSchema, medataLabel);
                     } else {
-                        keys = dbMetaData.getIndexInfo(null, originSchema, medataTable.getLabel(), true, true);
+                        keys = dbMetaData.getIndexInfo(null, originSchema, medataLabel, true, true);
                     }
                 } else {
                     if (!isAccess) {
-                        keys = dbMetaData.getPrimaryKeys(null, null, medataTable.getLabel());
+                        keys = dbMetaData.getPrimaryKeys(null, null, medataLabel);
                     } else {
-                        keys = dbMetaData.getIndexInfo(null, null, medataTable.getLabel(), true, true);
+                        keys = dbMetaData.getIndexInfo(null, null, medataLabel, true, true);
                     }
 
                 }
@@ -942,8 +943,8 @@ public class ExtractMetaDataFromDataBase {
 
             // PTODO ftang: should to support all kinds of databases not only for Mysql.
             Connection connection = dbMetaData.getConnection();
-            checkUniqueKeyConstraint(medataTable.getLabel(), primaryKeys, connection);
-            String tableName = medataTable.getLabel();
+            checkUniqueKeyConstraint(medataLabel, primaryKeys, connection);
+            String tableName = medataLabel;
             ResultSet columns;
             ResultSetMetaData resultMetadata = null;
             if (ExtractMetaDataUtils.isUseAllSynonyms()) {
@@ -1102,8 +1103,8 @@ public class ExtractMetaDataFromDataBase {
                         Integer ident2 = 0;
                         try {
                             PreparedStatement statement = ExtractMetaDataUtils.conn
-                                    .prepareStatement(" select IDENT_SEED ( '" + medataTable.getLabel() + "')," + "IDENT_INCR ( '" //$NON-NLS-N$ //$NON-NLS-N$ //$NON-NLS-N$
-                                            + medataTable.getLabel() + "')"); //$NON-NLS-1$ 
+                                    .prepareStatement(" select IDENT_SEED ( '" + medataLabel + "')," + "IDENT_INCR ( '" //$NON-NLS-N$ //$NON-NLS-N$ //$NON-NLS-N$
+                                            + medataLabel + "')"); //$NON-NLS-1$ 
                             ResultSet resultSet = null;
                             ExtractMetaDataUtils.setQueryStatementTimeout(statement);
                             if (statement.execute()) {
@@ -1164,7 +1165,7 @@ public class ExtractMetaDataFromDataBase {
                 try {
                     PreparedStatement statement = ExtractMetaDataUtils.conn
                             .prepareStatement("SELECT COMMENTS FROM USER_COL_COMMENTS WHERE TABLE_NAME='" //$NON-NLS-1$
-                                    + medataTable.getLabel() + "'"); //$NON-NLS-1$ //$NON-NLS-2$
+                                    + medataLabel + "'"); //$NON-NLS-1$ //$NON-NLS-2$
                     ResultSet keys = null;
                     ExtractMetaDataUtils.setQueryStatementTimeout(statement);
                     if (statement.execute()) {
