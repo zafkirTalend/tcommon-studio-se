@@ -84,7 +84,7 @@ public class DbConfig extends Base {
 		String fomatedUrl = url;
 		if ("org/talend/tac/folder/h2database".equals(url)){
 			System.out.println("before changing");
-			fomatedUrl = "jdbc:h2:"+Thread.currentThread().getContextClassLoader().getResource(url).toString()+"/talend_administrator;AUTO_SERVER=TRUE;MVCC=TRUE";
+			fomatedUrl = "jdbc:h2:"+this.parseRelativePath(url)+"/talend_administrator;AUTO_SERVER=TRUE;MVCC=TRUE";
 			System.out.println(fomatedUrl);
 
 		}else{
