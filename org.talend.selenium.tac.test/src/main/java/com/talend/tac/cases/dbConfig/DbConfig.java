@@ -26,7 +26,7 @@ public class DbConfig extends Base {
 		this.waitForElementPresent("idDbConfigLoginPasswordInput", WAIT_TIME);
 		selenium.type("idDbConfigLoginPasswordInput", "admin");
 		selenium.click("idDbConfigSubmitButton");
-		selenium.type("idDbConfigUrlInput", url);
+		selenium.type("idDbConfigUrlInput", getFormatedDbURL(url));
 		selenium.type("idDbConfigUserNmeInput", userName);
 		selenium.type("idDbConfigPasswordInput", userPassWd);
 		selenium.type("idDbConfigDriverInput", driver);
@@ -74,5 +74,23 @@ public class DbConfig extends Base {
 				assertTrue(selenium.getXpathCount("//div[text()='OK']").intValue() >= OK_Num);
 		}
 
+	}
+	
+	/**
+	 * This method mainly identify whether we use h2 database or not,
+	 * this is because we want to define the local h2 db-file to a relative path(under our project)  
+	 */
+	public String getFormatedDbURL(String url){
+		String fomatedUrl = url;
+		if ("org/talend/tac/folder/h2database".equals(url)){
+			System.out.println("before changing");
+			fomatedUrl = "jdbc:h2:"+Thread.currentThread().getContextClassLoader().getResource(url).toString()+"/talend_administrator;AUTO_SERVER=TRUE;MVCC=TRUE";
+			System.out.println(fomatedUrl);
+
+		}else{
+//			System.out.println("The db is not h2,no need to transfer the relative path,it is as bellow .");
+//			System.out.println(url);
+		}
+		return fomatedUrl;
 	}
 }

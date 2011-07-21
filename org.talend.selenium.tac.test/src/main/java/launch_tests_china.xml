@@ -26,7 +26,7 @@
 
 	<!-- parameters for database -->
   	<parameter name="db.url"
-		value="jdbc:h2:/home/automation/Automation/automation/databases/database3/talend_administrator;AUTO_SERVER=TRUE;MVCC=TRUE" />
+		value="org/talend/tac/folder/h2database" />
   		<parameter name="db.type" value="H2"/>
 	<parameter name="db.parameter"
 		value="org/talend/tac/folder/h2database/talend_administrator" />
