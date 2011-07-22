@@ -134,7 +134,6 @@ public class TestGridRecoveryManagement extends Grid {
 	    Assert.assertTrue(selenium.getValue("//div[@class='header-title' and text()='Task execution monitoring']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//textarea[@name='contextValues']").contains("name: JackZhang"), "test execution infor shows in grid failed!");
 	    Assert.assertTrue(selenium.getValue("//div[@class='header-title' and text()='Task execution monitoring']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//textarea[@name='contextValues']").contains("age: 23"), "test execution infor shows in grid failed!");
 	    Assert.assertTrue(selenium.getText("//label[text()='Triggered by:']//ancestor::div[@class='x-form-item ']//div[contains(@class,'x-form-label x-component')]").contains("Manual run by user 'admin@company.com'"),"test run task directly execution infor trigger by show wrong!");
-	    //+" (192.168.0.94:cmd=8000/file=8001/monitor=8888)"
 	    
 	}
 	
@@ -168,7 +167,7 @@ public class TestGridRecoveryManagement extends Grid {
 	    Assert.assertTrue(selenium.getValue("//div[@class='header-title' and text()='Task execution monitoring']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//textarea[@name='contextValues']").contains("name: JackZhang"), "test execution infor shows in grid failed!");
 	    Assert.assertTrue(selenium.getValue("//div[@class='header-title' and text()='Task execution monitoring']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//textarea[@name='contextValues']").contains("age: 23"), "test execution infor shows in grid failed!");
 	    Assert.assertTrue(selenium.getText("//label[text()='Triggered by:']//ancestor::div[@class='x-form-item ']//div[contains(@class,'x-form-label x-component')]").contains("SimpleTrigger[talendTriggerName='test'"),"test run task by trigger execution infor trigger by show wrong!");
-	    //+" (192.168.0.94:cmd=8000/file=8001/monitor=8888)"
+	    Assert.assertTrue(selenium.getText("//label[text()='Trigger type:']//ancestor::div[@class='x-form-item ']//div[contains(@class,'x-form-label x-component')]").contains("SimpleTrigger"), "execution infor test trigger type failed!");
 	    
 	}
 	
