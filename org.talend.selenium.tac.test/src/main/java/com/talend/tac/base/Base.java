@@ -306,6 +306,16 @@ public class Base {
 		return strs;
 	}
 
+	/**
+	 * split parameter to an array
+	 * @param parameter
+	 * @return an array
+	 */
+	public String[] splitParameter(String parameter){
+		String[] parameters = parameter.split(",");
+		return parameters;
+	}
+	
 	public void typeAndBlur(String xpath, String value) {
 		this.typeAndFireEnvent(xpath, value, "blur");
 	}
@@ -375,6 +385,11 @@ public class Base {
 
 	}
 	
+	/**
+	 * get the Uniform Resource Locator of the filePath
+	 * @param filePath
+	 * @return
+	 */
 	public String parseRelativePath(String filePath){
 		URL fileUrl = null;
 //		String onHudson = System.getProperty("tests.on.hudson");
@@ -390,4 +405,13 @@ public class Base {
 		System.out.println(fileUrl.toString());
 		return fileUrl.toString();
 	}
+	/**
+	 * get absolute path of the filePath
+	 * @param filePath
+	 * @return
+	 */
+	public String getAbsolutePath(String filePath) {
+		return this.parseRelativePath(filePath).substring(6);
+	}
+	
 }
