@@ -62,18 +62,16 @@ public class TestAddTriggerAddSimpleTrigger extends AddTrigger {
 		this.clickWaitForElementPresent("idMenuConfigElement");//into Configuration page
 		this.waitForElementPresent("//div[contains(text(),'Command line/primary')]", WAIT_TIME);
 		selenium.mouseDown("//div[contains(text(),'Command line/primary')]");
-		selenium.setSpeed(MID_SPEED);
-		if(!selenium.isElementPresent("//div[contains(@class,'x-grid3-cell-inner x-grid3-col-value') and contains(text(),'192.168.0.94')]")) {
+		selenium.setSpeed(MID_SPEED);		
 			
-			this.clickWaitForElementPresent("//div[contains(text(),'Command line/primary')]//ancestor::div[@class='x-grid-group ']" +
-			"//div[text()='Host']//ancestor::tr[@role='presentation']//img[@title='Click to edit']");
-			this.waitForElementPresent("//div[@class=' x-form-field-wrap  x-component']//input", WAIT_TIME); 
-			System.out.println("*--------------*");
-			this.typeString("//div[@class=' x-form-field-wrap  x-component']//input",hostAddress);
-			
-		}
-		selenium.setSpeed(MIN_SPEED);
+		this.clickWaitForElementPresent("//div[contains(text(),'Command line/primary')]//ancestor::div[@class='x-grid-group ']" +
+		"//div[text()='Host']//ancestor::tr[@role='presentation']//img[@title='Click to edit']");
+		this.waitForElementPresent("//div[@class=' x-form-field-wrap  x-component']//input", WAIT_TIME); 
+		System.out.println("*--------------*");
+		this.typeString("//div[@class=' x-form-field-wrap  x-component']//input",hostAddress);
 		
+		selenium.setSpeed(MIN_SPEED);
+			
 			
 	}
 	
