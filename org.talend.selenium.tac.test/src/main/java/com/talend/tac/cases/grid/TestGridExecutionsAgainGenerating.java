@@ -14,9 +14,11 @@ public class TestGridExecutionsAgainGenerating extends Grid {
 		this.cleanTask();
 		this.addTask(label, description, projectName, branchName, jobName, version, context, serverName, statisticName);
 	    selenium.mouseDown("//span[text()='" + label + "']");
+	    this.sleep(3000);
 	    selenium.click("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idJobConductorTaskGenerateButton']");
 	    this.waitForTextPresent("Generating...", WAIT_TIME);
 	    this.waitForElementPresent("//span[text()='Ready to deploy']", WAIT_TIME);
+	    this.sleep(3000);
 	    selenium.click("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idJobConductorTaskDeployButton']");
 	    Assert.assertFalse(this.waitElement("//span[text()='Generating...']", 15), "test failed because task was regenerated!");
 	    this.waitForElementPresent("//span[text()='Ready to run']", WAIT_TIME);
