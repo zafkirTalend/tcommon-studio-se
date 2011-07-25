@@ -111,7 +111,7 @@ public class Plan extends Login {
 			selenium.click("//div[text()='Execution Plan']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idJobConductorTaskRunButton']");
 			this.waitForElementPresent("//span[text()='Running...']", WAIT_TIME);
 			this.waitForElementPresent("//span[text()='Ready to run']",
-					WAIT_TIME);
+					MAX_WAIT_TIME);
 			this.waitForElementPresent(
 					"//span[@class='x-tree3-node-text' and text()='" + taskName
 							+ " : [OK]']", MAX_WAIT_TIME);

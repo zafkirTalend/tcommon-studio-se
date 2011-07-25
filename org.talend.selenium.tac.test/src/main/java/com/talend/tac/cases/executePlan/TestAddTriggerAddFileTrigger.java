@@ -59,7 +59,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		this.waitForElementPresent("//span[text()='Running...']", WAIT_TIME);
 		this.sleep(10000);
 		this.waitForElementPresent("//span[text()='Ready to run']",
-				WAIT_TIME);
+				MAX_WAIT_TIME);
 		//******************************************
 		addFileTrigger(plantoaddfiletrigger, filetriggerlabel, foldpath,
 				interval, mask, serverName, 0);
@@ -125,7 +125,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		System.out.println("THE FIRST TIME:");	
 		this.waitForElementPresent("//span[text()='Running...']",
 				Base.WAIT_TIME);
-		this.waitForElementPresent("//span[@class='x-tree3-node-text' and contains(text(),'[OK]')]", Base.WAIT_TIME);
+		this.waitForElementPresent("//span[@class='x-tree3-node-text' and contains(text(),'[OK]')]", Base.MAX_WAIT_TIME);
 		System.out.println("THE FIRST TIME ENDED:");
 		if (new FileTrigger().createNewFile(foldpath)) {
 			System.out.println("fiLE CREATED!");
@@ -157,7 +157,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		System.out.println("THE FIRST TIME:");	
 		this.waitForElementPresent("//span[text()='Running...']",
 				Base.WAIT_TIME);
-		this.waitForElementPresent("//span[@class='x-tree3-node-text' and contains(text(),': [OK]')]", WAIT_TIME);
+		this.waitForElementPresent("//span[@class='x-tree3-node-text' and contains(text(),': [OK]')]", MAX_WAIT_TIME);
 		Assert.assertTrue(this.waitElement("//span[text()='Ended...']",
 				TriggerCheckTime)||this.waitElement("//span[text()='Ready to run']",
 						TriggerCheckTime), "test failed! ");
@@ -191,7 +191,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		this.waitForElementPresent("//span[text()='Running...']",
 				Base.WAIT_TIME);
 		this.waitForElementPresent("//span[text()='Ready to run']",
-				Base.WAIT_TIME);
+				Base.MAX_WAIT_TIME);
 		
 		//modify a file exist
 		if(new FileTrigger().modifyFile(foldpath, mask.substring((mask.indexOf(".")) + 1))){
@@ -226,7 +226,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		this.waitForElementPresent("//span[text()='Running...']", WAIT_TIME);
 		this.sleep(10000);
 		this.waitForElementPresent("//span[text()='Ready to run']",
-				WAIT_TIME);
+				MAX_WAIT_TIME);
 		//******************************************	
 		
 		addFileTrigger(plantoaddfiletrigger, filetriggerlabel, foldpath,
@@ -294,7 +294,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		this.waitForElementPresent("//span[text()='Running...']",
 				Base.WAIT_TIME);
 		this.waitForElementPresent("//span[@class='x-tree3-node-text' and contains(text(),'[OK]')]",
-				Base.WAIT_TIME);
+				Base.MAX_WAIT_TIME);
 		Assert.assertTrue(this.waitElement("//span[text()='Ended...']",
 				TriggerCheckTime)||this.waitElement("//span[text()='Ready to run']",
 						TriggerCheckTime), "test failed! ");
@@ -322,7 +322,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 	public void triggerExistCheck(String fileTriggerLabel) {
 		this.waitForElementPresent("//span[text()='Running...']",
 				Base.WAIT_TIME);
-		this.waitForElementPresent("//span[text()='Ended...']", Base.WAIT_TIME);
+		this.waitForElementPresent("//span[text()='Ended...']", Base.MAX_WAIT_TIME);
 		selenium.mouseDown("//span[text()='" + fileTriggerLabel + "']");
 		selenium.chooseOkOnNextConfirmation();
 		try {

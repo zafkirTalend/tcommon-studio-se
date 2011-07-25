@@ -39,7 +39,7 @@ public class TestTriggerPauseAndResume extends Plan {
 	    {
 	    this.waitForElementPresent("//span[text()='Running...']", Base.WAIT_TIME);
 	    this.waitForElementPresent("//span[text()='Ready to run']",
-				Base.WAIT_TIME);
+				Base.MAX_WAIT_TIME);
 	    }
 	    
     	//click pause trigger button

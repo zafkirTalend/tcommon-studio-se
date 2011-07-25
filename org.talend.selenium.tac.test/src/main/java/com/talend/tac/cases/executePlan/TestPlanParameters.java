@@ -63,7 +63,7 @@ public class TestPlanParameters extends Plan {
 		this.runPlan(planParameters);
 		this.waitForElementPresent("//span[text()='Running...']", WAIT_TIME);
 		this.sleep(10000);
-		this.waitForElementPresent("//span[text()='Ready to run']", WAIT_TIME);
+		this.waitForElementPresent("//span[text()='Ready to run']", MAX_WAIT_TIME);
 		this.waitForElementPresent("//span[@class='x-tree3-node-text' and text()='"+taskLabel+" : [OK]']", MAX_WAIT_TIME);
         String logs = (this.getPlanLogsValue(planParameters,taskLabel, null));
         System.out.println("after override parameters:\n"+logs);
