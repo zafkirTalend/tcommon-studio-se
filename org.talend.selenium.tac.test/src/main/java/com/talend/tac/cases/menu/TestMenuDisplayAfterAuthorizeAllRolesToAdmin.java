@@ -35,7 +35,7 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 	}
 
 	@Test
-	public void testMenuJobConductor() {
+	public void testMenuJobConductorExpend() {
 		this.waitForElementPresent(
 				"//div[@id='!!!menu.jobConductor.element!!!']//img[@class=' x-tree3-node-joint']",
 				WAIT_TIME);
@@ -59,8 +59,13 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 				.isVisible("!!!menu.executionServers.element!!!"));
 		Assert.assertTrue(selenium
 				.isVisible("!!!menu.virtual_server.element!!!"));
+	}
+
+	@Test
+	public void testMenuExcutionTask() {
+
 		// check menu execution task
-		selenium.click("!!!menu.executionTasks.element!!!");
+		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
 		this.waitForElementDispear("//div[text()='Loading...']", WAIT_TIME);
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"
@@ -69,6 +74,10 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 		selenium.refresh();
 		this.sleep(5000);
 		this.waitForElementDispear("//div[text()='Loading...']", WAIT_TIME);
+	}
+
+	@Test
+	public void testMenuExecutionPlan() {
 		// check menu execution plan
 		selenium.click("!!!menu.executionPlan.element!!!");
 		this.waitForElementDispear("//div[text()='Loading...']", WAIT_TIME);
@@ -80,20 +89,33 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 		selenium.refresh();
 		this.sleep(5000);
 		this.waitForElementDispear("//div[text()='Loading...']", WAIT_TIME);
+	}
+
+	@Test
+	public void testMenuExecutionServer() {
+
 		// check menu execution server
-		selenium.click("!!!menu.executionServers.element!!!");
+		this.clickWaitForElementPresent("!!!menu.executionServers.element!!!");
 		this.waitForElementPresent(
 				"//div[@class='header-title' and text()='Servers']//ancestor::div[@class=' x-viewport x-component x-border-layout-ct']//span[@class='x-fieldset-header-text' and text()='Execution server']",
 				WAIT_TIME);
-		//div[@class='header-title' and text()='Servers']
-		this.waitForElementPresent("//div[@class='header-title' and text()='Servers']", WAIT_TIME);
+		// div[@class='header-title' and text()='Servers']
+		this.waitForElementPresent(
+				"//div[@class='header-title' and text()='Servers']", WAIT_TIME);
 		this.sleep(5000);
-		this.waitForElementDispear("//div[@class='header-title' and text()='Servers']//ancestor::div[@class=' x-viewport x-component x-border-layout-ct']//div[text()='Loading...']", WAIT_TIME);
+		this.waitForElementDispear(
+				"//div[@class='header-title' and text()='Servers']//ancestor::div[@class=' x-viewport x-component x-border-layout-ct']//div[text()='Loading...']",
+				WAIT_TIME);
 		selenium.refresh();
 		this.sleep(5000);
 		this.waitForElementDispear("//div[text()='Loading...']", WAIT_TIME);
+	}
+
+	@Test
+	public void testMenuVirtualServers() {
+
 		// check menu virtual servers
-		selenium.click("!!!menu.virtual_server.element!!!");
+		this.clickWaitForElementPresent("!!!menu.virtual_server.element!!!");
 		this.waitForElementPresent(
 				"//div[@class='header-title' and text()='Virtual servers']//ancestor::div[@class=' x-viewport x-component x-border-layout-ct']//span[@class='x-panel-header-text' and text()='Job servers']",
 				WAIT_TIME);
@@ -121,7 +143,9 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 				WAIT_TIME);
 		selenium.refresh();
 		this.sleep(3000);
-		this.waitForElementDispear("//div[text()='Loading...']", WAIT_TIME);
+		this.waitForElementDispear(
+				"//div[@class='header-title' and text()='Audit']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//div[text()='Loading...']",
+				WAIT_TIME);
 	}
 
 	@Test
@@ -131,15 +155,20 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 		this.waitForElementPresent(
 				"//div[@class='header-title' and text()='SOA Manager']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-fieldset-header-text' and text()='Metadata']",
 				WAIT_TIME);
-		this.waitForElementPresent("//div[@class='header-title' and text()='SOA Manager']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-fieldset-header-text' and text()='Binding']", WAIT_TIME);
+		this.waitForElementPresent(
+				"//div[@class='header-title' and text()='SOA Manager']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-fieldset-header-text' and text()='Binding']",
+				WAIT_TIME);
 		selenium.refresh();
 		this.sleep(3000);
-		this.waitForElementDispear("//div[text()='Loading...']", WAIT_TIME);
+		this.waitForElementDispear(
+				"//div[@class='header-title' and text()='SOA Manager']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//div[text()='Loading...']",
+				WAIT_TIME);
 	}
-	
+
 	@Test
 	public void testMenuBusinessModeler() {
-		this.waitForElementPresent("!!!menu.businessModeler.element!!!", WAIT_TIME);
+		this.waitForElementPresent("!!!menu.businessModeler.element!!!",
+				WAIT_TIME);
 		selenium.click("!!!menu.businessModeler.element!!!");
 		this.waitForElementPresent(
 				"//div[@class='header-title' and text()='Business modeler']",
@@ -148,9 +177,9 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 		this.sleep(3000);
 		this.waitForElementPresent("//div[@class='ext-el-mask']", WAIT_TIME);
 	}
-	
+
 	@Test
-	public void testMenuDashboard() {
+	public void testMenuDashboardExpend() {
 		this.waitForElementPresent("!!!menu.dashboard.element!!!", WAIT_TIME);
 		this.waitForElementPresent(
 				"//div[@id='!!!menu.dashboard.element!!!']//img[@class=' x-tree3-node-joint']",
@@ -195,7 +224,10 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 				.isVisible("!!!menu.grid_task_executions_history.element!!!"));
 		Assert.assertTrue(selenium
 				.isVisible("!!!menu.graphic_task_executions_history.element!!!"));
+	}
 
+	@Test
+	public void testMenuConnection() {
 		// check menu connection
 		this.clickWaitForElementPresent("!!!menu.connections.element!!!");
 		this.waitForElementPresent(
@@ -203,7 +235,13 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 				WAIT_TIME);
 		selenium.refresh();
 		this.sleep(3000);
-		this.waitForElementDispear("//div[text()='Loading...']", WAIT_TIME);
+		this.waitForElementDispear(
+				"//div[@class='header-title' and text()='Connections']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//div[text()='Loading...']",
+				WAIT_TIME);
+	}
+
+	@Test
+	public void testMenuCommondline() {
 
 		// check menu commondline
 		this.clickWaitForElementPresent("!!!menu.commandline.dashboard.element!!!");
@@ -212,8 +250,13 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 				WAIT_TIME);
 		selenium.refresh();
 		this.sleep(3000);
-		this.waitForElementDispear("//div[text()='Loading...']", WAIT_TIME);
+		this.waitForElementDispear(
+				"//div[@class='header-title' and text()='CommandLine']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//div[text()='Loading...']",
+				WAIT_TIME);
+	}
 
+	@Test
+	public void testMenuGrid() {
 		// check menu grid
 		this.clickWaitForElementPresent("!!!menu.grid_task_executions_history.element!!!");
 		this.waitForElementPresent(
@@ -221,8 +264,13 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 				WAIT_TIME);
 		selenium.refresh();
 		this.sleep(3000);
-		this.waitForElementDispear("//div[text()='Loading...']", WAIT_TIME);
+		this.waitForElementDispear(
+				"//div[@class='header-title' and text()='Task execution monitoring']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//div[text()='Loading...']",
+				WAIT_TIME);
+	}
 
+	@Test
+	public void testMenuGraphic() {
 		// check menu graphic
 		this.clickWaitForElementPresent("!!!menu.graphic_task_executions_history.element!!!");
 		this.waitForElementPresent(
@@ -230,8 +278,13 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 				WAIT_TIME);
 		selenium.refresh();
 		this.sleep(3000);
-		this.waitForElementDispear("//div[text()='Loading...']", WAIT_TIME);
+		this.waitForElementDispear(
+				"//div[@class='header-title' and text()='Graphic']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//div[text()='Loading...']",
+				WAIT_TIME);
+	}
 
+	@Test
+	public void testMenuSoaDashboard() {
 		// check menu soa
 		this.clickWaitForElementPresent("!!!menu.soamanager.dashboard.element!!!");
 		this.waitForElementPresent(
@@ -239,7 +292,13 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 				WAIT_TIME);
 		selenium.refresh();
 		this.sleep(3000);
-		this.waitForElementDispear("//div[text()='Loading...']", WAIT_TIME);
+		this.waitForElementDispear(
+				"//div[@class='header-title' and text()='SOA']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//div[text()='Loading...']",
+				WAIT_TIME);
+	}
+
+	@Test
+	public void testMenuJobAnalyses() {
 
 		// check menu job analysis
 		this.clickWaitForElementPresent("!!!menu.dashjobs.element!!!");
@@ -248,7 +307,9 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 				WAIT_TIME);
 		selenium.refresh();
 		this.sleep(3000);
-		this.waitForElementDispear("//div[text()='Loading...']", WAIT_TIME);
+		this.waitForElementDispear(
+				"//div[@class='header-title' and text()='Jobs analyses']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//div[text()='Loading...']",
+				WAIT_TIME);
 
 	}
 
