@@ -3,6 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Runtime Plug-in
 Bundle-SymbolicName: org.talend.core.runtime;singleton:=true
 Bundle-Version: 2.2.0.qualifier
+Bundle-Localization: plugin
 Bundle-Vendor: .Talend SA.
 Export-Package: org.talend.core,
  org.talend.core.context,
