@@ -5,9 +5,6 @@ import static org.testng.Assert.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.annotations.Parameters;
-
-import java.awt.Event;
-
 import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
@@ -17,7 +14,7 @@ public class TestAddConnection extends Login {
 			"Mysql_Host", "Mysql_Serverport", "Mysql_Username",
 			"Mysql_Password", "Mysql_Datasourse", "Mysql_Additional",
 			"Mysql_Stattable", "Mysql_Logstable" })
-	public void addConnectionMysql(String label, String dbname, String dbtype,
+	public void testAddConnectionMysql(String label, String dbname, String dbtype,
 			String host, String serverport, String username, String password,
 			String datasourse, String additional, String stat, String logs) {
 		addConnection(label, dbname, dbtype, host, serverport, username,
@@ -29,7 +26,7 @@ public class TestAddConnection extends Login {
 			"MSSQL_Host", "MSSQL_Serverport", "MSSQL_Username",
 			"MSSQL_Password", "MSSQL_Datasourse", "MSSQL_Additional",
 			"MSSQL_Stattable", "MSSQL_Logstable" })
-	public void addConnectionMSSQL(String label, String dbname, String dbtype,
+	public void testAddConnectionMSSQL(String label, String dbname, String dbtype,
 			String host, String serverport, String username, String password,
 			String datasourse, String additional, String stat, String logs) {
 		addConnection(label, dbname, dbtype, host, serverport, username,
@@ -42,7 +39,7 @@ public class TestAddConnection extends Login {
 			"Oracle_Host", "Oracle_Serverport", "Oracle_Username",
 			"Oracle_Password", "Oracle_Datasourse", "Oracle_Additional",
 			"Oracle_Stattable", "Oracle_Logstable" })
-	public void addConnectionOracle(String label, String dbname, String dbtype,
+	public void testAddConnectionOracle(String label, String dbname, String dbtype,
 			String host, String serverport, String username, String password,
 			String datasourse, String additional, String stat, String logs) {
 		addConnection(label, dbname, dbtype, host, serverport, username,
@@ -54,7 +51,7 @@ public class TestAddConnection extends Login {
 		"Mysql_Host", "Mysql_Serverport", "Mysql_Username",
 		"Mysql_Password", "Mysql_Datasourse", "Mysql_Additional",
 		"Mysql_Stattable", "Mysql_Logstable" })
-	public void deleteConnection(String label, String dbname, String dbtype,
+	public void testDeleteConnection(String label, String dbname, String dbtype,
 			String host, String serverport, String username, String password,
 			String datasourse, String additional, String stat, String logs) {
 		addConnection("test_"+label, dbname, dbtype, host, serverport, username,
@@ -154,7 +151,7 @@ public class TestAddConnection extends Login {
 		}
 		selenium.refresh();
 		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+ label + "')]", WAIT_TIME);
-		assertTrue(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+ label + "')]"), "DBConnection type: "+ dbtype + " added failed!");
+			assertTrue(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+ label + "')]"), "DBConnection type: "+ dbtype + " added failed!");
 	}
 
 	public void waitForCheckConnectionStatus(int OK_Num) {
