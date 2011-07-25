@@ -18,6 +18,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -28,8 +29,6 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
@@ -111,19 +110,29 @@ public class CopyDeleteFileUtilForWizard {
 
     private static void getImportFiles(String xsdFile, String newPath) {
         File file = new File(xsdFile);
-        IPath path = new Path(xsdFile);
-        if ((path.segments().length < 2) || !file.exists()) {
+        if (!file.exists()) {
             return;
         }
 
-        String xsdFolder = path.removeLastSegments(1).toString();
+        String xsdFolder = file.getParent();
         SAXReader saxReader = new SAXReader();
         Document doc;
         try {
             URL url = file.toURI().toURL();
             doc = saxReader.read(url.getFile());
             Element root = doc.getRootElement();
-            List<Element> elementsList = root.elements("import");
+            List<Element> elementsList = new ArrayList<Element>();
+            List<Element> importList = root.elements("import");
+            if (importList != null) {
+                elementsList.addAll(importList);
+            }
+            List<Element> includeList = root.elements("include");
+            if (includeList != null) {
+                elementsList.addAll(includeList);
+            }
+            if (elementsList.size() <= 0) {
+                return;
+            }
             for (Element n : elementsList) {
                 Attribute attr = n.attribute("schemaLocation");
                 if (attr != null) {
@@ -131,7 +140,10 @@ public class CopyDeleteFileUtilForWizard {
                     File f = new File(importFile);
                     if (f.exists()) {
                         File newFile = new File(newPath + attr.getValue());
-                        FilesUtils.copyFile(f, newFile);
+                        if (!newFile.exists()) {
+                            FilesUtils.copyFile(f, newFile);
+                            getImportFiles(importFile, newFile.getParent() + File.separator);
+                        }
                     }
                 }
             }

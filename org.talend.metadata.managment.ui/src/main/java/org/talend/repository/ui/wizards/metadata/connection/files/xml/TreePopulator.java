@@ -14,12 +14,17 @@ package org.talend.repository.ui.wizards.metadata.connection.files.xml;
 
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.collections.BidiMap;
 import org.apache.commons.collections.bidimap.DualHashBidiMap;
 import org.eclipse.datatools.connectivity.oda.OdaException;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.SchemaPopulationUtil;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.talend.commons.exception.PersistenceException;
@@ -145,12 +150,41 @@ public class TreePopulator {
             String currentXPath = parentXPath + "/" + treeItem.getText(); //$NON-NLS-1$
             xPathToTreeItem.put(currentXPath, treeItem);
 
-            if (treeNode.getChildren() != null && treeNode.getChildren().length > 0) {
+            boolean haveParentWithSameType = haveParentWithSameType(treeItem);
+            if (haveParentWithSameType) {
+                treeItem.setForeground(new Color(Display.getDefault(), new RGB(255, 102, 102)));
+                continue;
+            }
+
+            if (treeNode.getChildren() != null && treeNode.getChildren().length > 0 && !haveParentWithSameType) {
                 populateTreeItems(treeItem, treeNode.getChildren(), level, currentXPath);
             }
             setExpanded(treeItem);
         }
         // }
+    }
+
+    private boolean haveParentWithSameType(TreeItem item) {
+        List<TreeItem> parentList = getParentList(item);
+        for (TreeItem pNode : parentList) {
+            if (item.getText() != null && pNode.getText() != null && pNode.getText().equals(item.getText())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private List<TreeItem> getParentList(TreeItem item) {
+        List<TreeItem> parentList = new ArrayList<TreeItem>();
+        TreeItem parentitem = item.getParentItem();
+        if (parentitem == null) {
+            return parentList;
+        }
+        parentList.add(parentitem);
+        if (parentitem.getParentItem() != null) {
+            parentList.addAll(getParentList(parentitem));
+        }
+        return parentList;
     }
 
     // expand the tree
