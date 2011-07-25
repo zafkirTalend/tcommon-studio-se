@@ -9,6 +9,8 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.talend.tac.base.Base;
+
 public class TestCheckpoint extends AddTask {
 	
 	String tjavaWithMulripleCheckpointExpectedLogsValue = "the second checkpointthe third checkpointthe fourth checkpoint";
@@ -41,7 +43,7 @@ public class TestCheckpoint extends AddTask {
 		selenium.setSpeed(MIN_SPEED);
 		this.waitForElementPresent("//span[text()='Real time statistics']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='Real time statistics']"));
-		this.waitForElementPresent("//label[text()='Ok']", WAIT_TIME);
+		this.waitForElementPresent("//label[text()='Ok']", Base.MAX_WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//label[text()='Ok']"));
 		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");//close window of 'Real time statistics'
 		
