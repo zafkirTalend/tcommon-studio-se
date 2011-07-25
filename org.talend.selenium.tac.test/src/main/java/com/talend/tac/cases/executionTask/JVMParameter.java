@@ -6,7 +6,8 @@ import com.talend.tac.cases.Login;
 public class JVMParameter extends Login{
 	
 	//add method for add jvm parameter 
-	public void addJVMParametersForTask(String jvmParameterStatus, String label, String jvmParameter, String jvmParameterDescription, String warnInfo) {
+	public void addJVMParametersForTask(String jvmParameterStatus, String label, String jvmParameter, 
+			String jvmParameterDescription, String warnInfo,int waitTime) {
     	
     	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
@@ -49,7 +50,7 @@ public class JVMParameter extends Login{
 	    }
 	    
 	    selenium.click("//button[@id='idJobConductorTaskRunButton'  and @class='x-btn-text ' and text()='Run']");
-	    this.waitForElementPresent("//label[text()='"+warnInfo+"']", WAIT_TIME);
+	    this.waitForElementPresent("//label[text()='"+warnInfo+"']", waitTime);
 	    selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
 	    
 	    
