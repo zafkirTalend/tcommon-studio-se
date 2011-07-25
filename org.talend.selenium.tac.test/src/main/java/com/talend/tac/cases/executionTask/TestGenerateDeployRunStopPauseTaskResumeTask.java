@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
 public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
@@ -46,7 +47,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 	   	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
 	   			"//span[text()='Generating...']"));
     	this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
-    			"//span[text()='Ready to deploy']", WAIT_TIME);
+    			"//span[text()='Ready to deploy']", Base.MAX_WAIT_TIME);
     	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
     			"//span[text()='Ready to deploy']"));
     	
@@ -88,7 +89,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 		generateDeployRunTask(taskLabel, "//button[@id='idJobConductorTaskRunButton' and text()='Run']");//click Run button
 		this.waitForElementPresent("//span[text()='Real time statistics']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='Real time statistics']"));
-		this.waitForElementPresent("//label[text()='Ok']", WAIT_TIME);
+		this.waitForElementPresent("//label[text()='Ok']", Base.MAX_WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//label[text()='Ok']"));
 		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
 		
@@ -136,7 +137,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends Login {
 	   	Assert.assertTrue(selenium.isTextPresent("Generating..."));
     	selenium.setSpeed(MIN_SPEED);
     	this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
-    			"//span[text()='Ready to deploy']", WAIT_TIME);
+    			"//span[text()='Ready to deploy']", Base.MAX_WAIT_TIME);
     	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
     			"//span[text()='Ready to deploy']"));
     	
