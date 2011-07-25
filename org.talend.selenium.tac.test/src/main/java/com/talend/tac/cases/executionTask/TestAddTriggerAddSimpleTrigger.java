@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 import com.talend.tac.cases.executePlan.TriggerDate;
 
@@ -196,7 +197,7 @@ public class TestAddTriggerAddSimpleTrigger extends AddTrigger {
 	    Assert.assertTrue(selenium.isElementPresent("//span[text()='"+label+"']"));
 	    selenium.setSpeed(MIN_SPEED);
 	    this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
-				"//span[text()='Running...']", WAIT_TIME);
+				"//span[text()='Running...']", Base.MAX_WAIT_TIME);
 	    Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
 				"//span[text()='Running...']"));
 	    
