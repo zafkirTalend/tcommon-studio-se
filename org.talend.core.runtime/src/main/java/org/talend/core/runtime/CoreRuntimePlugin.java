@@ -12,9 +12,9 @@
 // ============================================================================
 package org.talend.core.runtime;
 
-import org.eclipse.core.runtime.Plugin;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.talend.core.AbstractDQModelService;
 import org.talend.core.GlobalServiceRegister;
@@ -34,7 +34,7 @@ import org.talend.repository.model.IRepositoryService;
 /**
  * DOC nrousseau class global comment. Detailled comment
  */
-public class CoreRuntimePlugin extends Plugin {
+public class CoreRuntimePlugin extends AbstractUIPlugin {
 
     public static final String PLUGIN_ID = "org.talend.core.runtime"; //$NON-NLS-1$
 

@@ -4,13 +4,12 @@ import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 
 public class MetadataPrecisionPage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 
     public MetadataPrecisionPage() {
-        setPreferenceStore(RepositoryManager.getPreferenceStore());
+        setPreferenceStore(CoreRuntimePlugin.getInstance().getPreferenceStore());
     }
 
     @Override
