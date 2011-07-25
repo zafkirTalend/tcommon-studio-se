@@ -28,7 +28,7 @@ public class TestGridRecoveryManagement extends Grid {
 		this.openTaskMenu();
 		this.addSimpleTriggerForTask(label, "testSimpleTrigger", "3600", "3");
 		this.waitForTextPresent("Generating...", WAIT_TIME);
-		this.waitForElementPresent("//span[text()='Ready to run']", WAIT_TIME);
+		this.waitForElementPresent("//span[text()='Ready to run']", MAX_WAIT_TIME);
 		this.openGridMenu();
 		this.sleep(5000);
 		Assert.assertTrue(
@@ -150,7 +150,7 @@ public class TestGridRecoveryManagement extends Grid {
 		this.addTask(label, description, projectName, branchName, jobName,
 				version, context, serverName, statisticName);
 		this.addSimpleTriggerForTask(label, "test", "10", "2");
-		this.sleep(60000);
+		this.sleep(WAIT_TIME);
 		this.waitForElementPresent("//img[@title='Completed']", WAIT_TIME);
 		this.openGridMenu();
 		this.sleep(5000);

@@ -45,7 +45,7 @@ public class Grid extends Plan {
 			// Date start = new Date();
 			this.waitForElementPresent("//span[text()='Real time statistics']", Base.WAIT_TIME);
 			Assert.assertTrue(
-					this.waitElement("//label[text()='Ok']", Base.WAIT_TIME),
+					this.waitElement("//label[text()='Ok']", Base.MAX_WAIT_TIME),
 					"task run failed!");
 			// close the pop window
 			selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
