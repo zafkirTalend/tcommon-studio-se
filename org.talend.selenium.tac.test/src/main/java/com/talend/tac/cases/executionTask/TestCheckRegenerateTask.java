@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
 public class TestCheckRegenerateTask extends Login {
@@ -31,7 +32,7 @@ public class TestCheckRegenerateTask extends Login {
 	    }
 	   	    
 	    this.waitForElementPresent("//span[text()='testAddsimpleTask']//ancestor::tr//span[text()=" +
-	    		"'Ready to deploy']", WAIT_TIME);
+	    		"'Ready to deploy']", Base.MAX_WAIT_TIME);
 	    Assert.assertTrue(selenium.isElementPresent("//span[text()='testAddsimpleTask']//ancestor::tr" +
 	    		"//span[text()='Ready to deploy']"));
 	    
