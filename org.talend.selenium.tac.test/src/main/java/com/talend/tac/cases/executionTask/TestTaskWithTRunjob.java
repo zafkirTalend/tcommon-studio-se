@@ -20,7 +20,7 @@ public class TestTaskWithTRunjob extends Login {
 		// select a exist task
 		this.waitForElementPresent("//span[text()='"+tasklabel+"']", WAIT_TIME);
 		selenium.mouseDown("//span[text()='"+tasklabel+"']");
-		boolean ok= runtask(tasklabel);
+		boolean ok= runtask(tasklabel, Base.MAX_WAIT_TIME);
 		if(ok){
 		Assert.assertTrue(getLogsValue().contains("23"),
 				"default context test failed");
@@ -33,7 +33,7 @@ public class TestTaskWithTRunjob extends Login {
 
 	}
 
-	public boolean runtask(String tasklabel) throws InterruptedException {
+	public boolean runtask(String tasklabel,int waitTime) throws InterruptedException {
 		selenium.refresh();
 		this.waitForElementPresent("//span[text()='" + tasklabel + "']",
 				WAIT_TIME);
@@ -41,7 +41,7 @@ public class TestTaskWithTRunjob extends Login {
 		Thread.sleep(3000);
 		selenium.click("//button[@id='idJobConductorTaskRunButton'  and @class='x-btn-text ' and text()='Run']");
 //		Date start = new Date();
-		boolean success = (waitForCondition("//label[text()='Ok']", Base.WAIT_TIME));
+		boolean success = (waitForCondition("//label[text()='Ok']", waitTime));
 		// close the pop window
 		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
 		// System.out.println(checkContextValue(start));
