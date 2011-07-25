@@ -3,6 +3,8 @@ package com.talend.tac.cases.executionTask;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.talend.tac.base.Base;
+
 public class TestAddJVMParametersForTask  extends JVMParameter {
     
 	String jvmParameterCorrect = "-Xms512M -Xmx512M";
@@ -17,7 +19,7 @@ public class TestAddJVMParametersForTask  extends JVMParameter {
     @Parameters({"labelAddJVMParametersForTask"})
 	public void testAddActiveCorrectJVMParametersForTask(String label) {
 
-    	this.addJVMParametersForTask("Active", label, jvmParameterCorrect, jvmParameterDescription, "Ok");
+    	this.addJVMParametersForTask("Active", label, jvmParameterCorrect, jvmParameterDescription, "Ok",Base.MAX_WAIT_TIME);
     	
     	this.checkJvmValueInGridRecoverLastExecution(expectationValue);
 	    
@@ -28,9 +30,9 @@ public class TestAddJVMParametersForTask  extends JVMParameter {
 	//test add a correct jvm parameter and inactive to task, then run it and check its value without display in grid and RecoverLastExecution
 	@Test
     @Parameters({"labelAddJVMParametersForTask"})
-	public void testAddInActiveCorrectJVMParametersForTask(String label) {
+	public void testAddInactiveCorrectJVMParametersForTask(String label) {
 
-    	this.addJVMParametersForTask("Inactive", label, jvmParameterCorrect, jvmParameterDescription, "Ok");
+    	this.addJVMParametersForTask("Inactive", label, jvmParameterCorrect, jvmParameterDescription, "Ok",Base.WAIT_TIME);
     	
     	this.checkJvmValueInGridRecoverLastExecution(expectationValueOfInactive);
 	    
@@ -45,7 +47,7 @@ public class TestAddJVMParametersForTask  extends JVMParameter {
 	public void testAddActiveWrongJVMParametersForTask(String label) {
 
     	this.addJVMParametersForTask("Active", label, jvmParameterWrong, jvmParameterDescription, 
-    			rb.getString("executionTask.errorStatus.runningError"));
+    			rb.getString("executionTask.errorStatus.runningError"),Base.WAIT_TIME);
 	
     	this.deleteJVMParameter(label);
     	
