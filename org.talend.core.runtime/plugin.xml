@@ -10,7 +10,7 @@
             category="org.talend.core.prefs"
             class="org.talend.core.runtime.MetadataPrecisionPage"
             id="org.talend.core.runtime.MetadataPrecisionPage"
-            name="Metadata">
+            name="%Metadata">
       </page>
    </extension>
 
