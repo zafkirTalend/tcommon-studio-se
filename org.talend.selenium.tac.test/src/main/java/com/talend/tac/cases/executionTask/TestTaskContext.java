@@ -5,6 +5,8 @@ import java.util.Date;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
+import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
 public class TestTaskContext extends Login {
@@ -38,7 +40,7 @@ public class TestTaskContext extends Login {
 			checkBoxChecked("//div[text()='age']/ancestor::table[@class='x-grid3-row-table']//div[@class='x-grid3-check-col x-grid3-check-col x-grid3-cc-override']");
 		}
 		selenium.setSpeed(MIN_SPEED);
-		runtask(tasklabel);
+		runtask(tasklabel, Base.MAX_WAIT_TIME);
 		Assert.assertTrue(checkContextValue().contains(contextNewage),
 				"test context change failed!");
 
@@ -64,7 +66,7 @@ public class TestTaskContext extends Login {
 			checkBoxUnchecked("//div[text()='age']/ancestor::table[@class='x-grid3-row-table']//div[@class='x-grid3-check-col x-grid3-check-col-on x-grid3-cc-override']");
 		}
 		selenium.setSpeed(MIN_SPEED);
-		runtask(tasklabel);
+		runtask(tasklabel,Base.WAIT_TIME);
 		Assert.assertTrue(checkContextValue().contains(defaultContextAge),
 				"default context test failed");
 	}
@@ -121,7 +123,7 @@ public class TestTaskContext extends Login {
 		}
 		
 		selenium.setSpeed(MIN_SPEED);
-		runtask(tasklabel);
+		runtask(tasklabel,Base.WAIT_TIME);
 		String logs = checkContextValue();
 		Assert.assertTrue(logs.contains(contextNewname),
 				"default context name test failed");
@@ -153,7 +155,7 @@ public class TestTaskContext extends Login {
 		selenium.setSpeed(MIN_SPEED);
 	}		
 
-	public void runtask(String tasklabel) throws InterruptedException {
+	public void runtask(String tasklabel,int waitTime) throws InterruptedException {
 		selenium.refresh();
 		this.waitForElementPresent("//span[text()='" + tasklabel + "']",
 				WAIT_TIME);
@@ -161,7 +163,7 @@ public class TestTaskContext extends Login {
 		Thread.sleep(3000);
 		selenium.click("//button[@id='idJobConductorTaskRunButton'  and @class='x-btn-text ' and text()='Run']");
 		Date start = new Date();
-		this.waitForElementPresent("//label[text()='Ok']", WAIT_TIME);
+		this.waitForElementPresent("//label[text()='Ok']", waitTime);
 		Assert.assertTrue(selenium.isElementPresent("//label[text()='Ok']"));
 		// close the pop window
 		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
