@@ -4,5 +4,14 @@
    <extension-point id="service" name="Service Registration" schema="schema/service.exsd"/>
    <extension-point id="dq_EMFModel_provider" name="dq emf model" schema="schema/dq_EMFModel_provider.exsd"/>
    <extension-point id="filepreview_provider" name="File Preview Provider" schema="schema/filepreview_provider.exsd"/>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.talend.core.prefs"
+            class="org.talend.core.runtime.MetadataPrecisionPage"
+            id="org.talend.core.runtime.MetadataPrecisionPage"
+            name="Metadata">
+      </page>
+   </extension>
 
 </plugin>
