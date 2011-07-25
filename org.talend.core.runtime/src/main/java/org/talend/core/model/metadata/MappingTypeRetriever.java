@@ -22,11 +22,10 @@ import org.apache.commons.collections.MultiMap;
 import org.apache.commons.collections.map.MultiValueMap;
 import org.apache.log4j.Logger;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.talend.core.IManagementService;
 import org.talend.core.model.metadata.types.DBTypeUtil;
 import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.prefs.ITalendCorePrefConstants;
-import org.talend.core.runtime.CoreRuntimePlugin;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -296,8 +295,7 @@ public class MappingTypeRetriever {
                 return MetadataTalendType.getDefaultTalendType();
             }
         }
-        IManagementService managementSerivce = CoreRuntimePlugin.getInstance().getManagementService();
-        IPreferenceStore preferenceStore = managementSerivce.getDesignerCorePreferenceStore();
+        IPreferenceStore preferenceStore = RepositoryManager.getPreferenceStore();
         if (preferenceStore != null && !preferenceStore.getBoolean(ITalendCorePrefConstants.FORBIDDEN_MAPPING_LENGTH_PREC_LOGIC)) {
             TalendTypePreLenRetriever talendTypePre = new TalendTypePreLenRetriever(mappingTypeOrigin, length, precison);
             String mappingType = talendTypePre.getMappingType();
