@@ -69,22 +69,9 @@ public class TestAddTaskBaseBranchProject  extends AddTask {
 		System.out.println(logs);
 		return logs;
 	}
-	public boolean runtask(String tasklabel) throws InterruptedException {
-		selenium.refresh();
-		this.waitForElementPresent("//span[text()='" + tasklabel + "']",
-				WAIT_TIME);
-		selenium.mouseDown("//span[text()='" + tasklabel + "']");
-		Thread.sleep(3000);
-		selenium.click("//button[@id='idJobConductorTaskRunButton'  and @class='x-btn-text ' and text()='Run']");
-//		Date start = new Date();
-		boolean success = (waitForCondition("//label[text()='Ok']", Base.WAIT_TIME));
-		// close the pop window
-		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
-		// System.out.println(checkContextValue(start));
-        return success;
-	}
+
 	
-	public void runTask(String tasklabel,int times) throws InterruptedException{
+	public void runTask(String tasklabel,int times,int waitTime) throws InterruptedException{
 		for (int i = 0; i < times; i++) {
 //			selenium.refresh();
 			this.waitForElementPresent("//span[text()='" + tasklabel + "']",
@@ -96,7 +83,7 @@ public class TestAddTaskBaseBranchProject  extends AddTask {
 			// Date start = new Date();
 			this.waitForElementPresent("//span[text()='Real time statistics']", Base.WAIT_TIME);
 			Assert.assertTrue(
-					waitForCondition("//label[text()='Ok']", Base.WAIT_TIME),
+					waitForCondition("//label[text()='Ok']", waitTime),
 					"task run failed!");
 			// close the pop window
 			selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
@@ -163,16 +150,10 @@ public class TestAddTaskBaseBranchProject  extends AddTask {
 //				+ rb.getString("menu.jobConductor") + "']"));
 //		// select a exist task
 //		selenium.mouseDown("//span[text()='"+tasklabel+"']");
-		boolean ok= runtask(tasklabel);
-		if(ok){
+		runTask(tasklabel,1,Base.MAX_WAIT_TIME);
+		
 		Assert.assertTrue(getLogsValue().contains("hello branch!!!"),
 				"default context test failed");
-		}
-		else{
-			Assert.assertTrue(getLogsValue().contains("Exception"),
-			"exception");
-			Assert.fail("task branch run failed !");
-		}
 		
 	}
 	
@@ -226,7 +207,7 @@ public class TestAddTaskBaseBranchProject  extends AddTask {
 			
 		}
 		 
-		 runTask(label,1);
+		 runTask(label,1,Base.MAX_WAIT_TIME);
         //add a simple trigger for the task
         addSimpleTrigger(label,"testDeactivesimpltrigger","25");
         //wait for 160 seconds so that the task run several times
@@ -309,7 +290,8 @@ public class TestAddTaskBaseBranchProject  extends AddTask {
 			selenium.setSpeed(MIN_SPEED);
 		}
 		
-		runTask(label,2);
+		runTask(label,1,Base.MAX_WAIT_TIME);
+		runTask(label,1,Base.WAIT_TIME);
 		this.clickWaitForElementPresent("//span//span[text()='Logs']");
 		Thread.sleep(3000);
 		Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==2,"task run generate logs failed !");
@@ -318,7 +300,7 @@ public class TestAddTaskBaseBranchProject  extends AddTask {
 		selenium.getConfirmation();
 		Thread.sleep(3000);	
 		Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==0,"task run generate logs failed !");
-		runTask(label,2);
+		runTask(label,2,Base.WAIT_TIME);
 		if(deleteTask(label)){
 			addTask(label,"", projectName, branchName, jobName, version, context,
 					serverName, statisticName);
