@@ -60,6 +60,7 @@ public final class GenerateQueryFactory {
         case ORACLE_OCI:
         case ORACLEFORSID:
         case ORACLESN:
+        case SAS:
             return new OracleQueryGenerator(dbType);
         case EXASOL:
         case FIREBIRD:
@@ -81,7 +82,6 @@ public final class GenerateQueryFactory {
         case MSODBC:
         case MSSQL:
         case PARACCEL:
-        case SAS:
         case SQLITE:
         case SYBASEASE:
         case SYBASEIQ:

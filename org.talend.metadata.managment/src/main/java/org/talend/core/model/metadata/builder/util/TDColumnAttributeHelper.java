@@ -121,6 +121,7 @@ public class TDColumnAttributeHelper {
             throws SQLException {
         boolean isIBMDB2ZOS = false;
         boolean isTeradataSqlModel = false;
+        boolean isSAS = false;
         if (databaseconnection != null) {
             String dbMetaData = databaseconnection.getDatabaseType();
             if (dbMetaData != null && dbMetaData.equals(EDatabaseTypeName.IBMDB2ZOS.getDisplayName())) {
@@ -129,6 +130,9 @@ public class TDColumnAttributeHelper {
             if (dbMetaData != null && dbMetaData.equals(EDatabaseTypeName.TERADATA.getDisplayName())
                     && databaseconnection.isSQLMode()) {
                 isTeradataSqlModel = true;
+            }
+            if (dbMetaData != null && dbMetaData.equals(EDatabaseTypeName.SAS.getDisplayName())) {
+                isSAS = true;
             }
         }
         // // --- add columns to table
@@ -171,7 +175,7 @@ public class TDColumnAttributeHelper {
         // dataType
         int dataType = 0;
         try {
-            if (isIBMDB2ZOS || isTeradataSqlModel) {
+            if (isIBMDB2ZOS || isTeradataSqlModel || isSAS) {
                 dataType = resutSet.getInt(GetColumn.TYPE_NAME.name());
             } else {
                 dataType = resutSet.getInt(GetColumn.DATA_TYPE.name());
@@ -229,7 +233,7 @@ public class TDColumnAttributeHelper {
         //
         int numPrecRadix = 0;
         try {
-            if (!isIBMDB2ZOS || !isTeradataSqlModel) {
+            if (!isIBMDB2ZOS && !isTeradataSqlModel && !isSAS) {
                 numPrecRadix = resutSet.getInt(GetColumn.NUM_PREC_RADIX.name());
             }
         } catch (Exception e) {
@@ -256,7 +260,7 @@ public class TDColumnAttributeHelper {
         column.setSqlDataType(sqlDataType);
         // column.setType(sqlDataType); // it's only reference to previous sql data type
         try {
-            if (isIBMDB2ZOS || isTeradataSqlModel) {
+            if (isIBMDB2ZOS || isTeradataSqlModel || isSAS) {
                 column.getSqlDataType().setNullable(NullableType.get(resutSet.getInt(GetColumn.IS_NULLABLE.name())));
             } else {
                 column.getSqlDataType().setNullable(NullableType.get(resutSet.getInt(GetColumn.NULLABLE.name())));

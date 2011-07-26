@@ -311,7 +311,7 @@ public class TalendTextUtils {
 
             boolean isH2 = EDatabaseTypeName.H2 == name;
 
-            if ((!matcher.matches() || matcher2.matches() || isSqlKeyword) && !isH2) {
+            if ((!matcher.matches() || matcher2.matches() || isSqlKeyword) && !isH2 && EDatabaseTypeName.SAS != name) {
                 isCheck = true; // contain other char
             }
 

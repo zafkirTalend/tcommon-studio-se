@@ -171,7 +171,7 @@ public class SelectorTableWizardPage extends TemplateWizardPage {
     }
 
     public void initControlData() {
-        tableForm.initControlData();
+        tableForm.initControlData(true);
     }
 
     public DatabaseConnection getDatabaseConnection() {

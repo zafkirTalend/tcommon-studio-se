@@ -35,6 +35,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
+import org.talend.commons.utils.database.SASDataBaseMetadata;
 import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.IManagementService;
@@ -95,6 +96,8 @@ public class ExtractMetaDataUtils {
                 // add by wzhang for bug 8106. set database name for teradata.
                 TeradataDataBaseMetadata teraDbmeta = (TeradataDataBaseMetadata) dbMetaData;
                 teraDbmeta.setDatabaseName(ExtractMetaDataUtils.metadataCon.getDatabase());
+            } else if (sasNeedFakeDatabaseMetaData(dbType)) {
+                dbMetaData = createSASFakeDatabaseMetaData(conn);
             } else {
                 dbMetaData = conn.getMetaData();
             }
@@ -117,6 +120,20 @@ public class ExtractMetaDataUtils {
     private static boolean needFakeDatabaseMetaData(String dbType) {
         // TODO check if it's db2 for z/os
         if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * check if a FakeDatabaseMetaData is needed. only for db2 on z/os right now.
+     * 
+     * @param dbMetaData
+     * @return
+     */
+    private static boolean sasNeedFakeDatabaseMetaData(String dbType) {
+        // TODO check if it's db2 for z/os
+        if (dbType.equals(EDatabaseTypeName.SAS.getXmlName())) {
             return true;
         }
         return false;
@@ -150,6 +167,11 @@ public class ExtractMetaDataUtils {
 
     private static DatabaseMetaData createTeradataFakeDatabaseMetaData(Connection conn) {
         TeradataDataBaseMetadata tmd = new TeradataDataBaseMetadata(conn);
+        return tmd;
+    }
+
+    private static DatabaseMetaData createSASFakeDatabaseMetaData(Connection conn) {
+        SASDataBaseMetadata tmd = new SASDataBaseMetadata(conn);
         return tmd;
     }
 
@@ -403,6 +425,9 @@ public class ExtractMetaDataUtils {
                         schema = dataBase;
                     } else if (as400) {
                         schema = retrieveSchemaPatternForAS400(url);
+                    } else if (EDatabaseTypeName.SAS.getProduct()
+                            .equals(EDatabaseTypeName.getTypeFromDbType(dbType).getProduct())) {
+                        schema = dataBase;
                     } else {
                         schema = null;
                     }

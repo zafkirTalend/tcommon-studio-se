@@ -143,8 +143,8 @@ public enum EDatabaseConnTemplate {
             "7210")), //$NON-NLS-1$
 
     SAS(new DbConnStr(EDatabaseTypeName.SAS, //
-            "jdbc:sasiom://<host>:<port>/<sid>", //$NON-NLS-1$
-            "7070")), //$NON-NLS-1$
+            "jdbc:sasiom://<host>:<port>", //$NON-NLS-1$
+            "8591")), //$NON-NLS-1$
 
     PARACCEL(new DbConnStr(EDatabaseTypeName.PARACCEL, //
             "jdbc:paraccel://<host>:<port>/<sid>", //$NON-NLS-1$
@@ -314,6 +314,7 @@ public enum EDatabaseConnTemplate {
             case IBMDB2:
             case IBMDB2_ZOS:
             case SYBASEASE:
+            case SAS:
                 return true;
             default:
             }

@@ -1008,7 +1008,7 @@ public class SelectorTableForm extends AbstractForm {
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                     monitor.beginTask(Messages.getString("CreateTableAction.action.createTitle"), IProgressMonitor.UNKNOWN); //$NON-NLS-1$
                     // add
-                    managerConnection.check(iMetadataConnection);
+                    managerConnection.check(iMetadataConnection, true);
                     if (managerConnection.getIsValide()) {
                         // need to check catalog/schema if import a old db connection
                         updatePackage(iMetadataConnection);
@@ -1041,7 +1041,7 @@ public class SelectorTableForm extends AbstractForm {
                         }
                     } else if (displayMessageBox) {
                         // connection failure
-                        getShell().getDisplay().asyncExec(new Runnable() {
+                        parentWizardPage.getShell().getDisplay().asyncExec(new Runnable() {
 
                             public void run() {
                                 new ErrorDialogWidthDetailArea(getShell(), PID, Messages
@@ -1071,10 +1071,10 @@ public class SelectorTableForm extends AbstractForm {
             public void run() {
                 viewer.setInput(tableNodeList);
                 // restoreCheckItems();
-                if (displayMessageBox) {
-                    String msg = Messages.getString("DatabaseTableForm.connectionIsDone"); //$NON-NLS-1$
-                    openInfoDialogInUIThread(getShell(), Messages.getString("DatabaseTableForm.checkConnection"), msg, false); //$NON-NLS-1$
-                }
+                // if (displayMessageBox) {
+                //                    String msg = Messages.getString("DatabaseTableForm.connectionIsDone"); //$NON-NLS-1$
+                //                    openInfoDialogInUIThread(getShell(), Messages.getString("DatabaseTableForm.checkConnection"), msg, false); //$NON-NLS-1$
+                // }
             }
         });
     }

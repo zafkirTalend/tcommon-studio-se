@@ -35,6 +35,7 @@ import org.eclipse.core.runtime.Platform;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
+import org.talend.commons.utils.database.SASDataBaseMetadata;
 import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.database.EDatabase4DriverClassName;
@@ -118,6 +119,8 @@ public class MetadataConnectionUtils {
                 dbMetaData = createTeradataFakeDatabaseMetaData(conn);
                 TeradataDataBaseMetadata teraDbmeta = (TeradataDataBaseMetadata) dbMetaData;
                 teraDbmeta.setDatabaseName(ExtractMetaDataUtils.metadataCon.getDatabase());
+            } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.SAS.getProduct())) {
+                dbMetaData = createSASFakeDatabaseMetaData(conn);
             }
         }
         // ~
@@ -137,6 +140,11 @@ public class MetadataConnectionUtils {
 
     private static DatabaseMetaData createTeradataFakeDatabaseMetaData(java.sql.Connection conn) {
         TeradataDataBaseMetadata tmd = new TeradataDataBaseMetadata(conn);
+        return tmd;
+    }
+
+    private static DatabaseMetaData createSASFakeDatabaseMetaData(java.sql.Connection conn) {
+        SASDataBaseMetadata tmd = new SASDataBaseMetadata(conn);
         return tmd;
     }
 

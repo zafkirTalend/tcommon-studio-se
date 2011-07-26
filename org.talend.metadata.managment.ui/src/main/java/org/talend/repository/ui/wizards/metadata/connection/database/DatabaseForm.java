@@ -1497,6 +1497,7 @@ public class DatabaseForm extends AbstractForm {
         boolean isAS400 = as400VersionEnable();
         boolean isMySQL = asMySQLVersionEnable();
         boolean isVertica = asVerticaVersionEnable();
+        boolean isSAS = asSASVersionEnable();
 
         String selectedVersion = getConnection().getDbVersionString();
         dbVersionCombo.removeAll();
@@ -1521,6 +1522,9 @@ public class DatabaseForm extends AbstractForm {
         } else if (dbType.equals(EDatabaseConnTemplate.MSSQL05_08.getDBDisplayName())) {
             dbVersionCombo.getCombo().setItems(versions);
             dbVersionCombo.setHideWidgets(false);
+        } else if (dbType.equals(EDatabaseConnTemplate.SAS.getDBDisplayName())) {
+            dbVersionCombo.getCombo().setItems(versions);
+            dbVersionCombo.setHideWidgets(!isSAS);
         }
         if (selectedVersion != null && !"".equals(selectedVersion)) { //$NON-NLS-1$
             EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersion(selectedVersion);
@@ -1979,10 +1983,11 @@ public class DatabaseForm extends AbstractForm {
         boolean isAS400 = visible && as400VersionEnable();
         boolean isMySQL = visible && asMySQLVersionEnable();
         boolean isVertica = visible && asVerticaVersionEnable();
+        boolean isSAS = visible && asSASVersionEnable();
 
         dbVersionCombo
                 .setEnabled(!isReadOnly()
-                        && (isOracle || isAS400 || isMySQL || isVertica
+                        && (isOracle || isAS400 || isMySQL || isVertica || isSAS
                                 || EDatabaseConnTemplate.ACCESS.getDBTypeName().equals(dbTypeCombo.getText()) || EDatabaseConnTemplate.MSSQL05_08
                                 .getDBDisplayName().equals(dbTypeCombo.getText())));
         usernameText.setEditable(visible);
@@ -2212,6 +2217,21 @@ public class DatabaseForm extends AbstractForm {
         }
         EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(dbTypeCombo.getText());
         return template != null && template == EDatabaseConnTemplate.MYSQL
+                && LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA);
+    }
+
+    /**
+     * 
+     * DOC hwang Comment method "sasVersionEnable".
+     * 
+     * @return
+     */
+    private boolean asSASVersionEnable() {
+        if (dbTypeCombo == null) {
+            return false;
+        }
+        EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(dbTypeCombo.getText());
+        return template != null && template == EDatabaseConnTemplate.SAS
                 && LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA);
     }
 

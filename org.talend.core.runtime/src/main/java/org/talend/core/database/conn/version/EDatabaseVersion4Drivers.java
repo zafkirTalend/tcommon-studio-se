@@ -59,8 +59,10 @@ public enum EDatabaseVersion4Drivers {
     NETEZZA(new DbVersion4Drivers(EDatabaseTypeName.NETEZZA, "nzjdbc.jar")), //$NON-NLS-1$
     INFORMIX(new DbVersion4Drivers(EDatabaseTypeName.INFORMIX, "ifxjdbc.jar")), //$NON-NLS-1$
 
-    SAS(new DbVersion4Drivers(EDatabaseTypeName.SAS, new String[] { "sas.core.jar", //$NON-NLS-1$
+    SAS_9_1(new DbVersion4Drivers(EDatabaseTypeName.SAS, "SAS 9.1", "SAS_9.1", new String[] { "sas.core.jar", //$NON-NLS-1$
             "sas.intrnet.javatools.jar", "sas.svc.connection.jar" })), //$NON-NLS-1$ //$NON-NLS-2$
+    SAS_9_2(new DbVersion4Drivers(EDatabaseTypeName.SAS,
+            "SAS 9.2", "SAS_9.2", new String[] { "sas.core.jar", "sas.security.sspi.jar", "sas.svc.connection.jar" })), //$NON-NLS-1$ //$NON-NLS-2$
     // MYSQL, add for 9594
     MYSQL_5(new DbVersion4Drivers(EDatabaseTypeName.MYSQL, "MySQL 5", "MYSQL_5", "mysql-connector-java-5.1.0-bin.jar")), //$NON-NLS-1$  //$NON-NLS-2$ //$NON-NLS-3$
     MYSQL_4(new DbVersion4Drivers(EDatabaseTypeName.MYSQL, "MySQL 4", "MYSQL_4", "mysql-connector-java-3.1.14-bin.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
