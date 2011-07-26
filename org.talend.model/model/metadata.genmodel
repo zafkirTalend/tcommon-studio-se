@@ -530,6 +530,7 @@
         <genClasses ecoreClass="metadata.ecore#//cwm/relational/TdExpression">
           <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//cwm/relational/TdExpression/version"/>
           <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//cwm/relational/TdExpression/modificationDate"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//cwm/relational/TdExpression/name"/>
         </genClasses>
       </nestedGenPackages>
       <nestedGenPackages prefix="Softwaredeployment" basePackage="org.talend.cwm"
