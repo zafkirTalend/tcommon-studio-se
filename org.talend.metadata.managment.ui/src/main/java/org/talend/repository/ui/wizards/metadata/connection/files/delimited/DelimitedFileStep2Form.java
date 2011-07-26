@@ -102,8 +102,6 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
 
     private LabelledText rowSeparatorText;
 
-    private LabelledText rowSeparatorLimitText;
-
     private LabelledCombo escapeCharCombo;
 
     private Button csvRadio;
@@ -188,11 +186,6 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
         rowSeparatorCombo.setText(getConnection().getRowSeparatorType().getLiteral());
         rowSeparatorText.setText(getConnection().getRowSeparatorValue());
         rowSeparatorText.setEditable(false);
-        //
-        rowSeparatorLimitText.setLabelText(Messages.getString("FileStep2.rowSeparatorLimitTip")); //$NON-NLS-1$
-        rowSeparatorLimitText.setText(TalendQuoteUtils.QUOTATION_MARK
-                + TalendQuoteUtils.removeQuotesIfExist(getConnection().getRowSeparatorLimit()) + TalendQuoteUtils.QUOTATION_MARK);
-        rowSeparatorLimitText.setEditable(true);
         if (!isContextMode()) {
             // adpat Separator Combo and Text
             fieldSeparatorManager();
@@ -275,7 +268,6 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
         fieldSeparatorText.setReadOnly(isReadOnly());
         rowSeparatorCombo.setReadOnly(isReadOnly());
         rowSeparatorText.setReadOnly(isReadOnly());
-        rowSeparatorLimitText.setReadOnly(isReadOnly());
         delimitedRadio.setEnabled(!isReadOnly());
         // rowsToSkipHeaderCheckboxCombo.setReadOnly(isReadOnly());
         // rowsToSkipFooterCheckboxCombo.setReadOnly(isReadOnly());
@@ -337,7 +329,6 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
         rowSeparatorCombo = new LabelledCombo(compositeFileDelimitor, Messages.getString("FileStep2.rowSeparator"), Messages //$NON-NLS-1$
                 .getString("FileStep2.rowSeparatorTip"), rowSeparatorData, 1, true, SWT.READ_ONLY); //$NON-NLS-1$
         rowSeparatorText = new LabelledText(compositeFileDelimitor, "", 1, true, SWT.RIGHT); //$NON-NLS-1$
-        rowSeparatorLimitText = new LabelledText(compositeFileDelimitor, "", 1, true, SWT.RIGHT); //$NON-NLS-1$
     }
 
     /**
@@ -1024,20 +1015,6 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
             }
         });
 
-        rowSeparatorLimitText.addModifyListener(new ModifyListener() {
-
-            public void modifyText(final ModifyEvent e) {
-                getConnection().setRowSeparatorLimit(rowSeparatorLimitText.getText());
-                checkFieldsValue();
-            }
-        });
-        rowSeparatorLimitText.addKeyListener(new KeyAdapter() {
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-            }
-        });
-
     }
 
     /**
@@ -1062,9 +1039,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
                 if (getConnection().getFormat().toString().equals(FileFormat.MAC_LITERAL.getName())) {
                     rowSeparatorText.setText(TalendQuoteUtils.QUOTATION_MARK + "\\r" + TalendQuoteUtils.QUOTATION_MARK); //$NON-NLS-1$
                 } else {
-                    rowSeparatorText.setText(TalendQuoteUtils.QUOTATION_MARK
-                            + TalendQuoteUtils.removeQuotesIfExist(getConnection().getRowSeparatorValue())
-                            + TalendQuoteUtils.QUOTATION_MARK); //$NON-NLS-1$
+                    rowSeparatorText.setText(TalendQuoteUtils.QUOTATION_MARK + "\\n" + TalendQuoteUtils.QUOTATION_MARK); //$NON-NLS-1$
                 }
             }
             // Init Custom Label
@@ -1130,7 +1105,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
         previewInformationLabel.setText("   " + Messages.getString("FileStep2.settingsIncomplete")); //$NON-NLS-1$ //$NON-NLS-2$
         updateStatus(IStatus.OK, null);
         previewButton.setEnabled(false);
-        int limitValue = 1;
+
         // Separator Combo (field and row)
         if ("".equals(fieldSeparatorText.getText())) { //$NON-NLS-1$
             updateStatus(IStatus.ERROR, Messages.getString("FileStep2.fieldSeparatorAlert")); //$NON-NLS-1$
@@ -1141,23 +1116,6 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
             return false;
         }
 
-        if (rowSeparatorLimitText.getText().startsWith(TalendQuoteUtils.QUOTATION_MARK)
-                && rowSeparatorLimitText.getText().endsWith(TalendQuoteUtils.QUOTATION_MARK)) {
-            String s = TalendQuoteUtils.removeQuotes(rowSeparatorLimitText.getText());
-            if (!s.matches("^[0-9_]+$")) {
-                updateStatus(IStatus.ERROR, Messages.getString("FileStep2.rowSeparatorLimitFieldMustInteger")); //$NON-NLS-1$
-                return false;
-            } else {
-                limitValue = Integer.parseInt(s);
-            }
-        }
-
-        if ("".equals(rowSeparatorLimitText.getText())) { //$NON-NLS-1$
-            updateStatus(IStatus.ERROR, Messages.getString("FileStep2.rowSeparatorLimitAlert")); //$NON-NLS-1$
-            rowSeparatorLimitText.setText(TalendQuoteUtils.QUOTATION_MARK + "1" + TalendQuoteUtils.QUOTATION_MARK); //$NON-NLS-1$);
-            return false;
-        }
-
         if ("".equals(rowSeparatorText.getText())) { //$NON-NLS-1$
             updateStatus(IStatus.ERROR, Messages.getString("FileStep2.rowSeparatorAlert")); //$NON-NLS-1$
             return false;
@@ -1165,21 +1123,6 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
         if (rowSeparatorText.getText().equals("\\") || rowSeparatorText.getText().endsWith("\\")) { //$NON-NLS-1$ //$NON-NLS-2$
             updateStatus(IStatus.ERROR, Messages.getString("FileStep2.rowSeparatorIncomplete")); //$NON-NLS-1$
             return false;
-        }
-
-        if (rowSeparatorText.getText().startsWith(TalendQuoteUtils.QUOTATION_MARK)
-                && rowSeparatorText.getText().endsWith(TalendQuoteUtils.QUOTATION_MARK)) {
-            String removedQuotesValueStr = TalendQuoteUtils.removeQuotes(rowSeparatorText.getText());
-            if (removedQuotesValueStr != null && !"".equals(removedQuotesValueStr)) {
-                String valueStr = removedQuotesValueStr.replace("\\", ";");
-                if (valueStr != null && !"".equals(valueStr) && valueStr.startsWith(";")) {
-                    valueStr = valueStr.substring(1);
-                    if (valueStr.split(";").length > limitValue) {
-                        updateStatus(IStatus.ERROR, Messages.getString("FileStep2.rowSeparatorLengthMoreThanLimit")); //$NON-NLS-1$
-                        return false;
-                    }
-                }
-            }
         }
 
         // Labelled Checkbox Combo (Row to Skip and Limit)
@@ -1438,7 +1381,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
 
         fieldSeparatorText.setEditable(!isContextMode());
         rowSeparatorText.setEditable(!isContextMode());
-        rowSeparatorLimitText.setEditable(!isContextMode());
+
         checkRowToSkip();
     }
 

@@ -2368,22 +2368,13 @@ public interface ConnectionPackage extends EPackage {
     int FILE_CONNECTION__CSV_OPTION = CONNECTION_FEATURE_COUNT + 19;
 
     /**
-     * The feature id for the '<em><b>Row Separator Limit</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_CONNECTION__ROW_SEPARATOR_LIMIT = CONNECTION_FEATURE_COUNT + 20;
-
-    /**
      * The number of structural features of the '<em>File Connection</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int FILE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 21;
+    int FILE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 20;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.DelimitedFileConnectionImpl <em>Delimited File Connection</em>}' class.
@@ -2908,15 +2899,6 @@ public interface ConnectionPackage extends EPackage {
      * @ordered
      */
     int DELIMITED_FILE_CONNECTION__CSV_OPTION = FILE_CONNECTION__CSV_OPTION;
-
-    /**
-     * The feature id for the '<em><b>Row Separator Limit</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DELIMITED_FILE_CONNECTION__ROW_SEPARATOR_LIMIT = FILE_CONNECTION__ROW_SEPARATOR_LIMIT;
 
     /**
      * The feature id for the '<em><b>Field Separator Type</b></em>' attribute.
@@ -3469,15 +3451,6 @@ public interface ConnectionPackage extends EPackage {
     int POSITIONAL_FILE_CONNECTION__CSV_OPTION = FILE_CONNECTION__CSV_OPTION;
 
     /**
-     * The feature id for the '<em><b>Row Separator Limit</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int POSITIONAL_FILE_CONNECTION__ROW_SEPARATOR_LIMIT = FILE_CONNECTION__ROW_SEPARATOR_LIMIT;
-
-    /**
      * The number of structural features of the '<em>Positional File Connection</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4009,15 +3982,6 @@ public interface ConnectionPackage extends EPackage {
      * @ordered
      */
     int EBCDIC_CONNECTION__CSV_OPTION = FILE_CONNECTION__CSV_OPTION;
-
-    /**
-     * The feature id for the '<em><b>Row Separator Limit</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EBCDIC_CONNECTION__ROW_SEPARATOR_LIMIT = FILE_CONNECTION__ROW_SEPARATOR_LIMIT;
 
     /**
      * The feature id for the '<em><b>Mid File</b></em>' attribute.
@@ -7692,15 +7656,6 @@ public interface ConnectionPackage extends EPackage {
     int REGEXP_FILE_CONNECTION__CSV_OPTION = FILE_CONNECTION__CSV_OPTION;
 
     /**
-     * The feature id for the '<em><b>Row Separator Limit</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int REGEXP_FILE_CONNECTION__ROW_SEPARATOR_LIMIT = FILE_CONNECTION__ROW_SEPARATOR_LIMIT;
-
-    /**
      * The feature id for the '<em><b>Field Separator Type</b></em>' attribute.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
@@ -9461,15 +9416,6 @@ public interface ConnectionPackage extends EPackage {
      * @ordered
      */
     int FILE_EXCEL_CONNECTION__CSV_OPTION = FILE_CONNECTION__CSV_OPTION;
-
-    /**
-     * The feature id for the '<em><b>Row Separator Limit</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_EXCEL_CONNECTION__ROW_SEPARATOR_LIMIT = FILE_CONNECTION__ROW_SEPARATOR_LIMIT;
 
     /**
      * The feature id for the '<em><b>Sheet Name</b></em>' attribute.
@@ -13743,15 +13689,6 @@ public interface ConnectionPackage extends EPackage {
      * @ordered
      */
     int HL7_CONNECTION__CSV_OPTION = FILE_CONNECTION__CSV_OPTION;
-
-    /**
-     * The feature id for the '<em><b>Row Separator Limit</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int HL7_CONNECTION__ROW_SEPARATOR_LIMIT = FILE_CONNECTION__ROW_SEPARATOR_LIMIT;
 
     /**
      * The feature id for the '<em><b>Start Char</b></em>' attribute.
@@ -18201,17 +18138,6 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getFileConnection_CsvOption();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileConnection#getRowSeparatorLimit <em>Row Separator Limit</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Row Separator Limit</em>'.
-     * @see org.talend.core.model.metadata.builder.connection.FileConnection#getRowSeparatorLimit()
-     * @see #getFileConnection()
-     * @generated
-     */
-    EAttribute getFileConnection_RowSeparatorLimit();
-
-    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.DelimitedFileConnection <em>Delimited File Connection</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Delimited File Connection</em>'.
@@ -22194,14 +22120,6 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute FILE_CONNECTION__CSV_OPTION = eINSTANCE.getFileConnection_CsvOption();
-
-        /**
-         * The meta object literal for the '<em><b>Row Separator Limit</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute FILE_CONNECTION__ROW_SEPARATOR_LIMIT = eINSTANCE.getFileConnection_RowSeparatorLimit();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.DelimitedFileConnectionImpl <em>Delimited File Connection</em>}' class.
