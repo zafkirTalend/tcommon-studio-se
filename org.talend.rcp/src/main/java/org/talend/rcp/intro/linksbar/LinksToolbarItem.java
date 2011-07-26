@@ -63,9 +63,6 @@ public class LinksToolbarItem extends ContributionItem {
         layout.marginHeight = 0;
         composite.setLayout(layout);
 
-        // blank label
-        new Label(composite, SWT.NONE).setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-
         // 1.learn
         Label learnLabel = new Label(composite, SWT.NONE);
 
@@ -82,9 +79,6 @@ public class LinksToolbarItem extends ContributionItem {
                 openBrower(event.text);
             }
         });
-
-        // blank label
-        new Label(composite, SWT.NONE).setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 
         // 2.ask
         Label askLabel = new Label(composite, SWT.NONE);
@@ -104,11 +98,6 @@ public class LinksToolbarItem extends ContributionItem {
         });
 
         if (!PluginChecker.isTIS()) {
-            // blank label
-            new Label(composite, SWT.NONE).setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-
-            new Label(composite, SWT.NONE).setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-
             // 4.upgrade
             Label upgradeLabel = new Label(composite, SWT.NONE);
             upgradeLabel.setImage(Activator.getImageDescriptor("icons/wizard.png").createImage()); //$NON-NLS-1$
