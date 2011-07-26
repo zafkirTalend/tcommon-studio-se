@@ -140,13 +140,13 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
         setWindowTitle(Messages.getString("TableWizard.windowTitle")); //$NON-NLS-1$
         setDefaultPageImageDescriptor(ImageProvider.getImageDesc(ECoreImage.METADATA_TABLE_WIZ));
         TableInfoParameters tableInfoParameters = new TableInfoParameters();
-        selectorWizardPage = new SelectorTableWizardPage(connectionItem, isRepositoryObjectEditable(), tableInfoParameters,
-                metadataConnection, temConnection);
 
         tableWizardpage = new DatabaseTableWizardPage(selectedMetadataTable, managerConnection, connectionItem,
                 isRepositoryObjectEditable(), metadataConnection, temConnection);
-        tableFilterWizardPage = new DatabaseTableFilterWizardPage(tableInfoParameters, this.connectionItem);
         if (creation && !skipStep) {
+            selectorWizardPage = new SelectorTableWizardPage(connectionItem, isRepositoryObjectEditable(), tableInfoParameters,
+                    metadataConnection, temConnection);
+            tableFilterWizardPage = new DatabaseTableFilterWizardPage(tableInfoParameters, this.connectionItem);
 
             tableFilterWizardPage.setDescription(Messages.getString("DatabaseTableWizard.description")); //$NON-NLS-1$
             tableFilterWizardPage.setPageComplete(true);
@@ -350,7 +350,9 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
      */
     @Override
     public boolean performCancel() {
-        selectorWizardPage.performCancel();
+        if (selectorWizardPage != null) {
+            selectorWizardPage.performCancel();
+        }
         temConnection = null;
         return super.performCancel();
     }

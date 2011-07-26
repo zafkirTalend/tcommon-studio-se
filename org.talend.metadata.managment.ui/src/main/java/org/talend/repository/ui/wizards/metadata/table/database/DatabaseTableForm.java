@@ -589,7 +589,7 @@ public class DatabaseTableForm extends AbstractForm {
         compositeTable.setLayout(new FillLayout());
         metadataEditor = new MetadataEmfTableEditor(""); //$NON-NLS-1$
         tableEditorView = new MetadataEmfTableEditorView(compositeTable, SWT.NONE, false);
-        tableEditorView.setShowDbTypeColumn(true, true, false);
+        tableEditorView.setShowDbTypeColumn(true, true, true);
         tableEditorView.setShowDbColumnName(true, false);
         final DatabaseConnection databaseConnection = getConnection();
         String trueDbmsID = DatabaseConnectionParameterUtil.getTrueParamValue(databaseConnection, databaseConnection.getDbmsId());// hywang
@@ -1026,9 +1026,6 @@ public class DatabaseTableForm extends AbstractForm {
                 return false;
             } else if (!MetadataToolHelper.isValidSchemaName(table.getLabel())) {
                 updateStatus(IStatus.ERROR, Messages.getString("DatabaseTableForm.illegalChar", table.getLabel())); //$NON-NLS-1$
-                return false;
-            } else if (!managerConnection.check(getIMetadataConnection(), true)) {// bug 17422
-                updateStatus(IStatus.ERROR, Messages.getString("DatabaseForm.checkFailure")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                 return false;
             }
 
