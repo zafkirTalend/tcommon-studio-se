@@ -2,7 +2,6 @@ package com.talend.tac.base;
 
 import java.awt.Event;
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -12,6 +11,12 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.testng.IClass;
+import org.testng.ITestContext;
+import org.testng.ITestResult;
+import org.testng.Reporter;
+import org.testng.TestListenerAdapter;
+import org.testng.TestRunner;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 
@@ -32,7 +37,7 @@ public class Base {
 	public static String MID_SPEED = "3000";
 	public static String MIN_SPEED = "0";
 	public static String MAX_SPEED = "5000";
-	public static int WAIT_TIME = 50;
+	public static int WAIT_TIME = 30;
 	public static int MAX_WAIT_TIME = 500;
 	
 	public static boolean onHudson = false;
@@ -41,13 +46,18 @@ public class Base {
 	@Parameters({ "server", "port", "browser", "url", "language", "country",
 			"root" })
 	public void initSelenium(String server, String port, String browser,
-			String url, String language, String country, String root) {
+			String url, String language, String country, String root, ITestContext context) {
 		
 		server = this.setDefaultValue("localhost", System.getProperty("selenium.server"), server);
 //		server = this.setDefaultValue(server, "localhost");
 		
 		port = this.setDefaultValue(port, 4444 + "");
-		browser = this.setDefaultValue(browser, "*firefox");
+		
+		browser = this.setDefaultValue("*firefox", System.getProperty("selenium.browser"), browser);
+//		browser = this.setDefaultValue(browser, "*firefox");
+		
+		
+		
 		
 		url = this.setDefaultValue("http://localhost:8080/", System.getProperty("tomcat.url"), url);
 //		url = this.setDefaultValue(url, "http://localhost:8080/");
@@ -60,13 +70,50 @@ public class Base {
 		rb = ResourceBundle.getBundle("messages", currentLocale);
 
 		System.out.println("Server: " + server + ", port: " + port
-				+ ", broser: " + browser + ", " + url);
+				+ ", browser: " + browser + ", " + url);
 		System.out.println("language: " + language + ", country: " + country);
 		selenium = new DefaultSelenium(server, Integer.parseInt(port), browser,
 				url); // 4444 is default server port
 
 		selenium.start();
 		selenium.open(root);
+		
+		TestRunner runner = (TestRunner) context;
+		runner.addListener(new TestListenerAdapter(){
+			@Override
+			public void onTestFailure(ITestResult tr) {
+				
+				Reporter.setCurrentTestResult(tr);
+				IClass clazz = tr.getTestClass();
+				
+				String className = clazz.getName();
+				String methodName = tr.getMethod().getMethodName();
+				
+				String parameter = "";
+				for(Object param : tr.getParameters()) {
+					String par = (String)param;
+					parameter = parameter + ",'" + par.replaceAll("/", "|")+"'"; 
+				}
+				if(parameter!=null && !"".equals(parameter.trim())){
+					parameter = parameter.substring(1);
+				}
+				
+				int lineNumber = 0;
+				for(StackTraceElement element: tr.getThrowable().getStackTrace()) {
+					if(methodName.equals(element.getMethodName())) {
+						lineNumber = element.getLineNumber();
+					}
+				}
+				
+				String name = className + "." + methodName + "(" + parameter + ")_" + lineNumber + ".png";
+				
+//				System.out.println("name -- " + name);
+				String url = getAbsolutePath("org/talend/tac/folder/screen");
+//				System.out.println("url -" + url);
+				selenium.captureScreenshot(url + File.separator + name);
+				System.out.println(url + File.separator + name);
+			}
+		}); 
 	}
 
 	public boolean isOnHudson(){
@@ -390,7 +437,7 @@ public class Base {
 	 * @param filePath
 	 * @return
 	 */
-	public String parseRelativePath(String filePath){
+	public URL getfileURL(String filePath){
 		URL fileUrl = null;
 //		String onHudson = System.getProperty("tests.on.hudson");
 		try {
@@ -402,16 +449,25 @@ public class Base {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-		System.out.println(fileUrl.toString());
-		return fileUrl.toString();
+//		System.out.println("URL -- " + fileUrl);
+		return fileUrl;
 	}
+	
+	/**
+	 * @param filePath
+	 * @return
+	 */
+	public String parseRelativePath(String filePath){
+		return this.getfileURL(filePath).toString();
+	}
+	
 	/**
 	 * get absolute path of the filePath
 	 * @param filePath
 	 * @return
 	 */
 	public String getAbsolutePath(String filePath) {
-		return this.parseRelativePath(filePath).substring(6);
+		return this.getfileURL(filePath).getPath();
 	}
 	
 }
