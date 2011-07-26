@@ -393,6 +393,72 @@ public class TreeUtil {
         return list;
     }
 
+    public static List<FOXTreeNode> getFoxTreeNodesForXmlMap(String filePath, String absoluteXPathQuery) {
+        List<FOXTreeNode> list = new ArrayList<FOXTreeNode>();
+        if (filePath == null) {
+            return list;
+        }
+
+        try {
+            ATreeNode treeNode = SchemaPopulationUtil.getSchemaTree(filePath, true, 0);
+            FOXTreeNode root = cloneATreeNode(treeNode);
+            if (root instanceof Element) {
+                final List<FOXTreeNode> elementChildren = ((Element) root).getElementChildren();
+                if (elementChildren.size() == 1) {
+                    root = elementChildren.get(0);
+                    root.setParent(null);
+                    list.add(root);
+                } else if (elementChildren.size() > 1) {
+                    for (FOXTreeNode child : elementChildren) {
+                        final boolean findLoopInChildren = findLoopInChildren(child, null, absoluteXPathQuery);
+                        if (findLoopInChildren) {
+                            root = child;
+                            root.setParent(null);
+                            list.add(root);
+                            break;
+                        }
+                    }
+                    if (list.isEmpty()) {
+                        root = elementChildren.get(0);
+                        root.setParent(null);
+                        list.add(root);
+                    }
+
+                }
+            }
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
+        return list;
+    }
+
+    private static boolean findLoopInChildren(FOXTreeNode node, String xmlPath, String absoluteXPathQuery) {
+        String tempXpath = null;
+        if (absoluteXPathQuery != null) {
+            if (xmlPath == null) {
+                tempXpath = "/" + node.getLabel();
+            } else {
+                tempXpath = xmlPath + "/" + node.getLabel();
+            }
+            if (tempXpath.equals(absoluteXPathQuery)) {
+                return true;
+            } else {
+                boolean findInChild = false;
+                final List<FOXTreeNode> children = node.getChildren();
+                if (children != null && !children.isEmpty()) {
+                    for (FOXTreeNode child : children) {
+                        findInChild = findInChild || findLoopInChildren(child, tempXpath, absoluteXPathQuery);
+                        if (findInChild) {
+                            return findInChild;
+                        }
+                    }
+                }
+                return findInChild;
+            }
+        }
+        return false;
+    }
+
     public static List<FOXTreeNode> getFoxTreeNodes(String filePath, String selectedEntity) {
         if (selectedEntity == null || "".equals(selectedEntity)) {
             return getFoxTreeNodes(filePath);
