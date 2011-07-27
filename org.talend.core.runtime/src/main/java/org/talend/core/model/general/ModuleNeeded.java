@@ -30,6 +30,11 @@ public class ModuleNeeded {
 
     private boolean required;
 
+    // bundleName and bundleVersion for osgi system,feature 0023460
+    private String bundleName;
+
+    private String bundleVersion;
+
     private ELibraryInstallStatus status = ELibraryInstallStatus.UNKNOWN;
 
     private boolean isShow = true;
@@ -187,5 +192,21 @@ public class ModuleNeeded {
      */
     public void setShow(boolean isShow) {
         this.isShow = isShow;
+    }
+
+    public String getBundleName() {
+        return bundleName;
+    }
+
+    public void setBundleName(String bundleName) {
+        this.bundleName = bundleName;
+    }
+
+    public String getBundleVersion() {
+        return bundleVersion;
+    }
+
+    public void setBundleVersion(String bundleVersion) {
+        this.bundleVersion = bundleVersion;
     }
 }

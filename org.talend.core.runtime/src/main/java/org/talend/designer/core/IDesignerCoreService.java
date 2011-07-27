@@ -161,7 +161,7 @@ public interface IDesignerCoreService extends IService {
 
     public void reloadParamFromProjectSettings(ParametersType processType, String paramName);
 
-    public Set<String> getNeededLibrariesForProcess(IProcess process, boolean withChildrens);
+    public Set<String> getNeededLibrariesForProcess(IProcess process, boolean withChildrens, boolean... exportAsOSGI);
 
     public void switchToCurContextsView();
 
