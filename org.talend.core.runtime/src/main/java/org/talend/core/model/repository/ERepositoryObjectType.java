@@ -310,7 +310,14 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType TDQ_RULES_SQL = new ERepositoryObjectType(
             "repository.rulesSql", "TDQ_Libraries/Rules/SQL", "TDQ_RULES_SQL", 80, true, "repository.rulesSql.alias", new String[] { "DQ" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
 
+    // MOD klliu feature 23109
+
+    public final static ERepositoryObjectType TDQ_RULES_PARSER = new ERepositoryObjectType(
+            "repository.rulesParser", "TDQ_Libraries/Rules/Parser", "TDQ_RULES_PARSER", 80, true, "repository.rulesParser.alias", new String[] { "DQ" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
+
+    // ~
     // MOD klliu 2010-11-26 definition type
+
     public final static ERepositoryObjectType TDQ_SYSTEM_INDICATORS = new ERepositoryObjectType(
             "repository.systemIndicators", "TDQ_Libraries/Indicators/System Indicators", "TDQ_SYSTEM_INDICATORS", 83, true, "repository.systemIndicators.alias", new String[] { "DQ" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
 
