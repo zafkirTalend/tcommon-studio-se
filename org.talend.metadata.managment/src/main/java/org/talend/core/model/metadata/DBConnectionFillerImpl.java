@@ -695,7 +695,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 }
                 list.add(metadatatable);
             }
-            if (dbJDBCMetadata.getDatabaseProductName().equals("Microsoft SQL Server")) {
+            if (dbJDBCMetadata.getDatabaseProductName() != null
+                    && dbJDBCMetadata.getDatabaseProductName().equals("Microsoft SQL Server")) {
                 for (int i = 0; i < tableType.length; i++) {
                     if (tableType[i].equals("SYNONYM")) {
                         Statement stmt = ExtractMetaDataUtils.conn.createStatement();
@@ -721,7 +722,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         }
                     }
                 }
-            } else if (dbJDBCMetadata.getDatabaseProductName().equals("DB2/NT")) {
+            } else if (dbJDBCMetadata.getDatabaseProductName() != null
+                    && dbJDBCMetadata.getDatabaseProductName().equals("DB2/NT")) {
                 for (int i = 0; i < tableType.length; i++) {
                     if (tableType[i].equals("SYNONYM")) {
                         Statement stmt = ExtractMetaDataUtils.conn.createStatement();

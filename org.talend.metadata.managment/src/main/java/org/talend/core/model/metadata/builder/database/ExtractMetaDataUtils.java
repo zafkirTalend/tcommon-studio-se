@@ -772,10 +772,24 @@ public class ExtractMetaDataUtils {
             return functionlist;
         }
         try {
-            String[] systemFunctions = dbMetadata.getSystemFunctions().split(",\\s*"); //$NON-NLS-N$ //$NON-NLS-1$
-            String[] numericFunctions = dbMetadata.getNumericFunctions().split(",\\s*"); //$NON-NLS-N$ //$NON-NLS-1$
-            String[] stringFunctions = dbMetadata.getStringFunctions().split(",\\s*"); //$NON-NLS-N$ //$NON-NLS-1$
-            String[] timeFunctions = dbMetadata.getTimeDateFunctions().split(",\\s*"); //$NON-NLS-N$ //$NON-NLS-1$
+            String[] systemFunctions = null;
+            if (dbMetadata.getSystemFunctions() != null) {
+                systemFunctions = dbMetadata.getSystemFunctions().split(",\\s*"); //$NON-NLS-N$ //$NON-NLS-1$
+            }
+            String[] numericFunctions = null;
+            if (dbMetadata.getNumericFunctions() != null) {
+                numericFunctions = dbMetadata.getNumericFunctions().split(",\\s*"); //$NON-NLS-N$ //$NON-NLS-1$
+            }
+
+            String[] stringFunctions = null;
+            if (dbMetadata.getStringFunctions() != null) {
+                stringFunctions = dbMetadata.getStringFunctions().split(",\\s*"); //$NON-NLS-N$ //$NON-NLS-1$
+            }
+
+            String[] timeFunctions = null;
+            if (dbMetadata.getTimeDateFunctions() != null) {
+                timeFunctions = dbMetadata.getTimeDateFunctions().split(",\\s*"); //$NON-NLS-N$ //$NON-NLS-1$
+            }
 
             convertFunctions2Array(functionlist, systemFunctions);
 
