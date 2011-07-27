@@ -32,6 +32,7 @@ import org.talend.designer.core.model.utils.emf.component.IMPORTType;
  *   <li>{@link org.talend.core.model.component_cache.ComponentInfo#getUriString <em>Uri String</em>}</li>
  *   <li>{@link org.talend.core.model.component_cache.ComponentInfo#getPathSource <em>Path Source</em>}</li>
  *   <li>{@link org.talend.core.model.component_cache.ComponentInfo#getRepositoryType <em>Repository Type</em>}</li>
+ *   <li>{@link org.talend.core.model.component_cache.ComponentInfo#getSourceBundleName <em>Source Bundle Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -324,5 +325,31 @@ public interface ComponentInfo extends EObject {
      * @generated
      */
     void setRepositoryType(String value);
+
+    /**
+     * Returns the value of the '<em><b>Source Bundle Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Source Bundle Name</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Source Bundle Name</em>' attribute.
+     * @see #setSourceBundleName(String)
+     * @see org.talend.core.model.component_cache.ComponentCachePackage#getComponentInfo_SourceBundleName()
+     * @model
+     * @generated
+     */
+    String getSourceBundleName();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.component_cache.ComponentInfo#getSourceBundleName <em>Source Bundle Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Source Bundle Name</em>' attribute.
+     * @see #getSourceBundleName()
+     * @generated
+     */
+    void setSourceBundleName(String value);
 
 } // ComponentInfo

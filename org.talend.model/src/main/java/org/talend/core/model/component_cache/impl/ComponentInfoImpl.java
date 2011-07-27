@@ -47,6 +47,7 @@ import org.talend.designer.core.model.utils.emf.component.IMPORTType;
  *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#getUriString <em>Uri String</em>}</li>
  *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#getPathSource <em>Path Source</em>}</li>
  *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#getRepositoryType <em>Repository Type</em>}</li>
+ *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#getSourceBundleName <em>Source Bundle Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -262,6 +263,26 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
      * @ordered
      */
     protected String repositoryType = REPOSITORY_TYPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getSourceBundleName() <em>Source Bundle Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSourceBundleName()
+     * @generated
+     * @ordered
+     */
+    protected static final String SOURCE_BUNDLE_NAME_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getSourceBundleName() <em>Source Bundle Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSourceBundleName()
+     * @generated
+     * @ordered
+     */
+    protected String sourceBundleName = SOURCE_BUNDLE_NAME_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -512,6 +533,27 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getSourceBundleName() {
+        return sourceBundleName;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSourceBundleName(String newSourceBundleName) {
+        String oldSourceBundleName = sourceBundleName;
+        sourceBundleName = newSourceBundleName;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentCachePackage.COMPONENT_INFO__SOURCE_BUNDLE_NAME, oldSourceBundleName, sourceBundleName));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
@@ -553,6 +595,8 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
                 return getPathSource();
             case ComponentCachePackage.COMPONENT_INFO__REPOSITORY_TYPE:
                 return getRepositoryType();
+            case ComponentCachePackage.COMPONENT_INFO__SOURCE_BUNDLE_NAME:
+                return getSourceBundleName();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -605,6 +649,9 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
             case ComponentCachePackage.COMPONENT_INFO__REPOSITORY_TYPE:
                 setRepositoryType((String)newValue);
                 return;
+            case ComponentCachePackage.COMPONENT_INFO__SOURCE_BUNDLE_NAME:
+                setSourceBundleName((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -653,6 +700,9 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
             case ComponentCachePackage.COMPONENT_INFO__REPOSITORY_TYPE:
                 setRepositoryType(REPOSITORY_TYPE_EDEFAULT);
                 return;
+            case ComponentCachePackage.COMPONENT_INFO__SOURCE_BUNDLE_NAME:
+                setSourceBundleName(SOURCE_BUNDLE_NAME_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -689,6 +739,8 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
                 return PATH_SOURCE_EDEFAULT == null ? pathSource != null : !PATH_SOURCE_EDEFAULT.equals(pathSource);
             case ComponentCachePackage.COMPONENT_INFO__REPOSITORY_TYPE:
                 return REPOSITORY_TYPE_EDEFAULT == null ? repositoryType != null : !REPOSITORY_TYPE_EDEFAULT.equals(repositoryType);
+            case ComponentCachePackage.COMPONENT_INFO__SOURCE_BUNDLE_NAME:
+                return SOURCE_BUNDLE_NAME_EDEFAULT == null ? sourceBundleName != null : !SOURCE_BUNDLE_NAME_EDEFAULT.equals(sourceBundleName);
         }
         return super.eIsSet(featureID);
     }
@@ -725,6 +777,8 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
         result.append(pathSource);
         result.append(", repositoryType: ");
         result.append(repositoryType);
+        result.append(", sourceBundleName: ");
+        result.append(sourceBundleName);
         result.append(')');
         return result.toString();
     }

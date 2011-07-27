@@ -206,13 +206,22 @@ public interface ComponentCachePackage extends EPackage {
     int COMPONENT_INFO__REPOSITORY_TYPE = 11;
 
     /**
+     * The feature id for the '<em><b>Source Bundle Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPONENT_INFO__SOURCE_BUNDLE_NAME = 12;
+
+    /**
      * The number of structural features of the '<em>Component Info</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COMPONENT_INFO_FEATURE_COUNT = 12;
+    int COMPONENT_INFO_FEATURE_COUNT = 13;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.component_cache.impl.ComponentEntryMapImpl <em>Component Entry Map</em>}' class.
@@ -416,6 +425,17 @@ public interface ComponentCachePackage extends EPackage {
     EAttribute getComponentInfo_RepositoryType();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.component_cache.ComponentInfo#getSourceBundleName <em>Source Bundle Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Source Bundle Name</em>'.
+     * @see org.talend.core.model.component_cache.ComponentInfo#getSourceBundleName()
+     * @see #getComponentInfo()
+     * @generated
+     */
+    EAttribute getComponentInfo_SourceBundleName();
+
+    /**
      * Returns the meta object for class '{@link java.util.Map.Entry <em>Component Entry Map</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -594,6 +614,14 @@ public interface ComponentCachePackage extends EPackage {
          * @generated
          */
         EAttribute COMPONENT_INFO__REPOSITORY_TYPE = eINSTANCE.getComponentInfo_RepositoryType();
+
+        /**
+         * The meta object literal for the '<em><b>Source Bundle Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute COMPONENT_INFO__SOURCE_BUNDLE_NAME = eINSTANCE.getComponentInfo_SourceBundleName();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.component_cache.impl.ComponentEntryMapImpl <em>Component Entry Map</em>}' class.
