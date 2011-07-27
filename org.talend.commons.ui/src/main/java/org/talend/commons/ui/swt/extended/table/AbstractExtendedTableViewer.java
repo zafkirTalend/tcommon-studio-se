@@ -80,6 +80,17 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
         initTable();
     }
 
+    public AbstractExtendedTableViewer(ExtendedTableModel<B> extendedTableModel, Composite parent, boolean readOnly,
+            boolean initTable) {
+        super(extendedTableModel, parent, readOnly);
+        if (initTable) {
+            initTable();
+            if (getExtendedControlModel() != null) {
+                initModelListeners();
+            }
+        }
+    }
+
     /**
      * DOC amaumont Comment method "init".
      * 
