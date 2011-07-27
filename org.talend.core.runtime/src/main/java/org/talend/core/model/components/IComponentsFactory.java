@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.model.components;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -53,6 +54,13 @@ public interface IComponentsFactory {
 
     public IComponent get(String name);
 
+    /**
+     * Shouldn't be used anymore.
+     * 
+     * @return
+     * @throws IOException
+     * @deprecated
+     */
     public URL getComponentPath() throws IOException;
 
     public List<String> getSkeletons();
@@ -66,4 +74,6 @@ public interface IComponentsFactory {
     public void initializeComponents(IProgressMonitor monitor);
 
     public void initializeComponents(IProgressMonitor monitor, boolean duringLogon);
+
+    public List<File> getComponentsProvidersFolder();
 }
