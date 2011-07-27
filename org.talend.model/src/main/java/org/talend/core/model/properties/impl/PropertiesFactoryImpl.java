@@ -142,6 +142,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.BRMS_CONNECTION_ITEM: return createBRMSConnectionItem();
             case PropertiesPackage.JOB_SCRIPT_ITEM: return createJobScriptItem();
             case PropertiesPackage.EDIFACT_CONNECTION_ITEM: return createEDIFACTConnectionItem();
+            case PropertiesPackage.TECHNICAL_VARIABLE: return createTechnicalVariable();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -932,6 +933,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public EDIFACTConnectionItem createEDIFACTConnectionItem() {
         EDIFACTConnectionItemImpl edifactConnectionItem = new EDIFACTConnectionItemImpl();
         return edifactConnectionItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public TechnicalVariable createTechnicalVariable() {
+        TechnicalVariableImpl technicalVariable = new TechnicalVariableImpl();
+        return technicalVariable;
     }
 
     /**

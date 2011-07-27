@@ -103,6 +103,7 @@ import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.TDQItem;
 import org.talend.core.model.properties.TalendTrigger;
 import org.talend.core.model.properties.TaskExecutionHistory;
+import org.talend.core.model.properties.TechnicalVariable;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.UserModuleAuthorization;
 import org.talend.core.model.properties.UserModuleAuthorizationType;
@@ -635,6 +636,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass edifactConnectionItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass technicalVariableEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -4137,6 +4145,33 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getTechnicalVariable() {
+        return technicalVariableEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTechnicalVariable_Key() {
+        return (EAttribute)technicalVariableEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTechnicalVariable_Value() {
+        return (EAttribute)technicalVariableEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -5561,6 +5596,10 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         edifactConnectionItemEClass = createEClass(EDIFACT_CONNECTION_ITEM);
 
+        technicalVariableEClass = createEClass(TECHNICAL_VARIABLE);
+        createEAttribute(technicalVariableEClass, TECHNICAL_VARIABLE__KEY);
+        createEAttribute(technicalVariableEClass, TECHNICAL_VARIABLE__VALUE);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
@@ -6256,6 +6295,10 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(jobScriptItemEClass, JobScriptItem.class, "JobScriptItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(edifactConnectionItemEClass, EDIFACTConnectionItem.class, "EDIFACTConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(technicalVariableEClass, TechnicalVariable.class, "TechnicalVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getTechnicalVariable_Key(), theEcorePackage.getEString(), "key", null, 0, 1, TechnicalVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTechnicalVariable_Value(), theEcorePackage.getEString(), "value", null, 0, 1, TechnicalVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

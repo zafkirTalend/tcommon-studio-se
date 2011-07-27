@@ -804,6 +804,12 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.TECHNICAL_VARIABLE: {
+                TechnicalVariable technicalVariable = (TechnicalVariable)theEObject;
+                Object result = caseTechnicalVariable(technicalVariable);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -1983,6 +1989,21 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseEDIFACTConnectionItem(EDIFACTConnectionItem object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Technical Variable</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Technical Variable</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseTechnicalVariable(TechnicalVariable object) {
         return null;
     }
 

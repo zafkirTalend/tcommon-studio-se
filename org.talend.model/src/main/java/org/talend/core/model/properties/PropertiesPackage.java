@@ -7664,6 +7664,43 @@ public interface PropertiesPackage extends EPackage {
     int EDIFACT_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.TechnicalVariableImpl <em>Technical Variable</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.TechnicalVariableImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTechnicalVariable()
+     * @generated
+     */
+    int TECHNICAL_VARIABLE = 93;
+
+    /**
+     * The feature id for the '<em><b>Key</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TECHNICAL_VARIABLE__KEY = 0;
+
+    /**
+     * The feature id for the '<em><b>Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TECHNICAL_VARIABLE__VALUE = 1;
+
+    /**
+     * The number of structural features of the '<em>Technical Variable</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TECHNICAL_VARIABLE_FEATURE_COUNT = 2;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -7671,7 +7708,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 93;
+    int FOLDER_TYPE = 94;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -7680,7 +7717,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 94;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 95;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserModuleAuthorizationType <em>User Module Authorization Type</em>}' enum.
@@ -7689,7 +7726,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 95;
+    int USER_MODULE_AUTHORIZATION_TYPE = 96;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.InformationLevel <em>Information Level</em>}' enum.
@@ -7698,7 +7735,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 96;
+    int INFORMATION_LEVEL = 97;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.Status <em>Status</em>}'. <!--
@@ -12098,6 +12135,38 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EClass getEDIFACTConnectionItem();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.TechnicalVariable <em>Technical Variable</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Technical Variable</em>'.
+     * @see org.talend.core.model.properties.TechnicalVariable
+     * @generated
+     */
+    EClass getTechnicalVariable();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TechnicalVariable#getKey <em>Key</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Key</em>'.
+     * @see org.talend.core.model.properties.TechnicalVariable#getKey()
+     * @see #getTechnicalVariable()
+     * @generated
+     */
+    EAttribute getTechnicalVariable_Key();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TechnicalVariable#getValue <em>Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Value</em>'.
+     * @see org.talend.core.model.properties.TechnicalVariable#getValue()
+     * @see #getTechnicalVariable()
+     * @generated
+     */
+    EAttribute getTechnicalVariable_Value();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionPlan <em>Execution Plan</em>}'.
@@ -16614,6 +16683,32 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EClass EDIFACT_CONNECTION_ITEM = eINSTANCE.getEDIFACTConnectionItem();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.TechnicalVariableImpl <em>Technical Variable</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.TechnicalVariableImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTechnicalVariable()
+         * @generated
+         */
+        EClass TECHNICAL_VARIABLE = eINSTANCE.getTechnicalVariable();
+
+        /**
+         * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TECHNICAL_VARIABLE__KEY = eINSTANCE.getTechnicalVariable_Key();
+
+        /**
+         * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TECHNICAL_VARIABLE__VALUE = eINSTANCE.getTechnicalVariable_Value();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionPlanImpl <em>Execution Plan</em>}' class.

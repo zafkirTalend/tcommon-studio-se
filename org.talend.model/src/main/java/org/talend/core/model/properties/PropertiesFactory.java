@@ -698,6 +698,15 @@ public interface PropertiesFactory extends EFactory {
     EDIFACTConnectionItem createEDIFACTConnectionItem();
 
     /**
+     * Returns a new object of class '<em>Technical Variable</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Technical Variable</em>'.
+     * @generated
+     */
+    TechnicalVariable createTechnicalVariable();
+
+    /**
      * Returns a new object of class '<em>Execution Plan</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
