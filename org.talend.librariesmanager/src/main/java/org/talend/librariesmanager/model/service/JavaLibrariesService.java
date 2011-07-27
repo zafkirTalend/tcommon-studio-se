@@ -211,10 +211,14 @@ public class JavaLibrariesService extends AbstractLibrariesService {
                 // 2. Components libraries
                 IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
                         IComponentsService.class);
-                File componentsLibraries = new File(service.getComponentsFactory().getComponentPath().getFile());
 
-                FilesUtils.copyFolder(componentsLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(),
-                        FilesUtils.getAcceptJARFilesFilter(), false, monitorWrap);
+                List<File> componentsFolders = service.getComponentsFactory().getComponentsProvidersFolder();
+
+                for (File componentsLibraries : componentsFolders) {
+
+                    FilesUtils.copyFolder(componentsLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(),
+                            FilesUtils.getAcceptJARFilesFilter(), false, monitorWrap);
+                }
                 componentsLibsSetupDone.createNewFile();
                 componentsLibsSetupDone.setLastModified((new Date()).getTime());
             }

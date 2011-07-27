@@ -16,7 +16,7 @@ Require-Bundle: org.talend.model,
  org.eclipse.swt,
  org.eclipse.ui.workbench,
  org.talend.libraries.apache,
- org.talend.libraries.dom4j-jaxen;bundle-version="1.6.1"
+ org.talend.libraries.dom4j-jaxen
 Eclipse-LazyStart: true
 Bundle-ClassPath: .
 Export-Package: org.talend.librariesmanager.model,
