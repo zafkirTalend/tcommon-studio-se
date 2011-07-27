@@ -13,6 +13,8 @@
 package org.talend.core.model.metadata.builder.database;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,6 +40,7 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.ColumnSetHelper;
 import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.cwm.helper.PackageHelper;
 import org.talend.cwm.helper.SchemaHelper;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
@@ -438,6 +441,138 @@ public final class DqRepositoryViewService {
     public static Boolean hasChildren(TdXmlElementType element) {
         XMLSchemaBuilder xmlScheBuilder = XMLSchemaBuilder.getSchemaBuilder(element.getOwnedDocument());
         return xmlScheBuilder.isLeafNode(element).isOk();
+    }
+
+    /**
+     * ADD gdbu 2011-7-25 bug : 23220
+     * 
+     * DOC gdbu Comment method "isContainsTable".This method used to connect to database to check if this schema has
+     * tables.
+     * 
+     * @param dataProvider
+     * @param catalog
+     * @param tablePattern
+     * @return
+     * @throws Exception
+     */
+    public static boolean isContainsTable(Connection dataProvider, Catalog catalog, String tablePattern) throws Exception {
+        TypedReturnCode<java.sql.Connection> rcConn = MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider);
+        if (!rcConn.isOk()) {
+            log.error(rcConn.getMessage());
+            throw new Exception(rcConn.getMessage());
+        }
+        java.sql.Connection connection = rcConn.getObject();
+        String[] tableType = new String[] { TableType.TABLE.toString() };
+        DatabaseMetaData dbJDBCMetadata = connection.getMetaData();
+        Package catalogOrSchema = PackageHelper.getCatalogOrSchema(catalog);
+        ResultSet tables = dbJDBCMetadata.getTables(catalogOrSchema.getName(), null, tablePattern, tableType);
+        if (tables.next()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * ADD gdbu 2011-7-25 bug : 23220
+     * 
+     * DOC gdbu Comment method "isContainsTable".This method used to connect to database to check if this schema has
+     * tables.
+     * 
+     * @param dataProvider
+     * @param schema
+     * @param tablePattern
+     * @return
+     * @throws Exception
+     */
+    public static boolean isContainsTable(Connection dataProvider, Schema schema, String tablePattern) throws Exception {
+        TypedReturnCode<java.sql.Connection> rcConn = MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider);
+        if (!rcConn.isOk()) {
+            log.error(rcConn.getMessage());
+            throw new Exception(rcConn.getMessage());
+        }
+        java.sql.Connection connection = rcConn.getObject();
+        String[] tableType = new String[] { TableType.TABLE.toString() };
+        DatabaseMetaData dbJDBCMetadata = connection.getMetaData();
+        Package catalogOrSchema = PackageHelper.getCatalogOrSchema(schema);
+
+        Package parentCatalog = PackageHelper.getParentPackage(catalogOrSchema);
+        String schemaPattern = catalogOrSchema.getName();
+        String catalogName = parentCatalog == null ? null : parentCatalog.getName();
+
+        ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, tablePattern, tableType);
+        if (tables.next()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * ADD gdbu 2011-7-25 bug : 23220
+     * 
+     * DOC gdbu Comment method "isContainsView". This method used to connect to database to check if this catalog has
+     * views.
+     * 
+     * @param dataProvider
+     * @param catalog
+     * @param viewPattern
+     * @return
+     * @throws Exception
+     */
+    public static boolean isContainsView(Connection dataProvider, Catalog catalog, String viewPattern)
+ throws Exception {
+        TypedReturnCode<java.sql.Connection> rcConn = MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider);
+        if (!rcConn.isOk()) {
+            log.error(rcConn.getMessage());
+            throw new Exception(rcConn.getMessage());
+        }
+        java.sql.Connection connection = rcConn.getObject();
+        String[] tableType = new String[] { TableType.VIEW.toString() };
+        DatabaseMetaData dbJDBCMetadata = connection.getMetaData();
+        Package catalogOrSchema = PackageHelper.getCatalogOrSchema(catalog);
+        ResultSet tables = dbJDBCMetadata.getTables(catalogOrSchema.getName(), null, viewPattern, tableType);
+        if (tables.next()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * ADD gdbu 2011-7-25 bug : 23220
+     * 
+     * DOC gdbu Comment method "isContainsView".This method used to connect to database to check if this schema has
+     * views.
+     * 
+     * @param dataProvider
+     * @param schema
+     * @param viewPattern
+     * @return
+     * @throws Exception
+     */
+    public static boolean isContainsView(Connection dataProvider, Schema schema, String viewPattern)
+            throws Exception {
+        TypedReturnCode<java.sql.Connection> rcConn = MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider);
+        if (!rcConn.isOk()) {
+            log.error(rcConn.getMessage());
+            throw new Exception(rcConn.getMessage());
+        }
+        java.sql.Connection connection = rcConn.getObject();
+        String[] tableType = new String[] { TableType.VIEW.toString() };
+        DatabaseMetaData dbJDBCMetadata = connection.getMetaData();
+        Package catalogOrSchema = PackageHelper.getCatalogOrSchema(schema);
+
+        Package parentCatalog = PackageHelper.getParentPackage(catalogOrSchema);
+        String schemaPattern = catalogOrSchema.getName();
+        String catalogName = parentCatalog == null ? null : parentCatalog.getName();
+
+        ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, viewPattern, tableType);
+        if (tables.next()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
