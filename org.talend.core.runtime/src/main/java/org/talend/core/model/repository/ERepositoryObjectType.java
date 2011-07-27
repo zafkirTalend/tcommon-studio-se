@@ -369,6 +369,8 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType METADATA_SALESFORCE_MODULE = new ERepositoryObjectType(
             "repository.metadataSalesforceModule", "METADATA_SALESFORCE_MODULE", 99, true, true, new String[] { "DI" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
 
+    public final static ERepositoryObjectType SYSTEM_INDICATORS_PHONENUMBER_STATISTICS = new ERepositoryObjectType(
+            "repository.systemIndicators.phoneNumberStatistics", "TDQ_Libraries/Indicators/System Indicators/Phone Number Statistics", "SYSTEM_INDICATORS_PHONENUMBER_STATISTICS", 100, true, "repository.systemIndicators.phoneNumberStatistics.alias", new String[] { "DQ" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
     private String alias;
 
     private String folder = ""; //$NON-NLS-N$
