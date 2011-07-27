@@ -313,7 +313,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     // MOD klliu feature 23109
 
     public final static ERepositoryObjectType TDQ_RULES_PARSER = new ERepositoryObjectType(
-            "repository.rulesParser", "TDQ_Libraries/Rules/Parser", "TDQ_RULES_PARSER", 80, true, "repository.rulesParser.alias", new String[] { "DQ" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.rulesParser", "TDQ_Libraries/Rules/Parser", "TDQ_RULES_PARSER", 81, true, "repository.rulesParser.alias", new String[] { "DQ" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     // ~
     // MOD klliu 2010-11-26 definition type
