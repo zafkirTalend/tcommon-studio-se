@@ -155,16 +155,25 @@
     </xsd:sequence>
   </xsd:complexType>
   <xsd:complexType ecore:name="IMPORTType" name="IMPORT_._type">
-    <xsd:sequence>
-      <xsd:element ecore:name="iNSTALL" maxOccurs="unbounded" minOccurs="0" name="INSTALL" type="INSTALL_._type"/>
-      <xsd:element ecore:name="uRL" maxOccurs="unbounded" minOccurs="0" name="URL" nillable="true" type="xsd:string"/>
-    </xsd:sequence>
-    <xsd:attribute ecore:name="mESSAGE" name="MESSAGE" type="xsd:string"/>
-    <xsd:attribute ecore:name="mODULE" name="MODULE" type="xsd:string"/>
-    <xsd:attribute ecore:name="nAME" name="NAME" type="xsd:string"/>
-    <xsd:attribute ecore:name="rEQUIRED" name="REQUIRED" type="xsd:boolean"/>
-    <xsd:attribute default="true" ecore:name="sHOW" name="SHOW" type="xsd:boolean"/>
-    <xsd:attribute ecore:name="urlPath" name="UrlPath" type="xsd:string"/>
+  	<xsd:sequence>
+  		<xsd:element ecore:name="iNSTALL" maxOccurs="unbounded"
+  			minOccurs="0" name="INSTALL" type="INSTALL_._type" />
+  		<xsd:element ecore:name="uRL" maxOccurs="unbounded"
+  			minOccurs="0" name="URL" nillable="true" type="xsd:string" />
+  	</xsd:sequence>
+  	<xsd:attribute ecore:name="mESSAGE" name="MESSAGE"
+  		type="xsd:string" />
+  	<xsd:attribute ecore:name="mODULE" name="MODULE"
+  		type="xsd:string" />
+  	<xsd:attribute ecore:name="nAME" name="NAME" type="xsd:string" />
+  	<xsd:attribute ecore:name="rEQUIRED" name="REQUIRED"
+  		type="xsd:boolean" />
+  	<xsd:attribute default="true" ecore:name="sHOW" name="SHOW"
+  		type="xsd:boolean" />
+  	<xsd:attribute ecore:name="urlPath" name="UrlPath"
+  		type="xsd:string" />
+  	<xsd:attribute ecore:name="bundleID" name="BundleID" 
+  		type="xsd:string" />
   </xsd:complexType>
   <xsd:complexType ecore:name="INSTALLType" name="INSTALL_._type">
     <xsd:sequence>

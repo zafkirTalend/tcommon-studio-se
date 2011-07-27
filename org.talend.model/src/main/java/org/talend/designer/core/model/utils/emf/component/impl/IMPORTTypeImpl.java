@@ -42,6 +42,7 @@ import org.talend.designer.core.model.utils.emf.component.INSTALLType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#isREQUIRED <em>REQUIRED</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#isSHOW <em>SHOW</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getUrlPath <em>Url Path</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getBundleID <em>Bundle ID</em>}</li>
  * </ul>
  * </p>
  *
@@ -205,6 +206,26 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      * @ordered
      */
     protected String urlPath = URL_PATH_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getBundleID() <em>Bundle ID</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getBundleID()
+     * @generated
+     * @ordered
+     */
+    protected static final String BUNDLE_ID_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getBundleID() <em>Bundle ID</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getBundleID()
+     * @generated
+     * @ordered
+     */
+    protected String bundleID = BUNDLE_ID_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -430,6 +451,27 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getBundleID() {
+        return bundleID;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setBundleID(String newBundleID) {
+        String oldBundleID = bundleID;
+        bundleID = newBundleID;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.IMPORT_TYPE__BUNDLE_ID, oldBundleID, bundleID));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
@@ -463,6 +505,8 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
                 return isSHOW() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.IMPORT_TYPE__URL_PATH:
                 return getUrlPath();
+            case ComponentPackage.IMPORT_TYPE__BUNDLE_ID:
+                return getBundleID();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -502,6 +546,9 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
             case ComponentPackage.IMPORT_TYPE__URL_PATH:
                 setUrlPath((String)newValue);
                 return;
+            case ComponentPackage.IMPORT_TYPE__BUNDLE_ID:
+                setBundleID((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -538,6 +585,9 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
             case ComponentPackage.IMPORT_TYPE__URL_PATH:
                 setUrlPath(URL_PATH_EDEFAULT);
                 return;
+            case ComponentPackage.IMPORT_TYPE__BUNDLE_ID:
+                setBundleID(BUNDLE_ID_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -566,6 +616,8 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
                 return isSetSHOW();
             case ComponentPackage.IMPORT_TYPE__URL_PATH:
                 return URL_PATH_EDEFAULT == null ? urlPath != null : !URL_PATH_EDEFAULT.equals(urlPath);
+            case ComponentPackage.IMPORT_TYPE__BUNDLE_ID:
+                return BUNDLE_ID_EDEFAULT == null ? bundleID != null : !BUNDLE_ID_EDEFAULT.equals(bundleID);
         }
         return super.eIsSet(featureID);
     }
@@ -594,6 +646,8 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
         if (sHOWESet) result.append(sHOW); else result.append("<unset>");
         result.append(", urlPath: ");
         result.append(urlPath);
+        result.append(", bundleID: ");
+        result.append(bundleID);
         result.append(')');
         return result.toString();
     }

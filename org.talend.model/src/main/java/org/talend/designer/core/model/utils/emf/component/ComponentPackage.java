@@ -1273,13 +1273,22 @@ public interface ComponentPackage extends EPackage {
     int IMPORT_TYPE__URL_PATH = 7;
 
     /**
+     * The feature id for the '<em><b>Bundle ID</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int IMPORT_TYPE__BUNDLE_ID = 8;
+
+    /**
      * The number of structural features of the '<em>IMPORT Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int IMPORT_TYPE_FEATURE_COUNT = 8;
+    int IMPORT_TYPE_FEATURE_COUNT = 9;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.INSTALLTypeImpl <em>INSTALL Type</em>}' class.
@@ -3620,6 +3629,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getIMPORTType_UrlPath();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getBundleID <em>Bundle ID</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Bundle ID</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.IMPORTType#getBundleID()
+     * @see #getIMPORTType()
+     * @generated
+     */
+    EAttribute getIMPORTType_BundleID();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.INSTALLType <em>INSTALL Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5672,6 +5692,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute IMPORT_TYPE__URL_PATH = eINSTANCE.getIMPORTType_UrlPath();
+
+        /**
+         * The meta object literal for the '<em><b>Bundle ID</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute IMPORT_TYPE__BUNDLE_ID = eINSTANCE.getIMPORTType_BundleID();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.INSTALLTypeImpl <em>INSTALL Type</em>}' class.
