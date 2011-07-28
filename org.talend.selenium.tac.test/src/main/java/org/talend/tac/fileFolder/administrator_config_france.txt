@@ -13,12 +13,12 @@ config.database,config.database.url,jdbc:h2:/home/automation/hudson_selenium/apa
 config.database,config.database.user,tisadmin,true
 config.database,config.database.password,tisadmin,true
 config.database,config.database.driver,org.h2.Driver,true
-config.database,config.database.link,<a href="http://localhost:8080//org.talend.administrator/h2console" target="_blank">http://localhost:8080//org.talend.administrator/h2console</a>,true
+config.database,config.database.link,<a href="http://10.42.20.104:8080//org.talend.administrator/h2console" target="_blank">http://10.42.20.104:8080//org.talend.administrator/h2console</a>,true
 config.log4j,config.log4j.talendAppender,d:/selenium_tests/tac/logs/tac.log,true
 config.log4j,config.log4j.talendAppender.threshold,WARN,true
 config.general,config.general.webAppVersion,5.0.0NB.64937,null
 config.general,config.general.dbModelVersion,5.0.0NB.64937,null
-config.general,config.general.location,http://localhost:8080//org.talend.administrator,true
+config.general,config.general.location,http://10.42.20.104:8080//org.talend.administrator,true
 config.soaManager,config.soaManager.jobsDeployFolder,D:/selenium_tests/tac/soa,true
 config.soaManager,config.soaManager.defaultServiceNameSpace,http://www.talend.org,null
 config.soaManager,config.soaManager.host,10.42.20.104,false
@@ -26,13 +26,13 @@ config.svn,config.svn.serverLocationUrl,http://10.42.20.104/svn/selenium/,true
 config.svn,config.svn.username,tisadmin,true
 config.svn,config.svn.password,tisadmin,true
 config.soaManager,config.soaManager.port,8004,false
-config.smtp,config.smtp.useSmtp,false,true
-config.smtp,config.smtp.host,smtp.163.com,true
+config.smtp,config.smtp.useSmtp,true,true
+config.smtp,config.smtp.host,10.42.10.102,true
 config.esb,config.esb.zookeeper.server,localhost:2181,false
 config.smtp,config.smtp.port,25,true
 config.smtp,config.smtp.requireSSL,false,true
-config.smtp,config.smtp.userName,lindy512@163.com,true
-config.smtp,config.smtp.password,talend,true
+config.smtp,config.smtp.userName,,true
+config.smtp,config.smtp.password,,true
 config.ldap,config.ldap.useLDAPAutentication,false,true
 config.ldap,config.ldap.host,192.168.0.27,true
 config.ldap,config.ldap.port,389,true
@@ -47,7 +47,7 @@ label.suite,menu.drools,,null
 label.suite,menu.mdm,,null
 dynamic.link,menu.dynamicLink.url,,null
 ----------------------------------------------------
-Exported at Thu Jul 28 18:19:40 CEST 2011
+Exported at Thu Jul 28 19:43:13 CEST 2011
 ----------------------------------------------------
 java.runtime.name=Java(TM) SE Runtime Environment
 sun.boot.library.path=C:\Java\jdk1.6.0_19\jre\bin
