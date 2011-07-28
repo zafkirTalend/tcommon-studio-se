@@ -17,6 +17,7 @@ public class TestDuplicateTrigger extends Login {
     	selenium.setSpeed(MIN_SPEED);
     	selenium.mouseDown("//span[text()='"+task+"']");//select a exist task
     	
+    	this.waitForElementPresent("//span[text()='"+trigger+"']", WAIT_TIME);
     	selenium.mouseDown("//span[text()='"+trigger+"']");//select a exist task
     	
     	selenium.click("idTriggerDuplicate");
