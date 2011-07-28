@@ -64,7 +64,7 @@ public class TestAddServer extends Login {
 			selenium.click("idFormSaveButton");
 			Thread.sleep(3000);
 			// refresh
-			selenium.refresh();
+//			selenium.refresh();
 			this.waitForElementPresent("//div[text()='" + lable + "']", WAIT_TIME);
 			Assert.assertTrue(((selenium.isElementPresent("//div[text()='" + lable + "']"))&&(selenium
 					.isElementPresent("//span[@class='serv-value' and (text()='UP')]"))),"") ;
