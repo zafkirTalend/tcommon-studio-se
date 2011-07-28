@@ -14,6 +14,7 @@ package org.talend.rcp.intro;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.ui.IViewReference;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.talend.core.CorePlugin;
@@ -48,6 +49,16 @@ public class SwitchProjectAction extends Action {
      */
     @Override
     public void run() {
+        // close all editors before logOffProject to solve bug 22738 , folder relations will be cleared in logOffProject
+        // for remote project
+        IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+        if (activePage != null) {
+            boolean closeAllEditors = activePage.closeAllEditors(true);
+            if (!closeAllEditors) {
+                return;
+            }
+        }
+
         ProxyRepositoryFactory.getInstance().logOffProject();
 
         // for bug 7071
