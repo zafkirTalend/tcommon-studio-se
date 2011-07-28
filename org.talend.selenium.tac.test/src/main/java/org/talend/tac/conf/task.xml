@@ -159,17 +159,17 @@
             <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddCronTrigger"/>      
             <class name="com.talend.tac.cases.executionTask.TestAddTriggerAddFileTrigger"/>
             <class name="com.talend.tac.cases.executionTask.TestModifyTrigger"/>
-            <class name="com.talend.tac.cases.executionTask.TestDuplicateTrigger"/>
-            <class name="com.talend.tac.cases.jobconductor.TestTaskDisplay"/>
+            <class name="com.talend.tac.cases.executionTask.TestDuplicateTrigger"/>            
             <class name="com.talend.tac.cases.executionTask.TestChangeAutoRefreshDisableEnable"/>
             <class name="com.talend.tac.cases.executionTask.TestCheckpoint"/>
+            <class name="com.talend.tac.cases.executionTask.TestTaskDisplay"/>
             <class name="com.talend.tac.cases.executionTask.ClearTaskTrigger"/>
             <class name="com.talend.tac.cases.executionTask.TestAddJVMParametersForTask"/> 	
             <class name="com.talend.tac.cases.executionTask.TestDeleteJVMParameter"/>
             <class name="com.talend.tac.cases.executionTask.TestCheckRegenerateTask"/>
             <class name="com.talend.tac.cases.executionTask.TestDeleteProjectUsedBytask"/>
             <class name="com.talend.tac.cases.executionTask.TestDeleteServerUsedBytask"/>
-            <class name="com.talend.tac.cases.executionTask.TestCheckLogs"/>            
+            <class name="com.talend.tac.cases.executionTask.TestCheckLogs"/> 
         </classes> 
 	</test>
 	
