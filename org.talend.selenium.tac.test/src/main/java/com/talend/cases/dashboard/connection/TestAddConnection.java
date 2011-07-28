@@ -132,6 +132,7 @@ public class TestAddConnection extends Login {
 		selenium.mouseDown("//div[@role='listitem'][" + dbtype + "]");
 		selenium.fireEvent(other.getString("inputname.id.connection.add.dbtype"), "blur");
 		selenium.click(other.getString("inputname.id.connection.add.logTable"));
+		selenium.setSpeed(MIN_SPEED);
 		//check connections status
 		selenium.click("idCheckUrlButton");
 		waitForCheckConnectionStatus(4);
