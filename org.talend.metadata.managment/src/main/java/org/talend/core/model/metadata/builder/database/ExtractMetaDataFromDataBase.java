@@ -46,6 +46,7 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MappingTypeRetriever;
+import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.MetadataTable;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
@@ -412,7 +413,9 @@ public class ExtractMetaDataFromDataBase {
                 newNode.setValue(tableLabel);
             }
 
-            metadataColumns = ExtractMetaDataFromDataBase.extractColumns(dbMetaData, newNode, iMetadataConnection, dbType);
+            // metadataColumns = ExtractMetaDataFromDataBase.extractColumns(dbMetaData, newNode, iMetadataConnection,
+            // dbType);
+            metadataColumns = MetadataFillFactory.getDBInstance().fillColumns(table, dbMetaData, null);
 
             ColumnSetHelper.addColumns(table, metadataColumns);
 
