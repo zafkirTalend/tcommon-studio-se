@@ -1,12 +1,32 @@
 package com.talend.tac.cases.executePlan;
 
-import java.awt.event.KeyEvent;
-
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class TestPlanedTreeViewManage extends Plan{
+	
+	@Test
+	public void testHideAndDisplayPlanTreeView(){
+		this.openExecutionPlanMenu();
+		this.waitForElementPresent("idExecutionPlanTreeViewOnOkButton", WAIT_TIME);
+		this.waitForElementPresent("idExecutionPlanTreeViewOnErrorButton", WAIT_TIME);
+		this.waitForElementPresent("idExecutionPlanTreeViewAfterButton", WAIT_TIME);
+		this.waitForElementPresent("idExecutionPlanTreeViewRefreshButton", WAIT_TIME);
+		this.clickWaitForElementPresent("//span[@class='x-panel-header-text' and text()='Planned task tree view']//ancestor::div[contains(@class,' x-small-editor x-panel-header x-component')]//div[contains(@class,'x-nodrag x-tool-right x-tool x-component')]");
+		this.sleep(2000);
+		Assert.assertFalse(selenium.isElementPresent("idExecutionPlanTreeViewOnOkButton"),"testHideAndDisplayPlanTreeView failed: idExecutionPlanTreeViewOnOkButton shouled not be visible");
+		Assert.assertFalse(selenium.isElementPresent("idExecutionPlanTreeViewOnErrorButton"),"testHideAndDisplayPlanTreeView failed: idExecutionPlanTreeViewOnErrorButton shouled not be visible");
+		Assert.assertFalse(selenium.isElementPresent("idExecutionPlanTreeViewAfterButton"),"testHideAndDisplayPlanTreeView failed: idExecutionPlanTreeViewAfterButton shouled not be visible");
+		Assert.assertFalse(selenium.isElementPresent("idExecutionPlanTreeViewRefreshButton"),"testHideAndDisplayPlanTreeView failed: idExecutionPlanTreeViewRefreshButton shouled not be visible");
+		this.clickWaitForElementPresent("//div[@class='header-title' and text()='Execution Plan']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//div[@class='x-panel-body x-panel-body-noheader x-border-layout-ct']//div[contains(@class,'x-nodrag x-tool-left x-tool x-component')]");
+		this.sleep(2000);
+		Assert.assertTrue(selenium.isElementPresent("idExecutionPlanTreeViewOnOkButton"),"testHideAndDisplayPlanTreeView failed: idExecutionPlanTreeViewOnOkButton shouled  be visible");
+		Assert.assertTrue(selenium.isElementPresent("idExecutionPlanTreeViewOnErrorButton"),"testHideAndDisplayPlanTreeView failed: idExecutionPlanTreeViewOnErrorButton shouled  be visible");
+		Assert.assertTrue(selenium.isElementPresent("idExecutionPlanTreeViewAfterButton"),"testHideAndDisplayPlanTreeView failed: idExecutionPlanTreeViewAfterButton shouled  be visible");
+		Assert.assertTrue(selenium.isElementPresent("idExecutionPlanTreeViewRefreshButton"),"testHideAndDisplayPlanTreeView failed: idExecutionPlanTreeViewRefreshButton shouled  be visible");
+	}
+	
   @Test
   @Parameters({ "treeviewmanage.plan.label", "treeviewmanage.plan.roottask", "treeviewmanage.plan.taskok", "treeviewmanage.plan.taskerror","treeviewmanage.plan.taskafter" })
   public void testTreeManage(String planLabel,String rootTask,String taskOk,String taskError,String taskAfter) {
