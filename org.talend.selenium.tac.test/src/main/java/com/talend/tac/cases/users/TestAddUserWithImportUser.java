@@ -23,8 +23,9 @@ public class TestAddUserWithImportUser extends Login{
 		selenium.type("//input[@name='Path']", parseRelativePath(filePath));//select import file
 		selenium.click("idLicenseUploadButton");//click upload user
 		selenium.setSpeed(MID_SPEED);
+		this.waitForElementPresent("//button[text()='OK']", WAIT_TIME);
 		Assert.assertTrue(selenium.isTextPresent(infoAfterUpload));
-		selenium.setSpeed(MIN_SPEED);
+		selenium.setSpeed(MIN_SPEED);	
 		selenium.click("//button[text()='OK']");//click OK
 		selenium.click("//button[text()='Close']");
 		
