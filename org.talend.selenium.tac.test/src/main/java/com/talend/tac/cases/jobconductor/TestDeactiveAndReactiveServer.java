@@ -11,6 +11,7 @@ public class TestDeactiveAndReactiveServer extends Login{
 	@Parameters({ "DeactiveServerlable" })
 	public void serverDeactiveAndReactive(String deactiveServername) throws InterruptedException {
 //		Thread.sleep(5000);
+		boolean refresh= false;
 		this.waitForElementPresent("!!!menu.executionServers.element!!!", WAIT_TIME);
 		selenium.click("!!!menu.executionServers.element!!!");
 //		Thread.sleep(5000);
@@ -24,7 +25,9 @@ public class TestDeactiveAndReactiveServer extends Login{
 //			selenium.setSpeed(MID_SPEED);
 			selenium.click("idFormSaveButton");
 			// refresh
-			selenium.refresh();
+			if(refresh){
+				selenium.refresh();
+				}
 //			selenium.click("idSubModuleRefreshButton");
 			this.waitForElementPresent("//span[@class='serv-value' and (text()='INACTIVE')]", WAIT_TIME);
 			Assert.assertTrue(
@@ -33,7 +36,9 @@ public class TestDeactiveAndReactiveServer extends Login{
 					"Server deactive failed!");
 			selenium.setSpeed(MIN_SPEED);
 			//reactive the server
+			if(refresh){
 			selenium.refresh();
+			}
 			this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+deactiveServername+"')]", WAIT_TIME);
 			Thread.sleep(3000);
 			selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+deactiveServername+"')]");
@@ -44,7 +49,9 @@ public class TestDeactiveAndReactiveServer extends Login{
 //			selenium.setSpeed(MID_SPEED);
 			selenium.click("idFormSaveButton");
 			// refresh
-			selenium.refresh();
+			if(refresh){
+				selenium.refresh();
+				}
 			this.waitForElementPresent("//span[@class='serv-value' and (text()='UP')]", WAIT_TIME);
 			Assert.assertTrue(
 					(selenium

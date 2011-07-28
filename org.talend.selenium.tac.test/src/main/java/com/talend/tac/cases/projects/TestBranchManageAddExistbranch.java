@@ -43,14 +43,7 @@ public class TestBranchManageAddExistbranch extends Login {
 			selenium.setSpeed(MAX_SPEED);
 			Assert.assertTrue(selenium
 					.isTextPresent("Failed to create branch: Project already contains a branch 'branches/branch' -- For more information see your log file"));
-			// if (selenium
-			// .isElementPresent("//div[@class='ext-mb-icon  ext-mb-warning']"))
-			// {
-			//
-			// selenium.click("//button[text()='"
-			// + other.getString("project.branchmanage.add.conform.ok.warning")
-			// + "']");
-			// }
+		
 		}
 		// delete the exist branch
 		selenium.setSpeed(MAX_SPEED);
@@ -78,7 +71,7 @@ public class TestBranchManageAddExistbranch extends Login {
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ project + "')]");// the selected project's id
 		selenium.click("idBranchManagementButton");
-		selenium.setSpeed(MID_SPEED);
+		selenium.setSpeed(MAX_SPEED);
 		selenium.click("idBranchManagementSourceInput");
 		selenium.mouseDown("//div[text()='trunk']");
 		selenium.fireEvent("idBranchManagementSourceInput", "blur");

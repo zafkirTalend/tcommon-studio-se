@@ -1,25 +1,9 @@
-/*
- *this test to check the following operation:
- *step 1:click add button to add a project
- *step 2:type in project label ,not select language,use default language java.
- *step 3:check advanced setting: type in wrong svn url,svn username,svn password.
- *step 4:uncheck advanced setting.
- *step 5:click save button to check if it can add the project use default settings in configuration
-
- *results for now:failed
- *reason:bug exist
-*/
-
-
-
 package com.talend.tac.cases.projects;
 
 import java.awt.event.KeyEvent;
-
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
@@ -28,7 +12,7 @@ public class TestAddProjectUncheckadvanced extends Login {
 
 	@Test(groups = { "else" })
 	@Parameters({"uncheckAdvancedProject" ,"ProjectType", "Prolanguage" })
-	public void testAddPerlproject(String namecommon,String type, String language)
+	public void testAddProjectWithoutClickAdvanced(String namecommon,String type, String language)
 			throws InterruptedException {
 		selenium.setSpeed(MIN_SPEED);
 		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
@@ -42,8 +26,9 @@ public class TestAddProjectUncheckadvanced extends Login {
 //		selenium.setSpeed(MID_SPEED);
 		// add the type select option selenium.setSpeed("2000");
 		if (selenium.isVisible("idProjectTypeComboBox")) {
-			selenium.click("idProjectTypeComboBox");
-			selenium.mouseDownAt(("//div[text()='" + type + "']"),""+KeyEvent.VK_ENTER);
+			this.selectDropDownList("idProjectTypeComboBox", type);
+//			selenium.click("idProjectTypeComboBox");
+//			selenium.mouseDownAt(("//div[text()='" + type + "']"),""+KeyEvent.VK_ENTER);
 //			selenium.fireEvent("idProjectTypeComboBox", "blur");
 			
 		}

@@ -10,7 +10,7 @@ import com.talend.tac.cases.Login;
 public class TestDefaultJobServerPorts extends Login {
 	@Test(groups = { "AddServer" })
 	@Parameters({ "ServerCommondport","ServerFiletransfortport","ServerMonitorport" })
-	public void testServerLabelSpecial(String commondport,String filetransport,String monitorport){
+	public void testServerDefaultPorts(String commondport,String filetransport,String monitorport){
 		this.waitForElementPresent("!!!menu.executionServers.element!!!",
 				WAIT_TIME);
 		selenium.click("!!!menu.executionServers.element!!!");
