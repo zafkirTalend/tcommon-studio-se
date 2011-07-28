@@ -50,7 +50,7 @@ public class TestCheckLogs extends Login {
 			Assert.assertTrue(selenium.isElementPresent("//span[text()='Real time statistics']"));
 			this.waitForElementPresent("//label[text()='Ok']", WAIT_TIME);
 			Assert.assertTrue(selenium.isElementPresent("//label[text()='Ok']"));
-			selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");//close window of 'Real time statistics'
+			selenium.click("//div[contains(@class,'x-nodrag x-tool-close x-tool x-component')]");//close window of 'Real time statistics'
 			
 		}
 		
