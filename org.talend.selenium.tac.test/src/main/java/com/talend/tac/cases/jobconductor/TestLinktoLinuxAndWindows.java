@@ -9,22 +9,9 @@ import com.talend.tac.cases.Login;
 public class TestLinktoLinuxAndWindows extends Login {
   @Test(groups = { "left" }, dependsOnGroups = { "CleanServer" })
   @Parameters({ "RemoteLinuxServerIp", "RemoteWindowServerIp"})
-  public void linktoLinuxAndWindows(String linuxIp,String windowsIp) throws InterruptedException {
-//	    Thread.sleep(5000);
-//	    selenium.setSpeed(MAX_SPEED);
-	  
+  public void testLinktoLinuxAndWindows(String linuxIp,String windowsIp) throws InterruptedException {
+
 	    this.clickWaitForElementPresent("!!!menu.executionServers.element!!!");
-//		if (selenium.isVisible("!!!menu.executionServers.element!!!")) {
-//			selenium.click("!!!menu.executionServers.element!!!");
-//			waitForElementPresent("idSubModuleAddButton", 30000);
-//
-//		} else {
-//			selenium.click("!!!menu.jobConductor.element!!!");
-//			selenium.setSpeed(MID_SPEED);
-//			selenium.click("!!!menu.executionServers.element!!!");
-//			waitForElementPresent("idSubModuleAddButton", 30000);
-//
-//		}
 		addRemoteServerRuninLinux(linuxIp);
 		deleteServer("test_RemoteLinux");
 		addRemoteServerRuninWindows(windowsIp);
@@ -47,7 +34,7 @@ public class TestLinktoLinuxAndWindows extends Login {
 			selenium.refresh();
 			this.waitForElementPresent("//div[text()='test_RemoteLinux']", WAIT_TIME);
 			
-			if ((selenium.isElementPresent("//div[text()='test_RemoteLinux']//ancestor::div[@class='x-grid3-row  x-unselectable-single x-grid3-row-selected x-grid3-highlightrow x-grid3-row-expanded']//span[@class='serv-key' and contains(text(),'Status server is')]//parent::li//span[@class='serv-value' and text()='UP']"))) {
+			if ((selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and text()='test_RemoteLinux']//ancestor::table[@class='x-grid3-row-table']//span[@class='serv-key' and contains(text(),'Status server is')]//parent::li//span[@class='serv-value' and text()='UP']"))) {
 
 			} else {
 				Assert.fail("Remote Linux Server added failed !");
@@ -72,7 +59,7 @@ public class TestLinktoLinuxAndWindows extends Login {
 			// refresh
 			selenium.refresh();
 			this.waitForElementPresent("//div[text()='test_RemoteWindows']", WAIT_TIME);
-			if ((selenium.isElementPresent("//div[text()='test_RemoteWindows']//ancestor::div[@class='x-grid3-row  x-unselectable-single x-grid3-row-selected x-grid3-highlightrow x-grid3-row-expanded']//span[@class='serv-key' and contains(text(),'Status server is')]//parent::li//span[@class='serv-value' and text()='UP']"))) {
+			if ((selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and text()='test_RemoteWindows']//ancestor::table[@class='x-grid3-row-table']//span[@class='serv-key' and contains(text(),'Status server is')]//parent::li//span[@class='serv-value' and text()='UP']"))) {
 
 			} else {
 				Assert.fail("Remote Windows Server added failed !");
