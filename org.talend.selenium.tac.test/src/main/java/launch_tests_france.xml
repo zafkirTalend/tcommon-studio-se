@@ -21,12 +21,13 @@
   	<parameter  name ="country"	value ="US"/>
   	<parameter  name ="resourceBundle"	value ="messages"/>
   	
-<!-- parameters for database -->
+	<!-- parameters for database -->
   	<parameter name="db.url"
 		value="org/talend/tac/folder/h2database" />
   		<parameter name="db.type" value="H2"/>
 	<parameter name="db.parameter"
 		value="org/talend/tac/folder/h2database/talend_administrator" />
+		
 	<!-- License parameters -->
   	<parameter  name ="license.file.path"	value ="org/talend/tac/fileFolder/license"/>
   	<parameter  name ="license.fileInvalid.path" value ="org/talend/tac/fileFolder/license_Invalid"/>
@@ -48,8 +49,7 @@
 	<parameter  name ="ServerForUseAvailable" value="use_server_available"/>
     <parameter  name ="ServerForUseUnavailable" value="use_server_unactive"/>
     <parameter  name ="ServerForUseDownlabel" value="use_server_down"/>
-    <parameter  name ="ServeravailableHost" value="192.168.0.39"/>
-    
+    <parameter  name ="ServeravailableHost" value="192.168.0.39"/>    
 
 	<!-- configuration for File Trigger -->
     <parameter name="FolderPath" value="org/talend/tac/fileFolder/" />
@@ -61,11 +61,9 @@
     <parameter  name ="remotehostAddress" value="192.168.0.94"/>
     <parameter  name ="remotehostAddressWithWrong" value="192.168.0.g"/>
 
-	<suite-files>
-		
+	<suite-files>		
 		<suite-file path='org/talend/tac/conf/license.xml'/>
 		<suite-file path='org/talend/tac/conf/user.xml'/>
-		<!-- 
 		<suite-file path='org/talend/tac/conf/login.xml'/>
 		<suite-file path='org/talend/tac/conf/privilege.xml'/>
 		<suite-file path='org/talend/tac/conf/license_account.xml'/>		
@@ -76,6 +74,5 @@
 		<suite-file path='org/talend/tac/conf/soa.xml'/>
 		<suite-file path='org/talend/tac/conf/connection.xml'/>
 		<suite-file path='org/talend/tac/conf/notification.xml'/>
-		-->
 	</suite-files>
 </suite>
