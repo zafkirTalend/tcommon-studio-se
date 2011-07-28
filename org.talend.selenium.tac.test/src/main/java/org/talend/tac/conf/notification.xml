@@ -39,15 +39,15 @@
         <parameter name="labelAddJVMParametersForTask" value="testAddsimpleTask" />
         
         <classes>
-            <class name="com.talend.tac.cases.notification.TestAddUsersNotification"/>            
+            <class name="com.talend.tac.cases.notification.TestAddUsersNotification"/>             
+            <class name="com.talend.tac.cases.notification.TestCheckAllUsersJobserverTaskOfClickFirstCheckBox"/>           
             <class name="com.talend.tac.cases.notification.TestCheckEveryTimeOpenPreviousSelectedUsersTasksJobServerAreAlreadyChecked"/>
             <class name="com.talend.tac.cases.notification.TestAddTasksNotification"/>
             <class name="com.talend.tac.cases.notification.TestAddJobserverNotification"/>
             <class name="com.talend.tac.cases.notification.TestLicenseNotification"/>
             <class name="com.talend.tac.cases.notification.TestDuplicationNotification"/>
             <class name="com.talend.tac.cases.notification.TestDeleteNotification"/>
-            <class name="com.talend.tac.cases.notification.TestModifyNotification"/>
-        
+            <class name="com.talend.tac.cases.notification.TestModifyNotification"/> 
        </classes> 
 	</test>
 	
