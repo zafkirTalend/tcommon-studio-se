@@ -150,6 +150,7 @@ public class TestGridRecoveryManagement extends Grid {
 		this.addTask(label, description, projectName, branchName, jobName,
 				version, context, serverName, statisticName);
 		this.addSimpleTriggerForTask(label, "test", "10", "2");
+		this.waitForTextPresent("3 / 3", MAX_WAIT_TIME);
 		this.sleep(WAIT_TIME);
 		this.waitForElementPresent("//img[@title='Completed']", WAIT_TIME);
 		this.openGridMenu();
