@@ -23,8 +23,10 @@ public class TestPlanExecutionLogsDisplay extends Plan {
 		System.out.println("defaultCounts: " +defaultCounts);
 		System.out.println("logs get is: "+selenium.getXpathCount("//img[@class='gwt-Image' and @title='Ok']").intValue());
 		Assert.assertTrue((selenium.getXpathCount("//img[@class='gwt-Image' and @title='Ok']").intValue()+selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-basicStatus' and text()='ERROR']").intValue())==defaultCounts, "test plan execution logs per page failed!");
-	    Assert.assertTrue(selenium.getValue("//div[@class='header-title' and text()='Execution Plan']//ancestor::div[@class=' x-panel-noborder x-panel x-component']//div[contains(@class,'x-small-editor x-toolbar x-component x-toolbar-layout-ct')]//input[contains(@class,'gwt-TextBox x-component']").equals("1"));
-	}////div[@class='header-title' and text()='Execution Plan']//ancestor::div[@class=' x-panel-noborder x-panel x-component']
+		System.err.println(selenium.getValue("//div[@class='header-title' and text()='Execution Plan']//ancestor::div[@class=' x-panel-noborder x-panel x-component']//div[contains(@class,'x-small-editor x-toolbar x-component x-toolbar-layout-ct')]//input[contains(@class,'gwt-TextBox x-component')]"));
+		Assert.assertTrue(selenium.getValue("//div[@class='header-title' and text()='Execution Plan']//ancestor::div[@class=' x-panel-noborder x-panel x-component']//div[contains(@class,'x-small-editor x-toolbar x-component x-toolbar-layout-ct')]//input[contains(@class,'gwt-TextBox x-component')]").equals("1"));
+	    
+	}
 	
 	@Test(dependsOnMethods="testCheckPlanLogsPerpage")	
 	 @Parameters({ "planexecutionlogsdisplay.plan.label",
