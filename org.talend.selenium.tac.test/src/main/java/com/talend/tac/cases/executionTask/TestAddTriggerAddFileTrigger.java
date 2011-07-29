@@ -5,9 +5,8 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.talend.tac.base.Base;
-import com.talend.tac.cases.Login;
 
-public class TestAddTriggerAddFileTrigger extends AddTrigger {
+public class TestAddTriggerAddFileTrigger extends TaskUtils {
  
 	//test add a cronTrigger use wrong form value
 	@Test
