@@ -4,10 +4,9 @@ package com.talend.tac.cases.executionTask;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import com.talend.tac.base.Base;
 
-public class TestAddTaskBaseBranchProject  extends AddTask {
+public class TestAddTaskBaseBranchProject  extends TaskUtils {
 	public boolean deleteTask(String taskLabel) throws InterruptedException{
 		boolean deleteOk = true;
 		selenium.refresh();
