@@ -21,7 +21,7 @@ import org.talend.designer.core.model.utils.emf.component.IMPORTType;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.core.model.component_cache.ComponentInfo#getOriginalFamilyName <em>Original Family Name</em>}</li>
- *   <li>{@link org.talend.core.model.component_cache.ComponentInfo#getPluginFullName <em>Plugin Full Name</em>}</li>
+ *   <li>{@link org.talend.core.model.component_cache.ComponentInfo#getPluginExtension <em>Plugin Extension</em>}</li>
  *   <li>{@link org.talend.core.model.component_cache.ComponentInfo#getVersion <em>Version</em>}</li>
  *   <li>{@link org.talend.core.model.component_cache.ComponentInfo#getTranslatedFamilyName <em>Translated Family Name</em>}</li>
  *   <li>{@link org.talend.core.model.component_cache.ComponentInfo#isIsTechnical <em>Is Technical</em>}</li>
@@ -69,30 +69,30 @@ public interface ComponentInfo extends EObject {
     void setOriginalFamilyName(String value);
 
     /**
-     * Returns the value of the '<em><b>Plugin Full Name</b></em>' attribute.
+     * Returns the value of the '<em><b>Plugin Extension</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Plugin Full Name</em>' attribute isn't clear,
+     * If the meaning of the '<em>Plugin Extension</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Plugin Full Name</em>' attribute.
-     * @see #setPluginFullName(String)
-     * @see org.talend.core.model.component_cache.ComponentCachePackage#getComponentInfo_PluginFullName()
+     * @return the value of the '<em>Plugin Extension</em>' attribute.
+     * @see #setPluginExtension(String)
+     * @see org.talend.core.model.component_cache.ComponentCachePackage#getComponentInfo_PluginExtension()
      * @model
      * @generated
      */
-    String getPluginFullName();
+    String getPluginExtension();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.component_cache.ComponentInfo#getPluginFullName <em>Plugin Full Name</em>}' attribute.
+     * Sets the value of the '{@link org.talend.core.model.component_cache.ComponentInfo#getPluginExtension <em>Plugin Extension</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Plugin Full Name</em>' attribute.
-     * @see #getPluginFullName()
+     * @param value the new value of the '<em>Plugin Extension</em>' attribute.
+     * @see #getPluginExtension()
      * @generated
      */
-    void setPluginFullName(String value);
+    void setPluginExtension(String value);
 
     /**
      * Returns the value of the '<em><b>Version</b></em>' attribute.

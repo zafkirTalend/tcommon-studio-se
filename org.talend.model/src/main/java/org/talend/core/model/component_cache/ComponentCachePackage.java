@@ -107,13 +107,13 @@ public interface ComponentCachePackage extends EPackage {
     int COMPONENT_INFO__ORIGINAL_FAMILY_NAME = 0;
 
     /**
-     * The feature id for the '<em><b>Plugin Full Name</b></em>' attribute.
+     * The feature id for the '<em><b>Plugin Extension</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COMPONENT_INFO__PLUGIN_FULL_NAME = 1;
+    int COMPONENT_INFO__PLUGIN_EXTENSION = 1;
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -304,15 +304,15 @@ public interface ComponentCachePackage extends EPackage {
     EAttribute getComponentInfo_OriginalFamilyName();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.component_cache.ComponentInfo#getPluginFullName <em>Plugin Full Name</em>}'.
+     * Returns the meta object for the attribute '{@link org.talend.core.model.component_cache.ComponentInfo#getPluginExtension <em>Plugin Extension</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Plugin Full Name</em>'.
-     * @see org.talend.core.model.component_cache.ComponentInfo#getPluginFullName()
+     * @return the meta object for the attribute '<em>Plugin Extension</em>'.
+     * @see org.talend.core.model.component_cache.ComponentInfo#getPluginExtension()
      * @see #getComponentInfo()
      * @generated
      */
-    EAttribute getComponentInfo_PluginFullName();
+    EAttribute getComponentInfo_PluginExtension();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.component_cache.ComponentInfo#getVersion <em>Version</em>}'.
@@ -528,12 +528,12 @@ public interface ComponentCachePackage extends EPackage {
         EAttribute COMPONENT_INFO__ORIGINAL_FAMILY_NAME = eINSTANCE.getComponentInfo_OriginalFamilyName();
 
         /**
-         * The meta object literal for the '<em><b>Plugin Full Name</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>Plugin Extension</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute COMPONENT_INFO__PLUGIN_FULL_NAME = eINSTANCE.getComponentInfo_PluginFullName();
+        EAttribute COMPONENT_INFO__PLUGIN_EXTENSION = eINSTANCE.getComponentInfo_PluginExtension();
 
         /**
          * The meta object literal for the '<em><b>Version</b></em>' attribute feature.

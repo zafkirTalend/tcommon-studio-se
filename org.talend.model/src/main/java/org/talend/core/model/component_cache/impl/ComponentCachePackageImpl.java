@@ -155,7 +155,7 @@ public class ComponentCachePackageImpl extends EPackageImpl implements Component
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getComponentInfo_PluginFullName() {
+    public EAttribute getComponentInfo_PluginExtension() {
         return (EAttribute)componentInfoEClass.getEStructuralFeatures().get(1);
     }
 
@@ -318,7 +318,7 @@ public class ComponentCachePackageImpl extends EPackageImpl implements Component
 
         componentInfoEClass = createEClass(COMPONENT_INFO);
         createEAttribute(componentInfoEClass, COMPONENT_INFO__ORIGINAL_FAMILY_NAME);
-        createEAttribute(componentInfoEClass, COMPONENT_INFO__PLUGIN_FULL_NAME);
+        createEAttribute(componentInfoEClass, COMPONENT_INFO__PLUGIN_EXTENSION);
         createEAttribute(componentInfoEClass, COMPONENT_INFO__VERSION);
         createEAttribute(componentInfoEClass, COMPONENT_INFO__TRANSLATED_FAMILY_NAME);
         createEAttribute(componentInfoEClass, COMPONENT_INFO__IS_TECHNICAL);
@@ -374,7 +374,7 @@ public class ComponentCachePackageImpl extends EPackageImpl implements Component
 
         initEClass(componentInfoEClass, ComponentInfo.class, "ComponentInfo", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getComponentInfo_OriginalFamilyName(), ecorePackage.getEString(), "originalFamilyName", "", 0, 1, ComponentInfo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getComponentInfo_PluginFullName(), ecorePackage.getEString(), "pluginFullName", null, 0, 1, ComponentInfo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getComponentInfo_PluginExtension(), ecorePackage.getEString(), "pluginExtension", null, 0, 1, ComponentInfo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getComponentInfo_Version(), ecorePackage.getEString(), "version", null, 0, 1, ComponentInfo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getComponentInfo_TranslatedFamilyName(), ecorePackage.getEString(), "translatedFamilyName", null, 0, 1, ComponentInfo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getComponentInfo_IsTechnical(), ecorePackage.getEBoolean(), "isTechnical", "false", 0, 1, ComponentInfo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

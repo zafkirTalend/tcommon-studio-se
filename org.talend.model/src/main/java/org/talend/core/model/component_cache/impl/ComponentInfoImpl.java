@@ -36,7 +36,7 @@ import org.talend.designer.core.model.utils.emf.component.IMPORTType;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#getOriginalFamilyName <em>Original Family Name</em>}</li>
- *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#getPluginFullName <em>Plugin Full Name</em>}</li>
+ *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#getPluginExtension <em>Plugin Extension</em>}</li>
  *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#getVersion <em>Version</em>}</li>
  *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#getTranslatedFamilyName <em>Translated Family Name</em>}</li>
  *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#isIsTechnical <em>Is Technical</em>}</li>
@@ -75,24 +75,24 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
     protected String originalFamilyName = ORIGINAL_FAMILY_NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getPluginFullName() <em>Plugin Full Name</em>}' attribute.
+     * The default value of the '{@link #getPluginExtension() <em>Plugin Extension</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getPluginFullName()
+     * @see #getPluginExtension()
      * @generated
      * @ordered
      */
-    protected static final String PLUGIN_FULL_NAME_EDEFAULT = null;
+    protected static final String PLUGIN_EXTENSION_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getPluginFullName() <em>Plugin Full Name</em>}' attribute.
+     * The cached value of the '{@link #getPluginExtension() <em>Plugin Extension</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getPluginFullName()
+     * @see #getPluginExtension()
      * @generated
      * @ordered
      */
-    protected String pluginFullName = PLUGIN_FULL_NAME_EDEFAULT;
+    protected String pluginExtension = PLUGIN_EXTENSION_EDEFAULT;
 
     /**
      * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
@@ -329,8 +329,8 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getPluginFullName() {
-        return pluginFullName;
+    public String getPluginExtension() {
+        return pluginExtension;
     }
 
     /**
@@ -338,11 +338,11 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setPluginFullName(String newPluginFullName) {
-        String oldPluginFullName = pluginFullName;
-        pluginFullName = newPluginFullName;
+    public void setPluginExtension(String newPluginExtension) {
+        String oldPluginExtension = pluginExtension;
+        pluginExtension = newPluginExtension;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentCachePackage.COMPONENT_INFO__PLUGIN_FULL_NAME, oldPluginFullName, pluginFullName));
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentCachePackage.COMPONENT_INFO__PLUGIN_EXTENSION, oldPluginExtension, pluginExtension));
     }
 
     /**
@@ -573,8 +573,8 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
         switch (featureID) {
             case ComponentCachePackage.COMPONENT_INFO__ORIGINAL_FAMILY_NAME:
                 return getOriginalFamilyName();
-            case ComponentCachePackage.COMPONENT_INFO__PLUGIN_FULL_NAME:
-                return getPluginFullName();
+            case ComponentCachePackage.COMPONENT_INFO__PLUGIN_EXTENSION:
+                return getPluginExtension();
             case ComponentCachePackage.COMPONENT_INFO__VERSION:
                 return getVersion();
             case ComponentCachePackage.COMPONENT_INFO__TRANSLATED_FAMILY_NAME:
@@ -613,8 +613,8 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
             case ComponentCachePackage.COMPONENT_INFO__ORIGINAL_FAMILY_NAME:
                 setOriginalFamilyName((String)newValue);
                 return;
-            case ComponentCachePackage.COMPONENT_INFO__PLUGIN_FULL_NAME:
-                setPluginFullName((String)newValue);
+            case ComponentCachePackage.COMPONENT_INFO__PLUGIN_EXTENSION:
+                setPluginExtension((String)newValue);
                 return;
             case ComponentCachePackage.COMPONENT_INFO__VERSION:
                 setVersion((String)newValue);
@@ -667,8 +667,8 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
             case ComponentCachePackage.COMPONENT_INFO__ORIGINAL_FAMILY_NAME:
                 setOriginalFamilyName(ORIGINAL_FAMILY_NAME_EDEFAULT);
                 return;
-            case ComponentCachePackage.COMPONENT_INFO__PLUGIN_FULL_NAME:
-                setPluginFullName(PLUGIN_FULL_NAME_EDEFAULT);
+            case ComponentCachePackage.COMPONENT_INFO__PLUGIN_EXTENSION:
+                setPluginExtension(PLUGIN_EXTENSION_EDEFAULT);
                 return;
             case ComponentCachePackage.COMPONENT_INFO__VERSION:
                 setVersion(VERSION_EDEFAULT);
@@ -717,8 +717,8 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
         switch (featureID) {
             case ComponentCachePackage.COMPONENT_INFO__ORIGINAL_FAMILY_NAME:
                 return ORIGINAL_FAMILY_NAME_EDEFAULT == null ? originalFamilyName != null : !ORIGINAL_FAMILY_NAME_EDEFAULT.equals(originalFamilyName);
-            case ComponentCachePackage.COMPONENT_INFO__PLUGIN_FULL_NAME:
-                return PLUGIN_FULL_NAME_EDEFAULT == null ? pluginFullName != null : !PLUGIN_FULL_NAME_EDEFAULT.equals(pluginFullName);
+            case ComponentCachePackage.COMPONENT_INFO__PLUGIN_EXTENSION:
+                return PLUGIN_EXTENSION_EDEFAULT == null ? pluginExtension != null : !PLUGIN_EXTENSION_EDEFAULT.equals(pluginExtension);
             case ComponentCachePackage.COMPONENT_INFO__VERSION:
                 return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
             case ComponentCachePackage.COMPONENT_INFO__TRANSLATED_FAMILY_NAME:
@@ -757,8 +757,8 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (originalFamilyName: ");
         result.append(originalFamilyName);
-        result.append(", pluginFullName: ");
-        result.append(pluginFullName);
+        result.append(", pluginExtension: ");
+        result.append(pluginExtension);
         result.append(", version: ");
         result.append(version);
         result.append(", translatedFamilyName: ");
