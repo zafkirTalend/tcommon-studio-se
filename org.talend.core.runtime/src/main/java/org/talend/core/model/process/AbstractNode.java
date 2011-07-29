@@ -43,8 +43,6 @@ public abstract class AbstractNode implements INode {
 
     private List<IMetadataTable> metadataList;
 
-    private String pluginFullName;
-
     private String uniqueName;
 
     private boolean activate;
@@ -127,14 +125,6 @@ public abstract class AbstractNode implements INode {
 
     public void setMetadataList(List<IMetadataTable> metadataList) {
         this.metadataList = metadataList;
-    }
-
-    public String getPluginFullName() {
-        return pluginFullName;
-    }
-
-    public void setPluginFullName(String pluginFullName) {
-        this.pluginFullName = pluginFullName;
     }
 
     public String getUniqueName() {
@@ -431,7 +421,7 @@ public abstract class AbstractNode implements INode {
     public List<? extends IConnection> getOutgoingSortedConnections() {
         return org.talend.core.model.utils.NodeUtil.getOutgoingSortedConnections(this);
     }
-    
+
     public List<? extends IConnection> getOutgoingCamelSortedConnections() {
         return org.talend.core.model.utils.NodeUtil.getOutgoingCamelSortedConnections(this);
     }

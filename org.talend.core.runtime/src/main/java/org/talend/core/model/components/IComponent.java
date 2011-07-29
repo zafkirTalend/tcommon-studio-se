@@ -76,7 +76,12 @@ public interface IComponent {
 
     public boolean isMultiplyingOutputs();
 
-    public String getPluginFullName();
+    /**
+     * Should only be set for external components, for others should be null.
+     * 
+     * @return
+     */
+    public String getPluginExtension();
 
     public boolean isSchemaAutoPropagated();
 

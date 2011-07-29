@@ -58,8 +58,6 @@ public interface IExternalNode extends INode {
 
     public void setMetadataList(List<IMetadataTable> metadataList);
 
-    public void setPluginFullName(String pluginFullName);
-
     public void setUniqueName(String uniqueName);
 
     public void setActivate(boolean activate);

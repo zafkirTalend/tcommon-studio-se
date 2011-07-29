@@ -95,8 +95,6 @@ public interface INode extends IElement {
      */
     public List<? extends IConnection> getOutgoingConnections();
 
-    public String getPluginFullName();
-
     public boolean hasConditionalOutputs();
 
     public List<BlockCode> getBlocksCodeToClose();
@@ -164,7 +162,7 @@ public interface INode extends IElement {
     public boolean isThereLinkWithHash();
 
     public List<? extends IConnection> getOutgoingSortedConnections();
-    
+
     public List<? extends IConnection> getOutgoingCamelSortedConnections();
 
     public List<? extends IConnection> getMainOutgoingConnections();
