@@ -1,6 +1,6 @@
 package com.talend.tac.cases.executionTask;
 
-import org.testng.Assert;
+import org.testng.Assert;		
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -9,7 +9,7 @@ import static org.testng.Assert.*;
 import com.talend.tac.cases.Login;
 
 public class TestTaskDisplay extends Login {
-//	@Test(description="")
+	@Test(description="")
 	@Parameters({"labelReferenceproTjava"})
 	public void testTaskDisplayGroupedByProject(String TaskLable){
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
@@ -30,7 +30,7 @@ public class TestTaskDisplay extends Login {
 		
 	}
 
-//	@Test(description="input a key work and search task")
+	@Test(description="input a key work and search task")
 	@Parameters({"labelReferenceproTjava"})
 	public void testSearchTask (String TaskLable){
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
@@ -53,7 +53,7 @@ public class TestTaskDisplay extends Login {
 		assertTrue(selenium.isElementPresent("//span[text()='"+TaskLable+"']"));
 	}
 	
-//	@Test(description="change the statistic status of task, this is not an urgent case ")
+	@Test(description="change the statistic status of task, this is not an urgent case ")
 	@Parameters({"labelReferenceproTjava"})
 	public void testTaskChangeStatisticStatus (String TaskLable){
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
@@ -75,7 +75,7 @@ public class TestTaskDisplay extends Login {
 						
 	}
 	
-//	@Test(description="check if the trigger belong to a task is displayed well ")
+	@Test(description="check if the trigger belong to a task is displayed well ")
 	@Parameters({"labelReferenceproTjava","addCronTriggerByHandInputDateLabel"})
 	public void testTriggerOfTaskDisplay (String TaskLable,String triggerLabel){
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
