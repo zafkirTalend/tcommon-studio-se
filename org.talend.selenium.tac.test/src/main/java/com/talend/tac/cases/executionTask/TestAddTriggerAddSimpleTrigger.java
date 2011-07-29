@@ -5,10 +5,9 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.talend.tac.base.Base;
-import com.talend.tac.cases.Login;
 import com.talend.tac.cases.executePlan.TriggerDate;
 
-public class TestAddTriggerAddSimpleTrigger extends AddTrigger {
+public class TestAddTriggerAddSimpleTrigger extends TaskUtils {
     	   
     TriggerDate date = new TriggerDate();
      	
@@ -56,25 +55,6 @@ public class TestAddTriggerAddSimpleTrigger extends AddTrigger {
 
     }	
     
-    //check host of commandline, change it to localhost 
-    public void changeCommandLineConfig(String hostAddress) {
-		
-		selenium.refresh();
-		this.clickWaitForElementPresent("idMenuConfigElement");//into Configuration page
-		this.waitForElementPresent("//div[contains(text(),'Command line/primary')]", WAIT_TIME);
-		selenium.mouseDown("//div[contains(text(),'Command line/primary')]");
-		selenium.setSpeed(MID_SPEED);		
-			
-		this.clickWaitForElementPresent("//div[contains(text(),'Command line/primary')]//ancestor::div[@class='x-grid-group ']" +
-		"//div[text()='Host']//ancestor::tr[@role='presentation']//img[@title='Click to edit']");
-		this.waitForElementPresent("//div[@class=' x-form-field-wrap  x-component']//input", WAIT_TIME); 
-		System.out.println("*--------------*");
-		this.typeString("//div[@class=' x-form-field-wrap  x-component']//input",hostAddress);
-		
-		selenium.setSpeed(MIN_SPEED);
-			
-			
-	}
 	
     //add a method of remove all triggers
     @Test
