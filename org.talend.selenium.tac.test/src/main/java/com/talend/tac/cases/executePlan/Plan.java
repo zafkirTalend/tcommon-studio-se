@@ -57,7 +57,7 @@ public class Plan extends Login {
 		this.clickWaitForElementPresent("//button[text()='Add plan']");
 		this.typeString("idExecutionPlanPlanFormLabelInput", planLabel);
 		this.typeString("idExecutionPlanPlanFormDescInput", description);
-		selenium.setSpeed(MID_SPEED);
+//		selenium.setSpeed(MID_SPEED);
 		this.selectDropDownList("String idExecutionPlanPlanFormTaskComboBox",
 				rootTask);
 		selenium.mouseDown("//span[@class='x-fieldset-header-text' and text()='Execution Plan']/ancestor::div[@class=' x-panel x-component']//button[@id='idFormSaveButton']");
@@ -68,7 +68,7 @@ public class Plan extends Login {
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"
 				+ planLabel + "']"));
 		selenium.setSpeed(MIN_SPEED);
-		selenium.refresh();
+//		selenium.refresh();
 		this.waitForElementPresent("//span[text()='"
 				+ planLabel + "']", WAIT_TIME);
 		this.sleep(2000);
