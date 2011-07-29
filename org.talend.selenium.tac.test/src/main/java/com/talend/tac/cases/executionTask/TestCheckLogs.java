@@ -8,23 +8,8 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.talend.tac.cases.Login;
-
-public class TestCheckLogs extends Login {
-	
-	//into JobConductor page
-	public void intoJobConductor(String taskLabel) {
+public class TestCheckLogs extends TaskUtils {
 		
-		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-        selenium.setSpeed(MID_SPEED);
-	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
-	    selenium.setSpeed(MIN_SPEED);
-	    
-	    this.waitForElementPresent("//span[text()='"+taskLabel+"']", WAIT_TIME);
-	    selenium.mouseDown("//span[text()='"+taskLabel+"']");//select an exist task
-	    						
-	}
-	
 	//clear logs
 	public void clearLogsAndRunTask() {
 		
