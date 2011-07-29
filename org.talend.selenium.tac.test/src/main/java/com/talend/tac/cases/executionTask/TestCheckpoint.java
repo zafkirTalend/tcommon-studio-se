@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 import com.talend.tac.base.Base;
 
-public class TestCheckpoint extends AddTask {
+public class TestCheckpoint extends TaskUtils {
 	
 	String tjavaWithMulripleCheckpointExpectedLogsValue = "the second checkpointthe third checkpointthe fourth checkpoint";
 	String tjavaWithMulripleCheckpointAactualLogsValue = null;
