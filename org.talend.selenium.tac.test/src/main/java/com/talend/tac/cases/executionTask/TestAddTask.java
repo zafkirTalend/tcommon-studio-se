@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class TestAddTask  extends AddTask {
+public class TestAddTask  extends TaskUtils {
 	
 
 	//add a task
