@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import com.talend.tac.base.Base;
 import com.talend.tac.cases.executePlan.TriggerDate;
 
-public class TestAddTriggerAddCronTrigger extends AddTrigger {
+public class TestAddTriggerAddCronTrigger extends TaskUtils {
     
     TriggerDate date = new TriggerDate().getFuture(24);
 		
