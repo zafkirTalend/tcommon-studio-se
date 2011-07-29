@@ -198,7 +198,6 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
             }
         }
         return metadataConnection;
-
     }
 
     /*

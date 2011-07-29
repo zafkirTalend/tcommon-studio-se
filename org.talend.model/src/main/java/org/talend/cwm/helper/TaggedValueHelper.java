@@ -33,7 +33,8 @@ public final class TaggedValueHelper {
 
     private static Logger log = Logger.getLogger(TaggedValueHelper.class);
 
-    public static final String OTHER_PARAMETER = "otherParameter";
+    public static final String OTHER_PARAMETER = "otherParameter"; //$NON-NLS-1$
+
     /**
      * The tag used when setting a column content type.
      */
@@ -67,41 +68,62 @@ public final class TaggedValueHelper {
 
     public static final String COMMENT = "Comment"; //$NON-NLS-1$
 
-    public static final String TABLE_OWNER = "Table Owner";
+    public static final String TABLE_OWNER = "Table Owner"; //$NON-NLS-1$
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~
 
     // data connection tagged values
-    public static final String USER = "user";
+    public static final String USER = "user"; //$NON-NLS-1$
 
-    public static final String PASSWORD = "password";
+    public static final String PASSWORD = "password"; //$NON-NLS-1$
 
-    public static final String HOST = "HOST";
+    public static final String HOST = "HOST"; //$NON-NLS-1$
 
-    public static final String PORT = "PORT";
+    public static final String PORT = "PORT"; //$NON-NLS-1$
 
-    public static final String DBTYPE = "DBTYPE";
+    public static final String DBTYPE = "DBTYPE"; //$NON-NLS-1$
 
-    public static final String DBNAME = "DBNAME";
+    public static final String DBNAME = "DBNAME"; //$NON-NLS-1$
 
     public static final String DB_IDENTIFIER_QUOTE_STRING = "DB IdentifierQuoteString"; //$NON-NLS-1$
 
-    public static final String UNIVERSE = "universe";
+    public static final String UNIVERSE = "universe"; //$NON-NLS-1$
 
-    public static final String RETRIEVE_ALL = "RETRIEVE_ALL";
+    public static final String RETRIEVE_ALL = "RETRIEVE_ALL"; //$NON-NLS-1$
 
     public static final String DATA_FILTER = "data filter";
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~
 
     // report tagged values
-    public static final String GEN_SINGLE_REPORT = "Single output";
+    public static final String GEN_SINGLE_REPORT = "Single output"; //$NON-NLS-1$
 
-    public static final String OUTPUT_TYPE_TAG = "OutputType";
+    public static final String OUTPUT_TYPE_TAG = "OutputType"; //$NON-NLS-1$
 
-    public static final String OUTPUT_FILENAME_TAG = "OutputFileName";
+    public static final String OUTPUT_FILENAME_TAG = "OutputFileName"; //$NON-NLS-1$
 
-    public static final String OUTPUT_FOLDER_TAG = "OutputFolder";
+    public static final String OUTPUT_FOLDER_TAG = "OutputFolder"; //$NON-NLS-1$
+
+    // report database connection info
+    public static final String REP_DBINFO_DBTYPE = "REP_DBINFO_DBTYPE"; //$NON-NLS-1$
+
+    public static final String REP_DBINFO_DBNAME = "REP_DBINFO_DBNAME"; //$NON-NLS-1$
+
+    public static final String REP_DBINFO_USER = "REP_DBINFO_USER"; //$NON-NLS-1$
+
+    public static final String REP_DBINFO_PASSWORD = "REP_DBINFO_PASSWORD"; //$NON-NLS-1$
+
+    public static final String REP_DBINFO_DRIVER = "REP_DBINFO_DRIVER"; //$NON-NLS-1$
+
+    public static final String REP_DBINFO_DIALECT = "REP_DBINFO_DIALECT"; //$NON-NLS-1$
+
+    public static final String REP_DBINFO_URL = "REP_DBINFO_URL"; //$NON-NLS-1$
+
+    public static final String REP_DBINFO_HOST = "REP_DBINFO_HOST"; //$NON-NLS-1$
+
+    public static final String REP_DBINFO_PORT = "REP_DBINFO_PORT"; //$NON-NLS-1$
+
+    public static final String REP_DBINFO_SCHEMA = "REP_DBINFO_SCHEMA"; //$NON-NLS-1$
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~
     /**
@@ -120,7 +142,7 @@ public final class TaggedValueHelper {
     // ~~~~~~~~~~~~~~~~~~~~~~~~~
 
     // overview analysis tagged values
-    public static final String RELOAD_DATABASES = "Reload Databases";
+    public static final String RELOAD_DATABASES = "Reload Databases"; //$NON-NLS-1$
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -233,12 +255,12 @@ public final class TaggedValueHelper {
         EAnnotation guiAnnotation = CorePackage.Literals.MODEL_ELEMENT__TAGGED_VALUE
                 .getEAnnotation(EmfHelper.UI_CONSTRAINTS_ANNOTATION_URL);
         if (guiAnnotation != null) {
-            String docuValue = guiAnnotation.getDetails().get(EmfHelper.STRING_MAX_SIZE_ANNOTATION_KEY + "." + tag);
+            String docuValue = guiAnnotation.getDetails().get(EmfHelper.STRING_MAX_SIZE_ANNOTATION_KEY + "." + tag); //$NON-NLS-1$
             try {
                 result = Integer.parseInt(docuValue);
             } catch (Exception e) { // if conversion fail return default value
                 // MOD sgandon 1/04/2010 bug 11760 : change error to warning cause there is a fallback
-                log.warn("Could not get max size for tag " + tag, e);
+                log.warn("Could not get max size for tag " + tag, e); //$NON-NLS-1$
             }
         } // else return default value
         return result;
