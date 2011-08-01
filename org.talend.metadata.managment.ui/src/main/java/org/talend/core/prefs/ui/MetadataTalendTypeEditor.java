@@ -662,7 +662,7 @@ public class MetadataTalendTypeEditor extends FieldEditor {
 
         IPath filePath = new Path(MetadataTalendType.INTERNAL_MAPPINGS_FOLDER);
 
-        Bundle b = Platform.getBundle("org.talend.core"); //$NON-NLS-1$
+        Bundle b = Platform.getBundle("org.talend.core.runtime"); //$NON-NLS-1$
         URL url = FileLocator.toFileURL(FileLocator.find(b, filePath, null));
 
         File targetFile = new File(url.getPath(), fileName);
