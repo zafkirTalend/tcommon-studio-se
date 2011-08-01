@@ -3,10 +3,10 @@
   <parameter  name ="Mysql_Dbname" value ="amc"/>
   <parameter  name ="Mysql_Dbtype" value="2"/>
   <parameter  name ="Mysql_Connectionlabel" value ="Mysqlconnection"/>
-  <parameter  name ="Mysql_Host" value ="192.168.0.245"/>
+  <parameter  name ="Mysql_Host" value ="192.168.0.94"/>
   <parameter  name ="Mysql_Serverport" value ="3306"/>
-  <parameter  name ="Mysql_Username" value ="admin"/>
-  <parameter  name ="Mysql_Password" value ="admin"/>
+  <parameter  name ="Mysql_Username" value ="root"/>
+  <parameter  name ="Mysql_Password" value ="123456"/>
   <parameter  name ="Mysql_Datasourse" value =""/>
   <parameter  name ="Mysql_Additional" value =""/>
   <parameter  name ="Mysql_Stattable" value ="statsinfo"/>
@@ -15,10 +15,10 @@
   <parameter  name ="MSSQL_Dbname" value ="amc"/>
   <parameter  name ="MSSQL_Dbtype" value="4"/>
   <parameter  name ="MSSQL_Connectionlabel" value ="MSSQLconnection"/>
-  <parameter  name ="MSSQL_Host" value ="192.168.0.245"/>
+  <parameter  name ="MSSQL_Host" value ="192.168.0.94"/>
   <parameter  name ="MSSQL_Serverport" value ="1433"/>
-  <parameter  name ="MSSQL_Username" value ="admin"/>
-  <parameter  name ="MSSQL_Password" value ="admin"/>
+  <parameter  name ="MSSQL_Username" value ="sa"/>
+  <parameter  name ="MSSQL_Password" value ="123456"/>
   <parameter  name ="MSSQL_Datasourse" value =""/>
   <parameter  name ="MSSQL_Additional" value =""/>
   <parameter  name ="MSSQL_Stattable" value ="statsinfo"/>
