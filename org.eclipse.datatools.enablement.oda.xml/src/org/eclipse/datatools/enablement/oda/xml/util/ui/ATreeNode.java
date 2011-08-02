@@ -129,6 +129,7 @@ public class ATreeNode {
      */
     public void addChild(Object child) {
         this.children.add(child);
+        ((ATreeNode) child).setNodeParent(this);
     }
 
     /**
@@ -139,7 +140,12 @@ public class ATreeNode {
     public void addChild(Object[] children) {
         for (int i = 0; i < children.length; i++) {
             this.children.add(children[i]);
+            ((ATreeNode) children[i]).setNodeParent(this);
         }
+    }
+
+    public void setNodeParent(ATreeNode parent) {
+        this.parent = parent;
     }
 
     /**

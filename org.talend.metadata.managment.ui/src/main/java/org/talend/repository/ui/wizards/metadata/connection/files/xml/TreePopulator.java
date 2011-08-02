@@ -63,7 +63,6 @@ public class TreePopulator {
      * 
      */
     public boolean populateTree(String filePath, ATreeNode treeNode) {
-
         return populateTree(filePath, treeNode, null);
     }
 
@@ -77,8 +76,9 @@ public class TreePopulator {
             } catch (PersistenceException e1) {
                 newFilePath = filePath;
             }
+            List<String> attList = CopyDeleteFileUtilForWizard.getComplexNodes(filePath);
             try {
-                treeNode = SchemaPopulationUtil.getSchemaTree(newFilePath, true, limit);
+                treeNode = SchemaPopulationUtil.getSchemaTree(newFilePath, true, limit, attList);
             } catch (MalformedURLException e) {
                 ExceptionHandler.process(e);
             } catch (OdaException e) {
@@ -150,7 +150,7 @@ public class TreePopulator {
             String currentXPath = parentXPath + "/" + treeItem.getText(); //$NON-NLS-1$
             xPathToTreeItem.put(currentXPath, treeItem);
 
-            boolean haveParentWithSameType = haveParentWithSameType(treeItem);
+            boolean haveParentWithSameType = haveParentWithSameType(treeNode);
             if (haveParentWithSameType) {
                 treeItem.setForeground(new Color(Display.getDefault(), new RGB(255, 102, 102)));
                 continue;
@@ -164,24 +164,25 @@ public class TreePopulator {
         // }
     }
 
-    private boolean haveParentWithSameType(TreeItem item) {
-        List<TreeItem> parentList = getParentList(item);
-        for (TreeItem pNode : parentList) {
-            if (item.getText() != null && pNode.getText() != null && pNode.getText().equals(item.getText())) {
+    private boolean haveParentWithSameType(ATreeNode item) {
+        List<ATreeNode> parentList = getParentList(item);
+        for (ATreeNode pNode : parentList) {
+            if (item.getOriginalDataType() != null && pNode.getOriginalDataType() != null
+                    && pNode.getOriginalDataType().equals(item.getOriginalDataType())) {
                 return true;
             }
         }
         return false;
     }
 
-    private List<TreeItem> getParentList(TreeItem item) {
-        List<TreeItem> parentList = new ArrayList<TreeItem>();
-        TreeItem parentitem = item.getParentItem();
+    private List<ATreeNode> getParentList(ATreeNode item) {
+        List<ATreeNode> parentList = new ArrayList<ATreeNode>();
+        ATreeNode parentitem = item.getParent();
         if (parentitem == null) {
             return parentList;
         }
         parentList.add(parentitem);
-        if (parentitem.getParentItem() != null) {
+        if (parentitem.getParent() != null) {
             parentList.addAll(getParentList(parentitem));
         }
         return parentList;

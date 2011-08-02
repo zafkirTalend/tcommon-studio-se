@@ -57,6 +57,17 @@ public class SchemaPopulationUtil {
      * @throws URISyntaxException
      * @throws IOException
      */
+    public static ATreeNode getSchemaTree(String fileName, boolean includeAttribute, int numberOfElementsAccessiable,
+            List<String> attList) throws OdaException, URISyntaxException, IOException {
+        if (fileName.toUpperCase().endsWith(".XSD")) {
+            return XSDFileSchemaTreePopulator.getSchemaTree(fileName, includeAttribute, attList);
+        } else if (fileName.toUpperCase().endsWith(".DTD")) {
+            return new DTDFileSchemaTreePopulator().getSchemaTree(fileName, includeAttribute);
+        } else {
+            return new XMLFileSchemaTreePopulator(numberOfElementsAccessiable).getSchemaTree(fileName, includeAttribute);
+        }
+    }
+
     public static ATreeNode getSchemaTree(String fileName, boolean includeAttribute, int numberOfElementsAccessiable)
             throws OdaException, URISyntaxException, IOException {
         if (fileName.toUpperCase().endsWith(".XSD")) {
@@ -306,6 +317,125 @@ final class XSDFileSchemaTreePopulator {
             }
 
         }
+    }
+
+    /**
+     * Return the root node of a schema tree.
+     * 
+     * @param fileName
+     * @return
+     * @throws OdaException
+     * @throws MalformedURLException
+     * @throws URISyntaxException
+     */
+    public static ATreeNode getSchemaTree(String fileName, boolean incAttr, List<String> attList) throws OdaException,
+            MalformedURLException, URISyntaxException {
+        includeAttribute = incAttr;
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setNamespaceAware(true);
+        URI uri = null;
+        File f = new File(fileName);
+        if (f.exists()) {
+            uri = f.toURI();
+        } else {
+            URL url = new URL(fileName);
+            uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(),
+                    url.getRef());
+        }
+
+        // Then try to parse the input string as a url in web.
+        if (uri == null) {
+            uri = new URI(fileName);
+        }
+
+        // fixed a bug when parse one file contians Franch ,maybe need modification
+        XMLSchemaLoader xsLoader = new XMLSchemaLoader();
+        XSModel xsModel = xsLoader.loadURI(uri.toString());
+        if (xsModel == null) {
+            try {
+                Grammar loadGrammar = xsLoader.loadGrammar(new XMLInputSource(null, uri.toString(), null, new FileInputStream(f),
+                        "ISO-8859-1"));
+                xsModel = ((XSGrammar) loadGrammar).toXSModel();
+            } catch (XNIException e) {
+                e.printStackTrace();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        ATreeNode complexTypesRoot = populateComplexTypeTree(xsModel);
+
+        XSNamedMap map = xsModel.getComponents(XSConstants.ELEMENT_DECLARATION);
+
+        ATreeNode root = new ATreeNode();
+
+        root.setValue("ROOT");
+        for (int i = 0; i < map.getLength(); i++) {
+            ATreeNode node = new ATreeNode();
+            XSElementDecl element = (XSElementDecl) map.item(i);
+
+            String namespace = element.getNamespace();
+            XSObject unique = element.getIdentityConstraints().itemByName(namespace, element.getName());
+            if (unique instanceof UniqueOrKey) {
+                node.getUniqueNames().clear();
+                UniqueOrKey uniqueOrKey = (UniqueOrKey) unique;
+                String uniqueName = "";
+                StringList fieldStrs = uniqueOrKey.getFieldStrs();
+                for (int j = 0; j < fieldStrs.getLength(); j++) {
+                    uniqueName = fieldStrs.item(j);
+                    if (uniqueName != null && !"".equals(uniqueName)) {
+                        uniqueName = uniqueName.replace("/", "").replace(".", ""); //$NON-NLS-N$
+                        node.getUniqueNames().add(uniqueName);
+                    }
+                }
+            }
+            ATreeNode namespaceNode = null;
+            if (namespace != null) {
+                namespaceNode = new ATreeNode();
+                namespaceNode.setDataType(namespace);
+                namespaceNode.setType(ATreeNode.NAMESPACE_TYPE);
+                namespaceNode.setValue(namespace);
+            }
+
+            node.setValue(element.getName());
+            node.setType(ATreeNode.ELEMENT_TYPE);
+            node.setDataType(element.getName());
+            if (element.getTypeDefinition() instanceof XSComplexTypeDecl) {
+                XSComplexTypeDecl complexType = (XSComplexTypeDecl) element.getTypeDefinition();
+                // If the complex type is explicitly defined, that is, it has name.
+                if (complexType.getName() != null) {
+                    node.setDataType(complexType.getName());
+                    ATreeNode n = findComplexElement(complexTypesRoot, complexType.getName());
+                    if (namespaceNode != null) {
+                        node.addChild(namespaceNode);
+                    }
+                    if (n != null) {
+                        node.addChild(n.getChildren());
+                    }
+                }
+                // If the complex type is implicitly defined, that is, it has no name.
+                else {
+
+                    addParticleAndAttributeInfo(node, complexType, complexTypesRoot, new VisitingRecorder());
+                }
+            }
+            String nodeType = node.getOriginalDataType();
+            if (nodeType != null && !attList.contains(nodeType)) {
+                continue;
+            }
+            root.addChild(node);
+        }
+
+        // if no base element, display all complex types / attributes directly.
+        if (map.getLength() == 0) {
+            root.addChild(complexTypesRoot.getChildren());
+        }
+
+        populateRoot(root);
+        return root;
+
     }
 
     /**

@@ -108,6 +108,37 @@ public class CopyDeleteFileUtilForWizard {
         return newFile.getAbsolutePath();
     }
 
+    public static List<String> getComplexNodes(String xsdFile) {
+        List<String> attri = new ArrayList<String>();
+        File file = new File(xsdFile);
+        if (!file.exists()) {
+            return attri;
+        }
+
+        SAXReader saxReader = new SAXReader();
+        Document doc;
+        try {
+            URL url = file.toURI().toURL();
+            doc = saxReader.read(url.getFile());
+            Element root = doc.getRootElement();
+            List<Element> complexList = root.elements("complexType");
+            if (complexList == null) {
+                return attri;
+            }
+            for (Element n : complexList) {
+                Attribute attr = n.attribute("name");
+                if (attr != null) {
+                    attri.add(attr.getValue());
+                }
+            }
+        } catch (DocumentException e) {
+            ExceptionHandler.process(e);
+        } catch (MalformedURLException e) {
+            ExceptionHandler.process(e);
+        }
+        return attri;
+    }
+
     private static void getImportFiles(String xsdFile, String newPath) {
         File file = new File(xsdFile);
         if (!file.exists()) {
