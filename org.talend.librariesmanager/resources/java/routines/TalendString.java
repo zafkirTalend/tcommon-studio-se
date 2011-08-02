@@ -96,8 +96,8 @@ public class TalendString {
      * 
      * {param} char(' ') padding_char: The padding char for triming.
      * 
-     * {param} int(0) align: The alignment of the content in the original strin. Positive int for right, negative int
-     * for left and zero for center.
+     * {param} int(0) align: The alignment of the content in the original string. Positive int for right, negative int
+     * for left and zero for center. Positive integer to trim the left part, zero to trim both the left and the right part, negative to trim the right part.
      * 
      * 
      * {example} talendTrim("$$talend open studio$$$$", '$', 0) # talend open studio
