@@ -56,9 +56,6 @@ public class Base {
 		browser = this.setDefaultValue("*firefox", System.getProperty("selenium.browser"), browser);
 //		browser = this.setDefaultValue(browser, "*firefox");
 		
-		
-		
-		
 		url = this.setDefaultValue("http://localhost:8080/", System.getProperty("tomcat.url"), url);
 //		url = this.setDefaultValue(url, "http://localhost:8080/");
 		
@@ -110,8 +107,13 @@ public class Base {
 //				System.out.println("name -- " + name);
 				String url = getAbsolutePath("org/talend/tac/folder/screen");
 //				System.out.println("url -" + url);
-				selenium.captureScreenshot(url + File.separator + name);
-				System.out.println(url + File.separator + name);
+				
+				try {
+					selenium.captureScreenshot(url + File.separator + name);
+					System.out.println(url + File.separator + name);
+				} catch (Exception e) {
+				}
+				
 			}
 		}); 
 	}
