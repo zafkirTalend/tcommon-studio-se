@@ -174,7 +174,7 @@ public class Utilities {
      * @param gefBot SWTGefBot
      * @param shell creating wizard shell
      */
-    private static void create(String itemType, String itemName, SWTBotTreeItem treeNode, SWTGefBot gefBot) {
+    private static SWTBotTreeItem create(String itemType, String itemName, SWTBotTreeItem treeNode, SWTGefBot gefBot) {
         treeNode.contextMenu("Create " + itemType).click();
 
         if (!"JobScript".equals(itemType)) {
@@ -205,34 +205,36 @@ public class Utilities {
         } finally {
             Assert.assertNotNull(itemType + " item is not created", newTreeItem);
         }
+
+        return treeNode.getNode(itemName + " 0.1");
     }
 
-    public static void createJoblet(String jobletName, SWTBotTreeItem treeNode, SWTGefBot gefBot) {
-        create("Joblet", jobletName, treeNode, gefBot);
+    public static SWTBotTreeItem createJoblet(String jobletName, SWTBotTreeItem treeNode, SWTGefBot gefBot) {
+        return create("Joblet", jobletName, treeNode, gefBot);
     }
 
-    public static void createSqlTemplate(String sqlTemplateName, SWTBotTreeItem treeNode, SWTGefBot gefBot) {
-        create("SQLTemplate", sqlTemplateName, treeNode, gefBot);
+    public static SWTBotTreeItem createSqlTemplate(String sqlTemplateName, SWTBotTreeItem treeNode, SWTGefBot gefBot) {
+        return create("SQLTemplate", sqlTemplateName, treeNode, gefBot);
     }
 
-    public static void createBusinessModel(String businessModelName, SWTBotTreeItem treeNode, SWTGefBot gefBot) {
-        create("Business Model", businessModelName, treeNode, gefBot);
+    public static SWTBotTreeItem createBusinessModel(String businessModelName, SWTBotTreeItem treeNode, SWTGefBot gefBot) {
+        return create("Business Model", businessModelName, treeNode, gefBot);
     }
 
-    public static void createJob(String jobName, SWTBotTreeItem treeNode, SWTGefBot gefBot) {
-        create("job", jobName, treeNode, gefBot);
+    public static SWTBotTreeItem createJob(String jobName, SWTBotTreeItem treeNode, SWTGefBot gefBot) {
+        return create("job", jobName, treeNode, gefBot);
     }
 
-    public static void createRoutine(String routineName, SWTBotTreeItem treeNode, SWTGefBot gefBot) {
-        create("routine", routineName, treeNode, gefBot);
+    public static SWTBotTreeItem createRoutine(String routineName, SWTBotTreeItem treeNode, SWTGefBot gefBot) {
+        return create("routine", routineName, treeNode, gefBot);
     }
 
-    public static void createJobScript(String jobScriptName, SWTBotTreeItem treeNode, SWTGefBot gefBot) {
-        create("JobScript", jobScriptName, treeNode, gefBot);
+    public static SWTBotTreeItem createJobScript(String jobScriptName, SWTBotTreeItem treeNode, SWTGefBot gefBot) {
+        return create("JobScript", jobScriptName, treeNode, gefBot);
     }
 
-    private static void createFile(TalendItemType itemType, String contextMenu, final String shellTitle, String fileName,
-            SWTBotTreeItem treeNode, final SWTGefBot gefBot) throws IOException, URISyntaxException {
+    private static SWTBotTreeItem createFile(TalendItemType itemType, String contextMenu, final String shellTitle,
+            String fileName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) throws IOException, URISyntaxException {
         treeNode.contextMenu(contextMenu).click();
         gefBot.waitUntil(Conditions.shellIsActive(shellTitle));
         shell = gefBot.shell(shellTitle).activate();
@@ -340,39 +342,43 @@ public class Utilities {
         } finally {
             Assert.assertNotNull("item is not created", newItem);
         }
+
+        return treeNode.getNode(fileName + " 0.1");
     }
 
-    public static void createFileDelimited(String fileName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) throws IOException,
-            URISyntaxException {
-        createFile(TalendItemType.FILE_DELIMITED, "Create file delimited", "New Delimited File", fileName, treeNode, gefBot);
+    public static SWTBotTreeItem createFileDelimited(String fileName, SWTBotTreeItem treeNode, final SWTGefBot gefBot)
+            throws IOException, URISyntaxException {
+        return createFile(TalendItemType.FILE_DELIMITED, "Create file delimited", "New Delimited File", fileName, treeNode,
+                gefBot);
     }
 
-    public static void createFileExcel(String fileName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) throws IOException,
-            URISyntaxException {
-        createFile(TalendItemType.FILE_EXCEL, "Create file Excel", "New Excel File", fileName, treeNode, gefBot);
+    public static SWTBotTreeItem createFileExcel(String fileName, SWTBotTreeItem treeNode, final SWTGefBot gefBot)
+            throws IOException, URISyntaxException {
+        return createFile(TalendItemType.FILE_EXCEL, "Create file Excel", "New Excel File", fileName, treeNode, gefBot);
     }
 
-    public static void createFileLdif(String fileName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) throws IOException,
-            URISyntaxException {
-        createFile(TalendItemType.FILE_LDIF, "Create file ldif", "New Ldif File", fileName, treeNode, gefBot);
+    public static SWTBotTreeItem createFileLdif(String fileName, SWTBotTreeItem treeNode, final SWTGefBot gefBot)
+            throws IOException, URISyntaxException {
+        return createFile(TalendItemType.FILE_LDIF, "Create file ldif", "New Ldif File", fileName, treeNode, gefBot);
     }
 
-    public static void createFilePositional(String fileName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) throws IOException,
-            URISyntaxException {
-        createFile(TalendItemType.FILE_POSITIONAL, "Create file positional", "New Positional File", fileName, treeNode, gefBot);
+    public static SWTBotTreeItem createFilePositional(String fileName, SWTBotTreeItem treeNode, final SWTGefBot gefBot)
+            throws IOException, URISyntaxException {
+        return createFile(TalendItemType.FILE_POSITIONAL, "Create file positional", "New Positional File", fileName, treeNode,
+                gefBot);
     }
 
-    public static void createFileRegex(String fileName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) throws IOException,
-            URISyntaxException {
-        createFile(TalendItemType.FILE_REGEX, "Create file regex", "New RegEx File", fileName, treeNode, gefBot);
+    public static SWTBotTreeItem createFileRegex(String fileName, SWTBotTreeItem treeNode, final SWTGefBot gefBot)
+            throws IOException, URISyntaxException {
+        return createFile(TalendItemType.FILE_REGEX, "Create file regex", "New RegEx File", fileName, treeNode, gefBot);
     }
 
-    public static void createFileXml(String fileName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) throws IOException,
-            URISyntaxException {
-        createFile(TalendItemType.FILE_XML, "Create file xml", "New Xml File", fileName, treeNode, gefBot);
+    public static SWTBotTreeItem createFileXml(String fileName, SWTBotTreeItem treeNode, final SWTGefBot gefBot)
+            throws IOException, URISyntaxException {
+        return createFile(TalendItemType.FILE_XML, "Create file xml", "New Xml File", fileName, treeNode, gefBot);
     }
 
-    public static void createLdap(String ldapName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) {
+    public static SWTBotTreeItem createLdap(String ldapName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) {
         treeNode.contextMenu("Create LDAP schema").click();
         gefBot.waitUntil(Conditions.shellIsActive("Create new LDAP schema"));
         shell = gefBot.shell("Create new LDAP schema").activate();
@@ -465,18 +471,22 @@ public class Utilities {
         } finally {
             Assert.assertNotNull("ldap item is not created", newLdapItem);
         }
+
+        return treeNode.getNode(ldapName + " 0.1");
     }
 
-    public static void createSalesforce(String salesforceName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) {
-        createSalesforce(null, salesforceName, treeNode, gefBot);
+    public static SWTBotTreeItem createSalesforce(String salesforceName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) {
+        return createSalesforce(null, salesforceName, treeNode, gefBot);
     }
 
-    public static void createSalesforceWithHttpProxy(String salesforceName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) {
-        createSalesforce("HTTP", salesforceName, treeNode, gefBot);
+    public static SWTBotTreeItem createSalesforceWithHttpProxy(String salesforceName, SWTBotTreeItem treeNode,
+            final SWTGefBot gefBot) {
+        return createSalesforce("HTTP", salesforceName, treeNode, gefBot);
     }
 
-    public static void createSalesforceWithSocksProxy(String salesforceName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) {
-        createSalesforce("SOCKS", salesforceName, treeNode, gefBot);
+    public static SWTBotTreeItem createSalesforceWithSocksProxy(String salesforceName, SWTBotTreeItem treeNode,
+            final SWTGefBot gefBot) {
+        return createSalesforce("SOCKS", salesforceName, treeNode, gefBot);
     }
 
     /**
@@ -487,7 +497,8 @@ public class Utilities {
      * @param treeNode
      * @param gefBot
      */
-    private static void createSalesforce(String proxyType, String salesforceName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) {
+    private static SWTBotTreeItem createSalesforce(String proxyType, String salesforceName, SWTBotTreeItem treeNode,
+            final SWTGefBot gefBot) {
         treeNode.contextMenu("Create Salesforce Connection").click();
         shell = gefBot.shell("New Salesforce ").activate();
         gefBot.waitUntil(Conditions.shellIsActive("New Salesforce "));
@@ -543,9 +554,11 @@ public class Utilities {
         } finally {
             Assert.assertNotNull("salesforce item is not created", newSalesforceItem);
         }
+
+        return treeNode.getNode(salesforceName + " 0.1");
     }
 
-    public static void createGenericSchema(String schemaName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) {
+    public static SWTBotTreeItem createGenericSchema(String schemaName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) {
         treeNode.contextMenu("Create generic schema").click();
         gefBot.waitUntil(Conditions.shellIsActive("Create new generic schema"));
         shell = gefBot.shell("Create new generic schema").activate();
@@ -579,10 +592,12 @@ public class Utilities {
         } finally {
             Assert.assertNotNull("generic schema item is not created", newSchemaItem);
         }
+
+        return treeNode.getNode(schemaName + " 0.1");
     }
 
-    public static void createCopybook(String copybookNAME, SWTBotTreeItem treeNode, final SWTGefBot gefBot) throws IOException,
-            URISyntaxException {
+    public static SWTBotTreeItem createCopybook(String copybookNAME, SWTBotTreeItem treeNode, final SWTGefBot gefBot)
+            throws IOException, URISyntaxException {
         treeNode.contextMenu("Create EBCDIC").click();
         gefBot.waitUntil(Conditions.shellIsActive("EBCDIC Connection"));
         shell = gefBot.shell("EBCDIC Connection").activate();
@@ -616,9 +631,11 @@ public class Utilities {
         } finally {
             Assert.assertNotNull("copybook item is not created", newCopybookItem);
         }
+
+        return treeNode.getNode(copybookNAME + " 0.1");
     }
 
-    public static void createSapConnection(String sapName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) {
+    public static SWTBotTreeItem createSapConnection(String sapName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) {
         treeNode.contextMenu("Create SAP connection").click();
         gefBot.waitUntil(Conditions.shellIsActive("SAP Connection"));
         shell = gefBot.shell("SAP Connection").activate();
@@ -665,6 +682,8 @@ public class Utilities {
         } finally {
             Assert.assertNotNull("SAP connection is not created", newSapItem);
         }
+
+        return treeNode.getNode(sapName + " 0.1");
     }
 
     /**
@@ -674,7 +693,7 @@ public class Utilities {
      * @param treeNode
      * @param gefBot
      */
-    public static void createContext(String contextName, SWTBotTreeItem treeNode, SWTGefBot gefBot) {
+    public static SWTBotTreeItem createContext(String contextName, SWTBotTreeItem treeNode, SWTGefBot gefBot) {
         treeNode.contextMenu("Create context group").click();
 
         gefBot.waitUntil(Conditions.shellIsActive("Create / Edit a context group"));
@@ -721,6 +740,8 @@ public class Utilities {
         } finally {
             Assert.assertNotNull("context is not created", newContextItem);
         }
+
+        return treeNode.getNode(contextName + " 0.1");
     }
 
     /**
@@ -731,7 +752,8 @@ public class Utilities {
      * @param treeNode
      * @param gefBot
      */
-    public static void createWebService(String type, String webServiceName, SWTBotTreeItem treeNode, final SWTGefBot gefBot) {
+    public static SWTBotTreeItem createWebService(String type, String webServiceName, SWTBotTreeItem treeNode,
+            final SWTGefBot gefBot) {
         treeNode.contextMenu("Create WSDL schema").click();
         gefBot.waitUntil(Conditions.shellIsActive("Create new WSDL schema"));
         shell = gefBot.shell("Create new WSDL schema").activate();
@@ -841,6 +863,8 @@ public class Utilities {
         } finally {
             Assert.assertNotNull("web service item is not created", newWebServiceItem);
         }
+
+        return treeNode.getNode(webServiceName + " 0.1");
     }
 
     /**
@@ -851,7 +875,7 @@ public class Utilities {
      * @param treeNode
      * @param hl7Name
      */
-    public static void createHL7(String type, SWTGefBot gefBot, SWTBotTreeItem treeNode, String hl7Name) {
+    public static SWTBotTreeItem createHL7(String type, SWTGefBot gefBot, SWTBotTreeItem treeNode, String hl7Name) {
         treeNode.contextMenu("Create HL7").click();
         shell = gefBot.shell("New HL7 File").activate();
         try {
@@ -922,6 +946,8 @@ public class Utilities {
         } finally {
             Assert.assertNotNull("hl7 item is not created", newHl7Item);
         }
+
+        return treeNode.getNode(hl7Name + " 0.1");
     }
 
     /**
@@ -932,7 +958,8 @@ public class Utilities {
      * @param dbType
      * @param dbName the name defined by user for db connection
      */
-    public static void createDbConnection(final SWTGefBot gefBot, SWTBotTreeItem treeNode, DbConnectionType dbType, String dbName) {
+    public static SWTBotTreeItem createDbConnection(final SWTGefBot gefBot, SWTBotTreeItem treeNode, DbConnectionType dbType,
+            String dbName) {
         treeNode.contextMenu("Create connection").click();
         gefBot.waitUntil(Conditions.shellIsActive("Database Connection"));
         shell = gefBot.shell("Database Connection");
@@ -1039,6 +1066,8 @@ public class Utilities {
         } finally {
             Assert.assertNotNull(dbType.toString() + " connection is not created", newDbItem);
         }
+
+        return treeNode.getNode(dbName + " 0.1");
     }
 
     /**
@@ -1566,57 +1595,57 @@ public class Utilities {
         }
         gefBot.button("Next >").click();
 
-        // try {
-        SWTBotTree tree = gefBot.tree();
-        SWTBotTreeItem metadataNode = getTalendItemNode(tree, metadataType);
-        if (TalendItemType.DB_CONNECTIONS.equals(metadataType)) {
-            metadataNode.expandNode(metadataName + " 0.1", "Table schemas").select("test");
-        } else {
-            metadataNode.expandNode(metadataName + " 0.1").select("metadata");
-        }
-        gefBot.button("Select All").click();
-        gefBot.button("Next >").click();
-
-        if ("Reference Check".equals(ruleType)) {
-            gefBot.radio(0).click();
-            gefBot.button("Next >").click();
-            metadataNode = getTalendItemNode(gefBot.tree(0), TalendItemType.DB_CONNECTIONS);
-            metadataNode.expandNode(metadataName + " 0.1", "Table schemas").select("reference");
-            gefBot.button("Next >").click();
-            DndUtil dndUtil = new DndUtil(shell.display);
-            SWTBotTableItem sourceItem = null;
-            SWTBotTableItem targetItem = null;
-            for (int i = 0; i < gefBot.table(0).rowCount(); i++) {
-                sourceItem = gefBot.table(0).getTableItem(i);
-                targetItem = gefBot.table(1).getTableItem(i);
-                dndUtil.dragAndDrop(sourceItem, targetItem);
+        try {
+            SWTBotTree tree = gefBot.tree();
+            SWTBotTreeItem metadataNode = getTalendItemNode(tree, metadataType);
+            if (TalendItemType.DB_CONNECTIONS.equals(metadataType)) {
+                metadataNode.expandNode(metadataName + " 0.1", "Table schemas").select("test");
+            } else {
+                metadataNode.expandNode(metadataName + " 0.1").select("metadata");
             }
-        } else if ("Basic Value Check".equals(ruleType)) {
-            gefBot.radio(1).click();
+            gefBot.button("Select All").click();
             gefBot.button("Next >").click();
-            gefBot.buttonWithTooltip("Add").click();
-            gefBot.tableWithLabel("Conditions").click(0, 2);
-            gefBot.ccomboBox().setSelection("Column0");
-            gefBot.tableWithLabel("Conditions").click(0, 3);
-            gefBot.ccomboBox().setSelection("Empty");
-            gefBot.tableWithLabel("Conditions").click(0, 4);
-            gefBot.ccomboBox().setSelection("Greater");
-            gefBot.tableWithLabel("Conditions").click(0, 5);
-            gefBot.text().setText("50");
-        } else if ("Custom Check".equals(ruleType)) {
-            gefBot.radio(2).click();
+
+            if ("Reference Check".equals(ruleType)) {
+                gefBot.radio(0).click();
+                gefBot.button("Next >").click();
+                metadataNode = getTalendItemNode(gefBot.tree(0), TalendItemType.DB_CONNECTIONS);
+                metadataNode.expandNode(metadataName + " 0.1", "Table schemas").select("reference");
+                gefBot.button("Next >").click();
+                DndUtil dndUtil = new DndUtil(shell.display);
+                SWTBotTableItem sourceItem = null;
+                SWTBotTableItem targetItem = null;
+                for (int i = 0; i < gefBot.table(0).rowCount(); i++) {
+                    sourceItem = gefBot.table(0).getTableItem(i);
+                    targetItem = gefBot.table(1).getTableItem(i);
+                    dndUtil.dragAndDrop(sourceItem, targetItem);
+                }
+            } else if ("Basic Value Check".equals(ruleType)) {
+                gefBot.radio(1).click();
+                gefBot.button("Next >").click();
+                gefBot.buttonWithTooltip("Add").click();
+                gefBot.tableWithLabel("Conditions").click(0, 2);
+                gefBot.ccomboBox().setSelection("Column0");
+                gefBot.tableWithLabel("Conditions").click(0, 3);
+                gefBot.ccomboBox().setSelection("Empty");
+                gefBot.tableWithLabel("Conditions").click(0, 4);
+                gefBot.ccomboBox().setSelection("Greater");
+                gefBot.tableWithLabel("Conditions").click(0, 5);
+                gefBot.text().setText("50");
+            } else if ("Custom Check".equals(ruleType)) {
+                gefBot.radio(2).click();
+                gefBot.button("Next >").click();
+                gefBot.styledText().setText("true");
+            }
             gefBot.button("Next >").click();
-            gefBot.styledText().setText("true");
+            gefBot.button("Finish").click();
+        } catch (WidgetNotFoundException wnfe) {
+            shell.close();
+            Assert.fail(wnfe.getCause().getMessage());
+        } catch (Exception e) {
+            shell.close();
+            Assert.fail(e.getMessage());
         }
-        gefBot.button("Next >").click();
-        gefBot.button("Finish").click();
-        // } catch (WidgetNotFoundException wnfe) {
-        // shell.close();
-        // Assert.fail(wnfe.getCause().getMessage());
-        // } catch (Exception e) {
-        // shell.close();
-        // Assert.fail(e.getMessage());
-        // }
 
         SWTBotTreeItem newRuleItem = null;
         try {
@@ -1775,7 +1804,7 @@ public class Utilities {
         gefBot.viewByTitle("Palette").setFocus();
         gefBot.text(0).setText(toolLabel);
         gefBot.toolbarButtonWithTooltip("Search").click();
-        gefBot.sleep(400);
+        gefBot.sleep(500);
 
         SWTBotGefFigureCanvas paletteFigureCanvas = new SWTBotGefFigureCanvas((FigureCanvas) gefBot.widget(WidgetOfType
                 .widgetOfType(FigureCanvas.class)));
@@ -1803,8 +1832,10 @@ public class Utilities {
         DndUtil dndUtil = new DndUtil(jobEditor.getWidget().getDisplay());
 
         dndUtil.dragAndDrop(sourceItem, figureCanvas, locationOnJob);
-        gefBot.shell("Components").activate();
-        gefBot.table(0).getTableItem(componentLabel).click();
-        gefBot.button("OK").click();
+        if (componentLabel != null) {
+            gefBot.shell("Components").activate();
+            gefBot.table(0).getTableItem(componentLabel).click();
+            gefBot.button("OK").click();
+        }
     }
 }
