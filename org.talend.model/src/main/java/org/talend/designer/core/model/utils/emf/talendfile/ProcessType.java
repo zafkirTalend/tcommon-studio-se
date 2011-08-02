@@ -7,6 +7,7 @@
 package org.talend.designer.core.model.utils.emf.talendfile;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -35,6 +36,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getVersion <em>Version</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getSubjob <em>Subjob</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getScreenshot <em>Screenshot</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getScreenshots <em>Screenshots</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getRoutinesDependencies <em>Routines Dependencies</em>}</li>
  * </ul>
  * </p>
@@ -235,6 +237,23 @@ public interface ProcessType extends EObject {
      * @generated
      */
     void setScreenshot(byte[] value);
+
+    /**
+     * Returns the value of the '<em><b>Screenshots</b></em>' map.
+     * The key is of type {@link java.lang.String},
+     * and the value is of type {@link byte[]},
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Screenshots</em>' map isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Screenshots</em>' map.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getProcessType_Screenshots()
+     * @model mapType="org.talend.designer.core.model.utils.emf.talendfile.ScreenshotsMap" keyType="java.lang.String" valueType="byte[]"
+     * @generated
+     */
+    EMap getScreenshots();
 
     /**
      * Returns the value of the '<em><b>Routines Dependencies</b></em>' containment reference list.

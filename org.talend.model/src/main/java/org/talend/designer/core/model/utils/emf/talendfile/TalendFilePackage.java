@@ -1410,13 +1410,22 @@ public interface TalendFilePackage extends EPackage {
     int PROCESS_TYPE__SCREENSHOT = 17;
 
     /**
+     * The feature id for the '<em><b>Screenshots</b></em>' map.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROCESS_TYPE__SCREENSHOTS = 18;
+
+    /**
      * The feature id for the '<em><b>Routines Dependencies</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__ROUTINES_DEPENDENCIES = 18;
+    int PROCESS_TYPE__ROUTINES_DEPENDENCIES = 19;
 
     /**
      * The number of structural features of the '<em>Process Type</em>' class.
@@ -1425,7 +1434,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE_FEATURE_COUNT = 19;
+    int PROCESS_TYPE_FEATURE_COUNT = 20;
 
 
     /**
@@ -1608,6 +1617,43 @@ public interface TalendFilePackage extends EPackage {
      * @ordered
      */
     int NODE_CONTAINER_TYPE_FEATURE_COUNT = 1;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ScreenshotsMapImpl <em>Screenshots Map</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.core.model.utils.emf.talendfile.impl.ScreenshotsMapImpl
+     * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getScreenshotsMap()
+     * @generated
+     */
+    int SCREENSHOTS_MAP = 23;
+
+    /**
+     * The feature id for the '<em><b>Key</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SCREENSHOTS_MAP__KEY = 0;
+
+    /**
+     * The feature id for the '<em><b>Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SCREENSHOTS_MAP__VALUE = 1;
+
+    /**
+     * The number of structural features of the '<em>Screenshots Map</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SCREENSHOTS_MAP_FEATURE_COUNT = 2;
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType <em>Column Type</em>}'.
@@ -2946,6 +2992,17 @@ public interface TalendFilePackage extends EPackage {
     EAttribute getProcessType_Screenshot();
 
     /**
+     * Returns the meta object for the map '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getScreenshots <em>Screenshots</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the map '<em>Screenshots</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getScreenshots()
+     * @see #getProcessType()
+     * @generated
+     */
+    EReference getProcessType_Screenshots();
+
+    /**
      * Returns the meta object for the containment reference list '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getRoutinesDependencies <em>Routines Dependencies</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3191,6 +3248,40 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      */
     EReference getNodeContainerType_ElementParameter();
+
+    /**
+     * Returns the meta object for class '{@link java.util.Map.Entry <em>Screenshots Map</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Screenshots Map</em>'.
+     * @see java.util.Map.Entry
+     * @model keyDataType="org.eclipse.emf.ecore.EString"
+     *        valueDataType="org.eclipse.emf.ecore.xml.type.Base64Binary"
+     * @generated
+     */
+    EClass getScreenshotsMap();
+
+    /**
+     * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Key</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Key</em>'.
+     * @see java.util.Map.Entry
+     * @see #getScreenshotsMap()
+     * @generated
+     */
+    EAttribute getScreenshotsMap_Key();
+
+    /**
+     * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Value</em>'.
+     * @see java.util.Map.Entry
+     * @see #getScreenshotsMap()
+     * @generated
+     */
+    EAttribute getScreenshotsMap_Value();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -4233,6 +4324,14 @@ public interface TalendFilePackage extends EPackage {
         EAttribute PROCESS_TYPE__SCREENSHOT = eINSTANCE.getProcessType_Screenshot();
 
         /**
+         * The meta object literal for the '<em><b>Screenshots</b></em>' map feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PROCESS_TYPE__SCREENSHOTS = eINSTANCE.getProcessType_Screenshots();
+
+        /**
          * The meta object literal for the '<em><b>Routines Dependencies</b></em>' containment reference list feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -4427,6 +4526,32 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EReference NODE_CONTAINER_TYPE__ELEMENT_PARAMETER = eINSTANCE.getNodeContainerType_ElementParameter();
+
+        /**
+         * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ScreenshotsMapImpl <em>Screenshots Map</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.core.model.utils.emf.talendfile.impl.ScreenshotsMapImpl
+         * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getScreenshotsMap()
+         * @generated
+         */
+        EClass SCREENSHOTS_MAP = eINSTANCE.getScreenshotsMap();
+
+        /**
+         * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SCREENSHOTS_MAP__KEY = eINSTANCE.getScreenshotsMap_Key();
+
+        /**
+         * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SCREENSHOTS_MAP__VALUE = eINSTANCE.getScreenshotsMap_Value();
 
     }
 

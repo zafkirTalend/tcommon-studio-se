@@ -5,6 +5,7 @@
  */
 package org.talend.designer.core.model.utils.emf.talendfile.impl;
 
+import java.util.Map;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
@@ -181,6 +182,13 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * @generated
      */
     private EClass nodeContainerTypeEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass screenshotsMapEClass = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with {@link org.eclipse.emf.ecore.EPackage.Registry
@@ -1232,11 +1240,20 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getProcessType_Screenshots() {
+        return (EReference)processTypeEClass.getEStructuralFeatures().get(18);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getProcessType_RoutinesDependencies() {
-        return (EReference)processTypeEClass.getEStructuralFeatures().get(18);
+        return (EReference)processTypeEClass.getEStructuralFeatures().get(19);
     }
 
     /**
@@ -1418,6 +1435,33 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getScreenshotsMap() {
+        return screenshotsMapEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getScreenshotsMap_Key() {
+        return (EAttribute)screenshotsMapEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getScreenshotsMap_Value() {
+        return (EAttribute)screenshotsMapEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1590,6 +1634,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         createEAttribute(processTypeEClass, PROCESS_TYPE__VERSION);
         createEReference(processTypeEClass, PROCESS_TYPE__SUBJOB);
         createEAttribute(processTypeEClass, PROCESS_TYPE__SCREENSHOT);
+        createEReference(processTypeEClass, PROCESS_TYPE__SCREENSHOTS);
         createEReference(processTypeEClass, PROCESS_TYPE__ROUTINES_DEPENDENCIES);
 
         requiredTypeEClass = createEClass(REQUIRED_TYPE);
@@ -1610,6 +1655,10 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
 
         nodeContainerTypeEClass = createEClass(NODE_CONTAINER_TYPE);
         createEReference(nodeContainerTypeEClass, NODE_CONTAINER_TYPE__ELEMENT_PARAMETER);
+
+        screenshotsMapEClass = createEClass(SCREENSHOTS_MAP);
+        createEAttribute(screenshotsMapEClass, SCREENSHOTS_MAP__KEY);
+        createEAttribute(screenshotsMapEClass, SCREENSHOTS_MAP__VALUE);
     }
 
     /**
@@ -1787,6 +1836,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         initEAttribute(getProcessType_Version(), theXMLTypePackage.getString(), "version", null, 0, 1, ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProcessType_Subjob(), this.getSubjobType(), null, "subjob", null, 0, -1, ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProcessType_Screenshot(), theXMLTypePackage.getBase64Binary(), "screenshot", null, 0, 1, ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getProcessType_Screenshots(), this.getScreenshotsMap(), null, "screenshots", null, 0, -1, ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProcessType_RoutinesDependencies(), this.getItemInforType(), null, "routinesDependencies", null, 0, -1, ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(requiredTypeEClass, RequiredType.class, "RequiredType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1808,6 +1858,10 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         initEClass(nodeContainerTypeEClass, NodeContainerType.class, "NodeContainerType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getNodeContainerType_ElementParameter(), this.getElementParameterType(), null, "elementParameter", null, 1, -1, NodeContainerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+        initEClass(screenshotsMapEClass, Map.Entry.class, "ScreenshotsMap", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getScreenshotsMap_Key(), ecorePackage.getEString(), "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getScreenshotsMap_Value(), theXMLTypePackage.getBase64Binary(), "value", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
         // Create resource
         createResource(eNS_URI);
 
@@ -1816,6 +1870,8 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         createExtendedMetaDataAnnotations();
         // ExtendedMetaData
         createExtendedMetaData_1Annotations();
+        // MapEntry
+        createMapEntryAnnotations();
     }
 
     /**
@@ -2849,7 +2905,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "ElementParameter",
              "namespace", "##targetNamespace"
-           });
+           });	
     }
 
     /**
@@ -2866,7 +2922,22 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "ElementParameterType",
              "namespace", "##targetNamespace"
-           });																									
+           });																										
+    }
+
+    /**
+     * Initializes the annotations for <b>MapEntry</b>.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void createMapEntryAnnotations() {
+        String source = "MapEntry";																																																																																																																																						
+        addAnnotation
+          (screenshotsMapEClass, 
+           source, 
+           new String[] {
+           });
     }
 
 } // TalendFilePackageImpl

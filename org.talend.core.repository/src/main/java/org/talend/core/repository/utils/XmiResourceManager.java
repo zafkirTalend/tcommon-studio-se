@@ -43,7 +43,9 @@ import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobDocumentationItem;
 import org.talend.core.model.properties.JobletDocumentationItem;
+import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
+import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
@@ -53,6 +55,9 @@ import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.repository.utils.ResourceFilenameHelper.FileName;
+import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
+import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
+import org.talend.designer.core.model.utils.emf.talendfile.impl.ScreenshotsMapImpl;
 import org.talend.repository.ProjectManager;
 
 /**
@@ -108,6 +113,12 @@ public class XmiResourceManager {
         IPath path = URIHelper.convert(uri);
         IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
         return file.exists();
+    }
+
+    public void loadScreenshots(Property property, ProcessType processType) {
+        Resource screenshotResource = getScreenshotResource(property.getItem());
+        processType.getScreenshots().addAll(screenshotResource.getContents());
+
     }
 
     public Property loadProperty(IResource iResource) {
@@ -190,6 +201,15 @@ public class XmiResourceManager {
         return itemResource;
     }
 
+    public Resource createScreenshotResource(IProject project, Item item, IPath path, ERepositoryObjectType repositoryObjectType,
+            boolean byteArrayResource) throws PersistenceException {
+        URI itemResourceURI = getScreenshotResourceURI(project, repositoryObjectType, path, item);
+
+        Resource itemResource = createItemResource(byteArrayResource, itemResourceURI);
+
+        return itemResource;
+    }
+
     // MOD mzhao 2010-11-22, suppport TDQ item file extensions.(.ana, .rep, etc)
     public Resource createItemResourceWithExtension(IProject project, Item item, IPath path,
             ERepositoryObjectType repositoryObjectType, boolean byteArrayResource, String fileExtension)
@@ -243,6 +263,21 @@ public class XmiResourceManager {
         return itemResource;
     }
 
+    public Resource getScreenshotResource(Item item) {
+        URI itemResourceURI = null;
+        itemResourceURI = getScreenshotResourceURI(getItemURI(item));
+        Resource itemResource = resourceSet.getResource(itemResourceURI, true);
+        // if (itemResource == null) {
+        // if (item instanceof FileItem) {
+        // itemResource = new ByteArrayResource(itemResourceURI);
+        // resourceSet.getResources().add(itemResource);
+        // }
+        // itemResource = resourceSet.getResource(itemResourceURI, true);
+        // }
+
+        return itemResource;
+    }
+
     private URI getItemURI(Item item) {
         ProjectManager pManager = ProjectManager.getInstance();
         org.talend.core.model.general.Project project = new org.talend.core.model.general.Project(pManager.getProject(item));
@@ -277,6 +312,17 @@ public class XmiResourceManager {
         }
         return item.getProperty().eResource().getURI();
     }
+
+    // public List<Resource> getAffectedResources(Property property, boolean needScreenshot) {
+    // List<Resource> resources = getAffectedResources(property);
+    // if (needScreenshot) {
+    // Resource screenshotResource = getScreenshotResource(property.getItem());
+    // if (screenshotResource != null) {
+    // resources.add(screenshotResource);
+    // }
+    // }
+    // return resources;
+    // }
 
     public List<Resource> getAffectedResources(Property property) {
         List<Resource> resources = new ArrayList<Resource>();
@@ -330,6 +376,13 @@ public class XmiResourceManager {
                 }
             }
         }
+        if (property.getItem() instanceof ProcessItem || property.getItem() instanceof JobletProcessItem) {
+            Resource screenshotResource = getScreenshotResource(property.getItem());
+            if (screenshotResource != null) {
+                resources.add(screenshotResource);
+            }
+        }
+
         return resources;
     }
 
@@ -355,12 +408,29 @@ public class XmiResourceManager {
         return itemResourceURI.trimFileExtension().appendFileExtension(FileConstants.PROPERTIES_EXTENSION);
     }
 
+    private URI getScreenshotResourceURI(URI itemResourceURI) {
+        // return itemResourceURI.trimFileExtension().appendFileExtension(FileConstants.PROPERTIES_EXTENSION);
+        return itemResourceURI.trimFileExtension().appendFileExtension(FileConstants.SCREENSHOT_EXTENSION);
+    }
+
     // MOD mzhao 2010-11-22, suppport TDQ item file extensions.(.ana, .rep, etc)
     private URI getItemResourceURI(IProject project, ERepositoryObjectType repositoryObjectType, IPath path, Item item,
             String... fileExtension) throws PersistenceException {
         IPath folderPath = getFolderPath(project, repositoryObjectType, path);
         FileName fileName = ResourceFilenameHelper.create(item.getProperty());
         IPath resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, FileConstants.ITEM_EXTENSION);
+        if (fileExtension != null && fileExtension.length > 0) {
+            resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, fileExtension[0]);
+        }
+        return URIHelper.convert(resourcePath);
+    }
+
+    // added by dlin 2011-7-14 to create the uri of file of .screenshot
+    private URI getScreenshotResourceURI(IProject project, ERepositoryObjectType repositoryObjectType, IPath path, Item item,
+            String... fileExtension) throws PersistenceException {
+        IPath folderPath = getFolderPath(project, repositoryObjectType, path);
+        FileName fileName = ResourceFilenameHelper.create(item.getProperty());
+        IPath resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, FileConstants.SCREENSHOT_EXTENSION);
         if (fileExtension != null && fileExtension.length > 0) {
             resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, fileExtension[0]);
         }

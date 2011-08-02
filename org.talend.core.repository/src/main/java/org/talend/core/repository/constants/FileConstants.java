@@ -22,6 +22,8 @@ public class FileConstants {
 
     public static final String ITEM_EXTENSION = "item"; //$NON-NLS-1$
 
+    public static final String SCREENSHOT_EXTENSION = "screenshot"; //$NON-NLS-1$
+
     // MOD mzhao 2010-11-22, suppport TDQ item file extensions.(.ana, .rep, etc)
     public static final String ANA_EXTENSION = "ana"; //$NON-NLS-1$
 

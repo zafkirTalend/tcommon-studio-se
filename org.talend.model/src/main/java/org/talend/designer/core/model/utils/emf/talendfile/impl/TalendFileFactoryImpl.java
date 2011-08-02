@@ -6,6 +6,7 @@
  */
 package org.talend.designer.core.model.utils.emf.talendfile.impl;
 
+import java.util.Map;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -95,6 +96,7 @@ public class TalendFileFactoryImpl extends EFactoryImpl implements TalendFileFac
             case TalendFilePackage.ITEM_INFOR_TYPE: return createItemInforType();
             case TalendFilePackage.ROUTINES_PARAMETER_TYPE: return createRoutinesParameterType();
             case TalendFilePackage.NODE_CONTAINER_TYPE: return createNodeContainerType();
+            case TalendFilePackage.SCREENSHOTS_MAP: return (EObject)createScreenshotsMap();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -318,6 +320,16 @@ public class TalendFileFactoryImpl extends EFactoryImpl implements TalendFileFac
     public NodeContainerType createNodeContainerType() {
         NodeContainerTypeImpl nodeContainerType = new NodeContainerTypeImpl();
         return nodeContainerType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Map.Entry createScreenshotsMap() {
+        ScreenshotsMapImpl screenshotsMap = new ScreenshotsMapImpl();
+        return screenshotsMap;
     }
 
     /**

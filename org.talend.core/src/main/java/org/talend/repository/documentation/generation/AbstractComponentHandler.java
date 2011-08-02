@@ -35,6 +35,11 @@ import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.ElementParameterParser;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
+import org.talend.core.model.process.IProcess2;
+import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.JobletProcessItem;
+import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.ui.IJobletProviderService;
 import org.talend.core.ui.images.CoreImageProvider;
 
@@ -121,8 +126,26 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
         // If component is external node component, gets its preview picture.
         if (isExternalNodeComponent) {
             previewImagePath = node.getUniqueName() + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX;
+            Object obj = node.getProcess();
+            boolean hasScreenshots = false;
+            if (obj instanceof IProcess2) {
+                IProcess2 process = (IProcess2) obj;
+                Item item = process.getProperty().getItem();
+                if (item instanceof ProcessItem) {
+                    ProcessItem processItem = (ProcessItem) item;
+                    if (processItem.getProcess().getScreenshots().get(uniqueName) != null) {
+                        hasScreenshots = true;
+                    }
+                } else if (item instanceof JobletProcessItem) {
+                    JobletProcessItem jobletItem = (JobletProcessItem) item;
+                    if (jobletItem.getJobletProcess().getScreenshots().get(uniqueName) != null) {
+                        hasScreenshots = true;
+                    }
+                }
+            }
+
             if (!previewImagePath.equals("")) { //$NON-NLS-1$
-                if (node.getExternalNode().getScreenshot() != null) {
+                if (hasScreenshots) {
                     componentElement
                             .addAttribute(
                                     "preview", IHTMLDocConstants.PICTUREFOLDERPATH + IHTMLDocConstants.EXTERNAL_NODE_PREVIEW + previewImagePath); //$NON-NLS-1$

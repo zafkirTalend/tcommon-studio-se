@@ -8,6 +8,7 @@ package org.talend.designer.core.model.utils.emf.talendfile.util;
 
 import java.util.List;
 
+import java.util.Map;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.designer.core.model.utils.emf.talendfile.*;
@@ -237,6 +238,12 @@ public class TalendFileSwitch {
             case TalendFilePackage.NODE_CONTAINER_TYPE: {
                 NodeContainerType nodeContainerType = (NodeContainerType)theEObject;
                 Object result = caseNodeContainerType(nodeContainerType);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case TalendFilePackage.SCREENSHOTS_MAP: {
+                Map.Entry screenshotsMap = (Map.Entry)theEObject;
+                Object result = caseScreenshotsMap(screenshotsMap);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -586,6 +593,21 @@ public class TalendFileSwitch {
      * @generated
      */
     public Object caseNodeContainerType(NodeContainerType object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Screenshots Map</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Screenshots Map</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseScreenshotsMap(Map.Entry object) {
         return null;
     }
 

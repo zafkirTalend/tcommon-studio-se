@@ -11,11 +11,14 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.designer.core.model.utils.emf.talendfile.ConnectionType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
@@ -52,6 +55,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getVersion <em>Version</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getSubjob <em>Subjob</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getScreenshot <em>Screenshot</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getScreenshots <em>Screenshots</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getRoutinesDependencies <em>Routines Dependencies</em>}</li>
  * </ul>
  * </p>
@@ -341,6 +345,16 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected byte[] screenshot = SCREENSHOT_EDEFAULT;
 
     /**
+     * The cached value of the '{@link #getScreenshots() <em>Screenshots</em>}' map.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getScreenshots()
+     * @generated
+     * @ordered
+     */
+    protected EMap screenshots;
+
+    /**
      * The cached value of the '{@link #getRoutinesDependencies() <em>Routines Dependencies</em>}' containment reference list.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getRoutinesDependencies()
@@ -542,6 +556,18 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
         screenshot = newScreenshot;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__SCREENSHOT, oldScreenshot, screenshot));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EMap getScreenshots() {
+        if (screenshots == null) {
+            screenshots = new EcoreEMap(TalendFilePackage.Literals.SCREENSHOTS_MAP, ScreenshotsMapImpl.class, this, TalendFilePackage.PROCESS_TYPE__SCREENSHOTS);
+        }
+        return screenshots;
     }
 
     /**
@@ -769,6 +795,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
                 return basicSetLogs(null, msgs);
             case TalendFilePackage.PROCESS_TYPE__SUBJOB:
                 return ((InternalEList)getSubjob()).basicRemove(otherEnd, msgs);
+            case TalendFilePackage.PROCESS_TYPE__SCREENSHOTS:
+                return ((InternalEList)getScreenshots()).basicRemove(otherEnd, msgs);
             case TalendFilePackage.PROCESS_TYPE__ROUTINES_DEPENDENCIES:
                 return ((InternalEList)getRoutinesDependencies()).basicRemove(otherEnd, msgs);
         }
@@ -817,6 +845,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
                 return getSubjob();
             case TalendFilePackage.PROCESS_TYPE__SCREENSHOT:
                 return getScreenshot();
+            case TalendFilePackage.PROCESS_TYPE__SCREENSHOTS:
+                if (coreType) return getScreenshots();
+                else return getScreenshots().map();
             case TalendFilePackage.PROCESS_TYPE__ROUTINES_DEPENDENCIES:
                 return getRoutinesDependencies();
         }
@@ -888,6 +919,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
             case TalendFilePackage.PROCESS_TYPE__SCREENSHOT:
                 setScreenshot((byte[])newValue);
                 return;
+            case TalendFilePackage.PROCESS_TYPE__SCREENSHOTS:
+                ((EStructuralFeature.Setting)getScreenshots()).set(newValue);
+                return;
             case TalendFilePackage.PROCESS_TYPE__ROUTINES_DEPENDENCIES:
                 getRoutinesDependencies().clear();
                 getRoutinesDependencies().addAll((Collection)newValue);
@@ -956,6 +990,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
             case TalendFilePackage.PROCESS_TYPE__SCREENSHOT:
                 setScreenshot(SCREENSHOT_EDEFAULT);
                 return;
+            case TalendFilePackage.PROCESS_TYPE__SCREENSHOTS:
+                getScreenshots().clear();
+                return;
             case TalendFilePackage.PROCESS_TYPE__ROUTINES_DEPENDENCIES:
                 getRoutinesDependencies().clear();
                 return;
@@ -1005,6 +1042,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
                 return subjob != null && !subjob.isEmpty();
             case TalendFilePackage.PROCESS_TYPE__SCREENSHOT:
                 return SCREENSHOT_EDEFAULT == null ? screenshot != null : !SCREENSHOT_EDEFAULT.equals(screenshot);
+            case TalendFilePackage.PROCESS_TYPE__SCREENSHOTS:
+                return screenshots != null && !screenshots.isEmpty();
             case TalendFilePackage.PROCESS_TYPE__ROUTINES_DEPENDENCIES:
                 return routinesDependencies != null && !routinesDependencies.isEmpty();
         }

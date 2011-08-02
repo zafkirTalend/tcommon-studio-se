@@ -40,6 +40,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -1570,6 +1571,18 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return itemResource;
     }
 
+    private Resource createScreenshotResource(IProject project, Item item, IPath path, ERepositoryObjectType type)
+            throws PersistenceException {
+        Resource itemResource = xmiResourceManager.createScreenshotResource(project, item, path, type, false);
+        if (item instanceof ProcessItem) {
+            itemResource.getContents().addAll(((ProcessItem) item).getProcess().getScreenshots());
+        } else if (item instanceof JobletProcessItem) {
+            itemResource.getContents().addAll(((JobletProcessItem) item).getJobletProcess().getScreenshots());
+        }
+
+        return itemResource;
+    }
+
     private Resource create(IProject project, JobletProcessItem item, IPath path, ERepositoryObjectType type)
             throws PersistenceException {
         Resource itemResource = xmiResourceManager.createItemResource(project, item, path, type, false);
@@ -1613,16 +1626,30 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return itemResource;
     }
 
-    private Resource save(ProcessItem item) {
-        Resource itemResource = xmiResourceManager.getItemResource(item);
+    private Resource saveScreenshots(Item item) {
+        Resource itemResource = xmiResourceManager.getScreenshotResource(item);
+        itemResource.getContents().clear();
+        EMap screenshots = null;
+        if (item instanceof ProcessItem) {
+            screenshots = ((ProcessItem) item).getProcess().getScreenshots();
+            itemResource.getContents().addAll(screenshots);
+        } else if (item instanceof JobletProcessItem) {
+            screenshots = ((JobletProcessItem) item).getJobletProcess().getScreenshots();
+            itemResource.getContents().addAll(screenshots);
+        }
+        return itemResource;
+    }
 
+    private Resource save(ProcessItem item) {
+        item.getProcess().setScreenshot(null);
+        Resource itemResource = xmiResourceManager.getItemResource(item);
         itemResource.getContents().clear();
         itemResource.getContents().add(item.getProcess());
-
         return itemResource;
     }
 
     private Resource save(JobletProcessItem item) {
+        item.getJobletProcess().setScreenshot(null);
         Resource itemResource = xmiResourceManager.getItemResource(item);
 
         itemResource.getContents().clear();
@@ -1666,10 +1693,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     public void save(Project project, Item item) throws PersistenceException {
         computePropertyMaxInformationLevel(item.getProperty());
-
         item.getProperty().setModificationDate(new Date());
         Resource itemResource = null;
+        Resource screenshotResource = null;
         EClass eClass = item.eClass();
+        boolean screenshotFlag = false;
         if (eClass.eContainer() == PropertiesPackage.eINSTANCE) {
             switch (eClass.getClassifierID()) {
 
@@ -1718,10 +1746,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 itemResource = save((FileItem) item);
                 break;
             case PropertiesPackage.PROCESS_ITEM:
+                screenshotResource = saveScreenshots(item);
                 itemResource = save((ProcessItem) item);
+                screenshotFlag = true;
                 break;
             case PropertiesPackage.JOBLET_PROCESS_ITEM:
+                screenshotResource = saveScreenshots(item);
                 itemResource = save((JobletProcessItem) item);
+                screenshotFlag = true;
                 break;
             case PropertiesPackage.CONTEXT_ITEM:
                 itemResource = save((ContextItem) item);
@@ -1775,6 +1807,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         if (item.eResource() != null && itemResource != null) {
             xmiResourceManager.saveResource(item.eResource());
             xmiResourceManager.saveResource(itemResource);
+            if (screenshotFlag) {
+                xmiResourceManager.saveResource(screenshotResource);
+            }
         }
     }
 
@@ -1864,6 +1899,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         item.setState(itemState);
         IProject project2 = ResourceModelUtils.getProject(project);
         Resource itemResource = null;
+        Resource screenshotsResource = null;
         EClass eClass = item.eClass();
         if (eClass.eContainer() == PropertiesPackage.eINSTANCE) {
             switch (eClass.getClassifierID()) {
@@ -1952,9 +1988,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 break;
             case PropertiesPackage.PROCESS_ITEM:
                 itemResource = create(project2, (ProcessItem) item, path, ERepositoryObjectType.PROCESS);
+                screenshotsResource = createScreenshotResource(project2, (ProcessItem) item, path, ERepositoryObjectType.PROCESS);
                 break;
             case PropertiesPackage.JOBLET_PROCESS_ITEM:
                 itemResource = create(project2, (JobletProcessItem) item, path, ERepositoryObjectType.JOBLET);
+                screenshotsResource = createScreenshotResource(project2, (JobletProcessItem) item, path,
+                        ERepositoryObjectType.JOBLET);
                 break;
             case PropertiesPackage.CONTEXT_ITEM:
                 itemResource = create(project2, (ContextItem) item, path);
@@ -2017,7 +2056,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         if (add) {
             item.setParent(parentFolderItem);
         }
-
+        xmiResourceManager.saveResource(screenshotsResource);
         xmiResourceManager.saveResource(itemResource);
         xmiResourceManager.saveResource(propertyResource);
 

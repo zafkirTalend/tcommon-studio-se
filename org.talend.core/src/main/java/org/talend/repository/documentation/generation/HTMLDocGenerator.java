@@ -235,10 +235,10 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
             ProcessType processType = null;
             if (resource.getItem() instanceof ProcessItem) {
                 processType = ((ProcessItem) resource.getItem()).getProcess();
-                innerContent = processType.getScreenshot();
+                innerContent = (byte[]) processType.getScreenshots().get("process");
             } else if (resource.getItem() instanceof JobletProcessItem) {
                 processType = ((JobletProcessItem) resource.getItem()).getJobletProcess();
-                innerContent = processType.getScreenshot();
+                innerContent = (byte[]) processType.getScreenshots().get("process");
             }
 
             if (innerContent != null) {
@@ -248,17 +248,18 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                 picList.add(new File(picFolderPath + File.separatorChar + picName).toURL());
             }
             for (NodeType node : (List<NodeType>) processType.getNode()) {
-                if (node.getScreenshot() != null && node.getScreenshot().length != 0) {
-                    byte[] screenshot = node.getScreenshot();
-                    ImageDescriptor imagedesc = ImageUtils.createImageFromData(screenshot);
-                    String uniqueName = ""; //$NON-NLS-1$
-                    for (Object o : node.getElementParameter()) {
-                        if (o instanceof ElementParameterType) {
-                            if ("UNIQUE_NAME".equals(((ElementParameterType) o).getName())) { //$NON-NLS-1$
-                                uniqueName = ((ElementParameterType) o).getValue();
-                            }
+                String uniqueName = ""; //$NON-NLS-1$
+                for (Object o : node.getElementParameter()) {
+                    if (o instanceof ElementParameterType) {
+                        if ("UNIQUE_NAME".equals(((ElementParameterType) o).getName())) { //$NON-NLS-1$
+                            uniqueName = ((ElementParameterType) o).getValue();
+                            break;
                         }
                     }
+                }
+                byte[] screenshot = (byte[]) processType.getScreenshots().get(uniqueName);
+                if (screenshot != null && screenshot.length != 0) {
+                    ImageDescriptor imagedesc = ImageUtils.createImageFromData(screenshot);
                     String picName = IHTMLDocConstants.EXTERNAL_NODE_PREVIEW + uniqueName
                             + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX;
                     ImageUtils.save(imagedesc.createImage(), picFolderPath + File.separatorChar + picName, SWT.IMAGE_PNG);
@@ -429,10 +430,11 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         ProcessType processType = null;
         if (resource.getItem() instanceof ProcessItem) {
             processType = ((ProcessItem) resource.getItem()).getProcess();
-            innerContent = processType.getScreenshot();
+            innerContent = (byte[]) processType.getScreenshots().get("process");
         } else if (resource.getItem() instanceof JobletProcessItem) {
             processType = ((JobletProcessItem) resource.getItem()).getJobletProcess();
-            innerContent = processType.getScreenshot();
+            innerContent = (byte[]) processType.getScreenshots().get("process");
+            ;
         }
 
         if (innerContent != null) {
@@ -451,16 +453,17 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
             pdfImage.dispose();
         }
         for (NodeType node : (List<NodeType>) processType.getNode()) {
-            if (node.getScreenshot() != null && node.getScreenshot().length != 0) {
-                byte[] screenshot = node.getScreenshot();
-                String uniqueName = ""; //$NON-NLS-1$
-                for (Object o : node.getElementParameter()) {
-                    if (o instanceof ElementParameterType) {
-                        if ("UNIQUE_NAME".equals(((ElementParameterType) o).getName())) { //$NON-NLS-1$
-                            uniqueName = ((ElementParameterType) o).getValue();
-                        }
+            String uniqueName = ""; //$NON-NLS-1$
+            for (Object o : node.getElementParameter()) {
+                if (o instanceof ElementParameterType) {
+                    if ("UNIQUE_NAME".equals(((ElementParameterType) o).getName())) { //$NON-NLS-1$
+                        uniqueName = ((ElementParameterType) o).getValue();
+                        break;
                     }
                 }
+            }
+            byte[] screenshot = (byte[]) processType.getScreenshots().get(uniqueName);
+            if (screenshot != null && screenshot.length != 0) {
                 String picName = IHTMLDocConstants.EXTERNAL_NODE_PREVIEW + uniqueName + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX;
                 ImageUtils.save(screenshot, picFolderPath + File.separatorChar + picName, SWT.IMAGE_PNG);
                 picList.add(new File(picFolderPath + File.separatorChar + picName).toURL());
