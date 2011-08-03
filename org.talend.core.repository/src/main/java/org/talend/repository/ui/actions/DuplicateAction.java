@@ -48,10 +48,12 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IESBRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.model.repository.RepositoryManager;
+import org.talend.core.model.repository.RepositoryServiceManager;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.utils.KeywordsValidator;
@@ -271,7 +273,10 @@ public class DuplicateAction extends AContextualAction {
         List<ERepositoryObjectType> arraysList = Arrays.asList(types);
         List<ERepositoryObjectType> typeList = new ArrayList<ERepositoryObjectType>();
         addExtensionRepositoryNodes(typeList);
+        List<ERepositoryObjectType> servicesList = new ArrayList<ERepositoryObjectType>();
+        addServicesRepositoryNodes(servicesList);
         typeList.addAll(arraysList);
+        typeList.addAll(servicesList);
         if (typeList.contains(itemType)) {
             return KeywordsValidator.isKeyword(itemName);
         }
@@ -282,6 +287,21 @@ public class DuplicateAction extends AContextualAction {
         IExtensionRegistry registry = Platform.getExtensionRegistry();
         IConfigurationElement[] configurationElements = registry
                 .getConfigurationElementsFor("org.talend.core.repository.repository_node_provider");
+        for (int i = 0; i < configurationElements.length; i++) {
+            IConfigurationElement element = configurationElements[i];
+            String type = element.getAttribute("type");
+            ERepositoryObjectType repositoryNodeType = (ERepositoryObjectType) ERepositoryObjectType.valueOf(
+                    ERepositoryObjectType.class, type);
+            if (repositoryNodeType != null) {
+                arraysList.add(repositoryNodeType);
+            }
+        }
+    }
+
+    private void addServicesRepositoryNodes(List<ERepositoryObjectType> arraysList) {
+        IExtensionRegistry registry = Platform.getExtensionRegistry();
+        IConfigurationElement[] configurationElements = registry
+                .getConfigurationElementsFor("org.talend.core.repository.service_repository_node");
         for (int i = 0; i < configurationElements.length; i++) {
             IConfigurationElement element = configurationElements[i];
             String type = element.getAttribute("type");
@@ -359,6 +379,13 @@ public class DuplicateAction extends AContextualAction {
                 }
 
                 for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+                    item = handler.createNewItem(repositoryType);
+                    if (item != null) {
+                        break;
+                    }
+                }
+
+                for (IESBRepositoryContentHandler handler : RepositoryServiceManager.getHandlers()) {
                     item = handler.createNewItem(repositoryType);
                     if (item != null) {
                         break;

@@ -115,10 +115,12 @@ import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.ValidationRulesConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
+import org.talend.core.model.repository.IESBRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.model.repository.RepositoryObject;
+import org.talend.core.model.repository.RepositoryServiceManager;
 import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.repository.model.AbstractEMFRepositoryFactory;
@@ -1796,6 +1798,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         break;
                     }
                 }
+
+                for (IESBRepositoryContentHandler handler : RepositoryServiceManager.getHandlers()) {
+                    itemResource = handler.save(item);
+                    if (itemResource != null) {
+                        break;
+                    }
+                }
                 if (itemResource == null) {
                     throw new UnsupportedOperationException();
                 }
@@ -2032,6 +2041,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 }
             } else {
                 for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+                    itemResource = handler.create(project2, item, eClass.getClassifierID(), path);
+                    if (itemResource != null) {
+                        break;
+                    }
+                }
+
+                for (IESBRepositoryContentHandler handler : RepositoryServiceManager.getHandlers()) {
                     itemResource = handler.create(project2, item, eClass.getClassifierID(), path);
                     if (itemResource != null) {
                         break;
