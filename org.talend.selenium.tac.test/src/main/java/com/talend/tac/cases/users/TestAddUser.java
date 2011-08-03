@@ -119,9 +119,11 @@ public class TestAddUser extends Login {
 	    selenium.click("idValidateButton");
 	    selenium.setSpeed(MID_SPEED);
         Assert.assertEquals(selenium.getValue("idActiveInput"), roles);
+        selenium.setSpeed(MIN_SPEED);	
         selenium.click("idFormSaveButton");
-        Assert.assertTrue(selenium.isTextPresent(userName));
-        selenium.setSpeed(MIN_SPEED);
+        this.waitForElementPresent("//div[text()='"+userName+"']", WAIT_TIME);
+        Assert.assertTrue(selenium.isElementPresent("//div[text()='"+userName+"']"));
+       
 	}
     
    
@@ -160,8 +162,9 @@ public class TestAddUser extends Login {
 
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("idFormSaveButton");
-		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+LoginNameChooseAdministratorRole+"']"));
 		selenium.setSpeed(MIN_SPEED);
+		this.waitForElementPresent("//div[text()='"+LoginNameChooseAdministratorRole+"']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+LoginNameChooseAdministratorRole+"']"));
 			
 
 	}
@@ -182,11 +185,12 @@ public class TestAddUser extends Login {
 		"/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
 		selenium.controlKeyUp();
 		selenium.click("idValidateButton");
-         
+		selenium.setSpeed(MID_SPEED); 
 		selenium.click("idFormSaveButton");
-		selenium.setSpeed(MID_SPEED);
+		selenium.setSpeed(MIN_SPEED);
+		this.waitForElementPresent("//div[text()='"+LoginNameChooseMulripleRoles+"']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+LoginNameChooseMulripleRoles+"']"));    
-        selenium.setSpeed(MIN_SPEED);
+        
         
 	}
 	
@@ -207,12 +211,13 @@ public class TestAddUser extends Login {
 
 		selenium.click("//input[@name='active']");
 		Assert.assertFalse(selenium.isChecked("//input[@name='active']"));
-
-		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MID_SPEED);
-		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+LoginNameNotChooseActive1+"']"));
+		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MIN_SPEED);
-
+		
+		this.waitForElementPresent("//div[text()='"+LoginNameNotChooseActive1+"']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+LoginNameNotChooseActive1+"']"));
+		
     }
 	
 	//add a user of type choose "Data Integration"
@@ -227,12 +232,15 @@ public class TestAddUser extends Login {
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-name' and (text()='"+  rb.getString("menu.role.designer")+"')]");//choose a  role
 		selenium.click("idValidateButton");
 		Assert.assertEquals(selenium.getValue("idActiveInput"), rb.getString("menu.role.designer"));
-		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MID_SPEED);
+		selenium.click("idFormSaveButton");
+		selenium.setSpeed(MIN_SPEED);
+		
+		this.waitForElementPresent("//div[text()='"+LoginName+"']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+LoginName+"']"));
 		Assert.assertTrue(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-userType']" +
 		"/img[@alt='Data Integration']"));
-		selenium.setSpeed(MIN_SPEED);
+		
 	}
 	
 	//add a user of type choose "Data Quality"
@@ -250,12 +258,15 @@ public class TestAddUser extends Login {
     				+  rb.getString("menu.role.operationManager")+"')]");//choose a  role
     		selenium.click("idValidateButton");
     		Assert.assertEquals(selenium.getValue("idActiveInput"), rb.getString("menu.role.operationManager"));
-    		selenium.click("idFormSaveButton");
     		selenium.setSpeed(MID_SPEED);
+    		selenium.click("idFormSaveButton");
+    		selenium.setSpeed(MIN_SPEED);
+    		
+    		this.waitForElementPresent("//div[text()='"+LoginName+"']", WAIT_TIME);
     		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+LoginName+"']"));
     		Assert.assertTrue(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-userType']" +
     				"/img[@alt='Data Quality']"));
-    		selenium.setSpeed(MIN_SPEED);
+    		
         	
         }
 		
@@ -290,12 +301,15 @@ public class TestAddUser extends Login {
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-name' and (text()='"+  rb.getString("menu.role.designer")+"')]");//choose a  role
 		selenium.click("idValidateButton");
 		Assert.assertEquals(selenium.getValue("idActiveInput"), rb.getString("menu.role.designer"));
-		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MID_SPEED);
+		selenium.click("idFormSaveButton");
+		selenium.setSpeed(MIN_SPEED);
+		
+		this.waitForElementPresent("//div[text()='"+LoginName+"']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+LoginName+"']"));
 		Assert.assertTrue(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-userType']" +
 		"/img[@alt='Data Integration']"));
-		selenium.setSpeed(MIN_SPEED);
+		
 	}
 	
 }
