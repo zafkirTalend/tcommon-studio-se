@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.core;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.eclipse.ui.IViewPart;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
@@ -37,5 +40,6 @@ public interface ITDQRepositoryService extends IService {
     public void addPartListener();
     //MOD klliu 2011-04-28 bug 20204 removing connection is synced to the connection view of SQL explore 
     public boolean removeAliasInSQLExplorer(IRepositoryNode children);
+    public void createParserRuleItem(ArrayList<HashMap<String, Object>> values, String parserRuleName);
 
 }
