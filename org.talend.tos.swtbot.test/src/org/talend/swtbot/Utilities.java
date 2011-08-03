@@ -1802,7 +1802,7 @@ public class Utilities {
     public static void dndPaletteToolOntoJob(SWTGefBot gefBot, SWTBotGefEditor jobEditor, String toolLabel, Point locationOnJob) {
         // jobEditor.activateTool(toolLabel).click(locationOnJob.x, locationOnJob.y);
         gefBot.viewByTitle("Palette").setFocus();
-        gefBot.text(0).setText(toolLabel);
+        gefBot.textWithTooltip("Enter component prefix or template (*, ?)").setText(toolLabel);
         gefBot.toolbarButtonWithTooltip("Search").click();
         gefBot.sleep(500);
 
@@ -1837,5 +1837,7 @@ public class Utilities {
             gefBot.table(0).getTableItem(componentLabel).click();
             gefBot.button("OK").click();
         }
+        if (componentLabel != null && componentLabel.equals("tFileInputPositional"))
+            gefBot.button("OK").click();
     }
 }

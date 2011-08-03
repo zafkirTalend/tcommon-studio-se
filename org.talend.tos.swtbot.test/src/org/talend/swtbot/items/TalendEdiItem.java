@@ -15,9 +15,7 @@ package org.talend.swtbot.items;
 /**
  * DOC fzhong class global comment. Detailled comment
  */
-public class TalendEdiItem {
-
-    private String itemName;
+public class TalendEdiItem extends TalendItem {
 
     private String standard;
 
@@ -31,14 +29,6 @@ public class TalendEdiItem {
         this.standard = standard;
         this.release = release;
         this.schemas = schema;
-    }
-
-    public String getItemName() {
-        return this.itemName;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
     }
 
     public String getStandard() {
