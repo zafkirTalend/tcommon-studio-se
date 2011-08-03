@@ -35,9 +35,9 @@ public class TestSoaManager extends Login {
 		this.typeAndBlur("idSoaOperationNameInput", operationName);
 		this.typeAndBlur("idSoaOperationDescInput", "This is testOperation");
 		// select project
-		this.selectDropDownList("idCommonProjectListBox", projectName);
+		this.selectDropDownList("idTaskProjectListBox", projectName);
 		// select trunk,branches 
-		this.selectDropDownList("idCommonBranchListBox", "trunk");
+		this.selectDropDownList("idTaskBranchListBox", "trunk");
 		
 //		// select job, the job name should be parameterd latter
 //		this.clickWaitForElementPresent("//input[@id='idCommonJobListBox']/following-sibling::div");
@@ -46,12 +46,12 @@ public class TestSoaManager extends Login {
 //		assertTrue(selenium.isElementPresent("//div[@role='listitem'][1]"));
 //		selenium.mouseDown("//div[@role='listitem'][1]");	
 //		assertFalse(selenium.isElementPresent("//div[@role='listitem'][1]"));
-		this.selectDropDownList("idCommonJobListBox", UsedJobName);
+		this.selectDropDownList("idTaskJobListBox", UsedJobName);
 
 		// select version
-		this.selectDropDownList("idCommonVersionListBox", "0.1");
+		this.selectDropDownList("idTaskVersionListBox", "0.1");
 		// select context
-		this.selectDropDownList("idCommonContextListBox", "Default");
+		this.selectDropDownList("idTaskContextListBox", "Default");
 		selenium.click("idSoaOperationSave");
 	}
 	
