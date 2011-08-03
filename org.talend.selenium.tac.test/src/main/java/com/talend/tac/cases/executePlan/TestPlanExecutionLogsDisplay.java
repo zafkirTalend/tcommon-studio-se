@@ -18,7 +18,7 @@ public class TestPlanExecutionLogsDisplay extends Plan {
 		this.sleep(5000);
 		int defaultCounts = Integer.parseInt(selenium.getValue("//div[@class='header-title' and text()='Execution Plan']//ancestor::div[@class=' x-panel-noborder x-panel x-component']//div[@title='Enter the number of items per page']//input"));
 //		selenium.click("//div[@class='header-title' and text()='Execution Plan']//ancestor::div[@class=' x-panel-noborder x-panel x-component']//div[contains(@class,'x-small-editor x-toolbar x-component x-toolbar-layout-ct')]//table[contains(@title,'Go to current time')]");
-		this.typeAndPressEnter("//div[@class='header-title' and text()='Execution Plan']//ancestor::div[@class=' x-panel-noborder x-panel x-component']//div[contains(@class,'x-small-editor x-toolbar x-component x-toolbar-layout-ct')]//input[@class='gwt-TextBox x-component']", "1");
+		this.typeAndPressEnter("//div[@class='header-title' and text()='Execution Plan']//ancestor::div[@class=' x-panel-noborder x-panel x-component']//div[contains(@class,'x-small-editor x-toolbar x-component x-toolbar-layout-ct')]//input[contains(@class,'gwt-TextBox x-component')]", "1");
 		this.sleep(5000);
 		System.out.println("defaultCounts: " +defaultCounts);
 		System.out.println("logs get is: "+selenium.getXpathCount("//img[@class='gwt-Image' and @title='Ok']").intValue());
