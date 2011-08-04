@@ -8,7 +8,12 @@
 	<parameter name="commandline.conf.secondary.port" value="8003" />
 	<parameter name="commandline.conf.secondary.archivePath"
 		value="c:/Talend/CommandLine/exports" />
-
+    
+    <!-- esb -->
+    <parameter name="esb.conf.zookeeperServer" value="127.0.0.1:2181"></parameter>
+    <parameter name="esb.conf.serviceActivityMonitorServer" 
+    value="http://localhost:8080/sam-server-war"/>
+    
 	<!-- Ldap parameters -->
 	<parameter name="LDAP.conf.useLDAPAutentication" value="true" />
 	<parameter name="LDAP.conf.ldapServerIp" value="192.168.0.27" />
