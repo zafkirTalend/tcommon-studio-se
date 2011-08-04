@@ -286,14 +286,18 @@ public class Utilities {
                         getFileFromCurrentPluginSampleFolder(System.getProperty("fileXml.filepath")).getAbsolutePath());
                 gefBot.button("Next >").click();
 
-                gefBot.tableInGroup("Target Schema", 0).click(0, 2);
-                gefBot.text().setText(System.getProperty("filexml.loop"));
+                DndUtil dndUtil = new DndUtil(shell.display);
+                String[] loops = System.getProperty("filexml.loop").split("/");
+                SWTBotTreeItem loop = gefBot.treeInGroup("Source Schema").expandNode(loops[0]);
+                for (int i = 1; i < loops.length; i++) {
+                    loop = loop.expandNode(loops[i]);
+                }
+                SWTBotTable targetItem = gefBot.tableInGroup("Target Schema", 0);
+                dndUtil.dragAndDrop(loop, targetItem);
                 for (int i = 0; i < 3; i++) {
-                    gefBot.buttonWithTooltip("Add").click();
-                    gefBot.tableInGroup("Target Schema", 1).click(i, 2);
-                    gefBot.text().setText("@" + System.getProperty("filexml.schema" + i));
-                    gefBot.tableInGroup("Target Schema", 1).click(i, 3);
-                    gefBot.text().setText(System.getProperty("filexml.schema" + i));
+                    SWTBotTreeItem schema = loop.getNode("@" + System.getProperty("filexml.schema" + i));
+                    targetItem = gefBot.tableInGroup("Target Schema", 1);
+                    dndUtil.dragAndDrop(schema, targetItem);
                 }
                 break;
             default:
