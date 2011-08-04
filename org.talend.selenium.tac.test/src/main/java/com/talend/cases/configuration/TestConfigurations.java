@@ -27,17 +27,21 @@ public class TestConfigurations extends Login {
 		
 	}
 	/**
-	 * assertions,check the value in input tag is as expected.
+	 * assertions,check the value in input tag is as expected,and check the status icon.
 	 * @param locatorOfEditButton
 	 * @param locatorOfInput	
 	 * @param value
 	 */
-	public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value,String statusIconLocator){
+		public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value,String statusIconLocator){
+		this.AssertEqualsInConfigurationMenu(locatorOfEditButton, locatorOfInput, value);
+		this.waitForElementPresent(statusIconLocator, WAIT_TIME);//wait and check the icon status.
+	}
+	public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){
 		this.clickWaitForElementPresent(locatorOfEditButton);//click the edit button to make the input tag shown.
 		this.waitForElementPresent(locatorOfInput, Base.WAIT_TIME);
 		assertEquals(selenium.getValue(locatorOfInput), value);
-		this.waitForElementPresent(statusIconLocator, WAIT_TIME);//wait and check the icon status.
 	}
+	
   @Test
   @Parameters ({"commandline.conf.primary.host","commandline.conf.primary.port","commandline.conf.primary.archivePath"})
   public void testSetCommandlinePrimary(String commandlineHost,String commandlinePort,String commandlinePath) {
@@ -137,10 +141,11 @@ public class TestConfigurations extends Login {
 	  this.typeWordsInConfigurationMenu(other.getString("soaManager.conf.serverAddress.editButton"), other.getString("commandline.conf.all.input"), soaMangerHost);
 	  this.typeWordsInConfigurationMenu(other.getString("soaManager.conf.serverPort.editButton"), other.getString("commandline.conf.all.input"), soaMangerProt);
 		
-	  this.AssertEqualsInConfigurationMenu(other.getString("soaManager.conf.jobsDeployPath.editButton"), other.getString("commandline.conf.all.input"), soaJobDeployedPath);
-	  this.AssertEqualsInConfigurationMenu(other.getString("soaManager.conf.serverAddress.editButton"), other.getString("commandline.conf.all.input"), soaMangerHost);
-	  this.AssertEqualsInConfigurationMenu(other.getString("soaManager.conf.serverPort.editButton"), other.getString("commandline.conf.all.input"), soaMangerProt);
-	
+	  this.AssertEqualsInConfigurationMenu(other.getString("soaManager.conf.jobsDeployPath.editButton"), other.getString("commandline.conf.all.input"), soaJobDeployedPath,other.getString("svn.conf.serverLocationURL.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("soaManager.conf.serverAddress.editButton"), other.getString("commandline.conf.all.input"), soaMangerHost,other.getString("svn.conf.serverUser.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("soaManager.conf.serverPort.editButton"), other.getString("commandline.conf.all.input"), soaMangerProt,other.getString("svn.conf.serverPassword.statusIcon"));
+	  this.waitForElementPresent(other.getString("svn.conf.generalStatusIcon"), WAIT_TIME);
+	 
 	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Soa manager (')]"); 
 	//assertEquals
   }
@@ -153,9 +158,10 @@ public class TestConfigurations extends Login {
 	  this.typeWordsInConfigurationMenu(other.getString("svn.conf.serverUser.editButton"), other.getString("commandline.conf.all.input"), svnServerUser);
 	  this.typeWordsInConfigurationMenu(other.getString("svn.conf.serverPassword.editButton"), other.getString("commandline.conf.all.input"), svnServerPassword);
 		
-	  this.AssertEqualsInConfigurationMenu(other.getString("svn.conf.serverLocationURL.editButton"), other.getString("commandline.conf.all.input"), svnServerLocationUrl);
-	  this.AssertEqualsInConfigurationMenu(other.getString("svn.conf.serverUser.editButton"), other.getString("commandline.conf.all.input"), svnServerUser);
-	  this.AssertEqualsInConfigurationMenu(other.getString("svn.conf.serverPassword.editButton"), other.getString("commandline.conf.all.input"), svnServerPassword);
+	  this.AssertEqualsInConfigurationMenu(other.getString("svn.conf.serverLocationURL.editButton"), other.getString("commandline.conf.all.input"), svnServerLocationUrl,other.getString("svn.conf.serverLocationURL.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("svn.conf.serverUser.editButton"), other.getString("commandline.conf.all.input"), svnServerUser,other.getString("svn.conf.serverUser.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("svn.conf.serverPassword.editButton"), other.getString("commandline.conf.all.input"), svnServerPassword,other.getString("svn.conf.serverPassword.statusIcon"));
+	  this.waitForElementPresent(other.getString("svn.conf.generalStatusIcon"), WAIT_TIME);//assertion of the general icon.It should be green if all the parameters set correctly
 	 
 	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Svn (')]"); 	
 	//assertEquals
