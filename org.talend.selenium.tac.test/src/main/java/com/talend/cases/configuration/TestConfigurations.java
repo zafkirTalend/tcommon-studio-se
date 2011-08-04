@@ -32,11 +32,11 @@ public class TestConfigurations extends Login {
 	 * @param locatorOfInput	
 	 * @param value
 	 */
-	public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){
+	public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value,String statusIconLocator){
 		this.clickWaitForElementPresent(locatorOfEditButton);//click the edit button to make the input tag shown.
 		this.waitForElementPresent(locatorOfInput, Base.WAIT_TIME);
 		assertEquals(selenium.getValue(locatorOfInput), value);
-		
+		this.waitForElementPresent(statusIconLocator, WAIT_TIME);//wait and check the icon status.
 	}
   @Test
   @Parameters ({"commandline.conf.primary.host","commandline.conf.primary.port","commandline.conf.primary.archivePath"})
