@@ -51,8 +51,8 @@ public class TestConfigurations extends Login {
 	  this.typeWordsInConfigurationMenu(other.getString("commandline.conf.primary.port.editButton"),other.getString("commandline.conf.all.input"), commandlinePort);
 	  this.typeWordsInConfigurationMenu(other.getString("commandLine.conf.primary.archivePath.editButton"),other.getString("commandline.conf.all.input"), commandlinePath);
 
-	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.host.editButton"),other.getString("commandline.conf.all.input"), commandlineHost,other.getString("commandLine.conf.secondary.host.statusIcon"));
-	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.port.editButton"),other.getString("commandline.conf.all.input"), commandlinePort,other.getString("commandline.conf.secondary.port.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.host.editButton"),other.getString("commandline.conf.all.input"), commandlineHost,other.getString("commandline.conf.primary.genralStatusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.port.editButton"),other.getString("commandline.conf.all.input"), commandlinePort,other.getString("commandline.conf.primary.genralStatusIcon"));
 	  this.AssertEqualsInConfigurationMenu(other.getString("commandLine.conf.primary.archivePath.editButton"),other.getString("commandline.conf.all.input"), commandlinePath);
 	  this.waitForElementPresent(other.getString("commandline.conf.secondary.genralStatusIcon"), WAIT_TIME);
 
@@ -77,7 +77,7 @@ public class TestConfigurations extends Login {
   }
   
   @Test
-  @Parameters ({"esb.conf.zookeeperServer","esb.conf.serviceActivityMonitorServer",})
+  @Parameters ({"esb.conf.zookeeperServer","esb.conf.serviceActivityMonitorServer"})
   public void testSetESB(String zookeeperServer,String serviceActivityMonitorServer){
 		  
 	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Log4j (2')]");
