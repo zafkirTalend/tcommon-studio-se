@@ -495,6 +495,9 @@ public class MetadataConnectionUtils {
         String driverClassName = metadataBean.getDriverClass();
         // MOD mzhao 2009-06-05,Bug 7571 Get driver from catch first, if not
         // exist then get a new instance.
+        if (driverClassName.equals("org.apache.derby.jdbc.EmbeddedDriver")) {
+            DRIVER_CACHE.remove(driverClassName);
+        }
         Driver driver = DRIVER_CACHE.get(driverClassName);
         // The case for generalJDBC
         String driverPath = metadataBean.getDriverJarPath();
