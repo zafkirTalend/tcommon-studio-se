@@ -32,7 +32,11 @@
 	<parameter name="smtp.conf.mailUserName" value="lindy512@163.com" />
 	<parameter name="smtp.conf.mailPassword" value="talend" />
 	<parameter name="smtp.conf.serverRequireSSL" value="false" />
-
+	
+	<!-- Scheduler parameters -->
+	<parameter name="scheduler.conf.ArchivedPath" value="c:/Talend/Administrator/archiveJobs" />
+	<parameter name="scheduler.conf.LogsPath" value="c:/Talend/Administrator/executionLogs" />
+	
 	<!-- soaManager parameters -->
 	<parameter name="soaManager.conf.jobsDeployPath" value="c:/soaDeploy" />
 	<parameter name="soaManager.conf.serverAddress" value="127.0.0.1" />

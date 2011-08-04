@@ -122,17 +122,31 @@ public class TestConfigurations extends Login {
 	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.mailPassword.editButton"), other.getString("commandline.conf.all.input"), mailPassword);
 	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.serverRequireSSL.editButton"), other.getString("commandline.conf.all.input"), serverRequireSSL);
 	  
-	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.useSmtp.editButton"), other.getString("commandline.conf.all.input"), useSmtp);
-	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.mailServerHost.editButton"), other.getString("commandline.conf.all.input"), mailServerHost);
-	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.mailServerPort.editButton"), other.getString("commandline.conf.all.input"), mailServerPort);
-	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.mailUserName.editButton"), other.getString("commandline.conf.all.input"), mailUserName);
-	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.mailPassword.editButton"), other.getString("commandline.conf.all.input"), mailPassword);
-	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.serverRequireSSL.editButton"), other.getString("commandline.conf.all.input"), serverRequireSSL);
+	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.useSmtp.editButton"), other.getString("commandline.conf.all.input"), useSmtp,other.getString("smtp.conf.useSmtp.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.mailServerHost.editButton"), other.getString("commandline.conf.all.input"), mailServerHost,other.getString("smtp.conf.mailServerHost.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.mailServerPort.editButton"), other.getString("commandline.conf.all.input"), mailServerPort,other.getString("smtp.conf.mailServerPort.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.mailUserName.editButton"), other.getString("commandline.conf.all.input"), mailUserName,other.getString("smtp.conf.mailUserName.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.mailPassword.editButton"), other.getString("commandline.conf.all.input"), mailPassword,other.getString("smtp.conf.mailPassword.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.serverRequireSSL.editButton"), other.getString("commandline.conf.all.input"), serverRequireSSL,other.getString("smtp.conf.serverRequireSSL.statusIcon"));
+	  this.waitForElementPresent(other.getString("smtp.conf.generalStatusIcon"), WAIT_TIME);
 	  
 	  this.clickWaitForElementPresent("//div[contains(text(),'SMTP (6 Parameters')]");  
 	//assertEquals
   }
   
+  @Test
+  @Parameters ({"scheduler.conf.ArchivedPath","scheduler.conf.LogsPath"})
+  public void testSetScheduler(String ArchivedPath,String logsPath){
+	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Scheduler (')]"); 
+	  this.typeWordsInConfigurationMenu(other.getString("scheduler.conf.ArchivedPath.editButton"), other.getString("commandline.conf.all.input"), ArchivedPath);
+	  this.typeWordsInConfigurationMenu(other.getString("scheduler.conf.LogsPath.editButton"), other.getString("commandline.conf.all.input"), logsPath);
+	  this.AssertEqualsInConfigurationMenu(other.getString("scheduler.conf.ArchivedPath.editButton"), other.getString("commandline.conf.all.input"), ArchivedPath,other.getString("svn.conf.serverUser.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("scheduler.conf.LogsPath.editButton"), other.getString("commandline.conf.all.input"), logsPath,other.getString("svn.conf.serverPassword.statusIcon"));
+	  this.waitForElementPresent(other.getString("scheduler.conf.generalStatusIcon"), WAIT_TIME);
+	 
+	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Scheduler (')]"); 
+	//assertEquals
+  }
   @Test
   @Parameters ({"soaManager.conf.jobsDeployPath","soaManager.conf.serverAddress","soaManager.conf.serverPort"})
   public void testSetSoaManager(String soaJobDeployedPath,String soaMangerHost,String soaMangerProt){
@@ -144,7 +158,7 @@ public class TestConfigurations extends Login {
 	  this.AssertEqualsInConfigurationMenu(other.getString("soaManager.conf.jobsDeployPath.editButton"), other.getString("commandline.conf.all.input"), soaJobDeployedPath,other.getString("svn.conf.serverLocationURL.statusIcon"));
 	  this.AssertEqualsInConfigurationMenu(other.getString("soaManager.conf.serverAddress.editButton"), other.getString("commandline.conf.all.input"), soaMangerHost,other.getString("svn.conf.serverUser.statusIcon"));
 	  this.AssertEqualsInConfigurationMenu(other.getString("soaManager.conf.serverPort.editButton"), other.getString("commandline.conf.all.input"), soaMangerProt,other.getString("svn.conf.serverPassword.statusIcon"));
-	  this.waitForElementPresent(other.getString("svn.conf.generalStatusIcon"), WAIT_TIME);
+	  this.waitForElementPresent(other.getString("soaManager.conf.generalStatusIcon"), WAIT_TIME);
 	 
 	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Soa manager (')]"); 
 	//assertEquals
