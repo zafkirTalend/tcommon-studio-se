@@ -51,9 +51,10 @@ public class TestConfigurations extends Login {
 	  this.typeWordsInConfigurationMenu(other.getString("commandline.conf.primary.port.editButton"),other.getString("commandline.conf.all.input"), commandlinePort);
 	  this.typeWordsInConfigurationMenu(other.getString("commandLine.conf.primary.archivePath.editButton"),other.getString("commandline.conf.all.input"), commandlinePath);
 
-	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.host.editButton"),other.getString("commandline.conf.all.input"), commandlineHost);
-	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.port.editButton"),other.getString("commandline.conf.all.input"), commandlinePort);
+	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.host.editButton"),other.getString("commandline.conf.all.input"), commandlineHost,other.getString("commandLine.conf.secondary.host.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.port.editButton"),other.getString("commandline.conf.all.input"), commandlinePort,other.getString("commandline.conf.secondary.port.statusIcon"));
 	  this.AssertEqualsInConfigurationMenu(other.getString("commandLine.conf.primary.archivePath.editButton"),other.getString("commandline.conf.all.input"), commandlinePath);
+	  this.waitForElementPresent(other.getString("commandline.conf.secondary.genralStatusIcon"), WAIT_TIME);
 
 	  this.MouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
   }
@@ -66,10 +67,11 @@ public class TestConfigurations extends Login {
 	  this.typeWordsInConfigurationMenu(other.getString("commandline.conf.secondary.port.editButton"),other.getString("commandline.conf.all.input"), commandlinePort);
 	  this.typeWordsInConfigurationMenu(other.getString("commandLine.conf.secondary.archivePath.editButton"),other.getString("commandline.conf.all.input"), commandlinePath);
 	  
-	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.secondary.host.editButton"),other.getString("commandline.conf.all.input"), commandlineHost);
-	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.secondary.port.editButton"),other.getString("commandline.conf.all.input"), commandlinePort);
+	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.secondary.host.editButton"),other.getString("commandline.conf.all.input"), commandlineHost,other.getString("commandLine.conf.secondary.host.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.secondary.port.editButton"),other.getString("commandline.conf.all.input"), commandlinePort,other.getString("commandline.conf.secondary.port.statusIcon"));
 	  this.AssertEqualsInConfigurationMenu(other.getString("commandLine.conf.secondary.archivePath.editButton"),other.getString("commandline.conf.all.input"), commandlinePath);
-	
+	  this.waitForElementPresent(other.getString("commandline.conf.secondary.genralStatusIcon"), WAIT_TIME);
+	 
 	  this.MouseDownWaitForElementPresent("//div[contains(text(),' Command line/secondary')]");
 	  
   }
