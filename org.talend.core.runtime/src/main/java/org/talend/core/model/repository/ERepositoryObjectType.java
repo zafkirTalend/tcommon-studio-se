@@ -371,6 +371,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     public final static ERepositoryObjectType SYSTEM_INDICATORS_PHONENUMBER_STATISTICS = new ERepositoryObjectType(
             "repository.systemIndicators.phoneNumberStatistics", "TDQ_Libraries/Indicators/System Indicators/Phone Number Statistics", "SYSTEM_INDICATORS_PHONENUMBER_STATISTICS", 100, true, "repository.systemIndicators.phoneNumberStatistics.alias", new String[] { "DQ" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
+
     private String alias;
 
     private String folder = ""; //$NON-NLS-N$
@@ -755,10 +756,6 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         if (repObjType != null) {
             return repObjType;
         }
-        repObjType = getESBRepositoryObjectType(item);
-        if (repObjType != null) {
-            return repObjType;
-        }
         return (ERepositoryObjectType) new PropertiesSwitch() {
 
             @Override
@@ -976,17 +973,6 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     private static ERepositoryObjectType getRepositoryObjectType(Item item) {
         ERepositoryObjectType type = null;
         for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
-            type = handler.getRepositoryObjectType(item);
-            if (type != null) {
-                break;
-            }
-        }
-        return type;
-    }
-
-    private static ERepositoryObjectType getESBRepositoryObjectType(Item item) {
-        ERepositoryObjectType type = null;
-        for (IESBRepositoryContentHandler handler : RepositoryServiceManager.getHandlers()) {
             type = handler.getRepositoryObjectType(item);
             if (type != null) {
                 break;

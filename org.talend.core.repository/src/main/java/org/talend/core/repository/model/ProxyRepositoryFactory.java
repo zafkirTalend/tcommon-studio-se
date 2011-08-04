@@ -79,14 +79,12 @@ import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.impl.FolderItemImpl;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
-import org.talend.core.model.repository.IESBRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.IRepositoryWorkUnitListener;
 import org.talend.core.model.repository.LockInfo;
 import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.model.repository.RepositoryObject;
-import org.talend.core.model.repository.RepositoryServiceManager;
 import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.repository.i18n.Messages;
@@ -529,13 +527,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 break;
             }
         }
-
-        for (IESBRepositoryContentHandler handler : RepositoryServiceManager.getHandlers()) {
-            isExtendPoint = handler.isRepObjType(repositoryObjectType);
-            if (isExtendPoint == true) {
-                break;
-            }
-        }
         // TODO this need to be refactered after M2.
         if (isExtendPoint || object.getRepositoryObjectType() == ERepositoryObjectType.PROCESS
                 || object.getRepositoryObjectType() == ERepositoryObjectType.JOBLET
@@ -660,13 +651,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         boolean isExtendPoint = false;
         ERepositoryObjectType repositoryObjectType = objToRestore.getRepositoryObjectType();
         for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
-            isExtendPoint = handler.isRepObjType(repositoryObjectType);
-            if (isExtendPoint == true) {
-                break;
-            }
-        }
-
-        for (IESBRepositoryContentHandler handler : RepositoryServiceManager.getHandlers()) {
             isExtendPoint = handler.isRepObjType(repositoryObjectType);
             if (isExtendPoint == true) {
                 break;

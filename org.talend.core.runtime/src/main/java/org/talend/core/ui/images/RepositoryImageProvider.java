@@ -16,10 +16,8 @@ import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.IImage;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IESBRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.RepositoryContentManager;
-import org.talend.core.model.repository.RepositoryServiceManager;
 
 /**
  * ggu class global comment. Detailled comment
@@ -114,13 +112,6 @@ public class RepositoryImageProvider {
         } else {
             IImage image = null;
             for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
-                image = handler.getIcon(type);
-                if (image != null) {
-                    return image;
-                }
-            }
-
-            for (IESBRepositoryContentHandler handler : RepositoryServiceManager.getHandlers()) {
                 image = handler.getIcon(type);
                 if (image != null) {
                     return image;

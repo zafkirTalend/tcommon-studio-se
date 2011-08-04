@@ -48,12 +48,10 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IESBRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.model.repository.RepositoryManager;
-import org.talend.core.model.repository.RepositoryServiceManager;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.utils.KeywordsValidator;
@@ -379,13 +377,6 @@ public class DuplicateAction extends AContextualAction {
                 }
 
                 for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
-                    item = handler.createNewItem(repositoryType);
-                    if (item != null) {
-                        break;
-                    }
-                }
-
-                for (IESBRepositoryContentHandler handler : RepositoryServiceManager.getHandlers()) {
                     item = handler.createNewItem(repositoryType);
                     if (item != null) {
                         break;

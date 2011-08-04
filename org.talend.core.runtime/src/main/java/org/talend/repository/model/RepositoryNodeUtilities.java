@@ -34,9 +34,7 @@ import org.talend.core.model.properties.FolderType;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.SAPConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IESBRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.core.model.repository.RepositoryServiceManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
 import org.talend.designer.core.ICamelDesignerCoreService;
@@ -391,13 +389,6 @@ public class RepositoryNodeUtilities {
             } else if (curType == ERepositoryObjectType.DOCUMENTATION || curType == ERepositoryObjectType.JOB_DOC
                     || curType == ERepositoryObjectType.JOBLET_DOC) {
                 tmpType = ERepositoryObjectType.DOCUMENTATION;
-            } else {
-                for (IESBRepositoryContentHandler handler : RepositoryServiceManager.getHandlers()) {
-                    tmpType = handler.getRepositoryObjectType(null);
-                    if (tmpType != null) {
-                        break;
-                    }
-                }
             }
 
             if (tmpType != null && tmpType == rootContextType) {
