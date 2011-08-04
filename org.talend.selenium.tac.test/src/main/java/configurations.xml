@@ -5,7 +5,7 @@
 	<parameter name="commandline.conf.primary.port" value="8002" />
 	<parameter name="commandline.conf.primary.archivePath" value="c:/Talend/CommandLine/exports" />
 	<parameter name="commandline.conf.secondary.host" value="127.0.0.1" />
-	<parameter name="commandline.conf.secondary.port" value="8003" />
+	<parameter name="commandline.conf.secondary.port" value="8002" />
 	<parameter name="commandline.conf.secondary.archivePath"
 		value="c:/Talend/CommandLine/exports" />
     
