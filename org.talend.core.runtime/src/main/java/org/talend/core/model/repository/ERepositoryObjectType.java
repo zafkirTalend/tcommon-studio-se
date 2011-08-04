@@ -473,51 +473,6 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             ExceptionHandler.process(e);
         }
 
-        IConfigurationElement[] servucesConfigurationElements = registry
-                .getConfigurationElementsFor("org.talend.core.repository.service_repository_node"); //$NON-NLS-1$
-        try {
-            for (int i = 0; i < servucesConfigurationElements.length; i++) {
-                IConfigurationElement element = servucesConfigurationElements[i];
-                Object extensionNode = element.createExecutableExtension("class");//$NON-NLS-N$
-                if (extensionNode instanceof IExtendRepositoryNode) {
-                    IExtendRepositoryNode diyNode = (IExtendRepositoryNode) extensionNode;
-                    String label = element.getAttribute("label");//$NON-NLS-N$
-                    String type = element.getAttribute("type");//$NON-NLS-N$
-                    String folder = element.getAttribute("folder");//$NON-NLS-N$
-                    String isResouce = element.getAttribute("isResouce");//$NON-NLS-N$
-                    String rightAttribute = element.getAttribute("user_right");//$NON-NLS-N$
-                    if (rightAttribute == null) {
-                        rightAttribute = "";
-                    }
-                    String productsAttribute = element.getAttribute("products");//$NON-NLS-N$
-                    String[] products = productsAttribute.split("\\|");//$NON-NLS-N$
-                    String[] user_right = rightAttribute.split(";");//$NON-NLS-N$
-
-                    boolean isResource = false;
-                    if (isResouce != null) {
-                        isResource = Boolean.parseBoolean(isResouce);
-                    }
-                    boolean[] resource = new boolean[] { isResource };
-
-                    if (products == null) {
-                        products = new String[] { productsAttribute };
-                    }
-
-                    if (user_right == null) {
-                        user_right = new String[] { rightAttribute };
-                    }
-
-                    int ordinal = diyNode.getOrdinal();
-                    Constructor<E> dynamicConstructor = getConstructor(clazz, new Class[] { String.class, String.class,
-                            String.class, boolean.class, int.class, String[].class, String[].class, boolean[].class });
-                    dynamicConstructor.newInstance(label, folder, type, false, ordinal, products, user_right, resource);
-
-                }
-            }
-        } catch (CoreException e) {
-            ExceptionHandler.process(e);
-        }
-
     }
 
     @SuppressWarnings("unchecked")
