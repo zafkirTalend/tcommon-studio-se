@@ -38,8 +38,8 @@ public static synchronized ${enclosing_type} getInstance() {&#13;
 private ${enclosing_type}() {&#13;
    super();&#13;
 }&#13;
-</template><template autoinsert="false" context="java" deleted="false" description="this.field = field;" enabled="true" name="th">this.${field} = ${field};</template><template autoinsert="false" context="java" deleted="false" description="this.field = object.field;" enabled="true" name="thth">this.${field} = ${object}.${field};</template><template autoinsert="false" context="java" deleted="false" description="" enabled="true" name="mockStub">${classToMock} mock${classToMock} = mock(${classToMock}.class);
+</template><template autoinsert="false" context="java" deleted="false" description="this.field = field;" enabled="true" name="th">this.${field} = ${field};</template><template autoinsert="false" context="java" deleted="false" description="this.field = object.field;" enabled="true" name="thth">this.${field} = ${object}.${field};</template><template autoinsert="false" context="java" deleted="false" description="" enabled="true" name="mock">${classToMock} mock${classToMock} = mock(${classToMock}.class);
 when(mock${classToMock}.${methodToStub}()).thenReturn(${returnValue});
-</template><template autoinsert="false" context="java" deleted="false" description="" enabled="true" name="spyStub">${type} spy${instance} = spy(${instance}.class);
+</template><template autoinsert="false" context="java" deleted="false" description="" enabled="true" name="spy">${type} spy${instance} = spy(${instance}.class);
 when(spy${instance}.${methodToStub}()).thenReturn(${returnValue});
 </template></templates>
