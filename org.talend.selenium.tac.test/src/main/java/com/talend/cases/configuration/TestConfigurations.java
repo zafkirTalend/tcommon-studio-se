@@ -43,7 +43,7 @@ public class TestConfigurations extends Login {
 	}
 	
   @Test
-  @Parameters ({"commandline.conf.primary.host","commandline.conf.primary.port","commandline.conf.primary.archivePath"})
+  @Parameters({"commandline.conf.primary.host","commandline.conf.primary.port","commandline.conf.primary.archivePath"})
   public void testSetCommandlinePrimary(String commandlineHost,String commandlinePort,String commandlinePath) {
 	
 	  this.MouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
