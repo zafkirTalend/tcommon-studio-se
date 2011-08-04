@@ -75,6 +75,24 @@ public class TestConfigurations extends Login {
 	  this.MouseDownWaitForElementPresent("//div[contains(text(),' Command line/secondary')]");
 	  
   }
+  
+  @Test
+  @Parameters ({"esb.conf.zookeeperServer","esb.conf.serviceActivityMonitorServer",})
+  public void testSetESB(String zookeeperServer,String serviceActivityMonitorServer){
+		  
+	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Log4j (2')]");
+	  this.typeWordsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), other.getString("commandline.conf.all.input"), zookeeperServer);
+	  this.typeWordsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), other.getString("commandline.conf.all.input"), serviceActivityMonitorServer);
+	  
+	  this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), other.getString("commandline.conf.all.input"),
+			  zookeeperServer, other.getString("esb.conf.ZookeeperServerStatusIconLocator"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), other.getString("commandline.conf.all.input"),
+			  serviceActivityMonitorServer, other.getString("esb.conf.ServiceActivityMonitorServerStatusIconLocator"));
+	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Log4j (2')]");
+	  this.clickWaitForElementPresent("//div[contains(text(),'ESB (2 Parameters)')]");  
+	  
+  }
+  
   @Test
   @Parameters ({"LDAP.conf.useLDAPAutentication","LDAP.conf.ldapServerIp","LDAP.conf.ldapServerPort","LDAP.conf.ldapRoot","LDAP.conf.ldapPrincipalDNPrefix",
 	  "LDAP.conf.ldapAdminPassword","LDAP.conf.ldap.fields.mail","LDAP.conf.ldap.fields.firstname","LDAP.conf.ldap.fields.lastname"})
@@ -102,15 +120,18 @@ public class TestConfigurations extends Login {
 	
 	  this.MouseDownWaitForElementPresent("//div[contains(text(),'LDAP (9 Parameters')]");
   }
-
   @Test
   @Parameters ({"log4j.conf.logsPath","log4j.conf.logsName"})
   public void testSetLog4j(String logsPath,String logsName){
+	  	  
 	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Log4j (2')]");
 	  this.typeWordsInConfigurationMenu(other.getString("log4j.conf.logsPath.editButton"), other.getString("commandline.conf.all.input"), logsPath+logsName);
  
-	  this.AssertEqualsInConfigurationMenu(other.getString("log4j.conf.logsPath.editButton"), other.getString("commandline.conf.all.input"), logsPath+logsName);
+	  this.AssertEqualsInConfigurationMenu(other.getString("log4j.conf.logsPath.editButton"), other.getString("commandline.conf.all.input"),
+			  logsPath+logsName, other.getString("log4j.conf.TalendAppenderStatusIconLocator"));
+	  assertTrue(selenium.isElementPresent(other.getString("log4j.conf.ThresholdStatusIconLocator")));
 	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Log4j (2')]");
+	  this.clickWaitForElementPresent("//div[contains(text(),'Log4j (2 Parameters)')]");  
   }
   @Test
   @Parameters ({"smtp.conf.useSmtp","smtp.conf.mailServerHost","smtp.conf.mailServerPort","smtp.conf.mailUserName","smtp.conf.mailPassword","smtp.conf.serverRequireSSL"})
