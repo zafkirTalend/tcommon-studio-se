@@ -907,12 +907,14 @@ public class Utilities {
                     gefBot.buttonWithTooltip("Add").click();
                     gefBot.tableInGroup("Schema View").click(i, 3);
                     gefBot.text().setText(System.getProperty("hl7.column.MSH" + i));
+                    gefBot.tableInGroup("Schema View").select(i);
                 }
                 gefBot.comboBoxWithLabel("Segment(As Schema)").setSelection("EVN");
                 for (int j = 0; j < 2; j++) {
                     gefBot.buttonWithTooltip("Add").click();
                     gefBot.tableInGroup("Schema View").click(j, 3);
-                    gefBot.text().setText(System.getProperty("hl7.column.SVN" + j));
+                    gefBot.text().setText(System.getProperty("hl7.column.EVN" + j));
+                    gefBot.tableInGroup("Schema View").select(j);
                 }
                 gefBot.button("Next >").click();
             } else if ("output".equals(type)) {
