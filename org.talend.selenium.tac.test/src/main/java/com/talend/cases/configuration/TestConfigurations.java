@@ -38,9 +38,9 @@ public class TestConfigurations extends Login {
 	}
 	public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){
 		this.clickWaitForElementPresent(locatorOfEditButton);//click the edit button to make the input tag shown.
-//		this.waitForElementPresent(locatorOfInput, Base.WAIT_TIME);
-		this.MouseDownWaitForElementPresent(locatorOfInput);
+		this.waitForElementPresent(locatorOfInput, Base.WAIT_TIME);
 		assertEquals(selenium.getValue(locatorOfInput), value);
+		selenium.fireEvent(locatorOfInput, "blur");
 	}
 	
   @Test
@@ -301,7 +301,7 @@ public class TestConfigurations extends Login {
 	public void typeWaitForElementPresent(String locator,String value) {
 		this.waitForElementPresent(locator, Base.WAIT_TIME);
 		selenium.type(locator,value);
-		selenium.keyPress(locator, "\\13");
+		selenium.fireEvent(locator, "blur");
 	}
 
 	@Override
