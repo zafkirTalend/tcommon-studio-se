@@ -17,13 +17,30 @@ package org.talend.swtbot.items;
  */
 public class TalendMetadataItem extends TalendItem {
 
+    protected String rightResult;
+
     protected String componentType;
 
     public String getComponentType() {
         return this.componentType;
     }
 
+    /**
+     * DOC fzhong Comment method "setComponentType". The componentType should to be set if it will pop up a shell
+     * "Components" that ask you to choose when drag&drop the metadata to a job. Otherwise, don't need to set it.
+     * 
+     * @param componentType The label of component you would choose
+     */
     public void setComponentType(String componentType) {
         this.componentType = componentType;
     }
+
+    public String getRightResult() {
+        return this.rightResult;
+    }
+
+    public void setRightResult(String rightResult) {
+        this.rightResult = rightResult;
+    }
+
 }
