@@ -42,6 +42,7 @@ public class Login extends Base {
 	@AfterMethod
 	public void logout() {
 		selenium.click("idLeftMenuTreeLogoutButton");
+		this.waitForElementPresent("idLoginButton", MAX_WAIT_TIME);
 		// selenium.stop();
 	}
 
