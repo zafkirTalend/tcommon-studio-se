@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Suite" parallel="false">
-     <parameter name="validlicense.path" value="org/talend/tac/folder/license/MDM_TDQ_EE_MPX.license"/>
+     <parameter name="validlicense.path" value="org/talend/tac/fileFolder/license"/>
      <test name="license1">
 	    <parameter name="license.file.path"
 			value="org/talend/tac/folder/license/TIS_EE_MPX.license"/>
