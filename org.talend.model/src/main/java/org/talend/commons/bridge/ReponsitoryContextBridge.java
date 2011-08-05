@@ -41,6 +41,16 @@ public final class ReponsitoryContextBridge {
         return isDefautProject() ? PROJECT_DEFAULT_NAME : project.getTechnicalLabel();
     }
 
+    // ADD msjian 2011-8-5 TDQ-3165: get the Project Description
+    /**
+     * Getter for projectDescription.
+     * 
+     * @return the projectDescription
+     */
+    public static String getProjectDescription() {
+        return (isDefautProject() || (project.getDescription() == null)) ? "" : project.getDescription(); //$NON-NLS-1$
+    }
+
     /**
      * Getter for author.
      * 
