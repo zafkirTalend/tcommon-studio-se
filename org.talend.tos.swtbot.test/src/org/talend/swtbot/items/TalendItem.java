@@ -37,7 +37,9 @@ public class TalendItem {
 
     public void setItem(SWTBotTreeItem item) {
         this.item = item;
-        this.itemName = item.getText().substring(0, item.getText().indexOf(" "));
+        if (item.getText().indexOf(" ") != -1)
+            this.itemName = item.getText().substring(0, item.getText().indexOf(" "));
+        else
+            this.itemName = item.getText();
     }
-
 }

@@ -12,6 +12,14 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URISyntaxException;
+
+import org.talend.swtbot.Utilities;
+
 /**
  * DOC fzhong class global comment. Detailled comment
  */
@@ -43,4 +51,13 @@ public class TalendMetadataItem extends TalendItem {
         this.rightResult = rightResult;
     }
 
+    public void setRightResultFromFile(String fileName) throws IOException, URISyntaxException {
+        File resultFile = Utilities.getFileFromCurrentPluginSampleFolder(fileName);
+        BufferedReader reader = new BufferedReader(new FileReader(resultFile));
+        String tempStr = null;
+        StringBuffer rightResult = new StringBuffer();
+        while ((tempStr = reader.readLine()) != null)
+            rightResult.append(tempStr + "\n");
+        this.rightResult = rightResult.toString();
+    }
 }
