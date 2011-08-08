@@ -26,6 +26,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 	public void testAddTriggerAddFileTriggerExist(String plantoaddfiletrigger,
 			String filetriggerlabel, String foldpath, String interval,
 			String mask, String serverName) throws InterruptedException {
+		foldpath = this.getAbsolutePath(foldpath);
 		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
 		this.waitForElementPresent(
 				"//div[@class='header-title' and text()='Execution Plan']",
@@ -47,6 +48,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 	public void testAddTriggerAddFileTriggerExistFalse(String plantoaddfiletrigger,
 			String filetriggerlabel, String foldpath, String interval,
 			String mask, String serverName) throws InterruptedException {
+		foldpath = this.getAbsolutePath(foldpath);
 		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
 		this.waitForElementPresent(
 				"//div[@class='header-title' and text()='Execution Plan']",
@@ -77,6 +79,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 	public void testDuplicateFileTrigger(String plantoaddfiletrigger,
 			String filetriggerlabel, String foldpath, String interval,
 			String mask, String serverName) throws InterruptedException {
+		foldpath = this.getAbsolutePath(foldpath);
 		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
 		this.waitForElementPresent(
 				"//div[@class='header-title' and text()='Execution Plan']",
@@ -114,6 +117,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 	public void testAddTriggerAddFileTriggerCreate(String plantoaddfiletrigger,
 			String filetriggerlabel, String foldpath, String interval,
 			String mask, String serverName) throws InterruptedException {
+		foldpath = this.getAbsolutePath(foldpath);
 		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
 		this.waitForElementPresent(
 				"//div[@class='header-title' and text()='Execution Plan']",
@@ -145,6 +149,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 	public void testAddTriggerAddFileTriggerCreateFalse(String plantoaddfiletrigger,
 			String filetriggerlabel, String foldpath, String interval,
 			String mask, String serverName) throws InterruptedException {
+		foldpath = this.getAbsolutePath(foldpath);
 		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
 		this.waitForElementPresent(
 				"//div[@class='header-title' and text()='Execution Plan']",
@@ -177,6 +182,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 	public void testAddTriggerAddFileTriggerModify(String plantoaddfiletrigger,
 			String filetriggerlabel, String foldpath, String interval,
 			String mask, String serverName) throws InterruptedException {
+		foldpath = this.getAbsolutePath(foldpath);
 		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
 		this.waitForElementPresent(
 				"//div[@class='header-title' and text()='Execution Plan']",
@@ -214,6 +220,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 	public void testAddTriggerAddFileTriggerModifyFalse(String plantoaddfiletrigger,
 			String filetriggerlabel, String foldpath, String interval,
 			String mask, String serverName) throws InterruptedException {
+		foldpath = this.getAbsolutePath(foldpath);
 		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
 		this.waitForElementPresent(
 				"//div[@class='header-title' and text()='Execution Plan']",
@@ -425,7 +432,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 			FileWriter fw = null;
 			try {
 				fw = new FileWriter(newFile.listFiles(fileter)[0],true);
-				fw.write(s);
+				fw.write("testModify:"+s);
 				fw.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
