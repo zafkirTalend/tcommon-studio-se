@@ -60,7 +60,7 @@ public class SASDataBaseMetadata extends FakeDatabaseMetaData {
     @Override
     public ResultSet getSchemas() throws SQLException {
         // see the feature 5827
-        String sql = "SELECT SASTABLE_DISTINCT SASTABLE_CREATOR FROM SASHELP.VTABLE"; //$NON-NLS-1$
+        String sql = "SELECT DISTINCT LIBNAME FROM SASHELP.VTABLE"; //$NON-NLS-1$
         ResultSet rs = null;
         Statement stmt = null;
         List<String[]> list = new ArrayList<String[]>();
@@ -69,7 +69,7 @@ public class SASDataBaseMetadata extends FakeDatabaseMetaData {
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                String creator = rs.getString("SASTABLE_CREATOR"); //$NON-NLS-1$
+                String creator = rs.getString("LIBNAME"); //$NON-NLS-1$
 
                 String[] r = new String[] { creator.trim() }; //$NON-NLS-1$ //$NON-NLS-2$
                 list.add(r);
@@ -147,7 +147,7 @@ public class SASDataBaseMetadata extends FakeDatabaseMetaData {
     public ResultSet getTables(String catalog, String schema, String tableNamePattern, String[] types) throws SQLException {
         String sql;
         if (schema != null) {
-            sql = "SELECT * FROM SASHELP.VTABLE where SASTABLE_NAME = '" + schema + "'"; //$NON-NLS-1$ //$NON-NLS-2$
+            sql = "SELECT * FROM SASHELP.VTABLE where LIBNAME = '" + schema + "'"; //$NON-NLS-1$ //$NON-NLS-2$
 
         } else {
             sql = "SELECT * FROM SASHELP.VTABLE"; //$NON-NLS-1$
@@ -160,12 +160,21 @@ public class SASDataBaseMetadata extends FakeDatabaseMetaData {
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                String name = rs.getString("SASTABLE_NAME"); //$NON-NLS-1$
-                String creator = rs.getString("SASTABLE_CREATOR"); //$NON-NLS-1$
-                String type = rs.getString("SASTABLE_TYPE"); //$NON-NLS-1$
+                String name = rs.getString("MEMNAME"); //$NON-NLS-1$
+                if (name != null) {
+                    name = name.trim();
+                }
+                String creator = rs.getString("LIBNAME").trim(); //$NON-NLS-1$
+                if (creator != null) {
+                    creator = creator.trim();
+                }
+                //                String type = rs.getString("DBMS_MEMTYPE").trim(); //$NON-NLS-1$
+                // if (type != null) {
+                // type = type.trim();
+                // }
                 // String dbname = rs.getString("DBNAME");
 
-                String[] r = new String[] { "", creator, name, type, "" }; //$NON-NLS-1$ //$NON-NLS-2$
+                String[] r = new String[] { "", creator, name, "TABLE", "" }; //$NON-NLS-1$ //$NON-NLS-2$
                 list.add(r);
             }
 
@@ -215,8 +224,8 @@ public class SASDataBaseMetadata extends FakeDatabaseMetaData {
     public ResultSet getColumns(String catalog, String schemaPattern, String tableNamePattern, String columnNamePattern)
             throws SQLException {
         // for real
-        String sql = "SELECT * FROM SASHELP.VCOLUMN where SASTABLE_NAME='" + tableNamePattern + "' AND  SASTABLE_CREATOR = '" //$NON-NLS-1$ //$NON-NLS-2$
-                + schemaPattern + "' ORDER BY SASTABLE_CREATOR, SASTABLE_NAME, SASTABLE_COLNO"; //$NON-NLS-1$
+        String sql = "SELECT * FROM SASHELP.VCOLUMN where MEMNAME='" + tableNamePattern + "' AND  LIBNAME = '" //$NON-NLS-1$ //$NON-NLS-2$
+                + schemaPattern + "' ORDER BY LIBNAME, MEMNAME, VARNUM"; //$NON-NLS-1$
 
         // for test
         // String sql = "SELECT * FROM SYSIBM.SYSCOLUMNS where NAME='NAME'";
@@ -228,18 +237,35 @@ public class SASDataBaseMetadata extends FakeDatabaseMetaData {
             stmt = connection.createStatement();
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
-
-                // For real db2 for zos, should use these code.
-                String tableName = rs.getString("SASTABLE_NAME"); //$NON-NLS-1$
-                String columnName = rs.getString("SASCOLUM_NAME"); //$NON-NLS-1$
-                String typeName = rs.getString("SASCOLUM_TYPE"); //$NON-NLS-1$
-                String columnSize = rs.getString("SASCOLUM_LENGTH"); //$NON-NLS-1$
-                String decimalDigits = rs.getString("SASTABLE_SCALE"); //$NON-NLS-1$
-                String isNullable;
-                if (rs.getString("NULLS").equals("Y")) { //$NON-NLS-1$ //$NON-NLS-2$
+                String tableName = rs.getString("MEMNAME"); //$NON-NLS-1$
+                if (tableName != null) {
+                    tableName = tableName.trim();
+                }
+                String columnName = rs.getString("NAME"); //$NON-NLS-1$
+                if (columnName != null) {
+                    columnName = columnName.trim();
+                }
+                String typeName = rs.getString("TYPE"); //$NON-NLS-1$
+                if (typeName != null) {
+                    typeName = typeName.trim();
+                }
+                String columnSize = rs.getString("LENGTH"); //$NON-NLS-1$
+                if (columnSize != null) {
+                    columnSize = columnSize.trim();
+                    columnSize = columnSize.substring(0, columnSize.indexOf("."));
+                }
+                String decimalDigits = rs.getString("SCALE"); //$NON-NLS-1$
+                if (decimalDigits != null) {
+                    decimalDigits = decimalDigits.trim();
+                }
+                String isNullable = rs.getString("NOTNULL");
+                if (isNullable != null) {
+                    isNullable = isNullable.trim();
+                }
+                if (isNullable != null && isNullable.equalsIgnoreCase("NO")) { //$NON-NLS-1$ //$NON-NLS-2$
                     isNullable = "YES"; //$NON-NLS-1$
                 } else {
-                    isNullable = rs.getString("NULLS"); //$NON-NLS-1$
+                    isNullable = "NO"; //$NON-NLS-1$
                 }
                 // String keys = rs.getString("keys");
                 String remarks = ""; //$NON-NLS-1$
