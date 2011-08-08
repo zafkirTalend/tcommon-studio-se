@@ -10,6 +10,9 @@ import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
 public class TestTaskWithTRunjob extends Login {
+	
+	boolean actualResult;
+	
 	@Test(dependsOnGroups={"AddTask"})
 	@Parameters({ "TaskWithtRunjob" })
 	public void testTrunjob(String tasklabel) throws InterruptedException {
@@ -40,12 +43,24 @@ public class TestTaskWithTRunjob extends Login {
 		selenium.mouseDown("//span[text()='" + tasklabel + "']");
 		Thread.sleep(3000);
 		selenium.click("//button[@id='idJobConductorTaskRunButton'  and @class='x-btn-text ' and text()='Run']");
-//		Date start = new Date();
-		boolean success = (waitForCondition("//label[text()='Ok']", waitTime));
-		// close the pop window
-		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
-		// System.out.println(checkContextValue(start));
-        return success;
+//		Date start = new Date();	
+	    if(this.waitForCondition("//span[text()='"+tasklabel+"']//ancestor::tr" +
+				"//span[text()='Error while generating job']", Base.MAX_WAIT_TIME)) {
+	    	actualResult = (waitForCondition("//label[text()='Ok']", 2));
+			// close the pop window
+			selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
+	    	return actualResult;
+	    	
+	    } else {	
+			actualResult = (waitForCondition("//label[text()='Ok']", Base.MAX_WAIT_TIME));
+			// close the pop window
+			selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
+			// System.out.println(checkContextValue(start));
+			return actualResult;
+	    
+	    }
+        
+	    		
 	}
 	public boolean waitForCondition(String locator,int seconds) throws InterruptedException{
 		boolean conditionPresent = true;
