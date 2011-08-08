@@ -127,7 +127,8 @@ public class TestAddTaskBaseBranchProject  extends TaskUtils {
 	}
 
 	@Test
-//	(dependsOnGroups={"AddTask"})
+//	(groups={"AddTaskBaseBranchProject"})
+	(dependsOnGroups={"AddTask"})
 	@Parameters({"TaskBaseBranch","AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
 	public void testAddTaskBaseBranch(String label, String projectName, String branchName,
@@ -156,7 +157,8 @@ public class TestAddTaskBaseBranchProject  extends TaskUtils {
 		
 	}
 	
-	@Test(dependsOnMethods={"testRunTaskBaseBranch"})
+	@Test
+	(dependsOnMethods={"testAddTaskBaseBranch"})
 	@Parameters({"labelStatisticViewTask", "statisticDisabled", "statisticEnabled"})
 	public void testTaskStatisticViewDisable(String tasklabel, String statisticDisabled, String statisticEnabled) throws InterruptedException{
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
@@ -170,11 +172,11 @@ public class TestAddTaskBaseBranchProject  extends TaskUtils {
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MIN_SPEED);
-		selenium.refresh();
-		this.waitForElementPresent("//span[text()='" + tasklabel + "']",
-				WAIT_TIME);
+		
+		selenium.setSpeed(MAX_SPEED);
 		selenium.mouseDown("//span[text()='" + tasklabel + "']");
-		Thread.sleep(3000);
+		selenium.setSpeed(MIN_SPEED);
+		
 		selenium.click("//button[@id='idJobConductorTaskRunButton'  and @class='x-btn-text ' and text()='Run']");
 		if(waitForCondition("//span[@class='x-window-header-text' and text()='Real time statistics']", 15)){
 			Assert.fail("test statistic view disable failed!");
@@ -187,7 +189,8 @@ public class TestAddTaskBaseBranchProject  extends TaskUtils {
 	}
 	
 	
-	@Test(dependsOnMethods={"testTaskStatisticViewDisable"})
+	@Test
+	(dependsOnMethods={"testAddTaskBaseBranch"})
 	@Parameters({"AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
 	public void testDeactiveTaskWithSimpleTrigger(String projectName, String branchName,
@@ -244,7 +247,8 @@ public class TestAddTaskBaseBranchProject  extends TaskUtils {
 		selenium.setSpeed(MIN_SPEED);
 		deleteTask(label);
 	}
-	@Test(dependsOnMethods={"testTaskStatisticViewDisable"})
+	@Test
+	(dependsOnMethods={"testAddTaskBaseBranch"})
 	@Parameters({"labelStatisticViewTask", "statisticEnabled"})
 	public void testTaskStatisticViewEnable(String tasklabel, String statisticEnabled) throws InterruptedException{
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
@@ -258,11 +262,10 @@ public class TestAddTaskBaseBranchProject  extends TaskUtils {
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MIN_SPEED);
-		selenium.refresh();
-		this.waitForElementPresent("//span[text()='" + tasklabel + "']",
-				WAIT_TIME);
+		
+		selenium.setSpeed(MAX_SPEED);
 		selenium.mouseDown("//span[text()='" + tasklabel + "']");
-		Thread.sleep(3000);
+		selenium.setSpeed(MIN_SPEED);
 		selenium.click("//button[@id='idJobConductorTaskRunButton'  and @class='x-btn-text ' and text()='Run']");
 		Assert.assertTrue((waitForCondition("//span[@class='x-window-header-text' and text()='Real time statistics']", Base.WAIT_TIME)),
 			"test statistic view disable failed!");
@@ -270,7 +273,8 @@ public class TestAddTaskBaseBranchProject  extends TaskUtils {
 	}
 	
 	
-	@Test(dependsOnMethods={"testTaskStatisticViewEnable"})
+	@Test
+	(dependsOnMethods={"testAddTaskBaseBranch"})
 	@Parameters({"AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
 	public void testDeleteTaskExecutionLogs(String projectName,
@@ -321,7 +325,8 @@ public class TestAddTaskBaseBranchProject  extends TaskUtils {
 		}
 	}
 	
-	@Test(dependsOnMethods={"testAddTaskBaseBranch"})
+	@Test
+	(dependsOnMethods={"testAddTaskBaseBranch"})
 	@Parameters({"AddcommonProjectname","ProjectBranch","jobWithContexts","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled","FolderPath","FileMask","ServerForUseAvailable"})
 	public void testRemoveTaskWithComplicatedItems(String projectName,
