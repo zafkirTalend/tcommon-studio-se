@@ -64,12 +64,18 @@ public class TestTaskDisplay extends Login {
 		
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("idFormSaveButton");
+		selenium.setSpeed(MIN_SPEED);
+		
+		selenium.setSpeed(MAX_SPEED);
 		assertEquals(selenium.getValue("idJobConductorTaskStatisticsListBox"), "disabled");
 		selenium.setSpeed(MIN_SPEED);		
 		
 		this.selectDropDownList("idJobConductorTaskStatisticsListBox", "enabled");
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("idFormSaveButton");
+		selenium.setSpeed(MIN_SPEED);
+		
+		selenium.setSpeed(MAX_SPEED);
 		assertEquals(selenium.getValue("idJobConductorTaskStatisticsListBox"), "enabled");
 		selenium.setSpeed(MIN_SPEED);	
 						
