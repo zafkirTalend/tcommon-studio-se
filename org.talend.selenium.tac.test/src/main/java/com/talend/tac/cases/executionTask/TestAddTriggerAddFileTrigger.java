@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 import com.talend.tac.base.Base;
 
+@Test(groups={"fileTrigger"})
 public class TestAddTriggerAddFileTrigger extends TaskUtils {
  
 	//test add a cronTrigger use wrong form value
@@ -34,7 +35,7 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 	 }
 	
 	//test add a file trigger
-	@Test(dependsOnMethods={"testAddTriggerAddFileTriggerWrongFormValue"})
+	@Test
 	@Parameters({"TaskBaseBranch","addFileTriggerOfExist","addFileTriggerOfExistDescription","FolderPath",
 		"FileMask","ServerForUseAvailable"})
     public void testAddTriggerAddFileTriggerAddExist(String taskLabel,String triggerLabel,String triggerDescription,
@@ -63,7 +64,7 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 	}
 	
 	//test add a	file trigger of label is exist
-	@Test(dependsOnMethods={"testAddTriggerAddFileTriggerAddExist"})
+	@Test
 	@Parameters({"TaskBaseBranch","addFileTriggerOfExist","addFileTriggerOfExistDescription","FolderPath",
 		"FileMask","ServerForUseAvailable"})
     public void testAddTriggerAddFileTriggerAddExistOfLabelExist(String taskLabel,String triggerLabel,String triggerDescription,
