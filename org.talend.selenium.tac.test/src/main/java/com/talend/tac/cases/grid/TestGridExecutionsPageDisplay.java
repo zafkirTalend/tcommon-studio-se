@@ -23,7 +23,7 @@ public class TestGridExecutionsPageDisplay extends Grid {
         this.runTask(label, 11);
         this.runTask(label2,11);
         this.openGridMenu();
-        this.sleep(5000);
+        this.sleep(10000);
         Assert.assertTrue(selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-taskLabel' and text()='Task: "+label+"']").intValue()+selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-taskLabel' and text()='Task: "+label2+"']").intValue()==2,"Grid past execution display failed!");
 	    String containsPages = selenium.getText("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//div[contains(text(),'of')]");
         System.out.println(containsPages);
