@@ -4,13 +4,11 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.talend.tac.base.Base;
 import com.talend.tac.cases.executePlan.TriggerDate;
 
 public class TestAddTriggerAddSimpleTrigger extends TaskUtils {
     	   
     TriggerDate date = new TriggerDate();
-     	
     //add a method of remove triggers
     public void clearTriggers(String taskLabel) {
     
@@ -73,7 +71,6 @@ public class TestAddTriggerAddSimpleTrigger extends TaskUtils {
     	clearTriggers(labelRefProJobByMainProTRunJobRun);
     	clearTriggers(labelReferenceproTjava);
     	clearTriggers(modifyTask);
-    	clearTriggers(duplicateTask);
     	clearTriggers(TaskBaseBranch);
     	
     }
@@ -147,7 +144,7 @@ public class TestAddTriggerAddSimpleTrigger extends TaskUtils {
 	// add a simpleTrigger use default date, selected job is TRunJob(use tRunJob run child'job)
 	@Test(dependsOnMethods={"testAddTriggerAddSimpleTrigger"})
 	@Parameters({"labelTRunJobByTaskRun", "addSimpleTriggerLabelNotChooseDate","addSimpleTriggerNotChooseDateDescription"})
-	public void testAddTriggerAddSimpleTriggerNotChooseDate(String taskLabel, String label, String description) {
+	public void testAddTriggerAddSimpleTriggerNotChooseDate(String taskLabel, String label, String description) throws InterruptedException {
 		    
 	    	       
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
@@ -176,15 +173,15 @@ public class TestAddTriggerAddSimpleTrigger extends TaskUtils {
 		selenium.setSpeed(MID_SPEED);
 	    Assert.assertTrue(selenium.isElementPresent("//span[text()='"+label+"']"));
 	    selenium.setSpeed(MIN_SPEED);
+   	
 	    this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
-				"//span[text()='Running...']", Base.MAX_WAIT_TIME);
-	    Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
-				"//span[text()='Running...']"));
+				"//span[text()='Running...']", WAIT_TIME);			
+				
 	    
 	}
 	
 	//add a exist simpleTrigger
-	@Test(dependsOnMethods={"testAddTriggerAddSimpleTriggerNotChooseDate"})
+	@Test(dependsOnMethods={"testAddTriggerAddSimpleTrigger"})
 	@Parameters({"modifyTask", "addSimpleTriggerLabel","addSimpleTriggerExistTriggerDescription"})
     public void testAddTriggerAddSimpleTriggerAddExist(String taskLabel, String label, String description) {
     	
@@ -199,7 +196,7 @@ public class TestAddTriggerAddSimpleTrigger extends TaskUtils {
 	}
 	
 //	add a simpleTrigger of wrong form time interval 
-	@Test(dependsOnMethods={"testAddTriggerAddSimpleTriggerAddExist"})
+	@Test(dependsOnMethods={"clearsAllTriggers"})
 	@Parameters({"modifyTask", "addSimpleTriggerWrongFormLabel","addSimpleTriggerWrongFormDescription","addSimpleTriggerWrongFormStartTime",
 		"addSimpleTriggerWrongFormEndTime","addSimpleTriggerWrongFormNumberOfTriggers","addSimpleTriggerWrongFormTimeInterval"})
     public void testAddTriggerAddSimpleTriggerAddWrongFormFileds(String taskLabel, String label, String description
@@ -232,7 +229,7 @@ public class TestAddTriggerAddSimpleTrigger extends TaskUtils {
 	 }
 	
 	//add a overdue(start date) simpleTrigger
-	@Test(dependsOnMethods={"testAddTriggerAddSimpleTriggerAddWrongFormFileds"})
+	@Test(dependsOnMethods={"clearsAllTriggers"})	
 	@Parameters({"modifyTask", "addSimpleTriggerOverdueStartDataLabel","addSimpleTriggerOverdueStartDataDescription"})
     public void testAddTriggerAddSimpleTriggerAddOverdueStartData(String taskLabel, String label, String description) {
     	
@@ -248,7 +245,7 @@ public class TestAddTriggerAddSimpleTrigger extends TaskUtils {
 	}
 	
 	//add a overdue(end date) simpleTrigger
-	@Test(dependsOnMethods={"testAddTriggerAddSimpleTriggerAddOverdueStartData"})
+	@Test(dependsOnMethods={"clearsAllTriggers"})
 	@Parameters({"modifyTask","addSimpleTriggerOverdueEndDatalabel","addSimpleTriggerOverdueEndDataDescription"})
     public void testAddTriggerAddSimpleTriggerAddOverdueEndData(String taskLabel, String label, String description) {
 		System.out.println(date.getPast(24).months+"/-/-/-/-/");    
