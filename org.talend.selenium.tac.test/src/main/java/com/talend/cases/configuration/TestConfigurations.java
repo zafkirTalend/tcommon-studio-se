@@ -83,7 +83,7 @@ public class TestConfigurations extends Login {
   @Parameters ({"esb.conf.zookeeperServer","esb.conf.serviceActivityMonitorServer"})
   public void testSetESB(String zookeeperServer,String serviceActivityMonitorServer){
 		  
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Log4j (2')]");
+	  this.MouseDownWaitForElementPresent("//div[contains(text(),'ESB (2 Parameters')]");
 	  this.typeWordsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), locatorOfAllInputTags, zookeeperServer);
 	  this.typeWordsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), locatorOfAllInputTags, serviceActivityMonitorServer);
 	  
@@ -91,7 +91,7 @@ public class TestConfigurations extends Login {
 			  zookeeperServer, other.getString("esb.conf.ZookeeperServerStatusIconLocator"));
 	  this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), locatorOfAllInputTags,
 			  serviceActivityMonitorServer, other.getString("esb.conf.ServiceActivityMonitorServerStatusIconLocator"));
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Log4j (2')]");
+	  this.MouseDownWaitForElementPresent("//div[contains(text(),'ESB (2 Parameters')]");
 	  this.clickWaitForElementPresent("//div[contains(text(),'ESB (2 Parameters)')]");  
 	  
   }
@@ -177,11 +177,11 @@ public class TestConfigurations extends Login {
   @Parameters ({"soaManager.conf.jobsDeployPath","soaManager.conf.serverAddress","soaManager.conf.serverPort"})
   public void testSetSoaManager(String soaJobDeployedPath,String soaMangerHost,String soaMangerProt){
 	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Soa manager (')]"); 
-	  this.typeWordsInConfigurationMenu(other.getString("soaManager.conf.jobsDeployPath.editButton"), locatorOfAllInputTags, soaJobDeployedPath);
+	  this.typeWordsInConfigurationMenu(other.getString("soaManager.conf.jobsDeployPath.editButton"), locatorOfAllInputTags, this.getAbsolutePath(soaJobDeployedPath));
 	  this.typeWordsInConfigurationMenu(other.getString("soaManager.conf.serverAddress.editButton"), locatorOfAllInputTags, soaMangerHost);
 	  this.typeWordsInConfigurationMenu(other.getString("soaManager.conf.serverPort.editButton"), locatorOfAllInputTags, soaMangerProt);
 		
-	  this.AssertEqualsInConfigurationMenu(other.getString("soaManager.conf.jobsDeployPath.editButton"), locatorOfAllInputTags, soaJobDeployedPath,other.getString("soaManager.conf.jobsDeployPath.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("soaManager.conf.jobsDeployPath.editButton"), locatorOfAllInputTags, this.getAbsolutePath(soaJobDeployedPath),other.getString("soaManager.conf.jobsDeployPath.statusIcon"));
 	  this.AssertEqualsInConfigurationMenu(other.getString("soaManager.conf.serverAddress.editButton"), locatorOfAllInputTags, soaMangerHost,other.getString("soaManager.conf.serverAddress.statusIcon"));
 	  this.AssertEqualsInConfigurationMenu(other.getString("soaManager.conf.serverPort.editButton"), locatorOfAllInputTags, soaMangerProt,other.getString("soaManager.conf.serverPort.statusIcon"));
 //	  this.waitForElementPresent(other.getString("soaManager.conf.generalStatusIcon"), WAIT_TIME);
