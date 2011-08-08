@@ -78,7 +78,7 @@ BranchTask -->
         
 		<classes>
 		<!--<class name="com.talend.tac.cases.executePlan.TestAddAddSimpleTriggerUseOutdatedtime"/> -->
-<!-- 	    <class name="com.talend.tac.cases.executePlan.TestAddTwoPlansCheckInformations"/> 
+ 	    <class name="com.talend.tac.cases.executePlan.TestAddTwoPlansCheckInformations"/> 
 	  	<class name="com.talend.tac.cases.executePlan.TestPlanParameters" />
 		<class name="com.talend.tac.cases.executePlan.AddPlan" />
 		<class name="com.talend.tac.cases.executePlan.TestAddExistPlan" />
@@ -103,15 +103,15 @@ BranchTask -->
 				name="com.talend.tac.cases.executePlan.TestAddTriggerAddSimpleTriggerByUI" />
 		<class
 				name="com.talend.tac.cases.executePlan.TestAddTriggerAddSimpleTriggerByUIendbeforestart" />
-		<class  name="com.talend.tac.cases.executePlan.TestDuplicateSimpletrigger" /> -->
+		<class  name="com.talend.tac.cases.executePlan.TestDuplicateSimpletrigger" />
 		<class
 				name="com.talend.tac.cases.executePlan.TestAddTriggerAddFileTrigger" /> 
-	<!-- 	<class  name="com.talend.tac.cases.executePlan.TestPlanExecution" />
+	    <class  name="com.talend.tac.cases.executePlan.TestPlanExecution" />
 		<class  name="com.talend.tac.cases.executePlan.TestExecutionPlanMenu"/> 
 		<class  name="com.talend.tac.cases.executePlan.TestChangeRootTaskNameOfPlan"/> 
 		<class  name="com.talend.tac.cases.executePlan.TestPlanExecutionLogsDisplay"/>
 		<class  name="com.talend.tac.cases.executePlan.TestTriggerPauseAndResume" /> 
-		<class  name="com.talend.tac.cases.executePlan.TestRunPlan" />  -->
+		<class  name="com.talend.tac.cases.executePlan.TestRunPlan" />
 		
 		</classes>
 	</test>
