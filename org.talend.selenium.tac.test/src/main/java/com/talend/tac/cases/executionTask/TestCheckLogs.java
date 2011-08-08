@@ -61,7 +61,7 @@ public class TestCheckLogs extends TaskUtils {
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='of "+numbersOfPerPage+"']"));
 				
 		List<String> list = new ArrayList<String>();
-		list = this.findSpecialMachedStrings(".*131 Bytes$");
+		list = this.findSpecialMachedStrings(".*Bytes$");
 		int logsNum = list.size();//per page numbers after modified 
 		System.out.println("logs numbers"+logsNum);
 	
