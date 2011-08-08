@@ -263,18 +263,19 @@ public class XmiResourceManager {
         return itemResource;
     }
 
+    /*
+     * Get a resource obj from Item resource file. if the resouce file does not exist ,will create it first.
+     */
     public Resource getScreenshotResource(Item item) {
         URI itemResourceURI = null;
         itemResourceURI = getScreenshotResourceURI(getItemURI(item));
-        Resource itemResource = resourceSet.getResource(itemResourceURI, true);
-        // if (itemResource == null) {
-        // if (item instanceof FileItem) {
-        // itemResource = new ByteArrayResource(itemResourceURI);
-        // resourceSet.getResources().add(itemResource);
-        // }
-        // itemResource = resourceSet.getResource(itemResourceURI, true);
-        // }
-
+        Resource itemResource;
+        try {
+            // judge whether the physical file exists or not
+            itemResource = resourceSet.getResource(itemResourceURI, true);
+        } catch (Exception e) {
+            itemResource = resourceSet.createResource(itemResourceURI);
+        }
         return itemResource;
     }
 
