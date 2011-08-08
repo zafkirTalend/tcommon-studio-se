@@ -53,23 +53,9 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 //		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
 				
 	}
-	
-	//Run a task with a job containing a subjob
-	@Test(dependsOnMethods={"testGenerateTask"})
-	@Parameters({"labelTRunJobByTaskRun"})
-	public void testRunTaskWithJobContainingSubjob(String taskLabel) {
-		
-		generateDeployRunTask(taskLabel, "//button[@id='idJobConductorTaskRunButton' and text()='Run']");//click Run button
-		this.waitForElementPresent("//span[text()='Real time statistics']", WAIT_TIME);
-		Assert.assertTrue(selenium.isElementPresent("//span[text()='Real time statistics']"));
-		this.waitForElementPresent("//label[text()='Ok']", Base.MAX_WAIT_TIME);
-		Assert.assertTrue(selenium.isElementPresent("//label[text()='Ok']"));
-		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
-		
-	}
 
 	//test stop a running task
-	@Test(dependsOnMethods={"testGenerateTask"})
+	@Test(dependsOnMethods={"testGenerateTask"})	
 	@Parameters({"modifyTask", "statisticRemoved(regeneration needed, fastest)", "statisticEnabled(regeneration needed)"})
 	public void testStopARunningTask(String taskLabel, String statisticRemovedRegeneration, String statisticEnabledReGeneration) {
 		
@@ -103,7 +89,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 	@Parameters({"remotehostAddress", "modifyTask", "localhostAddress"})
 	public void testGenerateTaskUsingRemoteCommandLine(String remotehostAddress, String taskLabel,String localhostAddress) {
 		
-		changeCommandLineConfig(remotehostAddress);
+			
 		
 		generateDeployRunTask(taskLabel,"idJobConductorTaskGenerateButton");//click generate button
 		selenium.setSpeed(MID_SPEED);
@@ -133,7 +119,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
     	changeCommandLineConfig(localhostAddress);
     	
 	}
-	
+		
     
 	
 	//Run a task with a Inactive server
