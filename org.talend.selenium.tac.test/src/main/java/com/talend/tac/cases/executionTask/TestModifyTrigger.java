@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import com.talend.tac.cases.Login;
 import com.talend.tac.cases.executePlan.TriggerDate;
 
+@Test(dependsOnGroups="fileTrigger")
 public class TestModifyTrigger extends Login {
     
 	TriggerDate date = new TriggerDate();
