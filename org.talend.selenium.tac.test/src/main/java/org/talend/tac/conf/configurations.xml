@@ -3,11 +3,11 @@
 	<!-- command line parameters -->
 	<parameter name="commandline.conf.primary.host" value="127.0.0.1" />
 	<parameter name="commandline.conf.primary.port" value="8002" />
-	<parameter name="commandline.conf.primary.archivePath" value="c:/Talend/CommandLine/exports" />
-	<parameter name="commandline.conf.secondary.host" value="127.0.0.1" />
+	<parameter name="commandline.conf.primary.archivePath" value="org/talend/tac/folder/commandline/" />
+	<parameter name="commandline.conf.secondary.host" value="localhost" />
 	<parameter name="commandline.conf.secondary.port" value="8002" />
 	<parameter name="commandline.conf.secondary.archivePath"
-		value="c:/Talend/CommandLine/exports" />
+		value="org/talend/tac/folder/secondcommandline/" />
     
     <!-- esb -->
     <parameter name="esb.conf.zookeeperServer" value="127.0.0.1:2181"></parameter>
@@ -26,8 +26,8 @@
 	<parameter name="LDAP.conf.ldap.fields.firstname" value="homePhone" />
 
 	<!-- Log4j parameters -->
-	<parameter name="log4j.conf.logsPath" value="C:/Talend/TacLogs/" />
-	<parameter name="log4j.conf.logsName" value="TACLOG.TXT" />
+	<parameter name="log4j.conf.logsPath" value="org/talend/tac/fileFolder/" />
+	<parameter name="log4j.conf.logsName" value="talendappender.log" />
 	
 
 	<!-- SMTP parameters -->
@@ -39,11 +39,11 @@
 	<parameter name="smtp.conf.serverRequireSSL" value="false" />
 	
 	<!-- Scheduler parameters -->
-	<parameter name="scheduler.conf.ArchivedPath" value="c:/Talend/Administrator/archiveJobs" />
-	<parameter name="scheduler.conf.LogsPath" value="c:/Talend/Administrator/executionLogs" />
+	<parameter name="scheduler.conf.ArchivedPath" value="org/talend/tac/folder/archiveJobs/" />
+	<parameter name="scheduler.conf.LogsPath" value="org/talend/tac/folder/executionLogs/" />
 	
 	<!-- soaManager parameters -->
-	<parameter name="soaManager.conf.jobsDeployPath" value="c:/soaDeploy" />
+	<parameter name="soaManager.conf.jobsDeployPath" value="org/talend/tac/folder/soa/" />
 	<parameter name="soaManager.conf.serverAddress" value="127.0.0.1" />
 	<parameter name="soaManager.conf.serverPort" value="8004" />
 
@@ -62,7 +62,7 @@
 	<parameter name="ldap.user.userName" value="liuyu@sina.com" />
 	
 	<!-- Download path -->
-	<parameter name="firefox.download.path" value="C:/Users/Administrator/Downloads/" />
+	<parameter name="firefox.download.path" value="org/talend/tac/folder/downloads/" />
 
 	<test name="TestConfigurations">
 		<classes>

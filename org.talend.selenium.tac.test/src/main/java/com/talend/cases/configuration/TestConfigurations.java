@@ -1,6 +1,7 @@
 package com.talend.cases.configuration;
 
 import java.io.File;
+import java.util.Properties;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -50,11 +51,11 @@ public class TestConfigurations extends Login {
 	  this.MouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
 	  this.typeWordsInConfigurationMenu(other.getString("commandline.conf.primary.host.editButton"),locatorOfAllInputTags, commandlineHost);
 	  this.typeWordsInConfigurationMenu(other.getString("commandline.conf.primary.port.editButton"),locatorOfAllInputTags, commandlinePort);
-	  this.typeWordsInConfigurationMenu(other.getString("commandLine.conf.primary.archivePath.editButton"),locatorOfAllInputTags, commandlinePath);
+	  this.typeWordsInConfigurationMenu(other.getString("commandLine.conf.primary.archivePath.editButton"),locatorOfAllInputTags, this.getAbsolutePath(commandlinePath));
 
 	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.host.editButton"),locatorOfAllInputTags, commandlineHost,other.getString("commandLine.conf.primary.host.statusIcon"));
 	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.port.editButton"),locatorOfAllInputTags, commandlinePort,other.getString("commandline.conf.primary.port.statusIcon"));
-	  this.AssertEqualsInConfigurationMenu(other.getString("commandLine.conf.primary.archivePath.editButton"),locatorOfAllInputTags, commandlinePath);
+	  this.AssertEqualsInConfigurationMenu(other.getString("commandLine.conf.primary.archivePath.editButton"),locatorOfAllInputTags, this.getAbsolutePath(commandlinePath));
 //	  this.waitForElementPresent(other.getString("commandline.conf.primary.genralStatusIcon"), WAIT_TIME);
 	  //->THIS IS NOT SUIT FOR AUTOMATION CURRENTLY,BECAUSE THE GENERAL ICON STATUS DID'T CHANGE IN TIME, AUTHOUGHT THE PARAMETERS ARE ALL CORRECT.
 
@@ -67,11 +68,11 @@ public class TestConfigurations extends Login {
 	  this.MouseDownWaitForElementPresent("//div[contains(text(),' Command line/secondary')]");
 	  this.typeWordsInConfigurationMenu(other.getString("commandline.conf.secondary.host.editButton"),locatorOfAllInputTags, commandlineHost);
 	  this.typeWordsInConfigurationMenu(other.getString("commandline.conf.secondary.port.editButton"),locatorOfAllInputTags, commandlinePort);
-	  this.typeWordsInConfigurationMenu(other.getString("commandLine.conf.secondary.archivePath.editButton"),locatorOfAllInputTags, commandlinePath);
+	  this.typeWordsInConfigurationMenu(other.getString("commandLine.conf.secondary.archivePath.editButton"),locatorOfAllInputTags, this.getAbsolutePath(commandlinePath));
 	  
 	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.secondary.host.editButton"),locatorOfAllInputTags, commandlineHost,other.getString("commandLine.conf.secondary.host.statusIcon"));
 	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.secondary.port.editButton"),locatorOfAllInputTags, commandlinePort,other.getString("commandline.conf.secondary.port.statusIcon"));
-	  this.AssertEqualsInConfigurationMenu(other.getString("commandLine.conf.secondary.archivePath.editButton"),locatorOfAllInputTags, commandlinePath);
+	  this.AssertEqualsInConfigurationMenu(other.getString("commandLine.conf.secondary.archivePath.editButton"),locatorOfAllInputTags, this.getAbsolutePath(commandlinePath));
 //	  this.waitForElementPresent(other.getString("commandline.conf.secondary.generalStatusIcon"), WAIT_TIME);
 	 
 	  this.MouseDownWaitForElementPresent("//div[contains(text(),' Command line/secondary')]");
@@ -127,10 +128,10 @@ public class TestConfigurations extends Login {
   public void testSetLog4j(String logsPath,String logsName){
 	  	  
 	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Log4j (2')]");
-	  this.typeWordsInConfigurationMenu(other.getString("log4j.conf.logsPath.editButton"), locatorOfAllInputTags, logsPath+logsName);
+	  this.typeWordsInConfigurationMenu(other.getString("log4j.conf.logsPath.editButton"), locatorOfAllInputTags, this.getAbsolutePath(logsPath)+logsName);
  
 	  this.AssertEqualsInConfigurationMenu(other.getString("log4j.conf.logsPath.editButton"), locatorOfAllInputTags,
-			  logsPath+logsName, other.getString("log4j.conf.TalendAppenderStatusIconLocator"));
+			  this.getAbsolutePath(logsPath)+logsName, other.getString("log4j.conf.TalendAppenderStatusIconLocator"));
 	  assertTrue(selenium.isElementPresent(other.getString("log4j.conf.ThresholdStatusIconLocator")));
 	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Log4j (2')]");
 	  this.clickWaitForElementPresent("//div[contains(text(),'Log4j (2 Parameters)')]");  
@@ -163,10 +164,10 @@ public class TestConfigurations extends Login {
   @Parameters ({"scheduler.conf.ArchivedPath","scheduler.conf.LogsPath"})
   public void testSetScheduler(String ArchivedPath,String logsPath){
 	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Scheduler (')]"); 
-	  this.typeWordsInConfigurationMenu(other.getString("scheduler.conf.ArchivedPath.editButton"), locatorOfAllInputTags, ArchivedPath);
-	  this.typeWordsInConfigurationMenu(other.getString("scheduler.conf.LogsPath.editButton"), locatorOfAllInputTags, logsPath);
-	  this.AssertEqualsInConfigurationMenu(other.getString("scheduler.conf.ArchivedPath.editButton"), locatorOfAllInputTags, ArchivedPath,other.getString("scheduler.conf.ArchivedPath.statusIcon"));
-	  this.AssertEqualsInConfigurationMenu(other.getString("scheduler.conf.LogsPath.editButton"), locatorOfAllInputTags, logsPath,other.getString("scheduler.conf.LogsPath.statusIcon"));
+	  this.typeWordsInConfigurationMenu(other.getString("scheduler.conf.ArchivedPath.editButton"), locatorOfAllInputTags, this.getAbsolutePath(ArchivedPath));
+	  this.typeWordsInConfigurationMenu(other.getString("scheduler.conf.LogsPath.editButton"), locatorOfAllInputTags, this.getAbsolutePath(logsPath));
+	  this.AssertEqualsInConfigurationMenu(other.getString("scheduler.conf.ArchivedPath.editButton"), locatorOfAllInputTags, this.getAbsolutePath(ArchivedPath),other.getString("scheduler.conf.ArchivedPath.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("scheduler.conf.LogsPath.editButton"), locatorOfAllInputTags, this.getAbsolutePath(logsPath),other.getString("scheduler.conf.LogsPath.statusIcon"));
 //	  this.waitForElementPresent(other.getString("scheduler.conf.generalStatusIcon"), WAIT_TIME);
 	 
 	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Scheduler (')]"); 
@@ -239,8 +240,11 @@ public class TestConfigurations extends Login {
 		this.clickWaitForElementPresent("//button[text()='Download Log']");
 //		File file = new File(
 //				"C:\\Users\\Administrator\\Downloads\\422NBS.txt.zip");
+		
+		String absoluteDownloadPath=this.getAbsolutePath(downloadPath);
+//		String absoluteDownloadPath=new Properties(System.getProperties()).getProperty("user.home") + File.separator +"Downloads";
 		File file = new File(
-				downloadPath+logsName+".zip");
+				absoluteDownloadPath+logsName+".zip");
 		for (int seconds = 0;; seconds++) {
 			if (seconds >= WAIT_TIME) {
 				assertTrue(file.exists());
@@ -262,8 +266,11 @@ public class TestConfigurations extends Login {
 	public void testExportParameters(String downloadPath) {
 		this.MouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
 		this.clickWaitForElementPresent("//button[text()='Export parameters']");
+		String absoluteDownloadPath=this.getAbsolutePath(downloadPath);
+		//to encourage the download path to be user.home. Any way, the path should match with that defined by firefox profile.
+//		String absoluteDownloadPath=new Properties(System.getProperties()).getProperty("user.home") + File.separator +"Downloads";
 		File file = new File(
-				downloadPath + "administrator_config.txt");
+				absoluteDownloadPath + "administrator_config.txt");
 		for (int seconds = 0;; seconds++) {
 			if (seconds >= WAIT_TIME) {
 				assertTrue(file.exists());
