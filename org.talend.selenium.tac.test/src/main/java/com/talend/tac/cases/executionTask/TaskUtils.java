@@ -10,7 +10,50 @@ import com.talend.tac.cases.executePlan.TriggerDate;
 public class TaskUtils extends Login {
    
     TriggerDate date = new TriggerDate();
-
+    
+    boolean success;
+    
+    public boolean runtask(String tasklabel,int waitTime) throws InterruptedException {
+		selenium.refresh();
+		this.waitForElementPresent("//span[text()='" + tasklabel + "']",
+				WAIT_TIME);
+		selenium.mouseDown("//span[text()='" + tasklabel + "']");
+		Thread.sleep(3000);
+		selenium.click("//button[@id='idJobConductorTaskRunButton'  and @class='x-btn-text ' and text()='Run']");
+//		Date start = new Date();	
+	    if(this.waitForCondition("//span[text()='"+tasklabel+"']//ancestor::tr" +
+				"//span[text()='Error while generating job']", waitTime)) {
+	    	return false;
+	    	
+	    } else {	
+			success = (waitForCondition("//label[text()='Ok']", waitTime));
+			// close the pop window
+			selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
+			// System.out.println(checkContextValue(start));
+			return success;
+	    }
+	}
+	    
+    public boolean waitForCondition(String locator,int seconds) throws InterruptedException{
+		boolean conditionPresent = true;
+		for (int second = 0;; second++) {
+			if (second >= seconds){
+				conditionPresent = false;
+				break;
+			}
+			
+				if (selenium.isElementPresent(locator)){
+					break;
+				}
+				else{
+				Thread.sleep(1000);
+			    } 
+		}
+		
+		return conditionPresent;
+	}   
+    
+    
 	//into JobConductor page
 	public void intoJobConductor(String taskLabel) {
 		
@@ -73,9 +116,10 @@ public class TaskUtils extends Login {
 		this.clickWaitForElementPresent("idMenuConfigElement");//into Configuration page
 		this.waitForElementPresent("//div[contains(text(),'Command line/primary')]", WAIT_TIME);
 		selenium.mouseDown("//div[contains(text(),'Command line/primary')]");
-		this.clickWaitForElementPresent("//div[contains(text(),'Command line/primary')]//ancestor::div[@class='x-grid-group ']" +
-				"//div[text()='Host']//ancestor::tr[@role='presentation']//img[@title='Click to edit']");
-		this.waitForElementPresent("//div[@class=' x-form-field-wrap  x-component']//input", WAIT_TIME); 
+		this.clickWaitForElementPresent("//div[contains(text(),' Command line/primary')]/parent::div/following-sibling::div//table//tr/td/div[text()='Host']" +
+				"//parent::td/following-sibling::td/div/img[@title='Click to edit']");
+		this.waitForElementPresent("//div[contains(text(),' Command line/primary (')]/ancestor::div[@class='x-grid3-body']" +
+				"/following-sibling::div/div/input", WAIT_TIME); 
 		System.out.println("*--------------*");
 		this.typeString("//div[@class=' x-form-field-wrap  x-component']//input",hostAddress);
 			
