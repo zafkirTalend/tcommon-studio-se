@@ -3,14 +3,11 @@ package com.talend.tac.cases.executionTask;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
-import com.talend.tac.base.Base;
 import com.talend.tac.cases.executePlan.TriggerDate;
 
 public class TestAddTriggerAddCronTrigger extends TaskUtils {
     
     TriggerDate date = new TriggerDate().getFuture(24);
-	boolean actualResult;	
 	/***add a cron triiger, set date is by UI
 	selected job is TRunJob(use tRunJob run child'job)**/
 	
@@ -110,7 +107,7 @@ public class TestAddTriggerAddCronTrigger extends TaskUtils {
 	
     @Test(dependsOnMethods={"testAddExistTriggerAddCronTrigger"})
 	@Parameters({"labelRefProJobByMainProTRunJobRun","addCronTriggerLabel","addCronTriggerDescription"})
-    public boolean testAddTriggerAddCronTrigger(String taskLabel,String cronTriggerLabel,String description) throws InterruptedException {
+    public void testAddTriggerAddCronTrigger(String taskLabel,String cronTriggerLabel,String description) throws InterruptedException {
 		
 		addTriggerAddCronTrigger(taskLabel,cronTriggerLabel, description, "2011", 
 				"Sunday", "Saturday", "January", "December");
@@ -124,18 +121,9 @@ public class TestAddTriggerAddCronTrigger extends TaskUtils {
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+cronTriggerLabel+"']"));
 		selenium.setSpeed(MIN_SPEED);
 		
-	    if(this.waitForCondition("//span[text()='"+taskLabel+"']//ancestor::tr" +
-				"//span[text()='Error while generating job']", Base.MAX_WAIT_TIME)) {
-	    	actualResult = (waitForCondition("//span[text()='"+taskLabel+"']//ancestor::tr" +
-					"//span[text()='Running...']", 2));			
-	    		return actualResult;
-	    		
-	    } else {	
-				success = (waitForCondition("//span[text()='"+taskLabel+"']//ancestor::tr" +
-					"//span[text()='Running...']", MAX_WAIT_TIME));			
-				return actualResult;
+		this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
+				"//span[text()='Running...']", WAIT_TIME);	
 	    
-	    }
 				
     }
 	
