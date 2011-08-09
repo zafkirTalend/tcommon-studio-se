@@ -21,7 +21,6 @@ import java.net.URISyntaxException;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
-import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.junit.Assert;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendFileItem;
@@ -63,25 +62,7 @@ public class MetadataHelper implements Helper {
         jobEditor.click(tlogRow);
         jobEditor.save();
 
-        String[] array = jobEditor.getTitle().split(" ");
-        String jobName = array[1];
-        // String jobVersion = array[2];
-        GEFBOT.viewByTitle("Run (Job " + jobName + ")").setFocus();
-        GEFBOT.button(" Run").click();
-
-        // gefBot.waitUntil(Conditions.shellIsActive("Launching " + jobName + " " + jobVersion));
-        // gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Launching " + jobName + " " + jobVersion)));
-
-        GEFBOT.waitUntil(new DefaultCondition() {
-
-            public boolean test() throws Exception {
-                return GEFBOT.button(" Run").isEnabled();
-            }
-
-            public String getFailureMessage() {
-                return "job did not finish running";
-            }
-        }, 60000);
+        JobHelper.runJob(jobEditor);
     }
 
     /**
@@ -105,7 +86,7 @@ public class MetadataHelper implements Helper {
         } else {
             String realResult = JobHelper.filterStatistics(result);
             if (!item.getRightResult().contains(realResult))
-                Assert.fail("the results are not expected");
+                Assert.fail("the results are not expected - " + realResult);
         }
     }
 

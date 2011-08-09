@@ -1439,7 +1439,7 @@ public class Utilities {
         }
     }
 
-    public static void createFTP(String ftpName, SWTGefBot gefBot, SWTBotTreeItem treeNode) {
+    public static SWTBotTreeItem createFTP(String ftpName, SWTGefBot gefBot, SWTBotTreeItem treeNode) {
         treeNode.contextMenu("Create FTP").click();
 
         gefBot.textWithLabel("Name").setText(ftpName);
@@ -1464,6 +1464,8 @@ public class Utilities {
         } finally {
             Assert.assertNotNull("ftp item is not created", newFTPItem);
         }
+
+        return treeNode.getNode(ftpName + " 0.1");
     }
 
     public static void createTalendMDM(SWTGefBot gefBot, SWTBotTreeItem treeNode, String mdmName) {
@@ -1840,7 +1842,7 @@ public class Utilities {
         dndUtil.dragAndDrop(sourceItem, figureCanvas, locationOnJob);
         if (componentLabel != null) {
             gefBot.shell("Components").activate();
-            gefBot.table(0).getTableItem(componentLabel).click();
+            gefBot.table(0).getTableItem(componentLabel).select();
             gefBot.button("OK").click();
         }
         if (componentLabel != null && componentLabel.equals("tFileInputPositional"))
