@@ -5,75 +5,12 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.talend.tac.cases.Login;
 import com.talend.tac.cases.executePlan.TriggerDate;
 
 @Test(dependsOnGroups="fileTrigger")
-public class TestModifyTrigger extends Login {
+public class TestModifyTrigger extends TaskUtils {
     
-	TriggerDate date = new TriggerDate();
-	
-    //add method for test change trigger name	
-	public void renameTrigger(String taskLabel, String labelBeforeModify, String labelAfterModified, 
-			String description ,String triggerType) {
-		
-		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");//into JobConductor page
-    	selenium.setSpeed(MID_SPEED);
-    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
-    	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']"));  
-    	selenium.setSpeed(MIN_SPEED);
-    	this.waitForElementPresent("//span[text()='"+taskLabel+"']", WAIT_TIME);
-    	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task    	  	
-    		
-    	this.waitForElementPresent("//span[text()='"+labelBeforeModify+"']", WAIT_TIME);
-	    Assert.assertTrue(selenium.isElementPresent("//span[text()='"+labelBeforeModify+"']")); 
-	    selenium.setSpeed(MIN_SPEED);
-    	selenium.mouseDown("//span[text()='"+labelBeforeModify+"']");//select a exist trigger 
-    	
-    	if(selenium.isElementPresent("idJobConductor"+triggerType+"TriggerLableInput")) {
-    		
-    		this.typeString("idJobConductor"+triggerType+"TriggerLableInput", labelAfterModified);//modify label
-    		
-    	} else {
-    		
-    		this.typeString("idJobConductor"+triggerType+"TriggerLabelInput", labelAfterModified);//modify label
-    		                 
-    	}
-    	
-        this.typeString("idJobConductor"+triggerType+"TriggerDescInput", description);//modify description
-         
-        if(selenium.isElementPresent("//input[@id='idJobConductorFileTriggerFileServerListBox']/parent::div//div[@class='x-form-trigger x-form-trigger-arrow ']")) {
-    		
-        	selenium.click("//input[@id='idJobConductorFileTriggerFileServerListBox']/parent::div//div[@class='x-form-trigger x-form-trigger-arrow ']");
-    		this.waitForElementPresent("//div[text()='use_server_available']", WAIT_TIME);
-    		selenium.mouseDown("//div[text()='use_server_available']");
-        
-        }
-	   
-        if(selenium.isElementPresent("id"+triggerType+"tTriggerSave")) {
-        	
-        	selenium.click("id"+triggerType+"tTriggerSave");//click save button
-        	
-        } else {
-        	
-        	selenium.click("id"+triggerType+"TriggerSave");//click save button
-        	
-        }
-   		
-        if(!selenium.isElementPresent("//span[text()='"+labelAfterModified+"']")) {
-        	
-    		selenium.click("idTriggerRefresh");//click refresh button
-        	
-        }
-
-        selenium.setSpeed(MID_SPEED);
-		Assert.assertTrue(!selenium.isElementPresent("//span[text()='"+labelBeforeModify+"']"));
-		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+labelAfterModified+"']"));
-		selenium.setSpeed(MIN_SPEED);
-		
-	}
-	
-	
+	TriggerDate date = new TriggerDate();    
 	
 	//test pause and resume a simple trigger
 	@Test
@@ -103,7 +40,7 @@ public class TestModifyTrigger extends Login {
 	}
 	
 	//test rename a simple trigger
-	@Test(dependsOnMethods={"testPauseResumeSimpleTrigger"})
+	@Test
 	@Parameters({"modifyTask", "addSimpleTriggerNumberOfTriggeringsRunnedAutoStopLabel", "simpleTiggerLabelAfterModified",
 		"simpleTiggerLabelAfterModifiedDescription", "simpleTriggerType"})
 	public void testRanameSimpleTrigger(String taskLabel, String labelBeforeModify,String labelAfterModified
@@ -114,7 +51,7 @@ public class TestModifyTrigger extends Login {
 	}
 	
 	//test rename a cron trigger
-	@Test(dependsOnMethods={"testRanameSimpleTrigger"})
+	@Test
 	@Parameters({"labelRefProJobByMainProTRunJobRun", "addCronTriggerLabel", "cronTiggerLabelAfterModified",
 		"cronTiggerLabelAfterModifiedDescription", "cronTriggerType"})
 	public void testRanameCronTrigger(String taskLabel, String labelBeforeModify,String labelAfterModified
@@ -126,7 +63,7 @@ public class TestModifyTrigger extends Login {
 	
 	
 	//test change time interval of simple trigger
-	@Test(dependsOnMethods={"testRanameCronTrigger"})
+	@Test
 	@Parameters({"labelTRunJobByTaskRun", "addSimpleTriggerLabelNotChooseDate","simpleTriggerType"})
 	public void testModifySimpleTriggerTimeInterval(String taskLabel, String triggerLabel, String triggerType) {
 		
@@ -195,7 +132,7 @@ public class TestModifyTrigger extends Login {
 	}
 	
 	//test rename a file trigger
-	@Test(dependsOnMethods={"testModifySimpleTriggerTimeInterval"})
+	@Test
 	@Parameters({"TaskBaseBranch", "addFileTriggerOfExist", "fileTiggerLabelAfterModified",
 		"fileTiggerLabelAfterModifiedDescription", "fileTriggerType"})
 	public void testRanameFileTrigger(String taskLabel, String labelBeforeModify,String labelAfterModified
