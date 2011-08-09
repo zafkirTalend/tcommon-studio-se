@@ -80,7 +80,7 @@ public class Document {
 					String xpath = path.substring(path.indexOf(":") + 1);
 					org.dom4j.XPath xpathObjectForResult = node.createXPath(getXPathByLoopXPath(loopXpath,xpath));
 					Node nodeOfResult = xpathObjectForResult.selectSingleNode(node);
-					row.put(path, nodeOfResult.getText());
+					row.put(path, nodeOfResult == null ? null : nodeOfResult.getText());
 					result.add(row);
 				}
 			}
