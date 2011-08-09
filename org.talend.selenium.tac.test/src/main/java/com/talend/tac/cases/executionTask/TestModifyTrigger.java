@@ -63,7 +63,7 @@ public class TestModifyTrigger extends TaskUtils {
 	
 	
 	//test change time interval of simple trigger
-	@Test
+	@Test(dependsOnMethods={"testPauseResumeSimpleTrigger"})
 	@Parameters({"labelTRunJobByTaskRun", "addSimpleTriggerLabelNotChooseDate","simpleTriggerType"})
 	public void testModifySimpleTriggerTimeInterval(String taskLabel, String triggerLabel, String triggerType) {
 		
