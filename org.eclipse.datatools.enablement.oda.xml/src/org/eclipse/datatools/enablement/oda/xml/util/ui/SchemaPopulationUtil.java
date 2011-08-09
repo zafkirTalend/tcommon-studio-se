@@ -402,6 +402,9 @@ final class XSDFileSchemaTreePopulator {
             node.setValue(element.getName());
             node.setType(ATreeNode.ELEMENT_TYPE);
             node.setDataType(element.getName());
+
+            boolean needCheck = true;
+
             if (element.getTypeDefinition() instanceof XSComplexTypeDecl) {
                 XSComplexTypeDecl complexType = (XSComplexTypeDecl) element.getTypeDefinition();
                 // If the complex type is explicitly defined, that is, it has name.
@@ -417,12 +420,13 @@ final class XSDFileSchemaTreePopulator {
                 }
                 // If the complex type is implicitly defined, that is, it has no name.
                 else {
-
+                    // If the complex type is implicitly defined , no need to check it in explicitly complex type
+                    needCheck = false;
                     addParticleAndAttributeInfo(node, complexType, complexTypesRoot, new VisitingRecorder());
                 }
             }
             String nodeType = node.getOriginalDataType();
-            if (nodeType != null && !attList.contains(nodeType)) {
+            if (nodeType != null && !attList.contains(nodeType) && needCheck) {
                 continue;
             }
             root.addChild(node);
