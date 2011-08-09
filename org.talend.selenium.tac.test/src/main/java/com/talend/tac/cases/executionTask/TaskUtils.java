@@ -13,6 +13,68 @@ public class TaskUtils extends Login {
     
     boolean success;
     
+  //add method for test change trigger name	
+	public void renameTrigger(String taskLabel, String labelBeforeModify, String labelAfterModified, 
+			String description ,String triggerType) {
+		
+		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");//into JobConductor page
+    	selenium.setSpeed(MID_SPEED);
+    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+    	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']"));  
+    	selenium.setSpeed(MIN_SPEED);
+    	this.waitForElementPresent("//span[text()='"+taskLabel+"']", WAIT_TIME);
+    	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task    	  	
+    		
+    	this.waitForElementPresent("//span[text()='"+labelBeforeModify+"']", WAIT_TIME);
+	    Assert.assertTrue(selenium.isElementPresent("//span[text()='"+labelBeforeModify+"']")); 
+	    selenium.setSpeed(MIN_SPEED);
+    	selenium.mouseDown("//span[text()='"+labelBeforeModify+"']");//select a exist trigger 
+    	
+    	if(selenium.isElementPresent("idJobConductor"+triggerType+"TriggerLableInput")) {
+    		
+    		this.typeString("idJobConductor"+triggerType+"TriggerLableInput", labelAfterModified);//modify label
+    		
+    	} else {
+    		
+    		this.typeString("idJobConductor"+triggerType+"TriggerLabelInput", labelAfterModified);//modify label
+    		                 
+    	}
+    	
+        this.typeString("idJobConductor"+triggerType+"TriggerDescInput", description);//modify description
+         
+        if(selenium.isElementPresent("//input[@id='idJobConductorFileTriggerFileServerListBox']/parent::div//div[@class='x-form-trigger x-form-trigger-arrow ']")) {
+    		
+        	selenium.click("//input[@id='idJobConductorFileTriggerFileServerListBox']/parent::div//div[@class='x-form-trigger x-form-trigger-arrow ']");
+    		this.waitForElementPresent("//div[text()='use_server_available']", WAIT_TIME);
+    		selenium.mouseDown("//div[text()='use_server_available']");
+        
+        }
+	   
+        if(selenium.isElementPresent("id"+triggerType+"tTriggerSave")) {
+        	
+        	selenium.click("id"+triggerType+"tTriggerSave");//click save button
+        	
+        } else {
+        	
+        	selenium.click("id"+triggerType+"TriggerSave");//click save button
+        	
+        }
+   		
+        if(!selenium.isElementPresent("//span[text()='"+labelAfterModified+"']")) {
+        	
+    		selenium.click("idTriggerRefresh");//click refresh button
+        	
+        }
+
+        selenium.setSpeed(MID_SPEED);
+		Assert.assertTrue(!selenium.isElementPresent("//span[text()='"+labelBeforeModify+"']"));
+		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+labelAfterModified+"']"));
+		selenium.setSpeed(MIN_SPEED);
+		
+	}
+	
+	
+    
     public boolean runtask(String tasklabel,int waitTime) throws InterruptedException {
 		selenium.refresh();
 		this.waitForElementPresent("//span[text()='" + tasklabel + "']",
