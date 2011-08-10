@@ -14,6 +14,7 @@ package org.talend.repository.ui.wizards.metadata.table.database;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.Driver;
 import java.sql.SQLException;
 import java.text.Collator;
@@ -776,10 +777,11 @@ public class SelectorTableForm extends AbstractForm {
         }
         try {
             if (sqlConn != null) {
-                MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, sqlConn.getMetaData(),
-                        MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData(), true));
-                MetadataFillFactory.getDBInstance().fillSchemas(dbConn, sqlConn.getMetaData(),
-                        MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData(), false));
+                DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType);
+                MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, dm,
+                        MetadataConnectionUtils.getPackageFilter(dbConn, dm, true));
+                MetadataFillFactory.getDBInstance().fillSchemas(dbConn, dm,
+                        MetadataConnectionUtils.getPackageFilter(dbConn, dm, false));
 
                 // EList<Package> nps = dbConn.getDataPackage();
                 // EList<Package> ops = getConnection().getDataPackage();
