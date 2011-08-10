@@ -1808,19 +1808,20 @@ public class Utilities {
      * @param locationOnJob the specific location on job
      */
     public static void dndPaletteToolOntoJob(SWTGefBot gefBot, SWTBotGefEditor jobEditor, String toolLabel, Point locationOnJob) {
-        // jobEditor.activateTool(toolLabel).click(locationOnJob.x, locationOnJob.y);
-        gefBot.viewByTitle("Palette").setFocus();
-        gefBot.textWithTooltip("Enter component prefix or template (*, ?)").setText(toolLabel);
-        gefBot.toolbarButtonWithTooltip("Search").click();
-        gefBot.sleep(500);
-
-        SWTBotGefFigureCanvas paletteFigureCanvas = new SWTBotGefFigureCanvas((FigureCanvas) gefBot.widget(WidgetOfType
-                .widgetOfType(FigureCanvas.class)));
-        SWTBotGefFigureCanvas jobFigureCanvas = new SWTBotGefFigureCanvas((FigureCanvas) gefBot.widget(
-                WidgetOfType.widgetOfType(FigureCanvas.class), jobEditor.getWidget()));
-
-        DndUtil dndUtil = new DndUtil(jobEditor.getWidget().getDisplay());
-        dndUtil.dragAndDrop(paletteFigureCanvas, new Point(50, 70), jobFigureCanvas, locationOnJob);
+        jobEditor.activateTool(toolLabel).click(locationOnJob.x, locationOnJob.y);
+        // gefBot.viewByTitle("Palette").setFocus();
+        // gefBot.textWithTooltip("Enter component prefix or template (*, ?)").setText(toolLabel);
+        // gefBot.toolbarButtonWithTooltip("Search").click();
+        // gefBot.sleep(500);
+        //
+        // SWTBotGefFigureCanvas paletteFigureCanvas = new SWTBotGefFigureCanvas((FigureCanvas)
+        // gefBot.widget(WidgetOfType
+        // .widgetOfType(FigureCanvas.class)));
+        // SWTBotGefFigureCanvas jobFigureCanvas = new SWTBotGefFigureCanvas((FigureCanvas) gefBot.widget(
+        // WidgetOfType.widgetOfType(FigureCanvas.class), jobEditor.getWidget()));
+        //
+        // DndUtil dndUtil = new DndUtil(jobEditor.getWidget().getDisplay());
+        // dndUtil.dragAndDrop(paletteFigureCanvas, new Point(50, 70), jobFigureCanvas, locationOnJob);
     }
 
     /**

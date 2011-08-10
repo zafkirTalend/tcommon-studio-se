@@ -15,6 +15,7 @@ package tosstudio.components.basicelements;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
@@ -32,6 +33,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.helpers.JobHelper;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -63,17 +65,16 @@ public class ExternalComponentsTest extends TalendSwtBotForTos {
     @Test
     public void useComponentInJob() throws IOException, URISyntaxException {
         gefEditor = gefBot.gefEditor("Job " + JOBNAME + " 0.1");
-        gefEditor.show();
 
-        gefEditor.activateTool("tRowGenerator").click(100, 100);
-        gefEditor.activateTool("tMap").click(300, 100);
-        gefEditor.activateTool("tFileOutputDelimited").click(500, 100);
+        Utilities.dndPaletteToolOntoJob(gefBot, gefEditor, "tRowGenerator", new Point(100, 100));
+        Utilities.dndPaletteToolOntoJob(gefBot, gefEditor, "tMap", new Point(300, 100));
+        Utilities.dndPaletteToolOntoJob(gefBot, gefEditor, "tFileOutputDelimited", new Point(500, 100));
 
         /* Edit tRowGenerator */
         SWTBotGefEditPart rowGen = getTalendComponentPart(gefEditor, "tRowGenerator_1");
         Assert.assertNotNull("can not get component 'tRowGenerator'", rowGen);
         rowGen.doubleClick();
-        shell = gefBot.shell("Talend Data Quality Enterprise Edition MPX - tRowGenerator - tRowGenerator_1");
+        shell = gefBot.shell("Talend ESB Enterprise Edition - tRowGenerator - tRowGenerator_1");
         shell.activate();
         /* Add column "id" */
         gefBot.buttonWithTooltip("Add").click();
@@ -82,7 +83,7 @@ public class ExternalComponentsTest extends TalendSwtBotForTos {
         gefBot.table(0).click(0, 4);
         gefBot.ccomboBox("String").setSelection("int | Integer");
         gefBot.table(0).click(0, 10);
-        gefBot.ccomboBox("XTD").setSelection("sequence");
+        gefBot.ccomboBox("COUNT").setSelection("sequence");
         gefBot.table(0).select(0);
         /* Add column "name" */
         gefBot.buttonWithTooltip("Add").click();
@@ -105,9 +106,9 @@ public class ExternalComponentsTest extends TalendSwtBotForTos {
 
         /* Edit tMap */
         map.doubleClick();
-        shell = gefBot.shell("Talend Data Quality Enterprise Edition MPX - tMap - tMap_1");
+        shell = gefBot.shell("Talend ESB Enterprise Edition - tMap - tMap_1");
         shell.activate();
-        gefBot.waitUntil(Conditions.shellIsActive("Talend Data Quality Enterprise Edition MPX - tMap - tMap_1"));
+        gefBot.waitUntil(Conditions.shellIsActive("Talend ESB Enterprise Edition - tMap - tMap_1"));
 
         gefBot.toolbarButtonWithTooltip("Add output table").click();
         gefBot.shell("Add a output").activate();
@@ -138,11 +139,7 @@ public class ExternalComponentsTest extends TalendSwtBotForTos {
         gefEditor.save();
 
         /* Run the job */
-        gefBot.viewByTitle("Run (Job " + JOBNAME + ")").setFocus();
-        gefBot.button(" Run").click();
-
-        gefBot.waitUntil(Conditions.shellIsActive("Launching " + JOBNAME + " 0.1"));
-        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Launching " + JOBNAME + " 0.1")));
+        JobHelper.runJob(gefEditor);
     }
 
     @After

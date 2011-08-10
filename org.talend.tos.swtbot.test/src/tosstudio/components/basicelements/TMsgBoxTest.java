@@ -1,7 +1,7 @@
 package tosstudio.components.basicelements;
 
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.helpers.JobHelper;
 
 // ============================================================================
 //
@@ -59,7 +60,7 @@ public class TMsgBoxTest extends TalendSwtBotForTos {
     public void useComponentInJob() {
         gefEditor = gefBot.gefEditor("Job " + JOBNAME + " 0.1");
 
-        gefEditor.activateTool("tMsgBox").click(100, 100);
+        Utilities.dndPaletteToolOntoJob(gefBot, gefEditor, "tMsgBox", new Point(100, 100));
         SWTBotGefEditPart msgBox = getTalendComponentPart(gefEditor, "tMsgBox_1");
         Assert.assertNotNull("can not get component 'tMsgBox'", msgBox);
 
@@ -69,11 +70,7 @@ public class TMsgBoxTest extends TalendSwtBotForTos {
         gefEditor.save();
 
         /* Run the job */
-        gefBot.viewByTitle("Run (Job " + JOBNAME + ")").setFocus();
-        gefBot.button(" Run").click();
-
-        gefBot.waitUntil(Conditions.shellIsActive("Launching " + JOBNAME + " 0.1"));
-        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Launching " + JOBNAME + " 0.1")));
+        JobHelper.runJob(gefEditor);
     }
 
     @After
