@@ -466,10 +466,17 @@ public final class DqRepositoryViewService {
         DatabaseMetaData dbJDBCMetadata = connection.getMetaData();
         Package catalogOrSchema = PackageHelper.getCatalogOrSchema(catalog);
         ResultSet tables = dbJDBCMetadata.getTables(catalogOrSchema.getName(), null, tablePattern, tableType);
-        if (tables.next()) {
-            return true;
-        } else {
-            return false;
+        // MOD msjian TDQ-1806: fixed "Too many connections"
+        try {
+            if (tables.next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } finally {
+            if (!connection.isClosed()) {
+                connection.close();
+            }
         }
     }
 
@@ -501,10 +508,17 @@ public final class DqRepositoryViewService {
         String catalogName = parentCatalog == null ? null : parentCatalog.getName();
 
         ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, tablePattern, tableType);
-        if (tables.next()) {
-            return true;
-        } else {
-            return false;
+        // MOD msjian TDQ-1806: fixed "Too many connections"
+        try {
+            if (tables.next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } finally {
+            if (!connection.isClosed()) {
+                connection.close();
+            }
         }
     }
 
@@ -520,8 +534,7 @@ public final class DqRepositoryViewService {
      * @return
      * @throws Exception
      */
-    public static boolean isContainsView(Connection dataProvider, Catalog catalog, String viewPattern)
- throws Exception {
+    public static boolean isContainsView(Connection dataProvider, Catalog catalog, String viewPattern) throws Exception {
         TypedReturnCode<java.sql.Connection> rcConn = MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider);
         if (!rcConn.isOk()) {
             log.error(rcConn.getMessage());
@@ -532,10 +545,17 @@ public final class DqRepositoryViewService {
         DatabaseMetaData dbJDBCMetadata = connection.getMetaData();
         Package catalogOrSchema = PackageHelper.getCatalogOrSchema(catalog);
         ResultSet tables = dbJDBCMetadata.getTables(catalogOrSchema.getName(), null, viewPattern, tableType);
-        if (tables.next()) {
-            return true;
-        } else {
-            return false;
+        // MOD msjian TDQ-1806: fixed "Too many connections"
+        try {
+            if (tables.next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } finally {
+            if (!connection.isClosed()) {
+                connection.close();
+            }
         }
     }
 
@@ -568,10 +588,17 @@ public final class DqRepositoryViewService {
         String catalogName = parentCatalog == null ? null : parentCatalog.getName();
 
         ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, viewPattern, tableType);
-        if (tables.next()) {
-            return true;
-        } else {
-            return false;
+        // MOD msjian TDQ-1806: fixed "Too many connections"
+        try {
+            if (tables.next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } finally {
+            if (!connection.isClosed()) {
+                connection.close();
+            }
         }
     }
 
