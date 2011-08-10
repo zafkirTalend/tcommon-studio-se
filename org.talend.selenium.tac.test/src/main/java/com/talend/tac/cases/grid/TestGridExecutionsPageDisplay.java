@@ -190,7 +190,10 @@ public class TestGridExecutionsPageDisplay extends Grid {
 	public void testGridGoToFirstPageByUIButton(String label, String description, String projectName, String branchName, String jobName, String version, String context, String serverName, String statisticName) {
 		String label2 = label+"second";
         this.openGridMenu();
-	    Assert.assertTrue(selenium.getValue("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[@class='gwt-TextBox x-component ']").equals("3"), "go to last page failed!");
+        this.sleep(5000);
+        String currentPage = selenium.getValue("//div[contains(@class,'x-small-editor x-toolbar x-component x-toolbar-layout-ct')]//input[contains(@class,'gwt-TextBox x-component')]");
+	    System.out.println("*-*-*-*-"+currentPage);
+        Assert.assertTrue(currentPage.equals("3"), "go to last page failed!");
         selenium.click("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//td[@class='x-toolbar-left']//tr[@class='x-toolbar-left-row']//td[1]//table//button");
         this.sleep(5000);
         Assert.assertTrue(selenium.getValue("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[@class='gwt-TextBox x-component ']").equals("1"), "go to first page by UI button failed!");
