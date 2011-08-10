@@ -150,18 +150,17 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 		
 		selenium.setSpeed(MAX_SPEED);
 		selenium.click("//button[@id='idJobConductorTaskGenerateButton']");
-		selenium.setSpeed(MIN_SPEED);
-		
-		selenium.setSpeed(MIN_SPEED);
+		selenium.click(MIN_SPEED);		
+		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent("The requested action cannot be carried out because the execution task"), "The requested action cannot be carried out because the execution " +
 				"task is without appear");
 		selenium.setSpeed(MIN_SPEED);
 		
 	}
 	
-	//test pauserTask button and resumeTask button
+	//test pauseTask button and resumeTask button
 	@Test(dependsOnMethods={"testRunSimpleTask"})
-	@Parameters({"modifyTask","addCronTriggerLabel","addCronTriggerDescription"})
+	@Parameters({"TaskBaseBranch","addCronTriggerLabel","addCronTriggerDescription"})
 	public void testPauseTaskResumeTask(String taskLabel, String cronTriggerLabel,String description) {
 		
 		intoJobConductor(taskLabel);
@@ -178,6 +177,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 		
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("idJobConductorTaskPauseButton");
+		selenium.getConfirmation();
 		selenium.setSpeed(MIN_SPEED);
 		
 		this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::table[@class='x-grid3-row-table']//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-triggersStatus')]" +
@@ -189,7 +189,8 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 				"//img[@alt='Paused']"), "//span[text()='"+cronTriggerLabel+"']//ancestor::table[@class='x-grid3-row-table']//img[@alt='Paused'] is without appear");
 		
 		selenium.setSpeed(MID_SPEED);
-		selenium.click("idJobConductorTaskPauseButton");
+		selenium.click("idJobConductorTaskResumeTriggerButton");
+		selenium.getConfirmation();
 		selenium.setSpeed(MIN_SPEED);
 		
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::table[@class='x-grid3-row-table']//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-triggersStatus')]" +
