@@ -1,7 +1,6 @@
 package com.talend.cases.configuration;
 
 import java.io.File;
-import java.util.Properties;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -139,8 +138,7 @@ public class TestConfigurations extends Login {
   @Test
   @Parameters ({"smtp.conf.useSmtp","smtp.conf.mailServerHost","smtp.conf.mailServerPort","smtp.conf.mailUserName","smtp.conf.mailPassword","smtp.conf.serverRequireSSL"})
   public void testSetSMTP(String useSmtp,String mailServerHost,String mailServerPort,String mailUserName,String mailPassword,String serverRequireSSL){//String serverRequireSSL
-	  this.clickWaitForElementPresent("//div[contains(text(),'SMTP (6 Parameters')]");
-	  this.clickWaitForElementPresent("//div[contains(text(),'SMTP (6 Parameters')]");  
+	  this.MouseDownWaitForElementPresent("//div[contains(text(),'SMTP (6 Parameters')]");
 	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.useSmtp.editButton"), locatorOfAllInputTags, useSmtp);
 	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.mailServerHost.editButton"), locatorOfAllInputTags, mailServerHost);
 	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.mailServerPort.editButton"), locatorOfAllInputTags, mailServerPort);
@@ -156,7 +154,7 @@ public class TestConfigurations extends Login {
 	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.serverRequireSSL.editButton"), locatorOfAllInputTags, serverRequireSSL,other.getString("smtp.conf.serverRequireSSL.statusIcon"));
 //	  this.waitForElementPresent(other.getString("smtp.conf.generalStatusIcon"), WAIT_TIME);
 	  
-	  this.clickWaitForElementPresent("//div[contains(text(),'SMTP (6 Parameters')]");  
+	  this.MouseDownWaitForElementPresent("//div[contains(text(),'SMTP (6 Parameters')]");  
 	//assertEquals
   }
   
