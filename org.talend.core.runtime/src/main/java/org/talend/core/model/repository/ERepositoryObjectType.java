@@ -440,6 +440,9 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
                     String label = element.getAttribute("label");//$NON-NLS-N$
                     String type = element.getAttribute("type");//$NON-NLS-N$
                     String folder = element.getAttribute("folder");//$NON-NLS-N$
+                    if (folder == null) {
+                        folder = "";
+                    }
                     String isResouce = element.getAttribute("isResouce");//$NON-NLS-N$
                     String rightAttribute = element.getAttribute("user_right");//$NON-NLS-N$
                     if (rightAttribute == null) {
