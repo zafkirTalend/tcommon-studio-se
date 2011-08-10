@@ -139,21 +139,22 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 		
 	}
 	
-	//generate a generating task and check warn info
+	//run a generating task and check warn info
 	@Test(dependsOnMethods={"testRunSimpleTask"})
 	@Parameters({"modifyTask"})
-	public void testGenerateAGeneratingTask(String taskLabel) {
+	public void testRunAGeneratingTask(String taskLabel) {
 		
 		generateDeployRunTask(taskLabel, "idJobConductorTaskGenerateButton");//click generate button
 		this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
 				"//span[text()='Generating...']", WAIT_TIME);
 		
 		selenium.setSpeed(MAX_SPEED);
-		selenium.click("//button[@id='idJobConductorTaskGenerateButton']");
-		selenium.click(MIN_SPEED);		
-		selenium.setSpeed(MID_SPEED);
-		Assert.assertTrue(selenium.isTextPresent("The requested action cannot be carried out because the execution task"), "The requested action cannot be carried out because the execution " +
-				"task is without appear");
+		selenium.click("//button[@id='idJobConductorTaskRunButton']");
+		selenium.setSpeed(MIN_SPEED);	
+		
+		selenium.setSpeed(MID_SPEED);              
+		Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'The requested action cannot be carried out because the execution task')]"), "//div[contains,(text()'The requested action cannot be carried out because the execution task')]" +
+				" is without appear");
 		selenium.setSpeed(MIN_SPEED);
 		
 	}
