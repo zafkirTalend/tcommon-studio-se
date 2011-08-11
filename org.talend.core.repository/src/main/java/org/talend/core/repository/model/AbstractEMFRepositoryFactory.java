@@ -54,6 +54,7 @@ import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.properties.ReferenceFileItem;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -64,6 +65,7 @@ import org.talend.core.model.repository.LockInfo;
 import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.core.repository.CoreRepositoryPlugin;
 import org.talend.core.repository.i18n.Messages;
+import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.designer.core.model.utils.emf.component.ComponentFactory;
@@ -82,6 +84,8 @@ import org.talend.repository.model.RepositoryConstants;
 public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFactory implements IRepositoryFactory {
 
     protected ICoreService coreSerivce = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+
+    public XmiResourceManager xmiResourceManager = new XmiResourceManager();
 
     /**
      * Generates the next id for serializable. If no serializable returns 0.
@@ -330,7 +334,6 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         if (changeLabelWithCopyPrefix) {
             setPropNewName(property);
         }
-
         EcoreUtil.resolveAll(createResource);
         return newItem;
     }

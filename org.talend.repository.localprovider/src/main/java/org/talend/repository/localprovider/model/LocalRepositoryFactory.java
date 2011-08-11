@@ -103,6 +103,7 @@ import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.properties.ReferenceFileItem;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.RulesItem;
 import org.talend.core.model.properties.SQLPatternItem;
@@ -1368,8 +1369,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         saveProject(project);
     }
 
-    public XmiResourceManager xmiResourceManager = new XmiResourceManager();
-
     public void lock(Item item) throws PersistenceException {
         if (getStatus(item) == ERepositoryStatus.DEFAULT) {
             // lockedObject.put(item.getProperty().getId(), new LockedObject(new
@@ -1805,8 +1804,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         propagateFileName(project, item.getProperty());
         if (item.eResource() != null && itemResource != null) {
+            List<Resource> referenceFileReources = getReferenceFilesResources(item, item.eResource());
+            for (Resource referenceFileResource : referenceFileReources) {
+                xmiResourceManager.saveResource(referenceFileResource);
+            }
             xmiResourceManager.saveResource(item.eResource());
             xmiResourceManager.saveResource(itemResource);
+            /* should release the refereneces of resources */
+            referenceFileReources = null;
             if (screenshotFlag) {
                 xmiResourceManager.saveResource(screenshotResource);
             }
@@ -1844,6 +1849,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             createResource.load(in, null);
             Item newItem = copyFromResource(createResource, changeLabelWithCopyPrefix);
             create(getRepositoryContext().getProject(), newItem, path);
+            // *need to create all referenece files when copy the item*//
+            copyReferenceFiles(newItem);
 
             if (newItem instanceof ConnectionItem) {
                 ConnectionItem connectionItem = (ConnectionItem) newItem;
@@ -1861,6 +1868,18 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
 
         return null;
+    }
+
+    private void copyReferenceFiles(Item newItem) throws PersistenceException {
+        List<ReferenceFileItem> originalReferItems = newItem.getReferenceResources();
+        for (ReferenceFileItem ri : originalReferItems) {
+            Resource refResourceToSave = xmiResourceManager.getReferenceFileResource(newItem.eResource(), ri.getExtension(),
+                    false);
+            ByteArray byarray = PropertiesFactory.eINSTANCE.createByteArray();
+            byarray.setInnerContent(ri.getContent().getInnerContent());
+            refResourceToSave.getContents().add(byarray);
+            xmiResourceManager.saveResource(refResourceToSave);
+        }
     }
 
     private void propagateFileName(Project project, Property property) throws PersistenceException {
@@ -2039,7 +2058,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 }
             }
         }
-
         Resource propertyResource = xmiResourceManager.createPropertyResource(itemResource);
         propertyResource.getContents().add(item.getProperty());
         propertyResource.getContents().add(item.getState());
@@ -2063,6 +2081,21 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         if (isImportItem.length == 0 || !isImportItem[0]) {
             saveProject(project);
         }
+    }
+
+    private List<Resource> getReferenceFilesResources(Item item, Resource propertyResource) {
+        List referenceResources = item.getReferenceResources();
+        List<Resource> referenceFileReources = new ArrayList<Resource>();
+        for (ReferenceFileItem refFile : (List<ReferenceFileItem>) referenceResources) {
+            Resource referenceFileReource = xmiResourceManager.getReferenceFileResource(propertyResource, refFile.getExtension(),
+                    true);
+            if (referenceFileReource.getContents() != null) {
+                refFile.setContent((ByteArray) referenceFileReource.getContents().get(0));
+            }
+            referenceFileReources.add(referenceFileReource);
+        }
+        propertyResource.getContents().addAll(referenceResources);
+        return referenceFileReources;
     }
 
     /**
@@ -2263,8 +2296,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     resChangeService.handleUnload(resource);
                 }
                 resource.unload();
-                // xmiResourceManager.resourceSet.getResources().remove(resource);
             }
+            // xmiResourceManager.resourceSet.getResources().remove(resource);
         }
     }
 

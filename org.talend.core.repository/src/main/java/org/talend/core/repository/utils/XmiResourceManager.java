@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.repository.utils;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -29,12 +31,14 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.emf.EmfHelper;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
+import org.talend.core.model.properties.ByteArray;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.EbcdicConnectionItem;
@@ -49,6 +53,7 @@ import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.properties.ReferenceFileItem;
 import org.talend.core.model.properties.TDQItem;
 import org.talend.core.model.properties.ValidationRulesConnectionItem;
 import org.talend.core.model.properties.helper.ByteArrayResource;
@@ -56,8 +61,6 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.repository.utils.ResourceFilenameHelper.FileName;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
-import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
-import org.talend.designer.core.model.utils.emf.talendfile.impl.ScreenshotsMapImpl;
 import org.talend.repository.ProjectManager;
 
 /**
@@ -190,6 +193,44 @@ public class XmiResourceManager {
     public Resource createPropertyResource(Resource itemResource) {
         URI propertyResourceURI = getPropertyResourceURI(itemResource.getURI());
         return resourceSet.createResource(propertyResourceURI);
+    }
+
+    public Resource getReferenceFileResource(Resource itemResource, String extension, boolean needLoad) {
+        URI referenceFileURI = getReferenceFileURI(itemResource.getURI(), extension);
+        URIConverter converter = resourceSet.getURIConverter();
+        Resource referenceResource = new ByteArrayResource(referenceFileURI);
+        InputStream inputStream = null;
+
+        List<Resource> resources = new ArrayList<Resource>(resourceSet.getResources());
+        for (Resource res : resources) {
+            if (referenceFileURI.toString().equals(res.getURI().toString())) {
+                res.unload();
+                resourceSet.getResources().remove(res);
+            }
+        }
+
+        resourceSet.getResources().add(referenceResource);
+        try {
+            if (needLoad) {
+                inputStream = converter.createInputStream(referenceFileURI);
+                referenceResource.load(inputStream, null);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+            } catch (IOException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        return referenceResource;
+    }
+
+    private URI getReferenceFileURI(URI itemResourceURI, String extension) {
+        return itemResourceURI.trimFileExtension().appendFileExtension(extension);
     }
 
     public Resource createItemResource(IProject project, Item item, IPath path, ERepositoryObjectType repositoryObjectType,
@@ -347,6 +388,16 @@ public class XmiResourceManager {
                 }
                 if (!resourceSet.getResources().contains(currentResource)) {
                     resourceSet.getResources().add(currentResource);
+                }
+            }
+            if (object instanceof ReferenceFileItem) {
+                ReferenceFileItem fi = (ReferenceFileItem) object;
+                ByteArray ba = fi.getContent();
+                if (ba != null) {
+                    Resource fiResource = ba.eResource();
+                    if (fiResource != null) {
+                        resources.add(fiResource);
+                    }
                 }
             }
         }
