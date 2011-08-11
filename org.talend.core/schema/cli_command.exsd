@@ -53,11 +53,16 @@
             <element ref="Group" minOccurs="0" maxOccurs="1"/>
             <element ref="Argument" minOccurs="0" maxOccurs="1"/>
          </sequence>
-         <attribute name="id" type="string" use="required">
+         <attribute name="id" type="string">
             <annotation>
                <documentation>
                   Command Index
+ it&apos;s optional.
+  if don&apos;t set, will generte it automatically by default
                </documentation>
+               <appInfo>
+                  <meta.attribute deprecated="true"/>
+               </appInfo>
             </annotation>
          </attribute>
          <attribute name="name" type="string" use="required">
