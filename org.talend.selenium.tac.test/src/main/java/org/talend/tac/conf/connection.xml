@@ -9,8 +9,8 @@
   <parameter  name ="Mysql_Password" value ="123456"/>
   <parameter  name ="Mysql_Datasourse" value =""/>
   <parameter  name ="Mysql_Additional" value =""/>
-  <parameter  name ="Mysql_Stattable" value ="statsinfo"/>
-  <parameter  name ="Mysql_Logstable" value ="logsinfo"/>
+  <parameter  name ="Mysql_Stattable" value ="tstats"/>
+  <parameter  name ="Mysql_Logstable" value ="tlogs"/>
 
   <parameter  name ="MSSQL_Dbname" value ="amc"/>
   <parameter  name ="MSSQL_Dbtype" value="4"/>
