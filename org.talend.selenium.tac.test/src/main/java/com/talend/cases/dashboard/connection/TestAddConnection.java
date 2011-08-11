@@ -34,7 +34,7 @@ public class TestAddConnection extends Login {
 
 	}
 
-//	@Test(groups = "AddConnection")
+	@Test(groups = "AddConnection")
 	@Parameters( { "Oracle_Connectionlabel", "Oracle_Dbname", "Oracle_Dbtype",
 			"Oracle_Host", "Oracle_Serverport", "Oracle_Username",
 			"Oracle_Password", "Oracle_Datasourse", "Oracle_Additional",
