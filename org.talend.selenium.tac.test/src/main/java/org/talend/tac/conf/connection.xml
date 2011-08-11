@@ -24,17 +24,17 @@
   <parameter  name ="MSSQL_Stattable" value ="statsinfo"/>
   <parameter  name ="MSSQL_Logstable" value ="logsinfo"/>
   
-  <parameter  name ="Oracle_Dbname" value ="test"/>
+  <parameter  name ="Oracle_Dbname" value ="talend"/>
   <parameter  name ="Oracle_Dbtype" value="3"/>
   <parameter  name ="Oracle_Connectionlabel" value ="Oracleconnection"/>
-  <parameter  name ="Oracle_Host" value ="localhost"/>
-  <parameter  name ="Oracle_Serverport" value ="3306"/>
-  <parameter  name ="Oracle_Username" value ="root"/>
-  <parameter  name ="Oracle_Password" value ="123456"/>
+  <parameter  name ="Oracle_Host" value ="192.168.0.25"/>
+  <parameter  name ="Oracle_Serverport" value ="1521"/>
+  <parameter  name ="Oracle_Username" value ="talend"/>
+  <parameter  name ="Oracle_Password" value ="talend"/>
   <parameter  name ="Oracle_Datasourse" value =""/>
   <parameter  name ="Oracle_Additional" value =""/>
-  <parameter  name ="Oracle_Stattable" value ="stat"/>
-  <parameter  name ="Oracle_Logstable" value ="logs"/>
+  <parameter  name ="Oracle_Stattable" value ="TSTATS"/>
+  <parameter  name ="Oracle_Logstable" value ="TLOGS"/>
  
   <test name="dashboard">
     <classes>
