@@ -5,18 +5,22 @@
  */
 package org.talend.core.model.properties.impl;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.properties.ReferenceFileItem;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Item</b></em>'. <!-- end-user-doc -->
@@ -26,6 +30,7 @@ import org.talend.core.model.properties.Property;
  *   <li>{@link org.talend.core.model.properties.impl.ItemImpl#getProperty <em>Property</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ItemImpl#getState <em>State</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ItemImpl#getParent <em>Parent</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ItemImpl#getReferenceResources <em>Reference Resources</em>}</li>
  * </ul>
  * </p>
  *
@@ -44,24 +49,33 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
     protected Property property;
 
     /**
-     * The cached value of the '{@link #getState() <em>State</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
+     * The cached value of the '{@link #getState() <em>State</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getState()
      * @generated
      * @ordered
      */
     protected ItemState state;
-
     /**
      * The cached value of the '{@link #getParent() <em>Parent</em>}' reference.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getParent()
      * @generated
      * @ordered
      */
     protected EObject parent;
+
+    /**
+     * The cached value of the '{@link #getReferenceResources() <em>Reference Resources</em>}' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getReferenceResources()
+     * @generated
+     * @ordered
+     */
+    protected EList referenceResources;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -156,7 +170,8 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public ItemState basicGetState() {
@@ -179,7 +194,8 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EObject getParent() {
@@ -195,7 +211,8 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EObject basicGetParent() {
@@ -203,7 +220,8 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void setParent(EObject newParent) {
@@ -211,6 +229,18 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
         parent = newParent;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.ITEM__PARENT, oldParent, parent));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EList getReferenceResources() {
+        if (referenceResources == null) {
+            referenceResources = new EObjectResolvingEList(ReferenceFileItem.class, this, PropertiesPackage.ITEM__REFERENCE_RESOURCES);
+        }
+        return referenceResources;
     }
 
     /**
@@ -254,6 +284,8 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
             case PropertiesPackage.ITEM__PARENT:
                 if (resolve) return getParent();
                 return basicGetParent();
+            case PropertiesPackage.ITEM__REFERENCE_RESOURCES:
+                return getReferenceResources();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -272,6 +304,10 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
                 return;
             case PropertiesPackage.ITEM__PARENT:
                 setParent((EObject)newValue);
+                return;
+            case PropertiesPackage.ITEM__REFERENCE_RESOURCES:
+                getReferenceResources().clear();
+                getReferenceResources().addAll((Collection)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -292,6 +328,9 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
             case PropertiesPackage.ITEM__PARENT:
                 setParent((EObject)null);
                 return;
+            case PropertiesPackage.ITEM__REFERENCE_RESOURCES:
+                getReferenceResources().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -308,6 +347,8 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
                 return state != null;
             case PropertiesPackage.ITEM__PARENT:
                 return parent != null;
+            case PropertiesPackage.ITEM__REFERENCE_RESOURCES:
+                return referenceResources != null && !referenceResources.isEmpty();
         }
         return super.eIsSet(featureID);
     }

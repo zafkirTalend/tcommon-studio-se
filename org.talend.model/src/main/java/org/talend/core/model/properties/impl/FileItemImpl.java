@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.resource.URIConverter;
 import org.talend.core.model.properties.ByteArray;
 import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.PropertiesPackage;
+import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.helper.ByteArrayResource;
 
 /**
@@ -38,55 +39,50 @@ import org.talend.core.model.properties.helper.ByteArrayResource;
 public abstract class FileItemImpl extends ItemImpl implements FileItem {
 
     /**
-     * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
+     * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getName()
      * @generated
      * @ordered
      */
     protected static final String NAME_EDEFAULT = null;
-
     /**
-     * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
+     * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getName()
      * @generated
      * @ordered
      */
     protected String name = NAME_EDEFAULT;
-
     /**
      * The default value of the '{@link #getExtension() <em>Extension</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getExtension()
      * @generated
      * @ordered
      */
     protected static final String EXTENSION_EDEFAULT = null;
-
     /**
      * The cached value of the '{@link #getExtension() <em>Extension</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getExtension()
      * @generated
      * @ordered
      */
     protected String extension = EXTENSION_EDEFAULT;
-
     /**
      * The cached value of the '{@link #getContent() <em>Content</em>}' reference.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getContent()
      * @generated
      * @ordered
      */
     protected ByteArray content;
-
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -104,7 +100,8 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public String getName() {
@@ -112,7 +109,8 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void setName(String newName) {
@@ -123,7 +121,8 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public String getExtension() {
@@ -131,7 +130,8 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void setExtension(String newExtension) {
@@ -142,7 +142,8 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public ByteArray getContent() {
@@ -158,7 +159,8 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public ByteArray basicGetContent() {
@@ -166,7 +168,8 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void setContent(ByteArray newContent) {
@@ -248,7 +251,8 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public String toString() {

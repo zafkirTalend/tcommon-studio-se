@@ -1,6 +1,7 @@
 /**
- * <copyright> </copyright>
- * 
+ * <copyright>
+ * </copyright>
+ *
  * $Id$
  */
 package org.talend.core.model.properties.impl;
@@ -9,19 +10,24 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+
 import org.talend.core.model.properties.*;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model <b>Factory</b>.
+ * <!-- end-user-doc -->
  * @generated
  */
 public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFactory {
-
     /**
      * Creates the default factory implementation.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public static PropertiesFactory init() {
@@ -39,7 +45,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
 
     /**
      * Creates an instance of the factory.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public PropertiesFactoryImpl() {
@@ -47,7 +54,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EObject create(EClass eClass) {
@@ -143,13 +151,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.JOB_SCRIPT_ITEM: return createJobScriptItem();
             case PropertiesPackage.EDIFACT_CONNECTION_ITEM: return createEDIFACTConnectionItem();
             case PropertiesPackage.TECHNICAL_VARIABLE: return createTechnicalVariable();
+            case PropertiesPackage.REFERENCE_FILE_ITEM: return createReferenceFileItem();
+            case PropertiesPackage.REFERENCE_ITEM: return createReferenceItem();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public Object createFromString(EDataType eDataType, String initialValue) {
@@ -168,7 +179,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public String convertToString(EDataType eDataType, Object instanceValue) {
@@ -187,16 +199,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public Status createStatus() {
-        StatusImpl status = new StatusImpl();
-        return status;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public Project createProject() {
@@ -205,216 +209,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public Property createProperty() {
-        PropertyImpl property = new PropertyImpl();
-        return property;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public LinkDocumentationItem createLinkDocumentationItem() {
-        LinkDocumentationItemImpl linkDocumentationItem = new LinkDocumentationItemImpl();
-        return linkDocumentationItem;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public LinkType createLinkType() {
-        LinkTypeImpl linkType = new LinkTypeImpl();
-        return linkType;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @generated NOT
-     */
-    public BusinessProcessItem createBusinessProcessItem() {
-        BusinessProcessItemImpl businessProcessItem = new BusinessProcessItemImpl();
-        businessProcessItem.setNotationHolder(createNotationHolder());
-        return businessProcessItem;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public ItemState createItemState() {
-        ItemStateImpl itemState = new ItemStateImpl();
-        return itemState;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public DocumentationItem createDocumentationItem() {
-        DocumentationItemImpl documentationItem = new DocumentationItemImpl();
-        return documentationItem;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public RoutineItem createRoutineItem() {
-        RoutineItemImpl routineItem = new RoutineItemImpl();
-        return routineItem;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public ByteArray createByteArray() {
-        ByteArrayImpl byteArray = new ByteArrayImpl();
-        return byteArray;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public ConnectionItem createConnectionItem() {
-        ConnectionItemImpl connectionItem = new ConnectionItemImpl();
-        return connectionItem;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public SnippetVariable createSnippetVariable() {
-        SnippetVariableImpl snippetVariable = new SnippetVariableImpl();
-        return snippetVariable;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public SnippetItem createSnippetItem() {
-        SnippetItemImpl snippetItem = new SnippetItemImpl();
-        return snippetItem;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public DelimitedFileConnectionItem createDelimitedFileConnectionItem() {
-        DelimitedFileConnectionItemImpl delimitedFileConnectionItem = new DelimitedFileConnectionItemImpl();
-        return delimitedFileConnectionItem;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public PositionalFileConnectionItem createPositionalFileConnectionItem() {
-        PositionalFileConnectionItemImpl positionalFileConnectionItem = new PositionalFileConnectionItemImpl();
-        return positionalFileConnectionItem;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public RegExFileConnectionItem createRegExFileConnectionItem() {
-        RegExFileConnectionItemImpl regExFileConnectionItem = new RegExFileConnectionItemImpl();
-        return regExFileConnectionItem;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public CSVFileConnectionItem createCSVFileConnectionItem() {
-        CSVFileConnectionItemImpl csvFileConnectionItem = new CSVFileConnectionItemImpl();
-        return csvFileConnectionItem;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public DatabaseConnectionItem createDatabaseConnectionItem() {
-        DatabaseConnectionItemImpl databaseConnectionItem = new DatabaseConnectionItemImpl();
-        return databaseConnectionItem;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public SAPConnectionItem createSAPConnectionItem() {
-        SAPConnectionItemImpl sapConnectionItem = new SAPConnectionItemImpl();
-        return sapConnectionItem;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public ProcessItem createProcessItem() {
-        ProcessItemImpl processItem = new ProcessItemImpl();
-        return processItem;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public User createUser() {
-        UserImpl user = new UserImpl();
-        return user;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public FolderItem createFolderItem() {
-        FolderItemImpl folderItem = new FolderItemImpl();
-        return folderItem;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public Component createComponent() {
-        ComponentImpl component = new ComponentImpl();
-        return component;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public XmlFileConnectionItem createXmlFileConnectionItem() {
-        XmlFileConnectionItemImpl xmlFileConnectionItem = new XmlFileConnectionItemImpl();
-        return xmlFileConnectionItem;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public NotationHolder createNotationHolder() {
-        NotationHolderImpl notationHolder = new NotationHolderImpl();
-        return notationHolder;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public ProjectComponentAuthorisation createProjectComponentAuthorisation() {
@@ -423,7 +219,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public ProjectReference createProjectReference() {
@@ -432,7 +229,198 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Status createStatus() {
+        StatusImpl status = new StatusImpl();
+        return status;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ItemState createItemState() {
+        ItemStateImpl itemState = new ItemStateImpl();
+        return itemState;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Property createProperty() {
+        PropertyImpl property = new PropertyImpl();
+        return property;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public LinkDocumentationItem createLinkDocumentationItem() {
+        LinkDocumentationItemImpl linkDocumentationItem = new LinkDocumentationItemImpl();
+        return linkDocumentationItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public LinkType createLinkType() {
+        LinkTypeImpl linkType = new LinkTypeImpl();
+        return linkType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public BusinessProcessItem createBusinessProcessItem() {
+        BusinessProcessItemImpl businessProcessItem = new BusinessProcessItemImpl();
+        return businessProcessItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ByteArray createByteArray() {
+        ByteArrayImpl byteArray = new ByteArrayImpl();
+        return byteArray;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public DocumentationItem createDocumentationItem() {
+        DocumentationItemImpl documentationItem = new DocumentationItemImpl();
+        return documentationItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public RoutineItem createRoutineItem() {
+        RoutineItemImpl routineItem = new RoutineItemImpl();
+        return routineItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ConnectionItem createConnectionItem() {
+        ConnectionItemImpl connectionItem = new ConnectionItemImpl();
+        return connectionItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SnippetVariable createSnippetVariable() {
+        SnippetVariableImpl snippetVariable = new SnippetVariableImpl();
+        return snippetVariable;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SnippetItem createSnippetItem() {
+        SnippetItemImpl snippetItem = new SnippetItemImpl();
+        return snippetItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public DelimitedFileConnectionItem createDelimitedFileConnectionItem() {
+        DelimitedFileConnectionItemImpl delimitedFileConnectionItem = new DelimitedFileConnectionItemImpl();
+        return delimitedFileConnectionItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public PositionalFileConnectionItem createPositionalFileConnectionItem() {
+        PositionalFileConnectionItemImpl positionalFileConnectionItem = new PositionalFileConnectionItemImpl();
+        return positionalFileConnectionItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public RegExFileConnectionItem createRegExFileConnectionItem() {
+        RegExFileConnectionItemImpl regExFileConnectionItem = new RegExFileConnectionItemImpl();
+        return regExFileConnectionItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public CSVFileConnectionItem createCSVFileConnectionItem() {
+        CSVFileConnectionItemImpl csvFileConnectionItem = new CSVFileConnectionItemImpl();
+        return csvFileConnectionItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public DatabaseConnectionItem createDatabaseConnectionItem() {
+        DatabaseConnectionItemImpl databaseConnectionItem = new DatabaseConnectionItemImpl();
+        return databaseConnectionItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SAPConnectionItem createSAPConnectionItem() {
+        SAPConnectionItemImpl sapConnectionItem = new SAPConnectionItemImpl();
+        return sapConnectionItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public XmlFileConnectionItem createXmlFileConnectionItem() {
+        XmlFileConnectionItemImpl xmlFileConnectionItem = new XmlFileConnectionItemImpl();
+        return xmlFileConnectionItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public LdifFileConnectionItem createLdifFileConnectionItem() {
@@ -441,7 +429,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public ExcelFileConnectionItem createExcelFileConnectionItem() {
@@ -450,7 +439,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EbcdicConnectionItem createEbcdicConnectionItem() {
@@ -459,7 +449,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public MDMConnectionItem createMDMConnectionItem() {
@@ -478,7 +469,68 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ProcessItem createProcessItem() {
+        ProcessItemImpl processItem = new ProcessItemImpl();
+        return processItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public UserRole createUserRole() {
+        UserRoleImpl userRole = new UserRoleImpl();
+        return userRole;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public User createUser() {
+        UserImpl user = new UserImpl();
+        return user;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public FolderItem createFolderItem() {
+        FolderItemImpl folderItem = new FolderItemImpl();
+        return folderItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Component createComponent() {
+        ComponentImpl component = new ComponentImpl();
+        return component;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotationHolder createNotationHolder() {
+        NotationHolderImpl notationHolder = new NotationHolderImpl();
+        return notationHolder;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public UserProjectAuthorization createUserProjectAuthorization() {
@@ -487,7 +539,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public ContextItem createContextItem() {
@@ -496,7 +549,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public SpagoBiServer createSpagoBiServer() {
@@ -505,7 +559,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public License createLicense() {
@@ -514,7 +569,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public GenericSchemaConnectionItem createGenericSchemaConnectionItem() {
@@ -523,7 +579,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public UserModuleAuthorization createUserModuleAuthorization() {
@@ -532,7 +589,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public LDAPSchemaConnectionItem createLDAPSchemaConnectionItem() {
@@ -541,7 +599,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public SalesforceSchemaConnectionItem createSalesforceSchemaConnectionItem() {
@@ -550,7 +609,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public DashboardConnection createDashboardConnection() {
@@ -559,16 +619,58 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-    public ExecutionServer createExecutionServer() {
-        ExecutionServerImpl executionServer = new ExecutionServerImpl();
-        return executionServer;
+    public ExecutionPlan createExecutionPlan() {
+        ExecutionPlanImpl executionPlan = new ExecutionPlanImpl();
+        return executionPlan;
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ExecutionPlanPart createExecutionPlanPart() {
+        ExecutionPlanPartImpl executionPlanPart = new ExecutionPlanPartImpl();
+        return executionPlanPart;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ExecutionPlanPrm createExecutionPlanPrm() {
+        ExecutionPlanPrmImpl executionPlanPrm = new ExecutionPlanPrmImpl();
+        return executionPlanPrm;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ExecutionPlanPartCmdPrm createExecutionPlanPartCmdPrm() {
+        ExecutionPlanPartCmdPrmImpl executionPlanPartCmdPrm = new ExecutionPlanPartCmdPrmImpl();
+        return executionPlanPartCmdPrm;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ExecutionPlanPartJobPrm createExecutionPlanPartJobPrm() {
+        ExecutionPlanPartJobPrmImpl executionPlanPartJobPrm = new ExecutionPlanPartJobPrmImpl();
+        return executionPlanPartJobPrm;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public ExecutionTask createExecutionTask() {
@@ -577,7 +679,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public ExecutionTaskCmdPrm createExecutionTaskCmdPrm() {
@@ -586,7 +689,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public ExecutionTaskJobPrm createExecutionTaskJobPrm() {
@@ -595,7 +699,28 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public TaskExecutionHistory createTaskExecutionHistory() {
+        TaskExecutionHistoryImpl taskExecutionHistory = new TaskExecutionHistoryImpl();
+        return taskExecutionHistory;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public PlanExecutionHistory createPlanExecutionHistory() {
+        PlanExecutionHistoryImpl planExecutionHistory = new PlanExecutionHistoryImpl();
+        return planExecutionHistory;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public TalendTrigger createTalendTrigger() {
@@ -604,7 +729,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public CronTalendTrigger createCronTalendTrigger() {
@@ -613,7 +739,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public CronUITalendTrigger createCronUITalendTrigger() {
@@ -622,7 +749,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public SimpleTalendTrigger createSimpleTalendTrigger() {
@@ -631,16 +759,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public ExecutionVirtualServer createExecutionVirtualServer() {
-        ExecutionVirtualServerImpl executionVirtualServer = new ExecutionVirtualServerImpl();
-        return executionVirtualServer;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public FileTrigger createFileTrigger() {
@@ -649,7 +769,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public FileTriggerMask createFileTriggerMask() {
@@ -658,7 +779,28 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ExecutionServer createExecutionServer() {
+        ExecutionServerImpl executionServer = new ExecutionServerImpl();
+        return executionServer;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ExecutionVirtualServer createExecutionVirtualServer() {
+        ExecutionVirtualServerImpl executionVirtualServer = new ExecutionVirtualServerImpl();
+        return executionVirtualServer;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public JobletProcessItem createJobletProcessItem() {
@@ -667,7 +809,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public JobDocumentationItem createJobDocumentationItem() {
@@ -676,7 +819,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public JobletDocumentationItem createJobletDocumentationItem() {
@@ -685,7 +829,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public WSDLSchemaConnectionItem createWSDLSchemaConnectionItem() {
@@ -694,7 +839,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public SchemaInformation createSchemaInformation() {
@@ -703,7 +849,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public Information createInformation() {
@@ -712,7 +859,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public SQLPatternItem createSQLPatternItem() {
@@ -721,7 +869,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public ComponentSetting createComponentSetting() {
@@ -730,7 +879,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public StatAndLogsSettings createStatAndLogsSettings() {
@@ -739,7 +889,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public ImplicitContextSettings createImplicitContextSettings() {
@@ -748,7 +899,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public SoaOperation createSoaOperation() {
@@ -757,7 +909,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public SoaInputParameter createSoaInputParameter() {
@@ -766,7 +919,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public SoaService createSoaService() {
@@ -775,7 +929,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public RulesItem createRulesItem() {
@@ -784,7 +939,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public UserRight createUserRight() {
@@ -793,7 +949,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public RoleRight createRoleRight() {
@@ -802,7 +959,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public SVGBusinessProcessItem createSVGBusinessProcessItem() {
@@ -811,7 +969,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public LinkRulesItem createLinkRulesItem() {
@@ -820,7 +979,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public ItemRelations createItemRelations() {
@@ -829,7 +989,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public ItemRelation createItemRelation() {
@@ -838,7 +999,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public Notification createNotification() {
@@ -847,7 +1009,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public HL7ConnectionItem createHL7ConnectionItem() {
@@ -950,9 +1113,9 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
      * <!-- end-user-doc -->
      * @generated
      */
-    public ExecutionPlan createExecutionPlan() {
-        ExecutionPlanImpl executionPlan = new ExecutionPlanImpl();
-        return executionPlan;
+    public ReferenceItem createReferenceItem() {
+        ReferenceItemImpl referenceItem = new ReferenceItemImpl();
+        return referenceItem;
     }
 
     /**
@@ -960,62 +1123,14 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
      * <!-- end-user-doc -->
      * @generated
      */
-    public ExecutionPlanPart createExecutionPlanPart() {
-        ExecutionPlanPartImpl executionPlanPart = new ExecutionPlanPartImpl();
-        return executionPlanPart;
+    public ReferenceFileItem createReferenceFileItem() {
+        ReferenceFileItemImpl referenceFileItem = new ReferenceFileItemImpl();
+        return referenceFileItem;
     }
 
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public ExecutionPlanPrm createExecutionPlanPrm() {
-        ExecutionPlanPrmImpl executionPlanPrm = new ExecutionPlanPrmImpl();
-        return executionPlanPrm;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public ExecutionPlanPartCmdPrm createExecutionPlanPartCmdPrm() {
-        ExecutionPlanPartCmdPrmImpl executionPlanPartCmdPrm = new ExecutionPlanPartCmdPrmImpl();
-        return executionPlanPartCmdPrm;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public ExecutionPlanPartJobPrm createExecutionPlanPartJobPrm() {
-        ExecutionPlanPartJobPrmImpl executionPlanPartJobPrm = new ExecutionPlanPartJobPrmImpl();
-        return executionPlanPartJobPrm;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public TaskExecutionHistory createTaskExecutionHistory() {
-        TaskExecutionHistoryImpl taskExecutionHistory = new TaskExecutionHistoryImpl();
-        return taskExecutionHistory;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public PlanExecutionHistory createPlanExecutionHistory() {
-        PlanExecutionHistoryImpl planExecutionHistory = new PlanExecutionHistoryImpl();
-        return planExecutionHistory;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public FolderType createFolderTypeFromString(EDataType eDataType, String initialValue) {
@@ -1025,7 +1140,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public String convertFolderTypeToString(EDataType eDataType, Object instanceValue) {
@@ -1033,7 +1149,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public UserProjectAuthorizationType createUserProjectAuthorizationTypeFromString(EDataType eDataType, String initialValue) {
@@ -1043,7 +1160,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public String convertUserProjectAuthorizationTypeToString(EDataType eDataType, Object instanceValue) {
@@ -1051,7 +1169,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public UserModuleAuthorizationType createUserModuleAuthorizationTypeFromString(EDataType eDataType, String initialValue) {
@@ -1061,7 +1180,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public String convertUserModuleAuthorizationTypeToString(EDataType eDataType, Object instanceValue) {
@@ -1069,7 +1189,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public InformationLevel createInformationLevelFromString(EDataType eDataType, String initialValue) {
@@ -1079,7 +1200,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public String convertInformationLevelToString(EDataType eDataType, Object instanceValue) {
@@ -1087,16 +1209,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public UserRole createUserRole() {
-        UserRoleImpl userRole = new UserRoleImpl();
-        return userRole;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public PropertiesPackage getPropertiesPackage() {
@@ -1104,7 +1218,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @deprecated
      * @generated
      */
@@ -1112,6 +1227,4 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
         return PropertiesPackage.eINSTANCE;
     }
 
-    private static int counter = 0;
-
-} // PropertiesFactoryImpl
+} //PropertiesFactoryImpl

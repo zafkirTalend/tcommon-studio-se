@@ -707,6 +707,24 @@ public interface PropertiesFactory extends EFactory {
     TechnicalVariable createTechnicalVariable();
 
     /**
+     * Returns a new object of class '<em>Reference Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Reference Item</em>'.
+     * @generated
+     */
+    ReferenceItem createReferenceItem();
+
+    /**
+     * Returns a new object of class '<em>Reference File Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Reference File Item</em>'.
+     * @generated
+     */
+    ReferenceFileItem createReferenceFileItem();
+
+    /**
      * Returns a new object of class '<em>Execution Plan</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

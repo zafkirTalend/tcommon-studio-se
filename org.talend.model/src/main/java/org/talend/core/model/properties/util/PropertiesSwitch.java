@@ -810,6 +810,19 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.REFERENCE_FILE_ITEM: {
+                ReferenceFileItem referenceFileItem = (ReferenceFileItem)theEObject;
+                Object result = caseReferenceFileItem(referenceFileItem);
+                if (result == null) result = caseReferenceItem(referenceFileItem);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.REFERENCE_ITEM: {
+                ReferenceItem referenceItem = (ReferenceItem)theEObject;
+                Object result = caseReferenceItem(referenceItem);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -2004,6 +2017,36 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseTechnicalVariable(TechnicalVariable object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Reference Item</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Reference Item</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseReferenceItem(ReferenceItem object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Reference File Item</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Reference File Item</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseReferenceFileItem(ReferenceFileItem object) {
         return null;
     }
 

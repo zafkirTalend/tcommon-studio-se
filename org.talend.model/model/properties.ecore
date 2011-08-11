@@ -114,6 +114,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//ItemState"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"
         transient="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referenceResources" upperBound="-1"
+        eType="#//ReferenceFileItem"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LinkDocumentationItem" eSuperTypes="#//Item">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
@@ -773,5 +775,15 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
         iD="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ReferenceFileItem" eSuperTypes="#//ReferenceItem">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="extension" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="content" eType="#//ByteArray"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ReferenceItem">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//ItemState"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"
+        transient="true"/>
   </eClassifiers>
 </ecore:EPackage>

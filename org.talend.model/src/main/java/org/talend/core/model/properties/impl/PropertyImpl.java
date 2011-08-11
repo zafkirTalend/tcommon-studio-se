@@ -1,6 +1,7 @@
 /**
- * <copyright> </copyright>
- * 
+ * <copyright>
+ * </copyright>
+ *
  * $Id$
  */
 package org.talend.core.model.properties.impl;
@@ -10,22 +11,31 @@ import java.util.Date;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.talend.core.model.properties.Information;
 import org.talend.core.model.properties.InformationLevel;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.properties.ReferenceFileItem;
 import org.talend.core.model.properties.User;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '<em><b>Property</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>Property</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -48,11 +58,10 @@ import org.talend.core.model.properties.User;
  * @generated
  */
 public class PropertyImpl extends EObjectImpl implements Property {
-
     /**
-     * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
+     * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getId()
      * @generated
      * @ordered
@@ -61,7 +70,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
 
     /**
      * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getId()
      * @generated
      * @ordered
@@ -70,8 +80,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
 
     /**
      * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getLabel()
      * @generated
      * @ordered
@@ -80,8 +90,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
 
     /**
      * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getLabel()
      * @generated
      * @ordered
@@ -90,8 +100,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
 
     /**
      * The default value of the '{@link #getPurpose() <em>Purpose</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getPurpose()
      * @generated
      * @ordered
@@ -100,8 +110,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
 
     /**
      * The cached value of the '{@link #getPurpose() <em>Purpose</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getPurpose()
      * @generated
      * @ordered
@@ -149,9 +159,9 @@ public class PropertyImpl extends EObjectImpl implements Property {
     protected Date creationDate = CREATION_DATE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getModificationDate() <em>Modification Date</em>}' attribute. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * The default value of the '{@link #getModificationDate() <em>Modification Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getModificationDate()
      * @generated
      * @ordered
@@ -159,9 +169,9 @@ public class PropertyImpl extends EObjectImpl implements Property {
     protected static final Date MODIFICATION_DATE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getModificationDate() <em>Modification Date</em>}' attribute. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * The cached value of the '{@link #getModificationDate() <em>Modification Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getModificationDate()
      * @generated
      * @ordered
@@ -170,8 +180,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
 
     /**
      * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getVersion()
      * @generated
      * @ordered
@@ -180,8 +190,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
 
     /**
      * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getVersion()
      * @generated
      * @ordered
@@ -200,8 +210,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
 
     /**
      * The cached value of the '{@link #getStatusCode() <em>Status Code</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getStatusCode()
      * @generated
      * @ordered
@@ -209,9 +219,9 @@ public class PropertyImpl extends EObjectImpl implements Property {
     protected String statusCode = STATUS_CODE_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getItem() <em>Item</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
+     * The cached value of the '{@link #getItem() <em>Item</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getItem()
      * @generated
      * @ordered
@@ -220,8 +230,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
 
     /**
      * The cached value of the '{@link #getAuthor() <em>Author</em>}' reference.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getAuthor()
      * @generated
      * @ordered
@@ -279,7 +289,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
     protected String oldStatusCode = OLD_STATUS_CODE_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     protected PropertyImpl() {
@@ -287,7 +298,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     protected EClass eStaticClass() {
@@ -295,7 +307,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public String getId() {
@@ -303,7 +316,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void setId(String newId) {
@@ -314,7 +328,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public String getLabel() {
@@ -322,7 +337,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void setLabel(String newLabel) {
@@ -333,7 +349,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public String getPurpose() {
@@ -341,7 +358,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void setPurpose(String newPurpose) {
@@ -352,7 +370,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public String getDescription() {
@@ -360,7 +379,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void setDescription(String newDescription) {
@@ -371,7 +391,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public Date getCreationDate() {
@@ -379,7 +400,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void setCreationDate(Date newCreationDate) {
@@ -390,7 +412,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public Date getModificationDate() {
@@ -398,7 +421,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void setModificationDate(Date newModificationDate) {
@@ -409,7 +433,110 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getVersion() {
+        return version;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setVersion(String newVersion) {
+        String oldVersion = version;
+        version = newVersion;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROPERTY__VERSION, oldVersion, version));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getStatusCode() {
+        return statusCode;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setStatusCode(String newStatusCode) {
+        String oldStatusCode = statusCode;
+        statusCode = newStatusCode;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROPERTY__STATUS_CODE, oldStatusCode, statusCode));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Item getItem() {
+        if (item != null && item.eIsProxy()) {
+            InternalEObject oldItem = (InternalEObject)item;
+            item = (Item)eResolveProxy(oldItem);
+            if (item != oldItem) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.PROPERTY__ITEM, oldItem, item));
+            }
+        }
+        return item;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Item basicGetItem() {
+        return item;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetItem(Item newItem, NotificationChain msgs) {
+        Item oldItem = item;
+        item = newItem;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROPERTY__ITEM, oldItem, newItem);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setItem(Item newItem) {
+        if (newItem != item) {
+            NotificationChain msgs = null;
+            if (item != null)
+                msgs = ((InternalEObject)item).eInverseRemove(this, PropertiesPackage.ITEM__PROPERTY, Item.class, msgs);
+            if (newItem != null)
+                msgs = ((InternalEObject)newItem).eInverseAdd(this, PropertiesPackage.ITEM__PROPERTY, Item.class, msgs);
+            msgs = basicSetItem(newItem, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROPERTY__ITEM, newItem, newItem));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public User getAuthor() {
@@ -425,7 +552,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public User basicGetAuthor() {
@@ -433,7 +561,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void setAuthor(User newAuthor) {
@@ -498,101 +627,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public String getVersion() {
-        return version;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public void setVersion(String newVersion) {
-        String oldVersion = version;
-        version = newVersion;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROPERTY__VERSION, oldVersion, version));
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public String getStatusCode() {
-        return statusCode;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public void setStatusCode(String newStatusCode) {
-        String oldStatusCode = statusCode;
-        statusCode = newStatusCode;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROPERTY__STATUS_CODE, oldStatusCode, statusCode));
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public Item getItem() {
-        if (item != null && item.eIsProxy()) {
-            InternalEObject oldItem = (InternalEObject)item;
-            item = (Item)eResolveProxy(oldItem);
-            if (item != oldItem) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.PROPERTY__ITEM, oldItem, item));
-            }
-        }
-        return item;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public Item basicGetItem() {
-        return item;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public NotificationChain basicSetItem(Item newItem, NotificationChain msgs) {
-        Item oldItem = item;
-        item = newItem;
-        if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROPERTY__ITEM, oldItem, newItem);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
-        }
-        return msgs;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public void setItem(Item newItem) {
-        if (newItem != item) {
-            NotificationChain msgs = null;
-            if (item != null)
-                msgs = ((InternalEObject)item).eInverseRemove(this, PropertiesPackage.ITEM__PROPERTY, Item.class, msgs);
-            if (newItem != null)
-                msgs = ((InternalEObject)newItem).eInverseAdd(this, PropertiesPackage.ITEM__PROPERTY, Item.class, msgs);
-            msgs = basicSetItem(newItem, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROPERTY__ITEM, newItem, newItem));
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -606,7 +642,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -620,7 +657,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
@@ -658,7 +696,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void eSet(int featureID, Object newValue) {
@@ -708,7 +747,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void eUnset(int featureID) {
@@ -757,7 +797,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public boolean eIsSet(int featureID) {
@@ -792,16 +833,37 @@ public class PropertyImpl extends EObjectImpl implements Property {
         return super.eIsSet(featureID);
     }
 
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String toString() {
         if (eIsProxy()) return super.toString();
 
-        StringBuffer result = new StringBuffer();
-        result.append("(id: "); //$NON-NLS-1$
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (id: ");
         result.append(id);
-        result.append(", label: "); //$NON-NLS-1$
+        result.append(", label: ");
         result.append(label);
+        result.append(", purpose: ");
+        result.append(purpose);
+        result.append(", description: ");
+        result.append(description);
+        result.append(", creationDate: ");
+        result.append(creationDate);
+        result.append(", modificationDate: ");
+        result.append(modificationDate);
+        result.append(", version: ");
+        result.append(version);
+        result.append(", statusCode: ");
+        result.append(statusCode);
+        result.append(", maxInformationLevel: ");
+        result.append(maxInformationLevel);
+        result.append(", oldStatusCode: ");
+        result.append(oldStatusCode);
         result.append(')');
         return result.toString();
     }
 
-} // PropertyImpl
+} //PropertyImpl

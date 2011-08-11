@@ -27,8 +27,8 @@ public interface FileItem extends Item {
      * Returns the value of the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Name</em>' attribute isn't clear, there really should be more of a description
-     * here...
+     * If the meaning of the '<em>Name</em>' attribute isn't clear,
+     * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Name</em>' attribute.
@@ -40,9 +40,9 @@ public interface FileItem extends Item {
     String getName();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.FileItem#getName <em>Name</em>}' attribute. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.FileItem#getName <em>Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @param value the new value of the '<em>Name</em>' attribute.
      * @see #getName()
      * @generated
@@ -53,8 +53,8 @@ public interface FileItem extends Item {
      * Returns the value of the '<em><b>Extension</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Extension</em>' attribute isn't clear, there really should be more of a
-     * description here...
+     * If the meaning of the '<em>Extension</em>' attribute isn't clear,
+     * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Extension</em>' attribute.
@@ -67,7 +67,8 @@ public interface FileItem extends Item {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.properties.FileItem#getExtension <em>Extension</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @param value the new value of the '<em>Extension</em>' attribute.
      * @see #getExtension()
      * @generated
@@ -78,8 +79,8 @@ public interface FileItem extends Item {
      * Returns the value of the '<em><b>Content</b></em>' reference.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Content</em>' attribute isn't clear, there really should be more of a description
-     * here...
+     * If the meaning of the '<em>Content</em>' reference isn't clear,
+     * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Content</em>' reference.
@@ -92,7 +93,8 @@ public interface FileItem extends Item {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.properties.FileItem#getContent <em>Content</em>}' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @param value the new value of the '<em>Content</em>' reference.
      * @see #getContent()
      * @generated

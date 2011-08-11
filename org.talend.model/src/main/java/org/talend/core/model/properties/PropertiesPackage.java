@@ -829,6 +829,16 @@ public interface PropertiesPackage extends EPackage {
     int PROPERTY_FEATURE_COUNT = 13;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ReferenceItemImpl <em>Reference Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ReferenceItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getReferenceItem()
+     * @generated
+     */
+    int REFERENCE_ITEM = 95;
+
+    /**
      * The feature id for the '<em><b>Property</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -854,12 +864,21 @@ public interface PropertiesPackage extends EPackage {
     int ITEM__PARENT = 2;
 
     /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM__REFERENCE_RESOURCES = 3;
+
+    /**
      * The number of structural features of the '<em>Item</em>' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ITEM_FEATURE_COUNT = 3;
+    int ITEM_FEATURE_COUNT = 4;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.LinkDocumentationItemImpl <em>Link Documentation Item</em>}' class.
@@ -894,6 +913,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int LINK_DOCUMENTATION_ITEM__PARENT = ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LINK_DOCUMENTATION_ITEM__REFERENCE_RESOURCES = ITEM__REFERENCE_RESOURCES;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -988,6 +1016,15 @@ public interface PropertiesPackage extends EPackage {
     int BUSINESS_PROCESS_ITEM__PARENT = ITEM__PARENT;
 
     /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BUSINESS_PROCESS_ITEM__REFERENCE_RESOURCES = ITEM__REFERENCE_RESOURCES;
+
+    /**
      * The feature id for the '<em><b>Notation</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1030,265 +1067,6 @@ public interface PropertiesPackage extends EPackage {
     int BUSINESS_PROCESS_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 4;
 
     /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_ITEM__PROPERTY = ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_ITEM__STATE = ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_ITEM__PARENT = ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_ITEM__NAME = ITEM_FEATURE_COUNT + 0;
-
-    /**
-     * The feature id for the '<em><b>Extension</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_ITEM__EXTENSION = ITEM_FEATURE_COUNT + 1;
-
-    /**
-     * The feature id for the '<em><b>Content</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_ITEM__CONTENT = ITEM_FEATURE_COUNT + 2;
-
-    /**
-     * The number of structural features of the '<em>File Item</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int FILE_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 3;
-
-    /**
-     * The feature id for the '<em><b>Inner Content</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BYTE_ARRAY__INNER_CONTENT = 0;
-
-    /**
-     * The number of structural features of the '<em>Byte Array</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int BYTE_ARRAY_FEATURE_COUNT = 1;
-
-    /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOCUMENTATION_ITEM__PROPERTY = FILE_ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOCUMENTATION_ITEM__STATE = FILE_ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOCUMENTATION_ITEM__PARENT = FILE_ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOCUMENTATION_ITEM__NAME = FILE_ITEM__NAME;
-
-    /**
-     * The feature id for the '<em><b>Extension</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOCUMENTATION_ITEM__EXTENSION = FILE_ITEM__EXTENSION;
-
-    /**
-     * The feature id for the '<em><b>Content</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOCUMENTATION_ITEM__CONTENT = FILE_ITEM__CONTENT;
-
-    /**
-     * The number of structural features of the '<em>Documentation Item</em>' class.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOCUMENTATION_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 0;
-
-    /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ROUTINE_ITEM__PROPERTY = FILE_ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ROUTINE_ITEM__STATE = FILE_ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ROUTINE_ITEM__PARENT = FILE_ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ROUTINE_ITEM__NAME = FILE_ITEM__NAME;
-
-    /**
-     * The feature id for the '<em><b>Extension</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ROUTINE_ITEM__EXTENSION = FILE_ITEM__EXTENSION;
-
-    /**
-     * The feature id for the '<em><b>Content</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ROUTINE_ITEM__CONTENT = FILE_ITEM__CONTENT;
-
-    /**
-     * The feature id for the '<em><b>Built In</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ROUTINE_ITEM__BUILT_IN = FILE_ITEM_FEATURE_COUNT + 0;
-
-    /**
-     * The feature id for the '<em><b>Imports</b></em>' containment reference list.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ROUTINE_ITEM__IMPORTS = FILE_ITEM_FEATURE_COUNT + 1;
-
-    /**
-     * The feature id for the '<em><b>Package Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ROUTINE_ITEM__PACKAGE_TYPE = FILE_ITEM_FEATURE_COUNT + 2;
-
-    /**
-     * The number of structural features of the '<em>Routine Item</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int ROUTINE_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 3;
-
-    /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CONNECTION_ITEM__PROPERTY = ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CONNECTION_ITEM__STATE = ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CONNECTION_ITEM__PARENT = ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Connection</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CONNECTION_ITEM__CONNECTION = ITEM_FEATURE_COUNT + 0;
-
-    /**
-     * The number of structural features of the '<em>Connection Item</em>' class.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CONNECTION_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 1;
-
-    /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.SnippetVariableImpl <em>Snippet Variable</em>}' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.impl.SnippetVariableImpl
@@ -1296,47 +1074,6 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     int SNIPPET_VARIABLE = 15;
-
-    /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SNIPPET_VARIABLE__NAME = 0;
-
-    /**
-     * The feature id for the '<em><b>Value</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SNIPPET_VARIABLE__VALUE = 1;
-
-    /**
-     * The feature id for the '<em><b>Description</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SNIPPET_VARIABLE__DESCRIPTION = 2;
-
-    /**
-     * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SNIPPET_VARIABLE__ID = 3;
-
-    /**
-     * The number of structural features of the '<em>Snippet Variable</em>' class.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SNIPPET_VARIABLE_FEATURE_COUNT = 4;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.SnippetItemImpl <em>Snippet Item</em>}' class.
@@ -1348,274 +1085,6 @@ public interface PropertiesPackage extends EPackage {
     int SNIPPET_ITEM = 16;
 
     /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SNIPPET_ITEM__PROPERTY = ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SNIPPET_ITEM__STATE = ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SNIPPET_ITEM__PARENT = ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SNIPPET_ITEM__NAME = ITEM_FEATURE_COUNT + 0;
-
-    /**
-     * The feature id for the '<em><b>Content</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SNIPPET_ITEM__CONTENT = ITEM_FEATURE_COUNT + 1;
-
-    /**
-     * The feature id for the '<em><b>Variables</b></em>' reference list.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SNIPPET_ITEM__VARIABLES = ITEM_FEATURE_COUNT + 2;
-
-    /**
-     * The number of structural features of the '<em>Snippet Item</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int SNIPPET_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 3;
-
-    /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DELIMITED_FILE_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DELIMITED_FILE_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DELIMITED_FILE_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Connection</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DELIMITED_FILE_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
-
-    /**
-     * The number of structural features of the '<em>Delimited File Connection Item</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DELIMITED_FILE_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
-
-    /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int POSITIONAL_FILE_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int POSITIONAL_FILE_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int POSITIONAL_FILE_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Connection</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int POSITIONAL_FILE_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
-
-    /**
-     * The number of structural features of the '<em>Positional File Connection Item</em>' class.
-     * <!-- begin-user-doc
-     * --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int POSITIONAL_FILE_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
-
-    /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int REG_EX_FILE_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int REG_EX_FILE_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int REG_EX_FILE_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Connection</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int REG_EX_FILE_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
-
-    /**
-     * The number of structural features of the '<em>Reg Ex File Connection Item</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int REG_EX_FILE_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
-
-    /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION_ITEM__PROPERTY = DELIMITED_FILE_CONNECTION_ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION_ITEM__STATE = DELIMITED_FILE_CONNECTION_ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION_ITEM__PARENT = DELIMITED_FILE_CONNECTION_ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Connection</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION_ITEM__CONNECTION = DELIMITED_FILE_CONNECTION_ITEM__CONNECTION;
-
-    /**
-     * The number of structural features of the '<em>CSV File Connection Item</em>' class.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION_ITEM_FEATURE_COUNT = DELIMITED_FILE_CONNECTION_ITEM_FEATURE_COUNT + 0;
-
-    /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DATABASE_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DATABASE_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DATABASE_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Connection</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DATABASE_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
-
-    /**
-     * The number of structural features of the '<em>Database Connection Item</em>' class.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DATABASE_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
-
-    /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.SAPConnectionItemImpl <em>SAP Connection Item</em>}' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.impl.SAPConnectionItemImpl
@@ -1623,90 +1092,6 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     int SAP_CONNECTION_ITEM = 22;
-
-    /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SAP_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SAP_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SAP_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Connection</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SAP_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
-
-    /**
-     * The number of structural features of the '<em>SAP Connection Item</em>' class.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SAP_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
-
-    /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int XML_FILE_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int XML_FILE_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int XML_FILE_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Connection</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int XML_FILE_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
-
-    /**
-     * The number of structural features of the '<em>Xml File Connection Item</em>' class.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int XML_FILE_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.LdifFileConnectionItemImpl <em>Ldif File Connection Item</em>}' class.
@@ -1718,48 +1103,6 @@ public interface PropertiesPackage extends EPackage {
     int LDIF_FILE_CONNECTION_ITEM = 24;
 
     /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int LDIF_FILE_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int LDIF_FILE_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int LDIF_FILE_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Connection</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int LDIF_FILE_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
-
-    /**
-     * The number of structural features of the '<em>Ldif File Connection Item</em>' class.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int LDIF_FILE_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
-
-    /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ExcelFileConnectionItemImpl <em>Excel File Connection Item</em>}' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.impl.ExcelFileConnectionItemImpl
@@ -1767,48 +1110,6 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     int EXCEL_FILE_CONNECTION_ITEM = 25;
-
-    /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXCEL_FILE_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXCEL_FILE_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXCEL_FILE_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Connection</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXCEL_FILE_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
-
-    /**
-     * The number of structural features of the '<em>Excel File Connection Item</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXCEL_FILE_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.EbcdicConnectionItemImpl <em>Ebcdic Connection Item</em>}' class.
@@ -1820,48 +1121,6 @@ public interface PropertiesPackage extends EPackage {
     int EBCDIC_CONNECTION_ITEM = 26;
 
     /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EBCDIC_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EBCDIC_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EBCDIC_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Connection</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EBCDIC_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
-
-    /**
-     * The number of structural features of the '<em>Ebcdic Connection Item</em>' class.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EBCDIC_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
-
-    /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.MDMConnectionItemImpl <em>MDM Connection Item</em>}' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.impl.MDMConnectionItemImpl
@@ -1869,48 +1128,6 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     int MDM_CONNECTION_ITEM = 27;
-
-    /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MDM_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MDM_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MDM_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Connection</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MDM_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
-
-    /**
-     * The number of structural features of the '<em>MDM Connection Item</em>' class.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MDM_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ValidationRulesConnectionItemImpl <em>Validation Rules Connection Item</em>}' class.
@@ -1923,514 +1140,6 @@ public interface PropertiesPackage extends EPackage {
     int VALIDATION_RULES_CONNECTION_ITEM = 28;
 
     /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int VALIDATION_RULES_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int VALIDATION_RULES_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int VALIDATION_RULES_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Connection</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int VALIDATION_RULES_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
-
-    /**
-     * The number of structural features of the '<em>Validation Rules Connection Item</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int VALIDATION_RULES_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
-
-    /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int PROCESS_ITEM__PROPERTY = ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int PROCESS_ITEM__STATE = ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int PROCESS_ITEM__PARENT = ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Process</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int PROCESS_ITEM__PROCESS = ITEM_FEATURE_COUNT + 0;
-
-    /**
-     * The number of structural features of the '<em>Process Item</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int PROCESS_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 1;
-
-    /**
-     * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER_ROLE__ID = 0;
-
-    /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER_ROLE__NAME = 1;
-
-    /**
-     * The feature id for the '<em><b>Localized Label</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER_ROLE__LOCALIZED_LABEL = 2;
-
-    /**
-     * The feature id for the '<em><b>Fixed</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER_ROLE__FIXED = 3;
-
-    /**
-     * The feature id for the '<em><b>Roles Rights</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int USER_ROLE__ROLES_RIGHTS = 4;
-
-    /**
-     * The number of structural features of the '<em>User Role</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int USER_ROLE_FEATURE_COUNT = 5;
-
-    /**
-     * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER__ID = 0;
-
-    /**
-     * The feature id for the '<em><b>Login</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER__LOGIN = 1;
-
-    /**
-     * The feature id for the '<em><b>Password</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER__PASSWORD = 2;
-
-    /**
-     * The feature id for the '<em><b>First Name</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER__FIRST_NAME = 3;
-
-    /**
-     * The feature id for the '<em><b>Last Name</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER__LAST_NAME = 4;
-
-    /**
-     * The feature id for the '<em><b>Creation Date</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER__CREATION_DATE = 5;
-
-    /**
-     * The feature id for the '<em><b>Delete Date</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER__DELETE_DATE = 6;
-
-    /**
-     * The feature id for the '<em><b>Deleted</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER__DELETED = 7;
-
-    /**
-     * The feature id for the '<em><b>Allowed To Modify Components</b></em>' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER__ALLOWED_TO_MODIFY_COMPONENTS = 8;
-
-    /**
-     * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER__COMMENT = 9;
-
-    /**
-     * The feature id for the '<em><b>Project Authorization</b></em>' reference list.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER__PROJECT_AUTHORIZATION = 10;
-
-    /**
-     * The feature id for the '<em><b>Module Authorization</b></em>' reference list.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER__MODULE_AUTHORIZATION = 11;
-
-    /**
-     * The feature id for the '<em><b>Preferred Dashboard Connection</b></em>' reference.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER__PREFERRED_DASHBOARD_CONNECTION = 12;
-
-    /**
-     * The feature id for the '<em><b>Last Admin Connection Date</b></em>' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER__LAST_ADMIN_CONNECTION_DATE = 13;
-
-    /**
-     * The feature id for the '<em><b>Last Studio Connection Date</b></em>' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER__LAST_STUDIO_CONNECTION_DATE = 14;
-
-    /**
-     * The feature id for the '<em><b>First Admin Connection Date</b></em>' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER__FIRST_ADMIN_CONNECTION_DATE = 15;
-
-    /**
-     * The feature id for the '<em><b>First Studio Connection Date</b></em>' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER__FIRST_STUDIO_CONNECTION_DATE = 16;
-
-    /**
-     * The feature id for the '<em><b>Admin Connexion Number</b></em>' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER__ADMIN_CONNEXION_NUMBER = 17;
-
-    /**
-     * The feature id for the '<em><b>Studio Connexion Number</b></em>' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER__STUDIO_CONNEXION_NUMBER = 18;
-
-    /**
-     * The feature id for the '<em><b>Authentication Info</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int USER__AUTHENTICATION_INFO = 19;
-
-    /**
-     * The feature id for the '<em><b>Ldap Id</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER__LDAP_ID = 20;
-
-    /**
-     * The feature id for the '<em><b>Language</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER__LANGUAGE = 21;
-
-    /**
-     * The feature id for the '<em><b>Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER__TYPE = 22;
-
-    /**
-     * The feature id for the '<em><b>Additionnal Data</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER__ADDITIONNAL_DATA = 23;
-
-    /**
-     * The number of structural features of the '<em>User</em>' class.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER_FEATURE_COUNT = 24;
-
-    /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FOLDER_ITEM__PROPERTY = ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FOLDER_ITEM__STATE = ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FOLDER_ITEM__PARENT = ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Children</b></em>' reference list.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FOLDER_ITEM__CHILDREN = ITEM_FEATURE_COUNT + 0;
-
-    /**
-     * The feature id for the '<em><b>Type</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FOLDER_ITEM__TYPE = ITEM_FEATURE_COUNT + 1;
-
-    /**
-     * The number of structural features of the '<em>Folder Item</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int FOLDER_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 2;
-
-    /**
-     * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int COMPONENT__ID = 0;
-
-    /**
-     * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int COMPONENT__LABEL = 1;
-
-    /**
-     * The feature id for the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int COMPONENT__VERSION = 2;
-
-    /**
-     * The feature id for the '<em><b>Last Update Date</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int COMPONENT__LAST_UPDATE_DATE = 3;
-
-    /**
-     * The feature id for the '<em><b>Author</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int COMPONENT__AUTHOR = 4;
-
-    /**
-     * The feature id for the '<em><b>Creation Date</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int COMPONENT__CREATION_DATE = 5;
-
-    /**
-     * The feature id for the '<em><b>Delete Date</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int COMPONENT__DELETE_DATE = 6;
-
-    /**
-     * The feature id for the '<em><b>Deleted</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int COMPONENT__DELETED = 7;
-
-    /**
-     * The feature id for the '<em><b>File Descriptor</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int COMPONENT__FILE_DESCRIPTOR = 8;
-
-    /**
-     * The feature id for the '<em><b>Projects</b></em>' reference list.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int COMPONENT__PROJECTS = 9;
-
-    /**
-     * The number of structural features of the '<em>Component</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int COMPONENT_FEATURE_COUNT = 10;
-
-    /**
-     * The feature id for the '<em><b>Notation String</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int NOTATION_HOLDER__NOTATION_STRING = 0;
-
-    /**
-     * The number of structural features of the '<em>Notation Holder</em>' class.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int NOTATION_HOLDER_FEATURE_COUNT = 1;
-
-    /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.UserProjectAuthorizationImpl <em>User Project Authorization</em>}' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.impl.UserProjectAuthorizationImpl
@@ -2438,39 +1147,6 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     int USER_PROJECT_AUTHORIZATION = 35;
-
-    /**
-     * The feature id for the '<em><b>User</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER_PROJECT_AUTHORIZATION__USER = 0;
-
-    /**
-     * The feature id for the '<em><b>Project</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER_PROJECT_AUTHORIZATION__PROJECT = 1;
-
-    /**
-     * The feature id for the '<em><b>Type</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER_PROJECT_AUTHORIZATION__TYPE = 2;
-
-    /**
-     * The number of structural features of the '<em>User Project Authorization</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER_PROJECT_AUTHORIZATION_FEATURE_COUNT = 3;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ContextItemImpl <em>Context Item</em>}' class.
@@ -2482,56 +1158,6 @@ public interface PropertiesPackage extends EPackage {
     int CONTEXT_ITEM = 36;
 
     /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CONTEXT_ITEM__PROPERTY = ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CONTEXT_ITEM__STATE = ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CONTEXT_ITEM__PARENT = ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Context</b></em>' reference list.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CONTEXT_ITEM__CONTEXT = ITEM_FEATURE_COUNT + 0;
-
-    /**
-     * The feature id for the '<em><b>Default Context</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CONTEXT_ITEM__DEFAULT_CONTEXT = ITEM_FEATURE_COUNT + 1;
-
-    /**
-     * The number of structural features of the '<em>Context Item</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int CONTEXT_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 2;
-
-    /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.SpagoBiServerImpl <em>Spago Bi Server</em>}' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.impl.SpagoBiServerImpl
@@ -2539,73 +1165,6 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     int SPAGO_BI_SERVER = 37;
-
-    /**
-     * The feature id for the '<em><b>Engine Name</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SPAGO_BI_SERVER__ENGINE_NAME = 0;
-
-    /**
-     * The feature id for the '<em><b>Short Description</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int SPAGO_BI_SERVER__SHORT_DESCRIPTION = 1;
-
-    /**
-     * The feature id for the '<em><b>Host</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SPAGO_BI_SERVER__HOST = 2;
-
-    /**
-     * The feature id for the '<em><b>Port</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SPAGO_BI_SERVER__PORT = 3;
-
-    /**
-     * The feature id for the '<em><b>Login</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SPAGO_BI_SERVER__LOGIN = 4;
-
-    /**
-     * The feature id for the '<em><b>Password</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SPAGO_BI_SERVER__PASSWORD = 5;
-
-    /**
-     * The feature id for the '<em><b>Application Context</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int SPAGO_BI_SERVER__APPLICATION_CONTEXT = 6;
-
-    /**
-     * The number of structural features of the '<em>Spago Bi Server</em>' class.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SPAGO_BI_SERVER_FEATURE_COUNT = 7;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.LicenseImpl <em>License</em>}' class.
@@ -2617,55 +1176,6 @@ public interface PropertiesPackage extends EPackage {
     int LICENSE = 38;
 
     /**
-     * The feature id for the '<em><b>License</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int LICENSE__LICENSE = 0;
-
-    /**
-     * The feature id for the '<em><b>Customer Name</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int LICENSE__CUSTOMER_NAME = 1;
-
-    /**
-     * The feature id for the '<em><b>Params</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int LICENSE__PARAMS = 2;
-
-    /**
-     * The feature id for the '<em><b>Token</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int LICENSE__TOKEN = 3;
-
-    /**
-     * The feature id for the '<em><b>Date Token Check</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int LICENSE__DATE_TOKEN_CHECK = 4;
-
-    /**
-     * The number of structural features of the '<em>License</em>' class.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int LICENSE_FEATURE_COUNT = 5;
-
-    /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.GenericSchemaConnectionItemImpl <em>Generic Schema Connection Item</em>}' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.impl.GenericSchemaConnectionItemImpl
@@ -2673,48 +1183,6 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     int GENERIC_SCHEMA_CONNECTION_ITEM = 39;
-
-    /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int GENERIC_SCHEMA_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int GENERIC_SCHEMA_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int GENERIC_SCHEMA_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Connection</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int GENERIC_SCHEMA_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
-
-    /**
-     * The number of structural features of the '<em>Generic Schema Connection Item</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int GENERIC_SCHEMA_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.UserModuleAuthorizationImpl <em>User Module Authorization</em>}' class.
@@ -2726,31 +1194,6 @@ public interface PropertiesPackage extends EPackage {
     int USER_MODULE_AUTHORIZATION = 40;
 
     /**
-     * The feature id for the '<em><b>User</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER_MODULE_AUTHORIZATION__USER = 0;
-
-    /**
-     * The feature id for the '<em><b>Type</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER_MODULE_AUTHORIZATION__TYPE = 1;
-
-    /**
-     * The number of structural features of the '<em>User Module Authorization</em>' class.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER_MODULE_AUTHORIZATION_FEATURE_COUNT = 2;
-
-    /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.LDAPSchemaConnectionItemImpl <em>LDAP Schema Connection Item</em>}' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.impl.LDAPSchemaConnectionItemImpl
@@ -2758,48 +1201,6 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     int LDAP_SCHEMA_CONNECTION_ITEM = 41;
-
-    /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int LDAP_SCHEMA_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int LDAP_SCHEMA_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int LDAP_SCHEMA_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Connection</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int LDAP_SCHEMA_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
-
-    /**
-     * The number of structural features of the '<em>LDAP Schema Connection Item</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int LDAP_SCHEMA_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.SalesforceSchemaConnectionItemImpl <em>Salesforce Schema Connection Item</em>}' class.
@@ -2811,48 +1212,6 @@ public interface PropertiesPackage extends EPackage {
     int SALESFORCE_SCHEMA_CONNECTION_ITEM = 42;
 
     /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SALESFORCE_SCHEMA_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SALESFORCE_SCHEMA_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SALESFORCE_SCHEMA_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Connection</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SALESFORCE_SCHEMA_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
-
-    /**
-     * The number of structural features of the '<em>Salesforce Schema Connection Item</em>' class.
-     * <!-- begin-user-doc
-     * --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SALESFORCE_SCHEMA_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
-
-    /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.DashboardConnectionImpl <em>Dashboard Connection</em>}' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.impl.DashboardConnectionImpl
@@ -2860,121 +1219,6 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     int DASHBOARD_CONNECTION = 43;
-
-    /**
-     * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DASHBOARD_CONNECTION__ID = 0;
-
-    /**
-     * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DASHBOARD_CONNECTION__LABEL = 1;
-
-    /**
-     * The feature id for the '<em><b>Dialect</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DASHBOARD_CONNECTION__DIALECT = 2;
-
-    /**
-     * The feature id for the '<em><b>Host</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DASHBOARD_CONNECTION__HOST = 3;
-
-    /**
-     * The feature id for the '<em><b>Port</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DASHBOARD_CONNECTION__PORT = 4;
-
-    /**
-     * The feature id for the '<em><b>Database</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DASHBOARD_CONNECTION__DATABASE = 5;
-
-    /**
-     * The feature id for the '<em><b>Username</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DASHBOARD_CONNECTION__USERNAME = 6;
-
-    /**
-     * The feature id for the '<em><b>Password</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DASHBOARD_CONNECTION__PASSWORD = 7;
-
-    /**
-     * The feature id for the '<em><b>Log Table</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DASHBOARD_CONNECTION__LOG_TABLE = 8;
-
-    /**
-     * The feature id for the '<em><b>Stat Table</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DASHBOARD_CONNECTION__STAT_TABLE = 9;
-
-    /**
-     * The feature id for the '<em><b>Flow Meter Table</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int DASHBOARD_CONNECTION__FLOW_METER_TABLE = 10;
-
-    /**
-     * The feature id for the '<em><b>Additionnals Params</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int DASHBOARD_CONNECTION__ADDITIONNALS_PARAMS = 11;
-
-    /**
-     * The feature id for the '<em><b>Datasource</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DASHBOARD_CONNECTION__DATASOURCE = 12;
-
-    /**
-     * The number of structural features of the '<em>Dashboard Connection</em>' class.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DASHBOARD_CONNECTION_FEATURE_COUNT = 13;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.ExecutionTriggerable <em>Execution Triggerable</em>}' class.
@@ -2985,78 +1229,6 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     int EXECUTION_TRIGGERABLE = 44;
-
-    /**
-     * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_TRIGGERABLE__ID = 0;
-
-    /**
-     * The feature id for the '<em><b>Triggers</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_TRIGGERABLE__TRIGGERS = 1;
-
-    /**
-     * The feature id for the '<em><b>Id Quartz Job</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_TRIGGERABLE__ID_QUARTZ_JOB = 2;
-
-    /**
-     * The feature id for the '<em><b>Status</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_TRIGGERABLE__STATUS = 3;
-
-    /**
-     * The feature id for the '<em><b>Error Status</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_TRIGGERABLE__ERROR_STATUS = 4;
-
-    /**
-     * The feature id for the '<em><b>Concurrent Execution</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_TRIGGERABLE__CONCURRENT_EXECUTION = 5;
-
-    /**
-     * The feature id for the '<em><b>Processing State</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_TRIGGERABLE__PROCESSING_STATE = 6;
-
-    /**
-     * The number of structural features of the '<em>Execution Triggerable</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_TRIGGERABLE_FEATURE_COUNT = 7;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionServerImpl <em>Execution Server</em>}' class.
@@ -3377,6 +1549,2228 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_PLAN = 45;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionPlanPartImpl <em>Execution Plan Part</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ExecutionPlanPartImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionPlanPart()
+     * @generated
+     */
+    int EXECUTION_PLAN_PART = 46;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionPlanPrmImpl <em>Execution Plan Prm</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ExecutionPlanPrmImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionPlanPrm()
+     * @generated
+     */
+    int EXECUTION_PLAN_PRM = 47;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionPlanPartCmdPrmImpl <em>Execution Plan Part Cmd Prm</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ExecutionPlanPartCmdPrmImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionPlanPartCmdPrm()
+     * @generated
+     */
+    int EXECUTION_PLAN_PART_CMD_PRM = 48;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionPlanPartJobPrmImpl <em>Execution Plan Part Job Prm</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ExecutionPlanPartJobPrmImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionPlanPartJobPrm()
+     * @generated
+     */
+    int EXECUTION_PLAN_PART_JOB_PRM = 49;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.PlanExecutionHistoryImpl <em>Plan Execution History</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.PlanExecutionHistoryImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getPlanExecutionHistory()
+     * @generated
+     */
+    int PLAN_EXECUTION_HISTORY = 54;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.UserRoleReferenceImpl <em>User Role Reference</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.UserRoleReferenceImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserRoleReference()
+     * @generated
+     */
+    int USER_ROLE_REFERENCE = 85;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.HeaderFooterConnectionItemImpl <em>Header Footer Connection Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.HeaderFooterConnectionItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getHeaderFooterConnectionItem()
+     * @generated
+     */
+    int HEADER_FOOTER_CONNECTION_ITEM = 86;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.FTPConnectionItemImpl <em>FTP Connection Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.FTPConnectionItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFTPConnectionItem()
+     * @generated
+     */
+    int FTP_CONNECTION_ITEM = 87;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.CustomComponentSettingImpl <em>Custom Component Setting</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.CustomComponentSettingImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getCustomComponentSetting()
+     * @generated
+     */
+    int CUSTOM_COMPONENT_SETTING = 88;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.TDQItemImpl <em>TDQ Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.TDQItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQItem()
+     * @generated
+     */
+    int TDQ_ITEM = 89;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.BRMSConnectionItemImpl <em>BRMS Connection Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.BRMSConnectionItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getBRMSConnectionItem()
+     * @generated
+     */
+    int BRMS_CONNECTION_ITEM = 90;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.JobScriptItemImpl <em>Job Script Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.JobScriptItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobScriptItem()
+     * @generated
+     */
+    int JOB_SCRIPT_ITEM = 91;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.EDIFACTConnectionItemImpl <em>EDIFACT Connection Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.EDIFACTConnectionItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getEDIFACTConnectionItem()
+     * @generated
+     */
+    int EDIFACT_CONNECTION_ITEM = 92;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.TechnicalVariableImpl <em>Technical Variable</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.TechnicalVariableImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTechnicalVariable()
+     * @generated
+     */
+    int TECHNICAL_VARIABLE = 93;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ReferenceFileItemImpl <em>Reference File Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ReferenceFileItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getReferenceFileItem()
+     * @generated
+     */
+    int REFERENCE_FILE_ITEM = 94;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_ITEM__PROPERTY = ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_ITEM__STATE = ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_ITEM__PARENT = ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_ITEM__REFERENCE_RESOURCES = ITEM__REFERENCE_RESOURCES;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_ITEM__NAME = ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Extension</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_ITEM__EXTENSION = ITEM_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Content</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_ITEM__CONTENT = ITEM_FEATURE_COUNT + 2;
+
+    /**
+     * The number of structural features of the '<em>File Item</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int FILE_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 3;
+
+    /**
+     * The feature id for the '<em><b>Inner Content</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BYTE_ARRAY__INNER_CONTENT = 0;
+
+    /**
+     * The number of structural features of the '<em>Byte Array</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int BYTE_ARRAY_FEATURE_COUNT = 1;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOCUMENTATION_ITEM__PROPERTY = FILE_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOCUMENTATION_ITEM__STATE = FILE_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOCUMENTATION_ITEM__PARENT = FILE_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOCUMENTATION_ITEM__REFERENCE_RESOURCES = FILE_ITEM__REFERENCE_RESOURCES;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOCUMENTATION_ITEM__NAME = FILE_ITEM__NAME;
+
+    /**
+     * The feature id for the '<em><b>Extension</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOCUMENTATION_ITEM__EXTENSION = FILE_ITEM__EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Content</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOCUMENTATION_ITEM__CONTENT = FILE_ITEM__CONTENT;
+
+    /**
+     * The number of structural features of the '<em>Documentation Item</em>' class.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOCUMENTATION_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ROUTINE_ITEM__PROPERTY = FILE_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ROUTINE_ITEM__STATE = FILE_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ROUTINE_ITEM__PARENT = FILE_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ROUTINE_ITEM__REFERENCE_RESOURCES = FILE_ITEM__REFERENCE_RESOURCES;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ROUTINE_ITEM__NAME = FILE_ITEM__NAME;
+
+    /**
+     * The feature id for the '<em><b>Extension</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ROUTINE_ITEM__EXTENSION = FILE_ITEM__EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Content</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ROUTINE_ITEM__CONTENT = FILE_ITEM__CONTENT;
+
+    /**
+     * The feature id for the '<em><b>Built In</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ROUTINE_ITEM__BUILT_IN = FILE_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Imports</b></em>' containment reference list.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ROUTINE_ITEM__IMPORTS = FILE_ITEM_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Package Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ROUTINE_ITEM__PACKAGE_TYPE = FILE_ITEM_FEATURE_COUNT + 2;
+
+    /**
+     * The number of structural features of the '<em>Routine Item</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int ROUTINE_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 3;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_ITEM__PROPERTY = ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_ITEM__STATE = ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_ITEM__PARENT = ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_ITEM__REFERENCE_RESOURCES = ITEM__REFERENCE_RESOURCES;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_ITEM__CONNECTION = ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>Connection Item</em>' class.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SNIPPET_VARIABLE__NAME = 0;
+
+    /**
+     * The feature id for the '<em><b>Value</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SNIPPET_VARIABLE__VALUE = 1;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SNIPPET_VARIABLE__DESCRIPTION = 2;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SNIPPET_VARIABLE__ID = 3;
+
+    /**
+     * The number of structural features of the '<em>Snippet Variable</em>' class.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SNIPPET_VARIABLE_FEATURE_COUNT = 4;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SNIPPET_ITEM__PROPERTY = ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SNIPPET_ITEM__STATE = ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SNIPPET_ITEM__PARENT = ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SNIPPET_ITEM__REFERENCE_RESOURCES = ITEM__REFERENCE_RESOURCES;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SNIPPET_ITEM__NAME = ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Content</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SNIPPET_ITEM__CONTENT = ITEM_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Variables</b></em>' reference list.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SNIPPET_ITEM__VARIABLES = ITEM_FEATURE_COUNT + 2;
+
+    /**
+     * The number of structural features of the '<em>Snippet Item</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int SNIPPET_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 3;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DELIMITED_FILE_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DELIMITED_FILE_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DELIMITED_FILE_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DELIMITED_FILE_CONNECTION_ITEM__REFERENCE_RESOURCES = CONNECTION_ITEM__REFERENCE_RESOURCES;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DELIMITED_FILE_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
+
+    /**
+     * The number of structural features of the '<em>Delimited File Connection Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DELIMITED_FILE_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int POSITIONAL_FILE_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int POSITIONAL_FILE_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int POSITIONAL_FILE_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int POSITIONAL_FILE_CONNECTION_ITEM__REFERENCE_RESOURCES = CONNECTION_ITEM__REFERENCE_RESOURCES;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int POSITIONAL_FILE_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
+
+    /**
+     * The number of structural features of the '<em>Positional File Connection Item</em>' class.
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int POSITIONAL_FILE_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REG_EX_FILE_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REG_EX_FILE_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REG_EX_FILE_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REG_EX_FILE_CONNECTION_ITEM__REFERENCE_RESOURCES = CONNECTION_ITEM__REFERENCE_RESOURCES;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REG_EX_FILE_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
+
+    /**
+     * The number of structural features of the '<em>Reg Ex File Connection Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REG_EX_FILE_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CSV_FILE_CONNECTION_ITEM__PROPERTY = DELIMITED_FILE_CONNECTION_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CSV_FILE_CONNECTION_ITEM__STATE = DELIMITED_FILE_CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CSV_FILE_CONNECTION_ITEM__PARENT = DELIMITED_FILE_CONNECTION_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CSV_FILE_CONNECTION_ITEM__REFERENCE_RESOURCES = DELIMITED_FILE_CONNECTION_ITEM__REFERENCE_RESOURCES;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CSV_FILE_CONNECTION_ITEM__CONNECTION = DELIMITED_FILE_CONNECTION_ITEM__CONNECTION;
+
+    /**
+     * The number of structural features of the '<em>CSV File Connection Item</em>' class.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CSV_FILE_CONNECTION_ITEM_FEATURE_COUNT = DELIMITED_FILE_CONNECTION_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_CONNECTION_ITEM__REFERENCE_RESOURCES = CONNECTION_ITEM__REFERENCE_RESOURCES;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
+
+    /**
+     * The number of structural features of the '<em>Database Connection Item</em>' class.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_CONNECTION_ITEM__REFERENCE_RESOURCES = CONNECTION_ITEM__REFERENCE_RESOURCES;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
+
+    /**
+     * The number of structural features of the '<em>SAP Connection Item</em>' class.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_CONNECTION_ITEM__REFERENCE_RESOURCES = CONNECTION_ITEM__REFERENCE_RESOURCES;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
+
+    /**
+     * The number of structural features of the '<em>Xml File Connection Item</em>' class.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION_ITEM__REFERENCE_RESOURCES = CONNECTION_ITEM__REFERENCE_RESOURCES;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
+
+    /**
+     * The number of structural features of the '<em>Ldif File Connection Item</em>' class.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXCEL_FILE_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXCEL_FILE_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXCEL_FILE_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXCEL_FILE_CONNECTION_ITEM__REFERENCE_RESOURCES = CONNECTION_ITEM__REFERENCE_RESOURCES;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXCEL_FILE_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
+
+    /**
+     * The number of structural features of the '<em>Excel File Connection Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXCEL_FILE_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION_ITEM__REFERENCE_RESOURCES = CONNECTION_ITEM__REFERENCE_RESOURCES;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
+
+    /**
+     * The number of structural features of the '<em>Ebcdic Connection Item</em>' class.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION_ITEM__REFERENCE_RESOURCES = CONNECTION_ITEM__REFERENCE_RESOURCES;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
+
+    /**
+     * The number of structural features of the '<em>MDM Connection Item</em>' class.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION_ITEM__REFERENCE_RESOURCES = CONNECTION_ITEM__REFERENCE_RESOURCES;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
+
+    /**
+     * The number of structural features of the '<em>Validation Rules Connection Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROCESS_ITEM__PROPERTY = ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROCESS_ITEM__STATE = ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROCESS_ITEM__PARENT = ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROCESS_ITEM__REFERENCE_RESOURCES = ITEM__REFERENCE_RESOURCES;
+
+    /**
+     * The feature id for the '<em><b>Process</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROCESS_ITEM__PROCESS = ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>Process Item</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int PROCESS_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER_ROLE__ID = 0;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER_ROLE__NAME = 1;
+
+    /**
+     * The feature id for the '<em><b>Localized Label</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER_ROLE__LOCALIZED_LABEL = 2;
+
+    /**
+     * The feature id for the '<em><b>Fixed</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER_ROLE__FIXED = 3;
+
+    /**
+     * The feature id for the '<em><b>Roles Rights</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int USER_ROLE__ROLES_RIGHTS = 4;
+
+    /**
+     * The number of structural features of the '<em>User Role</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int USER_ROLE_FEATURE_COUNT = 5;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__ID = 0;
+
+    /**
+     * The feature id for the '<em><b>Login</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__LOGIN = 1;
+
+    /**
+     * The feature id for the '<em><b>Password</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__PASSWORD = 2;
+
+    /**
+     * The feature id for the '<em><b>First Name</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__FIRST_NAME = 3;
+
+    /**
+     * The feature id for the '<em><b>Last Name</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__LAST_NAME = 4;
+
+    /**
+     * The feature id for the '<em><b>Creation Date</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__CREATION_DATE = 5;
+
+    /**
+     * The feature id for the '<em><b>Delete Date</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__DELETE_DATE = 6;
+
+    /**
+     * The feature id for the '<em><b>Deleted</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__DELETED = 7;
+
+    /**
+     * The feature id for the '<em><b>Allowed To Modify Components</b></em>' attribute.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__ALLOWED_TO_MODIFY_COMPONENTS = 8;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__COMMENT = 9;
+
+    /**
+     * The feature id for the '<em><b>Project Authorization</b></em>' reference list.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__PROJECT_AUTHORIZATION = 10;
+
+    /**
+     * The feature id for the '<em><b>Module Authorization</b></em>' reference list.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__MODULE_AUTHORIZATION = 11;
+
+    /**
+     * The feature id for the '<em><b>Preferred Dashboard Connection</b></em>' reference.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__PREFERRED_DASHBOARD_CONNECTION = 12;
+
+    /**
+     * The feature id for the '<em><b>Last Admin Connection Date</b></em>' attribute.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__LAST_ADMIN_CONNECTION_DATE = 13;
+
+    /**
+     * The feature id for the '<em><b>Last Studio Connection Date</b></em>' attribute.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__LAST_STUDIO_CONNECTION_DATE = 14;
+
+    /**
+     * The feature id for the '<em><b>First Admin Connection Date</b></em>' attribute.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__FIRST_ADMIN_CONNECTION_DATE = 15;
+
+    /**
+     * The feature id for the '<em><b>First Studio Connection Date</b></em>' attribute.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__FIRST_STUDIO_CONNECTION_DATE = 16;
+
+    /**
+     * The feature id for the '<em><b>Admin Connexion Number</b></em>' attribute.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__ADMIN_CONNEXION_NUMBER = 17;
+
+    /**
+     * The feature id for the '<em><b>Studio Connexion Number</b></em>' attribute.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__STUDIO_CONNEXION_NUMBER = 18;
+
+    /**
+     * The feature id for the '<em><b>Authentication Info</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int USER__AUTHENTICATION_INFO = 19;
+
+    /**
+     * The feature id for the '<em><b>Ldap Id</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__LDAP_ID = 20;
+
+    /**
+     * The feature id for the '<em><b>Language</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__LANGUAGE = 21;
+
+    /**
+     * The feature id for the '<em><b>Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__TYPE = 22;
+
+    /**
+     * The feature id for the '<em><b>Additionnal Data</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__ADDITIONNAL_DATA = 23;
+
+    /**
+     * The number of structural features of the '<em>User</em>' class.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER_FEATURE_COUNT = 24;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FOLDER_ITEM__PROPERTY = ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FOLDER_ITEM__STATE = ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FOLDER_ITEM__PARENT = ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FOLDER_ITEM__REFERENCE_RESOURCES = ITEM__REFERENCE_RESOURCES;
+
+    /**
+     * The feature id for the '<em><b>Children</b></em>' reference list.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FOLDER_ITEM__CHILDREN = ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Type</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FOLDER_ITEM__TYPE = ITEM_FEATURE_COUNT + 1;
+
+    /**
+     * The number of structural features of the '<em>Folder Item</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int FOLDER_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 2;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPONENT__ID = 0;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPONENT__LABEL = 1;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPONENT__VERSION = 2;
+
+    /**
+     * The feature id for the '<em><b>Last Update Date</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int COMPONENT__LAST_UPDATE_DATE = 3;
+
+    /**
+     * The feature id for the '<em><b>Author</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPONENT__AUTHOR = 4;
+
+    /**
+     * The feature id for the '<em><b>Creation Date</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPONENT__CREATION_DATE = 5;
+
+    /**
+     * The feature id for the '<em><b>Delete Date</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPONENT__DELETE_DATE = 6;
+
+    /**
+     * The feature id for the '<em><b>Deleted</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPONENT__DELETED = 7;
+
+    /**
+     * The feature id for the '<em><b>File Descriptor</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPONENT__FILE_DESCRIPTOR = 8;
+
+    /**
+     * The feature id for the '<em><b>Projects</b></em>' reference list.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPONENT__PROJECTS = 9;
+
+    /**
+     * The number of structural features of the '<em>Component</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int COMPONENT_FEATURE_COUNT = 10;
+
+    /**
+     * The feature id for the '<em><b>Notation String</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NOTATION_HOLDER__NOTATION_STRING = 0;
+
+    /**
+     * The number of structural features of the '<em>Notation Holder</em>' class.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NOTATION_HOLDER_FEATURE_COUNT = 1;
+
+    /**
+     * The feature id for the '<em><b>User</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER_PROJECT_AUTHORIZATION__USER = 0;
+
+    /**
+     * The feature id for the '<em><b>Project</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER_PROJECT_AUTHORIZATION__PROJECT = 1;
+
+    /**
+     * The feature id for the '<em><b>Type</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER_PROJECT_AUTHORIZATION__TYPE = 2;
+
+    /**
+     * The number of structural features of the '<em>User Project Authorization</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER_PROJECT_AUTHORIZATION_FEATURE_COUNT = 3;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT_ITEM__PROPERTY = ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT_ITEM__STATE = ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT_ITEM__PARENT = ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT_ITEM__REFERENCE_RESOURCES = ITEM__REFERENCE_RESOURCES;
+
+    /**
+     * The feature id for the '<em><b>Context</b></em>' reference list.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT_ITEM__CONTEXT = ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Default Context</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT_ITEM__DEFAULT_CONTEXT = ITEM_FEATURE_COUNT + 1;
+
+    /**
+     * The number of structural features of the '<em>Context Item</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int CONTEXT_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 2;
+
+    /**
+     * The feature id for the '<em><b>Engine Name</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SPAGO_BI_SERVER__ENGINE_NAME = 0;
+
+    /**
+     * The feature id for the '<em><b>Short Description</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int SPAGO_BI_SERVER__SHORT_DESCRIPTION = 1;
+
+    /**
+     * The feature id for the '<em><b>Host</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SPAGO_BI_SERVER__HOST = 2;
+
+    /**
+     * The feature id for the '<em><b>Port</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SPAGO_BI_SERVER__PORT = 3;
+
+    /**
+     * The feature id for the '<em><b>Login</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SPAGO_BI_SERVER__LOGIN = 4;
+
+    /**
+     * The feature id for the '<em><b>Password</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SPAGO_BI_SERVER__PASSWORD = 5;
+
+    /**
+     * The feature id for the '<em><b>Application Context</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int SPAGO_BI_SERVER__APPLICATION_CONTEXT = 6;
+
+    /**
+     * The number of structural features of the '<em>Spago Bi Server</em>' class.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SPAGO_BI_SERVER_FEATURE_COUNT = 7;
+
+    /**
+     * The feature id for the '<em><b>License</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LICENSE__LICENSE = 0;
+
+    /**
+     * The feature id for the '<em><b>Customer Name</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LICENSE__CUSTOMER_NAME = 1;
+
+    /**
+     * The feature id for the '<em><b>Params</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LICENSE__PARAMS = 2;
+
+    /**
+     * The feature id for the '<em><b>Token</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LICENSE__TOKEN = 3;
+
+    /**
+     * The feature id for the '<em><b>Date Token Check</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LICENSE__DATE_TOKEN_CHECK = 4;
+
+    /**
+     * The number of structural features of the '<em>License</em>' class.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LICENSE_FEATURE_COUNT = 5;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GENERIC_SCHEMA_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GENERIC_SCHEMA_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GENERIC_SCHEMA_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GENERIC_SCHEMA_CONNECTION_ITEM__REFERENCE_RESOURCES = CONNECTION_ITEM__REFERENCE_RESOURCES;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GENERIC_SCHEMA_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
+
+    /**
+     * The number of structural features of the '<em>Generic Schema Connection Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GENERIC_SCHEMA_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>User</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER_MODULE_AUTHORIZATION__USER = 0;
+
+    /**
+     * The feature id for the '<em><b>Type</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER_MODULE_AUTHORIZATION__TYPE = 1;
+
+    /**
+     * The number of structural features of the '<em>User Module Authorization</em>' class.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER_MODULE_AUTHORIZATION_FEATURE_COUNT = 2;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION_ITEM__REFERENCE_RESOURCES = CONNECTION_ITEM__REFERENCE_RESOURCES;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
+
+    /**
+     * The number of structural features of the '<em>LDAP Schema Connection Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION_ITEM__REFERENCE_RESOURCES = CONNECTION_ITEM__REFERENCE_RESOURCES;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
+
+    /**
+     * The number of structural features of the '<em>Salesforce Schema Connection Item</em>' class.
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION__ID = 0;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION__LABEL = 1;
+
+    /**
+     * The feature id for the '<em><b>Dialect</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION__DIALECT = 2;
+
+    /**
+     * The feature id for the '<em><b>Host</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION__HOST = 3;
+
+    /**
+     * The feature id for the '<em><b>Port</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION__PORT = 4;
+
+    /**
+     * The feature id for the '<em><b>Database</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION__DATABASE = 5;
+
+    /**
+     * The feature id for the '<em><b>Username</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION__USERNAME = 6;
+
+    /**
+     * The feature id for the '<em><b>Password</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION__PASSWORD = 7;
+
+    /**
+     * The feature id for the '<em><b>Log Table</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION__LOG_TABLE = 8;
+
+    /**
+     * The feature id for the '<em><b>Stat Table</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION__STAT_TABLE = 9;
+
+    /**
+     * The feature id for the '<em><b>Flow Meter Table</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION__FLOW_METER_TABLE = 10;
+
+    /**
+     * The feature id for the '<em><b>Additionnals Params</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION__ADDITIONNALS_PARAMS = 11;
+
+    /**
+     * The feature id for the '<em><b>Datasource</b></em>' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION__DATASOURCE = 12;
+
+    /**
+     * The number of structural features of the '<em>Dashboard Connection</em>' class.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION_FEATURE_COUNT = 13;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TRIGGERABLE__ID = 0;
+
+    /**
+     * The feature id for the '<em><b>Triggers</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TRIGGERABLE__TRIGGERS = 1;
+
+    /**
+     * The feature id for the '<em><b>Id Quartz Job</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TRIGGERABLE__ID_QUARTZ_JOB = 2;
+
+    /**
+     * The feature id for the '<em><b>Status</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TRIGGERABLE__STATUS = 3;
+
+    /**
+     * The feature id for the '<em><b>Error Status</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TRIGGERABLE__ERROR_STATUS = 4;
+
+    /**
+     * The feature id for the '<em><b>Concurrent Execution</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TRIGGERABLE__CONCURRENT_EXECUTION = 5;
+
+    /**
+     * The feature id for the '<em><b>Processing State</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TRIGGERABLE__PROCESSING_STATE = 6;
+
+    /**
+     * The number of structural features of the '<em>Execution Triggerable</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TRIGGERABLE_FEATURE_COUNT = 7;
+
+    /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3485,16 +3879,6 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_PLAN_FEATURE_COUNT = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 4;
 
     /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionPlanPartImpl <em>Execution Plan Part</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.ExecutionPlanPartImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionPlanPart()
-     * @generated
-     */
-    int EXECUTION_PLAN_PART = 46;
-
-    /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3594,16 +3978,6 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_PLAN_PART_FEATURE_COUNT = 10;
 
     /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionPlanPrmImpl <em>Execution Plan Prm</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.ExecutionPlanPrmImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionPlanPrm()
-     * @generated
-     */
-    int EXECUTION_PLAN_PRM = 47;
-
-    /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3649,16 +4023,6 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_PLAN_PRM_FEATURE_COUNT = 4;
 
     /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionPlanPartCmdPrmImpl <em>Execution Plan Part Cmd Prm</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.ExecutionPlanPartCmdPrmImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionPlanPartCmdPrm()
-     * @generated
-     */
-    int EXECUTION_PLAN_PART_CMD_PRM = 48;
-
-    /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3702,16 +4066,6 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int EXECUTION_PLAN_PART_CMD_PRM_FEATURE_COUNT = 4;
-
-    /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionPlanPartJobPrmImpl <em>Execution Plan Part Job Prm</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.ExecutionPlanPartJobPrmImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionPlanPartJobPrm()
-     * @generated
-     */
-    int EXECUTION_PLAN_PART_JOB_PRM = 49;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -4652,16 +5006,6 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int TASK_EXECUTION_HISTORY_FEATURE_COUNT = 45;
-
-    /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.PlanExecutionHistoryImpl <em>Plan Execution History</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.PlanExecutionHistoryImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getPlanExecutionHistory()
-     * @generated
-     */
-    int PLAN_EXECUTION_HISTORY = 54;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -6084,6 +6428,15 @@ public interface PropertiesPackage extends EPackage {
     int JOBLET_PROCESS_ITEM__PARENT = ITEM__PARENT;
 
     /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_PROCESS_ITEM__REFERENCE_RESOURCES = ITEM__REFERENCE_RESOURCES;
+
+    /**
      * The feature id for the '<em><b>Joblet Process</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -6132,6 +6485,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int JOB_DOCUMENTATION_ITEM__PARENT = FILE_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOB_DOCUMENTATION_ITEM__REFERENCE_RESOURCES = FILE_ITEM__REFERENCE_RESOURCES;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6192,6 +6554,15 @@ public interface PropertiesPackage extends EPackage {
     int JOBLET_DOCUMENTATION_ITEM__PARENT = FILE_ITEM__PARENT;
 
     /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_DOCUMENTATION_ITEM__REFERENCE_RESOURCES = FILE_ITEM__REFERENCE_RESOURCES;
+
+    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -6248,6 +6619,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int WSDL_SCHEMA_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION_ITEM__REFERENCE_RESOURCES = CONNECTION_ITEM__REFERENCE_RESOURCES;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
@@ -6340,6 +6720,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int SQL_PATTERN_ITEM__PARENT = FILE_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQL_PATTERN_ITEM__REFERENCE_RESOURCES = FILE_ITEM__REFERENCE_RESOURCES;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6874,6 +7263,15 @@ public interface PropertiesPackage extends EPackage {
     int RULES_ITEM__PARENT = FILE_ITEM__PARENT;
 
     /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int RULES_ITEM__REFERENCE_RESOURCES = FILE_ITEM__REFERENCE_RESOURCES;
+
+    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -6999,6 +7397,15 @@ public interface PropertiesPackage extends EPackage {
     int SVG_BUSINESS_PROCESS_ITEM__PARENT = FILE_ITEM__PARENT;
 
     /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SVG_BUSINESS_PROCESS_ITEM__REFERENCE_RESOURCES = FILE_ITEM__REFERENCE_RESOURCES;
+
+    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -7064,6 +7471,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int LINK_RULES_ITEM__PARENT = ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LINK_RULES_ITEM__REFERENCE_RESOURCES = ITEM__REFERENCE_RESOURCES;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7225,6 +7641,15 @@ public interface PropertiesPackage extends EPackage {
     int HL7_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
 
     /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION_ITEM__REFERENCE_RESOURCES = CONNECTION_ITEM__REFERENCE_RESOURCES;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -7240,16 +7665,6 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int HL7_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
-
-    /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.UserRoleReferenceImpl <em>User Role Reference</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.UserRoleReferenceImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserRoleReference()
-     * @generated
-     */
-    int USER_ROLE_REFERENCE = 85;
 
     /**
      * The feature id for the '<em><b>User</b></em>' reference.
@@ -7279,16 +7694,6 @@ public interface PropertiesPackage extends EPackage {
     int USER_ROLE_REFERENCE_FEATURE_COUNT = 2;
 
     /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.HeaderFooterConnectionItemImpl <em>Header Footer Connection Item</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.HeaderFooterConnectionItemImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getHeaderFooterConnectionItem()
-     * @generated
-     */
-    int HEADER_FOOTER_CONNECTION_ITEM = 86;
-
-    /**
      * The feature id for the '<em><b>Property</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7316,6 +7721,15 @@ public interface PropertiesPackage extends EPackage {
     int HEADER_FOOTER_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
 
     /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_FOOTER_CONNECTION_ITEM__REFERENCE_RESOURCES = CONNECTION_ITEM__REFERENCE_RESOURCES;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7332,16 +7746,6 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int HEADER_FOOTER_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
-
-    /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.FTPConnectionItemImpl <em>FTP Connection Item</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.FTPConnectionItemImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFTPConnectionItem()
-     * @generated
-     */
-    int FTP_CONNECTION_ITEM = 87;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -7371,6 +7775,15 @@ public interface PropertiesPackage extends EPackage {
     int FTP_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
 
     /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION_ITEM__REFERENCE_RESOURCES = CONNECTION_ITEM__REFERENCE_RESOURCES;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7387,16 +7800,6 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int FTP_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
-
-    /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.CustomComponentSettingImpl <em>Custom Component Setting</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.CustomComponentSettingImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getCustomComponentSetting()
-     * @generated
-     */
-    int CUSTOM_COMPONENT_SETTING = 88;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7426,16 +7829,6 @@ public interface PropertiesPackage extends EPackage {
     int CUSTOM_COMPONENT_SETTING_FEATURE_COUNT = 2;
 
     /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.TDQItemImpl <em>TDQ Item</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.TDQItemImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQItem()
-     * @generated
-     */
-    int TDQ_ITEM = 89;
-
-    /**
      * The feature id for the '<em><b>Property</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7463,6 +7856,15 @@ public interface PropertiesPackage extends EPackage {
     int TDQ_ITEM__PARENT = ITEM__PARENT;
 
     /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_ITEM__REFERENCE_RESOURCES = ITEM__REFERENCE_RESOURCES;
+
+    /**
      * The feature id for the '<em><b>Filename</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7479,16 +7881,6 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int TDQ_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 1;
-
-    /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.BRMSConnectionItemImpl <em>BRMS Connection Item</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.BRMSConnectionItemImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getBRMSConnectionItem()
-     * @generated
-     */
-    int BRMS_CONNECTION_ITEM = 90;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -7518,6 +7910,15 @@ public interface PropertiesPackage extends EPackage {
     int BRMS_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
 
     /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BRMS_CONNECTION_ITEM__REFERENCE_RESOURCES = CONNECTION_ITEM__REFERENCE_RESOURCES;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7534,16 +7935,6 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int BRMS_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
-
-    /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.JobScriptItemImpl <em>Job Script Item</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.JobScriptItemImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobScriptItem()
-     * @generated
-     */
-    int JOB_SCRIPT_ITEM = 91;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -7571,6 +7962,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int JOB_SCRIPT_ITEM__PARENT = FILE_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOB_SCRIPT_ITEM__REFERENCE_RESOURCES = FILE_ITEM__REFERENCE_RESOURCES;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7609,16 +8009,6 @@ public interface PropertiesPackage extends EPackage {
     int JOB_SCRIPT_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 0;
 
     /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.EDIFACTConnectionItemImpl <em>EDIFACT Connection Item</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.EDIFACTConnectionItemImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getEDIFACTConnectionItem()
-     * @generated
-     */
-    int EDIFACT_CONNECTION_ITEM = 92;
-
-    /**
      * The feature id for the '<em><b>Property</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7646,6 +8036,15 @@ public interface PropertiesPackage extends EPackage {
     int EDIFACT_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
 
     /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_CONNECTION_ITEM__REFERENCE_RESOURCES = CONNECTION_ITEM__REFERENCE_RESOURCES;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7662,16 +8061,6 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int EDIFACT_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
-
-    /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.TechnicalVariableImpl <em>Technical Variable</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.TechnicalVariableImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTechnicalVariable()
-     * @generated
-     */
-    int TECHNICAL_VARIABLE = 93;
 
     /**
      * The feature id for the '<em><b>Key</b></em>' attribute.
@@ -7701,6 +8090,87 @@ public interface PropertiesPackage extends EPackage {
     int TECHNICAL_VARIABLE_FEATURE_COUNT = 2;
 
     /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REFERENCE_ITEM__STATE = 0;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REFERENCE_ITEM__PARENT = 1;
+
+    /**
+     * The number of structural features of the '<em>Reference Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REFERENCE_ITEM_FEATURE_COUNT = 2;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REFERENCE_FILE_ITEM__STATE = REFERENCE_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REFERENCE_FILE_ITEM__PARENT = REFERENCE_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REFERENCE_FILE_ITEM__NAME = REFERENCE_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Extension</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REFERENCE_FILE_ITEM__EXTENSION = REFERENCE_ITEM_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Content</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REFERENCE_FILE_ITEM__CONTENT = REFERENCE_ITEM_FEATURE_COUNT + 2;
+
+    /**
+     * The number of structural features of the '<em>Reference File Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REFERENCE_FILE_ITEM_FEATURE_COUNT = REFERENCE_ITEM_FEATURE_COUNT + 3;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -7708,7 +8178,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 94;
+    int FOLDER_TYPE = 96;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -7717,7 +8187,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 95;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 97;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserModuleAuthorizationType <em>User Module Authorization Type</em>}' enum.
@@ -7726,7 +8196,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 96;
+    int USER_MODULE_AUTHORIZATION_TYPE = 98;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.InformationLevel <em>Information Level</em>}' enum.
@@ -7735,7 +8205,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 97;
+    int INFORMATION_LEVEL = 99;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.Status <em>Status</em>}'. <!--
@@ -8287,7 +8757,8 @@ public interface PropertiesPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference '{@link org.talend.core.model.properties.Item#getState <em>State</em>}'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @return the meta object for the reference '<em>State</em>'.
      * @see org.talend.core.model.properties.Item#getState()
      * @see #getItem()
@@ -8305,6 +8776,17 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EReference getItem_Parent();
+
+    /**
+     * Returns the meta object for the reference list '{@link org.talend.core.model.properties.Item#getReferenceResources <em>Reference Resources</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference list '<em>Reference Resources</em>'.
+     * @see org.talend.core.model.properties.Item#getReferenceResources()
+     * @see #getItem()
+     * @generated
+     */
+    EReference getItem_ReferenceResources();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.LinkDocumentationItem <em>Link Documentation Item</em>}'.
@@ -8512,7 +8994,8 @@ public interface PropertiesPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.FileItem#getName <em>Name</em>}'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Name</em>'.
      * @see org.talend.core.model.properties.FileItem#getName()
      * @see #getFileItem()
@@ -8522,7 +9005,8 @@ public interface PropertiesPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.FileItem#getExtension <em>Extension</em>}'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Extension</em>'.
      * @see org.talend.core.model.properties.FileItem#getExtension()
      * @see #getFileItem()
@@ -8532,7 +9016,8 @@ public interface PropertiesPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference '{@link org.talend.core.model.properties.FileItem#getContent <em>Content</em>}'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @return the meta object for the reference '<em>Content</em>'.
      * @see org.talend.core.model.properties.FileItem#getContent()
      * @see #getFileItem()
@@ -12169,6 +12654,81 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getTechnicalVariable_Value();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.ReferenceItem <em>Reference Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Reference Item</em>'.
+     * @see org.talend.core.model.properties.ReferenceItem
+     * @generated
+     */
+    EClass getReferenceItem();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.ReferenceItem#getState <em>State</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>State</em>'.
+     * @see org.talend.core.model.properties.ReferenceItem#getState()
+     * @see #getReferenceItem()
+     * @generated
+     */
+    EReference getReferenceItem_State();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.ReferenceItem#getParent <em>Parent</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Parent</em>'.
+     * @see org.talend.core.model.properties.ReferenceItem#getParent()
+     * @see #getReferenceItem()
+     * @generated
+     */
+    EReference getReferenceItem_Parent();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.ReferenceFileItem <em>Reference File Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Reference File Item</em>'.
+     * @see org.talend.core.model.properties.ReferenceFileItem
+     * @generated
+     */
+    EClass getReferenceFileItem();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ReferenceFileItem#getName <em>Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Name</em>'.
+     * @see org.talend.core.model.properties.ReferenceFileItem#getName()
+     * @see #getReferenceFileItem()
+     * @generated
+     */
+    EAttribute getReferenceFileItem_Name();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ReferenceFileItem#getExtension <em>Extension</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Extension</em>'.
+     * @see org.talend.core.model.properties.ReferenceFileItem#getExtension()
+     * @see #getReferenceFileItem()
+     * @generated
+     */
+    EAttribute getReferenceFileItem_Extension();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.ReferenceFileItem#getContent <em>Content</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Content</em>'.
+     * @see org.talend.core.model.properties.ReferenceFileItem#getContent()
+     * @see #getReferenceFileItem()
+     * @generated
+     */
+    EReference getReferenceFileItem_Content();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionPlan <em>Execution Plan</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -13603,8 +14163,8 @@ public interface PropertiesPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>State</b></em>' reference feature.
-         * <!-- begin-user-doc --> <!--
-         * end-user-doc -->
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
          * @generated
          */
         EReference ITEM__STATE = eINSTANCE.getItem_State();
@@ -13616,6 +14176,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference ITEM__PARENT = eINSTANCE.getItem_Parent();
+
+        /**
+         * The meta object literal for the '<em><b>Reference Resources</b></em>' reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference ITEM__REFERENCE_RESOURCES = eINSTANCE.getItem_ReferenceResources();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.LinkDocumentationItemImpl <em>Link Documentation Item</em>}' class.
@@ -13784,24 +14352,24 @@ public interface PropertiesPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-         * <!-- begin-user-doc --> <!--
-         * end-user-doc -->
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
          * @generated
          */
         EAttribute FILE_ITEM__NAME = eINSTANCE.getFileItem_Name();
 
         /**
          * The meta object literal for the '<em><b>Extension</b></em>' attribute feature.
-         * <!-- begin-user-doc --> <!--
-         * end-user-doc -->
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
          * @generated
          */
         EAttribute FILE_ITEM__EXTENSION = eINSTANCE.getFileItem_Extension();
 
         /**
          * The meta object literal for the '<em><b>Content</b></em>' reference feature.
-         * <!-- begin-user-doc --> <!--
-         * end-user-doc -->
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
          * @generated
          */
         EReference FILE_ITEM__CONTENT = eINSTANCE.getFileItem_Content();
@@ -16709,6 +17277,66 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute TECHNICAL_VARIABLE__VALUE = eINSTANCE.getTechnicalVariable_Value();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.ReferenceItemImpl <em>Reference Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.ReferenceItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getReferenceItem()
+         * @generated
+         */
+        EClass REFERENCE_ITEM = eINSTANCE.getReferenceItem();
+
+        /**
+         * The meta object literal for the '<em><b>State</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference REFERENCE_ITEM__STATE = eINSTANCE.getReferenceItem_State();
+
+        /**
+         * The meta object literal for the '<em><b>Parent</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference REFERENCE_ITEM__PARENT = eINSTANCE.getReferenceItem_Parent();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.ReferenceFileItemImpl <em>Reference File Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.ReferenceFileItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getReferenceFileItem()
+         * @generated
+         */
+        EClass REFERENCE_FILE_ITEM = eINSTANCE.getReferenceFileItem();
+
+        /**
+         * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute REFERENCE_FILE_ITEM__NAME = eINSTANCE.getReferenceFileItem_Name();
+
+        /**
+         * The meta object literal for the '<em><b>Extension</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute REFERENCE_FILE_ITEM__EXTENSION = eINSTANCE.getReferenceFileItem_Extension();
+
+        /**
+         * The meta object literal for the '<em><b>Content</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference REFERENCE_FILE_ITEM__CONTENT = eINSTANCE.getReferenceFileItem_Content();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionPlanImpl <em>Execution Plan</em>}' class.
