@@ -95,5 +95,5 @@ public interface ITDQItemService extends IService {
      * @param node, properties of component
      * @return
      */
-    public File fileCreatedInRoutines(INode node, String className);
+    public File fileCreatedInRoutines(INode node, String className) throws Exception;
 }
