@@ -63,6 +63,7 @@ public class CopyComponentsBetweenJobTest extends TalendSwtBotForTos {
         Utilities.createJob(JOBNAME2, treeNode, gefBot);
         /* Use components in job1 */
         gefEditor = gefBot.gefEditor("Job " + JOBNAME1 + " 0.1");
+        gefEditor.show();
 
         Utilities.dndPaletteToolOntoJob(gefBot, gefEditor, "tRowGenerator", new Point(100, 100));
         Utilities.dndPaletteToolOntoJob(gefBot, gefEditor, "tLogRow", new Point(300, 100));
