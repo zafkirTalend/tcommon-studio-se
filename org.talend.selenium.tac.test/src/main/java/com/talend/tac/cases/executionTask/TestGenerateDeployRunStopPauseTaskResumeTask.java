@@ -152,10 +152,10 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 		selenium.click("//button[@id='idJobConductorTaskRunButton']");
 		selenium.setSpeed(MIN_SPEED);	
 		
-		selenium.setSpeed(MID_SPEED);              
+		this.waitForElementPresent("//div[contains(text(),'The requested action cannot be carried out because the execution task')]", WAIT_TIME);             
 		Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'The requested action cannot be carried out because the execution task')]"), "//div[contains,(text()'The requested action cannot be carried out because the execution task')]" +
 				" is without appear");
-		selenium.setSpeed(MIN_SPEED);
+		
 		
 	}
 	
@@ -182,7 +182,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 		selenium.setSpeed(MIN_SPEED);
 		
 		this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::table[@class='x-grid3-row-table']//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-triggersStatus')]" +
-				"//img[@title='All triggers paused']", WAIT_TIME+35);
+				"//img[@title='All triggers paused']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::table[@class='x-grid3-row-table']//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-triggersStatus')]" +
 				"//img[@title='All triggers paused']"), "//span[text()='"+taskLabel+"']//ancestor::table[@class='x-grid3-row-table']//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-triggersStatus')]" +
 						"//img[@title='All triggers paused'] is without appear");
@@ -194,12 +194,15 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 		selenium.getConfirmation();
 		selenium.setSpeed(MIN_SPEED);
 		
+		this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::table[@class='x-grid3-row-table']//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-triggersStatus')]" +
+				"//img[@title='At least one Trigger is running' ]", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::table[@class='x-grid3-row-table']//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-triggersStatus')]" +
 				"//img[@title='At least one Trigger is running' ]"), "//span[text()='"+taskLabel+"']//ancestor::table[@class='x-grid3-row-table']//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-triggersStatus')]" +
 						"//img[@title='At least one Trigger is running' ] is without appear");
         Assert.assertTrue(selenium.isElementPresent("//span[text()='"+cronTriggerLabel+"']//ancestor::table[@class='x-grid3-row-table']" +
 		"//img[@alt='Normal']"), "//span[text()='"+cronTriggerLabel+"']//ancestor::table[@class='x-grid3-row-table']//img[@alt='Normal'] is without appear");
-		
+		selenium.setSpeed(MIN_SPEED);
+        
 	    clearTriggers(taskLabel);
 	    
 	}
