@@ -81,10 +81,13 @@
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="modeType" type="string">
+         <attribute name="modeSupport" type="string">
             <annotation>
                <documentation>
-                  
+                  split by comma(,)
+if not support, will be add ! before mode.
+the values must be NORMAL, SERVER, SERVER_SHELL, SERVER_JAVA_PROTOCOL, SHELL
+the empty will  support all modes
                </documentation>
             </annotation>
          </attribute>
