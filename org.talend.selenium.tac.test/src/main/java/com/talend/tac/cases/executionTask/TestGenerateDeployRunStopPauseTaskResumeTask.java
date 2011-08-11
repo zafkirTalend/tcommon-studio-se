@@ -207,5 +207,49 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 	    
 	}
 	
+	//test add a simple trigger to a generating task
+	@Test
+	@Parameters({"TaskBaseBranch"})
+	public void testAddSimpleTriggerToGeneratingTask(String taskLabel) {
+		
+		intoJobConductor(taskLabel);
+		
+		selenium.setSpeed(MID_SPEED);
+		selenium.click("idJobConductorTaskGenerateButton");//click generate button
+		selenium.setSpeed(MIN_SPEED);
+		
+		selenium.click("idTriggerAdd trigger...");//add a trigger
+		selenium.click("idTriggerAdd simple trigger");//add a SimpleTrigger
+        Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addSimpleTrigger")+"']"));
+        
+        this.typeString("idJobConductorSimpleTriggerLableInput", "simpleTrigger");//label
+	   
+        this.typeString("idJobConductorSimpleTriggerRptIntervalInput", "20");//Time interval (s)
+	       		
+	    selenium.setSpeed(MAX_SPEED);
+	    selenium.click("idSimpleTriggerSave");
+		selenium.setSpeed(MIN_SPEED);
+		
+		this.waitForElementPresent("//div[contains(text(),'Save failed: The parent item of the trigger is currently locked, please retry later')]", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Save failed: The parent item of the trigger is currently locked, please retry later')]"));
+		
+	}
+	
+	//test generate a task of uncheck 'Active'
+	@Test
+	@Parameters({"duplicateTask"})
+	public void testGenerateUncheckActiveTask(String taskLabel) {
+		
+        intoJobConductor(taskLabel);
+		
+		selenium.setSpeed(MID_SPEED);
+		selenium.click("idJobConductorTaskGenerateButton");//click generate button
+		selenium.setSpeed(MIN_SPEED);
+		
+		this.waitForTextPresent("The execution task \"Copy_of_testTaskNotChooseActive\" is inactive, the task can't be launched!", WAIT_TIME);
+		Assert.assertTrue(selenium.isTextPresent("The execution task \"Copy_of_testTaskNotChooseActive\" is inactive, the task can't be launched!"));
+		
+	}
+	
 }
   
