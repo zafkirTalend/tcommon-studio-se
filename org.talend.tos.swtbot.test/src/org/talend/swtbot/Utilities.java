@@ -1786,7 +1786,8 @@ public class Utilities {
             gefBot.button("Next >").click();
             List<String> schemaList = new ArrayList<String>(Arrays.asList(schemas));
             for (String schema : schemaList) {
-                gefBot.tree(0).expandNode(System.getProperty("mysql.dataBase")).getNode(schema).check();
+                gefBot.treeInGroup("Select Schema to create").expandNode(System.getProperty("mysql.dataBase")).getNode(schema)
+                        .check();
             }
             gefBot.button("Next >").click();
             gefBot.button("Finish").click();

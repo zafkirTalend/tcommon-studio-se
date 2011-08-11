@@ -62,7 +62,8 @@ public class RetrieveSchemaWizardTest extends TalendSwtBotForTos {
             treeNode.getNode(DBNAME + " 0.1").contextMenu("Retrieve Schema").click();
             tempShell = gefBot.shell("Schema").activate();
             gefBot.button("Next >").click();
-            gefBot.tree(0).expandNode(System.getProperty("mysql.dataBase")).getNode(TABLENAME).check();
+            gefBot.treeInGroup("Select Schema to create").expandNode(System.getProperty("mysql.dataBase")).getNode(TABLENAME)
+                    .check();
             gefBot.button("Next >").click();
             gefBot.button("Cancel").click();
         } catch (WidgetNotFoundException wnfe) {
