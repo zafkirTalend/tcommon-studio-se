@@ -413,7 +413,8 @@ public class TaskUtils extends Login {
 	
     //add a method of remove triggers
     public void clearTriggers(String taskLabel) {
-    
+    	
+    	this.waitForElementPresent("//span[text()='"+taskLabel+"']", WAIT_TIME);
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task
     	selenium.setSpeed(MID_SPEED);
     	if(selenium.isElementPresent("//span[text()='Triggers']/parent::span/parent::em/parent::a/parent::li/" +
