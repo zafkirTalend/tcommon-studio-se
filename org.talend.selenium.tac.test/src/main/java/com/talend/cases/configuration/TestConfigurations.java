@@ -78,11 +78,46 @@ public class TestConfigurations extends Login {
 	  
   }
   
+  
+  //set a stop zkServer
   @Test
   @Parameters ({"esb.conf.zookeeperServer","esb.conf.serviceActivityMonitorServer"})
-  public void testSetESB(String zookeeperServer,String serviceActivityMonitorServer){
+  public void testSetESBWithStopZKServer(String zookeeperServer,String serviceActivityMonitorServer){
+		
+	  selenium.setSpeed(MAX_SPEED);
+	  
+	  if(!selenium.isVisible("//div[text()='Zookeeper Server']")) {
 		  
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'ESB (2 Parameters')]");
+		  this.MouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");
+		  
+	  }
+	  selenium.setSpeed(MIN_SPEED);
+	  this.MouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");
+	  this.typeWordsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), locatorOfAllInputTags, zookeeperServer);
+	  this.typeWordsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), locatorOfAllInputTags, serviceActivityMonitorServer);
+	  
+	  this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), locatorOfAllInputTags,
+			  zookeeperServer, other.getString("esb.conf.StopZookeeperServerStatusIconLocator"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), locatorOfAllInputTags,
+			  serviceActivityMonitorServer, other.getString("esb.conf.ServiceActivityMonitorServerStatusIconLocator"));
+	  this.MouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");
+	  this.clickWaitForElementPresent("//div[contains(text(),'ESB (2 Parameters/1 error)')]");  
+	  
+  }
+  
+  
+  @Test
+  @Parameters ({"esb.conf.zookeeperServer","esb.conf.serviceActivityMonitorServer"})
+  public void testSetESBWithStartZKServer(String zookeeperServer,String serviceActivityMonitorServer){
+	  
+	  selenium.setSpeed(MAX_SPEED);
+	  
+	  if(!selenium.isVisible("//div[text()='Zookeeper Server']")) {
+		  
+		  this.MouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");
+		  
+	  }
+	  selenium.setSpeed(MIN_SPEED);
 	  this.typeWordsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), locatorOfAllInputTags, zookeeperServer);
 	  this.typeWordsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), locatorOfAllInputTags, serviceActivityMonitorServer);
 	  
@@ -90,11 +125,11 @@ public class TestConfigurations extends Login {
 			  zookeeperServer, other.getString("esb.conf.ZookeeperServerStatusIconLocator"));
 	  this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), locatorOfAllInputTags,
 			  serviceActivityMonitorServer, other.getString("esb.conf.ServiceActivityMonitorServerStatusIconLocator"));
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'ESB (2 Parameters')]");
+	  this.MouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");
 	  this.clickWaitForElementPresent("//div[contains(text(),'ESB (2 Parameters)')]");  
 	  
   }
-  
+
   @Test
   @Parameters ({"LDAP.conf.useLDAPAutentication","LDAP.conf.ldapServerIp","LDAP.conf.ldapServerPort","LDAP.conf.ldapRoot","LDAP.conf.ldapPrincipalDNPrefix",
 	  "LDAP.conf.ldapAdminPassword","LDAP.conf.ldap.fields.mail","LDAP.conf.ldap.fields.firstname","LDAP.conf.ldap.fields.lastname"})
