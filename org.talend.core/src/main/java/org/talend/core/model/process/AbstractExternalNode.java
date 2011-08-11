@@ -134,4 +134,16 @@ public abstract class AbstractExternalNode extends AbstractNode implements IExte
         return null;
 
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.model.process.IExternalNode#connectionStatusChanged(org.talend.core.model.process.EConnectionType
+     * , java.lang.String)
+     */
+    public void connectionStatusChanged(EConnectionType newValue, String connectionToApply) {
+        // TODO Auto-generated method stub
+
+    }
 }

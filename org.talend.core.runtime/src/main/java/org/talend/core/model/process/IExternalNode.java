@@ -70,6 +70,8 @@ public interface IExternalNode extends INode {
 
     public abstract void renameOutputConnection(String oldName, String newName);
 
+    public void connectionStatusChanged(EConnectionType newValue, String connectionToApply);
+
     public void setIODataComponents(IODataComponentContainer components);
 
     public IODataComponentContainer getIODataComponents();
