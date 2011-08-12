@@ -117,7 +117,7 @@ public class ExtractMetaDataUtils {
      * @param dbMetaData
      * @return
      */
-    private static boolean needFakeDatabaseMetaData(String dbType) {
+    public static boolean needFakeDatabaseMetaData(String dbType) {
         // TODO check if it's db2 for z/os
         if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
             return true;

@@ -127,7 +127,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 fillMetadataParams(metadataBean, newConnection);
             }
             // software
-            DatabaseMetaData dbMetadata = MetadataConnectionUtils.getConnectionMetadata(sqlConnection);
+            DatabaseMetaData dbMetadata = ExtractMetaDataUtils.getDatabaseMetaData(sqlConnection, metadataBean.getDbType());
             // for bug 22113, annotate it.
             // String connectionDbType = metadataBean.getDbType();
             // List<EDatabaseVersion4Drivers> dbTypeList = EDatabaseVersion4Drivers.indexOfByDbType(connectionDbType);
@@ -352,12 +352,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         if (isHive) {
                             temp = MetaDataConstants.TABLE_CAT.name();
                         } else {
-                            temp = MetadataConnectionUtils.isOdbcPostgresql(dbJDBCMetadata.getConnection()) ? DatabaseConstant.ODBC_POSTGRESQL_CATALOG_NAME
+                            temp = MetadataConnectionUtils.isOdbcPostgresql(dbJDBCMetadata) ? DatabaseConstant.ODBC_POSTGRESQL_CATALOG_NAME
                                     : MetaDataConstants.TABLE_CAT.name();
                         }
                         catalogName = catalogNames.getString(temp);
                         // MOD zshen filter ODBC catalog
-                        if (!isHive && !MetadataConnectionUtils.isODBCCatalog(catalogName, dbJDBCMetadata.getConnection())) {
+                        if (!isHive && !MetadataConnectionUtils.isODBCCatalog(catalogName, dbJDBCMetadata)) {
                             continue;
                         }
                     } catch (Exception e) {
@@ -564,14 +564,14 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     // MOD klliu bug 19004 2011-03-31
                     // java.sql.Connection connection = dbJDBCMetadata.getConnection();
                     // if (!MetadataConnectionUtils.isOdbcConnection(connection)) {
-                    if (!MetadataConnectionUtils.isPostgresql(dbJDBCMetadata.getConnection())) {
+                    if (!MetadataConnectionUtils.isPostgresql(dbJDBCMetadata)) {
                         catalogName = schemaRs.getString(MetaDataConstants.TABLE_CATALOG.name());
                     }
                     // the case for mssql
                     // dbJDBCMetadata.getDatabaseMajorVersion() > 8 it mean that the column TABLE_CATALOG is exist.
                     // dbJDBCMetadata.getDriverMajorVersion() > 1 mean that the connection use 2005/2008 driver
-                    if (MetadataConnectionUtils.isMssql(dbJDBCMetadata.getConnection())
-                            && dbJDBCMetadata.getDatabaseMajorVersion() > 8 && dbJDBCMetadata.getDriverMajorVersion() > 1) {
+                    if (MetadataConnectionUtils.isMssql(dbJDBCMetadata) && dbJDBCMetadata.getDatabaseMajorVersion() > 8
+                            && dbJDBCMetadata.getDriverMajorVersion() > 1) {
                         if (catalogName != null && catalogName != schemaName) {
                             schemaName = catalogName;
                         }
@@ -588,7 +588,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 }
                 // MOD mzhao bug 9606 filter duplicated schemas.
 
-                if (!schemaNameCacheTmp.contains(schemaName) && !MetadataConnectionUtils.isMysql(dbJDBCMetadata.getConnection())) {
+                if (!schemaNameCacheTmp.contains(schemaName) && !MetadataConnectionUtils.isMysql(dbJDBCMetadata)) {
                     schemaNameCacheTmp.add(schemaName);
                     Schema schema = SchemaHelper.createSchema(schemaName);
                     if (!filterMetadaElement(schemaFilter, schemaName)) {
@@ -657,7 +657,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     continue;
                 }
                 String tableOwner = null;
-                if (!isHive && MetadataConnectionUtils.isSybase(dbJDBCMetadata.getConnection())) {
+                if (!isHive && MetadataConnectionUtils.isSybase(dbJDBCMetadata)) {
                     tableOwner = tableSchema;
                 }
                 // common
@@ -801,7 +801,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     continue;
                 }
                 String tableOwner = null;
-                if (MetadataConnectionUtils.isSybase(dbJDBCMetadata.getConnection())) {
+                if (MetadataConnectionUtils.isSybase(dbJDBCMetadata)) {
                     tableOwner = tables.getString(GetTable.TABLE_SCHEM.name());
                 }
                 // common
@@ -880,7 +880,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     continue;
                 }
                 String tableOwner = null;
-                if (MetadataConnectionUtils.isSybase(dbJDBCMetadata.getConnection())) {
+                if (MetadataConnectionUtils.isSybase(dbJDBCMetadata)) {
                     tableOwner = tables.getString(GetTable.TABLE_SCHEM.name());
                 }
                 // common
@@ -922,6 +922,132 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
     }
 
     @Override
+    public List<TdColumn> fillColumns(ColumnSet colSet, IMetadataConnection iMetadataConnection, DatabaseMetaData dbJDBCMetadata,
+            List<String> columnFilter, String columnPattern) {
+        if (colSet == null || dbJDBCMetadata == null) {
+            return null;
+        }
+        List<TdColumn> returnColumns = new ArrayList<TdColumn>();
+        Map<String, TdColumn> columnMap = new HashMap<String, TdColumn>();
+        String typeName = null;
+        try {
+            java.sql.Connection sqlConnection = dbJDBCMetadata.getConnection();
+
+            String catalogName = getName(CatalogHelper.getParentCatalog(colSet));
+            Schema schema = SchemaHelper.getParentSchema(colSet);
+            if (catalogName == null && schema != null) {
+                catalogName = getName(CatalogHelper.getParentCatalog(schema));
+            }
+            String schemaPattern = getName(schema);
+            String tablePattern = getName(colSet);
+            // MOD zshen bug 11934 to add schemaPattern by owner of table
+            if (MetadataConnectionUtils.isSybase(dbJDBCMetadata)) {
+                schemaPattern = ColumnSetHelper.getTableOwner(colSet);
+            }
+            // --- add columns to table
+            ResultSet columns = dbJDBCMetadata.getColumns(catalogName, schemaPattern, tablePattern, columnPattern);
+            while (columns.next()) {
+                int decimalDigits = 0;
+                int numPrecRadix = 0;
+                String columnName = columns.getString(GetColumn.COLUMN_NAME.name());
+                TdColumn column = ColumnHelper.createTdColumn(columnName);
+
+                int dataType = 0;
+
+                if (!ExtractMetaDataUtils.needFakeDatabaseMetaData(iMetadataConnection.getDbType())) {
+                    dataType = columns.getInt(GetColumn.DATA_TYPE.name());
+                }
+                // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously the sql
+                // data type it is null and results in a NPE
+                typeName = columns.getString(GetColumn.TYPE_NAME.name());
+                if (MetadataConnectionUtils.isMssql(dbJDBCMetadata)) {
+                    if (typeName.toLowerCase().equals("date")) {
+                        dataType = 91;
+                        // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously
+                        // the sql
+                        // data type it is null and results in a NPE
+                    } else if (typeName.toLowerCase().equals("time")) {
+                        dataType = 92;
+                        // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously
+                        // the sql
+                        // data type it is null and results in a NPE
+                    }
+                }
+                try {
+                    int column_size = columns.getInt(GetColumn.COLUMN_SIZE.name());
+                    column.setLength(column_size);
+                    decimalDigits = columns.getInt(GetColumn.DECIMAL_DIGITS.name());
+                    numPrecRadix = columns.getInt(GetColumn.NUM_PREC_RADIX.name());
+                } catch (Exception e1) {
+                    log.warn(e1, e1);
+                }
+
+                // SqlDataType
+                TdSqlDataType sqlDataType = MetadataConnectionUtils.createDataType(dataType, typeName, decimalDigits,
+                        numPrecRadix);
+                column.setSqlDataType(sqlDataType);
+
+                // Null able
+                if (!ExtractMetaDataUtils.needFakeDatabaseMetaData(iMetadataConnection.getDbType())) {
+                    int nullable = columns.getInt(GetColumn.NULLABLE.name());
+                    column.getSqlDataType().setNullable(NullableType.get(nullable));
+                }
+
+                // Comment
+                String colComment = columns.getString(GetColumn.REMARKS.name());
+                if (colComment == null) {
+                    colComment = "";
+                }
+                ColumnHelper.setComment(colComment, column);
+
+                // TdExpression
+                Object defaultvalue = null;
+                try {
+                    defaultvalue = columns.getObject(GetColumn.COLUMN_DEF.name());
+                } catch (Exception e1) {
+                    log.warn(e1, e1);
+                }
+                String defaultStr = (defaultvalue != null) ? String.valueOf(defaultvalue) : null;
+                TdExpression defExpression = createTdExpression(GetColumn.COLUMN_DEF.name(), defaultStr);
+                column.setInitialValue(defExpression);
+
+                DatabaseConnection dbConnection = (DatabaseConnection) ConnectionHelper.getConnection(colSet);
+                String dbmsId = dbConnection == null ? null : dbConnection.getDbmsId();
+                if (dbmsId != null) {
+                    MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(dbmsId);
+                    String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName, ExtractMetaDataUtils
+                            .getIntMetaDataInfo(columns, "COLUMN_SIZE"), ExtractMetaDataUtils.getIntMetaDataInfo(columns, //$NON-NLS-1$
+                            "DECIMAL_DIGITS")); //$NON-NLS-1$
+                    column.setTalendType(talendType);
+                    String defaultSelectedDbType = MetadataTalendType.getMappingTypeRetriever(dbConnection.getDbmsId())
+                            .getDefaultSelectedDbType(talendType);
+                    column.setSourceType(defaultSelectedDbType);
+                }
+                try {
+                    column.setNullable("YES".equals(columns.getString(GetColumn.IS_NULLABLE.name()))); //$NON-NLS-1$
+                } catch (Exception e) {
+                    // do nothing
+                }
+                returnColumns.add(column);
+                columnMap.put(columnName, column);
+
+            }
+            columns.close();
+            if (isLinked()) {
+                ColumnSetHelper.addColumns(colSet, returnColumns);
+            }
+            fillPkandFk(colSet, columnMap, dbJDBCMetadata, catalogName, schemaPattern, tablePattern);
+
+        } catch (Exception e) {
+
+            log.error(e, e);
+        }
+
+        // ~
+        return returnColumns;
+    }
+
+    @Override
     public List<TdColumn> fillColumns(ColumnSet colSet, DatabaseMetaData dbJDBCMetadata, List<String> columnFilter,
             String columnPattern) {
         if (colSet == null || dbJDBCMetadata == null) {
@@ -941,7 +1067,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             String schemaPattern = getName(schema);
             String tablePattern = getName(colSet);
             // MOD zshen bug 11934 to add schemaPattern by owner of table
-            if (MetadataConnectionUtils.isSybase(sqlConnection)) {
+            if (MetadataConnectionUtils.isSybase(dbJDBCMetadata)) {
                 schemaPattern = ColumnSetHelper.getTableOwner(colSet);
             }
             // --- add columns to table
@@ -958,7 +1084,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously the sql
                 // data type it is null and results in a NPE
                 typeName = columns.getString(GetColumn.TYPE_NAME.name());
-                if (MetadataConnectionUtils.isMssql(dbJDBCMetadata.getConnection())) {
+                if (MetadataConnectionUtils.isMssql(dbJDBCMetadata)) {
                     if (typeName.toLowerCase().equals("date")) {
                         dataType = 91;
                         // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously
@@ -1094,8 +1220,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 try {
                     // primary key
                     // MOD qiongli 2011-2-21,bug 18828 ,Access database dosen't support 'getPrimaryKeys(...)'.
-                    if (MetadataConnectionUtils.isOdbcExcel(dbJDBCMetadata.getConnection())
-                            || MetadataConnectionUtils.isAccess(dbJDBCMetadata.getConnection())) {
+                    if (MetadataConnectionUtils.isOdbcExcel(dbJDBCMetadata) || MetadataConnectionUtils.isAccess(dbJDBCMetadata)) {
                         log.info("This database don't support primary key and foreign key");
                         return;
                     }

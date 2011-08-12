@@ -326,7 +326,10 @@ public class MetadataConnectionUtils {
      * @throws SQLException
      */
     public static boolean isOdbcPostgresql(java.sql.Connection connection) throws SQLException {
-        DatabaseMetaData connectionMetadata = getConnectionMetadata(connection);
+        return isOdbcPostgresql(getConnectionMetadata(connection));
+    }
+
+    public static boolean isOdbcPostgresql(DatabaseMetaData connectionMetadata) throws SQLException {
         if (connectionMetadata.getDriverName() != null
                 && connectionMetadata.getDriverName().toLowerCase().startsWith(DatabaseConstant.ODBC_DRIVER_NAME)
                 && connectionMetadata.getDatabaseProductName() != null
@@ -344,7 +347,10 @@ public class MetadataConnectionUtils {
      * @throws SQLException
      */
     public static boolean isOdbcExcel(java.sql.Connection connection) throws SQLException {
-        DatabaseMetaData connectionMetadata = getConnectionMetadata(connection);
+        return isOdbcExcel(getConnectionMetadata(connection));
+    }
+
+    public static boolean isOdbcExcel(DatabaseMetaData connectionMetadata) throws SQLException {
         if (connectionMetadata.getDriverName() != null
                 && connectionMetadata.getDriverName().toLowerCase().startsWith(DatabaseConstant.ODBC_DRIVER_NAME)
                 && connectionMetadata.getDatabaseProductName() != null
@@ -363,7 +369,10 @@ public class MetadataConnectionUtils {
      * @throws SQLException
      */
     public static boolean isAccess(java.sql.Connection connection) throws SQLException {
-        DatabaseMetaData connectionMetadata = getConnectionMetadata(connection);
+        return isAccess(getConnectionMetadata(connection));
+    }
+
+    public static boolean isAccess(DatabaseMetaData connectionMetadata) throws SQLException {
         if (connectionMetadata.getDriverName() != null && connectionMetadata.getDatabaseProductName() != null
                 && connectionMetadata.getDatabaseProductName().equals(DatabaseConstant.MS_ACCESS_PRODUCT_NAME)) {
             return true;
@@ -379,7 +388,10 @@ public class MetadataConnectionUtils {
      * @throws SQLException
      */
     public static boolean isSybase(java.sql.Connection connection) throws SQLException {
-        DatabaseMetaData connectionMetadata = getConnectionMetadata(connection);
+        return isSybase(getConnectionMetadata(connection));
+    }
+
+    public static boolean isSybase(DatabaseMetaData connectionMetadata) throws SQLException {
         if (connectionMetadata.getDriverName() != null && connectionMetadata.getDatabaseProductName() != null) {
             for (String keyString : getSybaseDBProductsName()) {
                 if (keyString.trim().equals(connectionMetadata.getDatabaseProductName().trim())) {
@@ -397,13 +409,16 @@ public class MetadataConnectionUtils {
      * @return
      * @throws SQLException
      */
-    public static boolean isOdbcConnection(java.sql.Connection connection) throws SQLException {
-        DatabaseMetaData connectionMetadata = org.talend.utils.sql.ConnectionUtils.getConnectionMetadata(connection);
+    public static boolean isOdbcConnection(DatabaseMetaData connectionMetadata) throws SQLException {
         if (connectionMetadata.getDriverName() != null
                 && connectionMetadata.getDriverName().toLowerCase().startsWith(DatabaseConstant.ODBC_DRIVER_NAME)) {
             return true;
         }
         return false;
+    }
+
+    public static boolean isOdbcConnection(java.sql.Connection connection) throws SQLException {
+        return isOdbcConnection(getConnectionMetadata(connection));
     }
 
     /**
@@ -416,9 +431,9 @@ public class MetadataConnectionUtils {
      * true.
      * @throws SQLException
      */
-    public static boolean isODBCCatalog(String catalogName, java.sql.Connection connection) throws SQLException {
-        if (isOdbcConnection(connection)) {
-            if (catalogName != null && catalogName.equals(connection.getCatalog())) {
+    public static boolean isODBCCatalog(String catalogName, DatabaseMetaData connectionMetadata) throws SQLException {
+        if (isOdbcConnection(connectionMetadata)) {
+            if (catalogName != null && catalogName.equals(connectionMetadata.getConnection().getCatalog())) {
 
                 return true;
             } else {
@@ -439,8 +454,7 @@ public class MetadataConnectionUtils {
         return false;
     }
 
-    public static boolean isMssql(java.sql.Connection connection) throws SQLException {
-        DatabaseMetaData connectionMetadata = getConnectionMetadata(connection);
+    public static boolean isMssql(DatabaseMetaData connectionMetadata) throws SQLException {
         if (connectionMetadata.getDriverName() != null && connectionMetadata.getDatabaseProductName() != null) {
             if (EDataBaseType.Microsoft_SQL_Server.getProductName().equals(connectionMetadata.getDatabaseProductName().trim())) {
                 return true;
@@ -450,8 +464,15 @@ public class MetadataConnectionUtils {
         return false;
     }
 
+    public static boolean isMssql(java.sql.Connection connection) throws SQLException {
+        return isMssql(getConnectionMetadata(connection));
+    }
+
     public static boolean isMysql(java.sql.Connection connection) throws SQLException {
-        DatabaseMetaData connectionMetadata = getConnectionMetadata(connection);
+        return isMysql(getConnectionMetadata(connection));
+    }
+
+    public static boolean isMysql(DatabaseMetaData connectionMetadata) throws SQLException {
         if (connectionMetadata.getDriverName() != null && connectionMetadata.getDatabaseProductName() != null) {
             if (EDataBaseType.MySQL.getProductName().equals(connectionMetadata.getDatabaseProductName().trim())) {
                 return true;
@@ -936,9 +957,12 @@ public class MetadataConnectionUtils {
     }
 
     public static boolean isPostgresql(java.sql.Connection connection) throws SQLException {
-        DatabaseMetaData metaData = connection.getMetaData();
-        if (metaData != null) {
-            String databaseProductName = metaData.getDatabaseProductName();
+        return isPostgresql(getConnectionMetadata(connection));
+    }
+
+    public static boolean isPostgresql(DatabaseMetaData connectionMetadata) throws SQLException {
+        if (connectionMetadata != null) {
+            String databaseProductName = connectionMetadata.getDatabaseProductName();
             if (databaseProductName != null) {
                 return databaseProductName.toLowerCase().indexOf(DatabaseConstant.POSTGRESQL_PRODUCT_NAME) > -1;
             }

@@ -15,7 +15,6 @@ package org.talend.core.model.metadata.builder.database;
 import java.io.UnsupportedEncodingException;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -261,9 +260,9 @@ public final class DqRepositoryViewService {
             }
             java.sql.Connection connection = rcConn.getObject();
             try {
-                columnList = MetadataFillFactory.getDBInstance().fillColumns(columnSet, connection.getMetaData(), null, null);
-            } catch (SQLException e) {
-                log.error(e, e);
+                DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(connection,
+                        ((DatabaseConnection) dataProvider).getDatabaseType());
+                columnList = MetadataFillFactory.getDBInstance().fillColumns(columnSet, dm, null, null);
             } finally {
                 ConnectionUtils.closeConnection(connection);
             }
@@ -329,16 +328,13 @@ public final class DqRepositoryViewService {
         java.sql.Connection connection = rcConn.getObject();
         String[] tableType = new String[] { TableType.TABLE.toString() };
         try {
-
+            DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(connection,
+                    ((DatabaseConnection) dataPloadTablesrovider).getDatabaseType());
             if (schema != null) {
-                tables = MetadataFillFactory.getDBInstance().fillTables(schema, connection.getMetaData(), null, tablePattern,
-                        tableType);
+                tables = MetadataFillFactory.getDBInstance().fillTables(schema, dm, null, tablePattern, tableType);
             } else {
-                tables = MetadataFillFactory.getDBInstance().fillTables(catalog, connection.getMetaData(), null, tablePattern,
-                        tableType);
+                tables = MetadataFillFactory.getDBInstance().fillTables(catalog, dm, null, tablePattern, tableType);
             }
-        } catch (SQLException e) {
-            log.error(e, e);
         } finally {
             ConnectionUtils.closeConnection(connection);
         }
@@ -359,14 +355,14 @@ public final class DqRepositoryViewService {
         }
 
         java.sql.Connection connection = rcConn.getObject();
+        DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(connection,
+                ((DatabaseConnection) dataProvider).getDatabaseType());
         try {
             if (schema != null) {
-                views = MetadataFillFactory.getDBInstance().fillViews(schema, connection.getMetaData(), null, viewPattern);
+                views = MetadataFillFactory.getDBInstance().fillViews(schema, dm, null, viewPattern);
             } else {
-                views = MetadataFillFactory.getDBInstance().fillViews(catalog, connection.getMetaData(), null, viewPattern);
+                views = MetadataFillFactory.getDBInstance().fillViews(catalog, dm, null, viewPattern);
             }
-        } catch (SQLException e) {
-            log.error(e, e);
         } finally {
             ConnectionUtils.closeConnection(connection);
         }
@@ -463,7 +459,8 @@ public final class DqRepositoryViewService {
         }
         java.sql.Connection connection = rcConn.getObject();
         String[] tableType = new String[] { TableType.TABLE.toString() };
-        DatabaseMetaData dbJDBCMetadata = connection.getMetaData();
+        DatabaseMetaData dbJDBCMetadata = ExtractMetaDataUtils.getDatabaseMetaData(connection,
+                ((DatabaseConnection) dataProvider).getDatabaseType());
         Package catalogOrSchema = PackageHelper.getCatalogOrSchema(catalog);
         ResultSet tables = dbJDBCMetadata.getTables(catalogOrSchema.getName(), null, tablePattern, tableType);
         // MOD msjian TDQ-1806: fixed "Too many connections"
@@ -500,7 +497,8 @@ public final class DqRepositoryViewService {
         }
         java.sql.Connection connection = rcConn.getObject();
         String[] tableType = new String[] { TableType.TABLE.toString() };
-        DatabaseMetaData dbJDBCMetadata = connection.getMetaData();
+        DatabaseMetaData dbJDBCMetadata = ExtractMetaDataUtils.getDatabaseMetaData(connection,
+                ((DatabaseConnection) dataProvider).getDatabaseType());
         Package catalogOrSchema = PackageHelper.getCatalogOrSchema(schema);
 
         Package parentCatalog = PackageHelper.getParentPackage(catalogOrSchema);
@@ -542,7 +540,8 @@ public final class DqRepositoryViewService {
         }
         java.sql.Connection connection = rcConn.getObject();
         String[] tableType = new String[] { TableType.VIEW.toString() };
-        DatabaseMetaData dbJDBCMetadata = connection.getMetaData();
+        DatabaseMetaData dbJDBCMetadata = ExtractMetaDataUtils.getDatabaseMetaData(connection,
+                ((DatabaseConnection) dataProvider).getDatabaseType());
         Package catalogOrSchema = PackageHelper.getCatalogOrSchema(catalog);
         ResultSet tables = dbJDBCMetadata.getTables(catalogOrSchema.getName(), null, viewPattern, tableType);
         // MOD msjian TDQ-1806: fixed "Too many connections"
@@ -571,8 +570,7 @@ public final class DqRepositoryViewService {
      * @return
      * @throws Exception
      */
-    public static boolean isContainsView(Connection dataProvider, Schema schema, String viewPattern)
-            throws Exception {
+    public static boolean isContainsView(Connection dataProvider, Schema schema, String viewPattern) throws Exception {
         TypedReturnCode<java.sql.Connection> rcConn = MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider);
         if (!rcConn.isOk()) {
             log.error(rcConn.getMessage());
@@ -580,7 +578,8 @@ public final class DqRepositoryViewService {
         }
         java.sql.Connection connection = rcConn.getObject();
         String[] tableType = new String[] { TableType.VIEW.toString() };
-        DatabaseMetaData dbJDBCMetadata = connection.getMetaData();
+        DatabaseMetaData dbJDBCMetadata = ExtractMetaDataUtils.getDatabaseMetaData(connection,
+                ((DatabaseConnection) dataProvider).getDatabaseType());
         Package catalogOrSchema = PackageHelper.getCatalogOrSchema(schema);
 
         Package parentCatalog = PackageHelper.getParentPackage(catalogOrSchema);
@@ -601,5 +600,4 @@ public final class DqRepositoryViewService {
             }
         }
     }
-
 }

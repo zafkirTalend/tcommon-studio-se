@@ -159,6 +159,9 @@ public interface IMetadataFiller {
     public List<TdColumn> fillColumns(ColumnSet colSet, DatabaseMetaData dbJDBCMetadata, List<String> columnFilter,
             String columnPattern);
 
+    public List<TdColumn> fillColumns(ColumnSet colSet, IMetadataConnection iMetadataConnection, DatabaseMetaData dbJDBCMetadata,
+            List<String> columnFilter, String columnPattern);
+
     /**
      * 
      * zshen Comment method "isLinked".

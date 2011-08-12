@@ -415,7 +415,7 @@ public class ExtractMetaDataFromDataBase {
 
             // metadataColumns = ExtractMetaDataFromDataBase.extractColumns(dbMetaData, newNode, iMetadataConnection,
             // dbType);
-            metadataColumns = MetadataFillFactory.getDBInstance().fillColumns(table, dbMetaData, null);
+            metadataColumns = MetadataFillFactory.getDBInstance().fillColumns(table, iMetadataConnection, dbMetaData, null);
 
             ColumnSetHelper.addColumns(table, metadataColumns);
 

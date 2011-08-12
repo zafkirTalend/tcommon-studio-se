@@ -303,6 +303,11 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
         return null;
     }
 
+    public List<TdColumn> fillColumns(ColumnSet colSet, IMetadataConnection iMetadataConnection, DatabaseMetaData dbJDBCMetadata,
+            List<String> columnFilter, String columnPattern) {
+        return null;
+    }
+
     /**
      * 
      * zshen Comment method "isLinked".

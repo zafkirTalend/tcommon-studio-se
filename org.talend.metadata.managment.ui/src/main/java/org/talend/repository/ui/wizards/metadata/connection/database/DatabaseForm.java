@@ -13,6 +13,7 @@
 package org.talend.repository.ui.wizards.metadata.connection.database;
 
 import java.io.File;
+import java.sql.DatabaseMetaData;
 import java.sql.Driver;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -2357,7 +2358,8 @@ public class DatabaseForm extends AbstractForm {
             java.sql.Connection sqlConn = (java.sql.Connection) MetadataConnectionUtils.checkConnection(connection).getObject();
             if (sqlConn != null) {
                 try {
-                    int versionNum = sqlConn.getMetaData().getDatabaseMajorVersion();
+                    DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, connection.getDatabaseType());
+                    int versionNum = dm.getDatabaseMajorVersion();
                     String[] strArray = version.getVersionValue().split("_"); //$NON-NLS-1$
                     if (strArray.length > 1 && strArray[1].startsWith(Integer.toString(versionNum))) {
                         msg = null;

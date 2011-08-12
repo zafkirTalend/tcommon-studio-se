@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.connection.database;
 
+import java.sql.DatabaseMetaData;
 import java.sql.Driver;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -451,15 +452,14 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             dbConn = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(metaConnection, dbConn);
             sqlConn = (java.sql.Connection) MetadataConnectionUtils.checkConnection(metaConnection).getObject();
 
-            if (sqlConn != null) {
-                MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, sqlConn.getMetaData(),
-                        MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData(), true));
-                MetadataFillFactory.getDBInstance().fillSchemas(dbConn, sqlConn.getMetaData(),
-                        MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData(), false));
-            }
             dbType = metaConnection.getDbType();
-        } catch (SQLException e) {
-            log.error(e, e);
+            if (sqlConn != null) {
+                DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType);
+                MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, dbMetaData,
+                        MetadataConnectionUtils.getPackageFilter(dbConn, dbMetaData, true));
+                MetadataFillFactory.getDBInstance().fillSchemas(dbConn, dbMetaData,
+                        MetadataConnectionUtils.getPackageFilter(dbConn, dbMetaData, false));
+            }
         } finally {
             // bug 22619
             if (dbType != null

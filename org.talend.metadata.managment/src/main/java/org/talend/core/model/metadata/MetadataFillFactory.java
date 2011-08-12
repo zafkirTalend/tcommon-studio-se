@@ -254,6 +254,11 @@ public class MetadataFillFactory {
         return metadataFiller.fillColumns(colSet, dbJDBCMetadata, columnFilter, null);
     }
 
+    public List<TdColumn> fillColumns(ColumnSet colSet, IMetadataConnection iMetadataConnection, DatabaseMetaData dbJDBCMetadata,
+            List<String> columnFilter) {
+        return metadataFiller.fillColumns(colSet, iMetadataConnection, dbJDBCMetadata, columnFilter, null);
+    }
+
     /**
      * 
      * zshen Comment method "isLinked".
@@ -288,14 +293,13 @@ public class MetadataFillFactory {
 
     public List<Schema> fillSchemaToCatalog(Connection dbConn, DatabaseMetaData dbJDBCMetadata, Catalog catalog,
             List<String> schemaFilter) {
-    
-            
-                try {
-                    return metadataFiller.fillSchemaToCatalog(dbConn, dbJDBCMetadata, catalog, schemaFilter);
-                } catch (Throwable e) {
-                    log.error(e, e);
-                }
-            
-      return new ArrayList<Schema>();
+
+        try {
+            return metadataFiller.fillSchemaToCatalog(dbConn, dbJDBCMetadata, catalog, schemaFilter);
+        } catch (Throwable e) {
+            log.error(e, e);
+        }
+
+        return new ArrayList<Schema>();
     }
 }
