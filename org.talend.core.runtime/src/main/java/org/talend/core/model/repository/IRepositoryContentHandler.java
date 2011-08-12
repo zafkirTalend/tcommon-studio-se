@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.image.IImage;
 import org.talend.core.model.properties.Item;
+import org.talend.repository.model.RepositoryNode;
 
 /**
  * DOC guanglong.du class global comment. Detailled comment
@@ -41,4 +42,7 @@ public interface IRepositoryContentHandler {
     public ERepositoryObjectType getCodeType();
 
     public ERepositoryObjectType getRepositoryObjectType(Item item);
+
+    public void addNode(ERepositoryObjectType type, RepositoryNode recBinNode, IRepositoryViewObject repositoryObject,
+            RepositoryNode node);
 }
