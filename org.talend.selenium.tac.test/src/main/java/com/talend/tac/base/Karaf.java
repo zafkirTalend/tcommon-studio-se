@@ -142,7 +142,7 @@ public class Karaf {
 		Karaf karaf = new Karaf(args[0], null);
 		String action ="";
 		for(int i=1; i<args.length -1; i++) {
-			action = action + args[i];
+			action = action + " " + args[i];
 		}
 		
 		karaf.doKarafAction(action, Integer.parseInt(args[args.length-1]));
