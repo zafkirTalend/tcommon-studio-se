@@ -33,6 +33,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
+import org.talend.core.IRepositoryBundleService;
 import org.talend.core.PluginChecker;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -82,6 +83,7 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
     }
 
     public void deployLibrary(URL source) throws IOException {
+        IRepositoryBundleService repositoryBundleService = CorePlugin.getDefault().getRepositoryBundleService();
         // TODO SML Allow perl module to be deploy in a folder structure in "lib/perl/..."
         /* fix for bug 0020350,if URL contains a space character it will cause problem */
         //            URI sourceURI = new URI(source.toString().replace(' ', '\0'));//$NON-NLS-0$ //$NON-NLS-1$
@@ -91,14 +93,14 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         final String decode = URLDecoder.decode(source.getFile(), "UTF-8"); //$NON-NLS-N$
 
         final File sourceFile = new File(decode);
-        final File targetFile = new File(getLibrariesPath() + File.separatorChar + sourceFile.getName());
+        final File targetFile = new File(repositoryBundleService.getOBRRoot().getAbsolutePath() + File.separatorChar
+                + sourceFile.getName());
 
-        if (sourceFile != null && sourceFile.exists()) {
-            FilesUtils.copyFile(sourceFile, targetFile);
-        }
+        repositoryBundleService.deploy(sourceFile.toURI());
+
         ModulesNeededProvider.userAddImportModules(targetFile.getPath(), sourceFile.getName(), ELibraryInstallStatus.INSTALLED);
         if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
-            addResolvedClasspathPath(targetFile);
+            addResolvedClasspathPath(sourceFile.getName());
         }
         fireLibrariesChanges();
 
@@ -137,7 +139,7 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
 
     }
 
-    protected void addResolvedClasspathPath(File targetFile) {
+    protected void addResolvedClasspathPath(String libName) {
     }
 
     public void undeployLibrary(String path) throws IOException {

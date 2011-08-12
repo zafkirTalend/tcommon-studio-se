@@ -10,6 +10,10 @@
             class="org.talend.librariesmanager.model.service.RoutinesProviderService"
             serviceId="IRoutinesService">
       </Service>
+      <Service
+            class="org.talend.librariesmanager.model.service.FakeRepositoryBundleService"
+            serviceId="IRepositoryBundleService">
+      </Service>
    </extension>
    <extension
          point="org.eclipse.ui.views">

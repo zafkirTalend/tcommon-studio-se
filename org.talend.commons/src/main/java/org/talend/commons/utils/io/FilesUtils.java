@@ -234,7 +234,7 @@ public final class FilesUtils {
 
     }
 
-    private static void emptyFolder(File toEmpty) {
+    public static void emptyFolder(File toEmpty) {
         if (!toEmpty.exists()) {
             return;
         }
@@ -422,6 +422,49 @@ public final class FilesUtils {
      */
     public static List<URL> getFileURLs(File file) throws MalformedURLException {
         return getFileURLs(file, null, null, null, true);
+    }
+
+    public static List<File> getFilesFromFolderByName(File file, String searchFileName, String[] extensions,
+            String excludedFolder, boolean nested) {
+        List<File> results = new ArrayList<File>();
+        if (file.isFile()) {
+            boolean consideredExt = false;
+            boolean consideredName = false;
+            if (extensions == null || extensions.length == 0) {
+                consideredExt = true;
+            } else {
+                for (String ext : extensions) {
+                    if (file.getName().endsWith(ext)) {
+                        consideredExt = true;
+                        break;
+                    }
+                }
+            }
+            if (searchFileName == null) {
+                consideredName = true;
+            } else {
+                if (searchFileName.equals(file.getName())) {
+                    consideredName = true;
+                }
+            }
+            if (consideredExt && consideredName) {
+                results.add(file);
+            }
+        } else if (file.isDirectory() && nested) {
+            if (excludedFolder != null && excludedFolder.equals(file.getName())) {
+                return results;
+            }
+            File[] files = file.listFiles();
+            for (File file2 : files) {
+                results.addAll(getFilesFromFolderByName(file2, searchFileName, extensions, excludedFolder, nested));
+            }
+        }
+
+        return results;
+    }
+
+    public static List<File> getJarFilesFromFolder(File file, String fileName) throws MalformedURLException {
+        return getFilesFromFolderByName(file, fileName, new String[] { ".jar", ".zip", ".bar" }, null, true); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
 
     public static FileFilter getExcludeSystemFilesFilter() {

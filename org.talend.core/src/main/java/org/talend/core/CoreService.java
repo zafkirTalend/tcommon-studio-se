@@ -19,7 +19,6 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +44,6 @@ import org.eclipse.osgi.framework.adaptor.BundleData;
 import org.eclipse.osgi.framework.internal.core.BundleHost;
 import org.eclipse.swt.graphics.Image;
 import org.osgi.framework.Bundle;
-import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.SystemException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
@@ -220,9 +218,9 @@ public class CoreService implements ICoreService {
 
     public void syncLibraries(IProgressMonitor... monitorWrap) {
         CorePlugin.getDefault().getLibrariesService().syncLibraries(monitorWrap);
-        if (!CommonsPlugin.isHeadless()) {
-            CorePlugin.getDefault().getRunProcessService().updateLibraries(new HashSet<String>(), null);
-        }
+        // if (!CommonsPlugin.isHeadless()) {
+        // CorePlugin.getDefault().getRunProcessService().updateLibraries(new HashSet<String>(), null);
+        // }
     }
 
     public void componentsReset() {

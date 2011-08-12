@@ -139,6 +139,10 @@ public class CorePlugin extends AbstractUIPlugin {
         return (ILibrariesService) GlobalServiceRegister.getDefault().getService(ILibrariesService.class);
     }
 
+    public IRepositoryBundleService getRepositoryBundleService() {
+        return (IRepositoryBundleService) GlobalServiceRegister.getDefault().getService(IRepositoryBundleService.class);
+    }
+
     public IRepositoryService getRepositoryService() {
         IService service = GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
         return (IRepositoryService) service;
