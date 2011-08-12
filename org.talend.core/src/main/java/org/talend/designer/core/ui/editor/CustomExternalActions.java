@@ -41,7 +41,7 @@ public abstract class CustomExternalActions extends SelectionAction {
 
     public static final String EXTENSION_ID = "org.talend.core.component_custom_action"; //$NON-NLS-1$
 
-    private static IWorkbenchPart part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+    protected static IWorkbenchPart part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
             .getActiveEditor();
 
     /**

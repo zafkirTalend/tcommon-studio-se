@@ -27,6 +27,14 @@ import org.talend.repository.model.IRepositoryNode;
  */
 public interface ITDQRepositoryService extends IService {
 
+    public static final String RULE_VALUE = "RULE_VALUE"; //$NON-NLS-1$
+
+    public static final String RULE_TYPE = "RULE_TYPE"; //$NON-NLS-1$
+
+    public static final String RULE_NAME = "RULE_NAME"; //$NON-NLS-1$
+
+    public static final String RULE_TABLE = "RULE_TABLE";//$NON-NLS-1$
+
     public IViewPart getTDQRespositoryView();
 
     public void openEditor(Item item);
@@ -46,4 +54,5 @@ public interface ITDQRepositoryService extends IService {
 
     public List<Map<String, String>> getPaserRulesFromResources(Object[] rules);
 
+    public List<Map<String, String>> getPaserRulesFromRules(Object parser);
 }

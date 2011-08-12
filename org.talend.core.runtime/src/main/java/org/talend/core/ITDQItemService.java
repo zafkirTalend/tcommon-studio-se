@@ -14,7 +14,9 @@ package org.talend.core;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.model.process.INode;
@@ -96,4 +98,34 @@ public interface ITDQItemService extends IService {
      * @return
      */
     public File fileCreatedInRoutines(INode node, String className) throws Exception;
+
+    /**
+     * 
+     * zshen create GrammerFile to temp location.
+     * 
+     * @param node same as fileCreatedInRoutines
+     * @return
+     * @throws Exception
+     */
+    public IFile createGrammerFile(INode node) throws Exception;
+
+    /**
+     * 
+     * zshen Comment method "createGrammerFile".
+     * 
+     * @param rules the list which save the attribute about rule table.
+     * @param folderName the .g file will be generate under it.
+     * @return
+     * @throws Exception
+     */
+    public IFile createGrammerFile(List<Map<String, String>> rules, String folderName) throws Exception;
+
+    /**
+     * 
+     * zshen Comment method "deleteGrammerFile".
+     * 
+     * @param folderName the floder name wich will be delete.
+     * @return
+     */
+    public boolean deleteGrammerFile(String folderName);
 }
