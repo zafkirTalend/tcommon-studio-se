@@ -204,6 +204,11 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
         return true;
     }
 
+    @Override
+    public boolean supportsSchemasInIndexDefinitions() throws SQLException {
+        return true;
+    }
+
     /*
      * (non-Javadoc)
      * 
