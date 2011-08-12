@@ -20,20 +20,18 @@ public class TestJobAnalyses extends Login {
 		this.clickWaitForElementPresent("!!!menu.dashjobs.element!!!");
 		//wait and select the first "connection"
 		this.waitForElementPresent("//label[text()='Active connection:']/following-sibling::div//input",WAIT_TIME);
-		this.clickWaitForElementPresent("//label[text()='Active connection:']/following-sibling::div//input");
-		System.out.println("clicked!");
-		this.sleep(5000);
-		selenium.keyDownNative(""+KeyEvent.VK_DOWN);
-		selenium.keyUpNative(""+KeyEvent.VK_DOWN);
-		this.sleep(5000);
-//		this.openDropDownList("//label[text()='Active connection:']/following-sibling::div//input");
+		selenium.click("//label[text()='Active connection:']/following-sibling::div//input/following-sibling::div");
+		boolean flag = false;
+		while(!flag){
+			selenium.click("//label[text()='Active connection:']/following-sibling::div//input/following-sibling::div");
+			flag = selenium.isElementPresent("//div[contains(@class,'x-combo-list-item') and text()=' "+connection+"']");
+		}
 		this.MouseDownWaitForElementPresent("//div[contains(@class,'x-combo-list-item') and text()=' "+connection+"']");
 		this.waitForElementPresent("//img[@title='Ok']", WAIT_TIME);
 		//select a connection and simulate a click
 		selenium.mouseDown("//img[@title='Ok']/ancestor::table");
 		//not less than one "Ok"s are displayed
-		this.sleep(10000);
-		assertTrue(selenium.getXpathCount("//img[@title='Ok']").intValue() > 1);
+		assertTrue(selenium.getXpathCount("//img[@title='Ok']").intValue() >= 1);
 		//System.out.println(selenium.getXpathCount("//img[@title='Ok']"));
 	}
 	
@@ -44,31 +42,28 @@ public class TestJobAnalyses extends Login {
 		String warningmessage1 =  "Delete Faild: Cannot delete connection "+'"'+connection+'"'+" because it's active for...";
 		this.clickWaitForElementPresent("!!!menu.dashjobs.element!!!");
 		//wait and select the first "connection"
-		this.clickWaitForElementPresent("//label[text()='Active connection:']/following-sibling::div//input");
-		this.sleep(5000);
-		selenium.keyDownNative(""+KeyEvent.VK_DOWN);
-		selenium.keyUpNative(""+KeyEvent.VK_DOWN);
-		this.sleep(5000);
+		this.waitForElementPresent("//label[text()='Active connection:']/following-sibling::div//input",WAIT_TIME);
+		selenium.click("//label[text()='Active connection:']/following-sibling::div//input/following-sibling::div");
 		this.MouseDownWaitForElementPresent("//div[contains(@class,'x-combo-list-item') and text()=' "+connection+"']");
 		this.waitForElementPresent("//img[@title='Ok']", WAIT_TIME);
 		//select a connection and simulate a click
 		selenium.mouseDown("//img[@title='Ok']/ancestor::table");
 		//not less than one "Ok"s are displayed
-		this.sleep(8000);
-		assertTrue(selenium.getXpathCount("//img[@title='Ok']").intValue() > 1);
+		
+		assertTrue(selenium.getXpathCount("//img[@title='Ok']").intValue() >= 1);
 		//System.out.println(selenium.getXpathCount("//img[@title='Ok']"));
 		this.clickWaitForElementPresent("!!!menu.connections.element!!!");
 		this.waitForElementPresent(
 				"//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+ connection + "')]", Base.WAIT_TIME);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+ connection + "')]");
-		this.sleep(3000);
 		selenium.chooseOkOnNextConfirmation();
 		selenium.click("//div[text()='Connections']/ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");
 		assert (selenium.getConfirmation().equals(warningmessage));
-		this.waitForTextPresent(warningmessage1, WAIT_TIME);
+//		assertTrue(this.waitForTextPresent(warningmessage1, WAIT_TIME));
 		selenium.refresh();
 		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+ connection + "')]", WAIT_TIME);
 		selenium.setSpeed(MIN_SPEED);
+		
 		
 	}
 }
