@@ -140,6 +140,11 @@ public class Karaf {
 	 */
 	public static void main(String[] args) {
 		Karaf karaf = new Karaf(args[0], null);
-		karaf.doKarafAction(args[1], Integer.parseInt(args[2]));
+		String action ="";
+		for(int i=1; i<args.length -1; i++) {
+			action = action + args[i];
+		}
+		
+		karaf.doKarafAction(action, Integer.parseInt(args[args.length]));
 	}
 }
