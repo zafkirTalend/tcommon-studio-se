@@ -145,6 +145,6 @@ public class Karaf {
 			action = action + args[i];
 		}
 		
-		karaf.doKarafAction(action, Integer.parseInt(args[args.length]));
+		karaf.doKarafAction(action, Integer.parseInt(args[args.length-1]));
 	}
 }
