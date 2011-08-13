@@ -18,6 +18,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -36,16 +37,24 @@ public class FakeRepositoryBundleService implements IRepositoryBundleService {
 
     private static final String COMPONENTS_SETUP_DONE = "/.componentsSetupDone"; //$NON-NLS-1$
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.IRepositoryBundleService#isInitialized()
-     */
-    public boolean isInitialized(IProgressMonitor... monitorWrap) {
-        String installLocation = new Path(Platform.getConfigurationLocation().getURL().getPath()).toFile().getAbsolutePath();
+    
+	public boolean isInitialized() {
+        String installLocation = getOBRRoot().getAbsolutePath();
         File componentsLibsSetupDone = new File(installLocation + COMPONENTS_SETUP_DONE);
         return componentsLibsSetupDone.exists();
-    }
+	}
+
+	public void setInitialized() {
+        String installLocation = getOBRRoot().getAbsolutePath();
+        File componentsLibsSetupDone = new File(installLocation + COMPONENTS_SETUP_DONE); //$NON-NLS-1$
+        try {
+			componentsLibsSetupDone.createNewFile();
+		} catch (IOException e) {
+			ExceptionHandler.process(e);
+		}
+        componentsLibsSetupDone.setLastModified((new Date()).getTime());
+	}
+
 
     /*
      * (non-Javadoc)
@@ -152,5 +161,4 @@ public class FakeRepositoryBundleService implements IRepositoryBundleService {
         File OBRDir = new File(librariesPath);
         return OBRDir;
     }
-
 }

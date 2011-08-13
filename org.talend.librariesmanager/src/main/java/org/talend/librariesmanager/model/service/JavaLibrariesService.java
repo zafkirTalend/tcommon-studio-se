@@ -197,7 +197,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
             repositoryBundleService.deploy(talendLibraries.toURI(), monitorWrap);
             // Add a new system file, if exists, means all components libs are already setup, so no need to do again.
             // if clean the component cache, it will automatically recheck all libs still.
-            if (!repositoryBundleService.isInitialized(monitorWrap)
+            if (!repositoryBundleService.isInitialized()
                     || ArrayUtils.contains(Platform.getApplicationArgs(), "--clean_component_cache")) { //$NON-NLS-1$
                 // 2. Components libraries
                 IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
@@ -206,11 +206,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
                 for (File componentsLibraries : componentsFolders) {
                     repositoryBundleService.deploy(componentsLibraries.toURI(), monitorWrap);
                 }
-                String installLocation = new Path(Platform.getConfigurationLocation().getURL().getPath()).toFile()
-                        .getAbsolutePath();
-                File componentsLibsSetupDone = new File(installLocation + "/.componentsSetupDone"); //$NON-NLS-1$
-                componentsLibsSetupDone.createNewFile();
-                componentsLibsSetupDone.setLastModified((new Date()).getTime());
+                repositoryBundleService.setInitialized();
             }
 
             // 3. system routine libraries

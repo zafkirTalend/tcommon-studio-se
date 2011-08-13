@@ -32,7 +32,9 @@ public interface IRepositoryBundleService extends IService {
      * @param monitorWrap
      * @return
      */
-    public boolean isInitialized(IProgressMonitor... monitorWrap);
+    public boolean isInitialized();
+
+    public void setInitialized();
 
     /**
      * DOC ycbai Comment method "deploy".
