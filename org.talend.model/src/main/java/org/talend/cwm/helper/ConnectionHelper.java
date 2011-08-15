@@ -692,14 +692,14 @@ public class ConnectionHelper {
         } else if (connection instanceof SAPConnection) {
             SAPConnection sapConnection = (SAPConnection) connection;
             final EList<SAPFunctionUnit> funtions = sapConnection.getFuntions();
-            for (SAPFunctionUnit unit : funtions) {
+            for (SAPFunctionUnit unit : new ArrayList<SAPFunctionUnit>(funtions)) {
                 result.addAll(unit.getTables());
             }
             return result;
         }
 
         EList<Package> packages = connection.getDataPackage();
-        for (Package pack : packages) {
+        for (Package pack : new ArrayList<Package>(packages)) {
             PackageHelper.getAllTables(pack, result);
         }
         return result;
