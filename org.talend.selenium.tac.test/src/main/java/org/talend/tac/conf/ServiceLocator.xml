@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="false">
+		
+	    <test name="ServiceLocator">
+		   <classes>
+		      <class name="com.talend.tac.cases.esb.serviceLocator.TestServiceLocator">
+		         <methods>
+		            <include name="testDisplayAllService"/>
+		            <include name="testDisplayLiveServicesOnly"/>
+		            <include name="testDisplayLiveServicesOnlyAfterStopAllServices"/>
+		         </methods>
+		      </class> 
+		   </classes>
+		</test>
+			
+</suite>
+
