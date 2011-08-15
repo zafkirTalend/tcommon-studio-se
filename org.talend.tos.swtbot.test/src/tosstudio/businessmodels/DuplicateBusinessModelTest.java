@@ -43,23 +43,23 @@ public class DuplicateBusinessModelTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.BUSINESS_MODEL);
-        Utilities.createBusinessModel(BUSINESSMODELNAME, treeNode, gefBot);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.BUSINESS_MODEL);
+        Utilities.createBusinessModel(BUSINESSMODELNAME, treeNode);
     }
 
     @Test
     public void duplicateBusinessModel() {
-        Utilities.duplicate(gefBot, treeNode, BUSINESSMODELNAME, "0.1", NEW_BUSINESSMODELNAME);
+        Utilities.duplicate(treeNode, BUSINESSMODELNAME, "0.1", NEW_BUSINESSMODELNAME);
     }
 
     @After
     public void removePreviouslyCreateItems() {
         gefBot.cTabItem("Model " + BUSINESSMODELNAME).close();
-        Utilities.delete(tree, treeNode, BUSINESSMODELNAME, "0.1", null);
-        Utilities.delete(tree, treeNode, NEW_BUSINESSMODELNAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, BUSINESSMODELNAME, "0.1", null);
+        Utilities.delete(treeNode, NEW_BUSINESSMODELNAME, "0.1", null);
+        Utilities.emptyRecycleBin();
     }
 }

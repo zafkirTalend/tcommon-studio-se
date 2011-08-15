@@ -41,11 +41,11 @@ public class CopyPasteRoutineTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.ROUTINES);
-        Utilities.createRoutine(ROUTINENAME, treeNode, gefBot);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.ROUTINES);
+        Utilities.createRoutine(ROUTINENAME, treeNode);
     }
 
     @Test
@@ -56,8 +56,8 @@ public class CopyPasteRoutineTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() {
         gefBot.cTabItem(ROUTINENAME + " 0.1").close();
-        Utilities.delete(tree, treeNode, ROUTINENAME, "0.1", null);
-        Utilities.delete(tree, treeNode, "Copy_of_" + ROUTINENAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, ROUTINENAME, "0.1", null);
+        Utilities.delete(treeNode, "Copy_of_" + ROUTINENAME, "0.1", null);
+        Utilities.emptyRecycleBin();
     }
 }

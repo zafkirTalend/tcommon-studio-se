@@ -41,10 +41,10 @@ public class CreateSalesforceTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.SALESFORCE);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.SALESFORCE);
     }
 
     @Test
@@ -54,7 +54,7 @@ public class CreateSalesforceTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.delete(tree, treeNode, SALESFORCENAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, SALESFORCENAME, "0.1", null);
+        Utilities.emptyRecycleBin();
     }
 }

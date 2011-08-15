@@ -41,11 +41,11 @@ public class CopyPasteJobletTest extends TalendSwtBotForTos {
 
     @Before
     public void createJoblet() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOBLET_DESIGNS);
-        Utilities.createJoblet(JOBLETNAME, treeNode, gefBot);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOBLET_DESIGNS);
+        Utilities.createJoblet(JOBLETNAME, treeNode);
     }
 
     @Test
@@ -56,8 +56,8 @@ public class CopyPasteJobletTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() {
         gefBot.editorByTitle("Joblet " + JOBLETNAME + " 0.1").close();
-        Utilities.delete(tree, treeNode, JOBLETNAME, "0.1", null);
-        Utilities.delete(tree, treeNode, "Copy_of_" + JOBLETNAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, JOBLETNAME, "0.1", null);
+        Utilities.delete(treeNode, "Copy_of_" + JOBLETNAME, "0.1", null);
+        Utilities.emptyRecycleBin();
     }
 }

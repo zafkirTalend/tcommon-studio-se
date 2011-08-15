@@ -41,20 +41,20 @@ public class DeleteContextTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.CONTEXTS);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.CONTEXTS);
         Utilities.createContext(CONTEXTNAME, treeNode, gefBot);
     }
 
     @Test
     public void deleteContext() {
-        Utilities.delete(tree, treeNode, CONTEXTNAME, "0.1", null);
+        Utilities.delete(treeNode, CONTEXTNAME, "0.1", null);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 }

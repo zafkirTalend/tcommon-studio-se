@@ -1,0 +1,28 @@
+package org.talend.swtbot.items;
+
+import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
+import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.talend.swtbot.Utilities;
+
+public class TalendJobItem extends TalendItem {
+
+    public TalendJobItem() {
+        initialise(Utilities.TalendItemType.JOB_DESIGNS);
+    }
+
+    public TalendJobItem(String itemName) {
+        initialise(Utilities.TalendItemType.JOB_DESIGNS);
+        this.itemName = itemName;
+    }
+
+    public SWTBotGefEditor getJobEditor() {
+        return new SWTGefBot().gefEditor("Job " + item.getText());
+    }
+
+    @Override
+    public void create() {
+        SWTBotTreeItem item = Utilities.createJob(itemName, getParentNode());
+        setItem(item);
+    }
+}

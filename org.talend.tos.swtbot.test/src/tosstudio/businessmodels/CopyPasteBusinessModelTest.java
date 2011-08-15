@@ -41,11 +41,11 @@ public class CopyPasteBusinessModelTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.BUSINESS_MODEL);
-        Utilities.createBusinessModel(BUSINESSMODELNAME, treeNode, gefBot);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.BUSINESS_MODEL);
+        Utilities.createBusinessModel(BUSINESSMODELNAME, treeNode);
     }
 
     @Test
@@ -56,8 +56,8 @@ public class CopyPasteBusinessModelTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() {
         gefBot.cTabItem("Model " + BUSINESSMODELNAME).close();
-        Utilities.delete(tree, treeNode, BUSINESSMODELNAME, "0.1", null);
-        Utilities.delete(tree, treeNode, "Copy_of_" + BUSINESSMODELNAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, BUSINESSMODELNAME, "0.1", null);
+        Utilities.delete(treeNode, "Copy_of_" + BUSINESSMODELNAME, "0.1", null);
+        Utilities.emptyRecycleBin();
     }
 }

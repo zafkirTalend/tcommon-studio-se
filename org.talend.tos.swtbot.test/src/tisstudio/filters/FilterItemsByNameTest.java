@@ -53,12 +53,12 @@ public class FilterItemsByNameTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateField() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOB_DESIGNS);
-        Utilities.createJob("job_a", treeNode, gefBot);
-        Utilities.createJob("job_b", treeNode, gefBot);
-        Utilities.createJob("job_c", treeNode, gefBot);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOB_DESIGNS);
+        Utilities.createJob("job_a", treeNode);
+        Utilities.createJob("job_b", treeNode);
+        Utilities.createJob("job_c", treeNode);
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -112,6 +112,6 @@ public class FilterItemsByNameTest extends TalendSwtBotForTos {
         for (SWTBotEditor editor : gefBot.editors())
             editor.saveAndClose();
         Utilities.cleanUpRepository(treeNode);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 }

@@ -43,21 +43,21 @@ public class DuplicateFtpTest extends TalendSwtBotForTos {
 
     @Before
     public void createFtp() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.FTP);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FTP);
         Utilities.createFTP(FTPNAME, gefBot, treeNode);
     }
 
     @Test
     public void duplicateFtp() {
-        Utilities.duplicate(gefBot, treeNode, FTPNAME, "0.1", NEW_FTPNAME);
+        Utilities.duplicate(treeNode, FTPNAME, "0.1", NEW_FTPNAME);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.delete(tree, treeNode, FTPNAME, "0.1", null);
-        Utilities.delete(tree, treeNode, NEW_FTPNAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, FTPNAME, "0.1", null);
+        Utilities.delete(treeNode, NEW_FTPNAME, "0.1", null);
+        Utilities.emptyRecycleBin();
     }
 }

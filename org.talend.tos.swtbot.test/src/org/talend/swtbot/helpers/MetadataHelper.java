@@ -21,8 +21,10 @@ import java.net.URISyntaxException;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
+import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.junit.Assert;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendEdiItem;
 import org.talend.swtbot.items.TalendFileItem;
 import org.talend.swtbot.items.TalendMetadataItem;
 
@@ -37,8 +39,10 @@ public class MetadataHelper implements Helper {
      * 
      * @param jobEditor
      * @param item Metadata item
+     * @throws URISyntaxException
+     * @throws IOException
      */
-    public static void output2Console(SWTBotGefEditor jobEditor, TalendMetadataItem item) {
+    public static void output2Console(SWTBotGefEditor jobEditor, TalendMetadataItem item) throws IOException, URISyntaxException {
         output2Console(jobEditor, item, "Main");
     }
 
@@ -48,13 +52,34 @@ public class MetadataHelper implements Helper {
      * @param jobEditor
      * @param item Metadata item
      * @param rowName The name of row in the context menu of component. "Main" as default.
+     * @throws URISyntaxException
+     * @throws IOException
      */
-    public static void output2Console(SWTBotGefEditor jobEditor, TalendMetadataItem item, String rowName) {
+    public static void output2Console(SWTBotGefEditor jobEditor, TalendMetadataItem item, String rowName) throws IOException,
+            URISyntaxException {
         Utilities.dndMetadataOntoJob(GEFBOT, jobEditor, item.getItem(), item.getComponentType(), new Point(100, 100));
         Utilities.dndPaletteToolOntoJob(GEFBOT, jobEditor, "tLogRow", new Point(300, 100));
 
         SWTBotGefEditPart metadata = UTIL.getTalendComponentPart(jobEditor, item.getItemName());
         Assert.assertNotNull("can not get component '" + item.getComponentType() + "'", metadata);
+        if (item instanceof TalendEdiItem) {
+            metadata.click();
+            GEFBOT.viewByTitle("Component").setFocus();
+            GEFBOT.waitUntil(new DefaultCondition() {
+
+                @Override
+                public boolean test() throws Exception {
+                    return GEFBOT.textInGroup("EDI parameters", 0).isVisible();
+                }
+
+                @Override
+                public String getFailureMessage() {
+                    return "component setting panel is not visible";
+                }
+            }, 10000);
+            String fileName = "\"" + ((TalendEdiItem) item).getAbsoluteFilePath() + "\"";
+            GEFBOT.textInGroup("EDI parameters", 0).setText(fileName);
+        }
         jobEditor.select(metadata).setFocus();
         jobEditor.clickContextMenu("Row").clickContextMenu(rowName);
         SWTBotGefEditPart tlogRow = UTIL.getTalendComponentPart(jobEditor, "tLogRow_1");

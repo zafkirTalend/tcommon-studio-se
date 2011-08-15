@@ -46,22 +46,22 @@ public class DuplicateCopybookTest extends TalendSwtBotForTos {
 
     @Before
     public void createCopybook() throws IOException, URISyntaxException {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.COPYBOOK);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.COPYBOOK);
         Utilities.createCopybook(COPYBOOKNAME, treeNode, gefBot);
     }
 
     @Test
     public void duplicateCopybookTest() {
-        Utilities.duplicate(gefBot, treeNode, COPYBOOKNAME, "0.1", NEW_COPYBOOKNAME);
+        Utilities.duplicate(treeNode, COPYBOOKNAME, "0.1", NEW_COPYBOOKNAME);
     }
 
     @After
     public void removePreviousCreateItems() {
-        Utilities.delete(tree, treeNode, COPYBOOKNAME, "0.1", null);
-        Utilities.delete(tree, treeNode, NEW_COPYBOOKNAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, COPYBOOKNAME, "0.1", null);
+        Utilities.delete(treeNode, NEW_COPYBOOKNAME, "0.1", null);
+        Utilities.emptyRecycleBin();
     }
 }

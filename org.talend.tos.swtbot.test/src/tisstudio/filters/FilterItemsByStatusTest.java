@@ -53,12 +53,12 @@ public class FilterItemsByStatusTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateField() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOB_DESIGNS);
-        Utilities.createJob("job_a", treeNode, gefBot);
-        Utilities.createJob("job_b", treeNode, gefBot);
-        Utilities.createJob("job_c", treeNode, gefBot);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOB_DESIGNS);
+        Utilities.createJob("job_a", treeNode);
+        Utilities.createJob("job_b", treeNode);
+        Utilities.createJob("job_c", treeNode);
         for (SWTBotEditor editor : gefBot.editors())
             editor.saveAndClose();
         editProperties(treeNode.getNode("job_a 0.1"), "testing");
@@ -118,7 +118,7 @@ public class FilterItemsByStatusTest extends TalendSwtBotForTos {
         filterLabel.click();
 
         Utilities.cleanUpRepository(treeNode);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 
     private void editProperties(SWTBotTreeItem itemNode, String status) {

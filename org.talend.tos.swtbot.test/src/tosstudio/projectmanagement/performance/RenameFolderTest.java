@@ -45,12 +45,12 @@ public class RenameFolderTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateField() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOB_DESIGNS);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOB_DESIGNS);
         Utilities.createFolder(FOLDERNAME, treeNode, gefBot);
         SWTBotTreeItem folderNode = treeNode.getNode(FOLDERNAME);
-        Utilities.createJob(JOBNAME, folderNode, gefBot);
+        Utilities.createJob(JOBNAME, folderNode);
         gefBot.editorByTitle("Job " + JOBNAME + " 0.1").close();
     }
 
@@ -62,6 +62,6 @@ public class RenameFolderTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() {
         Utilities.cleanUpRepository(treeNode);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 }

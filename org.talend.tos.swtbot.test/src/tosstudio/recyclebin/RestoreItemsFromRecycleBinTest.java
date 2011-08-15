@@ -44,17 +44,17 @@ public class RestoreItemsFromRecycleBinTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateField() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOB_DESIGNS);
-        Utilities.createJob(JOBNAME, treeNode, gefBot);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOB_DESIGNS);
+        Utilities.createJob(JOBNAME, treeNode);
         gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
-        Utilities.delete(tree, treeNode, JOBNAME, "0.1", null);
+        Utilities.delete(treeNode, JOBNAME, "0.1", null);
     }
 
     @Test
     public void restoreItemsFromRecycleBin() {
-        recycleBinNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.RECYCLE_BIN);
+        recycleBinNode = Utilities.getTalendItemNode(Utilities.TalendItemType.RECYCLE_BIN);
         recycleBinNode.getNode(JOBNAME + " 0.1 ()").contextMenu("Restore").click();
 
         SWTBotTreeItem jobItem = treeNode.expand().select(JOBNAME + " 0.1");
@@ -63,7 +63,7 @@ public class RestoreItemsFromRecycleBinTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.delete(tree, treeNode, JOBNAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, JOBNAME, "0.1", null);
+        Utilities.emptyRecycleBin();
     }
 }

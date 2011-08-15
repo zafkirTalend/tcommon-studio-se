@@ -50,17 +50,17 @@ public class GenerateAllDocTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        jobNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOB_DESIGNS);
-        jobletNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOBLET_DESIGNS);
-        Utilities.createJob(JOBNAME, jobNode, gefBot);
-        Utilities.createJoblet(JOBLETNAME, jobletNode, gefBot);
+        jobNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOB_DESIGNS);
+        jobletNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOBLET_DESIGNS);
+        Utilities.createJob(JOBNAME, jobNode);
+        Utilities.createJoblet(JOBLETNAME, jobletNode);
     }
 
     @Test
     public void generateAllDoc() {
-        docNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.DOCUMENTATION);
+        docNode = Utilities.getTalendItemNode(Utilities.TalendItemType.DOCUMENTATION);
         docNode.getNode("generated").contextMenu("Generate all projects documentation").click();
         gefBot.waitUntil(Conditions.shellIsActive("Progress Information"));
         gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 30000);
@@ -84,8 +84,8 @@ public class GenerateAllDocTest extends TalendSwtBotForTos {
     public void removePreviouslyCreateItems() {
         gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
         gefBot.cTabItem("Joblet " + JOBLETNAME + " 0.1").close();
-        Utilities.delete(tree, jobNode, JOBNAME, "0.1", null);
-        Utilities.delete(tree, jobletNode, JOBLETNAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(jobNode, JOBNAME, "0.1", null);
+        Utilities.delete(jobletNode, JOBLETNAME, "0.1", null);
+        Utilities.emptyRecycleBin();
     }
 }

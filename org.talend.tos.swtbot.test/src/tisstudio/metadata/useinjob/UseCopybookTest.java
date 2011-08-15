@@ -57,13 +57,13 @@ public class UseCopybookTest extends TalendSwtBotForTos {
 
     @Before
     public void createJobAndMetadata() throws IOException, URISyntaxException {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        jobNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOB_DESIGNS);
-        jobItem = Utilities.createJob(JOBNAME, jobNode, gefBot);
+        jobNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOB_DESIGNS);
+        jobItem = Utilities.createJob(JOBNAME, jobNode);
         jobEditor = gefBot.gefEditor("Job " + jobItem.getText());
-        metadataNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.COPYBOOK);
+        metadataNode = Utilities.getTalendItemNode(Utilities.TalendItemType.COPYBOOK);
         metadataItem = Utilities.createCopybook(METADATA_NAME, metadataNode, gefBot);
     }
 
@@ -86,6 +86,6 @@ public class UseCopybookTest extends TalendSwtBotForTos {
         jobEditor.saveAndClose();
         Utilities.cleanUpRepository(jobNode);
         Utilities.cleanUpRepository(metadataNode);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 }

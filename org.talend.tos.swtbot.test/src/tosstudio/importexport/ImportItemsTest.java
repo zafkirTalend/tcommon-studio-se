@@ -48,7 +48,7 @@ public class ImportItemsTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
     }
 
@@ -69,7 +69,7 @@ public class ImportItemsTest extends TalendSwtBotForTos {
         for (TalendItemType itemType : TalendItemType.values()) {
             if (Utilities.getTISItemTypes().contains(itemType))
                 continue;
-            SWTBotTreeItem treeNode = Utilities.getTalendItemNode(tree, itemType);
+            SWTBotTreeItem treeNode = Utilities.getTalendItemNode(itemType);
             if (TalendItemType.SQL_TEMPLATES.equals(itemType))
                 treeNode = treeNode.expandNode("Generic", "UserDefined"); // focus on specific sql template type
             if (TalendItemType.DOCUMENTATION.equals(itemType) || TalendItemType.RECYCLE_BIN.equals(itemType))
@@ -85,6 +85,6 @@ public class ImportItemsTest extends TalendSwtBotForTos {
     public void removePreviouslyCreateItems() {
         shell.close();
         Utilities.cleanUpRepository(tree, "TOS");
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 }

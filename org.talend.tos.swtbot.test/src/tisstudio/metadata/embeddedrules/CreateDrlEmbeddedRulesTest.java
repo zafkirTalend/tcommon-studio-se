@@ -46,9 +46,9 @@ public class CreateDrlEmbeddedRulesTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.EMBEDDED_RULES);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.EMBEDDED_RULES);
     }
 
     @Test
@@ -59,7 +59,7 @@ public class CreateDrlEmbeddedRulesTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.delete(tree, treeNode, EMBEDDED_RULES_NAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, EMBEDDED_RULES_NAME, "0.1", null);
+        Utilities.emptyRecycleBin();
     }
 }

@@ -43,22 +43,22 @@ public class DuplicateSapConnectionTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.SAP_CONNECTIONS);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.SAP_CONNECTIONS);
         Utilities.createSapConnection(SAPNAME, treeNode, gefBot);
     }
 
     @Test
     public void duplicateSapConnection() {
-        Utilities.duplicate(gefBot, treeNode, SAPNAME, "0.1", NEW_SAPNAME);
+        Utilities.duplicate(treeNode, SAPNAME, "0.1", NEW_SAPNAME);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.delete(tree, treeNode, SAPNAME, "0.1", null);
-        Utilities.delete(tree, treeNode, NEW_SAPNAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, SAPNAME, "0.1", null);
+        Utilities.delete(treeNode, NEW_SAPNAME, "0.1", null);
+        Utilities.emptyRecycleBin();
     }
 }

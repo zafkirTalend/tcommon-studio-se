@@ -43,10 +43,10 @@ public class CopyPasteWebServiceTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.WEB_SERVICE);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.WEB_SERVICE);
         Utilities.createWebService(TYPE, WEBSERVICENAME, treeNode, gefBot);
     }
 
@@ -57,8 +57,8 @@ public class CopyPasteWebServiceTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.delete(tree, treeNode, WEBSERVICENAME, "0.1", null);
-        Utilities.delete(tree, treeNode, "Copy_of_" + WEBSERVICENAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, WEBSERVICENAME, "0.1", null);
+        Utilities.delete(treeNode, "Copy_of_" + WEBSERVICENAME, "0.1", null);
+        Utilities.emptyRecycleBin();
     }
 }

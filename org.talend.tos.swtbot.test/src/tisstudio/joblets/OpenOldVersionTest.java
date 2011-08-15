@@ -44,10 +44,10 @@ public class OpenOldVersionTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOBLET_DESIGNS);
-        Utilities.createJoblet(JOBLET_NAME, treeNode, gefBot);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOBLET_DESIGNS);
+        Utilities.createJoblet(JOBLET_NAME, treeNode);
         gefBot.editorByTitle("Joblet " + JOBLET_NAME + " 0.1").saveAndClose();
         treeNode.getNode(JOBLET_NAME + " 0.1").contextMenu("Edit Properties").click();
         gefBot.button("m").click();
@@ -78,6 +78,6 @@ public class OpenOldVersionTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() {
         Utilities.cleanUpRepository(treeNode);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 }

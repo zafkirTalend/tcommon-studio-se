@@ -41,19 +41,19 @@ public class DeleteAS400Test extends TalendSwtBotForTos {
 
     @Before
     public void createAS400() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.DB_CONNECTIONS);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.DB_CONNECTIONS);
         Utilities.createDbConnection(gefBot, treeNode, Utilities.DbConnectionType.AS400, DBNAME);
     }
 
     @Test
     public void deleteAS400() {
-        Utilities.delete(tree, treeNode, DBNAME, "0.1", null);
+        Utilities.delete(treeNode, DBNAME, "0.1", null);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 }

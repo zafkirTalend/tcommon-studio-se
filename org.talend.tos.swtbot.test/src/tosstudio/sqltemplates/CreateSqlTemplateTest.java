@@ -43,21 +43,21 @@ public class CreateSqlTemplateTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.SQL_TEMPLATES).expandNode("Generic", "UserDefined");
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.SQL_TEMPLATES).expandNode("Generic", "UserDefined");
     }
 
     @Test
     public void createSqlTemplate() {
-        Utilities.createSqlTemplate(SQLTEMPLATENAME, treeNode, gefBot);
+        Utilities.createSqlTemplate(SQLTEMPLATENAME, treeNode);
     }
 
     @After
     public void removePreviouslyCreateItems() {
         gefBot.cTabItem(SQLTEMPLATENAME + " 0.1").close();
-        Utilities.delete(tree, treeNode, SQLTEMPLATENAME, "0.1", FOLDERPATH);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, SQLTEMPLATENAME, "0.1", FOLDERPATH);
+        Utilities.emptyRecycleBin();
     }
 }

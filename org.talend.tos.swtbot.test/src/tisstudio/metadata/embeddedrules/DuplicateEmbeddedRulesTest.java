@@ -48,21 +48,21 @@ public class DuplicateEmbeddedRulesTest extends TalendSwtBotForTos {
 
     @Before
     public void createDrlEmbeddedRules() throws IOException, URISyntaxException {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.EMBEDDED_RULES);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.EMBEDDED_RULES);
         Utilities.createEmbeddedRules(TYPE_OF_RULE_RESOURCE, EMBEDDED_RULES_NAME, gefBot, treeNode);
         gefBot.cTabItem(EMBEDDED_RULES_NAME + " 0.1").close();
     }
 
     @Test
     public void duplicateEmbeddedRules() {
-        Utilities.duplicate(gefBot, treeNode, EMBEDDED_RULES_NAME, "0.1", NEW_EMBEDDED_RULES_NAME);
+        Utilities.duplicate(treeNode, EMBEDDED_RULES_NAME, "0.1", NEW_EMBEDDED_RULES_NAME);
     }
 
     @After
     public void removePreviouslyCreateItems() {
         Utilities.cleanUpRepository(treeNode);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 }

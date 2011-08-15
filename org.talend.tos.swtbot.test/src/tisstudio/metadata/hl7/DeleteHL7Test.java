@@ -46,19 +46,19 @@ public class DeleteHL7Test extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.HL7);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.HL7);
         Utilities.createHL7(TYPE, gefBot, treeNode, HL7NAME);
     }
 
     @Test
     public void deleteHL7() {
-        Utilities.delete(tree, treeNode, HL7NAME, "0.1", null);
+        Utilities.delete(treeNode, HL7NAME, "0.1", null);
     }
 
     @After
     public void removePreviouslyCreateItems() throws IOException, URISyntaxException {
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 }

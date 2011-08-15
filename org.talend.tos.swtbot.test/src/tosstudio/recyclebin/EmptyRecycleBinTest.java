@@ -43,18 +43,18 @@ public class EmptyRecycleBinTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateField() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOB_DESIGNS);
-        Utilities.createJob(JOBNAME, treeNode, gefBot);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOB_DESIGNS);
+        Utilities.createJob(JOBNAME, treeNode);
         gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
-        Utilities.delete(tree, treeNode, JOBNAME, "0.1", null);
+        Utilities.delete(treeNode, JOBNAME, "0.1", null);
     }
 
     @Test
     public void emptyRecycleBin() {
-        Utilities.emptyRecycleBin(gefBot, tree);
-        recycleBinNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.RECYCLE_BIN);
+        Utilities.emptyRecycleBin();
+        recycleBinNode = Utilities.getTalendItemNode(Utilities.TalendItemType.RECYCLE_BIN);
         gefBot.waitUntil(new DefaultCondition() {
 
             public boolean test() throws Exception {
@@ -62,7 +62,7 @@ public class EmptyRecycleBinTest extends TalendSwtBotForTos {
             }
 
             public String getFailureMessage() {
-                Utilities.emptyRecycleBin(gefBot, tree);
+                Utilities.emptyRecycleBin();
                 return "recycle bin did not empty";
             }
         });

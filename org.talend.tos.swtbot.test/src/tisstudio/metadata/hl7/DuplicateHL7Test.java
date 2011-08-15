@@ -48,21 +48,21 @@ public class DuplicateHL7Test extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.HL7);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.HL7);
         Utilities.createHL7(TYPE, gefBot, treeNode, HL7NAME);
     }
 
     @Test
     public void duplicateHL7() {
-        Utilities.duplicate(gefBot, treeNode, HL7NAME, "0.1", NEW_HL7NAME);
+        Utilities.duplicate(treeNode, HL7NAME, "0.1", NEW_HL7NAME);
     }
 
     @After
     public void removePreviouslyCreateItems() throws IOException, URISyntaxException {
-        Utilities.delete(tree, treeNode, HL7NAME, "0.1", null);
-        Utilities.delete(tree, treeNode, NEW_HL7NAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, HL7NAME, "0.1", null);
+        Utilities.delete(treeNode, NEW_HL7NAME, "0.1", null);
+        Utilities.emptyRecycleBin();
     }
 }

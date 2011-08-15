@@ -51,7 +51,7 @@ public class ExportItemsTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() throws IOException, URISyntaxException {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         gefBot.toolbarButtonWithTooltip("Import Items").click();
 
@@ -84,7 +84,7 @@ public class ExportItemsTest extends TalendSwtBotForTos {
     public void removePreviouslyCreateItems() throws IOException, URISyntaxException {
         shell.close();
         Utilities.cleanUpRepository(tree, "TOS");
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
         Utilities.getFileFromCurrentPluginSampleFolder("output.zip").delete();
     }
 }

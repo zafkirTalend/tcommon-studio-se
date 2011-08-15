@@ -41,20 +41,20 @@ public class DeleteLdapTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.LDAP);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.LDAP);
         Utilities.createLdap(LDAPNAME, treeNode, gefBot);
     }
 
     @Test
     public void deleteLdap() {
-        Utilities.delete(tree, treeNode, LDAPNAME, "0.1", null);
+        Utilities.delete(treeNode, LDAPNAME, "0.1", null);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 }

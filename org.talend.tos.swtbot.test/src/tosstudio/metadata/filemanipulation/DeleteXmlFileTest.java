@@ -44,20 +44,20 @@ public class DeleteXmlFileTest extends TalendSwtBotForTos {
 
     @Before
     public void createXmlFile() throws IOException, URISyntaxException {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.FILE_XML);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FILE_XML);
         Utilities.createFileXml(FILENAME, treeNode, gefBot);
     }
 
     @Test
     public void deleteXmlFile() {
-        Utilities.delete(tree, treeNode, FILENAME, "0.1", null);
+        Utilities.delete(treeNode, FILENAME, "0.1", null);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 }

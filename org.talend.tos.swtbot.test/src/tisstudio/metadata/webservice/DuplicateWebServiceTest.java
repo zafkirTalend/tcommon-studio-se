@@ -45,22 +45,22 @@ public class DuplicateWebServiceTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.WEB_SERVICE);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.WEB_SERVICE);
         Utilities.createWebService(TYPE, WEBSERVICENAME, treeNode, gefBot);
     }
 
     @Test
     public void duplicateWebService() {
-        Utilities.duplicate(gefBot, treeNode, WEBSERVICENAME, "0.1", NEW_WEBSERVICENAME);
+        Utilities.duplicate(treeNode, WEBSERVICENAME, "0.1", NEW_WEBSERVICENAME);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.delete(tree, treeNode, WEBSERVICENAME, "0.1", null);
-        Utilities.delete(tree, treeNode, NEW_WEBSERVICENAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, WEBSERVICENAME, "0.1", null);
+        Utilities.delete(treeNode, NEW_WEBSERVICENAME, "0.1", null);
+        Utilities.emptyRecycleBin();
     }
 }

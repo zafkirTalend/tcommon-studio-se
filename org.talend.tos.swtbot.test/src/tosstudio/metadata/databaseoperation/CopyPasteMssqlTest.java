@@ -41,9 +41,9 @@ public class CopyPasteMssqlTest extends TalendSwtBotForTos {
 
     @Before
     public void createMssql() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.DB_CONNECTIONS);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.DB_CONNECTIONS);
         Utilities.createDbConnection(gefBot, treeNode, Utilities.DbConnectionType.MSSQL, DBNAME);
     }
 
@@ -54,8 +54,8 @@ public class CopyPasteMssqlTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.delete(tree, treeNode, DBNAME, "0.1", null);
-        Utilities.delete(tree, treeNode, "Copy_of_" + DBNAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, DBNAME, "0.1", null);
+        Utilities.delete(treeNode, "Copy_of_" + DBNAME, "0.1", null);
+        Utilities.emptyRecycleBin();
     }
 }

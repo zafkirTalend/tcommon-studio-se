@@ -41,20 +41,20 @@ public class DeleteGenericSchemaTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.GENERIC_SCHEMAS);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.GENERIC_SCHEMAS);
         Utilities.createGenericSchema(SCHEMANAME, treeNode, gefBot);
     }
 
     @Test
     public void deleteGenericSchema() {
-        Utilities.delete(tree, treeNode, SCHEMANAME, "0.1", null);
+        Utilities.delete(treeNode, SCHEMANAME, "0.1", null);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 }

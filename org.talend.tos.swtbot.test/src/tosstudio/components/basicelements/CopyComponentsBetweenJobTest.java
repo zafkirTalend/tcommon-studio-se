@@ -53,14 +53,14 @@ public class CopyComponentsBetweenJobTest extends TalendSwtBotForTos {
 
     @Before
     public void createJob() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOB_DESIGNS);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOB_DESIGNS);
         /* Create job1 */
-        Utilities.createJob(JOBNAME1, treeNode, gefBot);
+        Utilities.createJob(JOBNAME1, treeNode);
         /* Create job2 */
-        Utilities.createJob(JOBNAME2, treeNode, gefBot);
+        Utilities.createJob(JOBNAME2, treeNode);
         /* Use components in job1 */
         gefEditor = gefBot.gefEditor("Job " + JOBNAME1 + " 0.1");
         gefEditor.show();
@@ -122,6 +122,6 @@ public class CopyComponentsBetweenJobTest extends TalendSwtBotForTos {
         gefBot.gefEditor("Job " + JOBNAME1 + " 0.1").saveAndClose();
         gefBot.gefEditor("Job " + JOBNAME2 + " 0.1").saveAndClose();
         Utilities.cleanUpRepository(treeNode);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 }

@@ -44,18 +44,18 @@ public class NotCreateNewItemInRecycleBinTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateField() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.BUSINESS_MODEL);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.BUSINESS_MODEL);
         Utilities.createFolder(FOLDERNAME, treeNode, gefBot);
-        Utilities.createBusinessModel(BUSINESS_MODEL_NAME, treeNode.getNode(FOLDERNAME), gefBot);
+        Utilities.createBusinessModel(BUSINESS_MODEL_NAME, treeNode.getNode(FOLDERNAME));
         gefBot.editorByTitle("Model " + BUSINESS_MODEL_NAME).close();
-        Utilities.delete(tree, treeNode, FOLDERNAME, null, null);
+        Utilities.delete(treeNode, FOLDERNAME, null, null);
     }
 
     @Test
     public void createNewItemInRecycleBin() {
-        SWTBotTreeItem recycleBinNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.RECYCLE_BIN);
+        SWTBotTreeItem recycleBinNode = Utilities.getTalendItemNode(Utilities.TalendItemType.RECYCLE_BIN);
 
         boolean isCreateEnable = false;
         try {
@@ -69,6 +69,6 @@ public class NotCreateNewItemInRecycleBinTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 }

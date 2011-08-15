@@ -52,10 +52,10 @@ public class DuplicateBasicValueCheckRulesTest extends TalendSwtBotForTos {
 
     @Before
     public void createBasicValueCheckRules() throws IOException, URISyntaxException {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.VALIDATION_RULES);
-        metadataNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.FILE_DELIMITED);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.VALIDATION_RULES);
+        metadataNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FILE_DELIMITED);
         Utilities.createFileDelimited(METADATA_NAME, metadataNode, gefBot);
         Utilities.createValidationRules(RULE_TYPE, Utilities.TalendItemType.FILE_DELIMITED, METADATA_NAME, VALIDATION_RULES_NAME,
                 gefBot, treeNode);
@@ -63,13 +63,13 @@ public class DuplicateBasicValueCheckRulesTest extends TalendSwtBotForTos {
 
     @Test
     public void duplicateBasicValueCheckRules() {
-        Utilities.duplicate(gefBot, treeNode, VALIDATION_RULES_NAME, "0.1", NEW_VALIDATION_RULES_NAME);
+        Utilities.duplicate(treeNode, VALIDATION_RULES_NAME, "0.1", NEW_VALIDATION_RULES_NAME);
     }
 
     @After
     public void removePreviouslyCreateItems() {
         Utilities.cleanUpRepository(treeNode);
         Utilities.cleanUpRepository(metadataNode);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 }

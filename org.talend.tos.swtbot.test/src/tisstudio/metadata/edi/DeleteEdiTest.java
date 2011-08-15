@@ -12,12 +12,7 @@
 // ============================================================================
 package tisstudio.metadata.edi;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,11 +27,7 @@ import org.talend.swtbot.items.TalendEdiItem;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class DeleteEdiTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
-
-    private SWTBotTree tree;
-
-    private SWTBotTreeItem treeNode;
+    private TalendEdiItem ediItem;
 
     private static final String EDINAME = "ediTest";
 
@@ -49,20 +40,17 @@ public class DeleteEdiTest extends TalendSwtBotForTos {
 
     @Before
     public void createEdi() {
-        view = Utilities.getRepositoryView(gefBot);
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.EDI);
-        TalendEdiItem ediItem = new TalendEdiItem(EDINAME, STANDARD, RELEASE, SCHEMAS);
-        Utilities.createEDI(ediItem, gefBot, treeNode);
+        ediItem = new TalendEdiItem(EDINAME, STANDARD, RELEASE, SCHEMAS);
+        ediItem.create();
     }
 
     @Test
     public void deleteEdi() {
-        Utilities.delete(tree, treeNode, EDINAME, "0.1", null);
+        Utilities.delete(ediItem.getParentNode(), EDINAME, "0.1", null);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 }

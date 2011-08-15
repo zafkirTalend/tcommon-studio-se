@@ -43,24 +43,24 @@ public class DuplicateJobletTest extends TalendSwtBotForTos {
 
     @Before
     public void createJoblet() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOBLET_DESIGNS);
-        Utilities.createJoblet(JOBLETNAME, treeNode, gefBot);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOBLET_DESIGNS);
+        Utilities.createJoblet(JOBLETNAME, treeNode);
     }
 
     @Test
     public void duplicateJoblet() {
         treeNode = tree.expandNode("Joblet Designs");
-        Utilities.duplicate(gefBot, treeNode, JOBLETNAME, "0.1", NEW_JOBLETNAME);
+        Utilities.duplicate(treeNode, JOBLETNAME, "0.1", NEW_JOBLETNAME);
     }
 
     @After
     public void removePreviouslyCreateItems() {
         gefBot.editorByTitle("Joblet " + JOBLETNAME + " 0.1").close();
-        Utilities.delete(tree, treeNode, JOBLETNAME, "0.1", null);
-        Utilities.delete(tree, treeNode, NEW_JOBLETNAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, JOBLETNAME, "0.1", null);
+        Utilities.delete(treeNode, NEW_JOBLETNAME, "0.1", null);
+        Utilities.emptyRecycleBin();
     }
 }

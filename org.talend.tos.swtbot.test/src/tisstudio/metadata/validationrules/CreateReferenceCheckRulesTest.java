@@ -50,10 +50,10 @@ public class CreateReferenceCheckRulesTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() throws IOException, URISyntaxException {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.VALIDATION_RULES);
-        metadataNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.DB_CONNECTIONS);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.VALIDATION_RULES);
+        metadataNode = Utilities.getTalendItemNode(Utilities.TalendItemType.DB_CONNECTIONS);
         Utilities.createDbConnection(gefBot, metadataNode, Utilities.DbConnectionType.MYSQL, DB_NAME);
         String sql = "create table test(id int, name varchar(12));\n" + "create table reference(id int, name varchar(12));";
         Utilities.executeSQL(gefBot, metadataNode.getNode(DB_NAME + " 0.1"), sql);
@@ -72,6 +72,6 @@ public class CreateReferenceCheckRulesTest extends TalendSwtBotForTos {
         Utilities.executeSQL(gefBot, metadataNode.getNode(DB_NAME + " 0.1"), sql);
         Utilities.cleanUpRepository(treeNode);
         Utilities.cleanUpRepository(metadataNode);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 }

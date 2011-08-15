@@ -28,6 +28,7 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.URIUtil;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
@@ -42,7 +43,6 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTableItem;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.talend.swtbot.items.TalendEdiItem;
 
 /**
  * DOC sgandon class global comment. Detailled comment <br/>
@@ -114,6 +114,11 @@ public class Utilities {
     //    private static final String BUNDLE_NAME = "connectionInfo"; //$NON-NLS-1$
     //
     // private static ResourceBundle resourceBundle = ResourceBundle.getBundle(BUNDLE_NAME);
+    private static SWTGefBot gefBot = new SWTGefBot();
+
+    private static SWTBotView view = getRepositoryView();
+
+    private static SWTBotTree tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
 
     private static SWTBotShell shell;
 
@@ -154,11 +159,9 @@ public class Utilities {
      * Empty Recycle bin
      * 
      * @author fzhong
-     * @param gefBot SWTGefBot
-     * @param tree tree from repository
      * @return void
      */
-    public static void emptyRecycleBin(SWTGefBot gefBot, SWTBotTree tree) {
+    public static void emptyRecycleBin() {
         tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
         gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
         gefBot.button("Yes").click();
@@ -171,10 +174,9 @@ public class Utilities {
      * @param itemType item type
      * @param itemName item name
      * @param tree tree in repository
-     * @param gefBot SWTGefBot
      * @param shell creating wizard shell
      */
-    private static SWTBotTreeItem create(String itemType, String itemName, SWTBotTreeItem treeNode, SWTGefBot gefBot) {
+    private static SWTBotTreeItem create(String itemType, String itemName, SWTBotTreeItem treeNode) {
         treeNode.contextMenu("Create " + itemType).click();
 
         if (!"JobScript".equals(itemType)) {
@@ -209,28 +211,28 @@ public class Utilities {
         return treeNode.getNode(itemName + " 0.1");
     }
 
-    public static SWTBotTreeItem createJoblet(String jobletName, SWTBotTreeItem treeNode, SWTGefBot gefBot) {
-        return create("Joblet", jobletName, treeNode, gefBot);
+    public static SWTBotTreeItem createJoblet(String jobletName, SWTBotTreeItem treeNode) {
+        return create("Joblet", jobletName, treeNode);
     }
 
-    public static SWTBotTreeItem createSqlTemplate(String sqlTemplateName, SWTBotTreeItem treeNode, SWTGefBot gefBot) {
-        return create("SQLTemplate", sqlTemplateName, treeNode, gefBot);
+    public static SWTBotTreeItem createSqlTemplate(String sqlTemplateName, SWTBotTreeItem treeNode) {
+        return create("SQLTemplate", sqlTemplateName, treeNode);
     }
 
-    public static SWTBotTreeItem createBusinessModel(String businessModelName, SWTBotTreeItem treeNode, SWTGefBot gefBot) {
-        return create("Business Model", businessModelName, treeNode, gefBot);
+    public static SWTBotTreeItem createBusinessModel(String businessModelName, SWTBotTreeItem treeNode) {
+        return create("Business Model", businessModelName, treeNode);
     }
 
-    public static SWTBotTreeItem createJob(String jobName, SWTBotTreeItem treeNode, SWTGefBot gefBot) {
-        return create("job", jobName, treeNode, gefBot);
+    public static SWTBotTreeItem createJob(String jobName, SWTBotTreeItem treeNode) {
+        return create("job", jobName, treeNode);
     }
 
-    public static SWTBotTreeItem createRoutine(String routineName, SWTBotTreeItem treeNode, SWTGefBot gefBot) {
-        return create("routine", routineName, treeNode, gefBot);
+    public static SWTBotTreeItem createRoutine(String routineName, SWTBotTreeItem treeNode) {
+        return create("routine", routineName, treeNode);
     }
 
-    public static SWTBotTreeItem createJobScript(String jobScriptName, SWTBotTreeItem treeNode, SWTGefBot gefBot) {
-        return create("JobScript", jobScriptName, treeNode, gefBot);
+    public static SWTBotTreeItem createJobScript(String jobScriptName, SWTBotTreeItem treeNode) {
+        return create("JobScript", jobScriptName, treeNode);
     }
 
     private static SWTBotTreeItem createFile(TalendItemType itemType, String contextMenu, final String shellTitle,
@@ -1147,13 +1149,12 @@ public class Utilities {
      * DOC fzhong Comment method "delete". Delete the item(itemName + itemVersion) under tree node(treeNode) of
      * tree(tree)
      * 
-     * @param tree tree in repository
      * @param treeNode tree item node
      * @param itemName item name
      * @param itemVersion item version(if it is a folder, it doen't have version, set it as "null")
      * @param folderPath if no folder set it as "null", otherwise give the folder path(e.g. "a","a/b","a/b/c")
      */
-    public static void delete(SWTBotTree tree, SWTBotTreeItem treeNode, String itemName, String itemVersion, String folderPath) {
+    public static void delete(SWTBotTreeItem treeNode, String itemName, String itemVersion, String folderPath) {
         String nodeName = itemName;
         if (itemVersion != null)
             nodeName = nodeName + " " + itemVersion;
@@ -1175,14 +1176,12 @@ public class Utilities {
      * DOC fzhong Comment method "duplicate". Duplicate the item(itemName + itemVersion) under tree node(treeNode) with
      * new name(newItemName)
      * 
-     * @param gefBot SWTGefBot
      * @param treeNode tree item node
      * @param itemName item name
      * @param itemVersion item version
      * @param newItemName new item name
      */
-    public static void duplicate(SWTGefBot gefBot, SWTBotTreeItem treeNode, String itemName, String itemVersion,
-            String newItemName) {
+    public static void duplicate(SWTBotTreeItem treeNode, String itemName, String itemVersion, String newItemName) {
         treeNode.getNode(itemName + " " + itemVersion).contextMenu("Duplicate").click();
         gefBot.shell("Please input new name ").activate();
         gefBot.textWithLabel("Input new name").setText(newItemName);
@@ -1198,11 +1197,15 @@ public class Utilities {
         }
     }
 
+    public static SWTBotTreeItem getTalendItemNode(TalendItemType itemType) {
+        return getTalendItemNode(tree, itemType);
+    }
+
     /**
      * DOC fzhong Comment method "getTalendItemNode". Get item node of the tree in repository
      * 
-     * @param tree
      * @param itemType
+     * 
      * @return a tree item
      */
     public static SWTBotTreeItem getTalendItemNode(SWTBotTree tree, TalendItemType itemType) {
@@ -1274,22 +1277,21 @@ public class Utilities {
     /**
      * DOC fzhong Comment method "getView".
      * 
-     * @param gefBot
      * @param viewTitle
+     * 
      * @return the widget of view
      */
-    private static SWTBotView getView(SWTGefBot gefBot, String viewTitle) {
+    private static SWTBotView getView(String viewTitle) {
         return gefBot.viewByTitle(viewTitle);
     }
 
     /**
      * DOC fzhong Comment method "getRepositoryView". Get view by title "repository"
      * 
-     * @param gefBot
      * @return view widget by title
      */
-    public static SWTBotView getRepositoryView(SWTGefBot gefBot) {
-        return getView(gefBot, "Repository");
+    public static SWTBotView getRepositoryView() {
+        return getView("Repository");
     }
 
     /**
@@ -1401,7 +1403,7 @@ public class Utilities {
             }
             if (itemList != null && itemList.contains(itemType))
                 continue; // if TOS, pass TIS items
-            SWTBotTreeItem treeNode = getTalendItemNode(tree, itemType);
+            SWTBotTreeItem treeNode = getTalendItemNode(itemType);
             if (TalendItemType.SQL_TEMPLATES.equals(itemType))
                 treeNode = treeNode.expandNode("Generic", "UserDefined"); // focus on specific sql template type
             if (TalendItemType.DOCUMENTATION.equals(itemType) || TalendItemType.RECYCLE_BIN.equals(itemType))
@@ -1604,8 +1606,7 @@ public class Utilities {
         gefBot.button("Next >").click();
 
         try {
-            SWTBotTree tree = gefBot.tree();
-            SWTBotTreeItem metadataNode = getTalendItemNode(tree, metadataType);
+            SWTBotTreeItem metadataNode = getTalendItemNode(gefBot.tree(), metadataType);
             if (TalendItemType.DB_CONNECTIONS.equals(metadataType)) {
                 metadataNode.expandNode(metadataName + " 0.1", "Table schemas").select("test");
             } else {
@@ -1617,7 +1618,7 @@ public class Utilities {
             if ("Reference Check".equals(ruleType)) {
                 gefBot.radio(0).click();
                 gefBot.button("Next >").click();
-                metadataNode = getTalendItemNode(gefBot.tree(0), TalendItemType.DB_CONNECTIONS);
+                metadataNode = getTalendItemNode(gefBot.tree(), TalendItemType.DB_CONNECTIONS);
                 metadataNode.expandNode(metadataName + " 0.1", "Table schemas").select("reference");
                 gefBot.button("Next >").click();
                 DndUtil dndUtil = new DndUtil(shell.display);
@@ -1632,13 +1633,13 @@ public class Utilities {
                 gefBot.radio(1).click();
                 gefBot.button("Next >").click();
                 gefBot.buttonWithTooltip("Add").click();
-                gefBot.tableWithLabel("Conditions").click(0, 2);
+                gefBot.table().click(0, 2);
                 gefBot.ccomboBox().setSelection("Column0");
-                gefBot.tableWithLabel("Conditions").click(0, 3);
+                gefBot.table().click(0, 3);
                 gefBot.ccomboBox().setSelection("Empty");
-                gefBot.tableWithLabel("Conditions").click(0, 4);
+                gefBot.table().click(0, 4);
                 gefBot.ccomboBox().setSelection("Greater");
-                gefBot.tableWithLabel("Conditions").click(0, 5);
+                gefBot.table().click(0, 5);
                 gefBot.text().setText("50");
             } else if ("Custom Check".equals(ruleType)) {
                 gefBot.radio(2).click();
@@ -1725,49 +1726,6 @@ public class Utilities {
             }
         }
         SWTBotPreferences.TIMEOUT = defaultTimeout;
-    }
-
-    public static void createEDI(TalendEdiItem ediItem, SWTGefBot gefBot, SWTBotTreeItem treeNode) {
-        treeNode.contextMenu("Create EDI").click();
-        shell = gefBot.shell("Create new EDI schema").activate();
-        gefBot.textWithLabel("Name").setText(ediItem.getItemName());
-        boolean isNextButtonEnable = gefBot.button("Next >").isEnabled();
-        if (!isNextButtonEnable) {
-            shell.close();
-            Assert.assertTrue("edi item is not created, maybe the item name already exist", isNextButtonEnable);
-        }
-        gefBot.button("Next >").click();
-
-        try {
-            gefBot.tree().expandNode(ediItem.getStandard()).getNode(ediItem.getRelease()).click();
-            gefBot.button("Next >").click();
-
-            String[] schemas = ediItem.getSchema();
-            for (int i = 0; i < schemas.length; i++) {
-                SWTBotTreeItem sourceItem = gefBot.tree(0).expandNode("BGM(Beginning_of_message)", "DOCUMENT_MESSAGE_NAME")
-                        .getNode(schemas[i]).click();
-                SWTBotTable targetItem = gefBot.tableInGroup("Schema");
-                DndUtil dndUtil = new DndUtil(shell.display);
-                dndUtil.dragAndDrop(sourceItem, targetItem);
-            }
-            gefBot.button("Next >").click();
-            gefBot.button("Finish").click();
-        } catch (WidgetNotFoundException wnfe) {
-            shell.close();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            shell.close();
-            Assert.fail(e.getMessage());
-        }
-
-        SWTBotTreeItem newEDIItem = null;
-        try {
-            newEDIItem = treeNode.expand().select(ediItem.getItemName() + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("validation EDI item is not created", newEDIItem);
-        }
     }
 
     /**

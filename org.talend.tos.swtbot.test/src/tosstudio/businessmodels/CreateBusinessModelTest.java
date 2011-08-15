@@ -41,21 +41,21 @@ public class CreateBusinessModelTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.BUSINESS_MODEL);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.BUSINESS_MODEL);
     }
 
     @Test
     public void createBusinessModel() {
-        Utilities.createBusinessModel(BUSINESSMODELNAME, treeNode, gefBot);
+        Utilities.createBusinessModel(BUSINESSMODELNAME, treeNode);
     }
 
     @After
     public void removePreviouslyCreateItems() {
         gefBot.cTabItem("Model " + BUSINESSMODELNAME).close();
-        Utilities.delete(tree, treeNode, BUSINESSMODELNAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, BUSINESSMODELNAME, "0.1", null);
+        Utilities.emptyRecycleBin();
     }
 }

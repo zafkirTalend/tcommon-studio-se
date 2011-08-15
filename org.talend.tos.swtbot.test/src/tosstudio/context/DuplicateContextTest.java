@@ -43,22 +43,22 @@ public class DuplicateContextTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.CONTEXTS);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.CONTEXTS);
         Utilities.createContext(CONTEXTNAME, treeNode, gefBot);
     }
 
     @Test
     public void duplicateContext() {
-        Utilities.duplicate(gefBot, treeNode, CONTEXTNAME, "0.1", NEW_CONTEXTNAME);
+        Utilities.duplicate(treeNode, CONTEXTNAME, "0.1", NEW_CONTEXTNAME);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.delete(tree, treeNode, CONTEXTNAME, "0.1", null);
-        Utilities.delete(tree, treeNode, NEW_CONTEXTNAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, CONTEXTNAME, "0.1", null);
+        Utilities.delete(treeNode, NEW_CONTEXTNAME, "0.1", null);
+        Utilities.emptyRecycleBin();
     }
 }

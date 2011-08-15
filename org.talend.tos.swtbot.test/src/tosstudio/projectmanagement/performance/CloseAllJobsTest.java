@@ -41,13 +41,13 @@ public class CloseAllJobsTest extends TalendSwtBotForTos {
 
     @Before
     public void createJobs() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOB_DESIGNS);
-        Utilities.createJob("job1", treeNode, gefBot);
-        Utilities.createJob("job2", treeNode, gefBot);
-        Utilities.createJob("job3", treeNode, gefBot);
-        Utilities.createJob("job4", treeNode, gefBot);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOB_DESIGNS);
+        Utilities.createJob("job1", treeNode);
+        Utilities.createJob("job2", treeNode);
+        Utilities.createJob("job3", treeNode);
+        Utilities.createJob("job4", treeNode);
     }
 
     @Test
@@ -64,6 +64,6 @@ public class CloseAllJobsTest extends TalendSwtBotForTos {
         }
 
         Utilities.cleanUpRepository(treeNode);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 }

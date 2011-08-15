@@ -48,9 +48,9 @@ public class RetrieveSchemaTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() throws IOException, URISyntaxException {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.COPYBOOK);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.COPYBOOK);
         Utilities.createCopybook(COPYBOOK_NAME, treeNode, gefBot);
     }
 
@@ -82,6 +82,6 @@ public class RetrieveSchemaTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() {
         Utilities.cleanUpRepository(treeNode);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 }

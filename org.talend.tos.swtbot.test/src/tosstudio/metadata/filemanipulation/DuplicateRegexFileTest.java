@@ -46,22 +46,22 @@ public class DuplicateRegexFileTest extends TalendSwtBotForTos {
 
     @Before
     public void createRegexFile() throws IOException, URISyntaxException {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.FILE_REGEX);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FILE_REGEX);
         Utilities.createFileRegex(FILENAME, treeNode, gefBot);
     }
 
     @Test
     public void duplicateRegexFile() {
-        Utilities.duplicate(gefBot, treeNode, FILENAME, "0.1", NEW_FILENAME);
+        Utilities.duplicate(treeNode, FILENAME, "0.1", NEW_FILENAME);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.delete(tree, treeNode, FILENAME, "0.1", null);
-        Utilities.delete(tree, treeNode, NEW_FILENAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, FILENAME, "0.1", null);
+        Utilities.delete(treeNode, NEW_FILENAME, "0.1", null);
+        Utilities.emptyRecycleBin();
     }
 }

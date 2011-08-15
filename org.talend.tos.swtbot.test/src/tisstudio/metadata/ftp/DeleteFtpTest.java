@@ -41,19 +41,19 @@ public class DeleteFtpTest extends TalendSwtBotForTos {
 
     @Before
     public void createFtp() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.FTP);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FTP);
         Utilities.createFTP(FTPNAME, gefBot, treeNode);
     }
 
     @Test
     public void deleteFtp() {
-        Utilities.delete(tree, treeNode, FTPNAME, "0.1", null);
+        Utilities.delete(treeNode, FTPNAME, "0.1", null);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 }

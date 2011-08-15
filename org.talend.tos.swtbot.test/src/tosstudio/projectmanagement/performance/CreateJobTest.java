@@ -41,21 +41,21 @@ public class CreateJobTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOB_DESIGNS);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOB_DESIGNS);
     }
 
     @Test
     public void createJob() {
-        Utilities.createJob(JOBNAME, treeNode, gefBot);
+        Utilities.createJob(JOBNAME, treeNode);
     }
 
     @After
     public void removePreviouslyCreateItems() {
         gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
-        Utilities.delete(tree, treeNode, JOBNAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, JOBNAME, "0.1", null);
+        Utilities.emptyRecycleBin();
     }
 }

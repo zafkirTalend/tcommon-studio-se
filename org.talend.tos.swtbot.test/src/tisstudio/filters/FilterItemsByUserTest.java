@@ -53,10 +53,10 @@ public class FilterItemsByUserTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateField() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOB_DESIGNS);
-        Utilities.createJob("job_a", treeNode, gefBot);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOB_DESIGNS);
+        Utilities.createJob("job_a", treeNode);
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -106,6 +106,6 @@ public class FilterItemsByUserTest extends TalendSwtBotForTos {
         for (SWTBotEditor editor : gefBot.editors())
             editor.saveAndClose();
         Utilities.cleanUpRepository(treeNode);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 }

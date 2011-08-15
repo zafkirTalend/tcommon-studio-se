@@ -48,10 +48,10 @@ public class UpdateTheStatusOfEachItemTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() throws IOException, URISyntaxException {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.BUSINESS_MODEL);
-        Utilities.createBusinessModel(BUSINESSMODELNAME, treeNode, gefBot);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.BUSINESS_MODEL);
+        Utilities.createBusinessModel(BUSINESSMODELNAME, treeNode);
         gefBot.cTabItem("Model " + BUSINESSMODELNAME).close();
     }
 
@@ -86,7 +86,7 @@ public class UpdateTheStatusOfEachItemTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() {
         shell.close();
-        Utilities.delete(tree, treeNode, BUSINESSMODELNAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, BUSINESSMODELNAME, "0.1", null);
+        Utilities.emptyRecycleBin();
     }
 }

@@ -44,20 +44,20 @@ public class DeleteCopybookTest extends TalendSwtBotForTos {
 
     @Before
     public void createCopybook() throws IOException, URISyntaxException {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.COPYBOOK);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.COPYBOOK);
         Utilities.createCopybook(COPYBOOKNAME, treeNode, gefBot);
     }
 
     @Test
     public void deleteCopybookTest() {
-        Utilities.delete(tree, treeNode, COPYBOOKNAME, "0.1", null);
+        Utilities.delete(treeNode, COPYBOOKNAME, "0.1", null);
     }
 
     @After
     public void removePreviousCreateItems() {
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 }

@@ -61,7 +61,7 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() throws IOException, URISyntaxException {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         gefBot.toolbarButtonWithTooltip("Import Items").click();
 
@@ -109,7 +109,7 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
     public void removePreviouslyCreateItems() {
         shell.close();
         Utilities.cleanUpRepository(tree, "TOS");
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 
     private void assertItemVersion(String itemName, String... nodes) {

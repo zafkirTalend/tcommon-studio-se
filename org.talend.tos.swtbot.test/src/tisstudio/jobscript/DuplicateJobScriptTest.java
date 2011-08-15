@@ -43,23 +43,23 @@ public class DuplicateJobScriptTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOBSCRIPTS);
-        Utilities.createJobScript(JOBSCRIPT_NAME, treeNode, gefBot);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOBSCRIPTS);
+        Utilities.createJobScript(JOBSCRIPT_NAME, treeNode);
     }
 
     @Test
     public void duplicateJobScript() {
-        Utilities.duplicate(gefBot, treeNode, JOBSCRIPT_NAME, "0.1", NEW_JOBSCRIPT_NAME);
+        Utilities.duplicate(treeNode, JOBSCRIPT_NAME, "0.1", NEW_JOBSCRIPT_NAME);
     }
 
     @After
     public void removePreviousCreateItems() {
         gefBot.cTabItem(JOBSCRIPT_NAME + "_0.1.jobscript").close();
-        Utilities.delete(tree, treeNode, JOBSCRIPT_NAME, "0.1", null);
-        Utilities.delete(tree, treeNode, NEW_JOBSCRIPT_NAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, JOBSCRIPT_NAME, "0.1", null);
+        Utilities.delete(treeNode, NEW_JOBSCRIPT_NAME, "0.1", null);
+        Utilities.emptyRecycleBin();
     }
 }

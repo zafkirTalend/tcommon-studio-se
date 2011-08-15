@@ -45,23 +45,23 @@ public class DuplicateSqlTemplateTest extends TalendSwtBotForTos {
 
     @Before
     public void createSqlTemplate() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.SQL_TEMPLATES).expandNode("Generic", "UserDefined");
-        Utilities.createSqlTemplate(SQLTEMPLATENAME, treeNode, gefBot);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.SQL_TEMPLATES).expandNode("Generic", "UserDefined");
+        Utilities.createSqlTemplate(SQLTEMPLATENAME, treeNode);
     }
 
     @Test
     public void duplicateSqlTemplate() {
-        Utilities.duplicate(gefBot, treeNode, SQLTEMPLATENAME, "0.1", NEW_SQLTEMPLATENAME);
+        Utilities.duplicate(treeNode, SQLTEMPLATENAME, "0.1", NEW_SQLTEMPLATENAME);
     }
 
     @After
     public void removePreviouslyCreateItems() {
         gefBot.cTabItem(SQLTEMPLATENAME + " 0.1").close();
-        Utilities.delete(tree, treeNode, SQLTEMPLATENAME, "0.1", FOLDERPATH);
-        Utilities.delete(tree, treeNode, NEW_SQLTEMPLATENAME, "0.1", FOLDERPATH);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, SQLTEMPLATENAME, "0.1", FOLDERPATH);
+        Utilities.delete(treeNode, NEW_SQLTEMPLATENAME, "0.1", FOLDERPATH);
+        Utilities.emptyRecycleBin();
     }
 }

@@ -41,9 +41,9 @@ public class CreateFtpTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.FTP);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FTP);
     }
 
     @Test
@@ -53,7 +53,7 @@ public class CreateFtpTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.delete(tree, treeNode, FTPNAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, FTPNAME, "0.1", null);
+        Utilities.emptyRecycleBin();
     }
 }

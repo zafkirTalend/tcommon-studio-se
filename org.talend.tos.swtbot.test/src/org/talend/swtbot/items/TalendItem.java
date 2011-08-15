@@ -13,23 +13,21 @@
 package org.talend.swtbot.items;
 
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.talend.swtbot.Utilities;
+import org.talend.swtbot.Utilities.TalendItemType;
 
 /**
  * DOC fzhong class global comment. Detailled comment
  */
 public class TalendItem {
 
-    protected String itemName;
-
     protected SWTBotTreeItem item;
 
-    public String getItemName() {
-        return this.itemName;
-    }
+    protected String itemName;
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
+    protected TalendItemType itemType;
+
+    protected SWTBotTreeItem parentNode;
 
     public SWTBotTreeItem getItem() {
         return this.item;
@@ -41,5 +39,37 @@ public class TalendItem {
             this.itemName = item.getText().substring(0, item.getText().indexOf(" "));
         else
             this.itemName = item.getText();
+    }
+
+    public String getItemName() {
+        return this.itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public TalendItemType getItemType() {
+        return this.itemType;
+    }
+
+    protected void setItemType(TalendItemType itemType) {
+        this.itemType = itemType;
+    }
+
+    public SWTBotTreeItem getParentNode() {
+        return parentNode;
+    }
+
+    protected void setParentNode(SWTBotTreeItem parentNode) {
+        this.parentNode = parentNode;
+    }
+
+    protected void initialise(TalendItemType itemType) {
+        setItemType(itemType);
+        setParentNode(Utilities.getTalendItemNode(itemType));
+    }
+
+    public void create() {
     }
 }

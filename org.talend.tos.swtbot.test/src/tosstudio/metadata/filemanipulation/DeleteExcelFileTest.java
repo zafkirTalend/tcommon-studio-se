@@ -44,20 +44,20 @@ public class DeleteExcelFileTest extends TalendSwtBotForTos {
 
     @Before
     public void createExcelFile() throws IOException, URISyntaxException {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.FILE_EXCEL);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FILE_EXCEL);
         Utilities.createFileExcel(FILENAME, treeNode, gefBot);
     }
 
     @Test
     public void deleteExcelFile() {
-        Utilities.delete(tree, treeNode, FILENAME, "0.1", null);
+        Utilities.delete(treeNode, FILENAME, "0.1", null);
     }
 
     @After
     public void cleanUp() {
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 }

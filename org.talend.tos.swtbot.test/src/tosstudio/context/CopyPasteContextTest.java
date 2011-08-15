@@ -41,10 +41,10 @@ public class CopyPasteContextTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.CONTEXTS);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.CONTEXTS);
         Utilities.createContext(CONTEXTNAME, treeNode, gefBot);
     }
 
@@ -55,8 +55,8 @@ public class CopyPasteContextTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.delete(tree, treeNode, CONTEXTNAME, "0.1", null);
-        Utilities.delete(tree, treeNode, "Copy_of_" + CONTEXTNAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, CONTEXTNAME, "0.1", null);
+        Utilities.delete(treeNode, "Copy_of_" + CONTEXTNAME, "0.1", null);
+        Utilities.emptyRecycleBin();
     }
 }

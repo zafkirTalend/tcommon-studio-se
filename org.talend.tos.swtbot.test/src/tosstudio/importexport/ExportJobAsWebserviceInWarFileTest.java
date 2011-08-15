@@ -56,10 +56,10 @@ public class ExportJobAsWebserviceInWarFileTest extends TalendSwtBotForTos {
 
     @Before
     public void createAJob() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOB_DESIGNS);
-        Utilities.createJob(JOBNAME, treeNode, gefBot);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOB_DESIGNS);
+        Utilities.createJob(JOBNAME, treeNode);
     }
 
     @Test
@@ -81,8 +81,8 @@ public class ExportJobAsWebserviceInWarFileTest extends TalendSwtBotForTos {
     public void removePreviouslyCreateItems() throws IOException, URISyntaxException {
         shell.close();
         gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
-        Utilities.delete(tree, treeNode, JOBNAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, JOBNAME, "0.1", null);
+        Utilities.emptyRecycleBin();
         Utilities.getFileFromCurrentPluginSampleFolder("output_job.war").delete();
     }
 }

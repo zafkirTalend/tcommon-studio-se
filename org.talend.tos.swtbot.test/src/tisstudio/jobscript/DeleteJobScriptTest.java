@@ -41,22 +41,22 @@ public class DeleteJobScriptTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.JOBSCRIPTS);
-        Utilities.createJobScript(JOBSCRIPT_NAME, treeNode, gefBot);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOBSCRIPTS);
+        Utilities.createJobScript(JOBSCRIPT_NAME, treeNode);
     }
 
     @Test
     public void deleteJobScript() {
         gefBot.cTabItem(JOBSCRIPT_NAME + "_0.1.jobscript").close();
-        Utilities.delete(tree, treeNode, JOBSCRIPT_NAME, "0.1", null);
+        Utilities.delete(treeNode, JOBSCRIPT_NAME, "0.1", null);
     }
 
     @After
     public void removePreviousCreateItems() {
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.emptyRecycleBin();
     }
 
 }

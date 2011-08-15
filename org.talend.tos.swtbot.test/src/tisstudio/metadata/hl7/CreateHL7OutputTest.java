@@ -43,9 +43,9 @@ public class CreateHL7OutputTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView(gefBot);
+        view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(tree, Utilities.TalendItemType.HL7);
+        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.HL7);
     }
 
     @Test
@@ -55,7 +55,7 @@ public class CreateHL7OutputTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.delete(tree, treeNode, HL7NAME, "0.1", null);
-        Utilities.emptyRecycleBin(gefBot, tree);
+        Utilities.delete(treeNode, HL7NAME, "0.1", null);
+        Utilities.emptyRecycleBin();
     }
 }
