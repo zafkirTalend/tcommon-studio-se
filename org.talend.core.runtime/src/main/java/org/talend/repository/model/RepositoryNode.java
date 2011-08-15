@@ -341,7 +341,7 @@ public class RepositoryNode implements IRepositoryNode {
             return false;
         }
         final RepositoryNode other = (RepositoryNode) obj;
-        if (this.id != other.id) {
+        if (null != this.id && null != other.id && !this.id.equals(other.id)) {
             return false;
         }
         if (this.properties == null) {
