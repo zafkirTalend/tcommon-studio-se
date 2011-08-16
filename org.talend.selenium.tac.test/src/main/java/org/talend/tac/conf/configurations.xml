@@ -48,9 +48,9 @@
 	<parameter name="soaManager.conf.serverPort" value="8004" />
 
 	<!-- svn parameters -->
-	<parameter name="svn.conf.serverLocationURL" value="https://192.168.0.245:8443/svn/auto/" />
-	<parameter name="svn.conf.serverUser" value="tisadmin" />
-	<parameter name="svn.conf.serverPassword" value="tisadmin" />
+	<parameter name="svn.conf.serverLocationURL" value="https://192.168.0.216:8443/svn/test_tac/" />
+	<parameter name="svn.conf.serverUser" value="admin" />
+	<parameter name="svn.conf.serverPassword" value="admin" />
 
 	<!-- Talend suite parameters -->
 	<parameter name="suite.link.dqportal" value="testDqportalLink" />
