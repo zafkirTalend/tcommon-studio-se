@@ -68,7 +68,8 @@ public enum EParameterFieldType {
     BROWSE_REPORTS, // bzhou add for feature 9745
     JAVA_COMMAND,
     VALIDATION_RULE_TYPE,
-    DCSCHEMA;// Datacert custom EparameterFieldType for DCSchemaController
+    DCSCHEMA, // Datacert custom EparameterFieldType for DCSchemaController
+    TREE_TABLE; // hcyi TDI-17115
 
     public String getName() {
         return toString();
