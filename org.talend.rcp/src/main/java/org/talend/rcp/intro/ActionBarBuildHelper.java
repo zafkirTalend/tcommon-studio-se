@@ -382,6 +382,7 @@ public class ActionBarBuildHelper implements IActionBarHelper {
 
         exportLogsAction = new ExportLogsAction();
         helpMenu.add(exportLogsAction);
+        menuBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
     }
 
     public void fillCoolBar(ICoolBarManager coolBar) {
