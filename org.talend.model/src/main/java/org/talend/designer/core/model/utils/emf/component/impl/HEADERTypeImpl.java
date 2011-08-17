@@ -28,6 +28,7 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getSIGNATURE <em>SIGNATURE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getFORMAT <em>FORMAT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getAUTHOR <em>AUTHOR</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getCOMBINE <em>COMBINE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getCOMPATIBILITY <em>COMPATIBILITY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isDATAAUTOPROPAGATE <em>DATAAUTOPROPAGATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getEXTENSION <em>EXTENSION</em>}</li>
@@ -51,7 +52,6 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isTSTATCATCHERSTATS <em>TSTATCATCHERSTATS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getVERSION <em>VERSION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isVISIBLE <em>VISIBLE</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getCOMBINE <em>COMBINE</em>}</li>
  * </ul>
  * </p>
  *
@@ -107,6 +107,26 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @ordered
      */
     protected String aUTHOR = AUTHOR_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getCOMBINE() <em>COMBINE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCOMBINE()
+     * @generated
+     * @ordered
+     */
+    protected static final String COMBINE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getCOMBINE() <em>COMBINE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCOMBINE()
+     * @generated
+     * @ordered
+     */
+    protected String cOMBINE = COMBINE_EDEFAULT;
 
     /**
      * The default value of the '{@link #getCOMPATIBILITY() <em>COMPATIBILITY</em>}' attribute.
@@ -684,26 +704,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @ordered
      */
     protected boolean vISIBLEESet;
-
-    /**
-     * The default value of the '{@link #getCOMBINE() <em>COMBINE</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getCOMBINE()
-     * @generated
-     * @ordered
-     */
-    protected static final String COMBINE_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getCOMBINE() <em>COMBINE</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getCOMBINE()
-     * @generated
-     * @ordered
-     */
-    protected String cOMBINE = COMBINE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -1666,6 +1666,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return getFORMAT();
             case ComponentPackage.HEADER_TYPE__AUTHOR:
                 return getAUTHOR();
+            case ComponentPackage.HEADER_TYPE__COMBINE:
+                return getCOMBINE();
             case ComponentPackage.HEADER_TYPE__COMPATIBILITY:
                 return getCOMPATIBILITY();
             case ComponentPackage.HEADER_TYPE__DATAAUTOPROPAGATE:
@@ -1712,8 +1714,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return getVERSION();
             case ComponentPackage.HEADER_TYPE__VISIBLE:
                 return isVISIBLE() ? Boolean.TRUE : Boolean.FALSE;
-            case ComponentPackage.HEADER_TYPE__COMBINE:
-                return getCOMBINE();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1734,6 +1734,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__AUTHOR:
                 setAUTHOR((String)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__COMBINE:
+                setCOMBINE((String)newValue);
                 return;
             case ComponentPackage.HEADER_TYPE__COMPATIBILITY:
                 setCOMPATIBILITY((String)newValue);
@@ -1804,9 +1807,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__VISIBLE:
                 setVISIBLE(((Boolean)newValue).booleanValue());
                 return;
-            case ComponentPackage.HEADER_TYPE__COMBINE:
-                setCOMBINE((String)newValue);
-                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1827,6 +1827,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__AUTHOR:
                 setAUTHOR(AUTHOR_EDEFAULT);
+                return;
+            case ComponentPackage.HEADER_TYPE__COMBINE:
+                setCOMBINE(COMBINE_EDEFAULT);
                 return;
             case ComponentPackage.HEADER_TYPE__COMPATIBILITY:
                 setCOMPATIBILITY(COMPATIBILITY_EDEFAULT);
@@ -1897,9 +1900,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__VISIBLE:
                 unsetVISIBLE();
                 return;
-            case ComponentPackage.HEADER_TYPE__COMBINE:
-                setCOMBINE(COMBINE_EDEFAULT);
-                return;
         }
         super.eUnset(featureID);
     }
@@ -1918,6 +1918,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return fORMAT != null;
             case ComponentPackage.HEADER_TYPE__AUTHOR:
                 return AUTHOR_EDEFAULT == null ? aUTHOR != null : !AUTHOR_EDEFAULT.equals(aUTHOR);
+            case ComponentPackage.HEADER_TYPE__COMBINE:
+                return COMBINE_EDEFAULT == null ? cOMBINE != null : !COMBINE_EDEFAULT.equals(cOMBINE);
             case ComponentPackage.HEADER_TYPE__COMPATIBILITY:
                 return COMPATIBILITY_EDEFAULT == null ? cOMPATIBILITY != null : !COMPATIBILITY_EDEFAULT.equals(cOMPATIBILITY);
             case ComponentPackage.HEADER_TYPE__DATAAUTOPROPAGATE:
@@ -1964,8 +1966,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return VERSION_EDEFAULT == null ? vERSION != null : !VERSION_EDEFAULT.equals(vERSION);
             case ComponentPackage.HEADER_TYPE__VISIBLE:
                 return isSetVISIBLE();
-            case ComponentPackage.HEADER_TYPE__COMBINE:
-                return COMBINE_EDEFAULT == null ? cOMBINE != null : !COMBINE_EDEFAULT.equals(cOMBINE);
         }
         return super.eIsSet(featureID);
     }
@@ -1984,6 +1984,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         result.append(sIGNATURE);
         result.append(", aUTHOR: ");
         result.append(aUTHOR);
+        result.append(", cOMBINE: ");
+        result.append(cOMBINE);
         result.append(", cOMPATIBILITY: ");
         result.append(cOMPATIBILITY);
         result.append(", dATAAUTOPROPAGATE: ");
@@ -2030,8 +2032,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         result.append(vERSION);
         result.append(", vISIBLE: ");
         if (vISIBLEESet) result.append(vISIBLE); else result.append("<unset>");
-        result.append(", cOMBINE: ");
-        result.append(cOMBINE);
         result.append(')');
         return result.toString();
     }

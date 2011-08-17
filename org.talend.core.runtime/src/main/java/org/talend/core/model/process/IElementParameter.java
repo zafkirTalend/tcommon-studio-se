@@ -210,4 +210,6 @@ public interface IElementParameter {
     public void setNoContextAssist(boolean enable);
 
     public IElementParameter getClone();
+
+    public int getMaxlength();
 }

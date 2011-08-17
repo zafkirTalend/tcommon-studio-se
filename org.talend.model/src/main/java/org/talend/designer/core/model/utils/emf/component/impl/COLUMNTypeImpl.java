@@ -33,9 +33,9 @@ import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getPATTERN <em>PATTERN</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getPRECISION <em>PRECISION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#isREADONLY <em>READONLY</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getTYPE <em>TYPE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getRELATEDENTITY <em>RELATEDENTITY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getRELATIONSHIPTYPE <em>RELATIONSHIPTYPE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getTYPE <em>TYPE</em>}</li>
  * </ul>
  * </p>
  *
@@ -297,26 +297,6 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
     protected boolean rEADONLYESet;
 
     /**
-     * The default value of the '{@link #getTYPE() <em>TYPE</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getTYPE()
-     * @generated
-     * @ordered
-     */
-    protected static final String TYPE_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getTYPE() <em>TYPE</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getTYPE()
-     * @generated
-     * @ordered
-     */
-    protected String tYPE = TYPE_EDEFAULT;
-
-    /**
      * The default value of the '{@link #getRELATEDENTITY() <em>RELATEDENTITY</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -355,6 +335,26 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * @ordered
      */
     protected String rELATIONSHIPTYPE = RELATIONSHIPTYPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getTYPE() <em>TYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getTYPE()
+     * @generated
+     * @ordered
+     */
+    protected static final String TYPE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getTYPE() <em>TYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getTYPE()
+     * @generated
+     * @ordered
+     */
+    protected String tYPE = TYPE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -826,12 +826,12 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
                 return new Integer(getPRECISION());
             case ComponentPackage.COLUMN_TYPE__READONLY:
                 return isREADONLY() ? Boolean.TRUE : Boolean.FALSE;
-            case ComponentPackage.COLUMN_TYPE__TYPE:
-                return getTYPE();
             case ComponentPackage.COLUMN_TYPE__RELATEDENTITY:
                 return getRELATEDENTITY();
             case ComponentPackage.COLUMN_TYPE__RELATIONSHIPTYPE:
                 return getRELATIONSHIPTYPE();
+            case ComponentPackage.COLUMN_TYPE__TYPE:
+                return getTYPE();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -874,14 +874,14 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
             case ComponentPackage.COLUMN_TYPE__READONLY:
                 setREADONLY(((Boolean)newValue).booleanValue());
                 return;
-            case ComponentPackage.COLUMN_TYPE__TYPE:
-                setTYPE((String)newValue);
-                return;
             case ComponentPackage.COLUMN_TYPE__RELATEDENTITY:
                 setRELATEDENTITY((String)newValue);
                 return;
             case ComponentPackage.COLUMN_TYPE__RELATIONSHIPTYPE:
                 setRELATIONSHIPTYPE((String)newValue);
+                return;
+            case ComponentPackage.COLUMN_TYPE__TYPE:
+                setTYPE((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -925,14 +925,14 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
             case ComponentPackage.COLUMN_TYPE__READONLY:
                 unsetREADONLY();
                 return;
-            case ComponentPackage.COLUMN_TYPE__TYPE:
-                setTYPE(TYPE_EDEFAULT);
-                return;
             case ComponentPackage.COLUMN_TYPE__RELATEDENTITY:
                 setRELATEDENTITY(RELATEDENTITY_EDEFAULT);
                 return;
             case ComponentPackage.COLUMN_TYPE__RELATIONSHIPTYPE:
                 setRELATIONSHIPTYPE(RELATIONSHIPTYPE_EDEFAULT);
+                return;
+            case ComponentPackage.COLUMN_TYPE__TYPE:
+                setTYPE(TYPE_EDEFAULT);
                 return;
         }
         super.eUnset(featureID);
@@ -966,12 +966,12 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
                 return isSetPRECISION();
             case ComponentPackage.COLUMN_TYPE__READONLY:
                 return isSetREADONLY();
-            case ComponentPackage.COLUMN_TYPE__TYPE:
-                return TYPE_EDEFAULT == null ? tYPE != null : !TYPE_EDEFAULT.equals(tYPE);
             case ComponentPackage.COLUMN_TYPE__RELATEDENTITY:
                 return RELATEDENTITY_EDEFAULT == null ? rELATEDENTITY != null : !RELATEDENTITY_EDEFAULT.equals(rELATEDENTITY);
             case ComponentPackage.COLUMN_TYPE__RELATIONSHIPTYPE:
                 return RELATIONSHIPTYPE_EDEFAULT == null ? rELATIONSHIPTYPE != null : !RELATIONSHIPTYPE_EDEFAULT.equals(rELATIONSHIPTYPE);
+            case ComponentPackage.COLUMN_TYPE__TYPE:
+                return TYPE_EDEFAULT == null ? tYPE != null : !TYPE_EDEFAULT.equals(tYPE);
         }
         return super.eIsSet(featureID);
     }
@@ -1006,12 +1006,12 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
         if (pRECISIONESet) result.append(pRECISION); else result.append("<unset>");
         result.append(", rEADONLY: ");
         if (rEADONLYESet) result.append(rEADONLY); else result.append("<unset>");
-        result.append(", tYPE: ");
-        result.append(tYPE);
         result.append(", rELATEDENTITY: ");
         result.append(rELATEDENTITY);
         result.append(", rELATIONSHIPTYPE: ");
         result.append(rELATIONSHIPTYPE);
+        result.append(", tYPE: ");
+        result.append(tYPE);
         result.append(')');
         return result.toString();
     }

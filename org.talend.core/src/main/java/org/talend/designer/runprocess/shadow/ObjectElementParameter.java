@@ -836,4 +836,14 @@ public class ObjectElementParameter implements IElementParameter {
         return clone;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElementParameter#getMaxlength()
+     */
+    public int getMaxlength() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
 }

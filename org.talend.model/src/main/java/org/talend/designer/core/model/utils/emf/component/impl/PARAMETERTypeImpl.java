@@ -44,6 +44,7 @@ import org.talend.designer.core.model.utils.emf.component.TABLEType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getFIELD <em>FIELD</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getFILTER <em>FILTER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getGROUP <em>GROUP</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getMAXLENGTH <em>MAXLENGTH</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getNBLINES <em>NBLINES</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}</li>
@@ -279,6 +280,35 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * @ordered
      */
     protected String gROUP = GROUP_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getMAXLENGTH() <em>MAXLENGTH</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMAXLENGTH()
+     * @generated
+     * @ordered
+     */
+    protected static final int MAXLENGTH_EDEFAULT = 0;
+
+    /**
+     * The cached value of the '{@link #getMAXLENGTH() <em>MAXLENGTH</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMAXLENGTH()
+     * @generated
+     * @ordered
+     */
+    protected int mAXLENGTH = MAXLENGTH_EDEFAULT;
+
+    /**
+     * This is true if the MAXLENGTH attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean mAXLENGTHESet;
 
     /**
      * The default value of the '{@link #getNAME() <em>NAME</em>}' attribute.
@@ -926,6 +956,52 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public int getMAXLENGTH() {
+        return mAXLENGTH;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setMAXLENGTH(int newMAXLENGTH) {
+        int oldMAXLENGTH = mAXLENGTH;
+        mAXLENGTH = newMAXLENGTH;
+        boolean oldMAXLENGTHESet = mAXLENGTHESet;
+        mAXLENGTHESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__MAXLENGTH, oldMAXLENGTH, mAXLENGTH, !oldMAXLENGTHESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetMAXLENGTH() {
+        int oldMAXLENGTH = mAXLENGTH;
+        boolean oldMAXLENGTHESet = mAXLENGTHESet;
+        mAXLENGTH = MAXLENGTH_EDEFAULT;
+        mAXLENGTHESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.PARAMETER_TYPE__MAXLENGTH, oldMAXLENGTH, MAXLENGTH_EDEFAULT, oldMAXLENGTHESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetMAXLENGTH() {
+        return mAXLENGTHESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getNAME() {
         return nAME;
     }
@@ -1375,6 +1451,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return getFILTER();
             case ComponentPackage.PARAMETER_TYPE__GROUP:
                 return getGROUP();
+            case ComponentPackage.PARAMETER_TYPE__MAXLENGTH:
+                return new Integer(getMAXLENGTH());
             case ComponentPackage.PARAMETER_TYPE__NAME:
                 return getNAME();
             case ComponentPackage.PARAMETER_TYPE__NBLINES:
@@ -1449,6 +1527,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return;
             case ComponentPackage.PARAMETER_TYPE__GROUP:
                 setGROUP((String)newValue);
+                return;
+            case ComponentPackage.PARAMETER_TYPE__MAXLENGTH:
+                setMAXLENGTH(((Integer)newValue).intValue());
                 return;
             case ComponentPackage.PARAMETER_TYPE__NAME:
                 setNAME((String)newValue);
@@ -1534,6 +1615,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__GROUP:
                 setGROUP(GROUP_EDEFAULT);
                 return;
+            case ComponentPackage.PARAMETER_TYPE__MAXLENGTH:
+                unsetMAXLENGTH();
+                return;
             case ComponentPackage.PARAMETER_TYPE__NAME:
                 setNAME(NAME_EDEFAULT);
                 return;
@@ -1606,6 +1690,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return FILTER_EDEFAULT == null ? fILTER != null : !FILTER_EDEFAULT.equals(fILTER);
             case ComponentPackage.PARAMETER_TYPE__GROUP:
                 return GROUP_EDEFAULT == null ? gROUP != null : !GROUP_EDEFAULT.equals(gROUP);
+            case ComponentPackage.PARAMETER_TYPE__MAXLENGTH:
+                return isSetMAXLENGTH();
             case ComponentPackage.PARAMETER_TYPE__NAME:
                 return NAME_EDEFAULT == null ? nAME != null : !NAME_EDEFAULT.equals(nAME);
             case ComponentPackage.PARAMETER_TYPE__NBLINES:
@@ -1660,6 +1746,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
         result.append(fILTER);
         result.append(", gROUP: ");
         result.append(gROUP);
+        result.append(", mAXLENGTH: ");
+        if (mAXLENGTHESet) result.append(mAXLENGTH); else result.append("<unset>");
         result.append(", nAME: ");
         result.append(nAME);
         result.append(", nBLINES: ");

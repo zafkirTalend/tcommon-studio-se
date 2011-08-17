@@ -36,13 +36,13 @@ import org.talend.designer.core.model.utils.emf.component.INSTALLType;
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getINSTALL <em>INSTALL</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getURL <em>URL</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getBundleID <em>Bundle ID</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getMESSAGE <em>MESSAGE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getMODULE <em>MODULE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#isREQUIRED <em>REQUIRED</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#isSHOW <em>SHOW</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getUrlPath <em>Url Path</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getBundleID <em>Bundle ID</em>}</li>
  * </ul>
  * </p>
  *
@@ -68,6 +68,26 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      * @ordered
      */
     protected EList uRL;
+
+    /**
+     * The default value of the '{@link #getBundleID() <em>Bundle ID</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getBundleID()
+     * @generated
+     * @ordered
+     */
+    protected static final String BUNDLE_ID_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getBundleID() <em>Bundle ID</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getBundleID()
+     * @generated
+     * @ordered
+     */
+    protected String bundleID = BUNDLE_ID_EDEFAULT;
 
     /**
      * The default value of the '{@link #getMESSAGE() <em>MESSAGE</em>}' attribute.
@@ -206,26 +226,6 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      * @ordered
      */
     protected String urlPath = URL_PATH_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #getBundleID() <em>Bundle ID</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getBundleID()
-     * @generated
-     * @ordered
-     */
-    protected static final String BUNDLE_ID_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getBundleID() <em>Bundle ID</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getBundleID()
-     * @generated
-     * @ordered
-     */
-    protected String bundleID = BUNDLE_ID_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -493,6 +493,8 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
                 return getINSTALL();
             case ComponentPackage.IMPORT_TYPE__URL:
                 return getURL();
+            case ComponentPackage.IMPORT_TYPE__BUNDLE_ID:
+                return getBundleID();
             case ComponentPackage.IMPORT_TYPE__MESSAGE:
                 return getMESSAGE();
             case ComponentPackage.IMPORT_TYPE__MODULE:
@@ -505,8 +507,6 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
                 return isSHOW() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.IMPORT_TYPE__URL_PATH:
                 return getUrlPath();
-            case ComponentPackage.IMPORT_TYPE__BUNDLE_ID:
-                return getBundleID();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -528,6 +528,9 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
                 getURL().clear();
                 getURL().addAll((Collection)newValue);
                 return;
+            case ComponentPackage.IMPORT_TYPE__BUNDLE_ID:
+                setBundleID((String)newValue);
+                return;
             case ComponentPackage.IMPORT_TYPE__MESSAGE:
                 setMESSAGE((String)newValue);
                 return;
@@ -545,9 +548,6 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
                 return;
             case ComponentPackage.IMPORT_TYPE__URL_PATH:
                 setUrlPath((String)newValue);
-                return;
-            case ComponentPackage.IMPORT_TYPE__BUNDLE_ID:
-                setBundleID((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -567,6 +567,9 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
             case ComponentPackage.IMPORT_TYPE__URL:
                 getURL().clear();
                 return;
+            case ComponentPackage.IMPORT_TYPE__BUNDLE_ID:
+                setBundleID(BUNDLE_ID_EDEFAULT);
+                return;
             case ComponentPackage.IMPORT_TYPE__MESSAGE:
                 setMESSAGE(MESSAGE_EDEFAULT);
                 return;
@@ -585,9 +588,6 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
             case ComponentPackage.IMPORT_TYPE__URL_PATH:
                 setUrlPath(URL_PATH_EDEFAULT);
                 return;
-            case ComponentPackage.IMPORT_TYPE__BUNDLE_ID:
-                setBundleID(BUNDLE_ID_EDEFAULT);
-                return;
         }
         super.eUnset(featureID);
     }
@@ -604,6 +604,8 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
                 return iNSTALL != null && !iNSTALL.isEmpty();
             case ComponentPackage.IMPORT_TYPE__URL:
                 return uRL != null && !uRL.isEmpty();
+            case ComponentPackage.IMPORT_TYPE__BUNDLE_ID:
+                return BUNDLE_ID_EDEFAULT == null ? bundleID != null : !BUNDLE_ID_EDEFAULT.equals(bundleID);
             case ComponentPackage.IMPORT_TYPE__MESSAGE:
                 return MESSAGE_EDEFAULT == null ? mESSAGE != null : !MESSAGE_EDEFAULT.equals(mESSAGE);
             case ComponentPackage.IMPORT_TYPE__MODULE:
@@ -616,8 +618,6 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
                 return isSetSHOW();
             case ComponentPackage.IMPORT_TYPE__URL_PATH:
                 return URL_PATH_EDEFAULT == null ? urlPath != null : !URL_PATH_EDEFAULT.equals(urlPath);
-            case ComponentPackage.IMPORT_TYPE__BUNDLE_ID:
-                return BUNDLE_ID_EDEFAULT == null ? bundleID != null : !BUNDLE_ID_EDEFAULT.equals(bundleID);
         }
         return super.eIsSet(featureID);
     }
@@ -634,6 +634,8 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (uRL: ");
         result.append(uRL);
+        result.append(", bundleID: ");
+        result.append(bundleID);
         result.append(", mESSAGE: ");
         result.append(mESSAGE);
         result.append(", mODULE: ");
@@ -646,8 +648,6 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
         if (sHOWESet) result.append(sHOW); else result.append("<unset>");
         result.append(", urlPath: ");
         result.append(urlPath);
-        result.append(", bundleID: ");
-        result.append(bundleID);
         result.append(')');
         return result.toString();
     }

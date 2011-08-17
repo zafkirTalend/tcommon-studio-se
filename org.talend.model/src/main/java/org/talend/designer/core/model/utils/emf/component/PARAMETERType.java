@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getFIELD <em>FIELD</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getFILTER <em>FILTER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getGROUP <em>GROUP</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getMAXLENGTH <em>MAXLENGTH</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNBLINES <em>NBLINES</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}</li>
@@ -60,8 +61,8 @@ public interface PARAMETERType extends EObject {
      * <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * 
-     * 							Used for TEXT or CHECK field
-     * 						
+     *   					Used for TEXT or CHECK field
+     *   				
      * <!-- end-model-doc -->
      * @return the value of the '<em>DEFAULT</em>' containment reference list.
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_DEFAULT()
@@ -81,8 +82,8 @@ public interface PARAMETERType extends EObject {
      * <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * 
-     * 							Used for CLOSED_LIST or TABLE field
-     * 						
+     *   					Used for CLOSED_LIST or TABLE field
+     *   				
      * <!-- end-model-doc -->
      * @return the value of the '<em>ITEMS</em>' containment reference.
      * @see #setITEMS(ITEMSType)
@@ -110,8 +111,8 @@ public interface PARAMETERType extends EObject {
      * <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * 
-     * 							Used only for SCHEMA_TYPE field
-     * 						
+     *   					Used only for SCHEMA_TYPE field
+     *   				
      * <!-- end-model-doc -->
      * @return the value of the '<em>TABLE</em>' containment reference list.
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_TABLE()
@@ -127,8 +128,9 @@ public interface PARAMETERType extends EObject {
      * <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * 
-     * 							This will run an external java code in a given jar.
-     * 						
+     *   					This will run an external java code in a given
+     *   					jar.
+     *   				
      * <!-- end-model-doc -->
      * @return the value of the '<em>JAVACOMMAND</em>' containment reference.
      * @see #setJAVACOMMAND(JAVACOMMANDType)
@@ -418,6 +420,60 @@ public interface PARAMETERType extends EObject {
      * @generated
      */
     void setGROUP(String value);
+
+    /**
+     * Returns the value of the '<em><b>MAXLENGTH</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>MAXLENGTH</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>MAXLENGTH</em>' attribute.
+     * @see #isSetMAXLENGTH()
+     * @see #unsetMAXLENGTH()
+     * @see #setMAXLENGTH(int)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_MAXLENGTH()
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     *        extendedMetaData="kind='attribute' name='MAX_LENGTH' namespace='##targetNamespace'"
+     * @generated
+     */
+    int getMAXLENGTH();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getMAXLENGTH <em>MAXLENGTH</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>MAXLENGTH</em>' attribute.
+     * @see #isSetMAXLENGTH()
+     * @see #unsetMAXLENGTH()
+     * @see #getMAXLENGTH()
+     * @generated
+     */
+    void setMAXLENGTH(int value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getMAXLENGTH <em>MAXLENGTH</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetMAXLENGTH()
+     * @see #getMAXLENGTH()
+     * @see #setMAXLENGTH(int)
+     * @generated
+     */
+    void unsetMAXLENGTH();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getMAXLENGTH <em>MAXLENGTH</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>MAXLENGTH</em>' attribute is set.
+     * @see #unsetMAXLENGTH()
+     * @see #getMAXLENGTH()
+     * @see #setMAXLENGTH(int)
+     * @generated
+     */
+    boolean isSetMAXLENGTH();
 
     /**
      * Returns the value of the '<em><b>NAME</b></em>' attribute.
