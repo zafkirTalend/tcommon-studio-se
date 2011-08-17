@@ -1,0 +1,38 @@
+<project name="server" default="server" basedir=".">
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+    <target name="os">
+    	<condition property="is.unix">
+    		<os family="unix"/>
+    	</condition>
+    	<condition property="is.windows">
+    		<os family="windows"/>
+    	</condition>
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: launch-zookeeper                   
+         - - - - - - - - - - - - - - - - - -->
+    <target name="server" depends="os">
+    	<if>
+    		<isset property="is.windows"/>
+    		<then>
+    			<exec executable="cmd" dir="${server.home}/bin"
+    				spawn="true">
+    				<arg value="/c"/>
+					<arg value="${command}"/>
+					<arg value="${action}"/>
+    			</exec>
+    		</then>
+    		
+    		<else>
+    			<exec executable="sh" dir="${server.home}/bin"
+    				spawn="true">
+    				<arg value="-c"/>
+    				<arg value="sh ${command} ${action}"/>
+    			</exec>
+    		</else>
+    	</if>
+    </target>
+
+</project>
+
