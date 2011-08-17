@@ -653,20 +653,152 @@ public class ConnectionHelper {
         // return Boolean.valueOf(taggedValue.getValue());
     }
 
+    /**
+     * DOC xqliu Comment method "isOracle".
+     * 
+     * @param connection
+     * @return
+     */
     public static boolean isOracle(Connection connection) {
         DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(connection);
         if (dbConn != null) {
-            String databaseType = dbConn.getDatabaseType() == null ? "" : dbConn.getDatabaseType();
-            return databaseType.toLowerCase().contains("oracle");
+            String databaseType = dbConn.getDatabaseType() == null ? "" : dbConn.getDatabaseType(); //$NON-NLS-1$
+            return databaseType.toLowerCase().contains("oracle"); //$NON-NLS-1$
         }
         return false;
     }
 
+    /**
+     * DOC xqliu Comment method "isMysql".
+     * 
+     * @param connection
+     * @return
+     */
+    public static boolean isMysql(Connection connection) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(connection);
+        if (dbConn != null) {
+            String databaseType = dbConn.getDatabaseType() == null ? "" : dbConn.getDatabaseType(); //$NON-NLS-1$
+            return databaseType.toLowerCase().contains("mysql"); //$NON-NLS-1$
+        }
+        return false;
+    }
+
+    /**
+     * DOC xqliu Comment method "isMssql".
+     * 
+     * @param connection
+     * @return
+     */
+    public static boolean isMssql(Connection connection) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(connection);
+        if (dbConn != null) {
+            String databaseType = dbConn.getDatabaseType() == null ? "" : dbConn.getDatabaseType(); //$NON-NLS-1$
+            return databaseType.toLowerCase().contains("sql server"); //$NON-NLS-1$
+        }
+        return false;
+    }
+
+    /**
+     * DOC xqliu Comment method "isPostgresql".
+     * 
+     * @param connection
+     * @return
+     */
     public static boolean isPostgresql(Connection connection) {
         DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(connection);
         if (dbConn != null) {
-            String databaseType = dbConn.getDatabaseType() == null ? "" : dbConn.getDatabaseType();
-            return databaseType.toLowerCase().contains("postgresql");
+            String databaseType = dbConn.getDatabaseType() == null ? "" : dbConn.getDatabaseType(); //$NON-NLS-1$
+            return databaseType.toLowerCase().contains("postgresql"); //$NON-NLS-1$
+        }
+        return false;
+    }
+
+    /**
+     * DOC xqliu Comment method "isInformix".
+     * 
+     * @param connection
+     * @return
+     */
+    public static boolean isInformix(Connection connection) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(connection);
+        if (dbConn != null) {
+            String databaseType = dbConn.getDatabaseType() == null ? "" : dbConn.getDatabaseType(); //$NON-NLS-1$
+            return databaseType.toLowerCase().contains("informix"); //$NON-NLS-1$
+        }
+        return false;
+    }
+
+    /**
+     * DOC xqliu Comment method "isIngress".
+     * 
+     * @param connection
+     * @return
+     */
+    public static boolean isIngress(Connection connection) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(connection);
+        if (dbConn != null) {
+            String databaseType = dbConn.getDatabaseType() == null ? "" : dbConn.getDatabaseType(); //$NON-NLS-1$
+            return databaseType.toLowerCase().contains("ingres"); //$NON-NLS-1$
+        }
+        return false;
+    }
+
+    /**
+     * DOC xqliu Comment method "isDb2".
+     * 
+     * @param connection
+     * @return
+     */
+    public static boolean isDb2(Connection connection) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(connection);
+        if (dbConn != null) {
+            String databaseType = dbConn.getDatabaseType() == null ? "" : dbConn.getDatabaseType(); //$NON-NLS-1$
+            return databaseType.toLowerCase().contains("db2"); //$NON-NLS-1$
+        }
+        return false;
+    }
+
+    /**
+     * DOC xqliu Comment method "isSybase".
+     * 
+     * @param connection
+     * @return
+     */
+    public static boolean isSybase(Connection connection) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(connection);
+        if (dbConn != null) {
+            String databaseType = dbConn.getDatabaseType() == null ? "" : dbConn.getDatabaseType(); //$NON-NLS-1$
+            return databaseType.toLowerCase().contains("sybase"); //$NON-NLS-1$
+        }
+        return false;
+    }
+
+    /**
+     * DOC xqliu Comment method "isTeradata".
+     * 
+     * @param connection
+     * @return
+     */
+    public static boolean isTeradata(Connection connection) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(connection);
+        if (dbConn != null) {
+            String databaseType = dbConn.getDatabaseType() == null ? "" : dbConn.getDatabaseType(); //$NON-NLS-1$
+            return databaseType.toLowerCase().contains("teradata"); //$NON-NLS-1$
+        }
+        return false;
+    }
+
+    /**
+     * DOC xqliu Comment method "isNetezza".
+     * 
+     * @param connection
+     * @return
+     */
+    public static boolean isNetezza(Connection connection) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(connection);
+        if (dbConn != null) {
+            String databaseType = dbConn.getDatabaseType() == null ? "" : dbConn.getDatabaseType(); //$NON-NLS-1$
+            return databaseType.toLowerCase().contains("netezza"); //$NON-NLS-1$
         }
         return false;
     }
