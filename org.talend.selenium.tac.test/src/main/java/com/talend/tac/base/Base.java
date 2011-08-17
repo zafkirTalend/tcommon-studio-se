@@ -110,7 +110,7 @@ public class Base {
 				
 				try {
 					selenium.captureScreenshot(url + File.separator + name);
-					System.out.println(url + File.separator + name);
+//					System.out.println(url + File.separator + name);
 				} catch (Exception e) {
 				}
 				
@@ -451,7 +451,7 @@ public class Base {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-//		System.out.println("URL -- " + fileUrl);
+		System.out.println("URL -- " + fileUrl);
 		return fileUrl;
 	}
 	
