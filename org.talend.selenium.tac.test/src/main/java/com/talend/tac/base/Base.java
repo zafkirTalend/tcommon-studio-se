@@ -110,7 +110,7 @@ public class Base {
 				
 				try {
 					selenium.captureScreenshot(url + File.separator + name);
-//					System.out.println(url + File.separator + name);
+					System.out.println(url + File.separator + name);
 				} catch (Exception e) {
 				}
 				
