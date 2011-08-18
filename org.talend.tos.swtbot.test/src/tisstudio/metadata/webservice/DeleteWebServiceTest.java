@@ -47,7 +47,7 @@ public class DeleteWebServiceTest extends TalendSwtBotForTos {
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.WEB_SERVICE);
-        Utilities.createWebService(TYPE, WEBSERVICENAME, treeNode, gefBot);
+        Utilities.createWebService(TYPE, WEBSERVICENAME, treeNode);
     }
 
     @Test

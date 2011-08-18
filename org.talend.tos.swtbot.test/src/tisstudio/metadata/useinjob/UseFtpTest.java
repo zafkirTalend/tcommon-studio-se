@@ -66,7 +66,7 @@ public class UseFtpTest extends TalendSwtBotForTos {
         jobItem = Utilities.createJob(JOBNAME, jobNode);
         jobEditor = gefBot.gefEditor("Job " + jobItem.getText());
         metadataNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FTP);
-        metadataItem = Utilities.createFTP(METADATA_NAME, gefBot, metadataNode);
+        metadataItem = Utilities.createFTP(METADATA_NAME, metadataNode);
     }
 
     @Test
@@ -74,8 +74,8 @@ public class UseFtpTest extends TalendSwtBotForTos {
         TalendFtpItem ftpItem = new TalendFtpItem();
         ftpItem.setItem(metadataItem);
         ftpItem.setComponentType("tFTPConnection");
-        ftpItem.setRightResult("");
-        Utilities.dndMetadataOntoJob(gefBot, jobEditor, metadataItem, ftpItem.getComponentType(), new Point(100, 100));
+        ftpItem.setExpectResult("");
+        Utilities.dndMetadataOntoJob(jobEditor, metadataItem, ftpItem.getComponentType(), new Point(100, 100));
         JobHelper.runJob(JOBNAME);
 
         String result = gefBot.styledText().getText();

@@ -12,10 +12,18 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
+import org.talend.swtbot.Utilities;
 
 /**
- * DOC fzhong  class global comment. Detailled comment
+ * DOC fzhong class global comment. Detailled comment
  */
 public class TalendExcelFileItem extends TalendFileItem {
 
+    public TalendExcelFileItem() {
+        super(Utilities.TalendItemType.FILE_EXCEL, System.getProperty("fileExcel.filepath"));
+    }
+
+    public TalendExcelFileItem(String itemName) {
+        super(itemName, Utilities.TalendItemType.FILE_EXCEL, System.getProperty("fileExcel.filepath"));
+    }
 }

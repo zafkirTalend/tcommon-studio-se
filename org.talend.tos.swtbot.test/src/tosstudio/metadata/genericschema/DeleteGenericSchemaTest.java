@@ -45,7 +45,7 @@ public class DeleteGenericSchemaTest extends TalendSwtBotForTos {
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.GENERIC_SCHEMAS);
-        Utilities.createGenericSchema(SCHEMANAME, treeNode, gefBot);
+        Utilities.createGenericSchema(SCHEMANAME, treeNode);
     }
 
     @Test

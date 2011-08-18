@@ -49,7 +49,7 @@ public class CreateContextTest extends TalendSwtBotForTos {
 
     @Test
     public void createContext() {
-        Utilities.createContext(CONTEXTNAME, treeNode, gefBot);
+        Utilities.createContext(CONTEXTNAME, treeNode);
     }
 
     @After

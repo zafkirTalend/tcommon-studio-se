@@ -47,7 +47,7 @@ public class NotCreateNewItemInRecycleBinTest extends TalendSwtBotForTos {
         view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.BUSINESS_MODEL);
-        Utilities.createFolder(FOLDERNAME, treeNode, gefBot);
+        Utilities.createFolder(FOLDERNAME, treeNode);
         Utilities.createBusinessModel(BUSINESS_MODEL_NAME, treeNode.getNode(FOLDERNAME));
         gefBot.editorByTitle("Model " + BUSINESS_MODEL_NAME).close();
         Utilities.delete(treeNode, FOLDERNAME, null, null);

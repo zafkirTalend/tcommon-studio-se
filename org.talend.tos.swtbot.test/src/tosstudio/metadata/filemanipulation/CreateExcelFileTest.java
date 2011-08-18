@@ -52,7 +52,7 @@ public class CreateExcelFileTest extends TalendSwtBotForTos {
 
     @Test
     public void createExcelFile() throws IOException, URISyntaxException {
-        Utilities.createFileExcel(FILENAME, treeNode, gefBot);
+        Utilities.createFileExcel(FILENAME, treeNode);
     }
 
     @After

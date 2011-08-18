@@ -52,7 +52,7 @@ public class CreateDelimitedFileTest extends TalendSwtBotForTos {
 
     @Test
     public void createDelimitedFile() throws IOException, URISyntaxException {
-        Utilities.createFileDelimited(FILENAME, treeNode, gefBot);
+        Utilities.createFileDelimited(FILENAME, treeNode);
     }
 
     @After

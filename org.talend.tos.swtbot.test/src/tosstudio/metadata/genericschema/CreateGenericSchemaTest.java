@@ -49,7 +49,7 @@ public class CreateGenericSchemaTest extends TalendSwtBotForTos {
 
     @Test
     public void createGenericSchema() {
-        Utilities.createGenericSchema(SCHEMANAME, treeNode, gefBot);
+        Utilities.createGenericSchema(SCHEMANAME, treeNode);
     }
 
     @After

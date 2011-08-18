@@ -52,7 +52,7 @@ public class CreatePositionalFileTest extends TalendSwtBotForTos {
 
     @Test
     public void createPositionalFile() throws IOException, URISyntaxException {
-        Utilities.createFilePositional(FILENAME, treeNode, gefBot);
+        Utilities.createFilePositional(FILENAME, treeNode);
     }
 
     @After

@@ -49,7 +49,7 @@ public class CreateFolderForJobTest extends TalendSwtBotForTos {
 
     @Test
     public void createFolderForJob() {
-        Utilities.createFolder(FOLDERNAME, treeNode, gefBot);
+        Utilities.createFolder(FOLDERNAME, treeNode);
     }
 
     @After

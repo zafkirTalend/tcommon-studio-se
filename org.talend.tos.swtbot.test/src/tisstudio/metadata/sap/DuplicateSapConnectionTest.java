@@ -47,7 +47,7 @@ public class DuplicateSapConnectionTest extends TalendSwtBotForTos {
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.SAP_CONNECTIONS);
-        Utilities.createSapConnection(SAPNAME, treeNode, gefBot);
+        Utilities.createSapConnection(SAPNAME, treeNode);
     }
 
     @Test

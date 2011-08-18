@@ -12,10 +12,18 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
+import org.talend.swtbot.Utilities;
 
 /**
- * DOC fzhong  class global comment. Detailled comment
+ * DOC fzhong class global comment. Detailled comment
  */
 public class TalendFtpItem extends TalendMetadataItem {
 
+    public TalendFtpItem() {
+        super(Utilities.TalendItemType.FTP);
+    }
+
+    public TalendFtpItem(String itemName) {
+        super(itemName, Utilities.TalendItemType.FTP);
+    }
 }

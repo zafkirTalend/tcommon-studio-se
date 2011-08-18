@@ -49,9 +49,9 @@ public class RetrieveSchemaInContextModeTest extends TalendSwtBotForTos {
         view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.DB_CONNECTIONS);
-        Utilities.createDbConnection(gefBot, treeNode, Utilities.DbConnectionType.MYSQL, DBNAME);
+        Utilities.createDbConnection(treeNode, Utilities.DbConnectionType.MYSQL, DBNAME);
         String sql = "create table " + TABLENAME + "(id int, name varchar(20))";
-        Utilities.executeSQL(gefBot, treeNode.getNode(DBNAME + " 0.1"), sql);
+        Utilities.executeSQL(treeNode.getNode(DBNAME + " 0.1"), sql);
     }
 
     @Test
@@ -75,7 +75,7 @@ public class RetrieveSchemaInContextModeTest extends TalendSwtBotForTos {
             tempShell.close();
             Assert.fail(e.getMessage());
         }
-        Utilities.retrieveDbSchema(gefBot, treeNode, DBNAME, TABLENAME);
+        Utilities.retrieveDbSchema(treeNode, DBNAME, TABLENAME);
 
         tableItem = treeNode.expandNode(DBNAME + " 0.1", "Table schemas").getNode(TABLENAME);
         Assert.assertNotNull("schemas did not retrieve", tableItem);
@@ -85,7 +85,7 @@ public class RetrieveSchemaInContextModeTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() {
         String sql = "drop table " + TABLENAME;
-        Utilities.executeSQL(gefBot, treeNode.expandNode(DBNAME + " 0.1"), sql);
+        Utilities.executeSQL(treeNode.expandNode(DBNAME + " 0.1"), sql);
         Utilities.cleanUpRepository(treeNode);
         Utilities.emptyRecycleBin();
     }

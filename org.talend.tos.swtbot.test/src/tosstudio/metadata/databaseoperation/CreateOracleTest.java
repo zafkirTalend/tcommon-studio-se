@@ -48,7 +48,7 @@ public class CreateOracleTest extends TalendSwtBotForTos {
 
     @Test
     public void createOracle() {
-        Utilities.createDbConnection(gefBot, treeNode, Utilities.DbConnectionType.ORACLE, DBNAME);
+        Utilities.createDbConnection(treeNode, Utilities.DbConnectionType.ORACLE, DBNAME);
     }
 
     @After

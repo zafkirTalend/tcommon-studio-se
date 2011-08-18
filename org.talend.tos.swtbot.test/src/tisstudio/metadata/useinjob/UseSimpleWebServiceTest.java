@@ -64,7 +64,7 @@ public class UseSimpleWebServiceTest extends TalendSwtBotForTos {
         jobItem = Utilities.createJob(JOBNAME, jobNode);
         jobEditor = gefBot.gefEditor("Job " + jobItem.getText());
         metadataNode = Utilities.getTalendItemNode(Utilities.TalendItemType.WEB_SERVICE);
-        metadataItem = Utilities.createWebService("simple", METADATA_NAME, metadataNode, gefBot);
+        metadataItem = Utilities.createWebService("simple", METADATA_NAME, metadataNode);
     }
 
     @Test
@@ -76,7 +76,7 @@ public class UseSimpleWebServiceTest extends TalendSwtBotForTos {
         for (int i = 0; i < resultArray.length; i++) {
             results += resultArray[i] + ",";
         }
-        wsItem.setRightResult(results);
+        wsItem.setExpectResult(results);
         MetadataHelper.output2Console(jobEditor, wsItem);
 
         String result = gefBot.styledText().getText();

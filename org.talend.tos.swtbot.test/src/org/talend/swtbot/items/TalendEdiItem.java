@@ -39,12 +39,11 @@ public class TalendEdiItem extends TalendMetadataItem {
     private String filePath;
 
     public TalendEdiItem() {
-        initialise(Utilities.TalendItemType.EDI);
+        super(Utilities.TalendItemType.EDI);
     }
 
     public TalendEdiItem(String itemName, String standard, String release, String[] schema) {
-        initialise(Utilities.TalendItemType.EDI);
-        this.itemName = itemName;
+        super(itemName, Utilities.TalendItemType.EDI);
         this.standard = standard;
         this.release = release;
         this.schemas = schema;

@@ -48,7 +48,7 @@ public class CreateFtpTest extends TalendSwtBotForTos {
 
     @Test
     public void creatFtp() {
-        Utilities.createFTP(FTPNAME, gefBot, treeNode);
+        Utilities.createFTP(FTPNAME, treeNode);
     }
 
     @After

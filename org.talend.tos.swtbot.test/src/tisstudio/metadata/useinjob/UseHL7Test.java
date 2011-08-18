@@ -64,7 +64,7 @@ public class UseHL7Test extends TalendSwtBotForTos {
         jobItem = Utilities.createJob(JOBNAME, jobNode);
         jobEditor = gefBot.gefEditor("Job " + jobItem.getText());
         metadataNode = Utilities.getTalendItemNode(Utilities.TalendItemType.HL7);
-        metadataItem = Utilities.createHL7("input", gefBot, metadataNode, METADATA_NAME);
+        metadataItem = Utilities.createHL7("input", metadataNode, METADATA_NAME);
     }
 
     @Test

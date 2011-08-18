@@ -12,10 +12,18 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
+import org.talend.swtbot.Utilities;
 
 /**
- * DOC fzhong  class global comment. Detailled comment
+ * DOC fzhong class global comment. Detailled comment
  */
 public class TalendLdifFileItem extends TalendFileItem {
 
+    public TalendLdifFileItem() {
+        super(Utilities.TalendItemType.FILE_LDIF, System.getProperty("fileLdif.filepath"));
+    }
+
+    public TalendLdifFileItem(String itemName) {
+        super(itemName, Utilities.TalendItemType.FILE_LDIF, System.getProperty("fileLdif.filepath"));
+    }
 }

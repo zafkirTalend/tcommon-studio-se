@@ -12,10 +12,18 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
+import org.talend.swtbot.Utilities;
 
 /**
- * DOC fzhong  class global comment. Detailled comment
+ * DOC fzhong class global comment. Detailled comment
  */
 public class TalendRegexFileItem extends TalendFileItem {
 
+    public TalendRegexFileItem() {
+        super(Utilities.TalendItemType.FILE_REGEX, System.getProperty("fileRegex.filepath"));
+    }
+
+    public TalendRegexFileItem(String itemName) {
+        super(itemName, Utilities.TalendItemType.FILE_REGEX, System.getProperty("fileRegex.filepath"));
+    }
 }

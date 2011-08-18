@@ -23,11 +23,20 @@ import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Assert;
+import org.talend.swtbot.Utilities;
 
 /**
  * DOC fzhong class global comment. Detailled comment
  */
 public class TalendCopybookItem extends TalendMetadataItem {
+
+    public TalendCopybookItem() {
+        super(Utilities.TalendItemType.COPYBOOK);
+    }
+
+    public TalendCopybookItem(String itemName) {
+        super(itemName, Utilities.TalendItemType.COPYBOOK);
+    }
 
     public Map<String, SWTBotTreeItem> retrieveSchema(String... schemaName) {
         Map<String, SWTBotTreeItem> schemas = new HashMap<String, SWTBotTreeItem>();

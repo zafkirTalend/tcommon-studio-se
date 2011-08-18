@@ -48,7 +48,7 @@ public class CreateTeradataTest extends TalendSwtBotForTos {
 
     @Test
     public void createTeradata() {
-        Utilities.createDbConnection(gefBot, treeNode, Utilities.DbConnectionType.TERADATA, DBNAME);
+        Utilities.createDbConnection(treeNode, Utilities.DbConnectionType.TERADATA, DBNAME);
     }
 
     @After

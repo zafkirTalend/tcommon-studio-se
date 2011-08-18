@@ -48,7 +48,7 @@ public class CreateVerticaTest extends TalendSwtBotForTos {
 
     @Test
     public void createVertica() {
-        Utilities.createDbConnection(gefBot, treeNode, Utilities.DbConnectionType.VERTICA, DBNAME);
+        Utilities.createDbConnection(treeNode, Utilities.DbConnectionType.VERTICA, DBNAME);
     }
 
     @After

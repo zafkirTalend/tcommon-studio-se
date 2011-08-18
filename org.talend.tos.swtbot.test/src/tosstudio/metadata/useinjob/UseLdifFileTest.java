@@ -64,7 +64,7 @@ public class UseLdifFileTest extends TalendSwtBotForTos {
         jobItem = Utilities.createJob(JOBNAME, jobNode);
         jobEditor = gefBot.gefEditor("Job " + jobItem.getText());
         metadataNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FILE_LDIF);
-        fileItem = Utilities.createFileLdif(FILENAME, metadataNode, gefBot);
+        fileItem = Utilities.createFileLdif(FILENAME, metadataNode);
     }
 
     @Test

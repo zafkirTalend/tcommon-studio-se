@@ -12,10 +12,18 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
+import org.talend.swtbot.Utilities;
 
 /**
- * DOC fzhong  class global comment. Detailled comment
+ * DOC fzhong class global comment. Detailled comment
  */
 public class TalendWebServiceItem extends TalendMetadataItem {
 
+    public TalendWebServiceItem() {
+        super(Utilities.TalendItemType.WEB_SERVICE);
+    }
+
+    public TalendWebServiceItem(String itemName) {
+        super(itemName, Utilities.TalendItemType.WEB_SERVICE);
+    }
 }

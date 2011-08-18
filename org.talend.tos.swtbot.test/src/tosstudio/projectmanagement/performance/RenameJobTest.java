@@ -53,7 +53,7 @@ public class RenameJobTest extends TalendSwtBotForTos {
     @Test
     public void renameJob() {
         gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
-        Utilities.renameJob(gefBot, treeNode, JOBNAME, NEW_JOBNAME);
+        Utilities.renameJob(treeNode, JOBNAME, NEW_JOBNAME);
     }
 
     @After

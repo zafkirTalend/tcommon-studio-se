@@ -48,7 +48,7 @@ public class CopyPastePositionalFileTest extends TalendSwtBotForTos {
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FILE_POSITIONAL);
-        Utilities.createFilePositional(FILENAME, treeNode, gefBot);
+        Utilities.createFilePositional(FILENAME, treeNode);
     }
 
     @Test

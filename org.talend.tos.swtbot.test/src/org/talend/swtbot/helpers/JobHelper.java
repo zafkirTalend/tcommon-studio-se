@@ -12,14 +12,19 @@
 // ============================================================================
 package org.talend.swtbot.helpers;
 
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.junit.Assert;
+import org.talend.swtbot.Utilities;
 
 /**
  * DOC fzhong class global comment. Detailled comment
  */
 public class JobHelper implements Helper {
+
+    private static String executionResult;
 
     /**
      * DOC fzhong Comment method "filterStatistics". Filter all statistics for the execution result.
@@ -59,5 +64,33 @@ public class JobHelper implements Helper {
                 return "job did not finish running";
             }
         }, 60000);
+
+        executionResult = GEFBOT.styledText().getText();
     }
+
+    public static String getExecutionResult() {
+        return executionResult;
+    }
+
+    /**
+     * DOC fzhong Comment method "useTLogRow". Link input component to tLogRow.
+     * 
+     * @param jobEditor
+     * @param component the input component
+     * @param rowName The name of row in the context menu of component. "Main" as default.
+     */
+    public static void useTLogRow(SWTBotGefEditor jobEditor, SWTBotGefEditPart component, String rowName) {
+        Utilities.dndPaletteToolOntoJob(jobEditor, "tLogRow", new Point(300, 100));
+        jobEditor.select(component).setFocus();
+        jobEditor.clickContextMenu("Row").clickContextMenu(rowName);
+        SWTBotGefEditPart tlogRow = UTIL.getTalendComponentPart(jobEditor, "tLogRow_1");
+        Assert.assertNotNull("can not get component 'tLogRow'", tlogRow);
+        jobEditor.click(tlogRow);
+        jobEditor.save();
+    }
+
+    public static void useTLogRow(SWTBotGefEditor jobEditor, SWTBotGefEditPart component) {
+        useTLogRow(jobEditor, component, "Main");
+    }
+
 }

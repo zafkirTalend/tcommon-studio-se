@@ -52,7 +52,7 @@ public class CreateXmlFileTest extends TalendSwtBotForTos {
 
     @Test
     public void createXmlFile() throws IOException, URISyntaxException {
-        Utilities.createFileXml(FILENAME, treeNode, gefBot);
+        Utilities.createFileXml(FILENAME, treeNode);
     }
 
     @After

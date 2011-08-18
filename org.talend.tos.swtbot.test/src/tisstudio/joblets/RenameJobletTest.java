@@ -52,7 +52,7 @@ public class RenameJobletTest extends TalendSwtBotForTos {
 
     @Test
     public void renameJoblet() {
-        Utilities.renameJoblet(gefBot, treeNode, JOBLET_NAME, NEW_JOBLET_NAME);
+        Utilities.renameJoblet(treeNode, JOBLET_NAME, NEW_JOBLET_NAME);
     }
 
     @After

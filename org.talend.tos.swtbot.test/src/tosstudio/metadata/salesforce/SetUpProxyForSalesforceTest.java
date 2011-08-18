@@ -48,7 +48,7 @@ public class SetUpProxyForSalesforceTest extends TalendSwtBotForTos {
 
     @Test
     public void setUpProxyForSalesforce() {
-        Utilities.createSalesforceWithHttpProxy(SALESFORCENAME, treeNode, gefBot);
+        Utilities.createSalesforceWithHttpProxy(SALESFORCENAME, treeNode);
     }
 
     @After

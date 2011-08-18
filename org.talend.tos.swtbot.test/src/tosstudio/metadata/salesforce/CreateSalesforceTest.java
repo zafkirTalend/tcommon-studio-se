@@ -49,7 +49,7 @@ public class CreateSalesforceTest extends TalendSwtBotForTos {
 
     @Test
     public void createSalesforce() {
-        Utilities.createSalesforce(SALESFORCENAME, treeNode, gefBot);
+        Utilities.createSalesforce(SALESFORCENAME, treeNode);
     }
 
     @After

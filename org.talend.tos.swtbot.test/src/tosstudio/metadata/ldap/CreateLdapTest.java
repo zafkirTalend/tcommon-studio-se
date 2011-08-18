@@ -49,7 +49,7 @@ public class CreateLdapTest extends TalendSwtBotForTos {
 
     @Test
     public void createLdap() {
-        Utilities.createLdap(LDAPNAME, treeNode, gefBot);
+        Utilities.createLdap(LDAPNAME, treeNode);
     }
 
     @After

@@ -12,21 +12,20 @@
 // ============================================================================
 package org.talend.swtbot.helpers;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
+import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.junit.Assert;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendEdiItem;
-import org.talend.swtbot.items.TalendFileItem;
 import org.talend.swtbot.items.TalendMetadataItem;
+import org.talend.swtbot.items.TalendValidationRuleItem;
 
 /**
  * DOC fzhong class global comment. Detailled comment
@@ -57,8 +56,7 @@ public class MetadataHelper implements Helper {
      */
     public static void output2Console(SWTBotGefEditor jobEditor, TalendMetadataItem item, String rowName) throws IOException,
             URISyntaxException {
-        Utilities.dndMetadataOntoJob(GEFBOT, jobEditor, item.getItem(), item.getComponentType(), new Point(100, 100));
-        Utilities.dndPaletteToolOntoJob(GEFBOT, jobEditor, "tLogRow", new Point(300, 100));
+        Utilities.dndMetadataOntoJob(jobEditor, item.getItem(), item.getComponentType(), new Point(100, 100));
 
         SWTBotGefEditPart metadata = UTIL.getTalendComponentPart(jobEditor, item.getItemName());
         Assert.assertNotNull("can not get component '" + item.getComponentType() + "'", metadata);
@@ -69,7 +67,7 @@ public class MetadataHelper implements Helper {
 
                 @Override
                 public boolean test() throws Exception {
-                    return GEFBOT.textInGroup("EDI parameters", 0).isVisible();
+                    return GEFBOT.textInGroup("EDI parameters", 0).getText().equals("\"\"");
                 }
 
                 @Override
@@ -80,39 +78,61 @@ public class MetadataHelper implements Helper {
             String fileName = "\"" + ((TalendEdiItem) item).getAbsoluteFilePath() + "\"";
             GEFBOT.textInGroup("EDI parameters", 0).setText(fileName);
         }
-        jobEditor.select(metadata).setFocus();
-        jobEditor.clickContextMenu("Row").clickContextMenu(rowName);
-        SWTBotGefEditPart tlogRow = UTIL.getTalendComponentPart(jobEditor, "tLogRow_1");
-        Assert.assertNotNull("can not get component 'tLogRow'", tlogRow);
-        jobEditor.click(tlogRow);
-        jobEditor.save();
-
+        JobHelper.useTLogRow(jobEditor, metadata, rowName);
         JobHelper.runJob(jobEditor);
     }
 
     /**
      * DOC fzhong Comment method "assertResult". Assert the result of running.
      * 
-     * @param result Result in console after running
-     * @param item Metadata item
+     * @param actualResult Result in console after running
+     * @param item Metadata item which contains expect result
      * @throws IOException
      * @throws URISyntaxException
      */
-    public static void assertResult(String result, TalendMetadataItem item) throws IOException, URISyntaxException {
-        StringBuffer source = new StringBuffer();
-        if (item instanceof TalendFileItem) {
-            File sourcefile = ((TalendFileItem) item).getSourceFileAsResult();
-            BufferedReader reader = new BufferedReader(new FileReader(sourcefile));
-            String tempStr = null;
-            while ((tempStr = reader.readLine()) != null)
-                source.append(tempStr + "\n");
-            if (result.indexOf(source.toString()) == -1)
-                Assert.fail("the results are not expected");
-        } else {
-            String realResult = JobHelper.filterStatistics(result);
-            if (!item.getRightResult().contains(realResult))
-                Assert.fail("the results are not expected - " + realResult);
-        }
+    public static void assertResult(String actualResult, TalendMetadataItem item) throws IOException, URISyntaxException {
+        String expectResult = item.getExpectResult();
+        assertResult(actualResult, expectResult);
     }
 
+    public static void assertResult(String actualResult, String expectResult) {
+        String realResult = JobHelper.filterStatistics(actualResult);
+        if (!expectResult.contains(realResult))
+            Assert.fail("the results are not expected - " + realResult);
+    }
+
+    /**
+     * DOC fzhong Comment method "activateValidationRule". Use an existing validation rule for an component.
+     * 
+     * @param component
+     * @param ruleItem
+     */
+    public static void activateValidationRule(SWTBotGefEditPart component, TalendValidationRuleItem ruleItem) {
+        component.click();
+        GEFBOT.viewByTitle("Component").setFocus();
+        UTIL.selecteAllTalendTabbedPropertyListIndex(5);
+        GEFBOT.waitUntil(new DefaultCondition() {
+
+            @Override
+            public boolean test() throws Exception {
+                return GEFBOT.checkBox("Use an existing validation rule").isVisible();
+            }
+
+            @Override
+            public String getFailureMessage() {
+                return "component setting panel is not visible";
+            }
+        }, 10000);
+        GEFBOT.checkBox("Use an existing validation rule").click();
+        GEFBOT.ccomboBox("Built-In").setSelection("Repository");
+        GEFBOT.button(0).click();
+        SWTBotShell shell = GEFBOT.shell("Repository Content").activate();
+        try {
+            GEFBOT.tree().getTreeItem(ruleItem.getItemFullName()).select();
+        } catch (WidgetNotFoundException e) {
+            shell.close();
+            Assert.fail(e.getCause().getMessage());
+        }
+        GEFBOT.button("OK").click();
+    }
 }

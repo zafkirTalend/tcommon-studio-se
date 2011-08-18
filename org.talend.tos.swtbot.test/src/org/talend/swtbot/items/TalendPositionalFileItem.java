@@ -12,10 +12,18 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
+import org.talend.swtbot.Utilities;
 
 /**
- * DOC fzhong  class global comment. Detailled comment
+ * DOC fzhong class global comment. Detailled comment
  */
 public class TalendPositionalFileItem extends TalendFileItem {
 
+    public TalendPositionalFileItem() {
+        super(Utilities.TalendItemType.FILE_POSITIONAL, System.getProperty("filePositional.filepath"));
+    }
+
+    public TalendPositionalFileItem(String itemName) {
+        super(itemName, Utilities.TalendItemType.FILE_POSITIONAL, System.getProperty("filePositional.filepath"));
+    }
 }

@@ -47,7 +47,7 @@ public class DuplicateLdapTest extends TalendSwtBotForTos {
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.LDAP);
-        Utilities.createLdap(LDAPNAME, treeNode, gefBot);
+        Utilities.createLdap(LDAPNAME, treeNode);
     }
 
     @Test

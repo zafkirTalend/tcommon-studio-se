@@ -48,7 +48,7 @@ public class CreateMssqlTest extends TalendSwtBotForTos {
 
     @Test
     public void createMssql() {
-        Utilities.createDbConnection(gefBot, treeNode, Utilities.DbConnectionType.MSSQL, DBNAME);
+        Utilities.createDbConnection(treeNode, Utilities.DbConnectionType.MSSQL, DBNAME);
     }
 
     @After

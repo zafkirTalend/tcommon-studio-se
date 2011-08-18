@@ -46,7 +46,7 @@ public class DuplicateMssqlTest extends TalendSwtBotForTos {
         view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.DB_CONNECTIONS);
-        Utilities.createDbConnection(gefBot, treeNode, Utilities.DbConnectionType.MSSQL, DBNAME);
+        Utilities.createDbConnection(treeNode, Utilities.DbConnectionType.MSSQL, DBNAME);
     }
 
     @Test

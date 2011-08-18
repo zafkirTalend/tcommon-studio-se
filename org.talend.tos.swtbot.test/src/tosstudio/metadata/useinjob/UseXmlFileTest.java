@@ -64,7 +64,7 @@ public class UseXmlFileTest extends TalendSwtBotForTos {
         jobItem = Utilities.createJob(JOBNAME, jobNode);
         jobEditor = gefBot.gefEditor("Job " + jobItem.getText());
         metadataNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FILE_XML);
-        fileItem = Utilities.createFileXml(FILENAME, metadataNode, gefBot);
+        fileItem = Utilities.createFileXml(FILENAME, metadataNode);
     }
 
     @Test

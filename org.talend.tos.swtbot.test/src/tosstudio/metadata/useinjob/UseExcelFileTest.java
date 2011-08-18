@@ -64,7 +64,7 @@ public class UseExcelFileTest extends TalendSwtBotForTos {
         jobItem = Utilities.createJob(JOBNAME, jobNode);
         jobEditor = gefBot.gefEditor("Job " + jobItem.getText());
         metadataNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FILE_EXCEL);
-        fileItem = Utilities.createFileExcel(FILENAME, metadataNode, gefBot);
+        fileItem = Utilities.createFileExcel(FILENAME, metadataNode);
     }
 
     @Test

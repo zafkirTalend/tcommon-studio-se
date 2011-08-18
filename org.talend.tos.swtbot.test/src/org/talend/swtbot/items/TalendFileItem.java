@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.Utilities.TalendItemType;
 
 /**
  * DOC fzhong class global comment. Detailled comment
@@ -24,6 +25,18 @@ import org.talend.swtbot.Utilities;
 public class TalendFileItem extends TalendMetadataItem {
 
     protected String filePath;
+
+    public TalendFileItem(TalendItemType itemType, String filePath) {
+        super(itemType);
+        setFilePath(filePath);
+        setExpectResultFromFile(filePath + ".result");
+    }
+
+    public TalendFileItem(String itemName, TalendItemType itemType, String filePath) {
+        super(itemName, itemType);
+        setFilePath(filePath);
+        setExpectResultFromFile(filePath + ".result");
+    }
 
     public String getFilePath() {
         return this.filePath;
@@ -37,7 +50,7 @@ public class TalendFileItem extends TalendMetadataItem {
         return Utilities.getFileFromCurrentPluginSampleFolder(filePath);
     }
 
-    public File getSourceFileAsResult() throws IOException, URISyntaxException {
+    public File getSourceFileOfResult() throws IOException, URISyntaxException {
         return Utilities.getFileFromCurrentPluginSampleFolder(filePath + ".result");
     }
 }

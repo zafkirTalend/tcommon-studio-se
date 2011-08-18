@@ -51,7 +51,7 @@ public class CreateSimpleWebServiceTest extends TalendSwtBotForTos {
 
     @Test
     public void createSimpleWebService() {
-        Utilities.createWebService(TYPE, WEBSERVICENAME, treeNode, gefBot);
+        Utilities.createWebService(TYPE, WEBSERVICENAME, treeNode);
     }
 
     @After

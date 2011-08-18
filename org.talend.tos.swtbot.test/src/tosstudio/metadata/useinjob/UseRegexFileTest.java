@@ -64,7 +64,7 @@ public class UseRegexFileTest extends TalendSwtBotForTos {
         jobItem = Utilities.createJob(JOBNAME, jobNode);
         jobEditor = gefBot.gefEditor("Job " + jobItem.getText());
         metadataNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FILE_REGEX);
-        fileItem = Utilities.createFileRegex(FILENAME, metadataNode, gefBot);
+        fileItem = Utilities.createFileRegex(FILENAME, metadataNode);
     }
 
     @Test

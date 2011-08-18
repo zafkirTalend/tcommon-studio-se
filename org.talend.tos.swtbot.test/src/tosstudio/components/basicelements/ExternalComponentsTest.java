@@ -66,15 +66,15 @@ public class ExternalComponentsTest extends TalendSwtBotForTos {
     public void useComponentInJob() throws IOException, URISyntaxException {
         gefEditor = gefBot.gefEditor("Job " + JOBNAME + " 0.1");
 
-        Utilities.dndPaletteToolOntoJob(gefBot, gefEditor, "tRowGenerator", new Point(100, 100));
-        Utilities.dndPaletteToolOntoJob(gefBot, gefEditor, "tMap", new Point(300, 100));
-        Utilities.dndPaletteToolOntoJob(gefBot, gefEditor, "tFileOutputDelimited", new Point(500, 100));
+        Utilities.dndPaletteToolOntoJob(gefEditor, "tRowGenerator", new Point(100, 100));
+        Utilities.dndPaletteToolOntoJob(gefEditor, "tMap", new Point(300, 100));
+        Utilities.dndPaletteToolOntoJob(gefEditor, "tFileOutputDelimited", new Point(500, 100));
 
         /* Edit tRowGenerator */
         SWTBotGefEditPart rowGen = getTalendComponentPart(gefEditor, "tRowGenerator_1");
         Assert.assertNotNull("can not get component 'tRowGenerator'", rowGen);
         rowGen.doubleClick();
-        shell = gefBot.shell("Talend ESB Enterprise Edition - tRowGenerator - tRowGenerator_1");
+        shell = gefBot.shell(System.getProperty("buildType") + " - tRowGenerator - tRowGenerator_1");
         shell.activate();
         /* Add column "id" */
         gefBot.buttonWithTooltip("Add").click();
@@ -106,9 +106,9 @@ public class ExternalComponentsTest extends TalendSwtBotForTos {
 
         /* Edit tMap */
         map.doubleClick();
-        shell = gefBot.shell("Talend ESB Enterprise Edition - tMap - tMap_1");
+        shell = gefBot.shell(System.getProperty("buildType") + " - tMap - tMap_1");
         shell.activate();
-        gefBot.waitUntil(Conditions.shellIsActive("Talend ESB Enterprise Edition - tMap - tMap_1"));
+        gefBot.waitUntil(Conditions.shellIsActive(System.getProperty("buildType") + " - tMap - tMap_1"));
 
         gefBot.toolbarButtonWithTooltip("Add output table").click();
         gefBot.shell("Add a output").activate();

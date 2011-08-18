@@ -64,7 +64,7 @@ public class UseLdapTest extends TalendSwtBotForTos {
         jobItem = Utilities.createJob(JOBNAME, jobNode);
         jobEditor = gefBot.gefEditor("Job " + jobItem.getText());
         metadataNode = Utilities.getTalendItemNode(Utilities.TalendItemType.LDAP);
-        metadataItem = Utilities.createLdap(METADATA_NAME, metadataNode, gefBot);
+        metadataItem = Utilities.createLdap(METADATA_NAME, metadataNode);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class UseLdapTest extends TalendSwtBotForTos {
         TalendLdapItem lItem = new TalendLdapItem();
         lItem.setItem(metadataItem);
         lItem.setComponentType("tLDAPInput");
-        lItem.setRightResultFromFile("ldap.result");
+        lItem.setExpectResultFromFile("ldap.result");
         MetadataHelper.output2Console(jobEditor, lItem);
 
         String result = gefBot.styledText().getText();

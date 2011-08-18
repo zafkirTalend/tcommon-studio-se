@@ -48,7 +48,7 @@ public class CreateSybaseTest extends TalendSwtBotForTos {
 
     @Test
     public void createSybase() {
-        Utilities.createDbConnection(gefBot, treeNode, Utilities.DbConnectionType.SYBASE, DBNAME);
+        Utilities.createDbConnection(treeNode, Utilities.DbConnectionType.SYBASE, DBNAME);
     }
 
     @After

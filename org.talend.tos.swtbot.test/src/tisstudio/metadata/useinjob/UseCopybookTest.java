@@ -64,7 +64,7 @@ public class UseCopybookTest extends TalendSwtBotForTos {
         jobItem = Utilities.createJob(JOBNAME, jobNode);
         jobEditor = gefBot.gefEditor("Job " + jobItem.getText());
         metadataNode = Utilities.getTalendItemNode(Utilities.TalendItemType.COPYBOOK);
-        metadataItem = Utilities.createCopybook(METADATA_NAME, metadataNode, gefBot);
+        metadataItem = Utilities.createCopybook(METADATA_NAME, metadataNode);
     }
 
     @Test
@@ -74,7 +74,7 @@ public class UseCopybookTest extends TalendSwtBotForTos {
         SWTBotTreeItem schemaItem = cItem.retrieveSchema("_0").get("_0");
         cItem.setItem(schemaItem);
         cItem.setComponentType("tFileInputEBCDIC");
-        cItem.setRightResultFromFile("copybook.result");
+        cItem.setExpectResultFromFile("copybook.result");
         MetadataHelper.output2Console(jobEditor, cItem, "row__0_1");
 
         String result = gefBot.styledText().getText();

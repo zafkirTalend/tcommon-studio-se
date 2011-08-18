@@ -47,7 +47,7 @@ public class DuplicateContextTest extends TalendSwtBotForTos {
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.CONTEXTS);
-        Utilities.createContext(CONTEXTNAME, treeNode, gefBot);
+        Utilities.createContext(CONTEXTNAME, treeNode);
     }
 
     @Test

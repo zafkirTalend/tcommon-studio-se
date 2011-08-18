@@ -46,7 +46,7 @@ public class CreateBusinessModelInFolderTest extends TalendSwtBotForTos {
         view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.BUSINESS_MODEL);
-        Utilities.createFolder(FOLDERNAME, treeNode, gefBot);
+        Utilities.createFolder(FOLDERNAME, treeNode);
     }
 
     @Test

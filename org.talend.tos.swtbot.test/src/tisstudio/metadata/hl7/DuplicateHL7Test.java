@@ -51,7 +51,7 @@ public class DuplicateHL7Test extends TalendSwtBotForTos {
         view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.HL7);
-        Utilities.createHL7(TYPE, gefBot, treeNode, HL7NAME);
+        Utilities.createHL7(TYPE, treeNode, HL7NAME);
     }
 
     @Test

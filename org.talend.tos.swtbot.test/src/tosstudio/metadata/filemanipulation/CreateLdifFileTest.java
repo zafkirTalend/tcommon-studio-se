@@ -52,7 +52,7 @@ public class CreateLdifFileTest extends TalendSwtBotForTos {
 
     @Test
     public void createLdifFile() throws IOException, URISyntaxException {
-        Utilities.createFileLdif(FILENAME, treeNode, gefBot);
+        Utilities.createFileLdif(FILENAME, treeNode);
     }
 
     @After

@@ -49,7 +49,7 @@ public class CreateSapConnectionTest extends TalendSwtBotForTos {
 
     @Test
     public void createSapConnection() {
-        Utilities.createSapConnection(SAPNAME, treeNode, gefBot);
+        Utilities.createSapConnection(SAPNAME, treeNode);
     }
 
     @After

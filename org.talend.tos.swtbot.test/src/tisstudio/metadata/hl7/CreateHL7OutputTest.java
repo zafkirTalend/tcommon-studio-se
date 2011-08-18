@@ -50,7 +50,7 @@ public class CreateHL7OutputTest extends TalendSwtBotForTos {
 
     @Test
     public void createHL7Output() {
-        Utilities.createHL7(TYPE, gefBot, treeNode, HL7NAME);
+        Utilities.createHL7(TYPE, treeNode, HL7NAME);
     }
 
     @After

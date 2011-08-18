@@ -48,7 +48,7 @@ public class CreateJdbcMysqlTest extends TalendSwtBotForTos {
 
     @Test
     public void createJdbcMysql() {
-        Utilities.createDbConnection(gefBot, treeNode, Utilities.DbConnectionType.JDBC_MYSQL, DBNAME);
+        Utilities.createDbConnection(treeNode, Utilities.DbConnectionType.JDBC_MYSQL, DBNAME);
     }
 
     @After

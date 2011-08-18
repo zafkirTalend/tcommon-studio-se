@@ -8,12 +8,11 @@ import org.talend.swtbot.Utilities;
 public class TalendJobItem extends TalendItem {
 
     public TalendJobItem() {
-        initialise(Utilities.TalendItemType.JOB_DESIGNS);
+        super(Utilities.TalendItemType.JOB_DESIGNS);
     }
 
     public TalendJobItem(String itemName) {
-        initialise(Utilities.TalendItemType.JOB_DESIGNS);
-        this.itemName = itemName;
+        super(itemName, Utilities.TalendItemType.JOB_DESIGNS);
     }
 
     public SWTBotGefEditor getJobEditor() {

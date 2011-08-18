@@ -53,7 +53,7 @@ public class CreateDrlEmbeddedRulesTest extends TalendSwtBotForTos {
 
     @Test
     public void creatDrlEmbeddedRules() throws IOException, URISyntaxException {
-        Utilities.createEmbeddedRules(TYPE_OF_RULE_RESOURCE, EMBEDDED_RULES_NAME, gefBot, treeNode);
+        Utilities.createEmbeddedRules(TYPE_OF_RULE_RESOURCE, EMBEDDED_RULES_NAME, treeNode);
         gefBot.cTabItem(EMBEDDED_RULES_NAME + " 0.1").close();
     }
 

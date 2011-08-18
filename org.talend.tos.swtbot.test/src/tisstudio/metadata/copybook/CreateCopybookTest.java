@@ -52,7 +52,7 @@ public class CreateCopybookTest extends TalendSwtBotForTos {
 
     @Test
     public void createCopybook() throws IOException, URISyntaxException {
-        Utilities.createCopybook(COPYBOOKNAME, treeNode, gefBot);
+        Utilities.createCopybook(COPYBOOKNAME, treeNode);
     }
 
     @After

@@ -48,7 +48,7 @@ public class CopyPasteRegexFileTest extends TalendSwtBotForTos {
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FILE_REGEX);
-        Utilities.createFileRegex(FILENAME, treeNode, gefBot);
+        Utilities.createFileRegex(FILENAME, treeNode);
     }
 
     @Test

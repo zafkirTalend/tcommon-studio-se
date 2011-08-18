@@ -48,7 +48,7 @@ public class CreateAS400Test extends TalendSwtBotForTos {
 
     @Test
     public void createAS400() {
-        Utilities.createDbConnection(gefBot, treeNode, Utilities.DbConnectionType.AS400, DBNAME);
+        Utilities.createDbConnection(treeNode, Utilities.DbConnectionType.AS400, DBNAME);
     }
 
     @After

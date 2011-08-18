@@ -49,9 +49,9 @@ public class ChangeDatabaseTest extends TalendSwtBotForTos {
         view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.DB_CONNECTIONS);
-        Utilities.createDbConnection(gefBot, treeNode, Utilities.DbConnectionType.MYSQL, DBNAME);
+        Utilities.createDbConnection(treeNode, Utilities.DbConnectionType.MYSQL, DBNAME);
         String sql = "create database " + DATABASE_NAME;
-        Utilities.executeSQL(gefBot, treeNode.getNode(DBNAME + " 0.1"), sql);
+        Utilities.executeSQL(treeNode.getNode(DBNAME + " 0.1"), sql);
     }
 
     @Test
@@ -85,7 +85,7 @@ public class ChangeDatabaseTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() {
         String sql = "drop database " + DATABASE_NAME;
-        Utilities.executeSQL(gefBot, treeNode.getNode(DBNAME + " 0.1"), sql);
+        Utilities.executeSQL(treeNode.getNode(DBNAME + " 0.1"), sql);
         Utilities.cleanUpRepository(treeNode);
         Utilities.emptyRecycleBin();
     }

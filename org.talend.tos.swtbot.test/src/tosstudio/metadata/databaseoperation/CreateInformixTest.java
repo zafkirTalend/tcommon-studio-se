@@ -48,7 +48,7 @@ public class CreateInformixTest extends TalendSwtBotForTos {
 
     @Test
     public void createInformix() {
-        Utilities.createDbConnection(gefBot, treeNode, Utilities.DbConnectionType.INFORMIX, DBNAME);
+        Utilities.createDbConnection(treeNode, Utilities.DbConnectionType.INFORMIX, DBNAME);
     }
 
     @After

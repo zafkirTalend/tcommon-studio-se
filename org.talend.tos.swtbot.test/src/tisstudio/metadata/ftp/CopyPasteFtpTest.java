@@ -44,7 +44,7 @@ public class CopyPasteFtpTest extends TalendSwtBotForTos {
         view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FTP);
-        Utilities.createFTP(FTPNAME, gefBot, treeNode);
+        Utilities.createFTP(FTPNAME, treeNode);
     }
 
     @Test

@@ -51,7 +51,7 @@ public class RetrieveSchemaTest extends TalendSwtBotForTos {
         view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.COPYBOOK);
-        Utilities.createCopybook(COPYBOOK_NAME, treeNode, gefBot);
+        Utilities.createCopybook(COPYBOOK_NAME, treeNode);
     }
 
     @Test

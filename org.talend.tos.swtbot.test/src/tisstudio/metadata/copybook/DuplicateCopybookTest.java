@@ -50,7 +50,7 @@ public class DuplicateCopybookTest extends TalendSwtBotForTos {
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.COPYBOOK);
-        Utilities.createCopybook(COPYBOOKNAME, treeNode, gefBot);
+        Utilities.createCopybook(COPYBOOKNAME, treeNode);
     }
 
     @Test

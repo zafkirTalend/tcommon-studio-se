@@ -48,7 +48,7 @@ public class CreatePostgreSQLTest extends TalendSwtBotForTos {
 
     @Test
     public void createPostgreSQL() {
-        Utilities.createDbConnection(gefBot, treeNode, Utilities.DbConnectionType.POSTGRESQL, DBNAME);
+        Utilities.createDbConnection(treeNode, Utilities.DbConnectionType.POSTGRESQL, DBNAME);
     }
 
     @After

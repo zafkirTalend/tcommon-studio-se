@@ -52,7 +52,7 @@ public class CreateRegexFileTest extends TalendSwtBotForTos {
 
     @Test
     public void createRegexFile() throws IOException, URISyntaxException {
-        Utilities.createFileRegex(FILENAME, treeNode, gefBot);
+        Utilities.createFileRegex(FILENAME, treeNode);
     }
 
     @After

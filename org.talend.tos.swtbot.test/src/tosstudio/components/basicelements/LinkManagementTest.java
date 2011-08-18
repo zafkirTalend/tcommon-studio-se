@@ -63,13 +63,13 @@ public class LinkManagementTest extends TalendSwtBotForTos {
     public void useComponentInJob() {
         gefEditor = gefBot.gefEditor("Job " + JOBNAME + " 0.1");
 
-        Utilities.dndPaletteToolOntoJob(gefBot, gefEditor, "tRowGenerator", new Point(100, 100));
-        Utilities.dndPaletteToolOntoJob(gefBot, gefEditor, "tLogRow", new Point(300, 100));
+        Utilities.dndPaletteToolOntoJob(gefEditor, "tRowGenerator", new Point(100, 100));
+        Utilities.dndPaletteToolOntoJob(gefEditor, "tLogRow", new Point(300, 100));
 
         SWTBotGefEditPart rowGen = getTalendComponentPart(gefEditor, "tRowGenerator_1");
         Assert.assertNotNull("can not get component 'tRowGenerator'", rowGen);
         rowGen.doubleClick();
-        shell = gefBot.shell("Talend ESB Enterprise Edition - tRowGenerator - tRowGenerator_1");
+        shell = gefBot.shell(System.getProperty("buildType") + " - tRowGenerator - tRowGenerator_1");
         shell.activate();
         gefBot.buttonWithTooltip("Add").click();
         gefBot.buttonWithTooltip("Add").click();

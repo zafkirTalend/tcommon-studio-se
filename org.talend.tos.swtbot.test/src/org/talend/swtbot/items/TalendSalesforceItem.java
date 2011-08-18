@@ -24,11 +24,20 @@ import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Assert;
+import org.talend.swtbot.Utilities;
 
 /**
  * DOC fzhong class global comment. Detailled comment
  */
 public class TalendSalesforceItem extends TalendMetadataItem {
+
+    public TalendSalesforceItem() {
+        super(Utilities.TalendItemType.SALESFORCE);
+    }
+
+    public TalendSalesforceItem(String itemName) {
+        super(itemName, Utilities.TalendItemType.SALESFORCE);
+    }
 
     public Map<String, SWTBotTreeItem> retrieveModules(String... moduleName) {
         getItem().contextMenu("Retrieve Salesforce Modules").click();

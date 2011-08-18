@@ -60,7 +60,7 @@ public class TMsgBoxTest extends TalendSwtBotForTos {
     public void useComponentInJob() {
         gefEditor = gefBot.gefEditor("Job " + JOBNAME + " 0.1");
 
-        Utilities.dndPaletteToolOntoJob(gefBot, gefEditor, "tMsgBox", new Point(100, 100));
+        Utilities.dndPaletteToolOntoJob(gefEditor, "tMsgBox", new Point(100, 100));
         SWTBotGefEditPart msgBox = getTalendComponentPart(gefEditor, "tMsgBox_1");
         Assert.assertNotNull("can not get component 'tMsgBox'", msgBox);
 

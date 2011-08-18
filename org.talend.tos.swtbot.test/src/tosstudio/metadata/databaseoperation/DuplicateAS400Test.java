@@ -46,7 +46,7 @@ public class DuplicateAS400Test extends TalendSwtBotForTos {
         view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.DB_CONNECTIONS);
-        Utilities.createDbConnection(gefBot, treeNode, Utilities.DbConnectionType.AS400, DBNAME);
+        Utilities.createDbConnection(treeNode, Utilities.DbConnectionType.AS400, DBNAME);
     }
 
     @Test

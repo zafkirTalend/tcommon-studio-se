@@ -49,7 +49,7 @@ public class CopyPasteEmbeddedRulesTest extends TalendSwtBotForTos {
         view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.EMBEDDED_RULES);
-        Utilities.createEmbeddedRules(TYPE_OF_RULE_RESOURCE, EMBEDDED_RULES_NAME, gefBot, treeNode);
+        Utilities.createEmbeddedRules(TYPE_OF_RULE_RESOURCE, EMBEDDED_RULES_NAME, treeNode);
         gefBot.cTabItem(EMBEDDED_RULES_NAME + " 0.1").close();
     }
 

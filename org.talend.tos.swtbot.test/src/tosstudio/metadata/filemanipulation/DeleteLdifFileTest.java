@@ -50,7 +50,7 @@ public class DeleteLdifFileTest extends TalendSwtBotForTos {
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FILE_LDIF);
-        Utilities.createFileLdif(FILENAME, treeNode, gefBot);
+        Utilities.createFileLdif(FILENAME, treeNode);
     }
 
     @Test

@@ -64,7 +64,7 @@ public class UsePositionalFileTest extends TalendSwtBotForTos {
         jobItem = Utilities.createJob(JOBNAME, jobNode);
         jobEditor = gefBot.gefEditor("Job " + jobItem.getText());
         metadataNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FILE_POSITIONAL);
-        fileItem = Utilities.createFilePositional(FILENAME, metadataNode, gefBot);
+        fileItem = Utilities.createFilePositional(FILENAME, metadataNode);
     }
 
     @Test

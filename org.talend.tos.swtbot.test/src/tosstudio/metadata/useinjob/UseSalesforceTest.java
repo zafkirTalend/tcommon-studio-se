@@ -64,7 +64,7 @@ public class UseSalesforceTest extends TalendSwtBotForTos {
         jobItem = Utilities.createJob(JOBNAME, jobNode);
         jobEditor = gefBot.gefEditor("Job " + jobItem.getText());
         metadataNode = Utilities.getTalendItemNode(Utilities.TalendItemType.SALESFORCE);
-        metadataItem = Utilities.createSalesforce(METADATA_NAME, metadataNode, gefBot);
+        metadataItem = Utilities.createSalesforce(METADATA_NAME, metadataNode);
     }
 
     @Test
@@ -74,7 +74,7 @@ public class UseSalesforceTest extends TalendSwtBotForTos {
         SWTBotTreeItem moduleItem = sItem.retrieveModules("Account").get("Account");
         sItem.setItem(moduleItem);
         sItem.setComponentType("tSalesforceInput");
-        sItem.setRightResultFromFile("salesforce.result");
+        sItem.setExpectResultFromFile("salesforce.result");
         MetadataHelper.output2Console(jobEditor, sItem);
 
         String result = gefBot.styledText().getText();

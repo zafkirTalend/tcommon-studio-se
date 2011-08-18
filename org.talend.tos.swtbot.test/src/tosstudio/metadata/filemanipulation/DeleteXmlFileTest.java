@@ -48,7 +48,7 @@ public class DeleteXmlFileTest extends TalendSwtBotForTos {
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FILE_XML);
-        Utilities.createFileXml(FILENAME, treeNode, gefBot);
+        Utilities.createFileXml(FILENAME, treeNode);
     }
 
     @Test

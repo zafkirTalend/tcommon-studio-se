@@ -48,7 +48,7 @@ public class CreateDB2Test extends TalendSwtBotForTos {
 
     @Test
     public void createDB2() {
-        Utilities.createDbConnection(gefBot, treeNode, Utilities.DbConnectionType.DB2, DBNAME);
+        Utilities.createDbConnection(treeNode, Utilities.DbConnectionType.DB2, DBNAME);
     }
 
     @After

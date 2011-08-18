@@ -48,7 +48,7 @@ public class CreateOracleOCITest extends TalendSwtBotForTos {
 
     @Test
     public void createOracleOCI() {
-        Utilities.createDbConnection(gefBot, treeNode, Utilities.DbConnectionType.ORACLE_OCI, DBNAME);
+        Utilities.createDbConnection(treeNode, Utilities.DbConnectionType.ORACLE_OCI, DBNAME);
     }
 
     @After

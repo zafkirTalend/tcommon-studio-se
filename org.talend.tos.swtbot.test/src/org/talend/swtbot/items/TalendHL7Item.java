@@ -12,12 +12,18 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
+import org.talend.swtbot.Utilities;
+
 /**
  * DOC fzhong class global comment. Detailled comment
  */
 public class TalendHL7Item extends TalendFileItem {
 
     public TalendHL7Item() {
-        this.filePath = System.getProperty("hl7.filepath");
+        super(Utilities.TalendItemType.HL7, System.getProperty("hl7.filepath"));
+    }
+
+    public TalendHL7Item(String itemName) {
+        super(itemName, Utilities.TalendItemType.HL7, System.getProperty("hl7.filepath"));
     }
 }

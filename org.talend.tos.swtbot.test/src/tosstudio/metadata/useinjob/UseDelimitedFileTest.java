@@ -15,21 +15,17 @@ package tosstudio.metadata.useinjob;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
-import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.helpers.JobHelper;
 import org.talend.swtbot.helpers.MetadataHelper;
 import org.talend.swtbot.items.TalendDelimitedFileItem;
+import org.talend.swtbot.items.TalendJobItem;
 
 /**
  * DOC fzhong class global comment. Detailled comment
@@ -37,19 +33,9 @@ import org.talend.swtbot.items.TalendDelimitedFileItem;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class UseDelimitedFileTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
+    private TalendJobItem jobItem;
 
-    private SWTBotTree tree;
-
-    private SWTBotTreeItem jobNode;
-
-    private SWTBotTreeItem jobItem;
-
-    private SWTBotTreeItem metadataNode;
-
-    private SWTBotTreeItem fileItem;
-
-    private SWTBotGefEditor jobEditor;
+    private TalendDelimitedFileItem fileItem;
 
     private static final String JOBNAME = "jobTest"; // $NON-NLS-1$
 
@@ -57,33 +43,26 @@ public class UseDelimitedFileTest extends TalendSwtBotForTos {
 
     @Before
     public void createJobAndMetadata() throws IOException, URISyntaxException {
-        view = Utilities.getRepositoryView();
-        view.setFocus();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        jobNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOB_DESIGNS);
-        jobItem = Utilities.createJob(JOBNAME, jobNode);
-        jobEditor = gefBot.gefEditor("Job " + jobItem.getText());
-        metadataNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FILE_DELIMITED);
-        fileItem = Utilities.createFileDelimited(FILENAME, metadataNode, gefBot);
+        jobItem = new TalendJobItem(JOBNAME);
+        jobItem.create();
+        fileItem = new TalendDelimitedFileItem(FILENAME);
+        fileItem.create();
     }
 
     @Test
     public void useMetadataInJob() throws IOException, URISyntaxException {
-        TalendDelimitedFileItem dfItem = new TalendDelimitedFileItem();
-        dfItem.setItem(fileItem);
-        dfItem.setFilePath(System.getProperty("fileDelimited.filepath"));
-        dfItem.setComponentType("tFileInputDelimited");
-        MetadataHelper.output2Console(jobEditor, dfItem);
+        fileItem.setComponentType("tFileInputDelimited");
+        MetadataHelper.output2Console(jobItem.getJobEditor(), fileItem);
 
-        String result = gefBot.styledText().getText();
-        MetadataHelper.assertResult(result, dfItem);
+        String result = JobHelper.getExecutionResult();
+        MetadataHelper.assertResult(result, fileItem);
     }
 
     @After
     public void removePreviousCreateItems() {
-        jobEditor.saveAndClose();
-        Utilities.cleanUpRepository(jobNode);
-        Utilities.cleanUpRepository(metadataNode);
+        jobItem.getJobEditor().saveAndClose();
+        Utilities.cleanUpRepository(jobItem.getParentNode());
+        Utilities.cleanUpRepository(fileItem.getParentNode());
         Utilities.emptyRecycleBin();
     }
 }

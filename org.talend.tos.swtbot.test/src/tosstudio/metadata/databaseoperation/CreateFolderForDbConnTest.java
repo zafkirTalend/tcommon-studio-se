@@ -48,7 +48,7 @@ public class CreateFolderForDbConnTest extends TalendSwtBotForTos {
 
     @Test
     public void createFolderForDbConn() {
-        Utilities.createFolder(FOLDERNAME, treeNode, gefBot);
+        Utilities.createFolder(FOLDERNAME, treeNode);
     }
 
     @After

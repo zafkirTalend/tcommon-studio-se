@@ -50,7 +50,7 @@ public class DuplicateDelimitedFileTest extends TalendSwtBotForTos {
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FILE_DELIMITED);
-        Utilities.createFileDelimited(FILENAME, treeNode, gefBot);
+        Utilities.createFileDelimited(FILENAME, treeNode);
     }
 
     @Test

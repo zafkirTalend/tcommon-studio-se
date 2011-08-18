@@ -15,19 +15,29 @@ package org.talend.swtbot.items;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
-import java.net.URISyntaxException;
 
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.Utilities.TalendItemType;
 
 /**
  * DOC fzhong class global comment. Detailled comment
  */
 public class TalendMetadataItem extends TalendItem {
 
-    protected String rightResult;
+    protected String expectResult;
 
     protected String componentType;
+
+    public TalendMetadataItem() {
+    }
+
+    public TalendMetadataItem(TalendItemType itemType) {
+        super(itemType);
+    }
+
+    public TalendMetadataItem(String itemName, TalendItemType itemType) {
+        super(itemName, itemType);
+    }
 
     public String getComponentType() {
         return this.componentType;
@@ -43,21 +53,25 @@ public class TalendMetadataItem extends TalendItem {
         this.componentType = componentType;
     }
 
-    public String getRightResult() {
-        return this.rightResult;
+    public String getExpectResult() {
+        return this.expectResult;
     }
 
-    public void setRightResult(String rightResult) {
-        this.rightResult = rightResult;
+    public void setExpectResult(String expectResult) {
+        this.expectResult = expectResult;
     }
 
-    public void setRightResultFromFile(String fileName) throws IOException, URISyntaxException {
-        File resultFile = Utilities.getFileFromCurrentPluginSampleFolder(fileName);
-        BufferedReader reader = new BufferedReader(new FileReader(resultFile));
-        String tempStr = null;
-        StringBuffer rightResult = new StringBuffer();
-        while ((tempStr = reader.readLine()) != null)
-            rightResult.append(tempStr + "\n");
-        this.rightResult = rightResult.toString();
+    public void setExpectResultFromFile(String fileName) {
+        try {
+            File resultFile = Utilities.getFileFromCurrentPluginSampleFolder(fileName);
+            BufferedReader reader = new BufferedReader(new FileReader(resultFile));
+            String tempStr = null;
+            StringBuffer rightResult = new StringBuffer();
+            while ((tempStr = reader.readLine()) != null)
+                rightResult.append(tempStr + "\n");
+            this.expectResult = rightResult.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

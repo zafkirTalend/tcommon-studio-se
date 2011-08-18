@@ -15,18 +15,15 @@ package tisstudio.metadata.validationrules;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendDelimitedFileItem;
+import org.talend.swtbot.items.TalendValidationRuleItem;
 
 /**
  * DOC fzhong class global comment. Detailled comment
@@ -34,13 +31,9 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class DuplicateBasicValueCheckRulesTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
+    private TalendValidationRuleItem ruleItem;
 
-    private SWTBotTree tree;
-
-    private SWTBotTreeItem treeNode;
-
-    private SWTBotTreeItem metadataNode;
+    private TalendDelimitedFileItem metadataItem;
 
     private static final String VALIDATION_RULES_NAME = "rulesTest";
 
@@ -48,28 +41,25 @@ public class DuplicateBasicValueCheckRulesTest extends TalendSwtBotForTos {
 
     private static final String METADATA_NAME = "metadata";
 
-    private static final String RULE_TYPE = "Basic Value Check";
-
     @Before
     public void createBasicValueCheckRules() throws IOException, URISyntaxException {
-        view = Utilities.getRepositoryView();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.VALIDATION_RULES);
-        metadataNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FILE_DELIMITED);
-        Utilities.createFileDelimited(METADATA_NAME, metadataNode, gefBot);
-        Utilities.createValidationRules(RULE_TYPE, Utilities.TalendItemType.FILE_DELIMITED, METADATA_NAME, VALIDATION_RULES_NAME,
-                gefBot, treeNode);
+        metadataItem = new TalendDelimitedFileItem(METADATA_NAME);
+        metadataItem.create();
+        ruleItem = new TalendValidationRuleItem(VALIDATION_RULES_NAME);
+        ruleItem.setRuleTypeAsBasicValueCheck();
+        ruleItem.setBaseMetadata(metadataItem);
+        ruleItem.create();
     }
 
     @Test
     public void duplicateBasicValueCheckRules() {
-        Utilities.duplicate(treeNode, VALIDATION_RULES_NAME, "0.1", NEW_VALIDATION_RULES_NAME);
+        ruleItem.duplicate(NEW_VALIDATION_RULES_NAME);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.cleanUpRepository(treeNode);
-        Utilities.cleanUpRepository(metadataNode);
+        Utilities.cleanUpRepository(ruleItem.getParentNode());
+        Utilities.cleanUpRepository(metadataItem.getParentNode());
         Utilities.emptyRecycleBin();
     }
 }
