@@ -375,6 +375,9 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType SERVICESOPERATION = new ERepositoryObjectType(
             "servicesOperation", "services", "SERVICESOPERATION", 101, true, "servicesOperation.alias", new String[] { "DI", "CAMEL" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
 
+    public final static ERepositoryObjectType SERVICESPORT = new ERepositoryObjectType(
+            "servicesPort", "services", "SERVICESPORT", 102, true, "servicesPort.alias", new String[] { "DI", "CAMEL" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
+
     private String alias;
 
     private String folder = ""; //$NON-NLS-N$
