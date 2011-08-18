@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.talend.commons.utils.data.list.ListUtils;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -238,6 +239,19 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 schemaFilter.add(sid);
             }
         }
+        // TDI-17172 : if the schema is not fill, as the db context model, should clear "schemaFilter" .
+        if (dbConn != null && dbConn.isContextMode()) {
+            if (EDatabaseTypeName.ORACLEFORSID.getProduct().equals(((DatabaseConnection) dbConn).getProductId())
+                    || EDatabaseTypeName.IBMDB2.getProduct().equals(((DatabaseConnection) dbConn).getProductId())) {
+                IMetadataConnection iMetadataCon = ConvertionHelper.convert((DatabaseConnection) dbConn);
+                if (iMetadataCon != null) {
+                    String schemaTemp = iMetadataCon.getSchema();
+                    if ("".equals(schemaTemp)) {
+                        schemaFilter.clear();
+                    }
+                }
+            }
+        }
 
         try {
             if (dbConn != null && EDatabaseTypeName.ACCESS.getProduct().equals(((DatabaseConnection) dbConn).getProductId())) {
@@ -328,6 +342,21 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         if (dbJDBCMetadata == null) {
             return null;
         }
+        // TDI-17172 : if the catalog is not fill, as the db context model, should clear "catalogFilter" .
+        if (dbConn != null && dbConn.isContextMode()) {
+            if (EDatabaseTypeName.MYSQL.getProduct().equals(((DatabaseConnection) dbConn).getProductId())
+                    || EDatabaseTypeName.MSSQL.getProduct().equals(((DatabaseConnection) dbConn).getProductId())
+                    || EDatabaseTypeName.MSSQL05_08.getProduct().equals(((DatabaseConnection) dbConn).getProductId())) {
+                IMetadataConnection iMetadataCon = ConvertionHelper.convert((DatabaseConnection) dbConn);
+                if (iMetadataCon != null) {
+                    String catalogTemp = iMetadataCon.getDatabase();
+                    if ("".equals(catalogTemp)) {
+                        catalogFilter.clear();
+                    }
+                }
+            }
+        }
+
         try {
             if (dbJDBCMetadata.getDatabaseProductName() != null
                     && dbJDBCMetadata.getDatabaseProductName().indexOf(EDatabaseTypeName.ORACLEFORSID.getProduct()) > -1) {
