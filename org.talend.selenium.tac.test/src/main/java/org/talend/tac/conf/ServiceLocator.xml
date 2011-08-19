@@ -1,13 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="Suite" parallel="false">
-		
-	    <test name="ServiceLocator">
+<suite name="Suite">
+       
+       <!-- service name -->
+       <parameter  name ="jobFirstProvider" value="jobFirstProvider"/>
+       <parameter  name ="jobSecondProvider" value="jobSecondProvider"/>
+       <parameter  name ="jobThirdProvider" value="jobThirdProvider"/>
+	   <parameter  name ="jobFourthProvider" value="jobFourthProvider"/>
+       <parameter  name ="jobFiveProvider" value="jobFiveProvider"/>
+       <parameter  name ="jobSixProvider" value="jobSixProvider"/>
+       
+       <!-- esb configuration zookeeper-->
+       <parameter name="esb.conf.zookeeperServer" value="127.0.0.1:2181"></parameter>
+       <parameter name="esb.conf.zookeeperServerWithWrong" value="127.0.0.g:2888"></parameter>
+       
+       <!-- esb configuration monitorServer-->
+       <parameter name="esb.conf.serviceActivityMonitorServer" 
+        value="http://localhost:8081/sam-server-war"/>
+       <parameter name="esb.conf.serviceActivityRemoteMonitorServer" 
+        value="http://192.168.0.167:9091/sam-server-war"/>
+       <parameter name="esb.conf.serviceActivityMonitorServerWithWrong" 
+        value="http://192.168.0.g:8080/sam-server-war"/>
+        
+	   <test name="ServiceLocator AllService DisplayLiveServicesOnly...">
 		   <classes>
 		      <class name="com.talend.tac.cases.esb.serviceLocator.TestServiceLocator">
 		         <methods>
 		            <include name="testDisplayAllService"/>
 		            <include name="testDisplayLiveServicesOnly"/>
 		            <include name="testDisplayLiveServicesOnlyAfterStopAllServices"/>
+		            <include name="testServicePerColumnsValue"/>
+		         </methods>
+		      </class> 
+		   </classes>
+		</test>
+		
+		<test name="ServiceLocator	 refresh...">
+		   <classes>
+		      <class name="com.talend.tac.cases.esb.serviceLocator.TestServiceLocator">
+		         <methods>		            
+		            <include name="testCheckServiceLocationPageStopZkServerRestart"/>
+		            <include name="testCheckRefresh"/>
+		            <include name="testCheckSortAscendingSortDescending"/>		            
+		            <include name="testDisplayServiceNotWithGroups"/>
+		            <include name="testGroupDisplayService"/>
+		            <include name="testModifyDisplayServicesColumns"/>
+		            <include name="testSortTableByClickOnColumnHeader"/>
+		         </methods>
+		      </class> 
+		   </classes>
+		</test>
+				
+		<test name="ServiceLocator hideDisplayService remote zkServer...">
+		   <classes>
+		      <class name="com.talend.tac.cases.esb.serviceLocator.TestServiceLocator">
+		         <methods>             
+		            <include name="testHiddenDisplayService"/>
+		            <include name="testStopStartZkServerCheckPageStatus"/>
+		            <include name="testSetESBSamServer"/>
+		            <include name="testSetESBSamServerWithWrongUrl"/>
 		         </methods>
 		      </class> 
 		   </classes>
