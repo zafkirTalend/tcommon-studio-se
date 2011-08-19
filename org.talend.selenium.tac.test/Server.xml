@@ -8,9 +8,9 @@
     		<os family="windows"/>
     	</condition>
     </target>
-	
+
 	<!-- - - - - - - - - - - - - - - - - - 
-          target: launch-zookeeper                   
+          target: server                   
          - - - - - - - - - - - - - - - - - -->
     <target name="server" depends="os">
     	<if>
@@ -19,8 +19,7 @@
     			<exec executable="cmd" dir="${server.home}/bin"
     				spawn="true">
     				<arg value="/c"/>
-					<arg value="${command}"/>
-					<arg value="${action}"/>
+					<arg line="${command}"/>
     			</exec>
     		</then>
     		
@@ -28,11 +27,19 @@
     			<exec executable="sh" dir="${server.home}/bin"
     				spawn="true">
     				<arg value="-c"/>
-    				<arg value="sh ${command} ${action}"/>
+    				<arg line="sh ${command}"/>
     			</exec>
     		</else>
     	</if>
     </target>
-
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: jar-path-server                   
+         - - - - - - - - - - - - - - - - - -->
+    <target name="jar-server">
+    	<java jar="${jar.path}" fork="true" spawn="true">
+    		<arg line="${command}"/>
+    	</java>
+    </target>
 </project>
 
