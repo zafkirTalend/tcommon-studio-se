@@ -3,6 +3,7 @@ package com.talend.cases.esb;
 
 import static org.testng.Assert.assertEquals;
 
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -37,7 +38,7 @@ public class TestSamServerNotRunning extends Esb {
 		  //open service activity monitor page
 		  this.openServiceActivityMonitor();
 		  this.clickWaitForElementPresent("//div[@class='header-title' and text()='Service Activity Monitoring']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//b[text()='Refresh']");
-		  this.waitForTextPresent("Can not connect to SAM Server. The server is unavailable or connection...", WAIT_TIME);
+		  Assert.assertTrue(this.waitForTextPresent("Can not connect to SAM Server. The server is unavailable or connection...", WAIT_TIME),"test with stop samserver failed!");
 	}
 	public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value,String statusIconLocator){
 		this.AssertEqualsInConfigurationMenu(locatorOfEditButton, locatorOfInput, value);
