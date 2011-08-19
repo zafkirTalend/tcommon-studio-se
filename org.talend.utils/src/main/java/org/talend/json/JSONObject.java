@@ -1380,6 +1380,7 @@ public class JSONObject {
         }
     }
 
+    // for simple properties now
     public Object fromJsonToObject(JSONObject ob, Class<?> clazz) throws JSONException {
         Object o = null;
         try {
@@ -1388,7 +1389,10 @@ public class JSONObject {
                 String name = f.getName();
                 String upperName = name.substring(0, 1).toUpperCase() + name.substring(1);
                 Method m = clazz.getDeclaredMethod("set" + upperName, new Class[] { f.getType() });
-                m.invoke(o, ob.get(name));
+                Object value = ob.get(name);
+                if (f.getType().isAssignableFrom(String.class) && JSONObject.NULL == value)
+                    value = "";
+                m.invoke(o, value);
             }
         } catch (Exception e) {
             throw new JSONException(e);
