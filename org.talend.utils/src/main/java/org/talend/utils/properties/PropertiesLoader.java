@@ -17,6 +17,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.util.Dictionary;
+import java.util.Enumeration;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -47,6 +49,21 @@ public final class PropertiesLoader {
     private static final String QUOTE = "'";
 
     private static TypedProperties curProp;
+    
+	private static Properties convertToProperties(Dictionary config) {
+		Enumeration keys = config.keys();
+		Properties props = new Properties();
+		while (keys.hasMoreElements()) {
+			String key = (String) keys.nextElement();
+			props.setProperty(key, (String) config.get(key));
+		}
+		return props;
+	}
+    
+    public static void setConfig(Dictionary config) {
+    	Properties prop = convertToProperties(config);
+    	curProp = new TypedProperties(prop);
+    }
 
     /**
      * Method "quotedAbs" puts quotes around the path of the given file.
