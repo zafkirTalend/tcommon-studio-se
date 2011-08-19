@@ -3,16 +3,26 @@
   <!-- esb -->
     <parameter name="esb.conf.zookeeperServer" value="127.0.0.1:2182"></parameter>
     <parameter name="esb.conf.serviceActivityMonitorServer" 
-    value="http://localhost:8080/sam-server-war"/>
+    value="http://192.168.0.167:9091/sam-server-war"/>
     <parameter name="esb.conf.serviceActivityMonitorServer.remote.available" 
-    value="http://192.168.0.216:8081/sam-server-war"/>
+    value="http://192.168.0.167:9091/sam-server-war"/>
     <parameter name="esb.conf.serviceActivityMonitorServer.remote.stop" 
     value="http://192.168.0.test:8080/sam-server-war"/>
-  
+    <parameter name="esb.monitor.porttype.exist" value="Service"/>
+ <parameter name="esb.monitor.porttype.notexist" value="testfilterPorttype"/>
+ <parameter name="esb.monitor.receivenewevents.consumer" value="jobSixConsumer"/>
+ <parameter name="esb.monitor.karafurl" value="192.168.0.216"/>
+ <parameter name="esb.monitor.karajar" value="jobSixConsumer"/>
+ <parameter name="esb.monitor.pagesize" value="30"/>
  <test name="monitor">
  <classes>
  <class name="com.talend.cases.esb.TestSamServerNotRunning"/>
-  </classes>
-  </test>
+ <class name="com.talend.cases.esb.TestEsbServiceActivityColumns"/>
+ <class name="com.talend.cases.esb.TestEsbServiceActivityFilterData"/>
+ <class name="com.talend.cases.esb.TestEsbServicePayloadContentsDisplay"/>
+ <class name="com.talend.cases.esb.TestEsbServiceActivitySelectRows"/>
+ <class name="com.talend.cases.esb.TestEsbServiceActivityPageDisplay"/>
+ </classes>
+ </test>
 </suite>
 
