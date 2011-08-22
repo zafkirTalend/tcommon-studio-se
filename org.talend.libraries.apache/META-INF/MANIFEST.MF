@@ -25,7 +25,8 @@ Bundle-ClassPath: .,
 Bundle-Vendor: .Talend SA.
 Eclipse-BuddyPolicy: dependent
 Require-Bundle: org.apache.log4j;resolution:=optional,
- org.apache.commons.logging;visibility:=reexport
+ org.apache.commons.logging;visibility:=reexport,
+ org.apache.commons.lang;resolution:=optional;visibility:=reexport
 Export-Package: org.apache.commons.beanutils,
  org.apache.commons.beanutils.converters,
  org.apache.commons.beanutils.locale,
