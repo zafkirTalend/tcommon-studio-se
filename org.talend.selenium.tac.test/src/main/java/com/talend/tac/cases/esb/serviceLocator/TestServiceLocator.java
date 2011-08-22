@@ -359,7 +359,7 @@ public class TestServiceLocator extends Login {
 
 	   modifySAMServer(remoteMonitorServerWithWrongUrl, other.getString("esb.conf.ServiceActivityMonitorServerStatusIconLocator.wrongURL"));
 	   
-	   selenium.setSpeed(MAX_SPEED);
+	   this.waitForElementPresent("//div[contains(text(),'SAM Server for this url is unavailable')]", WAIT_TIME);
 	   Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'SAM Server for this url is unavailable')]"));
 	   selenium.setSpeed(MIN_SPEED);
 	   
