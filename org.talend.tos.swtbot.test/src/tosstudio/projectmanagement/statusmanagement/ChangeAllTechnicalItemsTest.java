@@ -128,7 +128,7 @@ public class ChangeAllTechnicalItemsTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() {
         shell.close();
-        Utilities.cleanUpRepository(tree, "TOS");
+        Utilities.cleanUpRepository(tree, System.getProperty("buildType"));
         Utilities.emptyRecycleBin();
     }
 
