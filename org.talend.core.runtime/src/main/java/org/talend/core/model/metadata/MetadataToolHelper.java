@@ -236,7 +236,7 @@ public final class MetadataToolHelper {
             }
         }
         if (isKeyword
-                || org.apache.commons.lang.StringUtils.countMatches(columnName, underLine) >= (originalColumnName.length() / 2)) {
+                || org.apache.commons.lang.StringUtils.countMatches(columnName, underLine) > (originalColumnName.length() / 2)) {
             columnName = "Column" + index; //$NON-NLS-1$
         }
 
