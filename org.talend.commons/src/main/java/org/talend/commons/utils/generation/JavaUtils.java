@@ -77,6 +77,9 @@ public final class JavaUtils {
     /** Java Routines Directory. */
     public static final String JAVA_SYSTEM_ROUTINES_DIRECTORY = "system"; //$NON-NLS-1$
 
+    /** Java Routines api Directory. */
+    public static final String JAVA_SYSTEM_ROUTINES_API_DIRECTORY = "api"; //$NON-NLS-1$
+
     /** Java UserDefined Directory */
     public static final String JAVA_USER_DEFINED = "user defined"; //$NON-NLS-1$
 
