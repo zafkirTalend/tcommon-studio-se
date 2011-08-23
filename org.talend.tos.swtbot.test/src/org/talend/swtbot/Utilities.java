@@ -42,6 +42,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.talend.swtbot.helpers.JobHelper;
 
 /**
  * DOC sgandon class global comment. Detailled comment <br/>
@@ -631,57 +632,6 @@ public class Utilities {
         }
 
         return treeNode.getNode(copybookNAME + " 0.1");
-    }
-
-    public static SWTBotTreeItem createSapConnection(String sapName, SWTBotTreeItem treeNode) {
-        treeNode.contextMenu("Create SAP connection").click();
-        gefBot.waitUntil(Conditions.shellIsActive("SAP Connection"));
-        shell = gefBot.shell("SAP Connection").activate();
-
-        /* step 1 of 2 */
-        gefBot.textWithLabel("Name").setText(sapName);
-        boolean nextButtonIsEnabled = gefBot.button("Next >").isEnabled();
-        if (nextButtonIsEnabled) {
-            gefBot.button("Next >").click();
-        } else {
-            shell.close();
-            Assert.assertTrue("next button is not enabled, maybe the item name is exist,", nextButtonIsEnabled);
-        }
-
-        /* step 2 of 2 */
-        gefBot.textWithLabel("Client").setText(System.getProperty("sap.client"));
-        gefBot.textWithLabel("Host").setText(System.getProperty("sap.host"));
-        gefBot.textWithLabel("User").setText(System.getProperty("sap.user"));
-        gefBot.textWithLabel("Password").setText(System.getProperty("sap.password"));
-        gefBot.textWithLabel("System Number").setText(System.getProperty("sap.systemNumber"));
-        gefBot.textWithLabel("Language").setText(System.getProperty("sap.language"));
-        gefBot.button("Check").click();
-
-        gefBot.waitUntil(new DefaultCondition() {
-
-            public boolean test() throws Exception {
-                return gefBot.shell("Check SAP Connection ").isActive();
-            }
-
-            public String getFailureMessage() {
-                gefBot.shell("SAP Connection").close();
-                return "connection failure";
-            }
-        });
-        gefBot.button("OK").click();
-
-        gefBot.button("Finish").click();
-
-        SWTBotTreeItem newSapItem = null;
-        try {
-            newSapItem = treeNode.select(sapName + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("SAP connection is not created", newSapItem);
-        }
-
-        return treeNode.getNode(sapName + " 0.1");
     }
 
     /**
@@ -1663,20 +1613,8 @@ public class Utilities {
      * @param locationOnJob the specific location on job
      */
     public static void dndPaletteToolOntoJob(SWTBotGefEditor jobEditor, String toolLabel, Point locationOnJob) {
-        jobEditor.activateTool(toolLabel).click(locationOnJob.x, locationOnJob.y);
-        // gefBot.viewByTitle("Palette").setFocus();
-        // gefBot.textWithTooltip("Enter component prefix or template (*, ?)").setText(toolLabel);
-        // gefBot.toolbarButtonWithTooltip("Search").click();
-        // gefBot.sleep(500);
-        //
-        // SWTBotGefFigureCanvas paletteFigureCanvas = new SWTBotGefFigureCanvas((FigureCanvas)
-        // gefBot.widget(WidgetOfType
-        // .widgetOfType(FigureCanvas.class)));
-        // SWTBotGefFigureCanvas jobFigureCanvas = new SWTBotGefFigureCanvas((FigureCanvas) gefBot.widget(
-        // WidgetOfType.widgetOfType(FigureCanvas.class), jobEditor.getWidget()));
-        //
-        // DndUtil dndUtil = new DndUtil(jobEditor.getWidget().getDisplay());
-        // dndUtil.dragAndDrop(paletteFigureCanvas, new Point(50, 70), jobFigureCanvas, locationOnJob);
+        // jobEditor.activateTool(toolLabel).click(locationOnJob.x, locationOnJob.y);
+        new JobHelper().activateTool(jobEditor, toolLabel, locationOnJob);
     }
 
     /**

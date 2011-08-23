@@ -12,11 +12,15 @@
 // ============================================================================
 package org.talend.swtbot.helpers;
 
+import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
+import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefFigureCanvas;
+import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.junit.Assert;
+import org.talend.swtbot.DndUtil;
 import org.talend.swtbot.Utilities;
 
 /**
@@ -79,18 +83,55 @@ public class JobHelper implements Helper {
      * @param component the input component
      * @param rowName The name of row in the context menu of component. "Main" as default.
      */
-    public static void useTLogRow(SWTBotGefEditor jobEditor, SWTBotGefEditPart component, String rowName) {
-        Utilities.dndPaletteToolOntoJob(jobEditor, "tLogRow", new Point(300, 100));
-        jobEditor.select(component).setFocus();
+    public static void connect2TLogRow(SWTBotGefEditor jobEditor, SWTBotGefEditPart component, String rowName, Point point) {
+        Utilities.dndPaletteToolOntoJob(jobEditor, "tLogRow", point);
+        SWTBotGefEditPart tLogRow = UTIL.getTalendComponentPart(jobEditor, "tLogRow_1");
+        Assert.assertNotNull("can not get component 'tLogRow'", tLogRow);
+        connect(jobEditor, component, tLogRow, rowName);
+    }
+
+    public static void connect2TLogRow(SWTBotGefEditor jobEditor, SWTBotGefEditPart component, Point point) {
+        connect2TLogRow(jobEditor, component, "Main", point);
+    }
+
+    public static void connect(SWTBotGefEditor jobEditor, SWTBotGefEditPart sourceComponent, SWTBotGefEditPart targetComponent,
+            String rowName) {
+        jobEditor.select(sourceComponent).setFocus();
         jobEditor.clickContextMenu("Row").clickContextMenu(rowName);
-        SWTBotGefEditPart tlogRow = UTIL.getTalendComponentPart(jobEditor, "tLogRow_1");
-        Assert.assertNotNull("can not get component 'tLogRow'", tlogRow);
-        jobEditor.click(tlogRow);
+        jobEditor.click(targetComponent);
         jobEditor.save();
     }
 
-    public static void useTLogRow(SWTBotGefEditor jobEditor, SWTBotGefEditPart component) {
-        useTLogRow(jobEditor, component, "Main");
+    public static void connect(SWTBotGefEditor jobEditor, SWTBotGefEditPart sourceComponent, SWTBotGefEditPart targetComponent) {
+        connect(jobEditor, sourceComponent, targetComponent, "Main");
     }
 
+    /**
+     * Helper method for activate components from palette to job. Same as
+     * <code>jobEditor.activateTool(toolLabel).click(locationOnJob.x, locationOnJob.y);</code>
+     * 
+     * @param jobEditor
+     * @param toolLabel
+     * @param locationOnJob
+     */
+    public void activateTool(SWTBotGefEditor jobEditor, String toolLabel, Point locationOnJob) {
+        GEFBOT.viewByTitle("Palette").setFocus();
+        GEFBOT.textWithTooltip("Enter component prefix or template (*, ?)").setText(toolLabel);
+        GEFBOT.toolbarButtonWithTooltip("Search").click();
+        GEFBOT.sleep(500);
+
+        SWTBotGefFigureCanvas paletteFigureCanvas = new SWTBotGefFigureCanvas((FigureCanvas) GEFBOT.widget(WidgetOfType
+                .widgetOfType(FigureCanvas.class)));
+        SWTBotGefFigureCanvas jobFigureCanvas = new SWTBotGefFigureCanvas((FigureCanvas) GEFBOT.widget(
+                WidgetOfType.widgetOfType(FigureCanvas.class), jobEditor.getWidget()));
+
+        int x = 50;
+        int y = 50;
+        int folderLevel = 1;
+        if (toolLabel.contains("tFileOutput"))
+            folderLevel = 2;
+
+        DndUtil dndUtil = new DndUtil(jobEditor.getWidget().getDisplay());
+        dndUtil.dragAndDrop(paletteFigureCanvas, new Point(x, y + 20 * folderLevel), jobFigureCanvas, locationOnJob);
+    }
 }

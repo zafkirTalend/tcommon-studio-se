@@ -15,22 +15,18 @@ package tosstudio.components.basicelements;
 import junit.framework.Assert;
 
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendJobItem;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -38,49 +34,39 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class LinkManagementTest extends TalendSwtBotForTos {
 
-    private SWTBotTree tree;
-
-    private SWTBotShell shell;
-
-    private SWTBotView view;
-
-    private SWTBotGefEditor gefEditor;
-
-    private SWTBotTreeItem treeNode;
+    private TalendJobItem jobItem;
 
     public static final String JOBNAME = "linkManagement"; //$NON-NLS-1$
 
     @Before
     public void createJob() {
-        view = Utilities.getRepositoryView();
-        view.setFocus();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOB_DESIGNS);
-        Utilities.createJob(JOBNAME, treeNode);
+        jobItem = new TalendJobItem(JOBNAME);
+        jobItem.create();
     }
 
     @Test
     public void useComponentInJob() {
-        gefEditor = gefBot.gefEditor("Job " + JOBNAME + " 0.1");
+        SWTBotGefEditor jobEditor = jobItem.getJobEditor();
 
-        Utilities.dndPaletteToolOntoJob(gefEditor, "tRowGenerator", new Point(100, 100));
-        Utilities.dndPaletteToolOntoJob(gefEditor, "tLogRow", new Point(300, 100));
-
-        SWTBotGefEditPart rowGen = getTalendComponentPart(gefEditor, "tRowGenerator_1");
+        Utilities.dndPaletteToolOntoJob(jobEditor, "tRowGenerator", new Point(100, 100));
+        SWTBotGefEditPart rowGen = getTalendComponentPart(jobEditor, "tRowGenerator_1");
         Assert.assertNotNull("can not get component 'tRowGenerator'", rowGen);
+        Utilities.dndPaletteToolOntoJob(jobEditor, "tLogRow", new Point(300, 100));
+        SWTBotGefEditPart logRow = getTalendComponentPart(jobEditor, "tLogRow_1");
+        Assert.assertNotNull("can not get component 'tLogRow'", logRow);
+        logRow.select();
+
         rowGen.doubleClick();
-        shell = gefBot.shell(System.getProperty("buildType") + " - tRowGenerator - tRowGenerator_1");
+        SWTBotShell shell = gefBot.shell(System.getProperty("buildTitle") + " - tRowGenerator - tRowGenerator_1");
         shell.activate();
         gefBot.buttonWithTooltip("Add").click();
         gefBot.buttonWithTooltip("Add").click();
         gefBot.button("OK").click();
 
-        gefEditor.select(rowGen);
-        gefEditor.clickContextMenu("Row").clickContextMenu("Main");
-        SWTBotGefEditPart logRow = getTalendComponentPart(gefEditor, "tLogRow_1");
-        Assert.assertNotNull("can not get component 'tLogRow'", logRow);
-        gefEditor.click(logRow);
-        SWTBotGefEditPart rowMain = gefEditor.getEditPart("row1 (Main)");
+        jobEditor.select(rowGen);
+        jobEditor.clickContextMenu("Row").clickContextMenu("Main");
+        jobEditor.click(logRow);
+        SWTBotGefEditPart rowMain = jobEditor.getEditPart("row1 (Main)");
         Assert.assertNotNull("can not draw row line", rowMain);
 
         gefBot.viewByTitle("Component").show();
@@ -98,8 +84,8 @@ public class LinkManagementTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviousCreateItems() {
-        gefEditor.saveAndClose();
-        Utilities.delete(treeNode, JOBNAME, "0.1", null);
+        jobItem.getJobEditor().saveAndClose();
+        Utilities.delete(jobItem.getParentNode(), JOBNAME, "0.1", null);
         Utilities.emptyRecycleBin();
     }
 }
