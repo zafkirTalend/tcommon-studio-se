@@ -83,7 +83,7 @@ public class ExportItemsTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() throws IOException, URISyntaxException {
         shell.close();
-        Utilities.cleanUpRepository(tree, "TOS");
+        Utilities.cleanUpRepository(tree, System.getProperty("buildType"));
         Utilities.emptyRecycleBin();
         Utilities.getFileFromCurrentPluginSampleFolder("output.zip").delete();
     }

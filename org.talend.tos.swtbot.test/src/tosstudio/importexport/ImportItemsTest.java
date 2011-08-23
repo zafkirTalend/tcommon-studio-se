@@ -84,7 +84,7 @@ public class ImportItemsTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() {
         shell.close();
-        Utilities.cleanUpRepository(tree, "TOS");
+        Utilities.cleanUpRepository(tree, System.getProperty("buildType"));
         Utilities.emptyRecycleBin();
     }
 }
