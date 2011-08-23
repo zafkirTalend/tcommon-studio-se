@@ -13,6 +13,7 @@
 package org.talend.repository.ui.wizards.metadata.table.database;
 
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.jface.dialogs.IDialogPage;
 import org.eclipse.swt.SWT;
@@ -24,6 +25,7 @@ import org.talend.commons.ui.swt.composites.StateComposite;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.metadata.builder.database.TableNode;
 import org.talend.core.model.properties.ConnectionItem;
@@ -57,6 +59,8 @@ public class SelectorTableWizardPage extends TemplateWizardPage {
 
     private DatabaseConnection temConnection;
 
+    private Set<MetadataTable> oldTables;
+
     /**
      * SelectorTableWizardPage constructor (to instance IMetadataConnection OR MetaDataTableType). If MetaDataTableType
      * exist, it's an update of existing metadata else it's a new metadata.
@@ -84,6 +88,7 @@ public class SelectorTableWizardPage extends TemplateWizardPage {
         this.tableInfoParameters = tableInfoParameters;
         this.metadataConnection = metadataConnection;
         this.isCreateTemplate = isCreateTemplate;
+        oldTables = ConnectionHelper.getTables(templateConnection.getConnection());
     }
 
     /**
@@ -120,11 +125,12 @@ public class SelectorTableWizardPage extends TemplateWizardPage {
         data = new GridData(GridData.FILL_BOTH);
         data.horizontalSpan = 7;
         if (isCreateTemplate) {
-            Catalog c = (Catalog) ConnectionHelper.getPackage(((DatabaseConnection) templateConnection.getConnection()).getSID(),
-                    templateConnection.getConnection(), Catalog.class);
-            if (c != null) { // hywang
-                c.getOwnedElement().clear();
-            }
+            // Catalog c = (Catalog) ConnectionHelper.getPackage(((DatabaseConnection)
+            // templateConnection.getConnection()).getSID(),
+            // templateConnection.getConnection(), Catalog.class);
+            // if (c != null) { // hywang
+            // c.getOwnedElement().clear();
+            // }
             tableForm = new SelectorTableForm(container, templateConnection, this, isCreateTemplate, temConnection);
         } else {
             tableForm = new SelectorTableForm(container, connectionItem, this, isCreateTemplate, temConnection);
@@ -216,6 +222,10 @@ public class SelectorTableWizardPage extends TemplateWizardPage {
 
     public List<TableNode> getTableNodeList() {
         return tableForm.getTableNodeList();
+    }
+
+    public Set<MetadataTable> getOldTables() {
+        return this.oldTables;
     }
 
 }
