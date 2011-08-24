@@ -78,7 +78,7 @@ public class MetadataHelper implements Helper {
             String fileName = "\"" + ((TalendEdiItem) item).getAbsoluteFilePath() + "\"";
             GEFBOT.textInGroup("EDI parameters", 0).setText(fileName);
         }
-        JobHelper.useTLogRow(jobEditor, metadata, rowName);
+        JobHelper.connect2TLogRow(jobEditor, metadata, rowName, new Point(300, 100));
         JobHelper.runJob(jobEditor);
     }
 

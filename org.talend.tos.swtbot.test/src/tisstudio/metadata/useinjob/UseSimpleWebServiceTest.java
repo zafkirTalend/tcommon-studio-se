@@ -15,20 +15,16 @@ package tisstudio.metadata.useinjob;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
-import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.helpers.JobHelper;
 import org.talend.swtbot.helpers.MetadataHelper;
+import org.talend.swtbot.items.TalendJobItem;
 import org.talend.swtbot.items.TalendWebServiceItem;
 
 /**
@@ -37,19 +33,9 @@ import org.talend.swtbot.items.TalendWebServiceItem;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class UseSimpleWebServiceTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
+    private TalendJobItem jobItem;
 
-    private SWTBotTree tree;
-
-    private SWTBotTreeItem jobNode;
-
-    private SWTBotTreeItem jobItem;
-
-    private SWTBotTreeItem metadataNode;
-
-    private SWTBotTreeItem metadataItem;
-
-    private SWTBotGefEditor jobEditor;
+    private TalendWebServiceItem wsItem;
 
     private static final String JOBNAME = "jobTest"; // $NON-NLS-1$
 
@@ -57,37 +43,32 @@ public class UseSimpleWebServiceTest extends TalendSwtBotForTos {
 
     @Before
     public void createJobAndMetadata() throws IOException, URISyntaxException {
-        view = Utilities.getRepositoryView();
-        view.setFocus();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        jobNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOB_DESIGNS);
-        jobItem = Utilities.createJob(JOBNAME, jobNode);
-        jobEditor = gefBot.gefEditor("Job " + jobItem.getText());
-        metadataNode = Utilities.getTalendItemNode(Utilities.TalendItemType.WEB_SERVICE);
-        metadataItem = Utilities.createWebService("simple", METADATA_NAME, metadataNode);
+        jobItem = new TalendJobItem(JOBNAME);
+        jobItem.create();
+        wsItem = new TalendWebServiceItem(METADATA_NAME);
+        wsItem.setTypeAsSimple();
+        wsItem.create();
     }
 
     @Test
     public void useMetadataInJob() throws IOException, URISyntaxException {
-        TalendWebServiceItem wsItem = new TalendWebServiceItem();
-        wsItem.setItem(metadataItem);
         String[] resultArray = { "Sunny", "Party Cloudy", "Rain", "Cloudy" };
         String results = "";
         for (int i = 0; i < resultArray.length; i++) {
             results += resultArray[i] + ",";
         }
         wsItem.setExpectResult(results);
-        MetadataHelper.output2Console(jobEditor, wsItem);
+        MetadataHelper.output2Console(jobItem.getJobEditor(), wsItem);
 
-        String result = gefBot.styledText().getText();
-        MetadataHelper.assertResult(result, wsItem);
+        String actualResult = JobHelper.getExecutionResult();
+        MetadataHelper.assertResult(actualResult, wsItem);
     }
 
     @After
     public void removePreviousCreateItems() {
-        jobEditor.saveAndClose();
-        Utilities.cleanUpRepository(jobNode);
-        Utilities.cleanUpRepository(metadataNode);
+        jobItem.getJobEditor().saveAndClose();
+        Utilities.cleanUpRepository(jobItem.getParentNode());
+        Utilities.cleanUpRepository(wsItem.getParentNode());
         Utilities.emptyRecycleBin();
     }
 }

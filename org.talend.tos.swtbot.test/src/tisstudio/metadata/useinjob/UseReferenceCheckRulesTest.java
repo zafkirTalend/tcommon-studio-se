@@ -78,7 +78,7 @@ public class UseReferenceCheckRulesTest extends TalendSwtBotForTos {
         SWTBotGefEditPart metadata = getTalendComponentPart(jobItem.getJobEditor(), schema.getItemNameWithQuotes());
         Assert.assertNotNull("can not get component '" + schema.getComponentType() + "'", metadata);
         MetadataHelper.activateValidationRule(metadata, ruleItem);
-        JobHelper.useTLogRow(jobItem.getJobEditor(), metadata);
+        JobHelper.connect2TLogRow(jobItem.getJobEditor(), metadata, new Point(300, 100));
         JobHelper.runJob(jobItem.getJobEditor());
         String result = JobHelper.getExecutionResult();
         schema.setExpectResult("1|a\n2|b");

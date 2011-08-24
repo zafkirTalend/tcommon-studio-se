@@ -88,8 +88,7 @@ public class TalendEdiItem extends TalendMetadataItem {
     @Override
     public void create() {
         SWTGefBot gefBot = new SWTGefBot();
-        SWTBotTreeItem treeNode = Utilities.getTalendItemNode(getItemType());
-        treeNode.contextMenu("Create EDI").click();
+        getParentNode().contextMenu("Create EDI").click();
         SWTBotShell shell = gefBot.shell("Create new EDI schema").activate();
         gefBot.textWithLabel("Name").setText(getItemName());
         boolean isNextButtonEnable = gefBot.button("Next >").isEnabled();
@@ -123,13 +122,13 @@ public class TalendEdiItem extends TalendMetadataItem {
 
         SWTBotTreeItem newEDIItem = null;
         try {
-            newEDIItem = treeNode.expand().select(getItemName() + " 0.1");
+            newEDIItem = getParentNode().expand().select(getItemName() + " 0.1");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             Assert.assertNotNull("validation EDI item is not created", newEDIItem);
         }
 
-        setItem(treeNode.getNode(getItemName() + " 0.1"));
+        setItem(getParentNode().getNode(getItemName() + " 0.1"));
     }
 }

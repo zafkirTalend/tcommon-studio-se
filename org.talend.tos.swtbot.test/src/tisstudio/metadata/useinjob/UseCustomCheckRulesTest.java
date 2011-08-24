@@ -71,7 +71,7 @@ public class UseCustomCheckRulesTest extends TalendSwtBotForTos {
         SWTBotGefEditPart metadata = getTalendComponentPart(jobItem.getJobEditor(), metadataItem.getItemName());
         Assert.assertNotNull("can not get component '" + metadataItem.getComponentType() + "'", metadata);
         MetadataHelper.activateValidationRule(metadata, ruleItem);
-        JobHelper.useTLogRow(jobItem.getJobEditor(), metadata);
+        JobHelper.connect2TLogRow(jobItem.getJobEditor(), metadata, new Point(300, 100));
         JobHelper.runJob(jobItem.getJobEditor());
         String actualResult = JobHelper.getExecutionResult();
         String expectResult = metadataItem.getExpectResult();
