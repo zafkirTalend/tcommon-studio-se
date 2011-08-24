@@ -64,6 +64,15 @@ public class ConnectionBean implements Cloneable {
         return newConnection;
     }
 
+    public static ConnectionBean getDefaultRemoteConnectionBean() {
+        ConnectionBean newConnection = new ConnectionBean();
+        newConnection.setName(Messages.getString("ConnectionBean.Remote")); //$NON-NLS-1$
+        newConnection.setDescription(Messages.getString("ConnectionBean.DefaultConnection")); //$NON-NLS-1$
+        newConnection.setRepositoryId(RepositoryConstants.REPOSITORY_REMOTE_ID);
+        newConnection.setPassword(""); //$NON-NLS-1$
+        return newConnection;
+    }
+
     public String getRepositoryId() {
         return this.repositoryId;
     }
