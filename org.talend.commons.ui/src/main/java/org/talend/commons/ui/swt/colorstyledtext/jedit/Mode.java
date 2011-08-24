@@ -18,11 +18,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import org.apache.regexp.RE;
+import org.apache.regexp.RESyntaxException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.i18n.Messages;
-
-import com.sun.org.apache.regexp.internal.RE;
-import com.sun.org.apache.regexp.internal.RESyntaxException;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
