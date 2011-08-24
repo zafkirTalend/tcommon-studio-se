@@ -210,11 +210,11 @@ public final class MetadataToolHelper {
      */
     public static String validateColumnName(String columnName, int index) {
         String originalColumnName = new String(columnName);
-        columnName = "";
         final String underLine = "_"; //$NON-NLS-1$
 
-        boolean isKeyword = KeywordsValidator.isKeyword(columnName);
+        boolean isKeyword = KeywordsValidator.isKeyword(originalColumnName);
 
+        columnName = "";
         if (!isKeyword) {
             boolean isAllowSpecific = isAllowSpecificCharacters();
 
