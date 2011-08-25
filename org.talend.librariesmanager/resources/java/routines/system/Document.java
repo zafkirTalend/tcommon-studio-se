@@ -51,7 +51,7 @@ public class Document {
      * @return
      */
     public List<Map<String, Object>> LookupDocument(String loopXPath, Map<String, Object> lookupInfo,
-            Map<String, String> xpathOfResults, Map<String, String> nsMapping) {
+            Map<String, String> xpathOfResults, Map<String, String> nsMapping,String matchingMode) {
         if (doc == null || lookupInfo == null) {
             return null;
         }
@@ -89,7 +89,20 @@ public class Document {
             }
 
         }
-        return result;
+        //set resultset 
+		int count = result.size();
+		if(count>0) {
+			if("UNIQUE_MATCH".equals(matchingMode)) {
+				List<Map<String,Object>> singleResult = new ArrayList<Map<String,Object>>();
+				singleResult.add(result.get(count-1));
+				return singleResult;
+			} else if("FIRST_MATCH".equals(matchingMode)) {
+				List<Map<String,Object>> singleResult = new ArrayList<Map<String,Object>>();
+				singleResult.add(result.get(0));
+				return singleResult;
+			}
+		}
+		return result;
     }
 
 }
