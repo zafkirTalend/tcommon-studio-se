@@ -13,6 +13,7 @@
 package org.talend.rcp.intro.linksbar;
 
 import org.eclipse.jface.action.ContributionItem;
+import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -45,6 +46,8 @@ public class LinksToolbarItem extends ContributionItem {
 
     private static final String UPGRADE_URL = "<a href=\"http://www.talend.com/whyupgrade.php\">Upgrade!</a>"; //$NON-NLS-1$
 
+    private static ImageRegistry registry = new ImageRegistry();
+
     @Override
     public void fill(ToolBar parent, int index) {
         // parent.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_RED));
@@ -66,7 +69,11 @@ public class LinksToolbarItem extends ContributionItem {
         // 1.learn
         Label learnLabel = new Label(composite, SWT.NONE);
 
-        learnLabel.setImage(Activator.getImageDescriptor("icons/demo.png").createImage()); //$NON-NLS-1$
+        if (registry.get("demo") == null) {
+            registry.put("demo", Activator.getImageDescriptor("icons/demo.png").createImage());
+        }
+
+        learnLabel.setImage(registry.get("demo")); //$NON-NLS-1$
 
         Link learn = new Link(composite, SWT.NONE);
         learn.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
@@ -83,7 +90,10 @@ public class LinksToolbarItem extends ContributionItem {
         // 2.ask
         Label askLabel = new Label(composite, SWT.NONE);
 
-        askLabel.setImage(Activator.getImageDescriptor("icons/irc_protocol.png").createImage()); //$NON-NLS-1$
+        if (registry.get("protocol") == null) {
+            registry.put("protocol", Activator.getImageDescriptor("icons/irc_protocol.png").createImage());
+        }
+        askLabel.setImage(registry.get("protocol")); //$NON-NLS-1$
 
         Link ask = new Link(composite, SWT.NONE);
         ask.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
@@ -100,7 +110,10 @@ public class LinksToolbarItem extends ContributionItem {
         if (!PluginChecker.isTIS()) {
             // 4.upgrade
             Label upgradeLabel = new Label(composite, SWT.NONE);
-            upgradeLabel.setImage(Activator.getImageDescriptor("icons/wizard.png").createImage()); //$NON-NLS-1$
+            if (registry.get("wizard") == null) {
+                registry.put("wizard", Activator.getImageDescriptor("icons/wizard.png").createImage());
+            }
+            upgradeLabel.setImage(registry.get("wizard")); //$NON-NLS-1$
             Link upgrade = new Link(composite, SWT.NONE);
             upgrade.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
             upgrade.setText(UPGRADE_URL);
