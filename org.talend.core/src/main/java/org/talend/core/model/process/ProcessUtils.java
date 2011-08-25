@@ -525,9 +525,11 @@ public final class ProcessUtils {
                         }
                     } else {
                         try {
-                            IRepositoryViewObject lastVersion = factory.getLastVersion(infor.getId());
-                            if (lastVersion != null) {
-                                repositoryObjects.add(lastVersion);
+                            if (infor.getId() != null) { // to avoid warning in case of null id
+                                IRepositoryViewObject lastVersion = factory.getLastVersion(infor.getId());
+                                if (lastVersion != null) {
+                                    repositoryObjects.add(lastVersion);
+                                }
                             }
                         } catch (PersistenceException e) {
                             ExceptionHandler.process(e);
