@@ -73,6 +73,7 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getOwnerSchedulerInstanceId <em>Owner Scheduler Instance Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getOnUnknownStateJob <em>On Unknown State Job</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isUseLatestVersion <em>Use Latest Version</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getItem <em>Item</em>}</li>
  * </ul>
  * </p>
  *
@@ -815,6 +816,26 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * @ordered
      */
     protected boolean useLatestVersion = USE_LATEST_VERSION_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getItem() <em>Item</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getItem()
+     * @generated
+     * @ordered
+     */
+    protected static final String ITEM_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getItem() <em>Item</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getItem()
+     * @generated
+     * @ordered
+     */
+    protected String item = ITEM_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1654,6 +1675,27 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getItem() {
+        return item;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setItem(String newItem) {
+        String oldItem = item;
+        item = newItem;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__ITEM, oldItem, item));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1776,6 +1818,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return getOnUnknownStateJob();
             case PropertiesPackage.EXECUTION_TASK__USE_LATEST_VERSION:
                 return isUseLatestVersion() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.EXECUTION_TASK__ITEM:
+                return getItem();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1912,6 +1956,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__USE_LATEST_VERSION:
                 setUseLatestVersion(((Boolean)newValue).booleanValue());
                 return;
+            case PropertiesPackage.EXECUTION_TASK__ITEM:
+                setItem((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -2045,6 +2092,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__USE_LATEST_VERSION:
                 setUseLatestVersion(USE_LATEST_VERSION_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_TASK__ITEM:
+                setItem(ITEM_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -2137,6 +2187,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return ON_UNKNOWN_STATE_JOB_EDEFAULT == null ? onUnknownStateJob != null : !ON_UNKNOWN_STATE_JOB_EDEFAULT.equals(onUnknownStateJob);
             case PropertiesPackage.EXECUTION_TASK__USE_LATEST_VERSION:
                 return useLatestVersion != USE_LATEST_VERSION_EDEFAULT;
+            case PropertiesPackage.EXECUTION_TASK__ITEM:
+                return ITEM_EDEFAULT == null ? item != null : !ITEM_EDEFAULT.equals(item);
         }
         return super.eIsSet(featureID);
     }
@@ -2219,6 +2271,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         result.append(onUnknownStateJob);
         result.append(", useLatestVersion: ");
         result.append(useLatestVersion);
+        result.append(", item: ");
+        result.append(item);
         result.append(')');
         return result.toString();
     }

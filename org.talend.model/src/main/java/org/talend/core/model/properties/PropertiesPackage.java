@@ -4485,13 +4485,22 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK__USE_LATEST_VERSION = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 33;
 
     /**
+     * The feature id for the '<em><b>Item</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__ITEM = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 34;
+
+    /**
      * The number of structural features of the '<em>Execution Task</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_FEATURE_COUNT = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 34;
+    int EXECUTION_TASK_FEATURE_COUNT = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 35;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -7050,13 +7059,22 @@ public interface PropertiesPackage extends EPackage {
     int SOA_OPERATION__BRANCH = 23;
 
     /**
+     * The feature id for the '<em><b>Item</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__ITEM = 24;
+
+    /**
      * The number of structural features of the '<em>Soa Operation</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int SOA_OPERATION_FEATURE_COUNT = 24;
+    int SOA_OPERATION_FEATURE_COUNT = 25;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -10847,6 +10865,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionTask_UseLatestVersion();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getItem <em>Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Item</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getItem()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_Item();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionTaskCmdPrm <em>Execution Task Cmd Prm</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Execution Task Cmd Prm</em>'.
@@ -11994,6 +12023,17 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getSoaOperation_Branch();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaOperation#getItem <em>Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Item</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#getItem()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EAttribute getSoaOperation_Item();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.SoaInputParameter <em>Soa Input Parameter</em>}'.
@@ -15830,6 +15870,14 @@ public interface PropertiesPackage extends EPackage {
         EAttribute EXECUTION_TASK__USE_LATEST_VERSION = eINSTANCE.getExecutionTask_UseLatestVersion();
 
         /**
+         * The meta object literal for the '<em><b>Item</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__ITEM = eINSTANCE.getExecutionTask_Item();
+
+        /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionTaskCmdPrmImpl <em>Execution Task Cmd Prm</em>}' class.
          * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.properties.impl.ExecutionTaskCmdPrmImpl
@@ -16728,6 +16776,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute SOA_OPERATION__BRANCH = eINSTANCE.getSoaOperation_Branch();
+
+        /**
+         * The meta object literal for the '<em><b>Item</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_OPERATION__ITEM = eINSTANCE.getSoaOperation_Item();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.SoaInputParameterImpl <em>Soa Input Parameter</em>}' class.

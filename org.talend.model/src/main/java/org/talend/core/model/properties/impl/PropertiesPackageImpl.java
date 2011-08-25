@@ -3451,6 +3451,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getExecutionTask_Item() {
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(34);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getExecutionTaskCmdPrm() {
         return executionTaskCmdPrmEClass;
     }
@@ -4990,6 +4999,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getSoaOperation_Item() {
+        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(24);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getSoaInputParameter() {
         return soaInputParameterEClass;
     }
@@ -6038,6 +6056,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(executionTaskEClass, EXECUTION_TASK__OWNER_SCHEDULER_INSTANCE_ID);
         createEAttribute(executionTaskEClass, EXECUTION_TASK__ON_UNKNOWN_STATE_JOB);
         createEAttribute(executionTaskEClass, EXECUTION_TASK__USE_LATEST_VERSION);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__ITEM);
 
         executionTaskCmdPrmEClass = createEClass(EXECUTION_TASK_CMD_PRM);
         createEAttribute(executionTaskCmdPrmEClass, EXECUTION_TASK_CMD_PRM__ID);
@@ -6232,6 +6251,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEReference(soaOperationEClass, SOA_OPERATION__SERVICE);
         createEAttribute(soaOperationEClass, SOA_OPERATION__RETURN_STYLE);
         createEAttribute(soaOperationEClass, SOA_OPERATION__BRANCH);
+        createEAttribute(soaOperationEClass, SOA_OPERATION__ITEM);
 
         soaInputParameterEClass = createEClass(SOA_INPUT_PARAMETER);
         createEAttribute(soaInputParameterEClass, SOA_INPUT_PARAMETER__ID);
@@ -6751,6 +6771,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getExecutionTask_OwnerSchedulerInstanceId(), theEcorePackage.getEString(), "ownerSchedulerInstanceId", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionTask_OnUnknownStateJob(), theEcorePackage.getEString(), "onUnknownStateJob", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionTask_UseLatestVersion(), theEcorePackage.getEBoolean(), "useLatestVersion", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_Item(), theEcorePackage.getEString(), "item", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(executionTaskCmdPrmEClass, ExecutionTaskCmdPrm.class, "ExecutionTaskCmdPrm", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getExecutionTaskCmdPrm_Id(), ecorePackage.getEInt(), "id", null, 1, 1, ExecutionTaskCmdPrm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -6945,6 +6966,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEReference(getSoaOperation_Service(), this.getSoaService(), this.getSoaService_Operations(), "service", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getSoaOperation_ReturnStyle(), ecorePackage.getEString(), "returnStyle", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getSoaOperation_Branch(), ecorePackage.getEString(), "branch", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaOperation_Item(), theEcorePackage.getEString(), "item", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(soaInputParameterEClass, SoaInputParameter.class, "SoaInputParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getSoaInputParameter_Id(), ecorePackage.getEInt(), "id", null, 1, 1, SoaInputParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

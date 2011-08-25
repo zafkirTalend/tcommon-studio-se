@@ -53,6 +53,7 @@ import org.talend.core.model.properties.SoaService;
  *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#getService <em>Service</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#getReturnStyle <em>Return Style</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#getBranch <em>Branch</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#getItem <em>Item</em>}</li>
  * </ul>
  * </p>
  *
@@ -488,6 +489,26 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
      * @ordered
      */
     protected String branch = BRANCH_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getItem() <em>Item</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getItem()
+     * @generated
+     * @ordered
+     */
+    protected static final String ITEM_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getItem() <em>Item</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getItem()
+     * @generated
+     * @ordered
+     */
+    protected String item = ITEM_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -991,6 +1012,27 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getItem() {
+        return item;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setItem(String newItem) {
+        String oldItem = item;
+        item = newItem;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.SOA_OPERATION__ITEM, oldItem, item));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1085,6 +1127,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
                 return getReturnStyle();
             case PropertiesPackage.SOA_OPERATION__BRANCH:
                 return getBranch();
+            case PropertiesPackage.SOA_OPERATION__ITEM:
+                return getItem();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1168,6 +1212,9 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
             case PropertiesPackage.SOA_OPERATION__BRANCH:
                 setBranch((String)newValue);
                 return;
+            case PropertiesPackage.SOA_OPERATION__ITEM:
+                setItem((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1250,6 +1297,9 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
             case PropertiesPackage.SOA_OPERATION__BRANCH:
                 setBranch(BRANCH_EDEFAULT);
                 return;
+            case PropertiesPackage.SOA_OPERATION__ITEM:
+                setItem(ITEM_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1308,6 +1358,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
                 return RETURN_STYLE_EDEFAULT == null ? returnStyle != null : !RETURN_STYLE_EDEFAULT.equals(returnStyle);
             case PropertiesPackage.SOA_OPERATION__BRANCH:
                 return BRANCH_EDEFAULT == null ? branch != null : !BRANCH_EDEFAULT.equals(branch);
+            case PropertiesPackage.SOA_OPERATION__ITEM:
+                return ITEM_EDEFAULT == null ? item != null : !ITEM_EDEFAULT.equals(item);
         }
         return super.eIsSet(featureID);
     }
@@ -1362,6 +1414,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
         result.append(returnStyle);
         result.append(", branch: ");
         result.append(branch);
+        result.append(", item: ");
+        result.append(item);
         result.append(')');
         return result.toString();
     }

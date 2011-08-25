@@ -50,6 +50,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getOwnerSchedulerInstanceId <em>Owner Scheduler Instance Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getOnUnknownStateJob <em>On Unknown State Job</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#isUseLatestVersion <em>Use Latest Version</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getItem <em>Item</em>}</li>
  * </ul>
  * </p>
  *
@@ -908,5 +909,31 @@ public interface ExecutionTask extends ExecutionTriggerable {
      * @generated
      */
     void setUseLatestVersion(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Item</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Item</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Item</em>' attribute.
+     * @see #setItem(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_Item()
+     * @model
+     * @generated
+     */
+    String getItem();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getItem <em>Item</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Item</em>' attribute.
+     * @see #getItem()
+     * @generated
+     */
+    void setItem(String value);
 
 } // ExecutionTask
