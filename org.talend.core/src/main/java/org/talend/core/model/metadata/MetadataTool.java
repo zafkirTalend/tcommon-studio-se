@@ -59,7 +59,10 @@ public class MetadataTool {
         List<ColumnNameChanged> columnNameChanged = new ArrayList<ColumnNameChanged>();
         for (int i = 0; i < oldTable.getListColumns().size(); i++) {
             IMetadataColumn originalColumn = oldTable.getListColumns().get(i);
-            IMetadataColumn clonedColumn = getColumn(newTable, originalColumn.getId());
+            int oldIndex = oldTable.getListColumns().indexOf(originalColumn);
+            // TDI-9847:since the SCD type3field's currentColumn and previousColumn has same ID,when edit schema,we
+            // up/down outputSchema's column order,need add index to make a difference to get the right column
+            IMetadataColumn clonedColumn = getColumn(newTable, originalColumn, oldIndex);
             if (clonedColumn != null) {
                 if (!originalColumn.getLabel().equals(clonedColumn.getLabel())) {
                     columnNameChanged.add(new ColumnNameChanged(originalColumn.getLabel(), clonedColumn.getLabel()));
@@ -77,7 +80,8 @@ public class MetadataTool {
         List<ColumnNameChanged> columnNameChanged = new ArrayList<ColumnNameChanged>();
         for (int i = 0; i < oldTable.getListColumns().size(); i++) {
             IMetadataColumn originalColumn = oldTable.getListColumns().get(i);
-            IMetadataColumn clonedColumn = getColumn(newTable, originalColumn.getId());
+            int oldIndex = oldTable.getListColumns().indexOf(originalColumn);
+            IMetadataColumn clonedColumn = getColumn(newTable, originalColumn, oldIndex);
             if (clonedColumn != null) {
                 if (!originalColumn.getLabel().equals(clonedColumn.getLabel())) {
                     columnNameChanged.add(new ColumnNameChangedExt(changedNode, originalColumn.getLabel(), clonedColumn
@@ -88,11 +92,19 @@ public class MetadataTool {
         return columnNameChanged;
     }
 
-    private static IMetadataColumn getColumn(IMetadataTable table, String id) {
-        if (id != null) {
+    private static IMetadataColumn getColumn(IMetadataTable table, IMetadataColumn originalColumn, int oldIndex) {
+        if (originalColumn.getId() != null) {
             for (IMetadataColumn col : table.getListColumns()) {
-                if (id.equals(col.getId())) {
-                    return col;
+                if (originalColumn.getId().equals(col.getId())) {
+                    if (oldIndex != table.getListColumns().indexOf(col)) {
+                        if (originalColumn.getLabel().equals(col.getLabel())) {
+                            return col;
+                        } else {
+                            continue;
+                        }
+                    } else {
+                        return col;
+                    }
                 }
             }
         }
