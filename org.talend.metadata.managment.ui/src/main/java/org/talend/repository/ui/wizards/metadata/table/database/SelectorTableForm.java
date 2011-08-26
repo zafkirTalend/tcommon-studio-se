@@ -206,7 +206,7 @@ public class SelectorTableForm extends AbstractForm {
         this.tableInfoParameters = page.getTableInfoParameters();
         this.forTemplate = forTemplate;
         this.temConnection = temConnection;
-        if (forTemplate && ConnectionHelper.getTables(getConnection()).size() <= 0) {
+        if (forTemplate) {// && ConnectionHelper.getTables(getConnection()).size() <= 0
             page.setPageComplete(false);
         }
         setupForm();
@@ -623,12 +623,41 @@ public class SelectorTableForm extends AbstractForm {
                             }
                         }
                     }
-                    if (forTemplate && (ConnectionHelper.getTables(getConnection()).size() <= 0)) {
+                    boolean pageC = pageComplete();
+                    if (pageC) {
                         parentWizardPage.setPageComplete(false);
                     }
                 }
             }
         });
+    }
+
+    private boolean pageComplete() {
+        if (parentWizardPage instanceof SelectorTableWizardPage) {
+            List<MetadataTable> list = new ArrayList<MetadataTable>();
+            Set<MetadataTable> oldTables = ((SelectorTableWizardPage) parentWizardPage).getOldTables();
+            Set<MetadataTable> tables = ConnectionHelper.getTables(getConnection());
+            if (oldTables != null && oldTables.size() > 0) {
+                for (MetadataTable table : tables) {
+                    boolean found = false;
+                    for (MetadataTable oldtable : oldTables) {
+                        if (table != null && oldtable != null && table.getId().equals(oldtable.getId())) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (table != null && !found) {
+                        list.add(table);
+                    }
+                }
+            } else {
+                list.addAll(tables);
+            }
+            if (forTemplate && list.size() <= 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
