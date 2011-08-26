@@ -69,11 +69,13 @@ public interface IComponentsFactory {
 
     public void loadUserComponentsFromComponentsProviderExtension();
 
-    public Map<String, ImageDescriptor> getAllComponentsCanBeProvided();
+    public Map<String, String> getAllComponentsCanBeProvided();
 
     public void initializeComponents(IProgressMonitor monitor);
 
     public void initializeComponents(IProgressMonitor monitor, boolean duringLogon);
 
     public List<File> getComponentsProvidersFolder();
+
+    public Map<String, ImageDescriptor> getComponentsImageRegistry();
 }

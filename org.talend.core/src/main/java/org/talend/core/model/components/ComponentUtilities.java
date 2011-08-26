@@ -410,8 +410,7 @@ public class ComponentUtilities {
     }
 
     public static PaletteRoot createPaletteRootWithAllComponents() {
-        Map<String, ImageDescriptor> allComponentsCanBeProvided = ComponentsFactoryProvider.getInstance()
-                .getAllComponentsCanBeProvided();
+        Map<String, String> allComponentsCanBeProvided = ComponentsFactoryProvider.getInstance().getAllComponentsCanBeProvided();
         Set<String> components = allComponentsCanBeProvided.keySet();
 
         List<String> families = new ArrayList<String>();
@@ -446,7 +445,8 @@ public class ComponentUtilities {
             String family = getTranslatedFamilyName(split[0]);
             String[] strings = family.split(ComponentsFactoryProvider.FAMILY_SEPARATOR_REGEX);
             for (int j = 0; j < strings.length; j++) {
-                ImageDescriptor imageDescriptor = allComponentsCanBeProvided.get(nameAndFamily);
+                ImageDescriptor imageDescriptor = ComponentsFactoryProvider.getInstance().getComponentsImageRegistry()
+                        .get(allComponentsCanBeProvided.get(nameAndFamily));
                 CombinedTemplateCreationEntry component = new CombinedTemplateCreationEntry(split[1], split[1], null, null,
                         imageDescriptor, imageDescriptor);
                 PaletteDrawer componentsDrawer = ht.get(strings[j]);

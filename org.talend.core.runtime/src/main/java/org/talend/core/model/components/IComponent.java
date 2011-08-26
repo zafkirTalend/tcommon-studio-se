@@ -13,6 +13,7 @@
 package org.talend.core.model.components;
 
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.talend.core.model.general.ModuleNeeded;
@@ -54,17 +55,13 @@ public interface IComponent {
 
     public String getTranslatedFamilyName();
 
-    public ImageDescriptor getIcon32();
+    public void setImageRegistry(Map<String, ImageDescriptor> imageRegistry);
 
-    public void setIcon32(ImageDescriptor icon32);
+    public ImageDescriptor getIcon32();
 
     public ImageDescriptor getIcon24();
 
-    public void setIcon24(ImageDescriptor icon24);
-
     public ImageDescriptor getIcon16();
-
-    public void setIcon16(ImageDescriptor icon16);
 
     public List<? extends IElementParameter> createElementParameters(INode node);
 
