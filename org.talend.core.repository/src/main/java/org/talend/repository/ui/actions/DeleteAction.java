@@ -919,19 +919,12 @@ public class DeleteAction extends AContextualAction {
                     break;
                 case REPOSITORY_ELEMENT:
                     Object contentType = node.getProperties(EProperties.CONTENT_TYPE);
-                    Object parentContentType = node.getParent().getProperties(EProperties.CONTENT_TYPE);
                     if (contentType == ERepositoryObjectType.JOB_DOC || contentType == ERepositoryObjectType.JOBLET_DOC) {
                         visible = false;
                         break;
                     }
                     if (contentType == ERepositoryObjectType.METADATA_CON_CDC) {
                         enabled = false;
-                        visible = false;
-                        break;
-                    }
-                    // if validation rule is in schema folder, don't display delete action.
-                    if (contentType == ERepositoryObjectType.METADATA_VALIDATION_RULES
-                            && parentContentType == ERepositoryObjectType.METADATA_VALIDATIONS_RULES_FOLDER) {
                         visible = false;
                         break;
                     }
