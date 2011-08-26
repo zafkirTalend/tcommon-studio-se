@@ -463,9 +463,13 @@ public class RepositoryToComponentProperty {
             } else {
                 return TalendQuoteUtils.addQuotes(connection.getPassword());
             }
-        } else if ("CUSTOM_MODULE_NAME".equals(value)) { //$NON-NLS-1$
-            return TalendQuoteUtils.addQuotes(connection.getModuleName());
-        } else if ("MODULENAME".equals(value)) { //$NON-NLS-1$
+        }
+        // for bug TDI-8662 . should be careful that connection.getModuleName() will always get the latest name of the
+        // module which was the last one be retrived
+        //        else if ("CUSTOM_MODULE_NAME".equals(value)) { //$NON-NLS-1$
+        // return TalendQuoteUtils.addQuotes(connection.getModuleName());
+        // }
+        else if ("MODULENAME".equals(value)) { //$NON-NLS-1$
             if (connection.isUseCustomModuleName()) {
                 return "CustomModule"; //$NON-NLS-1$
             } else {
