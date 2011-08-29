@@ -1,5 +1,6 @@
 package com.talend.tac.cases.SoaManager;
 
+import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -35,24 +36,57 @@ public class TestSoaManager extends Login {
 		this.typeAndBlur("idSoaOperationNameInput", operationName);
 		this.typeAndBlur("idSoaOperationDescInput", "This is testOperation");
 		// select project
-		this.selectDropDownList("idTaskProjectListBox", projectName);
+		this.selectDropDownList("idCommonProjectListBox", projectName);
 		// select trunk,branches 
-		this.selectDropDownList("idTaskBranchListBox", "trunk");
-		
-//		// select job, the job name should be parameterd latter
-//		this.clickWaitForElementPresent("//input[@id='idCommonJobListBox']/following-sibling::div");
-//		//if we confirm the job name we can use ://div[@role='listitem' and text()='EndRunningJob']
-//		waitForElementPresent("//div[@role='listitem'][1]", WAIT_TIME);
-//		assertTrue(selenium.isElementPresent("//div[@role='listitem'][1]"));
-//		selenium.mouseDown("//div[@role='listitem'][1]");	
-//		assertFalse(selenium.isElementPresent("//div[@role='listitem'][1]"));
-		this.selectDropDownList("idTaskJobListBox", UsedJobName);
-
+		this.selectDropDownList("idCommonBranchListBox", "trunk");
+		this.selectDropDownList("idCommonJobListBox", UsedJobName);
 		// select version
-		this.selectDropDownList("idTaskVersionListBox", "0.1");
+		this.selectDropDownList("idCommonVersionListBox", "0.1");
 		// select context
-		this.selectDropDownList("idTaskContextListBox", "Default");
-		selenium.click("idSoaOperationSave");
+		this.selectDropDownList("idCommonContextListBox", "Default");
+		selenium.click("idSoaOperationSave");	
+		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-operationName' and text()='"+operationName+"']", WAIT_TIME);
+		this.sleep(3000);
+		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-operationName' and text()='"+operationName+"']");
+	    Assert.assertTrue(selenium.getValue("idCommonProjectListBox").toString().equals(projectName), "test add operation  failed!");
+	    Assert.assertTrue(selenium.getValue("idCommonBranchListBox").toString().equals("trunk"), "test add operation failed!");
+	    Assert.assertTrue(selenium.getValue("idCommonJobListBox").toString().equals(UsedJobName), "test add operation  failed!");
+	    Assert.assertTrue(selenium.getValue("idCommonVersionListBox").toString().equals("0.1"), "test add operation  failed!");
+	    Assert.assertTrue(selenium.getValue("idCommonContextListBox").toString().equals("Default"), "test add operation  failed!");
+	
+		
+	
+	}
+	
+	@Test(description = "Add a operation with the defined project",dependsOnMethods = { "testAddSoaManagerService" },alwaysRun=true)
+	@Parameters ({"AddcommonProjectname","soaManager.service.name","soaManager.operation.name","soaManager.operation.UsedJob_name"})
+	public void testAddOperationToServiceWithLatestVersionJob(String projectName,String serviceName,String operationName,String UsedJobName) {
+		operationName = operationName+"Latest";
+		selenium.click("!!!menu.soamanager.element!!!");//*[text()='"+serviceName+"']
+		waitForElementPresent("//*[text()='"+serviceName+"']", WAIT_TIME);
+		selenium.mouseDown("//*[text()='"+serviceName+"']");
+		this.clickWaitForElementPresent("idSoaOperationAdd");
+		this.typeAndBlur("idSoaOperationNameInput", operationName);
+		this.typeAndBlur("idSoaOperationDescInput", "This is testOperation");
+		// select project
+		this.selectDropDownList("idCommonProjectListBox", projectName);
+		// select trunk,branches 
+		this.selectDropDownList("idCommonBranchListBox", "trunk");
+		this.selectDropDownList("idCommonJobListBox", UsedJobName);
+		// select version
+		this.selectDropDownList("idCommonVersionListBox", "Latest");
+		// select context
+		this.selectDropDownList("idCommonContextListBox", "Default");
+		selenium.click("idSoaOperationSave");	
+		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-operationName' and text()='"+operationName+"']", WAIT_TIME);
+		this.sleep(3000);
+		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-operationName' and text()='"+operationName+"']");
+	    Assert.assertTrue(selenium.getValue("idCommonProjectListBox").toString().equals(projectName), "test add operation with latest job failed!");
+	    Assert.assertTrue(selenium.getValue("idCommonBranchListBox").toString().equals("trunk"), "test add operation with latest job failed!");
+	    Assert.assertTrue(selenium.getValue("idCommonJobListBox").toString().equals(UsedJobName), "test add operation with latest job failed!");
+	    Assert.assertTrue(selenium.getValue("idCommonVersionListBox").toString().equals("Latest"), "test add operation with latest job failed!");
+	    Assert.assertTrue(selenium.getValue("idCommonContextListBox").toString().equals("Default"), "test add operation with latest job failed!");
+	
 	}
 	
 	@Test(description = "duplicate a service",dependsOnMethods = { "testAddSoaManagerService" },alwaysRun=true)
