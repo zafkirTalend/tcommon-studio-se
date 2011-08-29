@@ -641,7 +641,7 @@ public class SelectorTableForm extends AbstractForm {
                 for (MetadataTable table : tables) {
                     boolean found = false;
                     for (MetadataTable oldtable : oldTables) {
-                        if (table != null && oldtable != null && table.getId().equals(oldtable.getId())) {
+                        if (table != null && oldtable != null && table.getLabel().equals(oldtable.getLabel())) {
                             found = true;
                             break;
                         }
