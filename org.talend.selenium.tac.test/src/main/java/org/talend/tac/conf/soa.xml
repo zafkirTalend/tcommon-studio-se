@@ -12,6 +12,7 @@
 			<methods>
 				<include name="testAddSoaManagerService" />
 				<include name="testAddOperationToService" />
+				<include name="testAddOperationToServiceWithLatestVersionJob"/>
 				<include name="testDuplicateSoaManagerService" />
 				<include name="testDuplicateSoaManagerOperation" />
 
