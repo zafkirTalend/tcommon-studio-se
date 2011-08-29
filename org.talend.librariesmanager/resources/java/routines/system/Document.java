@@ -84,8 +84,8 @@ public class Document {
                     xpathObjectForResult.setNamespaceURIs(nsMapping);
                     Node nodeOfResult = xpathObjectForResult.selectSingleNode(node);
                     row.put(key.toString(), nodeOfResult == null ? null : nodeOfResult.getText());
-                    result.add(row);
                 }
+                result.add(row);
             }
 
         }
