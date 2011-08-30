@@ -65,12 +65,10 @@ public class MetadataHelper implements Helper {
             GEFBOT.viewByTitle("Component").setFocus();
             GEFBOT.waitUntil(new DefaultCondition() {
 
-                @Override
                 public boolean test() throws Exception {
                     return GEFBOT.textInGroup("EDI parameters", 0).getText().equals("\"\"");
                 }
 
-                @Override
                 public String getFailureMessage() {
                     return "component setting panel is not visible";
                 }
@@ -113,12 +111,10 @@ public class MetadataHelper implements Helper {
         UTIL.selecteAllTalendTabbedPropertyListIndex(5);
         GEFBOT.waitUntil(new DefaultCondition() {
 
-            @Override
             public boolean test() throws Exception {
                 return GEFBOT.checkBox("Use an existing validation rule").isVisible();
             }
 
-            @Override
             public String getFailureMessage() {
                 return "component setting panel is not visible";
             }
