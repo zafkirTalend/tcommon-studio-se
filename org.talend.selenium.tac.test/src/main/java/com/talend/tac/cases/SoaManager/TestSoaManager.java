@@ -36,25 +36,25 @@ public class TestSoaManager extends Login {
 		this.typeAndBlur("idSoaOperationNameInput", operationName);
 		this.typeAndBlur("idSoaOperationDescInput", "This is testOperation");
 		// select project
-		this.selectDropDownList("idCommonProjectListBox", projectName);
+		this.selectDropDownList("idTaskProjectListBox", projectName);
 		// select trunk,branches 
-		this.selectDropDownList("idCommonBranchListBox", "trunk");
-		this.selectDropDownList("idCommonJobListBox", UsedJobName);
+		this.selectDropDownList("idTaskBranchListBox", "trunk");
+		this.selectDropDownList("idItemListCombo", "job");
+		this.selectDropDownList("idTaskJobListBox", UsedJobName);
 		// select version
-		this.selectDropDownList("idCommonVersionListBox", "0.1");
+		this.selectDropDownList("idTaskVersionListBox", "0.1");
 		// select context
-		this.selectDropDownList("idCommonContextListBox", "Default");
+		this.selectDropDownList("idTaskContextListBox", "Default");
 		selenium.click("idSoaOperationSave");	
 		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-operationName' and text()='"+operationName+"']", WAIT_TIME);
 		this.sleep(3000);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-operationName' and text()='"+operationName+"']");
-	    Assert.assertTrue(selenium.getValue("idCommonProjectListBox").toString().equals(projectName), "test add operation  failed!");
-	    Assert.assertTrue(selenium.getValue("idCommonBranchListBox").toString().equals("trunk"), "test add operation failed!");
-	    Assert.assertTrue(selenium.getValue("idCommonJobListBox").toString().equals(UsedJobName), "test add operation  failed!");
-	    Assert.assertTrue(selenium.getValue("idCommonVersionListBox").toString().equals("0.1"), "test add operation  failed!");
-	    Assert.assertTrue(selenium.getValue("idCommonContextListBox").toString().equals("Default"), "test add operation  failed!");
-	
-		
+	    Assert.assertTrue(selenium.getValue("idTaskProjectListBox").toString().equals(projectName), "test add operation with latest job failed!");
+	    Assert.assertTrue(selenium.getValue("idTaskBranchListBox").toString().equals("trunk"), "test add operation with latest job failed!");
+	    Assert.assertTrue(selenium.getValue("idItemListCombo").toString().equals("job"), "test add operation with latest job failed!");
+	    Assert.assertTrue(selenium.getValue("idTaskJobListBox").toString().equals(UsedJobName), "test add operation with latest job failed!");
+	    Assert.assertTrue(selenium.getValue("idTaskVersionListBox").toString().equals("0.1"), "test add operation with latest job failed!");
+	    Assert.assertTrue(selenium.getValue("idTaskContextListBox").toString().equals("Default"), "test add operation with latest job failed!");
 	
 	}
 	
@@ -69,23 +69,25 @@ public class TestSoaManager extends Login {
 		this.typeAndBlur("idSoaOperationNameInput", operationName);
 		this.typeAndBlur("idSoaOperationDescInput", "This is testOperation");
 		// select project
-		this.selectDropDownList("idCommonProjectListBox", projectName);
+		this.selectDropDownList("idTaskProjectListBox", projectName);
 		// select trunk,branches 
-		this.selectDropDownList("idCommonBranchListBox", "trunk");
-		this.selectDropDownList("idCommonJobListBox", UsedJobName);
+		this.selectDropDownList("idTaskBranchListBox", "trunk");
+		this.selectDropDownList("idItemListCombo", "job");
+		this.selectDropDownList("idTaskJobListBox", UsedJobName);
 		// select version
-		this.selectDropDownList("idCommonVersionListBox", "Latest");
+		this.selectDropDownList("idTaskVersionListBox", "Latest");
 		// select context
-		this.selectDropDownList("idCommonContextListBox", "Default");
+		this.selectDropDownList("idTaskContextListBox", "Default");
 		selenium.click("idSoaOperationSave");	
 		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-operationName' and text()='"+operationName+"']", WAIT_TIME);
 		this.sleep(3000);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-operationName' and text()='"+operationName+"']");
-	    Assert.assertTrue(selenium.getValue("idCommonProjectListBox").toString().equals(projectName), "test add operation with latest job failed!");
-	    Assert.assertTrue(selenium.getValue("idCommonBranchListBox").toString().equals("trunk"), "test add operation with latest job failed!");
-	    Assert.assertTrue(selenium.getValue("idCommonJobListBox").toString().equals(UsedJobName), "test add operation with latest job failed!");
-	    Assert.assertTrue(selenium.getValue("idCommonVersionListBox").toString().equals("Latest"), "test add operation with latest job failed!");
-	    Assert.assertTrue(selenium.getValue("idCommonContextListBox").toString().equals("Default"), "test add operation with latest job failed!");
+	    Assert.assertTrue(selenium.getValue("idTaskProjectListBox").toString().equals(projectName), "test add operation with latest job failed!");
+	    Assert.assertTrue(selenium.getValue("idTaskBranchListBox").toString().equals("trunk"), "test add operation with latest job failed!");
+	    Assert.assertTrue(selenium.getValue("idItemListCombo").toString().equals("job"), "test add operation with latest job failed!");
+	    Assert.assertTrue(selenium.getValue("idTaskJobListBox").toString().equals(UsedJobName), "test add operation with latest job failed!");
+	    Assert.assertTrue(selenium.getValue("idTaskVersionListBox").toString().equals("Latest"), "test add operation with latest job failed!");
+	    Assert.assertTrue(selenium.getValue("idTaskContextListBox").toString().equals("Default"), "test add operation with latest job failed!");
 	
 	}
 	
