@@ -12,8 +12,11 @@
 // ============================================================================
 package org.talend.core.model.repository;
 
+import java.util.Collection;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.image.IImage;
@@ -45,4 +48,6 @@ public interface IRepositoryContentHandler {
 
     public void addNode(ERepositoryObjectType type, RepositoryNode recBinNode, IRepositoryViewObject repositoryObject,
             RepositoryNode node);
+
+    public void addContents(Collection<EObject> collection, Resource resource);
 }
