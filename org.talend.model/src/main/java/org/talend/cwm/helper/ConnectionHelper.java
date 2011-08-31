@@ -654,6 +654,21 @@ public class ConnectionHelper {
     }
 
     /**
+     * DOC bZhou Comment method "isJDBC".
+     * 
+     * @param connection
+     * @return
+     */
+    public static boolean isJDBC(Connection connection) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(connection);
+        if (dbConn != null) {
+            String databaseType = dbConn.getDatabaseType() == null ? "" : dbConn.getDatabaseType();
+            return databaseType.equals("General JDBC");
+        }
+        return false;
+    }
+
+    /**
      * DOC xqliu Comment method "isOracle".
      * 
      * @param connection
