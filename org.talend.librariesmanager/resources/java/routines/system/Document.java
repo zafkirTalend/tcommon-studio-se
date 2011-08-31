@@ -68,7 +68,9 @@ public class Document {
                 org.dom4j.XPath xpathObjectForLookup = node.createXPath(xpath);
                 xpathObjectForLookup.setNamespaceURIs(nsMapping);
                 Node nodeOfLookup = xpathObjectForLookup.selectSingleNode(node);
-                if (nodeOfLookup == null || lookupValue == null || !lookupValue.equals(nodeOfLookup.getText())) {
+                if(lookupValue == null && nodeOfLookup == null) {
+                	//do nothing(null == null)
+                } else if (!xpathObjectForLookup.valueOf(node).equals(lookupValue)) {
                     reject = true;
                     break;
                 }
@@ -83,7 +85,7 @@ public class Document {
                     org.dom4j.XPath xpathObjectForResult = node.createXPath(xpath);
                     xpathObjectForResult.setNamespaceURIs(nsMapping);
                     Node nodeOfResult = xpathObjectForResult.selectSingleNode(node);
-                    row.put(key.toString(), nodeOfResult == null ? null : nodeOfResult.getText());
+                    row.put(key.toString(), nodeOfResult == null ? "" : nodeOfResult.getText());
                 }
                 result.add(row);
             }
