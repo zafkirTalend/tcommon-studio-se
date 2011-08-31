@@ -33,7 +33,6 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
-import org.talend.core.IRepositoryBundleService;
 import org.talend.core.PluginChecker;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -83,7 +82,8 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
     }
 
     public void deployLibrary(URL source) throws IOException {
-        IRepositoryBundleService repositoryBundleService = CorePlugin.getDefault().getRepositoryBundleService();
+        FakeRepositoryBundleService repositoryBundleService = (FakeRepositoryBundleService) CorePlugin.getDefault()
+                .getRepositoryBundleService();
         // TODO SML Allow perl module to be deploy in a folder structure in "lib/perl/..."
         /* fix for bug 0020350,if URL contains a space character it will cause problem */
         //            URI sourceURI = new URI(source.toString().replace(' ', '\0'));//$NON-NLS-0$ //$NON-NLS-1$
