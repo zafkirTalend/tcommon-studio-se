@@ -12,9 +12,26 @@
 
     <packaging>pom</packaging>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <modules>
-	<module>org.talend.remote.commons</module>
-	<module>org.talend.remote.jobserver.commons</module>
+        <module>org.talend.remote.commons</module>
+        <module>org.talend.remote.jobserver.commons</module>
     </modules>
+
+	<distributionManagement>
+		<repository>
+			<id>tis-releases</id>
+			<name>TIS releases Repository</name>
+			<url>${tis.releases.repo.url}</url>
+		</repository>
+		<snapshotRepository>
+			<id>tis-snapshots</id>
+			<name>TIS snapshots Repository</name>
+			<url>${tis.snapshots.repo.url}</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 </project>
