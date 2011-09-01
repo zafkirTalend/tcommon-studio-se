@@ -48,6 +48,7 @@ import org.talend.core.model.process.Problem.ProblemStatus;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
+import org.talend.librariesmanager.prefs.PreferencesUtilities;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 
@@ -93,7 +94,7 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         final String decode = URLDecoder.decode(source.getFile(), "UTF-8"); //$NON-NLS-N$
 
         final File sourceFile = new File(decode);
-        final File targetFile = new File(repositoryBundleService.getOBRRoot().getAbsolutePath() + File.separatorChar
+        final File targetFile = new File(PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA) + File.separatorChar
                 + sourceFile.getName());
 
         repositoryBundleService.deploy(sourceFile.toURI());
