@@ -8,7 +8,7 @@
 // You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
-//   
+//
 // ============================================================================
 package org.talend.librariesmanager.prefs;
 
@@ -17,7 +17,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.talend.commons.CommonsPlugin;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.librariesmanager.Activator;
@@ -42,9 +41,10 @@ public class PreferencesUtilities {
     }
 
     public static String getLibrariesPath(ECodeLanguage language) {
-        if (CommonsPlugin.isStoreLibsInWorkspace()) {
-            return getWorkSpaceLibPath(language);
-        }
+        // TDI-17414:commandline workspace no need to use .JavaLibs to store Talend libraries.
+        // if (CommonsPlugin.isStoreLibsInWorkspace()) {
+        // return getWorkSpaceLibPath(language);
+        // }
         boolean singleMode = getPreferenceStore().getBoolean(EXTERNAL_LIB_PATH_MODE_SINGLE);
         switch (language) {
         case JAVA:
