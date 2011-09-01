@@ -23,12 +23,11 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
-import org.talend.core.CorePlugin;
 import org.talend.core.IRepositoryBundleService;
+import org.talend.core.language.ECodeLanguage;
+import org.talend.librariesmanager.prefs.PreferencesUtilities;
 
 /**
  * DOC ycbai class global comment. Detailled comment
@@ -37,24 +36,22 @@ public class FakeRepositoryBundleService implements IRepositoryBundleService {
 
     private static final String COMPONENTS_SETUP_DONE = "/.componentsSetupDone"; //$NON-NLS-1$
 
-    
-	public boolean isInitialized() {
+    public boolean isInitialized() {
         String installLocation = getOBRRoot().getAbsolutePath();
         File componentsLibsSetupDone = new File(installLocation + COMPONENTS_SETUP_DONE);
         return componentsLibsSetupDone.exists();
-	}
+    }
 
-	public void setInitialized() {
+    public void setInitialized() {
         String installLocation = getOBRRoot().getAbsolutePath();
         File componentsLibsSetupDone = new File(installLocation + COMPONENTS_SETUP_DONE); //$NON-NLS-1$
         try {
-			componentsLibsSetupDone.createNewFile();
-		} catch (IOException e) {
-			ExceptionHandler.process(e);
-		}
+            componentsLibsSetupDone.createNewFile();
+        } catch (IOException e) {
+            ExceptionHandler.process(e);
+        }
         componentsLibsSetupDone.setLastModified((new Date()).getTime());
-	}
-
+    }
 
     /*
      * (non-Javadoc)
@@ -156,8 +153,8 @@ public class FakeRepositoryBundleService implements IRepositoryBundleService {
         return uris;
     }
 
-    public File getOBRRoot() {
-        String librariesPath = CorePlugin.getDefault().getLibrariesService().getLibrariesPath();
+    private File getOBRRoot() {
+        String librariesPath = PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA);
         File OBRDir = new File(librariesPath);
         return OBRDir;
     }
