@@ -197,14 +197,14 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             log.error(e, e);
         } finally {
             ConnectionUtils.closeConnection(sqlConnection);
-            // if (driver != null
-            // && MetadataConnectionUtils.isDerbyRelatedDb(metadataBean.getDriverClass(), metadataBean.getDbType())) {
-            // try {
-            //                    driver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
-            // } catch (SQLException e) {
-            // // exception of shutdown success. no need to catch.
-            // }
-            // }
+            if (driver != null
+                    && MetadataConnectionUtils.isDerbyRelatedDb(metadataBean.getDriverClass(), metadataBean.getDbType())) {
+                try {
+                    driver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
+                } catch (SQLException e) {
+                    // exception of shutdown success. no need to catch.
+                }
+            }
 
         }
         if (newConnection != null) {

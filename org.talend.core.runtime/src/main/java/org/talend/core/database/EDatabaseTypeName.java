@@ -31,6 +31,8 @@ public enum EDatabaseTypeName {
              "ORACLE_SERVICE_NAME", "Oracle with service name", Boolean.TRUE, "ORACLE", "DBORACLE", EDatabaseSchemaOrCatalogMapping.None, EDatabaseSchemaOrCatalogMapping.Schema), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     ORACLE_OCI(
                "ORACLE_OCI", "Oracle OCI", Boolean.TRUE, "ORACLE", "DBORACLE", EDatabaseSchemaOrCatalogMapping.None, EDatabaseSchemaOrCatalogMapping.Schema), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+    ORACLE_RAC(
+               "ORACLE_RAC", "Oracle RAC", Boolean.TRUE, "ORACLE", "DBORACLE", EDatabaseSchemaOrCatalogMapping.None, EDatabaseSchemaOrCatalogMapping.Schema), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$           
     GODBC(
           "Generic ODBC", "Generic ODBC", Boolean.FALSE, "ODBC", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.None), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     MSODBC(
