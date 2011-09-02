@@ -592,8 +592,17 @@ public class ProcessorUtilities {
         }
 
         Set<String> neededLibraries = CorePlugin.getDefault().getDesignerCoreService()
-                .getNeededLibrariesForProcess(currentProcess, false, exportAsOSGI);
+                .getNeededLibrariesForProcess(currentProcess, false);
         if (neededLibraries != null) {
+            if (exportAsOSGI) {
+                Set<String> neededLibrariesForOSGIExport = CorePlugin.getDefault().getDesignerCoreService()
+                        .getNeededLibrariesForProcess(currentProcess, false, exportAsOSGI);
+
+                LastGenerationInfo.getInstance().setModulesNeededWithSubjobPerJob(jobInfo.getJobId() + "-osgi",
+                        jobInfo.getJobVersion(), neededLibrariesForOSGIExport);
+                LastGenerationInfo.getInstance().setModulesNeededPerJob(jobInfo.getJobId() + "-osgi", jobInfo.getJobVersion(),
+                        neededLibrariesForOSGIExport);
+            }
             LastGenerationInfo.getInstance().setModulesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
                     neededLibraries);
             LastGenerationInfo.getInstance().setModulesNeededPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(), neededLibraries);
@@ -709,6 +718,15 @@ public class ProcessorUtilities {
                                         .getModulesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
                                         .addAll(LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(
                                                 subJobInfo.getJobId(), subJobInfo.getJobVersion()));
+
+                                if (exportAsOSGI) {
+                                    LastGenerationInfo
+                                            .getInstance()
+                                            .getModulesNeededWithSubjobPerJob(jobInfo.getJobId() + "-osgi",
+                                                    jobInfo.getJobVersion())
+                                            .addAll(LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(
+                                                    subJobInfo.getJobId() + "-osgi", subJobInfo.getJobVersion()));
+                                }
 
                                 LastGenerationInfo
                                         .getInstance()
