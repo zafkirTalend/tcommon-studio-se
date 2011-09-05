@@ -67,6 +67,9 @@ public class NodeUtil {
                             return 2;
                         if(EConnectionType.ROUTE_TRY==o2.getLineStyle() || EConnectionType.ROUTE_CATCH==o2.getLineStyle() || EConnectionType.ROUTE_FINALLY==o2.getLineStyle())
                             return 3;
+                        if(EConnectionType.ROUTE==o2.getLineStyle()){
+                        	return 4;
+                        }
                     }
                     if(EConnectionType.ROUTE_TRY==o1.getLineStyle())
                         return -1;
