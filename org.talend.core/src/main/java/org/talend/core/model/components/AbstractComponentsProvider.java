@@ -33,6 +33,8 @@ public abstract class AbstractComponentsProvider {
 
     private String folderName;
 
+    private String contributer;
+
     public String getId() {
         return id;
     }
@@ -125,6 +127,14 @@ public abstract class AbstractComponentsProvider {
      */
     public boolean isUseLocalProvider() {
         return false;
+    }
+
+    public String getContributer() {
+        return contributer;
+    }
+
+    public void setContributer(String contributer) {
+        this.contributer = contributer;
     }
 
 }
