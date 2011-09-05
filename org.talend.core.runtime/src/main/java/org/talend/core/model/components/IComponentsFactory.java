@@ -75,7 +75,7 @@ public interface IComponentsFactory {
 
     public void initializeComponents(IProgressMonitor monitor, boolean duringLogon);
 
-    public List<File> getComponentsProvidersFolder();
+    public Map<String, File> getComponentsProvidersFolder();
 
     public Map<String, ImageDescriptor> getComponentsImageRegistry();
 }
