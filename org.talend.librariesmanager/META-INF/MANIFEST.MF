@@ -16,7 +16,8 @@ Require-Bundle: org.talend.model,
  org.eclipse.swt,
  org.eclipse.ui.workbench,
  org.talend.libraries.apache,
- org.talend.libraries.dom4j-jaxen
+ org.talend.libraries.dom4j-jaxen,
+ org.eclipse.emf.ecore.xmi
 Eclipse-LazyStart: true
 Bundle-ClassPath: .
 Export-Package: org.talend.librariesmanager.model,
@@ -25,3 +26,4 @@ Export-Package: org.talend.librariesmanager.model,
  org.talend.librariesmanager.ui.views,
  routines,
  routines.system
+Import-Package: org.eclipse.emf.ecore.xmi.impl

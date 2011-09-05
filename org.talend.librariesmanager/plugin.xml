@@ -11,8 +11,8 @@
             serviceId="IRoutinesService">
       </Service>
       <Service
-            class="org.talend.librariesmanager.model.service.FakeRepositoryBundleService"
-            serviceId="IRepositoryBundleService">
+            class="org.talend.librariesmanager.model.service.LocalLibraryManager"
+            serviceId="ILibraryManagerService">
       </Service>
    </extension>
    <extension

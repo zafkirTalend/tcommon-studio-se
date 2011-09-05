@@ -18,11 +18,11 @@ import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
@@ -43,7 +43,7 @@ import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.IRepositoryBundleService;
+import org.talend.core.ILibraryManagerService;
 import org.talend.core.PluginChecker;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.IComponentsService;
@@ -68,7 +68,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
 
     private static Logger log = Logger.getLogger(JavaLibrariesService.class);
 
-    private static IRepositoryBundleService repositoryBundleService = CorePlugin.getDefault().getRepositoryBundleService();
+    private static ILibraryManagerService repositoryBundleService = CorePlugin.getDefault().getRepositoryBundleService();
 
     public static final String SOURCE_JAVA_ROUTINES_FOLDER = "routines"; //$NON-NLS-1$
 
@@ -155,22 +155,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
 
     @Override
     public void checkInstalledLibraries() {
-        // Display whole TOS project libraries status. No relationship with dynamic project classpath
-        List<IClasspathEntry> classpath = new ArrayList<IClasspathEntry>();
-        List<URI> uris = repositoryBundleService.list();
-        for (URI uri : uris) {
-            classpath.add(JavaCore.newLibraryEntry(new Path(new File(uri).getAbsolutePath()), null, null));
-        }
-
-        IClasspathEntry[] entrys = new IClasspathEntry[classpath.size()];
-        classpath.toArray(entrys);
-
-        List<String> existLibraries = new ArrayList<String>();
-        for (IClasspathEntry entry : classpath) {
-            IPath path = entry.getPath();
-            existLibraries.add(path.lastSegment());
-        }
-
+        Set<String> existLibraries = repositoryBundleService.list();
         List<ModuleNeeded> toCheck = ModulesNeededProvider.getModulesNeeded();
         for (ModuleNeeded current : toCheck) {
             if (existLibraries.contains(current.getModuleName())) {
@@ -182,10 +167,9 @@ public class JavaLibrariesService extends AbstractLibrariesService {
 
         List<String> modulesNeededNames = ModulesNeededProvider.getModulesNeededNames();
         ModulesNeededProvider.getUnUsedModules().clear();
-        for (URI uri : uris) {
-            File jarFile = new File(uri);
-            if (!modulesNeededNames.contains(jarFile.getName())) {
-                ModulesNeededProvider.userAddUnusedModules(jarFile.getPath(), jarFile.getName());
+        for (String library : existLibraries) {
+            if (!modulesNeededNames.contains(library)) {
+                ModulesNeededProvider.userAddUnusedModules("Unknown", library);
             }
         }
     }
@@ -202,9 +186,10 @@ public class JavaLibrariesService extends AbstractLibrariesService {
                 // 2. Components libraries
                 IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
                         IComponentsService.class);
-                List<File> componentsFolders = service.getComponentsFactory().getComponentsProvidersFolder();
-                for (File componentsLibraries : componentsFolders) {
-                    repositoryBundleService.deploy(componentsLibraries.toURI(), monitorWrap);
+                Map<String, File> componentsFolders = service.getComponentsFactory().getComponentsProvidersFolder();
+                Set<String> contributeIdSet = componentsFolders.keySet();
+                for (String contributeID : contributeIdSet) {
+                    repositoryBundleService.deploy(componentsFolders.get(contributeID).toURI(), monitorWrap);
                 }
                 repositoryBundleService.setInitialized();
             }

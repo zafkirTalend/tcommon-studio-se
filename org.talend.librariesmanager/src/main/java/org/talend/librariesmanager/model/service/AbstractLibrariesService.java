@@ -83,8 +83,7 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
     }
 
     public void deployLibrary(URL source) throws IOException {
-        FakeRepositoryBundleService repositoryBundleService = (FakeRepositoryBundleService) CorePlugin.getDefault()
-                .getRepositoryBundleService();
+        LocalLibraryManager repositoryBundleService = (LocalLibraryManager) CorePlugin.getDefault().getRepositoryBundleService();
         // TODO SML Allow perl module to be deploy in a folder structure in "lib/perl/..."
         /* fix for bug 0020350,if URL contains a space character it will cause problem */
         //            URI sourceURI = new URI(source.toString().replace(' ', '\0'));//$NON-NLS-0$ //$NON-NLS-1$
