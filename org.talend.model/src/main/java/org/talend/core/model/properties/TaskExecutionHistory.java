@@ -49,8 +49,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getExpectedTriggeringDate <em>Expected Triggering Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getTaskStartDate <em>Task Start Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getTaskEndDate <em>Task End Date</em>}</li>
- *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getAdminJobStartDate <em>Admin Job Start Date</em>}</li>
- *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getAdminJobEndDate <em>Admin Job End Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getServerJobStartDate <em>Server Job Start Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getServerJobEndDate <em>Server Job End Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getIdRemoteJob <em>Id Remote Job</em>}</li>
@@ -996,56 +994,6 @@ public interface TaskExecutionHistory extends EObject {
      * @generated
      */
     void setTaskEndDate(Date value);
-
-    /**
-     * Returns the value of the '<em><b>Admin Job Start Date</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Admin Job Start Date</em>' attribute isn't clear, there really should be more of a
-     * description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Admin Job Start Date</em>' attribute.
-     * @see #setAdminJobStartDate(Date)
-     * @see org.talend.core.model.properties.PropertiesPackage#getTaskExecutionHistory_AdminJobStartDate()
-     * @model
-     * @generated
-     */
-    Date getAdminJobStartDate();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getAdminJobStartDate <em>Admin Job Start Date</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @param value the new value of the '<em>Admin Job Start Date</em>' attribute.
-     * @see #getAdminJobStartDate()
-     * @generated
-     */
-    void setAdminJobStartDate(Date value);
-
-    /**
-     * Returns the value of the '<em><b>Admin Job End Date</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Admin Job End Date</em>' attribute isn't clear, there really should be more of a
-     * description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Admin Job End Date</em>' attribute.
-     * @see #setAdminJobEndDate(Date)
-     * @see org.talend.core.model.properties.PropertiesPackage#getTaskExecutionHistory_AdminJobEndDate()
-     * @model
-     * @generated
-     */
-    Date getAdminJobEndDate();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getAdminJobEndDate <em>Admin Job End Date</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @param value the new value of the '<em>Admin Job End Date</em>' attribute.
-     * @see #getAdminJobEndDate()
-     * @generated
-     */
-    void setAdminJobEndDate(Date value);
 
     /**
      * Returns the value of the '<em><b>Server Job Start Date</b></em>' attribute.

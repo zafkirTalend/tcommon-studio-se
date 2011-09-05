@@ -4904,31 +4904,13 @@ public interface PropertiesPackage extends EPackage {
     int TASK_EXECUTION_HISTORY__TASK_END_DATE = 32;
 
     /**
-     * The feature id for the '<em><b>Admin Job Start Date</b></em>' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE = 33;
-
-    /**
-     * The feature id for the '<em><b>Admin Job End Date</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE = 34;
-
-    /**
      * The feature id for the '<em><b>Server Job Start Date</b></em>' attribute.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE = 35;
+    int TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE = 33;
 
     /**
      * The feature id for the '<em><b>Server Job End Date</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -4937,7 +4919,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE = 36;
+    int TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE = 34;
 
     /**
      * The feature id for the '<em><b>Id Remote Job</b></em>' attribute.
@@ -4945,7 +4927,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__ID_REMOTE_JOB = 37;
+    int TASK_EXECUTION_HISTORY__ID_REMOTE_JOB = 35;
 
     /**
      * The feature id for the '<em><b>Id Remote Job Execution</b></em>' attribute.
@@ -4954,7 +4936,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION = 38;
+    int TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION = 36;
 
     /**
      * The feature id for the '<em><b>Request Id</b></em>' attribute.
@@ -4962,7 +4944,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__REQUEST_ID = 39;
+    int TASK_EXECUTION_HISTORY__REQUEST_ID = 37;
 
     /**
      * The feature id for the '<em><b>Resuming Mode</b></em>' attribute.
@@ -4970,7 +4952,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__RESUMING_MODE = 40;
+    int TASK_EXECUTION_HISTORY__RESUMING_MODE = 38;
 
     /**
      * The feature id for the '<em><b>Context Values</b></em>' attribute.
@@ -4978,7 +4960,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__CONTEXT_VALUES = 41;
+    int TASK_EXECUTION_HISTORY__CONTEXT_VALUES = 39;
 
     /**
      * The feature id for the '<em><b>Jvm Values</b></em>' attribute.
@@ -4987,7 +4969,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__JVM_VALUES = 42;
+    int TASK_EXECUTION_HISTORY__JVM_VALUES = 40;
 
     /**
      * The feature id for the '<em><b>Parent Task Exec Id</b></em>' attribute.
@@ -4996,7 +4978,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__PARENT_TASK_EXEC_ID = 43;
+    int TASK_EXECUTION_HISTORY__PARENT_TASK_EXEC_ID = 41;
 
     /**
      * The feature id for the '<em><b>Parent Plan Exec Id</b></em>' attribute.
@@ -5005,7 +4987,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__PARENT_PLAN_EXEC_ID = 44;
+    int TASK_EXECUTION_HISTORY__PARENT_PLAN_EXEC_ID = 42;
 
     /**
      * The number of structural features of the '<em>Task Execution History</em>' class.
@@ -5014,7 +4996,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY_FEATURE_COUNT = 45;
+    int TASK_EXECUTION_HISTORY_FEATURE_COUNT = 43;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -5312,24 +5294,6 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int PLAN_EXECUTION_HISTORY__TASK_END_DATE = TASK_EXECUTION_HISTORY__TASK_END_DATE;
-
-    /**
-     * The feature id for the '<em><b>Admin Job Start Date</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int PLAN_EXECUTION_HISTORY__ADMIN_JOB_START_DATE = TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE;
-
-    /**
-     * The feature id for the '<em><b>Admin Job End Date</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int PLAN_EXECUTION_HISTORY__ADMIN_JOB_END_DATE = TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE;
 
     /**
      * The feature id for the '<em><b>Server Job Start Date</b></em>' attribute.
@@ -13581,26 +13545,6 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getTaskExecutionHistory_TaskEndDate();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getAdminJobStartDate <em>Admin Job Start Date</em>}'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Admin Job Start Date</em>'.
-     * @see org.talend.core.model.properties.TaskExecutionHistory#getAdminJobStartDate()
-     * @see #getTaskExecutionHistory()
-     * @generated
-     */
-    EAttribute getTaskExecutionHistory_AdminJobStartDate();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getAdminJobEndDate <em>Admin Job End Date</em>}'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Admin Job End Date</em>'.
-     * @see org.talend.core.model.properties.TaskExecutionHistory#getAdminJobEndDate()
-     * @see #getTaskExecutionHistory()
-     * @generated
-     */
-    EAttribute getTaskExecutionHistory_AdminJobEndDate();
-
-    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getServerJobStartDate <em>Server Job Start Date</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Server Job Start Date</em>'.
@@ -18006,22 +17950,6 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute TASK_EXECUTION_HISTORY__TASK_END_DATE = eINSTANCE.getTaskExecutionHistory_TaskEndDate();
-
-        /**
-         * The meta object literal for the '<em><b>Admin Job Start Date</b></em>' attribute feature.
-         * <!-- begin-user-doc
-         * --> <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE = eINSTANCE.getTaskExecutionHistory_AdminJobStartDate();
-
-        /**
-         * The meta object literal for the '<em><b>Admin Job End Date</b></em>' attribute feature.
-         * <!-- begin-user-doc
-         * --> <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE = eINSTANCE.getTaskExecutionHistory_AdminJobEndDate();
 
         /**
          * The meta object literal for the '<em><b>Server Job Start Date</b></em>' attribute feature. <!--

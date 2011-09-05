@@ -53,8 +53,6 @@ import org.talend.core.model.properties.TaskExecutionHistory;
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getExpectedTriggeringDate <em>Expected Triggering Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTaskStartDate <em>Task Start Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTaskEndDate <em>Task End Date</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getAdminJobStartDate <em>Admin Job Start Date</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getAdminJobEndDate <em>Admin Job End Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getServerJobStartDate <em>Server Job Start Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getServerJobEndDate <em>Server Job End Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getIdRemoteJob <em>Id Remote Job</em>}</li>
@@ -724,46 +722,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected Date taskEndDate = TASK_END_DATE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getAdminJobStartDate() <em>Admin Job Start Date</em>}' attribute. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @see #getAdminJobStartDate()
-     * @generated
-     * @ordered
-     */
-    protected static final Date ADMIN_JOB_START_DATE_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getAdminJobStartDate() <em>Admin Job Start Date</em>}' attribute. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @see #getAdminJobStartDate()
-     * @generated
-     * @ordered
-     */
-    protected Date adminJobStartDate = ADMIN_JOB_START_DATE_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #getAdminJobEndDate() <em>Admin Job End Date</em>}' attribute. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @see #getAdminJobEndDate()
-     * @generated
-     * @ordered
-     */
-    protected static final Date ADMIN_JOB_END_DATE_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getAdminJobEndDate() <em>Admin Job End Date</em>}' attribute. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @see #getAdminJobEndDate()
-     * @generated
-     * @ordered
-     */
-    protected Date adminJobEndDate = ADMIN_JOB_END_DATE_EDEFAULT;
-
-    /**
      * The default value of the '{@link #getServerJobStartDate() <em>Server Job Start Date</em>}' attribute. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -1043,10 +1001,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return getTaskStartDate();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_END_DATE:
                 return getTaskEndDate();
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE:
-                return getAdminJobStartDate();
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE:
-                return getAdminJobEndDate();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE:
                 return getServerJobStartDate();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE:
@@ -1143,10 +1097,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return TASK_START_DATE_EDEFAULT == null ? taskStartDate != null : !TASK_START_DATE_EDEFAULT.equals(taskStartDate);
             case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_END_DATE:
                 return TASK_END_DATE_EDEFAULT == null ? taskEndDate != null : !TASK_END_DATE_EDEFAULT.equals(taskEndDate);
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE:
-                return ADMIN_JOB_START_DATE_EDEFAULT == null ? adminJobStartDate != null : !ADMIN_JOB_START_DATE_EDEFAULT.equals(adminJobStartDate);
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE:
-                return ADMIN_JOB_END_DATE_EDEFAULT == null ? adminJobEndDate != null : !ADMIN_JOB_END_DATE_EDEFAULT.equals(adminJobEndDate);
             case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE:
                 return SERVER_JOB_START_DATE_EDEFAULT == null ? serverJobStartDate != null : !SERVER_JOB_START_DATE_EDEFAULT.equals(serverJobStartDate);
             case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE:
@@ -1275,12 +1225,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_END_DATE:
                 setTaskEndDate((Date)newValue);
-                return;
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE:
-                setAdminJobStartDate((Date)newValue);
-                return;
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE:
-                setAdminJobEndDate((Date)newValue);
                 return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE:
                 setServerJobStartDate((Date)newValue);
@@ -1429,12 +1373,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
             case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_END_DATE:
                 setTaskEndDate(TASK_END_DATE_EDEFAULT);
                 return;
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE:
-                setAdminJobStartDate(ADMIN_JOB_START_DATE_EDEFAULT);
-                return;
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE:
-                setAdminJobEndDate(ADMIN_JOB_END_DATE_EDEFAULT);
-                return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE:
                 setServerJobStartDate(SERVER_JOB_START_DATE_EDEFAULT);
                 return;
@@ -1467,22 +1405,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return;
         }
         super.eUnset(featureID);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public Date getAdminJobEndDate() {
-        return adminJobEndDate;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public Date getAdminJobStartDate() {
-        return adminJobStartDate;
     }
 
     /**
@@ -1771,28 +1693,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
      */
     public boolean isResumingMode() {
         return resumingMode;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public void setAdminJobEndDate(Date newAdminJobEndDate) {
-        Date oldAdminJobEndDate = adminJobEndDate;
-        adminJobEndDate = newAdminJobEndDate;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE, oldAdminJobEndDate, adminJobEndDate));
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public void setAdminJobStartDate(Date newAdminJobStartDate) {
-        Date oldAdminJobStartDate = adminJobStartDate;
-        adminJobStartDate = newAdminJobStartDate;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE, oldAdminJobStartDate, adminJobStartDate));
     }
 
     /**
@@ -2404,10 +2304,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
         result.append(taskStartDate);
         result.append(", taskEndDate: ");
         result.append(taskEndDate);
-        result.append(", adminJobStartDate: ");
-        result.append(adminJobStartDate);
-        result.append(", adminJobEndDate: ");
-        result.append(adminJobEndDate);
         result.append(", serverJobStartDate: ");
         result.append(serverJobStartDate);
         result.append(", serverJobEndDate: ");

@@ -343,6 +343,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/ownerSchedulerInstanceId"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/onUnknownStateJob"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/useLatestVersion"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/item"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//ExecutionTaskCmdPrm">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTaskCmdPrm/id"/>
@@ -394,8 +395,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/expectedTriggeringDate"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/taskStartDate"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/taskEndDate"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/adminJobStartDate"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/adminJobEndDate"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/serverJobStartDate"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/serverJobEndDate"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/idRemoteJob"/>
@@ -534,6 +533,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//SoaOperation/service"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaOperation/returnStyle"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaOperation/branch"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaOperation/item"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//SoaInputParameter">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaInputParameter/id"/>

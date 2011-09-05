@@ -501,8 +501,6 @@
         eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EDate"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="taskStartDate" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EDate"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="taskEndDate" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EDate"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="adminJobStartDate" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EDate"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="adminJobEndDate" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EDate"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="serverJobStartDate" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EDate"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="serverJobEndDate" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EDate"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="idRemoteJob" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>

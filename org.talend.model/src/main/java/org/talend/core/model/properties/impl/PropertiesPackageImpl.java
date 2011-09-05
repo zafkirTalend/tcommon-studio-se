@@ -3892,7 +3892,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_AdminJobStartDate() {
+    public EAttribute getTaskExecutionHistory_ServerJobStartDate() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(33);
     }
 
@@ -3901,7 +3901,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_AdminJobEndDate() {
+    public EAttribute getTaskExecutionHistory_ServerJobEndDate() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(34);
     }
 
@@ -3910,7 +3910,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_ServerJobStartDate() {
+    public EAttribute getTaskExecutionHistory_IdRemoteJob() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(35);
     }
 
@@ -3919,7 +3919,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_ServerJobEndDate() {
+    public EAttribute getTaskExecutionHistory_IdRemoteJobExecution() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(36);
     }
 
@@ -3928,7 +3928,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_IdRemoteJob() {
+    public EAttribute getTaskExecutionHistory_RequestId() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(37);
     }
 
@@ -3937,7 +3937,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_IdRemoteJobExecution() {
+    public EAttribute getTaskExecutionHistory_ResumingMode() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(38);
     }
 
@@ -3946,7 +3946,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_RequestId() {
+    public EAttribute getTaskExecutionHistory_ContextValues() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(39);
     }
 
@@ -3955,7 +3955,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_ResumingMode() {
+    public EAttribute getTaskExecutionHistory_JvmValues() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(40);
     }
 
@@ -3964,7 +3964,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_ContextValues() {
+    public EAttribute getTaskExecutionHistory_ParentTaskExecId() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(41);
     }
 
@@ -3973,26 +3973,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_JvmValues() {
-        return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(42);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getTaskExecutionHistory_ParentTaskExecId() {
-        return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(43);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EAttribute getTaskExecutionHistory_ParentPlanExecId() {
-        return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(44);
+        return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(42);
     }
 
     /**
@@ -6108,8 +6090,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__EXPECTED_TRIGGERING_DATE);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__TASK_START_DATE);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__TASK_END_DATE);
-        createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE);
-        createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__ID_REMOTE_JOB);
@@ -6823,8 +6803,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getTaskExecutionHistory_ExpectedTriggeringDate(), theEcorePackage.getEDate(), "expectedTriggeringDate", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTaskExecutionHistory_TaskStartDate(), theEcorePackage.getEDate(), "taskStartDate", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTaskExecutionHistory_TaskEndDate(), theEcorePackage.getEDate(), "taskEndDate", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getTaskExecutionHistory_AdminJobStartDate(), theEcorePackage.getEDate(), "adminJobStartDate", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getTaskExecutionHistory_AdminJobEndDate(), theEcorePackage.getEDate(), "adminJobEndDate", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTaskExecutionHistory_ServerJobStartDate(), theEcorePackage.getEDate(), "serverJobStartDate", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTaskExecutionHistory_ServerJobEndDate(), theEcorePackage.getEDate(), "serverJobEndDate", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTaskExecutionHistory_IdRemoteJob(), theEcorePackage.getEString(), "idRemoteJob", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
