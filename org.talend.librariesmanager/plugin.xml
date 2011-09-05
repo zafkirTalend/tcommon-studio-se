@@ -87,4 +87,12 @@
             objectBased="true">
       </JavaType>
    </extension>
+   <extension
+         point="org.eclipse.emf.ecore.generated_package">
+      <package
+            class="org.talend.librariesmanager.emf.librariesindex.LibrariesindexPackage"
+            genModel="model/librariesindex.genmodel"
+            uri="www.talend.com/librariesindex">
+      </package>
+   </extension>
 </plugin>

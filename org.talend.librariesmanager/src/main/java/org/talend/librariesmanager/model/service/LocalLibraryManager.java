@@ -24,6 +24,7 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EMap;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
@@ -45,19 +46,20 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     private static final String COMPONENT_EXT_USER = "/ext/user";
 
-    private LibrariesIndex index = LibrariesIndexManager.getInstance();
-
     public boolean isInitialized() {
         String installLocation = getOBRRoot().getAbsolutePath();
         File indexFile = new File(installLocation + JAR_INDEX);
         if (indexFile.exists()) {
-            index.setInitialized(true);
+            LibrariesIndexManager.getInstance().loadResource();
+            return LibrariesIndexManager.getInstance().getIndex().isInitialized();
         }
-        return indexFile.exists();
+        return false;
     }
 
     public void setInitialized() {
-        index.setInitialized(true);
+        LibrariesIndexManager.getInstance().loadResource();
+        LibrariesIndexManager.getInstance().getIndex().setInitialized(true);
+        LibrariesIndexManager.getInstance().saveResource();
     }
 
     /*
@@ -66,6 +68,11 @@ public class LocalLibraryManager implements ILibraryManagerService {
      * @see org.talend.core.IRepositoryBundleService#deploy()
      */
     public void deploy(URI jarFileUri, IProgressMonitor... monitorWrap) {
+        String installLocation = getOBRRoot().getAbsolutePath();
+        File indexFile = new File(installLocation + JAR_INDEX);
+        if (indexFile.exists()) {
+            LibrariesIndexManager.getInstance().loadResource();
+        }
 
         IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(IComponentsService.class);
         Map<String, File> componentsFolders = service.getComponentsFactory().getComponentsProvidersFolder();
@@ -102,27 +109,24 @@ public class LocalLibraryManager implements ILibraryManagerService {
                         FilesUtils.copyFile(file, target);
                     }
                 } else {
-                    if (!index.isInitialized()) {
-                        EMap<String, String> jarsToRelativePath = index.getJarsToRelativePath();
-                        List<File> jarFiles = FilesUtils.getJarFilesFromFolder(file, null);
-                        if (jarFiles.size() > 0) {
-                            for (File jarFile : jarFiles) {
-                                String name = jarFile.getName();
-                                String fullPath = jarFile.getAbsolutePath();
-                                // caculate the relative path
-                                if (fullPath.indexOf(contributeID) != -1) {
-                                    String relativePath = fullPath.substring(fullPath.indexOf(contributeID));
-                                    if (relativePath.contains("\\")) {
-                                        relativePath = relativePath.replace("\\", "/");
-                                    }
-                                    if (!jarsToRelativePath.contains(name)) {
-                                        jarsToRelativePath.put(name, relativePath);
-                                    } else {
-                                    }
+                    LibrariesIndex index = LibrariesIndexManager.getInstance().getIndex();
+                    EMap<String, String> jarsToRelativePath = index.getJarsToRelativePath();
+                    List<File> jarFiles = FilesUtils.getJarFilesFromFolder(file, null);
+                    if (jarFiles.size() > 0) {
+                        for (File jarFile : jarFiles) {
+                            String name = jarFile.getName();
+                            String fullPath = jarFile.getAbsolutePath();
+                            // caculate the relative path
+                            if (fullPath.indexOf(contributeID) != -1) {
+                                fullPath = new Path(fullPath).toPortableString();
+                                String relativePath = fullPath.substring(fullPath.indexOf(contributeID));
+                                if (!jarsToRelativePath.contains(name)) {
+                                    jarsToRelativePath.put(name, relativePath);
+                                } else {
                                 }
                             }
-                            LibrariesIndexManager.saveResource();
                         }
+                        LibrariesIndexManager.getInstance().saveResource();
                     }
                 }
             }
@@ -151,6 +155,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
      * @see org.talend.core.IRepositoryBundleService#retrieve(java.lang.String, java.lang.String)
      */
     public boolean retrieve(String jarNeeded, String pathToStore, IProgressMonitor... monitorWrap) {
+        LibrariesIndexManager.getInstance().loadResource();
         try {
             List<File> jarFiles = FilesUtils.getJarFilesFromFolder(getOBRRoot(), jarNeeded);
             if (jarFiles.size() > 0) {
@@ -164,7 +169,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
             }
             // retrieve jar from the index.xml if not find in lib/java
             else {
-                EMap<String, String> jarsToRelative = index.getJarsToRelativePath();
+                EMap<String, String> jarsToRelative = LibrariesIndexManager.getInstance().getIndex().getJarsToRelativePath();
                 String relativePath = jarsToRelative.get(jarNeeded);
                 String bundleLocation = "";
                 String jarLocation = "";
@@ -177,7 +182,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                         // caculate the the absolute path of the jar
                         bundleLocation = componentsFolders.get(contributor).getAbsolutePath();
                         int index = bundleLocation.indexOf(contributor);
-                        jarLocation = bundleLocation.substring(0, index) + relativePath;
+                        jarLocation = new Path(bundleLocation.substring(0, index)).append(relativePath).toPortableString();
                         break;
                     }
                 }
@@ -223,10 +228,17 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 for (File file : jarFiles) {
                     names.add(file.getName());
                 }
+            } else {
+
             }
         } catch (MalformedURLException e) {
             ExceptionHandler.process(e);
         }
+
+        LibrariesIndexManager.getInstance().loadResource();
+
+        EMap<String, String> jarsToRelative = LibrariesIndexManager.getInstance().getIndex().getJarsToRelativePath();
+        names.addAll(jarsToRelative.keySet());
 
         return names;
     }
