@@ -52,8 +52,9 @@
       genModel="model/properties.genmodel"
       uri="http://www.talend.org/properties" />
     <package
-      class="org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage"
-      uri="platform:/resource/org.talend.model/model/TalendFile.xsd" />
+          class="org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage"
+          genModel="model/TalendFile.genmodel"
+          uri="platform:/resource/org.talend.model/model/TalendFile.xsd"/>
     <package
           class="org.talend.designer.core.model.utils.emf.component.ComponentPackage"
           genModel="model/Component.genmodel"
