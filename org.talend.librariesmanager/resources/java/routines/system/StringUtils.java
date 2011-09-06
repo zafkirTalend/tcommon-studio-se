@@ -12,10 +12,102 @@
 // ============================================================================
 package routines.system;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringUtils {
+	
+	public static final String[] EMPTY_STRING_ARRAY = new String[0];
+	
+	/**
+	 * replace the method : String.split(String regex)
+	 * @param str
+	 * @param separatorChars
+	 * @return
+	 */
+	public static String[] splitNotRegex(String str,String separatorChars) {
+		if (str == null) {
+            return null;
+        }
+        int len = str.length();
+        if (len == 0) {
+            return EMPTY_STRING_ARRAY;
+        }
+        List<String> list = new ArrayList<String>();
+        int sizePlus1 = 1;
+        int i = 0, start = 0;
+        boolean match = false;
+        boolean lastMatch = false;
+        if (separatorChars == null) {
+            // Null separator means use whitespace
+            while (i < len) {
+                if (Character.isWhitespace(str.charAt(i))) {
+                    lastMatch = true;
+                    if (sizePlus1++ == -1) {
+                        i = len;
+                        lastMatch = false;
+                    }
+                    list.add(str.substring(start, i));
+                    match = false;
+                    start = ++i;
+                    continue;
+                }
+                lastMatch = false;
+                match = true;
+                i++;
+            }
+        } else if (separatorChars.length() == 1) {
+            // Optimise 1 character case
+            char sep = separatorChars.charAt(0);
+            while (i < len) {
+                if (str.charAt(i) == sep) {
+                    lastMatch = true;
+                    if (sizePlus1++ == -1) {
+                        i = len;
+                        lastMatch = false;
+                    }
+                    list.add(str.substring(start, i));
+                    match = false;
+                    start = ++i;
+                    continue;
+                }
+                lastMatch = false;
+                match = true;
+                i++;
+            }
+        } else {
+            // standard case
+            while (i < len) {
+                if (separatorChars.indexOf(str.charAt(i)) >= 0) {
+                    lastMatch = true;
+                    if (sizePlus1++ == -1) {
+                        i = len;
+                        lastMatch = false;
+                    }
+                    list.add(str.substring(start, i));
+                    match = false;
+                    start = ++i;
+                    continue;
+                }
+                lastMatch = false;
+                match = true;
+                i++;
+            }
+        }
+        if (match || lastMatch) {
+            list.add(str.substring(start, i));
+        }
+        
+        // Construct result
+        int resultSize = list.size();
+        while (resultSize > 0 && list.get(resultSize-1).equals("")) {
+        	resultSize--;
+        }
+        String[] result = new String[resultSize];
+        return list.subList(0, resultSize).toArray(result);
+	}
 
     public static String[] split(String str, String separator) {
         return str.split(separator);
