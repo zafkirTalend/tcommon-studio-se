@@ -4,6 +4,7 @@
    <extension-point id="service" name="Service Registration" schema="schema/service.exsd"/>
    <extension-point id="dq_EMFModel_provider" name="dq emf model" schema="schema/dq_EMFModel_provider.exsd"/>
    <extension-point id="filepreview_provider" name="File Preview Provider" schema="schema/filepreview_provider.exsd"/>
+   <extension-point id="tokenInfo_provider" name="Token Info" schema="schema/tokenInfo_provider.exsd"/>
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
@@ -12,6 +13,40 @@
             id="org.talend.core.runtime.MetadataPrecisionPage"
             name="%Metadata">
       </page>
+      <page
+            category="org.talend.core.prefs"
+            class="org.talend.core.prefs.TokenInforPreferencePage"
+            id="org.talend.core.prefs.TokenInforPreferencePage"
+            name="%TokenInfor">
+      </page>
    </extension>
+   <extension
+         point="org.talend.core.runtime.tokenInfo_provider">
+      <provider
+            collector="org.talend.core.token.DefaultTokenCollector"
+            description="collect the most of main details for workspace"
+            id="org.talend.core.runtime.defaultProvider"
+            name="default">
+      </provider>
+   </extension>
+<!--
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="org.talend.core.token.ActionSet"
+            label="token"
+            visible="true">
+         <action
+               class="org.talend.core.token.TmpCollectTokenAction"
+               icon="addall.gif"
+               id="org.talend.repository.tokenInfor"
+               label="Collect token infors"
+               style="push"
+               toolbarPath="Default"
+               tooltip="Collect token infors"/>
+               
+        </actionSet>
+   </extension>
+-->
 
 </plugin>

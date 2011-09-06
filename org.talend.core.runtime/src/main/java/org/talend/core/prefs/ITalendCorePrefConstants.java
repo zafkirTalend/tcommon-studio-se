@@ -100,4 +100,10 @@ public interface ITalendCorePrefConstants {
     String CSS_FILE_PATH = "css_file_path";
 
     String FORBIDDEN_MAPPING_LENGTH_PREC_LOGIC = "forbidden_mapping_length_prec_logic";
+
+    String ACTIVE_TOKEN_INFORS = "active_token_infors";
+
+    String ACTIVE_TOKEN_INFORS_TIMES = "active_token_infors_times";
+
+    String TOKEN_INFORS_TIME = "token_infors_time";
 }

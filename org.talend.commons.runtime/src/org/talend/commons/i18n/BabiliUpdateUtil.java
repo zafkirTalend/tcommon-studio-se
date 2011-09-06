@@ -12,15 +12,11 @@
 // ============================================================================
 package org.talend.commons.i18n;
 
-import java.io.StringReader;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.map.JavaTypeMapper;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 /**
@@ -82,17 +78,18 @@ public class BabiliUpdateUtil {
      */
     public static List parseJsonObject(String jsonContent, Class clazz, IProgressMonitor monitor) throws Exception {
         // need factory for creating parser to use
-        JsonFactory jf = new JsonFactory();
-        List result = (List) new JavaTypeMapper().read(jf.createJsonParser(new StringReader(jsonContent)));
-        List objList = new ArrayList(result.size());
-        for (int i = 0; i < result.size(); i++) {
-            checkProcessCancel(monitor);
-            Object obj = clazz.newInstance();
-            Object source = result.get(i);
-            BeanUtils.copyProperties(obj, source);
-            objList.add(obj);
-        }
-        return objList;
+        // JsonFactory jf = new JsonFactory();
+        // List result = (List) new JavaTypeMapper().read(jf.createJsonParser(new StringReader(jsonContent)));
+        // List objList = new ArrayList(result.size());
+        // for (int i = 0; i < result.size(); i++) {
+        // checkProcessCancel(monitor);
+        // Object obj = clazz.newInstance();
+        // Object source = result.get(i);
+        // BeanUtils.copyProperties(obj, source);
+        // objList.add(obj);
+        // }
+        // return objList;
+        return Collections.emptyList();
     }
 
     /**

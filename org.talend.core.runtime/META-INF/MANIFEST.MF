@@ -35,6 +35,7 @@ Export-Package: org.talend.core,
  org.talend.core.prefs.ui,
  org.talend.core.runtime,
  org.talend.core.service,
+ org.talend.core.token,
  org.talend.core.ui,
  org.talend.core.ui.branding,
  org.talend.core.ui.context,
@@ -62,7 +63,8 @@ Export-Package: org.talend.core,
  org.talend.repository.ui.actions,
  org.talend.repository.ui.login.connections,
  org.talend.repository.ui.properties,
- org.talend.repository.ui.views
+ org.talend.repository.ui.views,
+ us.monoid.json
 Require-Bundle: org.eclipse.gef,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.emf.edit.ui,
@@ -84,4 +86,5 @@ Require-Bundle: org.eclipse.gef,
 Import-Package: org.eclipse.debug.core
 Bundle-Activator: org.talend.core.runtime.CoreRuntimePlugin
 Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: .
+Bundle-ClassPath: .,
+ lib/resty-0.2.0.jar
