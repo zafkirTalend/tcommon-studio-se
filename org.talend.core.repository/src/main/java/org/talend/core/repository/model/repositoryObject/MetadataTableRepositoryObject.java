@@ -172,7 +172,14 @@ public class MetadataTableRepositoryObject extends MetadataTable implements ISub
                 if (obj instanceof org.talend.core.model.metadata.builder.connection.MetadataTable) {
                     org.talend.core.model.metadata.builder.connection.MetadataTable repObj = (org.talend.core.model.metadata.builder.connection.MetadataTable) obj;
                     if (table != null && table.getLabel() != null && table.getLabel().equals(repObj.getLabel())) {
-                        table = repObj;
+                        // MOD klliu 2011-09-06 bug TDQ-3414
+                        Package source = (Package) table.eContainer();
+                        Package target = (Package) repObj.eContainer();
+                        String sourceName = source.getName();
+                        String targetName = target.getName();
+                        if (sourceName.equals(targetName)) {
+                            table = repObj;
+                        }
                         break;
                     }
                 }
