@@ -795,6 +795,8 @@ public class RepositoryToComponentProperty {
                 return EDatabaseTypeName.ORACLESN.getXmlName();
             } else if (databaseType.equals(EDatabaseTypeName.ORACLE_OCI.getDisplayName())) {
                 return EDatabaseTypeName.ORACLE_OCI.getXmlName();
+            } else if (databaseType.equals(EDatabaseTypeName.ORACLE_RAC.getDisplayName())) {
+                return EDatabaseTypeName.ORACLE_RAC.getXmlName();
             } else if (databaseType.equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
                 return EDatabaseTypeName.MSSQL.getXMLType(); // for component
             }
@@ -928,6 +930,8 @@ public class RepositoryToComponentProperty {
                     return "ORACLE_SERVICE_NAME";
                 } else if (databaseType.equals(EDatabaseTypeName.ORACLE_OCI.getDisplayName())) {
                     return "ORACLE_OCI";
+                } else if (databaseType.equals(EDatabaseTypeName.ORACLE_RAC.getDisplayName())) {
+                    return "ORACLE_RAC";
                 }
             } else {
                 if (databaseType.equals(EDatabaseTypeName.ORACLEFORSID.getDisplayName())) {
@@ -936,6 +940,8 @@ public class RepositoryToComponentProperty {
                     return "ORACLE_SERVICE_NAME";
                 } else if (databaseType.equals(EDatabaseTypeName.ORACLE_OCI.getDisplayName())) {
                     return "ORACLE_OCI";
+                } else if (databaseType.equals(EDatabaseTypeName.ORACLE_RAC.getDisplayName())) {
+                    return "ORACLE_RAC";
                 }
             }
         }
@@ -1061,6 +1067,9 @@ public class RepositoryToComponentProperty {
             } else {
                 return TalendQuoteUtils.addQuotes(connection.getDatasourceName());
             }
+        }
+        if (value.equals("RAC_URL")) {
+            return connection.getServerName();
         }
         return null;
     }
