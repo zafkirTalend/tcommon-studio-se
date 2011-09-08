@@ -156,6 +156,14 @@ public class TaskUtils extends Login {
     	this.selectDropDownList("idJobConductorTaskStatisticsListBox", statisticName);
     	this.selectDropDownList("idJobConductorOnUnavailableJobServerListBox", "Wait");
     	
+    	if(!selenium.isElementPresent("//span[text()='"+label+"']")) {	
+			selenium.click("idFormSaveButton");
+	        selenium.setSpeed(MID_SPEED);
+			Assert.assertTrue(selenium.isElementPresent("//span[text()='"+label+"']"));
+			selenium.setSpeed(MIN_SPEED);
+			
+		}		
+				
 
 	}
 	
