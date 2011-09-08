@@ -84,8 +84,10 @@ public class Plan extends TaskUtils {
 		this.sleep(2000);
 		selenium.mouseDown("//span[text()='" + planLabel + "']");
 		selenium.chooseOkOnNextConfirmation();
-		selenium.click("idSubModuleDeleteButton");
-		this.sleep(1000);
+		selenium.chooseOkOnNextConfirmation();
+		selenium.click("//div[text()='Execution Plan']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");
+		this.sleep(3000);
+		selenium.getConfirmation();
 		selenium.getConfirmation();
 		this.sleep(3000);
 		Assert.assertFalse(selenium.isElementPresent("//span[text()='" + planLabel + "']"), "plan "+planLabel +" delete failed! ");
