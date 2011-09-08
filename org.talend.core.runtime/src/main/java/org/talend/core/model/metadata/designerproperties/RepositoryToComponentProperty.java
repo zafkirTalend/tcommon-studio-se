@@ -909,9 +909,6 @@ public class RepositoryToComponentProperty {
 
         if (value.equals("DB_VERSION")) { //$NON-NLS-1$
             String dbVersionString = connection.getDbVersionString();
-            if (databaseType.equals(EDatabaseTypeName.ORACLE_RAC.getDisplayName())) {
-                dbVersionString = EDatabaseVersion4Drivers.ORACLE_11.getVersionValue();
-            }
             if (EDatabaseConnTemplate.ACCESS.getDBDisplayName().equals(databaseType)) {
                 // @Deprecated: see bug 7262 this bug is Deprecated
                 return dbVersionString;

@@ -1506,7 +1506,8 @@ public class DatabaseForm extends AbstractForm {
         dbVersionCombo.setHideWidgets(true);
         if (dbType.equals(EDatabaseConnTemplate.ORACLEFORSID.getDBDisplayName())
                 || dbType.equals(EDatabaseConnTemplate.ORACLESN.getDBDisplayName())
-                || dbType.equals(EDatabaseConnTemplate.ORACLE_OCI.getDBDisplayName())) {
+                || dbType.equals(EDatabaseConnTemplate.ORACLE_OCI.getDBDisplayName())
+                || dbType.equals(EDatabaseConnTemplate.ORACLE_RAC.getDBDisplayName())) {
             dbVersionCombo.getCombo().setItems(versions);
             dbVersionCombo.setHideWidgets(!isOracle);
         } else if (dbType.equals(EDatabaseConnTemplate.AS400.getDBDisplayName())) {
@@ -2187,7 +2188,8 @@ public class DatabaseForm extends AbstractForm {
         }
         EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(dbTypeCombo.getText());
         return template != null
-                && (template == EDatabaseConnTemplate.ORACLEFORSID || template == EDatabaseConnTemplate.ORACLESN || template == EDatabaseConnTemplate.ORACLE_OCI);
+                && (template == EDatabaseConnTemplate.ORACLEFORSID || template == EDatabaseConnTemplate.ORACLESN
+                        || template == EDatabaseConnTemplate.ORACLE_OCI || template == EDatabaseConnTemplate.ORACLE_RAC);
     }
 
     /**
