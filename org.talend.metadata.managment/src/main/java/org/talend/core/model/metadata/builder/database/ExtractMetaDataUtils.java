@@ -31,6 +31,8 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
@@ -38,6 +40,8 @@ import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.commons.utils.database.SASDataBaseMetadata;
 import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.commons.utils.platform.PluginChecker;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ILibraryManagerService;
 import org.talend.core.IManagementService;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
@@ -45,13 +49,16 @@ import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.database.utils.ManagementTextUtils;
 import org.talend.core.i18n.Messages;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataConnection;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.repository.ProjectManager;
 import org.talend.utils.sugars.TypedReturnCode;
 
 /**
@@ -636,16 +643,22 @@ public class ExtractMetaDataUtils {
             }
 
         } else {
+            ILibraryManagerService librairesManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault()
+                    .getService(ILibraryManagerService.class);
             // see feature 4720&4722
             if ((driverJarPathArg == null || driverJarPathArg.equals(""))) { //$NON-NLS-1$
                 List<String> driverNames = EDatabaseVersion4Drivers.getDrivers(dbType, dbVersion);
                 if (driverNames != null) {
-                    for (String jarName : driverNames) {
-                        jarPathList.add(getJavaLibPath() + jarName);
+                    for (String jar : driverNames) {
+                        if (!new File(getJavaLibPath() + jar).exists()) {
+                            librairesManagerService.retrieve(jar, getJavaLibPath(), new NullProgressMonitor());
+                        }
+                        jarPathList.add(getJavaLibPath() + jar);
                     }
                     driverClassName = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
                 }
             } else {
+                Set<String> jarsAvailable = librairesManagerService.list(new NullProgressMonitor());
                 // add another test with start with / in case of linux OS.
                 if (driverJarPathArg.contains("\\") || driverJarPathArg.startsWith("/")) { //$NON-NLS-1$
                     if (driverJarPathArg.contains(";")) {
@@ -653,19 +666,24 @@ public class ExtractMetaDataUtils {
                         for (int i = 0; i < jars.length; i++) {
                             Path path = new Path(jars[i]);
                             // fix for 19020
-                            String jarUnderLib = getJavaLibPath() + path.lastSegment();
-                            File file = new File(jarUnderLib);
-                            if (file.exists()) {
-                                jarPathList.add(jarUnderLib);
+                            if (jarsAvailable.contains(path.lastSegment())) {
+                                if (!new File(getJavaLibPath() + path.lastSegment()).exists()) {
+                                    librairesManagerService.retrieve(path.lastSegment(), getJavaLibPath(),
+                                            new NullProgressMonitor());
+                                }
+                                jarPathList.add(getJavaLibPath() + path.lastSegment());
                             } else {
                                 jarPathList.add(jars[i]);
                             }
                         }
                     } else {
                         Path path = new Path(driverJarPathArg);
-                        String jarUnderLib = getJavaLibPath() + path.lastSegment();
-                        File file = new File(jarUnderLib);
-                        if (file.exists()) {
+                        if (jarsAvailable.contains(path.lastSegment())) {
+                            String jarUnderLib = getJavaLibPath() + path.lastSegment();
+                            File file = new File(jarUnderLib);
+                            if (!file.exists()) {
+                                librairesManagerService.retrieve(path.lastSegment(), getJavaLibPath(), new NullProgressMonitor());
+                            }
                             jarPathList.add(jarUnderLib);
                         } else {
                             jarPathList.add(driverJarPathArg);
@@ -675,9 +693,15 @@ public class ExtractMetaDataUtils {
                     if (driverJarPathArg.contains(";")) {
                         String jars[] = driverJarPathArg.split(";");
                         for (int i = 0; i < jars.length; i++) {
+                            if (!new File(getJavaLibPath() + jars[i]).exists()) {
+                                librairesManagerService.retrieve(jars[i], getJavaLibPath(), new NullProgressMonitor());
+                            }
                             jarPathList.add(getJavaLibPath() + jars[i]);
                         }
                     } else {
+                        if (!new File(getJavaLibPath() + driverJarPathArg).exists()) {
+                            librairesManagerService.retrieve(driverJarPathArg, getJavaLibPath(), new NullProgressMonitor());
+                        }
                         jarPathList.add(getJavaLibPath() + driverJarPathArg);
                     }
                 }
@@ -761,9 +785,21 @@ public class ExtractMetaDataUtils {
      * @return
      */
     public static String getJavaLibPath() {
-        String separator = "/"; //$NON-NLS-1$
-        String javaLibPath = CoreRuntimePlugin.getInstance().getLibrariesService().getJavaLibrariesPath();
-        return javaLibPath + separator;
+        Project project = ProjectManager.getInstance().getCurrentProject();
+        IProject physProject;
+        String tmpFolder = System.getProperty("user.dir"); //$NON-NLS-1$
+        try {
+            physProject = ResourceModelUtils.getProject(project);
+            tmpFolder = physProject.getFolder("temp").getLocation().toPortableString(); //$NON-NLS-1$
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
+        tmpFolder = tmpFolder + "/dbWizard"; //$NON-NLS-1$
+        File file = new File(tmpFolder);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        return tmpFolder + "/"; //$NON-NLS-1$
     }
 
     // hywang added for bug 7038

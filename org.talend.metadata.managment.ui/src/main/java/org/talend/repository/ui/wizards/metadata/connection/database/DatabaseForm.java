@@ -844,7 +844,8 @@ public class DatabaseForm extends AbstractForm {
 
     private boolean enableDbVersion() {
         return oracleVersionEnable() || as400VersionEnable()
-                || EDatabaseConnTemplate.ACCESS.getDBDisplayName().equals(dbTypeCombo.getText());
+                || EDatabaseConnTemplate.ACCESS.getDBDisplayName().equals(dbTypeCombo.getText())
+                || EDatabaseConnTemplate.MYSQL.getDBDisplayName().equals(dbTypeCombo.getText());
     }
 
     /**
