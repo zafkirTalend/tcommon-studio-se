@@ -38,6 +38,7 @@ import org.eclipse.ui.IEditorPart;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.utils.time.TimeMeasure;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
@@ -295,7 +296,6 @@ public class ProcessorUtilities {
     private static IProcessor generateCode(IProcessor processor2, JobInfo jobInfo, String selectedContextName,
             boolean statistics, boolean trace, boolean properties, int option, IProgressMonitor progressMonitor)
             throws ProcessorException {
-
         if (progressMonitor == null) {
             progressMonitor = new NullProgressMonitor();
         }
@@ -519,115 +519,138 @@ public class ProcessorUtilities {
 
     private static IProcessor generateCode(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean trace,
             boolean properties, int option, IProgressMonitor progressMonitor) throws ProcessorException {
+        TimeMeasure.display = CommonsPlugin.isDebugMode();
+        TimeMeasure.displaySteps = CommonsPlugin.isDebugMode();
+        TimeMeasure.measureActive = CommonsPlugin.isDebugMode();
 
-        if (progressMonitor == null) {
-            progressMonitor = new NullProgressMonitor();
-        }
-        if (progressMonitor.isCanceled()) {
-            return null;
-        }
-        boolean isMainJob = false;
-        if (jobInfo.getFatherJobInfo() == null) {
-            isMainJob = true;
-            codeModified = false;
+        String idTimer = "generateCode for job: " + jobInfo.getJobName();
+        TimeMeasure.begin(idTimer);
 
-            // this cache only keep the last main job's generation, so clear it since we regenerate a new job.
-            LastGenerationInfo.getInstance().getLastGeneratedjobs().clear();
-
-            // if it's the father, reset the processMap to ensure to have a good
-            // code generation
-            ItemCacheManager.clearCache();
-        }
-
-        IProcess currentProcess = null;
-        jobList.add(jobInfo);
-        ProcessItem selectedProcessItem;
-
-        selectedProcessItem = jobInfo.getProcessItem();
-        String currentJobName = null;
-        if (selectedProcessItem == null && jobInfo.getJobVersion() == null) {
-            // child job
-            selectedProcessItem = ItemCacheManager.getProcessItem(jobInfo.getJobId());
-        }
-
-        if (jobInfo.getJobVersion() != null) {
-            selectedProcessItem = ItemCacheManager.getProcessItem(jobInfo.getJobId(), jobInfo.getJobVersion());
-        }
-
-        if (selectedProcessItem == null && jobInfo.getProcess() == null) {
-            return null;
-        }
-        if (selectedProcessItem != null) {
-            currentJobName = selectedProcessItem.getProperty().getLabel();
-        }
-        progressMonitor.subTask(Messages.getString("ProcessorUtilities.loadingJob") + currentJobName); //$NON-NLS-1$
-
-        if (jobInfo.getProcess() == null) {
-            if (selectedProcessItem != null) {
-                IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
-                currentProcess = service.getProcessFromProcessItem(selectedProcessItem);
-                jobInfo.setProcess(currentProcess);
-                if (currentProcess instanceof IProcess2) {
-                    ((IProcess2) currentProcess).setProperty(selectedProcessItem.getProperty());
-                }
+        try {
+            if (progressMonitor == null) {
+                progressMonitor = new NullProgressMonitor();
             }
-            if (currentProcess == null) {
+            if (progressMonitor.isCanceled()) {
                 return null;
             }
-        } else {
-            currentProcess = jobInfo.getProcess();
-        }
-        generateJobInfo(jobInfo, isMainJob, currentProcess, selectedProcessItem);
-        Set<String> neededRoutines = currentProcess.getNeededRoutines();
-        if (neededRoutines != null) {
-            // item can be null in case of job preview
+            boolean isMainJob = false;
+            if (jobInfo.getFatherJobInfo() == null) {
+                isMainJob = true;
+                codeModified = false;
 
-            LastGenerationInfo.getInstance().setRoutinesNeededPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(), neededRoutines);
-            LastGenerationInfo.getInstance().setRoutinesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
-                    neededRoutines);
-        }
-        if (selectedProcessItem != null) {
-            checkMetadataDynamic(selectedProcessItem, jobInfo);
-            jobInfo.setProcessItem(null);
-        }
+                // this cache only keep the last main job's generation, so clear it since we regenerate a new job.
+                LastGenerationInfo.getInstance().getLastGeneratedjobs().clear();
 
-        Set<String> neededLibraries = CorePlugin.getDefault().getDesignerCoreService()
-                .getNeededLibrariesForProcess(currentProcess, false);
-        if (neededLibraries != null) {
-            if (exportAsOSGI) {
-                Set<String> neededLibrariesForOSGIExport = CorePlugin.getDefault().getDesignerCoreService()
-                        .getNeededLibrariesForProcess(currentProcess, false, exportAsOSGI);
-
-                LastGenerationInfo.getInstance().setModulesNeededWithSubjobPerJob(jobInfo.getJobId() + "-osgi",
-                        jobInfo.getJobVersion(), neededLibrariesForOSGIExport);
-                LastGenerationInfo.getInstance().setModulesNeededPerJob(jobInfo.getJobId() + "-osgi", jobInfo.getJobVersion(),
-                        neededLibrariesForOSGIExport);
+                // if it's the father, reset the processMap to ensure to have a good
+                // code generation
+                ItemCacheManager.clearCache();
             }
-            LastGenerationInfo.getInstance().setModulesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
-                    neededLibraries);
-            LastGenerationInfo.getInstance().setModulesNeededPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(), neededLibraries);
+
+            IProcess currentProcess = null;
+            jobList.add(jobInfo);
+            ProcessItem selectedProcessItem;
+
+            selectedProcessItem = jobInfo.getProcessItem();
+            String currentJobName = null;
+            if (selectedProcessItem == null && jobInfo.getJobVersion() == null) {
+                // child job
+                selectedProcessItem = ItemCacheManager.getProcessItem(jobInfo.getJobId());
+            }
+
+            if (jobInfo.getJobVersion() != null) {
+                selectedProcessItem = ItemCacheManager.getProcessItem(jobInfo.getJobId(), jobInfo.getJobVersion());
+            }
+
+            if (selectedProcessItem == null && jobInfo.getProcess() == null) {
+                return null;
+            }
+            if (selectedProcessItem != null) {
+                currentJobName = selectedProcessItem.getProperty().getLabel();
+            }
+            progressMonitor.subTask(Messages.getString("ProcessorUtilities.loadingJob") + currentJobName); //$NON-NLS-1$
+
+            if (jobInfo.getProcess() == null) {
+                if (selectedProcessItem != null) {
+                    IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
+                    currentProcess = service.getProcessFromProcessItem(selectedProcessItem);
+                    jobInfo.setProcess(currentProcess);
+                    if (currentProcess instanceof IProcess2) {
+                        ((IProcess2) currentProcess).setProperty(selectedProcessItem.getProperty());
+                    }
+                }
+                if (currentProcess == null) {
+                    return null;
+                }
+            } else {
+                currentProcess = jobInfo.getProcess();
+            }
+            TimeMeasure.step(idTimer, "Loading job");
+
+            generateJobInfo(jobInfo, isMainJob, currentProcess, selectedProcessItem);
+            TimeMeasure.step(idTimer, "generateJobInfo");
+
+            Set<String> neededRoutines = currentProcess.getNeededRoutines();
+            if (neededRoutines != null) {
+                // item can be null in case of job preview
+
+                LastGenerationInfo.getInstance().setRoutinesNeededPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
+                        neededRoutines);
+                LastGenerationInfo.getInstance().setRoutinesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
+                        neededRoutines);
+            }
+            if (selectedProcessItem != null) {
+                checkMetadataDynamic(selectedProcessItem, jobInfo);
+                jobInfo.setProcessItem(null);
+            }
+
+            Set<String> neededLibraries = CorePlugin.getDefault().getDesignerCoreService()
+                    .getNeededLibrariesForProcess(currentProcess, false);
+            if (neededLibraries != null) {
+                if (exportAsOSGI) {
+                    Set<String> neededLibrariesForOSGIExport = CorePlugin.getDefault().getDesignerCoreService()
+                            .getNeededLibrariesForProcess(currentProcess, false, exportAsOSGI);
+
+                    LastGenerationInfo.getInstance().setModulesNeededWithSubjobPerJob(jobInfo.getJobId() + "-osgi",
+                            jobInfo.getJobVersion(), neededLibrariesForOSGIExport);
+                    LastGenerationInfo.getInstance().setModulesNeededPerJob(jobInfo.getJobId() + "-osgi",
+                            jobInfo.getJobVersion(), neededLibrariesForOSGIExport);
+                }
+                LastGenerationInfo.getInstance().setModulesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
+                        neededLibraries);
+                LastGenerationInfo.getInstance().setModulesNeededPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
+                        neededLibraries);
+            }
+            resetRunJobComponentParameterForContextApply(jobInfo, currentProcess, selectedContextName);
+
+            generateNodeInfo(jobInfo, selectedContextName, statistics, option, progressMonitor, currentProcess);
+            TimeMeasure.step(idTimer, "generateNodeInfo");
+
+            IProcessor processor = null;
+            if (selectedProcessItem == null) { // shadow process
+                processor = getProcessor(currentProcess, null);
+            } else {
+                processor = getProcessor(currentProcess, selectedProcessItem.getProperty());
+            }
+
+            generateContextInfo(jobInfo, selectedContextName, statistics, trace, properties, progressMonitor, currentProcess,
+                    currentJobName, processor);
+            TimeMeasure.step(idTimer, "generateContextInfo");
+
+            /*
+             * Set classpath for current job. If current job include some child-jobs, the child job SHARE farther job
+             * libraries.
+             */
+            jobInfo.setProcess(null);
+            generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName);
+            TimeMeasure.step(idTimer, "generateBuildInfo");
+            return processor;
+        } finally {
+            TimeMeasure.end(idTimer);
+            // don't set the value false here ,there will be TimeMeasure outside need to display
+            // TimeMeasure.display = false;
+            // TimeMeasure.displaySteps = false;
+            // TimeMeasure.measureActive = false;
         }
-        resetRunJobComponentParameterForContextApply(jobInfo, currentProcess, selectedContextName);
-
-        generateNodeInfo(jobInfo, selectedContextName, statistics, option, progressMonitor, currentProcess);
-
-        IProcessor processor = null;
-        if (selectedProcessItem == null) { // shadow process
-            processor = getProcessor(currentProcess, null);
-        } else {
-            processor = getProcessor(currentProcess, selectedProcessItem.getProperty());
-        }
-
-        generateContextInfo(jobInfo, selectedContextName, statistics, trace, properties, progressMonitor, currentProcess,
-                currentJobName, processor);
-
-        /*
-         * Set classpath for current job. If current job include some child-jobs, the child job SHARE farther job
-         * libraries.
-         */
-        jobInfo.setProcess(null);
-        generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName);
-        return processor;
     }
 
     private static void generateJobInfo(JobInfo jobInfo, boolean isMainJob, IProcess currentProcess,
