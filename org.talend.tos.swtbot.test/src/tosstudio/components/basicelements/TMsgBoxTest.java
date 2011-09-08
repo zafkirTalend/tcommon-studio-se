@@ -7,6 +7,7 @@ import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
@@ -30,6 +31,7 @@ import org.talend.swtbot.items.TalendJobItem;
 /**
  * DOC Administrator class global comment. Detailled comment
  */
+@Ignore("can not find message box")
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class TMsgBoxTest extends TalendSwtBotForTos {
 

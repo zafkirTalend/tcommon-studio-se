@@ -12,23 +12,19 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
-import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
+import org.talend.swtbot.Utilities;
 
 /**
  * DOC fzhong class global comment. Detailled comment
  */
-public class TalendSchemaItem extends TalendMetadataItem {
+public class TalendRecycleBinItem extends TalendItem {
 
-    /**
-     * Right click schema and click 'Edit Schema'.
-     * 
-     * @return shell of 'Edit Schema'
-     */
-    public SWTBotShell editSchema() {
-        SWTBotShell shell;
-        getItem().contextMenu("Edit Schema").click();
-        shell = new SWTGefBot().shell("Schema");
-        return shell;
+    public TalendRecycleBinItem() {
+        super(Utilities.TalendItemType.RECYCLE_BIN);
+    }
+
+    public void restore() {
+        item.contextMenu("Restore").click();
+        setItem(null);
     }
 }

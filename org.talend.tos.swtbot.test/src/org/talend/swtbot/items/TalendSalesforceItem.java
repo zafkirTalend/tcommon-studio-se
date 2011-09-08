@@ -39,12 +39,12 @@ public class TalendSalesforceItem extends TalendMetadataItem {
         super(itemName, Utilities.TalendItemType.SALESFORCE);
     }
 
-    public Map<String, SWTBotTreeItem> retrieveModules(String... moduleName) {
+    public Map<String, TalendSalesforceItem> retrieveModules(String... moduleName) {
         getItem().contextMenu("Retrieve Salesforce Modules").click();
         final SWTGefBot gefBot = new SWTGefBot();
         gefBot.waitUntil(Conditions.shellIsActive("Schema"), 10000);
         SWTBotShell tempShell = gefBot.shell("Schema");
-        Map<String, SWTBotTreeItem> moduleItems = new HashMap<String, SWTBotTreeItem>();
+        Map<String, TalendSalesforceItem> moduleItems = new HashMap<String, TalendSalesforceItem>();
 
         try {
             List<String> modules = new ArrayList<String>(Arrays.asList(moduleName));
@@ -55,7 +55,9 @@ public class TalendSalesforceItem extends TalendMetadataItem {
             gefBot.button("Finish").click();
 
             for (String module : modules) {
-                moduleItems.put(module, getItem().getNode(module).select());
+                TalendSalesforceItem tempItem = new TalendSalesforceItem();
+                tempItem.setItem(getItem().getNode(module).select());
+                moduleItems.put(module, tempItem);
             }
         } catch (WidgetNotFoundException wnfe) {
             tempShell.close();
@@ -65,5 +67,11 @@ public class TalendSalesforceItem extends TalendMetadataItem {
             Assert.fail(e.getMessage());
         }
         return moduleItems;
+    }
+
+    @Override
+    public void create() {
+        SWTBotTreeItem item = Utilities.createSalesforce(itemName, parentNode);
+        setItem(item);
     }
 }

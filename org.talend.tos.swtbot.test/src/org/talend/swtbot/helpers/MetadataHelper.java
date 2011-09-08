@@ -21,10 +21,12 @@ import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Assert;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendEdiItem;
 import org.talend.swtbot.items.TalendMetadataItem;
+import org.talend.swtbot.items.TalendRecycleBinItem;
 import org.talend.swtbot.items.TalendValidationRuleItem;
 
 /**
@@ -63,6 +65,7 @@ public class MetadataHelper implements Helper {
         if (item instanceof TalendEdiItem) {
             metadata.click();
             GEFBOT.viewByTitle("Component").setFocus();
+            UTIL.selecteAllTalendTabbedPropertyListIndex(0);
             GEFBOT.waitUntil(new DefaultCondition() {
 
                 public boolean test() throws Exception {
@@ -74,6 +77,7 @@ public class MetadataHelper implements Helper {
                 }
             }, 10000);
             String fileName = "\"" + ((TalendEdiItem) item).getAbsoluteFilePath() + "\"";
+            fileName = fileName.replace("\\", "/");
             GEFBOT.textInGroup("EDI parameters", 0).setText(fileName);
         }
         JobHelper.connect2TLogRow(jobEditor, metadata, rowName, new Point(300, 100));
@@ -130,5 +134,17 @@ public class MetadataHelper implements Helper {
             Assert.fail(e.getCause().getMessage());
         }
         GEFBOT.button("OK").click();
+    }
+
+    public static TalendRecycleBinItem getRecycleBinItem(String itemName) {
+        TalendRecycleBinItem item = new TalendRecycleBinItem();
+        SWTBotTreeItem treeNode = null;
+        try {
+            treeNode = item.getParentNode().expand().getNode(itemName);
+        } catch (Exception e) {
+            // ignore this, means if it could not find node, set treeNode as NULL;
+        }
+        item.setItem(treeNode);
+        return item;
     }
 }

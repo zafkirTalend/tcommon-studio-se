@@ -12,7 +12,9 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
+import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.junit.Assert;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.Utilities.TalendItemType;
 
@@ -53,6 +55,8 @@ public class TalendItem {
 
     public void setItem(SWTBotTreeItem item) {
         this.item = item;
+        if (item == null)
+            return;
         this.itemFullName = item.getText();
         if (item.getText().indexOf(" ") != -1) {
             String[] temp = itemFullName.split(" ");
@@ -123,7 +127,21 @@ public class TalendItem {
     }
 
     public void delete() {
-        Utilities.delete(parentNode, itemName, itemVersion, folderPath);
+        parentNode.getNode(itemFullName).contextMenu("Delete").click();
+        SWTGefBot gefBot = new SWTGefBot();
+        SWTBotTreeItem newItem = null;
+        String path = "";
+        try {
+            if (folderPath != null)
+                path = folderPath;
+            if (!(getClass().newInstance() instanceof TalendSchemaItem))
+                path = " (" + path + ")";
+            newItem = gefBot.tree().expandNode("Recycle bin").select(itemFullName + path);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("item is not deleted to recycle bin", newItem);
+        }
     }
 
     public void duplicate(String newItemName) {

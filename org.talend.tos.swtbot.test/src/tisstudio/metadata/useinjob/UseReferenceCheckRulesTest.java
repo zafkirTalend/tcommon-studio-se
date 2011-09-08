@@ -75,7 +75,7 @@ public class UseReferenceCheckRulesTest extends TalendSwtBotForTos {
         TalendSchemaItem schema = dbItem.getSchema("test");
         schema.setComponentType("tMysqlInput");
         Utilities.dndMetadataOntoJob(jobItem.getJobEditor(), schema.getItem(), schema.getComponentType(), new Point(100, 100));
-        SWTBotGefEditPart metadata = getTalendComponentPart(jobItem.getJobEditor(), schema.getItemNameWithQuotes());
+        SWTBotGefEditPart metadata = getTalendComponentPart(jobItem.getJobEditor(), schema.getItemName());
         Assert.assertNotNull("can not get component '" + schema.getComponentType() + "'", metadata);
         MetadataHelper.activateValidationRule(metadata, ruleItem);
         JobHelper.connect2TLogRow(jobItem.getJobEditor(), metadata, new Point(300, 100));

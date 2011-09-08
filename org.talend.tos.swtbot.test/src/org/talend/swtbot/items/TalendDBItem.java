@@ -1,5 +1,7 @@
 package org.talend.swtbot.items;
 
+import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.Utilities.DbConnectionType;
@@ -30,6 +32,7 @@ public class TalendDBItem extends TalendMetadataItem {
         TalendSchemaItem schemaItem = new TalendSchemaItem();
         schemaItem.setItem(schemaNode.getNode(name));
         schemaItem.setParentNode(schemaNode);
+        schemaItem.setItemName("\"" + schemaItem.getItemName() + "\"");
         return schemaItem;
     }
 
@@ -47,4 +50,9 @@ public class TalendDBItem extends TalendMetadataItem {
         Utilities.retrieveDbSchema(getParentNode(), itemName, schemas);
     }
 
+    public SWTBotShell editQueries() {
+        item.contextMenu("Edit queries").click();
+        SWTBotShell shell = new SWTGefBot().shell("SQL Builder [Repository Mode]").activate();
+        return shell;
+    }
 }
