@@ -4,8 +4,9 @@ import org.testng.Assert;
 
 import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
+import com.talend.tac.cases.executionTask.TaskUtils;
 
-public class Plan extends Login {
+public class Plan extends TaskUtils {
 	public static int TriggerCheckTime = 40;
 	
 	public void openExecutionPlanMenu(){
@@ -17,7 +18,7 @@ public class Plan extends Login {
 				.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
 	}
 
-	public void addTask(String label, String description, String projectName,
+	/*public void addTask(String label, String description, String projectName,
 			String branchName, String jobName, String version, String context,
 			String serverName, String statisticName) {
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
@@ -49,7 +50,7 @@ public class Plan extends Login {
 			this.waitForElementPresent("//span[text()='" + label + "']",
 					Base.WAIT_TIME);
 		}
-	}
+	}*/
 	
 	public void addPlan(String planLabel, String rootTask, String description) {
 
