@@ -46,6 +46,8 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     private static final String COMPONENT_EXT_USER = "/ext/user";
 
+    // private long totalSizeCanBeReduced = 0;
+
     public boolean isInitialized() {
         String installLocation = getOBRRoot().getAbsolutePath();
         File indexFile = new File(installLocation + JAR_INDEX);
@@ -112,6 +114,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                     LibrariesIndex index = LibrariesIndexManager.getInstance().getIndex();
                     EMap<String, String> jarsToRelativePath = index.getJarsToRelativePath();
                     List<File> jarFiles = FilesUtils.getJarFilesFromFolder(file, null);
+                    boolean modified = false;
                     if (jarFiles.size() > 0) {
                         for (File jarFile : jarFiles) {
                             String name = jarFile.getName();
@@ -120,13 +123,22 @@ public class LocalLibraryManager implements ILibraryManagerService {
                             if (fullPath.indexOf(contributeID) != -1) {
                                 fullPath = new Path(fullPath).toPortableString();
                                 String relativePath = fullPath.substring(fullPath.indexOf(contributeID));
-                                if (!jarsToRelativePath.contains(name)) {
+                                if (!jarsToRelativePath.keySet().contains(name)) {
                                     jarsToRelativePath.put(name, relativePath);
+                                    modified = true;
                                 } else {
+                                    // System.out.println("duplicate jar " + name + " found\n in :" +
+                                    // jarsToRelativePath.get(name)
+                                    // + "\n and : " + relativePath);
+                                    // totalSizeCanBeReduced += jarFile.length();
+                                    // System.out.println("total size can be reduced from:" + totalSizeCanBeReduced /
+                                    // 1024 + "kb\n");
                                 }
                             }
                         }
-                        LibrariesIndexManager.getInstance().saveResource();
+                        if (modified) {
+                            LibrariesIndexManager.getInstance().saveResource();
+                        }
                     }
                 }
             }
@@ -171,6 +183,9 @@ public class LocalLibraryManager implements ILibraryManagerService {
             else {
                 EMap<String, String> jarsToRelative = LibrariesIndexManager.getInstance().getIndex().getJarsToRelativePath();
                 String relativePath = jarsToRelative.get(jarNeeded);
+                if (relativePath == null) {
+                    return false;
+                }
                 String bundleLocation = "";
                 String jarLocation = "";
                 IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
@@ -247,6 +262,13 @@ public class LocalLibraryManager implements ILibraryManagerService {
         String librariesPath = PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA);
         File OBRDir = new File(librariesPath);
         return OBRDir;
+    }
+
+    public void clearCache() {
+        LibrariesIndexManager.getInstance().loadResource();
+        LibrariesIndexManager.getInstance().getIndex().setInitialized(false);
+        LibrariesIndexManager.getInstance().getIndex().getJarsToRelativePath().clear();
+        LibrariesIndexManager.getInstance().saveResource();
     }
 
 }

@@ -179,10 +179,13 @@ public class JavaLibrariesService extends AbstractLibrariesService {
             // 1. Talend libraries:
             File talendLibraries = new File(FileLocator.resolve(Activator.BUNDLE.getEntry("resources/java/lib/")).getFile()); //$NON-NLS-1$
             repositoryBundleService.deploy(talendLibraries.toURI(), monitorWrap);
+
+            if (ArrayUtils.contains(Platform.getApplicationArgs(), "--clean_component_cache")) {
+                repositoryBundleService.clearCache();
+            }
             // Add a new system file, if exists, means all components libs are already setup, so no need to do again.
             // if clean the component cache, it will automatically recheck all libs still.
-            if (!repositoryBundleService.isInitialized()
-                    || ArrayUtils.contains(Platform.getApplicationArgs(), "--clean_component_cache")) { //$NON-NLS-1$
+            if (!repositoryBundleService.isInitialized()) { //$NON-NLS-1$
                 // 2. Components libraries
                 IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
                         IComponentsService.class);

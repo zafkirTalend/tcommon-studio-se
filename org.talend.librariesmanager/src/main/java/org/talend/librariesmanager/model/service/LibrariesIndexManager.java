@@ -39,6 +39,8 @@ public class LibrariesIndexManager {
 
     private static final String LIBRARIES_INDEX = "index.xml";
 
+    private boolean loaded = false;
+
     private LibrariesIndexManager() {
         index = LibrariesindexFactory.eINSTANCE.createLibrariesIndex();
     }
@@ -51,20 +53,23 @@ public class LibrariesIndexManager {
     }
 
     public void loadResource() {
-        String installLocation = PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA);
-        try {
-            Resource resource = createLibrariesIndexResource(installLocation);
-            Map optionMap = new HashMap();
-            optionMap.put(XMLResource.OPTION_DEFER_ATTACHMENT, Boolean.TRUE);
-            optionMap.put(XMLResource.OPTION_DEFER_IDREF_RESOLUTION, Boolean.TRUE);
-            optionMap.put(XMLResource.OPTION_USE_PARSER_POOL, new XMLParserPoolImpl());
-            optionMap.put(XMLResource.OPTION_USE_XML_NAME_TO_FEATURE_MAP, new HashMap());
-            optionMap.put(XMLResource.OPTION_USE_DEPRECATED_METHODS, Boolean.FALSE);
-            resource.load(optionMap);
-            index = (LibrariesIndex) EcoreUtil.getObjectByType(resource.getContents(),
-                    LibrariesindexPackage.eINSTANCE.getLibrariesIndex());
-        } catch (IOException e) {
-            ExceptionHandler.process(e);
+        if (!loaded) {
+            String installLocation = PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA);
+            try {
+                Resource resource = createLibrariesIndexResource(installLocation);
+                Map optionMap = new HashMap();
+                optionMap.put(XMLResource.OPTION_DEFER_ATTACHMENT, Boolean.TRUE);
+                optionMap.put(XMLResource.OPTION_DEFER_IDREF_RESOLUTION, Boolean.TRUE);
+                optionMap.put(XMLResource.OPTION_USE_PARSER_POOL, new XMLParserPoolImpl());
+                optionMap.put(XMLResource.OPTION_USE_XML_NAME_TO_FEATURE_MAP, new HashMap());
+                optionMap.put(XMLResource.OPTION_USE_DEPRECATED_METHODS, Boolean.FALSE);
+                resource.load(optionMap);
+                index = (LibrariesIndex) EcoreUtil.getObjectByType(resource.getContents(),
+                        LibrariesindexPackage.eINSTANCE.getLibrariesIndex());
+            } catch (IOException e) {
+                ExceptionHandler.process(e);
+            }
+            loaded = true;
         }
     }
 
