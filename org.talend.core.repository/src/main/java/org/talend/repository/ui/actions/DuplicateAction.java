@@ -357,11 +357,12 @@ public class DuplicateAction extends AContextualAction {
                 } else if (repositoryType == ERepositoryObjectType.METADATA_EDIFACT) {
                     item = PropertiesFactory.eINSTANCE.createEDIFACTConnectionItem();
                 }
-
-                for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
-                    item = handler.createNewItem(repositoryType);
-                    if (item != null) {
-                        break;
+                if (item == null) {
+                    for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+                        item = handler.createNewItem(repositoryType);
+                        if (item != null) {
+                            break;
+                        }
                     }
                 }
             }
