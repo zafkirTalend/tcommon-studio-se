@@ -168,6 +168,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
      */
     public boolean retrieve(String jarNeeded, String pathToStore, IProgressMonitor... monitorWrap) {
         LibrariesIndexManager.getInstance().loadResource();
+        String sourcePath = null, targetPath = pathToStore;
         try {
             List<File> jarFiles = FilesUtils.getJarFilesFromFolder(getOBRRoot(), jarNeeded);
             if (jarFiles.size() > 0) {
@@ -176,6 +177,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 if (!target.exists()) {
                     target.mkdirs();
                 }
+                sourcePath = jarFile.getAbsolutePath();
                 FilesUtils.copyFile(jarFile, new File(pathToStore, jarFile.getName()));
                 return true;
             }
@@ -192,14 +194,22 @@ public class LocalLibraryManager implements ILibraryManagerService {
                         IComponentsService.class);
                 Map<String, File> componentsFolders = service.getComponentsFactory().getComponentsProvidersFolder();
                 Set<String> contributeIdSet = componentsFolders.keySet();
+                boolean jarFound = false;
                 for (String contributor : contributeIdSet) {
                     if (relativePath.contains(contributor)) {
                         // caculate the the absolute path of the jar
                         bundleLocation = componentsFolders.get(contributor).getAbsolutePath();
                         int index = bundleLocation.indexOf(contributor);
                         jarLocation = new Path(bundleLocation.substring(0, index)).append(relativePath).toPortableString();
+                        jarFound = true;
                         break;
                     }
+                }
+                sourcePath = jarLocation;
+                if (!jarFound) {
+                    ExceptionHandler.process(new Exception("Jar: " + jarNeeded + " not found, not in the plugins available:"
+                            + contributeIdSet));
+                    return false;
                 }
                 FilesUtils.copyFile(new File(jarLocation), new File(pathToStore, jarNeeded));
                 return true;
@@ -207,7 +217,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
         } catch (MalformedURLException e) {
             ExceptionHandler.process(e);
         } catch (IOException e) {
-            ExceptionHandler.process(e);
+            ExceptionHandler.process(new Exception("Can not copy: " + sourcePath + " to :" + targetPath, e));
         }
         return false;
     }
