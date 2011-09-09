@@ -68,4 +68,6 @@ public interface ILibraryManagerService extends IService {
      * @return
      */
     public Set<String> list(IProgressMonitor... monitorWrap);
+
+    public void clearCache();
 }
