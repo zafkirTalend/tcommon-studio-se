@@ -61,10 +61,9 @@ public class TableSelectorButtonTest extends TalendSwtBotForTos {
         getTalendComponentPart(jobItem.getJobEditor(), dbItem.getItemName()).click();
 
         gefBot.viewByTitle("Component").setFocus();
-        // must click the button two time that will activate shell 'Select Table Name'
-        for (int i = 0; i < 2; i++) {
+        gefBot.buttonWithTooltip("Show the table list for the current conection").click();
+        if (!gefBot.activeShell().getText().equals("Select Table Name"))
             gefBot.buttonWithTooltip("Show the table list for the current conection").click();
-        }
         gefBot.waitUntil(Conditions.shellIsActive("Select Table Name"));
         SWTBotShell shell = gefBot.shell("Select Table Name").activate();
         try {
