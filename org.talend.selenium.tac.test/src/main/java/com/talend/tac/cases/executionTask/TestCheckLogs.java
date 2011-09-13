@@ -1,6 +1,9 @@
 package com.talend.tac.cases.executionTask;
 
+import static org.testng.Assert.assertTrue;
+
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +23,9 @@ public class TestCheckLogs extends TaskUtils {
 		selenium.chooseOkOnNextConfirmation();
 		this.waitForElementPresent("idJobConductorJobLogClearLogButton", WAIT_TIME);
 		selenium.click("idJobConductorJobLogClearLogButton");
-		selenium.getConfirmation();
+		
 		selenium.setSpeed(MID_SPEED);
+		selenium.getConfirmation();
 		Assert.assertTrue(selenium.isTextPresent("The entire log size: 0 Bytes"));
 		selenium.setSpeed(MIN_SPEED);
 		
@@ -52,10 +56,11 @@ public class TestCheckLogs extends TaskUtils {
 		selenium.type("//span[text()='Logs']//ancestor::div[contains(@class,'x-tab-panel x-component')]" +
 				"//div[@title='Enter the number of items per page']/input", num);//modify of per page display numbers
 		selenium.setSpeed(MID_SPEED);
-		selenium.focus("//span[text()='Logs']//ancestor::div[contains(@class,'x-tab-panel x-component')]" +
-				"//div[@title='Enter the number of items per page']/input");
+		selenium.keyDown("//span[text()='Logs']//ancestor::div[contains(@class,'x-tab-panel x-component')]" +
+				"//div[@title='Enter the number of items per page']/input","\\13");
+//		selenium.keyDownNative("\\13");
 		selenium.keyDownNative(""+KeyEvent.VK_ENTER);
-		selenium.setSpeed(MIN_SPEED);
+		selenium.setSpeed(MIN_SPEED);	
 		
 		this.waitForElementPresent("//div[text()='of "+numbersOfPerPage+"']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='of "+numbersOfPerPage+"']"));
@@ -67,7 +72,7 @@ public class TestCheckLogs extends TaskUtils {
 	
 		Assert.assertEquals(logsNum, expectedResult);
 		
-	}
+	}	
 	
 	//test input a right format parameter of 'enterTheNumberOfItemsPerPage' and check numbers of per page
 	@Test
@@ -220,6 +225,128 @@ public class TestCheckLogs extends TaskUtils {
 		Assert.assertFalse(selenium.isTextPresent(" [statistics] connecting to socket on port 10112 [statistics] connected ... " +
 				"(2 hidden lines) ref_88-08-13 [statistics] disconnected"));
 		selenium.setSpeed(MIN_SPEED);
+		
+	}
+	
+//	@Test
+	@Parameters({"modifyTask","label","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
+		"context","ServerForUseAvailable","statisticEnabled"})
+	public void testCheckGenerateBigLogsOfUnnormal (String taskLabel, String label, String labelDescription,String commonpro,String trunk,String jobName,
+			String version,String context,String jobServer,String statistic) {
+		
+		intoJobConductor(taskLabel);
+		
+		addTask(label, labelDescription, commonpro, trunk, jobName, version, 
+				context, jobServer, statistic);	
+		
+		if(!selenium.isElementPresent("//span[text()='"+label+"']")) {	
+			selenium.click("idFormSaveButton");
+	        selenium.setSpeed(MID_SPEED);
+			Assert.assertTrue(selenium.isElementPresent("//span[text()='"+label+"']"));
+			selenium.setSpeed(MIN_SPEED);
+			
+		}		
+		
+		selenium.mouseDown("//span[text()='"+label+"']");
+		
+		selenium.click("//button[@id='idJobConductorTaskRunButton' and text()='Run']");//click Run button
+		
+		this.waitForElementPresent("//span[text()='Real time statistics']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//span[text()='Real time statistics']"));
+		this.waitForElementPresent("//label[text()='Ok']", MAX_WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//label[text()='Ok']"));
+		selenium.click("//div[contains(@class,'x-nodrag x-tool-close x-tool x-component')]");//close window of 'Real time statistics'
+			
+		selenium.setSpeed(MID_SPEED);
+		/*clear logs*/
+		selenium.click("//span[text()='Logs']");
+		selenium.setSpeed(MIN_SPEED);
+		
+        selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']");
+        
+        String logsOfLast = this.findSpecialMachedString("^2$");
+        System.out.println(">>>>>>>>"+logsOfLast);
+        
+        Assert.assertEquals(logsOfLast, "2");
+		
+        List<String> list = new ArrayList<String>();
+		list = this.findSpecialMachedStrings(".*Bytes$");
+		int logsNum = list.size();//per page numbers after modified 
+		System.out.println("logs numbers"+logsNum);
+		
+	}
+	
+	//check generated big logs if normal
+	@Test
+	@Parameters({"TaskWithJobOfGenerateBigLogs","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameOfgenerateBigLogs","version0.1",
+		"context","ServerForUseAvailable","statisticEnabled", "firefox.download.path"})
+	public void testDownloadBiglogsAndCheckIt (String label, String labelDescription,String commonpro,String trunk,String jobName,
+			String version,String context,String jobServer,String statistic, String downloadPath) {
+		
+		String expectedResult = "generating big logs20000times";
+		
+		intoJobConductor(label);
+		
+		selenium.setSpeed(MID_SPEED);
+        selenium.click("//button[@id='idJobConductorTaskRunButton' and text()='Run']");//click Run button
+		selenium.setSpeed(MIN_SPEED);
+		
+		this.waitForElementPresent("//span[text()='Real time statistics']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//span[text()='Real time statistics']"));
+		this.waitForElementPresent("//label[text()='Ok']", MAX_WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//label[text()='Ok']"));
+		selenium.click("//div[contains(@class,'x-nodrag x-tool-close x-tool x-component')]");//close window of 'Real time statistics'
+		
+		selenium.setSpeed(MID_SPEED);
+		selenium.click("//span[text()='Logs']");
+		selenium.setSpeed(MIN_SPEED);
+		
+        selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']");
+        
+        this.clickWaitForElementPresent("//button[text()='download it']");
+        
+        try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        
+		selenium.keyDownNative(""+KeyEvent.VK_ENTER);
+		selenium.keyUpNative(""+KeyEvent.VK_ENTER);
+		
+        String absoluteDownloadPath=this.getAbsolutePath(downloadPath);
+        
+        String fileName = selenium.getText("//span[text()='Logs']//ancestor::fieldset[contains(@class,'x-fieldset x-component')]//label[text()='Id:']" +
+        		"//parent::div//div[@class=' x-form-label x-component']");
+        System.out.println(">>>>"+fileName);
+        
+        File file = new File(
+				absoluteDownloadPath + fileName+"__task_1_Task__TaskWithJobOfGenerateBigLogs.log");
+		for (int seconds = 0;; seconds++) {
+			if (seconds >= WAIT_TIME) {
+				assertTrue(file.exists());
+			}
+			if (file.exists()) {
+				System.out.println(seconds + "' used to download");
+				break;
+			}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+        String contentOfTextFile = this.readfile(absoluteDownloadPath + fileName+"__task_1_Task" +
+        		"__TaskWithJobOfGenerateBigLogs.log");
+			
+//		System.out.println(">>>>"+contentOfTextFile);
+		
+		String readResult = this.findSpecialMachedString(contentOfTextFile, "generating big logs20000times");
+		
+		System.out.println("---" + readResult);
+		
+		Assert.assertEquals(readResult, expectedResult);
 		
 	}
 	
