@@ -31,7 +31,7 @@ public class TestAddTriggerAddCronTrigger extends TaskUtils {
     }
 	
 	//add a CronTrigger,selected job is referencetjava(tjava(from referecepro))**/
-	@Test(dependsOnMethods={"testAddOverdueTriggerAddCronTrigger"})
+	@Test
 	@Parameters({ "labelReferenceproTjava","addCronTriggerByHandInputDateLabel", "addCronTriggerByHandInputDateDescription"})
 	public void testAddCronByHandInputDateTrigger(String taskLabel,String addCronTrigger,String addCronTriggerDescription) throws InterruptedException{
 	
@@ -73,7 +73,7 @@ public class TestAddTriggerAddCronTrigger extends TaskUtils {
 	}
 	
 	//add a exist cron triiger, set date is by UI
-	@Test(dependsOnMethods={"testAddCronByHandInputDateTrigger"})
+	@Test
 	@Parameters({"labelReferenceproTjava","addCronTriggerByHandInputDateLabel","addCronTriggerExistTriggerDescription"})
     public void testAddExistTriggerAddCronTrigger(String taskLabel,String cronTriggerLabel, String description) {
 		
@@ -107,7 +107,7 @@ public class TestAddTriggerAddCronTrigger extends TaskUtils {
 		
     }
 	
-    @Test(dependsOnMethods={"testAddExistTriggerAddCronTrigger"})
+    @Test
 	@Parameters({"labelRefProJobByMainProTRunJobRun","addCronTriggerLabel","addCronTriggerDescription"})
     public void testAddTriggerAddCronTrigger(String taskLabel,String cronTriggerLabel,String description) throws InterruptedException {
 		
