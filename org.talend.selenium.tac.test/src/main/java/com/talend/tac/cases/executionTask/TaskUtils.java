@@ -1,9 +1,15 @@
 package com.talend.tac.cases.executionTask;
 
-import org.testng.Assert;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.util.Hashtable;
 
+import org.testng.Assert;
+
+import com.talend.tac.base.AntAction;
+import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 import com.talend.tac.cases.executePlan.TriggerDate;
 
@@ -12,7 +18,28 @@ public class TaskUtils extends Login {
     TriggerDate date = new TriggerDate();
     
     boolean success;
-    
+    public BufferedReader bufread;
+	public BufferedWriter bufwriter;
+	File writefile;
+	String filepath,filecontent,read;
+	String readStr="";
+			
+	//get xpath count of same xpath
+	public int getXpathCount(String xpath) {
+		
+		selenium.setSpeed(MID_SPEED);
+		selenium.click("//span[text()='Logs']");
+		selenium.setSpeed(MIN_SPEED);
+		
+		this.waitForElementPresent(xpath, WAIT_TIME);
+		Number xpathConut = selenium.getXpathCount(xpath);
+		int i = xpathConut.intValue();
+		
+		System.out.println("*-*-*-*-*-*"+i);
+		return i;
+		
+	}
+	
   //add method for test change trigger name	
 	public void renameTrigger(String taskLabel, String labelBeforeModify, String labelAfterModified, 
 			String description ,String triggerType) {
@@ -131,7 +158,9 @@ public class TaskUtils extends Login {
 	
   //creat a method of add task
 	public void addTask(String label, String description, String projectName, String branchName,
-			 String jobName, String version, String context, String serverName, String statisticName) {
+			 String jobName, String version, String context,
+			 String serverName, String statisticName) {
+//		itemName = "job";
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
         selenium.setSpeed(MID_SPEED);
 	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
@@ -154,12 +183,8 @@ public class TaskUtils extends Login {
     	this.selectDropDownList("idTaskContextListBox", context);
     	this.selectDropDownList("idJobConductorExecutionServerListBox", serverName);
     	this.selectDropDownList("idJobConductorTaskStatisticsListBox", statisticName);
-    	this.selectDropDownList("idJobConductorOnUnavailableJobServerListBox", "Wait");
-    	if (!selenium.isElementPresent("//span[text()='" + label + "']")) {
-			selenium.click("//span[@class='x-fieldset-header-text' and text()='Execution task']/ancestor::div[@class=' x-panel x-component']//button[@id='idFormSaveButton']");
-			this.waitForElementPresent("//span[text()='" + label + "']",
-					WAIT_TIME);
-		}
+    	this.selectDropDownList("idJobConductorOnUnavailableJobServerListBox", "Wait");    	
+    	
     	if(!selenium.isElementPresent("//span[text()='"+label+"']")) {	
 			selenium.click("idFormSaveButton");
 	        selenium.setSpeed(MID_SPEED);
@@ -167,8 +192,7 @@ public class TaskUtils extends Login {
 			selenium.setSpeed(MIN_SPEED);
 			
 		}		
-				
-
+		
 	}
 	
 	//creation method for generate/deploy/run task
@@ -357,7 +381,7 @@ public class TaskUtils extends Login {
 	
 	//creat method(addFileTrigger) for test add file trigger
 	public void addFileTrigger(String taskLabel, String triggerLabel, String triggerDescription,
-			 String intervalTime, String folderPath, String fileMask, String serverName) {
+			 String intervalTime, String folderPath, String fileMask, String serverName, String xpathOfTriggerOption) {
 		
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
     	selenium.setSpeed(MID_SPEED);
@@ -390,8 +414,8 @@ public class TaskUtils extends Login {
 		
 		this.typeString("idJobConductorFileTriggerFileMaskInput", fileMask);//fileMask
 		
-		selenium.click("idJobConductorFileTriggerFtExitCheckBox");//*.txt is exist
-		Assert.assertTrue(selenium.isChecked("idJobConductorFileTriggerFtExitCheckBox"));
+		selenium.click(xpathOfTriggerOption);//select a trigger option
+		Assert.assertTrue(selenium.isChecked(xpathOfTriggerOption));
 	
 		selenium.click("idJobConductorFileTriggerFileServerListBox");//select an server	
 		this.waitForElementPresent("//div[text()='" + serverName + "']", WAIT_TIME);
@@ -466,5 +490,29 @@ public class TaskUtils extends Login {
 	 		
 	 	}
 
-    }		
+    }
+    
+  //read content in file
+	public String readfile(String path) {
+		
+		try {
+			filepath=path; //get file page
+			File file=new File(filepath);
+			FileReader fileread=new FileReader(file);
+			bufread=new BufferedReader(fileread);
+			while((read=bufread.readLine())!=null) {
+			
+				readStr=readStr + "\n" + read;
+				
+			}
+		}catch(Exception d){
+			
+			System.out.println("-*-"+d.getMessage());
+			
+		}
+		
+		return readStr; //return read content from textfile
+		
+	}
+	
 }
