@@ -36,7 +36,7 @@ public class TestDeleteProjectUsedBytask extends Login {
 		selenium.setSpeed(MIN_SPEED);
 	}
 
-	@Test//(groups = { "Second" }, dependsOnGroups = { "Add" })
+	@Test
 	@Parameters({ "AddcommonProjectname" })
 	public void testDeleteProjectUsedbytask(String deleteProname) throws Exception {
 		//
