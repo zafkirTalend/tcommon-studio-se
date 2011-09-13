@@ -22,6 +22,7 @@ public class TestSoaManager extends Login {
 		selenium.fireEvent("idSoaServiceContactInput", "blur");
 		// selenium.type("idSoaServicePortInput", "8881");
 		selenium.click("idFormSaveButton");
+		waitForElementPresent("//*[text()='"+serviceName+"']", WAIT_TIME);
 	}
 
 	
@@ -100,6 +101,7 @@ public class TestSoaManager extends Login {
 		this.clickWaitForElementPresent("idSubModuleDuplicateButton");
 //		assertEquals(selenium.getText("idSoaServiceNameInput"), "Copy_of_TestService");
 		selenium.click("idFormSaveButton");
+		waitForElementPresent("//*[text()='Copy_of_"+serviceName+"']", WAIT_TIME);
 		
 	}
 	@Test(description = "duplicate a operation,there should be a warning and duplication can't be done",dependsOnMethods = { "testAddOperationToService" },alwaysRun=true)
@@ -112,6 +114,7 @@ public class TestSoaManager extends Login {
 		selenium.mouseDown("//*[text()='"+operationName+"']");
 		this.clickWaitForElementPresent("idSoaOperationDuplicate");
 		selenium.click("idSoaOperationSave");
+		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-operationName' and text()='Copy_of_"+operationName+"']", WAIT_TIME);
 		//this.waitForElementPresent(rb.getString("soamanager.parameter.error"), WAIT_TIME);
 	}
 	//
@@ -124,6 +127,17 @@ public class TestSoaManager extends Login {
 		selenium.mouseDown("//*[text()='"+serviceName+"']");//select the service
 		selenium.click("idSoaServiceGenerateButton");
 		this.waitForElementPresent("//img[@title='GENERATED']",MAX_WAIT_TIME);
+		
+	}
+	@Test (enabled = true,description = "generate,deploy,start a operation",dependsOnMethods = { "testAddOperationToServiceWithLatestVersionJob"},alwaysRun=true)
+	@Parameters ({"soaManager.service.name","soaManager.operation.name"})
+	public void testGenerateServiceWithLatestVersionJob(String serviceName,String operationName) {
+		this.clickWaitForElementPresent("!!!menu.soamanager.element!!!");
+		serviceName = serviceName +"Latest";
+		waitForElementPresent("//*[text()='"+serviceName+"']", WAIT_TIME);
+		selenium.mouseDown("//*[text()='"+serviceName+"']");//select the service
+		selenium.click("idSoaServiceGenerateButton");
+		this.waitForElementPresent("//*[text()='"+serviceName+"']//ancestor::table[@class='x-grid3-row-table']//img[@title='GENERATED']",MAX_WAIT_TIME);
 		
 	}
 	@Test (enabled = true,description = "generate,deploy,start a operation")

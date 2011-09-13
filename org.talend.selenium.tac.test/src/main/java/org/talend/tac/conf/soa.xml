@@ -4,15 +4,15 @@
 	<parameter name="soaManager.operation.name" value="testOperationUsedTrunJob" />
 	<parameter name="soaManager.operation.UsedJob_name" value="tjava" />
 
-	<test name="TestSoaMangerAdd">
+  	<test name="TestSoaMangerAdd_testService">
 		<parameter name="soaManager.service.name" value="testService" />
 		<parameter name="soaManager.operation.name" value="testOperationUsedTrunJob" />
 		<classes>
 			<class name="com.talend.tac.cases.SoaManager.TestSoaManager" />
 			<methods>
-				<include name="testAddSoaManagerService" />
+				<include name="testAddSoaManagerService" />	
 				<include name="testAddOperationToService" />
-				<include name="testAddOperationToServiceWithLatestVersionJob"/>
+				<include name="testAddOperationToServiceWithLatestVersionJob" />
 				<include name="testDuplicateSoaManagerService" />
 				<include name="testDuplicateSoaManagerOperation" />
 
@@ -20,7 +20,7 @@
 		</classes>
 	</test>
 
-	<test name="TestSoaMangerAdd">
+	<test name="TestSoaMangerAdd_Copy_of_testService">
 		<parameter name="soaManager.service.name" value="Copy_of_testService" />
 		<parameter name="soaManager.operation.name" value="testOperationUsedTrunJob" />
 
@@ -63,6 +63,7 @@
 			<class name="com.talend.tac.cases.SoaManager.TestSoaManager" />
 			<methods>
 				<include name="testGenerateService" />
+				<include name="testGenerateServiceWithLatestVersionJob"/>
 				<include name="testDeployService" />
 				<include name="testStartService" />
 				<include name="testStopService" />
@@ -77,7 +78,12 @@
 				<include name="testStartService" />
 			</methods>
 		</classes>
+	</test> 
+
+    <test name="deleteProjectUsedBySoa" preserve-order="true">
+   
+		<classes>
+			<class name="com.talend.tac.cases.SoaManager.TestDeleteProjectUsedBysoamanager" />
+		</classes>
 	</test>
-
-
 </suite>
