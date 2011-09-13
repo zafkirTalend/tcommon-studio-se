@@ -11,9 +11,9 @@ import com.talend.tac.cases.Login;
 
 public class TestTaskWithTRunjob extends Login {
 	
-	boolean actualResult;
+//	boolean actualResult;
 	
-	@Test(dependsOnGroups={"AddTask"})
+	@Test
 	@Parameters({ "TaskWithtRunjob" })
 	public void testTrunjob(String tasklabel) throws InterruptedException {
 //		String tasklabel = "testTask";
@@ -23,43 +23,27 @@ public class TestTaskWithTRunjob extends Login {
 		// select a exist task
 		this.waitForElementPresent("//span[text()='"+tasklabel+"']", WAIT_TIME);
 		selenium.mouseDown("//span[text()='"+tasklabel+"']");
-		boolean ok= runtask(tasklabel, Base.MAX_WAIT_TIME);
-		if(ok){
+		runtask(tasklabel, Base.MAX_WAIT_TIME);
+		
 		Assert.assertTrue(getLogsValue().contains("23"),
 				"default context test failed");
-		}
-		else{
-			Assert.assertTrue(getLogsValue().contains("Exception"),
-			"task run failed with exception");
-			Assert.fail("task TRunjob run failed!");
-		}
+				
 
 	}
 
-	public boolean runtask(String tasklabel,int waitTime) throws InterruptedException {
+	public void runtask(String tasklabel,int waitTime) throws InterruptedException {
 		selenium.refresh();
 		this.waitForElementPresent("//span[text()='" + tasklabel + "']",
 				WAIT_TIME);
 		selenium.mouseDown("//span[text()='" + tasklabel + "']");
 		Thread.sleep(3000);
 		selenium.click("//button[@id='idJobConductorTaskRunButton'  and @class='x-btn-text ' and text()='Run']");
-//		Date start = new Date();	
-	    if(this.waitForCondition("//span[text()='"+tasklabel+"']//ancestor::tr" +
-				"//span[text()='Error while generating job']", Base.MAX_WAIT_TIME)) {
-	    	actualResult = (waitForCondition("//label[text()='Ok']", 2));
-			// close the pop window
-			selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
-	    	return actualResult;
-	    	
-	    } else {	
-			actualResult = (waitForCondition("//label[text()='Ok']", Base.MAX_WAIT_TIME));
-			// close the pop window
-			selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
-			// System.out.println(checkContextValue(start));
-			return actualResult;
-	    
-	    }
-        
+	
+		this.waitForElementPresent("//label[text()='Ok']",MAX_WAIT_TIME);
+		// close the pop window
+		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
+		// System.out.println(checkContextValue(start));			
+	   
 	    		
 	}
 	public boolean waitForCondition(String locator,int seconds) throws InterruptedException{
@@ -101,23 +85,23 @@ public class TestTaskWithTRunjob extends Login {
 		System.out.println(logs);
 		return logs;
 	}
-
-	public void checkBoxChecked(String checkboxXpath) {
-		selenium.mouseDown(checkboxXpath);
-	}
-
-	public void checkBoxUnchecked(String checkboxXpath) {
-		selenium.mouseDown(checkboxXpath);
-
-	}
-
-	public boolean isCheckBoxChecked(String checkBoxOnXpath) {
-		boolean checked = false;
-		try {
-			if (selenium.isElementPresent(checkBoxOnXpath))
-				checked = true;
-		} catch (Exception e) {
-		}
-		return checked;
-	}
+		
+//	public void checkBoxChecked(String checkboxXpath) {
+//		selenium.mouseDown(checkboxXpath);
+//	}
+//
+//	public void checkBoxUnchecked(String checkboxXpath) {
+//		selenium.mouseDown(checkboxXpath);
+//
+//	}
+//
+//	public boolean isCheckBoxChecked(String checkBoxOnXpath) {
+//		boolean checked = false;
+//		try {
+//			if (selenium.isElementPresent(checkBoxOnXpath))
+//				checked = true;
+//		} catch (Exception e) {
+//		}
+//		return checked;
+//	}
 }
