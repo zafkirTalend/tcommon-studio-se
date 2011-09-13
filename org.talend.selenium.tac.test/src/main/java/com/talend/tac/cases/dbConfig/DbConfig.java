@@ -90,6 +90,7 @@ public class DbConfig extends Base {
 		}else{
 //			System.out.println("The db is not h2,no need to transfer the relative path,it is as bellow .");
 //			System.out.println(url);
+			fomatedUrl = "jdbc:h2:"+(url)+"/talend_administrator;AUTO_SERVER=TRUE;MVCC=TRUE";
 		}
 		return fomatedUrl;
 	}
