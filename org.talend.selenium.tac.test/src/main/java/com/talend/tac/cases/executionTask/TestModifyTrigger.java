@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 import com.talend.tac.cases.executePlan.TriggerDate;
 
-@Test(dependsOnGroups="fileTrigger")
+@Test
 public class TestModifyTrigger extends TaskUtils {
     
 	TriggerDate date = new TriggerDate();    
@@ -63,7 +63,7 @@ public class TestModifyTrigger extends TaskUtils {
 	
 	
 	//test change time interval of simple trigger
-	@Test(dependsOnMethods={"testPauseResumeSimpleTrigger"})
+	@Test
 	@Parameters({"labelTRunJobByTaskRun", "addSimpleTriggerLabelNotChooseDate","simpleTriggerType"})
 	public void testModifySimpleTriggerTimeInterval(String taskLabel, String triggerLabel, String triggerType) {
 		
