@@ -17,7 +17,9 @@ public class TestAddTriggerAddCronTriggerUsePasttime extends Plan{
 		this.waitForElementPresent("//div[@class='header-title' and text()='Execution Plan']", WAIT_TIME);
 		Assert.assertTrue(selenium
 				.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
-    	selenium.mouseDown("//span[text()='"+planlabel+"']");
+    	this.waitForElementPresent("//span[text()='"+planlabel+"']", WAIT_TIME);
+    	this.sleep(3000);	
+		selenium.mouseDown("//span[text()='"+planlabel+"']");
 		selenium.click("idTriggerAdd trigger...");
 		selenium.click("//a[text()='Add CRON trigger']");
 //		selenium.setSpeed(MID_SPEED);

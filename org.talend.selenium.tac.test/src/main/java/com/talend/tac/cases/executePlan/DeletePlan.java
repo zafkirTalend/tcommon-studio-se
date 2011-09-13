@@ -41,17 +41,18 @@ public class DeletePlan extends Plan {
 		Assert.assertTrue(selenium
 				.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
 //		selenium.setSpeed(MID_SPEED);
-		this.clickWaitForElementPresent("idSubModuleRefreshButton");
-		this.waitForElementPresent("//span[text()='"+deletelabel+"']", WAIT_TIME);
-		Thread.sleep(2000);
-		selenium.mouseDown("//span[text()='"+deletelabel+"']");//choose a exist plan
-		Thread.sleep(2000);
-		selenium.chooseOkOnNextConfirmation();//choose 'Ok'
-		selenium.click("idSubModuleDeleteButton");//click 'Delete' button
-		Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to remove the selected execution plan [\\s\\S]$"));
-		selenium.setSpeed(MID_SPEED);
-		Assert.assertFalse(selenium.isElementPresent("//span[text()='"+deletelabel+"']"));
-		selenium.setSpeed(MIN_SPEED);
+		this.deletePlan(deletelabel);
+//		this.clickWaitForElementPresent("idSubModuleRefreshButton");
+//		this.waitForElementPresent("//span[text()='"+deletelabel+"']", WAIT_TIME);
+//		Thread.sleep(2000);
+//		selenium.mouseDown("//span[text()='"+deletelabel+"']");//choose a exist plan
+//		Thread.sleep(2000);
+//		selenium.chooseOkOnNextConfirmation();//choose 'Ok'
+//		selenium.click("idSubModuleDeleteButton");//click 'Delete' button
+//		Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to remove the selected execution plan [\\s\\S]$"));
+//		selenium.setSpeed(MID_SPEED);
+//		Assert.assertFalse(selenium.isElementPresent("//span[text()='"+deletelabel+"']"));
+//		selenium.setSpeed(MIN_SPEED);
 		
 	}
 	

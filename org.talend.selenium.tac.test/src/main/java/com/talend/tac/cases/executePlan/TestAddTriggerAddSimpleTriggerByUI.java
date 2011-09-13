@@ -25,8 +25,9 @@ public class TestAddTriggerAddSimpleTriggerByUI extends Login {
 			this.waitForElementPresent("//div[@class='header-title' and text()='Execution Plan']", WAIT_TIME);
 			Assert.assertTrue(selenium
 					.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
+		this.waitForElementPresent("//span[text()='" + plantoaddsimletrigger + "']", WAIT_TIME);
+		this.sleep(3000);
 		selenium.mouseDown("//span[text()='" + plantoaddsimletrigger + "']");// select
-																			// task
 		selenium.click("//button[text()='Add trigger...']");// add a trigger
 		selenium.click("//a[text()='Add simple trigger']");// add a SimpleTrigger
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"

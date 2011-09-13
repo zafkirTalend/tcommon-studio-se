@@ -22,6 +22,7 @@ public class TestDuplicateCrontrigger extends Plan {
 		// select plan
 		selenium.mouseDown("//span[text()='" + plan + "']");// select a exist
 		// select trigger to duplicate
+		this.sleep(3000);
 		selenium.mouseDown("//span[text()='" + triggertoduplicate + "']");//
 		// click duplicate trigger button
 		selenium.click("idTriggerDuplicate");

@@ -8,7 +8,7 @@ import com.talend.tac.base.Base;
 
 public class TestPlanExecution extends Plan {
 
-	public void addTask(String label, String description, String projectName,
+	/*public void addTask(String label, String description, String projectName,
 			String branchName, String jobName, String version, String context,
 			String serverName, String statisticName) {
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
@@ -40,9 +40,9 @@ public class TestPlanExecution extends Plan {
 			this.waitForElementPresent("//span[text()='" + label + "']",
 					Base.WAIT_TIME);
 		}
-	}
+	}*/
 
-	public void addPlan(String label, String description, String task) {
+	/*public void addPlan(String label, String description, String task) {
 
 		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
 		this.waitForElementPresent(
@@ -64,7 +64,7 @@ public class TestPlanExecution extends Plan {
 				+ "']"));
 		selenium.setSpeed(MIN_SPEED);
 	}
-
+*/
 	@Test
 	@Parameters({"plan.unexecuted.label","plan.unexecuted.tasklabel","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
@@ -74,7 +74,7 @@ public class TestPlanExecution extends Plan {
 		addTask(tasklabel, labelDescription,commonpro,
 				branch, jobName,version, context,
 				jobServer,statistic);
-		addPlan(planlabel, "planunexcuted", tasklabel) ;
+		addPlan(planlabel, tasklabel,"planunexcuted") ;
 		selenium.refresh();
 		this.waitForElementPresent("//span[text()='" + planlabel + "']", WAIT_TIME);
 		Thread.sleep(2000);
