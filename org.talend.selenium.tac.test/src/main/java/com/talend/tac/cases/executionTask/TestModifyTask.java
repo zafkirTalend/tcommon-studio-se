@@ -16,7 +16,7 @@ public class TestModifyTask extends Login {
 	    
 	}
 	
-	@Test(groups={"ModifyTask"},dependsOnGroups={"DeleteTask"})
+	@Test
 	@Parameters({"label","modifyTask","AddreferenceProjectname","branchNameTrunk","jobNameReferencetjava","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
 	public void testModifyTask(String label,String modifyLabel,String projectName,String branchName,String jobName,
@@ -47,7 +47,7 @@ public class TestModifyTask extends Login {
 	}
 	
 	//test modify job of generating task and check warn info
-	@Test(dependsOnMethods={"testModifyTask"})
+	@Test
 	@Parameters({"TaskBaseBranch","jobNameTRunJob","version0.1",
 		"context"})
 	public void testModifyJobOfGeneratingTaskAndCheckWarnInfo(String label,String jobName,String version,String context) throws InterruptedException {
