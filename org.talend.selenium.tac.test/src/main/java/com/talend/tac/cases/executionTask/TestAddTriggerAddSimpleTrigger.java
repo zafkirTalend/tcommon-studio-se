@@ -57,7 +57,6 @@ public class TestAddTriggerAddSimpleTrigger extends TaskUtils {
 	
     //add a method of remove all triggers
     @Test
-//    (groups={"AddSimpleTrigger"},dependsOnGroups={"TestGenerateDeployRun"})
     @Parameters({"localhostAddress","labelTRunJobByTaskRun","labelRefProJobByMainProTRunJobRun","labelReferenceproTjava",
     	"modifyTask","duplicateTask","TaskBaseBranch"})
     public void clearsAllTriggers(String localhostAddress,String labelTRunJobByTaskRun,String labelRefProJobByMainProTRunJobRun,
@@ -78,7 +77,7 @@ public class TestAddTriggerAddSimpleTrigger extends TaskUtils {
     
   /**add a simpleTrigger, set its 'NumberOfTriggerings'(1)
     when after trigger task second run finish---trigger will auto stop**/
-    @Test(dependsOnMethods={"clearsAllTriggers"})
+    @Test
 	@Parameters({"modifyTask","addSimpleTriggerNumberOfTriggeringsRunnedAutoStopLabel",
 		"addSimpleTriggerNumberOfTriggeringsRunnedAutoStopDescription"})
     public void testAddSimpleTriggerNumberOfTriggeringsRunnedAutoStop(String taskLabel, String label, String description) {
@@ -120,7 +119,7 @@ public class TestAddTriggerAddSimpleTrigger extends TaskUtils {
     
     
 	// add a simpleTrigger
-	@Test(dependsOnMethods={"clearsAllTriggers"})
+	@Test
 	@Parameters({"modifyTask", "addSimpleTriggerLabel","addSimpleTriggerDescription"})
 	public void testAddTriggerAddSimpleTrigger(String taskLable, String label, String description) {
 	  
@@ -143,7 +142,7 @@ public class TestAddTriggerAddSimpleTrigger extends TaskUtils {
 	}	
 	
 	// add a simpleTrigger use default date, selected job is TRunJob(use tRunJob run child'job)
-	@Test(dependsOnMethods={"testAddTriggerAddSimpleTrigger"})
+	@Test
 	@Parameters({"labelTRunJobByTaskRun", "addSimpleTriggerLabelNotChooseDate","addSimpleTriggerNotChooseDateDescription"})
 	public void testAddTriggerAddSimpleTriggerNotChooseDate(String taskLabel, String label, String description) throws InterruptedException {
 		    
@@ -182,7 +181,7 @@ public class TestAddTriggerAddSimpleTrigger extends TaskUtils {
 	}
 	
 	//add a exist simpleTrigger
-	@Test(dependsOnMethods={"testAddTriggerAddSimpleTrigger"})
+	@Test
 	@Parameters({"modifyTask", "addSimpleTriggerLabel","addSimpleTriggerExistTriggerDescription"})
     public void testAddTriggerAddSimpleTriggerAddExist(String taskLabel, String label, String description) {
     	
@@ -197,7 +196,7 @@ public class TestAddTriggerAddSimpleTrigger extends TaskUtils {
 	}
 	
 //	add a simpleTrigger of wrong form time interval 
-	@Test(dependsOnMethods={"clearsAllTriggers"})
+	@Test
 	@Parameters({"modifyTask", "addSimpleTriggerWrongFormLabel","addSimpleTriggerWrongFormDescription","addSimpleTriggerWrongFormStartTime",
 		"addSimpleTriggerWrongFormEndTime","addSimpleTriggerWrongFormNumberOfTriggers","addSimpleTriggerWrongFormTimeInterval"})
     public void testAddTriggerAddSimpleTriggerAddWrongFormFileds(String taskLabel, String label, String description
@@ -230,7 +229,7 @@ public class TestAddTriggerAddSimpleTrigger extends TaskUtils {
 	 }
 	
 	//add a overdue(start date) simpleTrigger
-	@Test(dependsOnMethods={"clearsAllTriggers"})	
+	@Test	
 	@Parameters({"modifyTask", "addSimpleTriggerOverdueStartDataLabel","addSimpleTriggerOverdueStartDataDescription"})
     public void testAddTriggerAddSimpleTriggerAddOverdueStartData(String taskLabel, String label, String description) {
     	
@@ -246,7 +245,7 @@ public class TestAddTriggerAddSimpleTrigger extends TaskUtils {
 	}
 	
 	//add a overdue(end date) simpleTrigger
-	@Test(dependsOnMethods={"clearsAllTriggers"})
+	@Test
 	@Parameters({"modifyTask","addSimpleTriggerOverdueEndDatalabel","addSimpleTriggerOverdueEndDataDescription"})
     public void testAddTriggerAddSimpleTriggerAddOverdueEndData(String taskLabel, String label, String description) {
 		System.out.println(date.getPast(24).months+"/-/-/-/-/");    
