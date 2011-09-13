@@ -5,14 +5,7 @@ import org.testng.annotations.Test;
 import com.talend.tac.cases.Login;
 
 public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
-	public void sleep(int times) {
-		try {
-			Thread.sleep(times);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
 
 	@Test
 	public void testMenuBeforeAuthorizeAllRolesToAdmin() {
@@ -126,7 +119,7 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 		this.waitForElementPresent(
 				"//div[contains(text(),'Command line/secondary (4 Parameters')]", WAIT_TIME);
 		this.waitForElementPresent(
-				"//div[contains(text(),'Database (4 Parameters')]", WAIT_TIME);
+				"//div[contains(text(),'Database (5 Parameters')]", WAIT_TIME);
 		this.waitForElementPresent(
 				"//div[contains(text(),'ESB (2 Parameter')]", WAIT_TIME);
 		this.waitForElementPresent(
@@ -139,13 +132,14 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 				"//div[contains(text(),'SMTP (6 Parameters')]", WAIT_TIME);
 		this.waitForElementPresent(
 				"//div[contains(text(),'Scheduler (3 Parameters')]", WAIT_TIME);
-		
 		this.waitForElementPresent(
 				"//div[contains(text(),'Soa manager (4 Parameters')]", WAIT_TIME);
 		this.waitForElementPresent(
 				"//div[contains(text(),'Talend suite (3 Parameters')]", WAIT_TIME);
-		
-	
+		this.waitForElementPresent("//div[contains(text(),'Audit (6 Parameters')]", WAIT_TIME);
+		this.waitForElementPresent("//div[contains(text(),'Dash board (1 Parameter')]", WAIT_TIME);
+		this.waitForElementPresent("//div[contains(text(),'General (3 Parameters)')]", WAIT_TIME);
+		this.waitForElementPresent("//div[contains(text(),'Version Control (1 Parameter)')]", WAIT_TIME);
 	}
 
 	@Test(dependsOnMethods = { "testMenuBeforeAuthorizeAllRolesToAdmin" })
@@ -193,7 +187,6 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 				WAIT_TIME);
 	}
 
-	// ***************
 
 	@Test(dependsOnMethods = { "testMenuBeforeAuthorizeAllRolesToAdmin" })
 	public void testMenuProjectReferences() {

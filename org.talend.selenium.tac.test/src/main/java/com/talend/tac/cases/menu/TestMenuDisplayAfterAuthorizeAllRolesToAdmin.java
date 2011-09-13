@@ -25,14 +25,7 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 
 	}
 
-	public void sleep(int times) {
-		try {
-			Thread.sleep(times);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
 
 	@Test
 	public void testMenuJobConductorExpend() {
@@ -146,6 +139,8 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 		this.waitForElementDispear(
 				"//div[@class='header-title' and text()='Audit']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//div[text()='Loading...']",
 				WAIT_TIME);
+		this.waitForElementPresent("//button[text()='Audit DB Configuration']", WAIT_TIME);
+		
 	}
 
 	@Test
@@ -166,16 +161,48 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 	}
 
 	@Test
-	public void testMenuBusinessModeler() {
-		this.waitForElementPresent("!!!menu.businessModeler.element!!!",
-				WAIT_TIME);
-		selenium.click("!!!menu.businessModeler.element!!!");
+	public void testMenuBMExpend() {
+		this.waitForElementPresent("!!!menu.businessModeler.element!!!", WAIT_TIME);
 		this.waitForElementPresent(
-				"//div[@class='header-title' and text()='Business modeler']",
+				"//div[@id='!!!menu.businessModeler.element!!!']//img[@class=' x-tree3-node-joint']",
 				WAIT_TIME);
-		selenium.refresh();
-		this.sleep(3000);
+		selenium.click("//div[@id='!!!menu.businessModeler.element!!!']//img[@class=' x-tree3-node-joint']");
+		this.sleep(5000);
+		Assert.assertFalse(selenium.isVisible("!!!menu.businessModeler.designer.element!!!"));
+		Assert.assertFalse(selenium.isVisible("!!!menu.businessModeler.browser.element!!!"));
+		this.clickWaitForElementPresent("//div[@id='!!!menu.businessModeler.element!!!']//img[@class=' x-tree3-node-joint']");
+		this.sleep(5000);
+		Assert.assertTrue(selenium.isVisible("!!!menu.businessModeler.designer.element!!!"));
+		Assert.assertTrue(selenium.isVisible("!!!menu.businessModeler.browser.element!!!"));
+	}	
+	
+	@Test
+	public void testMenuBMDesigner(){
+		this.waitForElementPresent("!!!menu.businessModeler.designer.element!!!",
+				WAIT_TIME);
+		this.sleep(2000);
+		selenium.click("!!!menu.businessModeler.designer.element!!!");
+		this.waitForElementPresent(
+				"//div[@class='header-title' and text()='Business modeler designer']",
+				WAIT_TIME);
+		this.waitForElementPresent("idProjectListBox", WAIT_TIME);
+		this.waitForElementPresent("idBranchListBox", WAIT_TIME);
+		this.waitForElementPresent("idBusinessListBox", WAIT_TIME);
+		this.waitForElementPresent("idBusinessConnectionsListBox", WAIT_TIME);
 		this.waitForElementPresent("//div[@class='ext-el-mask']", WAIT_TIME);
+	}
+	
+	@Test
+	public void testMenuBMBroswer(){
+		this.waitForElementPresent("!!!menu.businessModeler.browser.element!!!",
+				WAIT_TIME);
+		this.sleep(2000);
+		selenium.click("!!!menu.businessModeler.browser.element!!!");
+		this.waitForElementPresent(
+				"//div[@class='header-title' and text()='Business modeler browser']",
+				WAIT_TIME);
+		this.waitForTextPresent("Select a Project", WAIT_TIME);
+		this.waitForTextPresent("Select a Branch", WAIT_TIME);
 	}
 
 	@Test
