@@ -11,7 +11,7 @@ import com.talend.tac.cases.Login;
 
 public class TestTaskContext extends Login {
 	
-	@Test(groups={"TaskContext"})
+	@Test
 	@Parameters({ "label" })
 	public void testChangeContextValue(String tasklabel) throws InterruptedException {
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
@@ -46,7 +46,7 @@ public class TestTaskContext extends Login {
 
 	}
 
-	@Test(dependsOnMethods={"testChangeContextValue"})
+	@Test
 	@Parameters({ "label" })
 	public void testCheckDefaultContext(String tasklabel)
 			throws InterruptedException {
@@ -72,7 +72,7 @@ public class TestTaskContext extends Login {
 	}
 
 	
-	@Test(dependsOnMethods={"testCheckDefaultContext"})
+	@Test
 	@Parameters({ "label" })
 	public void testResetContext(String tasklabel)
 			throws InterruptedException {
