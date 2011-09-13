@@ -54,8 +54,7 @@ public class TestConnectionCheck extends Login {
 		inputConnectionParamters(label, dbname, dbtype, host, serverport, username,
 				password, datasourse, additional, stat, logs);
 		selenium.click("idCheckUrlButton");
-		Assert.assertTrue(this.waitForTextPresent("Cannot connect to database (cause Access denied for user '"+username+"'@'"+host+"' (using password: YES))", WAIT_TIME),"check connection with wrong password failed!");
-
+		Assert.assertTrue(this.waitForTextPresent("Cannot connect to database (cause Access denied for user", WAIT_TIME),"check connection with wrong password failed!");
 	}
 
 	@Test
