@@ -52,6 +52,7 @@ import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.IDriverService;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.constants.SoftwareSystemConstants;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SwitchHelpers;
@@ -63,6 +64,7 @@ import org.talend.cwm.softwaredeployment.TdSoftwareSystem;
 import org.talend.mdm.webservice.XtentisBindingStub;
 import org.talend.mdm.webservice.XtentisPort;
 import org.talend.mdm.webservice.XtentisServiceLocator;
+import org.talend.repository.model.IRepositoryService;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.string.AsciiUtils;
 import org.talend.utils.sugars.ReturnCode;
@@ -248,6 +250,26 @@ public class MetadataConnectionUtils {
         String dataBase = databaseConnection.getSID();
         String dbVersionString = databaseConnection.getDbVersionString();
         String additionalParams = databaseConnection.getAdditionalParams();
+
+        // MOD qiongli 2011-9-6,TDQ 3317.handle context mode
+        if (databaseConnection.isContextMode()) {
+            IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
+            if (repositoryService != null) {
+                DatabaseConnection origValueConn = repositoryService.cloneOriginalValueConnection(databaseConnection);
+                if (origValueConn != null) {
+                    dbUrl = origValueConn.getURL();
+                    password = origValueConn.getPassword();
+                    userName = origValueConn.getUsername();
+                    driverClass = origValueConn.getDriverClass();
+                    driverJarPath = origValueConn.getDriverJarPath();
+                    dbType = origValueConn.getDatabaseType();
+                    dataBase = origValueConn.getSID();
+                    dbVersionString = origValueConn.getDbVersionString();
+                    additionalParams = origValueConn.getAdditionalParams();
+                }
+
+            }
+        }// ~
 
         metadataConnection.setAdditionalParams(additionalParams);
         metadataConnection.setDbVersionString(dbVersionString);

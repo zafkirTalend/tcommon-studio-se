@@ -17,6 +17,7 @@ import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.talend.core.database.conn.DatabaseConnStrUtil;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -25,9 +26,11 @@ import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlStore;
 import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlType;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.helper.TaggedValueHelper;
+import org.talend.repository.model.IRepositoryService;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
@@ -257,8 +260,18 @@ public final class JavaSqlFactory {
      */
     public static String getUsername(Connection conn) {
         DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        String dbUserName = null;
         if (dbConn != null) {
-            return dbConn.getUsername();
+            dbUserName = dbConn.getUsername();
+            if (conn.isContextMode()) {
+                IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
+                if (repositoryService != null) {
+                    // get the original value and select the defalut context
+                    DatabaseConnection origValueConn = repositoryService.cloneOriginalValueConnection(dbConn, true);
+                    dbUserName = origValueConn.getUsername();
+                }
+            }
+            return dbUserName;
         }
         MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
         if (mdmConn != null) {
@@ -275,8 +288,19 @@ public final class JavaSqlFactory {
      */
     public static String getPassword(Connection conn) {
         DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        String psw = null;
         if (dbConn != null) {
-            return ConnectionHelper.getPassword(dbConn);
+            psw = dbConn.getPassword();
+            if (conn.isContextMode()) {
+                IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
+                if (repositoryService != null) {
+                    // get the original value and select the defalut context
+                    DatabaseConnection origValueConn = repositoryService.cloneOriginalValueConnection(dbConn, true);
+                    psw = origValueConn.getPassword();
+                }
+
+            }
+            return psw;
         }
         MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
         if (mdmConn != null) {
@@ -327,8 +351,19 @@ public final class JavaSqlFactory {
      */
     public static String getURL(Connection conn) {
         DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        String url = null;
         if (dbConn != null) {
-            return dbConn.getURL();
+            url = dbConn.getURL();
+            if (conn.isContextMode()) {
+                IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
+                if (repositoryService != null) {
+                    // get the original value and select the defalut context
+                    DatabaseConnection origValueConn = repositoryService.cloneOriginalValueConnection(dbConn, true);
+                    url = DatabaseConnStrUtil.getURLString(origValueConn);
+                    // url = origValueConn.getURL();
+                }
+            }
+            return url;
         }
         MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
         if (mdmConn != null) {
