@@ -37,10 +37,11 @@ public class Base {
 	public static String MID_SPEED = "3000";
 	public static String MIN_SPEED = "0";
 	public static String MAX_SPEED = "5000";
-	public static int WAIT_TIME = 50;
+	public static int WAIT_TIME = 30;
 	public static int MAX_WAIT_TIME = 500;
 	
-	public static boolean onHudson = false;
+	private static boolean onHudson = false;
+	private static String zookeeperPath ="";
 
 	@BeforeClass
 	@Parameters({ "server", "port", "browser", "url", "language", "country",
@@ -266,6 +267,7 @@ public class Base {
 		selenium.type(locator,value);
 	}
 	
+	
 	/**
 	 * find the first String which match regex
 	 * 
@@ -292,6 +294,31 @@ public class Base {
 		return findedString;
 	}
 
+	/**
+	 * find the first String which match regex
+	 * 
+	 * @param regex
+	 * @return
+	 */
+	public String findSpecialMachedString(String text, String regex) {
+		String findedString = "";
+		String[] texts;
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher;
+
+		texts = text.split("\n");
+		for (int i = 0; i < texts.length; i++) {
+			// System.out.println("text " + i +": " + texts[i]);
+			matcher = pattern.matcher(texts[i].trim());
+			if (matcher.matches()) {
+				findedString = texts[i].trim();
+				break;
+				// System.out.println(texts[i].trim());
+			}
+		}
+		return findedString;
+	}
+	
 	/**
 	 * find the Strings which match regex
 	 * 
@@ -472,4 +499,14 @@ public class Base {
 		return this.getfileURL(filePath).getPath();
 	}
 	
+	/**
+	 * get path of zookeeper
+	 * @return
+	 */
+	public String getZookeeperPath(){
+		if(this.isOnHudson()) {
+			zookeeperPath = this.setDefaultValue(System.getProperty("zookeeper.path"), zookeeperPath);
+		}
+		return zookeeperPath;
+	}
 }
