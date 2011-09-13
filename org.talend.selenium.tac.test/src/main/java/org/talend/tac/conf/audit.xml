@@ -1,8 +1,38 @@
 <suite name="Suite" parallel="false">
- <test name="TestAudit">
-	<classes>
-		<class name="com.talend.tac.cases.audit.TestAudit">
-		</class>
-	</classes>
+	<test name="TestAudit">
+		<classes>
+			<class name="com.talend.tac.cases.audit.TestAudit">
+			</class>
+		</classes>
 	</test>
+	<test name="TestChangeCommondlineToRemote">
+		<classes>
+			<class name="com.talend.tac.cases.audit.TestChangeCommondlineToRemote">
+			</class>
+		</classes>
+	</test>
+	<test name="TestAuditWithRemoteCommondline">
+		<classes>
+			<class name="com.talend.tac.cases.audit.TestAuditWithRemoteCommondline">
+			</class>
+		</classes>
+	</test>
+	<test name="TestChangeCommondlineToLocalHost">
+		<classes>
+			<class name="com.talend.tac.cases.audit.TestChangeCommondlineToLocalHost">
+			</class>
+		</classes>
+	</test> 
+	
+		<!-- <test name="TestConfigAuditDB">
+		<parameter name="audit.db.url" value="F:/cuisdfsstttTomcat 7.0/database_audit" />
+		<parameter name="audit.db.user" value="tisadmin" />
+		<parameter name="audit.db.pass" value="tisadmin" />
+		<parameter name="audit.db.driver" value="org.h2.Driver" />
+		<classes>
+			<class name="com.talend.tac.cases.audit.TestDBConfigAudit">
+			</class>
+		</classes>
+	</test> -->
+	
 </suite>
