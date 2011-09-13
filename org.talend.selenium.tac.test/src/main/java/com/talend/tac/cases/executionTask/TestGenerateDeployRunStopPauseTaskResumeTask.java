@@ -8,7 +8,7 @@ import com.talend.tac.base.Base;
 
 public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 
-	//test deploy a simple task
+	//test generate a simple task
 	@Test
 	@Parameters({"modifyTask"})
 	public void testGenerateTask(String taskLabel) {
@@ -27,7 +27,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 	}
 	
 	//test deploy a simple task
-	@Test(dependsOnMethods={"testGenerateTask"})
+	@Test
 	@Parameters({"modifyTask"})
 	public void testDeployTask(String taskLabel) {
 		
@@ -41,7 +41,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 	}
 	
 	//test run a simple task
-	@Test(dependsOnMethods={"testDeployTask"})
+	@Test
 	@Parameters({"modifyTask"})
 	public void testRunSimpleTask(String taskLabel) {
 		 
@@ -53,9 +53,56 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 //		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
 				
 	}
+    
+	//test generate a task with latest job
+	@Test
+	@Parameters({"TaskLabelOfLatestJob"})
+	public void testGenerateTaskWithLatestJob(String taskLabel) {
+		 
+		
+		generateDeployRunTask(taskLabel,"idJobConductorTaskGenerateButton");//click generate button
+		this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
+				"//span[text()='Generating...']", WAIT_TIME);
+	   	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
+	   			"//span[text()='Generating...']"));
+    	this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
+    			"//span[text()='Ready to deploy']", Base.MAX_WAIT_TIME);
+    	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
+    			"//span[text()='Ready to deploy']"));
+    	
+	}
+	
+	//test deploy a task with latest job
+	@Test
+	@Parameters({"TaskLabelOfLatestJob"})
+	public void testDeployTaskWithLatestJob(String taskLabel) {
+		
+		generateDeployRunTask(taskLabel,"//button[@id='idJobConductorTaskDeployButton' and text()='Deploy']");//click Deploy button
+		this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
+				"//span[text()='Ready to run']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
+				"//span[text()='Ready to run']"));
+//		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
+		
+	}
+	
+	//test run a task with latest job
+	@Test
+	@Parameters({"TaskLabelOfLatestJob"})
+	public void testRunTaskWithLatestJob(String taskLabel) {
+		 
+		generateDeployRunTask(taskLabel,"//button[@id='idJobConductorTaskRunButton' and text()='Run']");//click Run button
+		this.waitForElementPresent("//span[text()='Real time statistics']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//span[text()='Real time statistics']"));
+		this.waitForElementPresent("//label[text()='Ok']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//label[text()='Ok']"));
+//		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
+				
+	}
 
+	
 	//test stop a running task
-	@Test(dependsOnMethods={"testGenerateTask"})	
+	@Test	
 	@Parameters({"modifyTask", "statisticRemoved(regeneration needed, fastest)", "statisticEnabled(regeneration needed)"})
 	public void testStopARunningTask(String taskLabel, String statisticRemovedRegeneration, String statisticEnabledReGeneration) {
 		
@@ -85,7 +132,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 	
 	//test generating a task using remote CommandLine
 	/*needed start a remote commandLine*/
-	@Test(dependsOnMethods={"testGenerateTask"})
+	@Test
 	@Parameters({"remotehostAddress", "modifyTask", "localhostAddress"})
 	public void testGenerateTaskUsingRemoteCommandLine(String remotehostAddress, String taskLabel,String localhostAddress) {
 		
@@ -106,7 +153,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
     
 
 	//test generating a task using remote wrong CommandLine
-	@Test(dependsOnMethods={"testGenerateTask"})
+	@Test
 	@Parameters({"remotehostAddressWithWrong", "modifyTask", "localhostAddress"})
 	public void testGenerateTaskUsingRemoteWrongCommandLine(String remotehostAddressWithWrong, String taskLabel,String localhostAddress) {
 		
@@ -123,7 +170,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
     
 	
 	//Run a task with a Inactive server
-	@Test(dependsOnMethods={"testGenerateTask"})
+	@Test	
 	@Parameters({"TaskWithInactiveServer","labelDescription","AddcommonProjectname","branchNameTrunk",
 		"jobNameTJava","version0.1","context","ServerForUseUnavailable","statisticEnabled"})
 	public void testRunTaskWithInactiveServer(String label,String description,String projectName,String branchName,
@@ -140,7 +187,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 	}
 	
 	//run a generating task and check warn info
-	@Test(dependsOnMethods={"testRunSimpleTask"})
+	@Test
 	@Parameters({"modifyTask"})
 	public void testRunAGeneratingTask(String taskLabel) {
 		
@@ -160,7 +207,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 	}
 	
 	//test pauseTask button and resumeTask button
-	@Test(dependsOnMethods={"testRunSimpleTask"})
+	@Test
 	@Parameters({"TaskBaseBranch","addCronTriggerLabel","addCronTriggerDescription"})
 	public void testPauseTaskResumeTask(String taskLabel, String cronTriggerLabel,String description) {
 		
@@ -236,7 +283,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 	}
 	
 	//test generate a task of uncheck 'Active'
-	@Test
+	@Test	
 	@Parameters({"duplicateTask"})
 	public void testGenerateUncheckActiveTask(String taskLabel) {
 		
