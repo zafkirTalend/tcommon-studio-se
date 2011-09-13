@@ -91,6 +91,7 @@ import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.metadata.types.PerlTypesManager;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.repository.AbstractMetadataExtractorViewProvider;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.cwm.helper.CatalogHelper;
@@ -130,8 +131,6 @@ public class SelectorTableForm extends AbstractForm {
      */
     private final ManagerConnection managerConnection;
 
-    private IMetadataConnection iMetadataConnection = null;
-
     private MetadataTable dbtable;
 
     private MetadataEmfTableEditor metadataEditor;
@@ -145,7 +144,6 @@ public class SelectorTableForm extends AbstractForm {
     /**
      * Anothers Fields.
      */
-    private final ConnectionItem connectionItem;
 
     private ConnectionItem templateConntion;
 
@@ -197,7 +195,7 @@ public class SelectorTableForm extends AbstractForm {
     }
 
     public SelectorTableForm(Composite parent, ConnectionItem connectionItem, SelectorTableWizardPage page, boolean forTemplate,
-            DatabaseConnection temConnection) {
+            DatabaseConnection temConnection, IMetadataConnection iMetadataConnection) {
         super(parent, SWT.NONE);
         managerConnection = new ManagerConnection();
         this.connectionItem = connectionItem;
@@ -206,6 +204,13 @@ public class SelectorTableForm extends AbstractForm {
         this.tableInfoParameters = page.getTableInfoParameters();
         this.forTemplate = forTemplate;
         this.temConnection = temConnection;
+        this.metadataconnection = iMetadataConnection;
+        this.typeName = EDatabaseTypeName.getTypeFromDbType(metadataconnection.getDbType());
+        /* use provider for the databse didn't use JDBC,for example: HBase */
+        if (typeName != null && typeName.isUseProvider()) {
+            this.provider = ExtractMetaDataFromDataBase.getProviderByDbType(iMetadataConnection.getDbType());
+        }
+
         if (forTemplate) {// && ConnectionHelper.getTables(getConnection()).size() <= 0
             page.setPageComplete(false);
         }
@@ -341,7 +346,15 @@ public class SelectorTableForm extends AbstractForm {
                 for (TreeItem item : treeItem.getItems()) {
                     if (item.getData() != null) {
                         TableNode node = (TableNode) item.getData();
-                        if (node.getType() == TableNode.TABLE) {
+                        if (useProvider()) {
+                            if (node.getType() == provider.getRunnableAccessNodeType()) {
+                                if (isExistTable(node)) {
+                                    item.setChecked(true);
+                                } else {
+                                    item.setChecked(false);
+                                }
+                            }
+                        } else if (node.getType() == TableNode.TABLE) {
                             if (isExistTable(node)) {
                                 item.setChecked(true);
                             } else {
@@ -371,9 +384,17 @@ public class SelectorTableForm extends AbstractForm {
         creationStatus.setText(Messages.getString("SelectorTableForm.CreationStatus")); //$NON-NLS-1$
         creationStatus.setWidth(columnWidth4);
 
-        SelectorTreeViewerProvider provider = new SelectorTreeViewerProvider(this);
-        viewer.setLabelProvider(provider);
-        viewer.setContentProvider(provider);
+        AbstractMetadataExtractorViewProvider viewProvider = null;
+        /* use extractor for the databse didn't use JDBC,for example: HBase */
+        if (useProvider()) {
+            viewProvider = provider.getMetadataViewProvider();
+
+        } else {
+            viewProvider = new SelectorTreeViewerProvider();
+        }
+
+        viewer.setLabelProvider(viewProvider);
+        viewer.setContentProvider(viewProvider);
         viewer.setInput(tableNodeList);
 
         scrolledCompositeFileViewer.setContent(tree);
@@ -583,43 +604,73 @@ public class SelectorTableForm extends AbstractForm {
                     Object data = treeItem.getData();
                     boolean promptNeeded = treeItem.getChecked();
                     int type = ((TableNode) data).getType();
-                    if (type != TableNode.TABLE) {
-                        treeItem.setGrayed(true);
-                    }
-                    if (type == TableNode.CATALOG) {
-                        for (TreeItem schemaItem : treeItem.getItems()) {
-                            if (schemaItem.getData() != null) {
-                                int t = ((TableNode) schemaItem.getData()).getType();
-                                if (t == TableNode.SCHEMA) {
-                                    for (TreeItem tableItem : schemaItem.getItems()) {
-                                        updateItem(tableItem, promptNeeded, true);
-                                    }
-                                } else if (t == TableNode.TABLE) {
-                                    updateItem(schemaItem, promptNeeded, true);
+                    /*
+                     * if use extractor to get metadata,should access the runnable by using extractor
+                     */
+                    if (useProvider()) {
+                        if (type != TableNode.COLUMN) {
+                            treeItem.setGrayed(true);
+                        }
+                        if (type == TableNode.COLUMN) {
+                            if (promptNeeded) {
+                                MetadataTable existTable = getExistTable(treeItem.getText(0));
+                                if (existTable != null) {
+                                    refreshExistItem(existTable, treeItem);
+                                } else {
+                                    treeItem.setText(2, ""); //$NON-NLS-1$
+                                    treeItem.setText(3, Messages.getString("SelectorTableForm.Pending")); //$NON-NLS-1$
+                                    countPending++;
+                                    parentWizardPage.setPageComplete(false);
+                                    refreshTable(treeItem, -1);
+                                }
+                            } else {
+                                clearTableItem(treeItem);
+                                if (treeItem.getText() != null
+                                        && treeItem.getText().equals(Messages.getString("SelectorTableForm.Pending"))) { //$NON-NLS-1$
+                                    countPending--;
                                 }
                             }
                         }
-                    } else if (type == TableNode.SCHEMA) {
-                        for (TreeItem tableItem : treeItem.getItems()) {
-                            updateItem(tableItem, promptNeeded, true);
+                        /* use old logical if no extractor used */
+                    } else {
+                        if (type != TableNode.TABLE) {
+                            treeItem.setGrayed(true);
                         }
-                    } else if (type == TableNode.TABLE) {
-                        if (promptNeeded) {
-                            MetadataTable existTable = getExistTable(treeItem.getText(0));
-                            if (existTable != null) {
-                                refreshExistItem(existTable, treeItem);
-                            } else {
-                                treeItem.setText(2, ""); //$NON-NLS-1$
-                                treeItem.setText(3, Messages.getString("SelectorTableForm.Pending")); //$NON-NLS-1$
-                                countPending++;
-                                parentWizardPage.setPageComplete(false);
-                                refreshTable(treeItem, -1);
+                        if (type == TableNode.CATALOG) {
+                            for (TreeItem schemaItem : treeItem.getItems()) {
+                                if (schemaItem.getData() != null) {
+                                    int t = ((TableNode) schemaItem.getData()).getType();
+                                    if (t == TableNode.SCHEMA) {
+                                        for (TreeItem tableItem : schemaItem.getItems()) {
+                                            updateItem(tableItem, promptNeeded, true);
+                                        }
+                                    } else if (t == TableNode.TABLE) {
+                                        updateItem(schemaItem, promptNeeded, true);
+                                    }
+                                }
                             }
-                        } else {
-                            clearTableItem(treeItem);
-                            if (treeItem.getText() != null
-                                    && treeItem.getText().equals(Messages.getString("SelectorTableForm.Pending"))) { //$NON-NLS-1$
-                                countPending--;
+                        } else if (type == TableNode.SCHEMA) {
+                            for (TreeItem tableItem : treeItem.getItems()) {
+                                updateItem(tableItem, promptNeeded, true);
+                            }
+                        } else if (type == TableNode.TABLE) {
+                            if (promptNeeded) {
+                                MetadataTable existTable = getExistTable(treeItem.getText(0));
+                                if (existTable != null) {
+                                    refreshExistItem(existTable, treeItem);
+                                } else {
+                                    treeItem.setText(2, ""); //$NON-NLS-1$
+                                    treeItem.setText(3, Messages.getString("SelectorTableForm.Pending")); //$NON-NLS-1$
+                                    countPending++;
+                                    parentWizardPage.setPageComplete(false);
+                                    refreshTable(treeItem, -1);
+                                }
+                            } else {
+                                clearTableItem(treeItem);
+                                if (treeItem.getText() != null
+                                        && treeItem.getText().equals(Messages.getString("SelectorTableForm.Pending"))) { //$NON-NLS-1$
+                                    countPending--;
+                                }
                             }
                         }
                     }
@@ -627,6 +678,7 @@ public class SelectorTableForm extends AbstractForm {
                     if (pageC) {
                         parentWizardPage.setPageComplete(false);
                     }
+
                 }
             }
         });
@@ -718,7 +770,7 @@ public class SelectorTableForm extends AbstractForm {
 
     private List<TableNode> getTableNodeInfo() {
         List<TableNode> tableNodes = new ArrayList<TableNode>();
-        DatabaseConnection connection = (DatabaseConnection) iMetadataConnection.getCurrentConnection();
+        DatabaseConnection connection = (DatabaseConnection) metadataconnection.getCurrentConnection();
         List<Catalog> catalogs = ConnectionHelper.getCatalogs(connection);
         if (catalogs.isEmpty()) {
             List<Schema> schemas = ConnectionHelper.getSchema(connection);
@@ -730,7 +782,7 @@ public class SelectorTableForm extends AbstractForm {
                     schemaNode.setSchema(s);
                     schemaNode.setValue(s.getName());
                     schemaNode.setType(TableNode.SCHEMA);
-                    schemaNode.setMetadataConn(iMetadataConnection);
+                    schemaNode.setMetadataConn(metadataconnection);
                     schemaNode.setParas(tableInfoParameters);
                     tableNodes.add(schemaNode);
                 }
@@ -741,7 +793,7 @@ public class SelectorTableForm extends AbstractForm {
                 catalogNode.setCatalog(c);
                 catalogNode.setValue(c.getName());
                 catalogNode.setType(TableNode.CATALOG);
-                catalogNode.setMetadataConn(iMetadataConnection);
+                catalogNode.setMetadataConn(metadataconnection);
                 catalogNode.setParas(tableInfoParameters);
                 List<Schema> schemas = CatalogHelper.getSchemas(c);
                 if (schemas.isEmpty()) {
@@ -752,7 +804,7 @@ public class SelectorTableForm extends AbstractForm {
                         schemaNode.setSchema(s);
                         schemaNode.setValue(s.getName());
                         schemaNode.setType(TableNode.SCHEMA);
-                        schemaNode.setMetadataConn(iMetadataConnection);
+                        schemaNode.setMetadataConn(metadataconnection);
                         schemaNode.setParas(tableInfoParameters);
                         schemaNode.setParent(catalogNode);
                         catalogNode.addChild(schemaNode);
@@ -790,12 +842,12 @@ public class SelectorTableForm extends AbstractForm {
         Driver derbyDriver = null;
         Connection sqlConn = null;
         String dbType = null;
-        DatabaseConnection dbConn = (DatabaseConnection) iMetadataConnection.getCurrentConnection();
-        List list = MetadataConnectionUtils.getConnection(iMetadataConnection);
+        DatabaseConnection dbConn = (DatabaseConnection) metadataconnection.getCurrentConnection();
+        List list = MetadataConnectionUtils.getConnection(metadataconnection);
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i) instanceof Driver) {
-                String driverClass = iMetadataConnection.getDriverClass();
-                dbType = iMetadataConnection.getDbType();
+                String driverClass = metadataconnection.getDriverClass();
+                dbType = metadataconnection.getDbType();
                 if (MetadataConnectionUtils.isDerbyRelatedDb(driverClass, dbType)) {
                     derbyDriver = (Driver) list.get(i);
                 }
@@ -1039,10 +1091,16 @@ public class SelectorTableForm extends AbstractForm {
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                     monitor.beginTask(Messages.getString("CreateTableAction.action.createTitle"), IProgressMonitor.UNKNOWN); //$NON-NLS-1$
                     // add
-                    managerConnection.check(iMetadataConnection, true);
+                    managerConnection.check(metadataconnection, true);
                     if (managerConnection.getIsValide()) {
                         // need to check catalog/schema if import a old db connection
-                        updatePackage(iMetadataConnection);
+                        /* use extractor for the databse didn't use JDBC,for example: HBase */
+
+                        if (useProvider()) {
+                            provider.updatePackage(metadataconnection);
+                        } else {
+                            updatePackage(metadataconnection);
+                        }
                         // update the connection
                         // EList<Package> dp = ((DatabaseConnection)
                         // iMetadataConnection.getCurrentConnection()).getDataPackage();
@@ -1051,15 +1109,17 @@ public class SelectorTableForm extends AbstractForm {
 
                         // need to enhance later
                         if (ExtractMetaDataUtils.isUseAllSynonyms()
-                                && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(iMetadataConnection.getDbType())
-                                || EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType())) {
+                                && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataconnection.getDbType())
+                                || EDatabaseTypeName.ACCESS.getDisplayName().equals(metadataconnection.getDbType())) {
                             List<String> itemTableName = ExtractMetaDataFromDataBase.returnTablesFormConnection(
-                                    iMetadataConnection, getTableInfoParameters());
+                                    metadataconnection, getTableInfoParameters());
                             if (ExtractMetaDataUtils.isUseAllSynonyms()) {
                                 tableNodeList = getTableNodeForAllSynonyms(itemTableName, true);
                             } else {
                                 tableNodeList = getTableNodeForAllSynonyms(itemTableName, false);
                             }
+                        } else if (useProvider()) {
+                            tableNodeList = provider.getTableNodeInfo(metadataconnection);
                         } else {
                             tableNodeList = getTableNodeInfo();
                         }
@@ -1148,8 +1208,8 @@ public class SelectorTableForm extends AbstractForm {
             }
             dbtable.getTaggedValue().add(CoreFactory.eINSTANCE.createTaggedValue());
             List<TdColumn> metadataColumns = new ArrayList<TdColumn>();
-            metadataColumns = ExtractMetaDataFromDataBase.returnMetadataColumnsFormTable(iMetadataConnection,
-                    tableItem.getText(0));
+            metadataColumns = ExtractMetaDataFromDataBase
+                    .returnMetadataColumnsFormTable(metadataconnection, tableItem.getText(0));
 
             tableItem.setText(2, "" + metadataColumns.size()); //$NON-NLS-1$
             tableItem.setText(3, Messages.getString("SelectorTableForm.Success")); //$NON-NLS-1$
@@ -1380,10 +1440,10 @@ public class SelectorTableForm extends AbstractForm {
                 IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
                 // only for oracle use all synonyms
                 boolean useAllSynonyms = ExtractMetaDataUtils.useAllSynonyms;
-                if (useAllSynonyms && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(iMetadataConnection.getDbType())
-                        || EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType())) {
-                    metadataColumns = ExtractMetaDataFromDataBase.returnMetadataColumnsFormTable(iMetadataConnection,
-                            tableString, true);
+                if (useAllSynonyms && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataconnection.getDbType())
+                        || EDatabaseTypeName.ACCESS.getDisplayName().equals(metadataconnection.getDbType())) {
+                    metadataColumns = ExtractMetaDataFromDataBase.returnMetadataColumnsFormTable(metadataconnection, tableString,
+                            true);
                     if (ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString).equals(
                             ETableTypes.TABLETYPE_TABLE.getName())) {
                         dbtable = RelationalFactory.eINSTANCE.createTdTable();
@@ -1408,7 +1468,7 @@ public class SelectorTableForm extends AbstractForm {
                     lableName = MetadataToolHelper.validateValue(lableName);
                     dbtable.setLabel(lableName);
                 } else {
-                    metadataColumns = ExtractMetaDataFromDataBase.returnColumns(iMetadataConnection, tableNode, true);
+                    metadataColumns = ExtractMetaDataFromDataBase.returnColumns(metadataconnection, tableNode, true);
                     String comment = null;
                     String type = null;
                     if (table instanceof TdTable) {
@@ -1426,8 +1486,8 @@ public class SelectorTableForm extends AbstractForm {
                     }
                     // MOD gdbu 2011-5-9 bug : 20828
                     // for sybase
-                    if (iMetadataConnection.getDbType().equals(EDatabaseTypeName.SYBASEASE.getDisplayName())
-                            || iMetadataConnection.getDbType().equals(EDatabaseTypeName.SYBASEIQ.getDisplayName())) {
+                    if (metadataconnection.getDbType().equals(EDatabaseTypeName.SYBASEASE.getDisplayName())
+                            || metadataconnection.getDbType().equals(EDatabaseTypeName.SYBASEIQ.getDisplayName())) {
                         TableHelper.setTableOwner(TableHelper.getTableOwner(table), dbtable);
                     }
                     // ~20828
@@ -1460,18 +1520,16 @@ public class SelectorTableForm extends AbstractForm {
                 if (!ConnectionHelper.getTables(getConnection()).contains(dbtable) && !limitTemplateTable(dbtable)) {
                     String catalog = "";
                     String schema = "";
-                    if (useAllSynonyms && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(iMetadataConnection.getDbType())
-                            || EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType())) {
-                        schema = iMetadataConnection.getSchema();
-                        catalog = iMetadataConnection.getDatabase();
-                        String databaseType = iMetadataConnection.getDbType();
-                        EDatabaseTypeName currentType = EDatabaseTypeName.getTypeFromDbType(databaseType);
-                        EDatabaseSchemaOrCatalogMapping curCatalog = currentType.getCatalogMappingField();
-                        EDatabaseSchemaOrCatalogMapping curSchema = currentType.getSchemaMappingField();
+                    if (useAllSynonyms && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataconnection.getDbType())
+                            || EDatabaseTypeName.ACCESS.getDisplayName().equals(metadataconnection.getDbType())) {
+                        schema = metadataconnection.getSchema();
+                        catalog = metadataconnection.getDatabase();
+                        EDatabaseSchemaOrCatalogMapping curCatalog = typeName.getCatalogMappingField();
+                        EDatabaseSchemaOrCatalogMapping curSchema = typeName.getSchemaMappingField();
                         if (curCatalog != null && curSchema != null) {
                             switch (curCatalog) {
                             case Login:
-                                catalog = iMetadataConnection.getUsername();
+                                catalog = metadataconnection.getUsername();
                                 break;
                             case None:
                                 catalog = "";
@@ -1479,23 +1537,23 @@ public class SelectorTableForm extends AbstractForm {
                             }
                             switch (curSchema) {
                             case Login:
-                                schema = iMetadataConnection.getUsername();
+                                schema = metadataconnection.getUsername();
                                 break;
                             case Schema:
-                                schema = iMetadataConnection.getSchema();
+                                schema = metadataconnection.getSchema();
                                 break;
                             case None:
                                 schema = "";
                                 break;
                             case Default_Name:
-                                schema = iMetadataConnection.getLabel(); // label for default name for
+                                schema = metadataconnection.getLabel(); // label for default name for
                                 // access or such kind of
                                 // non-catalogs databases
                                 break;
                             }
                         }
 
-                        schema = ExtractMetaDataUtils.getMeataConnectionSchema(iMetadataConnection);
+                        schema = ExtractMetaDataUtils.getMeataConnectionSchema(metadataconnection);
                     } else {
                         TableNode parent = tableNode.getParent();
                         if (parent.getType() == TableNode.CATALOG) {
@@ -1509,8 +1567,8 @@ public class SelectorTableForm extends AbstractForm {
                         }
                     }
 
-                    ProjectNodeHelper.addTableForTemCatalogOrSchema(catalog, schema, getConnection(), dbtable,
-                            iMetadataConnection);
+                    ProjectNodeHelper
+                            .addTableForTemCatalogOrSchema(catalog, schema, getConnection(), dbtable, metadataconnection);
                 }
             }
 
@@ -1567,7 +1625,7 @@ public class SelectorTableForm extends AbstractForm {
             return;
         }
 
-        if (!threadExecutor.isThreadRunning(treeItem)) {
+        if (!threadExecutor.isThreadRunning(treeItem) && !useProvider()) {
             TableNode node = (TableNode) treeItem.getData();
             if (node.getType() == TableNode.TABLE) {
                 if (managerConnection.check(getIMetadataConnection(), true)) {
@@ -1578,6 +1636,67 @@ public class SelectorTableForm extends AbstractForm {
                     }
                 }
             }
+        } else if (useProvider() && !threadExecutor.isThreadRunning(treeItem)) {
+            TableNode node = (TableNode) treeItem.getData();
+            if (node.getType() == provider.getRunnableAccessNodeType()) {
+                RetrieveColumnRunnable runnable = new RetrieveColumnRunnable(treeItem) {
+
+                    @Override
+                    public void run() {
+                        if (isCanceled()) {
+                            return;
+                        }
+                        // will use executeMethod from extension IDBMetadataExtractor
+                        checkConnectionIsDone = true;
+
+                        Display.getDefault().syncExec(new Runnable() {
+
+                            public void run() {
+                                provider.executeInRunnable(metadataconnection, (TableNode) treeItem.getData(), getConnection());
+                                if (isCanceled()) {
+                                    return;
+                                }
+                                updateUIInThreadIfThread();
+                            }
+                        });
+
+                    }
+
+                    @Override
+                    public void updateUIInThreadIfThread() {
+                        if (treeItem.isDisposed()) {
+                            return;
+                        }
+
+                        if (checkConnectionIsDone) {
+                            //                            treeItem.setText(2, "" + metadataColumns.size()); //$NON-NLS-1$
+                            treeItem.setText(3, Messages.getString("SelectorTableForm.Success")); //$NON-NLS-1$
+                            countSuccess++;
+                            // tableColumnNums.put(treeItem.getText(0), metadataColumns.size());
+                        } else {
+                            updateStatus(IStatus.WARNING, Messages.getString("DatabaseTableForm.connectionFailure")); //$NON-NLS-1$
+                            new ErrorDialogWidthDetailArea(getShell(), PID,
+                                    Messages.getString("DatabaseTableForm.connectionFailure"), //$NON-NLS-1$
+                                    managerConnection.getMessageException());
+
+                        }
+                        count++;
+
+                        updateStatus(IStatus.OK, null);
+                        // selectNoneTablesButton.setEnabled(true);
+                        // checkConnectionButton.setEnabled(true);
+
+                        parentWizardPage.setPageComplete(threadExecutor.getQueue().isEmpty()
+                                && (threadExecutor.getActiveCount() == 0 || countSuccess == countPending));
+                    }
+
+                };
+                String value = node.getValue();
+                if (!(isExistingNames(value))) {
+                    threadExecutor.execute(runnable);
+                }
+            }
+
         } else {
             RetrieveColumnRunnable runnable = threadExecutor.getRunnable(treeItem);
             runnable.setCanceled(false);
@@ -1595,16 +1714,24 @@ public class SelectorTableForm extends AbstractForm {
         Object data = item.getData();
         if (data != null && data instanceof TableNode) {
             TableNode node = (TableNode) data;
-            if (node.getType() == TableNode.TABLE) {
+            if (useProvider()) {
+                if (node.getType() == provider.getRunnableAccessNodeType()) {
+                    if (deleteFromConnection) {
+                        provider.deleteMetadataFromConnection(node, getConnection());
+                    }
+                    item.setText(2, ""); //$NON-NLS-1$
+                    item.setText(3, ""); //$NON-NLS-1$
+                }
+            } else if (node.getType() == TableNode.TABLE) {
                 if (deleteFromConnection) {
                     deleteTable(item);
                 }
                 item.setText(2, ""); //$NON-NLS-1$
                 item.setText(3, ""); //$NON-NLS-1$
-                RetrieveColumnRunnable runnable = threadExecutor.getRunnable(item);
-                if (runnable != null) {
-                    runnable.setCanceled(true);
-                }
+            }
+            RetrieveColumnRunnable runnable = threadExecutor.getRunnable(item);
+            if (runnable != null) {
+                runnable.setCanceled(true);
             }
         }
     }
@@ -1868,6 +1995,8 @@ public class SelectorTableForm extends AbstractForm {
                     }
                 }
             }
+        } else if (useProvider()) {
+            return provider.isMetadataExsit(tableNode, getConnection());
         }
         return false;
     }
@@ -2041,6 +2170,8 @@ public class SelectorTableForm extends AbstractForm {
                     }
                 } else if (type == TableNode.TABLE) {
                     refreshItem(treeItem);
+                } else if (type == TableNode.COLUMN_FAMILY) {
+                    refreshItem(treeItem);
                 }
             }
         }
@@ -2145,11 +2276,11 @@ public class SelectorTableForm extends AbstractForm {
     }
 
     public IMetadataConnection getIMetadataConnection() {
-        return this.iMetadataConnection;
+        return this.metadataconnection;
     }
 
     public void setIMetadataConnection(IMetadataConnection metadataConnection) {
-        this.iMetadataConnection = metadataConnection;
+        this.metadataconnection = metadataConnection;
     }
 
     @Override

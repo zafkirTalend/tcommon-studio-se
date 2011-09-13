@@ -21,9 +21,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.jface.viewers.ITableLabelProvider;
-import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.graphics.Image;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
@@ -37,20 +34,17 @@ import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBa
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.metadata.builder.database.TableNode;
+import org.talend.core.repository.AbstractMetadataExtractorViewProvider;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
-import org.talend.utils.sql.ConnectionUtils;
 
 /**
  * wzhang class global comment. Detailled comment
  */
-public class SelectorTreeViewerProvider extends LabelProvider implements ITreeContentProvider, ITableLabelProvider {
+public class SelectorTreeViewerProvider extends AbstractMetadataExtractorViewProvider {
 
-    private SelectorTableForm form;
-
-    public SelectorTreeViewerProvider(SelectorTableForm form) {
+    public SelectorTreeViewerProvider() {
         super();
-        this.form = form;
     }
 
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {

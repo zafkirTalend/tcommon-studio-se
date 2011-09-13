@@ -32,8 +32,13 @@ import java.util.Set;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
+import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
+import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
 import org.talend.core.database.EDatabase4DriverClassName;
@@ -52,9 +57,13 @@ import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
+import org.talend.core.model.metadata.builder.database.extractots.DBMetadataProviderObject;
+import org.talend.core.model.metadata.builder.database.extractots.IDBMetadataProviderObject;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.metadata.builder.util.TDColumnAttributeHelper;
 import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.repository.ConnectionStatus;
+import org.talend.core.repository.IDBMetadataProvider;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.ColumnSetHelper;
@@ -75,6 +84,8 @@ import orgomg.cwm.resource.relational.Schema;
  * 
  */
 public class ExtractMetaDataFromDataBase {
+
+    public static List<IDBMetadataProviderObject> providerObjects = null;
 
     private static ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
 
@@ -152,6 +163,31 @@ public class ExtractMetaDataFromDataBase {
     private static List<IMetadataTable> oldMetadataRetrieved = null;
 
     private static List<String> filterTablesName = new ArrayList<String>();
+
+    static {
+        providerObjects = new ArrayList<IDBMetadataProviderObject>();
+        IExtensionPointLimiter actionExtensionPoint = new ExtensionPointLimiterImpl(
+                "org.talend.core.repository.metadata_provider", //$NON-NLS-1$
+                "DBMetadataProvider"); //$NON-NLS-1$
+        List<IConfigurationElement> extension = ExtensionImplementationProvider.getInstanceV2(actionExtensionPoint);
+        for (IConfigurationElement element : extension) {
+            try {
+                String dbType = element.getAttribute("dbType");
+                String dbVersion = element.getAttribute("dbVersion");
+                String useJDBC = element.getAttribute("supportJDBC");
+                IDBMetadataProvider provider = (IDBMetadataProvider) element.createExecutableExtension("class");
+                IDBMetadataProviderObject object = new DBMetadataProviderObject();
+                object.setProvider(provider);
+                object.setDbType(dbType);
+                object.setDbVersion(dbVersion);
+                object.setSupportJDBC(Boolean.valueOf(useJDBC));
+                providerObjects.add(object);
+            } catch (CoreException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
 
     /**
      * DOC cantoine. Method to return a Collection of Tables for a DB connection.
@@ -2250,5 +2286,23 @@ public class ExtractMetaDataFromDataBase {
         catalogAndSchema.add(catalogName);
         catalogAndSchema.add(schemaName);
         return catalogAndSchema;
+    }
+
+    public static IDBMetadataProvider getProviderByDbType(String dbTypeString) {
+        for (IDBMetadataProviderObject extractorObject : providerObjects) {
+            if (extractorObject.getDbType().equals(dbTypeString)) {
+                return extractorObject.getProvider();
+            }
+        }
+        return null;
+    }
+
+    public static IDBMetadataProviderObject getProviderObjectByDbType(String dbTypeString) {
+        for (IDBMetadataProviderObject extractorObject : providerObjects) {
+            if (extractorObject.getDbType().equals(dbTypeString)) {
+                return extractorObject;
+            }
+        }
+        return null;
     }
 }

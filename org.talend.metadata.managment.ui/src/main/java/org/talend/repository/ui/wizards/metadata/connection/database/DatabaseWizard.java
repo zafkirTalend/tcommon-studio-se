@@ -41,6 +41,7 @@ import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.properties.ConnectionItem;
@@ -49,6 +50,7 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.update.RepositoryUpdateManager;
+import org.talend.core.repository.IDBMetadataProvider;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.utils.AbstractResourceChangesService;
 import org.talend.core.repository.utils.TDQServiceRegister;
@@ -66,6 +68,8 @@ import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.wizards.CheckLastVersionRepositoryWizard;
 import org.talend.repository.ui.wizards.PropertiesWizardPage;
 import org.talend.repository.ui.wizards.metadata.connection.Step0WizardPage;
+import orgomg.cwm.resource.relational.Catalog;
+import orgomg.cwm.resource.relational.Schema;
 
 /**
  * DatabaseWizard present the DatabaseForm. Use to manage the metadata connection.
@@ -321,6 +325,18 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     ConnectionHelper.setUsingURL(connection, connection.getURL());
 
                     MetadataConnectionUtils.fillConnectionInformation(connectionItem);
+
+                    // if after fillConnection there is still no dataPackages, need to fill them from extractor
+                    List<Catalog> catalogs = ConnectionHelper.getCatalogs(connection);
+                    List<Schema> schemas = ConnectionHelper.getSchema(connection);
+                    if (catalogs.isEmpty() && schemas.isEmpty()) {
+                        IDBMetadataProvider extractor = ExtractMetaDataFromDataBase.getProviderByDbType(metadataConnection
+                                .getDbType());
+                        if (extractor != null && type.isUseProvider()) {
+                            extractor.fillConnection(connection);
+                            factory.save(connectionItem);
+                        }
+                    }
                 } else {
                     if (connectionItem.getConnection() instanceof DatabaseConnection) {
                         DatabaseConnection c = (DatabaseConnection) connectionItem.getConnection();

@@ -84,7 +84,8 @@ public class DatabaseTableWizardPage extends WizardPage {
      */
     public void createControl(final Composite parent) {
 
-        tableForm = new DatabaseTableForm(parent, connectionItem, metadataTable, managerConnection, this, temConnection);
+        tableForm = new DatabaseTableForm(parent, connectionItem, metadataTable, managerConnection, this, temConnection,
+                metadataConnection);
         tableForm.setIMetadataConnection(metadataConnection);
         tableForm.setReadOnly(!isRepositoryObjectEditable);
 

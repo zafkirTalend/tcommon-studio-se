@@ -13,9 +13,11 @@
 package org.talend.repository.ui.utils;
 
 import org.apache.log4j.Logger;
+import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataConnection;
-import org.talend.core.model.metadata.builder.database.ConnectionStatus;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
+import org.talend.core.repository.ConnectionStatus;
+import org.talend.core.repository.IDBMetadataProvider;
 import org.talend.metadata.managment.ui.i18n.Messages;
 
 /**
@@ -118,9 +120,20 @@ public class ManagerConnection {
      */
     public boolean check() {
         messageException = null;
+        ConnectionStatus testConnection = null;
         try {
-            ConnectionStatus testConnection = ExtractMetaDataFromDataBase.testConnection(dbTypeString, urlConnectionString,
-                    username, password, schemaOracle, driverClassName, driverJarPath, dbVersionString, additionalParams);
+            EDatabaseTypeName type = EDatabaseTypeName.getTypeFromDbType(dbTypeString);
+            /* use provider for the databse didn't use JDBC,for example: HBase */
+            if (type.isUseProvider()) {
+                IDBMetadataProvider extractorToUse = ExtractMetaDataFromDataBase.getProviderByDbType(dbTypeString);
+                if (extractorToUse != null) {
+                    testConnection = extractorToUse.testConnection(dbTypeString, urlConnectionString, username, password,
+                            schemaOracle, server, port, driverClassName, driverJarPath, dbVersionString, additionalParams);
+                }
+            } else {
+                testConnection = ExtractMetaDataFromDataBase.testConnection(dbTypeString, urlConnectionString, username,
+                        password, schemaOracle, driverClassName, driverJarPath, dbVersionString, additionalParams);
+            }
             isValide = testConnection.getResult();
             messageException = testConnection.getMessageException();
         } catch (Exception e) {
@@ -136,6 +149,8 @@ public class ManagerConnection {
      */
     public boolean check(IMetadataConnection metadataConnection, boolean... onlyIfNeeded) {
         messageException = null;
+
+        ConnectionStatus testConnection = null;
         // qli
         // check the same connection.
         // if same. just return true.
@@ -152,10 +167,25 @@ public class ManagerConnection {
         }
 
         try {
-            ConnectionStatus testConnection = ExtractMetaDataFromDataBase.testConnection(metadataConnection.getDbType(),
-                    metadataConnection.getUrl(), metadataConnection.getUsername(), metadataConnection.getPassword(),
-                    metadataConnection.getSchema(), metadataConnection.getDriverClass(), metadataConnection.getDriverJarPath(),
-                    metadataConnection.getDbVersionString(), metadataConnection.getAdditionalParams());
+            EDatabaseTypeName type = EDatabaseTypeName.getTypeFromDbType(metadataConnection.getDbType());
+            /* use extractor for the databse didn't use JDBC,for example: HBase */
+            if (type.isUseProvider()) {
+                IDBMetadataProvider extractorToUse = ExtractMetaDataFromDataBase.getProviderByDbType(metadataConnection
+                        .getDbType());
+                if (extractorToUse != null) {
+                    testConnection = extractorToUse.testConnection(metadataConnection.getDbType(), metadataConnection.getUrl(),
+                            metadataConnection.getUsername(), metadataConnection.getPassword(), metadataConnection.getSchema(),
+                            metadataConnection.getServerName(), metadataConnection.getPort(),
+                            metadataConnection.getDriverClass(), metadataConnection.getDriverJarPath(),
+                            metadataConnection.getDbVersionString(), metadataConnection.getAdditionalParams());
+                }
+            } else {
+                testConnection = ExtractMetaDataFromDataBase.testConnection(metadataConnection.getDbType(),
+                        metadataConnection.getUrl(), metadataConnection.getUsername(), metadataConnection.getPassword(),
+                        metadataConnection.getSchema(), metadataConnection.getDriverClass(),
+                        metadataConnection.getDriverJarPath(), metadataConnection.getDbVersionString(),
+                        metadataConnection.getAdditionalParams());
+            }
             // qli
             // record this metadataConnection as old connection.
             oldConnection = metadataConnection;

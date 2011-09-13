@@ -131,13 +131,14 @@ public class SelectorTableWizardPage extends TemplateWizardPage {
             // if (c != null) { // hywang
             // c.getOwnedElement().clear();
             // }
-            tableForm = new SelectorTableForm(container, templateConnection, this, isCreateTemplate, temConnection);
+            tableForm = new SelectorTableForm(container, templateConnection, this, isCreateTemplate, temConnection,
+                    metadataConnection);
         } else {
-            tableForm = new SelectorTableForm(container, connectionItem, this, isCreateTemplate, temConnection);
+            tableForm = new SelectorTableForm(container, connectionItem, this, isCreateTemplate, temConnection,
+                    metadataConnection);
         }
 
         tableForm.setLayoutData(data);
-        tableForm.setIMetadataConnection(metadataConnection);
         tableForm.setReadOnly(!isRepositoryObjectEditable);
 
         AbstractForm.ICheckListener listener = new AbstractForm.ICheckListener() {

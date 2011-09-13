@@ -54,6 +54,10 @@ public class TableNode {
 
     public static final int TABLE = 3;
 
+    public static final int COLUMN_FAMILY = 4;
+
+    public static final int COLUMN = 5;
+
     public TableNode() {
         children = new ArrayList<TableNode>();
     }

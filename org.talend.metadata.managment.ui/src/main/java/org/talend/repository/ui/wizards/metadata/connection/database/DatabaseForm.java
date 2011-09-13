@@ -17,6 +17,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.Driver;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -67,8 +68,11 @@ import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.MetadataTalendType;
+import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
+import org.talend.core.model.metadata.builder.database.extractots.IDBMetadataProviderObject;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.prefs.ITalendCorePrefConstants;
@@ -217,6 +221,12 @@ public class DatabaseForm extends AbstractForm {
         this.connectionItem = connectionItem;
         this.isCreation = isCreation;
         setConnectionItem(connectionItem); // must be first.
+        this.metadataconnection = ConvertionHelper.convert((DatabaseConnection) getConnection());
+        this.typeName = EDatabaseTypeName.getTypeFromDbType(metadataconnection.getDbType());
+        /* use provider for the databse didn't use JDBC,for example: HBase */
+        if (typeName != null && typeName.isUseProvider()) {
+            this.provider = ExtractMetaDataFromDataBase.getProviderByDbType(metadataconnection.getDbType());
+        }
         setupForm(true);
         addStringConnectionControls();
         GridLayout layout2 = (GridLayout) getLayout();
@@ -666,6 +676,13 @@ public class DatabaseForm extends AbstractForm {
 
         sqlSyntaxCombo.setVisible(!CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected());
         group1.setVisible(!isTOPStandaloneMode());
+        if (metadataconnection != null) {
+            IDBMetadataProviderObject providerObj = ExtractMetaDataFromDataBase.getProviderObjectByDbType(metadataconnection
+                    .getDbType());
+            if (providerObj != null && !providerObj.isSupportJDBC()) {
+                group1.setVisible(false);
+            }
+        }
     }
 
     /**
@@ -717,6 +734,7 @@ public class DatabaseForm extends AbstractForm {
         if (isTOPStandaloneMode()) {
             dbTypeDisplayList = filterUnavailableType(dbTypeDisplayList);
         }
+        filterTypesUnloadProviders(dbTypeDisplayList);
 
         dbTypeCombo = new LabelledCombo(compositeDbSettings, Messages.getString("DatabaseForm.dbType"), Messages //$NON-NLS-1$
                 .getString("DatabaseForm.dbTypeTip"), dbTypeDisplayList.toArray(new String[0]), 2, true); //$NON-NLS-1$
@@ -727,6 +745,22 @@ public class DatabaseForm extends AbstractForm {
             visibleItemCount = VISIBLE_DATABASE_COUNT;
         }
         dbTypeCombo.getCombo().setVisibleItemCount(visibleItemCount);
+    }
+
+    private void filterTypesUnloadProviders(List<String> dbTypeDisplayList) {
+        Iterator<String> it = dbTypeDisplayList.iterator();
+        while (it.hasNext()) {
+            String displayName = it.next();
+            EDatabaseTypeName type = EDatabaseTypeName.getTypeFromDisplayName(displayName);
+            // if can't find the provider for current typename,remove it from combo
+            if (type != null && type.isUseProvider()) {
+                String dbtypeString = type.getXmlName();
+                if (dbtypeString != null && ExtractMetaDataFromDataBase.getProviderByDbType(dbtypeString) == null) {
+                    it.remove();
+                }
+            }
+        }
+
     }
 
     private List<String> filterUnavailableType(List<String> dbTypeDisplayList) {
@@ -1925,6 +1959,13 @@ public class DatabaseForm extends AbstractForm {
                     .getDbVersionString());
             checkButton.setEnabled((dbTypeCombo.getSelectionIndex() >= 0) && template != null
                     && (getStringConnection() != template.getUrlTemplate(version)));
+            /* hbase has no url so need,using port or server instead */
+            if (template != null && template.getDbType() != null && template.getDbType().equals(EDatabaseTypeName.HBASE)) {
+                checkButton.setEnabled((dbTypeCombo.getSelectionIndex() >= 0)
+                        && template != null
+                        && ((serverText.getText() != template.getUrlTemplate(version) || portText.getText() != template
+                                .getDefaultPort())));
+            }
             if (isGeneralJDBC()) {
                 checkButton.setEnabled(true);
             }
@@ -1987,6 +2028,7 @@ public class DatabaseForm extends AbstractForm {
         boolean isMySQL = visible && asMySQLVersionEnable();
         boolean isVertica = visible && asVerticaVersionEnable();
         boolean isSAS = visible && asSASVersionEnable();
+        boolean isHbase = visible && asHbaseVersionEnable();
 
         dbVersionCombo
                 .setEnabled(!isReadOnly()
@@ -2011,6 +2053,9 @@ public class DatabaseForm extends AbstractForm {
             if (template != null) {
                 EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(dbVersionCombo.getText());
                 s = template.getUrlTemplate(version);
+            }
+            if (isHbase) {
+                urlConnectionStringText.setVisible(false);
             }
             urlConnectionStringText.setEditable(!visible);
             // schemaText.hide();
@@ -2053,18 +2098,24 @@ public class DatabaseForm extends AbstractForm {
                 schemaTextIsShow = false;
                 // addContextParams(EDBParamName.Schema, false);
             }
-
-            if (s.contains(EDatabaseConnVar.HOST.getVariable())) {
+            // hbase need serverText
+            if (s.contains(EDatabaseConnVar.HOST.getVariable()) || isHbase) {
                 if (!EDatabaseConnTemplate.GENERAL_JDBC.getDBTypeName().equals(dbTypeCombo.getText())) {
                     serverText.show();
                     serverText.setEditable(visible);
+                    if (isHbase) {
+                        String serverName = getConnection().getServerName();
+                        if (serverName == null || "".equals(serverName)) {
+                            serverText.setText(EDatabaseConnTemplate.HBASE.getUrlTemplate(EDatabaseVersion4Drivers.HBASE));
+                        }
+                    }
                     addContextParams(EDBParamName.Server, visible);
                 }
             } else {
                 serverText.hide();
                 addContextParams(EDBParamName.Server, false);
             }
-            if (s.contains(EDatabaseConnVar.PORT.getVariable())) {
+            if (s.contains(EDatabaseConnVar.PORT.getVariable()) || isHbase) {
                 portText.show();
                 portText.setEditable(visible);
                 addContextParams(EDBParamName.Port, visible);
@@ -2115,8 +2166,14 @@ public class DatabaseForm extends AbstractForm {
                 // addContextParams(EDBParamName.Login, false);
                 // addContextParams(EDBParamName.Password, false);
                 // } else {
+
+                /* hbase no need username and password */
                 usernameText.show();
                 passwordText.show();
+                if (isHbase) {
+                    usernameText.hide();
+                    passwordText.hide();
+                }
                 addContextParams(EDBParamName.Login, true);
                 addContextParams(EDBParamName.Password, true);
                 // }
@@ -2145,6 +2202,10 @@ public class DatabaseForm extends AbstractForm {
             if (EDatabaseConnTemplate.isSchemaNeeded(getConnection().getDatabaseType())) {
                 schemaText.show();
                 schemaText.setEditable(visible);
+                // for hbase it should be using column family to replace the common schema.
+                if (isHbase) {
+                    schemaText.setLabelText("Column Family");
+                }
                 addContextParams(EDBParamName.Schema, visible);
             } else {
                 if (!schemaTextIsShow) {
@@ -2251,6 +2312,15 @@ public class DatabaseForm extends AbstractForm {
         }
         EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(dbTypeCombo.getText());
         return template != null && template == EDatabaseConnTemplate.VERTICA
+                && LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA);
+    }
+
+    private boolean asHbaseVersionEnable() {
+        if (dbTypeCombo == null) {
+            return false;
+        }
+        EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(dbTypeCombo.getText());
+        return template != null && template == EDatabaseConnTemplate.HBASE
                 && LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA);
     }
 

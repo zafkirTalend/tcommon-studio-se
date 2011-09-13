@@ -40,10 +40,13 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.formtools.Form;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.commons.utils.platform.PluginChecker;
+import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.FileConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
+import org.talend.core.repository.IDBMetadataProvider;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.metadata.managment.ui.MetadataManagmentUiPlugin;
 import org.talend.metadata.managment.ui.i18n.Messages;
@@ -109,6 +112,12 @@ public abstract class AbstractForm extends Composite {
     protected ConnectionItem connectionItem;
 
     protected Set<IConnParamName> contextParamSet = new HashSet<IConnParamName>();
+
+    protected IDBMetadataProvider provider = null;
+
+    protected EDatabaseTypeName typeName = null;
+
+    protected IMetadataConnection metadataconnection;
 
     /**
      * DOC ocarbone AbstractForm constructor comment.
@@ -542,6 +551,10 @@ public abstract class AbstractForm extends Composite {
                 }
             }
         });
+    }
+
+    protected boolean useProvider() {
+        return typeName != null && typeName.isUseProvider() && provider != null;
     }
 
     /**

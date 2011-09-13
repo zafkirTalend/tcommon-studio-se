@@ -66,6 +66,7 @@ import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.commons.utils.data.text.IndiceHelper;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.IMetadataConnection;
@@ -135,8 +136,6 @@ public class DatabaseTableForm extends AbstractForm {
 
     private List<String> itemTableName;
 
-    private IMetadataConnection iMetadataConnection = null;
-
     private MetadataTable metadataTable;
 
     private MetadataEmfTableEditor metadataEditor;
@@ -180,8 +179,6 @@ public class DatabaseTableForm extends AbstractForm {
 
     boolean readOnly;
 
-    private ConnectionItem connectionItem;
-
     private TableViewerCreator tableViewerCreator;
 
     private Table tableNavigator;
@@ -207,19 +204,26 @@ public class DatabaseTableForm extends AbstractForm {
      * @param managerConnection2
      */
     public DatabaseTableForm(Composite parent, ConnectionItem connectionItem, MetadataTable metadataTable,
-            ManagerConnection managerConnection, IWizardPage page, DatabaseConnection temConnection) {
+            ManagerConnection managerConnection, IWizardPage page, DatabaseConnection temConnection,
+            IMetadataConnection metadataconnection) {
         super(parent, SWT.NONE);
         this.managerConnection = managerConnection;
         this.connectionItem = connectionItem;
         this.parentWizardPage = page;
         this.temConnection = temConnection;
         this.metadataTable = metadataTable;
+        this.metadataconnection = metadataconnection;
         final Set<MetadataTable> tables = ConnectionHelper.getTables(temConnection);
         for (MetadataTable t : tables) {
             if (metadataTable != null && t.getLabel().equals(metadataTable.getLabel())) {
                 this.metadataTable = t;
                 break;
             }
+        }
+        this.typeName = EDatabaseTypeName.getTypeFromDbType(metadataconnection.getDbType());
+        /* use provider for the databse didn't use JDBC,for example: HBase */
+        if (typeName != null && typeName.isUseProvider()) {
+            this.provider = ExtractMetaDataFromDataBase.getProviderByDbType(metadataconnection.getDbType());
         }
         setupForm();
     }
@@ -260,6 +264,10 @@ public class DatabaseTableForm extends AbstractForm {
         // init the nodes of the left tree navigator
         initTreeNavigatorNodes();
         initMetadataForm();
+        if (useProvider()) {
+            guessSchemaButton.setVisible(provider.isSupportGuessSchema());
+            retreiveSchemaButton.setVisible(provider.isSupportRetrieveSchema());
+        }
     }
 
     /**
@@ -392,8 +400,12 @@ public class DatabaseTableForm extends AbstractForm {
                         TableInfoParameters parameter = new TableInfoParameters();
                         List<String> comboTableNames;
                         try {
-                            comboTableNames = ExtractMetaDataFromDataBase.returnTablesFormConnection(iMetadataConnection,
-                                    parameter);
+                            if (useProvider()) {
+                                comboTableNames = provider.returnTablesFormConnection(metadataconnection);
+                            } else {
+                                comboTableNames = ExtractMetaDataFromDataBase.returnTablesFormConnection(metadataconnection,
+                                        parameter);
+                            }
                         } catch (Exception e) {
                             comboTableNames = new ArrayList<String>();
                         }
@@ -686,19 +698,6 @@ public class DatabaseTableForm extends AbstractForm {
             }
         });
 
-        // // Event CheckConnection Button
-        // checkConnectionButton.addSelectionListener(new SelectionAdapter() {
-        //
-        // public void widgetSelected(final SelectionEvent e) {
-        // if (!checkConnectionButton.getEnabled()) {
-        // checkConnectionButton.setEnabled(true);
-        // checkConnection(true);
-        // } else {
-        // checkConnectionButton.setEnabled(false);
-        // }
-        // }
-        // });
-
         // Event addTable Button
         addTableButton.addSelectionListener(new SelectionAdapter() {
 
@@ -835,90 +834,6 @@ public class DatabaseTableForm extends AbstractForm {
      * 
      * @param displayMessageBox
      */
-    protected void checkConnection(final boolean displayMessageBox) {
-
-        if (tableCombo.getItemCount() > 0) {
-            tableCombo.removeAll();
-        }
-
-        try {
-            parentWizardPage.getWizard().getContainer().run(true, true, new IRunnableWithProgress() {
-
-                public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                    monitor.beginTask(Messages.getString("CreateTableAction.action.createTitle"), IProgressMonitor.UNKNOWN); //$NON-NLS-1$
-
-                    managerConnection.check(getIMetadataConnection());
-
-                    if (managerConnection.getIsValide()) {
-                        itemTableName = ExtractMetaDataFromDataBase.returnTablesFormConnection(iMetadataConnection);
-
-                        if (itemTableName.size() <= 0) {
-                            // connection is done but any table exist
-                            if (displayMessageBox) {
-                                SelectorTableForm.openInfoDialogInUIThread(getShell(),
-                                        Messages.getString("DatabaseTableForm.checkConnection"), Messages //$NON-NLS-1$
-                                                .getString("DatabaseTableForm.tableNoExist"), true); //$NON-NLS-1$
-                            }
-                        } else {
-                            Display.getDefault().asyncExec(new Runnable() {
-
-                                public void run() {
-                                    // start tos, and then click the table to editor schema directly. need to get tables
-                                    // again.
-                                    String[] items = null;
-                                    if (itemTableName != null && !itemTableName.isEmpty()) {
-                                        TableInfoParameters tableInfoParameters = new TableInfoParameters();
-                                        List<String> filterTableNames = ExtractMetaDataFromDataBase.returnTablesFormConnection(
-                                                iMetadataConnection, tableInfoParameters);
-                                        if (filterTableNames != null && !filterTableNames.isEmpty()) {
-                                            int visiblecount = filterTableNames.size();
-                                            if (visiblecount > LabelledCombo.MAX_VISIBLE_ITEM_COUNT) {
-                                                visiblecount = LabelledCombo.MAX_VISIBLE_ITEM_COUNT;
-                                            }
-                                            items = new String[filterTableNames.size()];
-                                            tableCombo.setVisibleItemCount(visiblecount);
-                                            // fill the combo
-                                            for (int i = 0; i < filterTableNames.size(); i++) {
-                                                tableCombo.add(filterTableNames.get(i));
-                                                if (filterTableNames.get(i).equals(metadataTable.getName())) {
-                                                    tableCombo.select(i);
-                                                }
-                                            }
-                                        }
-
-                                    }
-                                    if (displayMessageBox) {
-                                        String msg = Messages.getString("DatabaseTableForm.connectionIsDone"); //$NON-NLS-1$
-                                        if (!isReadOnly()) {
-                                            msg = msg + Messages.getString("DatabaseTableForm.retreiveButtonIsAccessible"); //$NON-NLS-1$
-                                        }
-                                        SelectorTableForm.openInfoDialogInUIThread(getShell(),
-                                                Messages.getString("DatabaseTableForm.checkConnection"), msg, false); //$NON-NLS-1$
-                                    }
-                                }
-                            });
-                        }
-                    } else if (displayMessageBox) {
-                        // connection failure
-                        getShell().getDisplay().asyncExec(new Runnable() {
-
-                            public void run() {
-                                new ErrorDialogWidthDetailArea(getShell(), PID, Messages
-                                        .getString("DatabaseTableForm.connectionFailureTip"), //$NON-NLS-1$
-                                        managerConnection.getMessageException());
-                            }
-                        });
-                    }
-                    monitor.done();
-                }
-            });
-        } catch (Exception e) {
-            ExceptionHandler.process(e);
-        }
-
-        updateRetreiveSchemaButton();
-        adaptFormToCheckConnection();
-    }
 
     /**
      * Main Fields addControls.
@@ -1103,7 +1018,11 @@ public class DatabaseTableForm extends AbstractForm {
                 }
 
                 List<TdColumn> metadataColumns = new ArrayList<TdColumn>();
-                metadataColumns = ExtractMetaDataFromDataBase.returnMetadataColumnsFormTable(iMetadataConnection, tableString);
+                if (useProvider()) {
+                    metadataColumns = provider.returnMetadataColumnsFromTable(tableString, metadataconnection);
+                } else {
+                    metadataColumns = ExtractMetaDataFromDataBase.returnMetadataColumnsFormTable(metadataconnection, tableString);
+                }
 
                 tableEditorView.getMetadataEditor().removeAll();
 
@@ -1259,11 +1178,11 @@ public class DatabaseTableForm extends AbstractForm {
      */
 
     public IMetadataConnection getIMetadataConnection() {
-        return this.iMetadataConnection;
+        return this.metadataconnection;
     }
 
     public void setIMetadataConnection(IMetadataConnection metadataConnection) {
-        this.iMetadataConnection = metadataConnection;
+        this.metadataconnection = metadataConnection;
     }
 
     /**

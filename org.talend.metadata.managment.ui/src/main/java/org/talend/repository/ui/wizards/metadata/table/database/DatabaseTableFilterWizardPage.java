@@ -16,6 +16,7 @@ import org.eclipse.jface.dialogs.IDialogPage;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
+import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -33,6 +34,8 @@ public class DatabaseTableFilterWizardPage extends WizardPage {
 
     private final ConnectionItem connectionItem; // hywang add
 
+    private IMetadataConnection metadataConnection;
+
     /**
      * DatabaseWizardPage constructor (to instance IMetadataConnection OR MetaDataTableType). If MetaDataTableType
      * exist, it's an update of existing metadata else it's a new metadata.
@@ -43,10 +46,12 @@ public class DatabaseTableFilterWizardPage extends WizardPage {
      * 
      * @param ISelection
      */
-    public DatabaseTableFilterWizardPage(TableInfoParameters tableInfoParameters, ConnectionItem connectionItem) {
+    public DatabaseTableFilterWizardPage(TableInfoParameters tableInfoParameters, ConnectionItem connectionItem,
+            IMetadataConnection metadataconnection) {
         super("wizardPage"); //$NON-NLS-1$
         this.tableInfoParameters = tableInfoParameters;
         this.connectionItem = connectionItem;
+        this.metadataConnection = metadataconnection;
     }
 
     public ConnectionItem getConnectionItem() {
@@ -60,7 +65,7 @@ public class DatabaseTableFilterWizardPage extends WizardPage {
      */
     public void createControl(final Composite parent) {
 
-        tableForm = new DatabaseTableFilterForm(parent, this);
+        tableForm = new DatabaseTableFilterForm(parent, this, metadataConnection);
 
         AbstractForm.ICheckListener listener = new AbstractForm.ICheckListener() {
 

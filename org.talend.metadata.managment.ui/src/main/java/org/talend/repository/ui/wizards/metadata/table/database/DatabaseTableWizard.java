@@ -146,7 +146,8 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
         if (creation && !skipStep) {
             selectorWizardPage = new SelectorTableWizardPage(connectionItem, isRepositoryObjectEditable(), tableInfoParameters,
                     metadataConnection, temConnection);
-            tableFilterWizardPage = new DatabaseTableFilterWizardPage(tableInfoParameters, this.connectionItem);
+            tableFilterWizardPage = new DatabaseTableFilterWizardPage(tableInfoParameters, this.connectionItem,
+                    metadataConnection);
 
             tableFilterWizardPage.setDescription(Messages.getString("DatabaseTableWizard.description")); //$NON-NLS-1$
             tableFilterWizardPage.setPageComplete(true);

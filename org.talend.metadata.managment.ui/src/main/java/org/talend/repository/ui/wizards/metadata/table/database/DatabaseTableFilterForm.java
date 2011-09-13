@@ -30,11 +30,13 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase.ETableTypes;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
-import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.metadata.builder.database.extractots.IDBMetadataProviderObject;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.metadata.managment.ui.i18n.Messages;
@@ -84,12 +86,16 @@ public class DatabaseTableFilterForm extends AbstractForm {
 
     private Button newButton;
 
-    private final ConnectionItem connectionItem;
-
-    public DatabaseTableFilterForm(Composite parent, DatabaseTableFilterWizardPage page) {
+    public DatabaseTableFilterForm(Composite parent, DatabaseTableFilterWizardPage page, IMetadataConnection metadataconnection) {
         super(parent, SWT.NONE);
         tableInfoParameters = page.getTableInfoParameters();
         this.connectionItem = page.getConnectionItem(); // hywang add
+        this.metadataconnection = metadataconnection;
+        this.typeName = EDatabaseTypeName.getTypeFromDbType(metadataconnection.getDbType());
+        /* use provider for the databse didn't use JDBC,for example: HBase */
+        if (typeName != null && typeName.isUseProvider()) {
+            this.provider = ExtractMetaDataFromDataBase.getProviderByDbType(this.metadataconnection.getDbType());
+        }
         setupForm();
     }
 
@@ -110,6 +116,12 @@ public class DatabaseTableFilterForm extends AbstractForm {
         }
 
         switchFilter();
+        /** need to see which controls will be hide or diabled.From metadata_provider **/
+        IDBMetadataProviderObject providerObjectByDbType = ExtractMetaDataFromDataBase
+                .getProviderObjectByDbType(metadataconnection.getDbType());
+        if (typeName != null && typeName.isUseProvider() && !providerObjectByDbType.isSupportJDBC()) {
+            disableAllJDBCControls();
+        }
     }
 
     /**
@@ -336,6 +348,24 @@ public class DatabaseTableFilterForm extends AbstractForm {
         removeButton.setText(Messages.getString("DatabaseTableFilterForm.remove")); //$NON-NLS-1$
         gridData = new GridData(GridData.FILL_BOTH);
         removeButton.setLayoutData(gridData);
+    }
+
+    private void disableAllJDBCControls() {
+        tableCheck.setEnabled(false);
+        viewCheck.setEnabled(false);
+        viewCheck.setSelection(false);
+        synonymCheck.setEnabled(false);
+        synonymCheck.setSelection(false);
+        setNamelabel.setEnabled(false);
+        nameFilter.setEnabled(false);
+        newButton.setEnabled(false);
+        newButton.setEnabled(false);
+        editButton.setEnabled(false);
+        removeButton.setEnabled(false);
+        usedName.setEnabled(false);
+        usedSql.setEnabled(false);
+        sqllabel.setEnabled(false);
+        sqlFilter.setEnabled(false);
     }
 
     /**
