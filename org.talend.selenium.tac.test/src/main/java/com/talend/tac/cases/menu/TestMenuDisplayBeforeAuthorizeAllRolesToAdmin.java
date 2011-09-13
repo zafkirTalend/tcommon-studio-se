@@ -126,7 +126,7 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 		this.waitForElementPresent(
 				"//div[contains(text(),'Command line/secondary (4 Parameters')]", WAIT_TIME);
 		this.waitForElementPresent(
-				"//div[contains(text(),'Database (5 Parameters')]", WAIT_TIME);
+				"//div[contains(text(),'Database (4 Parameters')]", WAIT_TIME);
 		this.waitForElementPresent(
 				"//div[contains(text(),'ESB (2 Parameter')]", WAIT_TIME);
 		this.waitForElementPresent(
@@ -189,7 +189,7 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 				"//div[@class='header-title' and text()='Projects authorizations']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-panel-header-text' and text()='Projects']//ancestor::div[@class=' x-panel x-component']//span[@class='x-tree3-node-text' and text()='Data Quality']",
 				WAIT_TIME);
 		this.waitForElementPresent(
-				"//div[@class='header-title' and text()='Projects authorizations']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-panel-header-text' and text()='Projects']//ancestor::div[@class=' x-panel x-component']//span[@class='x-tree3-node-text' and text()='Master Data Management']",
+				"//div[@class='header-title' and text()='Projects authorizations']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-panel-header-text' and text()='Projects']//ancestor::div[@class=' x-panel x-component']//div[contains(@class,'x-tree3-node-ct x-tree3 x-component')]//span[contains(text(),'Master Data Management')]",
 				WAIT_TIME);
 	}
 
