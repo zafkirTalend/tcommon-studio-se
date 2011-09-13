@@ -166,7 +166,10 @@ public enum EDatabaseConnTemplate {
             "xxxx")), //$NON-NLS-1$
 
     HIVE(new DbConnStr(EDatabaseTypeName.HIVE, "jdbc:hive://<host>:<port>/<sid>", //$NON-NLS-1$
-            "10000"));
+            "10000")),
+
+    HBASE(new DbConnStr(EDatabaseTypeName.HBASE, "127.0.0.1", //$NON-NLS-1$
+            "2181"));
 
     private DbConnStr connStr;
 
@@ -271,6 +274,7 @@ public enum EDatabaseConnTemplate {
             databaseType.remove(getDBTypeName(EDatabaseConnTemplate.HSQLDB_WEBSERVER, display));
             databaseType.remove(getDBTypeName(EDatabaseConnTemplate.VERTICA, display));
             databaseType.remove(getDBTypeName(EDatabaseConnTemplate.HIVE, display));
+            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.HBASE, display));
         }
         if (sort) {
             String[] sortedArray = databaseType.toArray(new String[0]);
@@ -318,6 +322,7 @@ public enum EDatabaseConnTemplate {
             case IBMDB2_ZOS:
             case SYBASEASE:
             case SAS:
+            case HBASE:
                 return true;
             default:
             }

@@ -41,6 +41,9 @@ class DbConnStr {
 
     protected String additionProperty;
 
+    // for hbase only need server name and port can create a connection
+    protected String server;
+
     protected EDatabaseVersion4Drivers[] dbVersions;
 
     DbConnStr(EDatabaseTypeName dbType, String urlTemplate, String defaultPort, String additionProperty,
@@ -134,7 +137,7 @@ class DbConnStr {
             }
 
         } catch (MalformedPatternException e) {
-            // 
+            //
         }
 
         StringBuffer sb = new StringBuffer();

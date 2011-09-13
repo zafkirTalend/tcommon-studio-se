@@ -105,7 +105,10 @@ public enum EDatabaseTypeName {
 
     HIVE("Hive", "Hive", Boolean.FALSE, "HIVE", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.None), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-    H2("H2", "H2", Boolean.FALSE, "H2", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.None);//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    H2("H2", "H2", Boolean.FALSE, "H2", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.None), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+
+    HBASE(
+          "HBase", "HBase", Boolean.FALSE, "HBASE", EDatabaseSchemaOrCatalogMapping.None, EDatabaseSchemaOrCatalogMapping.Column_Family, true); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     // displayName is used in Java code.
     private String displayName;
@@ -120,6 +123,8 @@ public enum EDatabaseTypeName {
 
     // needs a mapping for bug 0004305
     private String xmlType;
+
+    private boolean useProvider = false;
 
     private EDatabaseSchemaOrCatalogMapping catalogMappingField;
 
@@ -162,6 +167,13 @@ public enum EDatabaseTypeName {
         this.xmlType = product;
         this.catalogMappingField = catalogMappingField;
         this.schemaMappingField = schemaMappingField;
+    }
+
+    EDatabaseTypeName(String dbType, String displayName, Boolean isNeedSchema, String product,
+            EDatabaseSchemaOrCatalogMapping catalogMappingField, EDatabaseSchemaOrCatalogMapping schemaMappingField,
+            boolean useProvider) {
+        this(dbType, displayName, isNeedSchema, product, catalogMappingField, schemaMappingField);
+        this.useProvider = useProvider;
     }
 
     EDatabaseTypeName(String dbType, String displayName, Boolean isNeedSchema, String product, String xmlType,
@@ -262,6 +274,10 @@ public enum EDatabaseTypeName {
             }
         }
         return false;
+    }
+
+    public boolean isUseProvider() {
+        return useProvider;
     }
 
 }

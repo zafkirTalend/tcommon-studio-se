@@ -8,6 +8,7 @@
    <extension-point id="connection_provider" name="Connection provider" schema="schema/connection_provider.exsd"/>
    <extension-point id="repository_handler" name="Repository handler" schema="schema/repository_handler.exsd"/>
    <extension-point id="repository_service" name="Repository service" schema="schema/repository_service.exsd"/>
+   <extension-point id="metadata_provider" name="Metadata provider" schema="schema/metadata_provider.exsd"/>
 
    <extension
          point="org.talend.core.runtime.service">

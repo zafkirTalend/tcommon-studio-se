@@ -98,7 +98,11 @@ public enum EDatabaseVersion4Drivers {
 
     HIVE(new DbVersion4Drivers(EDatabaseTypeName.HIVE, new String[] { "hive-jdbc-0.7.0.jar", "hive-metastore-0.7.0.jar",
             "hive-exec-0.7.0.jar", "hive-service-0.7.0.jar", "libfb303.jar", "hadoop-0.20.2-core.jar",
-            "commons-logging-1.0.4.jar", "log4j-1.2.15.jar", "slf4j-api-1.6.1.jar", "slf4j-log4j12-1.6.1.jar" }));
+            "commons-logging-1.0.4.jar", "log4j-1.2.15.jar", "slf4j-api-1.6.1.jar", "slf4j-log4j12-1.6.1.jar" })),
+
+    HBASE(new DbVersion4Drivers(EDatabaseTypeName.HBASE, new String[] { "hadoop-core-0.20.2-cdh3u0.jar",
+            "hbase-0.90.1-cdh3u0.jar", "zookeeper-3.3.3-cdh3u0.jar", "commons-lang3-3.0.jar", "commons-logging-1.1.1.jar",
+            "log4j-1.2.16.jar" }));
 
     private DbVersion4Drivers dbVersionBean;
 
