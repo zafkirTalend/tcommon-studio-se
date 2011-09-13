@@ -1069,7 +1069,7 @@ public class RepositoryToComponentProperty {
             }
         }
         if (value.equals("RAC_URL")) {
-            return connection.getServerName();
+            return TalendQuoteUtils.addQuotes(connection.getServerName());
         }
         return null;
     }
