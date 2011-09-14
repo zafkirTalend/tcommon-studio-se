@@ -8,11 +8,10 @@
 // You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
-//   
+//
 // ============================================================================
 package org.talend.librariesmanager.ui.actions;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +19,6 @@ import java.util.List;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
@@ -53,10 +51,9 @@ public class RemoveExternalJarAction extends Action {
         super();
         setText("Remove external JARs"); //$NON-NLS-1$
         setDescription("Remove external JARs"); //$NON-NLS-1$
-        setImageDescriptor(PlatformUI.getWorkbench().getSharedImages()
-                .getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));
-        setDisabledImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(
-                ISharedImages.IMG_TOOL_DELETE_DISABLED));
+        setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));
+        setDisabledImageDescriptor(PlatformUI.getWorkbench().getSharedImages()
+                .getImageDescriptor(ISharedImages.IMG_TOOL_DELETE_DISABLED));
         setEnabled(true);
         init();
     }
@@ -101,11 +98,9 @@ public class RemoveExternalJarAction extends Action {
         BusyIndicator.showWhile(Display.getDefault(), new Runnable() {
 
             public void run() {
-                String libpath = CorePlugin.getDefault().getLibrariesService().getLibrariesPath() + File.separatorChar;
                 for (ModuleNeeded module : modules) {
-
                     try {
-                        CorePlugin.getDefault().getLibrariesService().undeployLibrary(libpath + module.getModuleName());
+                        CorePlugin.getDefault().getLibrariesService().undeployLibrary(module.getModuleName());
                     } catch (Exception e) {
                         ExceptionHandler.process(e);
                     }
@@ -118,11 +113,18 @@ public class RemoveExternalJarAction extends Action {
                     IClasspathEntry[] resolvedClasspath = project.getResolvedClasspath(true);
                     projectLibraries.addAll(Arrays.asList(resolvedClasspath));
                     for (ModuleNeeded module : modules) {
-                        projectLibraries.remove(JavaCore.newLibraryEntry(new Path(libpath + module.getModuleName()),
-                                null, null));
+                        IClasspathEntry foundEntry = null;
+                        for (IClasspathEntry entry : resolvedClasspath) {
+                            if (entry.getPath().toPortableString().contains(module.getModuleName())) {
+                                foundEntry = entry;
+                                break;
+                            }
+                        }
+                        if (foundEntry != null) {
+                            projectLibraries.remove(foundEntry);
+                        }
                     }
-                    project.setRawClasspath(projectLibraries.toArray(new IClasspathEntry[projectLibraries.size()]),
-                            null);
+                    project.setRawClasspath(projectLibraries.toArray(new IClasspathEntry[projectLibraries.size()]), null);
                     setEnabled(false);
                 } catch (JavaModelException e) {
                     ExceptionHandler.process(e);

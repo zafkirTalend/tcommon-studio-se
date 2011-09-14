@@ -418,10 +418,10 @@ public class ModulesNeededProvider {
         unUsedModules.add(needed);
     }
 
-    public static void userRemoveUnusedModules(String url) {
+    public static void userRemoveUnusedModules(String urlOrName) {
         ModuleNeeded needed = null;
         for (ModuleNeeded module : unUsedModules) {
-            if (module.getContext().equals(url)) {
+            if (module.getModuleName().equals(urlOrName) || module.getContext().equals(urlOrName)) {
                 needed = module;
                 break;
             }

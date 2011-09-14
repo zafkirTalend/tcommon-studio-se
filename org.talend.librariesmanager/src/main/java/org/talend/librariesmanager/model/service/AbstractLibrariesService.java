@@ -33,9 +33,10 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ILibraryManagerService;
 import org.talend.core.PluginChecker;
 import org.talend.core.language.ECodeLanguage;
-import org.talend.core.language.LanguageManager;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
@@ -66,8 +67,6 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
 
     // protected String LIBS = "libs";
 
-    public abstract String getLibrariesPath();
-
     public abstract URL getRoutineTemplate();
 
     public abstract URL getBeanTemplate();
@@ -96,12 +95,14 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         final File targetFile = new File(PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA) + File.separatorChar
                 + sourceFile.getName());
 
-        repositoryBundleService.deploy(sourceFile.toURI());
+        if (!repositoryBundleService.contains(source.getFile())) {
+            repositoryBundleService.deploy(sourceFile.toURI());
+        }
 
         ModulesNeededProvider.userAddImportModules(targetFile.getPath(), sourceFile.getName(), ELibraryInstallStatus.INSTALLED);
-        if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
-            addResolvedClasspathPath(sourceFile.getName());
-        }
+        // if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
+        // addResolvedClasspathPath(sourceFile.getName());
+        // }
         fireLibrariesChanges();
 
         // for feature 12877
@@ -142,11 +143,16 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
     protected void addResolvedClasspathPath(String libName) {
     }
 
-    public void undeployLibrary(String path) throws IOException {
-        File file = new File(path);
-        FilesUtils.removeFile(file);
-        ModulesNeededProvider.userRemoveUnusedModules(file.getPath());
-        fireLibrariesChanges();
+    public void undeployLibrary(String jarName) throws IOException {
+        ILibraryManagerService service = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
+                ILibraryManagerService.class);
+        if (service.delete(jarName)) {
+            ModulesNeededProvider.userRemoveUnusedModules(jarName);
+            fireLibrariesChanges();
+        } else {
+            ExceptionHandler.process(new Exception("Can not remove the module " + jarName
+                    + ", this is certainly a module from a component provider and not a user module"));
+        }
     }
 
     public List<Problem> getProblems(INode node, IElement element) {

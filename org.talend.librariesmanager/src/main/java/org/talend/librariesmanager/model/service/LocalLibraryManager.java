@@ -24,6 +24,7 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EMap;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
@@ -42,14 +43,12 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     private static final String JAR_INDEX = "/index.xml"; //$NON-NLS-1$
 
-    private static final String COMPONENT_EXT_ECOSYSTEM = "/ext/ecosystem";
-
-    private static final String COMPONENT_EXT_USER = "/ext/user";
+    private Set<String> jarList = new HashSet<String>();
 
     // private long totalSizeCanBeReduced = 0;
 
     public boolean isInitialized() {
-        String installLocation = getOBRRoot().getAbsolutePath();
+        String installLocation = getStorageDirectory().getAbsolutePath();
         File indexFile = new File(installLocation + JAR_INDEX);
         if (indexFile.exists()) {
             LibrariesIndexManager.getInstance().loadResource();
@@ -70,7 +69,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
      * @see org.talend.core.IRepositoryBundleService#deploy()
      */
     public void deploy(URI jarFileUri, IProgressMonitor... monitorWrap) {
-        String installLocation = getOBRRoot().getAbsolutePath();
+        String installLocation = getStorageDirectory().getAbsolutePath();
         File indexFile = new File(installLocation + JAR_INDEX);
         if (indexFile.exists()) {
             LibrariesIndexManager.getInstance().loadResource();
@@ -93,21 +92,21 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 return;
             if (contributeID.equals("")) {
                 if (file.isDirectory()) {
-                    FilesUtils.copyFolder(new File(jarFileUri), getOBRRoot(), false, FilesUtils.getExcludeSystemFilesFilter(),
-                            FilesUtils.getAcceptJARFilesFilter(), false, monitorWrap);
+                    FilesUtils.copyFolder(new File(jarFileUri), getStorageDirectory(), false,
+                            FilesUtils.getExcludeSystemFilesFilter(), FilesUtils.getAcceptJARFilesFilter(), false, monitorWrap);
                 } else {
-                    File target = new File(getOBRRoot().getAbsolutePath(), file.getName());
+                    File target = new File(getStorageDirectory().getAbsolutePath(), file.getName());
                     FilesUtils.copyFile(file, target);
                 }
             } else {
                 if ("org.talend.designer.components.model.UserComponentsProvider".contains(contributeID)
                         || "org.talend.designer.components.ecosystem.EcosystemComponentsProvider".contains(contributeID)) {
                     if (file.isDirectory()) {
-                        FilesUtils.copyFolder(new File(jarFileUri), getOBRRoot(), false,
+                        FilesUtils.copyFolder(new File(jarFileUri), getStorageDirectory(), false,
                                 FilesUtils.getExcludeSystemFilesFilter(), FilesUtils.getAcceptJARFilesFilter(), false,
                                 monitorWrap);
                     } else {
-                        File target = new File(getOBRRoot().getAbsolutePath(), file.getName());
+                        File target = new File(getStorageDirectory().getAbsolutePath(), file.getName());
                         FilesUtils.copyFile(file, target);
                     }
                 } else {
@@ -170,7 +169,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
         LibrariesIndexManager.getInstance().loadResource();
         String sourcePath = null, targetPath = pathToStore;
         try {
-            List<File> jarFiles = FilesUtils.getJarFilesFromFolder(getOBRRoot(), jarNeeded);
+            List<File> jarFiles = FilesUtils.getJarFilesFromFolder(getStorageDirectory(), jarNeeded);
             if (jarFiles.size() > 0) {
                 File jarFile = jarFiles.get(0);
                 File target = new File(StringUtils.trimToEmpty(pathToStore));
@@ -248,7 +247,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
     public Set<String> list(IProgressMonitor... monitorWrap) {
         Set<String> names = new HashSet<String>();
         try {
-            List<File> jarFiles = FilesUtils.getJarFilesFromFolder(getOBRRoot(), null);
+            List<File> jarFiles = FilesUtils.getJarFilesFromFolder(getStorageDirectory(), null);
             if (jarFiles.size() > 0) {
                 for (File file : jarFiles) {
                     names.add(file.getName());
@@ -268,10 +267,10 @@ public class LocalLibraryManager implements ILibraryManagerService {
         return names;
     }
 
-    private File getOBRRoot() {
+    private File getStorageDirectory() {
         String librariesPath = PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA);
-        File OBRDir = new File(librariesPath);
-        return OBRDir;
+        File storageDir = new File(librariesPath);
+        return storageDir;
     }
 
     public void clearCache() {
@@ -279,6 +278,40 @@ public class LocalLibraryManager implements ILibraryManagerService {
         LibrariesIndexManager.getInstance().getIndex().setInitialized(false);
         LibrariesIndexManager.getInstance().getIndex().getJarsToRelativePath().clear();
         LibrariesIndexManager.getInstance().saveResource();
+    }
+
+    public boolean contains(String jarName) {
+        if (jarList.contains(jarName)) {
+            return true;
+        }
+        jarList = list(new NullProgressMonitor());
+        return jarList.contains(jarName);
+    }
+
+    /*
+     * (non-Jsdoc)
+     * 
+     * @see org.talend.core.ILibraryManagerService#delete(java.lang.String)
+     */
+    public boolean delete(String jarName) {
+        // only delete jar from lib/java, do not delete jars from original components providers.
+
+        try {
+            List<File> jarFiles = FilesUtils.getJarFilesFromFolder(getStorageDirectory(), null);
+            if (jarFiles.size() > 0) {
+                for (File file : jarFiles) {
+                    if (file.getName().equals(jarName)) {
+                        file.delete();
+                        jarList.remove(jarName);
+                        return true;
+                    }
+                }
+            }
+        } catch (MalformedURLException e) {
+            ExceptionHandler.process(e);
+        }
+
+        return false;
     }
 
 }

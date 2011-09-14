@@ -14,7 +14,6 @@ package org.talend.core;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.URI;
@@ -34,6 +33,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -48,11 +48,9 @@ import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.SystemException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.generation.JavaUtils;
-import org.talend.commons.utils.io.FilesUtils;
 import org.talend.commons.xml.XmlUtil;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.ComponentUtilities;
-import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.ColumnNameChanged;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -452,11 +450,37 @@ public class CoreService implements ICoreService {
     }
 
     public void synchronizeSapLib() {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesService.class)) {
-            ILibrariesService libService = (ILibrariesService) GlobalServiceRegister.getDefault().getService(
-                    ILibrariesService.class);
-            // feature 17789
-            Bundle bundle = Platform.getBundle(PluginChecker.getSapWizardPluginId());
+        ILibraryManagerService libManager = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
+                ILibraryManagerService.class);
+
+        // feature 17789
+        Bundle bundle = Platform.getBundle(PluginChecker.getSapWizardPluginId());
+        if (bundle instanceof BundleHost) {
+            BundleHost bundleHost = (BundleHost) bundle;
+            final BundleData bundleData = bundleHost.getBundleData();
+            if (bundleData instanceof BaseData) {
+                BaseData baseData = (BaseData) bundleData;
+                final BundleFile bundleFile = baseData.getBundleFile();
+                final File baseFile = bundleFile.getBaseFile();
+                String[] allNeededModuls = SapJcoVersion.getAllNeededModuls();
+                for (int i = 0; i < allNeededModuls.length; i++) {
+                    String name = allNeededModuls[i];
+                    if (!libManager.contains(name)) {
+                        continue;
+                    }
+                    libManager.retrieve(name, baseFile.getAbsolutePath(), new NullProgressMonitor());
+                }
+            }
+        }
+    }
+
+    public void resetUniservLibraries() {
+        ILibraryManagerService libManager = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
+                ILibraryManagerService.class);
+
+        String jarNeeded = "uniserv.jar"; //$NON-NLS-1$
+        if (libManager.contains(jarNeeded)) {
+            Bundle bundle = Platform.getBundle("org.talend.libraries.uniserv");
             if (bundle instanceof BundleHost) {
                 BundleHost bundleHost = (BundleHost) bundle;
                 final BundleData bundleData = bundleHost.getBundleData();
@@ -464,57 +488,8 @@ public class CoreService implements ICoreService {
                     BaseData baseData = (BaseData) bundleData;
                     final BundleFile bundleFile = baseData.getBundleFile();
                     final File baseFile = bundleFile.getBaseFile();
-                    String[] allNeededModuls = SapJcoVersion.getAllNeededModuls();
-                    for (int i = 0; i < allNeededModuls.length; i++) {
-                        String name = allNeededModuls[i];
-                        String jarSource = libService.getJavaLibrariesPath() + File.separatorChar + name;
-                        String targetPath = "";
-                        File source = new File(jarSource);
-                        if (source.exists()) {
-                            targetPath = baseFile.getAbsolutePath() + File.separator + name;
-                            File target = new File(targetPath);
-                            try {
-                                FilesUtils.copyFile(source, target);
-                            } catch (FileNotFoundException e) {
-                                ExceptionHandler.process(e);
-                            } catch (IOException e) {
-                                ExceptionHandler.process(e);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
 
-    public void resetUniservLibraries() {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesService.class)) {
-            ILibrariesService libService = (ILibrariesService) GlobalServiceRegister.getDefault().getService(
-                    ILibrariesService.class);
-
-            final String jarJco = libService.getJavaLibrariesPath() + "/" + "uniserv.jar";
-            String targetPath = "";
-            File source = new File(jarJco);
-            if (source.exists()) {
-                Bundle bundle = Platform.getBundle("org.talend.libraries.uniserv");
-                if (bundle instanceof BundleHost) {
-                    BundleHost bundleHost = (BundleHost) bundle;
-                    final BundleData bundleData = bundleHost.getBundleData();
-                    if (bundleData instanceof BaseData) {
-                        BaseData baseData = (BaseData) bundleData;
-                        final BundleFile bundleFile = baseData.getBundleFile();
-                        final File baseFile = bundleFile.getBaseFile();
-                        targetPath = baseFile.getAbsolutePath() + "/" + "uniserv.jar";
-
-                        File target = new File(targetPath);
-                        try {
-                            FilesUtils.copyFile(source, target);
-                        } catch (FileNotFoundException e) {
-                            ExceptionHandler.process(e);
-                        } catch (IOException e) {
-                            ExceptionHandler.process(e);
-                        }
-                    }
+                    libManager.retrieve(jarNeeded, baseFile.getAbsolutePath(), new NullProgressMonitor());
                 }
             }
         }

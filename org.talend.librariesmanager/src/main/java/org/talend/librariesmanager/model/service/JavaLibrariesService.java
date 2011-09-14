@@ -56,7 +56,6 @@ import org.talend.core.utils.BrandingChecker;
 import org.talend.librariesmanager.Activator;
 import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
-import org.talend.librariesmanager.prefs.PreferencesUtilities;
 import org.talend.repository.ProjectManager;
 
 /**
@@ -76,11 +75,6 @@ public class JavaLibrariesService extends AbstractLibrariesService {
     public static final String SOURCE_JAVA_BEANS_FOLDER = "beans"; //$NON-NLS-1$
 
     private static boolean isLibSynchronized;
-
-    @Override
-    public String getLibrariesPath() {
-        return PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA);
-    }
 
     @Override
     public URL getRoutineTemplate() {
@@ -301,16 +295,6 @@ public class JavaLibrariesService extends AbstractLibrariesService {
     public boolean isLibSynchronized() {
         return this.isLibSynchronized;
 
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.model.general.ILibrariesService#getJavaLibrariesPath()
-     */
-    public String getJavaLibrariesPath() {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     /*

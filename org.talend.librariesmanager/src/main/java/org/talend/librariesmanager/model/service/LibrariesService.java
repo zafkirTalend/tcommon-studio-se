@@ -43,8 +43,6 @@ public class LibrariesService implements ILibrariesService {
 
     private static ILibrariesService javaService = new JavaLibrariesService();
 
-    private static ILibrariesService perlService = loadPerlLibrariesService();
-
     public LibrariesService() {
 
     }
@@ -95,17 +93,9 @@ public class LibrariesService implements ILibrariesService {
         this.getLibrariesService().deployLibrary(source);
     }
 
-    public String getLibrariesPath() {
-        return this.getLibrariesService().getLibrariesPath();
-    }
-
-    public String getJavaLibrariesPath() {
-        return this.getJavaLibrariesService().getLibrariesPath();
-    }
-
     public String getPerlLibrariesPath() {
         if (this.getPerlLibrariesService() != null) {
-            return this.getPerlLibrariesService().getLibrariesPath();
+            return this.getPerlLibrariesService().getPerlLibrariesPath();
         }
         return null;
     }
