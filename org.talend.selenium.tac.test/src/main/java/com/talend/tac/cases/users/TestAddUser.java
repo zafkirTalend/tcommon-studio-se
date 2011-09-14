@@ -48,7 +48,7 @@ public class TestAddUser extends Login {
 	}
 	
 	//clear all users---modify firstname and lastname to "admin,admin" ---user'role change to 'administrator'
-    @Test(groups={"AddUser"})
+    @Test	
     @Parameters({"userName"})
     public void clearAllUsers(String userName) {
     	 List<String> users = new ArrayList<String>(); 
@@ -98,7 +98,7 @@ public class TestAddUser extends Login {
     }
     
     //add a user of user'role are all roles
-    @Test(dependsOnMethods={"clearAllUsers"})
+    @Test
     @Parameters({"userNameAllRoles","FirstName","LastName","PassWord","SvnLogin","SvnPassWord"})
 	public void testAddUserAllRoles(String userName,String FirstName,String LastName,String PassWord,String SvnLogin,
 			String SvnPassWord) throws Exception {
@@ -128,7 +128,7 @@ public class TestAddUser extends Login {
     
    
     //add a exist user(admin@company.com)
-	@Test(dependsOnMethods={"testAddUserAllRoles"})
+	@Test
 	@Parameters({"userName","FirstName","LastName","PassWord","SvnLogin","SvnPassWord"})
 	public void testAddExistUser(String userName,String FirstName,String LastName,String PassWord,
 			String SvnLogin,String SvnPassWord) throws Exception {
@@ -149,7 +149,7 @@ public class TestAddUser extends Login {
 	}
 	
     //add a user of role is 'administrator'
-	@Test(dependsOnMethods={"testAddExistUser"})
+	@Test
 	@Parameters({"LoginNameChooseAdministratorRole","FirstName","LastName","PassWord","SvnLogin","SvnPassWord"})
 	public void testAddNewUserRoleAdministrator(String LoginNameChooseAdministratorRole,String FirstName,String LastName,
 			String PassWord,String SvnLogin,String SvnPassWord) throws Exception {
@@ -170,7 +170,7 @@ public class TestAddUser extends Login {
 	}
 	
 	//add a user of choose mulriple roles
-	@Test(dependsOnMethods={"testAddNewUserRoleAdministrator"})
+	@Test
 	@Parameters({"LoginNameChooseMulripleRoles","FirstName","LastName","PassWord","SvnLogin","SvnPassWord"})
 	public void testAddUserMulripleRoles(String LoginNameChooseMulripleRoles,String FirstName,String LastName,
 			String PassWord,String SvnLogin,String SvnPassWord) throws Exception {
@@ -196,7 +196,7 @@ public class TestAddUser extends Login {
 	
 	
 	//add a user of uncheck 'Active'
-	@Test(dependsOnMethods={"testAddUserMulripleRoles"})
+	@Test
 	@Parameters({"LoginNameNotChooseActive","FirstName","LastName","PassWord","SvnLogin","SvnPassWord","LoginNameNotChooseActive"})
 	public void testAddUserNotChooseActive(String LoginNameNotChooseActive,String FirstName,String LastName,
 			String PassWord,String SvnLogin,String SvnPassWord,String LoginNameNotChooseActive1) throws Exception {
@@ -221,7 +221,7 @@ public class TestAddUser extends Login {
     }
 	
 	//add a user of type choose "Data Integration"
-	@Test(dependsOnMethods={"testAddUserNotChooseActive"})
+	@Test
 	@Parameters({"LoginName","FirstName","LastName","PassWordww","SvnLogin","SvnPassWord"})
 	public void testAddUserRoleDesignerTypeDataIntegration(String LoginName,String FirstName,String LastName,
 			String PassWordww,String SvnLogin,String SvnPassWord) throws Exception {
@@ -244,7 +244,7 @@ public class TestAddUser extends Login {
 	}
 	
 	//add a user of type choose "Data Quality"
-	@Test(dependsOnMethods={"testAddUserRoleDesignerTypeDataIntegration"})
+	@Test
 	@Parameters({"LoginNameChooseTypeDataQuality","FirstName","LastName",
 		"PassWordww","SvnLogin","SvnPassWord"})
 	public void testAddUserTypeChooseDataQuality(String LoginName,String FirstName,String LastName,
@@ -273,7 +273,7 @@ public class TestAddUser extends Login {
 	}
 	
 	//add a user of a wrong username
-	@Test(dependsOnMethods={"testAddUserTypeChooseDataQuality"})
+	@Test
 	@Parameters({"LoginNameWrongForm","FirstName","LastName","PassWordww","SvnLogin","SvnPassWord"})
     public void testAddUserLoginWrongForm(String LoginName,String FirstName,String LastName,
 			String PassWordww,String SvnLogin,String SvnPassWord) throws Exception {
