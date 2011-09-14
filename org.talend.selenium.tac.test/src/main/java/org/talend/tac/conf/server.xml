@@ -1,55 +1,63 @@
-<?xml version="1.0" encoding="UTF-8" ?> 
- <suite name="Suite" parallel="false">
-  
-  <parameter name="ChangeServerLablename" value="test_ServerChangeports" /> 
-  <parameter name="NullLabelServerHost" value="192.168.0.94" /> 
-  <parameter name="LabelServerStringPorts" value="test_ServerStringPorts" /> 
-  <parameter name="ServerLablename" value="test_serverTest" /> 
-  <parameter name="DeactiveServerlable" value="test_serverTest" /> 
-  <parameter name="PortInvalidServer" value="test_PortInvalidserver" /> 
-  <!-- 
-  <parameter name="RemoteWindowServerIp" value="test_windowsip" /> 
-  <parameter name="RemoteLinuxServerIp" value="test_linuxip" />
-   --> 
-  <parameter name="ServerUnused" value="test_serverTest" /> 
-  <parameter name="ServerDescription" value="server" /> 
-  
-  <!-- local server -->
-  <parameter name="ServerHost" value="localhost" /> 
-  <parameter name="ServerCommondport" value="8000" /> 
-  <parameter name="ServerFiletransfortport" value="8001" /> 
-  <parameter name="ServerMonitorport" value="8888" /> 
-  <parameter name="ServerTimeout" value="120" /> 
-  <parameter name="ServerUsername" value="" /> 
-  <parameter name="ServerPassword" value="" /> 
-  
- <!--  
-  <parameter name="ServerForUseAvailable" value="use_server_available" /> 
-  <parameter name="ServerForUseUnavailable" value="use_server_unactive" /> 
-  <parameter name="ServerForUseDownlabel" value="use_server_down" /> 
-  <parameter name="ServeravailableHost" value="192.168.0.144" /> 
- -->
- 
- 
- <test name="server">
- <!-- 		Environment needed to configured 1.start a job server on localhost 
-			2.start a job server on remote linux 3.start a job server on remote windows 
-		
-  --> 
- <classes>
-  <class name="com.talend.tac.cases.jobconductor.TestAddServer" /> 
-  <class name="com.talend.tac.cases.jobconductor.TestAddServerWithStringPortsInput" /> 
-  <class name="com.talend.tac.cases.jobconductor.TestAddServerWithNullLabel" /> 
-  <class name="com.talend.tac.cases.jobconductor.TestDeactiveAndReactiveServer" /> 
-  <class name="com.talend.tac.cases.jobconductor.TestDuplicateServer" /> 
-  <class name="com.talend.tac.cases.jobconductor.TestDeleteServer" /> 
-  <class name="com.talend.tac.cases.jobconductor.TestLinktoLinuxAndWindows" /> 
-  <class name="com.talend.tac.cases.jobconductor.TestCleanServers" /> 
-  <class name="com.talend.tac.cases.jobconductor.TestAddServerWithInvalidports" /> 
-  <class name="com.talend.tac.cases.jobconductor.TestAddServerLabelWithSpecialChar" /> 
-  <class name="com.talend.tac.cases.jobconductor.TestAddServerForUse" /> 
-  <class name="com.talend.tac.cases.jobconductor.TestDefaultJobServerPorts" /> 
-  </classes>
-  </test>
-  
+<?xml version="1.0" encoding="UTF-8" ?>
+<suite name="Suite" parallel="false">
+	<parameter name="ChangeServerLablename" value="test_ServerChangeports" />
+	<parameter name="NullLabelServerHost" value="192.168.0.94" />
+	<parameter name="LabelServerStringPorts" value="test_ServerStringPorts" />
+	<parameter name="ServerLablename" value="test_serverTest" />
+	<parameter name="DeactiveServerlable" value="test_serverTest" />
+	<parameter name="PortInvalidServer" value="test_PortInvalidserver" />
+	<parameter name="ServerUnused" value="test_serverTest" />
+	<parameter name="ServerDescription" value="server" />
+
+	<!-- local server -->
+	<parameter name="ServerHost" value="localhost" />
+	<parameter name="ServerCommondport" value="8000" />
+	<parameter name="ServerFiletransfortport" value="8001" />
+	<parameter name="ServerMonitorport" value="8888" />
+	<parameter name="ServerTimeout" value="120" />
+	<parameter name="ServerUsername" value="" />
+	<parameter name="ServerPassword" value="" />
+
+	
+	<test name="Addserver">
+		<classes>
+			<class name="com.talend.tac.cases.jobconductor.TestAddServer" />
+			<class name="com.talend.tac.cases.jobconductor.TestAddServerWithStringPortsInput" />
+			<class name="com.talend.tac.cases.jobconductor.TestAddServerWithNullLabel" />
+			<class name="com.talend.tac.cases.jobconductor.TestLinktoLinuxAndWindows" />
+			<class name="com.talend.tac.cases.jobconductor.TestAddServerWithInvalidports" />
+			<class name="com.talend.tac.cases.jobconductor.TestAddServerLabelWithSpecialChar" />
+			<class name="com.talend.tac.cases.jobconductor.TestDefaultJobServerPorts" />
+		</classes>
+	</test>
+	
+		<test name="DeactiveReactiveServer">
+		<classes>
+			<class name="com.talend.tac.cases.jobconductor.TestDeactiveAndReactiveServer" />
+		</classes>
+	    </test>
+	    
+	    <test name="DuplicateServer">
+		<classes>
+			<class name="com.talend.tac.cases.jobconductor.TestDuplicateServer" />
+		</classes>
+	    </test>
+	    
+	    <test name="deleteServer">
+		<classes>
+			<class name="com.talend.tac.cases.jobconductor.TestDeleteServer" />
+		</classes>
+	    </test>
+	    
+        <test name="CleanServersNotUsed">
+		<classes>
+			<class name="com.talend.tac.cases.jobconductor.TestCleanServers" />
+		</classes>
+	    </test>
+	    
+	    <test name="PrepareServersForUse">
+		<classes>
+			<class name="com.talend.tac.cases.jobconductor.TestAddServerForUse" />
+		</classes>
+	    </test>
 </suite>
