@@ -70,7 +70,7 @@ public class TestAddUserWithImportUser extends Login{
 	}	
 	
 	//test import user with a null'.cvs' file and check info
-	@Test(dependsOnMethods={"testAddUserImportUserWithCVSFile"})
+	@Test
 	@Parameters({"filePathOfNullCvsFile","addUserOfNullCvsFileInfo"})
 	public void testAddUserImportUserWithNullFile(String filePath,String info) {
 			
@@ -79,7 +79,7 @@ public class TestAddUserWithImportUser extends Login{
 	}	
 	
 	//test import user with a '.cvs' file, use a exist label and check info
-	@Test(dependsOnMethods={"testAddUserImportUserWithCVSFile"})
+	@Test
 	@Parameters({"filePathOfCvsFile","addUserUseExistLabelOfCvsFileInfo"})
 	public void testAddUserImportUserWithUseExistLabelOfCVSFile(String filePath,String info) {
 		
@@ -88,7 +88,7 @@ public class TestAddUserWithImportUser extends Login{
 	}
 	
 	//test import user with a '.xml' file and check info
-	@Test(dependsOnMethods={"testAddUserImportUserWithCVSFile"})
+	@Test
 	@Parameters({"filePathOfXMLFile","addUserOfXmlFileInfo"})
 	public void testAddUserImportUserWithXMLFile(String filePath,String info) {
 		
@@ -99,7 +99,7 @@ public class TestAddUserWithImportUser extends Login{
 	}	
 	
 	//test import user with a '.txt' file and check info
-	@Test(dependsOnMethods={"testAddUserImportUserWithCVSFile"})
+	@Test
 	@Parameters({"filePathOfTXTFile","addUserOfTXTFileInfo"})
 	public void testAddUserImportUserWithTxtFile(String filePath,String info) {
 		
@@ -111,7 +111,7 @@ public class TestAddUserWithImportUser extends Login{
 	 
 	
 	//test import user with a '.doc' file and check warn info
-	@Test(dependsOnMethods={"testAddUserImportUserWithCVSFile"})
+	@Test
 	@Parameters({"filePathOfDOCFile","addUserOfDOCFileInfo"})
 	public void testAddUserImportUserWithDOCFile(String filePath,String info) {
 		
@@ -120,7 +120,7 @@ public class TestAddUserWithImportUser extends Login{
 	}
 	
 	//test import user with a wrong label file and check warn info
-	@Test(dependsOnMethods={"testAddUserImportUserWithCVSFile"})
+	@Test
 	@Parameters({"filePathOfWrongLabelValueFile","addUserOfWrongLabelValueFileInfo"})
 	public void testAddUserImportUserWithWrongLabelValueFile(String filePath,String info) {
 		
@@ -129,7 +129,7 @@ public class TestAddUserWithImportUser extends Login{
 	}	
 	
 	//test import user with file of type is not exist  and check warn info
-	@Test(dependsOnMethods={"testAddUserImportUserWithCVSFile"})
+	@Test	
 	@Parameters({"filePathOfSetTypeIsNotExistFile","addUserOfSetTypeIsNotExistFileInfo"})
 	public void testAddUserImportUserWithSetTypeIsNotExistFile(String filePath,String info) {
 		
