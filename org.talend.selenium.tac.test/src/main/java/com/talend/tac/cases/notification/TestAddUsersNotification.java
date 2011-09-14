@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 public class TestAddUsersNotification extends AddNotification {
 	
-	 @Test(groups={"AddUserNotification"})
+	 @Test
 	 public void clearAllNotifications() {
     	 
          this.clickWaitForElementPresent("!!!menu.notification.element!!!");	
@@ -30,7 +30,7 @@ public class TestAddUsersNotification extends AddNotification {
     }
 	 
 	//add a user notification(MailNewUserNotification)
-	@Test(dependsOnMethods={"clearAllNotifications"})
+	@Test
 	@Parameters({"categoryUser","eventNewUser","descriptionNewUser","userName"})
 	public void testAddUsersMailNewUserNotification(String categoryUser, String eventNewUser, 
 			String descriptionNewUser, String LoginName) {
@@ -43,7 +43,7 @@ public class TestAddUsersNotification extends AddNotification {
  		selenium.setSpeed(MIN_SPEED);
 	}
 	//add a user notification(UserCreationNotification)
-	@Test(dependsOnMethods={"testAddUsersMailNewUserNotification"})
+	@Test
 	@Parameters({"categoryUser","eventUserCreation","descriptionUserCreation","userName"})
 	public void testAddUsersUserCreationNotification(String categoryUser, String eventUserCreation,
 			String descriptionUserCreation, String LoginName) {
@@ -58,7 +58,7 @@ public class TestAddUsersNotification extends AddNotification {
  		
 	}
 	//add a user notification(UserDeletionNotification)
-	@Test(dependsOnMethods={"testAddUsersUserCreationNotification"})
+	@Test
 	@Parameters({"categoryUser","eventUserDeletion","descriptionUserDeletion","userName"})
 	public void testAddUsersUserDeletionNotification(String categoryUser, String eventUserDeletion,
 			String descriptionUserDeletion, String LoginName) {
@@ -73,7 +73,7 @@ public class TestAddUsersNotification extends AddNotification {
  		
 	}
 	//add a user notification(Uncheck Active)
-	@Test(dependsOnMethods={"testAddUsersUserDeletionNotification"})
+	@Test
 	@Parameters({"categoryUser","eventNewUser","descriptionNewUser","userName"})
 	public void testAddUsersNotificationUncheckActive(String categoryUser, String eventNewUser, 
 			String descriptionNewUser, String LoginName) {
