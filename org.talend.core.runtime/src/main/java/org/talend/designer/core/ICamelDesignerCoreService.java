@@ -37,8 +37,6 @@ public interface ICamelDesignerCoreService extends IService {
 
     public ITalendSynchronizer createCamelJavaSynchronizer();
 
-    public ITalendSynchronizer createCamelPerlSynchronizer();
-
     public ERepositoryObjectType getBeansType();
 
     public boolean isInstanceofCamel(Item item);

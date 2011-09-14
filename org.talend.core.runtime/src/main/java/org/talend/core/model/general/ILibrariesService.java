@@ -51,15 +51,11 @@ public interface ILibrariesService extends IService {
 
     public List<URL> getTalendRoutines();
 
-    public String getLibrariesPath();
-
-    public String getJavaLibrariesPath();
-
     public String getPerlLibrariesPath();
 
     public void deployLibrary(URL source) throws IOException;
 
-    public void undeployLibrary(String path) throws IOException;
+    public void undeployLibrary(String jarName) throws IOException;
 
     public URL getRoutineTemplate();
 

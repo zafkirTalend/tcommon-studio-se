@@ -69,5 +69,9 @@ public interface ILibraryManagerService extends IService {
      */
     public Set<String> list(IProgressMonitor... monitorWrap);
 
+    public boolean delete(String jarName);
+
+    public boolean contains(String jarName);
+
     public void clearCache();
 }

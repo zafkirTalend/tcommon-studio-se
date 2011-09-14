@@ -50,7 +50,7 @@ public interface IProcessor {
      * @throws ProcessorException
      */
     public void generateCode(boolean statistics, boolean trace, boolean context) throws ProcessorException;
-    
+
     /**
      * generate the code of the current Process.
      * 
@@ -159,13 +159,6 @@ public interface IProcessor {
      * @return
      */
     public void setInterpreter(String interpreter);
-
-    /**
-     * Used to get the routine path.
-     * 
-     * @return
-     */
-    public String getLibraryPath() throws ProcessorException;
 
     /**
      * Used to set a specific routine path.
