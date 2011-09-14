@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-@Test(dependsOnGroups={"AddUserNotification"})
+
 public class TestCheckAllUsersJobserverTaskOfClickFirstCheckBox extends 
 CheckAllUsersJobserverTaskOfClickFirstCheckBox {
     
