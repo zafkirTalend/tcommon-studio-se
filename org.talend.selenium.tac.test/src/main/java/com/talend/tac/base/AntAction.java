@@ -1,6 +1,8 @@
 package com.talend.tac.base;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -15,6 +17,14 @@ public class AntAction {
 	
 	private void init(String file){
 		buildFile = new File(file);
+		
+		Base base = new Base();
+		String filePath = base.getAbsolutePath("org/talend/tac/folder/scripts/") + file;
+		
+		System.out.println("Path -- " + filePath);
+		buildFile = new File(filePath);
+		
+//		System.out.println("Url -- " + this.getClass().getClassLoader().getResource(file).toString());
 		project.setUserProperty("ant.file", buildFile.getAbsolutePath());
 		DefaultLogger consoleLogger = new DefaultLogger();
 		consoleLogger.setErrorPrintStream(System.err);
