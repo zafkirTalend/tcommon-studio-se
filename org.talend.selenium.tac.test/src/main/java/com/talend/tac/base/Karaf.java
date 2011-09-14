@@ -12,17 +12,14 @@ import org.apache.sshd.client.future.ConnectFuture;
 import org.apache.sshd.common.RuntimeSshException;
 
 public class Karaf {
-	private String libPath;
-	
     private String host = "localhost";
     private int port = 8101;
     private String user = "karaf";
     private String password = "karaf";
     
 
-    public Karaf(String host, String libPath){
+    public Karaf(String host){
     	this.host = host;
-    	this.libPath = libPath;
     }
     
     private SshClient client = null;
@@ -115,7 +112,6 @@ public class Karaf {
 		AntAction antAction = new AntAction();
 		
 		Hashtable properties = new Hashtable();
-		properties.put("hudson.selenium.libs", libPath);
 		properties.put("karaf.path", new Base().getAbsolutePath(""));
 		
 		Base base = new Base();
@@ -139,7 +135,7 @@ public class Karaf {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Karaf karaf = new Karaf(args[0], null);
+		Karaf karaf = new Karaf(args[0]);
 		String action ="";
 		for(int i=1; i<args.length -1; i++) {
 			action = action + " " + args[i];
