@@ -3,7 +3,7 @@ package com.talend.tac.cases.notification;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-@Test(dependsOnGroups={"AddUserNotification"})
+
 public class TestLicenseNotification extends AddNotification {
     
 	//test add a license notification of event on license expiration
