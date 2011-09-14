@@ -10,11 +10,15 @@ public class ClearTaskTrigger extends TaskUtils {
    
     @Test
     @Parameters({"labelRefProJobByMainProTRunJobRun","TaskDeleteLogs",
-    	"labelReferenceproTjava","TaskWithInactiveServer","duplicateTask","taskWithTjavaWithMulripleCheckpoint","taskWithTrunjobWithCheckpoint"})
+    	"labelReferenceproTjava","TaskWithInactiveServer","duplicateTask",
+    	"taskWithTjavaWithMulripleCheckpoint","taskWithTrunjobWithCheckpoint","TaskWithJobOfGenerateBigLogs"
+    	,"TaskOfAutomatedSelectingComboValue","taskForTestFileTrigger","TaskLabelOfLatestJob"})
     public void clearsTasks(String labelRefProJobByMainProTRunJobRun, 
     		String taskDeleteLogs,String testAddTaskForTestReferenceproTjava,
-    		String TaskWithInactiveServer,String Copy_of_testTaskNotChooseActive,String taskWithTjavaWithMulripleCheckpoint
-    		,String taskWithTrunjobWithCheckpoint) {
+    		String TaskWithInactiveServer,String Copy_of_testTaskNotChooseActive,String 
+    		taskWithTjavaWithMulripleCheckpoint,String taskWithTrunjobWithCheckpoint
+    		,String taskWithJobOfGenerateBigLogs,String taskOfAutomatedSelectingComboValue
+    		,String taskForTestFileTrigger,String taskLabelOfLatestJob) {
 
          clearTask(labelRefProJobByMainProTRunJobRun);
          clearTask("testTaskWithItems");
@@ -24,6 +28,10 @@ public class ClearTaskTrigger extends TaskUtils {
          clearTask(Copy_of_testTaskNotChooseActive);
          clearTask(taskWithTjavaWithMulripleCheckpoint);
          clearTask(taskWithTrunjobWithCheckpoint);
+         clearTask(taskWithJobOfGenerateBigLogs);
+         clearTask(taskOfAutomatedSelectingComboValue);
+         clearTask(taskForTestFileTrigger);
+         clearTask(taskLabelOfLatestJob);
          
     }
 	
