@@ -3,18 +3,12 @@ package com.talend.cases.dashboard.connection;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.annotations.Parameters;
-
-import java.awt.Event;
-
-import bsh.This;
-
 import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 import com.thoughtworks.selenium.Selenium;
 
 public class TestDuplicateConnection extends Login {
 	@Test
-	// (groups = "AddConnection")
 	@Parameters({ "Mysql_Connectionlabel" })
 	public void testDuplicateConnectionMysql(String label)
 			throws InterruptedException {

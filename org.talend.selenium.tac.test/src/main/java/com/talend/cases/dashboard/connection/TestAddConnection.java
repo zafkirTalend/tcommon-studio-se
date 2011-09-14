@@ -9,7 +9,7 @@ import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
 public class TestAddConnection extends Login {
-	@Test(groups = "AddConnection")
+	@Test
 	@Parameters( { "Mysql_Connectionlabel", "Mysql_Dbname", "Mysql_Dbtype",
 			"Mysql_Host", "Mysql_Serverport", "Mysql_Username",
 			"Mysql_Password", "Mysql_Datasourse", "Mysql_Additional",
@@ -21,7 +21,7 @@ public class TestAddConnection extends Login {
 				password, datasourse, additional, stat, logs);
 	}
 
-	@Test(groups = "AddConnection")
+	@Test
 	@Parameters( { "MSSQL_Connectionlabel", "MSSQL_Dbname", "MSSQL_Dbtype",
 			"MSSQL_Host", "MSSQL_Serverport", "MSSQL_Username",
 			"MSSQL_Password", "MSSQL_Datasourse", "MSSQL_Additional",
@@ -33,8 +33,8 @@ public class TestAddConnection extends Login {
 				password, datasourse, additional, stat, logs);
 
 	}
-
-	@Test(groups = "AddConnection")
+	
+	@Test
 	@Parameters( { "Oracle_Connectionlabel", "Oracle_Dbname", "Oracle_Dbtype",
 			"Oracle_Host", "Oracle_Serverport", "Oracle_Username",
 			"Oracle_Password", "Oracle_Datasourse", "Oracle_Additional",
