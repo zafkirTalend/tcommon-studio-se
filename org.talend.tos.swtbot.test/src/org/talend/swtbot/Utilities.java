@@ -34,7 +34,6 @@ import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefFigureCanvas;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
@@ -1533,46 +1532,6 @@ public class Utilities {
         } finally {
             Assert.assertNotNull("folder is renamed", newFolderItem);
         }
-    }
-
-    /**
-     * DOC fzhong Comment method "executeSQL".
-     * 
-     * @param dbItem the db item under node "DB Connection"
-     * @param sql sql you want to execute
-     */
-    public static void executeSQL(SWTBotTreeItem dbItem, String sql) {
-        long defaultTimeout = SWTBotPreferences.TIMEOUT;
-        SWTBotPreferences.TIMEOUT = 100;
-        if (sql != null) {
-            try {
-                dbItem.contextMenu("Edit queries").click();
-                try {
-                    if (gefBot.shell("Choose context").isActive())
-                        gefBot.button("OK").click();
-                } catch (WidgetNotFoundException wnfe) {
-                    // ignor this, means it's not context mode, did not pop up context confirm dialog
-                }
-                shell = gefBot.shell("SQL Builder [Repository Mode]").activate();
-                gefBot.styledText(0).setText(sql);
-                gefBot.toolbarButtonWithTooltip("Execute SQL (Ctrl+Enter)").click();
-
-                try {
-                    if (gefBot.shell("Error Executing SQL").isActive())
-                        gefBot.button("OK").click();
-                    Assert.fail("execute sql fail");
-                } catch (WidgetNotFoundException wnfe) {
-                    // ignor this, means did not pop up error dialog, sql executed successfully.
-                }
-            } catch (WidgetNotFoundException wnfe) {
-                Assert.fail(wnfe.getCause().getMessage());
-            } catch (Exception e) {
-                Assert.fail(e.getMessage());
-            } finally {
-                shell.close();
-            }
-        }
-        SWTBotPreferences.TIMEOUT = defaultTimeout;
     }
 
     /**

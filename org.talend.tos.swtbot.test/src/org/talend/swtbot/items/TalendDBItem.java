@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
+import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
@@ -51,7 +52,39 @@ public class TalendDBItem extends TalendMetadataItem {
     }
 
     public void executeSQL(String sql) {
-        Utilities.executeSQL(getItem(), sql);
+        SWTGefBot gefBot = new SWTGefBot();
+        SWTBotShell shell = null;
+        long defaultTimeout = SWTBotPreferences.TIMEOUT;
+        SWTBotPreferences.TIMEOUT = 100;
+        if (sql != null) {
+            try {
+                item.contextMenu("Edit queries").click();
+                try {
+                    if (gefBot.shell("Choose context").isActive())
+                        gefBot.button("OK").click();
+                } catch (WidgetNotFoundException wnfe) {
+                    // ignor this, means it's not context mode, did not pop up context confirm dialog
+                }
+                shell = gefBot.shell("SQL Builder [Repository Mode]").activate();
+                gefBot.styledText(0).setText(sql);
+                gefBot.toolbarButtonWithTooltip("Execute SQL (Ctrl+Enter)").click();
+
+                try {
+                    if (gefBot.shell("Error Executing SQL").isActive())
+                        gefBot.button("OK").click();
+                    Assert.fail("execute sql fail");
+                } catch (WidgetNotFoundException wnfe) {
+                    // ignor this, means did not pop up error dialog, sql executed successfully.
+                }
+            } catch (WidgetNotFoundException wnfe) {
+                Assert.fail(wnfe.getCause().getMessage());
+            } catch (Exception e) {
+                Assert.fail(e.getMessage());
+            } finally {
+                shell.close();
+            }
+        }
+        SWTBotPreferences.TIMEOUT = defaultTimeout;
     }
 
     public void retrieveDbSchema(String... schemas) {
