@@ -1,8 +1,6 @@
 package com.talend.tac.cases.license;
 
-import java.awt.Event;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +14,7 @@ import com.talend.tac.cases.Login;
 public class TestLicenseAccountsCount extends Login {
 	public double moreOver = 0.20;
 
-	@Test(dependsOnMethods = { "testAddMaxAmountsDIUsersAllowed" })
+	@Test
 	public void testAddDIChangeToDQ() throws InterruptedException {
 		// cleanAllExceptAdmin();
 		// int n = getDQcounts();
@@ -52,7 +50,7 @@ public class TestLicenseAccountsCount extends Login {
 		// cleanAllExceptAdmin();
 	}
 
-	@Test(dependsOnMethods = { "testAddDIChangeToDQ" })
+	@Test
 	public void testAddDQChangeToDI() throws InterruptedException {
 		// cleanAllExceptAdmin();
 		int n = getDIcounts();
@@ -125,7 +123,7 @@ public class TestLicenseAccountsCount extends Login {
 		selenium.setSpeed(MIN_SPEED);
 	}
 
-	@Test(dependsOnMethods = { "testAddMaxAmountsDQUsersAllowed" })
+	@Test
 	public void testAddMaxAmountsDIUsersAllowed() throws InterruptedException {
 		// cleanAllExceptAdmin();
 		int n = getDIcounts();
@@ -577,7 +575,7 @@ public class TestLicenseAccountsCount extends Login {
 
 	}
 
-	@Test(dependsOnMethods = { "testAddMaxAmountsMDMUsersAllowed" })
+	@Test
 	public void testMDMUsersMoreOver() throws InterruptedException {
 		// cleanAllExceptAdmin();
 		int n = getMDMcounts();
@@ -603,7 +601,7 @@ public class TestLicenseAccountsCount extends Login {
 		}
 	}
 
-	@Test(dependsOnMethods = { "testAddDQChangeToDI" })
+	@Test
 	public void testDIUsersMoreOver() throws InterruptedException {
 
 		int n = getDIcounts();
@@ -729,7 +727,7 @@ public class TestLicenseAccountsCount extends Login {
 		cleanAllExceptAdmin();
 	}
 
-	@Test(dependsOnMethods = { "testDQUsersMoreOver" })
+	@Test
 	public void testDIUsersMoreOverUnactive() throws InterruptedException {
 		// cleanAllExceptAdmin();
 		int n = getDIcounts();
@@ -765,7 +763,7 @@ public class TestLicenseAccountsCount extends Login {
 		// cleanAllExceptAdmin();
 	}
 
-	@Test(dependsOnMethods = { "testDIUsersMoreOverUnactive" })
+	@Test
 	public void testDIUsersMoreOverUnactiveReactive()
 			throws InterruptedException {
 		// cleanAllExceptAdmin();
@@ -883,7 +881,7 @@ public class TestLicenseAccountsCount extends Login {
 		// cleanAllExceptAdmin();
 	}
 
-	@Test(dependsOnMethods = { "testDIUsersMoreOver" })
+	@Test
 	public void testDQUsersMoreOver() throws InterruptedException {
 		// cleanAllExceptAdmin();
 		int n = getDQcounts();
@@ -1121,7 +1119,7 @@ public class TestLicenseAccountsCount extends Login {
 		cleanAllExceptAdmin();
 	}
 
-	@Test(dependsOnMethods = { "testMDMUsersMoreOver" })
+	@Test
 	public void testMDMUsersMoreOverUnactive() throws InterruptedException {
 		// cleanAllExceptAdmin();
 		int n = getMDMcounts();
@@ -1284,7 +1282,7 @@ public class TestLicenseAccountsCount extends Login {
 		}
 	}
 
-	@Test(dependsOnMethods = { "testDIUsersMoreOverUnactiveReactive" })
+	@Test
 	public void testDQUsersMoreOverUnactive() throws InterruptedException {
 		// cleanAllExceptAdmin();
 		int n = getDQcounts();
@@ -1361,7 +1359,7 @@ public class TestLicenseAccountsCount extends Login {
 
 	}
 
-	@Test(dependsOnMethods = { "testDQUsersMoreOverUnactive" })
+	@Test
 	public void testDQUsersMoreOverUnactiveReactive()
 			throws InterruptedException {
 		// cleanAllExceptAdmin();
