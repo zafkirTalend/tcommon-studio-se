@@ -12,7 +12,6 @@ public class TestDisplayUser extends Login {
 	    
 	//modify the users--->>according to role display
 	@Test
-//	(groups={"DisplayUser"},dependsOnGroups={"DuplicateUser"})
 	@Parameters({"userName"})
 	public void testDidplayUsers(String userName) throws Exception {
 	
@@ -32,7 +31,7 @@ public class TestDisplayUser extends Login {
         selenium.setSpeed(MIN_SPEED);
 	}
    
-	@Test(dependsOnMethods={"testDidplayUsers"})
+	@Test
 	@Parameters({"userName"})
 	public void testModifyDisplayUsersColumns(String userName) throws Exception {
 		
@@ -68,7 +67,7 @@ public class TestDisplayUser extends Login {
 	}
     
     //Modify the user display order  
-	@Test(dependsOnMethods={"testDidplayUsers"})
+	@Test
 	@Parameters({"userName","importUserName","CopyUser"})
 	public void testModifyDisplayUsersOrder(String userName,String importUserName,String CopyUser) throws Exception {
 		
@@ -87,7 +86,7 @@ public class TestDisplayUser extends Login {
      
 	}
     //hidden users/display users
-	@Test(dependsOnMethods={"testDidplayUsers"})
+	@Test
 	@Parameters({"userName","LoginName","LoginNameNotChooseActive","LoginNameChooseMulripleRoles"})
 	public void testHiddenDidplayUsers(String userName,String LoginName,
 			String LoginNameNotChooseActive,String LoginNameChooseMulripleRoles) throws Exception {
