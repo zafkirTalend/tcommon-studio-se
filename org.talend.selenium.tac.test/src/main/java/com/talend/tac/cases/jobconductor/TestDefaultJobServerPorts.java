@@ -2,13 +2,10 @@ package com.talend.tac.cases.jobconductor;
 
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import org.testng.Assert;
 
-import com.talend.tac.cases.Login;
-
-public class TestDefaultJobServerPorts extends Login {
-	@Test(groups = { "AddServer" })
+public class TestDefaultJobServerPorts extends Server {
+	@Test
 	@Parameters({ "ServerCommondport","ServerFiletransfortport","ServerMonitorport" })
 	public void testServerDefaultPorts(String commondport,String filetransport,String monitorport){
 		this.waitForElementPresent("!!!menu.executionServers.element!!!",

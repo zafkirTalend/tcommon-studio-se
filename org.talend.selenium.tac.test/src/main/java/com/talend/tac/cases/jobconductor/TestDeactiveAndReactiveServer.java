@@ -4,17 +4,14 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.talend.tac.cases.Login;
 
-public class TestDeactiveAndReactiveServer extends Login{
-	@Test(groups = { "DeactiveReactive" },dependsOnGroups = { "AddServer" })
+public class TestDeactiveAndReactiveServer extends Server{
+	@Test
 	@Parameters({ "DeactiveServerlable" })
-	public void serverDeactiveAndReactive(String deactiveServername) throws InterruptedException {
+	public void testServerDeactiveAndReactive(String deactiveServername) throws InterruptedException {
 //		Thread.sleep(5000);
 		boolean refresh= false;
-		this.waitForElementPresent("!!!menu.executionServers.element!!!", WAIT_TIME);
-		selenium.click("!!!menu.executionServers.element!!!");
-//		Thread.sleep(5000);
+	    this.openServerMenu();
 		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+deactiveServername+"')]", WAIT_TIME);
 		Thread.sleep(2000);
 			selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+deactiveServername+"')]");

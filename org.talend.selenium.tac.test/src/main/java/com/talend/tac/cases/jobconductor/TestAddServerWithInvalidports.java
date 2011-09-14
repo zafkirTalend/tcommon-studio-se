@@ -5,10 +5,8 @@ import org.testng.annotations.Test;
 
 import org.testng.Assert;
 
-import com.talend.tac.cases.Login;
-
-public class TestAddServerWithInvalidports extends Login {
-	@Test(groups = { "AddServer" })
+public class TestAddServerWithInvalidports extends Server {
+	@Test
 	@Parameters({ "PortInvalidServer", "ServerDescription",
 			"ServerHost", "ServerCommondport", "ServerFiletransfortport",
 			"ServerMonitorport", "ServerTimeout", "ServerUsername",
@@ -17,10 +15,7 @@ public class TestAddServerWithInvalidports extends Login {
 			String description, String host, String commondport,
 			String transfortport, String monitorport, String time,
 			String username, String password) {
-		this.waitForElementPresent("!!!menu.executionServers.element!!!",
-				WAIT_TIME);
-		selenium.click("!!!menu.executionServers.element!!!");
-		selenium.refresh();
+		this.openServerMenu();
 		this.waitForElementPresent("idSubModuleAddButton", WAIT_TIME);
 		addServerwithInvalideports(invalidLable);
 		

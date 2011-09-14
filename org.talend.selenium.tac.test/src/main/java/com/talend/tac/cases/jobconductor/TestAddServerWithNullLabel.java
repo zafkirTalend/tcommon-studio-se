@@ -5,16 +5,11 @@ import org.testng.annotations.Test;
 
 import org.testng.Assert;
 
-import com.talend.tac.cases.Login;
-
-public class TestAddServerWithNullLabel extends Login {
-	@Test(groups = { "AddServer" })
+public class TestAddServerWithNullLabel extends Server {
+	@Test
 	@Parameters({ "NullLabelServerHost" })
 	public void testServerNullLabel(String host) {
-		this.waitForElementPresent("!!!menu.executionServers.element!!!",
-				WAIT_TIME);
-		selenium.click("!!!menu.executionServers.element!!!");
-		selenium.refresh();
+		this.openServerMenu();
 		this.waitForElementPresent("idSubModuleAddButton", WAIT_TIME);
 		selenium.click("idSubModuleAddButton");
 		// lable

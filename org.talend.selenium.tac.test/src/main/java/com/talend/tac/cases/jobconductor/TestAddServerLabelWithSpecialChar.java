@@ -2,20 +2,13 @@ package com.talend.tac.cases.jobconductor;
 
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import org.testng.Assert;
 
-import com.talend.tac.cases.Login;
-
-public class TestAddServerLabelWithSpecialChar extends Login {
-	@Test(groups = { "AddServer" })
+public class TestAddServerLabelWithSpecialChar extends Server {
+	@Test
 	@Parameters({ "NullLabelServerHost" })
 	public void testServerLabelSpecial(String host) throws InterruptedException {
-		Thread.sleep(5000);
-		this.waitForElementPresent("!!!menu.executionServers.element!!!",
-				WAIT_TIME);
-		selenium.click("!!!menu.executionServers.element!!!");
-		selenium.refresh();
+		this.openServerMenu();
 		this.waitForElementPresent("idSubModuleAddButton", WAIT_TIME);
 		Thread.sleep(3000);
 		selenium.click("idSubModuleAddButton");
