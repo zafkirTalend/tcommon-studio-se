@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.testng.Assert;
 import org.testng.IClass;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
@@ -207,6 +208,25 @@ public class Base {
 		}
 		
 		return present;
+	}
+	
+	public void waitForElementDispear(String element, int timeout) {
+		if (selenium.isElementPresent(element)) {
+			for (int second = 0;; second++) {
+				if (second >= timeout)
+					Assert.assertFalse(selenium.isElementPresent(element));
+				try {
+					if ((!selenium.isElementPresent(element))) {
+						break;
+					} else {
+						this.sleep(1000);
+					}
+				} catch (Exception e) {
+				}
+
+			}
+		}
+
 	}
 	
 	public boolean waitElement(String element,int seconds){
@@ -487,6 +507,8 @@ public class Base {
 	 * @return
 	 */
 	public String parseRelativePath(String filePath){
+		System.out.println("path before:     "+filePath);
+		System.out.println("path after:     "+getfileURL(filePath).toString());
 		return this.getfileURL(filePath).toString();
 	}
 	
