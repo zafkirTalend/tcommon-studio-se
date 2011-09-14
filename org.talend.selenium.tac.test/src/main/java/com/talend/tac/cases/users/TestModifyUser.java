@@ -51,7 +51,7 @@ public class TestModifyUser extends Login {
 	}
 	
 	//modify user(admin@company.com)'role to all roles
-	@Test(dependsOnMethods={"testModifyLastAdministrationUserRole"})
+	@Test
 	@Parameters({"userName", "userPassword"})
 	public void testUserChooseAllRoles(String userName,String userPassword) throws Exception {
 		String roles = rb.getString("menu.role.administrator")+"/"+rb.getString("menu.role.viewer")+"/"
@@ -114,7 +114,7 @@ public class TestModifyUser extends Login {
 	}
     
 	//modify user(aaa@gmail.com)'loginname to 'account@company.com'
-	@Test(dependsOnMethods={"testModityAdminUserFiled"})
+	@Test
 	@Parameters({"userName","ModifiyUserName","DulicateUser"})
 	public void testModifyUser(String userName,String ModifiyUserName,String DulicateUser) throws Exception {
 	    
