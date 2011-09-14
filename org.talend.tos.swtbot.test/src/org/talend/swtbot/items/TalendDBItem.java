@@ -7,6 +7,7 @@ import java.util.List;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Assert;
 import org.talend.swtbot.Utilities;
@@ -34,7 +35,7 @@ public class TalendDBItem extends TalendMetadataItem {
     }
 
     public TalendSchemaItem getSchema(String name) {
-        name = getConvertedString(name);
+        name = convertString(name);
         SWTBotTreeItem schemaNode = item.expandNode("Table schemas");
         TalendSchemaItem schemaItem = new TalendSchemaItem();
         schemaItem.setItem(schemaNode.getNode(name));
@@ -62,9 +63,16 @@ public class TalendDBItem extends TalendMetadataItem {
             gefBot.button("Next >").click();
             List<String> schemaList = new ArrayList<String>(Arrays.asList(schemas));
 
+            SWTBotTree root = gefBot.treeInGroup("Select Schema to create");
+            SWTBotTreeItem treeNode = null;
+            if (getCatalog() != null && getSchema() == null)
+                treeNode = root.expandNode(getCatalog());
+            if (getCatalog() == null && getSchema() != null)
+                treeNode = root.expandNode(getSchema());
+            if (getCatalog() != null && getSchema() != null)
+                treeNode = root.expandNode(getCatalog(), getSchema());
             for (String schema : schemaList) {
-                gefBot.treeInGroup("Select Schema to create").expandNode(System.getProperty(getSchemaProperty()))
-                        .getNode(getConvertedString(schema)).check();
+                treeNode.getNode(convertString(schema)).check();
             }
             gefBot.button("Next >").click();
             gefBot.button("Finish").click();
@@ -84,27 +92,14 @@ public class TalendDBItem extends TalendMetadataItem {
     }
 
     /**
-     * Get property name of DB schema. Some DB did not has schema, so it's schema name is database name.
-     * 
-     * @return schema prperty name
-     */
-    private String getSchemaProperty() {
-        String schemaProp = dbType.toString().toLowerCase();
-        if (dbType == Utilities.DbConnectionType.MYSQL) {
-            schemaProp += ".dataBase";
-        } else {
-            schemaProp += ".schema";
-        }
-        return schemaProp;
-    }
-
-    /**
      * Some DB schema name and table name should be uppercase, so need to convert.
      * 
      * @param str
      * @return converted string
      */
-    private String getConvertedString(String str) {
+    private String convertString(String str) {
+        if (str == null)
+            return null;
         switch (dbType) {
         case DB2:
         case ORACLE:
@@ -112,5 +107,22 @@ public class TalendDBItem extends TalendMetadataItem {
         default:
             return str;
         }
+    }
+
+    private String getCatalog() {
+        if (dbType == Utilities.DbConnectionType.TERADATA || dbType == Utilities.DbConnectionType.DB2)
+            return null;
+        String databaseProp = dbType.toString().toLowerCase();
+        databaseProp += ".dataBase";
+        return convertString(System.getProperty(databaseProp));
+    }
+
+    private String getSchema() {
+        String schemaProp = dbType.toString().toLowerCase();
+        if (dbType == Utilities.DbConnectionType.TERADATA)
+            schemaProp += ".dataBase";
+        else
+            schemaProp += ".schema";
+        return convertString(System.getProperty(schemaProp));
     }
 }
