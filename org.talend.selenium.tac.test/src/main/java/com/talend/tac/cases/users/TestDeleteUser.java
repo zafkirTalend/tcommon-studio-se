@@ -21,7 +21,7 @@ public class TestDeleteUser extends Login {
 	  
 	}
 	
-	@Test(groups={"DeleteUser"})
+	@Test
 	@Parameters({"userName","LoginNameChooseAdministratorRole"})
 	public void testCancleDeleteUser(String userName,String deleteUser) throws Exception {
 		this.clickWaitForElementPresent("idMenuUserElement");
@@ -36,7 +36,7 @@ public class TestDeleteUser extends Login {
 	    
 	}
 	
-	@Test(dependsOnMethods={"testCancleDeleteUser"})
+	@Test
 	@Parameters({"userName","LoginNameChooseAdministratorRole","userNameAllRoles"})
 	public void testDeleteUser(String userName,String deleteUser,String deleteUser1) throws Exception {
 		deleteUser(userName, deleteUser);
@@ -48,7 +48,7 @@ public class TestDeleteUser extends Login {
 	}
     
 	
-	@Test(dependsOnMethods={"testDeleteUser"})
+	@Test
 	@Parameters({"userName"})
 	public void testDeleteLoginUser(String userName) throws Exception {
         deleteUser(userName,userName);
