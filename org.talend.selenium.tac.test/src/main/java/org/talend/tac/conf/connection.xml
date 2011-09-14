@@ -21,7 +21,7 @@
   <parameter  name ="MSSQL_Password" value ="123456"/>
   <parameter  name ="MSSQL_Datasourse" value =""/>
   <parameter  name ="MSSQL_Additional" value =""/>
-  <parameter  name ="MSSQL_Stattable" value ="statsinfo"/>
+  <parameter  name ="MSSQL_Stattable" value ="statsinfo"/>		
   <parameter  name ="MSSQL_Logstable" value ="logsinfo"/>
   
   <parameter  name ="Oracle_Dbname" value ="talend"/>
@@ -36,14 +36,30 @@
   <parameter  name ="Oracle_Stattable" value ="TSTATS"/>
   <parameter  name ="Oracle_Logstable" value ="TLOGS"/>
  
-  <test name="dashboard">
+  <test name="connection_add">
     <classes>
     <class name="com.talend.cases.dashboard.connection.TestAddConnection"/>
-    <class name="com.talend.cases.dashboard.connection.TestDuplicateConnection"/>
+    </classes>
+  </test>
+  
+  <test name="connection_check">
+    <classes>
     <class name="com.talend.cases.dashboard.connection.TestConnectionCheck"/>
-    <class name="com.talend.cases.dashboard.jobsAnalyses.TestJobAnalyses"/>
     </classes>
   </test>
 
+ <test name="connection_duplicate">
+    <classes>	
+    <class name="com.talend.cases.dashboard.connection.TestDuplicateConnection"/>
+    <class name="com.talend.cases.dashboard.jobsAnalyses.TestJobAnalyses"/>
+    </classes>
+  </test>
+  
+  <test name="connection_jobanalyses">
+    <classes>	
+    <class name="com.talend.cases.dashboard.jobsAnalyses.TestJobAnalyses"/>
+    </classes>
+  </test>
+  
 </suite>
 
