@@ -5,14 +5,14 @@
 	<parameter name="commandline.conf.primary.port" value="8002" />
 	<parameter name="commandline.conf.primary.archivePath" value="org/talend/tac/folder/commandline/" />
 	<parameter name="commandline.conf.secondary.host" value="localhost" />
-	<parameter name="commandline.conf.secondary.port" value="8002" />
+	<parameter name="commandline.conf.secondary.port" value="8003" />
 	<parameter name="commandline.conf.secondary.archivePath"
 		value="org/talend/tac/folder/secondcommandline/" />
     
     <!-- esb -->
     <parameter name="esb.conf.zookeeperServer" value="127.0.0.1:2181"></parameter>
     <parameter name="esb.conf.serviceActivityMonitorServer" 
-    value="http://localhost:8080/sam-server-war"/>
+    value="http://localhost:8899/sam-server-war"/>
     
 	<!-- Ldap parameters -->
 	<parameter name="LDAP.conf.useLDAPAutentication" value="true" />
@@ -38,6 +38,12 @@
 	<parameter name="smtp.conf.mailPassword" value="talend" />
 	<parameter name="smtp.conf.serverRequireSSL" value="false" />
 	
+	<parameter name="smtp.conf.wrong.mailServerHost" value="smtp.wrong.163.com" />
+	<parameter name="smtp.conf.wrong.mailServerPort" value="25.wrong" />
+	<parameter name="smtp.conf.wrong.mailUserName" value="lindy512163.com.wrong" />
+	<parameter name="smtp.conf.wrong.mailPassword" value="talend.wrong" />
+	<parameter name="smtp.conf.wrong.serverRequireSSL" value="false.wrong" />
+	
 	<!-- Scheduler parameters -->
 	<parameter name="scheduler.conf.ArchivedPath" value="org/talend/tac/folder/archiveJobs/" />
 	<parameter name="scheduler.conf.LogsPath" value="org/talend/tac/folder/executionLogs/" />
@@ -51,7 +57,11 @@
 	<parameter name="svn.conf.serverLocationURL" value="https://192.168.0.216:8443/svn/test_tac/" />
 	<parameter name="svn.conf.serverUser" value="admin" />
 	<parameter name="svn.conf.serverPassword" value="admin" />
-
+    
+    <parameter name="svn.conf.wrong.serverLocationURL" value="https://192.168.0.216:8443/svn/test_tac.wrong" />
+	<parameter name="svn.conf.wrong.serverUser" value="admin.wrong" />
+	<parameter name="svn.conf.wrong.serverPassword" value="admin.wrong" />
+	
 	<!-- Talend suite parameters -->
 	<parameter name="suite.link.dqportal" value="testDqportalLink" />
 	<parameter name="suite.link.drools" value="testDroolsLink" />
@@ -63,19 +73,62 @@
 	
 	<!-- Download path -->
 	<parameter name="firefox.download.path" value="org/talend/tac/folder/downloads/" />
-
-	<test name="TestConfigurations">
+	
+	     
+    <test name="configuration01_CheckInfoOfDatabaseInConfigurationPage">
+		<classes>
+			<class name="com.talend.cases.configuration.TestDataBaseParmeters">
+				<methods>
+					<include name="testCheckInfoOfDatabaseInConfigurationPage" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+     
+    <test name="configuration02_AccessH2ConsoleFromConfigurationPage">
+		<classes>
+			<class name="com.talend.cases.configuration.TestDataBaseParmeters">
+				<methods>
+					<include name="testAccessH2ConsoleFromConfigurationPage" />
+				</methods>
+			</class>
+		</classes>
+	</test>    
+    
+	<test name="configuration03_SetWrongSVN_SMTP">
+		<classes>
+			<class name="com.talend.cases.configuration.TestConfigutationWithWrongSet">
+				<methods>
+					<include name="testSetWrongSVN" />
+					<include name="testSetWrongSMTP" />
+				</methods>
+			</class>
+		</classes>
+	</test>    
+    
+    <test name="configuration04_TestConfigurations">
+		<classes>
+			<class name="com.talend.cases.configuration.TestConfigurations">
+				<methods>
+					<include name="testSetESBWithStopZKServer" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+    
+	<test name="configuration05_TestConfigurations">
 		<classes>
 			<class name="com.talend.cases.configuration.TestConfigurations">
 				<methods>
 					<exclude name="testDownloadLog" />
 					<exclude name="testExportParameters" />
+					<exclude name="testSetESBWithStopZKServer" />
 				</methods>
 			</class>
 		</classes>
 	</test>
 
-	<test name="TestConfigurations">
+	<test name="configuration06_ExportParameters_DownloadLogs">
 		<classes>
 			<class name="com.talend.cases.configuration.TestConfigurations">
 				<methods>
@@ -86,13 +139,13 @@
 		</classes>
 	</test>
 
-	<test name="TestCreateLdapUser">
+	<test name="configuration07_TestCreateLdapUser">
 		<classes>
 			<class name="com.talend.cases.configuration.TestAddLdapUser" />
 		</classes>
 	</test>
 
-	<test name="TestLoginWithLdapUser">
+	<test name="configuration08_TestLoginWithLdapUser">
 		<classes>
 			<parameter name="userName" value="liuyu@sina.com" />
 			<parameter name="userPassword" value="123456" />
@@ -104,7 +157,7 @@
 		</classes>
 	</test>
 
-	<test name="TestLoginWithNormalUserAfterLdapEnabled">
+	<test name="configuration09_TestLoginWithNormalUserAfterLdapEnabled">
 		<classes>
 			<class name="com.talend.tac.cases.TestLogin">
 				<methods>
@@ -114,7 +167,7 @@
 		</classes>
 	</test>
 
-	<test name="TestConfigurationsToDisableLdap">
+	<test name="configuration010_TestConfigurationsToDisableLdap">
 		<classes>
 			<parameter name="LDAP.conf.useLDAPAutentication" value="false" />
 			<class name="com.talend.cases.configuration.TestConfigurations">
@@ -125,7 +178,7 @@
 		</classes>
 	</test>
 
-	<test name="TestLoginWithNormalUserAfterLdapDisabled">
+	<test name="configuration011_TestLoginWithNormalUserAfterLdapDisabled">
 		<classes>
 			<class name="com.talend.tac.cases.TestLogin">
 				<methods>
@@ -135,7 +188,7 @@
 		</classes>
 	</test>
 
-	<test name="TestLoginWithLdapUserAfterLdapDisabled">
+	<test name="configuration012_TestLoginWithLdapUserAfterLdapDisabled">
 		<classes>
 			<parameter name="userName" value="liuyu@sina.com" />
 			<parameter name="userPassword" value="123456" />
@@ -147,7 +200,7 @@
 		</classes>
 	</test>
 
-	<test name="TestForgetPasswordAfterSmtpEnabled" preserve-order="true">
+	<test name="configuration013_TestForgetPasswordAfterSmtpEnabled" preserve-order="true">
 		<classes>
 			<class name="com.talend.tac.cases.user.TestCreatUsersInAdvance">
 				<parameter name="user.allRole.svnLogin" value="tisadmin" />
@@ -164,6 +217,5 @@
 			<class name="com.talend.tac.cases.TestForgetPassword" />
 		</classes>
 	</test>
-
 
 </suite>
