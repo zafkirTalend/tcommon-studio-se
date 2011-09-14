@@ -14,7 +14,7 @@ public class TestAddTriggerAddSimpleTriggerByUIendbeforestart extends Plan {
 	TriggerDate date = new TriggerDate();
 
 	// add a simpleTrigger
-	@Test(groups = { "plan.addtrigger" })
+	@Test
 	@Parameters({ "plan.toaddsimpletrigger.label",
 			"plan.simpletrigger.byui.endbeforestart.label" })
 	public void testAddTriggerAddSimpleTrigger(String plantoaddsimletrigger,

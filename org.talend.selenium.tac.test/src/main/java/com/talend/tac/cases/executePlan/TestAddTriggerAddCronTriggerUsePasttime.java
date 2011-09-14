@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 public class TestAddTriggerAddCronTriggerUsePasttime extends Plan{
     	
     
-	@Test(dependsOnGroups={"TriggerPlan"})
+	@Test
 	@Parameters({ "plan.toaddcrontrigger.label", "plan.crontrigger.past.label"})
 	public void testAddCronTriggerOverdated(String planlabel,String crongtriggerpast) throws InterruptedException{
 	    TriggerDate date = new TriggerDate().getPast(48);

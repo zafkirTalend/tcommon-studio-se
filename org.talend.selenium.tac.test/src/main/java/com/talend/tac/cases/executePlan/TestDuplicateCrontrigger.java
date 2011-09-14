@@ -4,24 +4,21 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.talend.tac.cases.Login;
-
 public class TestDuplicateCrontrigger extends Plan {
 
 	@Test
-	 (dependsOnGroups={"TriggerPlan"})
 	@Parameters({ "plan.toaddcrontrigger.label",
 			"plan.crontrigger.duplicate.label" })	
 	public void testDuplicateCronTrigger(String plan,
 			String triggertoduplicate) throws InterruptedException {
 		TriggerDate date = new TriggerDate().getFuture(48);
-		 this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
-			this.waitForElementPresent("//div[@class='header-title' and text()='Execution Plan']", WAIT_TIME);
-			Assert.assertTrue(selenium
-					.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
+		this.openExecutionPlanMenu();
+		this.waitForElementPresent("//span[text()='" + plan + "']", WAIT_TIME);
 		// select plan
+		this.sleep(2000);
 		selenium.mouseDown("//span[text()='" + plan + "']");// select a exist
 		// select trigger to duplicate
+		this.waitForElementPresent("//span[text()='" + triggertoduplicate + "']", WAIT_TIME);
 		this.sleep(3000);
 		selenium.mouseDown("//span[text()='" + triggertoduplicate + "']");//
 		// click duplicate trigger button

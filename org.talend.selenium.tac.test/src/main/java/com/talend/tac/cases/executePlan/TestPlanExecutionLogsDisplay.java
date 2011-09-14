@@ -28,7 +28,7 @@ public class TestPlanExecutionLogsDisplay extends Plan {
 	    
 	}
 	
-	@Test(dependsOnMethods="testCheckPlanLogsPerpage")	
+	@Test
 	 @Parameters({ "planexecutionlogsdisplay.plan.label",
 	 "planexecutionlogsdisplay.plan.roottask"})
 	public void testCheckPlanLogsPerpageChange(String planLabel,String taskLabel) {

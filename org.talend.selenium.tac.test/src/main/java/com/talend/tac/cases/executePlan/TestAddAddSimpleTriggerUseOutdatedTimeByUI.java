@@ -10,7 +10,7 @@ public class TestAddAddSimpleTriggerUseOutdatedTimeByUI extends Plan{
 	TriggerDate date = new TriggerDate();
    
 	// add a simpleTrigger
-	@Test(groups={"plan.addtrigger"})
+	@Test
 	@Parameters({ "plan.toaddsimpletrigger.label", "plan.simpletrigger.outdated.label"})
 	public void testAddTriggerAddSimpleTriggerOutdated(String plantoaddsimletrigger, String simpletriggeroutdated) {
 		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");

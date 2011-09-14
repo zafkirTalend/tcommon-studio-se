@@ -6,8 +6,8 @@ import org.testng.annotations.Test;
 
 public class AddPlan extends Plan {
 	
-	@Test(groups = { "addplan" },dependsOnGroups={"Menu"})
-	// , dependsOnGroups = { "cleanplan" }
+	@Test
+	
 	@Parameters({ "plan.label", "plan.description", "plan.task" })
 	public void testAddPlanAndCheckPlanInformation(String label, String description, String task) {
 		label = "testPlanInformation";
@@ -21,9 +21,9 @@ public class AddPlan extends Plan {
 	}
 	
 
-	// add a plan
-	@Test(groups = { "addplan" },dependsOnGroups={"Menu"})
-	// , dependsOnGroups = { "cleanplan" }
+	
+	@Test
+	
 	@Parameters({ "plan.label", "plan.description", "plan.task" })
 	public void testAddPlan(String label, String description, String task) {
 		this.addPlan(label, task, description);	
@@ -31,8 +31,8 @@ public class AddPlan extends Plan {
 
 	}
 	
-	@Test(groups = { "addplan" },dependsOnGroups={"Menu"})
-	// , dependsOnGroups = { "cleanplan" }
+	@Test
+	
 	@Parameters({ "plan.label", "plan.description", "plan.task" })
 	public void testAddPlanLabelWithSpecialChar(String label, String description, String task) {
 		label = "sdaf;test";

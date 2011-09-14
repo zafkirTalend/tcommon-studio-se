@@ -4,7 +4,7 @@ import org.testng.annotations.Test;
 
 public class TestExecutionPlanMenu extends Plan {
 
-	@Test(groups = { "Menu" })
+	@Test
 	
 	public void testOpenMenuExecutionPlan() {
 		this.openExecutionPlanMenu();

@@ -17,7 +17,7 @@ import com.talend.tac.base.Base;
 public class TestAddTriggerAddFileTrigger extends Plan {
 	
 	@Test
-	// (groups={"plan.addtrigger.fi"})
+	
 	@Parameters({ "plan.toaddfiletrigger.label",
 			"plan.filetrigger.exist.label",
 			"plan.filetrigger.exist.forderpath",
@@ -39,7 +39,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 	}
 	
 	@Test
-	// (groups={"plan.addtrigger.fi"})
+	
 	@Parameters({ "plan.toaddfiletrigger.label",
 			"plan.filetrigger.exist.label",
 			"plan.filetrigger.exist.forderpathFalse",
@@ -57,6 +57,10 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 				.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
 		filetriggerlabel = filetriggerlabel + "false";
 		//*****************************************
+		if(this.waitForTextPresent("Running...",15)){
+			selenium.mouseDown("//span[text()='" + plantoaddfiletrigger + "']");
+			this.waitForElementPresent("//span[@class='x-tree3-node-text' and contains(text(),'[OK]')]", MAX_WAIT_TIME);
+		}
 		this.runPlan(plantoaddfiletrigger);
 		this.waitForElementPresent("//span[text()='Running...']", WAIT_TIME);
 		this.sleep(10000);
@@ -70,7 +74,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 	}
 	
 	@Test
-	// (groups={"plan.addtrigger.fi"})
+	
 	@Parameters({ "plan.toaddfiletrigger.label",
 			"plan.filetrigger.exist.label",
 			"plan.filetrigger.exist.forderpath",
@@ -166,10 +170,6 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		Assert.assertTrue(this.waitElement("//span[text()='Ended...']",
 				TriggerCheckTime)||this.waitElement("//span[text()='Ready to run']",
 						TriggerCheckTime), "test failed! ");
-		
-//		this.waitForElementPresent("//span[text()='Ended...']", Base.WAIT_TIME);
-		//do not create any new file,check directly
-//		triggerCreateCheck(filetriggerlabel);
 		triggerCheckFalse(filetriggerlabel);	
 	}
 
@@ -238,15 +238,6 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		
 		addFileTrigger(plantoaddfiletrigger, filetriggerlabel, foldpath,
 				interval, mask, serverName, 2);
-		/*selenium.mouseDown("//span[text()='" + plantoaddfiletrigger + "']");
-		Thread.sleep(2000);
-		selenium.click("//div[text()='Execution Plan']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idJobConductorTaskRunButton']");
-		this.waitForElementPresent("//span[text()='Running...']",
-				Base.WAIT_TIME);
-		this.waitForElementPresent("//span[text()='Ready to run']",
-				Base.WAIT_TIME);
-		*/
-		//do not modify a file existed,check directly
 		triggerCheckFalse(filetriggerlabel);
 		
         
@@ -281,20 +272,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		selenium.click("idFileTriggerSave");
 		this.waitForElementPresent("//span[text()='" + fileTriggerLabel + "']",
 				WAIT_TIME);
-		// this.waitForElementPresent("//span[text()='Running...']",
-		// Base.WAIT_TIME);
-		// this.waitForElementPresent("//span[text()='Ended...']",
-		// Base.WAIT_TIME);
-		// selenium.mouseDown("//span[text()='" + fileTriggerLabel + "']");
-		// selenium.chooseOkOnNextConfirmation();
-		// Thread.sleep(2000);
-		// selenium.click("idTriggerDelete");
-		// selenium.getConfirmation();
-		// Thread.sleep(3000);
-		// Assert.assertFalse(
-		// selenium.isElementPresent("//span[text()='" + fileTriggerLabel
-		// + "']"), "trigger delete failed!");
-
+		
 	}
 
 	public void triggerCreateCheck(String fileTriggerLabel) {

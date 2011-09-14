@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 public class TestAddAddSimpleTriggerUseDefaulttime extends Plan{
  
 	// add a simpleTrigger use default start time and end time
-	@Test(groups={"plan.addtrigger"})
+	@Test
 	@Parameters({ "plan.toaddsimpletrigger.label","plan.toaddsimpletrigger.roottask", "plan.simpletrigger.defaulttime.label"})
 	public void testAddTriggerAddSimpleTriggerDefaulttime(String addsimpletriggerplan,String task,String defaulttimeSimpletrigger) {
 		this.addPlan(addsimpletriggerplan, task, "planforsimpletrigger");

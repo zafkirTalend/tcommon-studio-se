@@ -18,11 +18,12 @@ public class TestPlanParameters extends Plan {
         Assert.assertTrue((logs.contains("name: JackZhang")), "test failed!");
         Assert.assertTrue((logs.contains("age: 23")), "test failed!");
 	}
-	@Test(dependsOnMethods="testCheckPlanExecutionLogs")
+	@Test
 	 @Parameters({ "parameters.plan.label",
 	 "parameters.plan.roottask"})
 	public void testChangePlanParametersNotClickOverride(String planParameters,String taskLabel) {
 		// this.addPlan(planLabel, rootTask, "treeManagePlan");
+		this.openExecutionPlanMenu();
 		this.waitForElementPresent("//span[text()='" + planParameters + "']",
 				WAIT_TIME);
 		this.sleep(2000);
@@ -35,11 +36,12 @@ public class TestPlanParameters extends Plan {
 	   selenium.setSpeed(MIN_SPEED);
 	}
 	
-	@Test(dependsOnMethods="testChangePlanParametersNotClickOverride")
+	@Test
 	 @Parameters({ "parameters.plan.label",
 	 "parameters.plan.roottask"})
 	public void testChangePlanParametersAndClickOverride(String planParameters,String taskLabel) {
 		// this.addPlan(planLabel, rootTask, "treeManagePlan");
+		this.openExecutionPlanMenu();
 		this.waitForElementPresent("//span[text()='" + planParameters + "']",
 				WAIT_TIME);
 		this.sleep(2000);
@@ -54,12 +56,6 @@ public class TestPlanParameters extends Plan {
 		selenium.setSpeed(MIN_SPEED);
 		this.waitForTextPresent("Override successfully", WAIT_TIME);
 		this.sleep(5000);
-//		// regenerate the plan
-//		selenium.click("//div[text()='Execution Plan']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idJobConductorTaskGenerateButton']");
-//		this.sleep(30000);
-//		selenium.click("//div[text()='Execution Plan']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idJobConductorTaskDeployButton']");
-//		this.sleep(10000);
-//		//
 		this.runPlan(planParameters);
 		this.waitForElementPresent("//span[text()='Running...']", WAIT_TIME);
 		this.sleep(10000);

@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public class ModifyPlan extends Plan {
 
 	// modify a plan
-	@Test(groups = { "modifyPlan" }, dependsOnGroups = { "addExist" })
+	@Test
 	@Parameters({ "plan.label","plan.modifyLabel", "plan.modifyDescription" })
 	public void testModifyPlanLabelDes(String label,String newlabel, String newdescription)
 			throws InterruptedException {
@@ -33,7 +33,7 @@ public class ModifyPlan extends Plan {
 
 	}
 
-	@Test(groups = { "modifyPlan" }, dependsOnGroups = { "addExist" })
+	@Test
 	@Parameters({ "plan.modifyLabel", "plan.modifyTask" })
 	public void testModifyPlanTask(String newlabel,
 			String task) throws InterruptedException {

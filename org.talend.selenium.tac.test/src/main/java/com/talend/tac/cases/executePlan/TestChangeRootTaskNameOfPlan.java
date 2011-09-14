@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public class TestChangeRootTaskNameOfPlan extends Plan {
 
 	
-	@Test(groups = { "addplan" },dependsOnGroups={"Menu"})
+	@Test
 	
 	@Parameters({"plan.unexecuted.label","plan.unexecuted.tasklabel","plan.task","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})

@@ -14,7 +14,7 @@ public class TestAddTriggerAddSimpleTrigger extends Plan{
     	
 	TriggerDate date = new TriggerDate();
 	// add a simpleTrigger
-	@Test(groups={"plan.addtrigger"})
+	@Test
 	@Parameters({ "plan.toaddsimpletrigger.label", "plan.simpletrigger.label"})
 	public void testAddTriggerAddSimpleTrigger(String plantoaddsimletrigger,String simpletriggerlabel) throws InterruptedException {
 		 this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");

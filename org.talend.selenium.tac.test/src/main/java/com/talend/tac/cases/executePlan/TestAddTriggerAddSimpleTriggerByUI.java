@@ -16,7 +16,7 @@ public class TestAddTriggerAddSimpleTriggerByUI extends Login {
 	TriggerDate date = new TriggerDate();
 
 	// add a simpleTrigger
-	@Test(groups = { "plan.addtrigger" })
+	@Test
 	@Parameters({ "plan.toaddsimpletrigger.label",
 			"plan.simpletrigger.byui.label" })
 	public void testAddTriggerAddSimpleTriggerUI(String plantoaddsimletrigger,

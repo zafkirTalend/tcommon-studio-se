@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public class TestAddTriggerAddCronTrigger extends Plan{
     	
     
-	@Test(groups={"TriggerPlan"})
+	@Test
 	@Parameters({ "plan.toaddcrontrigger.label","plan.toaddcrontrigger.task", "plan.crontrigger.label"})
 	public void testAddCronTrigger(String planlabel,String task,String crongtriggerlabel) throws InterruptedException{
 	    TriggerDate date = new TriggerDate().getFuture(24);

@@ -36,8 +36,6 @@ public class TestPlanedTreeViewManage extends Plan{
 	  this.waitForElementPresent("//span[@class='x-tree3-node-text' and text()='"+rootTask+"']", WAIT_TIME);
 	  this.addOnOK(rootTask, taskOk);
 	  this.addOnError(rootTask, taskError);
-	  
-	  
   }
   
   @Test(dependsOnMethods={"testTreeManage"})
