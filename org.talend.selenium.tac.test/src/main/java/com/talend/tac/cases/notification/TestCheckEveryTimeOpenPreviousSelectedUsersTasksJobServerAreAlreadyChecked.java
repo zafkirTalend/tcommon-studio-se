@@ -3,7 +3,6 @@ package com.talend.tac.cases.notification;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-@Test(dependsOnGroups={"AddUserNotification"})
 public class TestCheckEveryTimeOpenPreviousSelectedUsersTasksJobServerAreAlreadyChecked extends 
 CheckEveryTimeOpenPreviousSelectedUsersTasksJobServerAreAlreadyChecked{
    
