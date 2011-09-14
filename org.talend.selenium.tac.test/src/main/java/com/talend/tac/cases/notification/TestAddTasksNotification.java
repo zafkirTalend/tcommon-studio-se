@@ -8,7 +8,6 @@ public class TestAddTasksNotification extends AddNotification {
     
     //add a task'notification(TaskFailedNotification)
 	@Test
-//	(groups={"AddTaskNotification"}, dependsOnGroups={"AddUserNotification"})
 	@Parameters({"categoryTask","eventTaskFailed","descriptionTaskFailed","TaskBaseBranch"})
 	public void testAddTaskFailedNotification(String categoryTask, String eventTaskFailed, 
 			String descriptionTaskFailed,String taskBaseBranch) {
@@ -24,7 +23,7 @@ public class TestAddTasksNotification extends AddNotification {
 	}
 
 	//add a task'notification(Uncheck Active)
-	@Test(dependsOnMethods={"testAddTaskFailedNotification"})              
+	@Test          
 	@Parameters({"categoryTask","eventTaskFailed","descriptionTaskFailed","labelAddJVMParametersForTask"})
 	public void testAddTaskNotificationUncheckActive(String categoryTask, String eventTaskFailed,
 			String descriptionTaskFailed, String testAddsimpleTask) {
