@@ -2031,13 +2031,22 @@ public interface ComponentPackage extends EPackage {
     int RETURN_TYPE__TYPE = 2;
 
     /**
+     * The feature id for the '<em><b>SHOWIF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int RETURN_TYPE__SHOWIF = 3;
+
+    /**
      * The number of structural features of the '<em>RETURN Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int RETURN_TYPE_FEATURE_COUNT = 3;
+    int RETURN_TYPE_FEATURE_COUNT = 4;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.SQLTEMPLATESTypeImpl <em>SQLTEMPLATES Type</em>}' class.
@@ -4419,6 +4428,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getRETURNType_TYPE();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.RETURNType#getSHOWIF <em>SHOWIF</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>SHOWIF</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.RETURNType#getSHOWIF()
+     * @see #getRETURNType()
+     * @generated
+     */
+    EAttribute getRETURNType_SHOWIF();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.SQLTEMPLATESType <em>SQLTEMPLATES Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6310,6 +6330,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute RETURN_TYPE__TYPE = eINSTANCE.getRETURNType_TYPE();
+
+        /**
+         * The meta object literal for the '<em><b>SHOWIF</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute RETURN_TYPE__SHOWIF = eINSTANCE.getRETURNType_SHOWIF();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.SQLTEMPLATESTypeImpl <em>SQLTEMPLATES Type</em>}' class.

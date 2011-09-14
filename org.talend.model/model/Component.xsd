@@ -337,6 +337,7 @@
     <xsd:attribute ecore:name="aVAILABILITY" name="AVAILABILITY" type="xsd:string" use="required"/>
     <xsd:attribute ecore:name="nAME" name="NAME" type="xsd:string" use="required"/>
     <xsd:attribute ecore:name="tYPE" name="TYPE" type="xsd:string" use="required"/>
+     <xsd:attribute ecore:name="sHOWIF" name="SHOW_IF" type="xsd:string"/>
   </xsd:complexType>
   <xsd:complexType ecore:name="SQLTEMPLATESType" name="SQLTEMPLATES_._type">
     <xsd:sequence>

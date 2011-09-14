@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.model.process;
 
+import java.util.List;
+
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
  * 
@@ -41,4 +43,8 @@ public interface INodeReturn {
     public abstract void setType(final String type);
 
     public abstract String getDisplayType();
+
+    public abstract void setShowIf(final String showIf);
+
+    public abstract boolean isShow(List<? extends IElementParameter> listParam);
 }

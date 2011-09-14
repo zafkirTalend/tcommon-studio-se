@@ -23,6 +23,7 @@ import org.talend.designer.core.model.utils.emf.component.RETURNType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.RETURNTypeImpl#getAVAILABILITY <em>AVAILABILITY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.RETURNTypeImpl#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.RETURNTypeImpl#getTYPE <em>TYPE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.RETURNTypeImpl#getSHOWIF <em>SHOWIF</em>}</li>
  * </ul>
  * </p>
  *
@@ -88,6 +89,26 @@ public class RETURNTypeImpl extends EObjectImpl implements RETURNType {
      * @ordered
      */
     protected String tYPE = TYPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getSHOWIF() <em>SHOWIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSHOWIF()
+     * @generated
+     * @ordered
+     */
+    protected static final String SHOWIF_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getSHOWIF() <em>SHOWIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSHOWIF()
+     * @generated
+     * @ordered
+     */
+    protected String sHOWIF = SHOWIF_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -176,6 +197,27 @@ public class RETURNTypeImpl extends EObjectImpl implements RETURNType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getSHOWIF() {
+        return sHOWIF;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSHOWIF(String newSHOWIF) {
+        String oldSHOWIF = sHOWIF;
+        sHOWIF = newSHOWIF;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.RETURN_TYPE__SHOWIF, oldSHOWIF, sHOWIF));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
@@ -185,6 +227,8 @@ public class RETURNTypeImpl extends EObjectImpl implements RETURNType {
                 return getNAME();
             case ComponentPackage.RETURN_TYPE__TYPE:
                 return getTYPE();
+            case ComponentPackage.RETURN_TYPE__SHOWIF:
+                return getSHOWIF();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -205,6 +249,9 @@ public class RETURNTypeImpl extends EObjectImpl implements RETURNType {
                 return;
             case ComponentPackage.RETURN_TYPE__TYPE:
                 setTYPE((String)newValue);
+                return;
+            case ComponentPackage.RETURN_TYPE__SHOWIF:
+                setSHOWIF((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -227,6 +274,9 @@ public class RETURNTypeImpl extends EObjectImpl implements RETURNType {
             case ComponentPackage.RETURN_TYPE__TYPE:
                 setTYPE(TYPE_EDEFAULT);
                 return;
+            case ComponentPackage.RETURN_TYPE__SHOWIF:
+                setSHOWIF(SHOWIF_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -245,6 +295,8 @@ public class RETURNTypeImpl extends EObjectImpl implements RETURNType {
                 return NAME_EDEFAULT == null ? nAME != null : !NAME_EDEFAULT.equals(nAME);
             case ComponentPackage.RETURN_TYPE__TYPE:
                 return TYPE_EDEFAULT == null ? tYPE != null : !TYPE_EDEFAULT.equals(tYPE);
+            case ComponentPackage.RETURN_TYPE__SHOWIF:
+                return SHOWIF_EDEFAULT == null ? sHOWIF != null : !SHOWIF_EDEFAULT.equals(sHOWIF);
         }
         return super.eIsSet(featureID);
     }
@@ -265,6 +317,8 @@ public class RETURNTypeImpl extends EObjectImpl implements RETURNType {
         result.append(nAME);
         result.append(", tYPE: ");
         result.append(tYPE);
+        result.append(", sHOWIF: ");
+        result.append(sHOWIF);
         result.append(')');
         return result.toString();
     }

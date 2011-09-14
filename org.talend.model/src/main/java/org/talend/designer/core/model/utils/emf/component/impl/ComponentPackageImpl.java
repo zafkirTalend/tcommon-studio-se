@@ -2068,6 +2068,15 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getRETURNType_SHOWIF() {
+        return (EAttribute)returnTypeEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getSQLTEMPLATESType() {
         return sqltemplatesTypeEClass;
     }
@@ -2550,6 +2559,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEAttribute(returnTypeEClass, RETURN_TYPE__AVAILABILITY);
         createEAttribute(returnTypeEClass, RETURN_TYPE__NAME);
         createEAttribute(returnTypeEClass, RETURN_TYPE__TYPE);
+        createEAttribute(returnTypeEClass, RETURN_TYPE__SHOWIF);
 
         sqltemplatesTypeEClass = createEClass(SQLTEMPLATES_TYPE);
         createEReference(sqltemplatesTypeEClass, SQLTEMPLATES_TYPE__SQLTEMPLATE);
@@ -2830,6 +2840,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getRETURNType_AVAILABILITY(), theXMLTypePackage.getString(), "aVAILABILITY", null, 1, 1, RETURNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getRETURNType_NAME(), theXMLTypePackage.getString(), "nAME", null, 1, 1, RETURNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getRETURNType_TYPE(), theXMLTypePackage.getString(), "tYPE", null, 1, 1, RETURNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getRETURNType_SHOWIF(), theXMLTypePackage.getString(), "sHOWIF", null, 0, 1, RETURNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(sqltemplatesTypeEClass, SQLTEMPLATESType.class, "SQLTEMPLATESType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getSQLTEMPLATESType_SQLTEMPLATE(), this.getSQLTEMPLATEType(), null, "sQLTEMPLATE", null, 0, -1, SQLTEMPLATESType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4381,6 +4392,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "attribute",
              "name", "TYPE",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getRETURNType_SHOWIF(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "SHOW_IF",
              "namespace", "##targetNamespace"
            });		
         addAnnotation

@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.RETURNType#getAVAILABILITY <em>AVAILABILITY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.RETURNType#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.RETURNType#getTYPE <em>TYPE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.RETURNType#getSHOWIF <em>SHOWIF</em>}</li>
  * </ul>
  * </p>
  *
@@ -107,5 +108,32 @@ public interface RETURNType extends EObject {
      * @generated
      */
     void setTYPE(String value);
+
+    /**
+     * Returns the value of the '<em><b>SHOWIF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>SHOWIF</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>SHOWIF</em>' attribute.
+     * @see #setSHOWIF(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getRETURNType_SHOWIF()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='SHOW_IF' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getSHOWIF();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.RETURNType#getSHOWIF <em>SHOWIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>SHOWIF</em>' attribute.
+     * @see #getSHOWIF()
+     * @generated
+     */
+    void setSHOWIF(String value);
 
 } // RETURNType
