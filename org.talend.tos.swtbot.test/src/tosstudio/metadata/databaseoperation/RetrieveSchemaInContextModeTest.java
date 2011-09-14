@@ -12,13 +12,9 @@
 // ============================================================================
 package tosstudio.metadata.databaseoperation;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Assert;
@@ -27,6 +23,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendDBItem;
+import org.talend.swtbot.items.TalendSchemaItem;
 
 /**
  * DOC fzhong class global comment. Detailled comment
@@ -34,11 +32,7 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class RetrieveSchemaInContextModeTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
-
-    private SWTBotTree tree;
-
-    private SWTBotTreeItem treeNode;
+    private TalendDBItem dbItem;
 
     private static final String DBNAME = "mysql";
 
@@ -46,12 +40,10 @@ public class RetrieveSchemaInContextModeTest extends TalendSwtBotForTos {
 
     @Before
     public void createDBConnection() {
-        view = Utilities.getRepositoryView();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.DB_CONNECTIONS);
-        Utilities.createDbConnection(treeNode, Utilities.DbConnectionType.MYSQL, DBNAME);
+        dbItem = new TalendDBItem(DBNAME, Utilities.DbConnectionType.MYSQL);
+        dbItem.create();
         String sql = "create table " + TABLENAME + "(id int, name varchar(20))";
-        Utilities.executeSQL(treeNode.getNode(DBNAME + " 0.1"), sql);
+        dbItem.executeSQL(sql);
     }
 
     @Test
@@ -59,7 +51,7 @@ public class RetrieveSchemaInContextModeTest extends TalendSwtBotForTos {
         SWTBotShell tempShell = null;
         SWTBotTreeItem tableItem = null;
         try {
-            treeNode.getNode(DBNAME + " 0.1").doubleClick();
+            dbItem.getItem().doubleClick();
             tempShell = gefBot.shell("Database Connection").activate();
             gefBot.button("Next >").click();
             gefBot.button("Export as context").click();
@@ -75,18 +67,17 @@ public class RetrieveSchemaInContextModeTest extends TalendSwtBotForTos {
             tempShell.close();
             Assert.fail(e.getMessage());
         }
-        Utilities.retrieveDbSchema(treeNode, DBNAME, TABLENAME);
-
-        tableItem = treeNode.expandNode(DBNAME + " 0.1", "Table schemas").getNode(TABLENAME);
+        dbItem.retrieveDbSchema(TABLENAME);
+        TalendSchemaItem schema = dbItem.getSchema(TABLENAME);
+        tableItem = schema.getItem();
         Assert.assertNotNull("schemas did not retrieve", tableItem);
-
     }
 
     @After
     public void removePreviouslyCreateItems() {
         String sql = "drop table " + TABLENAME;
-        Utilities.executeSQL(treeNode.expandNode(DBNAME + " 0.1"), sql);
-        Utilities.cleanUpRepository(treeNode);
+        dbItem.executeSQL(sql);
+        Utilities.cleanUpRepository(dbItem.getParentNode());
         Utilities.emptyRecycleBin();
     }
 }

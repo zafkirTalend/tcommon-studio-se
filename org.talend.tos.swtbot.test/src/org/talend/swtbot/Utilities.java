@@ -19,7 +19,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -1574,35 +1573,6 @@ public class Utilities {
             }
         }
         SWTBotPreferences.TIMEOUT = defaultTimeout;
-    }
-
-    /**
-     * DOC fzhong Comment method "retrieveDbSchema".
-     * 
-     * @param treeNode db connection node
-     * @param itemName db item name
-     * @param schemas schemas to retrieve
-     */
-    public static void retrieveDbSchema(SWTBotTreeItem treeNode, String itemName, String... schemas) {
-        SWTBotShell tempShell = null;
-        try {
-            treeNode.getNode(itemName + " 0.1").contextMenu("Retrieve Schema").click();
-            tempShell = gefBot.shell("Schema").activate();
-            gefBot.button("Next >").click();
-            List<String> schemaList = new ArrayList<String>(Arrays.asList(schemas));
-            for (String schema : schemaList) {
-                gefBot.treeInGroup("Select Schema to create").expandNode(System.getProperty("mysql.dataBase")).getNode(schema)
-                        .check();
-            }
-            gefBot.button("Next >").click();
-            gefBot.button("Finish").click();
-        } catch (WidgetNotFoundException wnfe) {
-            tempShell.close();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            tempShell.close();
-            Assert.fail(e.getMessage());
-        }
     }
 
     /**
