@@ -8,7 +8,7 @@ import com.talend.tac.cases.Login;
 
 public class TestDuplicateUser extends Login {
     
-	@Test(groups={"DuplicateUser"},dependsOnGroups={"DeleteUser"})
+	@Test
 	@Parameters({"userName","DulicateUser","PassWord","DulicatedUser"})
 	public void testDuplicateUser(String userName,String DulicateUser,String Password,String DulicatedUser) throws Exception {
 	    
