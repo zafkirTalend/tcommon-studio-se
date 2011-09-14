@@ -43,7 +43,7 @@ public class Grid extends Plan {
 			
 			selenium.click("//button[@id='idJobConductorTaskRunButton'  and @class='x-btn-text ' and text()='Run']");
 			// Date start = new Date();
-			this.waitForElementPresent("//span[text()='Real time statistics']", Base.WAIT_TIME);
+				this.waitForElementPresent("//span[text()='Real time statistics']", Base.WAIT_TIME);
 			Assert.assertTrue(
 					this.waitElement("//label[text()='Ok']", Base.MAX_WAIT_TIME),
 					"task run failed!");
