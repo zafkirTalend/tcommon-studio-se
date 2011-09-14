@@ -28,6 +28,10 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#getTimeoutUnknownState <em>Timeout Unknown State</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#getUsername <em>Username</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#getPassword <em>Password</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionServer#getJmxUrl <em>Jmx Url</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionServer#getWebConsoleUrl <em>Web Console Url</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionServer#getBundleConductorUrl <em>Bundle Conductor Url</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionServer#isTalendRuntime <em>Talend Runtime</em>}</li>
  * </ul>
  * </p>
  *
@@ -326,5 +330,109 @@ public interface ExecutionServer extends EObject {
      * @generated
      */
     void setPassword(String value);
+
+    /**
+     * Returns the value of the '<em><b>Jmx Url</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Jmx Url</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Jmx Url</em>' attribute.
+     * @see #setJmxUrl(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionServer_JmxUrl()
+     * @model
+     * @generated
+     */
+    String getJmxUrl();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionServer#getJmxUrl <em>Jmx Url</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Jmx Url</em>' attribute.
+     * @see #getJmxUrl()
+     * @generated
+     */
+    void setJmxUrl(String value);
+
+    /**
+     * Returns the value of the '<em><b>Web Console Url</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Web Console Url</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Web Console Url</em>' attribute.
+     * @see #setWebConsoleUrl(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionServer_WebConsoleUrl()
+     * @model
+     * @generated
+     */
+    String getWebConsoleUrl();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionServer#getWebConsoleUrl <em>Web Console Url</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Web Console Url</em>' attribute.
+     * @see #getWebConsoleUrl()
+     * @generated
+     */
+    void setWebConsoleUrl(String value);
+
+    /**
+     * Returns the value of the '<em><b>Bundle Conductor Url</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Bundle Conductor Url</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Bundle Conductor Url</em>' attribute.
+     * @see #setBundleConductorUrl(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionServer_BundleConductorUrl()
+     * @model
+     * @generated
+     */
+    String getBundleConductorUrl();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionServer#getBundleConductorUrl <em>Bundle Conductor Url</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Bundle Conductor Url</em>' attribute.
+     * @see #getBundleConductorUrl()
+     * @generated
+     */
+    void setBundleConductorUrl(String value);
+
+    /**
+     * Returns the value of the '<em><b>Talend Runtime</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Talend Runtime</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Talend Runtime</em>' attribute.
+     * @see #setTalendRuntime(boolean)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionServer_TalendRuntime()
+     * @model
+     * @generated
+     */
+    boolean isTalendRuntime();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionServer#isTalendRuntime <em>Talend Runtime</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Talend Runtime</em>' attribute.
+     * @see #isTalendRuntime()
+     * @generated
+     */
+    void setTalendRuntime(boolean value);
 
 } // ExecutionServer

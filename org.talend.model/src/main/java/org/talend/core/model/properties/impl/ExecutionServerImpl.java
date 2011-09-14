@@ -36,6 +36,10 @@ import org.talend.core.model.properties.PropertiesPackage;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getTimeoutUnknownState <em>Timeout Unknown State</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getUsername <em>Username</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getPassword <em>Password</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getJmxUrl <em>Jmx Url</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getWebConsoleUrl <em>Web Console Url</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getBundleConductorUrl <em>Bundle Conductor Url</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#isTalendRuntime <em>Talend Runtime</em>}</li>
  * </ul>
  * </p>
  *
@@ -261,6 +265,86 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
      * @ordered
      */
     protected String password = PASSWORD_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getJmxUrl() <em>Jmx Url</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getJmxUrl()
+     * @generated
+     * @ordered
+     */
+    protected static final String JMX_URL_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getJmxUrl() <em>Jmx Url</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getJmxUrl()
+     * @generated
+     * @ordered
+     */
+    protected String jmxUrl = JMX_URL_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getWebConsoleUrl() <em>Web Console Url</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getWebConsoleUrl()
+     * @generated
+     * @ordered
+     */
+    protected static final String WEB_CONSOLE_URL_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getWebConsoleUrl() <em>Web Console Url</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getWebConsoleUrl()
+     * @generated
+     * @ordered
+     */
+    protected String webConsoleUrl = WEB_CONSOLE_URL_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getBundleConductorUrl() <em>Bundle Conductor Url</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getBundleConductorUrl()
+     * @generated
+     * @ordered
+     */
+    protected static final String BUNDLE_CONDUCTOR_URL_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getBundleConductorUrl() <em>Bundle Conductor Url</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getBundleConductorUrl()
+     * @generated
+     * @ordered
+     */
+    protected String bundleConductorUrl = BUNDLE_CONDUCTOR_URL_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isTalendRuntime() <em>Talend Runtime</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isTalendRuntime()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean TALEND_RUNTIME_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isTalendRuntime() <em>Talend Runtime</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isTalendRuntime()
+     * @generated
+     * @ordered
+     */
+    protected boolean talendRuntime = TALEND_RUNTIME_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -494,6 +578,90 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getJmxUrl() {
+        return jmxUrl;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setJmxUrl(String newJmxUrl) {
+        String oldJmxUrl = jmxUrl;
+        jmxUrl = newJmxUrl;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_SERVER__JMX_URL, oldJmxUrl, jmxUrl));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getWebConsoleUrl() {
+        return webConsoleUrl;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setWebConsoleUrl(String newWebConsoleUrl) {
+        String oldWebConsoleUrl = webConsoleUrl;
+        webConsoleUrl = newWebConsoleUrl;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_SERVER__WEB_CONSOLE_URL, oldWebConsoleUrl, webConsoleUrl));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getBundleConductorUrl() {
+        return bundleConductorUrl;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setBundleConductorUrl(String newBundleConductorUrl) {
+        String oldBundleConductorUrl = bundleConductorUrl;
+        bundleConductorUrl = newBundleConductorUrl;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_SERVER__BUNDLE_CONDUCTOR_URL, oldBundleConductorUrl, bundleConductorUrl));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isTalendRuntime() {
+        return talendRuntime;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setTalendRuntime(boolean newTalendRuntime) {
+        boolean oldTalendRuntime = talendRuntime;
+        talendRuntime = newTalendRuntime;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_SERVER__TALEND_RUNTIME, oldTalendRuntime, talendRuntime));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -521,6 +689,14 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
                 return getUsername();
             case PropertiesPackage.EXECUTION_SERVER__PASSWORD:
                 return getPassword();
+            case PropertiesPackage.EXECUTION_SERVER__JMX_URL:
+                return getJmxUrl();
+            case PropertiesPackage.EXECUTION_SERVER__WEB_CONSOLE_URL:
+                return getWebConsoleUrl();
+            case PropertiesPackage.EXECUTION_SERVER__BUNDLE_CONDUCTOR_URL:
+                return getBundleConductorUrl();
+            case PropertiesPackage.EXECUTION_SERVER__TALEND_RUNTIME:
+                return isTalendRuntime() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -563,6 +739,18 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
                 return;
             case PropertiesPackage.EXECUTION_SERVER__PASSWORD:
                 setPassword((String)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_SERVER__JMX_URL:
+                setJmxUrl((String)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_SERVER__WEB_CONSOLE_URL:
+                setWebConsoleUrl((String)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_SERVER__BUNDLE_CONDUCTOR_URL:
+                setBundleConductorUrl((String)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_SERVER__TALEND_RUNTIME:
+                setTalendRuntime(((Boolean)newValue).booleanValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -607,6 +795,18 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
             case PropertiesPackage.EXECUTION_SERVER__PASSWORD:
                 setPassword(PASSWORD_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_SERVER__JMX_URL:
+                setJmxUrl(JMX_URL_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_SERVER__WEB_CONSOLE_URL:
+                setWebConsoleUrl(WEB_CONSOLE_URL_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_SERVER__BUNDLE_CONDUCTOR_URL:
+                setBundleConductorUrl(BUNDLE_CONDUCTOR_URL_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_SERVER__TALEND_RUNTIME:
+                setTalendRuntime(TALEND_RUNTIME_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -639,6 +839,14 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
                 return USERNAME_EDEFAULT == null ? username != null : !USERNAME_EDEFAULT.equals(username);
             case PropertiesPackage.EXECUTION_SERVER__PASSWORD:
                 return PASSWORD_EDEFAULT == null ? password != null : !PASSWORD_EDEFAULT.equals(password);
+            case PropertiesPackage.EXECUTION_SERVER__JMX_URL:
+                return JMX_URL_EDEFAULT == null ? jmxUrl != null : !JMX_URL_EDEFAULT.equals(jmxUrl);
+            case PropertiesPackage.EXECUTION_SERVER__WEB_CONSOLE_URL:
+                return WEB_CONSOLE_URL_EDEFAULT == null ? webConsoleUrl != null : !WEB_CONSOLE_URL_EDEFAULT.equals(webConsoleUrl);
+            case PropertiesPackage.EXECUTION_SERVER__BUNDLE_CONDUCTOR_URL:
+                return BUNDLE_CONDUCTOR_URL_EDEFAULT == null ? bundleConductorUrl != null : !BUNDLE_CONDUCTOR_URL_EDEFAULT.equals(bundleConductorUrl);
+            case PropertiesPackage.EXECUTION_SERVER__TALEND_RUNTIME:
+                return talendRuntime != TALEND_RUNTIME_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -673,6 +881,14 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
         result.append(username);
         result.append(", password: ");
         result.append(password);
+        result.append(", jmxUrl: ");
+        result.append(jmxUrl);
+        result.append(", webConsoleUrl: ");
+        result.append(webConsoleUrl);
+        result.append(", bundleConductorUrl: ");
+        result.append(bundleConductorUrl);
+        result.append(", talendRuntime: ");
+        result.append(talendRuntime);
         result.append(')');
         return result.toString();
     }

@@ -4495,6 +4495,42 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getExecutionServer_JmxUrl() {
+        return (EAttribute)executionServerEClass.getEStructuralFeatures().get(11);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionServer_WebConsoleUrl() {
+        return (EAttribute)executionServerEClass.getEStructuralFeatures().get(12);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionServer_BundleConductorUrl() {
+        return (EAttribute)executionServerEClass.getEStructuralFeatures().get(13);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionServer_TalendRuntime() {
+        return (EAttribute)executionServerEClass.getEStructuralFeatures().get(14);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getExecutionVirtualServer() {
         return executionVirtualServerEClass;
     }
@@ -6165,6 +6201,10 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(executionServerEClass, EXECUTION_SERVER__TIMEOUT_UNKNOWN_STATE);
         createEAttribute(executionServerEClass, EXECUTION_SERVER__USERNAME);
         createEAttribute(executionServerEClass, EXECUTION_SERVER__PASSWORD);
+        createEAttribute(executionServerEClass, EXECUTION_SERVER__JMX_URL);
+        createEAttribute(executionServerEClass, EXECUTION_SERVER__WEB_CONSOLE_URL);
+        createEAttribute(executionServerEClass, EXECUTION_SERVER__BUNDLE_CONDUCTOR_URL);
+        createEAttribute(executionServerEClass, EXECUTION_SERVER__TALEND_RUNTIME);
 
         executionVirtualServerEClass = createEClass(EXECUTION_VIRTUAL_SERVER);
         createEAttribute(executionVirtualServerEClass, EXECUTION_VIRTUAL_SERVER__ID);
@@ -6878,6 +6918,10 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getExecutionServer_TimeoutUnknownState(), theEcorePackage.getEInt(), "timeoutUnknownState", "120", 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionServer_Username(), theEcorePackage.getEString(), "username", null, 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionServer_Password(), theEcorePackage.getEString(), "password", null, 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionServer_JmxUrl(), theEcorePackage.getEString(), "jmxUrl", null, 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionServer_WebConsoleUrl(), theEcorePackage.getEString(), "webConsoleUrl", null, 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionServer_BundleConductorUrl(), theEcorePackage.getEString(), "bundleConductorUrl", null, 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionServer_TalendRuntime(), theEcorePackage.getEBoolean(), "talendRuntime", null, 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(executionVirtualServerEClass, ExecutionVirtualServer.class, "ExecutionVirtualServer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getExecutionVirtualServer_Id(), ecorePackage.getEInt(), "id", null, 1, 1, ExecutionVirtualServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

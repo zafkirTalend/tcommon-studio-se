@@ -6317,13 +6317,49 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_SERVER__PASSWORD = 10;
 
     /**
+     * The feature id for the '<em><b>Jmx Url</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_SERVER__JMX_URL = 11;
+
+    /**
+     * The feature id for the '<em><b>Web Console Url</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_SERVER__WEB_CONSOLE_URL = 12;
+
+    /**
+     * The feature id for the '<em><b>Bundle Conductor Url</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_SERVER__BUNDLE_CONDUCTOR_URL = 13;
+
+    /**
+     * The feature id for the '<em><b>Talend Runtime</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_SERVER__TALEND_RUNTIME = 14;
+
+    /**
      * The number of structural features of the '<em>Execution Server</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_SERVER_FEATURE_COUNT = 11;
+    int EXECUTION_SERVER_FEATURE_COUNT = 15;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -10456,6 +10492,50 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getExecutionServer_Password();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionServer#getJmxUrl <em>Jmx Url</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Jmx Url</em>'.
+     * @see org.talend.core.model.properties.ExecutionServer#getJmxUrl()
+     * @see #getExecutionServer()
+     * @generated
+     */
+    EAttribute getExecutionServer_JmxUrl();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionServer#getWebConsoleUrl <em>Web Console Url</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Web Console Url</em>'.
+     * @see org.talend.core.model.properties.ExecutionServer#getWebConsoleUrl()
+     * @see #getExecutionServer()
+     * @generated
+     */
+    EAttribute getExecutionServer_WebConsoleUrl();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionServer#getBundleConductorUrl <em>Bundle Conductor Url</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Bundle Conductor Url</em>'.
+     * @see org.talend.core.model.properties.ExecutionServer#getBundleConductorUrl()
+     * @see #getExecutionServer()
+     * @generated
+     */
+    EAttribute getExecutionServer_BundleConductorUrl();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionServer#isTalendRuntime <em>Talend Runtime</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Talend Runtime</em>'.
+     * @see org.talend.core.model.properties.ExecutionServer#isTalendRuntime()
+     * @see #getExecutionServer()
+     * @generated
+     */
+    EAttribute getExecutionServer_TalendRuntime();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionTask <em>Execution Task</em>}'.
@@ -15531,6 +15611,38 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute EXECUTION_SERVER__PASSWORD = eINSTANCE.getExecutionServer_Password();
+
+        /**
+         * The meta object literal for the '<em><b>Jmx Url</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_SERVER__JMX_URL = eINSTANCE.getExecutionServer_JmxUrl();
+
+        /**
+         * The meta object literal for the '<em><b>Web Console Url</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_SERVER__WEB_CONSOLE_URL = eINSTANCE.getExecutionServer_WebConsoleUrl();
+
+        /**
+         * The meta object literal for the '<em><b>Bundle Conductor Url</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_SERVER__BUNDLE_CONDUCTOR_URL = eINSTANCE.getExecutionServer_BundleConductorUrl();
+
+        /**
+         * The meta object literal for the '<em><b>Talend Runtime</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_SERVER__TALEND_RUNTIME = eINSTANCE.getExecutionServer_TalendRuntime();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionTaskImpl <em>Execution Task</em>}' class.
