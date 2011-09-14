@@ -3,56 +3,8 @@
 	<!-- to run this test suite ,three tasks needed testModifyTask testTaskRunTRunJob 
 		BranchTask -->
 
-	<test name="deleteAllTasks">
-		<classes>
-			<class name="com.talend.tac.cases.grid.TestGridCleanTask" />
-		</classes>
-	</test>
 
-	<test name="TestPrepareTasks_testTaskRunTRunJob">
-		<parameter name="task.label" value="testTaskRunTRunJob" />
-		<parameter name="labelDescription" value="test testTaskRunTRunJob" />
-		<parameter name="branchName" value="trunk" />
-		<parameter name="jobName" value="tRunJob" />
-		<parameter name="version" value="0.1" />
-		<parameter name="context" value="Default" />
-		<parameter name="statisticEnabled" value="enabled" />
-		<parameter name="ServerForUseAvailable" value="use_server_available" />
-		<classes>
-			<class name="com.talend.tac.cases.executePlan.TestPrepareTasks" />
-		</classes>
-	</test>
-
-	<test name="TestPrepareTasks_BranchTask">
-		<parameter name="task.label" value="BranchTask" />
-		<parameter name="labelDescription" value="test BranchTask" />
-		<parameter name="branchName" value="branches/test_branch" />
-		<parameter name="jobName" value="BranchTjava" />
-		<parameter name="version" value="0.1" />
-		<parameter name="context" value="Default" />
-		<parameter name="statisticEnabled" value="enabled" />
-		<parameter name="ServerForUseAvailable" value="use_server_available" />
-		<classes>
-			<class name="com.talend.tac.cases.executePlan.TestPrepareTasks" />
-		</classes>
-	</test>
-
-	<test name="TestPrepareTasks_testModifyTask">
-		<parameter name="task.label" value="testModifyTask" />
-		<parameter name="labelDescription" value="test testModifyTask" />
-		<parameter name="branchName" value="trunk" />
-		<parameter name="jobName" value="tjava" />
-		<parameter name="version" value="0.1" />
-		<parameter name="context" value="Default" />
-		<parameter name="statisticEnabled" value="enabled" />
-		<parameter name="ServerForUseAvailable" value="use_server_available" />
-		<classes>
-			<class name="com.talend.tac.cases.executePlan.TestPrepareTasks" />
-		</classes>
-	</test>
-
-	<test name="executionplan">
-		<parameter name="plan.label" value="testPlan" />
+	    <parameter name="plan.label" value="testPlan" />
 		<parameter name="plan.unexecuted.label" value="unexecutedPlan" />
 		<parameter name="plan.unexecuted.tasklabel" value="unexecutedTask" />
 		<parameter name="labelDescription" value="test add a task" />
@@ -124,48 +76,236 @@
 		<parameter name="planexecutionlogsdisplay.plan.label" value="testPlanlogsdisplay" />
 		<parameter name="planexecutionlogsdisplay.plan.roottask"
 			value="BranchTask" />
-
+			
+			
+	<test name="deleteAllTasks">
 		<classes>
-			<!--<class name="com.talend.tac.cases.executePlan.TestAddAddSimpleTriggerUseOutdatedtime"/> -->
-			<class
-				name="com.talend.tac.cases.executePlan.TestAddTwoPlansCheckInformations" />
-			<class name="com.talend.tac.cases.executePlan.TestPlanParameters" />
-			<class name="com.talend.tac.cases.executePlan.AddPlan" />
-			<class name="com.talend.tac.cases.executePlan.TestAddExistPlan" />
-			<class name="com.talend.tac.cases.executePlan.ModifyPlan" />
-			<class name="com.talend.tac.cases.executePlan.DeletePlan" />
-			<class
-				name="com.talend.tac.cases.executePlan.TestPlanedTreeViewManageDeleteRoottask" />
-			<class name="com.talend.tac.cases.executePlan.TestPlanedTreeViewManage" />
-			<class
-				name="com.talend.tac.cases.executePlan.TestAddAddSimpleTriggerUseOutdatedTimeByUI" />
-			<class
-				name="com.talend.tac.cases.executePlan.TestAddAddSimpleTriggerUseDefaulttime" />
-			<class
-				name="com.talend.tac.cases.executePlan.TestAddTriggerAddCronTrigger" />
-			<class
-				name="com.talend.tac.cases.executePlan.TestAddTriggerAddCronTriggerByUI" />
-			<class
-				name="com.talend.tac.cases.executePlan.TestAddTriggerAddCronTriggerUsePasttime" />
-			<class name="com.talend.tac.cases.executePlan.TestDuplicateCrontrigger" />
-			<class
-				name="com.talend.tac.cases.executePlan.TestAddTriggerAddSimpleTrigger" />
-			<class
-				name="com.talend.tac.cases.executePlan.TestAddTriggerAddSimpleTriggerByUI" />
-			<class
-				name="com.talend.tac.cases.executePlan.TestAddTriggerAddSimpleTriggerByUIendbeforestart" />
-			<class name="com.talend.tac.cases.executePlan.TestDuplicateSimpletrigger" />
-			<class
-				name="com.talend.tac.cases.executePlan.TestAddTriggerAddFileTrigger" />
-			<class name="com.talend.tac.cases.executePlan.TestPlanExecution" />
-			<class name="com.talend.tac.cases.executePlan.TestExecutionPlanMenu" />
-			<class
-				name="com.talend.tac.cases.executePlan.TestChangeRootTaskNameOfPlan" />
-			<class
-				name="com.talend.tac.cases.executePlan.TestPlanExecutionLogsDisplay" />
-			<class name="com.talend.tac.cases.executePlan.TestTriggerPauseAndResume" />
-			<class name="com.talend.tac.cases.executePlan.TestRunPlan" />
+			<class name="com.talend.tac.cases.grid.TestGridCleanTask" />
 		</classes>
 	</test>
+
+	<test name="TestPrepareTasks_testTaskRunTRunJob">
+		<parameter name="task.label" value="testTaskRunTRunJob" />
+		<parameter name="labelDescription" value="test testTaskRunTRunJob" />
+		<parameter name="branchName" value="trunk" />
+		<parameter name="jobName" value="tRunJob" />
+		<parameter name="version" value="0.1" />
+		<parameter name="context" value="Default" />
+		<parameter name="statisticEnabled" value="enabled" />
+		<parameter name="ServerForUseAvailable" value="use_server_available" />
+		<classes>
+			<class name="com.talend.tac.cases.executePlan.TestPrepareTasks" />
+		</classes>
+	</test>
+
+	<test name="TestPrepareTasks_BranchTask">
+		<parameter name="task.label" value="BranchTask" />
+		<parameter name="labelDescription" value="test BranchTask" />
+		<parameter name="branchName" value="branches/test_branch" />
+		<parameter name="jobName" value="BranchTjava" />
+		<parameter name="version" value="0.1" />
+		<parameter name="context" value="Default" />
+		<parameter name="statisticEnabled" value="enabled" />
+		<parameter name="ServerForUseAvailable" value="use_server_available" />
+		<classes>
+			<class name="com.talend.tac.cases.executePlan.TestPrepareTasks" />
+		</classes>
+	</test>
+
+	<test name="TestPrepareTasks_testModifyTask">
+		<parameter name="task.label" value="testModifyTask" />
+		<parameter name="labelDescription" value="test testModifyTask" />
+		<parameter name="branchName" value="trunk" />
+		<parameter name="jobName" value="tjava" />
+		<parameter name="version" value="0.1" />
+		<parameter name="context" value="Default" />
+		<parameter name="statisticEnabled" value="enabled" />
+		<parameter name="ServerForUseAvailable" value="use_server_available" />
+		<classes>
+			<class name="com.talend.tac.cases.executePlan.TestPrepareTasks" />
+		</classes>
+	</test>
+
+    <test name="test_CronTrigger_add_plan">
+		<classes>
+			<class name="com.talend.tac.cases.executePlan.TestAddTriggerAddCronTrigger" />
+			<class name="com.talend.tac.cases.executePlan.TestAddTriggerAddCronTriggerByUI" />
+			<class name="com.talend.tac.cases.executePlan.TestAddTriggerAddCronTriggerUsePasttime" />
+		</classes>
+	</test>
+  <test name="test_CronTrigger_duplicate_plan">
+		<classes>
+			<class name="com.talend.tac.cases.executePlan.TestDuplicateCrontrigger" />
+		</classes>
+	</test>
+ <test name="test_menu_plan">
+		<classes>
+			<class name="com.talend.tac.cases.executePlan.TestExecutionPlanMenu" />
+		</classes>
+	</test>
+	
+	<test name="test_add_plan">
+		<classes>
+			<class name="com.talend.tac.cases.executePlan.AddPlan" />
+		</classes>
+	</test>
+	<test name="test_changeroottask_plan">
+		<classes>
+			<class name="com.talend.tac.cases.executePlan.TestChangeRootTaskNameOfPlan" />
+		</classes>
+	</test>
+	<test name="test_addexist_plan">
+		<classes>
+			<class name="com.talend.tac.cases.executePlan.TestChangeRootTaskNameOfPlan" />
+		</classes>
+	</test>
+	<test name="test_modify_plan">
+		<classes>
+			<class name="com.talend.tac.cases.executePlan.ModifyPlan" />
+		</classes>
+	</test>
+	
+	<test name="test_delete_plan_cancel">
+        <classes> 
+            <class name="com.talend.tac.cases.executePlan.DeletePlan">
+                <methods>
+                    <include name="testCancelDeletePlan"></include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <test name="test_delete_plan_ok">
+        <classes> 
+            <class name="com.talend.tac.cases.executePlan.DeletePlan">
+                <methods>
+                    <include name="testDeletePlan"></include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+       <test name="test_plan_execution_generate">
+        <classes> 
+            <class name="com.talend.tac.cases.executePlan.TestPlanExecution">
+                <methods>
+                    <include name="testGeneratePlan"></include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+        <test name="test_plan_execution_deploy">
+        <classes> 
+            <class name="com.talend.tac.cases.executePlan.TestPlanExecution">
+                <methods>
+                    <include name="testDeployPlan"></include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+           <test name="test_plan_execution_run">
+        <classes> 
+            <class name="com.talend.tac.cases.executePlan.TestPlanExecution">
+                <methods>
+                    <include name="testRunPlan"></include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+       
+           <test name="test_plan_execution_logsdisplay_perpage">
+        <classes> 
+            <class name="com.talend.tac.cases.executePlan.TestPlanExecutionLogsDisplay">
+                <methods>
+                    <include name="testCheckPlanLogsPerpage"></include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+            <test name="test_plan_execution_logsdisplay_perpage_changed">
+        <classes> 
+            <class name="com.talend.tac.cases.executePlan.TestPlanExecutionLogsDisplay">
+                <methods>
+                    <include name="testCheckPlanLogsPerpageChange"></include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+       
+            <test name="test_plan_execution_parameters_logscheck">
+        <classes> 
+            <class name="com.talend.tac.cases.executePlan.TestPlanParameters">
+                <methods>
+                    <include name="testCheckPlanExecutionLogs"></include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+        
+            <test name="test_plan_execution_parameters_notclickoverride">
+        <classes> 
+            <class name="com.talend.tac.cases.executePlan.TestPlanParameters">
+                <methods>
+                    <include name="testChangePlanParametersNotClickOverride"></include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+         
+            <test name="test_plan_execution_parameters_clickoverride">
+        <classes> 
+            <class name="com.talend.tac.cases.executePlan.TestPlanParameters">
+                <methods>
+                    <include name="testChangePlanParametersAndClickOverride"></include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    	<test name="test_plan_treeview manage">
+		<classes>
+			<class name="com.talend.tac.cases.executePlan.TestPlanedTreeViewManage" />
+		</classes>
+	</test>
+	
+	<test name="test_plan_filetrigger">
+		<classes>
+			<class name="com.talend.tac.cases.executePlan.TestAddTriggerAddFileTrigger" />
+		</classes>
+	</test>
+	
+      	<test name="test_plan_simpletrigger_add">
+		<classes>
+			<class name="com.talend.tac.cases.executePlan.TestAddAddSimpleTriggerUseDefaulttime" />
+			<class name="com.talend.tac.cases.executePlan.TestAddAddSimpleTriggerUseOutdatedTimeByUI" />
+			<class name="com.talend.tac.cases.executePlan.TestAddTriggerAddSimpleTrigger" />
+			<class name="com.talend.tac.cases.executePlan.TestAddTriggerAddSimpleTriggerByUI" />
+			<class name="com.talend.tac.cases.executePlan.TestAddTriggerAddSimpleTriggerByUIendbeforestart" />
+		</classes>
+	</test>
+	
+	     	<test name="test_plan_simpletrigger_duplicate">
+		<classes>
+			<class name="com.talend.tac.cases.executePlan.TestDuplicateSimpletrigger" />
+		</classes>
+	</test>
+	
+	    	<test name="test_informationsbetweenplans">
+		<classes>
+			<class name="com.talend.tac.cases.executePlan.TestAddTwoPlansCheckInformations" />
+		</classes>
+	</test>
+	
+	    	<test name="test_plan_running">
+		<classes>
+			<class name="com.talend.tac.cases.executePlan.TestRunPlan" />
+			<class name="com.talend.tac.cases.executePlan.TestTriggerPauseAndResume" />
+			<class name="com.talend.tac.cases.executePlan.TestPlanedTreeViewManageDeleteRoottask" />
+		</classes>
+	</test>
+	
 </suite>
 
