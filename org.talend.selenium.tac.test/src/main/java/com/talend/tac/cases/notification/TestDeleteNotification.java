@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public class TestDeleteNotification extends AddNotification {
     
 	//delete a notification(cancel Delete user Notification)
-	@Test(groups={"DeleteNotification"},dependsOnGroups={"duplicationNotification"})
+	@Test
 	@Parameters({"eventNewUser"})
 	public void testCancelDeleteUserNotification(String eventNewUser) {
 		
@@ -26,7 +26,7 @@ public class TestDeleteNotification extends AddNotification {
 		
 	}
 	//delete a notification(Delete User Notification)
-	@Test(dependsOnMethods={"testCancelDeleteUserNotification"})
+	@Test
 	@Parameters({"eventNewUser"})
 	public void testDeleteUserNotification(String eventNewUser) {
 		
@@ -51,7 +51,7 @@ public class TestDeleteNotification extends AddNotification {
 	/**add a  user notificaton, select an user 'jackzhang@gmail.com', then into user page and 
 	delete 'jackzhang@gmail.com', return notification page and check corresponding
 	 notification is deleted**/
-	@Test(dependsOnMethods={"testDeleteUserNotification"})
+	@Test
 	@Parameters({"categoryUser","eventUserCreation","descriptionUserCreation","LoginName"})
 	public void testDeleteUserNotifitionByDeleteUser(String categoryUser, String eventUserCreation, 
 			String descriptionUserCreation, String loginName) {
@@ -87,7 +87,7 @@ public class TestDeleteNotification extends AddNotification {
 	/**add a  task notificaton, select an task 'BranchTask', then into Task page and 
 	delete 'BranchTask', return notification page and check corresponding
 	 notification is deleted**/
-	@Test(dependsOnMethods={"testDeleteUserNotification"})
+	@Test
 	@Parameters({"eventTaskFailed","labelAddJVMParametersForTask"})
 	public void testDeleteTaskByDeleteTask(String eventTaskFailed, String testAddsimpleTask) {
 		
@@ -127,7 +127,7 @@ public class TestDeleteNotification extends AddNotification {
 	/**add a  jobServer notificaton, select an jobServer 'use_server_unactive', then into jobServer page and 
 	delete 'use_server_unactive', return notification page and check corresponding
 	 notification is deleted**/
-	@Test(dependsOnMethods={"testDeleteUserNotification"})
+	@Test
 	@Parameters({"eventJobServerAlert","ServerForUseUnavailable"})
 	public void testDeleteJobServerByDeleteJobServer(String eventJobServerAlert, String jobServer) {
 		
