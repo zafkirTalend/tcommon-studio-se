@@ -9,7 +9,6 @@ public class TestAddJobserverNotification extends AddNotification {
 	
     //add a jobserver'notification(JobServerAlertNotification)
 	@Test
-//	(groups={"AddJobserverNotification"}, dependsOnGroups={"AddTaskNotification"})
 	@Parameters({"categoryJobServer","eventJobServerAlert","descriptionJobServerAlert","ServerForUseUnavailable"})
 	public void testAddJobserversJobServerAlertNotification(String categoryJobServer, String eventJobServerAlert,
 			String descriptionJobServerAlert, String jobServer) {
@@ -24,7 +23,7 @@ public class TestAddJobserverNotification extends AddNotification {
 		
 	}
 	//add a jobserver'notification(uncheck Active)
-	@Test(dependsOnMethods={"testAddJobserversJobServerAlertNotification"})
+	@Test
 	@Parameters({"categoryJobServer","eventJobServerAlert","descriptionJobServerAlert","ServerForUseAvailable"})
 	public void testAddJobserversNotificationUncheckActive(String categoryJobServer,String eventJobServerAlert,
 			String descriptionJobServerAlert,String jobServer) {
