@@ -274,10 +274,12 @@ public class LocalLibraryManager implements ILibraryManagerService {
     }
 
     public void clearCache() {
-        LibrariesIndexManager.getInstance().loadResource();
-        LibrariesIndexManager.getInstance().getIndex().setInitialized(false);
-        LibrariesIndexManager.getInstance().getIndex().getJarsToRelativePath().clear();
-        LibrariesIndexManager.getInstance().saveResource();
+        if (isInitialized()) {
+            LibrariesIndexManager.getInstance().loadResource();
+            LibrariesIndexManager.getInstance().getIndex().setInitialized(false);
+            LibrariesIndexManager.getInstance().getIndex().getJarsToRelativePath().clear();
+            LibrariesIndexManager.getInstance().saveResource();
+        }
     }
 
     public boolean contains(String jarName) {
