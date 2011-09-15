@@ -1,4 +1,4 @@
-<project name="karaf" default="test" basedir=".">
+<project name="karaf" default="test" basedir="../../../../../">
 	<path id="libs.classpath">
 		<fileset dir="../libs" id="libs.path.id">
 		    <include name="*.jar"/>
