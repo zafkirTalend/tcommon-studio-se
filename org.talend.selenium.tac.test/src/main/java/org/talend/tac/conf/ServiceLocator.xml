@@ -9,19 +9,42 @@
        <parameter  name ="jobFiveProvider" value="jobFiveProvider"/>
        <parameter  name ="jobSixProvider" value="jobSixProvider"/>
        
+       <!-- service file path -->
+       <parameter  name ="provider.file.path.jobFirstProvider" value="org/talend/tac/folder/esb/jobFirstProvider_0.1.jar"/>
+       <parameter  name ="provider.file.path.jobSecondProvider" value="org/talend/tac/folder/esb/jobSecondProvider_0.1.jar"/>
+       <parameter  name ="provider.file.path.jobThirdProvider" value="org/talend/tac/folder/esb/jobThirdProvider_0.1.jar"/>
+	   <parameter  name ="provider.file.path.jobFourthProvider" value="org/talend/tac/folder/esb/jobFourthProvider_0.1.jar"/>
+       <parameter  name ="provider.file.path.jobFiveProvider" value="org/talend/tac/folder/esb/jobFiveProvider_0.1.jar"/>
+       <parameter  name ="provider.file.path.jobSixProvider" value="org/talend/tac/folder/esb/jobSixProvider_0.1.jar"/>
+       
        <!-- esb configuration zookeeper-->
        <parameter name="esb.conf.zookeeperServer" value="127.0.0.1:2181"></parameter>
        <parameter name="esb.conf.zookeeperServerWithWrong" value="127.0.0.g:2888"></parameter>
        
        <!-- esb configuration monitorServer-->
        <parameter name="esb.conf.serviceActivityMonitorServer" 
-        value="http://localhost:8081/sam-server-war"/>
+        value="http://localhost:8899/sam-server-war"/>
        <parameter name="esb.conf.serviceActivityRemoteMonitorServer" 
-        value="http://192.168.0.167:9091/sam-server-war"/>
+        value="http://192.168.0.94:8080/sam-server-war"/>
        <parameter name="esb.conf.serviceActivityMonitorServerWithWrong" 
         value="http://192.168.0.g:8080/sam-server-war"/>
         
-	   <test name="ServiceLocator AllService DisplayLiveServicesOnly...">
+       <!-- license path -->                                
+       <parameter  name ="license.esb.file.path"	value ="org/talend/tac/folder/license/TalendESB42EE.license
+       
+       "/>
+       
+	   <test name="serviceLocator01_ClearAllServices">
+		   <classes>
+		      <class name="com.talend.tac.cases.esb.serviceLocator.TestServiceLocator">
+		         <methods>
+		            <include name="deleteAllService"/>		            
+		         </methods>
+		      </class> 
+		   </classes>
+	   </test>
+		 
+	   <test name="serviceLocator02_AllServiceLiveServeiceOnly">
 		   <classes>
 		      <class name="com.talend.tac.cases.esb.serviceLocator.TestServiceLocator">
 		         <methods>
@@ -34,7 +57,7 @@
 		   </classes>
 		</test>
 		
-		<test name="ServiceLocator	 refresh...">
+		<test name="serviceLocator03_CheckRefreshGroupDisplayService">
 		   <classes>
 		      <class name="com.talend.tac.cases.esb.serviceLocator.TestServiceLocator">
 		         <methods>		            
@@ -50,7 +73,7 @@
 		   </classes>
 		</test>
 				
-		<test name="ServiceLocator hideDisplayService remote zkServer...">
+		<test name="serviceLocator04_HideDisplayServiceRemoteZkServer">
 		   <classes>
 		      <class name="com.talend.tac.cases.esb.serviceLocator.TestServiceLocator">
 		         <methods>             
