@@ -78,11 +78,21 @@ public class TestEsbServiceActivityFilterData extends Esb {
 		this.sleep(3000);
 		this.openColumnsFilters("Date / Time","x-grid3-hd-inner x-grid3-hd-timestamp x-component");
 		this.chooseFilterToday("On");
+		String lastpage = selenium
+		.getText("//div[contains(@class,'x-small-editor x-toolbar x-component x-toolbar-layout-ct')]//div[contains(text(),'of') and @class='my-paging-text x-component ']");
+        System.out.println(lastpage);
+        String totalPage = lastpage.substring(lastpage.indexOf(" ") + 1);
+		selenium.click("//div[@class='my-paging-text x-component ' and text()='Page']//ancestor::tr[@class='x-toolbar-left-row']//td[9]//table");
+		this.sleep(3000);
+		Assert.assertTrue(
+				selenium.getValue(
+						"//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[contains(@class,'gwt-TextBox x-component')]")
+						.equals(totalPage), "test go to last page failed!");
 		this.sleep(3000);
 		int eventsBefore = selenium.getXpathCount("//div[text()='Service Activity Monitoring']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//div[@class='x-grid3-body']//div[contains(@class,'x-grid3-row')]").intValue();
-		this.sendServiceRequest(karafUrl,jarPath,consumerName);
+		this.sendServiceRequest(karafUrl,consumerName);
 		this.sleep(3000);
-		selenium.click("//div[@class='header-title' and text()='Service Locator']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//b[text()='Refresh']");
+		selenium.click("//div[@class='header-title' and text()='Service Activity Monitoring']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//b[text()='Refresh']");
 		this.sleep(3000);
 		int eventsAfter = selenium.getXpathCount("//div[text()='Service Activity Monitoring']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//div[@class='x-grid3-body']//div[contains(@class,'x-grid3-row')]").intValue();
 	    Assert.assertTrue(eventsAfter==eventsBefore+1, "test new events receive failed!");

@@ -68,7 +68,6 @@ public class TestEsbServicePayloadContentsDisplay extends Esb {
 		rob.keyPress(KeyEvent.VK_ESCAPE);
 		rob.keyRelease(KeyEvent.VK_ESCAPE);
 		this.waitForElementDispear("//div[contains(@class,'x-small-editor x-window-header x-window-draggable x-component')]//img[@class=' x-panel-inline-icon']", WAIT_TIME);
-		
 		selenium.click("//legend[text()='Response OUT']//parent::fieldset//img[@class='samui-event-content-popup-link']");
 		this.waitForElementPresent("//div[contains(@class,'x-small-editor x-window-header x-window-draggable x-component')]//img[@class=' x-panel-inline-icon']", WAIT_TIME);
 		rob.keyPress(KeyEvent.VK_ESCAPE);

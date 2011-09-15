@@ -23,36 +23,17 @@ public class Esb extends Login {
 		this.waitForElementPresent("//div[@class='header-title' and text()='Service Activity Monitoring']", WAIT_TIME);
 	}
 	
-	public void sendServiceRequest(String karafURL,String jarPath,String consumerName){
-		karaf = new Karaf(karafURL, jarPath);
+	public void sendServiceRequest(String karafURL,String consumerName){
+		karaf = new Karaf(karafURL);
 		System.out.println("service request send-->  start!");
 		karaf.karafAction("job:start "+consumerName+"", 10000);
 		System.out.println("service request send-->  ended!");
 		
+		
 	}
 	
-	/**
-	 * this method is used to wait something disappear
-	 * @param element: element that should disappear
-	 * @param timeout: max wait time
-	 */
-	public void waitForElementDispear(String element, int timeout) {
-		if (selenium.isElementPresent(element)) {
-			for (int second = 0;; second++) {
-				if (second >= timeout)
-					Assert.assertFalse(selenium.isElementPresent(element));
-				try {
-					if ((!selenium.isElementPresent(element))) {
-						break;
-					} else {
-						this.sleep(1000);
-					}
-				} catch (Exception e) {
-				}
+	
 
-			}
-		}
-
-	}
+	
 	
 }
