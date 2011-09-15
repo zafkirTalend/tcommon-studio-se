@@ -1,6 +1,6 @@
 <project name="karaf" default="test" basedir="../../../../../">
 	<path id="libs.classpath">
-		<fileset dir="../libs" id="libs.path.id">
+		<fileset dir="org/talend/tac/folder/libs" id="libs.path.id">
 		    <include name="*.jar"/>
 		</fileset>
 	</path>

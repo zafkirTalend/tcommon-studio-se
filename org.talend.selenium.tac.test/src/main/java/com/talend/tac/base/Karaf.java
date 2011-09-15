@@ -114,8 +114,7 @@ public class Karaf {
 		Hashtable properties = new Hashtable();
 		properties.put("karaf.path", new Base().getAbsolutePath(""));
 		
-		Base base = new Base();
-		System.out.println(base.getAbsolutePath(""));
+		System.out.println(new Base().getAbsolutePath(""));
 		properties.put("host", host);
 		properties.put("action", action);
 		properties.put("timeout", timeout);
