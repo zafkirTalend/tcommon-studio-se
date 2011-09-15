@@ -47,6 +47,7 @@
 	<!-- projects for task and soamanager -->
 	<parameter  name ="AddcommonProjectname"	value ="commonpro"/>
   	<parameter  name ="AddreferenceProjectname"	value ="referencepro"/>
+  	<parameter  name ="ProjectWithSpaceChar" value="project space"/>
 
 	<!-- Servers for use -->
 	<parameter name="RemoteWindowServerIp" value="192.168.0.94" />
