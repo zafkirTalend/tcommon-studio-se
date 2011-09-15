@@ -6,12 +6,9 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.talend.tac.base.Base;
-import com.talend.tac.cases.Login;
+public class TestAddProjectWithOutType extends Projects {
 
-public class TestAddProjectWithOutType extends Login {
-
-	@Test(groups = { "AddElse" })
+	@Test
 	@Parameters({"SVNProjecturl","SVNuserName", "SVNuserPassword","ProjectWithOutType", "Prolanguage", "ProjectType"})
 	public void testAddpro(String url,String username,String password,String proname, String language, String type) throws Exception {
 
@@ -21,9 +18,7 @@ public class TestAddProjectWithOutType extends Login {
 
 	public void testAddProjectWithOutType(String url,String username,String password,String proname, String language, String type)
 			throws Exception {
-		selenium.setSpeed(MIN_SPEED);
-		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
-		this.clickWaitForElementPresent("!!!menu.project.element!!!");
+		this.openMenuProject();
 		this.clickWaitForElementPresent("idSubModuleAddButton");
 		Thread.sleep(2000);
 		this.typeString("idLabelInput", proname);

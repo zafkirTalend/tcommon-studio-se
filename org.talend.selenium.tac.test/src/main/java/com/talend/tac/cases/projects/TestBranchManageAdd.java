@@ -7,7 +7,7 @@ import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
 public class TestBranchManageAdd extends Login {
-	@Test(groups = { "AddBranch" }, dependsOnGroups = { "else" })
+	@Test
 	@Parameters({ "AddcommonProjectname", "BranchName" })
 	public void testAddProjectbranch(String project, String branchname) throws InterruptedException {
 		// first add a branch to a project

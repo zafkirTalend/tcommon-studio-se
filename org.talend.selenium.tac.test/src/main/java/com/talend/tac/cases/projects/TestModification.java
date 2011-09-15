@@ -2,16 +2,14 @@ package com.talend.tac.cases.projects;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import com.talend.tac.base.Base;
-import com.talend.tac.cases.Login;
-public class TestModification extends Login {
 
-	@Test(groups = { "Second" },dependsOnGroups={"Add"})
+public class TestModification extends Projects {
+
+	@Test
 	public void testIsModifyenable() {
 		
-		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
-		selenium.click("!!!menu.project.element!!!");
+		this.openMenuProject();
 		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label']", Base.WAIT_TIME);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label']");
 		selenium.setSpeed(MID_SPEED);

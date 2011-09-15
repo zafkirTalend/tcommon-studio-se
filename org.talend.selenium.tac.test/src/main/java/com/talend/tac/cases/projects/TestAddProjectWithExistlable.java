@@ -9,15 +9,15 @@ import org.testng.annotations.Test;
 import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
-public class TestAddProjectWithExistlable extends Login {
+public class TestAddProjectWithExistlable extends Projects {
 
-	@Test(dependsOnGroups = { "Add" })
+	@Test
 	// @Test(groups = { "AddBranch" }, dependsOnGroups = { "Add" })
 	@Parameters({ "SVNurl", "SVNuserName", "SVNuserPassword",
 			"AddcommontestProjectname", "Prolanguage", "ProjectType" })
-	public void testAddpro(String url, String user, String password,
+	public void testAddProjectExist(String url, String user, String password,
 			String proname, String language, String type) throws Exception {
-
+        this.openMenuProject();
 		testAddexistproject(proname, language, type, url, user, password);
 
 	}
@@ -25,10 +25,6 @@ public class TestAddProjectWithExistlable extends Login {
 	public void testAddexistproject(String namecommon, String language,
 			String type, String svnurl, String user, String password)
 			throws Exception {
-		selenium.setSpeed(MIN_SPEED);
-		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
-//		selenium.setSpeed(MID_SPEED);
-		this.clickWaitForElementPresent("!!!menu.project.element!!!");
 		this.clickWaitForElementPresent("idSubModuleAddButton");
 		Thread.sleep(2000);
 		this.typeString("idLabelInput", namecommon);
@@ -40,12 +36,7 @@ public class TestAddProjectWithExistlable extends Login {
 			selenium.mouseDown("//div[text()='" + type + "']");
 			selenium.fireEvent("idProjectTypeComboBox", "blur");
 		}
-//		selenium.setSpeed(MIN_SPEED);
-		// if ("Java".equals(language) || "".equals(language)) {
-		// } else {
-		// selenium.click("idLanguageInput");
-		// selenium.mouseDownAt("//div[@role='listitem'][2]",""+KeyEvent.VK_ENTER);
-		// }
+
 		if (!"Java".equals(language) && !"".equals(language)) {
 			selenium.click("idLanguageInput");
 			this.waitForElementPresent("//div[@role='listitem'][2]", WAIT_TIME);
@@ -56,17 +47,7 @@ public class TestAddProjectWithExistlable extends Login {
 		this.typeString("idUrlInput", svnurl + "/" + namecommon + "/");// svn
 		this.typeString("idLoginInput", user);// svn account
 		this.typeString("idPasswordInput", password);// svn password
-//		selenium.click("idSvnCommitInput");
-//		selenium.mouseDownAt("//div[@role='listitem'][2]", ""
-//				+ KeyEvent.VK_ENTER);
-//		selenium.click("idSvnLockInput");
-//		selenium.mouseDownAt("//div[@role='listitem'][2]", ""
-//				+ KeyEvent.VK_ENTER);
-//		selenium.click("idSvnUserLogInput");
 		this.typeString("idDescriptionInput", "adf");
-		// selenium.focus("idFormSaveButton");
-		// selenium.keyDownNative(""+KeyEvent.VK_ENTER);
-		// selenium.keyUpNative(""+KeyEvent.VK_ENTER);
 		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium

@@ -5,28 +5,22 @@ import java.awt.event.KeyEvent;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import com.talend.tac.base.Base;
-import com.talend.tac.cases.Login;
 
-public class TestAddProjectWithNullLabel extends Login {
+public class TestAddProjectWithNullLabel extends Projects {
 
-	@Test(groups = { "AddElse" })
+	@Test
 	@Parameters({ "SVNurl", "SVNuserName", "SVNuserPassword",
 			"AddcommontestProjectname", "Prolanguage", "ProjectType" })
-	public void testAddpro(String url, String user, String password,
+	public void testAddProjectWithOutLabel(String url, String user, String password,
 			String proname, String language, String type) throws Exception {
-
 		testAddprojectwithnulllabel(proname, language, type, url, user, password);
-
 	}
 
 	public void testAddprojectwithnulllabel(String namecommon, String language,
 			String type, String svnurl, String user, String password)
 			throws Exception {
-		selenium.setSpeed(MIN_SPEED);
-		this.waitForElementPresent("!!!menu.project.element!!!", Base.WAIT_TIME);
-		this.clickWaitForElementPresent("!!!menu.project.element!!!");
+		this.openMenuProject();
 		this.clickWaitForElementPresent("idSubModuleAddButton");
 		Thread.sleep(2000);
 		this.typeString("idLabelInput", "");

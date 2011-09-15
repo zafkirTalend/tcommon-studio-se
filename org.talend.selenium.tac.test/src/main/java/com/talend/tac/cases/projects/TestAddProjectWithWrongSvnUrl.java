@@ -5,15 +5,13 @@ import java.awt.event.KeyEvent;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import com.talend.tac.base.Base;
-import com.talend.tac.cases.Login;
 
-public class TestAddProjectWithWrongSvnUrl extends Login {
+public class TestAddProjectWithWrongSvnUrl extends Projects {
 
-	@Test(groups = { "AddElse" })
+	@Test
 	@Parameters({"AddcommontestProjectWrongSvn", "Prolanguage", "ProjectType"})
-	public void testAddpro(String proname, String language, String type) throws Exception {
+	public void testAddProjectWithWrongSVNUrl(String proname, String language, String type) throws Exception {
 
 		testAddexistproject(proname, language, type);
 
@@ -46,13 +44,6 @@ public class TestAddProjectWithWrongSvnUrl extends Login {
 		this.typeString("idUrlInput", "svnurl");// svn
 		this.typeString("idLoginInput", "svnuser");// svn account
 		this.typeString("idPasswordInput", "svnpassword");// svn password
-//		selenium.click("idSvnCommitInput");
-//		selenium.mouseDownAt("//div[@role='listitem'][2]", ""
-//				+ KeyEvent.VK_ENTER);
-//		selenium.click("idSvnLockInput");
-//		selenium.mouseDownAt("//div[@role='listitem'][2]", ""
-//				+ KeyEvent.VK_ENTER);
-//		selenium.click("idSvnUserLogInput");
 		this.typeString("idDescriptionInput", "adf");
 		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MID_SPEED);

@@ -6,11 +6,10 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.talend.tac.base.Base;
-import com.talend.tac.cases.Login;
 
-public class TestCheckConnection extends Login{
+public class TestCheckConnection extends Projects{
 
-	@Test(groups = { "Second" },dependsOnGroups={"Add"})
+	@Test
 	@Parameters({"SVNProjecturl", "WrongSVNProjecturl","SVNuserName", "SVNuserPassword","Prolanguage"})
 	public void testCheckconnection(String rightUrl,String wrongUrl,String user, String password,String language) throws Exception {
 	
