@@ -1,30 +1,92 @@
 package com.talend.tac.cases.esb.serviceLocator;
 
-import static org.testng.Assert.assertEquals;
-
-import java.awt.Event;
-import java.util.Hashtable;
 
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import com.talend.tac.base.AntAction;
-import com.talend.tac.base.Base;
-import com.talend.tac.base.Karaf;
-import com.talend.tac.cases.Login;
 
-public class TestServiceLocator extends Login {
+public class TestServiceLocator extends EsbUtil {
 	
-	Karaf karaf = new Karaf("localhost", "D:/jar");
-	public String locatorOfAllInputTags = other.getString("commandline.conf.all.input");
+	@Test
+	@Parameters({"license.esb.file.path","jobFirstProvider", "jobSecondProvider", 
+		"jobThirdProvider", "jobFourthProvider"})
+	public void deleteAllService(String license,String jobFirstProvider,
+			String jobSecondProvider, String jobThirdProvider, String jobFourthProvider) {
+			
+		uploadLicense(license);
+		
+		uninstallService(jobFirstProvider);
+		uninstallService(jobSecondProvider);
+		uninstallService(jobThirdProvider);
+		uninstallService(jobFourthProvider);
+		
+		stopService(jobFirstProvider);
+		stopService(jobSecondProvider);
+		stopService(jobThirdProvider);
+		stopService(jobFourthProvider);
+		
+		//go to 'ServiceLocator' page
+		this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");
+		//click 'Refresh' button
+		selenium.click("//b[text()='Refresh']");
+		
+	    try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for(int i=0;; i++) {
+			
+			selenium.setSpeed(MID_SPEED);
+			if(selenium.isElementPresent("//div[contains(text(),'/esb/provider')]")) {
+				
+				selenium.setSpeed(MIN_SPEED);
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				selenium.mouseDown("//div[contains(text(),'/esb/provider')]");
+				selenium.setSpeed(MID_SPEED);
+				selenium.click("//button[contains(text(),'Delete')]");
+				Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Are you sure you want" +
+						" to delete service information for')]"));
+				selenium.setSpeed(MIN_SPEED);
+
+				selenium.click("//button[text()='Yes']");
+			} else {				
+				
+				break;
+				
+			}
+			
+		}
+		
+		selenium.setSpeed(MIN_SPEED);
+		//verify display result
+		this.waitForElementPresent("//div[text()='There are no services available." +
+				" Please check your filter and click refresh button to retry.']", WAIT_TIME);
+		
+		
+	}
+	
 	//test display service of 'live services only'/'all services'	
 	@Test
-	@Parameters({"jobFirstProvider", "jobSecondProvider", "jobThirdProvider"})
-	public void testDisplayAllService(String jobFirstProvider, String jobSecondProvider,
-			String jobThirdProvider) {		
+	@Parameters({"provider.file.path.jobFirstProvider", "provider.file.path.jobSecondProvider",
+		"provider.file.path.jobThirdProvider", "jobFirstProvider", "jobSecondProvider",
+		"jobThirdProvider"})
+	public void testDisplayAllService(String jobFirstProviderFilePath, String jobSecondProviderFilePath,
+			String jobThirdProviderFilePath, String jobFirstProvider, String jobSecondProvider,
+			String jobThirdProvider) {	
+		
 		
 		//install all job and start
-		startAllService(jobFirstProvider, jobSecondProvider, jobThirdProvider);
+		startAllService(jobFirstProviderFilePath, jobFirstProvider, jobSecondProviderFilePath, 
+				jobSecondProvider, jobThirdProviderFilePath, jobThirdProvider);
 		
 		//go to 'ServiceLocator' page
 		this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");
@@ -119,9 +181,9 @@ public class TestServiceLocator extends Login {
 	
 	//check refresh button is well work
 	@Test
-	@Parameters({"jobFirstProvider", "jobSecondProvider", "jobThirdProvider"})
+	@Parameters({"jobFirstProvider", "jobSecondProvider", "jobThirdProvider", "provider.file.path.jobFirstProvider"})
 	public void testCheckRefresh(String jobFirstProvider,
-			String jobSecondProvider, String jobThirdProvider) {
+			String jobSecondProvider, String jobThirdProvider, String jobFirstProviderFilePath) {
 		
 		//go to 'ServiceLocator' page
 		this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");
@@ -131,7 +193,7 @@ public class TestServiceLocator extends Login {
 		assertStopService(jobSecondProvider);
 		assertStopService(jobThirdProvider);
 		
-		installStratService(jobFirstProvider);
+		installStratService(jobFirstProviderFilePath, jobFirstProvider);
 		
 		//click 'Refresh' button
 		selenium.click("//b[text()='Refresh']");
@@ -187,7 +249,7 @@ public class TestServiceLocator extends Login {
 		this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");
 			
 		changeGroupDisplayService("endpoint", "name", "TEST_jobFirstProvider");
-		changeGroupDisplayService("endpoint", "isAlive", "false");	
+		changeGroupDisplayService("endpoint", "isActive", "false");	
 		changeGroupDisplayService("name", "endpoint", "http://127.0.0.1:9997/esb/provider");
 		changeGroupDisplayService("name", "transport_protocol", "http://talend.org/esb/service/job");
 		
@@ -255,13 +317,14 @@ public class TestServiceLocator extends Login {
 	
 	//Stop and restart a service connected to Service Locator and check correct status display in server table
 	@Test
-	@Parameters({"jobFourthProvider"})
-	public void testCheckServiceLocationPageStopZkServerRestart(String jobFourthProvider) {
+	@Parameters({"provider.file.path.jobFourthProvider", "jobFourthProvider"})
+	public void testCheckServiceLocationPageStopZkServerRestart(String jobFourthPrividerFilePath, 
+			String jobFourthProvider) {
 		 
 		//go to 'ServiceLocator' page
 		this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");
 		
-		installStratService(jobFourthProvider);		
+		installStratService(jobFourthPrividerFilePath, jobFourthProvider);		
 		//click 'Refresh' button
 		selenium.click("//b[text()='Refresh']");		
 		//start job
@@ -277,7 +340,7 @@ public class TestServiceLocator extends Login {
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='http://127.0.0.1:9996/esb/provider']" +
 				"//ancestor::table[@class='x-grid3-row-table']//span[@style='color: red;']"));
 		
-		installStratService(jobFourthProvider);		
+		installStratService(jobFourthPrividerFilePath, jobFourthProvider);		
 		//click 'Refresh' button
 		selenium.click("//b[text()='Refresh']");		
 		//start job
@@ -303,7 +366,8 @@ public class TestServiceLocator extends Login {
 		
 		modifyEsbConfigurationInConfigurationPage(zookeeperServerWithWrong, other.getString("esb.conf.StopZookeeperServerStatusIconLocator"));
         
-		selenium.setSpeed(MAX_SPEED);
+		selenium.click("//b[text()='Refresh']");
+		this.waitForElementPresent("//div[contains(text(),'Zookeeper for this url is unavailable')]", WAIT_TIME);
 	  	Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Zookeeper for this url is unavailable')]"));
 	  	selenium.setSpeed(MIN_SPEED);
 		
@@ -366,238 +430,5 @@ public class TestServiceLocator extends Login {
 	   modifySAMServer(localServer, other.getString("esb.conf.ServiceActivityMonitorServerStatusIconLocator"));
 	   
 	}
-    
-	public void startAllService(String jobFirstProvider, String jobSecondProvider, 
-			String jobThirdProvider) {
-		
-		installStratService(jobFirstProvider);
-		installStratService(jobSecondProvider);
-		installStratService(jobThirdProvider);
-		
-	}	
-	
-	public void stopAllService(String jobFirstProvider, String jobSecondProvider, 
-			String jobThirdProvider) {
-		
-		stopService(jobFirstProvider);
-		stopService(jobSecondProvider);
-		stopService(jobThirdProvider);
-		
-	}
-	
-	public void installStratService(String jobName) {
-		
-		System.out.println("**--**start");
-		karaf.karafAction("install -s file:///D:/produck/fgzhang/dd/"+jobName+"_0.1.jar", 10000);
-		System.out.println("**--**end");
-		karaf.karafAction("job:start "+jobName+"", 10000);
-		System.out.println("**--**end");
-		
-	}
-	
-	
-	public void stopService(String jobName) {
-		
-		System.out.println("**--**start");
-		karaf.karafAction("stop "+jobName+"", 10000);
-		System.out.println("**--**end");
-		
-	}
-	
-	public void assertStartService(String jobName) {
-		
-		selenium.setSpeed(MID_SPEED);
-		Assert.assertTrue(!selenium.isElementPresent("//div[text()='TEST_"+jobName+"']//ancestor::div[contains(@class,'x-grid-group')]" +
-		"//span[contains(text(),'Last seen')]"));
-		selenium.setSpeed(MIN_SPEED);
-			
-	}
-	
-	public void assertStopService(String jobName) {
-		
-		this.waitForElementPresent("//div[contains(text(),'"+jobName+"')]//ancestor::div[contains(@class,'x-grid-group')]" +
-				"//span[contains(text(),'Last seen')]", WAIT_TIME);
-		Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'"+jobName+"')]//ancestor::div[contains(@class,'x-grid-group')]" +
-				"//span[contains(text(),'Last seen')]"));
-		                       
-	}
-	
-	public void checkSortAscendingSortDescending(String xpathName, String value, String value1) {
-				
-		selenium.setSpeed(MID_SPEED);
-        selenium.click("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-"+xpathName+"')]/a");
-        selenium.setSpeed(MIN_SPEED);  
-		selenium.click("//a[text()='Sort Descending']");
-		selenium.setSpeed(MID_SPEED);
-		System.out.println(selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-"+xpathName+"']"));
-		Assert.assertEquals(selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-"+xpathName+"']"), value);       
-        selenium.setSpeed(MIN_SPEED);
-        
-        selenium.setSpeed(MID_SPEED);
-        selenium.click("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-"+xpathName+"')]/a");
-        selenium.setSpeed(MIN_SPEED);  
-		selenium.click("//a[text()='Sort Ascending']");
-		selenium.setSpeed(MID_SPEED);
-		System.out.println(selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-"+xpathName+"']"));
-		Assert.assertEquals(selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-"+xpathName+"']"), value1);
-		selenium.setSpeed(MIN_SPEED);
-		
-	}
-	
-	public void changeGroupDisplayService(String filedName, String newFiledName, String xpath) {
-		
-		
-		this.clickWaitForElementPresent("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-"+filedName+"')]/a");		
-		
-		selenium.setSpeed(MID_SPEED);
-		//cancel group display
-		selenium.click("//a[text()='Show in Groups']");
-		selenium.setSpeed(MID_SPEED);
-		Assert.assertFalse(selenium.isElementPresent("//div[@class='x-grid-group-div']"));
-		selenium.setSpeed(MIN_SPEED);
-		
-		this.clickWaitForElementPresent("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-"+newFiledName+"')]/a");
-		selenium.setSpeed(MID_SPEED);
-		//select filed, service of according to the filed group display	
-		selenium.click("//a[text()='Group By This Field']");
-		
-		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+xpath+"']"));
-		selenium.setSpeed(MIN_SPEED);
-		
-		
-	}
-	
-	//hidden services/display service    
-	public void hiddenDisplayServices(String serviceEndPoint,String serviceName) {
-	 
-		
-		if(selenium.isTextPresent(serviceEndPoint) && selenium.isTextPresent(serviceName)) {
-			
-			if(selenium.isVisible("//div[text()='"+serviceEndPoint+"']")) {
-			 
-				 selenium.mouseDown("//div[text()='"+serviceName+"']");
-				 selenium.setSpeed(MID_SPEED);
-				 Assert.assertFalse(selenium.isVisible("//div[text()='"+serviceEndPoint+"']"));
-				 selenium.setSpeed(MIN_SPEED);
-			} else {
-				 
-				 selenium.mouseDown("//div[text()='"+serviceName+"']");
-				 selenium.setSpeed(MID_SPEED);
-				 Assert.assertTrue(selenium.isVisible("//div[text()='"+serviceEndPoint+"']"));
-				 selenium.setSpeed(MIN_SPEED);
-			}
-			
-		} else {
-			
-			System.out.println("services does not exist or wrong title");
-		}
-		
-		
-	}
-	
-	//modify the services display columns
-	public void modifyDisplayServicesColumns(String xpathName) {
-		
 
-		if(selenium.isElementPresent("//span[text()='"+xpathName+"']")) {
-			selenium.setSpeed(MID_SPEED);
-			selenium.click("//a[text()='"+xpathName+"']/img[@class=' x-menu-item-icon']");
-			Assert.assertFalse(selenium.isElementPresent("//span[text()='"+xpathName+"']"));
-		    selenium.setSpeed(MIN_SPEED);
-		} else {
-			
-			selenium.setSpeed(MID_SPEED);
-			selenium.click("//a[text()='"+xpathName+"']/img[@class=' x-menu-item-icon']");
-		    Assert.assertTrue(selenium.isElementPresent("//span[text()='"+xpathName+"']"));
-		    selenium.setSpeed(MIN_SPEED);
-		}
-		
-
-	}
-	
-	//sort table by click on column header
-	public void SortTableByClickOnColumnHeader(String columnName, String value, String value1) {
-		
-		selenium.click("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-name x-component sort-asc')]");
-		System.out.println(selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-"+columnName+"']"));
-		Assert.assertEquals(selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-"+columnName+"']"), value1);
-		selenium.click("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-name x-component sort-desc')]");		
-		System.out.println(selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-"+columnName+"']"));
-		Assert.assertEquals(selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-"+columnName+"']"), value1);
-		
-	}
-	
-	//start zookeeper server
-	public void startStopZkServer(String controlZkServer) {
-		
-		 AntAction aa = new AntAction();
-	     Hashtable<String, String> properties = new Hashtable<String, String>();
-	     properties.put("server.home", "D:\\produck\\fgzhang\\talend-esb-4.2\\zookeeper");
-	     properties.put("command", "zkServer.cmd");
-	     properties.put("action", controlZkServer);
-	     aa.runTarget("Server.xml", properties);
-		
-	}
-    
-	public void modifyEsbConfigurationInConfigurationPage(String ServiceLocation, String zookeeperServerStatusIconLocator) {	
-		
-		//go to configuration page 
-		this.clickWaitForElementPresent("idMenuConfigElement");
-		  
-		this.MouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");
-		this.typeWordsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), locatorOfAllInputTags, ServiceLocation);
-	  	
-	  	this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), locatorOfAllInputTags,
-	  			ServiceLocation, zookeeperServerStatusIconLocator);	    
-		
-	}
-	
-	/**
-	 * type a value in configuration menu.click the edit button firstly to wait for the input to appear.
-	 * @param locatorOfEditButton
-	 * @param locatorOfInput
-	 * @param value
-	 */
-	public void typeWordsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){
-		 this.clickWaitForElementPresent(locatorOfEditButton);//click the edit button to make the input tag shown.
-		 this.typeWaitForElementPresent(locatorOfInput, value);
-		 selenium.keyDownNative(""+Event.ENTER);
-	}
-	/**
-	 * assertions,check the value in input tag is as expected,and check the status icon.
-	 * @param locatorOfEditButton
-	 * @param locatorOfInput	
-	 * @param value
-	 */
-		public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value,String statusIconLocator){
-		this.AssertEqualsInConfigurationMenu(locatorOfEditButton, locatorOfInput, value);
-		this.waitForElementPresent(statusIconLocator, WAIT_TIME);//wait and check the icon status.
-	}
-	public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){
-		this.clickWaitForElementPresent(locatorOfEditButton);//click the edit button to make the input tag shown.
-		this.waitForElementPresent(locatorOfInput, Base.WAIT_TIME);
-		assertEquals(selenium.getValue(locatorOfInput), value);
-		selenium.fireEvent(locatorOfInput, "blur");
-	}
-	
-	public void modifySAMServer(String MonitorServer, String MonitorServerStatusIconLocator) {					     
-		  
-		this.typeWordsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), locatorOfAllInputTags, MonitorServer);
-		  
-	    this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), locatorOfAllInputTags,
-			   MonitorServer, MonitorServerStatusIconLocator);
-		
-	}
-	
-//	public static void main(String[] args) {
-//		
-//		String controlZkServer = "stop";
-//		
-//		 AntAction aa = new AntAction();
-//	     Hashtable<String, String> properties = new Hashtable<String, String>();
-//	     properties.put("server.home", "D:\\produck\\fgzhang\\talend-esb-4.2\\zookeeper");
-//	     properties.put("command", "zkServer.cmd");
-//	     properties.put("action", controlZkServer);
-//	     aa.runTarget("Server.xml", properties);
-//	}
 }
