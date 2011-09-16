@@ -1,14 +1,8 @@
 package com.talend.cases.dashboard.jobsAnalyses;
 
 import static org.testng.Assert.*;
-
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.annotations.Parameters;
-
-import java.awt.Event;
-import java.awt.event.KeyEvent;
-
 import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
