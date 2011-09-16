@@ -19,7 +19,7 @@
 	<parameter name="DeleteBranchName" value="branch" />
 	<parameter name="NumbersOfprojects" value="2" />
 	
-	<!--  <test name="project_add_test">
+	  <test name="project_add_test">
 		<classes>
 		<class name="com.talend.tac.cases.projects.TestAddProjectUncheckadvanced" />
 		<class name="com.talend.tac.cases.projects.TestAddcommonpro" />
@@ -44,7 +44,7 @@
 		<classes>
 			 <class name="com.talend.tac.cases.projects.TestClean" />
 		</classes>
-	</test> -->
+	</test>
 	
 	<test name="project_add_foruse">
 		<classes>
