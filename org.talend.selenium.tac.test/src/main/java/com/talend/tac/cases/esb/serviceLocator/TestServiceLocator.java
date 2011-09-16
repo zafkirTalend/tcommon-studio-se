@@ -318,7 +318,7 @@ public class TestServiceLocator extends EsbUtil {
 	//Stop and restart a service connected to Service Locator and check correct status display in server table
 	@Test
 	@Parameters({"provider.file.path.jobFourthProvider", "jobFourthProvider"})
-	public void testCheckServiceLocationPageStopZkServerRestart(String jobFourthPrividerFilePath, 
+	public void testCheckServiceLocationPageStopServiceAndRestart(String jobFourthPrividerFilePath, 
 			String jobFourthProvider) {
 		 
 		//go to 'ServiceLocator' page
