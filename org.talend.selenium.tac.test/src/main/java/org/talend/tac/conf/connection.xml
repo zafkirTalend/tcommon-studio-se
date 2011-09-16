@@ -11,6 +11,7 @@
   <parameter  name ="Mysql_Additional" value =""/>
   <parameter  name ="Mysql_Stattable" value ="tstats"/>
   <parameter  name ="Mysql_Logstable" value ="tlogs"/>
+  <parameter  name ="Mysql_meterstable" value ="tmeters"/>
 
   <parameter  name ="MSSQL_Dbname" value ="amc"/>
   <parameter  name ="MSSQL_Dbtype" value="4"/>
@@ -23,6 +24,7 @@
   <parameter  name ="MSSQL_Additional" value =""/>
   <parameter  name ="MSSQL_Stattable" value ="statsinfo"/>		
   <parameter  name ="MSSQL_Logstable" value ="logsinfo"/>
+   <parameter  name ="MSSQL_meterstable" value ="metersinfo"/>
   
   <parameter  name ="Oracle_Dbname" value ="talend"/>
   <parameter  name ="Oracle_Dbtype" value="3"/>
@@ -35,10 +37,31 @@
   <parameter  name ="Oracle_Additional" value =""/>
   <parameter  name ="Oracle_Stattable" value ="TSTATS"/>
   <parameter  name ="Oracle_Logstable" value ="TLOGS"/>
+  <parameter  name ="Oracle_meterstable" value ="TMETERS"/>
  
   <test name="connection_add">
     <classes>
     <class name="com.talend.cases.dashboard.connection.TestAddConnection"/>
+    <methods>
+	            <include name="testAddConnectionMSSQL"/>
+	            <include name="testAddConnectionMysql"/>
+	            <include name="testAddConnectionOracle"/>
+	         </methods>
+    </classes>
+  </test> 
+  
+   <test name="connection_duplicate">
+    <classes>	
+    <class name="com.talend.cases.dashboard.connection.TestDuplicateConnection"/>
+    </classes>
+  </test>
+  
+  <test name="connection_delete">
+    <classes>
+    <class name="com.talend.cases.dashboard.connection.TestAddConnection"/>
+    <methods>
+	<include name="testDeleteConnection"/>
+	</methods>
     </classes>
   </test>
   
@@ -48,13 +71,6 @@
     </classes>
   </test>
 
- <test name="connection_duplicate">
-    <classes>	
-    <class name="com.talend.cases.dashboard.connection.TestDuplicateConnection"/>
-    <class name="com.talend.cases.dashboard.jobsAnalyses.TestJobAnalyses"/>
-    </classes>
-  </test>
-  
   <test name="connection_jobanalyses">
     <classes>	
     <class name="com.talend.cases.dashboard.jobsAnalyses.TestJobAnalyses"/>
