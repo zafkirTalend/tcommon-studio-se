@@ -12,7 +12,7 @@ public class TestWrongDbConfig extends DbConfig {
 	public void testWrongDriverDbConfig(String url, String userName,
 			String userPassWd, String driver) {
 		this.DbConfigProcess(url, userName, userPassWd, driver);
-		selenium.waitForCondition("selenium.isTextPresent(\"Cannot instantiate\")",1000*WAIT_TIME+"");
+		this.waitForElementPresent("//div[contains(text(),'Cannot instantiate')]", WAIT_TIME);
 		waitForCheckConnectionStatus("//td[@align='LEFT']/img", 5);
 		selenium.click("idDbConfigLogoutButton");
 //		waitForElementPresent("idLoginInput", WAIT_TIME);
@@ -23,7 +23,7 @@ public class TestWrongDbConfig extends DbConfig {
 	public void testWrongAccountDbConfig(String url, String userName,
 			String userPassWd, String driver) {
 		this.DbConfigProcess(url, userName, userPassWd, driver);
-		selenium.waitForCondition("selenium.isTextPresent(\"Wrong user name or password\")",1000*MAX_WAIT_TIME+"");
+		this.waitForElementPresent("//div[contains(text(),'Wrong user name or password')]", WAIT_TIME);
 		waitForCheckConnectionStatus("//td[@align='LEFT']/img", 5);
 		selenium.click("idDbConfigLogoutButton");
 //		waitForElementPresent("idLoginInput", WAIT_TIME);
