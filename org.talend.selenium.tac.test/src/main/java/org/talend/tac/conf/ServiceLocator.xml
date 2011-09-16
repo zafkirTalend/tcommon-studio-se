@@ -61,7 +61,7 @@
 		   <classes>
 		      <class name="com.talend.tac.cases.esb.serviceLocator.TestServiceLocator">
 		         <methods>		            
-		            <include name="testCheckServiceLocationPageStopZkServerRestart"/>
+		            <include name="testCheckServiceLocationPageStopServiceAndRestart"/>
 		            <include name="testCheckRefresh"/>
 		            <include name="testCheckSortAscendingSortDescending"/>		            
 		            <include name="testDisplayServiceNotWithGroups"/>
