@@ -116,7 +116,7 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 		properties.put("file.path", FilePath+"testFileTrigger.xml");
 		antAction.runTarget("File.xml", "create", properties);	
 		
-		this.addFileTrigger(label, fileTriggerLabel, labelDescription, "30",
+		this.addFileTrigger(label, fileTriggerLabel, labelDescription, "40",
 				FilePath, fileMask, jobServer,
 				"idJobConductorFileTriggerFtExitCheckBox");		
 		
@@ -161,11 +161,13 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 		
 	}
 	
-//	@Test
+	/**Check that the "Created" option does work, Check
+	that task is executed only one time after the creation of the file.**/
+	@Test
 	@Parameters({"taskForTestFileTrigger","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled", "addFileTriggerOfCheckExistOption",
 		"addFileTriggerOfExistDescription","FolderPath",
-		"FileMaskOfXml"})
+		"FileMaskOfTxt"})
 	public void testCreateFileTriggerCheckCreatedOption(String label,
 			String labelDescription,String commonpro,String branch,String jobName,
 			String version,String context,String jobServer,String statistic, String fileTriggerLabel,
@@ -197,7 +199,7 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 		
 		
 		AntAction antAction = new AntAction();
-		properties.put("file.path", FilePath+"testFileTrigger.xml");
+		properties.put("file.path", FilePath+"testFileTrigger.txt");
 		antAction.runTarget("File.xml", "create", properties);
 		
 		this.waitForElementPresent("//span[text()='"+label+"']//ancestor::tr" +
