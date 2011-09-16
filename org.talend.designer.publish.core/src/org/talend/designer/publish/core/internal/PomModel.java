@@ -71,10 +71,6 @@ public class PomModel {
 
 	@Override
 	public String toString() {
-		return generatePomFileContent();
-	}
-
-	private String generatePomFileContent() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
 		sb.append("<project xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\"\n");
@@ -104,6 +100,10 @@ public class PomModel {
 
 		sb.append("</project>");
 		return sb.toString();
+	}
+
+	public String getPomContent() {
+		return toString();
 	}
 
 	private String generateDependenciesContent() {

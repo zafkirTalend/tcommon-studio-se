@@ -19,6 +19,7 @@ import java.net.URL;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.talend.designer.publish.core.internal.ChecksumComputor;
+import org.talend.designer.publish.core.internal.FeaturesModel;
 import org.talend.designer.publish.core.internal.MetadataModel;
 import org.talend.designer.publish.core.internal.PomModel;
 import org.xml.sax.SAXException;
@@ -26,31 +27,83 @@ import org.xml.sax.SAXException;
 public class UploadAction {
 
 	public boolean deploy(String jarFilePath, String groupId,
-			String artifactId, String version, String packaging,
-			String repositoryUrl, String userName, String password)
-			throws IOException, ParserConfigurationException, SAXException {
+			String artifactId, String version, String repositoryUrl,
+			String userName, String password) throws IOException,
+			ParserConfigurationException, SAXException {
 		return deploy(new File(jarFilePath), groupId, artifactId, version,
-				packaging, repositoryUrl, userName, password);
+				repositoryUrl, userName, password);
 	}
 
 	private boolean deploy(File jarFile, String groupId, String artifactId,
-			String version, String packaging, String repositoryUrl,
-			String userName, String password) throws IOException,
-			ParserConfigurationException, SAXException {
-		String artifactPath = computeArtifactDestination(groupId, artifactId,
-				packaging, repositoryUrl);
-		String versionPath = artifactPath + version + "/";
-
-		uploadBundleFile(versionPath, jarFile, artifactId, version, packaging,
+			String version, String repositoryUrl, String userName,
+			String password) throws IOException, ParserConfigurationException,
+			SAXException {
+		deployBundle(jarFile, groupId, artifactId, version, repositoryUrl,
 				userName, password);
 
-		uploadPomFile(versionPath, groupId, artifactId, version, packaging,
+		deployFeature(jarFile, groupId, artifactId, version, repositoryUrl,
+				userName, password);
+
+		return true;
+	}
+
+	private void deployFeature(File jarFile, String groupId, String artifactId,
+			String version, String repositoryUrl, String userName,
+			String password) throws MalformedURLException, IOException,
+			ParserConfigurationException, SAXException {
+		String artifactPath = computeArtifactDestination(groupId, artifactId,
+				repositoryUrl, true);
+
+		String versionPath = artifactPath + version + "/";
+
+		uploadFeatureFile(versionPath, groupId, artifactId, version, userName,
+				password);
+
+		uploadPomFile(versionPath, groupId, artifactId + "-feature", version,
+				"pom", userName, password);
+		//
+		updateMetadataFile(artifactPath, groupId, artifactId + "-feature",
+				version, userName, password);
+
+	}
+
+	private void uploadFeatureFile(String versionPath, String groupId,
+			String artifactId, String version, String userName, String password)
+			throws IOException {
+		FeaturesModel featuresModel = new FeaturesModel(
+				artifactId + "-feature", version);
+		featuresModel.addSubBundle(groupId, artifactId, version);
+
+		String fileName = featuresModel.getFeatureName() + "-" + version
+				+ ".xml";
+		String filePath = versionPath + fileName;
+		URL featureURL = new URL(filePath);
+		String featureContentContent = featuresModel.getFeatureContent();
+		uploadContent(featureURL, featureContentContent, userName, password);
+
+		// upload md5 and sha1
+		ChecksumComputor checksumComputor = new ChecksumComputor(
+				featureContentContent);
+		uploadMd5AndSha1(filePath, fileName, checksumComputor, userName,
+				password);
+	}
+
+	private void deployBundle(File jarFile, String groupId, String artifactId,
+			String version, String repositoryUrl, String userName,
+			String password) throws MalformedURLException, IOException,
+			ParserConfigurationException, SAXException {
+		String artifactPath = computeArtifactDestination(groupId, artifactId,
+				repositoryUrl, false);
+		String versionPath = artifactPath + version + "/";
+
+		uploadBundleFile(versionPath, jarFile, artifactId, version, userName,
+				password);
+
+		uploadPomFile(versionPath, groupId, artifactId, version, "bundle",
 				userName, password);
 
 		updateMetadataFile(artifactPath, groupId, artifactId, version,
 				userName, password);
-
-		return true;
 	}
 
 	private void uploadPomFile(String parentPath, String groupId,
@@ -62,7 +115,7 @@ public class UploadAction {
 		String fileName = pomModel.getFileName();
 		String filePath = parentPath + fileName;
 		URL pomUrl = new URL(filePath);
-		String pomContent = pomModel.toString();
+		String pomContent = pomModel.getPomContent();
 		uploadContent(pomUrl, pomContent, userName, password);
 
 		// upload md5 and sha1
@@ -72,10 +125,10 @@ public class UploadAction {
 	}
 
 	private void uploadBundleFile(String parentUrl, File jarFile,
-			String artifactId, String version, String packaging,
-			String userName, String password) throws IOException {
+			String artifactId, String version, String userName, String password)
+			throws IOException {
 		// upload jar file
-		String fileName = computeBundleName(artifactId, version, packaging);
+		String fileName = computeBundleName(artifactId, version);
 		String filePath = parentUrl + fileName;
 		URL bundleUrl = new URL(filePath);
 		uploadContent(bundleUrl, jarFile, userName, password);
@@ -224,7 +277,7 @@ public class UploadAction {
 	 * @throws MalformedURLException
 	 */
 	private String computeArtifactDestination(String groupId,
-			String artifactId, String packaging, String repositoryUrl)
+			String artifactId, String repositoryUrl, boolean isFeature)
 			throws MalformedURLException {
 		StringBuilder sb = new StringBuilder();
 		sb.append(repositoryUrl);
@@ -235,18 +288,20 @@ public class UploadAction {
 		sb.append(replacedGroupId);
 		sb.append("/");
 		sb.append(artifactId);
+		if (isFeature) {
+			sb.append("-feature");
+		}
 		sb.append("/");
 		return sb.toString();
 	}
 
-	private String computeBundleName(String artifactId, String version,
-			String packaging) throws MalformedURLException {
+	private String computeBundleName(String artifactId, String version)
+			throws MalformedURLException {
 		StringBuilder sb = new StringBuilder();
 		sb.append(artifactId);
 		sb.append("-");
 		sb.append(version);
-		sb.append(".");
-		sb.append(packaging);
+		sb.append(".jar");
 		return sb.toString();
 	}
 
@@ -266,13 +321,13 @@ public class UploadAction {
 		}
 	}
 
-	//for test
-//	public static void main(String[] args) throws IOException,
-//			ParserConfigurationException, SAXException {
-//		UploadAction uploadAction = new UploadAction();
-//		uploadAction.deploy("TestEERoute_0.1.jar", "org.talend.liugang",
-//				"TestEERoute", "1.0.49-SNAPSHOT", "jar",
-//				"http://localhost:8080/archiva/repository/snapshots/", "gliu",
-//				"liugang123");
-//	}
+	// for test
+	public static void main(String[] args) throws IOException,
+			ParserConfigurationException, SAXException {
+		UploadAction uploadAction = new UploadAction();
+		uploadAction.deploy("TestEERoute_0.1.jar", "org.talend.liugang",
+				"TestEERoute", "2.0.59-SNAPSHOT",
+				"http://localhost:8080/archiva/repository/snapshots/", "gliu",
+				"liugang123");
+	}
 }
