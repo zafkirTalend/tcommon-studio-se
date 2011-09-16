@@ -21,10 +21,8 @@ public class TestDbConfig extends DbConfig {
 
 		// if the parameter is saved successfully ,the save button will turn
 		// gray.
-		selenium
-				.waitForCondition(
-						"selenium.isElementPresent(\"//table[contains(@class,'disabled')]//button[@id='idDbConfigSaveButton']\")",
-						"30000");
+		this.waitForElementPresent("//table[contains(@class,'disabled')]" +
+				"//button[@id='idDbConfigSaveButton']", MAX_WAIT_TIME);
 		waitForCheckConnectionStatus("//div[text()='OK']",4);
 		//if no license, load the license from a file.
 	
