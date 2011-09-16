@@ -1,5 +1,8 @@
 package com.talend.tac.cases.dbConfig;
 
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+
 import com.talend.tac.base.Base;
 import static org.testng.Assert.*;
 
@@ -93,5 +96,10 @@ public class DbConfig extends Base {
 			fomatedUrl = "jdbc:h2:"+(url)+"/talend_administrator;AUTO_SERVER=TRUE;MVCC=TRUE";
 		}
 		return fomatedUrl;
+	}
+	
+	@AfterMethod
+	public void killBroswer() {
+		selenium.stop();
 	}
 }
