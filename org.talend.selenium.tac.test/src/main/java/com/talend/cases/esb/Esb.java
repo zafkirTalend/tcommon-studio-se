@@ -28,11 +28,17 @@ public class Esb extends Login {
 		System.out.println("service request send-->  start!");
 		karaf.karafAction("job:start "+consumerName+"", 10000);
 		System.out.println("service request send-->  ended!");
-		
-		
 	}
 	
-	
+	public void generateEvents(String karafURL,String consumerName,int eventsNum){
+		
+		karaf = new Karaf(karafURL);
+		System.out.println("service request send-->  start!");
+		for (int i = 0; i < eventsNum; i++) {
+			karaf.karafAction("job:start "+consumerName+"", 10000);
+			System.err.println("generate events :"+i);
+		}
+	}
 
 	
 	
