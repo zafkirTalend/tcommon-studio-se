@@ -4,11 +4,7 @@
 	<parameter name="db.userName" value="tisadmin" />
 	<parameter name="db.userPassWd" value="tisadmin" />
 	<parameter name="db.driver" value="org.h2.Driver" />
-	<parameter name="db.url.wrong" value="wrongURL" />
-	<parameter name="db.userName.wrong" value="tisadmin_wrong" />
-	<parameter name="db.userPassWd.wrong" value="tisadmin_wrong" />
-	<parameter name="db.driver.wrong" value="org.h2.Driver_wrong" />
-
+    
 	<test name="TestDbConfig">
 		<classes>
 			<class name="com.talend.tac.cases.dbConfig.TestDbConfig" />
@@ -17,29 +13,18 @@
 		</classes>
 	</test>
 	<test name="TestDbConfigReload" preserve-order="true">
-		<classes>
-		<parameter name="db.url" value="wrongURL" />
+	    <parameter name="db.url" value="wrongURL" />
 		<parameter name="db.userName" value="wrong userName" />
 		<parameter name="db.driver" value="wrong driver" />
+		<classes>		
 			<class name="com.talend.tac.cases.dbConfig.TestDbConfigReload" />
 		</classes>
 	</test>
-
+	
 	<test name="TestWrongDbConfig">
+	    <parameter name="db.driver" value="wrong driver" />
 		<classes>
 			<class name="com.talend.tac.cases.dbConfig.TestWrongDbConfig">
-				<parameter name="db.url" value="wrongURL" />
-				<methods>
-					<include name="testWrongURLDbConfig" />
-				</methods>
-			</class>
-		</classes>
-	</test>
-
-	<test name="TestWrongDbConfig">
-		<classes>
-			<class name="com.talend.tac.cases.dbConfig.TestWrongDbConfig">
-				<parameter name="db.driver" value="wrong driver" />
 				<methods>
 					<include name="testWrongDriverDbConfig" />
 				</methods>
@@ -47,23 +32,16 @@
 		</classes>
 	</test>
 	<test name="TestWrongDbConfig">
+	    <parameter name="db.userName" value="wrong userName" />
+		<parameter name="db.userPassWd" value="wrong Userpasswd" />
 		<classes>
-			<class name="com.talend.tac.cases.dbConfig.TestWrongDbConfig">
-				<parameter name="db.userName" value="wrong userName" />
-				<parameter name="db.userPassWd" value="wrong Userpasswd" />
+			<class name="com.talend.tac.cases.dbConfig.TestWrongDbConfig">				
 				<methods>
 					<include name="testWrongAccountDbConfig" />
 				</methods>
 			</class>
 		</classes>
 	</test>
-	
-	<!-- 
-	<test name="testLicenseAccountsCount">
-		<classes>
-			<class name="com.talend.tac.cases.license.TestLicenseAccountsCount"/>
-		</classes>
-	</test>
-	 -->
+
 </suite>
 
