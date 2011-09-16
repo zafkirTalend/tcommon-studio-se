@@ -31,6 +31,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.commons.utils.data.list.ListUtils;
+import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
@@ -1108,29 +1109,35 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 TdColumn column = ColumnHelper.createTdColumn(columnName);
 
                 int dataType = 0;
-
-                dataType = columns.getInt(GetColumn.DATA_TYPE.name());
-                // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously the sql
-                // data type it is null and results in a NPE
-                typeName = columns.getString(GetColumn.TYPE_NAME.name());
-                if (MetadataConnectionUtils.isMssql(dbJDBCMetadata)) {
-                    if (typeName.toLowerCase().equals("date")) {
-                        dataType = 91;
-                        // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously
-                        // the sql
-                        // data type it is null and results in a NPE
-                    } else if (typeName.toLowerCase().equals("time")) {
-                        dataType = 92;
-                        // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously
-                        // the sql
-                        // data type it is null and results in a NPE
-                    }
-                }
                 try {
+                    // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously the
+                    // sql
+                    // data type it is null and results in a NPE
+                    typeName = columns.getString(GetColumn.TYPE_NAME.name());
+                    if (!(dbJDBCMetadata instanceof DB2ForZosDataBaseMetadata)) {
+                        dataType = columns.getInt(GetColumn.DATA_TYPE.name());
+                        numPrecRadix = columns.getInt(GetColumn.NUM_PREC_RADIX.name());
+                    }
+                    if (MetadataConnectionUtils.isMssql(dbJDBCMetadata)) {
+                        if (typeName.toLowerCase().equals("date")) {
+                            dataType = 91;
+                            // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because
+                            // obviously
+                            // the sql
+                            // data type it is null and results in a NPE
+                        } else if (typeName.toLowerCase().equals("time")) {
+                            dataType = 92;
+                            // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because
+                            // obviously
+                            // the sql
+                            // data type it is null and results in a NPE
+                        }
+                    }
+
                     int column_size = columns.getInt(GetColumn.COLUMN_SIZE.name());
                     column.setLength(column_size);
                     decimalDigits = columns.getInt(GetColumn.DECIMAL_DIGITS.name());
-                    numPrecRadix = columns.getInt(GetColumn.NUM_PREC_RADIX.name());
+
                 } catch (Exception e1) {
                     log.warn(e1, e1);
                 }
@@ -1141,7 +1148,15 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 column.setSqlDataType(sqlDataType);
 
                 // Null able
-                int nullable = columns.getInt(GetColumn.NULLABLE.name());
+                int nullable = 0;
+                if (!(dbJDBCMetadata instanceof DB2ForZosDataBaseMetadata)) {
+                    nullable = columns.getInt(GetColumn.NULLABLE.name());
+                } else {
+                    String isNullable = columns.getString("IS_NULLABLE");
+                    if (!isNullable.equals("Y")) { //$NON-NLS-1$ //$NON-NLS-2$
+                        nullable = 1;
+                    }
+                }
                 column.getSqlDataType().setNullable(NullableType.get(nullable));
 
                 // Comment
