@@ -37,7 +37,7 @@ public class TalendDBItem extends TalendMetadataItem {
 
     public TalendSchemaItem getSchema(String name) {
         name = convertString(name);
-        SWTBotTreeItem schemaNode = item.expandNode("Table schemas");
+        SWTBotTreeItem schemaNode = item.expand().expandNode("Table schemas");
         TalendSchemaItem schemaItem = new TalendSchemaItem();
         schemaItem.setItem(schemaNode.getNode(name));
         schemaItem.setParentNode(schemaNode);
