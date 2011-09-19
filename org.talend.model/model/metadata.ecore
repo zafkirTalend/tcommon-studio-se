@@ -28,6 +28,7 @@
         <details key="documentation" value="Id of the context this connection is linked to, only used when ContextMode attribute is true"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="contextGroupName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MetadataColumn" eSuperTypes="#//AbstractMetadataObject ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/resource/record/Field">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
