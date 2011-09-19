@@ -1,23 +1,26 @@
 package org.talend.designer.publish.core;
 
 import java.io.File;
+import java.util.List;
 
-import org.talend.designer.publish.core.internal.BundleModel;
-import org.talend.designer.publish.core.internal.FeaturesModel;
+import org.talend.designer.publish.core.models.BundleModel;
+import org.talend.designer.publish.core.models.DependencyModel;
+import org.talend.designer.publish.core.models.FeaturesModel;
 
 public class UploadAction {
 
-	public boolean deploy(String jarFilePath, String groupId,
-			String artifactId, String version, String repositoryUrl,
+	public boolean deployRoute(String jarFilePath, String groupId,
+			String artifactId, String version,
+			List<DependencyModel> dependencies, String repositoryUrl,
 			String userName, String password) throws Exception {
-		return deploy(new File(jarFilePath), groupId, artifactId, version,
-				repositoryUrl, userName, password);
+		return deployRoute(new File(jarFilePath), groupId, artifactId, version,
+				dependencies, repositoryUrl, userName, password);
 	}
 
-	private boolean deploy(File jarFile, String groupId, String artifactId,
-			String version, String repositoryUrl, String userName,
+	private boolean deployRoute(File jarFile, String groupId, String artifactId,
+			String version, List<DependencyModel> dependencies, String repositoryUrl, String userName,
 			String password) throws Exception {
-		deployBundle(jarFile, groupId, artifactId, version, repositoryUrl,
+		deployBundle(jarFile, groupId, artifactId, version, dependencies, repositoryUrl,
 				userName, password);
 
 		deployFeature(jarFile, groupId, artifactId, version, repositoryUrl,
@@ -35,17 +38,18 @@ public class UploadAction {
 	}
 
 	private void deployBundle(File jarFile, String groupId, String artifactId,
-			String version, String repositoryURL, String userName,
+			String version, List<DependencyModel> dependencies, String repositoryURL, String userName,
 			String password) throws Exception {
 		BundleModel bundleModel = new BundleModel(jarFile, groupId, artifactId, version, repositoryURL, userName, password);
+		bundleModel.addAllDependencies(dependencies);
 		bundleModel.upload();
 	}
 
 	// for test
 	public static void main(String[] args) throws Exception {
 		UploadAction uploadAction = new UploadAction();
-		uploadAction.deploy("TestEERoute_0.1.jar", "ggg.talend.liugang",
-				"TestEERoute", "2.0.3-SNAPSHOT",
+		uploadAction.deployRoute("TestEERoute_0.1.jar", "ggg.talend.liugang",
+				"TestEERoute2", "2.0.6-SNAPSHOT",null,
 				"http://localhost:8080/archiva/repository/snapshots/", "gliu",
 				"liugang123");
 	}

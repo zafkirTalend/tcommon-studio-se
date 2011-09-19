@@ -1,4 +1,4 @@
-package org.talend.designer.publish.core.internal;
+package org.talend.designer.publish.core.models;
 
 public class DependencyModel {
 

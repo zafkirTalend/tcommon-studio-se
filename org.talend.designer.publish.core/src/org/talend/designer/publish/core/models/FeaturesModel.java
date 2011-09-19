@@ -1,4 +1,4 @@
-package org.talend.designer.publish.core.internal;
+package org.talend.designer.publish.core.models;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -38,7 +38,7 @@ public class FeaturesModel extends UploadableModel {
 		// upload pom part
 		PomModel pomModel = new PomModel(groupId, artifactId, version, "pom",
 				repositoryURL, userName, password);
-		pomModel.addDenpendency(new DependencyModel(groupId, artifactId,
+		pomModel.addDenpendency(new DependencyModel(groupId, sourceArtifactId,
 				version));
 		pomModel.upload();
 	}

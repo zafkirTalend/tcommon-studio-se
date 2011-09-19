@@ -1,4 +1,4 @@
-package org.talend.designer.publish.core.internal;
+package org.talend.designer.publish.core.models;
 
 import java.io.IOException;
 import java.net.URL;

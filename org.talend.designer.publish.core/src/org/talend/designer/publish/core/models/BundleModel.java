@@ -1,14 +1,18 @@
-package org.talend.designer.publish.core.internal;
+package org.talend.designer.publish.core.models;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BundleModel extends UploadableModel {
 
 	private File jarFile;
 
+	private List<DependencyModel> dependencies = new ArrayList<DependencyModel>();
+	
 	public BundleModel(File jarFile, String groupId, String artifactId,
 			String version, String repositoryURL, String userName,
 			String password) {
@@ -34,6 +38,11 @@ public class BundleModel extends UploadableModel {
 		// upload pom part
 		PomModel pomModel = new PomModel(groupId, artifactId, version, "bundle",
 				repositoryURL, userName, password);
+		if(dependencies.size()>0){
+			for(DependencyModel dm:dependencies){
+				pomModel.addDenpendency(dm);
+			}
+		}
 		pomModel.upload();
 	}
 
@@ -50,6 +59,22 @@ public class BundleModel extends UploadableModel {
 		uploadMd5AndSha1(filePath, fileName, jarFile);
 	}
 
+	public void addDependency(DependencyModel dm) {
+		if (dm == null) {
+			return;
+		}
+		if (!dependencies.contains(dm)) {
+			dependencies.add(dm);
+		}
+	}
+
+	public void addAllDependencies(List<DependencyModel> dependencyModels) {
+		if (dependencyModels == null) {
+			return;
+		}
+		dependencies.addAll(dependencyModels);
+	}
+	
 	private String computeBundleName(String artifactId, String version)
 			throws MalformedURLException {
 		StringBuilder sb = new StringBuilder();
