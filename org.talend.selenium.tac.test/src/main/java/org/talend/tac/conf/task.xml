@@ -4,6 +4,7 @@
 
     <!-- add task -->
 	<parameter name="label" value="testTask" />
+	<parameter name="taskProjectWithContainsSpaceChar" value="taskProjectWithContainsSpaceChar" />
 	<parameter name="taskForTestFileTrigger" value="testTaskForTestFileTrigger" />
     <parameter name="taskForTestFileTriggerOfCreationOption" value="testTaskForTestFileTriggerOfCreationOption" />
 	<parameter name="taskForTestFileTriggerOfModifiedOption" value="testTaskForTestFileTriggerOfModifiedOption" />
@@ -154,7 +155,7 @@
     <parameter  name ="remotehostAddress" value="192.168.0.94"/>
     -->
     <!-- commandLine HostAddress -->
-    
+     
     <test name="task01_AddTask"  annotations="JDK" >
 		<classes>
 	      <class name="com.talend.tac.cases.executionTask.TestAddTask">
@@ -236,7 +237,7 @@
 	      </class> 
 		</classes>
 	</test>
-	
+	 
 	<test name="task011_GenerateDeployRunTask"  annotations="JDK" >
 		<classes>
 	      <class name="com.talend.tac.cases.executionTask.TestGenerateDeployRunStopPauseTaskResumeTask">
@@ -281,7 +282,8 @@
 	            <include name="testRunAGeneratingTask"/>
 	            <include name="testPauseTaskResumeTask"/>	   
 	            <include name="testAddSimpleTriggerToGeneratingTask"/>
-	            <include name="testGenerateUncheckActiveTask"/>    
+	            <include name="testGenerateUncheckActiveTask"/> 
+	            <include name="testRunTaskOfItsProjectWithContainsSpaceChar"/>   
 	         </methods>
 	      </class> 
 		</classes>
@@ -398,7 +400,7 @@
 	      </class> 
 		</classes>
 	</test>		
-	
+	 
 </suite>
 
 
