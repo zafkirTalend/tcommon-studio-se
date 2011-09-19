@@ -50,7 +50,12 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getOwnerSchedulerInstanceId <em>Owner Scheduler Instance Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getOnUnknownStateJob <em>On Unknown State Job</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#isUseLatestVersion <em>Use Latest Version</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ExecutionTask#getItem <em>Item</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getApplicationType <em>Application Type</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getApplicationFeatureURL <em>Application Feature URL</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getApplicationGroup <em>Application Group</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getApplicationBundleName <em>Application Bundle Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getApplicationName <em>Application Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getApplicationVersion <em>Application Version</em>}</li>
  * </ul>
  * </p>
  *
@@ -911,29 +916,159 @@ public interface ExecutionTask extends ExecutionTriggerable {
     void setUseLatestVersion(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Item</b></em>' attribute.
+     * Returns the value of the '<em><b>Application Type</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Item</em>' attribute isn't clear,
+     * If the meaning of the '<em>Application Type</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Item</em>' attribute.
-     * @see #setItem(String)
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_Item()
+     * @return the value of the '<em>Application Type</em>' attribute.
+     * @see #setApplicationType(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ApplicationType()
      * @model
      * @generated
      */
-    String getItem();
+    String getApplicationType();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getItem <em>Item</em>}' attribute.
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getApplicationType <em>Application Type</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Item</em>' attribute.
-     * @see #getItem()
+     * @param value the new value of the '<em>Application Type</em>' attribute.
+     * @see #getApplicationType()
      * @generated
      */
-    void setItem(String value);
+    void setApplicationType(String value);
+
+    /**
+     * Returns the value of the '<em><b>Application Feature URL</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Application Feature URL</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Application Feature URL</em>' attribute.
+     * @see #setApplicationFeatureURL(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ApplicationFeatureURL()
+     * @model
+     * @generated
+     */
+    String getApplicationFeatureURL();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getApplicationFeatureURL <em>Application Feature URL</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Application Feature URL</em>' attribute.
+     * @see #getApplicationFeatureURL()
+     * @generated
+     */
+    void setApplicationFeatureURL(String value);
+
+    /**
+     * Returns the value of the '<em><b>Application Group</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Application Group</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Application Group</em>' attribute.
+     * @see #setApplicationGroup(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ApplicationGroup()
+     * @model
+     * @generated
+     */
+    String getApplicationGroup();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getApplicationGroup <em>Application Group</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Application Group</em>' attribute.
+     * @see #getApplicationGroup()
+     * @generated
+     */
+    void setApplicationGroup(String value);
+
+    /**
+     * Returns the value of the '<em><b>Application Bundle Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Application Bundle Name</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Application Bundle Name</em>' attribute.
+     * @see #setApplicationBundleName(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ApplicationBundleName()
+     * @model
+     * @generated
+     */
+    String getApplicationBundleName();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getApplicationBundleName <em>Application Bundle Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Application Bundle Name</em>' attribute.
+     * @see #getApplicationBundleName()
+     * @generated
+     */
+    void setApplicationBundleName(String value);
+
+    /**
+     * Returns the value of the '<em><b>Application Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Application Name</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Application Name</em>' attribute.
+     * @see #setApplicationName(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ApplicationName()
+     * @model
+     * @generated
+     */
+    String getApplicationName();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getApplicationName <em>Application Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Application Name</em>' attribute.
+     * @see #getApplicationName()
+     * @generated
+     */
+    void setApplicationName(String value);
+
+    /**
+     * Returns the value of the '<em><b>Application Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Application Version</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Application Version</em>' attribute.
+     * @see #setApplicationVersion(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ApplicationVersion()
+     * @model
+     * @generated
+     */
+    String getApplicationVersion();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getApplicationVersion <em>Application Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Application Version</em>' attribute.
+     * @see #getApplicationVersion()
+     * @generated
+     */
+    void setApplicationVersion(String value);
 
 } // ExecutionTask
