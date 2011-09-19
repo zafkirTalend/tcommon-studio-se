@@ -11,7 +11,6 @@ import com.talend.tac.base.Base;
 
 public class TestAddTriggerAddFileTrigger extends TaskUtils {  
 	
-	Hashtable properties = new Hashtable();
 	//test add a cronTrigger use wrong form value
 	@Test
 	@Parameters({"TaskBaseBranch","addFileTriggerOfExistWrongForm","addFileTriggerOfExistDescriptionWrongForm"
@@ -55,13 +54,6 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 		addFileTrigger(taskLabel, triggerLabel, triggerDescription, "30", FilePath, fileMask, serverName,
 				"idJobConductorFileTriggerFtExitCheckBox");
 		
-		selenium.click("idFileTriggerSave");
-	
-		if(!selenium.isElementPresent("//span[text()='"+triggerLabel+"']")) {
-			selenium.click("idTriggerRefresh");
-    	}
-		this.waitForElementPresent("//span[text()='"+triggerLabel+"']", WAIT_TIME);
-		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+triggerLabel+"']"));
 		selenium.setSpeed(MIN_SPEED);
 		this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
 				"//span[text()='Running...']", Base.MAX_WAIT_TIME);
@@ -81,8 +73,6 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 		addFileTrigger(taskLabel, triggerLabel, triggerDescription, "60", folderPath, fileMask, serverName,
 				"idJobConductorFileTriggerFtExitCheckBox");
 		
-		
-		selenium.click("idFileTriggerSave");
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("trigger.error.uniqueLabel")));
 		selenium.setSpeed(MIN_SPEED);
@@ -104,11 +94,6 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 		this.addTask(label, labelDescription, commonpro, branch, jobName,
 				version, context, jobServer, statistic);
 		
-		selenium.click("idFormSaveButton");
-        selenium.setSpeed(MID_SPEED);
-		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+label+"']"));
-		selenium.setSpeed(MIN_SPEED);
-		
 		String FilePath = this.getAbsolutePath(folderPath);		
 		System.out.println(FilePath);
 		
@@ -118,16 +103,8 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 		
 		this.addFileTrigger(label, fileTriggerLabel, labelDescription, "40",
 				FilePath, fileMask, jobServer,
-				"idJobConductorFileTriggerFtExitCheckBox");		
+				"idJobConductorFileTriggerFtExitCheckBox");	
 		
-
-		selenium.click("idFileTriggerSave");
-	
-		if(!selenium.isElementPresent("//span[text()='"+fileTriggerLabel+"']")) {
-			selenium.click("idTriggerRefresh");
-    	}
-		this.waitForElementPresent("//span[text()='"+fileTriggerLabel+"']", WAIT_TIME);
-		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+fileTriggerLabel+"']"));
 		selenium.setSpeed(MIN_SPEED);
 		this.waitForElementPresent("//span[text()='"+label+"']//ancestor::tr" +
 				"//span[text()='Running...']", Base.MAX_WAIT_TIME);
@@ -173,56 +150,8 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 			String version,String context,String jobServer,String statistic, String fileTriggerLabel,
 			String fileTriggerDesc, String folderPath, String fileMask) {
 		
-		this.addTask(label, labelDescription, commonpro, branch, jobName,
-				version, context, jobServer, statistic);
-		
-		selenium.click("idFormSaveButton");
-        selenium.setSpeed(MID_SPEED);
-		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+label+"']"));
-		selenium.setSpeed(MIN_SPEED);
-		
-		String FilePath = this.getAbsolutePath(folderPath);		
-		System.out.println(FilePath);
-		
-		this.addFileTrigger(label, fileTriggerLabel, labelDescription, "30",
-				FilePath, fileMask, jobServer,
-				"idJobConductorFileTriggerFtCreateCheckBox");		
-		
-
-		selenium.click("idFileTriggerSave");
-	
-		if(!selenium.isElementPresent("//span[text()='"+fileTriggerLabel+"']")) {
-			selenium.click("idTriggerRefresh");
-    	}
-		this.waitForElementPresent("//span[text()='"+fileTriggerLabel+"']", WAIT_TIME);
-		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+fileTriggerLabel+"']"));
-		
-		
-		AntAction antAction = new AntAction();
-		properties.put("file.path", FilePath+"testFileTrigger.txt");
-		antAction.runTarget("File.xml", "create", properties);
-		
-		this.waitForElementPresent("//span[text()='"+label+"']//ancestor::tr" +
-				"//span[text()='Running...']", Base.MAX_WAIT_TIME);	
-
-		this.waitForElementPresent("//span[text()='"+label+"']//ancestor::tr" +
-				"//span[text()='Ready to run']", Base.MAX_WAIT_TIME);		
-		
-		try {
-			Thread.sleep(60000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		int logsConut = this.getXpathCount("//div[contains(@class,'x-grid3-" +
-				"cell-inner x-grid3-col-startDate')]");		
-		
-		Assert.assertEquals(logsConut, 1);	
-		
-		this.clearTask(label);
-		AntAction antAction1 = new AntAction();
-		antAction1.runTarget("File.xml", "delete", properties);	
+		this.createFileTriggerCheckCreatedOption(label, labelDescription, commonpro, branch, jobName, version,
+				context, jobServer, statistic, fileTriggerLabel, fileTriggerDesc, folderPath, fileMask, "withBackslash");
 		
 	}
 	
@@ -239,73 +168,44 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 			String version,String context,String jobServer,String statistic, String fileTriggerLabel,
 			String fileTriggerDesc, String folderPath, String fileMask) {
 		
-		this.addTask(label, labelDescription, commonpro, branch, jobName,
-				version, context, jobServer, statistic);
+		this.createFileTriggerCheckModifiedOption(label, labelDescription, commonpro, branch, jobName, version,
+				context, jobServer, statistic, fileTriggerLabel, fileTriggerDesc, folderPath, fileMask, "withBackslash");
 		
-		selenium.click("idFormSaveButton");
-        selenium.setSpeed(MID_SPEED);
-		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+label+"']"));
-		selenium.setSpeed(MIN_SPEED);
-		
-		String FilePath = this.getAbsolutePath(folderPath);		
-		System.out.println(FilePath);
-		
-		this.addFileTrigger(label, fileTriggerLabel, labelDescription, "30",
-				FilePath, fileMask, jobServer,
-				"idJobConductorFileTriggerFtModifiedCheckBox");		
-		
-
-		selenium.click("idFileTriggerSave");
+	}
 	
-		if(!selenium.isElementPresent("//span[text()='"+fileTriggerLabel+"']")) {
-			selenium.click("idTriggerRefresh");
-    	}
-		this.waitForElementPresent("//span[text()='"+fileTriggerLabel+"']", WAIT_TIME);
-		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+fileTriggerLabel+"']"));
-		
-		
-		AntAction antAction = new AntAction();
-		properties.put("file.path", FilePath+"testFileTrigger.txt");
-		antAction.runTarget("File.xml", "create", properties);
-		
-		try {
-			Thread.sleep(40000);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}		
-    
-		int logsConut = this.getXpathCount("//div[contains(@class,'x-grid3-" +
-				"cell-inner x-grid3-col-startDate')]");		
-		
-		Assert.assertEquals(logsConut, 0);	
-		
-		selenium.click("//span[text()='Triggers']");
-		
-		AntAction antAction1 = new AntAction();
-		antAction1.runTarget("File.xml", "modify", properties);
-		
-		this.waitForElementPresent("//span[text()='"+label+"']//ancestor::tr" +
-				"//span[text()='Running...']", Base.MAX_WAIT_TIME);
 
-		this.waitForElementPresent("//span[text()='"+label+"']//ancestor::tr" +
-				"//span[text()='Ready to run']", Base.MAX_WAIT_TIME);		
+	/**input the path like "c:\task" and Check that the "Created" option does work, Check
+	that task is executed only one time after the creation of the file.**/
+	@Test
+	@Parameters({"taskForTestFileTriggerOfCreationOptionFilePathNotWithLastBackslash","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
+		"context","ServerForUseAvailable","statisticEnabled", "addFileTriggerOfCheckExistOption",
+		"addFileTriggerOfExistDescription","FolderPathNotWithLastBackslash",
+		"FileMaskOfTxt"})
+	public void testCreateFileTriggerCheckCreatedOptionFilePathNotWithLastBackSlash(String label,
+			String labelDescription,String commonpro,String branch,String jobName,
+			String version,String context,String jobServer,String statistic, String fileTriggerLabel,
+			String fileTriggerDesc, String folderPath, String fileMask) {
 		
-		try {
-			Thread.sleep(60000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		int logsConutAfterMofified = this.getXpathCount("//div[contains(@class,'x-grid3-" +
-				"cell-inner x-grid3-col-startDate')]");		
+		this.createFileTriggerCheckCreatedOption(label, labelDescription, commonpro, branch, jobName, version,
+				context, jobServer, statistic, fileTriggerLabel, fileTriggerDesc, folderPath, fileMask, "NotWithBackslash");
 		
-		Assert.assertEquals(logsConutAfterMofified, 1);	
+	}
+	
+	
+	/**input the path like "c:\task" and Check that the "Modified" option does work, Check
+	that task is executed only one time after the modification of the file.**/
+	@Test
+	@Parameters({"taskForTestFileTriggerOfModifiedOptionFilePathNotWithLastBackslash","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
+		"context","ServerForUseAvailable","statisticEnabled", "addFileTriggerOfCheckExistOption",
+		"addFileTriggerOfExistDescription","FolderPathNotWithLastBackslash",
+		"FileMaskOfTxt"})
+	public void testCreateFileTriggerCheckModifiedOptionFilePathNotWithLastBackSlash(String label,
+			String labelDescription,String commonpro,String branch,String jobName,
+			String version,String context,String jobServer,String statistic, String fileTriggerLabel,
+			String fileTriggerDesc, String folderPath, String fileMask) {
 		
-		this.clearTask(label);
-		AntAction antAction2 = new AntAction();
-		antAction2.runTarget("File.xml", "delete", properties);	
+		this.createFileTriggerCheckModifiedOption(label, labelDescription, commonpro, branch, jobName, version,
+				context, jobServer, statistic, fileTriggerLabel, fileTriggerDesc, folderPath, fileMask, "NotWithBackslash");
 		
 	}
 	
