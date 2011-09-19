@@ -500,9 +500,9 @@ public class ProcessorUtilities {
             processor.setContext(currentContext);
             // main job will use stats / traces
             processor.generateCode(statistics, trace, properties, exportAsOSGI);
-            if (jobInfo.getProcessItem() != null) {
-                designerCoreService.getLastGeneratedJobsDateMap().put(jobInfo.getJobId(),
-                        jobInfo.getProcessItem().getProperty().getModificationDate());
+            if (currentProcess instanceof IProcess2 && ((IProcess2) currentProcess).getProperty() != null) {
+                designerCoreService.getLastGeneratedJobsDateMap().put(currentProcess.getId(),
+                        ((IProcess2) currentProcess).getProperty().getModificationDate());
             }
             Integer infos = new Integer(0);
             infos += statistics ? GENERATED_WITH_STATS : 0;
