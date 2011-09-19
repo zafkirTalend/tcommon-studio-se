@@ -3,14 +3,14 @@ package org.talend.designer.publish.core.models;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class FeaturesModel extends UploadableModel {
 
-	private List<String> subFeatures = new ArrayList<String>();
+	private Set<String> subFeatures = new HashSet<String>();
 
-	private List<String> subBundles = new ArrayList<String>();
+	private Set<String> subBundles = new HashSet<String>();
 
 	private String sourceArtifactId ;
 	

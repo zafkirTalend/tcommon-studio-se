@@ -2,14 +2,14 @@ package org.talend.designer.publish.core.models;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class PomModel extends UploadableModel{
 
 	private String packaging;
 
-	private List<DependencyModel> dependencies = new ArrayList<DependencyModel>();
+	private Set<DependencyModel> dependencies = new HashSet<DependencyModel>();
 
 	public PomModel(String groupId, String artifactId, String version,
 			String packaging, String repositoryURL, String userName, String password) {
