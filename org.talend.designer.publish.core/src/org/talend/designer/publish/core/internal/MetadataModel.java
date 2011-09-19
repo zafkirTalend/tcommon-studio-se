@@ -2,8 +2,8 @@ package org.talend.designer.publish.core.internal;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,28 +21,59 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
-public class MetadataModel {
+public class MetadataModel extends UploadableModel {
 
 	private Document document;
 	private Element root;
 
-	public MetadataModel(String groupId, String artifactId)
+	private String fileName = "maven-metadata.xml";
+
+	public MetadataModel(String groupId, String artifactId,String version,
+			String repositoryURL, String userName, String password)
 			throws ParserConfigurationException {
-		document = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-				.newDocument();
-		initialDocument(groupId, artifactId);
+		super(groupId, artifactId, version, repositoryURL, userName, password);
+		initDocumentAndRoot();
 	}
 
-	public MetadataModel(String uri) throws SAXException, IOException,
-			ParserConfigurationException {
-		document = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-				.parse(uri);
+	private void initDocumentAndRoot() throws ParserConfigurationException {
+		try {
+			String artifactPath = getArtifactDestination();
+
+			String metadataPath = artifactPath + fileName;
+			URL metadataUrl = new URL(metadataPath);
+			String readContent = readContent(metadataUrl);
+			if (readContent == null) {
+				document = DocumentBuilderFactory.newInstance()
+						.newDocumentBuilder().newDocument();
+				createDocument(groupId, artifactId);
+			} else {
+				document = DocumentBuilderFactory.newInstance()
+						.newDocumentBuilder().parse(metadataPath);
+			}
+		} catch (Exception e) {
+			document = DocumentBuilderFactory.newInstance()
+					.newDocumentBuilder().newDocument();
+			createDocument(groupId, artifactId);
+		}
 		root = document.getDocumentElement();
 	}
 
-	private void initialDocument(String groupId, String artifactId) {
+	@Override
+	public void upload() throws Exception {
+		String artifactPath = getArtifactDestination();
+		String metadataPath = artifactPath + fileName;
+		URL metadataUrl = new URL(metadataPath);
+
+		String newContent = getNewContent();
+		uploadContent(metadataUrl, newContent);
+
+		// upload md5 and sha1
+		uploadMd5AndSha1(metadataPath, fileName, newContent);
+
+	}
+
+	private void createDocument(String groupId, String artifactId) {
 		root = document.createElement("metadata");
 		document.appendChild(root);
 
@@ -110,10 +141,10 @@ public class MetadataModel {
 		return timestamp;
 	}
 
-	public String getNewContent(){
+	public String getNewContent() {
 		return toString();
 	}
-	
+
 	@Override
 	public String toString() {
 		return saveDocument();
@@ -137,13 +168,14 @@ public class MetadataModel {
 		return "";
 	}
 
-	//for test
-//	public static void main(String[] args) throws ParserConfigurationException,
-//			TransformerException, IOException {
-//		MetadataModel metadataModel = new MetadataModel("trg.talend.liugang",
-//				"TestEERoute");
-//		metadataModel.addVersion("1.0.45");
-//		metadataModel.addVersion("1.0.46");
-//		System.out.println(metadataModel.saveDocument());
-//	}
+	// for test
+	// public static void main(String[] args) throws
+	// ParserConfigurationException,
+	// TransformerException, IOException {
+	// MetadataModel metadataModel = new MetadataModel("trg.talend.liugang",
+	// "TestEERoute");
+	// metadataModel.addVersion("1.0.45");
+	// metadataModel.addVersion("1.0.46");
+	// System.out.println(metadataModel.saveDocument());
+	// }
 }

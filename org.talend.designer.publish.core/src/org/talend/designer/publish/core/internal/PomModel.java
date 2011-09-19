@@ -1,44 +1,40 @@
 package org.talend.designer.publish.core.internal;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PomModel {
+public class PomModel extends UploadableModel{
 
-	private String groupId;
-	private String artifactId;
-	private String version;
 	private String packaging;
 
 	private List<DependencyModel> dependencies = new ArrayList<DependencyModel>();
 
 	public PomModel(String groupId, String artifactId, String version,
-			String packaging) {
-		super();
-		this.groupId = groupId;
-		this.artifactId = artifactId;
-		this.version = version;
+			String packaging, String repositoryURL, String userName, String password) {
+		super(groupId, artifactId, version, repositoryURL, userName, password);
 		this.packaging = packaging;
 	}
 
+	@Override
+	public void upload() throws IOException {
+		
+		String artifactPath = getArtifactDestination();
+		String versionPath = artifactPath + version + "/";
+		
+		String fileName = getFileName();
+		String filePath = versionPath + fileName;
+		URL pomUrl = new URL(filePath);
+		String pomContent = getPomContent();
+		uploadContent(pomUrl, pomContent);
+
+		// upload md5 and sha1
+		uploadMd5AndSha1(filePath, fileName, pomContent);
+	}
+	
 	public String getFileName() {
 		return artifactId + "-" + version + ".pom";
-	}
-
-	public String getGroupId() {
-		return groupId;
-	}
-
-	public String getArtifactId() {
-		return artifactId;
-	}
-
-	public String getVersion() {
-		return version;
-	}
-
-	public String getPackaging() {
-		return packaging;
 	}
 
 	public void addDenpendency(DependencyModel dependency) {

@@ -1,27 +1,63 @@
 package org.talend.designer.publish.core.internal;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeaturesModel {
-
-	private String featureName;
-	private String version;
+public class FeaturesModel extends UploadableModel {
 
 	private List<String> subFeatures = new ArrayList<String>();
 
 	private List<String> subBundles = new ArrayList<String>();
 
-	public FeaturesModel(String featureName, String version) {
-		super();
-		this.featureName = featureName;
-		this.version = version;
+	private String sourceArtifactId ;
+	
+	public FeaturesModel(String groupId, String sourceArtifactId, String version,
+			String repositoryURL, String userName, String password) {
+		super(groupId, sourceArtifactId + "-feature", version, repositoryURL, userName, password);
+		this.sourceArtifactId = sourceArtifactId;
 	}
 
-	public String getFeatureName() {
-		return featureName;
+	@Override
+	public void upload() throws Exception {
+		uploadFeature();
+		uploadPom();
+		uploadMetadata();
 	}
 	
+	private void uploadMetadata() throws Exception {
+		MetadataModel metadataModel = new MetadataModel(groupId, artifactId,
+				version, repositoryURL, userName, password);
+		metadataModel.addVersion(version);
+		metadataModel.upload();
+	}
+
+	private void uploadPom() throws IOException {
+		// upload pom part
+		PomModel pomModel = new PomModel(groupId, artifactId, version, "pom",
+				repositoryURL, userName, password);
+		pomModel.addDenpendency(new DependencyModel(groupId, artifactId,
+				version));
+		pomModel.upload();
+	}
+
+	private void uploadFeature() throws MalformedURLException, IOException {
+		addSubBundle(groupId, sourceArtifactId, version);
+		// upload feature part
+		String artifactPath = getArtifactDestination();
+		String versionPath = artifactPath + version + "/";
+		String fileName = artifactId + "-" + version + ".xml";
+		String filePath = versionPath + fileName;
+		URL featureURL = new URL(filePath);
+		String featureContent = getFeatureContent();
+		uploadContent(featureURL, featureContent);
+
+		// upload md5 and sha1
+		uploadMd5AndSha1(filePath, fileName, featureContent);
+	}
+
 	public void addSubFeature(String version, String name) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<feature version='");
@@ -50,7 +86,7 @@ public class FeaturesModel {
 		sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 		sb.append("<features>\n");
 		sb.append("\t<feature name=\"");
-		sb.append(featureName);
+		sb.append(artifactId);
 		sb.append("\" version=\"");
 		sb.append(version);
 		sb.append("\">\n");
@@ -70,19 +106,19 @@ public class FeaturesModel {
 
 		return sb.toString();
 	}
-	
-	public String getFeatureContent(){
+
+	public String getFeatureContent() {
 		return toString();
 	}
 
-//	public static void main(String[] args) {
-//		FeaturesModel featuresModel = new FeaturesModel(
-//				"CustomService-feature", "1.0.0");
-//		featuresModel.addSubBundle("talend", "job-control-bundle", "1.0");
-//		featuresModel.addSubBundle("talend", "ProviderJob", "1.0");
-//		featuresModel.addSubBundle("talend", "ESBProvider2", "1.0");
-//		featuresModel.addSubFeature("5.0-SNAPSHOT", "talend-job-controller");
-//		System.out.println(featuresModel);
-//	}
+	// public static void main(String[] args) {
+	// FeaturesModel featuresModel = new FeaturesModel(
+	// "CustomService-feature", "1.0.0");
+	// featuresModel.addSubBundle("talend", "job-control-bundle", "1.0");
+	// featuresModel.addSubBundle("talend", "ProviderJob", "1.0");
+	// featuresModel.addSubBundle("talend", "ESBProvider2", "1.0");
+	// featuresModel.addSubFeature("5.0-SNAPSHOT", "talend-job-controller");
+	// System.out.println(featuresModel);
+	// }
 
 }
