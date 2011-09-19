@@ -7,6 +7,8 @@ import java.io.FileReader;
 import java.util.Hashtable;
 
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
 
 import com.talend.tac.base.AntAction;
 import com.talend.tac.base.Base;
@@ -16,7 +18,8 @@ import com.talend.tac.cases.executePlan.TriggerDate;
 public class TaskUtils extends Login {
    
     TriggerDate date = new TriggerDate();
-    
+	Hashtable properties = new Hashtable();
+	
     boolean success;
     public BufferedReader bufread;
 	public BufferedWriter bufwriter;
@@ -31,7 +34,13 @@ public class TaskUtils extends Login {
 		selenium.click("//span[text()='Logs']");
 		selenium.setSpeed(MIN_SPEED);
 		
-		this.waitForElementPresent(xpath, WAIT_TIME);
+		try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		Number xpathConut = selenium.getXpathCount(xpath);
 		int i = xpathConut.intValue();
 		
@@ -177,7 +186,11 @@ public class TaskUtils extends Login {
     	}    
     	this.selectDropDownList("idTaskProjectListBox", projectName);
     	this.selectDropDownList("idTaskBranchListBox", branchName);
-    	this.selectDropDownList("idItemListCombo", "job");
+    	
+    	if(selenium.isElementPresent("idItemListCombo")) {
+    		this.selectDropDownList("idItemListCombo", "job");
+    	}
+    	
     	this.selectDropDownList("idTaskJobListBox", jobName);
     	this.selectDropDownList("idTaskVersionListBox", version);
     	this.selectDropDownList("idTaskContextListBox", context);
@@ -420,6 +433,20 @@ public class TaskUtils extends Login {
 		selenium.click("idJobConductorFileTriggerFileServerListBox");//select an server	
 		this.waitForElementPresent("//div[text()='" + serverName + "']", WAIT_TIME);
 		selenium.mouseDown("//div[text()='" + serverName + "']");
+
+		selenium.click("idFileTriggerSave");
+	
+		if(!selenium.isElementPresent("//span[text()='"+triggerLabel+"']")) {
+			selenium.click("idTriggerRefresh");
+    	}
+		
+		if(selenium.isElementPresent("//span[text()='"+triggerLabel+"']")) {
+			
+			this.waitForElementPresent("//span[text()='"+triggerLabel+"']", WAIT_TIME);
+			Assert.assertTrue(selenium.isElementPresent("//span[text()='"+triggerLabel+"']"));
+			
+		}
+		
 		
 	}
 	 //add a method of remove tasks
@@ -492,6 +519,135 @@ public class TaskUtils extends Login {
 
     }
     
+    /**Check that the "Created" option does work, Check
+	that task is executed only one time after the creation of the file.**/
+    public void createFileTriggerCheckCreatedOption(String label,
+			String labelDescription,String commonpro,String branch,String jobName,
+			String version,String context,String jobServer,String statistic, String fileTriggerLabel,
+			String fileTriggerDesc, String folderPath, String fileMask, String filePathType) {
+		
+		this.addTask(label, labelDescription, commonpro, branch, jobName,
+				version, context, jobServer, statistic);
+		
+		String FilePath = this.getAbsolutePath(folderPath);		
+		System.out.println(FilePath);
+		
+		this.addFileTrigger(label, fileTriggerLabel, labelDescription, "30",
+				FilePath, fileMask, jobServer,
+				"idJobConductorFileTriggerFtCreateCheckBox");
+		
+		AntAction antAction = new AntAction();
+
+		if("NotWithBackslash".equals(filePathType)) {
+			
+			properties.put("file.path", FilePath+"\\testFileTrigger.txt");
+			System.out.println(">>>>>>>>>*--------"+FilePath+"\\testFileTrigger.txt");
+			
+		} else if("withBackslash".equals(filePathType)){
+			
+			properties.put("file.path", FilePath+"testFileTrigger.txt");
+			
+		}
+		
+		antAction.runTarget("File.xml", "create", properties);
+		
+		this.waitForElementPresent("//span[text()='"+label+"']//ancestor::tr" +
+				"//span[text()='Running...']", Base.MAX_WAIT_TIME);	
+
+		this.waitForElementPresent("//span[text()='"+label+"']//ancestor::tr" +
+				"//span[text()='Ready to run']", Base.MAX_WAIT_TIME);		
+		
+		try {
+			Thread.sleep(60000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		int logsConut = this.getXpathCount("//div[contains(@class,'x-grid3-" +
+				"cell-inner x-grid3-col-startDate')]");		
+		
+		Assert.assertEquals(logsConut, 1);	
+		
+		this.clearTask(label);
+		AntAction antAction1 = new AntAction();
+		antAction1.runTarget("File.xml", "delete", properties);	
+		
+	}
+	
+	
+	/**Check that the "Modified" option does work, Check
+	that task is executed only one time after the modification of the file.**/ 
+	public void createFileTriggerCheckModifiedOption(String label,
+			String labelDescription,String commonpro,String branch,String jobName,
+			String version,String context,String jobServer,String statistic, String fileTriggerLabel,
+			String fileTriggerDesc, String folderPath, String fileMask, String filePathType) {
+		
+		this.addTask(label, labelDescription, commonpro, branch, jobName,
+				version, context, jobServer, statistic);
+		
+		String FilePath = this.getAbsolutePath(folderPath);		
+		System.out.println(FilePath);
+		
+		this.addFileTrigger(label, fileTriggerLabel, labelDescription, "30",
+				FilePath, fileMask, jobServer,
+				"idJobConductorFileTriggerFtModifiedCheckBox");
+		
+		AntAction antAction = new AntAction();
+		
+		if("NotWithBackslash".equals(filePathType)) {
+			
+			properties.put("file.path", FilePath+"\\testFileTrigger.txt");
+			
+		} else if("withBackslash".equals(filePathType)) {
+			
+			properties.put("file.path", FilePath+"testFileTrigger.txt");
+			
+		}
+		
+		antAction.runTarget("File.xml", "create", properties);
+		
+		try {
+			Thread.sleep(40000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}		
+    
+		int logsConut = this.getXpathCount("//div[contains(@class,'x-grid3-" +
+				"cell-inner x-grid3-col-startDate')]");		
+		
+		Assert.assertEquals(logsConut, 0);	
+		
+		selenium.click("//span[text()='Triggers']");
+		
+		AntAction antAction1 = new AntAction();
+		antAction1.runTarget("File.xml", "modify", properties);
+		
+		this.waitForElementPresent("//span[text()='"+label+"']//ancestor::tr" +
+				"//span[text()='Running...']", Base.MAX_WAIT_TIME);
+
+		this.waitForElementPresent("//span[text()='"+label+"']//ancestor::tr" +
+				"//span[text()='Ready to run']", Base.MAX_WAIT_TIME);		
+		
+		try {
+			Thread.sleep(60000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		int logsConutAfterMofified = this.getXpathCount("//div[contains(@class,'x-grid3-" +
+				"cell-inner x-grid3-col-startDate')]");		
+		
+		Assert.assertEquals(logsConutAfterMofified, 1);	
+		
+		this.clearTask(label);
+		AntAction antAction2 = new AntAction();
+		antAction2.runTarget("File.xml", "delete", properties);	
+		
+	}
+	
   //read content in file
 	public String readfile(String path) {
 		
