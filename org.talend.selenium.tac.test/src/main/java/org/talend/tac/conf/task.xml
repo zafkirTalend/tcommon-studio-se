@@ -7,6 +7,8 @@
 	<parameter name="taskForTestFileTrigger" value="testTaskForTestFileTrigger" />
     <parameter name="taskForTestFileTriggerOfCreationOption" value="testTaskForTestFileTriggerOfCreationOption" />
 	<parameter name="taskForTestFileTriggerOfModifiedOption" value="testTaskForTestFileTriggerOfModifiedOption" />
+	<parameter name="taskForTestFileTriggerOfCreationOptionFilePathNotWithLastBackslash" value="testTaskForTestFileTriggerOfCreationOptionFilePathNotWithLastBackslash" />
+	<parameter name="taskForTestFileTriggerOfModifiedOptionFilePathNotWithLastBackslash" value="testTaskForTestFileTriggerOfModifiedOptionFilePathNotWithLastBackslash" />
 	<parameter name="TaskWithJobOfGenerateBigLogs" value="TaskWithJobOfGenerateBigLogs" />
 	<parameter name="TaskOfAutomatedSelectingComboValue" value="TaskOfAutomatedSelectingComboValue"/>
 	<parameter name="TaskWithtRunjob" value="testTaskRunTRunJob"/>
@@ -82,6 +84,7 @@
     <parameter name="addFileTriggerOfCheckExistOption" value="TestAddFileTriggerOfCheckExistOption" />   
     
     <parameter name="FolderPath" value="org/talend/tac/folder/filetrigger/exist/" />
+    <parameter name="FolderPathNotWithLastBackslash" value="org/talend/tac/folder/filetrigger/exist" />
     <parameter name="FileMaskOfTxt" value="*.txt" />
     <parameter name="FileMaskOfXml" value="*.xml" />
  	
@@ -311,7 +314,7 @@
 	      </class> 
 		</classes>
 	</test>
-		
+	  
 	<test name="task019_ModifyTrigger"  annotations="JDK" >
 		<classes>
 	      <class name="com.talend.tac.cases.executionTask.TestModifyTrigger">	         
@@ -395,7 +398,7 @@
 	      </class> 
 		</classes>
 	</test>		
-
+	
 </suite>
 
 
