@@ -91,7 +91,7 @@ public final class ContextManagerHelper {
         }
     }
 
-    private boolean isValid(Object obj) {
+    private static boolean isValid(Object obj) {
         if (obj == null) {
             return false;
         }
@@ -132,7 +132,7 @@ public final class ContextManagerHelper {
     /*
      * get the ContextParameterTypes of default ContextType from ContextItem
      */
-    public List<ContextParameterType> getContextParameterType(ContextItem item) {
+    public static List<ContextParameterType> getContextParameterType(ContextItem item) {
         if (!isValid(item)) {
             return null;
         }
@@ -155,7 +155,7 @@ public final class ContextManagerHelper {
     /*
      * get default ContextType from ContextItem
      */
-    public ContextType getDefaultContextType(ContextItem item) {
+    public static ContextType getDefaultContextType(ContextItem item) {
         if (!isValid(item)) {
             return null;
         }
