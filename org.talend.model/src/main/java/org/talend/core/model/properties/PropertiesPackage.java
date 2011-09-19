@@ -4485,13 +4485,58 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK__USE_LATEST_VERSION = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 33;
 
     /**
-     * The feature id for the '<em><b>Item</b></em>' attribute.
+     * The feature id for the '<em><b>Application Type</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ITEM = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 34;
+    int EXECUTION_TASK__APPLICATION_TYPE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 34;
+
+    /**
+     * The feature id for the '<em><b>Application Feature URL</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__APPLICATION_FEATURE_URL = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 35;
+
+    /**
+     * The feature id for the '<em><b>Application Group</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__APPLICATION_GROUP = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 36;
+
+    /**
+     * The feature id for the '<em><b>Application Bundle Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__APPLICATION_BUNDLE_NAME = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 37;
+
+    /**
+     * The feature id for the '<em><b>Application Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__APPLICATION_NAME = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 38;
+
+    /**
+     * The feature id for the '<em><b>Application Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__APPLICATION_VERSION = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 39;
 
     /**
      * The number of structural features of the '<em>Execution Task</em>' class.
@@ -4500,7 +4545,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_FEATURE_COUNT = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 35;
+    int EXECUTION_TASK_FEATURE_COUNT = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 40;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -10909,15 +10954,70 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionTask_UseLatestVersion();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getItem <em>Item</em>}'.
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getApplicationType <em>Application Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Item</em>'.
-     * @see org.talend.core.model.properties.ExecutionTask#getItem()
+     * @return the meta object for the attribute '<em>Application Type</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getApplicationType()
      * @see #getExecutionTask()
      * @generated
      */
-    EAttribute getExecutionTask_Item();
+    EAttribute getExecutionTask_ApplicationType();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getApplicationFeatureURL <em>Application Feature URL</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Application Feature URL</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getApplicationFeatureURL()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_ApplicationFeatureURL();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getApplicationGroup <em>Application Group</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Application Group</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getApplicationGroup()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_ApplicationGroup();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getApplicationBundleName <em>Application Bundle Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Application Bundle Name</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getApplicationBundleName()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_ApplicationBundleName();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getApplicationName <em>Application Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Application Name</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getApplicationName()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_ApplicationName();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getApplicationVersion <em>Application Version</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Application Version</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getApplicationVersion()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_ApplicationVersion();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionTaskCmdPrm <em>Execution Task Cmd Prm</em>}'.
@@ -15926,12 +16026,52 @@ public interface PropertiesPackage extends EPackage {
         EAttribute EXECUTION_TASK__USE_LATEST_VERSION = eINSTANCE.getExecutionTask_UseLatestVersion();
 
         /**
-         * The meta object literal for the '<em><b>Item</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>Application Type</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute EXECUTION_TASK__ITEM = eINSTANCE.getExecutionTask_Item();
+        EAttribute EXECUTION_TASK__APPLICATION_TYPE = eINSTANCE.getExecutionTask_ApplicationType();
+
+        /**
+         * The meta object literal for the '<em><b>Application Feature URL</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__APPLICATION_FEATURE_URL = eINSTANCE.getExecutionTask_ApplicationFeatureURL();
+
+        /**
+         * The meta object literal for the '<em><b>Application Group</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__APPLICATION_GROUP = eINSTANCE.getExecutionTask_ApplicationGroup();
+
+        /**
+         * The meta object literal for the '<em><b>Application Bundle Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__APPLICATION_BUNDLE_NAME = eINSTANCE.getExecutionTask_ApplicationBundleName();
+
+        /**
+         * The meta object literal for the '<em><b>Application Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__APPLICATION_NAME = eINSTANCE.getExecutionTask_ApplicationName();
+
+        /**
+         * The meta object literal for the '<em><b>Application Version</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__APPLICATION_VERSION = eINSTANCE.getExecutionTask_ApplicationVersion();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionTaskCmdPrmImpl <em>Execution Task Cmd Prm</em>}' class.
