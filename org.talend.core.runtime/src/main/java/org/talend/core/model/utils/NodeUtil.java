@@ -339,7 +339,7 @@ public class NodeUtil {
         return getAllInLineJobConnections(node, uniqueNamesDone);
     }
 
-    public static Set<? extends IConnection> getAllInLineJobConnections(INode node, Set<String> uniqueNamesDone) {
+    private static Set<? extends IConnection> getAllInLineJobConnections(INode node, Set<String> uniqueNamesDone) {
         Set<IConnection> conns = new HashSet<IConnection>();
 
         List<? extends IConnection> outgoingConnections = node.getOutgoingConnections();
