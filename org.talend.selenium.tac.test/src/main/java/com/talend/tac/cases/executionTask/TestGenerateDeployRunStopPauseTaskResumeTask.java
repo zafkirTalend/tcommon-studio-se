@@ -7,7 +7,30 @@ import org.testng.annotations.Test;
 import com.talend.tac.base.Base;
 
 public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
-
+    
+	//add a task of project contains space and run it, check it running whether normal
+	@Test
+	@Parameters({"taskProjectWithContainsSpaceChar","labelDescription","ProjectWithSpaceChar","branchNameTrunk",
+		"jobNameTJava","version0.1","context","ServerForUseAvailable","statisticEnabled"})
+	public void testRunTaskOfItsProjectWithContainsSpaceChar(String label,String description,String projectName,String branchName,
+			String jobName,String version,String context,String serverName,String statisticName) {
+		
+		this.addTask(label, description, projectName,
+				branchName, jobName, version, context, serverName, statisticName);
+		
+		generateDeployRunTask(label,"//button[@id='idJobConductorTaskRunButton' and text()='Run']");//click Run button
+		this.waitForElementPresent("//span[text()='Real time statistics']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//span[text()='Real time statistics']"));
+		this.waitForElementPresent("//label[text()='Ok']", MAX_WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//label[text()='Ok']"));
+		
+		int logsConut = this.getXpathCount("//div[contains(@class,'x-grid3-" +
+		"cell-inner x-grid3-col-startDate')]");
+		
+		Assert.assertEquals(logsConut, 1);
+		
+		
+	}
 	//test generate a simple task
 	@Test
 	@Parameters({"modifyTask"})
@@ -126,7 +149,8 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 				"//span[text()='Killed by user']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr[@role='presentation']" +
 				"//span[text()='Killed by user']"));
-    	
+		
+		
 	}
     
 	
