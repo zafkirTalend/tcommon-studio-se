@@ -5,6 +5,8 @@
     <!-- add task -->
 	<parameter name="label" value="testTask" />
 	<parameter name="taskForTestFileTrigger" value="testTaskForTestFileTrigger" />
+    <parameter name="taskForTestFileTriggerOfCreationOption" value="testTaskForTestFileTriggerOfCreationOption" />
+	<parameter name="taskForTestFileTriggerOfModifiedOption" value="testTaskForTestFileTriggerOfModifiedOption" />
 	<parameter name="TaskWithJobOfGenerateBigLogs" value="TaskWithJobOfGenerateBigLogs" />
 	<parameter name="TaskOfAutomatedSelectingComboValue" value="TaskOfAutomatedSelectingComboValue"/>
 	<parameter name="TaskWithtRunjob" value="testTaskRunTRunJob"/>
