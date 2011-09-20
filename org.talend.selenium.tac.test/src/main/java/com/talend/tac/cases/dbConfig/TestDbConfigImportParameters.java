@@ -29,9 +29,9 @@ public class TestDbConfigImportParameters extends DbConfig {
 		this.clickWaitForElementPresent("//button[text()='Import parameters']");
 		selenium.type("Path", parseRelativePath(dbConfigParametersPath));
 		this.clickWaitForElementPresent("//button[text()='Upload']");
-		this.sleep(15000);
-//		this.waitForElementPresent("//span[text()='Import succeed.']", WAIT_TIME);
-//		selenium.click("//button[text()='OK']");
+		this.sleep(MAX_WAIT_TIME*12);
+		this.waitForElementPresent("//span[text()='Import succeed.']", WAIT_TIME);
+		selenium.click("//button[text()='OK']");
 		selenium.click("idDbConfigCheckButton");
 		this.waitForCheckConnectionStatus("//div[text()='OK']", 4);
 		//upload license
