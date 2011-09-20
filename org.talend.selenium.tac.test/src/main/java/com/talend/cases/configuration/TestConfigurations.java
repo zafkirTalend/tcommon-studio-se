@@ -187,14 +187,14 @@ public class TestConfigurations extends configuration {
   @Test
   @Parameters ({"scheduler.conf.ArchivedPath","scheduler.conf.LogsPath"})
   public void testSetScheduler(String ArchivedPath,String logsPath){
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Scheduler (')]"); 
+	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Conductor (')]"); 
 	  this.typeWordsInConfigurationMenu(other.getString("scheduler.conf.ArchivedPath.editButton"), locatorOfAllInputTags, this.getAbsolutePath(ArchivedPath));
 	  this.typeWordsInConfigurationMenu(other.getString("scheduler.conf.LogsPath.editButton"), locatorOfAllInputTags, this.getAbsolutePath(logsPath));
 	  this.AssertEqualsInConfigurationMenu(other.getString("scheduler.conf.ArchivedPath.editButton"), locatorOfAllInputTags, this.getAbsolutePath(ArchivedPath),other.getString("scheduler.conf.ArchivedPath.statusIcon"));
 	  this.AssertEqualsInConfigurationMenu(other.getString("scheduler.conf.LogsPath.editButton"), locatorOfAllInputTags, this.getAbsolutePath(logsPath),other.getString("scheduler.conf.LogsPath.statusIcon"));
 //	  this.waitForElementPresent(other.getString("scheduler.conf.generalStatusIcon"), WAIT_TIME);
 	 
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Scheduler (')]"); 
+	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Conductor (')]"); 
 	//assertEquals
   }
   @Test
@@ -270,9 +270,12 @@ public class TestConfigurations extends configuration {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-        
+
+		selenium.setSpeed(MID_SPEED);
 		selenium.keyDownNative(""+KeyEvent.VK_ENTER);
 		selenium.keyUpNative(""+KeyEvent.VK_ENTER);
+		selenium.setSpeed(MIN_SPEED);
+		
 //		File file = new File(
 //				"C:\\Users\\Administrator\\Downloads\\422NBS.txt.zip");
 		
@@ -309,8 +312,10 @@ public class TestConfigurations extends configuration {
 			e1.printStackTrace();
 		}
         
+		selenium.setSpeed(MID_SPEED);
 		selenium.keyDownNative(""+KeyEvent.VK_ENTER);
 		selenium.keyUpNative(""+KeyEvent.VK_ENTER);
+		selenium.setSpeed(MIN_SPEED);
 		
 		String absoluteDownloadPath=this.getAbsolutePath(downloadPath);
 		//to encourage the download path to be user.home. Any way, the path should match with that defined by firefox profile.
