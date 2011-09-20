@@ -3,10 +3,10 @@
   <parameter  name ="Mysql_Dbname" value ="amc"/>
   <parameter  name ="Mysql_Dbtype" value="2"/>
   <parameter  name ="Mysql_Connectionlabel" value ="Mysqlconnection"/>
-  <parameter  name ="Mysql_Host" value ="192.168.0.94"/>
+  <parameter  name ="Mysql_Host" value ="192.168.0.216"/>
   <parameter  name ="Mysql_Serverport" value ="3306"/>
   <parameter  name ="Mysql_Username" value ="root"/>
-  <parameter  name ="Mysql_Password" value ="123456"/>
+  <parameter  name ="Mysql_Password" value ="root"/>
   <parameter  name ="Mysql_Datasourse" value =""/>
   <parameter  name ="Mysql_Additional" value =""/>
   <parameter  name ="Mysql_Stattable" value ="tstats"/>
