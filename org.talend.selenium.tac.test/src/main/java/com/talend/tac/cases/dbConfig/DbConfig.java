@@ -73,7 +73,7 @@ public class DbConfig extends Base {
 //			flag = selenium.getXpathCount("//td[@align='LEFT']/div").intValue()==5;
 			flag = selenium.getXpathCount(locator).intValue() >= OK_Num;
 			seconds_Counter++;
-			if(seconds_Counter >= WAIT_TIME)
+			if(seconds_Counter >= WAIT_TIME*3)
 				assertTrue(selenium.getXpathCount("//div[text()='OK']").intValue() >= OK_Num);
 		}
 
