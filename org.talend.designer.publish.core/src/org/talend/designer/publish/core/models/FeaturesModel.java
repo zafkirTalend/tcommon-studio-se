@@ -8,16 +8,16 @@ import java.util.Set;
 
 public class FeaturesModel extends UploadableModel {
 
-	private Set<String> subFeatures = new HashSet<String>();
+	private Set<FeaturesModel> subFeatures = new HashSet<FeaturesModel>();
 
-	private Set<String> subBundles = new HashSet<String>();
+	private Set<BundleModel> subBundles = new HashSet<BundleModel>();
 
-	private String sourceArtifactId ;
-	
-	public FeaturesModel(String groupId, String sourceArtifactId, String version,
+	private static String nameSuffix = "-feature";
+
+	public FeaturesModel(String groupId, String namePrefix, String version,
 			String repositoryURL, String userName, String password) {
-		super(groupId, sourceArtifactId + "-feature", version, repositoryURL, userName, password);
-		this.sourceArtifactId = sourceArtifactId;
+		super(groupId, namePrefix + nameSuffix, version, repositoryURL,
+				userName, password);
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class FeaturesModel extends UploadableModel {
 		uploadPom();
 		uploadMetadata();
 	}
-	
+
 	private void uploadMetadata() throws Exception {
 		MetadataModel metadataModel = new MetadataModel(groupId, artifactId,
 				version, repositoryURL, userName, password);
@@ -38,13 +38,20 @@ public class FeaturesModel extends UploadableModel {
 		// upload pom part
 		PomModel pomModel = new PomModel(groupId, artifactId, version, "pom",
 				repositoryURL, userName, password);
-		pomModel.addDenpendency(new DependencyModel(groupId, sourceArtifactId,
-				version));
+		for (BundleModel bm : subBundles) {
+			DependencyModel dm = new DependencyModel(bm.getGroupId(),
+					bm.getArtifactId(), bm.getVersion());
+			pomModel.addDenpendency(dm);
+		}
+		for (FeaturesModel fm : subFeatures) {
+			DependencyModel dm = new DependencyModel(fm.getGroupId(),
+					fm.getArtifactId(), fm.getVersion(), "pom");
+			pomModel.addDenpendency(dm);
+		}
 		pomModel.upload();
 	}
 
 	private void uploadFeature() throws MalformedURLException, IOException {
-		addSubBundle(groupId, sourceArtifactId, version);
 		// upload feature part
 		String artifactPath = getArtifactDestination();
 		String versionPath = artifactPath + version + "/";
@@ -58,26 +65,38 @@ public class FeaturesModel extends UploadableModel {
 		uploadMd5AndSha1(filePath, fileName, featureContent);
 	}
 
-	public void addSubFeature(String version, String name) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("<feature version='");
-		sb.append(version);
-		sb.append("\'>");
-		sb.append(name);
-		sb.append("</feature>");
-		subFeatures.add(sb.toString());
+	public void addSubFeature(FeaturesModel model) {
+		if (!subFeatures.contains(model)) {
+			subFeatures.add(model);
+		}
 	}
 
-	public void addSubBundle(String groupId, String artifactId, String version) {
+	public void addSubBundle(BundleModel model) {
+		if (!subBundles.contains(model)) {
+			subBundles.add(model);
+		}
+	}
+
+	private String toFeatureString(FeaturesModel model) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<feature version='");
+		sb.append(model.getVersion());
+		sb.append("\'>");
+		sb.append(model.getArtifactId());
+		sb.append("</feature>");
+		return sb.toString();
+	}
+
+	private String toBundleString(BundleModel model) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<bundle>mvn:");
-		sb.append(groupId);
+		sb.append(model.getGroupId());
 		sb.append("/");
-		sb.append(artifactId);
+		sb.append(model.getArtifactId());
 		sb.append("/");
-		sb.append(version);
+		sb.append(model.getVersion());
 		sb.append("</bundle>");
-		subBundles.add(sb.toString());
+		return sb.toString();
 	}
 
 	@Override
@@ -91,14 +110,14 @@ public class FeaturesModel extends UploadableModel {
 		sb.append(version);
 		sb.append("\">\n");
 
-		for (String s : subFeatures) {
+		for (FeaturesModel s : subFeatures) {
 			sb.append("\t\t");
-			sb.append(s);
+			sb.append(toFeatureString(s));
 			sb.append("\n");
 		}
-		for (String s : subBundles) {
+		for (BundleModel s : subBundles) {
 			sb.append("\t\t");
-			sb.append(s);
+			sb.append(toBundleString(s));
 			sb.append("\n");
 		}
 		sb.append("\t</feature>\n");

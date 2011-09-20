@@ -37,6 +37,19 @@ public abstract class UploadableModel {
 
 	public abstract void upload() throws Exception;
 	
+	
+	public String getGroupId() {
+		return groupId;
+	}
+	
+	public String getVersion() {
+		return version;
+	}
+	
+	public String getArtifactId() {
+		return artifactId;
+	}
+	
 	protected void uploadMd5AndSha1(String sourceFilePath, String sourceFileName,String content) throws IOException {
 		uploadMd5AndSha1(sourceFilePath, sourceFileName, new ChecksumComputor(content));
 	}

@@ -5,7 +5,14 @@ public class DependencyModel {
 	private String groupId;
 	private String artifactId;
 	private String version;
+	
+	private String type;
 
+	public DependencyModel(String groupId, String artifactId, String version, String type) {
+		this(groupId,artifactId,version);
+		this.type = type;
+	}
+	
 	public DependencyModel(String groupId, String artifactId, String version) {
 		super();
 		this.groupId = groupId;
@@ -62,6 +69,12 @@ public class DependencyModel {
 		sb.append("\t\t\t<version>");
 		sb.append(version);
 		sb.append("</version>\n");
+		
+		if(type!=null){
+			sb.append("\t\t\t<type>");
+			sb.append(type);
+			sb.append("</type>\n");
+		}
 		sb.append("\t\t</dependency>\n");
 		return sb.toString();
 	}

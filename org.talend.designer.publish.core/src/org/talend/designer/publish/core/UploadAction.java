@@ -17,40 +17,61 @@ public class UploadAction {
 				dependencies, repositoryUrl, userName, password);
 	}
 
-	private boolean deployRoute(File jarFile, String groupId, String artifactId,
-			String version, Set<DependencyModel> dependencies, String repositoryUrl, String userName,
-			String password) throws Exception {
-		deployBundle(jarFile, groupId, artifactId, version, dependencies, repositoryUrl,
-				userName, password);
+	private boolean deployRoute(File jarFile, String groupId,
+			String artifactId, String version,
+			Set<DependencyModel> dependencies, String repositoryUrl,
+			String userName, String password) throws Exception {
+		BundleModel bundleModel = new BundleModel(jarFile, groupId, artifactId,
+				version, repositoryUrl, userName, password);
+		deployBundle(bundleModel);
 
-		deployFeature(jarFile, groupId, artifactId, version, repositoryUrl,
-				userName, password);
-
+		FeaturesModel featuresModel = new FeaturesModel(groupId, artifactId,
+				version, repositoryUrl, userName, password);
+		deployFeatures(featuresModel);
 		return true;
 	}
 
-	private void deployFeature(File jarFile, String groupId, String artifactId,
-			String version, String repositoryURL, String userName,
-			String password) throws Exception {
-		FeaturesModel featuresModel = new FeaturesModel(groupId, artifactId, version, repositoryURL, userName, password);
-		featuresModel.upload();
-
+	public void deployFeatures(FeaturesModel featuresModel) throws Exception {
+		if (featuresModel != null) {
+			featuresModel.upload();
+		}
 	}
 
-	private void deployBundle(File jarFile, String groupId, String artifactId,
-			String version, Set<DependencyModel> dependencies, String repositoryURL, String userName,
-			String password) throws Exception {
-		BundleModel bundleModel = new BundleModel(jarFile, groupId, artifactId, version, repositoryURL, userName, password);
-		bundleModel.addAllDependencies(dependencies);
-		bundleModel.upload();
+	public void deployBundle(BundleModel bundleModel) throws Exception {
+		if (bundleModel != null) {
+			bundleModel.upload();
+		}
 	}
 
 	// for test
 	public static void main(String[] args) throws Exception {
 		UploadAction uploadAction = new UploadAction();
-		uploadAction.deployRoute("TestEERoute_0.1.jar", "ggg.talend.liugang",
-				"TestEERoute2", "2.0.22-SNAPSHOT",null,
+
+		BundleModel b1 = new BundleModel(new File("userRoutines.jar"),
+				"org.talend.liugang", "userRoutines1", "1.0",
 				"http://localhost:8080/archiva/repository/snapshots/", "gliu",
 				"liugang123");
+		BundleModel b2 = new BundleModel(new File("userRoutines.jar"),
+				"trg.talend.liugang", "userRoutines2", "1.0",
+				"http://localhost:8080/archiva/repository/snapshots/", "gliu",
+				"liugang123");
+
+		FeaturesModel f1 = new FeaturesModel("org.talend.liugang", "user1",
+				"1.0", "http://localhost:8080/archiva/repository/snapshots/",
+				"gliu", "liugang123");
+		FeaturesModel f2 = new FeaturesModel("trg.talend.liugang", "user2",
+				"1.0", "http://localhost:8080/archiva/repository/snapshots/",
+				"gliu", "liugang123");
+
+		f2.addSubBundle(b1);
+		f2.addSubBundle(b2);
+		f1.addSubBundle(b1);
+		f1.addSubBundle(b2);
+		f1.addSubFeature(f2);
+
+		uploadAction.deployBundle(b1);
+		uploadAction.deployBundle(b2);
+		uploadAction.deployFeatures(f1);
+		uploadAction.deployFeatures(f2);
 	}
 }
