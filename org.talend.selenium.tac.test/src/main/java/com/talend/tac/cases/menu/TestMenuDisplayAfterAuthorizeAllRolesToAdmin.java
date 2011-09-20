@@ -59,21 +59,24 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 
 		// check menu execution task
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-		this.waitForElementDispear("//div[text()='Loading...']", WAIT_TIME);
+		this.waitForElementDispear("//div[@class='header-title' and text()='Job Conductor']//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader" +
+				" x-panel-body-noborder x-border-layout-ct')]//div[text()='Loading...']", WAIT_TIME);
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"
 				+ rb.getString("menu.jobConductor") + "']"));
 		selenium.setSpeed(MIN_SPEED);
 		selenium.refresh();
 		this.sleep(5000);
-		this.waitForElementDispear("//div[text()='Loading...']", WAIT_TIME);
+		this.waitForElementDispear("//div[@class='header-title' and text()='Job Conductor']//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader" +
+				" x-panel-body-noborder x-border-layout-ct')]//div[text()='Loading...']", WAIT_TIME);
 	}
 
 	@Test
 	public void testMenuExecutionPlan() {
 		// check menu execution plan
 		selenium.click("!!!menu.executionPlan.element!!!");
-		this.waitForElementDispear("//div[text()='Loading...']", WAIT_TIME);
+		this.waitForElementDispear("//div[@class='header-title' and text()='Execution Plan']//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader" +
+				" x-panel-body-noborder x-border-layout-ct')]//div[text()='Loading...']", WAIT_TIME);
 		this.waitForElementPresent(
 				"//div[@class='header-title' and text()='Execution Plan']",
 				WAIT_TIME);
@@ -81,7 +84,8 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 				.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
 		selenium.refresh();
 		this.sleep(5000);
-		this.waitForElementDispear("//div[text()='Loading...']", WAIT_TIME);
+		this.waitForElementDispear("//div[@class='header-title' and text()='Execution Plan']//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader" +
+				" x-panel-body-noborder x-border-layout-ct')]//div[text()='Loading...']", WAIT_TIME);
 	}
 
 	@Test
@@ -199,7 +203,7 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 		this.sleep(2000);
 		selenium.click("!!!menu.businessModeler.browser.element!!!");
 		this.waitForElementPresent(
-				"//div[@class='header-title' and text()='Business modeler browser']",
+				"//div[@class='header-title' and text()='Repository browser']",
 				WAIT_TIME);
 		this.waitForTextPresent("Select a Project", WAIT_TIME);
 		this.waitForTextPresent("Select a Branch", WAIT_TIME);
