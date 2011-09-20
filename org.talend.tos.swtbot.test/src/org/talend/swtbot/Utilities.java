@@ -80,6 +80,7 @@ public class Utilities {
     public enum TalendItemType {
         BUSINESS_MODEL,
         JOB_DESIGNS,
+        SERVICES,
         JOBLET_DESIGNS,
         CONTEXTS,
         ROUTINES,
@@ -1148,6 +1149,8 @@ public class Utilities {
             return tree.expandNode("Business Models");
         case JOB_DESIGNS:
             return tree.expandNode("Job Designs");
+        case SERVICES:
+            return tree.expandNode("Services");
         case JOBLET_DESIGNS:
             return tree.expandNode("Joblet Designs");
         case CONTEXTS:
@@ -1348,6 +1351,7 @@ public class Utilities {
 
     public static List<TalendItemType> getTISItemTypes() {
         List<TalendItemType> itemList = new ArrayList<TalendItemType>();
+        itemList.add(TalendItemType.SERVICES);
         itemList.add(TalendItemType.JOBLET_DESIGNS);
         itemList.add(TalendItemType.JOBSCRIPTS);
         itemList.add(TalendItemType.SAP_CONNECTIONS);
