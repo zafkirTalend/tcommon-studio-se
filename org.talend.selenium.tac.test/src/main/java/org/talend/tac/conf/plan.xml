@@ -2,8 +2,9 @@
 <suite name="Suite" parallel="false">
 	<!-- to run this test suite ,three tasks needed testModifyTask testTaskRunTRunJob 
 		BranchTask -->
-
-
+        
+        <parameter name="addTaskForplanPauseAndResume" value="TaskForplanPauseAndResume" />
+        <parameter name="planPauseAndResumeLabel" value="planPauseAndResumeLabel" />
 	    <parameter name="plan.label" value="testPlan" />
 		<parameter name="plan.unexecuted.label" value="unexecutedPlan" />
 		<parameter name="plan.unexecuted.tasklabel" value="unexecutedTask" />
@@ -13,8 +14,8 @@
 		<parameter name="version0.1" value="0.1" />
 		<parameter name="context" value="Default" />
 		<parameter name="statisticEnabled" value="enabled" />
-		<parameter name="ServerForUseAvailable" value="use_server_available" />
-
+		<parameter name="ServerForUseAvailable" value="use_server_available" />		
+                        
 		<parameter name="plan.task" value="BranchTask" />
 		<parameter name="plan.description" value="testPlan.des" />
 		<parameter name="plan.modifyLabel" value="testModifyPlan" />
@@ -52,7 +53,8 @@
 		<parameter name="plan.filetrigger.modify.timeinterval"
 			value="10" />
 		<parameter name="plan.filetrigger.modify.filemask" value="*.txt" />
-
+		
+        <parameter name="plan.simpletrigger.label.planuseAndResume" value="testSimpleTriggerForPlanuseAndResume" />
 		<parameter name="plan.simpletrigger.label" value="testSimpleTrigger" />
 		<parameter name="plan.toaddsimpletrigger.roottask" value="BranchTask" />
 		<parameter name="plan.simpletrigger.byui.label" value="testSimpleTriggerUI" />
@@ -76,7 +78,6 @@
 		<parameter name="planexecutionlogsdisplay.plan.label" value="testPlanlogsdisplay" />
 		<parameter name="planexecutionlogsdisplay.plan.roottask"
 			value="BranchTask" />
-			
 			
 	<test name="deleteAllTasks">
 		<classes>
@@ -299,13 +300,10 @@
 		</classes>
 	</test>
 	
-	    	<test name="test_plan_running">
+   <test name="test_pausePlanAndResumePlan">
 		<classes>
-			<class name="com.talend.tac.cases.executePlan.TestRunPlan" />
-			<class name="com.talend.tac.cases.executePlan.TestTriggerPauseAndResume" />
-			<class name="com.talend.tac.cases.executePlan.TestPlanedTreeViewManageDeleteRoottask" />
+			<class name="com.talend.tac.cases.executePlan.TestPlanPauseAndResume" />
 		</classes>
 	</test>
-	
 </suite>
 
