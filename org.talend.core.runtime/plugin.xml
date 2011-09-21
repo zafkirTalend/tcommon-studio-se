@@ -15,10 +15,26 @@
       </page>
       <page
             category="org.talend.core.prefs"
-            class="org.talend.core.prefs.TokenInforPreferencePage"
-            id="org.talend.core.prefs.TokenInforPreferencePage"
-            name="%TokenInfor">
+            class="org.talend.core.prefs.collector.TalendDataCollectorPreferencePage"
+            id="org.talend.core.prefs.datacollector"
+            name="%TalendDataCollector">
       </page>
+     <page
+            category="org.talend.core.prefs.datacollector"
+            class="org.talend.core.prefs.collector.TalendDataCollectorPreviewPreferencePage"
+            id="org.talend.core.prefs.collector.TalendDataCollectorPreviewPreferencePage"
+            name="%TalendDataCollectorPreview">
+      </page>
+     <page
+            category="org.talend.core.prefs.datacollector"
+            class="org.talend.core.prefs.collector.TalendDataCollectorUploadingPreferencePage"
+            id="org.talend.core.prefs.collector.TalendDataCollectorUploadingPreferencePage"
+            name="%TalendDataCollectorUploading">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer class="org.talend.core.prefs.collector.TalendDataCollectorPreferenceInitializer"/>
    </extension>
    <extension
          point="org.talend.core.runtime.tokenInfo_provider">
@@ -29,24 +45,4 @@
             name="default">
       </provider>
    </extension>
-<!--
-   <extension
-         point="org.eclipse.ui.actionSets">
-      <actionSet
-            id="org.talend.core.token.ActionSet"
-            label="token"
-            visible="true">
-         <action
-               class="org.talend.core.token.TmpCollectTokenAction"
-               icon="addall.gif"
-               id="org.talend.repository.tokenInfor"
-               label="Collect token infors"
-               style="push"
-               toolbarPath="Default"
-               tooltip="Collect token infors"/>
-               
-        </actionSet>
-   </extension>
--->
-
 </plugin>

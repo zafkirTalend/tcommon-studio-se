@@ -77,6 +77,7 @@ import org.talend.core.model.general.Project;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.prefs.PreferenceManipulator;
+import org.talend.core.token.TokenCollectorFactory;
 import org.talend.core.ui.ISQLBuilderService;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
@@ -681,6 +682,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
             }
         }
+        // tmp for data collector
+        TokenCollectorFactory.getFactory().process();
 
         return true;
     }

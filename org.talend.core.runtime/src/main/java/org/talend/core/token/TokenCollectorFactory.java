@@ -25,7 +25,6 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.network.NetworkUtil;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -45,7 +44,7 @@ public final class TokenCollectorFactory {
 
     private static Logger log = Logger.getLogger(TokenCollectorFactory.class);
 
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //$NON-NLS-1$
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //$NON-NLS-1$
 
     private static TokenCollectorFactory factory;
 
@@ -124,9 +123,9 @@ public final class TokenCollectorFactory {
 
     private boolean isActiveAndValid(boolean timeExpired) {
         final IPreferenceStore preferenceStore = CoreRuntimePlugin.getInstance().getPreferenceStore();
-        if (preferenceStore.getBoolean(ITalendCorePrefConstants.ACTIVE_TOKEN_INFORS)) {
-            String last = preferenceStore.getString(ITalendCorePrefConstants.TOKEN_INFORS_TIME);
-            int days = preferenceStore.getInt(ITalendCorePrefConstants.ACTIVE_TOKEN_INFORS_TIMES);
+        if (preferenceStore.getBoolean(ITalendCorePrefConstants.DATA_COLLECTOR_ENABLED)) {
+            String last = preferenceStore.getString(ITalendCorePrefConstants.DATA_COLLECTOR_LAST_TIME);
+            int days = preferenceStore.getInt(ITalendCorePrefConstants.DATA_COLLECTOR_UPLOAD_PERIOD);
             Date lastDate = null;
             if (last != null && !"".equals(last.trim())) { //$NON-NLS-1$
                 // parse the last date;
@@ -136,13 +135,14 @@ public final class TokenCollectorFactory {
                     //
                 }
             }
-            Date addedDate = new Date();
+            Date curDate = new Date();
+            Date addedDate = curDate;
             if (days > 0 && lastDate != null) {
                 addedDate = TokenInforUtil.getDateAfter(lastDate, days);
             }
             //
             if (timeExpired) {
-                if (addedDate.compareTo(new Date()) <= 0) {
+                if (addedDate.compareTo(curDate) <= 0) {
                     return true;
                 }
             } else {
@@ -156,8 +156,7 @@ public final class TokenCollectorFactory {
     public boolean process() {
         boolean valid = false;
         try {
-            // FIXME will check this timeExpired later.
-            if (isActiveAndValid(false) && NetworkUtil.isNetworkValid()) {
+            if (isActiveAndValid(true) && NetworkUtil.isNetworkValid()) {
                 JSONObject tokenInfors = collectTokenInfors();
 
                 Resty r = new Resty();
@@ -174,12 +173,14 @@ public final class TokenCollectorFactory {
                 }
             }
         } catch (Exception e) {
-            ExceptionHandler.process(e);
+            // if want to test, enable this
+            // ExceptionHandler.process(e);
+
         }
         if (valid) {
             final IPreferenceStore preferenceStore = CoreRuntimePlugin.getInstance().getPreferenceStore();
             // set new days
-            preferenceStore.setValue(ITalendCorePrefConstants.TOKEN_INFORS_TIME, DATE_FORMAT.format(new Date()));
+            preferenceStore.setValue(ITalendCorePrefConstants.DATA_COLLECTOR_LAST_TIME, DATE_FORMAT.format(new Date()));
         }
         return valid;
     }

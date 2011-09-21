@@ -14,7 +14,6 @@ package org.talend.core.token;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -114,7 +113,11 @@ public final class TokenInforUtil {
             List<Integer> numList = new ArrayList(new HashSet(numComponentMap.values()));
             Collections.sort(numList);
             if (numList.size() > max) {
-                numList = new ArrayList(Arrays.asList(Arrays.copyOf(numList.toArray(), max)));
+                List<Integer> tmpList = new ArrayList<Integer>();
+                for (int i = 0; i < max; i++) {
+                    tmpList.add(numList.get(i));
+                }
+                numList = tmpList;
             }
             for (String name : numComponentMap.keySet()) {
                 Integer num = numComponentMap.get(name);

@@ -101,9 +101,11 @@ public interface ITalendCorePrefConstants {
 
     String FORBIDDEN_MAPPING_LENGTH_PREC_LOGIC = "forbidden_mapping_length_prec_logic";
 
-    String ACTIVE_TOKEN_INFORS = "active_token_infors";
+    String DATA_COLLECTOR_ENABLED = "active_data_collector";
 
-    String ACTIVE_TOKEN_INFORS_TIMES = "active_token_infors_times";
+    String DATA_COLLECTOR_UPLOAD_PERIOD = "active_data_collector_times";
 
-    String TOKEN_INFORS_TIME = "token_infors_time";
+    String DATA_COLLECTOR_LAST_TIME = "data_collector_last_time";
+
+    String DATA_COLLECTOR_PREVIEW = "data_collector_preview";
 }
