@@ -267,7 +267,9 @@ public final class JavaSqlFactory {
                 IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
                 if (repositoryService != null) {
                     // get the original value and select the defalut context
-                    DatabaseConnection origValueConn = repositoryService.cloneOriginalValueConnection(dbConn, true);
+                    String groupName = conn.getContextGroupName();
+                    DatabaseConnection origValueConn = repositoryService.cloneOriginalValueConnection(dbConn,
+                            groupName == null ? true : false, groupName);
                     dbUserName = origValueConn.getUsername();
                 }
             }
@@ -295,7 +297,9 @@ public final class JavaSqlFactory {
                 IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
                 if (repositoryService != null) {
                     // get the original value and select the defalut context
-                    DatabaseConnection origValueConn = repositoryService.cloneOriginalValueConnection(dbConn, true);
+                    String groupName = conn.getContextGroupName();
+                    DatabaseConnection origValueConn = repositoryService.cloneOriginalValueConnection(dbConn,
+                            groupName == null ? true : false, groupName);
                     psw = origValueConn.getPassword();
                 }
 
@@ -358,7 +362,9 @@ public final class JavaSqlFactory {
                 IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
                 if (repositoryService != null) {
                     // get the original value and select the defalut context
-                    DatabaseConnection origValueConn = repositoryService.cloneOriginalValueConnection(dbConn, true);
+                    String groupName = conn.getContextGroupName();
+                    DatabaseConnection origValueConn = repositoryService.cloneOriginalValueConnection(dbConn,
+                            groupName == null ? true : false, groupName);
                     url = DatabaseConnStrUtil.getURLString(origValueConn);
                     // url = origValueConn.getURL();
                 }
