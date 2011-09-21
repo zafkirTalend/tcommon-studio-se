@@ -256,8 +256,13 @@ public class MetadataConnectionUtils {
             IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
             if (repositoryService != null) {
                 String groupName = databaseConnection.getContextGroupName();
-                DatabaseConnection origValueConn = repositoryService.cloneOriginalValueConnection(databaseConnection,
-                        groupName == null ? true : false);
+                DatabaseConnection origValueConn = null;
+                if (groupName == null) {
+                    origValueConn = repositoryService.cloneOriginalValueConnection(databaseConnection, true);
+                } else {
+                    origValueConn = repositoryService.cloneOriginalValueConnection(databaseConnection, false, groupName);
+                }
+
                 if (origValueConn != null) {
                     dbUrl = origValueConn.getURL();
                     password = origValueConn.getPassword();
