@@ -109,7 +109,4 @@ public interface ITalendCorePrefConstants {
 
     String DATA_COLLECTOR_PREVIEW = "data_collector_preview";
 
-    String ACTIVE_TOKEN_INFORS = "activeTokenInfors";
-
-    String ACTIVE_TOKEN_INFORS_TIMES = "activeTokenInforsTimes";
 }
