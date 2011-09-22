@@ -43,6 +43,12 @@
 		</classes>
 	    </test>
 	    
+	    <test name="ChangeServerPort">
+		<classes>
+			<class name="com.talend.tac.cases.jobconductor.TestChangeServerPort" />
+		</classes>
+	    </test>
+	    
 	    <test name="deleteServer">
 		<classes>
 			<class name="com.talend.tac.cases.jobconductor.TestDeleteServer" />
