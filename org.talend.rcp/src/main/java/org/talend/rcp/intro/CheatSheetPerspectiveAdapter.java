@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2010 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -42,7 +42,6 @@ public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
     private static Logger log = Logger.getLogger(CheatSheetPerspectiveAdapter.class);
 
     private static final String DQ_PERSPECTIVE_ID = "org.talend.dataprofiler.DataProfilingPerspective";//$NON-NLS-1$
-
 
     public CheatSheetPerspectiveAdapter(String startId) {
         CheatSheetView cheetSheet = findCheetSheet();
