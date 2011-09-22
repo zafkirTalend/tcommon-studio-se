@@ -62,6 +62,7 @@ public class TableSelectorButtonTest extends TalendSwtBotForTos {
 
         gefBot.viewByTitle("Component").setFocus();
         gefBot.buttonWithTooltip("Show the table list for the current conection").click();
+        gefBot.sleep(500);
         if (!gefBot.activeShell().getText().equals("Select Table Name"))
             gefBot.buttonWithTooltip("Show the table list for the current conection").click();
         gefBot.waitUntil(Conditions.shellIsActive("Select Table Name"));
