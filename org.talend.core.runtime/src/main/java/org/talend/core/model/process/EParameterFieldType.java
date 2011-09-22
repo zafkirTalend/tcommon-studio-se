@@ -62,6 +62,7 @@ public enum EParameterFieldType {
     PALO_DIM_SELECTION,
     WSDL2JAVA,
     GENERATEGRAMMARCONTROLLER,
+    GENERATE_SURVIVORSHIP_RULES_CONTROLLER, // sizhaoliu TDQ-3356
     ICON_SELECTION,
     RULE_TYPE, // hywang add for feature 6484
     TNS_EDITOR,
