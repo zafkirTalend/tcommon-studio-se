@@ -1784,10 +1784,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         } else {
             // MOD xqliu 2010-12-16 15750
             if (item instanceof TDQItem) {
+                // MOD qiongli 2011-9-22 bug TDQ-3523,if the eResource is null,get the lateset version and reload.
+                if (item.eResource() == null || item.getProperty().eResource() == null) {
+                    IRepositoryViewObject repositoryViewObject = getLastVersion(new Project(ProjectManager.getInstance()
+                            .getProject(item.getProperty().getItem())), item.getProperty().getId());
+                    Property property = repositoryViewObject.getProperty();
+                    item = property.getItem();
+                }
                 itemResource = save((TDQItem) item);
-                // propagateFileName(project, item.getProperty());
-                // xmiResourceManager.saveResource(item.eResource());
-                // return;
             } else {
                 for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
                     itemResource = handler.save(item);
