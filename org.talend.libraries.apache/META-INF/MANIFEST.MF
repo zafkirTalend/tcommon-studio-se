@@ -23,7 +23,8 @@ Bundle-ClassPath: .,
  lib/poi-ooxml-schemas-3.6-20091214.jar,
  lib/xerces-2.6.2.jar,
  lib/xmlbeans-2.3.0.jar,
- lib/xalan.jar
+ lib/xalan.jar,
+ lib/commons-logging-1.1.1.jar
 Bundle-Vendor: .Talend SA.
 Eclipse-BuddyPolicy: dependent
 Require-Bundle: org.apache.log4j;resolution:=optional,
@@ -77,6 +78,8 @@ Export-Package: org.apache.commons.beanutils,
  org.apache.commons.lang,
  org.apache.commons.lang.math,
  org.apache.commons.lang.time,
+ org.apache.commons.logging,
+ org.apache.commons.logging.impl,
  org.apache.http,
  org.apache.http.annotation,
  org.apache.http.auth,
