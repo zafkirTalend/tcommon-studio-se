@@ -1,12 +1,16 @@
 package org.talend.swtbot.items;
 
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.widgetOfType;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
+import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
@@ -96,6 +100,7 @@ public class TalendDBItem extends TalendMetadataItem {
             gefBot.button("Next >").click();
             List<String> schemaList = new ArrayList<String>(Arrays.asList(schemas));
 
+            gefBot.waitUntil(Conditions.waitForWidget(widgetOfType(Tree.class)), 10000);
             SWTBotTree root = gefBot.treeInGroup("Select Schema to create");
             SWTBotTreeItem treeNode = null;
             if (getCatalog() != null && getSchema() == null)

@@ -12,8 +12,12 @@
 // ============================================================================
 package tosstudio.metadata.databaseoperation;
 
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.widgetOfType;
+
+import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -71,6 +75,7 @@ public class ChangeDatabaseAndRetrieveSchemaTest extends TalendSwtBotForTos {
             dbItem.getItem().contextMenu("Retrieve Schema").click();
             schemaShell = gefBot.shell("Schema").activate();
             gefBot.button("Next >").click();
+            gefBot.waitUntil(Conditions.waitForWidget(widgetOfType(Tree.class)), 10000);
             SWTBotTreeItem catalog = gefBot.treeInGroup("Select Schema to create").expandNode(DATABASE_NAME);
             // catalog.getNode(TABLE1).check();
             // gefBot.waitUntil(Conditions.shellIsActive("Confirm"));
