@@ -17,6 +17,10 @@ package org.talend.core.ui.branding;
  */
 public abstract class AbstractTalendBrandingService extends AbstractBrandingService {
 
+    public String getFullProductName() {
+        return getProductName() + " " + getOptionName(); //$NON-NLS-1$
+    }
+
     public boolean isPoweredbyTalend() {
         return true;
     }
