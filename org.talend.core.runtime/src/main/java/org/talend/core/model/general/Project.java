@@ -14,6 +14,7 @@ package org.talend.core.model.general;
 
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.process.IElement;
+import org.talend.core.model.properties.ExchangeUser;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.User;
 
@@ -266,6 +267,17 @@ public class Project {
 
     public void setSandboxProject(boolean isSandboxProject) {
         this.isSandboxProject = isSandboxProject;
+    }
+
+    public ExchangeUser getExchangeUser() {
+        if (project.getExchangeUser() == null) {
+            return PropertiesFactory.eINSTANCE.createExchangeUser();
+        }
+        return project.getExchangeUser();
+    }
+
+    public void setExchangeUser(ExchangeUser exchangeUser) {
+        project.setExchangeUser(exchangeUser);
     }
 
 }
