@@ -26,6 +26,10 @@ public interface IBrandingService extends IService {
 
     public String getFullProductName();
 
+    public String getProductName();
+
+    public String getOptionName();
+
     public String getShortProductName();
 
     public String getAcronym();
