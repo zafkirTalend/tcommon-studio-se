@@ -39,6 +39,7 @@ import org.talend.core.model.properties.DocumentationItem;
 import org.talend.core.model.properties.EDIFACTConnectionItem;
 import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.ExcelFileConnectionItem;
+import org.talend.core.model.properties.ExchangeUser;
 import org.talend.core.model.properties.ExecutionPlan;
 import org.talend.core.model.properties.ExecutionPlanPart;
 import org.talend.core.model.properties.ExecutionPlanPartCmdPrm;
@@ -809,6 +810,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    private EClass exchangeUserEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     private EClass referenceFileItemEClass = null;
 
     /**
@@ -1203,6 +1211,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      */
     public EAttribute getProject_ItemsRelationVersion() {
         return (EAttribute)projectEClass.getEStructuralFeatures().get(31);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getProject_ExchangeUser() {
+        return (EReference)projectEClass.getEStructuralFeatures().get(32);
     }
 
     /**
@@ -5692,6 +5709,42 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getExchangeUser() {
+        return exchangeUserEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExchangeUser_Username() {
+        return (EAttribute)exchangeUserEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExchangeUser_Login() {
+        return (EAttribute)exchangeUserEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExchangeUser_Password() {
+        return (EAttribute)exchangeUserEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getReferenceFileItem() {
         return referenceFileItemEClass;
     }
@@ -5820,6 +5873,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(projectEClass, PROJECT__DELETED_FOLDERS);
         createEAttribute(projectEClass, PROJECT__TYPE);
         createEAttribute(projectEClass, PROJECT__ITEMS_RELATION_VERSION);
+        createEReference(projectEClass, PROJECT__EXCHANGE_USER);
 
         projectComponentAuthorisationEClass = createEClass(PROJECT_COMPONENT_AUTHORISATION);
         createEReference(projectComponentAuthorisationEClass, PROJECT_COMPONENT_AUTHORISATION__PROJECT);
@@ -6418,6 +6472,11 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEReference(referenceItemEClass, REFERENCE_ITEM__STATE);
         createEReference(referenceItemEClass, REFERENCE_ITEM__PARENT);
 
+        exchangeUserEClass = createEClass(EXCHANGE_USER);
+        createEAttribute(exchangeUserEClass, EXCHANGE_USER__USERNAME);
+        createEAttribute(exchangeUserEClass, EXCHANGE_USER__LOGIN);
+        createEAttribute(exchangeUserEClass, EXCHANGE_USER__PASSWORD);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
@@ -6542,6 +6601,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getProject_DeletedFolders(), ecorePackage.getEString(), "deletedFolders", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_Type(), theEcorePackage.getEString(), "type", null, 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_ItemsRelationVersion(), ecorePackage.getEString(), "itemsRelationVersion", null, 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getProject_ExchangeUser(), this.getExchangeUser(), null, "exchangeUser", null, 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(projectComponentAuthorisationEClass, ProjectComponentAuthorisation.class, "ProjectComponentAuthorisation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getProjectComponentAuthorisation_Project(), this.getProject(), this.getProject_AllowedComponents(), "project", null, 1, 1, ProjectComponentAuthorisation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -7139,6 +7199,11 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(referenceItemEClass, ReferenceItem.class, "ReferenceItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getReferenceItem_State(), this.getItemState(), null, "state", null, 0, 1, ReferenceItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getReferenceItem_Parent(), theEcorePackage.getEObject(), null, "parent", null, 0, 1, ReferenceItem.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(exchangeUserEClass, ExchangeUser.class, "ExchangeUser", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getExchangeUser_Username(), ecorePackage.getEString(), "username", null, 0, 1, ExchangeUser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExchangeUser_Login(), theXMLTypePackage.getString(), "login", null, 0, 1, ExchangeUser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExchangeUser_Password(), theXMLTypePackage.getString(), "password", null, 0, 1, ExchangeUser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.properties.ComponentSetting;
 import org.talend.core.model.properties.CustomComponentSetting;
+import org.talend.core.model.properties.ExchangeUser;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.ImplicitContextSettings;
 import org.talend.core.model.properties.ItemRelations;
@@ -73,6 +74,7 @@ import org.talend.core.model.properties.UserProjectAuthorization;
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getDeletedFolders <em>Deleted Folders</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getItemsRelationVersion <em>Items Relation Version</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getExchangeUser <em>Exchange User</em>}</li>
  * </ul>
  * </p>
  *
@@ -556,6 +558,16 @@ public class ProjectImpl extends EObjectImpl implements Project {
      * @ordered
      */
     protected String itemsRelationVersion = ITEMS_RELATION_VERSION_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getExchangeUser() <em>Exchange User</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getExchangeUser()
+     * @generated
+     * @ordered
+     */
+    protected ExchangeUser exchangeUser;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1052,6 +1064,44 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ExchangeUser getExchangeUser() {
+        if (exchangeUser != null && exchangeUser.eIsProxy()) {
+            InternalEObject oldExchangeUser = (InternalEObject)exchangeUser;
+            exchangeUser = (ExchangeUser)eResolveProxy(oldExchangeUser);
+            if (exchangeUser != oldExchangeUser) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.PROJECT__EXCHANGE_USER, oldExchangeUser, exchangeUser));
+            }
+        }
+        return exchangeUser;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ExchangeUser basicGetExchangeUser() {
+        return exchangeUser;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setExchangeUser(ExchangeUser newExchangeUser) {
+        ExchangeUser oldExchangeUser = exchangeUser;
+        exchangeUser = newExchangeUser;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT__EXCHANGE_USER, oldExchangeUser, exchangeUser));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1280,6 +1330,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return getType();
             case PropertiesPackage.PROJECT__ITEMS_RELATION_VERSION:
                 return getItemsRelationVersion();
+            case PropertiesPackage.PROJECT__EXCHANGE_USER:
+                if (resolve) return getExchangeUser();
+                return basicGetExchangeUser();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1399,6 +1452,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__ITEMS_RELATION_VERSION:
                 setItemsRelationVersion((String)newValue);
                 return;
+            case PropertiesPackage.PROJECT__EXCHANGE_USER:
+                setExchangeUser((ExchangeUser)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1505,6 +1561,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__ITEMS_RELATION_VERSION:
                 setItemsRelationVersion(ITEMS_RELATION_VERSION_EDEFAULT);
                 return;
+            case PropertiesPackage.PROJECT__EXCHANGE_USER:
+                setExchangeUser((ExchangeUser)null);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1579,6 +1638,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
             case PropertiesPackage.PROJECT__ITEMS_RELATION_VERSION:
                 return ITEMS_RELATION_VERSION_EDEFAULT == null ? itemsRelationVersion != null : !ITEMS_RELATION_VERSION_EDEFAULT.equals(itemsRelationVersion);
+            case PropertiesPackage.PROJECT__EXCHANGE_USER:
+                return exchangeUser != null;
         }
         return super.eIsSet(featureID);
     }

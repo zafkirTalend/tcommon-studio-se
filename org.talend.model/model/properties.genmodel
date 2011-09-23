@@ -60,6 +60,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Project/deletedFolders"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Project/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Project/itemsRelationVersion"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Project/exchangeUser"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//ProjectComponentAuthorisation">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ProjectComponentAuthorisation/project"/>
@@ -622,6 +623,11 @@
     <genClasses ecoreClass="properties.ecore#//ReferenceItem">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ReferenceItem/state"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ReferenceItem/parent"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//ExchangeUser">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExchangeUser/username"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExchangeUser/login"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExchangeUser/password"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -51,6 +51,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
  *   <li>{@link org.talend.core.model.properties.Project#getDeletedFolders <em>Deleted Folders</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getType <em>Type</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getItemsRelationVersion <em>Items Relation Version</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Project#getExchangeUser <em>Exchange User</em>}</li>
  * </ul>
  * </p>
  *
@@ -620,6 +621,32 @@ public interface Project extends EObject {
      * @generated
      */
     void setItemsRelationVersion(String value);
+
+    /**
+     * Returns the value of the '<em><b>Exchange User</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Exchange User</em>' reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Exchange User</em>' reference.
+     * @see #setExchangeUser(ExchangeUser)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProject_ExchangeUser()
+     * @model
+     * @generated
+     */
+    ExchangeUser getExchangeUser();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.Project#getExchangeUser <em>Exchange User</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Exchange User</em>' reference.
+     * @see #getExchangeUser()
+     * @generated
+     */
+    void setExchangeUser(ExchangeUser value);
 
     /**
      * Returns the value of the '<em><b>Technical Label</b></em>' attribute.

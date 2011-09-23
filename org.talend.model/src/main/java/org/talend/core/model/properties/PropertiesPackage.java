@@ -347,12 +347,21 @@ public interface PropertiesPackage extends EPackage {
     int PROJECT__ITEMS_RELATION_VERSION = 31;
 
     /**
+     * The feature id for the '<em><b>Exchange User</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT__EXCHANGE_USER = 32;
+
+    /**
      * The number of structural features of the '<em>Project</em>' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PROJECT_FEATURE_COUNT = 32;
+    int PROJECT_FEATURE_COUNT = 33;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.PropertyImpl <em>Property</em>}' class.
@@ -8234,6 +8243,52 @@ public interface PropertiesPackage extends EPackage {
     int REFERENCE_FILE_ITEM_FEATURE_COUNT = REFERENCE_ITEM_FEATURE_COUNT + 3;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ExchangeUserImpl <em>Exchange User</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ExchangeUserImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExchangeUser()
+     * @generated
+     */
+    int EXCHANGE_USER = 96;
+
+    /**
+     * The feature id for the '<em><b>Username</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXCHANGE_USER__USERNAME = 0;
+
+    /**
+     * The feature id for the '<em><b>Login</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXCHANGE_USER__LOGIN = 1;
+
+    /**
+     * The feature id for the '<em><b>Password</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXCHANGE_USER__PASSWORD = 2;
+
+    /**
+     * The number of structural features of the '<em>Exchange User</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXCHANGE_USER_FEATURE_COUNT = 3;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -8241,7 +8296,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 96;
+    int FOLDER_TYPE = 97;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -8250,7 +8305,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 97;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 98;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserModuleAuthorizationType <em>User Module Authorization Type</em>}' enum.
@@ -8259,7 +8314,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 98;
+    int USER_MODULE_AUTHORIZATION_TYPE = 99;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.InformationLevel <em>Information Level</em>}' enum.
@@ -8268,7 +8323,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 99;
+    int INFORMATION_LEVEL = 100;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.Status <em>Status</em>}'. <!--
@@ -8592,6 +8647,17 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getProject_ItemsRelationVersion();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.Project#getExchangeUser <em>Exchange User</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Exchange User</em>'.
+     * @see org.talend.core.model.properties.Project#getExchangeUser()
+     * @see #getProject()
+     * @generated
+     */
+    EReference getProject_ExchangeUser();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Project#getTechnicalLabel <em>Technical Label</em>}'.
@@ -12870,6 +12936,49 @@ public interface PropertiesPackage extends EPackage {
     EReference getReferenceItem_Parent();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.ExchangeUser <em>Exchange User</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Exchange User</em>'.
+     * @see org.talend.core.model.properties.ExchangeUser
+     * @generated
+     */
+    EClass getExchangeUser();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExchangeUser#getUsername <em>Username</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Username</em>'.
+     * @see org.talend.core.model.properties.ExchangeUser#getUsername()
+     * @see #getExchangeUser()
+     * @generated
+     */
+    EAttribute getExchangeUser_Username();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExchangeUser#getLogin <em>Login</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Login</em>'.
+     * @see org.talend.core.model.properties.ExchangeUser#getLogin()
+     * @see #getExchangeUser()
+     * @generated
+     */
+    EAttribute getExchangeUser_Login();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExchangeUser#getPassword <em>Password</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Password</em>'.
+     * @see org.talend.core.model.properties.ExchangeUser#getPassword()
+     * @see #getExchangeUser()
+     * @generated
+     */
+    EAttribute getExchangeUser_Password();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ReferenceFileItem <em>Reference File Item</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -14146,6 +14255,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute PROJECT__ITEMS_RELATION_VERSION = eINSTANCE.getProject_ItemsRelationVersion();
+
+        /**
+         * The meta object literal for the '<em><b>Exchange User</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PROJECT__EXCHANGE_USER = eINSTANCE.getProject_ExchangeUser();
 
         /**
          * The meta object literal for the '<em><b>Technical Label</b></em>' attribute feature.
@@ -17555,6 +17672,40 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference REFERENCE_ITEM__PARENT = eINSTANCE.getReferenceItem_Parent();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExchangeUserImpl <em>Exchange User</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.ExchangeUserImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExchangeUser()
+         * @generated
+         */
+        EClass EXCHANGE_USER = eINSTANCE.getExchangeUser();
+
+        /**
+         * The meta object literal for the '<em><b>Username</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXCHANGE_USER__USERNAME = eINSTANCE.getExchangeUser_Username();
+
+        /**
+         * The meta object literal for the '<em><b>Login</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXCHANGE_USER__LOGIN = eINSTANCE.getExchangeUser_Login();
+
+        /**
+         * The meta object literal for the '<em><b>Password</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXCHANGE_USER__PASSWORD = eINSTANCE.getExchangeUser_Password();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ReferenceFileItemImpl <em>Reference File Item</em>}' class.

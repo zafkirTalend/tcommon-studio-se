@@ -716,6 +716,15 @@ public interface PropertiesFactory extends EFactory {
     ReferenceItem createReferenceItem();
 
     /**
+     * Returns a new object of class '<em>Exchange User</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Exchange User</em>'.
+     * @generated
+     */
+    ExchangeUser createExchangeUser();
+
+    /**
      * Returns a new object of class '<em>Reference File Item</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
