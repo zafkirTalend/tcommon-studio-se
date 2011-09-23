@@ -780,6 +780,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         Resource projectResource = xmiResourceManager.createProjectResource(prj);
         projectResource.getContents().add(project.getEmfProject());
         projectResource.getContents().add(project.getAuthor());
+        projectResource.getContents().add(project.getExchangeUser());
         xmiResourceManager.saveResource(projectResource);
     }
 
