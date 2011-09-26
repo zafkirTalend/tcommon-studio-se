@@ -102,4 +102,40 @@ public final class Java2SqlType {
 
         return false;
     }
+
+    public static int getJavaTypeBySqlType(String sqlType) {
+        // MOD klliu bug TDQ-1164 2011-09-26
+        if (sqlType.trim().equals("DATE")) { //$NON-NLS-1$
+            return Types.DATE;
+        } else if (sqlType.trim().equals("BIGINT")) { //$NON-NLS-1$
+            return Types.BIGINT;
+        } else if (sqlType.trim().equals("INTEGER")) { //$NON-NLS-1$
+            return Types.INTEGER;
+        } else if (sqlType.trim().equals("SMALLINT")) { //$NON-NLS-1$
+            return Types.SMALLINT;
+        } else if (sqlType.trim().equals("FLOAT")) { //$NON-NLS-1$
+            return Types.FLOAT;
+        } else if (sqlType.trim().equals("CHAR")) { //$NON-NLS-1$
+            return Types.CHAR;
+        } else if (sqlType.trim().equals("VARCHAR")) { //$NON-NLS-1$
+            return Types.VARCHAR;
+        } else if (sqlType.trim().equals("DECIMAL")) { //$NON-NLS-1$
+            return Types.DECIMAL;
+        } else if (sqlType.trim().equals("TIME")) { //$NON-NLS-1$
+            return Types.TIME;
+        } else if (sqlType.trim().equals("TIMESTMP")) { //$NON-NLS-1$
+            return Types.TIMESTAMP;
+        } else if (sqlType.trim().equals("BLOB")) { //$NON-NLS-1$
+            return Types.BLOB;
+        } else if (sqlType.trim().equals("CLOB")) { //$NON-NLS-1$
+            return Types.CLOB;
+        } else if (sqlType.trim().equals("ROWID")) { //$NON-NLS-1$
+            return Types.ROWID;
+        } else if (sqlType.trim().equals("DISTINCT")) { //$NON-NLS-1$
+            return Types.DISTINCT;
+        }
+        return 0;
+
+    }
+
 }

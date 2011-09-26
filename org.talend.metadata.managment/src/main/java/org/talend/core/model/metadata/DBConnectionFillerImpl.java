@@ -59,6 +59,7 @@ import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
 import org.talend.cwm.softwaredeployment.TdSoftwareSystem;
 import org.talend.utils.sql.ConnectionUtils;
+import org.talend.utils.sql.Java2SqlType;
 import org.talend.utils.sql.metadata.constants.GetColumn;
 import org.talend.utils.sql.metadata.constants.GetForeignKey;
 import org.talend.utils.sql.metadata.constants.GetPrimaryKey;
@@ -1117,6 +1118,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     if (!(dbJDBCMetadata instanceof DB2ForZosDataBaseMetadata)) {
                         dataType = columns.getInt(GetColumn.DATA_TYPE.name());
                         numPrecRadix = columns.getInt(GetColumn.NUM_PREC_RADIX.name());
+                    } else {
+                        // MOD klliu bug TDQ-1164 2011-09-26
+                        dataType = Java2SqlType.getJavaTypeBySqlType(typeName);
+                        // ~
                     }
                     if (MetadataConnectionUtils.isMssql(dbJDBCMetadata)) {
                         if (typeName.toLowerCase().equals("date")) {
