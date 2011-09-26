@@ -43,6 +43,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewReference;
@@ -84,6 +85,9 @@ import org.talend.core.ui.branding.IBrandingService;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.rcp.Activator;
 import org.talend.rcp.i18n.Messages;
+import org.talend.rcp.intro.starting.StartingBrowser;
+import org.talend.rcp.intro.starting.StartingEditorInput;
+import org.talend.rcp.intro.starting.StartingHelper;
 import org.talend.rcp.util.ApplicationDeletionUtil;
 import org.talend.repository.ui.views.IRepositoryView;
 
@@ -113,6 +117,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     private Composite parentComposite;
 
     private Composite backGroundComposite;
+
+    private IEditorPart startingBrowser;
 
     private boolean isTos = false;
 
@@ -217,11 +223,30 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                 tdqRepositoryService.addPartListener();
             }
         }
+
+        showStarting();
         // feature 18752
-        setEditorAreaBG();
+        // setEditorAreaBG();
         regisitPerspectiveListener();
         // feature 19053
         PerspectiveReviewUtil.regisitPerspectiveBarSelectListener();
+    }
+
+    private void showStarting() {
+        try {
+            IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
+            // the first time to call getHtmlContent, if throws any exception ,don't show StartingBrower
+            StartingHelper.getHelper().getHtmlContent();
+            IWorkbenchPage activePage = getWindowConfigurer().getWindow().getWorkbench().getActiveWorkbenchWindow()
+                    .getActivePage();
+            if (activePage != null) {
+                if (activePage.getPerspective().getId().equals("org.talend.rcp.perspective")) {
+                    startingBrowser = activePage.openEditor(new StartingEditorInput(service), StartingBrowser.ID);
+                }
+            }
+        } catch (Exception e) {
+            // do nothing
+        }
     }
 
     private void regisitPerspectiveListener() {
@@ -232,15 +257,15 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                 // MOD xqliu 2010-10-14 bug 15756
                 String pId = perspective.getId();
                 IRepositoryView view = RepositoryManager.getRepositoryView();
-                if (IBrandingConfiguration.PERSPECTIVE_DI_ID.equals(pId)) {
-                    if (isTos == true) {
-                        isTos = false;
-                        setEditorAreaBG();
-                    }
-                    clearEditorAreaBG(true);
-                } else {
-                    clearEditorAreaBG(false);
-                }
+                // if (IBrandingConfiguration.PERSPECTIVE_DI_ID.equals(pId)) {
+                // if (isTos == true) {
+                // isTos = false;
+                // setEditorAreaBG();
+                // }
+                // clearEditorAreaBG(true);
+                // } else {
+                // clearEditorAreaBG(false);
+                // }
                 if (view != null) {
                     if (IBrandingConfiguration.PERSPECTIVE_DI_ID.equals(pId)
                             || IBrandingConfiguration.PERSPECTIVE_CAMEL_ID.equals(pId)) {

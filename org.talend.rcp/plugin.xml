@@ -63,4 +63,13 @@
          sequence="ESC">
    </key>
 </extension>
+<extension
+      point="org.eclipse.ui.editors">
+   <editor
+         class="org.talend.rcp.intro.starting.StartingBrowser"
+         default="false"
+         id="org.talend.rcp.intro.starting.StartingBrowser"
+         name="starting">
+   </editor>
+</extension>
 </plugin>
