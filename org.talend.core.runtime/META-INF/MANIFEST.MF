@@ -64,7 +64,9 @@ Export-Package: org.talend.core,
  org.talend.repository.ui.login.connections,
  org.talend.repository.ui.properties,
  org.talend.repository.ui.views,
- us.monoid.json
+ us.monoid.json,
+ us.monoid.web,
+ us.monoid.web.mime
 Require-Bundle: org.eclipse.gef,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.emf.edit.ui,
