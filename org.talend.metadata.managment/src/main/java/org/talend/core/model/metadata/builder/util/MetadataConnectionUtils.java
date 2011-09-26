@@ -784,9 +784,24 @@ public class MetadataConnectionUtils {
                 // MDMConnection mdmConnection = (MDMConnection) connection;
             } else {
                 DatabaseConnection dbConnection = (DatabaseConnection) connection;
+                // MOD qiongli 2011-9-23 handle context mod.
+                IRepositoryService repositoryService = null;
+                DatabaseConnection origValueConn = null;
+                if (dbConnection.isContextMode()) {
+                    repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
+                    if (repositoryService != null) {
+                        // get the original value and select the defalut context
+                        String groupName = dbConnection.getContextGroupName();
+                        origValueConn = repositoryService.cloneOriginalValueConnection(dbConnection, groupName == null ? true
+                                : false, groupName);
+                    }
+                }
                 if (isCatalog) {
                     if (dbMetaData.supportsCatalogsInIndexDefinitions()) {
                         String sid = dbConnection.getSID();
+                        if (origValueConn != null) {
+                            sid = origValueConn.getSID();
+                        }
                         if (!StringUtils.isEmpty(sid) && !packageFilter.contains(sid)) {
                             packageFilter.add(sid);
                         }
@@ -794,6 +809,9 @@ public class MetadataConnectionUtils {
                 } else {
                     if (dbMetaData.supportsSchemasInIndexDefinitions()) {
                         String uiSchema = dbConnection.getUiSchema();
+                        if (uiSchema != null) {
+                            uiSchema = origValueConn.getUiSchema();
+                        }
                         if (!StringUtils.isEmpty(uiSchema) && !packageFilter.contains(uiSchema)) {
                             packageFilter.add(uiSchema);
                         }
