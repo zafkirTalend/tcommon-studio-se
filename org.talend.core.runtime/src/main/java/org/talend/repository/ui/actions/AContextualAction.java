@@ -528,9 +528,9 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         String name = "User action : " + getText(); //$NON-NLS-1$
 
         oldItem = null;
-        if (node == null) {
-            node = getCurrentRepositoryNode();
-        }
+        // if (node == null) {
+        node = getCurrentRepositoryNode();
+        // }
         if (node != null) {
             IRepositoryViewObject object = node.getObject();
             if (object != null) {
@@ -594,11 +594,8 @@ public abstract class AContextualAction extends Action implements ITreeContextua
                     }
                 }
                 if (pathExist) {
-                    allVersion = CoreRuntimePlugin
-                            .getInstance()
-                            .getProxyRepositoryFactory()
-                            .getAllVersion(property.getId(), state.getPath(),
-                                    repositoryObject.getObject().getRepositoryObjectType());
+                    allVersion = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory().getAllVersion(property.getId(),
+                            state.getPath(), repositoryObject.getObject().getRepositoryObjectType());
                 } else {
                     allVersion = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory().getAllVersion(property.getId());
                 }
