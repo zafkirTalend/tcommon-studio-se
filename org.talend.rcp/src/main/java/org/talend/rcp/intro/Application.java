@@ -43,13 +43,10 @@ import org.talend.rcp.intro.linksbar.Workbench3xImplementation4CoolBar;
 import org.talend.repository.RegistrationPlugin;
 import org.talend.repository.license.LicenseManagement;
 import org.talend.repository.model.IRepositoryService;
-import org.talend.repository.registeruser.RegisterManagement;
 import org.talend.repository.ui.login.LoginComposite;
 import org.talend.repository.ui.login.connections.ConnectionUserPerReader;
 import org.talend.repository.ui.wizards.license.LicenseWizard;
 import org.talend.repository.ui.wizards.license.LicenseWizardDialog;
-import org.talend.repository.ui.wizards.register.RegisterWizard;
-import org.talend.repository.ui.wizards.register.RegisterWizardPage1;
 
 /**
  * This class controls all aspects of the application's execution.
@@ -225,14 +222,14 @@ public class Application implements IApplication {
                 System.exit(0);
             }
         }
-
-        if (brandingService.getBrandingConfiguration().isUseProductRegistration()) {
-            if (!RegisterManagement.getInstance().isProductRegistered()) {
-                RegisterWizard registerWizard = new RegisterWizard();
-                RegisterWizardPage1 dialog = new RegisterWizardPage1(shell, registerWizard);
-                dialog.open();
-            }
-        }
+        // TDI-17592
+        // if (brandingService.getBrandingConfiguration().isUseProductRegistration()) {
+        // if (!RegisterManagement.getInstance().isProductRegistered()) {
+        // RegisterWizard registerWizard = new RegisterWizard();
+        // RegisterWizardPage1 dialog = new RegisterWizardPage1(shell, registerWizard);
+        // dialog.open();
+        // }
+        // }
 
     }
 
