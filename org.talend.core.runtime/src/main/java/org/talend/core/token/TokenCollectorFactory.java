@@ -26,8 +26,10 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.commons.utils.network.NetworkUtil;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.ui.branding.IBrandingService;
 
 import us.monoid.json.JSONException;
 import us.monoid.json.JSONObject;
@@ -155,8 +157,14 @@ public final class TokenCollectorFactory {
 
     public boolean process() {
         boolean valid = false;
+        boolean isPoweredbyTalend = false;
+
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IBrandingService.class)) {
+            IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
+            isPoweredbyTalend = service.isPoweredbyTalend();
+        }
         try {
-            if (isActiveAndValid(true) && NetworkUtil.isNetworkValid()) {
+            if (isPoweredbyTalend && isActiveAndValid(true) && NetworkUtil.isNetworkValid()) {
                 JSONObject tokenInfors = collectTokenInfors();
 
                 Resty r = new Resty();

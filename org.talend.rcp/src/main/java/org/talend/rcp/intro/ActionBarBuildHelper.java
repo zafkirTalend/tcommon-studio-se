@@ -523,6 +523,15 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         for (IPreferenceNode node : prefsToDelete) {
             window.getWorkbench().getPreferenceManager().remove(node);
         }
+        if (!brandingService.isPoweredbyTalend()) {
+            for (IPreferenceNode node : window.getWorkbench().getPreferenceManager().getRootSubNodes()) {
+                for (IPreferenceNode subNode : node.getSubNodes()) {
+                    if (subNode.getId().equals("org.talend.core.prefs.datacollector")) { //$NON-NLS-1$
+                        node.remove(subNode);
+                    }
+                }
+            }
+        }
     }
 
     // bug 20871
