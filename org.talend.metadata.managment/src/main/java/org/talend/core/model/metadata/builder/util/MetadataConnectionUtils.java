@@ -809,7 +809,7 @@ public class MetadataConnectionUtils {
                 } else {
                     if (dbMetaData.supportsSchemasInIndexDefinitions()) {
                         String uiSchema = dbConnection.getUiSchema();
-                        if (uiSchema != null) {
+                        if (origValueConn != null) {
                             uiSchema = origValueConn.getUiSchema();
                         }
                         if (!StringUtils.isEmpty(uiSchema) && !packageFilter.contains(uiSchema)) {
