@@ -91,7 +91,9 @@ public class TalendDataCollectorPreviewPreferencePage extends PreferencePage imp
 
         // set data
         try {
-            treeViewer.setInput(TokenCollectorFactory.getFactory().collectTokenInfors());
+            TokenCollectorFactory factory = TokenCollectorFactory.getFactory();
+            factory.priorCollect();
+            treeViewer.setInput(factory.collectTokenInfors());
         } catch (Exception e) {
             //
         }
