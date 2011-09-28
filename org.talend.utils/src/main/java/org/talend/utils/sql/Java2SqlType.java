@@ -129,8 +129,6 @@ public final class Java2SqlType {
             return Types.BLOB;
         } else if (sqlType.trim().equals("CLOB")) { //$NON-NLS-1$
             return Types.CLOB;
-        } else if (sqlType.trim().equals("ROWID")) { //$NON-NLS-1$
-            return Types.ROWID;
         } else if (sqlType.trim().equals("DISTINCT")) { //$NON-NLS-1$
             return Types.DISTINCT;
         }
