@@ -19,6 +19,8 @@ import org.talend.commons.utils.network.NetworkUtil;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.branding.IBrandingService;
+import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.utils.security.CryptoHelper;
 
 import us.monoid.json.JSONObject;
 
@@ -73,7 +75,7 @@ public class DefaultTokenCollector extends AbstractTokenCollector {
         } catch (UnknownHostException e) {
             //
         }
-
-        return sb.toString();
+        CryptoHelper cryptoHelper = new CryptoHelper(ConnectionHelper.PASSPHRASE);
+        return cryptoHelper.encrypt(sb.toString());
     }
 }
