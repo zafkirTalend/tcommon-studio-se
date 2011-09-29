@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.model.general;
 
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.ui.PlatformUI;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.process.IElement;
 import org.talend.core.model.properties.ExchangeUser;
@@ -270,18 +272,25 @@ public class Project {
     }
 
     public ExchangeUser getExchangeUser() {
-        if (project.getExchangeUser() == null) {
-            ExchangeUser user = PropertiesFactory.eINSTANCE.createExchangeUser();
-            setExchangeUser(user);
+        ExchangeUser user = PropertiesFactory.eINSTANCE.createExchangeUser();
+        if (project.getAuthor() != null) {
+            IPreferenceStore prefStore = PlatformUI.getPreferenceStore();
+            String connectionEmail = project.getAuthor().getLogin();
+            String string = prefStore.getString(connectionEmail);
+            if (string != null) {
+                String[] split = string.split(":");
+                if (split.length == 3) {
+                    user.setLogin(split[0]);
+                    user.setUsername(split[1]);
+                    user.setPassword(split[2]);
+                }
+            }
         }
-        return project.getExchangeUser();
+        return user;
     }
 
     public void setExchangeUser(ExchangeUser exchangeUser) {
-        project.setExchangeUser(exchangeUser);
-        if (project.eResource() != null && !project.eResource().getContents().contains(project.getExchangeUser())) {
-            project.eResource().getContents().add(project.getExchangeUser());
-        }
+        // project.setExchangeUser(exchangeUser);
     }
 
 }
