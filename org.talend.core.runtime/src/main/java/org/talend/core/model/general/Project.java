@@ -271,13 +271,17 @@ public class Project {
 
     public ExchangeUser getExchangeUser() {
         if (project.getExchangeUser() == null) {
-            return PropertiesFactory.eINSTANCE.createExchangeUser();
+            ExchangeUser user = PropertiesFactory.eINSTANCE.createExchangeUser();
+            setExchangeUser(user);
         }
         return project.getExchangeUser();
     }
 
     public void setExchangeUser(ExchangeUser exchangeUser) {
         project.setExchangeUser(exchangeUser);
+        if (project.eResource() != null && !project.eResource().getContents().contains(project.getExchangeUser())) {
+            project.eResource().getContents().add(project.getExchangeUser());
+        }
     }
 
 }
