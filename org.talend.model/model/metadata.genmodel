@@ -452,6 +452,7 @@
     <genClasses ecoreClass="metadata.ecore#//BRMSConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//BRMSConnection/xmlField"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//BRMSConnection/urlName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//BRMSConnection/tacWebappName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//BRMSConnection/className"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//BRMSConnection/moduleUsed"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//BRMSConnection/root"/>

@@ -15664,13 +15664,22 @@ public interface ConnectionPackage extends EPackage {
     int BRMS_CONNECTION__URL_NAME = CONNECTION_FEATURE_COUNT + 1;
 
     /**
+     * The feature id for the '<em><b>Tac Webapp Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BRMS_CONNECTION__TAC_WEBAPP_NAME = CONNECTION_FEATURE_COUNT + 2;
+
+    /**
      * The feature id for the '<em><b>Class Name</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int BRMS_CONNECTION__CLASS_NAME = CONNECTION_FEATURE_COUNT + 2;
+    int BRMS_CONNECTION__CLASS_NAME = CONNECTION_FEATURE_COUNT + 3;
 
     /**
      * The feature id for the '<em><b>Module Used</b></em>' attribute.
@@ -15679,7 +15688,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BRMS_CONNECTION__MODULE_USED = CONNECTION_FEATURE_COUNT + 3;
+    int BRMS_CONNECTION__MODULE_USED = CONNECTION_FEATURE_COUNT + 4;
 
     /**
      * The feature id for the '<em><b>Root</b></em>' containment reference list.
@@ -15688,7 +15697,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BRMS_CONNECTION__ROOT = CONNECTION_FEATURE_COUNT + 4;
+    int BRMS_CONNECTION__ROOT = CONNECTION_FEATURE_COUNT + 5;
 
     /**
      * The feature id for the '<em><b>Group</b></em>' containment reference list.
@@ -15697,7 +15706,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BRMS_CONNECTION__GROUP = CONNECTION_FEATURE_COUNT + 5;
+    int BRMS_CONNECTION__GROUP = CONNECTION_FEATURE_COUNT + 6;
 
     /**
      * The feature id for the '<em><b>Loop</b></em>' containment reference list.
@@ -15706,7 +15715,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BRMS_CONNECTION__LOOP = CONNECTION_FEATURE_COUNT + 6;
+    int BRMS_CONNECTION__LOOP = CONNECTION_FEATURE_COUNT + 7;
 
     /**
      * The feature id for the '<em><b>Package</b></em>' attribute.
@@ -15715,7 +15724,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BRMS_CONNECTION__PACKAGE = CONNECTION_FEATURE_COUNT + 7;
+    int BRMS_CONNECTION__PACKAGE = CONNECTION_FEATURE_COUNT + 8;
 
     /**
      * The number of structural features of the '<em>BRMS Connection</em>' class.
@@ -15724,7 +15733,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BRMS_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 8;
+    int BRMS_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 9;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.ConditionTypeImpl <em>Condition Type</em>}' class.
@@ -21278,6 +21287,17 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getBRMSConnection_UrlName();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.BRMSConnection#getTacWebappName <em>Tac Webapp Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Tac Webapp Name</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.BRMSConnection#getTacWebappName()
+     * @see #getBRMSConnection()
+     * @generated
+     */
+    EAttribute getBRMSConnection_TacWebappName();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.BRMSConnection#getClassName <em>Class Name</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -24603,6 +24623,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute BRMS_CONNECTION__URL_NAME = eINSTANCE.getBRMSConnection_UrlName();
+
+        /**
+         * The meta object literal for the '<em><b>Tac Webapp Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute BRMS_CONNECTION__TAC_WEBAPP_NAME = eINSTANCE.getBRMSConnection_TacWebappName();
 
         /**
          * The meta object literal for the '<em><b>Class Name</b></em>' attribute feature.

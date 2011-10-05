@@ -18,6 +18,7 @@ import java.util.ArrayList;
  * <ul>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.BRMSConnection#getXmlField <em>Xml Field</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.BRMSConnection#getUrlName <em>Url Name</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.BRMSConnection#getTacWebappName <em>Tac Webapp Name</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.BRMSConnection#getClassName <em>Class Name</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.BRMSConnection#getModuleUsed <em>Module Used</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.BRMSConnection#getRoot <em>Root</em>}</li>
@@ -84,6 +85,32 @@ public interface BRMSConnection extends Connection {
      * @generated
      */
     void setUrlName(String value);
+
+    /**
+     * Returns the value of the '<em><b>Tac Webapp Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Tac Webapp Name</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Tac Webapp Name</em>' attribute.
+     * @see #setTacWebappName(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getBRMSConnection_TacWebappName()
+     * @model
+     * @generated
+     */
+    String getTacWebappName();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.BRMSConnection#getTacWebappName <em>Tac Webapp Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Tac Webapp Name</em>' attribute.
+     * @see #getTacWebappName()
+     * @generated
+     */
+    void setTacWebappName(String value);
 
     /**
      * Returns the value of the '<em><b>Class Name</b></em>' attribute.

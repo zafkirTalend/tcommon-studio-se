@@ -32,6 +32,7 @@ import org.talend.core.model.metadata.builder.connection.XMLFileNode;
  * <ul>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.BRMSConnectionImpl#getXmlField <em>Xml Field</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.BRMSConnectionImpl#getUrlName <em>Url Name</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.BRMSConnectionImpl#getTacWebappName <em>Tac Webapp Name</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.BRMSConnectionImpl#getClassName <em>Class Name</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.BRMSConnectionImpl#getModuleUsed <em>Module Used</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.BRMSConnectionImpl#getRoot <em>Root</em>}</li>
@@ -84,6 +85,26 @@ public class BRMSConnectionImpl extends ConnectionImpl implements BRMSConnection
      * @ordered
      */
     protected String urlName = URL_NAME_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getTacWebappName() <em>Tac Webapp Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getTacWebappName()
+     * @generated
+     * @ordered
+     */
+    protected static final String TAC_WEBAPP_NAME_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getTacWebappName() <em>Tac Webapp Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getTacWebappName()
+     * @generated
+     * @ordered
+     */
+    protected String tacWebappName = TAC_WEBAPP_NAME_EDEFAULT;
 
     /**
      * The default value of the '{@link #getClassName() <em>Class Name</em>}' attribute.
@@ -243,6 +264,28 @@ public class BRMSConnectionImpl extends ConnectionImpl implements BRMSConnection
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getTacWebappName() {
+        return tacWebappName;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setTacWebappName(String newTacWebappName) {
+        String oldTacWebappName = tacWebappName;
+        tacWebappName = newTacWebappName;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.BRMS_CONNECTION__TAC_WEBAPP_NAME,
+                    oldTacWebappName, tacWebappName));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getClassName() {
         return className;
     }
@@ -373,6 +416,8 @@ public class BRMSConnectionImpl extends ConnectionImpl implements BRMSConnection
             return getXmlField();
         case ConnectionPackage.BRMS_CONNECTION__URL_NAME:
             return getUrlName();
+        case ConnectionPackage.BRMS_CONNECTION__TAC_WEBAPP_NAME:
+            return getTacWebappName();
         case ConnectionPackage.BRMS_CONNECTION__CLASS_NAME:
             return getClassName();
         case ConnectionPackage.BRMS_CONNECTION__MODULE_USED:
@@ -403,6 +448,9 @@ public class BRMSConnectionImpl extends ConnectionImpl implements BRMSConnection
             return;
         case ConnectionPackage.BRMS_CONNECTION__URL_NAME:
             setUrlName((String) newValue);
+            return;
+        case ConnectionPackage.BRMS_CONNECTION__TAC_WEBAPP_NAME:
+            setTacWebappName((String) newValue);
             return;
         case ConnectionPackage.BRMS_CONNECTION__CLASS_NAME:
             setClassName((String) newValue);
@@ -443,6 +491,9 @@ public class BRMSConnectionImpl extends ConnectionImpl implements BRMSConnection
         case ConnectionPackage.BRMS_CONNECTION__URL_NAME:
             setUrlName(URL_NAME_EDEFAULT);
             return;
+        case ConnectionPackage.BRMS_CONNECTION__TAC_WEBAPP_NAME:
+            setTacWebappName(TAC_WEBAPP_NAME_EDEFAULT);
+            return;
         case ConnectionPackage.BRMS_CONNECTION__CLASS_NAME:
             setClassName(CLASS_NAME_EDEFAULT);
             return;
@@ -477,6 +528,8 @@ public class BRMSConnectionImpl extends ConnectionImpl implements BRMSConnection
             return XML_FIELD_EDEFAULT == null ? xmlField != null : !XML_FIELD_EDEFAULT.equals(xmlField);
         case ConnectionPackage.BRMS_CONNECTION__URL_NAME:
             return URL_NAME_EDEFAULT == null ? urlName != null : !URL_NAME_EDEFAULT.equals(urlName);
+        case ConnectionPackage.BRMS_CONNECTION__TAC_WEBAPP_NAME:
+            return TAC_WEBAPP_NAME_EDEFAULT == null ? tacWebappName != null : !TAC_WEBAPP_NAME_EDEFAULT.equals(tacWebappName);
         case ConnectionPackage.BRMS_CONNECTION__CLASS_NAME:
             return CLASS_NAME_EDEFAULT == null ? className != null : !CLASS_NAME_EDEFAULT.equals(className);
         case ConnectionPackage.BRMS_CONNECTION__MODULE_USED:
@@ -508,6 +561,8 @@ public class BRMSConnectionImpl extends ConnectionImpl implements BRMSConnection
         result.append(xmlField);
         result.append(", urlName: ");
         result.append(urlName);
+        result.append(", tacWebappName: ");
+        result.append(tacWebappName);
         result.append(", className: ");
         result.append(className);
         result.append(", moduleUsed: ");

@@ -3288,10 +3288,11 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getBRMSConnection_ClassName() {
+    public EAttribute getBRMSConnection_TacWebappName() {
         return (EAttribute) brmsConnectionEClass.getEStructuralFeatures().get(2);
     }
 
@@ -3299,7 +3300,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getBRMSConnection_ModuleUsed() {
+    public EAttribute getBRMSConnection_ClassName() {
         return (EAttribute) brmsConnectionEClass.getEStructuralFeatures().get(3);
     }
 
@@ -3307,15 +3308,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EReference getBRMSConnection_Root() {
-        return (EReference) brmsConnectionEClass.getEStructuralFeatures().get(4);
+    public EAttribute getBRMSConnection_ModuleUsed() {
+        return (EAttribute) brmsConnectionEClass.getEStructuralFeatures().get(4);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EReference getBRMSConnection_Group() {
+    public EReference getBRMSConnection_Root() {
         return (EReference) brmsConnectionEClass.getEStructuralFeatures().get(5);
     }
 
@@ -3323,7 +3324,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EReference getBRMSConnection_Loop() {
+    public EReference getBRMSConnection_Group() {
         return (EReference) brmsConnectionEClass.getEStructuralFeatures().get(6);
     }
 
@@ -3331,8 +3332,16 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    public EReference getBRMSConnection_Loop() {
+        return (EReference) brmsConnectionEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public EAttribute getBRMSConnection_Package() {
-        return (EAttribute) brmsConnectionEClass.getEStructuralFeatures().get(7);
+        return (EAttribute) brmsConnectionEClass.getEStructuralFeatures().get(8);
     }
 
     /**
@@ -4130,6 +4139,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         brmsConnectionEClass = createEClass(BRMS_CONNECTION);
         createEAttribute(brmsConnectionEClass, BRMS_CONNECTION__XML_FIELD);
         createEAttribute(brmsConnectionEClass, BRMS_CONNECTION__URL_NAME);
+        createEAttribute(brmsConnectionEClass, BRMS_CONNECTION__TAC_WEBAPP_NAME);
         createEAttribute(brmsConnectionEClass, BRMS_CONNECTION__CLASS_NAME);
         createEAttribute(brmsConnectionEClass, BRMS_CONNECTION__MODULE_USED);
         createEReference(brmsConnectionEClass, BRMS_CONNECTION__ROOT);
@@ -5203,6 +5213,9 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getBRMSConnection_UrlName(), ecorePackage.getEString(), "urlName", null, 0, 1, BRMSConnection.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getBRMSConnection_TacWebappName(), ecorePackage.getEString(), "tacWebappName", null, 0, 1,
+                BRMSConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
         initEAttribute(getBRMSConnection_ClassName(), ecorePackage.getEString(), "className", null, 0, 1, BRMSConnection.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getBRMSConnection_ModuleUsed(), ecorePackage.getEString(), "moduleUsed", null, 0, 1, BRMSConnection.class,
