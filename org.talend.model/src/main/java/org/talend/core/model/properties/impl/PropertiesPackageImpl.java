@@ -49,6 +49,7 @@ import org.talend.core.model.properties.ExecutionServer;
 import org.talend.core.model.properties.ExecutionTask;
 import org.talend.core.model.properties.ExecutionTaskCmdPrm;
 import org.talend.core.model.properties.ExecutionTaskJobPrm;
+import org.talend.core.model.properties.ExecutionTaskProperties;
 import org.talend.core.model.properties.ExecutionTriggerable;
 import org.talend.core.model.properties.ExecutionVirtualServer;
 import org.talend.core.model.properties.FTPConnectionItem;
@@ -496,6 +497,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass executionTaskEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass executionTaskPropertiesEClass = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -3477,7 +3485,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getExecutionTask_ApplicationFeatureURL() {
+    public EAttribute getExecutionTask_FeatureURL() {
         return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(35);
     }
 
@@ -3495,7 +3503,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getExecutionTask_ApplicationBundleName() {
+    public EAttribute getExecutionTask_BundleName() {
         return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(37);
     }
 
@@ -3504,7 +3512,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getExecutionTask_ApplicationName() {
+    public EAttribute getExecutionTask_FeatureName() {
         return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(38);
     }
 
@@ -3513,8 +3521,98 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getExecutionTask_ApplicationVersion() {
+    public EAttribute getExecutionTask_FeatureVersion() {
         return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(39);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTask_ArtifactRepositoryUrl() {
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(40);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTask_ArtifactGroupId() {
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(41);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTask_ArtifactId() {
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(42);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTask_ArtifactVersion() {
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(43);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getExecutionTaskProperties() {
+        return executionTaskPropertiesEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTaskProperties_Id() {
+        return (EAttribute)executionTaskPropertiesEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTaskProperties_Active() {
+        return (EAttribute)executionTaskPropertiesEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTaskProperties_Name() {
+        return (EAttribute)executionTaskPropertiesEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTaskProperties_Value() {
+        return (EAttribute)executionTaskPropertiesEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getExecutionTaskProperties_ExecutionTask() {
+        return (EReference)executionTaskPropertiesEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -6174,11 +6272,22 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(executionTaskEClass, EXECUTION_TASK__ON_UNKNOWN_STATE_JOB);
         createEAttribute(executionTaskEClass, EXECUTION_TASK__USE_LATEST_VERSION);
         createEAttribute(executionTaskEClass, EXECUTION_TASK__APPLICATION_TYPE);
-        createEAttribute(executionTaskEClass, EXECUTION_TASK__APPLICATION_FEATURE_URL);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__FEATURE_URL);
         createEAttribute(executionTaskEClass, EXECUTION_TASK__APPLICATION_GROUP);
-        createEAttribute(executionTaskEClass, EXECUTION_TASK__APPLICATION_BUNDLE_NAME);
-        createEAttribute(executionTaskEClass, EXECUTION_TASK__APPLICATION_NAME);
-        createEAttribute(executionTaskEClass, EXECUTION_TASK__APPLICATION_VERSION);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__BUNDLE_NAME);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__FEATURE_NAME);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__FEATURE_VERSION);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__ARTIFACT_REPOSITORY_URL);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__ARTIFACT_GROUP_ID);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__ARTIFACT_ID);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__ARTIFACT_VERSION);
+
+        executionTaskPropertiesEClass = createEClass(EXECUTION_TASK_PROPERTIES);
+        createEAttribute(executionTaskPropertiesEClass, EXECUTION_TASK_PROPERTIES__ID);
+        createEAttribute(executionTaskPropertiesEClass, EXECUTION_TASK_PROPERTIES__ACTIVE);
+        createEAttribute(executionTaskPropertiesEClass, EXECUTION_TASK_PROPERTIES__NAME);
+        createEAttribute(executionTaskPropertiesEClass, EXECUTION_TASK_PROPERTIES__VALUE);
+        createEReference(executionTaskPropertiesEClass, EXECUTION_TASK_PROPERTIES__EXECUTION_TASK);
 
         executionTaskCmdPrmEClass = createEClass(EXECUTION_TASK_CMD_PRM);
         createEAttribute(executionTaskCmdPrmEClass, EXECUTION_TASK_CMD_PRM__ID);
@@ -6902,11 +7011,22 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getExecutionTask_OnUnknownStateJob(), theEcorePackage.getEString(), "onUnknownStateJob", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionTask_UseLatestVersion(), theEcorePackage.getEBoolean(), "useLatestVersion", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionTask_ApplicationType(), theEcorePackage.getEString(), "applicationType", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getExecutionTask_ApplicationFeatureURL(), theEcorePackage.getEString(), "applicationFeatureURL", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_FeatureURL(), theEcorePackage.getEString(), "featureURL", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionTask_ApplicationGroup(), theEcorePackage.getEString(), "applicationGroup", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getExecutionTask_ApplicationBundleName(), theEcorePackage.getEString(), "applicationBundleName", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getExecutionTask_ApplicationName(), theEcorePackage.getEString(), "applicationName", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getExecutionTask_ApplicationVersion(), theEcorePackage.getEString(), "applicationVersion", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_BundleName(), theEcorePackage.getEString(), "bundleName", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_FeatureName(), theEcorePackage.getEString(), "featureName", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_FeatureVersion(), theEcorePackage.getEString(), "featureVersion", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_ArtifactRepositoryUrl(), theEcorePackage.getEString(), "artifactRepositoryUrl", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_ArtifactGroupId(), theEcorePackage.getEString(), "artifactGroupId", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_ArtifactId(), theEcorePackage.getEString(), "artifactId", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_ArtifactVersion(), theEcorePackage.getEString(), "artifactVersion", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(executionTaskPropertiesEClass, ExecutionTaskProperties.class, "ExecutionTaskProperties", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getExecutionTaskProperties_Id(), ecorePackage.getEInt(), "id", null, 1, 1, ExecutionTaskProperties.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTaskProperties_Active(), theEcorePackage.getEBoolean(), "active", "true", 0, 1, ExecutionTaskProperties.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTaskProperties_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ExecutionTaskProperties.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTaskProperties_Value(), theEcorePackage.getEString(), "value", null, 0, 1, ExecutionTaskProperties.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getExecutionTaskProperties_ExecutionTask(), this.getExecutionTask(), null, "executionTask", null, 0, 1, ExecutionTaskProperties.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(executionTaskCmdPrmEClass, ExecutionTaskCmdPrm.class, "ExecutionTaskCmdPrm", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getExecutionTaskCmdPrm_Id(), ecorePackage.getEInt(), "id", null, 1, 1, ExecutionTaskCmdPrm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

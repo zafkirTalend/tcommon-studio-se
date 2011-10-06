@@ -519,6 +519,12 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.EXECUTION_TASK_PROPERTIES: {
+                ExecutionTaskProperties executionTaskProperties = (ExecutionTaskProperties)theEObject;
+                Object result = caseExecutionTaskProperties(executionTaskProperties);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case PropertiesPackage.EXECUTION_TASK_CMD_PRM: {
                 ExecutionTaskCmdPrm executionTaskCmdPrm = (ExecutionTaskCmdPrm)theEObject;
                 Object result = caseExecutionTaskCmdPrm(executionTaskCmdPrm);
@@ -1471,6 +1477,21 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseExecutionTask(ExecutionTask object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Execution Task Properties</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Execution Task Properties</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseExecutionTaskProperties(ExecutionTaskProperties object) {
         return null;
     }
 

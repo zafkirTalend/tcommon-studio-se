@@ -74,11 +74,15 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getOnUnknownStateJob <em>On Unknown State Job</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isUseLatestVersion <em>Use Latest Version</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getApplicationType <em>Application Type</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getApplicationFeatureURL <em>Application Feature URL</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getFeatureURL <em>Feature URL</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getApplicationGroup <em>Application Group</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getApplicationBundleName <em>Application Bundle Name</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getApplicationName <em>Application Name</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getApplicationVersion <em>Application Version</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getBundleName <em>Bundle Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getFeatureName <em>Feature Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getFeatureVersion <em>Feature Version</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getArtifactRepositoryUrl <em>Artifact Repository Url</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getArtifactGroupId <em>Artifact Group Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getArtifactId <em>Artifact Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getArtifactVersion <em>Artifact Version</em>}</li>
  * </ul>
  * </p>
  *
@@ -843,24 +847,24 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
     protected String applicationType = APPLICATION_TYPE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getApplicationFeatureURL() <em>Application Feature URL</em>}' attribute.
+     * The default value of the '{@link #getFeatureURL() <em>Feature URL</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getApplicationFeatureURL()
+     * @see #getFeatureURL()
      * @generated
      * @ordered
      */
-    protected static final String APPLICATION_FEATURE_URL_EDEFAULT = null;
+    protected static final String FEATURE_URL_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getApplicationFeatureURL() <em>Application Feature URL</em>}' attribute.
+     * The cached value of the '{@link #getFeatureURL() <em>Feature URL</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getApplicationFeatureURL()
+     * @see #getFeatureURL()
      * @generated
      * @ordered
      */
-    protected String applicationFeatureURL = APPLICATION_FEATURE_URL_EDEFAULT;
+    protected String featureURL = FEATURE_URL_EDEFAULT;
 
     /**
      * The default value of the '{@link #getApplicationGroup() <em>Application Group</em>}' attribute.
@@ -883,64 +887,144 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
     protected String applicationGroup = APPLICATION_GROUP_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getApplicationBundleName() <em>Application Bundle Name</em>}' attribute.
+     * The default value of the '{@link #getBundleName() <em>Bundle Name</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getApplicationBundleName()
+     * @see #getBundleName()
      * @generated
      * @ordered
      */
-    protected static final String APPLICATION_BUNDLE_NAME_EDEFAULT = null;
+    protected static final String BUNDLE_NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getApplicationBundleName() <em>Application Bundle Name</em>}' attribute.
+     * The cached value of the '{@link #getBundleName() <em>Bundle Name</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getApplicationBundleName()
+     * @see #getBundleName()
      * @generated
      * @ordered
      */
-    protected String applicationBundleName = APPLICATION_BUNDLE_NAME_EDEFAULT;
+    protected String bundleName = BUNDLE_NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getApplicationName() <em>Application Name</em>}' attribute.
+     * The default value of the '{@link #getFeatureName() <em>Feature Name</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getApplicationName()
+     * @see #getFeatureName()
      * @generated
      * @ordered
      */
-    protected static final String APPLICATION_NAME_EDEFAULT = null;
+    protected static final String FEATURE_NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getApplicationName() <em>Application Name</em>}' attribute.
+     * The cached value of the '{@link #getFeatureName() <em>Feature Name</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getApplicationName()
+     * @see #getFeatureName()
      * @generated
      * @ordered
      */
-    protected String applicationName = APPLICATION_NAME_EDEFAULT;
+    protected String featureName = FEATURE_NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getApplicationVersion() <em>Application Version</em>}' attribute.
+     * The default value of the '{@link #getFeatureVersion() <em>Feature Version</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getApplicationVersion()
+     * @see #getFeatureVersion()
      * @generated
      * @ordered
      */
-    protected static final String APPLICATION_VERSION_EDEFAULT = null;
+    protected static final String FEATURE_VERSION_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getApplicationVersion() <em>Application Version</em>}' attribute.
+     * The cached value of the '{@link #getFeatureVersion() <em>Feature Version</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getApplicationVersion()
+     * @see #getFeatureVersion()
      * @generated
      * @ordered
      */
-    protected String applicationVersion = APPLICATION_VERSION_EDEFAULT;
+    protected String featureVersion = FEATURE_VERSION_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getArtifactRepositoryUrl() <em>Artifact Repository Url</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getArtifactRepositoryUrl()
+     * @generated
+     * @ordered
+     */
+    protected static final String ARTIFACT_REPOSITORY_URL_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getArtifactRepositoryUrl() <em>Artifact Repository Url</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getArtifactRepositoryUrl()
+     * @generated
+     * @ordered
+     */
+    protected String artifactRepositoryUrl = ARTIFACT_REPOSITORY_URL_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getArtifactGroupId() <em>Artifact Group Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getArtifactGroupId()
+     * @generated
+     * @ordered
+     */
+    protected static final String ARTIFACT_GROUP_ID_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getArtifactGroupId() <em>Artifact Group Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getArtifactGroupId()
+     * @generated
+     * @ordered
+     */
+    protected String artifactGroupId = ARTIFACT_GROUP_ID_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getArtifactId() <em>Artifact Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getArtifactId()
+     * @generated
+     * @ordered
+     */
+    protected static final String ARTIFACT_ID_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getArtifactId() <em>Artifact Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getArtifactId()
+     * @generated
+     * @ordered
+     */
+    protected String artifactId = ARTIFACT_ID_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getArtifactVersion() <em>Artifact Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getArtifactVersion()
+     * @generated
+     * @ordered
+     */
+    protected static final String ARTIFACT_VERSION_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getArtifactVersion() <em>Artifact Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getArtifactVersion()
+     * @generated
+     * @ordered
+     */
+    protected String artifactVersion = ARTIFACT_VERSION_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1805,8 +1889,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getApplicationFeatureURL() {
-        return applicationFeatureURL;
+    public String getFeatureURL() {
+        return featureURL;
     }
 
     /**
@@ -1814,11 +1898,11 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setApplicationFeatureURL(String newApplicationFeatureURL) {
-        String oldApplicationFeatureURL = applicationFeatureURL;
-        applicationFeatureURL = newApplicationFeatureURL;
+    public void setFeatureURL(String newFeatureURL) {
+        String oldFeatureURL = featureURL;
+        featureURL = newFeatureURL;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__APPLICATION_FEATURE_URL, oldApplicationFeatureURL, applicationFeatureURL));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__FEATURE_URL, oldFeatureURL, featureURL));
     }
 
     /**
@@ -1847,8 +1931,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getApplicationBundleName() {
-        return applicationBundleName;
+    public String getBundleName() {
+        return bundleName;
     }
 
     /**
@@ -1856,11 +1940,11 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setApplicationBundleName(String newApplicationBundleName) {
-        String oldApplicationBundleName = applicationBundleName;
-        applicationBundleName = newApplicationBundleName;
+    public void setBundleName(String newBundleName) {
+        String oldBundleName = bundleName;
+        bundleName = newBundleName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__APPLICATION_BUNDLE_NAME, oldApplicationBundleName, applicationBundleName));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__BUNDLE_NAME, oldBundleName, bundleName));
     }
 
     /**
@@ -1868,8 +1952,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getApplicationName() {
-        return applicationName;
+    public String getFeatureName() {
+        return featureName;
     }
 
     /**
@@ -1877,11 +1961,11 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setApplicationName(String newApplicationName) {
-        String oldApplicationName = applicationName;
-        applicationName = newApplicationName;
+    public void setFeatureName(String newFeatureName) {
+        String oldFeatureName = featureName;
+        featureName = newFeatureName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__APPLICATION_NAME, oldApplicationName, applicationName));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__FEATURE_NAME, oldFeatureName, featureName));
     }
 
     /**
@@ -1889,8 +1973,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getApplicationVersion() {
-        return applicationVersion;
+    public String getFeatureVersion() {
+        return featureVersion;
     }
 
     /**
@@ -1898,11 +1982,95 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setApplicationVersion(String newApplicationVersion) {
-        String oldApplicationVersion = applicationVersion;
-        applicationVersion = newApplicationVersion;
+    public void setFeatureVersion(String newFeatureVersion) {
+        String oldFeatureVersion = featureVersion;
+        featureVersion = newFeatureVersion;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__APPLICATION_VERSION, oldApplicationVersion, applicationVersion));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__FEATURE_VERSION, oldFeatureVersion, featureVersion));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getArtifactRepositoryUrl() {
+        return artifactRepositoryUrl;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setArtifactRepositoryUrl(String newArtifactRepositoryUrl) {
+        String oldArtifactRepositoryUrl = artifactRepositoryUrl;
+        artifactRepositoryUrl = newArtifactRepositoryUrl;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__ARTIFACT_REPOSITORY_URL, oldArtifactRepositoryUrl, artifactRepositoryUrl));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getArtifactGroupId() {
+        return artifactGroupId;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setArtifactGroupId(String newArtifactGroupId) {
+        String oldArtifactGroupId = artifactGroupId;
+        artifactGroupId = newArtifactGroupId;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__ARTIFACT_GROUP_ID, oldArtifactGroupId, artifactGroupId));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getArtifactId() {
+        return artifactId;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setArtifactId(String newArtifactId) {
+        String oldArtifactId = artifactId;
+        artifactId = newArtifactId;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__ARTIFACT_ID, oldArtifactId, artifactId));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getArtifactVersion() {
+        return artifactVersion;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setArtifactVersion(String newArtifactVersion) {
+        String oldArtifactVersion = artifactVersion;
+        artifactVersion = newArtifactVersion;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__ARTIFACT_VERSION, oldArtifactVersion, artifactVersion));
     }
 
     /**
@@ -2030,16 +2198,24 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return isUseLatestVersion() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.EXECUTION_TASK__APPLICATION_TYPE:
                 return getApplicationType();
-            case PropertiesPackage.EXECUTION_TASK__APPLICATION_FEATURE_URL:
-                return getApplicationFeatureURL();
+            case PropertiesPackage.EXECUTION_TASK__FEATURE_URL:
+                return getFeatureURL();
             case PropertiesPackage.EXECUTION_TASK__APPLICATION_GROUP:
                 return getApplicationGroup();
-            case PropertiesPackage.EXECUTION_TASK__APPLICATION_BUNDLE_NAME:
-                return getApplicationBundleName();
-            case PropertiesPackage.EXECUTION_TASK__APPLICATION_NAME:
-                return getApplicationName();
-            case PropertiesPackage.EXECUTION_TASK__APPLICATION_VERSION:
-                return getApplicationVersion();
+            case PropertiesPackage.EXECUTION_TASK__BUNDLE_NAME:
+                return getBundleName();
+            case PropertiesPackage.EXECUTION_TASK__FEATURE_NAME:
+                return getFeatureName();
+            case PropertiesPackage.EXECUTION_TASK__FEATURE_VERSION:
+                return getFeatureVersion();
+            case PropertiesPackage.EXECUTION_TASK__ARTIFACT_REPOSITORY_URL:
+                return getArtifactRepositoryUrl();
+            case PropertiesPackage.EXECUTION_TASK__ARTIFACT_GROUP_ID:
+                return getArtifactGroupId();
+            case PropertiesPackage.EXECUTION_TASK__ARTIFACT_ID:
+                return getArtifactId();
+            case PropertiesPackage.EXECUTION_TASK__ARTIFACT_VERSION:
+                return getArtifactVersion();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -2179,20 +2355,32 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__APPLICATION_TYPE:
                 setApplicationType((String)newValue);
                 return;
-            case PropertiesPackage.EXECUTION_TASK__APPLICATION_FEATURE_URL:
-                setApplicationFeatureURL((String)newValue);
+            case PropertiesPackage.EXECUTION_TASK__FEATURE_URL:
+                setFeatureURL((String)newValue);
                 return;
             case PropertiesPackage.EXECUTION_TASK__APPLICATION_GROUP:
                 setApplicationGroup((String)newValue);
                 return;
-            case PropertiesPackage.EXECUTION_TASK__APPLICATION_BUNDLE_NAME:
-                setApplicationBundleName((String)newValue);
+            case PropertiesPackage.EXECUTION_TASK__BUNDLE_NAME:
+                setBundleName((String)newValue);
                 return;
-            case PropertiesPackage.EXECUTION_TASK__APPLICATION_NAME:
-                setApplicationName((String)newValue);
+            case PropertiesPackage.EXECUTION_TASK__FEATURE_NAME:
+                setFeatureName((String)newValue);
                 return;
-            case PropertiesPackage.EXECUTION_TASK__APPLICATION_VERSION:
-                setApplicationVersion((String)newValue);
+            case PropertiesPackage.EXECUTION_TASK__FEATURE_VERSION:
+                setFeatureVersion((String)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__ARTIFACT_REPOSITORY_URL:
+                setArtifactRepositoryUrl((String)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__ARTIFACT_GROUP_ID:
+                setArtifactGroupId((String)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__ARTIFACT_ID:
+                setArtifactId((String)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__ARTIFACT_VERSION:
+                setArtifactVersion((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -2330,20 +2518,32 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__APPLICATION_TYPE:
                 setApplicationType(APPLICATION_TYPE_EDEFAULT);
                 return;
-            case PropertiesPackage.EXECUTION_TASK__APPLICATION_FEATURE_URL:
-                setApplicationFeatureURL(APPLICATION_FEATURE_URL_EDEFAULT);
+            case PropertiesPackage.EXECUTION_TASK__FEATURE_URL:
+                setFeatureURL(FEATURE_URL_EDEFAULT);
                 return;
             case PropertiesPackage.EXECUTION_TASK__APPLICATION_GROUP:
                 setApplicationGroup(APPLICATION_GROUP_EDEFAULT);
                 return;
-            case PropertiesPackage.EXECUTION_TASK__APPLICATION_BUNDLE_NAME:
-                setApplicationBundleName(APPLICATION_BUNDLE_NAME_EDEFAULT);
+            case PropertiesPackage.EXECUTION_TASK__BUNDLE_NAME:
+                setBundleName(BUNDLE_NAME_EDEFAULT);
                 return;
-            case PropertiesPackage.EXECUTION_TASK__APPLICATION_NAME:
-                setApplicationName(APPLICATION_NAME_EDEFAULT);
+            case PropertiesPackage.EXECUTION_TASK__FEATURE_NAME:
+                setFeatureName(FEATURE_NAME_EDEFAULT);
                 return;
-            case PropertiesPackage.EXECUTION_TASK__APPLICATION_VERSION:
-                setApplicationVersion(APPLICATION_VERSION_EDEFAULT);
+            case PropertiesPackage.EXECUTION_TASK__FEATURE_VERSION:
+                setFeatureVersion(FEATURE_VERSION_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__ARTIFACT_REPOSITORY_URL:
+                setArtifactRepositoryUrl(ARTIFACT_REPOSITORY_URL_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__ARTIFACT_GROUP_ID:
+                setArtifactGroupId(ARTIFACT_GROUP_ID_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__ARTIFACT_ID:
+                setArtifactId(ARTIFACT_ID_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__ARTIFACT_VERSION:
+                setArtifactVersion(ARTIFACT_VERSION_EDEFAULT);
                 return;
         }
         super.eUnset(featureID);
@@ -2439,16 +2639,24 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return useLatestVersion != USE_LATEST_VERSION_EDEFAULT;
             case PropertiesPackage.EXECUTION_TASK__APPLICATION_TYPE:
                 return APPLICATION_TYPE_EDEFAULT == null ? applicationType != null : !APPLICATION_TYPE_EDEFAULT.equals(applicationType);
-            case PropertiesPackage.EXECUTION_TASK__APPLICATION_FEATURE_URL:
-                return APPLICATION_FEATURE_URL_EDEFAULT == null ? applicationFeatureURL != null : !APPLICATION_FEATURE_URL_EDEFAULT.equals(applicationFeatureURL);
+            case PropertiesPackage.EXECUTION_TASK__FEATURE_URL:
+                return FEATURE_URL_EDEFAULT == null ? featureURL != null : !FEATURE_URL_EDEFAULT.equals(featureURL);
             case PropertiesPackage.EXECUTION_TASK__APPLICATION_GROUP:
                 return APPLICATION_GROUP_EDEFAULT == null ? applicationGroup != null : !APPLICATION_GROUP_EDEFAULT.equals(applicationGroup);
-            case PropertiesPackage.EXECUTION_TASK__APPLICATION_BUNDLE_NAME:
-                return APPLICATION_BUNDLE_NAME_EDEFAULT == null ? applicationBundleName != null : !APPLICATION_BUNDLE_NAME_EDEFAULT.equals(applicationBundleName);
-            case PropertiesPackage.EXECUTION_TASK__APPLICATION_NAME:
-                return APPLICATION_NAME_EDEFAULT == null ? applicationName != null : !APPLICATION_NAME_EDEFAULT.equals(applicationName);
-            case PropertiesPackage.EXECUTION_TASK__APPLICATION_VERSION:
-                return APPLICATION_VERSION_EDEFAULT == null ? applicationVersion != null : !APPLICATION_VERSION_EDEFAULT.equals(applicationVersion);
+            case PropertiesPackage.EXECUTION_TASK__BUNDLE_NAME:
+                return BUNDLE_NAME_EDEFAULT == null ? bundleName != null : !BUNDLE_NAME_EDEFAULT.equals(bundleName);
+            case PropertiesPackage.EXECUTION_TASK__FEATURE_NAME:
+                return FEATURE_NAME_EDEFAULT == null ? featureName != null : !FEATURE_NAME_EDEFAULT.equals(featureName);
+            case PropertiesPackage.EXECUTION_TASK__FEATURE_VERSION:
+                return FEATURE_VERSION_EDEFAULT == null ? featureVersion != null : !FEATURE_VERSION_EDEFAULT.equals(featureVersion);
+            case PropertiesPackage.EXECUTION_TASK__ARTIFACT_REPOSITORY_URL:
+                return ARTIFACT_REPOSITORY_URL_EDEFAULT == null ? artifactRepositoryUrl != null : !ARTIFACT_REPOSITORY_URL_EDEFAULT.equals(artifactRepositoryUrl);
+            case PropertiesPackage.EXECUTION_TASK__ARTIFACT_GROUP_ID:
+                return ARTIFACT_GROUP_ID_EDEFAULT == null ? artifactGroupId != null : !ARTIFACT_GROUP_ID_EDEFAULT.equals(artifactGroupId);
+            case PropertiesPackage.EXECUTION_TASK__ARTIFACT_ID:
+                return ARTIFACT_ID_EDEFAULT == null ? artifactId != null : !ARTIFACT_ID_EDEFAULT.equals(artifactId);
+            case PropertiesPackage.EXECUTION_TASK__ARTIFACT_VERSION:
+                return ARTIFACT_VERSION_EDEFAULT == null ? artifactVersion != null : !ARTIFACT_VERSION_EDEFAULT.equals(artifactVersion);
         }
         return super.eIsSet(featureID);
     }
@@ -2533,16 +2741,24 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         result.append(useLatestVersion);
         result.append(", applicationType: ");
         result.append(applicationType);
-        result.append(", applicationFeatureURL: ");
-        result.append(applicationFeatureURL);
+        result.append(", featureURL: ");
+        result.append(featureURL);
         result.append(", applicationGroup: ");
         result.append(applicationGroup);
-        result.append(", applicationBundleName: ");
-        result.append(applicationBundleName);
-        result.append(", applicationName: ");
-        result.append(applicationName);
-        result.append(", applicationVersion: ");
-        result.append(applicationVersion);
+        result.append(", bundleName: ");
+        result.append(bundleName);
+        result.append(", featureName: ");
+        result.append(featureName);
+        result.append(", featureVersion: ");
+        result.append(featureVersion);
+        result.append(", artifactRepositoryUrl: ");
+        result.append(artifactRepositoryUrl);
+        result.append(", artifactGroupId: ");
+        result.append(artifactGroupId);
+        result.append(", artifactId: ");
+        result.append(artifactId);
+        result.append(", artifactVersion: ");
+        result.append(artifactVersion);
         result.append(')');
         return result.toString();
     }

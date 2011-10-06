@@ -51,11 +51,15 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getOnUnknownStateJob <em>On Unknown State Job</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#isUseLatestVersion <em>Use Latest Version</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getApplicationType <em>Application Type</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ExecutionTask#getApplicationFeatureURL <em>Application Feature URL</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getFeatureURL <em>Feature URL</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getApplicationGroup <em>Application Group</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ExecutionTask#getApplicationBundleName <em>Application Bundle Name</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ExecutionTask#getApplicationName <em>Application Name</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ExecutionTask#getApplicationVersion <em>Application Version</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getBundleName <em>Bundle Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getFeatureName <em>Feature Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getFeatureVersion <em>Feature Version</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getArtifactRepositoryUrl <em>Artifact Repository Url</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getArtifactGroupId <em>Artifact Group Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getArtifactId <em>Artifact Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getArtifactVersion <em>Artifact Version</em>}</li>
  * </ul>
  * </p>
  *
@@ -942,30 +946,30 @@ public interface ExecutionTask extends ExecutionTriggerable {
     void setApplicationType(String value);
 
     /**
-     * Returns the value of the '<em><b>Application Feature URL</b></em>' attribute.
+     * Returns the value of the '<em><b>Feature URL</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Application Feature URL</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Application Feature URL</em>' attribute.
-     * @see #setApplicationFeatureURL(String)
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ApplicationFeatureURL()
+     * @return the value of the '<em>Feature URL</em>' attribute.
+     * @see #setFeatureURL(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_FeatureURL()
      * @model
      * @generated
      */
-    String getApplicationFeatureURL();
+    String getFeatureURL();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getApplicationFeatureURL <em>Application Feature URL</em>}' attribute.
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getFeatureURL <em>Feature URL</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Application Feature URL</em>' attribute.
-     * @see #getApplicationFeatureURL()
+     * @param value the new value of the '<em>Feature URL</em>' attribute.
+     * @see #getFeatureURL()
      * @generated
      */
-    void setApplicationFeatureURL(String value);
+    void setFeatureURL(String value);
 
     /**
      * Returns the value of the '<em><b>Application Group</b></em>' attribute.
@@ -994,81 +998,185 @@ public interface ExecutionTask extends ExecutionTriggerable {
     void setApplicationGroup(String value);
 
     /**
-     * Returns the value of the '<em><b>Application Bundle Name</b></em>' attribute.
+     * Returns the value of the '<em><b>Bundle Name</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Application Bundle Name</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Application Bundle Name</em>' attribute.
-     * @see #setApplicationBundleName(String)
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ApplicationBundleName()
+     * @return the value of the '<em>Bundle Name</em>' attribute.
+     * @see #setBundleName(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_BundleName()
      * @model
      * @generated
      */
-    String getApplicationBundleName();
+    String getBundleName();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getApplicationBundleName <em>Application Bundle Name</em>}' attribute.
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getBundleName <em>Bundle Name</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Application Bundle Name</em>' attribute.
-     * @see #getApplicationBundleName()
+     * @param value the new value of the '<em>Bundle Name</em>' attribute.
+     * @see #getBundleName()
      * @generated
      */
-    void setApplicationBundleName(String value);
+    void setBundleName(String value);
 
     /**
-     * Returns the value of the '<em><b>Application Name</b></em>' attribute.
+     * Returns the value of the '<em><b>Feature Name</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Application Name</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Application Name</em>' attribute.
-     * @see #setApplicationName(String)
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ApplicationName()
+     * @return the value of the '<em>Feature Name</em>' attribute.
+     * @see #setFeatureName(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_FeatureName()
      * @model
      * @generated
      */
-    String getApplicationName();
+    String getFeatureName();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getApplicationName <em>Application Name</em>}' attribute.
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getFeatureName <em>Feature Name</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Application Name</em>' attribute.
-     * @see #getApplicationName()
+     * @param value the new value of the '<em>Feature Name</em>' attribute.
+     * @see #getFeatureName()
      * @generated
      */
-    void setApplicationName(String value);
+    void setFeatureName(String value);
 
     /**
-     * Returns the value of the '<em><b>Application Version</b></em>' attribute.
+     * Returns the value of the '<em><b>Feature Version</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Application Version</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Application Version</em>' attribute.
-     * @see #setApplicationVersion(String)
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ApplicationVersion()
+     * @return the value of the '<em>Feature Version</em>' attribute.
+     * @see #setFeatureVersion(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_FeatureVersion()
      * @model
      * @generated
      */
-    String getApplicationVersion();
+    String getFeatureVersion();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getApplicationVersion <em>Application Version</em>}' attribute.
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getFeatureVersion <em>Feature Version</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Application Version</em>' attribute.
-     * @see #getApplicationVersion()
+     * @param value the new value of the '<em>Feature Version</em>' attribute.
+     * @see #getFeatureVersion()
      * @generated
      */
-    void setApplicationVersion(String value);
+    void setFeatureVersion(String value);
+
+    /**
+     * Returns the value of the '<em><b>Artifact Repository Url</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Artifact Repository Url</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Artifact Repository Url</em>' attribute.
+     * @see #setArtifactRepositoryUrl(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ArtifactRepositoryUrl()
+     * @model
+     * @generated
+     */
+    String getArtifactRepositoryUrl();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getArtifactRepositoryUrl <em>Artifact Repository Url</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Artifact Repository Url</em>' attribute.
+     * @see #getArtifactRepositoryUrl()
+     * @generated
+     */
+    void setArtifactRepositoryUrl(String value);
+
+    /**
+     * Returns the value of the '<em><b>Artifact Group Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Artifact Group Id</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Artifact Group Id</em>' attribute.
+     * @see #setArtifactGroupId(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ArtifactGroupId()
+     * @model
+     * @generated
+     */
+    String getArtifactGroupId();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getArtifactGroupId <em>Artifact Group Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Artifact Group Id</em>' attribute.
+     * @see #getArtifactGroupId()
+     * @generated
+     */
+    void setArtifactGroupId(String value);
+
+    /**
+     * Returns the value of the '<em><b>Artifact Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Artifact Id</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Artifact Id</em>' attribute.
+     * @see #setArtifactId(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ArtifactId()
+     * @model
+     * @generated
+     */
+    String getArtifactId();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getArtifactId <em>Artifact Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Artifact Id</em>' attribute.
+     * @see #getArtifactId()
+     * @generated
+     */
+    void setArtifactId(String value);
+
+    /**
+     * Returns the value of the '<em><b>Artifact Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Artifact Version</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Artifact Version</em>' attribute.
+     * @see #setArtifactVersion(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ArtifactVersion()
+     * @model
+     * @generated
+     */
+    String getArtifactVersion();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getArtifactVersion <em>Artifact Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Artifact Version</em>' attribute.
+     * @see #getArtifactVersion()
+     * @generated
+     */
+    void setArtifactVersion(String value);
 
 } // ExecutionTask

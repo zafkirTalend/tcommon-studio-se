@@ -377,6 +377,15 @@ public interface PropertiesFactory extends EFactory {
     ExecutionTask createExecutionTask();
 
     /**
+     * Returns a new object of class '<em>Execution Task Properties</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Execution Task Properties</em>'.
+     * @generated
+     */
+    ExecutionTaskProperties createExecutionTaskProperties();
+
+    /**
      * Returns a new object of class '<em>Execution Task Cmd Prm</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Execution Task Cmd Prm</em>'.
