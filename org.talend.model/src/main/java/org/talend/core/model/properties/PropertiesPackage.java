@@ -4503,31 +4503,22 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK__APPLICATION_TYPE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 34;
 
     /**
-     * The feature id for the '<em><b>Feature URL</b></em>' attribute.
+     * The feature id for the '<em><b>Features File Repository Url</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__FEATURE_URL = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 35;
+    int EXECUTION_TASK__FEATURES_FILE_REPOSITORY_URL = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 35;
 
     /**
-     * The feature id for the '<em><b>Application Group</b></em>' attribute.
+     * The feature id for the '<em><b>Features File Url</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__APPLICATION_GROUP = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 36;
-
-    /**
-     * The feature id for the '<em><b>Bundle Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_TASK__BUNDLE_NAME = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 37;
+    int EXECUTION_TASK__FEATURES_FILE_URL = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 36;
 
     /**
      * The feature id for the '<em><b>Feature Name</b></em>' attribute.
@@ -4536,7 +4527,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__FEATURE_NAME = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 38;
+    int EXECUTION_TASK__FEATURE_NAME = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 37;
 
     /**
      * The feature id for the '<em><b>Feature Version</b></em>' attribute.
@@ -4545,43 +4536,25 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__FEATURE_VERSION = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 39;
+    int EXECUTION_TASK__FEATURE_VERSION = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 38;
 
     /**
-     * The feature id for the '<em><b>Artifact Repository Url</b></em>' attribute.
+     * The feature id for the '<em><b>Application Group</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ARTIFACT_REPOSITORY_URL = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 40;
+    int EXECUTION_TASK__APPLICATION_GROUP = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 39;
 
     /**
-     * The feature id for the '<em><b>Artifact Group Id</b></em>' attribute.
+     * The feature id for the '<em><b>Bundle Name</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ARTIFACT_GROUP_ID = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 41;
-
-    /**
-     * The feature id for the '<em><b>Artifact Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_TASK__ARTIFACT_ID = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 42;
-
-    /**
-     * The feature id for the '<em><b>Artifact Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_TASK__ARTIFACT_VERSION = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 43;
+    int EXECUTION_TASK__BUNDLE_NAME = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 40;
 
     /**
      * The number of structural features of the '<em>Execution Task</em>' class.
@@ -4590,7 +4563,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_FEATURE_COUNT = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 44;
+    int EXECUTION_TASK_FEATURE_COUNT = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 41;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionTaskPropertiesImpl <em>Execution Task Properties</em>}' class.
@@ -4612,22 +4585,13 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK_PROPERTIES__ID = 0;
 
     /**
-     * The feature id for the '<em><b>Active</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_TASK_PROPERTIES__ACTIVE = 1;
-
-    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_PROPERTIES__NAME = 2;
+    int EXECUTION_TASK_PROPERTIES__NAME = 1;
 
     /**
      * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -4636,7 +4600,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_PROPERTIES__VALUE = 3;
+    int EXECUTION_TASK_PROPERTIES__VALUE = 2;
 
     /**
      * The feature id for the '<em><b>Execution Task</b></em>' reference.
@@ -4645,7 +4609,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_PROPERTIES__EXECUTION_TASK = 4;
+    int EXECUTION_TASK_PROPERTIES__EXECUTION_TASK = 3;
 
     /**
      * The number of structural features of the '<em>Execution Task Properties</em>' class.
@@ -4654,7 +4618,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_PROPERTIES_FEATURE_COUNT = 5;
+    int EXECUTION_TASK_PROPERTIES_FEATURE_COUNT = 4;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -11131,15 +11095,26 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionTask_ApplicationType();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getFeatureURL <em>Feature URL</em>}'.
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getFeaturesFileRepositoryUrl <em>Features File Repository Url</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Feature URL</em>'.
-     * @see org.talend.core.model.properties.ExecutionTask#getFeatureURL()
+     * @return the meta object for the attribute '<em>Features File Repository Url</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getFeaturesFileRepositoryUrl()
      * @see #getExecutionTask()
      * @generated
      */
-    EAttribute getExecutionTask_FeatureURL();
+    EAttribute getExecutionTask_FeaturesFileRepositoryUrl();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getFeaturesFileUrl <em>Features File Url</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Features File Url</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getFeaturesFileUrl()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_FeaturesFileUrl();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getApplicationGroup <em>Application Group</em>}'.
@@ -11186,50 +11161,6 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionTask_FeatureVersion();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getArtifactRepositoryUrl <em>Artifact Repository Url</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Artifact Repository Url</em>'.
-     * @see org.talend.core.model.properties.ExecutionTask#getArtifactRepositoryUrl()
-     * @see #getExecutionTask()
-     * @generated
-     */
-    EAttribute getExecutionTask_ArtifactRepositoryUrl();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getArtifactGroupId <em>Artifact Group Id</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Artifact Group Id</em>'.
-     * @see org.talend.core.model.properties.ExecutionTask#getArtifactGroupId()
-     * @see #getExecutionTask()
-     * @generated
-     */
-    EAttribute getExecutionTask_ArtifactGroupId();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getArtifactId <em>Artifact Id</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Artifact Id</em>'.
-     * @see org.talend.core.model.properties.ExecutionTask#getArtifactId()
-     * @see #getExecutionTask()
-     * @generated
-     */
-    EAttribute getExecutionTask_ArtifactId();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getArtifactVersion <em>Artifact Version</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Artifact Version</em>'.
-     * @see org.talend.core.model.properties.ExecutionTask#getArtifactVersion()
-     * @see #getExecutionTask()
-     * @generated
-     */
-    EAttribute getExecutionTask_ArtifactVersion();
-
-    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionTaskProperties <em>Execution Task Properties</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -11249,17 +11180,6 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getExecutionTaskProperties_Id();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTaskProperties#isActive <em>Active</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Active</em>'.
-     * @see org.talend.core.model.properties.ExecutionTaskProperties#isActive()
-     * @see #getExecutionTaskProperties()
-     * @generated
-     */
-    EAttribute getExecutionTaskProperties_Active();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTaskProperties#getName <em>Name</em>}'.
@@ -16360,12 +16280,20 @@ public interface PropertiesPackage extends EPackage {
         EAttribute EXECUTION_TASK__APPLICATION_TYPE = eINSTANCE.getExecutionTask_ApplicationType();
 
         /**
-         * The meta object literal for the '<em><b>Feature URL</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>Features File Repository Url</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute EXECUTION_TASK__FEATURE_URL = eINSTANCE.getExecutionTask_FeatureURL();
+        EAttribute EXECUTION_TASK__FEATURES_FILE_REPOSITORY_URL = eINSTANCE.getExecutionTask_FeaturesFileRepositoryUrl();
+
+        /**
+         * The meta object literal for the '<em><b>Features File Url</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__FEATURES_FILE_URL = eINSTANCE.getExecutionTask_FeaturesFileUrl();
 
         /**
          * The meta object literal for the '<em><b>Application Group</b></em>' attribute feature.
@@ -16400,38 +16328,6 @@ public interface PropertiesPackage extends EPackage {
         EAttribute EXECUTION_TASK__FEATURE_VERSION = eINSTANCE.getExecutionTask_FeatureVersion();
 
         /**
-         * The meta object literal for the '<em><b>Artifact Repository Url</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute EXECUTION_TASK__ARTIFACT_REPOSITORY_URL = eINSTANCE.getExecutionTask_ArtifactRepositoryUrl();
-
-        /**
-         * The meta object literal for the '<em><b>Artifact Group Id</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute EXECUTION_TASK__ARTIFACT_GROUP_ID = eINSTANCE.getExecutionTask_ArtifactGroupId();
-
-        /**
-         * The meta object literal for the '<em><b>Artifact Id</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute EXECUTION_TASK__ARTIFACT_ID = eINSTANCE.getExecutionTask_ArtifactId();
-
-        /**
-         * The meta object literal for the '<em><b>Artifact Version</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute EXECUTION_TASK__ARTIFACT_VERSION = eINSTANCE.getExecutionTask_ArtifactVersion();
-
-        /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionTaskPropertiesImpl <em>Execution Task Properties</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -16448,14 +16344,6 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute EXECUTION_TASK_PROPERTIES__ID = eINSTANCE.getExecutionTaskProperties_Id();
-
-        /**
-         * The meta object literal for the '<em><b>Active</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute EXECUTION_TASK_PROPERTIES__ACTIVE = eINSTANCE.getExecutionTaskProperties_Active();
 
         /**
          * The meta object literal for the '<em><b>Name</b></em>' attribute feature.

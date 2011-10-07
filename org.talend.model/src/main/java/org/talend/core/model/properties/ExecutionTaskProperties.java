@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.core.model.properties.ExecutionTaskProperties#getId <em>Id</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ExecutionTaskProperties#isActive <em>Active</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTaskProperties#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTaskProperties#getValue <em>Value</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTaskProperties#getExecutionTask <em>Execution Task</em>}</li>
@@ -54,33 +53,6 @@ public interface ExecutionTaskProperties extends EObject {
      * @generated
      */
     void setId(int value);
-
-    /**
-     * Returns the value of the '<em><b>Active</b></em>' attribute.
-     * The default value is <code>"true"</code>.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Active</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Active</em>' attribute.
-     * @see #setActive(boolean)
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTaskProperties_Active()
-     * @model default="true"
-     * @generated
-     */
-    boolean isActive();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTaskProperties#isActive <em>Active</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Active</em>' attribute.
-     * @see #isActive()
-     * @generated
-     */
-    void setActive(boolean value);
 
     /**
      * Returns the value of the '<em><b>Name</b></em>' attribute.

@@ -26,7 +26,6 @@ import org.talend.core.model.properties.PropertiesPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskPropertiesImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskPropertiesImpl#isActive <em>Active</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskPropertiesImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskPropertiesImpl#getValue <em>Value</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskPropertiesImpl#getExecutionTask <em>Execution Task</em>}</li>
@@ -55,26 +54,6 @@ public class ExecutionTaskPropertiesImpl extends EObjectImpl implements Executio
      * @ordered
      */
     protected int id = ID_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #isActive() <em>Active</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isActive()
-     * @generated
-     * @ordered
-     */
-    protected static final boolean ACTIVE_EDEFAULT = true;
-
-    /**
-     * The cached value of the '{@link #isActive() <em>Active</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isActive()
-     * @generated
-     * @ordered
-     */
-    protected boolean active = ACTIVE_EDEFAULT;
 
     /**
      * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -170,27 +149,6 @@ public class ExecutionTaskPropertiesImpl extends EObjectImpl implements Executio
      * <!-- end-user-doc -->
      * @generated
      */
-    public boolean isActive() {
-        return active;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setActive(boolean newActive) {
-        boolean oldActive = active;
-        active = newActive;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK_PROPERTIES__ACTIVE, oldActive, active));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public String getName() {
         return name;
     }
@@ -275,8 +233,6 @@ public class ExecutionTaskPropertiesImpl extends EObjectImpl implements Executio
         switch (featureID) {
             case PropertiesPackage.EXECUTION_TASK_PROPERTIES__ID:
                 return new Integer(getId());
-            case PropertiesPackage.EXECUTION_TASK_PROPERTIES__ACTIVE:
-                return isActive() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.EXECUTION_TASK_PROPERTIES__NAME:
                 return getName();
             case PropertiesPackage.EXECUTION_TASK_PROPERTIES__VALUE:
@@ -297,9 +253,6 @@ public class ExecutionTaskPropertiesImpl extends EObjectImpl implements Executio
         switch (featureID) {
             case PropertiesPackage.EXECUTION_TASK_PROPERTIES__ID:
                 setId(((Integer)newValue).intValue());
-                return;
-            case PropertiesPackage.EXECUTION_TASK_PROPERTIES__ACTIVE:
-                setActive(((Boolean)newValue).booleanValue());
                 return;
             case PropertiesPackage.EXECUTION_TASK_PROPERTIES__NAME:
                 setName((String)newValue);
@@ -324,9 +277,6 @@ public class ExecutionTaskPropertiesImpl extends EObjectImpl implements Executio
             case PropertiesPackage.EXECUTION_TASK_PROPERTIES__ID:
                 setId(ID_EDEFAULT);
                 return;
-            case PropertiesPackage.EXECUTION_TASK_PROPERTIES__ACTIVE:
-                setActive(ACTIVE_EDEFAULT);
-                return;
             case PropertiesPackage.EXECUTION_TASK_PROPERTIES__NAME:
                 setName(NAME_EDEFAULT);
                 return;
@@ -349,8 +299,6 @@ public class ExecutionTaskPropertiesImpl extends EObjectImpl implements Executio
         switch (featureID) {
             case PropertiesPackage.EXECUTION_TASK_PROPERTIES__ID:
                 return id != ID_EDEFAULT;
-            case PropertiesPackage.EXECUTION_TASK_PROPERTIES__ACTIVE:
-                return active != ACTIVE_EDEFAULT;
             case PropertiesPackage.EXECUTION_TASK_PROPERTIES__NAME:
                 return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
             case PropertiesPackage.EXECUTION_TASK_PROPERTIES__VALUE:
@@ -372,8 +320,6 @@ public class ExecutionTaskPropertiesImpl extends EObjectImpl implements Executio
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (id: ");
         result.append(id);
-        result.append(", active: ");
-        result.append(active);
         result.append(", name: ");
         result.append(name);
         result.append(", value: ");
