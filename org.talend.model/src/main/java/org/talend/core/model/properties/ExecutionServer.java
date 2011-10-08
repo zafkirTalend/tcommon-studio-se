@@ -31,6 +31,9 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#getJmxUrl <em>Jmx Url</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#getWebConsoleUrl <em>Web Console Url</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#isTalendRuntime <em>Talend Runtime</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionServer#getMgmtServerPort <em>Mgmt Server Port</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionServer#getMgmtRegPort <em>Mgmt Reg Port</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionServer#getAdminConsolePort <em>Admin Console Port</em>}</li>
  * </ul>
  * </p>
  *
@@ -407,5 +410,86 @@ public interface ExecutionServer extends EObject {
      * @generated
      */
     void setTalendRuntime(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Mgmt Server Port</b></em>' attribute.
+     * The default value is <code>"-1"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Mgmt Server Port</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Mgmt Server Port</em>' attribute.
+     * @see #setMgmtServerPort(int)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionServer_MgmtServerPort()
+     * @model default="-1"
+     * @generated
+     */
+    int getMgmtServerPort();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionServer#getMgmtServerPort <em>Mgmt Server Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Mgmt Server Port</em>' attribute.
+     * @see #getMgmtServerPort()
+     * @generated
+     */
+    void setMgmtServerPort(int value);
+
+    /**
+     * Returns the value of the '<em><b>Mgmt Reg Port</b></em>' attribute.
+     * The default value is <code>"-1"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Mgmt Reg Port</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Mgmt Reg Port</em>' attribute.
+     * @see #setMgmtRegPort(int)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionServer_MgmtRegPort()
+     * @model default="-1"
+     * @generated
+     */
+    int getMgmtRegPort();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionServer#getMgmtRegPort <em>Mgmt Reg Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Mgmt Reg Port</em>' attribute.
+     * @see #getMgmtRegPort()
+     * @generated
+     */
+    void setMgmtRegPort(int value);
+
+    /**
+     * Returns the value of the '<em><b>Admin Console Port</b></em>' attribute.
+     * The default value is <code>"-1"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Admin Console Port</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Admin Console Port</em>' attribute.
+     * @see #setAdminConsolePort(int)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionServer_AdminConsolePort()
+     * @model default="-1"
+     * @generated
+     */
+    int getAdminConsolePort();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionServer#getAdminConsolePort <em>Admin Console Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Admin Console Port</em>' attribute.
+     * @see #getAdminConsolePort()
+     * @generated
+     */
+    void setAdminConsolePort(int value);
 
 } // ExecutionServer

@@ -39,6 +39,9 @@ import org.talend.core.model.properties.PropertiesPackage;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getJmxUrl <em>Jmx Url</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getWebConsoleUrl <em>Web Console Url</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#isTalendRuntime <em>Talend Runtime</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getMgmtServerPort <em>Mgmt Server Port</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getMgmtRegPort <em>Mgmt Reg Port</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getAdminConsolePort <em>Admin Console Port</em>}</li>
  * </ul>
  * </p>
  *
@@ -324,6 +327,66 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
      * @ordered
      */
     protected boolean talendRuntime = TALEND_RUNTIME_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getMgmtServerPort() <em>Mgmt Server Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMgmtServerPort()
+     * @generated
+     * @ordered
+     */
+    protected static final int MGMT_SERVER_PORT_EDEFAULT = -1;
+
+    /**
+     * The cached value of the '{@link #getMgmtServerPort() <em>Mgmt Server Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMgmtServerPort()
+     * @generated
+     * @ordered
+     */
+    protected int mgmtServerPort = MGMT_SERVER_PORT_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getMgmtRegPort() <em>Mgmt Reg Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMgmtRegPort()
+     * @generated
+     * @ordered
+     */
+    protected static final int MGMT_REG_PORT_EDEFAULT = -1;
+
+    /**
+     * The cached value of the '{@link #getMgmtRegPort() <em>Mgmt Reg Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMgmtRegPort()
+     * @generated
+     * @ordered
+     */
+    protected int mgmtRegPort = MGMT_REG_PORT_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getAdminConsolePort() <em>Admin Console Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getAdminConsolePort()
+     * @generated
+     * @ordered
+     */
+    protected static final int ADMIN_CONSOLE_PORT_EDEFAULT = -1;
+
+    /**
+     * The cached value of the '{@link #getAdminConsolePort() <em>Admin Console Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getAdminConsolePort()
+     * @generated
+     * @ordered
+     */
+    protected int adminConsolePort = ADMIN_CONSOLE_PORT_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -620,6 +683,69 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public int getMgmtServerPort() {
+        return mgmtServerPort;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setMgmtServerPort(int newMgmtServerPort) {
+        int oldMgmtServerPort = mgmtServerPort;
+        mgmtServerPort = newMgmtServerPort;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_SERVER__MGMT_SERVER_PORT, oldMgmtServerPort, mgmtServerPort));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public int getMgmtRegPort() {
+        return mgmtRegPort;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setMgmtRegPort(int newMgmtRegPort) {
+        int oldMgmtRegPort = mgmtRegPort;
+        mgmtRegPort = newMgmtRegPort;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_SERVER__MGMT_REG_PORT, oldMgmtRegPort, mgmtRegPort));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public int getAdminConsolePort() {
+        return adminConsolePort;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setAdminConsolePort(int newAdminConsolePort) {
+        int oldAdminConsolePort = adminConsolePort;
+        adminConsolePort = newAdminConsolePort;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_SERVER__ADMIN_CONSOLE_PORT, oldAdminConsolePort, adminConsolePort));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -653,6 +779,12 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
                 return getWebConsoleUrl();
             case PropertiesPackage.EXECUTION_SERVER__TALEND_RUNTIME:
                 return isTalendRuntime() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.EXECUTION_SERVER__MGMT_SERVER_PORT:
+                return new Integer(getMgmtServerPort());
+            case PropertiesPackage.EXECUTION_SERVER__MGMT_REG_PORT:
+                return new Integer(getMgmtRegPort());
+            case PropertiesPackage.EXECUTION_SERVER__ADMIN_CONSOLE_PORT:
+                return new Integer(getAdminConsolePort());
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -704,6 +836,15 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
                 return;
             case PropertiesPackage.EXECUTION_SERVER__TALEND_RUNTIME:
                 setTalendRuntime(((Boolean)newValue).booleanValue());
+                return;
+            case PropertiesPackage.EXECUTION_SERVER__MGMT_SERVER_PORT:
+                setMgmtServerPort(((Integer)newValue).intValue());
+                return;
+            case PropertiesPackage.EXECUTION_SERVER__MGMT_REG_PORT:
+                setMgmtRegPort(((Integer)newValue).intValue());
+                return;
+            case PropertiesPackage.EXECUTION_SERVER__ADMIN_CONSOLE_PORT:
+                setAdminConsolePort(((Integer)newValue).intValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -757,6 +898,15 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
             case PropertiesPackage.EXECUTION_SERVER__TALEND_RUNTIME:
                 setTalendRuntime(TALEND_RUNTIME_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_SERVER__MGMT_SERVER_PORT:
+                setMgmtServerPort(MGMT_SERVER_PORT_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_SERVER__MGMT_REG_PORT:
+                setMgmtRegPort(MGMT_REG_PORT_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_SERVER__ADMIN_CONSOLE_PORT:
+                setAdminConsolePort(ADMIN_CONSOLE_PORT_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -795,6 +945,12 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
                 return WEB_CONSOLE_URL_EDEFAULT == null ? webConsoleUrl != null : !WEB_CONSOLE_URL_EDEFAULT.equals(webConsoleUrl);
             case PropertiesPackage.EXECUTION_SERVER__TALEND_RUNTIME:
                 return talendRuntime != TALEND_RUNTIME_EDEFAULT;
+            case PropertiesPackage.EXECUTION_SERVER__MGMT_SERVER_PORT:
+                return mgmtServerPort != MGMT_SERVER_PORT_EDEFAULT;
+            case PropertiesPackage.EXECUTION_SERVER__MGMT_REG_PORT:
+                return mgmtRegPort != MGMT_REG_PORT_EDEFAULT;
+            case PropertiesPackage.EXECUTION_SERVER__ADMIN_CONSOLE_PORT:
+                return adminConsolePort != ADMIN_CONSOLE_PORT_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -835,6 +991,12 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
         result.append(webConsoleUrl);
         result.append(", talendRuntime: ");
         result.append(talendRuntime);
+        result.append(", mgmtServerPort: ");
+        result.append(mgmtServerPort);
+        result.append(", mgmtRegPort: ");
+        result.append(mgmtRegPort);
+        result.append(", adminConsolePort: ");
+        result.append(adminConsolePort);
         result.append(')');
         return result.toString();
     }

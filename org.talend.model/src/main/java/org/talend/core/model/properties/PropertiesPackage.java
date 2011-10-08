@@ -6462,13 +6462,40 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_SERVER__TALEND_RUNTIME = 13;
 
     /**
+     * The feature id for the '<em><b>Mgmt Server Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_SERVER__MGMT_SERVER_PORT = 14;
+
+    /**
+     * The feature id for the '<em><b>Mgmt Reg Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_SERVER__MGMT_REG_PORT = 15;
+
+    /**
+     * The feature id for the '<em><b>Admin Console Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_SERVER__ADMIN_CONSOLE_PORT = 16;
+
+    /**
      * The number of structural features of the '<em>Execution Server</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_SERVER_FEATURE_COUNT = 14;
+    int EXECUTION_SERVER_FEATURE_COUNT = 17;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -10691,6 +10718,39 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getExecutionServer_TalendRuntime();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionServer#getMgmtServerPort <em>Mgmt Server Port</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Mgmt Server Port</em>'.
+     * @see org.talend.core.model.properties.ExecutionServer#getMgmtServerPort()
+     * @see #getExecutionServer()
+     * @generated
+     */
+    EAttribute getExecutionServer_MgmtServerPort();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionServer#getMgmtRegPort <em>Mgmt Reg Port</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Mgmt Reg Port</em>'.
+     * @see org.talend.core.model.properties.ExecutionServer#getMgmtRegPort()
+     * @see #getExecutionServer()
+     * @generated
+     */
+    EAttribute getExecutionServer_MgmtRegPort();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionServer#getAdminConsolePort <em>Admin Console Port</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Admin Console Port</em>'.
+     * @see org.talend.core.model.properties.ExecutionServer#getAdminConsolePort()
+     * @see #getExecutionServer()
+     * @generated
+     */
+    EAttribute getExecutionServer_AdminConsolePort();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionTask <em>Execution Task</em>}'.
@@ -15961,6 +16021,30 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute EXECUTION_SERVER__TALEND_RUNTIME = eINSTANCE.getExecutionServer_TalendRuntime();
+
+        /**
+         * The meta object literal for the '<em><b>Mgmt Server Port</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_SERVER__MGMT_SERVER_PORT = eINSTANCE.getExecutionServer_MgmtServerPort();
+
+        /**
+         * The meta object literal for the '<em><b>Mgmt Reg Port</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_SERVER__MGMT_REG_PORT = eINSTANCE.getExecutionServer_MgmtRegPort();
+
+        /**
+         * The meta object literal for the '<em><b>Admin Console Port</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_SERVER__ADMIN_CONSOLE_PORT = eINSTANCE.getExecutionServer_AdminConsolePort();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionTaskImpl <em>Execution Task</em>}' class.
