@@ -39,6 +39,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.User#getAdminConnexionNumber <em>Admin Connexion Number</em>}</li>
  *   <li>{@link org.talend.core.model.properties.User#getStudioConnexionNumber <em>Studio Connexion Number</em>}</li>
  *   <li>{@link org.talend.core.model.properties.User#getAuthenticationInfo <em>Authentication Info</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.User#getLdapLogin <em>Ldap Login</em>}</li>
  *   <li>{@link org.talend.core.model.properties.User#getLdapId <em>Ldap Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.User#getLanguage <em>Language</em>}</li>
  *   <li>{@link org.talend.core.model.properties.User#getType <em>Type</em>}</li>
@@ -554,6 +555,32 @@ public interface User extends EObject {
      * @generated
      */
     void setAuthenticationInfo(String value);
+
+    /**
+     * Returns the value of the '<em><b>Ldap Login</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Ldap Login</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Ldap Login</em>' attribute.
+     * @see #setLdapLogin(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getUser_LdapLogin()
+     * @model unique="false"
+     * @generated
+     */
+    String getLdapLogin();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.User#getLdapLogin <em>Ldap Login</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Ldap Login</em>' attribute.
+     * @see #getLdapLogin()
+     * @generated
+     */
+    void setLdapLogin(String value);
 
     /**
      * Returns the value of the '<em><b>Ldap Id</b></em>' attribute.

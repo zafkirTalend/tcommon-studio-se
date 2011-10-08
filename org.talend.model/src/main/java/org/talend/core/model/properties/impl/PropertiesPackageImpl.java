@@ -2243,7 +2243,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getUser_LdapId() {
+    public EAttribute getUser_LdapLogin() {
         return (EAttribute)userEClass.getEStructuralFeatures().get(20);
     }
 
@@ -2252,7 +2252,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getUser_Language() {
+    public EAttribute getUser_LdapId() {
         return (EAttribute)userEClass.getEStructuralFeatures().get(21);
     }
 
@@ -2261,7 +2261,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getUser_Type() {
+    public EAttribute getUser_Language() {
         return (EAttribute)userEClass.getEStructuralFeatures().get(22);
     }
 
@@ -2270,8 +2270,17 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getUser_AdditionnalData() {
+    public EAttribute getUser_Type() {
         return (EAttribute)userEClass.getEStructuralFeatures().get(23);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getUser_AdditionnalData() {
+        return (EAttribute)userEClass.getEStructuralFeatures().get(24);
     }
 
     /**
@@ -6097,6 +6106,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(userEClass, USER__ADMIN_CONNEXION_NUMBER);
         createEAttribute(userEClass, USER__STUDIO_CONNEXION_NUMBER);
         createEAttribute(userEClass, USER__AUTHENTICATION_INFO);
+        createEAttribute(userEClass, USER__LDAP_LOGIN);
         createEAttribute(userEClass, USER__LDAP_ID);
         createEAttribute(userEClass, USER__LANGUAGE);
         createEAttribute(userEClass, USER__TYPE);
@@ -6834,6 +6844,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getUser_AdminConnexionNumber(), theEcorePackage.getEInt(), "adminConnexionNumber", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getUser_StudioConnexionNumber(), theEcorePackage.getEInt(), "studioConnexionNumber", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getUser_AuthenticationInfo(), theEcorePackage.getEString(), "authenticationInfo", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getUser_LdapLogin(), ecorePackage.getEString(), "ldapLogin", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getUser_LdapId(), ecorePackage.getEString(), "ldapId", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getUser_Language(), ecorePackage.getEString(), "language", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getUser_Type(), ecorePackage.getEString(), "type", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

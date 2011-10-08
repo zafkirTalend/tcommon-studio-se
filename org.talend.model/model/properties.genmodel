@@ -191,6 +191,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/adminConnexionNumber"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/studioConnexionNumber"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/authenticationInfo"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/ldapLogin"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/ldapId"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/language"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/type"/>
@@ -485,8 +486,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/password"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/jmxUrl"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/webConsoleUrl"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/bundleConductorUrl"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/talendRuntime"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/mgmtServerPort"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/mgmtRegPort"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/adminConsolePort"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//ExecutionVirtualServer">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionVirtualServer/id"/>

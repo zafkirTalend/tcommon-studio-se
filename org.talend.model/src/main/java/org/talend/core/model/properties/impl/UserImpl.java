@@ -49,6 +49,7 @@ import org.talend.core.model.properties.UserRole;
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getAdminConnexionNumber <em>Admin Connexion Number</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getStudioConnexionNumber <em>Studio Connexion Number</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getAuthenticationInfo <em>Authentication Info</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getLdapLogin <em>Ldap Login</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getLdapId <em>Ldap Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getLanguage <em>Language</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getType <em>Type</em>}</li>
@@ -416,6 +417,26 @@ public class UserImpl extends EObjectImpl implements User {
      * @ordered
      */
     protected String authenticationInfo = AUTHENTICATION_INFO_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getLdapLogin() <em>Ldap Login</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLdapLogin()
+     * @generated
+     * @ordered
+     */
+    protected static final String LDAP_LOGIN_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getLdapLogin() <em>Ldap Login</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLdapLogin()
+     * @generated
+     * @ordered
+     */
+    protected String ldapLogin = LDAP_LOGIN_EDEFAULT;
 
     /**
      * The default value of the '{@link #getLdapId() <em>Ldap Id</em>}' attribute.
@@ -894,6 +915,27 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getLdapLogin() {
+        return ldapLogin;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setLdapLogin(String newLdapLogin) {
+        String oldLdapLogin = ldapLogin;
+        ldapLogin = newLdapLogin;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__LDAP_LOGIN, oldLdapLogin, ldapLogin));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1048,6 +1090,8 @@ public class UserImpl extends EObjectImpl implements User {
                 return new Integer(getStudioConnexionNumber());
             case PropertiesPackage.USER__AUTHENTICATION_INFO:
                 return getAuthenticationInfo();
+            case PropertiesPackage.USER__LDAP_LOGIN:
+                return getLdapLogin();
             case PropertiesPackage.USER__LDAP_ID:
                 return getLdapId();
             case PropertiesPackage.USER__LANGUAGE:
@@ -1127,6 +1171,9 @@ public class UserImpl extends EObjectImpl implements User {
                 return;
             case PropertiesPackage.USER__AUTHENTICATION_INFO:
                 setAuthenticationInfo((String)newValue);
+                return;
+            case PropertiesPackage.USER__LDAP_LOGIN:
+                setLdapLogin((String)newValue);
                 return;
             case PropertiesPackage.USER__LDAP_ID:
                 setLdapId((String)newValue);
@@ -1210,6 +1257,9 @@ public class UserImpl extends EObjectImpl implements User {
             case PropertiesPackage.USER__AUTHENTICATION_INFO:
                 setAuthenticationInfo(AUTHENTICATION_INFO_EDEFAULT);
                 return;
+            case PropertiesPackage.USER__LDAP_LOGIN:
+                setLdapLogin(LDAP_LOGIN_EDEFAULT);
+                return;
             case PropertiesPackage.USER__LDAP_ID:
                 setLdapId(LDAP_ID_EDEFAULT);
                 return;
@@ -1272,6 +1322,8 @@ public class UserImpl extends EObjectImpl implements User {
                 return studioConnexionNumber != STUDIO_CONNEXION_NUMBER_EDEFAULT;
             case PropertiesPackage.USER__AUTHENTICATION_INFO:
                 return AUTHENTICATION_INFO_EDEFAULT == null ? authenticationInfo != null : !AUTHENTICATION_INFO_EDEFAULT.equals(authenticationInfo);
+            case PropertiesPackage.USER__LDAP_LOGIN:
+                return LDAP_LOGIN_EDEFAULT == null ? ldapLogin != null : !LDAP_LOGIN_EDEFAULT.equals(ldapLogin);
             case PropertiesPackage.USER__LDAP_ID:
                 return LDAP_ID_EDEFAULT == null ? ldapId != null : !LDAP_ID_EDEFAULT.equals(ldapId);
             case PropertiesPackage.USER__LANGUAGE:
