@@ -6453,22 +6453,13 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_SERVER__WEB_CONSOLE_URL = 12;
 
     /**
-     * The feature id for the '<em><b>Bundle Conductor Url</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_SERVER__BUNDLE_CONDUCTOR_URL = 13;
-
-    /**
      * The feature id for the '<em><b>Talend Runtime</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_SERVER__TALEND_RUNTIME = 14;
+    int EXECUTION_SERVER__TALEND_RUNTIME = 13;
 
     /**
      * The number of structural features of the '<em>Execution Server</em>' class.
@@ -6477,7 +6468,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_SERVER_FEATURE_COUNT = 15;
+    int EXECUTION_SERVER_FEATURE_COUNT = 14;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -10689,17 +10680,6 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getExecutionServer_WebConsoleUrl();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionServer#getBundleConductorUrl <em>Bundle Conductor Url</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Bundle Conductor Url</em>'.
-     * @see org.talend.core.model.properties.ExecutionServer#getBundleConductorUrl()
-     * @see #getExecutionServer()
-     * @generated
-     */
-    EAttribute getExecutionServer_BundleConductorUrl();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionServer#isTalendRuntime <em>Talend Runtime</em>}'.
@@ -15973,14 +15953,6 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute EXECUTION_SERVER__WEB_CONSOLE_URL = eINSTANCE.getExecutionServer_WebConsoleUrl();
-
-        /**
-         * The meta object literal for the '<em><b>Bundle Conductor Url</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute EXECUTION_SERVER__BUNDLE_CONDUCTOR_URL = eINSTANCE.getExecutionServer_BundleConductorUrl();
 
         /**
          * The meta object literal for the '<em><b>Talend Runtime</b></em>' attribute feature.

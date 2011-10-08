@@ -30,7 +30,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#getPassword <em>Password</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#getJmxUrl <em>Jmx Url</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#getWebConsoleUrl <em>Web Console Url</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ExecutionServer#getBundleConductorUrl <em>Bundle Conductor Url</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#isTalendRuntime <em>Talend Runtime</em>}</li>
  * </ul>
  * </p>
@@ -382,32 +381,6 @@ public interface ExecutionServer extends EObject {
      * @generated
      */
     void setWebConsoleUrl(String value);
-
-    /**
-     * Returns the value of the '<em><b>Bundle Conductor Url</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Bundle Conductor Url</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Bundle Conductor Url</em>' attribute.
-     * @see #setBundleConductorUrl(String)
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionServer_BundleConductorUrl()
-     * @model
-     * @generated
-     */
-    String getBundleConductorUrl();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionServer#getBundleConductorUrl <em>Bundle Conductor Url</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Bundle Conductor Url</em>' attribute.
-     * @see #getBundleConductorUrl()
-     * @generated
-     */
-    void setBundleConductorUrl(String value);
 
     /**
      * Returns the value of the '<em><b>Talend Runtime</b></em>' attribute.
