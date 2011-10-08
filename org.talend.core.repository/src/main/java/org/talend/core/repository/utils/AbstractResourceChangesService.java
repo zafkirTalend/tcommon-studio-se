@@ -15,6 +15,7 @@ package org.talend.core.repository.utils;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.core.IService;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
@@ -64,5 +65,14 @@ public class AbstractResourceChangesService implements IService {
      * @param newVersion
      */
     public void updateDependeciesWhenVersionChange(ConnectionItem connItem, String oldVersion, String newVersion) {
+    }
+
+    /**
+     * 
+     * DOC gdbu Comment method "updateDependeciesWhenMoveFolder".
+     * 
+     * @throws PersistenceException
+     */
+    public void updateDependeciesWhenMoveFolder(Item item) throws PersistenceException {
     }
 }

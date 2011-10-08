@@ -1188,6 +1188,27 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 emfFolder.getChildren().remove(childrens[i]);
                 newFolder.getChildren().add(childrens[i]);
                 childrens[i].setParent(newFolder);
+
+                // MDO gdbu 2011-9-29 TDQ-3546
+                List<Resource> affectedResources = xmiResourceManager.getAffectedResources(childrens[i].getProperty());
+
+                for (Resource resource : affectedResources) {
+                    IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath)
+                            .append(resource.getURI().lastSegment());
+                    xmiResourceManager.moveResource(resource, path);
+                }
+
+                affectedResources = xmiResourceManager.getAffectedResources(childrens[i].getProperty());
+                for (Resource resource : affectedResources) {
+                    xmiResourceManager.saveResource(resource);
+                }
+
+                AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
+                        AbstractResourceChangesService.class);
+                if (resChangeService != null) {
+                    resChangeService.updateDependeciesWhenMoveFolder(childrens[i]);
+                }
+                // ~TDQ-3546
             }
         }
 

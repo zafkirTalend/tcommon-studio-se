@@ -21,6 +21,8 @@ import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
+import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryManager;
@@ -28,6 +30,8 @@ import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.model.repositoryObject.MetadataTableRepositoryObject;
 import org.talend.core.repository.ui.actions.metadata.CopyToGenericSchemaHelper;
+import org.talend.core.repository.utils.AbstractResourceChangesService;
+import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
@@ -264,6 +268,23 @@ public class MoveObjectAction {
                     if (isGenericSchema) {
                         CopyToGenericSchemaHelper.copyToGenericSchema(factory, objectToMove, targetPath);
                     } else {
+                        // MOD gdbu 2011-9-29 TDQ-3546
+                        ERepositoryObjectType repositoryObjectType = objectToMove.getRepositoryObjectType();
+                        if (repositoryObjectType == ERepositoryObjectType.METADATA_CONNECTIONS
+                                || repositoryObjectType == ERepositoryObjectType.METADATA_FILE_DELIMITED
+                                || repositoryObjectType == ERepositoryObjectType.METADATA_MDMCONNECTION) {
+                            AbstractResourceChangesService resourceChangeService = TDQServiceRegister.getInstance()
+                                    .getResourceChangeService(AbstractResourceChangesService.class);
+                            Item item = objectToMove.getProperty() == null ? null : objectToMove.getProperty().getItem();
+                            if (null != resourceChangeService && null != item) {
+                                boolean handleResourceChange = resourceChangeService.handleResourceChange(((ConnectionItem) item)
+                                        .getConnection());
+                                if (!handleResourceChange) {
+                                    return;
+                                }
+                            }
+                        }
+                        // ~ TDQ-3546
                         factory.moveObject(objectToMove, targetPath, sourcePath);
                     }
 
