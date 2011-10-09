@@ -37,7 +37,7 @@ public enum EDatabaseDriver4Version {
     V5R2_V5R4("AS400", "V5R2 to V5R4", "jt400_V5R2.jar"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     INTERBASE("Interbase", null, "interclient.jar"), //$NON-NLS-1$ //$NON-NLS-2$
-    SQLITE("SQLite", null, "sqlitejdbc_v037_nested.jar"), //$NON-NLS-1$ //$NON-NLS-2$
+    SQLITE("SQLite", null, "sqlitejdbc-v056.jar"), //$NON-NLS-1$ //$NON-NLS-2$
     FIREBIRD("FireBird", null, "jaybird-full-2.1.1.jar"), //$NON-NLS-1$ //$NON-NLS-2$
     TERADATA("Teradata", null, "terajdbc4.jar;tdgssconfig.jar;tdgssjava.jar"), //$NON-NLS-1$ //$NON-NLS-2$
     JAVADB_DERBYCLIENT("JavaDB DerbyClient", null, "derbyclient.jar"), //$NON-NLS-1$ //$NON-NLS-2$
