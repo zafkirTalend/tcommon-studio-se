@@ -14,8 +14,11 @@ package org.talend.core.model.repository;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
@@ -24,6 +27,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.AbstractDQModelService;
 import org.talend.core.PluginChecker;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.BRMSConnectionItem;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.CSVFileConnectionItem;
@@ -68,6 +72,7 @@ import org.talend.core.model.properties.util.PropertiesSwitch;
 import org.talend.core.repository.IExtendRepositoryNode;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
+import org.talend.repository.ProjectManager;
 
 /**
  * DOC hywang class global comment. Detailled comment
@@ -429,6 +434,22 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     }
 
     public static <E> DynaEnum<? extends DynaEnum<?>>[] values() {
+        Project currentProject = ProjectManager.getInstance().getCurrentProject();
+        String projectType = null;
+        if (currentProject != null) {
+            projectType = currentProject.getEmfProject().getType();
+        }
+        if ("DI".equals(projectType)) {
+            // limit with DI items only.
+            List<ERepositoryObjectType> toReturn = new ArrayList<ERepositoryObjectType>();
+            for (ERepositoryObjectType currentType : values(ERepositoryObjectType.class)) {
+                if (ArrayUtils.contains(currentType.getProducts(), "DI")) {
+                    toReturn.add(currentType);
+                }
+            }
+            return toReturn.toArray(new ERepositoryObjectType[] {});
+
+        }
         return values(ERepositoryObjectType.class);
     }
 
