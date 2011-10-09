@@ -330,11 +330,25 @@ public final class DqRepositoryViewService {
         try {
             DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(connection,
                     ((DatabaseConnection) dataPloadTablesrovider).getDatabaseType());
+            // MOD msjian 2011-10-9 TDQ-3566: do not fill tables after existing
             if (schema != null) {
-                tables = MetadataFillFactory.getDBInstance().fillTables(schema, dm, null, tablePattern, tableType);
+                if (schema.getOwnedElement().size() == 0) {
+                    tables = MetadataFillFactory.getDBInstance().fillTables(schema, dm, null, tablePattern, tableType);
+                } else {
+                    MetadataFillFactory.getDBInstance().setLinked(false);
+                    tables = MetadataFillFactory.getDBInstance().fillTables(schema, dm, null, tablePattern, tableType);
+                    MetadataFillFactory.getDBInstance().setLinked(true);
+                }
             } else {
-                tables = MetadataFillFactory.getDBInstance().fillTables(catalog, dm, null, tablePattern, tableType);
+                if (catalog.getOwnedElement().size() == 0) {
+                    tables = MetadataFillFactory.getDBInstance().fillTables(catalog, dm, null, tablePattern, tableType);
+                } else {
+                    MetadataFillFactory.getDBInstance().setLinked(false);
+                    tables = MetadataFillFactory.getDBInstance().fillTables(catalog, dm, null, tablePattern, tableType);
+                    MetadataFillFactory.getDBInstance().setLinked(true);
+                }
             }
+            // TDQ-3566 ~
         } finally {
             ConnectionUtils.closeConnection(connection);
         }
@@ -358,11 +372,25 @@ public final class DqRepositoryViewService {
         DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(connection,
                 ((DatabaseConnection) dataProvider).getDatabaseType());
         try {
+            // MOD msjian 2011-10-9 TDQ-3566: do not fill views after existing
             if (schema != null) {
-                views = MetadataFillFactory.getDBInstance().fillViews(schema, dm, null, viewPattern);
+                if (schema.getOwnedElement().size() == 0) {
+                    views = MetadataFillFactory.getDBInstance().fillViews(schema, dm, null, viewPattern);
+                } else {
+                    MetadataFillFactory.getDBInstance().setLinked(false);
+                    views = MetadataFillFactory.getDBInstance().fillViews(schema, dm, null, viewPattern);
+                    MetadataFillFactory.getDBInstance().setLinked(true);
+                }
             } else {
-                views = MetadataFillFactory.getDBInstance().fillViews(catalog, dm, null, viewPattern);
+                if (catalog.getOwnedElement().size() == 0) {
+                    views = MetadataFillFactory.getDBInstance().fillViews(catalog, dm, null, viewPattern);
+                } else {
+                    MetadataFillFactory.getDBInstance().setLinked(false);
+                    views = MetadataFillFactory.getDBInstance().fillViews(catalog, dm, null, viewPattern);
+                    MetadataFillFactory.getDBInstance().setLinked(true);
+                }
             }
+            // TDQ-3566 ~
         } finally {
             ConnectionUtils.closeConnection(connection);
         }
