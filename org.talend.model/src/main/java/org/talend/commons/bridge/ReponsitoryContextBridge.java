@@ -48,7 +48,7 @@ public final class ReponsitoryContextBridge {
      * @return the projectDescription
      */
     public static String getProjectDescription() {
-        return (isDefautProject() || (project.getDescription() == null)) ? "EMPTY (TDQ)" : project.getDescription(); //$NON-NLS-1$
+        return (isDefautProject() || (project.getDescription() == null) || "".equals(project.getDescription().trim())) ? "EMPTY (TDQ)" : project.getDescription(); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**
