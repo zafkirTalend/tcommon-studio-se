@@ -51,7 +51,7 @@ public enum EDatabaseVersion4Drivers {
 
     //
     JAVADB_EMBEDED(new DbVersion4Drivers(EDatabaseTypeName.JAVADB_EMBEDED, "derby.jar")), //$NON-NLS-1$
-    SQLITE(new DbVersion4Drivers(EDatabaseTypeName.SQLITE, "sqlitejdbc_v037_nested.jar")), //$NON-NLS-1$
+    SQLITE(new DbVersion4Drivers(EDatabaseTypeName.SQLITE, "sqlitejdbc-v056.jar")), //$NON-NLS-1$
     FIREBIRD(new DbVersion4Drivers(EDatabaseTypeName.FIREBIRD, "jaybird-full-2.1.1.jar")), //$NON-NLS-1$
     TERADATA(new DbVersion4Drivers(EDatabaseTypeName.TERADATA,
             new String[] { "terajdbc4.jar", "tdgssconfig.jar", "tdgssjava.jar" })), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -230,7 +230,8 @@ public enum EDatabaseVersion4Drivers {
         for (EDatabaseVersion4Drivers v4d : EDatabaseVersion4Drivers.values()) {
             if (dbType != null) {
                 if (v4d.supportDatabase(dbType)) {
-                    if (version == null || v4d.getVersionValue() == null || version.equals("")) { // add all for this db type
+                    if (version == null || v4d.getVersionValue() == null || version.equals("")) { // add all for this db
+                                                                                                  // type
                         drivers.addAll(v4d.getProviderDrivers());
                     } else
                     // check both db type and version value.
