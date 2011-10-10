@@ -205,6 +205,11 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
     }
 
     @Override
+    public String getIdentifierQuoteString() throws SQLException {
+        return "\""; //$NON-NLS-1$ 
+    }
+
+    @Override
     public boolean supportsSchemasInIndexDefinitions() throws SQLException {
         return true;
     }
@@ -280,4 +285,5 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
         tableResultSet.setData(list);
         return tableResultSet;
     }
+
 }
