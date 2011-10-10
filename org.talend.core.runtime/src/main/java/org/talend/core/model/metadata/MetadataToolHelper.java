@@ -590,6 +590,14 @@ public final class MetadataToolHelper {
     }
 
     public static org.talend.core.model.metadata.builder.connection.Connection getConnectionFromRepository(String metaRepositoryid) {
+        ConnectionItem connItem = getConnectionItemFromRepository(metaRepositoryid);
+        if (connItem != null) {
+            return connItem.getConnection();
+        }
+        return null;
+    }
+
+    public static ConnectionItem getConnectionItemFromRepository(String metaRepositoryid) {
         String connectionId = metaRepositoryid;
         // some calls can be done either with only the connection Id or with
         // informations from query or table
@@ -605,7 +613,10 @@ public final class MetadataToolHelper {
                 return null;
             }
             if (factory.getStatus(object) != ERepositoryStatus.DELETED) {
-                return ((ConnectionItem) object.getProperty().getItem()).getConnection();
+                Item item = object.getProperty().getItem();
+                if (item instanceof ConnectionItem) {
+                    return (ConnectionItem) item;
+                }
             }
         } catch (PersistenceException e) {
             throw new RuntimeException(e);

@@ -42,7 +42,6 @@ import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.internal.PluginActionContributionItem;
-import org.eclipse.ui.internal.SaveAllAction;
 import org.eclipse.ui.internal.WorkbenchMessages;
 import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.internal.actions.CommandAction;
@@ -266,27 +265,29 @@ public class ActionBarBuildHelper implements IActionBarHelper {
                 if (window == null) {
                     throw new IllegalArgumentException();
                 }
-                IWorkbenchAction action = new SaveAllAction(window) {
+                WorkbenchCommandAction action = new WorkbenchCommandAction(getCommandId(), window) {
 
-                    public void doRun() {
-                        super.run();
+                    public void doRun(final Event event) {
+                        super.runWithEvent(event);
                     }
 
                     @Override
-                    public void run() {
+                    public void runWithEvent(final Event event) {
                         RepositoryWorkUnit rwu = new RepositoryWorkUnit("Save All") {
 
                             @Override
                             protected void run() throws LoginException, PersistenceException {
-                                doRun();
+                                doRun(event);
                             }
                         };
                         rwu.setAvoidUnloadResources(true);
                         ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(rwu);
                     }
-
                 };
+
                 action.setId(getId());
+                action.setText(WorkbenchMessages.SaveAll_text);
+                action.setToolTipText(WorkbenchMessages.SaveAll_toolTip);
                 return action;
             }
         };
