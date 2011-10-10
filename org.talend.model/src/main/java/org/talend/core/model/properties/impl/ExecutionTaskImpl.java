@@ -22,6 +22,7 @@ import org.talend.core.model.properties.ExecutionServer;
 import org.talend.core.model.properties.ExecutionTask;
 import org.talend.core.model.properties.ExecutionTaskCmdPrm;
 import org.talend.core.model.properties.ExecutionTaskJobPrm;
+import org.talend.core.model.properties.ExecutionTaskProperties;
 import org.talend.core.model.properties.ExecutionVirtualServer;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
@@ -58,6 +59,7 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getLastDeploymentDate <em>Last Deployment Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getLastEndedRunDate <em>Last Ended Run Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getCmdPrms <em>Cmd Prms</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getEsbPropertiesPrms <em>Esb Properties Prms</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getJobPrms <em>Job Prms</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getJobId <em>Job Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getVirtualServer <em>Virtual Server</em>}</li>
@@ -560,6 +562,16 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * @ordered
      */
     protected EList cmdPrms;
+
+    /**
+     * The cached value of the '{@link #getEsbPropertiesPrms() <em>Esb Properties Prms</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getEsbPropertiesPrms()
+     * @generated
+     * @ordered
+     */
+    protected EList esbPropertiesPrms;
 
     /**
      * The cached value of the '{@link #getJobPrms() <em>Job Prms</em>}' containment reference list.
@@ -1477,6 +1489,18 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EList getEsbPropertiesPrms() {
+        if (esbPropertiesPrms == null) {
+            esbPropertiesPrms = new EObjectContainmentWithInverseEList(ExecutionTaskProperties.class, this, PropertiesPackage.EXECUTION_TASK__ESB_PROPERTIES_PRMS, PropertiesPackage.EXECUTION_TASK_PROPERTIES__EXECUTION_TASK);
+        }
+        return esbPropertiesPrms;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1957,6 +1981,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return ((InternalEList)getTriggers()).basicAdd(otherEnd, msgs);
             case PropertiesPackage.EXECUTION_TASK__CMD_PRMS:
                 return ((InternalEList)getCmdPrms()).basicAdd(otherEnd, msgs);
+            case PropertiesPackage.EXECUTION_TASK__ESB_PROPERTIES_PRMS:
+                return ((InternalEList)getEsbPropertiesPrms()).basicAdd(otherEnd, msgs);
             case PropertiesPackage.EXECUTION_TASK__JOB_PRMS:
                 return ((InternalEList)getJobPrms()).basicAdd(otherEnd, msgs);
         }
@@ -1973,6 +1999,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return ((InternalEList)getTriggers()).basicRemove(otherEnd, msgs);
             case PropertiesPackage.EXECUTION_TASK__CMD_PRMS:
                 return ((InternalEList)getCmdPrms()).basicRemove(otherEnd, msgs);
+            case PropertiesPackage.EXECUTION_TASK__ESB_PROPERTIES_PRMS:
+                return ((InternalEList)getEsbPropertiesPrms()).basicRemove(otherEnd, msgs);
             case PropertiesPackage.EXECUTION_TASK__JOB_PRMS:
                 return ((InternalEList)getJobPrms()).basicRemove(otherEnd, msgs);
         }
@@ -2039,6 +2067,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return getLastEndedRunDate();
             case PropertiesPackage.EXECUTION_TASK__CMD_PRMS:
                 return getCmdPrms();
+            case PropertiesPackage.EXECUTION_TASK__ESB_PROPERTIES_PRMS:
+                return getEsbPropertiesPrms();
             case PropertiesPackage.EXECUTION_TASK__JOB_PRMS:
                 return getJobPrms();
             case PropertiesPackage.EXECUTION_TASK__JOB_ID:
@@ -2173,6 +2203,10 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__CMD_PRMS:
                 getCmdPrms().clear();
                 getCmdPrms().addAll((Collection)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__ESB_PROPERTIES_PRMS:
+                getEsbPropertiesPrms().clear();
+                getEsbPropertiesPrms().addAll((Collection)newValue);
                 return;
             case PropertiesPackage.EXECUTION_TASK__JOB_PRMS:
                 getJobPrms().clear();
@@ -2329,6 +2363,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__CMD_PRMS:
                 getCmdPrms().clear();
                 return;
+            case PropertiesPackage.EXECUTION_TASK__ESB_PROPERTIES_PRMS:
+                getEsbPropertiesPrms().clear();
+                return;
             case PropertiesPackage.EXECUTION_TASK__JOB_PRMS:
                 getJobPrms().clear();
                 return;
@@ -2457,6 +2494,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return LAST_ENDED_RUN_DATE_EDEFAULT == null ? lastEndedRunDate != null : !LAST_ENDED_RUN_DATE_EDEFAULT.equals(lastEndedRunDate);
             case PropertiesPackage.EXECUTION_TASK__CMD_PRMS:
                 return cmdPrms != null && !cmdPrms.isEmpty();
+            case PropertiesPackage.EXECUTION_TASK__ESB_PROPERTIES_PRMS:
+                return esbPropertiesPrms != null && !esbPropertiesPrms.isEmpty();
             case PropertiesPackage.EXECUTION_TASK__JOB_PRMS:
                 return jobPrms != null && !jobPrms.isEmpty();
             case PropertiesPackage.EXECUTION_TASK__JOB_ID:

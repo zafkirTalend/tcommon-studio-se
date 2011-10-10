@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getLastDeploymentDate <em>Last Deployment Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getLastEndedRunDate <em>Last Ended Run Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getCmdPrms <em>Cmd Prms</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getEsbPropertiesPrms <em>Esb Properties Prms</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getJobPrms <em>Job Prms</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getJobId <em>Job Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getVirtualServer <em>Virtual Server</em>}</li>
@@ -539,6 +540,24 @@ public interface ExecutionTask extends ExecutionTriggerable {
      * @generated
      */
     EList getCmdPrms();
+
+    /**
+     * Returns the value of the '<em><b>Esb Properties Prms</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.core.model.properties.ExecutionTaskProperties}.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.ExecutionTaskProperties#getExecutionTask <em>Execution Task</em>}'.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Esb Properties Prms</em>' containment reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Esb Properties Prms</em>' containment reference list.
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_EsbPropertiesPrms()
+     * @see org.talend.core.model.properties.ExecutionTaskProperties#getExecutionTask
+     * @model type="org.talend.core.model.properties.ExecutionTaskProperties" opposite="executionTask" containment="true" ordered="false"
+     * @generated
+     */
+    EList getEsbPropertiesPrms();
 
     /**
      * Returns the value of the '<em><b>Job Prms</b></em>' containment reference list. The list contents are of type

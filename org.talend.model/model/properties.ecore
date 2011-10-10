@@ -418,6 +418,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastEndedRunDate" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EDate"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cmdPrms" ordered="false"
         upperBound="-1" eType="#//ExecutionTaskCmdPrm" containment="true" eOpposite="#//ExecutionTaskCmdPrm/executionTask"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="esbPropertiesPrms" ordered="false"
+        upperBound="-1" eType="#//ExecutionTaskProperties" containment="true" eOpposite="#//ExecutionTaskProperties/executionTask"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="jobPrms" ordered="false"
         upperBound="-1" eType="#//ExecutionTaskJobPrm" containment="true" eOpposite="#//ExecutionTaskJobPrm/executionTask"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="jobId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -453,7 +455,8 @@
         iD="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="executionTask" eType="#//ExecutionTask"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="executionTask" eType="#//ExecutionTask"
+        eOpposite="#//ExecutionTask/esbPropertiesPrms"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExecutionTaskCmdPrm">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"

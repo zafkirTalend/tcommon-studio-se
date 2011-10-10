@@ -4370,13 +4370,22 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK__CMD_PRMS = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 18;
 
     /**
+     * The feature id for the '<em><b>Esb Properties Prms</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__ESB_PROPERTIES_PRMS = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 19;
+
+    /**
      * The feature id for the '<em><b>Job Prms</b></em>' containment reference list.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__JOB_PRMS = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 19;
+    int EXECUTION_TASK__JOB_PRMS = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 20;
 
     /**
      * The feature id for the '<em><b>Job Id</b></em>' attribute.
@@ -4384,7 +4393,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__JOB_ID = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 20;
+    int EXECUTION_TASK__JOB_ID = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 21;
 
     /**
      * The feature id for the '<em><b>Virtual Server</b></em>' reference.
@@ -4392,7 +4401,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__VIRTUAL_SERVER = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 21;
+    int EXECUTION_TASK__VIRTUAL_SERVER = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 22;
 
     /**
      * The feature id for the '<em><b>Max Concurrent Executions</b></em>' attribute.
@@ -4401,7 +4410,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 22;
+    int EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 23;
 
     /**
      * The feature id for the '<em><b>Generated Project Name</b></em>' attribute.
@@ -4410,7 +4419,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__GENERATED_PROJECT_NAME = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 23;
+    int EXECUTION_TASK__GENERATED_PROJECT_NAME = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 24;
 
     /**
      * The feature id for the '<em><b>Generated Job Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -4419,7 +4428,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__GENERATED_JOB_NAME = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 24;
+    int EXECUTION_TASK__GENERATED_JOB_NAME = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 25;
 
     /**
      * The feature id for the '<em><b>Generated Job Version</b></em>' attribute.
@@ -4428,7 +4437,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__GENERATED_JOB_VERSION = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 25;
+    int EXECUTION_TASK__GENERATED_JOB_VERSION = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 26;
 
     /**
      * The feature id for the '<em><b>Apply Context To Children</b></em>' attribute.
@@ -4437,7 +4446,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 26;
+    int EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 27;
 
     /**
      * The feature id for the '<em><b>Error Stack Trace</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -4446,7 +4455,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ERROR_STACK_TRACE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 27;
+    int EXECUTION_TASK__ERROR_STACK_TRACE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 28;
 
     /**
      * The feature id for the '<em><b>Last Triggering Date</b></em>' attribute.
@@ -4455,7 +4464,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__LAST_TRIGGERING_DATE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 28;
+    int EXECUTION_TASK__LAST_TRIGGERING_DATE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 29;
 
     /**
      * The feature id for the '<em><b>Exec Statistics Enabled</b></em>' attribute.
@@ -4464,7 +4473,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__EXEC_STATISTICS_ENABLED = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 29;
+    int EXECUTION_TASK__EXEC_STATISTICS_ENABLED = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 30;
 
     /**
      * The feature id for the '<em><b>Add Statistics Code Enabled</b></em>' attribute.
@@ -4473,7 +4482,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ADD_STATISTICS_CODE_ENABLED = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 30;
+    int EXECUTION_TASK__ADD_STATISTICS_CODE_ENABLED = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 31;
 
     /**
      * The feature id for the '<em><b>Owner Scheduler Instance Id</b></em>' attribute.
@@ -4482,7 +4491,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__OWNER_SCHEDULER_INSTANCE_ID = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 31;
+    int EXECUTION_TASK__OWNER_SCHEDULER_INSTANCE_ID = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 32;
 
     /**
      * The feature id for the '<em><b>On Unknown State Job</b></em>' attribute.
@@ -4491,7 +4500,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ON_UNKNOWN_STATE_JOB = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 32;
+    int EXECUTION_TASK__ON_UNKNOWN_STATE_JOB = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 33;
 
     /**
      * The feature id for the '<em><b>Use Latest Version</b></em>' attribute.
@@ -4500,7 +4509,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__USE_LATEST_VERSION = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 33;
+    int EXECUTION_TASK__USE_LATEST_VERSION = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 34;
 
     /**
      * The feature id for the '<em><b>Application Type</b></em>' attribute.
@@ -4509,7 +4518,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__APPLICATION_TYPE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 34;
+    int EXECUTION_TASK__APPLICATION_TYPE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 35;
 
     /**
      * The feature id for the '<em><b>Features File Repository Url</b></em>' attribute.
@@ -4518,7 +4527,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__FEATURES_FILE_REPOSITORY_URL = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 35;
+    int EXECUTION_TASK__FEATURES_FILE_REPOSITORY_URL = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 36;
 
     /**
      * The feature id for the '<em><b>Features File Url</b></em>' attribute.
@@ -4527,7 +4536,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__FEATURES_FILE_URL = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 36;
+    int EXECUTION_TASK__FEATURES_FILE_URL = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 37;
 
     /**
      * The feature id for the '<em><b>Feature Name</b></em>' attribute.
@@ -4536,7 +4545,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__FEATURE_NAME = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 37;
+    int EXECUTION_TASK__FEATURE_NAME = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 38;
 
     /**
      * The feature id for the '<em><b>Feature Version</b></em>' attribute.
@@ -4545,7 +4554,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__FEATURE_VERSION = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 38;
+    int EXECUTION_TASK__FEATURE_VERSION = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 39;
 
     /**
      * The feature id for the '<em><b>Application Group</b></em>' attribute.
@@ -4554,7 +4563,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__APPLICATION_GROUP = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 39;
+    int EXECUTION_TASK__APPLICATION_GROUP = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 40;
 
     /**
      * The feature id for the '<em><b>Bundle Name</b></em>' attribute.
@@ -4563,7 +4572,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__BUNDLE_NAME = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 40;
+    int EXECUTION_TASK__BUNDLE_NAME = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 41;
 
     /**
      * The number of structural features of the '<em>Execution Task</em>' class.
@@ -4572,7 +4581,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_FEATURE_COUNT = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 41;
+    int EXECUTION_TASK_FEATURE_COUNT = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 42;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionTaskPropertiesImpl <em>Execution Task Properties</em>}' class.
@@ -4612,7 +4621,7 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK_PROPERTIES__VALUE = 2;
 
     /**
-     * The feature id for the '<em><b>Execution Task</b></em>' reference.
+     * The feature id for the '<em><b>Execution Task</b></em>' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -10982,6 +10991,17 @@ public interface PropertiesPackage extends EPackage {
     EReference getExecutionTask_CmdPrms();
 
     /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.properties.ExecutionTask#getEsbPropertiesPrms <em>Esb Properties Prms</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Esb Properties Prms</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getEsbPropertiesPrms()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EReference getExecutionTask_EsbPropertiesPrms();
+
+    /**
      * Returns the meta object for the containment reference list '{@link org.talend.core.model.properties.ExecutionTask#getJobPrms <em>Job Prms</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -11264,10 +11284,10 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionTaskProperties_Value();
 
     /**
-     * Returns the meta object for the reference '{@link org.talend.core.model.properties.ExecutionTaskProperties#getExecutionTask <em>Execution Task</em>}'.
+     * Returns the meta object for the container reference '{@link org.talend.core.model.properties.ExecutionTaskProperties#getExecutionTask <em>Execution Task</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Execution Task</em>'.
+     * @return the meta object for the container reference '<em>Execution Task</em>'.
      * @see org.talend.core.model.properties.ExecutionTaskProperties#getExecutionTask()
      * @see #getExecutionTaskProperties()
      * @generated
@@ -16236,6 +16256,14 @@ public interface PropertiesPackage extends EPackage {
         EReference EXECUTION_TASK__CMD_PRMS = eINSTANCE.getExecutionTask_CmdPrms();
 
         /**
+         * The meta object literal for the '<em><b>Esb Properties Prms</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference EXECUTION_TASK__ESB_PROPERTIES_PRMS = eINSTANCE.getExecutionTask_EsbPropertiesPrms();
+
+        /**
          * The meta object literal for the '<em><b>Job Prms</b></em>' containment reference list feature. <!--
          * begin-user-doc --> <!-- end-user-doc -->
          * 
@@ -16446,7 +16474,7 @@ public interface PropertiesPackage extends EPackage {
         EAttribute EXECUTION_TASK_PROPERTIES__VALUE = eINSTANCE.getExecutionTaskProperties_Value();
 
         /**
-         * The meta object literal for the '<em><b>Execution Task</b></em>' reference feature.
+         * The meta object literal for the '<em><b>Execution Task</b></em>' container reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated

@@ -8,12 +8,14 @@ package org.talend.core.model.properties.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.core.model.properties.ExecutionTask;
 import org.talend.core.model.properties.ExecutionTaskProperties;
 import org.talend.core.model.properties.PropertiesPackage;
@@ -94,16 +96,6 @@ public class ExecutionTaskPropertiesImpl extends EObjectImpl implements Executio
      * @ordered
      */
     protected String value = VALUE_EDEFAULT;
-
-    /**
-     * The cached value of the '{@link #getExecutionTask() <em>Execution Task</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getExecutionTask()
-     * @generated
-     * @ordered
-     */
-    protected ExecutionTask executionTask;
 
     /**
      * <!-- begin-user-doc -->
@@ -192,15 +184,8 @@ public class ExecutionTaskPropertiesImpl extends EObjectImpl implements Executio
      * @generated
      */
     public ExecutionTask getExecutionTask() {
-        if (executionTask != null && executionTask.eIsProxy()) {
-            InternalEObject oldExecutionTask = (InternalEObject)executionTask;
-            executionTask = (ExecutionTask)eResolveProxy(oldExecutionTask);
-            if (executionTask != oldExecutionTask) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.EXECUTION_TASK_PROPERTIES__EXECUTION_TASK, oldExecutionTask, executionTask));
-            }
-        }
-        return executionTask;
+        if (eContainerFeatureID() != PropertiesPackage.EXECUTION_TASK_PROPERTIES__EXECUTION_TASK) return null;
+        return (ExecutionTask)eContainer();
     }
 
     /**
@@ -208,8 +193,9 @@ public class ExecutionTaskPropertiesImpl extends EObjectImpl implements Executio
      * <!-- end-user-doc -->
      * @generated
      */
-    public ExecutionTask basicGetExecutionTask() {
-        return executionTask;
+    public NotificationChain basicSetExecutionTask(ExecutionTask newExecutionTask, NotificationChain msgs) {
+        msgs = eBasicSetContainer((InternalEObject)newExecutionTask, PropertiesPackage.EXECUTION_TASK_PROPERTIES__EXECUTION_TASK, msgs);
+        return msgs;
     }
 
     /**
@@ -218,10 +204,60 @@ public class ExecutionTaskPropertiesImpl extends EObjectImpl implements Executio
      * @generated
      */
     public void setExecutionTask(ExecutionTask newExecutionTask) {
-        ExecutionTask oldExecutionTask = executionTask;
-        executionTask = newExecutionTask;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK_PROPERTIES__EXECUTION_TASK, oldExecutionTask, executionTask));
+        if (newExecutionTask != eInternalContainer() || (eContainerFeatureID() != PropertiesPackage.EXECUTION_TASK_PROPERTIES__EXECUTION_TASK && newExecutionTask != null)) {
+            if (EcoreUtil.isAncestor(this, newExecutionTask))
+                throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+            NotificationChain msgs = null;
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            if (newExecutionTask != null)
+                msgs = ((InternalEObject)newExecutionTask).eInverseAdd(this, PropertiesPackage.EXECUTION_TASK__ESB_PROPERTIES_PRMS, ExecutionTask.class, msgs);
+            msgs = basicSetExecutionTask(newExecutionTask, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK_PROPERTIES__EXECUTION_TASK, newExecutionTask, newExecutionTask));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case PropertiesPackage.EXECUTION_TASK_PROPERTIES__EXECUTION_TASK:
+                if (eInternalContainer() != null)
+                    msgs = eBasicRemoveFromContainer(msgs);
+                return basicSetExecutionTask((ExecutionTask)otherEnd, msgs);
+        }
+        return super.eInverseAdd(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case PropertiesPackage.EXECUTION_TASK_PROPERTIES__EXECUTION_TASK:
+                return basicSetExecutionTask(null, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+        switch (eContainerFeatureID()) {
+            case PropertiesPackage.EXECUTION_TASK_PROPERTIES__EXECUTION_TASK:
+                return eInternalContainer().eInverseRemove(this, PropertiesPackage.EXECUTION_TASK__ESB_PROPERTIES_PRMS, ExecutionTask.class, msgs);
+        }
+        return super.eBasicRemoveFromContainerFeature(msgs);
     }
 
     /**
@@ -238,8 +274,7 @@ public class ExecutionTaskPropertiesImpl extends EObjectImpl implements Executio
             case PropertiesPackage.EXECUTION_TASK_PROPERTIES__VALUE:
                 return getValue();
             case PropertiesPackage.EXECUTION_TASK_PROPERTIES__EXECUTION_TASK:
-                if (resolve) return getExecutionTask();
-                return basicGetExecutionTask();
+                return getExecutionTask();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -304,7 +339,7 @@ public class ExecutionTaskPropertiesImpl extends EObjectImpl implements Executio
             case PropertiesPackage.EXECUTION_TASK_PROPERTIES__VALUE:
                 return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
             case PropertiesPackage.EXECUTION_TASK_PROPERTIES__EXECUTION_TASK:
-                return executionTask != null;
+                return getExecutionTask() != null;
         }
         return super.eIsSet(featureID);
     }
