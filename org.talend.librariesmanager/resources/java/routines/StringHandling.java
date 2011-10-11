@@ -78,7 +78,7 @@ public class StringHandling {
         if (oldStr == null || newStr == null || replacement == null)
         	return oldStr;
         else 
-        	return oldStr.replaceAll(newStr, replacement);
+        	return oldStr.replace(newStr, replacement);
     }
 
     /**
