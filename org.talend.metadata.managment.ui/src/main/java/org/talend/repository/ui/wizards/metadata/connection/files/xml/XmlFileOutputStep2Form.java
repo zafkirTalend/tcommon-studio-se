@@ -26,10 +26,12 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.ICellEditorListener;
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
@@ -42,6 +44,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Item;
@@ -56,10 +59,10 @@ import org.talend.commons.ui.swt.drawing.link.IExtremityLink;
 import org.talend.commons.ui.swt.drawing.link.LinkDescriptor;
 import org.talend.commons.ui.swt.drawing.link.LinksManager;
 import org.talend.commons.ui.swt.formtools.Form;
+import org.talend.commons.xml.XmlUtil;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
-import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.XMLFileNode;
@@ -100,6 +103,10 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
     private SashForm mainSashFormComposite;
 
     private Button schemaButton;
+
+    private ComboViewer rootComboViewer;
+
+    private Combo rootCombo;
 
     private TableViewer schemaViewer;
 
@@ -172,6 +179,27 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
         schemaViewer.refresh();
     }
 
+    private void initRootCombo() {
+        List<FOXTreeNode> rootFoxTreeNodes = ((XmlFileWizard) getPage().getWizard()).getRootFoxTreeNodes();
+        if (rootFoxTreeNodes != null) {
+            rootComboViewer.setInput(rootFoxTreeNodes);
+            XMLFileNode selectedNode = getConnection().getRoot().get(0);
+            int selectIndex = 0;
+            String xmlPath = selectedNode.getXMLPath();
+            if (xmlPath != null && xmlPath.length() > 0) {
+                xmlPath = xmlPath.substring(1);
+                for (int i = 0; i < rootFoxTreeNodes.size(); i++) {
+                    FOXTreeNode foxTreeNode = rootFoxTreeNodes.get(i);
+                    if (xmlPath.equals(foxTreeNode.getLabel())) {
+                        selectIndex = i;
+                        break;
+                    }
+                }
+            }
+            rootComboViewer.getCombo().select(selectIndex);
+        }
+    }
+
     private void initLinker(TreeItem node, TableItem[] tableItems) {
         FOXTreeNode treeNode = (FOXTreeNode) node.getData();
         IMetadataColumn column = treeNode.getColumn();
@@ -207,6 +235,15 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
         Composite composite = new Composite(group, SWT.BORDER);
         composite.setLayout(new GridLayout());
         composite.setLayoutData(data);
+
+        rootComboViewer = new ComboViewer(composite, SWT.READ_ONLY);
+        FoxNodeComboViewProvider comboProvider = new FoxNodeComboViewProvider();
+        rootComboViewer.setLabelProvider(comboProvider);
+        rootComboViewer.setContentProvider(comboProvider);
+        rootCombo = rootComboViewer.getCombo();
+        GridData comboData = new GridData(SWT.FILL, SWT.CENTER, true, false);
+        rootCombo.setLayoutData(comboData);
+
         xmlViewer = new TreeViewer(composite, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION | SWT.MULTI);
         data = new GridData(GridData.FILL_BOTH);
         xmlViewer.getControl().setLayoutData(data);
@@ -314,6 +351,15 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
 
     }
 
+    private void displayRootCombo(boolean visible) {
+        if (rootCombo == null)
+            return;
+        rootCombo.setVisible(visible);
+        GridData layoutData = (GridData) rootCombo.getLayoutData();
+        layoutData.exclude = !visible;
+        rootCombo.getParent().layout();
+    }
+
     private void initToolBar(Composite parent) {
         // tool buttons
         Composite toolBarComp = new Composite(parent, SWT.BORDER);
@@ -387,7 +433,28 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
 
     @Override
     protected void addFieldsListeners() {
+        rootComboViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 
+            public void selectionChanged(SelectionChangedEvent event) {
+                IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+                FOXTreeNode node = (FOXTreeNode) selection.getFirstElement();
+                EList schemaMetadataColumn = ConnectionHelper.getTables(getConnection()).toArray(new MetadataTable[0])[0]
+                        .getColumns();
+                schemaMetadataColumn.clear();
+                List<FOXTreeNode> nodeList = new ArrayList<FOXTreeNode>();
+                nodeList.add(node);
+                initMetadataTable(nodeList, schemaMetadataColumn);
+                updateConnectionProperties(nodeList.get(0));
+                initXmlTreeData();
+                initSchemaTable();
+                xmlViewer.setInput(treeData);
+                xmlViewer.expandAll();
+                redrawLinkers();
+                if (!creation) {
+                    checkFieldsValue();
+                }
+            }
+        });
     }
 
     @Override
@@ -801,77 +868,6 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
 
     }
 
-    private void initNodeOrder(FOXTreeNode node) {
-        if (node == null) {
-            return;
-        }
-        FOXTreeNode parent = node.getParent();
-        if (parent == null) {
-            node.setOrder(1);
-            String path = TreeUtil.getPath(node);
-            orderMap.put(path, order);
-            order++;
-        }
-        List<FOXTreeNode> childNode = node.getChildren();
-        for (FOXTreeNode child : childNode) {
-            child.setOrder(order);
-            String path = TreeUtil.getPath(child);
-            orderMap.put(path, order);
-            order++;
-            if (child.getChildren().size() > 0) {
-                initNodeOrder(child);
-            }
-        }
-
-    }
-
-    private int getNodeOrder(FOXTreeNode node) {
-        if (node != null) {
-            String path = TreeUtil.getPath(node);
-            return orderMap.get(path);
-        }
-        return 0;
-    }
-
-    public void tableLoader(Element element, String parentPath, List<XMLFileNode> table, String defaultValue) {
-        XMLFileNode xmlFileNode = ConnectionFactory.eINSTANCE.createXMLFileNode();
-        String currentPath = parentPath + "/" + element.getLabel();
-        xmlFileNode.setXMLPath(currentPath);
-        xmlFileNode.setRelatedColumn(element.getColumnLabel());
-        xmlFileNode.setAttribute(element.isMain() ? "main" : "branch");
-        xmlFileNode.setDefaultValue(defaultValue);
-        xmlFileNode.setType(element.getDataType());
-        xmlFileNode.setOrder(getNodeOrder(element));
-        table.add(xmlFileNode);
-        for (FOXTreeNode att : element.getAttributeChildren()) {
-            xmlFileNode = ConnectionFactory.eINSTANCE.createXMLFileNode();
-            xmlFileNode.setXMLPath(att.getLabel());
-            xmlFileNode.setRelatedColumn(att.getColumnLabel());
-            xmlFileNode.setAttribute("attri");
-            xmlFileNode.setDefaultValue(att.getDefaultValue());
-            xmlFileNode.setType(att.getDataType());
-            xmlFileNode.setOrder(getNodeOrder(att));
-            table.add(xmlFileNode);
-        }
-        for (FOXTreeNode att : element.getNameSpaceChildren()) {
-            xmlFileNode = ConnectionFactory.eINSTANCE.createXMLFileNode();
-            xmlFileNode.setXMLPath(att.getLabel());
-            xmlFileNode.setRelatedColumn(att.getColumnLabel());
-            xmlFileNode.setAttribute("ns");
-            xmlFileNode.setDefaultValue(att.getDefaultValue());
-            xmlFileNode.setType(att.getDataType());
-            xmlFileNode.setOrder(getNodeOrder(att));
-            table.add(xmlFileNode);
-        }
-        List<FOXTreeNode> children = element.getElementChildren();
-        for (FOXTreeNode child : children) {
-            if (!child.isGroup() && !child.isLoop()) {
-                tableLoader((Element) child, currentPath, table, child.getDefaultValue());
-            }
-        }
-
-    }
-
     public void setSelectedText(String label) {
         selectedText = label;
     }
@@ -918,6 +914,11 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
         if (super.isVisible()) {
             initXmlTreeData();
             initSchemaTable();
+            boolean useXsd = isUseXsd();
+            displayRootCombo(useXsd);
+            if (useXsd) {
+                initRootCombo();
+            }
             xmlViewer.setInput(treeData);
             xmlViewer.expandAll();
             redrawLinkers();
@@ -925,6 +926,10 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
                 checkFieldsValue();
             }
         }
+    }
+
+    private boolean isUseXsd() {
+        return XmlUtil.isXSDFile(getConnection().getXmlFilePath());
     }
 
     /**

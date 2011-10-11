@@ -23,9 +23,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.nio.charset.Charset;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.apache.oro.text.regex.MalformedPatternException;
@@ -65,9 +64,7 @@ import org.talend.commons.xml.XmlUtil;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.EMetadataEncoding;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
-import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
-import org.talend.core.model.metadata.builder.connection.XMLFileNode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.utils.TalendQuoteUtils;
@@ -78,10 +75,8 @@ import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.ui.swt.utils.AbstractXmlFileStepForm;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.Element;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.StringUtil;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.TreeUtil;
 import orgomg.cwm.resource.record.RecordFactory;
 import orgomg.cwm.resource.record.RecordFile;
 
@@ -121,10 +116,6 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
     private boolean valid = true;
 
     private static final int WIDTH_GRIDDATA_PIXEL = 300;
-
-    private int order = 1;
-
-    private Map<String, Integer> orderMap = new HashMap<String, Integer>();
 
     private String tempXmlXsdPath;
 
@@ -257,34 +248,16 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
         fileContentText.setText("Filepath must be specified to show the Data file");
     }
 
-    private void initNodeOrder(FOXTreeNode node) {
-        if (node == null) {
-            return;
-        }
-        FOXTreeNode parent = node.getParent();
-        if (parent == null) {
-            node.setOrder(1);
-            String path = TreeUtil.getPath(node);
-            orderMap.put(path, order);
-            order++;
-        }
-        List<FOXTreeNode> childNode = node.getChildren();
-        for (FOXTreeNode child : childNode) {
-            child.setOrder(order);
-            String path = TreeUtil.getPath(child);
-            orderMap.put(path, order);
-            order++;
-            if (child.getChildren().size() > 0) {
-                initNodeOrder(child);
-            }
-        }
-    }
-
     private void updateConnection(String file) {
         if (file == null || "".equals(file)) {
             return;
         }
-        List<FOXTreeNode> nodeList = TreeUtil.getFoxTreeNodes(file);
+        List<FOXTreeNode> rootFoxTreeNodes = updateRootFoxTreeNodes(file);
+        if (rootFoxTreeNodes.size() == 0) {
+            return;
+        }
+        List<FOXTreeNode> nodeList = new ArrayList<FOXTreeNode>();
+        nodeList.add(rootFoxTreeNodes.get(0));
         if (ConnectionHelper.getTables(getConnection()).isEmpty()) {
             MetadataTable table = ConnectionFactory.eINSTANCE.createMetadataTable();
             RecordFile record = (RecordFile) ConnectionHelper.getPackage(getConnection().getName(), getConnection(),
@@ -301,97 +274,7 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
         EList schemaMetadataColumn = ConnectionHelper.getTables(getConnection()).toArray(new MetadataTable[0])[0].getColumns();
         schemaMetadataColumn.clear();
         initMetadataTable(nodeList, schemaMetadataColumn);
-        if (nodeList.isEmpty()) {
-            return;
-        }
-        FOXTreeNode foxTreeNode = nodeList.get(0);
-        EList root = getConnection().getRoot();
-        EList loop = getConnection().getLoop();
-        EList group = getConnection().getGroup();
-        root.clear();
-        loop.clear();
-        group.clear();
-        if (foxTreeNode != null) {
-            initNodeOrder(foxTreeNode);
-            tableLoader((Element) foxTreeNode, "", root, foxTreeNode.getDefaultValue());
-            Element loopNode = (Element) TreeUtil.getLoopNode(foxTreeNode);
-            if (loopNode != null) {
-                String path = TreeUtil.getPath(loopNode);
-                tableLoader(loopNode, path.substring(0, path.lastIndexOf("/")), loop, loopNode.getDefaultValue());
-            }
-            Element groupNode = (Element) TreeUtil.getGroupNode(foxTreeNode);
-            if (groupNode != null) {
-                String path = TreeUtil.getPath(groupNode);
-                tableLoader(groupNode, path.substring(0, path.lastIndexOf("/")), group, groupNode.getDefaultValue());
-            }
-        }
-    }
-
-    private void initMetadataTable(List<FOXTreeNode> list, EList columnList) {
-        for (FOXTreeNode node : list) {
-            if (node instanceof Element) {
-                String label = node.getLabel();
-                if (label != null && !label.equals("")) {
-                    String dataType = node.getDataType();
-                    MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
-                    metadataColumn.setLabel(label);
-                    metadataColumn.setOriginalField(label);
-                    metadataColumn.setTalendType(dataType);
-                    columnList.add(metadataColumn);
-                }
-            }
-            if (node.hasChildren()) {
-                List<FOXTreeNode> children = node.getChildren();
-                initMetadataTable(children, columnList);
-            }
-        }
-    }
-
-    private int getNodeOrder(FOXTreeNode node) {
-        if (node != null) {
-            String path = TreeUtil.getPath(node);
-            return orderMap.get(path);
-        }
-        return 0;
-    }
-
-    private void tableLoader(Element element, String parentPath, List<XMLFileNode> table, String defaultValue) {
-        XMLFileNode xmlFileNode = ConnectionFactory.eINSTANCE.createXMLFileNode();
-        String currentPath = parentPath + "/" + element.getLabel();
-        xmlFileNode.setXMLPath(currentPath);
-        xmlFileNode.setRelatedColumn(element.getColumnLabel());
-        xmlFileNode.setAttribute(element.isMain() ? "main" : "branch");
-        xmlFileNode.setDefaultValue(defaultValue);
-        xmlFileNode.setType(element.getDataType());
-        xmlFileNode.setOrder(getNodeOrder(element));
-        table.add(xmlFileNode);
-        for (FOXTreeNode att : element.getAttributeChildren()) {
-            xmlFileNode = ConnectionFactory.eINSTANCE.createXMLFileNode();
-            xmlFileNode.setXMLPath(att.getLabel());
-            xmlFileNode.setRelatedColumn(att.getColumnLabel());
-            xmlFileNode.setAttribute("attri");
-            xmlFileNode.setDefaultValue(att.getDefaultValue());
-            xmlFileNode.setType(att.getDataType());
-            xmlFileNode.setOrder(getNodeOrder(att));
-            table.add(xmlFileNode);
-        }
-        for (FOXTreeNode att : element.getNameSpaceChildren()) {
-            xmlFileNode = ConnectionFactory.eINSTANCE.createXMLFileNode();
-            xmlFileNode.setXMLPath(att.getLabel());
-            xmlFileNode.setRelatedColumn(att.getColumnLabel());
-            xmlFileNode.setAttribute("ns");
-            xmlFileNode.setDefaultValue(att.getDefaultValue());
-            xmlFileNode.setType(att.getDataType());
-            xmlFileNode.setOrder(getNodeOrder(att));
-            table.add(xmlFileNode);
-        }
-        List<FOXTreeNode> children = element.getElementChildren();
-        for (FOXTreeNode child : children) {
-            if (!child.isGroup() && !child.isLoop()) {
-                tableLoader((Element) child, currentPath, table, child.getDefaultValue());
-            }
-        }
-
+        updateConnectionProperties(nodeList.get(0));
     }
 
     @Override
@@ -422,6 +305,7 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
 
             public void modifyText(ModifyEvent event) {
                 String text = xmlXsdFilePath.getText();
+                updateRootFoxTreeNodes(text);
                 if (isContextMode()) {
                     ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(
                             connectionItem.getConnection(), true);

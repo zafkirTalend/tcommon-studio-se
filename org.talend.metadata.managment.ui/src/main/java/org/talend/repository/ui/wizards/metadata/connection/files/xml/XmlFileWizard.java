@@ -77,6 +77,7 @@ import org.talend.repository.ui.utils.ShadowProcessHelper;
 import org.talend.repository.ui.wizards.CheckLastVersionRepositoryWizard;
 import org.talend.repository.ui.wizards.PropertiesWizardPage;
 import org.talend.repository.ui.wizards.metadata.connection.Step0WizardPage;
+import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.CopyDeleteFileUtilForWizard;
 import orgomg.cwm.resource.record.RecordFactory;
 import orgomg.cwm.resource.record.RecordFile;
@@ -102,6 +103,8 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
     private XmlFileConnectionItem connectionItem;
 
     private List<IWizardPage> dynamicWizardPages;
+
+    private List<FOXTreeNode> rootFoxTreeNodes;
 
     private boolean isToolbar;
 
@@ -683,6 +686,14 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
 
     public void setDynamicWizardPages(List<IWizardPage> dynamicWizardPages) {
         this.dynamicWizardPages = dynamicWizardPages;
+    }
+
+    public List<FOXTreeNode> getRootFoxTreeNodes() {
+        return this.rootFoxTreeNodes;
+    }
+
+    public void setRootFoxTreeNodes(List<FOXTreeNode> rootFoxTreeNodes) {
+        this.rootFoxTreeNodes = rootFoxTreeNodes;
     }
 
     public IWizardPage getCurrentPage() {

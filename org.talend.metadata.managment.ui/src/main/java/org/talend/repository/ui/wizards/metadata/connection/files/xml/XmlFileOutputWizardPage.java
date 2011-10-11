@@ -46,6 +46,7 @@ public class XmlFileOutputWizardPage extends XmlFileWizardPage {
         }
 
         currentComposite.setReadOnly(!isRepositoryObjectEditable);
+        currentComposite.setPage(this);
 
         AbstractForm.ICheckListener listener = new AbstractForm.ICheckListener() {
 

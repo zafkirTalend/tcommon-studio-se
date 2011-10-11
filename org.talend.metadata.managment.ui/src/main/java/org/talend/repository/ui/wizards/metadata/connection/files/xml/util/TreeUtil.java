@@ -393,6 +393,30 @@ public class TreeUtil {
         return list;
     }
 
+    public static List<FOXTreeNode> getAllFoxTreeNodes(String filePath) {
+        List<FOXTreeNode> list = new ArrayList<FOXTreeNode>();
+        if (filePath == null) {
+            return list;
+        }
+
+        try {
+            ATreeNode treeNode = SchemaPopulationUtil.getSchemaTree(filePath, true, 0);
+            FOXTreeNode root = cloneATreeNode(treeNode);
+            if (root instanceof Element) {
+                Element rootElement = (Element) root;
+                if (rootElement.getElementChildren() != null && rootElement.getElementChildren().size() > 0) {
+                    for (FOXTreeNode foxTreeNode : rootElement.getElementChildren()) {
+                        foxTreeNode.setParent(null);
+                        list.add(foxTreeNode);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
+        return list;
+    }
+
     public static List<FOXTreeNode> getFoxTreeNodesForXmlMap(String filePath, String absoluteXPathQuery) {
         List<FOXTreeNode> list = new ArrayList<FOXTreeNode>();
         if (filePath == null) {

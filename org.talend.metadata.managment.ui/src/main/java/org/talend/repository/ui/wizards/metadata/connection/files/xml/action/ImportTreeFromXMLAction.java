@@ -15,10 +15,13 @@ package org.talend.repository.ui.wizards.metadata.connection.files.xml.action;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.ui.actions.SelectionProviderAction;
+import org.talend.commons.xml.XmlUtil;
+import org.talend.core.ui.metadata.dialog.RootNodeSelectDialog;
 import org.talend.repository.ui.swt.utils.AbstractXmlStepForm;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.TreeUtil;
@@ -31,6 +34,8 @@ public class ImportTreeFromXMLAction extends SelectionProviderAction {
     private TreeViewer xmlViewer;
 
     private AbstractXmlStepForm form;
+
+    private boolean isXsd;
 
     public ImportTreeFromXMLAction(TreeViewer xmlViewer, String text) {
         super(xmlViewer, text);
@@ -45,19 +50,37 @@ public class ImportTreeFromXMLAction extends SelectionProviderAction {
 
     @Override
     public void run() {
-        List<FOXTreeNode> newInput = treeNodeAdapt();
-        if (newInput.size() == 0) {
+        List<FOXTreeNode> newInput = new ArrayList<FOXTreeNode>();
+        List<FOXTreeNode> nodes = treeNodeAdapt();
+        if (nodes.size() == 0) {
             return;
         }
-        List<FOXTreeNode> treeData = form.getTreeData();
-        treeData.clear();
-        treeData.addAll(newInput);
-        xmlViewer.setInput(treeData);
-        xmlViewer.refresh();
-        xmlViewer.expandAll();
-        form.updateStatus();
-        form.redrawLinkers();
-        form.updateConnection();
+
+        boolean changed = true;
+        if (nodes.size() > 1 && isXsd) {
+            RootNodeSelectDialog dialog = new RootNodeSelectDialog(xmlViewer.getControl().getShell(), nodes);
+            if (dialog.open() == IDialogConstants.OK_ID) {
+                FOXTreeNode selectedNode = dialog.getSelectedNode();
+                newInput.add(selectedNode);
+                changed = true;
+            } else {
+                changed = false;
+            }
+        } else {
+            newInput.add(nodes.get(0));
+        }
+
+        if (changed) {
+            List<FOXTreeNode> treeData = form.getTreeData();
+            treeData.clear();
+            treeData.addAll(newInput);
+            xmlViewer.setInput(treeData);
+            xmlViewer.refresh();
+            xmlViewer.expandAll();
+            form.updateStatus();
+            form.redrawLinkers();
+            form.updateConnection();
+        }
     }
 
     private List<FOXTreeNode> treeNodeAdapt() {
@@ -67,7 +90,8 @@ public class ImportTreeFromXMLAction extends SelectionProviderAction {
         if (file == null) {
             return list;
         }
-        list = TreeUtil.getFoxTreeNodes(file);
+        isXsd = XmlUtil.isXSDFile(file);
+        list = TreeUtil.getAllFoxTreeNodes(file);
         return list;
     }
 
