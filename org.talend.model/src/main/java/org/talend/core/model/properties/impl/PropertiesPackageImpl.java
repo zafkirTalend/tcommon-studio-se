@@ -21,6 +21,7 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
 
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 
+import org.talend.core.model.properties.ArtifactNotification;
 import org.talend.core.model.properties.BRMSConnectionItem;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.ByteArray;
@@ -819,6 +820,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass exchangeUserEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass artifactNotificationEClass = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -5843,6 +5851,24 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getArtifactNotification() {
+        return artifactNotificationEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getArtifactNotification_Name() {
+        return (EAttribute)artifactNotificationEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getReferenceFileItem() {
         return referenceFileItemEClass;
     }
@@ -6586,6 +6612,9 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(exchangeUserEClass, EXCHANGE_USER__LOGIN);
         createEAttribute(exchangeUserEClass, EXCHANGE_USER__PASSWORD);
 
+        artifactNotificationEClass = createEClass(ARTIFACT_NOTIFICATION);
+        createEAttribute(artifactNotificationEClass, ARTIFACT_NOTIFICATION__NAME);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
@@ -7324,6 +7353,9 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getExchangeUser_Username(), ecorePackage.getEString(), "username", null, 0, 1, ExchangeUser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExchangeUser_Login(), theXMLTypePackage.getString(), "login", null, 0, 1, ExchangeUser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExchangeUser_Password(), theXMLTypePackage.getString(), "password", null, 0, 1, ExchangeUser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(artifactNotificationEClass, ArtifactNotification.class, "ArtifactNotification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getArtifactNotification_Name(), ecorePackage.getEString(), "name", null, 1, 1, ArtifactNotification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

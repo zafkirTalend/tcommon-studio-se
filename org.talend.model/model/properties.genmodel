@@ -649,5 +649,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExchangeUser/login"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExchangeUser/password"/>
     </genClasses>
+    <genClasses ecoreClass="properties.ecore#//ArtifactNotification">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ArtifactNotification/name"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

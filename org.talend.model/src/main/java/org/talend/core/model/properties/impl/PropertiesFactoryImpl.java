@@ -147,6 +147,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.REFERENCE_FILE_ITEM: return createReferenceFileItem();
             case PropertiesPackage.REFERENCE_ITEM: return createReferenceItem();
             case PropertiesPackage.EXCHANGE_USER: return createExchangeUser();
+            case PropertiesPackage.ARTIFACT_NOTIFICATION: return createArtifactNotification();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -1038,6 +1039,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public ExchangeUser createExchangeUser() {
         ExchangeUserImpl exchangeUser = new ExchangeUserImpl();
         return exchangeUser;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ArtifactNotification createArtifactNotification() {
+        ArtifactNotificationImpl artifactNotification = new ArtifactNotificationImpl();
+        return artifactNotification;
     }
 
     /**

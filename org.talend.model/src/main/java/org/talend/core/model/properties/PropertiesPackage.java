@@ -8389,6 +8389,34 @@ public interface PropertiesPackage extends EPackage {
     int EXCHANGE_USER_FEATURE_COUNT = 3;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ArtifactNotificationImpl <em>Artifact Notification</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ArtifactNotificationImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getArtifactNotification()
+     * @generated
+     */
+    int ARTIFACT_NOTIFICATION = 98;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ARTIFACT_NOTIFICATION__NAME = 0;
+
+    /**
+     * The number of structural features of the '<em>Artifact Notification</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ARTIFACT_NOTIFICATION_FEATURE_COUNT = 1;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -8396,7 +8424,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 98;
+    int FOLDER_TYPE = 99;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -8405,7 +8433,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 99;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 100;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserModuleAuthorizationType <em>User Module Authorization Type</em>}' enum.
@@ -8414,7 +8442,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 100;
+    int USER_MODULE_AUTHORIZATION_TYPE = 101;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.InformationLevel <em>Information Level</em>}' enum.
@@ -8423,7 +8451,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 101;
+    int INFORMATION_LEVEL = 102;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.Status <em>Status</em>}'. <!--
@@ -13186,6 +13214,27 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getExchangeUser_Password();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.ArtifactNotification <em>Artifact Notification</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Artifact Notification</em>'.
+     * @see org.talend.core.model.properties.ArtifactNotification
+     * @generated
+     */
+    EClass getArtifactNotification();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ArtifactNotification#getName <em>Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Name</em>'.
+     * @see org.talend.core.model.properties.ArtifactNotification#getName()
+     * @see #getArtifactNotification()
+     * @generated
+     */
+    EAttribute getArtifactNotification_Name();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ReferenceFileItem <em>Reference File Item</em>}'.
@@ -17997,6 +18046,24 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute EXCHANGE_USER__PASSWORD = eINSTANCE.getExchangeUser_Password();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.ArtifactNotificationImpl <em>Artifact Notification</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.ArtifactNotificationImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getArtifactNotification()
+         * @generated
+         */
+        EClass ARTIFACT_NOTIFICATION = eINSTANCE.getArtifactNotification();
+
+        /**
+         * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ARTIFACT_NOTIFICATION__NAME = eINSTANCE.getArtifactNotification_Name();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ReferenceFileItemImpl <em>Reference File Item</em>}' class.

@@ -734,6 +734,15 @@ public interface PropertiesFactory extends EFactory {
     ExchangeUser createExchangeUser();
 
     /**
+     * Returns a new object of class '<em>Artifact Notification</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Artifact Notification</em>'.
+     * @generated
+     */
+    ArtifactNotification createArtifactNotification();
+
+    /**
      * Returns a new object of class '<em>Reference File Item</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
