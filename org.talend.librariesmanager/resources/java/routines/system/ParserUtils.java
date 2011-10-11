@@ -12,11 +12,16 @@
 // ============================================================================
 package routines.system;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 public class ParserUtils {
 
@@ -132,11 +137,26 @@ public class ParserUtils {
     }
 
     public static routines.system.Document parseTo_Document(String s) throws org.dom4j.DocumentException {
+    	return parseTo_Document(s,false);
+    }
+    
+    public static routines.system.Document parseTo_Document(String s, boolean ignoreDTD) throws org.dom4j.DocumentException {
         if (s == null) {
             return null;
         }
         routines.system.Document theDoc = new routines.system.Document();
         org.dom4j.io.SAXReader reader = new org.dom4j.io.SAXReader();
+        
+        if(ignoreDTD) {
+        	reader.setEntityResolver(new EntityResolver() {
+				
+				public InputSource resolveEntity(String publicId, String systemId)
+						throws SAXException, IOException {
+					return new org.xml.sax.InputSource(new java.io.ByteArrayInputStream("<?xml version='1.0' encoding='UTF-8'?>".getBytes())); 
+				}
+			});
+        }
+        
 		org.dom4j.Document document = reader.read(new java.io.StringReader(s));
 
         theDoc.setDocument(document);
