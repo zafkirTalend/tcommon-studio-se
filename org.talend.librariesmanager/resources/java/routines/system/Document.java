@@ -85,7 +85,7 @@ public class Document {
                     org.dom4j.XPath xpathObjectForResult = node.createXPath(xpath);
                     xpathObjectForResult.setNamespaceURIs(nsMapping);
                     Node nodeOfResult = xpathObjectForResult.selectSingleNode(node);
-                    row.put(key.toString(), nodeOfResult == null ? "" : nodeOfResult.getText());
+                    row.put(key.toString(), nodeOfResult == null ? null : nodeOfResult.getText());
                 }
                 result.add(row);
             }
