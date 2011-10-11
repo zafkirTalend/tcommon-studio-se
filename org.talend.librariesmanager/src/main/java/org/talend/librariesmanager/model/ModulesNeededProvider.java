@@ -36,7 +36,6 @@ import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
-import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -330,11 +329,8 @@ public class ModulesNeededProvider {
         IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
         try {
             if (mainProject.getReferencedProjects() != null) {
-                for (ProjectReference reference : (List<ProjectReference>) mainProject.getReferencedProjects()) {
-                    final org.talend.core.model.properties.Project referencedProject = reference.getReferencedProject();
-                    routines.addAll(repositoryFactory
-                            .getAll(new Project(referencedProject), ERepositoryObjectType.ROUTINES, true));
-                    getRefRoutines(routines, referencedProject);
+                for (Project referencedProject : ProjectManager.getInstance().getAllReferencedProjects()) {
+                    routines.addAll(repositoryFactory.getAll(referencedProject, ERepositoryObjectType.ROUTINES, true));
                 }
             }
         } catch (PersistenceException e) {
