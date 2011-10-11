@@ -24,7 +24,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.Connection#getQueries <em>Queries</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.Connection#isContextMode <em>Context Mode</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.Connection#getContextId <em>Context Id</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.Connection#getContextGroupName <em>Context Group Name</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.Connection#getContextName <em>Context Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -150,29 +150,29 @@ public interface Connection extends AbstractMetadataObject, DataProvider {
     void setContextId(String value);
 
     /**
-     * Returns the value of the '<em><b>Context Group Name</b></em>' attribute.
+     * Returns the value of the '<em><b>Context Name</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Context Group Name</em>' attribute isn't clear,
+     * If the meaning of the '<em>Context Name</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Context Group Name</em>' attribute.
-     * @see #setContextGroupName(String)
-     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConnection_ContextGroupName()
+     * @return the value of the '<em>Context Name</em>' attribute.
+     * @see #setContextName(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConnection_ContextName()
      * @model
      * @generated
      */
-    String getContextGroupName();
+    String getContextName();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.Connection#getContextGroupName <em>Context Group Name</em>}' attribute.
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.Connection#getContextName <em>Context Name</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Context Group Name</em>' attribute.
-     * @see #getContextGroupName()
+     * @param value the new value of the '<em>Context Name</em>' attribute.
+     * @see #getContextName()
      * @generated
      */
-    void setContextGroupName(String value);
+    void setContextName(String value);
 
 } // Connection

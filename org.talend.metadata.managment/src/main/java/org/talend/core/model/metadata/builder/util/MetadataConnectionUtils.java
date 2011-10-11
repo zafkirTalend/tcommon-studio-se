@@ -255,12 +255,12 @@ public class MetadataConnectionUtils {
         if (databaseConnection.isContextMode()) {
             IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
             if (repositoryService != null) {
-                String groupName = databaseConnection.getContextGroupName();
+                String contextName = databaseConnection.getContextName();
                 DatabaseConnection origValueConn = null;
-                if (groupName == null) {
+                if (contextName == null) {
                     origValueConn = repositoryService.cloneOriginalValueConnection(databaseConnection, true);
                 } else {
-                    origValueConn = repositoryService.cloneOriginalValueConnection(databaseConnection, false, groupName);
+                    origValueConn = repositoryService.cloneOriginalValueConnection(databaseConnection, false, contextName);
                 }
 
                 if (origValueConn != null) {
@@ -791,9 +791,9 @@ public class MetadataConnectionUtils {
                     repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
                     if (repositoryService != null) {
                         // get the original value and select the defalut context
-                        String groupName = dbConnection.getContextGroupName();
-                        origValueConn = repositoryService.cloneOriginalValueConnection(dbConnection, groupName == null ? true
-                                : false, groupName);
+                        String contextName = dbConnection.getContextName();
+                        origValueConn = repositoryService.cloneOriginalValueConnection(dbConnection, contextName == null ? true
+                                : false, contextName);
                     }
                 }
                 if (isCatalog) {

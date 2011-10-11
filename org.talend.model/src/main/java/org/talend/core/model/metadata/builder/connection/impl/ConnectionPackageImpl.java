@@ -673,7 +673,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getConnection_ContextGroupName() {
+    public EAttribute getConnection_ContextName() {
         return (EAttribute) connectionEClass.getEStructuralFeatures().get(4);
     }
 
@@ -3770,7 +3770,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEReference(connectionEClass, CONNECTION__QUERIES);
         createEAttribute(connectionEClass, CONNECTION__CONTEXT_MODE);
         createEAttribute(connectionEClass, CONNECTION__CONTEXT_ID);
-        createEAttribute(connectionEClass, CONNECTION__CONTEXT_GROUP_NAME);
+        createEAttribute(connectionEClass, CONNECTION__CONTEXT_NAME);
 
         metadataColumnEClass = createEClass(METADATA_COLUMN);
         createEAttribute(metadataColumnEClass, METADATA_COLUMN__SOURCE_TYPE);
@@ -4314,9 +4314,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getConnection_ContextId(), ecorePackage.getEString(), "ContextId", null, 0, 1, Connection.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getConnection_ContextGroupName(), ecorePackage.getEString(), "contextGroupName", null, 0, 1,
-                Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
-                IS_ORDERED);
+        initEAttribute(getConnection_ContextName(), ecorePackage.getEString(), "contextName", null, 0, 1, Connection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(metadataColumnEClass, MetadataColumn.class, "MetadataColumn", !IS_ABSTRACT, !IS_INTERFACE,
                 IS_GENERATED_INSTANCE_CLASS);

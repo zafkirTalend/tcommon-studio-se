@@ -57,7 +57,7 @@ import orgomg.cwm.objectmodel.core.Namespace;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getQueries <em>Queries</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#isContextMode <em>Context Mode</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getContextId <em>Context Id</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getContextGroupName <em>Context Group Name</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getContextName <em>Context Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -256,24 +256,24 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
     protected String contextId = CONTEXT_ID_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getContextGroupName() <em>Context Group Name</em>}' attribute.
+     * The default value of the '{@link #getContextName() <em>Context Name</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getContextGroupName()
+     * @see #getContextName()
      * @generated
      * @ordered
      */
-    protected static final String CONTEXT_GROUP_NAME_EDEFAULT = null;
+    protected static final String CONTEXT_NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getContextGroupName() <em>Context Group Name</em>}' attribute.
+     * The cached value of the '{@link #getContextName() <em>Context Name</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getContextGroupName()
+     * @see #getContextName()
      * @generated
      * @ordered
      */
-    protected String contextGroupName = CONTEXT_GROUP_NAME_EDEFAULT;
+    protected String contextName = CONTEXT_NAME_EDEFAULT;
 
     protected boolean readOnly = false;
 
@@ -699,8 +699,8 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getContextGroupName() {
-        return contextGroupName;
+    public String getContextName() {
+        return contextName;
     }
 
     /**
@@ -708,12 +708,12 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setContextGroupName(String newContextGroupName) {
-        String oldContextGroupName = contextGroupName;
-        contextGroupName = newContextGroupName;
+    public void setContextName(String newContextName) {
+        String oldContextName = contextName;
+        contextName = newContextName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.CONNECTION__CONTEXT_GROUP_NAME,
-                    oldContextGroupName, contextGroupName));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.CONNECTION__CONTEXT_NAME, oldContextName,
+                    contextName));
     }
 
     /**
@@ -846,8 +846,8 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
             return isContextMode();
         case ConnectionPackage.CONNECTION__CONTEXT_ID:
             return getContextId();
-        case ConnectionPackage.CONNECTION__CONTEXT_GROUP_NAME:
-            return getContextGroupName();
+        case ConnectionPackage.CONNECTION__CONTEXT_NAME:
+            return getContextName();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -913,8 +913,8 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
         case ConnectionPackage.CONNECTION__CONTEXT_ID:
             setContextId((String) newValue);
             return;
-        case ConnectionPackage.CONNECTION__CONTEXT_GROUP_NAME:
-            setContextGroupName((String) newValue);
+        case ConnectionPackage.CONNECTION__CONTEXT_NAME:
+            setContextName((String) newValue);
             return;
         }
         super.eSet(featureID, newValue);
@@ -973,8 +973,8 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
         case ConnectionPackage.CONNECTION__CONTEXT_ID:
             setContextId(CONTEXT_ID_EDEFAULT);
             return;
-        case ConnectionPackage.CONNECTION__CONTEXT_GROUP_NAME:
-            setContextGroupName(CONTEXT_GROUP_NAME_EDEFAULT);
+        case ConnectionPackage.CONNECTION__CONTEXT_NAME:
+            setContextName(CONTEXT_NAME_EDEFAULT);
             return;
         }
         super.eUnset(featureID);
@@ -1018,9 +1018,8 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
             return contextMode != CONTEXT_MODE_EDEFAULT;
         case ConnectionPackage.CONNECTION__CONTEXT_ID:
             return CONTEXT_ID_EDEFAULT == null ? contextId != null : !CONTEXT_ID_EDEFAULT.equals(contextId);
-        case ConnectionPackage.CONNECTION__CONTEXT_GROUP_NAME:
-            return CONTEXT_GROUP_NAME_EDEFAULT == null ? contextGroupName != null : !CONTEXT_GROUP_NAME_EDEFAULT
-                    .equals(contextGroupName);
+        case ConnectionPackage.CONNECTION__CONTEXT_NAME:
+            return CONTEXT_NAME_EDEFAULT == null ? contextName != null : !CONTEXT_NAME_EDEFAULT.equals(contextName);
         }
         return super.eIsSet(featureID);
     }
@@ -1170,8 +1169,8 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
         result.append(contextMode);
         result.append(", ContextId: ");
         result.append(contextId);
-        result.append(", contextGroupName: ");
-        result.append(contextGroupName);
+        result.append(", contextName: ");
+        result.append(contextName);
         result.append(')');
         return result.toString();
     }
