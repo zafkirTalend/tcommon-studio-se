@@ -12,9 +12,15 @@
 // ============================================================================
 package org.talend.core.tis;
 
+import java.util.List;
+
+import org.osgi.service.prefs.BackingStoreException;
+import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.IService;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.properties.User;
+import org.talend.core.updatesite.IPatchBean;
 
 /**
  * wchen class global comment. Detailled comment
@@ -26,4 +32,14 @@ public interface ICoreTisService extends IService {
     public boolean isSupportDynamicType(String componentName);
 
     public boolean validProject(Project project, boolean flag) throws PersistenceException;
+
+    public List<IPatchBean> getPatchesInstalled() throws BackingStoreException;
+
+    public List<IPatchBean> getPatchesToBeInstall(String archivaServicesURL, String... repository) throws BackingStoreException;
+
+    public void addPatchInformation(String key, String value) throws BackingStoreException;
+
+    public void downLoadAndInstallPatches(String archivaServerURL, String... repository);
+
+    public Object getArchivaObject(User user, String password, String url) throws PersistenceException, LoginException;
 }

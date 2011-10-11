@@ -12,11 +12,13 @@
 // ============================================================================
 package org.talend.commons.utils.io;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -25,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -57,6 +60,8 @@ import org.talend.commons.i18n.internal.Messages;
  * 
  */
 public final class FilesUtils {
+
+    private static final int BUFFER_SIZE = 64 * 1024;
 
     private static Logger logger = Logger.getLogger(FilesUtils.class);
 
@@ -656,6 +661,10 @@ public final class FilesUtils {
                     }
                 } else {
 
+                    if (!file.getParentFile().exists()) {
+                        file.getParentFile().mkdirs();
+                    }
+
                     InputStream zin = zip.getInputStream(entry);
                     OutputStream fout = new FileOutputStream(file);
                     // check if parent folder exists
@@ -827,6 +836,92 @@ public final class FilesUtils {
             logger.warn(e, e);
         }
         return result;
+    }
+
+    /** fullPath,eg: "D:\\ALL_integrate_patch_v4.2.2.r63143-20110722.zip **/
+    public static void downloadFileFromWeb(URL resourceURL, String fullPath) {
+        FileOutputStream fos = null;
+        BufferedInputStream bis = null;
+        HttpURLConnection conn = null;
+        byte[] buf = new byte[BUFFER_SIZE];
+        int size = 0;
+        File fileTostore = null;
+        try {
+            conn = (HttpURLConnection) resourceURL.openConnection();
+            conn.connect();
+            InputStream inputStream = conn.getInputStream();
+            bis = new BufferedInputStream(inputStream);
+            fileTostore = new File(fullPath);
+
+            if (!fileTostore.exists()) {
+                fileTostore.createNewFile();
+            } else {
+                fileTostore.delete();
+                fileTostore.createNewFile();
+            }
+            fos = new FileOutputStream(fullPath);
+            while ((size = bis.read(buf)) != -1) {
+                fos.write(buf, 0, size);
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                buf = null;
+                bis.close();
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            conn.disconnect();
+        }
+    }
+
+    public static void copyDirectory(File source, File target) {
+        File tarpath = new File(target, source.getName());
+        if (source.isDirectory()) {
+            tarpath.mkdir();
+            File[] dir = source.listFiles();
+            for (int i = 0; i < dir.length; i++) {
+                copyDirectory(dir[i], tarpath);
+            }
+        } else {
+            try {
+                InputStream is = new FileInputStream(source);
+                OutputStream os = new FileOutputStream(tarpath);
+                byte[] buf = new byte[1024];
+                int len = 0;
+                while ((len = is.read(buf)) != -1) {
+                    os.write(buf, 0, len);
+                }
+                is.close();
+                os.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void deleteFile(File file, boolean delete) {
+        if (file.exists()) {
+            if (file.isFile() && delete) {
+                file.delete();
+            } else if (file.isDirectory()) {
+                File files[] = file.listFiles();
+                for (int i = 0; i < files.length; i++) {
+                    deleteFile(files[i], true);
+                }
+            }
+            if (delete) {
+                file.delete();
+            }
+        }
     }
 
 }
