@@ -59,13 +59,13 @@ public class SwitchContextGroupNameImpl implements ISwitchContext {
         if (con != null && con instanceof DatabaseConnection) {
             String contextId = con.getContextId();
             ContextItem contextItem = ContextUtils.getContextItemById2(contextId);
-            String groupName = con.getContextGroupName();
+            String contextName = con.getContextName();
             ContextSetsSelectionDialog setsDialog = new ContextSetsSelectionDialog(contextItem);
-            String selectedContext = groupName;
+            String selectedContext = contextName;
             if (setsDialog.open() == Window.OK) {
                 selectedContext = setsDialog.getSelectedContext();
             }
-            con.setContextGroupName(selectedContext);
+            con.setContextName(selectedContext);
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
 
             try {
