@@ -109,4 +109,10 @@ public interface ITalendCorePrefConstants {
 
     String DATA_COLLECTOR_PREVIEW = "data_collector_preview";
 
+    String EXCHANGE_USER_NAME = "exchange_user_name";
+
+    String EXCHANGE_USER_PASSWORD = "exchange_user_password";
+
+    String EXCHANGE_DOWNLOADED_CHECK_UPDATES = "exchange_downloaded_check_updates";
+
 }
