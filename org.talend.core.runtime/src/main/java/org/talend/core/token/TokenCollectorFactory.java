@@ -157,14 +157,28 @@ public final class TokenCollectorFactory {
 
     public boolean process() {
         boolean valid = false;
-        boolean isPoweredbyTalend = false;
 
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(IBrandingService.class)) {
-            IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
-            isPoweredbyTalend = service.isPoweredbyTalend();
+        if (isActiveAndValid(true)) {
+            send();
         }
+        if (valid) {
+            final IPreferenceStore preferenceStore = CoreRuntimePlugin.getInstance().getPreferenceStore();
+            // set new days
+            preferenceStore.setValue(ITalendCorePrefConstants.DATA_COLLECTOR_LAST_TIME, DATE_FORMAT.format(new Date()));
+        }
+        return valid;
+    }
+
+    public boolean send() {
         try {
-            if (isPoweredbyTalend && isActiveAndValid(true) && NetworkUtil.isNetworkValid()) {
+            boolean isPoweredbyTalend = false;
+
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IBrandingService.class)) {
+                IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(
+                        IBrandingService.class);
+                isPoweredbyTalend = service.isPoweredbyTalend();
+            }
+            if (!isPoweredbyTalend && NetworkUtil.isNetworkValid()) {
                 JSONObject tokenInfors = collectTokenInfors();
 
                 Resty r = new Resty();
@@ -175,7 +189,7 @@ public final class TokenCollectorFactory {
                 TextResource result = r.text("http://www.talend.com/TalendRegisterWS/tokenstudio.php", mpc); //$NON-NLS-1$
                 try {
                     String resultStr = new JSONObject(result.toString()).getString("result"); //$NON-NLS-1$
-                    valid = (resultStr != null && resultStr.endsWith("OK")); //$NON-NLS-1$
+                    return (resultStr != null && resultStr.endsWith("OK")); //$NON-NLS-1$
                 } catch (JSONException je) {
                     //
                 }
@@ -183,13 +197,7 @@ public final class TokenCollectorFactory {
         } catch (Exception e) {
             // if want to test, enable this
             // ExceptionHandler.process(e);
-
         }
-        if (valid) {
-            final IPreferenceStore preferenceStore = CoreRuntimePlugin.getInstance().getPreferenceStore();
-            // set new days
-            preferenceStore.setValue(ITalendCorePrefConstants.DATA_COLLECTOR_LAST_TIME, DATE_FORMAT.format(new Date()));
-        }
-        return valid;
+        return false;
     }
 }

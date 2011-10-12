@@ -78,6 +78,7 @@ import org.talend.core.model.general.Project;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.prefs.PreferenceManipulator;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.token.TokenCollectorFactory;
 import org.talend.core.ui.ISQLBuilderService;
 import org.talend.core.ui.branding.IBrandingConfiguration;
@@ -230,6 +231,13 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         regisitPerspectiveListener();
         // feature 19053
         PerspectiveReviewUtil.regisitPerspectiveBarSelectListener();
+
+        // tmp for token
+        final IPreferenceStore store = CoreRuntimePlugin.getInstance().getPreferenceStore();
+        if (store.getBoolean(ITalendCorePrefConstants.DATA_COLLECTOR)) {
+            TokenCollectorFactory.getFactory().send();
+            store.setValue(ITalendCorePrefConstants.DATA_COLLECTOR, true);
+        }
     }
 
     private void showStarting() {
