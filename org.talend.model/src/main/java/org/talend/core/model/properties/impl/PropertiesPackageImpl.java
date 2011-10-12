@@ -5185,15 +5185,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getSoaOperation_Item() {
-        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(24);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EClass getSoaInputParameter() {
         return soaInputParameterEClass;
     }
@@ -6510,7 +6501,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEReference(soaOperationEClass, SOA_OPERATION__SERVICE);
         createEAttribute(soaOperationEClass, SOA_OPERATION__RETURN_STYLE);
         createEAttribute(soaOperationEClass, SOA_OPERATION__BRANCH);
-        createEAttribute(soaOperationEClass, SOA_OPERATION__ITEM);
 
         soaInputParameterEClass = createEClass(SOA_INPUT_PARAMETER);
         createEAttribute(soaInputParameterEClass, SOA_INPUT_PARAMETER__ID);
@@ -7252,7 +7242,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEReference(getSoaOperation_Service(), this.getSoaService(), this.getSoaService_Operations(), "service", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getSoaOperation_ReturnStyle(), ecorePackage.getEString(), "returnStyle", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getSoaOperation_Branch(), ecorePackage.getEString(), "branch", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSoaOperation_Item(), theEcorePackage.getEString(), "item", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(soaInputParameterEClass, SoaInputParameter.class, "SoaInputParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getSoaInputParameter_Id(), ecorePackage.getEInt(), "id", null, 1, 1, SoaInputParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
