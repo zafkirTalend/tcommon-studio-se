@@ -274,8 +274,7 @@ final class XSDFileSchemaTreePopulator {
     private static void populateRoot(ATreeNode root) {
         Object[] toBeIterated = root.getChildren();
         for (int i = 0; i < toBeIterated.length; i++) {
-            Object value = ((ATreeNode) toBeIterated[i]).getDataType();// .getValue(
-            // );
+            Object value = ((ATreeNode) toBeIterated[i]).getDataType();
             List container = new ArrayList();
             findNodeWithValue(root, value.toString(), container, new VisitingRecorder());
             for (int j = 0; j < container.size(); j++) {
@@ -403,8 +402,6 @@ final class XSDFileSchemaTreePopulator {
             node.setType(ATreeNode.ELEMENT_TYPE);
             node.setDataType(element.getName());
 
-            boolean needCheck = true;
-
             if (element.getTypeDefinition() instanceof XSComplexTypeDecl) {
                 XSComplexTypeDecl complexType = (XSComplexTypeDecl) element.getTypeDefinition();
                 // If the complex type is explicitly defined, that is, it has name.
@@ -421,14 +418,13 @@ final class XSDFileSchemaTreePopulator {
                 // If the complex type is implicitly defined, that is, it has no name.
                 else {
                     // If the complex type is implicitly defined , no need to check it in explicitly complex type
-                    needCheck = false;
                     addParticleAndAttributeInfo(node, complexType, complexTypesRoot, new VisitingRecorder());
                 }
             }
-            String nodeType = node.getOriginalDataType();
-            if (nodeType != null && !attList.contains(nodeType) && needCheck) {
-                continue;
-            }
+             String nodeType = node.getOriginalDataType();
+             if (nodeType != null && !attList.contains(nodeType)) {
+             continue;
+             }
             root.addChild(node);
         }
 
@@ -678,6 +674,7 @@ final class XSDFileSchemaTreePopulator {
 
         root.setValue("ROOT");
         root.setDataType("");
+        Map<ATreeNode, XSParticle> childWithParticles = new HashMap<ATreeNode, XSParticle>();
         for (int i = 0; i < map.getLength(); i++) {
             ATreeNode node = new ATreeNode();
             XSComplexTypeDecl element = (XSComplexTypeDecl) map.item(i);
@@ -709,11 +706,17 @@ final class XSDFileSchemaTreePopulator {
                     }
                 }
             }
-
             XSParticle particle = element.getParticle();
             if (particle != null) {
+                childWithParticles.put(node, particle);
+            }
+        }
+
+        for (ATreeNode node : childWithParticles.keySet()) {
+            XSParticle particle = childWithParticles.get(node);
+            if (particle != null) {
                 XSObjectList list = ((XSModelGroupImpl) particle.getTerm()).getParticles();
-                populateTreeNodeWithParticles(node, list);
+                populateTreeNodeWithParticles(root, node, list);
             }
         }
 
@@ -724,10 +727,11 @@ final class XSDFileSchemaTreePopulator {
     /**
      * 
      * @param node the node to which the elements defined in particles should be populated into
+     * @param node2
      * @param list the XSObjectList which lists all particles.
      * @throws OdaException
      */
-    private static void populateTreeNodeWithParticles(ATreeNode node, XSObjectList list) throws OdaException {
+    private static void populateTreeNodeWithParticles(ATreeNode root, ATreeNode node, XSObjectList list) throws OdaException {
         for (int j = 0; j < list.getLength(); j++) {
             ATreeNode childNode = new ATreeNode();
             childNode.setValue(((XSParticleDecl) list.item(j)).getTerm().getName());
@@ -763,8 +767,8 @@ final class XSDFileSchemaTreePopulator {
                     if (complexType.getName() != null) {
                         childNode.setDataType(complexType.getName());
                         ATreeNode n = findComplexElement(childNode, complexType.getName());
-                        if (namespaceNode != null) {
-                            // childNode.addChild(namespaceNode);
+                        if (n == null) {
+                            n = findComplexElement(root, complexType.getName());
                         }
                         if (n != null) {
                             childNode.addChild(n.getChildren());
@@ -783,7 +787,7 @@ final class XSDFileSchemaTreePopulator {
             else if (((XSParticleDecl) list.item(j)).getTerm() instanceof XSModelGroupImpl) {
                 XSModelGroupImpl mGroup = (XSModelGroupImpl) ((XSParticleDecl) list.item(j)).getTerm();
                 XSObjectList obs = mGroup.getParticles();
-                populateTreeNodeWithParticles(node, obs);
+                populateTreeNodeWithParticles(root, node, obs);
             }
         }
     }
