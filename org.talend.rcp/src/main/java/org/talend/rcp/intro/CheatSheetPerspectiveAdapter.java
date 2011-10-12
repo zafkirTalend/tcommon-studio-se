@@ -33,8 +33,9 @@ import org.eclipse.ui.internal.util.PrefUtil;
  */
 public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
 
-    public static final String DQ_CHEATSHEET_START_ID = "org.talend.dataprofiler.core.talenddataprofiler";//$NON-NLS-1$
+    //public static final String DQ_CHEATSHEET_START_ID = "org.talend.dataprofiler.core.talenddataprofiler";//$NON-NLS-1$
 
+    public static final String DQ_CHEATSHEET_START_ID = "org.talend.datacleansing.core.ui.dqcheatsheet";//$NON-NLS-1$
     protected String cheetSheetID;
 
     protected HashMap<String, Boolean> cheetSheetInPerspective = new HashMap<String, Boolean>();
