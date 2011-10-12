@@ -381,7 +381,11 @@ public class TreeUtil {
 
         try {
             ATreeNode treeNode = SchemaPopulationUtil.getSchemaTree(filePath, true, 0);
-            FOXTreeNode root = cloneATreeNode(treeNode);
+            String rootName = "";
+            if (treeNode.getDataType() instanceof String) {
+                rootName += "/" + treeNode.getValue() + "@" + (String) treeNode.getDataType();
+            }
+            FOXTreeNode root = cloneATreeNode(treeNode, rootName);
             if (root instanceof Element) {
                 root = ((Element) root).getElementChildren().get(0);
                 root.setParent(null);
@@ -401,7 +405,11 @@ public class TreeUtil {
 
         try {
             ATreeNode treeNode = SchemaPopulationUtil.getSchemaTree(filePath, true, 0);
-            FOXTreeNode root = cloneATreeNode(treeNode);
+            String rootName = "";
+            if (treeNode.getDataType() instanceof String) {
+                rootName += "/" + treeNode.getValue() + "@" + (String) treeNode.getDataType();
+            }
+            FOXTreeNode root = cloneATreeNode(treeNode, rootName);
             if (root instanceof Element) {
                 Element rootElement = (Element) root;
                 if (rootElement.getElementChildren() != null && rootElement.getElementChildren().size() > 0) {
@@ -425,7 +433,11 @@ public class TreeUtil {
 
         try {
             ATreeNode treeNode = SchemaPopulationUtil.getSchemaTree(filePath, true, 0);
-            FOXTreeNode root = cloneATreeNode(treeNode);
+            String rootName = "";
+            if (treeNode.getDataType() instanceof String) {
+                rootName += "/" + treeNode.getValue() + "@" + (String) treeNode.getDataType();
+            }
+            FOXTreeNode root = cloneATreeNode(treeNode, rootName);
             if (root instanceof Element) {
                 final List<FOXTreeNode> elementChildren = ((Element) root).getElementChildren();
                 if (elementChildren.size() == 1) {
@@ -506,7 +518,11 @@ public class TreeUtil {
                         }
                     }
                     if (selectedNode != null) {
-                        FOXTreeNode root = cloneATreeNode(selectedNode);
+                        String rootName = "";
+                        if (treeNode.getDataType() instanceof String) {
+                            rootName += "/" + treeNode.getValue() + "@" + (String) treeNode.getDataType();
+                        }
+                        FOXTreeNode root = cloneATreeNode(treeNode, rootName);
                         if (root instanceof Element) {
                             root.setParent(null);
                             list.add(root);
@@ -521,7 +537,7 @@ public class TreeUtil {
 
     }
 
-    public static FOXTreeNode cloneATreeNode(ATreeNode treeNode) {
+    public static FOXTreeNode cloneATreeNode(ATreeNode treeNode, String currentPath) {
         FOXTreeNode node = null;
         if (treeNode.getType() == ATreeNode.ATTRIBUTE_TYPE) {
             node = new Attribute();
@@ -545,7 +561,19 @@ public class TreeUtil {
             for (int i = 0; i < children.length; i++) {
                 if (children[i] instanceof ATreeNode) {
                     ATreeNode child = (ATreeNode) children[i];
-                    FOXTreeNode foxChild = cloneATreeNode(child);
+                    String newPath = currentPath + "/";
+                    if (child.getDataType() instanceof String) {
+                        String elementName = (String) child.getDataType();
+                        if (currentPath.contains("@" + elementName + "/")) {
+                            ExceptionHandler.process(new Exception("XSD ERROR: loop found. Item: " + elementName
+                                    + " is already in the currentPath (" + currentPath + ")."));
+                            continue;
+                        }
+                        newPath += child.getValue() + "@" + elementName;
+                    } else {
+                        newPath += "unknownElement";
+                    }
+                    FOXTreeNode foxChild = cloneATreeNode(child, newPath);
                     // foxChild.setRow(schemaName);
                     node.addChild(foxChild);
                 }
