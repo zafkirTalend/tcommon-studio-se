@@ -234,7 +234,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
         // tmp for token
         final IPreferenceStore store = CoreRuntimePlugin.getInstance().getPreferenceStore();
-        if (store.getBoolean(ITalendCorePrefConstants.DATA_COLLECTOR)) {
+        if (!store.getBoolean(ITalendCorePrefConstants.DATA_COLLECTOR)) {
             TokenCollectorFactory.getFactory().send();
             store.setValue(ITalendCorePrefConstants.DATA_COLLECTOR, true);
         }
