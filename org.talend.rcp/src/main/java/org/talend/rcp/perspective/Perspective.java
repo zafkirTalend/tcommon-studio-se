@@ -13,9 +13,16 @@
 package org.talend.rcp.perspective;
 
 import org.eclipse.ui.IPageLayout;
+import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IPerspectiveFactory;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PerspectiveAdapter;
+import org.eclipse.ui.PlatformUI;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.model.repository.RepositoryManager;
+import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
+import org.talend.repository.ui.views.IRepositoryView;
 
 /**
  * DOC ccarbone class global comment. Detailed comment <br/>
@@ -33,6 +40,26 @@ public class Perspective implements IPerspectiveFactory {
     public void createInitialLayout(IPageLayout layout) {
         IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
         service.getBrandingConfiguration().initPerspective(layout);
-    }
 
+        // TDI-17770 Need to fix problem of refresh of repository view when use Talend product as plugin.
+        PlatformUI.getWorkbench().getActiveWorkbenchWindow().addPerspectiveListener(new PerspectiveAdapter() {
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see org.eclipse.ui.IPerspectiveListener#perspectiveActivated(org.eclipse.ui.IWorkbenchPage,
+             * org.eclipse.ui.IPerspectiveDescriptor)
+             */
+            public void perspectiveActivated(IWorkbenchPage page, IPerspectiveDescriptor perspective) {
+                String pId = perspective.getId();
+                IRepositoryView view = RepositoryManager.getRepositoryView();
+                if (view != null) {
+                    if (IBrandingConfiguration.PERSPECTIVE_DI_ID.equals(pId)
+                            || IBrandingConfiguration.PERSPECTIVE_CAMEL_ID.equals(pId)) {
+                        view.refresh();
+                    }
+                }
+            }
+        });
+    }
 }
