@@ -132,13 +132,15 @@ public class XmiResourceManager {
         URI itemResourceURI = getItemResourceURI(propertyUri);
         List<Resource> resources = new ArrayList<Resource>(resourceSet.getResources());
         for (Resource res : resources) {
-            if (propertyUri.toString().equals(res.getURI().toString())) {
-                res.unload();
-                resourceSet.getResources().remove(res);
-            }
-            if (itemResourceURI.toString().equals(res.getURI().toString())) {
-                res.unload();
-                resourceSet.getResources().remove(res);
+            if (res != null) {
+                if (propertyUri.toString().equals(res.getURI().toString())) {
+                    res.unload();
+                    resourceSet.getResources().remove(res);
+                }
+                if (itemResourceURI.toString().equals(res.getURI().toString())) {
+                    res.unload();
+                    resourceSet.getResources().remove(res);
+                }
             }
         }
 
@@ -203,7 +205,7 @@ public class XmiResourceManager {
 
         List<Resource> resources = new ArrayList<Resource>(resourceSet.getResources());
         for (Resource res : resources) {
-            if (referenceFileURI.toString().equals(res.getURI().toString())) {
+            if (res != null && referenceFileURI.toString().equals(res.getURI().toString())) {
                 res.unload();
                 resourceSet.getResources().remove(res);
             }
@@ -634,15 +636,19 @@ public class XmiResourceManager {
     public void unloadResources() {
         List<Resource> resources = new ArrayList<Resource>(resourceSet.getResources());
         for (Resource resource : resources) {
-            resource.unload();
-            resourceSet.getResources().remove(resource);
+            if (resource != null) {
+                resource.unload();
+                resourceSet.getResources().remove(resource);
+            }
         }
     }
 
     public void unloadResources(Property property) {
         for (Resource resource : getAffectedResources(property)) {
-            resource.unload();
-            resourceSet.getResources().remove(resource);
+            if (resource != null) {
+                resource.unload();
+                resourceSet.getResources().remove(resource);
+            }
         }
     }
 
@@ -654,7 +660,7 @@ public class XmiResourceManager {
     public synchronized void unloadResource(String uriString) {
         List<Resource> resources = new ArrayList<Resource>(resourceSet.getResources());
         for (Resource res : resources) {
-            if (uriString.equals(res.getURI().toString())) {
+            if (res != null && uriString.equals(res.getURI().toString())) {
                 res.unload();
                 resourceSet.getResources().remove(res);
             }
