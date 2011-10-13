@@ -60,6 +60,7 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
+import org.talend.repository.ProjectManager;
 
 /**
  * DOC talend class global comment. Detailled comment
@@ -122,9 +123,12 @@ public class LocalRepositoryFactoryTest {
         CoreRuntimePlugin.getInstance().getContext().putProperty(Context.REPOSITORY_CONTEXT_KEY, repositoryContext);
         LocalRepositoryFactory repositoryFactory = new LocalRepositoryFactory();
         ProxyRepositoryFactory.getInstance().setRepositoryFactoryFromProvider(repositoryFactory);
+        ProjectManager.getInstance().getFolders(sampleProject.getEmfProject()).clear();
     }
 
     private void removeTempProject() throws PersistenceException, CoreException {
+        // clear the folder, same as it should be in a real logoffProject.
+        ProjectManager.getInstance().getFolders(sampleProject.getEmfProject()).clear();
         final IProject project = ResourceModelUtils.getProject(sampleProject);
         project.delete(true, null);
     }
@@ -236,9 +240,9 @@ public class LocalRepositoryFactoryTest {
     public void testLogOnProject() throws PersistenceException, LoginException, CoreException {
         LocalRepositoryFactory repositoryFactory = new LocalRepositoryFactory();
         createTempProject();
-        assertTrue(sampleProject.getEmfProject().getFolders().isEmpty());
+        assertTrue(ProjectManager.getInstance().getFolders(sampleProject.getEmfProject()).isEmpty());
         repositoryFactory.logOnProject(sampleProject);
-        assertTrue(!sampleProject.getEmfProject().getFolders().isEmpty());
+        assertTrue(!ProjectManager.getInstance().getFolders(sampleProject.getEmfProject()).isEmpty());
         removeTempProject();
     }
 

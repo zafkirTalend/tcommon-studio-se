@@ -1576,6 +1576,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getItem_FileExtension() {
+        return (EAttribute)itemEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getLinkDocumentationItem() {
         return linkDocumentationItemEClass;
     }
@@ -6032,6 +6041,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEReference(itemEClass, ITEM__STATE);
         createEReference(itemEClass, ITEM__PARENT);
         createEReference(itemEClass, ITEM__REFERENCE_RESOURCES);
+        createEAttribute(itemEClass, ITEM__FILE_EXTENSION);
 
         linkDocumentationItemEClass = createEClass(LINK_DOCUMENTATION_ITEM);
         createEAttribute(linkDocumentationItemEClass, LINK_DOCUMENTATION_ITEM__NAME);
@@ -6773,6 +6783,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEReference(getItem_State(), this.getItemState(), null, "state", null, 0, 1, Item.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getItem_Parent(), theEcorePackage.getEObject(), null, "parent", null, 0, 1, Item.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getItem_ReferenceResources(), this.getReferenceFileItem(), null, "referenceResources", null, 0, -1, Item.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getItem_FileExtension(), ecorePackage.getEString(), "fileExtension", null, 0, 1, Item.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(linkDocumentationItemEClass, LinkDocumentationItem.class, "LinkDocumentationItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getLinkDocumentationItem_Name(), theEcorePackage.getEString(), "name", null, 0, 1, LinkDocumentationItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -31,6 +31,7 @@ import org.talend.core.model.properties.ReferenceFileItem;
  *   <li>{@link org.talend.core.model.properties.impl.ItemImpl#getState <em>State</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ItemImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ItemImpl#getReferenceResources <em>Reference Resources</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ItemImpl#getFileExtension <em>File Extension</em>}</li>
  * </ul>
  * </p>
  *
@@ -76,6 +77,26 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
      * @ordered
      */
     protected EList referenceResources;
+
+    /**
+     * The default value of the '{@link #getFileExtension() <em>File Extension</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getFileExtension()
+     * @generated
+     * @ordered
+     */
+    protected static final String FILE_EXTENSION_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getFileExtension() <em>File Extension</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getFileExtension()
+     * @generated
+     * @ordered
+     */
+    protected String fileExtension = FILE_EXTENSION_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -244,6 +265,27 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getFileExtension() {
+        return fileExtension;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setFileExtension(String newFileExtension) {
+        String oldFileExtension = fileExtension;
+        fileExtension = newFileExtension;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.ITEM__FILE_EXTENSION, oldFileExtension, fileExtension));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -286,6 +328,8 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
                 return basicGetParent();
             case PropertiesPackage.ITEM__REFERENCE_RESOURCES:
                 return getReferenceResources();
+            case PropertiesPackage.ITEM__FILE_EXTENSION:
+                return getFileExtension();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -309,6 +353,9 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
                 getReferenceResources().clear();
                 getReferenceResources().addAll((Collection)newValue);
                 return;
+            case PropertiesPackage.ITEM__FILE_EXTENSION:
+                setFileExtension((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -331,6 +378,9 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
             case PropertiesPackage.ITEM__REFERENCE_RESOURCES:
                 getReferenceResources().clear();
                 return;
+            case PropertiesPackage.ITEM__FILE_EXTENSION:
+                setFileExtension(FILE_EXTENSION_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -349,6 +399,8 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
                 return parent != null;
             case PropertiesPackage.ITEM__REFERENCE_RESOURCES:
                 return referenceResources != null && !referenceResources.isEmpty();
+            case PropertiesPackage.ITEM__FILE_EXTENSION:
+                return FILE_EXTENSION_EDEFAULT == null ? fileExtension != null : !FILE_EXTENSION_EDEFAULT.equals(fileExtension);
         }
         return super.eIsSet(featureID);
     }

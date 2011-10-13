@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.Item#getState <em>State</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Item#getParent <em>Parent</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Item#getReferenceResources <em>Reference Resources</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Item#getFileExtension <em>File Extension</em>}</li>
  * </ul>
  * </p>
  *
@@ -121,5 +122,31 @@ public interface Item extends EObject {
      * @generated
      */
     EList getReferenceResources();
+
+    /**
+     * Returns the value of the '<em><b>File Extension</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>File Extension</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>File Extension</em>' attribute.
+     * @see #setFileExtension(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getItem_FileExtension()
+     * @model
+     * @generated
+     */
+    String getFileExtension();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.Item#getFileExtension <em>File Extension</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>File Extension</em>' attribute.
+     * @see #getFileExtension()
+     * @generated
+     */
+    void setFileExtension(String value);
 
 } // Item
