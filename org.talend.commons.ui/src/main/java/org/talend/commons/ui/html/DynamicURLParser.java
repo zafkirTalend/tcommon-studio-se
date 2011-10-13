@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.rcp.intro.starting;
+package org.talend.commons.ui.html;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
@@ -25,7 +25,7 @@ import org.eclipse.ui.internal.intro.impl.util.StringUtil;
 /**
  * DOC talend class global comment. Detailled comment
  */
-public class StartingURLParser {
+public class DynamicURLParser {
 
     // private String url_string = null;
     private boolean hasProtocol = false;
@@ -37,7 +37,7 @@ public class StartingURLParser {
     /**
      * Constructor that gets the URL to parse.
      */
-    public StartingURLParser(String url) {
+    public DynamicURLParser(String url) {
         // create a URL instance, and parser it for parameters.
         parseUrl(url);
     }
@@ -113,15 +113,15 @@ public class StartingURLParser {
     /**
      * @return Returns the introURL. Will be null if the parsed URL is not an Intro URL.
      */
-    public StartingIntroURL getIntroURL() {
-        StartingIntroURL introURL = null;
+    public DynamicHtmlURL getIntroURL() {
+        DynamicHtmlURL introURL = null;
         if (isIntroUrl) {
             // valid intro URL. Extract the action and parameters.
             String action = getPathAsAction(urlInst);
             Properties parameters = getQueryParameters(urlInst);
 
             // class instance vars are already populated by now.
-            introURL = new StartingIntroURL(action, parameters);
+            introURL = new DynamicHtmlURL(action, parameters);
         }
         return introURL;
     }

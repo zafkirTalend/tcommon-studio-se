@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.rcp.intro.starting;
+package org.talend.commons.ui.html;
 
 import java.util.Properties;
 
@@ -25,13 +25,13 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
  * 
  * DOC wchen class global comment. Detailled comment
  */
-public class StartingIntroURL implements IIntroURL {
+public class DynamicHtmlURL implements IIntroURL {
 
     private String action = null;
 
     private Properties parameters = null;
 
-    StartingIntroURL(String action, Properties parameters) {
+    DynamicHtmlURL(String action, Properties parameters) {
         this.action = action;
         this.parameters = parameters;
     }

@@ -22,6 +22,7 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
+import org.talend.commons.ui.html.BrowserDynamicPartLocationListener;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 
 /**
@@ -41,7 +42,7 @@ public class StartingBrowser extends EditorPart {
         try {
             browser = new Browser(parent, SWT.NONE);
             browser.setText(StartingHelper.getHelper().getHtmlContent());
-            browser.addLocationListener(new BrowserStartingPartLocationListener());
+            browser.addLocationListener(new BrowserDynamicPartLocationListener());
         } catch (IOException e) {
             ExceptionHandler.process(e);
         }

@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.rcp.intro.starting;
+package org.talend.commons.ui.html;
 
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.LocationEvent;
@@ -19,19 +19,19 @@ import org.eclipse.swt.browser.LocationListener;
 /**
  * DOC talend class global comment. Detailled comment
  */
-public class BrowserStartingPartLocationListener implements LocationListener {
+public class BrowserDynamicPartLocationListener implements LocationListener {
 
     public void changing(LocationEvent event) {
         String url = event.location;
         if (url == null)
             return;
 
-        StartingURLParser parser = new StartingURLParser(url);
+        DynamicURLParser parser = new DynamicURLParser(url);
         if (parser.hasIntroUrl()) {
             // stop URL first.
             event.doit = false;
             // execute the action embedded in the IntroURL
-            StartingIntroURL introURL = parser.getIntroURL();
+            DynamicHtmlURL introURL = parser.getIntroURL();
             introURL.execute();
         }
 
@@ -48,7 +48,7 @@ public class BrowserStartingPartLocationListener implements LocationListener {
                 && browser.getData("navigation").equals("true")) //$NON-NLS-1$ //$NON-NLS-2$
             return;
 
-        StartingURLParser parser = new StartingURLParser(url);
+        DynamicURLParser parser = new DynamicURLParser(url);
         if (!parser.hasProtocol() || parser.getHost() == null || parser.getHost().equals("")) //$NON-NLS-1$
             // This will filter out two navigation events fired by the browser
             // on a setText. (about:blank and

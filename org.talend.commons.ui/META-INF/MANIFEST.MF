@@ -16,10 +16,12 @@ Require-Bundle: org.eclipse.core.runtime,
  org.talend.libraries.dom4j-jaxen,
  org.eclipse.jface.text,
  org.eclipse.ui.forms,
- org.eclipse.gef
+ org.eclipse.gef,
+ org.eclipse.ui.intro
 Eclipse-LazyStart: true
 Bundle-Vendor: .Talend SA.
 Export-Package: org.talend.commons.ui.command,
+ org.talend.commons.ui.html,
  org.talend.commons.ui.i18n,
  org.talend.commons.ui.swt.actions,
  org.talend.commons.ui.swt.advanced.composite,
