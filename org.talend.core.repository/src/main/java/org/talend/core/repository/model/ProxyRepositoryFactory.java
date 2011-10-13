@@ -270,16 +270,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             boolean folder) throws PersistenceException {
         String fileName = label;
         checkFileName(fileName, pattern);
-
-        if (!this.repositoryFactoryFromProvider.isPathValid(proejct, type, path, label)) {
-            // i18n
-            // throw new IllegalArgumentException("Label " + fileName + " is already in use");
-            if (!type.isResourceItem()) {
-                throw new IllegalArgumentException(Messages.getString(
-                        "ProxyRepositoryFactory.illegalArgumentException.labeAlreadyInUse", new String[] { fileName })); //$NON-NLS-1$
-            }
-
-        }
     }
 
     public List<ConnectionItem> getMetadataConnectionsItem(Project project) throws PersistenceException {
@@ -374,7 +364,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
     public Folder createFolder(Project project, ERepositoryObjectType type, IPath path, String label, boolean isImportItem)
             throws PersistenceException {
-        // MOD klliu 2010-12-01 check the type
         if (type.isDQItemType()) {
             checkFileNameAndPath(project, label, RepositoryConstants.TDQ_PAT_ITEM_PATTERN, type, path, true);
         } else {
