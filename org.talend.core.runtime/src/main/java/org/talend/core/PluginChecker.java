@@ -44,7 +44,7 @@ public class PluginChecker {
 
     private static final String PERFORMANCE_PLUGIN_ID = "org.talend.designer.core.ui.preferences.PerformancePreferencePage"; //$NON-NLS-1$
 
-    private static final String EXCHANGE_SYSTEM_PLUGIN_ID = "org.talend.designer.components.ecosystem"; //$NON-NLS-1$
+    private static final String EXCHANGE_SYSTEM_PLUGIN_ID = "org.talend.designer.components.exchange"; //$NON-NLS-1$
 
     // added by hyWang
     private static final String RULES_PLUGIN_ID = "org.talend.repository.rules"; //$NON-NLS-1$   
