@@ -252,6 +252,11 @@ public class XmiResourceManager {
     }
 
     // MOD mzhao 2010-11-22, suppport TDQ item file extensions.(.ana, .rep, etc)
+    /**
+     * Please use item.setFileExtension directly. When create the extension, it will add automatically the extension
+     * point needed.
+     */
+    @Deprecated
     public Resource createItemResourceWithExtension(IProject project, Item item, IPath path,
             ERepositoryObjectType repositoryObjectType, boolean byteArrayResource, String fileExtension)
             throws PersistenceException {
@@ -285,7 +290,9 @@ public class XmiResourceManager {
 
     public Resource getItemResource(Item item) {
         URI itemResourceURI = null;
-        if (item instanceof TDQItem) {
+        if (item.getFileExtension() != null) {
+            itemResourceURI = getItemResourceURI(getItemURI(item), item.getFileExtension());
+        } else if (item instanceof TDQItem) {
             IPath fileName = new Path(((TDQItem) item).getFilename());
             itemResourceURI = getItemResourceURI(getItemURI(item), fileName.getFileExtension());
         } else {
@@ -466,14 +473,25 @@ public class XmiResourceManager {
     }
 
     // MOD mzhao 2010-11-22, suppport TDQ item file extensions.(.ana, .rep, etc)
-    private URI getItemResourceURI(IProject project, ERepositoryObjectType repositoryObjectType, IPath path, Item item,
-            String... fileExtension) throws PersistenceException {
+    private URI getItemResourceURI(IProject project, ERepositoryObjectType repositoryObjectType, IPath path, Item item)
+            throws PersistenceException {
         IPath folderPath = getFolderPath(project, repositoryObjectType, path);
         FileName fileName = ResourceFilenameHelper.create(item.getProperty());
-        IPath resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, FileConstants.ITEM_EXTENSION);
-        if (fileExtension != null && fileExtension.length > 0) {
-            resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, fileExtension[0]);
+        IPath resourcePath = null;
+        if (item.getFileExtension() == null) {
+            resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, FileConstants.ITEM_EXTENSION);
+        } else {
+            resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, item.getFileExtension());
         }
+        return URIHelper.convert(resourcePath);
+    }
+
+    @Deprecated
+    private URI getItemResourceURI(IProject project, ERepositoryObjectType repositoryObjectType, IPath path, Item item,
+            String fileExtension) throws PersistenceException {
+        IPath folderPath = getFolderPath(project, repositoryObjectType, path);
+        FileName fileName = ResourceFilenameHelper.create(item.getProperty());
+        IPath resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, fileExtension);
         return URIHelper.convert(resourcePath);
     }
 
