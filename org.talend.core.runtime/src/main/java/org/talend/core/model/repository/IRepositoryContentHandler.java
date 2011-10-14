@@ -20,9 +20,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.image.IImage;
-import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
-import org.talend.core.model.metadata.builder.connection.Connection;
-import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.Item;
 import org.talend.repository.model.RepositoryNode;
 
@@ -55,9 +52,5 @@ public interface IRepositoryContentHandler {
     public void addContents(Collection<EObject> collection, Resource resource);
 
     public IImage getIcon(Item item);
-
-    public AbstractMetadataObject getServicesOperation(Connection connection, String operationName);
-
-    public void changeOperationLabel(RepositoryNode newNode, INode node, Connection connection);
 
 }

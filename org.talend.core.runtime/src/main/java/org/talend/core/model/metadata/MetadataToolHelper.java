@@ -26,6 +26,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.IESBService;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
@@ -39,10 +40,8 @@ import org.talend.core.model.metadata.types.TypesManager;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
-import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.model.routines.IRoutinesService;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
@@ -199,8 +198,8 @@ public final class MetadataToolHelper {
 
     private static boolean isAllowSpecificCharacters() {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
-            return CoreRuntimePlugin.getInstance().getDesignerCoreService().getDesignerCorePreferenceStore().getBoolean(
-                    IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS);
+            return CoreRuntimePlugin.getInstance().getDesignerCoreService().getDesignerCorePreferenceStore()
+                    .getBoolean(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS);
         }
         return false;
     }
@@ -585,8 +584,9 @@ public final class MetadataToolHelper {
 
         if (connection != null) {
 
-            for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
-                AbstractMetadataObject obj = handler.getServicesOperation(connection, name2);
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBService.class)) {
+                IESBService service = (IESBService) GlobalServiceRegister.getDefault().getService(IESBService.class);
+                AbstractMetadataObject obj = service.getServicesOperation(connection, name2);
                 if (obj != null) {
                     return obj;
                 }

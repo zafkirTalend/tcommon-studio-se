@@ -21,6 +21,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.IESBService;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
@@ -32,9 +33,7 @@ import org.talend.core.model.metadata.builder.connection.SAPConnection;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
-import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.model.utils.UpdateRepositoryHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.service.IMetadataManagmentService;
@@ -413,15 +412,15 @@ public final class UpdateRepositoryUtils {
                 }
             }
             AbstractMetadataObject obj = null;
-            for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
-                obj = handler.getServicesOperation(connection, name);
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBService.class)) {
+                IESBService service = (IESBService) GlobalServiceRegister.getDefault().getService(IESBService.class);
+                obj = service.getServicesOperation(connection, name);
                 if (obj != null) {
                     if (GlobalServiceRegister.getDefault().isServiceRegistered(IMetadataManagmentService.class)) {
                         IMetadataManagmentService mmService = (IMetadataManagmentService) GlobalServiceRegister.getDefault()
                                 .getService(IMetadataManagmentService.class);
                         return mmService.convertServicesOperation(obj);
                     }
-                    break;
                 }
             }
 
