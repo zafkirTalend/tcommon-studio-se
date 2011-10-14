@@ -20,6 +20,7 @@ import org.talend.core.ICoreService;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
@@ -59,7 +60,8 @@ public final class ConvertionHelper {
         DatabaseConnection originalValueConnection = null;
         IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
         if (repositoryService != null) {
-            originalValueConnection = repositoryService.cloneOriginalValueConnection(sourceConnection, defaultContext, selectedContext);
+            originalValueConnection = repositoryService.cloneOriginalValueConnection(sourceConnection, defaultContext,
+                    selectedContext);
         }
         if (originalValueConnection == null) {
             connection = sourceConnection;
@@ -161,6 +163,19 @@ public final class ConvertionHelper {
             // columns.add(convertToIMetaDataColumn(column));
         }
         result.setListColumns(columns);
+        return result;
+    }
+
+    public static IMetadataTable convertServicesOperational(AbstractMetadataObject old) {
+        IMetadataTable result = new org.talend.core.model.metadata.MetadataTable();
+        result.setComment(old.getComment());
+        result.setId(old.getId());
+        result.setLabel(old.getLabel());
+        String sourceName = old.getName();
+        if (sourceName == null) {
+            sourceName = old.getLabel();
+        }
+        result.setTableName(sourceName);
         return result;
     }
 

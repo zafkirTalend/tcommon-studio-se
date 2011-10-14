@@ -14,6 +14,7 @@ package org.talend.core.model;
 
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
+import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.service.IMetadataManagmentService;
 
@@ -28,5 +29,16 @@ public class MetadataManagmentService implements IMetadataManagmentService {
 
     public MetadataTable convertMetadataTable(IMetadataTable old) {
         return ConvertionHelper.convert(old);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.service.IMetadataManagmentService#convertServicesOperation(org.talend.core.model.metadata.builder
+     * .connection.AbstractMetadataObject)
+     */
+    public IMetadataTable convertServicesOperation(AbstractMetadataObject old) {
+        return ConvertionHelper.convertServicesOperational(old);
     }
 }
