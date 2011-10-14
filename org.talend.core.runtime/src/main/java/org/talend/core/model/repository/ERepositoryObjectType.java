@@ -443,7 +443,8 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             // limit with DI items only.
             List<ERepositoryObjectType> toReturn = new ArrayList<ERepositoryObjectType>();
             for (ERepositoryObjectType currentType : values(ERepositoryObjectType.class)) {
-                if (ArrayUtils.contains(currentType.getProducts(), "DI")) {
+                if (ArrayUtils.contains(currentType.getProducts(), "DI")
+                        || ArrayUtils.contains(currentType.getProducts(), "CAMEL")) {
                     toReturn.add(currentType);
                 }
             }
