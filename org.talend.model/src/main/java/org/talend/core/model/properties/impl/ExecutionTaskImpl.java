@@ -82,6 +82,7 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getFeatureVersion <em>Feature Version</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getApplicationGroup <em>Application Group</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getBundleName <em>Bundle Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getPropertyId <em>Property Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -974,6 +975,26 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * @ordered
      */
     protected String bundleName = BUNDLE_NAME_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getPropertyId() <em>Property Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getPropertyId()
+     * @generated
+     * @ordered
+     */
+    protected static final String PROPERTY_ID_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getPropertyId() <em>Property Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getPropertyId()
+     * @generated
+     * @ordered
+     */
+    protected String propertyId = PROPERTY_ID_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1934,6 +1955,27 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getPropertyId() {
+        return propertyId;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setPropertyId(String newPropertyId) {
+        String oldPropertyId = propertyId;
+        propertyId = newPropertyId;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__PROPERTY_ID, oldPropertyId, propertyId));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getFeatureName() {
         return featureName;
     }
@@ -2114,6 +2156,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return getApplicationGroup();
             case PropertiesPackage.EXECUTION_TASK__BUNDLE_NAME:
                 return getBundleName();
+            case PropertiesPackage.EXECUTION_TASK__PROPERTY_ID:
+                return getPropertyId();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -2275,6 +2319,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__BUNDLE_NAME:
                 setBundleName((String)newValue);
                 return;
+            case PropertiesPackage.EXECUTION_TASK__PROPERTY_ID:
+                setPropertyId((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -2432,6 +2479,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__BUNDLE_NAME:
                 setBundleName(BUNDLE_NAME_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_TASK__PROPERTY_ID:
+                setPropertyId(PROPERTY_ID_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -2540,6 +2590,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return APPLICATION_GROUP_EDEFAULT == null ? applicationGroup != null : !APPLICATION_GROUP_EDEFAULT.equals(applicationGroup);
             case PropertiesPackage.EXECUTION_TASK__BUNDLE_NAME:
                 return BUNDLE_NAME_EDEFAULT == null ? bundleName != null : !BUNDLE_NAME_EDEFAULT.equals(bundleName);
+            case PropertiesPackage.EXECUTION_TASK__PROPERTY_ID:
+                return PROPERTY_ID_EDEFAULT == null ? propertyId != null : !PROPERTY_ID_EDEFAULT.equals(propertyId);
         }
         return super.eIsSet(featureID);
     }
@@ -2636,6 +2688,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         result.append(applicationGroup);
         result.append(", bundleName: ");
         result.append(bundleName);
+        result.append(", propertyId: ");
+        result.append(propertyId);
         result.append(')');
         return result.toString();
     }

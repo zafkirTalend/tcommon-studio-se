@@ -58,6 +58,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getFeatureVersion <em>Feature Version</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getApplicationGroup <em>Application Group</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getBundleName <em>Bundle Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getPropertyId <em>Property Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -1064,6 +1065,32 @@ public interface ExecutionTask extends ExecutionTriggerable {
      * @generated
      */
     void setBundleName(String value);
+
+    /**
+     * Returns the value of the '<em><b>Property Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Property Id</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Property Id</em>' attribute.
+     * @see #setPropertyId(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_PropertyId()
+     * @model
+     * @generated
+     */
+    String getPropertyId();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getPropertyId <em>Property Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Property Id</em>' attribute.
+     * @see #getPropertyId()
+     * @generated
+     */
+    void setPropertyId(String value);
 
     /**
      * Returns the value of the '<em><b>Feature Name</b></em>' attribute.

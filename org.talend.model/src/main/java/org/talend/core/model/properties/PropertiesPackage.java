@@ -4809,13 +4809,22 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK__BUNDLE_NAME = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 41;
 
     /**
+     * The feature id for the '<em><b>Property Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__PROPERTY_ID = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 42;
+
+    /**
      * The number of structural features of the '<em>Execution Task</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_FEATURE_COUNT = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 42;
+    int EXECUTION_TASK_FEATURE_COUNT = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 43;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionTaskPropertiesImpl <em>Execution Task Properties</em>}' class.
@@ -11618,6 +11627,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionTask_BundleName();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getPropertyId <em>Property Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Property Id</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getPropertyId()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_PropertyId();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getFeatureName <em>Feature Name</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -16839,6 +16859,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute EXECUTION_TASK__BUNDLE_NAME = eINSTANCE.getExecutionTask_BundleName();
+
+        /**
+         * The meta object literal for the '<em><b>Property Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__PROPERTY_ID = eINSTANCE.getExecutionTask_PropertyId();
 
         /**
          * The meta object literal for the '<em><b>Feature Name</b></em>' attribute feature.
