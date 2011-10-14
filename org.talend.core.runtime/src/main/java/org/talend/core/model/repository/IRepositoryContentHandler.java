@@ -50,4 +50,7 @@ public interface IRepositoryContentHandler {
             RepositoryNode node);
 
     public void addContents(Collection<EObject> collection, Resource resource);
+
+    public IImage getIcon(Item item);
+
 }
