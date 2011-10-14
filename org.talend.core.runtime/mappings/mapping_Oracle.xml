@@ -38,6 +38,7 @@
 				<talendType type="id_List">
 				</talendType>
 				<talendType type="id_Boolean">
+					<dbType type="INTEGER" />
 				</talendType>
 				<talendType type="id_Byte">						
 				</talendType>
