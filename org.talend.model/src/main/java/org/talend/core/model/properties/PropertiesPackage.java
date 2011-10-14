@@ -4755,13 +4755,13 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK__APPLICATION_TYPE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 35;
 
     /**
-     * The feature id for the '<em><b>Features File Repository Url</b></em>' attribute.
+     * The feature id for the '<em><b>Repository Name</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__FEATURES_FILE_REPOSITORY_URL = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 36;
+    int EXECUTION_TASK__REPOSITORY_NAME = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 36;
 
     /**
      * The feature id for the '<em><b>Features File Url</b></em>' attribute.
@@ -11583,15 +11583,15 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionTask_ApplicationType();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getFeaturesFileRepositoryUrl <em>Features File Repository Url</em>}'.
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getRepositoryName <em>Repository Name</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Features File Repository Url</em>'.
-     * @see org.talend.core.model.properties.ExecutionTask#getFeaturesFileRepositoryUrl()
+     * @return the meta object for the attribute '<em>Repository Name</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getRepositoryName()
      * @see #getExecutionTask()
      * @generated
      */
-    EAttribute getExecutionTask_FeaturesFileRepositoryUrl();
+    EAttribute getExecutionTask_RepositoryName();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getFeaturesFileUrl <em>Features File Url</em>}'.
@@ -16829,12 +16829,12 @@ public interface PropertiesPackage extends EPackage {
         EAttribute EXECUTION_TASK__APPLICATION_TYPE = eINSTANCE.getExecutionTask_ApplicationType();
 
         /**
-         * The meta object literal for the '<em><b>Features File Repository Url</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>Repository Name</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute EXECUTION_TASK__FEATURES_FILE_REPOSITORY_URL = eINSTANCE.getExecutionTask_FeaturesFileRepositoryUrl();
+        EAttribute EXECUTION_TASK__REPOSITORY_NAME = eINSTANCE.getExecutionTask_RepositoryName();
 
         /**
          * The meta object literal for the '<em><b>Features File Url</b></em>' attribute feature.

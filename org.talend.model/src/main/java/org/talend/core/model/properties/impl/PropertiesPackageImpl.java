@@ -3520,7 +3520,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getExecutionTask_FeaturesFileRepositoryUrl() {
+    public EAttribute getExecutionTask_RepositoryName() {
         return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(36);
     }
 
@@ -6310,7 +6310,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(executionTaskEClass, EXECUTION_TASK__ON_UNKNOWN_STATE_JOB);
         createEAttribute(executionTaskEClass, EXECUTION_TASK__USE_LATEST_VERSION);
         createEAttribute(executionTaskEClass, EXECUTION_TASK__APPLICATION_TYPE);
-        createEAttribute(executionTaskEClass, EXECUTION_TASK__FEATURES_FILE_REPOSITORY_URL);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__REPOSITORY_NAME);
         createEAttribute(executionTaskEClass, EXECUTION_TASK__FEATURES_FILE_URL);
         createEAttribute(executionTaskEClass, EXECUTION_TASK__FEATURE_NAME);
         createEAttribute(executionTaskEClass, EXECUTION_TASK__FEATURE_VERSION);
@@ -7053,7 +7053,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getExecutionTask_OnUnknownStateJob(), theEcorePackage.getEString(), "onUnknownStateJob", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionTask_UseLatestVersion(), theEcorePackage.getEBoolean(), "useLatestVersion", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionTask_ApplicationType(), theEcorePackage.getEString(), "applicationType", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getExecutionTask_FeaturesFileRepositoryUrl(), theEcorePackage.getEString(), "featuresFileRepositoryUrl", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_RepositoryName(), theEcorePackage.getEString(), "repositoryName", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionTask_FeaturesFileUrl(), theEcorePackage.getEString(), "featuresFileUrl", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionTask_FeatureName(), theEcorePackage.getEString(), "featureName", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionTask_FeatureVersion(), theEcorePackage.getEString(), "featureVersion", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

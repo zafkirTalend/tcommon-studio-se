@@ -76,7 +76,7 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getOnUnknownStateJob <em>On Unknown State Job</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isUseLatestVersion <em>Use Latest Version</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getApplicationType <em>Application Type</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getFeaturesFileRepositoryUrl <em>Features File Repository Url</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getRepositoryName <em>Repository Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getFeaturesFileUrl <em>Features File Url</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getFeatureName <em>Feature Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getFeatureVersion <em>Feature Version</em>}</li>
@@ -857,24 +857,24 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
     protected String applicationType = APPLICATION_TYPE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getFeaturesFileRepositoryUrl() <em>Features File Repository Url</em>}' attribute.
+     * The default value of the '{@link #getRepositoryName() <em>Repository Name</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getFeaturesFileRepositoryUrl()
+     * @see #getRepositoryName()
      * @generated
      * @ordered
      */
-    protected static final String FEATURES_FILE_REPOSITORY_URL_EDEFAULT = null;
+    protected static final String REPOSITORY_NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getFeaturesFileRepositoryUrl() <em>Features File Repository Url</em>}' attribute.
+     * The cached value of the '{@link #getRepositoryName() <em>Repository Name</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getFeaturesFileRepositoryUrl()
+     * @see #getRepositoryName()
      * @generated
      * @ordered
      */
-    protected String featuresFileRepositoryUrl = FEATURES_FILE_REPOSITORY_URL_EDEFAULT;
+    protected String repositoryName = REPOSITORY_NAME_EDEFAULT;
 
     /**
      * The default value of the '{@link #getFeaturesFileUrl() <em>Features File Url</em>}' attribute.
@@ -1871,8 +1871,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getFeaturesFileRepositoryUrl() {
-        return featuresFileRepositoryUrl;
+    public String getRepositoryName() {
+        return repositoryName;
     }
 
     /**
@@ -1880,11 +1880,11 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setFeaturesFileRepositoryUrl(String newFeaturesFileRepositoryUrl) {
-        String oldFeaturesFileRepositoryUrl = featuresFileRepositoryUrl;
-        featuresFileRepositoryUrl = newFeaturesFileRepositoryUrl;
+    public void setRepositoryName(String newRepositoryName) {
+        String oldRepositoryName = repositoryName;
+        repositoryName = newRepositoryName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__FEATURES_FILE_REPOSITORY_URL, oldFeaturesFileRepositoryUrl, featuresFileRepositoryUrl));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__REPOSITORY_NAME, oldRepositoryName, repositoryName));
     }
 
     /**
@@ -2144,8 +2144,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return isUseLatestVersion() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.EXECUTION_TASK__APPLICATION_TYPE:
                 return getApplicationType();
-            case PropertiesPackage.EXECUTION_TASK__FEATURES_FILE_REPOSITORY_URL:
-                return getFeaturesFileRepositoryUrl();
+            case PropertiesPackage.EXECUTION_TASK__REPOSITORY_NAME:
+                return getRepositoryName();
             case PropertiesPackage.EXECUTION_TASK__FEATURES_FILE_URL:
                 return getFeaturesFileUrl();
             case PropertiesPackage.EXECUTION_TASK__FEATURE_NAME:
@@ -2301,8 +2301,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__APPLICATION_TYPE:
                 setApplicationType((String)newValue);
                 return;
-            case PropertiesPackage.EXECUTION_TASK__FEATURES_FILE_REPOSITORY_URL:
-                setFeaturesFileRepositoryUrl((String)newValue);
+            case PropertiesPackage.EXECUTION_TASK__REPOSITORY_NAME:
+                setRepositoryName((String)newValue);
                 return;
             case PropertiesPackage.EXECUTION_TASK__FEATURES_FILE_URL:
                 setFeaturesFileUrl((String)newValue);
@@ -2461,8 +2461,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__APPLICATION_TYPE:
                 setApplicationType(APPLICATION_TYPE_EDEFAULT);
                 return;
-            case PropertiesPackage.EXECUTION_TASK__FEATURES_FILE_REPOSITORY_URL:
-                setFeaturesFileRepositoryUrl(FEATURES_FILE_REPOSITORY_URL_EDEFAULT);
+            case PropertiesPackage.EXECUTION_TASK__REPOSITORY_NAME:
+                setRepositoryName(REPOSITORY_NAME_EDEFAULT);
                 return;
             case PropertiesPackage.EXECUTION_TASK__FEATURES_FILE_URL:
                 setFeaturesFileUrl(FEATURES_FILE_URL_EDEFAULT);
@@ -2578,8 +2578,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return useLatestVersion != USE_LATEST_VERSION_EDEFAULT;
             case PropertiesPackage.EXECUTION_TASK__APPLICATION_TYPE:
                 return APPLICATION_TYPE_EDEFAULT == null ? applicationType != null : !APPLICATION_TYPE_EDEFAULT.equals(applicationType);
-            case PropertiesPackage.EXECUTION_TASK__FEATURES_FILE_REPOSITORY_URL:
-                return FEATURES_FILE_REPOSITORY_URL_EDEFAULT == null ? featuresFileRepositoryUrl != null : !FEATURES_FILE_REPOSITORY_URL_EDEFAULT.equals(featuresFileRepositoryUrl);
+            case PropertiesPackage.EXECUTION_TASK__REPOSITORY_NAME:
+                return REPOSITORY_NAME_EDEFAULT == null ? repositoryName != null : !REPOSITORY_NAME_EDEFAULT.equals(repositoryName);
             case PropertiesPackage.EXECUTION_TASK__FEATURES_FILE_URL:
                 return FEATURES_FILE_URL_EDEFAULT == null ? featuresFileUrl != null : !FEATURES_FILE_URL_EDEFAULT.equals(featuresFileUrl);
             case PropertiesPackage.EXECUTION_TASK__FEATURE_NAME:
@@ -2676,8 +2676,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         result.append(useLatestVersion);
         result.append(", applicationType: ");
         result.append(applicationType);
-        result.append(", featuresFileRepositoryUrl: ");
-        result.append(featuresFileRepositoryUrl);
+        result.append(", repositoryName: ");
+        result.append(repositoryName);
         result.append(", featuresFileUrl: ");
         result.append(featuresFileUrl);
         result.append(", featureName: ");

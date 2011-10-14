@@ -52,7 +52,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getOnUnknownStateJob <em>On Unknown State Job</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#isUseLatestVersion <em>Use Latest Version</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getApplicationType <em>Application Type</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ExecutionTask#getFeaturesFileRepositoryUrl <em>Features File Repository Url</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getRepositoryName <em>Repository Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getFeaturesFileUrl <em>Features File Url</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getFeatureName <em>Feature Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getFeatureVersion <em>Feature Version</em>}</li>
@@ -963,30 +963,30 @@ public interface ExecutionTask extends ExecutionTriggerable {
     void setApplicationType(String value);
 
     /**
-     * Returns the value of the '<em><b>Features File Repository Url</b></em>' attribute.
+     * Returns the value of the '<em><b>Repository Name</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Features File Repository Url</em>' attribute isn't clear,
+     * If the meaning of the '<em>Repository Name</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Features File Repository Url</em>' attribute.
-     * @see #setFeaturesFileRepositoryUrl(String)
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_FeaturesFileRepositoryUrl()
+     * @return the value of the '<em>Repository Name</em>' attribute.
+     * @see #setRepositoryName(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_RepositoryName()
      * @model
      * @generated
      */
-    String getFeaturesFileRepositoryUrl();
+    String getRepositoryName();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getFeaturesFileRepositoryUrl <em>Features File Repository Url</em>}' attribute.
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getRepositoryName <em>Repository Name</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Features File Repository Url</em>' attribute.
-     * @see #getFeaturesFileRepositoryUrl()
+     * @param value the new value of the '<em>Repository Name</em>' attribute.
+     * @see #getRepositoryName()
      * @generated
      */
-    void setFeaturesFileRepositoryUrl(String value);
+    void setRepositoryName(String value);
 
     /**
      * Returns the value of the '<em><b>Features File Url</b></em>' attribute.
