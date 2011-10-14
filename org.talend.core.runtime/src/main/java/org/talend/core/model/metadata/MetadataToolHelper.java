@@ -28,6 +28,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.SAPConnection;
@@ -38,8 +39,10 @@ import org.talend.core.model.metadata.types.TypesManager;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.model.routines.IRoutinesService;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
@@ -196,8 +199,8 @@ public final class MetadataToolHelper {
 
     private static boolean isAllowSpecificCharacters() {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
-            return CoreRuntimePlugin.getInstance().getDesignerCoreService().getDesignerCorePreferenceStore()
-                    .getBoolean(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS);
+            return CoreRuntimePlugin.getInstance().getDesignerCoreService().getDesignerCorePreferenceStore().getBoolean(
+                    IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS);
         }
         return false;
     }
@@ -557,6 +560,35 @@ public final class MetadataToolHelper {
                 MetadataTable table = (MetadataTable) tableObj;
                 if (table.getLabel().equals(name2)) {
                     return table;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static AbstractMetadataObject getServicesOperationFromRepository(String metaRepositoryId) {
+        org.talend.core.model.metadata.builder.connection.Connection connection;
+
+        String[] names = metaRepositoryId.split(" - "); //$NON-NLS-1$
+        if (names.length < 2) {
+            return null;
+        }
+        String linkedRepository = names[0];
+        String name2 = null;
+        if (names.length == 2) {
+            name2 = names[1];
+        } else if (names.length > 2) {
+            name2 = metaRepositoryId.substring(linkedRepository.length() + 3);
+        }
+
+        connection = getConnectionFromRepository(linkedRepository);
+
+        if (connection != null) {
+
+            for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+                AbstractMetadataObject obj = handler.getServicesOperation(connection, name2);
+                if (obj != null) {
+                    return obj;
                 }
             }
         }

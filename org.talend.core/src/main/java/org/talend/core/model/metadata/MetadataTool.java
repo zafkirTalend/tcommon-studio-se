@@ -197,12 +197,20 @@ public class MetadataTool {
     }
 
     public static IMetadataTable getMetadataFromRepository(String metaRepositoryId) {
+        AbstractMetadataObject operation = getServiceOpertionalFromRepository(metaRepositoryId);
+        if (operation != null) {
+            return ConvertionHelper.convertServicesOperational(operation);
+        }
         MetadataTable table = getMetadataTableFromRepository(metaRepositoryId);
         if (table != null) {
             return ConvertionHelper.convert(table);
         }
         return null;
 
+    }
+
+    public static AbstractMetadataObject getServiceOpertionalFromRepository(String metaRepositoryId) {
+        return MetadataToolHelper.getServicesOperationFromRepository(metaRepositoryId);
     }
 
     /**
@@ -485,8 +493,8 @@ public class MetadataTool {
                     if (connection != null) {
                         IRepositoryViewObject lastVersion = null;
                         if (connection.getContextId() != null) {
-                            lastVersion = CorePlugin.getDefault().getProxyRepositoryFactory()
-                                    .getLastVersion(connection.getContextId());
+                            lastVersion = CorePlugin.getDefault().getProxyRepositoryFactory().getLastVersion(
+                                    connection.getContextId());
                         }
                         if (lastVersion != null) {
                             repositoryObjects.add(lastVersion);
