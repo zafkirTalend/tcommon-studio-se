@@ -1,7 +1,20 @@
+// ============================================================================
+//
+// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+//
+// This source code is available under agreement available at
+// %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+//
+// You should have received a copy of the agreement
+// along with this program; if not, write to Talend SA
+// 9 rue Pages 92150 Suresnes, France
+//
+// ============================================================================
 package org.talend.core.ui.metadata.dialog;
 
 import java.util.List;
 
+import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -14,7 +27,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.FoxNodeComboViewProvider;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
 
 /**
  * DOC ycbai class global comment. Detailled comment
@@ -25,11 +37,11 @@ public class RootNodeSelectDialog extends Dialog {
 
     private Combo rootCombo;
 
-    private List<FOXTreeNode> nodes;
+    private List<ATreeNode> nodes;
 
-    private FOXTreeNode selectedNode;
+    private ATreeNode selectedNode;
 
-    public RootNodeSelectDialog(Shell parentShell, List<FOXTreeNode> nodes) {
+    public RootNodeSelectDialog(Shell parentShell, List<ATreeNode> nodes) {
         super(parentShell);
         this.nodes = nodes;
     }
@@ -66,13 +78,13 @@ public class RootNodeSelectDialog extends Dialog {
         IStructuredSelection selection = ((IStructuredSelection) rootComboViewer.getSelection());
         Object obj = selection.getFirstElement();
         if (obj != null) {
-            selectedNode = (FOXTreeNode) obj;
+            selectedNode = (ATreeNode) obj;
         }
 
         super.okPressed();
     }
 
-    public FOXTreeNode getSelectedNode() {
+    public ATreeNode getSelectedNode() {
         return this.selectedNode;
     }
 

@@ -48,6 +48,8 @@ public class LabelledFileField {
 
     private Composite compositeButton;
 
+    private String result;
+
     private static final int DEFAULT_FIELD_STYLE = SWT.BORDER | SWT.SINGLE;
 
     /**
@@ -212,7 +214,7 @@ public class LabelledFileField {
             fileDialog.setFilterExtensions(extensions);
         }
         // fileDialog.setFilterNames(filterNames);
-        String result = fileDialog.open();
+        result = fileDialog.open();
         setFileFieldValue(result);
     }
 
@@ -394,5 +396,9 @@ public class LabelledFileField {
 
     public Text getTextControl() {
         return this.text;
+    }
+
+    public String getResult() {
+        return this.result;
     }
 }

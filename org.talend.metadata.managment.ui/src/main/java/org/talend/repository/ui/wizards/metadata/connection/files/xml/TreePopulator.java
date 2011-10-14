@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.apache.commons.collections.BidiMap;
 import org.apache.commons.collections.bidimap.DualHashBidiMap;
+import org.apache.xerces.xs.XSModel;
 import org.eclipse.datatools.connectivity.oda.OdaException;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.SchemaPopulationUtil;
@@ -113,6 +114,41 @@ public class TreePopulator {
                     populateTreeItems(availableXmlTree, childs, 0, ""); //$NON-NLS-1$
                 }
                 this.filePath = filePath;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean populateTree(XSModel xsModel, ATreeNode selectedNode, List<ATreeNode> treeNodes) {
+        availableXmlTree.removeAll();
+        xPathToTreeItem.clear();
+        ATreeNode treeNode = null;
+        if (xsModel != null) {
+            try {
+                treeNode = SchemaPopulationUtil.getSchemaTree(xsModel, selectedNode, true);
+                if (treeNodes != null && treeNode.getChildren().length > 0) {
+                    for (Object obj : treeNode.getChildren()) {
+                        if (obj instanceof ATreeNode) {
+                            treeNodes.add((ATreeNode) obj);
+                        }
+                    }
+                }
+
+            } catch (MalformedURLException e) {
+                ExceptionHandler.process(e);
+            } catch (OdaException e) {
+                ExceptionHandler.process(e);
+            } catch (URISyntaxException e) {
+                ExceptionHandler.process(e);
+            } catch (Exception e) {
+                return false;
+            }
+            if (treeNode == null || treeNode.getChildren().length == 0) {
+                return false;
+            } else {
+                Object[] childs = treeNode.getChildren();
+                populateTreeItems(availableXmlTree, childs, 0, ""); //$NON-NLS-1$
                 return true;
             }
         }
@@ -233,6 +269,10 @@ public class TreePopulator {
      */
     public static int getLimit() {
         return limit;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
 }

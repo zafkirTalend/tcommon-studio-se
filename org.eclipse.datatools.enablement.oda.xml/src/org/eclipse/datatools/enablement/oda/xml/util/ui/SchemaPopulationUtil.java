@@ -78,6 +78,25 @@ public class SchemaPopulationUtil {
             return new XMLFileSchemaTreePopulator(numberOfElementsAccessiable).getSchemaTree(fileName, includeAttribute);
         }
     }
+
+    /**
+     * DOC ycbai Comment method "getSchemaTree".
+     * 
+     * Only for xsd.
+     * 
+     * @param xsModel
+     * @param selectedNode
+     * @param includeAttribute
+     * @return
+     * @throws OdaException
+     * @throws URISyntaxException
+     * @throws IOException
+     */
+    public static ATreeNode getSchemaTree(XSModel xsModel, ATreeNode selectedNode, boolean includeAttribute) throws OdaException,
+            URISyntaxException, IOException {
+        return XSDFileSchemaTreePopulator.getSchemaTree(xsModel, selectedNode, includeAttribute);
+    }
+
 }
 
 /**
@@ -294,6 +313,35 @@ final class XSDFileSchemaTreePopulator {
         }
     }
 
+    private static void populateRoot(ATreeNode root, ATreeNode selectedNode) {
+        Object[] toBeIterated = root.getChildren();
+        for (int i = 0; i < toBeIterated.length; i++) {
+            ATreeNode node = ((ATreeNode) toBeIterated[i]);
+            Object nodeValue = node.getValue();
+            if (nodeValue != null && !nodeValue.equals(selectedNode.getValue()) && !nodeValue.equals(selectedNode.getDataType())) {
+                continue;
+            }
+            Object value = node.getDataType();
+            List container = new ArrayList();
+            findNodeWithValue(root, value.toString(), container, new VisitingRecorder());
+            for (int j = 0; j < container.size(); j++) {
+                if (((ATreeNode) container.get(j)).getChildren().length == 0) {
+                    Object[] os = ((ATreeNode) toBeIterated[i]).getChildren();
+                    for (int k = 0; k < os.length; k++) {
+                        if (os[k] instanceof ATreeNode) {
+                            if (!(((ATreeNode) os[k]).getDataType() != null && ((ATreeNode) os[k]).getDataType().equals(
+                                    ((ATreeNode) container.get(j)).getDataType()))) {
+                                ((ATreeNode) container.get(j)).addChild(os[k]);
+                            }
+                        }
+                    }
+
+                }
+            }
+            break;
+        }
+    }
+
     /**
      * Starting from a tree node, find all nodes with given value, and put it to container.
      * 
@@ -421,10 +469,10 @@ final class XSDFileSchemaTreePopulator {
                     addParticleAndAttributeInfo(node, complexType, complexTypesRoot, new VisitingRecorder());
                 }
             }
-             String nodeType = node.getOriginalDataType();
-             if (nodeType != null && !attList.contains(nodeType)) {
-             continue;
-             }
+            String nodeType = node.getOriginalDataType();
+            if (nodeType != null && !attList.contains(nodeType)) {
+                continue;
+            }
             root.addChild(node);
         }
 
@@ -554,6 +602,130 @@ final class XSDFileSchemaTreePopulator {
     }
 
     /**
+     * DOC ycbai Comment method "getSchemaTree".
+     * 
+     * @param xsModel
+     * @param selectedNode
+     * @param incAttr
+     * @return
+     * @throws OdaException
+     * @throws MalformedURLException
+     * @throws URISyntaxException
+     */
+    public static ATreeNode getSchemaTree(XSModel xsModel, ATreeNode selectedNode, boolean incAttr) throws OdaException,
+            MalformedURLException, URISyntaxException {
+        includeAttribute = incAttr;
+
+        ATreeNode complexTypesRoot = populateComplexTypeTree(xsModel, selectedNode);
+
+        XSNamedMap map = xsModel.getComponents(XSConstants.ELEMENT_DECLARATION);
+
+        ATreeNode root = new ATreeNode();
+
+        root.setValue("ROOT");
+        for (int i = 0; i < map.getLength(); i++) {
+            ATreeNode node = new ATreeNode();
+            XSElementDecl element = (XSElementDecl) map.item(i);
+            String elementName = element.getName();
+            if (elementName != null && !elementName.equals(selectedNode.getValue())
+                    && !elementName.equals(selectedNode.getDataType())) {
+                continue;
+            }
+
+            String namespace = element.getNamespace();
+            ATreeNode namespaceNode = null;
+            if (namespace != null) {
+                namespaceNode = new ATreeNode();
+                namespaceNode.setDataType(namespace);
+                namespaceNode.setType(ATreeNode.NAMESPACE_TYPE);
+                namespaceNode.setValue(namespace);
+            }
+
+            node.setValue(elementName);
+            node.setType(ATreeNode.ELEMENT_TYPE);
+            node.setDataType(elementName);
+            if (element.getTypeDefinition() instanceof XSComplexTypeDecl) {
+                XSComplexTypeDecl complexType = (XSComplexTypeDecl) element.getTypeDefinition();
+                // If the complex type is explicitly defined, that is, it has name.
+                if (complexType.getName() != null) {
+                    node.setDataType(complexType.getName());
+                    ATreeNode n = findComplexElement(complexTypesRoot, complexType.getName());
+                    if (namespaceNode != null) {
+                        node.addChild(namespaceNode);
+                    }
+                    if (n != null) {
+                        node.addChild(n.getChildren());
+                    }
+                }
+                // If the complex type is implicitly defined, that is, it has no name.
+                else {
+
+                    addParticleAndAttributeInfo(node, complexType, complexTypesRoot, new VisitingRecorder());
+                }
+            }
+            root.addChild(node);
+        }
+
+        // if no base element, display all complex types / attributes directly.
+        if (map.getLength() == 0) {
+            Object[] children = complexTypesRoot.getChildren();
+            if (children != null && children.length > 0) {
+                for (Object obj : children) {
+                    if (obj instanceof ATreeNode) {
+                        ATreeNode treeNode = (ATreeNode) obj;
+                        Object value = treeNode.getValue();
+                        if (value != null && (value.equals(selectedNode.getValue()) || value.equals(selectedNode.getDataType()))) {
+                            root.addChild(treeNode);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        populateRoot(root, selectedNode);
+        return root;
+
+    }
+
+    public static XSModel getXSModel(String fileName) throws URISyntaxException, MalformedURLException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setNamespaceAware(true);
+        URI uri = null;
+        File f = new File(fileName);
+        if (f.exists()) {
+            uri = f.toURI();
+        } else {
+            URL url = new URL(fileName);
+            uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(),
+                    url.getRef());
+        }
+
+        // Then try to parse the input string as a url in web.
+        if (uri == null) {
+            uri = new URI(fileName);
+        }
+
+        // fixed a bug when parse one file contians Franch ,maybe need modification
+        XMLSchemaLoader xsLoader = new XMLSchemaLoader();
+        XSModel xsModel = xsLoader.loadURI(uri.toString());
+        if (xsModel == null) {
+            try {
+                Grammar loadGrammar = xsLoader.loadGrammar(new XMLInputSource(null, uri.toString(), null, new FileInputStream(f),
+                        "ISO-8859-1"));
+                xsModel = ((XSGrammar) loadGrammar).toXSModel();
+            } catch (XNIException e) {
+                e.printStackTrace();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return xsModel;
+    }
+
+    /**
      * Add the particles and attributes that defined in an implicitly defined ComplexType to the node.
      * 
      * @param node
@@ -668,6 +840,63 @@ final class XSDFileSchemaTreePopulator {
      * @throws OdaException
      */
     private static ATreeNode populateComplexTypeTree(XSModel xsModel) throws OdaException {
+        XSNamedMap map = xsModel.getComponents(XSTypeDefinition.COMPLEX_TYPE);
+
+        ATreeNode root = new ATreeNode();
+
+        root.setValue("ROOT");
+        root.setDataType("");
+        Map<ATreeNode, XSParticle> childWithParticles = new HashMap<ATreeNode, XSParticle>();
+        for (int i = 0; i < map.getLength(); i++) {
+            ATreeNode node = new ATreeNode();
+            XSComplexTypeDecl element = (XSComplexTypeDecl) map.item(i);
+            if (element.getName().equals("anyType")) {
+                continue;
+            }
+            node.setValue(element.getName());
+            node.setType(ATreeNode.ELEMENT_TYPE);
+            node.setDataType(element.getTypeName());
+            root.addChild(node);
+
+            if (includeAttribute) {
+                XSAttributeGroupDecl group = element.getAttrGrp();
+                if (group != null) {
+                    XSObjectList list = group.getAttributeUses();
+                    for (int j = 0; j < list.getLength(); j++) {
+                        ATreeNode childNode = new ATreeNode();
+                        childNode.setValue(((XSAttributeUseImpl) list.item(j)).getAttrDeclaration().getName());
+                        childNode.setType(ATreeNode.ATTRIBUTE_TYPE);
+                        // two different datatype definitions need two getting ways, added by nma.
+                        String dataType = ((XSAttributeUseImpl) list.item(j)).fAttrDecl.getTypeDefinition().getName();
+                        if (dataType == null || dataType.length() == 0) {
+                            dataType = ((XSAttributeUseImpl) list.item(j)).fAttrDecl.getTypeDefinition().getBaseType().getName();
+                        }
+                        if (dataType != null && dataType.length() > 0) {
+                            childNode.setDataType(dataType);
+                        }
+                        node.addChild(childNode);
+                    }
+                }
+            }
+            XSParticle particle = element.getParticle();
+            if (particle != null) {
+                childWithParticles.put(node, particle);
+            }
+        }
+
+        for (ATreeNode node : childWithParticles.keySet()) {
+            XSParticle particle = childWithParticles.get(node);
+            if (particle != null) {
+                XSObjectList list = ((XSModelGroupImpl) particle.getTerm()).getParticles();
+                populateTreeNodeWithParticles(root, node, list);
+            }
+        }
+
+        populateRoot(root);
+        return root;
+    }
+
+    private static ATreeNode populateComplexTypeTree(XSModel xsModel, ATreeNode selectedNode) throws OdaException {
         XSNamedMap map = xsModel.getComponents(XSTypeDefinition.COMPLEX_TYPE);
 
         ATreeNode root = new ATreeNode();

@@ -23,6 +23,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.apache.oro.text.regex.MalformedPatternException;
@@ -30,9 +32,13 @@ import org.apache.oro.text.regex.MatchResult;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
+import org.apache.xerces.xs.XSModel;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
+import org.eclipse.datatools.enablement.oda.xml.util.ui.XSDPopulationUtil;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
@@ -40,6 +46,7 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -67,15 +74,20 @@ import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.EMetadataEncoding;
+import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
+import org.talend.core.model.metadata.builder.connection.XMLFileNode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.repository.model.ResourceModelUtils;
+import org.talend.core.ui.metadata.dialog.RootNodeSelectDialog;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.ui.swt.utils.AbstractXmlFileStepForm;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
+import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.StringUtil;
+import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.TreeUtil;
 
 /**
  * @author ocarbone
@@ -116,6 +128,8 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
 
     private boolean readOnly;
 
+    private boolean creation;
+
     private TreePopulator treePopulator;
 
     private LabelledCombo encodingCombo;
@@ -137,6 +151,7 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
      */
     public XmlFileStep1Form(Composite parent, ConnectionItem connectionItem, String[] existingNames) {
         super(parent, connectionItem, existingNames);
+        this.creation = creation;
         setupForm();
     }
 
@@ -167,7 +182,36 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
                         fileFieldXml.getText()));
             }
             if (new File(xmlFilePath).exists()) {
-                valid = this.treePopulator.populateTree(xmlFilePath, treeNode);
+                if (XmlUtil.isXSDFile(xmlFilePath)) {
+                    try {
+                        XSModel xsModel = TreeUtil.getXSModel(xmlFilePath);
+                        List<ATreeNode> rootNodes = XSDPopulationUtil.getAllRootNodes(xsModel);
+                        if (rootNodes.size() > 0) {
+                            XMLFileNode selectedNode = getConnection().getRoot().get(0);
+                            if (selectedNode != null) {
+                                String xmlPath = selectedNode.getXMLPath();
+                                if (xmlPath != null && xmlPath.length() > 0) {
+                                    xmlPath = xmlPath.substring(xmlPath.lastIndexOf("/") + 1); //$NON-NLS-1$
+                                    for (int i = 0; i < rootNodes.size(); i++) {
+                                        ATreeNode node = rootNodes.get(i);
+                                        if (xmlPath.equals(node.getValue())) {
+                                            List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
+                                            valid = treePopulator.populateTree(xsModel, node, treeNodes);
+                                            if (treeNodes.size() > 0) {
+                                                treeNode = treeNodes.get(0);
+                                            }
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        ExceptionHandler.process(e);
+                    }
+                } else {
+                    valid = this.treePopulator.populateTree(xmlFilePath, treeNode);
+                }
             } else if (getConnection().getFileContent() != null && getConnection().getFileContent().length > 0) {
                 initFileContent();
             }
@@ -354,6 +398,88 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
         // }
         // });
 
+        fileFieldXml.addSelectionListener(new SelectionListener() {
+
+            public void widgetSelected(SelectionEvent event) {
+                if (fileFieldXml.getResult() == null) {
+                    return;
+                }
+                String text = fileFieldXml.getText();
+                if (isContextMode()) {
+                    ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(
+                            connectionItem.getConnection(), true);
+                    text = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, text));
+                }
+                // getConnection().setXmlFilePath(PathUtils.getPortablePath(xmlXsdFilePath.getText()));
+                File file = new File(text);
+                if (file.exists()) {
+                    if (file.exists()) {
+                        if (XmlUtil.isXSDFile(text)) {
+                            List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
+                            try {
+                                XSModel xsModel = updateXSModel(text);
+                                List<ATreeNode> list = updateRootNodes(xsModel, true);
+                                if (list.size() > 1) {
+                                    RootNodeSelectDialog dialog = new RootNodeSelectDialog(null, list);
+                                    if (dialog.open() == IDialogConstants.OK_ID) {
+                                        ATreeNode selectedNode = dialog.getSelectedNode();
+                                        valid = treePopulator.populateTree(xsModel, selectedNode, treeNodes);
+                                        if (treeNodes.size() > 0) {
+                                            treeNode = treeNodes.get(0);
+                                        }
+                                    } else {
+                                        return;
+                                    }
+                                } else {
+                                    valid = treePopulator.populateTree(xsModel, list.get(0), treeNodes);
+                                    if (treeNodes.size() > 0) {
+                                        treeNode = treeNodes.get(0);
+                                    }
+                                }
+                            } catch (Exception ex) {
+                                ExceptionHandler.process(ex);
+                            }
+                            XmlFileWizard wizard = ((XmlFileWizard) getPage().getWizard());
+                            wizard.setRootNodes(treeNodes);
+                            wizard.setTreeRootNode(treeNode);
+                            List<FOXTreeNode> nodeList = getCorrespondingFoxTreeNodes(treeNode, true);
+                            if (nodeList.size() > 0) {
+                                FOXTreeNode foxTreeNode = nodeList.get(0);
+                                EList root = getConnection().getRoot();
+                                if (root == null)
+                                    return;
+                                XMLFileNode xmlFileNode = ConnectionFactory.eINSTANCE.createXMLFileNode();
+                                String currentPath = "/" + foxTreeNode.getLabel();
+                                xmlFileNode.setXMLPath(currentPath);
+                                xmlFileNode.setRelatedColumn(foxTreeNode.getColumnLabel());
+                                xmlFileNode.setAttribute(foxTreeNode.isMain() ? "main" : "branch");
+                                xmlFileNode.setDefaultValue(foxTreeNode.getDefaultValue());
+                                xmlFileNode.setType(foxTreeNode.getDataType());
+                                XMLFileNode originalXmlNode = null;
+                                if (root.size() > 0) {
+                                    originalXmlNode = (XMLFileNode) root.get(0);
+                                }
+                                if (originalXmlNode != null && !currentPath.equals(originalXmlNode.getXMLPath())) {
+                                    wizard.setXsdRootChange(true);
+                                } else {
+                                    wizard.setXsdRootChange(false);
+                                }
+                                root.clear();
+                                root.add(xmlFileNode);
+                            }
+                        } else {
+                            valid = treePopulator.populateTree(text, treeNode);
+                        }
+                    }
+                }
+
+            }
+
+            public void widgetDefaultSelected(SelectionEvent e) {
+
+            }
+        });
+
         // fileFieldXml : Event modifyText
         fileFieldXml.addModifyListener(new ModifyListener() {
 
@@ -366,8 +492,15 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
                 }
                 if (getConnection().getXmlFilePath() != null && !getConnection().getXmlFilePath().equals(text)) {
                     getConnection().getLoop().clear();
+                    xsdPathChanged = true;
+                } else {
+                    xsdPathChanged = false;
                 }
                 getConnection().setXmlFilePath(PathUtils.getPortablePath(fileFieldXml.getText()));
+
+                XmlFileWizard wizard = ((XmlFileWizard) getPage().getWizard());
+                wizard.setTreeRootNode(treeNode);
+
                 BufferedReader in = null;
 
                 File file = null;
@@ -463,12 +596,12 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
                         encodingCombo.setText("UTF-8"); //$NON-NLS-1$
                     }
                 }
-                if (tempXmlXsdPath != null && getConnection().getFileContent() != null
-                        && getConnection().getFileContent().length > 0 && !isModifing) {
-                    valid = treePopulator.populateTree(tempXmlXsdPath, treeNode);
-                } else {
-                    valid = treePopulator.populateTree(text, treeNode);
-                }
+                // if (tempXmlXsdPath != null && getConnection().getFileContent() != null
+                // && getConnection().getFileContent().length > 0 && !isModifing) {
+                // valid = treePopulator.populateTree(tempXmlXsdPath, treeNode);
+                // } else {
+                // valid = treePopulator.populateTree(text, treeNode);
+                // }
                 checkFieldsValue();
                 isModifing = true;
             }
@@ -524,13 +657,22 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
             adaptFormToReadOnly();
         }
         if (super.isVisible()) {
+            String xmlFilePath = getConnection().getXmlFilePath();
             // Fields to the Group Delimited File Settings
             if (getConnection().getEncoding() != null && !getConnection().getEncoding().equals("")) { //$NON-NLS-1$
                 encodingCombo.setText(getConnection().getEncoding());
                 isModifing = false;
-                fileFieldXml.setText(getConnection().getXmlFilePath());
+                fileFieldXml.setText(xmlFilePath);
             } else {
                 encodingCombo.select(0);
+            }
+
+            if (isContextMode()) {
+                ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection());
+                xmlFilePath = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, xmlFilePath));
+            }
+            if (!creation && XmlUtil.isXSDFile(xmlFilePath)) {
+                updateTreeNodes(xmlFilePath);
             }
 
             if (LanguageManager.getCurrentLanguage() == ECodeLanguage.PERL

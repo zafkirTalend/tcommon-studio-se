@@ -15,8 +15,11 @@ package org.talend.repository.ui.wizards.metadata.connection.files.xml.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.xerces.xs.XSModel;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.SchemaPopulationUtil;
+import org.eclipse.datatools.enablement.oda.xml.util.ui.XSDPopulationUtil;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.model.metadata.MappingTypeRetriever;
 import org.talend.core.model.metadata.MetadataTalendType;
@@ -382,42 +385,14 @@ public class TreeUtil {
         try {
             ATreeNode treeNode = SchemaPopulationUtil.getSchemaTree(filePath, true, 0);
             String rootName = "";
-            if (treeNode.getDataType() instanceof String) {
-                rootName += "/" + treeNode.getValue() + "@" + (String) treeNode.getDataType();
+            if (treeNode.getValue() instanceof String) {
+                rootName += "/" + treeNode.getValue();
             }
             FOXTreeNode root = cloneATreeNode(treeNode, rootName);
             if (root instanceof Element) {
                 root = ((Element) root).getElementChildren().get(0);
                 root.setParent(null);
                 list.add(root);
-            }
-        } catch (Exception e) {
-            ExceptionHandler.process(e);
-        }
-        return list;
-    }
-
-    public static List<FOXTreeNode> getAllFoxTreeNodes(String filePath) {
-        List<FOXTreeNode> list = new ArrayList<FOXTreeNode>();
-        if (filePath == null) {
-            return list;
-        }
-
-        try {
-            ATreeNode treeNode = SchemaPopulationUtil.getSchemaTree(filePath, true, 0);
-            String rootName = "";
-            if (treeNode.getDataType() instanceof String) {
-                rootName += "/" + treeNode.getValue() + "@" + (String) treeNode.getDataType();
-            }
-            FOXTreeNode root = cloneATreeNode(treeNode, rootName);
-            if (root instanceof Element) {
-                Element rootElement = (Element) root;
-                if (rootElement.getElementChildren() != null && rootElement.getElementChildren().size() > 0) {
-                    for (FOXTreeNode foxTreeNode : rootElement.getElementChildren()) {
-                        foxTreeNode.setParent(null);
-                        list.add(foxTreeNode);
-                    }
-                }
             }
         } catch (Exception e) {
             ExceptionHandler.process(e);
@@ -434,8 +409,8 @@ public class TreeUtil {
         try {
             ATreeNode treeNode = SchemaPopulationUtil.getSchemaTree(filePath, true, 0);
             String rootName = "";
-            if (treeNode.getDataType() instanceof String) {
-                rootName += "/" + treeNode.getValue() + "@" + (String) treeNode.getDataType();
+            if (treeNode.getValue() instanceof String) {
+                rootName += "/" + treeNode.getValue();
             }
             FOXTreeNode root = cloneATreeNode(treeNode, rootName);
             if (root instanceof Element) {
@@ -519,8 +494,8 @@ public class TreeUtil {
                     }
                     if (selectedNode != null) {
                         String rootName = "";
-                        if (treeNode.getDataType() instanceof String) {
-                            rootName += "/" + treeNode.getValue() + "@" + (String) treeNode.getDataType();
+                        if (treeNode.getValue() instanceof String) {
+                            rootName += "/" + treeNode.getValue();
                         }
                         FOXTreeNode root = cloneATreeNode(treeNode, rootName);
                         if (root instanceof Element) {
@@ -535,6 +510,100 @@ public class TreeUtil {
             return list;
         }
 
+    }
+
+    public static List<FOXTreeNode> getFoxTreeNodesByRootNode(XSModel xsModel, ATreeNode selectedRootNode) {
+        List<FOXTreeNode> list = new ArrayList<FOXTreeNode>();
+        if (xsModel == null || selectedRootNode == null) {
+            return list;
+        }
+
+        ATreeNode treeNode = null;
+        try {
+            ATreeNode rootNode = SchemaPopulationUtil.getSchemaTree(xsModel, selectedRootNode, true);
+            if (rootNode.getChildren().length > 0) {
+                for (Object obj : rootNode.getChildren()) {
+                    if (obj instanceof ATreeNode) {
+                        treeNode = (ATreeNode) obj;
+                    }
+                }
+            }
+            if (treeNode == null) {
+                return list;
+            }
+
+            String rootName = "";
+            if (treeNode.getValue() instanceof String) {
+                rootName += "/" + treeNode.getValue();
+            }
+            FOXTreeNode root = cloneATreeNode(treeNode, rootName);
+            if (root instanceof Element) {
+                root.setParent(null);
+                list.add(root);
+            }
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
+
+        return list;
+    }
+
+    public static List<FOXTreeNode> getFoxTreeNodesByRootNode(XSModel xsModel, ATreeNode selectedRootNode, boolean resolved) {
+        List<FOXTreeNode> list = new ArrayList<FOXTreeNode>();
+        if (xsModel == null || selectedRootNode == null) {
+            return list;
+        }
+
+        ATreeNode treeNode = null;
+        try {
+            if (resolved) {
+                treeNode = selectedRootNode;
+            } else {
+                ATreeNode rootNode = SchemaPopulationUtil.getSchemaTree(xsModel, selectedRootNode, true);
+                if (rootNode.getChildren().length > 0) {
+                    for (Object obj : rootNode.getChildren()) {
+                        if (obj instanceof ATreeNode) {
+                            treeNode = (ATreeNode) obj;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (treeNode == null) {
+                return list;
+            }
+
+            String rootName = "";
+            if (treeNode.getValue() instanceof String) {
+                rootName += "/" + treeNode.getValue();
+            }
+            FOXTreeNode root = cloneATreeNode(treeNode, rootName);
+            if (root instanceof Element) {
+                root.setParent(null);
+                list.add(root);
+            }
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
+
+        return list;
+    }
+
+    public static XSModel getXSModel(String fileName) {
+        XSModel model = null;
+        try {
+            String newFilePath;
+            try {
+                newFilePath = CopyDeleteFileUtilForWizard.copyToTemp(fileName);
+            } catch (PersistenceException e1) {
+                newFilePath = fileName;
+            }
+            model = XSDPopulationUtil.getXSModel(newFilePath);
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
+        return model;
     }
 
     public static FOXTreeNode cloneATreeNode(ATreeNode treeNode, String currentPath) {
@@ -562,14 +631,14 @@ public class TreeUtil {
                 if (children[i] instanceof ATreeNode) {
                     ATreeNode child = (ATreeNode) children[i];
                     String newPath = currentPath + "/";
-                    if (child.getDataType() instanceof String) {
-                        String elementName = (String) child.getDataType();
-                        if (currentPath.contains("@" + elementName + "/")) {
+                    if (child.getValue() instanceof String) {
+                        String elementName = (String) child.getValue();
+                        if (currentPath.contains("/" + elementName + "/")) {
                             ExceptionHandler.process(new Exception("XSD ERROR: loop found. Item: " + elementName
                                     + " is already in the currentPath (" + currentPath + ")."));
                             continue;
                         }
-                        newPath += child.getValue() + "@" + elementName;
+                        newPath += elementName;
                     } else {
                         newPath += "unknownElement";
                     }

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.apache.xerces.xs.XSModel;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
@@ -341,8 +342,17 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
         Composite composite = Form.startNewGridLayout(this, 2, false, SWT.CENTER, SWT.CENTER);
         composite.setVisible(false);
         TreePopulator treePopulator = new TreePopulator(new Tree(composite, SWT.None));
-        ATreeNode node = null;
-        treePopulator.populateTree(file, node);
+
+        // ATreeNode node = null;
+        // treePopulator.populateTree(file, node);
+
+        XmlFileWizard wizard = ((XmlFileWizard) getPage().getWizard());
+        XSModel xsModel = updateXSModel(file);
+        ATreeNode treeRootNode = wizard.getTreeRootNode();
+        if (treeRootNode == null)
+            return;
+        treePopulator.populateTree(xsModel, treeRootNode, null);
+
         MappingTypeRetriever retriever = MetadataTalendType.getMappingTypeRetriever("xsd_id"); //$NON-NLS-1$
         for (SchemaTarget schema : schemaTarget) {
             String relativeXpath = schema.getRelativeXPathQuery();
@@ -630,11 +640,11 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
                     && tableEditorView.getMetadataEditor().getBeanCount() <= 0) {
                 runShadowProcess(true);
             }
+            ((XmlFileWizard) getPage().getWizard()).setXsdRootChange(false);
 
             if (isReadOnly() != readOnly) {
                 adaptFormToReadOnly();
             }
         }
     }
-
 }

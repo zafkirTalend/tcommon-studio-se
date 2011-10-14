@@ -13,12 +13,16 @@
 package org.talend.repository.ui.wizards.metadata.connection.files.xml;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.apache.xerces.xs.XSModel;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
@@ -104,7 +108,15 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
 
     private List<IWizardPage> dynamicWizardPages;
 
-    private List<FOXTreeNode> rootFoxTreeNodes;
+    private ATreeNode treeRootNode;
+
+    private List<ATreeNode> rootNodes;
+
+    private XSModel xsModel;
+
+    protected boolean xsdRootChange = false;
+
+    private Map<String, List<FOXTreeNode>> foxNodesMap = new HashMap<String, List<FOXTreeNode>>();
 
     private boolean isToolbar;
 
@@ -688,12 +700,24 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
         this.dynamicWizardPages = dynamicWizardPages;
     }
 
-    public List<FOXTreeNode> getRootFoxTreeNodes() {
-        return this.rootFoxTreeNodes;
+    public Map<String, List<FOXTreeNode>> getFoxNodesMap() {
+        return this.foxNodesMap;
     }
 
-    public void setRootFoxTreeNodes(List<FOXTreeNode> rootFoxTreeNodes) {
-        this.rootFoxTreeNodes = rootFoxTreeNodes;
+    public XSModel getXsModel() {
+        return this.xsModel;
+    }
+
+    public void setXsModel(XSModel xsModel) {
+        this.xsModel = xsModel;
+    }
+
+    public ATreeNode getTreeRootNode() {
+        return this.treeRootNode;
+    }
+
+    public void setTreeRootNode(ATreeNode treeRootNode) {
+        this.treeRootNode = treeRootNode;
     }
 
     public IWizardPage getCurrentPage() {
@@ -706,5 +730,21 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
 
     private void deleteTemFile() {
         CopyDeleteFileUtilForWizard.deleteWizardTempFiles();
+    }
+
+    public List<ATreeNode> getRootNodes() {
+        return this.rootNodes;
+    }
+
+    public void setRootNodes(List<ATreeNode> rootNodes) {
+        this.rootNodes = rootNodes;
+    }
+
+    public boolean isXsdRootChange() {
+        return this.xsdRootChange;
+    }
+
+    public void setXsdRootChange(boolean xsdRootChange) {
+        this.xsdRootChange = xsdRootChange;
     }
 }

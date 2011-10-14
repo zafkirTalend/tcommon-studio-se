@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuListener;
@@ -180,23 +181,27 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
     }
 
     private void initRootCombo() {
-        List<FOXTreeNode> rootFoxTreeNodes = ((XmlFileWizard) getPage().getWizard()).getRootFoxTreeNodes();
-        if (rootFoxTreeNodes != null) {
-            rootComboViewer.setInput(rootFoxTreeNodes);
+        List<ATreeNode> rootNodes = ((XmlFileWizard) getPage().getWizard()).getRootNodes();
+        if (rootNodes != null) {
+            rootComboViewer.setInput(rootNodes);
             XMLFileNode selectedNode = getConnection().getRoot().get(0);
-            int selectIndex = 0;
             String xmlPath = selectedNode.getXMLPath();
             if (xmlPath != null && xmlPath.length() > 0) {
-                xmlPath = xmlPath.substring(1);
-                for (int i = 0; i < rootFoxTreeNodes.size(); i++) {
-                    FOXTreeNode foxTreeNode = rootFoxTreeNodes.get(i);
-                    if (xmlPath.equals(foxTreeNode.getLabel())) {
-                        selectIndex = i;
+                xmlPath = xmlPath.substring(xmlPath.lastIndexOf("/") + 1);
+                for (int i = 0; i < rootNodes.size(); i++) {
+                    ATreeNode node = rootNodes.get(i);
+                    if (xmlPath.equals(node.getValue())) {
+                        rootCombo.select(i);
                         break;
                     }
                 }
             }
-            rootComboViewer.getCombo().select(selectIndex);
+        }
+    }
+
+    public void resetRootCombo() {
+        if (rootCombo != null) {
+            rootCombo.deselectAll();
         }
     }
 
@@ -437,12 +442,14 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
 
             public void selectionChanged(SelectionChangedEvent event) {
                 IStructuredSelection selection = (IStructuredSelection) event.getSelection();
-                FOXTreeNode node = (FOXTreeNode) selection.getFirstElement();
+                ATreeNode node = (ATreeNode) selection.getFirstElement();
                 EList schemaMetadataColumn = ConnectionHelper.getTables(getConnection()).toArray(new MetadataTable[0])[0]
                         .getColumns();
                 schemaMetadataColumn.clear();
-                List<FOXTreeNode> nodeList = new ArrayList<FOXTreeNode>();
-                nodeList.add(node);
+                List<FOXTreeNode> nodeList = getCorrespondingFoxTreeNodes(node, false);
+                if (nodeList.size() == 0) {
+                    return;
+                }
                 initMetadataTable(nodeList, schemaMetadataColumn);
                 updateConnectionProperties(nodeList.get(0));
                 initXmlTreeData();

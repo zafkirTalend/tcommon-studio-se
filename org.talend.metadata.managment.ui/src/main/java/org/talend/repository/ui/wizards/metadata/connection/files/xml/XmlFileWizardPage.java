@@ -92,6 +92,7 @@ public class XmlFileWizardPage extends WizardPage {
         }
 
         currentComposite.setReadOnly(!isRepositoryObjectEditable);
+        currentComposite.setPage(this);
 
         AbstractForm.ICheckListener listener = new AbstractForm.ICheckListener() {
 

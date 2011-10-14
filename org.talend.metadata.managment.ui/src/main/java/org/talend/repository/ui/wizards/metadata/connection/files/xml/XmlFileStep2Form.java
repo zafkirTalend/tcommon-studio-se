@@ -27,6 +27,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.apache.xerces.xs.XSModel;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
@@ -848,7 +849,28 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
                 pathStr = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, pathStr));
             }
             if (new File(pathStr).exists()) {
-                this.treePopulator.populateTree(pathStr, treeNode);
+                if (XmlUtil.isXSDFile(pathStr)) {
+                    List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
+                    XmlFileWizard wizard = ((XmlFileWizard) getPage().getWizard());
+                    XSModel xsModel = updateXSModel(pathStr);
+                    ATreeNode treeRootNode = wizard.getTreeRootNode();
+                    if (treeRootNode != null) {
+                        treeNode = treeRootNode;
+                    } else {
+                        List<ATreeNode> rootNodes = wizard.getRootNodes();
+                        if (rootNodes != null && rootNodes.size() > 0) {
+                            treeRootNode = rootNodes.get(0);
+                        }
+                    }
+                    treePopulator.populateTree(xsModel, treeRootNode, treeNodes);
+                    treePopulator.setFilePath(pathStr);
+                    if (treeNodes.size() > 0) {
+                        treeNode = treeNodes.get(0);
+                    }
+                } else {
+                    this.treePopulator.populateTree(pathStr, treeNode);
+                }
+
             } else if (getConnection().getFileContent() != null && getConnection().getFileContent().length > 0) {
                 initFileContent();
             }
@@ -897,7 +919,7 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
                         true);
                 oraginalPath = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, curXmlPath));
             }
-            if (!xmlFilePath.equals(curXmlPath) && !xmlFilePath.equals(oraginalPath)) {
+            if ((!xmlFilePath.equals(curXmlPath) && !xmlFilePath.equals(oraginalPath)) || isXsdRootChange()) {
                 // clear command stack
                 CommandStackForComposite commandStack = new CommandStackForComposite(schemaTargetGroup);
                 loopTableEditorView.getExtendedTableViewer().setCommandStack(commandStack);
@@ -926,6 +948,11 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
         } else {
             xmlFilePath = curXmlPath;
         }
+    }
+
+    private boolean isXsdRootChange() {
+        XmlFileWizard wizard = ((XmlFileWizard) getPage().getWizard());
+        return wizard.isXsdRootChange();
     }
 
     /*
