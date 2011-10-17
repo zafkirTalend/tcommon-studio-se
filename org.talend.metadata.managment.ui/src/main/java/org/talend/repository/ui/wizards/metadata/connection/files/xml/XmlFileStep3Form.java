@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.apache.xerces.xs.XSModel;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
@@ -35,6 +34,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.xsd.XSDSchema;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.ui.swt.formtools.Form;
 import org.talend.commons.ui.swt.formtools.LabelledText;
@@ -347,11 +347,11 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
         // treePopulator.populateTree(file, node);
 
         XmlFileWizard wizard = ((XmlFileWizard) getPage().getWizard());
-        XSModel xsModel = updateXSModel(file);
+        XSDSchema xsdSchema = updateXSDSchema(file);
         ATreeNode treeRootNode = wizard.getTreeRootNode();
         if (treeRootNode == null)
             return;
-        treePopulator.populateTree(xsModel, treeRootNode, null);
+        treePopulator.populateTree(xsdSchema, treeRootNode, null);
 
         MappingTypeRetriever retriever = MetadataTalendType.getMappingTypeRetriever("xsd_id"); //$NON-NLS-1$
         for (SchemaTarget schema : schemaTarget) {

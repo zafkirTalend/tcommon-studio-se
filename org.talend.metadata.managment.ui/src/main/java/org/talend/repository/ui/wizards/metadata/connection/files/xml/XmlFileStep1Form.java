@@ -32,11 +32,10 @@ import org.apache.oro.text.regex.MatchResult;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
-import org.apache.xerces.xs.XSModel;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
-import org.eclipse.datatools.enablement.oda.xml.util.ui.XSDPopulationUtil;
+import org.eclipse.datatools.enablement.oda.xml.util.ui.XSDPopulationUtil2;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
@@ -55,6 +54,7 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.xsd.XSDSchema;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
@@ -188,23 +188,60 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
             }
             if (XmlUtil.isXSDFile(xmlFilePath)) {
                 try {
-                    XSModel xsModel = TreeUtil.getXSModel(xmlFilePath);
-                    List<ATreeNode> rootNodes = XSDPopulationUtil.getAllRootNodes(xsModel);
+                    XSDSchema schema = TreeUtil.getXSDSchema(xmlFilePath);
+                    List<ATreeNode> rootNodes = new XSDPopulationUtil2().getAllRootNodes(schema);
                     if (rootNodes.size() > 0) {
-                        XMLFileNode selectedNode = getConnection().getRoot().get(0);
-                        if (selectedNode != null) {
-                            String xmlPath = selectedNode.getXMLPath();
+                        if (!getConnection().getRoot().isEmpty()) {
+                            XMLFileNode selectedNode = getConnection().getRoot().get(0);
+                            if (selectedNode != null) {
+                                String xmlPath = selectedNode.getXMLPath();
+                                if (xmlPath != null && xmlPath.length() > 0) {
+                                    xmlPath = xmlPath.substring(xmlPath.lastIndexOf("/") + 1); //$NON-NLS-1$
+                                    for (int i = 0; i < rootNodes.size(); i++) {
+                                        ATreeNode node = rootNodes.get(i);
+                                        if (xmlPath.equals(node.getValue())) {
+                                            List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
+                                            valid = treePopulator.populateTree(schema, node, treeNodes);
+                                            if (treeNodes.size() > 0) {
+                                                treeNode = treeNodes.get(0);
+                                            }
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            String xmlPath = getConnection().getSchema().get(0).getAbsoluteXPathQuery();
                             if (xmlPath != null && xmlPath.length() > 0) {
                                 xmlPath = xmlPath.substring(xmlPath.lastIndexOf("/") + 1); //$NON-NLS-1$
+                                boolean found = false;
                                 for (int i = 0; i < rootNodes.size(); i++) {
                                     ATreeNode node = rootNodes.get(i);
                                     if (xmlPath.equals(node.getValue())) {
                                         List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
-                                        valid = treePopulator.populateTree(xsModel, node, treeNodes);
+                                        valid = treePopulator.populateTree(schema, node, treeNodes);
                                         if (treeNodes.size() > 0) {
                                             treeNode = treeNodes.get(0);
                                         }
+                                        found = true;
                                         break;
+                                    }
+                                }
+                                if (!found) {
+                                    for (int i = 0; i < rootNodes.size(); i++) {
+                                        ATreeNode node = rootNodes.get(i);
+                                        String[] nodeValue = ((String) node.getValue()).split(":");
+                                        if (nodeValue.length > 1) {
+                                            if (xmlPath.equals(nodeValue[1])) {
+                                                List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
+                                                valid = treePopulator.populateTree(schema, node, treeNodes);
+                                                if (treeNodes.size() > 0) {
+                                                    treeNode = treeNodes.get(0);
+                                                }
+                                                found = true;
+                                                break;
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -419,13 +456,13 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
                         if (XmlUtil.isXSDFile(text)) {
                             List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
                             try {
-                                XSModel xsModel = updateXSModel(text);
-                                List<ATreeNode> list = updateRootNodes(xsModel, true);
+                                XSDSchema xsdSchema = updateXSDSchema(text);
+                                List<ATreeNode> list = updateRootNodes(xsdSchema, true);
                                 if (list.size() > 1) {
                                     RootNodeSelectDialog dialog = new RootNodeSelectDialog(null, list);
                                     if (dialog.open() == IDialogConstants.OK_ID) {
                                         ATreeNode selectedNode = dialog.getSelectedNode();
-                                        valid = treePopulator.populateTree(xsModel, selectedNode, treeNodes);
+                                        valid = treePopulator.populateTree(xsdSchema, selectedNode, treeNodes);
                                         if (treeNodes.size() > 0) {
                                             treeNode = treeNodes.get(0);
                                         }
@@ -433,7 +470,7 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
                                         return;
                                     }
                                 } else {
-                                    valid = treePopulator.populateTree(xsModel, list.get(0), treeNodes);
+                                    valid = treePopulator.populateTree(xsdSchema, list.get(0), treeNodes);
                                     if (treeNodes.size() > 0) {
                                         treeNode = treeNodes.get(0);
                                     }

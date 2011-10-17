@@ -19,6 +19,8 @@ import org.apache.xerces.xs.XSModel;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.SchemaPopulationUtil;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.XSDPopulationUtil;
+import org.eclipse.datatools.enablement.oda.xml.util.ui.XSDPopulationUtil2;
+import org.eclipse.xsd.XSDSchema;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.model.metadata.MappingTypeRetriever;
@@ -590,6 +592,44 @@ public class TreeUtil {
         return list;
     }
 
+    public static List<FOXTreeNode> getFoxTreeNodesByRootNode(XSDSchema xsdSchema, ATreeNode selectedRootNode) {
+        return getFoxTreeNodesByRootNode(xsdSchema, selectedRootNode, false);
+    }
+
+    public static List<FOXTreeNode> getFoxTreeNodesByRootNode(XSDSchema xsdSchema, ATreeNode selectedRootNode, boolean resolved) {
+        List<FOXTreeNode> list = new ArrayList<FOXTreeNode>();
+        if (xsdSchema == null || selectedRootNode == null) {
+            return list;
+        }
+
+        ATreeNode treeNode = null;
+        try {
+            if (resolved) {
+                treeNode = selectedRootNode;
+            } else {
+                treeNode = SchemaPopulationUtil.getSchemaTree(xsdSchema, selectedRootNode, true);
+            }
+
+            if (treeNode == null) {
+                return list;
+            }
+
+            String rootName = "";
+            if (treeNode.getValue() instanceof String) {
+                rootName += "/" + treeNode.getValue();
+            }
+            FOXTreeNode root = cloneATreeNode(treeNode, rootName);
+            if (root instanceof Element) {
+                root.setParent(null);
+                list.add(root);
+            }
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
+
+        return list;
+    }
+
     public static XSModel getXSModel(String fileName) {
         XSModel model = null;
         try {
@@ -606,6 +646,22 @@ public class TreeUtil {
         return model;
     }
 
+    public static XSDSchema getXSDSchema(String fileName) {
+        XSDSchema schema = null;
+        try {
+            String newFilePath;
+            try {
+                newFilePath = CopyDeleteFileUtilForWizard.copyToTemp(fileName);
+            } catch (PersistenceException e1) {
+                newFilePath = fileName;
+            }
+            schema = new XSDPopulationUtil2().getXSDSchema(newFilePath);
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
+        return schema;
+    }
+
     public static FOXTreeNode cloneATreeNode(ATreeNode treeNode, String currentPath) {
         FOXTreeNode node = null;
         if (treeNode.getType() == ATreeNode.ATTRIBUTE_TYPE) {
@@ -615,7 +671,7 @@ public class TreeUtil {
         }
         if (treeNode.getType() == ATreeNode.NAMESPACE_TYPE) {
             node = new NameSpaceNode();
-            node.setLabel("");//$NON-NLS-1$
+            node.setLabel(treeNode.getDataType());
             node.setDefaultValue((String) treeNode.getValue());
         } else {
             node.setLabel((String) treeNode.getValue());

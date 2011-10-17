@@ -21,15 +21,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.xerces.xs.XSModel;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.datatools.connectivity.oda.OdaException;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
-import org.eclipse.datatools.enablement.oda.xml.util.ui.XSDPopulationUtil;
+import org.eclipse.datatools.enablement.oda.xml.util.ui.XSDPopulationUtil2;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.xsd.XSDSchema;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.xml.XmlUtil;
@@ -230,11 +230,11 @@ public abstract class AbstractXmlFileStepForm extends AbstractXmlStepForm {
         }
     }
 
-    public XSModel updateXSModel(String file) {
-        XSModel xsModel = null;
+    public XSDSchema updateXSDSchema(String file) {
+        XSDSchema xsdSchema = null;
         XmlFileWizard wizard = ((XmlFileWizard) getPage().getWizard());
-        if (!xsdPathChanged && wizard.getXsModel() != null) {
-            xsModel = wizard.getXsModel();
+        if (!xsdPathChanged && wizard.getXSDSchema() != null) {
+            xsdSchema = wizard.getXSDSchema();
         } else {
             if (file != null) {
                 if (isContextMode()) {
@@ -243,29 +243,29 @@ public abstract class AbstractXmlFileStepForm extends AbstractXmlStepForm {
                     file = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, file));
                 }
                 if (new File(file).exists()) {
-                    xsModel = TreeUtil.getXSModel(file);
+                    xsdSchema = TreeUtil.getXSDSchema(file);
                 } else {
                     String xsdPath = getXSDXMLFilePath();
                     if (xsdPath != null) {
-                        xsModel = TreeUtil.getXSModel(xsdPath);
+                        xsdSchema = TreeUtil.getXSDSchema(xsdPath);
                     }
                 }
-                wizard.setXsModel(xsModel);
+                wizard.setXsModel(xsdSchema);
                 wizard.getFoxNodesMap().clear();
             }
         }
-        return xsModel;
+        return xsdSchema;
     }
 
-    public List<ATreeNode> updateRootNodes(XSModel xsModel, boolean force) {
+    public List<ATreeNode> updateRootNodes(XSDSchema xsdSchema, boolean force) {
         List<ATreeNode> rootNodes = new ArrayList<ATreeNode>();
-        if (xsModel == null) {
+        if (xsdSchema == null) {
             return rootNodes;
         }
         XmlFileWizard wizard = ((XmlFileWizard) getPage().getWizard());
         if (wizard.getRootNodes() == null || force) {
             try {
-                rootNodes = XSDPopulationUtil.getAllRootNodes(xsModel);
+                rootNodes = new XSDPopulationUtil2().getAllRootNodes(xsdSchema);
                 ((XmlFileWizard) getPage().getWizard()).setRootNodes(rootNodes);
             } catch (OdaException e) {
                 ExceptionHandler.process(e);
@@ -283,11 +283,11 @@ public abstract class AbstractXmlFileStepForm extends AbstractXmlStepForm {
         String key = String.valueOf(selectedRootNode.getValue());
         List<FOXTreeNode> foxTreeNodes = foxNodesMap.get(key);
         if (foxTreeNodes == null) {
-            XSModel xsModel = wizard.getXsModel();
-            if (xsModel == null) {
+            XSDSchema xsdSchema = wizard.getXSDSchema();
+            if (xsdSchema == null) {
                 return new ArrayList<FOXTreeNode>();
             }
-            foxTreeNodes = TreeUtil.getFoxTreeNodesByRootNode(xsModel, selectedRootNode, resolved);
+            foxTreeNodes = TreeUtil.getFoxTreeNodesByRootNode(xsdSchema, selectedRootNode, resolved);
             foxNodesMap.put(key, foxTreeNodes);
         }
 
@@ -302,7 +302,7 @@ public abstract class AbstractXmlFileStepForm extends AbstractXmlStepForm {
             ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection(), true);
             xmlFilePath = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, xmlFilePath));
         }
-        updateRootNodes(updateXSModel(xmlFilePath), false);
+        updateRootNodes(updateXSDSchema(xmlFilePath), false);
     }
 
     protected ATreeNode getAdaptRootNode(List<ATreeNode> rootNodes) {

@@ -19,7 +19,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.apache.xerces.xs.XSModel;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
@@ -31,6 +30,7 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
+import org.eclipse.xsd.XSDSchema;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.ECoreImage;
@@ -112,7 +112,7 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
 
     private List<ATreeNode> rootNodes;
 
-    private XSModel xsModel;
+    private XSDSchema xsdSchema;
 
     protected boolean xsdRootChange = false;
 
@@ -704,12 +704,12 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
         return this.foxNodesMap;
     }
 
-    public XSModel getXsModel() {
-        return this.xsModel;
+    public XSDSchema getXSDSchema() {
+        return this.xsdSchema;
     }
 
-    public void setXsModel(XSModel xsModel) {
-        this.xsModel = xsModel;
+    public void setXsModel(XSDSchema xsdSchema) {
+        this.xsdSchema = xsdSchema;
     }
 
     public ATreeNode getTreeRootNode() {

@@ -28,6 +28,7 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.xsd.XSDSchema;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.model.utils.RepositoryManagerHelper;
@@ -155,6 +156,36 @@ public class TreePopulator {
         return false;
     }
 
+    public boolean populateTree(XSDSchema schema, ATreeNode selectedNode, List<ATreeNode> treeNodes) {
+        availableXmlTree.removeAll();
+        xPathToTreeItem.clear();
+        ATreeNode treeNode = null;
+        if (schema != null) {
+            try {
+                treeNode = SchemaPopulationUtil.getSchemaTree(schema, selectedNode, true);
+                if (treeNodes != null) {
+                    treeNodes.add(treeNode);
+                }
+            } catch (MalformedURLException e) {
+                ExceptionHandler.process(e);
+            } catch (OdaException e) {
+                ExceptionHandler.process(e);
+            } catch (URISyntaxException e) {
+                ExceptionHandler.process(e);
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
+                return false;
+            }
+            if (treeNode == null || treeNode.getChildren().length == 0) {
+                return false;
+            } else {
+                populateTreeItems(availableXmlTree, new Object[] { treeNode }, 0, ""); //$NON-NLS-1$
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * populate tree items.
      * 
@@ -177,7 +208,10 @@ public class TreePopulator {
             ATreeNode treeNode = (ATreeNode) node[i];
             treeItem.setData(treeNode);
             int type = treeNode.getType();
-            if (type == ATreeNode.ATTRIBUTE_TYPE) {
+            if (type == ATreeNode.NAMESPACE_TYPE) {
+                treeItem.setText("xmlns:" + treeNode.getDataType() + "=" + treeNode.getValue().toString());
+                treeItem.setForeground(new Color(Display.getDefault(), new RGB(0, 130, 0)));
+            } else if (type == ATreeNode.ATTRIBUTE_TYPE) {
                 treeItem.setText("@" + treeNode.getValue().toString()); //$NON-NLS-1$
             } else {
                 treeItem.setText(treeNode.getValue().toString());

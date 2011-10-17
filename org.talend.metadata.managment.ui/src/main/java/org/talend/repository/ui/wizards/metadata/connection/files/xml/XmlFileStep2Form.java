@@ -27,7 +27,6 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.apache.xerces.xs.XSModel;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
@@ -55,6 +54,7 @@ import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.xsd.XSDSchema;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.command.CommandStackForComposite;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
@@ -646,7 +646,6 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
             pathStr = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, pathStr));
         }
         if (pathStr != null && XmlUtil.isXSDFile(pathStr)) {
-
             previewButton.setEnabled(false);
         } else {
             previewButton.setEnabled(true);
@@ -857,18 +856,17 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
             if (XmlUtil.isXSDFile(pathStr)) {
                 List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
                 XmlFileWizard wizard = ((XmlFileWizard) getPage().getWizard());
-                XSModel xsModel = updateXSModel(pathStr);
+                XSDSchema xsdSchema = updateXSDSchema(pathStr);
                 ATreeNode treeRootNode = wizard.getTreeRootNode();
                 if (treeRootNode != null) {
                     treeNode = treeRootNode;
                 } else {
                     List<ATreeNode> rootNodes = wizard.getRootNodes();
                     if (rootNodes != null && rootNodes.size() > 0) {
-                        ATreeNode rootNode = getAdaptRootNode(rootNodes);
-                        treeRootNode = rootNode == null ? rootNodes.get(0) : rootNode;
+                        treeRootNode = rootNodes.get(0);
                     }
                 }
-                treePopulator.populateTree(xsModel, treeRootNode, treeNodes);
+                treePopulator.populateTree(xsdSchema, treeRootNode, treeNodes);
                 treePopulator.setFilePath(pathStr);
                 if (treeNodes.size() > 0) {
                     treeNode = treeNodes.get(0);
