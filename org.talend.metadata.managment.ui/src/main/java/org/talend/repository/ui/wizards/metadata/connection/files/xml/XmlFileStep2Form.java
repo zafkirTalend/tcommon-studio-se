@@ -848,31 +848,33 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
                         true);
                 pathStr = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, pathStr));
             }
-            if (new File(pathStr).exists()) {
-                if (XmlUtil.isXSDFile(pathStr)) {
-                    List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
-                    XmlFileWizard wizard = ((XmlFileWizard) getPage().getWizard());
-                    XSModel xsModel = updateXSModel(pathStr);
-                    ATreeNode treeRootNode = wizard.getTreeRootNode();
-                    if (treeRootNode != null) {
-                        treeNode = treeRootNode;
-                    } else {
-                        List<ATreeNode> rootNodes = wizard.getRootNodes();
-                        if (rootNodes != null && rootNodes.size() > 0) {
-                            treeRootNode = rootNodes.get(0);
-                        }
-                    }
-                    treePopulator.populateTree(xsModel, treeRootNode, treeNodes);
-                    treePopulator.setFilePath(pathStr);
-                    if (treeNodes.size() > 0) {
-                        treeNode = treeNodes.get(0);
-                    }
-                } else {
-                    this.treePopulator.populateTree(pathStr, treeNode);
-                }
-
-            } else if (getConnection().getFileContent() != null && getConnection().getFileContent().length > 0) {
+            if (!new File(pathStr).exists() && getConnection().getFileContent() != null
+                    && getConnection().getFileContent().length > 0) {
                 initFileContent();
+                pathStr = tempXmlXsdPath;
+            }
+
+            if (XmlUtil.isXSDFile(pathStr)) {
+                List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
+                XmlFileWizard wizard = ((XmlFileWizard) getPage().getWizard());
+                XSModel xsModel = updateXSModel(pathStr);
+                ATreeNode treeRootNode = wizard.getTreeRootNode();
+                if (treeRootNode != null) {
+                    treeNode = treeRootNode;
+                } else {
+                    List<ATreeNode> rootNodes = wizard.getRootNodes();
+                    if (rootNodes != null && rootNodes.size() > 0) {
+                        ATreeNode rootNode = getAdaptRootNode(rootNodes);
+                        treeRootNode = rootNode == null ? rootNodes.get(0) : rootNode;
+                    }
+                }
+                treePopulator.populateTree(xsModel, treeRootNode, treeNodes);
+                treePopulator.setFilePath(pathStr);
+                if (treeNodes.size() > 0) {
+                    treeNode = treeNodes.get(0);
+                }
+            } else {
+                this.treePopulator.populateTree(pathStr, treeNode);
             }
 
             ScrollBar verticalBar = availableXmlTree.getVerticalBar();
@@ -1013,7 +1015,7 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
             ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection());
             tempXmlXsdPath = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, tempXmlXsdPath));
         }
-        this.treePopulator.populateTree(tempXmlXsdPath, treeNode);
+        // this.treePopulator.populateTree(tempXmlXsdPath, treeNode);
     }
 
 }

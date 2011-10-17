@@ -12,12 +12,17 @@
 // ============================================================================
 package org.talend.repository.ui.swt.utils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.xerces.xs.XSModel;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.datatools.connectivity.oda.OdaException;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.XSDPopulationUtil;
@@ -25,21 +30,27 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.xml.XmlUtil;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.XMLFileNode;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.FileConnectionContextUtils.EFileParamName;
 import org.talend.repository.ui.utils.OtherConnectionContextUtils.EParamName;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.XmlFileWizard;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.Element;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
+import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.StringUtil;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.TreeUtil;
 
 /**
@@ -222,17 +233,26 @@ public abstract class AbstractXmlFileStepForm extends AbstractXmlStepForm {
     public XSModel updateXSModel(String file) {
         XSModel xsModel = null;
         XmlFileWizard wizard = ((XmlFileWizard) getPage().getWizard());
-        String xmlFilePath = getConnection().getXmlFilePath();
-        if (xmlFilePath != null && isContextMode()) {
-            ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection(), true);
-            xmlFilePath = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, xmlFilePath));
-        }
         if (!xsdPathChanged && wizard.getXsModel() != null) {
             xsModel = wizard.getXsModel();
         } else {
-            xsModel = TreeUtil.getXSModel(file);
-            wizard.setXsModel(xsModel);
-            wizard.getFoxNodesMap().clear();
+            if (file != null) {
+                if (isContextMode()) {
+                    ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(
+                            connectionItem.getConnection(), true);
+                    file = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, file));
+                }
+                if (new File(file).exists()) {
+                    xsModel = TreeUtil.getXSModel(file);
+                } else {
+                    String xsdPath = getXSDXMLFilePath();
+                    if (xsdPath != null) {
+                        xsModel = TreeUtil.getXSModel(xsdPath);
+                    }
+                }
+                wizard.setXsModel(xsModel);
+                wizard.getFoxNodesMap().clear();
+            }
         }
         return xsModel;
     }
@@ -283,6 +303,80 @@ public abstract class AbstractXmlFileStepForm extends AbstractXmlStepForm {
             xmlFilePath = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, xmlFilePath));
         }
         updateRootNodes(updateXSModel(xmlFilePath), false);
+    }
+
+    protected ATreeNode getAdaptRootNode(List<ATreeNode> rootNodes) {
+        ATreeNode rootNode = null;
+        if (rootNodes == null || rootNodes.size() == 0) {
+            return rootNode;
+        }
+        if (rootNodes.size() > 0) {
+            XMLFileNode selectedNode = getConnection().getRoot().get(0);
+            if (selectedNode != null) {
+                String xmlPath = selectedNode.getXMLPath();
+                if (xmlPath != null && xmlPath.length() > 0) {
+                    xmlPath = xmlPath.substring(xmlPath.lastIndexOf("/") + 1); //$NON-NLS-1$
+                    for (int i = 0; i < rootNodes.size(); i++) {
+                        ATreeNode node = rootNodes.get(i);
+                        if (xmlPath.equals(node.getValue())) {
+                            rootNode = node;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return rootNode;
+    }
+
+    protected String getXSDXMLFilePath() {
+        if (getConnection().getFileContent() == null || getConnection().getFileContent().length == 0) {
+            return null;
+        }
+        byte[] bytes = getConnection().getFileContent();
+        Project project = ProjectManager.getInstance().getCurrentProject();
+        IProject fsProject = null;
+        try {
+            fsProject = ResourceModelUtils.getProject(project);
+        } catch (PersistenceException e2) {
+            ExceptionHandler.process(e2);
+        }
+        if (fsProject == null) {
+            return null;
+        }
+        String temPath = fsProject.getLocationURI().getPath() + File.separator + "temp"; //$NON-NLS-1$
+        String fileName = ""; //$NON-NLS-1$
+        if (getConnection().getXmlFilePath() != null && XmlUtil.isXMLFile(getConnection().getXmlFilePath())) { //$NON-NLS-1$
+            fileName = StringUtil.TMP_XML_FILE;
+        } else if (getConnection().getXmlFilePath() != null && XmlUtil.isXSDFile(getConnection().getXmlFilePath())) { //$NON-NLS-1$
+            fileName = StringUtil.TMP_XSD_FILE;
+        }
+        File temfile = new File(temPath + File.separator + fileName);
+
+        if (!temfile.exists()) {
+            try {
+                temfile.createNewFile();
+            } catch (IOException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        FileOutputStream outStream;
+        try {
+            outStream = new FileOutputStream(temfile);
+            outStream.write(bytes);
+            outStream.close();
+        } catch (FileNotFoundException e1) {
+            ExceptionHandler.process(e1);
+        } catch (IOException e) {
+            ExceptionHandler.process(e);
+        }
+        String tempXmlXsdPath = temfile.getPath();
+        if (isContextMode()) {
+            ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection());
+            tempXmlXsdPath = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, tempXmlXsdPath));
+        }
+
+        return tempXmlXsdPath;
     }
 
     public void redrawLinkers() {

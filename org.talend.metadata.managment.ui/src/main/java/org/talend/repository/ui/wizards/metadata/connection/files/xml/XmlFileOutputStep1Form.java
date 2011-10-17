@@ -146,44 +146,45 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
                 xmlXsdPath = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType,
                         xmlXsdFilePath.getText()));
             }
-            if (new File(xmlXsdPath).exists()) {
-                if (XmlUtil.isXSDFile(xmlXsdPath)) {
-                    try {
-                        XSModel xsModel = TreeUtil.getXSModel(xmlXsdPath);
-                        List<ATreeNode> rootNodes = XSDPopulationUtil.getAllRootNodes(xsModel);
-                        if (rootNodes.size() > 0) {
-                            boolean find = false;
-                            List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
-                            XMLFileNode selectedNode = getConnection().getRoot().get(0);
-                            if (selectedNode != null) {
-                                String xmlPath = selectedNode.getXMLPath();
-                                if (xmlPath != null && xmlPath.length() > 0) {
-                                    xmlPath = xmlPath.substring(xmlPath.lastIndexOf("/") + 1); //$NON-NLS-1$
-                                    for (int i = 0; i < rootNodes.size(); i++) {
-                                        ATreeNode node = rootNodes.get(i);
-                                        if (xmlPath.equals(node.getValue())) {
-                                            valid = treePopulator.populateTree(xsModel, node, treeNodes);
-                                            if (treeNodes.size() > 0) {
-                                                treeNode = treeNodes.get(0);
-                                                find = true;
-                                                break;
-                                            }
+            if (!new File(xmlXsdPath).exists() && getConnection().getFileContent() != null
+                    && getConnection().getFileContent().length > 0) {
+                initFileContent();
+                xmlXsdPath = tempXmlXsdPath;
+            }
+            if (XmlUtil.isXSDFile(xmlXsdPath)) {
+                try {
+                    XSModel xsModel = TreeUtil.getXSModel(xmlXsdPath);
+                    List<ATreeNode> rootNodes = XSDPopulationUtil.getAllRootNodes(xsModel);
+                    if (rootNodes.size() > 0) {
+                        boolean find = false;
+                        List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
+                        XMLFileNode selectedNode = getConnection().getRoot().get(0);
+                        if (selectedNode != null) {
+                            String xmlPath = selectedNode.getXMLPath();
+                            if (xmlPath != null && xmlPath.length() > 0) {
+                                xmlPath = xmlPath.substring(xmlPath.lastIndexOf("/") + 1); //$NON-NLS-1$
+                                for (int i = 0; i < rootNodes.size(); i++) {
+                                    ATreeNode node = rootNodes.get(i);
+                                    if (xmlPath.equals(node.getValue())) {
+                                        valid = treePopulator.populateTree(xsModel, node, treeNodes);
+                                        if (treeNodes.size() > 0) {
+                                            treeNode = treeNodes.get(0);
+                                            find = true;
+                                            break;
                                         }
                                     }
                                 }
                             }
-                            if (!find) {
-                                valid = treePopulator.populateTree(xsModel, rootNodes.get(0), treeNodes);
-                            }
                         }
-                    } catch (Exception e) {
-                        ExceptionHandler.process(e);
+                        if (!find) {
+                            valid = treePopulator.populateTree(xsModel, rootNodes.get(0), treeNodes);
+                        }
                     }
-                } else {
-                    valid = this.treePopulator.populateTree(xmlXsdPath, treeNode);
+                } catch (Exception e) {
+                    ExceptionHandler.process(e);
                 }
-            } else if (getConnection().getFileContent() != null && getConnection().getFileContent().length > 0) {
-                initFileContent();
+            } else {
+                valid = this.treePopulator.populateTree(xmlXsdPath, treeNode);
             }
         }
 
@@ -733,7 +734,7 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
             ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection());
             tempXmlXsdPath = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, tempXmlXsdPath));
         }
-        valid = this.treePopulator.populateTree(tempXmlXsdPath, treeNode);
+        // valid = this.treePopulator.populateTree(tempXmlXsdPath, treeNode);
 
     }
 }
