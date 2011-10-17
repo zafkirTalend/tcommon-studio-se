@@ -133,6 +133,16 @@ public class ATreeNode {
     }
 
     /**
+     * Add a as first child to the tree node.
+     * 
+     * @param child
+     */
+    public void addAsFirstChild(Object child) {
+        this.children.add(0, child);
+        ((ATreeNode) child).setNodeParent(this);
+    }
+
+    /**
      * Add a group of child to the tree node.
      * 
      * @param children

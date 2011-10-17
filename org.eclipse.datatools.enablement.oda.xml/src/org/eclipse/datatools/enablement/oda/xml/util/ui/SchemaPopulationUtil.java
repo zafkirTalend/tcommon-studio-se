@@ -46,6 +46,7 @@ import org.apache.xerces.xs.XSTypeDefinition;
 import org.eclipse.datatools.connectivity.oda.OdaException;
 import org.eclipse.datatools.enablement.oda.xml.util.ISaxParserConsumer;
 import org.eclipse.datatools.enablement.oda.xml.util.SaxParser;
+import org.eclipse.xsd.XSDSchema;
 
 /**
  * This class is used to offer GUI a utility to get an tree from certain xml/xsd file.
@@ -95,6 +96,11 @@ public class SchemaPopulationUtil {
     public static ATreeNode getSchemaTree(XSModel xsModel, ATreeNode selectedNode, boolean includeAttribute) throws OdaException,
             URISyntaxException, IOException {
         return XSDFileSchemaTreePopulator.getSchemaTree(xsModel, selectedNode, includeAttribute);
+    }
+
+    public static ATreeNode getSchemaTree(XSDSchema schema, ATreeNode selectedNode, boolean includeAttribute)
+            throws OdaException, URISyntaxException, IOException {
+        return new XSDPopulationUtil2().getSchemaTree(schema, selectedNode, includeAttribute);
     }
 
 }
