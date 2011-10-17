@@ -12,19 +12,26 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.connection.files.xml.util;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.xerces.xs.XSModel;
+import org.eclipse.datatools.connectivity.oda.OdaException;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.SchemaPopulationUtil;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.XSDPopulationUtil;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.XSDPopulationUtil2;
+import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.xsd.XSDSchema;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.xml.XmlUtil;
 import org.talend.core.model.metadata.MappingTypeRetriever;
 import org.talend.core.model.metadata.MetadataTalendType;
+import org.talend.core.ui.metadata.dialog.RootNodeSelectDialog;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.Attribute;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.Element;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
@@ -402,42 +409,84 @@ public class TreeUtil {
         return list;
     }
 
+    public static boolean getFoxTreeNodesForXmlMap(String filePath, Shell shell, List<FOXTreeNode> nodeList) {
+        try {
+            if (XmlUtil.isXSDFile(filePath)) {
+                XSDSchema xsdSchema = getXSDSchema(filePath);
+                List<ATreeNode> allTreeNodes = new XSDPopulationUtil2().getAllRootNodes(xsdSchema);
+                ATreeNode selectedTreeNode = null;
+                if (allTreeNodes != null && !allTreeNodes.isEmpty()) {
+                    if (allTreeNodes.size() > 1) {
+                        RootNodeSelectDialog dialog = new RootNodeSelectDialog(shell, allTreeNodes);
+                        if (dialog.open() == IDialogConstants.OK_ID) {
+                            selectedTreeNode = dialog.getSelectedNode();
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        selectedTreeNode = allTreeNodes.get(0);
+                    }
+                    nodeList.addAll(getFoxTreeNodesByRootNode(xsdSchema, selectedTreeNode, false));
+                }
+            } else {
+                getFoxTreeNodesForXmlMap(filePath, nodeList);
+            }
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
+        return true;
+
+    }
+
     public static List<FOXTreeNode> getFoxTreeNodesForXmlMap(String filePath, String absoluteXPathQuery) {
         List<FOXTreeNode> list = new ArrayList<FOXTreeNode>();
         if (filePath == null) {
             return list;
         }
-
         try {
-            ATreeNode treeNode = SchemaPopulationUtil.getSchemaTree(filePath, true, 0);
-            String rootName = "";
-            if (treeNode.getValue() instanceof String) {
-                rootName += "/" + treeNode.getValue();
-            }
-            FOXTreeNode root = cloneATreeNode(treeNode, rootName);
-            if (root instanceof Element) {
-                final List<FOXTreeNode> elementChildren = ((Element) root).getElementChildren();
-                if (elementChildren.size() == 1) {
-                    root = elementChildren.get(0);
-                    root.setParent(null);
-                    list.add(root);
-                } else if (elementChildren.size() > 1) {
-                    for (FOXTreeNode child : elementChildren) {
-                        final boolean findLoopInChildren = findLoopInChildren(child, null, absoluteXPathQuery);
-                        if (findLoopInChildren) {
-                            root = child;
-                            root.setParent(null);
-                            list.add(root);
-                            break;
+            if (XmlUtil.isXSDFile(filePath)) {
+                XSDSchema xsModel = getXSDSchema(filePath);
+                List<ATreeNode> allTreeNodes = new XSDPopulationUtil2().getAllRootNodes(xsModel);
+                ATreeNode selectedTreeNode = null;
+                if (allTreeNodes != null && !allTreeNodes.isEmpty()) {
+                    if (allTreeNodes.size() > 1) {
+                        String[] split = absoluteXPathQuery.split("/");
+                        if (split.length > 1) {
+                            boolean found = false;
+                            for (int i = 0; i < allTreeNodes.size(); i++) {
+                                if (split[1] != null && split[1].equals(allTreeNodes.get(i).getValue())) {
+                                    selectedTreeNode = allTreeNodes.get(i);
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            if (!found) {
+                                for (int i = 0; i < allTreeNodes.size(); i++) {
+                                    ATreeNode node = allTreeNodes.get(i);
+                                    String[] nodeValue = ((String) node.getValue()).split(":");
+                                    if (nodeValue.length > 1) {
+                                        if (split[1].equals(nodeValue[1])) {
+                                            List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
+                                            selectedTreeNode = allTreeNodes.get(i);
+                                            found = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
                         }
-                    }
-                    if (list.isEmpty()) {
-                        root = elementChildren.get(0);
-                        root.setParent(null);
-                        list.add(root);
+
+                        if (selectedTreeNode == null) {
+                            selectedTreeNode = allTreeNodes.get(0);
+                        }
+                    } else {
+                        selectedTreeNode = allTreeNodes.get(0);
                     }
 
+                    list = getFoxTreeNodesByRootNode(xsModel, selectedTreeNode, false);
                 }
+            } else {
+                getFoxTreeNodesForXmlMap(filePath, list);
             }
         } catch (Exception e) {
             ExceptionHandler.process(e);
@@ -445,31 +494,51 @@ public class TreeUtil {
         return list;
     }
 
-    private static boolean findLoopInChildren(FOXTreeNode node, String xmlPath, String absoluteXPathQuery) {
-        String tempXpath = null;
-        if (absoluteXPathQuery != null) {
-            if (xmlPath == null) {
-                tempXpath = "/" + node.getLabel();
-            } else {
-                tempXpath = xmlPath + "/" + node.getLabel();
+    private static void getFoxTreeNodesForXmlMap(String filePath, List<FOXTreeNode> list) throws OdaException,
+            URISyntaxException, IOException {
+        ATreeNode treeNode = SchemaPopulationUtil.getSchemaTree(filePath, true, 0);
+        String rootName = "";
+        if (treeNode.getValue() instanceof String) {
+            rootName += "/" + treeNode.getValue();
+        }
+        FOXTreeNode root = cloneATreeNode(treeNode, rootName);
+        if (root instanceof Element) {
+            if (root instanceof Element) {
+                root = ((Element) root).getElementChildren().get(0);
+                root.setParent(null);
+                list.add(root);
             }
-            if (tempXpath.equals(absoluteXPathQuery)) {
-                return true;
+        }
+    }
+
+    private static ATreeNode getSelectedTreeNode(List<ATreeNode> allTreeNodes, String absoluteXPathQuery, Shell shell) {
+        ATreeNode selectedTreeNode = null;
+        if (allTreeNodes.size() > 1) {
+            if (absoluteXPathQuery == null) {
+                RootNodeSelectDialog dialog = new RootNodeSelectDialog(shell, allTreeNodes);
+                if (dialog.open() == IDialogConstants.OK_ID) {
+                    selectedTreeNode = dialog.getSelectedNode();
+                }
             } else {
-                boolean findInChild = false;
-                final List<FOXTreeNode> children = node.getChildren();
-                if (children != null && !children.isEmpty()) {
-                    for (FOXTreeNode child : children) {
-                        findInChild = findInChild || findLoopInChildren(child, tempXpath, absoluteXPathQuery);
-                        if (findInChild) {
-                            return findInChild;
+                String[] split = absoluteXPathQuery.split("/");
+                if (split.length > 1) {
+                    for (int i = 0; i < allTreeNodes.size(); i++) {
+
+                        if (split[1] != null && split[1].equals(allTreeNodes.get(i).getValue())) {
+                            selectedTreeNode = allTreeNodes.get(i);
+                            break;
                         }
                     }
                 }
-                return findInChild;
+                if (selectedTreeNode == null) {
+                    selectedTreeNode = allTreeNodes.get(0);
+                }
+
             }
+        } else {
+            selectedTreeNode = allTreeNodes.get(0);
         }
-        return false;
+        return selectedTreeNode;
     }
 
     public static List<FOXTreeNode> getFoxTreeNodes(String filePath, String selectedEntity) {

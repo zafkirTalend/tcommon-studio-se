@@ -13,11 +13,10 @@
 package org.talend.repository.mdm.ui.wizard.concept;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.StringReader;
+import java.rmi.RemoteException;
 import java.util.List;
+
+import javax.xml.rpc.ServiceException;
 
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
@@ -26,16 +25,6 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
-import org.talend.mdm.webservice.WSDataModel;
-import org.talend.mdm.webservice.WSDataModelPK;
-import org.talend.mdm.webservice.WSGetDataModel;
-import org.talend.mdm.webservice.WSGetUniversePKs;
-import org.talend.mdm.webservice.WSPing;
-import org.talend.mdm.webservice.WSRegexDataModelPKs;
-import org.talend.mdm.webservice.WSUniversePK;
-import org.talend.mdm.webservice.XtentisBindingStub;
-import org.talend.mdm.webservice.XtentisPort;
-import org.talend.mdm.webservice.XtentisServiceLocator;
 import org.talend.repository.mdm.util.MDMUtil;
 import org.talend.repository.ui.swt.utils.AbstractXmlStepForm;
 import org.talend.repository.ui.utils.OtherConnectionContextUtils.EParamName;
@@ -126,94 +115,14 @@ public abstract class AbstractMDMFileStepForm extends AbstractXmlStepForm {
         // IPath temp = new Path(System.getProperty("user.dir")).append("temp");
         // xsdFilePath = temp.toOSString() + "\\template.xsd";
         MDMConnection mdmConn = (MDMConnection) connectionItem.getConnection();
-        XtentisBindingStub stub = null;
-        String userName = mdmConn.getUsername();
-        String password = mdmConn.getPassword();
-        String server = mdmConn.getServer();
-        String port = mdmConn.getPort();
-        String universe = mdmConn.getUniverse();
-        String datamodel = mdmConn.getDatamodel();
-        WSUniversePK[] universes = null;
-        WSUniversePK universePK = null;
-        WSDataModelPK modelPK = null;
-        XtentisServiceLocator xtentisService = new XtentisServiceLocator();
-        xtentisService.setXtentisPortEndpointAddress("http://" + server + ":" + port + "/talend/TalendPort"); //$NON-NLS-1$ //$NON-NLS-1$ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-        try {
-            XtentisPort xtentisWS = xtentisService.getXtentisPort();
-            stub = (XtentisBindingStub) xtentisWS;
-            stub.setUsername(userName);
-            stub.setPassword(password);
-            stub.ping(new WSPing());
-            try {
-                universes = stub.getUniversePKs(new WSGetUniversePKs("")); //$NON-NLS-1$
-            } catch (Exception e) {
-                universes = null;
-            }
-        } catch (Exception e) {
-            ExceptionHandler.process(e);
-        }
-        if (universes != null) {
-            for (int i = 0; i < universes.length; i++) {
-                if (universes[i].getPk().equals(universe)) {
-                    universePK = universes[i];
-                    break;
-                }
-            }
-        }
-        //        if (universePK != null && universe != null && !"".equals(universe)) { //$NON-NLS-1$
-        if (universe != null && !"".equals(universe)) { //$NON-NLS-1$
-            stub.setUsername(universe + "/" + userName); //$NON-NLS-1$
-            stub.setPassword(password);
-        } else {
-            stub.setUsername(userName);
-            stub.setPassword(password);
-        }
-        try {
-            WSDataModelPK[] models = stub.getDataModelPKs(new WSRegexDataModelPKs(""));//$NON-NLS-1$
-            if (models == null) {
-                return;
-            }
-            for (int i = 0; i < models.length; i++) {
-                if (models[i].getPk().equals(datamodel)) {
-                    modelPK = models[i];
-                    break;
-                }
-            }
-            if (modelPK == null) {
-                return;
-            }
-
-            WSDataModel model = stub.getDataModel(new WSGetDataModel(modelPK));
-            if (model == null) {
-                return;
-            }
-            writeInFile(model.getXsdSchema());
-            // List<String> list = MDMUtil.getConcepts(MDMUtil.getXSDSchema(model.getXsdSchema()));
-            // concepts.addAll(list);
-        } catch (Exception e) {
-            ExceptionHandler.process(e);
-        }
-        // return concepts;
-    }
-
-    private void writeInFile(String schema) {
         File file = MDMUtil.getTempTemplateXSDFile();
         xsdFilePath = file.getAbsolutePath();
-        StringReader reader = new StringReader(schema);
-
         try {
-            FileOutputStream outputStream = new FileOutputStream(file);
-            OutputStreamWriter writer = new OutputStreamWriter(outputStream, "UTF-8");
-            char[] c = new char[1024];
-            int l = 0;
-            while ((l = reader.read(c)) != -1) {
-                writer.write(c, 0, l);
-            }
-            writer.flush();
-            writer.close();
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            MDMUtil.initConcepts(mdmConn);
+        } catch (RemoteException e) {
+            ExceptionHandler.process(e);
+        } catch (ServiceException e) {
+            ExceptionHandler.process(e);
         }
     }
 

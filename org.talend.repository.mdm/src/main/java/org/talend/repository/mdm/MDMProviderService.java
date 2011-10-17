@@ -19,6 +19,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.talend.core.model.metadata.IMDMConstant;
 import org.talend.core.model.metadata.MetadataToolHelper;
+import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
@@ -27,6 +28,7 @@ import org.talend.core.model.properties.MDMConnectionItem;
 import org.talend.core.ui.IMDMProviderService;
 import org.talend.repository.UpdateRepositoryUtils;
 import org.talend.repository.mdm.ui.wizard.MDMWizard;
+import org.talend.repository.mdm.util.MDMUtil;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -110,6 +112,15 @@ public class MDMProviderService implements IMDMProviderService {
             workbench = PlatformUI.getWorkbench();
         }
         return new MDMWizard(workbench, creation, node, existingNames);
+    }
+
+    public boolean initConcepts(MDMConnection mdmConn) {
+        try {
+            MDMUtil.initConcepts(mdmConn);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }
