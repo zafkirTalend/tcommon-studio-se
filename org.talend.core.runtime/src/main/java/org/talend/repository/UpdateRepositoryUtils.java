@@ -21,10 +21,8 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.IESBService;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataToolHelper;
-import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.QueriesConnection;
@@ -411,19 +409,6 @@ public final class UpdateRepositoryUtils {
                     }
                 }
             }
-            AbstractMetadataObject obj = null;
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBService.class)) {
-                IESBService service = (IESBService) GlobalServiceRegister.getDefault().getService(IESBService.class);
-                obj = service.getServicesOperation(connection, name);
-                if (obj != null) {
-                    if (GlobalServiceRegister.getDefault().isServiceRegistered(IMetadataManagmentService.class)) {
-                        IMetadataManagmentService mmService = (IMetadataManagmentService) GlobalServiceRegister.getDefault()
-                                .getService(IMetadataManagmentService.class);
-                        return mmService.convertServicesOperation(obj);
-                    }
-                }
-            }
-
         }
         return null;
     }

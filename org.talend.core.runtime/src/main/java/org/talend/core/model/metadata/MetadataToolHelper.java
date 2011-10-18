@@ -26,10 +26,8 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.IESBService;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
-import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.SAPConnection;
@@ -559,36 +557,6 @@ public final class MetadataToolHelper {
                 MetadataTable table = (MetadataTable) tableObj;
                 if (table.getLabel().equals(name2)) {
                     return table;
-                }
-            }
-        }
-        return null;
-    }
-
-    public static AbstractMetadataObject getServicesOperationFromRepository(String metaRepositoryId) {
-        org.talend.core.model.metadata.builder.connection.Connection connection;
-
-        String[] names = metaRepositoryId.split(" - "); //$NON-NLS-1$
-        if (names.length < 2) {
-            return null;
-        }
-        String linkedRepository = names[0];
-        String name2 = null;
-        if (names.length == 2) {
-            name2 = names[1];
-        } else if (names.length > 2) {
-            name2 = metaRepositoryId.substring(linkedRepository.length() + 3);
-        }
-
-        connection = getConnectionFromRepository(linkedRepository);
-
-        if (connection != null) {
-
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBService.class)) {
-                IESBService service = (IESBService) GlobalServiceRegister.getDefault().getService(IESBService.class);
-                AbstractMetadataObject obj = service.getServicesOperation(connection, name2);
-                if (obj != null) {
-                    return obj;
                 }
             }
         }

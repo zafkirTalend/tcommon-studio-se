@@ -12,9 +12,9 @@
 // ============================================================================
 package org.talend.core;
 
-import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
-import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.process.INode;
+import org.talend.core.model.properties.Item;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -22,8 +22,16 @@ import org.talend.repository.model.RepositoryNode;
  */
 public interface IESBService extends IService {
 
-    public AbstractMetadataObject getServicesOperation(Connection connection, String operationName);
+    public ERepositoryObjectType getServicesType();
 
-    public void changeOperationLabel(RepositoryNode newNode, INode node, Connection connection);
+    public String getServiceLabel(Item item, String linkedRepository);
+
+    public void updateOperation(INode node, String linkedRepository, RepositoryNode selectNode);
+
+    // public void setSelectedItem(Item, )
+
+    // public AbstractMetadataObject getServicesOperation(Connection connection, String operationName);
+
+    // public void changeOperationLabel(RepositoryNode newNode, INode node, Connection connection);
 
 }
