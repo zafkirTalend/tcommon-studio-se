@@ -49,6 +49,7 @@ public class XSDPopulationUtil2 {
     private boolean enableGeneratePrefix = false;
 
     public XSDPopulationUtil2() {
+        enableGeneratePrefix = true;
     }
 
     public XSDSchema getXSDSchema(String fileName) throws URISyntaxException, MalformedURLException {
@@ -62,6 +63,7 @@ public class XSDPopulationUtil2 {
 
     public List<ATreeNode> getAllRootNodes(XSDSchema xsdSchema) throws OdaException {
         List<ATreeNode> rootNodes = new ArrayList<ATreeNode>();
+        List<String> rootNodesName = new ArrayList<String>();
 
         List all = new ArrayList(xsdSchema.getElementDeclarations());
         all.addAll(xsdSchema.getTypeDefinitions());
@@ -84,7 +86,8 @@ public class XSDPopulationUtil2 {
                 if (xsdTypeDefinition != null && xsdTypeDefinition.getName() != null) {
                     node.setDataType(xsdTypeDefinition.getName());
                 }
-                if (!rootNodes.contains(node)) {
+                if (!rootNodes.contains(node) && !rootNodesName.contains(node.getValue())) {
+                    rootNodesName.add((String) node.getValue());
                     rootNodes.add(node);
                 }
             } else {
@@ -95,7 +98,8 @@ public class XSDPopulationUtil2 {
                     node.setValue(elementName);
                     node.setType(ATreeNode.ELEMENT_TYPE);
                     node.setDataType(xsdTypeDefinition.getName());
-                    if (!rootNodes.contains(node)) {
+                    if (!rootNodes.contains(node) && !rootNodesName.contains(node.getValue())) {
+                        rootNodesName.add((String) node.getValue());
                         rootNodes.add(node);
                     }
                 }
@@ -126,6 +130,12 @@ public class XSDPopulationUtil2 {
                     }
                     if (prefix != null && !prefix.isEmpty()) {
                         namespaceToPrefix.put(namespace, prefix);
+                    } else {
+                        ATreeNode namespaceNode = new ATreeNode();
+                        namespaceNode.setDataType("");
+                        namespaceNode.setType(ATreeNode.NAMESPACE_TYPE);
+                        namespaceNode.setValue(namespace);
+                        partNode.addChild(namespaceNode);
                     }
                 }
             }
@@ -179,6 +189,7 @@ public class XSDPopulationUtil2 {
                 XSDElementDeclaration xsdElementDeclaration = (XSDElementDeclaration) i.next();
                 String elementName = xsdElementDeclaration.getName();
 
+                ATreeNode node = new ATreeNode();
                 String prefix = null;
                 String namespace = xsdElementDeclaration.getTargetNamespace();
                 if (namespace != null) {
@@ -191,13 +202,18 @@ public class XSDPopulationUtil2 {
                     if (prefix != null && !prefix.isEmpty()) {
                         elementName = prefix + ":" + xsdElementDeclaration.getName();
                         namespaceToPrefix.put(namespace, prefix);
+                    } else {
+                        ATreeNode namespaceNode = new ATreeNode();
+                        namespaceNode.setDataType("");
+                        namespaceNode.setType(ATreeNode.NAMESPACE_TYPE);
+                        namespaceNode.setValue(namespace);
+                        node.addChild(namespaceNode);
                     }
                 }
 
                 if (!elementName.equals(selectedNode.getValue())) {
                     continue;
                 }
-                ATreeNode node = new ATreeNode();
                 node.setValue(elementName);
                 node.setType(ATreeNode.ELEMENT_TYPE);
                 node.setDataType(xsdElementDeclaration.getName());
@@ -259,7 +275,9 @@ public class XSDPopulationUtil2 {
                     }
                     if (xsdTypeDefinition.getTargetNamespace() != null) {
                         String prefix = namespaceToPrefix.get(xsdTypeDefinition.getTargetNamespace());
-                        node.setValue(prefix + ":" + xsdTypeDefinition.getName());
+                        if (prefix != null) {
+                            node.setValue(prefix + ":" + xsdTypeDefinition.getName());
+                        }
                     }
                     List<String> namespaceList = new ArrayList(namespaceToPrefix.keySet());
                     Collections.reverse(namespaceList);
