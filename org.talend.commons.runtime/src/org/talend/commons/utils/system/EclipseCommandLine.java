@@ -32,15 +32,25 @@ import java.util.regex.Pattern;
  */
 public class EclipseCommandLine {
 
-    static public final String PROP_VM = "eclipse.vm"; //$NON-NLS-1$
+    static final String PROP_VM = "eclipse.vm"; //$NON-NLS-1$
 
-    static public final String PROP_VMARGS = "eclipse.vmargs"; //$NON-NLS-1$
+    static final String PROP_VMARGS = "eclipse.vmargs"; //$NON-NLS-1$
 
-    static public final String PROP_COMMANDS = "eclipse.commands"; //$NON-NLS-1$
+    static final String PROP_COMMANDS = "eclipse.commands"; //$NON-NLS-1$
 
-    static public final String CMD_VMARGS = "-vmargs"; //$NON-NLS-1$
+    static final String CMD_VMARGS = "-vmargs"; //$NON-NLS-1$
 
-    static public final String NEW_LINE = "\n"; //$NON-NLS-1$
+    static final String NEW_LINE = "\n"; //$NON-NLS-1$
+
+    /**
+     * Use it to specify the type of project that will be use to configure the studio when relaunched
+     */
+    static public final String TALEND_PROJECT_TYPE_COMMAND = "-talendProjectType"; //$NON-NLS-1$
+
+    /**
+     * for relaunch of the plugins when relaunching the Studio
+     */
+    static public final String TALEND_RESTART_COMMAND = "-talendRestart"; //$NON-NLS-1$    
 
     /**
      * this creates or updates the org.eclipse.equinox.app.IApplicationContext.EXIT_DATA_PROPERTY by adding or changing

@@ -52,10 +52,6 @@ import org.talend.repository.ui.wizards.license.LicenseWizardDialog;
  */
 public class Application implements IApplication {
 
-    static final String TALEND_PROJECT_TYPE_COMMAND = "-talendProjectType"; //$NON-NLS-1$
-
-    static final String TALEND_RESTART_COMMAND = "-talendRestart"; //$NON-NLS-1$
-
     public Object start(IApplicationContext context) throws Exception {
         Display display = PlatformUI.createDisplay();
         try {
@@ -116,8 +112,9 @@ public class Application implements IApplication {
                 // use relaunch instead of restart to remove change the restart property that may have been added in the
                 // previous
                 // relaunch
-                EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand(TALEND_RESTART_COMMAND, "false");
-                EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand(TALEND_PROJECT_TYPE_COMMAND, null);
+                EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand(EclipseCommandLine.TALEND_RESTART_COMMAND, "false");
+                EclipseCommandLine
+                        .updateOrCreateExitDataPropertyWithCommand(EclipseCommandLine.TALEND_PROJECT_TYPE_COMMAND, null);
                 return IApplication.EXIT_RELAUNCH;
             } else {
                 return IApplication.EXIT_OK;
