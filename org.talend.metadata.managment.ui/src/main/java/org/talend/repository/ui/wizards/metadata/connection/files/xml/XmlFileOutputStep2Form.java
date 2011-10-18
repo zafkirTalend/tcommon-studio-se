@@ -171,10 +171,12 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
     }
 
     private void initSchemaTable() {
-        EList columns = ConnectionHelper.getTables(getConnection()).toArray(new MetadataTable[0])[0].getColumns();
         List<MetadataColumn> columnList = new ArrayList<MetadataColumn>();
-        for (int i = 0; i < columns.size(); i++) {
-            columnList.add((MetadataColumn) columns.get(i));
+        if (ConnectionHelper.getTables(getConnection()).size() > 0) {
+            EList columns = ConnectionHelper.getTables(getConnection()).toArray(new MetadataTable[0])[0].getColumns();
+            for (int i = 0; i < columns.size(); i++) {
+                columnList.add((MetadataColumn) columns.get(i));
+            }
         }
         schemaViewer.setInput(columnList);
         schemaViewer.refresh();
@@ -443,14 +445,16 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
             public void selectionChanged(SelectionChangedEvent event) {
                 IStructuredSelection selection = (IStructuredSelection) event.getSelection();
                 ATreeNode node = (ATreeNode) selection.getFirstElement();
-                EList schemaMetadataColumn = ConnectionHelper.getTables(getConnection()).toArray(new MetadataTable[0])[0]
-                        .getColumns();
-                schemaMetadataColumn.clear();
                 List<FOXTreeNode> nodeList = getCorrespondingFoxTreeNodes(node, false);
                 if (nodeList.size() == 0) {
                     return;
                 }
-                initMetadataTable(nodeList, schemaMetadataColumn);
+                if (ConnectionHelper.getTables(getConnection()).size() > 0) {
+                    EList schemaMetadataColumn = ConnectionHelper.getTables(getConnection()).toArray(new MetadataTable[0])[0]
+                            .getColumns();
+                    schemaMetadataColumn.clear();
+                    initMetadataTable(nodeList, schemaMetadataColumn);
+                }
                 updateConnectionProperties(nodeList.get(0));
                 initXmlTreeData();
                 initSchemaTable();

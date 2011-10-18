@@ -209,7 +209,11 @@ public class TreePopulator {
             treeItem.setData(treeNode);
             int type = treeNode.getType();
             if (type == ATreeNode.NAMESPACE_TYPE) {
-                treeItem.setText("xmlns:" + treeNode.getDataType() + "=" + treeNode.getValue().toString());
+                if ("".equals(treeNode.getDataType())) {
+                    treeItem.setText("xmlns=" + treeNode.getValue().toString());
+                } else {
+                    treeItem.setText("xmlns:" + treeNode.getDataType() + "=" + treeNode.getValue().toString());
+                }
                 treeItem.setForeground(new Color(Display.getDefault(), new RGB(0, 130, 0)));
             } else if (type == ATreeNode.ATTRIBUTE_TYPE) {
                 treeItem.setText("@" + treeNode.getValue().toString()); //$NON-NLS-1$
