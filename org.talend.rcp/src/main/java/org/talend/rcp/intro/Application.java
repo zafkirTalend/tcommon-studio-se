@@ -16,8 +16,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.core.runtime.Platform;
@@ -35,6 +33,7 @@ import org.eclipse.ui.internal.tweaklets.Tweaklets;
 import org.eclipse.ui.internal.tweaklets.WorkbenchImplementation;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
+import org.talend.commons.utils.system.EclipseCommandLine;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.core.ui.branding.IBrandingService;
@@ -56,16 +55,6 @@ public class Application implements IApplication {
     static final String TALEND_PROJECT_TYPE_COMMAND = "-talendProjectType"; //$NON-NLS-1$
 
     static final String TALEND_RESTART_COMMAND = "-talendRestart"; //$NON-NLS-1$
-
-    static final String PROP_VM = "eclipse.vm"; //$NON-NLS-1$
-
-    static final String PROP_VMARGS = "eclipse.vmargs"; //$NON-NLS-1$
-
-    static final String PROP_COMMANDS = "eclipse.commands"; //$NON-NLS-1$
-
-    static final String CMD_VMARGS = "-vmargs"; //$NON-NLS-1$
-
-    static final String NEW_LINE = "\n"; //$NON-NLS-1$
 
     public Object start(IApplicationContext context) throws Exception {
         Display display = PlatformUI.createDisplay();
@@ -127,7 +116,8 @@ public class Application implements IApplication {
                 // use relaunch instead of restart to remove change the restart property that may have been added in the
                 // previous
                 // relaunch
-                System.setProperty(org.eclipse.equinox.app.IApplicationContext.EXIT_DATA_PROPERTY, buildRestartFalseCommandLine());
+                EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand(TALEND_RESTART_COMMAND, "false");
+                EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand(TALEND_PROJECT_TYPE_COMMAND, null);
                 return IApplication.EXIT_RELAUNCH;
             } else {
                 return IApplication.EXIT_OK;
@@ -138,68 +128,6 @@ public class Application implements IApplication {
             releaseWorkspaceLock();
         }
 
-    }
-
-    /**
-     * this recreates the Eclipse command line by add (or changing) the option -talendRestart false and removing the
-     * -talendProjectType value
-     * 
-     * @return
-     */
-    private String buildRestartFalseCommandLine() {
-        String falseValue = "false";
-        // define the java process tio launch
-        String property = System.getProperty(PROP_VM);
-        StringBuffer result = new StringBuffer(512);
-        result.append(property);
-        result.append(NEW_LINE);
-
-        // add the java argument for the jvm
-        // append the vmargs and commands. Assume that these already end in \n
-        String vmargs = System.getProperty(PROP_VMARGS);
-        if (vmargs != null) {
-            result.append(vmargs);
-        }
-
-        // append the rest of the args, replacing or adding -data as required
-        property = System.getProperty(PROP_COMMANDS);
-        if (property == null) {
-            result.append(TALEND_RESTART_COMMAND);
-            result.append(NEW_LINE);
-            result.append(falseValue); //$NON-NLS-1$
-            result.append(NEW_LINE);
-        } else {
-            // try to find existing commands to update them
-            // find the index of the arg to replace its value
-            Pattern restartPattern = Pattern.compile(TALEND_RESTART_COMMAND + "\\s+.+\\s");//$NON-NLS-1$ -talendRestart\s+.+\s
-            Matcher restartMatcher = restartPattern.matcher(property);
-            if (restartMatcher.find()) {
-                property = restartMatcher.replaceAll(TALEND_RESTART_COMMAND + NEW_LINE + falseValue + NEW_LINE); //$NON-NLS-1$
-            } else {
-                result.append(TALEND_RESTART_COMMAND);
-                result.append(NEW_LINE);
-                result.append(falseValue);
-                result.append(NEW_LINE);
-            }
-            Pattern projTypePattern = Pattern.compile(TALEND_PROJECT_TYPE_COMMAND + "\\s+.+\\s");//$NON-NLS-1$ -talendProjectType\s+.+\s
-            Matcher projTypeMatcher = projTypePattern.matcher(property);
-            if (projTypeMatcher.find()) {
-                property = projTypeMatcher.replaceAll(NEW_LINE);
-            } // not here already to do nothing
-
-            result.append(property);
-        }
-
-        // put the vmargs back at the very end so that the Main.java can know the vm args and set them in the system
-        // property eclipse.vmargs
-        // (the previously set eclipse.commands property already contains the -vm arg)
-        if (vmargs != null) {
-            result.append(CMD_VMARGS);
-            result.append(NEW_LINE);
-            result.append(vmargs);
-        }
-
-        return result.toString();
     }
 
     private void openLicenseAndRegister(Shell shell) {
