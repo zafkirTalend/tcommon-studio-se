@@ -590,8 +590,8 @@ public class DeleteAction extends AContextualAction {
                                             String path = item2.getState().getPath();
 
                                             boolean found = false;
-                                            JobletReferenceBean bean = new JobletReferenceBean(property2.getLabel(),
-                                                    property2.getVersion(), path, refP.getLabel());
+                                            JobletReferenceBean bean = new JobletReferenceBean(property2.getLabel(), property2
+                                                    .getVersion(), path, refP.getLabel());
                                             bean.setJobFlag(isJob, isDelete);
 
                                             for (JobletReferenceBean b : list) {
@@ -622,8 +622,8 @@ public class DeleteAction extends AContextualAction {
                                 if (equals) {
 
                                     boolean found = false;
-                                    JobletReferenceBean bean = new JobletReferenceBean(property2.getLabel(),
-                                            property2.getVersion(), path, refP.getLabel());
+                                    JobletReferenceBean bean = new JobletReferenceBean(property2.getLabel(), property2
+                                            .getVersion(), path, refP.getLabel());
                                     bean.setJobFlag(isJob, isDelete);
 
                                     for (JobletReferenceBean b : list) {
@@ -813,17 +813,15 @@ public class DeleteAction extends AContextualAction {
                                 Item fitem = currentJobNode.getObject().getProperty().getItem();
                                 if ((fitem instanceof FolderItem)
                                         && (((FolderItem) fitem).getType().getValue() == FolderType.FOLDER)) {
-                                    factory.deleteFolder(
-                                            currentJobNode.getContentType(),
-                                            RepositoryNodeUtilities.getFolderPath(currentJobNode.getObject().getProperty()
-                                                    .getItem()));
+                                    factory.deleteFolder(currentJobNode.getContentType(), RepositoryNodeUtilities
+                                            .getFolderPath(currentJobNode.getObject().getProperty().getItem()));
                                 } else {
-                                    factory.deleteFolder(currentJobNode.getContentType(),
-                                            RepositoryNodeUtilities.getPath(currentJobNode));
+                                    factory.deleteFolder(currentJobNode.getContentType(), RepositoryNodeUtilities
+                                            .getPath(currentJobNode));
                                 }
                             } else {
-                                factory.deleteFolder(currentJobNode.getContentType(),
-                                        RepositoryNodeUtilities.getPath(currentJobNode));
+                                factory.deleteFolder(currentJobNode.getContentType(), RepositoryNodeUtilities
+                                        .getPath(currentJobNode));
                             }
                         }
                     } else {
@@ -924,6 +922,18 @@ public class DeleteAction extends AContextualAction {
                         break;
                     }
                     if (contentType == ERepositoryObjectType.METADATA_CON_CDC) {
+                        enabled = false;
+                        visible = false;
+                        break;
+                    }
+
+                    if (contentType == ERepositoryObjectType.SERVICESOPERATION) {
+                        enabled = false;
+                        visible = false;
+                        break;
+                    }
+
+                    if (contentType == ERepositoryObjectType.SERVICESPORT) {
                         enabled = false;
                         visible = false;
                         break;
