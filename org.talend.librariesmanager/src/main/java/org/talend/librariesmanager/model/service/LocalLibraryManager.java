@@ -100,7 +100,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 }
             } else {
                 if ("org.talend.designer.components.model.UserComponentsProvider".contains(contributeID)
-                        || "org.talend.designer.components.ecosystem.EcosystemComponentsProvider".contains(contributeID)) {
+                        || "org.talend.designer.components.exchange.ExchangeComponentsProvider".contains(contributeID)) {
                     if (file.isDirectory()) {
                         FilesUtils.copyFolder(new File(jarFileUri), getStorageDirectory(), false,
                                 FilesUtils.getExcludeSystemFilesFilter(), FilesUtils.getAcceptJARFilesFilter(), false,

@@ -81,7 +81,7 @@ public final class PerspectiveReviewUtil {
 
     static String modulesViewId = "org.talend.designer.codegen.perlmodule.ModulesView"; //$NON-NLS-1$
 
-    static String ecosystemViewId = "org.talend.designer.components.ecosystem.ui.views.EcosystemView"; //$NON-NLS-1$
+    static String exchangeViewId = "org.talend.designer.components.exchange.ui.views.ExchangeView"; //$NON-NLS-1$
 
     static String schedulerViewId = "org.talend.scheduler.views.Scheduler"; //$NON-NLS-1$
 
@@ -111,7 +111,7 @@ public final class PerspectiveReviewUtil {
         diViewList.add(runProcessViewId);
         diViewList.add(problemsViewId);
         diViewList.add(modulesViewId);
-        diViewList.add(ecosystemViewId);
+        diViewList.add(exchangeViewId);
         diViewList.add(schedulerViewId);
         diViewList.add(contextsViewId);
         diViewList.add(gefPaletteViewId);
