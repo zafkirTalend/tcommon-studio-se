@@ -136,6 +136,7 @@ import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.core.service.ICorePerlService;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SubItemHelper;
+import org.talend.dq.writer.EMFSharedResources;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.localprovider.exceptions.IncorrectFileException;
@@ -1195,18 +1196,27 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 for (Resource resource : affectedResources) {
                     IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath)
                             .append(resource.getURI().lastSegment());
+                    // Find cross reference and save them.
+                    Map<EObject, Collection<Setting>> find = EcoreUtil.ExternalCrossReferencer.find(resource);
+                    List<Resource> needSaves = new ArrayList<Resource>();
+                    for (EObject object : find.keySet()) {
+                        Resource re = object.eResource();
+                        if (re == null) {
+                            continue;
+                        }
+                        EcoreUtil.resolveAll(re);
+                        needSaves.add(re);
+                    }
                     xmiResourceManager.moveResource(resource, path);
+
+                    for (Resource toSave : needSaves) {
+                        EMFSharedResources.getInstance().saveResource(toSave);
+                    }
                 }
 
                 affectedResources = xmiResourceManager.getAffectedResources(childrens[i].getProperty());
                 for (Resource resource : affectedResources) {
                     xmiResourceManager.saveResource(resource);
-                }
-
-                AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
-                        AbstractResourceChangesService.class);
-                if (resChangeService != null) {
-                    resChangeService.updateDependeciesWhenMoveFolder(childrens[i]);
                 }
                 // ~TDQ-3546
             }
@@ -1379,7 +1389,22 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             }
             for (Resource resource : affectedResources) {
                 IPath path = folder.getFullPath().append(resource.getURI().lastSegment());
+             	// Find cross reference and save them.
+                Map<EObject, Collection<Setting>> find = EcoreUtil.ExternalCrossReferencer.find(resource);
+                List<Resource> needSaves = new ArrayList<Resource>();
+                for (EObject object : find.keySet()) {
+                    Resource re = object.eResource();
+                    if (re == null) {
+                        continue;
+                    }
+                    EcoreUtil.resolveAll(re);
+                    needSaves.add(re);
+                }
                 xmiResourceManager.moveResource(resource, path);
+
+                for (Resource toSave : needSaves) {
+                    EMFSharedResources.getInstance().saveResource(toSave);
+                }
             }
             // all resources attached must be saved again after move the resources, or author will link to wrong path
             // for project file

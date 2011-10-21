@@ -28,6 +28,7 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.junit.Test;
@@ -1342,5 +1343,100 @@ public class LocalRepositoryFactoryTest {
 
         assertTrue(!fileProperty.exists());
         assertTrue(!fileItem.exists());
+    }
+
+    /**
+     * Test method for
+     * {@link org.talend.repository.localprovider.model.LocalRepositoryFactory#moveObject(org.talend.core.model.general.Project)}
+     * .
+     * 
+     * @throws CoreException
+     * @throws PersistenceException
+     * @throws LoginException
+     */
+    @Test
+    public void testMoveObject() throws PersistenceException, CoreException, LoginException {
+        LocalRepositoryFactory repositoryFactory = new LocalRepositoryFactory();
+        createTempProject();
+
+        repositoryFactory.createUser(sampleProject);
+        repositoryFactory.logOnProject(sampleProject);
+        ProcessItem processItem = createTempProcessItem(repositoryFactory, "");
+        String processId = processItem.getProperty().getId();
+        List<IRepositoryViewObject> objects = repositoryFactory.getAllVersion(sampleProject, processId, true);
+
+        if (objects.isEmpty()) {
+            return;
+        }
+
+        final Folder createFolder = repositoryFactory.createFolder(sampleProject, ERepositoryObjectType.PROCESS, new Path(""),
+                "moveToThisFolder");
+        assertNotNull(createFolder);
+
+        IPath ip = new Path(createFolder.getLabel());
+
+        assertNotNull(objects.get(0));
+        repositoryFactory.moveObject(objects.get(0), ip);
+        IProject project = ResourceModelUtils.getProject(sampleProject);
+        checkMoveObjectFileExists(project, ERepositoryObjectType.PROCESS, createFolder.getLabel(), processItem.getProperty()
+                .getLabel(), processItem.getProperty().getVersion());
+
+        removeTempProject();
+    }
+
+    private void checkMoveObjectFileExists(IProject project, ERepositoryObjectType type, String path, String name, String version) {
+        IFile fileProperty;
+        if ("".equals(path)) {
+            fileProperty = project.getFile(new Path(ERepositoryObjectType.getFolderName(type) + "/" + name + "_" + version
+                    + ".properties"));
+        } else {
+            fileProperty = project.getFile(new Path(ERepositoryObjectType.getFolderName(type) + "/" + path + "/" + name + "_"
+                    + version + ".properties"));
+        }
+
+        assertTrue(fileProperty.exists());
+    }
+
+    /**
+     * Test method for
+     * {@link org.talend.repository.localprovider.model.LocalRepositoryFactory#createFolder(org.talend.core.model.general.Project)}
+     * .
+     * 
+     * @throws CoreException
+     * @throws PersistenceException
+     * @throws LoginException
+     */
+    @Test
+    public void testMoveFolder() throws PersistenceException, CoreException, LoginException {
+        LocalRepositoryFactory repositoryFactory = new LocalRepositoryFactory();
+        createTempProject();
+
+        repositoryFactory.createUser(sampleProject);
+        repositoryFactory.logOnProject(sampleProject);
+
+        ProcessItem processItem = createTempProcessItem(repositoryFactory, "sourceFolder");
+        String processId = processItem.getProperty().getId();
+        List<IRepositoryViewObject> objects = repositoryFactory.getAllVersion(sampleProject, processId, true);
+
+        if (objects.isEmpty()) {
+            return;
+        }
+
+        final Folder createTargetFolder = repositoryFactory.createFolder(sampleProject, ERepositoryObjectType.PROCESS, new Path(
+                ""),
+                "targetFolder");
+        assertNotNull(createTargetFolder);
+
+        IPath sourcePath = new Path("sourceFolder");
+        IPath targetPath = new Path(createTargetFolder.getLabel());
+
+        assertNotNull(objects.get(0));
+        repositoryFactory.moveFolder(ERepositoryObjectType.PROCESS, sourcePath, targetPath);
+        IProject project = ResourceModelUtils.getProject(sampleProject);
+        checkMoveObjectFileExists(project, ERepositoryObjectType.PROCESS, createTargetFolder.getLabel() + "/" + "sourceFolder",
+                processItem.getProperty()
+                .getLabel(), processItem.getProperty().getVersion());
+
+        removeTempProject();
     }
 }
