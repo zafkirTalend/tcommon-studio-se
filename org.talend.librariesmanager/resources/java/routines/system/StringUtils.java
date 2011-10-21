@@ -270,5 +270,43 @@ public class StringUtils {
         return sb.toString();
     }
     
+    
+    /**
+     * return null value not "null" String when obj is null 
+     * that is the only difference with String.valueOf(Object obj)
+     * @param obj
+     * @return
+     */
+	public static String valueOf(Object obj) {
+		return (obj == null) ? null : obj.toString();
+	}
+
+	public static String valueOf(char data[]) {
+		return String.valueOf(data);
+	}
+
+	public static String valueOf(boolean b) {
+		return String.valueOf(b);
+	}
+
+	public static String valueOf(char c) {
+		return String.valueOf(c);
+	}
+
+	public static String valueOf(int i) {
+		return String.valueOf(i);
+	}
+
+	public static String valueOf(long l) {
+		return String.valueOf(l);
+	}
+
+	public static String valueOf(float f) {
+		return String.valueOf(f);
+	}
+
+	public static String valueOf(double d) {
+		return String.valueOf(d);
+	}
 	
 }
