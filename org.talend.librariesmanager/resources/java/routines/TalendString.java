@@ -106,7 +106,7 @@ public class TalendString {
         if (null == origin) {
             return null;
         }
-        String sPaddingChar = java.util.regex.Matcher.quoteReplacement(Character.toString(padding_char));
+        String sPaddingChar = quoteChars(Character.toString(padding_char));
 
         if (align > 0) {// positive integer to trim left
             origin = origin.replaceAll("^" + sPaddingChar + "+", "");
@@ -120,6 +120,19 @@ public class TalendString {
         return origin;
     }
 
+    private static String quoteChars( String padding_chars){
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < padding_chars.length(); i++) {
+            char c = padding_chars.charAt(i);
+            if (!(Character.isLetterOrDigit(c) || c == '_')) {
+                sb.append('\\');
+                sb.append(c);
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
     /**
      * Initialisation of the map for the accents.
      */
