@@ -21,6 +21,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
+import org.talend.core.ITDQRepositoryService;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
@@ -103,6 +104,12 @@ public class FileDelimitedTableWizard extends AbstractRepositoryFileTableWizard 
             try {
                 factory.save(repositoryObject.getProperty().getItem());
                 closeLockStrategy();
+                // MOD qiongli 2011-10-21 TDQ-3797,update the supplier dependencies(related anayses)
+                ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) org.talend.core.GlobalServiceRegister
+                        .getDefault().getService(ITDQRepositoryService.class);
+                if (tdqRepositoryService != null) {
+                    tdqRepositoryService.updateImpactOnAnalysis(connectionItem);
+                }// ~
             } catch (PersistenceException e) {
                 String detailError = e.toString();
                 new ErrorDialogWidthDetailArea(getShell(), PID,
