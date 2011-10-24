@@ -35,6 +35,7 @@ import org.talend.core.model.metadata.EMetadataEncoding;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTalendType;
+import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.MultiSchemasUtil;
 import org.talend.core.model.metadata.builder.connection.BRMSConnection;
 import org.talend.core.model.metadata.builder.connection.Concept;
@@ -1510,11 +1511,24 @@ public class RepositoryToComponentProperty {
                 // }
                 // }
                 // }
-                for (SchemaTarget schema : schemaTargets) {
-                    Map<String, Object> map = new HashMap<String, Object>();
-                    map.put("SCHEMA_COLUMN", schema.getTagName()); //$NON-NLS-1$
-                    map.put("QUERY", TalendQuoteUtils.addQuotes(schema.getRelativeXPathQuery())); //$NON-NLS-1$
-                    tableInfo.add(map);
+                // for (SchemaTarget schema : schemaTargets) {
+                // Map<String, Object> map = new HashMap<String, Object>();
+                //                    map.put("SCHEMA_COLUMN", schema.getTagName()); //$NON-NLS-1$
+                //                    map.put("QUERY", TalendQuoteUtils.addQuotes(schema.getRelativeXPathQuery())); //$NON-NLS-1$
+                // tableInfo.add(map);
+                // }
+
+                String tagName;
+                for (int j = 0; j < schemaTargets.size(); j++) {
+                    SchemaTarget schemaTarget = schemaTargets.get(j);
+                    if (schemaTarget.getTagName() != null && !schemaTarget.getTagName().equals("")) { //$NON-NLS-1$
+                        tagName = "" + schemaTarget.getTagName().trim().replaceAll(" ", "_"); //$NON-NLS-1$ //$NON-NLS-2$
+                        tagName = MetadataToolHelper.validateColumnName(tagName, j);
+                        Map<String, Object> map = new HashMap<String, Object>();
+                        map.put("SCHEMA_COLUMN", tagName); //$NON-NLS-1$
+                        map.put("QUERY", TalendQuoteUtils.addQuotes(schemaTarget.getRelativeXPathQuery())); //$NON-NLS-1$
+                        tableInfo.add(map);
+                    }
                 }
             }
         }
