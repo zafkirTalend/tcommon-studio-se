@@ -81,7 +81,7 @@ public class XmlFileWizardPage extends WizardPage {
         currentComposite = null;
 
         if (step == 1) {
-            currentComposite = new XmlFileStep1Form(parent, connectionItem, existingNames);
+            currentComposite = new XmlFileStep1Form(creation, parent, connectionItem, existingNames);
         } else if (step == 2) {
             currentComposite = new XmlFileStep2Form(parent, connectionItem);
         } else if (step == 3) {

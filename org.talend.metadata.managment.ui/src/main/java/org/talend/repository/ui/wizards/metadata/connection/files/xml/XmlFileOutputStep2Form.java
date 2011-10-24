@@ -13,9 +13,7 @@
 package org.talend.repository.ui.wizards.metadata.connection.files.xml;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
@@ -140,10 +138,6 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
     private List<FOXTreeNode> treeData = new ArrayList<FOXTreeNode>();
 
     private boolean creation;
-
-    private int order = 1;
-
-    private Map<String, Integer> orderMap = new HashMap<String, Integer>();
 
     public XmlFileOutputStep2Form(boolean creation, Composite parent, ConnectionItem connectionItem) {
         super(parent, connectionItem);

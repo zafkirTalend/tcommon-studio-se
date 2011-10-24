@@ -149,7 +149,7 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
      * @param Wizard
      * @param Style
      */
-    public XmlFileStep1Form(Composite parent, ConnectionItem connectionItem, String[] existingNames) {
+    public XmlFileStep1Form(boolean creation, Composite parent, ConnectionItem connectionItem, String[] existingNames) {
         super(parent, connectionItem, existingNames);
         this.creation = creation;
         setupForm();
