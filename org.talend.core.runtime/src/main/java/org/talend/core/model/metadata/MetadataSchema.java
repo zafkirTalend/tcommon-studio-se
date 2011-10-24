@@ -59,7 +59,9 @@ public class MetadataSchema {
     /**
      * 
      */
-    private static final String CORE_PLUGIN_ID = "org.talend.core";
+    // private static final String CORE_PLUGIN_ID = "org.talend.core";
+
+    private static final String CORE_RUNTIME_PLUGIN_ID = "org.talend.core.runtime";
 
     private static final String SCHEMA_LANGUAGE = "http://java.sun.com/xml/jaxp/properties/schemaLanguage"; //$NON-NLS-1$
 
@@ -161,7 +163,7 @@ public class MetadataSchema {
         final List<IMetadataColumn> listColumns = new ArrayList<IMetadataColumn>();
         Set<String> columnsAlreadyAdded = new HashSet<String>();
         if (file != null) {
-            final Bundle b = Platform.getBundle(CORE_PLUGIN_ID);
+            final Bundle b = Platform.getBundle(CORE_RUNTIME_PLUGIN_ID);
             final URL url = FileLocator.toFileURL(FileLocator.find(b, new Path(SCHEMA_XSD), null));
             final File schema = new File(url.getPath());
 
@@ -266,7 +268,7 @@ public class MetadataSchema {
         if (file != null) {
             final DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
 
-            final Bundle b = Platform.getBundle(CORE_PLUGIN_ID);
+            final Bundle b = Platform.getBundle(CORE_RUNTIME_PLUGIN_ID);
             final URL url = FileLocator.toFileURL(FileLocator.find(b, new Path(SCHEMA_XSD), null));
             final File schema = new File(url.getPath());
 
@@ -387,7 +389,7 @@ public class MetadataSchema {
         if (file != null) {
             final DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
 
-            final Bundle b = Platform.getBundle(CORE_PLUGIN_ID);
+            final Bundle b = Platform.getBundle(CORE_RUNTIME_PLUGIN_ID);
             final URL url = FileLocator.toFileURL(FileLocator.find(b, new Path(TARGETSCHEMA_XSD), null));
             final File schema = new File(url.getPath());
 
@@ -452,7 +454,7 @@ public class MetadataSchema {
         if (file != null) {
             final DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
 
-            final Bundle b = Platform.getBundle(CORE_PLUGIN_ID);
+            final Bundle b = Platform.getBundle(CORE_RUNTIME_PLUGIN_ID);
             final URL url = FileLocator.toFileURL(FileLocator.find(b, new Path(SCHEMA_XSD), null));
             final File schema = new File(url.getPath());
 
@@ -562,7 +564,7 @@ public class MetadataSchema {
         if (file != null) {
             final DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
 
-            final Bundle b = Platform.getBundle(CORE_PLUGIN_ID);
+            final Bundle b = Platform.getBundle(CORE_RUNTIME_PLUGIN_ID);
             final URL url = FileLocator.toFileURL(FileLocator.find(b, new Path(TARGETSCHEMA_XSD), null));
             final File schema = new File(url.getPath());
 
@@ -643,7 +645,7 @@ public class MetadataSchema {
         if (file != null) {
             final DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
 
-            final Bundle b = Platform.getBundle(CORE_PLUGIN_ID);
+            final Bundle b = Platform.getBundle(CORE_RUNTIME_PLUGIN_ID);
             final URL url = FileLocator.toFileURL(FileLocator.find(b, new Path(SCHEMA_XSD), null));
             final File schema = new File(url.getPath());
 
