@@ -15,22 +15,29 @@ package org.talend.repository.ui.wizards.metadata.table.files;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ITDQRepositoryService;
+import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.service.IMetadataManagmentService;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.ui.wizards.AbstractRepositoryFileTableWizard;
+import orgomg.cwm.objectmodel.core.Dependency;
 
 /**
  * DOC ocarbone class global comment.
@@ -104,11 +111,13 @@ public class FileDelimitedTableWizard extends AbstractRepositoryFileTableWizard 
             try {
                 factory.save(repositoryObject.getProperty().getItem());
                 closeLockStrategy();
-                // MOD qiongli 2011-10-21 TDQ-3797,update the supplier dependencies(related anayses)
-                ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) org.talend.core.GlobalServiceRegister
-                        .getDefault().getService(ITDQRepositoryService.class);
-                if (tdqRepositoryService != null) {
-                    tdqRepositoryService.updateImpactOnAnalysis(connectionItem);
+                // MOD qiongli 2011-10-21 TDQ-3797,update the supplier dependencies(related anayses),if need
+                if (isNeedUpdateDQ(repositoryObject.getProperty().getItem())) {
+                    ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) org.talend.core.GlobalServiceRegister
+                            .getDefault().getService(ITDQRepositoryService.class);
+                    if (tdqRepositoryService != null) {
+                        tdqRepositoryService.updateImpactOnAnalysis(connectionItem);
+                    }
                 }// ~
             } catch (PersistenceException e) {
                 String detailError = e.toString();
@@ -135,6 +144,40 @@ public class FileDelimitedTableWizard extends AbstractRepositoryFileTableWizard 
     @Override
     public ConnectionItem getConnectionItem() {
         return this.connectionItem;
+    }
+
+    /**
+     * 
+     * DOC qiongli:judge if need to update related Analyses for TDQ
+     * 
+     * @return
+     */
+    private boolean isNeedUpdateDQ(Item item) {
+
+        if (item == null || !(item instanceof ConnectionItem)) {
+            return false;
+        }
+        Connection connection = ((ConnectionItem) item).getConnection();
+        if (connection == null) {
+            return false;
+        }
+        EList<Dependency> supplierDependency = connection.getSupplierDependency();
+        if (supplierDependency == null || supplierDependency.isEmpty()) {
+            return false;
+        }
+        Map<String, String> schemaRenamedMap = RepositoryUpdateManager.getSchemaRenamedMap((ConnectionItem) item, oldTableMap);
+        boolean isNeed = !schemaRenamedMap.isEmpty();
+        if (!isNeed) {
+            if (metadataTable != null && oldMetadataTable != null && oldTableMap.containsKey(metadataTable.getId())) {
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(IMetadataManagmentService.class)) {
+                    IMetadataManagmentService service = (IMetadataManagmentService) GlobalServiceRegister.getDefault()
+                            .getService(IMetadataManagmentService.class);
+                    IMetadataTable newMetadataTable = service.convertMetadataTable(metadataTable);
+                    isNeed = !oldMetadataTable.sameMetadataAs(newMetadataTable, IMetadataColumn.OPTIONS_NONE);
+                }
+            }
+        }
+        return isNeed;
     }
 
 }
