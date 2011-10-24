@@ -28,6 +28,8 @@ public interface IESBService extends IService {
 
     public void updateOperation(INode node, String linkedRepository, RepositoryNode selectNode);
 
+	public String getWsdlFilePath(Item item);
+
     // public void setSelectedItem(Item, )
 
     // public AbstractMetadataObject getServicesOperation(Connection connection, String operationName);
