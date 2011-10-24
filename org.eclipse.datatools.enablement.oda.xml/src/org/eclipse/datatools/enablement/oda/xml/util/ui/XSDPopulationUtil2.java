@@ -192,6 +192,10 @@ public class XSDPopulationUtil2 {
                 ATreeNode node = new ATreeNode();
                 String prefix = null;
                 String namespace = xsdElementDeclaration.getTargetNamespace();
+
+                if (!elementName.equals(selectedNode.getValue())) {
+                    continue;
+                }
                 if (namespace != null) {
                     prefix = xsdElementDeclaration.getQName().contains(":") ? xsdElementDeclaration.getQName().split(":")[0] : "";
                     if (isEnableGeneratePrefix() && (prefix == null || prefix.isEmpty())) {
@@ -211,9 +215,6 @@ public class XSDPopulationUtil2 {
                     }
                 }
 
-                if (!elementName.equals(selectedNode.getValue())) {
-                    continue;
-                }
                 node.setValue(elementName);
                 node.setType(ATreeNode.ELEMENT_TYPE);
                 node.setDataType(xsdElementDeclaration.getName());
