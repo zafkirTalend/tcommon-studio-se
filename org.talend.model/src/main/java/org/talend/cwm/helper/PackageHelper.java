@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.cwm.relational.TdTable;
@@ -145,7 +146,25 @@ public final class PackageHelper {
      * @return true if success
      */
     public static boolean addMetadataTable(Collection<MetadataTable> tables, Package aPackage) {
-        return aPackage.getOwnedElement().addAll(tables);
+        // MOD gdbu 2011-10-24 TDQ-3745 : Before executing the addAll method to determine whether this instance already
+        // exists.
+        EList<ModelElement> ownedElement = aPackage.getOwnedElement();
+        if (!ownedElement.isEmpty()) {
+            List<ModelElement> tablesNeedToAdd = new ArrayList<ModelElement>();
+            List<String> currentTableNames = new ArrayList<String>();
+            for (ModelElement modelElement : ownedElement) {
+                currentTableNames.add(modelElement.getName());
+            }
+            for (MetadataTable metadataTable : tables) {
+                if (!currentTableNames.contains(metadataTable.getName())) {
+                    tablesNeedToAdd.add(metadataTable);
+                }
+            }
+            return ownedElement.addAll(tablesNeedToAdd);
+        } else {
+            return ownedElement.addAll(tables);
+        }
+
     }
 
     public static boolean removeColumnSet(ColumnSet columnSet, Package packageElement) {

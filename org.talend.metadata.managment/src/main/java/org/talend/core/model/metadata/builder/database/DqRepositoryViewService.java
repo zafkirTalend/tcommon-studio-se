@@ -332,21 +332,9 @@ public final class DqRepositoryViewService {
                     ((DatabaseConnection) dataPloadTablesrovider).getDatabaseType());
             // MOD msjian 2011-10-9 TDQ-3566: do not fill tables after existing
             if (schema != null) {
-                if (schema.getOwnedElement().size() == 0) {
-                    tables = MetadataFillFactory.getDBInstance().fillTables(schema, dm, null, tablePattern, tableType);
-                } else {
-                    MetadataFillFactory.getDBInstance().setLinked(false);
-                    tables = MetadataFillFactory.getDBInstance().fillTables(schema, dm, null, tablePattern, tableType);
-                    MetadataFillFactory.getDBInstance().setLinked(true);
-                }
+                tables = MetadataFillFactory.getDBInstance().fillTables(schema, dm, null, tablePattern, tableType);
             } else {
-                if (catalog.getOwnedElement().size() == 0) {
-                    tables = MetadataFillFactory.getDBInstance().fillTables(catalog, dm, null, tablePattern, tableType);
-                } else {
-                    MetadataFillFactory.getDBInstance().setLinked(false);
-                    tables = MetadataFillFactory.getDBInstance().fillTables(catalog, dm, null, tablePattern, tableType);
-                    MetadataFillFactory.getDBInstance().setLinked(true);
-                }
+                tables = MetadataFillFactory.getDBInstance().fillTables(catalog, dm, null, tablePattern, tableType);
             }
             // TDQ-3566 ~
         } finally {
@@ -374,21 +362,9 @@ public final class DqRepositoryViewService {
         try {
             // MOD msjian 2011-10-9 TDQ-3566: do not fill views after existing
             if (schema != null) {
-                if (schema.getOwnedElement().size() == 0) {
-                    views = MetadataFillFactory.getDBInstance().fillViews(schema, dm, null, viewPattern);
-                } else {
-                    MetadataFillFactory.getDBInstance().setLinked(false);
-                    views = MetadataFillFactory.getDBInstance().fillViews(schema, dm, null, viewPattern);
-                    MetadataFillFactory.getDBInstance().setLinked(true);
-                }
+                views = MetadataFillFactory.getDBInstance().fillViews(schema, dm, null, viewPattern);
             } else {
-                if (catalog.getOwnedElement().size() == 0) {
-                    views = MetadataFillFactory.getDBInstance().fillViews(catalog, dm, null, viewPattern);
-                } else {
-                    MetadataFillFactory.getDBInstance().setLinked(false);
-                    views = MetadataFillFactory.getDBInstance().fillViews(catalog, dm, null, viewPattern);
-                    MetadataFillFactory.getDBInstance().setLinked(true);
-                }
+                views = MetadataFillFactory.getDBInstance().fillViews(catalog, dm, null, viewPattern);
             }
             // TDQ-3566 ~
         } finally {
