@@ -42,6 +42,7 @@ import org.talend.core.model.properties.PropertiesPackage;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getMgmtServerPort <em>Mgmt Server Port</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getMgmtRegPort <em>Mgmt Reg Port</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getAdminConsolePort <em>Admin Console Port</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#isUseSSL <em>Use SSL</em>}</li>
  * </ul>
  * </p>
  *
@@ -387,6 +388,26 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
      * @ordered
      */
     protected int adminConsolePort = ADMIN_CONSOLE_PORT_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isUseSSL() <em>Use SSL</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isUseSSL()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean USE_SSL_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isUseSSL() <em>Use SSL</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isUseSSL()
+     * @generated
+     * @ordered
+     */
+    protected boolean useSSL = USE_SSL_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -746,6 +767,27 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isUseSSL() {
+        return useSSL;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setUseSSL(boolean newUseSSL) {
+        boolean oldUseSSL = useSSL;
+        useSSL = newUseSSL;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_SERVER__USE_SSL, oldUseSSL, useSSL));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -785,6 +827,8 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
                 return new Integer(getMgmtRegPort());
             case PropertiesPackage.EXECUTION_SERVER__ADMIN_CONSOLE_PORT:
                 return new Integer(getAdminConsolePort());
+            case PropertiesPackage.EXECUTION_SERVER__USE_SSL:
+                return isUseSSL() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -845,6 +889,9 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
                 return;
             case PropertiesPackage.EXECUTION_SERVER__ADMIN_CONSOLE_PORT:
                 setAdminConsolePort(((Integer)newValue).intValue());
+                return;
+            case PropertiesPackage.EXECUTION_SERVER__USE_SSL:
+                setUseSSL(((Boolean)newValue).booleanValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -907,6 +954,9 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
             case PropertiesPackage.EXECUTION_SERVER__ADMIN_CONSOLE_PORT:
                 setAdminConsolePort(ADMIN_CONSOLE_PORT_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_SERVER__USE_SSL:
+                setUseSSL(USE_SSL_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -951,6 +1001,8 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
                 return mgmtRegPort != MGMT_REG_PORT_EDEFAULT;
             case PropertiesPackage.EXECUTION_SERVER__ADMIN_CONSOLE_PORT:
                 return adminConsolePort != ADMIN_CONSOLE_PORT_EDEFAULT;
+            case PropertiesPackage.EXECUTION_SERVER__USE_SSL:
+                return useSSL != USE_SSL_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -997,6 +1049,8 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
         result.append(mgmtRegPort);
         result.append(", adminConsolePort: ");
         result.append(adminConsolePort);
+        result.append(", useSSL: ");
+        result.append(useSSL);
         result.append(')');
         return result.toString();
     }

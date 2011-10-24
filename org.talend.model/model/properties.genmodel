@@ -493,6 +493,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/mgmtServerPort"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/mgmtRegPort"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/adminConsolePort"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/useSSL"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//ExecutionVirtualServer">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionVirtualServer/id"/>

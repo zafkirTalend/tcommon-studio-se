@@ -6750,13 +6750,22 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_SERVER__ADMIN_CONSOLE_PORT = 16;
 
     /**
+     * The feature id for the '<em><b>Use SSL</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_SERVER__USE_SSL = 17;
+
+    /**
      * The number of structural features of the '<em>Execution Server</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_SERVER_FEATURE_COUNT = 17;
+    int EXECUTION_SERVER_FEATURE_COUNT = 18;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -11188,6 +11197,17 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getExecutionServer_AdminConsolePort();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionServer#isUseSSL <em>Use SSL</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Use SSL</em>'.
+     * @see org.talend.core.model.properties.ExecutionServer#isUseSSL()
+     * @see #getExecutionServer()
+     * @generated
+     */
+    EAttribute getExecutionServer_UseSSL();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionTask <em>Execution Task</em>}'.
@@ -16530,6 +16550,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute EXECUTION_SERVER__ADMIN_CONSOLE_PORT = eINSTANCE.getExecutionServer_AdminConsolePort();
+
+        /**
+         * The meta object literal for the '<em><b>Use SSL</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_SERVER__USE_SSL = eINSTANCE.getExecutionServer_UseSSL();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionTaskImpl <em>Execution Task</em>}' class.

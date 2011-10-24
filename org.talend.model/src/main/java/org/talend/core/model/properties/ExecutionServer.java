@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#getMgmtServerPort <em>Mgmt Server Port</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#getMgmtRegPort <em>Mgmt Reg Port</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#getAdminConsolePort <em>Admin Console Port</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionServer#isUseSSL <em>Use SSL</em>}</li>
  * </ul>
  * </p>
  *
@@ -491,5 +492,32 @@ public interface ExecutionServer extends EObject {
      * @generated
      */
     void setAdminConsolePort(int value);
+
+    /**
+     * Returns the value of the '<em><b>Use SSL</b></em>' attribute.
+     * The default value is <code>"false"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Use SSL</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Use SSL</em>' attribute.
+     * @see #setUseSSL(boolean)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionServer_UseSSL()
+     * @model default="false"
+     * @generated
+     */
+    boolean isUseSSL();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionServer#isUseSSL <em>Use SSL</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Use SSL</em>' attribute.
+     * @see #isUseSSL()
+     * @generated
+     */
+    void setUseSSL(boolean value);
 
 } // ExecutionServer
