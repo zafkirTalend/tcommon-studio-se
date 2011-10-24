@@ -178,7 +178,7 @@ public final class TokenCollectorFactory {
                         IBrandingService.class);
                 isPoweredbyTalend = service.isPoweredbyTalend();
             }
-            if (!isPoweredbyTalend && NetworkUtil.isNetworkValid()) {
+            if (isPoweredbyTalend && NetworkUtil.isNetworkValid()) {
                 JSONObject tokenInfors = collectTokenInfors();
 
                 Resty r = new Resty();
