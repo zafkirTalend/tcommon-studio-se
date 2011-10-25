@@ -53,6 +53,4 @@ public interface IRepositoryContentHandler {
 
     public IImage getIcon(Item item);
 
-    public void editJobName(String originaleObjectLabel, String newLabel);
-
 }
