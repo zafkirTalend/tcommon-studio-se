@@ -331,11 +331,26 @@ public final class DqRepositoryViewService {
             DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(connection,
                     ((DatabaseConnection) dataPloadTablesrovider).getDatabaseType());
             // MOD msjian 2011-10-9 TDQ-3566: do not fill tables after existing
+            // MOD gdbu 2011-10-25 TDQ-3816 : If tables exists, will no longer be added.(compare with tables , not all
+            // element)
             if (schema != null) {
-                tables = MetadataFillFactory.getDBInstance().fillTables(schema, dm, null, tablePattern, tableType);
+                if (PackageHelper.getTables(schema).size() == 0) {
+                    tables = MetadataFillFactory.getDBInstance().fillTables(schema, dm, null, tablePattern, tableType);
+                } else {
+                    MetadataFillFactory.getDBInstance().setLinked(false);
+                    tables = MetadataFillFactory.getDBInstance().fillTables(schema, dm, null, tablePattern, tableType);
+                    MetadataFillFactory.getDBInstance().setLinked(true);
+                }
             } else {
-                tables = MetadataFillFactory.getDBInstance().fillTables(catalog, dm, null, tablePattern, tableType);
+                if (PackageHelper.getTables(catalog).size() == 0) {
+                    tables = MetadataFillFactory.getDBInstance().fillTables(catalog, dm, null, tablePattern, tableType);
+                } else {
+                    MetadataFillFactory.getDBInstance().setLinked(false);
+                    tables = MetadataFillFactory.getDBInstance().fillTables(catalog, dm, null, tablePattern, tableType);
+                    MetadataFillFactory.getDBInstance().setLinked(true);
+                }
             }
+            // TDQ-3816
             // TDQ-3566 ~
         } finally {
             ConnectionUtils.closeConnection(connection);
@@ -361,11 +376,26 @@ public final class DqRepositoryViewService {
                 ((DatabaseConnection) dataProvider).getDatabaseType());
         try {
             // MOD msjian 2011-10-9 TDQ-3566: do not fill views after existing
+            // MOD gdbu 2011-10-25 TDQ-3816 : If views exists, will no longer be added.(compare with views , not all
+            // element)
             if (schema != null) {
-                views = MetadataFillFactory.getDBInstance().fillViews(schema, dm, null, viewPattern);
+                if (PackageHelper.getViews(schema).size() == 0) {
+                    views = MetadataFillFactory.getDBInstance().fillViews(schema, dm, null, viewPattern);
+                } else {
+                    MetadataFillFactory.getDBInstance().setLinked(false);
+                    views = MetadataFillFactory.getDBInstance().fillViews(schema, dm, null, viewPattern);
+                    MetadataFillFactory.getDBInstance().setLinked(true);
+                }
             } else {
-                views = MetadataFillFactory.getDBInstance().fillViews(catalog, dm, null, viewPattern);
+                if (PackageHelper.getViews(catalog).size() == 0) {
+                    views = MetadataFillFactory.getDBInstance().fillViews(catalog, dm, null, viewPattern);
+                } else {
+                    MetadataFillFactory.getDBInstance().setLinked(false);
+                    views = MetadataFillFactory.getDBInstance().fillViews(catalog, dm, null, viewPattern);
+                    MetadataFillFactory.getDBInstance().setLinked(true);
+                }
             }
+            // TDQ-3816
             // TDQ-3566 ~
         } finally {
             ConnectionUtils.closeConnection(connection);
