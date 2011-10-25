@@ -55,7 +55,7 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
         configurer.setSaveAndRestore(true);
 
         PlatformUI.getPreferenceStore().setValue(IWorkbenchPreferenceConstants.CLOSE_EDITORS_ON_EXIT, true);
-        PlatformUI.getPreferenceStore().setValue(IWorkbenchPreferenceConstants.SHOW_TRADITIONAL_STYLE_TABS, false);
+        PlatformUI.getPreferenceStore().setDefault(IWorkbenchPreferenceConstants.SHOW_TRADITIONAL_STYLE_TABS, false);
         PlatformUI.getPreferenceStore().setDefault(IWorkbenchPreferenceConstants.DOCK_PERSPECTIVE_BAR,
                 IWorkbenchPreferenceConstants.TOP_RIGHT);
     }
