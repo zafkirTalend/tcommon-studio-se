@@ -31,6 +31,7 @@ import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
+import org.talend.core.IESBService;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
@@ -241,6 +242,10 @@ public class PropertiesWizard extends Wizard {
             proxyRepositoryFactory.save(object.getProperty(), this.originaleObjectLabel, this.originalVersion);
             ExpressionPersistance.getInstance().jobNameChanged(originaleObjectLabel, object.getLabel());
             proxyRepositoryFactory.saveProject(ProjectManager.getInstance().getCurrentProject());
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBService.class)) {
+                IESBService service = (IESBService) GlobalServiceRegister.getDefault().getService(IESBService.class);
+                service.editJobName(originaleObjectLabel, object.getLabel());
+            }
             return true;
         } catch (PersistenceException e) {
             MessageBoxExceptionHandler.process(e);

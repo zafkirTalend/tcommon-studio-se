@@ -28,7 +28,9 @@ public interface IESBService extends IService {
 
     public void updateOperation(INode node, String linkedRepository, RepositoryNode selectNode);
 
-	public String getWsdlFilePath(Item item);
+    public String getWsdlFilePath(Item item);
+
+    public void editJobName(String originaleObjectLabel, String newLabel);
 
     // public void setSelectedItem(Item, )
 
