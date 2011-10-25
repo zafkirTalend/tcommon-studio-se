@@ -36,8 +36,10 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.expressionbuilder.ExpressionPersistance;
@@ -241,6 +243,10 @@ public class PropertiesWizard extends Wizard {
             proxyRepositoryFactory.save(object.getProperty(), this.originaleObjectLabel, this.originalVersion);
             ExpressionPersistance.getInstance().jobNameChanged(originaleObjectLabel, object.getLabel());
             proxyRepositoryFactory.saveProject(ProjectManager.getInstance().getCurrentProject());
+
+            for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+                handler.editJobName(originaleObjectLabel, object.getLabel());
+            }
             return true;
         } catch (PersistenceException e) {
             MessageBoxExceptionHandler.process(e);
