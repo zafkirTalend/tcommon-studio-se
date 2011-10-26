@@ -49,7 +49,6 @@ public class XSDPopulationUtil2 {
     private boolean enableGeneratePrefix = false;
 
     public XSDPopulationUtil2() {
-        enableGeneratePrefix = true;
     }
 
     public XSDSchema getXSDSchema(String fileName) throws URISyntaxException, MalformedURLException {
@@ -193,9 +192,6 @@ public class XSDPopulationUtil2 {
                 String prefix = null;
                 String namespace = xsdElementDeclaration.getTargetNamespace();
 
-                if (!elementName.equals(selectedNode.getValue())) {
-                    continue;
-                }
                 if (namespace != null) {
                     prefix = xsdElementDeclaration.getQName().contains(":") ? xsdElementDeclaration.getQName().split(":")[0] : "";
                     if (isEnableGeneratePrefix() && (prefix == null || prefix.isEmpty())) {
@@ -213,6 +209,10 @@ public class XSDPopulationUtil2 {
                         namespaceNode.setValue(namespace);
                         node.addChild(namespaceNode);
                     }
+                }
+
+                if (!elementName.equals(selectedNode.getValue())) {
+                    continue;
                 }
 
                 node.setValue(elementName);
