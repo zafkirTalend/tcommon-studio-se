@@ -74,7 +74,7 @@ public class RelationshipItemBuilder {
 
     // upgrade of version must be done each time there is any change in this class.
     // this will force next time the project to upgrade to be sure to be up to date when logon.
-    public static final String INDEX_VERSION = "1.1"; //$NON-NLS-1$
+    public static final String INDEX_VERSION = "1.2"; //$NON-NLS-1$
 
     public static final String LATEST_VERSION = "Latest"; //$NON-NLS-1$
 
@@ -83,6 +83,8 @@ public class RelationshipItemBuilder {
     public static final String JOB_RELATION = "job"; //$NON-NLS-1$
 
     public static final String JOBLET_RELATION = "joblet"; //$NON-NLS-1$
+
+    public static final String SERVICES_RELATION = "services"; //$NON-NLS-1$
 
     public static final String PROPERTY_RELATION = "property"; //$NON-NLS-1$
 

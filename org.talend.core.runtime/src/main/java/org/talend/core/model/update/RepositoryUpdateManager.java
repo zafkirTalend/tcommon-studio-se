@@ -218,8 +218,8 @@ public abstract class RepositoryUpdateManager {
     public abstract Set<EUpdateItemType> getTypes();
 
     private boolean openPropagationDialog() {
-        return MessageDialog.openQuestion(Display.getCurrent().getActiveShell(),
-                Messages.getString("RepositoryUpdateManager.Title"), //$NON-NLS-1$
+        return MessageDialog.openQuestion(Display.getCurrent().getActiveShell(), Messages
+                .getString("RepositoryUpdateManager.Title"), //$NON-NLS-1$
                 Messages.getString("RepositoryUpdateManager.Messages")); //$NON-NLS-1$
     }
 
@@ -241,8 +241,8 @@ public abstract class RepositoryUpdateManager {
     }
 
     private boolean openRenameCheckedDialog() {
-        return MessageDialog.openQuestion(Display.getCurrent().getActiveShell(),
-                Messages.getString("RepositoryUpdateManager.RenameContextTitle"), //$NON-NLS-1$
+        return MessageDialog.openQuestion(Display.getCurrent().getActiveShell(), Messages
+                .getString("RepositoryUpdateManager.RenameContextTitle"), //$NON-NLS-1$
                 Messages.getString("RepositoryUpdateManager.RenameContextMessages")); //$NON-NLS-1$
 
     }
@@ -332,8 +332,8 @@ public abstract class RepositoryUpdateManager {
         if (results == null) {
             return null;
         }
-        List<IProcess2> openedProcessList = CoreRuntimePlugin.getInstance().getDesignerCoreService()
-                .getOpenedProcess(getEditors());
+        List<IProcess2> openedProcessList = CoreRuntimePlugin.getInstance().getDesignerCoreService().getOpenedProcess(
+                getEditors());
 
         List<UpdateResult> checkedResults = new ArrayList<UpdateResult>();
         for (UpdateResult result : results) {
@@ -904,8 +904,8 @@ public abstract class RepositoryUpdateManager {
             }
         });
 
-        List<IProcess2> openedProcessList = CoreRuntimePlugin.getInstance().getDesignerCoreService()
-                .getOpenedProcess(getEditors());
+        List<IProcess2> openedProcessList = CoreRuntimePlugin.getInstance().getDesignerCoreService().getOpenedProcess(
+                getEditors());
 
         try {
 
@@ -1318,6 +1318,16 @@ public abstract class RepositoryUpdateManager {
         return updateDBConnection(connection, true, false);
     }
 
+    /**
+     * 
+     * hwang Comment method "updateServices".
+     * 
+     * for repository wizard.
+     */
+    public static boolean updateServices(ConnectionItem connection) {
+        return updateServices(connection, true, false);
+    }
+
     public static boolean updateDBConnection(ConnectionItem connection, boolean show) {
         return updateDBConnection(connection, show, false);
     }
@@ -1334,6 +1344,36 @@ public abstract class RepositoryUpdateManager {
         List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
                 connectionItem.getProperty().getId(), RelationshipItemBuilder.LATEST_VERSION,
                 RelationshipItemBuilder.PROPERTY_RELATION);
+
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem.getConnection(), relations) {
+
+            @Override
+            public Set<EUpdateItemType> getTypes() {
+                Set<EUpdateItemType> types = new HashSet<EUpdateItemType>();
+                types.add(EUpdateItemType.NODE_PROPERTY);
+                types.add(EUpdateItemType.JOB_PROPERTY_EXTRA);
+                types.add(EUpdateItemType.JOB_PROPERTY_STATS_LOGS);
+                types.add(EUpdateItemType.JOB_PROPERTY_HEADERFOOTER);
+
+                return types;
+            }
+
+        };
+        return repositoryUpdateManager.doWork(true, false);
+    }
+
+    /**
+     * 
+     * hwang Comment method "updateServices".
+     * 
+     * if show is false, will work for context menu action.
+     */
+    public static boolean updateServices(ConnectionItem connectionItem, boolean show, final boolean onlySimpleShow) {
+        List<IRepositoryViewObject> updateList = new ArrayList<IRepositoryViewObject>();
+        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+        List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
+                connectionItem.getProperty().getId(), RelationshipItemBuilder.LATEST_VERSION,
+                RelationshipItemBuilder.SERVICES_RELATION);
 
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem.getConnection(), relations) {
 

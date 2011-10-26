@@ -30,6 +30,12 @@ public interface IESBService extends IService {
 
     public String getWsdlFilePath(Item item);
 
+    public Object getValue(Item item, String value, INode node);
+
+    public void refreshComponentView(Item item);
+
+    public void refreshOperationLabel(String jobID);
+
     public void editJobName(String originaleObjectLabel, String newLabel);
 
     // public void setSelectedItem(Item, )

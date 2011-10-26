@@ -46,6 +46,9 @@ public final class UpdateRepositoryHelper {
                             null);
                     aliasName += " (" + currentDbType + ")"; //$NON-NLS-1$ //$NON-NLS-2$
                 }
+                if (repositoryObjectType.getType().equals("SERVICES")) {
+                    aliasName = "SERVICES";
+                }
             } else if (item instanceof ContextItem) {
                 aliasName = UpdatesConstants.CONTEXT;
             }
