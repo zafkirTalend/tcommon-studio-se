@@ -19,6 +19,10 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.SubProgressMonitor;
@@ -104,6 +108,23 @@ public class MigrationToolService implements IMigrationToolService {
             done.remove(RELATION_TASK);
         }
 
+        boolean haveAnyBinFolder = false; // to avoid some problems of migration, sometimes
+        IWorkspace workspace = ResourcesPlugin.getWorkspace();
+        IProject fsProject = workspace.getRoot().getProject(project.getTechnicalLabel());
+        for (ERepositoryObjectType type : (ERepositoryObjectType[]) ERepositoryObjectType.values()) {
+            if (!type.hasFolder()) {
+                continue;
+            }
+            IFolder folder = fsProject.getFolder(ERepositoryObjectType.getFolderName(type));
+            if (folder.exists() && folder.getFolder("bin").exists()) { //$NON-NLS-1$
+                haveAnyBinFolder = true;
+                break;
+            }
+        }
+        if (haveAnyBinFolder) {
+            done.remove("org.talend.repository.model.migration.RemoveBinFolderMigrationTask"); //$NON-NLS-1$
+        }
+
         final SubProgressMonitor subProgressMonitor = new SubProgressMonitor(monitorWrap, toExecute.size());
         IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
         final IProxyRepositoryFactory repFactory = service.getProxyRepositoryFactory();
@@ -135,7 +156,7 @@ public class MigrationToolService implements IMigrationToolService {
 
                         for (IRepositoryViewObject object : objects) {
                             Item item = object.getProperty().getItem();
-                            monitorWrap.subTask("Migrate... " + item.getProperty().getLabel()); //$NON-NLS-1$
+                            monitorWrap.subTask("Migrate... " + item.getProperty().getLabel());
 
                             subProgressMonitor.worked(1);
                             for (IProjectMigrationTask task : toExecute) {
