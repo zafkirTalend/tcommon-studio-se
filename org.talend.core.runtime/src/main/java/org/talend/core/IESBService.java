@@ -12,9 +12,12 @@
 // ============================================================================
 package org.talend.core;
 
+import java.util.List;
+
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -37,6 +40,8 @@ public interface IESBService extends IService {
     public void refreshOperationLabel(String jobID);
 
     public void editJobName(String originaleObjectLabel, String newLabel);
+
+    public StringBuffer getAllTheJObNames(List<IRepositoryViewObject> jobList);
 
     // public void setSelectedItem(Item, )
 
