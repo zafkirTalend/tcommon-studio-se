@@ -13,7 +13,7 @@ Bundle-ClassPath: .,
  lib/c3p0-0.9.1.2.jar,
  lib/cglib-2.1.3.jar,
  lib/asm.jar,
- lib/hibernate-3.2-patched1.5.jar
+ lib/hibernate-3.2-patched1.6.jar
 Require-Bundle: org.talend.libraries.apache,
  org.talend.libraries.jdbc.jtds;resolution:=optional;visibility:=reexport,
  org.talend.libraries.jdbc.mysql;visibility:=reexport,
