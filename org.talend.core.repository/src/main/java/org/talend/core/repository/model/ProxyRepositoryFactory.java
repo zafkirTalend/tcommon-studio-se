@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.LoginException;
@@ -253,8 +254,12 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             // throw new IllegalArgumentException("Label " + fileName + " is already in use");
             // throw new IllegalArgumentException(Messages.getString(
             //                    "ProxyRepositoryFactory.illegalArgumentException.labeAlreadyInUse", new String[] { fileName })); //$NON-NLS-1$
-
-            MessageBox box = new MessageBox(Display.getCurrent().getActiveShell(), SWT.ICON_WARNING | SWT.OK | SWT.CANCEL);
+			Shell currentShell = Display.getCurrent().getActiveShell();
+			if (currentShell == null) {
+				currentShell = new Shell();
+			}
+			MessageBox box = new MessageBox(currentShell, SWT.ICON_WARNING
+					| SWT.OK | SWT.CANCEL);
             box.setText(Messages.getString("ProxyRepositoryFactory.JobNameErroe")); //$NON-NLS-1$
             box.setMessage(Messages.getString("ProxyRepositoryFactory.Label") + " " + fileName + " " + Messages.getString("ProxyRepositoryFactory.ReplaceJob")); //$NON-NLS-1$ //$NON-NLS-2$
             if (box.open() == SWT.OK) {
