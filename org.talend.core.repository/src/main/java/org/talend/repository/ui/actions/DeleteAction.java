@@ -44,6 +44,7 @@ import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
+import org.talend.core.IESBService;
 import org.talend.core.ITDQRepositoryService;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
@@ -785,9 +786,27 @@ public class DeleteAction extends AContextualAction {
                         public void run() {
                             String title = Messages.getString("DeleteAction.dialog.title"); //$NON-NLS-1$
 
-                            String message = currentJobNode.getProperties(EProperties.LABEL)
-                                    + " " + Messages.getString("DeleteAction.dialog.message0") + "\n" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                                    + Messages.getString("DeleteAction.dialog.message2"); //$NON-NLS-1$
+                            StringBuffer jobNames = null;
+                            if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBService.class)) {
+                                IESBService service = (IESBService) GlobalServiceRegister.getDefault().getService(
+                                        IESBService.class);
+                                if (service != null) {
+                                    List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
+                                    list.add(objToDelete);
+                                    jobNames = service.getAllTheJObNames(list);
+                                }
+                            }
+                            String message = null;
+                            if (jobNames != null) {
+                                message = currentJobNode.getProperties(EProperties.LABEL)
+                                        + " (was assigned to one operation of a Service)"
+                                        + " " + Messages.getString("DeleteAction.dialog.message0") + "\n" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                                        + Messages.getString("DeleteAction.dialog.message2"); //$NON-NLS-1$
+                            } else {
+                                message = currentJobNode.getProperties(EProperties.LABEL)
+                                        + " " + Messages.getString("DeleteAction.dialog.message0") + "\n" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                                        + Messages.getString("DeleteAction.dialog.message2"); //$NON-NLS-1$
+                            }
 
                             confirmFromDialog = MessageDialog.openQuestion(new Shell(), title, message);
                         }
