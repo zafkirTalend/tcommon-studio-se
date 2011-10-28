@@ -16,6 +16,7 @@ import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -72,9 +73,10 @@ public final class TalendTypeConvert {
      * 
      * @param talendType
      * @param value
+     * @param datePattern:just for date type then parse with the given pattern(format).
      * @return
      */
-    public static Object convertToObject(String talendType, String value) {
+    public static Object convertToObject(String talendType, String value, String datePattern) {
         Object object = null;
         // bug 19036 .remove the epmty string, '\r','\n'.
         value = value.trim();
@@ -87,8 +89,19 @@ public final class TalendTypeConvert {
             } else if (talendType.equals(talendTypeName(Byte.class))) {
                 object = Byte.valueOf(value).byteValue();
             } else if (talendType.equals(talendTypeName(Date.class))) {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                object = sdf.parse(value);
+                // MOD qiongli 2011-10-27 TDQ-3802.
+                if (datePattern == null || StringUtils.EMPTY.equals(datePattern.trim())) {
+                    datePattern = "yyyy-MM-dd";
+                } else {
+                    datePattern = StringUtils.replace(datePattern, "\"", StringUtils.EMPTY);
+                }
+                // add the parameter 'Locale.US' because make like 'AM/PM' could be parsed.then format and output as
+                // the given 'datePattern'
+                SimpleDateFormat sdf = new SimpleDateFormat(datePattern, Locale.US);
+                Date date = sdf.parse(value);
+                if (date != null) {
+                    object = sdf.format(date);
+                }
             } else if (talendType.equals(talendTypeName(Double.class))) {
                 object = Double.parseDouble(value);
             } else if (talendType.equals(talendTypeName(Float.class))) {
