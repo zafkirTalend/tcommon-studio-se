@@ -115,7 +115,11 @@ public class MigrationToolService implements IMigrationToolService {
             if (!type.hasFolder()) {
                 continue;
             }
-            IFolder folder = fsProject.getFolder(ERepositoryObjectType.getFolderName(type));
+            String folderName = ERepositoryObjectType.getFolderName(type);
+            if (folderName == null || "".equals(folderName)) {
+                continue;
+            }
+            IFolder folder = fsProject.getFolder(folderName);
             if (folder.exists() && folder.getFolder("bin").exists()) { //$NON-NLS-1$
                 haveAnyBinFolder = true;
                 break;
