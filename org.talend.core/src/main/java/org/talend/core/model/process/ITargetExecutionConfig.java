@@ -27,4 +27,8 @@ public interface ITargetExecutionConfig extends IServerConfiguration {
     public IServerConfiguration getCommandlineServerConfig();
 
     public void setCommandlineServerConfig(IServerConfiguration cmdLineServer);
+
+    public void setUseSSL(boolean useSSL);
+
+    public boolean useSSL();
 }
