@@ -1906,9 +1906,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
             createResource.load(in, null);
             Item newItem = copyFromResource(createResource, changeLabelWithCopyPrefix);
-            create(getRepositoryContext().getProject(), newItem, path);
             // *need to create all referenece files when copy the item*//
-            copyReferenceFiles(newItem);
+            copyReferenceFiles(originalItem, newItem);
+            create(getRepositoryContext().getProject(), newItem, path);
 
             if (newItem instanceof ConnectionItem) {
                 ConnectionItem connectionItem = (ConnectionItem) newItem;
@@ -1918,7 +1918,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     xmlResource.setID(connectionItem.getConnection(), EcoreUtil.generateUUID());
                 }
             }
-
             return newItem;
         } catch (IOException e) {
             // e.printStackTrace();
@@ -1928,15 +1927,17 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return null;
     }
 
-    private void copyReferenceFiles(Item newItem) throws PersistenceException {
-        List<ReferenceFileItem> originalReferItems = newItem.getReferenceResources();
+    private void copyReferenceFiles(Item originalItem, Item newItem) throws PersistenceException {
+        List<ReferenceFileItem> originalReferItems = originalItem.getReferenceResources();
+        newItem.getReferenceResources().clear();
         for (ReferenceFileItem ri : originalReferItems) {
-            Resource refResourceToSave = xmiResourceManager.getReferenceFileResource(newItem.eResource(), ri.getExtension(),
-                    false);
+            ReferenceFileItem newRefItem = PropertiesFactory.eINSTANCE.createReferenceFileItem();
+            newRefItem.setExtension(ri.getExtension());
             ByteArray byarray = PropertiesFactory.eINSTANCE.createByteArray();
             byarray.setInnerContent(ri.getContent().getInnerContent());
-            refResourceToSave.getContents().add(byarray);
-            xmiResourceManager.saveResource(refResourceToSave);
+
+            newItem.getReferenceResources().add(newRefItem);
+            newRefItem.setContent(byarray);
         }
     }
 
@@ -2131,6 +2132,15 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         if (add) {
             item.setParent(parentFolderItem);
+        }
+
+        List referenceResources = item.getReferenceResources();
+        for (ReferenceFileItem refFile : (List<ReferenceFileItem>) referenceResources) {
+            Resource referenceFileResource = xmiResourceManager.getReferenceFileResource(propertyResource,
+                    refFile.getExtension(), false);
+            referenceFileResource.getContents().add(refFile.getContent());
+            xmiResourceManager.saveResource(referenceFileResource);
+            propertyResource.getContents().add(refFile);
         }
         xmiResourceManager.saveResource(screenshotsResource);
         xmiResourceManager.saveResource(itemResource);
