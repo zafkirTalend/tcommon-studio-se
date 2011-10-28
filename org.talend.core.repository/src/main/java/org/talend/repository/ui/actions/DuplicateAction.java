@@ -130,7 +130,9 @@ public class DuplicateAction extends AContextualAction {
                             || node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.METADATA_SAP_FUNCTION
                             || node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.METADATA_SALESFORCE_MODULE
                             || node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.METADATA_SAP_IDOC
-                            || node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.MDM_CONCEPT) {
+                            || node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.MDM_CONCEPT
+                            || node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.SERVICESOPERATION
+                            || node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.SERVICESPORT) {
                         canWork = false;
                     }
                 }
@@ -153,9 +155,8 @@ public class DuplicateAction extends AContextualAction {
 
         Property updatedProperty = null;
         try {
-            updatedProperty = ProxyRepositoryFactory.getInstance()
-                    .getLastVersion(new Project(ProjectManager.getInstance().getProject(property.getItem())), property.getId())
-                    .getProperty();
+            updatedProperty = ProxyRepositoryFactory.getInstance().getLastVersion(
+                    new Project(ProjectManager.getInstance().getProject(property.getItem())), property.getId()).getProperty();
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
         }
