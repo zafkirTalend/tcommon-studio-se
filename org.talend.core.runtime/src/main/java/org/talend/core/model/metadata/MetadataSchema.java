@@ -30,6 +30,7 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
+import org.talend.commons.utils.data.list.UniqueStringGenerator;
 import org.talend.commons.xml.XSDValidator;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
@@ -298,6 +299,7 @@ public class MetadataSchema {
 
             final NodeList nodes = document.getElementsByTagName("column"); //$NON-NLS-1$
             Set<String> columnsAlreadyAdded = new HashSet<String>();
+
             for (int i = 0; i < nodes.getLength(); i++) {
                 final org.talend.core.model.metadata.builder.connection.MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE
                         .createMetadataColumn();
@@ -323,6 +325,7 @@ public class MetadataSchema {
                 metadataColumn.setLabel(nodeValue);
                 metadataColumn.setKey(Boolean.parseBoolean(key.getNodeValue()));
                 metadataColumn.setTalendType(getNewTalendType(type.getNodeValue()));
+
                 if (sourceType != null) {
                     metadataColumn.setSourceType(sourceType.getNodeValue());
                 }
@@ -360,9 +363,25 @@ public class MetadataSchema {
                 // metadataColumn.setPattern(preview.getNodeValue());
                 // }
                 if (originalField != null && originalField.getNodeValue() != null) {
-                    metadataColumn.setOriginalField(originalField.getNodeValue());
+                    metadataColumn.setName(originalField.getNodeValue());
+
+                    UniqueStringGenerator<org.talend.core.model.metadata.builder.connection.MetadataColumn> uniqueStringGenerator = new UniqueStringGenerator<org.talend.core.model.metadata.builder.connection.MetadataColumn>(
+                            metadataColumn.getName(), listColumns) {
+
+                        /*
+                         * (non-Javadoc)
+                         * 
+                         * @see org.talend.commons.utils.data.list.UniqueStringGenerator#getBeanString(java.lang.Object)
+                         */
+                        @Override
+                        protected String getBeanString(org.talend.core.model.metadata.builder.connection.MetadataColumn bean) {
+                            return bean.getName();
+                        }
+
+                    };
+                    metadataColumn.setName(uniqueStringGenerator.getUniqueString());
                 } else {
-                    metadataColumn.setOriginalField(label.getNodeValue());
+                    metadataColumn.setName(label.getNodeValue());
                 }
 
                 if (!columnsAlreadyAdded.contains(metadataColumn.getLabel())) {
