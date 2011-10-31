@@ -14,6 +14,7 @@ package org.talend.core.tis;
 
 import java.util.List;
 
+import org.eclipse.emf.common.util.URI;
 import org.osgi.service.prefs.BackingStoreException;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
@@ -42,4 +43,12 @@ public interface ICoreTisService extends IService {
     public void downLoadAndInstallPatches(String archivaServerURL, List<IPatchBean> toBeInstalled, String... repository);
 
     public Object getArchivaObject(User user, String password, String url) throws PersistenceException, LoginException;
+
+    /**
+     * DOC ycbai Comment method "exportAsCWM".
+     * 
+     * @param itemUri
+     * @param destDir
+     */
+    public void exportAsCWM(URI itemUri, String destDir);
 }
