@@ -378,10 +378,10 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             "repository.systemIndicators.phoneNumberStatistics", "TDQ_Libraries/Indicators/System Indicators/Phone Number Statistics", "SYSTEM_INDICATORS_PHONENUMBER_STATISTICS", 100, true, "repository.systemIndicators.phoneNumberStatistics.alias", new String[] { "DQ" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType SERVICESOPERATION = new ERepositoryObjectType(
-			"repository.servicesOperation", "services", "SERVICESOPERATION", 101, true, "servicesOperation.alias", new String[] { "DI", "CAMEL" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.servicesOperation", "services", "SERVICESOPERATION", 101, true, "servicesOperation.alias", new String[] { "DI", "CAMEL" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType SERVICESPORT = new ERepositoryObjectType(
-			"repository.servicesPort", "services", "SERVICESPORT", 102, true, "servicesPort.alias", new String[] { "DI", "CAMEL" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.servicesPort", "services", "SERVICESPORT", 102, true, "servicesPort.alias", new String[] { "DI", "CAMEL" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     private String alias;
 
@@ -643,6 +643,8 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             return "";//$NON-NLS-1$
         } else if (type == COMPONENTS) {
             return "components";
+        } else if (type.getType().equals("SERVICES")) {
+            return "Services";
         } else {
             return "job";
         }
