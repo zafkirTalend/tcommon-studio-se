@@ -322,7 +322,25 @@ public class MetadataSchema {
                 // final Node preview = nodeMap.getNamedItem("pattern"); //$NON-NLS-1$
 
                 String nodeValue = MetadataToolHelper.validateColumnName(label.getNodeValue(), 0);
+                // metadataColumn.setLabel(nodeValue);
                 metadataColumn.setLabel(nodeValue);
+                // TDI-17966:Copybook schema wizard doesn't retrieve the copybook schema correctly
+                UniqueStringGenerator<org.talend.core.model.metadata.builder.connection.MetadataColumn> uniqueLabelGenerator = new UniqueStringGenerator<org.talend.core.model.metadata.builder.connection.MetadataColumn>(
+                        metadataColumn.getLabel(), listColumns) {
+
+                    /*
+                     * (non-Javadoc)
+                     * 
+                     * @see org.talend.commons.utils.data.list.UniqueStringGenerator#getBeanString(java.lang.Object)
+                     */
+                    @Override
+                    protected String getBeanString(org.talend.core.model.metadata.builder.connection.MetadataColumn bean) {
+                        return bean.getLabel();
+                    }
+
+                };
+                metadataColumn.setLabel(uniqueLabelGenerator.getUniqueString());
+
                 metadataColumn.setKey(Boolean.parseBoolean(key.getNodeValue()));
                 metadataColumn.setTalendType(getNewTalendType(type.getNodeValue()));
 
