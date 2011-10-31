@@ -264,7 +264,9 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         }
 
         IWorkbenchPartSite site = getActivePage().getActiveEditor().getSite();
-        return site.getSelectionProvider().getSelection();
+        ISelectionProvider selectionProvider = site.getSelectionProvider();
+        // if selectionProvider is null then avoid a NPE is required,see TDI-18275
+        return selectionProvider == null ? null : selectionProvider.getSelection();
     }
 
     /**
@@ -594,8 +596,11 @@ public abstract class AContextualAction extends Action implements ITreeContextua
                     }
                 }
                 if (pathExist) {
-                    allVersion = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory().getAllVersion(property.getId(),
-                            state.getPath(), repositoryObject.getObject().getRepositoryObjectType());
+                    allVersion = CoreRuntimePlugin
+                            .getInstance()
+                            .getProxyRepositoryFactory()
+                            .getAllVersion(property.getId(), state.getPath(),
+                                    repositoryObject.getObject().getRepositoryObjectType());
                 } else {
                     allVersion = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory().getAllVersion(property.getId());
                 }
