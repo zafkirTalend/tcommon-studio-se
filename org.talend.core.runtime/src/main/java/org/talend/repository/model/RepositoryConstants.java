@@ -17,7 +17,8 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 /**
  * Defines some constants relative to repository such as file patterns.<br/>
  * 
- * $Id: RepositoryConstants.java 8 2006-10-02 09:09:23 +0000 (鏄熸湡涓� 02 �?鏈�2006) mhirt $
+ * $Id: RepositoryConstants.java 8 2006-10-02 09:09:23 +0000 (鏄熸湡涓� 02 �?鏈�2006)
+ * mhirt $
  * 
  */
 public class RepositoryConstants {
@@ -53,6 +54,8 @@ public class RepositoryConstants {
     public static final String COLUMN_NAME_PATTERN = "^[a-zA-Z_][a-zA-Z_0-9]*$"; //$NON-NLS-1$
 
     //    public static final String REPOSITORY_SCHEMA_PATTERN = "^[a-zA-Z0-9\\_]+$"; //$NON-NLS-1$
+
+	public static final String SIMPLE_FOLDER_PATTERN = "[a-zA-Z0-9\\_-]+$"; //$NON-NLS-1$ //this added for xml metadata folder
 
     public static final String FOLDER_PATTERN = "^[a-zA-Z]+[a-zA-Z0-9\\_]*$"; //$NON-NLS-1$
 
