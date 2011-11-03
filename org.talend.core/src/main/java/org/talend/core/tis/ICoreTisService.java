@@ -44,6 +44,12 @@ public interface ICoreTisService extends IService {
 
     public Object getArchivaObject(User user, String password, String url) throws PersistenceException, LoginException;
 
+
+    public boolean needRestartAfterUpdate();
+
+    public void setNeedResartAfterUpdate(boolean needRestart);
+
+
     /**
      * DOC ycbai Comment method "exportAsCWM".
      * 
@@ -51,4 +57,5 @@ public interface ICoreTisService extends IService {
      * @param destDir
      */
     public void exportAsCWM(URI itemUri, String destDir);
+
 }
