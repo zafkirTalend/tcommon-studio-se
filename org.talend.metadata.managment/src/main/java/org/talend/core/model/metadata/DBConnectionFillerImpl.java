@@ -421,12 +421,23 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     filterList = new ArrayList<String>();
                     if (dbConnection.getDatabaseType() != null
                             && dbConnection.getDatabaseType().equals(EDatabaseTypeName.AS400.getDisplayName())) {// AS400
-                        String pattern = ExtractMetaDataUtils.retrieveSchemaPatternForAS400(dbConnection.getURL());
-                        String[] multiSchems = ExtractMetaDataUtils.getMultiSchems(pattern);
-                        if (multiSchems != null) {
-                            for (String s : multiSchems) {
-                                if (!StringUtils.isEmpty(s) && !filterList.contains(s)) {
-                                    filterList.add(s);
+                        // TDI-17986
+                        IMetadataConnection iMetadataCon = ConvertionHelper.convert(dbConnection);
+                        if (iMetadataCon != null) {
+                            if (!StringUtils.isEmpty(iMetadataCon.getDatabase())
+                                    && !filterList.contains(iMetadataCon.getDatabase())) {
+                                filterList.add(iMetadataCon.getDatabase());
+                            }
+                            String pattern = ExtractMetaDataUtils.retrieveSchemaPatternForAS400(iMetadataCon
+                                    .getAdditionalParams());
+                            if (pattern != null && !"".equals(pattern)) {
+                                String[] multiSchems = ExtractMetaDataUtils.getMultiSchems(pattern);
+                                if (multiSchems != null) {
+                                    for (String s : multiSchems) {
+                                        if (!StringUtils.isEmpty(s) && !filterList.contains(s)) {
+                                            filterList.add(s);
+                                        }
+                                    }
                                 }
                             }
                         }
