@@ -34,6 +34,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.talend.commons.exception.BusinessException;
@@ -123,6 +124,8 @@ public class DeleteAction extends AContextualAction {
 
     boolean needToUpdataPalette = false;
 
+    boolean confirmAssignDialog = false;
+
     @Override
     protected void doRun() {
         final ISelection selection = getSelection();
@@ -151,6 +154,31 @@ public class DeleteAction extends AContextualAction {
                                 continue;
                             }
                             if (node.getType() == ENodeType.REPOSITORY_ELEMENT) {
+                                if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBService.class)) {
+                                    IESBService service = (IESBService) GlobalServiceRegister.getDefault().getService(
+                                            IESBService.class);
+                                    Item repoItem = node.getObject().getProperty().getItem();
+                                    if (service != null && !repoItem.getState().isDeleted()) {
+                                        final StringBuffer jobNames = service.getAllTheJObNames(node);
+                                        if (jobNames != null) {
+                                            Display.getDefault().syncExec(new Runnable() {
+
+                                                public void run() {
+                                                    String message = jobNames.toString()
+                                                            + " was assigned to one operation of a Service!";
+                                                    final Shell shell = getShell();
+                                                    confirmAssignDialog = MessageDialog.openQuestion(shell, "Services warning",
+                                                            message);
+
+                                                }
+                                            });
+                                            if (!confirmAssignDialog) {
+                                                continue;
+                                            }
+                                        }
+                                    }
+                                }
+
                                 if (isInDeletedFolder(deletedFolder, node.getParent())) {
                                     continue;
                                 }
@@ -164,6 +192,38 @@ public class DeleteAction extends AContextualAction {
                                 }
                                 types.add(node.getObjectType());
                             } else if (node.getType() == ENodeType.SIMPLE_FOLDER) {
+                                FolderItem folderItem = (FolderItem) node.getObject().getProperty().getItem();
+                                if (node.getChildren().size() > 0 && !folderItem.getState().isDeleted()) {
+                                    if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBService.class)) {
+                                        IESBService service = (IESBService) GlobalServiceRegister.getDefault().getService(
+                                                IESBService.class);
+                                        if (service != null) {
+                                            final StringBuffer jobNames = service.getAllTheJObNames(node);
+                                            if (jobNames != null) {
+                                                Display.getDefault().syncExec(new Runnable() {
+
+                                                    public void run() {
+                                                        String message = null;
+                                                        if (jobNames.toString().contains(",")) {
+                                                            message = jobNames.toString()
+                                                                    + " were assigned to some operations of some Services!";
+                                                        } else {
+                                                            message = jobNames.toString()
+                                                                    + " was assigned to one operation of a Service!";
+                                                        }
+                                                        final Shell shell = getShell();
+                                                        confirmAssignDialog = MessageDialog.openQuestion(shell,
+                                                                "Services warning", message);
+
+                                                    }
+                                                });
+                                                if (!confirmAssignDialog) {
+                                                    continue;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                                 // bug 18158
                                 boolean isSqlTemplate = false;
                                 if (node.getObject() instanceof Folder) {
@@ -786,27 +846,9 @@ public class DeleteAction extends AContextualAction {
                         public void run() {
                             String title = Messages.getString("DeleteAction.dialog.title"); //$NON-NLS-1$
 
-                            StringBuffer jobNames = null;
-                            if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBService.class)) {
-                                IESBService service = (IESBService) GlobalServiceRegister.getDefault().getService(
-                                        IESBService.class);
-                                if (service != null) {
-                                    List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
-                                    list.add(objToDelete);
-                                    jobNames = service.getAllTheJObNames(list);
-                                }
-                            }
-                            String message = null;
-                            if (jobNames != null) {
-                                message = currentJobNode.getProperties(EProperties.LABEL)
-                                        + " (was assigned to one operation of a Service)"
-                                        + " " + Messages.getString("DeleteAction.dialog.message0") + "\n" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                                        + Messages.getString("DeleteAction.dialog.message2"); //$NON-NLS-1$
-                            } else {
-                                message = currentJobNode.getProperties(EProperties.LABEL)
-                                        + " " + Messages.getString("DeleteAction.dialog.message0") + "\n" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                                        + Messages.getString("DeleteAction.dialog.message2"); //$NON-NLS-1$
-                            }
+                            String message = currentJobNode.getProperties(EProperties.LABEL)
+                                    + " " + Messages.getString("DeleteAction.dialog.message0") + "\n" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                                    + Messages.getString("DeleteAction.dialog.message2"); //$NON-NLS-1$
 
                             confirmFromDialog = MessageDialog.openQuestion(new Shell(), title, message);
                         }
@@ -1051,6 +1093,28 @@ public class DeleteAction extends AContextualAction {
             }
         }
         return false;
+    }
+
+    protected Shell getShell() {
+        Shell shell = null;
+
+        IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+        if (activeWorkbenchWindow != null) {
+            shell = activeWorkbenchWindow.getShell();
+        }
+        if (shell == null) {
+            Display dis = Display.getCurrent();
+            if (dis == null) {
+                dis = Display.getDefault();
+            }
+            if (dis != null) {
+                shell = dis.getShells()[0];
+            }
+        }
+        if (shell == null) {
+            shell = new Shell();
+        }
+        return shell;
     }
 
 }

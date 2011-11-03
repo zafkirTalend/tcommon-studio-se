@@ -12,9 +12,6 @@
 // ============================================================================
 package org.talend.repository.ui.actions;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -33,7 +30,6 @@ import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.IESBService;
 import org.talend.core.ITDQRepositoryService;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -74,41 +70,14 @@ public class EmptyRecycleBinAction extends AContextualAction {
 
         final String title = Messages.getString("EmptyRecycleBinAction.dialog.title"); //$NON-NLS-1$
         String message = null;
-
-        StringBuffer jobNames = null;
-        if (node.getChildren().size() > 0) {
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBService.class)) {
-                IESBService service = (IESBService) GlobalServiceRegister.getDefault().getService(IESBService.class);
-                if (service != null) {
-                    List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
-                    for (IRepositoryNode iobj : node.getChildren()) {
-                        list.add(iobj.getObject());
-                    }
-                    jobNames = service.getAllTheJObNames(list);
-                }
-            }
-        }
-
         if (node.getChildren().size() == 0) {
             return;
         } else if (node.getChildren().size() > 1) {
-            if (jobNames != null) {
-                message = Messages.getString("DeleteAction.dialog.messageAllElements") + "\n" + //$NON-NLS-1$ //$NON-NLS-2$ a
-                        " and some jobs of them were assigned to the operations of a Service. "
-                        + Messages.getString("DeleteAction.dialog.message2"); //$NON-NLS-1$;
-            } else {
-                message = Messages.getString("DeleteAction.dialog.messageAllElements") + "\n" + //$NON-NLS-1$ //$NON-NLS-2$
-                        Messages.getString("DeleteAction.dialog.message2"); //$NON-NLS-1$;
-            }
+            message = Messages.getString("DeleteAction.dialog.messageAllElements") + "\n" + //$NON-NLS-1$ //$NON-NLS-2$
+                    Messages.getString("DeleteAction.dialog.message2"); //$NON-NLS-1$;
         } else {
-            if (jobNames != null) {
-                message = Messages.getString("DeleteAction.dialog.message1") + "\n" + //$NON-NLS-1$ //$NON-NLS-2$
-                        " and it was assigned to one operation of a Service. "
-                        + Messages.getString("DeleteAction.dialog.message2"); //$NON-NLS-1$
-            } else {
-                message = Messages.getString("DeleteAction.dialog.message1") + "\n" //$NON-NLS-1$ //$NON-NLS-2$
-                        + Messages.getString("DeleteAction.dialog.message2"); //$NON-NLS-1$
-            }
+            message = Messages.getString("DeleteAction.dialog.message1") + "\n" //$NON-NLS-1$ //$NON-NLS-2$
+                    + Messages.getString("DeleteAction.dialog.message2"); //$NON-NLS-1$
         }
         final Shell shell = getShell();
         if (!(MessageDialog.openQuestion(shell, title, message))) {
