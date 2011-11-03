@@ -246,27 +246,54 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             boolean... isImportItem) throws PersistenceException {
         String fileName = item.getProperty().getLabel();
         checkFileName(fileName, pattern);
-
         // if the check comes from create item when import item, then no need to check the name availability
         // since we already checked before.
-        if ((isImportItem.length == 0) && !this.repositoryFactoryFromProvider.isNameAvailable(project, item, null)) {
-            // i18n
-            // throw new IllegalArgumentException("Label " + fileName + " is already in use");
-            // throw new IllegalArgumentException(Messages.getString(
-            //                    "ProxyRepositoryFactory.illegalArgumentException.labeAlreadyInUse", new String[] { fileName })); //$NON-NLS-1$
-			Shell currentShell = Display.getCurrent().getActiveShell();
-			if (currentShell == null) {
-				currentShell = new Shell();
-			}
-			MessageBox box = new MessageBox(currentShell, SWT.ICON_WARNING
-					| SWT.OK | SWT.CANCEL);
-            box.setText(Messages.getString("ProxyRepositoryFactory.JobNameErroe")); //$NON-NLS-1$
-            box.setMessage(Messages.getString("ProxyRepositoryFactory.Label") + " " + fileName + " " + Messages.getString("ProxyRepositoryFactory.ReplaceJob")); //$NON-NLS-1$ //$NON-NLS-2$
-            if (box.open() == SWT.OK) {
-                return true;
-            } else {
-                throw new IllegalArgumentException(Messages.getString(
-                        "ProxyRepositoryFactory.illegalArgumentException.labeAlreadyInUse", new String[] { fileName })); //$NON-NLS-1$
+        if (isImportItem.length == 0) {
+            String name = item.getProperty().getLabel();
+
+            ERepositoryObjectType type = ERepositoryObjectType.getItemType(item);
+
+            if (type == ERepositoryObjectType.METADATA_CON_TABLE) {
+                return false;
+            }
+            boolean isSqlPattern = (type == ERepositoryObjectType.SQLPATTERNS);
+
+            List<IRepositoryViewObject> list;
+
+            list = getAll(project, type, true, false);
+
+            IRepositoryViewObject duplicateNameObject = null;
+
+            for (IRepositoryViewObject current : list) {
+                if (name.equalsIgnoreCase(current.getProperty().getLabel())
+                        && item.getProperty().getId() != current.getProperty().getId()) {
+                    // To check SQLPattern in same path. see bug 0005038: unable to add a SQLPattern into repository.
+                    if (!isSqlPattern || current.getProperty().getItem().getState().getPath().equals(path.toPortableString())) {
+                        duplicateNameObject = current;
+                        break;
+                    }
+                }
+            }
+            if (duplicateNameObject != null) {
+                if (CommonsPlugin.isHeadless()) {
+                    throw new IllegalArgumentException(Messages.getString(
+                            "ProxyRepositoryFactory.illegalArgumentException.labeAlreadyInUse", new String[] { fileName })); //$NON-NLS-1$
+                } else {
+                    Shell currentShell = Display.getCurrent().getActiveShell();
+                    if (currentShell == null) {
+                        currentShell = new Shell();
+                    }
+                    MessageBox box = new MessageBox(currentShell, SWT.ICON_WARNING | SWT.OK | SWT.CANCEL);
+                    box.setText(Messages.getString("ProxyRepositoryFactory.JobNameErroe")); //$NON-NLS-1$
+                    box.setMessage(Messages.getString("ProxyRepositoryFactory.Label") + " " + fileName + " " + Messages.getString("ProxyRepositoryFactory.ReplaceJob")); //$NON-NLS-1$ //$NON-NLS-2$
+                    if (box.open() == SWT.OK) {
+                        deleteObjectPhysical(duplicateNameObject);
+                        return true;
+                    } else {
+                        throw new IllegalArgumentException(Messages.getString(
+                                "ProxyRepositoryFactory.illegalArgumentException.labeAlreadyInUse", new String[] { fileName })); //$NON-NLS-1$
+                    }
+                }
             }
         }
         return false;
@@ -1805,8 +1832,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 XmiResourceManager resourceManager = this.repositoryFactoryFromProvider.getResourceManager();
                 if (resourceManager != null && resourceManager.resourceSet != null) {
                     Resource propertyResource = resourceManager.resourceSet.getResource(propertyURI, true);
-                    return (Property) EcoreUtil.getObjectByType(propertyResource.getContents(), PropertiesPackage.eINSTANCE
-                            .getProperty());
+                    return (Property) EcoreUtil.getObjectByType(propertyResource.getContents(),
+                            PropertiesPackage.eINSTANCE.getProperty());
                 }
             }
         }
