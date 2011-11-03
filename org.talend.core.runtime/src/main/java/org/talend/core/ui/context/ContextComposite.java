@@ -22,6 +22,9 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.part.MultiPageEditorPart;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.runtime.i18n.Messages;
@@ -46,6 +49,8 @@ public abstract class ContextComposite extends Composite implements IContextMode
 
     private IContextManager contextManager;
 
+    private static final int PAGE = 2;
+
     /**
      * bqian ContextComposite constructor comment.
      * 
@@ -69,14 +74,29 @@ public abstract class ContextComposite extends Composite implements IContextMode
         initializeUI();
     }
 
-    private void setTabEnable(boolean enable) {
+    public void setTabEnable(boolean enable) {
 
         // no need to set the ConextTreeValuesComposite and ConextTableValuesComposite. They can take care of
         // themselvies.
-        template.setEnabled(enable);
-        tableValues.setEnabled(enable);
-        treeValues.setEnabled(enable);
-
+        boolean flag = false;
+        IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+        if (page != null) {
+            MultiPageEditorPart editor = (MultiPageEditorPart) page.getActiveEditor();
+            if (editor != null) {
+                if (editor.getActivePage() == PAGE) {
+                    flag = true;
+                }
+            }
+        }
+        if (flag) {
+            template.setEnabled(false);
+            tableValues.setEnabled(false);
+            treeValues.setEnabled(false);
+        } else {
+            template.setEnabled(enable);
+            tableValues.setEnabled(enable);
+            treeValues.setEnabled(enable);
+        }
     }
 
     public void refresh() {
@@ -250,6 +270,10 @@ public abstract class ContextComposite extends Composite implements IContextMode
      */
     public boolean isRepositoryContext() {
         return this.isRepositoryContext;
+    }
+
+    public ContextTemplateComposite getContextTemplateComposite() {
+        return this.template;
     }
 
 }
