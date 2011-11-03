@@ -21,6 +21,22 @@
       <discovery label="Talend web site" url="http://www.talend.com"/>
    </url>
 
+   <includes
+         id="org.eclipse.draw2d"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.emf"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.jdt"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.platform"
+         version="0.0.0"/>
+
    <requires>
       <import plugin="org.w3c.css.sac"/>
       <import plugin="org.eclipse.xsd"/>
@@ -831,8 +847,7 @@
          id="org.eclipse.jdt.debug"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-         unpack="true"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.eclipse.gmf.runtime.common.core"
@@ -1058,22 +1073,19 @@
          id="org.talend.libraries.apache"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-         unpack="true"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.talend.libraries.dom4j-jaxen"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-         unpack="true"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.talend.libraries.javacsv"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-         unpack="true"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.talend.libraries.jdbc.jtds"
@@ -1148,50 +1160,43 @@
          id="org.talend.libraries.apache.axis2"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-         unpack="true"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.talend.libraries.css"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-         unpack="true"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.talend.libraries.jackson"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-         unpack="true"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.talend.libraries.jdom"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-         unpack="true"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.talend.libraries.jxplorer"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-         unpack="true"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.talend.libraries.jexcel"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-         unpack="true"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.talend.libraries.salesforce"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-         unpack="true"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.apache.commons.lang"
@@ -1211,10 +1216,9 @@
          id="org.talend.libraries.apache.hive"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-         unpack="true"/>
-         
-  <plugin
+         version="0.0.0"/>
+
+   <plugin
          id="org.talend.commons.runtime.nl"
          download-size="0"
          install-size="0"
