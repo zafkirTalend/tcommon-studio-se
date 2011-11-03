@@ -56,15 +56,15 @@ public class LinksToolbarItem extends ContributionItem {
 
         toolitem = new ToolItem(parent, SWT.SEPARATOR, index);
         Control control = createControl(parent);
-        toolitem.setWidth(400);
         toolitem.setControl(control);
+        toolitem.setWidth(control.computeSize(SWT.DEFAULT, SWT.DEFAULT).x);
     }
 
     protected Control createControl(Composite parent) {
 
         final Composite composite = new Composite(parent, SWT.NONE);
 
-        GridLayout layout = new GridLayout(12, false);
+        GridLayout layout = new GridLayout(!PluginChecker.isTIS() ? 8 : 6, false);
         layout.marginHeight = 0;
         composite.setLayout(layout);
 
@@ -110,7 +110,7 @@ public class LinksToolbarItem extends ContributionItem {
         });
 
         if (!PluginChecker.isTIS()) {
-            // 4.upgrade
+            // 3.upgrade
             Label upgradeLabel = new Label(composite, SWT.NONE);
             if (registry.get("wizard") == null) {
                 registry.put("wizard", Activator.getImageDescriptor("icons/wizard.png").createImage());
@@ -129,7 +129,7 @@ public class LinksToolbarItem extends ContributionItem {
             });
         }
 
-        // 5. Link to Talend Exchange
+        // 4. Link to Talend Exchange
         Label exchangeLabel = new Label(composite, SWT.NONE);
 
         if (registry.get("exchange") == null) {
