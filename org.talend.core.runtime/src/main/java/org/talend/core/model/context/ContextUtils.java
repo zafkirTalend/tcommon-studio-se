@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.colorstyledtext.jedit.KeywordMap;
@@ -54,6 +55,9 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 public class ContextUtils {
 
     private static List<String> keywords = new ArrayList<String>();
+
+    private static Shell sqlBuilderDialogShell;
+
     static {
         initJavaKeyWords();
     }
@@ -604,6 +608,14 @@ public class ContextUtils {
         contextParam.setComment(contextParamType.getComment());
         contextParam.setSource(contextItem.getProperty().getId());
         return contextParam;
+    }
+
+    public static Shell getSqlBuilderDialogShell() {
+        return sqlBuilderDialogShell;
+    }
+
+    public static void setSqlBuilderDialogShell(Shell sqlBuilderDialogShellTem) {
+        sqlBuilderDialogShell = sqlBuilderDialogShellTem;
     }
 
 }

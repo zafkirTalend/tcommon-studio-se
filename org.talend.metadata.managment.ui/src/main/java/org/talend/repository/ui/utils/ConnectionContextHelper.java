@@ -904,6 +904,11 @@ public final class ConnectionContextHelper {
         if (connection == null) {
             return null;
         }
+        // TDI-17320
+        Shell sqlBuilderDialogShell = ContextUtils.getSqlBuilderDialogShell();
+        if (sqlBuilderDialogShell != null && !sqlBuilderDialogShell.isDisposed() && shell == null) {
+            shell = sqlBuilderDialogShell;
+        }
         ContextItem contextItem = ContextUtils.getContextItemById2(connection.getContextId());
         if (contextItem != null && connection.isContextMode()) {
             if (defaultContext) {
