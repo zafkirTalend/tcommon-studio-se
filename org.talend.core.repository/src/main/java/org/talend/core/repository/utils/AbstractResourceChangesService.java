@@ -69,15 +69,6 @@ public class AbstractResourceChangesService implements IService {
 
     /**
      * 
-     * DOC gdbu Comment method "updateDependeciesWhenMoveFolder".
-     * 
-     * @throws PersistenceException
-     */
-    public void updateDependeciesWhenMoveFolder(Item item) throws PersistenceException {
-    }
-
-    /**
-     * 
      * DOC gdbu Comment method "saveResourceByEMFShared".
      * 
      * @param item
