@@ -549,9 +549,10 @@ public class TreeUtil {
             if (filePath == null) {
                 return list;
             }
-
+            List<String> attList = new ArrayList<String>();
+            attList.add(selectedEntity);
             try {
-                ATreeNode treeNode = SchemaPopulationUtil.getSchemaTree(filePath, true, 0);
+                ATreeNode treeNode = SchemaPopulationUtil.getSchemaTree(filePath, true, 0, attList);
                 ATreeNode selectedNode = null;
                 if (treeNode != null) {
                     for (Object obj : treeNode.getChildren()) {

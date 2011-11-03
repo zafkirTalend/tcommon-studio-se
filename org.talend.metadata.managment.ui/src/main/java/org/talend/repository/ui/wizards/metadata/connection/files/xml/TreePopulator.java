@@ -80,7 +80,11 @@ public class TreePopulator {
             }
             List<String> attList = CopyDeleteFileUtilForWizard.getComplexNodes(filePath);
             try {
-                treeNode = SchemaPopulationUtil.getSchemaTree(newFilePath, true, limit, attList);
+                if (attList != null && !attList.isEmpty()) {
+                    treeNode = SchemaPopulationUtil.getSchemaTree(newFilePath, true, limit, attList);
+                } else {
+                    treeNode = SchemaPopulationUtil.getSchemaTree(newFilePath, true, limit);
+                }
             } catch (MalformedURLException e) {
                 ExceptionHandler.process(e);
             } catch (OdaException e) {
