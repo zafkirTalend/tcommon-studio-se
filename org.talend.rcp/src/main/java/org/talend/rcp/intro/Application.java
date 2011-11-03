@@ -36,6 +36,7 @@ import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.utils.system.EclipseCommandLine;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.migration.IMigrationToolService;
+import org.talend.core.tis.ICoreTisService;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.rcp.i18n.Messages;
 import org.talend.rcp.intro.linksbar.Workbench3xImplementation4CoolBar;
@@ -101,7 +102,21 @@ public class Application implements IApplication {
                 return IApplication.EXIT_RELAUNCH;
             }
 
+            boolean afterUpdate = false;
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreTisService.class)) {
+                ICoreTisService tisService = (ICoreTisService) GlobalServiceRegister.getDefault().getService(
+                        ICoreTisService.class);
+                afterUpdate = tisService.needRestartAfterUpdate();
+            }
+
+            // common restart
             if (LoginComposite.isRestart) {
+                // if after update,need to lauch the product by loading all new version plugins
+                if (afterUpdate) {
+                    EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand(EclipseCommandLine.TALEND_RESTART_COMMAND,
+                            "true");
+                    return IApplication.EXIT_RELAUNCH;
+                }
                 return IApplication.EXIT_RESTART;
             }
 
