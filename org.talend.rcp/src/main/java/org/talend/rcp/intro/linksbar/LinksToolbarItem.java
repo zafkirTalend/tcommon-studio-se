@@ -26,7 +26,9 @@ import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
+import org.talend.core.model.general.IExchangeService;
 import org.talend.rcp.Activator;
 import org.talend.rcp.i18n.Messages;
 
@@ -145,7 +147,11 @@ public class LinksToolbarItem extends ContributionItem {
         exchange.addListener(SWT.Selection, new Listener() {
 
             public void handleEvent(Event event) {
-                openBrower(event.text);
+                if (PluginChecker.isExchangeSystemLoaded()) {
+                    IExchangeService service = (IExchangeService) GlobalServiceRegister.getDefault().getService(
+                            IExchangeService.class);
+                    service.openExchangeEditor();
+                }
             }
         });
 

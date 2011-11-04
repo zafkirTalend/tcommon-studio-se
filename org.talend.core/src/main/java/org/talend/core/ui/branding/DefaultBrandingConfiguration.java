@@ -120,7 +120,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
             String gefPaletteViewId = "org.eclipse.gef.ui.palette_view"; //$NON-NLS-1$
             String jobSettingsViewId = "org.talend.designer.core.ui.views.jobsettings.JobSettingsView"; //$NON-NLS-1$
             //        String jobHierarchyViewId = "org.talend.designer.core.ui.hierarchy.JobHierarchyViewPart"; //$NON-NLS-1$
-            String exchangeViewId = "org.talend.designer.components.exchange.ui.views.ExchangeView"; //$NON-NLS-1$
+            //            String exchangeViewId = "org.talend.designer.components.exchange.ui.views.ExchangeView"; //$NON-NLS-1$
 
             // leftTopLayout
             IFolderLayout leftTopLayout = layout.createFolder("navigatorLayout", IPageLayout.LEFT, new Float(0.3), //$NON-NLS-1$
@@ -151,7 +151,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
             // bottomLayout.addView(problemsViewId);
             // bottomLayout.addView(modulesViewId);
             // bottomLayout.addView(ecosystemViewId);
-            bottomLayout.addView(exchangeViewId);
+            // bottomLayout.addView(exchangeViewId);
             //
             // bottomLayout.addView(schedulerViewId);
 

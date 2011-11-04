@@ -16,7 +16,7 @@ import org.talend.core.IService;
 
 /**
  * 
- * DOC hcyi  class global comment. Detailled comment
+ * DOC hcyi class global comment. Detailled comment
  */
 public interface IExchangeService extends IService {
 
@@ -24,4 +24,6 @@ public interface IExchangeService extends IService {
      * Returns selected file
      */
     public String openExchangeDialog();
+
+    public void openExchangeEditor();
 }
