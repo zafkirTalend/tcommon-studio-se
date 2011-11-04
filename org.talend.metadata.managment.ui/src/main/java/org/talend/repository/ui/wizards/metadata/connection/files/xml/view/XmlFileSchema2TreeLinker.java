@@ -256,8 +256,9 @@ public class XmlFileSchema2TreeLinker extends TableToTreeLinker<Object, Object> 
         super.drawBackground(gc);
     }
 
-    public void addLoopLink(Item tableItem, Object dataItem1, Tree tree, FOXTreeNode dataItem2, boolean lastOne) {
-        LinkDescriptor<Item, Object, Tree, Object> link = addLink(tableItem, dataItem1, tree, dataItem2, lastOne);
+    public LinkDescriptor<Item, Object, Tree, Object> addLoopLink(Item tableItem, Object dataItem1, Tree tree,
+            FOXTreeNode dataItem2, boolean lastOne) {
+        return addLink(tableItem, dataItem1, tree, dataItem2, lastOne);
     }
 
     private LinkDescriptor<Item, Object, Tree, Object> addLink(Item tableItem, Object dataItem1, Tree tree, Object dataItem2,

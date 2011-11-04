@@ -226,4 +226,44 @@ public class ATreeNode {
         return this.uniqueNames;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.dataType == null) ? 0 : this.dataType.hashCode());
+        result = prime * result + ((this.originalDataType == null) ? 0 : this.originalDataType.hashCode());
+        result = prime * result + this.type;
+        result = prime * result + ((this.value == null) ? 0 : this.value.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ATreeNode other = (ATreeNode) obj;
+        if (this.dataType == null) {
+            if (other.dataType != null)
+                return false;
+        } else if (!this.dataType.equals(other.dataType))
+            return false;
+        if (this.originalDataType == null) {
+            if (other.originalDataType != null)
+                return false;
+        } else if (!this.originalDataType.equals(other.originalDataType))
+            return false;
+        if (this.type != other.type)
+            return false;
+        if (this.value == null) {
+            if (other.value != null)
+                return false;
+        } else if (!this.value.equals(other.value))
+            return false;
+        return true;
+    }
+
 }

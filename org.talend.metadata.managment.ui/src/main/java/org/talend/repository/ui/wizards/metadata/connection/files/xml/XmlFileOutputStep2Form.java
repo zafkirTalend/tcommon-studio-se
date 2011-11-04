@@ -45,9 +45,12 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Item;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
@@ -58,6 +61,7 @@ import org.talend.commons.ui.swt.drawing.link.IExtremityLink;
 import org.talend.commons.ui.swt.drawing.link.LinkDescriptor;
 import org.talend.commons.ui.swt.drawing.link.LinksManager;
 import org.talend.commons.ui.swt.formtools.Form;
+import org.talend.commons.utils.Timer;
 import org.talend.commons.xml.XmlUtil;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -67,6 +71,8 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.XMLFileNode;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.repository.ui.swt.utils.AbstractXmlFileStepForm;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.action.CreateAttributeAction;
@@ -220,13 +226,16 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
     }
 
     public void redrawLinkers() {
-        linker.removeAllLinks();
-        TreeItem root = xmlViewer.getTree().getItem(0);
-
-        TableItem[] tableItems = schemaViewer.getTable().getItems();
-        initLinker(root, tableItems);
-        if (linker.linkSize() == 0) {
-            linker.updateLinksStyleAndControlsSelection(xmlViewer.getTree(), true);
+        int maxColumnsNumber = CoreRuntimePlugin.getInstance().getPreferenceStore()
+                .getInt(ITalendCorePrefConstants.MAXIMUM_AMOUNT_OF_COLUMNS_FOR_XML);
+        if (schemaViewer.getTable().getItems().length <= maxColumnsNumber + 1) {
+            linker.removeAllLinks();
+            TreeItem root = xmlViewer.getTree().getItem(0);
+            TableItem[] tableItems = schemaViewer.getTable().getItems();
+            initLinker(root, tableItems);
+            if (linker.linkSize() == 0) {
+                linker.updateLinksStyleAndControlsSelection(xmlViewer.getTree(), true);
+            }
         }
     }
 
@@ -502,7 +511,14 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
             IExtremityLink<Tree, Object> ex2 = linkDescriptor.getExtremity2();
             MetadataColumn metaColumn = (MetadataColumn) ex1.getDataItem();
             FOXTreeNode node = (FOXTreeNode) ex2.getDataItem();
-            node.setColumn(ConvertionHelper.convertToIMetaDataColumn(metaColumn));
+            if (ex1.getGraphicalObject() != null) {
+                Item item = ex1.getGraphicalObject();
+                if (!item.isDisposed() && metaColumn.equals(item.getData())) {
+                    node.setColumn(ConvertionHelper.convertToIMetaDataColumn(metaColumn));
+                } else {
+                    node.setColumn(null);
+                }
+            }
             node.setDataType(metaColumn.getTalendType());
         }
         xmlViewer.refresh();

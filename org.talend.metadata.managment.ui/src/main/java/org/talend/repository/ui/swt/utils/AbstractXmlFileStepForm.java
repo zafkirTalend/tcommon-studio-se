@@ -29,18 +29,23 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Table;
 import org.eclipse.xsd.XSDSchema;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.xml.XmlUtil;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.XMLFileNode;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
+import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.repository.model.ResourceModelUtils;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.ProjectManager;
@@ -48,6 +53,7 @@ import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.FileConnectionContextUtils.EFileParamName;
 import org.talend.repository.ui.utils.OtherConnectionContextUtils.EParamName;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.XmlFileWizard;
+import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.Attribute;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.Element;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.StringUtil;
@@ -118,16 +124,35 @@ public abstract class AbstractXmlFileStepForm extends AbstractXmlStepForm {
     }
 
     protected void initMetadataTable(List<FOXTreeNode> list, EList columnList) {
+        int maxColumnsNumber = CoreRuntimePlugin.getInstance().getPreferenceStore()
+                .getInt(ITalendCorePrefConstants.MAXIMUM_AMOUNT_OF_COLUMNS_FOR_XML);
         for (FOXTreeNode node : list) {
+            if (columnList.size() > maxColumnsNumber) {
+                return;
+            }
+            MetadataEmfTableEditor editor = new MetadataEmfTableEditor();
             if (node instanceof Element) {
+                String label = node.getLabel();
+                if (!node.hasChildren() && label != null && !label.equals("")) {
+                    String dataType = node.getDataType();
+                    MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
+                    metadataColumn.setLabel(editor.getNextGeneratedColumnName(label, columnList));
+                    metadataColumn.setOriginalField(label);
+                    metadataColumn.setTalendType(dataType);
+                    columnList.add(metadataColumn);
+                    node.setColumn(ConvertionHelper.convertToIMetaDataColumn(metadataColumn));
+                }
+            }
+            if (node instanceof Attribute) {
                 String label = node.getLabel();
                 if (label != null && !label.equals("")) {
                     String dataType = node.getDataType();
                     MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
-                    metadataColumn.setLabel(label);
+                    metadataColumn.setLabel(editor.getNextGeneratedColumnName(label, columnList));
                     metadataColumn.setOriginalField(label);
                     metadataColumn.setTalendType(dataType);
                     columnList.add(metadataColumn);
+                    node.setColumn(ConvertionHelper.convertToIMetaDataColumn(metadataColumn));
                 }
             }
             if (node.hasChildren()) {

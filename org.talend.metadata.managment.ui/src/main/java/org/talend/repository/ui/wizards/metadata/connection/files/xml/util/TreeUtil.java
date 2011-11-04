@@ -760,8 +760,8 @@ public class TreeUtil {
                     if (child.getValue() instanceof String) {
                         String elementName = (String) child.getValue();
                         if (currentPath.contains("/" + elementName + "/")) {
-                            ExceptionHandler.process(new Exception("XSD ERROR: loop found. Item: " + elementName
-                                    + " is already in the currentPath (" + currentPath + ")."));
+                            // ExceptionHandler.process(new Exception("XSD ERROR: loop found. Item: " + elementName
+                            // + " is already in the currentPath (" + currentPath + ")."));
                             continue;
                         }
                         newPath += elementName;

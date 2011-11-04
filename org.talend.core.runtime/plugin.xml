@@ -35,6 +35,9 @@
    <extension
          point="org.eclipse.core.runtime.preferences">
       <initializer class="org.talend.core.prefs.collector.TalendDataCollectorPreferenceInitializer"/>
+      <initializer
+            class="org.talend.core.runtime.MetadataPreferenceInitializer">
+      </initializer>
    </extension>
    <extension
          point="org.talend.core.runtime.tokenInfo_provider">

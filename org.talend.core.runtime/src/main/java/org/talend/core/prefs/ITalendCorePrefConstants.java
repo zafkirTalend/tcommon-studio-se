@@ -115,4 +115,6 @@ public interface ITalendCorePrefConstants {
 
     String EXCHANGE_DOWNLOADED_CHECK_UPDATES = "exchange_downloaded_check_updates";
 
+    String MAXIMUM_AMOUNT_OF_COLUMNS_FOR_XML = "maximum_amount_of_columns_for_xml";
+
 }
