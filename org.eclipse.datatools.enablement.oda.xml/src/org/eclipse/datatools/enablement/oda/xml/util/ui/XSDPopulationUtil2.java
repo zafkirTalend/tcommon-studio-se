@@ -127,6 +127,11 @@ public class XSDPopulationUtil2 {
                         prefix = "p" + prefixNumberGenerated;
                         prefixNumberGenerated++;
                     }
+                    // check if prefix already exists, if yes, generate a new one.
+                    if (namespaceToPrefix.containsValue(prefix)) {
+                        prefix = prefix + prefixNumberGenerated;
+                        prefixNumberGenerated++;
+                    }
                     if (prefix != null && !prefix.isEmpty()) {
                         namespaceToPrefix.put(namespace, prefix);
                     } else {
@@ -212,6 +217,8 @@ public class XSDPopulationUtil2 {
                 }
 
                 if (!elementName.equals(selectedNode.getValue())) {
+                    namespaceToPrefix.clear();
+                    prefixNumberGenerated = 1;
                     continue;
                 }
 
@@ -314,6 +321,11 @@ public class XSDPopulationUtil2 {
             if (isEnableGeneratePrefix() && (prefix == null || prefix.isEmpty())) {
                 // generate a new prefix
                 prefixToUse = "p" + prefixNumberGenerated;
+                prefixNumberGenerated++;
+            }
+            // check if prefix already exists, if yes, generate a new one.
+            if (namespaceToPrefix.containsValue(prefix)) {
+                prefixToUse = prefixToUse + prefixNumberGenerated;
                 prefixNumberGenerated++;
             }
             if (prefixToUse != null && !prefixToUse.isEmpty()) {
