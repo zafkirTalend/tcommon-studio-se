@@ -81,10 +81,12 @@ public abstract class ContextComposite extends Composite implements IContextMode
         boolean flag = false;
         IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
         if (page != null) {
-            MultiPageEditorPart editor = (MultiPageEditorPart) page.getActiveEditor();
-            if (editor != null) {
-                if (editor.getActivePage() == PAGE) {
-                    flag = true;
+            if (page.getActiveEditor() instanceof MultiPageEditorPart) {
+                MultiPageEditorPart editor = (MultiPageEditorPart) page.getActiveEditor();
+                if (editor != null) {
+                    if (editor.getActivePage() == PAGE) {
+                        flag = true;
+                    }
                 }
             }
         }
