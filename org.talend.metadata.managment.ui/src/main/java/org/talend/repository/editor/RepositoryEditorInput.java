@@ -16,11 +16,9 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.ui.part.FileEditorInput;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.IRepositoryEditorInput;
-import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
-import org.talend.repository.ui.views.IRepositoryView;
 
 /**
  * DOC mhelleboid class global comment. Detailled comment <br/>
@@ -91,22 +89,7 @@ public class RepositoryEditorInput extends FileEditorInput implements IRepositor
         return super.hashCode();
     }
 
-    private IRepositoryView view;
-
-    /**
-     * DOC smallet Comment method "refresh".
-     */
-    private void refresh() {
-        if (view != null && repositoryNode != null) {
-            RepositoryManager.refreshSavedNode(repositoryNode);
-        }
-    }
-
     protected RepositoryNode repositoryNode;
-
-    public void setView(IRepositoryView viewPart) {
-        this.view = viewPart;
-    }
 
     public RepositoryNode getRepositoryNode() {
         return this.repositoryNode;
