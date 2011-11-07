@@ -18,6 +18,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.widgets.Composite;
@@ -33,16 +34,33 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.token.TokenCollectorFactory;
+import org.talend.core.token.TokenKey;
 import org.talend.repository.ProjectManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import us.monoid.json.JSONObject;
+
 /**
  * wchen class global comment. Detailled comment
  */
 public class DynamicContentProvider implements IIntroXHTMLContentProvider {
+
+    public static final String ONLINE_PAGE_URL = "http://www.talend.com/builtin_news/index.php";
+
+    private static final TokenKey TOKEN_STUDIO = new TokenKey("tokenStudio"); //$NON-NLS-1$
+
+    private static final TokenKey TYPE_STUDIO = new TokenKey("typeStudio"); //$NON-NLS-1$
+
+    private static final TokenKey UNIQUE_ID = new TokenKey("uniqueId"); //$NON-NLS-1$
+
+    private static final TokenKey VERSION = new TokenKey("version"); //$NON-NLS-1$
+
+    private static final String LEVEL_SEPARATOR = "."; //$NON-NLS-1$
 
     /*
      * (non-Javadoc)
@@ -110,11 +128,51 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
 
     }
 
-    private void createOnlinePage(Document dom, Element parent) {
+    private String getOnlinePageURL() {
+        StringBuffer url = new StringBuffer();
+        url.append(ONLINE_PAGE_URL);
+        IPreferenceStore prefStore = CoreRuntimePlugin.getInstance().getPreferenceStore();
+        boolean activeDataCollector = prefStore.getBoolean(ITalendCorePrefConstants.DATA_COLLECTOR_ENABLED);
+        TokenCollectorFactory factory = TokenCollectorFactory.getFactory();
+        try {
+            JSONObject jsonObjectTemp = factory.collectTokenInfors();
+            if (jsonObjectTemp != null) {
+                JSONObject jsonObject = (JSONObject) jsonObjectTemp.get(TOKEN_STUDIO.getKey());
+                if (jsonObject != null) {
+                    String edition = jsonObject.get(TYPE_STUDIO.getKey()).toString();
+                    String uuid = jsonObject.get(UNIQUE_ID.getKey()).toString();
+                    String version = jsonObject.get(VERSION.getKey()).toString();
+                    StringBuffer sb = new StringBuffer();
+                    if (version != null && !"".equals(version)) {
+                        StringTokenizer stringTokenizer = new StringTokenizer(version, LEVEL_SEPARATOR);
+                        try {
+                            sb.append(stringTokenizer.nextToken());
+                            sb.append(LEVEL_SEPARATOR);
+                            sb.append(stringTokenizer.nextToken());
+                            sb.append(LEVEL_SEPARATOR);
+                            sb.append(stringTokenizer.nextToken());
+                        } catch (NumberFormatException e) {
+                        }
+                    }
+                    //
+                    if (activeDataCollector && version != null && uuid != null && edition != null) {
+                        url.append("?version=").append(sb.toString()).append("&uid=").append(uuid).append("&edition=")
+                                .append(edition);
+                    } else if (!activeDataCollector && version != null && uuid != null && edition != null) {
+                        url.append("?version=").append(sb.toString()).append("&edition=").append(edition);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return url.toString();
+    }
 
+    private void createOnlinePage(Document dom, Element parent) {
         HttpURLConnection urlConnection = null;
         try {
-            URL url = new URL("http://www.talend.com/builtin_news/index.php");
+            URL url = new URL(getOnlinePageURL());
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.setDoOutput(true);
@@ -147,7 +205,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
         div.appendChild(dom.createElement("br"));
 
         Element iFrame = dom.createElement("iframe");
-        iFrame.setAttribute("src", "http://www.talend.com/builtin_news/index.php");
+        iFrame.setAttribute("src", getOnlinePageURL());
         iFrame.setAttribute("frameborder", "0");
         iFrame.setAttribute("width", "240px");
         iFrame.setAttribute("height", "370px");
