@@ -114,9 +114,9 @@ public class TreePopulator {
                     if (selected == null && childs.length > 0) {
                         selected = childs[0];
                     }
-                    populateTreeItems(availableXmlTree, new Object[] { selected }, 0, "/"); //$NON-NLS-1$
+                    populateTreeItems(availableXmlTree, new Object[] { selected }, 0, "", "/"); //$NON-NLS-1$
                 } else {
-                    populateTreeItems(availableXmlTree, childs, 0, "/"); //$NON-NLS-1$
+                    populateTreeItems(availableXmlTree, childs, 0, "", "/"); //$NON-NLS-1$
                 }
                 this.filePath = filePath;
                 return true;
@@ -153,7 +153,7 @@ public class TreePopulator {
                 return false;
             } else {
                 Object[] childs = treeNode.getChildren();
-                populateTreeItems(availableXmlTree, childs, 0, "/"); //$NON-NLS-1$
+                populateTreeItems(availableXmlTree, childs, 0, "", "/"); //$NON-NLS-1$
                 return true;
             }
         }
@@ -183,7 +183,7 @@ public class TreePopulator {
             if (treeNode == null || treeNode.getChildren().length == 0) {
                 return false;
             } else {
-                populateTreeItems(availableXmlTree, new Object[] { treeNode }, 0, "/"); //$NON-NLS-1$
+                populateTreeItems(availableXmlTree, new Object[] { treeNode }, 0, "", "/"); //$NON-NLS-1$
                 return true;
             }
         }
@@ -196,7 +196,8 @@ public class TreePopulator {
      * @param tree
      * @param node
      */
-    private void populateTreeItems(Object tree, Object[] node, int level, String parentXPath) {
+    private void populateTreeItems(Object tree, Object[] node, int level, String parentPathForTreeLink,
+            String parentPathToAvoidLoop) {
         level++;
         // if (level > 10) {
         // return;
@@ -224,16 +225,17 @@ public class TreePopulator {
             } else {
                 treeItem.setText(treeNode.getValue().toString());
             }
-            if (parentXPath.contains("/" + treeItem.getText() + "/")) {
+            if (parentPathToAvoidLoop.contains("/" + treeItem.getText() + "/")) {
                 treeItem.setForeground(new Color(Display.getDefault(), new RGB(255, 102, 102)));
                 continue;
             }
 
-            String currentXPath = parentXPath + "/" + treeItem.getText(); //$NON-NLS-1$
-            xPathToTreeItem.put(currentXPath, treeItem);
+            String currentXPathForTreeLink = parentPathForTreeLink + "/" + treeItem.getText(); //$NON-NLS-1$
+            xPathToTreeItem.put(currentXPathForTreeLink, treeItem);
 
+            String currentXPathToAvoidLoop = parentPathForTreeLink + treeItem.getText() + "/"; //$NON-NLS-1$
             if (treeNode.getChildren() != null && treeNode.getChildren().length > 0) {
-                populateTreeItems(treeItem, treeNode.getChildren(), level, currentXPath);
+                populateTreeItems(treeItem, treeNode.getChildren(), level, currentXPathForTreeLink, currentXPathToAvoidLoop);
             }
             setExpanded(treeItem);
         }
