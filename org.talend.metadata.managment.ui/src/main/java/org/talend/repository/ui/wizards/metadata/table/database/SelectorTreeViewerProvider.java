@@ -15,7 +15,9 @@ package org.talend.repository.ui.wizards.metadata.table.database;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.Driver;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -108,9 +110,45 @@ public class SelectorTreeViewerProvider extends AbstractMetadataExtractorViewPro
                 for (ETableTypes tableType : paraType) {
                     availableTableTypes.add(tableType.getName());
                 }
-                // get all tables/views
-                tableList = MetadataFillFactory.getDBInstance().fillAll(pack, dbMetaData, null, null,
-                        availableTableTypes.toArray(new String[] {}));
+
+                // get all tables/views depending the filter selected
+
+                Set<String> tableNameFilter = null;
+
+                if (!paras.isUsedName()) {
+                    tableNameFilter = new HashSet<String>();
+                    if (paras.getSqlFiter() != null && !"".equals(paras.getSqlFiter())) { //$NON-NLS-1$
+                        Statement stmt = ExtractMetaDataUtils.conn.createStatement();
+                        ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
+                        ResultSet rsTables = stmt.executeQuery(paras.getSqlFiter());
+                        while (rsTables.next()) {
+                            String nameKey = rsTables.getString(1).trim();
+                            tableNameFilter.add(nameKey);
+                        }
+                        rsTables.close();
+                        stmt.close();
+                    }
+                } else {
+                    tableNameFilter = paras.getNameFilters();
+                }
+
+                List<MetadataTable> tempListTables = new ArrayList<MetadataTable>();
+                for (String filter : tableNameFilter) {
+                    tempListTables = MetadataFillFactory.getDBInstance().fillAll(pack, dbMetaData, null, filter,
+                            availableTableTypes.toArray(new String[] {}));
+                    for (MetadataTable table : tempListTables) {
+                        boolean contains = false;
+                        for (MetadataTable inListTable : tableList) {
+                            if (inListTable.getName().equals(table.getName())) {
+                                contains = true;
+                                break;
+                            }
+                        }
+                        if (!contains) {
+                            tableList.add(table);
+                        }
+                    }
+                }
             }
         } catch (Exception e) {
             ExceptionHandler.process(e);
@@ -121,7 +159,7 @@ public class SelectorTreeViewerProvider extends AbstractMetadataExtractorViewPro
                     && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 ExtractMetaDataUtils.closeConnection();
             }
             // for specific db such as derby
@@ -131,7 +169,7 @@ public class SelectorTreeViewerProvider extends AbstractMetadataExtractorViewPro
                         || (dbType != null && (dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                                 || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                                 || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())))) {
+                                    .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())))) {
                     try {
                         driver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                     } catch (SQLException e) {
