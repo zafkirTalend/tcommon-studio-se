@@ -52,9 +52,11 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.SubscriberTable;
+import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.FolderType;
 import org.talend.core.model.properties.Item;
@@ -77,9 +79,11 @@ import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
+import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.expressionbuilder.ExpressionPersistance;
 import org.talend.repository.ProjectManager;
+import org.talend.repository.model.ContextReferenceBean;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode;
@@ -89,6 +93,7 @@ import org.talend.repository.model.JobletReferenceBean;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
+import org.talend.repository.ui.dialog.ContextReferenceDialog;
 import org.talend.repository.ui.dialog.JobletReferenceDialog;
 import org.talend.repository.ui.views.IRepositoryView;
 
@@ -575,6 +580,170 @@ public class DeleteAction extends AContextualAction {
         return found;
     }
 
+    public static List<ContextReferenceBean> checkContextFromProcess(IProxyRepositoryFactory factory,
+            DeleteActionCache deleteActionCache, RepositoryNode currentJobNode) {
+        IRepositoryViewObject object = currentJobNode.getObject();
+        Item nodeItem = object.getProperty().getItem();
+        boolean contextIsUsed = false;
+        if (nodeItem instanceof ContextItem) {
+            contextIsUsed = true;
+        }
+        // List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
+        // nodeItem.getProperty().getId(), RelationshipItemBuilder.LATEST_VERSION,
+        // RelationshipItemBuilder.CONTEXT_RELATION);
+
+        List<ContextReferenceBean> list = new ArrayList<ContextReferenceBean>();
+
+        if (deleteActionCache == null) {
+            deleteActionCache = DeleteActionCache.getInstance();
+            deleteActionCache.createRecords();
+        }
+        if (object != null && contextIsUsed) {
+            Property property = object.getProperty();
+            if (property != null) {
+                String label = property.getLabel();
+                String version = property.getVersion();
+                Item item = property.getItem();
+                if (!(item instanceof ContextItem)) {
+                    return list;
+                }
+
+                Set<Project> refParentProjects = new HashSet<Project>();
+                try {
+                    refParentProjects.add(ProjectManager.getInstance().getCurrentProject());
+                    refParentProjects.addAll(ProjectManager.getInstance().getReferencedProjects());
+                    for (Project refP : refParentProjects) {
+                        List<IRepositoryViewObject> objList = new ArrayList<IRepositoryViewObject>();
+                        List<IRepositoryViewObject> processes = factory.getAll(refP, ERepositoryObjectType.PROCESS);
+                        List<IRepositoryViewObject> jobletes = factory.getAll(refP, ERepositoryObjectType.JOBLET);
+                        processes.addAll(jobletes);
+                        deleteActionCache.setProcessList(processes);
+                        objList.addAll(processes);
+
+                        List<IRepositoryViewObject> connectionc = factory
+                                .getAll(refP, ERepositoryObjectType.METADATA_CONNECTIONS);
+                        objList.addAll(connectionc);
+                        List<IRepositoryViewObject> edifact = factory.getAll(refP, ERepositoryObjectType.METADATA_EDIFACT);
+                        objList.addAll(edifact);
+                        List<IRepositoryViewObject> brms = factory.getAll(refP, ERepositoryObjectType.METADATA_FILE_BRMS);
+                        objList.addAll(brms);
+                        List<IRepositoryViewObject> delis = factory.getAll(refP, ERepositoryObjectType.METADATA_FILE_DELIMITED);
+                        objList.addAll(delis);
+                        List<IRepositoryViewObject> ebcdic = factory.getAll(refP, ERepositoryObjectType.METADATA_FILE_EBCDIC);
+                        objList.addAll(ebcdic);
+                        List<IRepositoryViewObject> excel = factory.getAll(refP, ERepositoryObjectType.METADATA_FILE_EXCEL);
+                        objList.addAll(excel);
+                        List<IRepositoryViewObject> ftp = factory.getAll(refP, ERepositoryObjectType.METADATA_FILE_FTP);
+                        objList.addAll(ftp);
+                        List<IRepositoryViewObject> hl7 = factory.getAll(refP, ERepositoryObjectType.METADATA_FILE_HL7);
+                        objList.addAll(hl7);
+                        List<IRepositoryViewObject> ldif = factory.getAll(refP, ERepositoryObjectType.METADATA_FILE_LDIF);
+                        objList.addAll(ldif);
+                        List<IRepositoryViewObject> positional = factory.getAll(refP,
+                                ERepositoryObjectType.METADATA_FILE_POSITIONAL);
+                        objList.addAll(positional);
+                        List<IRepositoryViewObject> regexp = factory.getAll(refP, ERepositoryObjectType.METADATA_FILE_REGEXP);
+                        objList.addAll(regexp);
+                        List<IRepositoryViewObject> xmls = factory.getAll(refP, ERepositoryObjectType.METADATA_FILE_XML);
+                        objList.addAll(xmls);
+                        List<IRepositoryViewObject> mdms = factory.getAll(refP, ERepositoryObjectType.METADATA_MDMCONNECTION);
+                        objList.addAll(mdms);
+                        List<IRepositoryViewObject> wsdl = factory.getAll(refP, ERepositoryObjectType.METADATA_WSDL_SCHEMA);
+                        objList.addAll(wsdl);
+                        List<IRepositoryViewObject> saleForces = factory.getAll(refP,
+                                ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA);
+                        objList.addAll(saleForces);
+
+                        for (IRepositoryViewObject process : objList) {
+                            Property property2 = process.getProperty();
+
+                            boolean isDelete = factory.getStatus(process) == ERepositoryStatus.DELETED;
+                            boolean isJob = true;
+
+                            Item item2 = property2.getItem();
+                            if (item == item2) {
+                                continue;
+                            }
+                            List<IContext> contextList = null;
+                            String contextID = null;
+                            if (!isOpenedItem(item2, deleteActionCache.getOpenProcessMap())) {
+                                IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault()
+                                        .getService(IDesignerCoreService.class);
+                                if (item2 instanceof ProcessItem) {
+                                    contextList = service.getProcessFromProcessItem((ProcessItem) item2).getContextManager()
+                                            .getListContext();
+                                } else if (item2 instanceof JobletProcessItem) {
+                                    contextList = service.getProcessFromJobletProcessItem((JobletProcessItem) item2)
+                                            .getContextManager().getListContext();
+                                } else if (item2 instanceof ConnectionItem) {
+                                    contextID = ((ConnectionItem) item2).getConnection().getContextId();
+                                }
+                            }
+                            if (contextList != null) {
+                                // isExtensionComponent(node);
+                                for (IContext context : contextList) {
+                                    if (context.getContextParameterList().size() <= 0) {
+                                        continue;
+                                    }
+                                    String source = context.getContextParameterList().get(0).getSource();
+                                    if (source.equals(item.getProperty().getId())) {
+                                        String path = item2.getState().getPath();
+                                        String type = process.getRepositoryObjectType().getType();
+                                        ContextReferenceBean bean = new ContextReferenceBean(property2.getLabel(), type,
+                                                property2.getVersion(), path, refP.getLabel());
+                                        bean.setJobFlag(isJob, isDelete);
+                                        list.add(bean);
+                                        break;
+                                    }
+                                }
+                            } else if (contextID != null) {
+                                if (contextID.equals(item.getProperty().getId())) {
+                                    String path = item2.getState().getPath();
+                                    String type = process.getRepositoryObjectType().getType();
+                                    ContextReferenceBean bean = new ContextReferenceBean(property2.getLabel(), type, property2
+                                            .getVersion(), path, refP.getLabel());
+                                    bean.setJobFlag(isJob, isDelete);
+                                    list.add(bean);
+                                    break;
+                                }
+                            }
+                        }
+                        for (IProcess2 openedProcess : deleteActionCache.getOpenedProcessList()) {
+                            List<IContext> contextList = openedProcess.getContextManager().getListContext();
+                            for (IContext context : contextList) {
+                                if (context.getContextParameterList().size() <= 0) {
+                                    continue;
+                                }
+                                String source = context.getContextParameterList().get(0).getSource();
+                                if (source.equals(item.getProperty().getId())) {
+                                    boolean isDelete = factory.getStatus(openedProcess) == ERepositoryStatus.DELETED;
+                                    boolean isJob = true;
+                                    Property property2 = openedProcess.getProperty();
+                                    Item item2 = property2.getItem();
+                                    String path = item2.getState().getPath();
+
+                                    ContextReferenceBean bean = new ContextReferenceBean(property2.getLabel(), openedProcess
+                                            .getRepositoryObjectType().getType(), property2.getVersion(), path, refP.getLabel());
+                                    bean.setJobFlag(isJob, isDelete);
+                                    list.add(bean);
+                                    break;
+                                }
+                            }
+                        }
+
+                    }
+
+                } catch (PersistenceException e) {
+                    ExceptionHandler.process(e);
+                }
+
+            }
+
+        }
+
+        return list;
+    }
+
     public static List<JobletReferenceBean> checkRepositoryNodeFromProcess(IProxyRepositoryFactory factory,
             DeleteActionCache deleteActionCache, RepositoryNode currentJobNode) {
         IRepositoryViewObject object = currentJobNode.getObject();
@@ -802,6 +971,19 @@ public class DeleteAction extends AContextualAction {
                 public void run() {
                     JobletReferenceDialog dialog = new JobletReferenceDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow()
                             .getShell(), objToDelete, checkRepository);
+                    dialog.open();
+                }
+            });
+            return true;
+        }
+
+        final List<ContextReferenceBean> checkContext = checkContextFromProcess(factory, deleteActionCache, currentJobNode);
+        if (checkContext.size() > 0) {
+            Display.getDefault().syncExec(new Runnable() {
+
+                public void run() {
+                    ContextReferenceDialog dialog = new ContextReferenceDialog(PlatformUI.getWorkbench()
+                            .getActiveWorkbenchWindow().getShell(), objToDelete, checkContext);
                     dialog.open();
                 }
             });
