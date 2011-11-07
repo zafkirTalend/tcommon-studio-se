@@ -165,10 +165,9 @@ public class DeleteAction extends AContextualAction {
 
                                                 public void run() {
                                                     String message = jobNames.toString()
-                                                            + " was assigned to one operation of a Service!";
+                                                            + Messages.getString("DeleteAction.deleteJobAssignedToOneService"); //$NON-NLS-1$
                                                     final Shell shell = getShell();
-                                                    confirmAssignDialog = MessageDialog.openQuestion(shell, "Services warning",
-                                                            message);
+                                                    confirmAssignDialog = MessageDialog.openQuestion(shell, "", message); //$NON-NLS-1$
 
                                                 }
                                             });
@@ -204,16 +203,16 @@ public class DeleteAction extends AContextualAction {
 
                                                     public void run() {
                                                         String message = null;
-                                                        if (jobNames.toString().contains(",")) {
+                                                        if (jobNames.toString().contains(",")) { //$NON-NLS-1$
                                                             message = jobNames.toString()
-                                                                    + " were assigned to some operations of some Services!";
+                                                                    + Messages.getString("DeleteAction.deleteSomeJobsAssignedToServices"); //$NON-NLS-1$
                                                         } else {
                                                             message = jobNames.toString()
-                                                                    + " was assigned to one operation of a Service!";
+                                                                    + Messages.getString("DeleteAction.deleteJobAssignedToOneService"); //$NON-NLS-1$
                                                         }
                                                         final Shell shell = getShell();
                                                         confirmAssignDialog = MessageDialog.openQuestion(shell,
-                                                                "Services warning", message);
+                                                                "", message); //$NON-NLS-1$
 
                                                     }
                                                 });
@@ -233,10 +232,10 @@ public class DeleteAction extends AContextualAction {
                                     Object label = node.getProperties(EProperties.LABEL);
                                     if (ENodeType.SIMPLE_FOLDER.equals(node.getType())
                                             && ERepositoryObjectType.SQLPATTERNS.equals(node.getContentType())
-                                            && (label.equals("Generic") || label.equals("UserDefined") || label.equals("MySQL")
-                                                    || label.equals("Netezza") || label.equals("Oracle")
-                                                    || label.equals("ParAccel") || label.equals("Teradata"))
-                                            || label.equals("Hive")) {
+                                            && (label.equals("Generic") || label.equals("UserDefined") || label.equals("MySQL") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                                                    || label.equals("Netezza") || label.equals("Oracle") //$NON-NLS-1$ //$NON-NLS-2$
+                                                    || label.equals("ParAccel") || label.equals("Teradata")) //$NON-NLS-1$ //$NON-NLS-2$
+                                            || label.equals("Hive")) { //$NON-NLS-1$
                                         isSqlTemplate = true;
 
                                     }
@@ -356,47 +355,47 @@ public class DeleteAction extends AContextualAction {
         folderItem = factory.getFolderItem(ProjectManager.getInstance().getCurrentProject(), objectType, path);
         folderItem.getState().setDeleted(true);
 
-        String fullPath = "";
+        String fullPath = ""; //$NON-NLS-1$
         FolderItem curItem = folderItem;
 
         while (curItem.getParent() instanceof FolderItem && ((Item) curItem.getParent()).getParent() instanceof FolderItem
                 && ((FolderItem) ((Item) curItem.getParent()).getParent()).getType().getValue() == FolderType.FOLDER) {
             FolderItem parentFolder = (FolderItem) curItem.getParent();
-            if ("".equals(fullPath)) {
+            if ("".equals(fullPath)) { //$NON-NLS-1$
                 fullPath = parentFolder.getProperty().getLabel() + fullPath;
             } else {
-                fullPath = parentFolder.getProperty().getLabel() + "/" + fullPath;
+                fullPath = parentFolder.getProperty().getLabel() + "/" + fullPath; //$NON-NLS-1$
             }
             curItem = parentFolder;
         }
-        if (!objectType.getKey().toString().startsWith("repository.metadata") && objectType != ERepositoryObjectType.SQLPATTERNS
+        if (!objectType.getKey().toString().startsWith("repository.metadata") && objectType != ERepositoryObjectType.SQLPATTERNS //$NON-NLS-1$
                 && objectType != ERepositoryObjectType.ROUTINES && objectType != ERepositoryObjectType.JOB_SCRIPT
                 && curItem.getParent() instanceof FolderItem && ((Item) curItem.getParent()).getParent() instanceof FolderItem
                 && !objectType.isDQItemType()) {// MOD qiongli 2011-1-20 except DQItem.
             FolderItem parentFolder = (FolderItem) curItem.getParent();
-            if ("".equals(fullPath)) {
+            if ("".equals(fullPath)) { //$NON-NLS-1$
                 fullPath = parentFolder.getProperty().getLabel() + fullPath;
             } else {
-                fullPath = parentFolder.getProperty().getLabel() + "/" + fullPath;
+                fullPath = parentFolder.getProperty().getLabel() + "/" + fullPath; //$NON-NLS-1$
             }
             curItem = parentFolder;
         }
-        if (objectType.getKey().toString().startsWith("repository.metadata")) {
+        if (objectType.getKey().toString().startsWith("repository.metadata")) { //$NON-NLS-1$
             while (((FolderItem) curItem.getParent()).getType().getValue() != FolderType.SYSTEM_FOLDER) {
-                if ("".equals(fullPath)) {
+                if ("".equals(fullPath)) { //$NON-NLS-1$
                     fullPath = ((FolderItem) curItem.getParent()).getProperty().getLabel() + fullPath;
                 } else {
-                    fullPath = ((FolderItem) curItem.getParent()).getProperty().getLabel() + "/" + fullPath;
+                    fullPath = ((FolderItem) curItem.getParent()).getProperty().getLabel() + "/" + fullPath; //$NON-NLS-1$
                 }
                 curItem = (FolderItem) curItem.getParent();
             }
         }
         if (objectType == ERepositoryObjectType.ROUTINES) {
             while (((FolderItem) curItem.getParent()).getType().getValue() != FolderType.SYSTEM_FOLDER) {
-                if ("".equals(fullPath)) {
+                if ("".equals(fullPath)) { //$NON-NLS-1$
                     fullPath = ((FolderItem) curItem.getParent()).getProperty().getLabel() + fullPath;
                 } else {
-                    fullPath = ((FolderItem) curItem.getParent()).getProperty().getLabel() + "/" + fullPath;
+                    fullPath = ((FolderItem) curItem.getParent()).getProperty().getLabel() + "/" + fullPath; //$NON-NLS-1$
                 }
                 curItem = (FolderItem) curItem.getParent();
             }
@@ -404,10 +403,10 @@ public class DeleteAction extends AContextualAction {
 
         if (objectType == ERepositoryObjectType.JOB_SCRIPT) {
             while (((FolderItem) curItem.getParent()).getType().getValue() != FolderType.SYSTEM_FOLDER) {
-                if ("".equals(fullPath)) {
+                if ("".equals(fullPath)) { //$NON-NLS-1$
                     fullPath = ((FolderItem) curItem.getParent()).getProperty().getLabel() + fullPath;
                 } else {
-                    fullPath = ((FolderItem) curItem.getParent()).getProperty().getLabel() + "/" + fullPath;
+                    fullPath = ((FolderItem) curItem.getParent()).getProperty().getLabel() + "/" + fullPath; //$NON-NLS-1$
                 }
                 curItem = (FolderItem) curItem.getParent();
             }
@@ -415,15 +414,15 @@ public class DeleteAction extends AContextualAction {
 
         if (objectType == ERepositoryObjectType.SQLPATTERNS) {
             while (((FolderItem) curItem.getParent()).getType().getValue() != FolderType.SYSTEM_FOLDER) {
-                if ("".equals(fullPath)) {
+                if ("".equals(fullPath)) { //$NON-NLS-1$
                     fullPath = ((FolderItem) curItem.getParent()).getProperty().getLabel() + fullPath;
                 } else {
-                    fullPath = ((FolderItem) curItem.getParent()).getProperty().getLabel() + "/" + fullPath;
+                    fullPath = ((FolderItem) curItem.getParent()).getProperty().getLabel() + "/" + fullPath; //$NON-NLS-1$
                 }
                 curItem = (FolderItem) curItem.getParent();
             }
-            while (!((FolderItem) curItem.getParent()).getProperty().getLabel().equals("sqlPatterns")) {
-                fullPath = ((FolderItem) curItem.getParent()).getProperty().getLabel() + "/" + fullPath;
+            while (!((FolderItem) curItem.getParent()).getProperty().getLabel().equals("sqlPatterns")) { //$NON-NLS-1$
+                fullPath = ((FolderItem) curItem.getParent()).getProperty().getLabel() + "/" + fullPath; //$NON-NLS-1$
                 curItem = (FolderItem) curItem.getParent();
             }
         }
@@ -431,10 +430,10 @@ public class DeleteAction extends AContextualAction {
         if (objectType.isDQItemType()) {
 
             while (((FolderItem) curItem.getParent()).getType().getValue() != FolderType.SYSTEM_FOLDER) {
-                if ("".equals(fullPath)) {
+                if ("".equals(fullPath)) { //$NON-NLS-1$
                     fullPath = ((FolderItem) curItem.getParent()).getProperty().getLabel() + fullPath;
                 } else {
-                    fullPath = ((FolderItem) curItem.getParent()).getProperty().getLabel() + "/" + fullPath;
+                    fullPath = ((FolderItem) curItem.getParent()).getProperty().getLabel() + "/" + fullPath; //$NON-NLS-1$
                 }
                 curItem = (FolderItem) curItem.getParent();
             }
@@ -483,14 +482,14 @@ public class DeleteAction extends AContextualAction {
             FolderItem folderItem = factory.getFolderItem(ProjectManager.getInstance().getCurrentProject(), objectType, path);
             folderItem.getState().setDeleted(true);
 
-            String fullPath = "";
+            String fullPath = ""; //$NON-NLS-1$
             FolderItem curItem = folderItem;
             while (curItem.getParent() instanceof FolderItem && ((Item) curItem.getParent()).getParent() instanceof FolderItem) {
                 FolderItem parentFolder = (FolderItem) curItem.getParent();
-                if ("".equals(fullPath)) {
+                if ("".equals(fullPath)) { //$NON-NLS-1$
                     fullPath = parentFolder.getProperty().getLabel() + fullPath;
                 } else {
-                    fullPath = parentFolder.getProperty().getLabel() + "/" + fullPath;
+                    fullPath = parentFolder.getProperty().getLabel() + "/" + fullPath; //$NON-NLS-1$
                 }
                 curItem = parentFolder;
             }
@@ -549,7 +548,7 @@ public class DeleteAction extends AContextualAction {
             }
             RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
             String parentBranch = repositoryContext.getFields().get(
-                    IProxyRepositoryFactory.BRANCH_SELECTION + "_" + parentProject.getTechnicalLabel());
+                    IProxyRepositoryFactory.BRANCH_SELECTION + "_" + parentProject.getTechnicalLabel()); //$NON-NLS-1$
 
             EList referencedProjects = parentProject.getEmfProject().getReferencedProjects();
             for (ProjectReference pRef : (List<ProjectReference>) referencedProjects) {
@@ -651,8 +650,8 @@ public class DeleteAction extends AContextualAction {
                                             String path = item2.getState().getPath();
 
                                             boolean found = false;
-                                            JobletReferenceBean bean = new JobletReferenceBean(property2.getLabel(), property2
-                                                    .getVersion(), path, refP.getLabel());
+                                            JobletReferenceBean bean = new JobletReferenceBean(property2.getLabel(),
+                                                    property2.getVersion(), path, refP.getLabel());
                                             bean.setJobFlag(isJob, isDelete);
 
                                             for (JobletReferenceBean b : list) {
@@ -683,8 +682,8 @@ public class DeleteAction extends AContextualAction {
                                 if (equals) {
 
                                     boolean found = false;
-                                    JobletReferenceBean bean = new JobletReferenceBean(property2.getLabel(), property2
-                                            .getVersion(), path, refP.getLabel());
+                                    JobletReferenceBean bean = new JobletReferenceBean(property2.getLabel(),
+                                            property2.getVersion(), path, refP.getLabel());
                                     bean.setJobFlag(isJob, isDelete);
 
                                     for (JobletReferenceBean b : list) {
@@ -874,15 +873,17 @@ public class DeleteAction extends AContextualAction {
                                 Item fitem = currentJobNode.getObject().getProperty().getItem();
                                 if ((fitem instanceof FolderItem)
                                         && (((FolderItem) fitem).getType().getValue() == FolderType.FOLDER)) {
-                                    factory.deleteFolder(currentJobNode.getContentType(), RepositoryNodeUtilities
-                                            .getFolderPath(currentJobNode.getObject().getProperty().getItem()));
+                                    factory.deleteFolder(
+                                            currentJobNode.getContentType(),
+                                            RepositoryNodeUtilities.getFolderPath(currentJobNode.getObject().getProperty()
+                                                    .getItem()));
                                 } else {
-                                    factory.deleteFolder(currentJobNode.getContentType(), RepositoryNodeUtilities
-                                            .getPath(currentJobNode));
+                                    factory.deleteFolder(currentJobNode.getContentType(),
+                                            RepositoryNodeUtilities.getPath(currentJobNode));
                                 }
                             } else {
-                                factory.deleteFolder(currentJobNode.getContentType(), RepositoryNodeUtilities
-                                        .getPath(currentJobNode));
+                                factory.deleteFolder(currentJobNode.getContentType(),
+                                        RepositoryNodeUtilities.getPath(currentJobNode));
                             }
                         }
                     } else {
