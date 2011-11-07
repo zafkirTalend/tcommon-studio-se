@@ -15,6 +15,7 @@ package org.talend.repository.ui.wizards;
 import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.SWT;
@@ -221,6 +222,18 @@ public class PropertiesWizard extends Wizard {
                 updateContent();
                 addListeners();
                 setPageComplete(false);
+            }
+
+            protected void evaluateTextField() {
+                super.evaluateTextField();
+                if (nameStatus.getSeverity() == IStatus.OK) {
+                    ERepositoryObjectType type = object.getRepositoryObjectType();
+                    if (type == ERepositoryObjectType.PROCESS) {
+                        evaluateNameInRoutine();
+                    } else if (type == ERepositoryObjectType.ROUTINES) {
+                        evaluateNameInJob();
+                    }
+                }
             }
 
             @Override

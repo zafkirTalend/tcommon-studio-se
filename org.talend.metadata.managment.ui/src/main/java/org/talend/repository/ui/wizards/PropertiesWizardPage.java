@@ -58,6 +58,7 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -71,6 +72,7 @@ import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IProxyRepositoryService;
+import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.ui.properties.StatusHelper;
 
@@ -1075,4 +1077,75 @@ public abstract class PropertiesWizardPage extends WizardPage {
         this.property = property;
     }
 
+    /**
+     * ftang Comment method "evaluateNameInRoutine".
+     */
+    protected void evaluateNameInRoutine() {
+        String jobName = nameText.getText().trim();
+        boolean isValid = isNameValidInRountine(jobName);
+
+        if (!isValid) {
+            nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.ItemExistsInRoutineError")); //$NON-NLS-1$
+            updatePageStatus();
+        }
+    }
+
+    /**
+     * ftang Comment method "isNameExistingInRountine".
+     * 
+     * @param jobName
+     */
+    private boolean isNameValidInRountine(String jobName) {
+        Property property = PropertiesFactory.eINSTANCE.createProperty();
+
+        IProxyRepositoryFactory repositoryFactory = ProxyRepositoryFactory.getInstance();
+        property.setId(repositoryFactory.getNextId());
+        RoutineItem routineItem = PropertiesFactory.eINSTANCE.createRoutineItem();
+        routineItem.setProperty(property);
+        boolean isValid = false;
+        try {
+            isValid = repositoryFactory.isNameAvailable(property.getItem(), jobName);
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+            return false;
+        }
+        return isValid;
+    }
+
+    /**
+     * ftang Comment method "evaluateNameInJob".
+     */
+    protected void evaluateNameInJob() {
+        String jobName = nameText.getText().trim();
+        boolean isValid = isNameValidInJob(jobName);
+
+        if (!isValid) {
+            nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.ItemExistsInJobError")); //$NON-NLS-1$
+            updatePageStatus();
+        }
+    }
+
+    /**
+     * ftang Comment method "isNameExistingInJob".
+     * 
+     * @param jobName
+     */
+    private boolean isNameValidInJob(String jobName) {
+        Property property = PropertiesFactory.eINSTANCE.createProperty();
+
+        IRepositoryService repositoryService = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
+                IRepositoryService.class);
+        IProxyRepositoryFactory repositoryFactory = repositoryService.getProxyRepositoryFactory();
+        property.setId(repositoryFactory.getNextId());
+        ProcessItem processItem = PropertiesFactory.eINSTANCE.createProcessItem();
+        processItem.setProperty(property);
+        boolean isValid = false;
+        try {
+            isValid = repositoryFactory.isNameAvailable(property.getItem(), jobName);
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+            return false;
+        }
+        return isValid;
+    }
 }
