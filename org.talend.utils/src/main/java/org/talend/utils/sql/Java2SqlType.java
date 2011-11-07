@@ -29,6 +29,8 @@ public final class Java2SqlType {
 
     public static final int NVARCHAR = -9;
 
+    public static final int NVARCHAR2 = 1111;
+
     // ~11875
     private Java2SqlType() {
     }
@@ -44,6 +46,7 @@ public final class Java2SqlType {
         case Java2SqlType.NCHAR:
         case Java2SqlType.NTEXT:
         case Java2SqlType.NVARCHAR:
+        case Java2SqlType.NVARCHAR2:
             // ~11875
             return true;
         default:
@@ -95,8 +98,8 @@ public final class Java2SqlType {
     }
 
     public static boolean isGenericSameType(int type1, int type2) {
-        if (isTextInSQL(type1) && isTextInSQL(type2) || isNumbericInSQL(type1) && isNumbericInSQL(type2) || isDateInSQL(type1)
-                && isDateInSQL(type2)) {
+        if ((isTextInSQL(type1) && isTextInSQL(type2)) || (isNumbericInSQL(type1) && isNumbericInSQL(type2))
+                || (isDateInSQL(type1) && isDateInSQL(type2))) {
             return true;
         }
 
@@ -133,7 +136,5 @@ public final class Java2SqlType {
             return Types.DISTINCT;
         }
         return 0;
-
     }
-
 }
