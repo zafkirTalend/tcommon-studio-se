@@ -227,10 +227,10 @@ public class PropertiesWizard extends Wizard {
             protected void evaluateTextField() {
                 super.evaluateTextField();
                 if (nameStatus.getSeverity() == IStatus.OK) {
-                    ERepositoryObjectType type = object.getRepositoryObjectType();
+                    ERepositoryObjectType type = getRepositoryObjectType();
                     if (type == ERepositoryObjectType.PROCESS) {
                         evaluateNameInRoutine();
-                    } else if (type == ERepositoryObjectType.ROUTINES) {
+                    } else if (type == ERepositoryObjectType.ROUTINES || type == ERepositoryObjectType.METADATA_FILE_RULES) {
                         evaluateNameInJob();
                     }
                 }
