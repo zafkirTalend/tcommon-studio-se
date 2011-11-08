@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#getMgmtRegPort <em>Mgmt Reg Port</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#getAdminConsolePort <em>Admin Console Port</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#isUseSSL <em>Use SSL</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionServer#getInstance <em>Instance</em>}</li>
  * </ul>
  * </p>
  *
@@ -519,5 +520,31 @@ public interface ExecutionServer extends EObject {
      * @generated
      */
     void setUseSSL(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Instance</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Instance</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Instance</em>' attribute.
+     * @see #setInstance(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionServer_Instance()
+     * @model
+     * @generated
+     */
+    String getInstance();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionServer#getInstance <em>Instance</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Instance</em>' attribute.
+     * @see #getInstance()
+     * @generated
+     */
+    void setInstance(String value);
 
 } // ExecutionServer

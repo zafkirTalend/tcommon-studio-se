@@ -4726,6 +4726,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getExecutionServer_Instance() {
+        return (EAttribute)executionServerEClass.getEStructuralFeatures().get(18);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getExecutionVirtualServer() {
         return executionVirtualServerEClass;
     }
@@ -6465,6 +6474,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(executionServerEClass, EXECUTION_SERVER__MGMT_REG_PORT);
         createEAttribute(executionServerEClass, EXECUTION_SERVER__ADMIN_CONSOLE_PORT);
         createEAttribute(executionServerEClass, EXECUTION_SERVER__USE_SSL);
+        createEAttribute(executionServerEClass, EXECUTION_SERVER__INSTANCE);
 
         executionVirtualServerEClass = createEClass(EXECUTION_VIRTUAL_SERVER);
         createEAttribute(executionVirtualServerEClass, EXECUTION_VIRTUAL_SERVER__ID);
@@ -7209,6 +7219,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getExecutionServer_MgmtRegPort(), theEcorePackage.getEInt(), "mgmtRegPort", "-1", 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionServer_AdminConsolePort(), theEcorePackage.getEInt(), "adminConsolePort", "-1", 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionServer_UseSSL(), theEcorePackage.getEBoolean(), "useSSL", "false", 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionServer_Instance(), theEcorePackage.getEString(), "instance", null, 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(executionVirtualServerEClass, ExecutionVirtualServer.class, "ExecutionVirtualServer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getExecutionVirtualServer_Id(), ecorePackage.getEInt(), "id", null, 1, 1, ExecutionVirtualServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

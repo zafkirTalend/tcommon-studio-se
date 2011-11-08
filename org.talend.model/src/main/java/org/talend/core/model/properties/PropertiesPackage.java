@@ -6759,13 +6759,22 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_SERVER__USE_SSL = 17;
 
     /**
+     * The feature id for the '<em><b>Instance</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_SERVER__INSTANCE = 18;
+
+    /**
      * The number of structural features of the '<em>Execution Server</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_SERVER_FEATURE_COUNT = 18;
+    int EXECUTION_SERVER_FEATURE_COUNT = 19;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -11208,6 +11217,17 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getExecutionServer_UseSSL();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionServer#getInstance <em>Instance</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Instance</em>'.
+     * @see org.talend.core.model.properties.ExecutionServer#getInstance()
+     * @see #getExecutionServer()
+     * @generated
+     */
+    EAttribute getExecutionServer_Instance();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionTask <em>Execution Task</em>}'.
@@ -16558,6 +16578,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute EXECUTION_SERVER__USE_SSL = eINSTANCE.getExecutionServer_UseSSL();
+
+        /**
+         * The meta object literal for the '<em><b>Instance</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_SERVER__INSTANCE = eINSTANCE.getExecutionServer_Instance();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionTaskImpl <em>Execution Task</em>}' class.
