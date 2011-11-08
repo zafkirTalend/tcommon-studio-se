@@ -57,7 +57,7 @@ public class DefaultTokenCollector extends AbstractTokenCollector {
 
     }
 
-    private String calcUniqueId() {
+    public static String calcUniqueId() {
         StringBuffer sb = new StringBuffer();
         String macAddress = NetworkUtil.getMacAddress();
         if (macAddress != null) {
