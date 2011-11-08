@@ -21,6 +21,7 @@ import org.talend.core.model.process.IExternalData;
 import org.talend.core.model.process.IExternalNode;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
+import org.talend.core.model.process.node.IExternalMapTable;
 import org.talend.designer.core.model.utils.emf.talendfile.AbstractExternalData;
 
 /**
@@ -62,6 +63,8 @@ public interface IDesignerMapperService extends IService {
      */
     public List<String> getRepositorySchemaIds(IExternalData nodeData);
 
+    public String getRepositorySchemaId(IExternalMapTable table);
+
     /**
      * DOC ycbai Comment method "updateMapperTableEntries".
      * 
@@ -84,4 +87,5 @@ public interface IDesignerMapperService extends IService {
     public boolean isSameMetadata(IExternalNode externalNode, String schemaId, IMetadataTable metadataTable);
 
     public List<String> getExpressionFilter(IExternalData nodeData);
+
 }
