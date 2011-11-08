@@ -593,7 +593,8 @@ public class ExtractMetaDataUtils {
             try {
                 statement.setQueryTimeout(getDBConnectionTimeout());
             } catch (SQLException e) {
-                ExceptionHandler.process(e);
+                // nothing, some db doesn't support the timeout
+                // no need to throw exception or this one will be throw all the time
             }
         }
     }
