@@ -956,15 +956,15 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         try {
             if (xmiResourceManager.hasTalendProjectFile(p)) {
                 org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(p);
-                if (emfProject.isLocal() == local) {
-                    Project project = new Project(emfProject);
-                    if (GlobalServiceRegister.getDefault().isServiceRegistered(ICorePerlService.class)) {
+                // if (emfProject.isLocal() == local) {
+                Project project = new Project(emfProject);
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(ICorePerlService.class)) {
+                    toReturn.add(project);
+                } else {
+                    if (project.getLanguage().equals(ECodeLanguage.JAVA))
                         toReturn.add(project);
-                    } else {
-                        if (project.getLanguage().equals(ECodeLanguage.JAVA))
-                            toReturn.add(project);
-                    }
                 }
+                // }
             }
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
