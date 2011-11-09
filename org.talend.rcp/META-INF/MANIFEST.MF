@@ -28,6 +28,7 @@ Require-Bundle: org.eclipse.core.runtime,
 Eclipse-LazyStart: true
 Export-Package: org.talend.rcp,
  org.talend.rcp.intro,
- org.talend.rcp.perspective,
- org.talend.rcp.intro.linksbar
+ org.talend.rcp.intro.linksbar,
+ org.talend.rcp.intro.starting,
+ org.talend.rcp.perspective
 Bundle-Vendor: .Talend SA.

@@ -35,7 +35,7 @@ public class StartingBrowser extends EditorPart {
     public StartingBrowser() {
     }
 
-    private Browser browser;
+    protected Browser browser;
 
     @Override
     public void createPartControl(Composite parent) {

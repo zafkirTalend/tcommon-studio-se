@@ -86,7 +86,6 @@ import org.talend.core.ui.branding.IBrandingService;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.rcp.Activator;
 import org.talend.rcp.i18n.Messages;
-import org.talend.rcp.intro.starting.StartingBrowser;
 import org.talend.rcp.intro.starting.StartingEditorInput;
 import org.talend.rcp.intro.starting.StartingHelper;
 import org.talend.rcp.util.ApplicationDeletionUtil;
@@ -249,7 +248,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                     .getActivePage();
             if (activePage != null) {
                 if (activePage.getPerspective().getId().equals("org.talend.rcp.perspective")) {
-                    startingBrowser = activePage.openEditor(new StartingEditorInput(service), StartingBrowser.ID);
+                    startingBrowser = activePage.openEditor(new StartingEditorInput(service), service.getStartingBrowserId());
                 }
             }
         } catch (Exception e) {

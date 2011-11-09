@@ -38,4 +38,9 @@ public abstract class AbstractBrandingService implements IBrandingService {
     public boolean isPoweredOnlyCamel() {
         return false;
     }
+
+    public String getStartingBrowserId() {
+        // default is StartingBrowser implement in org.talend.rcp
+        return "org.talend.rcp.intro.starting.StartingBrowser";
+    }
 }

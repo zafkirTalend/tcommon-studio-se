@@ -47,4 +47,6 @@ public interface IBrandingService extends IService {
     public boolean isPoweredbyTalend();
 
     public boolean isPoweredOnlyCamel();
+
+    public String getStartingBrowserId();
 }
