@@ -462,7 +462,9 @@ public class MetadataConnectionUtils {
      */
     public static boolean isODBCCatalog(String catalogName, DatabaseMetaData connectionMetadata) throws SQLException {
         if (isOdbcConnection(connectionMetadata)) {
-            if (catalogName != null && catalogName.equals(connectionMetadata.getConnection().getCatalog())) {
+            String userCatalogName = connectionMetadata.getConnection().getCatalog();
+            if (catalogName != null
+                    && (catalogName.equals(userCatalogName) || userCatalogName == null || "null".equals(userCatalogName))) {
 
                 return true;
             } else {
