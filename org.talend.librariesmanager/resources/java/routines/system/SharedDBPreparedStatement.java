@@ -17,8 +17,6 @@ public class SharedDBPreparedStatement {
 
     private Map<String, Boolean> needToWait = new HashMap<String, Boolean>();
 
-    private Map<String, Integer> waitQueue = new HashMap<String, Integer>();
-
     private Map<String, PreparedStatement> sharedPreparedStatements = new HashMap<String, java.sql.PreparedStatement>();
 
     private SharedDBPreparedStatement() {
@@ -35,21 +33,9 @@ public class SharedDBPreparedStatement {
     private PreparedStatement getPreparedStatement(Connection con, String sql, String key, Object lock)
             throws ClassNotFoundException, SQLException {
         synchronized (lock) {
-            if (needToWait.get(key) != null && needToWait.get(key)) {
+            while (needToWait.get(key) != null && needToWait.get(key)) {
                 try {
-                    if (waitQueue.get(key) == null) {
-                        waitQueue.put(key, 0);
-                    }
-                    waitQueue.put(key, waitQueue.get(key) + 1);
-                    if (DEBUG) {
-                        System.out.println(waitQueue.get(key) + " locks");
-                    }
                     lock.wait();
-                    waitQueue.put(key, waitQueue.get(key) - 1);
-                    if (DEBUG) {
-                        System.out.println(waitQueue.get(key) + " remain locks");
-                    }
-
                 } catch (InterruptedException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -108,18 +94,8 @@ public class SharedDBPreparedStatement {
 
     private void doReleasePreparedStatement(String key, Object lock) {
         synchronized (lock) {
-            if (waitQueue.get(key) == null || waitQueue.get(key) == 0) {
-                if (DEBUG) {
-                    System.out.println("set needToWait is false, size of wait queue is " + waitQueue.get(key));
-                }
-                needToWait.put(key, false);
-            } else {
-                if (DEBUG) {
-                    System.out.println("release lock for " + waitQueue.get(key));
-                }
-                needToWait.put(key, true);
-                lock.notify();
-            }
+            needToWait.put(key, false);
+            lock.notify();
         }
     }
 
