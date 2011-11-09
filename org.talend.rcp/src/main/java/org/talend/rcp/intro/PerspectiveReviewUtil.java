@@ -139,6 +139,7 @@ public final class PerspectiveReviewUtil {
         if (barManager != null && (barManager instanceof PerspectiveBarManager)) {
             cleanPerspectiveBar();
             // DI
+            IContributionItem lastPerspective = null;
             IContributionItem diCItem = barManager.find(IBrandingConfiguration.PERSPECTIVE_DI_ID);
             if (null == diCItem) {
                 IPerspectiveDescriptor diMailPerspective = WorkbenchPlugin.getDefault().getPerspectiveRegistry()
@@ -152,6 +153,7 @@ public final class PerspectiveReviewUtil {
                     }
                 }
             }
+            lastPerspective = diCItem;
 
             // DQ
             IContributionItem dqCItem = barManager.find(IBrandingConfiguration.PERSPECTIVE_DQ_ID);
@@ -171,6 +173,9 @@ public final class PerspectiveReviewUtil {
                     }
                 }
             }
+            if (dqCItem != null) {
+                lastPerspective = dqCItem;
+            }
             // MDM
             IContributionItem mdmCItem = barManager.find(IBrandingConfiguration.PERSPECTIVE_MDM_ID);
             if (null == mdmCItem) {
@@ -180,14 +185,34 @@ public final class PerspectiveReviewUtil {
                     PerspectiveBarContributionItem mdmItem = new PerspectiveBarContributionItem(mdmMailPerspective,
                             activeWorkbenchWindow.getActivePage());
                     if (null != mdmItem && (mdmItem instanceof PerspectiveBarContributionItem)) {
-                        if (dqCItem != null) {
-                            barManager.insertAfter(dqCItem.getId(), mdmItem);
-                        } else if (diCItem != null) {
-                            barManager.insertAfter(diCItem.getId(), mdmItem);
+                        if (lastPerspective != null) {
+                            barManager.insertAfter(lastPerspective.getId(), mdmItem);
                         } else {
                             barManager.addItem(mdmItem);
                         }
                         mdmCItem = mdmItem;
+                    }
+                }
+            }
+            if (mdmCItem != null) {
+                lastPerspective = mdmCItem;
+            }
+
+            // CAMEL
+            IContributionItem esbCItem = barManager.find(IBrandingConfiguration.PERSPECTIVE_CAMEL_ID);
+            if (null == esbCItem) {
+                IPerspectiveDescriptor esbPerspective = WorkbenchPlugin.getDefault().getPerspectiveRegistry()
+                        .findPerspectiveWithId(IBrandingConfiguration.PERSPECTIVE_CAMEL_ID);
+                if (null != esbPerspective && (esbPerspective instanceof IPerspectiveDescriptor)) {
+                    PerspectiveBarContributionItem esbItem = new PerspectiveBarContributionItem(esbPerspective,
+                            activeWorkbenchWindow.getActivePage());
+                    if (null != esbItem && (esbItem instanceof PerspectiveBarContributionItem)) {
+                        if (lastPerspective != null) {
+                            barManager.insertAfter(lastPerspective.getId(), esbItem);
+                        } else {
+                            barManager.addItem(esbItem);
+                        }
+                        mdmCItem = esbItem;
                     }
                 }
             }
@@ -224,8 +249,22 @@ public final class PerspectiveReviewUtil {
      * DOC Comment method "setPerspectiveTabsBarSize".
      */
     public static void setPerspectiveTabsBarSize() {
+        int nbPerpectives = 1;
+
+        if (WorkbenchPlugin.getDefault().getPerspectiveRegistry().findPerspectiveWithId(IBrandingConfiguration.PERSPECTIVE_DQ_ID) != null) {
+            nbPerpectives++;
+        }
+        if (WorkbenchPlugin.getDefault().getPerspectiveRegistry()
+                .findPerspectiveWithId(IBrandingConfiguration.PERSPECTIVE_MDM_ID) != null) {
+            nbPerpectives++;
+        }
+        if (WorkbenchPlugin.getDefault().getPerspectiveRegistry()
+                .findPerspectiveWithId(IBrandingConfiguration.PERSPECTIVE_CAMEL_ID) != null) {
+            nbPerpectives++;
+        }
+
         IPreferenceStore apiStore = PrefUtil.getAPIPreferenceStore();
-        apiStore.setValue(IWorkbenchPreferenceConstants.PERSPECTIVE_BAR_SIZE, 300);
+        apiStore.setValue(IWorkbenchPreferenceConstants.PERSPECTIVE_BAR_SIZE, nbPerpectives * 100);
     }
 
     /**
