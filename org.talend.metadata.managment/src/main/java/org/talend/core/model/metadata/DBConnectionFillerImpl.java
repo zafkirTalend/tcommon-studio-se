@@ -626,7 +626,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     }
                     // }
                 } catch (Exception e) {
-                    log.warn(e.getMessage(), e);
+                    // log.warn(e.getMessage(), e);
                 }
                 // MOD mzhao bug 9606 filter duplicated schemas.
 
