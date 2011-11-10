@@ -244,9 +244,10 @@ public class MetadataConnectionUtils {
         String dbUrl = databaseConnection.getURL();
         String password = databaseConnection.getPassword();
         String userName = databaseConnection.getUsername();
-        String driverClass = databaseConnection.getDriverClass();
-        String driverJarPath = databaseConnection.getDriverJarPath();
         String dbType = databaseConnection.getDatabaseType();
+        String driverClass = databaseConnection.getDriverClass() == null ? EDatabase4DriverClassName
+                .getDriverClassByDbType(dbType) : databaseConnection.getDriverClass();
+        String driverJarPath = databaseConnection.getDriverJarPath();
         String dataBase = databaseConnection.getSID();
         String dbVersionString = databaseConnection.getDbVersionString();
         String additionalParams = databaseConnection.getAdditionalParams();
