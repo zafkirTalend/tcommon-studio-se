@@ -48,6 +48,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.SystemException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
+import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.commons.utils.time.TimeMeasure;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
@@ -257,6 +258,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 return false;
             }
             boolean isSqlPattern = (type == ERepositoryObjectType.SQLPATTERNS);
+            boolean isJobDesigns = (type == ERepositoryObjectType.PROCESS);
 
             List<IRepositoryViewObject> list;
 
@@ -269,6 +271,11 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                         && item.getProperty().getId() != current.getProperty().getId()) {
                     // To check SQLPattern in same path. see bug 0005038: unable to add a SQLPattern into repository.
                     if (!isSqlPattern || current.getProperty().getItem().getState().getPath().equals(path.toPortableString())) {
+                        // TDI-18224
+                        if (isJobDesigns && current.getProperty() != null && item.getProperty() != null
+                                && !current.getProperty().getVersion().equals(item.getProperty().getVersion())) {
+                            continue;
+                        }
                         duplicateNameObject = current;
                         break;
                     }
@@ -279,7 +286,11 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                     throw new IllegalArgumentException(Messages.getString(
                             "ProxyRepositoryFactory.illegalArgumentException.labeAlreadyInUse", new String[] { fileName })); //$NON-NLS-1$
                 } else {
-                    Shell currentShell = Display.getCurrent().getActiveShell();
+                    Display display = Display.getCurrent();
+                    if (display == null) {
+                        display = Display.getDefault();
+                    }
+                    Shell currentShell = display.getActiveShell();
                     if (currentShell == null) {
                         currentShell = new Shell();
                     }
@@ -399,10 +410,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             throws PersistenceException {
         if (type.isDQItemType()) {
             checkFileNameAndPath(project, label, RepositoryConstants.TDQ_PAT_ITEM_PATTERN, type, path, true);
-		} else if (type == ERepositoryObjectType.METADATA_FILE_XML) {
-			checkFileNameAndPath(project, label,
-					RepositoryConstants.SIMPLE_FOLDER_PATTERN, type, path, true);
-		} else {
+        } else if (type == ERepositoryObjectType.METADATA_FILE_XML) {
+            checkFileNameAndPath(project, label, RepositoryConstants.SIMPLE_FOLDER_PATTERN, type, path, true);
+        } else {
             checkFileNameAndPath(project, label, RepositoryConstants.FOLDER_PATTERN, type, path, true);
         }
         Folder createFolder = this.repositoryFactoryFromProvider.createFolder(project, type, path, label, isImportItem);
