@@ -149,6 +149,22 @@ public class SelectorTreeViewerProvider extends AbstractMetadataExtractorViewPro
                         }
                     }
                 }
+                if (tableNameFilter.isEmpty()) {
+                    tempListTables = MetadataFillFactory.getDBInstance().fillAll(pack, dbMetaData, null, null,
+                            availableTableTypes.toArray(new String[] {}));
+                    for (MetadataTable table : tempListTables) {
+                        boolean contains = false;
+                        for (MetadataTable inListTable : tableList) {
+                            if (inListTable.getName().equals(table.getName())) {
+                                contains = true;
+                                break;
+                            }
+                        }
+                        if (!contains) {
+                            tableList.add(table);
+                        }
+                    }
+                }
             }
         } catch (Exception e) {
             ExceptionHandler.process(e);
@@ -159,7 +175,7 @@ public class SelectorTreeViewerProvider extends AbstractMetadataExtractorViewPro
                     && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
-                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 ExtractMetaDataUtils.closeConnection();
             }
             // for specific db such as derby
@@ -169,7 +185,7 @@ public class SelectorTreeViewerProvider extends AbstractMetadataExtractorViewPro
                         || (dbType != null && (dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                                 || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                                 || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                                    .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())))) {
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())))) {
                     try {
                         driver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                     } catch (SQLException e) {
