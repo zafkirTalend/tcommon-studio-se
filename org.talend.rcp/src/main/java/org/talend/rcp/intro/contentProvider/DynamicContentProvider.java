@@ -72,6 +72,14 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
             if (latestItems.size() == 0) {
                 parent.appendChild(dom.createElement("br"));
             }
+        } else if (ERepositoryObjectType.SERVICESPORT.name().equals(id)) {
+            latestItems = getLatestModifiedItems(ERepositoryObjectType.SERVICESPORT, 8);
+            url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.designer.core&"
+                    + "class=org.talend.designer.core.ui.action.EditProcess&"
+                    + "id=org.talend.designer.core.actions.editprocess&nodeId=";
+            if (latestItems.size() == 0) {
+                parent.appendChild(dom.createElement("br"));
+            }
         } else if (ERepositoryObjectType.BUSINESS_PROCESS.name().equals(id)) {
             latestItems = getLatestModifiedItems(ERepositoryObjectType.BUSINESS_PROCESS, 8);
             url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.designer.business.diagram&"
