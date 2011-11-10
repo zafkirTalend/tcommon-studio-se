@@ -36,6 +36,7 @@ import org.eclipse.ui.dialogs.SelectionDialog;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.repository.model.ContextReferenceBean;
@@ -54,11 +55,27 @@ public class ContextReferenceDialog extends SelectionDialog {
             if (columnIndex == 0) {
                 if (element instanceof ContextReferenceBean) {
                     ContextReferenceBean bean = (ContextReferenceBean) element;
-                    if (bean.isRelate()) {
+                    if (bean.getRelateType() == null) {
+                        return null;
+                    }
+                    if (bean.getRelateType().equals(ERepositoryObjectType.PROCESS.getType())) {
                         return ImageProvider.getImage(ECoreImage.PROCESS_ICON);
-                    } else {
+                    } else if (bean.getRelateType().equals(ERepositoryObjectType.METADATA_CONNECTIONS.getType())) {
+                        return ImageProvider.getImage(ECoreImage.METADATA_CONNECTION_ICON);
+                    } else if (bean.getRelateType().equals(ERepositoryObjectType.METADATA_FILE_DELIMITED.getType())) {
+                        return ImageProvider.getImage(ECoreImage.METADATA_FILE_DELIMITED_ICON);
+                    } else if (bean.getRelateType().equals(ERepositoryObjectType.METADATA_FILE_EXCEL.getType())) {
+                        return ImageProvider.getImage(ECoreImage.METADATA_FILE_EXCEL_ICON);
+                    } else if (bean.getRelateType().equals(ERepositoryObjectType.METADATA_FILE_XML.getType())) {
+                        return ImageProvider.getImage(ECoreImage.METADATA_FILE_XML_ICON);
+                    } else if (bean.getRelateType().equals(ERepositoryObjectType.JOBLET.getType())) {
                         return ImageProvider.getImage(ECoreImage.JOBLET_ICON);
                     }
+                    // if (bean.isRelate()) {
+                    // return ImageProvider.getImage(ECoreImage.PROCESS_ICON);
+                    // } else {
+                    // return ImageProvider.getImage(ECoreImage.JOBLET_ICON);
+                    // }
                 }
             }
 
