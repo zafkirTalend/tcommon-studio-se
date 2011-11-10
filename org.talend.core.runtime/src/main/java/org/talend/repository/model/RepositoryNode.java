@@ -17,6 +17,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.ui.IActionFilter;
 import org.talend.commons.ui.runtime.image.IImage;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -32,7 +33,7 @@ import org.talend.repository.model.nodes.IProjectRepositoryNode;
  * $Id: RepositoryNode.java 914 2006-12-08 08:28:53 +0000 (星期五, 08 �??二月 2006) bqian $
  * 
  */
-public class RepositoryNode implements IRepositoryNode {
+public class RepositoryNode implements IRepositoryNode, IActionFilter {
 
     public static final String NO_ID = "-1"; //$NON-NLS-1$
 
@@ -396,6 +397,30 @@ public class RepositoryNode implements IRepositoryNode {
 
     public void setIcon(IImage icon) {
         this.icon = icon;
+    }
+
+    /*
+     * Declarative visibility filter of extension points.
+     * 
+     * @see org.eclipse.ui.IActionFilter#testAttribute(java.lang.Object, java.lang.String, java.lang.String)
+     */
+    public boolean testAttribute(Object target, String name, String value) {
+        RepositoryNode node = (RepositoryNode) target;
+        // The 2 following declarations are used by TDQ-3800:
+        // Add the contextual pop-up menu to SurvivorshipFileItem nodes.
+        // see also plugin.xml of org.talend.survivorship.designer
+        if ("NodeType".equals(name)) { //$NON-NLS-1$
+            if (value.equals(node.getType().toString())) {
+                return true;
+            }
+        }
+        if ("ContentType".equals(name)) { //$NON-NLS-1$
+            ERepositoryObjectType contentType = node.getContentType();
+            if (contentType != null && value.equals(contentType.getType())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
