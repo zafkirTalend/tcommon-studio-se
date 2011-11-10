@@ -80,7 +80,7 @@ public enum SupportDBUrlType {
                      "557", //$NON-NLS-1$
                      "dbname", //$NON-NLS-1$
                      null,
-                     "com.ibm.db2.jcc.DB2Driver", //$NON-NLS-1$
+                     "COM.ibm.db2os390.sqlj.jdbc.DB2SQLJDriver", //$NON-NLS-1$
                      null,
                      "DB2"), //$NON-NLS-1$
     POSTGRESQLEFAULTURL("PostgreSQL", //$NON-NLS-1$
