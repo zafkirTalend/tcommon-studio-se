@@ -929,6 +929,7 @@ public class DatabaseForm extends AbstractForm {
                                     || selection.equals(EDatabaseConnTemplate.MSODBC.getDBDisplayName())) {
                                 datasourceText.setText(s[index]);
                                 getConnection().setDatasourceName(s[index]);
+                                getConnection().setURL(getStringConnection());
                             } else if (selection.equals(EDatabaseConnTemplate.SQLITE.getDBDisplayName())
                                     || selection.equals(EDatabaseConnTemplate.ACCESS.getDBDisplayName())) {
                                 fileField.setText(s[index]);
