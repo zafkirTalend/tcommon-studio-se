@@ -167,7 +167,9 @@ public class XSDPopulationUtil2 {
             } else {
                 String dataType = xsdElementDeclarationParticle.getTypeDefinition().getQName();
                 if (xsdElementDeclarationParticle.getTypeDefinition().getBaseType() != null) {
-                    dataType = xsdElementDeclarationParticle.getTypeDefinition().getBaseType().getQName();
+                    if (!"xs:anySimpleType".equals(xsdElementDeclarationParticle.getTypeDefinition().getBaseType().getQName())) {
+                        dataType = xsdElementDeclarationParticle.getTypeDefinition().getBaseType().getQName();
+                    }
                 }
                 partNode.setDataType(dataType);
             }
