@@ -210,14 +210,15 @@ public class DeleteAction extends AContextualAction {
                                                         String message = null;
                                                         if (jobNames.toString().contains(",")) { //$NON-NLS-1$
                                                             message = jobNames.toString()
-                                                                    + Messages.getString("DeleteAction.deleteSomeJobsAssignedToServices"); //$NON-NLS-1$
+                                                                    + Messages
+                                                                            .getString("DeleteAction.deleteSomeJobsAssignedToServices"); //$NON-NLS-1$
                                                         } else {
                                                             message = jobNames.toString()
-                                                                    + Messages.getString("DeleteAction.deleteJobAssignedToOneService"); //$NON-NLS-1$
+                                                                    + Messages
+                                                                            .getString("DeleteAction.deleteJobAssignedToOneService"); //$NON-NLS-1$
                                                         }
                                                         final Shell shell = getShell();
-                                                        confirmAssignDialog = MessageDialog.openQuestion(shell,
-                                                                "", message); //$NON-NLS-1$
+                                                        confirmAssignDialog = MessageDialog.openQuestion(shell, "", message); //$NON-NLS-1$
 
                                                     }
                                                 });
@@ -700,8 +701,8 @@ public class DeleteAction extends AContextualAction {
                                 if (contextID.equals(item.getProperty().getId())) {
                                     String path = item2.getState().getPath();
                                     String type = process.getRepositoryObjectType().getType();
-                                    ContextReferenceBean bean = new ContextReferenceBean(property2.getLabel(), type, property2
-                                            .getVersion(), path, refP.getLabel());
+                                    ContextReferenceBean bean = new ContextReferenceBean(property2.getLabel(), type,
+                                            property2.getVersion(), path, refP.getLabel());
                                     bean.setJobFlag(isJob, isDelete);
                                     list.add(bean);
                                     break;
@@ -896,8 +897,9 @@ public class DeleteAction extends AContextualAction {
         if (nodeObject != null
                 && nodeObject.getProperty() != null
                 && nodeObject.getProperty().getItem() != null
-                && (nodeObject.getProperty().getItem().getState().isLocked() || RepositoryManager
-                        .isOpenedItemInEditor(nodeObject)) && !(DELETE_FOREVER_TITLE.equals(getText()))) {
+                && (nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_OTHER
+                        || nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_USER || RepositoryManager
+                            .isOpenedItemInEditor(nodeObject)) && !(DELETE_FOREVER_TITLE.equals(getText()))) {
 
             final String title = Messages.getString("DeleteAction.error.title"); //$NON-NLS-1$
             String nodeName = ERepositoryObjectType.getDeleteFolderName(nodeObject.getRepositoryObjectType());
@@ -906,7 +908,7 @@ public class DeleteAction extends AContextualAction {
 
                 public void run() {
                     MessageDialog dialog = new MessageDialog(new Shell(), title, null, message, MessageDialog.ERROR,
-                            new String[] { IDialogConstants.YES_LABEL }, 0);//$NON-NLS-1$
+                            new String[] { IDialogConstants.OK_LABEL }, 0);//$NON-NLS-1$
                     dialog.open();
                 }
             });
