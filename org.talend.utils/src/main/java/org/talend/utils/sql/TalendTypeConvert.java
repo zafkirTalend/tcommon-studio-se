@@ -98,10 +98,7 @@ public final class TalendTypeConvert {
                 // add the parameter 'Locale.US' because make like 'AM/PM' could be parsed.then format and output as
                 // the given 'datePattern'
                 SimpleDateFormat sdf = new SimpleDateFormat(datePattern, Locale.US);
-                Date date = sdf.parse(value);
-                if (date != null) {
-                    object = sdf.format(date);
-                }
+                object = sdf.parse(value);
             } else if (talendType.equals(talendTypeName(Double.class))) {
                 object = Double.parseDouble(value);
             } else if (talendType.equals(talendTypeName(Float.class))) {
