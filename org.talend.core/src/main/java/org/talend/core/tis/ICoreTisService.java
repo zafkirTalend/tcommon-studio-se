@@ -36,7 +36,8 @@ public interface ICoreTisService extends IService {
 
     public List<IPatchBean> getPatchesInstalled() throws BackingStoreException;
 
-    public List<IPatchBean> getPatchesToBeInstall(String archivaServicesURL, String... repository) throws BackingStoreException;
+    public List<IPatchBean> getPatchesToBeInstall(String username, String password, String archivaServicesURL,
+            String... repository) throws BackingStoreException;
 
     public void addPatchInformation(String key, String value) throws BackingStoreException;
 
@@ -44,11 +45,9 @@ public interface ICoreTisService extends IService {
 
     public Object getArchivaObject(User user, String password, String url) throws PersistenceException, LoginException;
 
-
     public boolean needRestartAfterUpdate();
 
     public void setNeedResartAfterUpdate(boolean needRestart);
-
 
     /**
      * DOC ycbai Comment method "exportAsCWM".
