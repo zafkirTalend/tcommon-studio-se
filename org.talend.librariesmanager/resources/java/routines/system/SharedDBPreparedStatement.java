@@ -58,13 +58,13 @@ public class SharedDBPreparedStatement {
                 }
                 preStmt = con.prepareStatement(sql);
                 sharedPreparedStatements.put(key, preStmt);
-            } else if (preStmt.isClosed()) {
-                if (DEBUG) {
-                    System.out.println("sharedPreparedStatements, find the key: " + key + " " //$NON-NLS-1$ //$NON-NLS-2$
-                            + "But it is closed. So create a new one and share it."); //$NON-NLS-1$
-                }
-                preStmt = con.prepareStatement(sql);
-                sharedPreparedStatements.put(key, preStmt);
+                // } else if (preStmt.isClosed()) {
+                // if (DEBUG) {
+                //                    System.out.println("sharedPreparedStatements, find the key: " + key + " " //$NON-NLS-1$ //$NON-NLS-2$
+                //                            + "But it is closed. So create a new one and share it."); //$NON-NLS-1$
+                // }
+                // preStmt = con.prepareStatement(sql);
+                // sharedPreparedStatements.put(key, preStmt);
             } else {
                 if (DEBUG) {
                     System.out.println("sharedPreparedStatements, find the key: " + key + " " + "it is OK."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
