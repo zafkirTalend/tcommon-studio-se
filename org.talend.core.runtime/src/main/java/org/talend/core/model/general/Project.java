@@ -283,6 +283,10 @@ public class Project {
                     user.setLogin(split[0]);
                     user.setUsername(split[1]);
                     user.setPassword(split[2]);
+                } else {
+                    user.setLogin("");
+                    user.setUsername("");
+                    user.setPassword("");
                 }
             }
         }

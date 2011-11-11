@@ -26,4 +26,6 @@ public interface IExchangeService extends IService {
     public String openExchangeDialog();
 
     public void openExchangeEditor();
+
+    public String checkUserAndPass(String username, String password);
 }
