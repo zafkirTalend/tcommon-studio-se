@@ -41,7 +41,8 @@ public interface ICoreTisService extends IService {
 
     public void addPatchInformation(String key, String value) throws BackingStoreException;
 
-    public void downLoadAndInstallPatches(String archivaServerURL, List<IPatchBean> toBeInstalled, String... repository);
+    public void downLoadAndInstallPatches(String archivaServerURL, List<IPatchBean> toBeInstalled, String... repository)
+            throws Exception;
 
     public Object getArchivaObject(User user, String password, String url) throws PersistenceException, LoginException;
 
