@@ -181,17 +181,22 @@ public class SaxParser extends DefaultHandler implements Runnable {
         if (this.currentElementRecoder.get(parentPath + UtilConstants.XPATH_SLASH + elementName) == null) {
             this.currentElementRecoder.put(parentPath + UtilConstants.XPATH_SLASH + elementName, new Integer(1));
         } else {
-            this.currentElementRecoder.put(parentPath + UtilConstants.XPATH_SLASH + elementName,
+            this.currentElementRecoder.put(
+                    parentPath + UtilConstants.XPATH_SLASH + elementName,
                     new Integer(((Integer) this.currentElementRecoder.get(parentPath + UtilConstants.XPATH_SLASH + elementName))
                             .intValue() + 1));
         }
         pathHolder.push(elementName + "["
                 + ((Integer) this.currentElementRecoder.get(parentPath + UtilConstants.XPATH_SLASH + elementName)).intValue()
                 + "]");
-        spConsumer.detectNewRow(pathHolder.getPath(), true);
+        String prefix = null;
+        if (qName.contains(":")) {
+            prefix = qName.split(":")[0];
+        }
+        spConsumer.detectNewRow(pathHolder.getPath(), prefix, uri, true);
         for (int i = 0; i < atts.getLength(); i++) {
             spConsumer.manipulateData(getAttributePath(atts, i), atts.getValue(i));
-            spConsumer.detectNewRow(getAttributePath(atts, i), true);
+            spConsumer.detectNewRow(getAttributePath(atts, i), null, null, true);
         }
     }
 
@@ -217,7 +222,11 @@ public class SaxParser extends DefaultHandler implements Runnable {
         // the heading and tailing junk spaces.
         spConsumer.manipulateData(pathHolder.getPath(), this.currentCacheValue.trim());
         this.currentCacheValue = "";
-        spConsumer.detectNewRow(pathHolder.getPath(), false);
+        String prefix = null;
+        if (qName.contains(":")) {
+            prefix = qName.split(":")[0];
+        }
+        spConsumer.detectNewRow(pathHolder.getPath(), prefix, uri, false);
         // this.currentElementRecoder.clear();
 
         String path = pathHolder.getPath();

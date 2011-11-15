@@ -109,6 +109,9 @@ public class SchemaPopulationUtil {
  * This class is used to populate an XML schema tree from an xml file.
  * 
  */
+/**
+ * DOC nrousseau class global comment. Detailled comment
+ */
 final class XMLFileSchemaTreePopulator implements ISaxParserConsumer {
 
     //
@@ -121,6 +124,8 @@ final class XMLFileSchemaTreePopulator implements ISaxParserConsumer {
     private boolean includeAttribute = true;
 
     private final int numberOfElementsAccessiable;
+
+    private Map<String, String> prefixToNamespace = new HashMap<String, String>();
 
     Thread spThread;
 
@@ -147,11 +152,12 @@ final class XMLFileSchemaTreePopulator implements ISaxParserConsumer {
     /*
      * (non-Javadoc)
      * 
-     * @see org.eclipse.datatools.enablement.oda.xml.util.ISaxParserConsumer#detectNewRow(java.lang.String, boolean)
+     * @see org.eclipse.datatools.enablement.oda.xml.util.ISaxParserConsumer#detectNewRow(java.lang.String,
+     * java.lang.String, java.lang.String, boolean)
      */
-    public void detectNewRow(String path, boolean start) {
+    public void detectNewRow(String path, String prefix, String uri, boolean start) {
         String treamedPath = path.replaceAll("\\Q[\\E\\d+\\Q]\\E", "").trim();
-        this.insertNode(treamedPath);
+        this.insertNode(treamedPath, prefix, uri);
         // If not attribute
         if (!isAttribute(path) && start) {
             rowCount++;
@@ -222,7 +228,7 @@ final class XMLFileSchemaTreePopulator implements ISaxParserConsumer {
      * 
      * @param treatedPath
      */
-    private void insertNode(String treatedPath) {
+    private void insertNode(String treatedPath, String prefix, String uri) {
         boolean isAttribute = isAttribute(treatedPath);
 
         // Remove the leading "/" then split the path.
@@ -277,6 +283,30 @@ final class XMLFileSchemaTreePopulator implements ISaxParserConsumer {
 
                 matchedNode.setValue(path[i]);
                 matchedNode.setParent(parentNode);
+                if (prefix != null) {
+                    if (!prefixToNamespace.containsKey(prefix)) {
+                        prefixToNamespace.put(prefix, uri);
+                        ATreeNode namespaceNode = new ATreeNode();
+                        try {
+                            namespaceNode.setDataType(prefix);
+                        } catch (OdaException e) {
+                            // nothing
+                        }
+                        namespaceNode.setType(ATreeNode.NAMESPACE_TYPE);
+                        namespaceNode.setValue(uri);
+                        matchedNode.addChild(namespaceNode);
+                    }
+                } else if (uri != null && !"".equals(uri)) {
+                    ATreeNode namespaceNode = new ATreeNode();
+                    try {
+                        namespaceNode.setDataType("");
+                    } catch (OdaException e) {
+                        // nothing
+                    }
+                    namespaceNode.setType(ATreeNode.NAMESPACE_TYPE);
+                    namespaceNode.setValue(uri);
+                    matchedNode.addChild(namespaceNode);
+                }
                 parentNode = matchedNode;
             }
         }
