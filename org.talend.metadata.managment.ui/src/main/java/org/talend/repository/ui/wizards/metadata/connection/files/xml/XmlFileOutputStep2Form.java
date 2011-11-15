@@ -45,12 +45,9 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Item;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
@@ -61,7 +58,6 @@ import org.talend.commons.ui.swt.drawing.link.IExtremityLink;
 import org.talend.commons.ui.swt.drawing.link.LinkDescriptor;
 import org.talend.commons.ui.swt.drawing.link.LinksManager;
 import org.talend.commons.ui.swt.formtools.Form;
-import org.talend.commons.utils.Timer;
 import org.talend.commons.xml.XmlUtil;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -226,8 +222,8 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
     }
 
     public void redrawLinkers() {
-        int maxColumnsNumber = CoreRuntimePlugin.getInstance().getPreferenceStore()
-                .getInt(ITalendCorePrefConstants.MAXIMUM_AMOUNT_OF_COLUMNS_FOR_XML);
+        int maxColumnsNumber = CoreRuntimePlugin.getInstance().getPreferenceStore().getInt(
+                ITalendCorePrefConstants.MAXIMUM_AMOUNT_OF_COLUMNS_FOR_XML);
         if (schemaViewer.getTable().getItems().length <= maxColumnsNumber + 1) {
             linker.removeAllLinks();
             TreeItem root = xmlViewer.getTree().getItem(0);
@@ -943,9 +939,9 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
             xmlViewer.setInput(treeData);
             xmlViewer.expandAll();
             redrawLinkers();
-            if (!creation) {
-                checkFieldsValue();
-            }
+            // if (!creation) {
+            checkFieldsValue();
+            // }
         }
     }
 
