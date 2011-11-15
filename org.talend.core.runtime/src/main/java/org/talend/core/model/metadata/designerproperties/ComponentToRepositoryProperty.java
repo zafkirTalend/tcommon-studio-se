@@ -406,7 +406,8 @@ public class ComponentToRepositoryProperty {
         else if (EDatabaseTypeName.ORACLEFORSID.getProduct().equalsIgnoreCase((String) parameter.getValue())
                 || EDatabaseTypeName.ORACLEFORSID.getXmlName().equalsIgnoreCase((String) parameter.getValue())
                 || EDatabaseTypeName.ORACLESN.getXmlName().equalsIgnoreCase((String) parameter.getValue())
-                || EDatabaseTypeName.ORACLE_OCI.getXmlName().equalsIgnoreCase((String) parameter.getValue())) {
+                || EDatabaseTypeName.ORACLE_OCI.getXmlName().equalsIgnoreCase((String) parameter.getValue())
+                || EDatabaseTypeName.ORACLE_RAC.getXmlName().equalsIgnoreCase((String) parameter.getValue())) {
             parameter = node.getElementParameter("CONNECTION_TYPE"); //$NON-NLS-1$
             // if ("ORACLE_OCI".equals(parameter.getValue())) {
             // }
@@ -416,6 +417,9 @@ public class ComponentToRepositoryProperty {
                 connection.setProductId(EDatabaseTypeName.ORACLESN.getProduct());
             } else if ("ORACLE_SID".equals(parameter.getValue()) || "sid".equals(parameter.getValue())) { //$NON-NLS-1$  //$NON-NLS-2$
                 connection.setDatabaseType(EDatabaseTypeName.ORACLEFORSID.getDisplayName());
+                connection.setProductId(EDatabaseTypeName.ORACLESN.getProduct());
+            } else if ("ORACLE_RAC".equals(parameter.getValue()) || "rac".equals(parameter.getValue())) { //$NON-NLS-1$  //$NON-NLS-2$
+                connection.setDatabaseType(EDatabaseTypeName.ORACLE_RAC.getDisplayName());
                 connection.setProductId(EDatabaseTypeName.ORACLESN.getProduct());
             }
             return;
