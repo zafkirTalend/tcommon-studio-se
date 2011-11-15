@@ -33,6 +33,8 @@ public class MetadataColumnRepositoryObject extends MetadataColumn implements IS
 
     private final IRepositoryViewObject viewObject;
 
+    private IRepositoryNode repositoryNode;
+
     public IRepositoryViewObject getViewObject() {
         return this.viewObject;
     }
@@ -141,7 +143,7 @@ public class MetadataColumnRepositoryObject extends MetadataColumn implements IS
     }
 
     public IRepositoryNode getRepositoryNode() {
-        return viewObject.getRepositoryNode();
+        return this.repositoryNode;
     }
 
     public ERepositoryStatus getRepositoryStatus() {
@@ -161,7 +163,7 @@ public class MetadataColumnRepositoryObject extends MetadataColumn implements IS
     }
 
     public void setRepositoryNode(IRepositoryNode node) {
-        viewObject.setRepositoryNode(node);
+        this.repositoryNode = node;
     }
 
     public ModelElement getModelElement() {
