@@ -926,8 +926,8 @@ public class ComponentToRepositoryProperty {
                 connection.setBindPrincipal(value);
             }
         }
-        if ("PASSWD".equals(repositoryValue)) { //$NON-NLS-1$
-            String value = getParameterValue(connection, node, "PASSWD").replaceAll("\\\\\\\\", "\\\\"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        if ("PASSWORD".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(connection, node, "PASS").replaceAll("\\\\\\\\", "\\\\"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             if (value != null) {
                 connection.setBindPassword(value);
             }
