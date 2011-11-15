@@ -32,8 +32,10 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.commons.utils.data.list.ListUtils;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
+import org.talend.core.ICoreService;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.utils.ManagementTextUtils;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
@@ -43,6 +45,7 @@ import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBa
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.util.DatabaseConstant;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.ColumnHelper;
 import org.talend.cwm.helper.ColumnSetHelper;
@@ -988,11 +991,32 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             }
             // --- add columns to table
             ResultSet columns = dbJDBCMetadata.getColumns(catalogName, schemaPattern, tablePattern, columnPattern);
+            int index = 0;
             while (columns.next()) {
                 int decimalDigits = 0;
                 int numPrecRadix = 0;
                 String columnName = columns.getString(GetColumn.COLUMN_NAME.name());
                 TdColumn column = ColumnHelper.createTdColumn(columnName);
+
+                String label = column.getLabel();
+                label = ManagementTextUtils.filterSpecialChar(label);
+                String sub = ""; //$NON-NLS-1$
+                String sub2 = ""; //$NON-NLS-1$
+                String label2 = label;
+                if (label != null && label.length() > 0 && label.startsWith("_")) { //$NON-NLS-1$
+                    sub = label.substring(1);
+                    if (sub != null && sub.length() > 0) {
+                        sub2 = sub.substring(1);
+                    }
+                }
+                ICoreService coreService = CoreRuntimePlugin.getInstance().getCoreService();
+                if (coreService.isKeyword(label) || coreService.isKeyword(sub) || coreService.isKeyword(sub2)) {
+                    label = "_" + label; //$NON-NLS-1$
+                }
+
+                label = MetadataToolHelper.validateColumnName(label, index);
+                column.setLabel(label);
+                column.setOriginalField(label2);
 
                 int dataType = 0;
 
@@ -1072,7 +1096,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 }
                 returnColumns.add(column);
                 columnMap.put(columnName, column);
-
+                index++;
             }
             columns.close();
             if (isLinked()) {
