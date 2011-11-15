@@ -13,7 +13,6 @@
 package org.talend.rcp.intro.starting;
 
 import java.io.IOException;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
@@ -40,9 +39,16 @@ public class StartingBrowser extends EditorPart {
     @Override
     public void createPartControl(Composite parent) {
         try {
-            browser = new Browser(parent, SWT.NONE);
-            browser.setText(StartingHelper.getHelper().getHtmlContent());
-            browser.addLocationListener(new BrowserDynamicPartLocationListener());
+            if ("yes".equalsIgnoreCase(System.getProperty("USE_BROWSER"))) {
+                browser = new Browser(parent, SWT.NONE);
+                browser.setText(StartingHelper.getHelper().getHtmlContent());
+                browser.addLocationListener(new BrowserDynamicPartLocationListener());
+                return;
+            } else {
+                Exception ex = new Exception("The internal web browser can not be access,the starting page won't be displayed");
+                ExceptionHandler.process(ex);
+            }
+
         } catch (IOException e) {
             ExceptionHandler.process(e);
         }
@@ -50,7 +56,9 @@ public class StartingBrowser extends EditorPart {
 
     @Override
     public void setFocus() {
-        browser.setFocus();
+        if (browser != null) {
+            browser.setFocus();
+        }
     }
 
     @Override
