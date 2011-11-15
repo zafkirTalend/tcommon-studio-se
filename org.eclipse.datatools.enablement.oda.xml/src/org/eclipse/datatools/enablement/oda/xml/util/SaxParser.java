@@ -19,7 +19,6 @@ import org.eclipse.swt.widgets.Display;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
@@ -101,9 +100,11 @@ public class SaxParser extends DefaultHandler implements Runnable {
      * @see java.lang.Runnable#run()
      */
     public void run() {
-        XMLReader xr;
+        SAXParser xr;
         try {
             xr = new SAXParser();
+            xr.setFeature("http://xml.org/sax/features/validation", false);
+            xr.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
             xr.setContentHandler(this);
             xr.setErrorHandler(this);
 
