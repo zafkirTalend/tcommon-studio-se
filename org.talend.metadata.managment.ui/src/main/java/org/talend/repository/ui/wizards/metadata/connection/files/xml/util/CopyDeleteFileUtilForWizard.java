@@ -12,7 +12,9 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.connection.files.xml.util;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -34,6 +36,9 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.model.general.Project;
 import org.talend.repository.ProjectManager;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 /**
  * DOC hwang class global comment. Detailled comment <br/>
@@ -119,6 +124,24 @@ public class CopyDeleteFileUtilForWizard {
         Document doc;
         try {
             URL url = file.toURI().toURL();
+            saxReader.setFeature("http://xml.org/sax/features/validation", false);
+
+            saxReader.setEntityResolver(new EntityResolver() {
+
+                String emptyDtd = "";
+
+                ByteArrayInputStream bytes = new ByteArrayInputStream(emptyDtd.getBytes());
+
+                public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
+                    File file = new File(systemId);
+                    if (file.exists()) {
+                        return new InputSource(new FileInputStream(file));
+                    }
+                    // if no file, just set empty content for dtd
+                    return new InputSource(bytes);
+                }
+            });
+
             doc = saxReader.read(url.getFile());
             Element root = doc.getRootElement();
             List<Element> complexList = root.elements("complexType");
@@ -134,6 +157,8 @@ public class CopyDeleteFileUtilForWizard {
         } catch (DocumentException e) {
             ExceptionHandler.process(e);
         } catch (MalformedURLException e) {
+            ExceptionHandler.process(e);
+        } catch (SAXException e) {
             ExceptionHandler.process(e);
         }
         return attri;
