@@ -20,7 +20,6 @@ Export-Package: org.talend.repository,
  org.talend.repository.registeruser.proxy,
  org.talend.repository.ui.wizards.license,
  org.talend.repository.ui.wizards.register
-Bundle-ClassPath: .,
- lib/talendregister.jar
+Bundle-ClassPath: .
 Bundle-Activator: org.talend.repository.RegistrationPlugin
 Bundle-ActivationPolicy: lazy

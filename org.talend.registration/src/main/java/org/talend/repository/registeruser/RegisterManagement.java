@@ -285,6 +285,63 @@ public class RegisterManagement {
         return result.signum() > 0;
     }
 
+    public boolean createUser(String pseudo, String password, String firstname, String lastname, String country,
+            boolean isProxyEnabled, String proxyHost, String proxyPort) throws BusinessException {
+        BigInteger result = BigInteger.valueOf(-1);
+        registNumber = null;
+        // if proxy is enabled
+        if (isProxyEnabled) {
+            // get parameter and put them in System.properties.
+            System.setProperty("http.proxyHost", proxyHost); //$NON-NLS-1$
+            System.setProperty("http.proxyPort", proxyPort); //$NON-NLS-1$
+
+            // override automatic update parameters
+            if (proxyPort != null && proxyPort.trim().equals("")) { //$NON-NLS-1$
+                proxyPort = null;
+            }
+            SiteManager.setHttpProxyInfo(true, proxyHost, proxyPort);
+        }
+
+        // OS
+        String osName = System.getProperty("os.name"); //$NON-NLS-1$
+        String osVersion = System.getProperty("os.version"); //$NON-NLS-1$
+
+        // Java version
+        String javaVersion = System.getProperty("java.version"); //$NON-NLS-1$
+
+        // Java Memory
+        long totalMemory = Runtime.getRuntime().totalMemory();
+
+        // RAM
+        com.sun.management.OperatingSystemMXBean composantSystem = (com.sun.management.OperatingSystemMXBean) ManagementFactory
+                .getOperatingSystemMXBean();
+        Long memRAM = new Long(composantSystem.getTotalPhysicalMemorySize() / 1024);
+
+        // CPU
+        int nbProc = Runtime.getRuntime().availableProcessors();
+
+        // VERSION
+
+        String version = RegistrationPlugin.getDefault().getBundle().getHeaders()
+                .get(org.osgi.framework.Constants.BUNDLE_VERSION).toString();
+
+        RegisterUserPortTypeProxy proxy = new RegisterUserPortTypeProxy();
+        proxy.setEndpoint("http://www.talend.com/TalendRegisterWS/registerws.php"); //$NON-NLS-1$
+        try {
+            IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
+                    IBrandingService.class);
+            result = proxy.createUser50(pseudo, password, firstname, lastname, country, version,
+                    brandingService.getShortProductName(), osName, osVersion, javaVersion, totalMemory + "", memRAM //$NON-NLS-1$
+                            + "", nbProc + ""); //$NON-NLS-1$ //$NON-NLS-2$
+            if (result.intValue() != -110 && result.signum() < 0) {
+                checkErrors(result.intValue());
+            }
+        } catch (RemoteException e) {
+            throw new BusinessException(e);
+        }
+        return result.intValue() == -110;
+    }
+
     private void checkErrors(int signum) {
         String message = ""; //$NON-NLS-1$
         switch (signum) {
@@ -335,6 +392,9 @@ public class RegisterManagement {
             break;
         case -300:
             message = Messages.getString("RegisterManagement.passwordWrong"); //$NON-NLS-1$
+            break;
+        case -400:
+            message = Messages.getString("RegisterManagement.wrongUserOrPassword"); //$NON-NLS-1$
             break;
         default:
             signum = -1;
