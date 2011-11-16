@@ -55,7 +55,9 @@ public class CreateElementAction extends SelectionProviderAction {
 
     private boolean createChildNode(FOXTreeNode node) {
         if (node.getColumn() != null) {
-            if (!MessageDialog.openConfirm(xmlViewer.getControl().getShell(), "Warning",
+            if (!MessageDialog.openConfirm(
+                    xmlViewer.getControl().getShell(),
+                    "Warning",
                     "Do you want to disconnect the existing linker and then add an sub element for the selected element "
                             + node.getLabel() + " \"?")) {
                 return false;
@@ -64,7 +66,7 @@ public class CreateElementAction extends SelectionProviderAction {
         }
         String label = "";
         while (!StringUtil.validateLabelForXML(label)) {
-            InputDialog dialog = new InputDialog(null, "Input element's label", "nput the new element's valid label", "", null);
+            InputDialog dialog = new InputDialog(null, "Input element's label", "Input the new element's valid label", "", null);
             int status = dialog.open();
             if (status == InputDialog.OK) {
                 label = dialog.getValue().trim();

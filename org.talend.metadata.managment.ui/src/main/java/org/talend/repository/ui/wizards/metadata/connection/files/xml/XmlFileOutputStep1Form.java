@@ -290,11 +290,17 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
     }
 
     private void updateConnection(String text) {
-        if (text == null || "".equals(text) || treeNode == null) {
+        if (text == null || "".equals(text)) {
             return;
         }
 
-        List<FOXTreeNode> rootFoxTreeNodes = getCorrespondingFoxTreeNodes(treeNode, true);
+        List<FOXTreeNode> rootFoxTreeNodes = null;
+        if (treeNode == null) {
+            rootFoxTreeNodes = TreeUtil.getFoxTreeNodes(text);
+        } else {
+            rootFoxTreeNodes = getCorrespondingFoxTreeNodes(treeNode, true);
+        }
+
         if (rootFoxTreeNodes.size() == 0) {
             return;
         }
@@ -334,8 +340,8 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
                 // getConnection().setXmlFilePath(PathUtils.getPortablePath(xmlXsdFilePath.getText()));
                 File file = new File(text);
                 if (file.exists()) {
+                    List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
                     if (XmlUtil.isXSDFile(text)) {
-                        List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
                         try {
                             XSDSchema xsdSchema = updateXSDSchema(text);
                             List<ATreeNode> list = updateRootNodes(xsdSchema, true);
@@ -344,23 +350,20 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
                                 if (dialog.open() == IDialogConstants.OK_ID) {
                                     ATreeNode selectedNode = dialog.getSelectedNode();
                                     valid = treePopulator.populateTree(xsdSchema, selectedNode, treeNodes);
-                                    if (treeNodes.size() > 0) {
-                                        treeNode = treeNodes.get(0);
-                                    }
                                 } else {
                                     return;
                                 }
                             } else {
                                 valid = treePopulator.populateTree(xsdSchema, list.get(0), treeNodes);
-                                if (treeNodes.size() > 0) {
-                                    treeNode = treeNodes.get(0);
-                                }
                             }
                         } catch (Exception e) {
                             ExceptionHandler.process(e);
                         }
                     } else {
                         valid = treePopulator.populateTree(text, treeNode);
+                    }
+                    if (treeNodes.size() > 0) {
+                        treeNode = treeNodes.get(0);
                     }
 
                     updateConnection(text);
