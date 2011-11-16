@@ -56,7 +56,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.ui.intro.config.IIntroXHTMLContentProvider#createContent(java.lang.String, org.w3c.dom.Element)
      */
     public void createContent(String id, Element parent) {
@@ -74,9 +74,19 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
             }
         } else if (ERepositoryObjectType.SERVICESPORT.name().equals(id)) {
             latestItems = getLatestModifiedItems(ERepositoryObjectType.SERVICESPORT, 8);
-            url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.designer.core&"
-                    + "class=org.talend.designer.core.ui.action.EditProcess&"
-                    + "id=org.talend.designer.core.actions.editprocess&nodeId=";
+            url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.repository.services&"
+                    + "class=org.talend.repository.services.action.OpenWSDLEditorAction&"
+                    + "id=org.talend.repository.services.action.OpenWSDLEditorAction&nodeId=";
+            if (latestItems.size() == 0) {
+                parent.appendChild(dom.createElement("br"));
+            }
+        } else if ("ROUTE".equals(id)) {
+            ERepositoryObjectType repositoryRoutesType = (ERepositoryObjectType) ERepositoryObjectType
+                    .valueOf(ERepositoryObjectType.class, "ROUTES");
+            latestItems = getLatestModifiedItems(repositoryRoutesType, 8);
+            url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.camel.designer&"
+                    + "class=org.talend.camel.designer.ui.EditCamelProcess&"
+                    + "id=org.talend.camel.designer.ui.EditCamelProcess&nodeId=";
             if (latestItems.size() == 0) {
                 parent.appendChild(dom.createElement("br"));
             }
@@ -104,7 +114,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
             Element hyperlink = dom.createElement("a");
             hyperlink.setAttribute("href", url + object.getId());
             hyperlink.setAttribute("title", "Modified at " + object.getModificationDate() + " by " + object.getAuthor() + "\n"
-                    + "Created at " + object.getCreationDate() + " by" + object.getAuthor());
+                    + "Created at " + object.getCreationDate() + " by " + object.getAuthor());
             hyperlink.appendChild(dom.createTextNode(object.getLabel() + " " + object.getVersion()));
             parent.appendChild(hyperlink);
             parent.appendChild(dom.createElement("br"));
@@ -280,7 +290,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.ui.intro.config.IIntroContentProvider#createContent(java.lang.String, java.io.PrintWriter)
      */
     public void createContent(String id, PrintWriter out) {
@@ -290,7 +300,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.ui.intro.config.IIntroContentProvider#createContent(java.lang.String,
      * org.eclipse.swt.widgets.Composite, org.eclipse.ui.forms.widgets.FormToolkit)
      */
@@ -301,7 +311,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.ui.intro.config.IIntroContentProvider#dispose()
      */
     public void dispose() {
@@ -311,7 +321,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * org.eclipse.ui.intro.config.IIntroContentProvider#init(org.eclipse.ui.intro.config.IIntroContentProviderSite)
      */
