@@ -31,12 +31,25 @@ public final class Java2SqlType {
 
     public static final int NVARCHAR2 = 1111;
 
+    public static final int BIT = -7;
+
+    public static final int VARBINARY = 2004;
+
     // ~11875
     private Java2SqlType() {
     }
 
-    public static boolean isTextInSQL(int type) {
+    public static boolean isBinaryInSQL(int type) {
+        switch (type) {
+        case Java2SqlType.BIT:
+        case Java2SqlType.VARBINARY:
+            return true;
+        default:
+            return false;
+        }
+    }
 
+    public static boolean isTextInSQL(int type) {
         switch (type) {
         case Types.CHAR:
         case Types.VARCHAR:
@@ -65,7 +78,6 @@ public final class Java2SqlType {
         case Types.BIGINT:
         case Types.DECIMAL:
         case Types.NUMERIC:
-
             return true;
         default:
             return false;
@@ -89,7 +101,6 @@ public final class Java2SqlType {
     }
 
     public static boolean isOtherTypeInSQL(int type) {
-
         if (isTextInSQL(type) || isNumbericInSQL(type) || isDateInSQL(type)) {
             return false;
         }
@@ -98,7 +109,7 @@ public final class Java2SqlType {
     }
 
     public static boolean isGenericSameType(int type1, int type2) {
-        if ((isTextInSQL(type1) && isTextInSQL(type2)) || (isNumbericInSQL(type1) && isNumbericInSQL(type2))
+        if ((type1 == type2) || (isTextInSQL(type1) && isTextInSQL(type2)) || (isNumbericInSQL(type1) && isNumbericInSQL(type2))
                 || (isDateInSQL(type1) && isDateInSQL(type2))) {
             return true;
         }
