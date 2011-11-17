@@ -41,6 +41,8 @@ public interface IESBService extends IService {
 
     public StringBuffer getAllTheJObNames(IRepositoryNode jobList);
 
+    public boolean isJobAlreadyAssignToServiceOperation(String jobID);
+
     // public void setSelectedItem(Item, )
 
     // public AbstractMetadataObject getServicesOperation(Connection connection, String operationName);
