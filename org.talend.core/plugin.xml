@@ -19,10 +19,6 @@
 	<extension
          point="org.eclipse.ui.preferencePages">
       <page
-            class="org.talend.core.prefs.ui.CorePreferencePage"
-            id="org.talend.core.prefs"
-            name="%prefsName"/>
-      <page
             category="org.talend.designer.core.ui.preferences.AppearancePreferencePage"
             class="org.talend.core.prefs.ui.ColorsCodeViewerPreferencePage"
             id="org.talend.core.pref.colorcodeviewer"

@@ -26,19 +26,19 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.i18n.Messages;
+import org.talend.core.ICoreService;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.xml.XmlArray;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.service.ICorePerlService;
 
 /**
- * DOC chuger class global comment. Detailled comment <br/>
+ * DOC msjian class global comment. Detailled comment <br/>
  * 
- * $Id$
+ * $Id: CorePreferencePage.java TDQ-3990 move from org.talend.core $
  * 
  */
 public class CorePreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
@@ -52,9 +52,15 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
      */
     public CorePreferencePage() {
         super(GRID);
-
+        
+        // MOD msjian 2011-11-17 TDQ-3990: use the service to get the coreplugin(the coreplugin is differert between top and tdq)
+        IPreferenceStore store =null;
         // Set the preference store for the preference page.
-        IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
+            ICoreService service = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+            store=service.getPreferenceStore();
+        }
+        // TDQ-3990 ~
         setPreferenceStore(store);
     }
 

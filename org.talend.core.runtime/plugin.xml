@@ -31,6 +31,11 @@
             id="org.talend.core.prefs.collector.TalendDataCollectorUploadingPreferencePage"
             name="%TalendDataCollectorUploading">
       </page>
+     <page
+           class="org.talend.core.prefs.ui.CorePreferencePage"
+           id="org.talend.core.prefs"
+           name="%prefs">
+     </page>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
