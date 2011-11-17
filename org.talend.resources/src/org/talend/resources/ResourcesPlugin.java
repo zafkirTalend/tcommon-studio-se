@@ -12,6 +12,8 @@ public class ResourcesPlugin extends AbstractUIPlugin {
     // The plug-in ID
     public static final String PLUGIN_ID = "org.talend.resources"; //$NON-NLS-1$
 
+    public static final String TDQ_PLUGIN_ID = "org.talend.dqdemo"; //$NON-NLS-1$
+
     // The shared instance
     private static ResourcesPlugin plugin;
 
