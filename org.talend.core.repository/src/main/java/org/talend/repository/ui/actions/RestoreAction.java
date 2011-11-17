@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -90,7 +91,9 @@ public class RestoreAction extends AContextualAction {
                 }
                 connections.add(node.getObject());
             } else {
-                IPath path = restoreFolder.restoreFolderIfNotExists(nodeType, node);
+                // IPath path = restoreFolder.restoreFolderIfNotExists(nodeType, node);
+                String oldPath = node.getObject().getProperty().getItem().getState().getPath();
+                IPath path = new Path(oldPath);
                 if (node.getObject().getProperty().getItem() instanceof FolderItem) {
                     node.getObject().getProperty().getItem().getState().setDeleted(false);
                 } else {
