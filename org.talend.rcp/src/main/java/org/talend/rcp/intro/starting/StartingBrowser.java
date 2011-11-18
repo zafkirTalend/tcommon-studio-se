@@ -39,18 +39,16 @@ public class StartingBrowser extends EditorPart {
     @Override
     public void createPartControl(Composite parent) {
         try {
-            if ("yes".equalsIgnoreCase(System.getProperty("USE_BROWSER"))) {
-                browser = new Browser(parent, SWT.NONE);
-                browser.setText(StartingHelper.getHelper().getHtmlContent());
-                browser.addLocationListener(new BrowserDynamicPartLocationListener());
-                return;
-            } else {
-                Exception ex = new Exception("The internal web browser can not be access,the starting page won't be displayed");
-                ExceptionHandler.process(ex);
-            }
-
+            browser = new Browser(parent, SWT.NONE);
+            browser.setText(StartingHelper.getHelper().getHtmlContent());
+            browser.addLocationListener(new BrowserDynamicPartLocationListener());
+            return;
         } catch (IOException e) {
             ExceptionHandler.process(e);
+        } catch (Throwable t) {
+
+            Exception ex = new Exception("The internal web browser can not be access,the starting page won't be displayed");
+            ExceptionHandler.process(ex);
         }
     }
 
