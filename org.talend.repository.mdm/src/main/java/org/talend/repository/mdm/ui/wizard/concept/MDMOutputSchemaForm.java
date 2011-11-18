@@ -231,8 +231,8 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
                 this.exsitColumnNames.add(label);
                 column.setLabel(label);
             }
-            column.setTalendType(CoreRuntimePlugin.getInstance().getCoreService().getPreferenceStore()
-                    .getString(MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE));
+            column.setTalendType(CoreRuntimePlugin.getInstance().getCoreService().getPreferenceStore().getString(
+                    MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE));
             tempMetadataTable.getColumns().add(column);
             IMetadataColumn metaColumn = ConvertionHelper.convertToIMetaDataColumn(column);
             // if there are more than one unique,just set the first one to loop when guessing
@@ -633,7 +633,7 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
     private void initXmlTreeData(String selectedEntity) {
         treeData.clear();
         if (creation && selectedEntity != null && xsdFilePath != null) {
-            treeData = TreeUtil.getFoxTreeNodes(xsdFilePath, selectedEntity);
+            treeData = TreeUtil.getFoxTreeNodes(xsdFilePath, selectedEntity, true);
         } else if (!creation && concept != null) {
             treeData.clear();
             // metadataColumnList.clear();
@@ -1142,9 +1142,8 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
         // getConnection().getTables().add(metadataTable);
         // }
         if (!ConnectionHelper.getTables(getConnection()).contains(metadataTable)) {
-            TdXmlSchema d = (TdXmlSchema) ConnectionHelper.getPackage(
-                    ((MDMConnection) connectionItem.getConnection()).getDatacluster(), connectionItem.getConnection(),
-                    TdXmlSchema.class);
+            TdXmlSchema d = (TdXmlSchema) ConnectionHelper.getPackage(((MDMConnection) connectionItem.getConnection())
+                    .getDatacluster(), connectionItem.getConnection(), TdXmlSchema.class);
             if (d != null) {
                 d.getOwnedElement().add(metadataTable);
             } else {

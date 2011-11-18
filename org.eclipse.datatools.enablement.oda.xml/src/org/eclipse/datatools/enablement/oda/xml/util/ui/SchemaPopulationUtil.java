@@ -58,10 +58,10 @@ public class SchemaPopulationUtil {
      * @throws URISyntaxException
      * @throws IOException
      */
-    public static ATreeNode getSchemaTree(String fileName, boolean includeAttribute, int numberOfElementsAccessiable,
-            List<String> attList) throws OdaException, URISyntaxException, IOException {
+    public static ATreeNode getSchemaTree(String fileName, boolean includeAttribute, boolean forMDM,
+            int numberOfElementsAccessiable, List<String> attList) throws OdaException, URISyntaxException, IOException {
         if (fileName.toUpperCase().endsWith(".XSD")) {
-            return XSDFileSchemaTreePopulator.getSchemaTree(fileName, includeAttribute, attList);
+            return XSDFileSchemaTreePopulator.getSchemaTree(fileName, includeAttribute, forMDM, attList);
         } else if (fileName.toUpperCase().endsWith(".DTD")) {
             return new DTDFileSchemaTreePopulator().getSchemaTree(fileName, includeAttribute);
         } else {
@@ -411,8 +411,8 @@ final class XSDFileSchemaTreePopulator {
      * @throws MalformedURLException
      * @throws URISyntaxException
      */
-    public static ATreeNode getSchemaTree(String fileName, boolean incAttr, List<String> attList) throws OdaException,
-            MalformedURLException, URISyntaxException {
+    public static ATreeNode getSchemaTree(String fileName, boolean incAttr, boolean forMDM, List<String> attList)
+            throws OdaException, MalformedURLException, URISyntaxException {
         includeAttribute = incAttr;
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setNamespaceAware(true);
@@ -422,8 +422,8 @@ final class XSDFileSchemaTreePopulator {
             uri = f.toURI();
         } else {
             URL url = new URL(fileName);
-            uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(),
-                    url.getRef());
+            uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url
+                    .getRef());
         }
 
         // Then try to parse the input string as a url in web.
@@ -506,8 +506,15 @@ final class XSDFileSchemaTreePopulator {
                 }
             }
             String nodeType = node.getOriginalDataType();
-            if (nodeType != null && !attList.contains(nodeType)) {
-                continue;
+            if (forMDM) {
+                Object nodeValue = node.getValue();
+                if (nodeValue != null && !attList.contains(nodeValue) && nodeType != null && !attList.contains(nodeType)) {
+                    continue;
+                }
+            } else {
+                if (nodeType != null && !attList.contains(nodeType)) {
+                    continue;
+                }
             }
             root.addChild(node);
         }
@@ -542,8 +549,8 @@ final class XSDFileSchemaTreePopulator {
             uri = f.toURI();
         } else {
             URL url = new URL(fileName);
-            uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(),
-                    url.getRef());
+            uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url
+                    .getRef());
         }
 
         // Then try to parse the input string as a url in web.
@@ -733,8 +740,8 @@ final class XSDFileSchemaTreePopulator {
             uri = f.toURI();
         } else {
             URL url = new URL(fileName);
-            uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(),
-                    url.getRef());
+            uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url
+                    .getRef());
         }
 
         // Then try to parse the input string as a url in web.

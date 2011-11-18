@@ -81,7 +81,7 @@ public class TreePopulator {
             List<String> attList = CopyDeleteFileUtilForWizard.getComplexNodes(filePath);
             try {
                 if (attList != null && !attList.isEmpty()) {
-                    treeNode = SchemaPopulationUtil.getSchemaTree(newFilePath, true, limit, attList);
+                    treeNode = SchemaPopulationUtil.getSchemaTree(newFilePath, true, false, limit, attList);
                 } else {
                     treeNode = SchemaPopulationUtil.getSchemaTree(newFilePath, true, limit);
                 }

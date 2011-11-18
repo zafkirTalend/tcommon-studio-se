@@ -541,7 +541,7 @@ public class TreeUtil {
         return selectedTreeNode;
     }
 
-    public static List<FOXTreeNode> getFoxTreeNodes(String filePath, String selectedEntity) {
+    public static List<FOXTreeNode> getFoxTreeNodes(String filePath, String selectedEntity, boolean forMDM) {
         if (selectedEntity == null || "".equals(selectedEntity)) {
             return getFoxTreeNodes(filePath);
         } else {
@@ -552,7 +552,7 @@ public class TreeUtil {
             List<String> attList = new ArrayList<String>();
             attList.add(selectedEntity);
             try {
-                ATreeNode treeNode = SchemaPopulationUtil.getSchemaTree(filePath, true, 0, attList);
+                ATreeNode treeNode = SchemaPopulationUtil.getSchemaTree(filePath, true, forMDM, 0, attList);
                 ATreeNode selectedNode = null;
                 if (treeNode != null) {
                     for (Object obj : treeNode.getChildren()) {
