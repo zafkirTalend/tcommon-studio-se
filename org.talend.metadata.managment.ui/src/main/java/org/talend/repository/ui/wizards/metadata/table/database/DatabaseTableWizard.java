@@ -33,6 +33,7 @@ import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.utils.platform.PluginChecker;
+import org.talend.core.ITDQRepositoryService;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -207,12 +208,21 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
                 replaceUUidsForColumnsAndTables(copyDataPackage);
                 /* The second save is used to save the changes of uuid */
                 saveMetaData();
+
             } else {
                 Collection<Package> copyDataPackage = EcoreUtil.copyAll(dataPackageTemConnection);
                 ConnectionHelper.addPackages(copyDataPackage, connection);
                 saveMetaData();
             }
             RepositoryUpdateManager.updateMultiSchema(connectionItem, oldMetadataTable, oldTableMap);
+            // MOD qiongli 2011-11-18 TDQ-3930,update related anayses for DQ
+            if (PluginChecker.isTDQLoaded()) {
+                ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) org.talend.core.GlobalServiceRegister
+                        .getDefault().getService(ITDQRepositoryService.class);
+                if (tdqRepositoryService != null) {
+                    tdqRepositoryService.updateImpactOnAnalysis(connectionItem);
+                }
+            }// ~
             closeLockStrategy();
 
             List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
