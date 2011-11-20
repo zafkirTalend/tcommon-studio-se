@@ -156,17 +156,16 @@ public final class TokenCollectorFactory {
     }
 
     public boolean process() {
-        boolean valid = false;
+        boolean result = false;
 
         if (isActiveAndValid(true)) {
             send();
-        }
-        if (valid) {
-            final IPreferenceStore preferenceStore = CoreRuntimePlugin.getInstance().getPreferenceStore();
             // set new days
+            final IPreferenceStore preferenceStore = CoreRuntimePlugin.getInstance().getPreferenceStore();
             preferenceStore.setValue(ITalendCorePrefConstants.DATA_COLLECTOR_LAST_TIME, DATE_FORMAT.format(new Date()));
+            result = true;
         }
-        return valid;
+        return result;
     }
 
     public boolean send() {
