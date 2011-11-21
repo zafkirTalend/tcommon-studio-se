@@ -8,13 +8,14 @@
 
     <groupId>org.talend</groupId>
     <artifactId>org.talend.utils</artifactId>
-    <packaging>bundle</packaging>
-
+    <version>4.3-SNAPSHOT</version>
     <parent>
         <groupId>org.talend</groupId>
         <artifactId>org.talend.tos</artifactId>
-        <version>5.0.0</version>
+        <version>4.3-SNAPSHOT</version>
     </parent>
+
+    <packaging>bundle</packaging>
 
     <dependencies>
         <dependency>
