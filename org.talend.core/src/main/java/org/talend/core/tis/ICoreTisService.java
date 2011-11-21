@@ -21,7 +21,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.core.IService;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.User;
-import org.talend.core.updatesite.IPatchBean;
+import org.talend.core.updatesite.IUpdateSiteBean;
 
 /**
  * wchen class global comment. Detailled comment
@@ -34,15 +34,15 @@ public interface ICoreTisService extends IService {
 
     public boolean validProject(Project project, boolean flag) throws PersistenceException;
 
-    public List<IPatchBean> getPatchesInstalled() throws BackingStoreException;
+    public List<IUpdateSiteBean> getPatchesInstalled() throws BackingStoreException;
 
-    public List<IPatchBean> getPatchesToBeInstall(String username, String password, String archivaServicesURL,
-            String... repository) throws BackingStoreException;
+    public List<IUpdateSiteBean> getUpdateSitesToBeInstall(String username, String password, String archivaServicesURL,
+            List<String> repositories) throws BackingStoreException;
 
     public void addPatchInformation(String key, String value) throws BackingStoreException;
 
-    public void downLoadAndInstallPatches(String archivaServerURL, List<IPatchBean> toBeInstalled, String... repository)
-            throws Exception;
+    public void downLoadAndInstallUpdateSites(String archivaServerURL, String username, String password,
+            List<IUpdateSiteBean> toBeInstalled, List<String> repositories) throws Exception;
 
     public Object getArchivaObject(User user, String password, String url) throws PersistenceException, LoginException;
 

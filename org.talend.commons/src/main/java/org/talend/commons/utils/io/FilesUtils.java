@@ -27,8 +27,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.Authenticator;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.PasswordAuthentication;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -59,7 +61,7 @@ import org.talend.commons.i18n.internal.Messages;
  * $Id: talend.epf 1 2006-09-29 17:06:40 +0000 (ven., 29 sept. 2006) nrousseau $
  * 
  */
-public final class FilesUtils {
+public class FilesUtils {
 
     private static final int BUFFER_SIZE = 64 * 1024;
 
@@ -839,7 +841,16 @@ public final class FilesUtils {
     }
 
     /** fullPath,eg: "D:\\ALL_integrate_patch_v4.2.2.r63143-20110722.zip **/
-    public static void downloadFileFromWeb(URL resourceURL, String fullPath) {
+    public static void downloadFileFromWeb(URL resourceURL, String fullPath, final String username, final String password) {
+        // authentification for the url by using username and password,see bugTDI-18626
+        Authenticator.setDefault(new Authenticator() {
+
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password.toCharArray());
+            }
+
+        });
         FileOutputStream fos = null;
         BufferedInputStream bis = null;
         HttpURLConnection conn = null;
@@ -921,6 +932,26 @@ public final class FilesUtils {
             if (delete) {
                 file.delete();
             }
+        }
+    }
+
+    /**
+     * **/
+    class RepositoryAuthentication extends Authenticator {
+
+        private String userName;
+
+        private String password;
+
+        public RepositoryAuthentication(String userName, String password) {
+            super();
+            this.userName = userName;
+            this.password = password;
+        }
+
+        @Override
+        protected PasswordAuthentication getPasswordAuthentication() {
+            return new PasswordAuthentication(userName, password.toCharArray());
         }
     }
 
