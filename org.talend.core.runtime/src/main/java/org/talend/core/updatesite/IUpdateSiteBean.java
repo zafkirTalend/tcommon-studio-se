@@ -15,7 +15,7 @@ package org.talend.core.updatesite;
 /**
  * DOC hywang class global comment. Detailled comment
  */
-public interface IPatchBean {
+public interface IUpdateSiteBean {
 
     public IPatchClassfier getClassifer();
 
@@ -27,7 +27,7 @@ public interface IPatchBean {
 
     public String getPackaging();
 
-    public String getPatchFolder();
+    public String getTempFolder();
 
     public String getURL();
 
