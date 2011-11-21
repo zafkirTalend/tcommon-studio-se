@@ -294,7 +294,7 @@ final class XMLFileSchemaTreePopulator implements ISaxParserConsumer {
                         }
                         namespaceNode.setType(ATreeNode.NAMESPACE_TYPE);
                         namespaceNode.setValue(uri);
-                        matchedNode.addChild(namespaceNode);
+                        ((ATreeNode) root.getChildren()[0]).addAsFirstChild(namespaceNode);
                     }
                 } else if (uri != null && !"".equals(uri)) {
                     ATreeNode namespaceNode = new ATreeNode();
@@ -422,8 +422,8 @@ final class XSDFileSchemaTreePopulator {
             uri = f.toURI();
         } else {
             URL url = new URL(fileName);
-            uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url
-                    .getRef());
+            uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(),
+                    url.getRef());
         }
 
         // Then try to parse the input string as a url in web.
@@ -549,8 +549,8 @@ final class XSDFileSchemaTreePopulator {
             uri = f.toURI();
         } else {
             URL url = new URL(fileName);
-            uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url
-                    .getRef());
+            uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(),
+                    url.getRef());
         }
 
         // Then try to parse the input string as a url in web.
@@ -740,8 +740,8 @@ final class XSDFileSchemaTreePopulator {
             uri = f.toURI();
         } else {
             URL url = new URL(fileName);
-            uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url
-                    .getRef());
+            uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(),
+                    url.getRef());
         }
 
         // Then try to parse the input string as a url in web.
