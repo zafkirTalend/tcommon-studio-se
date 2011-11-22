@@ -64,6 +64,7 @@ import org.eclipse.ui.internal.ide.IDEInternalPreferences;
 import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.osgi.service.prefs.BackingStoreException;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
@@ -78,6 +79,7 @@ import org.talend.core.model.general.Project;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.prefs.PreferenceManipulator;
+import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.token.TokenCollectorFactory;
 import org.talend.core.ui.ISQLBuilderService;
@@ -158,10 +160,25 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         IBrandingConfiguration brandingConfiguration = service.getBrandingConfiguration();
         String appName = service.getFullProductName();
         PreferenceManipulator prefManipulator = new PreferenceManipulator(CorePlugin.getDefault().getPreferenceStore());
-        configurer
-                .setTitle(appName
-                        + " (" + buildId + ") | " + repositoryContext.getUser() + " | " + project.getLabel() + " (" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-                        + Messages.getString("ApplicationWorkbenchWindowAdvisor.repositoryConnection") + ": " + prefManipulator.getLastConnection() + ")"); //$NON-NLS-1$ //$NON-NLS-2$
+        // TDI-18644
+        ProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+        boolean localProvider = false;
+        try {
+            localProvider = factory.isLocalConnectionProvider();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+        if (localProvider) {
+            configurer
+                    .setTitle(appName
+                            + " (" + buildId + ") | " + project.getLabel() + " (" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+                            + Messages.getString("ApplicationWorkbenchWindowAdvisor.repositoryConnection") + ": " + prefManipulator.getLastConnection() + ")"); //$NON-NLS-1$ //$NON-NLS-2$
+        } else {
+            configurer
+                    .setTitle(appName
+                            + " (" + buildId + ") | " + repositoryContext.getUser() + " | " + project.getLabel() + " (" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+                            + Messages.getString("ApplicationWorkbenchWindowAdvisor.repositoryConnection") + ": " + prefManipulator.getLastConnection() + ")"); //$NON-NLS-1$ //$NON-NLS-2$
+        }
         ActionBarBuildHelper helper = (ActionBarBuildHelper) brandingConfiguration.getHelper();
         if (helper == null) {
             helper = new ActionBarBuildHelper();
