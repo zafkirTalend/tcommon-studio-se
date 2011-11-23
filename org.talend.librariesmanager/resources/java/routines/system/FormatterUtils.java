@@ -12,10 +12,64 @@
 // ============================================================================
 package routines.system;
 
+import java.math.BigDecimal;
+import java.nio.charset.Charset;
+import java.util.Date;
+
 import routines.TalendDate;
 
 public class FormatterUtils {
 
+	public static String format(Object obj,String pattern) {
+		return (obj == null) ? null : obj.toString();
+	}
+	
+	public static String format(Date date,String pattern) {
+		if (date != null) {
+			return TalendDate.formatDate(pattern, date);
+	    } else {
+            return null;
+        }
+	}
+	
+	public String format(BigDecimal decimal,String pattern) {
+		if(decimal == null) return null;
+		return decimal.toPlainString();
+	}
+
+	public String format(byte data[],String pattern) {
+		return Charset.defaultCharset().decode(java.nio.ByteBuffer.wrap(data)).toString();
+	}
+	
+	public String format(char data[],String pattern) {
+		return String.valueOf(data);
+	}
+
+	public String format(boolean b,String pattern) {
+		return String.valueOf(b);
+	}
+
+	public String format(char c,String pattern) {
+		return String.valueOf(c);
+	}
+
+	public String format(int i,String pattern) {
+		return String.valueOf(i);
+	}
+
+	public String format(long l,String pattern) {
+		return String.valueOf(l);
+	}
+
+	public String format(float f,String pattern) {
+		return String.valueOf(f);
+	}
+
+	public String format(double d,String pattern) {
+		return String.valueOf(d);
+	}
+	
+	
     public static String format_Date(java.util.Date date, String pattern) {
         if (date != null) {
             return TalendDate.formatDate(pattern, date);
@@ -143,4 +197,5 @@ public class FormatterUtils {
         }
         return doubleString;
     }
+    
 }
