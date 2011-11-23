@@ -453,7 +453,6 @@ final class XSDFileSchemaTreePopulator {
         XSNamedMap map = xsModel.getComponents(XSConstants.ELEMENT_DECLARATION);
 
         ATreeNode root = new ATreeNode();
-
         root.setValue("ROOT");
         for (int i = 0; i < map.getLength(); i++) {
             ATreeNode node = new ATreeNode();
@@ -516,7 +515,11 @@ final class XSDFileSchemaTreePopulator {
                     continue;
                 }
             }
-            root.addChild(node);
+            if (forMDM && attList.size() == 1 && node.getValue().equals(attList.get(0))) {
+                root = node;
+            } else {
+                root.addChild(node);
+            }
         }
 
         // if no base element, display all complex types / attributes directly.

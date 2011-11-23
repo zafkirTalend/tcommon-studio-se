@@ -555,6 +555,12 @@ public class TreeUtil {
                 ATreeNode treeNode = SchemaPopulationUtil.getSchemaTree(filePath, true, forMDM, 0, attList);
                 ATreeNode selectedNode = null;
                 if (treeNode != null) {
+                    if (forMDM) {
+                        if (selectedEntity.equals(treeNode.getValue())) {
+                            selectedNode = treeNode;
+                        }
+                    }
+
                     for (Object obj : treeNode.getChildren()) {
                         if (obj instanceof ATreeNode) {
                             ATreeNode node = (ATreeNode) obj;
@@ -564,6 +570,7 @@ public class TreeUtil {
                             }
                         }
                     }
+
                     if (selectedNode != null) {
                         String rootName = "";
                         if (treeNode.getValue() instanceof String) {
