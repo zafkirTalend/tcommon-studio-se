@@ -33,6 +33,7 @@ import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.data.container.Container;
 import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
@@ -54,7 +55,6 @@ import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
-import org.talend.core.model.properties.ReferenceFileItem;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -63,7 +63,6 @@ import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.LockInfo;
 import org.talend.core.model.repository.RepositoryViewObject;
-import org.talend.core.repository.CoreRepositoryPlugin;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -652,8 +651,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         if (statusPreferenceInitService != null) {
             statusPreferenceInitService.initStatusPreference();
         }
-        String productVersion = CoreRepositoryPlugin.getDefault().getBundle().getHeaders()
-                .get(org.osgi.framework.Constants.BUNDLE_VERSION).toString();
+        String productVersion = VersionUtils.getVersion();
         IBrandingService brandingService = null;
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IBrandingService.class)) {
             brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);

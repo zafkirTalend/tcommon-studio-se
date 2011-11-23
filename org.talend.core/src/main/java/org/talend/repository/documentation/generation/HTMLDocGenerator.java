@@ -67,6 +67,7 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.ImageUtils;
 import org.talend.commons.ui.runtime.image.ImageUtils.ICON_SIZE;
 import org.talend.commons.utils.PasswordEncryptUtil;
+import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
@@ -1326,7 +1327,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         //        projectElement.addAttribute("description", getProject().getDescription()); //$NON-NLS-1$
         projectElement.addAttribute("generatedDate", DateFormat.getDateTimeInstance().format(new Date())); //$NON-NLS-1$
         projectElement.addAttribute("versionName", getProductVersionName()); //$NON-NLS-1$
-        projectElement.addAttribute("version", getCurrentTOSVersion()); //$NON-NLS-1$
+        projectElement.addAttribute("version", VersionUtils.getVersion()); //$NON-NLS-1$
         projectElement.addAttribute("docType", getDocTypeAttribute()); //$NON-NLS-1$
         String company = CorePlugin.getDefault().getPreferenceStore().getString(ITalendCorePrefConstants.DOC_COMPANY_NAME);
         if (company != null) {
@@ -1478,18 +1479,6 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
             sourceConnectionMap.put(type.getTarget(), sourceList);
         }
 
-    }
-
-    /**
-     * This method is used for generating current T.O.S version.
-     * 
-     * @return
-     */
-    private String getCurrentTOSVersion() {
-        String currentVersion = IHTMLDocConstants.UNKNOWN;
-        currentVersion = (String) CorePlugin.getDefault().getBundle().getHeaders()
-                .get(org.osgi.framework.Constants.BUNDLE_VERSION);
-        return currentVersion;
     }
 
     /**

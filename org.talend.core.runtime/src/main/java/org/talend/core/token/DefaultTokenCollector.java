@@ -15,9 +15,9 @@ package org.talend.core.token;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.network.NetworkUtil;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.utils.security.CryptoHelper;
@@ -42,9 +42,7 @@ public class DefaultTokenCollector extends AbstractTokenCollector {
     @Override
     protected void collectTokenStudio(JSONObject tokenStudioObject) throws Exception {
         // version
-        String version = (String) CoreRuntimePlugin.getInstance().getBundle().getHeaders()
-                .get(org.osgi.framework.Constants.BUNDLE_VERSION);
-        tokenStudioObject.put(VERSION.getKey(), version);
+        tokenStudioObject.put(VERSION.getKey(), VersionUtils.getVersion());
         // uniqueId
         tokenStudioObject.put(UNIQUE_ID.getKey(), calcUniqueId());
         // typeStudio
