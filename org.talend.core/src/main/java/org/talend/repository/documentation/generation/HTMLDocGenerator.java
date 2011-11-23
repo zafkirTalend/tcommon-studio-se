@@ -1375,7 +1375,8 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         element.addAttribute("i18n.job.modification", Messages.getString("HTMLDocGenerator.modification")); //$NON-NLS-1$ //$NON-NLS-2$
         element.addAttribute("i18n.job.extract.settings", Messages.getString("HTMLDocGenerator.extra_settings")); //$NON-NLS-1$ //$NON-NLS-2$
         element.addAttribute("i18n.job.value", Messages.getString("HTMLDocGenerator.value")); //$NON-NLS-1$ //$NON-NLS-2$
-        element.addAttribute("i18n.job.stats.logs", Messages.getString("HTMLDocGenerator.stats_logs")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute(
+                "i18n.job.stats.logs", Messages.getString("HTMLDocGenerator.status") + " & " + Messages.getString("EComponentCategory_logs")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
         element.addAttribute("i18n.job.context", Messages.getString("HTMLDocGenerator.context")); //$NON-NLS-1$ //$NON-NLS-2$
         element.addAttribute("i18n.job.promt", Messages.getString("HTMLDocGenerator.prompt")); //$NON-NLS-1$ //$NON-NLS-2$
         element.addAttribute("i18n.job.need.promt", Messages.getString("HTMLDocGenerator.need_prompt")); //$NON-NLS-1$ //$NON-NLS-2$
@@ -1389,7 +1390,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         element.addAttribute("i18n.job.label", Messages.getString("HTMLDocGenerator.label")); //$NON-NLS-1$ //$NON-NLS-2$
         element.addAttribute("i18n.job.output", Messages.getString("HTMLDocGenerator.output")); //$NON-NLS-1$ //$NON-NLS-2$
         element.addAttribute("i18n.job.component.parameters", Messages.getString("HTMLDocGenerator.component_parameters")); //$NON-NLS-1$ //$NON-NLS-2$
-        element.addAttribute("i18n.job.schema.for", Messages.getString("HTMLDocGenerator.schema_for")); //$NON-NLS-1$ //$NON-NLS-2$
+        element.addAttribute("i18n.job.schema.for", Messages.getString("HTMLDocGenerator.schema_for") + " "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         element.addAttribute("i18n.job.column", Messages.getString("HTMLDocGenerator.column")); //$NON-NLS-1$ //$NON-NLS-2$
         element.addAttribute("i18n.job.key", Messages.getString("HTMLDocGenerator.key")); //$NON-NLS-1$ //$NON-NLS-2$
         element.addAttribute("i18n.job.length", Messages.getString("HTMLDocGenerator.length")); //$NON-NLS-1$ //$NON-NLS-2$
