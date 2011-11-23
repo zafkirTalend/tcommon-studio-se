@@ -14,6 +14,7 @@ package routines.system;
 
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
+import java.text.DecimalFormat;
 import java.util.Date;
 
 import routines.TalendDate;
@@ -177,6 +178,8 @@ public class FormatterUtils {
         return returnString.toString();
     }
 
+    
+    private static final DecimalFormat df = new DecimalFormat("#.###########################################################");
     /**
      * DOC Administrator Comment method "formatUnwithE". In java when double more than six decimal that use toString
      * will rentru contains E scientific natation.
@@ -186,14 +189,14 @@ public class FormatterUtils {
      */
     public static String formatUnwithE(Object arg) {
         String doubleString = String.valueOf(arg);
-        if (doubleString.indexOf("E") != -1) {
-            String position;
-            if (doubleString.charAt(doubleString.indexOf("E") + 1) != '-') {
-                position = doubleString.substring(doubleString.indexOf("E") + 1);
+        int index = doubleString.indexOf("E");
+        if (index != -1) {
+            if (doubleString.charAt(index + 1) != '-') {
+            	return df.format(arg);
             } else {
-                position = doubleString.substring(doubleString.indexOf("E") + 2);
+            	String position = doubleString.substring(index + 2);
+                return String.format("%1." + position + "f", arg);
             }
-            return String.format("%1." + position + "f", arg);
         }
         return doubleString;
     }
