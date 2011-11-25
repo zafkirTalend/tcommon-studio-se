@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:TalendXMLMap="http://www.talend.org/xmlmap" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmi:id="_-jx-MBdwEeGSEs5T83R7_A" defaultContext="Default">
+  <context xmi:id="_-jx-MRdwEeGSEs5T83R7_A" confirmationNeeded="false" name="Default"/>
+  <parameters xmi:id="_-jx-MhdwEeGSEs5T83R7_A">
+    <elementParameter xmi:id="_-jx-MxdwEeGSEs5T83R7_A" field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="/Users/zubairov/Downloads/TOS_ESB-r72978-V5.0.0/workspace"/>
+    <elementParameter xmi:id="_-jx-NBdwEeGSEs5T83R7_A" field="DIRECTORY" name="PRODUCT_ROOT_DIR" value="/Users/zubairov/Downloads/TOS_ESB-r72978-V5.0.0"/>
+    <elementParameter xmi:id="_-jx-NRdwEeGSEs5T83R7_A" field="DIRECTORY" name="COMP_DEFAULT_PROJECT_DIR" value="/Users/zubairov/Downloads/TOS_ESB-r72978-V5.0.0/workspace/DEMO"/>
+    <elementParameter xmi:id="_-jx-NhdwEeGSEs5T83R7_A" field="TEXT" name="JOB_RUN_VM_ARGUMENTS" value=" -Xms256M -Xmx1024M"/>
+    <elementParameter xmi:id="_-jx-NxdwEeGSEs5T83R7_A" field="CHECK" name="JOB_RUN_VM_ARGUMENTS_OPTION" value="false"/>
+    <elementParameter xmi:id="_-jx-OBdwEeGSEs5T83R7_A" field="TEXT" name="AUTHOR" value="test@talend.com"/>
+    <elementParameter xmi:id="_-jx-ORdwEeGSEs5T83R7_A" field="TEXT" name="STATUS" value=""/>
+    <elementParameter xmi:id="_-jx-OhdwEeGSEs5T83R7_A" field="TEXT" name="NAME" value="ReservationService_getAvailableCars"/>
+    <elementParameter xmi:id="_-jx-OxdwEeGSEs5T83R7_A" field="TEXT" name="VERSION" value="0.1"/>
+    <elementParameter xmi:id="_-jx-PBdwEeGSEs5T83R7_A" field="TEXT" name="PURPOSE" value=""/>
+    <elementParameter xmi:id="_-jx-PRdwEeGSEs5T83R7_A" field="TEXT" name="DESCRIPTION" value=""/>
+    <elementParameter xmi:id="_-jx-PhdwEeGSEs5T83R7_A" field="TEXT" name="SCREEN_OFFSET_X" value="0"/>
+    <elementParameter xmi:id="_-jx-PxdwEeGSEs5T83R7_A" field="TEXT" name="SCREEN_OFFSET_Y" value="0"/>
+    <elementParameter xmi:id="_-jx-QBdwEeGSEs5T83R7_A" field="TEXT" name="SCHEMA_OPTIONS" value="none"/>
+    <elementParameter xmi:id="_-jx-QRdwEeGSEs5T83R7_A" field="CHECK" name="IMPLICITCONTEXT_USE_PROJECT_SETTINGS" value="true"/>
+    <elementParameter xmi:id="_-jx-QhdwEeGSEs5T83R7_A" field="CHECK" name="STATANDLOG_USE_PROJECT_SETTINGS" value="true"/>
+    <elementParameter xmi:id="_-jx-QxdwEeGSEs5T83R7_A" field="CHECK" name="MULTI_THREAD_EXECATION" value="false"/>
+    <elementParameter xmi:id="_-jx-RBdwEeGSEs5T83R7_A" field="CHECK" name="IMPLICIT_TCONTEXTLOAD" value="false"/>
+    <elementParameter xmi:id="_-jx-RRdwEeGSEs5T83R7_A" field="RADIO" name="FROM_FILE_FLAG_IMPLICIT_CONTEXT" value="false"/>
+    <elementParameter xmi:id="_-jx-RhdwEeGSEs5T83R7_A" field="RADIO" name="FROM_DATABASE_FLAG_IMPLICIT_CONTEXT" value="false"/>
+    <elementParameter xmi:id="_-jx-RxdwEeGSEs5T83R7_A" field="FILE" name="IMPLICIT_TCONTEXTLOAD_FILE" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-SBdwEeGSEs5T83R7_A" field="TEXT" name="FIELDSEPARATOR" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-SRdwEeGSEs5T83R7_A" field="TECHNICAL" name="PROPERTY_TYPE_IMPLICIT_CONTEXT:PROPERTY_TYPE" value=""/>
+    <elementParameter xmi:id="_-jx-ShdwEeGSEs5T83R7_A" field="TECHNICAL" name="PROPERTY_TYPE_IMPLICIT_CONTEXT:REPOSITORY_PROPERTY_TYPE" value=""/>
+    <elementParameter xmi:id="_-jx-SxdwEeGSEs5T83R7_A" field="CLOSED_LIST" name="DB_TYPE_IMPLICIT_CONTEXT" value=""/>
+    <elementParameter xmi:id="_-jx-TBdwEeGSEs5T83R7_A" field="CLOSED_LIST" name="DB_VERSION_IMPLICIT_CONTEXT" value=""/>
+    <elementParameter xmi:id="_-jx-TRdwEeGSEs5T83R7_A" field="TEXT" name="URL_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-ThdwEeGSEs5T83R7_A" field="TABLE" name="DRIVER_JAR_IMPLICIT_CONTEXT"/>
+    <elementParameter xmi:id="_-jx-TxdwEeGSEs5T83R7_A" field="TEXT" name="DRIVER_CLASS_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-UBdwEeGSEs5T83R7_A" field="TEXT" name="HOST_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-URdwEeGSEs5T83R7_A" field="TEXT" name="PORT_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-UhdwEeGSEs5T83R7_A" field="TEXT" name="DBNAME_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-UxdwEeGSEs5T83R7_A" field="TEXT" name="LOCAL_SERVICE_NAME_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-VBdwEeGSEs5T83R7_A" field="TEXT" name="PROPERTIES_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-VRdwEeGSEs5T83R7_A" field="TEXT" name="SCHEMA_DB_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-VhdwEeGSEs5T83R7_A" field="TEXT" name="USER_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-VxdwEeGSEs5T83R7_A" field="TEXT" name="PASS_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-WBdwEeGSEs5T83R7_A" field="FILE" name="DBFILE_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-WRdwEeGSEs5T83R7_A" field="DBTABLE" name="DBTABLE_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-WhdwEeGSEs5T83R7_A" field="TEXT" name="QUERY_CONDITION_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-WxdwEeGSEs5T83R7_A" field="CLOSED_LIST" name="LOAD_NEW_VARIABLE" value=""/>
+    <elementParameter xmi:id="_-jx-XBdwEeGSEs5T83R7_A" field="CLOSED_LIST" name="NOT_LOAD_OLD_VARIABLE" value=""/>
+    <elementParameter xmi:id="_-jx-XRdwEeGSEs5T83R7_A" field="CHECK" name="PRINT_OPERATIONS" value="false"/>
+    <elementParameter xmi:id="_-jx-XhdwEeGSEs5T83R7_A" field="CHECK" name="DISABLE_ERROR" value="false"/>
+    <elementParameter xmi:id="_-jx-XxdwEeGSEs5T83R7_A" field="CHECK" name="DISABLE_WARNINGS" value="false"/>
+    <elementParameter xmi:id="_-jx-YBdwEeGSEs5T83R7_A" field="CHECK" name="DISABLE_INFO" value="false"/>
+    <elementParameter xmi:id="_-jx-YRdwEeGSEs5T83R7_A" field="CHECK" name="ON_STATCATCHER_FLAG" value="false"/>
+    <elementParameter xmi:id="_-jx-YhdwEeGSEs5T83R7_A" field="CHECK" name="ON_LOGCATCHER_FLAG" value="false"/>
+    <elementParameter xmi:id="_-jx-YxdwEeGSEs5T83R7_A" field="CHECK" name="ON_METERCATCHER_FLAG" value="false"/>
+    <elementParameter xmi:id="_-jx-ZBdwEeGSEs5T83R7_A" field="CHECK" name="ON_CONSOLE_FLAG" value="false"/>
+    <elementParameter xmi:id="_-jx-ZRdwEeGSEs5T83R7_A" field="CHECK" name="ON_FILES_FLAG" value="false"/>
+    <elementParameter xmi:id="_-jx-ZhdwEeGSEs5T83R7_A" field="DIRECTORY" name="FILE_PATH" value="&quot;/Users/zubairov/Downloads/TOS_ESB-r72377-V5.0.0NB/workspace/.metadata&quot;"/>
+    <elementParameter xmi:id="_-jx-ZxdwEeGSEs5T83R7_A" field="TEXT" name="FILENAME_STATS" value="&quot;stats_file.txt&quot;"/>
+    <elementParameter xmi:id="_-jx-aBdwEeGSEs5T83R7_A" field="TEXT" name="FILENAME_LOGS" value="&quot;logs_file.txt&quot;"/>
+    <elementParameter xmi:id="_-jx-aRdwEeGSEs5T83R7_A" field="TEXT" name="FILENAME_METTER" value="&quot;meter_file.txt&quot;"/>
+    <elementParameter xmi:id="_-jx-ahdwEeGSEs5T83R7_A" field="ENCODING_TYPE" name="ENCODING" value="ISO-8859-15"/>
+    <elementParameter xmi:id="_-jx-axdwEeGSEs5T83R7_A" field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter xmi:id="_-jx-bBdwEeGSEs5T83R7_A" field="CHECK" name="ON_DATABASE_FLAG" value="false"/>
+    <elementParameter xmi:id="_-jx-bRdwEeGSEs5T83R7_A" field="CLOSED_LIST" name="DB_TYPE" value="tJDBCOutput"/>
+    <elementParameter xmi:id="_-jx-bhdwEeGSEs5T83R7_A" field="CLOSED_LIST" name="DB_VERSION" value="ojdbc14-10g.jar"/>
+    <elementParameter xmi:id="_-jx-bxdwEeGSEs5T83R7_A" field="TEXT" name="URL" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-cBdwEeGSEs5T83R7_A" field="TABLE" name="DRIVER_JAR"/>
+    <elementParameter xmi:id="_-jx-cRdwEeGSEs5T83R7_A" field="TEXT" name="DRIVER_CLASS" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-chdwEeGSEs5T83R7_A" field="TEXT" name="HOST" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-cxdwEeGSEs5T83R7_A" field="TEXT" name="PORT" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-dBdwEeGSEs5T83R7_A" field="TEXT" name="DATASOURCE" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-dRdwEeGSEs5T83R7_A" field="TEXT" name="DBNAME" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-dhdwEeGSEs5T83R7_A" field="TEXT" name="LOCAL_SERVICE_NAME" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-dxdwEeGSEs5T83R7_A" field="TEXT" name="PROPERTIES" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-eBdwEeGSEs5T83R7_A" field="TEXT" name="SCHEMA_DB" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-eRdwEeGSEs5T83R7_A" field="TEXT" name="USER" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-ehdwEeGSEs5T83R7_A" field="TEXT" name="PASS" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-exdwEeGSEs5T83R7_A" field="FILE" name="DBFILE" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-fBdwEeGSEs5T83R7_A" field="DBTABLE" name="TABLE_STATS" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-fRdwEeGSEs5T83R7_A" field="DBTABLE" name="TABLE_LOGS" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-fhdwEeGSEs5T83R7_A" field="DBTABLE" name="TABLE_METER" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_-jx-fxdwEeGSEs5T83R7_A" field="CHECK" name="CATCH_RUNTIME_ERRORS" value="true"/>
+    <elementParameter xmi:id="_-jx-gBdwEeGSEs5T83R7_A" field="CHECK" name="CATCH_USER_ERRORS" value="true"/>
+    <elementParameter xmi:id="_-jx-gRdwEeGSEs5T83R7_A" field="CHECK" name="CATCH_USER_WARNING" value="true"/>
+    <elementParameter xmi:id="_-jx-ghdwEeGSEs5T83R7_A" field="CHECK" name="CATCH_REALTIME_STATS" value="false"/>
+    <elementParameter xmi:id="_-jx-gxdwEeGSEs5T83R7_A" field="TEXT" name="HEADERFOOTER_HEADERID" value=""/>
+    <elementParameter xmi:id="_-jx-hBdwEeGSEs5T83R7_A" field="CHECK" name="HEADER_ENABLED" value="false"/>
+    <elementParameter xmi:id="_-jx-hRdwEeGSEs5T83R7_A" field="TEXT" name="HEADER_LIBRARY" value=""/>
+    <elementParameter xmi:id="_-jx-hhdwEeGSEs5T83R7_A" field="TEXT" name="HEADER_CODE" value=""/>
+    <elementParameter xmi:id="_-jx-hxdwEeGSEs5T83R7_A" field="TEXT" name="HEADER_IMPORT" value=""/>
+    <elementParameter xmi:id="_-jx-iBdwEeGSEs5T83R7_A" field="TEXT" name="HEADERFOOTER_FOOTERID" value=""/>
+    <elementParameter xmi:id="_-jx-iRdwEeGSEs5T83R7_A" field="CHECK" name="FOOTER_ENABLED" value="false"/>
+    <elementParameter xmi:id="_-jx-ihdwEeGSEs5T83R7_A" field="TEXT" name="FOOTER_LIBRARY" value=""/>
+    <elementParameter xmi:id="_-jx-ixdwEeGSEs5T83R7_A" field="TEXT" name="FOOTER_CODE" value=""/>
+    <elementParameter xmi:id="_-jx-jBdwEeGSEs5T83R7_A" field="TEXT" name="FOOTER_IMPORT" value=""/>
+    <routinesParameter xmi:id="_-jx-jRdwEeGSEs5T83R7_A" id="_ySLvEBAwEeGFz_xdEv1J-Q" name="DataOperation"/>
+    <routinesParameter xmi:id="_-jx-jhdwEeGSEs5T83R7_A" id="_ySnz8BAwEeGFz_xdEv1J-Q" name="Mathematical"/>
+    <routinesParameter xmi:id="_-jx-jxdwEeGSEs5T83R7_A" id="_ySpCEBAwEeGFz_xdEv1J-Q" name="Numeric"/>
+    <routinesParameter xmi:id="_-jx-kBdwEeGSEs5T83R7_A" id="_ySq3QBAwEeGFz_xdEv1J-Q" name="Relational"/>
+    <routinesParameter xmi:id="_-jx-kRdwEeGSEs5T83R7_A" id="_ySsFYBAwEeGFz_xdEv1J-Q" name="StringHandling"/>
+    <routinesParameter xmi:id="_-jx-khdwEeGSEs5T83R7_A" id="_yStTgBAwEeGFz_xdEv1J-Q" name="TalendDataGenerator"/>
+    <routinesParameter xmi:id="_-jx-kxdwEeGSEs5T83R7_A" id="_ySvIsBAwEeGFz_xdEv1J-Q" name="TalendDate"/>
+    <routinesParameter xmi:id="_-jx-lBdwEeGSEs5T83R7_A" id="_yTBckBAwEeGFz_xdEv1J-Q" name="TalendString"/>
+  </parameters>
+  <node xmi:id="_-jx-lRdwEeGSEs5T83R7_A" componentName="tESBProviderRequest" componentVersion="0.100" offsetLabelX="0" offsetLabelY="0" posX="96" posY="192">
+    <elementParameter xmi:id="_-jx-lhdwEeGSEs5T83R7_A" field="TEXT" name="UNIQUE_NAME" value="tESBProviderRequest_1"/>
+    <elementParameter xmi:id="_-jx-lxdwEeGSEs5T83R7_A" field="CHECK" name="START" value="true"/>
+    <elementParameter xmi:id="_-jx-mBdwEeGSEs5T83R7_A" field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY"/>
+    <elementParameter xmi:id="_-jx-mRdwEeGSEs5T83R7_A" field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" value="_e4XwABBXEeGFz_xdEv1J-Q - _e5H98BBXEeGFz_xdEv1J-Q - _e5H98RBXEeGFz_xdEv1J-Q"/>
+    <elementParameter xmi:id="_-jx-mhdwEeGSEs5T83R7_A" field="CHECK" name="KEEPLISTENING" value="true"/>
+    <elementParameter xmi:id="_-jx-mxdwEeGSEs5T83R7_A" field="TEXT" name="WSDL_LOCATION" value="/Users/zubairov/Downloads/TOS_ESB-r72978-V5.0.0/workspace/DEMO/services/ReservationService_0.1.wsdl"/>
+    <elementParameter xmi:id="_-jx-nBdwEeGSEs5T83R7_A" field="TEXT" name="ENDPOINT_URI" value="http://localhost:8888/services/ReservationServiceProvider/"/>
+    <elementParameter xmi:id="_-jx-nRdwEeGSEs5T83R7_A" field="TEXT" name="SERVICE_NS" value="http://services.talend.org/ReservationService"/>
+    <elementParameter xmi:id="_-jx-nhdwEeGSEs5T83R7_A" field="TEXT" name="SERVICE_NAME" value="ReservationServiceProvider"/>
+    <elementParameter xmi:id="_-jx-nxdwEeGSEs5T83R7_A" field="TEXT" name="PORT_NS" value="http://services.talend.org/ReservationService"/>
+    <elementParameter xmi:id="_-jx-oBdwEeGSEs5T83R7_A" field="TEXT" name="PORT_NAME" value="localhost"/>
+    <elementParameter xmi:id="_-jx-oRdwEeGSEs5T83R7_A" field="TEXT" name="OPERATION_NS" value=""/>
+    <elementParameter xmi:id="_-jx-ohdwEeGSEs5T83R7_A" field="TEXT" name="OPERATION_NAME" value="getAvailableCars"/>
+    <elementParameter xmi:id="_-jx-oxdwEeGSEs5T83R7_A" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter xmi:id="_-jx-pBdwEeGSEs5T83R7_A" field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter xmi:id="_-jx-pRdwEeGSEs5T83R7_A" field="MEMO" name="COMMENT" value=""/>
+    <elementParameter xmi:id="_-jx-phdwEeGSEs5T83R7_A" field="CHECK" name="VALIDATION_RULES" value="false"/>
+    <metadata xmi:id="_-jx-pxdwEeGSEs5T83R7_A" connector="FLOW" name="tESBProviderRequest_1">
+      <column xmi:id="_-jx-qBdwEeGSEs5T83R7_A" defaultValue="" key="false" length="0" name="payload" nullable="true" precision="0" sourceType="" type="id_Document"/>
+    </metadata>
+  </node>
+  <node xmi:id="_-jx-qRdwEeGSEs5T83R7_A" componentName="tFixedFlowInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="224" posY="192">
+    <elementParameter xmi:id="_-jx-qhdwEeGSEs5T83R7_A" field="TEXT" name="UNIQUE_NAME" value="tFixedFlowInput_1"/>
+    <elementParameter xmi:id="_-jx-qxdwEeGSEs5T83R7_A" field="TEXT" name="NB_ROWS" value="1"/>
+    <elementParameter xmi:id="_-jx-rBdwEeGSEs5T83R7_A" field="RADIO" name="USE_SINGLEMODE" value="false"/>
+    <elementParameter xmi:id="_-jx-rRdwEeGSEs5T83R7_A" field="TABLE" name="VALUES">
+      <elementValue xmi:id="_-jx-rhdwEeGSEs5T83R7_A" elementRef="SCHEMA_COLUMN" value="carID"/>
+      <elementValue xmi:id="_-jx-rxdwEeGSEs5T83R7_A" elementRef="VALUE" value=""/>
+      <elementValue xmi:id="_-jx-sBdwEeGSEs5T83R7_A" elementRef="SCHEMA_COLUMN" value="designModel"/>
+      <elementValue xmi:id="_-jx-sRdwEeGSEs5T83R7_A" elementRef="VALUE" value=""/>
+      <elementValue xmi:id="_-jx-shdwEeGSEs5T83R7_A" elementRef="SCHEMA_COLUMN" value="aClass"/>
+      <elementValue xmi:id="_-jx-sxdwEeGSEs5T83R7_A" elementRef="VALUE" value=""/>
+      <elementValue xmi:id="_-jx-tBdwEeGSEs5T83R7_A" elementRef="SCHEMA_COLUMN" value="brand"/>
+      <elementValue xmi:id="_-jx-tRdwEeGSEs5T83R7_A" elementRef="VALUE" value=""/>
+      <elementValue xmi:id="_-jx-thdwEeGSEs5T83R7_A" elementRef="SCHEMA_COLUMN" value="rateWeekend"/>
+      <elementValue xmi:id="_-jx-txdwEeGSEs5T83R7_A" elementRef="VALUE" value=""/>
+      <elementValue xmi:id="_-jx-uBdwEeGSEs5T83R7_A" elementRef="SCHEMA_COLUMN" value="rateWeekday"/>
+      <elementValue xmi:id="_-jx-uRdwEeGSEs5T83R7_A" elementRef="VALUE" value=""/>
+      <elementValue xmi:id="_-jx-uhdwEeGSEs5T83R7_A" elementRef="SCHEMA_COLUMN" value="securityGuarantee"/>
+      <elementValue xmi:id="_-jx-uxdwEeGSEs5T83R7_A" elementRef="VALUE" value=""/>
+    </elementParameter>
+    <elementParameter xmi:id="_-jx-vBdwEeGSEs5T83R7_A" field="RADIO" name="USE_INTABLE" value="true"/>
+    <elementParameter xmi:id="_-jx-vRdwEeGSEs5T83R7_A" field="TABLE" name="INTABLE">
+      <elementValue xmi:id="_-jx-vhdwEeGSEs5T83R7_A" elementRef="carID" value="&quot;me600&quot;"/>
+      <elementValue xmi:id="_-jx-vxdwEeGSEs5T83R7_A" elementRef="designModel" value="&quot;Mercedes E600&quot;"/>
+      <elementValue xmi:id="_-jx-wBdwEeGSEs5T83R7_A" elementRef="aClass" value="&quot;Premium&quot;"/>
+      <elementValue xmi:id="_-jx-wRdwEeGSEs5T83R7_A" elementRef="brand" value="&quot;Mercedes&quot;"/>
+      <elementValue xmi:id="_-jx-whdwEeGSEs5T83R7_A" elementRef="rateWeekend" value="&quot;500€&quot;"/>
+      <elementValue xmi:id="_-jx-wxdwEeGSEs5T83R7_A" elementRef="rateWeekday" value="&quot;300€&quot;"/>
+      <elementValue xmi:id="_-jx-xBdwEeGSEs5T83R7_A" elementRef="securityGuarantee" value="&quot;Full&quot;"/>
+      <elementValue xmi:id="_-jx-xRdwEeGSEs5T83R7_A" elementRef="carID" value="&quot;aa4&quot;"/>
+      <elementValue xmi:id="_-jx-xhdwEeGSEs5T83R7_A" elementRef="designModel" value="&quot;Audi A4&quot;"/>
+      <elementValue xmi:id="_-jx-xxdwEeGSEs5T83R7_A" elementRef="aClass" value="&quot;Middle&quot;"/>
+      <elementValue xmi:id="_-jx-yBdwEeGSEs5T83R7_A" elementRef="brand" value="&quot;Audi&quot;"/>
+      <elementValue xmi:id="_-jx-yRdwEeGSEs5T83R7_A" elementRef="rateWeekend" value="&quot;400€&quot;"/>
+      <elementValue xmi:id="_-jx-yhdwEeGSEs5T83R7_A" elementRef="rateWeekday" value="&quot;300€&quot;"/>
+      <elementValue xmi:id="_-jx-yxdwEeGSEs5T83R7_A" elementRef="securityGuarantee" value="&quot;Full&quot;"/>
+    </elementParameter>
+    <elementParameter xmi:id="_-jx-zBdwEeGSEs5T83R7_A" field="RADIO" name="USE_INLINECONTENT" value="false"/>
+    <elementParameter xmi:id="_-jx-zRdwEeGSEs5T83R7_A" field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
+    <elementParameter xmi:id="_-jx-zhdwEeGSEs5T83R7_A" field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
+    <elementParameter xmi:id="_-jx-zxdwEeGSEs5T83R7_A" field="MEMO" name="INLINECONTENT" value=""/>
+    <elementParameter xmi:id="_-jx-0BdwEeGSEs5T83R7_A" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter xmi:id="_-jx-0RdwEeGSEs5T83R7_A" field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter xmi:id="_-jx-0hdwEeGSEs5T83R7_A" field="MEMO" name="COMMENT" value=""/>
+    <elementParameter xmi:id="_-jx-0xdwEeGSEs5T83R7_A" field="CHECK" name="VALIDATION_RULES" value="false"/>
+    <metadata xmi:id="_-jx-1BdwEeGSEs5T83R7_A" connector="FLOW" label="RESCarType" name="tFixedFlowInput_1">
+      <column xmi:id="_-jx-1RdwEeGSEs5T83R7_A" comment="" key="true" length="0" name="carID" nullable="true" pattern="" precision="0" type="id_String"/>
+      <column xmi:id="_-jx-1hdwEeGSEs5T83R7_A" comment="" key="false" length="0" name="designModel" nullable="true" pattern="" precision="0" type="id_String"/>
+      <column xmi:id="_-jx-1xdwEeGSEs5T83R7_A" comment="" key="false" length="0" name="aClass" nullable="true" pattern="" precision="0" type="id_String"/>
+      <column xmi:id="_-jx-2BdwEeGSEs5T83R7_A" comment="" key="false" length="0" name="brand" nullable="true" pattern="" precision="0" type="id_String"/>
+      <column xmi:id="_-jx-2RdwEeGSEs5T83R7_A" comment="" key="false" length="0" name="rateWeekend" nullable="true" pattern="" precision="0" type="id_String"/>
+      <column xmi:id="_-jylQBdwEeGSEs5T83R7_A" comment="" key="false" length="0" name="rateWeekday" nullable="true" pattern="" precision="0" type="id_String"/>
+      <column xmi:id="_-jylQRdwEeGSEs5T83R7_A" comment="" key="false" length="0" name="securityGuarantee" nullable="true" pattern="" precision="0" type="id_String"/>
+    </metadata>
+  </node>
+  <node xmi:id="_-jylQhdwEeGSEs5T83R7_A" componentName="tXMLMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="384" posY="192">
+    <elementParameter xmi:id="_-jylQxdwEeGSEs5T83R7_A" field="TEXT" name="UNIQUE_NAME" value="tXMLMap_1"/>
+    <elementParameter xmi:id="_-jylRBdwEeGSEs5T83R7_A" field="EXTERNAL" name="MAP" value=""/>
+    <elementParameter xmi:id="_-jylRRdwEeGSEs5T83R7_A" field="CHECK" name="DIE_ON_ERROR" value="true"/>
+    <elementParameter xmi:id="_-jylRhdwEeGSEs5T83R7_A" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter xmi:id="_-jylRxdwEeGSEs5T83R7_A" field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter xmi:id="_-jylSBdwEeGSEs5T83R7_A" field="MEMO" name="COMMENT" value=""/>
+    <elementParameter xmi:id="_-jylSRdwEeGSEs5T83R7_A" field="CHECK" name="VALIDATION_RULES" value="false"/>
+    <metadata xmi:id="_-jylShdwEeGSEs5T83R7_A" connector="FLOW" name="response">
+      <column xmi:id="_-jylSxdwEeGSEs5T83R7_A" defaultValue="" key="false" length="0" name="payload" nullable="true" precision="0" sourceType="" type="id_Document"/>
+    </metadata>
+    <nodeData xsi:type="TalendXMLMap:XmlMapData" xmi:id="_-jylTBdwEeGSEs5T83R7_A">
+      <inputTrees xmi:id="_-jylTRdwEeGSEs5T83R7_A" name="row1" matchingMode="ALL_ROWS" lookupMode="LOAD_ONCE">
+        <nodes xmi:id="_-jylThdwEeGSEs5T83R7_A" name="carID" type="id_String" nullable="true" outgoingConnections="_-jylYhdwEeGSEs5T83R7_A" xpath="row1/carID"/>
+        <nodes xmi:id="_-jylTxdwEeGSEs5T83R7_A" name="designModel" type="id_String" nullable="true" outgoingConnections="_-jylYxdwEeGSEs5T83R7_A" xpath="row1/designModel"/>
+        <nodes xmi:id="_-jylUBdwEeGSEs5T83R7_A" name="aClass" type="id_String" nullable="true" outgoingConnections="_-jylZBdwEeGSEs5T83R7_A" xpath="row1/aClass"/>
+        <nodes xmi:id="_-jylURdwEeGSEs5T83R7_A" name="brand" type="id_String" nullable="true" outgoingConnections="_-jylZRdwEeGSEs5T83R7_A" xpath="row1/brand"/>
+        <nodes xmi:id="_-jylUhdwEeGSEs5T83R7_A" name="rateWeekend" type="id_String" nullable="true" outgoingConnections="_-jylZhdwEeGSEs5T83R7_A" xpath="row1/rateWeekend"/>
+        <nodes xmi:id="_-jylUxdwEeGSEs5T83R7_A" name="rateWeekday" type="id_String" nullable="true" xpath="row1/rateWeekday"/>
+        <nodes xmi:id="_-jylVBdwEeGSEs5T83R7_A" name="securityGuarantee" type="id_String" nullable="true" outgoingConnections="_-jylZxdwEeGSEs5T83R7_A" xpath="row1/securityGuarantee"/>
+      </inputTrees>
+      <outputTrees xmi:id="_-jylVRdwEeGSEs5T83R7_A" activateCondensedTool="true" name="response" allInOne="true">
+        <nodes xmi:id="_-jylVhdwEeGSEs5T83R7_A" name="payload" expression="" type="id_Document" nullable="true" xpath="response/payload">
+          <children xsi:type="TalendXMLMap:OutputTreeNode" xmi:id="_-jylVxdwEeGSEs5T83R7_A" name="car:RESCarList" type="id_String" xpath="response.payload:/car:RESCarList" main="true">
+            <children xsi:type="TalendXMLMap:OutputTreeNode" xmi:id="_-jylWBdwEeGSEs5T83R7_A" name="car" type="id_String" xpath="response.payload:/car:RESCarList/xmlns:car" nodeType="NAME_SPACE" defaultValue="http://services.talend.org/reservation/types"/>
+            <children xsi:type="TalendXMLMap:OutputTreeNode" xmi:id="_-jylWRdwEeGSEs5T83R7_A" name="car" type="id_String" xpath="response.payload:/car:RESCarList/car" loop="true" main="true">
+              <children xsi:type="TalendXMLMap:OutputTreeNode" xmi:id="_-jylWhdwEeGSEs5T83R7_A" name="carId" expression=" row1.carID" type="id_String" incomingConnections="_-jylYhdwEeGSEs5T83R7_A" xpath="response.payload:/car:RESCarList/car/carId"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" xmi:id="_-jylWxdwEeGSEs5T83R7_A" name="designModel" expression="row1.designModel" type="id_String" incomingConnections="_-jylYxdwEeGSEs5T83R7_A" xpath="response.payload:/car:RESCarList/car/designModel"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" xmi:id="_-jylXBdwEeGSEs5T83R7_A" name="class" expression="row1.aClass" type="id_String" incomingConnections="_-jylZBdwEeGSEs5T83R7_A" xpath="response.payload:/car:RESCarList/car/class"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" xmi:id="_-jylXRdwEeGSEs5T83R7_A" name="brand" expression="row1.brand" type="id_String" incomingConnections="_-jylZRdwEeGSEs5T83R7_A" xpath="response.payload:/car:RESCarList/car/brand"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" xmi:id="_-jylXhdwEeGSEs5T83R7_A" name="rateDay" type="id_String" xpath="response.payload:/car:RESCarList/car/rateDay"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" xmi:id="_-jylXxdwEeGSEs5T83R7_A" name="rateWeekend" expression="row1.rateWeekend" type="id_String" incomingConnections="_-jylZhdwEeGSEs5T83R7_A" xpath="response.payload:/car:RESCarList/car/rateWeekend"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" xmi:id="_-jylYBdwEeGSEs5T83R7_A" name="securityGuarantee" expression="row1.securityGuarantee" type="id_String" incomingConnections="_-jylZxdwEeGSEs5T83R7_A" xpath="response.payload:/car:RESCarList/car/securityGuarantee"/>
+            </children>
+          </children>
+        </nodes>
+      </outputTrees>
+      <varTables xmi:id="_-jylYRdwEeGSEs5T83R7_A" name="Var" minimized="true"/>
+      <connections xsi:type="TalendXMLMap:Connection" xmi:id="_-jylYhdwEeGSEs5T83R7_A" source="_-jylThdwEeGSEs5T83R7_A" target="_-jylWhdwEeGSEs5T83R7_A"/>
+      <connections xsi:type="TalendXMLMap:Connection" xmi:id="_-jylYxdwEeGSEs5T83R7_A" source="_-jylTxdwEeGSEs5T83R7_A" target="_-jylWxdwEeGSEs5T83R7_A"/>
+      <connections xsi:type="TalendXMLMap:Connection" xmi:id="_-jylZBdwEeGSEs5T83R7_A" source="_-jylUBdwEeGSEs5T83R7_A" target="_-jylXBdwEeGSEs5T83R7_A"/>
+      <connections xsi:type="TalendXMLMap:Connection" xmi:id="_-jylZRdwEeGSEs5T83R7_A" source="_-jylURdwEeGSEs5T83R7_A" target="_-jylXRdwEeGSEs5T83R7_A"/>
+      <connections xsi:type="TalendXMLMap:Connection" xmi:id="_-jylZhdwEeGSEs5T83R7_A" source="_-jylUhdwEeGSEs5T83R7_A" target="_-jylXxdwEeGSEs5T83R7_A"/>
+      <connections xsi:type="TalendXMLMap:Connection" xmi:id="_-jylZxdwEeGSEs5T83R7_A" source="_-jylVBdwEeGSEs5T83R7_A" target="_-jylYBdwEeGSEs5T83R7_A"/>
+    </nodeData>
+  </node>
+  <node xmi:id="_-jylaBdwEeGSEs5T83R7_A" componentName="tESBProviderResponse" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="544" posY="192">
+    <elementParameter xmi:id="_-jylaRdwEeGSEs5T83R7_A" field="TEXT" name="UNIQUE_NAME" value="tESBProviderResponse_1"/>
+    <elementParameter xmi:id="_-jylahdwEeGSEs5T83R7_A" field="TABLE" name="SERVICE_ACTIVITY_CUSTOM_PROPERTIES"/>
+    <elementParameter xmi:id="_-jylaxdwEeGSEs5T83R7_A" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter xmi:id="_-jylbBdwEeGSEs5T83R7_A" field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter xmi:id="_-jylbRdwEeGSEs5T83R7_A" field="MEMO" name="COMMENT" value=""/>
+    <elementParameter xmi:id="_-jylbhdwEeGSEs5T83R7_A" field="CHECK" name="VALIDATION_RULES" value="false"/>
+    <metadata xmi:id="_-jylbxdwEeGSEs5T83R7_A" connector="FLOW" name="tESBProviderResponse_1">
+      <column xmi:id="_-jylcBdwEeGSEs5T83R7_A" defaultValue="" key="false" length="0" name="payload" nullable="true" precision="0" sourceType="" type="id_Document"/>
+    </metadata>
+  </node>
+  <connection xmi:id="_-jylcRdwEeGSEs5T83R7_A" connectorName="ITERATE" label="Iterate" lineStyle="7" metaname="tESBProviderRequest_1" offsetLabelX="0" offsetLabelY="0" source="tESBProviderRequest_1" target="tFixedFlowInput_1">
+    <elementParameter xmi:id="_-jylchdwEeGSEs5T83R7_A" field="CHECK" name="ENABLE_PARALLEL" value="false"/>
+    <elementParameter xmi:id="_-jylcxdwEeGSEs5T83R7_A" field="TEXT" name="NUMBER_PARALLEL" value="2"/>
+    <elementParameter xmi:id="_-jyldBdwEeGSEs5T83R7_A" field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter xmi:id="_-jyldRdwEeGSEs5T83R7_A" field="TEXT" name="UNIQUE_NAME" value="iterate1"/>
+  </connection>
+  <connection xmi:id="_-jyldhdwEeGSEs5T83R7_A" connectorName="FLOW" label="row1" lineStyle="0" metaname="tFixedFlowInput_1" offsetLabelX="0" offsetLabelY="0" source="tFixedFlowInput_1" target="tXMLMap_1">
+    <elementParameter xmi:id="_-jyldxdwEeGSEs5T83R7_A" field="CHECK" name="TRACES_CONNECTION_ENABLE" value="true"/>
+    <elementParameter xmi:id="_-jyleBdwEeGSEs5T83R7_A" field="TABLE" name="TRACES_CONNECTION_FILTER">
+      <elementValue xmi:id="_-jyleRdwEeGSEs5T83R7_A" elementRef="TRACE_COLUMN" value="carID"/>
+      <elementValue xmi:id="_-jylehdwEeGSEs5T83R7_A" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_-jylexdwEeGSEs5T83R7_A" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_-jylfBdwEeGSEs5T83R7_A" elementRef="TRACE_COLUMN" value="designModel"/>
+      <elementValue xmi:id="_-jylfRdwEeGSEs5T83R7_A" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_-jylfhdwEeGSEs5T83R7_A" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_-jylfxdwEeGSEs5T83R7_A" elementRef="TRACE_COLUMN" value="aClass"/>
+      <elementValue xmi:id="_-jylgBdwEeGSEs5T83R7_A" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_-jylgRdwEeGSEs5T83R7_A" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_-jylghdwEeGSEs5T83R7_A" elementRef="TRACE_COLUMN" value="brand"/>
+      <elementValue xmi:id="_-jylgxdwEeGSEs5T83R7_A" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_-jylhBdwEeGSEs5T83R7_A" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_-jylhRdwEeGSEs5T83R7_A" elementRef="TRACE_COLUMN" value="rateWeekend"/>
+      <elementValue xmi:id="_-jylhhdwEeGSEs5T83R7_A" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_-jylhxdwEeGSEs5T83R7_A" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_-jyliBdwEeGSEs5T83R7_A" elementRef="TRACE_COLUMN" value="securityGuarantee"/>
+      <elementValue xmi:id="_-jyliRdwEeGSEs5T83R7_A" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_-jylihdwEeGSEs5T83R7_A" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter xmi:id="_-jylixdwEeGSEs5T83R7_A" field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter xmi:id="_-jyljBdwEeGSEs5T83R7_A" field="CHECK" name="USEROWLABEL" value="true"/>
+    <elementParameter xmi:id="_-jyljRdwEeGSEs5T83R7_A" field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;"/>
+    <elementParameter xmi:id="_-jyljhdwEeGSEs5T83R7_A" field="CLOSED_LIST" name="ABSOLUTE" value="Absolute"/>
+    <elementParameter xmi:id="_-jyljxdwEeGSEs5T83R7_A" field="CONNECTION_LIST" name="CONNECTIONS" value=""/>
+    <elementParameter xmi:id="_-jylkBdwEeGSEs5T83R7_A" field="TABLE" name="THRESHLODS"/>
+    <elementParameter xmi:id="_-jylkRdwEeGSEs5T83R7_A" field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter xmi:id="_-jylkhdwEeGSEs5T83R7_A" field="TEXT" name="UNIQUE_NAME" value="row1"/>
+  </connection>
+  <connection xmi:id="_-jylkxdwEeGSEs5T83R7_A" connectorName="FLOW" label="response" lineStyle="0" metaname="response" offsetLabelX="0" offsetLabelY="0" source="tXMLMap_1" target="tESBProviderResponse_1">
+    <elementParameter xmi:id="_-jyllBdwEeGSEs5T83R7_A" field="CHECK" name="TRACES_CONNECTION_ENABLE" value="true"/>
+    <elementParameter xmi:id="_-jyllRdwEeGSEs5T83R7_A" field="TABLE" name="TRACES_CONNECTION_FILTER">
+      <elementValue xmi:id="_-jyllhdwEeGSEs5T83R7_A" elementRef="TRACE_COLUMN" value="payload"/>
+      <elementValue xmi:id="_-jyllxdwEeGSEs5T83R7_A" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_-jylmBdwEeGSEs5T83R7_A" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter xmi:id="_-jylmRdwEeGSEs5T83R7_A" field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter xmi:id="_-jylmhdwEeGSEs5T83R7_A" field="CHECK" name="USEROWLABEL" value="true"/>
+    <elementParameter xmi:id="_-jylmxdwEeGSEs5T83R7_A" field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;"/>
+    <elementParameter xmi:id="_-jylnBdwEeGSEs5T83R7_A" field="CLOSED_LIST" name="ABSOLUTE" value="Absolute"/>
+    <elementParameter xmi:id="_-jylnRdwEeGSEs5T83R7_A" field="CONNECTION_LIST" name="CONNECTIONS" value=""/>
+    <elementParameter xmi:id="_-jylnhdwEeGSEs5T83R7_A" field="TABLE" name="THRESHLODS"/>
+    <elementParameter xmi:id="_-jylnxdwEeGSEs5T83R7_A" field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter xmi:id="_-jyloBdwEeGSEs5T83R7_A" field="TEXT" name="UNIQUE_NAME" value="response"/>
+  </connection>
+  <subjob xmi:id="_-jyloRdwEeGSEs5T83R7_A">
+    <elementParameter xmi:id="_-jylohdwEeGSEs5T83R7_A" field="TEXT" name="UNIQUE_NAME" value="tESBProviderRequest_1"/>
+    <elementParameter xmi:id="_-jyloxdwEeGSEs5T83R7_A" field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240"/>
+    <elementParameter xmi:id="_-jylpBdwEeGSEs5T83R7_A" field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
+  </subjob>
+</talendfile:ProcessType>

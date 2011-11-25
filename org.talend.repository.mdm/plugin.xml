@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+<extension
+         point="org.talend.core.repositoryContextualsActions">
+      <Action
+            class="org.talend.repository.mdm.action.CreateMDMConnectionAction"
+            id="org.talend.repository.mdm.action.CreateMDMConnectionAction"
+            isEditAction="true"
+            isReadAction="true"
+            level="10"
+            name="Metadata/Create MDM">
+      </Action>
+      <Action
+            class="org.talend.repository.mdm.action.RetrieveMDMSchemaAction"
+            id="org.talend.repository.mdm.action.RetrieveMDMSchemaAction"
+            isEditAction="true"
+            isReadAction="true"
+            level="10"
+            name="Metadata/Retrieve Schema">
+      </Action>
+      <Action
+            class="org.talend.repository.mdm.action.ReadMDMSchemaAction"
+            id="org.talend.repository.mdm.action.ReadMDMSchemaAction"
+            isEditAction="true"
+            isReadAction="true"
+            level="10"
+            name="Metadata/Read Schema">
+      </Action>
+   </extension>
+
+   <extension
+         point="org.talend.core.runtime.service">
+      <Service
+            class="org.talend.repository.mdm.MDMProviderService"
+            serviceId="IMDMProviderService">
+      </Service>
+   </extension>
+
+</plugin>
