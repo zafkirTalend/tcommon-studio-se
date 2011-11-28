@@ -1101,9 +1101,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         if ((item instanceof ProcessItem || item instanceof JobletProcessItem) && (isImportItem.length == 0)) {
             fireRepositoryPropertyChange(ERepositoryActionName.JOB_CREATE.getName(), null, item);
         }
-        if (isImportItem.length == 1) {
-            this.repositoryFactoryFromProvider.unloadResources(item.getProperty());
-        }
     }
 
     /*
