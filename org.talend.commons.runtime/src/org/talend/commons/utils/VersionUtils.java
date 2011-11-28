@@ -12,8 +12,6 @@
 // ============================================================================
 package org.talend.commons.utils;
 
-import org.eclipse.core.runtime.Platform;
-import org.osgi.framework.Bundle;
 
 /**
  * Represents a version. Contents a major and a minor version.<br/>
@@ -39,16 +37,5 @@ public class VersionUtils {
         Version toReturn = new Version(version);
         toReturn.upMajor();
         return toReturn.toString();
-    }
-
-    public static String getVersion() {
-        String version = System.getProperty("talend.studio.version"); //$NON-NLS-1$
-        if (version == null || "".equals(version.trim())) { //$NON-NLS-1$
-            Bundle bundle = Platform.getBundle("org.talend.commons.runtime"); //$NON-NLS-1$
-            if (bundle != null) {
-                version = (String) bundle.getHeaders().get(org.osgi.framework.Constants.BUNDLE_VERSION);
-            }
-        }
-        return version;
     }
 }

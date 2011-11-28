@@ -28,7 +28,6 @@ import org.eclipse.ui.intro.config.IIntroContentProviderSite;
 import org.eclipse.ui.intro.config.IIntroXHTMLContentProvider;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.commons.utils.VersionUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.Project;
@@ -39,6 +38,7 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.token.DefaultTokenCollector;
 import org.talend.core.ui.branding.IBrandingService;
+import org.talend.rcp.Activator;
 import org.talend.repository.ProjectManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -149,7 +149,8 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
             edition = brandingService.getAcronym();
         }
         // version
-        String version = VersionUtils.getVersion();
+        String version = (String) Activator.getDefault().getBundle().getHeaders()
+                .get(org.osgi.framework.Constants.BUNDLE_VERSION);
         StringBuffer sb = new StringBuffer();
         if (version != null && !"".equals(version)) {
             StringTokenizer stringTokenizer = new StringTokenizer(version, LEVEL_SEPARATOR);

@@ -32,7 +32,7 @@ import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.osgi.framework.Bundle;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.commons.utils.VersionUtils;
+import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.language.ECodeLanguage;
@@ -309,8 +309,10 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
 
     public void generateWelcomeHeaderImage() {
         if (PluginChecker.isCoreTISPluginLoaded()) {
+            String version = (String) CorePlugin.getDefault().getBundle().getHeaders()
+                    .get(org.osgi.framework.Constants.BUNDLE_VERSION);
             ICoreTisService service = (ICoreTisService) GlobalServiceRegister.getDefault().getService(ICoreTisService.class);
-            service.drawWelcomeLogo(VersionUtils.getVersion());
+            service.drawWelcomeLogo(version);
         }
     }
 

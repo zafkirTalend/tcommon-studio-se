@@ -66,7 +66,6 @@ import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.osgi.service.prefs.BackingStoreException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
@@ -155,7 +154,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                 Context.REPOSITORY_CONTEXT_KEY);
         Project project = repositoryContext.getProject();
 
-        Object buildId = VersionUtils.getVersion();
+        Object buildId = Activator.getDefault().getBundle().getHeaders().get(org.osgi.framework.Constants.BUNDLE_VERSION);
 
         IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
         IBrandingConfiguration brandingConfiguration = service.getBrandingConfiguration();

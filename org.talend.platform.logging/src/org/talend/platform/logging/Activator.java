@@ -1,8 +1,12 @@
 package org.talend.platform.logging;
 
+import java.util.Dictionary;
+
 import org.apache.log4j.Logger;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.Constants;
 import org.talend.utils.format.PresentableBox;
 
 /**
@@ -32,9 +36,15 @@ public class Activator extends AbstractUIPlugin {
     @SuppressWarnings("unchecked")
     public void start(BundleContext context) throws Exception {
         super.start(context);
-        plugin = this;
         if (log.isInfoEnabled()) {
-            Object version = getVersion();
+            Object version = null;
+            Bundle b = this.getBundle();
+            if (b != null) {
+                Dictionary headers = b.getHeaders(null);
+                if (headers != null) {
+                    version = headers.get(Constants.BUNDLE_VERSION);
+                }
+            }
             String mess = "Starting Talend's platform log system."; //$NON-NLS-1$
             if (version != null) {
                 mess += ("VERSION= " + version); //$NON-NLS-1$
@@ -42,6 +52,7 @@ public class Activator extends AbstractUIPlugin {
             PresentableBox box = new PresentableBox("TALEND", mess, 0); //$NON-NLS-1$
             log.info(box.getFullBox());
         }
+        plugin = this;
     }
 
     /*
@@ -63,11 +74,4 @@ public class Activator extends AbstractUIPlugin {
         return plugin;
     }
 
-    public static String getVersion() {
-        String version = System.getProperty("talend.studio.version"); //$NON-NLS-1$
-        if (version == null || "".equals(version.trim())) { //$NON-NLS-1$
-            version = (String) getDefault().getBundle().getHeaders().get(org.osgi.framework.Constants.BUNDLE_VERSION);
-        }
-        return version;
-    }
 }

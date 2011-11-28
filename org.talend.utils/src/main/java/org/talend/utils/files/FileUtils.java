@@ -12,17 +12,11 @@
 // ============================================================================
 package org.talend.utils.files;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,35 +38,21 @@ public final class FileUtils {
     public static synchronized void replaceInFile(String path, String oldString, String newString) throws IOException,
             URISyntaxException {
         File file = new File(path);
-        File tmpFile = new File(path + ".tmp");//$NON-NLS-1$
+        File tmpFile = new File(path + ".tmp");
 
-        FileInputStream fis = null;
-        BufferedInputStream bis = null;
-        DataInputStream dis = null;
+        BufferedReader in = new BufferedReader(new FileReader(file));
 
-            fis = new FileInputStream(file);
-        bis = new BufferedInputStream(fis);
-        dis = new DataInputStream(bis);
-
-
-        OutputStream tempOutputStream = new FileOutputStream(tmpFile);
-        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(tempOutputStream, "UTF8"));
+        FileWriter out = new FileWriter(tmpFile);
 
         String line;
-        int len = 0;
         String newLine;
-        byte[] buf2 = new byte[1024];
-
-        while (((len = dis.read(buf2))) != -1) {
-            line = new String(buf2, 0, len);
+        while ((line = in.readLine()) != null) {
             newLine = line.replace(oldString, newString);
-            newLine = new String((newLine).getBytes(), "UTF8");//$NON-NLS-1$//$NON-NLS-2$
-            bufferedWriter.write(newLine);
-            bufferedWriter.flush();
+            out.write(newLine + "\n");
         }
 
-        bufferedWriter.close();
-        dis.close();
+        out.close();
+        in.close();
 
         file.delete();
         tmpFile.renameTo(file);

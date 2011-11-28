@@ -67,7 +67,6 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.ImageUtils;
 import org.talend.commons.ui.runtime.image.ImageUtils.ICON_SIZE;
 import org.talend.commons.utils.PasswordEncryptUtil;
-import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
@@ -1327,7 +1326,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         //        projectElement.addAttribute("description", getProject().getDescription()); //$NON-NLS-1$
         projectElement.addAttribute("generatedDate", DateFormat.getDateTimeInstance().format(new Date())); //$NON-NLS-1$
         projectElement.addAttribute("versionName", getProductVersionName()); //$NON-NLS-1$
-        projectElement.addAttribute("version", VersionUtils.getVersion()); //$NON-NLS-1$
+        projectElement.addAttribute("version", getCurrentTOSVersion()); //$NON-NLS-1$
         projectElement.addAttribute("docType", getDocTypeAttribute()); //$NON-NLS-1$
         String company = CorePlugin.getDefault().getPreferenceStore().getString(ITalendCorePrefConstants.DOC_COMPANY_NAME);
         if (company != null) {
@@ -1376,8 +1375,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         element.addAttribute("i18n.job.modification", Messages.getString("HTMLDocGenerator.modification")); //$NON-NLS-1$ //$NON-NLS-2$
         element.addAttribute("i18n.job.extract.settings", Messages.getString("HTMLDocGenerator.extra_settings")); //$NON-NLS-1$ //$NON-NLS-2$
         element.addAttribute("i18n.job.value", Messages.getString("HTMLDocGenerator.value")); //$NON-NLS-1$ //$NON-NLS-2$
-        element.addAttribute(
-                "i18n.job.stats.logs", Messages.getString("HTMLDocGenerator.status") + " & " + Messages.getString("EComponentCategory_logs")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+        element.addAttribute("i18n.job.stats.logs", Messages.getString("HTMLDocGenerator.stats_logs")); //$NON-NLS-1$ //$NON-NLS-2$
         element.addAttribute("i18n.job.context", Messages.getString("HTMLDocGenerator.context")); //$NON-NLS-1$ //$NON-NLS-2$
         element.addAttribute("i18n.job.promt", Messages.getString("HTMLDocGenerator.prompt")); //$NON-NLS-1$ //$NON-NLS-2$
         element.addAttribute("i18n.job.need.promt", Messages.getString("HTMLDocGenerator.need_prompt")); //$NON-NLS-1$ //$NON-NLS-2$
@@ -1391,7 +1389,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         element.addAttribute("i18n.job.label", Messages.getString("HTMLDocGenerator.label")); //$NON-NLS-1$ //$NON-NLS-2$
         element.addAttribute("i18n.job.output", Messages.getString("HTMLDocGenerator.output")); //$NON-NLS-1$ //$NON-NLS-2$
         element.addAttribute("i18n.job.component.parameters", Messages.getString("HTMLDocGenerator.component_parameters")); //$NON-NLS-1$ //$NON-NLS-2$
-        element.addAttribute("i18n.job.schema.for", Messages.getString("HTMLDocGenerator.schema_for") + " "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        element.addAttribute("i18n.job.schema.for", Messages.getString("HTMLDocGenerator.schema_for")); //$NON-NLS-1$ //$NON-NLS-2$
         element.addAttribute("i18n.job.column", Messages.getString("HTMLDocGenerator.column")); //$NON-NLS-1$ //$NON-NLS-2$
         element.addAttribute("i18n.job.key", Messages.getString("HTMLDocGenerator.key")); //$NON-NLS-1$ //$NON-NLS-2$
         element.addAttribute("i18n.job.length", Messages.getString("HTMLDocGenerator.length")); //$NON-NLS-1$ //$NON-NLS-2$
@@ -1479,6 +1477,18 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
             sourceConnectionMap.put(type.getTarget(), sourceList);
         }
 
+    }
+
+    /**
+     * This method is used for generating current T.O.S version.
+     * 
+     * @return
+     */
+    private String getCurrentTOSVersion() {
+        String currentVersion = IHTMLDocConstants.UNKNOWN;
+        currentVersion = (String) CorePlugin.getDefault().getBundle().getHeaders()
+                .get(org.osgi.framework.Constants.BUNDLE_VERSION);
+        return currentVersion;
     }
 
     /**
