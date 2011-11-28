@@ -59,11 +59,11 @@ public class PropertiesWizard extends Wizard {
 
     private PropertiesWizardPage mainPage;
 
-    private IRepositoryObject object;
+    protected IRepositoryObject object;
 
     private final IPath path;
 
-    private boolean alreadyEditedByUser = false;
+    protected boolean alreadyEditedByUser = false;
 
     private final String originaleObjectLabel;
 
