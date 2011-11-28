@@ -27,9 +27,8 @@ public interface IUpdateSiteBean {
 
     public String getPackaging();
 
-    public String getTempFolder();
-
     public String getURL();
 
-    public void setURL(String url);
+    public Object getArtifact();
+
 }

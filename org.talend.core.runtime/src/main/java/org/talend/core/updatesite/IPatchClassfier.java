@@ -25,6 +25,6 @@ public interface IPatchClassfier {
 
     public String getDescription();
 
-    public String getPackgeName();
+    public String getClassifierString();
 
 }
