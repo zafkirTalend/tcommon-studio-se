@@ -1020,7 +1020,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
                 int dataType = 0;
 
-                if (!ExtractMetaDataUtils.needFakeDatabaseMetaData(iMetadataConnection.getDbType())) {
+                if (!ExtractMetaDataUtils.needFakeDatabaseMetaData(iMetadataConnection.getDbType(),
+                        iMetadataConnection.isSqlMode())) {
                     dataType = columns.getInt(GetColumn.DATA_TYPE.name());
                 }
                 // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously the sql
@@ -1054,7 +1055,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 column.setSqlDataType(sqlDataType);
 
                 // Null able
-                if (!ExtractMetaDataUtils.needFakeDatabaseMetaData(iMetadataConnection.getDbType())) {
+                if (!ExtractMetaDataUtils.needFakeDatabaseMetaData(iMetadataConnection.getDbType(),
+                        iMetadataConnection.isSqlMode())) {
                     int nullable = columns.getInt(GetColumn.NULLABLE.name());
                     column.getSqlDataType().setNullable(NullableType.get(nullable));
                 }

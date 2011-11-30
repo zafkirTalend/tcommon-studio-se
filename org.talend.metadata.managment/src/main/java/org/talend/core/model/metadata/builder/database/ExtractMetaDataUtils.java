@@ -95,15 +95,15 @@ public class ExtractMetaDataUtils {
         DatabaseMetaData dbMetaData = null;
         try {
 
-            if (needFakeDatabaseMetaData(dbType)) {
+            if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
                 dbMetaData = createFakeDatabaseMetaData(conn);
-            } else if (ExtractMetaDataUtils.metadataCon != null && teradataNeedFakeDatabaseMetaData(dbType)
+            } else if (ExtractMetaDataUtils.metadataCon != null && dbType.equals(EDatabaseTypeName.TERADATA.getXmlName())
                     && ExtractMetaDataUtils.metadataCon.isSqlMode()) {
                 dbMetaData = createTeradataFakeDatabaseMetaData(conn);
                 // add by wzhang for bug 8106. set database name for teradata.
                 TeradataDataBaseMetadata teraDbmeta = (TeradataDataBaseMetadata) dbMetaData;
                 teraDbmeta.setDatabaseName(ExtractMetaDataUtils.metadataCon.getDatabase());
-            } else if (sasNeedFakeDatabaseMetaData(dbType)) {
+            } else if (dbType.equals(EDatabaseTypeName.SAS.getXmlName())) {
                 dbMetaData = createSASFakeDatabaseMetaData(conn);
             } else {
                 dbMetaData = conn.getMetaData();
@@ -118,44 +118,13 @@ public class ExtractMetaDataUtils {
         return dbMetaData;
     }
 
-    /**
-     * check if a FakeDatabaseMetaData is needed. only for db2 on z/os right now.
-     * 
-     * @param dbMetaData
-     * @return
-     */
-    public static boolean needFakeDatabaseMetaData(String dbType) {
-        // TODO check if it's db2 for z/os
+    public static boolean needFakeDatabaseMetaData(String dbType, boolean isSqlMode) {
         if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
             return true;
-        }
-        return false;
-    }
+        } else if (dbType.equals(EDatabaseTypeName.TERADATA.getXmlName()) && isSqlMode) {
 
-    /**
-     * check if a FakeDatabaseMetaData is needed. only for db2 on z/os right now.
-     * 
-     * @param dbMetaData
-     * @return
-     */
-    private static boolean sasNeedFakeDatabaseMetaData(String dbType) {
-        // TODO check if it's db2 for z/os
-        if (dbType.equals(EDatabaseTypeName.SAS.getXmlName())) {
             return true;
-        }
-        return false;
-    }
-
-    /**
-     * check if a FakeDatabaseMetaData is needed. only for Teradata right now.
-     * 
-     * @param dbMetaData
-     * @return
-     */
-
-    private static boolean teradataNeedFakeDatabaseMetaData(String dbType) {
-        // TODO check if it's teradata
-        if (dbType.equals(EDatabaseTypeName.TERADATA.getXmlName())) {
+        } else if (dbType.equals(EDatabaseTypeName.SAS.getXmlName())) {
             return true;
         }
         return false;
