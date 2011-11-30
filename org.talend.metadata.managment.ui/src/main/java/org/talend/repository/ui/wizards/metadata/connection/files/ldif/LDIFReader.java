@@ -123,7 +123,7 @@ public class LDIFReader {
         while ((line = reader.readLine()) != null) {
             int len = line.length();
             linenr++;
-            if (len <= 0 || line.charAt(0) != '#') {
+            if (len <= 0 || line.charAt(0) != '#' && line.charAt(0) != '-') {
                 if (len > 0 && line.charAt(0) == ' ') {
                     if (value == null) {
                         lastDN = null;
