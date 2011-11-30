@@ -294,7 +294,7 @@ public class XmlToSchemaDragAndDropHandler {
                         }
 
                         SchemaTarget newTargetEntry = linker.getNewSchemaTargetEntry(relativeXPath);
-                        String name = extractLastWord(extractLastWord(relativeXPath));
+                        String name = extractColumnName(extractTagName(relativeXPath));
                         // if (!name.equals(relativeXPath)) {
                         newTargetEntry.setTagName(name);
                         // }
@@ -336,6 +336,30 @@ public class XmlToSchemaDragAndDropHandler {
             }
         }
         return currentExpr;
+    }
+
+    /**
+     * Extract last word of an expression, the last character must be a letter or a number.
+     * 
+     * @param currentExpr
+     * @return
+     */
+    public static String extractTagName(String currentExpr) {
+        String[] exprs = currentExpr.split("/");
+        if (exprs.length > 0) {
+            currentExpr = exprs[exprs.length - 1];
+        }
+        return currentExpr;
+    }
+
+    /**
+     * Extract last word of an expression, the last character must be a letter or a number.
+     * 
+     * @param currentExpr
+     * @return
+     */
+    public static String extractColumnName(String currentExpr) {
+        return currentExpr.replaceAll("[^a-zA-Z0-9]", "_");
     }
 
     public static void main(String[] args) {
