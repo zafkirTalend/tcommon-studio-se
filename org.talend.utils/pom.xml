@@ -8,14 +8,12 @@
 
     <groupId>org.talend</groupId>
     <artifactId>org.talend.utils</artifactId>
-    <version>4.3-SNAPSHOT</version>
+    <packaging>bundle</packaging>
     <parent>
         <groupId>org.talend</groupId>
         <artifactId>org.talend.tos</artifactId>
-        <version>4.3-SNAPSHOT</version>
+        <version>5.0.1</version>
     </parent>
-
-    <packaging>bundle</packaging>
 
     <dependencies>
         <dependency>
@@ -33,8 +31,6 @@
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
         </dependency>
-        
-        
         <dependency>
             <groupId>org.apache.ant</groupId>
             <artifactId>ant</artifactId>
