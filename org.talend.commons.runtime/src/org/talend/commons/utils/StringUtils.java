@@ -331,4 +331,28 @@ public class StringUtils {
         } else
             return str.substring(0, len);
     }
+
+    private static final String OPEN_BRACE = "{";
+
+    private static final String CLOSE_BRACE = "}";
+
+    /**
+     * Replace MessageFormat.format(..) because MessageFormat does'nt support single quote correctly This method replace
+     * in the text all the patterns {0}, {1}, etc.. by all values in arguments array One or more values can be null, no
+     * exception is thrown if a value is null.
+     * 
+     * @param pattern
+     * @param arguments
+     * @return
+     * 
+     */
+    public static String replacePrms(String text, Object... arguments) {
+
+        for (int i = 0; i < arguments.length; i++) {
+            text = replace(text, OPEN_BRACE + i + CLOSE_BRACE, String.valueOf(arguments[i]));
+        }
+        return text;
+    }
+
+
 }
