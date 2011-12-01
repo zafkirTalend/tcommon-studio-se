@@ -13,6 +13,7 @@
 package org.talend.repository.ui.utils;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jface.window.Window;
@@ -88,7 +89,7 @@ public class SwitchContextGroupNameImpl implements ISwitchContext {
         return false;
     }
 
-    public boolean updateContextForConnectionItems(ContextItem contextItem) {
+    public boolean updateContextForConnectionItems(Map<String, String> contextGroupRanamedMap, ContextItem contextItem) {
         if (contextItem == null) {
             return false;
         }
@@ -101,15 +102,26 @@ public class SwitchContextGroupNameImpl implements ISwitchContext {
                 Item item = connectionItem.getProperty().getItem();
                 if (item instanceof ConnectionItem && ConnectionContextHelper.checkContextMode((ConnectionItem) item) != null) {
                     Connection con = ((ConnectionItem) item).getConnection();
-                    ContextItem originalItem = ContextUtils.getContextItemById2(con.getContextId());
-                    if (originalItem.getProperty().getId().equals(contextItem.getProperty().getId())) {
-                        if (originalItem.getDefaultContext().equals(contextItem.getDefaultContext())) {
-                            con.setContextName(contextItem.getDefaultContext());
+                    String contextId = con.getContextId();
+                    if (contextId != null && contextId.equals(contextItem.getProperty().getId())) {
+                        String oldContextGroup = con.getContextName();
+                        boolean modified = false;
+                        if (oldContextGroup != null && !"".equals(oldContextGroup)) { //$NON-NLS-1$
+                            String newContextGroup = contextGroupRanamedMap.get(oldContextGroup);
+                            if (newContextGroup != null) { // rename
+                                con.setContextName(newContextGroup);
+                                modified = true;
+                            }
+                        } else { // if not set, set default group
+                            ContextItem originalItem = ContextUtils.getContextItemById2(contextId);
+                            con.setContextName(originalItem.getDefaultContext());
+                            modified = true;
+                        }
+                        if (modified) {
                             factory.save(item);
                         }
                     }
                 }
-
             }
             return true;
         } catch (PersistenceException e) {

@@ -12,7 +12,9 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.context;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Path;
@@ -239,8 +241,18 @@ public class ContextWizard extends CheckLastVersionRepositoryWizard implements I
                             // contextItem);
 
                             // update
+                            // TDQ-3901:Update the contextName property in the connection item file.
+                            Map<String, String> contextGroupRenamedMap = new HashMap<String, String>();
+                            Map<IContext, String> renameGroupContextMap = manager.getRenameGroupContext();
+                            for (IContext context : renameGroupContextMap.keySet()) {
+                                String oldContextGroupName = renameGroupContextMap.get(context);
+                                contextGroupRenamedMap.put(oldContextGroupName, context.getName());
+                            }
                             RepositoryUpdateManager.updateContext((JobContextManager) contextManager, contextItem);
-
+                            if (!contextGroupRenamedMap.isEmpty()) {
+                                SwitchContextGroupNameImpl.getInstance().updateContextForConnectionItems(contextGroupRenamedMap,
+                                        contextItem);
+                            }
                             // MOD qiongli 2011-9-13 TDQ-3317 reload related connection after changing context
                             ITDQRepositoryService tdqRepService = null;
                             if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
@@ -254,7 +266,7 @@ public class ContextWizard extends CheckLastVersionRepositoryWizard implements I
                     }
                     // contextItem.setProperty(ProxyRepositoryFactory.getInstance().getUptodateProperty(contextItem.getProperty()));
                     factory.save(contextItem);
-                    SwitchContextGroupNameImpl.getInstance().updateContextForConnectionItems(contextItem);
+
                     updateRelatedView();
 
                 }

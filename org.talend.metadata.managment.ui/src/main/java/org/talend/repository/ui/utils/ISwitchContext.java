@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.repository.ui.utils;
 
+import java.util.Map;
+
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
 
@@ -22,6 +24,6 @@ public interface ISwitchContext {
 
     public boolean updateContextGroup(ConnectionItem connItem);
 
-    public boolean updateContextForConnectionItems(ContextItem contextItem);
+    public boolean updateContextForConnectionItems(Map<String, String> contextGroupRanamedMap, ContextItem contextItem);
 
 }
