@@ -44,6 +44,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.update.EUpdateResult;
 import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -418,8 +419,14 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
         if (!isNeed) {
             if (oldMetadataTable != null) {
                 List<IMetadataTable> newMetadataTable = RepositoryUpdateManager.getConversionMetadataTables(newconn);
-                isNeed = !RepositoryUpdateManager.isFullysameAsMetadatTable(newMetadataTable, oldMetadataTable, oldTableMap);
+                isNeed = !RepositoryUpdateManager.sameAsMetadatTable(newMetadataTable, oldMetadataTable, oldTableMap);
             }
+        }
+        if (!isNeed) {
+            List<IMetadataTable> newMetadataTable = RepositoryUpdateManager.getConversionMetadataTables(newconn);
+            Map<String, EUpdateResult> deletedOrReselectTablesMap = new HashMap<String, EUpdateResult>();
+            isNeed = RepositoryUpdateManager.isDeleteOrReselectMap(connectionItem, newMetadataTable, oldMetadataTable,
+                    deletedOrReselectTablesMap);
         }
         return isNeed;
     }

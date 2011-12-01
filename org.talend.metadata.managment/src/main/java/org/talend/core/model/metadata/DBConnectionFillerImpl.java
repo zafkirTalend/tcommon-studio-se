@@ -45,6 +45,7 @@ import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBa
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.util.DatabaseConstant;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
+import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.ColumnHelper;
@@ -870,6 +871,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 table.setName(tableName);
                 table.setTableType(temptableType);
                 table.setLabel(table.getName());
+                // MOD qiongli 2011-11-30 TDQ-3930.set id for this retrive table.
+                table.setId(ProxyRepositoryFactory.getInstance().getNextId());
                 if (tableOwner != null) {
                     ColumnSetHelper.setTableOwner(tableOwner, table);
                 }

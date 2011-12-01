@@ -1788,7 +1788,11 @@ public abstract class RepositoryUpdateManager {
 
     }
 
-    private static boolean sameAsMetadatTable(List<IMetadataTable> newTables, List<IMetadataTable> oldTables,
+    /**
+     * MOD qiongli 2011-11-28 change this method 'private' into 'public'.it is used to judge if need to update DQ
+     * analyses.
+     */
+    public static boolean sameAsMetadatTable(List<IMetadataTable> newTables, List<IMetadataTable> oldTables,
             Map<String, String> oldTableMap) {
         if (newTables == null || oldTables == null) {
             return false;
@@ -2230,44 +2234,4 @@ public abstract class RepositoryUpdateManager {
         this.deletedOrReselectTablesMap = deletedOrReselectTablesMap;
     }
 
-    /**
-     * 
-     * DOC qiongli(TDQ-3930):add this method to judge if fully same as old metadataTables
-     * 
-     * @param newTables
-     * @param oldTables
-     * @param oldTableMap
-     * @return
-     */
-    public static boolean isFullysameAsMetadatTable(List<IMetadataTable> newTables, List<IMetadataTable> oldTables,
-            Map<String, String> oldTableMap) {
-        if (newTables == null || oldTables == null) {
-            return false;
-        }
-
-        // if size is diffrent,indicator they are not same.
-        if (newTables.size() != oldTables.size()) {
-            return false;
-        }
-        Map<String, IMetadataTable> id2TableMap = new HashMap<String, IMetadataTable>();
-        for (IMetadataTable oldTable : oldTables) {
-            id2TableMap.put(oldTable.getId(), oldTable);
-        }
-
-        for (IMetadataTable newTable : newTables) {
-            IMetadataTable oldTable = id2TableMap.get(newTable.getId());
-            if (oldTableMap.containsKey(newTable.getId())) { // not a new created table.
-                if (oldTable == null) {
-                    return false;
-                } else {
-                    if (!newTable.sameMetadataAs(oldTable, IMetadataColumn.OPTIONS_NONE)) {
-                        return false;
-                    }
-                }
-            } else {// if it a new table,indicate that they are not same.
-                return false;
-            }
-        }
-        return true;
-    }
 }
