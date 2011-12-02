@@ -37,6 +37,8 @@ public class ATreeNode {
     // The parent of tree node.
     private ATreeNode parent;
 
+    private String currentNamespace;
+
     // The type of the tree node, may either attribute or element.
     private int type;
 
@@ -264,6 +266,14 @@ public class ATreeNode {
         } else if (!this.value.equals(other.value))
             return false;
         return true;
+    }
+
+    public String getCurrentNamespace() {
+        return currentNamespace;
+    }
+
+    public void setCurrentNamespace(String currentNamespace) {
+        this.currentNamespace = currentNamespace;
     }
 
 }

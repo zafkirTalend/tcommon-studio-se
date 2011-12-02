@@ -12,6 +12,7 @@
 // ============================================================================
 package org.eclipse.datatools.enablement.oda.xml.util.ui;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -21,20 +22,25 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.datatools.connectivity.oda.OdaException;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.xsd.XSDAttributeDeclaration;
 import org.eclipse.xsd.XSDAttributeUse;
 import org.eclipse.xsd.XSDComplexTypeDefinition;
 import org.eclipse.xsd.XSDElementDeclaration;
+import org.eclipse.xsd.XSDImport;
 import org.eclipse.xsd.XSDModelGroup;
 import org.eclipse.xsd.XSDParticle;
 import org.eclipse.xsd.XSDSchema;
 import org.eclipse.xsd.XSDTerm;
 import org.eclipse.xsd.XSDTypeDefinition;
 import org.eclipse.xsd.impl.XSDNamedComponentImpl;
+import org.eclipse.xsd.util.XSDConstants;
 import org.eclipse.xsd.util.XSDResourceImpl;
 
 /**
@@ -48,16 +54,52 @@ public class XSDPopulationUtil2 {
 
     private boolean enableGeneratePrefix = false;
 
+    ResourceSet resourceSet = new ResourceSetImpl();
+
     public XSDPopulationUtil2() {
     }
 
     public XSDSchema getXSDSchema(String fileName) throws URISyntaxException, MalformedURLException {
         // Create a resource set and load the main schema file into it.
         //
-        ResourceSet resourceSet = new ResourceSetImpl();
-        XSDResourceImpl xsdResource = (XSDResourceImpl) resourceSet.getResource(URI.createFileURI(fileName), true);
-        XSDSchema xsdSchema = xsdResource.getSchema();
+        XSDResourceImpl mainXsdResource = (XSDResourceImpl) resourceSet.getResource(URI.createFileURI(fileName), true);
+
+        boolean haveExternalDependenciesWithoutLocation = false;
+
+        // check all resources if need to force the set location (in case of use of wsdl file without the location set)
+        for (Resource resource : resourceSet.getResources()) {
+            if (resource instanceof XSDResourceImpl) {
+                XSDResourceImpl xsdResource = (XSDResourceImpl) resource;
+                for (EObject object : xsdResource.getSchema().getContents()) {
+                    if (object instanceof XSDImport) {
+                        XSDImport xsdImport = (XSDImport) object;
+                        if (StringUtils.isEmpty(xsdImport.getSchemaLocation())) {
+                            for (Resource resource2 : resourceSet.getResources()) {
+                                if (resource2 instanceof XSDResourceImpl) {
+                                    XSDResourceImpl xsdResource2 = (XSDResourceImpl) resource2;
+                                    if (xsdResource2.getSchema().getTargetNamespace() != null
+                                            && xsdResource2.getSchema().getTargetNamespace().equals(xsdImport.getNamespace())) {
+                                        xsdImport.setSchemaLocation(xsdResource2.getSchema().getSchemaLocation());
+                                        haveExternalDependenciesWithoutLocation = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        XSDSchema xsdSchema = mainXsdResource.getSchema();
+        if (haveExternalDependenciesWithoutLocation) {
+            // force to set the element again, it will set automatically the dependencies
+            xsdSchema.setElement(xsdSchema.getDocument().getDocumentElement());
+        }
         return xsdSchema;
+    }
+
+    public void addSchema(String fileName) throws IOException {
+        resourceSet.getResource(URI.createFileURI(fileName), true);
     }
 
     public List<ATreeNode> getAllRootNodes(XSDSchema xsdSchema) throws OdaException {
@@ -116,6 +158,7 @@ public class XSDPopulationUtil2 {
             String elementName = xsdElementDeclarationParticle.getName();
             String prefix = null;
             String namespace = xsdElementDeclarationParticle.getTargetNamespace();
+            XSDTypeDefinition typeDef = xsdElementDeclarationParticle.getTypeDefinition();
             if (namespace != null) {
                 prefix = namespaceToPrefix.get(namespace);
                 if (prefix == null) {
@@ -143,6 +186,28 @@ public class XSDPopulationUtil2 {
                     }
                 }
             }
+            if (namespace == null && typeDef.getTargetNamespace() != null
+                    && !typeDef.getTargetNamespace().equals(parentNode.getCurrentNamespace())) {
+                // generate a new prefix since current namespace is not the same as the parent namespace
+                namespace = typeDef.getTargetNamespace();
+                if (!XSDConstants.isSchemaForSchemaNamespace(namespace)) {
+                    prefix = namespaceToPrefix.get(namespace);
+                    if (prefix == null) {
+                        if (xsdSchema.getQNamePrefixToNamespaceMap().containsValue(typeDef.getTargetNamespace())) {
+                            for (String key : xsdSchema.getQNamePrefixToNamespaceMap().keySet()) {
+                                if (xsdSchema.getQNamePrefixToNamespaceMap().get(key).equals(typeDef.getTargetNamespace())) {
+                                    prefix = key;
+                                }
+                            }
+                        } else {
+                            prefix = "p" + prefixNumberGenerated;
+                            prefixNumberGenerated++;
+                        }
+                        namespaceToPrefix.put(namespace, prefix);
+                    }
+                }
+            }
+            partNode.setCurrentNamespace(namespace);
             if (prefix != null && !prefix.isEmpty()) {
                 elementName = prefix + ":" + elementName;
             }
@@ -150,7 +215,8 @@ public class XSDPopulationUtil2 {
             partNode.setType(ATreeNode.ELEMENT_TYPE);
             partNode.setDataType(xsdElementDeclarationParticle.getName());
             parentNode.addChild(partNode);
-            if (xsdElementDeclarationParticle.getTypeDefinition() instanceof XSDComplexTypeDefinition) {
+            boolean resolvedAsComplex = false;
+            if (typeDef instanceof XSDComplexTypeDefinition) {
                 if (!currentPath.contains("/" + elementName + "/")) {
                     String path = currentPath + elementName + "/";
                     XSDTypeDefinition xsdTypeDefinition = xsdElementDeclarationParticle.getTypeDefinition();
@@ -164,7 +230,27 @@ public class XSDPopulationUtil2 {
                     }
                     addComplexTypeDetails(xsdSchema, partNode, xsdTypeDefinition, prefix, namespace, path);
                 }
-            } else {
+                resolvedAsComplex = true;
+            } else if (typeDef.getTargetNamespace() != null) {
+                resolvedAsComplex = true;
+                if (!currentPath.contains("/" + elementName + "/")) {
+                    String path = currentPath + elementName + "/";
+                    XSDComplexTypeDefinition generalType = xsdSchema.resolveComplexTypeDefinition(typeDef.getQName());
+                    XSDTypeDefinition xsdTypeDefinition = xsdElementDeclarationParticle.getTypeDefinition();
+                    if (generalType.getContainer() != null) {
+                        xsdTypeDefinition = generalType;
+                    }
+                    if (xsdTypeDefinition != null && xsdTypeDefinition.getName() != null) {
+                        partNode.setDataType(xsdTypeDefinition.getName());
+                    }
+                    if (xsdTypeDefinition instanceof XSDComplexTypeDefinition) {
+                        addComplexTypeDetails(xsdSchema, partNode, xsdTypeDefinition, prefix, namespace, path);
+                    } else {
+                        resolvedAsComplex = false;
+                    }
+                }
+            }
+            if (!resolvedAsComplex) {
                 String dataType = xsdElementDeclarationParticle.getTypeDefinition().getQName();
                 if (xsdElementDeclarationParticle.getTypeDefinition().getBaseType() != null) {
                     if (!"xs:anySimpleType".equals(xsdElementDeclarationParticle.getTypeDefinition().getBaseType().getQName())) {
@@ -188,7 +274,6 @@ public class XSDPopulationUtil2 {
 
         prefixNumberGenerated = 1;
         List all = new ArrayList(xsdSchema.getElementDeclarations());
-        // all = XSDNamedComponentImpl.sortNamedComponents(all);
 
         try {
             for (Iterator i = all.iterator(); i.hasNext();) {
@@ -198,6 +283,7 @@ public class XSDPopulationUtil2 {
                 ATreeNode node = new ATreeNode();
                 String prefix = null;
                 String namespace = xsdElementDeclaration.getTargetNamespace();
+                node.setCurrentNamespace(namespace);
 
                 if (namespace != null) {
                     prefix = xsdElementDeclaration.getQName().contains(":") ? xsdElementDeclaration.getQName().split(":")[0] : "";
@@ -288,6 +374,7 @@ public class XSDPopulationUtil2 {
                         if (prefix != null) {
                             node.setValue(prefix + ":" + xsdTypeDefinition.getName());
                         }
+                        node.setCurrentNamespace(xsdTypeDefinition.getTargetNamespace());
                     }
                     List<String> namespaceList = new ArrayList(namespaceToPrefix.keySet());
                     Collections.reverse(namespaceList);
