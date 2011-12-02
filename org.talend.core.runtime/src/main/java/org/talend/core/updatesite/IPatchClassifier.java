@@ -15,7 +15,7 @@ package org.talend.core.updatesite;
 /**
  * DOC hywang class global comment. Detailled comment
  */
-public interface IPatchClassfier {
+public interface IPatchClassifier {
 
     public String getDate();
 
@@ -26,5 +26,7 @@ public interface IPatchClassfier {
     public String getDescription();
 
     public String getClassifierString();
+
+    public void split();
 
 }

@@ -39,8 +39,6 @@ public interface ICoreTisService extends IService {
     public List<IUpdateSiteBean> getUpdateSitesToBeInstall(String username, String password, String archivaServicesURL,
             List<String> repositories) throws BackingStoreException;
 
-    public void addPatchInformation(String key, String value) throws BackingStoreException;
-
     public void downLoadAndInstallUpdateSites(String archivaServerURL, String username, String password,
             List<IUpdateSiteBean> toBeInstalled, List<String> repositories) throws Exception;
 
