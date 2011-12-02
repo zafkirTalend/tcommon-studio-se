@@ -25,9 +25,33 @@ import org.talend.repository.model.RepositoryNode;
  */
 public interface IDragAndDropServiceHandler {
 
+    /**
+     * DOC hwang Comment method "canHandle".
+     * 
+     * to judge can handle or not(base on connection)
+     * 
+     * @param connection - connection
+     */
     public boolean canHandle(Connection connection);
 
+    /**
+     * DOC hwang Comment method "getComponentValue".
+     * 
+     * get parameter value of the connection
+     * 
+     * @param connection - connection
+     * @param value - parameter name
+     */
     public String getComponentValue(Connection connection, String value);
 
+    /**
+     * DOC hwang Comment method "filterNeededComponents".
+     * 
+     * get components list when you drag&drop a repositoryNode to processEditor
+     * 
+     * @param item - the Item of the selectedNode
+     * @param seletetedNode - the repositoryNode you selected
+     * @param type - the type of the selectedNode
+     */
     public List<IComponent> filterNeededComponents(Item item, RepositoryNode seletetedNode, ERepositoryObjectType type);
 }
