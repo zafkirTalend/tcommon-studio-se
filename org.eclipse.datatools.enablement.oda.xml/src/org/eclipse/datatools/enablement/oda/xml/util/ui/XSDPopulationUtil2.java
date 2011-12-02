@@ -40,7 +40,6 @@ import org.eclipse.xsd.XSDSchema;
 import org.eclipse.xsd.XSDTerm;
 import org.eclipse.xsd.XSDTypeDefinition;
 import org.eclipse.xsd.impl.XSDNamedComponentImpl;
-import org.eclipse.xsd.util.XSDConstants;
 import org.eclipse.xsd.util.XSDResourceImpl;
 
 /**
@@ -116,10 +115,31 @@ public class XSDPopulationUtil2 {
                 ATreeNode node = new ATreeNode();
                 XSDElementDeclaration xsdElementDeclaration = (XSDElementDeclaration) o;
                 String elementName = xsdElementDeclaration.getQName();
-                node.setValue(elementName);
                 node.setType(ATreeNode.ELEMENT_TYPE);
                 node.setDataType(xsdElementDeclaration.getName());
                 XSDTypeDefinition xsdTypeDefinition = xsdElementDeclaration.getTypeDefinition();
+                String prefix = null;
+                String namespace = xsdElementDeclaration.getTargetNamespace();
+                node.setCurrentNamespace(namespace);
+
+                XSDTypeDefinition typeDef = xsdElementDeclaration.getTypeDefinition();
+
+                if (namespace != null) {
+                    prefix = xsdElementDeclaration.getQName().contains(":") ? xsdElementDeclaration.getQName().split(":")[0] : "";
+                    if (prefix == null || prefix.isEmpty()) {
+                        if (xsdSchema.getQNamePrefixToNamespaceMap().containsValue(typeDef.getTargetNamespace())) {
+                            for (String key : xsdSchema.getQNamePrefixToNamespaceMap().keySet()) {
+                                if (xsdSchema.getQNamePrefixToNamespaceMap().get(key).equals(typeDef.getTargetNamespace())) {
+                                    prefix = key;
+                                }
+                            }
+                        }
+                        if (prefix != null && !prefix.isEmpty()) {
+                            elementName = prefix + ":" + elementName;
+                        }
+                    }
+                }
+                node.setValue(elementName);
                 XSDComplexTypeDefinition generalType = xsdSchema.resolveComplexTypeDefinitionURI(xsdElementDeclaration.getURI());
                 if (generalType.getContainer() != null) {
                     xsdTypeDefinition = generalType;
@@ -183,27 +203,6 @@ public class XSDPopulationUtil2 {
                         namespaceNode.setType(ATreeNode.NAMESPACE_TYPE);
                         namespaceNode.setValue(namespace);
                         partNode.addChild(namespaceNode);
-                    }
-                }
-            }
-            if (namespace == null && typeDef.getTargetNamespace() != null
-                    && !typeDef.getTargetNamespace().equals(parentNode.getCurrentNamespace())) {
-                // generate a new prefix since current namespace is not the same as the parent namespace
-                namespace = typeDef.getTargetNamespace();
-                if (!XSDConstants.isSchemaForSchemaNamespace(namespace)) {
-                    prefix = namespaceToPrefix.get(namespace);
-                    if (prefix == null) {
-                        if (xsdSchema.getQNamePrefixToNamespaceMap().containsValue(typeDef.getTargetNamespace())) {
-                            for (String key : xsdSchema.getQNamePrefixToNamespaceMap().keySet()) {
-                                if (xsdSchema.getQNamePrefixToNamespaceMap().get(key).equals(typeDef.getTargetNamespace())) {
-                                    prefix = key;
-                                }
-                            }
-                        } else {
-                            prefix = "p" + prefixNumberGenerated;
-                            prefixNumberGenerated++;
-                        }
-                        namespaceToPrefix.put(namespace, prefix);
                     }
                 }
             }
@@ -285,8 +284,21 @@ public class XSDPopulationUtil2 {
                 String namespace = xsdElementDeclaration.getTargetNamespace();
                 node.setCurrentNamespace(namespace);
 
+                String originalElementName = xsdElementDeclaration.getName();
+                XSDTypeDefinition typeDef = xsdElementDeclaration.getTypeDefinition();
+
                 if (namespace != null) {
                     prefix = xsdElementDeclaration.getQName().contains(":") ? xsdElementDeclaration.getQName().split(":")[0] : "";
+                    if (prefix == null || prefix.isEmpty()) {
+                        if (xsdSchema.getQNamePrefixToNamespaceMap().containsValue(typeDef.getTargetNamespace())) {
+                            for (String key : xsdSchema.getQNamePrefixToNamespaceMap().keySet()) {
+                                if (xsdSchema.getQNamePrefixToNamespaceMap().get(key).equals(typeDef.getTargetNamespace())) {
+                                    prefix = key;
+                                }
+                            }
+                        }
+                    }
+
                     if (isEnableGeneratePrefix() && (prefix == null || prefix.isEmpty())) {
                         // generate a new prefix
                         prefix = "p" + prefixNumberGenerated;
@@ -303,8 +315,8 @@ public class XSDPopulationUtil2 {
                         node.addChild(namespaceNode);
                     }
                 }
-
-                if (!elementName.equals(selectedNode.getValue())) {
+                if (!elementName.equals(selectedNode.getValue())
+                        && (!(prefixNumberGenerated > 1 && originalElementName.equals(selectedNode.getValue())))) {
                     namespaceToPrefix.clear();
                     prefixNumberGenerated = 1;
                     continue;
