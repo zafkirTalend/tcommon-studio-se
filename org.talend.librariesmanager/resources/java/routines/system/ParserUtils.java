@@ -294,7 +294,7 @@ public class ParserUtils {
     }
     
     public static Object parse(String text,String javaType,String pattern) {
-    	if("String".equals(javaType)) {
+    	if("String".equals(javaType) || "Object".equals(javaType)) {
     		return text;
     	}
     	
