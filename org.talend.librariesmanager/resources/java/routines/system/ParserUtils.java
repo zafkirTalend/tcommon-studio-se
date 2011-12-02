@@ -13,11 +13,16 @@
 package routines.system;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParsePosition;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
@@ -263,4 +268,61 @@ public class ParserUtils {
         }
         return result;
     }
+    
+    private static final Set<String> primitiveType = new HashSet<String>();
+    
+    private static final Map<String,String> primitiveTypeToDefaultValueMap = new HashMap<String,String>();
+    
+    static {
+    	primitiveType.add("boolean");
+    	primitiveType.add("int");
+    	primitiveType.add("byte");
+    	primitiveType.add("char");
+    	primitiveType.add("double");
+    	primitiveType.add("float");
+    	primitiveType.add("long");
+    	primitiveType.add("short");
+    	
+    	primitiveTypeToDefaultValueMap.put("boolean", "false");
+    	primitiveTypeToDefaultValueMap.put("int", "0");
+    	primitiveTypeToDefaultValueMap.put("byte", "0");
+    	primitiveTypeToDefaultValueMap.put("char", " ");
+    	primitiveTypeToDefaultValueMap.put("double", "0");
+    	primitiveTypeToDefaultValueMap.put("float", "0");
+    	primitiveTypeToDefaultValueMap.put("long", "0");
+    	primitiveTypeToDefaultValueMap.put("short", "0");
+    }
+    
+    public static Object parse(String text,String javaType,String pattern) {
+    	if("String".equals(javaType)) {
+    		return text;
+    	}
+    	
+    	if(text==null || text.length()==0){
+    		boolean isPrimitiveType =  primitiveType.contains(javaType);
+    		if(!isPrimitiveType) {
+    			return null;
+    		} else {
+    			text = primitiveTypeToDefaultValueMap.get(javaType);
+    		}
+    	} else {
+	    	if("Date".equals(javaType)) {
+	    		return ParserUtils.parseTo_Date(text, pattern); 
+	    	}
+	    	
+	    	if("byte[]".equals(javaType)) {
+	    		return text.getBytes();
+	    	}
+    	}
+    	
+    	try {
+			Method method = ParserUtils.class.getMethod("parseTo_" + javaType, String.class);
+			return method.invoke(null, text);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+    }
+    
 }

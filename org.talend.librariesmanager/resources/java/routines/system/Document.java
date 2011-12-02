@@ -43,15 +43,18 @@ public class Document {
 
     /**
      * lookup document action
-     * 
-     * @param doc
-     * @param loopPath
+     * @param loopXPath
      * @param lookupInfo
      * @param xpathOfResults
+     * @param nsMapping
+     * @param xpathToTypeMap
+     * @param xpathToPatternMap
+     * @param matchingMode
      * @return
      */
     public List<Map<String, Object>> LookupDocument(String loopXPath, Map<String, Object> lookupInfo,
-            Map<String, String> xpathOfResults, Map<String, String> nsMapping,String matchingMode) {
+            Map<String, String> xpathOfResults, Map<String, String> nsMapping,
+            Map<String, String> xpathToTypeMap,Map<String, String> xpathToPatternMap,String matchingMode) {
         if (doc == null || lookupInfo == null) {
             return null;
         }
@@ -68,12 +71,21 @@ public class Document {
                 org.dom4j.XPath xpathObjectForLookup = node.createXPath(xpath);
                 xpathObjectForLookup.setNamespaceURIs(nsMapping);
                 Node nodeOfLookup = xpathObjectForLookup.selectSingleNode(node);
-                if(lookupValue == null && nodeOfLookup == null) {
-                	//do nothing(null == null)
-                } else if (!xpathObjectForLookup.valueOf(node).equals(lookupValue)) {
-                    reject = true;
-                    break;
-                }
+                //parse action
+            	String text = (nodeOfLookup == null ? null : xpathObjectForLookup.valueOf(node));
+            	String pattern = xpathToPatternMap.get(xpath);
+            	String javaType = xpathToTypeMap.get(xpath);
+            	Object value = ParserUtils.parse(text, javaType, pattern);
+            	
+            	if(lookupValue == null && value == null) {
+            		//do nothing(null==null)
+            	} else {
+                	if(value == null || !value.equals(lookupValue)) {
+                		reject = true;
+                    	break;
+                	}
+            	}
+                
             }
             // generate result action
             if (reject) {
