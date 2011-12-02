@@ -362,9 +362,9 @@ public class FileStep1Form extends AbstractPositionalFileStepForm {
                 // if necessary, adapt the rowSeparator to the file format
                 if (getConnection().getRowSeparatorType() == RowSeparator.STANDART_EOL_LITERAL) {
                     if (getConnection().getFormat().toString().equals(FileFormat.MAC_LITERAL.getName())) {
-                        getConnection().setRowSeparatorValue("\\r"); //$NON-NLS-1$
+                        getConnection().setRowSeparatorValue(TalendQuoteUtils.addQuotes("\\r")); //$NON-NLS-1$
                     } else {
-                        getConnection().setRowSeparatorValue("\\n"); //$NON-NLS-1$
+                        getConnection().setRowSeparatorValue(TalendQuoteUtils.addQuotes("\\n")); //$NON-NLS-1$
                     }
                 }
                 checkFilePathAndManageIt(false);
