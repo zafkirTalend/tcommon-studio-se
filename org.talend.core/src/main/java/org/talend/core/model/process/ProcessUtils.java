@@ -300,6 +300,15 @@ public final class ProcessUtils {
                         addRepositoryObject(repositoryMetadataId, repositoryObjects);
                     }
 
+                    // handle custom eleParams
+                    List<IElementParameter> eleParams = (List<IElementParameter>) node.getElementParameters();
+                    for (IElementParameter elementParameter : eleParams) {
+                        if (elementParameter.getFieldType().equals(EParameterFieldType.SURVIVOR_RELATION)) {
+                            repositoryMetadataId = (String) elementParameter.getValue();
+                        }
+                        addRepositoryObject(repositoryMetadataId, repositoryObjects);
+                    }
+
                 }
 
             }
