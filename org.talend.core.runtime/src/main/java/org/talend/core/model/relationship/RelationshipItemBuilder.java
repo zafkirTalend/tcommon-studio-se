@@ -32,6 +32,7 @@ import org.talend.core.model.components.EComponentType;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemRelation;
 import org.talend.core.model.properties.ItemRelations;
@@ -656,7 +657,7 @@ public class RelationshipItemBuilder {
                             }
 
                             // only for SurvivorshipFileItem
-                            if (param.getName().equals("SURVIVOR_RELATION")) { //$NON-NLS-1$
+                            if (param.getField().equals(EParameterFieldType.SURVIVOR_RELATION.getName())) { //$NON-NLS-1$
                                 String relatedID = param.getValue();
                                 addRelationShip(item, relatedID, LATEST_VERSION, SURVIVOR_RELATION);
                             }
