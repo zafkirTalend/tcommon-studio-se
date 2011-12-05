@@ -16,9 +16,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.ui.actions.SelectionProviderAction;
 import org.talend.repository.ui.swt.utils.AbstractXmlStepForm;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.Attribute;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.NameSpaceNode;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.TreeUtil;
 
 /**
@@ -78,15 +76,7 @@ public class SetForLoopAction extends SelectionProviderAction {
             this.setEnabled(false);
             return;
         }
-        if (node instanceof Attribute) {
-            this.setEnabled(false);
-            return;
-        }
-
-        if (node instanceof NameSpaceNode) {
-            this.setEnabled(false);
-            return;
-        }
-        this.setEnabled(TreeUtil.checkTreeLoopNode(node));
+        // fix for TDI-18802
+        this.setEnabled(TreeUtil.canSetAsLoop(node));
     }
 }

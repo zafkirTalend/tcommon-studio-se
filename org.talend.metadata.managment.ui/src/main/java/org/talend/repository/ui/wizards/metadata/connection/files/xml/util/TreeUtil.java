@@ -72,6 +72,41 @@ public class TreeUtil {
 
     }
 
+    public static boolean canSetAsLoop(FOXTreeNode node) {
+        if (node == null) {
+            return false;
+        }
+
+        if (node instanceof Attribute) {
+            return false;
+        }
+
+        if (node instanceof NameSpaceNode) {
+            return false;
+        }
+
+        Element e = (Element) node;
+
+        if (e.getParent() == null) {
+            List<FOXTreeNode> children = node.getChildren();
+            if (children != null) {
+                for (FOXTreeNode child : children) {
+                    if (child instanceof Element) {
+                        return false;
+                    }
+                }
+            }
+
+        }
+
+        if (e.isGroup()) {
+            return true;
+        }
+
+        return true;
+
+    }
+
     /**
      * DOC ke Comment method "guessAndSetLoopNode".
      * 

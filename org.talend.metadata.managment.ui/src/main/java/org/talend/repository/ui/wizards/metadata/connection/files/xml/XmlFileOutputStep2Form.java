@@ -222,8 +222,8 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
     }
 
     public void redrawLinkers() {
-        int maxColumnsNumber = CoreRuntimePlugin.getInstance().getPreferenceStore().getInt(
-                ITalendCorePrefConstants.MAXIMUM_AMOUNT_OF_COLUMNS_FOR_XML);
+        int maxColumnsNumber = CoreRuntimePlugin.getInstance().getPreferenceStore()
+                .getInt(ITalendCorePrefConstants.MAXIMUM_AMOUNT_OF_COLUMNS_FOR_XML);
         if (schemaViewer.getTable().getItems().length <= maxColumnsNumber + 1) {
             linker.removeAllLinks();
             TreeItem root = xmlViewer.getTree().getItem(0);
@@ -768,6 +768,11 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
             } else {
                 temp = this.addElement(current, currentPath, newPath, defaultValue);
                 temp.setDataType(type);
+                // fix for TDI-18802 , if root node is loop
+                if (rootNode == null) {
+                    rootNode = temp;
+                }
+
                 if (node.getAttribute().equals("main")) {
                     temp.setMain(true);
                     mainNode = temp;
@@ -819,7 +824,9 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
         FOXTreeNode foxTreeNode = node.get(0);
         if (foxTreeNode != null) {
             initNodeOrder(foxTreeNode);
-            tableLoader((Element) foxTreeNode, "", root, foxTreeNode.getDefaultValue());
+            if (!foxTreeNode.isLoop()) {
+                tableLoader((Element) foxTreeNode, "", root, foxTreeNode.getDefaultValue());
+            }
             Element loopNode = (Element) TreeUtil.getLoopNode(foxTreeNode);
             if (loopNode != null) {
                 String path = TreeUtil.getPath(loopNode);

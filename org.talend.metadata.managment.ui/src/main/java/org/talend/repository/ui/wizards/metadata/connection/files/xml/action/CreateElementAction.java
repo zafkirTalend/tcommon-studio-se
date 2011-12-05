@@ -78,6 +78,12 @@ public class CreateElementAction extends SelectionProviderAction {
         FOXTreeNode child = new Element(label);
         // child.setRow(node.getRow());
         node.addChild(child);
+
+        // fix for TDI-18802
+        if (node.getParent() == null && node.isLoop()) {
+            node.setLoop(false);
+        }
+
         this.xmlViewer.refresh();
         this.xmlViewer.expandAll();
         return true;
