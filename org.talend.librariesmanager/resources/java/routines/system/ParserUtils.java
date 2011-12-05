@@ -306,7 +306,7 @@ public class ParserUtils {
     			text = primitiveTypeToDefaultValueMap.get(javaType);
     		}
     	} else {
-	    	if("Date".equals(javaType)) {
+	    	if("java.util.Date".equals(javaType)) {
 	    		return ParserUtils.parseTo_Date(text, pattern); 
 	    	}
 	    	
