@@ -176,6 +176,9 @@ public class ParserUtils {
         if (s == null || s.length() == 0) {
             return null;
         }
+        if(pattern == null) {
+        	pattern = Constant.dateDefaultPattern;
+        }
         java.util.Date date = null;
         // try {
         // date = FastDateParser.getInstance(pattern).parse(s);
@@ -211,6 +214,9 @@ public class ParserUtils {
         }
         if (s == null || s.length() == 0) {
             return null;
+        }
+        if(pattern == null) {
+        	pattern = Constant.dateDefaultPattern;
         }
         java.util.Date date = null;
         // try {

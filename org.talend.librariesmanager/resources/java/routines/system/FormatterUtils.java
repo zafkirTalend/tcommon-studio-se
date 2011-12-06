@@ -27,7 +27,7 @@ public class FormatterUtils {
 	
 	public static String format(Date date,String pattern) {
 		if (date != null) {
-			return TalendDate.formatDate(pattern, date);
+			return TalendDate.formatDate(pattern == null ? Constant.dateDefaultPattern : pattern, date);
 	    } else {
             return null;
         }
@@ -73,7 +73,7 @@ public class FormatterUtils {
 	
     public static String format_Date(java.util.Date date, String pattern) {
         if (date != null) {
-            return TalendDate.formatDate(pattern, date);
+            return TalendDate.formatDate(pattern == null ? Constant.dateDefaultPattern : pattern, date);
         } else {
             return null;
         }
@@ -81,7 +81,7 @@ public class FormatterUtils {
 
     public static String format_Date_Locale(java.util.Date date, String pattern, String locale) {
         if (date != null) {
-            return TalendDate.formatDateLocale(pattern, date, locale);
+            return TalendDate.formatDateLocale(pattern == null ? Constant.dateDefaultPattern : pattern, date, locale);
         } else {
             return null;
         }
