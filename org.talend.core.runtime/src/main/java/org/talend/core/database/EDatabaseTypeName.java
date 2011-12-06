@@ -108,7 +108,7 @@ public enum EDatabaseTypeName {
     H2("H2", "H2", Boolean.FALSE, "H2", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.None), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     HBASE(
-          "HBase", "HBase", Boolean.FALSE, "HBASE", EDatabaseSchemaOrCatalogMapping.None, EDatabaseSchemaOrCatalogMapping.Column_Family, true); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+          "HBase", "HBase", Boolean.FALSE, "HBASE", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.Column_Family, true); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     // displayName is used in Java code.
     private String displayName;

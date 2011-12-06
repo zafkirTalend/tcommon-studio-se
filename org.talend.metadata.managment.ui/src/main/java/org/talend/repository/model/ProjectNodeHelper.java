@@ -262,6 +262,12 @@ public class ProjectNodeHelper {
         String catalog = imetadataConnection.getDatabase();
         String databaseType = imetadataConnection.getDbType();
         EDatabaseTypeName currentType = EDatabaseTypeName.getTypeFromDbType(databaseType);
+
+        // IDBMetadataProvider extractor = ExtractMetaDataFromDataBase.getProviderByDbType(databaseType);
+        // if (extractor != null && currentType.isUseProvider()) {
+        // catalog = extractor.getDefaultCatalogName();
+        // }
+
         EDatabaseSchemaOrCatalogMapping curCatalog = currentType.getCatalogMappingField();
         EDatabaseSchemaOrCatalogMapping curSchema = currentType.getSchemaMappingField();
         if (curCatalog != null && curSchema != null) {
