@@ -87,6 +87,9 @@
 			<fileset file="${unit.junit.results.path}" />
 			<fileset file="${unit.log.path}"/>
 		</delete>
+		<condition property="extra.jvm.args" value = "-XstartOnFirstThread">
+			<equals arg1="${os.name}" arg2="Mac OS X"/>
+		</condition>
     	<java dir="${rcp-app-home}" fork="true" output="${unit.log.path}" logError="true"
     	classname="org.eclipse.core.launcher.Main" failonerror="false">
     		<syspropertyset refid="unit.test.class.collector.properties"/>
@@ -102,10 +105,20 @@
     	    <arg line="-classname ${unit.test-class-name}"/>
     	    <arg line="formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,${unit.junit.results.path}"/>
     	    <arg line="-consoleLog"/>
-    	    <jvmarg line="-Xms128m -Xmx1024m -XX:MaxPermSize=256m -XX:+HeapDumpOnOutOfMemoryError"/><!-- -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=1716"/>-->
+    	    <jvmarg line="-Xms128m -Xmx1024m -XX:MaxPermSize=256m -XX:+HeapDumpOnOutOfMemoryError ${extra.jvm.args}"/><!-- -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=1716"/>-->
     	</java>        
     </target>
 
     <target name="run.all.test.for.talend.rcp.app" depends="init,unit.test.for.talend.rcp.app, swtbot.test.for.talend.rcp.app" description="launch unit test and swtbot for Talend product defined in ${test-application}">
     </target>
+	
+	<target name="test">
+		<echoproperties/>
+		<property name="product.version" value="5.0.1"/>
+
+		<condition property="extra.jvm.args" value = "-XstartOnFirstThread">
+			<equals arg1="${os.name}" arg2="Mac OS X"/>
+		</condition>
+		<echo message="extra args = ${extra.jvm.args}"/>
+	</target>
 </project>
