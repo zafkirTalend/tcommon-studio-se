@@ -31,7 +31,7 @@ public class ResourceFilenameHelper {
     public static String getExpectedFileName(String label, String version) {
         StringBuffer stringBuffer = new StringBuffer();
 
-        stringBuffer.append(label);
+        stringBuffer.append(label.replace('#', '$'));
         stringBuffer.append(ResourceFilenameHelper.SEPARATOR);
         stringBuffer.append(version);
 
@@ -76,12 +76,12 @@ public class ResourceFilenameHelper {
     }
 
     public static boolean mustChangeLabel(FileName fileName) {
-        return !fileName.getResourceLabel().equals(fileName.getLastVersionProperty().getLabel());
+        return !fileName.getResourceLabel().equals(fileName.getLastVersionProperty().getLabel().replace('#', '$'));
     }
 
     public static boolean hasSameNameButDifferentCase(FileName fileName) {
-        return !fileName.getResourceLabel().equals(fileName.getLastVersionProperty().getLabel())
-                && fileName.getResourceLabel().equalsIgnoreCase(fileName.getLastVersionProperty().getLabel());
+        return !fileName.getResourceLabel().equals(fileName.getLastVersionProperty().getLabel().replace('#', '$'))
+                && fileName.getResourceLabel().equalsIgnoreCase(fileName.getLastVersionProperty().getLabel().replace('#', '$'));
     }
 
     /** * */
