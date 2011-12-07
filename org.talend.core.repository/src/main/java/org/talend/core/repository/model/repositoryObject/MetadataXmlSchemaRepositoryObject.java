@@ -93,13 +93,13 @@ public class MetadataXmlSchemaRepositoryObject extends MetadataXmlSchema impleme
     public void removeFromParent() {
     }
 
-    private void updataCatalog(Property property) {
+    private void updateCatalog(Property property) {
     }
 
     // @Override
     public Property getProperty() {
         Property property = viewObject.getProperty();
-        updataCatalog(property);
+        updateCatalog(property);
         return property;
     }
 

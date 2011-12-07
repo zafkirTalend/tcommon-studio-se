@@ -63,7 +63,7 @@ public class MetadataTableRepositoryObject extends MetadataTable implements ISub
     public Property getProperty() {
         Property property = viewObject.getProperty();
         // update table
-        updataTable(property);
+        updateTable(property);
         return property;
     }
 
@@ -143,7 +143,7 @@ public class MetadataTableRepositoryObject extends MetadataTable implements ISub
         return;
     }
 
-    private void updataTable(Property property) {
+    private void updateTable(Property property) {
         if (property == null) {
             return;
         }

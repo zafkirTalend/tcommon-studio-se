@@ -66,7 +66,7 @@ public class MetadataCatalogRepositoryObject extends MetadataCatalog implements 
     public Property getProperty() {
         Property property = viewObject.getProperty();
         // update table
-        updataCatalog(property);
+        updateCatalog(property);
         return property;
     }
 
@@ -90,7 +90,7 @@ public class MetadataCatalogRepositoryObject extends MetadataCatalog implements 
     public void removeFromParent() {
     }
 
-    private void updataCatalog(Property property) {
+    private void updateCatalog(Property property) {
         // FIXME empty method ?
     }
 

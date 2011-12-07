@@ -64,7 +64,7 @@ public class MetadataXmlElementTypeRepositoryObject extends MetadataXmlElementTy
 
     public Property getProperty() {
         Property property = viewObject.getProperty();
-        updataCatalog(property);
+        updateCatalog(property);
         return property;
     }
 
@@ -88,7 +88,7 @@ public class MetadataXmlElementTypeRepositoryObject extends MetadataXmlElementTy
     public void removeFromParent() {
     }
 
-    private void updataCatalog(Property property) {
+    private void updateCatalog(Property property) {
     }
 
     public User getAuthor() {

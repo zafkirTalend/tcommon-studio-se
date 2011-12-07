@@ -61,7 +61,7 @@ public class MetadataSchemaRepositoryObject extends MetadataSchema implements IS
     public Property getProperty() {
         Property property = viewObject.getProperty();
         // update table
-        updataCatalog(property);
+        updateCatalog(property);
         return property;
     }
 
@@ -85,7 +85,7 @@ public class MetadataSchemaRepositoryObject extends MetadataSchema implements IS
     public void removeFromParent() {
     }
 
-    private void updataCatalog(Property property) {
+    private void updateCatalog(Property property) {
     }
 
     public User getAuthor() {

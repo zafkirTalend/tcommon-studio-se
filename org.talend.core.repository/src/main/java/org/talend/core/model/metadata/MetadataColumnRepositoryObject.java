@@ -71,7 +71,7 @@ public class MetadataColumnRepositoryObject extends MetadataColumn implements IS
     public Property getProperty() {
         Property property = viewObject.getProperty();
         // update column
-        updataColumn(property);
+        updateColumn(property);
         return property;
     }
 
@@ -103,7 +103,7 @@ public class MetadataColumnRepositoryObject extends MetadataColumn implements IS
     public void removeFromParent() {
     }
 
-    private void updataColumn(Property property) {
+    private void updateColumn(Property property) {
     }
 
     public User getAuthor() {
