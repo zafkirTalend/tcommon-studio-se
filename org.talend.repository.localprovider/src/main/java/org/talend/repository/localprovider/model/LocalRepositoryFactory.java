@@ -2256,6 +2256,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         EList<Resource> kaka = xmiResourceManager.resourceSet.getResources();
         for (int i = 0; i < kaka.size(); i++) {
             Resource resource = xmiResourceManager.resourceSet.getResources().get(i);
+            if (resource == null) {
+                // only in case of bug from some items in the repository, to keep the repository stable even if a
+                // problem happens
+                continue;
+            }
             final EList<EObject> contents = resource.getContents();
             for (int j = 0; j < contents.size(); j++) {
                 EObject object = contents.get(j);
