@@ -310,6 +310,9 @@ public class XmlFileDragAndDropHandler {
                             targetNode.addChild(child);
                         }
                     }
+                    if (targetNode instanceof Element && targetNode.getParent() == null && targetNode.isLoop()) {
+                        targetNode.setLoop(false);
+                    }
                     setDefaultFixValue(targetNode);
                 } else if (dialog.getSelectValue().equals(DragAndDrogDialog.CREATE_AS_ATTRIBUTE)) {
                     if (!(targetNode instanceof Element)) {
