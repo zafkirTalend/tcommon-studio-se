@@ -68,7 +68,6 @@ import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.EMetadataEncoding;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
-import org.talend.core.model.metadata.builder.connection.XMLFileNode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.ui.metadata.dialog.RootNodeSelectDialog;
@@ -156,28 +155,15 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
                     XSDSchema xsdSchema = TreeUtil.getXSDSchema(xmlXsdPath);
                     List<ATreeNode> rootNodes = new XSDPopulationUtil2().getAllRootNodes(xsdSchema);
                     if (rootNodes.size() > 0) {
-                        boolean find = false;
+                        ATreeNode rootNode = getDefaultRootNode(rootNodes);
                         List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
-                        XMLFileNode selectedNode = getConnection().getRoot().get(0);
-                        if (selectedNode != null) {
-                            String xmlPath = selectedNode.getXMLPath();
-                            if (xmlPath != null && xmlPath.length() > 0) {
-                                xmlPath = xmlPath.substring(xmlPath.lastIndexOf("/") + 1); //$NON-NLS-1$
-                                for (int i = 0; i < rootNodes.size(); i++) {
-                                    ATreeNode node = rootNodes.get(i);
-                                    if (xmlPath.equals(node.getValue())) {
-                                        valid = treePopulator.populateTree(xsdSchema, node, treeNodes);
-                                        if (treeNodes.size() > 0) {
-                                            treeNode = treeNodes.get(0);
-                                            find = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        if (!find) {
+                        if (rootNode == null) {
                             valid = treePopulator.populateTree(xsdSchema, rootNodes.get(0), treeNodes);
+                        } else {
+                            valid = treePopulator.populateTree(xsdSchema, rootNode, treeNodes);
+                            if (treeNodes.size() > 0) {
+                                treeNode = treeNodes.get(0);
+                            }
                         }
                     }
                 } catch (Exception e) {

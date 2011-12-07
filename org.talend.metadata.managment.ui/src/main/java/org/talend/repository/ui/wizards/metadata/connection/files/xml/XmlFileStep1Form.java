@@ -191,24 +191,12 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
                     XSDSchema schema = TreeUtil.getXSDSchema(xmlFilePath);
                     List<ATreeNode> rootNodes = new XSDPopulationUtil2().getAllRootNodes(schema);
                     if (rootNodes.size() > 0) {
-                        if (!getConnection().getRoot().isEmpty()) {
-                            XMLFileNode selectedNode = getConnection().getRoot().get(0);
-                            if (selectedNode != null) {
-                                String xmlPath = selectedNode.getXMLPath();
-                                if (xmlPath != null && xmlPath.length() > 0) {
-                                    xmlPath = xmlPath.substring(xmlPath.lastIndexOf("/") + 1); //$NON-NLS-1$
-                                    for (int i = 0; i < rootNodes.size(); i++) {
-                                        ATreeNode node = rootNodes.get(i);
-                                        if (xmlPath.equals(node.getValue())) {
-                                            List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
-                                            valid = treePopulator.populateTree(schema, node, treeNodes);
-                                            if (treeNodes.size() > 0) {
-                                                treeNode = treeNodes.get(0);
-                                            }
-                                            break;
-                                        }
-                                    }
-                                }
+                        ATreeNode rootNode = getDefaultRootNode(rootNodes);
+                        if (rootNode != null) {
+                            List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
+                            valid = treePopulator.populateTree(schema, rootNode, treeNodes);
+                            if (treeNodes.size() > 0) {
+                                treeNode = treeNodes.get(0);
                             }
                         } else {
                             String xmlPath = getConnection().getSchema().get(0).getAbsoluteXPathQuery();

@@ -182,18 +182,8 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
         List<ATreeNode> rootNodes = ((XmlFileWizard) getPage().getWizard()).getRootNodes();
         if (rootNodes != null) {
             rootComboViewer.setInput(rootNodes);
-            XMLFileNode selectedNode = getConnection().getRoot().get(0);
-            String xmlPath = selectedNode.getXMLPath();
-            if (xmlPath != null && xmlPath.length() > 0) {
-                xmlPath = xmlPath.substring(xmlPath.lastIndexOf("/") + 1);
-                for (int i = 0; i < rootNodes.size(); i++) {
-                    ATreeNode node = rootNodes.get(i);
-                    if (xmlPath.equals(node.getValue())) {
-                        rootCombo.select(i);
-                        break;
-                    }
-                }
-            }
+            ATreeNode rootNode = getDefaultRootNode(rootNodes);
+            rootCombo.select(rootNodes.indexOf(rootNode));
         }
     }
 

@@ -29,7 +29,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Table;
 import org.eclipse.xsd.XSDSchema;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
@@ -402,6 +401,34 @@ public abstract class AbstractXmlFileStepForm extends AbstractXmlStepForm {
         }
 
         return tempXmlXsdPath;
+    }
+
+    protected ATreeNode getDefaultRootNode(List<ATreeNode> rootNodes) {
+        if (rootNodes != null && rootNodes.size() > 0) {
+            EList<XMLFileNode> root = getConnection().getRoot();
+            XMLFileNode selectedNode = null;
+            if (root != null && root.size() > 0) {
+                selectedNode = root.get(0);
+            } else {
+                EList<XMLFileNode> loop = getConnection().getLoop();
+                if (loop != null && loop.size() > 0) {
+                    selectedNode = loop.get(0);
+                }
+            }
+            if (selectedNode != null) {
+                String xmlPath = selectedNode.getXMLPath();
+                if (xmlPath != null && xmlPath.length() > 0) {
+                    xmlPath = xmlPath.substring(xmlPath.lastIndexOf("/") + 1);
+                    for (int i = 0; i < rootNodes.size(); i++) {
+                        ATreeNode node = rootNodes.get(i);
+                        if (xmlPath.equals(node.getValue())) {
+                            return node;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     public void redrawLinkers() {
