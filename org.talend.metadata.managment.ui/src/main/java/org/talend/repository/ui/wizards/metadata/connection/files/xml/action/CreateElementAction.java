@@ -51,6 +51,7 @@ public class CreateElementAction extends SelectionProviderAction {
             form.redrawLinkers();
         }
         form.updateConnection();
+        form.updateStatus();
     }
 
     private boolean createChildNode(FOXTreeNode node) {
