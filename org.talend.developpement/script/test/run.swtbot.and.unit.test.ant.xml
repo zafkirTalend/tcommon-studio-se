@@ -77,37 +77,36 @@
           target: to launch all unit tests               
          ================================= -->
     <target name="unit.test.for.talend.rcp.app" description="launch unit test for Talend product defined in ${test-application}, output the unit test result and the application log"  depends="init">
-    	<!-- canot use depends because the clean target must be called right before to this target and depends assures it is called once before but may be to early -->
-    	<antcall target="clean.application.config.and.workspace"></antcall>
-    	<echo>Unit test for Product ${test-application} : 
+        <echo>Unit test for Product ${test-application} :
    log file : ${unit.log.path}
    JunitResult : ${unit.junit.results.path} </echo>
-    	<!-- remove last build results -->
-		<delete includeemptydirs="true" quiet="true">
-			<fileset file="${unit.junit.results.path}" />
-			<fileset file="${unit.log.path}"/>
-		</delete>
-		<condition property="extra.jvm.args" value = "-XstartOnFirstThread">
-			<equals arg1="${os.name}" arg2="Mac OS X"/>
-		</condition>
-    	<java dir="${rcp-app-home}" fork="true" output="${unit.log.path}" logError="true"
-    	classname="org.eclipse.core.launcher.Main" failonerror="false">
-    		<syspropertyset refid="unit.test.class.collector.properties"/>
-    		<sysproperty key="talend.licence.path" value="${talend.licence.path}"/>
-    	    <classpath>
-    	        <fileset dir="${rcp-app-home}/plugins">
-    	            <include name="org.eclipse.equinox.launcher_*.jar"/>
-    	        </fileset>
-    	    </classpath>
-    	    <arg line="-application org.eclipse.test.uitestapplication"/>
-    	    <arg line="-testpluginname ${unit.test-plugin-name}"/>
-    	    <arg line="-testApplication ${test-application} -clean -nl ta --disableLoginDialog -project TEST_NOLOGIN --deleteProjectIfExist -language java -login a@b.c"/>
-    	    <arg line="-classname ${unit.test-class-name}"/>
-    	    <arg line="formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,${unit.junit.results.path}"/>
-    	    <arg line="-consoleLog"/>
-    	    <jvmarg line="-Xms128m -Xmx1024m -XX:MaxPermSize=256m -XX:+HeapDumpOnOutOfMemoryError ${extra.jvm.args}"/><!-- -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=1716"/>-->
-    	</java>        
-    </target>
+        <!-- remove last build results -->
+                <delete includeemptydirs="true" quiet="true">
+                        <fileset file="${unit.junit.results.path}" />
+                        <fileset file="${unit.log.path}"/>
+                </delete>
+                <condition property="extra.jvm.args" value = "-XstartOnFirstThread" else="">
+                        <equals arg1="${os.name}" arg2="Mac OS X"/>
+                </condition>
+        <java dir="${rcp-app-home}" fork="true" output="${unit.log.path}" logError="true"
+        classname="org.eclipse.core.launcher.Main" failonerror="false">
+                <syspropertyset refid="unit.test.class.collector.properties"/>
+                <sysproperty key="talend.licence.path" value="${talend.licence.path}"/>
+            <classpath>
+                <fileset dir="${rcp-app-home}/plugins">
+                    <include name="org.eclipse.equinox.launcher_*.jar"/>
+                </fileset>
+            </classpath>
+            <arg line="-application org.eclipse.test.uitestapplication"/>
+            <arg line="-testpluginname ${unit.test-plugin-name}"/>
+            <arg line="-testApplication ${test-application} -clean -nl ta --disableLoginDialog -project TEST_NOLOGIN --deleteProjectIfExist -language java -login a@b.c"/>
+            <arg line="-classname ${unit.test-class-name}"/>
+            <arg line="formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,${unit.junit.results.path}"/>
+            <arg line="-consoleLog"/>
+            <jvmarg line="-Xms128m -Xmx1024m -XX:MaxPermSize=256m -XX:+HeapDumpOnOutOfMemoryError ${extra.jvm.args}"/><!-- -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=1716"/>-->
+                <env key="${extra.env.key}" value="${extra.env.value}"/>
+        </java>
+    </target>  
 
     <target name="run.all.test.for.talend.rcp.app" depends="init,unit.test.for.talend.rcp.app, swtbot.test.for.talend.rcp.app" description="launch unit test and swtbot for Talend product defined in ${test-application}">
     </target>
