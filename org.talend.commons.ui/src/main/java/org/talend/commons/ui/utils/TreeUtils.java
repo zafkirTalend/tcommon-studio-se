@@ -243,9 +243,9 @@ public class TreeUtils {
     public static List<TreeItem> collectAllItems(TreeItem treeItem) {
         List<TreeItem> list = new ArrayList<TreeItem>();
 
+        list.add(treeItem);
         TreeItem[] items = treeItem.getItems();
         for (TreeItem item : items) {
-            list.add(item);
             list.addAll(collectAllItems(item));
         }
         return list;

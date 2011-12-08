@@ -45,6 +45,7 @@ import org.talend.repository.ui.swt.utils.AbstractXmlStepForm;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.Attribute;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.Element;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
+import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.NameSpaceNode;
 
 /**
  * wzhang class global comment. Detailled comment
@@ -254,17 +255,18 @@ public class XmlFileDragAndDropHandler {
                     if (targetNode.hasChildren()) {
                         List<FOXTreeNode> children = targetNode.getChildren();
                         for (FOXTreeNode foxTreeNode : children) {
-                            if (!(foxTreeNode instanceof Attribute)) {
+                            if (!(foxTreeNode instanceof Attribute) && !(foxTreeNode instanceof NameSpaceNode)) {
                                 MessageDialog.openConfirm(control.getShell(), "Warning", "\"" + targetNode.getLabel()
                                         + "\" has element children, can not have linker.");
                                 return;
                             }
                         }
-                    } else if (targetNode.getParent() == null) {
-                        MessageDialog.openConfirm(control.getShell(), "Warning", "\"" + targetNode.getLabel()
-                                + "\" is root, can not have linker.");
-                        return;
                     }
+                    // else if (targetNode.getParent() == null) {
+                    // MessageDialog.openConfirm(control.getShell(), "Warning", "\"" + targetNode.getLabel()
+                    // + "\" is root, can not have linker.");
+                    // return;
+                    // }
                     // IMetadataColumn metaColumn = (IMetadataColumn) dragdedData.get(0);
                     IMetadataColumn metaColumn = ConvertionHelper.convertToIMetaDataColumn((MetadataColumn) dragdedData.get(0));
 
