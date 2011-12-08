@@ -98,7 +98,7 @@
   </portType>
   <wsdl:service name="CRMServiceProvider">
     <wsdl:port binding="tns:localhostBinding" name="CRMServicePort">
-      <soap:address location="http://localhost:8888/services/CRMServiceProvider/"/>
+      <soap:address location="http://localhost:8090/services/CRMServiceProvider"/>
     </wsdl:port>
   </wsdl:service>
   <wsdl:binding name="localhostBinding" type="tns:CRMService">
