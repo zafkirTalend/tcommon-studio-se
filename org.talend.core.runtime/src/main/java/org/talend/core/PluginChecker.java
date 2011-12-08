@@ -49,6 +49,9 @@ public class PluginChecker {
     // added by hyWang
     private static final String RULES_PLUGIN_ID = "org.talend.repository.rules"; //$NON-NLS-1$   
 
+    // TDQ-3356
+    private static final String SURVIVORSHIP_PLUGIN_ID = "org.talend.survivorship.designer"; //$NON-NLS-1$
+
     private static final String PREVIEW_PLUGIN_ID = "org.talend.designer.component.preview"; //$NON-NLS-1$   
 
     private static final String SVN_PROVIDER_PLUGIN_ID = "org.talend.repository.svnprovider"; //$NON-NLS-1$   
@@ -159,6 +162,10 @@ public class PluginChecker {
 
     public static boolean isHL7PluginLoaded() {
         return isPluginLoaded(HL7_PLUGIN_ID);
+    }
+
+    public static boolean isSurvivorshipPluginLoaded() {
+        return isPluginLoaded(SURVIVORSHIP_PLUGIN_ID);
     }
 
     public static boolean isBRMSPluginLoaded() {
