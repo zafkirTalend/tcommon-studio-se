@@ -140,7 +140,7 @@ public class TalendString {
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < padding_chars.length(); i++) {
             char c = padding_chars.charAt(i);
-            if (!(Character.isLetterOrDigit(c) || c == '_')) {
+            if (!(Character.isLetterOrDigit(c) || c == '_'||Character.isWhitespace(c))) {
                 sb.append(escapeChar);
                 sb.append(c);
             } else {
