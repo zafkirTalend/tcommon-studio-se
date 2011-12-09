@@ -50,6 +50,7 @@ import org.talend.core.model.properties.LinkDocumentationItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.User;
+import org.talend.core.ui.images.RepositoryImageProvider;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.repository.ProjectManager;
@@ -283,6 +284,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
             repositoryStatus = factory.getStatus(property.getItem());
             InformationLevel informationLevel = property.getMaxInformationLevel();
             informationStatus = factory.getStatus(informationLevel);
+            this.customImage = ImageProvider.getImage(RepositoryImageProvider.getIcon(type));
             if (type == ERepositoryObjectType.JOBLET) {
                 JobletProcessItem item = (JobletProcessItem) property.getItem();
                 if (item.getIcon() != null && item.getIcon().getInnerContent() != null
@@ -297,6 +299,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
                 } else if (item instanceof LinkDocumentationItem) {
                     customImage = coreSerivce.getImageWithSpecial(customImage).createImage();
                 }
+
             }
             return property;
         } catch (PersistenceException e) {
