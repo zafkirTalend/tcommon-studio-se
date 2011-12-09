@@ -133,9 +133,14 @@ public abstract class AbstractXmlFileStepForm extends AbstractXmlStepForm {
             if (node instanceof Element) {
                 String label = node.getLabel();
                 if (!node.hasChildren() && label != null && !label.equals("")) {
+                    String columnName = label;
+                    if (columnName.contains(":")) { //$NON-NLS-1$
+                        columnName = columnName.split(":")[1]; //$NON-NLS-1$
+                    }
+                    columnName = columnName.replaceAll("[^a-zA-Z0-9]", "_");
                     String dataType = node.getDataType();
                     MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
-                    metadataColumn.setLabel(editor.getNextGeneratedColumnName(label, columnList));
+                    metadataColumn.setLabel(editor.getNextGeneratedColumnName(columnName, columnList));
                     metadataColumn.setOriginalField(label);
                     metadataColumn.setTalendType(dataType);
                     columnList.add(metadataColumn);
@@ -145,9 +150,14 @@ public abstract class AbstractXmlFileStepForm extends AbstractXmlStepForm {
             if (node instanceof Attribute) {
                 String label = node.getLabel();
                 if (label != null && !label.equals("")) {
+                    String columnName = label;
+                    if (columnName.contains(":")) { //$NON-NLS-1$
+                        columnName = columnName.split(":")[1]; //$NON-NLS-1$
+                    }
+                    columnName = columnName.replaceAll("[^a-zA-Z0-9]", "_");
                     String dataType = node.getDataType();
                     MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
-                    metadataColumn.setLabel(editor.getNextGeneratedColumnName(label, columnList));
+                    metadataColumn.setLabel(editor.getNextGeneratedColumnName(columnName, columnList));
                     metadataColumn.setOriginalField(label);
                     metadataColumn.setTalendType(dataType);
                     columnList.add(metadataColumn);

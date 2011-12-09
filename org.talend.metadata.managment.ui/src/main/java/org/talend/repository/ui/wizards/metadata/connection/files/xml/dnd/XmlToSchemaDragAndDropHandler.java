@@ -38,6 +38,7 @@ import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableAddCo
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.utils.TableUtils;
+import org.talend.commons.utils.data.list.UniqueStringGenerator;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.extraction.ExtractionFieldsWithXPathEditorView;
@@ -275,6 +276,10 @@ public class XmlToSchemaDragAndDropHandler {
                 ExtractionFieldsWithXPathEditorView tableEditorView = linker.getFieldsTableEditorView();
                 Integer startInsertAtThisIndex = TableUtils.getItemIndexWhereInsertFromPosition(fieldsTable, new Point(event.x,
                         event.y));
+                // full list of columns to calculate the rename of target columns automatically
+                List<SchemaTarget> fullSchemaTargetList = new ArrayList<SchemaTarget>(tableEditorView.getModel().getBeansList());
+
+                // list of columns just added with drag&drop
                 List<SchemaTarget> list = new ArrayList<SchemaTarget>(transferableEntryList.size());
                 for (TransferableXPathEntry entry : transferableEntryList) {
 
@@ -294,11 +299,12 @@ public class XmlToSchemaDragAndDropHandler {
                         }
 
                         SchemaTarget newTargetEntry = linker.getNewSchemaTargetEntry(relativeXPath);
-                        String name = extractColumnName(extractTagName(relativeXPath));
+                        String name = extractColumnName(extractTagName(relativeXPath), fullSchemaTargetList);
                         // if (!name.equals(relativeXPath)) {
                         newTargetEntry.setTagName(name);
                         // }
                         list.add(newTargetEntry);
+                        fullSchemaTargetList.add(newTargetEntry);
                     }
                 }
 
@@ -349,6 +355,10 @@ public class XmlToSchemaDragAndDropHandler {
         if (exprs.length > 0) {
             currentExpr = exprs[exprs.length - 1];
         }
+        if (currentExpr.contains(":")) { //$NON-NLS-1$
+            currentExpr = currentExpr.split(":")[1]; //$NON-NLS-1$
+        }
+
         return currentExpr;
     }
 
@@ -356,10 +366,27 @@ public class XmlToSchemaDragAndDropHandler {
      * Extract last word of an expression, the last character must be a letter or a number.
      * 
      * @param currentExpr
+     * @param fullSchemaTargetList
      * @return
      */
-    public static String extractColumnName(String currentExpr) {
-        return currentExpr.replaceAll("[^a-zA-Z0-9]", "_");
+    public static String extractColumnName(String currentExpr, List<SchemaTarget> fullSchemaTargetList) {
+        String columnName = currentExpr.replaceAll("[^a-zA-Z0-9]", "_");
+        UniqueStringGenerator<SchemaTarget> uniqueStringGenerator = new UniqueStringGenerator<SchemaTarget>(columnName,
+                fullSchemaTargetList) {
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see org.talend.commons.utils.data.list.UniqueStringGenerator#getBeanString(java.lang.Object)
+             */
+            @Override
+            protected String getBeanString(SchemaTarget bean) {
+                return bean.getTagName();
+            }
+
+        };
+        columnName = uniqueStringGenerator.getUniqueString();
+        return columnName;
     }
 
     public static void main(String[] args) {
