@@ -2,7 +2,7 @@
 //
 // Talend Community Edition
 //
-// Copyright (C) 2006-2011 Talend Ð www.talend.com
+// Copyright (C) 2006-2011 Talend ï¿½ www.talend.com
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -50,44 +50,58 @@ public class EclipseCommandLine {
     /**
      * for relaunch of the plugins when relaunching the Studio
      */
-    static public final String TALEND_RESTART_COMMAND = "-talendRestart"; //$NON-NLS-1$    
+    static public final String TALEND_RELOAD_COMMAND = "-talendReload"; //$NON-NLS-1$    
+
+    /**
+     * for relaunch of the plugins when relaunching the Studio
+     */
+    static public final String TALEND_DISABLE_LOGINDIALOG_COMMAND = "--disableLoginDialog"; //$NON-NLS-1$    
 
     /**
      * this creates or updates the org.eclipse.equinox.app.IApplicationContext.EXIT_DATA_PROPERTY by adding or changing
      * the command with value, except if value is null then the command shall be removed.
      * 
      * @param command the command to add or update or remove (if value is null) (usually starts with a -)
-     * @param value the value of the command or null if the command is to removed.
+     * @param value the value of the command,if the value is null,will only update the commmand
+     * @param delete the flag used to trigger delete or insert/update the command
      */
-    static public void updateOrCreateExitDataPropertyWithCommand(String command, String value) {
+    static public void updateOrCreateExitDataPropertyWithCommand(String command, String value, boolean delete) {
+        boolean isValueNull = false;
+        if (value == null || "".equals(value)) {
+            isValueNull = true;
+        }
         StringBuffer result = new StringBuffer(512);
 
         String currentProperty = System.getProperty(org.eclipse.equinox.app.IApplicationContext.EXIT_DATA_PROPERTY);
         if (currentProperty != null) {// update the property
             Pattern commandPattern = Pattern.compile(command + "\\s+.+\\s");//$NON-NLS-1$ -talendRestart\s+.+\s
             Matcher restartMatcher = commandPattern.matcher(currentProperty);
-            if (value != null) {// command to be updated or added
-                // try to find existing commands to update them
-                // find the index of the arg to replace its value
+
+            if (delete) {// if delete,no matter the value is null or not,remove the command directly
+                if (restartMatcher.find()) {// match found so remove it
+                    currentProperty = restartMatcher.replaceAll("");
+                } // else no match so do nothing
+            } else {// else add or update the command
+                    // try to find existing commands to update them
+                    // find the index of the arg to replace its value
+                // if value is null,only add or update the command
                 if (restartMatcher.find()) {// match found so update the command
-                    currentProperty = restartMatcher.replaceAll(command + EclipseCommandLine.NEW_LINE + value
-                            + EclipseCommandLine.NEW_LINE);
+                    currentProperty = restartMatcher.replaceAll(command + EclipseCommandLine.NEW_LINE
+                            + (isValueNull ? "" : value + EclipseCommandLine.NEW_LINE));//$NON-NLS-N$
                 } else {// no match so insert it before the CMD_VMARGS
                     int indexOfVmArgs = currentProperty.indexOf(CMD_VMARGS);
                     if (indexOfVmArgs >= 0) {// found it so insert command before
                         currentProperty = currentProperty.substring(0, indexOfVmArgs) + command + EclipseCommandLine.NEW_LINE
-                                + value + EclipseCommandLine.NEW_LINE + currentProperty.substring(indexOfVmArgs);
+                                + (isValueNull ? "" : value + EclipseCommandLine.NEW_LINE)
+                                + currentProperty.substring(indexOfVmArgs);
                     } else {// vmargs command not found so don't know where to set it to throw Exception
                         throw new IllegalArgumentException("the property :"
                                 + org.eclipse.equinox.app.IApplicationContext.EXIT_DATA_PROPERTY + "must constain "
                                 + EclipseCommandLine.CMD_VMARGS);
                     }
                 }
-            } else {// command to be removed
-                if (restartMatcher.find()) {// match found so remove it
-                    currentProperty = restartMatcher.replaceAll("");
-                } // else no match so do nothing
             }
+
             result.append(currentProperty);
 
         } else {// creates a new string
@@ -109,29 +123,33 @@ public class EclipseCommandLine {
                 if (value != null) {// command to be set
                     result.append(command);
                     result.append(EclipseCommandLine.NEW_LINE);
-                    result.append(value); //$NON-NLS-1$
-                    result.append(EclipseCommandLine.NEW_LINE);
+                    if (!isValueNull) {
+                        result.append(value); //$NON-NLS-1$
+                        result.append(EclipseCommandLine.NEW_LINE);
+                    }
                 }// else command shall be removed,but it does not exists so ignor it
             } else {
                 Pattern commandPattern = Pattern.compile(command + "\\s+.+\\s");//$NON-NLS-1$ -talendRestart\s+.+\s
                 Matcher restartMatcher = commandPattern.matcher(property);
-                if (value != null) {// command to be updated or added
-                    // try to find existing commands to update them
-                    // find the index of the arg to replace its value
+
+                if (delete) {// if delete,no matter the value is null or not,remove the command dirctly
+                    if (restartMatcher.find()) {// match found so remove it
+                        property = restartMatcher.replaceAll(EclipseCommandLine.NEW_LINE);
+                    }
+                } else {// else need add or update the
                     if (restartMatcher.find()) {// match found so update the command
-                        property = restartMatcher.replaceAll(command + EclipseCommandLine.NEW_LINE + value
-                                + EclipseCommandLine.NEW_LINE);
+                        property = restartMatcher.replaceAll(command + EclipseCommandLine.NEW_LINE
+                                + (isValueNull ? "" : value + EclipseCommandLine.NEW_LINE));
                     } else {// no match so add it
                         result.append(command);
                         result.append(EclipseCommandLine.NEW_LINE);
-                        result.append(value);
-                        result.append(EclipseCommandLine.NEW_LINE);
+                        if (!isValueNull) {// won't add value if value is null
+                            result.append(value);
+                            result.append(EclipseCommandLine.NEW_LINE);
+                        }
                     }
-                } else {// command to be removed
-                    if (restartMatcher.find()) {// match found so remove it
-                        property = restartMatcher.replaceAll(EclipseCommandLine.NEW_LINE);
-                    } // else no match so do nothing
                 }
+
                 result.append(property);
             }
 
