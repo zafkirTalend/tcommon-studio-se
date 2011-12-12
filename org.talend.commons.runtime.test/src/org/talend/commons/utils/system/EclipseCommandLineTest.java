@@ -62,8 +62,8 @@ public class EclipseCommandLineTest {
      */
     @Test
     public void testUpdateOrCreateExitDataPropertyToCreateRestartFalseCommandline() {
-        EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand(TALEND_RESTART_COMMAND, "false");
-        EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand(TALEND_PROJECT_TYPE_COMMAND, null);
+        EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand(TALEND_RESTART_COMMAND, "false", false);
+        EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand(TALEND_PROJECT_TYPE_COMMAND, null, true);
         System.out.println(System.getProperty(org.eclipse.equinox.app.IApplicationContext.EXIT_DATA_PROPERTY));
         Assert.assertEquals(System.getProperty(org.eclipse.equinox.app.IApplicationContext.EXIT_DATA_PROPERTY),
                 buildRestartFalseCommandLine());
@@ -76,13 +76,13 @@ public class EclipseCommandLineTest {
      */
     @Test
     public void testUpdateOrCreateExitDataPropertyToRemoveProperty() {
-        EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand("dummy", "dummy");
+        EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand("dummy", "dummy", false);
         String initialProp = System.getProperty(org.eclipse.equinox.app.IApplicationContext.EXIT_DATA_PROPERTY);
         Assert.assertFalse(initialProp.contains(TALEND_RESTART_COMMAND));
-        EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand(TALEND_RESTART_COMMAND, "false");
+        EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand(TALEND_RESTART_COMMAND, "false", false);
         Assert.assertTrue(System.getProperty(org.eclipse.equinox.app.IApplicationContext.EXIT_DATA_PROPERTY).contains(
                 TALEND_RESTART_COMMAND + "\nfalse"));
-        EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand(TALEND_RESTART_COMMAND, null);
+        EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand(TALEND_RESTART_COMMAND, null, true);
         Assert.assertEquals(System.getProperty(org.eclipse.equinox.app.IApplicationContext.EXIT_DATA_PROPERTY), initialProp);
     }
 
@@ -93,10 +93,10 @@ public class EclipseCommandLineTest {
      */
     @Test
     public void testUpdateOrCreateExitDataPropertyToUpdateProperty() {
-        EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand(TALEND_RESTART_COMMAND, "false");
+        EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand(TALEND_RESTART_COMMAND, "false", false);
         Assert.assertFalse(System.getProperty(org.eclipse.equinox.app.IApplicationContext.EXIT_DATA_PROPERTY).contains(
                 TALEND_RESTART_COMMAND + "\ntrue"));
-        EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand(TALEND_RESTART_COMMAND, "true");
+        EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand(TALEND_RESTART_COMMAND, "true", false);
         Assert.assertTrue(System.getProperty(org.eclipse.equinox.app.IApplicationContext.EXIT_DATA_PROPERTY).contains(
                 TALEND_RESTART_COMMAND + "\ntrue"));
         Assert.assertFalse(System.getProperty(org.eclipse.equinox.app.IApplicationContext.EXIT_DATA_PROPERTY).contains(
@@ -106,8 +106,8 @@ public class EclipseCommandLineTest {
     @Test
     @Ignore("no able to create the same string with the same order.")
     public void testUpdateOrCreateExitDataPropertyBuildRestartWithProdcutType() {
-        EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand(TALEND_RESTART_COMMAND, "true");
-        EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand(TALEND_PROJECT_TYPE_COMMAND, "DI");
+        EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand(TALEND_RESTART_COMMAND, "true", false);
+        EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand(TALEND_PROJECT_TYPE_COMMAND, "DI", false);
         Assert.assertEquals(System.getProperty(org.eclipse.equinox.app.IApplicationContext.EXIT_DATA_PROPERTY),
                 buildRestartCommandLine("DI"));
 
