@@ -284,7 +284,6 @@ public class RepositoryViewObject implements IRepositoryViewObject {
             repositoryStatus = factory.getStatus(property.getItem());
             InformationLevel informationLevel = property.getMaxInformationLevel();
             informationStatus = factory.getStatus(informationLevel);
-            this.customImage = ImageProvider.getImage(RepositoryImageProvider.getIcon(type));
             if (type == ERepositoryObjectType.JOBLET) {
                 JobletProcessItem item = (JobletProcessItem) property.getItem();
                 if (item.getIcon() != null && item.getIcon().getInnerContent() != null
@@ -293,13 +292,13 @@ public class RepositoryViewObject implements IRepositoryViewObject {
                     customImage = ImageUtils.propertyLabelScale(property.getId(), customImage, ICON_SIZE.ICON_16);
                 }
             } else if (type == ERepositoryObjectType.DOCUMENTATION) {
+                this.customImage = ImageProvider.getImage(RepositoryImageProvider.getIcon(type));
                 Item item = property.getItem();
                 if (item instanceof DocumentationItem) {
                     customImage = coreSerivce.getImageWithDocExt(((DocumentationItem) item).getExtension());
                 } else if (item instanceof LinkDocumentationItem) {
                     customImage = coreSerivce.getImageWithSpecial(customImage).createImage();
                 }
-
             }
             return property;
         } catch (PersistenceException e) {
