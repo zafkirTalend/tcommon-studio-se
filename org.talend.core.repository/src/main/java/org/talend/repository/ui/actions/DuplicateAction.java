@@ -155,8 +155,9 @@ public class DuplicateAction extends AContextualAction {
 
         Property updatedProperty = null;
         try {
-            updatedProperty = ProxyRepositoryFactory.getInstance().getLastVersion(
-                    new Project(ProjectManager.getInstance().getProject(property.getItem())), property.getId()).getProperty();
+            updatedProperty = ProxyRepositoryFactory.getInstance()
+                    .getLastVersion(new Project(ProjectManager.getInstance().getProject(property.getItem())), property.getId())
+                    .getProperty();
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
         }
@@ -218,6 +219,11 @@ public class DuplicateAction extends AContextualAction {
         }
     }
 
+    public static boolean isValid(String str) {
+        Pattern pattern = Pattern.compile("^\\w+$");
+        return pattern.matcher(str).matches();
+    }
+
     /**
      * 
      * DOC YeXiaowei Comment method "isValid".
@@ -227,7 +233,9 @@ public class DuplicateAction extends AContextualAction {
      * @return null means valid, other means some error exist
      */
     private String validJobName(String itemName, TreeSelection selectionInClipboard) {
-
+        if (!isValid(itemName)) {
+            return Messages.getString("DuplicateAction.NameFormatError");
+        }
         IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
         IProxyRepositoryFactory repositoryFactory = service.getProxyRepositoryFactory();
         if (itemName.length() == 0) {
