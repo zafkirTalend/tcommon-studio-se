@@ -1699,7 +1699,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         EMap screenshots = null;
         if (item instanceof ProcessItem) {
             screenshots = ((ProcessItem) item).getProcess().getScreenshots();
-            itemResource.getContents().addAll(screenshots);
+            itemResource.getContents().addAll(EcoreUtil.copyAll(screenshots));
         } else if (item instanceof JobletProcessItem) {
             screenshots = ((JobletProcessItem) item).getJobletProcess().getScreenshots();
             itemResource.getContents().addAll(screenshots);
