@@ -1550,6 +1550,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
             TimeMeasure.begin("logOnProject");
             try {
+                System.getProperties().put("ReadOnlyUser", Boolean.FALSE.toString());
+
                 fullLogonFinished = false;
                 SubMonitor subMonitor = SubMonitor.convert(monitor, MAX_TASKS);
                 SubMonitor currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
