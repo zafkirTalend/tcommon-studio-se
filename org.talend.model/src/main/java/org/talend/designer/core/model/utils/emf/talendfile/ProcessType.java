@@ -6,6 +6,7 @@
  */
 package org.talend.designer.core.model.utils.emf.talendfile;
 
+import java.util.Map;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
@@ -250,7 +251,7 @@ public interface ProcessType extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Screenshots</em>' map.
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getProcessType_Screenshots()
-     * @model mapType="org.talend.designer.core.model.utils.emf.talendfile.ScreenshotsMap" keyType="java.lang.String" valueType="byte[]"
+     * @model mapType="org.talend.designer.core.model.utils.emf.talendfile.ScreenshotsMap" keyType="java.lang.String" valueType="byte[]" transient="true"
      * @generated
      */
     EMap getScreenshots();

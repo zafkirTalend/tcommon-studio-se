@@ -946,7 +946,7 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="screenshot" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Base64Binary"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="screenshots" upperBound="-1"
-        eType="#//ScreenshotsMap" containment="true"/>
+        eType="#//ScreenshotsMap" transient="true" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="routinesDependencies" upperBound="-1"
         eType="#//ItemInforType" containment="true"/>
   </eClassifiers>
