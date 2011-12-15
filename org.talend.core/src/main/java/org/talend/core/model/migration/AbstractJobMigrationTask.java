@@ -15,6 +15,7 @@ package org.talend.core.model.migration;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.talend.commons.emf.EmfHelper;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
@@ -33,14 +34,18 @@ public abstract class AbstractJobMigrationTask extends AbstractItemMigrationTask
         toReturn.add(ERepositoryObjectType.JOBLET);
         return toReturn;
     }
-    
+
     public ProcessType getProcessType(Item item) {
-		if (item instanceof ProcessItem) {
-			return ((ProcessItem) item).getProcess();
-		}
-		if (item instanceof JobletProcessItem) {
-			return ((JobletProcessItem) item).getJobletProcess();
-		}
-		return null;
-	}
+        ProcessType processType = null;
+        if (item instanceof ProcessItem) {
+            processType = ((ProcessItem) item).getProcess();
+        }
+        if (item instanceof JobletProcessItem) {
+            processType = ((JobletProcessItem) item).getJobletProcess();
+        }
+        if (processType != null) {
+            EmfHelper.visitChilds(processType);
+        }
+        return processType;
+    }
 }
