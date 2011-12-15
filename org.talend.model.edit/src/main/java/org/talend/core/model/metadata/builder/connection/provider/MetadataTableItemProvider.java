@@ -390,17 +390,19 @@ public class MetadataTableItemProvider extends AbstractMetadataObjectItemProvide
     /**
      * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
      * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-     * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
+     * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
+     * @generated NOT
      */
     @Override
     public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
         if (childrenFeatures == null) {
             super.getChildrenFeatures(object);
             childrenFeatures.add(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT);
-            childrenFeatures.add(CorePackage.Literals.CLASSIFIER__FEATURE);
+            // MOD mzhao 2011-12-15 TDQ-4079 Comparing two tables, avoid one column load twice (getColumns and
+            // getFeature)
+            // childrenFeatures.add(CorePackage.Literals.CLASSIFIER__FEATURE);
             childrenFeatures.add(ConnectionPackage.Literals.METADATA_TABLE__COLUMNS);
         }
         return childrenFeatures;
@@ -1727,6 +1729,11 @@ public class MetadataTableItemProvider extends AbstractMetadataObjectItemProvide
                     getTypeText(owner) });
         }
         return super.getCreateChildText(owner, feature, child, selection);
+    }
+
+    @Override
+    public Collection<?> getChildren(Object object) {
+        return super.getChildren(object);
     }
 
 }
