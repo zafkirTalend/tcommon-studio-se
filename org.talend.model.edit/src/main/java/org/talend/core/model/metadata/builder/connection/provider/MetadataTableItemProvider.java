@@ -1731,9 +1731,4 @@ public class MetadataTableItemProvider extends AbstractMetadataObjectItemProvide
         return super.getCreateChildText(owner, feature, child, selection);
     }
 
-    @Override
-    public Collection<?> getChildren(Object object) {
-        return super.getChildren(object);
-    }
-
 }
