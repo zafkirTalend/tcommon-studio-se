@@ -70,4 +70,52 @@ public class DatabaseConnectionParameterUtil {
         trueSchemaName = paramValue;
         return trueSchemaName;
     }
+
+    public static String getContextTrueValue(DatabaseConnection conn, String paramValue) {
+        String trueSchemaName = null;
+        String tempVlaue = paramValue;
+        if (conn.isContextMode()) { // if connection is contextmode
+            if (conn.getContextId() != null && !"".equals(conn.getContextId())) { // hywang modified for //$NON-NLS-1$
+                // 8846
+                String contextID = conn.getContextId();
+                paramValue = ContextParameterUtils.getVariableFromCode(paramValue);
+                IRepositoryViewObject repObj;
+                try {
+                    repObj = ProxyRepositoryFactory.getInstance().getLastVersion(contextID);
+                    if (repObj.getProperty().getItem() instanceof ContextItem) {
+                        ContextItem contextItem = (ContextItem) repObj.getProperty().getItem();
+                        List list = contextItem.getContext();
+                        Iterator it = list.iterator();
+                        while (it.hasNext()) {
+                            Object o = it.next();
+                            if (o instanceof ContextType) {
+                                ContextType contextType = (ContextType) o;
+                                List contextList = contextType.getContextParameter();
+                                for (int i = 0; i < contextList.size(); i++) {
+                                    Object obj = contextList.get(i);
+                                    if (obj instanceof ContextParameterType) {
+                                        ContextParameterType type = (ContextParameterType) obj;
+                                        if (type.getName().equals(paramValue)) {
+                                            if (type.getValue() == null) {
+                                                paramValue = "";
+                                            } else if ("".equals(type.getValue())) {
+                                                paramValue = type.getValue();
+                                            } else {
+                                                paramValue = tempVlaue;
+                                            }
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } catch (PersistenceException e1) {
+                    ExceptionHandler.process(e1);
+                }
+            }
+        }
+        trueSchemaName = paramValue;
+        return trueSchemaName;
+    }
 }

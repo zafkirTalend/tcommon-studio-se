@@ -268,6 +268,7 @@ public final class ColumnHelper {
             initialValue = CoreFactory.eINSTANCE.createExpression();
         }
         initialValue.setBody(value);
+        attribute.setInitialValue(initialValue);
     }
 
     /**

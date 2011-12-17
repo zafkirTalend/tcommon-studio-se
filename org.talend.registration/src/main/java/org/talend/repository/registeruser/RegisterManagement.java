@@ -33,11 +33,11 @@ import org.eclipse.ui.browser.IWebBrowser;
 import org.eclipse.update.core.SiteManager;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.utils.VersionUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.ConnectionBean;
 import org.talend.core.prefs.PreferenceManipulator;
 import org.talend.core.ui.branding.IBrandingService;
-import org.talend.repository.RegistrationPlugin;
 import org.talend.repository.i18n.Messages;
 import org.talend.repository.registeruser.proxy.RegisterUserPortTypeProxy;
 import org.talend.repository.ui.login.connections.ConnectionUserPerReader;
@@ -168,8 +168,7 @@ public class RegisterManagement {
 
         // VERSION
 
-        String version = RegistrationPlugin.getDefault().getBundle().getHeaders()
-                .get(org.osgi.framework.Constants.BUNDLE_VERSION).toString();
+        String version = VersionUtils.getVersion();
 
         RegisterUserPortTypeProxy proxy = new RegisterUserPortTypeProxy();
         proxy.setEndpoint("http://www.talend.com/TalendRegisterWS/registerws.php"); //$NON-NLS-1$
@@ -247,8 +246,7 @@ public class RegisterManagement {
 
         // VERSION
 
-        String version = RegistrationPlugin.getDefault().getBundle().getHeaders()
-                .get(org.osgi.framework.Constants.BUNDLE_VERSION).toString();
+        String version = VersionUtils.getVersion();
 
         RegisterUserPortTypeProxy proxy = new RegisterUserPortTypeProxy();
         proxy.setEndpoint("http://www.talend.com/TalendRegisterWS/registerws.php"); //$NON-NLS-1$
@@ -321,9 +319,7 @@ public class RegisterManagement {
         int nbProc = Runtime.getRuntime().availableProcessors();
 
         // VERSION
-
-        String version = RegistrationPlugin.getDefault().getBundle().getHeaders()
-                .get(org.osgi.framework.Constants.BUNDLE_VERSION).toString();
+        String version = VersionUtils.getVersion();
 
         RegisterUserPortTypeProxy proxy = new RegisterUserPortTypeProxy();
         proxy.setEndpoint("http://www.talend.com/TalendRegisterWS/registerws.php"); //$NON-NLS-1$
