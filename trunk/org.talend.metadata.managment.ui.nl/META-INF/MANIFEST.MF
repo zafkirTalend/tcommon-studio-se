@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Metadata Managment UI Nl Fragment
+Bundle-SymbolicName: org.talend.metadata.managment.ui.nl
+Bundle-Version: 1.0.0.qualifier
+Fragment-Host: org.talend.metadata.managment.ui
+Bundle-Vendor: .Talend SA.

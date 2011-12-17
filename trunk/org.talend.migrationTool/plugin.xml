@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.talend.core.runtime.service">
+      <Service
+            class="org.talend.migrationtool.MigrationToolService"
+            serviceId="IMigrationToolService"/>
+   </extension>
+   <extension
+         point="org.talend.core.migrationTask">
+      <workspacetask
+            class="org.talend.migrationtool.model.InitWorkspaceMigrationTask"
+            id="org.talend.migrationTool.InitWorkspaceMigrationTask"
+            name="InitWorkspaceMigrationTask"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup class="org.talend.migrationtool.model.summary.AlertUserOnLogin"/>
+   </extension>
+
+</plugin>

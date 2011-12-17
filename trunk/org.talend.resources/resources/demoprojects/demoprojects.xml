@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projects>
+	<project name="ESBDEMOS" language="java" demoProjectFileType="archive" demoFilePath="resources/demoprojects/java/ESBDEMOS.zip" descriptionFilePath="resources/demoprojects/java/esbdemo.html"/>
+	<project name="TALENDDEMOSJAVA" language="java" demoProjectFileType="folder" demoFilePath="resources/demoprojects/java/TALENDDEMOSJAVA" descriptionFilePath="resources/demoprojects/java/demojava.html"/>
+</projects>

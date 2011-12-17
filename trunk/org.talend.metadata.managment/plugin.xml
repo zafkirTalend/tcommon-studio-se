@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="org.talend.metadata.managment.DBDriver_extension" name="DBDriver_extension" schema="schema/org.talend.metadata.managment.DBDriver_extension.exsd"/>
+   <extension
+         point="org.talend.core.runtime.service">
+      <Service
+            class="org.talend.core.model.MetadataManagmentService"
+            serviceId="IMetadataManagmentService">
+      </Service>
+   </extension>
+
+</plugin>

@@ -1,0 +1,6 @@
+fix bug 0003796: tfileinputXML choose wrong DTD-Path
+see http://www.talendforge.org/bugs/view.php?id=3796
+
+modify SchemaPopulationUtil.getSchemaTree and SaxParser
+use method public void parse (String systemId) in XMLReader instead of public void parse (InputSource input)
+because it cannot load the dtd file with relative path 
