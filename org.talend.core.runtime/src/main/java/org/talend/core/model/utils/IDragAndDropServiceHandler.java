@@ -54,4 +54,14 @@ public interface IDragAndDropServiceHandler {
      * @param type - the type of the selectedNode
      */
     public List<IComponent> filterNeededComponents(Item item, RepositoryNode seletetedNode, ERepositoryObjectType type);
+
+    /**
+     * DOC hwang Comment method "getCorrespondingComponentName".
+     * 
+     * get the default component and input/output names for the quick drag&drop
+     * 
+     * @param item - the Item of the selectedNode
+     * @param type - the type of the selectedNode
+     */
+    public IComponentName getCorrespondingComponentName(Item item, ERepositoryObjectType type);
 }
