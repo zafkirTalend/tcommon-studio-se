@@ -166,7 +166,8 @@ public class FileDelimitedTableWizard extends AbstractRepositoryFileTableWizard 
      */
     private boolean isNeedUpdateDQ(Item item) {
 
-        if (!PluginChecker.isTDQLoaded() || item == null || !(item instanceof ConnectionItem)) {
+        if (!(PluginChecker.isTDQLoaded() || PluginChecker.isOnlyTopLoaded()) || item == null
+                || !(item instanceof ConnectionItem)) {
             return false;
         }
         Connection connection = ((ConnectionItem) item).getConnection();
