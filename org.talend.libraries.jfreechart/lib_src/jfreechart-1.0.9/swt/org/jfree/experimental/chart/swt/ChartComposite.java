@@ -1874,5 +1874,17 @@ public class ChartComposite extends Composite implements ChartChangeListener,
         }
         sg2.dispose();
     }
-
+    @Override
+    public void dispose() {
+        if (this.chartBuffer != null) this.chartBuffer.dispose();
+        // de-register the composite as a listener for the chart.
+        if (this.chart != null) {
+            this.chart.removeChangeListener(this);
+            this.chart.removeProgressListener(this);
+        }
+        super.dispose();
+        if(this.popup!=null){
+            this.popup.dispose();
+        }
+    }
 }
