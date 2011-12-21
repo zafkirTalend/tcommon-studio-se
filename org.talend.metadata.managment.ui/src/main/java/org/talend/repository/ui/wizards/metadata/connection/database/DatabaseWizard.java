@@ -342,10 +342,10 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                         DatabaseConnection c = (DatabaseConnection) connectionItem.getConnection();
                         final boolean equals = EDatabaseTypeName.ORACLEFORSID.getProduct().equals(c.getProductId());
                         if (equals && !c.isContextMode()) {
-                            if (c.getUiSchema() == null || "".equals(c.getUiSchema())) {
-                                c.setUiSchema(c.getUsername()); //$NON-NLS-1$
-                            } else {
-                                c.setUiSchema(c.getUiSchema().toUpperCase());
+                            if (c.getUiSchema() != null && !"".equals(c.getUiSchema())) {//$NON-NLS-1$
+                                c.setUiSchema(c.getUiSchema().toUpperCase()); // MOD mzhao bug 4227 , don't set the
+                                                                              // uiScheme after 4.2(included) as the
+                                                                              // connection wizard is uniformed.
                             }
                         }
                         // update
