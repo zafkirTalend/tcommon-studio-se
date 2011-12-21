@@ -218,8 +218,8 @@ public abstract class RepositoryUpdateManager {
     public abstract Set<EUpdateItemType> getTypes();
 
     private boolean openPropagationDialog() {
-        return MessageDialog.openQuestion(Display.getCurrent().getActiveShell(), Messages
-                .getString("RepositoryUpdateManager.Title"), //$NON-NLS-1$
+        return MessageDialog.openQuestion(Display.getCurrent().getActiveShell(),
+                Messages.getString("RepositoryUpdateManager.Title"), //$NON-NLS-1$
                 Messages.getString("RepositoryUpdateManager.Messages")); //$NON-NLS-1$
     }
 
@@ -241,8 +241,8 @@ public abstract class RepositoryUpdateManager {
     }
 
     private boolean openRenameCheckedDialog() {
-        return MessageDialog.openQuestion(Display.getCurrent().getActiveShell(), Messages
-                .getString("RepositoryUpdateManager.RenameContextTitle"), //$NON-NLS-1$
+        return MessageDialog.openQuestion(Display.getCurrent().getActiveShell(),
+                Messages.getString("RepositoryUpdateManager.RenameContextTitle"), //$NON-NLS-1$
                 Messages.getString("RepositoryUpdateManager.RenameContextMessages")); //$NON-NLS-1$
 
     }
@@ -332,8 +332,8 @@ public abstract class RepositoryUpdateManager {
         if (results == null) {
             return null;
         }
-        List<IProcess2> openedProcessList = CoreRuntimePlugin.getInstance().getDesignerCoreService().getOpenedProcess(
-                getEditors());
+        List<IProcess2> openedProcessList = CoreRuntimePlugin.getInstance().getDesignerCoreService()
+                .getOpenedProcess(getEditors());
 
         List<UpdateResult> checkedResults = new ArrayList<UpdateResult>();
         for (UpdateResult result : results) {
@@ -904,8 +904,8 @@ public abstract class RepositoryUpdateManager {
             }
         });
 
-        List<IProcess2> openedProcessList = CoreRuntimePlugin.getInstance().getDesignerCoreService().getOpenedProcess(
-                getEditors());
+        List<IProcess2> openedProcessList = CoreRuntimePlugin.getInstance().getDesignerCoreService()
+                .getOpenedProcess(getEditors());
 
         try {
 
@@ -938,8 +938,7 @@ public abstract class RepositoryUpdateManager {
                         if (!checkOnlyLastVersion) {
                             List<IRepositoryViewObject> allVersion = factory.getAllVersion(relatedObj.getId());
                             for (IRepositoryViewObject object : allVersion) {
-                                if (factory.getStatus(object) != ERepositoryStatus.LOCK_BY_OTHER
-                                        && factory.getStatus(object) != ERepositoryStatus.LOCK_BY_USER) {
+                                if (factory.getStatus(object) != ERepositoryStatus.LOCK_BY_OTHER) {
                                     allVersionList.add(object);
                                 }
                             }
@@ -948,7 +947,7 @@ public abstract class RepositoryUpdateManager {
                             // factory.getLastVersion(repositoryObj.getId());
                             IRepositoryViewObject lastVersion = relatedObj; // factory.getLastVersion(repositoryObj.getId());
                             ERepositoryStatus status = factory.getStatus(lastVersion);
-                            if (status != ERepositoryStatus.LOCK_BY_OTHER && status != ERepositoryStatus.LOCK_BY_USER) {
+                            if (status != ERepositoryStatus.LOCK_BY_OTHER) {
                                 allVersionList.add(lastVersion);
                             }
                         }
@@ -1255,16 +1254,12 @@ public abstract class RepositoryUpdateManager {
             // for save item
             List<UpdateResult> resultFromProcess = getResultFromProcess(process2, types, onlySimpleShow);
 
-            IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
-            if (!ERepositoryStatus.LOCK_BY_USER.equals(factory.getStatus(item))) {
-
-                for (UpdateResult result : resultFromProcess) {
-                    if (result.getJob() != null) {
-                        result.setJob(null);
-                    }
-                    result.setFromItem(true);
-                    result.setObjectId(item.getProperty().getId());
+            for (UpdateResult result : resultFromProcess) {
+                if (result.getJob() != null) {
+                    result.setJob(null);
                 }
+                result.setFromItem(true);
+                result.setObjectId(item.getProperty().getId());
             }
 
             process2.dispose();
@@ -1548,7 +1543,8 @@ public abstract class RepositoryUpdateManager {
      * @param oldTableMap
      * @return
      */
-    public static Map<String, String> getSchemaRenamedMap(Connection connection,Property property, Map<String, String> oldTableMap) {
+    public static Map<String, String> getSchemaRenamedMap(Connection connection, Property property,
+            Map<String, String> oldTableMap) {
         if (connection == null || oldTableMap == null) {
             return Collections.emptyMap();
         }
@@ -2104,7 +2100,6 @@ public abstract class RepositoryUpdateManager {
                 newParametersMap.put(item, repositoryContextManager.getNewParameters());
             }
             repositoryUpdateManager.setNewParametersMap(newParametersMap);
-
         }
         try {
             repositoryUpdateManager.updateConnection(item);
