@@ -67,6 +67,7 @@
  * 14-Nov-2007 : Create canvas with SWT.DOUBLE_BUFFER, added 
  *               getChartRenderingInfo(), is/setDomainZoomable() and 
  *               is/setRangeZoomable() as per feature request (DG);
+ * 14-Dec-2011 : Override dispose method to dispose popup when this composite be disposed.
  */
 
 package org.jfree.experimental.chart.swt;
@@ -1874,5 +1875,18 @@ public class ChartComposite extends Composite implements ChartChangeListener,
         }
         sg2.dispose();
     }
+    @Override
+	public void dispose() {
+		if (this.chartBuffer != null) this.chartBuffer.dispose();
+		// de-register the composite as a listener for the chart.
+		if (this.chart != null) {
+			this.chart.removeChangeListener(this);
+			this.chart.removeProgressListener(this);
+		}
+		super.dispose();
+		if(this.popup!=null){
+			this.popup.dispose();
+		}
+	}
 
 }
