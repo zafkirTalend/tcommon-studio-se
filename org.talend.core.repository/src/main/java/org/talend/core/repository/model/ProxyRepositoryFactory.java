@@ -522,13 +522,13 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * ERepositoryObjectType, org.eclipse.core.runtime.IPath, java.lang.String)
      */
     public void renameFolder(ERepositoryObjectType type, IPath path, String label) throws PersistenceException {
-        if (path.lastSegment().equalsIgnoreCase(label)) {
-            // not supported to rename directly to another case.
-            // actually only possible way without it, would be to move to another temp folder, then rename again.
-            // (means 2 commits)
-            // to simplify for now, we don't allow to rename one folder to another case.
-            return;
-        }
+        // if (path.lastSegment().equalsIgnoreCase(label)) {
+        // not supported to rename directly to another case.
+        // actually only possible way without it, would be to move to another temp folder, then rename again.
+        // (means 2 commits)
+        // to simplify for now, we don't allow to rename one folder to another case.
+        // return;
+        // }
         this.repositoryFactoryFromProvider.renameFolder(type, path, label);
         if (type == ERepositoryObjectType.PROCESS) {
             fireRepositoryPropertyChange(ERepositoryActionName.FOLDER_RENAME.getName(), path, label);
