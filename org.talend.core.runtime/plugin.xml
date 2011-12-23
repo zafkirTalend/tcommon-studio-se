@@ -5,6 +5,7 @@
    <extension-point id="dq_EMFModel_provider" name="dq emf model" schema="schema/dq_EMFModel_provider.exsd"/>
    <extension-point id="filepreview_provider" name="File Preview Provider" schema="schema/filepreview_provider.exsd"/>
    <extension-point id="tokenInfo_provider" name="Token Info" schema="schema/tokenInfo_provider.exsd"/>
+   <extension-point id="check_servers" name="Check servers" schema="schema/check_servers.exsd"/>
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
