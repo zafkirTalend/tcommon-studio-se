@@ -74,6 +74,7 @@ public class UserRoleReferenceImpl extends EObjectImpl implements UserRoleRefere
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.USER_ROLE_REFERENCE;
     }
@@ -159,6 +160,7 @@ public class UserRoleReferenceImpl extends EObjectImpl implements UserRoleRefere
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.USER_ROLE_REFERENCE__USER:
@@ -176,6 +178,7 @@ public class UserRoleReferenceImpl extends EObjectImpl implements UserRoleRefere
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case PropertiesPackage.USER_ROLE_REFERENCE__USER:
@@ -193,6 +196,7 @@ public class UserRoleReferenceImpl extends EObjectImpl implements UserRoleRefere
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case PropertiesPackage.USER_ROLE_REFERENCE__USER:
@@ -210,6 +214,7 @@ public class UserRoleReferenceImpl extends EObjectImpl implements UserRoleRefere
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case PropertiesPackage.USER_ROLE_REFERENCE__USER:

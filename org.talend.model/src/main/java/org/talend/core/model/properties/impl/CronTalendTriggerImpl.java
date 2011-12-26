@@ -63,6 +63,7 @@ public class CronTalendTriggerImpl extends TalendTriggerImpl implements CronTale
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.CRON_TALEND_TRIGGER;
     }
@@ -93,6 +94,7 @@ public class CronTalendTriggerImpl extends TalendTriggerImpl implements CronTale
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.CRON_TALEND_TRIGGER__CRON_EXPRESSION:
@@ -106,6 +108,7 @@ public class CronTalendTriggerImpl extends TalendTriggerImpl implements CronTale
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case PropertiesPackage.CRON_TALEND_TRIGGER__CRON_EXPRESSION:
@@ -120,6 +123,7 @@ public class CronTalendTriggerImpl extends TalendTriggerImpl implements CronTale
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case PropertiesPackage.CRON_TALEND_TRIGGER__CRON_EXPRESSION:
@@ -134,6 +138,7 @@ public class CronTalendTriggerImpl extends TalendTriggerImpl implements CronTale
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case PropertiesPackage.CRON_TALEND_TRIGGER__CRON_EXPRESSION:
@@ -147,6 +152,7 @@ public class CronTalendTriggerImpl extends TalendTriggerImpl implements CronTale
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

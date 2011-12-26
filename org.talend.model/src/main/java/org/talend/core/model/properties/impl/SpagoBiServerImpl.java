@@ -190,6 +190,7 @@ public class SpagoBiServerImpl extends EObjectImpl implements SpagoBiServer {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.SPAGO_BI_SERVER;
     }
@@ -346,6 +347,7 @@ public class SpagoBiServerImpl extends EObjectImpl implements SpagoBiServer {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.SPAGO_BI_SERVER__ENGINE_NAME:
@@ -371,6 +373,7 @@ public class SpagoBiServerImpl extends EObjectImpl implements SpagoBiServer {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case PropertiesPackage.SPAGO_BI_SERVER__ENGINE_NAME:
@@ -403,6 +406,7 @@ public class SpagoBiServerImpl extends EObjectImpl implements SpagoBiServer {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case PropertiesPackage.SPAGO_BI_SERVER__ENGINE_NAME:
@@ -435,6 +439,7 @@ public class SpagoBiServerImpl extends EObjectImpl implements SpagoBiServer {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case PropertiesPackage.SPAGO_BI_SERVER__ENGINE_NAME:
@@ -460,6 +465,7 @@ public class SpagoBiServerImpl extends EObjectImpl implements SpagoBiServer {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

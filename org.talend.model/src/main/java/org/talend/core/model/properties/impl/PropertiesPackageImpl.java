@@ -6,6 +6,7 @@
  */
 package org.talend.core.model.properties.impl;
 
+import java.util.Map;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
@@ -833,6 +834,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    private EClass additionalInfoMapEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     private EClass referenceFileItemEClass = null;
 
     /**
@@ -1524,6 +1532,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      */
     public EAttribute getProperty_OldStatusCode() {
         return (EAttribute)propertyEClass.getEStructuralFeatures().get(12);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getProperty_AdditionalProperties() {
+        return (EReference)propertyEClass.getEStructuralFeatures().get(13);
     }
 
     /**
@@ -5896,6 +5913,33 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getAdditionalInfoMap() {
+        return additionalInfoMapEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAdditionalInfoMap_Key() {
+        return (EAttribute)additionalInfoMapEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAdditionalInfoMap_Value() {
+        return (EAttribute)additionalInfoMapEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getReferenceFileItem() {
         return referenceFileItemEClass;
     }
@@ -6062,6 +6106,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEReference(propertyEClass, PROPERTY__INFORMATIONS);
         createEAttribute(propertyEClass, PROPERTY__MAX_INFORMATION_LEVEL);
         createEAttribute(propertyEClass, PROPERTY__OLD_STATUS_CODE);
+        createEReference(propertyEClass, PROPERTY__ADDITIONAL_PROPERTIES);
 
         itemEClass = createEClass(ITEM);
         createEReference(itemEClass, ITEM__PROPERTY);
@@ -6645,6 +6690,10 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         artifactNotificationEClass = createEClass(ARTIFACT_NOTIFICATION);
         createEAttribute(artifactNotificationEClass, ARTIFACT_NOTIFICATION__NAME);
 
+        additionalInfoMapEClass = createEClass(ADDITIONAL_INFO_MAP);
+        createEAttribute(additionalInfoMapEClass, ADDITIONAL_INFO_MAP__KEY);
+        createEAttribute(additionalInfoMapEClass, ADDITIONAL_INFO_MAP__VALUE);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
@@ -6807,6 +6856,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEReference(getProperty_Informations(), this.getInformation(), null, "informations", null, 0, -1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProperty_MaxInformationLevel(), this.getInformationLevel(), "maxInformationLevel", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProperty_OldStatusCode(), theEcorePackage.getEString(), "oldStatusCode", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getProperty_AdditionalProperties(), this.getAdditionalInfoMap(), null, "additionalProperties", null, 0, -1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(itemEClass, Item.class, "Item", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getItem_Property(), this.getProperty(), this.getProperty_Item(), "property", null, 0, 1, Item.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -7390,6 +7440,10 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(artifactNotificationEClass, ArtifactNotification.class, "ArtifactNotification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getArtifactNotification_Name(), ecorePackage.getEString(), "name", null, 1, 1, ArtifactNotification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+        initEClass(additionalInfoMapEClass, Map.Entry.class, "AdditionalInfoMap", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getAdditionalInfoMap_Key(), theEcorePackage.getEString(), "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getAdditionalInfoMap_Value(), theEcorePackage.getEString(), "value", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");
         addEEnumLiteral(folderTypeEEnum, FolderType.FOLDER_LITERAL);
@@ -7416,6 +7470,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         // Create annotations
         // http:///org/eclipse/emf/ecore/util/ExtendedMetaData
         createExtendedMetaDataAnnotations();
+        // MapEntry
+        createMapEntryAnnotations();
     }
 
     /**
@@ -7441,6 +7497,21 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
              "kind", "element",
              "name", "Parameters",
              "namespace", "##targetNamespace"
+           });	
+    }
+
+    /**
+     * Initializes the annotations for <b>MapEntry</b>.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void createMapEntryAnnotations() {
+        String source = "MapEntry";				
+        addAnnotation
+          (additionalInfoMapEClass, 
+           source, 
+           new String[] {
            });
     }
 

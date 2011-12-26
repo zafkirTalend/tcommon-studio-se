@@ -35,6 +35,7 @@ public class SalesforceSchemaConnectionItemImpl extends ConnectionItemImpl imple
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.SALESFORCE_SCHEMA_CONNECTION_ITEM;
     }

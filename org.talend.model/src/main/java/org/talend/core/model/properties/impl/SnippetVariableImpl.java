@@ -127,6 +127,7 @@ public class SnippetVariableImpl extends EObjectImpl implements SnippetVariable 
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.SNIPPET_VARIABLE;
     }
@@ -220,6 +221,7 @@ public class SnippetVariableImpl extends EObjectImpl implements SnippetVariable 
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.SNIPPET_VARIABLE__NAME:
@@ -239,6 +241,7 @@ public class SnippetVariableImpl extends EObjectImpl implements SnippetVariable 
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case PropertiesPackage.SNIPPET_VARIABLE__NAME:
@@ -262,6 +265,7 @@ public class SnippetVariableImpl extends EObjectImpl implements SnippetVariable 
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case PropertiesPackage.SNIPPET_VARIABLE__NAME:
@@ -285,6 +289,7 @@ public class SnippetVariableImpl extends EObjectImpl implements SnippetVariable 
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case PropertiesPackage.SNIPPET_VARIABLE__NAME:
@@ -304,6 +309,7 @@ public class SnippetVariableImpl extends EObjectImpl implements SnippetVariable 
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

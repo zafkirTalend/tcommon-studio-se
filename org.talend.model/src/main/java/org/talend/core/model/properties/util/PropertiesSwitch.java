@@ -7,6 +7,7 @@ package org.talend.core.model.properties.util;
 
 import java.util.List;
 
+import java.util.Map;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.core.model.properties.*;
@@ -838,6 +839,12 @@ public class PropertiesSwitch {
             case PropertiesPackage.ARTIFACT_NOTIFICATION: {
                 ArtifactNotification artifactNotification = (ArtifactNotification)theEObject;
                 Object result = caseArtifactNotification(artifactNotification);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.ADDITIONAL_INFO_MAP: {
+                Map.Entry additionalInfoMap = (Map.Entry)theEObject;
+                Object result = caseAdditionalInfoMap(additionalInfoMap);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -2095,6 +2102,21 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseArtifactNotification(ArtifactNotification object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Additional Info Map</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Additional Info Map</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseAdditionalInfoMap(Map.Entry object) {
         return null;
     }
 

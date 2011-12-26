@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc --> A representation of the literals of the enumeration '<em><b>Folder Type</b></em>', and
@@ -18,8 +19,8 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @model
  * @generated
  */
-public final class FolderType extends AbstractEnumerator {
-
+public final class FolderType extends AbstractEnumerator
+{
     /**
      * The '<em><b>FOLDER</b></em>' literal value.
      * <!-- begin-user-doc -->
@@ -72,7 +73,7 @@ public final class FolderType extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final FolderType FOLDER_LITERAL = new FolderType(FOLDER, "FOLDER", "FOLDER"); //$NON-NLS-1$ //$NON-NLS-2$
+    public static final FolderType FOLDER_LITERAL = new FolderType(FOLDER, "FOLDER", "FOLDER");
 
     /**
      * The '<em><b>SYSTEM FOLDER</b></em>' literal object.
@@ -81,7 +82,7 @@ public final class FolderType extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final FolderType SYSTEM_FOLDER_LITERAL = new FolderType(SYSTEM_FOLDER, "SYSTEM_FOLDER", "SYSTEM_FOLDER"); //$NON-NLS-1$ //$NON-NLS-2$
+    public static final FolderType SYSTEM_FOLDER_LITERAL = new FolderType(SYSTEM_FOLDER, "SYSTEM_FOLDER", "SYSTEM_FOLDER");
 
     /**
      * The '<em><b>STABLE SYSTEM FOLDER</b></em>' literal object.
@@ -90,7 +91,7 @@ public final class FolderType extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final FolderType STABLE_SYSTEM_FOLDER_LITERAL = new FolderType(STABLE_SYSTEM_FOLDER, "STABLE_SYSTEM_FOLDER", "STABLE_SYSTEM_FOLDER"); //$NON-NLS-1$ //$NON-NLS-2$
+    public static final FolderType STABLE_SYSTEM_FOLDER_LITERAL = new FolderType(STABLE_SYSTEM_FOLDER, "STABLE_SYSTEM_FOLDER", "STABLE_SYSTEM_FOLDER");
 
     /**
      * An array of all the '<em><b>Folder Type</b></em>' enumerators.
@@ -167,5 +168,4 @@ public final class FolderType extends AbstractEnumerator {
     private FolderType(int value, String name, String literal) {
         super(value, name, literal);
     }
-
-} // FolderType
+}

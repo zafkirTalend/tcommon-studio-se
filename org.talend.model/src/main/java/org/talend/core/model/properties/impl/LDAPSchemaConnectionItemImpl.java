@@ -35,6 +35,7 @@ public class LDAPSchemaConnectionItemImpl extends ConnectionItemImpl implements 
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.LDAP_SCHEMA_CONNECTION_ITEM;
     }

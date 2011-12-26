@@ -35,6 +35,7 @@ public class JobDocumentationItemImpl extends FileItemImpl implements JobDocumen
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.JOB_DOCUMENTATION_ITEM;
     }

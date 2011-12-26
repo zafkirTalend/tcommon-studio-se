@@ -174,6 +174,7 @@ public class ExecutionTaskJobPrmImpl extends EObjectImpl implements ExecutionTas
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.EXECUTION_TASK_JOB_PRM;
     }
@@ -350,6 +351,7 @@ public class ExecutionTaskJobPrmImpl extends EObjectImpl implements ExecutionTas
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__EXECUTION_TASK:
@@ -365,6 +367,7 @@ public class ExecutionTaskJobPrmImpl extends EObjectImpl implements ExecutionTas
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__EXECUTION_TASK:
@@ -378,6 +381,7 @@ public class ExecutionTaskJobPrmImpl extends EObjectImpl implements ExecutionTas
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
         switch (eContainerFeatureID()) {
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__EXECUTION_TASK:
@@ -391,6 +395,7 @@ public class ExecutionTaskJobPrmImpl extends EObjectImpl implements ExecutionTas
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__ID:
@@ -416,6 +421,7 @@ public class ExecutionTaskJobPrmImpl extends EObjectImpl implements ExecutionTas
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__ID:
@@ -448,6 +454,7 @@ public class ExecutionTaskJobPrmImpl extends EObjectImpl implements ExecutionTas
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__ID:
@@ -480,6 +487,7 @@ public class ExecutionTaskJobPrmImpl extends EObjectImpl implements ExecutionTas
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__ID:
@@ -505,6 +513,7 @@ public class ExecutionTaskJobPrmImpl extends EObjectImpl implements ExecutionTas
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

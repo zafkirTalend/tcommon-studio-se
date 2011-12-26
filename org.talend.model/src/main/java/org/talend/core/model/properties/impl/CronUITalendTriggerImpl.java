@@ -168,6 +168,7 @@ public class CronUITalendTriggerImpl extends TalendTriggerImpl implements CronUI
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.CRON_UI_TALEND_TRIGGER;
     }
@@ -303,6 +304,7 @@ public class CronUITalendTriggerImpl extends TalendTriggerImpl implements CronUI
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.CRON_UI_TALEND_TRIGGER__LIST_DAYS_OF_WEEK:
@@ -326,6 +328,7 @@ public class CronUITalendTriggerImpl extends TalendTriggerImpl implements CronUI
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case PropertiesPackage.CRON_UI_TALEND_TRIGGER__LIST_DAYS_OF_WEEK:
@@ -355,6 +358,7 @@ public class CronUITalendTriggerImpl extends TalendTriggerImpl implements CronUI
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case PropertiesPackage.CRON_UI_TALEND_TRIGGER__LIST_DAYS_OF_WEEK:
@@ -384,6 +388,7 @@ public class CronUITalendTriggerImpl extends TalendTriggerImpl implements CronUI
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case PropertiesPackage.CRON_UI_TALEND_TRIGGER__LIST_DAYS_OF_WEEK:
@@ -407,6 +412,7 @@ public class CronUITalendTriggerImpl extends TalendTriggerImpl implements CronUI
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

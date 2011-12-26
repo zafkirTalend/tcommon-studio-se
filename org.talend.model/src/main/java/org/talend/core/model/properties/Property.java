@@ -7,7 +7,9 @@ package org.talend.core.model.properties;
 
 import java.util.Date;
 
+import java.util.Map;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -29,6 +31,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.Property#getInformations <em>Informations</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Property#getMaxInformationLevel <em>Max Information Level</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Property#getOldStatusCode <em>Old Status Code</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Property#getAdditionalProperties <em>Additional Properties</em>}</li>
  * </ul>
  * </p>
  *
@@ -284,6 +287,23 @@ public interface Property extends EObject {
      * @generated
      */
     void setOldStatusCode(String value);
+
+    /**
+     * Returns the value of the '<em><b>Additional Properties</b></em>' map.
+     * The key is of type {@link java.lang.String},
+     * and the value is of type {@link java.lang.String},
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Additional Properties</em>' map isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Additional Properties</em>' map.
+     * @see org.talend.core.model.properties.PropertiesPackage#getProperty_AdditionalProperties()
+     * @model mapType="org.talend.core.model.properties.AdditionalInfoMap" keyType="java.lang.String" valueType="java.lang.String"
+     * @generated
+     */
+    EMap getAdditionalProperties();
 
     /**
      * Returns the value of the '<em><b>Version</b></em>' attribute.

@@ -97,6 +97,7 @@ public class LinkDocumentationItemImpl extends ItemImpl implements LinkDocumenta
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.LINK_DOCUMENTATION_ITEM;
     }
@@ -186,6 +187,7 @@ public class LinkDocumentationItemImpl extends ItemImpl implements LinkDocumenta
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.LINK_DOCUMENTATION_ITEM__NAME:
@@ -204,6 +206,7 @@ public class LinkDocumentationItemImpl extends ItemImpl implements LinkDocumenta
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case PropertiesPackage.LINK_DOCUMENTATION_ITEM__NAME:
@@ -224,6 +227,7 @@ public class LinkDocumentationItemImpl extends ItemImpl implements LinkDocumenta
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case PropertiesPackage.LINK_DOCUMENTATION_ITEM__NAME:
@@ -244,6 +248,7 @@ public class LinkDocumentationItemImpl extends ItemImpl implements LinkDocumenta
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case PropertiesPackage.LINK_DOCUMENTATION_ITEM__NAME:
@@ -261,6 +266,7 @@ public class LinkDocumentationItemImpl extends ItemImpl implements LinkDocumenta
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

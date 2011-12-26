@@ -5,6 +5,7 @@
  */
 package org.talend.core.model.properties.util;
 
+import java.util.Map;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
@@ -134,6 +135,7 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @return whether this factory is applicable for the type of the object.
      * @generated
      */
+    @Override
     public boolean isFactoryForType(Object object) {
         if (object == modelPackage) {
             return true;
@@ -447,6 +449,9 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseArtifactNotification(ArtifactNotification object) {
                 return createArtifactNotificationAdapter();
             }
+            public Object caseAdditionalInfoMap(Map.Entry object) {
+                return createAdditionalInfoMapAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -459,6 +464,7 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @return the adapter for the <code>target</code>.
      * @generated
      */
+    @Override
     public Adapter createAdapter(Notifier target) {
         return (Adapter)modelSwitch.doSwitch((EObject)target);
     }
@@ -1673,6 +1679,20 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createArtifactNotificationAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link java.util.Map.Entry <em>Additional Info Map</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see java.util.Map.Entry
+     * @generated
+     */
+    public Adapter createAdditionalInfoMapAdapter() {
         return null;
     }
 

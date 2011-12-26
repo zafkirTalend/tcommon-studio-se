@@ -35,7 +35,8 @@ public class SAPConnectionItemImpl extends ConnectionItemImpl implements SAPConn
 	 * <!-- end-user-doc -->
      * @generated
      */
-	protected EClass eStaticClass() {
+	@Override
+    protected EClass eStaticClass() {
         return PropertiesPackage.Literals.SAP_CONNECTION_ITEM;
     }
 

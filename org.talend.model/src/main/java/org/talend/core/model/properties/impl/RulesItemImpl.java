@@ -35,6 +35,7 @@ public class RulesItemImpl extends FileItemImpl implements RulesItem {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.RULES_ITEM;
     }

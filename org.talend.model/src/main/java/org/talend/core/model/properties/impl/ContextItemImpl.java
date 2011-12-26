@@ -83,6 +83,7 @@ public class ContextItemImpl extends ItemImpl implements ContextItem {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.CONTEXT_ITEM;
     }
@@ -125,6 +126,7 @@ public class ContextItemImpl extends ItemImpl implements ContextItem {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.CONTEXT_ITEM__CONTEXT:
@@ -140,6 +142,8 @@ public class ContextItemImpl extends ItemImpl implements ContextItem {
      * <!-- end-user-doc -->
      * @generated
      */
+    @SuppressWarnings("unchecked")
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case PropertiesPackage.CONTEXT_ITEM__CONTEXT:
@@ -158,6 +162,7 @@ public class ContextItemImpl extends ItemImpl implements ContextItem {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case PropertiesPackage.CONTEXT_ITEM__CONTEXT:
@@ -175,6 +180,7 @@ public class ContextItemImpl extends ItemImpl implements ContextItem {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case PropertiesPackage.CONTEXT_ITEM__CONTEXT:
@@ -190,6 +196,7 @@ public class ContextItemImpl extends ItemImpl implements ContextItem {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

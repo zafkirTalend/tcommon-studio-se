@@ -35,6 +35,7 @@ public class JobletDocumentationItemImpl extends FileItemImpl implements JobletD
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.JOBLET_DOCUMENTATION_ITEM;
     }

@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,14 +22,11 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @model
  * @generated
  */
-public final class UserModuleAuthorizationType extends AbstractEnumerator {
+public final class UserModuleAuthorizationType extends AbstractEnumerator
+{
     /**
      * The '<em><b>Job Conductor</b></em>' literal value.
      * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of '<em><b>Job Conductor</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
-     * </p>
      * <!-- end-user-doc -->
      * @see #JOB_CONDUCTOR_LITERAL
      * @model name="JobConductor" literal="Job Conductor"
@@ -40,10 +38,6 @@ public final class UserModuleAuthorizationType extends AbstractEnumerator {
     /**
      * The '<em><b>Dashboard</b></em>' literal value.
      * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of '<em><b>Dashboard</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
-     * </p>
      * <!-- end-user-doc -->
      * @see #DASHBOARD_LITERAL
      * @model name="Dashboard"
@@ -147,5 +141,4 @@ public final class UserModuleAuthorizationType extends AbstractEnumerator {
     private UserModuleAuthorizationType(int value, String name, String literal) {
         super(value, name, literal);
     }
-
-} //UserModuleAuthorizationType
+}

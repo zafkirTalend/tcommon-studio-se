@@ -5,6 +5,7 @@
  */
 package org.talend.core.model.properties.impl;
 
+import java.util.Map;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
@@ -50,6 +51,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
             case PropertiesPackage.PROJECT: return createProject();
@@ -148,6 +150,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.REFERENCE_ITEM: return createReferenceItem();
             case PropertiesPackage.EXCHANGE_USER: return createExchangeUser();
             case PropertiesPackage.ARTIFACT_NOTIFICATION: return createArtifactNotification();
+            case PropertiesPackage.ADDITIONAL_INFO_MAP: return (EObject)createAdditionalInfoMap();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -157,6 +160,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object createFromString(EDataType eDataType, String initialValue) {
         switch (eDataType.getClassifierID()) {
             case PropertiesPackage.FOLDER_TYPE:
@@ -176,6 +180,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String convertToString(EDataType eDataType, Object instanceValue) {
         switch (eDataType.getClassifierID()) {
             case PropertiesPackage.FOLDER_TYPE:
@@ -1052,6 +1057,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Map.Entry createAdditionalInfoMap() {
+        AdditionalInfoMapImpl additionalInfoMap = new AdditionalInfoMapImpl();
+        return additionalInfoMap;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1145,6 +1160,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
      * @deprecated
      * @generated
      */
+    @Deprecated
     public static PropertiesPackage getPackage() {
         return PropertiesPackage.eINSTANCE;
     }

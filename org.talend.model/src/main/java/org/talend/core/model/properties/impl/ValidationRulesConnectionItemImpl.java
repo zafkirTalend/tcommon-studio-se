@@ -35,6 +35,7 @@ public class ValidationRulesConnectionItemImpl extends ConnectionItemImpl implem
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.VALIDATION_RULES_CONNECTION_ITEM;
     }

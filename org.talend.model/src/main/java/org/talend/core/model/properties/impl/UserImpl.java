@@ -530,6 +530,7 @@ public class UserImpl extends EObjectImpl implements User {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.USER;
     }
@@ -1019,6 +1020,8 @@ public class UserImpl extends EObjectImpl implements User {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @SuppressWarnings("unchecked")
+    @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
@@ -1033,6 +1036,7 @@ public class UserImpl extends EObjectImpl implements User {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
@@ -1047,6 +1051,7 @@ public class UserImpl extends EObjectImpl implements User {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.USER__ID:
@@ -1108,6 +1113,8 @@ public class UserImpl extends EObjectImpl implements User {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @SuppressWarnings("unchecked")
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case PropertiesPackage.USER__ID:
@@ -1195,6 +1202,7 @@ public class UserImpl extends EObjectImpl implements User {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case PropertiesPackage.USER__ID:
@@ -1280,6 +1288,7 @@ public class UserImpl extends EObjectImpl implements User {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case PropertiesPackage.USER__ID:

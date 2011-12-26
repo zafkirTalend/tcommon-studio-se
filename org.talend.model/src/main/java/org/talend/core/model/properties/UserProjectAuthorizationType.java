@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +22,8 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @model
  * @generated
  */
-public final class UserProjectAuthorizationType extends AbstractEnumerator {
+public final class UserProjectAuthorizationType extends AbstractEnumerator
+{
     /**
      * The '<em><b>Read Write</b></em>' literal value.
      * <!-- begin-user-doc -->
@@ -60,7 +62,7 @@ public final class UserProjectAuthorizationType extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final UserProjectAuthorizationType READ_WRITE_LITERAL = new UserProjectAuthorizationType(READ_WRITE, "ReadWrite", "ReadWrite"); //$NON-NLS-1$ //$NON-NLS-2$
+    public static final UserProjectAuthorizationType READ_WRITE_LITERAL = new UserProjectAuthorizationType(READ_WRITE, "ReadWrite", "ReadWrite");
 
     /**
      * The '<em><b>Read Only</b></em>' literal object.
@@ -70,7 +72,7 @@ public final class UserProjectAuthorizationType extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final UserProjectAuthorizationType READ_ONLY_LITERAL = new UserProjectAuthorizationType(READ_ONLY, "ReadOnly", "ReadOnly"); //$NON-NLS-1$ //$NON-NLS-2$
+    public static final UserProjectAuthorizationType READ_ONLY_LITERAL = new UserProjectAuthorizationType(READ_ONLY, "ReadOnly", "ReadOnly");
 
     /**
      * An array of all the '<em><b>User Project Authorization Type</b></em>' enumerators.
@@ -147,5 +149,4 @@ public final class UserProjectAuthorizationType extends AbstractEnumerator {
     private UserProjectAuthorizationType(int value, String name, String literal) {
         super(value, name, literal);
     }
-
-} //UserProjectAuthorizationType
+}
