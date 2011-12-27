@@ -35,6 +35,7 @@ public class HL7ConnectionItemImpl extends ConnectionItemImpl implements HL7Conn
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.HL7_CONNECTION_ITEM;
     }

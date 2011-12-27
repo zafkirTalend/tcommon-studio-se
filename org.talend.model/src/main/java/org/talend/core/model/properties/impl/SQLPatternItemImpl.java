@@ -84,6 +84,7 @@ public class SQLPatternItemImpl extends FileItemImpl implements SQLPatternItem {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.SQL_PATTERN_ITEM;
     }
@@ -135,6 +136,7 @@ public class SQLPatternItemImpl extends FileItemImpl implements SQLPatternItem {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.SQL_PATTERN_ITEM__SYSTEM:
@@ -150,6 +152,7 @@ public class SQLPatternItemImpl extends FileItemImpl implements SQLPatternItem {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case PropertiesPackage.SQL_PATTERN_ITEM__SYSTEM:
@@ -167,6 +170,7 @@ public class SQLPatternItemImpl extends FileItemImpl implements SQLPatternItem {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case PropertiesPackage.SQL_PATTERN_ITEM__SYSTEM:
@@ -184,6 +188,7 @@ public class SQLPatternItemImpl extends FileItemImpl implements SQLPatternItem {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case PropertiesPackage.SQL_PATTERN_ITEM__SYSTEM:
@@ -199,6 +204,7 @@ public class SQLPatternItemImpl extends FileItemImpl implements SQLPatternItem {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

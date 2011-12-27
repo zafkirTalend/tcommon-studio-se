@@ -52,6 +52,7 @@ public class ProcessItemImpl extends ItemImpl implements ProcessItem {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.PROCESS_ITEM;
     }
@@ -110,6 +111,7 @@ public class ProcessItemImpl extends ItemImpl implements ProcessItem {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.PROCESS_ITEM__PROCESS:
@@ -123,6 +125,7 @@ public class ProcessItemImpl extends ItemImpl implements ProcessItem {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case PropertiesPackage.PROCESS_ITEM__PROCESS:
@@ -136,6 +139,7 @@ public class ProcessItemImpl extends ItemImpl implements ProcessItem {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case PropertiesPackage.PROCESS_ITEM__PROCESS:
@@ -149,6 +153,7 @@ public class ProcessItemImpl extends ItemImpl implements ProcessItem {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case PropertiesPackage.PROCESS_ITEM__PROCESS:

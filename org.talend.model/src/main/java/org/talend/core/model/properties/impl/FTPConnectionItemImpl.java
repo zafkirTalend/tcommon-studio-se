@@ -35,6 +35,7 @@ public class FTPConnectionItemImpl extends ConnectionItemImpl implements FTPConn
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.FTP_CONNECTION_ITEM;
     }

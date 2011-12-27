@@ -67,6 +67,7 @@ public class ByteArrayImpl extends EObjectImpl implements ByteArray {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.BYTE_ARRAY;
     }
@@ -94,6 +95,7 @@ public class ByteArrayImpl extends EObjectImpl implements ByteArray {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.BYTE_ARRAY__INNER_CONTENT:
@@ -106,6 +108,7 @@ public class ByteArrayImpl extends EObjectImpl implements ByteArray {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case PropertiesPackage.BYTE_ARRAY__INNER_CONTENT:
@@ -119,6 +122,7 @@ public class ByteArrayImpl extends EObjectImpl implements ByteArray {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case PropertiesPackage.BYTE_ARRAY__INNER_CONTENT:
@@ -132,6 +136,7 @@ public class ByteArrayImpl extends EObjectImpl implements ByteArray {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case PropertiesPackage.BYTE_ARRAY__INNER_CONTENT:
@@ -144,6 +149,7 @@ public class ByteArrayImpl extends EObjectImpl implements ByteArray {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

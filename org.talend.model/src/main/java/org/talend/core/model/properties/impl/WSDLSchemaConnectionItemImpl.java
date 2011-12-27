@@ -35,6 +35,7 @@ public class WSDLSchemaConnectionItemImpl extends ConnectionItemImpl implements 
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.WSDL_SCHEMA_CONNECTION_ITEM;
     }

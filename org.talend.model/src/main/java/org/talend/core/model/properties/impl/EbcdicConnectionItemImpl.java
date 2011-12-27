@@ -35,6 +35,7 @@ public class EbcdicConnectionItemImpl extends ConnectionItemImpl implements Ebcd
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.EBCDIC_CONNECTION_ITEM;
     }

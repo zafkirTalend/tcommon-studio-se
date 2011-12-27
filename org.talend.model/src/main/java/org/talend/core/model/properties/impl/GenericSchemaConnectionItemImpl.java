@@ -35,6 +35,7 @@ public class GenericSchemaConnectionItemImpl extends ConnectionItemImpl implemen
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.GENERIC_SCHEMA_CONNECTION_ITEM;
     }

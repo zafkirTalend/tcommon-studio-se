@@ -31,6 +31,7 @@ public class DocumentationItemImpl extends FileItemImpl implements Documentation
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.DOCUMENTATION_ITEM;
     }

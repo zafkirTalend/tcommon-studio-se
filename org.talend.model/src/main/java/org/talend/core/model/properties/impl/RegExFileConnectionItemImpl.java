@@ -31,6 +31,7 @@ public class RegExFileConnectionItemImpl extends ConnectionItemImpl implements R
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.REG_EX_FILE_CONNECTION_ITEM;
     }

@@ -9,18 +9,22 @@ package org.talend.core.model.properties.impl;
 import java.util.Collection;
 import java.util.Date;
 
+import java.util.Map;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -52,6 +56,7 @@ import org.talend.core.model.properties.User;
  *   <li>{@link org.talend.core.model.properties.impl.PropertyImpl#getInformations <em>Informations</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.PropertyImpl#getMaxInformationLevel <em>Max Information Level</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.PropertyImpl#getOldStatusCode <em>Old Status Code</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.PropertyImpl#getAdditionalProperties <em>Additional Properties</em>}</li>
  * </ul>
  * </p>
  *
@@ -289,6 +294,16 @@ public class PropertyImpl extends EObjectImpl implements Property {
     protected String oldStatusCode = OLD_STATUS_CODE_EDEFAULT;
 
     /**
+     * The cached value of the '{@link #getAdditionalProperties() <em>Additional Properties</em>}' map.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getAdditionalProperties()
+     * @generated
+     * @ordered
+     */
+    protected EMap additionalProperties;
+
+    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -302,6 +317,7 @@ public class PropertyImpl extends EObjectImpl implements Property {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.PROPERTY;
     }
@@ -631,6 +647,19 @@ public class PropertyImpl extends EObjectImpl implements Property {
      * <!-- end-user-doc -->
      * @generated
      */
+    public EMap getAdditionalProperties() {
+        if (additionalProperties == null) {
+            additionalProperties = new EcoreEMap(PropertiesPackage.Literals.ADDITIONAL_INFO_MAP, AdditionalInfoMapImpl.class, this, PropertiesPackage.PROPERTY__ADDITIONAL_PROPERTIES);
+        }
+        return additionalProperties;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.PROPERTY__ITEM:
@@ -646,12 +675,15 @@ public class PropertyImpl extends EObjectImpl implements Property {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.PROPERTY__ITEM:
                 return basicSetItem(null, msgs);
             case PropertiesPackage.PROPERTY__INFORMATIONS:
                 return ((InternalEList)getInformations()).basicRemove(otherEnd, msgs);
+            case PropertiesPackage.PROPERTY__ADDITIONAL_PROPERTIES:
+                return ((InternalEList)getAdditionalProperties()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -661,6 +693,7 @@ public class PropertyImpl extends EObjectImpl implements Property {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.PROPERTY__ID:
@@ -691,6 +724,9 @@ public class PropertyImpl extends EObjectImpl implements Property {
                 return getMaxInformationLevel();
             case PropertiesPackage.PROPERTY__OLD_STATUS_CODE:
                 return getOldStatusCode();
+            case PropertiesPackage.PROPERTY__ADDITIONAL_PROPERTIES:
+                if (coreType) return getAdditionalProperties();
+                else return getAdditionalProperties().map();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -700,6 +736,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
      * <!-- end-user-doc -->
      * @generated
      */
+    @SuppressWarnings("unchecked")
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case PropertiesPackage.PROPERTY__ID:
@@ -742,6 +780,9 @@ public class PropertyImpl extends EObjectImpl implements Property {
             case PropertiesPackage.PROPERTY__OLD_STATUS_CODE:
                 setOldStatusCode((String)newValue);
                 return;
+            case PropertiesPackage.PROPERTY__ADDITIONAL_PROPERTIES:
+                ((EStructuralFeature.Setting)getAdditionalProperties()).set(newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -751,6 +792,7 @@ public class PropertyImpl extends EObjectImpl implements Property {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case PropertiesPackage.PROPERTY__ID:
@@ -792,6 +834,9 @@ public class PropertyImpl extends EObjectImpl implements Property {
             case PropertiesPackage.PROPERTY__OLD_STATUS_CODE:
                 setOldStatusCode(OLD_STATUS_CODE_EDEFAULT);
                 return;
+            case PropertiesPackage.PROPERTY__ADDITIONAL_PROPERTIES:
+                getAdditionalProperties().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -801,6 +846,7 @@ public class PropertyImpl extends EObjectImpl implements Property {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case PropertiesPackage.PROPERTY__ID:
@@ -829,6 +875,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
                 return maxInformationLevel != MAX_INFORMATION_LEVEL_EDEFAULT;
             case PropertiesPackage.PROPERTY__OLD_STATUS_CODE:
                 return OLD_STATUS_CODE_EDEFAULT == null ? oldStatusCode != null : !OLD_STATUS_CODE_EDEFAULT.equals(oldStatusCode);
+            case PropertiesPackage.PROPERTY__ADDITIONAL_PROPERTIES:
+                return additionalProperties != null && !additionalProperties.isEmpty();
         }
         return super.eIsSet(featureID);
     }
@@ -838,6 +886,7 @@ public class PropertyImpl extends EObjectImpl implements Property {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

@@ -31,6 +31,7 @@ public class CSVFileConnectionItemImpl extends DelimitedFileConnectionItemImpl i
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.CSV_FILE_CONNECTION_ITEM;
     }

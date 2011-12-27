@@ -31,6 +31,7 @@ public class DelimitedFileConnectionItemImpl extends ConnectionItemImpl implemen
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.DELIMITED_FILE_CONNECTION_ITEM;
     }

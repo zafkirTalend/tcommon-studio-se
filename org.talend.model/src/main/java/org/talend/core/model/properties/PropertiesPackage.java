@@ -830,12 +830,21 @@ public interface PropertiesPackage extends EPackage {
     int PROPERTY__OLD_STATUS_CODE = 12;
 
     /**
+     * The feature id for the '<em><b>Additional Properties</b></em>' map.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROPERTY__ADDITIONAL_PROPERTIES = 13;
+
+    /**
      * The number of structural features of the '<em>Property</em>' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PROPERTY_FEATURE_COUNT = 13;
+    int PROPERTY_FEATURE_COUNT = 14;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ReferenceItemImpl <em>Reference Item</em>}' class.
@@ -8804,6 +8813,43 @@ public interface PropertiesPackage extends EPackage {
     int ARTIFACT_NOTIFICATION_FEATURE_COUNT = 1;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.AdditionalInfoMapImpl <em>Additional Info Map</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.AdditionalInfoMapImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getAdditionalInfoMap()
+     * @generated
+     */
+    int ADDITIONAL_INFO_MAP = 99;
+
+    /**
+     * The feature id for the '<em><b>Key</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ADDITIONAL_INFO_MAP__KEY = 0;
+
+    /**
+     * The feature id for the '<em><b>Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ADDITIONAL_INFO_MAP__VALUE = 1;
+
+    /**
+     * The number of structural features of the '<em>Additional Info Map</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ADDITIONAL_INFO_MAP_FEATURE_COUNT = 2;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -8811,7 +8857,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 99;
+    int FOLDER_TYPE = 100;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -8820,7 +8866,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 100;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 101;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserModuleAuthorizationType <em>User Module Authorization Type</em>}' enum.
@@ -8829,7 +8875,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 101;
+    int USER_MODULE_AUTHORIZATION_TYPE = 102;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.InformationLevel <em>Information Level</em>}' enum.
@@ -8838,7 +8884,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 102;
+    int INFORMATION_LEVEL = 103;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.Status <em>Status</em>}'. <!--
@@ -9348,6 +9394,17 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getProperty_OldStatusCode();
+
+    /**
+     * Returns the meta object for the map '{@link org.talend.core.model.properties.Property#getAdditionalProperties <em>Additional Properties</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the map '<em>Additional Properties</em>'.
+     * @see org.talend.core.model.properties.Property#getAdditionalProperties()
+     * @see #getProperty()
+     * @generated
+     */
+    EReference getProperty_AdditionalProperties();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Property#getVersion <em>Version</em>}'.
@@ -13657,6 +13714,40 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getArtifactNotification_Name();
 
     /**
+     * Returns the meta object for class '{@link java.util.Map.Entry <em>Additional Info Map</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Additional Info Map</em>'.
+     * @see java.util.Map.Entry
+     * @model keyDataType="org.eclipse.emf.ecore.EString"
+     *        valueDataType="org.eclipse.emf.ecore.EString"
+     * @generated
+     */
+    EClass getAdditionalInfoMap();
+
+    /**
+     * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Key</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Key</em>'.
+     * @see java.util.Map.Entry
+     * @see #getAdditionalInfoMap()
+     * @generated
+     */
+    EAttribute getAdditionalInfoMap_Key();
+
+    /**
+     * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Value</em>'.
+     * @see java.util.Map.Entry
+     * @see #getAdditionalInfoMap()
+     * @generated
+     */
+    EAttribute getAdditionalInfoMap_Value();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ReferenceFileItem <em>Reference File Item</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -15078,6 +15169,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute PROPERTY__OLD_STATUS_CODE = eINSTANCE.getProperty_OldStatusCode();
+
+        /**
+         * The meta object literal for the '<em><b>Additional Properties</b></em>' map feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PROPERTY__ADDITIONAL_PROPERTIES = eINSTANCE.getProperty_AdditionalProperties();
 
         /**
          * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
@@ -18508,6 +18607,32 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute ARTIFACT_NOTIFICATION__NAME = eINSTANCE.getArtifactNotification_Name();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.AdditionalInfoMapImpl <em>Additional Info Map</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.AdditionalInfoMapImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getAdditionalInfoMap()
+         * @generated
+         */
+        EClass ADDITIONAL_INFO_MAP = eINSTANCE.getAdditionalInfoMap();
+
+        /**
+         * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ADDITIONAL_INFO_MAP__KEY = eINSTANCE.getAdditionalInfoMap_Key();
+
+        /**
+         * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ADDITIONAL_INFO_MAP__VALUE = eINSTANCE.getAdditionalInfoMap_Value();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ReferenceFileItemImpl <em>Reference File Item</em>}' class.

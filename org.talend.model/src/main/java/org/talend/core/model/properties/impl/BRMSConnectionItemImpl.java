@@ -35,6 +35,7 @@ public class BRMSConnectionItemImpl extends ConnectionItemImpl implements BRMSCo
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.BRMS_CONNECTION_ITEM;
     }

@@ -35,6 +35,7 @@ public class JobScriptItemImpl extends FileItemImpl implements JobScriptItem {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.JOB_SCRIPT_ITEM;
     }

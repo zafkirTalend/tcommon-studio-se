@@ -278,6 +278,7 @@ public class FileTriggerMaskImpl extends EObjectImpl implements FileTriggerMask 
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.FILE_TRIGGER_MASK;
     }
@@ -573,6 +574,7 @@ public class FileTriggerMaskImpl extends EObjectImpl implements FileTriggerMask 
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.FILE_TRIGGER_MASK__ID:
@@ -610,6 +612,7 @@ public class FileTriggerMaskImpl extends EObjectImpl implements FileTriggerMask 
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case PropertiesPackage.FILE_TRIGGER_MASK__ID:
@@ -657,6 +660,7 @@ public class FileTriggerMaskImpl extends EObjectImpl implements FileTriggerMask 
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case PropertiesPackage.FILE_TRIGGER_MASK__ID:
@@ -704,6 +708,7 @@ public class FileTriggerMaskImpl extends EObjectImpl implements FileTriggerMask 
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case PropertiesPackage.FILE_TRIGGER_MASK__ID:
@@ -739,6 +744,7 @@ public class FileTriggerMaskImpl extends EObjectImpl implements FileTriggerMask 
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

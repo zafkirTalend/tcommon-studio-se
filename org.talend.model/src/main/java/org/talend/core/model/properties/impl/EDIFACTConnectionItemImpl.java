@@ -35,6 +35,7 @@ public class EDIFACTConnectionItemImpl extends ConnectionItemImpl implements EDI
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.EDIFACT_CONNECTION_ITEM;
     }

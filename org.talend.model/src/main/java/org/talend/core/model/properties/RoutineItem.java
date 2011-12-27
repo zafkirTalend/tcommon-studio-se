@@ -6,6 +6,7 @@
 package org.talend.core.model.properties;
 
 import org.eclipse.emf.common.util.EList;
+import org.talend.designer.core.model.utils.emf.component.IMPORTType;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Routine Item</b></em>'. <!-- end-user-doc
