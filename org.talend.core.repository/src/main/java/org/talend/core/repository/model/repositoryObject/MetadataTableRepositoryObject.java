@@ -173,7 +173,10 @@ public class MetadataTableRepositoryObject extends MetadataTable implements ISub
                 Object obj = iterator.next();
                 if (obj instanceof org.talend.core.model.metadata.builder.connection.MetadataTable) {
                     org.talend.core.model.metadata.builder.connection.MetadataTable repObj = (org.talend.core.model.metadata.builder.connection.MetadataTable) obj;
-                    if (table != null && table.getLabel() != null && table.getLabel().equals(repObj.getLabel())) {
+                    // MOD qiongli 2011-12-27 TDQ-4269.should compare its parent in the case of having same table name
+                    // under the diffrent schemas.
+                    if (table != null && table.getLabel() != null && table.getLabel().equals(repObj.getLabel())
+                            && table.eContainer().equals(repObj.eContainer())) {
                         table = repObj;
                         break;
                     }
