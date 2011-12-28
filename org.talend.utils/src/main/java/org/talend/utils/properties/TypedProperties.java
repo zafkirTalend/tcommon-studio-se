@@ -15,9 +15,12 @@ package org.talend.utils.properties;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.talend.utils.string.StringUtilities;
 
 /**
@@ -25,6 +28,8 @@ import org.talend.utils.string.StringUtilities;
  * 
  */
 public class TypedProperties extends Properties {
+
+    private static Logger log = Logger.getLogger(TypedProperties.class);
 
     /**
      * A generated serial ID.
@@ -35,6 +40,8 @@ public class TypedProperties extends Properties {
      * The default delimiters used in the splitting of strings.
      */
     public static final String DEFAULT_DELIMITERS = ",";
+
+    Set<String> anomaliesAlreadyLogged = new HashSet<String>();
 
     /**
      * DOC scorreia TypedProperties constructor comment.
@@ -75,9 +82,19 @@ public class TypedProperties extends Properties {
     public boolean getBooleanValue(String key, boolean defaultValue) {
         String value = this.getProperty(key);
         if (value == null) {
+            logWarningPropertyNotFound(key, (Object) defaultValue);
             return defaultValue;
         } // else
         return Boolean.parseBoolean(value.trim());
+    }
+
+    private void logWarningPropertyNotFound(String notFoundKey, Object defaultValue) {
+        if (!anomaliesAlreadyLogged.contains(notFoundKey)) {
+            anomaliesAlreadyLogged.add(notFoundKey);
+            log.warn("!!! PROPERTY NOT FOUND !!!: the key '" + notFoundKey
+                    + "' can't be found in the JobServer properties file, the default value '" + defaultValue
+                    + "' will be used, please be sure this is not an anomaly.");
+        }
     }
 
     /**
@@ -132,6 +149,7 @@ public class TypedProperties extends Properties {
     public double getDoubleValue(String key, double defaultValue) {
         String value = this.getProperty(key);
         if (value == null) {
+            logWarningPropertyNotFound(key, (Object) defaultValue);
             return defaultValue;
         } // else
         return Double.parseDouble(value.trim());
@@ -166,6 +184,7 @@ public class TypedProperties extends Properties {
     private String getStringValue(String key, String defaultValue) {
         String value = this.getProperty(key);
         if (value == null) {
+            logWarningPropertyNotFound(key, (Object) defaultValue);
             return defaultValue;
         } // else
         return value;
@@ -182,6 +201,7 @@ public class TypedProperties extends Properties {
     public long getLongValue(String key, long defaultValue) {
         String value = this.getProperty(key);
         if (value == null) {
+            logWarningPropertyNotFound(key, (Object) defaultValue);
             return defaultValue;
         } // else
         return Long.parseLong(value.trim());
@@ -198,6 +218,7 @@ public class TypedProperties extends Properties {
     public int getIntValue(String key, int defaultValue) {
         String value = this.getProperty(key);
         if (value == null) {
+            logWarningPropertyNotFound(key, (Object) defaultValue);
             return defaultValue;
         } // else
         return Integer.parseInt(value.trim());
@@ -214,6 +235,7 @@ public class TypedProperties extends Properties {
     public List<String> getValues(String key, List<String> defaultValues, String delimiters) {
         String value = this.getProperty(key);
         if (value == null) {
+            logWarningPropertyNotFound(key, String.valueOf((Object) defaultValues));
             return defaultValues;
         } // else
         return StringUtilities.tokenize(value, delimiters);
