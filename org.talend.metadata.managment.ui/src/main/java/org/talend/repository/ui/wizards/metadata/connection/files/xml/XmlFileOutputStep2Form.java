@@ -95,6 +95,7 @@ import org.talend.repository.ui.wizards.metadata.connection.files.xml.view.XmlFi
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.view.XmlFileSchemaDialog;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.view.XmlFileTableViewerProvider;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.view.XmlFileTreeViewerProvider;
+import org.talend.repository.ui.wizards.metadata.connection.files.xml.view.XmlTree2SchemaLinker;
 
 /**
  * wzhang class global comment. Detailled comment
@@ -164,6 +165,11 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
         linker = new XmlFileSchema2TreeLinker(mainSashFormComposite);
         linker.setForm(this);
         linker.init(schemaViewer.getTable(), xmlViewer);
+
+        XmlTree2SchemaLinker oppositeLinker = new XmlTree2SchemaLinker(mainSashFormComposite);
+        oppositeLinker.setConnection(getConnection());
+        oppositeLinker.setDelegateLinker(linker);
+        oppositeLinker.init(xmlViewer, schemaViewer);
     }
 
     private void initSchemaTable() {
@@ -219,9 +225,9 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
             TreeItem root = xmlViewer.getTree().getItem(0);
             TableItem[] tableItems = schemaViewer.getTable().getItems();
             initLinker(root, tableItems);
-            if (linker.linkSize() == 0) {
-                linker.updateLinksStyleAndControlsSelection(xmlViewer.getTree(), true);
-            }
+            // if (linker.linkSize() == 0) {
+            linker.updateLinksStyleAndControlsSelection(xmlViewer.getTree(), true);
+            // }
         }
     }
 

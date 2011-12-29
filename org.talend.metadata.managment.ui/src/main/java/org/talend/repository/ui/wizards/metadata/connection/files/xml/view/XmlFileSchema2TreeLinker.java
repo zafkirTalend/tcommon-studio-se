@@ -138,7 +138,9 @@ public class XmlFileSchema2TreeLinker extends TableToTreeLinker<Object, Object> 
     }
 
     public void onXPathValueChanged(Widget widget) {
-        linksManager.removeLinksFromDataItem2(widget.getData());
+        if (widget != null) {
+            linksManager.removeLinksFromDataItem2(widget.getData());
+        }
         createLinks();
     }
 
