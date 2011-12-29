@@ -34,12 +34,13 @@ public interface ITDQRuleService extends IService {
     /**
      * This method is to override the rule list.
      * 
-     * @param dbType SupportDBUrlType.dbkey
+     * @param dbType (value = SupportDBUrlType.dbkey)
      * @param catalog
      * @param schema
      * @param table
      * @param ruleParam
      */
-    public void overrideRuleList(String dbType, String catalog, String schema, String table, IElementParameter ruleParam);
+    public void overrideRuleList(IElementParameter dbType, IElementParameter catalog, IElementParameter schema,
+            IElementParameter table, IElementParameter ruleParam);
 
 }

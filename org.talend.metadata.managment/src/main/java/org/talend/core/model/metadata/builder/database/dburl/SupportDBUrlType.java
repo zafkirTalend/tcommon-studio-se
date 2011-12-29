@@ -280,4 +280,29 @@ public enum SupportDBUrlType {
         SupportDBUrlType dbTypeByKey = getDBTypeByKey(dbKey);
         return dbTypeByKey != null && (dbTypeByKey == ORACLEWITHSIDDEFAULTURL || dbTypeByKey == ORACLEWITHSERVICENAMEDEFAULTURL);
     }
+
+    /**
+     * DOC msjian Comment method "hasCatalog". (just have catalog: mysql,informix,sybase)
+     * 
+     * @param dbKey
+     * @return
+     */
+    public static boolean justHaveCatalog(String dbKey) {
+        SupportDBUrlType dbTypeByKey = getDBTypeByKey(dbKey);
+        return dbTypeByKey != null
+                && (dbTypeByKey == MYSQLDEFAULTURL || dbTypeByKey == INFORMIXDEFAULTURL || dbTypeByKey == SYBASEDEFAULTURL);
+    }
+
+    /**
+     * DOC msjian Comment method "hasSchema". (just have schema: oracle,teredata,ingres,DB2)
+     * 
+     * @param dbKey
+     * @return
+     */
+    public static boolean justHaveSchema(String dbKey) {
+        SupportDBUrlType dbTypeByKey = getDBTypeByKey(dbKey);
+        return dbTypeByKey != null
+                && (isOracle(dbKey) || dbTypeByKey == TERADATADEFAULTURL || dbTypeByKey == INGRESDEFAULTURL
+                        || dbTypeByKey == DB2DEFAULTURL || dbTypeByKey == DB2ZOSDEFAULTURL);
+    }
 }
