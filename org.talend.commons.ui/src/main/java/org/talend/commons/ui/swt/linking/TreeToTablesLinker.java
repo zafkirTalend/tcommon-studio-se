@@ -70,6 +70,8 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
 
     private List<Table> tables;
 
+    private LinkableTree linkableTree;
+
     /**
      * DOC amaumont TreeToTableLinker constructor comment.
      * 
@@ -93,7 +95,18 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
         for (Table table : tables) {
             new LinkableTable(this, backgroundRefresher, table, (BgDrawableComposite) this, false);
         }
-        new LinkableTree(this, backgroundRefresher, tree, (BgDrawableComposite) this, true);
+        linkableTree = new LinkableTree(this, backgroundRefresher, tree, (BgDrawableComposite) this, true);
+        this.tables = Arrays.asList(tables);
+        this.tree = tree;
+    }
+
+    public void init(Tree tree, Table[] tables, IControlsLinker controlsLinker, IBackgroundRefresher backgroundRefresher) {
+        this.display = tree.getDisplay();
+        this.backgroundRefresher = backgroundRefresher;
+        for (Table table : tables) {
+            new LinkableTable(controlsLinker, backgroundRefresher, table, (BgDrawableComposite) this, false);
+        }
+        linkableTree = new LinkableTree(controlsLinker, backgroundRefresher, tree, (BgDrawableComposite) this, true);
         this.tables = Arrays.asList(tables);
         this.tree = tree;
     }
@@ -417,6 +430,10 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
      */
     public Tree getTree() {
         return this.tree;
+    }
+
+    protected LinkableTree getLinkableTree() {
+        return this.linkableTree;
     }
 
     /**
