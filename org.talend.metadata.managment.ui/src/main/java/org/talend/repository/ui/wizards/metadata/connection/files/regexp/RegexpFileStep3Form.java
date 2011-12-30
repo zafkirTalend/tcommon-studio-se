@@ -574,8 +574,8 @@ public class RegexpFileStep3Form extends AbstractRegexpFileStepForm {
         super.setVisible(visible);
         if (super.isVisible()) {
             RegexpFileConnection originalValueConnection = getOriginalValueConnection();
-            if (originalValueConnection.getFilePath() != null && (!originalValueConnection.getFilePath().equals("")) //$NON-NLS-1$
-                    && (tableEditorView.getMetadataEditor().getBeanCount() <= 0)) {
+            if (originalValueConnection.getFilePath() != null && (!originalValueConnection.getFilePath().equals(""))) //$NON-NLS-1$
+            {
                 runShadowProcess();
             }
 

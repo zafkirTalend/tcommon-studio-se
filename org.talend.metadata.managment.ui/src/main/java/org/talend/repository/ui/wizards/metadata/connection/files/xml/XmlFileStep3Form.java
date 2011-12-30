@@ -636,8 +636,8 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
         super.setVisible(visible);
         if (super.isVisible()) {
             // getConnection().getXsdFilePath() != null && !getConnection().getXsdFilePath().equals("") &&
-            if (getConnection().getXmlFilePath() != null && !getConnection().getXmlFilePath().equals("") //$NON-NLS-1$
-                    && tableEditorView.getMetadataEditor().getBeanCount() <= 0) {
+            if (getConnection().getXmlFilePath() != null && !getConnection().getXmlFilePath().equals("")) //$NON-NLS-1$
+            {
                 runShadowProcess(true);
             }
             ((XmlFileWizard) getPage().getWizard()).setXsdRootChange(false);
