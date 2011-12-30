@@ -415,8 +415,8 @@ public class DelimitedFileStep3Form extends AbstractDelimitedFileStepForm {
         super.setVisible(visible);
         if (super.isVisible()) {
             DelimitedFileConnection originalValueConnection = getOriginalValueConnection();
-            if (originalValueConnection.getFilePath() != null && (!originalValueConnection.getFilePath().equals("")) //$NON-NLS-1$
-                    && (tableEditorView.getMetadataEditor().getBeanCount() <= 0)) {
+            if (originalValueConnection.getFilePath() != null && (!originalValueConnection.getFilePath().equals(""))) //$NON-NLS-1$
+            {
                 runShadowProcess();
             }
 

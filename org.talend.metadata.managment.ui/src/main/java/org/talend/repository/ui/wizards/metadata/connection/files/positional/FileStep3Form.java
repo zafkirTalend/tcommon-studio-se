@@ -588,9 +588,9 @@ public class FileStep3Form extends AbstractPositionalFileStepForm {
         super.setVisible(visible);
         if (super.isVisible()) {
             PositionalFileConnection originalValueConnection = getOriginalValueConnection();
-
-            if (originalValueConnection.getFilePath() != null && (!originalValueConnection.getFilePath().equals("")) //$NON-NLS-1$
-                    && (tableEditorView.getMetadataEditor().getBeanCount() <= 0)) {
+            // TDI-12846:let it always upadte the latest schema when click the next button to the last step
+            if (originalValueConnection.getFilePath() != null && (!originalValueConnection.getFilePath().equals(""))) //$NON-NLS-1$
+            {
                 runShadowProcess();
             }
 
