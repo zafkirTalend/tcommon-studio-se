@@ -1174,6 +1174,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         FolderHelper folderHelper = getFolderHelper(getRepositoryContext().getProject().getEmfProject());
         FolderItem emfFolder = folderHelper.getFolder(completeOldPath);
+        if (emfFolder == null && (type == ERepositoryObjectType.JOB_DOC || type == ERepositoryObjectType.JOBLET_DOC)) {
+            IPath path = new Path(sourcePath.toString());
+            ProxyRepositoryFactory.getInstance().createParentFoldersRecursively(project, type, path);
+            emfFolder = folderHelper.getFolder(completeOldPath);
+        }
 
         createFolder(getRepositoryContext().getProject(), type, targetPath, emfFolder.getProperty().getLabel());
         FolderItem newFolder = folderHelper.getFolder(completeNewPath);
