@@ -371,36 +371,6 @@ public class MetadataSchema {
                 if (pattern.getNodeValue() != null) {
                     metadataColumn.setPattern(pattern.getNodeValue());
                 }
-                // if (function.getNodeValue()!=null) {
-                // metadataColumn.setPattern(function.getNodeValue());
-                // }
-                // if (parameter.getNodeValue()!=null) {
-                // metadataColumn.setPattern(parameter.getNodeValue());
-                // }
-                // if (preview.getNodeValue()!=null) {
-                // metadataColumn.setPattern(preview.getNodeValue());
-                // }
-                if (originalField != null && originalField.getNodeValue() != null) {
-                    metadataColumn.setName(originalField.getNodeValue());
-
-                    UniqueStringGenerator<org.talend.core.model.metadata.builder.connection.MetadataColumn> uniqueStringGenerator = new UniqueStringGenerator<org.talend.core.model.metadata.builder.connection.MetadataColumn>(
-                            metadataColumn.getName(), listColumns) {
-
-                        /*
-                         * (non-Javadoc)
-                         * 
-                         * @see org.talend.commons.utils.data.list.UniqueStringGenerator#getBeanString(java.lang.Object)
-                         */
-                        @Override
-                        protected String getBeanString(org.talend.core.model.metadata.builder.connection.MetadataColumn bean) {
-                            return bean.getName();
-                        }
-
-                    };
-                    metadataColumn.setName(uniqueStringGenerator.getUniqueString());
-                } else {
-                    metadataColumn.setName(label.getNodeValue());
-                }
 
                 if (!columnsAlreadyAdded.contains(metadataColumn.getLabel())) {
                     listColumns.add(metadataColumn);
