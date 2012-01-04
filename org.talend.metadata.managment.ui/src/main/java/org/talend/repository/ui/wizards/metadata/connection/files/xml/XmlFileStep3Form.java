@@ -356,6 +356,10 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
         MappingTypeRetriever retriever = MetadataTalendType.getMappingTypeRetriever("xsd_id"); //$NON-NLS-1$
         for (SchemaTarget schema : schemaTarget) {
             String relativeXpath = schema.getRelativeXPathQuery();
+            // TDI-19173
+            if (relativeXpath != null && relativeXpath.endsWith("]")) {
+                relativeXpath = relativeXpath.substring(0, relativeXpath.lastIndexOf("["));
+            }
             String fullPath = schema.getSchema().getAbsoluteXPathQuery();
             if (isContextMode()) {
                 ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection(),
