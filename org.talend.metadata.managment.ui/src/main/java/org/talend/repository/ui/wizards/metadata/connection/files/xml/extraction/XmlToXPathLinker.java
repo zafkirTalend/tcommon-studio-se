@@ -807,6 +807,10 @@ public class XmlToXPathLinker extends TreeToTablesLinker<Object, Object> {
                     fullPath = loopXpathNodes.get(0) + "/"; //$NON-NLS-1$
                 }
                 // adapt relative path
+                // TDI-19173
+                if (relativeXpath != null && relativeXpath.endsWith("]")) {
+                    relativeXpath = relativeXpath.substring(0, relativeXpath.lastIndexOf("["));
+                }
                 String[] relatedSplitedPaths = relativeXpath.split("\\.\\./"); //$NON-NLS-1$
                 if (relatedSplitedPaths.length > 1) {
                     int pathsToRemove = relatedSplitedPaths.length - 1;
