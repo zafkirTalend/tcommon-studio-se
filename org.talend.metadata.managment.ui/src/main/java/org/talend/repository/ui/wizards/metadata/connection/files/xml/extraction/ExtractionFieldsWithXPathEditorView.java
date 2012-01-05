@@ -13,10 +13,8 @@
 package org.talend.repository.ui.wizards.metadata.connection.files.xml.extraction;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.gef.commands.Command;
@@ -290,7 +288,6 @@ public class ExtractionFieldsWithXPathEditorView extends AbstractDataTableEditor
         List<SchemaTarget> list = getModel().getBeansList();
         Set<String> conflictNames = new HashSet<String>();
         Set<String> names = new HashSet<String>();
-        Map<String, String> con = new HashMap<String, String>();
         int lstSize = list.size();
         for (int i = 0; i < lstSize; i++) {
             String name = list.get(i).getTagName();
@@ -300,12 +297,10 @@ public class ExtractionFieldsWithXPathEditorView extends AbstractDataTableEditor
             }
             if (name == null)
                 name = "";
-            if (!path.contains("..") && names.contains(name)) {
-                if (con.get(name) != null && !con.get(name).contains(".."))
-                    conflictNames.add(name);
+            if (names.contains(name)) {
+                conflictNames.add(name);
             } else {
                 names.add(name);
-                con.put(name, path);
             }
         }
         setRowBackground(list, conflictNames);
