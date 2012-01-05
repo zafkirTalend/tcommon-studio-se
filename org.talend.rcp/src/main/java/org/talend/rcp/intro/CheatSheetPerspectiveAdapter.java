@@ -101,9 +101,19 @@ public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
                 // ~code clean
                 IWorkbenchPart activePart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart();
                 CheatSheetView view = ViewUtilities.showCheatSheetView();
-                if (null != view && null != cheetSheetID) {
-                    view.setInput(cheetSheetID);
+                // MOD klliu bug TDQ-4130 if studio is started by other user(DI/MDM),the cheetSheetID will not be
+                // initalized.
+                // Then it is changed to DQ,cheetSheetID will be null,but CheatSheetView is not null,so that will show
+                // an empty view.
+                // Therefore DQ_CHEATSHEET_START_ID will be used to fill CheatSheetView.
+                if (null != view) {
+                    if (null != cheetSheetID) {
+                        view.setInput(cheetSheetID);
+                    } else {
+                        view.setInput(DQ_CHEATSHEET_START_ID);
+                    }
                 }
+                // ~
                 if (null != activePart) {
                     activePart.setFocus();
                 }
