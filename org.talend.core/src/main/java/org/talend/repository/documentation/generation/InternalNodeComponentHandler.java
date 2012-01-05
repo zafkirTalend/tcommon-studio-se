@@ -187,7 +187,9 @@ public class InternalNodeComponentHandler extends AbstractComponentHandler {
                 if (value.equalsIgnoreCase(IHTMLDocConstants.REPOSITORY_BUILT_IN)) {
                     value = IHTMLDocConstants.DISPLAY_BUILT_IN;
                 }
-                columnElement.setText(value);
+                // fix for TDI-17768
+                // columnElement.setText(value);
+                columnElement.addAttribute("value", HTMLDocUtils.checkString(value));
             }
         }
     }
