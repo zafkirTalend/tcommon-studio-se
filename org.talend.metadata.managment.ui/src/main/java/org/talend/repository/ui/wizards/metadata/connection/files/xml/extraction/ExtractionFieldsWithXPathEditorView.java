@@ -290,7 +290,6 @@ public class ExtractionFieldsWithXPathEditorView extends AbstractDataTableEditor
         List<SchemaTarget> list = getModel().getBeansList();
         Set<String> conflictNames = new HashSet<String>();
         Set<String> names = new HashSet<String>();
-        Map<String, String> con = new HashMap<String, String>();
         int lstSize = list.size();
         for (int i = 0; i < lstSize; i++) {
             String name = list.get(i).getTagName();
@@ -300,12 +299,10 @@ public class ExtractionFieldsWithXPathEditorView extends AbstractDataTableEditor
             }
             if (name == null)
                 name = "";
-            if (!path.contains("..") && names.contains(name)) {
-                if (con.get(name) != null && !con.get(name).contains(".."))
-                    conflictNames.add(name);
+            if (names.contains(name)) {
+                conflictNames.add(name);
             } else {
                 names.add(name);
-                con.put(name, path);
             }
         }
         setRowBackground(list, conflictNames);
