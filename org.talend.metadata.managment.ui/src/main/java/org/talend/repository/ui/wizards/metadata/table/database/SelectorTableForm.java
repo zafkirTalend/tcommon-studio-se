@@ -1289,7 +1289,13 @@ public class SelectorTableForm extends AbstractForm {
             }
         }
 
-        ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, schema, getConnection(), tables);
+        boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(metadataconnection.getDbType());
+        if (isAccess) {
+            // For access's table's remove,must be accordance with its addTable
+            ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, getConnection().getName(), getConnection(), tables);
+        } else {
+            ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, schema, getConnection(), tables);
+        }
     }
 
     /**
@@ -1421,6 +1427,7 @@ public class SelectorTableForm extends AbstractForm {
         }
 
         public void run() {
+            boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(metadataconnection.getDbType());
             if (isCanceled()) {
                 return;
             }
@@ -1441,7 +1448,7 @@ public class SelectorTableForm extends AbstractForm {
                 // only for oracle use all synonyms
                 boolean useAllSynonyms = ExtractMetaDataUtils.useAllSynonyms;
                 if (useAllSynonyms && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataconnection.getDbType())
-                        || EDatabaseTypeName.ACCESS.getDisplayName().equals(metadataconnection.getDbType())) {
+                        || isAccess) {
                     metadataColumns = ExtractMetaDataFromDataBase.returnMetadataColumnsFormTable(metadataconnection, tableString,
                             true);
                     if (ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString).equals(
@@ -1521,7 +1528,7 @@ public class SelectorTableForm extends AbstractForm {
                     String catalog = "";
                     String schema = "";
                     if (useAllSynonyms && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataconnection.getDbType())
-                            || EDatabaseTypeName.ACCESS.getDisplayName().equals(metadataconnection.getDbType())) {
+                            || isAccess) {
                         schema = metadataconnection.getSchema();
                         catalog = metadataconnection.getDatabase();
                         EDatabaseSchemaOrCatalogMapping curCatalog = typeName.getCatalogMappingField();
@@ -1553,7 +1560,10 @@ public class SelectorTableForm extends AbstractForm {
                             }
                         }
 
-                        schema = ExtractMetaDataUtils.getMeataConnectionSchema(metadataconnection);
+                        if (!isAccess) {
+                            // TDI-19114:access db should be connection's label,do not need get again.
+                            schema = ExtractMetaDataUtils.getMeataConnectionSchema(metadataconnection);
+                        }
                     } else {
                         TableNode parent = tableNode.getParent();
                         if (parent.getType() == TableNode.CATALOG) {
@@ -1773,7 +1783,12 @@ public class SelectorTableForm extends AbstractForm {
                 }
             }
         }
-        ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, schema, getConnection(), tables);
+        boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(metadataconnection.getDbType());
+        if (isAccess) {
+            ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, getConnection().getName(), getConnection(), tables);
+        } else {
+            ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, schema, getConnection(), tables);
+        }
     }
 
     /**
@@ -2010,8 +2025,10 @@ public class SelectorTableForm extends AbstractForm {
             existTableNode.setValue(td.getLabel());
             existTableNode.setItemType(td.getTableType());
             existTableNode.setTable(td);
-            existTableNode.setParent(parentNode);
-            parentNode.addChild(existTableNode);
+            if (parentNode != null) {
+                existTableNode.setParent(parentNode);
+                parentNode.addChild(existTableNode);
+            }
         } else if (tableItem instanceof TdView) {
             TdView tv = (TdView) tableItem;
             existTableNode = new TableNode();
@@ -2019,8 +2036,10 @@ public class SelectorTableForm extends AbstractForm {
             existTableNode.setValue(tv.getLabel());
             existTableNode.setItemType(tv.getTableType());
             existTableNode.setView(tv);
-            existTableNode.setParent(parentNode);
-            parentNode.addChild(existTableNode);
+            if (parentNode != null) {
+                existTableNode.setParent(parentNode);
+                parentNode.addChild(existTableNode);
+            }
         }
         return existTableNode;
     }
@@ -2037,21 +2056,94 @@ public class SelectorTableForm extends AbstractForm {
             EList<ModelElement> ownedElement = null;
             List<TableNode> tableNodes = getTableNodeInfo();
             TableNode parent = tableNode.getParent();
-            int type = parent.getType();
-            if (type == TableNode.CATALOG) {
-                for (TableNode catalogNode : tableNodes) { // two level catalog->table find same name table in
-                                                           // different
-                                                           // catalog
-                    if (catalogNode.getType() == type) {
-                        if (!catalogNode.getValue().equals(parent.getValue())) {
-                            if (catalogNode.getCatalog() != null) {
-                                ownedElement = catalogNode.getCatalog().getOwnedElement();
-                                for (ModelElement m : ownedElement) {
-                                    if (m instanceof MetadataTable) {
-                                        String label = ((MetadataTable) m).getLabel();
-                                        if (label.equals(tableNode.getValue())) {
-                                            if (((CatalogImpl) m.eContainer()).getName().equals(catalogNode.getValue())) {
-                                                return transferTableToTableNode((MetadataTable) m, catalogNode);
+            if (parent != null) {
+                int type = parent.getType();
+                if (type == TableNode.CATALOG) {
+                    for (TableNode catalogNode : tableNodes) { // two level catalog->table find same name table in
+                                                               // different
+                                                               // catalog
+                        if (catalogNode.getType() == type) {
+                            if (!catalogNode.getValue().equals(parent.getValue())) {
+                                if (catalogNode.getCatalog() != null) {
+                                    ownedElement = catalogNode.getCatalog().getOwnedElement();
+                                    for (ModelElement m : ownedElement) {
+                                        if (m instanceof MetadataTable) {
+                                            String label = ((MetadataTable) m).getLabel();
+                                            if (label.equals(tableNode.getValue())) {
+                                                if (((CatalogImpl) m.eContainer()).getName().equals(catalogNode.getValue())) {
+                                                    return transferTableToTableNode((MetadataTable) m, catalogNode);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else if (type == TableNode.SCHEMA) { // two level schema->table find same name table in different
+                                                       // schema
+                    TableNode p = parent.getParent();
+                    if (p == null) {
+                        for (TableNode schemaNode : tableNodes) {
+                            if (schemaNode.getType() == type) {
+                                if (!schemaNode.getValue().equals(parent.getValue())) {
+                                    if (schemaNode.getSchema() != null) {
+                                        ownedElement = schemaNode.getSchema().getOwnedElement();
+                                        for (ModelElement m : ownedElement) {
+                                            if (m instanceof MetadataTable) {
+                                                String label = ((MetadataTable) m).getLabel();
+                                                if (label.equals(tableNode.getValue())) {
+                                                    if (((SchemaImpl) m.eContainer()).getName().equals(schemaNode.getValue())) {
+                                                        return transferTableToTableNode((MetadataTable) m, schemaNode);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } else { // three level catalog->schema->table
+                        for (TableNode catalogNode : tableNodes) {
+                            if (catalogNode.getType() == TableNode.CATALOG) {
+                                if (catalogNode.getCatalog() != null) {
+                                    if (catalogNode.getValue().equals(p.getValue())) { // same catalog,different Schema
+                                        List<Schema> schemas = CatalogHelper.getSchemas(catalogNode.getCatalog());
+                                        for (Schema schs : schemas) {
+                                            ownedElement = schs.getOwnedElement();
+                                            for (ModelElement m : ownedElement) {
+                                                if (m instanceof MetadataTable) {
+                                                    String label = ((MetadataTable) m).getLabel();
+                                                    if (label.equals(tableNode.getValue())) {
+                                                        List<TableNode> schemaNodeList = catalogNode.getChildren();
+                                                        for (TableNode parentSchema : schemaNodeList) {
+                                                            if (((SchemaImpl) m.eContainer()).getName().equals(
+                                                                    parentSchema.getValue())
+                                                                    && !parentSchema.getValue().equals(parent.getValue())) {
+                                                                return transferTableToTableNode((MetadataTable) m, parentSchema);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    } else {
+                                        List<Schema> schemas = CatalogHelper.getSchemas(catalogNode.getCatalog());
+                                        for (Schema schs : schemas) {
+                                            ownedElement = schs.getOwnedElement();
+                                            for (ModelElement m : ownedElement) {
+                                                if (m instanceof MetadataTable) {
+                                                    String label = ((MetadataTable) m).getLabel();
+                                                    if (label.equals(tableNode.getValue())) {
+                                                        List<TableNode> schemaNodeList = catalogNode.getChildren();
+                                                        for (TableNode parentSchema : schemaNodeList) {
+                                                            if (((SchemaImpl) m.eContainer()).getName().equals(
+                                                                    parentSchema.getValue())) {
+                                                                return transferTableToTableNode((MetadataTable) m, parentSchema);
+                                                            }
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -2060,76 +2152,15 @@ public class SelectorTableForm extends AbstractForm {
                         }
                     }
                 }
-            } else if (type == TableNode.SCHEMA) { // two level schema->table find same name table in different
-                                                   // schema
-                TableNode p = parent.getParent();
-                if (p == null) {
-                    for (TableNode schemaNode : tableNodes) {
-                        if (schemaNode.getType() == type) {
-                            if (!schemaNode.getValue().equals(parent.getValue())) {
-                                if (schemaNode.getSchema() != null) {
-                                    ownedElement = schemaNode.getSchema().getOwnedElement();
-                                    for (ModelElement m : ownedElement) {
-                                        if (m instanceof MetadataTable) {
-                                            String label = ((MetadataTable) m).getLabel();
-                                            if (label.equals(tableNode.getValue())) {
-                                                if (((SchemaImpl) m.eContainer()).getName().equals(schemaNode.getValue())) {
-                                                    return transferTableToTableNode((MetadataTable) m, schemaNode);
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } else { // three level catalog->schema->table
-                    for (TableNode catalogNode : tableNodes) {
-                        if (catalogNode.getType() == TableNode.CATALOG) {
-                            if (catalogNode.getCatalog() != null) {
-                                if (catalogNode.getValue().equals(p.getValue())) { // same catalog,different Schema
-                                    List<Schema> schemas = CatalogHelper.getSchemas(catalogNode.getCatalog());
-                                    for (Schema schs : schemas) {
-                                        ownedElement = schs.getOwnedElement();
-                                        for (ModelElement m : ownedElement) {
-                                            if (m instanceof MetadataTable) {
-                                                String label = ((MetadataTable) m).getLabel();
-                                                if (label.equals(tableNode.getValue())) {
-                                                    List<TableNode> schemaNodeList = catalogNode.getChildren();
-                                                    for (TableNode parentSchema : schemaNodeList) {
-                                                        if (((SchemaImpl) m.eContainer()).getName().equals(
-                                                                parentSchema.getValue())
-                                                                && !parentSchema.getValue().equals(parent.getValue())) {
-                                                            return transferTableToTableNode((MetadataTable) m, parentSchema);
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                } else {
-                                    List<Schema> schemas = CatalogHelper.getSchemas(catalogNode.getCatalog());
-                                    for (Schema schs : schemas) {
-                                        ownedElement = schs.getOwnedElement();
-                                        for (ModelElement m : ownedElement) {
-                                            if (m instanceof MetadataTable) {
-                                                String label = ((MetadataTable) m).getLabel();
-                                                if (label.equals(tableNode.getValue())) {
-                                                    List<TableNode> schemaNodeList = catalogNode.getChildren();
-                                                    for (TableNode parentSchema : schemaNodeList) {
-                                                        if (((SchemaImpl) m.eContainer()).getName().equals(
-                                                                parentSchema.getValue())) {
-                                                            return transferTableToTableNode((MetadataTable) m, parentSchema);
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+            }
+        } else { // no catalog,no schema,such as Access
+            for (Object obj : ConnectionHelper.getTables(getConnection())) {
+                if (obj == null) {
+                    continue;
+                }
+                MetadataTable table = (MetadataTable) obj;
+                if (table.getLabel().equals(tableNode.getValue())) {
+                    return transferTableToTableNode(table, null);
                 }
             }
         }

@@ -699,7 +699,12 @@ public class ExtractMetaDataFromDataBase {
                 ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
                 columns = stmt.executeQuery(sql);
             } else {
-                columns = dbMetaData.getColumns(catalogName, schemaName, tableName, null);
+                if (isAccess && schemaName != null) {
+                    // The Access's schema should be null here otherwise the columns will be null
+                    columns = dbMetaData.getColumns(catalogName, null, tableName, null);
+                } else {
+                    columns = dbMetaData.getColumns(catalogName, schemaName, tableName, null);
+                }
             }
 
             // boolean isMYSQL = EDatabaseTypeName.MYSQL.getDisplayName().equals(metadataConnection.getDbType());
