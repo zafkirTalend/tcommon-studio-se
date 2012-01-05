@@ -962,12 +962,17 @@ public class RepositoryToComponentProperty {
                 return url;
             } else {
                 String h2Prefix = "jdbc:h2:";
-                if (url.startsWith(h2Prefix)) {
-                    String path = url.substring(h2Prefix.length(), url.length());
-                    path = PathUtils.getPortablePath(path);
-                    url = h2Prefix + path;
+                // TDI-18737:in case the url maybe null
+                if (url != null) {
+                    if (url.startsWith(h2Prefix)) {
+                        String path = url.substring(h2Prefix.length(), url.length());
+                        path = PathUtils.getPortablePath(path);
+                        url = h2Prefix + path;
+                        return url;
+                    }
+                } else {
+                    return TalendQuoteUtils.addQuotes(url);
                 }
-                return TalendQuoteUtils.addQuotes(url);
             }
         }
 
