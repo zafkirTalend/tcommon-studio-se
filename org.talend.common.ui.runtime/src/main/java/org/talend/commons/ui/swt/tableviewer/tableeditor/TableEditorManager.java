@@ -27,8 +27,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumnNotModifiable;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable;
 import org.talend.commons.ui.swt.tableviewer.selection.ITableColumnSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.sort.IColumnSortedListener;
 import org.talend.commons.ui.utils.threading.AsynchronousThreading;
@@ -39,8 +39,8 @@ import org.talend.commons.utils.data.list.ListenableListEvent.TYPE;
 import org.talend.commons.utils.data.map.MultiLazyValuesMap;
 
 /**
- * DOC amaumont class global comment. Detailled comment <br/> $Id: TableEditorManager.java,v 1.3 2006/06/02 15:24:10
- * amaumont Exp $
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * $Id: TableEditorManager.java,v 1.3 2006/06/02 15:24:10 amaumont Exp $
  */
 public class TableEditorManager {
 
@@ -70,9 +70,9 @@ public class TableEditorManager {
 
     private HashSet<TableItem> previousItemsHash;
 
-    ////////////////////////////////////
+    // //////////////////////////////////
     // Warning: using identity comparison
-    ////////////////////////////////////
+    // //////////////////////////////////
     MultiLazyValuesMap dataToMultipleDataEditor = new MultiLazyValuesMap(new IdentityHashMap()) {
 
         @Override
@@ -282,12 +282,12 @@ public class TableEditorManager {
         Table table = tableViewerCreator.getTable();
         TableItem[] items = table.getItems();
 
-        ////////////////////////////////////
+        // //////////////////////////////////
         // Warning: using identity comparison
-        ////////////////////////////////////
+        // //////////////////////////////////
         Set dataHash = MapBackedSet.decorate(new IdentityHashMap());
         dataHash.addAll(Arrays.asList((Object[]) event.swapedObjects));
-;
+        ;
         for (int i = 0; i < items.length; i++) {
             TableItem tableItem = items[i];
             Object data = tableItem.getData();
@@ -304,7 +304,9 @@ public class TableEditorManager {
 
     @SuppressWarnings("unchecked")
     public void refresh() {
-
+        if (tableEditorList == null) {// widget have been disposed and release method called so ignore the refresh
+            return;
+        }
         for (int i = 0; i < tableEditorList.size(); i++) {
             TableEditor tableEditor = tableEditorList.get(i);
             disposeTableEditor(tableEditor);
@@ -348,8 +350,8 @@ public class TableEditorManager {
 
     }
 
-    private TableEditor addTableEditor(TableViewerCreatorColumnNotModifiable column, TableEditorContentNotModifiable tableEditorContent, String idProperty,
-            TableItem tableItem) {
+    private TableEditor addTableEditor(TableViewerCreatorColumnNotModifiable column,
+            TableEditorContentNotModifiable tableEditorContent, String idProperty, TableItem tableItem) {
 
         tableEditorContent.setLayoutEnabled(true);
         TableEditor tableEditor = tableEditorContent.createTableEditor(tableItem.getParent());
@@ -360,15 +362,15 @@ public class TableEditorManager {
         Object value = tableViewerCreator.getCellModifier().getValue(currentRowObject, idProperty);
         Control control = tableEditorContent.initialize(tableItem.getParent(), tableEditor, column, currentRowObject, value);
 
-//        control.addDisposeListener(new DisposeListener() {
-//
-//            public void widgetDisposed(DisposeEvent e) {
-//
-//                // System.out.println(e);
-//
-//            }
-//
-//        });
+        // control.addDisposeListener(new DisposeListener() {
+        //
+        // public void widgetDisposed(DisposeEvent e) {
+        //
+        // // System.out.println(e);
+        //
+        // }
+        //
+        // });
 
         if (tableItem != null && !tableItem.isDisposed()) {
             tableEditor.setEditor(control, tableItem, column.getIndex());
