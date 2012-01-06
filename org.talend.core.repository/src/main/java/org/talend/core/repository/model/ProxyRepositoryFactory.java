@@ -301,7 +301,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 }
                 MessageBox box = new MessageBox(currentShell, SWT.ICON_WARNING | SWT.OK | SWT.CANCEL);
                 box.setText(Messages.getString("ProxyRepositoryFactory.JobNameErroe")); //$NON-NLS-1$
-                box.setMessage(Messages.getString("ProxyRepositoryFactory.Label") + " " + name + " " + Messages.getString("ProxyRepositoryFactory.ReplaceJob")); //$NON-NLS-1$ //$NON-NLS-2$
+                box.setMessage(Messages.getString("ProxyRepositoryFactory.Label") + " " + name + " " + Messages.getString("ProxyRepositoryFactory.ReplaceJob") + Messages.getString("ProxyRepositoryFactory.ReplaceJobHazardDescription")); //$NON-NLS-1$ //$NON-NLS-2$//$NON-NLS-3$//$NON-NLS-4$//$NON-NLS-5$
                 if (box.open() == SWT.OK) {
                     deleteObjectPhysical(duplicateNameObject);
                     return true;
