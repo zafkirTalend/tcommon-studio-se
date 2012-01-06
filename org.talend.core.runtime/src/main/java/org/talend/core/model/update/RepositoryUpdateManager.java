@@ -1652,9 +1652,9 @@ public abstract class RepositoryUpdateManager {
             deletedOrReselectTablesMap = new HashMap<String, EUpdateResult>();
 
             List<IMetadataTable> newMetadataTable = new ArrayList<IMetadataTable>();
-            if (repistoryService != null && coreService != null && connection instanceof DatabaseConnection) {
-                Set<org.talend.core.model.metadata.builder.connection.MetadataTable> newTables = repistoryService
-                        .getTablesFromSpecifiedDataPackage((DatabaseConnection) connection);
+            if (coreService != null && connection instanceof DatabaseConnection) {
+                Set<org.talend.core.model.metadata.builder.connection.MetadataTable> newTables = ConnectionHelper
+                        .getTables(connection);
                 if (newTables != null) {
                     for (org.talend.core.model.metadata.builder.connection.MetadataTable originalTable : newTables) {
                         IMetadataTable conversionTable = coreService.convert(originalTable);
