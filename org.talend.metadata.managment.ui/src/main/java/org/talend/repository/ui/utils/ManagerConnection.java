@@ -131,8 +131,15 @@ public class ManagerConnection {
                             schemaOracle, server, port, driverClassName, driverJarPath, dbVersionString, additionalParams);
                 }
             } else {
+                // MOD xqliu 2012-01-05 TDQ-4162
+                // get the real schema name
+                String schemaName = schemaOracle;
+                if (EDatabaseTypeName.TERADATA.equals(type)) {
+                    schemaName = sidOrDatabase;
+                }
+                // test the connection
                 testConnection = ExtractMetaDataFromDataBase.testConnection(dbTypeString, urlConnectionString, username,
-                        password, schemaOracle, driverClassName, driverJarPath, dbVersionString, additionalParams);
+                        password, schemaName, driverClassName, driverJarPath, dbVersionString, additionalParams);
             }
             isValide = testConnection.getResult();
             messageException = testConnection.getMessageException();
