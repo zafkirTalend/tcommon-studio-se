@@ -14,6 +14,7 @@ package org.talend.repository.ui.wizards.metadata.connection.files.xml;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -424,6 +425,32 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
                     connectionProperty.setId(nextId);
                     factory.create(connectionItem, propertiesWizardPage.getDestinationPath());
                 } else {
+                    // update schemas
+                    Map<String, SchemaTarget> schemaTargetMap = new HashMap<String, SchemaTarget>();
+                    EList<XmlXPathLoopDescriptor> schema = connection.getSchema();
+                    if (schema != null && schema.size() > 0) {
+                        XmlXPathLoopDescriptor xmlXPathLoopDescriptor = schema.get(0);
+                        if (xmlXPathLoopDescriptor != null) {
+                            EList<SchemaTarget> schemaTargets = xmlXPathLoopDescriptor.getSchemaTargets();
+                            if (schemaTargets != null && schemaTargets.size() > 0) {
+                                for (SchemaTarget schemaTarget : schemaTargets) {
+                                    schemaTargetMap.put(schemaTarget.getTagName(), schemaTarget);
+                                }
+                            }
+                        }
+                    }
+                    MetadataTable[] tables = ConnectionHelper.getTables(connectionItem.getConnection()).toArray(
+                            new MetadataTable[0]);
+                    for (MetadataTable table : tables) {
+                        EList<MetadataColumn> columns = table.getColumns();
+                        Iterator<MetadataColumn> columnsIter = columns.iterator();
+                        while (columnsIter.hasNext()) {
+                            MetadataColumn column = columnsIter.next();
+                            if (schemaTargetMap.size() > 0 && schemaTargetMap.get(column.getLabel()) == null) {
+                                columnsIter.remove();
+                            }
+                        }
+                    }
                     // update
                     RepositoryUpdateManager.updateFileConnection(connectionItem);
                     factory.save(connectionItem);

@@ -503,6 +503,16 @@ public abstract class RepositoryUpdateManager {
                     MetadataTable table2 = (MetadataTable) tables.toArray(new MetadataTable[0])[0];
                     return table1.getId().equals(table2.getId());
                 }
+                if (parameter instanceof XmlFileConnection) {
+                    boolean isResult = false;
+                    for (MetadataTable table : tables) {
+                        if (table.getId() != null && table.getId().equals(((IMetadataTable) object).getId())) {
+                            isResult = true;
+                            break;
+                        }
+                    }
+                    return isResult;
+                }
             }
 
         }
