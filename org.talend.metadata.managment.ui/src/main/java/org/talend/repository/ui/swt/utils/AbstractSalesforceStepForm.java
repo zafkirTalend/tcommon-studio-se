@@ -176,58 +176,58 @@ public abstract class AbstractSalesforceStepForm extends AbstractForm {
             return null;
         }
 
-        ProgressMonitorDialog dialog = new ProgressMonitorDialog(getShell());
-        try {
-            dialog.run(true, false, new IRunnableWithProgress() {
-
-                public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-
-                    monitor.beginTask(Messages.getString("AbstractSalesforceStepForm.fetchModule", moduleName), //$NON-NLS-1$
-                            IProgressMonitor.UNKNOWN);
-                    boolean socksProxy = false;
-                    boolean httpProxy = false;
-                    boolean httpsProxy = false;
-                    if (SalesforceModuleParseAPI.USE_SOCKS_PROXY.equals(proxy)) {
-                        socksProxy = true;
-                    }
-                    if (SalesforceModuleParseAPI.USE_HTTP_PROXY.equals(proxy)) {
-                        if (endPoint.startsWith("https")) {
-                            httpsProxy = true;
-                        } else {
-                            httpProxy = true;
-                        }
-
-                    }
-                    salesforceAPI.resetProxy(httpProxy, socksProxy, httpsProxy);
-                    salesforceAPI.setProxy(proxyHost, proxyPort, proxyUsername, proxyPassword, httpProxy, socksProxy, httpsProxy);
-                    if (!salesforceAPI.isLogin()) {
-                        try {
-
-                            ArrayList loginList = salesforceAPI.login(endPoint, user, pass, timeOut);
-                            for (int i = 0; i < loginList.size(); i++) {
-                                if (loginList.get(i) instanceof SoapBindingStub) {
-                                    binding = (SoapBindingStub) loginList.get(i);
-                                } else
-                                // if (loginList.get(i) instanceof com.sforce.soap.partner.SoapBindingStub)
-                                {
-                                    // bindingPartner = (com.sforce.soap.partner.SoapBindingStub) loginList.get(i);
-                                    bindingPartner = new SforceServiceStub(endPoint);
-                                }
-                            }
-                        } catch (Throwable e) {
-                            ExceptionHandler.process(e);
-                        }
-                    }
-                    salesforceAPI.fetchMetaDataColumns(moduleName);
-                    salesforceAPI.resetProxy(httpProxy, socksProxy, httpsProxy);
-                    monitor.done();
-                }
-            });
-        } catch (InvocationTargetException e1) {
-            ExceptionHandler.process(e1);
-        } catch (InterruptedException e2) {
-            ExceptionHandler.process(e2);
+        // ProgressMonitorDialog dialog = new ProgressMonitorDialog(getShell());
+        // try {
+        // dialog.run(true, false, new IRunnableWithProgress() {
+        //
+        // public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+        //
+        //                    monitor.beginTask(Messages.getString("AbstractSalesforceStepForm.fetchModule", moduleName), //$NON-NLS-1$
+        // IProgressMonitor.UNKNOWN);
+        boolean socksProxy = false;
+        boolean httpProxy = false;
+        boolean httpsProxy = false;
+        if (SalesforceModuleParseAPI.USE_SOCKS_PROXY.equals(proxy)) {
+            socksProxy = true;
         }
+        if (SalesforceModuleParseAPI.USE_HTTP_PROXY.equals(proxy)) {
+            if (endPoint.startsWith("https")) {
+                httpsProxy = true;
+            } else {
+                httpProxy = true;
+            }
+
+        }
+        salesforceAPI.resetProxy(httpProxy, socksProxy, httpsProxy);
+        salesforceAPI.setProxy(proxyHost, proxyPort, proxyUsername, proxyPassword, httpProxy, socksProxy, httpsProxy);
+        if (!salesforceAPI.isLogin()) {
+            try {
+
+                ArrayList loginList = salesforceAPI.login(endPoint, user, pass, timeOut);
+                for (int i = 0; i < loginList.size(); i++) {
+                    if (loginList.get(i) instanceof SoapBindingStub) {
+                        binding = (SoapBindingStub) loginList.get(i);
+                    } else
+                    // if (loginList.get(i) instanceof com.sforce.soap.partner.SoapBindingStub)
+                    {
+                        // bindingPartner = (com.sforce.soap.partner.SoapBindingStub) loginList.get(i);
+                        bindingPartner = new SforceServiceStub(endPoint);
+                    }
+                }
+            } catch (Throwable e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        salesforceAPI.fetchMetaDataColumns(moduleName);
+        salesforceAPI.resetProxy(httpProxy, socksProxy, httpsProxy);
+        // monitor.done();
+        // }
+        // });
+        // } catch (InvocationTargetException e1) {
+        // ExceptionHandler.process(e1);
+        // } catch (InterruptedException e2) {
+        // ExceptionHandler.process(e2);
+        // }
 
         if (salesforceAPI.getCurrentMetadataColumns() == null) {
             return null;

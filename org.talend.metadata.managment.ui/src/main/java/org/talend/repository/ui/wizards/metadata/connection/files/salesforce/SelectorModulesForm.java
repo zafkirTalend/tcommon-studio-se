@@ -881,7 +881,7 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
 
         RetrieveColumnRunnable(TableItem tableItem) {
             this.tableItem = tableItem;
-            setup();
+            // setup();
         }
 
         public void setCanceled(boolean cancel) {
@@ -1013,7 +1013,7 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
                     if (isCanceled()) {
                         return;
                     }
-
+                    setup();
                     metadaTable = readMetadataDetail();
                     listColumns = metadataTableOrder.getListColumns();
                     checkConnectionIsDone = true;
