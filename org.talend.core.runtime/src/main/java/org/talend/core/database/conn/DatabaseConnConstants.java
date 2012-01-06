@@ -34,7 +34,7 @@ public class DatabaseConnConstants {
 
     public static final String PATTERN_FILEMDB = "([\\w\\.\\-_]{0,}).mdb"; //$NON-NLS-1$
 
-    public static final String PATTERN_ADDPARAM = "([\\w\\.\\-_=]{0,})"; //$NON-NLS-1$
+    public static final String PATTERN_ADDPARAM = "([\\w\\.\\-_=\\&*]{0,})"; //$NON-NLS-1$
 
     public static final String PATTERN_SCHEMA = PATTERN_SID;
 
