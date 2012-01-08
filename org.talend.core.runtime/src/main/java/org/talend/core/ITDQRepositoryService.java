@@ -60,6 +60,9 @@ public interface ITDQRepositoryService extends IService {
     // ADD qiongli 2011-9-13 TDQ-3317
     public void reloadDatabase(ContextItem contextItem);
 
+    // ADD zshen 2012-1-6 TDQ-4384
+    public void reloadDatabase(ConnectionItem connectionItem);
+
     // ADD qiongli 2011-9-13 TDQ-3797
     public void updateImpactOnAnalysis(ConnectionItem connectionItem);
 
