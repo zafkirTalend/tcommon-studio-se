@@ -40,7 +40,6 @@ import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
-import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
@@ -341,16 +340,19 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     }
                 } else {
                     if (connectionItem.getConnection() instanceof DatabaseConnection) {
-                        Connection conn = connectionItem.getConnection();
+                        DatabaseConnection conn = (DatabaseConnection) connectionItem.getConnection();
                         boolean reloadCheck = false;
                         if (tdqRepService != null && ConnectionHelper.isUrlChanged(conn)) {
                             reloadCheck = openConfirmReloadDialog();
+                            if (!reloadCheck) {
+                                return false;
+                            }
                         }
-                        DatabaseConnection c = (DatabaseConnection) connectionItem.getConnection();
-                        final boolean equals = EDatabaseTypeName.ORACLEFORSID.getProduct().equals(c.getProductId());
-                        if (equals && !c.isContextMode()) {
-                            if (c.getUiSchema() != null && !"".equals(c.getUiSchema())) {//$NON-NLS-1$
-                                c.setUiSchema(c.getUiSchema().toUpperCase()); // MOD mzhao bug 4227 , don't set the
+                        final boolean equals = EDatabaseTypeName.ORACLEFORSID.getProduct().equals(conn.getProductId());
+                        if (equals && !conn.isContextMode()) {
+                            if (conn.getUiSchema() != null && !"".equals(conn.getUiSchema())) {//$NON-NLS-1$
+                                conn.setUiSchema(conn.getUiSchema().toUpperCase()); // MOD mzhao bug 4227 , don't set
+                                                                                    // the
                                                                               // uiScheme after 4.2(included) as the
                                                                               // connection wizard is uniformed.
                             }
@@ -360,8 +362,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                         // bug 20700
                         if (reloadCheck) {
                             tdqRepService.reloadDatabase(connectionItem);
-                        } else if (tdqRepService != null) {
-                            return false;
+
                         } else {
                             DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
                             if (dbConn != null && dbConn instanceof DatabaseConnection) {
