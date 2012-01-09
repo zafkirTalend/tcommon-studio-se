@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core;
 
+import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.IElementParameter;
 
 /**
@@ -38,9 +39,10 @@ public interface ITDQRuleService extends IService {
      * @param catalog
      * @param schema
      * @param table
+     * @param metadataTable
      * @param ruleParam
      */
     public void overrideRuleList(IElementParameter dbType, IElementParameter catalog, IElementParameter schema,
-            IElementParameter table, IElementParameter ruleParam);
+            IElementParameter table, IMetadataTable metadataTable, IElementParameter ruleParam);
 
 }
