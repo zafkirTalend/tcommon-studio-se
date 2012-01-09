@@ -214,6 +214,16 @@ public class MoveObjectAction {
     public boolean isLock(RepositoryNode sourceNode) {
         boolean isLock = false;
         IRepositoryViewObject objectToCopy = sourceNode.getObject();
+
+        try {
+
+            ProxyRepositoryFactory.getInstance().initialize();
+
+        } catch (PersistenceException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
         if (ProxyRepositoryFactory.getInstance().getStatus(objectToCopy) == ERepositoryStatus.LOCK_BY_USER) {
             isLock = true;
         }
