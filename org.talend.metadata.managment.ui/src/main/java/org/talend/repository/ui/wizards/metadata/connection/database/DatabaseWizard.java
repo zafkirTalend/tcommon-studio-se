@@ -360,6 +360,8 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                         // bug 20700
                         if (reloadCheck) {
                             tdqRepService.reloadDatabase(connectionItem);
+                        } else if (tdqRepService != null) {
+                            return false;
                         } else {
                             DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
                             if (dbConn != null && dbConn instanceof DatabaseConnection) {
