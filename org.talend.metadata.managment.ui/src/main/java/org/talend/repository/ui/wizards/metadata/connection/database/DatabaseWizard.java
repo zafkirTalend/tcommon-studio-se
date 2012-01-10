@@ -20,8 +20,10 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
@@ -339,26 +341,36 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     }
                 } else {
                     if (connectionItem.getConnection() instanceof DatabaseConnection) {
-                        DatabaseConnection c = (DatabaseConnection) connectionItem.getConnection();
-                        final boolean equals = EDatabaseTypeName.ORACLEFORSID.getProduct().equals(c.getProductId());
-                        if (equals && !c.isContextMode()) {
-                            if (c.getUiSchema() != null && !"".equals(c.getUiSchema())) {//$NON-NLS-1$
-                                c.setUiSchema(c.getUiSchema().toUpperCase()); // MOD mzhao bug 4227 , don't set the
+                        DatabaseConnection conn = (DatabaseConnection) connectionItem.getConnection();
+                        boolean reloadCheck = false;
+                        if (tdqRepService != null && ConnectionHelper.isUrlChanged(conn)) {
+                            reloadCheck = openConfirmReloadDialog();
+                            if (!reloadCheck) {
+                                return false;
+                            }
+                        }
+                        final boolean equals = EDatabaseTypeName.ORACLEFORSID.getProduct().equals(conn.getProductId());
+                        if (equals && !conn.isContextMode()) {
+                            if (conn.getUiSchema() != null && !"".equals(conn.getUiSchema())) {//$NON-NLS-1$
+                                conn.setUiSchema(conn.getUiSchema().toUpperCase()); // MOD mzhao bug 4227 , don't set
+                                                                                    // the
                                                                               // uiScheme after 4.2(included) as the
                                                                               // connection wizard is uniformed.
                             }
                         }
                         // update
-                        RepositoryUpdateManager.updateDBConnection(connectionItem);
-
+                       RepositoryUpdateManager.updateDBConnection(connectionItem);
                         // bug 20700
-                        Connection conn = connectionItem.getConnection();
-                        if (conn != null) {
+                        if (reloadCheck) {
+                            tdqRepService.reloadDatabase(connectionItem);
+
+                        } else {
                             DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
                             if (dbConn != null && dbConn instanceof DatabaseConnection) {
                                 updateConnectionInformation(dbConn);
                             }
                         }
+                       
                     }
                     this.connection.setName(connectionProperty.getLabel());
                     factory.save(connectionItem);
@@ -404,6 +416,12 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
         } else {
             return false;
         }
+    }
+    
+    private boolean openConfirmReloadDialog() {
+        return MessageDialog.openQuestion(Display.getCurrent().getActiveShell(),
+                Messages.getString("DatabaseWizard.ReloadTitle"), //$NON-NLS-1$
+                Messages.getString("DatabaseWizard.ReloadMessages"));//$NON-NLS-1$
     }
 
     /**
