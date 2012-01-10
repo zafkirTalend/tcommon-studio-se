@@ -15,4 +15,6 @@ package org.talend.core.service;
 public interface ICheckJobServerService {
 
     public String checkJobServer(String host, int port, int transfertPort, String username, String password, boolean ssl);
+
+    public String checkCommandLine(String host, int port);
 }
