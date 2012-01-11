@@ -569,7 +569,8 @@ public class ProjectNodeHelper {
                             }
                         }
                     }
-                    // ownedElement.removeAll(tablesToDelete);
+                    // bug 17097
+                    ownedElement.removeAll(tablesToDelete);
                 } else {
                     s.getOwnedElement().removeAll(tablesToDelete);
                 }
