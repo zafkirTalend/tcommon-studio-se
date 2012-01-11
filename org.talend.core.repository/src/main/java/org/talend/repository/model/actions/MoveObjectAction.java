@@ -219,8 +219,9 @@ public class MoveObjectAction {
             ProxyRepositoryFactory.getInstance().initialize();
 
         } catch (PersistenceException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+
+            ExceptionHandler.process(e);
+
         }
 
         IRepositoryViewObject objectToCopy = sourceNode.getObject();
