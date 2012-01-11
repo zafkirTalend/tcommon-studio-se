@@ -220,8 +220,9 @@ public class MoveObjectAction {
             ProxyRepositoryFactory.getInstance().initialize();
 
         } catch (PersistenceException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+
+            ExceptionHandler.process(e);
+
         }
 
         if (ProxyRepositoryFactory.getInstance().getStatus(objectToCopy) == ERepositoryStatus.LOCK_BY_USER) {
