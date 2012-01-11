@@ -128,7 +128,7 @@ public abstract class RepositoryUpdateManager {
 
     private static ICoreService coreService = null;
 
-    private boolean isDetectAndUpdate = false;
+    private boolean isDetectAndUpdate = true;
 
     static {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
@@ -1009,6 +1009,7 @@ public abstract class RepositoryUpdateManager {
                 }
                 parentMonitor.worked(1);
             }
+            // fwang: isDetectAndUpdate default value is false before,alter true now
             if (isDetectAndUpdate) {
                 resultList = updateAllProcess(parentMonitor, resultList, openedProcessList, types, onlySimpleShow);
             }
