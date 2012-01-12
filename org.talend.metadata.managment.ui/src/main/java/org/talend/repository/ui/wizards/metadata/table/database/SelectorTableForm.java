@@ -338,6 +338,7 @@ public class SelectorTableForm extends AbstractForm {
         tree = viewer.getTree();
         tree.setHeaderVisible(true);
         tree.setLinesVisible(true);
+
         // if table already exist in connection, should set checked.
         tree.addListener(SWT.Expand, new Listener() {
 
@@ -399,6 +400,7 @@ public class SelectorTableForm extends AbstractForm {
 
         scrolledCompositeFileViewer.setContent(tree);
         scrolledCompositeFileViewer.setMinSize(tree.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+
     }
 
     private final Collator col = Collator.getInstance(Locale.getDefault());
@@ -2273,8 +2275,36 @@ public class SelectorTableForm extends AbstractForm {
 
     public void initControlData(boolean flag) {
         checkConnection(flag);
+        checkTreeRoot();
         if (tableNodeList != null && tableNodeList.size() > 0) {
             threadExecutor = new CustomThreadPoolExecutor(5, new ThreadPoolExecutor.CallerRunsPolicy());
+        }
+    }
+
+    /**
+     * Check if root node is Table_Type, then judge if each node has been retrieved or not. DOC JKWANG Comment method
+     * "checkTreeRoot".
+     */
+    private void checkTreeRoot() {
+
+        TableNode node = null;
+
+        for (TreeItem treeItem : this.tree.getItems()) {
+
+            node = (TableNode) treeItem.getData();
+
+            if (node.getType() == TableNode.TABLE) {
+
+                if (this.isExistTable(node)) {
+
+                    treeItem.setChecked(true);
+
+                } else {
+
+                    treeItem.setChecked(false);
+
+                }
+            }
         }
     }
 
