@@ -72,7 +72,7 @@ public class ProjectHelper {
 
     private static Project createProject(String projectName, String projectDescription, ECodeLanguage language) {
         Project newProject = new Project();
-        newProject.setLabel(projectName);
+        newProject.setLabel(projectName.trim());// fwang fixed bug TDI-13127 Thurs,12 Jan 2012
         newProject.setTechnicalLabel(Project.createTechnicalName(newProject.getLabel()));
         newProject.setLanguage(language);
         newProject.setDescription(projectDescription);
