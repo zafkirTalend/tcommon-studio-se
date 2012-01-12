@@ -47,6 +47,7 @@ import org.talend.core.model.properties.PropertiesPackage;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartImpl#getStatus <em>Status</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartImpl#getStartDate <em>Start Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartImpl#getEndDate <em>End Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartImpl#getRequestId <em>Request Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -202,6 +203,26 @@ public class ExecutionPlanPartImpl extends EObjectImpl implements ExecutionPlanP
      * @ordered
      */
     protected Date endDate = END_DATE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getRequestId() <em>Request Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRequestId()
+     * @generated
+     * @ordered
+     */
+    protected static final String REQUEST_ID_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getRequestId() <em>Request Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRequestId()
+     * @generated
+     * @ordered
+     */
+    protected String requestId = REQUEST_ID_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -470,6 +491,27 @@ public class ExecutionPlanPartImpl extends EObjectImpl implements ExecutionPlanP
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getRequestId() {
+        return requestId;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setRequestId(String newRequestId) {
+        String oldRequestId = requestId;
+        requestId = newRequestId;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_PLAN_PART__REQUEST_ID, oldRequestId, requestId));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
@@ -512,6 +554,8 @@ public class ExecutionPlanPartImpl extends EObjectImpl implements ExecutionPlanP
                 return getStartDate();
             case PropertiesPackage.EXECUTION_PLAN_PART__END_DATE:
                 return getEndDate();
+            case PropertiesPackage.EXECUTION_PLAN_PART__REQUEST_ID:
+                return getRequestId();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -557,6 +601,9 @@ public class ExecutionPlanPartImpl extends EObjectImpl implements ExecutionPlanP
             case PropertiesPackage.EXECUTION_PLAN_PART__END_DATE:
                 setEndDate((Date)newValue);
                 return;
+            case PropertiesPackage.EXECUTION_PLAN_PART__REQUEST_ID:
+                setRequestId((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -599,6 +646,9 @@ public class ExecutionPlanPartImpl extends EObjectImpl implements ExecutionPlanP
             case PropertiesPackage.EXECUTION_PLAN_PART__END_DATE:
                 setEndDate(END_DATE_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_PLAN_PART__REQUEST_ID:
+                setRequestId(REQUEST_ID_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -631,6 +681,8 @@ public class ExecutionPlanPartImpl extends EObjectImpl implements ExecutionPlanP
                 return START_DATE_EDEFAULT == null ? startDate != null : !START_DATE_EDEFAULT.equals(startDate);
             case PropertiesPackage.EXECUTION_PLAN_PART__END_DATE:
                 return END_DATE_EDEFAULT == null ? endDate != null : !END_DATE_EDEFAULT.equals(endDate);
+            case PropertiesPackage.EXECUTION_PLAN_PART__REQUEST_ID:
+                return REQUEST_ID_EDEFAULT == null ? requestId != null : !REQUEST_ID_EDEFAULT.equals(requestId);
         }
         return super.eIsSet(featureID);
     }
@@ -655,6 +707,8 @@ public class ExecutionPlanPartImpl extends EObjectImpl implements ExecutionPlanP
         result.append(startDate);
         result.append(", endDate: ");
         result.append(endDate);
+        result.append(", requestId: ");
+        result.append(requestId);
         result.append(')');
         return result.toString();
     }

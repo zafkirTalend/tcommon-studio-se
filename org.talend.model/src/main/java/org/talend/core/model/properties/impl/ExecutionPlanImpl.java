@@ -44,6 +44,7 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getErrorStatus <em>Error Status</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#isConcurrentExecution <em>Concurrent Execution</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#isProcessingState <em>Processing State</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getRequestId <em>Request Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getExecPlanParts <em>Exec Plan Parts</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getExecPlanPrms <em>Exec Plan Prms</em>}</li>
@@ -183,6 +184,26 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
      * @ordered
      */
     protected boolean processingState = PROCESSING_STATE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getRequestId() <em>Request Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRequestId()
+     * @generated
+     * @ordered
+     */
+    protected static final String REQUEST_ID_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getRequestId() <em>Request Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRequestId()
+     * @generated
+     * @ordered
+     */
+    protected String requestId = REQUEST_ID_EDEFAULT;
 
     /**
      * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
@@ -487,6 +508,27 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getRequestId() {
+        return requestId;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setRequestId(String newRequestId) {
+        String oldRequestId = requestId;
+        requestId = newRequestId;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_PLAN__REQUEST_ID, oldRequestId, requestId));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
@@ -522,6 +564,8 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
                 return isConcurrentExecution() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.EXECUTION_PLAN__PROCESSING_STATE:
                 return isProcessingState() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.EXECUTION_PLAN__REQUEST_ID:
+                return getRequestId();
             case PropertiesPackage.EXECUTION_PLAN__LABEL:
                 return getLabel();
             case PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PARTS:
@@ -564,6 +608,9 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
                 return;
             case PropertiesPackage.EXECUTION_PLAN__PROCESSING_STATE:
                 setProcessingState(((Boolean)newValue).booleanValue());
+                return;
+            case PropertiesPackage.EXECUTION_PLAN__REQUEST_ID:
+                setRequestId((String)newValue);
                 return;
             case PropertiesPackage.EXECUTION_PLAN__LABEL:
                 setLabel((String)newValue);
@@ -612,6 +659,9 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
             case PropertiesPackage.EXECUTION_PLAN__PROCESSING_STATE:
                 setProcessingState(PROCESSING_STATE_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_PLAN__REQUEST_ID:
+                setRequestId(REQUEST_ID_EDEFAULT);
+                return;
             case PropertiesPackage.EXECUTION_PLAN__LABEL:
                 setLabel(LABEL_EDEFAULT);
                 return;
@@ -650,6 +700,8 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
                 return concurrentExecution != CONCURRENT_EXECUTION_EDEFAULT;
             case PropertiesPackage.EXECUTION_PLAN__PROCESSING_STATE:
                 return processingState != PROCESSING_STATE_EDEFAULT;
+            case PropertiesPackage.EXECUTION_PLAN__REQUEST_ID:
+                return REQUEST_ID_EDEFAULT == null ? requestId != null : !REQUEST_ID_EDEFAULT.equals(requestId);
             case PropertiesPackage.EXECUTION_PLAN__LABEL:
                 return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
             case PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PARTS:
@@ -684,6 +736,8 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
         result.append(concurrentExecution);
         result.append(", processingState: ");
         result.append(processingState);
+        result.append(", requestId: ");
+        result.append(requestId);
         result.append(", label: ");
         result.append(label);
         result.append(", description: ");

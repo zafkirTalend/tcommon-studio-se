@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionPlanPart#getStatus <em>Status</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionPlanPart#getStartDate <em>Start Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionPlanPart#getEndDate <em>End Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionPlanPart#getRequestId <em>Request Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -276,5 +277,31 @@ public interface ExecutionPlanPart extends EObject {
      * @generated
      */
     void setEndDate(Date value);
+
+    /**
+     * Returns the value of the '<em><b>Request Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Request Id</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Request Id</em>' attribute.
+     * @see #setRequestId(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlanPart_RequestId()
+     * @model
+     * @generated
+     */
+    String getRequestId();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionPlanPart#getRequestId <em>Request Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Request Id</em>' attribute.
+     * @see #getRequestId()
+     * @generated
+     */
+    void setRequestId(String value);
 
 } // ExecutionPlanPart

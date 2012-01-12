@@ -4023,13 +4023,22 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TRIGGERABLE__PROCESSING_STATE = 6;
 
     /**
+     * The feature id for the '<em><b>Request Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TRIGGERABLE__REQUEST_ID = 7;
+
+    /**
      * The number of structural features of the '<em>Execution Triggerable</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TRIGGERABLE_FEATURE_COUNT = 7;
+    int EXECUTION_TRIGGERABLE_FEATURE_COUNT = 8;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -4093,6 +4102,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int EXECUTION_PLAN__PROCESSING_STATE = EXECUTION_TRIGGERABLE__PROCESSING_STATE;
+
+    /**
+     * The feature id for the '<em><b>Request Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__REQUEST_ID = EXECUTION_TRIGGERABLE__REQUEST_ID;
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -4230,13 +4248,22 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_PLAN_PART__END_DATE = 9;
 
     /**
+     * The feature id for the '<em><b>Request Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_PART__REQUEST_ID = 10;
+
+    /**
      * The number of structural features of the '<em>Execution Plan Part</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_PLAN_PART_FEATURE_COUNT = 10;
+    int EXECUTION_PLAN_PART_FEATURE_COUNT = 11;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -4449,6 +4476,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int EXECUTION_TASK__PROCESSING_STATE = EXECUTION_TRIGGERABLE__PROCESSING_STATE;
+
+    /**
+     * The feature id for the '<em><b>Request Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__REQUEST_ID = EXECUTION_TRIGGERABLE__REQUEST_ID;
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -11071,6 +11107,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionTriggerable_ProcessingState();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTriggerable#getRequestId <em>Request Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Request Id</em>'.
+     * @see org.talend.core.model.properties.ExecutionTriggerable#getRequestId()
+     * @see #getExecutionTriggerable()
+     * @generated
+     */
+    EAttribute getExecutionTriggerable_RequestId();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionServer <em>Execution Server</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Execution Server</em>'.
@@ -13965,6 +14012,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionPlanPart_EndDate();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionPlanPart#getRequestId <em>Request Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Request Id</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanPart#getRequestId()
+     * @see #getExecutionPlanPart()
+     * @generated
+     */
+    EAttribute getExecutionPlanPart_RequestId();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionPlanPrm <em>Execution Plan Prm</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -16526,6 +16584,14 @@ public interface PropertiesPackage extends EPackage {
         EAttribute EXECUTION_TRIGGERABLE__PROCESSING_STATE = eINSTANCE.getExecutionTriggerable_ProcessingState();
 
         /**
+         * The meta object literal for the '<em><b>Request Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TRIGGERABLE__REQUEST_ID = eINSTANCE.getExecutionTriggerable_RequestId();
+
+        /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionServerImpl <em>Execution Server</em>}' class.
          * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.properties.impl.ExecutionServerImpl
@@ -18799,6 +18865,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute EXECUTION_PLAN_PART__END_DATE = eINSTANCE.getExecutionPlanPart_EndDate();
+
+        /**
+         * The meta object literal for the '<em><b>Request Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_PLAN_PART__REQUEST_ID = eINSTANCE.getExecutionPlanPart_RequestId();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionPlanPrmImpl <em>Execution Plan Prm</em>}' class.

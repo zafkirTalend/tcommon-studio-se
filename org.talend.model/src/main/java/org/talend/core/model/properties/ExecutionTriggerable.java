@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionTriggerable#getErrorStatus <em>Error Status</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTriggerable#isConcurrentExecution <em>Concurrent Execution</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTriggerable#isProcessingState <em>Processing State</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTriggerable#getRequestId <em>Request Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -206,5 +207,31 @@ public interface ExecutionTriggerable extends EObject {
      * @generated
      */
     void setProcessingState(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Request Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Request Id</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Request Id</em>' attribute.
+     * @see #setRequestId(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTriggerable_RequestId()
+     * @model
+     * @generated
+     */
+    String getRequestId();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTriggerable#getRequestId <em>Request Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Request Id</em>' attribute.
+     * @see #getRequestId()
+     * @generated
+     */
+    void setRequestId(String value);
 
 } // ExecutionTriggerable
