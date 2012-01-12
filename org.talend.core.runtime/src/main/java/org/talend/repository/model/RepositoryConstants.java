@@ -81,6 +81,9 @@ public class RepositoryConstants {
 
     public static final String TDQ_PAT_ITEM_PATTERN = ".*"; //$NON-NLS-1$
 
+    //GLIU: add for TESB-3837
+	public static final String SERVICES_NAME_PATTERN = "[a-zA-Z_][a-zA-Z0-9\\.\\-_]*";
+
     public static String getPattern(ERepositoryObjectType type) {
         if (type == ERepositoryObjectType.FOLDER) {
             return FOLDER_PATTERN;
@@ -96,7 +99,11 @@ public class RepositoryConstants {
                 || type == ERepositoryObjectType.TDQ_SOURCE_FILE_ELEMENT || type == ERepositoryObjectType.TDQ_RULES
                 || type == ERepositoryObjectType.TDQ_RULES_SQL || type == ERepositoryObjectType.TDQ_INDICATOR_ELEMENT) {
             return TDQ_PAT_ITEM_PATTERN;
-        } else {
+		}
+		// GLIU: add for TESB-3837
+		else if (type != null && "SERVICES".equals(type.getType())) {
+			return SERVICES_NAME_PATTERN;
+		} else {
             return TDQ_PAT_ITEM_PATTERN;
         }
     }
