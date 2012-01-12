@@ -40,6 +40,7 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getErrorStatus <em>Error Status</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isConcurrentExecution <em>Concurrent Execution</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isProcessingState <em>Processing State</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getRequestId <em>Request Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getExecutionServer <em>Execution Server</em>}</li>
@@ -217,6 +218,26 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * @ordered
      */
     protected boolean processingState = PROCESSING_STATE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getRequestId() <em>Request Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRequestId()
+     * @generated
+     * @ordered
+     */
+    protected static final String REQUEST_ID_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getRequestId() <em>Request Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRequestId()
+     * @generated
+     * @ordered
+     */
+    protected String requestId = REQUEST_ID_EDEFAULT;
 
     /**
      * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
@@ -1413,6 +1434,27 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getRequestId() {
+        return requestId;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setRequestId(String newRequestId) {
+        String oldRequestId = requestId;
+        requestId = newRequestId;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__REQUEST_ID, oldRequestId, requestId));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -2074,6 +2116,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return isConcurrentExecution() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE:
                 return isProcessingState() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.EXECUTION_TASK__REQUEST_ID:
+                return getRequestId();
             case PropertiesPackage.EXECUTION_TASK__LABEL:
                 return getLabel();
             case PropertiesPackage.EXECUTION_TASK__DESCRIPTION:
@@ -2196,6 +2240,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return;
             case PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE:
                 setProcessingState(((Boolean)newValue).booleanValue());
+                return;
+            case PropertiesPackage.EXECUTION_TASK__REQUEST_ID:
+                setRequestId((String)newValue);
                 return;
             case PropertiesPackage.EXECUTION_TASK__LABEL:
                 setLabel((String)newValue);
@@ -2361,6 +2408,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE:
                 setProcessingState(PROCESSING_STATE_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_TASK__REQUEST_ID:
+                setRequestId(REQUEST_ID_EDEFAULT);
+                return;
             case PropertiesPackage.EXECUTION_TASK__LABEL:
                 setLabel(LABEL_EDEFAULT);
                 return;
@@ -2515,6 +2565,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return concurrentExecution != CONCURRENT_EXECUTION_EDEFAULT;
             case PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE:
                 return processingState != PROCESSING_STATE_EDEFAULT;
+            case PropertiesPackage.EXECUTION_TASK__REQUEST_ID:
+                return REQUEST_ID_EDEFAULT == null ? requestId != null : !REQUEST_ID_EDEFAULT.equals(requestId);
             case PropertiesPackage.EXECUTION_TASK__LABEL:
                 return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
             case PropertiesPackage.EXECUTION_TASK__DESCRIPTION:
@@ -2626,6 +2678,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         result.append(concurrentExecution);
         result.append(", processingState: ");
         result.append(processingState);
+        result.append(", requestId: ");
+        result.append(requestId);
         result.append(", label: ");
         result.append(label);
         result.append(", description: ");
