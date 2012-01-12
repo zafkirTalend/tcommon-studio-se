@@ -2273,8 +2273,37 @@ public class SelectorTableForm extends AbstractForm {
 
     public void initControlData(boolean flag) {
         checkConnection(flag);
+        checkTreeRoot();
+
         if (tableNodeList != null && tableNodeList.size() > 0) {
             threadExecutor = new CustomThreadPoolExecutor(5, new ThreadPoolExecutor.CallerRunsPolicy());
+        }
+    }
+
+    /**
+     * Check if root node is Table_Type, then judge if each node has been retrieved or not. DOC JKWANG Comment method
+     * "checkTreeRoot".
+     */
+    private void checkTreeRoot() {
+
+        TableNode node = null;
+
+        for (TreeItem treeItem : this.tree.getItems()) {
+
+            node = (TableNode) treeItem.getData();
+
+            if (node.getType() == TableNode.TABLE) {
+
+                if (this.isExistTable(node)) {
+
+                    treeItem.setChecked(true);
+
+                } else {
+
+                    treeItem.setChecked(false);
+
+                }
+            }
         }
     }
 
