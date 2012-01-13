@@ -54,6 +54,7 @@ import org.talend.core.model.metadata.MappingTypeRetriever;
 import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.MetadataTable;
 import org.talend.core.model.metadata.MetadataTalendType;
+import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
@@ -66,11 +67,13 @@ import org.talend.core.repository.ConnectionStatus;
 import org.talend.core.repository.IDBMetadataProvider;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.CatalogHelper;
+import org.talend.cwm.helper.ColumnHelper;
 import org.talend.cwm.helper.ColumnSetHelper;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.repository.model.IRepositoryService;
+import org.talend.utils.sql.metadata.constants.GetColumn;
 import org.talend.utils.sql.metadata.constants.GetTable;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.relational.Catalog;
@@ -442,16 +445,17 @@ public class ExtractMetaDataFromDataBase {
                     tableName = tableName.replace("/", "");
                 }
                 newNode.setValue(tableName);
+                fillSynonmsForOracle(iMetadataConnection, metadataColumns, table, tableName);
             } else {
                 if (tableLabel.contains("/")) {
                     tableLabel = tableLabel.replace("/", "");
                 }
                 newNode.setValue(tableLabel);
+                metadataColumns = MetadataFillFactory.getDBInstance().fillColumns(table, iMetadataConnection, dbMetaData, null);
             }
 
             // metadataColumns = ExtractMetaDataFromDataBase.extractColumns(dbMetaData, newNode, iMetadataConnection,
             // dbType);
-            metadataColumns = MetadataFillFactory.getDBInstance().fillColumns(table, iMetadataConnection, dbMetaData, null);
 
             ColumnSetHelper.addColumns(table, metadataColumns);
 
@@ -459,7 +463,8 @@ public class ExtractMetaDataFromDataBase {
                 ExtractMetaDataUtils.closeConnection();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            ExceptionHandler.process(e);
+            log.error(e);
         } finally {
             // bug 22619
             if (dbType != null
@@ -485,6 +490,81 @@ public class ExtractMetaDataFromDataBase {
         }
 
         return metadataColumns;
+    }
+
+    /* fill the columns for synonm,can get column name,column data type,length,precision,nullable */
+    private static void fillSynonmsForOracle(IMetadataConnection iMetadataConnection, List<TdColumn> metadataColumns,
+            NamedColumnSet table, String tableName) throws SQLException {
+        // need to retrieve columns of synonym by useing sql rather than get them from jdbc metadata
+        String synSQL = "SELECT all_tab_columns.*\n" + "FROM all_tab_columns\n" + "LEFT OUTER JOIN all_synonyms\n"
+                + "ON all_tab_columns.TABLE_NAME = all_synonyms.TABLE_NAME\n"
+                + "AND ALL_SYNONYMS.TABLE_OWNER = all_tab_columns.OWNER\n" + "WHERE all_synonyms.SYNONYM_NAME =" + "\'"
+                + tableName + "\'";
+        Statement sta = ExtractMetaDataUtils.conn.createStatement();
+        ExtractMetaDataUtils.setQueryStatementTimeout(sta);
+        ResultSet columns = sta.executeQuery(synSQL);
+        String typeName = null;
+        int index = 0;
+        while (columns.next()) {
+            long numPrecRadix = 0;
+            String columnName = columns.getString(GetColumn.COLUMN_NAME.name());
+            TdColumn column = ColumnHelper.createTdColumn(columnName);
+
+            String label = column.getLabel();
+            label = ManagementTextUtils.filterSpecialChar(label);
+            String sub = ""; //$NON-NLS-1$
+            String sub2 = ""; //$NON-NLS-1$
+            String label2 = label;
+            if (label != null && label.length() > 0 && label.startsWith("_")) { //$NON-NLS-1$
+                sub = label.substring(1);
+                if (sub != null && sub.length() > 0) {
+                    sub2 = sub.substring(1);
+                }
+            }
+            ICoreService coreService = CoreRuntimePlugin.getInstance().getCoreService();
+            if (coreService.isKeyword(label) || coreService.isKeyword(sub) || coreService.isKeyword(sub2)) {
+                label = "_" + label; //$NON-NLS-1$
+            }
+
+            label = MetadataToolHelper.validateColumnName(label, index);
+            column.setLabel(label);
+            column.setOriginalField(label2);
+
+            if (!ExtractMetaDataUtils.needFakeDatabaseMetaData(iMetadataConnection.getDbType(), iMetadataConnection.isSqlMode())) {
+                // dataType = columns.getInt(GetColumn.DATA_TYPE.name());
+                typeName = columns.getString(GetColumn.DATA_TYPE.name());
+            }
+            try {
+                int column_size = columns.getInt("DATA_LENGTH");
+                column.setLength(column_size);
+                numPrecRadix = columns.getLong("DATA_PRECISION");//$NON-NLS-N$
+                column.setPrecision(numPrecRadix);
+            } catch (Exception e1) {
+                log.warn(e1, e1);
+            }
+
+            DatabaseConnection dbConnection = (DatabaseConnection) ConnectionHelper.getConnection(table);
+            String dbmsId = dbConnection == null ? null : dbConnection.getDbmsId();
+            if (dbmsId != null) {
+                MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(dbmsId);
+                String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName, ExtractMetaDataUtils
+                        .getIntMetaDataInfo(columns, "DATA_LENGTH"), ExtractMetaDataUtils.getIntMetaDataInfo(columns, //$NON-NLS-1$
+                        "DATA_PRECISION")); //$NON-NLS-1$
+                column.setTalendType(talendType);
+                String defaultSelectedDbType = MetadataTalendType.getMappingTypeRetriever(dbConnection.getDbmsId())
+                        .getDefaultSelectedDbType(talendType);
+                column.setSourceType(defaultSelectedDbType);
+            }
+            try {
+                column.setNullable("Y".equals(columns.getString(GetColumn.NULLABLE.name()))); //$NON-NLS-1$
+            } catch (Exception e) {
+                log.error(e);
+            }
+            metadataColumns.add(column);
+            index++;
+
+        }
+        columns.close();
     }
 
     /**
