@@ -101,6 +101,8 @@ public class MetadataConnectionUtils {
 
     private static Driver derbyDriver;
 
+    public static final String FAKE_SCHEMA_SYNONYMS = "AllSynonyms";//$NON-NLS-N$
+
     /**
      * DOC xqliu Comment method "getConnectionMetadata". 2009-07-13 bug 7888.
      * 
