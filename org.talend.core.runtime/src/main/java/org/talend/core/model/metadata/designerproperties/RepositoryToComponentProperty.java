@@ -1075,7 +1075,11 @@ public class RepositoryToComponentProperty {
             }
         }
         if (value.equals("RAC_URL")) {
-            return TalendQuoteUtils.addQuotes(connection.getServerName());
+            if (isContextMode(connection, connection.getServerName())) {
+                return connection.getServerName();
+            } else {
+                return TalendQuoteUtils.addQuotes(connection.getServerName());
+            }
         }
         return null;
     }
