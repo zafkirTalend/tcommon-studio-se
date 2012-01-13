@@ -80,7 +80,6 @@ import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
-import org.talend.core.model.metadata.builder.database.EDatabaseSchemaOrCatalogMapping;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase.ETableTypes;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
@@ -97,6 +96,7 @@ import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
+import org.talend.cwm.helper.SchemaHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdColumn;
@@ -784,7 +784,10 @@ public class SelectorTableForm extends AbstractForm {
                     schemaNode.setType(TableNode.SCHEMA);
                     schemaNode.setMetadataConn(metadataconnection);
                     schemaNode.setParas(tableInfoParameters);
-                    tableNodes.add(schemaNode);
+                    // should hide the fake schema which used to store the synonyms for oracle
+                    if (s.getName() != null && !s.getName().equals(MetadataConnectionUtils.FAKE_SCHEMA_SYNONYMS)) {
+                        tableNodes.add(schemaNode);
+                    }
                 }
             }
         } else {
@@ -1529,40 +1532,19 @@ public class SelectorTableForm extends AbstractForm {
                     String schema = "";
                     if (useAllSynonyms && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataconnection.getDbType())
                             || isAccess) {
-                        schema = metadataconnection.getSchema();
-                        catalog = metadataconnection.getDatabase();
-                        EDatabaseSchemaOrCatalogMapping curCatalog = typeName.getCatalogMappingField();
-                        EDatabaseSchemaOrCatalogMapping curSchema = typeName.getSchemaMappingField();
-                        if (curCatalog != null && curSchema != null) {
-                            switch (curCatalog) {
-                            case Login:
-                                catalog = metadataconnection.getUsername();
-                                break;
-                            case None:
-                                catalog = "";
-                                break;
-                            }
-                            switch (curSchema) {
-                            case Login:
-                                schema = metadataconnection.getUsername();
-                                break;
-                            case Schema:
-                                schema = metadataconnection.getSchema();
-                                break;
-                            case None:
-                                schema = "";
-                                break;
-                            case Default_Name:
-                                schema = metadataconnection.getLabel(); // label for default name for
-                                // access or such kind of
-                                // non-catalogs databases
-                                break;
-                            }
-                        }
 
+                        // if use_all_synonyms and oracle,just create a fake schema to store all the synonyms.see bug
+                        // TDI-18353
                         if (!isAccess) {
-                            // TDI-19114:access db should be connection's label,do not need get again.
-                            schema = ExtractMetaDataUtils.getMeataConnectionSchema(metadataconnection);
+                            schema = MetadataConnectionUtils.FAKE_SCHEMA_SYNONYMS;
+                            boolean findFakeSynonymsSchema = isSynonymsSchemaExsist(schema);
+                            if (!findFakeSynonymsSchema) {
+                                Schema SynonymsFakeSchema = SchemaHelper.createSchema(schema);
+                                ConnectionHelper.addSchema(SynonymsFakeSchema, temConnection);
+                            }
+
+                        } else { // TDI-19114:access db should be connection's label,do not need get again.
+                            schema = metadataconnection.getLabel();
                         }
                     } else {
                         TableNode parent = tableNode.getParent();
@@ -1594,6 +1576,18 @@ public class SelectorTableForm extends AbstractForm {
                 }
             });
 
+        }
+
+        private boolean isSynonymsSchemaExsist(String schema) {
+            boolean findFakeSynonymsSchema = false;
+            List<Schema> schemasExsit = ConnectionHelper.getSchema(temConnection);
+            for (Schema s : schemasExsit) {
+                if (s.getName() != null && s.getName().equals(schema)) {
+                    findFakeSynonymsSchema = true;
+                    break;
+                }
+            }
+            return findFakeSynonymsSchema;
         }
 
         public void updateUIInThreadIfThread() {
