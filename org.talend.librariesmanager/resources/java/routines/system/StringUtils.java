@@ -309,4 +309,68 @@ public class StringUtils {
 		return String.valueOf(d);
 	}
 	
+	/**
+	 * delete namespace prefix in the xpath
+	 * @param xpath the source xpath
+	 * @return
+	 */
+	public static String deletePrefixForXpath(String xpath) {
+		if(xpath==null) {
+			return null;
+		}
+		
+		char[] block = null;
+		StringBuffer sb = new StringBuffer();
+		
+		int size = xpath.length();
+		int start = -1;
+		int offset = 0;
+		
+		char next = ' ';
+		
+		for(int i=0;i<size;i++) {
+			if(':' == next) {
+				next = ' ';
+				continue;
+			}
+			
+			int end = -1;
+			char c = xpath.charAt(i);
+			
+			if('/' == c || '@' == c) {//element or attribute start
+				start = i;
+			}
+			
+			if(':' == c) {//local element name or attribute name start
+				if(i<size-1) {
+					next = xpath.charAt(i+1);
+				}
+				if(':'!=next) {
+					end = i;
+				}
+			}
+			
+			if(end!=-1) {
+				if(block==null) {
+					block = xpath.toCharArray();
+				}
+				sb.append(block,offset,start+1-offset);
+				offset = end + 1;
+			}
+		}
+		
+		if(offset == 0) {
+			return xpath;
+		}
+		
+		if(offset < size) {//append the trail
+			if(block==null) {
+				block = xpath.toCharArray();
+			}
+			sb.append(block,offset,size - offset);
+		}
+		
+		return sb.toString();
+	}
+	
 }
