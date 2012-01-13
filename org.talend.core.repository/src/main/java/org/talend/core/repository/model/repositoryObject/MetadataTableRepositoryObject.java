@@ -34,6 +34,8 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.model.ISubRepositoryObject;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SubItemHelper;
+import org.talend.cwm.helper.SwitchHelpers;
+import org.talend.cwm.relational.TdTable;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IRepositoryNode;
 import orgomg.cwm.objectmodel.core.ModelElement;
@@ -173,22 +175,28 @@ public class MetadataTableRepositoryObject extends MetadataTable implements ISub
                 Object obj = iterator.next();
                 if (obj instanceof org.talend.core.model.metadata.builder.connection.MetadataTable) {
                     org.talend.core.model.metadata.builder.connection.MetadataTable repObj = (org.talend.core.model.metadata.builder.connection.MetadataTable) obj;
-                    // MOD qiongli 2011-12-27 TDQ-4269.should compare its parent in the case of having same table name
-                    // under the different schemas.
-                    boolean sameParent = false;
-                    if (table.eContainer() instanceof ModelElement && repObj.eContainer() instanceof ModelElement) {
-                        ModelElement tableP = (ModelElement) table.eContainer();
-                        ModelElement repObjP = (ModelElement) repObj.eContainer();
-                        if (tableP.getName() != null && tableP.getName().equals(repObjP.getName())) {
-                            sameParent = true;
-                        }
+                    // MOD qiongli 2012-1-13 TDQ-4269.
+                    if (repObj == null || table.getLabel() == null || repObj.getLabel() == null
+                            || !table.getLabel().equals(repObj.getLabel())) {
+                        continue;
                     }
-
-                    if (table != null && table.getLabel() != null && table.getLabel().equals(repObj.getLabel()) && sameParent) {
+                    // if table name is same,should compare its parent name for TdTable
+                    TdTable doSwitch = SwitchHelpers.TABLE_SWITCH.doSwitch(table);
+                    if (doSwitch != null) {
+                        if (table.eContainer() instanceof ModelElement && repObj.eContainer() instanceof ModelElement) {
+                            ModelElement tableP = (ModelElement) table.eContainer();
+                            ModelElement repObjP = (ModelElement) repObj.eContainer();
+                            if (tableP.getName() != null && tableP.getName().equals(repObjP.getName())) {
+                                table = repObj;
+                                break;
+                            }
+                        }
+                    } else {
                         table = repObj;
                         break;
                     }
-                }
+                }// ~
+
             }
 
         }
