@@ -37,5 +37,22 @@
             serviceId="IMDMProviderService">
       </Service>
    </extension>
+   <extension
+         point="org.talend.core.runtime.repositoryComponent_provider">
+      <RepositoryComponent
+            input="tMDMInput"
+            name="FILEMDM"
+            output="tMDMOutput"
+            type="MDM">
+         <Item
+               clazz="org.talend.core.model.properties.MDMConnectionItem">
+         </Item>
+      </RepositoryComponent>
+      <DragAndDropFilter
+            clazz="org.talend.repository.mdm.model.MDMRepositoryComponentDndFilter"
+            id="org.talend.mdm.repository.MDMRepositoryComponentDndFilter"
+            name="MDM Item filter">
+      </DragAndDropFilter>
+   </extension>
 
 </plugin>

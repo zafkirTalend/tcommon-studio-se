@@ -139,4 +139,6 @@ public interface IComponent {
     public String getPaletteType();
 
     public void setPaletteType(String paletteType);
+
+    public String getRepositoryType();
 }

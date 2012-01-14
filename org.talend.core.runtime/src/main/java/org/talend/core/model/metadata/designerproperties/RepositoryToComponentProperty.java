@@ -1346,7 +1346,7 @@ public class RepositoryToComponentProperty {
     // added by nma to deal with .xsd file
     public static Object getXmlAndXSDFileValue(XmlFileConnection connection, String value) {
         EList list = connection.getSchema();
-        XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) list.get(0);
+
         if (value.equals("FILE_PATH")) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getXmlFilePath())) {
                 return connection.getXmlFilePath();
@@ -1365,21 +1365,25 @@ public class RepositoryToComponentProperty {
                 return TalendQuoteUtils.addQuotes(p.toPortableString());
             }
         }
-        if (value.equals("LIMIT")) { //$NON-NLS-1$
-            if ((xmlDesc == null) || (xmlDesc.getLimitBoucle() == null)) {
-                return ""; //$NON-NLS-1$
-            } else {
-                return xmlDesc.getLimitBoucle().toString();
-            }
-        }
-        if (value.equals("XPATH_QUERY")) { //$NON-NLS-1$
-            if (xmlDesc == null) {
-                return ""; //$NON-NLS-1$
-            } else {
-                if (isContextMode(connection, xmlDesc.getAbsoluteXPathQuery())) {
-                    return xmlDesc.getAbsoluteXPathQuery();
+        if (!list.isEmpty()) {
+            XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) list.get(0);
+
+            if (value.equals("LIMIT")) { //$NON-NLS-1$
+                if ((xmlDesc == null) || (xmlDesc.getLimitBoucle() == null)) {
+                    return ""; //$NON-NLS-1$
                 } else {
-                    return TalendQuoteUtils.addQuotes(xmlDesc.getAbsoluteXPathQuery());
+                    return xmlDesc.getLimitBoucle().toString();
+                }
+            }
+            if (value.equals("XPATH_QUERY")) { //$NON-NLS-1$
+                if (xmlDesc == null) {
+                    return ""; //$NON-NLS-1$
+                } else {
+                    if (isContextMode(connection, xmlDesc.getAbsoluteXPathQuery())) {
+                        return xmlDesc.getAbsoluteXPathQuery();
+                    } else {
+                        return TalendQuoteUtils.addQuotes(xmlDesc.getAbsoluteXPathQuery());
+                    }
                 }
             }
         }
