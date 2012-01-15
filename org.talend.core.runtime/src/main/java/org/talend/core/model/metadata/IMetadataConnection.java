@@ -172,4 +172,24 @@ public interface IMetadataConnection extends IMetadata {
 
     public void setUiSchema(String schema);
 
+    public String getDatamodel();
+
+    public void setDatamodel(String datamodel);
+
+    public String getDatacluster();
+
+    public void setDatacluster(String datacluster);
+
+    public boolean isContentModel();
+
+    public void setContentModel(boolean contentModel);
+
+    public String getContextId();
+
+    public void setContextId(String contextId);
+
+    public String getContextName();
+
+    public void setContextName(String contextName);
+
 }
