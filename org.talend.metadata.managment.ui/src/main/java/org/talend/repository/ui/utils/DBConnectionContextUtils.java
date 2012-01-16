@@ -555,4 +555,74 @@ public final class DBConnectionContextUtils {
         }
 
     }
+    /**
+     * 
+     * DOC zshen Comment method "setDatabaseConnectionParameter".
+     * 
+     * @param conn
+     * @param metadataConnection
+     * 
+     * set parameter from metadataConnection to DatabaseConnection
+     */
+    public static void setDatabaseConnectionParameter(DatabaseConnection conn, IMetadataConnection metadataConnection) {
+        if (conn == null || metadataConnection == null) {
+            return;
+        }
+        ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(conn);
+
+        // driverPath
+        conn.setDriverJarPath(metadataConnection.getDriverJarPath());
+
+        // set dbType
+        conn.setDatabaseType(metadataConnection.getDbType());
+
+        conn.setProductId(metadataConnection.getProduct());
+
+        conn.setDbmsId(metadataConnection.getMapping());
+
+        // set dbVersionString
+        conn.setDbVersionString(metadataConnection.getDbVersionString());
+
+        // filePath
+        conn.setFileFieldName(metadataConnection.getFileFieldName());
+
+        // jdbcUrl
+        conn.setURL(metadataConnection.getUrl());
+
+        // aDDParameter
+        conn.setAdditionalParams(metadataConnection.getAdditionalParams());
+
+        // driverClassName
+        conn.setDriverClass(metadataConnection.getDriverClass());
+
+        // host
+        conn.setServerName(metadataConnection.getServerName());
+
+        // port
+        conn.setPort(metadataConnection.getPort());
+
+        // dbName
+        conn.setSID(metadataConnection.getDatabase());
+
+        // otherParameter
+        ConnectionHelper.setOtherParameter(metadataConnection.getOtherParameter(), conn);
+
+        // password
+        ConnectionHelper.setPassword(conn, metadataConnection.getPassword());
+
+        // user
+        conn.setUsername(metadataConnection.getUsername());
+
+        // dbName
+        conn.setDatasourceName(metadataConnection.getDataSourceName());
+
+        // schema
+        String uischema = metadataConnection.getUiSchema() == null ? metadataConnection.getSchema() : metadataConnection
+                .getUiSchema();
+        conn.setUiSchema(uischema);
+
+        conn.setContextMode(metadataConnection.isContentModel());
+        conn.setContextId(metadataConnection.getContextId());
+        conn.setContextName(metadataConnection.getContextName());
+    }
 }

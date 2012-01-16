@@ -15,6 +15,7 @@ package org.talend.repository.ui.wizards.metadata.connection.database;
 import org.eclipse.jface.dialogs.IDialogPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
+import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.repository.ui.swt.utils.AbstractForm;
 import org.talend.repository.ui.wizards.RepositoryWizard;
@@ -79,4 +80,12 @@ public class DatabaseWizardPage extends WizardPage {
             databaseForm.checkFieldsValue();
         }
     }
+    /**
+     * 
+     * DOC zshen Comment method "getMetadataConnection".
+     * @return
+     */
+     public IMetadataConnection getMetadataConnection() {
+         return databaseForm.getMetadataConnection();
+     }
 }

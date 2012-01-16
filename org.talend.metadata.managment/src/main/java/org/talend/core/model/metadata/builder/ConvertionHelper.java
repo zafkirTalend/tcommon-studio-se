@@ -21,8 +21,11 @@ import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
+import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
@@ -42,14 +45,20 @@ public final class ConvertionHelper {
      * @param connection
      * @return
      */
-    public static IMetadataConnection convert(DatabaseConnection sourceConnection) {
+    public static IMetadataConnection convert(Connection sourceConnection) {
         return convert(sourceConnection, false);
     }
 
-    public static IMetadataConnection convert(DatabaseConnection sourceConnection, boolean defaultContext) {
-        return convert(sourceConnection, defaultContext, null);
+    public static IMetadataConnection convert(Connection sourceConnection, boolean defaultContext) {
+        if (sourceConnection instanceof DatabaseConnection) {
+            return convert((DatabaseConnection) sourceConnection, defaultContext, null);
+        } else if (sourceConnection instanceof MDMConnection) {
+            return convert((MDMConnection) sourceConnection, defaultContext, null);
+        } else if (sourceConnection instanceof DelimitedFileConnection) {
+            return convert((DelimitedFileConnection) sourceConnection, defaultContext, null);
+        }
+        return null;
     }
-
     public static IMetadataConnection convert(DatabaseConnection sourceConnection, boolean defaultContext, String selectedContext) {
 
         if (sourceConnection == null) {
@@ -99,6 +108,87 @@ public final class ConvertionHelper {
         result.setProduct(connection.getProductId());
         result.setDbRootPath(connection.getDBRootPath());
         result.setSqlMode(connection.isSQLMode());
+        result.setCurrentConnection(connection); // keep the connection for the metadataconnection
+        result.setContentModel(connection.isContextMode());
+        result.setContextId(connection.getContextId());
+        result.setContextName(connection.getContextName());
+        // handle oracle database connnection of general_jdbc.
+        result.setSchema(ExtractMetaDataUtils.getMeataConnectionSchema(result));
+
+        return result;
+
+    }
+    
+    /**
+     * 
+     * DOC zshen Comment method "convert".
+     * 
+     * @param sourceConnection
+     * @param defaultContext
+     * @param selectedContext
+     * @return convert from sourceConnection to MetadataConnection
+     */
+    public static IMetadataConnection convert(MDMConnection sourceConnection, boolean defaultContext, String selectedContext) {
+
+        if (sourceConnection == null) {
+            return null;
+        }
+        // if sourceConnection is not context mode, will be same as before.
+        MDMConnection connection = null;
+
+        connection = sourceConnection;
+
+        IMetadataConnection result = new org.talend.core.model.metadata.MetadataConnection();
+        result.setComment(connection.getComment());
+
+        result.setId(connection.getId());
+        result.setLabel(connection.getLabel());
+
+        result.setPassword(connection.getPassword());
+        result.setPort(connection.getPort());
+        result.setServerName(connection.getServer());
+
+        result.setUsername(connection.getUsername());
+        result.setUniverse(connection.getUniverse());
+        result.setDatamodel(connection.getDatamodel());
+        result.setDatacluster(connection.getDatacluster());
+
+        result.setCurrentConnection(connection); // keep the connection for the metadataconnection
+        // handle oracle database connnection of general_jdbc.
+        result.setSchema(ExtractMetaDataUtils.getMeataConnectionSchema(result));
+
+        return result;
+
+    }
+
+    /**
+     * 
+     * DOC zshen Comment method "convert".
+     * 
+     * @param sourceConnection
+     * @param defaultContext
+     * @param selectedContext
+     * @return convert form DelimitedFileConnection to MetadataConnection
+     */
+    public static IMetadataConnection convert(DelimitedFileConnection sourceConnection, boolean defaultContext,
+            String selectedContext) {
+
+        if (sourceConnection == null) {
+            return null;
+        }
+        // if sourceConnection is not context mode, will be same as before.
+        DelimitedFileConnection connection = null;
+
+        connection = sourceConnection;
+
+        IMetadataConnection result = new org.talend.core.model.metadata.MetadataConnection();
+        result.setComment(connection.getComment());
+
+        result.setId(connection.getId());
+        result.setLabel(connection.getLabel());
+
+        result.setServerName(connection.getServer());
+
         result.setCurrentConnection(connection); // keep the connection for the metadataconnection
         // handle oracle database connnection of general_jdbc.
         result.setSchema(ExtractMetaDataUtils.getMeataConnectionSchema(result));

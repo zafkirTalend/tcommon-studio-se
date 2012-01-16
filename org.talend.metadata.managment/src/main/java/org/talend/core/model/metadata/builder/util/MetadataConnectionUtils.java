@@ -894,6 +894,37 @@ public class MetadataConnectionUtils {
         // updateRetrieveAllFlag(conn);
         return conn;
     }
+    
+    /**
+     * 
+     * DOC zshen Comment method "setMDMConnectionParameter".
+     * 
+     * @param conn
+     * @param metadataConnection
+     * 
+     * set the parameter of MDMConnection from metadataConnection
+     */
+    public static void setMDMConnectionParameter(MDMConnection conn, IMetadataConnection metadataConnection) {
+        if (conn == null || metadataConnection == null) {
+            return;
+        }
+        // host
+        conn.setServer(metadataConnection.getServerName());
+
+        // port
+        conn.setPort(metadataConnection.getPort());
+        // password
+        ConnectionHelper.setPassword(conn, metadataConnection.getPassword());
+        // user
+        conn.setUsername(metadataConnection.getUsername());
+        conn.setComment(metadataConnection.getComment());
+        conn.setId(metadataConnection.getId());
+        conn.setLabel(metadataConnection.getLabel());
+        conn.setUniverse(metadataConnection.getUniverse());
+        conn.setDatamodel(metadataConnection.getDatamodel());
+        conn.setDatacluster(metadataConnection.getDatacluster());
+
+    }
 
     // /**
     // * DOC xqliu Comment method "fillConnectionMetadataInformation".

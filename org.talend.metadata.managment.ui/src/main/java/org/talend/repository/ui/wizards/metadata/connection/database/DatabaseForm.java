@@ -67,6 +67,7 @@ import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -2448,5 +2449,14 @@ public class DatabaseForm extends AbstractForm {
             }
         }
         return msg;
+    }
+    /**
+     * 
+     * DOC zshen Comment method "getMetadataConnection".
+     * 
+     * @return
+     */
+    public IMetadataConnection getMetadataConnection() {
+        return this.metadataconnection;
     }
 }

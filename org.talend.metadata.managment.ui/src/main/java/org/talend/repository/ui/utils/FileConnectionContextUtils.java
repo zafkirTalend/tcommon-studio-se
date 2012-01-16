@@ -401,6 +401,117 @@ public final class FileConnectionContextUtils {
         }
     }
 
+    /**
+     * 
+     * DOC zshen Comment method "retrieveFileConnection".
+     * @param sourceFileConnection
+     * @param targetFileConnection
+     */
+        public static void retrieveFileConnection(FileConnection sourceFileConnection, FileConnection targetFileConnection) {
+            if (sourceFileConnection == null || targetFileConnection == null) {
+                return;
+            }
+            ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(null, sourceFileConnection, null, false);
+            retrieveFileConnection(sourceFileConnection, targetFileConnection, contextType);
+        }
+
+        /**
+         * 
+         * DOC zshen Comment method "retrieveFileConnection".
+         * 
+         * @param sourceFileConnection
+         * @param targetFileConnection
+         * @param contextType
+         * 
+         * retrieve FileConnection from sourceFileConnection to targetFileConnection
+         */
+        public static void retrieveFileConnection(FileConnection sourceFileConnection, FileConnection targetFileConnection,
+                ContextType contextType) {
+            if (sourceFileConnection == null || targetFileConnection == null) {
+                return;
+            }
+
+            String filePath = ConnectionContextHelper.getOriginalValue(contextType, sourceFileConnection.getFilePath());
+            String encoding = ConnectionContextHelper.getOriginalValue(contextType, sourceFileConnection.getEncoding());
+            String headValue = ConnectionContextHelper.getOriginalValue(contextType, sourceFileConnection.getHeaderValue());
+            String footerValue = ConnectionContextHelper.getOriginalValue(contextType, sourceFileConnection.getFooterValue());
+            String limitValue = ConnectionContextHelper.getOriginalValue(contextType, sourceFileConnection.getLimitValue());
+
+            filePath = TalendQuoteUtils.removeQuotes(filePath);
+            // qli modified to fix the bug 6995.
+            encoding = TalendQuoteUtils.removeQuotes(encoding);
+            targetFileConnection.setFilePath(filePath);
+            targetFileConnection.setEncoding(encoding);
+            targetFileConnection.setHeaderValue(headValue);
+            targetFileConnection.setFooterValue(footerValue);
+            targetFileConnection.setLimitValue(limitValue);
+
+            //
+            if (sourceFileConnection instanceof DelimitedFileConnection || sourceFileConnection instanceof PositionalFileConnection
+                    || sourceFileConnection instanceof RegexpFileConnection) {
+                String fieldSeparatorValue = ConnectionContextHelper.getOriginalValue(contextType,
+                        sourceFileConnection.getFieldSeparatorValue());
+                String rowSeparatorValue = ConnectionContextHelper.getOriginalValue(contextType,
+                        sourceFileConnection.getRowSeparatorValue());
+
+                targetFileConnection.setFieldSeparatorValue(fieldSeparatorValue);
+                targetFileConnection.setRowSeparatorValue(rowSeparatorValue);
+
+                if (sourceFileConnection instanceof DelimitedFileConnection) {
+                    ((DelimitedFileConnection) targetFileConnection)
+                            .setFieldSeparatorType(((DelimitedFileConnection) sourceFileConnection).getFieldSeparatorType());
+                }
+            }
+            // excel
+            if (sourceFileConnection instanceof FileExcelConnection) {
+                FileExcelConnection excelConnection = (FileExcelConnection) sourceFileConnection;
+                FileExcelConnection cloneExcelConnection = (FileExcelConnection) targetFileConnection;
+
+                String thousandSeparator = ConnectionContextHelper.getOriginalValue(contextType,
+                        excelConnection.getThousandSeparator());
+                String decimalSeparator = ConnectionContextHelper
+                        .getOriginalValue(contextType, excelConnection.getDecimalSeparator());
+                String firstColumn = ConnectionContextHelper.getOriginalValue(contextType, excelConnection.getFirstColumn());
+                String lastColumn = ConnectionContextHelper.getOriginalValue(contextType, excelConnection.getLastColumn());
+
+                cloneExcelConnection.setThousandSeparator(thousandSeparator);
+                cloneExcelConnection.setDecimalSeparator(decimalSeparator);
+                cloneExcelConnection.setFirstColumn(firstColumn);
+                cloneExcelConnection.setLastColumn(lastColumn);
+
+                cloneExcelConnection.setSelectAllSheets(excelConnection.isSelectAllSheets());
+                cloneExcelConnection.setSheetName(excelConnection.getSheetName());
+
+                ArrayList sheetList = excelConnection.getSheetList();
+                cloneExcelConnection.setSheetList((ArrayList) sheetList.clone());
+
+                EList sheetColumns = excelConnection.getSheetColumns();
+                if (sheetColumns != null && sheetColumns instanceof BasicEList) {
+                    cloneExcelConnection.getSheetColumns().addAll((EList) ((BasicEList) sheetColumns).clone());
+                }
+
+                cloneExcelConnection.setAdvancedSpearator(excelConnection.isAdvancedSpearator());
+            }
+                targetFileConnection.setFieldSeparatorValue(sourceFileConnection.getFieldSeparatorValue());
+                targetFileConnection.setRowSeparatorType(sourceFileConnection.getRowSeparatorType());
+                targetFileConnection.setRowSeparatorValue(sourceFileConnection.getRowSeparatorValue());
+
+                targetFileConnection.setRowSeparatorType(sourceFileConnection.getRowSeparatorType());
+
+                targetFileConnection.setCsvOption(sourceFileConnection.isCsvOption());
+                targetFileConnection.setEscapeChar(sourceFileConnection.getEscapeChar());
+                targetFileConnection.setEscapeType(sourceFileConnection.getEscapeType());
+                targetFileConnection.setFirstLineCaption(sourceFileConnection.isFirstLineCaption());
+                targetFileConnection.setFormat(sourceFileConnection.getFormat());
+                targetFileConnection.setRemoveEmptyRow(sourceFileConnection.isRemoveEmptyRow());
+                targetFileConnection.setServer(sourceFileConnection.getServer());
+                targetFileConnection.setTextEnclosure(sourceFileConnection.getTextEnclosure());
+                targetFileConnection.setTextIdentifier(sourceFileConnection.getTextIdentifier());
+                targetFileConnection.setUseFooter(sourceFileConnection.isUseFooter());
+                targetFileConnection.setUseHeader(sourceFileConnection.isUseHeader());
+                targetFileConnection.setUseLimit(sourceFileConnection.isUseLimit());
+
+        }
     public static void checkAndInitRowsToSkip() {
 
     }

@@ -74,6 +74,10 @@ public class MetadataConnection implements IMetadataConnection {
     private String datafilter;
 
     private String universe;
+    
+    private String Datamodel;
+
+    private String Datacluster;
 
     // ~
 
@@ -95,6 +99,13 @@ public class MetadataConnection implements IMetadataConnection {
     private String dbName;
 
     private String uiSchema;
+    
+    private boolean contentModel = false;
+
+    private String contextId;
+
+    private String contextName;
+
 
     // ~
 
@@ -673,5 +684,45 @@ public class MetadataConnection implements IMetadataConnection {
     public void setUiSchema(String uiSchema) {
         this.uiSchema = uiSchema;
     }
+
+	public String getDatamodel() {
+		return Datamodel;
+	}
+
+	public void setDatamodel(String datamodel) {
+		Datamodel = datamodel;
+	}
+
+	public String getDatacluster() {
+		return Datacluster;
+	}
+
+	public void setDatacluster(String datacluster) {
+		Datacluster = datacluster;
+	}
+
+	public boolean isContentModel() {
+		return contentModel;
+	}
+
+	public void setContentModel(boolean contentModel) {
+		this.contentModel = contentModel;
+	}
+
+	public String getContextId() {
+		return contextId;
+	}
+
+	public void setContextId(String contextId) {
+		this.contextId = contextId;
+	}
+
+	public String getContextName() {
+		return contextName;
+	}
+
+	public void setContextName(String contextName) {
+		this.contextName = contextName;
+	}
 
 }

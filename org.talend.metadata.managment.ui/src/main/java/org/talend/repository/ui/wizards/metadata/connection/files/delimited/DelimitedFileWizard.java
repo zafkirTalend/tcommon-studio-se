@@ -30,6 +30,7 @@ import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
+import org.talend.core.model.metadata.builder.connection.FileConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.PropertiesFactory;
@@ -47,6 +48,7 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
+import org.talend.repository.ui.utils.FileConnectionContextUtils;
 import org.talend.repository.ui.wizards.CheckLastVersionRepositoryWizard;
 import org.talend.repository.ui.wizards.PropertiesWizardPage;
 import org.talend.repository.ui.wizards.metadata.MetadataContextModeManager;
@@ -87,6 +89,8 @@ public class DelimitedFileWizard extends CheckLastVersionRepositoryWizard implem
     private String originalDescription;
 
     private String originalStatus;
+    
+    private FileConnection originalConn;
 
     /**
      * Sets the isToolbar.
@@ -169,6 +173,7 @@ public class DelimitedFileWizard extends CheckLastVersionRepositoryWizard implem
             this.originalDescription = this.connectionItem.getProperty().getDescription();
             this.originalPurpose = this.connectionItem.getProperty().getPurpose();
             this.originalStatus = this.connectionItem.getProperty().getStatusCode();
+            originalConn = FileConnectionContextUtils.cloneOriginalValueConnection(connection); 
         }
         initConnection();
     }
@@ -233,6 +238,7 @@ public class DelimitedFileWizard extends CheckLastVersionRepositoryWizard implem
             this.originalDescription = this.connectionItem.getProperty().getDescription();
             this.originalPurpose = this.connectionItem.getProperty().getPurpose();
             this.originalStatus = this.connectionItem.getProperty().getStatusCode();
+            originalConn = FileConnectionContextUtils.cloneOriginalValueConnection(connection); 
         }
         initConnection();
     }
@@ -365,6 +371,7 @@ public class DelimitedFileWizard extends CheckLastVersionRepositoryWizard implem
             connectionItem.getProperty().setDescription(this.originalDescription);
             connectionItem.getProperty().setPurpose(this.originalPurpose);
             connectionItem.getProperty().setStatusCode(this.originalStatus);
+            FileConnectionContextUtils.retrieveFileConnection(originalConn, connection);
         }
         return super.performCancel();
     }
