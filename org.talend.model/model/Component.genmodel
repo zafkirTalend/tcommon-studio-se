@@ -143,6 +143,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//IMPORTType/rEQUIRED"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//IMPORTType/sHOW"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//IMPORTType/urlPath"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//IMPORTType/rEQUIREDIF"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//INSTALLType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//INSTALLType/cOMMAND"/>

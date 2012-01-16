@@ -14,6 +14,9 @@ package org.talend.core.model.general;
 
 import java.util.List;
 
+import org.talend.core.model.process.IElementParameter;
+import org.talend.core.runtime.CoreRuntimePlugin;
+
 /**
  * This bean is use to manage needed moduless (perl) and libraries (java).<br/>
  * 
@@ -29,6 +32,8 @@ public class ModuleNeeded {
     private String informationMsg;
 
     private boolean required;
+
+    private String requiredIf;
 
     // bundleName and bundleVersion for osgi system,feature 0023460
     private String bundleName;
@@ -77,13 +82,15 @@ public class ModuleNeeded {
         this.required = required;
     }
 
-    public ModuleNeeded(String context, String moduleName, String informationMsg, boolean required, List<String> installURL) {
+    public ModuleNeeded(String context, String moduleName, String informationMsg, boolean required, List<String> installURL,
+            String requiredIf) {
         super();
         this.context = context;
         this.moduleName = moduleName;
         this.informationMsg = informationMsg;
         this.required = required;
         this.installURL = installURL;
+        this.requiredIf = requiredIf;
     }
 
     // public ModuleNeeded(String context, String moduleName, String informationMsg, boolean required,
@@ -95,6 +102,19 @@ public class ModuleNeeded {
     // this.required = required;
     // this.installModule = installModule;
     // }
+
+    public String getRequiredIf() {
+        return requiredIf;
+    }
+
+    public boolean isShowRequiredIf(List<? extends IElementParameter> listParam) {
+        boolean showParameter = false;
+
+        if (requiredIf != null) {
+            showParameter = CoreRuntimePlugin.getInstance().getDesignerCoreService().evaluate(requiredIf, listParam);
+        }
+        return showParameter;
+    }
 
     /**
      * Getter for installURL.
