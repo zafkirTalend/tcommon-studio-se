@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isREQUIRED <em>REQUIRED</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isSHOW <em>SHOW</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getUrlPath <em>Url Path</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getREQUIREDIF <em>REQUIREDIF</em>}</li>
  * </ul>
  * </p>
  *
@@ -285,6 +286,32 @@ public interface IMPORTType extends EObject {
      * @generated
      */
     void setUrlPath(String value);
+
+    /**
+     * Returns the value of the '<em><b>REQUIREDIF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>REQUIREDIF</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>REQUIREDIF</em>' attribute.
+     * @see #setREQUIREDIF(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_REQUIREDIF()
+     * @model extendedMetaData="kind='attribute' name='REQUIRED_IF' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getREQUIREDIF();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getREQUIREDIF <em>REQUIREDIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>REQUIREDIF</em>' attribute.
+     * @see #getREQUIREDIF()
+     * @generated
+     */
+    void setREQUIREDIF(String value);
 
     /**
      * Returns the value of the '<em><b>Bundle ID</b></em>' attribute.

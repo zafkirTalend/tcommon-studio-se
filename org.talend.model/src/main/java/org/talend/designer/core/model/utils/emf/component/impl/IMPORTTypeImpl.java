@@ -43,6 +43,7 @@ import org.talend.designer.core.model.utils.emf.component.INSTALLType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#isREQUIRED <em>REQUIRED</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#isSHOW <em>SHOW</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getUrlPath <em>Url Path</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getREQUIREDIF <em>REQUIREDIF</em>}</li>
  * </ul>
  * </p>
  *
@@ -226,6 +227,26 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      * @ordered
      */
     protected String urlPath = URL_PATH_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getREQUIREDIF() <em>REQUIREDIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getREQUIREDIF()
+     * @generated
+     * @ordered
+     */
+    protected static final String REQUIREDIF_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getREQUIREDIF() <em>REQUIREDIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getREQUIREDIF()
+     * @generated
+     * @ordered
+     */
+    protected String rEQUIREDIF = REQUIREDIF_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -451,6 +472,27 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getREQUIREDIF() {
+        return rEQUIREDIF;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setREQUIREDIF(String newREQUIREDIF) {
+        String oldREQUIREDIF = rEQUIREDIF;
+        rEQUIREDIF = newREQUIREDIF;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.IMPORT_TYPE__REQUIREDIF, oldREQUIREDIF, rEQUIREDIF));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getBundleID() {
         return bundleID;
     }
@@ -507,6 +549,8 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
                 return isSHOW() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.IMPORT_TYPE__URL_PATH:
                 return getUrlPath();
+            case ComponentPackage.IMPORT_TYPE__REQUIREDIF:
+                return getREQUIREDIF();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -549,6 +593,9 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
             case ComponentPackage.IMPORT_TYPE__URL_PATH:
                 setUrlPath((String)newValue);
                 return;
+            case ComponentPackage.IMPORT_TYPE__REQUIREDIF:
+                setREQUIREDIF((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -588,6 +635,9 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
             case ComponentPackage.IMPORT_TYPE__URL_PATH:
                 setUrlPath(URL_PATH_EDEFAULT);
                 return;
+            case ComponentPackage.IMPORT_TYPE__REQUIREDIF:
+                setREQUIREDIF(REQUIREDIF_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -618,6 +668,8 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
                 return isSetSHOW();
             case ComponentPackage.IMPORT_TYPE__URL_PATH:
                 return URL_PATH_EDEFAULT == null ? urlPath != null : !URL_PATH_EDEFAULT.equals(urlPath);
+            case ComponentPackage.IMPORT_TYPE__REQUIREDIF:
+                return REQUIREDIF_EDEFAULT == null ? rEQUIREDIF != null : !REQUIREDIF_EDEFAULT.equals(rEQUIREDIF);
         }
         return super.eIsSet(featureID);
     }
@@ -648,6 +700,8 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
         if (sHOWESet) result.append(sHOW); else result.append("<unset>");
         result.append(", urlPath: ");
         result.append(urlPath);
+        result.append(", rEQUIREDIF: ");
+        result.append(rEQUIREDIF);
         result.append(')');
         return result.toString();
     }

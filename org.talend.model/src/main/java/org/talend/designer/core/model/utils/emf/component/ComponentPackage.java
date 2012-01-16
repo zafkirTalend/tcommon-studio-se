@@ -1282,13 +1282,22 @@ public interface ComponentPackage extends EPackage {
     int IMPORT_TYPE__URL_PATH = 8;
 
     /**
+     * The feature id for the '<em><b>REQUIREDIF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int IMPORT_TYPE__REQUIREDIF = 9;
+
+    /**
      * The number of structural features of the '<em>IMPORT Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int IMPORT_TYPE_FEATURE_COUNT = 9;
+    int IMPORT_TYPE_FEATURE_COUNT = 10;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.INSTALLTypeImpl <em>INSTALL Type</em>}' class.
@@ -3647,6 +3656,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getIMPORTType_UrlPath();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getREQUIREDIF <em>REQUIREDIF</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>REQUIREDIF</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.IMPORTType#getREQUIREDIF()
+     * @see #getIMPORTType()
+     * @generated
+     */
+    EAttribute getIMPORTType_REQUIREDIF();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getBundleID <em>Bundle ID</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5732,6 +5752,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute IMPORT_TYPE__URL_PATH = eINSTANCE.getIMPORTType_UrlPath();
+
+        /**
+         * The meta object literal for the '<em><b>REQUIREDIF</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute IMPORT_TYPE__REQUIREDIF = eINSTANCE.getIMPORTType_REQUIREDIF();
 
         /**
          * The meta object literal for the '<em><b>Bundle ID</b></em>' attribute feature.

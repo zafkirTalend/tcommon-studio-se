@@ -33,6 +33,7 @@ import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.IConnection;
+import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
@@ -182,5 +183,7 @@ public interface IDesignerCoreService extends IService {
      * @return
      */
     public PaletteRoot createEmptyPalette();
+
+    public boolean evaluate(final String string, List<? extends IElementParameter> listParam);
 
 }
