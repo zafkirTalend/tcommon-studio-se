@@ -413,6 +413,16 @@ public final class FileConnectionContextUtils {
         retrieveFileConnection(sourceFileConnection, targetFileConnection, contextType);
     }
 
+    /**
+     * 
+     * DOC zshen Comment method "retrieveFileConnection".
+     * 
+     * @param sourceFileConnection
+     * @param targetFileConnection
+     * @param contextType
+     * 
+     * retrieve FileConnection from sourceFileConnection to targetFileConnection
+     */
     public static void retrieveFileConnection(FileConnection sourceFileConnection, FileConnection targetFileConnection,
             ContextType contextType) {
         if (sourceFileConnection == null || targetFileConnection == null) {
