@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -24,6 +25,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -439,6 +441,7 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
                             }
                         }
                     }
+                    Map<String, MetadataColumn> columnsMap = new HashMap<String, MetadataColumn>();
                     MetadataTable[] tables = ConnectionHelper.getTables(connectionItem.getConnection()).toArray(
                             new MetadataTable[0]);
                     for (MetadataTable table : tables) {
@@ -446,10 +449,26 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
                         Iterator<MetadataColumn> columnsIter = columns.iterator();
                         while (columnsIter.hasNext()) {
                             MetadataColumn column = columnsIter.next();
-                            if (schemaTargetMap.size() > 0 && schemaTargetMap.get(column.getLabel()) == null) {
+                            if (schemaTargetMap.get(column.getLabel()) == null) {
                                 columnsIter.remove();
+                            } else {
+                                columnsMap.put(column.getLabel(), column);
                             }
                         }
+                    }
+                    boolean hasAddedColumns = false;
+                    Iterator<Entry<String, SchemaTarget>> schemaTargetIter = schemaTargetMap.entrySet().iterator();
+                    while (schemaTargetIter.hasNext()) {
+                        Map.Entry<String, SchemaTarget> entry = schemaTargetIter.next();
+                        String key = entry.getKey();
+                        if (columnsMap.get(key) == null) {
+                            hasAddedColumns = true;
+                            break;
+                        }
+                    }
+                    if (hasAddedColumns) {
+                        MessageDialog.openInformation(getShell(), Messages.getString("XmlFileWizard.newColumnsDectect.title"), //$NON-NLS-1$
+                                Messages.getString("XmlFileWizard.newColumnsDectect.desc")); //$NON-NLS-1$
                     }
                     // update
                     RepositoryUpdateManager.updateFileConnection(connectionItem);
