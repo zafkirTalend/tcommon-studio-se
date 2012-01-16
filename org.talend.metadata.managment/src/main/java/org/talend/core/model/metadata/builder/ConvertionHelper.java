@@ -120,6 +120,15 @@ public final class ConvertionHelper {
 
     }
 
+    /**
+     * 
+     * DOC zshen Comment method "convert".
+     * 
+     * @param sourceConnection
+     * @param defaultContext
+     * @param selectedContext
+     * @return convert from sourceConnection to MetadataConnection
+     */
     public static IMetadataConnection convert(MDMConnection sourceConnection, boolean defaultContext, String selectedContext) {
 
         if (sourceConnection == null) {
@@ -127,44 +136,24 @@ public final class ConvertionHelper {
         }
         // if sourceConnection is not context mode, will be same as before.
         MDMConnection connection = null;
-        // DatabaseConnection originalValueConnection = null;
-        // IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
+
         connection = sourceConnection;
 
         IMetadataConnection result = new org.talend.core.model.metadata.MetadataConnection();
         result.setComment(connection.getComment());
-        // result.setDatabase(connection.getSID());
-        // result.setDataSourceName(connection.getDatasourceName());
 
-        //        if (connection.getDatabaseType() == null || "".equals(connection.getDatabaseType())) { // 0009594 //$NON-NLS-1$
-        // String trueDbType = ExtractMetaDataUtils.getDbTypeByClassName(connection.getDriverClass());
-        // result.setDbType(trueDbType);
-        // } else {
-        // result.setDbType(connection.getDatabaseType());
-        // }
-        // result.setDriverJarPath(connection.getDriverJarPath());
-        // result.setDbVersionString(connection.getDbVersionString());
-        // result.setDriverClass(connection.getDriverClass());
-        // result.setFileFieldName(connection.getFileFieldName());
         result.setId(connection.getId());
         result.setLabel(connection.getLabel());
-        // result.setNullChar(connection.getNullChar());
+
         result.setPassword(connection.getPassword());
         result.setPort(connection.getPort());
         result.setServerName(connection.getServer());
-        // result.setSqlSyntax(connection.getSqlSynthax());
-        // result.setSchema(connection.getUiSchema());
-        // result.setStringQuote(connection.getStringQuote());
-        // result.setUrl(connection.getURL());
-        // result.setAdditionalParams(connection.getAdditionalParams());
+
         result.setUsername(connection.getUsername());
         result.setUniverse(connection.getUniverse());
         result.setDatamodel(connection.getDatamodel());
         result.setDatacluster(connection.getDatacluster());
-        // result.setMapping(connection.getDbmsId());
-        // result.setProduct(connection.getProductId());
-        // result.setDbRootPath(connection.getDBRootPath());
-        // result.setSqlMode(connection.isSQLMode());
+
         result.setCurrentConnection(connection); // keep the connection for the metadataconnection
         // handle oracle database connnection of general_jdbc.
         result.setSchema(ExtractMetaDataUtils.getMeataConnectionSchema(result));
@@ -173,6 +162,15 @@ public final class ConvertionHelper {
 
     }
 
+    /**
+     * 
+     * DOC zshen Comment method "convert".
+     * 
+     * @param sourceConnection
+     * @param defaultContext
+     * @param selectedContext
+     * @return convert form DelimitedFileConnection to MetadataConnection
+     */
     public static IMetadataConnection convert(DelimitedFileConnection sourceConnection, boolean defaultContext,
             String selectedContext) {
 
@@ -181,44 +179,17 @@ public final class ConvertionHelper {
         }
         // if sourceConnection is not context mode, will be same as before.
         DelimitedFileConnection connection = null;
-        // DatabaseConnection originalValueConnection = null;
-        // IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
+
         connection = sourceConnection;
 
         IMetadataConnection result = new org.talend.core.model.metadata.MetadataConnection();
         result.setComment(connection.getComment());
-        // result.setDatabase(connection.getSID());
-        // result.setDataSourceName(connection.getDatasourceName());
 
-        //        if (connection.getDatabaseType() == null || "".equals(connection.getDatabaseType())) { // 0009594 //$NON-NLS-1$
-        // String trueDbType = ExtractMetaDataUtils.getDbTypeByClassName(connection.getDriverClass());
-        // result.setDbType(trueDbType);
-        // } else {
-        // result.setDbType(connection.getDatabaseType());
-        // }
-        // result.setDriverJarPath(connection.getDriverJarPath());
-        // result.setDbVersionString(connection.getDbVersionString());
-        // result.setDriverClass(connection.getDriverClass());
-        // result.setFileFieldName(connection.getFileFieldName());
         result.setId(connection.getId());
         result.setLabel(connection.getLabel());
-        // result.setNullChar(connection.getNullChar());
-        // result.setPassword(connection.getPassword());
-        // result.setPort(connection.getPort());
+
         result.setServerName(connection.getServer());
-        // result.setSqlSyntax(connection.getSqlSynthax());
-        // result.setSchema(connection.getUiSchema());
-        // result.setStringQuote(connection.getStringQuote());
-        // result.setUrl(connection.getURL());
-        // result.setAdditionalParams(connection.getAdditionalParams());
-        // result.setUsername(connection.getUsername());
-        // result.setUniverse(connection.getUniverse());
-        // result.setDatamodel(connection.getDatamodel());
-        // result.setDatacluster(connection.getDatacluster());
-        // result.setMapping(connection.getDbmsId());
-        // result.setProduct(connection.getProductId());
-        // result.setDbRootPath(connection.getDBRootPath());
-        // result.setSqlMode(connection.isSQLMode());
+
         result.setCurrentConnection(connection); // keep the connection for the metadataconnection
         // handle oracle database connnection of general_jdbc.
         result.setSchema(ExtractMetaDataUtils.getMeataConnectionSchema(result));
