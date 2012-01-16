@@ -19,6 +19,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
+import org.eclipse.datatools.enablement.oda.xml.util.ui.XSDPopulationUtil2;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
@@ -35,6 +36,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.xsd.XSDSchema;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.ui.swt.formtools.Form;
 import org.talend.commons.ui.swt.formtools.LabelledText;
@@ -343,12 +345,24 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
         composite.setVisible(false);
         TreePopulator treePopulator = new TreePopulator(new Tree(composite, SWT.None));
 
-        // ATreeNode node = null;
-        // treePopulator.populateTree(file, node);
+        XSDSchema xsdSchema = null;
+        ATreeNode treeRootNode = null;
+        if (getPage() == null) {
+            try {
+                xsdSchema = getXSDSchema(file);
+                List<ATreeNode> rootNodes = new XSDPopulationUtil2().getAllRootNodes(xsdSchema);
+                if (rootNodes.size() > 0) {
+                    treeRootNode = getDefaultRootNode(rootNodes);
+                }
 
-        XmlFileWizard wizard = ((XmlFileWizard) getPage().getWizard());
-        XSDSchema xsdSchema = updateXSDSchema(file);
-        ATreeNode treeRootNode = wizard.getTreeRootNode();
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
+            }
+        } else {
+            XmlFileWizard wizard = ((XmlFileWizard) getPage().getWizard());
+            xsdSchema = updateXSDSchema(file);
+            treeRootNode = wizard.getTreeRootNode();
+        }
         if (treeRootNode == null)
             return;
         treePopulator.populateTree(xsdSchema, treeRootNode, null);

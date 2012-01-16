@@ -291,6 +291,19 @@ public abstract class AbstractXmlFileStepForm extends AbstractXmlStepForm {
         return xsdSchema;
     }
 
+    public XSDSchema getXSDSchema(String file) {
+        XSDSchema xsdSchema = null;
+        if (new File(file).exists()) {
+            xsdSchema = TreeUtil.getXSDSchema(file);
+        } else {
+            String xsdPath = getXSDXMLFilePath();
+            if (xsdPath != null) {
+                xsdSchema = TreeUtil.getXSDSchema(xsdPath);
+            }
+        }
+        return xsdSchema;
+    }
+
     public List<ATreeNode> updateRootNodes(XSDSchema xsdSchema, boolean force) {
         List<ATreeNode> rootNodes = new ArrayList<ATreeNode>();
         if (xsdSchema == null) {
