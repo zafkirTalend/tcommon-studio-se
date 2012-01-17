@@ -29,9 +29,13 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ITDQRepositoryService;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
+import org.talend.core.model.metadata.IMetadataConnection;
+import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
+import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.properties.MDMConnectionItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -69,6 +73,18 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
     private RepositoryNode node;
 
     private WizardPage currentPage;
+    
+    private String originaleObjectLabel;
+
+    private String originalVersion;
+
+    private String originalPurpose;
+
+    private String originalDescription;
+
+    private String originalStatus;
+
+    private IMetadataConnection iMetadataConn;
 
     /**
      * DOC hwang MDMWizard constructor comment.
@@ -116,6 +132,14 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
             initLockStrategy();
             break;
         }
+        if (!creation) {
+            this.originaleObjectLabel = this.connectionItem.getProperty().getLabel();
+            this.originalVersion = this.connectionItem.getProperty().getVersion();
+            this.originalDescription = this.connectionItem.getProperty().getDescription();
+            this.originalPurpose = this.connectionItem.getProperty().getPurpose();
+            this.originalStatus = this.connectionItem.getProperty().getStatusCode();
+            this.iMetadataConn = ConvertionHelper.convert(((MDMConnectionItem) this.connectionItem).getConnection());
+        }
         // initialize the context mode
         ConnectionContextHelper.checkContextMode(connectionItem);
     }
@@ -162,6 +186,14 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
             isRepositoryObjectEditable();
             initLockStrategy();
             break;
+        }
+        if (!creation) {
+            this.originaleObjectLabel = this.connectionItem.getProperty().getLabel();
+            this.originalVersion = this.connectionItem.getProperty().getVersion();
+            this.originalDescription = this.connectionItem.getProperty().getDescription();
+            this.originalPurpose = this.connectionItem.getProperty().getPurpose();
+            this.originalStatus = this.connectionItem.getProperty().getStatusCode();
+            this.iMetadataConn = ConvertionHelper.convert(((MDMConnectionItem) this.connectionItem).getConnection());
         }
         // initialize the context mode
         ConnectionContextHelper.checkContextMode(connectionItem);
@@ -264,6 +296,18 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
     @Override
     public ConnectionItem getConnectionItem() {
         return this.connectionItem;
+    }
+    @Override
+    public boolean performCancel() {
+        if (!creation) {
+            connectionItem.getProperty().setVersion(this.originalVersion);
+            connectionItem.getProperty().setLabel(this.originaleObjectLabel);
+            connectionItem.getProperty().setDescription(this.originalDescription);
+            connectionItem.getProperty().setPurpose(this.originalPurpose);
+            connectionItem.getProperty().setStatusCode(this.originalStatus);
+            MetadataConnectionUtils.setMDMConnectionParameter(connection, iMetadataConn);
+        }
+        return super.performCancel();
     }
 
     @Override
