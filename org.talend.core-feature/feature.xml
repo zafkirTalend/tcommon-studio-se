@@ -33,10 +33,6 @@
          id="org.eclipse.jdt"
          version="0.0.0"/>
 
-   <includes
-         id="org.eclipse.platform"
-         version="0.0.0"/>
-
    <requires>
       <import plugin="org.w3c.css.sac"/>
       <import plugin="org.eclipse.xsd"/>
