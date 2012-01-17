@@ -405,6 +405,13 @@ public final class FileConnectionContextUtils {
 
     }
 
+    /**
+     * 
+     * DOC zshen Comment method "retrieveFileConnection".
+     * 
+     * @param sourceFileConnection
+     * @param targetFileConnection
+     */
     public static void retrieveFileConnection(FileConnection sourceFileConnection, FileConnection targetFileConnection) {
         if (sourceFileConnection == null || targetFileConnection == null) {
             return;

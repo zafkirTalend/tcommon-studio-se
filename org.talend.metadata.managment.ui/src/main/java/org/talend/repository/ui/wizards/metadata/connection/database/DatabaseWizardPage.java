@@ -81,6 +81,12 @@ public class DatabaseWizardPage extends WizardPage {
         }
     }
 
+    /**
+     * 
+     * DOC zshen Comment method "getMetadataConnection".
+     * 
+     * @return
+     */
     public IMetadataConnection getMetadataConnection() {
         return databaseForm.getMetadataConnection();
     }
