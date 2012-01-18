@@ -128,7 +128,7 @@ public abstract class RepositoryUpdateManager {
 
     private static ICoreService coreService = null;
 
-    private boolean isDetectAndUpdate = true;
+    private boolean isDetectAndUpdate = false;
 
     static {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
@@ -154,6 +154,14 @@ public abstract class RepositoryUpdateManager {
         super();
         this.parameter = parameter;
         this.relations = relations;
+    }
+
+    // fwang fixed bug TDI-17155
+    public RepositoryUpdateManager(Object parameter, List<RelationshipItemBuilder.Relation> relations, boolean isDetectAndUpdate) {
+        super();
+        this.parameter = parameter;
+        this.relations = relations;
+        this.isDetectAndUpdate = isDetectAndUpdate;
     }
 
     public void setOnlyOpeningJob(boolean onlyOpeningJob) {
@@ -1009,7 +1017,7 @@ public abstract class RepositoryUpdateManager {
                 }
                 parentMonitor.worked(1);
             }
-            // fwang: isDetectAndUpdate default value is false before,alter true now
+
             if (isDetectAndUpdate) {
                 resultList = updateAllProcess(parentMonitor, resultList, openedProcessList, types, onlySimpleShow);
             }
@@ -2013,7 +2021,7 @@ public abstract class RepositoryUpdateManager {
                     RelationshipItemBuilder.QUERY_RELATION);
         }
 
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(parameter, relations) {
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(parameter, relations, true) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
