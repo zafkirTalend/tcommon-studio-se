@@ -49,4 +49,6 @@ public interface IESBService extends IService {
 
     // public void changeOperationLabel(RepositoryNode newNode, INode node, Connection connection);
 
+    public boolean isServiceItem(int classifierID);
+
 }
