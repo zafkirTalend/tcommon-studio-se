@@ -159,20 +159,44 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         List<Problem> toReturn = new ArrayList<Problem>();
         List<ModuleNeeded> list = node.getComponent().getModulesNeeded();
         List<ModuleNeeded> modulesNeeded = ModulesNeededProvider.getModulesNeeded();
-        for (ModuleNeeded module : modulesNeeded) {
-            for (ModuleNeeded current : list) {
-                if (current.getContext().equals(module.getContext()) && current.getModuleName().equals(module.getModuleName())) {
-                    if (module.getStatus() == ELibraryInstallStatus.NOT_INSTALLED && current.isRequired()) {
-                        Problem problem = new Problem(element, "Module " + current.getModuleName() + " required", //$NON-NLS-1$ //$NON-NLS-2$
-                                ProblemStatus.ERROR);
-                        problem.setKey("Module_" + current.getModuleName());//$NON-NLS-1$
-                        toReturn.add(problem);
-                    }
-                }
-
+        boolean flag = false;
+        for (ModuleNeeded current : list) {
+            if (current.getRequiredIf() != null && !current.getRequiredIf().equals("")) {
+                flag = true;
             }
         }
+        if (flag) {
+            for (ModuleNeeded module : modulesNeeded) {
+                for (ModuleNeeded current : list) {
+                    if (current.getContext().equals(module.getContext())
+                            && current.getModuleName().equals(module.getModuleName())) {
+                        if (module.getStatus() == ELibraryInstallStatus.NOT_INSTALLED
+                                && (current.getRequiredIf() != null && !current.getRequiredIf().equals(""))) {
+                            Problem problem = new Problem(element, "Module " + current.getModuleName() + " required", //$NON-NLS-1$ //$NON-NLS-2$
+                                    ProblemStatus.ERROR);
+                            problem.setKey("Module_" + current.getModuleName());//$NON-NLS-1$
+                            toReturn.add(problem);
+                        }
+                    }
 
+                }
+            }
+        } else {
+            for (ModuleNeeded module : modulesNeeded) {
+                for (ModuleNeeded current : list) {
+                    if (current.getContext().equals(module.getContext())
+                            && current.getModuleName().equals(module.getModuleName())) {
+                        if (module.getStatus() == ELibraryInstallStatus.NOT_INSTALLED && current.isRequired()) {
+                            Problem problem = new Problem(element, "Module " + current.getModuleName() + " required", //$NON-NLS-1$ //$NON-NLS-2$
+                                    ProblemStatus.ERROR);
+                            problem.setKey("Module_" + current.getModuleName());//$NON-NLS-1$
+                            toReturn.add(problem);
+                        }
+                    }
+
+                }
+            }
+        }
         return toReturn;
     }
 
