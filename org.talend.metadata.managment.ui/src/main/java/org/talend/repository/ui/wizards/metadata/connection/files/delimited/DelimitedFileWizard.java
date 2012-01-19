@@ -168,7 +168,7 @@ public class DelimitedFileWizard extends CheckLastVersionRepositoryWizard implem
             break;
         }
         if (!creation) {
-            this.originaleObjectLabel = this.connectionItem.getProperty().getLabel();
+            this.originaleObjectLabel = this.connectionItem.getProperty().getDisplayName();
             this.originalVersion = this.connectionItem.getProperty().getVersion();
             this.originalDescription = this.connectionItem.getProperty().getDescription();
             this.originalPurpose = this.connectionItem.getProperty().getPurpose();
@@ -233,7 +233,7 @@ public class DelimitedFileWizard extends CheckLastVersionRepositoryWizard implem
             break;
         }
         if (!creation) {
-            this.originaleObjectLabel = this.connectionItem.getProperty().getLabel();
+            this.originaleObjectLabel = this.connectionItem.getProperty().getDisplayName();
             this.originalVersion = this.connectionItem.getProperty().getVersion();
             this.originalDescription = this.connectionItem.getProperty().getDescription();
             this.originalPurpose = this.connectionItem.getProperty().getPurpose();
@@ -339,6 +339,7 @@ public class DelimitedFileWizard extends CheckLastVersionRepositoryWizard implem
                 if (creation) {
                     String nextId = factory.getNextId();
                     connectionProperty.setId(nextId);
+                    connectionItem.getProperty().setLabel(connectionItem.getProperty().getDisplayName());
                     factory.create(connectionItem, delimitedFileWizardPage0.getDestinationPath());
                 } else {
                     // update
@@ -367,7 +368,7 @@ public class DelimitedFileWizard extends CheckLastVersionRepositoryWizard implem
     public boolean performCancel() {
         if (!creation) {
             connectionItem.getProperty().setVersion(this.originalVersion);
-            connectionItem.getProperty().setLabel(this.originaleObjectLabel);
+            connectionItem.getProperty().setDisplayName(this.originaleObjectLabel);
             connectionItem.getProperty().setDescription(this.originalDescription);
             connectionItem.getProperty().setPurpose(this.originalPurpose);
             connectionItem.getProperty().setStatusCode(this.originalStatus);

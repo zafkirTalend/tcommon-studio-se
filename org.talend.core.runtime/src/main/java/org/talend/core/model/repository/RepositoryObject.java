@@ -118,6 +118,10 @@ public class RepositoryObject implements IRepositoryObject {
         return this.property.getLabel();
     }
 
+    public String getDisplayName() {
+        return this.property.getDisplayName();
+    }
+
     public String getPurpose() {
         return this.property.getPurpose();
     }
@@ -185,6 +189,7 @@ public class RepositoryObject implements IRepositoryObject {
             connectionProperty.setDescription(getDescription());
             connectionProperty.setId(getId());
             connectionProperty.setLabel(getLabel());
+            connectionProperty.setDisplayName(getDisplayName());
             connectionProperty.setModificationDate(getModificationDate());
             connectionProperty.setPurpose(getPurpose());
             connectionProperty.setStatusCode(getStatusCode());

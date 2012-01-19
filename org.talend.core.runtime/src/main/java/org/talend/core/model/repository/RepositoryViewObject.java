@@ -111,7 +111,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
         this.creationDate = property.getCreationDate();
         this.description = property.getDescription();
         this.modificationDate = property.getModificationDate();
-        this.label = property.getLabel();
+        this.label = property.getDisplayName();
         this.purpose = property.getPurpose();
         this.statusCode = property.getStatusCode();
         this.version = property.getVersion();
@@ -274,7 +274,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
             this.creationDate = property.getCreationDate();
             this.description = property.getDescription();
             this.modificationDate = property.getModificationDate();
-            this.label = property.getLabel();
+            this.label = property.getDisplayName();
             this.purpose = property.getPurpose();
             this.statusCode = property.getStatusCode();
             this.version = property.getVersion();

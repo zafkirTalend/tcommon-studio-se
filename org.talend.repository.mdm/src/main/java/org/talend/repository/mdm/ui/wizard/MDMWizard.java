@@ -133,7 +133,7 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
             break;
         }
         if (!creation) {
-            this.originaleObjectLabel = this.connectionItem.getProperty().getLabel();
+            this.originaleObjectLabel = this.connectionItem.getProperty().getDisplayName();
             this.originalVersion = this.connectionItem.getProperty().getVersion();
             this.originalDescription = this.connectionItem.getProperty().getDescription();
             this.originalPurpose = this.connectionItem.getProperty().getPurpose();
@@ -188,7 +188,7 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
             break;
         }
         if (!creation) {
-            this.originaleObjectLabel = this.connectionItem.getProperty().getLabel();
+            this.originaleObjectLabel = this.connectionItem.getProperty().getDisplayName();
             this.originalVersion = this.connectionItem.getProperty().getVersion();
             this.originalDescription = this.connectionItem.getProperty().getDescription();
             this.originalPurpose = this.connectionItem.getProperty().getPurpose();
@@ -219,6 +219,7 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
             if (creation) {
                 String nextId = factory.getNextId();
                 connectionProperty.setId(nextId);
+                connectionProperty.setLabel(connectionProperty.getDisplayName());
                 factory.create(connectionItem, propertiesWizardPage.getDestinationPath());
 
                 // feature 17159
@@ -254,7 +255,7 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
     public boolean performCancel() {
         if (!creation) {
             connectionItem.getProperty().setVersion(this.originalVersion);
-            connectionItem.getProperty().setLabel(this.originaleObjectLabel);
+            connectionItem.getProperty().setDisplayName(this.originaleObjectLabel);
             connectionItem.getProperty().setDescription(this.originalDescription);
             connectionItem.getProperty().setPurpose(this.originalPurpose);
             connectionItem.getProperty().setStatusCode(this.originalStatus);

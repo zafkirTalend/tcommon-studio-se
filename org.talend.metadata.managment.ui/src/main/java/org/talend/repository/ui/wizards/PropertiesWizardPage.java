@@ -809,7 +809,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     protected void updateContent() {
         if (property != null) {
-            nameText.setText(StringUtils.trimToEmpty(property.getLabel()));
+            nameText.setText(StringUtils.trimToEmpty(property.getDisplayName()));
             purposeText.setText(StringUtils.trimToEmpty(property.getPurpose()));
             descriptionText.setText(StringUtils.trimToEmpty(property.getDescription()));
             authorText.setText(StringUtils.trimToEmpty(property.getAuthor().getLogin()));
@@ -862,7 +862,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
                         // assign value directly(because the old job name is valid).
                         if (property != null && nameStatus.getSeverity() == IStatus.OK) {
-                            property.setLabel(StringUtils.trimToNull(nameText.getText()));
+                            property.setDisplayName(StringUtils.trimToNull(nameText.getText()));
                         }
 
                     } else {
@@ -971,7 +971,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
             nameStatus = createOkStatus();
         }
         if (property != null && nameStatus.getSeverity() == IStatus.OK) {
-            property.setLabel(StringUtils.trimToNull(nameText.getText()));
+            property.setDisplayName(StringUtils.trimToNull(nameText.getText()));
         }
         updatePageStatus();
     }
