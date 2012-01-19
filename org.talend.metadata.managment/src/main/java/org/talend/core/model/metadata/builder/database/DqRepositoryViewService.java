@@ -462,7 +462,7 @@ public final class DqRepositoryViewService {
 
         String elementName = "Unknown Label";
         if (property != null) {
-            elementName = property.getLabel() + " " + property.getVersion();
+            elementName = property.getDisplayName() + " " + property.getVersion();
         }
 
         return elementName;
