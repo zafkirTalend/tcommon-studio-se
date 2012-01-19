@@ -9,31 +9,23 @@ package org.talend.core.model.properties.impl;
 import java.util.Collection;
 import java.util.Date;
 
-import java.util.Map;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EcoreEMap;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.talend.core.model.properties.Information;
 import org.talend.core.model.properties.InformationLevel;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
-import org.talend.core.model.properties.ReferenceFileItem;
 import org.talend.core.model.properties.User;
 
 /**
@@ -57,6 +49,7 @@ import org.talend.core.model.properties.User;
  *   <li>{@link org.talend.core.model.properties.impl.PropertyImpl#getMaxInformationLevel <em>Max Information Level</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.PropertyImpl#getOldStatusCode <em>Old Status Code</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.PropertyImpl#getAdditionalProperties <em>Additional Properties</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.PropertyImpl#getDisplayName <em>Display Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -281,7 +274,7 @@ public class PropertyImpl extends EObjectImpl implements Property {
      * @generated
      * @ordered
      */
-    protected static final String OLD_STATUS_CODE_EDEFAULT = null;
+    protected static final String OLD_STATUS_CODE_EDEFAULT = "";
 
     /**
      * The cached value of the '{@link #getOldStatusCode() <em>Old Status Code</em>}' attribute.
@@ -302,6 +295,26 @@ public class PropertyImpl extends EObjectImpl implements Property {
      * @ordered
      */
     protected EMap additionalProperties;
+
+    /**
+     * The default value of the '{@link #getDisplayName() <em>Display Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDisplayName()
+     * @generated
+     * @ordered
+     */
+    protected static final String DISPLAY_NAME_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getDisplayName() <em>Display Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDisplayName()
+     * @generated
+     * @ordered
+     */
+    protected String displayName = DISPLAY_NAME_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -353,13 +366,14 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated not
      */
     public void setLabel(String newLabel) {
         String oldLabel = label;
         label = newLabel;
+        setDisplayName(newLabel);
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROPERTY__LABEL, oldLabel, label));
     }
@@ -655,6 +669,30 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated NOT
+     */
+    public String getDisplayName() {
+        if (displayName == null) {
+            displayName = label;
+        }
+        return displayName;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDisplayName(String newDisplayName) {
+        String oldDisplayName = displayName;
+        displayName = newDisplayName;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROPERTY__DISPLAY_NAME, oldDisplayName, displayName));
+    }
+
+    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -727,6 +765,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
             case PropertiesPackage.PROPERTY__ADDITIONAL_PROPERTIES:
                 if (coreType) return getAdditionalProperties();
                 else return getAdditionalProperties().map();
+            case PropertiesPackage.PROPERTY__DISPLAY_NAME:
+                return getDisplayName();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -783,6 +823,9 @@ public class PropertyImpl extends EObjectImpl implements Property {
             case PropertiesPackage.PROPERTY__ADDITIONAL_PROPERTIES:
                 ((EStructuralFeature.Setting)getAdditionalProperties()).set(newValue);
                 return;
+            case PropertiesPackage.PROPERTY__DISPLAY_NAME:
+                setDisplayName((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -837,6 +880,9 @@ public class PropertyImpl extends EObjectImpl implements Property {
             case PropertiesPackage.PROPERTY__ADDITIONAL_PROPERTIES:
                 getAdditionalProperties().clear();
                 return;
+            case PropertiesPackage.PROPERTY__DISPLAY_NAME:
+                setDisplayName(DISPLAY_NAME_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -877,6 +923,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
                 return OLD_STATUS_CODE_EDEFAULT == null ? oldStatusCode != null : !OLD_STATUS_CODE_EDEFAULT.equals(oldStatusCode);
             case PropertiesPackage.PROPERTY__ADDITIONAL_PROPERTIES:
                 return additionalProperties != null && !additionalProperties.isEmpty();
+            case PropertiesPackage.PROPERTY__DISPLAY_NAME:
+                return DISPLAY_NAME_EDEFAULT == null ? displayName != null : !DISPLAY_NAME_EDEFAULT.equals(displayName);
         }
         return super.eIsSet(featureID);
     }
@@ -911,6 +959,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
         result.append(maxInformationLevel);
         result.append(", oldStatusCode: ");
         result.append(oldStatusCode);
+        result.append(", displayName: ");
+        result.append(displayName);
         result.append(')');
         return result.toString();
     }

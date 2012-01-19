@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.Property#getMaxInformationLevel <em>Max Information Level</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Property#getOldStatusCode <em>Old Status Code</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Property#getAdditionalProperties <em>Additional Properties</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Property#getDisplayName <em>Display Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -264,6 +265,7 @@ public interface Property extends EObject {
 
     /**
      * Returns the value of the '<em><b>Old Status Code</b></em>' attribute.
+     * The default value is <code>""</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Old Status Code</em>' attribute isn't clear,
@@ -273,7 +275,7 @@ public interface Property extends EObject {
      * @return the value of the '<em>Old Status Code</em>' attribute.
      * @see #setOldStatusCode(String)
      * @see org.talend.core.model.properties.PropertiesPackage#getProperty_OldStatusCode()
-     * @model
+     * @model default=""
      * @generated
      */
     String getOldStatusCode();
@@ -304,6 +306,32 @@ public interface Property extends EObject {
      * @generated
      */
     EMap getAdditionalProperties();
+
+    /**
+     * Returns the value of the '<em><b>Display Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Display Name</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Display Name</em>' attribute.
+     * @see #setDisplayName(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProperty_DisplayName()
+     * @model
+     * @generated
+     */
+    String getDisplayName();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.Property#getDisplayName <em>Display Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Display Name</em>' attribute.
+     * @see #getDisplayName()
+     * @generated
+     */
+    void setDisplayName(String value);
 
     /**
      * Returns the value of the '<em><b>Version</b></em>' attribute.

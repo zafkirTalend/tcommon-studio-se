@@ -1548,6 +1548,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getProperty_DisplayName() {
+        return (EAttribute)propertyEClass.getEStructuralFeatures().get(14);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getItem() {
         return itemEClass;
     }
@@ -6125,6 +6134,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(propertyEClass, PROPERTY__MAX_INFORMATION_LEVEL);
         createEAttribute(propertyEClass, PROPERTY__OLD_STATUS_CODE);
         createEReference(propertyEClass, PROPERTY__ADDITIONAL_PROPERTIES);
+        createEAttribute(propertyEClass, PROPERTY__DISPLAY_NAME);
 
         itemEClass = createEClass(ITEM);
         createEReference(itemEClass, ITEM__PROPERTY);
@@ -6875,8 +6885,9 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEReference(getProperty_Author(), this.getUser(), null, "author", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProperty_Informations(), this.getInformation(), null, "informations", null, 0, -1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProperty_MaxInformationLevel(), this.getInformationLevel(), "maxInformationLevel", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getProperty_OldStatusCode(), theEcorePackage.getEString(), "oldStatusCode", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getProperty_OldStatusCode(), theEcorePackage.getEString(), "oldStatusCode", "", 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProperty_AdditionalProperties(), this.getAdditionalInfoMap(), null, "additionalProperties", null, 0, -1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getProperty_DisplayName(), theEcorePackage.getEString(), "displayName", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(itemEClass, Item.class, "Item", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getItem_Property(), this.getProperty(), this.getProperty_Item(), "property", null, 0, 1, Item.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

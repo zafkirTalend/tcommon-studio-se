@@ -839,12 +839,21 @@ public interface PropertiesPackage extends EPackage {
     int PROPERTY__ADDITIONAL_PROPERTIES = 13;
 
     /**
+     * The feature id for the '<em><b>Display Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROPERTY__DISPLAY_NAME = 14;
+
+    /**
      * The number of structural features of the '<em>Property</em>' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PROPERTY_FEATURE_COUNT = 14;
+    int PROPERTY_FEATURE_COUNT = 15;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ReferenceItemImpl <em>Reference Item</em>}' class.
@@ -9443,6 +9452,17 @@ public interface PropertiesPackage extends EPackage {
     EReference getProperty_AdditionalProperties();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Property#getDisplayName <em>Display Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Display Name</em>'.
+     * @see org.talend.core.model.properties.Property#getDisplayName()
+     * @see #getProperty()
+     * @generated
+     */
+    EAttribute getProperty_DisplayName();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Property#getVersion <em>Version</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Version</em>'.
@@ -15235,6 +15255,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference PROPERTY__ADDITIONAL_PROPERTIES = eINSTANCE.getProperty_AdditionalProperties();
+
+        /**
+         * The meta object literal for the '<em><b>Display Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PROPERTY__DISPLAY_NAME = eINSTANCE.getProperty_DisplayName();
 
         /**
          * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
