@@ -38,6 +38,7 @@ import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableAddCo
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.utils.TableUtils;
+import org.talend.commons.utils.data.list.UniqueStringGenerator;
 import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.ConceptTarget;
 import org.talend.repository.mdm.ui.wizard.table.ExtractionFieldsWithMDMEditorView;
@@ -247,11 +248,14 @@ public class MDMToSchemaDragAndDropHandler {
 
             List<TransferableXPathEntry> transferableEntryList = draggedData.getTransferableEntryList();
 
+            ExtractionFieldsWithMDMEditorView mdmEditorView = linker.getFieldsTableEditorView();
             ExtractionLoopWithMDMEditorView loopTableEditorView = linker.getLoopTableEditorView();
             if (loopTableEditorView.isReadOnly()) {
                 return;
             }
             ExtendedTableModel<Concept> extendedTableModel = loopTableEditorView.getExtendedTableModel();
+            // full list of columns to calculate the rename of target columns automatically
+            List<ConceptTarget> fullSchemaTargetList = new ArrayList<ConceptTarget>(mdmEditorView.getModel().getBeansList());
             Concept concept = extendedTableModel.getBeansList().get(0);
 
             if (linker.isLoopTable((Table) control)) {
@@ -294,11 +298,12 @@ public class MDMToSchemaDragAndDropHandler {
                         }
 
                         ConceptTarget newTargetEntry = linker.getNewSchemaTargetEntry(relativeXPath);
-                        String name = extractLastWord(extractLastWord(relativeXPath));
+                        String name = extractColumnName(extractTagName(relativeXPath), fullSchemaTargetList);
                         // if (!name.equals(relativeXPath)) {
                         newTargetEntry.setTargetName(name);
                         // }
                         list.add(newTargetEntry);
+                        fullSchemaTargetList.add(newTargetEntry);
                     }
                 }
 
@@ -336,6 +341,51 @@ public class MDMToSchemaDragAndDropHandler {
             }
         }
         return currentExpr;
+    }
+
+    /**
+     * Extract last word of an expression, the last character must be a letter or a number.
+     * 
+     * @param currentExpr
+     * @return
+     */
+    public static String extractTagName(String currentExpr) {
+        String[] exprs = currentExpr.split("/");
+        if (exprs.length > 0) {
+            currentExpr = exprs[exprs.length - 1];
+        }
+        if (currentExpr.contains(":")) { //$NON-NLS-1$
+            currentExpr = currentExpr.split(":")[1]; //$NON-NLS-1$
+        }
+
+        return currentExpr;
+    }
+
+    /**
+     * Extract column name of an expression
+     * 
+     * @param currentExpr
+     * @param fullSchemaTargetList
+     * @return
+     */
+    public static String extractColumnName(String currentExpr, List<ConceptTarget> fullSchemaTargetList) {
+        String columnName = currentExpr.replaceAll("[^a-zA-Z0-9]", "_");
+        UniqueStringGenerator<ConceptTarget> uniqueStringGenerator = new UniqueStringGenerator<ConceptTarget>(columnName,
+                fullSchemaTargetList) {
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see org.talend.commons.utils.data.list.UniqueStringGenerator#getBeanString(java.lang.Object)
+             */
+            @Override
+            protected String getBeanString(ConceptTarget bean) {
+                return bean.getTargetName();
+            }
+
+        };
+        columnName = uniqueStringGenerator.getUniqueString();
+        return columnName;
     }
 
     public static void main(String[] args) {
