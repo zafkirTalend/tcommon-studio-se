@@ -855,7 +855,7 @@ public class DatabaseForm extends AbstractForm {
                 updateStatus(IStatus.OK, null);
             }
             MessageDialog.openInformation(getShell(), Messages.getString("DatabaseForm.checkConnectionTitle"), "\"" //$NON-NLS-1$ //$NON-NLS-2$
-                    + connectionItem.getProperty().getLabel() + "\" " + Messages.getString("DatabaseForm.checkIsDone")); //$NON-NLS-1$ //$NON-NLS-2$
+                    + connectionItem.getProperty().getDisplayName() + "\" " + Messages.getString("DatabaseForm.checkIsDone")); //$NON-NLS-1$ //$NON-NLS-2$
             if (!isReadOnly()) {
                 if (isContextMode()) {
                     adaptFormToEditable();
