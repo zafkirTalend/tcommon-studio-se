@@ -362,6 +362,9 @@ public class PropertyImpl extends EObjectImpl implements Property {
      * @generated
      */
     public String getLabel() {
+        if (this.label == null) {
+            return displayName;
+        }
         return label;
     }
 
