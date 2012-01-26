@@ -100,6 +100,7 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
             + "\tprivate static java.util.Properties defaultProps = new java.util.Properties();" + NL //$NON-NLS-1$
             + "\t// create application properties with default" + NL //$NON-NLS-1$
             + "\tprivate static class ContextProperties extends java.util.Properties {" + NL + "\t    " + NL //$NON-NLS-1$ //$NON-NLS-2$
+            + "\t    private static final long serialVersionUID = 1L;" + NL + NL
             + "\t    public ContextProperties(java.util.Properties properties){" + NL + "\t        super(properties);" + NL //$NON-NLS-1$ //$NON-NLS-2$
             + "\t    }" + NL + "\t    public ContextProperties(){" + NL + "\t        super();" + NL + "\t    }" + NL + "\t    " //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
             + NL + "\t\tpublic void synchronizeContext(){" + NL + "\t\t\t"; //$NON-NLS-1$ //$NON-NLS-2$
@@ -408,6 +409,8 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         imports += "import java.util.Date;\n"; //$NON-NLS-1$
         imports += "import java.util.List;\n"; //$NON-NLS-1$
         imports += "import java.math.BigDecimal;\n"; //$NON-NLS-1$
+        imports += "\n";
+        imports += "@SuppressWarnings(\"unused\")";
         return imports;
     }
 
