@@ -411,6 +411,7 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         imports += "import java.math.BigDecimal;\n"; //$NON-NLS-1$
         imports += "\n";
         imports += "@SuppressWarnings(\"unused\")";
+        imports += "\n\n";
         return imports;
     }
 
