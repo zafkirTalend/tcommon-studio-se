@@ -313,6 +313,27 @@ public class StringUtils {
 	 * delete namespace prefix in the xpath
 	 * @param xpath the source xpath
 	 * @return
+	 *
+	 * example
+	 * ./ns:aa/ns:b ==> ./aa/b
+	 * ../ns:aa/ns:b ==> ../aa/b
+	 * ../aa/ns:b ==> ../aa/b
+	 * ../aa/ns:b/../ns:a/a ==> ../aa/b/../a/a
+	 * /aa/b/c ==> /aa/b/c
+	 * /aa/b/c/@e ==> /aa/b/c/@e
+	 * /aa/b/c/@ns:e ==> /aa/b/c/@e
+	 * aa ==> aa
+	 * ns:aa ==> aa
+	 * child::book ==> child::book
+	 * attribute::attr ==> attribute::attr
+	 * to[@a:attri="xxx:yyy"]/ns:a ==> to[@attri="xxx:yyy"]/a
+	 * to[.="to:yyy"]/ns:a ==> to[.="to:yyy"]/a
+	 * substring('12:3"4:5',2,3) ==> substring('12:3"4:5',2,3)
+	 * substring("12:3'4:5",2,3) ==> substring("12:3'4:5",2,3)
+	 * //name[@ns:attri="xxx:yyyy"] ==> //name[@attri="xxx:yyyy"]
+	 * //name[@ns:attri="xxx:yyyy"]/ns:b/@ns:a ==> //name[@attri="xxx:yyyy"]/b/@a
+	 * body[ns:age/ns:name/@ns:b="12:3"]/age ==> body[age/name/@b="12:3"]/age
+	 * 
 	 */
 	public static String deletePrefixForXpath(String xpath) {
 		if(xpath==null) {
@@ -328,6 +349,9 @@ public class StringUtils {
 		
 		char next = ' ';
 		
+		boolean literal = false;
+		char textEnclosure = ' '; 
+		
 		for(int i=0;i<size;i++) {
 			if(':' == next) {
 				next = ' ';
@@ -337,7 +361,21 @@ public class StringUtils {
 			int end = -1;
 			char c = xpath.charAt(i);
 			
-			if('/' == c || '@' == c) {//element or attribute start
+			if(c == '\'' || c == '"') {
+				if(!literal) {//literal start
+					literal = true;
+					textEnclosure = c;
+				} else if(textEnclosure == c){//literal end
+					literal = false;
+					textEnclosure = ' ';
+				}
+			}
+			
+			if(literal) {
+				continue;
+			}
+			
+			if('/' == c || '@' == c  || '[' == c) {//element or attribute start
 				start = i;
 			}
 			
