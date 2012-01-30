@@ -1072,29 +1072,3 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
     }
 
 }
-
-/**
- * DOC wchen class global comment. Detailled comment
- */
-enum XPathPrefix {
-    NONE_ITEM("NONE_ITEM", ""), //$NON-NLS-1$ //$NON-NLS-2$
-    TRIGGER_ITEM("TRIGGER_ITEM", "/exchange/item"), //$NON-NLS-1$ //$NON-NLS-2$
-    PROCESS_ITEM("PROCESS_ITEM", "/item"); //$NON-NLS-1$ //$NON-NLS-2$
-
-    private String prefix;
-
-    private String displayName;
-
-    XPathPrefix(String prefix, String displayName) {
-        this.prefix = prefix;
-        this.displayName = displayName;
-    }
-
-    public String getPrefix() {
-        return this.prefix;
-    }
-
-    public String getDisplayName() {
-        return this.displayName;
-    }
-}
