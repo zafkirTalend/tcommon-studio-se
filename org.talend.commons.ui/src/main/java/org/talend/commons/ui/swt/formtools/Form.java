@@ -20,7 +20,8 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 
 /**
- * Utilities class uses to create swt forms. <br/> swt Form add a statusLabel who is a default element of wizard
+ * Utilities class uses to create swt forms. <br/>
+ * swt Form add a statusLabel who is a default element of wizard
  * 
  * $Id: Form.java 7038 2007-11-15 14:05:48Z plegall $
  */
@@ -113,8 +114,8 @@ public class Form {
      * 
      * @return Composite
      */
-    public static Composite startNewGridLayout(Composite parent, int numColumns, boolean sameWidth,
-            int styleHoryzontal, int styleVertical) {
+    public static Composite startNewGridLayout(Composite parent, int numColumns, boolean sameWidth, int styleHoryzontal,
+            int styleVertical) {
         Composite composite = new Composite(parent, SWT.NULL);
         composite.setLayout(new GridLayout(numColumns, sameWidth));
         composite.setLayoutData(new GridData(styleHoryzontal, styleVertical, true, true));
@@ -132,11 +133,28 @@ public class Form {
      * 
      * @return Composite
      */
-    public static Composite startNewDimensionnedGridLayout(Composite parent, int numColumns, int minimumWidth,
-            int minimumHeight) {
+    public static Composite startNewDimensionnedGridLayout(Composite parent, int numColumns, int minimumWidth, int minimumHeight) {
+        
+        return startNewDimensionnedGridLayout(parent, numColumns, minimumWidth, minimumHeight, true);
+        
+    }
+    
+    /**
+     * create Dimensionned NewGrid (width Columns) in a Composite.
+     * 
+     * @param Composite parent
+     * @param int numColumns
+     * @param boolean sameWidth
+     * @param int styleHoryzontal
+     * @param int styleVertical
+     * @param boolean isFillBoth
+     * 
+     * @return Composite
+     */
+    public static Composite startNewDimensionnedGridLayout(Composite parent, int numColumns, int minimumWidth, int minimumHeight, boolean isFillBoth) {
         Composite composite = new Composite(parent, SWT.NULL);
         composite.setLayout(new GridLayout(numColumns, false));
-        GridData gridData = new GridData(GridData.FILL_BOTH);
+        GridData gridData = isFillBoth ? new GridData(GridData.FILL_BOTH) : new GridData();
         gridData.minimumWidth = minimumWidth;
         gridData.minimumHeight = minimumHeight;
         gridData.widthHint = minimumWidth;
@@ -144,6 +162,7 @@ public class Form {
         composite.setLayoutData(gridData);
         return composite;
     }
+
 
     /**
      * create Horizontal Line in a Composite.

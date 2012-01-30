@@ -536,26 +536,33 @@ public class DatabaseTableForm extends AbstractForm {
         gridData.horizontalSpan = 4;
 
         // Header Fields
-        Composite composite1 = Form.startNewDimensionnedGridLayout(rightComposite, 4, rightCompositeWidth, headerCompositeHeight);
+        Composite composite1 = Form.startNewDimensionnedGridLayout(rightComposite, 4, SWT.DEFAULT, SWT.DEFAULT, false);
+        ((GridData) composite1.getLayoutData()).verticalAlignment = GridData.VERTICAL_ALIGN_CENTER;
         nameText = new LabelledText(composite1, Messages.getString("DatabaseTableForm.name"), 3); //$NON-NLS-1$
         commentText = new LabelledText(composite1, Messages.getString("DatabaseTableForm.comment"), 3); //$NON-NLS-1$
 
         typeText = new Label(composite1, SWT.NONE);
         typeText.setLayoutData(gridData);
 
+        GridData gridData1 = new GridData(GridData.FILL_HORIZONTAL);
+        gridData1.horizontalSpan = 4;
+
+        Composite container = Form.startNewGridLayout(composite1, 4, false, SWT.CENTER, SWT.TOP);
+        container.setLayoutData(gridData1);
+
         // Combo Table
         // Composite comboComposite = Form.startNewGridLayout(rightComposite, 3, false, SWT.LEFT, SWT.TOP);
-        tableCombo = new LabelledCombo(composite1, Messages.getString("DatabaseTableForm.table"), Messages //$NON-NLS-1$
+        tableCombo = new LabelledCombo(container, Messages.getString("DatabaseTableForm.table"), Messages //$NON-NLS-1$
                 .getString("DatabaseTableForm.tableTip"), //$NON-NLS-1$  
                 itemTableName != null ? itemTableName.toArray(new String[0]) : null, 1, true, SWT.NONE);
         tableCombo.setEnabled(false);
 
-        button = new Button(composite1, SWT.PUSH);
+        button = new Button(container, SWT.PUSH);
         button.setImage(ImageProvider.getImage(EImage.REFRESH_ICON));
         button.setToolTipText(Messages.getString("DatabaseTableForm.refresh.text")); //$NON-NLS-1$
 
         // Button retreiveSchema
-        Composite compositeRetreiveSchemaButton = Form.startNewGridLayout(composite1, 3, false, SWT.CENTER, SWT.TOP);
+        Composite compositeRetreiveSchemaButton = Form.startNewGridLayout(container, 3, false, SWT.CENTER, SWT.TOP);
 
         GC gc = new GC(compositeRetreiveSchemaButton);
 
@@ -651,13 +658,13 @@ public class DatabaseTableForm extends AbstractForm {
         scrolledCompositeFileViewer.setContent(tableNavigator);
         scrolledCompositeFileViewer.setSize(width + 12, height);
 
-        // Button Add metadata Table
-        Composite button = Form.startNewGridLayout(group, HEIGHT_BUTTON_PIXEL, false, SWT.CENTER, SWT.CENTER);
-        addTableButton = new UtilsButton(button,
-                Messages.getString("DatabaseTableForm.AddTable"), width - 30, HEIGHT_BUTTON_PIXEL); //$NON-NLS-1$
+        gridData1 = new GridData();
+        gridData1.horizontalAlignment = GridData.CENTER;
+        gridData1.widthHint = width - 30;
 
-        Composite rmButton = Form.startNewGridLayout(group, HEIGHT_BUTTON_PIXEL, false, SWT.CENTER, SWT.CENTER);
-        removeTableButton = new UtilsButton(rmButton, "Remove Schema", width - 30, HEIGHT_BUTTON_PIXEL); //$NON-NLS-1$
+        addTableButton = new UtilsButton(group, Messages.getString("DatabaseTableForm.AddTable"), gridData1);
+        removeTableButton = new UtilsButton(group, "Remove Schema", gridData1);
+
     }
 
     /**
@@ -669,9 +676,19 @@ public class DatabaseTableForm extends AbstractForm {
 
             public void widgetSelected(final SelectionEvent e) {
                 if (button.getEnabled()) {
-                    refreshTableComboItem();
-                    tableCombo.setEnabled(true);
-                    metadataTable.setName(tableCombo.getText());
+
+                    if (!managerConnection.check(getIMetadataConnection())) {
+                        adaptFormToCheckConnection();
+                        updateStatus(IStatus.WARNING, Messages.getString("DatabaseTableForm.connectionFailure")); //$NON-NLS-1$
+                        new ErrorDialogWidthDetailArea(getShell(), PID,
+                                Messages.getString("DatabaseTableForm.connectionFailure"), //$NON-NLS-1$
+                                managerConnection.getMessageException());
+                    } else {
+
+                        refreshTableComboItem();
+                        tableCombo.setEnabled(true);
+                        metadataTable.setName(tableCombo.getText());
+                    }
                 }
             }
         });
@@ -886,14 +903,6 @@ public class DatabaseTableForm extends AbstractForm {
             }
         });
 
-        // Event tableCombo
-        tableCombo.addModifyListener(new ModifyListener() {
-
-            public void modifyText(final ModifyEvent e) {
-                updateRetreiveSchemaButton();
-            }
-        });
-
     }
 
     /**
@@ -981,11 +990,9 @@ public class DatabaseTableForm extends AbstractForm {
                 tableSettingsInfoLabel.setText(Messages.getString("DatabaseTableForm.retreiveButtonAlert")); //$NON-NLS-1$
             } else if (tableEditorView.getMetadataEditor().getBeanCount() <= 0) {
                 tableSettingsInfoLabel.setText(Messages.getString("DatabaseTableForm.retreiveButtonTip")); //$NON-NLS-1$
-            } else if (enable) {
-                tableSettingsInfoLabel.setText(Messages.getString("DatabaseTableForm.retreiveButtonUse")); //$NON-NLS-1$
             }
         } else {
-            tableSettingsInfoLabel.setText(""); //$NON-NLS-1$
+            tableSettingsInfoLabel.setText(Messages.getString("DatabaseTableForm.retreiveButtonUse")); //$NON-NLS-1$
         }
     }
 
@@ -1230,4 +1237,18 @@ public class DatabaseTableForm extends AbstractForm {
         changeControlStatus(children, isEnabled);
     }
 
+    /**
+     * 
+     * DOC JKWANG Comment method "setButtonsVisibility".
+     * 
+     * @param isVisible
+     */
+    public void setButtonsVisibility(boolean isVisible) {
+
+        this.tableCombo.setVisible(isVisible);
+        this.button.setVisible(isVisible);
+        this.addTableButton.setVisible(isVisible);
+        this.removeTableButton.setVisible(isVisible);
+
+    }
 }

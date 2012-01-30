@@ -75,6 +75,22 @@ public class UtilsButton {
     }
 
     /**
+     * 
+     * create Button with related layoutData.
+     * 
+     * @param parent
+     * @param string
+     * @param layoutData
+     */
+    public UtilsButton(Composite parent, String string, Object layoutData) {
+
+        button = new Button(parent, SWT.PUSH);
+        button.setText(string);
+        button.setLayoutData(layoutData);
+
+    }
+
+    /**
      * create Button width a possible FillLayout.
      * 
      * @param Composite parent
