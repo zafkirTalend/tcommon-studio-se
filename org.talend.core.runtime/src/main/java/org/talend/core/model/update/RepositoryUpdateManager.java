@@ -1737,12 +1737,12 @@ public abstract class RepositoryUpdateManager {
         for (IMetadataTable oldTable : oldTables) {
             String prefix;
             boolean isDeleted = true;
-            String oldtableName = oldTable.getTableName();
+            String oldtableLabel = oldTable.getLabel();
             String oldtableId = oldTable.getId();
             for (IMetadataTable newTable : newTables) {
                 String tableLabel = newTable.getLabel();
                 String tableId = newTable.getId();
-                if (tableLabel.equals(oldtableName)) {
+                if (tableLabel.equals(oldtableLabel)) {
                     isDeleted = false;
                     /* if table name is same but tableId is not same,means table has been deselect and reselect */
                     if (!tableId.equals(oldtableId)) {
@@ -1754,7 +1754,7 @@ public abstract class RepositoryUpdateManager {
             /* if can't find the name when looping the new tables,means the table has been removed */
             if (isDeleted) {
                 prefix = connItem.getProperty().getId() + UpdatesConstants.SEGMENT_LINE;
-                deletedOrReselectTables.put(prefix + oldtableName, EUpdateResult.DELETE);
+                deletedOrReselectTables.put(prefix + oldtableLabel, EUpdateResult.DELETE);
             }
         }
         return !deletedOrReselectTables.isEmpty();

@@ -97,6 +97,7 @@ public class DatabaseTableWizardPage extends WizardPage {
                     setErrorMessage(source.getStatus());
                 } else {
                     DatabaseTableWizardPage.this.setPageComplete(isRepositoryObjectEditable);
+                    DatabaseTableWizardPage.this.tableForm.setButtonsVisibility(isRepositoryObjectEditable);
                     setErrorMessage(null);
                     setMessage(source.getStatus(), source.getStatusLevel());
                 }
