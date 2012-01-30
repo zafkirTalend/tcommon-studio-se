@@ -19,6 +19,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.talend.core.model.metadata.IMDMConstant;
 import org.talend.core.model.metadata.MetadataToolHelper;
+import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IElementParameter;
@@ -28,6 +29,7 @@ import org.talend.core.model.properties.MDMConnectionItem;
 import org.talend.core.ui.IMDMProviderService;
 import org.talend.repository.UpdateRepositoryUtils;
 import org.talend.repository.mdm.ui.wizard.MDMWizard;
+import org.talend.repository.mdm.ui.wizard.concept.XPathPrefix;
 import org.talend.repository.mdm.util.MDMUtil;
 import org.talend.repository.model.RepositoryNode;
 
@@ -121,6 +123,24 @@ public class MDMProviderService implements IMDMProviderService {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public String getXPathPrefixValue(Concept concept) {
+        if (concept != null) {
+            String xPathPrefix = concept.getXPathPrefix();
+            if (xPathPrefix != null) {
+                XPathPrefix[] prefixs = XPathPrefix.values();
+                for (int i = 0; i < prefixs.length; i++) {
+                    if (prefixs[i].name().equals(xPathPrefix)) {
+                        return prefixs[i].getDisplayName();
+                    }
+                }
+                // if it's not fixed value ,return xPathPrefix directly
+                return xPathPrefix;
+            }
+
+        }
+        return null;
     }
 
 }

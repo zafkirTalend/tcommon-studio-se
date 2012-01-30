@@ -17,6 +17,7 @@ import java.util.Map;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.ui.IWorkbench;
 import org.talend.core.IService;
+import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.MDMConnectionItem;
@@ -36,4 +37,6 @@ public interface IMDMProviderService extends IService {
     public boolean isRepositorySchemaLine(INode node, Map<String, Object> lineValue);
 
     public boolean initConcepts(MDMConnection mdmConn);
+
+    public String getXPathPrefixValue(Concept concept);
 }
