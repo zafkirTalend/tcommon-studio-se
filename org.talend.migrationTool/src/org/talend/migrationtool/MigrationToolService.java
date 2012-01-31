@@ -84,6 +84,10 @@ public class MigrationToolService implements IMigrationToolService {
         final List<IProjectMigrationTask> toExecute = GetTasksHelper.getProjectTasks(beforeLogon);
         final List<String> done = new ArrayList<String>(project.getEmfProject().getMigrationTasks());
 
+        // force execute migration in case user copy-past items with diffrent path on the file system and refresh
+        // the studio,it may cause bug TDI-19229
+        done.remove("org.talend.repository.model.migration.FixProjectResourceLink");
+
         Collections.sort(toExecute, new Comparator<IProjectMigrationTask>() {
 
             public int compare(IProjectMigrationTask o1, IProjectMigrationTask o2) {
