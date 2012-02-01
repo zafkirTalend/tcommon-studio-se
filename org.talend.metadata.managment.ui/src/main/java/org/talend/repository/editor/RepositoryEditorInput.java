@@ -32,9 +32,13 @@ public class RepositoryEditorInput extends FileEditorInput implements IRepositor
 
     private boolean readOnly;
 
+    private String id, version;
+
     public RepositoryEditorInput(IFile file, Item item) {
         super(file);
         this.item = item;
+        this.id = item.getProperty().getId();
+        this.version = item.getProperty().getVersion();
     }
 
     @Override
@@ -49,6 +53,10 @@ public class RepositoryEditorInput extends FileEditorInput implements IRepositor
 
     public void setItem(Item item) {
         this.item = item;
+        if (item != null) {
+            this.id = item.getProperty().getId();
+            this.version = item.getProperty().getVersion();
+        }
     }
 
     public boolean isReadOnly() {
@@ -70,13 +78,9 @@ public class RepositoryEditorInput extends FileEditorInput implements IRepositor
             return false;
         }
         final RepositoryEditorInput other = (RepositoryEditorInput) obj;
-        if (this.item == null) {
-            if (other.item != null) {
-                return false;
-            }
-        } else if (!this.item.getProperty().getId().equals(other.item.getProperty().getId())) {
+        if (!this.getId().equals(other.getId())) {
             return false;
-        } else if (!this.item.getProperty().getVersion().equals(other.item.getProperty().getVersion())) {
+        } else if (!this.getVersion().equals(other.getVersion())) {
             return false;
         }
         return true;
@@ -104,28 +108,6 @@ public class RepositoryEditorInput extends FileEditorInput implements IRepositor
         if (repositoryNode != null) {
             this.repositoryNode = (RepositoryNode) repositoryNode;
         } else {
-            // IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-            // IRepositoryObject repositoryObject = null;
-            // RepositoryNode parentNode = null;
-            // try {
-            // RootContainer<String, IRepositoryObject> processContainer = factory.getProcess();
-            // ContentList<String, IRepositoryObject> processAbsoluteMembers = processContainer.getAbsoluteMembers();
-            //
-            // for (Content<String, IRepositoryObject> object : processAbsoluteMembers.values()) {
-            // IRepositoryObject process = (IRepositoryObject) object.getContent();
-            // if (process.getLabel().equals(this.getProcessItem().getProperty().getLabel())) {
-            // repositoryObject = process;
-            // }
-            // }
-            // } catch (PersistenceException e) {
-            // e.printStackTrace();
-            // }
-            // ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(this.getProcessItem());
-            // if (repositoryObject != null) {
-            // this.repositoryNode = new RepositoryNode(repositoryObject, parentNode, ENodeType.REPOSITORY_ELEMENT);
-            // this.repositoryNode.setProperties(EProperties.CONTENT_TYPE, itemType);
-            // }
-
             // see bug 0005256: All folders got expanded after job creation in a folder
             this.repositoryNode = (RepositoryNode) CoreRuntimePlugin.getInstance().getRepositoryService()
                     .getRepositoryNode(getItem().getProperty().getId(), false);
@@ -139,6 +121,23 @@ public class RepositoryEditorInput extends FileEditorInput implements IRepositor
         }
 
         return super.getAdapter(adapter);
+    }
+
+    /**
+     * Clear items from memory, make sure we don't keep anything in memory. Might be removed in the future if no problem
+     * with memory management.
+     */
+    public void dispose() {
+        this.repositoryNode = null;
+        this.item = null;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getVersion() {
+        return version;
     }
 
 }
