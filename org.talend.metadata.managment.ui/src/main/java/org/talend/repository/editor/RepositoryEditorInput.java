@@ -58,6 +58,7 @@ public class RepositoryEditorInput extends FileEditorInput implements IRepositor
         if (item != null) {
             this.id = item.getProperty().getId();
             this.version = item.getProperty().getVersion();
+            this.name = getItem().getProperty().getLabel();
         }
     }
 
