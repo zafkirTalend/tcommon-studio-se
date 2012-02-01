@@ -257,4 +257,10 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
 
     protected abstract void saveProcessBefore();
 
+    @Override
+    public void dispose() {
+        super.dispose();
+        this.loadedProcess = null;
+    }
+
 }
