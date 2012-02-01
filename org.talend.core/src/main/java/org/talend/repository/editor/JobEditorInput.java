@@ -61,9 +61,7 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
     }
 
     public JobEditorInput(Item item, boolean load, Boolean lastVersion, Boolean readonly) throws PersistenceException {
-
         super(initFile(item), item);
-
         loadedProcess = createProcess();
         checkInit(lastVersion, readonly, load);
     }
@@ -241,11 +239,6 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
 
     public void setLoadedProcess(IProcess2 loadedProcess) {
         this.loadedProcess = loadedProcess;
-    }
-
-    @Override
-    public String getName() {
-        return getItem().getProperty().getLabel();
     }
 
     @Override
