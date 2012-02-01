@@ -73,6 +73,9 @@ public class CopyObjectAction {
             return false;
         }
         IRepositoryViewObject objectToCopy = sourceNode.getObject();
+        if (objectToCopy.getId() == null) {
+            return false;
+        }
         // TDI-18273:if the paste item in clipboard has been deleted physically from recycle bin,can not copy again.
         try {
             if (ProxyRepositoryFactory.getInstance().getLastVersion(objectToCopy.getId()) == null) {
