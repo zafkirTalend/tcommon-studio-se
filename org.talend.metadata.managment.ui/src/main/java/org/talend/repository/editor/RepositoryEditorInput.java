@@ -34,17 +34,19 @@ public class RepositoryEditorInput extends FileEditorInput implements IRepositor
 
     private String id, version;
 
+    private String name;
+
     public RepositoryEditorInput(IFile file, Item item) {
         super(file);
         this.item = item;
         this.id = item.getProperty().getId();
         this.version = item.getProperty().getVersion();
+        this.name = getItem().getProperty().getLabel();
     }
 
     @Override
     public String getName() {
-        // PTODO mhelleboid use RepositoryLabelProvider when ready
-        return "Model " + item.getProperty().getLabel(); //$NON-NLS-1$
+        return name;
     }
 
     public Item getItem() {
