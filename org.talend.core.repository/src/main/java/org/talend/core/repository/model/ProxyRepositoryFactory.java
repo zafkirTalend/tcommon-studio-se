@@ -1120,6 +1120,10 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         if ((item instanceof ProcessItem || item instanceof JobletProcessItem) && (isImportItem.length == 0)) {
             fireRepositoryPropertyChange(ERepositoryActionName.JOB_CREATE.getName(), null, item);
         }
+        // fix for TDI-18780 , can't import db connection from previous version
+        if (isImportItem.length == 1) {
+            this.repositoryFactoryFromProvider.unloadResources(item.getProperty());
+        }
     }
 
     /*
