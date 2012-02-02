@@ -206,8 +206,17 @@ public final class RepositoryComponentManager {
         for (IConfigurationElement ce : children) {
             String type = ce.getAttribute("type"); //$NON-NLS-1$
             EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(type, false);
+            if (dbType == null) { // process some the types
+                for (EDatabaseTypeName dtn : EDatabaseTypeName.values()) {
+                    if (dtn.name().equals(type)) {
+                        dbType = dtn;
+                        break;
+                    }
+                }
+            }
             if (dbType != null) {
                 list.add(dbType);
+
             }
         }
         return list.toArray(new EDatabaseTypeName[0]);
