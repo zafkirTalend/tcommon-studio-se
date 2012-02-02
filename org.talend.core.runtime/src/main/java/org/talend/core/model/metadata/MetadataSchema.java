@@ -371,11 +371,7 @@ public class MetadataSchema {
                 if (pattern.getNodeValue() != null) {
                     metadataColumn.setPattern(pattern.getNodeValue());
                 }
-                if (originalField != null && originalField.getNodeValue() != null) {
-                    metadataColumn.setOriginalField(originalField.getNodeValue());
-                } else {
-                    metadataColumn.setOriginalField(label.getNodeValue());
-                }
+                metadataColumn.setOriginalField(metadataColumn.getLabel());
 
                 if (!columnsAlreadyAdded.contains(metadataColumn.getLabel())) {
                     listColumns.add(metadataColumn);
