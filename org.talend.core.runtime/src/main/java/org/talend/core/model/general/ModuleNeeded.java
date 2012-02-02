@@ -93,27 +93,30 @@ public class ModuleNeeded {
         this.requiredIf = requiredIf;
     }
 
-    // public ModuleNeeded(String context, String moduleName, String informationMsg, boolean required,
-    // List<InstallModule> installModule) {
-    // super();
-    // this.context = context;
-    // this.moduleName = moduleName;
-    // this.informationMsg = informationMsg;
-    // this.required = required;
-    // this.installModule = installModule;
-    // }
-
     public String getRequiredIf() {
         return requiredIf;
     }
 
-    public boolean isShowRequiredIf(List<? extends IElementParameter> listParam) {
-        boolean showParameter = false;
-
-        if (requiredIf != null) {
-            showParameter = CoreRuntimePlugin.getInstance().getDesignerCoreService().evaluate(requiredIf, listParam);
+    /**
+     * Check if the library is required depends the condition of "required if". Note that if the flag "required=true" in
+     * the xml of component, it will never check in the required_if.
+     * 
+     * In some cases where we only want to check the basic "required=true" and not the required_if (module view for
+     * example), it's possible to simply give null parameter.
+     * 
+     * @param listParam
+     * @return
+     */
+    public boolean isRequired(List<? extends IElementParameter> listParam) {
+        if (required) { // if flag required is set, then forget the "required if" test.
+            return required;
         }
-        return showParameter;
+        boolean isRequired = false;
+
+        if (requiredIf != null && listParam != null) {
+            isRequired = CoreRuntimePlugin.getInstance().getDesignerCoreService().evaluate(requiredIf, listParam);
+        }
+        return isRequired;
     }
 
     /**
