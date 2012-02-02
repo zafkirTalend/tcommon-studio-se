@@ -62,4 +62,6 @@ public interface IRepositoryView extends IViewPart {
     public boolean containsRepositoryType(ERepositoryObjectType type);
 
     public String[] gatherMetadataChildenLabels();
+
+    public boolean isFakeView();
 }
