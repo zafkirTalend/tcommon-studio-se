@@ -289,8 +289,7 @@ public enum SupportDBUrlType {
      */
     public static boolean justHaveCatalog(String dbKey) {
         SupportDBUrlType dbTypeByKey = getDBTypeByKey(dbKey);
-        return dbTypeByKey != null
-                && (dbTypeByKey == MYSQLDEFAULTURL || dbTypeByKey == INFORMIXDEFAULTURL || dbTypeByKey == SYBASEDEFAULTURL);
+        return dbTypeByKey != null && dbTypeByKey == MYSQLDEFAULTURL;
     }
 
     /**
