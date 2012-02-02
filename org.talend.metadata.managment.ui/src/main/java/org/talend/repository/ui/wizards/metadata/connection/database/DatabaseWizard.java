@@ -20,7 +20,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Display;
@@ -44,6 +44,7 @@ import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
+import org.talend.core.model.metadata.builder.database.PluginConstant;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.PropertiesFactory;
@@ -65,11 +66,14 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
+import org.talend.repository.ui.utils.ConfirmReloadConnectionUtils;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.DBConnectionContextUtils;
 import org.talend.repository.ui.wizards.CheckLastVersionRepositoryWizard;
 import org.talend.repository.ui.wizards.PropertiesWizardPage;
 import org.talend.repository.ui.wizards.metadata.connection.Step0WizardPage;
+import org.talend.utils.sugars.ReturnCode;
+import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.Schema;
 
@@ -97,6 +101,10 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
     private String originalDescription;
 
     private String originalStatus;
+
+    private String originalSid;
+
+    private String originalUiSchema;
 
     private boolean isToolBar;
 
@@ -161,6 +169,11 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             this.originalDescription = this.connectionItem.getProperty().getDescription();
             this.originalPurpose = this.connectionItem.getProperty().getPurpose();
             this.originalStatus = this.connectionItem.getProperty().getStatusCode();
+
+            if (this.connection != null) {
+                this.originalSid = this.connection.getSID();
+                this.originalUiSchema = this.connection.getUiSchema();
+            }
         }
         // initialize the context mode
         ConnectionContextHelper.checkContextMode(connectionItem);
@@ -218,6 +231,11 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             this.originalDescription = this.connectionItem.getProperty().getDescription();
             this.originalPurpose = this.connectionItem.getProperty().getPurpose();
             this.originalStatus = this.connectionItem.getProperty().getStatusCode();
+
+            if (this.connection != null) {
+                this.originalSid = this.connection.getSID();
+                this.originalUiSchema = this.connection.getUiSchema();
+            }
         }
         // initialize the context mode
         ConnectionContextHelper.checkContextMode(connectionItem);
@@ -345,28 +363,60 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                 } else {
                     if (connectionItem.getConnection() instanceof DatabaseConnection) {
                         DatabaseConnection conn = (DatabaseConnection) connectionItem.getConnection();
-                        boolean reloadCheck = false;
+                        ReturnCode reloadCheck = new ReturnCode(false);
                         if (tdqRepService != null && ConnectionHelper.isUrlChanged(conn)) {
-                            reloadCheck = openConfirmReloadDialog();
-                            if (!reloadCheck) {
+                            reloadCheck = ConfirmReloadConnectionUtils.openConfirmReloadConnectionDialog(Display.getCurrent()
+                                    .getActiveShell());
+                            if (!reloadCheck.isOk()) {
                                 return false;
                             }
                         }
-                        final boolean equals = EDatabaseTypeName.ORACLEFORSID.getProduct().equals(conn.getProductId());
-                        if (equals && !conn.isContextMode()) {
+                        final boolean isOracle = EDatabaseTypeName.ORACLEFORSID.getProduct().equals(conn.getProductId());
+                        if (isOracle && !conn.isContextMode()) {
                             if (conn.getUiSchema() != null && !"".equals(conn.getUiSchema())) {//$NON-NLS-1$
-                                conn.setUiSchema(conn.getUiSchema().toUpperCase()); // MOD mzhao bug 4227 , don't set
-                                                                                    // the
-                                                                              // uiScheme after 4.2(included) as the
-                                                                              // connection wizard is uniformed.
+                                // MOD mzhao bug 4227 , don't set the uiScheme after 4.2(included) as the connection
+                                // wizard is uniformed.
+                                conn.setUiSchema(conn.getUiSchema().toUpperCase());
                             }
                         }
                         // update
-                       RepositoryUpdateManager.updateDBConnection(connectionItem);
+                        RepositoryUpdateManager.updateDBConnection(connectionItem);
                         // bug 20700
-                        if (reloadCheck) {
-                            tdqRepService.reloadDatabase(connectionItem);
-
+                        if (reloadCheck.isOk()) {
+                            if (ConfirmReloadConnectionUtils.reload(reloadCheck.getMessage())) {
+                                tdqRepService.reloadDatabase(connectionItem);
+                            } else {
+                                // save the ConnectionItem only, don't reload the database connection
+                                ConnectionHelper.setUsingURL(this.connection, connection.getURL());
+                                if (isOracle) { // if oracle, replace the package name with uiSchemaName if needed
+                                    if (this.originalUiSchema != null
+                                            && !PluginConstant.EMPTY_STRING.equals(this.originalUiSchema)
+                                            && this.connection.getUiSchema() != null
+                                            && !PluginConstant.EMPTY_STRING.equals(this.connection.getUiSchema())
+                                            && !this.originalUiSchema.equals(this.connection.getUiSchema())) {
+                                        EList<Package> dataPackage = this.connection.getDataPackage();
+                                        for (Package pckg : dataPackage) {
+                                            String name = pckg.getName();
+                                            if (name != null && name.equals(this.originalUiSchema)) {
+                                                pckg.setName(this.connection.getUiSchema());
+                                            }
+                                        }
+                                    }
+                                } else { // other type database, update the package name with SID name if needed
+                                    if (this.originalSid != null && !PluginConstant.EMPTY_STRING.equals(this.originalSid)
+                                            && this.connection.getSID() != null
+                                            && !PluginConstant.EMPTY_STRING.equals(this.connection.getSID())
+                                            && !this.originalSid.equals(this.connection.getSID())) {
+                                        EList<Package> dataPackage = this.connection.getDataPackage();
+                                        for (Package pckg : dataPackage) {
+                                            String name = pckg.getName();
+                                            if (name != null && name.equals(this.originalSid)) {
+                                                pckg.setName(this.connection.getSID());
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         } else {
                             DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
                             if (dbConn != null && dbConn instanceof DatabaseConnection) {
@@ -422,11 +472,11 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
         }
     }
 
-    private boolean openConfirmReloadDialog() {
-        return MessageDialog.openQuestion(Display.getCurrent().getActiveShell(),
-                Messages.getString("DatabaseWizard.ReloadTitle"), //$NON-NLS-1$
-                Messages.getString("DatabaseWizard.ReloadMessages"));//$NON-NLS-1$
-    }
+    // private boolean openConfirmReloadDialog() {
+    // return MessageDialog.openQuestion(Display.getCurrent().getActiveShell(),
+    //                Messages.getString("DatabaseWizard.ReloadTitle"), //$NON-NLS-1$
+    //                Messages.getString("DatabaseWizard.ReloadMessages"));//$NON-NLS-1$
+    // }
 
     /**
      * DOC xqliu Comment method "updateTdqDependencies".
