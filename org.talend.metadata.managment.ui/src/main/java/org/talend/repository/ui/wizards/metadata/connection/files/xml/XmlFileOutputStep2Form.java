@@ -206,7 +206,7 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
             for (int i = 0; i < tableItems.length; i++) {
                 MetadataColumn metadataColumn = (MetadataColumn) tableItems[i].getData();
                 if (metadataColumn.getLabel().equals(column.getLabel())) {
-                    linker.addLoopLink(tableItems[i], tableItems[i].getData(), xmlViewer.getTree(), treeNode, true);
+                    linker.addLoopLink(tableItems[i], tableItems[i].getData(), xmlViewer.getTree(), treeNode, false);
                     break;
                 }
             }
