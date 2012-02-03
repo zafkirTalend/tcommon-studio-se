@@ -2369,7 +2369,7 @@ public class ExtractMetaDataFromDataBase {
             }
         }
         catalogAndSchema.add(catalogName);
-        catalogAndSchema.add(schemaName);
+        catalogAndSchema.add(" ".equals(schemaName) ? null : schemaName); //$NON-NLS-1$
         return catalogAndSchema;
     }
 
