@@ -1088,6 +1088,7 @@ public class RepositoryToComponentProperty {
         if (connection == null || value == null) {
             return false;
         }
+
         if (!(connection.isContextMode() && ContextParameterUtils.isContainContextParam(value))) {
             return true;
         }
