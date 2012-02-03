@@ -265,13 +265,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             }
             schemas = dbJDBCMetadata.getSchemas();
         } catch (SQLException e) {
-            log.error("This database don't contian construct of schema.");
-            return null;
+            log.warn("This database don't contian construct of schema.");
         }
+        boolean hasSchema = false;
         try {
             if (schemas != null) {
-
-                boolean hasSchema = false;
                 String schemaName = null;
                 while (schemas.next()) {
                     if (!ConnectionUtils.isOdbcTeradata(dbJDBCMetadata)) {
@@ -295,50 +293,50 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
                 }
                 schemas.close();
-                // handle case of SQLite (no schema no catalog)
-                // MOD gdbu 2011-4-12 bug : 18975
-                // ResultSet catalogs = dbJDBCMetadata.getCatalogs();
-                // ~18975
-                if (!hasSchema) {
-                    // create a fake schema with an empty name (otherwise queries will use the name and will fail)
-                    Schema schema = SchemaHelper.createSchema(" "); //$NON-NLS-1$
-                    returnSchemas.add(schema);
-                }
-                // MOD gdbu 2011-4-12 bug : 18975
-                // catalogs.close();
-                // ~18975
-                Set<MetadataTable> tableSet = new HashSet<MetadataTable>();
-                if (dbConn != null) {
-                    tableSet.addAll(ConnectionHelper.getTables(dbConn));
-                }
-                // oldSchemas is use for record tables when click finish,then tables will be replace and null.
-                List<Schema> oldSchemas = new ArrayList<Schema>();
-                for (MetadataTable table : tableSet) {
-                    EObject eContainer = table.eContainer();
-                    if (eContainer != null && eContainer instanceof Schema && !oldSchemas.contains(eContainer)) {
-                        oldSchemas.add((Schema) eContainer);
-                    }
-                }
-
-                if (isLinked() && !returnSchemas.isEmpty()) {
-                    ConnectionHelper.addSchemas(returnSchemas, dbConn);
-                }
-                // if have same schema in current connection,need to fill tables.
-                for (Schema schema : oldSchemas) {
-                    List<Schema> list = new ArrayList<Schema>();
-                    String name = schema.getName();
-                    Schema s = (Schema) ConnectionHelper.getPackage(name, dbConn, Schema.class);
-                    if (s != null) {
-                        list.add(s);
-                        ConnectionHelper.removeSchemas(list, dbConn);
-                        ConnectionHelper.addSchema(schema, dbConn);
-                    } else {
-                        ConnectionHelper.addSchema(schema, dbConn);
-                    }
-                }
             }
         } catch (SQLException e) {
             log.error(e, e);
+        }
+        // handle case of SQLite (no schema no catalog)
+        // MOD gdbu 2011-4-12 bug : 18975
+        // ResultSet catalogs = dbJDBCMetadata.getCatalogs();
+        // ~18975
+        if (!hasSchema) {
+            // create a fake schema with an empty name (otherwise queries will use the name and will fail)
+            Schema schema = SchemaHelper.createSchema(" "); //$NON-NLS-1$
+            returnSchemas.add(schema);
+        }
+        // MOD gdbu 2011-4-12 bug : 18975
+        // catalogs.close();
+        // ~18975
+        Set<MetadataTable> tableSet = new HashSet<MetadataTable>();
+        if (dbConn != null) {
+            tableSet.addAll(ConnectionHelper.getTables(dbConn));
+        }
+        // oldSchemas is use for record tables when click finish,then tables will be replace and null.
+        List<Schema> oldSchemas = new ArrayList<Schema>();
+        for (MetadataTable table : tableSet) {
+            EObject eContainer = table.eContainer();
+            if (eContainer != null && eContainer instanceof Schema && !oldSchemas.contains(eContainer)) {
+                oldSchemas.add((Schema) eContainer);
+            }
+        }
+
+        if (isLinked() && !returnSchemas.isEmpty()) {
+            ConnectionHelper.addSchemas(returnSchemas, dbConn);
+        }
+        // if have same schema in current connection,need to fill tables.
+        for (Schema schema : oldSchemas) {
+            List<Schema> list = new ArrayList<Schema>();
+            String name = schema.getName();
+            Schema s = (Schema) ConnectionHelper.getPackage(name, dbConn, Schema.class);
+            if (s != null) {
+                list.add(s);
+                ConnectionHelper.removeSchemas(list, dbConn);
+                ConnectionHelper.addSchema(schema, dbConn);
+            } else {
+                ConnectionHelper.addSchema(schema, dbConn);
+            }
         }
         return ListUtils.castList(Package.class, returnSchemas);
     }
@@ -670,7 +668,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 catalogName = catalogOrSchema.getName();
             } else {// schema
                 Package parentCatalog = PackageHelper.getParentPackage(catalogOrSchema);
-                schemaPattern = catalogOrSchema.getName();
+                // in the fillSchema, we set one default schema with " ", but this one doesn't exist, so we should
+                // replace to get the tables from all schemas instead
+                schemaPattern = " ".equals(catalogOrSchema.getName()) ? null : catalogOrSchema.getName(); //$NON-NLS-1$
                 catalogName = parentCatalog == null ? null : parentCatalog.getName();
             }
         }
@@ -682,7 +682,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             while (tables.next()) {
                 // tableCatalog never called and will cause problem for specific db.
                 // String tableCatalog = tables.getString(GetTable.TABLE_CAT.name());
-                String tableSchema = tables.getString(GetTable.TABLE_SCHEM.name());
+                String tableSchema = null;
+                if (schemaPattern != null) {
+                    tableSchema = tables.getString(GetTable.TABLE_SCHEM.name());
+                } else {
+                    tableSchema = " "; //$NON-NLS-1$
+                }
                 String tableName = tables.getString(GetTable.TABLE_NAME.name());
                 String temptableType = tables.getString(GetTable.TABLE_TYPE.name());
 
@@ -979,14 +984,13 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         Map<String, TdColumn> columnMap = new HashMap<String, TdColumn>();
         String typeName = null;
         try {
-            java.sql.Connection sqlConnection = dbJDBCMetadata.getConnection();
-
             String catalogName = getName(CatalogHelper.getParentCatalog(colSet));
             Schema schema = SchemaHelper.getParentSchema(colSet);
             if (catalogName == null && schema != null) {
                 catalogName = getName(CatalogHelper.getParentCatalog(schema));
             }
             String schemaPattern = getName(schema);
+            schemaPattern = " ".equals(schemaPattern) ? null : schemaPattern; //$NON-NLS-1$
             String tablePattern = getName(colSet);
             // MOD zshen bug 11934 to add schemaPattern by owner of table
             if (MetadataConnectionUtils.isSybase(dbJDBCMetadata)) {

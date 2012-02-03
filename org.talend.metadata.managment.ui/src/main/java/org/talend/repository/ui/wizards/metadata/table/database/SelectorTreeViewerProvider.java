@@ -55,6 +55,16 @@ public class SelectorTreeViewerProvider extends AbstractMetadataExtractorViewPro
 
     public Object[] getElements(Object inputElement) {
         List list = (List) inputElement;
+        if (list != null && list.size() == 1) {
+            Object obj = list.get(0);
+            if (obj instanceof TableNode) {
+                TableNode node = (TableNode) obj;
+                if (node.getType() == TableNode.SCHEMA && " ".equals(node.getValue())) { //$NON-NLS-1$
+                    return getChildren(node);
+                }
+            }
+        }
+
         return list.toArray();
     }
 
