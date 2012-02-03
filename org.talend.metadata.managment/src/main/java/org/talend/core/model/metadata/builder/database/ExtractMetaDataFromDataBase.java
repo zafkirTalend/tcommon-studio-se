@@ -441,8 +441,12 @@ public class ExtractMetaDataFromDataBase {
             // StringUtils.trimToEmpty(name) is because bug 4547
             if (name != null && StringUtils.trimToEmpty(name).equals(ETableTypes.TABLETYPE_SYNONYM.getName())) {
                 String tableName = getTableNameBySynonym(ExtractMetaDataUtils.conn, newNode.getValue());
-                if (tableName.contains("/")) {
-                    tableName = tableName.replace("/", "");
+                // bug TDI-19382
+                if (iMetadataConnection.getDbType().equalsIgnoreCase("ORACLE WITH SID")
+                        || iMetadataConnection.getDbType().equalsIgnoreCase("ORACLE WITH SERVICE NAME")
+                        || iMetadataConnection.getDbType().equalsIgnoreCase("ORACLE OCI")
+                        || iMetadataConnection.getDbType().equalsIgnoreCase("ORACLE RAC")) {
+                    tableName = newNode.getValue();
                 }
                 newNode.setValue(tableName);
                 fillSynonmsForOracle(iMetadataConnection, metadataColumns, table, tableName);
@@ -499,7 +503,11 @@ public class ExtractMetaDataFromDataBase {
         String synSQL = "SELECT all_tab_columns.*\n" + "FROM all_tab_columns\n" + "LEFT OUTER JOIN all_synonyms\n"
                 + "ON all_tab_columns.TABLE_NAME = all_synonyms.TABLE_NAME\n"
                 + "AND ALL_SYNONYMS.TABLE_OWNER = all_tab_columns.OWNER\n" + "WHERE all_synonyms.SYNONYM_NAME =" + "\'"
-                + tableName + "\'";
+                + tableName + "\'\n";
+        // bug TDI-19382
+        if (!iMetadataConnection.getSchema().equals("")) {
+            synSQL += "and all_synonyms.OWNER =\'" + iMetadataConnection.getSchema() + "\'";
+        }
         Statement sta = ExtractMetaDataUtils.conn.createStatement();
         ExtractMetaDataUtils.setQueryStatementTimeout(sta);
         ResultSet columns = sta.executeQuery(synSQL);
