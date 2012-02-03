@@ -961,16 +961,14 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, url)) {
                 return url;
             } else {
-                String h2Prefix = "jdbc:h2:";
                 // TDI-18737:in case the url maybe null
                 if (url != null) {
+                    String h2Prefix = "jdbc:h2:"; //$NON-NLS-1$
                     if (url.startsWith(h2Prefix)) {
                         String path = url.substring(h2Prefix.length(), url.length());
                         path = PathUtils.getPortablePath(path);
                         url = h2Prefix + path;
-                        return url;
                     }
-                } else {
                     return TalendQuoteUtils.addQuotes(url);
                 }
             }
@@ -1089,7 +1087,7 @@ public class RepositoryToComponentProperty {
             return false;
         }
 
-        if (!(connection.isContextMode() && ContextParameterUtils.isContainContextParam(value))) {
+        if (connection.isContextMode() && ContextParameterUtils.isContainContextParam(value)) {
             return true;
         }
         return false;
