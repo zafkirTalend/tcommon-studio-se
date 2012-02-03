@@ -337,6 +337,7 @@ public final class RepositoryComponentManager {
 
         Set<IComponent> components = service.getComponentsFactory().getComponents();
         List<IComponent> neededComponents = new ArrayList<IComponent>();
+        List<IComponent> exceptedComponents = new ArrayList<IComponent>();
 
         for (IComponent component : components) {
             //
@@ -349,11 +350,19 @@ public final class RepositoryComponentManager {
                 if (repositoryType == null) {
                     continue;
                 }
-                if (filter.valid(item, type, seletetedNode, component, repositoryType) && !neededComponents.contains(component)) {
+                if (!exceptedComponents.contains(component)
+                        && filter.except(item, type, seletetedNode, component, repositoryType)) {
+                    exceptedComponents.add(component);
+                }
+                // if have been excepted, so no need add it to needed component
+                if (!exceptedComponents.contains(component) && !neededComponents.contains(component)
+                        && filter.valid(item, type, seletetedNode, component, repositoryType)) {
                     neededComponents.add(component);
                 }
             }
         }
+        // remove all excepted components
+        neededComponents.removeAll(exceptedComponents);
 
         return sortFilteredComponnents(item, seletetedNode, type, neededComponents);
     }

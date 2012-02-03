@@ -24,7 +24,16 @@ public interface IRepositoryComponentDndFilter {
 
     public String getRepositoryType(Item item, ERepositoryObjectType type);
 
+    /**
+     * if true, will add this component to list; if false, will ignore it.
+     */
     public boolean valid(Item item, ERepositoryObjectType type, RepositoryNode seletetedNode, IComponent component,
             String repositoryType);
 
+    /**
+     * 
+     * if true, and have existed in list, will remove it; if false, will ignore it.
+     */
+    public boolean except(Item item, ERepositoryObjectType type, RepositoryNode seletetedNode, IComponent component,
+            String repositoryType);
 }

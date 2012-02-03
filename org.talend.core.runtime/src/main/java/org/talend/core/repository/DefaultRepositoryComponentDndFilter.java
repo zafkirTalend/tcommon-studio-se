@@ -36,6 +36,11 @@ public class DefaultRepositoryComponentDndFilter implements IRepositoryComponent
         return null;
     }
 
+    public boolean except(Item item, ERepositoryObjectType type, RepositoryNode seletetedNode, IComponent component,
+            String repositoryType) {
+        return false; // default, no except components to valid
+    }
+
     public boolean valid(Item item, ERepositoryObjectType type, RepositoryNode seletetedNode, IComponent component,
             String repositoryType) {
         if (component == null || repositoryType == null) {
