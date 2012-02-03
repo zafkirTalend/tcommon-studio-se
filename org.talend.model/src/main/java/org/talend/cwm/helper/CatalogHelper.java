@@ -77,7 +77,7 @@ public final class CatalogHelper {
         EList<Package> elements = conn.getDataPackage();
         for (EObject obj : elements) {
             Catalog cat = SwitchHelpers.CATALOG_SWITCH.doSwitch(obj);
-            if (cat != null && cat.getName().equalsIgnoreCase(catalogName)) {
+            if (cat != null && cat.getName() != null && cat.getName().equalsIgnoreCase(catalogName)) {
                 catalog = cat;
                 break;
             }
