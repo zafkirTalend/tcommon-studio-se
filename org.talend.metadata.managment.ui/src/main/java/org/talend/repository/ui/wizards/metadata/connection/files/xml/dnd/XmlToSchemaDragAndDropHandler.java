@@ -370,7 +370,9 @@ public class XmlToSchemaDragAndDropHandler {
      * @return
      */
     public static String extractColumnName(String currentExpr, List<SchemaTarget> fullSchemaTargetList) {
-        String columnName = currentExpr.replaceAll("[^a-zA-Z0-9]", "_");
+        String columnName = currentExpr.startsWith("@") ? currentExpr.substring(1) : currentExpr;
+        columnName = columnName.replaceAll("[^a-zA-Z0-9]", "_");
+
         UniqueStringGenerator<SchemaTarget> uniqueStringGenerator = new UniqueStringGenerator<SchemaTarget>(columnName,
                 fullSchemaTargetList) {
 
