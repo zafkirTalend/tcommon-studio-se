@@ -798,7 +798,7 @@ public class ExtractMetaDataFromDataBase {
             // }
             IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
             boolean isMSSQL = EDatabaseTypeName.MSSQL.getDisplayName().equals(metadataConnection.getDbType());
-			while (columns.next()) {
+            while (columns.next()) {
                 Boolean b = false;
                 String fetchTableName = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TABLE_NAME", null); //$NON-NLS-1$
                 fetchTableName = ManagementTextUtils.filterSpecialChar(fetchTableName); // for 8115
@@ -2370,7 +2370,7 @@ public class ExtractMetaDataFromDataBase {
             }
         }
         catalogAndSchema.add(catalogName);
-        catalogAndSchema.add(schemaName);
+        catalogAndSchema.add(" ".equals(schemaName) ? null : schemaName); //$NON-NLS-1$
         return catalogAndSchema;
     }
 

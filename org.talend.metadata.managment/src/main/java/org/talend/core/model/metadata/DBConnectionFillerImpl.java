@@ -1132,14 +1132,13 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         Map<String, TdColumn> columnMap = new HashMap<String, TdColumn>();
         String typeName = null;
         try {
-            java.sql.Connection sqlConnection = dbJDBCMetadata.getConnection();
-
             String catalogName = getName(CatalogHelper.getParentCatalog(colSet));
             Schema schema = SchemaHelper.getParentSchema(colSet);
             if (catalogName == null && schema != null) {
                 catalogName = getName(CatalogHelper.getParentCatalog(schema));
             }
             String schemaPattern = getName(schema);
+            schemaPattern = " ".equals(schemaPattern) ? null : schemaPattern; //$NON-NLS-1$
             String tablePattern = getName(colSet);
             // MOD zshen bug 11934 to add schemaPattern by owner of table
             if (MetadataConnectionUtils.isSybase(dbJDBCMetadata)) {
