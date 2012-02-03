@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.metadata.managment.ui.i18n.Messages;
-import org.talend.repository.ui.utils.ConfirmReloadConnectionUtils;
+import org.talend.repository.ui.wizards.metadata.connection.database.DatabaseWizard;
 
 /**
  * let user to confirm reload the connection or not when modify it.
@@ -69,7 +69,7 @@ public class ConfirmReloadConnectionDialog extends Dialog {
 
         radios[0] = new Button(comp, SWT.RADIO);
         radios[0].setSelection(true);
-        setReloadFlag(ConfirmReloadConnectionUtils.RELOAD_FLAG_TRUE);
+        setReloadFlag(DatabaseWizard.RELOAD_FLAG_TRUE);
         radios[0].setText(Messages.getString("ConfirmReloadConnectionDialog.reload")); //$NON-NLS-1$
         radios[0].addSelectionListener(new SelectionListener() {
 
@@ -78,7 +78,7 @@ public class ConfirmReloadConnectionDialog extends Dialog {
             }
 
             public void widgetSelected(SelectionEvent arg0) {
-                setReloadFlag(ConfirmReloadConnectionUtils.RELOAD_FLAG_TRUE);
+                setReloadFlag(DatabaseWizard.RELOAD_FLAG_TRUE);
             }
 
         });
@@ -92,7 +92,7 @@ public class ConfirmReloadConnectionDialog extends Dialog {
             }
 
             public void widgetSelected(SelectionEvent arg0) {
-                setReloadFlag(ConfirmReloadConnectionUtils.RELOAD_FLAG_FALSE);
+                setReloadFlag(DatabaseWizard.RELOAD_FLAG_FALSE);
             }
 
         });

@@ -23,7 +23,9 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
@@ -45,6 +47,7 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.PluginConstant;
+import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlType;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.PropertiesFactory;
@@ -66,13 +69,14 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
-import org.talend.repository.ui.utils.ConfirmReloadConnectionUtils;
+import org.talend.repository.ui.dialog.ConfirmReloadConnectionDialog;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.DBConnectionContextUtils;
 import org.talend.repository.ui.wizards.CheckLastVersionRepositoryWizard;
 import org.talend.repository.ui.wizards.PropertiesWizardPage;
 import org.talend.repository.ui.wizards.metadata.connection.Step0WizardPage;
 import org.talend.utils.sugars.ReturnCode;
+import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.Schema;
@@ -363,8 +367,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                         DatabaseConnection conn = (DatabaseConnection) connectionItem.getConnection();
                         ReturnCode reloadCheck = new ReturnCode(false);
                         if (tdqRepService != null && ConnectionHelper.isUrlChanged(conn)) {
-                            reloadCheck = ConfirmReloadConnectionUtils.openConfirmReloadConnectionDialog(Display.getCurrent()
-                                    .getActiveShell());
+                            reloadCheck = openConfirmReloadConnectionDialog(Display.getCurrent().getActiveShell());
                             if (!reloadCheck.isOk()) {
                                 return false;
                             }
@@ -381,39 +384,14 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                         RepositoryUpdateManager.updateDBConnection(connectionItem);
                         // bug 20700
                         if (reloadCheck.isOk()) {
-                            if (ConfirmReloadConnectionUtils.reload(reloadCheck.getMessage())) {
-                                tdqRepService.reloadDatabase(connectionItem);
+                            if (needReload(reloadCheck.getMessage())) {
+                                if (tdqRepService != null) {
+                                    tdqRepService.reloadDatabase(connectionItem);
+                                }
                             } else {
                                 // save the ConnectionItem only, don't reload the database connection
-                                ConnectionHelper.setUsingURL(this.connection, connection.getURL());
-                                if (isOracle) { // if oracle, replace the package name with uiSchemaName if needed
-                                    if (this.originalUiSchema != null
-                                            && !PluginConstant.EMPTY_STRING.equals(this.originalUiSchema)
-                                            && this.connection.getUiSchema() != null
-                                            && !PluginConstant.EMPTY_STRING.equals(this.connection.getUiSchema())
-                                            && !this.originalUiSchema.equals(this.connection.getUiSchema())) {
-                                        EList<Package> dataPackage = this.connection.getDataPackage();
-                                        for (Package pckg : dataPackage) {
-                                            String name = pckg.getName();
-                                            if (name != null && name.equals(this.originalUiSchema)) {
-                                                pckg.setName(this.connection.getUiSchema());
-                                            }
-                                        }
-                                    }
-                                } else { // other type database, update the package name with SID name if needed
-                                    if (this.originalSid != null && !PluginConstant.EMPTY_STRING.equals(this.originalSid)
-                                            && this.connection.getSID() != null
-                                            && !PluginConstant.EMPTY_STRING.equals(this.connection.getSID())
-                                            && !this.originalSid.equals(this.connection.getSID())) {
-                                        EList<Package> dataPackage = this.connection.getDataPackage();
-                                        for (Package pckg : dataPackage) {
-                                            String name = pckg.getName();
-                                            if (name != null && name.equals(this.originalSid)) {
-                                                pckg.setName(this.connection.getSID());
-                                            }
-                                        }
-                                    }
-                                }
+                                ConnectionHelper.setUsingURL(this.connection, this.connection.getURL());
+                                relpacePackageName(this.connection);
                             }
                         } else {
                             DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
@@ -561,6 +539,115 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     driver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                 } catch (SQLException e) {
                     // exception of shutdown success. no need to catch.
+                }
+            }
+        }
+    }
+
+    /**
+     * reload the connection
+     */
+    public static final String RELOAD_FLAG_TRUE = "RELOAD";
+
+    /**
+     * don't reload the connection
+     */
+    public static final String RELOAD_FLAG_FALSE = "UNRELOAD";
+
+    /**
+     * judgement reload the connection or not
+     * 
+     * @param reloadFlag
+     * @return
+     */
+    public static boolean needReload(String reloadFlag) {
+        return RELOAD_FLAG_TRUE.equals(reloadFlag);
+    }
+
+    /**
+     * open the confirm dialog
+     * 
+     * @param shell
+     * @return
+     */
+    public static ReturnCode openConfirmReloadConnectionDialog(Shell shell) {
+        ReturnCode result = new ReturnCode(false);
+        ConfirmReloadConnectionDialog dialog = new ConfirmReloadConnectionDialog(shell);
+        if (dialog.open() == Window.OK) {
+            result.setOk(true);
+            result.setMessage(dialog.getReloadFlag());
+        }
+        return result;
+    }
+
+    /**
+     * replace the package(catalog and/or schema) name with the new name if needed.
+     * 
+     * @param dbConnection
+     */
+    private void relpacePackageName(DatabaseConnection dbConnection) {
+        if (dbConnection != null) {
+            String newSid = dbConnection.getSID();
+            String newSchema = dbConnection.getUiSchema();
+
+            boolean replaceCatalog = this.originalSid != null && !PluginConstant.EMPTY_STRING.equals(this.originalSid)
+                    && newSid != null && !PluginConstant.EMPTY_STRING.equals(newSid) && !this.originalSid.equals(newSid);
+            boolean replaceSchema = this.originalUiSchema != null && !PluginConstant.EMPTY_STRING.equals(this.originalUiSchema)
+                    && newSchema != null && !PluginConstant.EMPTY_STRING.equals(newSchema)
+                    && !this.originalUiSchema.equals(newSchema);
+
+            String dbType = EDatabaseTypeName.getTypeFromDbType(dbConnection.getDatabaseType()).getDisplayName();
+
+            if (SupportDBUrlType.justHaveCatalog(dbType)) { // catalog only
+                if (replaceCatalog) {
+                    EList<Package> dataPackage = dbConnection.getDataPackage();
+                    for (Package pckg : dataPackage) {
+                        String name = pckg.getName();
+                        if (name != null && name.equals(this.originalSid)) {
+                            pckg.setName(newSid);
+                        }
+                    }
+                }
+            } else if (SupportDBUrlType.justHaveSchema(dbType)) { // schema only
+                if (replaceSchema) {
+                    EList<Package> dataPackage = dbConnection.getDataPackage();
+                    for (Package pckg : dataPackage) {
+                        String name = pckg.getName();
+                        if (name != null && name.equals(this.originalUiSchema)) {
+                            pckg.setName(newSchema);
+                        }
+                    }
+                }
+            } else { // both catalog and schema
+                EList<Package> dataPackage = dbConnection.getDataPackage();
+                for (Package pckg : dataPackage) {
+                    if (pckg instanceof Catalog) {
+
+                        Catalog catalog = (Catalog) pckg;
+                        String catalogName = catalog.getName();
+                        boolean sameCatalog = catalogName != null && catalogName.equals(this.originalSid);
+
+                        if (sameCatalog) {
+                            // replace catalog name if needed
+                            if (replaceCatalog) {
+                                catalog.setName(newSid);
+                            }
+
+                            // replace schema name if needed
+                            EList<ModelElement> ownedElement = catalog.getOwnedElement();
+                            for (ModelElement me : ownedElement) {
+                                if (me instanceof Schema) {
+                                    if (replaceSchema) {
+                                        Schema schema = (Schema) me;
+                                        String schemaName = schema.getName();
+                                        if (schemaName != null && schemaName.equals(this.originalUiSchema)) {
+                                            schema.setName(newSchema);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
