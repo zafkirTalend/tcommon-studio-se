@@ -16,12 +16,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Namespace;
+import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.Schema;
 
@@ -56,6 +59,30 @@ public final class CatalogHelper {
             }
         }
         return catalogs;
+    }
+
+    /**
+     * 
+     * Get a catalog by Connection and catalog name.
+     * 
+     * @param conn
+     * @param catalogName
+     * @return
+     */
+    public static Catalog getCatalog(Connection conn, String catalogName) {
+        if (conn == null || catalogName == null) {
+            return null;
+        }
+        Catalog catalog = null;
+        EList<Package> elements = conn.getDataPackage();
+        for (EObject obj : elements) {
+            Catalog cat = SwitchHelpers.CATALOG_SWITCH.doSwitch(obj);
+            if (cat != null && catalogName.equalsIgnoreCase(cat.getName())) {
+                catalog = cat;
+                break;
+            }
+        }
+        return catalog;
     }
 
     /**
