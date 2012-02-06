@@ -449,12 +449,6 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
         }
     }
 
-    // private boolean openConfirmReloadDialog() {
-    // return MessageDialog.openQuestion(Display.getCurrent().getActiveShell(),
-    //                Messages.getString("DatabaseWizard.ReloadTitle"), //$NON-NLS-1$
-    //                Messages.getString("DatabaseWizard.ReloadMessages"));//$NON-NLS-1$
-    // }
-
     /**
      * DOC xqliu Comment method "updateTdqDependencies".
      */
