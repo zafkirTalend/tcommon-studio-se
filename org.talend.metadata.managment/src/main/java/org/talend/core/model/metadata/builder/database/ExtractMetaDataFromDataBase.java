@@ -221,7 +221,10 @@ public class ExtractMetaDataFromDataBase {
             return oldMetadataRetrieved;
         }
         List<String> tablesToFilter = new ArrayList<String>();
-        if (EDatabaseTypeName.ORACLEFORSID.getProduct().equals(iMetadataConnection.getProduct())) {
+        if (EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(iMetadataConnection.getDbType())
+                || EDatabaseTypeName.ORACLESN.getDisplayName().equals(iMetadataConnection.getDbType())
+                || EDatabaseTypeName.ORACLE_RAC.getDisplayName().equals(iMetadataConnection.getDbType())
+                || EDatabaseTypeName.ORACLE_OCI.getDisplayName().equals(iMetadataConnection.getDbType())) {
             Statement stmt;
             try {
                 stmt = ExtractMetaDataUtils.conn.createStatement();
@@ -350,7 +353,7 @@ public class ExtractMetaDataFromDataBase {
                 tableName = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "SYNONYM_NAME", null); //$NON-NLS-1$
                 isSynonym = true;
             }
-            if (tableName == null || tablesToFilter.contains(tableName)) {
+            if (tableName == null || tablesToFilter.contains(tableName) || tableName.startsWith("/")) {
                 continue;
             }
 
@@ -475,7 +478,7 @@ public class ExtractMetaDataFromDataBase {
                     && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 ExtractMetaDataUtils.closeConnection();
             }
             if (wapperDriver != null
@@ -483,7 +486,7 @@ public class ExtractMetaDataFromDataBase {
                             || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 try {
                     wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                 } catch (SQLException e) {
@@ -663,7 +666,7 @@ public class ExtractMetaDataFromDataBase {
                             || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 try {
                     wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                 } catch (SQLException e) {
@@ -969,7 +972,9 @@ public class ExtractMetaDataFromDataBase {
 
                     // for bug 6919, oracle driver doesn't give correctly the length for timestamp
                     if (EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataConnection.getDbType())
-                            || EDatabaseTypeName.ORACLESN.getDisplayName().equals(metadataConnection.getDbType())) {
+                            || EDatabaseTypeName.ORACLESN.getDisplayName().equals(metadataConnection.getDbType())
+                            || EDatabaseTypeName.ORACLE_RAC.getDisplayName().equals(metadataConnection.getDbType())
+                            || EDatabaseTypeName.ORACLE_OCI.getDisplayName().equals(metadataConnection.getDbType())) {
                         if (dbType.equals("TIMESTAMP")) { //$NON-NLS-1$
                             metadataColumn.setLength(metadataColumn.getPrecision());
                             metadataColumn.setPrecision(-1);
@@ -983,7 +988,9 @@ public class ExtractMetaDataFromDataBase {
             // there will do one query to retrieve all comments on the table.
 
             if (EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataConnection.getDbType())
-                    || EDatabaseTypeName.ORACLESN.getDisplayName().equals(metadataConnection.getDbType())) {
+                    || EDatabaseTypeName.ORACLESN.getDisplayName().equals(metadataConnection.getDbType())
+                    || EDatabaseTypeName.ORACLE_RAC.getDisplayName().equals(metadataConnection.getDbType())
+                    || EDatabaseTypeName.ORACLE_OCI.getDisplayName().equals(metadataConnection.getDbType())) {
                 try {
                     PreparedStatement statement = ExtractMetaDataUtils.conn
                             .prepareStatement("SELECT COMMENTS FROM USER_COL_COMMENTS WHERE TABLE_NAME='" //$NON-NLS-1$
@@ -1735,7 +1742,7 @@ public class ExtractMetaDataFromDataBase {
                             || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 try {
                     wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                 } catch (SQLException e) {
@@ -1867,7 +1874,7 @@ public class ExtractMetaDataFromDataBase {
      * @return
      */
     public static List<org.talend.core.model.metadata.builder.connection.MetadataTable> returnMetaTablesFormConnection(
-            IMetadataConnection iMetadataConnection) {
+            IMetadataConnection iMetadataConnection, int limit) {
         List<org.talend.core.model.metadata.builder.connection.MetadataTable> itemTablesName = new ArrayList<org.talend.core.model.metadata.builder.connection.MetadataTable>();
 
         List list = ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
@@ -1885,7 +1892,12 @@ public class ExtractMetaDataFromDataBase {
         String dbType = iMetadataConnection.getDbType();
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
 
-        List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection);
+        List<IMetadataTable> metadataTables = null;
+        if (limit > 0) {
+            metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection, limit);
+        } else {
+            metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection);
+        }
         ExtractMetaDataUtils.closeConnection();
 
         if (wapperDriver != null
@@ -1893,7 +1905,7 @@ public class ExtractMetaDataFromDataBase {
                         || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                        .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
             try {
                 wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
             } catch (SQLException e) {
@@ -1908,6 +1920,12 @@ public class ExtractMetaDataFromDataBase {
         }
 
         return itemTablesName;
+    }
+
+    public static List<org.talend.core.model.metadata.builder.connection.MetadataTable> returnMetaTablesFormConnection(
+            IMetadataConnection iMetadataConnection) {
+        return returnMetaTablesFormConnection(iMetadataConnection, -1);
+
     }
 
     /**
@@ -2049,7 +2067,7 @@ public class ExtractMetaDataFromDataBase {
                         || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                        .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
             try {
                 wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
             } catch (SQLException e) {
