@@ -278,7 +278,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         if (type == ERepositoryObjectType.METADATA_CON_TABLE) {
             return false;
         }
-        boolean isAllowMultipleName = (type == ERepositoryObjectType.SQLPATTERNS || type == ERepositoryObjectType.METADATA_FILE_XML);
+        boolean isSqlPattern = (type == ERepositoryObjectType.SQLPATTERNS);
         String path = null;
         if (item.getState() != null) {
             path = item.getState().getPath();
@@ -296,7 +296,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
             if (name.equalsIgnoreCase(current.getProperty().getLabel())
                     && item.getProperty().getId() != current.getProperty().getId()) {
                 // To check SQLPattern in same path. see bug 0005038: unable to add a SQLPattern into repository.
-                if (!isAllowMultipleName || current.getProperty().getItem().getState().getPath().equals(path)) {
+                if (!isSqlPattern || current.getProperty().getItem().getState().getPath().equals(path)) {
                     return false;
                 }
             }
