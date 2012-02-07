@@ -106,7 +106,13 @@ public class PasteAction extends AContextualAction {
             setEnabled(false);
             return;
         }
-        RepositoryNode target = (RepositoryNode) selection.getFirstElement();
+        Object targetObject = selection.getFirstElement();
+        if (!(targetObject instanceof RepositoryNode)) {
+            setEnabled(false);
+            return;
+        }
+
+        RepositoryNode target = (RepositoryNode) targetObject;
         if (!(LocalSelectionTransfer.getTransfer().getSelection() instanceof TreeSelection)) {
             setEnabled(false);
             return;
@@ -153,6 +159,10 @@ public class PasteAction extends AContextualAction {
             ERepositoryObjectType objectType = null;
             for (Object obj : ((StructuredSelection) selectionInClipboard).toArray()) {
                 if (enabled) {
+                    if (!(obj instanceof RepositoryNode)) {
+                        enabled = false;
+                        break;
+                    }
                     RepositoryNode sourceNode = (RepositoryNode) obj;
                     ERepositoryObjectType type = sourceNode.getObjectType();
                     if (objectType != null && objectType != type) {
