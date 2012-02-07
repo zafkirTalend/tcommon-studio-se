@@ -153,6 +153,10 @@ public class PasteAction extends AContextualAction {
             ERepositoryObjectType objectType = null;
             for (Object obj : ((StructuredSelection) selectionInClipboard).toArray()) {
                 if (enabled) {
+                    if (!(obj instanceof RepositoryNode)) {
+                        enabled = false;
+                        break;
+                    }
                     RepositoryNode sourceNode = (RepositoryNode) obj;
                     ERepositoryObjectType type = sourceNode.getObjectType();
                     if (objectType != null && objectType != type) {
