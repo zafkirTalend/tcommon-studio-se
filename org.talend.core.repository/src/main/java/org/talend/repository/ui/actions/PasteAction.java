@@ -106,7 +106,14 @@ public class PasteAction extends AContextualAction {
             setEnabled(false);
             return;
         }
-        RepositoryNode target = (RepositoryNode) selection.getFirstElement();
+
+        Object targetObject = selection.getFirstElement();
+        if (!(targetObject instanceof RepositoryNode)) {
+            setEnabled(false);
+            return;
+        }
+
+        RepositoryNode target = (RepositoryNode) targetObject;
         if (!(LocalSelectionTransfer.getTransfer().getSelection() instanceof TreeSelection)) {
             setEnabled(false);
             return;
