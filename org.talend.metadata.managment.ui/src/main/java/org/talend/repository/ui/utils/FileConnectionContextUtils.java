@@ -12,6 +12,14 @@
 // ============================================================================
 package org.talend.repository.ui.utils;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,6 +28,7 @@ import java.util.Set;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.swt.widgets.Shell;
+import org.talend.commons.utils.encoding.CharsetToolkit;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
@@ -497,24 +506,59 @@ public final class FileConnectionContextUtils {
 
             cloneExcelConnection.setAdvancedSpearator(excelConnection.isAdvancedSpearator());
         }
-            targetFileConnection.setFieldSeparatorValue(sourceFileConnection.getFieldSeparatorValue());
-            targetFileConnection.setRowSeparatorType(sourceFileConnection.getRowSeparatorType());
-            targetFileConnection.setRowSeparatorValue(sourceFileConnection.getRowSeparatorValue());
+        targetFileConnection.setFieldSeparatorValue(sourceFileConnection.getFieldSeparatorValue());
+        targetFileConnection.setRowSeparatorType(sourceFileConnection.getRowSeparatorType());
+        targetFileConnection.setRowSeparatorValue(sourceFileConnection.getRowSeparatorValue());
 
-            targetFileConnection.setRowSeparatorType(sourceFileConnection.getRowSeparatorType());
+        targetFileConnection.setRowSeparatorType(sourceFileConnection.getRowSeparatorType());
 
-            targetFileConnection.setCsvOption(sourceFileConnection.isCsvOption());
-            targetFileConnection.setEscapeChar(sourceFileConnection.getEscapeChar());
-            targetFileConnection.setEscapeType(sourceFileConnection.getEscapeType());
-            targetFileConnection.setFirstLineCaption(sourceFileConnection.isFirstLineCaption());
-            targetFileConnection.setFormat(sourceFileConnection.getFormat());
-            targetFileConnection.setRemoveEmptyRow(sourceFileConnection.isRemoveEmptyRow());
-            targetFileConnection.setServer(sourceFileConnection.getServer());
-            targetFileConnection.setTextEnclosure(sourceFileConnection.getTextEnclosure());
-            targetFileConnection.setTextIdentifier(sourceFileConnection.getTextIdentifier());
-            targetFileConnection.setUseFooter(sourceFileConnection.isUseFooter());
-            targetFileConnection.setUseHeader(sourceFileConnection.isUseHeader());
-            targetFileConnection.setUseLimit(sourceFileConnection.isUseLimit());
+        targetFileConnection.setCsvOption(sourceFileConnection.isCsvOption());
+        targetFileConnection.setEscapeChar(sourceFileConnection.getEscapeChar());
+        targetFileConnection.setEscapeType(sourceFileConnection.getEscapeType());
+        targetFileConnection.setFirstLineCaption(sourceFileConnection.isFirstLineCaption());
+        targetFileConnection.setFormat(sourceFileConnection.getFormat());
+        targetFileConnection.setRemoveEmptyRow(sourceFileConnection.isRemoveEmptyRow());
+        targetFileConnection.setServer(sourceFileConnection.getServer());
+        targetFileConnection.setTextEnclosure(sourceFileConnection.getTextEnclosure());
+        targetFileConnection.setTextIdentifier(sourceFileConnection.getTextIdentifier());
+        targetFileConnection.setUseFooter(sourceFileConnection.isUseFooter());
+        targetFileConnection.setUseHeader(sourceFileConnection.isUseHeader());
+        targetFileConnection.setUseLimit(sourceFileConnection.isUseLimit());
 
     }
+
+    /**
+     * 
+     * This method is used for checking file path is useful.
+     * 
+     * @param fileStr
+     * @param previewRows
+     * @param connection
+     * @param maximumRowsToPreview
+     * @return
+     * @throws IOException
+     * @throws UnsupportedEncodingException
+     * @throws FileNotFoundException
+     */
+    public static BufferedReader isFilePathAvailable(String fileStr, StringBuffer previewRows, FileConnection connection,
+            int maximumRowsToPreview) throws IOException, UnsupportedEncodingException, FileNotFoundException {
+        BufferedReader in;
+        File file = new File(fileStr);
+        Charset guessedCharset = CharsetToolkit.guessEncoding(file, 4096);
+        if (connection.getEncoding() == null || connection.getEncoding().equals("")) { //$NON-NLS-1$
+            connection.setEncoding(guessedCharset.displayName());
+        }
+
+        String str;
+        int numberLine = 0;
+        // read the file width the limit : MAXIMUM_ROWS_TO_PREVIEW
+        in = new BufferedReader(new InputStreamReader(new FileInputStream(fileStr), guessedCharset.displayName()));
+
+        while (((str = in.readLine()) != null) && (numberLine <= maximumRowsToPreview)) {
+            numberLine++;
+            previewRows.append(str + "\n"); //$NON-NLS-1$
+        }
+        return in;
+    }
+
 }

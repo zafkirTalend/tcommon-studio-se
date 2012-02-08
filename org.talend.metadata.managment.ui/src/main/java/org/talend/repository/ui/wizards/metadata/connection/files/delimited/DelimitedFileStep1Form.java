@@ -14,12 +14,8 @@ package org.talend.repository.ui.wizards.metadata.connection.files.delimited;
 
 import java.io.BufferedReader;
 import java.io.EOFException;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IStatus;
@@ -37,14 +33,15 @@ import org.talend.commons.ui.swt.formtools.LabelledCombo;
 import org.talend.commons.ui.swt.formtools.LabelledFileField;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.commons.ui.utils.PathUtils;
-import org.talend.commons.utils.encoding.CharsetToolkit;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
+import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
 import org.talend.core.model.metadata.builder.connection.FileFormat;
 import org.talend.core.model.metadata.builder.connection.RowSeparator;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.ui.swt.utils.AbstractDelimitedFileStepForm;
+import org.talend.repository.ui.utils.FileConnectionContextUtils;
 
 /**
  * @author ocarbone
@@ -272,22 +269,10 @@ public class DelimitedFileStep1Form extends AbstractDelimitedFileStepForm {
             BufferedReader in = null;
 
             try {
-
-                File file = new File(fileStr);
-                Charset guessedCharset = CharsetToolkit.guessEncoding(file, 4096);
-                if (getConnection().getEncoding() == null || getConnection().getEncoding().equals("")) { //$NON-NLS-1$
-                    getConnection().setEncoding(guessedCharset.displayName());
-                }
-
-                String str;
-                int numberLine = 0;
-                // read the file width the limit : MAXIMUM_ROWS_TO_PREVIEW
-                in = new BufferedReader(new InputStreamReader(new FileInputStream(fileStr), guessedCharset.displayName()));
-
-                while (((str = in.readLine()) != null) && (numberLine <= maximumRowsToPreview)) {
-                    numberLine++;
-                    previewRows.append(str + "\n"); //$NON-NLS-1$
-                }
+                // MOD klliu bug TDQ-4618 exstract a public method for TDQ using.2012-02-07
+                DelimitedFileConnection fileConnection = getConnection();
+                in = FileConnectionContextUtils.isFilePathAvailable(fileStr, previewRows, fileConnection, maximumRowsToPreview);
+                // ~
                 // show lines
                 fileViewerText.setText(new String(previewRows));
                 filePathIsDone = true;
