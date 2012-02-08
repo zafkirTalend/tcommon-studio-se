@@ -15,6 +15,7 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.talend.designer.business.model.business.Query;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 

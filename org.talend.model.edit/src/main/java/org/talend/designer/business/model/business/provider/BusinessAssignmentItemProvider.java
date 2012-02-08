@@ -44,6 +44,7 @@ import org.talend.designer.business.model.business.SAPFunction;
 import org.talend.designer.business.model.business.SQLPattern;
 import org.talend.designer.business.model.business.Salesforce;
 import org.talend.designer.business.model.business.SapFunctionMetadata;
+import org.talend.designer.business.model.business.Service;
 import org.talend.designer.business.model.business.TableMetadata;
 import org.talend.designer.business.model.business.TalendItem;
 import org.talend.designer.business.model.business.Wsdl;
@@ -397,6 +398,10 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
                 public Object caseWsdl(Wsdl object) {
                     return getString("_UI_Wsdl_type");//$NON-NLS-1$
                 }
+
+                public Object caseService(Service object) {
+                    return getString("_UI_Service_type");//$NON-NLS-1$
+                };
 
             }.doSwitch(businessAssignment.getTalendItem());
 

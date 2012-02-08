@@ -279,7 +279,7 @@ public abstract class TalendItemImpl extends EObjectImpl implements TalendItem {
      * @generated
      */
     public Repository getRepository() {
-        if (eContainerFeatureID != BusinessPackage.TALEND_ITEM__REPOSITORY) return null;
+        if (eContainerFeatureID() != BusinessPackage.TALEND_ITEM__REPOSITORY) return null;
         return (Repository)eContainer();
     }
 
@@ -347,7 +347,7 @@ public abstract class TalendItemImpl extends EObjectImpl implements TalendItem {
      * @generated
      */
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-        switch (eContainerFeatureID) {
+        switch (eContainerFeatureID()) {
             case BusinessPackage.TALEND_ITEM__REPOSITORY:
                 return eInternalContainer().eInverseRemove(this, BusinessPackage.REPOSITORY__TALENDITEMS, Repository.class, msgs);
         }

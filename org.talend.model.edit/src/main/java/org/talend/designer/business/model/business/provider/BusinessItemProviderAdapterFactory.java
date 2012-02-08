@@ -752,6 +752,28 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.MDM} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected MDMItemProvider mdmItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.designer.business.model.business.MDM}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createMDMAdapter() {
+        if (mdmItemProvider == null) {
+            mdmItemProvider = new MDMItemProvider(this);
+        }
+
+        return mdmItemProvider;
+    }
+
+    /**
      * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.Wsdl} instances.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -815,6 +837,28 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
         }
 
         return sapFunctionItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.Service} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected ServiceItemProvider serviceItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.designer.business.model.business.Service}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createServiceAdapter() {
+        if (serviceItemProvider == null) {
+            serviceItemProvider = new ServiceItemProvider(this);
+        }
+
+        return serviceItemProvider;
     }
 
     /**
@@ -1052,9 +1096,11 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
         if (sqlPatternItemProvider != null) sqlPatternItemProvider.dispose();
         if (salesforceItemProvider != null) salesforceItemProvider.dispose();
         if (copybookItemProvider != null) copybookItemProvider.dispose();
+        if (mdmItemProvider != null) mdmItemProvider.dispose();
         if (wsdlItemProvider != null) wsdlItemProvider.dispose();
         if (ldapItemProvider != null) ldapItemProvider.dispose();
         if (sapFunctionItemProvider != null) sapFunctionItemProvider.dispose();
+        if (serviceItemProvider != null) serviceItemProvider.dispose();
     }
 
 }

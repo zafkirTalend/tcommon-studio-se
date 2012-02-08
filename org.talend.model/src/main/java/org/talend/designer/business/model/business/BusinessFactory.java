@@ -50,7 +50,7 @@ public interface BusinessFactory extends EFactory {
      * @return a new object of class '<em>Process</em>'.
      * @generated
      */
-    org.talend.designer.business.model.business.Process createProcess();
+    Process createProcess();
 
     /**
      * Returns a new object of class '<em>Routine</em>'.
@@ -329,6 +329,15 @@ public interface BusinessFactory extends EFactory {
      * @generated
      */
     SAPFunction createSAPFunction();
+
+    /**
+     * Returns a new object of class '<em>Service</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Service</em>'.
+     * @generated
+     */
+    Service createService();
 
     /**
      * Returns a new object of class '<em>Context</em>'.

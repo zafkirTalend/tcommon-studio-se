@@ -136,7 +136,7 @@ public abstract class BusinessItemImpl extends EObjectImpl implements BusinessIt
      * @generated
      */
     public BusinessProcess getBusinessProcess() {
-        if (eContainerFeatureID != BusinessPackage.BUSINESS_ITEM__BUSINESS_PROCESS) return null;
+        if (eContainerFeatureID() != BusinessPackage.BUSINESS_ITEM__BUSINESS_PROCESS) return null;
         return (BusinessProcess)eContainer();
     }
 
@@ -276,7 +276,7 @@ public abstract class BusinessItemImpl extends EObjectImpl implements BusinessIt
      * @generated
      */
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-        switch (eContainerFeatureID) {
+        switch (eContainerFeatureID()) {
             case BusinessPackage.BUSINESS_ITEM__BUSINESS_PROCESS:
                 return eInternalContainer().eInverseRemove(this, BusinessPackage.BUSINESS_PROCESS__BUSINESS_ITEMS, BusinessProcess.class, msgs);
         }
