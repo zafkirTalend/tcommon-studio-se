@@ -31,6 +31,7 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.ui.wizards.CheckLastVersionRepositoryWizard;
+import org.talend.repository.ui.wizards.PropertiesWizardPage;
 import org.talend.repository.ui.wizards.documentation.LinkUtils.LinkInfo;
 
 /**
@@ -76,6 +77,17 @@ public class DocumentationUpdateWizard extends CheckLastVersionRepositoryWizard 
         mainPage.setUpdate(true);
         mainPage.setEditPath(false);
         addPage(mainPage);
+    }
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.wizard.Wizard#performCancel()
+     */
+    @Override
+    public boolean performCancel() {
+        docItem.getProperty().setVersion(PropertiesWizardPage.orignalVersion2);
+        return super.performCancel();
     }
 
     /*

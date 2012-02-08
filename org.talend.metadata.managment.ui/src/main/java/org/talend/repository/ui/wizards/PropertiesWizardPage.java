@@ -155,6 +155,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     private boolean isSaveAs = false;
 
+    public static String orignalVersion2;
+
     public void initializeSaveAs(String orignalName, String orignalVersion, boolean isSaveAs) {
         this.orignalName = orignalName;
         this.orignalVersion = orignalVersion;
@@ -177,6 +179,9 @@ public abstract class PropertiesWizardPage extends WizardPage {
         this.destinationPath = destinationPath;
         this.readOnly = readOnly;
         this.editPath = editPath;
+
+        // add for bug TDQ-1580
+        orignalVersion2 = property.getVersion();
 
         nameStatus = createOkStatus();
         purposeStatus = createOkStatus();
