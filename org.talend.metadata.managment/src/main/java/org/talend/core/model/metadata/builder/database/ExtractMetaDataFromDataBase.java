@@ -444,15 +444,20 @@ public class ExtractMetaDataFromDataBase {
             // StringUtils.trimToEmpty(name) is because bug 4547
             if (name != null && StringUtils.trimToEmpty(name).equals(ETableTypes.TABLETYPE_SYNONYM.getName())) {
                 String tableName = getTableNameBySynonym(ExtractMetaDataUtils.conn, newNode.getValue());
-                // bug TDI-19382
-                if (iMetadataConnection.getDbType().equalsIgnoreCase("ORACLE WITH SID")
-                        || iMetadataConnection.getDbType().equalsIgnoreCase("ORACLE WITH SERVICE NAME")
-                        || iMetadataConnection.getDbType().equalsIgnoreCase("ORACLE OCI")
-                        || iMetadataConnection.getDbType().equalsIgnoreCase("ORACLE RAC")) {
-                    tableName = newNode.getValue();
+                // bug TDI-19547
+                if (ExtractMetaDataUtils.conn.getMetaData().getDatabaseProductName().equals("DB2/NT")) {
+                    fillSynonmsForDB2(iMetadataConnection, metadataColumns, table, tableName);
+                } else {
+                    // bug TDI-19382
+                    if (iMetadataConnection.getDbType().equals(EDatabaseTypeName.ORACLEFORSID.getDisplayName())
+                            || iMetadataConnection.getDbType().equals(EDatabaseTypeName.ORACLESN.getDisplayName())
+                            || iMetadataConnection.getDbType().equals(EDatabaseTypeName.ORACLE_OCI.getDisplayName())
+                            || iMetadataConnection.getDbType().equals(EDatabaseTypeName.ORACLE_RAC.getDisplayName())) {
+                        tableName = newNode.getValue();
+                    }
+                    newNode.setValue(tableName);
+                    fillSynonmsForOracle(iMetadataConnection, metadataColumns, table, tableName);
                 }
-                newNode.setValue(tableName);
-                fillSynonmsForOracle(iMetadataConnection, metadataColumns, table, tableName);
             } else {
                 if (tableLabel.contains("/")) {
                     tableLabel = tableLabel.replace("/", "");
@@ -478,7 +483,7 @@ public class ExtractMetaDataFromDataBase {
                     && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
-                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 ExtractMetaDataUtils.closeConnection();
             }
             if (wapperDriver != null
@@ -486,7 +491,7 @@ public class ExtractMetaDataFromDataBase {
                             || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 try {
                     wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                 } catch (SQLException e) {
@@ -508,7 +513,7 @@ public class ExtractMetaDataFromDataBase {
                 + "AND ALL_SYNONYMS.TABLE_OWNER = all_tab_columns.OWNER\n" + "WHERE all_synonyms.SYNONYM_NAME =" + "\'"
                 + tableName + "\'\n";
         // bug TDI-19382
-        if (!iMetadataConnection.getSchema().equals("")) {
+        if (!("").equals(iMetadataConnection.getSchema())) {
             synSQL += "and all_synonyms.OWNER =\'" + iMetadataConnection.getSchema() + "\'";
         }
         Statement sta = ExtractMetaDataUtils.conn.createStatement();
@@ -568,6 +573,83 @@ public class ExtractMetaDataFromDataBase {
             }
             try {
                 column.setNullable("Y".equals(columns.getString(GetColumn.NULLABLE.name()))); //$NON-NLS-1$
+            } catch (Exception e) {
+                log.error(e);
+            }
+            metadataColumns.add(column);
+            index++;
+
+        }
+        columns.close();
+    }
+
+    /* fill the columns for synonm,can get column name,column data type,length,precision,nullable */
+    private static void fillSynonmsForDB2(IMetadataConnection iMetadataConnection, List<TdColumn> metadataColumns,
+            NamedColumnSet table, String tableName) throws SQLException {
+        // need to retrieve columns of synonym by useing sql rather than get them from jdbc metadata
+        String synSQL = "SELECT a.*\n" + "FROM SYSCAT.COLUMNS a\n" + "LEFT OUTER JOIN SYSIBM.SYSTABLES b\n"
+                + "ON a.TABNAME = b.NAME\n" + "AND a.TABSCHEMA = b.CREATOR\n" + "where a.TABNAME =" + "\'" + tableName + "\'\n";
+        if (!("").equals(iMetadataConnection.getSchema())) {
+            synSQL += "AND b.CREATOR =\'" + iMetadataConnection.getSchema() + "\'";
+        }
+        synSQL += "ORDER BY a.COLNO";
+        Statement sta = ExtractMetaDataUtils.conn.createStatement();
+        ExtractMetaDataUtils.setQueryStatementTimeout(sta);
+        ResultSet columns = sta.executeQuery(synSQL);
+        String typeName = null;
+        int index = 0;
+        while (columns.next()) {
+            long numPrecRadix = 0;
+            String columnName = columns.getString("COLNAME");
+            TdColumn column = ColumnHelper.createTdColumn(columnName);
+
+            String label = column.getLabel();
+            label = ManagementTextUtils.filterSpecialChar(label);
+            String sub = ""; //$NON-NLS-1$
+            String sub2 = ""; //$NON-NLS-1$
+            String label2 = label;
+            if (label != null && label.length() > 0 && label.startsWith("_")) { //$NON-NLS-1$
+                sub = label.substring(1);
+                if (sub != null && sub.length() > 0) {
+                    sub2 = sub.substring(1);
+                }
+            }
+            ICoreService coreService = CoreRuntimePlugin.getInstance().getCoreService();
+            if (coreService.isKeyword(label) || coreService.isKeyword(sub) || coreService.isKeyword(sub2)) {
+                label = "_" + label; //$NON-NLS-1$
+            }
+
+            label = MetadataToolHelper.validateColumnName(label, index);
+            column.setLabel(label);
+            column.setOriginalField(label2);
+
+            if (!ExtractMetaDataUtils.needFakeDatabaseMetaData(iMetadataConnection.getDbType(), iMetadataConnection.isSqlMode())) {
+                // dataType = columns.getInt(GetColumn.DATA_TYPE.name());
+                typeName = columns.getString("TYPENAME");
+            }
+            try {
+                int column_size = columns.getInt("LENGTH");
+                column.setLength(column_size);
+                numPrecRadix = columns.getLong("SCALE");//$NON-NLS-N$
+                column.setPrecision(numPrecRadix);
+            } catch (Exception e1) {
+                log.warn(e1, e1);
+            }
+
+            DatabaseConnection dbConnection = (DatabaseConnection) ConnectionHelper.getConnection(table);
+            String dbmsId = dbConnection == null ? null : dbConnection.getDbmsId();
+            if (dbmsId != null) {
+                MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(dbmsId);
+                String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName, ExtractMetaDataUtils
+                        .getIntMetaDataInfo(columns, "LENGTH"), ExtractMetaDataUtils.getIntMetaDataInfo(columns, //$NON-NLS-1$
+                        "SCALE")); //$NON-NLS-1$
+                column.setTalendType(talendType);
+                String defaultSelectedDbType = MetadataTalendType.getMappingTypeRetriever(dbConnection.getDbmsId())
+                        .getDefaultSelectedDbType(talendType);
+                column.setSourceType(defaultSelectedDbType);
+            }
+            try {
+                column.setNullable("Y".equals(columns.getString("NULLS"))); //$NON-NLS-1$
             } catch (Exception e) {
                 log.error(e);
             }
@@ -666,7 +748,7 @@ public class ExtractMetaDataFromDataBase {
                             || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 try {
                     wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                 } catch (SQLException e) {
@@ -1742,7 +1824,7 @@ public class ExtractMetaDataFromDataBase {
                             || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 try {
                     wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                 } catch (SQLException e) {
@@ -1905,7 +1987,7 @@ public class ExtractMetaDataFromDataBase {
                         || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                        .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
             try {
                 wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
             } catch (SQLException e) {
@@ -2067,7 +2149,7 @@ public class ExtractMetaDataFromDataBase {
                         || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                        .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
             try {
                 wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
             } catch (SQLException e) {
