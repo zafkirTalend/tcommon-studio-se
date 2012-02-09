@@ -269,10 +269,17 @@ public class DelimitedFileStep1Form extends AbstractDelimitedFileStepForm {
             BufferedReader in = null;
 
             try {
+
                 // MOD klliu bug TDQ-4618 exstract a public method for TDQ using.2012-02-07
                 DelimitedFileConnection fileConnection = getConnection();
-                in = FileConnectionContextUtils.isFilePathAvailable(fileStr, previewRows, fileConnection, maximumRowsToPreview);
+                String str;
+                int numberLine = 0;
+                in = FileConnectionContextUtils.isFilePathAvailable(fileStr, fileConnection);
                 // ~
+                while (((str = in.readLine()) != null) && (numberLine <= maximumRowsToPreview)) {
+                    numberLine++;
+                    previewRows.append(str + "\n"); //$NON-NLS-1$
+                }
                 // show lines
                 fileViewerText.setText(new String(previewRows));
                 filePathIsDone = true;

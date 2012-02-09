@@ -529,35 +529,26 @@ public final class FileConnectionContextUtils {
 
     /**
      * 
-     * This method is used for checking file path is useful.
+     * DOC klliu Comment method "isFilePathAvailable".
      * 
      * @param fileStr
-     * @param previewRows
      * @param connection
-     * @param maximumRowsToPreview
      * @return
      * @throws IOException
      * @throws UnsupportedEncodingException
      * @throws FileNotFoundException
      */
-    public static BufferedReader isFilePathAvailable(String fileStr, StringBuffer previewRows, FileConnection connection,
-            int maximumRowsToPreview) throws IOException, UnsupportedEncodingException, FileNotFoundException {
+    public static BufferedReader isFilePathAvailable(String fileStr, FileConnection connection) throws IOException,
+            UnsupportedEncodingException, FileNotFoundException {
         BufferedReader in;
         File file = new File(fileStr);
         Charset guessedCharset = CharsetToolkit.guessEncoding(file, 4096);
         if (connection.getEncoding() == null || connection.getEncoding().equals("")) { //$NON-NLS-1$
             connection.setEncoding(guessedCharset.displayName());
         }
-
-        String str;
-        int numberLine = 0;
         // read the file width the limit : MAXIMUM_ROWS_TO_PREVIEW
         in = new BufferedReader(new InputStreamReader(new FileInputStream(fileStr), guessedCharset.displayName()));
 
-        while (((str = in.readLine()) != null) && (numberLine <= maximumRowsToPreview)) {
-            numberLine++;
-            previewRows.append(str + "\n"); //$NON-NLS-1$
-        }
         return in;
     }
 
