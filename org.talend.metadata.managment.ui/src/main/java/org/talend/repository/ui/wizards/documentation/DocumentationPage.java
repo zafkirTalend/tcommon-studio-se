@@ -66,6 +66,16 @@ public class DocumentationPage extends PropertiesWizardPage {
 
     private Item documentationItem;
 
+    private String orignalVersion;
+
+    public String getOrignalVersion() {
+        return orignalVersion;
+    }
+
+    public void setOrignalVersion(String orignalVersion) {
+        this.orignalVersion = orignalVersion;
+    }
+
     /**
      * Constructs a new DocumentationCreatePage.
      */
@@ -105,6 +115,9 @@ public class DocumentationPage extends PropertiesWizardPage {
         filenameText = new Text(filenameContainer, SWT.BORDER);
         data = new GridData(GridData.FILL_HORIZONTAL);
         filenameText.setLayoutData(data);
+
+        // add for bug TDQ-1580
+        this.orignalVersion = property.getVersion();
 
         super.createControl(container);
 

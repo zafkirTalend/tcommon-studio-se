@@ -79,7 +79,7 @@ import org.talend.repository.ui.properties.StatusHelper;
 /**
  * Wizard page contains common properties fields.<br/>
  * 
- * $Id: PropertiesWizardPage.java 914 2006-12-08 08:28:53 +0000 (æ˜ŸæœŸäº”, 08 åäºŒæœˆ 2006) bqian $
+ * $Id: PropertiesWizardPage.java 914 2006-12-08 08:28:53 +0000 (ĞÇÆÚÎå, 08 Ê®¶şÔÂ 2006) bqian $
  * 
  */
 public abstract class PropertiesWizardPage extends WizardPage {
@@ -155,8 +155,6 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     private boolean isSaveAs = false;
 
-    public static String orignalVersion2;
-
     public void initializeSaveAs(String orignalName, String orignalVersion, boolean isSaveAs) {
         this.orignalName = orignalName;
         this.orignalVersion = orignalVersion;
@@ -179,9 +177,6 @@ public abstract class PropertiesWizardPage extends WizardPage {
         this.destinationPath = destinationPath;
         this.readOnly = readOnly;
         this.editPath = editPath;
-
-        // add for bug TDQ-1580
-        orignalVersion2 = property.getVersion();
 
         nameStatus = createOkStatus();
         purposeStatus = createOkStatus();
