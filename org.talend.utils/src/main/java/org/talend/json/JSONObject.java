@@ -29,6 +29,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeSet;
 
+import org.apache.log4j.Logger;
+
 /**
  * A JSONObject is an unordered collection of name/value pairs. Its external form is a string wrapped in curly braces
  * with colons between the names and values, and commas between the values and names. The internal form is an object
@@ -71,6 +73,8 @@ import java.util.TreeSet;
  * @version 2008-09-18
  */
 public class JSONObject {
+
+    private static Logger log = Logger.getLogger(JSONObject.class);
 
     /**
      * JSONObject.NULL is equivalent to the value that JavaScript calls null, whilst Java's null is equivalent to the
@@ -1382,17 +1386,25 @@ public class JSONObject {
 
     // for simple properties now
     public Object fromJsonToObject(JSONObject ob, Class<?> clazz) throws JSONException {
+        // TODO This is coded with the wrong algorithm, the json keys should be read first and
+        // method in the object should be then looked for not the other way around.(Seb.G)
+        // but not time to check the implication for now.
         Object o = null;
         try {
             o = clazz.newInstance();
             for (Field f : clazz.getDeclaredFields()) {
                 String name = f.getName();
                 String upperName = name.substring(0, 1).toUpperCase() + name.substring(1);
-                Method m = clazz.getDeclaredMethod("set" + upperName, new Class[] { f.getType() });
-                Object value = ob.get(name);
-                if (f.getType().isAssignableFrom(String.class) && JSONObject.NULL == value)
-                    value = "";
-                m.invoke(o, value);
+                // so just ignore the method that are not found in the object
+                try {
+                    Method m = clazz.getDeclaredMethod("set" + upperName, new Class[] { f.getType() });
+                    Object value = ob.get(name);
+                    if (f.getType().isAssignableFrom(String.class) && JSONObject.NULL == value)
+                        value = "";
+                    m.invoke(o, value);
+                } catch (NoSuchMethodException nsme) {// log it but ignors the method not found.
+                    log.equals(nsme);
+                }
             }
         } catch (Exception e) {
             throw new JSONException(e);
