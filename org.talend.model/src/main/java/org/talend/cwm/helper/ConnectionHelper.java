@@ -1266,4 +1266,28 @@ public class ConnectionHelper {
         }
         return false;
     }
+
+    /**
+     * 
+     * Get "filter" attribute in data base connection file.
+     * 
+     * @return
+     */
+    public static String getPackageFilter(ModelElement element) {
+        TaggedValue tv = TaggedValueHelper.getTaggedValue(TaggedValueHelper.PACKAGE_FILTER, element.getTaggedValue());
+        if (tv == null) {
+            return "";//$NON-NLS-1$
+        }
+        return tv.getValue();
+    }
+
+    /**
+     * 
+     * Add "filter" attribute to data base connection file.
+     * 
+     * @param otherParameter
+     */
+    public static void setPackageFilter(ModelElement element, String packageFilter) {
+        TaggedValueHelper.setTaggedValue(element, TaggedValueHelper.PACKAGE_FILTER, packageFilter);
+    }
 }

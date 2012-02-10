@@ -91,7 +91,10 @@ public final class TaggedValueHelper {
 
     public static final String RETRIEVE_ALL = "RETRIEVE_ALL"; //$NON-NLS-1$
 
-    public static final String DATA_FILTER = "data filter";
+    public static final String DATA_FILTER = "data filter";//$NON-NLS-1$
+
+    // MOD klliu 2012-02-08 TDQ-4645
+    public static final String PACKAGE_FILTER = "package filter";//$NON-NLS-1$
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~
 

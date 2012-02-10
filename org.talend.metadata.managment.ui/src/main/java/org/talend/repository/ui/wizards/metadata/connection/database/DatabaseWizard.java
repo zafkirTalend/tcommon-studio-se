@@ -349,6 +349,8 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
                     // MOD yyi 2011-04-14:20362 reload connection
                     ConnectionHelper.setUsingURL(connection, connection.getURL());
+                    // MOD klliu 2012-02-08 TDQ-4645 add package filter for connection
+                    ConnectionHelper.setPackageFilter(connection, "");//$NON-NLS-1$
 
                     MetadataConnectionUtils.fillConnectionInformation(connectionItem);
 
