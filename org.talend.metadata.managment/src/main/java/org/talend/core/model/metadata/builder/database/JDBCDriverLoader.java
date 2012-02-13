@@ -21,6 +21,7 @@ import java.util.Properties;
 import org.apache.commons.collections.map.MultiKeyMap;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
+import org.talend.utils.sql.ConnectionUtils;
 
 /**
  * DOC YeXiaowei class global comment. Detailled comment <br/>
@@ -97,7 +98,12 @@ public class JDBCDriverLoader {
                         && additionalParams.indexOf(SHUTDOWN_PARAM) == -1) {
                     url = url + SHUTDOWN_PARAM;
                 }
-                connection = wapperDriver.connect(url, info);
+                // MOD klliu TDQ-4659 sso could not check passed.2012-02-10           
+                if (dbType.equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
+                    connection = ConnectionUtils.createConnection(url, (Driver) (driver.newInstance()), info);
+                } else {
+                    connection = wapperDriver.connect(url, info);
+                }
             }
             // DriverManager.deregisterDriver(wapperDriver);
             // bug 9162
