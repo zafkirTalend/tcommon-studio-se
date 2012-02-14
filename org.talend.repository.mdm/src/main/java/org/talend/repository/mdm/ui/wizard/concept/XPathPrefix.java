@@ -17,9 +17,10 @@ package org.talend.repository.mdm.ui.wizard.concept;
  */
 public enum XPathPrefix {
 
-    NONE_ITEM("NONE_ITEM", ""), //$NON-NLS-1$ //$NON-NLS-2$
-    TRIGGER_ITEM("TRIGGER_ITEM", "/exchange/item"), //$NON-NLS-1$ //$NON-NLS-2$
-    PROCESS_ITEM("PROCESS_ITEM", "/item"); //$NON-NLS-1$ //$NON-NLS-2$
+    USER_DEFINED_ITEM("USER_DEFINED_ITEM", ""), //$NON-NLS-1$ //$NON-NLS-2$
+    NONE_ITEM("NONE_ITEM", "\"\""), //$NON-NLS-1$ //$NON-NLS-2$
+    TRIGGER_ITEM("TRIGGER_ITEM", "\"/exchange/item\""), //$NON-NLS-1$ //$NON-NLS-2$
+    PROCESS_ITEM("PROCESS_ITEM", "\"/item\""); //$NON-NLS-1$ //$NON-NLS-2$
 
     private String prefix;
 
