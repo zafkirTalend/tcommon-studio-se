@@ -616,39 +616,16 @@ public class ExtractMetaDataFromDataBase {
             dbType = iMetadataConnection.getDbType();
             DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
 
-            // List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase
-            // .extractTablesFromDB(dbMetaData, iMetadataConnection);
-            // Iterator iterate = metadataTables.iterator();
-            // IMetadataTable metaTable1 = new MetadataTable();
-            // while (iterate.hasNext()) {
-            // IMetadataTable metaTable = (IMetadataTable) iterate.next();
-            // if (metaTable.getLabel().equals(tableLabel)) {
-            // metaTable1 = metaTable;
-            // break;
-            // }
-            // }
-            //
-            // String name = getTableTypeByTableName(metaTable1.getLabel());
-            // boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType());
-            // // StringUtils.trimToEmpty(name) is because bug 4547
-            // if (name != null && StringUtils.trimToEmpty(name).equals(ETableTypes.TABLETYPE_SYNONYM.getName()) &&
-            // !isAccess) {
-            // String tableName = getTableNameBySynonym(ExtractMetaDataUtils.conn, metaTable1.getTableName());
-            // if (tableName.contains("/")) {
-            // tableName = tableName.replace("/", "");
-            // }
-            // metaTable1.setLabel(tableName);
-            // metaTable1.setTableName(tableName);
-            // } else {
-            // if (tableLabel.contains("/")) {
-            // tableLabel = tableLabel.replace("/", "");
-            // }
-            // metaTable1.setLabel(tableLabel);
-            // metaTable1.setTableName(tableLabel);
-            // }
+            String name = getTableTypeByTableName(tableLabel);
+            boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType());
+            if (name != null && StringUtils.trimToEmpty(name).equals(ETableTypes.TABLETYPE_SYNONYM.getName()) && !isAccess) {
+                String tableName = getTableNameBySynonym(ExtractMetaDataUtils.conn, tableLabel);
+                if (tableName.contains("/")) {
+                    tableName = tableName.replace("/", "");
+                }
+                tableLabel = tableName;
+            }
 
-            // metadataColumns = ExtractMetaDataFromDataBase.extractMetadataColumnsFormTable(dbMetaData, tableLabel,
-            // iMetadataConnection, dbType);
             List<String> cataAndShema = getTableCatalogAndSchema((DatabaseConnection) iMetadataConnection.getCurrentConnection(),
                     tableLabel);
             metadataColumns = extractColumns(dbMetaData, iMetadataConnection, dbType, cataAndShema.get(0), cataAndShema.get(1),
