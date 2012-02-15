@@ -1272,7 +1272,9 @@ public class SelectorTableForm extends AbstractForm {
         Iterator<MetadataTable> iterate = ConnectionHelper.getTables(getConnection()).iterator();
         while (iterate.hasNext()) {
             MetadataTable metadata = iterate.next();
-            if (metadata != null && metadata.getLabel().equals(tableItem.getText(0))) {
+            if (metadata != null
+                    && (metadata.getLabel().equals(tableItem.getText(0)) || (metadata.getName() != null && metadata.getName()
+                            .equals(tableItem.getText(0))))) {
                 tables.add(metadata);
             }
         }

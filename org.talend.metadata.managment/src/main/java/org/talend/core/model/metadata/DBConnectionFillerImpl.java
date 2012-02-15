@@ -30,6 +30,7 @@ import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.data.list.ListUtils;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.core.ICoreService;
@@ -41,8 +42,10 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase.ETableTypes;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
+import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.metadata.builder.util.DatabaseConstant;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
@@ -675,6 +678,30 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             }
         }
         try {
+            // common
+            boolean flag = true;
+            String tableComment = null;
+            List<String> tablesToFilter = new ArrayList<String>();
+            if (pack != null) {
+                Connection c = ConnectionHelper.getConnection(pack);
+                flag = MetadataConnectionUtils.isOracle8i(c);
+                boolean isOracle = MetadataConnectionUtils.isOracle(c);
+                // MetadataConnectionUtils.isOracle8i(connection)
+                if (isOracle && !flag) {// oracle and not oracle8
+                    Statement stmt;
+                    try {
+                        stmt = ExtractMetaDataUtils.conn.createStatement();
+                        ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
+                        ResultSet rsTables = stmt.executeQuery(TableInfoParameters.ORACLE_10G_RECBIN_SQL);
+                        tablesToFilter = ExtractMetaDataFromDataBase.getTableNamesFromQuery(rsTables);
+                        rsTables.close();
+                        stmt.close();
+                    } catch (SQLException e) {
+                        ExceptionHandler.process(e);
+                    }
+                }
+            }
+
             ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, tablePattern, tableType);
             String productName = dbJDBCMetadata.getDatabaseProductName();
 
@@ -707,16 +734,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 if (!filterMetadaElement(tableFilter, tableName)) {
                     continue;
                 }
+                if (tableName == null || tablesToFilter.contains(tableName) || tableName.startsWith("/")) {
+                    continue;
+                }
                 String tableOwner = null;
                 if (!isHive && MetadataConnectionUtils.isSybase(dbJDBCMetadata)) {
                     tableOwner = tableSchema;
-                }
-                // common
-                boolean flag = true;
-                String tableComment = null;
-                if (pack != null) {
-                    Connection c = ConnectionHelper.getConnection(pack);
-                    flag = MetadataConnectionUtils.isOracle8i(c);
                 }
                 if (!flag) {
                     tableComment = tables.getString(GetTable.REMARKS.name());
@@ -833,6 +856,29 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             }
         }
         try {
+            // common
+            boolean flag = true;
+            String tableComment = null;
+            List<String> tablesToFilter = new ArrayList<String>();
+            if (pack != null) {
+                Connection c = ConnectionHelper.getConnection(pack);
+                flag = MetadataConnectionUtils.isOracle8i(c);
+                boolean isOracle = MetadataConnectionUtils.isOracle(c);
+                // MetadataConnectionUtils.isOracle8i(connection)
+                if (isOracle && !flag) {// oracle and not oracle8
+                    Statement stmt;
+                    try {
+                        stmt = ExtractMetaDataUtils.conn.createStatement();
+                        ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
+                        ResultSet rsTables = stmt.executeQuery(TableInfoParameters.ORACLE_10G_RECBIN_SQL);
+                        tablesToFilter = ExtractMetaDataFromDataBase.getTableNamesFromQuery(rsTables);
+                        rsTables.close();
+                        stmt.close();
+                    } catch (SQLException e) {
+                        ExceptionHandler.process(e);
+                    }
+                }
+            }
 
             ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, tablePattern, tableType);
             String productName = dbJDBCMetadata.getDatabaseProductName();
@@ -851,16 +897,13 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 if (!filterMetadaElement(tableFilter, tableName)) {
                     continue;
                 }
+
+                if (tableName == null || tablesToFilter.contains(tableName) || tableName.startsWith("/")) {
+                    continue;
+                }
                 String tableOwner = null;
                 if (MetadataConnectionUtils.isSybase(dbJDBCMetadata)) {
                     tableOwner = tables.getString(GetTable.TABLE_SCHEM.name());
-                }
-                // common
-                boolean flag = true;
-                String tableComment = null;
-                if (pack != null) {
-                    Connection c = ConnectionHelper.getConnection(pack);
-                    flag = MetadataConnectionUtils.isOracle8i(c);
                 }
                 if (!flag) {
                     tableComment = tables.getString(GetTable.REMARKS.name());

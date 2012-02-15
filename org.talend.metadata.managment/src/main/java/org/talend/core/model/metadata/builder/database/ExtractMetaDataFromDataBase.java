@@ -2193,7 +2193,7 @@ public class ExtractMetaDataFromDataBase {
      * @return
      * @throws SQLException
      */
-    private static List<String> getTableNamesFromQuery(ResultSet resultSet) throws SQLException {
+    public static List<String> getTableNamesFromQuery(ResultSet resultSet) throws SQLException {
         List<String> itemTablesName = new ArrayList<String>();
         ExtractMetaDataFromDataBase.tableCommentsMap.clear();
         while (resultSet.next()) {
