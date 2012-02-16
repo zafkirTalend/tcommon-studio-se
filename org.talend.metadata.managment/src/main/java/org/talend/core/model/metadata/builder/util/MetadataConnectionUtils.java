@@ -501,6 +501,19 @@ public class MetadataConnectionUtils {
         return false;
     }
 
+    public static boolean isOracleJDBC(Connection connection) {
+        if (connection != null && connection instanceof DatabaseConnection) {
+            DatabaseConnection dbConn = (DatabaseConnection) connection;
+            if (EDatabaseTypeName.GENERAL_JDBC.getDisplayName().equals(dbConn.getDatabaseType())) {
+                if (dbConn.getDriverClass() != null
+                        && dbConn.getDriverClass().startsWith(DatabaseConstant.ODBC_ORACLE_PRODUCT_NAME)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public static boolean isMssql(DatabaseMetaData connectionMetadata) throws SQLException {
         if (connectionMetadata.getDriverName() != null && connectionMetadata.getDatabaseProductName() != null) {
             if (EDataBaseType.Microsoft_SQL_Server.getProductName().equals(connectionMetadata.getDatabaseProductName().trim())) {

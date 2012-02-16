@@ -686,8 +686,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 Connection c = ConnectionHelper.getConnection(pack);
                 flag = MetadataConnectionUtils.isOracle8i(c);
                 boolean isOracle = MetadataConnectionUtils.isOracle(c);
+                boolean isOracleJdbc = MetadataConnectionUtils.isOracleJDBC(c);
                 // MetadataConnectionUtils.isOracle8i(connection)
-                if (isOracle && !flag) {// oracle and not oracle8
+                if ((isOracleJdbc || isOracle) && !flag) {// oracle and not oracle8
                     Statement stmt;
                     try {
                         stmt = ExtractMetaDataUtils.conn.createStatement();
@@ -864,8 +865,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 Connection c = ConnectionHelper.getConnection(pack);
                 flag = MetadataConnectionUtils.isOracle8i(c);
                 boolean isOracle = MetadataConnectionUtils.isOracle(c);
+                boolean isOracleJdbc = MetadataConnectionUtils.isOracleJDBC(c);
                 // MetadataConnectionUtils.isOracle8i(connection)
-                if (isOracle && !flag) {// oracle and not oracle8
+                if ((isOracle || isOracleJdbc) && !flag) {// oracle and not oracle8
                     Statement stmt;
                     try {
                         stmt = ExtractMetaDataUtils.conn.createStatement();
