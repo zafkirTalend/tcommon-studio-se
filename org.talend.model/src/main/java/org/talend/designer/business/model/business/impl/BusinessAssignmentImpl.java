@@ -90,7 +90,7 @@ public class BusinessAssignmentImpl extends EObjectImpl implements BusinessAssig
      * @generated
      */
     public BusinessItem getBusinessItem() {
-        if (eContainerFeatureID != BusinessPackage.BUSINESS_ASSIGNMENT__BUSINESS_ITEM) return null;
+        if (eContainerFeatureID() != BusinessPackage.BUSINESS_ASSIGNMENT__BUSINESS_ITEM) return null;
         return (BusinessItem)eContainer();
     }
 
@@ -235,7 +235,7 @@ public class BusinessAssignmentImpl extends EObjectImpl implements BusinessAssig
      * @generated
      */
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-        switch (eContainerFeatureID) {
+        switch (eContainerFeatureID()) {
             case BusinessPackage.BUSINESS_ASSIGNMENT__BUSINESS_ITEM:
                 return eInternalContainer().eInverseRemove(this, BusinessPackage.BUSINESS_ITEM__ASSIGNMENTS, BusinessItem.class, msgs);
         }

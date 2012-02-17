@@ -49,6 +49,7 @@ import org.talend.designer.business.model.business.SAPFunction;
 import org.talend.designer.business.model.business.SQLPattern;
 import org.talend.designer.business.model.business.Salesforce;
 import org.talend.designer.business.model.business.SapFunctionMetadata;
+import org.talend.designer.business.model.business.Service;
 import org.talend.designer.business.model.business.TableMetadata;
 import org.talend.designer.business.model.business.TalendItem;
 import org.talend.designer.business.model.business.TerminalBusinessItem;
@@ -440,6 +441,13 @@ public class BusinessSwitch {
                 SAPFunction sapFunction = (SAPFunction)theEObject;
                 Object result = caseSAPFunction(sapFunction);
                 if (result == null) result = caseTalendItem(sapFunction);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case BusinessPackage.SERVICE: {
+                Service service = (Service)theEObject;
+                Object result = caseService(service);
+                if (result == null) result = caseTalendItem(service);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -1005,6 +1013,21 @@ public class BusinessSwitch {
      * @generated
      */
     public Object caseSAPFunction(SAPFunction object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Service</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Service</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseService(Service object) {
         return null;
     }
 

@@ -230,6 +230,11 @@ public class RepositoryItemProvider extends ItemProviderAdapter implements IEdit
         newChildDescriptors.add
             (createChildParameter
                 (BusinessPackage.Literals.REPOSITORY__TALENDITEMS,
+                 BusinessFactory.eINSTANCE.createMDM()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (BusinessPackage.Literals.REPOSITORY__TALENDITEMS,
                  BusinessFactory.eINSTANCE.createWsdl()));
 
         newChildDescriptors.add
@@ -241,6 +246,11 @@ public class RepositoryItemProvider extends ItemProviderAdapter implements IEdit
             (createChildParameter
                 (BusinessPackage.Literals.REPOSITORY__TALENDITEMS,
                  BusinessFactory.eINSTANCE.createSAPFunction()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (BusinessPackage.Literals.REPOSITORY__TALENDITEMS,
+                 BusinessFactory.eINSTANCE.createService()));
     }
 
     /**

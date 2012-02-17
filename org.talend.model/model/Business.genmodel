@@ -81,5 +81,6 @@
     <genClasses ecoreClass="Business.ecore#//Wsdl"/>
     <genClasses ecoreClass="Business.ecore#//Ldap"/>
     <genClasses ecoreClass="Business.ecore#//SAPFunction"/>
+    <genClasses ecoreClass="Business.ecore#//Service"/>
   </genPackages>
 </genmodel:GenModel>

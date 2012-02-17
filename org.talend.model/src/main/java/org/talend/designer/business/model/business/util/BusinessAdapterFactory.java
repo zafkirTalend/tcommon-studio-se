@@ -49,6 +49,7 @@ import org.talend.designer.business.model.business.SAPFunction;
 import org.talend.designer.business.model.business.SQLPattern;
 import org.talend.designer.business.model.business.Salesforce;
 import org.talend.designer.business.model.business.SapFunctionMetadata;
+import org.talend.designer.business.model.business.Service;
 import org.talend.designer.business.model.business.TableMetadata;
 import org.talend.designer.business.model.business.TalendItem;
 import org.talend.designer.business.model.business.TerminalBusinessItem;
@@ -242,6 +243,9 @@ public class BusinessAdapterFactory extends AdapterFactoryImpl {
             }
             public Object caseSAPFunction(SAPFunction object) {
                 return createSAPFunctionAdapter();
+            }
+            public Object caseService(Service object) {
+                return createServiceAdapter();
             }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
@@ -763,6 +767,20 @@ public class BusinessAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createSAPFunctionAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.business.model.business.Service <em>Service</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.business.model.business.Service
+     * @generated
+     */
+    public Adapter createServiceAdapter() {
         return null;
     }
 
