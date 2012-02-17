@@ -391,7 +391,7 @@ public class MetadataConnectionUtils {
         }
         return false;
     }
- 
+
     /**
      * 
      * DOC qiongli Comment method "isAccess".
@@ -483,6 +483,32 @@ public class MetadataConnectionUtils {
             String version = dbConn.getDbVersionString();
             if (version != null && version.equals("ORACLE_8")) { //$NON-NLS-1$
                 return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isOracle(Connection connection) {
+        if (connection != null && connection instanceof DatabaseConnection) {
+            DatabaseConnection dbConn = (DatabaseConnection) connection;
+            if (EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(dbConn.getDatabaseType())
+                    || EDatabaseTypeName.ORACLESN.getDisplayName().equals(dbConn.getDatabaseType())
+                    || EDatabaseTypeName.ORACLE_RAC.getDisplayName().equals(dbConn.getDatabaseType())
+                    || EDatabaseTypeName.ORACLE_OCI.getDisplayName().equals(dbConn.getDatabaseType())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isOracleJDBC(Connection connection) {
+        if (connection != null && connection instanceof DatabaseConnection) {
+            DatabaseConnection dbConn = (DatabaseConnection) connection;
+            if (EDatabaseTypeName.GENERAL_JDBC.getDisplayName().equals(dbConn.getDatabaseType())) {
+                if (dbConn.getDriverClass() != null
+                        && dbConn.getDriverClass().startsWith(DatabaseConstant.ODBC_ORACLE_PRODUCT_NAME)) {
+                    return true;
+                }
             }
         }
         return false;
@@ -894,7 +920,7 @@ public class MetadataConnectionUtils {
         // updateRetrieveAllFlag(conn);
         return conn;
     }
-    
+
     /**
      * 
      * DOC zshen Comment method "setMDMConnectionParameter".
