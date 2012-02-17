@@ -736,6 +736,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 if (!filterMetadaElement(tableFilter, tableName)) {
                     continue;
                 }
+
+                if (tableName == null || tablesToFilter.contains(tableName) || tableName.startsWith("/")) {
+                    continue;
+                }
                 String tableOwner = null;
                 if (!isHive && MetadataConnectionUtils.isSybase(dbJDBCMetadata)) {
                     tableOwner = tableSchema;
@@ -896,6 +900,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 if (!filterMetadaElement(tableFilter, tableName)) {
                     continue;
                 }
+
+                if (tableName == null || tablesToFilter.contains(tableName) || tableName.startsWith("/")) {
+                    continue;
+                }
+
                 String tableOwner = null;
                 if (MetadataConnectionUtils.isSybase(dbJDBCMetadata)) {
                     tableOwner = tables.getString(GetTable.TABLE_SCHEM.name());
