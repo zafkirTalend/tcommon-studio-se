@@ -1141,9 +1141,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                             .getIntMetaDataInfo(columns, "COLUMN_SIZE"), ExtractMetaDataUtils.getIntMetaDataInfo(columns, //$NON-NLS-1$
                             "DECIMAL_DIGITS")); //$NON-NLS-1$
                     column.setTalendType(talendType);
-                    String defaultSelectedDbType = MetadataTalendType.getMappingTypeRetriever(dbConnection.getDbmsId())
-                            .getDefaultSelectedDbType(talendType);
-                    column.setSourceType(defaultSelectedDbType);
+
+                    // del for bug TDI-19653
+                    // String defaultSelectedDbType =
+                    // MetadataTalendType.getMappingTypeRetriever(dbConnection.getDbmsId())
+                    // .getDefaultSelectedDbType(talendType);
+                    column.setSourceType(typeName);
                 }
                 try {
                     column.setNullable("YES".equals(columns.getString(GetColumn.IS_NULLABLE.name()))); //$NON-NLS-1$
