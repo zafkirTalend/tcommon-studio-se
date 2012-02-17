@@ -503,8 +503,8 @@ public class ConnectionParameters {
      */
     public String getCombineURL() {
 
-        if (getUrl() != null) {
-            return getUrl();
+        if (url != null) {
+            return url;
         }
 
         if (isRepository()) {
