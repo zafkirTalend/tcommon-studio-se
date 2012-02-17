@@ -508,7 +508,7 @@ public final class MetadataTalendType {
      * 
      * @return the dbmsSet
      */
-    static Set<Dbms> getDbmsSet() {
+    public static Set<Dbms> getDbmsSet() {
         return dbmsSet;
     }
 
