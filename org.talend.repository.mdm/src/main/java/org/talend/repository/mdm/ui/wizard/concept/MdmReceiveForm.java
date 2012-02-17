@@ -32,10 +32,13 @@ import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.XPathPopulationUtil;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Font;
@@ -58,7 +61,6 @@ import org.talend.commons.ui.runtime.ws.WindowSystem;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.ui.swt.formtools.Form;
 import org.talend.commons.ui.swt.formtools.LabelledCheckboxCombo;
-import org.talend.commons.ui.swt.formtools.LabelledCombo;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListener;
 import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
@@ -170,7 +172,7 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
 
     private MetadataTable metadataTable;
 
-    private LabelledCombo xPathPrefixCombo;
+    private CCombo prefixCombo;
 
     private boolean creation;
 
@@ -231,10 +233,10 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
         fieldsTableEditorView.getTableViewerCreator().layout();
 
         if (concept.getXPathPrefix() == null || "".equals(concept.getXPathPrefix())) { //$NON-NLS-1$
-            xPathPrefixCombo.select(0);
+            prefixCombo.select(1);
+            concept.setXPathPrefix(XPathPrefix.NONE_ITEM.getPrefix());
         } else {
-            final XPathPrefix xPathPrefix = getXPathPrefix(concept.getXPathPrefix());
-            xPathPrefixCombo.setText(xPathPrefix.getDisplayName());
+            prefixCombo.setText(getXPathPrefix(concept.getXPathPrefix()));
         }
 
         if (isContextMode()) {
@@ -254,7 +256,12 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
     @Override
     protected void adaptFormToEditable() {
         super.adaptFormToEditable();
-        xPathPrefixCombo.setReadOnly(isContextMode());
+        if (isContextMode()) {
+            prefixCombo.setBackground(null);
+        } else {
+            prefixCombo.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
+        }
+        prefixCombo.setEditable(isContextMode());
         loopTableEditorView.setReadOnly(isContextMode());
         this.fieldsTableEditorView.setReadOnly(isContextMode());
     }
@@ -352,8 +359,12 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
         composite.setLayout(layout);
         composite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-        xPathPrefixCombo = new LabelledCombo(composite, "XPath Prefix", "", xPathPrefixData, 1, true); //$NON-NLS-1$  //$NON-NLS-1$ //$NON-NLS-2$
-        xPathPrefixCombo.getCombo().setBackground(null);
+        Label label = new Label(composite, SWT.NONE);
+        label.setText("XPath Prefix");
+        prefixCombo = new CCombo(composite, SWT.BORDER);
+        prefixCombo.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
+        prefixCombo.setItems(xPathPrefixData);
+        prefixCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         CommandStackForComposite commandStack = new CommandStackForComposite(schemaTargetGroup);
 
@@ -589,19 +600,14 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
      */
     @Override
     protected void addFieldsListeners() {
+        prefixCombo.addModifyListener(new ModifyListener() {
 
-        xPathPrefixCombo.getCombo().addSelectionListener(new SelectionAdapter() {
-
-            @Override
-            public void widgetSelected(SelectionEvent e) {
+            public void modifyText(ModifyEvent e) {
                 if (concept != null) {
-                    final XPathPrefix xPathPrefixByDisplayName = getXPathPrefixByDisplayName(xPathPrefixCombo.getText());
-                    if (xPathPrefixByDisplayName != null) {
-                        concept.setXPathPrefix(xPathPrefixByDisplayName.getPrefix());
-                    }
+                    concept.setXPathPrefix(getXPathPrefixByDisplayName(prefixCombo.getText()));
+                    checkFieldsValue();
                 }
             }
-
         });
 
         // add listener to tableMetadata (listen the event of the toolbars)
@@ -701,6 +707,11 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
         }
         if (concept == null || concept.getConceptTargets().isEmpty()) {
             updateStatus(IStatus.ERROR, null);
+            return false;
+        }
+
+        if ("".equals(prefixCombo.getText())) {
+            updateStatus(IStatus.ERROR, "Xpath prefix is required");
             return false;
         }
 
@@ -882,10 +893,10 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
             }
 
             if (concept.getXPathPrefix() == null || "".equals(concept.getXPathPrefix())) { //$NON-NLS-1$
-                xPathPrefixCombo.select(0);
+                prefixCombo.select(1);
+                concept.setXPathPrefix(XPathPrefix.NONE_ITEM.getPrefix());
             } else {
-                final XPathPrefix xPathPrefix = getXPathPrefix(concept.getXPathPrefix());
-                xPathPrefixCombo.setText(xPathPrefix.getDisplayName());
+                prefixCombo.setText(getXPathPrefix(concept.getXPathPrefix()));
             }
 
             String selectedEntity = null;
@@ -1051,24 +1062,30 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
         // }
     }
 
-    private XPathPrefix getXPathPrefix(String prefix) {
+    private String getXPathPrefix(String prefix) {
+        if (prefix == null) {
+            return "\"\"";
+        }
         final XPathPrefix[] values = XPathPrefix.values();
         for (int i = 0; i < values.length; i++) {
             if (values[i].getPrefix().equals(prefix)) {
-                return values[i];
+                return values[i].getDisplayName();
             }
         }
-        return null;
+        return prefix;
     }
 
-    private XPathPrefix getXPathPrefixByDisplayName(String dispalyName) {
+    private String getXPathPrefixByDisplayName(String dispalyName) {
         final XPathPrefix[] values = XPathPrefix.values();
         for (int i = 0; i < values.length; i++) {
+            if (values[i] == XPathPrefix.USER_DEFINED_ITEM) {
+                continue;
+            }
             if (values[i].getDisplayName().equals(dispalyName)) {
-                return values[i];
+                return values[i].getPrefix();
             }
         }
-        return null;
+        return dispalyName;
     }
 
 }
