@@ -20,6 +20,7 @@ public enum ERepositoryCategoryType {
     POSITIONAL,
     REGEX,
     XML,
+    XMLOUTPUT,
     LDIF,
     EXCEL,
     GENERIC,
