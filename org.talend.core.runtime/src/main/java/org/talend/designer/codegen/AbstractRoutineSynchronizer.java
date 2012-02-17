@@ -162,7 +162,7 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
                 } catch (PersistenceException e) {
                     throw new SystemException(e);
                 }
-                getReferencedProjectRoutine(beans, project.getEmfProject().getReferencedProjects());
+                getReferencedProjectBean(beans, project.getEmfProject().getReferencedProjects());
             }
         }
 
