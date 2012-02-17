@@ -20,7 +20,6 @@ import org.eclipse.jface.window.Window;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.metadata.builder.connection.Connection;
-import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.Item;
@@ -67,7 +66,9 @@ public class SwitchContextGroupNameImpl implements ISwitchContext {
             return false;
         }
         Connection con = connItem.getConnection();
-        if (con != null && con instanceof DatabaseConnection) {
+        // MOD msjian 2012-2-13 TDQ-4559: make it support file/mdm connection
+        if (con != null) {
+            // TDQ-4559~
             String contextId = con.getContextId();
             ContextItem contextItem = ContextUtils.getContextItemById2(contextId);
             String selectedContext = contextItem.getDefaultContext();
@@ -89,6 +90,12 @@ public class SwitchContextGroupNameImpl implements ISwitchContext {
         return false;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.ui.utils.ISwitchContext#updateContextForConnectionItems(java.util.Map,
+     * org.talend.core.model.properties.ContextItem)
+     */
     public boolean updateContextForConnectionItems(Map<String, String> contextGroupRanamedMap, ContextItem contextItem) {
         if (contextItem == null) {
             return false;
