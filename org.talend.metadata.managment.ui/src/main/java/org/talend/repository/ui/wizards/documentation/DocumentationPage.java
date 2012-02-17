@@ -139,6 +139,7 @@ public class DocumentationPage extends PropertiesWizardPage {
         evaluateFields();
         addListeners();
         updatePageComplete();
+        setPageComplete(false);
     }
 
     private void evaluateCheckLinkDoc() {
@@ -191,7 +192,7 @@ public class DocumentationPage extends PropertiesWizardPage {
 
         // if (nameText == null || nameText.getText().length() == 0) {
         if (!isNameModifiedByUser() && !isUpdate()) {
-            property.setLabel(filenameText.getText());
+            property.setLabel(nameText.getText());
         }
         originalFilenameText.setText(getDocumentation().getDocOriginalName());
         // if (nameText.getText().compareTo("") == 0) {
