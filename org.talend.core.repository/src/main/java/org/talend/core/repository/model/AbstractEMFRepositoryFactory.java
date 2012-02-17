@@ -428,10 +428,10 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         Project project = getRepositoryContext().getProject();
         FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
         // will automatically set the children folders
-        FolderItem folderItem = folderHelper.getFolder("sqlPatterns/system");
-        if (folderItem == null) {
-            folderItem = folderHelper.createFolder("sqlPatterns/system"); //$NON-NLS-1$
-        }
+        // FolderItem folderItem = folderHelper.getFolder("sqlPatterns/system");
+        // if (folderItem == null) {
+        //            folderItem = folderHelper.createFolder("sqlPatterns/system"); //$NON-NLS-1$
+        // }
 
         List<URL> routines = service.getSystemSQLPatterns();
 
@@ -461,11 +461,34 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
                     break;
                 }
             }
+            // check the folder for categoryName,system,UserDefined
+            // set the item's relative path in the repository view
+            IPath categoryPath = new Path(categoryName);
+            IPath systemPath = categoryPath.append(RepositoryConstants.SYSTEM_DIRECTORY);
+            IPath userPath = categoryPath.append(RepositoryConstants.USER_DEFINED);
+
+            IPath parentPath = new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.SQLPATTERNS));
+            if (folderHelper.getFolder(parentPath.append(categoryPath)) == null) {
+                createFolder(getRepositoryContext().getProject(), ERepositoryObjectType.SQLPATTERNS, new Path(""), categoryPath //$NON-NLS-1$
+                        .lastSegment());
+            }
+            FolderItem systemFolder = folderHelper.getFolder(parentPath.append(systemPath));
+            if (systemFolder == null) {
+                Folder folder = createFolder(getRepositoryContext().getProject(), ERepositoryObjectType.SQLPATTERNS,
+                        categoryPath, systemPath.lastSegment());
+                ((FolderItem) folder.getProperty().getItem()).setType(FolderType.SYSTEM_FOLDER_LITERAL);
+            }
+            if (folderHelper.getFolder(parentPath.append(userPath)) == null) {
+                Folder folder = createFolder(getRepositoryContext().getProject(), ERepositoryObjectType.SQLPATTERNS,
+                        categoryPath, userPath.lastSegment());
+                ((FolderItem) folder.getProperty().getItem()).setType(FolderType.SYSTEM_FOLDER_LITERAL);
+            }
+            //
             if (existingItem == null) {
                 createSQLPattern(url, sqlPatternLabel, categoryName);
             } else {
                 updateSQLPattern(url, existingItem);
-                existingItem.setParent(folderItem);
+                existingItem.setParent(systemFolder);
             }
         }
     }
@@ -581,24 +604,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
             // set the item's relative path in the repository view
             IPath categoryPath = new Path(categoryName);
             IPath systemPath = categoryPath.append(RepositoryConstants.SYSTEM_DIRECTORY);
-            IPath userPath = categoryPath.append(RepositoryConstants.USER_DEFINED);
 
-            FolderHelper folderHelper = getFolderHelper(getRepositoryContext().getProject().getEmfProject());
-            IPath parentPath = new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.SQLPATTERNS));
-            if (folderHelper.getFolder(parentPath.append(categoryPath)) == null) {
-                createFolder(getRepositoryContext().getProject(), ERepositoryObjectType.SQLPATTERNS, new Path(""), categoryPath //$NON-NLS-1$
-                        .lastSegment());
-            }
-            if (folderHelper.getFolder(parentPath.append(systemPath)) == null) {
-                Folder folder = createFolder(getRepositoryContext().getProject(), ERepositoryObjectType.SQLPATTERNS,
-                        categoryPath, systemPath.lastSegment());
-                ((FolderItem) folder.getProperty().getItem()).setType(FolderType.SYSTEM_FOLDER_LITERAL);
-            }
-            if (folderHelper.getFolder(parentPath.append(userPath)) == null) {
-                Folder folder = createFolder(getRepositoryContext().getProject(), ERepositoryObjectType.SQLPATTERNS,
-                        categoryPath, userPath.lastSegment());
-                ((FolderItem) folder.getProperty().getItem()).setType(FolderType.SYSTEM_FOLDER_LITERAL);
-            }
             create(getRepositoryContext().getProject(), sqlpatternItem, systemPath, true);
 
         } catch (IOException ioe) {
