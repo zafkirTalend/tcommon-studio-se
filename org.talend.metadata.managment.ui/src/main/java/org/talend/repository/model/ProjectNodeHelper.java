@@ -324,7 +324,9 @@ public class ProjectNodeHelper {
         Collection<orgomg.cwm.objectmodel.core.Package> newDataPackage = EcoreUtil.copyAll(dbconn.getDataPackage());
         ConnectionHelper.addPackages(newDataPackage, conn);
 
-        String catalog = "";
+        // String catalog = "";
+        // fixed bug TDI-19395
+        String catalog = imetadataConnection.getDatabase();
         String schema = "";
         EObject container = dbtable.eContainer();
         if (container != null) {
