@@ -78,6 +78,12 @@ public class DocumentationUpdateWizard extends CheckLastVersionRepositoryWizard 
         addPage(mainPage);
     }
 
+    @Override
+    public boolean performCancel() {
+        docItem.getProperty().setVersion(mainPage.getOrignalVersion());
+        return super.performCancel();
+    }
+
     /*
      * (non-Javadoc)
      * 
