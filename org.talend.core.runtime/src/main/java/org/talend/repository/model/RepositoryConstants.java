@@ -17,8 +17,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 /**
  * Defines some constants relative to repository such as file patterns.<br/>
  * 
- * $Id: RepositoryConstants.java 8 2006-10-02 09:09:23 +0000 (鏄熸湡涓� 02 �?鏈�2006)
- * mhirt $
+ * $Id: RepositoryConstants.java 8 2006-10-02 09:09:23 +0000 (鏄熸湡涓� 02 �?鏈�2006) mhirt $
  * 
  */
 public class RepositoryConstants {
@@ -55,7 +54,7 @@ public class RepositoryConstants {
 
     //    public static final String REPOSITORY_SCHEMA_PATTERN = "^[a-zA-Z0-9\\_]+$"; //$NON-NLS-1$
 
-	public static final String SIMPLE_FOLDER_PATTERN = "[a-zA-Z0-9\\_-]+$"; //$NON-NLS-1$ //this added for xml metadata folder
+    public static final String SIMPLE_FOLDER_PATTERN = "[a-zA-Z0-9\\_-]+$"; //$NON-NLS-1$ //this added for xml metadata folder
 
     public static final String FOLDER_PATTERN = "^[a-zA-Z]+[a-zA-Z0-9\\_]*$"; //$NON-NLS-1$
 
@@ -81,8 +80,8 @@ public class RepositoryConstants {
 
     public static final String TDQ_PAT_ITEM_PATTERN = ".*"; //$NON-NLS-1$
 
-    //GLIU: add for TESB-3837
-	public static final String SERVICES_NAME_PATTERN = "[a-zA-Z_][a-zA-Z0-9\\.\\-_]*";
+    // GLIU: add for TESB-3837
+    public static final String SERVICES_NAME_PATTERN = "[a-zA-Z_][a-zA-Z0-9\\.\\-_]*";
 
     public static String getPattern(ERepositoryObjectType type) {
         if (type == ERepositoryObjectType.FOLDER) {
@@ -99,11 +98,13 @@ public class RepositoryConstants {
                 || type == ERepositoryObjectType.TDQ_SOURCE_FILE_ELEMENT || type == ERepositoryObjectType.TDQ_RULES
                 || type == ERepositoryObjectType.TDQ_RULES_SQL || type == ERepositoryObjectType.TDQ_INDICATOR_ELEMENT) {
             return TDQ_PAT_ITEM_PATTERN;
-		}
-		// GLIU: add for TESB-3837
-		else if (type != null && "SERVICES".equals(type.getType())) {
-			return SERVICES_NAME_PATTERN;
-		} else {
+        }
+        // GLIU: add for TESB-3837
+        else if (type != null && "SERVICES".equals(type.getType())) {
+            return SERVICES_NAME_PATTERN;
+        } else if (type != null && "ROUTES".equals(type.getType())) {
+            return CODE_ITEM_PATTERN;
+        } else {
             return TDQ_PAT_ITEM_PATTERN;
         }
     }
