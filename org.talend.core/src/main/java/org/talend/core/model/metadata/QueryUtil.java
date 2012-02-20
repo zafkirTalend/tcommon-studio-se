@@ -85,6 +85,16 @@ public class QueryUtil {
         return generateNewQueryDelegate(node, repositoryMetadata, dbType, schema, realTableName);
     }
 
+    public static String generateNewQuery(IElement node, IMetadataTable repositoryMetadata, boolean isJdbc, String dbType,
+            String schema, String realTableName) {
+        IQueryGenerator generator = GenerateQueryFactory.getGenerator(dbType);
+        if (generator != null) {
+            generator.setParameters(node, repositoryMetadata, schema, realTableName, isJdbc);
+            return generator.generateQuery();
+        }
+        return generateNewQueryDelegate(node, repositoryMetadata, dbType, schema, realTableName);
+    }
+
     public static String generateNewQuery(IElement node, IMetadataTable repositoryMetadata, String dbType, String schema,
             String realTableName, boolean standardSyntax) {
         IQueryGenerator generator = GenerateQueryFactory.getGenerator(dbType);
