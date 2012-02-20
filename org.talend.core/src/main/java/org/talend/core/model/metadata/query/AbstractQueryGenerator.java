@@ -45,6 +45,8 @@ public abstract class AbstractQueryGenerator implements IQueryGenerator {
 
     protected String realTableName;
 
+    protected boolean isJdbc;
+
     protected final boolean originalSqlQuoteSetting;
 
     public AbstractQueryGenerator(EDatabaseTypeName dbType) {
@@ -58,6 +60,14 @@ public abstract class AbstractQueryGenerator implements IQueryGenerator {
         this.metadataTable = metadataTable;
         this.schema = schema;
         this.realTableName = realTableName;
+    }
+
+    public void setParameters(IElement element, IMetadataTable metadataTable, String schema, String realTableName, boolean isJdbc) {
+        this.element = element;
+        this.metadataTable = metadataTable;
+        this.schema = schema;
+        this.realTableName = realTableName;
+        this.isJdbc = isJdbc;
     }
 
     protected EDatabaseTypeName getDBType() {
@@ -394,11 +404,13 @@ public abstract class AbstractQueryGenerator implements IQueryGenerator {
                 dbName = getDBName(getElement());
                 tableName = getDBTableName(getElement());
                 schemaName = getSchema(getElement());
+                if (isJdbc && (schemaName == null || "".equals(schemaName))) {
+                    schemaName = schema;
+                }
             } else {
                 tableName = realTableName;
                 schemaName = schema;
             }
-
             final String tableNameWithDBAndSchema = getTableNameWithDBAndSchema(dbName, schemaName, tableName);
 
             StringBuffer sql = new StringBuffer(100);

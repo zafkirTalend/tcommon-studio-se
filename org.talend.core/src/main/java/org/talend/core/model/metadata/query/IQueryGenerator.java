@@ -34,5 +34,7 @@ public interface IQueryGenerator {
 
     public void setParameters(IElement element, IMetadataTable metadataTable, String schema, String realTableName);
 
+    public void setParameters(IElement element, IMetadataTable metadataTable, String schema, String realTableName, boolean isJdbc);
+
     public abstract String generateQuery();
 }
