@@ -444,9 +444,15 @@ public class ExtractMetaDataFromDataBase {
             // StringUtils.trimToEmpty(name) is because bug 4547
             if (name != null && StringUtils.trimToEmpty(name).equals(ETableTypes.TABLETYPE_SYNONYM.getName())) {
                 String tableName = getTableNameBySynonym(ExtractMetaDataUtils.conn, newNode.getValue());
+                if (tableName != null && tableName.contains("/")) {
+                    tableName = tableName.replace("/", "");
+                }
                 // bug TDI-19547
                 if (ExtractMetaDataUtils.conn.getMetaData().getDatabaseProductName().equals("DB2/NT")) {
                     fillSynonmsForDB2(iMetadataConnection, metadataColumns, table, tableName);
+                } else if (ExtractMetaDataUtils.conn.getMetaData().getDatabaseProductName().equals("Microsoft SQL Server")) {
+                    // TDI-19758
+                    fillSynonmsForMSSQL(iMetadataConnection, metadataColumns, table, tableName, dbMetaData);
                 } else {
                     // bug TDI-19382
                     if (iMetadataConnection.getDbType().equals(EDatabaseTypeName.ORACLEFORSID.getDisplayName())
@@ -483,7 +489,7 @@ public class ExtractMetaDataFromDataBase {
                     && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
-                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 ExtractMetaDataUtils.closeConnection();
             }
             if (wapperDriver != null
@@ -491,7 +497,7 @@ public class ExtractMetaDataFromDataBase {
                             || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 try {
                     wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                 } catch (SQLException e) {
@@ -660,6 +666,108 @@ public class ExtractMetaDataFromDataBase {
         columns.close();
     }
 
+    /* fill the columns for synonm,can get column name,column data type,length,precision,nullable */
+    private static void fillSynonmsForMSSQL(IMetadataConnection iMetadataConnection, List<TdColumn> metadataColumns,
+            NamedColumnSet table, String tableName, DatabaseMetaData dbMetaData) throws SQLException {
+        // get TABLE_CATALOG ,TABLE_SCHEMA ,TABLE_NAME from base_object_name of sys.synonyms
+        String str = tableName;
+        String TABLE_SCHEMA = null;
+        String TABLE_NAME = null;
+        String strsplit = str;
+        int count = 0;
+        if (tableName != null) {
+            while (strsplit.contains(".")) {
+                count++;
+                strsplit = strsplit.substring(strsplit.indexOf(".") + 1);
+            }
+            if (count > 1) {
+                strsplit = str.substring(str.indexOf("[") + 1);
+                str = strsplit;
+            }
+            TABLE_SCHEMA = str.substring(0, str.indexOf("]"));
+            TABLE_NAME = str.substring(str.indexOf("[") + 1);
+
+        }
+        // need to retrieve columns of synonym by useing sql rather than get them from jdbc metadata
+        String synSQL = "select * from INFORMATION_SCHEMA.COLUMNS where \nTABLE_SCHEMA ='" + TABLE_SCHEMA + "'and TABLE_NAME ='"
+                + TABLE_NAME + "'";
+        if (!("").equals(iMetadataConnection.getDatabase())) {
+            synSQL += "\nand TABLE_CATALOG =\'" + iMetadataConnection.getDatabase() + "\'";
+        }
+        Statement sta = ExtractMetaDataUtils.conn.createStatement();
+        ExtractMetaDataUtils.setQueryStatementTimeout(sta);
+        ResultSet columns = sta.executeQuery(synSQL);
+        String typeName = null;
+        int index = 0;
+        while (columns.next()) {
+            int column_size = 0;
+            String lenString = null;
+            long numPrecRadix = 0;
+            String columnName = columns.getString(GetColumn.COLUMN_NAME.name());
+            TdColumn column = ColumnHelper.createTdColumn(columnName);
+
+            String label = column.getLabel();
+            label = ManagementTextUtils.filterSpecialChar(label);
+            String sub = ""; //$NON-NLS-1$
+            String sub2 = ""; //$NON-NLS-1$
+            String label2 = label;
+            if (label != null && label.length() > 0 && label.startsWith("_")) { //$NON-NLS-1$
+                sub = label.substring(1);
+                if (sub != null && sub.length() > 0) {
+                    sub2 = sub.substring(1);
+                }
+            }
+            ICoreService coreService = CoreRuntimePlugin.getInstance().getCoreService();
+            if (coreService.isKeyword(label) || coreService.isKeyword(sub) || coreService.isKeyword(sub2)) {
+                label = "_" + label; //$NON-NLS-1$
+            }
+
+            label = MetadataToolHelper.validateColumnName(label, index);
+            column.setLabel(label);
+            column.setOriginalField(label2);
+
+            if (!ExtractMetaDataUtils.needFakeDatabaseMetaData(iMetadataConnection.getDbType(), iMetadataConnection.isSqlMode())) {
+                // dataType = columns.getInt(GetColumn.DATA_TYPE.name());
+                typeName = columns.getString(GetColumn.DATA_TYPE.name());
+            }
+            try {
+                lenString = "NUMERIC_PRECISION";
+                column_size = columns.getInt("NUMERIC_PRECISION");
+                if (columns.getString("CHARACTER_MAXIMUM_LENGTH") != null) {
+                    column_size = columns.getInt("CHARACTER_MAXIMUM_LENGTH");
+                    lenString = "CHARACTER_MAXIMUM_LENGTH";
+                }
+                column.setLength(column_size);
+                numPrecRadix = columns.getLong("NUMERIC_SCALE");//$NON-NLS-N$
+                column.setPrecision(numPrecRadix);
+            } catch (Exception e1) {
+                log.warn(e1, e1);
+            }
+
+            DatabaseConnection dbConnection = (DatabaseConnection) ConnectionHelper.getConnection(table);
+            String dbmsId = dbConnection == null ? null : dbConnection.getDbmsId();
+            if (dbmsId != null) {
+                MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(dbmsId);
+                String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName,
+                        ExtractMetaDataUtils.getIntMetaDataInfo(columns, lenString),
+                        ExtractMetaDataUtils.getIntMetaDataInfo(columns, //$NON-NLS-1$
+                                "NUMERIC_SCALE")); //$NON-NLS-1$
+                column.setTalendType(talendType);
+                String defaultSelectedDbType = MetadataTalendType.getMappingTypeRetriever(dbConnection.getDbmsId())
+                        .getDefaultSelectedDbType(talendType);
+                column.setSourceType(defaultSelectedDbType);
+            }
+            try {
+                column.setNullable("YES".equals(columns.getString("IS_NULLABLE"))); //$NON-NLS-1$
+            } catch (Exception e) {
+                log.error(e);
+            }
+            metadataColumns.add(column);
+            index++;
+        }
+        columns.close();
+    }
+
     /**
      * DOC cantoine. Method to return a Collection of Column about a Table for a DB connection.
      * 
@@ -725,7 +833,7 @@ public class ExtractMetaDataFromDataBase {
                             || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 try {
                     wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                 } catch (SQLException e) {
@@ -787,17 +895,20 @@ public class ExtractMetaDataFromDataBase {
         }
 
         try {
-            String sql = "select TABLE_NAME from ALL_SYNONYMS where SYNONYM_NAME = '" + name + "'"; //$NON-NLS-1$ //$NON-NLS-2$ 
-            // String sql = "select * from all_tab_columns where upper(table_name)='" + name + "' order by column_id";
-            Statement sta;
-            sta = conn.createStatement();
-            ExtractMetaDataUtils.setQueryStatementTimeout(sta);
-            ResultSet resultSet = sta.executeQuery(sql);
-            while (resultSet.next()) {
-                return resultSet.getString("TABLE_NAME"); //$NON-NLS-1$
+            if (conn.getMetaData().getDatabaseProductName().equals("Oracle")) {
+                String sql = "select TABLE_NAME from ALL_SYNONYMS where SYNONYM_NAME = '" + name + "'"; //$NON-NLS-1$ //$NON-NLS-2$ 
+                // String sql = "select * from all_tab_columns where upper(table_name)='" + name +
+                // "' order by column_id";
+                Statement sta;
+                sta = conn.createStatement();
+                ExtractMetaDataUtils.setQueryStatementTimeout(sta);
+                ResultSet resultSet = sta.executeQuery(sql);
+                while (resultSet.next()) {
+                    return resultSet.getString("TABLE_NAME"); //$NON-NLS-1$
+                }
+                resultSet.close();
+                sta.close();
             }
-            resultSet.close();
-            sta.close();
         } catch (SQLException e) {
             log.error(e.toString());
             throw new RuntimeException(e);
@@ -1801,7 +1912,7 @@ public class ExtractMetaDataFromDataBase {
                             || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 try {
                     wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                 } catch (SQLException e) {
@@ -1964,7 +2075,7 @@ public class ExtractMetaDataFromDataBase {
                         || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                        .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
             try {
                 wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
             } catch (SQLException e) {
@@ -2126,7 +2237,7 @@ public class ExtractMetaDataFromDataBase {
                         || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                        .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
             try {
                 wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
             } catch (SQLException e) {
