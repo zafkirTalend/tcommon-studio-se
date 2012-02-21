@@ -868,7 +868,7 @@ public class ComponentToRepositoryProperty {
                         SchemaTarget schemaTarget = ConnectionFactory.eINSTANCE.createSchemaTarget();
                         schemaTargets.add(schemaTarget);
                         schemaTarget.setTagName(schema);
-                        schemaTarget.setRelativeXPathQuery(query);
+                        schemaTarget.setRelativeXPathQuery(TalendQuoteUtils.removeQuotes(query));
                     }
                 }
             }
