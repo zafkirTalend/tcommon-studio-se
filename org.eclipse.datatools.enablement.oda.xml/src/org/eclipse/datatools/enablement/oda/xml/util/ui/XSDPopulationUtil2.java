@@ -13,17 +13,22 @@
 package org.eclipse.datatools.enablement.oda.xml.util.ui;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.datatools.connectivity.oda.OdaException;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -32,6 +37,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.xsd.XSDAttributeDeclaration;
 import org.eclipse.xsd.XSDAttributeUse;
 import org.eclipse.xsd.XSDComplexTypeDefinition;
+import org.eclipse.xsd.XSDCompositor;
 import org.eclipse.xsd.XSDElementDeclaration;
 import org.eclipse.xsd.XSDImport;
 import org.eclipse.xsd.XSDModelGroup;
@@ -47,11 +53,21 @@ import org.eclipse.xsd.util.XSDResourceImpl;
  */
 public class XSDPopulationUtil2 {
 
+    private static final String CHOICE = "(choice)"; //$NON-NLS-1$
+
+    private static final String SUBS = "(subs)"; //$NON-NLS-1$
+
     private Map<String, String> namespaceToPrefix = new HashMap<String, String>();
 
     private int prefixNumberGenerated;
 
     private boolean enableGeneratePrefix = false;
+
+    private boolean includeAttribute = true;
+
+    private boolean supportChoice = false;
+
+    private boolean supportSubstitution = false;
 
     ResourceSet resourceSet = new ResourceSetImpl();
 
@@ -170,7 +186,7 @@ public class XSDPopulationUtil2 {
     }
 
     private void addParticleDetail(XSDSchema xsdSchema, XSDParticle xsdParticle, ATreeNode parentNode, String currentPath)
-            throws OdaException {
+            throws OdaException, IllegalAccessException, InvocationTargetException {
         XSDTerm xsdTerm = xsdParticle.getTerm();
         if (xsdTerm instanceof XSDElementDeclaration) {
             XSDElementDeclaration xsdElementDeclarationParticle = (XSDElementDeclaration) xsdTerm;
@@ -258,17 +274,45 @@ public class XSDPopulationUtil2 {
                 }
                 partNode.setDataType(dataType);
             }
+            addSubstitutionDetails(xsdSchema, partNode, xsdElementDeclarationParticle);
         } else if (xsdTerm instanceof XSDModelGroup) {
             XSDModelGroup xsdModelGroup = (XSDModelGroup) xsdTerm;
-
+            ATreeNode node = addChoiceDetails(parentNode, xsdModelGroup);
             for (Iterator j = xsdModelGroup.getParticles().iterator(); j.hasNext();) {
                 XSDParticle childParticle = (XSDParticle) j.next();
-                addParticleDetail(xsdSchema, childParticle, parentNode, currentPath);
+                addParticleDetail(xsdSchema, childParticle, node, currentPath);
             }
         }
     }
 
-    public ATreeNode getSchemaTree(XSDSchema xsdSchema, ATreeNode selectedNode, boolean includeAttribute2) {
+    private ATreeNode addChoiceDetails(ATreeNode parentNode, XSDModelGroup xsdModelGroup) {
+        if (xsdModelGroup.getCompositor() == XSDCompositor.CHOICE_LITERAL) {
+            if (supportChoice) {
+                ATreeNode emptyNode = new ATreeNode();
+                emptyNode.setValue(parentNode.getValue() + CHOICE);
+                emptyNode.setLabel(CHOICE);
+                emptyNode.setChoice(true);
+                parentNode.addChild(emptyNode);
+                return emptyNode;
+            }
+        }
+
+        return parentNode;
+    }
+
+    public ATreeNode getSchemaTree(XSDSchema xsdSchema, ATreeNode selectedNode) {
+        return getSchemaTree(xsdSchema, selectedNode, true, false, false);
+    }
+
+    public ATreeNode getSchemaTree(XSDSchema xsdSchema, ATreeNode selectedNode, boolean supportChoice, boolean supportSubstitution) {
+        return getSchemaTree(xsdSchema, selectedNode, true, supportChoice, supportSubstitution);
+    }
+
+    public ATreeNode getSchemaTree(XSDSchema xsdSchema, ATreeNode selectedNode, boolean includeAttribute, boolean supportChoice,
+            boolean supportSubstitution) {
+        this.includeAttribute = includeAttribute;
+        this.supportChoice = supportChoice;
+        this.supportSubstitution = supportSubstitution;
         List<ATreeNode> rootNodes = new ArrayList<ATreeNode>();
 
         prefixNumberGenerated = 1;
@@ -351,6 +395,8 @@ public class XSDPopulationUtil2 {
                     }
                 }
 
+                addSubstitutionDetails(xsdSchema, node, xsdElementDeclaration);
+
                 rootNodes.add(node);
                 break;
             }
@@ -407,16 +453,120 @@ public class XSDPopulationUtil2 {
                 }
             }
 
-        } catch (OdaException e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return rootNodes.get(0);
     }
 
+    private void addSubstitutionDetails(XSDSchema xsdSchema, ATreeNode parentNode, XSDElementDeclaration elementDeclaration)
+            throws OdaException, IllegalAccessException, InvocationTargetException {
+        boolean hasSubstitution = false;
+        Set<ATreeNode> subsChildren = new HashSet<ATreeNode>();
+        EList<XSDElementDeclaration> substitutionGroup = elementDeclaration.getSubstitutionGroup();
+        if (substitutionGroup.size() > 0) {
+            for (XSDElementDeclaration xsdElementDeclaration : substitutionGroup) {
+                String elementName = xsdElementDeclaration.getName();
+                if (elementName != null && elementName.equals(elementDeclaration.getName())) {
+                    continue;
+                }
+                hasSubstitution = true;
+                ATreeNode node = new ATreeNode();
+                String prefix = null;
+                String namespace = xsdElementDeclaration.getTargetNamespace();
+                node.setCurrentNamespace(namespace);
+
+                XSDTypeDefinition typeDef = xsdElementDeclaration.getTypeDefinition();
+
+                if (namespace != null) {
+                    prefix = xsdElementDeclaration.getQName().contains(":") ? xsdElementDeclaration.getQName().split(":")[0] : "";
+                    if (prefix == null || prefix.isEmpty()) {
+                        if (xsdSchema.getQNamePrefixToNamespaceMap().containsValue(typeDef.getTargetNamespace())) {
+                            for (String key : xsdSchema.getQNamePrefixToNamespaceMap().keySet()) {
+                                if (xsdSchema.getQNamePrefixToNamespaceMap().get(key).equals(typeDef.getTargetNamespace())) {
+                                    prefix = key;
+                                }
+                            }
+                        }
+                    }
+
+                    if (isEnableGeneratePrefix() && (prefix == null || prefix.isEmpty())) {
+                        // generate a new prefix
+                        prefix = "p" + prefixNumberGenerated;
+                        prefixNumberGenerated++;
+                    }
+                    if (prefix != null && !prefix.isEmpty()) {
+                        elementName = prefix + ":" + xsdElementDeclaration.getName();
+                        namespaceToPrefix.put(namespace, prefix);
+                    } else {
+                        ATreeNode namespaceNode = new ATreeNode();
+                        namespaceNode.setDataType("");
+                        namespaceNode.setType(ATreeNode.NAMESPACE_TYPE);
+                        namespaceNode.setValue(namespace);
+                        node.addChild(namespaceNode);
+                    }
+                }
+
+                node.setValue(elementName);
+                node.setType(ATreeNode.ELEMENT_TYPE);
+                node.setDataType(xsdElementDeclaration.getName());
+
+                XSDTypeDefinition xsdTypeDefinition = xsdElementDeclaration.getTypeDefinition();
+                XSDComplexTypeDefinition generalType = xsdSchema.resolveComplexTypeDefinitionURI(xsdElementDeclaration.getURI());
+                if (generalType.getContainer() != null) {
+                    xsdTypeDefinition = generalType;
+                }
+                if (xsdTypeDefinition != null && xsdTypeDefinition.getName() != null) {
+                    node.setDataType(xsdTypeDefinition.getName());
+                }
+                if (xsdTypeDefinition instanceof XSDComplexTypeDefinition) {
+                    addComplexTypeDetails(xsdSchema, node, xsdTypeDefinition, prefix, namespace, "/" + elementName + "/");
+                }
+                List<String> namespaceList = new ArrayList(namespaceToPrefix.keySet());
+                Collections.reverse(namespaceList);
+                for (String currentNamespace : namespaceList) {
+                    ATreeNode namespaceNode = null;
+                    if (currentNamespace != null) {
+                        prefix = namespaceToPrefix.get(currentNamespace);
+                        namespaceNode = new ATreeNode();
+                        namespaceNode.setDataType(prefix);
+                        namespaceNode.setType(ATreeNode.NAMESPACE_TYPE);
+                        namespaceNode.setValue(currentNamespace);
+                        node.addAsFirstChild(namespaceNode);
+                    }
+                }
+                addSubstitutionDetails(xsdSchema, node, xsdElementDeclaration);
+
+                subsChildren.add(node);
+            }
+            if (hasSubstitution) {
+                if (supportSubstitution) {
+                    parentNode.setSubstitution(true);
+                    parentNode.setLabel(parentNode.getValue() + SUBS);
+                    Object[] originalChildren = parentNode.getChildren();
+                    parentNode.removeAllChildren();
+                    if (!elementDeclaration.isAbstract()) {
+                        ATreeNode cloneNode = new ATreeNode();
+                        BeanUtils.copyProperties(cloneNode, parentNode);
+                        cloneNode.setSubstitution(false);
+                        cloneNode.setLabel(null);
+                        cloneNode.addChild(originalChildren);
+                        parentNode.addAsFirstChild(cloneNode);
+                    }
+                    parentNode.addChild(subsChildren.toArray());
+                } else {
+                    ATreeNode parent = parentNode.getParent();
+                    if (parent != null) {
+                        parent.addChild(subsChildren.toArray());
+                    }
+                }
+            }
+        }
+    }
+
     private void addComplexTypeDetails(XSDSchema xsdSchema, ATreeNode node, XSDTypeDefinition xsdTypeDefinition, String prefix,
-            String namespace, String currentPath) throws OdaException {
+            String namespace, String currentPath) throws OdaException, IllegalAccessException, InvocationTargetException {
         String prefixToUse = prefix;
         if (namespace != null && !namespaceToPrefix.containsKey(namespace)) {
             if (isEnableGeneratePrefix() && (prefix == null || prefix.isEmpty())) {

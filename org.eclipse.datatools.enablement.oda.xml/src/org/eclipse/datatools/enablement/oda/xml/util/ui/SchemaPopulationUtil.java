@@ -98,9 +98,14 @@ public class SchemaPopulationUtil {
         return XSDFileSchemaTreePopulator.getSchemaTree(xsModel, selectedNode, includeAttribute);
     }
 
-    public static ATreeNode getSchemaTree(XSDSchema schema, ATreeNode selectedNode, boolean includeAttribute)
-            throws OdaException, URISyntaxException, IOException {
-        return new XSDPopulationUtil2().getSchemaTree(schema, selectedNode, includeAttribute);
+    public static ATreeNode getSchemaTree(XSDSchema schema, ATreeNode selectedNode) throws OdaException, URISyntaxException,
+            IOException {
+        return new XSDPopulationUtil2().getSchemaTree(schema, selectedNode);
+    }
+
+    public static ATreeNode getSchemaTree(XSDSchema schema, ATreeNode selectedNode, boolean supportChoice,
+            boolean supportSubstitution) throws OdaException, URISyntaxException, IOException {
+        return new XSDPopulationUtil2().getSchemaTree(schema, selectedNode, supportChoice, supportSubstitution);
     }
 
 }
@@ -282,7 +287,7 @@ final class XMLFileSchemaTreePopulator implements ISaxParserConsumer {
                 }
 
                 matchedNode.setValue(path[i]);
-                matchedNode.setParent(parentNode);
+                parentNode.addChild(matchedNode);
                 if (prefix != null) {
                     if (!prefixToNamespace.containsKey(prefix)) {
                         prefixToNamespace.put(prefix, uri);

@@ -47,6 +47,12 @@ public class ATreeNode {
     // The data type is the complex type that defined in an xsd file.
     private String dataType, originalDataType;
 
+    private String label;
+
+    private boolean isSubstitution = false;
+
+    private boolean isChoice = false;
+
     private static HashMap xmlTypeToDataType = new HashMap();
 
     static {
@@ -156,6 +162,18 @@ public class ATreeNode {
         }
     }
 
+    public void removeChild(Object child) {
+        this.children.remove(child);
+    }
+
+    public void removeChild(Object[] children) {
+        this.children.remove(children);
+    }
+
+    public void removeAllChildren() {
+        this.children.clear();
+    }
+
     public void setNodeParent(ATreeNode parent) {
         this.parent = parent;
     }
@@ -167,7 +185,7 @@ public class ATreeNode {
      */
     public void setParent(ATreeNode parent) {
         this.parent = parent;
-        parent.addChild(this);
+        // parent.addChild(this);
     }
 
     /*
@@ -274,6 +292,33 @@ public class ATreeNode {
 
     public void setCurrentNamespace(String currentNamespace) {
         this.currentNamespace = currentNamespace;
+    }
+
+    public String getLabel() {
+        if (this.label == null) {
+            return this.getValue().toString();
+        }
+        return this.label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public boolean isSubstitution() {
+        return this.isSubstitution;
+    }
+
+    public void setSubstitution(boolean isSubstitution) {
+        this.isSubstitution = isSubstitution;
+    }
+
+    public boolean isChoice() {
+        return this.isChoice;
+    }
+
+    public void setChoice(boolean isChoice) {
+        this.isChoice = isChoice;
     }
 
 }

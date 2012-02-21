@@ -461,7 +461,8 @@ public class TreeUtil {
                     } else {
                         selectedTreeNode = allTreeNodes.get(0);
                     }
-                    nodeList.addAll(getFoxTreeNodesByRootNode(xsdSchema, selectedTreeNode, false));
+                    nodeList.addAll(getFoxTreeNodesByRootNode(xsdSchema, selectedTreeNode));
+                    // nodeList.addAll(getFoxTreeNodesByRootNode(xsdSchema, selectedTreeNode, false, true, true));
                 }
             } else {
                 getFoxTreeNodesForXmlMap(filePath, nodeList);
@@ -518,7 +519,8 @@ public class TreeUtil {
                         selectedTreeNode = allTreeNodes.get(0);
                     }
 
-                    list = getFoxTreeNodesByRootNode(xsModel, selectedTreeNode, false);
+                    list = getFoxTreeNodesByRootNode(xsModel, selectedTreeNode);
+                    // list = getFoxTreeNodesByRootNode(xsModel, selectedTreeNode, false, true, true);
                 }
             } else {
                 getFoxTreeNodesForXmlMap(filePath, list);
@@ -705,10 +707,15 @@ public class TreeUtil {
     }
 
     public static List<FOXTreeNode> getFoxTreeNodesByRootNode(XSDSchema xsdSchema, ATreeNode selectedRootNode) {
-        return getFoxTreeNodesByRootNode(xsdSchema, selectedRootNode, false);
+        return getFoxTreeNodesByRootNode(xsdSchema, selectedRootNode, false, false, false);
     }
 
     public static List<FOXTreeNode> getFoxTreeNodesByRootNode(XSDSchema xsdSchema, ATreeNode selectedRootNode, boolean resolved) {
+        return getFoxTreeNodesByRootNode(xsdSchema, selectedRootNode, resolved, false, false);
+    }
+
+    public static List<FOXTreeNode> getFoxTreeNodesByRootNode(XSDSchema xsdSchema, ATreeNode selectedRootNode, boolean resolved,
+            boolean supportChoice, boolean supportSubstitution) {
         List<FOXTreeNode> list = new ArrayList<FOXTreeNode>();
         if (xsdSchema == null || selectedRootNode == null) {
             return list;
@@ -719,7 +726,7 @@ public class TreeUtil {
             if (resolved) {
                 treeNode = selectedRootNode;
             } else {
-                treeNode = SchemaPopulationUtil.getSchemaTree(xsdSchema, selectedRootNode, true);
+                treeNode = SchemaPopulationUtil.getSchemaTree(xsdSchema, selectedRootNode, supportChoice, supportSubstitution);
             }
 
             if (treeNode == null) {
@@ -786,7 +793,7 @@ public class TreeUtil {
             node.setLabel(treeNode.getDataType());
             node.setDefaultValue((String) treeNode.getValue());
         } else {
-            node.setLabel((String) treeNode.getValue());
+            node.setLabel(treeNode.getLabel());
             // init the unique to guess first loop element when create mdmoutput wizard
             node.getUniqueNames().clear();
             node.getUniqueNames().addAll(treeNode.getUniqueNames());
