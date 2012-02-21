@@ -80,7 +80,11 @@ public class DocumentationUpdateWizard extends CheckLastVersionRepositoryWizard 
 
     @Override
     public boolean performCancel() {
-        docItem.getProperty().setVersion(mainPage.getOrignalVersion());
+        docItem.getProperty().setLabel(mainPage.getOrignalName());
+        docItem.getProperty().setDescription(mainPage.getOrignalDescription());
+        docItem.getProperty().setPurpose(mainPage.getOrignalpurpose());
+        docItem.getProperty().setStatusCode(mainPage.getOrignalStatus());
+        docItem.getProperty().setVersion(mainPage.getOrignalversion());
         return super.performCancel();
     }
 
