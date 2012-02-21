@@ -66,22 +66,21 @@ public class DocumentationPage extends PropertiesWizardPage {
 
     private Item documentationItem;
 
-    private String orignalVersion;
+    private String orignalName;
 
-    public String getOrignalVersion() {
-        return orignalVersion;
-    }
+    private String orignalDescription;
 
-    public void setOrignalVersion(String orignalVersion) {
-        this.orignalVersion = orignalVersion;
-    }
+    private String orignalversion;
+
+    private String orignalStatus;
+
+    private String orignalpurpose;
 
     /**
      * Constructs a new DocumentationCreatePage.
      */
     public DocumentationPage(Property property, IPath destinationPath) {
         super("DocumentationCreatePage", property, destinationPath); //$NON-NLS-1$
-
         setTitle(Messages.getString("DocumentationPage.thisTitle.document")); //$NON-NLS-1$
         this.filenameStatus = createOkStatus();
         documentationItem = property.getItem();
@@ -117,7 +116,11 @@ public class DocumentationPage extends PropertiesWizardPage {
         filenameText.setLayoutData(data);
 
         // add for bug TDQ-1580
-        this.orignalVersion = property.getVersion();
+        setOrignalName(property.getDisplayName());
+        setOrignalDescription(property.getDescription());
+        setOrignalpurpose(property.getPurpose());
+        setOrignalStatus(property.getStatusCode());
+        setOrignalversion(property.getVersion());
 
         super.createControl(container);
 
@@ -379,6 +382,46 @@ public class DocumentationPage extends PropertiesWizardPage {
             }
             switchLinkMode();
         }
+    }
+
+    public String getOrignalName() {
+        return orignalName;
+    }
+
+    public void setOrignalName(String orignalName) {
+        this.orignalName = orignalName;
+    }
+
+    public String getOrignalDescription() {
+        return orignalDescription;
+    }
+
+    public void setOrignalDescription(String orignalDescription) {
+        this.orignalDescription = orignalDescription;
+    }
+
+    public String getOrignalversion() {
+        return orignalversion;
+    }
+
+    public void setOrignalversion(String orignalversion) {
+        this.orignalversion = orignalversion;
+    }
+
+    public String getOrignalStatus() {
+        return orignalStatus;
+    }
+
+    public void setOrignalStatus(String orignalStatus) {
+        this.orignalStatus = orignalStatus;
+    }
+
+    public void setOrignalpurpose(String orignalpurpose) {
+        this.orignalpurpose = orignalpurpose;
+    }
+
+    public String getOrignalpurpose() {
+        return orignalpurpose;
     }
 
 }
