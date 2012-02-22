@@ -12,7 +12,9 @@
 // ============================================================================
 package org.talend.commons.utils.tracer;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.net.URI;
@@ -85,16 +87,21 @@ public class StatisticsTracerTest {
 
         int sleepTime = 100;
         int executionsCount = 10;
-
+        String firstRowStr = "";
         for (int i = 0; i < 10; i++) {
             long id = myTracerTest1.start();
+            firstRowStr = myTracerTest1.toDataRow();
             Thread.sleep(sleepTime);
             myTracerTest1.stop(id);
             myTracerTest1.print();
         }
 
         long averageWorkTime = myTracerTest1.getAverageWorkTime();
-        assertTrue(averageWorkTime >= sleepTime && averageWorkTime < sleepTime + 10);
+        long totalTime = myTracerTest1.getElapsedTime();
+        // Changed by Marvin Wang on Feb.15 for TDI-19166, refer to the method from
+        // StatisticsTracer.getAverageWorkTime() that uses "/"
+        assertTrue(averageWorkTime * executionsCount <= totalTime);
+        // assertTrue(averageWorkTime >= sleepTime && averageWorkTime < sleepTime + 10);
 
         int exepectedElapsedTimeSinceFirstStart = sleepTime * executionsCount;
         long elapsedTimeSinceFirstStart = myTracerTest1.getElapsedTimeSinceFirstStart();
@@ -106,7 +113,10 @@ public class StatisticsTracerTest {
 
         File file = new File(pathFile);
         assertTrue(file.canRead());
-        assertTrue(file.length() > 550);
+        // assertTrue(file.length() > 550); Commentted by Marvin Wang on Feb.15.
+        // Changed by Marvin Wang on Feb. 15 for TDI-19166, the "1" stands for wrap character.
+        int fistRowByteLength = firstRowStr.getBytes().length;
+        assertTrue(file.length() > (fistRowByteLength + 1) * executionsCount);
         file.delete();
 
         StatisticsTracer.removeTracer(MY_TRACER_TEST1);
