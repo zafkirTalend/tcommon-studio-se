@@ -308,4 +308,16 @@ public final class ModelElementHelper {
         return name;
     }
 
+    /**
+     *
+     * @param mElement1
+     * @param mElement2
+     * @return compare the uuid between both ModelElement
+     */
+    public static boolean compareUUID(ModelElement mElement1, ModelElement mElement2) {
+    	if (mElement1 != null && mElement2 != null && !mElement1.eIsProxy() && !mElement2.eIsProxy()) {
+    		return mElement1.eResource().getURIFragment(mElement1).equals(mElement2.eResource().getURIFragment(mElement2));
+    	}
+    	return false;
+    }
 }
