@@ -39,6 +39,7 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.token.DefaultTokenCollector;
 import org.talend.core.ui.branding.IBrandingService;
+import org.talend.rcp.i18n.Messages;
 import org.talend.repository.ProjectManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -56,7 +57,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.eclipse.ui.intro.config.IIntroXHTMLContentProvider#createContent(java.lang.String, org.w3c.dom.Element)
      */
     public void createContent(String id, Element parent) {
@@ -81,8 +82,8 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
                 parent.appendChild(dom.createElement("br"));
             }
         } else if ("ROUTE".equals(id)) {
-            ERepositoryObjectType repositoryRoutesType = (ERepositoryObjectType) ERepositoryObjectType
-                    .valueOf(ERepositoryObjectType.class, "ROUTES");
+            ERepositoryObjectType repositoryRoutesType = (ERepositoryObjectType) ERepositoryObjectType.valueOf(
+                    ERepositoryObjectType.class, "ROUTES");
             latestItems = getLatestModifiedItems(repositoryRoutesType, 8);
             url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.camel.designer&"
                     + "class=org.talend.camel.designer.ui.EditCamelProcess&"
@@ -132,7 +133,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
             }
             input.setAttribute("onclick", url);
 
-            input.appendChild(dom.createTextNode("Do not display again\u00a0"));
+            input.appendChild(dom.createTextNode(Messages.getString("DynamicContentProvider.isDisplayTitle")));
             parent.appendChild(input);
         }
 
@@ -207,7 +208,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
 
         Element spanElem = dom.createElement("span");
         spanElem.setAttribute("class", "style_1 style_2 style_3");
-        spanElem.appendChild(dom.createTextNode("Talend news"));
+        spanElem.appendChild(dom.createTextNode(Messages.getString("DynamicContentProvider.TalendNewsTitle")));
         div.appendChild(spanElem);
         div.appendChild(dom.createElement("br"));
 
@@ -289,7 +290,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.eclipse.ui.intro.config.IIntroContentProvider#createContent(java.lang.String, java.io.PrintWriter)
      */
     public void createContent(String id, PrintWriter out) {
@@ -299,7 +300,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.eclipse.ui.intro.config.IIntroContentProvider#createContent(java.lang.String,
      * org.eclipse.swt.widgets.Composite, org.eclipse.ui.forms.widgets.FormToolkit)
      */
@@ -310,7 +311,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.eclipse.ui.intro.config.IIntroContentProvider#dispose()
      */
     public void dispose() {
@@ -320,7 +321,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see
      * org.eclipse.ui.intro.config.IIntroContentProvider#init(org.eclipse.ui.intro.config.IIntroContentProviderSite)
      */
