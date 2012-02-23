@@ -243,9 +243,17 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         ResultSet schemas = null;
         // teradata use db name to filter schema
         if (dbConn != null && EDatabaseTypeName.TERADATA.getProduct().equals(((DatabaseConnection) dbConn).getProductId())) {
-            String sid = ((DatabaseConnection) dbConn).getSID();
-            if (sid != null && sid.length() > 0) {
-                schemaFilter.add(sid);
+            if (!dbConn.isContextMode()) {
+                String sid = ((DatabaseConnection) dbConn).getSID();
+                if (sid != null && sid.length() > 0) {
+                    schemaFilter.add(sid);
+                }
+            } else {
+                IMetadataConnection iMetadataCon = ConvertionHelper.convert((DatabaseConnection) dbConn);
+                String sid = iMetadataCon.getDatabase();
+                if (sid != null && sid.length() > 0) {
+                    schemaFilter.add(sid);
+                }
             }
         }
         // TDI-17172 : if the schema is not fill, as the db context model, should clear "schemaFilter" .
@@ -1144,7 +1152,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     // String defaultSelectedDbType =
                     // MetadataTalendType.getMappingTypeRetriever(dbConnection.getDbmsId())
                     // .getDefaultSelectedDbType(talendType);
-                    //column.setSourceType(defaultSelectedDbType);
+                    // column.setSourceType(defaultSelectedDbType);
                     column.setSourceType(typeName);
                 }
                 try {
