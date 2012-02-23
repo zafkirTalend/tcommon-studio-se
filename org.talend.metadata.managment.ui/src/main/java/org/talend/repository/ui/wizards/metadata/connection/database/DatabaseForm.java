@@ -2339,6 +2339,8 @@ public class DatabaseForm extends AbstractForm {
             urlConnectionStringText.setText(getStringConnection());
         }
         if (isContextMode()) {
+            EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(getConnection().getDatabaseType());
+            setPropertiesFormEditable(template != null);
             adaptFormToEditable();
         } else {
             EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(getConnection().getDatabaseType());
@@ -2450,6 +2452,7 @@ public class DatabaseForm extends AbstractForm {
         }
         return msg;
     }
+
     /**
      * 
      * DOC zshen Comment method "getMetadataConnection".
