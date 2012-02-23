@@ -195,9 +195,13 @@ public class DatabaseForm extends AbstractForm {
     private Composite compositeGroupDbSettings;
 
     private LabelledText generalMappingFileText;
+    //changed by hqzhang for TDI 19754 
+    private Button generalMappingSelectButton;
+    //added by hqzhang for TDI 19754 start
+    private LabelledText mappingFileText;
 
     private Button mappingSelectButton;
-
+    // 19754 end
     private boolean isCreation;
 
     private boolean first = true;
@@ -265,7 +269,7 @@ public class DatabaseForm extends AbstractForm {
         additionParamText.setText(getConnection().getAdditionalParams());
         sidOrDatabaseText.setText(getConnection().getSID());
         schemaText.setText(getConnection().getUiSchema());
-
+        mappingFileText.setText(getConnection().getDbmsId());
         if (getConnection().getDbVersionString() != null) {
             dbVersionCombo.setText(getConnection().getDbVersionString());
         }
@@ -360,6 +364,8 @@ public class DatabaseForm extends AbstractForm {
         sqlSyntaxCombo.setReadOnly(isReadOnly());
         stringQuoteText.setReadOnly(isReadOnly());
         nullCharText.setReadOnly(isReadOnly());
+        mappingFileText.setReadOnly(isReadOnly());
+        mappingSelectButton.setEnabled(isReadOnly());
 
     }
 
@@ -494,6 +500,13 @@ public class DatabaseForm extends AbstractForm {
         String[] extensions = { "*.*" }; //$NON-NLS-1$
         fileField = new LabelledFileField(typeDbCompositeParent, Messages.getString("DatabaseForm.mdbFile"), extensions); //$NON-NLS-1$
         directoryField = new LabelledDirectoryField(typeDbCompositeParent, "DB Root Path"); //$NON-NLS-1$
+
+        mappingFileText = new LabelledText(typeDbCompositeParent, Messages.getString("DatabaseForm.general.mapping"), 1); //$NON-NLS-1$
+
+        mappingSelectButton = new Button(typeDbCompositeParent, SWT.NONE);
+        mappingSelectButton.setText("..."); //$NON-NLS-1$
+        mappingSelectButton.setToolTipText(Messages.getString("DatabaseForm.selectRule")); //$NON-NLS-1$
+
     }
 
     /**
@@ -551,9 +564,9 @@ public class DatabaseForm extends AbstractForm {
         jDBCschemaText = new LabelledText(generalDbCompositeParent, Messages.getString("DatabaseForm.schema"), 2); //$NON-NLS-1$
         generalMappingFileText = new LabelledText(generalDbCompositeParent, Messages.getString("DatabaseForm.general.mapping"), 1); //$NON-NLS-1$
 
-        mappingSelectButton = new Button(generalDbCompositeParent, SWT.NONE);
-        mappingSelectButton.setText("..."); //$NON-NLS-1$
-        mappingSelectButton.setToolTipText(Messages.getString("DatabaseForm.selectRule")); //$NON-NLS-1$
+        generalMappingSelectButton = new Button(generalDbCompositeParent, SWT.NONE);
+        generalMappingSelectButton.setText("..."); //$NON-NLS-1$
+        generalMappingSelectButton.setToolTipText(Messages.getString("DatabaseForm.selectRule")); //$NON-NLS-1$
 
     }
 
@@ -1045,6 +1058,7 @@ public class DatabaseForm extends AbstractForm {
         schemaText.addListener(SWT.FocusIn, listener);
         additionParamText.addListener(SWT.FocusIn, listener);
         urlConnectionStringText.addListener(SWT.FocusIn, listener);
+        mappingFileText.addListener(SWT.FocusIn, listener);
 
         // serverText : Event modifyText
         serverText.addModifyListener(new ModifyListener() {
@@ -1298,6 +1312,9 @@ public class DatabaseForm extends AbstractForm {
                 if (additionParamText != null) {
                     additionParamText.setText("");
                 }
+                if (mappingFileText != null) {
+                    mappingFileText.setText("");
+                }
 
                 boolean hiddenGeneral = !isGeneralJDBC();
                 // change controls
@@ -1485,6 +1502,9 @@ public class DatabaseForm extends AbstractForm {
             i = i + 1;
         }
         if (schemaText.isVisiable()) {
+            i = i + 1;
+        }
+        if (mappingFileText.isVisiable()) {
             i = i + 1;
         }
         if (datasourceText.isVisiable()) {
@@ -1676,6 +1696,18 @@ public class DatabaseForm extends AbstractForm {
             }
         });
 
+        mappingFileText.addModifyListener(new ModifyListener() {
+
+            public void modifyText(final ModifyEvent e) {
+                if (!isContextMode()) {
+                    if (validText(mappingFileText.getText())) {
+                        getConnection().setDbmsId(mappingFileText.getText());
+                        checkFieldsValue();
+                    }
+                }
+            }
+        });
+
         browseJarFilesButton.addSelectionListener(new SelectionAdapter() {
 
             @Override
@@ -1715,13 +1747,22 @@ public class DatabaseForm extends AbstractForm {
             }
         });
 
-        mappingSelectButton.addSelectionListener(new SelectionAdapter() {
+        generalMappingSelectButton.addSelectionListener(new SelectionAdapter() {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
                 MappingFileSelectDialog dialog = new MappingFileSelectDialog(getShell());
                 dialog.open();
                 generalMappingFileText.setText(dialog.getSelectId());
+            }
+        });
+        mappingSelectButton.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                MappingFileSelectDialog dialog = new MappingFileSelectDialog(getShell());
+                dialog.open();
+                mappingFileText.setText(dialog.getSelectId());
             }
         });
     }
@@ -2047,6 +2088,23 @@ public class DatabaseForm extends AbstractForm {
         schemaText.setEditable(false);
         fileField.setEditable(false);
         directoryField.setEditable(false);
+        mappingFileText.setEditable(false);
+        mappingSelectButton.setEnabled(false);
+
+        if (EDatabaseConnTemplate.GODBC.getDBTypeName().equals(dbTypeCombo.getText())) {
+            addContextParams(EDBParamName.MappingFile, true);
+            mappingFileText.show();
+            mappingFileText.setEditable(true);
+            mappingSelectButton.setVisible(true);
+            mappingSelectButton.setEnabled(true);
+        } else {
+            addContextParams(EDBParamName.MappingFile, false);
+            mappingFileText.hide();
+            mappingFileText.setEditable(false);
+            mappingSelectButton.setVisible(false);
+            mappingSelectButton.setEnabled(false);
+        }
+
         if (dbTypeCombo.getSelectionIndex() < 0) {
             urlConnectionStringText.setEditable(false);
         } else {
@@ -2408,6 +2466,7 @@ public class DatabaseForm extends AbstractForm {
         jDBCschemaText.setEditable(!isContextMode());
 
         generalMappingFileText.setEditable(!isContextMode());
+        mappingFileText.setEditable(!isContextMode());
         if (isContextMode()) {
             passwordText.getTextControl().setEchoChar('\0');
             generalJdbcPasswordText.getTextControl().setEchoChar('\0');
