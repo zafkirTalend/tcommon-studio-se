@@ -112,6 +112,13 @@ public interface IProjectRepositoryNode {
     public IRepositoryNode getJobletNode();
 
     /**
+     * Getter for jobScriptNode.
+     * 
+     * @return the jobScriptNode
+     */
+    public IRepositoryNode getJobScriptNode();
+
+    /**
      * Getter for metadataNode.
      * 
      * @return the metadataNode
