@@ -466,6 +466,7 @@ public class RelationshipItemBuilder {
                     String jobIdStr = null;
                     String jobVersion = LATEST_VERSION;
                     String nowVersion = "";
+                    Set<String> jobIdSet = new HashSet<String>();
                     for (Object o2 : currentNode.getElementParameter()) {
                         if (o2 instanceof ElementParameterType) {
                             ElementParameterType param = (ElementParameterType) o2;
@@ -476,9 +477,7 @@ public class RelationshipItemBuilder {
                                 String[] jobsArr = jobIds.split(RelationshipItemBuilder.COMMA);
                                 for (String jobId : jobsArr) {
                                     if (StringUtils.isNotEmpty(jobId)) {
-                                        addRelationShip(item, jobId, nowVersion, JOB_RELATION);
-                                        // factory.save(project, item.getProperty());
-                                        factory.save(project, item);
+                                        jobIdSet.add(jobId);
                                     }
                                     jobIdStr = jobId;
                                 }
@@ -494,6 +493,10 @@ public class RelationshipItemBuilder {
                                 }
                             }
                         }
+                    }
+                    for (String jobId : jobIdSet) {
+                        addRelationShip(item, jobId, nowVersion, JOB_RELATION);
+                        factory.save(project, item);
                     }
                 }
             }
@@ -702,6 +705,7 @@ public class RelationshipItemBuilder {
                     if ("tRunJob".equals(currentNode.getComponentName())) { //$NON-NLS-1$
                         // in case of tRunJob
                         String jobVersion = LATEST_VERSION;
+                        Set<String> jobIdSet = new HashSet<String>();
                         for (Object o2 : currentNode.getElementParameter()) {
                             if (o2 instanceof ElementParameterType) {
                                 ElementParameterType param = (ElementParameterType) o2;
@@ -712,7 +716,8 @@ public class RelationshipItemBuilder {
                                     String[] jobsArr = jobIds.split(RelationshipItemBuilder.COMMA);
                                     for (String jobId : jobsArr) {
                                         if (StringUtils.isNotEmpty(jobId)) {
-                                            addRelationShip(item, jobId, jobVersion, JOB_RELATION);
+                                            jobIdSet.add(jobId);
+                                            // addRelationShip(item, jobId, jobVersion, JOB_RELATION);
                                         }
                                     }
                                 }
@@ -721,6 +726,9 @@ public class RelationshipItemBuilder {
                                     jobVersion = param.getValue();
                                 }
                             }
+                        }
+                        for (String jobId : jobIdSet) {
+                            addRelationShip(item, jobId, jobVersion, JOB_RELATION);
                         }
                     }
                 }
