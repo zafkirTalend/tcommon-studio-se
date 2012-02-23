@@ -15,7 +15,10 @@ package org.talend.utils.network;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -80,18 +83,13 @@ public class FreePortFinderTest extends TestCase {
         }
 
         int freePortFound = freePortFinder.searchFreePort(10000, freePort, false);
-        if (freePortFound != freePort) {
+        if (freePortFound != -1) {
             fail("Failed, found free port is " + freePortFound + ", it should be " + freePort);
         }
 
         freePortFound = freePortFinder.searchFreePort(10000, freePort, true);
-        if (freePortFound != freePort) {
-            fail("Failed, found free port is " + freePortFound + ", it should be " + freePort);
-        }
-
-        freePortFound = freePortFinder.searchFreePort(10000, 10004, false);
         if (freePortFound != -1) {
-            fail("Failed, found free port is " + freePortFound + ", it should be -1 (means not found free port)");
+            fail("Failed, found free port is " + freePortFound + ", it should be " + freePort);
         }
 
         freePortFound = freePortFinder.searchFreePort(10000, 10000, false);
@@ -99,17 +97,18 @@ public class FreePortFinderTest extends TestCase {
             fail("Failed, found free port is " + freePortFound + ", it should be -1 (means not found free port)");
         }
 
+        freePortFound = freePortFinder.searchFreePort(10000, 10000, true);
+        if (freePortFound != -1) {
+            fail("Failed, found free port is " + freePortFound + ", it should be -1 (means not found free port)");
+        }
+
         freePortFound = freePortFinder.searchFreePort(freePort, freePort, false);
-        if (freePortFound != freePort) {
+        if (freePortFound != -1) {
             fail("Failed, found free port is " + freePortFound + ", it should be " + freePort);
         }
 
+        freePortFinder.removePort(freePort);
         freePortFound = freePortFinder.searchFreePort(freePort, freePort, true);
-        if (freePortFound != freePort) {
-            fail("Failed, found free port is " + freePortFound + ", it should be " + freePort);
-        }
-
-        freePortFound = freePortFinder.searchFreePort(10004, freePort, true);
         if (freePortFound != freePort) {
             fail("Failed, found free port is " + freePortFound + ", it should be " + freePort);
         }
@@ -118,12 +117,16 @@ public class FreePortFinderTest extends TestCase {
 
     }
 
+    Set<String> freePorts = new HashSet<String>();
+
+    Set<ServerSocket> serverSockets = new HashSet<ServerSocket>();
+
     public void testConcurrency() {
 
         ThreadPoolExecutor threadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(50);
 
-        int testsCount = 200;
-        
+        int concurrencyThreadNum = 500;
+
         /**
          * 
          * DOC amaumont FreePortFinderTest class global comment. Detailled comment
@@ -131,7 +134,7 @@ public class FreePortFinderTest extends TestCase {
         class Command implements Runnable {
 
             int port;
-            
+
             /*
              * (non-Javadoc)
              * 
@@ -139,7 +142,13 @@ public class FreePortFinderTest extends TestCase {
              */
             public void run() {
                 port = new FreePortFinder().searchFreePort(10000, 20000);
-                System.out.println("port=" + port + " System.currentTimeMillis()=" + System.currentTimeMillis());
+                try {
+                    // Assume that all the ports found are used...
+                    serverSockets.add(new ServerSocket(port));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                freePorts.add(String.valueOf(port));
             }
 
             /**
@@ -151,20 +160,43 @@ public class FreePortFinderTest extends TestCase {
                 return port;
             }
 
-        };
+        }
+        ;
 
-        final Command[] commands = new Command[testsCount];
+        final Command[] commands = new Command[concurrencyThreadNum];
 
-        for (int i = 0; i < testsCount; i++) {
+        for (int i = 0; i < concurrencyThreadNum; i++) {
             Command command = new Command();
             commands[i] = command;
         }
 
-        for (int i = 0; i < testsCount; i++) {
+        // To execute all commands to get the free ports concurrently, every command is regard as a client.
+        for (int i = 0; i < concurrencyThreadNum; i++) {
             threadPool.execute(commands[i]);
         }
-        
+
         threadPool.shutdown();
+        try {
+            // In order to execute all the commands, if the value of concurrencyThreadNum is changed, the sleep time
+            // also needs to change manually.
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        boolean flag = freePorts.size() == concurrencyThreadNum;
+        System.out.println("The number of threads and free ports should be equal. The concurrent thread number is: "
+                + concurrencyThreadNum + ", and the free ports number is: " + freePorts.size());
+        assertTrue(flag);
+
+        List<ServerSocket> list = new ArrayList<ServerSocket>();
+        Iterator<ServerSocket> it = serverSockets.iterator();
+        if (it != null) {
+            while (it.hasNext()) {
+                list.add(it.next());
+            }
+        }
+
+        closeServerSockets(list);
         // try {
         // threadPool.awaitTermination(1, TimeUnit.MINUTES);
         // } catch (InterruptedException e) {
@@ -172,11 +204,11 @@ public class FreePortFinderTest extends TestCase {
         // fail(e.getMessage());
         // }
 
-        for (int i = 1; i < testsCount; i++) {
-            if (commands[i].getPort() == commands[i - 1].getPort()) {
-                fail("Identical port found " + commands[i].getPort());
-            }
-        }
+        // for (int i = 1; i < testsCount; i++) {
+        // if (commands[i].getPort() == commands[i - 1].getPort()) {
+        // fail("Identical port found " + commands[i].getPort());
+        // }
+        // }
 
     }
 
