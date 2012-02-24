@@ -658,12 +658,22 @@ public class DatabaseTableForm extends AbstractForm {
         scrolledCompositeFileViewer.setContent(tableNavigator);
         scrolledCompositeFileViewer.setSize(width + 12, height);
 
-        gridData1 = new GridData();
-        gridData1.horizontalAlignment = GridData.CENTER;
-        gridData1.widthHint = width - 30;
-
-        addTableButton = new UtilsButton(group, Messages.getString("DatabaseTableForm.AddTable"), gridData1);
-        removeTableButton = new UtilsButton(group, "Remove Schema", gridData1);
+        // changed by hqzhang for TDI 19113 start
+        GC gc = new GC(group);
+        String displayStr = Messages.getString("DatabaseTableForm.AddTable");
+        Point buttonSize = gc.stringExtent(displayStr);
+        GridData girdData = new GridData(buttonSize.x + 12, HEIGHT_BUTTON_PIXEL);
+        girdData.horizontalAlignment = SWT.CENTER;
+        // Button Add metadata Table
+        addTableButton = new UtilsButton(group, displayStr, girdData);
+        displayStr = Messages.getString("DatabaseTableForm.RemoveTable");
+        buttonSize = gc.stringExtent(displayStr);
+        if (buttonSize.x + 12 > girdData.widthHint)
+            girdData.widthHint = buttonSize.x + 12;
+        girdData = new GridData(buttonSize.x + 12, HEIGHT_BUTTON_PIXEL);
+        girdData.horizontalAlignment = SWT.CENTER;
+        removeTableButton = new UtilsButton(group, displayStr, girdData);
+        gc.dispose();// TDI 19113 end
 
     }
 
