@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.jface.action.CoolBarManager;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -100,6 +101,8 @@ public final class PerspectiveReviewUtil {
 
     // MDM View
     static String mdmServerViewId = "org.talend.mdm.workbench.views.ServerView";
+
+    private static IContributionItem lastPerspective = null;
 
     public static void setPerspectiveReviewUtil() {
         // DI
@@ -277,6 +280,8 @@ public final class PerspectiveReviewUtil {
             @Override
             public void perspectiveActivated(IWorkbenchPage page, IPerspectiveDescriptor perspective) {
                 String pId = perspective.getId();
+                // bug TDI-8867
+                disappearGenerateJobCoolBar(pId, PlatformUI.getWorkbench().getActiveWorkbenchWindow());
                 if (null == isfirst || "".equals(isfirst)) {
                     isfirst = perspective.getId();
                     refreshAll();
@@ -288,6 +293,23 @@ public final class PerspectiveReviewUtil {
                 }
             }
         });
+    }
+
+    private static void disappearGenerateJobCoolBar(String pId, IWorkbenchWindow activeWorkbenchWindow) {
+        if (activeWorkbenchWindow != null && pId != null && !"".equals(pId)) {
+            CoolBarManager barManager = ((WorkbenchWindow) activeWorkbenchWindow).getCoolBarManager();
+            if (barManager != null && (barManager instanceof CoolBarManager)) {
+                IContributionItem diCItem = barManager.find("org.talend.metalanguage.jobscript.JobScript");
+                if (diCItem != null) {
+                    if (!IBrandingConfiguration.PERSPECTIVE_DI_ID.equals(pId)) {
+                        lastPerspective = diCItem;
+                        barManager.remove(diCItem);
+                    }
+                } else if (diCItem == null && lastPerspective != null && IBrandingConfiguration.PERSPECTIVE_DI_ID.equals(pId)) {
+                    barManager.add(lastPerspective);
+                }
+            }
+        }
     }
 
     /**
