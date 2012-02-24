@@ -60,7 +60,7 @@ public class KeywordsValidator {
             return true;
         }
         if (word.equalsIgnoreCase("org")) { //$NON-NLS-1$
-            return false;
+            return true;
         }
         return words.contains(word);
     }
