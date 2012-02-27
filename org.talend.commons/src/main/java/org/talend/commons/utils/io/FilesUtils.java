@@ -41,6 +41,9 @@ import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -54,6 +57,8 @@ import org.eclipse.core.runtime.Path;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.i18n.internal.Messages;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -953,6 +958,40 @@ public class FilesUtils {
         protected PasswordAuthentication getPasswordAuthentication() {
             return new PasswordAuthentication(userName, password.toCharArray());
         }
+    }
+
+    /**
+     * 
+     * @param xmlFile
+     * @return
+     * @throws Exception
+     */
+    public static Document parse(String xmlFile) throws Exception {
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        Document domTree = db.parse(xmlFile);
+        return domTree;
+    }
+
+    /**
+     * 
+     * @param xmlTree
+     * @return
+     */
+    public static String getUUID(String xmlFile) {
+        Document xmlTree;
+        try {
+            xmlTree = parse(xmlFile);
+            if (xmlTree != null) {
+                Node namedItem = xmlTree.getFirstChild().getAttributes().getNamedItem("xmi:id");//$NON-NLS-1$
+                if (namedItem != null) {
+                    return namedItem.getNodeValue();
+                }
+            }
+        } catch (Exception e) {
+            logger.warn(e, e);
+        }
+        return "";//$NON-NLS-1$
     }
 
 }
