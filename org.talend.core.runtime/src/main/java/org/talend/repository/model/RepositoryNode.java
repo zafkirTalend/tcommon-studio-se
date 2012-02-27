@@ -24,6 +24,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.ui.images.RepositoryImageProvider;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 
 /**
@@ -49,11 +50,14 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
 
     private Map<EProperties, Object> properties = new Hashtable<EProperties, Object>();
 
-    private IProjectRepositoryNode root;
+    // private IProjectRepositoryNode root;
+    private String projectTechnicalLabel;
 
     private IImage icon;
 
     private boolean initialized = false;
+
+    private boolean isDisposed = false;
 
     /*
      * (non-Javadoc)
@@ -85,8 +89,8 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
         this.object = object;
         this.parent = parent;
         this.type = type;
-        this.root = (parent == null ? null : parent.getRoot());
 
+        setRoot((parent == null ? null : parent.getRoot()));
         if (object != null) {
             object.setRepositoryNode(this);
         }
@@ -370,7 +374,7 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
     }
 
     public IProjectRepositoryNode getRoot() {
-        return this.root;
+        return ProjectManager.getInstance().getProjectNode(this.projectTechnicalLabel);
     }
 
     /**
@@ -379,7 +383,9 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
      * @param root the root to set
      */
     public void setRoot(IProjectRepositoryNode root) {
-        this.root = root;
+        if (root != null) {
+            this.projectTechnicalLabel = root.getProject().getTechnicalLabel();
+        }
     }
 
     /**
@@ -423,4 +429,30 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
         return false;
     }
 
+    public void dispose() {
+        this.id = null;
+        this.projectTechnicalLabel = null;
+        this.type = null;
+        this.icon = null;
+        this.parent = null;
+        this.object = null;
+
+        this.initialized = false;
+
+        if (this.properties != null) {
+            this.properties.clear();
+        }
+        if (this.children != null) {
+            for (IRepositoryNode child : this.children) {
+                child.dispose();
+            }
+            this.children.clear();
+        }
+
+        this.isDisposed = true;
+    }
+
+    public boolean isDisposed() {
+        return this.isDisposed;
+    }
 }

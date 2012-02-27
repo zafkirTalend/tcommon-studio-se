@@ -20,6 +20,8 @@ import org.talend.repository.model.IRepositoryNode;
  */
 public interface IProjectRepositoryNode {
 
+    public void dispose();
+
     /**
      * Getter for codeNode.
      * 

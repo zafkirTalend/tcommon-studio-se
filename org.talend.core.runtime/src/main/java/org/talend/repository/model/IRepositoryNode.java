@@ -82,6 +82,10 @@ public interface IRepositoryNode {
 
     public boolean isBin();
 
+    public void dispose();
+
+    public boolean isDisposed();
+
     /**
      * 
      * if withDeleted is 'true',will get all children which contain logical delete elements.
