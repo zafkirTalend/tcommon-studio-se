@@ -464,105 +464,135 @@ public class XSDPopulationUtil2 {
             throws OdaException, IllegalAccessException, InvocationTargetException {
         boolean hasSubstitution = false;
         Set<ATreeNode> subsChildren = new HashSet<ATreeNode>();
+
+        List<XSDElementDeclaration> directSubstitutionGroups = getDirectSubstitutionGroups(elementDeclaration);
+        for (XSDElementDeclaration xsdElementDeclaration : directSubstitutionGroups) {
+            String elementName = xsdElementDeclaration.getName();
+            hasSubstitution = true;
+            ATreeNode node = new ATreeNode();
+            String prefix = null;
+            String namespace = xsdElementDeclaration.getTargetNamespace();
+            node.setCurrentNamespace(namespace);
+
+            XSDTypeDefinition typeDef = xsdElementDeclaration.getTypeDefinition();
+
+            if (namespace != null) {
+                prefix = xsdElementDeclaration.getQName().contains(":") ? xsdElementDeclaration.getQName().split(":")[0] : "";
+                if (prefix == null || prefix.isEmpty()) {
+                    if (xsdSchema.getQNamePrefixToNamespaceMap().containsValue(typeDef.getTargetNamespace())) {
+                        for (String key : xsdSchema.getQNamePrefixToNamespaceMap().keySet()) {
+                            if (xsdSchema.getQNamePrefixToNamespaceMap().get(key).equals(typeDef.getTargetNamespace())) {
+                                prefix = key;
+                            }
+                        }
+                    }
+                }
+
+                if (isEnableGeneratePrefix() && (prefix == null || prefix.isEmpty())) {
+                    // generate a new prefix
+                    prefix = "p" + prefixNumberGenerated;
+                    prefixNumberGenerated++;
+                }
+                if (prefix != null && !prefix.isEmpty()) {
+                    elementName = prefix + ":" + xsdElementDeclaration.getName();
+                    namespaceToPrefix.put(namespace, prefix);
+                } else {
+                    ATreeNode namespaceNode = new ATreeNode();
+                    namespaceNode.setDataType("");
+                    namespaceNode.setType(ATreeNode.NAMESPACE_TYPE);
+                    namespaceNode.setValue(namespace);
+                    node.addChild(namespaceNode);
+                }
+            }
+
+            node.setValue(elementName);
+            node.setType(ATreeNode.ELEMENT_TYPE);
+            node.setDataType(xsdElementDeclaration.getName());
+
+            XSDTypeDefinition xsdTypeDefinition = xsdElementDeclaration.getTypeDefinition();
+            XSDComplexTypeDefinition generalType = xsdSchema.resolveComplexTypeDefinitionURI(xsdElementDeclaration.getURI());
+            if (generalType.getContainer() != null) {
+                xsdTypeDefinition = generalType;
+            }
+            if (xsdTypeDefinition != null && xsdTypeDefinition.getName() != null) {
+                node.setDataType(xsdTypeDefinition.getName());
+            }
+            if (xsdTypeDefinition instanceof XSDComplexTypeDefinition) {
+                addComplexTypeDetails(xsdSchema, node, xsdTypeDefinition, prefix, namespace, "/" + elementName + "/");
+            }
+            List<String> namespaceList = new ArrayList(namespaceToPrefix.keySet());
+            Collections.reverse(namespaceList);
+            for (String currentNamespace : namespaceList) {
+                ATreeNode namespaceNode = null;
+                if (currentNamespace != null) {
+                    prefix = namespaceToPrefix.get(currentNamespace);
+                    namespaceNode = new ATreeNode();
+                    namespaceNode.setDataType(prefix);
+                    namespaceNode.setType(ATreeNode.NAMESPACE_TYPE);
+                    namespaceNode.setValue(currentNamespace);
+                    node.addAsFirstChild(namespaceNode);
+                }
+            }
+            addSubstitutionDetails(xsdSchema, node, xsdElementDeclaration);
+
+            subsChildren.add(node);
+        }
+        if (hasSubstitution) {
+            if (supportSubstitution) {
+                parentNode.setSubstitution(true);
+                parentNode.setLabel(parentNode.getValue() + SUBS);
+                Object[] originalChildren = parentNode.getChildren();
+                parentNode.removeAllChildren();
+                if (!elementDeclaration.isAbstract()) {
+                    ATreeNode cloneNode = new ATreeNode();
+                    BeanUtils.copyProperties(cloneNode, parentNode);
+                    cloneNode.setSubstitution(false);
+                    cloneNode.setLabel(null);
+                    cloneNode.addChild(originalChildren);
+                    parentNode.addAsFirstChild(cloneNode);
+                }
+                parentNode.addChild(subsChildren.toArray());
+            } else {
+                ATreeNode parent = parentNode.getParent();
+                if (parent != null) {
+                    parent.addChild(subsChildren.toArray());
+                }
+            }
+        }
+    }
+
+    private List<XSDElementDeclaration> getDirectSubstitutionGroups(XSDElementDeclaration elementDeclaration) {
+        List<XSDElementDeclaration> subsGroupList = new ArrayList<XSDElementDeclaration>();
+        if (hasSubstitutionGroup(elementDeclaration)) {
+            EList<XSDElementDeclaration> substitutionGroup = elementDeclaration.getSubstitutionGroup();
+            subsGroupList = new ArrayList<XSDElementDeclaration>(substitutionGroup);
+            for (XSDElementDeclaration xsdElementDeclaration : substitutionGroup) {
+                String elementName = xsdElementDeclaration.getName();
+                if (elementName != null && elementName.equals(elementDeclaration.getName())) {
+                    subsGroupList.remove(xsdElementDeclaration);
+                    continue;
+                }
+                if (hasSubstitutionGroup(xsdElementDeclaration)) {
+                    subsGroupList.removeAll(xsdElementDeclaration.getSubstitutionGroup());
+                    subsGroupList.add(xsdElementDeclaration);
+                }
+            }
+        }
+
+        return subsGroupList;
+    }
+
+    private boolean hasSubstitutionGroup(XSDElementDeclaration elementDeclaration) {
         EList<XSDElementDeclaration> substitutionGroup = elementDeclaration.getSubstitutionGroup();
         if (substitutionGroup.size() > 0) {
             for (XSDElementDeclaration xsdElementDeclaration : substitutionGroup) {
                 String elementName = xsdElementDeclaration.getName();
-                if (elementName != null && elementName.equals(elementDeclaration.getName())) {
-                    continue;
-                }
-                hasSubstitution = true;
-                ATreeNode node = new ATreeNode();
-                String prefix = null;
-                String namespace = xsdElementDeclaration.getTargetNamespace();
-                node.setCurrentNamespace(namespace);
-
-                XSDTypeDefinition typeDef = xsdElementDeclaration.getTypeDefinition();
-
-                if (namespace != null) {
-                    prefix = xsdElementDeclaration.getQName().contains(":") ? xsdElementDeclaration.getQName().split(":")[0] : "";
-                    if (prefix == null || prefix.isEmpty()) {
-                        if (xsdSchema.getQNamePrefixToNamespaceMap().containsValue(typeDef.getTargetNamespace())) {
-                            for (String key : xsdSchema.getQNamePrefixToNamespaceMap().keySet()) {
-                                if (xsdSchema.getQNamePrefixToNamespaceMap().get(key).equals(typeDef.getTargetNamespace())) {
-                                    prefix = key;
-                                }
-                            }
-                        }
-                    }
-
-                    if (isEnableGeneratePrefix() && (prefix == null || prefix.isEmpty())) {
-                        // generate a new prefix
-                        prefix = "p" + prefixNumberGenerated;
-                        prefixNumberGenerated++;
-                    }
-                    if (prefix != null && !prefix.isEmpty()) {
-                        elementName = prefix + ":" + xsdElementDeclaration.getName();
-                        namespaceToPrefix.put(namespace, prefix);
-                    } else {
-                        ATreeNode namespaceNode = new ATreeNode();
-                        namespaceNode.setDataType("");
-                        namespaceNode.setType(ATreeNode.NAMESPACE_TYPE);
-                        namespaceNode.setValue(namespace);
-                        node.addChild(namespaceNode);
-                    }
-                }
-
-                node.setValue(elementName);
-                node.setType(ATreeNode.ELEMENT_TYPE);
-                node.setDataType(xsdElementDeclaration.getName());
-
-                XSDTypeDefinition xsdTypeDefinition = xsdElementDeclaration.getTypeDefinition();
-                XSDComplexTypeDefinition generalType = xsdSchema.resolveComplexTypeDefinitionURI(xsdElementDeclaration.getURI());
-                if (generalType.getContainer() != null) {
-                    xsdTypeDefinition = generalType;
-                }
-                if (xsdTypeDefinition != null && xsdTypeDefinition.getName() != null) {
-                    node.setDataType(xsdTypeDefinition.getName());
-                }
-                if (xsdTypeDefinition instanceof XSDComplexTypeDefinition) {
-                    addComplexTypeDetails(xsdSchema, node, xsdTypeDefinition, prefix, namespace, "/" + elementName + "/");
-                }
-                List<String> namespaceList = new ArrayList(namespaceToPrefix.keySet());
-                Collections.reverse(namespaceList);
-                for (String currentNamespace : namespaceList) {
-                    ATreeNode namespaceNode = null;
-                    if (currentNamespace != null) {
-                        prefix = namespaceToPrefix.get(currentNamespace);
-                        namespaceNode = new ATreeNode();
-                        namespaceNode.setDataType(prefix);
-                        namespaceNode.setType(ATreeNode.NAMESPACE_TYPE);
-                        namespaceNode.setValue(currentNamespace);
-                        node.addAsFirstChild(namespaceNode);
-                    }
-                }
-                addSubstitutionDetails(xsdSchema, node, xsdElementDeclaration);
-
-                subsChildren.add(node);
-            }
-            if (hasSubstitution) {
-                if (supportSubstitution) {
-                    parentNode.setSubstitution(true);
-                    parentNode.setLabel(parentNode.getValue() + SUBS);
-                    Object[] originalChildren = parentNode.getChildren();
-                    parentNode.removeAllChildren();
-                    if (!elementDeclaration.isAbstract()) {
-                        ATreeNode cloneNode = new ATreeNode();
-                        BeanUtils.copyProperties(cloneNode, parentNode);
-                        cloneNode.setSubstitution(false);
-                        cloneNode.setLabel(null);
-                        cloneNode.addChild(originalChildren);
-                        parentNode.addAsFirstChild(cloneNode);
-                    }
-                    parentNode.addChild(subsChildren.toArray());
-                } else {
-                    ATreeNode parent = parentNode.getParent();
-                    if (parent != null) {
-                        parent.addChild(subsChildren.toArray());
-                    }
+                if (elementName != null && !elementName.equals(elementDeclaration.getName())) {
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     private void addComplexTypeDetails(XSDSchema xsdSchema, ATreeNode node, XSDTypeDefinition xsdTypeDefinition, String prefix,
