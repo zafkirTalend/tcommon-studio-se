@@ -506,6 +506,14 @@ public class TableViewerCreatorNotModifiable<B> {
              */
             @Override
             public void refresh(Object element) {
+                if (table.isDisposed()) {
+                    return;
+                }
+                for (TableItem item : table.getItems()) {
+                    if (item.isDisposed()) {
+                        return;
+                    }
+                }
                 // if (eraseItemListener != null) {
                 // table.removeListener(SWT.EraseItem, eraseItemListener);
                 // }
