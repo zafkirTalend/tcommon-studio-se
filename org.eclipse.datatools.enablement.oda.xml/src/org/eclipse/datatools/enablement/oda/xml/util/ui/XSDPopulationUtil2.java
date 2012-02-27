@@ -540,7 +540,7 @@ public class XSDPopulationUtil2 {
         if (hasSubstitution) {
             if (supportSubstitution) {
                 parentNode.setSubstitution(true);
-                parentNode.setLabel(parentNode.getValue() + SUBS);
+                parentNode.setValue(parentNode.getValue() + SUBS);
                 Object[] originalChildren = parentNode.getChildren();
                 parentNode.removeAllChildren();
                 if (!elementDeclaration.isAbstract()) {
