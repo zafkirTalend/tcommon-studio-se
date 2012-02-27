@@ -389,7 +389,7 @@ public final class MetadataTalendType {
      * @param dbmsId
      * @return the dbms from the given id
      */
-    public static Dbms getDbms(String dbmsId) {
+    static Dbms getDbms(String dbmsId) {
         if (dbmsId == null) {
             throw new IllegalArgumentException();
         }
