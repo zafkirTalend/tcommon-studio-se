@@ -697,7 +697,7 @@ public class ExtractMetaDataFromDataBase {
         // need to retrieve columns of synonym by useing sql rather than get them from jdbc metadata
         String synSQL = "select * from INFORMATION_SCHEMA.COLUMNS where  TABLE_NAME =\'" + TABLE_NAME + "\'";
         if (null != TABLE_SCHEMA) {
-            synSQL += "\nand TABLE_SCHEMA =\'" + iMetadataConnection.getDatabase() + "\'";
+            synSQL += "\nand TABLE_SCHEMA =\'" + TABLE_SCHEMA + "\'";
         }
         if (!("").equals(iMetadataConnection.getDatabase())) {
             synSQL += "\nand TABLE_CATALOG =\'" + iMetadataConnection.getDatabase() + "\'";
