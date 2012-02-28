@@ -206,7 +206,21 @@ public interface INode extends IElement {
      * @return
      */
     public boolean isVirtualGenerateNode();
+    
+    /**
+     * This method gets the type of the connection used between two components in case of a virtual component
+     * @return Returns the type of the connection (ie. ON_ROWS_END)
+     */
+    
+    public EConnectionType getVirtualLinkTo();
 
+    /**
+     * This method sets the property virtualLinkTo which is the connection type used between two components in case of a virtual component.
+     * @param virtualLinkTo
+     */
+    
+    public void setVirtualLinkTo(EConnectionType virtualLinkTo);
+    
     // if the node should be generated as a virtual component or not.
     // true if the template part of the component is used
 
