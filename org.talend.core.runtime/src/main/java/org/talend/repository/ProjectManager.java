@@ -377,7 +377,7 @@ public final class ProjectManager {
                 // remove the old one.
                 if (tmpProjectNode.getProject().getTechnicalLabel().equals(projectRepNode.getProject().getTechnicalLabel())) {
                     iterator.remove();
-                    tmpProjectNode.dispose();
+                    // tmpProjectNode.dispose();
 
                 }
             }
