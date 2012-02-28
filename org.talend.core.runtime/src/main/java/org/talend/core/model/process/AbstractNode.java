@@ -79,6 +79,8 @@ public abstract class AbstractNode implements INode {
     private INode designSubjobStartNode;
 
     private boolean isVirtualGenerateNode;
+    
+    private EConnectionType virtualLinkTo;
 
     private String uniqueShortName;
 
@@ -666,6 +668,14 @@ public abstract class AbstractNode implements INode {
             }
         }
         return false;
+    }
+    
+    public EConnectionType getVirtualLinkTo() {
+        return this.virtualLinkTo;
+    }
+
+    public void setVirtualLinkTo(EConnectionType virtualLinkTo) {
+        this.virtualLinkTo=virtualLinkTo;
     }
 
     /*
