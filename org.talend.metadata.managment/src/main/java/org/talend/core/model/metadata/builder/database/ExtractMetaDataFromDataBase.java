@@ -673,24 +673,32 @@ public class ExtractMetaDataFromDataBase {
         String str = tableName;
         String TABLE_SCHEMA = null;
         String TABLE_NAME = null;
-        String strsplit = str;
+        String splitstr = str;
+        int position = 0;
         int count = 0;
         if (tableName != null) {
-            while (strsplit.contains(".")) {
+            while (str.contains(".")) {
                 count++;
-                strsplit = strsplit.substring(strsplit.indexOf(".") + 1);
+                splitstr = splitstr.substring(splitstr.indexOf("]") + 3, splitstr.length());
             }
-            if (count > 1) {
-                strsplit = str.substring(str.indexOf("[") + 1);
-                str = strsplit;
+            if (str.indexOf("[") == 0) {
+                TABLE_NAME = str.substring(1, str.length() - 1);
+            } else if (str.indexOf("[") == -1) {
+                TABLE_NAME = tableName;
+            } else {
+                if (count == 2) {
+                    str = str.substring(str.indexOf("]") + 3, str.length());
+                }
+                position = str.indexOf("]");
+                TABLE_SCHEMA = str.substring(0, position);
+                TABLE_NAME = str.substring(position + 3, str.length());
             }
-            TABLE_SCHEMA = str.substring(0, str.indexOf("]"));
-            TABLE_NAME = str.substring(str.indexOf("[") + 1);
-
         }
         // need to retrieve columns of synonym by useing sql rather than get them from jdbc metadata
-        String synSQL = "select * from INFORMATION_SCHEMA.COLUMNS where \nTABLE_SCHEMA ='" + TABLE_SCHEMA + "'and TABLE_NAME ='"
-                + TABLE_NAME + "'";
+        String synSQL = "select * from INFORMATION_SCHEMA.COLUMNS where  TABLE_NAME =\'" + TABLE_NAME + "\'";
+        if (null != TABLE_SCHEMA) {
+            synSQL += "\nand TABLE_SCHEMA =\'" + TABLE_SCHEMA + "\'";
+        }
         if (!("").equals(iMetadataConnection.getDatabase())) {
             synSQL += "\nand TABLE_CATALOG =\'" + iMetadataConnection.getDatabase() + "\'";
         }
@@ -886,7 +894,7 @@ public class ExtractMetaDataFromDataBase {
                     if (baseName.contains(".") && baseName.length() > 2) {
                         return baseName.substring(baseName.indexOf(".") + 2, baseName.length() - 1);
                     }
-
+                    return baseName;
                 }
             }
         } catch (SQLException e) {
