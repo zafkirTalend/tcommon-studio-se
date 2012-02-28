@@ -334,8 +334,12 @@ public class LdifFileWizard extends CheckLastVersionRepositoryWizard implements 
                 if (creation) {
                     String nextId = factory.getNextId();
                     connectionProperty.setId(nextId);
+                     //changed by hqzhang for TDI-19527, label=displayName
+                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     factory.create(connectionItem, ldifFileWizardPage0.getDestinationPath());
                 } else {
+                  //changed by hqzhang for TDI-19527, label=displayName
+                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     // update
                     RepositoryUpdateManager.updateFileConnection(connectionItem);
 

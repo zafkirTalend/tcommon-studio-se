@@ -404,6 +404,8 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                         }
 
                     }
+                  //changed by hqzhang for TDI-19527, label=displayName
+                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     this.connection.setName(connectionProperty.getDisplayName());
                     this.connection.setLabel(connectionProperty.getDisplayName());
                     factory.save(connectionItem);

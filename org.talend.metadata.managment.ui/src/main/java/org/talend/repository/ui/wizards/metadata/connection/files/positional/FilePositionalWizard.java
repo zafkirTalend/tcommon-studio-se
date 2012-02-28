@@ -334,9 +334,13 @@ public class FilePositionalWizard extends CheckLastVersionRepositoryWizard imple
             try {
                 if (creation) {
                     String nextId = factory.getNextId();
+                  //changed by hqzhang for TDI-19527, label=displayName
+                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     connectionProperty.setId(nextId);
                     factory.create(connectionItem, fileWizardPage0.getDestinationPath());
                 } else {
+                  //changed by hqzhang for TDI-19527, label=displayName
+                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     // update
                     RepositoryUpdateManager.updateFileConnection(connectionItem);
 

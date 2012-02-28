@@ -259,9 +259,13 @@ public class ExcelFileWizard extends CheckLastVersionRepositoryWizard implements
                 if (creation) {
                     String nextId = factory.getNextId();
                     connectionProperty.setId(nextId);
+                  //changed by hqzhang for TDI-19527, label=displayName
+                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     factory.create(connectionItem, excelFileWizardPage0.getDestinationPath());
                 } else {
                     // update
+                  //changed by hqzhang for TDI-19527, label=displayName
+                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     RepositoryUpdateManager.updateFileConnection(connectionItem);
 
                     factory.save(connectionItem);

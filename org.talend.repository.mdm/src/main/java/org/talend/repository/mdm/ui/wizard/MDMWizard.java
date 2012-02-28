@@ -227,6 +227,8 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
                     tdqRepService.fillMetadata(connectionItem);
                 }
             } else {
+              //changed by hqzhang for TDI-19527, label=displayName
+                connectionProperty.setLabel(connectionProperty.getDisplayName());
                 RepositoryUpdateManager.updateFileConnection(connectionItem);
                 factory.save(connectionItem);
                 closeLockStrategy();

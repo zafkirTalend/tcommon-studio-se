@@ -141,7 +141,8 @@ public class DocumentationUpdateWizard extends CheckLastVersionRepositoryWizard 
                     linkDocumentationItem.setExtension(getDocFilePath().getFileExtension());
                 }
             }
-
+          //changed by hqzhang for TDI-19527, label=displayName
+            docItem.getProperty().setLabel(docItem.getProperty().getDisplayName());
             repositoryFactory.save(docItem);
             closeLockStrategy();
             updated = true;

@@ -362,9 +362,10 @@ public class PropertyImpl extends EObjectImpl implements Property {
      * @generated
      */
     public String getLabel() {
-        if (this.label == null) {
-            return displayName;
-        }
+      //changed by hqzhang for TDI-19527
+//        if (this.label == null) {
+//            return displayName;
+//        }
         return label;
     }
 
@@ -376,7 +377,7 @@ public class PropertyImpl extends EObjectImpl implements Property {
     public void setLabel(String newLabel) {
         String oldLabel = label;
         label = newLabel;
-        setDisplayName(newLabel);
+//        setDisplayName(newLabel);  changed by hqzhang for TDI-19527
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROPERTY__LABEL, oldLabel, label));
     }

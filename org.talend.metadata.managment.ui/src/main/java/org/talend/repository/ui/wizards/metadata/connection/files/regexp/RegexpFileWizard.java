@@ -323,8 +323,12 @@ public class RegexpFileWizard extends CheckLastVersionRepositoryWizard implement
                 if (creation) {
                     String nextId = factory.getNextId();
                     connectionProperty.setId(nextId);
+                  //changed by hqzhang for TDI-19527, label=displayName
+                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     factory.create(connectionItem, regexpFileWizardPage0.getDestinationPath());
                 } else {
+                  //changed by hqzhang for TDI-19527, label=displayName
+                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     // update
                     RepositoryUpdateManager.updateFileConnection(connectionItem);
 

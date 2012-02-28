@@ -223,11 +223,15 @@ public class ContextWizard extends CheckLastVersionRepositoryWizard implements I
                 if (creation) {
                     String nextId = factory.getNextId();
                     contextProperty.setId(nextId);
+                  //changed by hqzhang for TDI-19527, label=displayName
+                    contextProperty.setLabel(contextProperty.getDisplayName());
                     contextManager.saveToEmf(contextItem.getContext());
                     contextItem.setDefaultContext(contextManager.getDefaultContext().getName());
                     factory.create(contextItem, contextWizardPage0.getDestinationPath());
 
                 } else {
+                  //changed by hqzhang for TDI-19527, label=displayName
+                    contextProperty.setLabel(contextProperty.getDisplayName());
                     contextItem.getContext().clear();
                     contextManager.saveToEmf(contextItem.getContext());
                     contextItem.setDefaultContext(contextManager.getDefaultContext().getName());

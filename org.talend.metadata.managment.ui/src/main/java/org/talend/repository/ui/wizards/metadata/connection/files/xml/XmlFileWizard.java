@@ -425,8 +425,12 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
                 if (creation) {
                     String nextId = factory.getNextId();
                     connectionProperty.setId(nextId);
+                  //changed by hqzhang for TDI-19527, label=displayName
+                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     factory.create(connectionItem, propertiesWizardPage.getDestinationPath());
                 } else {
+                  //changed by hqzhang for TDI-19527, label=displayName
+                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     // update schemas
                     Map<String, SchemaTarget> schemaTargetMap = new HashMap<String, SchemaTarget>();
                     EList<XmlXPathLoopDescriptor> schema = connection.getSchema();

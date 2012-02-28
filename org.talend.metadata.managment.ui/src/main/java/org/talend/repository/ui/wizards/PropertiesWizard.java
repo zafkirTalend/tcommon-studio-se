@@ -252,6 +252,8 @@ public class PropertiesWizard extends Wizard {
         }
         try {
             IProxyRepositoryFactory proxyRepositoryFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+            //changed by hqzhang for TDI-19527, label=displayName
+            object.getProperty().setLabel(object.getProperty().getDisplayName());
             proxyRepositoryFactory.save(object.getProperty(), this.originaleObjectLabel, this.originalVersion);
             ExpressionPersistance.getInstance().jobNameChanged(originaleObjectLabel, object.getLabel());
             proxyRepositoryFactory.saveProject(ProjectManager.getInstance().getCurrentProject());

@@ -321,8 +321,12 @@ public class SalesforceSchemaWizard extends CheckLastVersionRepositoryWizard imp
                 if (creation) {
                     String nextId = factory.getNextId();
                     connectionProperty.setId(nextId);
+                  //changed by hqzhang for TDI-19527, label=displayName
+                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     factory.create(connectionItem, salesforceSchemaWizardPage0.getDestinationPath());
                 } else {
+                  //changed by hqzhang for TDI-19527, label=displayName
+                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     // update
                     RepositoryUpdateManager.updateFileConnection(connectionItem);
                     factory.save(connectionItem);
