@@ -30,7 +30,7 @@ public interface ITDQRuleService extends IService {
      * 
      * @return rules defined in TDQ as String arrays.
      */
-    public String[][] retrieveTDQRules(String dbType);
+    public String[][] retrieveTDQRules(String dbType, boolean isInvalidRowsComponent);
 
     /**
      * This method is to override the rule list.
@@ -41,8 +41,9 @@ public interface ITDQRuleService extends IService {
      * @param table
      * @param metadataTable
      * @param ruleParam
+     * @param isInvalidRowsComponent
      */
     public void overrideRuleList(IElementParameter dbType, IElementParameter catalog, IElementParameter schema,
-            IElementParameter table, IMetadataTable metadataTable, IElementParameter ruleParam);
+            IElementParameter table, IMetadataTable metadataTable, IElementParameter ruleParam, boolean isInvalidRowsComponent);
 
 }
