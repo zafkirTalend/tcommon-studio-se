@@ -17,6 +17,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -274,7 +275,7 @@ public class XSDPopulationUtil2 {
                 }
                 partNode.setDataType(dataType);
             }
-            addSubstitutionDetails(xsdSchema, partNode, xsdElementDeclarationParticle);
+            addSubstitutionDetails(xsdSchema, partNode, xsdElementDeclarationParticle, null);
         } else if (xsdTerm instanceof XSDModelGroup) {
             XSDModelGroup xsdModelGroup = (XSDModelGroup) xsdTerm;
             ATreeNode node = addChoiceDetails(parentNode, xsdModelGroup);
@@ -395,7 +396,7 @@ public class XSDPopulationUtil2 {
                     }
                 }
 
-                addSubstitutionDetails(xsdSchema, node, xsdElementDeclaration);
+                addSubstitutionDetails(xsdSchema, node, xsdElementDeclaration, null);
 
                 rootNodes.add(node);
                 break;
@@ -460,8 +461,8 @@ public class XSDPopulationUtil2 {
         return rootNodes.get(0);
     }
 
-    private void addSubstitutionDetails(XSDSchema xsdSchema, ATreeNode parentNode, XSDElementDeclaration elementDeclaration)
-            throws OdaException, IllegalAccessException, InvocationTargetException {
+    private void addSubstitutionDetails(XSDSchema xsdSchema, ATreeNode parentNode, XSDElementDeclaration elementDeclaration,
+            ATreeNode rootSubsNode) throws OdaException, IllegalAccessException, InvocationTargetException {
         boolean hasSubstitution = false;
         Set<ATreeNode> subsChildren = new HashSet<ATreeNode>();
 
@@ -469,6 +470,9 @@ public class XSDPopulationUtil2 {
         for (XSDElementDeclaration xsdElementDeclaration : directSubstitutionGroups) {
             String elementName = xsdElementDeclaration.getName();
             hasSubstitution = true;
+            if (rootSubsNode == null) {
+                rootSubsNode = parentNode;
+            }
             ATreeNode node = new ATreeNode();
             String prefix = null;
             String namespace = xsdElementDeclaration.getTargetNamespace();
@@ -533,29 +537,34 @@ public class XSDPopulationUtil2 {
                     node.addAsFirstChild(namespaceNode);
                 }
             }
-            addSubstitutionDetails(xsdSchema, node, xsdElementDeclaration);
+            addSubstitutionDetails(xsdSchema, node, xsdElementDeclaration, rootSubsNode);
 
             subsChildren.add(node);
         }
         if (hasSubstitution) {
             if (supportSubstitution) {
+                Object oldValue = parentNode.getValue();
                 parentNode.setSubstitution(true);
-                parentNode.setValue(parentNode.getValue() + SUBS);
+                parentNode.setValue(oldValue + SUBS);
                 Object[] originalChildren = parentNode.getChildren();
                 parentNode.removeAllChildren();
                 if (!elementDeclaration.isAbstract()) {
                     ATreeNode cloneNode = new ATreeNode();
                     BeanUtils.copyProperties(cloneNode, parentNode);
                     cloneNode.setSubstitution(false);
-                    cloneNode.setLabel(null);
+                    cloneNode.setValue(oldValue);
                     cloneNode.addChild(originalChildren);
                     parentNode.addAsFirstChild(cloneNode);
                 }
                 parentNode.addChild(subsChildren.toArray());
             } else {
-                ATreeNode parent = parentNode.getParent();
-                if (parent != null) {
-                    parent.addChild(subsChildren.toArray());
+                if (rootSubsNode != null) {
+                    List children = Arrays.asList(rootSubsNode.getChildren());
+                    for (ATreeNode child : subsChildren) {
+                        if (!children.contains(child)) {
+                            rootSubsNode.addChild(child);
+                        }
+                    }
                 }
             }
         }
@@ -564,6 +573,7 @@ public class XSDPopulationUtil2 {
     private List<XSDElementDeclaration> getDirectSubstitutionGroups(XSDElementDeclaration elementDeclaration) {
         List<XSDElementDeclaration> subsGroupList = new ArrayList<XSDElementDeclaration>();
         if (hasSubstitutionGroup(elementDeclaration)) {
+            List<XSDElementDeclaration> underSubsElements = new ArrayList<XSDElementDeclaration>();
             EList<XSDElementDeclaration> substitutionGroup = elementDeclaration.getSubstitutionGroup();
             subsGroupList = new ArrayList<XSDElementDeclaration>(substitutionGroup);
             for (XSDElementDeclaration xsdElementDeclaration : substitutionGroup) {
@@ -573,10 +583,17 @@ public class XSDPopulationUtil2 {
                     continue;
                 }
                 if (hasSubstitutionGroup(xsdElementDeclaration)) {
-                    subsGroupList.removeAll(xsdElementDeclaration.getSubstitutionGroup());
-                    subsGroupList.add(xsdElementDeclaration);
+                    EList<XSDElementDeclaration> subsGroup = xsdElementDeclaration.getSubstitutionGroup();
+                    for (XSDElementDeclaration xsdElement : subsGroup) {
+                        String eleName = xsdElement.getName();
+                        if (eleName != null && eleName.equals(xsdElementDeclaration.getName())) {
+                            continue;
+                        }
+                        underSubsElements.add(xsdElement);
+                    }
                 }
             }
+            subsGroupList.removeAll(underSubsElements);
         }
 
         return subsGroupList;
