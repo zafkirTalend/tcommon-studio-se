@@ -298,7 +298,15 @@ public class MDMToSchemaDragAndDropHandler {
                         }
 
                         ConceptTarget newTargetEntry = linker.getNewSchemaTargetEntry(relativeXPath);
-                        String name = extractColumnName(extractTagName(relativeXPath), fullSchemaTargetList);
+                        String name = "_";
+                        if (".".equals(relativeXPath)) {
+                            if (entry.getAbsoluteXPath() != null) {
+                                String[] split = entry.getAbsoluteXPath().split("/");
+                                name = extractColumnName(extractTagName(split[split.length - 1]), fullSchemaTargetList);
+                            }
+                        } else {
+                            name = extractColumnName(extractTagName(relativeXPath), fullSchemaTargetList);
+                        }
                         // if (!name.equals(relativeXPath)) {
                         newTargetEntry.setTargetName(name);
                         // }
