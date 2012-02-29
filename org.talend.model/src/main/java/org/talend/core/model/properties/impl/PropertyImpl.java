@@ -692,7 +692,6 @@ public class PropertyImpl extends EObjectImpl implements Property {
     public void setDisplayName(String newDisplayName) {
         String oldDisplayName = displayName;
         displayName = newDisplayName;
-        setLabel(newDisplayName);
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROPERTY__DISPLAY_NAME, oldDisplayName, displayName));
     }
