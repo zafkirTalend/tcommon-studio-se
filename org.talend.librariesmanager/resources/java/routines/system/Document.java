@@ -22,7 +22,7 @@ import org.dom4j.Node;
 /**
  * DOC Administrator class global comment. Detailled comment
  */
-public class Document {
+public class Document implements java.io.Serializable{
 
     private org.dom4j.Document doc = null;
 
