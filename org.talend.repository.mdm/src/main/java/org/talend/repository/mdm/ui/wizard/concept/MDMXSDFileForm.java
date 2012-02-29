@@ -951,17 +951,19 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
             }
             // adapt relative path
             if (relativeXpath != null) {
-                String[] relatedSplitedPaths = relativeXpath.split("\\.\\./"); //$NON-NLS-1$
-                if (relatedSplitedPaths.length > 1) {
-                    int pathsToRemove = relatedSplitedPaths.length - 1;
-                    String[] fullPathSplited = fullPath.split("/"); //$NON-NLS-1$
-                    fullPath = ""; //$NON-NLS-1$
-                    for (int i = 1; i < (fullPathSplited.length - pathsToRemove); i++) {
-                        fullPath += "/" + fullPathSplited[i]; //$NON-NLS-1$
+                if (!".".equals(relativeXpath)) {
+                    String[] relatedSplitedPaths = relativeXpath.split("\\.\\./"); //$NON-NLS-1$
+                    if (relatedSplitedPaths.length > 1) {
+                        int pathsToRemove = relatedSplitedPaths.length - 1;
+                        String[] fullPathSplited = fullPath.split("/"); //$NON-NLS-1$
+                        fullPath = ""; //$NON-NLS-1$
+                        for (int i = 1; i < (fullPathSplited.length - pathsToRemove); i++) {
+                            fullPath += "/" + fullPathSplited[i]; //$NON-NLS-1$
+                        }
+                        fullPath += "/" + relatedSplitedPaths[pathsToRemove]; //$NON-NLS-1$
+                    } else {
+                        fullPath += "/" + relativeXpath; //$NON-NLS-1$
                     }
-                    fullPath += "/" + relatedSplitedPaths[pathsToRemove]; //$NON-NLS-1$
-                } else {
-                    fullPath += "/" + relativeXpath; //$NON-NLS-1$
                 }
             }
 
