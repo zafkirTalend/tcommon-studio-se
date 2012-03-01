@@ -180,6 +180,8 @@ public class CopyObjectAction {
                         }
                         copy.getProperty().setId(id);
                         copy.getProperty().setLabel(label);
+                        //changed by hqzhang for TDI-19965
+                        copy.getProperty().setDisplayName(label);
                         if (needSys && originalItem instanceof RoutineItem) {
                             String lastestVersion = getLastestVersion(selectedVersionItems);
                             if (lastestVersion.equals(copy.getProperty().getVersion())) {

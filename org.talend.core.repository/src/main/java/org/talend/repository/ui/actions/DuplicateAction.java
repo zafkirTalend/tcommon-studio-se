@@ -422,6 +422,8 @@ public class DuplicateAction extends AContextualAction {
                             }
                             copy.getProperty().setId(id);
                             copy.getProperty().setLabel(newJobName);
+                            //changed by hqzhang for TDI-19965
+                            copy.getProperty().setDisplayName(newJobName);
                             if (needSys && originalItem instanceof RoutineItem) {
                                 String lastestVersion = getLastestVersion(selectedVersionItems);
                                 if (lastestVersion.equals(copy.getProperty().getVersion())) {
@@ -461,6 +463,8 @@ public class DuplicateAction extends AContextualAction {
                     final Item newItem = factory.copy(item, path, true);
 
                     newItem.getProperty().setLabel(newName);
+                    //changed by hqzhang for TDI-19965
+                    newItem.getProperty().setDisplayName(newName);
                     // qli modified to fix the bug 5400 and 6185.
                     if (newItem instanceof RoutineItem) {
                         synDuplicatedRoutine((RoutineItem) newItem);

@@ -350,6 +350,8 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         String add1 = "Copy_of_"; //$NON-NLS-1$
         String initialTry = add1 + originalLabel;
         copiedProperty.setLabel(initialTry);
+        //changed by hqzhang for TDI-19965
+        copiedProperty.setDisplayName(initialTry);
         if (isNameAvailable(getRepositoryContext().getProject(), copiedProperty.getItem(), null)) {
             return;
         } else {
@@ -360,6 +362,8 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
                 }
                 String nextTry = initialTry + "_" + (j++) + ""; //$NON-NLS-1$ //$NON-NLS-2$
                 copiedProperty.setLabel(nextTry);
+                //changed by hqzhang for TDI-19965
+                copiedProperty.setDisplayName(nextTry);
             }
         }
     }
