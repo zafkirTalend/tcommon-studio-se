@@ -106,6 +106,8 @@ public final class ConnectionContextHelper {
 
     public static final String EMPTY = ""; //$NON-NLS-1$
 
+    public static IContextManager contextManager;
+
     /**
      * 
      * ggu Comment method "checkContextMode".
@@ -179,6 +181,7 @@ public final class ConnectionContextHelper {
         WizardDialog dlg = new WizardDialog(Display.getCurrent().getActiveShell(), contextWizard);
         if (dlg.open() == Window.OK) {
             ContextItem contextItem = contextWizard.getContextItem();
+            contextManager = contextWizard.getContextManager();
             if (contextItem != null) {
                 contextItem.getProperty().setLabel(contextName);
             }
@@ -261,7 +264,7 @@ public final class ConnectionContextHelper {
     }
 
     public static void setPropertiesForContextMode(ConnectionItem connectionItem, ContextItem contextItem,
-            Set<IConnParamName> paramSet) {
+            Set<IConnParamName> paramSet, Map<String, String> map) {
         if (connectionItem == null || contextItem == null) {
             return;
         }
@@ -270,7 +273,9 @@ public final class ConnectionContextHelper {
         Connection conn = connectionItem.getConnection();
 
         if (conn instanceof DatabaseConnection) {
-            DBConnectionContextUtils.setPropertiesForContextMode(label, (DatabaseConnection) conn, paramSet);
+            // Changed by Marvin Wang on Mar.1, 2012 for bug TDI 12596
+            DBConnectionContextUtils.setPropertiesForContextMode(label, (DatabaseConnection) conn, paramSet, map);
+            // DBConnectionContextUtils.setPropertiesForContextMode(label, (DatabaseConnection) conn, paramSet);
         } else if (conn instanceof FileConnection) {
             FileConnectionContextUtils.setPropertiesForContextMode(label, (FileConnection) conn, paramSet);
         } else if (conn instanceof LdifFileConnection) {
