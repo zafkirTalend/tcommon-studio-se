@@ -559,10 +559,13 @@ public class XSDPopulationUtil2 {
                 parentNode.addChild(subsChildren.toArray());
             } else {
                 if (rootSubsNode != null) {
-                    List children = Arrays.asList(rootSubsNode.getChildren());
-                    for (ATreeNode child : subsChildren) {
-                        if (!children.contains(child)) {
-                            rootSubsNode.addChild(child);
+                    ATreeNode parent = rootSubsNode.getParent();
+                    if (parent != null) {
+                        List children = Arrays.asList(parent.getChildren());
+                        for (ATreeNode child : subsChildren) {
+                            if (!children.contains(child)) {
+                                parent.addChild(child);
+                            }
                         }
                     }
                 }
