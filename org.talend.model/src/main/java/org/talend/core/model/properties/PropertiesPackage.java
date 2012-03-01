@@ -4266,13 +4266,31 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_PLAN_PART__REQUEST_ID = 10;
 
     /**
+     * The feature id for the '<em><b>Use Parallel</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_PART__USE_PARALLEL = 11;
+
+    /**
+     * The feature id for the '<em><b>Max Threads</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_PART__MAX_THREADS = 12;
+
+    /**
      * The number of structural features of the '<em>Execution Plan Part</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_PLAN_PART_FEATURE_COUNT = 11;
+    int EXECUTION_PLAN_PART_FEATURE_COUNT = 13;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -14043,6 +14061,28 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionPlanPart_RequestId();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionPlanPart#isUseParallel <em>Use Parallel</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Use Parallel</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanPart#isUseParallel()
+     * @see #getExecutionPlanPart()
+     * @generated
+     */
+    EAttribute getExecutionPlanPart_UseParallel();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionPlanPart#getMaxThreads <em>Max Threads</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Max Threads</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanPart#getMaxThreads()
+     * @see #getExecutionPlanPart()
+     * @generated
+     */
+    EAttribute getExecutionPlanPart_MaxThreads();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionPlanPrm <em>Execution Plan Prm</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -18901,6 +18941,22 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute EXECUTION_PLAN_PART__REQUEST_ID = eINSTANCE.getExecutionPlanPart_RequestId();
+
+        /**
+         * The meta object literal for the '<em><b>Use Parallel</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_PLAN_PART__USE_PARALLEL = eINSTANCE.getExecutionPlanPart_UseParallel();
+
+        /**
+         * The meta object literal for the '<em><b>Max Threads</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_PLAN_PART__MAX_THREADS = eINSTANCE.getExecutionPlanPart_MaxThreads();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionPlanPrmImpl <em>Execution Plan Prm</em>}' class.

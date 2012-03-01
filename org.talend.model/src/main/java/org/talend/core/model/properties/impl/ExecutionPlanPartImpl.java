@@ -48,6 +48,8 @@ import org.talend.core.model.properties.PropertiesPackage;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartImpl#getStartDate <em>Start Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartImpl#getEndDate <em>End Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartImpl#getRequestId <em>Request Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartImpl#isUseParallel <em>Use Parallel</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartImpl#getMaxThreads <em>Max Threads</em>}</li>
  * </ul>
  * </p>
  *
@@ -223,6 +225,46 @@ public class ExecutionPlanPartImpl extends EObjectImpl implements ExecutionPlanP
      * @ordered
      */
     protected String requestId = REQUEST_ID_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isUseParallel() <em>Use Parallel</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isUseParallel()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean USE_PARALLEL_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isUseParallel() <em>Use Parallel</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isUseParallel()
+     * @generated
+     * @ordered
+     */
+    protected boolean useParallel = USE_PARALLEL_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getMaxThreads() <em>Max Threads</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMaxThreads()
+     * @generated
+     * @ordered
+     */
+    protected static final Integer MAX_THREADS_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getMaxThreads() <em>Max Threads</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMaxThreads()
+     * @generated
+     * @ordered
+     */
+    protected Integer maxThreads = MAX_THREADS_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -512,6 +554,48 @@ public class ExecutionPlanPartImpl extends EObjectImpl implements ExecutionPlanP
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isUseParallel() {
+        return useParallel;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setUseParallel(boolean newUseParallel) {
+        boolean oldUseParallel = useParallel;
+        useParallel = newUseParallel;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_PLAN_PART__USE_PARALLEL, oldUseParallel, useParallel));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Integer getMaxThreads() {
+        return maxThreads;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setMaxThreads(Integer newMaxThreads) {
+        Integer oldMaxThreads = maxThreads;
+        maxThreads = newMaxThreads;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_PLAN_PART__MAX_THREADS, oldMaxThreads, maxThreads));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
@@ -556,6 +640,10 @@ public class ExecutionPlanPartImpl extends EObjectImpl implements ExecutionPlanP
                 return getEndDate();
             case PropertiesPackage.EXECUTION_PLAN_PART__REQUEST_ID:
                 return getRequestId();
+            case PropertiesPackage.EXECUTION_PLAN_PART__USE_PARALLEL:
+                return isUseParallel() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.EXECUTION_PLAN_PART__MAX_THREADS:
+                return getMaxThreads();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -604,6 +692,12 @@ public class ExecutionPlanPartImpl extends EObjectImpl implements ExecutionPlanP
             case PropertiesPackage.EXECUTION_PLAN_PART__REQUEST_ID:
                 setRequestId((String)newValue);
                 return;
+            case PropertiesPackage.EXECUTION_PLAN_PART__USE_PARALLEL:
+                setUseParallel(((Boolean)newValue).booleanValue());
+                return;
+            case PropertiesPackage.EXECUTION_PLAN_PART__MAX_THREADS:
+                setMaxThreads((Integer)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -649,6 +743,12 @@ public class ExecutionPlanPartImpl extends EObjectImpl implements ExecutionPlanP
             case PropertiesPackage.EXECUTION_PLAN_PART__REQUEST_ID:
                 setRequestId(REQUEST_ID_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_PLAN_PART__USE_PARALLEL:
+                setUseParallel(USE_PARALLEL_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_PLAN_PART__MAX_THREADS:
+                setMaxThreads(MAX_THREADS_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -683,6 +783,10 @@ public class ExecutionPlanPartImpl extends EObjectImpl implements ExecutionPlanP
                 return END_DATE_EDEFAULT == null ? endDate != null : !END_DATE_EDEFAULT.equals(endDate);
             case PropertiesPackage.EXECUTION_PLAN_PART__REQUEST_ID:
                 return REQUEST_ID_EDEFAULT == null ? requestId != null : !REQUEST_ID_EDEFAULT.equals(requestId);
+            case PropertiesPackage.EXECUTION_PLAN_PART__USE_PARALLEL:
+                return useParallel != USE_PARALLEL_EDEFAULT;
+            case PropertiesPackage.EXECUTION_PLAN_PART__MAX_THREADS:
+                return MAX_THREADS_EDEFAULT == null ? maxThreads != null : !MAX_THREADS_EDEFAULT.equals(maxThreads);
         }
         return super.eIsSet(featureID);
     }
@@ -709,6 +813,10 @@ public class ExecutionPlanPartImpl extends EObjectImpl implements ExecutionPlanP
         result.append(endDate);
         result.append(", requestId: ");
         result.append(requestId);
+        result.append(", useParallel: ");
+        result.append(useParallel);
+        result.append(", maxThreads: ");
+        result.append(maxThreads);
         result.append(')');
         return result.toString();
     }

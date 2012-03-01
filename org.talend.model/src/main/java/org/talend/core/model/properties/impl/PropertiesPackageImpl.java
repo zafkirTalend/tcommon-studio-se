@@ -3078,6 +3078,24 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getExecutionPlanPart_UseParallel() {
+        return (EAttribute)executionPlanPartEClass.getEStructuralFeatures().get(11);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionPlanPart_MaxThreads() {
+        return (EAttribute)executionPlanPartEClass.getEStructuralFeatures().get(12);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getExecutionPlanPrm() {
         return executionPlanPrmEClass;
     }
@@ -6345,6 +6363,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(executionPlanPartEClass, EXECUTION_PLAN_PART__START_DATE);
         createEAttribute(executionPlanPartEClass, EXECUTION_PLAN_PART__END_DATE);
         createEAttribute(executionPlanPartEClass, EXECUTION_PLAN_PART__REQUEST_ID);
+        createEAttribute(executionPlanPartEClass, EXECUTION_PLAN_PART__USE_PARALLEL);
+        createEAttribute(executionPlanPartEClass, EXECUTION_PLAN_PART__MAX_THREADS);
 
         executionPlanPrmEClass = createEClass(EXECUTION_PLAN_PRM);
         createEAttribute(executionPlanPrmEClass, EXECUTION_PLAN_PRM__ID);
@@ -7098,6 +7118,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getExecutionPlanPart_StartDate(), theEcorePackage.getEDate(), "startDate", null, 0, 1, ExecutionPlanPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionPlanPart_EndDate(), theEcorePackage.getEDate(), "endDate", null, 0, 1, ExecutionPlanPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionPlanPart_RequestId(), theEcorePackage.getEString(), "requestId", null, 0, 1, ExecutionPlanPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionPlanPart_UseParallel(), theEcorePackage.getEBoolean(), "useParallel", null, 0, 1, ExecutionPlanPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionPlanPart_MaxThreads(), theEcorePackage.getEIntegerObject(), "maxThreads", null, 0, 1, ExecutionPlanPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(executionPlanPrmEClass, ExecutionPlanPrm.class, "ExecutionPlanPrm", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getExecutionPlanPrm_Id(), theEcorePackage.getEInt(), "id", null, 1, 1, ExecutionPlanPrm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

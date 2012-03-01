@@ -30,6 +30,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionPlanPart#getStartDate <em>Start Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionPlanPart#getEndDate <em>End Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionPlanPart#getRequestId <em>Request Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionPlanPart#isUseParallel <em>Use Parallel</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionPlanPart#getMaxThreads <em>Max Threads</em>}</li>
  * </ul>
  * </p>
  *
@@ -303,5 +305,57 @@ public interface ExecutionPlanPart extends EObject {
      * @generated
      */
     void setRequestId(String value);
+
+    /**
+     * Returns the value of the '<em><b>Use Parallel</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Use Parallel</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Use Parallel</em>' attribute.
+     * @see #setUseParallel(boolean)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlanPart_UseParallel()
+     * @model
+     * @generated
+     */
+    boolean isUseParallel();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionPlanPart#isUseParallel <em>Use Parallel</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Use Parallel</em>' attribute.
+     * @see #isUseParallel()
+     * @generated
+     */
+    void setUseParallel(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Max Threads</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Max Threads</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Max Threads</em>' attribute.
+     * @see #setMaxThreads(Integer)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlanPart_MaxThreads()
+     * @model
+     * @generated
+     */
+    Integer getMaxThreads();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionPlanPart#getMaxThreads <em>Max Threads</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Max Threads</em>' attribute.
+     * @see #getMaxThreads()
+     * @generated
+     */
+    void setMaxThreads(Integer value);
 
 } // ExecutionPlanPart
