@@ -327,4 +327,12 @@ public class ContextWizard extends CheckLastVersionRepositoryWizard implements I
         return this.contextItem;
     }
 
+    public IContextManager getContextManager() {
+        return this.contextManager;
+    }
+
+    public void setContextManager(IContextManager contextManager) {
+        this.contextManager = contextManager;
+    }
+
 }

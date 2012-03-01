@@ -15,6 +15,7 @@ package org.talend.repository.ui.utils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.Path;
@@ -166,61 +167,70 @@ public final class DBConnectionContextUtils {
         return varList;
     }
 
-    static void setPropertiesForContextMode(String prefixName, DatabaseConnection conn, Set<IConnParamName> paramSet) {
+    static void setPropertiesForContextMode(String prefixName, DatabaseConnection conn, Set<IConnParamName> paramSet,
+            Map<String, String> map) {
         if (conn == null || prefixName == null || paramSet == null || paramSet.isEmpty()) {
             return;
         }
         prefixName = prefixName + ConnectionContextHelper.LINE;
-        String paramName = null;
+        String originalVariableName = null;
         for (IConnParamName param : paramSet) {
             if (param instanceof EDBParamName) {
                 EDBParamName dbParam = (EDBParamName) param;
-                paramName = prefixName + dbParam;
+                originalVariableName = prefixName + dbParam;
+                if (map != null && map.size() > 0) {
+                    for (Map.Entry<String, String> entry : map.entrySet()) {
+                        if (originalVariableName.equals(entry.getValue())) {
+                            originalVariableName = entry.getKey();
+                            break;
+                        }
+                    }
+                }
                 switch (dbParam) {
                 case AdditionalParams:
-                    conn.setAdditionalParams(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+                    conn.setAdditionalParams(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
                     break;
                 case Datasource:
-                    conn.setDatasourceName(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+                    conn.setDatasourceName(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
                     break;
                 case DBRootPath:
-                    conn.setDBRootPath(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+                    conn.setDBRootPath(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
                     break;
                 case File:
-                    conn.setFileFieldName(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+                    conn.setFileFieldName(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
                     break;
                 case Password:
-                    conn.setPassword(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+                    conn.setPassword(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
                     break;
                 // hshen
                 case JdbcUrl:
-                    conn.setURL(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+                    conn.setURL(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
                     break;
                 case DriverJar:
-                    conn.setDriverJarPath(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+                    conn.setDriverJarPath(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
                     break;
                 case MappingFile:
-                    conn.setDbmsId(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+                    conn.setDbmsId(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
                     break;
                 case ClassName:
-                    conn.setDriverClass(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+                    conn.setDriverClass(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
                     break;
                 case Port:
-                    conn.setPort(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+                    conn.setPort(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
                     break;
                 case Schema:
-                    conn.setUiSchema(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+                    conn.setUiSchema(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
                     break;
                 case Server:
-                    conn.setServerName(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+                    conn.setServerName(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
                     break;
                 case Sid:
                 case Database:
                 case ServiceName:
-                    conn.setSID(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+                    conn.setSID(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
                     break;
                 case Login:
-                    conn.setUsername(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+                    conn.setUsername(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
                     break;
                 default:
                 }

@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.EventListener;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
@@ -41,9 +42,11 @@ import org.talend.commons.ui.swt.formtools.Form;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.FileConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
+import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.repository.IDBMetadataProvider;
@@ -118,6 +121,8 @@ public abstract class AbstractForm extends Composite {
     protected EDatabaseTypeName typeName = null;
 
     protected IMetadataConnection metadataconnection;
+
+    protected IContextManager contextManager;
 
     /**
      * DOC ocarbone AbstractForm constructor comment.
@@ -450,9 +455,13 @@ public abstract class AbstractForm extends Composite {
                 ConnectionContextHelper.openInConetxtModeDialog();
             } else {
                 ContextItem contextItem = ConnectionContextHelper.exportAsContext(connectionItem, getConetxtParams());
+                contextManager = ConnectionContextHelper.contextManager;
                 if (contextItem != null) { // create
-                    // set properties for context mode
-                    ConnectionContextHelper.setPropertiesForContextMode(connectionItem, contextItem, getConetxtParams());
+                    if (contextManager instanceof JobContextManager) {
+                        Map<String, String> map = ((JobContextManager) contextManager).getNameMap();
+                        // set properties for context mode
+                        ConnectionContextHelper.setPropertiesForContextMode(connectionItem, contextItem, getConetxtParams(), map);
+                    }
 
                     // refresh current UI.
                     initialize();
