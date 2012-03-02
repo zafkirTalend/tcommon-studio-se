@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.model.RepositoryNode;
@@ -64,4 +65,15 @@ public interface IDragAndDropServiceHandler {
      * @param type - the type of the selectedNode
      */
     public IComponentName getCorrespondingComponentName(Item item, ERepositoryObjectType type);
+
+    /**
+     * DOC zwzhao Comment method "setComponentValue".
+     * 
+     * set parameter value of the connection
+     * 
+     * @param connection - connection
+     * @param node - node
+     * @param repositoryValue - repositoryValue
+     */
+    public void setComponentValue(Connection connection, INode node, String repositoryValue);
 }

@@ -411,4 +411,19 @@ public final class RepositoryComponentManager {
         return false;
     }
 
+    public static boolean validComponent(String componentName) {
+        if (componentName != null) {
+            for (RepositoryComponentSetting setting : getSettings()) {
+                final String inputComponent = setting.getInputComponent();
+                final String outputComponent = setting.getOutputComponent();
+                final String defaultComponent = setting.getDefaultComponent();
+                if (componentName.equals(inputComponent) || componentName.equals(outputComponent)
+                        || componentName.equals(defaultComponent)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 }

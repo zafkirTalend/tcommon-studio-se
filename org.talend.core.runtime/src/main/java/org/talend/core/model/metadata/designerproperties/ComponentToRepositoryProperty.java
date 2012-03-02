@@ -56,7 +56,9 @@ import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
+import org.talend.core.model.repository.DragAndDropManager;
 import org.talend.core.model.utils.ContextParameterUtils;
+import org.talend.core.model.utils.IDragAndDropServiceHandler;
 import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.cwm.helper.ConnectionHelper;
@@ -169,6 +171,11 @@ public class ComponentToRepositoryProperty {
             setBRMSValue((BRMSConnection) connection, node, repositoryValue);
         } else if (connection instanceof HL7Connection) {
             setHL7Value((HL7Connection) connection, node, repositoryValue);
+        }
+        for (IDragAndDropServiceHandler handler : DragAndDropManager.getHandlers()) {
+            if (handler.canHandle(connection)) {
+                handler.setComponentValue(connection, node, repositoryValue);
+            }
         }
     }
 
