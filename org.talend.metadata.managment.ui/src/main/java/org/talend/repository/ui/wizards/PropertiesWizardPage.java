@@ -79,7 +79,7 @@ import org.talend.repository.ui.properties.StatusHelper;
 /**
  * Wizard page contains common properties fields.<br/>
  * 
- * $Id: PropertiesWizardPage.java 914 2006-12-08 08:28:53 +0000 (ÐÇÆÚÎå, 08 Ê®¶þÔÂ 2006) bqian $
+ * $Id: PropertiesWizardPage.java 914 2006-12-08 08:28:53 +0000 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, 08 Ê®ï¿½ï¿½ï¿½ï¿½ 2006) bqian $
  * 
  */
 public abstract class PropertiesWizardPage extends WizardPage {
@@ -863,6 +863,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
                         // assign value directly(because the old job name is valid).
                         if (property != null && nameStatus.getSeverity() == IStatus.OK) {
                             property.setDisplayName(StringUtils.trimToNull(nameText.getText()));
+                            property.setLabel(StringUtils.trimToNull(nameText.getText()));
                         }
 
                     } else {
@@ -971,6 +972,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
             nameStatus = createOkStatus();
         }
         if (property != null && nameStatus.getSeverity() == IStatus.OK) {
+            property.setLabel(StringUtils.trimToNull(nameText.getText()));
             property.setDisplayName(StringUtils.trimToNull(nameText.getText()));
         }
         updatePageStatus();
