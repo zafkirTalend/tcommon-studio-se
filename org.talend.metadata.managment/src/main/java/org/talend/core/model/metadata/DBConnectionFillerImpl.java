@@ -386,6 +386,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             if (catalogNames != null) {
 
                 boolean isHive = MetadataConnectionUtils.isHive(dbJDBCMetadata);
+                boolean isSybase = MetadataConnectionUtils.isSybase(dbJDBCMetadata);
                 // else DB support getCatalogs() method
                 while (catalogNames.next()) {
                     // MOD xqliu 2009-11-03 bug 9841
@@ -476,6 +477,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         } catch (Throwable e) {
                             removeCatalogList.add(catalog);
                         }
+                    }
+                    // TDQ-1625
+                    if (isSybase && catalogFilter != null && !catalogFilter.isEmpty() && catalogFilter.size() > 0
+                            && catalogList.isEmpty() && catalogList.size() == 0) {
+                        catalogFilter.clear();
+                        return fillCatalogs(dbConn, dbJDBCMetadata, catalogFilter);
                     }
                     catalogList.removeAll(removeCatalogList);
                 }
