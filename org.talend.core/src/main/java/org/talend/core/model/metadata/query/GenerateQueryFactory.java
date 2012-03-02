@@ -56,6 +56,7 @@ public final class GenerateQueryFactory {
         case IBMDB2:
         case IBMDB2ZOS:
         case MYSQL:
+        case INGRES:
             return new NonDatabaseDefaultQueryGenerator(dbType);
         case ORACLE_OCI:
         case ORACLEFORSID:
@@ -72,7 +73,6 @@ public final class GenerateQueryFactory {
         case HSQLDB_SERVER:
         case HSQLDB_WEBSERVER:
         case INFORMIX:
-        case INGRES:
         case INTERBASE:
         case JAVADB:
         case JAVADB_DERBYCLIENT:
