@@ -71,6 +71,37 @@ public class AS400QueryGenerator extends AbstractQueryGenerator {
     }
 
     @Override
+    public void setParameters(IElement element, IMetadataTable metadataTable, String schema, String realTableName, boolean isJdbc) {
+        super.setParameters(element, metadataTable, schema, realTableName, isJdbc);
+        //
+        standardSyntax = CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.AS400_SQL_SEG);
+        if (getElement() != null) {
+            IElementParameter parentParam = getElement().getElementParameterFromField(EParameterFieldType.PROPERTY_TYPE);
+            if (parentParam != null && parentParam.getChildParameters() != null) {
+                IElementParameter param = parentParam.getChildParameters().get("PROPERTY_TYPE"); //$NON-NLS-1$
+                if (param != null && "REPOSITORY".equals(param.getValue())) { //$NON-NLS-1$
+                    param = parentParam.getChildParameters().get("REPOSITORY_PROPERTY_TYPE"); //$NON-NLS-1$
+                    if (param != null && param.getValue() != null) {
+                        try {
+                            IRepositoryViewObject lastVersion = CorePlugin.getDefault().getProxyRepositoryFactory()
+                                    .getLastVersion((String) param.getValue());
+                            if (lastVersion != null) {
+                                Item item = lastVersion.getProperty().getItem();
+                                if (item != null && item instanceof DatabaseConnectionItem) {
+                                    standardSyntax = ((DatabaseConnection) ((DatabaseConnectionItem) item).getConnection())
+                                            .isStandardSQL();
+                                }
+                            }
+                        } catch (PersistenceException e) {
+                            ExceptionHandler.process(e);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
     protected char getSQLFieldConnector() {
         if (standardSyntax) {
             return super.getSQLFieldConnector();
@@ -84,6 +115,12 @@ public class AS400QueryGenerator extends AbstractQueryGenerator {
             tableName = QueryUtil.DEFAULT_TABLE_NAME;
         }
         final StringBuffer tableNameWithDBAndSchema = new StringBuffer();
+
+        if (schema != null && !EMPTY.equals(schema)) {
+            tableNameWithDBAndSchema.append(checkContextAndAddQuote(schema));
+            tableNameWithDBAndSchema.append(getSQLFieldConnector());
+        }
+        //
         tableNameWithDBAndSchema.append(checkContextAndAddQuote(tableName));
         return tableNameWithDBAndSchema.toString();
     }
