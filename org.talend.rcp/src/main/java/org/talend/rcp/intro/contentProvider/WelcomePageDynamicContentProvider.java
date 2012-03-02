@@ -74,6 +74,26 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
                     + Messages.getString("WelcomePageDynamicContentProvider.LatestItemsAnalysis.Title")));
             parent.appendChild(img);
             parent.appendChild(span);
+        } else if ("ITEMSSERVICESPORT".equals(id)) {
+            Element img = dom.createElement("img");
+            img.setAttribute("style", "padding-top:10px;margin-left:15px;");
+            img.setAttribute("src", content + "imgs/img_service.png");
+            Element span = dom.createElement("span");
+            span.setAttribute("class", "style_3");
+            span.appendChild(dom.createTextNode(" "
+                    + Messages.getString("WelcomePageDynamicContentProvider.LatestItemsServices.Title")));
+            parent.appendChild(img);
+            parent.appendChild(span);
+        } else if ("ITEMSROUTE".equals(id)) {
+            Element img = dom.createElement("img");
+            img.setAttribute("style", "padding-top:15px;margin-left:15px;");
+            img.setAttribute("src", content + "imgs/img_route.png");
+            Element span = dom.createElement("span");
+            span.setAttribute("class", "style_3");
+            span.appendChild(dom.createTextNode(" "
+                    + Messages.getString("WelcomePageDynamicContentProvider.LatestItemsRoutes.Title")));
+            parent.appendChild(img);
+            parent.appendChild(span);
         } else if ("CREATENEWTITLE".equals(id)) {
             Element span = dom.createElement("span");
             span.setAttribute("class", "style_1 style_2 style_3");
