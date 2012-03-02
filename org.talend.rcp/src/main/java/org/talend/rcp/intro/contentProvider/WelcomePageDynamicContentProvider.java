@@ -74,6 +74,26 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
                     + Messages.getString("WelcomePageDynamicContentProvider.LatestItemsAnalysis.Title")));
             parent.appendChild(img);
             parent.appendChild(span);
+        } else if ("ITEMSSERVICESPORT".equals(id)) {
+            Element img = dom.createElement("img");
+            img.setAttribute("style", "padding-top:10px;margin-left:15px;");
+            img.setAttribute("src", content + "imgs/img_service.png");
+            Element span = dom.createElement("span");
+            span.setAttribute("class", "style_3");
+            span.appendChild(dom.createTextNode(" "
+                    + Messages.getString("WelcomePageDynamicContentProvider.LatestItemsServices.Title")));
+            parent.appendChild(img);
+            parent.appendChild(span);
+        } else if ("ITEMSROUTE".equals(id)) {
+            Element img = dom.createElement("img");
+            img.setAttribute("style", "padding-top:15px;margin-left:15px;");
+            img.setAttribute("src", content + "imgs/img_route.png");
+            Element span = dom.createElement("span");
+            span.setAttribute("class", "style_3");
+            span.appendChild(dom.createTextNode(" "
+                    + Messages.getString("WelcomePageDynamicContentProvider.LatestItemsRoutes.Title")));
+            parent.appendChild(img);
+            parent.appendChild(span);
         } else if ("CREATENEWTITLE".equals(id)) {
             Element span = dom.createElement("span");
             span.setAttribute("class", "style_1 style_2 style_3");
@@ -126,13 +146,13 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
             Element blockquotePDoc = dom.createElement("p");
             Element blockquoteA1Doc = dom.createElement("a");
             blockquoteA1Doc.setAttribute("href", "http://www.talend.com/resources/documentation.php#TOS_UG");
-            blockquoteA1Doc.setAttribute("target", "showUserGuide");
+            // blockquoteA1Doc.setAttribute("target", "showUserGuide");
             blockquoteA1Doc.appendChild(dom.createTextNode(Messages
                     .getString("WelcomePageDynamicContentProvider.DocumentationUserGuideTitle")));
 
             Element blockquoteA2Doc = dom.createElement("a");
             blockquoteA2Doc.setAttribute("href", "http://www.talend.com/resources/documentation.php#TOS_RG");
-            blockquoteA2Doc.setAttribute("target", "showReferenceGuide");
+            // blockquoteA2Doc.setAttribute("target", "showReferenceGuide");
             blockquoteA2Doc.appendChild(dom.createTextNode(Messages
                     .getString("WelcomePageDynamicContentProvider.DocumentationReferenceGuideTitle")));
             blockquotePDoc.appendChild(blockquoteA1Doc);
@@ -150,7 +170,7 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
             Element blockquotePGS = dom.createElement("p");
             Element blockquoteA1GS = dom.createElement("a");
             blockquoteA1GS.setAttribute("href", "http://www.talendforge.org/tutorials");
-            blockquoteA1GS.setAttribute("target", "showTutorials");
+            // blockquoteA1GS.setAttribute("target", "showTutorials");
             blockquoteA1GS.appendChild(dom.createTextNode(Messages
                     .getString("WelcomePageDynamicContentProvider.GettingStartedTutorialsTitle")));
 
@@ -162,7 +182,7 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
 
             Element blockquoteA3GS = dom.createElement("a");
             blockquoteA3GS.setAttribute("href", "http://www.talendforge.org/exchange");
-            blockquoteA3GS.setAttribute("target", "showExchange");
+            // blockquoteA3GS.setAttribute("target", "showExchange");
             blockquoteA3GS.appendChild(dom.createTextNode(Messages
                     .getString("WelcomePageDynamicContentProvider.GettingStartedExchangeTitle")));
 
