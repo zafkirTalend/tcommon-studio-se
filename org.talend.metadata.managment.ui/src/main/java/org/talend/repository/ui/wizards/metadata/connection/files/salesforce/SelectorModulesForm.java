@@ -759,23 +759,16 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
      * @param tableItem
      */
     protected void deleteTable(TableItem tableItem) {
-
-        // if (itemTableName != null && !itemTableName.isEmpty()) {
-        // fill the combo
-        // if (itemTableName != null && !itemTableName.isEmpty()) {
-        // fill the combo
-        Collection<MetadataTable> tables = new ArrayList<MetadataTable>();
+        SalesforceSchemaConnection connection = getConnection();
         Iterator<MetadataTable> iterate = ConnectionHelper.getTables(getConnection()).iterator();
         while (iterate.hasNext()) {
             MetadataTable metadata = iterate.next();
-            if (metadata != null && metadata.getLabel().equals(tableItem.getText(0))) {
-                tables.add(metadata);
+            if (metadata != null && metadata.getLabel().equals(tableItem.getText(0))
+                    && metadata.eContainer() instanceof SalesforceModuleUnit) {
+                SalesforceModuleUnit moduleUnit = (SalesforceModuleUnit) metadata.eContainer();
+                connection.getModules().remove(moduleUnit);
             }
         }
-        // ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(iMetadataConnection.getDatabase(),
-        // iMetadataConnection.getSchema(), getConnection(), tables);
-        // }
-        // }
     }
 
     /**
