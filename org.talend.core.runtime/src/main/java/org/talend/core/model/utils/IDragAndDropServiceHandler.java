@@ -76,4 +76,9 @@ public interface IDragAndDropServiceHandler {
      * @param repositoryValue - repositoryValue
      */
     public void setComponentValue(Connection connection, INode node, String repositoryValue);
+
+    /**
+     * DOC zwzhao Comment method "getType".
+     */
+    public ERepositoryObjectType getType(String repositoryType);
 }
