@@ -60,16 +60,15 @@ public class Document implements java.io.Serializable{
         }
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         org.dom4j.Document document = doc.getDocument();
-        org.dom4j.XPath xpathObjectForDoc = document.createXPath(loopXPath);
-        xpathObjectForDoc.setNamespaceURIs(nsMapping);
-        java.util.List<org.dom4j.tree.AbstractNode> nodes = xpathObjectForDoc.selectNodes(document);
-        if(nodes.size()==0) {
-        	//set root as loop when no loop nodes
-        	loopXPath = resetLoop(loopXPath,lookupInfo,xpathOfResults,xpathToTypeMap,xpathToPatternMap);
-        	xpathObjectForDoc = document.createXPath(loopXPath);
-        	xpathObjectForDoc.setNamespaceURIs(nsMapping);
-        	nodes = xpathObjectForDoc.selectNodes(document);
-        }
+        
+        //init document to flat tool
+        DocumentToFlat docToFlat = new DocumentToFlat(lookupInfo, xpathOfResults, xpathToTypeMap, xpathToPatternMap);
+        docToFlat.setDoc(document);
+        docToFlat.setOriginalLoop(loopXPath);
+        docToFlat.setXmlNameSpaceMap(nsMapping);
+        docToFlat.flatForLookup();
+        java.util.List<org.dom4j.tree.AbstractNode> nodes = docToFlat.getNodes();
+        
         for (org.dom4j.tree.AbstractNode node : nodes) {
             boolean reject = false;
             // lookup action
@@ -112,6 +111,8 @@ public class Document implements java.io.Serializable{
             }
 
         }
+        //reset lookup info
+        lookupInfo.clear();
         //set resultset 
 		int count = result.size();
 		if(count>0) {
@@ -124,60 +125,6 @@ public class Document implements java.io.Serializable{
 				singleResult.add(result.get(0));
 				return singleResult;
 			}
-		}
-		return result;
-    }
-    
-    private String resetLoop(String loop, Map<String, Object> lookupInfo,
-    		Map<String, String> xpathOfResults, Map<String, String> xpathToTypeMap, Map<String, String> xpathToPatternMap) {
-    	
-    	resetMapRelativeXpathKey(lookupInfo,loop);
-    	resetMapRelativeXpathKey(xpathToTypeMap,loop);
-    	resetMapRelativeXpathKey(xpathToPatternMap,loop);
-    	resetMapRelativeXpathValue(xpathOfResults,loop);
-    	
-    	int index = loop.indexOf("/",1);
-    	return loop.substring(0, index>0 ? index : loop.length());
-    }
-    
-    private void resetMapRelativeXpathKey(Map<String, ? extends Object> source,String loop) {
-    	Map content = new HashMap();
-    	for(String key : source.keySet()) {
-    		String newKey = resetRelativeXPath(loop,key);
-    		content.put(newKey, source.get(key));
-    	}
-    	source.clear();
-    	source.putAll(content);
-    }
-    
-    private void resetMapRelativeXpathValue(Map<String,String> source,String loop) {
-    	Map content = new HashMap();
-    	for(String key : source.keySet()) {
-    		String value = source.get(key);
-    		String newValue = resetRelativeXPath(loop,value);
-    		content.put(key, newValue);
-    	}
-    	source.clear();
-    	source.putAll(content);
-    }
-    
-    private String resetRelativeXPath(String loop,String relativePath) {
-    	String absolutePath = loop;
-    	for(String step : relativePath.split("/")) {
-			if("..".equals(step)) {
-				absolutePath = absolutePath.substring(0,absolutePath.lastIndexOf("/"));
-			} else if(".".equals(step)){
-				//do nothing
-			} else if(!"".equals(step)){
-				absolutePath += "/" + step;
-			}
-		}
-		String result = null;
-		int index = absolutePath.indexOf("/", 1);
-		if(index<0) {
-			result = ".";
-		} else {
-			result = absolutePath.substring(index+1);
 		}
 		return result;
     }
