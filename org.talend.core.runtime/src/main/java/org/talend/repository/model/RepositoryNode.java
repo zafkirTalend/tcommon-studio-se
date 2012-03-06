@@ -59,6 +59,8 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
 
     private boolean isDisposed = false;
 
+    private boolean enableDisposed = false;
+
     /*
      * (non-Javadoc)
      * 
@@ -429,27 +431,55 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
         return false;
     }
 
+    public boolean isEnableDisposed() {
+        return enableDisposed;
+    }
+
+    public void setEnableDisposed(boolean enableDisposed) {
+        this.enableDisposed = enableDisposed;
+    }
+
     public void dispose() {
-        this.id = null;
-        this.projectTechnicalLabel = null;
-        this.type = null;
-        this.icon = null;
-        this.parent = null;
-        this.object = null;
+        /*
+         * FIXME, if later, can dispose all children, the flag enableDisposed will be not useful. So far, because many
+         * actions reference this object, so can't dispose it, only dispose the StableRepositoryNode.
+         */
+        boolean doDispose = isEnableDisposed();
 
-        this.initialized = false;
-
-        if (this.properties != null) {
-            this.properties.clear();
+        // StableRepositoryNode
+        if (getType() == ENodeType.STABLE_SYSTEM_FOLDER) {
+            doDispose = true;
         }
+        if (doDispose) {
+            this.id = null;
+            this.projectTechnicalLabel = null;
+            this.type = null;
+            this.icon = null;
+            this.parent = null;
+            this.object = null;
+
+            this.initialized = false;
+
+            if (this.properties != null) {
+                this.properties.clear();
+            }
+        }
+        // dispose the children .
         if (this.children != null) {
             for (IRepositoryNode child : this.children) {
+                /*
+                 * In fact, won't dispose the children. because the flag 'enableDisposed' is false always. So far, only
+                 * dispose the StableRepositoryNode.
+                 */
                 child.dispose();
             }
-            this.children.clear();
+            if (doDispose) {
+                this.children.clear();
+            }
         }
-
-        this.isDisposed = true;
+        if (doDispose) {
+            this.isDisposed = true;
+        }
     }
 
     public boolean isDisposed() {
