@@ -706,8 +706,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 if ((isOracleJdbc || isOracle) && !flag) {// oracle and not oracle8
                     Statement stmt;
                     try {
-                        stmt = ExtractMetaDataUtils.conn.createStatement();
-                        ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
+                        // MOD qiongli TDQ-4732 use the common method to create statement both DI and DQ,avoid Exception
+                        // for top.
+                        stmt = dbJDBCMetadata.getConnection().createStatement();
                         ResultSet rsTables = stmt.executeQuery(TableInfoParameters.ORACLE_10G_RECBIN_SQL);
                         tablesToFilter = ExtractMetaDataFromDataBase.getTableNamesFromQuery(rsTables);
                         rsTables.close();
@@ -885,8 +886,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 if ((isOracle || isOracleJdbc) && !flag) {// oracle and not oracle8
                     Statement stmt;
                     try {
-                        stmt = ExtractMetaDataUtils.conn.createStatement();
-                        ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
+                        // MOD qiongli TDQ-4732 use the common method to create statement both DI and DQ,avoid Exception
+                        // for top.
+                        stmt = dbJDBCMetadata.getConnection().createStatement();
                         ResultSet rsTables = stmt.executeQuery(TableInfoParameters.ORACLE_10G_RECBIN_SQL);
                         tablesToFilter = ExtractMetaDataFromDataBase.getTableNamesFromQuery(rsTables);
                         rsTables.close();
