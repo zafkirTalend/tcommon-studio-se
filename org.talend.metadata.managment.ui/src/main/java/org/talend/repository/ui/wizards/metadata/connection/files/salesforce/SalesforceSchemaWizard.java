@@ -293,9 +293,9 @@ public class SalesforceSchemaWizard extends CheckLastVersionRepositoryWizard imp
         salesforceSchemaWizardPage0 = new Step0WizardPage(connectionProperty, pathToSave,
                 ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA, !isRepositoryObjectEditable(), creation);
 
-        salesforceSchemaWizardPage0.setTitle(Messages.getString("FileWizardPage.titleCreate") + " 1 " //$NON-NLS-1$ //$NON-NLS-2$
+        salesforceSchemaWizardPage0.setTitle(Messages.getString("SalesforceWizardPage.titleCreate.Step") + " 1 " //$NON-NLS-1$ //$NON-NLS-2$
                 + Messages.getString("FileWizardPage.of") + ALL_STEPS); //$NON-NLS-1$ //$NON-NLS-2$
-        salesforceSchemaWizardPage0.setDescription(Messages.getString("FileWizardPage.descriptionCreateStep0")); //$NON-NLS-1$
+        salesforceSchemaWizardPage0.setDescription(Messages.getString("SalesforceWizardPage.descriptionCreate.Step1")); //$NON-NLS-1$
         addPage(salesforceSchemaWizardPage0);
         if (creation) {
             setWindowTitle(Messages.getString("SalesforceSchemaWizard.windowTitleCreate")); //$NON-NLS-1$
@@ -304,9 +304,9 @@ public class SalesforceSchemaWizard extends CheckLastVersionRepositoryWizard imp
         }
         page1 = new SalesforceWizardPage(1, connectionItem, isRepositoryObjectEditable(), existingNames, salesforceAPI,
                 contextModeManager);
-        page1.setTitle(Messages.getString("FileWizardPage.titleCreate") + " 2 " //$NON-NLS-1$ //$NON-NLS-2$
+        page1.setTitle(Messages.getString("SalesforceWizardPage.titleCreate.Step") + " 2 " //$NON-NLS-1$ //$NON-NLS-2$
                 + Messages.getString("FileWizardPage.of") + ALL_STEPS); //$NON-NLS-1$ //$NON-NLS-2$
-        page1.setDescription(Messages.getString("FileWizardPage.descriptionCreateStep1")); //$NON-NLS-1$
+        page1.setDescription(Messages.getString("SalesforceWizardPage.descriptionCreate.Step2")); //$NON-NLS-1$
         addPage(page1);
         page1.setPageComplete(false);
     }
@@ -321,11 +321,11 @@ public class SalesforceSchemaWizard extends CheckLastVersionRepositoryWizard imp
                 if (creation) {
                     String nextId = factory.getNextId();
                     connectionProperty.setId(nextId);
-                  //changed by hqzhang for TDI-19527, label=displayName
+                    // changed by hqzhang for TDI-19527, label=displayName
                     connectionProperty.setLabel(connectionProperty.getDisplayName());
                     factory.create(connectionItem, salesforceSchemaWizardPage0.getDestinationPath());
                 } else {
-                  //changed by hqzhang for TDI-19527, label=displayName
+                    // changed by hqzhang for TDI-19527, label=displayName
                     connectionProperty.setLabel(connectionProperty.getDisplayName());
                     // update
                     RepositoryUpdateManager.updateFileConnection(connectionItem);
