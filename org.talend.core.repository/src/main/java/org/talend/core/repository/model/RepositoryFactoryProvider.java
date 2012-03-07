@@ -44,9 +44,16 @@ public class RepositoryFactoryProvider {
             "RepositoryFactory", 1, -1); //$NON-NLS-1$
 
     public static List<IRepositoryFactory> getAvailableRepositories() {
-        IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
-                IBrandingService.class);
-        boolean isOnlyRemoteConnection = brandingService.getBrandingConfiguration().isOnlyRemoteConnection();
+    	 //MOD by zshen for bug 4757
+        boolean serviceRegistered = GlobalServiceRegister.getDefault().isServiceRegistered(IBrandingService.class);
+        boolean isOnlyRemoteConnection = false;
+        if (serviceRegistered) {
+            IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
+                    IBrandingService.class);
+            if (brandingService != null) {
+                isOnlyRemoteConnection = brandingService.getBrandingConfiguration().isOnlyRemoteConnection();
+            }
+        }
         if (list == null) {
             list = new ArrayList<IRepositoryFactory>();
             List<IConfigurationElement> extension = ExtensionImplementationProvider.getInstanceV2(REPOSITORY_PROVIDER);
