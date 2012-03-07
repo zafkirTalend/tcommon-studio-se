@@ -438,9 +438,11 @@ public class XmiResourceManager {
             }
         }
         if (property.getItem() instanceof ProcessItem || property.getItem() instanceof JobletProcessItem) {
-            Resource screenshotResource = getScreenshotResource(property.getItem());
-            if (screenshotResource != null) {
-                resources.add(screenshotResource);
+            if (property.eResource() != null) {
+                Resource screenshotResource = getScreenshotResource(property.getItem());
+                if (screenshotResource != null) {
+                    resources.add(screenshotResource);
+                }
             }
         }
 
