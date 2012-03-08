@@ -41,7 +41,6 @@ import org.talend.core.ui.IReferencedProjectService;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IProxyRepositoryService;
 import org.talend.repository.model.IRepositoryNode;
-import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 
 /**
@@ -378,10 +377,12 @@ public final class ProjectManager {
                 // remove the old one.
                 if (tmpProjectNode.getProject().getTechnicalLabel().equals(projectRepNode.getProject().getTechnicalLabel())) {
                     iterator.remove();
-                    if (tmpProjectNode instanceof RepositoryNode) {
-                        ((RepositoryNode) tmpProjectNode).setEnableDisposed(true);
-                    }
-                    tmpProjectNode.dispose();
+                    // if (tmpProjectNode instanceof RepositoryNode) {
+                    // ((RepositoryNode) tmpProjectNode).setEnableDisposed(true);
+                    // }
+
+                    // FIXME still have many NPE for repository, so comment it
+                    // tmpProjectNode.dispose();
                 }
             }
             viewProjectNodes.add(projectRepNode);
