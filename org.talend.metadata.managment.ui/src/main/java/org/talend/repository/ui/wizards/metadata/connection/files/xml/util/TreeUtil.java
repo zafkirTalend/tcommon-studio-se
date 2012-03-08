@@ -461,8 +461,8 @@ public class TreeUtil {
                     } else {
                         selectedTreeNode = allTreeNodes.get(0);
                     }
-                    nodeList.addAll(getFoxTreeNodesByRootNode(xsdSchema, selectedTreeNode));
-                    // nodeList.addAll(getFoxTreeNodesByRootNode(xsdSchema, selectedTreeNode, false, true, true));
+                    // nodeList.addAll(getFoxTreeNodesByRootNode(xsdSchema, selectedTreeNode));
+                    nodeList.addAll(getFoxTreeNodesByRootNode(xsdSchema, selectedTreeNode, false, true, true));
                 }
             } else {
                 getFoxTreeNodesForXmlMap(filePath, nodeList);
@@ -519,8 +519,8 @@ public class TreeUtil {
                         selectedTreeNode = allTreeNodes.get(0);
                     }
 
-                    list = getFoxTreeNodesByRootNode(xsModel, selectedTreeNode);
-                    // list = getFoxTreeNodesByRootNode(xsModel, selectedTreeNode, false, true, true);
+                    // list = getFoxTreeNodesByRootNode(xsModel, selectedTreeNode);
+                    list = getFoxTreeNodesByRootNode(xsModel, selectedTreeNode, false, true, true);
                 }
             } else {
                 getFoxTreeNodesForXmlMap(filePath, list);
@@ -794,6 +794,8 @@ public class TreeUtil {
             node.setDefaultValue((String) treeNode.getValue());
         } else {
             node.setLabel(treeNode.getValue().toString());
+            node.setChoice(treeNode.isChoice());
+            node.setSubstitution(treeNode.isSubstitution());
             // init the unique to guess first loop element when create mdmoutput wizard
             node.getUniqueNames().clear();
             node.getUniqueNames().addAll(treeNode.getUniqueNames());

@@ -54,9 +54,9 @@ import org.eclipse.xsd.util.XSDResourceImpl;
  */
 public class XSDPopulationUtil2 {
 
-    private static final String CHOICE = "(choice)"; //$NON-NLS-1$
+    public static final String CHOICE = "(choice)"; //$NON-NLS-1$
 
-    private static final String SUBS = "(subs)"; //$NON-NLS-1$
+    public static final String SUBS = "(subs)"; //$NON-NLS-1$
 
     private Map<String, String> namespaceToPrefix = new HashMap<String, String>();
 

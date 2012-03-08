@@ -54,6 +54,10 @@ public abstract class FOXTreeNode {
 
     private String dataType;
 
+    private boolean isSubstitution = false;
+
+    private boolean isChoice = false;
+
     private List<String> uniqueNames = new ArrayList<String>();
 
     public boolean hasLink() {
@@ -378,6 +382,22 @@ public abstract class FOXTreeNode {
 
     public List<String> getUniqueNames() {
         return this.uniqueNames;
+    }
+
+    public boolean isSubstitution() {
+        return this.isSubstitution;
+    }
+
+    public void setSubstitution(boolean isSubstitution) {
+        this.isSubstitution = isSubstitution;
+    }
+
+    public boolean isChoice() {
+        return this.isChoice;
+    }
+
+    public void setChoice(boolean isChoice) {
+        this.isChoice = isChoice;
     }
 
 }
