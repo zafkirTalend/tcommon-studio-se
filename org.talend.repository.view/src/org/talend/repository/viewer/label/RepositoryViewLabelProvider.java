@@ -221,6 +221,17 @@ public class RepositoryViewLabelProvider implements ICommonLabelProvider {
             // TODO Auto-generated method stub
             return false;
         }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.talend.repository.ui.views.IRepositoryView#isFakeView()
+         */
+        @Override
+        public boolean isFakeView() {
+            // TODO Auto-generated method stub
+            return false;
+        }
     }
 
     RepositoryLabelProvider repoLabelProv;

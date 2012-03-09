@@ -1446,4 +1446,15 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
     public void setFromFake(boolean isFromFake) {
         this.isFromFake = isFromFake;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.ui.views.IRepositoryView#isFakeView()
+     */
+    @Override
+    public boolean isFakeView() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }
