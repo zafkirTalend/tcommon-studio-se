@@ -21,19 +21,14 @@ import org.talend.core.model.process.IElementParameter;
 public interface ITDQRuleService extends IService {
 
     /**
-     * This method is used in tos to get the rule list values.
+     * This method is used in tos to fill the DQRULES_LIST parameter with rule list values.
      * 
-     * for the return result, it's a two dimensionality string array. the first is represented for all rules. the
-     * second is represented for expressions for each rule. 
-     * 
-     * @param dbType
-     * 
-     * @return rules defined in TDQ as String arrays.
+     * @param param
      */
-    public String[][] retrieveTDQRules(String dbType, boolean isInvalidRowsComponent);
+    public void fillTDQRuleList(IElementParameter param);
 
     /**
-     * This method is to override the rule list.
+     * This method is used to generate query for a DQ rule + component params.
      * 
      * @param dbType (value = SupportDBUrlType.dbkey)
      * @param catalog
@@ -42,8 +37,10 @@ public interface ITDQRuleService extends IService {
      * @param metadataTable
      * @param ruleParam
      * @param isInvalidRowsComponent
+     * @param whereClause
      */
-    public void overrideRuleList(IElementParameter dbType, IElementParameter catalog, IElementParameter schema,
-            IElementParameter table, IMetadataTable metadataTable, IElementParameter ruleParam, boolean isInvalidRowsComponent);
+    public String getQueryByRule(IElementParameter ruleParam, IElementParameter dbType, IElementParameter catalog,
+            IElementParameter schema, IElementParameter table, IMetadataTable metadataTable, boolean isInvalidRowsComponent,
+            IElementParameter whereClause);
 
 }
