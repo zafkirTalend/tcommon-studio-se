@@ -58,6 +58,8 @@ public abstract class FOXTreeNode {
 
     private boolean isChoice = false;
 
+    private boolean isOptional = false;
+
     private List<String> uniqueNames = new ArrayList<String>();
 
     public boolean hasLink() {
@@ -398,6 +400,14 @@ public abstract class FOXTreeNode {
 
     public void setChoice(boolean isChoice) {
         this.isChoice = isChoice;
+    }
+
+    public boolean isOptional() {
+        return isOptional;
+    }
+
+    public void setOptional(boolean isOptional) {
+        this.isOptional = isOptional;
     }
 
 }

@@ -796,6 +796,7 @@ public class TreeUtil {
             node.setLabel(treeNode.getValue().toString());
             node.setChoice(treeNode.isChoice());
             node.setSubstitution(treeNode.isSubstitution());
+            node.setOptional(treeNode.isOptional());
             // init the unique to guess first loop element when create mdmoutput wizard
             node.getUniqueNames().clear();
             node.getUniqueNames().addAll(treeNode.getUniqueNames());
