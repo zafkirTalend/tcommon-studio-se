@@ -13,10 +13,7 @@
 package org.talend.core.repository.model;
 
 import org.talend.core.model.components.IComponent;
-import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.properties.Item;
-import org.talend.core.model.properties.XmlFileConnectionItem;
-import org.talend.core.model.properties.impl.XmlFileConnectionItemImpl;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.repository.DefaultRepositoryComponentDndFilter;
 import org.talend.core.repository.RepositoryComponentManager;
@@ -48,24 +45,6 @@ public class TRunjobRepositoryComponentDndFilter extends DefaultRepositoryCompon
      */
     public boolean valid(Item item, ERepositoryObjectType type, RepositoryNode seletetedNode, IComponent component,
             String repositoryType) {
-        // bug TDI-19945,when drop tFileOutputXML that yourself created,filter tFileInputXML component
-        String productNameWanted = repositoryType;
-        String componentProductname = null;
-        if (item instanceof XmlFileConnectionItem) {
-            XmlFileConnection connection = (XmlFileConnection) ((XmlFileConnectionItemImpl) item).getConnection();
-            if (!connection.isInputModel()) {
-                productNameWanted = "XMLOUTPUT"; //$NON-NLS-1$
-            }
-        }
-        if (component != null) {
-            componentProductname = component.getRepositoryType();
-        }
-        if (repositoryType != null && ("tFileInputXML").equals(component.getName())) {
-            if (componentProductname != null && productNameWanted.endsWith(componentProductname)
-                    && repositoryType.equals(component.getName())) {
-                return true;
-            }
-        } else
         // tRunJob
         if (component != null && repositoryType != null && repositoryType.equals(component.getName())) {
             return true;

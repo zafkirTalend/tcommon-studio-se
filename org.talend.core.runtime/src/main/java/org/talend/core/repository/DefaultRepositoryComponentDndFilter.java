@@ -13,10 +13,7 @@
 package org.talend.core.repository;
 
 import org.talend.core.model.components.IComponent;
-import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.properties.Item;
-import org.talend.core.model.properties.XmlFileConnectionItem;
-import org.talend.core.model.properties.impl.XmlFileConnectionItemImpl;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.model.RepositoryNode;
 
@@ -46,22 +43,12 @@ public class DefaultRepositoryComponentDndFilter implements IRepositoryComponent
 
     public boolean valid(Item item, ERepositoryObjectType type, RepositoryNode seletetedNode, IComponent component,
             String repositoryType) {
-        String productNameWanted = repositoryType;
         if (component == null || repositoryType == null) {
             return false;
         }
-        // bug TDI-19945,when drop tFileOutputXML that yourself created,filter tFileInputXML,tExtractXMLField component
-        if (("tExtractXMLField").equals(component.getName()) || ("tFileInputXML").equals(component.getName())) {
-            if (item instanceof XmlFileConnectionItem) {
-                XmlFileConnection connection = (XmlFileConnection) ((XmlFileConnectionItemImpl) item).getConnection();
-                if (!connection.isInputModel()) {
-                    productNameWanted = "XMLOUTPUT"; //$NON-NLS-1$
-                }
-            }
-        }
         String componentProductname = component.getRepositoryType();
 
-        if (componentProductname != null && productNameWanted.endsWith(componentProductname)
+        if (componentProductname != null && repositoryType.endsWith(componentProductname)
                 && validSub(item, type, seletetedNode, component, repositoryType)) {
             return true;
         }
