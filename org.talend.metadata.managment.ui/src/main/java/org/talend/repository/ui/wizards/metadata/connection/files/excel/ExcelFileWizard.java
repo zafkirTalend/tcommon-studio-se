@@ -323,7 +323,7 @@ public class ExcelFileWizard extends CheckLastVersionRepositoryWizard implements
                 !isRepositoryObjectEditable(), creation);
 
         excelFileWizardPage0.setTitle(Messages.getString("FileWizardPage.titleCreate") + " 1 " //$NON-NLS-1$ //$NON-NLS-2$
-                + Messages.getString("FileWizardPage.of") + " 3 "); //$NON-NLS-1$ //$NON-NLS-2$
+                + Messages.getString("FileWizardPage.of") + " 4 "); //$NON-NLS-1$ //$NON-NLS-2$
         excelFileWizardPage0.setDescription(Messages.getString("FileWizardPage.descriptionCreateStep0")); //$NON-NLS-1$
 
         addPage(excelFileWizardPage0);
