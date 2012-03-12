@@ -166,6 +166,8 @@ public class DocumentToFlat {
 	private Map<String, String> xpathOfResults;
 	private Map<String, String> xpathToTypeMap;
 	private Map<String, String> xpathToPatternMap;
+	
+	private boolean loopChanged = false;
 	 
 	public DocumentToFlat(Map<String, Object> lookupInfo,
             Map<String, String> xpathOfResults,
@@ -186,41 +188,60 @@ public class DocumentToFlat {
 			flatForLookup();
 		} else {
 			if(currentLoop != originalLoop) {//not point to the same string
+				loopChanged = true;
 				reset();
 			}
 		}
 	}
 	
 	private void reset() {
-		resetMapRelativeXpathKey(lookupInfo);
-    	resetMapRelativeXpathKey(xpathToTypeMap);
-    	resetMapRelativeXpathKey(xpathToPatternMap);
-    	resetMapRelativeXpathValue(xpathOfResults);
+		lookupInfo = resetMapRelativeXpathKey(lookupInfo);
+		xpathToTypeMap = resetMapRelativeXpathKey(xpathToTypeMap);
+		xpathToPatternMap = resetMapRelativeXpathKey(xpathToPatternMap);
+		xpathOfResults = resetMapRelativeXpathValue(xpathOfResults);
 	}
 	
-	private void resetMapRelativeXpathKey(Map<String, ? extends Object> source) {
+	private Map resetMapRelativeXpathKey(Map<String, ? extends Object> source) {
     	Map content = new HashMap();
     	for(String key : source.keySet()) {
     		String newKey = resetRelativeXPath(key);
     		content.put(newKey, source.get(key));
     	}
-    	source.clear();
-    	source.putAll(content);
+    	return content;
     }
     
-    private void resetMapRelativeXpathValue(Map<String,String> source) {
+    private Map resetMapRelativeXpathValue(Map<String,String> source) {
     	Map content = new HashMap();
     	for(String key : source.keySet()) {
     		String value = source.get(key);
     		String newValue = resetRelativeXPath(value);
     		content.put(key, newValue);
     	}
-    	source.clear();
-    	source.putAll(content);
+    	return content;
     }
 	
 	public List<AbstractNode> getNodes() {
 		return nodes;
+	}
+	
+	public Map<String, Object> getLookupInfo() {
+		return lookupInfo;
+	}
+
+	public Map<String, String> getXpathOfResults() {
+		return xpathOfResults;
+	}
+
+	public Map<String, String> getXpathToTypeMap() {
+		return xpathToTypeMap;
+	}
+
+	public Map<String, String> getXpathToPatternMap() {
+		return xpathToPatternMap;
+	}
+
+	public boolean isLoopChanged() {
+		return loopChanged;
 	}
 	
 }

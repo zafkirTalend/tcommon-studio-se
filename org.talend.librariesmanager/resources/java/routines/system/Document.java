@@ -67,6 +67,12 @@ public class Document implements java.io.Serializable{
         docToFlat.setOriginalLoop(loopXPath);
         docToFlat.setXmlNameSpaceMap(nsMapping);
         docToFlat.flatForLookup();
+        if(docToFlat.isLoopChanged()) {//never change the original lookup information object state
+        	lookupInfo = docToFlat.getLookupInfo();
+        	xpathOfResults = docToFlat.getXpathOfResults();
+        	xpathToTypeMap = docToFlat.getXpathToTypeMap();
+        	xpathToPatternMap = docToFlat.getXpathToPatternMap();
+        }
         java.util.List<org.dom4j.tree.AbstractNode> nodes = docToFlat.getNodes();
         
         for (org.dom4j.tree.AbstractNode node : nodes) {
@@ -111,8 +117,6 @@ public class Document implements java.io.Serializable{
             }
 
         }
-        //reset lookup info
-        lookupInfo.clear();
         //set resultset 
 		int count = result.size();
 		if(count>0) {
