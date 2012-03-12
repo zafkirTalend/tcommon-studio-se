@@ -275,6 +275,7 @@ public class XSDPopulationUtil2 {
                 }
                 partNode.setDataType(dataType);
             }
+            handleOptionalAttribute(partNode, xsdParticle);
             addSubstitutionDetails(xsdSchema, partNode, xsdElementDeclarationParticle, null);
         } else if (xsdTerm instanceof XSDModelGroup) {
             XSDModelGroup xsdModelGroup = (XSDModelGroup) xsdTerm;
@@ -283,6 +284,17 @@ public class XSDPopulationUtil2 {
                 XSDParticle childParticle = (XSDParticle) j.next();
                 addParticleDetail(xsdSchema, childParticle, node, currentPath);
             }
+        }
+    }
+
+    private void handleOptionalAttribute(ATreeNode node, XSDParticle xsdParticle) {
+        if (node == null || xsdParticle == null) {
+            return;
+        }
+        if (xsdParticle.getMinOccurs() == 0) {
+            node.setOptional(true);
+        } else {
+            node.setOptional(false);
         }
     }
 

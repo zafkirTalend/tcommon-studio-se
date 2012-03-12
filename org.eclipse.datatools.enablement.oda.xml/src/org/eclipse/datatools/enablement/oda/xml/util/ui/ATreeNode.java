@@ -53,6 +53,8 @@ public class ATreeNode {
 
     private boolean isChoice = false;
 
+    private boolean isOptional = false;
+
     private static HashMap xmlTypeToDataType = new HashMap();
 
     static {
@@ -319,6 +321,14 @@ public class ATreeNode {
 
     public void setChoice(boolean isChoice) {
         this.isChoice = isChoice;
+    }
+
+    public boolean isOptional() {
+        return this.isOptional;
+    }
+
+    public void setOptional(boolean isOptional) {
+        this.isOptional = isOptional;
     }
 
 }
