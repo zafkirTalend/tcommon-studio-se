@@ -1082,10 +1082,6 @@ public class DatabaseTableForm extends AbstractForm {
                                 Messages.getString("DatabaseTableForm.no_such_table"), Messages.getString("DatabaseTableForm.type_another_name")); //$NON-NLS-1$ //$NON-NLS-2$
                 return;
             }
-            IMetadataTable table = UpdateRepositoryUtils.getTableByName(connectionItem, tableName);
-            if (table == null) {
-                return;
-            }
             array = designerService.convertNode(connectionItem, tableName);
             tableEditorView.getMetadataEditor().removeAll();
 
