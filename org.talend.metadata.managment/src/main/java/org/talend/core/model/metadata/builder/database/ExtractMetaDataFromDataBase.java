@@ -865,12 +865,15 @@ public class ExtractMetaDataFromDataBase {
      * @return table name
      */
     public static String getTableNameBySynonym(Connection conn, String name) {
+        Statement sta = null;
+        ResultSet resultSet = null;
+
         try {
             if (conn.getMetaData().getDatabaseProductName().equals("DB2/NT")) {
                 String sql = "SELECT NAME,BASE_NAME FROM SYSIBM.SYSTABLES where TYPE='A' and  name ='" + name + "'";
-                Statement sta = conn.createStatement();
+                sta = conn.createStatement();
                 ExtractMetaDataUtils.setQueryStatementTimeout(sta);
-                ResultSet resultSet = sta.executeQuery(sql);
+                resultSet = sta.executeQuery(sql);
                 while (resultSet.next()) {
                     String baseName = resultSet.getString("base_name").trim();
                     return baseName;
@@ -880,15 +883,26 @@ public class ExtractMetaDataFromDataBase {
         } catch (SQLException e) {
             log.error(e.toString());
             throw new RuntimeException(e);
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (sta != null) {
+                    sta.close();
+                }
+            } catch (SQLException e) {
+                log.equals(e.toString());
+            }
         }
 
         try {
             if (conn.getMetaData().getDatabaseProductName().equals("Microsoft SQL Server")) {
                 String sql = "SELECT object_id ,parent_object_id as parentid, name AS object_name ,   base_object_name as base_name from sys.synonyms where  name ='"
                         + name + "'";
-                Statement sta = conn.createStatement();
+                sta = conn.createStatement();
                 ExtractMetaDataUtils.setQueryStatementTimeout(sta);
-                ResultSet resultSet = sta.executeQuery(sql);
+                resultSet = sta.executeQuery(sql);
                 while (resultSet.next()) {
                     String baseName = resultSet.getString("base_name").trim();
                     if (baseName.contains(".") && baseName.length() > 2) {
@@ -900,6 +914,17 @@ public class ExtractMetaDataFromDataBase {
         } catch (SQLException e) {
             log.error(e.toString());
             throw new RuntimeException(e);
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (sta != null) {
+                    sta.close();
+                }
+            } catch (SQLException e) {
+                log.equals(e.toString());
+            }
         }
 
         try {
@@ -907,19 +932,28 @@ public class ExtractMetaDataFromDataBase {
                 String sql = "select TABLE_NAME from ALL_SYNONYMS where SYNONYM_NAME = '" + name + "'"; //$NON-NLS-1$ //$NON-NLS-2$ 
                 // String sql = "select * from all_tab_columns where upper(table_name)='" + name +
                 // "' order by column_id";
-                Statement sta;
+                // Statement sta;
                 sta = conn.createStatement();
                 ExtractMetaDataUtils.setQueryStatementTimeout(sta);
-                ResultSet resultSet = sta.executeQuery(sql);
+                resultSet = sta.executeQuery(sql);
                 while (resultSet.next()) {
                     return resultSet.getString("TABLE_NAME"); //$NON-NLS-1$
                 }
-                resultSet.close();
-                sta.close();
             }
         } catch (SQLException e) {
             log.error(e.toString());
             throw new RuntimeException(e);
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (sta != null) {
+                    sta.close();
+                }
+            } catch (SQLException e) {
+                log.equals(e.toString());
+            }
         }
         return null;
     }
@@ -935,6 +969,8 @@ public class ExtractMetaDataFromDataBase {
         columnIndex = 0;
         List<TdColumn> metadataColumns = new ArrayList<TdColumn>();
         HashMap<String, String> primaryKeys = new HashMap<String, String>();
+        ResultSet columns = null;
+        Statement stmt = null;
 
         try {
             boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(metadataConnection.getDbType());
@@ -960,11 +996,9 @@ public class ExtractMetaDataFromDataBase {
                 checkUniqueKeyConstraint(tableName, primaryKeys, connection);
             }
 
-            ResultSet columns;
-
             if (ExtractMetaDataUtils.isUseAllSynonyms()) {
                 String sql = "select * from all_tab_columns where table_name='" + tableName + "' "; //$NON-NLS-1$ //$NON-NLS-2$
-                Statement stmt = ExtractMetaDataUtils.conn.createStatement();
+                stmt = ExtractMetaDataUtils.conn.createStatement();
                 ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
                 columns = stmt.executeQuery(sql);
             } else {
@@ -1199,6 +1233,17 @@ public class ExtractMetaDataFromDataBase {
             ExceptionHandler.process(e);
             log.error(e.toString());
             throw new RuntimeException(e);
+        } finally {
+            try {
+                if (columns != null) {
+                    columns.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+                log.equals(e.toString());
+            }
         }
 
         return metadataColumns;
