@@ -70,7 +70,6 @@ import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.IMetadataConnection;
-import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
@@ -96,7 +95,6 @@ import org.talend.cwm.relational.TdColumn;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.runprocess.ProcessorException;
 import org.talend.metadata.managment.ui.i18n.Messages;
-import org.talend.repository.UpdateRepositoryUtils;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.ProjectNodeHelper;
 import org.talend.repository.ui.swt.utils.AbstractForm;
@@ -1081,10 +1079,6 @@ public class DatabaseTableForm extends AbstractForm {
                         .openError(
                                 getShell(),
                                 Messages.getString("DatabaseTableForm.no_such_table"), Messages.getString("DatabaseTableForm.type_another_name")); //$NON-NLS-1$ //$NON-NLS-2$
-                return;
-            }
-            IMetadataTable table = UpdateRepositoryUtils.getTableByName(connectionItem, tableName);
-            if (table == null) {
                 return;
             }
             array = designerService.convertNode(connectionItem, tableName);
