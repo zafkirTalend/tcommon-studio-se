@@ -59,7 +59,18 @@ public class LinksToolbarItem extends ContributionItem {
         toolitem = new ToolItem(parent, SWT.SEPARATOR, index);
         Control control = createControl(parent);
         toolitem.setControl(control);
+        toolitem.setData(this);
         toolitem.setWidth(control.computeSize(SWT.DEFAULT, SWT.DEFAULT).x);
+        toolitem.addListener(SWT.Dispose, new Listener() {
+
+            @Override
+            public void handleEvent(Event event) {
+                if (event.type == SWT.Dispose) {
+                    dispose();
+                }
+            }
+
+        });
     }
 
     protected Control createControl(Composite parent) {
@@ -86,6 +97,7 @@ public class LinksToolbarItem extends ContributionItem {
 
         learn.addListener(SWT.Selection, new Listener() {
 
+            @Override
             public void handleEvent(Event event) {
                 openBrower(event.text);
             }
@@ -106,6 +118,7 @@ public class LinksToolbarItem extends ContributionItem {
 
         ask.addListener(SWT.Selection, new Listener() {
 
+            @Override
             public void handleEvent(Event event) {
                 openBrower(event.text);
             }
@@ -125,6 +138,7 @@ public class LinksToolbarItem extends ContributionItem {
 
             upgrade.addListener(SWT.Selection, new Listener() {
 
+                @Override
                 public void handleEvent(Event event) {
                     openBrower(event.text);
                 }
@@ -146,6 +160,7 @@ public class LinksToolbarItem extends ContributionItem {
 
         exchange.addListener(SWT.Selection, new Listener() {
 
+            @Override
             public void handleEvent(Event event) {
                 if (PluginChecker.isExchangeSystemLoaded()) {
                     IExchangeService service = (IExchangeService) GlobalServiceRegister.getDefault().getService(
@@ -156,6 +171,17 @@ public class LinksToolbarItem extends ContributionItem {
         });
 
         return composite;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.action.ContributionItem#dispose()
+     */
+    @Override
+    public void dispose() {
+        toolitem = null;
+        super.dispose();
     }
 
     private void openBrower(String url) {
