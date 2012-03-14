@@ -10,12 +10,13 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.repository.viewer.content;
+package org.talend.repository.viewer.content.metadata;
 
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.viewer.content.ProjectRepoDirectChildrenNodeContentProvider;
 
-public class ModelSqlContentProvider extends ProjectRepoDirectChildrenNodeContentProvider {
+public class MetadataTopNodeContentProvider extends ProjectRepoDirectChildrenNodeContentProvider {
 
     /*
      * (non-Javadoc)
@@ -26,7 +27,19 @@ public class ModelSqlContentProvider extends ProjectRepoDirectChildrenNodeConten
      */
     @Override
     protected RepositoryNode getTopLevelNodeFromProjectRepositoryNode(ProjectRepositoryNode projectRepositoryNode) {
-        return projectRepositoryNode.getSQLPatternNode();
+        return projectRepositoryNode.getMetadataNode();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.repository.viewer.content.LegacyRepositoryContentProvider#getRepositoryNodeChildren(java.lang.Object,
+     * org.talend.repository.model.RepositoryNode)
+     */
+    @Override
+    protected Object[] getRepositoryNodeChildren(RepositoryNode repositoryNode) {
+        return NO_CHILDREN;
     }
 
 }

@@ -12,20 +12,20 @@
 // ============================================================================
 package org.talend.repository.viewer.content;
 
-import org.talend.repository.model.IRepositoryNode;
-import org.talend.repository.model.nodes.IProjectRepositoryNode;
+import org.talend.repository.model.ProjectRepositoryNode;
+import org.talend.repository.model.RepositoryNode;
 
-public class CodeContentProvider extends LegacyRepositoryContentProvider {
+public class CodeContentProvider extends ProjectRepoDirectChildrenNodeContentProvider {
 
     /*
      * (non-Javadoc)
      * 
      * @see
-     * org.talend.repository.example.viewer.content.LegacyRepositoryContentProvider#getRootNode(org.talend.repository
-     * .model.ProjectRepositoryNode)
+     * org.talend.repository.viewer.content.ProjectRepoChildrenNodeContentProvider#getTopLevelNodeFromProjectRepositoryNode
+     * (org.talend.repository.model.ProjectRepositoryNode)
      */
     @Override
-    protected IRepositoryNode getTopLevelNode(IProjectRepositoryNode projectRepositoryNode) {
+    protected RepositoryNode getTopLevelNodeFromProjectRepositoryNode(ProjectRepositoryNode projectRepositoryNode) {
         return projectRepositoryNode.getCodeNode();
     }
 

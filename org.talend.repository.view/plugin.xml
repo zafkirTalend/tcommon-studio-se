@@ -103,7 +103,7 @@
       </navigatorContent>
       <navigatorContent
             activeByDefault="true"
-            contentProvider="org.talend.repository.viewer.content.MetadataContentProvider"
+            contentProvider="org.talend.repository.viewer.content.metadata.MetadataTopNodeContentProvider"
             icon="icons/connection.gif"
             id="org.talend.repository.viewer.root.content.metadata.content"
             labelProvider="org.talend.repository.viewer.label.RepositoryViewLabelProvider"
@@ -178,6 +178,50 @@
             id="org.talend.repository.viewer.PerspectiveFilterActionProvider">
          <enablement></enablement>
       </actionProvider>
+      <navigatorContent
+            contentProvider="org.talend.repository.viewer.content.metadata.MetadataDbContentProvider"
+            id="org.talend.repository.viewer.metadata.content.db"
+            labelProvider="org.talend.repository.viewer.label.RepositoryViewLabelProvider"
+            name="Metadata DB connections">
+         <possibleChildren>
+            <instanceof
+                  value="org.talend.repository.model.RepositoryNode">
+            </instanceof>
+         </possibleChildren>
+         <triggerPoints>
+            <and>
+               <instanceof
+                     value="org.talend.repository.model.RepositoryNode">
+               </instanceof>
+               <test
+                     forcePluginActivation="true"
+                     property="org.talend.repository.node.isMetadataTopNode">
+               </test>
+            </and>
+         </triggerPoints>
+      </navigatorContent>
+      <navigatorContent
+            contentProvider="org.talend.repository.viewer.content.metadata.MetadataGenericContentProvider"
+            id="org.talend.repository.viewer.metadata.content.generic"
+            labelProvider="org.talend.repository.viewer.label.RepositoryViewLabelProvider"
+            name="Metadata Generic Schema">
+         <possibleChildren>
+            <instanceof
+                  value="org.talend.repository.model.RepositoryNode">
+            </instanceof>
+         </possibleChildren>
+         <triggerPoints>
+            <and>
+               <instanceof
+                     value="org.talend.repository.model.RepositoryNode">
+               </instanceof>
+               <test
+                     forcePluginActivation="true"
+                     property="org.talend.repository.node.isMetadataTopNode">
+               </test>
+            </and>
+         </triggerPoints>
+      </navigatorContent>
    </extension>
    <extension
          point="org.eclipse.ui.navigator.viewer">
@@ -198,6 +242,9 @@
             </contentExtension>
             <contentExtension
                   pattern="org.talend.repository.viewer.content.OemExtension.content">
+            </contentExtension>
+            <contentExtension
+                  pattern="org.talend.repository.viewer.metadata.*">
             </contentExtension>
          </includes>
       </viewerContentBinding>
@@ -224,7 +271,7 @@
             class="org.talend.repository.tester.NodeTester"
             id="org.talend.repository.node.tester"
             namespace="org.talend.repository.node"
-            properties="isJob"
+            properties="isJob,isMetadataTopNode"
             type="org.talend.repository.model.RepositoryNode">
       </propertyTester>
    </extension>

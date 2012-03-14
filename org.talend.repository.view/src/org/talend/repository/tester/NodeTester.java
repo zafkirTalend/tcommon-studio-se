@@ -26,6 +26,8 @@ public class NodeTester extends PropertyTester {
      */
     public static final String IS_JOB = "isJob"; //$NON-NLS-1$
 
+    private static final Object IS_METADATA_TOP_NODE = "isMetadataTopNode"; //$NON-NLS-1$
+
     public NodeTester() {
         // TODO Auto-generated constructor stub
     }
@@ -35,13 +37,35 @@ public class NodeTester extends PropertyTester {
         if (receiver instanceof RepositoryNode) {
             RepositoryNode repositoryNode = (RepositoryNode) receiver;
             if (IS_JOB.equals(property)) {
-                boolean isJob = repositoryNode.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.PROCESS
-                        && repositoryNode.getType() == ENodeType.REPOSITORY_ELEMENT;
-                return isJob;
+                return isJob(repositoryNode);
+            }
+            if (IS_METADATA_TOP_NODE.equals(property)) {
+                return isMetadataTopNode(repositoryNode);
             }
             Assert.isTrue(false);// cause we should never be here
         }
         return false;
     }
 
+    /**
+     * DOC sgandon Comment method "isJob".
+     * 
+     * @param repositoryNode
+     * @return
+     */
+    public boolean isJob(RepositoryNode repositoryNode) {
+        boolean isJob = repositoryNode.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.PROCESS
+                && repositoryNode.getType() == ENodeType.REPOSITORY_ELEMENT;
+        return isJob;
+    }
+
+    /**
+     * DOC sgandon Comment method "isJob".
+     * 
+     * @param repositoryNode
+     * @return
+     */
+    public boolean isMetadataTopNode(RepositoryNode repositoryNode) {
+        return repositoryNode.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.METADATA;
+    }
 }

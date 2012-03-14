@@ -278,11 +278,13 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
      */
     @Override
     protected Object getInitialInput() {
+
         if (initialInput == null) {
-            ProjectRepositoryNode projectRepositoryNode = new ProjectRepositoryNode(null, null, ENodeType.STABLE_SYSTEM_FOLDER);
-            projectRepositoryNode.initialize(null);
-            initialInput = projectRepositoryNode;
+            initialInput = ProjectRepositoryNode.getInstance();
         }
+        // initialInput = new ProjectRepositoryNode(null, null, ENodeType.STABLE_SYSTEM_FOLDER);
+        // ProjectManager.getInstance().updateViewProjectNode((ProjectRepositoryNode) initialInput);
+        // ((ProjectRepositoryNode) initialInput).initialize(null);
         return initialInput;
     }
 
@@ -1237,9 +1239,9 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
     public void refreshAllChildNodes(RepositoryNode rootNode) {
         if (rootNode != null) {
             rootNode.setInitialized(false);
-            if (!rootNode.getContentType().equals(ERepositoryObjectType.METADATA)) {
-                rootNode.getChildren().clear();
-            }
+            // if (!rootNode.getContentType().equals(ERepositoryObjectType.METADATA)) {
+            rootNode.getChildren().clear();
+            // }
             // for bug 11786
             if (rootNode.getParent() instanceof ProjectRepositoryNode) {
                 ((ProjectRepositoryNode) rootNode.getParent()).clearNodeAndProjectCash();
@@ -1253,10 +1255,12 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
             // if refresh throw exception.
             if (!rootNode.getContentType().equals(ERepositoryObjectType.DOCUMENTATION)) {
                 ProjectRepositoryNode theRoot = (ProjectRepositoryNode) rootNode.getRoot();
-                theRoot.getRecBinNode().setInitialized(false);
-                theRoot.getRecBinNode().getChildren().clear();
-                // contentProvider.getChildren(root.getRecBinNode());
-                viewer.refresh(theRoot.getRecBinNode());
+                if (theRoot != null) {
+                    theRoot.getRecBinNode().setInitialized(false);
+                    theRoot.getRecBinNode().getChildren().clear();
+                    // contentProvider.getChildren(root.getRecBinNode());
+                    viewer.refresh(theRoot.getRecBinNode());
+                }
             }
         }
     }
