@@ -12,9 +12,7 @@
 // ============================================================================
 package org.talend.commons.utils.tracer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.net.URI;
@@ -51,6 +49,35 @@ public class StatisticsTracerTest {
             long id = myTracerTest1.start();
             Thread.sleep(sleepTime);
             myTracerTest1.stop(id);
+        }
+
+        long averageWorkTime = myTracerTest1.getAverageWorkTime();
+        assertTrue(averageWorkTime >= sleepTime && averageWorkTime < sleepTime + 10);
+
+        int exepectedElapsedTimeSinceFirstStart = sleepTime * executionsCount;
+        long elapsedTimeSinceFirstStart = myTracerTest1.getElapsedTimeSinceFirstStart();
+        assertTrue(elapsedTimeSinceFirstStart >= exepectedElapsedTimeSinceFirstStart
+                && elapsedTimeSinceFirstStart < exepectedElapsedTimeSinceFirstStart + 50);
+
+        long countExecutions = myTracerTest1.getCountExecutions();
+        assertEquals(executionsCount, countExecutions);
+
+        StatisticsTracer.removeTracer(MY_TRACER_TEST1);
+
+    }
+
+    @Test
+    public void testStatisticTracerSimple() throws InterruptedException {
+
+        StatisticsTracer myTracerTest1 = StatisticsTracer.getTracer(MY_TRACER_TEST1);
+
+        int sleepTime = 100;
+        int executionsCount = 10;
+
+        for (int i = 0; i < 10; i++) {
+            myTracerTest1.start();
+            Thread.sleep(sleepTime);
+            myTracerTest1.stop();
         }
 
         long averageWorkTime = myTracerTest1.getAverageWorkTime();
