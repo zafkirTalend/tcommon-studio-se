@@ -18,9 +18,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -61,8 +62,6 @@ public final class StatisticsTracer {
 
     private static Map<String, StatisticsTracer> tracers = new HashMap<String, StatisticsTracer>();
 
-    private static Map<Long, InternalTimer> internalTimers = Collections.synchronizedMap(new HashMap<Long, InternalTimer>());
-
     private String name;
 
     private long startTime;
@@ -79,13 +78,19 @@ public final class StatisticsTracer {
 
     private int[] timesForTest;
 
-    private Integer displayWithModuloExecutions;
+    private Integer displayWithModuloExecutions = defaultModulo;
 
     private static final Object[] STATIC_LOCK = new Object[0];
 
     private Writer tracerFileWriter;
 
     private static String staticTracerFilePath;
+
+    private static int defaultModulo = 1;
+
+    InternalTimer internalTimer = null;
+
+    private boolean enablePrint = true;
 
     static {
         String statsTracerProperty = "statsTracerPathFile";
@@ -95,6 +100,10 @@ public final class StatisticsTracer {
         if (systemPropertyTracerPathFile != null) {
             staticTracerFilePath = systemPropertyTracerPathFile;
         }
+    }
+
+    public static void setDefaultModulo(int defaultModulo) {
+        StatisticsTracer.defaultModulo = defaultModulo;
     }
 
     /**
@@ -107,6 +116,8 @@ public final class StatisticsTracer {
 
         private long id;
 
+        private List<Long> stepsTime = new ArrayList<Long>();
+
         public InternalTimer(long id) {
             this.id = id;
         }
@@ -115,7 +126,7 @@ public final class StatisticsTracer {
             internalStartTime = getCurrentTime();
         }
 
-        public long stop() {
+        public long deltaTime() {
             return getCurrentTime() - internalStartTime;
         }
 
@@ -161,23 +172,23 @@ public final class StatisticsTracer {
         initFile(pathFile, append);
     }
 
-    public static synchronized StatisticsTracer getTracer(String name) {
-        if (tracers.keySet().contains(name)) {
-            return tracers.get(name);
+    public static synchronized StatisticsTracer getTracer(String tracerId) {
+        if (tracers.keySet().contains(tracerId)) {
+            return tracers.get(tracerId);
         } else {
-            StatisticsTracer timer = new StatisticsTracer(name);
-            tracers.put(name, timer);
+            StatisticsTracer timer = new StatisticsTracer(tracerId);
+            tracers.put(tracerId, timer);
             return timer;
         }
     }
 
-    public static synchronized StatisticsTracer getTimerForTestOnly(String name, int[] timesForTest) {
-        if (tracers.keySet().contains(name)) {
-            return tracers.get(name);
+    public static synchronized StatisticsTracer getTimerForTestOnly(String tracerId, int[] timesForTest) {
+        if (tracers.keySet().contains(tracerId)) {
+            return tracers.get(tracerId);
         } else {
-            StatisticsTracer timer = new StatisticsTracer(name);
+            StatisticsTracer timer = new StatisticsTracer(tracerId);
             timer.timesForTest = timesForTest;
-            tracers.put(name, timer);
+            tracers.put(tracerId, timer);
             return timer;
         }
     }
@@ -188,23 +199,18 @@ public final class StatisticsTracer {
 
     /**
      * 
-     * DOC amaumont Comment method "start".
-     * 
-     * @return id of internalTimer
+     * Method "start".
      */
-    public synchronized long start() {
+    public synchronized void start() {
         if (counter == 0) {
             this.startTime = getCurrentTime();
         }
         long id = 0;
-        InternalTimer internalTimer = null;
         synchronized (STATIC_LOCK) {
             id = idCounter++;
         }
         internalTimer = new InternalTimer(id);
-        internalTimers.put(id, internalTimer);
         internalTimer.start();
-        return id;
     }
 
     private long getCurrentTime() {
@@ -221,25 +227,31 @@ public final class StatisticsTracer {
         printWriter.println("Start " + name); //$NON-NLS-1$
     }
 
-    public synchronized long stop(long internalTimerId) {
-        long timeDelta = 0;
-        InternalTimer internalTimer = internalTimers.get(internalTimerId);
+    /**
+     * 
+     * Method "stop".
+     * 
+     * @param internalTimerId
+     * @return the total time since the start
+     */
+    public synchronized long stop() {
+        long deltaTime = 0;
         if (internalTimer != null) {
-            timeDelta = internalTimer.stop();
-            elapsedTime += timeDelta;
+            deltaTime = internalTimer.deltaTime();
+            elapsedTime += deltaTime;
             counter++;
-            internalTimers.remove(internalTimerId);
         } else {
-            new Exception("Can't stop the internal timer " + internalTimerId + ", it does not exist").printStackTrace();
+            new Exception("The " + StatisticsTracer.class.getSimpleName() + " '" + name + "' has not been started!")
+                    .printStackTrace();
         }
-        if (displayWithModuloExecutions != null) {
+        if (enablePrint && displayWithModuloExecutions != null) {
             print(displayWithModuloExecutions);
         }
-        return timeDelta;
+        return deltaTime;
     }
 
-    public void stop(long internalTimerId, PrintWriter printWriter) {
-        stop(internalTimerId);
+    public void stop(PrintWriter printWriter) {
+        stop();
         printWriter.println("Stop  " + name); //$NON-NLS-1$
     }
 
@@ -299,12 +311,16 @@ public final class StatisticsTracer {
         return elapsedTime;
     }
 
-    public void enablePrintByModulo(int displayWithModuloExecutions) {
+    public void setModuloPrint(int displayWithModuloExecutions) {
         this.displayWithModuloExecutions = displayWithModuloExecutions;
     }
 
+    public void enablePrint() {
+        enablePrint = false;
+    }
+
     public void disablePrint() {
-        this.displayWithModuloExecutions = null;
+        enablePrint = true;
     }
 
     public void print(int displayWithModuloExecutions) {
@@ -313,8 +329,8 @@ public final class StatisticsTracer {
         }
     }
 
-    public static synchronized void removeTracer(String timerId) {
-        StatisticsTracer removed = tracers.remove(timerId);
+    public static synchronized void removeTracer(String tracerId) {
+        StatisticsTracer removed = tracers.remove(tracerId);
         if (removed.tracerFileWriter != null) {
             try {
                 removed.tracerFileWriter.close();
