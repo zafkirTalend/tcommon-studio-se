@@ -364,14 +364,15 @@ public abstract class PropertiesWizardPage extends WizardPage {
         statusLab.setText(Messages.getString("PropertiesWizardPage.Status")); //$NON-NLS-1$
 
         statusText = new CCombo(parent, SWT.BORDER);
+        statusText.setEditable(false);
         List<org.talend.core.model.properties.Status> statusList;
         try {
             if (property != null) {
                 statusList = statusHelper.getStatusList(property);
                 statusText.setItems(toArray(statusList));
                 statusText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-                statusText.setEditable(!readOnly);
-                statusText.setEnabled(!readOnly);
+                // statusText.setEditable(!readOnly);
+                // statusText.setEnabled(!readOnly);
             }
         } catch (PersistenceException e) {
             // TODO Auto-generated catch block
