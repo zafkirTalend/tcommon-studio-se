@@ -225,6 +225,8 @@ public class MoveObjectAction {
         }
 
         IRepositoryViewObject objectToCopy = sourceNode.getObject();
+        // added by hqzhang, update the propery since it has not been updated after initialize()
+        objectToCopy.getProperty();
         if (ProxyRepositoryFactory.getInstance().getStatus(objectToCopy) == ERepositoryStatus.LOCK_BY_USER) {
             isLock = true;
         }
