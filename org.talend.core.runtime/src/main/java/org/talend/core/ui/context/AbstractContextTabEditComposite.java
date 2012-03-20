@@ -60,6 +60,13 @@ public abstract class AbstractContextTabEditComposite extends Composite {
 
     public abstract IContextModelManager getContextModelManager();
 
+    /**
+     * Added by Marvin Wang on Mar.19, 2012 for verifying the current status.
+     * 
+     * @return
+     */
+    public abstract boolean isGroupBySource();
+
     public abstract TreeViewer getViewer();
 
     public abstract void refresh();
