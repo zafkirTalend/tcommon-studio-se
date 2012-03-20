@@ -21,8 +21,8 @@ Require-Bundle: javax.xml.rpc,
  org.apache.log4j,
  org.talend.commons.runtime,
  org.eclipse.ui.navigator,
- org.talend.repository.view,
- org.talend.repository
+ org.talend.repository,
+ org.talend.repository.view.di
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: .Talend SA.
 Bundle-ClassPath: .,
