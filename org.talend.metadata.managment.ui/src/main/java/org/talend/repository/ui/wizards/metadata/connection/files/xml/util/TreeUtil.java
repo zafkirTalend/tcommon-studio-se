@@ -12,22 +12,32 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.connection.files.xml.util;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.xerces.xs.XSModel;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.datatools.connectivity.oda.OdaException;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.SchemaPopulationUtil;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.XSDPopulationUtil;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.XSDPopulationUtil2;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.xsd.XSDSchema;
+import org.osgi.framework.Bundle;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.utils.io.FilesUtils;
 import org.talend.commons.xml.XmlUtil;
 import org.talend.core.model.metadata.MappingTypeRetriever;
 import org.talend.core.model.metadata.MetadataTalendType;
@@ -837,6 +847,65 @@ public class TreeUtil {
             }
             return getRootFOXTreeNode(parent);
         }
+        return null;
+    }
+
+    public static List<FOXTreeNode> parseMDMUpdateReport(Shell shell, boolean needConfirm) {
+        boolean fileExist = false;
+        String filePath = ""; //$NON-NLS-1$
+        try {
+            Bundle b = Platform.getBundle("org.talend.repository.mdm"); //$NON-NLS-1$
+            if (b == null)
+                return null;
+            URL url = FileLocator.toFileURL(FileLocator.find(b, new Path("/resources/UpdateReport.xsd"), null)); //$NON-NLS-1$
+            if (url != null) {
+                filePath = copyToTempFile(url, "UpdateReport.xsd"); //$NON-NLS-1$
+                fileExist = true;
+            }
+        } catch (IOException e) {
+            fileExist = false;
+        }
+        if (!fileExist) {
+            return null;
+        }
+        boolean pass = true;
+        if (needConfirm) {
+            pass = MessageDialog.openConfirm(shell, "Update Report", "Do you want to add the Update Report content?");
+        }
+        if (pass) {
+            try {
+                if (XmlUtil.isXSDFile(filePath)) {
+                    XSDSchema xsdSchema = getXSDSchema(filePath);
+                    List<ATreeNode> allTreeNodes = new XSDPopulationUtil2().getAllRootNodes(xsdSchema);
+                    if (!allTreeNodes.isEmpty()) {
+                        return getFoxTreeNodesByRootNode(xsdSchema, allTreeNodes.get(0));
+                    }
+                }
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
+            }
+        }
+
+        return null;
+    }
+
+    private static String copyToTempFile(URL url, String fileName) {
+        try {
+            IPath tempPath = new Path(System.getProperty("user.dir")).append("temp"); //$NON-NLS-1$ //$NON-NLS-2$
+            File tempFile = tempPath.toFile();
+            if (!tempFile.exists()) {
+                tempFile.mkdirs();
+            }
+            File newFile = new File(tempFile, fileName);
+
+            FileInputStream srcStream = new FileInputStream(url.getPath());
+            FilesUtils.copyFile(srcStream, newFile);
+
+            return newFile.getAbsolutePath();
+        } catch (IOException e) {
+            ExceptionHandler.process(e);
+        }
+
         return null;
     }
 }
