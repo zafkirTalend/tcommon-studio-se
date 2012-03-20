@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.ui.context.model;
 
+import org.eclipse.jface.viewers.ITableColorProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -22,7 +23,8 @@ import org.eclipse.swt.graphics.Image;
  * A label and content provider for the treeviewer which groups the Contexts by source.
  * 
  */
-public abstract class ContextProviderProxy extends LabelProvider implements ITreeContentProvider, ITableLabelProvider {
+public abstract class ContextProviderProxy extends LabelProvider implements ITreeContentProvider, ITableLabelProvider,
+        ITableColorProvider {
 
     /*
      * (non-Javadoc)
@@ -41,4 +43,5 @@ public abstract class ContextProviderProxy extends LabelProvider implements ITre
      */
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
     }
+
 }
