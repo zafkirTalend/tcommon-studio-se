@@ -22,6 +22,8 @@ public class DocumentToFlat {
 	
 	private boolean top = false;
 	
+	boolean isOptional = false; // use to judge if the loop node is mandotary in the source file.
+	
 	//check whether namespace define exist in UI
 	private boolean defineNS = true;
 	private NameSpaceTool namespaceTool;
@@ -47,10 +49,11 @@ public class DocumentToFlat {
 		}
 		loopXpath.setNamespaceURIs(xmlNameSpaceMap);
 		nodes = loopXpath.selectNodes(doc);
-		if(nodes.size() == 0 && !top) {
+		if(this.isOptional && nodes.size() == 0 && !top) {
 			setParentAsLoop();
 			flat();
-		} else {
+		} 
+		if (nodes !=null ) {
 			//reset relative paths
 			if(currentLoop != originalLoop) {//not point to the same string
 				for(int i=0;i<currentRelativePathMappings.length;i++) {
@@ -242,6 +245,10 @@ public class DocumentToFlat {
 
 	public boolean isLoopChanged() {
 		return loopChanged;
+	}
+	
+	public void setIsOptional(boolean isLoopOptional) {
+		this.isOptional = isLoopOptional;
 	}
 	
 }
