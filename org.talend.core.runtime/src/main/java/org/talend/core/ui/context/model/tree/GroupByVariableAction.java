@@ -54,7 +54,7 @@ public class GroupByVariableAction extends Action {
         TreeViewer viewer = parentModel.getViewer();
 
         viewer.setColumnProperties(ContextTreeConstants.GROUP_BY_VARIABLE_COLUMN_PROPERTIES);
-        GroupByVariableProvider labelprovider = new GroupByVariableProvider();
+        GroupByVariableProvider labelprovider = new GroupByVariableProvider(parentModel.getContextModelManager());
         parentModel.setProviderProxy(labelprovider);
         Tree tree = viewer.getTree();
         viewer.setCellEditors(new CellEditor[] { null, null, new CheckboxCellEditor(tree), new TextCellEditor(tree),

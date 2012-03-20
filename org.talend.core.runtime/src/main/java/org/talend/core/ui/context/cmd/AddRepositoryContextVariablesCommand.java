@@ -71,7 +71,7 @@ public class AddRepositoryContextVariablesCommand extends Command {
                 // existed.
                 if (!paramExisted.isBuiltIn() && contextItem.getProperty().getId().equals(paramExisted.getSource())) {
                     // update the parameter.
-                    modelManager.onContextRemoveParameter(manager, defaultContextParamType.getName());
+                    modelManager.onContextRemoveParameter(manager, defaultContextParamType.getName(), paramExisted.getSource());
                     helper.addContextParameterType(defaultContextParamType);
 
                 }
