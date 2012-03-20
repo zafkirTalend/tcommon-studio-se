@@ -132,7 +132,6 @@ import org.talend.repository.IRepositoryChangedListener;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryChangedEvent;
 import org.talend.repository.RepositoryPlugin;
-import org.talend.repository.i18n.Messages;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
@@ -160,8 +159,6 @@ import org.talend.repository.ui.views.RepositoryDropAdapter;
  */
 public class RepoViewCommonNavigator extends CommonNavigator implements IRepositoryView, ITabbedPropertySheetPageContributor,
         IRepositoryChangedListener, ISelectionListener {
-
-    public final static String ID = "org.talend.repository.views.repository"; //$NON-NLS-1$
 
     private static final String PERSPECTIVE_DI_ID = "org.talend.rcp.perspective"; //$NON-NLS-1$
 
@@ -359,8 +356,7 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
         // initDragAndDrop();
         hookDoubleClickAction();
 
-        setPartName(Messages.getString("repository.title", ((RepositoryContext) CorePlugin.getContext().getProperty( //$NON-NLS-1$
-                Context.REPOSITORY_CONTEXT_KEY)).getProject()));
+        //setPartName(Messages.getString("repository.title")); //$NON-NLS-1$
 
         viewer.getTree().addFocusListener(new FocusListener() {
 

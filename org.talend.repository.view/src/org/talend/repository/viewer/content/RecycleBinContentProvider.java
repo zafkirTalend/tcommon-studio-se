@@ -15,7 +15,7 @@ package org.talend.repository.viewer.content;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
-public class JobsContentProvider extends ProjectRepoDirectChildrenNodeContentProvider {
+public class RecycleBinContentProvider extends ProjectRepoDirectChildrenNodeContentProvider {
 
     /*
      * (non-Javadoc)
@@ -26,6 +26,7 @@ public class JobsContentProvider extends ProjectRepoDirectChildrenNodeContentPro
      */
     @Override
     protected RepositoryNode getTopLevelNodeFromProjectRepositoryNode(ProjectRepositoryNode projectRepositoryNode) {
-        return projectRepositoryNode.getProcessNode();
+        return projectRepositoryNode.getRecBinNode();
     }
+
 }

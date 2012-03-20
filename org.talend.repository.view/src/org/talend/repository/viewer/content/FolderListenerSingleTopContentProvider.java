@@ -23,6 +23,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.ui.navigator.CommonViewer;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.repository.constants.FileConstants;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.navigator.RepoViewCommonViewer;
@@ -45,7 +46,12 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
             IResource resource = delta.getResource();
             IPath path = resource.getProjectRelativePath();
             if (topLevelNode != null) {
-                String folderName = topLevelNode.getContentType().getFolder();
+                final ERepositoryObjectType contentType = topLevelNode.getContentType();
+                if (contentType == null) {
+                    // PTODO need check this
+                    return false;
+                }
+                String folderName = contentType.getFolder();
                 // be sure we are the last path of the resources and then check for the right folder and then check for
                 // file of type .properties or folder.
 

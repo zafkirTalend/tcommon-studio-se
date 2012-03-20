@@ -19,7 +19,10 @@ Require-Bundle: javax.xml.rpc,
  org.talend.metadata.managment.ui,
  org.talend.libraries.apache,
  org.apache.log4j,
- org.talend.commons.runtime
+ org.talend.commons.runtime,
+ org.eclipse.ui.navigator,
+ org.talend.repository.view,
+ org.talend.repository
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: .Talend SA.
 Bundle-ClassPath: .,

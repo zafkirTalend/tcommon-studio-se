@@ -40,7 +40,7 @@ public abstract class ProjectRepoDirectChildrenNodeContentProvider extends Folde
      * @param element
      * @return
      */
-    abstract protected RepositoryNode getTopLevelNodeFromProjectRepositoryNode(ProjectRepositoryNode element);
+    abstract protected RepositoryNode getTopLevelNodeFromProjectRepositoryNode(ProjectRepositoryNode projectNode);
 
     @Override
     protected boolean isRootNodeType(Object element) {
