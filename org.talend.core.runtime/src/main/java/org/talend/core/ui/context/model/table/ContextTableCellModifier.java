@@ -53,47 +53,6 @@ public class ContextTableCellModifier extends AbstractContextCellModifier {
                 }
             }
         }
-
-        // IContextParameter para = null;
-        // if (getModelManager().isReadOnly()) {
-        // return false;
-        // }
-        // if (property.equals(ContextTableConstants.COLUMN_NAME_PROPERTY)) {
-        // return false;
-        // } else {
-        // if (element instanceof ContextTableTabChildModel) {
-        // ContextTableTabChildModel child = (ContextTableTabChildModel) element;
-        // String sourceId = child.getContextParameter().getSource();
-        // if (!IContextParameter.BUILT_IN.equals(sourceId))
-        // return false;
-        // } else if (element instanceof ContextTableTabParentModel) {
-        // ContextTableTabParentModel parent = (ContextTableTabParentModel) element;
-        // String sourceId = parent.getSourceId();
-        // if (!IContextParameter.BUILT_IN.equals(sourceId))
-        // return false;
-        // }
-        // }
-
-        // List<IContext> contextList = getParentMode().getContexts();
-        // for (int i = 0; i < (contextList.size() + 1); i++) {
-        // String colProperty = getParentMode().getColumnProperties()[i];
-        // if (property.equals(colProperty)) {
-        // para = getRealParameter(colProperty, element);
-        // }
-        // }
-        //
-        // if (para == null) {
-        // return false;
-        // }
-        // 4
-        // if (!para.isBuiltIn() && !isRepositoryMode()) {
-        // // not built-in, not update
-        // return false;
-        // }
-        //
-        // if (property.equals(ContextTableConstants.COLUMN_NAME_PROPERTY)) {
-        // return false;
-        // }
         return false;
 
     }
@@ -122,20 +81,6 @@ public class ContextTableCellModifier extends AbstractContextCellModifier {
                 }
             }
         }
-        // List<IContext> contextList = getParentMode().getContexts();
-        // for (int i = 0; i < (contextList.size() + 1); i++) {
-        // if (property.equals(getParentMode().getColumnProperties()[i])) {
-        // para = getRealParameter(getParentMode().getColumnProperties()[i], element);
-        // return para.getValue();
-        // }
-        // }
-        // if (para != null) {
-        // for (IContext context : contextList) {
-        // if (property.equals(context.getName())) {
-        // return para.getValue();
-        // }
-        // }
-        // }
         return ""; //$NON-NLS-1$
     }
 
@@ -171,10 +116,6 @@ public class ContextTableCellModifier extends AbstractContextCellModifier {
                 para = context.getContextParameter(sourceId, ((ContextTableTabChildModel) element).getContextParameter()
                         .getName());
             }
-            // else if (element instanceof GroupByNothingTableParent) {
-            // para = context.getContextParameter(((ContextTableTabParentModel)
-            // element).getContextParameter().getName());
-            // }
         } else {
             if (element instanceof ContextTableTabParentModel) {
                 ContextTableTabParentModel contextTableTabParentModel = (ContextTableTabParentModel) element;
@@ -201,7 +142,7 @@ public class ContextTableCellModifier extends AbstractContextCellModifier {
         TreeItem item = (TreeItem) element;
         final Object object = item.getData();
 
-        // TODO add all nodes that need to update.
+        // add all nodes that need to update.
         List<Object> list = new ArrayList<Object>();
         list.add(object);
 
@@ -264,5 +205,4 @@ public class ContextTableCellModifier extends AbstractContextCellModifier {
         }
         return updateObjs.toArray();
     }
-
 }

@@ -140,35 +140,6 @@ public class ContextCellModifier extends AbstractContextCellModifier {
                 return contextPara.getComment();
             }
         }
-
-        // IContextParameter para = getRealParameter(element);
-        //
-        // if (para != null) {
-        // if (property.equals(ContextConstant.NAME_COLUMN_NAME)) {
-        // return para.getName();
-        // } else if (property.equals(ContextConstant.TYPE_COLUMN_NAME)) {
-        // String s = ContextManagerHelper.convertFormat(para.getType());
-        // final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
-        // if (codeLanguage == ECodeLanguage.JAVA) {
-        // for (int i = 0; i < ContextParameterJavaTypeManager.getJavaTypesLabels().length; i++) {
-        // if (s.equals(ContextParameterJavaTypeManager.getJavaTypesLabels()[i])) {
-        // return i;
-        // }
-        // }
-        // return -1;
-        // } else {
-        // for (int i = 0; i < ContextParameterJavaTypeManager.getPerlTypesLabels().length; i++) {
-        // if (s.equals(ContextParameterJavaTypeManager.getPerlTypesLabels()[i])) {
-        // return i;
-        // }
-        // }
-        // return -1;
-        // }
-        //
-        // } else if (property.equals(ContextConstant.COMMENT_COLUMN_NAME)) {
-        // return para.getComment();
-        // }
-        // }
         return null; //$NON-NLS-1$
     }
 
@@ -253,81 +224,6 @@ public class ContextCellModifier extends AbstractContextCellModifier {
             lookupSameNameNode(contextPara.getSource(), originalName, item, updateObjs);
             updateRelatedNode(updateObjs.toArray(), contextPara);
         }
-
-        // final IContextParameter para = getRealParameter(object);
-        // if (para == null) {
-        // return;
-        // }
-        // String originalName = para.getName();
-        // String sourceId = para.getSource();
-        // if (property.equals(ContextConstant.NAME_COLUMN_NAME)) {
-        // if (para.getName().equals(value)) {
-        // return;
-        // }
-        // String name = para.getName();
-        // getParentMode().renameParameter(name, sourceId, (String) value, isRepositoryMode());
-        // } else if (property.equals(ContextConstant.TYPE_COLUMN_NAME)) {
-        // int index = -1;
-        // String s = ContextManagerHelper.convertFormat(para.getType());
-        // final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
-        // if (codeLanguage == ECodeLanguage.JAVA) {
-        // for (int i = 0; i < ContextParameterJavaTypeManager.getJavaTypesLabels().length; i++) {
-        // if (s.equals(ContextParameterJavaTypeManager.getJavaTypesLabels()[i])) {
-        // index = i;
-        // }
-        // }
-        // if (index == ((Integer) value)) {
-        // return;
-        // }
-        // String newType = getRealType(ContextParameterJavaTypeManager.getJavaTypesLabels()[(Integer) value]);
-        // String name = para.getName();
-        // for (IContext context : getContextManager().getListContext()) {
-        // for (IContextParameter contextParameter : context.getContextParameterList()) {
-        // if (name.equals(contextParameter.getName())) {
-        // contextParameter.setType(newType);
-        // }
-        // }
-        // }
-        // } else {
-        // for (int i = 0; i < ContextParameterJavaTypeManager.getPerlTypesLabels().length; i++) {
-        // if (s.equals(ContextParameterJavaTypeManager.getPerlTypesLabels()[i])) {
-        // index = i;
-        // }
-        // }
-        // if (index == ((Integer) value)) {
-        // return;
-        // }
-        // String newType = getRealType(ContextParameterJavaTypeManager.getPerlTypesLabels()[(Integer) value]);
-        // String name = para.getName();
-        // for (IContext context : getContextManager().getListContext()) {
-        // for (IContextParameter contextParameter : context.getContextParameterList()) {
-        // if (name.equals(contextParameter.getName())) {
-        // contextParameter.setType(newType);
-        // ContextManagerHelper.checkAndSetDefaultValue(contextParameter);
-        // }
-        // }
-        // }
-        // }
-        // } else if (property.equals(ContextConstant.COMMENT_COLUMN_NAME)) {
-        // // if (para.getComment().equals(value)) {
-        // // return;
-        // // }
-        // // String name = para.getName();
-        // // for (IContext context : getContextManager().getListContext()) {
-        // // for (IContextParameter contextParameter : context.getContextParameterList()) {
-        // // if (name.equals(contextParameter.getName())) {
-        // // contextParameter.setComment((String) value);
-        // // }
-        // // }
-        // // }
-        // modifyCommentColumnValue(para, (String) value);
-        // }
-        // set updated flag.
-        // List<Object> updateObjs = new ArrayList<Object>();
-        // updateObjs.add(object);
-        // lookupSameNameNode(para.getSource(), originalName, item, updateObjs);
-        // updateRelatedNode(updateObjs.toArray(), para);
-        // setAndRefreshFlags(object, para);
     }
 
     private void lookupSameNameFromChilren(String sourceId, String nodeName, TreeItem item, List<Object> updateObjs) {
@@ -367,22 +263,9 @@ public class ContextCellModifier extends AbstractContextCellModifier {
                     if (nodeName.equals(paraName))
                         updateObjs.add(obj);
                 }
-                // else if (obj instanceof ContextParameterParent) {
-                // ContextParameterParent parent = (ContextParameterParent) obj;
-                // String name = parent.getParameter().getName();
-                // if (nodeName.equals(name))
-                // sameNameNodes.add(obj);
-                // }
             }
         }
         return updateObjs.toArray();
-    }
-
-    private void modifyCommentColumnValue(IContextParameter contextParameter, String newValue) {
-        String oldValue = contextParameter.getComment();
-        if (!newValue.equals(oldValue)) {
-            contextParameter.setComment(newValue);
-        }
     }
 
     private String getRealType(String type) {

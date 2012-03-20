@@ -51,9 +51,6 @@ public abstract class AbstractContextCellModifier implements ICellModifier {
         return parentMode.getContextModelManager().getContextManager();
     }
 
-    // protected abstract void lookupSameNameContextParameter(final Object[] updatingObjs, String nodeName, Object[]
-    // originalObjs);
-
     protected void updateRelatedNode(final Object[] objs, final IContextParameter param) {
         if (objs != null && objs.length > 0) {
             Command command = updateRelatedNodeCommand(objs, null);
@@ -81,36 +78,5 @@ public abstract class AbstractContextCellModifier implements ICellModifier {
                 getParentMode().getViewer().update(objs, properties);
             }
         };
-    }
-
-    protected void setAndRefreshFlags(final Object object, final IContextParameter param) {
-        if (object != null) {
-            Command command = new Command() {
-
-                @Override
-                public void execute() {
-                    getParentMode().getViewer().update(object, null);
-                    // Added by Marvin Wang on Mar.6, 2012 for bug TDI-8574 to refresh the all viewers from "Variables",
-                    // "Values as tree" and "Values as table".
-                    // getParentMode().getViewer().refresh(parentMode.getContextModelManager().getContextManager().getListContext(),
-                    // true);
-                }
-            };
-
-            getParentMode().runCommand(command);
-        }
-        // set updated flag.
-        if (param != null) {
-            IContextManager manager = getContextManager();
-            if (manager != null && manager instanceof JobContextManager) {
-                JobContextManager jobContextManager = (JobContextManager) manager;
-                // not added new
-                if (!getModelManager().isRepositoryContext() || getModelManager().isRepositoryContext()
-                        && jobContextManager.isOriginalParameter(param.getName())) {
-                    jobContextManager.setModified(true);
-                    manager.fireContextsChangedEvent();
-                }
-            }
-        }
     }
 }

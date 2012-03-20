@@ -51,13 +51,6 @@ public class GroupBySourceProvider extends ContextProviderProxy {
         }
     }
 
-    private IContextManager getContextManager() {
-        if (modelManager != null) {
-            return modelManager.getContextManager();
-        }
-        return null;
-    }
-
     private String getColumnTextForBuiltinParent(ContextVariableTabParentModel parent, int columnIndex) {
         IContextParameter contextPara = parent.getContextParameter();
         switch (columnIndex) {
@@ -152,33 +145,6 @@ public class GroupBySourceProvider extends ContextProviderProxy {
             return getColumnTextForChild(child, columnIndex);
         }
         return "";
-    }
-
-    /**
-     * Added by Marvin Wang on Mar.7, 2012 for getting the fourth column text for sorted parent with given
-     * <code>element</code>.
-     * 
-     * @param element
-     * @return
-     */
-    private String getColumn4Text(Object element) {
-        String text = "";
-        if (element instanceof ContextVariableTabParentModel) {
-            ContextVariableTabParentModel parent = (ContextVariableTabParentModel) element;
-            String sourceId = parent.getSourceId();
-            if (sourceId == null)
-                text = "";
-            else if (IContextParameter.BUILT_IN.equals(sourceId)) {
-                text = parent.getContextParameter().getComment();
-            } else
-                text = ContextConstant.LINE_STRING;
-        } else if (element instanceof ContextVariableTabChildModel) {
-            ContextVariableTabChildModel child = (ContextVariableTabChildModel) element;
-            String sourceId = child.getContextParameter().getSource();
-            if (IContextParameter.BUILT_IN.equals(sourceId))
-                text = child.getContextParameter().getComment();
-        }
-        return text;
     }
 
     /*
@@ -297,9 +263,6 @@ public class GroupBySourceProvider extends ContextProviderProxy {
             ContextVariableTabParentModel parent = (ContextVariableTabParentModel) parentElement;
             return parent.getChildren().toArray();
         }
-        // if (parentElement instanceof ContextParameterSortedParent) {
-        // return ((ContextParameterSortedParent) parentElement).getSon().toArray();
-        // }
         return new Object[0];
     }
 
@@ -313,9 +276,6 @@ public class GroupBySourceProvider extends ContextProviderProxy {
             ContextVariableTabChildModel child = (ContextVariableTabChildModel) element;
             return child.getParent();
         }
-        // if (element instanceof ContextParameterSortedSon) {
-        // return ((ContextParameterSortedSon) element).getParent();
-        // }
         return null;
     }
 
@@ -329,9 +289,6 @@ public class GroupBySourceProvider extends ContextProviderProxy {
             ContextVariableTabParentModel parent = (ContextVariableTabParentModel) element;
             return parent.hasChildren();
         }
-        // if (element instanceof ContextParameterSortedParent) {
-        // return !((ContextParameterSortedParent) element).getSon().isEmpty();
-        // }
         return false;
     }
 

@@ -95,49 +95,6 @@ public class GroupByNothingTableProvider extends ContextProviderProxy {
         } else if (element instanceof ContextTableTabChildModel) {
 
         }
-
-        // int count = 0;
-        // List<IContext> contextList = parentModel.getContexts();
-        // count = contextList.size();
-        //
-        // if (element instanceof GroupByNothingTableParent) {
-        // if (columnIndex == 0) {
-        // if (((GroupByNothingTableParent) element).getContextParameter() != null) {
-        // IContext defaultContext = parentModel.getContextModelManager().getContextManager().getDefaultContext();
-        // if (defaultContext.getContextParameter(((GroupByNothingTableParent) element).getContextParameter().getName())
-        // != null) {
-        // return defaultContext.getContextParameter(
-        // ((GroupByNothingTableParent) element).getContextParameter().getName()).getName();
-        // }
-        // }
-        // }
-        //
-        // for (int j = 1; j <= count; j++) {
-        // if (j == 1) {
-        // if (columnIndex == j) {
-        // if (((GroupByNothingTableParent) element).getContextParameter() != null) {
-        // if (contextList.get(columnIndex - 1).getContextParameter(
-        // ((GroupByNothingTableParent) element).getContextParameter().getName()) != null) {
-        // return ContextParameterUtils.checkAndHideValue(contextList.get(columnIndex - 1)
-        // .getContextParameter(
-        // ((GroupByNothingTableParent) element).getContextParameter().getName()));
-        // }
-        // }
-        // }
-        // } else {
-        // if (columnIndex == j) {
-        // if (((GroupByNothingTableParent) element).getContextParameter() != null) {
-        // if (contextList.get(columnIndex - 1).getContextParameter(
-        // ((GroupByNothingTableParent) element).getContextParameter().getName()) != null) {
-        // return ContextParameterUtils.checkAndHideValue(contextList.get(columnIndex - 1)
-        // .getContextParameter(
-        // ((GroupByNothingTableParent) element).getContextParameter().getName()));
-        // }
-        // }
-        // }
-        // }
-        // }
-        // }
         return ""; //$NON-NLS-1$
     }
 
@@ -166,14 +123,6 @@ public class GroupByNothingTableProvider extends ContextProviderProxy {
                 output.add(parent);
             }
         }
-
-        // List<GroupByNothingTableParent> root = new ArrayList<GroupByNothingTableParent>();
-        //
-        // for (IContextParameter contextParameter : contexts) {
-        // GroupByNothingTableParent parent = new GroupByNothingTableParent();
-        // parent.setContextParameter(contextParameter);
-        // root.add(parent);
-        // }
         return output.toArray();
     }
 
@@ -187,9 +136,6 @@ public class GroupByNothingTableProvider extends ContextProviderProxy {
             ContextTableTabParentModel parent = (ContextTableTabParentModel) parentElement;
             return parent.getChildren().toArray();
         }
-        // if (parentElement instanceof GroupByNothingTableParent) {
-        // return ((GroupByNothingTableParent) parentElement).getSon().toArray();
-        // }
         return new Object[0];
     }
 
@@ -203,9 +149,6 @@ public class GroupByNothingTableProvider extends ContextProviderProxy {
             ContextTableTabChildModel child = (ContextTableTabChildModel) element;
             return child.getParent();
         }
-        // if (element instanceof GroupByNothingTableSon) {
-        // return ((GroupByNothingTableSon) element).getParent();
-        // }
         return null;
     }
 
@@ -219,9 +162,6 @@ public class GroupByNothingTableProvider extends ContextProviderProxy {
             ContextTableTabParentModel parent = (ContextTableTabParentModel) element;
             return parent.hasChildren();
         }
-        // if (element instanceof GroupByNothingTableParent) {
-        // return !((GroupByNothingTableParent) element).getSon().isEmpty();
-        // }
         return false;
     }
 

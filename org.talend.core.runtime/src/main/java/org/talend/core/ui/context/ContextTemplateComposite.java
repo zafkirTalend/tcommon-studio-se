@@ -611,49 +611,6 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
                                 removeParentModelNonGroupBySource(variableParentModel);
                             }
                         }
-
-                        // if (object instanceof ContextVariableTabParentModel) {
-                        // ContextVariableTabParentModel variableParentModel = (ContextVariableTabParentModel) object;
-                        // String sourceId = null;
-                        // if (isGroupBySource())
-                        // sourceId = variableParentModel.getSourceId();
-                        // else
-                        // sourceId = variableParentModel.getContextParameter().getSource();
-                        // if (IContextParameter.BUILT_IN.equals(sourceId)) {
-                        // /*
-                        // * make the view just refresh one time when delete more than one context in designer
-                        // * added by hyWang
-                        // */
-                        // Set<String> paramNamesFromBuiltIn = new HashSet<String>();
-                        // for (Object o : obj) {
-                        // if (o instanceof ContextVariableTabParentModel) {
-                        // parameter = ((ContextVariableTabParentModel) o).getContextParameter();
-                        // } else if (o instanceof ContextVariableTabChildModel) {
-                        // parameter = ((ContextVariableTabChildModel) o).getContextParameter();
-                        // }
-                        // if (parameter != null) {
-                        // paramNamesFromBuiltIn.add(parameter.getName());
-                        //
-                        // }
-                        // }
-                        // modelManager.onContextRemoveParameter(getContextManager(), paramNamesFromBuiltIn, sourceId);
-                        // } else {
-                        // Set<String> paramNamesFromRepository = new HashSet<String>();
-                        // for (ContextTabChildModel son : variableParentModel.getChildren()) {
-                        // parameter = ((ContextVariableTabChildModel) son).getContextParameter();
-                        // paramNamesFromRepository.add(parameter.getName());
-                        // }
-                        // modelManager.onContextRemoveParameter(getContextManager(), paramNamesFromRepository,
-                        // sourceId);
-                        // }
-                        // } else if (object instanceof ContextTabChildModel) {
-                        // parameter = ((ContextTabChildModel) object).getContextParameter();
-                        // String sourceId = parameter.getSource();
-                        // modelManager.onContextRemoveParameter(getContextManager(), parameter.getName(), sourceId);
-                        // } else if (object instanceof ContextParameterParent) {
-                        // parameter = ((ContextParameterParent) object).getParameter();
-                        // modelManager.onContextRemoveParameter(getContextManager(), parameter.getName());
-                        // }
                         modelManager.refreshTemplateTab();
                         ContextManagerHelper.revertTreeSelection(getViewer(), beforeParam);
                         checkButtonEnableState();
@@ -817,5 +774,4 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
     public TreeViewer getViewer() {
         return this.viewer;
     }
-
 }

@@ -164,137 +164,6 @@ public class GroupBySourceTableProvider extends ContextProviderProxy {
         }
 
         return "";
-        // int count = 0;
-        // List<IContext> contextList = parentModel.getContexts();
-        // count = contextList.size();
-        //
-        // IContext defaultContext = parentModel.getContextModelManager().getContextManager().getDefaultContext();
-        // if (element instanceof GroupBySourceTableParent) {
-        // GroupBySourceTableParent gbstp = ((GroupBySourceTableParent) element);
-        // final String sourceId = gbstp.getSourceName();
-        // if (columnIndex == 0) {
-        // if (IContextParameter.BUILT_IN.equals(sourceId)) {
-        // if (((GroupBySourceTableParent) element).getContextParameter() != null) {
-        // if (defaultContext.getContextParameter(((GroupBySourceTableParent) element).getContextParameter()
-        // .getName()) != null) {
-        // return ((GroupBySourceTableParent) element).getContextParameter().getName();
-        // }
-        // }
-        // } else {
-        // if (sourceId != null) {
-        // String label = sourceId;
-        // if (gbstp.getProjectLabel() != null) {
-        // label += ContextConstant.SPACE_CHAR + ContextConstant.REF_CHAR + gbstp.getProjectLabel();
-        // }
-        // return label;
-        // }
-        // }
-        // }
-        //
-        // for (int j = 1; j <= count; j++) {
-        // if (j == 1) {
-        // if (columnIndex == j) {
-        // if (IContextParameter.BUILT_IN.equals(sourceId)) {
-        // if (((GroupBySourceTableParent) element).getContextParameter() != null) {
-        // if (contextList.get(columnIndex - 1).getContextParameter(
-        // ((GroupBySourceTableParent) element).getContextParameter().getName()) != null) {
-        // return ContextParameterUtils.checkAndHideValue(contextList.get(columnIndex - 1)
-        // .getContextParameter(
-        // ((GroupBySourceTableParent) element).getContextParameter().getName()));
-        // }
-        // }
-        // } else {
-        // StringBuffer sb = new StringBuffer();
-        // for (ContextTableSon son : ((GroupBySourceTableParent) element).getSon()) {
-        // GroupBySourceTableSon sSon = (GroupBySourceTableSon) son;
-        // if (sSon.getParameter() != null) {
-        // for (IContextParameter contextParameter : contextList.get(columnIndex - 1)
-        // .getContextParameterList()) {
-        // if (sSon.getParameter().getName().equals(contextParameter.getName())) {
-        // if (ContextConstant.NULL_STRING.equals(contextParameter.getValue())) {
-        //                                                sb.append("" + "/"); //$NON-NLS-1$ //$NON-NLS-2$
-        // } else {
-        //                                                sb.append(ContextParameterUtils.checkAndHideValue(contextParameter) + "/"); //$NON-NLS-1$
-        // }
-        // }
-        // }
-        // }
-        // }
-        //                            if (sb.toString().lastIndexOf("/") != -1) { //$NON-NLS-1$
-        //                                return sb.toString().substring(0, sb.toString().lastIndexOf("/")); //$NON-NLS-1$
-        // }
-        // }
-        // }
-        // } else {
-        // if (columnIndex == j) {
-        // if (IContextParameter.BUILT_IN.equals(sourceId)) {
-        // if (((GroupBySourceTableParent) element).getContextParameter() != null) {
-        // if (contextList.get(columnIndex - 1).getContextParameter(
-        // ((GroupBySourceTableParent) element).getContextParameter().getName()) != null) {
-        // return ContextParameterUtils.checkAndHideValue(contextList.get(columnIndex - 1)
-        // .getContextParameter(
-        // ((GroupBySourceTableParent) element).getContextParameter().getName()));
-        // }
-        // }
-        // } else {
-        // StringBuffer sb = new StringBuffer();
-        // for (ContextTableSon son : ((GroupBySourceTableParent) element).getSon()) {
-        // GroupBySourceTableSon sSon = (GroupBySourceTableSon) son;
-        // if (sSon.getParameter() != null) {
-        // for (IContextParameter contextParameter : contextList.get(columnIndex - 1)
-        // .getContextParameterList()) {
-        // if (sSon.getParameter().getName().equals(contextParameter.getName())) {
-        // if (ContextConstant.NULL_STRING.equals(contextParameter.getValue())) {
-        //                                                sb.append("" + "/"); //$NON-NLS-1$ //$NON-NLS-2$
-        // } else {
-        //                                                sb.append(ContextParameterUtils.checkAndHideValue(contextParameter) + "/"); //$NON-NLS-1$
-        // }
-        // }
-        // }
-        // }
-        // }
-        //                            if (sb.toString().lastIndexOf("/") != -1) { //$NON-NLS-1$
-        //                                return sb.toString().substring(0, sb.toString().lastIndexOf("/")); //$NON-NLS-1$
-        // }
-        // }
-        // }
-        // }
-        // }
-        // } else {
-        // GroupBySourceTableSon son = (GroupBySourceTableSon) element;
-        // if (columnIndex == 0) {
-        // if (son.getParameter() != null) {
-        // if (defaultContext.getContextParameter(son.getParameter().getName()) != null) {
-        // return son.getParameter().getName();
-        // }
-        // }
-        // }
-        //
-        // for (int j = 1; j <= count; j++) {
-        // if (j == 1) {
-        // if (columnIndex == j) {
-        // if (son.getParameter() != null) {
-        // for (IContextParameter contextParameter : contextList.get(columnIndex - 1).getContextParameterList()) {
-        // if (son.getParameter().getName().equals(contextParameter.getName())) {
-        // return ContextParameterUtils.checkAndHideValue(contextParameter);
-        // }
-        // }
-        // }
-        // }
-        // } else {
-        // if (columnIndex == j) {
-        // if (son.getParameter() != null) {
-        // for (IContextParameter contextParameter : contextList.get(columnIndex - 1).getContextParameterList()) {
-        // if (son.getParameter().getName().equals(contextParameter.getName())) {
-        // return ContextParameterUtils.checkAndHideValue(contextParameter);
-        // }
-        // }
-        // }
-        // }
-        // }
-        // }
-        // }
-        //        return ""; //$NON-NLS-1$
     }
 
     /*
@@ -415,10 +284,6 @@ public class GroupBySourceTableProvider extends ContextProviderProxy {
             ContextTableTabParentModel parent = (ContextTableTabParentModel) parentElement;
             return parent.getChildren().toArray();
         }
-
-        // if (parentElement instanceof GroupBySourceTableParent) {
-        // return ((GroupBySourceTableParent) parentElement).getSon().toArray();
-        // }
         return new Object[0];
     }
 
@@ -432,9 +297,6 @@ public class GroupBySourceTableProvider extends ContextProviderProxy {
             ContextTableTabChildModel child = (ContextTableTabChildModel) element;
             return child.getParent();
         }
-        // if (element instanceof GroupBySourceTableSon) {
-        // return ((GroupBySourceTableSon) element).getParent();
-        // }
         return null;
     }
 
@@ -448,9 +310,6 @@ public class GroupBySourceTableProvider extends ContextProviderProxy {
             ContextTableTabParentModel parent = (ContextTableTabParentModel) element;
             return parent.hasChildren();
         }
-        // if (element instanceof GroupBySourceTableParent) {
-        // return !((GroupBySourceTableParent) element).getSon().isEmpty();
-        // }
         return false;
     }
 
@@ -460,7 +319,6 @@ public class GroupBySourceTableProvider extends ContextProviderProxy {
      * @see org.eclipse.jface.viewers.ITableColorProvider#getForeground(java.lang.Object, int)
      */
     public Color getForeground(Object element, int columnIndex) {
-        // TODO Auto-generated method stub
         return null;
     }
 

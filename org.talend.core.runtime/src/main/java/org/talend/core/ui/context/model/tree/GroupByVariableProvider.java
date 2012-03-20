@@ -48,31 +48,6 @@ public class GroupByVariableProvider extends ContextProviderProxy {
         this.modelManager = modelManager;
     }
 
-    //
-    // /**
-    // * Temporary model for provider. <br/>
-    // *
-    // */
-    // class Parent {
-    //
-    // String name;
-    //
-    // List<Son> son = new ArrayList<Son>();
-    // }
-    //
-    // /**
-    // * Temporary model for provider. <br/>
-    // *
-    // */
-    // class Son {
-    //
-    // String context;
-    //
-    // Parent parent;
-    //
-    // IContextParameter parameter;
-    // }
-
     /*
      * (non-Javadoc)
      * 
@@ -97,40 +72,7 @@ public class GroupByVariableProvider extends ContextProviderProxy {
                 return "";
             }
         }
-        // if (element instanceof Parent) {
-        // if (columnIndex == 0) {
-        // // Variable name column
-        // return ((Parent) element).name;
-        // }
-        // } else {
-        // Son son = (Son) element;
-        // switch (columnIndex) {
-        // case 1:
-        // // context column
-        // return son.context;
-        // case 3:
-        // // prompt column
-        // return son.parameter.getPrompt();
-        // case 4:
-        // // value column
-        // return ContextParameterUtils.checkAndHideValue(son.parameter);
-        // case 5:
-        // // comment column
-        // return son.parameter.getComment();
-        // default:
-        // }
-        // }
         return ""; //$NON-NLS-1$
-    }
-
-    private String getColumn4Text(Object element) {
-        String text = "";
-        if (element instanceof IContextParameter) {
-            IContextParameter contextParameter = (IContextParameter) element;
-            text = contextParameter.getValue();
-        }
-
-        return text;
     }
 
     /*
@@ -198,34 +140,6 @@ public class GroupByVariableProvider extends ContextProviderProxy {
         }
 
         return output.toArray();
-        // List<String> containers = new ArrayList<String>();
-        //
-        // if (!contexts.isEmpty()) {
-        // // because all the contexts have the save templ
-        // for (IContextParameter para : contexts.get(0).getContextParameterList()) {
-        // containers.add(para.getName());
-        // }
-        // }
-        //
-        // List<Parent> root = new ArrayList<Parent>();
-        //
-        // for (String paraName : containers) {
-        // Parent parent = new Parent();
-        // parent.name = paraName;
-        // for (IContext context : contexts) {
-        // IContextParameter contextPara = context.getContextParameter(paraName);
-        // Son son = new Son();
-        // son.context = context.getName();
-        // if (contextPara == null) {
-        // son.getClass();
-        // }
-        // son.parameter = contextPara;
-        // son.parent = parent;
-        // parent.son.add(son);
-        // }
-        // root.add(parent);
-        // }
-        // return root.toArray();
     }
 
     /*
@@ -238,9 +152,6 @@ public class GroupByVariableProvider extends ContextProviderProxy {
             ContextTreeTabParentModel parent = (ContextTreeTabParentModel) parentElement;
             return parent.getChildren().toArray();
         }
-        // if (parentElement instanceof Parent) {
-        // return ((Parent) parentElement).son.toArray();
-        // }
         return new Object[0];
     }
 
@@ -254,9 +165,6 @@ public class GroupByVariableProvider extends ContextProviderProxy {
             ContextTreeTabChildModel child = (ContextTreeTabChildModel) element;
             return child.getParent();
         }
-        // if (element instanceof Son) {
-        // return ((Son) element).parent;
-        // }
         return null;
     }
 
@@ -271,9 +179,6 @@ public class GroupByVariableProvider extends ContextProviderProxy {
             ContextTreeTabParentModel parent = (ContextTreeTabParentModel) element;
             has = parent.hasChildren();
         }
-        // if (element instanceof Parent) {
-        // return !((Parent) element).son.isEmpty();
-        // }
         return has;
     }
 
