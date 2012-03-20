@@ -64,7 +64,7 @@
                   </instanceof>
                   <test
                         forcePluginActivation="true"
-                        property="org.talend.isBM">
+                        property="org.talend.example.isBM">
                   </test>
                </and>
                <and>
@@ -99,6 +99,10 @@
             viewerId="org.talend.repository.cnf.view">
          <includes>
             <contentExtension
+                  isRoot="true"
+                  pattern="org.talend.repository.view.content.dummy.for.activation.*">
+            </contentExtension>
+            <contentExtension
                   pattern="org.talend.repository.viewer.root.*">
             </contentExtension>
             <contentExtension
@@ -125,8 +129,15 @@
             class="org.talend.repository.tester.example.ExampleTester"
             id="org.talend.example.tester"
             namespace="org.talend.example"
-            properties="isJob, isBM"
+            properties="isBM"
             type="java.lang.String">
+      </propertyTester>
+      <propertyTester
+            class="org.talend.repository.tester.example.ExampleTester"
+            id="org.talend.repository.view.propertyTester2"
+            namespace="org.talend.example"
+            properties="isJob"
+            type="org.talend.repository.model.RepositoryNode">
       </propertyTester>
 
    </extension>

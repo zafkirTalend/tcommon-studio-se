@@ -277,7 +277,7 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
     protected Object getInitialInput() {
 
         if (initialInput == null) {
-            initialInput = ProjectRepositoryNode.getInstance();
+            initialInput = new TalendRepositoryRoot();
         }
         // initialInput = new ProjectRepositoryNode(null, null, ENodeType.STABLE_SYSTEM_FOLDER);
         // ProjectManager.getInstance().updateViewProjectNode((ProjectRepositoryNode) initialInput);
