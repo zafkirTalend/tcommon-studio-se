@@ -93,6 +93,39 @@ public class Java2STLangTypesHelper {
             return "chararray"; //$NON-NLS-1$
 	
        }
+	   
+	   	/**
+     * DOC return as: int, long, double, float, string.
+     * 
+     * @author rdubois
+     * @param metadataTable
+     * @param columnLabel
+     * @return
+     */
+	
+	public static String getHCatType(IMetadataTable metadataTable, String columnLabel) { // This method returns the Pig type according to the talendType
+            IMetadataColumn column = metadataTable.getColumn(columnLabel);
+            String talendType = column.getTalendType();
+
+            String typeToGenerate = JavaTypesManager.getTypeToGenerate(talendType, false);
+            // Integers: int(Integer), long(Long), short(Short), byte(Byte), BigDecimal, double(Double).
+            if (typeToGenerate.equals("int") || typeToGenerate.equals("short") || typeToGenerate.equals("byte")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                return "int"; //$NON-NLS-1$
+            } else if (typeToGenerate.equals("long")) { //$NON-NLS-1$
+                return "long"; //$NON-NLS-1$
+            } else if (typeToGenerate.equals("BigDecimal") || typeToGenerate.equals("double")) { //$NON-NLS-1$
+                return "double"; //$NON-NLS-1$
+            }
+
+            // Floats: float(Float)
+            if (typeToGenerate.equals("float")) { //$NON-NLS-1$ //$NON-NLS-2$
+                return "float"; //$NON-NLS-1$
+            }
+
+            // others treat as string
+            return "string"; //$NON-NLS-1$
+	
+       }
 
     /**
      * DOC return as: %d, %f, %b, %s.
