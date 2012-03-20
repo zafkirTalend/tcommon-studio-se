@@ -170,6 +170,9 @@ public class ConnectionParameters {
 
     private boolean isHttps = false;
 
+    // mark first open Sql Builder
+    private boolean isFirstOpenSqlBuilder = false;
+
     /**
      * Sets the connectionComment.
      * 
@@ -848,5 +851,18 @@ public class ConnectionParameters {
 
     public void setHttps(boolean isHttps) {
         this.isHttps = isHttps;
+    }
+
+    /**
+     * Sets the isFirstOpenSqlBuilder.
+     * 
+     * @param isFirstOpenSqlBuilder the isFirstOpenSqlBuilder to set
+     */
+    public boolean isFirstOpenSqlBuilder() {
+        return isFirstOpenSqlBuilder;
+    }
+
+    public void setFirstOpenSqlBuilder(boolean isFirstOpenSqlBuilder) {
+        this.isFirstOpenSqlBuilder = isFirstOpenSqlBuilder;
     }
 }
