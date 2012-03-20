@@ -99,7 +99,7 @@
             viewerId="org.talend.repository.cnf.view">
          <includes>
             <contentExtension
-                  isRoot="true"
+                  isRoot="false"
                   pattern="org.talend.repository.view.content.dummy.for.activation.*">
             </contentExtension>
             <contentExtension
