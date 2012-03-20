@@ -13,17 +13,25 @@
 package org.talend.repository.tester.example;
 
 import org.eclipse.core.runtime.Assert;
+import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.repository.model.IRepositoryNode.ENodeType;
+import org.talend.repository.model.IRepositoryNode.EProperties;
+import org.talend.repository.model.RepositoryNode;
 
-public class PropertyTester extends org.eclipse.core.expressions.PropertyTester {
+public class ExampleTester extends org.eclipse.core.expressions.PropertyTester {
 
-    public PropertyTester() {
+    public ExampleTester() {
 
     }
 
     @Override
     public boolean test(Object receiver, String property, Object[] args, Object expectedValue) {
-        if ("isJob".equals(property)) { //$NON-NLS-1$
-            return receiver != null && receiver.toString().startsWith("job"); //$NON-NLS-1$
+        if ("isJob".equals(property) && receiver instanceof RepositoryNode) { //$NON-NLS-1$
+
+            RepositoryNode repositoryNode = (RepositoryNode) receiver;
+            boolean isJob = repositoryNode.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.PROCESS
+                    && repositoryNode.getType() == ENodeType.REPOSITORY_ELEMENT;
+            return isJob;
         }
         if ("isBM".equals(property)) { //$NON-NLS-1$
 

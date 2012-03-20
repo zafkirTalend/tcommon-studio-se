@@ -22,7 +22,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.talend.repository.navigator,
  org.talend.repository.viewer.action,
  org.talend.repository.viewer.content,
- org.talend.repository.viewer.content.code,
- org.talend.repository.viewer.content.metadata,
  org.talend.repository.viewer.filter,
  org.talend.repository.viewer.label

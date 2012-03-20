@@ -14,11 +14,11 @@ package org.talend.repository.viewer.content.example;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.talend.repository.tester.NodeTester;
+import org.talend.repository.tester.example.ExampleTester;
 
 public class ExampleSubCompProvider implements ITreeContentProvider {
 
-    NodeTester nodeTester = new NodeTester();
+    ExampleTester exampleTester = new ExampleTester();
 
     @Override
     public Object getParent(Object element) {
@@ -32,7 +32,7 @@ public class ExampleSubCompProvider implements ITreeContentProvider {
     //
     @Override
     public boolean hasChildren(Object element) {
-        boolean isJob = nodeTester.test(element, NodeTester.IS_JOB, null, null);
+        boolean isJob = exampleTester.test(element, "isJob", null, null); //$NON-NLS-1$
         return element.toString().startsWith("bm") || isJob;// just to limit to 1 level //$NON-NLS-1$
     }
 
