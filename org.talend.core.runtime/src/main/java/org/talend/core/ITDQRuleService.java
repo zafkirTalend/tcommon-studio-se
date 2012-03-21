@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.core;
 
+import java.util.List;
+
+import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.IElementParameter;
 
@@ -42,5 +45,13 @@ public interface ITDQRuleService extends IService {
     public String getQueryByRule(IElementParameter ruleParam, IElementParameter dbType, IElementParameter catalog,
             IElementParameter schema, IElementParameter table, IMetadataTable metadataTable, boolean isInvalidRowsComponent,
             IElementParameter whereClause);
+
+    /**
+     * Retrieve select columns in the query to update metadata if possible
+     * 
+     * @param columns
+     * @param queryParam
+     */
+    public void updateOriginalColumnNames(List<IMetadataColumn> columns, IElementParameter queryParam);
 
 }
