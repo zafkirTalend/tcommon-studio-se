@@ -493,8 +493,6 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
 		if (doDispose) {
 			this.id = null;
 			this.projectTechnicalLabel = null;
-			this.type = null;
-			this.icon = null;
 			this.parent = null;
 			this.object = null;
 
