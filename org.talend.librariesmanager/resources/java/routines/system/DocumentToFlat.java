@@ -186,15 +186,16 @@ public class DocumentToFlat {
 		XPath loopXpath = doc.createXPath(currentLoop);
 		loopXpath.setNamespaceURIs(xmlNameSpaceMap);
 		nodes = loopXpath.selectNodes(doc);
-		if(nodes.size() == 0 && !top) {
+		if(isOptional && nodes.size() == 0 && !top) {
 			setParentAsLoop();
 			flatForLookup();
-		} else {
-			if(currentLoop != originalLoop) {//not point to the same string
-				loopChanged = true;
-				reset();
-			}
+		} 
+		
+		if(currentLoop != originalLoop) {//not point to the same string
+			loopChanged = true;
+			reset();
 		}
+		
 	}
 	
 	private void reset() {
