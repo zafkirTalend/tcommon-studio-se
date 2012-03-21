@@ -12,16 +12,14 @@
 // ============================================================================
 package org.talend.repository.mdm.ui.viewer.content;
 
-import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.repository.model.ProjectRepositoryNode;
-import org.talend.repository.model.RepositoryNode;
-import org.talend.repository.view.di.viewer.content.metadata.AbstractMetadataContentProvider;
-
 /**
  * 
  * DOC ggu class global comment. Detailled comment
+ * 
+ * 
+ * FIXME later, will enable it
  */
-public class MdmContentProvider extends AbstractMetadataContentProvider {
+public class MdmContentProvider /* extends AbstractMetadataContentProvider */{
 
     /*
      * (non-Javadoc)
@@ -30,9 +28,9 @@ public class MdmContentProvider extends AbstractMetadataContentProvider {
      * org.talend.repository.viewer.content.SingleTopLevelContentProvider#getTopLevelNode(org.talend.repository.model
      * .RepositoryNode)
      */
-    @Override
-    protected RepositoryNode getTopLevelNode(RepositoryNode theRootNode) {
-        return ((ProjectRepositoryNode) theRootNode.getParent())
-                .getRootRepositoryNode(ERepositoryObjectType.METADATA_MDMCONNECTION);
-    }
+    // @Override
+    // protected RepositoryNode getTopLevelNode(RepositoryNode theRootNode) {
+    // return ((ProjectRepositoryNode) theRootNode.getParent())
+    // .getRootRepositoryNode(ERepositoryObjectType.METADATA_MDMCONNECTION);
+    // }
 }

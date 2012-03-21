@@ -54,6 +54,7 @@
             name="MDM Item filter">
       </DragAndDropFilter>
    </extension>
+   <!--
    <extension
          point="org.eclipse.ui.navigator.navigatorContent">
       <navigatorContent
@@ -82,5 +83,5 @@
          </possibleChildren>
       </navigatorContent>
    </extension>
-
+   -->
 </plugin>
