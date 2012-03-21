@@ -52,7 +52,7 @@ public class Document implements java.io.Serializable{
      * @param matchingMode
      * @return
      */
-    public List<Map<String, Object>> LookupDocument(String loopXPath, Map<String, Object> lookupInfo,
+    public List<Map<String, Object>> LookupDocument(String loopXPath,boolean isOptionalLoop, Map<String, Object> lookupInfo,
             Map<String, String> xpathOfResults, Map<String, String> nsMapping,
             Map<String, String> xpathToTypeMap,Map<String, String> xpathToPatternMap,String matchingMode) {
         if (doc == null || lookupInfo == null) {
@@ -66,7 +66,7 @@ public class Document implements java.io.Serializable{
         docToFlat.setDoc(document);
         docToFlat.setOriginalLoop(loopXPath);
         docToFlat.setXmlNameSpaceMap(nsMapping);
-        docToFlat.flatForLookup();
+        docToFlat.flatForLookup(isOptionalLoop);
         if(docToFlat.isLoopChanged()) {//never change the original lookup information object state
         	lookupInfo = docToFlat.getLookupInfo();
         	xpathOfResults = docToFlat.getXpathOfResults();

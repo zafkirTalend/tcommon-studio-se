@@ -52,8 +52,7 @@ public class DocumentToFlat {
 		if(this.isOptional && nodes.size() == 0 && !top) {
 			setParentAsLoop();
 			flat();
-		} 
-		if (nodes !=null ) {
+		} else if (nodes !=null ) {
 			//reset relative paths
 			if(currentLoop != originalLoop) {//not point to the same string
 				for(int i=0;i<currentRelativePathMappings.length;i++) {
@@ -182,20 +181,17 @@ public class DocumentToFlat {
 		this.xpathToPatternMap = xpathToPatternMap;
 	}
 	
-	public void flatForLookup() {
+	public void flatForLookup(boolean isOptionalLoop) {
 		XPath loopXpath = doc.createXPath(currentLoop);
 		loopXpath.setNamespaceURIs(xmlNameSpaceMap);
 		nodes = loopXpath.selectNodes(doc);
-		if(isOptional && nodes.size() == 0 && !top) {
+		if(isOptionalLoop && nodes.size() == 0 && !top) {
 			setParentAsLoop();
-			flatForLookup();
-		} 
-		
-		if(currentLoop != originalLoop) {//not point to the same string
+			flatForLookup(isOptionalLoop);
+		} else if(currentLoop != originalLoop) {//not point to the same string
 			loopChanged = true;
 			reset();
 		}
-		
 	}
 	
 	private void reset() {
