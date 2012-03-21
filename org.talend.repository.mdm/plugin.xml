@@ -60,6 +60,7 @@
             activeByDefault="true"
             appearsBefore="org.talend.repository.viewer.metadata.genericSchemas"
             contentProvider="org.talend.repository.mdm.ui.viewer.content.MdmContentProvider"
+            icon="icons/mdm.png"
             id="org.talend.repository.viewer.metadata.mdm"
             labelProvider="org.talend.repository.viewer.label.RepositoryViewLabelProvider"
             name="Talend MDM"
