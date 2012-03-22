@@ -2,62 +2,117 @@ package org.talend.commons.utils.time;
 
 import junit.framework.TestCase;
 
-import org.talend.commons.utils.time.TimeMeasure;
-
 public class TimeMeasureTest extends TestCase {
 
     private static final int TIME_A = 20;
 
-    private static final int TIME_B = 30;
+    private static final int TIME_B = 300;
 
-    private static final int TIME_C = 70;
+    private static final int TIME_C = 200;
 
     private static final int TIME_D = 110;
 
     private static final int TIME_E = 140;
 
-    private static final int TIME_F = 20;
+    public static final String TIMER_TEST_1 = "TIMER_TEST_1";
 
-    public void test() throws InterruptedException {
+    public static final String TIMER_TEST_2 = "TIMER_TEST_2";
 
-        TimeMeasure.begin("a"); //$NON-NLS-1$
-        // TimeMeasure.end("b");
+    public static final String TIMER_TEST_3 = "TIMER_TEST_3";
+
+    public static final String TIMER_TEST_4 = "TIMER_TEST_4";
+
+    public static final String TIMER_STEP_1 = "TIMER_STEP_1";
+
+    public static final String TIMER_STEP_2 = "TIMER_STEP_2";
+
+    public static final String TIMER_STEP_3 = "TIMER_STEP_3";
+
+    public static final String TIMER_STEP_4 = "TIMER_STEP_4";
+
+    /**
+     * Added by Marvin Wang on Mar.22, 2012 for testing "begin --> step1 --> end".
+     * 
+     * @throws InterruptedException
+     */
+    private void caseOneStep() throws InterruptedException {
+        long startTime = System.currentTimeMillis();
+
+        TimeMeasure.begin(TIMER_TEST_1);
         Thread.sleep(TIME_A);
+        long elapsedTime = TimeMeasure.step(TIMER_TEST_1, TIMER_STEP_1);
 
-        long step1 = TimeMeasure.step("a", "1"); //$NON-NLS-1$ //$NON-NLS-2$
+        long endTime = System.currentTimeMillis();
 
-        assertTrue(step1 + " expected is " + TIME_A, isNear(step1, TIME_A));
+        assertTrue(endTime - startTime >= elapsedTime);
 
+        long totalElapsedTime = TimeMeasure.end(TIMER_TEST_1);
+        endTime = System.currentTimeMillis();
+        assertTrue(endTime - startTime >= totalElapsedTime);
+    }
+
+    /**
+     * Added by Marvin Wang on Mar.22, 2012 for testing "begin --> step1 --> pause --> step2 --> end".
+     * 
+     * @throws InterruptedException
+     */
+    private void caseStepPauseStep() throws InterruptedException {
+        long startTime = System.currentTimeMillis();
+
+        TimeMeasure.begin(TIMER_TEST_2);
+        Thread.sleep(TIME_A);
+        long elapsedTime1 = TimeMeasure.step(TIMER_TEST_2, TIMER_STEP_1);
         Thread.sleep(TIME_B);
-
-        TimeMeasure.pause("a"); //$NON-NLS-1$
-
+        TimeMeasure.pause(TIMER_TEST_2);
         Thread.sleep(TIME_C);
+        long elapsedTime2 = TimeMeasure.step(TIMER_TEST_2, TIMER_STEP_2);
 
-        long step2 = TimeMeasure.step("a", "2"); //$NON-NLS-1$ //$NON-NLS-2$
+        long endTime = System.currentTimeMillis();
 
-        assertTrue(step2 + " expected is " + TIME_B, isNear(step2, TIME_B));
+        assertTrue(endTime - startTime - TIME_C >= elapsedTime1 + elapsedTime2);
 
+        long totalElapsedTime = TimeMeasure.end(TIMER_TEST_2);
+        endTime = System.currentTimeMillis();
+        assertTrue(endTime - startTime - TIME_C >= totalElapsedTime);
+    }
+
+    /**
+     * Added by Marvin Wang on Mar.22, 2012 for testing "begin --> step1 --> pause --> step2 --> resume --> end".
+     * 
+     * @throws InterruptedException
+     */
+    private void caseStepPauseStepResumeStep() throws InterruptedException {
+        long startTime = System.currentTimeMillis();
+
+        TimeMeasure.begin(TIMER_TEST_3);
+        Thread.sleep(TIME_A);
+        long elapsedTime1 = TimeMeasure.step(TIMER_TEST_3, TIMER_STEP_1);
+        Thread.sleep(TIME_B);
+        TimeMeasure.pause(TIMER_TEST_3);
+        Thread.sleep(TIME_C);
+        long elapsedTime2 = TimeMeasure.step(TIMER_TEST_3, TIMER_STEP_2);
         Thread.sleep(TIME_D);
-
-        TimeMeasure.resume("a"); //$NON-NLS-1$
-
+        TimeMeasure.resume(TIMER_TEST_3);
         Thread.sleep(TIME_E);
+        long elapsedTime3 = TimeMeasure.step(TIMER_TEST_3, TIMER_STEP_3);
 
-        long step3 = TimeMeasure.step("a", "3"); //$NON-NLS-1$ //$NON-NLS-2$
+        long endTime = System.currentTimeMillis();
+        assertTrue(endTime - startTime - TIME_C - TIME_D >= elapsedTime1 + elapsedTime2 + elapsedTime3);
 
-        assertTrue(step3 + " expected is " + TIME_E, isNear(step3, TIME_E));
-
-        Thread.sleep(TIME_F);
-
-        long end = TimeMeasure.end("a"); //$NON-NLS-1$
-
-        assertTrue(end + " expected is " + (TIME_A + TIME_B + TIME_E + TIME_F), isNear(end, TIME_A + TIME_B + TIME_E + TIME_F));
-
+        long totalElapsedTime = TimeMeasure.end(TIMER_TEST_3);
+        endTime = System.currentTimeMillis();
+        assertTrue(endTime - startTime - TIME_C - TIME_D >= totalElapsedTime);
     }
 
-    private boolean isNear(long time, long refTime) {
-        return time >= refTime - 10 && time < refTime + 15;
+    /**
+     * Changed by Marvin Wang on Mar.22, 2012. Just test sevaral main flows, if need to verify others, add them as
+     * required.
+     * 
+     * @throws InterruptedException
+     */
+    public void test() throws InterruptedException {
+        caseOneStep();
+        caseStepPauseStep();
+        caseStepPauseStepResumeStep();
     }
-
 }
