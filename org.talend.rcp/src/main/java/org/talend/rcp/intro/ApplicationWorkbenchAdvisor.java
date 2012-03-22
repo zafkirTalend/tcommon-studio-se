@@ -14,9 +14,6 @@ package org.talend.rcp.intro;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IWorkbenchPreferenceConstants;
 import org.eclipse.ui.PlatformUI;
@@ -28,12 +25,10 @@ import org.talend.commons.CommonsPlugin;
 import org.talend.commons.utils.system.EclipseCommandLine;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.PluginChecker;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.designer.codegen.CodeGeneratorActivator;
 import org.talend.designer.runprocess.RunProcessPlugin;
-import org.talend.rcp.i18n.Messages;
 import org.talend.repository.registeruser.RegisterManagement;
 
 /**
@@ -114,23 +109,4 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
         PerspectiveReviewUtil.setPerspectiveTabs();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.ui.internal.ide.application.IDEWorkbenchAdvisor#preShutdown()
-     */
-    @Override
-    public boolean preShutdown() {
-        boolean isIdle = Job.getJobManager().isIdle();
-        if (!isIdle && PluginChecker.isSVNProviderPluginLoaded()) {
-            if (MessageDialog.openQuestion(Display.getDefault().getActiveShell(),
-                    Messages.getString("ApplicationWorkbenchAdvisor.ProgressJobsTitle"),
-                    Messages.getString("ApplicationWorkbenchAdvisor.ProgressJobsMessages"))) {
-                return super.preShutdown();
-            } else {
-                return false;
-            }
-        }
-        return super.preShutdown();
-    }
 }
