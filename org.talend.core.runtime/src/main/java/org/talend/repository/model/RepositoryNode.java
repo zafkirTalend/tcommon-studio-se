@@ -271,19 +271,23 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
         case SIMPLE_FOLDER:
             return getObjectType().toString();
         default:
-            if (getContentType().toString().equals("SVN")) {
-                return getProperties(EProperties.LABEL).toString();
+            final ERepositoryObjectType contentType = getContentType();
+            if (contentType != null) {
+                if ("SVN".equals(contentType.toString())) {
+                    return getProperties(EProperties.LABEL).toString();
+                }
+                if (contentType.equals(ERepositoryObjectType.PROCESS)) {
+                    return getProperties(EProperties.LABEL).toString();
+                }
+                if (ERepositoryObjectType.TDQ_INDICATOR_ELEMENT.equals(contentType)
+                        || ERepositoryObjectType.TDQ_PATTERN_ELEMENT.equals(contentType)
+                        || ERepositoryObjectType.TDQ_RULES.equals(contentType)) {
+                    return getObject().getLabel();
+                }
+                return contentType.toString();
             }
-            if (getContentType().equals(ERepositoryObjectType.PROCESS)) {
-                return getProperties(EProperties.LABEL).toString();
-            }
-            if (ERepositoryObjectType.TDQ_INDICATOR_ELEMENT.equals(getContentType())
-                    || ERepositoryObjectType.TDQ_PATTERN_ELEMENT.equals(getContentType())
-                    || ERepositoryObjectType.TDQ_RULES.equals(getContentType())) {
-                return getObject().getLabel();
-            }
-            return getContentType().toString();
         }
+        return "";
     }
 
     /*
