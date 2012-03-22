@@ -41,7 +41,6 @@ import org.talend.core.ui.IReferencedProjectService;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IProxyRepositoryService;
 import org.talend.repository.model.IRepositoryNode;
-import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 
 /**
@@ -379,11 +378,12 @@ public final class ProjectManager {
                 // remove the old one.
                 if (tmpProjectNode.getProject().getTechnicalLabel().equals(projectRepNode.getProject().getTechnicalLabel())) {
                     iterator.remove();
-                    if (tmpProjectNode instanceof RepositoryNode) {
-                        ((RepositoryNode) tmpProjectNode).setEnableDisposed(true);
-                    }
-
-                    tmpProjectNode.dispose();
+                    // FIXME, later will check this to make sure work well. just now, disable on trunk only.
+                    // if (tmpProjectNode instanceof RepositoryNode) {
+                    // ((RepositoryNode) tmpProjectNode).setEnableDisposed(true);
+                    // }
+                    //
+                    // tmpProjectNode.dispose();
                 }
             }
             viewProjectNodes.add(projectRepNode);
