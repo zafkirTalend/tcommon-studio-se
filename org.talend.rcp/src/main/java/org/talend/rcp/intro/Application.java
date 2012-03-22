@@ -36,6 +36,7 @@ import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.utils.system.EclipseCommandLine;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.migration.IMigrationToolService;
+import org.talend.core.repository.CoreRepositoryPlugin;
 import org.talend.core.tis.ICoreTisService;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.rcp.i18n.Messages;
@@ -65,11 +66,7 @@ public class Application implements IApplication {
             /*
              * setSqlpatternUsibility(context); setRefProjectUsibility(context);
              */
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
-                IRepositoryService repositoryService = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
-                        IRepositoryService.class);
-                repositoryService.setRCPMode();
-            }
+            CoreRepositoryPlugin.getDefault().setRCPMode();
 
             if (!ArrayUtils.contains(Platform.getApplicationArgs(), EclipseCommandLine.TALEND_DISABLE_LOGINDIALOG_COMMAND)
                     && !Boolean.parseBoolean(System.getProperty("talend.project.reload"))) {//$NON-NLS-1$ //$NON-NLS-2$

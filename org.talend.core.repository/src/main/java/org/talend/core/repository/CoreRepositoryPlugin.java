@@ -14,6 +14,9 @@ package org.talend.core.repository;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+import org.talend.repository.IRepositoryChangedListener;
+import org.talend.repository.IRepositoryElementDelta;
+import org.talend.repository.model.ChangeProcessor;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -28,6 +31,10 @@ public class CoreRepositoryPlugin extends AbstractUIPlugin {
 
     // The shared instance
     private static CoreRepositoryPlugin plugin;
+
+    private boolean rcpMode = false;
+
+    private ChangeProcessor changeProcessor = new ChangeProcessor();;
 
     public CoreRepositoryPlugin() {
         plugin = this;
@@ -55,4 +62,41 @@ public class CoreRepositoryPlugin extends AbstractUIPlugin {
     public static CoreRepositoryPlugin getDefault() {
         return plugin;
     }
+
+    /**
+     * 
+     * ggu Comment method "isRCPMode".
+     * 
+     * @return
+     */
+    public boolean isRCPMode() {
+        return rcpMode;
+    }
+
+    public void setRCPMode() {
+        rcpMode = true;
+    }
+
+    /**
+     * 
+     * ggu Comment method "registerRepositoryChangedListener".
+     * 
+     * @param listener
+     */
+    public void registerRepositoryChangedListener(IRepositoryChangedListener listener) {
+        changeProcessor.addRepositoryChangedListener(listener);
+    }
+
+    public void registerRepositoryChangedListenerAsFirst(IRepositoryChangedListener listener) {
+        changeProcessor.registerRepositoryChangedListenerAsFirst(listener);
+    }
+
+    public void removeRepositoryChangedListener(IRepositoryChangedListener listener) {
+        changeProcessor.removeRepositoryChangedListener(listener);
+    }
+
+    public void repositoryChanged(IRepositoryElementDelta delta) {
+        changeProcessor.repositoryChanged(delta);
+    }
+
 }

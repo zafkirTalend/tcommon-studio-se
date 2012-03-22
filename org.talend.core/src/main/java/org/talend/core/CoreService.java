@@ -36,6 +36,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.osgi.baseadaptor.BaseData;
@@ -72,6 +73,7 @@ import org.talend.core.model.utils.PerlResourcesHelper;
 import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.prefs.PreferenceManipulator;
 import org.talend.core.ui.IRulesProviderService;
+import org.talend.core.ui.actions.ActionsHelper;
 import org.talend.core.ui.images.OverlayImageProvider;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.designer.codegen.ICodeGeneratorService;
@@ -509,5 +511,9 @@ public class CoreService implements ICoreService {
 
     public IMetadataTable convert(MetadataTable originalTable) {
         return ConvertionHelper.convert(originalTable);
+    }
+
+    public MenuManager[] getRepositoryContextualsActionGroups() {
+        return ActionsHelper.getRepositoryContextualsActionGroups();
     }
 }

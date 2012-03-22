@@ -11,13 +11,13 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.expressions,
  org.eclipse.jdt.ui,
  org.apache.log4j,
- org.talend.core.runtime,
  org.talend.model;visibility:=reexport,
- org.talend.commons.runtime,
+ org.talend.core.runtime,
  org.talend.common.ui.runtime,
+ org.talend.commons.ui,
+ org.talend.commons.runtime,
  org.talend.core.repository,
- org.talend.repository,
- org.talend.core
+ org.talend.repository
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.talend.repository.navigator,
  org.talend.repository.viewer.action,

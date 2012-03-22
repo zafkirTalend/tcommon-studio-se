@@ -100,11 +100,12 @@ import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.commons.ui.swt.dialogs.ProgressDialog;
 import org.talend.commons.ui.swt.tooltip.AbstractTreeTooltip;
 import org.talend.commons.utils.Timer;
-import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ICoreService;
 import org.talend.core.PluginChecker;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
+import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.core.model.process.IProcess2;
@@ -125,7 +126,10 @@ import org.talend.core.model.update.EUpdateItemType;
 import org.talend.core.model.update.IUpdateManager;
 import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.core.model.update.UpdateResult;
+import org.talend.core.model.utils.RepositoryManagerHelper;
+import org.talend.core.repository.CoreRepositoryPlugin;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.IJobletProviderService;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.repository.IRepositoryChangedListener;
@@ -136,6 +140,7 @@ import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
+import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.RepositoryNode;
@@ -218,11 +223,22 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
     @Override
     public void init(IViewSite site) throws PartInitException {
         super.init(site);
-        CorePlugin.getDefault().getRepositoryService().initializePluginMode();
-        if (!codeGenerationEngineInitialised && !CorePlugin.getDefault().getRepositoryService().isRCPMode()) {
+        // FIXME， later, will check this to initialize
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
+            final IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    IRepositoryService.class);
+            if (service != null) {
+                service.initializePluginMode();
 
-            if (!CorePlugin.getDefault().getLibrariesService().isLibSynchronized()) {
-                CorePlugin.getDefault().getLibrariesService().syncLibraries();
+            }
+        }
+        if (!codeGenerationEngineInitialised && !CoreRepositoryPlugin.getDefault().isRCPMode()) {
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesService.class)) {
+                ILibrariesService libService = (ILibrariesService) GlobalServiceRegister.getDefault().getService(
+                        ILibrariesService.class);
+                if (libService != null && libService.isLibSynchronized()) {
+                    libService.syncLibraries();
+                }
             }
             codeGenerationEngineInitialised = true;
         }
@@ -386,17 +402,25 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
             listenersNeedTobeAddedIntoTreeviewer.clear();
         }
 
-        CorePlugin.getDefault().getRepositoryService().registerRepositoryChangedListenerAsFirst(this);
+        CoreRepositoryPlugin.getDefault().registerRepositoryChangedListenerAsFirst(this);
 
-        if (!CorePlugin.getDefault().getRepositoryService().isRCPMode()) {
-            IMigrationToolService toolService = CorePlugin.getDefault().getMigrationToolService();
-            toolService.executeMigration(SwitchProjectAction.PLUGIN_MODEL);
-
-            IRunProcessService runService = CorePlugin.getDefault().getRunProcessService();
-            runService.deleteAllJobs(SwitchProjectAction.PLUGIN_MODEL);
-
-            final RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(
-                    Context.REPOSITORY_CONTEXT_KEY);
+        if (!CoreRepositoryPlugin.getDefault().isRCPMode()) {
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IMigrationToolService.class)) {
+                IMigrationToolService migrationService = (IMigrationToolService) GlobalServiceRegister.getDefault().getService(
+                        IMigrationToolService.class);
+                if (migrationService != null) {
+                    migrationService.executeMigration(SwitchProjectAction.PLUGIN_MODEL);
+                }
+            }
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IRunProcessService.class)) {
+                IRunProcessService runProcessService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
+                        IRunProcessService.class);
+                if (runProcessService != null) {
+                    runProcessService.deleteAllJobs(SwitchProjectAction.PLUGIN_MODEL);
+                }
+            }
+            final RepositoryContext repositoryContext = (RepositoryContext) CoreRuntimePlugin.getInstance().getContext()
+                    .getProperty(Context.REPOSITORY_CONTEXT_KEY);
             final Project project = repositoryContext.getProject();
 
             final IWorkbenchWindow activedWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
@@ -693,7 +717,7 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
                         && ERepositoryObjectType.SQLPATTERNS.equals(node.getContentType())
                         && (label.equals("Generic") || label.equals("UserDefined") || label.equals("MySQL")
                                 || label.equals("Netezza") || label.equals("Oracle") || label.equals("ParAccel") || label
-                                    .equals("Teradata")) || label.equals("Hive")) {
+                                .equals("Teradata")) || label.equals("Hive")) {
                     return true;
 
                 } else if (ENodeType.REPOSITORY_ELEMENT.equals(node.getType()) && node.getObject() != null) {
@@ -750,8 +774,8 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
                 }
                 // add for feature 10281
                 String content = null;
-                User currentLoginUser = ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
-                        .getUser();
+                User currentLoginUser = ((RepositoryContext) CoreRuntimePlugin.getInstance().getContext()
+                        .getProperty(Context.REPOSITORY_CONTEXT_KEY)).getUser();
                 String currentLogin = null;
                 if (currentLoginUser != null) {
                     currentLogin = currentLoginUser.getLogin();
@@ -967,8 +991,13 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
 
     private void fillContextMenu(IMenuManager manager) {
         IStructuredSelection sel = (IStructuredSelection) viewer.getSelection();
-
-        final MenuManager[] menuManagerGroups = org.talend.core.ui.actions.ActionsHelper.getRepositoryContextualsActionGroups();
+        MenuManager[] menuManagerGroups = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
+            final ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+            if (coreService != null) {
+                menuManagerGroups = coreService.getRepositoryContextualsActionGroups();
+            }
+        }
         // find group
         Set<String> processedGroupIds = new HashSet<String>();
         for (ITreeContextualAction action : contextualsActions) {
@@ -994,6 +1023,9 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
     }
 
     private MenuManager findMenuManager(final MenuManager[] menuManagerGroups, String groupId, boolean findParent) {
+        if (menuManagerGroups == null) {
+            return null;
+        }
         for (MenuManager groupMenu : menuManagerGroups) {
             if (groupMenu.getId().equals(groupId)) {
                 if (findParent) {
@@ -1160,8 +1192,7 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
             MessageBoxExceptionHandler.process(e);
             return;
         }
-        List<IProcess2> openedProcessList = CorePlugin.getDefault().getDesignerCoreService()
-                .getOpenedProcess(RepositoryUpdateManager.getEditors());
+        List<IProcess2> openedProcessList = RepositoryManagerHelper.getOpenedProcess(RepositoryUpdateManager.getEditors());
         List<UpdateResult> updateAllResults = new ArrayList<UpdateResult>();
         IUpdateManager manager = null;
         for (IProcess2 proc : openedProcessList) {
