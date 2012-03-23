@@ -269,7 +269,10 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
             return properties.get(EProperties.LABEL).toString();
         case REPOSITORY_ELEMENT:
         case SIMPLE_FOLDER:
-            return getObjectType().toString();
+            final ERepositoryObjectType objectType = getObjectType();
+            if (objectType != null) {
+                objectType.toString();
+            }
         default:
             final ERepositoryObjectType contentType = getContentType();
             if (contentType != null) {
