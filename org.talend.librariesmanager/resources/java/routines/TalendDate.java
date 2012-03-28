@@ -406,9 +406,9 @@ public class TalendDate {
             boolean d2In = TimeZone.getDefault().inDaylightTime(date2);
             if (d1In != d2In) {
                 if (d1In) {
-                    addDSTSavings = -TimeZone.getDefault().getDSTSavings();
-                } else if (d2In) {
                     addDSTSavings = TimeZone.getDefault().getDSTSavings();
+                } else if (d2In) {
+                    addDSTSavings = -TimeZone.getDefault().getDSTSavings();
                 }
             }
         }
