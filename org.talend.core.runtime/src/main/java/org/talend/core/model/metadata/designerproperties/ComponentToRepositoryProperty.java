@@ -1058,7 +1058,6 @@ public class ComponentToRepositoryProperty {
         if ("DATA_FILE".equals(repositoryValue)) { //$NON-NLS-1$
             String value = getParameterValue(connection, node, "FILENAME"); //$NON-NLS-1$
             if (value != null) {
-                connection.setFilePath(value);
                 connection.setDataFile(value);
             }
         }
