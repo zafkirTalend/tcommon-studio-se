@@ -155,7 +155,7 @@
          <includes>
             <contentExtension
                   isRoot="false"
-                  pattern="org.talend.repository.view.content.dummy.for.activation.*">
+                  pattern=".*fake\.for\.activation">
             </contentExtension>
             <contentExtension
                   pattern="org.talend.repository.viewer.content.OemExtension.content">

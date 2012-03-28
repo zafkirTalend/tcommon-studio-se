@@ -136,8 +136,6 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
 
     private static final String PERSPECTIVE_DI_ID = "org.talend.rcp.perspective"; //$NON-NLS-1$
 
-    private static final String SEPARATOR = ":"; //$NON-NLS-1$
-
     private static Logger log = Logger.getLogger(RepoViewCommonNavigator.class);
 
     protected CommonViewer viewer;
@@ -297,7 +295,7 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
         });
         createTreeTooltip(viewer.getTree());
 
-        hookContextMenu();
+        // hookContextMenu();
         hookDoubleClickAction();
 
         viewer.getTree().addFocusListener(new FocusListener() {
