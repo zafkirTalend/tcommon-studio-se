@@ -19,12 +19,14 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.xsd.XSDSchema;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.utils.VersionUtils;
@@ -89,6 +91,10 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
     private Map<String, String> oldTableMap;
 
     private WizardPage currentPage;
+
+    private XSDSchema xsdSchema;
+
+    private List<ATreeNode> rootNodes;
 
     /**
      * DOC Administrator CreateConceptWizard constructor comment.
@@ -311,6 +317,22 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
 
     public void setCurrentPage(WizardPage currentPage) {
         this.currentPage = currentPage;
+    }
+
+    public XSDSchema getXSDSchema() {
+        return this.xsdSchema;
+    }
+
+    public void setXsModel(XSDSchema xsdSchema) {
+        this.xsdSchema = xsdSchema;
+    }
+
+    public List<ATreeNode> getRootNodes() {
+        return rootNodes;
+    }
+
+    public void setRootNodes(List<ATreeNode> rootNodes) {
+        this.rootNodes = rootNodes;
     }
 
 }
