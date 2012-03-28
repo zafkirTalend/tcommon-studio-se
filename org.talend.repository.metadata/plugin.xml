@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.talend.core.runtime.service">
+      <Service
+            class="org.talend.repository.metadata.MetadataService"
+            serviceId="IMetadataService">
+      </Service>
+   </extension>
+   <extension
+         point="org.talend.core.migrationTask">
+      <projecttask
+            beforeLogon="false"
+            class="org.talend.repository.model.migration.AddRulesGlobalMapMigrationTask"
+            description="modify metadata"
+            id="org.talend.repository.AddRulesGlobalMapMigrationTask"
+            name="AddRulesGlobalMapMigrationTask">
+      </projecttask>
+   </extension>
+   <extension
+         point="org.talend.core.repositoryContextualsActions">
+      <Action
+            class="org.talend.repository.ui.actions.metadata.CreateConnectionAction"
+            id="org.talend.repository.actions.createconnection"
+            isEditAction="true"
+            isReadAction="true"
+            level="10"
+            name="Metadata/Create connection">
+      </Action>
+      <Action
+            class="org.talend.repository.ui.actions.metadata.CreateTableAction"
+            id="org.talend.repository.actions.createtable"
+            isEditAction="true"
+            level="15"
+            name="Metadata/Create table">
+      </Action>
+      <Action
+            class="org.talend.repository.ui.actions.metadata.ReadTableAction"
+            id="org.talend.repository.actions.readtable"
+            isReadAction="true"
+            level="18"
+            name="Metadata/Read table">
+      </Action>
+      <Action
+            class="org.talend.repository.ui.actions.metadata.CreateFileDelimitedAction"
+            id="org.talend.repository.actions.createfiledelimited"
+            isEditAction="true"
+            isReadAction="true"
+            level="10"
+            name="Metadata/Create file delimited">
+      </Action>
+      <Action
+            class="org.talend.repository.ui.actions.metadata.CreateFilePositionalAction"
+            id="org.talend.repository.actions.createfilepositional"
+            isEditAction="true"
+            isReadAction="true"
+            level="10"
+            name="Metadata/Create file positional">
+      </Action>
+      <Action
+            class="org.talend.repository.ui.actions.metadata.CreateFileRegexpAction"
+            id="org.talend.repository.actions.createfileregexp"
+            isEditAction="true"
+            isReadAction="true"
+            level="10"
+            name="Metadata/Create file regexp">
+      </Action>
+      <Action
+            class="org.talend.repository.ui.actions.metadata.CreateFileXmlAction"
+            id="org.talend.repository.actions.createfilexml"
+            isEditAction="true"
+            isReadAction="true"
+            level="10"
+            name="Metadata/Create file xml">
+      	</Action>
+      	<Action
+            class="org.talend.repository.ui.actions.metadata.CreateFileLdifAction"
+            id="org.talend.repository.actions.createfileldif"
+            isEditAction="true"
+            isReadAction="true"
+            level="10"
+            name="Metadata/Create file ldif">
+      	</Action>
+       	<Action
+            class="org.talend.repository.ui.actions.metadata.CreateFileExcelAction"
+            id="org.talend.repository.actions.createfileexcel"
+            isEditAction="true"
+            isReadAction="true"
+            level="10"
+            name="Metadata/Create file Excel"/>
+      	<Action
+            class="org.talend.repository.ui.actions.metadata.CreateSalesforceSchemaAction"
+            id="org.talend.repository.actions.createsalesforceschema"
+            isEditAction="true"
+            isReadAction="true"
+            level="10"
+            name="Metadata/Create Salesforce"/>
+ 		
+  		<Action
+             class="org.talend.repository.ui.actions.metadata.CreateGenericSchemaAction"
+             id="org.talend.repository.actions.createGenericSchemas"
+             isEditAction="true"
+             isPropertiesAction="false"
+             isReadAction="true"
+             level="10"
+             name="Metadata/Create generic schemas"/>
+       <Action
+             class="org.talend.repository.ui.actions.metadata.CreateLDAPSchemaAction"
+             id="org.talend.repository.actions.createLDAPSchema"
+             isEditAction="true"
+             isReadAction="true"
+             level="10"
+             name="Metadata/Create LDAP schemas">
+       </Action>
+       <Action
+             class="org.talend.repository.ui.actions.metadata.CreateWSDLSchemaAction"
+             id="org.talend.repository.actions.createWSDLSchema"
+             isEditAction="true"
+             isReadAction="true"
+             level="10"
+             name="Metadata/Create WSDL schemas">
+       </Action>
+        <Action
+            class="org.talend.repository.ui.actions.metadata.CreateSalesforceModulesAction"
+            id="org.talend.repository.actions.createSalesforceModulesAction"
+            isEditAction="true"
+            isReadAction="true"
+            level="10"
+            name="Metadata/Create Salesforce Modules"/>
+      <Action
+            class="org.talend.repository.ui.actions.metadata.CreateSalesforceSchemasAction"
+            id="org.talend.repository.actions.CreateSalesforceSchemasAction"
+            isEditAction="true"
+            isReadAction="true"
+            level="10"
+            name="Metadata/Create Salesforce Schemas"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="org.talend.repository.CreateactionSet"
+            label="Action set"
+            visible="false">
+         <action
+               class="org.talend.repository.ui.actions.toolbar.CreateToolbarItemAction"
+               icon="icons/process_icon.gif"
+               id="org.talend.repository.repositoryitem.createJob"
+               label="%create.title"
+               style="pulldown"
+               toolbarPath="Default"
+               tooltip="%create.tootip">
+         </action>
+      </actionSet>
+   </extension>
+
+</plugin>
