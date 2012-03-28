@@ -83,6 +83,10 @@ public interface IMetadataColumn {
 
     public void setLength(Integer length);
 
+    public String getOriginalSize();
+
+    public void setOriginalSize(String length);
+
     public boolean isNullable();
 
     public void setNullable(boolean nullable);

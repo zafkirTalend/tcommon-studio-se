@@ -1185,14 +1185,14 @@ public class RepositoryToComponentProperty {
      * 
      */
     private static Object getEBCDICFieldValue(EbcdicConnection connection, String value) {
-        if ("XC2J_FILE".equals(value)) { //$NON-NLS-1$
-            if (isContextMode(connection, connection.getFilePath())) {
-                return connection.getMidFile();
-            } else {
-                Path p = new Path(connection.getMidFile());
-                return TalendQuoteUtils.addQuotes(p.toPortableString());
-            }
-        }
+        //        if ("XC2J_FILE".equals(value)) { //$NON-NLS-1$
+        // if (isContextMode(connection, connection.getFilePath())) {
+        // return connection.getMidFile();
+        // } else {
+        // // Path p = new Path(connection.getMidFile());
+        // return TalendQuoteUtils.addQuotes("");
+        // }
+        // }
         if ("DATA_FILE".equals(value)) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getDataFile())) {
                 return connection.getDataFile();
