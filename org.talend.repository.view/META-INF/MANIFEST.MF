@@ -19,7 +19,10 @@ Require-Bundle: org.eclipse.core.runtime,
  org.talend.core.repository,
  org.talend.repository
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.talend.repository.navigator,
+Export-Package: org.talend.repository,
+ org.talend.repository.navigator,
  org.talend.repository.viewer.action,
  org.talend.repository.viewer.content,
  org.talend.repository.viewer.filter
+Bundle-Activator: org.talend.repository.RepositoryViewPlugin
+Bundle-ActivationPolicy: lazy

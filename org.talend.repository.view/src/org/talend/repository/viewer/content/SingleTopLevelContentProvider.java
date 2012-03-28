@@ -26,9 +26,18 @@ public abstract class SingleTopLevelContentProvider implements ITreeContentProvi
 
     protected static final Object[] NO_CHILDREN = new Object[0];
 
-    protected RepositoryNode topLevelNode;
+    private RepositoryNode topLevelNode;
 
     // private ProjectRepositoryNode projectRepositoryNode;
+
+    /**
+     * Getter for topLevelNode.
+     * 
+     * @return the topLevelNode
+     */
+    public RepositoryNode getTopLevelNode() {
+        return this.topLevelNode;
+    }
 
     private RepositoryNode rootNode;
 
@@ -54,17 +63,18 @@ public abstract class SingleTopLevelContentProvider implements ITreeContentProvi
     }
 
     /**
-     * Called when getting the single root element for this Content Provider.
+     * Called when getting the single root element for this Content Provider. This is called only once if the return
+     * value is not null
      * 
      * @param the root node, never null
      * @return the first and single item object for this content provider
      */
-    abstract protected RepositoryNode getTopLevelNode(RepositoryNode theRootNode);
+    abstract protected RepositoryNode getInitialTopLevelNode(RepositoryNode theRootNode);
 
     // use a cached version so that top level node does not get created again and again and we have a single instance
     private RepositoryNode getCachedTopLevelNode(RepositoryNode repositoryNode) {
         if (topLevelNode == null) {
-            this.topLevelNode = getTopLevelNode(repositoryNode);
+            this.topLevelNode = getInitialTopLevelNode(repositoryNode);
         }// else already cached
         return topLevelNode;
     }

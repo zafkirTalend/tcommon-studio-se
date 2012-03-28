@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.viewer.content;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.Platform;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
@@ -19,19 +20,19 @@ import org.talend.repository.model.RepositoryNode;
 /**
  * this handle content that root node is of type ProjectRepositoryNode
  * */
-public abstract class ProjectRepoDirectChildrenNodeContentProvider extends FolderListenerSingleTopContentProvider {
+public abstract class ProjectRepoDirectChildrenNodeContentProvider extends ProjectRepoAbstractContentProvider {
 
     /*
      * (non-Javadoc)
      * 
      * @see
-     * org.talend.repository.example.viewer.content.LegacyRepositoryContentProvider#getRootNode(org.talend.repository
-     * .model.ProjectRepositoryNode)
+     * org.talend.repository.viewer.content.ProjectRepoAbstractContentProvider#getProjectRepository(org.talend.repository
+     * .model.RepositoryNode)
      */
     @Override
-    protected RepositoryNode getTopLevelNode(RepositoryNode element) {
-        // this is called only if element is of type ProjectRepositoryNode
-        return getTopLevelNodeFromProjectRepositoryNode((ProjectRepositoryNode) element);
+    protected ProjectRepositoryNode getProjectRepositoryNode(RepositoryNode element) {
+        Assert.isTrue(element instanceof ProjectRepositoryNode);
+        return (ProjectRepositoryNode) element;
     }
 
     /**
@@ -40,6 +41,7 @@ public abstract class ProjectRepoDirectChildrenNodeContentProvider extends Folde
      * @param element
      * @return
      */
+    @Override
     abstract protected RepositoryNode getTopLevelNodeFromProjectRepositoryNode(ProjectRepositoryNode projectNode);
 
     @Override

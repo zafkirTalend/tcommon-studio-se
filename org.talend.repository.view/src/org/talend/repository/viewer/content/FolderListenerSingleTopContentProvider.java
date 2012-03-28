@@ -23,9 +23,9 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.ui.navigator.CommonViewer;
-import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.repository.constants.FileConstants;
 import org.talend.repository.model.ProjectRepositoryNode;
+import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.navigator.RepoViewCommonViewer;
 
 /**
@@ -45,31 +45,21 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
         protected boolean visit(IResourceDelta delta, Collection<Runnable> runnables) {
             IResource resource = delta.getResource();
             IPath path = resource.getProjectRelativePath();
-            if (topLevelNode != null) {
-                final ERepositoryObjectType contentType = topLevelNode.getContentType();
-                if (contentType == null) {
-                    // PTODO need check this
-                    return false;
-                }
-                String folderName = contentType.getFolder();
+            String topLevelNodeProjectRelativePath = getTopLevelNodeProjectRelativePath();
+            if (topLevelNodeProjectRelativePath != null) {
+
                 // be sure we are the last path of the resources and then check for the right folder and then check for
                 // file of type .properties or folder.
 
-                if (delta.getAffectedChildren().length == 0 && path.toPortableString().startsWith(folderName)
+                if (delta.getAffectedChildren().length == 0
+                        && path.toPortableString().startsWith(topLevelNodeProjectRelativePath)
                         && (FileConstants.PROPERTIES_EXTENSION.equals(path.getFileExtension()) || resource instanceof IContainer)) {
                     if (viewer instanceof RepoViewCommonViewer) {
                         runnables.add(new Runnable() {
 
                             @Override
                             public void run() {
-                                topLevelNode.setInitialized(false);
-                                topLevelNode.getChildren().clear();
-                                // }
-                                // for bug 11786
-                                if (topLevelNode.getParent() instanceof ProjectRepositoryNode) {
-                                    ((ProjectRepositoryNode) topLevelNode.getParent()).clearNodeAndProjectCash();
-                                }
-                                viewer.refresh(topLevelNode);
+                                refreshTopLevelNode();
                             }
                         });
                     }
@@ -81,6 +71,36 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
             }// else no root node so ignor children
             return false;
         }
+    }
+
+    /**
+     * This calls the refresh of the toplevel node, this must be invoke from the UI thread.
+     * 
+     * @param topLevelNode
+     */
+    protected void refreshTopLevelNode() {
+        RepositoryNode topLevelNode = getTopLevelNode();
+        topLevelNode.setInitialized(false);
+        topLevelNode.getChildren().clear();
+        // }
+        // for bug 11786
+        if (topLevelNode.getParent() instanceof ProjectRepositoryNode) {
+            ((ProjectRepositoryNode) topLevelNode.getParent()).clearNodeAndProjectCash();
+        }
+        viewer.refresh(topLevelNode);
+    }
+
+    /**
+     * DOC sgandon Comment method "getTopLevelNodeProjectRelativePath".
+     * 
+     * @return
+     */
+    public String getTopLevelNodeProjectRelativePath() {
+        RepositoryNode topLevelNode = getTopLevelNode();
+        if (topLevelNode != null && topLevelNode.getContentType() != null) {
+            return topLevelNode.getContentType().getFolder();
+        }// else return null
+        return null;
     }
 
     protected CommonViewer viewer;
@@ -101,9 +121,18 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
             if (resouceChangeVisitor != null) {// remove the previous listener
                 workspace.removeResourceChangeListener(resouceChangeVisitor);
             }
-            resouceChangeVisitor = new ResouceChangeVisitorListener(viewer, new DirectChildrenNodeVisitor());
+            resouceChangeVisitor = createResourceChangedVisitor();
             workspace.addResourceChangeListener(resouceChangeVisitor, IResourceChangeEvent.POST_CHANGE);
         }// else workspace not accessible any more so do nothing
+    }
+
+    /**
+     * DOC sgandon Comment method "createResourceChangedVisitor".
+     * 
+     * @return
+     */
+    protected ResouceChangeVisitorListener createResourceChangedVisitor() {
+        return new ResouceChangeVisitorListener(viewer, new DirectChildrenNodeVisitor());
     }
 
     /*
@@ -114,7 +143,7 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
     @Override
     public void dispose() {
         IWorkspace workspace = ResourcesPlugin.getWorkspace();
-        if (workspace != null) {
+        if (workspace != null && resouceChangeVisitor != null) {
             workspace.removeResourceChangeListener(resouceChangeVisitor);
         }// else workspace not accessible any more so do nothing
     }
