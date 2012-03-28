@@ -14,18 +14,16 @@ package org.talend.commons.utils.tracer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 
-import org.apache.log4j.Logger;
 import org.junit.Test;
 
 /**
@@ -37,7 +35,71 @@ public class StatisticsTracerTest {
 
     private static final String MY_TRACER_TEST2 = "myTracerTest2";
 
-    private static Logger log = Logger.getLogger(StatisticsTracerTest.class);
+    StatisticsTracer myTracerTest1 = null;
+
+    Set<Long> ids = new HashSet<Long>();
+
+    /**
+     * 
+     * DOC Marvin Comment method "testGetTracer".
+     */
+    @Test
+    public void testGetTracer() {
+
+    }
+
+    /**
+     * @throws InterruptedException
+     * 
+     */
+    @Test
+    public void testStart() throws InterruptedException {
+        int concurrencyThreadNum = 500;
+        ThreadPoolExecutor threadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(50);
+        myTracerTest1 = StatisticsTracer.getTracer(MY_TRACER_TEST1);
+
+        final StartTracerCommand[] commands = new StartTracerCommand[concurrencyThreadNum];
+
+        for (int i = 0; i < concurrencyThreadNum; i++) {
+            StartTracerCommand command = new StartTracerCommand();
+            commands[i] = command;
+        }
+
+        // To execute all commands to get the free ports concurrently, every command is regard as a client.
+        for (int i = 0; i < concurrencyThreadNum; i++) {
+            threadPool.execute(commands[i]);
+        }
+
+        threadPool.shutdown();
+        try {
+            // In order to execute all the commands, if the value of concurrencyThreadNum is changed, the sleep time
+            // also needs to change manually.
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        assertTrue(concurrencyThreadNum == ids.size());
+
+        if (ids != null && ids.size() > 0) {
+            Iterator<Long> it = ids.iterator();
+            while (it.hasNext()) {
+                Long value = it.next();
+                myTracerTest1.stop(value.longValue());
+            }
+        }
+        StatisticsTracer.removeTracer(MY_TRACER_TEST1);
+    }
+
+    class StartTracerCommand implements Runnable {
+
+        @Override
+        public void run() {
+            long id = myTracerTest1.start();
+            ids.add(id);
+        }
+
+    }
 
     @Test
     public void testStatisticTracer() throws InterruptedException {
@@ -54,12 +116,11 @@ public class StatisticsTracerTest {
         }
 
         long averageWorkTime = myTracerTest1.getAverageWorkTime();
-        assertTrue(averageWorkTime >= sleepTime && averageWorkTime < sleepTime + 10);
+        assertTrue(averageWorkTime >= sleepTime);
 
-        int exepectedElapsedTimeSinceFirstStart = sleepTime * executionsCount;
+        long exepectedElapsedTimeSinceFirstStart = sleepTime * executionsCount;
         long elapsedTimeSinceFirstStart = myTracerTest1.getElapsedTimeSinceFirstStart();
-        assertTrue(elapsedTimeSinceFirstStart >= exepectedElapsedTimeSinceFirstStart
-                && elapsedTimeSinceFirstStart < exepectedElapsedTimeSinceFirstStart + 50);
+        assertTrue(elapsedTimeSinceFirstStart >= exepectedElapsedTimeSinceFirstStart);
 
         long countExecutions = myTracerTest1.getCountExecutions();
         assertEquals(executionsCount, countExecutions);
@@ -73,16 +134,19 @@ public class StatisticsTracerTest {
 
         StatisticsTracer myTracerTest1 = StatisticsTracer.getTracer(MY_TRACER_TEST1);
 
-        URL resource = StatisticsTracer.class.getResource(StatisticsTracer.class.getSimpleName() + ".class");
-        File refClassFile = null;
-        try {
-            refClassFile = new File(new URI(resource.toString()));
-        } catch (URISyntaxException e) {
-            fail(e.getMessage());
-        }
-        File folder = refClassFile.getParentFile();
+        String userDirStr = System.getProperty("user.dir");
 
-        String pathFile = folder.getAbsolutePath() + "/myTracerTest3";
+        // URL resource = StatisticsTracer.class.getResource(StatisticsTracer.class.getSimpleName() + ".class");
+        // File refClassFile = null;
+        // try {
+        // refClassFile = new File(new URI(resource.toString()));
+        // } catch (URISyntaxException e) {
+        // fail(e.getMessage());
+        // }
+        // File folder = refClassFile.getParentFile();
+
+        // String pathFile = folder.getAbsolutePath() + "/myTracerTest3";
+        String pathFile = userDirStr + "/myTracerTest3.test";
         myTracerTest1.traceToFile(pathFile, false);
 
         int sleepTime = 100;
@@ -90,7 +154,8 @@ public class StatisticsTracerTest {
         String firstRowStr = "";
         for (int i = 0; i < 10; i++) {
             long id = myTracerTest1.start();
-            firstRowStr = myTracerTest1.toDataRow();
+            if (i == 1)
+                firstRowStr = myTracerTest1.toDataRow();
             Thread.sleep(sleepTime);
             myTracerTest1.stop(id);
             myTracerTest1.print();
@@ -105,21 +170,22 @@ public class StatisticsTracerTest {
 
         int exepectedElapsedTimeSinceFirstStart = sleepTime * executionsCount;
         long elapsedTimeSinceFirstStart = myTracerTest1.getElapsedTimeSinceFirstStart();
-        assertTrue(elapsedTimeSinceFirstStart >= exepectedElapsedTimeSinceFirstStart
-                && elapsedTimeSinceFirstStart < exepectedElapsedTimeSinceFirstStart + 50);
+        assertTrue(elapsedTimeSinceFirstStart >= exepectedElapsedTimeSinceFirstStart);
 
         long countExecutions = myTracerTest1.getCountExecutions();
         assertEquals(executionsCount, countExecutions);
 
         File file = new File(pathFile);
+        System.out.println("File: " + file.getAbsolutePath());
         assertTrue(file.canRead());
         // assertTrue(file.length() > 550); Commentted by Marvin Wang on Feb.15.
         // Changed by Marvin Wang on Feb. 15 for TDI-19166, the "1" stands for wrap character.
         int fistRowByteLength = firstRowStr.getBytes().length;
-        assertTrue(file.length() > (fistRowByteLength + 1) * executionsCount);
-        file.delete();
+        assertTrue(file.length() >= (fistRowByteLength + 1) * executionsCount);
 
         StatisticsTracer.removeTracer(MY_TRACER_TEST1);
+        if (file.delete())
+            System.out.println("File Deleted!");
     }
 
     @Test
