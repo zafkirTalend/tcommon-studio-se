@@ -158,7 +158,7 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
 
         inputDial.open();
         String returnValue = inputDial.getValue();
-        if (returnValue == null) {
+        if (returnValue == null || "".equals(returnValue)) {
             return;
         }
         createContext(returnValue);
@@ -273,7 +273,7 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
                 Messages.getString("ContextProcessSection.13", contextName), "", validator); //$NON-NLS-1$ //$NON-NLS-2$
         inputDial.open();
         String returnValue = inputDial.getValue();
-        if (returnValue == null) {
+        if (returnValue == null || "".equals(returnValue)) {
             return;
         }
         if (manager.getProcess() != null && manager.getProcess().getLastRunContext() != null
