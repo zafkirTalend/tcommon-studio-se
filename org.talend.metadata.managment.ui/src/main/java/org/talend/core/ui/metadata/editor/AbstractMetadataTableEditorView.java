@@ -82,6 +82,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     public static final String ID_COLUMN_COMMENT = "ID_COLUMN_COMMENT"; //$NON-NLS-1$
 
+    public static final String ID_COLUMN_ORIGINALSIZE = "ID_COLUMN_ORIGINALSIZE"; //$NON-NLS-1$
+
     public static final String ID_COLUMN_LENGHT = "ID_COLUMN_LENGHT"; //$NON-NLS-1$
 
     public static final String ID_COLUMN_PRECISION = "ID_COLUMN_PRECISION"; //$NON-NLS-1$
@@ -255,6 +257,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
         configureLengthColumn(tableViewerCreator);
 
+        configureOriginalSizeColumn(tableViewerCreator);
+
         // //////////////////////////////////////////////////////////////////////////////////////
 
         configurePrecisionColumn(tableViewerCreator);
@@ -298,6 +302,31 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      * @return
      */
     protected abstract IBeanPropertyAccessors<B, String> getCommentAccessor();
+
+    /**
+     * DOC ldong Comment method "configureCommentColumn".
+     * 
+     * @param tableViewerCreator
+     */
+    protected void configureOriginalSizeColumn(TableViewerCreator<B> tableViewerCreator) {
+        TableViewerCreatorColumn column;
+        column = new TableViewerCreatorColumn(tableViewerCreator);
+        column.setTitle(Messages.getString("MetadataTableEditorView.OriginalSizeTitle")); //$NON-NLS-1$
+        column.setToolTipHeader(Messages.getString("MetadataTableEditorView.OriginalSizeTitle")); //$NON-NLS-1$
+        column.setId(ID_COLUMN_ORIGINALSIZE);
+        column.setBeanPropertyAccessors(getOriginalSizeAccessor());
+        column.setWeight(10);
+        column.setModifiable(!isReadOnly());
+        column.setMinimumWidth(20);
+        column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
+    }
+
+    /**
+     * DOC amaumont Comment method "getCommentAccessor".
+     * 
+     * @return
+     */
+    protected abstract IBeanPropertyAccessors<B, String> getOriginalSizeAccessor();
 
     /**
      * DOC amaumont Comment method "configureDefaultColumn".

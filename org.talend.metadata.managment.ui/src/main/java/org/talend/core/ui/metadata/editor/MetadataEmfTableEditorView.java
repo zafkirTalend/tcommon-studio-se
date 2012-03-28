@@ -137,6 +137,21 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
     }
 
     @Override
+    protected IBeanPropertyAccessors<MetadataColumn, String> getOriginalSizeAccessor() {
+        return new IBeanPropertyAccessors<MetadataColumn, String>() {
+
+            public String get(MetadataColumn bean) {
+                return bean.getOriginalSize();
+            }
+
+            public void set(MetadataColumn bean, String value) {
+                bean.setOriginalSize(value);
+            }
+
+        };
+    }
+
+    @Override
     protected IBeanPropertyAccessors<MetadataColumn, String> getDefaultValueAccessor() {
         return new IBeanPropertyAccessors<MetadataColumn, String>() {
 

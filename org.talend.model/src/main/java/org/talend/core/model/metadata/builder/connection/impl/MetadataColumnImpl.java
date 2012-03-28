@@ -519,6 +519,26 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
     protected String displayField = DISPLAY_FIELD_EDEFAULT;
 
     /**
+     * The default value of the '{@link #getOriginalSize() <em>Original Size</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getOriginalSize()
+     * @generated
+     * @ordered
+     */
+    protected static final String ORIGINAL_SIZE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getOriginalSize() <em>Original Size</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getOriginalSize()
+     * @generated
+     * @ordered
+     */
+    protected String originalSize = ORIGINAL_SIZE_EDEFAULT;
+
+    /**
      * The default value of the '{@link #getRelatedEntity() <em>Related Entity</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1171,6 +1191,28 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getOriginalSize() {
+        return originalSize;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setOriginalSize(String newOriginalSize) {
+        String oldOriginalSize = originalSize;
+        originalSize = newOriginalSize;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.METADATA_COLUMN__ORIGINAL_SIZE,
+                    oldOriginalSize, originalSize));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getRelatedEntity() {
         return relatedEntity;
     }
@@ -1430,6 +1472,8 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
             return getPattern();
         case ConnectionPackage.METADATA_COLUMN__DISPLAY_FIELD:
             return getDisplayField();
+        case ConnectionPackage.METADATA_COLUMN__ORIGINAL_SIZE:
+            return getOriginalSize();
         case ConnectionPackage.METADATA_COLUMN__RELATED_ENTITY:
             return getRelatedEntity();
         case ConnectionPackage.METADATA_COLUMN__RELATIONSHIP_TYPE:
@@ -1546,6 +1590,9 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
         case ConnectionPackage.METADATA_COLUMN__DISPLAY_FIELD:
             setDisplayField((String) newValue);
             return;
+        case ConnectionPackage.METADATA_COLUMN__ORIGINAL_SIZE:
+            setOriginalSize((String) newValue);
+            return;
         case ConnectionPackage.METADATA_COLUMN__RELATED_ENTITY:
             setRelatedEntity((String) newValue);
             return;
@@ -1653,6 +1700,9 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
         case ConnectionPackage.METADATA_COLUMN__DISPLAY_FIELD:
             setDisplayField(DISPLAY_FIELD_EDEFAULT);
             return;
+        case ConnectionPackage.METADATA_COLUMN__ORIGINAL_SIZE:
+            setOriginalSize(ORIGINAL_SIZE_EDEFAULT);
+            return;
         case ConnectionPackage.METADATA_COLUMN__RELATED_ENTITY:
             setRelatedEntity(RELATED_ENTITY_EDEFAULT);
             return;
@@ -1731,6 +1781,8 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
             return PATTERN_EDEFAULT == null ? pattern != null : !PATTERN_EDEFAULT.equals(pattern);
         case ConnectionPackage.METADATA_COLUMN__DISPLAY_FIELD:
             return DISPLAY_FIELD_EDEFAULT == null ? displayField != null : !DISPLAY_FIELD_EDEFAULT.equals(displayField);
+        case ConnectionPackage.METADATA_COLUMN__ORIGINAL_SIZE:
+            return ORIGINAL_SIZE_EDEFAULT == null ? originalSize != null : !ORIGINAL_SIZE_EDEFAULT.equals(originalSize);
         case ConnectionPackage.METADATA_COLUMN__RELATED_ENTITY:
             return RELATED_ENTITY_EDEFAULT == null ? relatedEntity != null : !RELATED_ENTITY_EDEFAULT.equals(relatedEntity);
         case ConnectionPackage.METADATA_COLUMN__RELATIONSHIP_TYPE:
@@ -1926,6 +1978,8 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
         result.append(pattern);
         result.append(", displayField: ");
         result.append(displayField);
+        result.append(", originalSize: ");
+        result.append(originalSize);
         result.append(", relatedEntity: ");
         result.append(relatedEntity);
         result.append(", relationshipType: ");

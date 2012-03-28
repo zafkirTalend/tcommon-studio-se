@@ -28,6 +28,7 @@ import orgomg.cwm.resource.record.Field;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getOriginalField <em>Original Field</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getPattern <em>Pattern</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getDisplayField <em>Display Field</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getOriginalSize <em>Original Size</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getRelatedEntity <em>Related Entity</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getRelationshipType <em>Relationship Type</em>}</li>
  * </ul>
@@ -282,6 +283,32 @@ public interface MetadataColumn extends AbstractMetadataObject, Field {
      * @generated
      */
     void setDisplayField(String value);
+
+    /**
+     * Returns the value of the '<em><b>Original Size</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Original Size</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Original Size</em>' attribute.
+     * @see #setOriginalSize(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_OriginalSize()
+     * @model
+     * @generated
+     */
+    String getOriginalSize();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getOriginalSize <em>Original Size</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Original Size</em>' attribute.
+     * @see #getOriginalSize()
+     * @generated
+     */
+    void setOriginalSize(String value);
 
     /**
      * Returns the value of the '<em><b>Related Entity</b></em>' attribute.

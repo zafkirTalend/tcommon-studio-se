@@ -229,6 +229,10 @@ public final class ConvertionHelper {
             } else {
                 newColumn.setLength(Long.valueOf(column.getLength()).intValue());
             }
+            if (column.getOriginalSize() != null && !column.getOriginalSize().equals("")) {
+                newColumn.setOriginalSize(column.getOriginalSize());
+            }
+
             newColumn.setNullable(column.isNullable());
             if (column.getPrecision() < 0) {
                 newColumn.setPrecision(null);
