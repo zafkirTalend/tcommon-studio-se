@@ -104,8 +104,10 @@ public class ContextParameterJavaTypeManager {
                                 : Boolean.valueOf(configurationElement.getAttribute("generateWithCanonicalName"));
                         boolean isObjectBased = configurationElement.getAttribute("objectBased") == null ? false : Boolean
                                 .valueOf(configurationElement.getAttribute("objectBased"));
-                        JavaType javaType = new JavaType(myClass, isGenerateWithCanonicalName, isObjectBased);
-                        addJavaType(javaType);
+                        if (myClass != null && !myClass.getName().equals("routines.system.Document")) {
+                            JavaType javaType = new JavaType(myClass, isGenerateWithCanonicalName, isObjectBased);
+                            addJavaType(javaType);
+                        }
                     } catch (InvalidRegistryObjectException e) {
                         ExceptionHandler.process(e);
                     } catch (ClassNotFoundException e) {
