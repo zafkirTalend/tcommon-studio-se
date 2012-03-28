@@ -16,9 +16,9 @@ import java.util.List;
 
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.XmlFileWizardPage;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
 
 /**
@@ -26,7 +26,7 @@ import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.F
  */
 public abstract class AbstractXmlStepForm extends AbstractForm {
 
-    private XmlFileWizardPage page;
+    private WizardPage page;
 
     /**
      * wchen AbstractXmlStepForm constructor comment.
@@ -58,11 +58,11 @@ public abstract class AbstractXmlStepForm extends AbstractForm {
 
     public abstract TableViewer getSchemaViewer();
 
-    public XmlFileWizardPage getPage() {
+    public WizardPage getPage() {
         return this.page;
     }
 
-    public void setPage(XmlFileWizardPage page) {
+    public void setPage(WizardPage page) {
         this.page = page;
     }
 

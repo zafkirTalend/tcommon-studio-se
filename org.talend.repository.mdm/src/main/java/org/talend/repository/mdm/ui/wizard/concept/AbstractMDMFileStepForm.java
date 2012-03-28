@@ -18,9 +18,13 @@ import java.util.List;
 
 import javax.xml.rpc.ServiceException;
 
+import org.eclipse.datatools.connectivity.oda.OdaException;
+import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
+import org.eclipse.datatools.enablement.oda.xml.util.ui.XSDPopulationUtil2;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.xsd.XSDSchema;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
@@ -29,6 +33,7 @@ import org.talend.repository.mdm.util.MDMUtil;
 import org.talend.repository.ui.swt.utils.AbstractXmlStepForm;
 import org.talend.repository.ui.utils.OtherConnectionContextUtils.EParamName;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
+import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.TreeUtil;
 
 /**
  * DOC hwang class global comment. Detailled comment
@@ -164,6 +169,30 @@ public abstract class AbstractMDMFileStepForm extends AbstractXmlStepForm {
     protected boolean checkFieldsValue() {
         // TODO Auto-generated method stub
         return false;
+    }
+
+    public ATreeNode getSelectedTreeNode(String xsdFilePath, String selectedEntity) {
+        try {
+            CreateConceptWizard wizard = ((CreateConceptWizard) getPage().getWizard());
+            XSDSchema xsdSchema = wizard.getXSDSchema();
+            List<ATreeNode> rootNodes = wizard.getRootNodes();
+            if (xsdSchema == null) {
+                xsdSchema = TreeUtil.getXSDSchema(xsdFilePath);
+                rootNodes = new XSDPopulationUtil2().getAllRootNodes(xsdSchema);
+                wizard.setRootNodes(rootNodes);
+                wizard.setXsModel(xsdSchema);
+            }
+            ATreeNode selectedTreeNode = null;
+            for (ATreeNode root : rootNodes) {
+                if (root.getLabel() != null && root.getLabel().equals(selectedEntity)) {
+                    selectedTreeNode = root;
+                    break;
+                }
+            }
+            return selectedTreeNode;
+        } catch (OdaException e) {
+            return null;
+        }
     }
 
 }

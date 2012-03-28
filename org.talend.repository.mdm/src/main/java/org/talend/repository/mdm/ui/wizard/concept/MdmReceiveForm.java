@@ -904,7 +904,13 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
                 selectedEntity = ((MdmConceptWizardPage2) wizardPage.getPreviousPage()).getSelectedEntity();
             }
 
-            this.treePopulator.populateTree(xsdFilePath, treeNode, selectedEntity);
+            ATreeNode selectedTreeNode = getSelectedTreeNode(xsdFilePath, selectedEntity);
+            List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
+            CreateConceptWizard wizard = ((CreateConceptWizard) getPage().getWizard());
+            this.treePopulator.populateTree(wizard.getXSDSchema(), selectedTreeNode, treeNodes);
+            if (!treeNodes.isEmpty()) {
+                treeNode = treeNodes.get(0);
+            }
 
             ScrollBar verticalBar = availableXmlTree.getVerticalBar();
             if (verticalBar != null) {

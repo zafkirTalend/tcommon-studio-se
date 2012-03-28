@@ -80,6 +80,7 @@ public class MdmConceptWizardPage3 extends AbstractRetrieveConceptPage {
             xsdFileForm.setListener(listener);
             this.setPageComplete(false);
             setControl(xsdFileForm);
+            xsdFileForm.setPage(this);
         }
     }
 
