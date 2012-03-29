@@ -27,10 +27,6 @@ import org.talend.repository.ui.views.IRepositoryView;
  */
 public class RepositoryRefreshActionProvider extends AbstractRepositoryActionProvider {
 
-    public RepositoryRefreshActionProvider() {
-        super();
-    }
-
     @Override
     protected void fillToolBar(IToolBarManager toolBarManager) {
         super.fillToolBar(toolBarManager);
@@ -55,6 +51,7 @@ public class RepositoryRefreshActionProvider extends AbstractRepositoryActionPro
             this.setActionDefinitionId("refresh"); //$NON-NLS-1$
         }
 
+        @Override
         public void run() {
             // FIXME maybe later,will remove this flag
             ProjectRepositoryNode.refProjectBool = true;

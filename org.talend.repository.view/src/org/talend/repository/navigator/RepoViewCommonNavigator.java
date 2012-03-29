@@ -14,21 +14,12 @@ package org.talend.repository.navigator;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.eclipse.core.commands.IHandler;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.IMenuListener;
-import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.util.LocalSelectionTransfer;
-import org.eclipse.jface.viewers.DoubleClickEvent;
-import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -47,7 +38,6 @@ import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
@@ -55,20 +45,15 @@ import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewSite;
-import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.actions.ActionFactory;
-import org.eclipse.ui.commands.ActionHandler;
 import org.eclipse.ui.contexts.IContextActivation;
 import org.eclipse.ui.contexts.IContextService;
-import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.internal.WorkbenchPage;
 import org.eclipse.ui.internal.dialogs.EventLoopProgressMonitor;
-import org.eclipse.ui.internal.navigator.TextActionHandler;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
@@ -78,12 +63,10 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
-import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.commons.ui.swt.dialogs.ProgressDialog;
 import org.talend.commons.ui.swt.tooltip.AbstractTreeTooltip;
 import org.talend.commons.utils.Timer;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.ICoreService;
 import org.talend.core.PluginChecker;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
@@ -117,11 +100,9 @@ import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.actions.MoveObjectAction;
 import org.talend.repository.plugin.integration.SwitchProjectAction;
-import org.talend.repository.ui.actions.ActionsHelper;
 import org.talend.repository.ui.actions.CopyAction;
 import org.talend.repository.ui.actions.DeleteAction;
 import org.talend.repository.ui.actions.PasteAction;
-import org.talend.repository.ui.actions.RepositoryDoubleClickAction;
 import org.talend.repository.ui.views.IRepositoryView;
 import org.talend.repository.ui.views.RepositoryDropAdapter;
 
@@ -141,8 +122,6 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
     protected CommonViewer viewer;
 
     private static List<ISelectionChangedListener> listenersNeedTobeAddedIntoTreeviewer = new ArrayList<ISelectionChangedListener>();
-
-    private List<ITreeContextualAction> contextualsActions;
 
     private static boolean codeGenerationEngineInitialised;
 
@@ -251,7 +230,6 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
     @Override
     public void createPartControl(Composite parent) {
         super.createPartControl(parent);
-        makeActions();
 
         viewer = getCommonViewer();
         if (viewer instanceof ITreeViewerListener) {
@@ -294,9 +272,6 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
             }
         });
         createTreeTooltip(viewer.getTree());
-
-        // hookContextMenu();
-        hookDoubleClickAction();
 
         viewer.getTree().addFocusListener(new FocusListener() {
 
@@ -559,111 +534,6 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
         refresh();
         LocalSelectionTransfer.getTransfer().setSelection(null);
         LocalSelectionTransfer.getTransfer().setSelectionSetTime(0);
-    }
-
-    protected void makeActions() {
-        IHandlerService handlerService = (IHandlerService) getSite().getService(IHandlerService.class);
-        IHandler handler = null;
-
-        contextualsActions = ActionsHelper.getRepositoryContextualsActions();
-        for (ITreeContextualAction action : contextualsActions) {
-            action.setWorkbenchPart(this);
-            if (action.getActionDefinitionId() != null) {
-                handler = new ActionHandler(action);
-                handlerService.activateHandler(action.getActionDefinitionId(), handler);
-            }
-        }
-        doubleClickAction = new RepositoryDoubleClickAction(this, contextualsActions);
-
-        TextActionHandler textActionHandler = new TextActionHandler(getViewSite().getActionBars());
-        textActionHandler.setCopyAction(CopyAction.getInstance());
-        textActionHandler.setPasteAction(PasteAction.getInstance());
-        textActionHandler.setDeleteAction(DeleteAction.getInstance());
-
-        getViewSite().getActionBars().setGlobalActionHandler(ActionFactory.COPY.getId(), CopyAction.getInstance());
-        getViewSite().getActionBars().setGlobalActionHandler(ActionFactory.PASTE.getId(), PasteAction.getInstance());
-        getViewSite().getActionBars().setGlobalActionHandler(ActionFactory.DELETE.getId(), DeleteAction.getInstance());
-    }
-
-    protected void hookDoubleClickAction() {
-        viewer.addDoubleClickListener(new IDoubleClickListener() {
-
-            @Override
-            public void doubleClick(DoubleClickEvent event) {
-                doubleClickAction.run();
-            }
-        });
-    }
-
-    protected void hookContextMenu() {
-        MenuManager menuMgr = new MenuManager("#PopupMenu"); //$NON-NLS-1$
-        menuMgr.setRemoveAllWhenShown(true);
-
-        menuMgr.addMenuListener(new IMenuListener() {
-
-            @Override
-            public void menuAboutToShow(IMenuManager manager) {
-                RepoViewCommonNavigator.this.fillContextMenu(manager);
-            }
-        });
-
-        Menu menu = menuMgr.createContextMenu(viewer.getControl());
-        viewer.getControl().setMenu(menu);
-        getSite().registerContextMenu(menuMgr, viewer);
-    }
-
-    private void fillContextMenu(IMenuManager manager) {
-        IStructuredSelection sel = (IStructuredSelection) viewer.getSelection();
-        MenuManager[] menuManagerGroups = null;
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
-            final ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
-            if (coreService != null) {
-                menuManagerGroups = coreService.getRepositoryContextualsActionGroups();
-            }
-        }
-        // find group
-        Set<String> processedGroupIds = new HashSet<String>();
-        for (ITreeContextualAction action : contextualsActions) {
-            action.init(getViewer(), sel);
-            if (action.isVisible() && action.isEnabled()) {
-                IMenuManager groupMenu = findMenuManager(menuManagerGroups, action.getGroupId(), true); // find root
-                if (groupMenu != null) { // existed
-                    final String rootId = groupMenu.getId();
-                    if (!processedGroupIds.contains(rootId)) {
-                        manager.add(groupMenu);
-                        processedGroupIds.add(rootId);
-                    }
-                }
-                groupMenu = findMenuManager(menuManagerGroups, action.getGroupId(), false); // find last child
-                if (groupMenu != null) { // existed
-                    groupMenu.add(action);
-                } else { // child
-                    manager.add(action);
-                }
-            }
-        }
-        manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
-    }
-
-    private MenuManager findMenuManager(final MenuManager[] menuManagerGroups, String groupId, boolean findParent) {
-        if (menuManagerGroups == null) {
-            return null;
-        }
-        for (MenuManager groupMenu : menuManagerGroups) {
-            if (groupMenu.getId().equals(groupId)) {
-                if (findParent) {
-                    final MenuManager parent = (MenuManager) groupMenu.getParent();
-                    if (parent == null) {
-                        return groupMenu;
-                    } else {
-                        return findMenuManager(menuManagerGroups, parent.getId(), findParent);
-                    }
-                } else {
-                    return groupMenu;
-                }
-            }
-        }
-        return null;
     }
 
     @Override

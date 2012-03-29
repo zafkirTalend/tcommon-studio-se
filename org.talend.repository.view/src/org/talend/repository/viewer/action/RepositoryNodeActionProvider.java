@@ -22,23 +22,32 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IWorkbenchActionConstants;
+import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.commands.ActionHandler;
 import org.eclipse.ui.handlers.IHandlerService;
+import org.eclipse.ui.internal.navigator.TextActionHandler;
 import org.eclipse.ui.navigator.CommonActionProvider;
+import org.eclipse.ui.navigator.ICommonActionConstants;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
 import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
 import org.talend.repository.ui.actions.ActionsHelper;
+import org.talend.repository.ui.actions.CopyAction;
+import org.talend.repository.ui.actions.DeleteAction;
+import org.talend.repository.ui.actions.PasteAction;
 
-public class RepositoryNodeContextMenuActionProvider extends CommonActionProvider {
+public class RepositoryNodeActionProvider extends CommonActionProvider {
 
-    private List<ITreeContextualAction> contextualsActions;
+    static private List<ITreeContextualAction> contextualsActions;
 
-    public RepositoryNodeContextMenuActionProvider() {
-        // TODO Auto-generated constructor stub
+    static private RepositoryDoubleClickAction doubleClickAction;
+
+    public RepositoryNodeActionProvider() {
+
     }
 
     /*
@@ -91,6 +100,7 @@ public class RepositoryNodeContextMenuActionProvider extends CommonActionProvide
                 }
             }
         }
+
         manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
     }
 
@@ -116,18 +126,42 @@ public class RepositoryNodeContextMenuActionProvider extends CommonActionProvide
     }
 
     protected void makeActions() {
-        ICommonViewerWorkbenchSite navWorkSite = ((ICommonViewerWorkbenchSite) getActionSite().getViewSite());
-        IHandlerService handlerService = (IHandlerService) navWorkSite.getSite().getService(IHandlerService.class);
-        IHandler handler = null;
+        if (contextualsActions == null) {
+            ICommonViewerWorkbenchSite navWorkSite = ((ICommonViewerWorkbenchSite) getActionSite().getViewSite());
+            IHandlerService handlerService = (IHandlerService) navWorkSite.getSite().getService(IHandlerService.class);
+            IHandler handler = null;
 
-        contextualsActions = ActionsHelper.getRepositoryContextualsActions();
-        for (ITreeContextualAction action : contextualsActions) {
-            action.setWorkbenchPart(navWorkSite.getSite().getPart());
-            if (action.getActionDefinitionId() != null) {
-                handler = new ActionHandler(action);
-                handlerService.activateHandler(action.getActionDefinitionId(), handler);
+            contextualsActions = ActionsHelper.getRepositoryContextualsActions();
+            for (ITreeContextualAction action : contextualsActions) {
+                action.setWorkbenchPart(navWorkSite.getSite().getPart());
+                if (action.getActionDefinitionId() != null) {
+                    // TODO ActionHandler is deprecated, should be changed.
+                    handler = new ActionHandler(action);
+                    handlerService.activateHandler(action.getActionDefinitionId(), handler);
+                }
             }
-        }
+            doubleClickAction = new RepositoryDoubleClickAction(getActionSite().getStructuredViewer(), contextualsActions);
+        }// else already initialised.
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.ui.actions.ActionGroup#fillActionBars(org.eclipse.ui.IActionBars)
+     */
+    @Override
+    public void fillActionBars(IActionBars actionBars) {
+        super.fillActionBars(actionBars);
+        actionBars.setGlobalActionHandler(ICommonActionConstants.OPEN, doubleClickAction);
+        actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), CopyAction.getInstance());
+        actionBars.setGlobalActionHandler(ActionFactory.PASTE.getId(), PasteAction.getInstance());
+        actionBars.setGlobalActionHandler(ActionFactory.DELETE.getId(), DeleteAction.getInstance());
+        // TODO TextActionHandler is an internal class and should not be used.
+        TextActionHandler textActionHandler = new TextActionHandler(actionBars);
+        textActionHandler.setCopyAction(CopyAction.getInstance());
+        textActionHandler.setPasteAction(PasteAction.getInstance());
+        textActionHandler.setDeleteAction(DeleteAction.getInstance());
 
     }
 
