@@ -42,10 +42,10 @@ import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
+import org.talend.repository.model.IMetadataService;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.EProperties;
-import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
 import orgomg.cwm.objectmodel.core.Package;
@@ -92,9 +92,11 @@ public class SaveAsGenericSchemaCommand extends Command {
                 // isGenericSchemaExisting = isGenericSchemaExisting(genericSchemaNode);
             }
 
-            IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
-
-            WizardDialog dialog = repositoryService.getGenericSchemaWizardDialog(new Shell(), PlatformUI.getWorkbench(), false,
+            IMetadataService metadataService = CoreRuntimePlugin.getInstance().getMetadataService();
+            if (metadataService == null) {
+                return;
+            }
+            WizardDialog dialog = metadataService.getGenericSchemaWizardDialog(new Shell(), PlatformUI.getWorkbench(), false,
                     null, null, true);
             dialog.setPageSize(WIZARD_WIDTH, WIZARD_HEIGHT);
             dialog.create();
@@ -103,7 +105,7 @@ public class SaveAsGenericSchemaCommand extends Command {
             if (dialog.open() != 0) {
                 return;
             } else {
-                property = repositoryService.getPropertyFromWizardDialog();
+                property = metadataService.getPropertyFromWizardDialog();
             }
 
             // if (!isGenericSchemaExisting) {
@@ -179,7 +181,7 @@ public class SaveAsGenericSchemaCommand extends Command {
             item.setConnection(connection);
 
             // }
-            IPath path = CoreRuntimePlugin.getInstance().getRepositoryService().getPathForSaveAsGenericSchema();
+            IPath path = metadataService.getPathForSaveAsGenericSchema();
             if (path == null) {
                 this.saveMetaData(item, new Path("")); //$NON-NLS-1$
             } else {

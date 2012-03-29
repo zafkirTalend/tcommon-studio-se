@@ -27,6 +27,7 @@ import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.service.IWebService;
 import org.talend.core.service.IWebServiceTos;
 import org.talend.designer.core.IDesignerCoreService;
+import org.talend.repository.model.IMetadataService;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IProxyRepositoryService;
 import org.talend.repository.model.IRepositoryService;
@@ -87,6 +88,14 @@ public class CoreRuntimePlugin extends AbstractUIPlugin {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
             IService service = GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
             return (IRepositoryService) service;
+        }
+        return null;
+    }
+
+    public IMetadataService getMetadataService() {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IMetadataService.class)) {
+            IService service = GlobalServiceRegister.getDefault().getService(IMetadataService.class);
+            return (IMetadataService) service;
         }
         return null;
     }

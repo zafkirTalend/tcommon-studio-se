@@ -38,7 +38,8 @@ import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.ui.IRulesProviderService;
-import org.talend.core.ui.metadata.celleditor.RuleOperationChoiceDialog.EProcessTypeForRule;
+import org.talend.core.ui.rule.AbstractRlueOperationChoice;
+import org.talend.repository.model.IMetadataService;
 import org.talend.repository.model.IRepositoryService;
 
 /**
@@ -101,6 +102,7 @@ public class RuleCellEditor extends DialogCellEditor {
         IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
         IRulesProviderService ruleService = (IRulesProviderService) GlobalServiceRegister.getDefault().getService(
                 IRulesProviderService.class);
+        final IMetadataService metadataService = CorePlugin.getDefault().getMetadataService();
         // IProxyRepositoryFactory repositoryFactory =
         // CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
         try {
@@ -135,7 +137,7 @@ public class RuleCellEditor extends DialogCellEditor {
             boolean findRepositoryItem = false;
             String itemId;
             RulesItem rulesItem = null;
-            RuleOperationChoiceDialog ruleChoiceDialog = null;
+            AbstractRlueOperationChoice ruleChoiceDialog = null;
             if (node.getElementParameter("REPOSITORY_PROPERTY_TYPE") != null //$NON-NLS-N$ //$NON-NLS-1$ //$NON-NLS-1$
                     && node.getElementParameter("PROPERTY_TYPE").getValue().toString().equals("REPOSITORY")) { //$NON-NLS-N$ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-1$ //$NON-NLS-2$
                 itemId = node.getElementParameter("REPOSITORY_PROPERTY_TYPE").getValue().toString(); //$NON-NLS-1$
@@ -150,12 +152,15 @@ public class RuleCellEditor extends DialogCellEditor {
                 if (node.getJobletNode() != null) {
                     readonly = node.isReadOnly();
                 }
-                ruleChoiceDialog = new RuleOperationChoiceDialog(cellEditorWindow.getShell(), node, repositoryRuleItems,
-                        linkRuleItems, EProcessTypeForRule.CREATE, ruleToEdit, readonly);
-                if (ruleChoiceDialog.open() == Window.OK && ruleChoiceDialog.isRepositoryBtnChecked()) {
+                if (metadataService != null) {
+                    ruleChoiceDialog = metadataService.getOperationChoice(cellEditorWindow.getShell(), node, repositoryRuleItems,
+                            linkRuleItems, EProcessTypeForRule.CREATE, ruleToEdit, readonly);
+                }
+
+                if (ruleChoiceDialog != null && ruleChoiceDialog.open() == Window.OK && ruleChoiceDialog.isRepositoryBtnChecked()) {
                     return TalendTextUtils.QUOTATION_MARK + ruleChoiceDialog.getSelectedRuleFileName()
                             + TalendTextUtils.QUOTATION_MARK;
-                } else if (!ruleChoiceDialog.isCancel()) {
+                } else if (ruleChoiceDialog != null && !ruleChoiceDialog.isCancel()) {
                     if (!ruleChoiceDialog.isCheckViewRules()) {
                         // create a rule
                         String selectedSchemaName = ""; //$NON-NLS-1$
@@ -210,9 +215,12 @@ public class RuleCellEditor extends DialogCellEditor {
                 }
             } else if (findRepositoryItem && rulesItem != null) {
                 if (rulesItem.getExtension().equals(XLS_EXTENSION)) {
-                    ruleChoiceDialog = new RuleOperationChoiceDialog(cellEditorWindow.getShell(), node, repositoryRuleItems,
-                            linkRuleItems, EProcessTypeForRule.XLS_REPOSITORY, ruleToEdit, node.getProcess().isReadOnly());
-                    if (ruleChoiceDialog.open() == Window.OK) {
+                    if (metadataService != null) {
+                        ruleChoiceDialog = metadataService.getOperationChoice(cellEditorWindow.getShell(), node,
+                                repositoryRuleItems, linkRuleItems, EProcessTypeForRule.XLS_REPOSITORY, ruleToEdit, node
+                                        .getProcess().isReadOnly());
+                    }
+                    if (ruleChoiceDialog != null && ruleChoiceDialog.open() == Window.OK) {
                         if (ruleChoiceDialog.isCheckViewRules()) {
                             // view rules
 
@@ -232,9 +240,11 @@ public class RuleCellEditor extends DialogCellEditor {
                     }
                 }
             } else { // open dialog for built,either xls or drl just to show rule combo
-                ruleChoiceDialog = new RuleOperationChoiceDialog(cellEditorWindow.getShell(), node, repositoryRuleItems,
-                        linkRuleItems, EProcessTypeForRule.BUILTIN, ruleToEdit, node.getProcess().isReadOnly());
-                if (ruleChoiceDialog.open() == Window.OK) {
+                if (metadataService != null) {
+                    ruleChoiceDialog = metadataService.getOperationChoice(cellEditorWindow.getShell(), node, repositoryRuleItems,
+                            linkRuleItems, EProcessTypeForRule.BUILTIN, ruleToEdit, node.getProcess().isReadOnly());
+                }
+                if (ruleChoiceDialog != null && ruleChoiceDialog.open() == Window.OK) {
                     return TalendTextUtils.QUOTATION_MARK + ruleChoiceDialog.getSelectedRuleFileName()
                             + TalendTextUtils.QUOTATION_MARK;
                 } else {

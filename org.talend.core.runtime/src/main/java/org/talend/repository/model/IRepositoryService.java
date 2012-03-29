@@ -20,13 +20,10 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IWorkbench;
 import org.talend.core.IService;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.metadata.IMetadataConnection;
@@ -34,8 +31,6 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.INode;
-import org.talend.core.model.properties.ConnectionItem;
-import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -75,13 +70,6 @@ public interface IRepositoryService extends IService {
      */
     public void registerRepositoryChangedListenerAsFirst(IRepositoryChangedListener listener);
 
-    public WizardDialog getGenericSchemaWizardDialog(Shell shell, IWorkbench workbench, boolean creation, ISelection selection,
-            String[] existingNames, boolean isSinglePageOnly);
-
-    public Property getPropertyFromWizardDialog();
-
-    public IPath getPathForSaveAsGenericSchema();
-
     // for integration with eclipse
     public void openLoginDialog();
 
@@ -97,12 +85,6 @@ public interface IRepositoryService extends IService {
     public boolean isRCPMode();
 
     public void setRCPMode();
-
-    public void openMetadataConnection(IRepositoryViewObject o, INode node);
-
-    public ConnectionItem openMetadataConnection(boolean creation, IRepositoryNode realNode, INode node);
-
-    public void openEditSchemaWizard(String value);
 
     public DatabaseConnection cloneOriginalValueConnection(DatabaseConnection dbConn);
 

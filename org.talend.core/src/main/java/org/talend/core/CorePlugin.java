@@ -36,6 +36,7 @@ import org.talend.designer.components.IComponentsLocalProviderService;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.rcp.IRcpService;
+import org.talend.repository.model.IMetadataService;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryLocalProviderService;
 import org.talend.repository.model.IRepositoryService;
@@ -149,6 +150,11 @@ public class CorePlugin extends AbstractUIPlugin {
         return (IRepositoryService) service;
     }
 
+    public IMetadataService getMetadataService() {
+        IService service = GlobalServiceRegister.getDefault().getService(IMetadataService.class);
+        return (IMetadataService) service;
+    }
+
     public IRepositoryLocalProviderService getRepositoryLocalProviderService() {
         return (IRepositoryLocalProviderService) GlobalServiceRegister.getDefault().getService(
                 IRepositoryLocalProviderService.class);
@@ -191,7 +197,7 @@ public class CorePlugin extends AbstractUIPlugin {
     public IDesignerMapperService getMapperService() {
         return (IDesignerMapperService) GlobalServiceRegister.getDefault().getService(IDesignerMapperService.class);
     }
-    
+
     public IDesignerXMLMapperService getXMLMapperService() {
         return (IDesignerXMLMapperService) GlobalServiceRegister.getDefault().getService(IDesignerXMLMapperService.class);
     }

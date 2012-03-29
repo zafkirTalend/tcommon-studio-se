@@ -6,7 +6,8 @@ Bundle-Version: 2.2.0.qualifier
 Bundle-Activator: org.talend.core.CorePlugin
 Bundle-Localization: plugin
 Eclipse-LazyStart: true
-Require-Bundle: org.eclipse.update.scheduler,
+Require-Bundle: org.apache.batik.css;resolution:=optional,
+ org.eclipse.update.scheduler,
  org.eclipse.update.core,
  org.eclipse.ui.ide,
  org.eclipse.debug.core,
@@ -17,12 +18,11 @@ Require-Bundle: org.eclipse.update.scheduler,
  org.talend.commons;visibility:=reexport,
  org.talend.commons.ui;visibility:=reexport,
  org.eclipse.gmf.runtime.diagram.ui.properties,
+ org.talend.libraries.w3c,
  org.talend.libraries.dom4j-jaxen,
  org.talend.metadata.managment,
  org.talend.metadata.managment.ui,
  org.talend.libraries.apache,
- org.talend.libraries.css;resolution:=optional,
- org.talend.libraries.jexcel;resolution:=optional,
  org.talend.model
 Bundle-Vendor: .Talend SA.
 Export-Package: org.talend.core,

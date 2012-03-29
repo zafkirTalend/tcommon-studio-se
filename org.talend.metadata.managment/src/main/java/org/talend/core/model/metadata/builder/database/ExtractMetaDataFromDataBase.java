@@ -60,6 +60,7 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.database.extractots.DBMetadataProviderObject;
 import org.talend.core.model.metadata.builder.database.extractots.IDBMetadataProviderObject;
+import org.talend.core.model.metadata.builder.util.DatabaseConstant;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.metadata.builder.util.TDColumnAttributeHelper;
 import org.talend.core.model.metadata.types.JavaTypesManager;
@@ -1846,55 +1847,59 @@ public class ExtractMetaDataFromDataBase {
      * @param connection
      */
     private static void checkUniqueKeyConstraint(String lable, HashMap<String, String> primaryKeys, Connection connection) {
-        if (connection instanceof com.mysql.jdbc.Connection) {// MySql
-            try {
-                PreparedStatement statement = ExtractMetaDataUtils.conn.prepareStatement("SHOW INDEX FROM `" //$NON-NLS-1$
-                        + lable + "` WHERE Non_unique=0 AND Key_name != \'PRIMARY\';"); //$NON-NLS-1$
-                ResultSet keys = null;
-                ExtractMetaDataUtils.setQueryStatementTimeout(statement);
-                if (statement.execute()) {
-                    keys = statement.getResultSet();
-                    while (keys.next()) {
-                        String field = keys.getString("COLUMN_NAME"); //$NON-NLS-1$
-                        primaryKeys.put(field, "PRIMARY KEY"); //$NON-NLS-1$
+        try {
+            if (connection.getMetaData().getDriverName().contains(DatabaseConstant.MYSQL_PRODUCT_NAME)) {// MySql
+                try {
+                    PreparedStatement statement = ExtractMetaDataUtils.conn.prepareStatement("SHOW INDEX FROM `" //$NON-NLS-1$
+                            + lable + "` WHERE Non_unique=0 AND Key_name != \'PRIMARY\';"); //$NON-NLS-1$
+                    ResultSet keys = null;
+                    ExtractMetaDataUtils.setQueryStatementTimeout(statement);
+                    if (statement.execute()) {
+                        keys = statement.getResultSet();
+                        while (keys.next()) {
+                            String field = keys.getString("COLUMN_NAME"); //$NON-NLS-1$
+                            primaryKeys.put(field, "PRIMARY KEY"); //$NON-NLS-1$
+                        }
                     }
+                    keys.close();
+                    statement.close();
+                } catch (Exception e) {
+                    log.error(e.toString());
                 }
-                keys.close();
-                statement.close();
-            } catch (Exception e) {
-                log.error(e.toString());
             }
+        } catch (SQLException e) {
+            ExceptionHandler.process(e);
         }
         // SQL Server
-        else if (connection instanceof net.sourceforge.jtds.jdbc.ConnectionJDBC2) {
-            // try {
-            // String query = "SELECT "
-            // + " Field=a.name,"
-            // + " Flag=case when exists(SELECT 1 FROM sysobjects where xtype=\'UQ\' and name in ( "
-            // + " SELECT name FROM sysindexes WHERE indid in( "
-            // + " SELECT indid FROM sysindexkeys WHERE id = a.id AND colid=a.colid "
-            // + " ))) then \'true\' else \'false\' end "
-            // + " FROM syscolumns a "
-            // + " inner join sysobjects d on a.id=d.id and d.xtype=\'U\' and d.name<>\'dtproperties\' "
-            // + " where d.name=\'" + medataTable.getLabel() + "\' order by a.name;";
-            // PreparedStatement statement = ExtractMetaDataUtils.conn.prepareStatement(query);
-            //
-            // ResultSet keys = null;
-            // if (statement.execute()) {
-            // keys = statement.getResultSet();
-            // while (keys.next()) {
-            // String unique = keys.getString("Flag"); //$NON-NLS-1$
-            // String field = keys.getString("Field"); //$NON-NLS-1$
-            // if ("true".equals(unique)) { //$NON-NLS-1$
-            // primaryKeys.put(field, "PRIMARY KEY"); //$NON-NLS-1$
-            // }
-            // }
-            // }
-            // keys.close();
-            // } catch (Exception e) {
-            // log.error(e.toString());
-            // }
-        }
+        // else if (connection instanceof net.sourceforge.jtds.jdbc.ConnectionJDBC2) {
+        // try {
+        // String query = "SELECT "
+        // + " Field=a.name,"
+        // + " Flag=case when exists(SELECT 1 FROM sysobjects where xtype=\'UQ\' and name in ( "
+        // + " SELECT name FROM sysindexes WHERE indid in( "
+        // + " SELECT indid FROM sysindexkeys WHERE id = a.id AND colid=a.colid "
+        // + " ))) then \'true\' else \'false\' end "
+        // + " FROM syscolumns a "
+        // + " inner join sysobjects d on a.id=d.id and d.xtype=\'U\' and d.name<>\'dtproperties\' "
+        // + " where d.name=\'" + medataTable.getLabel() + "\' order by a.name;";
+        // PreparedStatement statement = ExtractMetaDataUtils.conn.prepareStatement(query);
+        //
+        // ResultSet keys = null;
+        // if (statement.execute()) {
+        // keys = statement.getResultSet();
+        // while (keys.next()) {
+        // String unique = keys.getString("Flag"); //$NON-NLS-1$
+        // String field = keys.getString("Field"); //$NON-NLS-1$
+        // if ("true".equals(unique)) { //$NON-NLS-1$
+        // primaryKeys.put(field, "PRIMARY KEY"); //$NON-NLS-1$
+        // }
+        // }
+        // }
+        // keys.close();
+        // } catch (Exception e) {
+        // log.error(e.toString());
+        // }
+        // }
         // PTODO ftang: should continue to handle all kinds of databases in this case.
         // else if (connection instanceof java.sql.Connection) // SQL Server
     }

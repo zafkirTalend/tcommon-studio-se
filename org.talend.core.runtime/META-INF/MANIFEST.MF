@@ -47,7 +47,9 @@ Export-Package: org.talend.core,
  org.talend.core.ui.context.model.template,
  org.talend.core.ui.context.model.tree,
  org.talend.core.ui.images,
+ org.talend.core.ui.metadata.celleditor,
  org.talend.core.ui.proposal,
+ org.talend.core.ui.rule,
  org.talend.core.ui.targetschema.editor,
  org.talend.core.ui.webService,
  org.talend.core.updatesite,
@@ -86,7 +88,7 @@ Require-Bundle: org.eclipse.gef,
  org.talend.libraries.dom4j-jaxen,
  org.eclipse.jface.text,
  org.eclipse.ui.editors,
- org.talend.libraries.javacsv;resolution:=optional
+ org.talend.libraries.csv;resolution:=optional
 Import-Package: org.eclipse.debug.core
 Bundle-Activator: org.talend.core.runtime.CoreRuntimePlugin
 Bundle-ActivationPolicy: lazy

@@ -24,6 +24,8 @@ public final class DatabaseConstant {
 
     public static final String ODBC_ORACLE_PRODUCT_NAME = "oracle";
 
+    public static final String MYSQL_PRODUCT_NAME = "mysql";
+
     public static final String ODBC_ORACLE_SCHEMA_NAME = "TABLE_OWNER";
 
     public static final String POSTGRESQL_PRODUCT_NAME = "postgresql";
