@@ -140,9 +140,12 @@ public class XSDPopulationUtil2 {
                     }
                 }
                 node.setValue(elementName);
-                XSDComplexTypeDefinition generalType = xsdSchema.resolveComplexTypeDefinitionURI(xsdElementDeclaration.getURI());
-                if (generalType.getContainer() != null) {
-                    xsdTypeDefinition = generalType;
+                if (xsdTypeDefinition == null) {
+                    XSDComplexTypeDefinition generalType = xsdSchema.resolveComplexTypeDefinitionURI(xsdElementDeclaration
+                            .getURI());
+                    if (generalType.getContainer() != null) {
+                        xsdTypeDefinition = generalType;
+                    }
                 }
                 if (xsdTypeDefinition != null && xsdTypeDefinition.getName() != null) {
                     node.setDataType(xsdTypeDefinition.getName());
@@ -219,10 +222,12 @@ public class XSDPopulationUtil2 {
                 if (!currentPath.contains("/" + elementName + "/")) {
                     String path = currentPath + elementName + "/";
                     XSDTypeDefinition xsdTypeDefinition = xsdElementDeclarationParticle.getTypeDefinition();
-                    XSDComplexTypeDefinition generalType = xsdSchema
-                            .resolveComplexTypeDefinitionURI(xsdElementDeclarationParticle.getURI());
-                    if (generalType.getContainer() != null) {
-                        xsdTypeDefinition = generalType;
+                    if (xsdTypeDefinition == null) {
+                        XSDComplexTypeDefinition generalType = xsdSchema
+                                .resolveComplexTypeDefinitionURI(xsdElementDeclarationParticle.getURI());
+                        if (generalType.getContainer() != null) {
+                            xsdTypeDefinition = generalType;
+                        }
                     }
                     if (xsdTypeDefinition != null && xsdTypeDefinition.getName() != null) {
                         partNode.setDataType(xsdTypeDefinition.getQName());
@@ -327,9 +332,12 @@ public class XSDPopulationUtil2 {
                 node.setDataType(xsdElementDeclaration.getName());
 
                 XSDTypeDefinition xsdTypeDefinition = xsdElementDeclaration.getTypeDefinition();
-                XSDComplexTypeDefinition generalType = xsdSchema.resolveComplexTypeDefinitionURI(xsdElementDeclaration.getURI());
-                if (generalType.getContainer() != null) {
-                    xsdTypeDefinition = generalType;
+                if (xsdTypeDefinition == null) {
+                    XSDComplexTypeDefinition generalType = xsdSchema.resolveComplexTypeDefinitionURI(xsdElementDeclaration
+                            .getURI());
+                    if (generalType.getContainer() != null) {
+                        xsdTypeDefinition = generalType;
+                    }
                 }
                 if (xsdTypeDefinition != null && xsdTypeDefinition.getName() != null) {
                     node.setDataType(xsdTypeDefinition.getName());
@@ -369,10 +377,11 @@ public class XSDPopulationUtil2 {
                     node.setValue(elementName);
                     node.setType(ATreeNode.ELEMENT_TYPE);
                     node.setDataType(xsdTypeDefinition.getName());
-                    XSDComplexTypeDefinition generalType = xsdSchema.resolveComplexTypeDefinitionURI(xsdTypeDefinition.getURI());
-                    if (generalType.getContainer() != null) {
-                        xsdTypeDefinition = generalType;
-                    }
+                    // XSDComplexTypeDefinition generalType =
+                    // xsdSchema.resolveComplexTypeDefinitionURI(xsdTypeDefinition.getURI());
+                    // if (generalType.getContainer() != null) {
+                    // xsdTypeDefinition = generalType;
+                    // }
                     if (xsdTypeDefinition != null && xsdTypeDefinition.getName() != null) {
                         node.setDataType(xsdTypeDefinition.getQName());
                     }
