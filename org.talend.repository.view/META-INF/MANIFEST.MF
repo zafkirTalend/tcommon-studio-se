@@ -9,6 +9,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui.navigator,
  org.eclipse.ui.views.properties.tabbed;visibility:=reexport,
  org.eclipse.core.expressions,
+ org.eclipse.jface.text,
  org.eclipse.jdt.ui,
  org.apache.log4j,
  org.talend.model;visibility:=reexport,
@@ -16,14 +17,14 @@ Require-Bundle: org.eclipse.core.runtime,
  org.talend.common.ui.runtime,
  org.talend.commons.ui,
  org.talend.commons.runtime,
- org.talend.core.repository,
- org.talend.repository,
- org.eclipse.jface.text
+ org.talend.core.repository
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.talend.repository,
  org.talend.repository.navigator,
  org.talend.repository.viewer.action,
  org.talend.repository.viewer.content,
- org.talend.repository.viewer.filter
+ org.talend.repository.viewer.dialog,
+ org.talend.repository.viewer.filter,
+ org.talend.repository.viewer.label
 Bundle-Activator: org.talend.repository.RepositoryViewPlugin
 Bundle-ActivationPolicy: lazy

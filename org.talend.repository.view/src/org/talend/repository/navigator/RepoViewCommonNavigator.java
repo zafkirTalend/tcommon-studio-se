@@ -99,7 +99,6 @@ import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.actions.MoveObjectAction;
-import org.talend.repository.plugin.integration.SwitchProjectAction;
 import org.talend.repository.ui.actions.CopyAction;
 import org.talend.repository.ui.actions.DeleteAction;
 import org.talend.repository.ui.actions.PasteAction;
@@ -304,18 +303,23 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
         CoreRepositoryPlugin.getDefault().registerRepositoryChangedListenerAsFirst(this);
 
         if (!CoreRepositoryPlugin.getDefault().isRCPMode()) {
+            boolean pluginModel = true;
+            /*
+             * seems be true always.
+             */
+            // pluginModel= SwitchProjectAction.PLUGIN_MODEL;
             if (GlobalServiceRegister.getDefault().isServiceRegistered(IMigrationToolService.class)) {
                 IMigrationToolService migrationService = (IMigrationToolService) GlobalServiceRegister.getDefault().getService(
                         IMigrationToolService.class);
                 if (migrationService != null) {
-                    migrationService.executeMigration(SwitchProjectAction.PLUGIN_MODEL);
+                    migrationService.executeMigration(pluginModel);
                 }
             }
             if (GlobalServiceRegister.getDefault().isServiceRegistered(IRunProcessService.class)) {
                 IRunProcessService runProcessService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
                         IRunProcessService.class);
                 if (runProcessService != null) {
-                    runProcessService.deleteAllJobs(SwitchProjectAction.PLUGIN_MODEL);
+                    runProcessService.deleteAllJobs(pluginModel);
                 }
             }
             final RepositoryContext repositoryContext = (RepositoryContext) CoreRuntimePlugin.getInstance().getContext()

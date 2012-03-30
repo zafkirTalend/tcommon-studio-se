@@ -48,6 +48,7 @@ import org.osgi.framework.Bundle;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.SystemException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.xml.XmlUtil;
 import org.talend.core.language.ECodeLanguage;
@@ -515,5 +516,9 @@ public class CoreService implements ICoreService {
 
     public MenuManager[] getRepositoryContextualsActionGroups() {
         return ActionsHelper.getRepositoryContextualsActionGroups();
+    }
+
+    public List<ITreeContextualAction> getRepositoryContextualsActions() {
+        return ActionsHelper.getRepositoryContextualsActions();
     }
 }

@@ -109,6 +109,8 @@ public class RepositoryImageProvider {
             return ECoreImage.RECYCLE_BIN_EMPTY_ICON;
         } else if (type == ERepositoryObjectType.METADATA_EDIFACT) {
             return ECoreImage.METADATA_EDIFACT_ICON;
+        } else if (type == ERepositoryObjectType.METADATA_CON_CDC) {
+            return ECoreImage.CDC_SUBSCRIBER;
         } else {
             IImage image = null;
             for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {

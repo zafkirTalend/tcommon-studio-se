@@ -146,6 +146,7 @@ public enum ECoreImage implements IImage {
 
     CDC_ADDED_OVERLAY("/icons1/cdc_added_overlay.png"), //$NON-NLS-1$
     CDC_ACTIVATED_OVERLAY("/icons1/cdc_activated_overlay.png"), //$NON-NLS-1$
+    CDC_SUBSCRIBER("/icons1/subscriber.jpg"), //$NON-NLS-1$
 
     ERROR_OVERLAY("/icons1/error_co.gif"), //$NON-NLS-1$
     WARN_OVERLAY("/icons1/warning_co.gif"), //$NON-NLS-1$

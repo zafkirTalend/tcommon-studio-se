@@ -14,6 +14,7 @@ Require-Bundle: org.eclipse.ui,
  org.apache.log4j,
  org.talend.libraries.apache
 Export-Package: org.talend.core.ldap,
+ org.talend.core.model.genhtml,
  org.talend.core.model.metadata,
  org.talend.core.repository,
  org.talend.core.repository.constants,
@@ -27,6 +28,7 @@ Export-Package: org.talend.core.ldap,
  org.talend.repository.preview,
  org.talend.repository.ui.actions,
  org.talend.repository.ui.dialog,
+ org.talend.repository.ui.views,
  org.talend.repository.utils
 Bundle-Activator: org.talend.core.repository.CoreRepositoryPlugin
 Bundle-ActivationPolicy: lazy

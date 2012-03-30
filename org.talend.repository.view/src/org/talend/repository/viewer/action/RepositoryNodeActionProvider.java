@@ -35,7 +35,6 @@ import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
 import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
-import org.talend.repository.ui.actions.ActionsHelper;
 import org.talend.repository.ui.actions.CopyAction;
 import org.talend.repository.ui.actions.DeleteAction;
 import org.talend.repository.ui.actions.PasteAction;
@@ -130,14 +129,18 @@ public class RepositoryNodeActionProvider extends CommonActionProvider {
             ICommonViewerWorkbenchSite navWorkSite = ((ICommonViewerWorkbenchSite) getActionSite().getViewSite());
             IHandlerService handlerService = (IHandlerService) navWorkSite.getSite().getService(IHandlerService.class);
             IHandler handler = null;
-
-            contextualsActions = ActionsHelper.getRepositoryContextualsActions();
-            for (ITreeContextualAction action : contextualsActions) {
-                action.setWorkbenchPart(navWorkSite.getSite().getPart());
-                if (action.getActionDefinitionId() != null) {
-                    // TODO ActionHandler is deprecated, should be changed.
-                    handler = new ActionHandler(action);
-                    handlerService.activateHandler(action.getActionDefinitionId(), handler);
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
+                final ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+                if (coreService != null) {
+                    contextualsActions = coreService.getRepositoryContextualsActions();
+                    for (ITreeContextualAction action : contextualsActions) {
+                        action.setWorkbenchPart(navWorkSite.getSite().getPart());
+                        if (action.getActionDefinitionId() != null) {
+                            // TODO ActionHandler is deprecated, should be changed.
+                            handler = new ActionHandler(action);
+                            handlerService.activateHandler(action.getActionDefinitionId(), handler);
+                        }
+                    }
                 }
             }
             doubleClickAction = new RepositoryDoubleClickAction(getActionSite().getStructuredViewer(), contextualsActions);
