@@ -993,19 +993,11 @@ public class DeleteAction extends AContextualAction {
         }
 
         Item item = objToDelete.getProperty().getItem();
-        AbstractResourceChangesService resChangeService = null;
-        if (item instanceof ConnectionItem && item.getState().isDeleted()) {
-            resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(AbstractResourceChangesService.class);
-            if (resChangeService != null) {
-                if (!resChangeService.handleResourceChange(((ConnectionItem) item).getConnection())) {
-                    return true;
-                }
-                // MOD klliu 2011-04-28 bug 20204 removing connection is synced to the connection view of SQL explore
-                if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
-                    ITDQRepositoryService tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
-                            ITDQRepositoryService.class);
-                    tdqRepService.removeAliasInSQLExplorer(currentJobNode);
-                }
+        AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
+                AbstractResourceChangesService.class);
+        if (resChangeService != null && item instanceof ConnectionItem && item.getState().isDeleted()) {
+            if (!resChangeService.handleResourceChange(((ConnectionItem) item).getConnection())) {
+                return true;
             }
         }
 
@@ -1073,12 +1065,15 @@ public class DeleteAction extends AContextualAction {
                     } else {
                         // MOD qiongli 2011-5-10,bug 21189.should remove dependency after showing the question dialog of
                         // physical delete.
-                        if (item instanceof TDQItem || item instanceof ConnectionItem) {
-                            AbstractResourceChangesService resourceChangeService = TDQServiceRegister.getInstance()
-                                    .getResourceChangeService(AbstractResourceChangesService.class);
-                            if (resourceChangeService != null) {
-                                resourceChangeService.removeAllDependecies(item);
-                            }
+                        if (resChangeService != null && (item instanceof TDQItem || item instanceof ConnectionItem)) {
+                            resChangeService.removeAllDependecies(item);
+                        }
+                        // MOD qiongli 2012-3-30 remove SQL Explore only when it is confirmed to delete.
+                        if (item instanceof ConnectionItem
+                                && GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+                            ITDQRepositoryService tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault()
+                                    .getService(ITDQRepositoryService.class);
+                            tdqRepService.removeAliasInSQLExplorer(currentJobNode);
                         }
                         factory.deleteObjectPhysical(objToDelete);
                         ExpressionPersistance.getInstance().jobDeleted(objToDelete.getLabel());
