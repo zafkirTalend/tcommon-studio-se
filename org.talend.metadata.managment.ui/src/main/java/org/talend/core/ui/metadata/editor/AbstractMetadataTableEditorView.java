@@ -94,7 +94,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     public static final String ID_COLUMN_RELATED_ENTITY = "ID_COLUMN_RELATED_ENTITY";//$NON-NLS-1$
 
-    protected boolean showDbColumnName;
+    protected boolean showDbColumnName, showOriginalSize;
 
     protected boolean showDbTypeColumn;
 
@@ -257,7 +257,9 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
         configureLengthColumn(tableViewerCreator);
 
-        configureOriginalSizeColumn(tableViewerCreator);
+        if (showOriginalSize) {
+            configureOriginalSizeColumn(tableViewerCreator);
+        }
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
@@ -931,5 +933,9 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         column.setModifiable(true);
         column.setMinimumWidth(20);
         column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
+    }
+
+    public void setShowOriginalSize(boolean showOriginalSize) {
+        this.showOriginalSize = showOriginalSize;
     }
 }

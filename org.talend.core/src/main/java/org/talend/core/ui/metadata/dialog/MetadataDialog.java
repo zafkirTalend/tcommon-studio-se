@@ -184,10 +184,12 @@ public class MetadataDialog extends Dialog {
         boolean hasMappingType = false;
         boolean eltComponent = false;
         boolean hasRepositoryDbSchema = false;
+        boolean isEBCDIC = false;
         if (node != null && node.getComponent() != null) {
             eltComponent = node.getComponent().getOriginalFamilyName().startsWith(ELT_LABEL);
-            if (node.getComponent().getOriginalFamilyName().startsWith(DATABASE_LABEL) || eltComponent) {
-                dbComponent = true;
+            isEBCDIC = node.getComponent().getName().contains("EBCDIC");
+            if (node.getComponent().getOriginalFamilyName().startsWith(DATABASE_LABEL) || eltComponent || isEBCDIC) {
+                dbComponent = true && !isEBCDIC;
                 for (IElementParameter currentParam : node.getElementParameters()) {
                     if (currentParam.getFieldType().equals(EParameterFieldType.MAPPING_TYPE)) {
                         metaView.setCurrentDbms((String) currentParam.getValue());
@@ -268,6 +270,8 @@ public class MetadataDialog extends Dialog {
         metaView.setShowTalendTypeColumn(!eltComponent);
         // hide the pattern for ELT components
         metaView.setShowPatternColumn(!eltComponent);
+
+        metaView.setShowOriginalSize(isEBCDIC);
     }
 
     @Override
