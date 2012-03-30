@@ -30,7 +30,7 @@ public class RepositoryFilterSettingActionProvider extends AbstractRepositoryFil
     }
 
     @Override
-    protected void fillFilterMenus(IMenuManager menuManager) {
+    protected void fillMenus(IMenuManager menuManager) {
 
         FilterSettingAction action = new FilterSettingAction("Filter Setting" + DOT);
         menuManager.add(action);

@@ -12,9 +12,6 @@
 // ============================================================================
 package org.talend.repository.viewer.filter;
 
-import org.eclipse.jface.action.IContributionItem;
-import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.repository.RepositoryViewPlugin;
@@ -25,24 +22,9 @@ import org.talend.repository.viewer.action.AbstractRepositoryActionProvider;
  */
 public abstract class AbstractRepositoryFilterActionProvider extends AbstractRepositoryActionProvider {
 
-    private static final String REPOSITORY_FILTER_GROUP = "talend.repository.filter.group"; //$NON-NLS-1$
-
     public AbstractRepositoryFilterActionProvider() {
         super();
     }
-
-    @Override
-    protected void fillMenus(IMenuManager menuManager) {
-        super.fillMenus(menuManager);
-        IContributionItem filterMenu = menuManager.find(REPOSITORY_FILTER_GROUP);
-        if (filterMenu == null) {
-            filterMenu = new MenuManager("Repository filter", REPOSITORY_FILTER_GROUP);
-            menuManager.add(filterMenu);
-        }
-        fillFilterMenus((MenuManager) filterMenu);
-    }
-
-    protected abstract void fillFilterMenus(IMenuManager menuManager);
 
     protected boolean isActivedFilter() {
         final IPreferenceStore preferenceStore = RepositoryViewPlugin.getDefault().getPreferenceStore();

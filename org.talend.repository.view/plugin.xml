@@ -79,11 +79,6 @@
             </or>
           </triggerPoints>
       </navigatorContent>
-      <actionProvider
-            class="org.talend.repository.viewer.action.RepositoryRefreshActionProvider"
-            id="org.talend.repository.viewer.actionbar.toolbar.refresh">
-         <enablement></enablement>
-      </actionProvider> 
    </extension>
    <extension
          name="filters"
@@ -218,6 +213,21 @@
             </contentExtension>
          </includes>
       </perspectiveFilter>
+   </extension>
+   <extension
+         point="org.eclipse.ui.viewActions">
+      <viewContribution
+            id="org.talend.repository.view.contribution"
+            targetID="org.talend.repository.cnf.view">
+         <action
+               class="org.talend.repository.viewer.action.RepoRefreshAction"
+               icon="icons/refresh.gif"
+               id="org.talend.repository.view.refresh.action"
+               label="refresh"
+               style="push"
+               toolbarPath="talend.group">
+         </action>
+      </viewContribution>
    </extension>
 
 </plugin>

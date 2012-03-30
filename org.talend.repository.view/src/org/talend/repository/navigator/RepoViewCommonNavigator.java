@@ -18,11 +18,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.util.LocalSelectionTransfer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeViewerListener;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeExpansionEvent;
@@ -42,7 +40,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IPartListener;
-import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchPage;
@@ -99,9 +96,6 @@ import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.actions.MoveObjectAction;
-import org.talend.repository.ui.actions.CopyAction;
-import org.talend.repository.ui.actions.DeleteAction;
-import org.talend.repository.ui.actions.PasteAction;
 import org.talend.repository.ui.views.IRepositoryView;
 import org.talend.repository.ui.views.RepositoryDropAdapter;
 
@@ -112,7 +106,7 @@ import org.talend.repository.ui.views.RepositoryDropAdapter;
  * 
  */
 public class RepoViewCommonNavigator extends CommonNavigator implements IRepositoryView, ITabbedPropertySheetPageContributor,
-        IRepositoryChangedListener, ISelectionListener {
+        IRepositoryChangedListener {
 
     private static final String PERSPECTIVE_DI_ID = "org.talend.rcp.perspective"; //$NON-NLS-1$
 
@@ -123,8 +117,6 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
     private static List<ISelectionChangedListener> listenersNeedTobeAddedIntoTreeviewer = new ArrayList<ISelectionChangedListener>();
 
     private static boolean codeGenerationEngineInitialised;
-
-    private Action doubleClickAction;
 
     private Listener dragDetectListener;
 
@@ -170,7 +162,7 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
             }
             codeGenerationEngineInitialised = true;
         }
-        getSite().getWorkbenchWindow().getSelectionService().addSelectionListener(this);
+
     }
 
     public static IRepositoryView show() {
@@ -370,17 +362,6 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
         }
         expandTreeRootIfOnlyOneRoot();
         setContentDescription("this is a content description");
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.ui.part.WorkbenchPart#dispose()
-     */
-    @Override
-    public void dispose() {
-        getSite().getWorkbenchWindow().getSelectionService().removeSelectionListener(this);
-        super.dispose();
     }
 
     /**
@@ -813,19 +794,6 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
     @Override
     public String[] gatherMetadataChildenLabels() {
         return new String[0];// contentProvider.gatherMetdataChildrens();
-    }
-
-    @Override
-    public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-        if (part == this && selection instanceof TreeSelection) {
-            CopyAction.getInstance().init(getViewer(), (IStructuredSelection) selection);
-            PasteAction.getInstance().init(getViewer(), (IStructuredSelection) selection);
-            DeleteAction.getInstance().init(getViewer(), (IStructuredSelection) selection);
-        }
-    }
-
-    public Action getDoubleClickAction() {
-        return this.doubleClickAction;
     }
 
     /*

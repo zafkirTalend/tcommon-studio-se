@@ -49,7 +49,7 @@ public class PerspectiveFilterActionProvider extends AbstractRepositoryActionPro
     @Override
     protected void fillMenus(IMenuManager menuManager) {
         super.fillMenus(menuManager);
-        perspectiveFilterAction = new PerspectiveFilterAction(this, isFiltering, "Perspective Filter Actions");
+        perspectiveFilterAction = new PerspectiveFilterAction(this, isFiltering, "Perspective Content Filter");
         menuManager.add(perspectiveFilterAction);
     }
 
