@@ -81,7 +81,7 @@
          point="org.talend.core.java_type">
       <JavaType
             Name="Document"
-            displayInContext="true"
+            displayInContext="false"
             generateWithCanonicalName="false"
             nullableClass="routines.system.Document"
             objectBased="true">
