@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.connection.files.xml;
 
+import java.io.File;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -184,7 +186,7 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
             cancelButton = new UtilsButton(compositeBottomButton, Messages.getString("CommonWizard.cancel"), WIDTH_BUTTON_PIXEL, //$NON-NLS-1$
                     HEIGHT_BUTTON_PIXEL);
         }
-        addUtilsButtonListeners();
+        // addUtilsButtonListeners(); changed by hqzhang, need not call here, has been called in setupForm()
     }
 
     /**
@@ -240,31 +242,32 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
 
             @Override
             public void widgetSelected(final SelectionEvent e) {
-                if (tableEditorView.getMetadataEditor().getBeanCount() > 0) {
-
-                    if (!guessButton.getEnabled()) {
-                        guessButton.setEnabled(true);
-                        MessageBox box = new MessageBox(getShell(), SWT.ICON_INFORMATION | SWT.YES | SWT.NO | SWT.CANCEL);
-                        box.setMessage(Messages.getString("FileStep3.guessConfirmationMessage"));
-                        int open7 = box.open();
-                        if (open7 == SWT.YES) {
-                            runShadowProcess(true);
-                        } else if (open7 == SWT.NO) {
-                            runShadowProcess(false);
-                        }
-                    } else {
-                        guessButton.setEnabled(false);
-                    }
-
-                } else {
-
-                    if (!guessButton.getEnabled()) {
-                        guessButton.setEnabled(true);
-                        runShadowProcess(true);
-                    } else {
-                        guessButton.setEnabled(false);
-                    }
+                // changed by hqzhang for TDI-13613, old code is strange, maybe caused by duplicated
+                // addUtilsButtonListeners() in addFields() method
+                XmlFileConnection connection2 = getConnection();
+                if (connection2.getXmlFilePath() == null || connection2.getXmlFilePath().equals("")) { //$NON-NLS-1$
+                    informationLabel.setText("   " + Messages.getString("FileStep3.filepathAlert") //$NON-NLS-1$ //$NON-NLS-2$
+                            + "                                                                              "); //$NON-NLS-1$
+                    return;
                 }
+                if (!new File(connection2.getXmlFilePath()).exists()) {
+                    String msg = Messages.getString("FileStep3.fileNotExist");//$NON-NLS-1$
+                    informationLabel.setText(MessageFormat.format(msg, connection2.getXmlFilePath()));
+                    return;
+                }
+
+                if (tableEditorView.getMetadataEditor().getBeanCount() > 0) {
+                    MessageBox box = new MessageBox(getShell(), SWT.ICON_INFORMATION | SWT.YES | SWT.NO | SWT.CANCEL);
+                    box.setMessage(Messages.getString("FileStep3.guessConfirmationMessage"));
+                    int open7 = box.open();
+                    if (open7 == SWT.YES) {
+                        runShadowProcess(true);
+                    } else if (open7 == SWT.NO) {
+                        runShadowProcess(false);
+                    }
+                    return;
+                }
+                runShadowProcess(true);
             }
 
         });
@@ -301,14 +304,8 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
      */
     protected void runShadowProcess(Boolean flag) {
 
-        // if no file, the process don't be executed
         // getConnection().getXsdFilePath() != null && !getConnection().getXsdFilePath().equals("") &&
         XmlFileConnection connection2 = getConnection();
-        if (connection2.getXmlFilePath() == null || connection2.getXmlFilePath().equals("")) { //$NON-NLS-1$
-            informationLabel.setText("   " + Messages.getString("FileStep3.filepathAlert") //$NON-NLS-1$ //$NON-NLS-2$
-                    + "                                                                              "); //$NON-NLS-1$
-            return;
-        }
         if (XmlUtil.isXSDFile(connection2.getXmlFilePath())) {
             // no preview for XSD file
 
@@ -654,7 +651,8 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
         super.setVisible(visible);
         if (super.isVisible()) {
             // getConnection().getXsdFilePath() != null && !getConnection().getXsdFilePath().equals("") &&
-            if (getConnection().getXmlFilePath() != null && !getConnection().getXmlFilePath().equals("")) //$NON-NLS-1$
+            if (getConnection().getXmlFilePath() != null && !getConnection().getXmlFilePath().equals("") //$NON-NLS-1$
+                    && new File(getConnection().getXmlFilePath()).exists())
             {
                 runShadowProcess(true);
             }
