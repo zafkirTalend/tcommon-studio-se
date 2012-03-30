@@ -15,22 +15,35 @@ package org.talend.repository.viewer.filter;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.ui.IMemento;
+import org.talend.commons.ui.runtime.image.EImage;
+import org.talend.commons.ui.runtime.image.ImageProvider;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
 public class ActiveRepositoryFilterActionProvider extends AbstractRepositoryFilterActionProvider {
 
+    private final ActiveFilterAction activeFilterAction;
+
     public ActiveRepositoryFilterActionProvider() {
         super();
+        activeFilterAction = new ActiveFilterAction("Active Filter");
+    }
+
+    @Override
+    protected void fillToolBar(IToolBarManager toolBarManager) {
+        super.fillToolBar(toolBarManager);
+        toolBarManager.add(activeFilterAction);
+
+        activeFilterAction.updateImage();
+
     }
 
     @Override
     protected void fillFilterMenus(IMenuManager menuManager) {
-
-        ActiveFilterAction action = new ActiveFilterAction("Active Filter");
-        menuManager.add(action);
+        menuManager.add(activeFilterAction);
     }
 
     @Override
@@ -62,14 +75,25 @@ public class ActiveRepositoryFilterActionProvider extends AbstractRepositoryFilt
             super(label, IAction.AS_CHECK_BOX);
             this.setChecked(isActivedFilter());
             this.setToolTipText(this.getText()); // use same
+
+            updateImage();
         }
 
         @Override
         public void run() {
             super.run();
             ActiveRepositoryFilterActionProvider.this.setFiltering(isChecked(), false);
+
+            updateImage();
         }
 
+        public void updateImage() {
+            if (isChecked()) {
+                setImageDescriptor(ImageProvider.getImageDesc(EImage.FILTER_ACTIVED_ICON));
+            } else {
+                setImageDescriptor(ImageProvider.getImageDesc(EImage.FILTER_DEACTIVED_ICON));
+            }
+        }
     }
 
 }
