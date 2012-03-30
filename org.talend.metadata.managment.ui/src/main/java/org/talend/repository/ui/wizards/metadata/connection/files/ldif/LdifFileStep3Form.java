@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.connection.files.ldif;
 
+import java.io.File;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -184,7 +186,7 @@ public class LdifFileStep3Form extends AbstractLdifFileStepForm {
             cancelButton = new UtilsButton(compositeBottomButton, Messages.getString("CommonWizard.cancel"), WIDTH_BUTTON_PIXEL, //$NON-NLS-1$
                     HEIGHT_BUTTON_PIXEL);
         }
-        addUtilsButtonListeners();
+        // addUtilsButtonListeners(); changed by hqzhang, need not call here, has been called in setupForm()
     }
 
     /**
@@ -240,27 +242,29 @@ public class LdifFileStep3Form extends AbstractLdifFileStepForm {
 
             @Override
             public void widgetSelected(final SelectionEvent e) {
-                if (tableEditorView.getMetadataEditor().getBeanCount() > 0) {
-
-                    if (!guessButton.getEnabled()) {
-                        guessButton.setEnabled(true);
-                        if (MessageDialog.openConfirm(getShell(), Messages.getString("FileStep3.guessConfirmation"), Messages //$NON-NLS-1$
-                                .getString("FileStep3.guessConfirmationMessage"))) { //$NON-NLS-1$
-                            runShadowProcess();
-                        }
-                    } else {
-                        guessButton.setEnabled(false);
-                    }
-
-                } else {
-
-                    if (!guessButton.getEnabled()) {
-                        guessButton.setEnabled(true);
-                        runShadowProcess();
-                    } else {
-                        guessButton.setEnabled(false);
-                    }
+                // changed by hqzhang for TDI-13613, old code is strange, maybe caused by duplicated
+                // addUtilsButtonListeners() in addFields() method
+                initGuessSchema();
+                LdifFileConnection originalValueConnection = getOriginalValueConnection();
+                // if no file, the process don't be executed
+                if (originalValueConnection.getFilePath() == null || originalValueConnection.getFilePath().equals("")) { //$NON-NLS-1$
+                    informationLabel.setText("   " + Messages.getString("FileStep3.filepathAlert") //$NON-NLS-1$ //$NON-NLS-2$
+                            + "                                                                              "); //$NON-NLS-1$
+                    return;
                 }
+                if (!new File(originalValueConnection.getFilePath()).exists()) {
+                    String msg = Messages.getString("FileStep3.fileNotExist");//$NON-NLS-1$
+                    informationLabel.setText(MessageFormat.format(msg, originalValueConnection.getFilePath()));
+                    return;
+                }
+                if (tableEditorView.getMetadataEditor().getBeanCount() > 0) {
+                    if (MessageDialog.openConfirm(getShell(), Messages.getString("FileStep3.guessConfirmation"), Messages //$NON-NLS-1$
+                            .getString("FileStep3.guessConfirmationMessage"))) { //$NON-NLS-1$
+                        runShadowProcess();
+                    }
+                    return;
+                }
+                runShadowProcess();
             }
 
         });
@@ -306,13 +310,6 @@ public class LdifFileStep3Form extends AbstractLdifFileStepForm {
     protected void runShadowProcess() {
         initGuessSchema();
         LdifFileConnection originalValueConnection = getOriginalValueConnection();
-        // if no file, the process don't be executed
-        if (originalValueConnection.getFilePath() == null || originalValueConnection.getFilePath().equals("")) { //$NON-NLS-1$
-            informationLabel.setText("   " + Messages.getString("FileStep3.filepathAlert") //$NON-NLS-1$ //$NON-NLS-2$
-                    + "                                                                              "); //$NON-NLS-1$
-            return;
-        }
-
         try {
             informationLabel.setText("   " + Messages.getString("FileStep3.guessProgress")); //$NON-NLS-1$ //$NON-NLS-2$
 
@@ -567,7 +564,8 @@ public class LdifFileStep3Form extends AbstractLdifFileStepForm {
         super.setVisible(visible);
         if (super.isVisible()) {
             LdifFileConnection originalValueConnection = getOriginalValueConnection();
-            if (originalValueConnection.getFilePath() != null && (!originalValueConnection.getFilePath().equals(""))) //$NON-NLS-1$
+            if (originalValueConnection.getFilePath() != null && (!originalValueConnection.getFilePath().equals("")) //$NON-NLS-1$
+                    && new File(originalValueConnection.getFilePath()).exists()) 
             {
                 runShadowProcess();
             }
