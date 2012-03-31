@@ -34,9 +34,8 @@ public class GlobalServiceRegister {
     // The shared instance
     private static GlobalServiceRegister instance = new GlobalServiceRegister();
 
-    private static IConfigurationElement[] configurationElements;
 
-    private static IConfigurationElement[] configurationDQModelElements;
+
 
     public static GlobalServiceRegister getDefault() {
         return instance;
@@ -46,11 +45,13 @@ public class GlobalServiceRegister {
 
     private Map<Class<?>, AbstractDQModelService> dqModelServices = new HashMap<Class<?>, AbstractDQModelService>();
 
-    static {
-        IExtensionRegistry registry = Platform.getExtensionRegistry();
-        configurationElements = registry.getConfigurationElementsFor("org.talend.core.runtime.service"); //$NON-NLS-1$
-        configurationDQModelElements = registry.getConfigurationElementsFor("org.talend.core.runtime.dq_EMFModel_provider"); //$NON-NLS-1$
-    }
+    private static IExtensionRegistry registry = Platform.getExtensionRegistry();
+
+    private static IConfigurationElement[] configurationElements = registry == null ? null : registry
+            .getConfigurationElementsFor("org.talend.core.runtime.service"); //$NON-NLS-1$
+
+    private static IConfigurationElement[] configurationDQModelElements = registry == null ? null : registry
+            .getConfigurationElementsFor("org.talend.core.runtime.dq_EMFModel_provider"); //$NON-NLS-1$
 
     public AbstractDQModelService getDQModelService(Class<?> klass) {
         AbstractDQModelService dqModelserviceInst = dqModelServices.get(klass);
@@ -95,7 +96,7 @@ public class GlobalServiceRegister {
      */
     public IService getService(Class klass) {
         IService service = services.get(klass);
-        if (service == null) {
+        if (service == null && configurationElements != null) {
             service = findService(klass);
             if (service == null) {
 
