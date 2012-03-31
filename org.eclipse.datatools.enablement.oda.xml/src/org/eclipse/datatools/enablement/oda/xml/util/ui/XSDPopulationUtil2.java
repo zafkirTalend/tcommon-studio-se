@@ -285,6 +285,7 @@ public class XSDPopulationUtil2 {
         } else if (xsdTerm instanceof XSDModelGroup) {
             XSDModelGroup xsdModelGroup = (XSDModelGroup) xsdTerm;
             ATreeNode node = addChoiceDetails(parentNode, xsdModelGroup);
+            handleOptionalAttribute(node, xsdParticle);
             for (Iterator j = xsdModelGroup.getParticles().iterator(); j.hasNext();) {
                 XSDParticle childParticle = (XSDParticle) j.next();
                 addParticleDetail(xsdSchema, childParticle, node, currentPath);
@@ -293,14 +294,10 @@ public class XSDPopulationUtil2 {
     }
 
     private void handleOptionalAttribute(ATreeNode node, XSDParticle xsdParticle) {
-        if (node == null || xsdParticle == null) {
+        if (node == null || xsdParticle == null || xsdParticle.getElement() == null) {
             return;
         }
-        if (xsdParticle.getMinOccurs() == 0) {
-            node.setOptional(true);
-        } else {
-            node.setOptional(false);
-        }
+        node.setOptional("0".equals(xsdParticle.getElement().getAttribute("minOccurs"))); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     private ATreeNode addChoiceDetails(ATreeNode parentNode, XSDModelGroup xsdModelGroup) {
