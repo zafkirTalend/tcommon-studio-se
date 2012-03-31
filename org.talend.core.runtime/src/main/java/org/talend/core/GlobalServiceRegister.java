@@ -48,8 +48,10 @@ public class GlobalServiceRegister {
 
     static {
         IExtensionRegistry registry = Platform.getExtensionRegistry();
-        configurationElements = registry.getConfigurationElementsFor("org.talend.core.runtime.service"); //$NON-NLS-1$
-        configurationDQModelElements = registry.getConfigurationElementsFor("org.talend.core.runtime.dq_EMFModel_provider"); //$NON-NLS-1$
+        if (registry != null) {
+            configurationElements = registry.getConfigurationElementsFor("org.talend.core.runtime.service"); //$NON-NLS-1$
+            configurationDQModelElements = registry.getConfigurationElementsFor("org.talend.core.runtime.dq_EMFModel_provider"); //$NON-NLS-1$
+        }
     }
 
     public AbstractDQModelService getDQModelService(Class<?> klass) {
@@ -95,7 +97,7 @@ public class GlobalServiceRegister {
      */
     public IService getService(Class klass) {
         IService service = services.get(klass);
-        if (service == null) {
+        if (service == null && configurationElements != null) {
             service = findService(klass);
             if (service == null) {
 
@@ -129,7 +131,8 @@ public class GlobalServiceRegister {
                 } catch (CoreException e) {
                     ExceptionHandler.process(e);
                 }
-            }// else element is not valid because the bundle may have been stoped or uninstalled and the extension point
+            }// else element is not valid because the bundle may have been stoped or uninstalled and the extension
+             // point
              // registry is still holding values
              // has mentionned in the class TODO, this class should be removed and OSGI dynamic services used.
         }
