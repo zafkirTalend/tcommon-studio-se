@@ -372,7 +372,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
                 statusText.setItems(toArray(statusList));
                 statusText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
                 // statusText.setEditable(!readOnly);
-                // statusText.setEnabled(!readOnly);
+                statusText.setEnabled(!readOnly);
             }
         } catch (PersistenceException e) {
             // TODO Auto-generated catch block
