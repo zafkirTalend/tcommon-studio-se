@@ -5,9 +5,9 @@ Bundle-SymbolicName: org.talend.libraries.jfreechart
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: .Talend SA.
 Bundle-ClassPath: lib/jcommon-1.0.12.jar,
- lib/jfreechart-1.0.9.jar,
  lib/jfreechart-1.0.9-experimental.jar,
  lib/jfreechart-1.0.9-swt.jar,
+ lib/jfreechart-1.0.12.jar,
  lib/swtgraphics2d.jar,
  .
 Export-Package: org.jfree,
