@@ -72,4 +72,16 @@
          name="starting">
    </editor>
 </extension>
+<extension
+      point="org.eclipse.ui.activities">
+   <activity
+         id="org.talend.rcp.hideUpdatesite"
+         name="Hide Updatesite">
+   </activity>
+   <activityPatternBinding
+         activityId="org.talend.rcp.hideUpdatesite"
+         isEqualityPattern="true"
+         pattern="org.eclipse.ui.ide.application/org.eclipse.update.ui.updateMenu">
+   </activityPatternBinding>
+</extension>
 </plugin>
