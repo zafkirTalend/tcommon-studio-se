@@ -34,7 +34,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
-import org.talend.repository.i18n.Messages;
+import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.ui.swt.filepositionalviewer.ResizeHelper;
 
 /**
@@ -163,9 +163,9 @@ public class PositionalTextTest extends Composite {
         vm.moveAbove(text);
         listVerticalMarker.add(vm);
 
-        // PTODO trouver la m�thode pour d�terminer 9 par rapport � la FONT.
+        // PTODO trouver la m锟絫hode pour d锟絫erminer 9 par rapport 锟�la FONT.
         // Position position = new Position(posX,(posX-3)/9);
-        // Vu de ce c�t� mais sans grande r�ponse : FontMetrics fm = gc.getFontMetrics();
+        // Vu de ce c锟絫锟�mais sans grande r锟絧onse : FontMetrics fm = gc.getFontMetrics();
         positionBarre.put(posX, (posX - decalScreen) / largeurFont);
 
         fieldSeparatorValue = calculateRegExp(positionBarre);
@@ -277,7 +277,7 @@ public class PositionalTextTest extends Composite {
     // if(fieldSeparatorValue != null && !fieldSeparatorValue.equals("")){
     // regExp = fieldSeparatorValue;
     // }
-    //        
+    //
     // if(positionBarre != null && !positionBarre.isEmpty()){
     // Set cles = positionBarre.keySet();
     // Iterator iterator = cles.iterator();
