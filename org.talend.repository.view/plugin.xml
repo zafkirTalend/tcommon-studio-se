@@ -191,6 +191,34 @@
             properties="isJob"
             type="org.talend.repository.model.RepositoryNode">
       </propertyTester>
+      <propertyTester
+            class="org.talend.repository.tester.RecycleBinNodeTester"
+            id="org.talend.repository.node.tester.recyclebin"
+            namespace="org.talend.repository.node"
+            properties="isRecycleBin"
+            type="org.talend.repository.model.RepositoryNode">
+      </propertyTester>
+      <propertyTester
+            class="org.talend.repository.tester.DeletedNodeTester"
+            id="org.talend.repository.node.tester.deleted"
+            namespace="org.talend.repository.node"
+            properties="isDeleted"
+            type="org.talend.repository.model.RepositoryNode">
+      </propertyTester>
+      <propertyTester
+            class="org.talend.repository.tester.CodeNodeTester"
+            id="org.talend.repository.node.tester.code"
+            namespace="org.talend.repository.node"
+            properties="isCodeTopNode"
+            type="org.talend.repository.model.RepositoryNode">
+      </propertyTester>
+      <propertyTester
+            class="org.talend.repository.tester.MetadataNodeTester"
+            id="org.talend.repository.node.tester.metadata"
+            namespace="org.talend.repository.node"
+            properties="isMetadataTopNode"
+            type="org.talend.repository.model.RepositoryNode">
+      </propertyTester>
 
    </extension>
    <extension

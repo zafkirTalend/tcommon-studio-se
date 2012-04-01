@@ -21,6 +21,7 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.talend.repository,
  org.talend.repository.navigator,
+ org.talend.repository.tester,
  org.talend.repository.viewer.action,
  org.talend.repository.viewer.content,
  org.talend.repository.viewer.dialog,

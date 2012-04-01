@@ -26,11 +26,8 @@ import org.talend.repository.viewer.action.ActionConstants;
  */
 public class ActiveRepositoryFilterActionProvider extends AbstractRepositoryFilterActionProvider {
 
-    private final ActiveFilterAction activeFilterAction;
-
     public ActiveRepositoryFilterActionProvider() {
         super();
-        activeFilterAction = new ActiveFilterAction("Active Filter");
     }
 
     /*
@@ -46,7 +43,8 @@ public class ActiveRepositoryFilterActionProvider extends AbstractRepositoryFilt
             toolBarManager.add(new Separator(ActionConstants.TALEND_GROUP_ID));
         }
         if (toolBarManager.find(ActiveFilterAction.ACTION_ID) == null) {
-            toolBarManager.appendToGroup(ActionConstants.TALEND_GROUP_ID, new ActiveFilterAction("Activate Filter")); //$NON-NLS-1$
+            final ActiveFilterAction action = new ActiveFilterAction("Activate Filter");
+            toolBarManager.appendToGroup(ActionConstants.TALEND_GROUP_ID, action);
         }
     }
 
