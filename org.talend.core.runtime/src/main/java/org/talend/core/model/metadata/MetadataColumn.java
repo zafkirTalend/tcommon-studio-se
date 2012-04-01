@@ -44,7 +44,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
 
     private String comment = ""; //$NON-NLS-1$
 
-    private String originalSize;
+    private Integer originalLength;
 
     private String pattern = ""; //$NON-NLS-1$
 
@@ -93,11 +93,11 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         this.nullable = metadataColumn.isNullable();
         this.length = metadataColumn.getLength();
         this.precision = metadataColumn.getPrecision();
-        this.originalSize = metadataColumn.getOriginalSize();
+        this.originalLength = metadataColumn.getOriginalLength();
 
         setDefault(metadataColumn.getDefault());
         setComment(metadataColumn.getComment());
-        setOriginalSize(metadataColumn.getOriginalSize());
+        setOriginalLength(metadataColumn.getOriginalLength());
 
         // Datacert: custom metadataColumn to set relatedEntity
         // and relationShipType info.
@@ -593,11 +593,11 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         this.expression = expression;
     }
 
-    public String getOriginalSize() {
-        return originalSize;
+    public Integer getOriginalLength() {
+        return originalLength;
     }
 
-    public void setOriginalSize(String originalSize) {
-        this.originalSize = originalSize;
+    public void setOriginalLength(Integer originalLength) {
+        this.originalLength = originalLength;
     }
 }

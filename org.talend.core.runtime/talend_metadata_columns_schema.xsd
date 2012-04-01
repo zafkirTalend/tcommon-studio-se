@@ -35,7 +35,7 @@
 		<xs:attribute name="default" type="xs:string" use="required" />
 		<xs:attribute name="comment" type="xs:string" use="required" />
 		<xs:attribute name="pattern" type="xs:string" use="optional" />
-		<xsd:attribute name="originalSize" type="xs:string"></xsd:attribute>
+		<xsd:attribute name="originalLength" type="xs:string"></xsd:attribute>
 		<xs:attribute name="function" type="xs:string" use="optional" />
 		<xs:attribute name="parameter" type="xs:string" use="optional" />
 		<xs:attribute name="preview" type="xs:string" use="optional" />

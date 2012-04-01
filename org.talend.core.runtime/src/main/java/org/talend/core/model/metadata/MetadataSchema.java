@@ -315,7 +315,7 @@ public class MetadataSchema {
                 final Node defaultValue = nodeMap.getNamedItem("default"); //$NON-NLS-1$
                 final Node comment = nodeMap.getNamedItem("comment"); //$NON-NLS-1$
                 final Node pattern = nodeMap.getNamedItem("pattern"); //$NON-NLS-1$
-                final Node originalSize = nodeMap.getNamedItem("originalSize");
+                final Node originalLength = nodeMap.getNamedItem("originalLength");
                 final Node originalField = nodeMap.getNamedItem("originalDbColumnName"); //$NON-NLS-1$
 
                 // final Node function = nodeMap.getNamedItem("pattern"); //$NON-NLS-1$
@@ -369,8 +369,13 @@ public class MetadataSchema {
                 metadataColumn.setNullable(Boolean.parseBoolean(nullable.getNodeValue()));
                 metadataColumn.setDefaultValue(defaultValue.getNodeValue());
                 metadataColumn.setComment(comment.getNodeValue());
-                if (originalSize.getNodeValue() != null) {
-                    metadataColumn.setOriginalSize(originalSize.getNodeValue());
+                if (originalLength.getNodeValue() != null) {
+                    try {
+                        metadataColumn.setOriginalLength(Integer.parseInt(originalLength.getNodeValue()));
+                    } catch (final NumberFormatException e) {
+                        metadataColumn.setLength(0);
+                    }
+
                 }
                 if (pattern.getNodeValue() != null) {
                     metadataColumn.setPattern(pattern.getNodeValue());
