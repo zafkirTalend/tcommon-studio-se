@@ -12,17 +12,12 @@
 // ============================================================================
 package org.talend.core.ui;
 
-import org.eclipse.jface.wizard.IWizard;
-import org.eclipse.ui.IWorkbench;
-import org.talend.core.IService;
-import org.talend.repository.model.RepositoryNode;
+import org.talend.core.IProviderService;
 
 /**
  * DOC nrousseau class global comment. Detailled comment
  */
-public interface IHeaderFooterProviderService extends IService {
-
-    public IWizard newHeaderFooterWizard(IWorkbench workbench, boolean creation, RepositoryNode node, String[] existingNames);
+public interface IHeaderFooterProviderService extends IProviderService {
 
     public boolean isVisible();
 
