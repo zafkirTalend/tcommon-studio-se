@@ -27,7 +27,6 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.navigator.ICommonContentExtensionSite;
-import org.eclipse.ui.navigator.ICommonLabelProvider;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.repository.model.IRepositoryNode;
@@ -36,7 +35,7 @@ import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
 import org.talend.repository.ui.views.RepositoryLabelProvider;
 
-public class RepositoryViewLabelProvider implements ICommonLabelProvider {
+public class RepositoryViewLabelProvider extends AbstractRepoViewLabelProvider {
 
     /**
      * DOC sgandon class global comment. Detailled comment <br/>
@@ -262,28 +261,8 @@ public class RepositoryViewLabelProvider implements ICommonLabelProvider {
     }
 
     @Override
-    public boolean isLabelProperty(Object element, String property) {
-        return isLabelProperty(element, property);
-    }
-
-    @Override
     public void removeListener(ILabelProviderListener listener) {
         repoLabelProv.removeListener(listener);
-    }
-
-    @Override
-    public void restoreState(IMemento aMemento) {
-        // no state tp restore
-    }
-
-    @Override
-    public void saveState(IMemento aMemento) {
-        // no state to save.
-    }
-
-    @Override
-    public String getDescription(Object anElement) {
-        return null;
     }
 
     @Override

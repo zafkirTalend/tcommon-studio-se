@@ -12,13 +12,19 @@
 // ============================================================================
 package org.talend.repository.viewer.action;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.navigator.CommonViewer;
+import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.INavigatorContentService;
+import org.talend.repository.ui.actions.AContextualAction;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -27,8 +33,11 @@ public abstract class AbstractRepositoryActionProvider extends CommonActionProvi
 
     private boolean contributedToViewMenu = false;
 
+    private List<AContextualAction> actionsList = new ArrayList<AContextualAction>();
+
     public AbstractRepositoryActionProvider() {
         super();
+
     }
 
     protected INavigatorContentService getNavigatorContentService() {
@@ -41,6 +50,37 @@ public abstract class AbstractRepositoryActionProvider extends CommonActionProvi
 
     protected CommonNavigator getCommonNavigator() {
         return getCommonViewer().getCommonNavigator();
+    }
+
+    protected IStructuredSelection getSelection() {
+        return (IStructuredSelection) getContext().getSelection();
+    }
+
+    @Override
+    public void init(ICommonActionExtensionSite aSite) {
+        super.init(aSite);
+
+        makeContextualActions();
+    }
+
+    protected void addContextualAction(AContextualAction action) {
+        if (action != null) {
+            actionsList.add(action);
+        }
+    }
+
+    protected AContextualAction[] getContextualActions() {
+        return this.actionsList.toArray(new AContextualAction[0]);
+    }
+
+    /**
+     * 
+     * DOC ggu Comment method "makeActions".
+     * 
+     * will add some actions in the actionsList.
+     */
+    protected void makeContextualActions() {
+
     }
 
     @Override
@@ -66,5 +106,25 @@ public abstract class AbstractRepositoryActionProvider extends CommonActionProvi
 
     protected void fillToolBar(final IToolBarManager toolBarManager) {
         //
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.ui.actions.ActionGroup#fillContextMenu(org.eclipse.jface.action.IMenuManager)
+     */
+    @Override
+    public void fillContextMenu(IMenuManager manager) {
+        super.fillContextMenu(manager);
+        for (AContextualAction action : getContextualActions()) {
+            addActionInManager(manager, action);
+        }
+    }
+
+    private void addActionInManager(IMenuManager manager, AContextualAction action) {
+        action.init(getCommonViewer(), getSelection());
+        if (action.isVisible() && action.isEnabled()) {
+            manager.add(action);
+        }
     }
 }

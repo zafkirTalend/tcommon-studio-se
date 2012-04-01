@@ -32,15 +32,25 @@ public class RecycleBinNodeTester extends AbstractNodeTester {
         if (receiver instanceof RepositoryNode) {
             RepositoryNode repositoryNode = (RepositoryNode) receiver;
             if (IS_RECYCLE_BIN.equals(property)) {
-                return isRecycleBin(repositoryNode);
+                return isChildOfRecycleBin(repositoryNode);
             }
         }
         return null;
     }
 
     public boolean isRecycleBin(RepositoryNode repositoryNode) {
-        // boolean is = repositoryNode.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.RECYCLE_BIN;
-        // return is;
         return repositoryNode.isBin();
+    }
+
+    private boolean isChildOfRecycleBin(RepositoryNode repositoryNode) {
+        if (repositoryNode != null) {
+            if (isRecycleBin(repositoryNode)) {
+                return true;
+            }
+            if (isChildOfRecycleBin(repositoryNode.getParent())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

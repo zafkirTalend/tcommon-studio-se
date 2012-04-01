@@ -79,6 +79,46 @@
             </or>
           </triggerPoints>
       </navigatorContent>
+      <navigatorContent
+            activeByDefault="true"
+            contentProvider="org.talend.repository.viewer.content.RecycleBinContentProvider"
+            icon="icons/recyclebinempty.png"
+            id="org.talend.repository.viewer.root.recycleBin"
+            labelProvider="org.talend.repository.viewer.label.RecycleBinViewLabelProvider"
+            name="RecycleBin"
+            priority="highest">
+         <triggerPoints>
+            <or>
+               <adapt
+                     type="org.talend.repository.model.ProjectRepositoryNode">
+               </adapt>
+               <instanceof
+                     value="org.talend.repository.model.ProjectRepositoryNode">
+               </instanceof>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <instanceof
+                  value="org.talend.repository.model.RepositoryNode">
+            </instanceof>
+         </possibleChildren>
+
+         <actionProvider
+               class="org.talend.repository.viewer.action.RecycleBinActionProvider">
+            <enablement>
+               <and>
+                  <instanceof
+                        value="org.talend.repository.model.RepositoryNode">
+                  </instanceof>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.talend.repository.node.isRecycleBin">
+                  </test>
+               </and>
+            </enablement>
+         </actionProvider>
+
+      </navigatorContent>
    </extension>
    <extension
          name="filters"
