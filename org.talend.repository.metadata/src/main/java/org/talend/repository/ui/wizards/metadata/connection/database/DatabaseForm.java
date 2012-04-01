@@ -80,7 +80,7 @@ import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
-import org.talend.metadata.managment.ui.i18n.Messages;
+import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.ui.swt.utils.AbstractForm;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.DBConnectionContextUtils;

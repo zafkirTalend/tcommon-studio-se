@@ -27,7 +27,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
-import org.talend.metadata.managment.ui.i18n.Messages;
+import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.ui.wizards.CheckLastVersionRepositoryWizard;
 import org.talend.repository.ui.wizards.metadata.connection.genericshema.GenericSchemaTableWizard;

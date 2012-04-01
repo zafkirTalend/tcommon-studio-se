@@ -14,19 +14,14 @@ package org.talend.core.ui;
 
 import java.util.Map;
 
-import org.eclipse.jface.wizard.IWizard;
-import org.eclipse.ui.IWorkbench;
-import org.talend.core.IService;
+import org.talend.core.IProviderService;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.SAPConnectionItem;
-import org.talend.repository.model.RepositoryNode;
 
 /**
  * DOC wzhang class global comment
  */
-public interface ISAPProviderService extends IService {
-
-    public IWizard newSAPWizard(IWorkbench workbench, boolean creation, RepositoryNode node, String[] existingNames);
+public interface ISAPProviderService extends IProviderService {
 
     public SAPConnectionItem getRepositoryItem(final INode node);
 

@@ -35,7 +35,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
-import org.talend.metadata.managment.ui.i18n.Messages;
+import org.talend.repository.metadata.i18n.Messages;
 
 /**
  * ggu class global comment. Detailled comment

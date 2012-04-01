@@ -19,7 +19,6 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -68,11 +67,9 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.ui.metadata.editor.MetadataEmfTableEditorView;
 import org.talend.core.utils.CsvArray;
 import org.talend.core.utils.TalendQuoteUtils;
-import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
-import org.talend.metadata.managment.ui.i18n.Messages;
+import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.model.ProjectNodeHelper;
 import org.talend.repository.preview.ProcessDescription;
 import org.talend.repository.preview.SalesforceSchemaBean;
 import org.talend.repository.ui.swt.utils.AbstractSalesforceStepForm;
@@ -80,7 +77,6 @@ import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.OtherConnectionContextUtils;
 import org.talend.repository.ui.utils.ShadowProcessHelper;
 import org.talend.repository.ui.wizards.metadata.MetadataContextModeManager;
-import org.talend.repository.ui.wizards.metadata.table.database.SelectorTableWizardPage;
 
 /**
  * 

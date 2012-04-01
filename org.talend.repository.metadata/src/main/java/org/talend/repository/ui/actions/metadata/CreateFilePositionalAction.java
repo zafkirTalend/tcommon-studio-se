@@ -25,10 +25,10 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.ui.actions.metadata.AbstractCreateAction;
 import org.talend.core.ui.images.OverlayImageProvider;
 import org.talend.repository.ProjectManager;
-import org.talend.repository.i18n.Messages;
+import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.IRepositoryNode.EProperties;
+import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.ui.wizards.metadata.connection.files.positional.FilePositionalWizard;
 
 /**
@@ -101,8 +101,8 @@ public class CreateFilePositionalAction extends AbstractCreateAction {
             filePositionalWizard.setToolbar(true);
             wizardDialog = new WizardDialog(Display.getCurrent().getActiveShell(), filePositionalWizard);
         } else {
-            wizardDialog = new WizardDialog(Display.getCurrent().getActiveShell(), new FilePositionalWizard(PlatformUI
-                    .getWorkbench(), creation, repositoryNode, getExistingNames()));
+            wizardDialog = new WizardDialog(Display.getCurrent().getActiveShell(), new FilePositionalWizard(
+                    PlatformUI.getWorkbench(), creation, repositoryNode, getExistingNames()));
         }
 
         if (!creation) {

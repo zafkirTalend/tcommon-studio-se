@@ -31,11 +31,14 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.INode;
+import org.talend.core.model.properties.RulesItem;
 import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.repository.IRepositoryChangedListener;
 import org.talend.repository.IRepositoryElementDelta;
+import org.talend.repository.ui.actions.AContextualAction;
+import org.talend.repository.ui.views.IRepositoryView;
 
 /**
  * DOC qian class global comment. Interface for RepositoryService. <br/>
@@ -122,5 +125,11 @@ public interface IRepositoryService extends IService {
 
     public Set<org.talend.core.model.metadata.builder.connection.MetadataTable> getTablesFromSpecifiedDataPackage(
             DatabaseConnection dbconn);
+
+    public Class getClassForSalesforceModule();
+
+    public AContextualAction getCreateRoutineAction(IRepositoryView repositoryView);
+
+    public String getRulesProviderPath(RulesItem currentRepositoryItem);
 
 }

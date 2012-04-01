@@ -29,7 +29,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.progress.UIJob;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.model.metadata.IMetadataConnection;
@@ -74,9 +74,10 @@ import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.repository.RepositoryWorkUnit;
-import org.talend.repository.i18n.Messages;
+import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
+import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.ManagerConnection;
@@ -968,8 +969,9 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                     }
                 };
                 repositoryWorkUnit.setAvoidUnloadResources(isAvoidUnloadResources());
-                CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory()
-                        .executeRepositoryWorkUnit(repositoryWorkUnit);
+                IRepositoryService repositoryService = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
+                        IRepositoryService.class);
+                repositoryService.getProxyRepositoryFactory().executeRepositoryWorkUnit(repositoryWorkUnit);
                 monitor.done();
                 return Status.OK_STATUS;
             };

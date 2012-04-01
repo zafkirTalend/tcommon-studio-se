@@ -29,7 +29,7 @@ import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.service.IWebServiceTos;
-import org.talend.metadata.managment.ui.i18n.Messages;
+import org.talend.repository.metadata.i18n.Messages;
 
 /**
  * DOC Administrator class global comment. Detailled comment

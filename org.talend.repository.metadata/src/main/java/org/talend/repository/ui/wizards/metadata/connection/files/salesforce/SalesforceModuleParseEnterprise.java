@@ -22,7 +22,7 @@ import javax.xml.rpc.ServiceException;
 
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.model.metadata.IMetadataColumn;
-import org.talend.metadata.managment.ui.i18n.Messages;
+import org.talend.repository.metadata.i18n.Messages;
 
 import com.sforce.soap.enterprise.DescribeGlobalResult;
 import com.sforce.soap.enterprise.DescribeSObjectResult;

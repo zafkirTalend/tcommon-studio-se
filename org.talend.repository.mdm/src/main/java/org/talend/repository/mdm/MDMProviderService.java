@@ -106,7 +106,7 @@ public class MDMProviderService implements IMDMProviderService {
      * @see org.talend.core.ui.IMDMProviderService#newMDMWizard(org.eclipse.ui.IWorkbench, boolean,
      * org.talend.repository.model.RepositoryNode, java.lang.String[])
      */
-    public IWizard newMDMWizard(IWorkbench workbench, boolean creation, RepositoryNode node, String[] existingNames) {
+    public IWizard newWizard(IWorkbench workbench, boolean creation, RepositoryNode node, String[] existingNames) {
         if (node == null) {
             return null;
         }

@@ -28,7 +28,7 @@ import org.talend.commons.ui.swt.tableviewer.celleditor.DialogErrorForCellEditor
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
-import org.talend.metadata.managment.ui.i18n.Messages;
+import org.talend.repository.metadata.i18n.Messages;
 
 /**
  * wzhang class global comment. Detailled comment

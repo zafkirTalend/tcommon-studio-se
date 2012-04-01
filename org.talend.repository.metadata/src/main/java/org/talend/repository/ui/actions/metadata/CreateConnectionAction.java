@@ -36,12 +36,11 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.ui.actions.metadata.AbstractCreateAction;
 import org.talend.core.ui.images.OverlayImageProvider;
 import org.talend.repository.ProjectManager;
-import org.talend.repository.RepositoryPlugin;
-import org.talend.repository.i18n.Messages;
+import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
-import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.ui.wizards.metadata.connection.database.DatabaseWizard;
 
 /**
@@ -54,7 +53,7 @@ public class CreateConnectionAction extends AbstractCreateAction {
 
     protected static Logger log = Logger.getLogger(CreateConnectionAction.class);
 
-    protected static final String PID = RepositoryPlugin.PLUGIN_ID;
+    protected static final String PID = "org.talend.repository"; //$NON-NLS-1$
 
     private static final String EDIT_LABEL = Messages.getString("CreateConnectionAction.action.editTitle"); //$NON-NLS-1$
 

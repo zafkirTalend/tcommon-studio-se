@@ -72,8 +72,8 @@ import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
-import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.ProjectManager;
+import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
@@ -425,11 +425,11 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
                 if (creation) {
                     String nextId = factory.getNextId();
                     connectionProperty.setId(nextId);
-                  //changed by hqzhang for TDI-19527, label=displayName
+                    // changed by hqzhang for TDI-19527, label=displayName
                     connectionProperty.setLabel(connectionProperty.getDisplayName());
                     factory.create(connectionItem, propertiesWizardPage.getDestinationPath());
                 } else {
-                  //changed by hqzhang for TDI-19527, label=displayName
+                    // changed by hqzhang for TDI-19527, label=displayName
                     connectionProperty.setLabel(connectionProperty.getDisplayName());
                     // update schemas
                     Map<String, SchemaTarget> schemaTargetMap = new HashMap<String, SchemaTarget>();

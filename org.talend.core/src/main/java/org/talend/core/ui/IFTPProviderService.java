@@ -14,19 +14,14 @@ package org.talend.core.ui;
 
 import java.util.Map;
 
-import org.eclipse.jface.wizard.IWizard;
-import org.eclipse.ui.IWorkbench;
-import org.talend.core.IService;
+import org.talend.core.IProviderService;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.FTPConnectionItem;
-import org.talend.repository.model.RepositoryNode;
 
 /**
  * DOC hwang class global comment. Detailled comment
  */
-public interface IFTPProviderService extends IService {
-
-    public IWizard newFTPWizard(IWorkbench workbench, boolean creation, RepositoryNode node, String[] existingNames);
+public interface IFTPProviderService extends IProviderService {
 
     public boolean isFTPNode(final INode node);
 

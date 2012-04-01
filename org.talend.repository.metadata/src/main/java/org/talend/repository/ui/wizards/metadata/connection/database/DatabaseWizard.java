@@ -63,8 +63,8 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.designer.core.IDesignerCoreService;
-import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.ProjectManager;
+import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryNode;
@@ -403,7 +403,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                         }
 
                     }
-                  //changed by hqzhang for TDI-19527, label=displayName
+                    // changed by hqzhang for TDI-19527, label=displayName
                     connectionProperty.setLabel(connectionProperty.getDisplayName());
                     this.connection.setName(connectionProperty.getDisplayName());
                     this.connection.setLabel(connectionProperty.getDisplayName());

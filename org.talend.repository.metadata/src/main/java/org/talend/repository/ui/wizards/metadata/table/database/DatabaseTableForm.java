@@ -94,7 +94,7 @@ import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.runprocess.ProcessorException;
-import org.talend.metadata.managment.ui.i18n.Messages;
+import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.ProjectNodeHelper;
 import org.talend.repository.ui.swt.utils.AbstractForm;

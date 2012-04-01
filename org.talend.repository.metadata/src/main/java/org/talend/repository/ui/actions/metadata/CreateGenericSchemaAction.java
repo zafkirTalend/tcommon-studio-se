@@ -26,10 +26,10 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.ui.actions.metadata.AbstractCreateAction;
 import org.talend.core.ui.images.OverlayImageProvider;
 import org.talend.repository.ProjectManager;
-import org.talend.repository.i18n.Messages;
+import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.IRepositoryNode.EProperties;
+import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.ui.wizards.metadata.connection.genericshema.GenericSchemaWizard;
 
 /**
@@ -102,8 +102,8 @@ public class CreateGenericSchemaAction extends AbstractCreateAction {
             wizardDialog = new WizardDialog(Display.getCurrent().getActiveShell(), genericSchemaWizard);
         } else {
             selection = getSelection();
-            wizardDialog = new WizardDialog(Display.getCurrent().getActiveShell(), new GenericSchemaWizard(PlatformUI
-                    .getWorkbench(), creation, repositoryNode, getExistingNames(), false));
+            wizardDialog = new WizardDialog(Display.getCurrent().getActiveShell(), new GenericSchemaWizard(
+                    PlatformUI.getWorkbench(), creation, repositoryNode, getExistingNames(), false));
         }
         wizardDialog.setPageSize(WIZARD_WIDTH, WIZARD_HEIGHT);
         wizardDialog.create();

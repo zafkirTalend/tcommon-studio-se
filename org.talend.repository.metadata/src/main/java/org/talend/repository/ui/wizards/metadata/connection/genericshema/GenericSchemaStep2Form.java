@@ -54,7 +54,7 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.metadata.dialog.CustomTableManagerOnlyForGenericSchema;
 import org.talend.core.ui.metadata.editor.MetadataEmfTableEditorView;
 import org.talend.core.utils.CsvArray;
-import org.talend.metadata.managment.ui.i18n.Messages;
+import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.ui.swt.utils.AbstractForm;
 
 /**

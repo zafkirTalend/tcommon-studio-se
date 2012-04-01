@@ -12,8 +12,6 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.connection.files.salesforce;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -31,11 +29,9 @@ import org.talend.commons.ui.swt.formtools.Form;
 import org.talend.commons.ui.swt.formtools.LabelledText;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
-import org.talend.core.model.process.IElementParameter;
-import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.runtime.CoreRuntimePlugin;
-import org.talend.metadata.managment.ui.i18n.Messages;
+import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.preview.SalesforceSchemaBean;
 import org.talend.repository.ui.swt.utils.AbstractSalesforceStepForm;
 

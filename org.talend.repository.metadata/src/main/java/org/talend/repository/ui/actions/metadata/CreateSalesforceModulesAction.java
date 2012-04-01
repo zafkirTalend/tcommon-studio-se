@@ -16,33 +16,20 @@ import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
-import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataColumnRepositoryObject;
-import org.talend.core.model.metadata.builder.connection.CDCConnection;
-import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.SubscriberTable;
-import org.talend.core.model.properties.BRMSConnectionItem;
 import org.talend.core.model.properties.ConnectionItem;
-import org.talend.core.model.properties.DatabaseConnectionItem;
-import org.talend.core.model.properties.EbcdicConnectionItem;
-import org.talend.core.model.properties.HL7ConnectionItem;
-import org.talend.core.model.properties.Item;
-import org.talend.core.model.properties.MDMConnectionItem;
-import org.talend.core.model.properties.SAPConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.model.repositoryObject.MetadataTableRepositoryObject;
 import org.talend.repository.ProjectManager;
-import org.talend.repository.RepositoryPlugin;
-import org.talend.repository.i18n.Messages;
+import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.model.SalesforceModuleRepositoryObject;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
-import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -55,7 +42,7 @@ public class CreateSalesforceModulesAction extends AbstractCreateTableAction {
 
     protected static Logger log = Logger.getLogger(CreateConnectionAction.class);
 
-    protected static final String PID = RepositoryPlugin.PLUGIN_ID;
+    protected static final String PID = "org.talend.repository"; //$NON-NLS-1$
 
     protected static final String CREATE_LABEL = Messages.getString("CreateSalesforceModulesAction.retriveModules"); //$NON-NLS-1$
 

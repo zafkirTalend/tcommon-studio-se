@@ -40,7 +40,7 @@ import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
-import org.talend.metadata.managment.ui.i18n.Messages;
+import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.ui.wizards.metadata.connection.files.salesforce.ISalesforceModuleParser;
 import org.talend.repository.ui.wizards.metadata.connection.files.salesforce.SalesforceModuleParseAPI;
 import org.talend.repository.ui.wizards.metadata.connection.files.salesforce.SalesforceModuleParserPartner;

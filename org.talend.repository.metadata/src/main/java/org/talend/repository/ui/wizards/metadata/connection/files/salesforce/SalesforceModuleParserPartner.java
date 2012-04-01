@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.talend.core.model.metadata.IMetadataColumn;
-import org.talend.metadata.managment.ui.i18n.Messages;
+import org.talend.repository.metadata.i18n.Messages;
 import org.talend.salesforce.SforceManagementImpl;
 
 import com.salesforce.soap.partner.DescribeSObject;
@@ -75,7 +75,8 @@ public class SalesforceModuleParserPartner implements ISalesforceModuleParser {
      */
     public ArrayList login(String endPoint, String username, String password) throws Exception {
         if (endPoint == null) {
-            throw new RemoteException(Messages.getString("SalesforceModuleParseAPI.URLInvalid")); //$NON-NLS-1$
+            throw new RemoteException(
+                    org.talend.repository.metadata.i18n.Messages.getString("SalesforceModuleParseAPI.URLInvalid")); //$NON-NLS-1$
         }
         if (username == null || password == null) {
             throw new Exception(Messages.getString("SalesforceModuleParseAPI.lostUsernameOrPass")); //$NON-NLS-1$

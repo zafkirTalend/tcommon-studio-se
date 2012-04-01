@@ -12,15 +12,11 @@
 // ============================================================================
 package org.talend.core.ui;
 
-import org.eclipse.jface.wizard.IWizard;
-import org.eclipse.ui.IWorkbench;
-import org.talend.core.IService;
-import org.talend.repository.model.RepositoryNode;
+import org.talend.core.IProviderService;
 
 /**
  * DOC hywang class global comment. Detailled comment
  */
-public interface IBRMSProviderService extends IService {
+public interface IBRMSProviderService extends IProviderService {
 
-    public IWizard newBRMSWizard(IWorkbench workbench, boolean creation, RepositoryNode node);
 }

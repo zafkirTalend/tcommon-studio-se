@@ -137,6 +137,33 @@ public class GlobalServiceRegister {
         return null;
     }
 
+    /**
+     * DOC hwang Comment method "findService".Finds the specific service from the list.
+     * 
+     * @param klass the interface type want to find.
+     * @return IService
+     */
+    public IProviderService findService(String key) {
+        for (int i = 0; i < configurationElements.length; i++) {
+            IConfigurationElement element = configurationElements[i];
+            if (element.isValid()) {
+                String id = element.getAttribute("serviceId"); //$NON-NLS-1$
+                if (!key.equals(id)) {
+                    continue;
+                }
+                try {
+                    Object service = element.createExecutableExtension("class"); //$NON-NLS-1$
+                    if (service instanceof IProviderService) {
+                        return (IProviderService) service;
+                    }
+                } catch (CoreException e) {
+                    ExceptionHandler.process(e);
+                }
+            }
+        }
+        return null;
+    }
+
     private AbstractDQModelService findDQModelService(Class<?> klass) {
         for (int i = 0; i < configurationDQModelElements.length; i++) {
             IConfigurationElement element = configurationDQModelElements[i];

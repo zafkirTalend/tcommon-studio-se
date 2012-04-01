@@ -28,7 +28,7 @@ import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
 import org.talend.core.ui.targetschema.editor.XmlExtractorLoopModel;
-import org.talend.metadata.managment.ui.i18n.Messages;
+import org.talend.repository.metadata.i18n.Messages;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

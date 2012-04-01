@@ -14,19 +14,14 @@ package org.talend.core.ui;
 
 import java.util.Map;
 
-import org.eclipse.jface.wizard.IWizard;
-import org.eclipse.ui.IWorkbench;
-import org.talend.core.IService;
+import org.talend.core.IProviderService;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.HL7ConnectionItem;
-import org.talend.repository.model.RepositoryNode;
 
 /**
  * gcui class global comment. Detailled comment
  */
-public interface IHL7ProviderService extends IService {
-
-    public IWizard newHL7Wizard(IWorkbench workbench, boolean creation, RepositoryNode node, String[] existingNames);
+public interface IHL7ProviderService extends IProviderService {
 
     public boolean isHL7Node(final INode node);
 

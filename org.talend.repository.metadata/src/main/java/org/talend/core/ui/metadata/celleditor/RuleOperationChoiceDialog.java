@@ -41,19 +41,17 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-import org.talend.commons.exception.SystemException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.PluginChecker;
-import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.LinkRulesItem;
 import org.talend.core.model.properties.RulesItem;
-import org.talend.core.model.utils.TalendTextUtils;
-import org.talend.core.ui.IRulesProviderService;
 import org.talend.core.ui.rule.AbstractRlueOperationChoice;
+import org.talend.core.utils.TalendQuoteUtils;
+import org.talend.repository.metadata.i18n.Messages;
+import org.talend.repository.model.IRepositoryService;
 
 /**
  * DOC hywang class global comment. Detailled comment
@@ -431,16 +429,11 @@ public class RuleOperationChoiceDialog extends AbstractRlueOperationChoice {
                         ruleNames = devideRules2SingleRuleFromRepositoryDrl(currentRulesContent);
                     } else if (this.currentRepositoryItem.getExtension().equals(".xls")) { //$NON-NLS-N$ //$NON-NLS-1$
                         // rulesItem xls
-                        IRulesProviderService rulesService = null;
-                        if (PluginChecker.isRulesPluginLoaded()) {
-                            rulesService = (IRulesProviderService) GlobalServiceRegister.getDefault().getService(
-                                    IRulesProviderService.class);
-                            try {
-                                rulesService.syncRule(currentRepositoryItem);
-                                String path = rulesService.getRuleFile(currentRepositoryItem, ".xls").getLocation().toOSString(); //$NON-NLS-N$ //$NON-NLS-1$
-                                ruleNames = readExc(path);
-                            } catch (SystemException e) {
-                            }
+                        IRepositoryService repoService = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
+                                IRepositoryService.class);
+                        if (repoService != null) {
+                            String path = repoService.getRulesProviderPath(currentRepositoryItem);
+                            ruleNames = readExc(path);
                         }
                     }
                 }
@@ -499,7 +492,7 @@ public class RuleOperationChoiceDialog extends AbstractRlueOperationChoice {
                                     Pattern.CANON_EQ);
                             regexMatcher = regex.matcher(tempString);
                             while (regexMatcher.find()) {
-                                names.add(TalendTextUtils.removeQuotes(regexMatcher.group(1)));
+                                names.add(TalendQuoteUtils.removeQuotes(regexMatcher.group(1)));
                             }
                         }
                         line++;

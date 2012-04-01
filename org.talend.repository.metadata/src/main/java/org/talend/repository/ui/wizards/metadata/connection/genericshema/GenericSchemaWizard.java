@@ -45,7 +45,7 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
-import org.talend.metadata.managment.ui.i18n.Messages;
+import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
@@ -357,11 +357,11 @@ public class GenericSchemaWizard extends CheckLastVersionRepositoryWizard implem
                 if (creation) {
                     String nextId = factory.getNextId();
                     connectionProperty.setId(nextId);
-                  //changed by hqzhang for TDI-19527, label=displayName
+                    // changed by hqzhang for TDI-19527, label=displayName
                     connectionProperty.setLabel(connectionProperty.getDisplayName());
                     factory.create(connectionItem, genericSchemaWizardPage0.getDestinationPath());
                 } else {
-                  //changed by hqzhang for TDI-19527, label=displayName
+                    // changed by hqzhang for TDI-19527, label=displayName
                     connectionProperty.setLabel(connectionProperty.getDisplayName());
                     // update
                     RepositoryUpdateManager.updateMultiSchema(connectionItem, oldMetadataTable, oldTableMap);

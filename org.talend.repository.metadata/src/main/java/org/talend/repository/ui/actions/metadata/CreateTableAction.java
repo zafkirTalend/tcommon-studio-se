@@ -36,8 +36,7 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.model.repositoryObject.MetadataTableRepositoryObject;
 import org.talend.repository.ProjectManager;
-import org.talend.repository.RepositoryPlugin;
-import org.talend.repository.i18n.Messages;
+import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
@@ -55,7 +54,7 @@ public class CreateTableAction extends AbstractCreateTableAction {
 
     protected static Logger log = Logger.getLogger(CreateConnectionAction.class);
 
-    protected static final String PID = RepositoryPlugin.PLUGIN_ID;
+    protected static final String PID = "org.talend.repository"; //$NON-NLS-1$
 
     protected static final String CREATE_LABEL = Messages.getString("CreateTableAction.action.createTitle"); //$NON-NLS-1$
 

@@ -16,7 +16,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -82,7 +81,7 @@ import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdColumn;
-import org.talend.metadata.managment.ui.i18n.Messages;
+import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.ui.swt.utils.AbstractSalesforceStepForm;
 import org.talend.repository.ui.utils.ManagerConnection;
@@ -99,7 +98,6 @@ import com.sforce.soap.enterprise.DescribeGlobalResult;
  * 
  */
 public class SelectorModulesForm extends AbstractSalesforceStepForm {
-
 
     private String endPoint;
 

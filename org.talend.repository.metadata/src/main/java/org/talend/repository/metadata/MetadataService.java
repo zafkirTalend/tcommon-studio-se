@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.IProviderService;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.metadata.designerproperties.ComponentToRepositoryProperty;
 import org.talend.core.model.process.INode;
@@ -31,13 +32,8 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RulesItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.core.ui.IBRMSProviderService;
-import org.talend.core.ui.IEBCDICProviderService;
-import org.talend.core.ui.IFTPProviderService;
-import org.talend.core.ui.IHL7ProviderService;
 import org.talend.core.ui.IHeaderFooterProviderService;
 import org.talend.core.ui.IMDMProviderService;
-import org.talend.core.ui.ISAPProviderService;
 import org.talend.core.ui.metadata.celleditor.EProcessTypeForRule;
 import org.talend.core.ui.metadata.celleditor.RuleOperationChoiceDialog;
 import org.talend.core.ui.rule.AbstractRlueOperationChoice;
@@ -145,18 +141,18 @@ public class MetadataService implements IMetadataService {
                 relatedWizard = new SalesforceSchemaWizard(PlatformUI.getWorkbench(), creation, realNode, null, false);
             } else if (objectType.equals(ERepositoryObjectType.METADATA_FILE_EBCDIC)) {
                 if (PluginChecker.isEBCDICPluginLoaded()) {
-                    IEBCDICProviderService service = (IEBCDICProviderService) GlobalServiceRegister.getDefault().getService(
-                            IEBCDICProviderService.class);
-                    if (service != null) {
-                        relatedWizard = service.newEbcdicWizard(PlatformUI.getWorkbench(), creation, realNode, null);
+                    IProviderService iebcdicService = (IProviderService) GlobalServiceRegister.getDefault().findService(
+                            "IEBCDICProviderService");
+                    if (iebcdicService != null) {
+                        relatedWizard = iebcdicService.newWizard(PlatformUI.getWorkbench(), creation, realNode, null);
                     }
                 }
             } else if (objectType.equals(ERepositoryObjectType.METADATA_FILE_HL7)) {
                 if (PluginChecker.isHL7PluginLoaded()) {
-                    IHL7ProviderService service = (IHL7ProviderService) GlobalServiceRegister.getDefault().getService(
-                            IHL7ProviderService.class);
+                    IProviderService service = (IProviderService) GlobalServiceRegister.getDefault().findService(
+                            "IHL7ProviderService");
                     if (service != null) {
-                        relatedWizard = service.newHL7Wizard(PlatformUI.getWorkbench(), creation, realNode, null);
+                        relatedWizard = service.newWizard(PlatformUI.getWorkbench(), creation, realNode, null);
                     }
                 }
             } else if (objectType.equals(ERepositoryObjectType.METADATA_MDMCONNECTION)) {
@@ -164,15 +160,15 @@ public class MetadataService implements IMetadataService {
                     IMDMProviderService service = (IMDMProviderService) GlobalServiceRegister.getDefault().getService(
                             IMDMProviderService.class);
                     if (service != null) {
-                        relatedWizard = service.newMDMWizard(PlatformUI.getWorkbench(), creation, realNode, null);
+                        relatedWizard = service.newWizard(PlatformUI.getWorkbench(), creation, realNode, null);
                     }
                 }
             } else if (objectType.equals(ERepositoryObjectType.METADATA_SAPCONNECTIONS)) {
                 if (PluginChecker.isSAPWizardPluginLoaded()) {
-                    ISAPProviderService service = (ISAPProviderService) GlobalServiceRegister.getDefault().getService(
-                            ISAPProviderService.class);
+                    IProviderService service = (IProviderService) GlobalServiceRegister.getDefault().findService(
+                            "ISAPProviderService");
                     if (service != null) {
-                        relatedWizard = service.newSAPWizard(PlatformUI.getWorkbench(), creation, realNode, null);
+                        relatedWizard = service.newWizard(PlatformUI.getWorkbench(), creation, realNode, null);
                     }
                 }
             } else if (objectType.equals(ERepositoryObjectType.METADATA_HEADER_FOOTER)) {
@@ -180,23 +176,23 @@ public class MetadataService implements IMetadataService {
                     IHeaderFooterProviderService service = (IHeaderFooterProviderService) GlobalServiceRegister.getDefault()
                             .getService(IHeaderFooterProviderService.class);
                     if (service != null) {
-                        relatedWizard = service.newHeaderFooterWizard(PlatformUI.getWorkbench(), creation, realNode, null);
+                        relatedWizard = service.newWizard(PlatformUI.getWorkbench(), creation, realNode, null);
                     }
                 }
             } else if (objectType.equals(ERepositoryObjectType.METADATA_FILE_FTP)) {
                 if (PluginChecker.isFTPPluginLoaded()) {
-                    IFTPProviderService service = (IFTPProviderService) GlobalServiceRegister.getDefault().getService(
-                            IFTPProviderService.class);
+                    IProviderService service = (IProviderService) GlobalServiceRegister.getDefault().findService(
+                            "org.talend.core.ui.IFTPProviderService");
                     if (service != null) {
-                        relatedWizard = service.newFTPWizard(PlatformUI.getWorkbench(), creation, realNode, null);
+                        relatedWizard = service.newWizard(PlatformUI.getWorkbench(), creation, realNode, null);
                     }
                 }
             } else if (objectType.equals(ERepositoryObjectType.METADATA_FILE_BRMS)) {
                 if (PluginChecker.isBRMSPluginLoaded()) {
-                    IBRMSProviderService service = (IBRMSProviderService) GlobalServiceRegister.getDefault().getService(
-                            IBRMSProviderService.class);
+                    IProviderService service = (IProviderService) GlobalServiceRegister.getDefault().findService(
+                            "IBRMSProviderService");
                     if (service != null) {
-                        relatedWizard = service.newBRMSWizard(PlatformUI.getWorkbench(), creation, realNode);
+                        relatedWizard = service.newWizard(PlatformUI.getWorkbench(), creation, realNode, null);
                     }
                 }
             }

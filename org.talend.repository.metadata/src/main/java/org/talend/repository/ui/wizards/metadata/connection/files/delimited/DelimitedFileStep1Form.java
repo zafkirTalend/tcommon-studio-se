@@ -39,7 +39,7 @@ import org.talend.core.model.metadata.builder.connection.FileFormat;
 import org.talend.core.model.metadata.builder.connection.RowSeparator;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.utils.TalendQuoteUtils;
-import org.talend.metadata.managment.ui.i18n.Messages;
+import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.ui.swt.utils.AbstractDelimitedFileStepForm;
 import org.talend.repository.ui.utils.FileConnectionContextUtils;
 

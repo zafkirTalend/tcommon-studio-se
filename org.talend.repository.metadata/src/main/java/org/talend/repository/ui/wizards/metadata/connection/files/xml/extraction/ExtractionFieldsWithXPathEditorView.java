@@ -13,10 +13,8 @@
 package org.talend.repository.ui.wizards.metadata.connection.files.xml.extraction;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.gef.commands.Command;
@@ -43,7 +41,7 @@ import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.commons.utils.data.list.UniqueStringGenerator;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.ui.targetschema.editor.XmlExtractorFieldModel;
-import org.talend.metadata.managment.ui.i18n.Messages;
+import org.talend.repository.metadata.i18n.Messages;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

@@ -146,10 +146,10 @@
                class="org.talend.repository.ui.actions.toolbar.CreateToolbarItemAction"
                icon="icons/process_icon.gif"
                id="org.talend.repository.repositoryitem.createJob"
-               label="%create.title"
+               label="Create"
                style="pulldown"
                toolbarPath="Default"
-               tooltip="%create.tootip">
+               tooltip="Create">
          </action>
       </actionSet>
    </extension>

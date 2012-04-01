@@ -35,8 +35,10 @@ import org.eclipse.ui.IWorkbenchWindowPulldownDelegate2;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.WWinPluginPulldown;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.designer.business.diagram.custom.IDiagramModelService;
+import org.talend.designer.core.IDesignerCoreService;
 import org.talend.repository.ui.actions.AContextualAction;
 import org.talend.repository.ui.actions.metadata.CreateConnectionAction;
 import org.talend.repository.ui.actions.metadata.CreateFileDelimitedAction;
@@ -49,7 +51,6 @@ import org.talend.repository.ui.actions.metadata.CreateGenericSchemaAction;
 import org.talend.repository.ui.actions.metadata.CreateLDAPSchemaAction;
 import org.talend.repository.ui.actions.metadata.CreateSalesforceSchemaAction;
 import org.talend.repository.ui.actions.metadata.CreateWSDLSchemaAction;
-import org.talend.repository.ui.actions.routines.CreateRoutineAction;
 import org.talend.repository.ui.views.IRepositoryView;
 
 /**
@@ -150,12 +151,16 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
         IRepositoryView repositoryView = getRepositoryView();
 
         if (repositoryView.containsRepositoryType(ERepositoryObjectType.PROCESS)) {
-            addToMenu(menu, CorePlugin.getDefault().getDesignerCoreService().getCreateProcessAction(true), -1);
+            IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                    IDesignerCoreService.class);
+            addToMenu(menu, service.getCreateProcessAction(true), -1);
             addSeparator(menu);
         }
 
         if (repositoryView.containsRepositoryType(ERepositoryObjectType.BUSINESS_PROCESS)) {
-            addToMenu(menu, CorePlugin.getDefault().getDiagramModelService().getCreateDiagramAction(true), -1);
+            IDiagramModelService service = (IDiagramModelService) GlobalServiceRegister.getDefault().getService(
+                    IDiagramModelService.class);
+            addToMenu(menu, service.getCreateDiagramAction(true), -1);
             addSeparator(menu);
         }
 
@@ -232,8 +237,9 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
 
         if (repositoryView.containsRepositoryType(ERepositoryObjectType.ROUTINES)) {
             // addToMenu(menu, CorePlugin.getDefault().getDesignerCoreService().getCreateBeanAction(true), -1);
-            final CreateRoutineAction createRoutineAction = new CreateRoutineAction(true);
-            createRoutineAction.setWorkbenchPart(repositoryView);
+            // final CreateRoutineAction createRoutineAction = new CreateRoutineAction(true);
+            // createRoutineAction.setWorkbenchPart(repositoryView);
+            final AContextualAction createRoutineAction = null;
             addToMenu(menu, createRoutineAction, -1);
         }
 
