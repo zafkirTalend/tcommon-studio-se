@@ -14,7 +14,9 @@ package org.talend.rcp.intro;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.core.runtime.preferences.InstanceScope;
@@ -52,6 +54,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PerspectiveAdapter;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.activities.IWorkbenchActivitySupport;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
@@ -254,6 +257,22 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         if (!store.getBoolean(ITalendCorePrefConstants.DATA_COLLECTOR)) {
             TokenCollectorFactory.getFactory().send();
             store.setValue(ITalendCorePrefConstants.DATA_COLLECTOR, true);
+        }
+
+        IWorkbenchActivitySupport activitySupport = getWindowConfigurer().getWindow().getWorkbench().getActivitySupport();
+        String hideUpdateSiteId = "org.talend.rcp.hideUpdatesite";
+        Set<String> enabledActivities = new HashSet<String>();
+        enabledActivities.addAll(activitySupport.getActivityManager().getEnabledActivityIds());
+        if (!PluginChecker.isSVNProviderPluginLoaded()) {
+            if (activitySupport.getActivityManager().getActivity(hideUpdateSiteId).isDefined()) {
+                enabledActivities.remove(hideUpdateSiteId);
+            }
+            activitySupport.setEnabledActivityIds(enabledActivities);
+        } else {
+            if (activitySupport.getActivityManager().getActivity(hideUpdateSiteId).isDefined()) {
+                enabledActivities.add(hideUpdateSiteId);
+            }
+            activitySupport.setEnabledActivityIds(enabledActivities);
         }
     }
 
