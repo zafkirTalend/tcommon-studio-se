@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getType <em>Type</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getRelatedEntity <em>Related Entity</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getRelationshipType <em>Relationship Type</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getOriginalLength <em>Original Length</em>}</li>
  * </ul>
  * </p>
  *
@@ -495,5 +496,31 @@ public interface ColumnType extends EObject {
      * @generated
      */
     void setRelationshipType(String value);
+
+    /**
+     * Returns the value of the '<em><b>Original Length</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Original Length</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Original Length</em>' attribute.
+     * @see #setOriginalLength(int)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getColumnType_OriginalLength()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @generated
+     */
+    int getOriginalLength();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getOriginalLength <em>Original Length</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Original Length</em>' attribute.
+     * @see #getOriginalLength()
+     * @generated
+     */
+    void setOriginalLength(int value);
 
 } // ColumnType

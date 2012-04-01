@@ -20,6 +20,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ColumnType/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ColumnType/relatedEntity"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ColumnType/relationshipType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ColumnType/originalLength"/>
     </genClasses>
     <genClasses ecoreClass="TalendFile.ecore#//ConnectionType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TalendFile.ecore#//ConnectionType/elementParameter"/>

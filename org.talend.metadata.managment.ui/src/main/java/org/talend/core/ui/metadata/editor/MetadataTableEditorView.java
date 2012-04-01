@@ -178,17 +178,18 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
     }
 
     @Override
-    protected IBeanPropertyAccessors<IMetadataColumn, String> getOriginalSizeAccessor() {
-        return new IBeanPropertyAccessors<IMetadataColumn, String>() {
+    protected IBeanPropertyAccessors<IMetadataColumn, Integer> getOriginalLengthAccessor() {
+        return new IBeanPropertyAccessors<IMetadataColumn, Integer>() {
 
-            public String get(IMetadataColumn bean) {
-                return bean.getOriginalSize();
+            public Integer get(IMetadataColumn bean) {
+                return bean.getOriginalLength();
             }
 
-            public void set(IMetadataColumn bean, String value) {
-                bean.setOriginalSize(value);
+            public void set(IMetadataColumn bean, Integer value) {
+                if (value != null) {
+                    bean.setOriginalLength(value);
+                }
             }
-
         };
     }
 
@@ -299,6 +300,9 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
 
             public void set(IMetadataColumn bean, Integer value) {
                 bean.setLength(value);
+                if (bean.getOriginalLength() == null) {
+                    bean.setOriginalLength(value);
+                }
             }
         };
     }

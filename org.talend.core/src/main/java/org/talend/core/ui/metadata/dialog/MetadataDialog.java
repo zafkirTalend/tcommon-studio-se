@@ -271,7 +271,7 @@ public class MetadataDialog extends Dialog {
         // hide the pattern for ELT components
         metaView.setShowPatternColumn(!eltComponent);
 
-        metaView.setShowOriginalSize(isEBCDIC);
+        metaView.setShowOriginalLength(isEBCDIC);
     }
 
     @Override
@@ -606,8 +606,8 @@ public class MetadataDialog extends Dialog {
             for (IMetadataColumn column : outputTable.getListColumns()) {
                 IMetadataColumn inputColumn = inputTable.getColumn(column.getLabel());
                 if (inputColumn != null) {
-
                     inputColumn.setOriginalDbColumnName(column.getOriginalDbColumnName());
+                    inputColumn.setOriginalLength(column.getOriginalLength());
                 }
             }
         }

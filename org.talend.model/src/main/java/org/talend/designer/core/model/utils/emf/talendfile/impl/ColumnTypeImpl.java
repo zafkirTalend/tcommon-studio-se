@@ -30,6 +30,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getRelatedEntity <em>Related Entity</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getRelationshipType <em>Relationship Type</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getOriginalLength <em>Original Length</em>}</li>
  * </ul>
  * </p>
  *
@@ -326,6 +327,26 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
      * @ordered
      */
     protected String relationshipType = RELATIONSHIP_TYPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getOriginalLength() <em>Original Length</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getOriginalLength()
+     * @generated
+     * @ordered
+     */
+    protected static final int ORIGINAL_LENGTH_EDEFAULT = 0;
+
+    /**
+     * The cached value of the '{@link #getOriginalLength() <em>Original Length</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getOriginalLength()
+     * @generated
+     * @ordered
+     */
+    protected int originalLength = ORIGINAL_LENGTH_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -687,6 +708,27 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public int getOriginalLength() {
+        return originalLength;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setOriginalLength(int newOriginalLength) {
+        int oldOriginalLength = originalLength;
+        originalLength = newOriginalLength;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.COLUMN_TYPE__ORIGINAL_LENGTH, oldOriginalLength, originalLength));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -718,6 +760,8 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
                 return getRelatedEntity();
             case TalendFilePackage.COLUMN_TYPE__RELATIONSHIP_TYPE:
                 return getRelationshipType();
+            case TalendFilePackage.COLUMN_TYPE__ORIGINAL_LENGTH:
+                return new Integer(getOriginalLength());
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -766,6 +810,9 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
                 return;
             case TalendFilePackage.COLUMN_TYPE__RELATIONSHIP_TYPE:
                 setRelationshipType((String)newValue);
+                return;
+            case TalendFilePackage.COLUMN_TYPE__ORIGINAL_LENGTH:
+                setOriginalLength(((Integer)newValue).intValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -816,6 +863,9 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
             case TalendFilePackage.COLUMN_TYPE__RELATIONSHIP_TYPE:
                 setRelationshipType(RELATIONSHIP_TYPE_EDEFAULT);
                 return;
+            case TalendFilePackage.COLUMN_TYPE__ORIGINAL_LENGTH:
+                setOriginalLength(ORIGINAL_LENGTH_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -852,6 +902,8 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
                 return RELATED_ENTITY_EDEFAULT == null ? relatedEntity != null : !RELATED_ENTITY_EDEFAULT.equals(relatedEntity);
             case TalendFilePackage.COLUMN_TYPE__RELATIONSHIP_TYPE:
                 return RELATIONSHIP_TYPE_EDEFAULT == null ? relationshipType != null : !RELATIONSHIP_TYPE_EDEFAULT.equals(relationshipType);
+            case TalendFilePackage.COLUMN_TYPE__ORIGINAL_LENGTH:
+                return originalLength != ORIGINAL_LENGTH_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -890,6 +942,8 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
         result.append(relatedEntity);
         result.append(", relationshipType: ");
         result.append(relationshipType);
+        result.append(", originalLength: ");
+        result.append(originalLength);
         result.append(')');
         return result.toString();
     }

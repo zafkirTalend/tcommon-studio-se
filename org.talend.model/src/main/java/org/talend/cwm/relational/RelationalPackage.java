@@ -1614,13 +1614,13 @@ public interface RelationalPackage extends EPackage {
     int TD_COLUMN__DISPLAY_FIELD = ConnectionPackage.METADATA_COLUMN__DISPLAY_FIELD;
 
     /**
-     * The feature id for the '<em><b>Original Size</b></em>' attribute.
+     * The feature id for the '<em><b>Original Length</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TD_COLUMN__ORIGINAL_SIZE = ConnectionPackage.METADATA_COLUMN__ORIGINAL_SIZE;
+    int TD_COLUMN__ORIGINAL_LENGTH = ConnectionPackage.METADATA_COLUMN__ORIGINAL_LENGTH;
 
     /**
      * The feature id for the '<em><b>Related Entity</b></em>' attribute.

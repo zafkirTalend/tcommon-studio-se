@@ -28,7 +28,7 @@ import orgomg.cwm.resource.record.Field;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getOriginalField <em>Original Field</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getPattern <em>Pattern</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getDisplayField <em>Display Field</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getOriginalSize <em>Original Size</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getOriginalLength <em>Original Length</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getRelatedEntity <em>Related Entity</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getRelationshipType <em>Relationship Type</em>}</li>
  * </ul>
@@ -285,30 +285,30 @@ public interface MetadataColumn extends AbstractMetadataObject, Field {
     void setDisplayField(String value);
 
     /**
-     * Returns the value of the '<em><b>Original Size</b></em>' attribute.
+     * Returns the value of the '<em><b>Original Length</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Original Size</em>' attribute isn't clear,
+     * If the meaning of the '<em>Original Length</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Original Size</em>' attribute.
-     * @see #setOriginalSize(String)
-     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_OriginalSize()
-     * @model
+     * @return the value of the '<em>Original Length</em>' attribute.
+     * @see #setOriginalLength(long)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_OriginalLength()
+     * @model dataType="orgomg.cwm.objectmodel.core.Integer"
      * @generated
      */
-    String getOriginalSize();
+    long getOriginalLength();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getOriginalSize <em>Original Size</em>}' attribute.
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getOriginalLength <em>Original Length</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Original Size</em>' attribute.
-     * @see #getOriginalSize()
+     * @param value the new value of the '<em>Original Length</em>' attribute.
+     * @see #getOriginalLength()
      * @generated
      */
-    void setOriginalSize(String value);
+    void setOriginalLength(long value);
 
     /**
      * Returns the value of the '<em><b>Related Entity</b></em>' attribute.

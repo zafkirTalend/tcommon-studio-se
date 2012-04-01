@@ -137,15 +137,17 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
     }
 
     @Override
-    protected IBeanPropertyAccessors<MetadataColumn, String> getOriginalSizeAccessor() {
-        return new IBeanPropertyAccessors<MetadataColumn, String>() {
+    protected IBeanPropertyAccessors<MetadataColumn, Integer> getOriginalLengthAccessor() {
+        return new IBeanPropertyAccessors<MetadataColumn, Integer>() {
 
-            public String get(MetadataColumn bean) {
-                return bean.getOriginalSize();
+            public Integer get(MetadataColumn bean) {
+                return Long.valueOf(bean.getOriginalLength()).intValue();
             }
 
-            public void set(MetadataColumn bean, String value) {
-                bean.setOriginalSize(value);
+            public void set(MetadataColumn bean, Integer value) {
+                if (value != null) {
+                    bean.setOriginalLength(value);
+                }
             }
 
         };
@@ -221,6 +223,9 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
             public void set(MetadataColumn bean, Integer value) {
                 if (value != null) {
                     bean.setLength(value);
+                    if (Long.valueOf(bean.getOriginalLength()) == 0) {
+                        bean.setOriginalLength(value);
+                    }
                 }
             }
 

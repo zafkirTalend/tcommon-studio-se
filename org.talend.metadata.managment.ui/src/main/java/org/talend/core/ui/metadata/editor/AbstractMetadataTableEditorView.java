@@ -82,7 +82,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     public static final String ID_COLUMN_COMMENT = "ID_COLUMN_COMMENT"; //$NON-NLS-1$
 
-    public static final String ID_COLUMN_ORIGINALSIZE = "ID_COLUMN_ORIGINALSIZE"; //$NON-NLS-1$
+    public static final String ID_COLUMN_ORIGINALLENGTH = "ID_COLUMN_ORIGINALLENGTH"; //$NON-NLS-1$
 
     public static final String ID_COLUMN_LENGHT = "ID_COLUMN_LENGHT"; //$NON-NLS-1$
 
@@ -94,7 +94,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     public static final String ID_COLUMN_RELATED_ENTITY = "ID_COLUMN_RELATED_ENTITY";//$NON-NLS-1$
 
-    protected boolean showDbColumnName, showOriginalSize;
+    protected boolean showDbColumnName, showOriginalLength;
 
     protected boolean showDbTypeColumn;
 
@@ -257,8 +257,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
         configureLengthColumn(tableViewerCreator);
 
-        if (showOriginalSize) {
-            configureOriginalSizeColumn(tableViewerCreator);
+        if (showOriginalLength) {
+            configureOriginalLengthColumn(tableViewerCreator);
         }
 
         // //////////////////////////////////////////////////////////////////////////////////////
@@ -310,17 +310,19 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      * 
      * @param tableViewerCreator
      */
-    protected void configureOriginalSizeColumn(TableViewerCreator<B> tableViewerCreator) {
+    protected void configureOriginalLengthColumn(TableViewerCreator<B> tableViewerCreator) {
         TableViewerCreatorColumn column;
         column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle(Messages.getString("MetadataTableEditorView.OriginalSizeTitle")); //$NON-NLS-1$
-        column.setToolTipHeader(Messages.getString("MetadataTableEditorView.OriginalSizeTitle")); //$NON-NLS-1$
-        column.setId(ID_COLUMN_ORIGINALSIZE);
-        column.setBeanPropertyAccessors(getOriginalSizeAccessor());
-        column.setWeight(10);
+        column.setTitle(Messages.getString("MetadataTableEditorView.OriginalLengthTitle")); //$NON-NLS-1$
+        column.setToolTipHeader(Messages.getString("MetadataTableEditorView.OriginalLengthTitle")); //$NON-NLS-1$
+        column.setId(ID_COLUMN_ORIGINALLENGTH);
+        column.setBeanPropertyAccessors(getOriginalLengthAccessor());
         column.setModifiable(!isReadOnly());
-        column.setMinimumWidth(20);
-        column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
+        column.setWeight(10);
+        column.setMinimumWidth(10);
+        TextCellEditor textCellEditor = new TextCellEditor(tableViewerCreator.getTable());
+        textCellEditor.addListener(new InegerCellEditorListener(textCellEditor, column));
+        column.setCellEditor(textCellEditor, CellEditorValueAdapterFactory.getPositiveIntAdapter(true));
     }
 
     /**
@@ -328,7 +330,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      * 
      * @return
      */
-    protected abstract IBeanPropertyAccessors<B, String> getOriginalSizeAccessor();
+    protected abstract IBeanPropertyAccessors<B, Integer> getOriginalLengthAccessor();
 
     /**
      * DOC amaumont Comment method "configureDefaultColumn".
@@ -935,7 +937,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
     }
 
-    public void setShowOriginalSize(boolean showOriginalSize) {
-        this.showOriginalSize = showOriginalSize;
+    public void setShowOriginalLength(boolean showOriginalLength) {
+        this.showOriginalLength = showOriginalLength;
     }
 }

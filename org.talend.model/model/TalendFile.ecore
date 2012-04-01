@@ -106,6 +106,7 @@
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="originalLength" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConnectionType">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">

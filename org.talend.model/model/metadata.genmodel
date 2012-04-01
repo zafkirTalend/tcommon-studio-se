@@ -90,7 +90,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataColumn/originalField"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataColumn/pattern"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataColumn/displayField"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataColumn/originalSize"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataColumn/originalLength"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataColumn/relatedEntity"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataColumn/relationshipType"/>
     </genClasses>

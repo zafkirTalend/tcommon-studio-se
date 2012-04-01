@@ -762,7 +762,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getMetadataColumn_OriginalSize() {
+    public EAttribute getMetadataColumn_OriginalLength() {
         return (EAttribute) metadataColumnEClass.getEStructuralFeatures().get(9);
     }
 
@@ -3791,7 +3791,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(metadataColumnEClass, METADATA_COLUMN__ORIGINAL_FIELD);
         createEAttribute(metadataColumnEClass, METADATA_COLUMN__PATTERN);
         createEAttribute(metadataColumnEClass, METADATA_COLUMN__DISPLAY_FIELD);
-        createEAttribute(metadataColumnEClass, METADATA_COLUMN__ORIGINAL_SIZE);
+        createEAttribute(metadataColumnEClass, METADATA_COLUMN__ORIGINAL_LENGTH);
         createEAttribute(metadataColumnEClass, METADATA_COLUMN__RELATED_ENTITY);
         createEAttribute(metadataColumnEClass, METADATA_COLUMN__RELATIONSHIP_TYPE);
 
@@ -4351,7 +4351,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getMetadataColumn_DisplayField(), ecorePackage.getEString(), "displayField", null, 0, 1,
                 MetadataColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
                 IS_ORDERED);
-        initEAttribute(getMetadataColumn_OriginalSize(), ecorePackage.getEString(), "originalSize", null, 0, 1,
+        initEAttribute(getMetadataColumn_OriginalLength(), theCorePackage.getInteger(), "originalLength", null, 0, 1,
                 MetadataColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
                 IS_ORDERED);
         initEAttribute(getMetadataColumn_RelatedEntity(), ecorePackage.getEString(), "relatedEntity", "", 0, 1,

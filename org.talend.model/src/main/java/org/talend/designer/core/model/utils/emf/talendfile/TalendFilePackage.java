@@ -188,13 +188,22 @@ public interface TalendFilePackage extends EPackage {
     int COLUMN_TYPE__RELATIONSHIP_TYPE = 12;
 
     /**
+     * The feature id for the '<em><b>Original Length</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COLUMN_TYPE__ORIGINAL_LENGTH = 13;
+
+    /**
      * The number of structural features of the '<em>Column Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE_FEATURE_COUNT = 13;
+    int COLUMN_TYPE_FEATURE_COUNT = 14;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl <em>Connection Type</em>}' class.
@@ -1809,6 +1818,17 @@ public interface TalendFilePackage extends EPackage {
     EAttribute getColumnType_RelationshipType();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getOriginalLength <em>Original Length</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Original Length</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getOriginalLength()
+     * @see #getColumnType()
+     * @generated
+     */
+    EAttribute getColumnType_OriginalLength();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType <em>Connection Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3418,6 +3438,14 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EAttribute COLUMN_TYPE__RELATIONSHIP_TYPE = eINSTANCE.getColumnType_RelationshipType();
+
+        /**
+         * The meta object literal for the '<em><b>Original Length</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute COLUMN_TYPE__ORIGINAL_LENGTH = eINSTANCE.getColumnType_OriginalLength();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl <em>Connection Type</em>}' class.

@@ -366,6 +366,15 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getColumnType_OriginalLength() {
+        return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(13);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1500,6 +1509,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         createEAttribute(columnTypeEClass, COLUMN_TYPE__TYPE);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__RELATED_ENTITY);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__RELATIONSHIP_TYPE);
+        createEAttribute(columnTypeEClass, COLUMN_TYPE__ORIGINAL_LENGTH);
 
         connectionTypeEClass = createEClass(CONNECTION_TYPE);
         createEReference(connectionTypeEClass, CONNECTION_TYPE__ELEMENT_PARAMETER);
@@ -1702,6 +1712,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         initEAttribute(getColumnType_Type(), theXMLTypePackage.getString(), "type", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getColumnType_RelatedEntity(), theXMLTypePackage.getString(), "relatedEntity", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getColumnType_RelationshipType(), theXMLTypePackage.getString(), "relationshipType", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getColumnType_OriginalLength(), theXMLTypePackage.getInt(), "originalLength", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(connectionTypeEClass, ConnectionType.class, "ConnectionType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getConnectionType_ElementParameter(), this.getElementParameterType(), null, "elementParameter", null, 0, -1, ConnectionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -1395,13 +1395,13 @@ public interface ConnectionPackage extends EPackage {
     int METADATA_COLUMN__DISPLAY_FIELD = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 29;
 
     /**
-     * The feature id for the '<em><b>Original Size</b></em>' attribute.
+     * The feature id for the '<em><b>Original Length</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int METADATA_COLUMN__ORIGINAL_SIZE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 30;
+    int METADATA_COLUMN__ORIGINAL_LENGTH = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 30;
 
     /**
      * The feature id for the '<em><b>Related Entity</b></em>' attribute.
@@ -17316,13 +17316,13 @@ public interface ConnectionPackage extends EPackage {
     int EDIFACT_COLUMN__DISPLAY_FIELD = METADATA_COLUMN__DISPLAY_FIELD;
 
     /**
-     * The feature id for the '<em><b>Original Size</b></em>' attribute.
+     * The feature id for the '<em><b>Original Length</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EDIFACT_COLUMN__ORIGINAL_SIZE = METADATA_COLUMN__ORIGINAL_SIZE;
+    int EDIFACT_COLUMN__ORIGINAL_LENGTH = METADATA_COLUMN__ORIGINAL_LENGTH;
 
     /**
      * The feature id for the '<em><b>Related Entity</b></em>' attribute.
@@ -17967,15 +17967,15 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getMetadataColumn_DisplayField();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getOriginalSize <em>Original Size</em>}'.
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getOriginalLength <em>Original Length</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Original Size</em>'.
-     * @see org.talend.core.model.metadata.builder.connection.MetadataColumn#getOriginalSize()
+     * @return the meta object for the attribute '<em>Original Length</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.MetadataColumn#getOriginalLength()
      * @see #getMetadataColumn()
      * @generated
      */
-    EAttribute getMetadataColumn_OriginalSize();
+    EAttribute getMetadataColumn_OriginalLength();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getRelatedEntity <em>Related Entity</em>}'.
@@ -22081,12 +22081,12 @@ public interface ConnectionPackage extends EPackage {
         EAttribute METADATA_COLUMN__DISPLAY_FIELD = eINSTANCE.getMetadataColumn_DisplayField();
 
         /**
-         * The meta object literal for the '<em><b>Original Size</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>Original Length</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute METADATA_COLUMN__ORIGINAL_SIZE = eINSTANCE.getMetadataColumn_OriginalSize();
+        EAttribute METADATA_COLUMN__ORIGINAL_LENGTH = eINSTANCE.getMetadataColumn_OriginalLength();
 
         /**
          * The meta object literal for the '<em><b>Related Entity</b></em>' attribute feature.

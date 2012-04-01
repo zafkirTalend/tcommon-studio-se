@@ -81,7 +81,7 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="displayField" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="originalSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="originalLength" eType="ecore:EDataType ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/Integer"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="relatedEntity" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral=""/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="relationshipType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
