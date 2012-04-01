@@ -59,6 +59,7 @@ import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.i18n.internal.Messages;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -979,19 +980,35 @@ public class FilesUtils {
      * @return
      */
     public static String getUUID(String xmlFile) {
+        // MOD xqliu 2012-04-01 TDQ-4957
+        String uuid = "";//$NON-NLS-1$
         Document xmlTree;
         try {
             xmlTree = parse(xmlFile);
             if (xmlTree != null) {
-                Node namedItem = xmlTree.getFirstChild().getAttributes().getNamedItem("xmi:id");//$NON-NLS-1$
+                Node namedItem = xmlTree.getFirstChild();
                 if (namedItem != null) {
-                    return namedItem.getNodeValue();
+                    NodeList childNodes = namedItem.getChildNodes();
+                    if (childNodes != null) {
+                        int length = childNodes.getLength();
+                        for (int i = 0; i < length; ++i) {
+                            Node item = childNodes.item(i);
+                            if (item != null && item.getNextSibling() != null && item.getNextSibling().getAttributes() != null) {
+                                Node itemNode = item.getNextSibling().getAttributes().getNamedItem("xmi:id");//$NON-NLS-1$
+                                if (itemNode != null) {
+                                    uuid = itemNode.getNodeValue();
+                                    break;
+                                }
+                            }
+                        }
+                    }
                 }
+                xmlTree = null;
             }
         } catch (Exception e) {
             logger.warn(e, e);
         }
-        return "";//$NON-NLS-1$
+        return uuid;
     }
 
 }
