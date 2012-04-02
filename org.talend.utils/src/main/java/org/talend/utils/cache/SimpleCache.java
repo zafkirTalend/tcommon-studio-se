@@ -59,7 +59,6 @@ public class SimpleCache<K, V> {
         public int hashCode() {
             final int prime = 31;
             int result = 1;
-            result = prime * result + getOuterType().hashCode();
             result = prime * result + ((key == null) ? 0 : key.hashCode());
             return result;
         }
@@ -78,18 +77,12 @@ public class SimpleCache<K, V> {
             if (getClass() != obj.getClass())
                 return false;
             HashKeyValue other = (HashKeyValue) obj;
-            if (!getOuterType().equals(other.getOuterType()))
-                return false;
             if (key == null) {
                 if (other.key != null)
                     return false;
             } else if (!key.equals(other.key))
                 return false;
             return true;
-        }
-
-        private SimpleCache getOuterType() {
-            return SimpleCache.this;
         }
 
         /**
@@ -121,29 +114,38 @@ public class SimpleCache<K, V> {
 
     }
 
-    List<HashKeyValue<K, V>> keysOrderedByPutTime = new ArrayList<HashKeyValue<K, V>>();
+    private List<HashKeyValue<K, V>> keysOrderedByPutTime = new ArrayList<HashKeyValue<K, V>>();
 
-    protected Map<HashKeyValue<K, V>, HashKeyValue<K, V>> cache = new HashMap<HashKeyValue<K, V>, HashKeyValue<K, V>>();
+    private Map<HashKeyValue<K, V>, HashKeyValue<K, V>> cache = new HashMap<HashKeyValue<K, V>, HashKeyValue<K, V>>();
 
-    private int maxItems;
+    private Integer maxItems;
 
-    private long maxTime;
+    private Long maxTime;
 
     /**
      * 
-     * DOC amaumont SimpleCache constructor comment.
+     * Constructor SimpleCache.
      * 
-     * @param maxTime in ms, a value between <code>0</code> and <code>Long.MAX_VALUE</code> included,
-     * <code>Long.MAX_VALUE</code> means infinite.
-     * @param maxItems max number of items to keep in the cache
+     * You can't disable together
+     * 
+     * @param maxTime in ms, a value greater than <code>0</code> to enable the <code>maxTime</code>, a negative or null
+     * value means infinite.
+     * @param maxItems max number of items to keep in the cache, a value greater than <code>0</code> to enable the
+     * <code>maxItems</code>, a negative value or <code>Integer.MAX_VALUE</code> to mean infinite.
+     * @throws IllegalArgumentException if yout try to disable both <code>maxTime</code> and <code>maxItems</code>
      */
     public SimpleCache(long maxTime, int maxItems) {
         super();
         this.maxTime = maxTime;
         this.maxItems = maxItems;
+        if ((this.maxTime == null || this.maxTime < 0 || this.maxTime == Long.MAX_VALUE || this.maxTime == Integer.MAX_VALUE)
+                && (this.maxItems == null || this.maxItems < 0 || this.maxItems == Integer.MAX_VALUE)) {
+            throw new IllegalArgumentException(
+                    "At least one of maxTime or maxItems must be a value greater or equals 0, excepted the MAX_VALUE");
+        }
     }
 
-    public V get(K key) {
+    public synchronized V get(K key) {
         HashKeyValue<K, V> internalKey = new HashKeyValue<K, V>(key);
         HashKeyValue<K, V> keyValue = cache.get(internalKey);
         if (keyValue != null) {
@@ -153,7 +155,7 @@ public class SimpleCache<K, V> {
         }
     }
 
-    public Long getAddTime(K key) {
+    public synchronized Long getAddTime(K key) {
         HashKeyValue<K, V> internalKey = new HashKeyValue<K, V>(key);
         HashKeyValue<K, V> keyValue = cache.get(internalKey);
         if (keyValue != null) {
@@ -165,38 +167,52 @@ public class SimpleCache<K, V> {
 
     /**
      * 
-     * DOC amaumont Comment method "put".
+     * Method "put".
+     * 
+     * The clean is done when putting new data.
      * 
      * @param key
      * @param value
      * @return previous value for the same key
      */
-    public V put(K key, V value) {
+    public synchronized V put(K key, V value) {
+        HashKeyValue<K, V> internalKeyValue = new HashKeyValue<K, V>(key, value);
+        keysOrderedByPutTime.add(internalKeyValue);
+        HashKeyValue<K, V> previousKeyValue = cache.put(internalKeyValue, internalKeyValue);
         int sizeItems = keysOrderedByPutTime.size();
-        if (maxItems > 0 && sizeItems >= maxItems) {
-            HashKeyValue<K, V> removedFromList = keysOrderedByPutTime.remove(0);
-            cache.remove(removedFromList);
-        }
-        if (maxTime != Long.MAX_VALUE) {
-            long currentTimeMillis = System.currentTimeMillis();
-            for (Iterator<HashKeyValue<K, V>> iterator = keysOrderedByPutTime.iterator(); iterator.hasNext();) {
-                HashKeyValue<K, V> hashKey = iterator.next();
-                if (hashKey.addTime - currentTimeMillis > maxTime) {
-                    iterator.remove();
+        if (maxTime != null && maxTime >= 0 && maxTime != Long.MAX_VALUE && sizeItems > 0) {
+            for (Iterator<HashKeyValue<K, V>> keysOrderedByPutTimeIterator = keysOrderedByPutTime.iterator(); keysOrderedByPutTimeIterator
+                    .hasNext();) {
+                long currentTimeMillis = System.currentTimeMillis();
+                HashKeyValue<K, V> hashKey = keysOrderedByPutTimeIterator.next();
+                // System.out.println("hashKey=" + hashKey.getKey() + ", hashKey.addTime=" + hashKey.addTime
+                // + ", currentTimeMillis=" + currentTimeMillis + ", maxTime=" + maxTime);
+                if (currentTimeMillis - hashKey.addTime >= maxTime) {
+                    keysOrderedByPutTimeIterator.remove();
                     cache.remove(hashKey);
                 } else {
                     break;
                 }
             }
         }
-        HashKeyValue<K, V> internalKeyValue = new HashKeyValue<K, V>(key, value);
-        keysOrderedByPutTime.add(internalKeyValue);
-        HashKeyValue<K, V> previousKeyValue = cache.put(internalKeyValue, internalKeyValue);
+        sizeItems = keysOrderedByPutTime.size();
+        if (maxItems != null && maxItems >= 0 && maxItems != Integer.MAX_VALUE && sizeItems > maxItems && sizeItems > 0) {
+            HashKeyValue<K, V> removedFromList = keysOrderedByPutTime.remove(0);
+            cache.remove(removedFromList);
+        }
         if (previousKeyValue != null) {
             return previousKeyValue.getValue();
         } else {
             return null;
         }
+    }
+
+    public synchronized int size() {
+        return cache.size();
+    }
+
+    protected synchronized int internalTimeListSize() {
+        return keysOrderedByPutTime.size();
     }
 
 }
