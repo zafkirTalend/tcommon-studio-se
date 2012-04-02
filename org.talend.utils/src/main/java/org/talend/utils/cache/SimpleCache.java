@@ -126,13 +126,11 @@ public class SimpleCache<K, V> {
      * 
      * Constructor SimpleCache.
      * 
-     * You can't disable together
-     * 
-     * @param maxTime in ms, a value greater than <code>0</code> to enable the <code>maxTime</code>, a negative or null
-     * value means infinite.
+     * @param maxTime in ms, a value greater than <code>0</code> to enable the <code>maxTime</code>, a negative or
+     * Integer.MAX_VALUE or Long.MAX_VALUE value means infinite.
      * @param maxItems max number of items to keep in the cache, a value greater than <code>0</code> to enable the
      * <code>maxItems</code>, a negative value or <code>Integer.MAX_VALUE</code> to mean infinite.
-     * @throws IllegalArgumentException if yout try to disable both <code>maxTime</code> and <code>maxItems</code>
+     * @throws IllegalArgumentException if you try to disable both <code>maxTime</code> and <code>maxItems</code>
      */
     public SimpleCache(long maxTime, int maxItems) {
         super();
