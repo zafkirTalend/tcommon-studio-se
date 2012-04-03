@@ -109,6 +109,12 @@ public enum EImage implements IImage {
 
     MERGE_ICON("/icons/merge.png"), //$NON-NLS-1$
 
+    BOLD_ICON("/icons/bold.gif"), //$NON-NLS-1$
+    ITALIC_ICON("/icons/italic.gif"), //$NON-NLS-1$
+    LINE_COLOR_ICON("/icons/line_color.gif"), //$NON-NLS-1$
+    FONT_COLOR_ICON("/icons/font_color.gif"), //$NON-NLS-1$
+    FILL_COLOR_ICON("/icons/fill_color.gif"), //$NON-NLS-1$
+
     COMPONENT_MISSING("/icons/component_missing.gif"), //$NON-NLS-1$
 
     FILTER_DEACTIVED_ICON("/icons/filter_deactivated.png"), //$NON-NLS-1$

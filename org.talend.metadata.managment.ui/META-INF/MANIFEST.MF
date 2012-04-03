@@ -5,8 +5,8 @@ Bundle-SymbolicName: org.talend.metadata.managment.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.talend.metadata.managment.ui.MetadataManagmentUiPlugin
 Require-Bundle: org.eclipse.ui,
- org.eclipse.ui.ide,
  org.eclipse.core.runtime,
+ org.eclipse.ui.ide,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.gef,
  org.eclipse.text,

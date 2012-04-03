@@ -88,7 +88,8 @@ Require-Bundle: org.eclipse.gef,
  org.talend.libraries.dom4j-jaxen,
  org.eclipse.jface.text,
  org.eclipse.ui.editors,
- org.talend.libraries.csv;resolution:=optional
+ org.talend.libraries.csv;resolution:=optional,
+ org.eclipse.ui.views.properties.tabbed
 Import-Package: org.eclipse.debug.core
 Bundle-Activator: org.talend.core.runtime.CoreRuntimePlugin
 Bundle-ActivationPolicy: lazy
