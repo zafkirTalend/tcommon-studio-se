@@ -16,6 +16,8 @@ import java.util.List;
 
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.StructuredViewer;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IMemento;
@@ -271,4 +273,33 @@ public class RepositoryViewLabelProvider extends AbstractRepoViewLabelProvider {
         repoLabelProv = new RepositoryLabelProvider(new CommonNavigatorRepositoryViewForLabelProvider(viewerId));
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.viewer.label.AbstractRepoViewLabelProvider#getFont(java.lang.Object)
+     */
+    @Override
+    public Font getFont(Object element) {
+        return repoLabelProv.getFont(element);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.viewer.label.AbstractRepoViewLabelProvider#getBackground(java.lang.Object)
+     */
+    @Override
+    public Color getBackground(Object element) {
+        return repoLabelProv.getBackground(element);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.viewer.label.AbstractRepoViewLabelProvider#getForeground(java.lang.Object)
+     */
+    @Override
+    public Color getForeground(Object element) {
+        return repoLabelProv.getForeground(element);
+    }
 }

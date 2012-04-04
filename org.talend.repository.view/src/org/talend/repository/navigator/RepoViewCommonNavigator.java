@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.util.LocalSelectionTransfer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -361,7 +362,16 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
             });
         }
         expandTreeRootIfOnlyOneRoot();
-        setContentDescription("this is a content description");
+        refreshContentDescription();
+    }
+
+    /**
+     * looks for an adapter on the input that adapts to INavigatorDescriptor and then changes the view descritor string
+     */
+    public void refreshContentDescription() {
+        INavigatorDescriptor navDesc = (INavigatorDescriptor) Platform.getAdapterManager().getAdapter(
+                getCommonViewer().getInput(), INavigatorDescriptor.class);
+        setContentDescription(navDesc != null ? navDesc.getDescriptor() : "");
     }
 
     /**
