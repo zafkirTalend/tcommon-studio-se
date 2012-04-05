@@ -69,6 +69,8 @@ public interface IBrandingConfiguration extends IActionBarHelper {
 
     public boolean isAllowDebugMode();
 
+    public boolean isAllowChengeVersion();
+
     public boolean isUseDemoProjects();
 
     public boolean isOnlyRemoteConnection();

@@ -67,6 +67,7 @@ import org.talend.core.model.repository.LockInfo;
 import org.talend.core.repository.CoreRepositoryPlugin;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.ui.branding.IBrandingService;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.model.ERepositoryStatus;
@@ -155,6 +156,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     private boolean isSaveAs = false;
 
+    private boolean allowVerchange = true;
+
     public void initializeSaveAs(String orignalName, String orignalVersion, boolean isSaveAs) {
         this.orignalName = orignalName;
         this.orignalVersion = orignalVersion;
@@ -208,6 +211,9 @@ public abstract class PropertiesWizardPage extends WizardPage {
         job.schedule(); // start as soon as possible
 
         this.property = property;
+        IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
+                IBrandingService.class);
+        allowVerchange = brandingService.getBrandingConfiguration().isAllowChengeVersion();
     }
 
     protected boolean isReadOnly() {
@@ -353,11 +359,11 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
         versionMajorBtn = new Button(versionContainer, SWT.PUSH);
         versionMajorBtn.setText(Messages.getString("PropertiesWizardPage.Version.Major")); //$NON-NLS-1$
-        versionMajorBtn.setEnabled(!readOnly);
+        versionMajorBtn.setEnabled(!readOnly && allowVerchange);
 
         versionMinorBtn = new Button(versionContainer, SWT.PUSH);
         versionMinorBtn.setText(Messages.getString("PropertiesWizardPage.Version.Minor")); //$NON-NLS-1$
-        versionMinorBtn.setEnabled(!readOnly);
+        versionMinorBtn.setEnabled(!readOnly && allowVerchange);
 
         // Status
         Label statusLab = new Label(parent, SWT.NONE);

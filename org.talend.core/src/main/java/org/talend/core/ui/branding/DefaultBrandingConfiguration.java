@@ -335,4 +335,8 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
     public boolean isOnlyRemoteConnection() {
         return false;
     }
+
+    public boolean isAllowChengeVersion() {
+        return true;
+    }
 }
