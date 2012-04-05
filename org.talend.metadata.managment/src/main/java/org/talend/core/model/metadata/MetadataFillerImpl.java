@@ -277,6 +277,7 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
         metadataConnection.setVersion(ConnectionHelper.getVersion(conn));
         // universe
         metadataConnection.setUniverse(ConnectionHelper.getUniverse(conn));
+        metadataConnection.setSqlMode(conn.isSQLMode());
 
         return metadataConnection;
 

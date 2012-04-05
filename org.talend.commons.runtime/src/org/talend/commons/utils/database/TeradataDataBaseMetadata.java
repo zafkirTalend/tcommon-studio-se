@@ -30,10 +30,14 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
 
     private static final String[] COLUMN_META = { "TABLE_NAME", "COLUMN_NAME", "TYPE_NAME", "COLUMN_SIZE", "DECIMAL_DIGITS", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
             "IS_NULLABLE", "REMARKS", "COLUMN_DEF" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-
+    private static final String[] PK_META = { "COLUMN_NAME","PK_NAME" }; //$NON-NLS-1$ //$NON-NLS-2$
     private Connection connection;
 
     private String databaseName;
+    
+    private static final String CONST_TABLE="TABLE";
+    private static final String CONST_VIEW="VIEW";
+    private static final String CONST_SYNONYM="SYNONYM";
 
     /**
      * 
@@ -77,10 +81,38 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
      * @see org.talend.commons.utils.database.FakeDatabaseMetaData#getPrimaryKeys(java.lang.String, java.lang.String,
      * java.lang.String)
      */
-    @Override
-    public ResultSet getPrimaryKeys(String catalog, String schema, String table) throws SQLException {
-        return new TeradataResultSet();
-    }
+	@Override
+	public ResultSet getPrimaryKeys(String catalog, String schema, String table)
+			throws SQLException {
+		String sql = "HELP COLUMN " + schema + "." + table + ".* ";//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
+
+		ResultSet rs = null;
+		Statement stmt = null;
+		List<String[]> list = new ArrayList<String[]>();
+		try {
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				String columnName = rs.getString("Column Name").trim(); //$NON-NLS-1$
+				String pk = rs.getString("Primary?");//$NON-NLS-1$
+				String[] r = new String[] { columnName, pk };//$NON-NLS-1$
+				list.add(r);
+			}
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			try {
+				rs.close();
+				stmt.close();
+			} catch (Exception e) {
+			}
+		}
+		TeradataResultSet tableResultSet = new TeradataResultSet();
+		tableResultSet.setMetadata(PK_META);
+		tableResultSet.setData(list);
+		return tableResultSet;
+	}
 
     /*
      * (non-Javadoc)
@@ -89,9 +121,9 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
      */
     @Override
     public ResultSet getTableTypes() throws SQLException {
-        String[] s1 = new String[] { "TABLE" }; //$NON-NLS-1$
-        String[] s2 = new String[] { "VIEW" }; //$NON-NLS-1$
-        String[] s3 = new String[] { "SYNONYM" }; //$NON-NLS-1$
+        String[] s1 = new String[] { CONST_TABLE }; //$NON-NLS-1$
+        String[] s2 = new String[] { CONST_VIEW }; //$NON-NLS-1$
+        String[] s3 = new String[] { CONST_SYNONYM }; //$NON-NLS-1$
 
         List<String[]> list = new ArrayList<String[]>();
 
@@ -130,8 +162,24 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
             database = databaseName;
         }
         // end
-        String sql = "SELECT * from DBC.TABLES WHERE UPPER(databasename) = UPPER('" + database //$NON-NLS-1$
-                + "') AND (tablekind = 'T' or tablekind = 'V') Order by tablekind, tablename "; //$NON-NLS-1$
+        String sql =null;
+        if(types!=null&&types.length>0){
+        	//value of index 0 is indicating the table,view or synonym.
+        	String kind = "'T'";
+        	if(types[0].equalsIgnoreCase(CONST_VIEW)){
+        		kind = "'V'";
+        	}else if(types[0].equalsIgnoreCase(CONST_SYNONYM)){
+        		//TODO check if the alias of synonym is really "S".
+        		kind = "'S'";
+        	}
+        	sql="SELECT * from DBC.TABLES WHERE UPPER(databasename) = UPPER('" + database //$NON-NLS-1$
+            + "') AND tablekind = "+kind+"  Order by tablename "; //$NON-NLS-1$
+        }else{
+        	//When the types is empty, all the tables and views will be retrieved.
+        	sql="SELECT * from DBC.TABLES WHERE UPPER(databasename) = UPPER('" + database //$NON-NLS-1$
+            + "') AND (tablekind = 'T' or tablekind = 'V') Order by tablekind, tablename "; //$NON-NLS-1$
+        }
+        
         ResultSet rs = null;
         Statement stmt = null;
         List<String[]> list = new ArrayList<String[]>();
@@ -187,6 +235,72 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
         return true;
     }
 
+//    /*
+//     * (non-Javadoc)
+//     * 
+//     * @see org.talend.commons.utils.database.FakeDatabaseMetaData#getColumns(java.lang.String, java.lang.String,
+//     * java.lang.String, java.lang.String)
+//     */
+//    @Override
+//    public ResultSet getColumns(String catalog, String database, String tableNamePattern, String columnNamePattern)
+//            throws SQLException {
+//        // for real
+//        String sql = "SELECT * from DBC.COLUMNS Where UPPER(databasename) = UPPER('" + database + "') and tablename = '" //$NON-NLS-1$ //$NON-NLS-2$
+//                + tableNamePattern + "' order by columnid"; //$NON-NLS-1$
+////    	String sql ="HELP COLUMN "+database+"+."+tableNamePattern+".* ";
+//        boolean needRetrieveFromDriver = false;
+//
+//        ResultSet rs = null;
+//        Statement stmt = null;
+//        List<String[]> list = new ArrayList<String[]>();
+//        try {
+//            stmt = connection.createStatement();
+//            rs = stmt.executeQuery(sql);
+//            while (rs.next()) {
+//                String tableName = rs.getString("TableName").trim(); //$NON-NLS-1$
+//                String columnName = rs.getString("ColumnName").trim(); //$NON-NLS-1$
+//                String typeName = rs.getString("ColumnType"); //$NON-NLS-1$
+//                // add by wzhang. for teradata can't get the type for view. just set by default.
+//                if (typeName == null) {
+//                    typeName = "String"; //$NON-NLS-1$
+//                    needRetrieveFromDriver = true;
+//                }
+//                String columnSize = rs.getString("ColumnLength"); //$NON-NLS-1$
+//                String decimalDigits = rs.getString("DecimalFractionalDigits"); //$NON-NLS-1$
+//                String isNullable;
+//                if ("Y".equals(rs.getString("Nullable"))) { //$NON-NLS-1$ //$NON-NLS-2$
+//                    isNullable = "YES"; //$NON-NLS-1$
+//                } else {
+//                    isNullable = rs.getString("Nullable"); //$NON-NLS-1$
+//                }
+//                String remarks = ""; //$NON-NLS-1$
+//                String columnDef = ""; //$NON-NLS-1$
+//                
+//                String[] r = new String[] { tableName, columnName, typeName, columnSize, decimalDigits, isNullable, remarks,
+//                        columnDef };
+//                list.add(r);
+//            }
+//
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        } finally {
+//            try {
+//                rs.close();
+//                stmt.close();
+//            } catch (Exception e) {
+//            }
+//        }
+//
+//        if (needRetrieveFromDriver) {
+//            return connection.getMetaData().getColumns(catalog, database, tableNamePattern, columnNamePattern);
+//        }
+//        TeradataResultSet tableResultSet = new TeradataResultSet();
+//        tableResultSet.setMetadata(COLUMN_META);
+//        tableResultSet.setData(list);
+//        return tableResultSet;
+//    }
+    
+    
     /*
      * (non-Javadoc)
      * 
@@ -197,27 +311,20 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
     public ResultSet getColumns(String catalog, String database, String tableNamePattern, String columnNamePattern)
             throws SQLException {
         // for real
-        String sql = "SELECT * from DBC.COLUMNS Where UPPER(databasename) = UPPER('" + database + "') and tablename = '" //$NON-NLS-1$ //$NON-NLS-2$
-                + tableNamePattern + "' order by columnid"; //$NON-NLS-1$
-        boolean needRetrieveFromDriver = false;
+    	String sql ="HELP COLUMN "+database+"."+tableNamePattern+".* ";
 
         ResultSet rs = null;
-        Statement stmt = null;
+        Statement stmt = null; 
         List<String[]> list = new ArrayList<String[]>();
         try {
             stmt = connection.createStatement();
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                String tableName = rs.getString("TableName").trim(); //$NON-NLS-1$
-                String columnName = rs.getString("ColumnName").trim(); //$NON-NLS-1$
-                String typeName = rs.getString("ColumnType"); //$NON-NLS-1$
-                // add by wzhang. for teradata can't get the type for view. just set by default.
-                if (typeName == null) {
-                    typeName = "String"; //$NON-NLS-1$
-                    needRetrieveFromDriver = true;
-                }
-                String columnSize = rs.getString("ColumnLength"); //$NON-NLS-1$
-                String decimalDigits = rs.getString("DecimalFractionalDigits"); //$NON-NLS-1$
+                String tableName = tableNamePattern; //$NON-NLS-1$
+                String columnName = rs.getString("Column Name").trim(); //$NON-NLS-1$
+                String typeName = rs.getString("Type"); //$NON-NLS-1$
+                String columnSize = rs.getString("Max Length"); //$NON-NLS-1$
+                String decimalDigits = rs.getString("Decimal Fractional Digits"); //$NON-NLS-1$
                 String isNullable;
                 if ("Y".equals(rs.getString("Nullable"))) { //$NON-NLS-1$ //$NON-NLS-2$
                     isNullable = "YES"; //$NON-NLS-1$
@@ -226,7 +333,7 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
                 }
                 String remarks = ""; //$NON-NLS-1$
                 String columnDef = ""; //$NON-NLS-1$
-
+                
                 String[] r = new String[] { tableName, columnName, typeName, columnSize, decimalDigits, isNullable, remarks,
                         columnDef };
                 list.add(r);
@@ -240,10 +347,6 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
                 stmt.close();
             } catch (Exception e) {
             }
-        }
-
-        if (needRetrieveFromDriver) {
-            return connection.getMetaData().getColumns(catalog, database, tableNamePattern, columnNamePattern);
         }
         TeradataResultSet tableResultSet = new TeradataResultSet();
         tableResultSet.setMetadata(COLUMN_META);

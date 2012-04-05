@@ -2494,7 +2494,7 @@ public class DatabaseForm extends AbstractForm {
             java.sql.Connection sqlConn = (java.sql.Connection) MetadataConnectionUtils.checkConnection(connection).getObject();
             if (sqlConn != null) {
                 try {
-                    DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, connection.getDatabaseType());
+                    DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, connection);
                     int versionNum = dm.getDatabaseMajorVersion();
                     String[] strArray = version.getVersionValue().split("_"); //$NON-NLS-1$
                     if (strArray.length > 1 && strArray[1].startsWith(Integer.toString(versionNum))) {

@@ -312,6 +312,9 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             // ~19528
 
             IMetadataConnection metadataConnection = ConvertionHelper.convert(connection);
+//            if (dbType == EDatabaseTypeName.TERADATA) {
+//                ExtractMetaDataUtils.metadataCon = metadataConnection;
+//            }
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
 
             ITDQRepositoryService tdqRepService = null;
@@ -512,7 +515,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
             dbType = metaConnection.getDbType();
             if (sqlConn != null) {
-                DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType);
+                DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType,false,metaConnection.getDatabase());
                 MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, dbMetaData,
                         MetadataConnectionUtils.getPackageFilter(dbConn, dbMetaData, true));
                 MetadataFillFactory.getDBInstance().fillSchemas(dbConn, dbMetaData,

@@ -44,6 +44,7 @@ import org.talend.core.model.metadata.DBConnectionFillerImpl;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataConnection;
 import org.talend.core.model.metadata.MetadataFillFactory;
+import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
@@ -97,7 +98,8 @@ public class MetadataConnectionUtils {
 
     private static List<String> sybaseDBProductsNames;
 
-    private static IMetadataConnection metadataCon;
+//    MOD  by zshen don't needed can replaced by ExtractMetaDataUtils.metadataCon 
+//    private static IMetadataConnection metadataCon;
 
     private static Driver derbyDriver;
 
@@ -110,26 +112,26 @@ public class MetadataConnectionUtils {
      * @return
      * @throws SQLException
      */
-
-    public static DatabaseMetaData getConnectionMetadata(java.sql.Connection conn) throws SQLException {
-        DatabaseMetaData dbMetaData = conn.getMetaData();
-        // MOD xqliu 2009-11-17 bug 7888
-        if (dbMetaData != null && dbMetaData.getDatabaseProductName() != null) {
-            if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.IBMDB2ZOS.getProduct())) {
-                dbMetaData = createFakeDatabaseMetaData(conn);
-                log.info("IBM DB2 for z/OS");
-            } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.TERADATA.getProduct()) && metadataCon != null
-                    && metadataCon.isSqlMode()) {
-                dbMetaData = createTeradataFakeDatabaseMetaData(conn);
-                TeradataDataBaseMetadata teraDbmeta = (TeradataDataBaseMetadata) dbMetaData;
-                teraDbmeta.setDatabaseName(ExtractMetaDataUtils.metadataCon.getDatabase());
-            } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.SAS.getProduct())) {
-                dbMetaData = createSASFakeDatabaseMetaData(conn);
-            }
-        }
-        // ~
-        return dbMetaData;
-    }
+//  MOD  by zshen don't needed can replaced by ExtractMetaDataUtils.getDatabaseMetaData()
+//    public static DatabaseMetaData getConnectionMetadata(java.sql.Connection conn) throws SQLException {
+//        DatabaseMetaData dbMetaData = conn.getMetaData();
+//        // MOD xqliu 2009-11-17 bug 7888
+//        if (dbMetaData != null && dbMetaData.getDatabaseProductName() != null) {
+//            if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.IBMDB2ZOS.getProduct())) {
+//                dbMetaData = createFakeDatabaseMetaData(conn);
+//                log.info("IBM DB2 for z/OS");
+//            } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.TERADATA.getProduct()) && metadataCon != null
+//                    && metadataCon.isSqlMode()) {
+//                dbMetaData = createTeradataFakeDatabaseMetaData(conn);
+//                TeradataDataBaseMetadata teraDbmeta = (TeradataDataBaseMetadata) dbMetaData;
+//                teraDbmeta.setDatabaseName(ExtractMetaDataUtils.metadataCon.getDatabase());
+//            } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.SAS.getProduct())) {
+//                dbMetaData = createSASFakeDatabaseMetaData(conn);
+//            }
+//        }
+//        // ~
+//        return dbMetaData;
+//    }
 
     /**
      * only for db2 on z/os right now. 2009-07-13 bug 7888.
@@ -296,7 +298,7 @@ public class MetadataConnectionUtils {
     public static TdSoftwareSystem getSoftwareSystem(java.sql.Connection connection) throws SQLException {
         // MOD xqliu 2009-07-13 bug 7888
 
-        DatabaseMetaData databaseMetadata = getConnectionMetadata(connection);
+        DatabaseMetaData databaseMetadata = ExtractMetaDataUtils.getConnectionMetadata(connection);
         // ~
         // --- get informations
         String databaseProductName = null;
@@ -358,7 +360,7 @@ public class MetadataConnectionUtils {
      * @throws SQLException
      */
     public static boolean isOdbcPostgresql(java.sql.Connection connection) throws SQLException {
-        return isOdbcPostgresql(getConnectionMetadata(connection));
+        return isOdbcPostgresql(ExtractMetaDataUtils.getConnectionMetadata(connection));
     }
 
     public static boolean isOdbcPostgresql(DatabaseMetaData connectionMetadata) throws SQLException {
@@ -379,7 +381,7 @@ public class MetadataConnectionUtils {
      * @throws SQLException
      */
     public static boolean isOdbcExcel(java.sql.Connection connection) throws SQLException {
-        return isOdbcExcel(getConnectionMetadata(connection));
+        return isOdbcExcel(ExtractMetaDataUtils.getConnectionMetadata(connection));
     }
 
     public static boolean isOdbcExcel(DatabaseMetaData connectionMetadata) throws SQLException {
@@ -401,7 +403,7 @@ public class MetadataConnectionUtils {
      * @throws SQLException
      */
     public static boolean isAccess(java.sql.Connection connection) throws SQLException {
-        return isAccess(getConnectionMetadata(connection));
+        return isAccess(ExtractMetaDataUtils.getConnectionMetadata(connection));
     }
 
     public static boolean isAccess(DatabaseMetaData connectionMetadata) throws SQLException {
@@ -420,7 +422,7 @@ public class MetadataConnectionUtils {
      * @throws SQLException
      */
     public static boolean isSybase(java.sql.Connection connection) throws SQLException {
-        return isSybase(getConnectionMetadata(connection));
+        return isSybase(ExtractMetaDataUtils.getConnectionMetadata(connection));
     }
 
     public static boolean isSybase(DatabaseMetaData connectionMetadata) throws SQLException {
@@ -430,6 +432,20 @@ public class MetadataConnectionUtils {
                     return true;
                 }
             }
+        }
+        return false;
+    }
+
+    /**
+     * DOC xqliu Comment method "isTeradata".
+     * 
+     * @param connection
+     * @return
+     */
+    public static boolean isTeradata(DatabaseConnection connection) {
+        EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(connection.getDatabaseType());
+        if (dbType == EDatabaseTypeName.TERADATA) {
+            return true;
         }
         return false;
     }
@@ -450,7 +466,7 @@ public class MetadataConnectionUtils {
     }
 
     public static boolean isOdbcConnection(java.sql.Connection connection) throws SQLException {
-        return isOdbcConnection(getConnectionMetadata(connection));
+        return isOdbcConnection(ExtractMetaDataUtils.getConnectionMetadata(connection));
     }
 
     /**
@@ -525,11 +541,11 @@ public class MetadataConnectionUtils {
     }
 
     public static boolean isMssql(java.sql.Connection connection) throws SQLException {
-        return isMssql(getConnectionMetadata(connection));
+        return isMssql(ExtractMetaDataUtils.getConnectionMetadata(connection));
     }
 
     public static boolean isMysql(java.sql.Connection connection) throws SQLException {
-        return isMysql(getConnectionMetadata(connection));
+        return isMysql(ExtractMetaDataUtils.getConnectionMetadata(connection));
     }
 
     public static boolean isMysql(DatabaseMetaData connectionMetadata) throws SQLException {
@@ -1017,17 +1033,23 @@ public class MetadataConnectionUtils {
                 // Map<String, String> paramMap =
                 // ParameterUtil.toMap(ConnectionUtils.createConnectionParam(dbConn));
                 IMetadataConnection metaConnection = MetadataFillFactory.getDBInstance().fillUIParams(dbConn);
+                String databaseType = metaConnection.getDbType();
+//            	EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(databaseType);
+//            	if (dbType == EDatabaseTypeName.TERADATA) {
+//                    ExtractMetaDataUtils.metadataCon = metaConnection;
+//                }
                 dbConn = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(metaConnection, dbConn);
+           
                 sqlConn = (java.sql.Connection) MetadataConnectionUtils.checkConnection(metaConnection).getObject();
-
+               DatabaseMetaData databaseMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn,dbConn,false);
                 if (sqlConn != null) {
-                    MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, sqlConn.getMetaData(),
-                            MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData(), true));
-                    MetadataFillFactory.getDBInstance().fillSchemas(dbConn, sqlConn.getMetaData(),
-                            MetadataConnectionUtils.getPackageFilter(dbConn, sqlConn.getMetaData(), false));
+                    MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, databaseMetaData,
+                            MetadataConnectionUtils.getPackageFilter(dbConn, databaseMetaData, true));
+                    MetadataFillFactory.getDBInstance().fillSchemas(dbConn, databaseMetaData,
+                            MetadataConnectionUtils.getPackageFilter(dbConn, databaseMetaData, false));
                 }
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             log.error(e, e);
         } finally {
             if (derbyDriver != null) {
@@ -1056,17 +1078,17 @@ public class MetadataConnectionUtils {
     // }
     // }
     // }
-
-    public static IMetadataConnection getMetadataCon() {
-        return metadataCon;
-    }
-
-    public static void setMetadataCon(IMetadataConnection metadataConnection) {
-        metadataCon = metadataConnection;
-    }
+//    MOD  by zshen don't needed can replaced by ExtractMetaDataUtils
+//    public static IMetadataConnection getMetadataCon() {
+//        return metadataCon;
+//    }
+//
+//    public static void setMetadataCon(IMetadataConnection metadataConnection) {
+//        metadataCon = metadataConnection;
+//    }
 
     public static boolean isPostgresql(java.sql.Connection connection) throws SQLException {
-        return isPostgresql(getConnectionMetadata(connection));
+        return isPostgresql(ExtractMetaDataUtils.getConnectionMetadata(connection));
     }
 
     public static boolean isPostgresql(DatabaseMetaData connectionMetadata) throws SQLException {

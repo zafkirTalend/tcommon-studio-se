@@ -860,7 +860,7 @@ public class SelectorTableForm extends AbstractForm {
         }
         try {
             if (sqlConn != null) {
-                DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType);
+                DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType,false,metadataconnection.getDatabase());
                 MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, dm,
                         MetadataConnectionUtils.getPackageFilter(dbConn, dm, true));
                 MetadataFillFactory.getDBInstance().fillSchemas(dbConn, dm,

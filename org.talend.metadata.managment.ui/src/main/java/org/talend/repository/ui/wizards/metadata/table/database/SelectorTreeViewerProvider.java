@@ -99,7 +99,7 @@ public class SelectorTreeViewerProvider extends AbstractMetadataExtractorViewPro
                 }
             }
         }
-        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(conn, metadataConn.getDbType());
+        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(conn, metadataConn.getDbType(),metadataConn.isSqlMode(),metadataConn.getDatabase());
         int type = tableNode.getType();
         orgomg.cwm.objectmodel.core.Package pack = null;
 
