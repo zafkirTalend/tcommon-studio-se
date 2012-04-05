@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.connection.files.xml.view;
 
+import java.util.List;
+
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -24,6 +26,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.ui.swt.formtools.LabelledText;
+import org.talend.metadata.managment.ui.i18n.Messages;
+import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.StringUtil;
 
 /**
@@ -35,27 +39,30 @@ public class NameSpaceDialog extends TitleAreaDialog {
 
     private LabelledText nsValueLabel;
 
-    private static final String DEFAULT = "Input the prefix and value of the namespace";
+    private static final String DEFAULT = "Input the prefix and value of the namespace"; //$NON-NLS-1$
 
-    private String prefixValue = "";
+    private String prefixValue = ""; //$NON-NLS-1$
 
     private String nsValue;
+
+    private List<FOXTreeNode> nodes;
 
     /**
      * wzhang NameSpaceDialog constructor comment.
      * 
      * @param parentShell
      */
-    public NameSpaceDialog(Shell parentShell) {
+    public NameSpaceDialog(Shell parentShell, List<FOXTreeNode> nodes) {
         super(parentShell);
+        this.nodes = nodes;
     }
 
     @Override
     protected Control createContents(Composite parent) {
         super.createContents(parent);
-        this.getShell().setText("Namespace dialog");
-        this.setTitle("Input new namespace");
-        this.setMessage("Input the prefix and value of the namespace");
+        this.getShell().setText("Namespace dialog"); //$NON-NLS-1$
+        this.setTitle("Input new namespace"); //$NON-NLS-1$
+        this.setMessage("Input the prefix and value of the namespace"); //$NON-NLS-1$
         return parent;
     }
 
@@ -88,13 +95,20 @@ public class NameSpaceDialog extends TitleAreaDialog {
 
     private void validateField() {
         if (!StringUtil.validateLabelForNameSpace(prefixValue)) {
-            setMessage("Prefix value is invalid!", IMessageProvider.ERROR); //$NON-NLS-1$
+            setMessage(Messages.getString("NameSpaceDialog.prefixiIsValid"), IMessageProvider.ERROR); //$NON-NLS-1$
             return;
+        } else if (nodes != null && nodes.size() != 0) {
+            for (int i = 0; i < nodes.size(); i++) {
+                if (nodes.get(i).isNameSpace() && prefixValue.trim().equals(nodes.get(i).getLabel())) {
+                    setMessage(Messages.getString("NameSpaceDialog.isValid"), IMessageProvider.ERROR); //$NON-NLS-1$
+                    return;
+                }
+            }
         } else {
             setMessage(DEFAULT);
         }
         if (!StringUtil.validateLabelForFixedValue(nsValue)) {
-            setMessage("NameSpace value is invalid!", IMessageProvider.ERROR); //$NON-NLS-1$
+            setMessage(Messages.getString("NameSpaceDialog.nameSpaceIsValid"), IMessageProvider.ERROR); //$NON-NLS-1$
             return;
         } else {
             setMessage(DEFAULT);
