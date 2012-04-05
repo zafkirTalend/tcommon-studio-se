@@ -403,6 +403,17 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
                 }
             }
         }
+        if ((options & OPTIONS_IGNORE_ORIGINALLENGTH) == 0) {
+            if (!sameIntegerValue(this.originalLength, other.getOriginalLength())) {
+                if (((options & OPTIONS_IGNORE_BIGGER_SIZE) == 0)) {
+                    return false;
+
+                }
+                if (!largeValue(this.originalLength, other.getOriginalLength())) {
+                    return false;
+                }
+            }
+        }
         if ((options & OPTIONS_IGNORE_NULLABLE) == 0) {
             if (this.nullable != other.isNullable()) {
                 return false;

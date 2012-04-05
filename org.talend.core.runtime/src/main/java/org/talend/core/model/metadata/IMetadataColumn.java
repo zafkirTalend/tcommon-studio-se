@@ -34,6 +34,8 @@ public interface IMetadataColumn {
 
     public static final int OPTIONS_IGNORE_LENGTH = 1 << 5;
 
+    public static final int OPTIONS_IGNORE_ORIGINALLENGTH = 1 << 5;
+
     public static final int OPTIONS_IGNORE_PRECISION = 1 << 6;
 
     public static final int OPTIONS_IGNORE_DEFAULT = 1 << 7;
