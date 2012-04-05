@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.data.list.ListUtils;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
+import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.core.ICoreService;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
@@ -124,18 +125,20 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             dbconn.setVersion(metadataBean.getVersion());
             // MOD klliu bug 21074 2011-05-19
             dbconn.setUiSchema(metadataBean.getUiSchema());
+            dbconn.setSQLMode(metadataBean.isSqlMode());
+            dbconn.setSID(metadataBean.getDatabase());
         }
         try {
             if (sqlConnection == null || sqlConnection.isClosed()) {
                 this.checkConnection(metadataBean);
             }
-            MetadataConnectionUtils.setMetadataCon(metadataBean);
+            // MetadataConnectionUtils.setMetadataCon(metadataBean);
             // fill some base parameter
             if (newConnection != null) {
                 fillMetadataParams(metadataBean, newConnection);
             }
             // software
-            DatabaseMetaData dbMetadata = ExtractMetaDataUtils.getDatabaseMetaData(sqlConnection, metadataBean.getDbType());
+            DatabaseMetaData dbMetadata = ExtractMetaDataUtils.getDatabaseMetaData(sqlConnection, dbconn, false);
             // for bug 22113, annotate it.
             // String connectionDbType = metadataBean.getDbType();
             // List<EDatabaseVersion4Drivers> dbTypeList = EDatabaseVersion4Drivers.indexOfByDbType(connectionDbType);
@@ -1222,13 +1225,19 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     // sql
                     // data type it is null and results in a NPE
                     typeName = columns.getString(GetColumn.TYPE_NAME.name());
-                    if (!(dbJDBCMetadata instanceof DB2ForZosDataBaseMetadata)) {
-                        dataType = columns.getInt(GetColumn.DATA_TYPE.name());
-                        numPrecRadix = columns.getInt(GetColumn.NUM_PREC_RADIX.name());
-                    } else {
+                    if (dbJDBCMetadata instanceof DB2ForZosDataBaseMetadata) {
                         // MOD klliu bug TDQ-1164 2011-09-26
                         dataType = Java2SqlType.getJavaTypeBySqlType(typeName);
+                        decimalDigits = columns.getInt(GetColumn.DECIMAL_DIGITS.name());
                         // ~
+                    } else if (dbJDBCMetadata instanceof TeradataDataBaseMetadata) {
+                        // dataType = columns.getInt(GetColumn.TYPE_NAME.name());
+                        dataType = Java2SqlType.getTeradataJavaTypeBySqlTypeAsInt(typeName);
+                        typeName = Java2SqlType.getTeradataJavaTypeBySqlTypeAsString(typeName);
+                    } else {
+                        dataType = columns.getInt(GetColumn.DATA_TYPE.name());
+                        numPrecRadix = columns.getInt(GetColumn.NUM_PREC_RADIX.name());
+                        decimalDigits = columns.getInt(GetColumn.DECIMAL_DIGITS.name());
                     }
                     if (MetadataConnectionUtils.isMssql(dbJDBCMetadata)) {
                         if (typeName.toLowerCase().equals("date")) {
@@ -1248,7 +1257,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
                     int column_size = columns.getInt(GetColumn.COLUMN_SIZE.name());
                     column.setLength(column_size);
-                    decimalDigits = columns.getInt(GetColumn.DECIMAL_DIGITS.name());
+
 
                 } catch (Exception e1) {
                     log.warn(e1, e1);
@@ -1261,20 +1270,20 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
                 // Null able
                 int nullable = 0;
-                if (!(dbJDBCMetadata instanceof DB2ForZosDataBaseMetadata)) {
-                    nullable = columns.getInt(GetColumn.NULLABLE.name());
-                } else {
-                    String isNullable = columns.getString("IS_NULLABLE");
+                if (dbJDBCMetadata instanceof DB2ForZosDataBaseMetadata||dbJDBCMetadata instanceof TeradataDataBaseMetadata) {
+                    String isNullable = columns.getString("IS_NULLABLE");//$NON-NLS-1$
                     if (!isNullable.equals("Y")) { //$NON-NLS-1$ //$NON-NLS-2$
                         nullable = 1;
                     }
+                } else {
+                    nullable = columns.getInt(GetColumn.NULLABLE.name());
                 }
                 column.getSqlDataType().setNullable(NullableType.get(nullable));
 
                 // Comment
                 String colComment = columns.getString(GetColumn.REMARKS.name());
                 if (colComment == null) {
-                    colComment = "";
+                    colComment = "";//$NON-NLS-1$
                 }
                 ColumnHelper.setComment(colComment, column);
 
@@ -1294,7 +1303,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 if (dbmsId != null) {
                     MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(dbmsId);
                     String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName, ExtractMetaDataUtils
-                            .getIntMetaDataInfo(columns, "COLUMN_SIZE"), ExtractMetaDataUtils.getIntMetaDataInfo(columns, //$NON-NLS-1$
+.getIntMetaDataInfo(columns, "COLUMN_SIZE"), (dbJDBCMetadata instanceof TeradataDataBaseMetadata) ? 0 : ExtractMetaDataUtils.getIntMetaDataInfo(columns, //$NON-NLS-1$
                             "DECIMAL_DIGITS")); //$NON-NLS-1$
                     column.setTalendType(talendType);
                     String defaultSelectedDbType = MetadataTalendType.getMappingTypeRetriever(dbConnection.getDbmsId())

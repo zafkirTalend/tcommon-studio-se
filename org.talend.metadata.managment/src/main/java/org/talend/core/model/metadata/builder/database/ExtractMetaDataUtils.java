@@ -79,7 +79,7 @@ public class ExtractMetaDataUtils {
 
     public static boolean isReconnect = true;
 
-    public static IMetadataConnection metadataCon; // for teradata to use
+    // public static IMetadataConnection metadataCon; // for teradata to use
 
     // hywang add for bug 7038
     private static List<String> functionlist = new ArrayList<String>();
@@ -89,6 +89,8 @@ public class ExtractMetaDataUtils {
      * 
      * @param AbstractConnection conn
      * @return DatabaseMetaData
+     * 
+     * MOD by zshen this method don't care about sqlMode
      */
     public static DatabaseMetaData getDatabaseMetaData(Connection conn, String dbType) {
 
@@ -97,12 +99,6 @@ public class ExtractMetaDataUtils {
 
             if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
                 dbMetaData = createFakeDatabaseMetaData(conn);
-            } else if (ExtractMetaDataUtils.metadataCon != null && dbType.equals(EDatabaseTypeName.TERADATA.getXmlName())
-                    && ExtractMetaDataUtils.metadataCon.isSqlMode()) {
-                dbMetaData = createTeradataFakeDatabaseMetaData(conn);
-                // add by wzhang for bug 8106. set database name for teradata.
-                TeradataDataBaseMetadata teraDbmeta = (TeradataDataBaseMetadata) dbMetaData;
-                teraDbmeta.setDatabaseName(ExtractMetaDataUtils.metadataCon.getDatabase());
             } else if (dbType.equals(EDatabaseTypeName.SAS.getXmlName())) {
                 dbMetaData = createSASFakeDatabaseMetaData(conn);
             } else {
@@ -115,6 +111,124 @@ public class ExtractMetaDataUtils {
             log.error(e.toString());
             throw new RuntimeException(e);
         }
+        return dbMetaData;
+    }
+
+    // public static DatabaseMetaData getDatabaseMetaData(Connection conn, String dbType,boolean isSqlMode) {
+    //
+    // DatabaseMetaData dbMetaData = null;
+    // try {
+    //
+    // if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
+    // dbMetaData = createFakeDatabaseMetaData(conn);
+    // } else if ( dbType.equals(EDatabaseTypeName.TERADATA.getXmlName())
+    // && isSqlMode) {
+    // dbMetaData = createTeradataFakeDatabaseMetaData(conn);
+    // // add by wzhang for bug 8106. set database name for teradata.
+    // TeradataDataBaseMetadata teraDbmeta = (TeradataDataBaseMetadata) dbMetaData;
+    // teraDbmeta.setDatabaseName(ExtractMetaDataUtils.metadataCon.getDatabase());
+    // } else if (dbType.equals(EDatabaseTypeName.SAS.getXmlName())) {
+    // dbMetaData = createSASFakeDatabaseMetaData(conn);
+    // } else {
+    // dbMetaData = conn.getMetaData();
+    // }
+    // } catch (SQLException e) {
+    // log.error(e.toString());
+    // throw new RuntimeException(e);
+    // } catch (Exception e) {
+    // log.error(e.toString());
+    // throw new RuntimeException(e);
+    // }
+    // return dbMetaData;
+    // }
+    public static DatabaseMetaData getDatabaseMetaData(Connection conn, String dbType, boolean isSqlMode, String database) {
+
+        DatabaseMetaData dbMetaData = null;
+        try {
+
+            if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
+                dbMetaData = createFakeDatabaseMetaData(conn);
+            } else if (dbType.equals(EDatabaseTypeName.TERADATA.getXmlName()) && isSqlMode) {
+                dbMetaData = createTeradataFakeDatabaseMetaData(conn);
+                // add by wzhang for bug 8106. set database name for teradata.
+                TeradataDataBaseMetadata teraDbmeta = (TeradataDataBaseMetadata) dbMetaData;
+                teraDbmeta.setDatabaseName(database);
+            } else if (dbType.equals(EDatabaseTypeName.SAS.getXmlName())) {
+                dbMetaData = createSASFakeDatabaseMetaData(conn);
+            } else {
+                dbMetaData = conn.getMetaData();
+            }
+        } catch (SQLException e) {
+            log.error(e.toString());
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            log.error(e.toString());
+            throw new RuntimeException(e);
+        }
+        return dbMetaData;
+    }
+
+    public static DatabaseMetaData getDatabaseMetaData(Connection conn, DatabaseConnection dbConn) {
+        boolean isSqlMode = dbConn.isSQLMode();
+        return getDatabaseMetaData(conn, dbConn, isSqlMode);
+    }
+
+    public static DatabaseMetaData getDatabaseMetaData(Connection conn, DatabaseConnection dbConn, boolean isSqlMode) {
+
+        DatabaseMetaData dbMetaData = null;
+        try {
+            String dbType = dbConn.getDatabaseType();
+
+            if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
+                dbMetaData = createFakeDatabaseMetaData(conn);
+            } else if (dbType.equals(EDatabaseTypeName.TERADATA.getXmlName()) && isSqlMode) {
+                String database = dbConn.getSID();
+                dbMetaData = createTeradataFakeDatabaseMetaData(conn);
+                // add by wzhang for bug 8106. set database name for teradata.
+                TeradataDataBaseMetadata teraDbmeta = (TeradataDataBaseMetadata) dbMetaData;
+                teraDbmeta.setDatabaseName(database);
+            } else if (dbType.equals(EDatabaseTypeName.SAS.getXmlName())) {
+                dbMetaData = createSASFakeDatabaseMetaData(conn);
+            } else {
+                dbMetaData = conn.getMetaData();
+            }
+        } catch (SQLException e) {
+            log.error(e.toString());
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            log.error(e.toString());
+            throw new RuntimeException(e);
+        }
+        return dbMetaData;
+    }
+
+    public static DatabaseMetaData getConnectionMetadata(java.sql.Connection conn) throws SQLException {
+        DatabaseMetaData dbMetaData = conn.getMetaData();
+        // MOD xqliu 2009-11-17 bug 7888
+        if (dbMetaData != null && dbMetaData.getDatabaseProductName() != null) {
+            if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
+                getDatabaseMetaData(conn, EDatabaseTypeName.IBMDB2ZOS.getXmlName());
+            } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.TERADATA.getXmlName())) {
+                getDatabaseMetaData(conn, EDatabaseTypeName.TERADATA.getXmlName());
+            } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.SAS.getXmlName())) {
+                getDatabaseMetaData(conn, EDatabaseTypeName.SAS.getXmlName());
+            }
+        }
+        // if (dbMetaData != null && dbMetaData.getDatabaseProductName() != null) {
+        // if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.IBMDB2ZOS.getProduct())) {
+        // dbMetaData = createFakeDatabaseMetaData(conn);
+        // log.info("IBM DB2 for z/OS");
+        // } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.TERADATA.getProduct()) && metadataCon
+        // != null
+        // && metadataCon.isSqlMode()) {
+        // dbMetaData = createTeradataFakeDatabaseMetaData(conn);
+        // TeradataDataBaseMetadata teraDbmeta = (TeradataDataBaseMetadata) dbMetaData;
+        // teraDbmeta.setDatabaseName(ExtractMetaDataUtils.metadataCon.getDatabase());
+        // } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.SAS.getProduct())) {
+        // dbMetaData = createSASFakeDatabaseMetaData(conn);
+        // }
+        // }
+        // // ~
         return dbMetaData;
     }
 

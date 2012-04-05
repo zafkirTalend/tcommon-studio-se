@@ -436,7 +436,8 @@ public class ExtractMetaDataFromDataBase {
                 }
             }
             dbType = iMetadataConnection.getDbType();
-            DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
+            DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType,
+                    iMetadataConnection.isSqlMode(), iMetadataConnection.getDatabase());
 
             String tableLabel = tableNode.getValue();
             TableNode newNode = tableNode;
@@ -813,7 +814,8 @@ public class ExtractMetaDataFromDataBase {
                 }
             }
             dbType = iMetadataConnection.getDbType();
-            DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
+            DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType,
+                    iMetadataConnection.isSqlMode(), iMetadataConnection.getDatabase());
 
             String name = getTableTypeByTableName(tableLabel);
             boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType());
@@ -2040,7 +2042,7 @@ public class ExtractMetaDataFromDataBase {
     public static List<String> returnTablesFormConnection(IMetadataConnection iMetadataConnection, int... limit) {
         List<String> itemTablesName = new ArrayList<String>();
         // add by wzhang
-        ExtractMetaDataUtils.metadataCon = iMetadataConnection;
+        // ExtractMetaDataUtils.metadataCon = iMetadataConnection;
         // end
         // bug 9162 bug 12888
         String dbType = iMetadataConnection.getDbType();
@@ -2069,7 +2071,8 @@ public class ExtractMetaDataFromDataBase {
             }
         }
 
-        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
+        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType,
+                iMetadataConnection.isSqlMode(), iMetadataConnection.getDatabase());
         List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection,
                 limit);
 
@@ -2118,7 +2121,8 @@ public class ExtractMetaDataFromDataBase {
             }
         }
         String dbType = iMetadataConnection.getDbType();
-        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
+        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType,
+                iMetadataConnection.isSqlMode(), iMetadataConnection.getDatabase());
 
         List<IMetadataTable> metadataTables = null;
         if (limit > 0) {
@@ -2194,7 +2198,7 @@ public class ExtractMetaDataFromDataBase {
         List<String> itemTablesName = new ArrayList<String>();
         filterTablesName.clear();
         // add by wzhang
-        ExtractMetaDataUtils.metadataCon = iMetadataConnection;
+        // ExtractMetaDataUtils.metadataCon = iMetadataConnection;
         // end
 
         String dbType = iMetadataConnection.getDbType();
@@ -2478,7 +2482,7 @@ public class ExtractMetaDataFromDataBase {
                 types[i] = selectedTypeName;
         }
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn,
-                iMetadataConnection.getDbType());
+                iMetadataConnection.getDbType(), iMetadataConnection.isSqlMode(), iMetadataConnection.getDatabase());
         // rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema, tableNamePattern, types);
         ResultSet rsTableTypes = null;
         rsTableTypes = dbMetaData.getTableTypes();
