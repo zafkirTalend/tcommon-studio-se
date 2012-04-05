@@ -54,14 +54,12 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.ecore.xmi.impl.StringSegment;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.i18n.internal.Messages;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
-
-import com.sun.xml.internal.ws.util.StringUtils;
+import org.w3c.dom.NodeList;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -962,39 +960,55 @@ public class FilesUtils {
             return new PasswordAuthentication(userName, password.toCharArray());
         }
     }
+
     /**
      * 
      * @param xmlFile
      * @return
      * @throws Exception
      */
-    public static Document parse( String xmlFile ) throws Exception {
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		DocumentBuilder db = dbf.newDocumentBuilder();
-		Document domTree = db.parse( xmlFile );
-		return domTree;
-	}
-	/**
-	 * 
-	 * @param xmlTree
-	 * @return
-	 */
-	public static String getUUID(String xmlFile){
-		Document xmlTree;
-		try {
-			xmlTree = parse(xmlFile);
-			if(xmlTree!=null){
-				Node namedItem = xmlTree.getFirstChild().getAttributes().getNamedItem("xmi:id");//$NON-NLS-1$
-				if(namedItem!=null){
-					return namedItem.getNodeValue();
-				}
-			}
-		} catch (Exception e) {
-			logger.warn(e, e);
-		}
-		return "";//$NON-NLS-1$
-	}
-	
-	
+    public static Document parse(String xmlFile) throws Exception {
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        Document domTree = db.parse(xmlFile);
+        return domTree;
+    }
+
+    /**
+     * 
+     * @param xmlTree
+     * @return
+     */
+    public static String getUUID(String xmlFile) {
+        // MOD xqliu 2012-04-01 TDQ-4957
+        String uuid = "";//$NON-NLS-1$
+        Document xmlTree;
+        try {
+            xmlTree = parse(xmlFile);
+            if (xmlTree != null) {
+                Node namedItem = xmlTree.getFirstChild();
+                if (namedItem != null) {
+                    NodeList childNodes = namedItem.getChildNodes();
+                    if (childNodes != null) {
+                        int length = childNodes.getLength();
+                        for (int i = 0; i < length; ++i) {
+                            Node item = childNodes.item(i);
+                            if (item != null && item.getNextSibling() != null && item.getNextSibling().getAttributes() != null) {
+                                Node itemNode = item.getNextSibling().getAttributes().getNamedItem("xmi:id");//$NON-NLS-1$
+                                if (itemNode != null) {
+                                    uuid = itemNode.getNodeValue();
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                xmlTree = null;
+            }
+        } catch (Exception e) {
+            logger.warn(e, e);
+        }
+        return uuid;
+    }
 
 }
