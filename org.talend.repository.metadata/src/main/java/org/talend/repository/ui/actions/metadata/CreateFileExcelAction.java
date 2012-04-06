@@ -116,6 +116,10 @@ public class CreateFileExcelAction extends AbstractCreateAction {
         IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
         switch (node.getType()) {
         case SIMPLE_FOLDER:
+            if (node.getObject() != null && node.getObject().getProperty().getItem().getState().isDeleted()) {
+                setEnabled(false);
+                return;
+            }
         case SYSTEM_FOLDER:
             if (factory.isUserReadOnlyOnCurrentProject() || !ProjectManager.getInstance().isInCurrentMainProject(node)) {
                 setEnabled(false);
