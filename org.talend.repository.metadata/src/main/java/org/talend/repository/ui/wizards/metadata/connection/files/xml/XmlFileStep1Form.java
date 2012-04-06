@@ -498,6 +498,8 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
                             valid = treePopulator.populateTree(text, treeNode);
                         }
                     }
+                    // add for bug TDI-20432
+                    checkFieldsValue();
                 }
 
             }
