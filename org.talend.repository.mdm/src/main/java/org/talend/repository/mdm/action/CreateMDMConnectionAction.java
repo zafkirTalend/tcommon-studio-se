@@ -35,9 +35,9 @@ import org.talend.repository.ProjectManager;
 import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.mdm.ui.wizard.MDMWizard;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
-import org.talend.repository.model.IRepositoryNode.EProperties;
 
 /**
  * DOC hwang class global comment. Detailled comment
@@ -89,6 +89,10 @@ public class CreateMDMConnectionAction extends AbstractCreateAction {
         IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
         switch (node.getType()) {
         case SIMPLE_FOLDER:
+            if (node.getObject() != null && node.getObject().getProperty().getItem().getState().isDeleted()) {
+                setEnabled(false);
+                return;
+            }
         case SYSTEM_FOLDER:
             if (factory.isUserReadOnlyOnCurrentProject() || !ProjectManager.getInstance().isInCurrentMainProject(node)) {
                 setEnabled(false);
