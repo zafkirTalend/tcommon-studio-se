@@ -18,9 +18,6 @@ import java.util.List;
 
 import javax.xml.rpc.ServiceException;
 
-import org.eclipse.datatools.connectivity.oda.OdaException;
-import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
-import org.eclipse.datatools.enablement.oda.xml.util.ui.XSDPopulationUtil2;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -29,6 +26,9 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.datatools.xml.utils.ATreeNode;
+import org.talend.datatools.xml.utils.OdaException;
+import org.talend.datatools.xml.utils.XSDPopulationUtil2;
 import org.talend.repository.mdm.util.MDMUtil;
 import org.talend.repository.ui.swt.utils.AbstractXmlStepForm;
 import org.talend.repository.ui.utils.OtherConnectionContextUtils.EParamName;

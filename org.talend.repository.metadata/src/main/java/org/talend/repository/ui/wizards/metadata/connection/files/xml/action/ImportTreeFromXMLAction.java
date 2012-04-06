@@ -15,8 +15,6 @@ package org.talend.repository.ui.wizards.metadata.connection.files.xml.action;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
-import org.eclipse.datatools.enablement.oda.xml.util.ui.XSDPopulationUtil2;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -26,6 +24,8 @@ import org.eclipse.xsd.XSDSchema;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.xml.XmlUtil;
 import org.talend.core.ui.metadata.dialog.RootNodeSelectDialog;
+import org.talend.datatools.xml.utils.ATreeNode;
+import org.talend.datatools.xml.utils.XSDPopulationUtil2;
 import org.talend.repository.ui.swt.utils.AbstractXmlStepForm;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.XmlFileOutputStep2Form;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;

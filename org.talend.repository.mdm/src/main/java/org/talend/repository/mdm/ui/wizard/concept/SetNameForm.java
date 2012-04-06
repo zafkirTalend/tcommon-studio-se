@@ -18,9 +18,6 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.datatools.connectivity.oda.OdaException;
-import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
-import org.eclipse.datatools.enablement.oda.xml.util.ui.SchemaPopulationUtil;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -35,6 +32,9 @@ import org.talend.commons.ui.swt.formtools.LabelledText;
 import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.XMLFileNode;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.datatools.xml.utils.ATreeNode;
+import org.talend.datatools.xml.utils.OdaException;
+import org.talend.datatools.xml.utils.SchemaPopulationUtil;
 import org.talend.repository.mdm.i18n.Messages;
 
 /**

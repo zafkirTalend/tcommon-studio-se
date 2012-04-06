@@ -15,7 +15,6 @@ package org.talend.repository.mdm.ui.wizard.dnd;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.datatools.enablement.oda.xml.util.ui.XPathPopulationUtil;
 import org.eclipse.jface.util.TransferDragSourceListener;
 import org.eclipse.jface.util.TransferDropTargetListener;
 import org.eclipse.swt.SWT;
@@ -41,6 +40,7 @@ import org.talend.commons.ui.utils.TableUtils;
 import org.talend.commons.utils.data.list.UniqueStringGenerator;
 import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.ConceptTarget;
+import org.talend.datatools.xml.utils.XPathPopulationUtil;
 import org.talend.repository.mdm.ui.wizard.table.ExtractionFieldsWithMDMEditorView;
 import org.talend.repository.mdm.ui.wizard.table.ExtractionLoopWithMDMEditorView;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.dnd.TransferableXPathEntry;
