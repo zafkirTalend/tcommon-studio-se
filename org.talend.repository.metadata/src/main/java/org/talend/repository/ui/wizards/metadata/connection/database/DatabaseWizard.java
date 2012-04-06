@@ -518,7 +518,8 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
             dbType = metaConnection.getDbType();
             if (sqlConn != null) {
-                DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType);
+                DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType, false,
+                        metaConnection.getDatabase());
                 MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, dbMetaData,
                         MetadataConnectionUtils.getPackageFilter(dbConn, dbMetaData, true));
                 MetadataFillFactory.getDBInstance().fillSchemas(dbConn, dbMetaData,

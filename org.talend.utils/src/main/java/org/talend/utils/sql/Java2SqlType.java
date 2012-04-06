@@ -156,7 +156,7 @@ public final class Java2SqlType {
      * @return
      */
     public static int getTeradataJavaTypeBySqlTypeAsInt(String sqlType) {
-        if (sqlType.trim().equals("DA'")) { //$NON-NLS-1$
+        if (sqlType.trim().equals("DA")) { //$NON-NLS-1$
             return Types.DATE;
         } else if (sqlType.trim().equals("I")) { //$NON-NLS-1$
             return Types.INTEGER;
@@ -187,7 +187,7 @@ public final class Java2SqlType {
      * @return
      */
     public static String getTeradataJavaTypeBySqlTypeAsString(String sqlType) {
-        if (sqlType.trim().equals("DA'")) { //$NON-NLS-1$
+        if (sqlType.trim().equals("DA")) { //$NON-NLS-1$
             return "DATE";
         } else if (sqlType.trim().equals("I")) { //$NON-NLS-1$
             return "INTEGER";
