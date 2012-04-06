@@ -20,6 +20,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
@@ -68,6 +69,7 @@ import org.talend.core.utils.CsvArray;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.datatools.xml.utils.ATreeNode;
 import org.talend.datatools.xml.utils.XSDPopulationUtil2;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.preview.ProcessDescription;
@@ -228,6 +230,25 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
             }
         });
     }
+    /**
+     * getContextXmlPath.
+     * 
+     * @return String
+     */
+    private String getContextXmlPath(XmlFileConnection connection) {
+        String contextXmlPath = "";
+        if (ConnectionContextHelper.getContextTypeForContextMode(connection) == null) {
+            return null;
+        }
+        EList eList = ConnectionContextHelper.getContextTypeForContextMode(connection).getContextParameter();
+        for (int i = 0; i < eList.size(); i++) {
+            ContextParameterType parameterType = (ContextParameterType) eList.get(i);
+            if (parameterType.getPrompt().contains("XmlFilePath")) {
+                contextXmlPath = parameterType.getValue();
+            }
+        }
+        return contextXmlPath;
+    }
 
     /**
      * addButtonControls.
@@ -244,13 +265,18 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
             public void widgetSelected(final SelectionEvent e) {
                 // changed by hqzhang for TDI-13613, old code is strange, maybe caused by duplicated
                 // addUtilsButtonListeners() in addFields() method
+
                 XmlFileConnection connection2 = getConnection();
+
+                String tempXmlFilePath = getContextXmlPath(connection2);
+
                 if (connection2.getXmlFilePath() == null || connection2.getXmlFilePath().equals("")) { //$NON-NLS-1$
                     informationLabel.setText("   " + Messages.getString("FileStep3.filepathAlert") //$NON-NLS-1$ //$NON-NLS-2$
                             + "                                                                              "); //$NON-NLS-1$
                     return;
                 }
-                if (!new File(connection2.getXmlFilePath()).exists()) {
+                if (tempXmlFilePath == null ? (!new File(connection2.getXmlFilePath()).exists()) : (!new File(connection2
+                        .getXmlFilePath()).exists() && !new File(tempXmlFilePath).exists())) {
                     String msg = Messages.getString("FileStep3.fileNotExist");//$NON-NLS-1$
                     informationLabel.setText(MessageFormat.format(msg, connection2.getXmlFilePath()));
                     return;
@@ -306,7 +332,9 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
 
         // getConnection().getXsdFilePath() != null && !getConnection().getXsdFilePath().equals("") &&
         XmlFileConnection connection2 = getConnection();
-        if (XmlUtil.isXSDFile(connection2.getXmlFilePath())) {
+        String tempXmlFilePath = getContextXmlPath(connection2);
+        if (tempXmlFilePath == null ? XmlUtil.isXSDFile(connection2.getXmlFilePath()) : XmlUtil.isXSDFile(connection2
+                .getXmlFilePath()) || XmlUtil.isXSDFile(tempXmlFilePath)) {
             // no preview for XSD file
 
             refreshMetaDataTable(null, ((XmlXPathLoopDescriptor) connection2.getSchema().get(0)).getSchemaTargets(), flag);
@@ -652,8 +680,7 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
         if (super.isVisible()) {
             // getConnection().getXsdFilePath() != null && !getConnection().getXsdFilePath().equals("") &&
             if (getConnection().getXmlFilePath() != null && !getConnection().getXmlFilePath().equals("") //$NON-NLS-1$
-                    && new File(getConnection().getXmlFilePath()).exists())
-            {
+                    && new File(getConnection().getXmlFilePath()).exists()) {
                 runShadowProcess(true);
             }
             ((XmlFileWizard) getPage().getWizard()).setXsdRootChange(false);
