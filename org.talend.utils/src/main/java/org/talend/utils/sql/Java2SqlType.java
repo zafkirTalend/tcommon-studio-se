@@ -148,4 +148,66 @@ public final class Java2SqlType {
         }
         return 0;
     }
+
+    /**
+     * In case of teradata connection is on SQL mode, the datatype must be converted by this method.
+     * 
+     * @param sqlType
+     * @return
+     */
+    public static int getTeradataJavaTypeBySqlTypeAsInt(String sqlType) {
+        if (sqlType.trim().equals("DA'")) { //$NON-NLS-1$
+            return Types.DATE;
+        } else if (sqlType.trim().equals("I")) { //$NON-NLS-1$
+            return Types.INTEGER;
+        } else if (sqlType.trim().equals("I2") || sqlType.trim().equals("I1")) { //$NON-NLS-1$
+            return Types.SMALLINT;
+        } else if (sqlType.trim().equals("F")) { //$NON-NLS-1$
+            return Types.FLOAT;
+        } else if (sqlType.trim().equals("CF") || sqlType.trim().equals("BF")) { //$NON-NLS-1$
+            return Types.CHAR;
+        } else if (sqlType.trim().equals("CV") || sqlType.trim().equals("BV") || sqlType.trim().equals("DM")) { //$NON-NLS-1$
+            return Types.VARCHAR;
+        } else if (sqlType.trim().equals("D")) { //$NON-NLS-1$
+            return Types.DECIMAL;
+        } else if (sqlType.trim().equals("TS") || sqlType.trim().equals("SZ")) { //$NON-NLS-1$
+            return Types.TIMESTAMP;
+        } else if (sqlType.trim().equals("BO")) { //$NON-NLS-1$
+            return Types.BLOB;
+        } else if (sqlType.trim().equals("CO")) { //$NON-NLS-1$
+            return Types.CLOB;
+        }
+        return 0;
+    }
+
+    /**
+     * In case of teradata connection is on SQL mode, the datatype must be converted by this method.
+     * 
+     * @param sqlType
+     * @return
+     */
+    public static String getTeradataJavaTypeBySqlTypeAsString(String sqlType) {
+        if (sqlType.trim().equals("DA'")) { //$NON-NLS-1$
+            return "DATE";
+        } else if (sqlType.trim().equals("I")) { //$NON-NLS-1$
+            return "INTEGER";
+        } else if (sqlType.trim().equals("I2") || sqlType.trim().equals("I1")) { //$NON-NLS-1$
+            return "SMALLINT";
+        } else if (sqlType.trim().equals("F")) { //$NON-NLS-1$
+            return "FLOAT";
+        } else if (sqlType.trim().equals("CF") || sqlType.trim().equals("BF")) { //$NON-NLS-1$
+            return "CHAR";
+        } else if (sqlType.trim().equals("CV") || sqlType.trim().equals("BV") || sqlType.trim().equals("DM")) { //$NON-NLS-1$
+            return "VARCHAR";
+        } else if (sqlType.trim().equals("D")) { //$NON-NLS-1$
+            return "DECIMAL";
+        } else if (sqlType.trim().equals("TS") || sqlType.trim().equals("SZ")) { //$NON-NLS-1$
+            return "TIMESTAMP";
+        } else if (sqlType.trim().equals("BO")) { //$NON-NLS-1$
+            return "BLOB";
+        } else if (sqlType.trim().equals("CO")) { //$NON-NLS-1$
+            return "CLOB";
+        }
+        return "";
+    }
 }
