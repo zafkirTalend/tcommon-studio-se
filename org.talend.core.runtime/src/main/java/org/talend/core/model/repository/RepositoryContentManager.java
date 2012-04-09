@@ -28,27 +28,30 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
  */
 public class RepositoryContentManager {
 
+    static List<IRepositoryContentHandler> handlers = null;
+
     public static List<IRepositoryContentHandler> getHandlers() {
-        List<IRepositoryContentHandler> handlers = new ArrayList<IRepositoryContentHandler>();
-        IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
-        IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint("org.talend.core.repository.repository_content"); //$NON-NLS-1$
-        if (extensionPoint != null) {
-            IExtension[] extensions = extensionPoint.getExtensions();
-            for (IExtension extension : extensions) {
-                IConfigurationElement[] configurationElements = extension.getConfigurationElements();
-                for (IConfigurationElement configurationElement : configurationElements) {
-                    try {
-                        Object service = configurationElement.createExecutableExtension("class"); //$NON-NLS-1$
-                        if (service instanceof IRepositoryContentHandler) {
-                            handlers.add((IRepositoryContentHandler) service);
+        if (handlers == null) {
+            handlers = new ArrayList<IRepositoryContentHandler>();
+            IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
+            IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint("org.talend.core.repository.repository_content"); //$NON-NLS-1$
+            if (extensionPoint != null) {
+                IExtension[] extensions = extensionPoint.getExtensions();
+                for (IExtension extension : extensions) {
+                    IConfigurationElement[] configurationElements = extension.getConfigurationElements();
+                    for (IConfigurationElement configurationElement : configurationElements) {
+                        try {
+                            Object service = configurationElement.createExecutableExtension("class"); //$NON-NLS-1$
+                            if (service instanceof IRepositoryContentHandler) {
+                                handlers.add((IRepositoryContentHandler) service);
+                            }
+                        } catch (CoreException e) {
+                            ExceptionHandler.process(e);
                         }
-                    } catch (CoreException e) {
-                        ExceptionHandler.process(e);
                     }
                 }
             }
         }
-
         return handlers;
     }
 }
