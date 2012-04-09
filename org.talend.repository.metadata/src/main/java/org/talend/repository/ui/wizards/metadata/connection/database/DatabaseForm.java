@@ -644,12 +644,12 @@ public class DatabaseForm extends AbstractForm {
         // Group Database Properties
         Group group1 = Form.createGroup(this, 1, Messages.getString("DatabaseForm.groupDatabaseProperties")); //$NON-NLS-1$
         GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
-        gridData.minimumHeight = 80;
+        gridData.minimumHeight = 135;
         // gridData.heightHint = 80;
         group1.setLayoutData(gridData);
         // Composite compositeGroupDbProperties =
         // Form.startNewGridLayout(group1, 4, false, SWT.LEFT, SWT.CENTER);
-        Composite compositeGroupDbProperties = Form.startNewDimensionnedGridLayout(group1, 4, width, 100);
+        Composite compositeGroupDbProperties = Form.startNewDimensionnedGridLayout(group1, 4, width, 130);
 
         // PTODO !StandBy! (use width SQL Editor): to define the values of SQL
         // Syntax (need by SQL Editor)
