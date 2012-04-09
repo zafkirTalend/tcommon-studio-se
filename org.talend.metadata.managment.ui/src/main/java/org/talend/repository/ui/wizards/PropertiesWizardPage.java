@@ -79,7 +79,7 @@ import org.talend.repository.ui.properties.StatusHelper;
 /**
  * Wizard page contains common properties fields.<br/>
  * 
- * $Id: PropertiesWizardPage.java 914 2006-12-08 08:28:53 +0000 (星期五, 08 十二月 2006) bqian $
+ * $Id: PropertiesWizardPage.java 914 2006-12-08 08:28:53 +0000 (鏄熸湡浜� 08 鍗佷簩鏈�2006) bqian $
  * 
  */
 public abstract class PropertiesWizardPage extends WizardPage {
@@ -895,10 +895,14 @@ public abstract class PropertiesWizardPage extends WizardPage {
             public void modifyText(ModifyEvent e) {
                 if (descriptionText.getText().length() == 0) {
                     commentStatus = createStatus(IStatus.WARNING, Messages.getString("PropertiesWizardPage.EmptyDescWarning")); //$NON-NLS-1$
+                } else if (descriptionText.getText().length() > 255) {
+                    commentStatus = createStatus(IStatus.ERROR, "The length of description must be smaller than 255");
                 } else {
                     commentStatus = createOkStatus();
                 }
-                property.setDescription(StringUtils.trimToNull(descriptionText.getText()));
+                if (commentStatus.getSeverity() == IStatus.OK) {
+                    property.setDescription(StringUtils.trimToNull(descriptionText.getText()));
+                }
                 updatePageStatus();
             }
         });
