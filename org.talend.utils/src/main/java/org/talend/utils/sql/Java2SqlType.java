@@ -155,21 +155,21 @@ public final class Java2SqlType {
      * @return
      */
     public static int getTeradataJavaTypeBySqlTypeAsInt(String sqlType) {
-        if (sqlType.trim().equals("DA'")) { //$NON-NLS-1$
+        if (sqlType.trim().equals("DA")) { //$NON-NLS-1$
             return Types.DATE;
         } else if (sqlType.trim().equals("I")) { //$NON-NLS-1$
             return Types.INTEGER;
-        } else if (sqlType.trim().equals("I2")||sqlType.trim().equals("I1")) { //$NON-NLS-1$
+        } else if (sqlType.trim().equals("I2")||sqlType.trim().equals("I1")) { //$NON-NLS-1$//$NON-NLS-2$
             return Types.SMALLINT;
         } else if (sqlType.trim().equals("F")) { //$NON-NLS-1$
             return Types.FLOAT;
-        } else if (sqlType.trim().equals("CF")||sqlType.trim().equals("BF")) { //$NON-NLS-1$
+        } else if (sqlType.trim().equals("CF")||sqlType.trim().equals("BF")) { //$NON-NLS-1$//$NON-NLS-2$
             return Types.CHAR;
-        } else if (sqlType.trim().equals("CV")||sqlType.trim().equals("BV")||sqlType.trim().equals("DM")) { //$NON-NLS-1$
+        } else if (sqlType.trim().equals("CV")||sqlType.trim().equals("BV")||sqlType.trim().equals("DM")) { //$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
             return Types.VARCHAR;
         } else if (sqlType.trim().equals("D")) { //$NON-NLS-1$
             return Types.DECIMAL;
-        } else if (sqlType.trim().equals("TS")||sqlType.trim().equals("SZ")) { //$NON-NLS-1$
+        } else if (sqlType.trim().equals("TS")||sqlType.trim().equals("SZ")) { //$NON-NLS-1$//$NON-NLS-2$
             return Types.TIMESTAMP;
         } else if (sqlType.trim().equals("BO")) { //$NON-NLS-1$
             return Types.BLOB;
@@ -186,26 +186,26 @@ public final class Java2SqlType {
      */
     public static String getTeradataJavaTypeBySqlTypeAsString(String sqlType) {
         if (sqlType.trim().equals("DA'")) { //$NON-NLS-1$
-            return "DATE";
+            return "DATE";//$NON-NLS-1$
         } else if (sqlType.trim().equals("I")) { //$NON-NLS-1$
-            return "INTEGER";
-        } else if (sqlType.trim().equals("I2")||sqlType.trim().equals("I1")) { //$NON-NLS-1$
-            return "SMALLINT";
+            return "INTEGER";//$NON-NLS-1$
+        } else if (sqlType.trim().equals("I2")||sqlType.trim().equals("I1")) { //$NON-NLS-1$//$NON-NLS-2$
+            return "SMALLINT";//$NON-NLS-1$
         } else if (sqlType.trim().equals("F")) { //$NON-NLS-1$
-            return "FLOAT";
-        } else if (sqlType.trim().equals("CF")||sqlType.trim().equals("BF")) { //$NON-NLS-1$
-            return "CHAR";
-        } else if (sqlType.trim().equals("CV")||sqlType.trim().equals("BV")||sqlType.trim().equals("DM")) { //$NON-NLS-1$
-            return "VARCHAR";
+            return "FLOAT";//$NON-NLS-1$
+        } else if (sqlType.trim().equals("CF")||sqlType.trim().equals("BF")) { //$NON-NLS-1$//$NON-NLS-2$
+            return "CHAR";//$NON-NLS-1$
+        } else if (sqlType.trim().equals("CV")||sqlType.trim().equals("BV")||sqlType.trim().equals("DM")) { //$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
+            return "VARCHAR";//$NON-NLS-1$
         } else if (sqlType.trim().equals("D")) { //$NON-NLS-1$
-            return "DECIMAL";
-        } else if (sqlType.trim().equals("TS")||sqlType.trim().equals("SZ")) { //$NON-NLS-1$
-            return "TIMESTAMP";
+            return "DECIMAL";//$NON-NLS-1$
+        } else if (sqlType.trim().equals("TS")||sqlType.trim().equals("SZ")) { //$NON-NLS-1$//$NON-NLS-2$
+            return "TIMESTAMP";//$NON-NLS-1$
         } else if (sqlType.trim().equals("BO")) { //$NON-NLS-1$
-            return "BLOB";
+            return "BLOB";//$NON-NLS-1$
         } else if (sqlType.trim().equals("CO")) { //$NON-NLS-1$
-            return "CLOB";
+            return "CLOB";//$NON-NLS-1$
         } 
-        return "";
+        return "";//$NON-NLS-1$
     }
 }
