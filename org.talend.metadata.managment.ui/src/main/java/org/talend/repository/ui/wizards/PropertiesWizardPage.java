@@ -895,14 +895,10 @@ public abstract class PropertiesWizardPage extends WizardPage {
             public void modifyText(ModifyEvent e) {
                 if (descriptionText.getText().length() == 0) {
                     commentStatus = createStatus(IStatus.WARNING, Messages.getString("PropertiesWizardPage.EmptyDescWarning")); //$NON-NLS-1$
-                } else if (descriptionText.getText().length() > 255) {
-                    commentStatus = createStatus(IStatus.ERROR, "The length of description must be smaller than 255");
                 } else {
                     commentStatus = createOkStatus();
                 }
-                if (commentStatus.getSeverity() == IStatus.OK) {
-                    property.setDescription(StringUtils.trimToNull(descriptionText.getText()));
-                }
+                property.setDescription(StringUtils.trimToNull(descriptionText.getText()));
                 updatePageStatus();
             }
         });
