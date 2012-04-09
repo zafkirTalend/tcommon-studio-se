@@ -36,11 +36,11 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
 
     private String databaseName;
 
-    private static final String CONST_TABLE = "TABLE";
+    private static final String CONST_TABLE = "TABLE";//$NON-NLS-1$
 
-    private static final String CONST_VIEW = "VIEW";
+    private static final String CONST_VIEW = "VIEW";//$NON-NLS-1$
 
-    private static final String CONST_SYNONYM = "SYNONYM";
+    private static final String CONST_SYNONYM = "SYNONYM";//$NON-NLS-1$
 
     /**
      * 
@@ -167,15 +167,15 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
         String sql = null;
         if (types != null && types.length > 0) {
             // value of index 0 is indicating the table,view or synonym.
-            String kind = "'T'";
+            String kind = "'T'";//$NON-NLS-1$
             if (types[0].equalsIgnoreCase(CONST_VIEW)) {
-                kind = "'V'";
+                kind = "'V'";//$NON-NLS-1$
             } else if (types[0].equalsIgnoreCase(CONST_SYNONYM)) {
                 // TODO check if the alias of synonym is really "S".
-                kind = "'S'";
+                kind = "'S'";//$NON-NLS-1$
             }
             sql = "SELECT * from DBC.TABLES WHERE UPPER(databasename) = UPPER('" + database //$NON-NLS-1$
-                    + "') AND tablekind = " + kind + "  Order by tablename "; //$NON-NLS-1$
+                    + "') AND tablekind = " + kind + "  Order by tablename "; //$NON-NLS-1$//$NON-NLS-2$
         } else {
             // When the types is empty, all the tables and views will be retrieved.
             sql = "SELECT * from DBC.TABLES WHERE UPPER(databasename) = UPPER('" + database //$NON-NLS-1$
@@ -192,7 +192,7 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
             while (rs.next()) {
                 String name = rs.getString("TableName").trim(); //$NON-NLS-1$
                 // for bug 12811
-                if (database == null || "".equals(database)) {
+                if (database == null || "".equals(database)) {//$NON-NLS-1$
                     database = rs.getString("CreatorName").trim(); //$NON-NLS-1$
                 }
                 String type = rs.getString("TableKind").trim(); //$NON-NLS-1$
@@ -319,7 +319,7 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
     public ResultSet getColumns(String catalog, String database, String tableNamePattern, String columnNamePattern)
             throws SQLException {
         // for real
-        String sql = "HELP COLUMN " + database + "." + tableNamePattern + ".* ";
+        String sql = "HELP COLUMN " + database + "." + tableNamePattern + ".* ";//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 
      ResultSet rs = null;
         Statement stmt = null;
