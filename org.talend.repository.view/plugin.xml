@@ -10,7 +10,7 @@
             class="org.talend.repository.navigator.RepoViewCommonNavigator"
             icon="icons/repository_nav.gif"
             id="org.talend.repository.cnf.view"
-            name="CNF Repository"
+            name="%RepositoryView_title"
             restorable="true">
       </view>
    </extension>
@@ -22,9 +22,11 @@
                closeable="true"
                id="org.talend.repository.cnf.view"
                minimized="false"
-               ratio="0.5"
-               relationship="right"
-               showTitle="true">
+               ratio="0.3"
+               relationship="left"
+               relative="org.eclipse.ui.editorss"
+               showTitle="true"
+               visible="true">
          </view>
       </perspectiveExtension>
    </extension>
@@ -124,7 +126,7 @@
          name="filters"
          point="org.eclipse.ui.navigator.navigatorContent">
       <actionProvider
-            class="org.talend.repository.viewer.filter.PerspectiveFilterActionProvider"
+            class="org.talend.repository.viewer.action.RepoGlobalActionProvider"
             id="org.talend.repository.viewer.actionbar.menu.perspectiveFilter">
          <enablement></enablement>
       </actionProvider>
@@ -137,6 +139,11 @@
       <actionProvider
             class="org.talend.repository.viewer.filter.RepositoryFilterSettingActionProvider"
             id="org.talend.repository.viewer.actionbar.menu.repositoryFilterSetting">
+         <enablement></enablement>
+      </actionProvider>
+      <actionProvider
+            class="org.talend.repository.viewer.filter.PerspectiveFilterActionProvider"
+            id="org.talend.repository.viewer.actionbar.global.actions">
          <enablement></enablement>
       </actionProvider>
       <commonFilter
@@ -171,6 +178,9 @@
             </actionExtension>
             <actionExtension
                   pattern="org.talend.repository.viewer.actionbar.menu.*">
+            </actionExtension>
+            <actionExtension
+                  pattern="org.talend.repository.viewer.actionbar.global.*">
             </actionExtension>
          </includes>
       </viewerActionBinding>

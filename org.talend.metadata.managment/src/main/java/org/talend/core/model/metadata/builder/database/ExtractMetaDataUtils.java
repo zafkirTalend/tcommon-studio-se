@@ -35,7 +35,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.commons.utils.database.SASDataBaseMetadata;
@@ -57,11 +56,13 @@ import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IRepositoryNode;
+import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
 import org.talend.utils.sugars.TypedReturnCode;
 
@@ -999,12 +1000,11 @@ public class ExtractMetaDataUtils {
     }
 
     public static boolean haveLoadMetadataNode() {
-        IRepositoryView viewPart = (IRepositoryView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-                .findView(IRepositoryView.VIEW_ID);
-        IRepositoryNode root = viewPart.getRoot();
-        List<IRepositoryNode> chindren = root.getChildren();
-        for (IRepositoryNode repositoryNode : chindren) {
-            if (repositoryNode.getContentType() == ERepositoryObjectType.METADATA) {
+        IRepositoryView repoView = RepositoryManagerHelper.findRepositoryView();
+        if (repoView != null) {
+            IProjectRepositoryNode root = repoView.getRoot();
+            final IRepositoryNode rootRepositoryNode = root.getRootRepositoryNode(ERepositoryObjectType.METADATA);
+            if (rootRepositoryNode != null) {
                 return true;
             }
         }

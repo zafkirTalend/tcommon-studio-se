@@ -1930,270 +1930,302 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         return tableNode;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getCodeNode()
-     */
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getCodeNode()
-     */
-    public RepositoryNode getCodeNode() {
-        return this.codeNode;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getProcessNode()
-     */
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getProcessNode()
-     */
-    public RepositoryNode getProcessNode() {
-        return this.processNode;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataConNode()
-     */
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataConNode()
-     */
-    public RepositoryNode getMetadataConNode() {
-        return this.metadataConNode;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataConNode()
-     */
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataConNode()
-     */
-    public RepositoryNode getMetadataSAPConnectionNode() {
-        return this.metadataSAPConnectionNode;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileNode()
-     */
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileNode()
-     */
-    public RepositoryNode getMetadataFileNode() {
-        return this.metadataFileNode;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFilePositionalNode()
-     */
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFilePositionalNode()
-     */
-    public RepositoryNode getMetadataFilePositionalNode() {
-        return this.metadataFilePositionalNode;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileRegexpNode()
-     */
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileRegexpNode()
-     */
-    public RepositoryNode getMetadataFileRegexpNode() {
-        return this.metadataFileRegexpNode;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileXmlNode()
-     */
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileXmlNode()
-     */
-    public RepositoryNode getMetadataFileXmlNode() {
-        return this.metadataFileXmlNode;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileLdifNode()
-     */
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileLdifNode()
-     */
-    public RepositoryNode getMetadataFileLdifNode() {
-        return this.metadataFileLdifNode;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataLDAPSchemaNode()
-     */
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataLDAPSchemaNode()
-     */
-    public RepositoryNode getMetadataLDAPSchemaNode() {
-        return this.metadataLDAPSchemaNode;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataWSDLSchemaNode()
-     */
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataWSDLSchemaNode()
-     */
-    public RepositoryNode getMetadataWSDLSchemaNode() {
-        return this.metadataWSDLSchemaNode;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileExcelNode()
-     */
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileExcelNode()
-     */
-    public RepositoryNode getMetadataFileExcelNode() {
-        return this.metadataFileExcelNode;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataSalesforceSchemaNode()
-     */
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataSalesforceSchemaNode()
-     */
-    public RepositoryNode getMetadataSalesforceSchemaNode() {
-        return this.metadataSalesforceSchemaNode;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getJobletNode()
-     */
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getJobletNode()
-     */
-    public RepositoryNode getJobletNode() {
-        return this.jobletNode;
-    }
-
-    public RepositoryNode getReferenceProjectNode() {
-        return this.refProject;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataNode()
-     */
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataNode()
-     */
-    public RepositoryNode getMetadataNode() {
-        return this.metadataNode;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataGenericSchemaNode()
-     */
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataGenericSchemaNode()
-     */
-    public RepositoryNode getMetadataGenericSchemaNode() {
-        return this.metadataGenericSchemaNode;
-    }
-
-    public RepositoryNode getMetadataEbcdicConnectionNode() {
-        return this.metadataEbcdicConnectionNode;
-    }
-
-    public RepositoryNode getMetadataHL7ConnectionNode() {
-        return this.metadataHL7ConnectionNode;
-    }
-
-    public RepositoryNode getMetadataFTPConnectionNode() {
-        return this.metadataFTPConnectionNode;
-    }
-
-    public RepositoryNode getMetadataBRMSConnectionNode() {
-        return this.metadataBRMSConnectionNode;
-    }
-
-    public RepositoryNode getMetadataMDMConnectionNode() {
-        return this.metadataMDMConnectionNode;
-    }
-
-    public RepositoryNode getContextNode() {
-        return this.contextNode;
-    }
-
-    public RepositoryNode getBusinessProcessNode() {
-        return this.businessProcessNode;
-    }
-
-    public RepositoryNode getRoutineNode() {
-        return this.routineNode;
-    }
-
-    public RepositoryNode getSQLPatternNode() {
-        return this.sqlPatternNode;
-    }
-
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getCodeNode()
+    // */
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getCodeNode()
+    // */
+    // public RepositoryNode getCodeNode() {
+    // return this.codeNode;
+    // }
+    //
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getProcessNode()
+    // */
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getProcessNode()
+    // */
+    // public RepositoryNode getProcessNode() {
+    // return this.processNode;
+    // }
+    //
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataConNode()
+    // */
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataConNode()
+    // */
+    // public RepositoryNode getMetadataConNode() {
+    // return this.metadataConNode;
+    // }
+    //
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataConNode()
+    // */
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataConNode()
+    // */
+    // public RepositoryNode getMetadataSAPConnectionNode() {
+    // return this.metadataSAPConnectionNode;
+    // }
+    //
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileNode()
+    // */
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileNode()
+    // */
+    // public RepositoryNode getMetadataFileNode() {
+    // return this.metadataFileNode;
+    // }
+    //
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFilePositionalNode()
+    // */
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFilePositionalNode()
+    // */
+    // public RepositoryNode getMetadataFilePositionalNode() {
+    // return this.metadataFilePositionalNode;
+    // }
+    //
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileRegexpNode()
+    // */
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileRegexpNode()
+    // */
+    // public RepositoryNode getMetadataFileRegexpNode() {
+    // return this.metadataFileRegexpNode;
+    // }
+    //
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileXmlNode()
+    // */
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileXmlNode()
+    // */
+    // public RepositoryNode getMetadataFileXmlNode() {
+    // return this.metadataFileXmlNode;
+    // }
+    //
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileLdifNode()
+    // */
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileLdifNode()
+    // */
+    // public RepositoryNode getMetadataFileLdifNode() {
+    // return this.metadataFileLdifNode;
+    // }
+    //
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataLDAPSchemaNode()
+    // */
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataLDAPSchemaNode()
+    // */
+    // public RepositoryNode getMetadataLDAPSchemaNode() {
+    // return this.metadataLDAPSchemaNode;
+    // }
+    //
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataWSDLSchemaNode()
+    // */
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataWSDLSchemaNode()
+    // */
+    // public RepositoryNode getMetadataWSDLSchemaNode() {
+    // return this.metadataWSDLSchemaNode;
+    // }
+    //
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileExcelNode()
+    // */
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileExcelNode()
+    // */
+    // public RepositoryNode getMetadataFileExcelNode() {
+    // return this.metadataFileExcelNode;
+    // }
+    //
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataSalesforceSchemaNode()
+    // */
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataSalesforceSchemaNode()
+    // */
+    // public RepositoryNode getMetadataSalesforceSchemaNode() {
+    // return this.metadataSalesforceSchemaNode;
+    // }
+    //
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getJobletNode()
+    // */
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getJobletNode()
+    // */
+    // public RepositoryNode getJobletNode() {
+    // return this.jobletNode;
+    // }
+    //
+    // public RepositoryNode getReferenceProjectNode() {
+    // return this.refProject;
+    // }
+    //
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataNode()
+    // */
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataNode()
+    // */
+    // public RepositoryNode getMetadataNode() {
+    // return this.metadataNode;
+    // }
+    //
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataGenericSchemaNode()
+    // */
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataGenericSchemaNode()
+    // */
+    // public RepositoryNode getMetadataGenericSchemaNode() {
+    // return this.metadataGenericSchemaNode;
+    // }
+    //
+    // public RepositoryNode getMetadataEbcdicConnectionNode() {
+    // return this.metadataEbcdicConnectionNode;
+    // }
+    //
+    // public RepositoryNode getMetadataHL7ConnectionNode() {
+    // return this.metadataHL7ConnectionNode;
+    // }
+    //
+    // public RepositoryNode getMetadataFTPConnectionNode() {
+    // return this.metadataFTPConnectionNode;
+    // }
+    //
+    // public RepositoryNode getMetadataBRMSConnectionNode() {
+    // return this.metadataBRMSConnectionNode;
+    // }
+    //
+    // public RepositoryNode getMetadataMDMConnectionNode() {
+    // return this.metadataMDMConnectionNode;
+    // }
+    //
+    // public RepositoryNode getContextNode() {
+    // return this.contextNode;
+    // }
+    //
+    // public RepositoryNode getBusinessProcessNode() {
+    // return this.businessProcessNode;
+    // }
+    //
+    // public RepositoryNode getRoutineNode() {
+    // return this.routineNode;
+    // }
+    //
+    // public RepositoryNode getSQLPatternNode() {
+    // return this.sqlPatternNode;
+    // }
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.nodes.IProjectRepositoryNode#getMetadataRulesNode()
+    // */
+    // public RepositoryNode getMetadataRulesNode() {
+    // return this.metadataRulesNode;
+    // }
+    //
+    // public RepositoryNode getMetadataValidationRulesNode() {
+    // return this.metadataValidationRulesNode;
+    // }
+    //
+    // public RepositoryNode getMetadataEdifactNode() {
+    // return this.metadataEDIFactConnectionNode;
+    // }
+    //
+    // public RepositoryNode getDocNode() {
+    // return this.docNode;
+    // }
+    //
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.repository.model.nodes.IProjectRepositoryNode#getMetadataHeaderFooterConnectionNode()
+    // */
+    // public RepositoryNode getMetadataHeaderFooterConnectionNode() {
+    // return this.metadataHeaderFooterConnectionNode;
+    // }
+    //
+    // public IRepositoryNode getJobScriptNode() {
+    // return this.jobscriptsNode;
+    // }
     /*
      * (non-Javadoc)
      * 
@@ -2298,15 +2330,6 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.repository.model.nodes.IProjectRepositoryNode#isMainProject()
-     */
-    public boolean isMainProject() {
-        return getParent() == null;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
      * @see org.talend.repository.model.nodes.IProjectRepositoryNode#getRecBinNode()
      */
     public RepositoryNode getRecBinNode() {
@@ -2317,40 +2340,6 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         IPreferenceStore preferenceStore = RepositoryManager.getPreferenceStore();
         this.mergeRefProject = preferenceStore.getBoolean(IRepositoryPrefConstants.MERGE_REFERENCE_PROJECT);
         return this.mergeRefProject;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.nodes.IProjectRepositoryNode#getMetadataRulesNode()
-     */
-    public RepositoryNode getMetadataRulesNode() {
-        return this.metadataRulesNode;
-    }
-
-    public RepositoryNode getMetadataValidationRulesNode() {
-        return this.metadataValidationRulesNode;
-    }
-
-    public RepositoryNode getMetadataEdifactNode() {
-        return this.metadataEDIFactConnectionNode;
-    }
-
-    public RepositoryNode getDocNode() {
-        return this.docNode;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.nodes.IProjectRepositoryNode#getMetadataHeaderFooterConnectionNode()
-     */
-    public RepositoryNode getMetadataHeaderFooterConnectionNode() {
-        return this.metadataHeaderFooterConnectionNode;
-    }
-
-    public IRepositoryNode getJobScriptNode() {
-        return this.jobscriptsNode;
     }
 
     @Override

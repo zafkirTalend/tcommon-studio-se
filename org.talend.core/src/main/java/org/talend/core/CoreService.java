@@ -84,7 +84,6 @@ import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.joblet.ui.IJobCheckService;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.repository.model.ComponentsFactoryProvider;
-import org.talend.repository.model.IRepositoryNode;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -147,15 +146,6 @@ public class CoreService implements ICoreService {
      */
     public boolean getContextFlagFromQueryUtils() {
         return QueryUtil.isContextQuery;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.ICoreService#getRoot()
-     */
-    public IRepositoryNode getRoot() {
-        return RepositoryManager.getRepositoryView().getRoot();
     }
 
     /*

@@ -23,11 +23,8 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.ui.IViewPart;
-import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.FolderType;
@@ -37,6 +34,7 @@ import org.talend.core.model.properties.SAPConnectionItem;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
 import org.talend.repository.ProjectManager;
@@ -84,7 +82,7 @@ public class RepositoryNodeUtilities {
                 return getPath(node.getParent()).append(label);
             }
         } else {
-            if (!isMetadataLabel(label) && node.getType() != ENodeType.REPOSITORY_ELEMENT) {
+            if (/* !isMetadataLabel(label) && */node.getType() != ENodeType.REPOSITORY_ELEMENT) {
                 return getPath(node.getParent()).append(label);
             } else {
                 return getPath(node.getParent());
@@ -111,49 +109,40 @@ public class RepositoryNodeUtilities {
     }
 
     public static IRepositoryView getRepositoryView() {
-        IViewPart part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView(IRepositoryView.VIEW_ID);
-        if (part == null) {
-            try {
-                part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(IRepositoryView.VIEW_ID);
-            } catch (Exception e) {
-                ExceptionHandler.process(e);
-            }
-        }
-
-        return (IRepositoryView) part;
+        return RepositoryManagerHelper.getRepositoryView();
     }
 
-    /**
-     * Gather all view's metadata children nodes dynamic and get their label.
-     * <p>
-     * DOC YeXiaowei Comment method "isMetadataLabel".
-     * 
-     * @param label
-     * @return
-     */
-    private static boolean isMetadataLabel(final String label) {
-
-        if (!PluginChecker.isOnlyTopLoaded() && !CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {
-            IRepositoryView view = getRepositoryView();
-            if (view == null) {
-                return false;
-            }
-
-            String[] metadataLabels = view.gatherMetadataChildenLabels();
-            if (metadataLabels == null || metadataLabels.length <= 0) {
-                return false;
-            }
-
-            for (String mlabel : metadataLabels) {
-                if (mlabel.equals(label)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-
-    }
+    // /**
+    // * Gather all view's metadata children nodes dynamic and get their label.
+    // * <p>
+    // * DOC YeXiaowei Comment method "isMetadataLabel".
+    // *
+    // * @param label
+    // * @return
+    // */
+    // private static boolean isMetadataLabel(final String label) {
+    //
+    // if (!PluginChecker.isOnlyTopLoaded() && !CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {
+    // IRepositoryView view = getRepositoryView();
+    // if (view == null) {
+    // return false;
+    // }
+    //
+    // String[] metadataLabels = view.gatherMetadataChildenLabels();
+    // if (metadataLabels == null || metadataLabels.length <= 0) {
+    // return false;
+    // }
+    //
+    // for (String mlabel : metadataLabels) {
+    // if (mlabel.equals(label)) {
+    // return true;
+    // }
+    // }
+    // }
+    //
+    // return false;
+    //
+    // }
 
     /**
      * 
@@ -231,7 +220,7 @@ public class RepositoryNodeUtilities {
         if (view == null) {
             return null;
         }
-        return getRepositoryNode(view.getRoot(), curNode, view, expanded);
+        return getRepositoryNode((IRepositoryNode) view.getRoot(), curNode, view, expanded);
     }
 
     private static RepositoryNode getRepositoryNode(IRepositoryNode rootNode, IRepositoryViewObject curNode,
@@ -271,7 +260,7 @@ public class RepositoryNodeUtilities {
     }
 
     public static void expandNode(IRepositoryView view, RepositoryNode curNode, Set<RepositoryNode> nodes) {
-        getRepositoryCheckedNode(view.getRoot(), curNode.getObject(), view, true, nodes);
+        getRepositoryCheckedNode((IRepositoryNode) view.getRoot(), curNode.getObject(), view, true, nodes);
     }
 
     private static RepositoryNode getRepositoryCheckedNode(IRepositoryNode rootNode, IRepositoryViewObject curNode,
@@ -560,19 +549,21 @@ public class RepositoryNodeUtilities {
         // repository.
 
         IRepositoryView viewPart = getRepositoryView();
-        ISelection repositoryViewSelection = viewPart.getViewer().getSelection();
+        if (viewPart != null) {
+            ISelection repositoryViewSelection = viewPart.getViewer().getSelection();
 
-        if (repositoryViewSelection instanceof IStructuredSelection) {
-            RepositoryNode selectedRepositoryNode = (RepositoryNode) ((IStructuredSelection) repositoryViewSelection)
-                    .getFirstElement();
-            // fixed for the opened job and lost the selected node.
-            if (object != null) {
+            if (repositoryViewSelection instanceof IStructuredSelection) {
+                RepositoryNode selectedRepositoryNode = (RepositoryNode) ((IStructuredSelection) repositoryViewSelection)
+                        .getFirstElement();
+                // fixed for the opened job and lost the selected node.
+                if (object != null) {
 
-                selectedRepositoryNode = getRepositoryNode(object, false);
+                    selectedRepositoryNode = getRepositoryNode(object, false);
 
-            }
-            if (selectedRepositoryNode != null) {
-                return selectedRepositoryNode.getParent();
+                }
+                if (selectedRepositoryNode != null) {
+                    return selectedRepositoryNode.getParent();
+                }
             }
         }
         return null;

@@ -71,10 +71,12 @@ public class RepositoryCommonViewerFilter extends ViewerFilter {
         }
 
         boolean visible = true;
-        RepositoryNode node = (RepositoryNode) element;
-        if (ENodeType.REPOSITORY_ELEMENT.equals(node.getType()) || ENodeType.SIMPLE_FOLDER.equals(node.getType())) {
-            visible = filterByUserStatusName(node);
+        if (element instanceof RepositoryNode) {
+            RepositoryNode node = (RepositoryNode) element;
+            if (ENodeType.REPOSITORY_ELEMENT.equals(node.getType()) || ENodeType.SIMPLE_FOLDER.equals(node.getType())) {
+                visible = filterByUserStatusName(node);
 
+            }
         }
 
         return visible;

@@ -19,7 +19,6 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
@@ -44,10 +43,8 @@ import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.repository.model.IMetadataService;
 import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.model.IRepositoryNode;
-import org.talend.repository.model.IRepositoryNode.EProperties;
+import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
-import org.talend.repository.ui.views.IRepositoryView;
 import orgomg.cwm.objectmodel.core.Package;
 
 /**
@@ -199,31 +196,8 @@ public class SaveAsGenericSchemaCommand extends Command {
     // return false;
     // }
 
-    public IRepositoryView getRepositoryView() {
-        IViewPart findView = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-                .findView(IRepositoryView.VIEW_ID);
-        return (IRepositoryView) findView;
-    }
-
     public RepositoryNode getGenericSchemaNode() {
-        List<IRepositoryNode> children = getRepositoryView().getRoot().getChildren();
-        boolean isGenericSchema = false;
-        for (IRepositoryNode node : children) {
-            isGenericSchema = node.getObjectType() == ERepositoryObjectType.METADATA_GENERIC_SCHEMA;
-            if (isGenericSchema) {
-                return (RepositoryNode) node;
-            } else {
-                for (int i = 0; i < node.getChildren().size(); i++) {
-                    IRepositoryNode repositoryNode = node.getChildren().get(i);
-                    Object properties = repositoryNode.getProperties(EProperties.CONTENT_TYPE);
-                    isGenericSchema = properties == ERepositoryObjectType.METADATA_GENERIC_SCHEMA;
-                    if (isGenericSchema) {
-                        return (RepositoryNode) repositoryNode;
-                    }
-                }
-            }
-        }
-        return null;
+        return ProjectRepositoryNode.getInstance().getRootRepositoryNode(ERepositoryObjectType.METADATA_GENERIC_SCHEMA);
     }
 
     /**

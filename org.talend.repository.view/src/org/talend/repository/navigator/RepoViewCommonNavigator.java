@@ -41,16 +41,13 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IPartListener;
-import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewSite;
-import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.contexts.IContextActivation;
 import org.eclipse.ui.contexts.IContextService;
-import org.eclipse.ui.internal.WorkbenchPage;
 import org.eclipse.ui.internal.dialogs.EventLoopProgressMonitor;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.navigator.CommonViewer;
@@ -97,6 +94,7 @@ import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.actions.MoveObjectAction;
+import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
 import org.talend.repository.ui.views.RepositoryDropAdapter;
 
@@ -130,7 +128,7 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
      * 
      * @param listeners
      */
-    public static void addPreparedListeners(ISelectionChangedListener listeners) {
+    public void addPreparedListeners(ISelectionChangedListener listeners) {
         if (listeners != null) {
             listenersNeedTobeAddedIntoTreeviewer.add(listeners);
         }
@@ -164,35 +162,6 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
             codeGenerationEngineInitialised = true;
         }
 
-    }
-
-    public static IRepositoryView show() {
-        IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-        if (page != null) {
-            IViewPart part = page.findView(IRepositoryView.VIEW_ID);
-            // MOD klliu check TIS is started bug TDQ-3238
-            if (part == null && PluginChecker.isTIS()) {
-                try {
-                    // MOD by zshen for 15750 todo 39 if the Perspective is DataProfilingPerspective refuse the
-                    // RepositoryView be display by automatic
-                    if (PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getPerspective().getId()
-                            .equalsIgnoreCase("org.talend.dataprofiler.DataProfilingPerspective")) {//$NON-NLS-1$
-                        part = ((WorkbenchPage) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage())
-                                .getViewFactory().createView(IRepositoryView.VIEW_ID).getView(true);
-                    } else {
-                        // bug 16594
-                        String perId = page.getPerspective().getId();
-                        if ((!"".equals(perId) || null != perId) && perId.equalsIgnoreCase(PERSPECTIVE_DI_ID)) {
-                            part = page.showView(IRepositoryView.VIEW_ID);
-                        }
-                    }
-                } catch (Exception e) {
-                    ExceptionHandler.process(e);
-                }
-            }
-            return (IRepositoryView) part;
-        }
-        return null;
     }
 
     /*
@@ -741,36 +710,9 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
         viewer.setExpandedState(object, state);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.ui.repository.views.IRepositoryView#getSystemFolders()
-     * 
-     * @deprecate to be removed, returns null;
-     */
     @Override
-    @Deprecated
-    public RepositoryNode getRoot() {
-        return null;
-    }
-
-    @Override
-    public List<IRepositoryViewObject> getAll(ERepositoryObjectType type) {
-        // TODO to be re-implmented not relying on root
-        // may be look for for the tree input or root nodes for a ProjectRepositoryNode or an adapter of
-        // ProjectRepositoryNode
-        throw new RuntimeException("To be implemented");
-        // // find the system folder
-        // RepositoryNode container = findContainer(root, type);
-        //
-        // if (container == null) {
-        //            throw new IllegalArgumentException(type + Messages.getString("RepositoryView.notfound")); //$NON-NLS-1$
-        // }
-        //
-        // List<IRepositoryViewObject> result = new ArrayList<IRepositoryViewObject>();
-        // addElement(result, type, container);
-        // addElement(result, type, root.getRecBinNode());
-        // return result;
+    public IProjectRepositoryNode getRoot() {
+        return ProjectRepositoryNode.getInstance();
     }
 
     /*
@@ -801,11 +743,6 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
         refresh();
     }
 
-    @Override
-    public String[] gatherMetadataChildenLabels() {
-        return new String[0];// contentProvider.gatherMetdataChildrens();
-    }
-
     /*
      * (non-Javadoc)
      * 
@@ -814,17 +751,16 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
      */
     @Override
     public boolean containsRepositoryType(ERepositoryObjectType type) {
-        // PTODO be implemented, later
-        return false;
+        return researchRootRepositoryNode(type) != null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.ui.views.IRepositoryView#isFakeView()
-     */
-    @Override
-    public boolean isFakeView() {
-        return false;
+    private RepositoryNode researchRootRepositoryNode(ERepositoryObjectType type) {
+
+        if (type != null && getRoot() instanceof ProjectRepositoryNode) {
+            ProjectRepositoryNode pRoot = (ProjectRepositoryNode) getRoot();
+            return pRoot.getRootRepositoryNode(type);
+
+        }
+        return null;
     }
 }

@@ -29,14 +29,13 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.IActionDelegate2;
-import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowPulldownDelegate2;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.WWinPluginPulldown;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.repository.ui.actions.AContextualAction;
@@ -148,8 +147,10 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
 
     protected void fillMenu(Menu menu) {
 
-        IRepositoryView repositoryView = getRepositoryView();
-
+        IRepositoryView repositoryView = RepositoryManagerHelper.findRepositoryView();
+        if (repositoryView == null) {
+            return;
+        }
         if (repositoryView.containsRepositoryType(ERepositoryObjectType.PROCESS)) {
             IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
                     IDesignerCoreService.class);
@@ -317,12 +318,6 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
             }
         });
 
-    }
-
-    private IRepositoryView getRepositoryView() {
-        IViewPart findView = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-                .findView(IRepositoryView.VIEW_ID);
-        return (IRepositoryView) findView;
     }
 
 }

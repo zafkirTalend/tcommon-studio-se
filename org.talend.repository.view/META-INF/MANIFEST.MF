@@ -4,6 +4,7 @@ Bundle-Name: Viewer
 Bundle-SymbolicName: org.talend.repository.view;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: .Talend.
+Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.ui.navigator,

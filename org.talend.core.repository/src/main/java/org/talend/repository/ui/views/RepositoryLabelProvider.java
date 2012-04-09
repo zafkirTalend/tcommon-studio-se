@@ -283,27 +283,25 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
                 return ImageProvider.getImage(node.getIcon());
             } else if (repositoryObjectType == ERepositoryObjectType.METADATA_CON_TABLE) {
                 Image tableImage = ImageProvider.getImage(node.getIcon());
-                if (!getView().isFakeView()) {
-                    Item item = node.getObject().getProperty().getItem();
-                    if (item != null && item instanceof DatabaseConnectionItem) {
-                        if (PluginChecker.isCDCPluginLoaded()) {
-                            ICDCProviderService service = (ICDCProviderService) GlobalServiceRegister.getDefault().getService(
-                                    ICDCProviderService.class);
-                            if (service != null) {
-                                String cdcLinkId = service.getCDCConnectionLinkId((DatabaseConnectionItem) item);
-                                if (cdcLinkId != null) { // cdc connection exist.
-                                    if (node.getObject() instanceof MetadataTableRepositoryObject) {
-                                        MetadataTable table = ((MetadataTableRepositoryObject) node.getObject()).getTable();
-                                        String tableType = table.getTableType();
-                                        if (tableType != null && "TABLE".equals(tableType)) { //$NON-NLS-1$
-                                            ECDCStatus status = ECDCStatus.NONE;
-                                            if (table.isActivatedCDC()) {
-                                                status = ECDCStatus.ACTIVATED;
-                                            } else if (table.isAttachedCDC()) {
-                                                status = ECDCStatus.ADDED;
-                                            }
-                                            return OverlayImageProvider.getImageWithCDCStatus(tableImage, status).createImage();
+                Item item = node.getObject().getProperty().getItem();
+                if (item != null && item instanceof DatabaseConnectionItem) {
+                    if (PluginChecker.isCDCPluginLoaded()) {
+                        ICDCProviderService service = (ICDCProviderService) GlobalServiceRegister.getDefault().getService(
+                                ICDCProviderService.class);
+                        if (service != null) {
+                            String cdcLinkId = service.getCDCConnectionLinkId((DatabaseConnectionItem) item);
+                            if (cdcLinkId != null) { // cdc connection exist.
+                                if (node.getObject() instanceof MetadataTableRepositoryObject) {
+                                    MetadataTable table = ((MetadataTableRepositoryObject) node.getObject()).getTable();
+                                    String tableType = table.getTableType();
+                                    if (tableType != null && "TABLE".equals(tableType)) { //$NON-NLS-1$
+                                        ECDCStatus status = ECDCStatus.NONE;
+                                        if (table.isActivatedCDC()) {
+                                            status = ECDCStatus.ACTIVATED;
+                                        } else if (table.isAttachedCDC()) {
+                                            status = ECDCStatus.ADDED;
                                         }
+                                        return OverlayImageProvider.getImageWithCDCStatus(tableImage, status).createImage();
                                     }
                                 }
                             }

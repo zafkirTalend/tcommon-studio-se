@@ -19,10 +19,10 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.rcp.i18n.Messages;
-import org.talend.repository.ui.views.IRepositoryView;
 
 /**
  * Displays the Login Dialog for choose a project to Open. <br/>
@@ -67,9 +67,9 @@ public class SwitchProjectAction extends Action {
                 && GlobalServiceRegister.getDefault().isServiceRegistered(IDiagramModelService.class)
                 && CorePlugin.getDefault().getDiagramModelService()
                         .isBusinessDiagramEditor(workbenchWindow.getActivePage().getActiveEditor())) {
-            IViewReference findViewReference = workbenchWindow.getActivePage().findViewReference(IRepositoryView.VIEW_ID);
-            if (findViewReference != null) {
-                findViewReference.getView(false).setFocus();
+            IViewReference repoViewRef = RepositoryManagerHelper.findRepositoryViewRef();
+            if (repoViewRef != null) {
+                repoViewRef.getView(false).setFocus();
             }
         }
 

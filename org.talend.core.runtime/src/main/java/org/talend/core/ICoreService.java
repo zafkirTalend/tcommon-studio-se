@@ -35,7 +35,6 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
-import org.talend.repository.model.IRepositoryNode;
 
 /**
  * DOC hywang class global comment. Detailled comment
@@ -61,8 +60,6 @@ public interface ICoreService extends IService {
     public void setFlagForQueryUtils(boolean flag);
 
     public boolean getContextFlagFromQueryUtils();
-
-    public IRepositoryNode getRoot();
 
     public Map<String, List<URI>> getRoutineAndJars();
 

@@ -30,7 +30,6 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.ISaveablePart2;
-import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
@@ -51,6 +50,7 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryViewObject;
+import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
@@ -281,8 +281,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
                 return (IRepositoryView) workbenchPart;
             }
         }
-        IViewPart viewPart = getActivePage().findView(IRepositoryView.VIEW_ID);
-        return (IRepositoryView) viewPart;
+        return RepositoryManagerHelper.findRepositoryView();
     }
 
     /**
@@ -334,10 +333,14 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         if (selection == null) {
             return null;
         }
-        Object obj = ((IStructuredSelection) selection).getFirstElement();
+        Object obj = null;
+        if (selection instanceof IStructuredSelection) {
+            obj = ((IStructuredSelection) selection).getFirstElement();
+
+        }
         if (obj == null) {
             selection = getSelection();
-            if (selection != null) {
+            if (selection != null && selection instanceof IStructuredSelection) {
                 obj = ((IStructuredSelection) selection).getFirstElement();
             }
         }
@@ -406,7 +409,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         if (repositoryView == null) {
             return null;
         }
-        return searchRepositoryNode(repositoryView.getRoot(), type);
+        return searchRepositoryNode((IRepositoryNode) repositoryView.getRoot(), type);
     }
 
     private RepositoryNode searchRepositoryNode(IRepositoryNode root, ERepositoryObjectType type) {

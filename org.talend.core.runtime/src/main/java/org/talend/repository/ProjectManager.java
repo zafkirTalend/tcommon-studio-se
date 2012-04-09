@@ -36,12 +36,14 @@ import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.IReferencedProjectService;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IProxyRepositoryService;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
+import org.talend.repository.ui.views.IRepositoryView;
 
 /**
  * ggu class global comment. Detailled comment
@@ -330,8 +332,17 @@ public final class ProjectManager {
     }
 
     public static IProjectRepositoryNode researchProjectNode(Project project) {
-        IProjectRepositoryNode root = (IProjectRepositoryNode) coreSerivce.getRoot();
-        if (project == null || root.getProject().equals(project)) {
+        final IRepositoryView repositoryView = RepositoryManager.getRepositoryView();
+        if (repositoryView != null && project != null) {
+            IProjectRepositoryNode root = (IProjectRepositoryNode) repositoryView.getRoot();
+            return researchProjectNode(root, project);
+        }
+        return null;
+    }
+
+    private static IProjectRepositoryNode researchProjectNode(IProjectRepositoryNode root, Project project) {
+        final String technicalLabel = project.getTechnicalLabel();
+        if (project == null || root.getProject().getTechnicalLabel().equals(technicalLabel)) {
             return root;
         }
         IRepositoryNode refRoot = root.getRootRepositoryNode(ERepositoryObjectType.REFERENCED_PROJECTS);
@@ -339,8 +350,9 @@ public final class ProjectManager {
             for (IRepositoryNode node : refRoot.getChildren()) {
                 if (node instanceof IProjectRepositoryNode) {
                     IProjectRepositoryNode pNode = (IProjectRepositoryNode) node;
-                    if (pNode.getProject().getTechnicalLabel().equals(project.getTechnicalLabel())) {
-                        return pNode;
+                    final IProjectRepositoryNode foundProjectNode = researchProjectNode(pNode, project);
+                    if (foundProjectNode != null) {
+                        return foundProjectNode;
                     }
                 }
             }

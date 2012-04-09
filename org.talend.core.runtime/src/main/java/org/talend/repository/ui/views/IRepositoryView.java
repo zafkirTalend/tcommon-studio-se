@@ -12,14 +12,11 @@
 // ============================================================================
 package org.talend.repository.ui.views;
 
-import java.util.List;
-
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.ui.IViewPart;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.model.nodes.IProjectRepositoryNode;
 
 /**
  * Defines all methods a repository view must provides. Actually the only view implementing this interface is
@@ -30,7 +27,7 @@ import org.talend.repository.model.RepositoryNode;
  */
 public interface IRepositoryView extends IViewPart {
 
-    public static final String VIEW_ID = "org.talend.repository.views.repository"; //$NON-NLS-1$
+    public static final String VIEW_ID = "org.talend.repository.cnf.view"; //$NON-NLS-1$
 
     public StructuredViewer getViewer();
 
@@ -52,16 +49,11 @@ public interface IRepositoryView extends IViewPart {
 
     public boolean getExpandedState(Object object);
 
-    public IRepositoryNode getRoot();
-
-    public List<IRepositoryViewObject> getAll(ERepositoryObjectType type);
+    public IProjectRepositoryNode getRoot();
 
     /** only for repository manager. */
     public void refreshAllChildNodes(RepositoryNode rootNode);
 
     public boolean containsRepositoryType(ERepositoryObjectType type);
 
-    public String[] gatherMetadataChildenLabels();
-
-    public boolean isFakeView();
 }

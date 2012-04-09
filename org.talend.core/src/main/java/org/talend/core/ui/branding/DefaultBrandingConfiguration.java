@@ -39,6 +39,7 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.service.ICorePerlService;
 import org.talend.core.tis.ICoreTisService;
 import org.talend.repository.model.IRepositoryNode;
+import org.talend.repository.ui.views.IRepositoryView;
 
 /**
  * DefaultBrandingConfiguration is as TIS BrandingConfiguration(don't hide repository Nodes or Components),all other
@@ -109,7 +110,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
             //        String navigatorId = "org.eclipse.ui.views.ResourceNavigator"; //$NON-NLS-1$
             String outlineId = "org.eclipse.ui.views.ContentOutline"; //$NON-NLS-1$
             String codeId = "org.talend.designer.core.codeView"; //$NON-NLS-1$
-            String repositoryId = "org.talend.repository.views.repository"; //$NON-NLS-1$
+            String repositoryId = IRepositoryView.VIEW_ID;
 
             String runProcessViewId = "org.talend.designer.runprocess.ui.views.processview"; //$NON-NLS-1$
             //        String problemsViewId = "org.talend.designer.core.ui.views.ProblemsView"; //$NON-NLS-1$

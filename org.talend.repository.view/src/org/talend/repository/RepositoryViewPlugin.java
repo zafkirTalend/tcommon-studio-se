@@ -63,11 +63,4 @@ public class RepositoryViewPlugin extends AbstractUIPlugin {
         return splits;
     }
 
-    /**
-     * 
-     * FIXME, later, if the old view is removed, will change or reuse this id. so, it's temp to fix it here.
-     */
-    public static String getCnfViewId() {
-        return "org.talend.repository.cnf.view";
-    }
 }

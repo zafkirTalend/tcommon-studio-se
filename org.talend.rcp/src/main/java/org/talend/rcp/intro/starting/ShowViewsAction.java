@@ -20,6 +20,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.intro.IIntroSite;
 import org.eclipse.ui.intro.config.IIntroAction;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.repository.ui.views.IRepositoryView;
 
 /**
  * 
@@ -41,7 +42,7 @@ public class ShowViewsAction implements IIntroAction {
 
     private static String gefViewId = "org.eclipse.gef.ui.palette_view";
 
-    private static String repositoryViewId = "org.talend.repository.views.repository";
+    private static String repositoryViewId = IRepositoryView.VIEW_ID;
 
     private static String processViewId = "org.talend.designer.runprocess.ui.views.processview";
 

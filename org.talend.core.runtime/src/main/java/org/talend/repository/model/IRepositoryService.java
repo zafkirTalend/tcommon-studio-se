@@ -17,7 +17,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -116,8 +115,6 @@ public interface IRepositoryService extends IService {
     public IRepositoryNode getRootRepositoryNode(ERepositoryObjectType type);
 
     public TreeViewer getRepositoryTreeView();
-
-    public Action getRepositoryViewDoubleClickAction();
 
     public void setInternalNodeHTMLMap(INode node, Map<String, Object> internalNodeHTMLMap);
 

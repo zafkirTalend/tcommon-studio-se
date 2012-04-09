@@ -12,8 +12,6 @@
 // ============================================================================
 package org.talend.repository.viewer.label;
 
-import java.util.List;
-
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.swt.graphics.Color;
@@ -30,10 +28,9 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.navigator.ICommonContentExtensionSite;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
 import org.talend.repository.ui.views.RepositoryLabelProvider;
 
@@ -58,127 +55,106 @@ public class RepositoryViewLabelProvider extends AbstractRepoViewLabelProvider {
 
         @Override
         public Object getAdapter(Class adapter) {
-            // TODO Auto-generated method stub
             return null;
         }
 
         @Override
         public void setFocus() {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void removePropertyListener(IPropertyListener listener) {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public String getTitleToolTip() {
-            // TODO Auto-generated method stub
             return null;
         }
 
         @Override
         public Image getTitleImage() {
-            // TODO Auto-generated method stub
             return null;
         }
 
         @Override
         public String getTitle() {
-            // TODO Auto-generated method stub
             return null;
         }
 
         @Override
         public IWorkbenchPartSite getSite() {
-            // TODO Auto-generated method stub
             return null;
         }
 
         @Override
         public void dispose() {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void createPartControl(Composite parent) {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void addPropertyListener(IPropertyListener listener) {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void saveState(IMemento memento) {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void init(IViewSite site, IMemento memento) throws PartInitException {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void init(IViewSite site) throws PartInitException {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public IViewSite getViewSite() {
-            // TODO Auto-generated method stub
             return null;
         }
 
         @Override
         public void refreshView() {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void refreshAllChildNodes(RepositoryNode rootNode) {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void refresh(ERepositoryObjectType type) {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void refresh(Object object) {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void refresh() {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public StructuredViewer getViewer() {
-            // TODO Auto-generated method stub
             return null;
         }
 
         @Override
-        public IRepositoryNode getRoot() {
-            // TODO Auto-generated method stub
+        public IProjectRepositoryNode getRoot() {
             return null;
         }
 
@@ -194,45 +170,20 @@ public class RepositoryViewLabelProvider extends AbstractRepoViewLabelProvider {
         }
 
         @Override
-        public List<IRepositoryViewObject> getAll(ERepositoryObjectType type) {
-            // TODO Auto-generated method stub
-            return null;
-        }
-
-        @Override
-        public String[] gatherMetadataChildenLabels() {
-            // TODO Auto-generated method stub
-            return null;
-        }
-
-        @Override
         public void expand(Object object, boolean state) {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void expand(Object object) {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public boolean containsRepositoryType(ERepositoryObjectType type) {
-            // TODO Auto-generated method stub
             return false;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.talend.repository.ui.views.IRepositoryView#isFakeView()
-         */
-        @Override
-        public boolean isFakeView() {
-            // TODO Auto-generated method stub
-            return false;
-        }
     }
 
     RepositoryLabelProvider repoLabelProv;

@@ -18,10 +18,6 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.ui.IViewPart;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.CorePlugin;
@@ -34,15 +30,18 @@ import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.documentation.generation.DocumentationPathProvider;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode;
-import org.talend.repository.model.RepositoryConstants;
-import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
+import org.talend.repository.model.ProjectRepositoryNode;
+import org.talend.repository.model.RepositoryConstants;
+import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
 
 /**
@@ -118,15 +117,15 @@ public class DocumentationHelper {
         if (node.getType() == ENodeType.SYSTEM_FOLDER || node.getType() == ENodeType.SIMPLE_FOLDER
                 || node.getType() == ENodeType.STABLE_SYSTEM_FOLDER) {
             String folderName = ""; //$NON-NLS-1$
-            boolean isNotProcess = !node.getProperties(EProperties.LABEL).toString().equals(
-                    ERepositoryObjectType.PROCESS.toString());
-            boolean isNotJoblet = !node.getProperties(EProperties.LABEL).toString().equals(
-                    ERepositoryObjectType.JOBLET.toString());
-            boolean isNotGenerated = !node.getProperties(EProperties.LABEL).toString().equals(
-                    ERepositoryObjectType.GENERATED.toString());
+            boolean isNotProcess = !node.getProperties(EProperties.LABEL).toString()
+                    .equals(ERepositoryObjectType.PROCESS.toString());
+            boolean isNotJoblet = !node.getProperties(EProperties.LABEL).toString()
+                    .equals(ERepositoryObjectType.JOBLET.toString());
+            boolean isNotGenerated = !node.getProperties(EProperties.LABEL).toString()
+                    .equals(ERepositoryObjectType.GENERATED.toString());
             boolean isNotJobs = !node.getProperties(EProperties.LABEL).toString().equals(ERepositoryObjectType.JOBS.toString());
-            boolean isNotJoblets = !node.getProperties(EProperties.LABEL).toString().equals(
-                    ERepositoryObjectType.JOBLETS.toString());
+            boolean isNotJoblets = !node.getProperties(EProperties.LABEL).toString()
+                    .equals(ERepositoryObjectType.JOBLETS.toString());
 
             if (isNotProcess && isNotJoblet && isNotGenerated && isNotJobs && isNotJoblets) {
                 folderName = node.getProperties(EProperties.LABEL).toString();
@@ -303,15 +302,11 @@ public class DocumentationHelper {
     public static RepositoryNode getDocumentationNodeInRecycleBin(RepositoryNode sourceNode) {
         String documentationNodeName = sourceNode.getObject().getProperty().getLabel() + "_" //$NON-NLS-1$
                 + sourceNode.getObject().getProperty().getVersion();
-        IRepositoryView repositoryView = (IRepositoryView) (PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-                .findView(IRepositoryView.VIEW_ID));
-        IRepositoryNode root = repositoryView.getRoot();
-        for (IRepositoryNode node : root.getChildren()) {
-            if (node == null) {
-                continue;
-            }
-            if (node.isBin()) {
-                for (IRepositoryNode subNode : node.getChildren()) {
+        final IRepositoryView findRepositoryView = RepositoryManagerHelper.findRepositoryView();
+        if (findRepositoryView != null) {
+            IProjectRepositoryNode rootNode = findRepositoryView.getRoot();
+            if (rootNode != null) {
+                for (IRepositoryNode subNode : rootNode.getChildren()) {
                     String nodeName = subNode.getObject().getProperty().getLabel() + "_" //$NON-NLS-1$
                             + subNode.getObject().getProperty().getVersion();
                     if (nodeName.equals(documentationNodeName)) {
@@ -331,16 +326,9 @@ public class DocumentationHelper {
      * @return
      */
     public static RepositoryNode getCurrentDocumentationNode(final RepositoryNode selectedJobNode) {
-        IRepositoryView viewPart = getViewPart();
-        IRepositoryNode root = viewPart.getRoot();
 
-        IRepositoryNode documentationNode = null;
-        for (IRepositoryNode node : root.getChildren()) {
-            if (node.getContentType() == ERepositoryObjectType.DOCUMENTATION) {
-                documentationNode = node;
-                break;
-            }
-        }
+        IRepositoryNode documentationNode = ProjectRepositoryNode.getInstance().getRootRepositoryNode(
+                ERepositoryObjectType.DOCUMENTATION);
 
         if (documentationNode == null) {
             return null;
@@ -385,26 +373,6 @@ public class DocumentationHelper {
             }
         }
 
-        return null;
-    }
-
-    /**
-     * 
-     * Returns the repository view..
-     * 
-     * @return - the repository biew
-     */
-    public static IRepositoryView getViewPart() {
-        IWorkbenchWindow[] workbenchWindows = PlatformUI.getWorkbench().getWorkbenchWindows();
-        for (IWorkbenchWindow workbenchWindow : workbenchWindows) {
-            IWorkbenchPage[] pages = workbenchWindow.getPages();
-            for (IWorkbenchPage workbenchPage : pages) {
-                IViewPart findView = workbenchPage.findView(IRepositoryView.VIEW_ID);
-                if (findView != null) {
-                    return (IRepositoryView) findView;
-                }
-            }
-        }
         return null;
     }
 
