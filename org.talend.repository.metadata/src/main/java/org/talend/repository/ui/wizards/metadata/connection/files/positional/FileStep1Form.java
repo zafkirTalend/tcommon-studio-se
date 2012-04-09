@@ -527,9 +527,13 @@ public class FileStep1Form extends AbstractPositionalFileStepForm {
 
         filePathIsDone = false;
         String fileStr = getConnection().getFilePath();
+        String encoding = getConnection().getEncoding();
         if (isContextMode() && getContextModeManager() != null) {
             fileStr = getContextModeManager().getOriginalValue(fileStr);
             fileStr = TalendQuoteUtils.removeQuotes(fileStr);
+            // add for bug TDI-20233
+            encoding = getContextModeManager().getOriginalValue(encoding);
+            encoding = TalendQuoteUtils.removeQuotes(encoding);
         }
         if (fileStr == null || fileStr == "") { //$NON-NLS-1$
             filePositionalViewer.setText("\n" + Messages.getString("FileStep1.fileViewerTip1")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -549,7 +553,7 @@ public class FileStep1Form extends AbstractPositionalFileStepForm {
                 String str;
                 int numberLine = 0;
                 // encoding set
-                String encoding = getConnection().getEncoding();
+                // String encoding = getConnection().getEncoding();
                 if (encoding == null || encoding.equals("")) {
                     Charset guessedCharset = CharsetToolkit.guessEncoding(file, 4096);
                     encoding = guessedCharset.displayName();
