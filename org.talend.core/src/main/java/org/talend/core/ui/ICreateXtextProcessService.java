@@ -16,6 +16,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.core.IService;
 import org.talend.core.model.properties.Property;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
+import org.talend.designer.joblet.model.JobletProcess;
 
 /**
  * DOC nma class global comment. Detailled comment
@@ -33,5 +34,7 @@ public interface ICreateXtextProcessService extends IService {
     public String convertJobtoScript(ProcessType processType);
 
     public ProcessType convertDesignerEditorInput(String path, Property property) throws PersistenceException;
+
+    public JobletProcess convertJobletDesignerEditorInput(String path, Property property) throws PersistenceException;
 
 }
