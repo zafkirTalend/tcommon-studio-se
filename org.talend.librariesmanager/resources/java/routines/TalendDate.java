@@ -367,7 +367,7 @@ public class TalendDate {
      * @param Date1 ( first date )
      * @param Date1 ( second date )
      * @param dateType value=("yyyy","MM","dd","HH","mm","ss","SSS") for type of return
-     * @param considerDST
+     * @param ignoreDST
      * @return a number of years, months, days ... date1 - date2
      * 
      * {talendTypes} Long
@@ -386,7 +386,7 @@ public class TalendDate {
      * 
      * ->> diffDate(2012/03/26 00:00:00, 2012/03/24 00:00:00, "dd", false) : return 1 not 2 in GMT+1#
      */
-    public static long diffDate(Date date1, Date date2, String dateType, boolean considerDST) {
+    public static long diffDate(Date date1, Date date2, String dateType, boolean ignoreDST) {
 
         if (date1 == null) {
             date1 = new Date(0);
@@ -399,9 +399,9 @@ public class TalendDate {
             dateType = "SSS";
         }
 
-        // consider DST
+        // ignore DST
         int addDSTSavings = 0;
-        if (considerDST) {
+        if (ignoreDST) {
             boolean d1In = TimeZone.getDefault().inDaylightTime(date1);
             boolean d2In = TimeZone.getDefault().inDaylightTime(date2);
             if (d1In != d2In) {
@@ -442,7 +442,7 @@ public class TalendDate {
     }
 
     /**
-     * return difference between two dates consider DST
+     * return difference between two dates ignore DST
      * 
      * @param Date1 ( first date )
      * @param Date1 ( second date )
@@ -463,12 +463,12 @@ public class TalendDate {
      * 
      * ->> diffDate(2012/03/26 00:00:00, 2012/03/24 00:00:00, "dd") : return 2 not 1 in GMT+1#
      */
-    public static long diffDateDST(Date date1, Date date2, String dateType) {
+    public static long diffDateIgnoreDST(Date date1, Date date2, String dateType) {
         return diffDate(date1, date2, dateType, true);
     }
 
     /**
-     * return difference between two dates consider DST
+     * return difference between two dates ignore DST
      * 
      * @param Date1 ( first date )
      * @param Date1 ( second date )
@@ -488,8 +488,8 @@ public class TalendDate {
      * 
      * ->> diffDate(2012/03/26 00:00:00, 2012/03/24 00:00:00) : return 2 not 1 in GMT+1#
      */
-    public static long diffDateDST(Date date1, Date date2) {
-        return diffDateDST(date1, date2, "dd");
+    public static long diffDateIgnoreDST(Date date1, Date date2) {
+        return diffDateIgnoreDST(date1, date2, "dd");
     }
 
     /**
