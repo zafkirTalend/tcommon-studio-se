@@ -18,6 +18,7 @@
          point="org.eclipse.ui.perspectiveExtensions">
       <perspectiveExtension
             targetID="org.talend.rcp.perspective">
+        <!--
          <view
                closeable="true"
                id="org.talend.repository.cnf.view"
@@ -28,6 +29,7 @@
                showTitle="true"
                visible="true">
          </view>
+         -->
       </perspectiveExtension>
    </extension>
    <extension
