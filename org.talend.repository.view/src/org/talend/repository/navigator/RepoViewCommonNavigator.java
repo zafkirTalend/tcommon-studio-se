@@ -349,6 +349,9 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
      * @param tree
      */
     private void createTreeTooltip(Tree tree) {
+        if (true) { // FIXME disable temp by feature TDI-19373
+            return;
+        }
         new AbstractTreeTooltip(tree) {
 
             /*
