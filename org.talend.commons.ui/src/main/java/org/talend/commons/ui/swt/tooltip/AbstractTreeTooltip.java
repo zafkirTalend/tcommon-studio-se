@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.TreeItem;
  */
 public abstract class AbstractTreeTooltip {
 
-    Tree table;
+    protected Tree table;
 
     private Listener labelListener;
 
@@ -95,10 +95,7 @@ public abstract class AbstractTreeTooltip {
                         label.setText(content);
                         label.addListener(SWT.MouseExit, labelListener);
                         label.addListener(SWT.MouseDown, labelListener);
-                        Point size = tip.computeSize(SWT.DEFAULT, SWT.DEFAULT);
-                        Rectangle rect = item.getBounds(0);
-                        Point pt = table.toDisplay(rect.x, rect.y);
-                        tip.setBounds(pt.x + 32, pt.y - 16, size.x, size.y);
+                        checkShellBounds(tip, event);
                         tip.setVisible(true);
                     }
                 }
@@ -107,6 +104,16 @@ public abstract class AbstractTreeTooltip {
 
         };
 
+    }
+
+    protected void checkShellBounds(Shell tip, Event event) {
+        TreeItem item = table.getItem(new Point(event.x, event.y));
+        if (item != null) {
+            Point size = tip.computeSize(SWT.DEFAULT, SWT.DEFAULT);
+            Rectangle rect = item.getBounds(0);
+            Point pt = table.toDisplay(rect.x, rect.y);
+            tip.setBounds(pt.x + 32, pt.y - 16, size.x, size.y);
+        }
     }
 
     public abstract String getTooltipContent(TreeItem item);

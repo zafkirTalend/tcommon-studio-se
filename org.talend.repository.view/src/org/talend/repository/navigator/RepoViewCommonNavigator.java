@@ -34,6 +34,7 @@ import org.eclipse.swt.dnd.DragSourceEvent;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
@@ -349,9 +350,6 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
      * @param tree
      */
     private void createTreeTooltip(Tree tree) {
-        if (true) { // FIXME disable temp by feature TDI-19373
-            return;
-        }
         new AbstractTreeTooltip(tree) {
 
             /*
@@ -363,50 +361,64 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
             @Override
             public String getTooltipContent(TreeItem item) {
 
-                RepositoryNode node = (RepositoryNode) item.getData();
-                IRepositoryViewObject object = node.getObject();
-                if (object == null) {
-                    return null;
-                }
-                // add for feature 10281
-                String content = null;
-                User currentLoginUser = ((RepositoryContext) CoreRuntimePlugin.getInstance().getContext()
-                        .getProperty(Context.REPOSITORY_CONTEXT_KEY)).getUser();
-                String currentLogin = null;
-                if (currentLoginUser != null) {
-                    currentLogin = currentLoginUser.getLogin();
-                }
-                String login = null;
-                String application = "studio";//$NON-NLS-1$
-                if (object.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_OTHER) {
-                    Property property = object.getProperty();
-                    if (property != null) {
-                        Item item2 = property.getItem();
-                        if (item2 != null) {
-                            LockInfo lockInfo = ProxyRepositoryFactory.getInstance().getLockInfo(item2);
-                            if (!lockInfo.getUser().equals(currentLogin)) {
-                                login = lockInfo.getUser();
-                                application = lockInfo.getApplication();
-                            }
-                        }
-                    }
-                    if (login != null && !"".equals(login)) {//$NON-NLS-1$
-                        content = "  locked by " + login + " on " + application;
-                    }
-                }
-                String description = object.getDescription();
-                if (content == null || "".equals(content)) { //$NON-NLS-1$
-                    if (description == null || "".equals(description)) {//$NON-NLS-1$
+                Object data = item.getData();
+                if (data instanceof RepositoryNode) {
+                    RepositoryNode node = (RepositoryNode) data;
+                    IRepositoryViewObject object = node.getObject();
+                    if (object == null) {
                         return null;
                     }
-                    return description;
-                } else {
-                    if (description == null || "".equals(description)) {//$NON-NLS-1$
-                        return content;
+                    // add for feature 10281
+                    String content = null;
+                    User currentLoginUser = ((RepositoryContext) CoreRuntimePlugin.getInstance().getContext()
+                            .getProperty(Context.REPOSITORY_CONTEXT_KEY)).getUser();
+                    String currentLogin = null;
+                    if (currentLoginUser != null) {
+                        currentLogin = currentLoginUser.getLogin();
                     }
-                    return content + "\n" + "  Description: " + description;//$NON-NLS-1$
+                    String login = null;
+                    String application = "studio";//$NON-NLS-1$
+                    if (object.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_OTHER) {
+                        Property property = object.getProperty();
+                        if (property != null) {
+                            Item item2 = property.getItem();
+                            if (item2 != null) {
+                                LockInfo lockInfo = ProxyRepositoryFactory.getInstance().getLockInfo(item2);
+                                if (!lockInfo.getUser().equals(currentLogin)) {
+                                    login = lockInfo.getUser();
+                                    application = lockInfo.getApplication();
+                                }
+                            }
+                        }
+                        if (login != null && !"".equals(login)) {//$NON-NLS-1$
+                            content = "  locked by " + login + " on " + application;
+                        }
+                    }
+                    String description = object.getDescription();
+                    if (content == null || "".equals(content)) { //$NON-NLS-1$
+                        if (description == null || "".equals(description)) {//$NON-NLS-1$
+                            return null;
+                        }
+                        return description;
+                    } else {
+                        if (description == null || "".equals(description)) {//$NON-NLS-1$
+                            return content;
+                        }
+                        return content + "\n" + "  Description: " + description;//$NON-NLS-1$
+                    }
+                } else {
+                    //
                 }
+                return null;
             }
+
+            @Override
+            protected void checkShellBounds(Shell tip, Event event) {
+                Point size = tip.computeSize(SWT.DEFAULT, SWT.DEFAULT);
+                Point pt = table.toDisplay(event.x, event.y);
+                tip.setBounds(pt.x + 10, pt.y + 5, size.x, size.y);
+            }
+
         };
 
     }
