@@ -80,14 +80,16 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
      */
     protected void refreshTopLevelNode() {
         RepositoryNode topLevelNode = getTopLevelNode();
-        topLevelNode.setInitialized(false);
-        topLevelNode.getChildren().clear();
-        // }
-        // for bug 11786
-        if (topLevelNode.getParent() instanceof ProjectRepositoryNode) {
-            ((ProjectRepositoryNode) topLevelNode.getParent()).clearNodeAndProjectCash();
+        if (topLevelNode != null) {
+            topLevelNode.setInitialized(false);
+            topLevelNode.getChildren().clear();
+            // }
+            // for bug 11786
+            if (topLevelNode.getParent() instanceof ProjectRepositoryNode) {
+                ((ProjectRepositoryNode) topLevelNode.getParent()).clearNodeAndProjectCash();
+            }
+            viewer.refresh(topLevelNode);
         }
-        viewer.refresh(topLevelNode);
     }
 
     /**
