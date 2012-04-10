@@ -17,6 +17,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
+import org.talend.core.IService;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.LinkRulesItem;
@@ -29,7 +30,7 @@ import org.talend.core.ui.rule.AbstractRlueOperationChoice;
 /**
  * DOC hwang class global comment. Detailled comment
  */
-public interface IMetadataService {
+public interface IMetadataService extends IService {
 
     public WizardDialog getGenericSchemaWizardDialog(Shell shell, IWorkbench workbench, boolean creation, ISelection selection,
             String[] existingNames, boolean isSinglePageOnly);
