@@ -5,9 +5,13 @@
       <appinfo>
          <meta.schema plugin="org.talend.repository.viewer" id="perspective.filter" name="Common Navigator Framework Perspective Filter"/>
       </appinfo>
-       <documentation>
+      <documentation>
          This extension point allow you to define common navigators content filters that depend on the active perspective.
 To be able to filter a view you must add the navigator content an action provider that refers to class &lt;b&gt;org.talend.repository.viewer.filter.PerspectiveFilterActionProvider&lt;/b&gt;.
+The filter is related to a perspective ID.
+Everytime the perspective is changed the filter will calculate which Content Provider is going to be visible in the related view.
+Use the includes to define patterns of content provider id to be visible (if no include exists for a perspective, all content is visible).
+Use the excludes patterns to hide content from the view.
       </documentation>
    </annotation>
 
@@ -57,6 +61,7 @@ To be able to filter a view you must add the navigator content an action provide
       <complexType>
          <sequence>
             <element ref="includes" minOccurs="1" maxOccurs="unbounded"/>
+            <element ref="excludes" minOccurs="1" maxOccurs="unbounded"/>
          </sequence>
          <attribute name="perspectiveId" type="string" use="required">
             <annotation>
@@ -76,6 +81,19 @@ To be able to filter a view you must add the navigator content an action provide
    </element>
 
    <element name="includes">
+      <annotation>
+         <documentation>
+            All the content provider that will only apear when filter is on.
+         </documentation>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="contentExtension" minOccurs="1" maxOccurs="unbounded"/>
+         </sequence>
+      </complexType>
+   </element>
+
+   <element name="excludes">
       <annotation>
          <documentation>
             All the content provider that will only apear when filter is on.

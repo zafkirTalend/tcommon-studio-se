@@ -271,20 +271,6 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         }
     }
 
-    private void hideHiddenNodes() {
-        IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
-        String currentRepositoryType = getCurrentRepositoryType();
-        List<IRepositoryNode> hiddens = service.getBrandingConfiguration().getHiddenRepositoryCategory(this,
-                currentRepositoryType);
-
-        for (IRepositoryNode node : hiddens) {
-            removeNode(this, node);
-            ERepositoryObjectType contentType = node.getContentType();
-            removeContentType(contentType);
-        }
-        hideNodesFromOtherProduct(this, currentRepositoryType);
-    }
-
     private void hideNodesFromOtherProduct(IRepositoryNode container, String currentRepositoryType) {
         for (IRepositoryNode node : new ArrayList<IRepositoryNode>(container.getChildren())) {
             ERepositoryObjectType contentType = node.getContentType();
@@ -585,7 +571,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         initExtensionRepositoryNodes(nodes);
 
         // hide hidden nodes;
-        hideHiddenNodes();
+        // hideHiddenNodes();
 
         try {
             hideHiddenNodesDependsUserRight();

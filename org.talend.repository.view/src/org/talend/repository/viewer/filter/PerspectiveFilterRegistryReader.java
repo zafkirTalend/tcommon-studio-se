@@ -14,6 +14,7 @@ package org.talend.repository.viewer.filter;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -74,6 +75,8 @@ public class PerspectiveFilterRegistryReader extends RegistryReader {
          */
         static final String ACTION_PROVIDER_ID = "actionProviderId"; //$NON-NLS-1$
 
+        private static final String EXCLUDES = "excludes"; //$NON-NLS-1$
+
         private String actionProviderId;
 
         /**
@@ -97,6 +100,8 @@ public class PerspectiveFilterRegistryReader extends RegistryReader {
         }
 
         private Set<Pattern> actionProviderIncludes;
+
+        private Set<Pattern> actionProviderExcludes;
 
         /**
          * Getter for actionProviderIncludes.
@@ -130,6 +135,23 @@ public class PerspectiveFilterRegistryReader extends RegistryReader {
                     actionProviderIncludes.add(Pattern.compile(contentExtension.getAttribute(PATTERN)));
                 }
             }
+            IConfigurationElement[] excludesArray = element.getChildren(EXCLUDES);
+            actionProviderExcludes = new HashSet<Pattern>(excludesArray.length);
+            for (IConfigurationElement exclude : excludesArray) {
+                IConfigurationElement[] contentExtensions = exclude.getChildren(CONTENT_EXTENSION);
+                for (IConfigurationElement contentExtension : contentExtensions) {
+                    actionProviderExcludes.add(Pattern.compile(contentExtension.getAttribute(PATTERN)));
+                }
+            }
+        }
+
+        /**
+         * DOC sgandon Comment method "getActionProviderExcludes".
+         * 
+         * @return
+         */
+        public Set<Pattern> getActionProviderExcludes() {
+            return this.actionProviderExcludes;
         }
     }
 
@@ -226,7 +248,34 @@ public class PerspectiveFilterRegistryReader extends RegistryReader {
                 filteredIds.add(contentId);
             }
         }
+        // filter the content that are excluded
+        Pattern[] allExcludesPatterns = getAllExcludesPatterns(filters);
+        Iterator<String> filteredContentIte = filteredIds.iterator();
+        while (filteredContentIte.hasNext()) {
+            String contentId = filteredContentIte.next();
+            for (Pattern pattern : allExcludesPatterns) {
+                if (pattern.matcher(contentId).matches()) {
+                    filteredContentIte.remove();
+                    break; // breaks the for loop
+                }
+            }
+        }
         return filteredIds.toArray(new String[filteredIds.size()]);
+    }
+
+    /**
+     * DOC sgandon Comment method "getAllExcludesPatterns".
+     * 
+     * @param filters
+     * @return
+     */
+    private Pattern[] getAllExcludesPatterns(Set<PerspectiveFilterDescription> filters) {
+        List<Pattern> allExcludes = new ArrayList<Pattern>(filters.size());
+        for (PerspectiveFilterDescription pfd : filters) {
+            Set<Pattern> actionProviderIncludes = pfd.getActionProviderExcludes();
+            allExcludes.addAll(actionProviderIncludes);
+        }
+        return allExcludes.toArray(new Pattern[allExcludes.size()]);
     }
 
     /**

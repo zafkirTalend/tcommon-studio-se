@@ -131,7 +131,7 @@
          point="org.eclipse.ui.navigator.navigatorContent">
       <actionProvider
             class="org.talend.repository.viewer.action.RepoGlobalActionProvider"
-            id="org.talend.repository.viewer.actionbar.menu.perspectiveFilter">
+            id="org.talend.repository.viewer.actionbar.global.globalAction">
          <enablement></enablement>
       </actionProvider>
       <actionProvider
@@ -147,7 +147,7 @@
       </actionProvider>
       <actionProvider
             class="org.talend.repository.viewer.filter.PerspectiveFilterActionProvider"
-            id="org.talend.repository.viewer.actionbar.global.actions">
+            id="org.talend.repository.viewer.actionbar.menu.perspectiveFilter">
          <enablement></enablement>
       </actionProvider>
       <commonFilter
@@ -274,27 +274,6 @@
             type="org.talend.repository.model.RepositoryNode">
       </propertyTester>
 
-   </extension>
-   <extension
-         point="org.talend.repository.viewer.perspective.filter">
-      <perspectiveFilter
-            actionProviderId="org.talend.repository.viewer.PerspectiveFilterActionProvider"
-            perspectiveId="org.talend.rcp.perspective">
-         <includes>
-            <contentExtension
-                  pattern="org.talend.repository.viewer.root.*">
-            </contentExtension>
-         </includes>
-      </perspectiveFilter>
-      <perspectiveFilter
-            actionProviderId="org.talend.repository.viewer.PerspectiveFilterActionProvider"
-            perspectiveId="org.eclipse.wst.xml.ui.perspective">
-         <includes>
-            <contentExtension
-                  pattern="org.talend.repository.viewer.root.content.OemModelContent">
-            </contentExtension>
-         </includes>
-      </perspectiveFilter>
    </extension>
    <extension
          point="org.eclipse.ui.viewActions">
