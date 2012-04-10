@@ -34,8 +34,6 @@ public interface IMetadataColumn {
 
     public static final int OPTIONS_IGNORE_LENGTH = 1 << 5;
 
-    public static final int OPTIONS_IGNORE_ORIGINALLENGTH = 1 << 5;
-
     public static final int OPTIONS_IGNORE_PRECISION = 1 << 6;
 
     public static final int OPTIONS_IGNORE_DEFAULT = 1 << 7;
@@ -51,6 +49,8 @@ public interface IMetadataColumn {
     public static final int OPTIONS_IGNORE_RELATEDENTITY = 1 << 12;
 
     public static final int OPTIONS_IGNORE_RELATIONSHIPTYPE = 1 << 13;
+
+    public static final int OPTIONS_IGNORE_ORIGINALLENGTH = 1 << 14;
 
     public static final int OPTIONS_IGNORE_ALL = OPTIONS_IGNORE_LABEL | OPTIONS_IGNORE_TALENDTYPE | OPTIONS_IGNORE_DEFAULT
             | OPTIONS_IGNORE_PRECISION | OPTIONS_IGNORE_LENGTH | OPTIONS_IGNORE_DBTYPE | OPTIONS_IGNORE_PATTERN
