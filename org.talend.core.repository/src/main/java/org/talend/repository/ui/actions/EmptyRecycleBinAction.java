@@ -46,6 +46,7 @@ import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
+import org.talend.repository.ui.views.IRepositoryView;
 
 /**
  * Action used to empty the recycle bin.<br/>
@@ -116,7 +117,10 @@ public class EmptyRecycleBinAction extends AContextualAction {
         // MOD qiongli 2011-1-24,avoid to refresh repositoryView for top
         if (!PluginChecker.isOnlyTopLoaded()) {
             RepositoryManager.refresh(ERepositoryObjectType.JOB_SCRIPT);
-            RepositoryManager.getRepositoryView().refresh();
+            IRepositoryView view = getViewPart();
+            if (view != null) {
+                view.refresh();
+            }
         }
 
     }

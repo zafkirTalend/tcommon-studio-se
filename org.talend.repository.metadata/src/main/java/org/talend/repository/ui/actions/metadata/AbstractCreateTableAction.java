@@ -81,6 +81,7 @@ import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.ManagerConnection;
+import org.talend.repository.ui.views.IRepositoryView;
 import org.talend.repository.ui.wizards.metadata.connection.files.salesforce.SalesforceModulesWizard;
 import org.talend.repository.ui.wizards.metadata.connection.files.salesforce.SalesforceSchemaTableWizard;
 import org.talend.repository.ui.wizards.metadata.connection.files.salesforce.SalesforceSchemasWizard;
@@ -122,7 +123,10 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
         wizardDialog.setPageSize(WIZARD_WIDTH, WIZARD_HEIGHT);
         wizardDialog.create();
         wizardDialog.open();
-        getViewPart().expand(node, true);
+        IRepositoryView viewPart = getViewPart();
+        if (viewPart != null) {
+            viewPart.expand(node, true);
+        }
         ERepositoryObjectType nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
         if (nodeType.isSubItem()) { // edit table
             RepositoryNode parent = node.getParent();
@@ -147,7 +151,10 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
         }
         wizardDialog.create();
         if (wizardDialog.open() == wizardDialog.OK) {
-            getViewPart().expand(node, true);
+            IRepositoryView viewPart = getViewPart();
+            if (viewPart != null) {
+                viewPart.expand(node, true);
+            }
             refresh(node);
         }
     }

@@ -43,6 +43,7 @@ import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.ui.views.IRepositoryView;
 
 /**
  * Action used to create table on metadata.<br/>
@@ -91,8 +92,11 @@ public class CreateTableAction extends AbstractCreateTableAction {
             IStructuredSelection selection = (IStructuredSelection) getSelection();
             node = (RepositoryNode) selection.getFirstElement();
             // Force focus to the repositoryView and open Metadata and DbConnection nodes
-            getViewPart().setFocus();
-            getViewPart().expand(metadataNode, true);
+            IRepositoryView viewPart = getViewPart();
+            if (viewPart != null) {
+                viewPart.setFocus();
+                viewPart.expand(metadataNode, true);
+            }
         } else {
             metadataNode = getMetadataNode(node);
         }

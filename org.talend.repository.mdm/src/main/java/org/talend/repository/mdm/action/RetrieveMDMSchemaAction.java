@@ -40,6 +40,7 @@ import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
+import org.talend.repository.ui.views.IRepositoryView;
 
 /**
  * DOC hwang class global comment. Detailled comment
@@ -133,8 +134,11 @@ public class RetrieveMDMSchemaAction extends AbstractCreateAction {
     protected void doRun() {
         node = getCurrentRepositoryNode();
         // Force focus to the repositoryView and open Metadata and DbConnection nodes
-        getViewPart().setFocus();
-        getViewPart().expand(node.getParent(), true);
+        IRepositoryView viewPart = getViewPart();
+        if (viewPart != null) {
+            viewPart.setFocus();
+            viewPart.expand(node.getParent(), true);
+        }
 
         // Init the content of the Wizard
         init(node);
@@ -207,7 +211,10 @@ public class RetrieveMDMSchemaAction extends AbstractCreateAction {
         wizardDialog.setPageSize(WIZARD_WIDTH, WIZARD_HEIGHT);
         wizardDialog.create();
         if (wizardDialog.open() == wizardDialog.OK) {
-            getViewPart().expand(node, true);
+            IRepositoryView viewPart = getViewPart();
+            if (viewPart != null) {
+                viewPart.expand(node, true);
+            }
             refresh(node);
         }
         RepositoryManager.refreshSavedNode(node);

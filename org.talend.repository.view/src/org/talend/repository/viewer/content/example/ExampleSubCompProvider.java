@@ -59,7 +59,7 @@ public class ExampleSubCompProvider implements ITreeContentProvider {
     @Override
     public Object[] getChildren(Object parentElement) {
         if (hasChildren(parentElement)) {
-            return new Object[] { "comp1", "comp2", "comp3" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            //            return new Object[] { "comp1", "comp2", "comp3" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         }// else no children
         return new Object[0];
     }

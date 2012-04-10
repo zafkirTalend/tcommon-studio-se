@@ -34,7 +34,8 @@
    </extension>
    <extension
          point="org.eclipse.ui.navigator.navigatorContent">
-              <navigatorContent
+    <!--
+    <navigatorContent
             appearsBefore="org.talend.repository.viewer.root.jobDesigns"
             contentProvider="org.talend.repository.viewer.content.example.ExampleCompContentProvider"
             id="org.talend.repository.viewer.root.content.OemModelContent"
@@ -83,6 +84,7 @@
             </or>
           </triggerPoints>
       </navigatorContent>
+      -->
       <navigatorContent
             activeByDefault="true"
             contentProvider="org.talend.repository.viewer.content.RecycleBinContentProvider"

@@ -38,6 +38,7 @@ import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.ui.views.IRepositoryView;
 
 /**
  * DOC smallet class global comment. Detailed comment <br/>
@@ -121,8 +122,11 @@ public class ReadTableAction extends AbstractCreateTableAction {
         // RepositoryNode metadataNode = getViewPart().getRoot().getChildren().get(6);
         RepositoryNode metadataNode = getMetadataNode(getCurrentRepositoryNode());
         // Force focus to the repositoryView and open Metadata and DbConnection nodes
-        getViewPart().setFocus();
-        getViewPart().expand(metadataNode, true);
+        IRepositoryView viewPart = getViewPart();
+        if (viewPart != null) {
+            viewPart.setFocus();
+            viewPart.expand(metadataNode, true);
+        }
 
         IStructuredSelection selection = (IStructuredSelection) getSelection();
         RepositoryNode node = (RepositoryNode) selection.getFirstElement();

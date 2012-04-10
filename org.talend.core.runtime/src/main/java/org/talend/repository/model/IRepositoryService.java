@@ -20,7 +20,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 import org.talend.core.IService;
@@ -113,8 +112,6 @@ public interface IRepositoryService extends IService {
             IContextManager contextManager);
 
     public IRepositoryNode getRootRepositoryNode(ERepositoryObjectType type);
-
-    public TreeViewer getRepositoryTreeView();
 
     public void setInternalNodeHTMLMap(INode node, Map<String, Object> internalNodeHTMLMap);
 

@@ -31,9 +31,11 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.ISaveablePart2;
 import org.eclipse.ui.IViewReference;
+import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartSite;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.WorkbenchMessages;
 import org.eclipse.ui.views.properties.PropertySheet;
@@ -186,7 +188,10 @@ public abstract class AContextualAction extends Action implements ITreeContextua
      * Convenience method user to refresh view on wich action had been called.
      */
     public void refresh() {
-        getViewPart().refresh();
+        IRepositoryView viewPart = getViewPart();
+        if (viewPart != null) {
+            viewPart.refresh();
+        }
     }
 
     /**
@@ -195,8 +200,11 @@ public abstract class AContextualAction extends Action implements ITreeContextua
      * @param obj - object to start the refresh on
      */
     public void refresh(Object obj) {
-        getViewPart().refresh(obj);
-        getViewPart().expand(obj, true);
+        IRepositoryView viewPart = getViewPart();
+        if (viewPart != null) {
+            viewPart.refresh(obj);
+            viewPart.expand(obj, true);
+        }
     }
 
     private IWorkbenchPart workbenchPart = null;
@@ -282,6 +290,26 @@ public abstract class AContextualAction extends Action implements ITreeContextua
             }
         }
         return RepositoryManagerHelper.findRepositoryView();
+    }
+
+    protected IWorkbench getWorkbench() {
+        IWorkbenchWindow workbenchWindow = getWorkbenchWindow();
+        IWorkbench workbench = null;
+        if (workbenchWindow != null) {
+            workbench = workbenchWindow.getWorkbench();
+        }
+        return workbench;
+    }
+
+    protected IWorkbenchWindow getWorkbenchWindow() {
+        IWorkbenchWindow workbenchWindow = null;
+        IRepositoryView viewPart = this.getViewPart();
+        if (viewPart != null) {
+            workbenchWindow = viewPart.getViewSite().getWorkbenchWindow();
+        } else {
+            workbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+        }
+        return workbenchWindow;
     }
 
     /**
@@ -648,8 +676,10 @@ public abstract class AContextualAction extends Action implements ITreeContextua
             return;
         }
         IRepositoryView viewPart = getViewPart();
-        ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(item);
-        viewPart.refresh(itemType);
+        if (viewPart != null) {
+            ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(item);
+            viewPart.refresh(itemType);
+        }
     }
 
     /**

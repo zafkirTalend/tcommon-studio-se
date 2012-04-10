@@ -161,9 +161,9 @@ public abstract class RepositoryWizard extends Wizard {
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             repositoryObjectEditable = factory.isEditableAndLockIfPossible(repositoryObject);
 
-            if(!CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {                
+            if (!CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {
                 final IRepositoryNode repositoryNode = repositoryViewObject.getRepositoryNode();
-                IRepositoryView repositoryView = RepositoryManagerHelper.getRepositoryView();
+                IRepositoryView repositoryView = RepositoryManagerHelper.findRepositoryView();
                 if (repositoryView != null) {
                     repositoryView.expand(repositoryNode);
                     repositoryView.getViewer().refresh(repositoryObject.getRepositoryObjectType());

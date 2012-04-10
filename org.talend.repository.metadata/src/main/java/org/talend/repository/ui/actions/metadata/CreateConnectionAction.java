@@ -41,6 +41,7 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
+import org.talend.repository.ui.views.IRepositoryView;
 import org.talend.repository.ui.wizards.metadata.connection.database.DatabaseWizard;
 
 /**
@@ -104,13 +105,19 @@ public class CreateConnectionAction extends AbstractCreateAction {
                 repositoryNode = getRepositoryNodeForDefault(ERepositoryObjectType.METADATA_CONNECTIONS);
             }
         }
-        RepositoryManager.getRepositoryView().refresh();
+        IRepositoryView view = getViewPart();
+        if (view != null) {
+            view.refresh();
+        }
         RepositoryNode metadataNode = repositoryNode.getParent();
         if (metadataNode != null) {
             // Force focus to the repositoryView and open Metadata and DbConnection nodes
-            getViewPart().setFocus();
-            getViewPart().expand(metadataNode, true);
-            getViewPart().expand(repositoryNode, true);
+            IRepositoryView viewPart = getViewPart();
+            if (viewPart != null) {
+                viewPart.setFocus();
+                viewPart.expand(metadataNode, true);
+                viewPart.expand(repositoryNode, true);
+            }
         }
 
         DatabaseConnection connection = null;

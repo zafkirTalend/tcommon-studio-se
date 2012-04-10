@@ -43,10 +43,9 @@ public class ExampleCompContentProvider implements ICommonContentProvider {
     @Override
     public Object[] getChildren(Object parentElement) {
         if (parentElement instanceof BusinessModelsContainer) {
-            return new Object[] { "bm1", "bm2", "bm3" }; //$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
-        } else {
-            return new Object[0];
+            //            return new Object[] { "bm1", "bm2", "bm3" }; //$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
         }
+        return new Object[0];
     }
 
     @Override

@@ -265,8 +265,12 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
         case SYSTEM_FOLDER:
             return ImageProvider.getImage(node.getIcon());
         case SIMPLE_FOLDER:
-            // FIXME SML Move in repository node
-            ECoreImage image = (getView().getExpandedState(obj) ? ECoreImage.FOLDER_OPEN_ICON : ECoreImage.FOLDER_CLOSE_ICON);
+            ECoreImage image = null;
+            if (getView() != null) {
+                image = (getView().getExpandedState(obj) ? ECoreImage.FOLDER_OPEN_ICON : ECoreImage.FOLDER_CLOSE_ICON);
+            } else {
+                image = ECoreImage.FOLDER_OPEN_ICON;
+            }
             return ImageProvider.getImage(image);
         default:
             if (node.getObject() == null) {

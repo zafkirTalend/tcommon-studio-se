@@ -38,6 +38,7 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
+import org.talend.repository.ui.views.IRepositoryView;
 
 /**
  * DOC hwang class global comment. Detailled comment
@@ -141,9 +142,12 @@ public class CreateMDMConnectionAction extends AbstractCreateAction {
         RepositoryNode metadataNode = repositoryNode.getParent();
         if (metadataNode != null) {
             // Force focus to the repositoryView and open Metadata and DbConnection nodes
-            getViewPart().setFocus();
-            getViewPart().expand(metadataNode, true);
-            getViewPart().expand(repositoryNode, true);
+            IRepositoryView viewPart = getViewPart();
+            if (viewPart != null) {
+                viewPart.setFocus();
+                viewPart.expand(metadataNode, true);
+                viewPart.expand(repositoryNode, true);
+            }
         }
 
         MDMConnection connection = null;
@@ -202,7 +206,10 @@ public class CreateMDMConnectionAction extends AbstractCreateAction {
         wizardDialog.create();
         wizardDialog.open();
 
-        RepositoryManager.getRepositoryView().expand(repositoryNode, true);
+        IRepositoryView view = getViewPart();
+        if (view != null) {
+            view.expand(repositoryNode, true);
+        }
 
         RepositoryManager.refreshCreatedNode(ERepositoryObjectType.METADATA_MDMCONNECTION);
 
