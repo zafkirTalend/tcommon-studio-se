@@ -38,6 +38,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.designer.core.IDesignerCoreService;
+import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.ui.actions.AContextualAction;
 import org.talend.repository.ui.actions.metadata.CreateConnectionAction;
 import org.talend.repository.ui.actions.metadata.CreateFileDelimitedAction;
@@ -240,8 +241,11 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
             // addToMenu(menu, CorePlugin.getDefault().getDesignerCoreService().getCreateBeanAction(true), -1);
             // final CreateRoutineAction createRoutineAction = new CreateRoutineAction(true);
             // createRoutineAction.setWorkbenchPart(repositoryView);
-            final AContextualAction createRoutineAction = null;
-            addToMenu(menu, createRoutineAction, -1);
+            // final AContextualAction createRoutineAction = null;
+            IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    IRepositoryService.class);
+            addToMenu(menu, service.getCreateRoutineAction(repositoryView), -1);
+            // addToMenu(menu, createRoutineAction, -1);
         }
 
         IExtensionRegistry registry = Platform.getExtensionRegistry();
