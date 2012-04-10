@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.repository.ui.actions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -63,7 +66,6 @@ public class EmptyRecycleBinAction extends AContextualAction {
         this.setImageDescriptor(ImageProvider.getImageDesc(ECoreImage.RECYCLE_BIN_EMPTY_ICON));
     }
 
-    @SuppressWarnings("restriction")
     protected void doRun() {
         ISelection selection = getSelection();
         Object obj = ((IStructuredSelection) selection).getFirstElement();
@@ -71,9 +73,12 @@ public class EmptyRecycleBinAction extends AContextualAction {
 
         final String title = Messages.getString("EmptyRecycleBinAction.dialog.title"); //$NON-NLS-1$
         String message = null;
-        if (node.getChildren().size() == 0) {
+        // TDI-20542
+        List<IRepositoryNode> originalChildren = node.getChildren();
+        List<IRepositoryNode> children = new ArrayList<IRepositoryNode>(originalChildren);
+        if (children.size() == 0) {
             return;
-        } else if (node.getChildren().size() > 1) {
+        } else if (children.size() > 1) {
             message = Messages.getString("DeleteAction.dialog.messageAllElements") + "\n" + //$NON-NLS-1$ //$NON-NLS-2$
                     Messages.getString("DeleteAction.dialog.message2"); //$NON-NLS-1$;
         } else {
@@ -87,7 +92,7 @@ public class EmptyRecycleBinAction extends AContextualAction {
 
         IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
 
-        for (IRepositoryNode child : node.getChildren()) {
+        for (IRepositoryNode child : children) {
             // MOD klliu 2011-04-28 bug 20204 removing connection is synced to the connection view of SQL explore
             if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
                 ITDQRepositoryService tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
