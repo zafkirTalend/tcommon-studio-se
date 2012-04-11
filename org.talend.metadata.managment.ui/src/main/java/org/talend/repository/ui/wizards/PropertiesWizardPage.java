@@ -740,7 +740,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
                 if (folder.getPath() == null) {
                     pathText.setText(""); //$NON-NLS-1$
                 } else {
-                    String pathString = "";
+                    String pathString = ""; //$NON-NLS-1$
                     if (folder != null) {
                         pathString = getFolderPath(getParentsFolder(folder));// folder.getPath();
                     }
@@ -761,7 +761,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
     }
 
     private String getFolderPath(List<Folder> list) {
-        String path = "";
+        String path = ""; //$NON-NLS-1$
         for (Folder folder : list) {
             path = File.separator + folder.getName() + path;
         }
@@ -958,31 +958,45 @@ public abstract class PropertiesWizardPage extends WizardPage {
     }
 
     protected void evaluateTextField() {
-        if (nameText.getText().length() == 0) {
-            nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameEmptyError")); //$NON-NLS-1$
-        } else if (!Pattern.matches(RepositoryConstants.getPattern(getRepositoryObjectType()), nameText.getText())
-                || nameText.getText().trim().contains(" ")) { //$NON-NLS-1$
-            nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameFormatError")); //$NON-NLS-1$
-        } else if (isKeywords(nameText.getText()) || "java".equalsIgnoreCase(nameText.getText())) {//$NON-NLS-1$
-            nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.KeywordsError")); //$NON-NLS-1$
-        } else if (nameModifiedByUser) {
-            if (retrieveNameFinished) {
-                if (!isValid(nameText.getText())) {
-                    nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.ItemExistsError")); //$NON-NLS-1$
+        boolean nameIsExist = false;
+        try {
+            ERepositoryObjectType type = ERepositoryObjectType.getItemType(property.getItem());
+            List<IRepositoryViewObject> list = ProxyRepositoryFactory.getInstance().getAll(type);
+            for (int i = 0; i < list.size(); i++) {
+                if (nameText.getText().equals(list.get(i).getProperty().getDisplayName())) {
+                    nameIsExist = true;
+                }
+            }
+            if (nameText.getText().length() == 0) {
+                nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameEmptyError")); //$NON-NLS-1$
+            } else if (nameIsExist) {
+                nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.nameExist")); //$NON-NLS-1$
+            } else if (!Pattern.matches(RepositoryConstants.getPattern(getRepositoryObjectType()), nameText.getText())
+                    || nameText.getText().trim().contains(" ")) { //$NON-NLS-1$
+                nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameFormatError")); //$NON-NLS-1$
+            } else if (isKeywords(nameText.getText()) || "java".equalsIgnoreCase(nameText.getText())) {//$NON-NLS-1$
+                nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.KeywordsError")); //$NON-NLS-1$
+            } else if (nameModifiedByUser) {
+                if (retrieveNameFinished) {
+                    if (!isValid(nameText.getText())) {
+                        nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.ItemExistsError")); //$NON-NLS-1$
+                    } else {
+                        nameStatus = createOkStatus();
+                    }
                 } else {
-                    nameStatus = createOkStatus();
+                    nameStatus = createStatus(IStatus.ERROR, "Looking for current items name list"); //$NON-NLS-1$
                 }
             } else {
-                nameStatus = createStatus(IStatus.ERROR, "Looking for current items name list"); //$NON-NLS-1$
+                nameStatus = createOkStatus();
             }
-        } else {
-            nameStatus = createOkStatus();
+            if (property != null && nameStatus.getSeverity() == IStatus.OK) {
+                property.setLabel(StringUtils.trimToNull(nameText.getText()));
+                property.setDisplayName(StringUtils.trimToNull(nameText.getText()));
+            }
+            updatePageStatus();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
         }
-        if (property != null && nameStatus.getSeverity() == IStatus.OK) {
-            property.setLabel(StringUtils.trimToNull(nameText.getText()));
-            property.setDisplayName(StringUtils.trimToNull(nameText.getText()));
-        }
-        updatePageStatus();
     }
 
     protected IStatus[] getStatuses() {
