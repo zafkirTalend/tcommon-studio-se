@@ -117,4 +117,11 @@ public interface ITalendCorePrefConstants {
 
     String MAXIMUM_AMOUNT_OF_COLUMNS_FOR_XML = "maximum_amount_of_columns_for_xml";
 
+    String OOZIE_SCHEDULER_PATH = "oozie_scheduler_path";
+
+    String OOZIE_SHCEDULER_NAME_NODE_ENDPOINT = "oozie_scheduler_name_node_endpoint";
+
+    String OOZIE_SHCEDULER_JOB_TRACKER_ENDPOINT = "oozie_scheduler_job_tracker_endpoint";
+
+    String OOZIE_SHCEDULER_OOZIE_ENDPOINT = "oozie_scheduler_oozie_endpoint";
 }

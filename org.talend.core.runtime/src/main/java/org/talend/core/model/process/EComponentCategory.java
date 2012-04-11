@@ -49,7 +49,10 @@ public enum EComponentCategory {
     VALIDATION_RULES(Messages.getString("EComponentCategory.validationRules"), 20), //$NON-NLS-1$
     AVAILABLEEXTENSIONS(Messages.getString("EComponentCategory.availableExtensions"), 1), //$NON-NLS-1$
     DOWNLOADEDEXTENSIONS(Messages.getString("EComponentCategory.downloadedExtensions"), 2), //$NON-NLS-1$
-    MYEXTENSIONS(Messages.getString("EComponentCategory.myExtensions"), 3); //$NON-NLS-1$
+    MYEXTENSIONS(Messages.getString("EComponentCategory.myExtensions"), 3), //$NON-NLS-1$
+    // Added by Marvin Wang on Mar. 30, 2012 for scheduling for hadoop.
+    SCHEDULE_4_HADOOP_EXECUTE_JOB(Messages.getString("EComponentCategory.executeJob"), 1),
+    SCHEDULE_4_HADOOP_MONITORING(Messages.getString("EComponentCategory.monitoring"), 2);
 
     private String title;
 
