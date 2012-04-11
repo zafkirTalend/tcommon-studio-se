@@ -968,9 +968,28 @@ public class FilesUtils {
      * @throws Exception
      */
     public static Document parse(String xmlFile) throws Exception {
+        // MOD qiongli 2012-4-10,replace parameter of method parse String with File,it dosen't support String which
+        // contain chinese.
+        File file = new File(xmlFile);
+        Document domTree = parse(file);
+        return domTree;
+    }
+
+    /**
+     * 
+     * DOC qiongli Comment method "parse".
+     * 
+     * @param file
+     * @return
+     * @throws Exception
+     */
+    public static Document parse(File file) throws Exception {
+        if (file == null || !file.exists()) {
+            return null;
+        }
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
-        Document domTree = db.parse(xmlFile);
+        Document domTree = db.parse(file);
         return domTree;
     }
 
