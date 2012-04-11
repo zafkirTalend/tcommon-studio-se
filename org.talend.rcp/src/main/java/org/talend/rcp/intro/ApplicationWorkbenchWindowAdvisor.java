@@ -74,6 +74,7 @@ import org.talend.core.ui.ISQLBuilderService;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
+import org.talend.designer.core.ui.editor.palette.TalendPaletteHelper;
 import org.talend.rcp.Activator;
 import org.talend.rcp.i18n.Messages;
 import org.talend.rcp.intro.starting.StartingEditorInput;
@@ -299,6 +300,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                             || IBrandingConfiguration.PERSPECTIVE_CAMEL_ID.equals(pId)) {
                         /* 0016610 need to refresh not only databaseconnection but only trash bin */
                         view.refresh();
+                        TalendPaletteHelper.checkAndInitToolBar();
                     } else if (IBrandingConfiguration.PERSPECTIVE_DQ_ID.equals(pId)) {
                         if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
                             ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) GlobalServiceRegister
