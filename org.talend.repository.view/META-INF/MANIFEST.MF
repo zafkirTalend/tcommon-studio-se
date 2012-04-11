@@ -25,6 +25,8 @@ Export-Package: org.talend.repository,
  org.talend.repository.tester,
  org.talend.repository.viewer.action,
  org.talend.repository.viewer.content,
+ org.talend.repository.viewer.content.code,
+ org.talend.repository.viewer.content.metadata,
  org.talend.repository.viewer.dialog,
  org.talend.repository.viewer.filter,
  org.talend.repository.viewer.label
