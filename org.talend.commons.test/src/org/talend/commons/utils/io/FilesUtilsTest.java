@@ -12,12 +12,17 @@
 // ============================================================================
 package org.talend.commons.utils.io;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-import static org.powermock.api.support.membermodification.MemberMatcher.*;
-import static org.powermock.api.support.membermodification.MemberModifier.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.powermock.api.support.membermodification.MemberMatcher.method;
+import static org.powermock.api.support.membermodification.MemberModifier.stub;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -111,5 +116,40 @@ public class FilesUtilsTest {
         } catch (Exception e) {
             fail(e.getMessage());
         }
+    }
+
+    /**
+     * 
+     * test for parse(String xmlFile).
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void testParse_1() throws Exception {
+        String path = "D:\\·ÖÎöµ¼³ö\\Row_Count_0.1.definition";
+        FilesUtils.parse(path);
+    }
+
+    /**
+     * 
+     * test for parse(File file).
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void testParse_2() throws Exception {
+        File f = new File("D:\\testParse.xml");
+        BufferedWriter output = new BufferedWriter(new FileWriter(f));
+        String str = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+                + "<dataquality.indicators.definition:IndicatorDefinition xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:dataquality.indicators.definition=\"http://dataquality.indicators.definition\" xmi:id=\"_ccFOkBF2Ed2PKb6nEJEvhw\" name=\"Row Count1\" label=\"Row Count\">\n"
+                + "  <taggedValue xmi:id=\"_8mgIwoqnEd-SocVM_rHvUg\" tag=\"Description\" value=\"counts the number of rows\"/>\n"
+                + "  <sqlGenericExpression xmi:id=\"_HtGuc4LCEeGXWpdd1rakSg\" body=\"count(//&lt;%=__TABLE_NAME__%>)\" language=\"MDM\"/>\n"
+                + "</dataquality.indicators.definition:IndicatorDefinition>";
+        output.write(str);
+        output.close();
+        assertTrue(f.exists());
+        FilesUtils.parse(f);
+        f.delete();
+        assertFalse(f.exists());
     }
 }
