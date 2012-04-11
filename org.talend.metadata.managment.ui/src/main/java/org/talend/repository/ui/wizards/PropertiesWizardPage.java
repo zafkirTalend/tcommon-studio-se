@@ -958,45 +958,31 @@ public abstract class PropertiesWizardPage extends WizardPage {
     }
 
     protected void evaluateTextField() {
-        boolean nameIsExist = false;
-        try {
-            ERepositoryObjectType type = ERepositoryObjectType.getItemType(property.getItem());
-            List<IRepositoryViewObject> list = ProxyRepositoryFactory.getInstance().getAll(type);
-            for (int i = 0; i < list.size(); i++) {
-                if (nameText.getText().equals(list.get(i).getProperty().getDisplayName())) {
-                    nameIsExist = true;
-                }
-            }
-            if (nameText.getText().length() == 0) {
-                nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameEmptyError")); //$NON-NLS-1$
-            } else if (nameIsExist) {
-                nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.nameExist")); //$NON-NLS-1$
-            } else if (!Pattern.matches(RepositoryConstants.getPattern(getRepositoryObjectType()), nameText.getText())
-                    || nameText.getText().trim().contains(" ")) { //$NON-NLS-1$
-                nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameFormatError")); //$NON-NLS-1$
-            } else if (isKeywords(nameText.getText()) || "java".equalsIgnoreCase(nameText.getText())) {//$NON-NLS-1$
-                nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.KeywordsError")); //$NON-NLS-1$
-            } else if (nameModifiedByUser) {
-                if (retrieveNameFinished) {
-                    if (!isValid(nameText.getText())) {
-                        nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.ItemExistsError")); //$NON-NLS-1$
-                    } else {
-                        nameStatus = createOkStatus();
-                    }
+        if (nameText.getText().length() == 0) {
+            nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameEmptyError")); //$NON-NLS-1$
+        } else if (!Pattern.matches(RepositoryConstants.getPattern(getRepositoryObjectType()), nameText.getText())
+                || nameText.getText().trim().contains(" ")) { //$NON-NLS-1$
+            nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameFormatError")); //$NON-NLS-1$
+        } else if (isKeywords(nameText.getText()) || "java".equalsIgnoreCase(nameText.getText())) {//$NON-NLS-1$
+            nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.KeywordsError")); //$NON-NLS-1$
+        } else if (nameModifiedByUser) {
+            if (retrieveNameFinished) {
+                if (!isValid(nameText.getText())) {
+                    nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.ItemExistsError")); //$NON-NLS-1$
                 } else {
-                    nameStatus = createStatus(IStatus.ERROR, "Looking for current items name list"); //$NON-NLS-1$
+                    nameStatus = createOkStatus();
                 }
             } else {
-                nameStatus = createOkStatus();
+                nameStatus = createStatus(IStatus.ERROR, "Looking for current items name list"); //$NON-NLS-1$
             }
-            if (property != null && nameStatus.getSeverity() == IStatus.OK) {
-                property.setLabel(StringUtils.trimToNull(nameText.getText()));
-                property.setDisplayName(StringUtils.trimToNull(nameText.getText()));
-            }
-            updatePageStatus();
-        } catch (PersistenceException e) {
-            e.printStackTrace();
+        } else {
+            nameStatus = createOkStatus();
         }
+        if (property != null && nameStatus.getSeverity() == IStatus.OK) {
+            property.setLabel(StringUtils.trimToNull(nameText.getText()));
+            property.setDisplayName(StringUtils.trimToNull(nameText.getText()));
+        }
+        updatePageStatus();
     }
 
     protected IStatus[] getStatuses() {
