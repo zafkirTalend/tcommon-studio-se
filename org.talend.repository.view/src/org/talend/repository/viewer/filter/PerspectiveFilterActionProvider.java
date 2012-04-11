@@ -37,7 +37,7 @@ public class PerspectiveFilterActionProvider extends AbstractRepositoryActionPro
 
     private static final String IS_FILTERING_WITH_PERSPECTIVE = "is.filtering.with.perspective"; //$NON-NLS-1$
 
-    boolean isFiltering;
+    private boolean isFiltering = true; // default is enabled.
 
     private PerspectiveFilterAction perspectiveFilterAction;
 
@@ -49,8 +49,10 @@ public class PerspectiveFilterActionProvider extends AbstractRepositoryActionPro
     @Override
     protected void fillMenus(IMenuManager menuManager) {
         super.fillMenus(menuManager);
-        perspectiveFilterAction = new PerspectiveFilterAction(this, isFiltering, "Perspective Content Filter");
+        perspectiveFilterAction = new PerspectiveFilterAction(this, "Perspective Content Filter");
         menuManager.add(perspectiveFilterAction);
+
+        perspectiveFilterAction.setChecked(isFiltering);
     }
 
     @Override
@@ -58,15 +60,12 @@ public class PerspectiveFilterActionProvider extends AbstractRepositoryActionPro
         super.restoreState(aMemento);
         if (aMemento != null) {
             Integer isFilteringInt = aMemento.getInteger(IS_FILTERING_WITH_PERSPECTIVE);
-            isFiltering = isFilteringInt == null || isFilteringInt.intValue() == 1;
-            if (isFiltering) {
-                filterView(true);
-            } else {
-                unfilterView(true);
+            if (isFilteringInt != null) {
+                isFiltering = isFilteringInt.intValue() == 1;
             }
-        } else {
-            unfilterView(true);
         }
+        // in order to execute the action run
+        PlatformUI.getWorkbench().getActiveWorkbenchWindow().addPerspectiveListener(this);
     }
 
     @Override
@@ -86,28 +85,22 @@ public class PerspectiveFilterActionProvider extends AbstractRepositoryActionPro
     public void setFiltering(boolean filtering, boolean restoring) {
         if (filtering != isFiltering) {
             if (filtering) {
-                filterView(restoring);
+                String perspectiveId = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getPerspective()
+                        .getId();
+                doFiltering(perspectiveId, filtering, restoring);
             } else {
-                unfilterView(restoring);
+                doFiltering(null, filtering, restoring);
             }
             isFiltering = filtering;
         }
     }
 
-    /**
-     * start filtering the view with the current perspective
-     * 
-     * @param restoring
-     * */
-    private void filterView(boolean restoring) {
-        // register this as perspective listener
-        PlatformUI.getWorkbench().getActiveWorkbenchWindow().addPerspectiveListener(this);
-        doFiltering(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getPerspective().getId(), restoring);
-    }
-
-    private void unfilterView(boolean restoring) {
-        PlatformUI.getWorkbench().getActiveWorkbenchWindow().addPerspectiveListener(this);
-        undoFiltering(restoring);
+    private void doFiltering(final String perspectiveId, boolean filtering, boolean restoring) {
+        if (filtering) {
+            filterView(perspectiveId, restoring);
+        } else {
+            unfilterView(restoring);
+        }
     }
 
     /**
@@ -116,14 +109,11 @@ public class PerspectiveFilterActionProvider extends AbstractRepositoryActionPro
      * @param perspectiveId
      * @param restoring
      */
-    private void doFiltering(String perspectiveId, boolean restoring) {
+    private void filterView(String perspectiveId, boolean restoring) {
         refreshNavigatorContents(getExtensionIdsToActivate(perspectiveId), restoring);
     }
 
-    /**
-     * unfilter
-     */
-    private void undoFiltering(boolean restoring) {
+    private void unfilterView(boolean restoring) {
         refreshNavigatorContents(getNavigatorContentService().getVisibleExtensionIds(), restoring);
     }
 
@@ -207,16 +197,7 @@ public class PerspectiveFilterActionProvider extends AbstractRepositoryActionPro
 
     @Override
     public void perspectiveActivated(IWorkbenchPage page, IPerspectiveDescriptor perspective) {
-        CommonViewer commonViewer = getCommonViewer();
-        if (!commonViewer.getControl().isDisposed() && commonViewer.getControl().isVisible() && isFiltering) {// force
-                                                                                                              // refiltering
-                                                                                                              // caus
-                                                                                                              // perspective
-                                                                                                              // changed
-                                                                                                              // and may
-            // not be same filter
-            doFiltering(perspective.getId(), false);
-        }
+        doFiltering(perspective.getId(), isFiltering, false);
     }
 
     @Override

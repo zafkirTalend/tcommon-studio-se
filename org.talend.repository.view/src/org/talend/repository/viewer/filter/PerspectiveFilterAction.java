@@ -19,11 +19,9 @@ public class PerspectiveFilterAction extends Action {
 
     private final PerspectiveFilterActionProvider actionProvider;
 
-    public PerspectiveFilterAction(PerspectiveFilterActionProvider perspectiveFilterActionProvider, boolean isFiltering,
-            String label) {
+    public PerspectiveFilterAction(PerspectiveFilterActionProvider perspectiveFilterActionProvider, String label) {
         super(label, IAction.AS_CHECK_BOX);
         this.actionProvider = perspectiveFilterActionProvider;
-        setChecked(isFiltering);
     }
 
     @Override
