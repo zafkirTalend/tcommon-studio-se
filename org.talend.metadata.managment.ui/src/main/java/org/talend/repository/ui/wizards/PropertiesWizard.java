@@ -57,11 +57,11 @@ import org.talend.repository.model.IProxyRepositoryService;
  */
 public class PropertiesWizard extends Wizard {
 
-    private PropertiesWizardPage mainPage;
+    protected PropertiesWizardPage mainPage;
 
     protected IRepositoryObject object;
 
-    private final IPath path;
+    protected final IPath path;
 
     protected boolean alreadyEditedByUser = false;
 
@@ -75,7 +75,7 @@ public class PropertiesWizard extends Wizard {
 
     private String originalStatus;
 
-    private String lastVersionFound;
+    protected String lastVersionFound;
 
     public PropertiesWizard(IRepositoryViewObject repositoryViewObject, IPath path, boolean useLastVersion) {
         super();
@@ -187,7 +187,7 @@ public class PropertiesWizard extends Wizard {
         }
     }
 
-    private boolean isReadOnly() {
+    protected boolean isReadOnly() {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IProxyRepositoryService.class)) {
             IProxyRepositoryService service = (IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(
                     IProxyRepositoryService.class);
