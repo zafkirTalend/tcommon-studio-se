@@ -16,23 +16,22 @@ import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 
-import com.teradata.jdbc.TeraDatabaseMetaData;
-
 /**
  * @author zshen
  *
  */
-public class ExtractMetaDataUtilsTester {
+public class ExtractMetaDataUtilsTest {
 
 	/**
 	 * Test method for {@link org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils#getDatabaseMetaData(java.sql.Connection, org.talend.core.model.metadata.builder.connection.DatabaseConnection, boolean)}.
 	 */
 	@Test
 	public void testGetDatabaseMetaDataWithThreeParameters() {
-        TeraDatabaseMetaData metaData = Mockito.mock(TeraDatabaseMetaData.class);
+        DatabaseMetaData metaData = Mockito.mock(DatabaseMetaData.class);
+
 		Connection mockConn = Mockito.mock(java.sql.Connection.class);
 		try {
-            Mockito.when(mockConn.getMetaData()).thenReturn((DatabaseMetaData) metaData);
+            Mockito.when(mockConn.getMetaData()).thenReturn(metaData);
 		} catch (SQLException e) {
 			fail(e.getMessage());
 		}
@@ -53,7 +52,7 @@ public class ExtractMetaDataUtilsTester {
 		} catch (SQLException e) {
 			fail(e.getMessage());
 		}
-		if(!(databaseMetaData1 instanceof TeradataDataBaseMetadata && databaseMetaData2 instanceof TeraDatabaseMetaData)){
+        if (!(databaseMetaData1 instanceof TeradataDataBaseMetadata && databaseMetaData2 instanceof DatabaseMetaData)) {
 			fail();
 		}
 		
