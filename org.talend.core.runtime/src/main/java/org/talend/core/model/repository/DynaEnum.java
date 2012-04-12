@@ -56,7 +56,10 @@ public class DynaEnum<E extends DynaEnum<E>> {
             typeElements = new LinkedHashMap<String, DynaEnum<?>>();
             elements.put(getDynaEnumClass(), typeElements);
         }
-        typeElements.put(type, this);
+        // changed by hqzhang for TDI-20504. we use the upper case string to find type, but type definition for MDM item
+        // is not in upper case, have to change them in code.
+        typeElements.put(type.toUpperCase(), this);
+        // TDI-20504 end
         this.type = type;
     }
 
@@ -105,7 +108,10 @@ public class DynaEnum<E extends DynaEnum<E>> {
 
     @SuppressWarnings("unchecked")
     public static <T extends DynaEnum<T>> T valueOf(Class<T> enumType, String name) {
-        return (T) elements.get(enumType).get(name);
+        // changed by hqzhang for TDI-20504. we use the upper case string to find type, but type definition for MDM item
+        // is not in upper case, have to change them in code.
+        return (T) elements.get(enumType).get(name.toUpperCase());
+        // TDI-20504 end
     }
 
     @SuppressWarnings("unused")
