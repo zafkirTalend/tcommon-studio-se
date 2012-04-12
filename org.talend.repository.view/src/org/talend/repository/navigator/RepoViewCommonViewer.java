@@ -15,14 +15,26 @@ package org.talend.repository.navigator;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.jface.util.LocalSelectionTransfer;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ITreeViewerListener;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeExpansionEvent;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.dnd.DND;
+import org.eclipse.swt.dnd.DragSourceAdapter;
+import org.eclipse.swt.dnd.DragSourceEvent;
+import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Item;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.model.actions.MoveObjectAction;
+import org.talend.repository.ui.views.RepositoryDropAdapter;
 
 /**
  * DOC sgandon class global comment. Detailled comment <br/>
@@ -35,6 +47,8 @@ public class RepoViewCommonViewer extends CommonViewer implements ITreeViewerLis
     private Map<String, Boolean> expanded = new HashMap<String, Boolean>();
 
     private final RepoViewCommonNavigator repViewCommonNavigator;
+
+    private Listener dragDetectListener;
 
     /**
      * Getter for repViewCommonNavigator.
@@ -128,4 +142,78 @@ public class RepoViewCommonViewer extends CommonViewer implements ITreeViewerLis
         String id = repositoryNode.getId();
         return id != null && !RepositoryNode.NO_ID.equals(id);
     }
+
+    @Override
+    protected void initDragAndDrop() {
+        int ops = DND.DROP_COPY | DND.DROP_MOVE | DND.DROP_LINK;
+        Transfer[] transfers = new Transfer[] { LocalSelectionTransfer.getTransfer() };
+
+        this.addDragSupport(ops, transfers, new DragSourceAdapter() {
+
+            private static final long FFFFFFFFL = 0xFFFFFFFFL;
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see org.eclipse.swt.dnd.DragSourceAdapter#dragSetData(org.eclipse.swt.dnd.DragSourceEvent)
+             */
+            @Override
+            public void dragSetData(DragSourceEvent event) {
+                repViewCommonNavigator.setNoNeedUpdate(true);
+                event.data = LocalSelectionTransfer.getTransfer().getSelection();
+            }
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see org.eclipse.swt.dnd.DragSourceAdapter#dragStart(org.eclipse.swt.dnd.DragSourceEvent)
+             */
+            @Override
+            public void dragStart(DragSourceEvent event) {
+                ISelection selection = RepoViewCommonViewer.this.getSelection();
+
+                for (Object obj : ((StructuredSelection) selection).toArray()) {
+                    RepositoryNode sourceNode = (RepositoryNode) obj;
+
+                    // As i don't know how to get event operation i test on MoveOperation
+                    event.doit = MoveObjectAction.getInstance().validateAction(sourceNode, null, true);
+                }
+
+                LocalSelectionTransfer.getTransfer().setSelection(selection);
+                LocalSelectionTransfer.getTransfer().setSelectionSetTime(event.time & FFFFFFFFL);
+            }
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see org.eclipse.swt.dnd.DragSourceAdapter#dragFinished(org.eclipse.swt.dnd.DragSourceEvent)
+             */
+            @Override
+            public void dragFinished(DragSourceEvent event) {
+                repViewCommonNavigator.dragFinished();
+            }
+        });
+        RepositoryDropAdapter adapter = new RepositoryDropAdapter(this);
+        adapter.setFeedbackEnabled(false);
+        this.addDropSupport(ops | DND.DROP_DEFAULT, transfers, adapter);
+        dragDetectListener = new Listener() {
+
+            @Override
+            public void handleEvent(Event event) {
+                // dragDetected = true;
+            }
+        };
+        this.getControl().addListener(SWT.DragDetect, dragDetectListener);
+    }
+
+    @Override
+    public void refresh(Object element) {
+        if (repViewCommonNavigator != null && repViewCommonNavigator.isNoNeedUpdate()) {
+            return;
+        } else {
+            super.refresh(element);
+        }
+
+    }
+
 }

@@ -20,24 +20,17 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.util.LocalSelectionTransfer;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ITreeViewerListener;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeExpansionEvent;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.dnd.DND;
-import org.eclipse.swt.dnd.DragSourceAdapter;
-import org.eclipse.swt.dnd.DragSourceEvent;
-import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
@@ -94,10 +87,8 @@ import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
-import org.talend.repository.model.actions.MoveObjectAction;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
-import org.talend.repository.ui.views.RepositoryDropAdapter;
 import org.talend.repository.ui.views.RepositoryLabelProvider;
 
 /**
@@ -119,11 +110,11 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
 
     private static boolean codeGenerationEngineInitialised;
 
-    private Listener dragDetectListener;
-
     protected boolean isFromFake = true;
 
     public static Object initialInput;
+
+    private boolean noNeedUpdate = false;
 
     /**
      * yzhang Comment method "addPreparedListeners".
@@ -144,7 +135,7 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
     @Override
     public void init(IViewSite site) throws PartInitException {
         super.init(site);
-        // FIXME， later, will check this to initialize
+        // FIXME锛�later, will check this to initialize
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
             final IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
                     IRepositoryService.class);
@@ -450,68 +441,8 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
         return null;
     }
 
-    protected void initDragAndDrop() {
-        int ops = DND.DROP_COPY | DND.DROP_MOVE | DND.DROP_LINK;
-        Transfer[] transfers = new Transfer[] { LocalSelectionTransfer.getTransfer() };
-
-        viewer.addDragSupport(ops, transfers, new DragSourceAdapter() {
-
-            private static final long FFFFFFFFL = 0xFFFFFFFFL;
-
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.eclipse.swt.dnd.DragSourceAdapter#dragSetData(org.eclipse.swt.dnd.DragSourceEvent)
-             */
-            @Override
-            public void dragSetData(DragSourceEvent event) {
-                event.data = LocalSelectionTransfer.getTransfer().getSelection();
-            }
-
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.eclipse.swt.dnd.DragSourceAdapter#dragStart(org.eclipse.swt.dnd.DragSourceEvent)
-             */
-            @Override
-            public void dragStart(DragSourceEvent event) {
-                ISelection selection = viewer.getSelection();
-
-                for (Object obj : ((StructuredSelection) selection).toArray()) {
-                    RepositoryNode sourceNode = (RepositoryNode) obj;
-
-                    // As i don't know how to get event operation i test on MoveOperation
-                    event.doit = MoveObjectAction.getInstance().validateAction(sourceNode, null, true);
-                }
-
-                LocalSelectionTransfer.getTransfer().setSelection(selection);
-                LocalSelectionTransfer.getTransfer().setSelectionSetTime(event.time & FFFFFFFFL);
-            }
-
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.eclipse.swt.dnd.DragSourceAdapter#dragFinished(org.eclipse.swt.dnd.DragSourceEvent)
-             */
-            @Override
-            public void dragFinished(DragSourceEvent event) {
-                RepoViewCommonNavigator.this.dragFinished();
-            }
-        });
-        RepositoryDropAdapter adapter = new RepositoryDropAdapter(viewer);
-        adapter.setFeedbackEnabled(false);
-        viewer.addDropSupport(ops | DND.DROP_DEFAULT, transfers, adapter);
-        dragDetectListener = new Listener() {
-
-            @Override
-            public void handleEvent(Event event) {
-                // dragDetected = true;
-            }
-        };
-        viewer.getControl().addListener(SWT.DragDetect, dragDetectListener);
-    }
-
     public void dragFinished() {
+        this.setNoNeedUpdate(false);
         refresh();
         LocalSelectionTransfer.getTransfer().setSelection(null);
         LocalSelectionTransfer.getTransfer().setSelectionSetTime(0);
@@ -781,7 +712,16 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
         return null;
     }
 
+    public boolean isNoNeedUpdate() {
+        return noNeedUpdate;
+    }
+
+    public void setNoNeedUpdate(boolean noNeedUpdate) {
+        this.noNeedUpdate = noNeedUpdate;
+    }
+
     protected void setLabelProviderForView() {
         viewer.setLabelProvider(new RepositoryLabelProvider(this));
     }
+
 }
