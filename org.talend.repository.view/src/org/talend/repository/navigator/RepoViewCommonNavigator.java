@@ -98,6 +98,7 @@ import org.talend.repository.model.actions.MoveObjectAction;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
 import org.talend.repository.ui.views.RepositoryDropAdapter;
+import org.talend.repository.ui.views.RepositoryLabelProvider;
 
 /**
  * DOC sgandon class global comment. Detailled comment <br/>
@@ -201,6 +202,7 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
         if (isFromFake) {
             refresh();
         }
+        setLabelProviderForView();
         // This only tree listener aim is to change open/close icons on folders :
         // TODO this should be done in the LabelProvider
         viewer.addTreeListener(new ITreeViewerListener() {
@@ -777,5 +779,9 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
 
         }
         return null;
+    }
+
+    protected void setLabelProviderForView() {
+        viewer.setLabelProvider(new RepositoryLabelProvider(this));
     }
 }
