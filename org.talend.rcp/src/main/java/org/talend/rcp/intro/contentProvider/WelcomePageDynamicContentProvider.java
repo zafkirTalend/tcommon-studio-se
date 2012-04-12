@@ -27,6 +27,8 @@ import org.w3c.dom.Element;
  */
 public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProvider {
 
+    private static final String BROWSER_URL = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.rcp&class=org.talend.rcp.intro.OpenWebBrowserAction&type="; //$NON-NLS-1$
+
     /*
      * (non-Javadoc)
      * 
@@ -145,14 +147,12 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
             Element blockquoteDoc = dom.createElement("blockquote");
             Element blockquotePDoc = dom.createElement("p");
             Element blockquoteA1Doc = dom.createElement("a");
-            blockquoteA1Doc.setAttribute("href", "http://www.talend.com/resources/documentation.php#TOS_UG");
-            // blockquoteA1Doc.setAttribute("target", "showUserGuide");
+            blockquoteA1Doc.setAttribute("href", BROWSER_URL + "showUserGuide");
             blockquoteA1Doc.appendChild(dom.createTextNode(Messages
                     .getString("WelcomePageDynamicContentProvider.DocumentationUserGuideTitle")));
 
             Element blockquoteA2Doc = dom.createElement("a");
-            blockquoteA2Doc.setAttribute("href", "http://www.talend.com/resources/documentation.php#TOS_RG");
-            // blockquoteA2Doc.setAttribute("target", "showReferenceGuide");
+            blockquoteA2Doc.setAttribute("href", BROWSER_URL + "showReferenceGuide");
             blockquoteA2Doc.appendChild(dom.createTextNode(Messages
                     .getString("WelcomePageDynamicContentProvider.DocumentationReferenceGuideTitle")));
             blockquotePDoc.appendChild(blockquoteA1Doc);
@@ -169,20 +169,17 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
             Element blockquoteGS = dom.createElement("blockquote");
             Element blockquotePGS = dom.createElement("p");
             Element blockquoteA1GS = dom.createElement("a");
-            blockquoteA1GS.setAttribute("href", "http://www.talendforge.org/tutorials");
-            // blockquoteA1GS.setAttribute("target", "showTutorials");
+            blockquoteA1GS.setAttribute("href", BROWSER_URL + "showTutorials");
             blockquoteA1GS.appendChild(dom.createTextNode(Messages
                     .getString("WelcomePageDynamicContentProvider.GettingStartedTutorialsTitle")));
 
             Element blockquoteA2GS = dom.createElement("a");
-            blockquoteA2GS.setAttribute("href", "http://www.talendforge.org/forum");
-            // blockquoteA2GS.setAttribute("target", "showForums");
+            blockquoteA2GS.setAttribute("href", BROWSER_URL + "showForums");
             blockquoteA2GS.appendChild(dom.createTextNode(Messages
                     .getString("WelcomePageDynamicContentProvider.GettingStartedForumsTitle")));
 
             Element blockquoteA3GS = dom.createElement("a");
-            blockquoteA3GS.setAttribute("href", "http://www.talendforge.org/exchange");
-            // blockquoteA3GS.setAttribute("target", "showExchange");
+            blockquoteA3GS.setAttribute("href", BROWSER_URL + "showExchange");
             blockquoteA3GS.appendChild(dom.createTextNode(Messages
                     .getString("WelcomePageDynamicContentProvider.GettingStartedExchangeTitle")));
 
