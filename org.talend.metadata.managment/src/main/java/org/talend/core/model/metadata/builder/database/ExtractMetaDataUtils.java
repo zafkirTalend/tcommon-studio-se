@@ -55,15 +55,10 @@ import org.talend.core.model.metadata.MetadataConnection;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
-import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.repository.ProjectManager;
-import org.talend.repository.model.IRepositoryNode;
-import org.talend.repository.model.nodes.IProjectRepositoryNode;
-import org.talend.repository.ui.views.IRepositoryView;
 import org.talend.utils.sugars.TypedReturnCode;
 
 /**
@@ -1000,14 +995,16 @@ public class ExtractMetaDataUtils {
     }
 
     public static boolean haveLoadMetadataNode() {
-        IRepositoryView repoView = RepositoryManagerHelper.findRepositoryView();
-        if (repoView != null) {
-            IProjectRepositoryNode root = repoView.getRoot();
-            final IRepositoryNode rootRepositoryNode = root.getRootRepositoryNode(ERepositoryObjectType.METADATA);
-            if (rootRepositoryNode != null) {
-                return true;
-            }
-        }
-        return false;
+        boolean loadMetadata = PluginChecker.isPluginLoaded("org.talend.repository.metadata");
+        return loadMetadata;
+        // IRepositoryView repoView = RepositoryManagerHelper.findRepositoryView();
+        // if (repoView != null) {
+        // IProjectRepositoryNode root = repoView.getRoot();
+        // final IRepositoryNode rootRepositoryNode = root.getRootRepositoryNode(ERepositoryObjectType.METADATA);
+        // if (rootRepositoryNode != null) {
+        // return true;
+        // }
+        // }
+        // return false;
     }
 }
