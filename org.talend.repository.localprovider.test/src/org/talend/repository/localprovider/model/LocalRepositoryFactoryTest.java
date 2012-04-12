@@ -300,6 +300,8 @@ public class LocalRepositoryFactoryTest {
         Property property = PropertiesFactory.eINSTANCE.createProperty();
         property.setAuthor(sampleProject.getAuthor());
         property.setVersion(VersionUtils.DEFAULT_VERSION);
+        property.setLabel("myJob");
+        property.setDisplayName("myJob");
         property.setStatusCode("");
         property.setId(repositoryFactory.getNextId());
         ProcessItem processItem = PropertiesFactory.eINSTANCE.createProcessItem();
@@ -619,6 +621,8 @@ public class LocalRepositoryFactoryTest {
         property.setAuthor(sampleProject.getAuthor());
         property.setVersion(VersionUtils.DEFAULT_VERSION);
         property.setStatusCode("");
+        property.setLabel("myJob");
+        property.setDisplayName("myJob");
         final String nextId = repositoryFactory.getNextId();
         property.setId(nextId);
         ProcessItem processItem = PropertiesFactory.eINSTANCE.createProcessItem();
@@ -667,6 +671,8 @@ public class LocalRepositoryFactoryTest {
         Property property = PropertiesFactory.eINSTANCE.createProperty();
         property.setAuthor(sampleProject.getAuthor());
         property.setVersion(VersionUtils.DEFAULT_VERSION);
+        property.setLabel("myJob");
+        property.setDisplayName("myJob");
         property.setStatusCode("");
         final String nextId = repositoryFactory.getNextId();
         property.setId(nextId);
@@ -720,6 +726,8 @@ public class LocalRepositoryFactoryTest {
         property.setAuthor(sampleProject.getAuthor());
         property.setVersion(VersionUtils.DEFAULT_VERSION);
         property.setStatusCode("");
+        property.setLabel("myJob");
+        property.setDisplayName("myJob");
         final String nextId = repositoryFactory.getNextId();
         property.setId(nextId);
         ProcessItem processItem = PropertiesFactory.eINSTANCE.createProcessItem();
