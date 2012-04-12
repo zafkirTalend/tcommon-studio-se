@@ -202,6 +202,7 @@ public final class RepositoryManager {
             IRepositoryView repositoryView = getRepositoryView();
             if (repositoryView != null) {
                 repositoryView.refresh(type);
+                repositoryView.refresh();
             }
         }
     }
