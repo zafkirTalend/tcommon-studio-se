@@ -124,4 +124,6 @@ public interface ITalendCorePrefConstants {
     String OOZIE_SHCEDULER_JOB_TRACKER_ENDPOINT = "oozie_scheduler_job_tracker_endpoint";
 
     String OOZIE_SHCEDULER_OOZIE_ENDPOINT = "oozie_scheduler_oozie_endpoint";
+
+    String OOZIE_SCHEDULER_USER_NAME = "oozie_scheduler_user_name";
 }
