@@ -28,7 +28,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.navigator.ICommonContentExtensionSite;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
@@ -195,8 +194,8 @@ public class RepositoryViewLabelProvider extends AbstractRepoViewLabelProvider {
 
     @Override
     public String getText(Object element) {
-        if (element instanceof RepositoryNode && !(element instanceof ProjectRepositoryNode)) {// Only handle repository
-                                                                                               // node
+        if (element instanceof RepositoryNode) {// Only handle repository
+                                                // node
             return repoLabelProv.getText(element);
         } else {
             return ""; //$NON-NLS-1$
