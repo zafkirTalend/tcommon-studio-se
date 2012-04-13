@@ -14,8 +14,15 @@ package org.talend.repository.ui.wizards;
 
 import java.util.List;
 
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.SWT;
@@ -23,6 +30,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.osgi.framework.FrameworkUtil;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
@@ -224,6 +232,7 @@ public class PropertiesWizard extends Wizard {
                 setPageComplete(false);
             }
 
+            @Override
             protected void evaluateTextField() {
                 super.evaluateTextField();
                 if (nameStatus.getSeverity() == IStatus.OK) {
@@ -250,20 +259,36 @@ public class PropertiesWizard extends Wizard {
         if (alreadyEditedByUser) {
             return false;
         }
-        try {
-            IProxyRepositoryFactory proxyRepositoryFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
-            //changed by hqzhang for TDI-19527, label=displayName
-            object.getProperty().setLabel(object.getProperty().getDisplayName());
-            proxyRepositoryFactory.save(object.getProperty(), this.originaleObjectLabel, this.originalVersion);
-            ExpressionPersistance.getInstance().jobNameChanged(originaleObjectLabel, object.getLabel());
-            proxyRepositoryFactory.saveProject(ProjectManager.getInstance().getCurrentProject());
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBService.class)) {
-                IESBService service = (IESBService) GlobalServiceRegister.getDefault().getService(IESBService.class);
-                service.editJobName(originaleObjectLabel, object.getLabel());
+
+        IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
+
+            public void run(final IProgressMonitor monitor) throws CoreException {
+                try {
+                    IProxyRepositoryFactory proxyRepositoryFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+                    // changed by hqzhang for TDI-19527, label=displayName
+                    object.getProperty().setLabel(object.getProperty().getDisplayName());
+                    proxyRepositoryFactory.save(object.getProperty(), originaleObjectLabel, originalVersion);
+                    ExpressionPersistance.getInstance().jobNameChanged(originaleObjectLabel, object.getLabel());
+                    proxyRepositoryFactory.saveProject(ProjectManager.getInstance().getCurrentProject());
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBService.class)) {
+                        IESBService service = (IESBService) GlobalServiceRegister.getDefault().getService(IESBService.class);
+                        service.editJobName(originaleObjectLabel, object.getLabel());
+                    }
+                } catch (PersistenceException pe) {
+                    throw new CoreException(new Status(IStatus.ERROR, FrameworkUtil.getBundle(this.getClass()).getSymbolicName(),
+                            "persistance error", pe)); //$NON-NLS-1$
+                }
             }
+        };
+        IWorkspace workspace = ResourcesPlugin.getWorkspace();
+        try {
+            ISchedulingRule schedulingRule = workspace.getRoot();
+            // the update the project files need to be done in the workspace runnable to avoid all notification
+            // of changes before the end of the modifications.
+            workspace.run(runnable, schedulingRule, IWorkspace.AVOID_UPDATE, null);
             return true;
-        } catch (PersistenceException e) {
-            MessageBoxExceptionHandler.process(e);
+        } catch (CoreException e) {
+            MessageBoxExceptionHandler.process(e.getCause());
             return false;
         }
     }
