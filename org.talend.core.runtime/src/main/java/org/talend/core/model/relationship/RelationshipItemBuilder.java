@@ -660,7 +660,8 @@ public class RelationshipItemBuilder {
                             }
 
                             // only for SurvivorshipFileItem
-                            if (param.getField().equals(EParameterFieldType.SURVIVOR_RELATION.getName())) { //$NON-NLS-1$
+                            if (param.getField() != null
+                                    && param.getField().equals(EParameterFieldType.SURVIVOR_RELATION.getName())) { //$NON-NLS-1$
                                 String relatedID = param.getValue();
                                 addRelationShip(item, relatedID, LATEST_VERSION, SURVIVOR_RELATION);
                             }
