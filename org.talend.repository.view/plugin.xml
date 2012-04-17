@@ -92,7 +92,7 @@
             id="org.talend.repository.viewer.root.recycleBin"
             labelProvider="org.talend.repository.viewer.label.RecycleBinViewLabelProvider"
             name="RecycleBin"
-            priority="highest">
+            priority="high">
          <triggerPoints>
             <or>
                <adapt
@@ -127,7 +127,7 @@
       </navigatorContent>
       <navigatorContent
             activeByDefault="true"
-            appearsBefore="org.talend.repository.viewer.root.metadata"
+            appearsBefore="org.talend.repository.viewer.root.sqlTemplates"
             contentProvider="org.talend.repository.viewer.content.code.CodeTopNodeContentProvider"
             icon="icons/code.png"
             id="org.talend.repository.viewer.root.code"
@@ -172,7 +172,7 @@
       </navigatorContent>
       <navigatorContent
             activeByDefault="true"
-            appearsBefore="org.talend.repository.viewer.root.recycleBin"
+            appearsBefore="org.talend.repository.viewer.root.documentation"
             contentProvider="org.talend.repository.viewer.content.metadata.MetadataTopNodeContentProvider"
             icon="icons/metadata.png"
             id="org.talend.repository.viewer.root.metadata"
