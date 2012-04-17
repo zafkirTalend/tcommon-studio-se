@@ -31,4 +31,9 @@ public class CodeTopNodeContentProvider extends EmptyTopNodeContentProvider {
         return projectRepositoryNode.getRootRepositoryNode(ERepositoryObjectType.CODE);
     }
 
+    @Override
+    protected void refreshTopLevelNode() {
+        this.setReInit(false); // don't re-init
+        super.refreshTopLevelNode();
+    }
 }

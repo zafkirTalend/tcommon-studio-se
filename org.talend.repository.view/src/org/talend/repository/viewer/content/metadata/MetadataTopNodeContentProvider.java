@@ -31,4 +31,9 @@ public class MetadataTopNodeContentProvider extends EmptyTopNodeContentProvider 
         return projectRepositoryNode.getRootRepositoryNode(ERepositoryObjectType.METADATA);
     }
 
+    @Override
+    protected void refreshTopLevelNode() {
+        this.setReInit(false); // don't re-init
+        super.refreshTopLevelNode();
+    }
 }
