@@ -324,6 +324,9 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             svnRootNode = new RepositoryNode(null, this, ENodeType.SYSTEM_FOLDER);
             svnRootNode.setProperties(EProperties.LABEL, ERepositoryObjectType.SVN_ROOT + "(" + urlBranch + ")"); //$NON-NLS-1$ //$NON-NLS-2$
             svnRootNode.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.SVN_ROOT);
+            if (root.contains(svnRootNode)) {
+                return;
+            }
             root.add(svnRootNode);
 
             nodes = svnRootNode.getChildren();
