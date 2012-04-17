@@ -33,6 +33,62 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
 
     private Connection connection;
 
+    private String T = "T";//$NON-NLS-1$
+
+    private String V = "V";//$NON-NLS-1$
+
+    private String S = "S";//$NON-NLS-1$
+
+    private String A = "A";//$NON-NLS-1$
+
+    private String TABLE = "TABLE"; //$NON-NLS-1$
+
+    private String VIEW = "VIEW"; //$NON-NLS-1$
+
+    private String SYNONYM = "SYNONYM"; //$NON-NLS-1$
+
+    private String ALIAS = "ALIAS"; //$NON-NLS-1$
+
+    /**
+     * DOC xqliu Comment method "getDb2zosTypeName".
+     * 
+     * @param typeName
+     * @return
+     */
+    private String getDb2zosTypeName(String typeName) {
+        String result = typeName;
+        if (TABLE.equals(typeName)) {
+            result = T;
+        } else if (VIEW.equals(typeName)) {
+            result = V;
+        } else if (SYNONYM.equals(typeName)) {
+            result = S;
+        } else if (ALIAS.equals(typeName)) {
+            result = A;
+        }
+        return result;
+    }
+
+    /**
+     * DOC xqliu Comment method "getTypeNameFromDb2zosType".
+     * 
+     * @param typeName
+     * @return
+     */
+    private String getTypeNameFromDb2zosType(String typeName) {
+        String result = typeName;
+        if (T.equals(typeName)) {
+            result = TABLE;
+        } else if (V.equals(typeName)) {
+            result = VIEW;
+        } else if (S.equals(typeName)) {
+            result = SYNONYM;
+        } else if (A.equals(typeName)) {
+            result = ALIAS;
+        }
+        return result;
+    }
+
     /**
      * DOC bqian DB2ForZosDataBaseMetadata constructor comment.
      * 
@@ -112,12 +168,14 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
         String[] s1 = new String[] { "TABLE" }; //$NON-NLS-1$
         String[] s2 = new String[] { "VIEW" }; //$NON-NLS-1$
         String[] s3 = new String[] { "SYNONYM" }; //$NON-NLS-1$
+        String[] s4 = new String[] { "ALIAS" }; //$NON-NLS-1$
 
         List<String[]> list = new ArrayList<String[]>();
 
         list.add(s1);
         list.add(s2);
         list.add(s3);
+        list.add(s4);
 
         DB2ForZosResultSet tableResultSet = new DB2ForZosResultSet();
         tableResultSet.setMetadata(new String[] { "TABLE_TYPE" }); //$NON-NLS-1$
@@ -146,11 +204,17 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
     @Override
     public ResultSet getTables(String catalog, String schema, String tableNamePattern, String[] types) throws SQLException {
         String sql;
+        String and;
         if (schema != null) {
             sql = "SELECT * FROM SYSIBM.SYSTABLES where CREATOR = '" + schema + "'"; //$NON-NLS-1$ //$NON-NLS-2$
+            and = " and ";
         } else {
             sql = "SELECT * FROM SYSIBM.SYSTABLES"; //$NON-NLS-1$
+            and = " where ";
         }
+        // ADD xqliu 2012-04-17 TDQ-5118
+        sql = addTypesToSql(sql, types, and);
+        // ~ TDQ-5118
         ResultSet rs = null;
         Statement stmt = null;
         List<String[]> list = new ArrayList<String[]>();
@@ -164,7 +228,7 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
                 String type = rs.getString("TYPE"); //$NON-NLS-1$
                 // String dbname = rs.getString("DBNAME");
 
-                String[] r = new String[] { "", creator, name, type, "" }; //$NON-NLS-1$ //$NON-NLS-2$
+                String[] r = new String[] { "", creator, name, getTypeNameFromDb2zosType(type), "" }; //$NON-NLS-1$ //$NON-NLS-2$
                 list.add(r);
             }
 
@@ -182,6 +246,32 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
         tableResultSet.setMetadata(TABLE_META);
         tableResultSet.setData(list);
         return tableResultSet;
+    }
+
+    /**
+     * DOC xqliu Comment method "addTypesToSql".
+     * 
+     * @param sql
+     * @param types
+     * @param and
+     * @return
+     */
+    private String addTypesToSql(String sql, String[] types, String and) {
+        String result = sql;
+        if (types != null && types.length > 0) {
+            String typeClause = " type in("; //$NON-NLS-1$
+            int len = types.length;
+            for (int i = 0; i < len; ++i) {
+                String comma = ""; //$NON-NLS-1$
+                if (i > 0) {
+                    comma = " , "; //$NON-NLS-1$
+                }
+                typeClause = comma + typeClause + "'" + getDb2zosTypeName(types[i]) + "'";//$NON-NLS-1$ //$NON-NLS-2$
+            }
+            typeClause = typeClause + ")"; //$NON-NLS-1$
+            result = sql + and + typeClause;
+        }
+        return result;
     }
 
     /*
