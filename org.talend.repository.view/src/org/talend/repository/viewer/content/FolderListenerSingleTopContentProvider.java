@@ -33,6 +33,12 @@ import org.talend.repository.navigator.RepoViewCommonViewer;
  * */
 public abstract class FolderListenerSingleTopContentProvider extends SingleTopLevelContentProvider {
 
+    private boolean reInit = true; // default is true
+
+    public FolderListenerSingleTopContentProvider() {
+        super();
+    }
+
     /**
      * DOC sgandon class global comment. Detailled comment <br/>
      * 
@@ -73,6 +79,14 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
         }
     }
 
+    protected boolean isReInit() {
+        return reInit;
+    }
+
+    protected void setReInit(boolean reInit) {
+        this.reInit = reInit;
+    }
+
     /**
      * This calls the refresh of the toplevel node, this must be invoke from the UI thread.
      * 
@@ -81,15 +95,23 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
     protected void refreshTopLevelNode() {
         RepositoryNode topLevelNode = getTopLevelNode();
         if (topLevelNode != null) {
-            topLevelNode.setInitialized(false);
-            topLevelNode.getChildren().clear();
-            // }
+            if (isReInit()) {
+                topLevelNode.setInitialized(false);
+                topLevelNode.getChildren().clear();
+            }
+
+            beforeRefreshTopLevelNode();
+
             // for bug 11786
             if (topLevelNode.getParent() instanceof ProjectRepositoryNode) {
                 ((ProjectRepositoryNode) topLevelNode.getParent()).clearNodeAndProjectCash();
             }
             viewer.refresh(topLevelNode);
         }
+    }
+
+    protected void beforeRefreshTopLevelNode() {
+        // do nothing here
     }
 
     /**

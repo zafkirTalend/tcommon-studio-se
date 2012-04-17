@@ -149,9 +149,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
 
     private Map<Object, List<Project>> nodeAndProject;
 
-    private Map<ERepositoryObjectType, RepositoryNode> repositoryNodeMap = new HashMap<ERepositoryObjectType, RepositoryNode>();
-
-    private Map<ERepositoryObjectType, RepositoryNode> repositoryNodeExtensionMap = new HashMap<ERepositoryObjectType, RepositoryNode>();
+    private Map<String, RepositoryNode> repositoryNodeMap = new HashMap<String, RepositoryNode>();
 
     private String currentPerspective; // set the current perspective
 
@@ -311,13 +309,14 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
     public void initialize(String currentPerspective) {
         this.currentPerspective = currentPerspective;
         nodeAndProject = new HashMap<Object, List<Project>>();
-        List<IRepositoryNode> nodes = null;
+        IRepositoryNode curParentNode = null;
+
         String urlBranch = null;
         if (ProjectManager.getInstance().getCurrentBranchURL(project) != null) {
             urlBranch = showSVNRoot();
         }
         if ("".equals(urlBranch) || urlBranch == null) { //$NON-NLS-1$
-            nodes = getChildren();
+            curParentNode = this;
         } else {
             List<IRepositoryNode> root = getChildren();
 
@@ -329,9 +328,10 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             }
             root.add(svnRootNode);
 
-            nodes = svnRootNode.getChildren();
+            curParentNode = svnRootNode;
         }
 
+        List<IRepositoryNode> nodes = curParentNode.getChildren();
         // 0. Recycle bin
         recBinNode = new BinRepositoryNode(this);
         nodes.add(recBinNode);
@@ -571,7 +571,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             nodes.add(refProject);
         }
         // *init the repository node from extension
-        initExtensionRepositoryNodes(nodes);
+        initExtensionRepositoryNodes(curParentNode);
 
         // hide hidden nodes;
         // hideHiddenNodes();
@@ -581,22 +581,30 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         } catch (JSONException e) {
             ExceptionHandler.process(e);
         }
-        collectRepositoryNodes(nodes);
+
+        collectRepositoryNodes(curParentNode);
+    }
+
+    private void collectRepositoryNodes(IRepositoryNode curParentNode) {
+        if (repositoryNodeMap == null) {
+            repositoryNodeMap = new HashMap<String, RepositoryNode>();
+        }
+        repositoryNodeMap.clear();
+        collectRepositoryNodes(curParentNode.getChildren());
     }
 
     private void collectRepositoryNodes(List<IRepositoryNode> nodes) {
-        if (repositoryNodeMap == null) {
-            repositoryNodeMap = new HashMap<ERepositoryObjectType, RepositoryNode>();
-        }
+
         if (nodes != null) {
             for (IRepositoryNode node : nodes) {
                 if (node.getParent() instanceof ProjectRepositoryNode) { // root node of type
                     ERepositoryObjectType roType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
                     if (roType != null) { // bin is null
-                        if (repositoryNodeMap.containsKey(roType)) {
+                        String typeName = roType.name();
+                        if (repositoryNodeMap.containsKey(typeName)) {
                             // later, will do something.
                         } else {
-                            repositoryNodeMap.put(roType, (RepositoryNode) node);
+                            repositoryNodeMap.put(typeName, (RepositoryNode) node);
                         }
                     }
                 }
@@ -649,11 +657,16 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         // hideHiddenNodesDependsUserRight(this, currentRepositoryType);
     }
 
-    private void initExtensionRepositoryNodes(List<IRepositoryNode> nodes) {
-        repositoryNodeExtensionMap.clear();
+    private void initExtensionRepositoryNodes(final IRepositoryNode curParentNode) {
+        Map<ERepositoryObjectType, RepositoryNode> repositoryNodeExtensionMap = new HashMap<ERepositoryObjectType, RepositoryNode>();
+
         IExtensionRegistry registry = Platform.getExtensionRegistry();
         IConfigurationElement[] configurationElements = registry
                 .getConfigurationElementsFor("org.talend.core.repository.repository_node_provider"); //$NON-NLS-1$
+
+        // child,parent
+        Map<ERepositoryObjectType, ERepositoryObjectType> parentNodeMapping = new HashMap<ERepositoryObjectType, ERepositoryObjectType>();
+
         try {
             for (IConfigurationElement element : configurationElements) {
                 Object extensionNode = element.createExecutableExtension("class");
@@ -664,7 +677,6 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                     IImage icon = diyNode.getNodeImage();
 
                     RepositoryNode dynamicNode = new RepositoryNode(null, this, ENodeType.SYSTEM_FOLDER);
-                    @SuppressWarnings("unchecked")
                     RepositoryNode[] children = (RepositoryNode[]) diyNode.getChildren();
                     if (children != null && (children.length > 0)) {
                         for (RepositoryNode nodeToAdd : children) {
@@ -680,37 +692,42 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                     }
                     dynamicNode.setIcon(icon);
                     repositoryNodeExtensionMap.put(repositoryNodeType, dynamicNode);
-                    IRepositoryNode parentNode = findParentNodeByLabel(nodes, parentNodeType);
-                    if (parentNode != null) {
-                        parentNode.getChildren().add(dynamicNode);
-                        // dynamicNode.setParent((RepositoryNode) parentNode);
-                    } else {
-                        nodes.add(dynamicNode);
+                    boolean withParent = false;
+                    if (parentNodeType != null) {
+                        ERepositoryObjectType parentType = ERepositoryObjectType.valueOf(ERepositoryObjectType.class,
+                                parentNodeType);
+                        if (parentType != null) {
+                            parentNodeMapping.put(repositoryNodeType, parentType);
+                            withParent = true;
+                        }
+                    }
+                    if (!withParent) {
+                        curParentNode.getChildren().add(dynamicNode);
                     }
                 }
             }
         } catch (CoreException e) {
             ExceptionHandler.process(e);
         }
-    }
 
-    private IRepositoryNode findParentNodeByLabel(List<IRepositoryNode> nodes, String parentNodeType) {
-        for (IRepositoryNode inode : nodes) {
-            ERepositoryObjectType contentType = inode.getContentType();
-            if (contentType != null && contentType.getType().equalsIgnoreCase(parentNodeType)) {
-                return inode;
-            }
-            if (contentType != null && contentType.toString().equalsIgnoreCase(parentNodeType)) {
-                return inode;
-            }
-            IRepositoryNode node = findParentNodeByLabel(inode.getChildren(), parentNodeType);
-            if (node != null) {
-                return node;
-            } else {
-                continue;
+        // init the existed map for extension
+        collectRepositoryNodes(curParentNode);
+        //
+        for (ERepositoryObjectType childType : parentNodeMapping.keySet()) {
+            RepositoryNode childNode = repositoryNodeExtensionMap.get(childType);
+            ERepositoryObjectType parentType = parentNodeMapping.get(childType);
+            if (parentType != null && childNode != null) {
+                RepositoryNode parentNode = getRootRepositoryNode(parentType);
+                if (parentNode == null) { // found in extension map again.
+                    parentNode = repositoryNodeExtensionMap.get(parentType);
+                }
+                if (parentNode != null) {
+                    parentNode.getChildren().add(childNode);
+                } else {
+                    curParentNode.getChildren().add(childNode);
+                }
             }
         }
-        return null;
     }
 
     /**
@@ -1067,84 +1084,29 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         return false;
     }
 
-    private RepositoryNode getDocumentationNode(ERepositoryObjectType type) {
-        if (getMergeRefProject()) {
-            RepositoryNode docNode = getRootRepositoryNode(ERepositoryObjectType.DOCUMENTATION);
-            for (IRepositoryNode child : docNode.getChildren()) {
-
-                if (type == child.getContentType()) {
-                    return (RepositoryNode) child;
-                }
-
-                for (IRepositoryNode c : child.getChildren()) {
-                    if (type == c.getContentType()) {
-                        return (RepositoryNode) c;
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
-    /**
-     * ftang Comment method "convertDocumentation".
-     * 
-     * @param fromModel
-     * @param parent
-     * @param type
-     * @param recBinNode
-     */
-    private void convertDocumentation(org.talend.core.model.general.Project newProject, Container fromModel,
+    @SuppressWarnings("rawtypes")
+    private void convertDocumentation(org.talend.core.model.general.Project newProject, Container generatedContainer,
             RepositoryNode parent, ERepositoryObjectType type, RepositoryNode recBinNode) {
         // for folder Documentation/generated
-        RepositoryNode generatedFolder = getDocumentationNode(ERepositoryObjectType.GENERATED);
-        String generatedFolderName = ERepositoryObjectType.GENERATED.name().toLowerCase();
-        if (generatedFolder == null) {
-            generatedFolder = new StableRepositoryNode(parent, generatedFolderName, ECoreImage.FOLDER_CLOSE_ICON);
-            parent.getChildren().add(generatedFolder);
-        }
+        // RepositoryNode generatedFolder = getRootRepositoryNode(ERepositoryObjectType.GENERATED);
+
         // for folder Documentation/generated/jobs
-        RepositoryNode jobsFolder = getDocumentationNode(ERepositoryObjectType.JOBS);
-        String jobsFolderName = ERepositoryObjectType.JOBS.name().toLowerCase();
-        if (jobsFolder == null) {
-            jobsFolder = new StableRepositoryNode(generatedFolder, jobsFolderName, ECoreImage.FOLDER_CLOSE_ICON);
-            generatedFolder.getChildren().add(jobsFolder);
-        }
+        RepositoryNode jobsFolder = getRootRepositoryNode(ERepositoryObjectType.JOBS);
+
         // for folder Documentation/generated/joblets
-        RepositoryNode jobletsFolder = getDocumentationNode(ERepositoryObjectType.JOBLETS);
-        String jobletsFolderName = ERepositoryObjectType.JOBLETS.name().toLowerCase();
-        if (jobletsFolder == null) {
-            jobletsFolder = new StableRepositoryNode(generatedFolder, jobletsFolderName, ECoreImage.FOLDER_CLOSE_ICON);
-            generatedFolder.getChildren().add(jobletsFolder);
-        }
-
-        jobsFolder.setProperties(EProperties.LABEL, ERepositoryObjectType.JOBS);
-        jobsFolder.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.JOBS);
-
-        jobletsFolder.setProperties(EProperties.LABEL, ERepositoryObjectType.JOBLETS);
-        jobletsFolder.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.JOBLETS);
-
-        Container generatedContainer = null;
-        for (Object object : fromModel.getSubContainer()) {
-            if (((Container) object).getLabel().equalsIgnoreCase(generatedFolderName)) {
-                generatedContainer = (Container) object;
-                break;
-            }
-        }
+        RepositoryNode jobletsFolder = getRootRepositoryNode(ERepositoryObjectType.JOBLETS);
 
         Container jobsNode = null;
         Container jobletsNode = null;
         for (Object object : generatedContainer.getSubContainer()) {
-            if (((Container) object).getLabel().equalsIgnoreCase(jobsFolderName)) {
+            if (((Container) object).getLabel().equalsIgnoreCase(ERepositoryObjectType.JOBS.name().toLowerCase())) {
                 jobsNode = (Container) object;
-                break;
             }
-        }
-
-        for (Object object : generatedContainer.getSubContainer()) {
-            if (((Container) object).getLabel().equalsIgnoreCase(jobletsFolderName)) {
+            if (((Container) object).getLabel().equalsIgnoreCase(ERepositoryObjectType.JOBLETS.name().toLowerCase())) {
                 jobletsNode = (Container) object;
-                break;
+            }
+            if (jobsNode != null && jobletsNode != null) {
+                break; // all were found
             }
         }
 
@@ -1156,10 +1118,6 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         if (jobletsNode != null) {
             convert(newProject, jobletsNode, jobletsFolder, ERepositoryObjectType.JOBLET_DOC, recBinNode);
         }
-
-        generatedFolder.setProperties(EProperties.LABEL, ERepositoryObjectType.GENERATED);
-        generatedFolder.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.GENERATED); // ERepositoryObjectType
-        // .FOLDER);
 
     }
 
@@ -1242,7 +1200,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
 
             } else if (ERepositoryObjectType.GENERATED.name().equalsIgnoreCase(label)) {
                 if (PluginChecker.isDocumentationPluginLoaded()) {
-                    convertDocumentation(newProject, fromModel, parent, type, recBinNode);
+                    convertDocumentation(newProject, container, parent, type, recBinNode);
                 }
                 continue;
             } else {
@@ -1919,307 +1877,6 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         return tableNode;
     }
 
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getCodeNode()
-    // */
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getCodeNode()
-    // */
-    // public RepositoryNode getCodeNode() {
-    // return this.codeNode;
-    // }
-    //
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getProcessNode()
-    // */
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getProcessNode()
-    // */
-    // public RepositoryNode getProcessNode() {
-    // return this.processNode;
-    // }
-    //
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataConNode()
-    // */
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataConNode()
-    // */
-    // public RepositoryNode getMetadataConNode() {
-    // return this.metadataConNode;
-    // }
-    //
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataConNode()
-    // */
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataConNode()
-    // */
-    // public RepositoryNode getMetadataSAPConnectionNode() {
-    // return this.metadataSAPConnectionNode;
-    // }
-    //
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileNode()
-    // */
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileNode()
-    // */
-    // public RepositoryNode getMetadataFileNode() {
-    // return this.metadataFileNode;
-    // }
-    //
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFilePositionalNode()
-    // */
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFilePositionalNode()
-    // */
-    // public RepositoryNode getMetadataFilePositionalNode() {
-    // return this.metadataFilePositionalNode;
-    // }
-    //
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileRegexpNode()
-    // */
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileRegexpNode()
-    // */
-    // public RepositoryNode getMetadataFileRegexpNode() {
-    // return this.metadataFileRegexpNode;
-    // }
-    //
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileXmlNode()
-    // */
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileXmlNode()
-    // */
-    // public RepositoryNode getMetadataFileXmlNode() {
-    // return this.metadataFileXmlNode;
-    // }
-    //
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileLdifNode()
-    // */
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileLdifNode()
-    // */
-    // public RepositoryNode getMetadataFileLdifNode() {
-    // return this.metadataFileLdifNode;
-    // }
-    //
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataLDAPSchemaNode()
-    // */
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataLDAPSchemaNode()
-    // */
-    // public RepositoryNode getMetadataLDAPSchemaNode() {
-    // return this.metadataLDAPSchemaNode;
-    // }
-    //
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataWSDLSchemaNode()
-    // */
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataWSDLSchemaNode()
-    // */
-    // public RepositoryNode getMetadataWSDLSchemaNode() {
-    // return this.metadataWSDLSchemaNode;
-    // }
-    //
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileExcelNode()
-    // */
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataFileExcelNode()
-    // */
-    // public RepositoryNode getMetadataFileExcelNode() {
-    // return this.metadataFileExcelNode;
-    // }
-    //
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataSalesforceSchemaNode()
-    // */
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataSalesforceSchemaNode()
-    // */
-    // public RepositoryNode getMetadataSalesforceSchemaNode() {
-    // return this.metadataSalesforceSchemaNode;
-    // }
-    //
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getJobletNode()
-    // */
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getJobletNode()
-    // */
-    // public RepositoryNode getJobletNode() {
-    // return this.jobletNode;
-    // }
-    //
-    // public RepositoryNode getReferenceProjectNode() {
-    // return this.refProject;
-    // }
-    //
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataNode()
-    // */
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataNode()
-    // */
-    // public RepositoryNode getMetadataNode() {
-    // return this.metadataNode;
-    // }
-    //
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataGenericSchemaNode()
-    // */
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.IProjectRepositoryNode#getMetadataGenericSchemaNode()
-    // */
-    // public RepositoryNode getMetadataGenericSchemaNode() {
-    // return this.metadataGenericSchemaNode;
-    // }
-    //
-    // public RepositoryNode getMetadataEbcdicConnectionNode() {
-    // return this.metadataEbcdicConnectionNode;
-    // }
-    //
-    // public RepositoryNode getMetadataHL7ConnectionNode() {
-    // return this.metadataHL7ConnectionNode;
-    // }
-    //
-    // public RepositoryNode getMetadataFTPConnectionNode() {
-    // return this.metadataFTPConnectionNode;
-    // }
-    //
-    // public RepositoryNode getMetadataBRMSConnectionNode() {
-    // return this.metadataBRMSConnectionNode;
-    // }
-    //
-    // public RepositoryNode getMetadataMDMConnectionNode() {
-    // return this.metadataMDMConnectionNode;
-    // }
-    //
-    // public RepositoryNode getContextNode() {
-    // return this.contextNode;
-    // }
-    //
-    // public RepositoryNode getBusinessProcessNode() {
-    // return this.businessProcessNode;
-    // }
-    //
-    // public RepositoryNode getRoutineNode() {
-    // return this.routineNode;
-    // }
-    //
-    // public RepositoryNode getSQLPatternNode() {
-    // return this.sqlPatternNode;
-    // }
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.nodes.IProjectRepositoryNode#getMetadataRulesNode()
-    // */
-    // public RepositoryNode getMetadataRulesNode() {
-    // return this.metadataRulesNode;
-    // }
-    //
-    // public RepositoryNode getMetadataValidationRulesNode() {
-    // return this.metadataValidationRulesNode;
-    // }
-    //
-    // public RepositoryNode getMetadataEdifactNode() {
-    // return this.metadataEDIFactConnectionNode;
-    // }
-    //
-    // public RepositoryNode getDocNode() {
-    // return this.docNode;
-    // }
-    //
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see org.talend.repository.model.nodes.IProjectRepositoryNode#getMetadataHeaderFooterConnectionNode()
-    // */
-    // public RepositoryNode getMetadataHeaderFooterConnectionNode() {
-    // return this.metadataHeaderFooterConnectionNode;
-    // }
-    //
-    // public IRepositoryNode getJobScriptNode() {
-    // return this.jobscriptsNode;
-    // }
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IProjectRepositoryNode#getProject()
-     */
     /*
      * (non-Javadoc)
      * 
@@ -2233,8 +1890,9 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         if (type == null) {
             return null;
         }
-        if (repositoryNodeMap.containsKey(type)) {
-            return repositoryNodeMap.get(type);
+        String typeName = type.name();
+        if (repositoryNodeMap.containsKey(typeName)) {
+            return repositoryNodeMap.get(typeName);
         } else if (type == ERepositoryObjectType.BUSINESS_PROCESS) {
             return this.businessProcessNode;
         } else if (type == ERepositoryObjectType.PROCESS) {
@@ -2311,9 +1969,8 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             return this.jobletNode;
         } else if (type == ERepositoryObjectType.SVN_ROOT) {
             return this.svnRootNode;
-        } else {
-            return repositoryNodeExtensionMap.get(type);
         }
+        return null;
     }
 
     /*
@@ -2371,24 +2028,9 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             }
         }
 
-        // for extension point
-        if (this.repositoryNodeExtensionMap != null) {
-            for (ERepositoryObjectType type : this.repositoryNodeExtensionMap.keySet()) {
-                RepositoryNode repositoryNode = this.repositoryNodeExtensionMap.get(type);
-                if (repositoryNode != null && !repositoryNode.isDisposed()) {
-                    // dispose the root node for type.
-                    repositoryNode.setEnableDisposed(doDispose);
-                    repositoryNode.dispose();
-                }
-            }
-            if (doDispose) {
-                this.repositoryNodeExtensionMap.clear();
-            }
-        }
         //
         if (this.repositoryNodeMap != null) {
-            // maybe no need, because have done it front in 'all' and 'extension point'.
-            for (ERepositoryObjectType type : this.repositoryNodeMap.keySet()) {
+            for (String type : this.repositoryNodeMap.keySet()) {
                 RepositoryNode repositoryNode = this.repositoryNodeMap.get(type);
                 if (repositoryNode != null && !repositoryNode.isDisposed()) {
                     // dispose the root node for type.

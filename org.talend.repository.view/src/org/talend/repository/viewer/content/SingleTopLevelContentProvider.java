@@ -57,6 +57,10 @@ public abstract class SingleTopLevelContentProvider implements ITreeContentProvi
 
     }
 
+    protected IProxyRepositoryFactory getFactory() {
+        return factory;
+    }
+
     @Override
     public Object[] getElements(Object inputElement) {// check for ProjectRepositoryNode parent
         return getChildren(inputElement);
@@ -154,11 +158,15 @@ public abstract class SingleTopLevelContentProvider implements ITreeContentProvi
         if (!repositoryNode.isInitialized()) {
             if (repositoryNode.getParent() instanceof ProjectRepositoryNode) {
                 // initialize repository from main project
-                ((ProjectRepositoryNode) repositoryNode.getParent()).initializeChildren(repositoryNode);
+                initializeChildren(repositoryNode);
             }// else sub sub node so no need to initialize
             repositoryNode.setInitialized(true);
         }// else already initialised
         return repositoryNode.getChildren().toArray();
+    }
+
+    protected void initializeChildren(RepositoryNode parent) {
+        ((ProjectRepositoryNode) parent.getParent()).initializeChildren(parent);
     }
 
     @Override

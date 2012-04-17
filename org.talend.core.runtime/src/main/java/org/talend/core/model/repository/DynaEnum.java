@@ -77,13 +77,26 @@ public class DynaEnum<E extends DynaEnum<E>> {
     }
 
     @Override
-    public final boolean equals(Object other) {
-        return this == other;
+    public final boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (!(object instanceof DynaEnum)) {
+            return false;
+        }
+        DynaEnum other = (DynaEnum) object;
+        if (!other.getType().equals(this.getType())) {
+            return false;
+        }
+        // if (!other.getKey().equals(this.getKey())) {
+        // return false;
+        // }
+        return true;
     }
 
     @Override
     public final int hashCode() {
-        return super.hashCode();
+        return 13 * getType().hashCode();
     }
 
     @Override

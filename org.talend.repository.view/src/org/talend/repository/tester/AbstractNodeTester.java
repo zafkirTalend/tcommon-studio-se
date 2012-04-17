@@ -45,7 +45,7 @@ public abstract class AbstractNodeTester extends PropertyTester {
     protected abstract Boolean testProperty(Object receiver, String property, Object[] args, Object expectedValue);
 
     public boolean isTypeNode(RepositoryNode repositoryNode, ERepositoryObjectType type) {
-        boolean is = repositoryNode.getProperties(EProperties.CONTENT_TYPE) == type;
-        return is;
+        ERepositoryObjectType contentType = (ERepositoryObjectType) repositoryNode.getProperties(EProperties.CONTENT_TYPE);
+        return contentType != null && contentType.equals(type);
     }
 }
