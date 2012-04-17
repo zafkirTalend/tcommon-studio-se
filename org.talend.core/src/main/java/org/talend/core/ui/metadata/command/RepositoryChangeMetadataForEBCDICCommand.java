@@ -23,6 +23,7 @@ import org.talend.core.model.metadata.IEbcdicConstant;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.model.metadata.MultiSchemasUtil;
+import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 
@@ -115,9 +116,33 @@ public class RepositoryChangeMetadataForEBCDICCommand extends Command {
                     // create new line
                     setLineValue(paramValues, valueMap);
                 }
-
+                setNoXc2jValue();
             }
+        }
+    }
 
+    private void setNoXc2jValue() {
+        // for EBCDIC ,there are schemaType and schemas exists at the same time ,so need to filter the extra
+        // metadataTable
+        List<IMetadataTable> tables = node.getMetadataList();
+        List<IMetadataTable> reallytables = new ArrayList();
+        for (IMetadataTable table : tables) {
+            if (!node.getUniqueName().equals(table.getTableName())) {
+                reallytables.add(table);
+            }
+        }
+        List<IElementParameter> elementParameterList = (List<IElementParameter>) node.getElementParameters();
+        for (IElementParameter param : elementParameterList) {
+            if (param.getFieldType().equals(EParameterFieldType.CHECK)) {
+                if (param.getName().equals("NO_X2CJ_FILE")) {
+                    if (reallytables.size() == 1) {
+                        // single schema do not display the table and xc2j file
+                        param.setValue(new Boolean(true));
+                    } else {
+                        param.setValue(new Boolean(false));
+                    }
+                }
+            }
         }
     }
 
