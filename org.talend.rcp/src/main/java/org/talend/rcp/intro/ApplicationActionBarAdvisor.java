@@ -75,6 +75,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
     private void registerGlobalActions() {
         actionBarConfigurer.registerGlobalAction(ActionFactory.SAVE.create(window));
+        actionBarConfigurer.registerGlobalAction(ActionFactory.SAVE_ALL.create(window));// add for bug TDI-20305
         actionBarConfigurer.registerGlobalAction(ActionFactory.UNDO.create(window));
         actionBarConfigurer.registerGlobalAction(ActionFactory.REDO.create(window));
         actionBarConfigurer.registerGlobalAction(ActionFactory.CUT.create(window));
