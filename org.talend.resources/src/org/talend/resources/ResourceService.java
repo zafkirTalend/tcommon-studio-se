@@ -50,6 +50,8 @@ public class ResourceService implements IResourceService {
     private final static String RESOURCES = "resources"; //$NON-NLS-1$
 
     private final static String TDQEEDEMOJAVA = "TDQEEDEMOJAVA";//$NON-NLS-1$
+    
+    private final static String MDMEEPRODUCTDemo="MDMPRODUCTDemo";
 
     private final static String ESBDEMO = "ESBDEMOS";//$NON-NLS-1$
 
@@ -104,7 +106,9 @@ public class ResourceService implements IResourceService {
         if (projectname.equals(ESBDEMO)) {
             return Messages.getString("esbdemo.html"); //$NON-NLS-1$
         }
-
+        if(MDMEEPRODUCTDemo.equals(projectname)){
+            return Messages.getString("mdmproductdemo.html"); //$NON-NLS-1$
+        }
         // MOD gdbu 2011-5-10 bug : 21138
         if (projectname.equals(TDQEEDEMOJAVA)) {
             return Messages.getString("tdqdemodescription.html", "Data Quality"); //$NON-NLS-1$ //$NON-NLS-2$
