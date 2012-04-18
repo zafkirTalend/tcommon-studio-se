@@ -521,6 +521,9 @@ public class ExtractMetaDataFromDataBase {
         // bug TDI-19382
         if (!("").equals(iMetadataConnection.getSchema())) {
             synSQL += "and all_synonyms.OWNER =\'" + iMetadataConnection.getSchema() + "\'";
+        } else if (table.eContainer() instanceof Schema) {
+            Schema schema = (Schema) table.eContainer();
+            synSQL += "and all_synonyms.OWNER =\'" + schema.getName() + "\'";
         }
         Statement sta = ExtractMetaDataUtils.conn.createStatement();
         ExtractMetaDataUtils.setQueryStatementTimeout(sta);
