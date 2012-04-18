@@ -860,7 +860,8 @@ public class SelectorTableForm extends AbstractForm {
         }
         try {
             if (sqlConn != null) {
-                DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType,false,metadataconnection.getDatabase());
+                DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType, false,
+                        metadataconnection.getDatabase());
                 MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, dm,
                         MetadataConnectionUtils.getPackageFilter(dbConn, dm, true));
                 MetadataFillFactory.getDBInstance().fillSchemas(dbConn, dm,
@@ -1298,6 +1299,10 @@ public class SelectorTableForm extends AbstractForm {
             // For access's table's remove,must be accordance with its addTable
             ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, getConnection().getName(), getConnection(), tables);
         } else {
+            if ("".equals(schema) && ExtractMetaDataUtils.useAllSynonyms //$NON-NLS-1$
+                    && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataconnection.getDbType())) {
+                schema = MetadataConnectionUtils.FAKE_SCHEMA_SYNONYMS;
+            }
             ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, schema, getConnection(), tables);
         }
     }
@@ -1781,6 +1786,10 @@ public class SelectorTableForm extends AbstractForm {
         if (isAccess) {
             ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, getConnection().getName(), getConnection(), tables);
         } else {
+            if ("".equals(schema) && ExtractMetaDataUtils.useAllSynonyms //$NON-NLS-1$
+                    && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataconnection.getDbType())) {
+                schema = MetadataConnectionUtils.FAKE_SCHEMA_SYNONYMS;
+            }
             ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, schema, getConnection(), tables);
         }
     }
@@ -1876,7 +1885,7 @@ public class SelectorTableForm extends AbstractForm {
                             }
                         }
                     }
-                    if (!hasCheckedItem) {
+                    if (!hasCheckedItem && parentItem != null) {
                         parentItem.setChecked(false);
                     }
                 }
