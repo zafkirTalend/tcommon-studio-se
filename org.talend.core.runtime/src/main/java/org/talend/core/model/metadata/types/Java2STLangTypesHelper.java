@@ -109,10 +109,14 @@ public class Java2STLangTypesHelper {
 
             String typeToGenerate = JavaTypesManager.getTypeToGenerate(talendType, false);
             // Integers: int(Integer), long(Long), short(Short), byte(Byte), BigDecimal, double(Double).
-            if (typeToGenerate.equals("int") || typeToGenerate.equals("short") || typeToGenerate.equals("byte")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            if (typeToGenerate.equals("int") || typeToGenerate.equals("byte")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                 return "int"; //$NON-NLS-1$
             } else if (typeToGenerate.equals("long")) { //$NON-NLS-1$
-                return "long"; //$NON-NLS-1$
+                return "bigint"; //$NON-NLS-1$
+			} else if (typeToGenerate.equals("short")) { //$NON-NLS-1$
+				return "smallint";
+			} else if (typeToGenerate.equals("boolean")) { //$NON-NLS-1$
+				return "boolean";
             } else if (typeToGenerate.equals("BigDecimal") || typeToGenerate.equals("double")) { //$NON-NLS-1$
                 return "double"; //$NON-NLS-1$
             }
