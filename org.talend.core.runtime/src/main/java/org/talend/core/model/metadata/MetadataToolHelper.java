@@ -302,6 +302,24 @@ public final class MetadataToolHelper {
     }
 
     /**
+     * zwzhao Comment method "validataValue".
+     */
+    public static String validateValueNoLengthLimit(String columnName) {
+        if (columnName == null) {
+            return null;
+        }
+        columnName = mapSpecialChar(columnName);
+        final String underLine = "_"; //$NON-NLS-1$
+        if (columnName.matches("^\\d.*")) { //$NON-NLS-1$
+            columnName = underLine + columnName;
+        }
+
+        String testColumnName = columnName.replaceAll("[^a-zA-Z0-9_]", underLine); //$NON-NLS-1$
+
+        return testColumnName;
+    }
+
+    /**
      * zli Comment method "validataValue".
      */
     public static String validateValueForDBType(String columnName) {
