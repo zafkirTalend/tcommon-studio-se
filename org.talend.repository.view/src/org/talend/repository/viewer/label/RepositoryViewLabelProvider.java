@@ -133,11 +133,6 @@ public class RepositoryViewLabelProvider extends AbstractRepoViewLabelProvider {
         }
 
         @Override
-        public void refresh(ERepositoryObjectType type) {
-
-        }
-
-        @Override
         public void refresh(Object object) {
 
         }

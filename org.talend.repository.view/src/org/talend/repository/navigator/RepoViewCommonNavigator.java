@@ -573,28 +573,7 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
             // maybe, no effect.
             viewer.refresh(object);
             viewer.setExpandedState(object, true);
-            if (object instanceof RepositoryNode) {
-                RepositoryNode node = (RepositoryNode) object;
-                ERepositoryObjectType type = node.getObjectType();
-                if (type == null) {
-                    type = node.getContentType();
-                }
-                refresh(type);
-            }
-        } else {
-            // refresh();
         }
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.talend.repository.ui.views.IRepositoryView#refresh(org.talend.core.model.repository.ERepositoryObjectType)
-     */
-    @Override
-    public void refresh(ERepositoryObjectType type) {
-        // because the getRoot is null, so remove all.
     }
 
     /**
