@@ -13,6 +13,7 @@
 package org.talend.rcp.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.jface.preference.IPreferenceNode;
@@ -29,7 +30,7 @@ public final class ApplicationDeletionUtil {
     private ApplicationDeletionUtil() {
     }
 
-    public static void removePreferencePages(IWorkbenchWindow window, final List<String> prefsId) {
+    public static void removeAndResetPreferencePages(IWorkbenchWindow window, final List<String> prefsId ,boolean needReset) {
         if (prefsId == null || prefsId.isEmpty()) {
             return;
         }
@@ -39,21 +40,27 @@ public final class ApplicationDeletionUtil {
         if (window == null) {
             return;
         }
-        List<IPreferenceNode> prefsToDelete = new ArrayList<IPreferenceNode>();
+        List<IPreferenceNode> prefsToDelete = new ArrayList<IPreferenceNode>(); 
         List<IPreferenceNode> prefsToDeleteParents = new ArrayList<IPreferenceNode>();
-
         IWorkbench workbench = window.getWorkbench();
         if (workbench == null) {
             return;
         }
         PreferenceManager preferenceManager = workbench.getPreferenceManager();
 
+        
         for (IPreferenceNode node : preferenceManager.getRootSubNodes()) {
             IPreferenceNode existPreferenceNode = existPreferenceNode(prefsToDeleteParents, null, node, prefsId);
             if (existPreferenceNode != null) {
                 prefsToDelete.add(existPreferenceNode);
             }
         }
+        
+        // reset mdm preference ,see TMDM-3215
+        if(needReset){
+           resetMDMNode(preferenceManager,prefsToDeleteParents);
+        }
+        
         if (!prefsToDelete.isEmpty()) {
             List<IPreferenceNode> tmpPrefsToDelete = new ArrayList<IPreferenceNode>();
             for (IPreferenceNode node : preferenceManager.getRootSubNodes()) {
@@ -74,7 +81,30 @@ public final class ApplicationDeletionUtil {
         }
     }
 
-    private static IPreferenceNode existPreferenceNode(List<IPreferenceNode> prefsToDeleteParents, IPreferenceNode parentNode,
+    private static void resetMDMNode(PreferenceManager preferenceManager, List<IPreferenceNode> prefsToDeleteParents) {
+
+        IPreferenceNode mdmNode = null;
+        IPreferenceNode newRepositoryNode = null;
+        
+    	for (IPreferenceNode node : preferenceManager.getRootSubNodes()) {
+             String[] nPrefsId = { "org.talend.mdm.repository.ui.preferences.AutoDeployPreferencePage" }; //$NON-NLS-1$ 
+             IPreferenceNode existPreferenceNode = existPreferenceNode(prefsToDeleteParents, null, node, Arrays.asList(nPrefsId));
+             if (existPreferenceNode != null) {
+             	mdmNode = existPreferenceNode; 
+            }
+        }
+         
+        for (IPreferenceNode node : preferenceManager.getRootSubNodes()) {
+        	String[] nPrefsId = { "org.talend.mdm.repository.ui.preferences.RepositoryPreferencePage" }; //$NON-NLS-1$ 
+            IPreferenceNode existPreferenceNode = existPreferenceNode(prefsToDeleteParents, null, node, Arrays.asList(nPrefsId));
+            if (existPreferenceNode != null) {
+         	   newRepositoryNode = existPreferenceNode; 
+            }
+        } 
+         newRepositoryNode.add(mdmNode);
+	}
+
+	private static IPreferenceNode existPreferenceNode(List<IPreferenceNode> prefsToDeleteParents, IPreferenceNode parentNode,
             IPreferenceNode node, List<String> prefsId) {
         if (node != null) {
             if (prefsId.contains(node.getId())) {

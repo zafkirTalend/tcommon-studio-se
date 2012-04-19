@@ -219,8 +219,13 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
          */
         if (!PluginChecker.isRefProjectLoaded()) {
             String[] prefsId = { "org.talend.designer.core.ui.preferences.RepositoryPreferencePage" }; //$NON-NLS-1$
-            ApplicationDeletionUtil.removePreferencePages(this.getWindowConfigurer().getWindow(), Arrays.asList(prefsId));
+            ApplicationDeletionUtil.removeAndResetPreferencePages(this.getWindowConfigurer().getWindow(), Arrays.asList(prefsId), true);
         }
+        else{
+        	String[] prefsId = { "org.talend.mdm.repository.ui.preferences.RepositoryPreferencePage" }; //$NON-NLS-1$
+        	ApplicationDeletionUtil.removeAndResetPreferencePages(this.getWindowConfigurer().getWindow(), Arrays.asList(prefsId), false); 
+        }
+        
         // MOD mzhao feature 9207. 2009-09-21 ,Add part listener.
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
             ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
