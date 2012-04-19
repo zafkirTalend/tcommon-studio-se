@@ -805,6 +805,7 @@ public class DatabaseTableForm extends AbstractForm {
 
         // initExistingNames();
         metadataTable.setLabel(IndiceHelper.getIndexedLabel(metadataTable.getLabel(), existingNames));
+        metadataTable.setName(metadataTable.getLabel());
         // init TreeNavigator
         initTreeNavigatorNodes();
         // init The Form
