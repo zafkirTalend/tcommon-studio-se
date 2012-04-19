@@ -29,6 +29,11 @@ import org.talend.repository.viewer.action.AbstractRepositoryActionProvider;
  */
 public class PerspectiveFilterActionProvider extends AbstractRepositoryActionProvider implements IPerspectiveListener {
 
+    /**
+     * maybe, not good for fixed id
+     */
+    public static final String ID = "org.talend.repository.viewer.actionbar.menu.perspectiveFilter"; //$NON-NLS-1$
+
     private static final String IS_FILTERING_WITH_PERSPECTIVE = "is.filtering.with.perspective"; //$NON-NLS-1$
 
     private boolean isFiltering = true; // default is enabled.
@@ -45,7 +50,7 @@ public class PerspectiveFilterActionProvider extends AbstractRepositoryActionPro
     public void init(ICommonActionExtensionSite aSite) {
         super.init(aSite);
 
-        helper.setCommonViewer(getCommonViewer());
+        helper.setTreeViewer(getCommonViewer());
         helper.setNavigatorContentService(getNavigatorContentService());
         helper.setActionProviderId(this.getActionSite().getExtensionId());
     }

@@ -17,7 +17,7 @@ import java.util.Arrays;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.ui.navigator.CommonViewer;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.ui.navigator.INavigatorContentDescriptor;
 import org.eclipse.ui.navigator.INavigatorContentService;
 
@@ -30,9 +30,9 @@ public class PerspectiveFilterHelper {
 
     private INavigatorContentService navigatorContentService;
 
-    private String actionProviderId = "org.talend.repository.viewer.actionbar.menu.perspectiveFilter";
+    private String actionProviderId;
 
-    private CommonViewer commonViewer;
+    private TreeViewer treeViewer;
 
     public PerspectiveFilterHelper() {
     }
@@ -41,16 +41,16 @@ public class PerspectiveFilterHelper {
         this.navigatorContentService = navigatorContentService;
     }
 
-    public void setCommonViewer(CommonViewer commonViewer) {
-        this.commonViewer = commonViewer;
+    public void setTreeViewer(TreeViewer treeViewer) {
+        this.treeViewer = treeViewer;
     }
 
     protected INavigatorContentService getNavigatorContentService() {
         return navigatorContentService;
     }
 
-    protected CommonViewer getCommonViewer() {
-        return commonViewer;
+    protected TreeViewer getTreeViewer() {
+        return treeViewer;
     }
 
     protected String getActionProviderId() {
@@ -98,7 +98,7 @@ public class PerspectiveFilterHelper {
         Arrays.sort(contentExtensionsToActivate);
 
         IStructuredSelection ssel = null;
-        CommonViewer commonViewer = getCommonViewer();
+        TreeViewer commonViewer = getTreeViewer();
         INavigatorContentService contentService = getNavigatorContentService();
         try {
 

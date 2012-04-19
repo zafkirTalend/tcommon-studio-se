@@ -78,6 +78,9 @@ public class ResouceChangeVisitorListener implements IResourceChangeListener {
      */
     @Override
     public void resourceChanged(IResourceChangeEvent event) {
+        if (viewer == null) {
+            return;
+        }
         final Control ctrl = viewer.getControl();
         if (ctrl == null || ctrl.isDisposed()) {
             return;

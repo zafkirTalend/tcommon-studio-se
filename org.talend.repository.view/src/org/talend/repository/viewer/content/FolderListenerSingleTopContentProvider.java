@@ -106,7 +106,9 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
             if (topLevelNode.getParent() instanceof ProjectRepositoryNode) {
                 ((ProjectRepositoryNode) topLevelNode.getParent()).clearNodeAndProjectCash();
             }
-            viewer.refresh(topLevelNode);
+            if (viewer != null) {
+                viewer.refresh(topLevelNode);
+            }
         }
     }
 
@@ -139,7 +141,9 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
      */
     @Override
     public void inputChanged(Viewer arg0, Object arg1, Object arg2) {
-        this.viewer = (CommonViewer) arg0;
+        if (arg0 instanceof CommonViewer) {
+            this.viewer = (CommonViewer) arg0;
+        }
         IWorkspace workspace = ResourcesPlugin.getWorkspace();
         if (workspace != null) {
             if (resouceChangeVisitor != null) {// remove the previous listener
