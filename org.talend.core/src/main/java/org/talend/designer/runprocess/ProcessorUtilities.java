@@ -47,6 +47,7 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
@@ -367,7 +368,7 @@ public class ProcessorUtilities {
             checkMetadataDynamic(selectedProcessItem, jobInfo);
             jobInfo.setProcessItem(null);
         }
-        Set<String> neededLibraries = CorePlugin.getDefault().getDesignerCoreService()
+        Set<ModuleNeeded> neededLibraries = CorePlugin.getDefault().getDesignerCoreService()
                 .getNeededLibrariesForProcess(currentProcess, false);
         if (neededLibraries != null) {
             LastGenerationInfo.getInstance().setModulesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
@@ -444,12 +445,13 @@ public class ProcessorUtilities {
             IProcess currentProcess, String currentJobName) throws ProcessorException {
         if (isMainJob) {
             progressMonitor.subTask(Messages.getString("ProcessorUtilities.finalizeBuild") + currentJobName); //$NON-NLS-1$
-            CorePlugin
-                    .getDefault()
-                    .getRunProcessService()
-                    .updateLibraries(
-                            LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(jobInfo.getJobId(),
-                                    jobInfo.getJobVersion()), currentProcess);
+            Set<String> jarList = new HashSet<String>();
+            Set<ModuleNeeded> neededModules = LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(
+                    jobInfo.getJobId(), jobInfo.getJobVersion());
+            for (ModuleNeeded module : neededModules) {
+                jarList.add(module.getModuleName());
+            }
+            CorePlugin.getDefault().getRunProcessService().updateLibraries(jarList, currentProcess);
             if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA && codeModified) {
                 try {
                     ((IJavaProject) CorePlugin.getDefault().getRunProcessService().getJavaProject()).getProject().build(
@@ -603,18 +605,9 @@ public class ProcessorUtilities {
                 jobInfo.setProcessItem(null);
             }
 
-            Set<String> neededLibraries = CorePlugin.getDefault().getDesignerCoreService()
+            Set<ModuleNeeded> neededLibraries = CorePlugin.getDefault().getDesignerCoreService()
                     .getNeededLibrariesForProcess(currentProcess, false);
             if (neededLibraries != null) {
-                if (exportAsOSGI) {
-                    Set<String> neededLibrariesForOSGIExport = CorePlugin.getDefault().getDesignerCoreService()
-                            .getNeededLibrariesForProcess(currentProcess, false, exportAsOSGI);
-
-                    LastGenerationInfo.getInstance().setModulesNeededWithSubjobPerJob(jobInfo.getJobId() + "-osgi",
-                            jobInfo.getJobVersion(), neededLibrariesForOSGIExport);
-                    LastGenerationInfo.getInstance().setModulesNeededPerJob(jobInfo.getJobId() + "-osgi",
-                            jobInfo.getJobVersion(), neededLibrariesForOSGIExport);
-                }
                 LastGenerationInfo.getInstance().setModulesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
                         neededLibraries);
                 LastGenerationInfo.getInstance().setModulesNeededPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),

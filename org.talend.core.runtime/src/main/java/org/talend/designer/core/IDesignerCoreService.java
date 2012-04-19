@@ -30,6 +30,7 @@ import org.eclipse.ui.part.MultiPageEditorPart;
 import org.talend.core.IService;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsFactory;
+import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.IConnection;
@@ -162,7 +163,7 @@ public interface IDesignerCoreService extends IService {
 
     public void reloadParamFromProjectSettings(ParametersType processType, String paramName);
 
-    public Set<String> getNeededLibrariesForProcess(IProcess process, boolean withChildrens, boolean... exportAsOSGI);
+    public Set<ModuleNeeded> getNeededLibrariesForProcess(IProcess process, boolean withChildrens);
 
     public void switchToCurContextsView();
 
