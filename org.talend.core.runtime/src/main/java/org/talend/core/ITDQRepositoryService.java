@@ -69,4 +69,7 @@ public interface ITDQRepositoryService extends IService {
     // ADD qiongli 2011-9-13 TDQ-3930
     public boolean confirmUpdateAnalysis(ConnectionItem connectionItem);
 
+    // ADD qiongli 2012-4-19 TDQ-5130
+    public boolean hasClientDependences(ConnectionItem connectionItem);
+
 }
