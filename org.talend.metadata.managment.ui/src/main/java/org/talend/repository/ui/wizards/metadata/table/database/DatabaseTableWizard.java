@@ -55,7 +55,6 @@ import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.ui.utils.ManagerConnection;
 import org.talend.repository.ui.wizards.CheckLastVersionRepositoryWizard;
-import orgomg.cwm.objectmodel.core.Dependency;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
@@ -210,7 +209,7 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
                 if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
                     tdqRepositoryService = (ITDQRepositoryService) org.talend.core.GlobalServiceRegister.getDefault().getService(
                             ITDQRepositoryService.class);
-                    needUpdateAnalysis = isNeedUpdateDQ(temConnection, connection);
+                    needUpdateAnalysis = isNeedUpdateDQ(temConnection, connection, tdqRepositoryService);
                 }
 
                 if (tdqRepositoryService != null && needUpdateAnalysis) {
@@ -403,13 +402,12 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
      * @param item
      * @return
      */
-    private boolean isNeedUpdateDQ(Connection newconn, Connection oldConn) {
+    private boolean isNeedUpdateDQ(Connection newconn, Connection oldConn, ITDQRepositoryService tdqRepService) {
 
-        if (!PluginChecker.isTDQLoaded() || newconn == null || oldConn == null) {
+        if (!PluginChecker.isTDQLoaded() || newconn == null || oldConn == null || tdqRepService == null) {
             return false;
         }
-        EList<Dependency> supplierDependency = oldConn.getSupplierDependency();
-        if (supplierDependency == null || supplierDependency.isEmpty()) {
+        if (!tdqRepService.hasClientDependences(connectionItem)) {
             return false;
         }
 

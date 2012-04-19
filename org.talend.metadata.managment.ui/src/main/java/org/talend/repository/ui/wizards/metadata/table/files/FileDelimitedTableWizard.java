@@ -112,7 +112,7 @@ public class FileDelimitedTableWizard extends AbstractRepositoryFileTableWizard 
             if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
                 tdqRepositoryService = (ITDQRepositoryService) org.talend.core.GlobalServiceRegister.getDefault().getService(
                         ITDQRepositoryService.class);
-                needUpdateAnalysis = isNeedUpdateDQ(repositoryObject.getProperty().getItem());
+                needUpdateAnalysis = isNeedUpdateDQ(repositoryObject.getProperty().getItem(), tdqRepositoryService);
             }
 
             if (tdqRepositoryService != null && needUpdateAnalysis) {
@@ -164,14 +164,14 @@ public class FileDelimitedTableWizard extends AbstractRepositoryFileTableWizard 
      * 
      * @return
      */
-    private boolean isNeedUpdateDQ(Item item) {
+    private boolean isNeedUpdateDQ(Item item, ITDQRepositoryService tdqRepoService) {
 
         if (!(PluginChecker.isTDQLoaded() || PluginChecker.isOnlyTopLoaded()) || item == null
-                || !(item instanceof ConnectionItem)) {
+                || !(item instanceof ConnectionItem) || tdqRepoService == null) {
             return false;
         }
         Connection connection = ((ConnectionItem) item).getConnection();
-        if (connection == null) {
+        if (connection == null || !tdqRepoService.hasClientDependences((ConnectionItem) item)) {
             return false;
         }
         EList<Dependency> supplierDependency = connection.getSupplierDependency();

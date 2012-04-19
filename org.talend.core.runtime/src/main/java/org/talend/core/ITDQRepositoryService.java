@@ -49,8 +49,10 @@ public interface ITDQRepositoryService extends IService {
     public void initProxyRepository();
 
     public void addPartListener();
-    //MOD klliu 2011-04-28 bug 20204 removing connection is synced to the connection view of SQL explore 
+
+    // MOD klliu 2011-04-28 bug 20204 removing connection is synced to the connection view of SQL explore
     public boolean removeAliasInSQLExplorer(IRepositoryNode children);
+
     public void createParserRuleItem(ArrayList<HashMap<String, Object>> values, String parserRuleName);
 
     public List<Map<String, String>> getPaserRulesFromResources(Object[] rules);
@@ -59,7 +61,7 @@ public interface ITDQRepositoryService extends IService {
 
     // ADD qiongli 2011-9-13 TDQ-3317
     public void reloadDatabase(ContextItem contextItem);
-    
+
     // ADD zshen 2012-1-6 TDQ-4384
     public void reloadDatabase(ConnectionItem connectionItem);
 
@@ -68,5 +70,8 @@ public interface ITDQRepositoryService extends IService {
 
     // ADD qiongli 2011-9-13 TDQ-3930
     public boolean confirmUpdateAnalysis(ConnectionItem connectionItem);
+
+    // ADD qiongli 2012-4-19 TDQ-5130
+    public boolean hasClientDependences(ConnectionItem connectionItem);
 
 }
