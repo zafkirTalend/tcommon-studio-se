@@ -15,6 +15,8 @@ package org.talend.repository.ui.swt.utils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.commons.ui.swt.formtools.LabelledCheckboxCombo;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ITDQRepositoryService;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.metadata.builder.connection.FileConnection;
 import org.talend.core.model.properties.ConnectionItem;
@@ -98,5 +100,21 @@ public abstract class AbstractFileStepForm extends AbstractForm {
             }
 
         }
+    }
+
+    /**
+     * 
+     * judge if has some analyses depend on this connecton.
+     */
+    protected boolean hasDQDependences() {
+        ITDQRepositoryService tdqRepositoryService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+            tdqRepositoryService = (ITDQRepositoryService) org.talend.core.GlobalServiceRegister.getDefault().getService(
+                    ITDQRepositoryService.class);
+        }
+        if (tdqRepositoryService != null && tdqRepositoryService.hasClientDependences(connectionItem)) {
+            return true;
+        }
+        return false;
     }
 }

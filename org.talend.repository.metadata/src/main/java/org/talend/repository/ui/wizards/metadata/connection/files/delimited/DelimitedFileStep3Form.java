@@ -37,6 +37,7 @@ import org.talend.commons.ui.swt.formtools.LabelledText;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableListEvent;
+import org.talend.core.ITDQRepositoryService;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
@@ -248,6 +249,19 @@ public class DelimitedFileStep3Form extends AbstractDelimitedFileStepForm {
                     return;
                 }
                 if (tableEditorView.getMetadataEditor().getBeanCount() > 0) {
+                    // MOD qiongli 2012-4-18 TDQ-5130.give a message with DQ update information if has DQ
+                    // dependences.The column uuid is changed after guessing,should update related analyses.
+                    if (hasDQDependences()) {
+                        if (MessageDialog.openConfirm(getShell(), Messages.getString("FileStep3.guessConfirmation"), Messages //$NON-NLS-1$
+                                .getString("FileStep3.guessConfirmationMessageWithDQ"))) {//$NON-NLS-1$
+                            runShadowProcess();
+                            // in this case,tdqRepositoryService is not null.
+                            ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) org.talend.core.GlobalServiceRegister
+                                    .getDefault().getService(ITDQRepositoryService.class);
+                            tdqRepositoryService.updateImpactOnAnalysis(connectionItem);
+                        }
+                        return;
+                    }
                     if (MessageDialog.openConfirm(getShell(), Messages.getString("FileStep3.guessConfirmation"), Messages //$NON-NLS-1$
                             .getString("FileStep3.guessConfirmationMessage"))) { //$NON-NLS-1$
                         runShadowProcess();

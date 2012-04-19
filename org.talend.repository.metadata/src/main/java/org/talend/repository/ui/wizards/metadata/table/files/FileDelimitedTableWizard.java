@@ -15,7 +15,6 @@ package org.talend.repository.ui.wizards.metadata.table.files;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
@@ -38,7 +37,6 @@ import org.talend.core.service.IMetadataManagmentService;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.ui.wizards.AbstractRepositoryFileTableWizard;
-import orgomg.cwm.objectmodel.core.Dependency;
 
 /**
  * DOC ocarbone class global comment.
@@ -112,7 +110,7 @@ public class FileDelimitedTableWizard extends AbstractRepositoryFileTableWizard 
             if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
                 tdqRepositoryService = (ITDQRepositoryService) org.talend.core.GlobalServiceRegister.getDefault().getService(
                         ITDQRepositoryService.class);
-                needUpdateAnalysis = isNeedUpdateDQ(repositoryObject.getProperty().getItem());
+                needUpdateAnalysis = isNeedUpdateDQ(repositoryObject.getProperty().getItem(), tdqRepositoryService);
             }
 
             if (tdqRepositoryService != null && needUpdateAnalysis) {
@@ -164,18 +162,14 @@ public class FileDelimitedTableWizard extends AbstractRepositoryFileTableWizard 
      * 
      * @return
      */
-    private boolean isNeedUpdateDQ(Item item) {
+    private boolean isNeedUpdateDQ(Item item, ITDQRepositoryService tdqRepositoryService) {
 
         if (!(PluginChecker.isTDQLoaded() || PluginChecker.isOnlyTopLoaded()) || item == null
-                || !(item instanceof ConnectionItem)) {
+                || !(item instanceof ConnectionItem) || tdqRepositoryService == null) {
             return false;
         }
         Connection connection = ((ConnectionItem) item).getConnection();
-        if (connection == null) {
-            return false;
-        }
-        EList<Dependency> supplierDependency = connection.getSupplierDependency();
-        if (supplierDependency == null || supplierDependency.isEmpty()) {
+        if (connection == null || !tdqRepositoryService.hasClientDependences((ConnectionItem) item)) {
             return false;
         }
         Map<String, String> schemaRenamedMap = RepositoryUpdateManager.getSchemaRenamedMap((ConnectionItem) item, oldTableMap);
