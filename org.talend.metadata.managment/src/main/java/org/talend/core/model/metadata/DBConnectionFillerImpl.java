@@ -1397,7 +1397,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 try {
                     // primary key
                     // MOD qiongli 2011-2-21,bug 18828 ,Access database dosen't support 'getPrimaryKeys(...)'.
-                    if (MetadataConnectionUtils.isOdbcExcel(dbJDBCMetadata) || MetadataConnectionUtils.isAccess(dbJDBCMetadata)) {
+                    if (MetadataConnectionUtils.isOdbcExcel(dbJDBCMetadata) || MetadataConnectionUtils.isAccess(dbJDBCMetadata)
+                            || MetadataConnectionUtils.isHive(dbJDBCMetadata)) {
                         log.info("This database don't support primary key and foreign key");
                         return;
                     }
