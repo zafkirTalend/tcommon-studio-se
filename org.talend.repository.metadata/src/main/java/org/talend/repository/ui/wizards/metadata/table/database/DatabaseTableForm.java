@@ -306,7 +306,7 @@ public class DatabaseTableForm extends AbstractForm {
                 TableItem subItem = new TableItem(tableNavigator, SWT.NONE);
                 subItem.setText(allTableLabel[i]);
                 tableNavigator.setSelection(subItem);
-            } else if (!TableHelper.isDeleted(TableHelper.findByLabel(getConnection(), allTableLabel[i]))) {
+            } else /* if (!TableHelper.isDeleted(TableHelper.findByLabel(getConnection(), allTableLabel[i]))) */{
                 TableItem subItem = new TableItem(tableNavigator, SWT.NULL);
                 subItem.setText(allTableLabel[i]);
             }
