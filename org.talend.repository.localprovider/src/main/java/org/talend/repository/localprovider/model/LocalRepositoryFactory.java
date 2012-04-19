@@ -1141,11 +1141,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         // Getting the folder :
         IFolder folder = ResourceUtils.getFolder(fsProject, completePath, true);
+        // changed by hqzhang for TDI-20600, FolderHelper.deleteFolder will fire the DeletedFolderListener in
+        // ProjectRepoAbstractContentProvider class to refresh the node, if don't delete resource first, the deleted
+        // foler display in repository view
+        ResourceUtils.deleteResource(folder);
         getFolderHelper(project.getEmfProject()).deleteFolder(completePath);
         if (!fromEmptyRecycleBin) {
             saveProject(project);
         }
-        ResourceUtils.deleteResource(folder);
     }
 
     public void moveFolder(ERepositoryObjectType type, IPath sourcePath, IPath targetPath) throws PersistenceException {
