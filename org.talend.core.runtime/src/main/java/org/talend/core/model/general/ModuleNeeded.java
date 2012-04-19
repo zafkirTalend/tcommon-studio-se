@@ -232,4 +232,15 @@ public class ModuleNeeded {
     public void setBundleVersion(String bundleVersion) {
         this.bundleVersion = bundleVersion;
     }
+
+    @Override
+    public String toString() {
+        if (bundleName == null) {
+            return moduleName;
+        } else if (bundleVersion == null) {
+            return moduleName + "[" + bundleName + "]";
+        } else {
+            return moduleName + "[" + bundleName + ":" + bundleVersion + "]";
+        }
+    }
 }

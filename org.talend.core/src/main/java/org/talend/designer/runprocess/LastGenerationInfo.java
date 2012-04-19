@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.process.JobInfo;
 
 /**
@@ -23,11 +24,11 @@ import org.talend.core.model.process.JobInfo;
  */
 public class LastGenerationInfo {
 
-    private HashMap<String, Set<String>> modulesNeededPerJob;
+    private HashMap<String, Set<ModuleNeeded>> modulesNeededPerJob;
 
     private HashMap<String, Set<String>> routinesNeededPerJob;
 
-    private HashMap<String, Set<String>> modulesNeededWithSubjobPerJob;
+    private HashMap<String, Set<ModuleNeeded>> modulesNeededWithSubjobPerJob;
 
     private HashMap<String, Set<String>> routinesNeededWithSubjobPerJob;
 
@@ -42,9 +43,9 @@ public class LastGenerationInfo {
     private Set<JobInfo> lastGeneratedjobs; // main job + child jobs
 
     private LastGenerationInfo() {
-        modulesNeededPerJob = new HashMap<String, Set<String>>();
+        modulesNeededPerJob = new HashMap<String, Set<ModuleNeeded>>();
         contextPerJob = new HashMap<String, Set<String>>();
-        modulesNeededWithSubjobPerJob = new HashMap<String, Set<String>>();
+        modulesNeededWithSubjobPerJob = new HashMap<String, Set<ModuleNeeded>>();
         lastGeneratedjobs = new HashSet<JobInfo>();
         routinesNeededPerJob = new HashMap<String, Set<String>>();
         routinesNeededWithSubjobPerJob = new HashMap<String, Set<String>>();
@@ -62,10 +63,10 @@ public class LastGenerationInfo {
      * 
      * @return the modulesNeededPerJob
      */
-    public Set<String> getModulesNeededWithSubjobPerJob(String jobId, String jobVersion) {
+    public Set<ModuleNeeded> getModulesNeededWithSubjobPerJob(String jobId, String jobVersion) {
         String key = jobId + "_" + jobVersion; //$NON-NLS-1$
         if (!modulesNeededWithSubjobPerJob.containsKey(key)) {
-            modulesNeededWithSubjobPerJob.put(key, new HashSet<String>());
+            modulesNeededWithSubjobPerJob.put(key, new HashSet<ModuleNeeded>());
         }
         return modulesNeededWithSubjobPerJob.get(key);
     }
@@ -74,10 +75,10 @@ public class LastGenerationInfo {
      * 
      * @return the modulesNeededPerJob
      */
-    public Set<String> getModulesNeededPerJob(String jobId, String jobVersion) {
+    public Set<ModuleNeeded> getModulesNeededPerJob(String jobId, String jobVersion) {
         String key = jobId + "_" + jobVersion; //$NON-NLS-1$
         if (!modulesNeededPerJob.containsKey(key)) {
-            modulesNeededPerJob.put(key, new HashSet<String>());
+            modulesNeededPerJob.put(key, new HashSet<ModuleNeeded>());
         }
         return modulesNeededPerJob.get(key);
     }
@@ -100,9 +101,9 @@ public class LastGenerationInfo {
      * 
      * @param modulesNeededPerJob the modulesNeededPerJob to set
      */
-    public void setModulesNeededPerJob(String jobId, String jobVersion, Set<String> modulesNeeded) {
+    public void setModulesNeededPerJob(String jobId, String jobVersion, Set<ModuleNeeded> modulesNeeded) {
         String key = jobId + "_" + jobVersion; //$NON-NLS-1$
-        modulesNeededPerJob.put(key, new HashSet<String>(modulesNeeded));
+        modulesNeededPerJob.put(key, new HashSet<ModuleNeeded>(modulesNeeded));
     }
 
     /**
@@ -110,12 +111,12 @@ public class LastGenerationInfo {
      * 
      * @param modulesNeededWithSubjobPerJob the modulesNeededWithSubjobPerJob to set
      */
-    public void setModulesNeededWithSubjobPerJob(String jobId, String jobVersion, Set<String> modulesNeeded) {
+    public void setModulesNeededWithSubjobPerJob(String jobId, String jobVersion, Set<ModuleNeeded> modulesNeeded) {
         String key = jobId + "_" + jobVersion; //$NON-NLS-1$
         if (modulesNeeded == null) {
             modulesNeededWithSubjobPerJob.put(key, null);
         } else {
-            modulesNeededWithSubjobPerJob.put(key, new HashSet<String>(modulesNeeded));
+            modulesNeededWithSubjobPerJob.put(key, new HashSet<ModuleNeeded>(modulesNeeded));
         }
     }
 
