@@ -21,8 +21,13 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.collections.map.MultiKeyMap;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -142,9 +147,9 @@ public class DeleteAction extends AContextualAction {
 
         final Set<ERepositoryObjectType> types = new HashSet<ERepositoryObjectType>();
         final List<RepositoryNode> deletedFolder = new ArrayList<RepositoryNode>();
-        IRunnableWithProgress op = new IRunnableWithProgress() {
+        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
-            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+            public void run(IProgressMonitor monitor) {
                 monitor.beginTask("Delete Running", IProgressMonitor.UNKNOWN); //$NON-NLS-1$
                 for (Object obj : ((IStructuredSelection) selection).toArray()) {
                     if (obj instanceof RepositoryNode) {
@@ -264,11 +269,33 @@ public class DeleteAction extends AContextualAction {
                         }
                     }
                 }
+                try {
+                    factory.saveProject(ProjectManager.getInstance().getCurrentProject());
+                } catch (PersistenceException e) {
+                    ExceptionHandler.process(e);
+                }
             }
         };
+
+        IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
+
+            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                try {
+                    ISchedulingRule schedulingRule = workspace.getRoot();
+                    // the update the project files need to be done in the workspace runnable to avoid all
+                    // notification
+                    // of changes before the end of the modifications.
+                    workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, monitor);
+                } catch (CoreException e) {
+                    throw new InvocationTargetException(e);
+                }
+
+            }
+        };
+
         try {
-            PlatformUI.getWorkbench().getProgressService().run(true, true, op);
-            factory.saveProject(ProjectManager.getInstance().getCurrentProject());
+            PlatformUI.getWorkbench().getProgressService().run(true, true, iRunnableWithProgress);
         } catch (Exception e) {
             ExceptionHandler.process(e);
         }
@@ -899,7 +926,7 @@ public class DeleteAction extends AContextualAction {
                 && nodeObject.getProperty().getItem() != null
                 && (nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_OTHER
                         || nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_USER || RepositoryManager
-                            .isOpenedItemInEditor(nodeObject)) && !(DELETE_FOREVER_TITLE.equals(getText()))) {
+                        .isOpenedItemInEditor(nodeObject)) && !(DELETE_FOREVER_TITLE.equals(getText()))) {
 
             final String title = Messages.getString("DeleteAction.error.title"); //$NON-NLS-1$
             String nodeName = ERepositoryObjectType.getDeleteFolderName(nodeObject.getRepositoryObjectType());
