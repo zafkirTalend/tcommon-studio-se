@@ -1258,7 +1258,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     int column_size = columns.getInt(GetColumn.COLUMN_SIZE.name());
                     column.setLength(column_size);
 
-
                 } catch (Exception e1) {
                     log.warn(e1, e1);
                 }
@@ -1270,7 +1269,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
                 // Null able
                 int nullable = 0;
-                if (dbJDBCMetadata instanceof DB2ForZosDataBaseMetadata||dbJDBCMetadata instanceof TeradataDataBaseMetadata) {
+                if (dbJDBCMetadata instanceof DB2ForZosDataBaseMetadata || dbJDBCMetadata instanceof TeradataDataBaseMetadata) {
                     String isNullable = columns.getString("IS_NULLABLE");//$NON-NLS-1$
                     if (!isNullable.equals("Y")) { //$NON-NLS-1$ //$NON-NLS-2$
                         nullable = 1;
@@ -1302,9 +1301,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 String dbmsId = dbConnection == null ? null : dbConnection.getDbmsId();
                 if (dbmsId != null) {
                     MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(dbmsId);
-                    String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName, ExtractMetaDataUtils
-.getIntMetaDataInfo(columns, "COLUMN_SIZE"), (dbJDBCMetadata instanceof TeradataDataBaseMetadata) ? 0 : ExtractMetaDataUtils.getIntMetaDataInfo(columns, //$NON-NLS-1$
-                            "DECIMAL_DIGITS")); //$NON-NLS-1$
+                    String talendType = mappingTypeRetriever
+                            .getDefaultSelectedTalendType(
+                                    typeName,
+                                    ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE"), (dbJDBCMetadata instanceof TeradataDataBaseMetadata) ? 0 : ExtractMetaDataUtils.getIntMetaDataInfo(columns, //$NON-NLS-1$
+                                                            "DECIMAL_DIGITS")); //$NON-NLS-1$
                     column.setTalendType(talendType);
                     String defaultSelectedDbType = MetadataTalendType.getMappingTypeRetriever(dbConnection.getDbmsId())
                             .getDefaultSelectedDbType(talendType);
@@ -1385,7 +1386,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 try {
                     // primary key
                     // MOD qiongli 2011-2-21,bug 18828 ,Access database dosen't support 'getPrimaryKeys(...)'.
-                    if (MetadataConnectionUtils.isOdbcExcel(dbJDBCMetadata) || MetadataConnectionUtils.isAccess(dbJDBCMetadata)) {
+                    if (MetadataConnectionUtils.isOdbcExcel(dbJDBCMetadata) || MetadataConnectionUtils.isAccess(dbJDBCMetadata)
+                            || MetadataConnectionUtils.isHive(dbJDBCMetadata)) {
                         log.info("This database don't support primary key and foreign key");
                         return;
                     }
