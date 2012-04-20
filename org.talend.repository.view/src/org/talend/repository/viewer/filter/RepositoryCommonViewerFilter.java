@@ -83,8 +83,8 @@ public class RepositoryCommonViewerFilter extends ViewerFilter {
     }
 
     private boolean filterByUserStatusName(RepositoryNode node) {
-        String[] statusFilter = RepositoryViewPlugin.getDefault().getPreferenceValues(IRepositoryPrefConstants.FILTER_BY_STATUS);
-        String[] userFilter = RepositoryViewPlugin.getDefault().getPreferenceValues(IRepositoryPrefConstants.FILTER_BY_USER);
+        String[] statusFilter = RepositoryNodeFilterHelper.getFiltersByPreferenceKey(IRepositoryPrefConstants.FILTER_BY_STATUS);
+        String[] userFilter = RepositoryNodeFilterHelper.getFiltersByPreferenceKey(IRepositoryPrefConstants.FILTER_BY_USER);
         boolean enableNameFilter = getPreferenceStore().getBoolean(IRepositoryPrefConstants.TAG_USER_DEFINED_PATTERNS_ENABLED);
         if (statusFilter == null && userFilter == null && !enableNameFilter) {
             return true;
@@ -176,7 +176,7 @@ public class RepositoryCommonViewerFilter extends ViewerFilter {
         String userFilterPattern = getPreferenceStore().getString(IRepositoryPrefConstants.FILTER_BY_NAME);
         String[] newPatterns = null;
         if (userFilterPattern != null && !"".equals(userFilterPattern)) {
-            newPatterns = RepositoryManager.convertFromString(userFilterPattern, RepositoryManager.PATTERNS_SEPARATOR);
+            newPatterns = RepositoryNodeFilterHelper.convertFromString(userFilterPattern, RepositoryManager.PATTERNS_SEPARATOR);
         }
         StringMatcher[] matchers = null;
         if (newPatterns != null) {

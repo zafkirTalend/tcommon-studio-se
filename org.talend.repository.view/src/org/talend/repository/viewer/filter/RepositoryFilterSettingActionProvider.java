@@ -39,6 +39,17 @@ public class RepositoryFilterSettingActionProvider extends AbstractRepositoryFil
         menuManager.add(action);
     }
 
+    @Override
+    public void restoreState(IMemento aMemento) {
+        super.restoreState(aMemento);
+        if (aMemento != null) {
+            Integer isFilteringInt = aMemento.getInteger(IS_FILTERING_WITH_PERSPECTIVE);
+            if (isFilteringInt != null) {
+                isPecpectiveFiltering = isFilteringInt.intValue() == 1;
+            }
+        }
+    }
+
     /**
      * 
      * DOC ggu FilterSettingAction class global comment. Detailled comment
@@ -64,15 +75,4 @@ public class RepositoryFilterSettingActionProvider extends AbstractRepositoryFil
 
     }
 
-    @Override
-    public void restoreState(IMemento aMemento) {
-        // TODO Auto-generated method stub
-        super.restoreState(aMemento);
-        if (aMemento != null) {
-            Integer isFilteringInt = aMemento.getInteger(IS_FILTERING_WITH_PERSPECTIVE);
-            if (isFilteringInt != null) {
-                isPecpectiveFiltering = isFilteringInt.intValue() == 1;
-            }
-        }
-    }
 }

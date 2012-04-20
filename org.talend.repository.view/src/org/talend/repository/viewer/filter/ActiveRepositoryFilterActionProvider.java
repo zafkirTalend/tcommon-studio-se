@@ -17,6 +17,11 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.ui.IMemento;
+import org.eclipse.ui.IPerspectiveDescriptor;
+import org.eclipse.ui.IPerspectiveListener;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.navigator.CommonViewer;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.repository.viewer.action.ActionConstants;
@@ -24,7 +29,7 @@ import org.talend.repository.viewer.action.ActionConstants;
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public class ActiveRepositoryFilterActionProvider extends AbstractRepositoryFilterActionProvider {
+public class ActiveRepositoryFilterActionProvider extends AbstractRepositoryFilterActionProvider implements IPerspectiveListener {
 
     private boolean isPerspectiveFiltering = true; // default is enabled.
 
@@ -59,7 +64,8 @@ public class ActiveRepositoryFilterActionProvider extends AbstractRepositoryFilt
                 isPerspectiveFiltering = isFilteringInt.intValue() == 1;
             }
         }
-        doFiltering(isActivedFilter(), true);
+        // in order to execute the action run
+        PlatformUI.getWorkbench().getActiveWorkbenchWindow().addPerspectiveListener(this);
     }
 
     private void doFiltering(boolean filtering, boolean restoring) {
@@ -72,6 +78,20 @@ public class ActiveRepositoryFilterActionProvider extends AbstractRepositoryFilt
 
             setActivedFilter(filtering);
         }
+    }
+
+    @Override
+    public void perspectiveActivated(IWorkbenchPage page, IPerspectiveDescriptor perspective) {
+        doFiltering(isActivedFilter(), true);
+    }
+
+    @Override
+    public void perspectiveChanged(IWorkbenchPage page, IPerspectiveDescriptor perspective, String changeId) {
+        // if viewer is completly removed from all views then remove this from perspective listeners.
+        CommonViewer commonViewer = getCommonViewer();
+        if (commonViewer.getControl().isDisposed()) {
+            PlatformUI.getWorkbench().getActiveWorkbenchWindow().removePerspectiveListener(this);
+        }// else do nothing
     }
 
     /**

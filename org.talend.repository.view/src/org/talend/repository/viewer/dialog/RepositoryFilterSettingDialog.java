@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -25,6 +26,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -40,41 +43,45 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.internal.navigator.filters.ContentExtensionsTab;
+import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.internal.navigator.CommonNavigatorMessages;
+import org.eclipse.ui.internal.navigator.extensions.NavigatorContentExtension;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
-import org.eclipse.ui.navigator.INavigatorContentDescriptor;
 import org.eclipse.ui.navigator.INavigatorContentService;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
-import org.talend.core.model.repository.RepositoryManager;
 import org.talend.repository.ProjectManager;
-import org.talend.repository.RepositoryViewPlugin;
 import org.talend.repository.model.RepositoryConstants;
+import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.viewer.filter.RepositoryNodeFilterHelper;
+import org.talend.repository.viewer.ui.provider.RepoCommonViewerProvider;
+import org.talend.repository.viewer.ui.viewer.CheckboxRepoCommonViewer;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
+@SuppressWarnings({ "rawtypes", "restriction" })
 public class RepositoryFilterSettingDialog extends Dialog {
 
     private static final int WIDTH = 600;
 
     private static final int HEIGHT = 500;
 
-    public static final String SEPARATOR = ":";
-
     private final ICommonActionExtensionSite actionSite;
 
     private final boolean activedFilter;
 
-    private final boolean isPerspectiveFilter;
+    RepoCommonViewerProvider repoProvider;
 
-    private RepositoryContentExtensionsTab contentExtensionsTab;
+    private CheckboxRepoCommonViewer checkboxCommonViewer;
+
+    private final boolean isPerspectiveFilter;
 
     private Table statusTable;
 
@@ -121,10 +128,6 @@ public class RepositoryFilterSettingDialog extends Dialog {
         return getCommonViewer().getCommonNavigator();
     }
 
-    protected IPreferenceStore getPreferenceStore() {
-        return RepositoryViewPlugin.getDefault().getPreferenceStore();
-    }
-
     @Override
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
@@ -165,14 +168,35 @@ public class RepositoryFilterSettingDialog extends Dialog {
     }
 
     private void createLeftContent(Composite parent) {
+        Label extensionsInstructionLabel = new Label(parent, SWT.BOLD | SWT.WRAP);
+        extensionsInstructionLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL | GridData.GRAB_HORIZONTAL
+                | GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_FILL));
+        extensionsInstructionLabel.setFont(parent.getFont());
+        extensionsInstructionLabel.setText(CommonNavigatorMessages.CommonFilterSelectionDialog_Select_the_available_extensions);
 
-        contentExtensionsTab = new RepositoryContentExtensionsTab(parent, getNavigatorContentService());
-        applyDialogFont(contentExtensionsTab);
-        contentExtensionsTab.setLayoutData(new GridData(GridData.FILL_BOTH));
+        repoProvider = RepoCommonViewerProvider.CHECKBOX;
+        checkboxCommonViewer = (CheckboxRepoCommonViewer) repoProvider.createViewer(parent);
 
+        checkboxCommonViewer.addFilter(new ViewerFilter() {
+
+            @Override
+            public boolean select(Viewer viewer, Object parentElement, Object element) {
+                if (element instanceof RepositoryNode) {
+                    RepositoryNode parent2 = ((RepositoryNode) element).getParent();
+                    if (parent2 instanceof IProjectRepositoryNode) { // only root type of node, need improve
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+        checkboxCommonViewer.expandAll();
+
+        restoreTreeItems();
     }
 
     private void createRightContent(Composite parent) {
+        final IPreferenceStore preferenceStore = RepositoryNodeFilterHelper.getPreferenceStore();
         Project currentProject = ProjectManager.getInstance().getCurrentProject();
         org.talend.core.model.properties.Project emfProject = currentProject.getEmfProject();
         Resource resource = emfProject.eResource();
@@ -191,10 +215,11 @@ public class RepositoryFilterSettingDialog extends Dialog {
         userPatternComp.setLayout(layout);
         enableUserPatternBtn = new Button(userPatternComp, SWT.CHECK);
         enableUserPatternBtn.setText("Filter By Name : ");
-        boolean enabled = getPreferenceStore().getBoolean(IRepositoryPrefConstants.TAG_USER_DEFINED_PATTERNS_ENABLED);
+
+        boolean enabled = preferenceStore.getBoolean(IRepositoryPrefConstants.TAG_USER_DEFINED_PATTERNS_ENABLED);
         enableUserPatternBtn.setSelection(enabled);
 
-        String patterns = getPreferenceStore().getString(IRepositoryPrefConstants.FILTER_BY_NAME);
+        String patterns = preferenceStore.getString(IRepositoryPrefConstants.FILTER_BY_NAME);
         userFilterPattern = new Text(parent, SWT.BORDER);
         userFilterPattern.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         userFilterPattern.setEnabled(enabled);
@@ -216,7 +241,7 @@ public class RepositoryFilterSettingDialog extends Dialog {
 
         allUsersBtn = new Button(userTop, SWT.CHECK | SWT.LEFT);
         allUsersBtn.setText("All Users");
-        boolean userTableEnable = getPreferenceStore().getBoolean(IRepositoryPrefConstants.USER_FILTER_TABLE_ENABLED);
+        boolean userTableEnable = preferenceStore.getBoolean(IRepositoryPrefConstants.USER_FILTER_TABLE_ENABLED);
         allUsersBtn.setSelection(!userTableEnable);
 
         userTable = new Table(parent, SWT.BORDER | SWT.CHECK);
@@ -237,8 +262,8 @@ public class RepositoryFilterSettingDialog extends Dialog {
         lastName.setWidth(100);
         lastName.setText("LastName");
 
-        String[] filtersByPreferenceKey = RepositoryViewPlugin.getDefault().getPreferenceValues(
-                IRepositoryPrefConstants.FILTER_BY_USER);
+        String[] filtersByPreferenceKey = RepositoryNodeFilterHelper
+                .getFiltersByPreferenceKey(IRepositoryPrefConstants.FILTER_BY_USER);
         if (filtersByPreferenceKey != null && filtersByPreferenceKey.length > 0) {
             uncheckedUser.addAll(Arrays.asList(filtersByPreferenceKey));
         }
@@ -268,7 +293,7 @@ public class RepositoryFilterSettingDialog extends Dialog {
         TableColumn lable = new TableColumn(statusTable, SWT.NONE);
         lable.setWidth(100);
         lable.setText("Label");
-        String[] filters = RepositoryViewPlugin.getDefault().getPreferenceValues(IRepositoryPrefConstants.FILTER_BY_STATUS);
+        String[] filters = RepositoryNodeFilterHelper.getFiltersByPreferenceKey(IRepositoryPrefConstants.FILTER_BY_STATUS);
         if (filters != null && filters.length > 0) {
             uncheckedStatus.addAll(Arrays.asList(filters));
         }
@@ -291,23 +316,6 @@ public class RepositoryFilterSettingDialog extends Dialog {
     }
 
     private void addListeners() {
-        // treeViewer.addCheckStateListener(new ICheckStateListener() {
-        //
-        // public void checkStateChanged(CheckStateChangedEvent event) {
-        // Set<String> all = new HashSet<String>();
-        // TreeItem lastClickedItem = treeViewer.getLastClickedItem();
-        // if (lastClickedItem != null) {
-        // updateChildrenItems(lastClickedItem, all);
-        // if (event.getChecked()) {
-        // updateParentItems(lastClickedItem, all, true);
-        // uncheckedNode.removeAll(all);
-        // } else {
-        // updateParentItems(lastClickedItem, all, false);
-        // uncheckedNode.addAll(all);
-        // }
-        // }
-        // }
-        // });
         statusTable.addSelectionListener(new SelectionAdapter() {
 
             @Override
@@ -373,33 +381,74 @@ public class RepositoryFilterSettingDialog extends Dialog {
         });
     }
 
-    private List<String> getFilteredContents() {
-        List<String> filteredContents = new ArrayList<String>();
-        TableItem[] tableItems = contentExtensionsTab.getTable().getItems();
-        INavigatorContentDescriptor descriptor;
-        for (int i = 0; i < tableItems.length; i++) {
-            descriptor = (INavigatorContentDescriptor) tableItems[i].getData();
+    private void restoreTreeItems() {
+        String[] filteredContents = RepositoryNodeFilterHelper.getFilterByNodeValues();
+        List<String> filteredList = new ArrayList<String>();
+        if (filteredContents != null) {
+            filteredList = Arrays.asList(filteredContents);
+        }
 
-            if (!tableItems[i].getChecked()) {
-                filteredContents.add(descriptor.getId());
+        INavigatorContentService navigatorContentService = checkboxCommonViewer.getNavigatorContentService();
+        restoreContents(filteredList, checkboxCommonViewer.getTree().getItems(), navigatorContentService);
+    }
+
+    private void restoreContents(List<String> filteredContents, TreeItem[] items, INavigatorContentService navigatorContentService) {
+        if (items != null) {
+            for (TreeItem item : items) {
+                Object data = item.getData();
+
+                boolean found = false;
+                Set contentExtensions = navigatorContentService.findRootContentExtensions(data);
+                for (Iterator itr = contentExtensions.iterator(); itr.hasNext();) {
+                    if (filteredContents.contains(((NavigatorContentExtension) itr.next()).getId())) {
+                        found = true;
+                        break;
+                    }
+                }
+                item.setChecked(!found);
+                restoreContents(filteredContents, item.getItems(), navigatorContentService);
             }
         }
+    }
+
+    private List<String> getFilteredContents() {
+        List<String> filteredContents = new ArrayList<String>();
+        INavigatorContentService navigatorContentService = checkboxCommonViewer.getNavigatorContentService();
+        collectContents(filteredContents, checkboxCommonViewer.getTree().getItems(), navigatorContentService);
         return filteredContents;
+    }
+
+    private void collectContents(List<String> filteredContents, TreeItem[] items, INavigatorContentService navigatorContentService) {
+        if (items != null) {
+            for (TreeItem item : items) {
+                Object data = item.getData();
+                if (!item.getChecked()) {
+                    Set contentExtensions = navigatorContentService.findRootContentExtensions(data);
+                    for (Iterator itr = contentExtensions.iterator(); itr.hasNext();) {
+                        filteredContents.add(((NavigatorContentExtension) itr.next()).getId());
+                    }
+                }
+                collectContents(filteredContents, item.getItems(), navigatorContentService);
+
+            }
+        }
     }
 
     @Override
     protected void okPressed() {
-        IPreferenceStore preferenceStore = getPreferenceStore();
+        IPreferenceStore preferenceStore = RepositoryNodeFilterHelper.getPreferenceStore();
         final List<String> filteredContents = getFilteredContents();
-        String relust = convertToString(filteredContents, RepositoryManager.ITEM_SEPARATOR);
-        preferenceStore.setValue(IRepositoryPrefConstants.FILTER_BY_NODE,
-                relust.length() > 2 ? relust.substring(0, relust.length() - 2) : relust);
+        String relust = convertToString(filteredContents, RepositoryNodeFilterHelper.ITEM_SEPARATOR);
 
-        String status = convertToString(uncheckedStatus, RepositoryManager.ITEM_SEPARATOR);
+        final String filterByNodeKey = RepositoryNodeFilterHelper.getFilterByNodeKey(
+                RepositoryNodeFilterHelper.getPerspectiveId(), isPerspectiveFilter());
+        preferenceStore.setValue(filterByNodeKey, relust.length() > 2 ? relust.substring(0, relust.length() - 2) : relust);
+
+        String status = convertToString(uncheckedStatus, RepositoryNodeFilterHelper.ITEM_SEPARATOR);
         preferenceStore.setValue(IRepositoryPrefConstants.FILTER_BY_STATUS,
                 status.length() > 2 ? status.substring(0, status.length() - 2) : status);
 
-        String users = convertToString(uncheckedUser, RepositoryManager.ITEM_SEPARATOR);
+        String users = convertToString(uncheckedUser, RepositoryNodeFilterHelper.ITEM_SEPARATOR);
         preferenceStore.setValue(IRepositoryPrefConstants.FILTER_BY_USER,
                 users.length() > 2 ? users.substring(0, users.length() - 2) : users);
 
@@ -422,42 +471,6 @@ public class RepositoryFilterSettingDialog extends Dialog {
             buffer.append(separator);
         }
         return buffer.toString();
-    }
-
-    /**
-     * 
-     * DOC ggu RepositoryContentExtensionsTab class global comment. Detailled comment
-     */
-    @SuppressWarnings("restriction")
-    class RepositoryContentExtensionsTab extends ContentExtensionsTab {
-
-        public RepositoryContentExtensionsTab(Composite parent, INavigatorContentService aContentService) {
-            super(parent, aContentService);
-            updateCheckedState();
-        }
-
-        protected void updateCheckedState() {
-            String[] filteredContents = RepositoryViewPlugin.getDefault().getPreferenceValues(
-                    IRepositoryPrefConstants.FILTER_BY_NODE);
-            List<String> list = new ArrayList<String>();
-            if (filteredContents != null) {
-                list = Arrays.asList(filteredContents);
-            }
-            INavigatorContentDescriptor[] visibleExtensions = getContentService().getVisibleExtensions();
-            for (int i = 0; i < visibleExtensions.length; i++) {
-                if (list.contains(visibleExtensions[i].getId())) { // filtered
-                    getTableViewer().setChecked(visibleExtensions[i], false);
-                } else {
-                    getTableViewer().setChecked(visibleExtensions[i], true);
-                }
-            }
-        }
-
-        @Override
-        public Table getTable() {
-            return super.getTable();
-        }
-
     }
 
 }

@@ -14,7 +14,6 @@ package org.talend.repository;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-import org.talend.core.model.repository.RepositoryManager;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -52,15 +51,6 @@ public class RepositoryViewPlugin extends AbstractUIPlugin {
 
     public static RepositoryViewPlugin getDefault() {
         return plugin;
-    }
-
-    public String[] getPreferenceValues(String key) {
-        String allValues = getDefault().getPreferenceStore().getString(key);
-        if (allValues == null || "".equals(allValues)) {
-            return new String[0];
-        }
-        String[] splits = allValues.split(RepositoryManager.ITEM_SEPARATOR);
-        return splits;
     }
 
 }

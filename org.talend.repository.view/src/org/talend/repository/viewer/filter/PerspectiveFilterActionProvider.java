@@ -118,8 +118,4 @@ public class PerspectiveFilterActionProvider extends AbstractRepositoryActionPro
         }// else do nothing
     }
 
-    public PerspectiveFilterHelper getHelper() {
-        return helper;
-    }
-
 }
