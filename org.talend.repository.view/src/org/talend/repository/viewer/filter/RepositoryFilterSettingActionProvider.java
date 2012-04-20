@@ -15,6 +15,7 @@ package org.talend.repository.viewer.filter;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.window.Window;
+import org.eclipse.ui.IMemento;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.talend.repository.viewer.dialog.RepositoryFilterSettingDialog;
 
@@ -24,6 +25,8 @@ import org.talend.repository.viewer.dialog.RepositoryFilterSettingDialog;
 public class RepositoryFilterSettingActionProvider extends AbstractRepositoryFilterActionProvider {
 
     private static final String DOT = "..."; //$NON-NLS-1$
+
+    private boolean isPecpectiveFiltering = true;
 
     public RepositoryFilterSettingActionProvider() {
         super();
@@ -52,11 +55,24 @@ public class RepositoryFilterSettingActionProvider extends AbstractRepositoryFil
             super.run();
             final ICommonActionExtensionSite actionSite = RepositoryFilterSettingActionProvider.this.getActionSite();
 
-            RepositoryFilterSettingDialog dialog = new RepositoryFilterSettingDialog(actionSite, isActivedFilter());
+            RepositoryFilterSettingDialog dialog = new RepositoryFilterSettingDialog(actionSite, isActivedFilter(),
+                    isPecpectiveFiltering);
             if (dialog.open() == Window.OK) {
                 actionSite.getStructuredViewer().refresh();
             }
         }
 
+    }
+
+    @Override
+    public void restoreState(IMemento aMemento) {
+        // TODO Auto-generated method stub
+        super.restoreState(aMemento);
+        if (aMemento != null) {
+            Integer isFilteringInt = aMemento.getInteger(IS_FILTERING_WITH_PERSPECTIVE);
+            if (isFilteringInt != null) {
+                isPecpectiveFiltering = isFilteringInt.intValue() == 1;
+            }
+        }
     }
 }

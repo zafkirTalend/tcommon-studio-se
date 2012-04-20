@@ -31,6 +31,8 @@ import org.talend.repository.ui.actions.AContextualAction;
  */
 public abstract class AbstractRepositoryActionProvider extends CommonActionProvider {
 
+    protected static final String IS_FILTERING_WITH_PERSPECTIVE = "is.filtering.with.perspective"; //$NON-NLS-1$
+
     private boolean contributedToViewMenu = false;
 
     private List<AContextualAction> actionsList = new ArrayList<AContextualAction>();

@@ -26,6 +26,8 @@ import org.talend.repository.viewer.action.ActionConstants;
  */
 public class ActiveRepositoryFilterActionProvider extends AbstractRepositoryFilterActionProvider {
 
+    private boolean isPerspectiveFiltering = true; // default is enabled.
+
     public ActiveRepositoryFilterActionProvider() {
         super();
     }
@@ -51,12 +53,17 @@ public class ActiveRepositoryFilterActionProvider extends AbstractRepositoryFilt
     @Override
     public void restoreState(IMemento aMemento) {
         super.restoreState(aMemento);
+        if (aMemento != null) {
+            Integer isFilteringInt = aMemento.getInteger(IS_FILTERING_WITH_PERSPECTIVE);
+            if (isFilteringInt != null) {
+                isPerspectiveFiltering = isFilteringInt.intValue() == 1;
+            }
+        }
         doFiltering(isActivedFilter(), true);
     }
 
     private void doFiltering(boolean filtering, boolean restoring) {
-        RepositoryNodeFilterHelper.filter(this.getActionSite(), filtering, restoring);
-        //
+        RepositoryNodeFilterHelper.filter(this.getActionSite(), filtering, isPerspectiveFiltering, restoring);
     }
 
     void setFiltering(boolean filtering, boolean restoring) {

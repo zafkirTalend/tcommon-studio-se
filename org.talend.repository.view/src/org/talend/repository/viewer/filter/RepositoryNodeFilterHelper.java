@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.navigator.filters.UpdateActiveExtensionsOperation;
 import org.eclipse.ui.internal.navigator.filters.UpdateActiveFiltersOperation;
 import org.eclipse.ui.navigator.CommonViewer;
@@ -32,17 +33,38 @@ import org.talend.repository.RepositoryViewPlugin;
 @SuppressWarnings("restriction")
 public class RepositoryNodeFilterHelper {
 
-    public static void filter(final ICommonActionExtensionSite commonActionSite, boolean activedFilter, boolean restoring) {
+    public static void filter(final ICommonActionExtensionSite commonActionSite, boolean activedFilter,
+            boolean isPerspectiveFilter, boolean restoring) {
 
-        processContentExtensions(commonActionSite, activedFilter);
+        processContentExtensions(commonActionSite, activedFilter, isPerspectiveFilter);
         processCommonFilters(commonActionSite, activedFilter);
 
     }
 
-    private static void processContentExtensions(final ICommonActionExtensionSite commonActionSite, boolean activedFilter) {
+    private static void processContentExtensions(final ICommonActionExtensionSite commonActionSite, boolean activeFilter,
+            boolean activedPerspectiveFilter) {
         final CommonViewer commonViewer = (CommonViewer) commonActionSite.getStructuredViewer();
         final INavigatorContentService contentService = commonActionSite.getContentService();
         final INavigatorContentDescriptor[] visibleExtensions = contentService.getVisibleExtensions();
+        List<String> visibleIDsForPecpective = new ArrayList<String>();
+        List<String> visibleIdsForActiveFilter = new ArrayList<String>();
+        for (INavigatorContentDescriptor nd : visibleExtensions) {
+            visibleIdsForActiveFilter.add(nd.getId());
+        }
+
+        if (activedPerspectiveFilter) {
+            String perspectiveId = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getPerspective().getId();
+            PerspectiveFilterActionProvider pvFilter = new PerspectiveFilterActionProvider();
+            pvFilter.getHelper().setTreeViewer(commonViewer);
+            pvFilter.getHelper().setNavigatorContentService(contentService);
+            pvFilter.getHelper().setActionProviderId(pvFilter.ID);
+            String[] pvExtensions = pvFilter.getHelper().getExtensionIdsToActivate(perspectiveId);
+
+            if (pvExtensions != null && pvExtensions.length > 0) {
+                visibleIDsForPecpective = Arrays.asList(pvExtensions);
+            }
+            visibleIdsForActiveFilter.retainAll(visibleIDsForPecpective);
+        }
 
         String[] filteredContents = RepositoryViewPlugin.getDefault()
                 .getPreferenceValues(IRepositoryPrefConstants.FILTER_BY_NODE);
@@ -52,9 +74,8 @@ public class RepositoryNodeFilterHelper {
         }
 
         List<String> checkedExtensions = new ArrayList<String>();
-        for (int i = 0; i < visibleExtensions.length; i++) {
-            String id = visibleExtensions[i].getId();
-            if (!activedFilter || activedFilter && !filteredContentsList.contains(id)) {
+        for (String id : visibleIdsForActiveFilter) {
+            if (!activedPerspectiveFilter || (activedPerspectiveFilter && !filteredContentsList.contains(id))) {
                 checkedExtensions.add(id);
             }
         }

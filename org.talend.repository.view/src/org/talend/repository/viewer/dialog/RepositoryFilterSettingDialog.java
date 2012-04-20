@@ -72,6 +72,8 @@ public class RepositoryFilterSettingDialog extends Dialog {
 
     private final boolean activedFilter;
 
+    private final boolean isPerspectiveFilter;
+
     private RepositoryContentExtensionsTab contentExtensionsTab;
 
     private Table statusTable;
@@ -90,15 +92,21 @@ public class RepositoryFilterSettingDialog extends Dialog {
 
     private Set<String> uncheckedUser = new HashSet<String>();
 
-    public RepositoryFilterSettingDialog(final ICommonActionExtensionSite actionSite, final boolean activedFilter) {
+    public RepositoryFilterSettingDialog(final ICommonActionExtensionSite actionSite, final boolean activedFilter,
+            boolean isPerspectiveFilter) {
         super(actionSite.getViewSite().getShell());
         setShellStyle(getShellStyle() | SWT.MAX | SWT.MIN | SWT.RESIZE | SWT.APPLICATION_MODAL);
         this.actionSite = actionSite;
         this.activedFilter = activedFilter;
+        this.isPerspectiveFilter = isPerspectiveFilter;
     }
 
     protected boolean isActivedFilter() {
         return activedFilter;
+    }
+
+    protected boolean isPerspectiveFilter() {
+        return isPerspectiveFilter;
     }
 
     protected INavigatorContentService getNavigatorContentService() {
@@ -403,7 +411,7 @@ public class RepositoryFilterSettingDialog extends Dialog {
         preferenceStore.setValue(IRepositoryPrefConstants.USER_FILTER_TABLE_ENABLED, !allUsersBtn.getSelection());
         super.okPressed();
 
-        RepositoryNodeFilterHelper.filter(actionSite, isActivedFilter(), false);
+        RepositoryNodeFilterHelper.filter(actionSite, isActivedFilter(), isPerspectiveFilter(), false);
 
     }
 
