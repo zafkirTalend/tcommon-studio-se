@@ -101,7 +101,8 @@ public final class ApplicationDeletionUtil {
          	   newRepositoryNode = existPreferenceNode; 
             }
         } 
-         newRepositoryNode.add(mdmNode);
+        if(newRepositoryNode!=null && mdmNode!=null)
+            newRepositoryNode.add(mdmNode);
 	}
 
 	private static IPreferenceNode existPreferenceNode(List<IPreferenceNode> prefsToDeleteParents, IPreferenceNode parentNode,
