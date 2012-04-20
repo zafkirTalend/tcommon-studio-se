@@ -26,11 +26,15 @@ Require-Bundle: org.apache.commons.lang,
  org.talend.metadata.managment.ui,
  org.talend.core.repository,
  org.talend.utils,
- org.talend.datatools.xml
+ org.talend.datatools.xml,
+ org.talend.repository.view;visibility:=reexport
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.talend.core.ui.metadata.celleditor,
  org.talend.repository.metadata,
+ org.talend.repository.metadata.content,
+ org.talend.repository.metadata.content.rules,
+ org.talend.repository.metadata.tester,
  org.talend.repository.ui.actions.metadata,
  org.talend.repository.ui.actions.toolbar,
  org.talend.repository.ui.swt.utils,
