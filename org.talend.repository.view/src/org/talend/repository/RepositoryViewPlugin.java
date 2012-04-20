@@ -12,8 +12,11 @@
 // ============================================================================
 package org.talend.repository;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+import org.talend.repository.navigator.DescriptorAdapterFactory;
+import org.talend.repository.navigator.TalendRepositoryRoot;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -37,6 +40,14 @@ public class RepositoryViewPlugin extends AbstractUIPlugin {
      */
     public void start(BundleContext context) throws Exception {
         super.start(context);
+        registerAdapters();
+    }
+
+    /**
+     * DOC sgandon Comment method "registerAdapters".
+     */
+    private void registerAdapters() {
+        Platform.getAdapterManager().registerAdapters(new DescriptorAdapterFactory(), TalendRepositoryRoot.class);
     }
 
     /*

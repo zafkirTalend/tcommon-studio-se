@@ -108,7 +108,7 @@ public class ActiveRepositoryFilterActionProvider extends AbstractRepositoryFilt
         public ActiveFilterAction(String label) {
             super(label, IAction.AS_CHECK_BOX);
             this.setChecked(isActivedFilter());
-            this.setToolTipText(this.getText()); // use same
+            this.setToolTipText("Activte Filter \n(filter settings available in the view menu)");
             this.setImageDescriptor(ImageProvider.getImageDesc(EImage.FILTER_ACTIVED_ICON));
             this.setDisabledImageDescriptor(ImageProvider.getImageDesc(EImage.FILTER_DEACTIVED_ICON));
             setId(ACTION_ID);

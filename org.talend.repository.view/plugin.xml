@@ -274,6 +274,10 @@
                   name="org.eclipse.ui.navigator.hideAvailableCustomizationsDialog"
                   value="true">
             </property>
+            <property
+                  name="org.eclipse.ui.navigator.hideLinkWithEditorAction"
+                  value="true">
+            </property>
          </options>
       </viewer>
    </extension>
