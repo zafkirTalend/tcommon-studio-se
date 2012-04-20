@@ -2671,4 +2671,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         service.executeProjectTasks(mainProject, beforeLogon, monitorWrap);
     }
 
+    public String getNavigatorViewDescription() {
+        Project currentProject = ProjectManager.getInstance().getCurrentProject();
+        if (currentProject == null)
+            return ""; //$NON-NLS-1$
+        StringBuffer descBuffer = new StringBuffer();
+        descBuffer.append("LOCAL: ").append(currentProject.getLabel());
+
+        return descBuffer.toString();
+    }
+
 }

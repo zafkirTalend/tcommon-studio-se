@@ -1886,4 +1886,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     public LockInfo getLockInfo(Item item) {
         return repositoryFactoryFromProvider.getLockInfo(item);
     }
+
+    public String getNavigatorViewDescription() {
+        return repositoryFactoryFromProvider.getNavigatorViewDescription();
+    }
 }

@@ -471,4 +471,11 @@ public interface IProxyRepositoryFactory {
     public List<IRepositoryViewObject> getMetadataByFolder(ERepositoryObjectType itemType, IPath path);
 
     public LockInfo getLockInfo(Item item);
+
+    /**
+     * DOC ycbai Comment method "getNavigatorViewDescription".
+     * 
+     * @return
+     */
+    public String getNavigatorViewDescription();
 }

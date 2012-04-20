@@ -364,4 +364,11 @@ public interface IRepositoryFactory {
      * @return
      */
     public LockInfo getLockInfo(Item item);
+
+    /**
+     * DOC ycbai Comment method "getNavigatorViewDescription".
+     * 
+     * @return
+     */
+    public String getNavigatorViewDescription();
 }
