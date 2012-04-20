@@ -19,6 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.viewers.ISelection;
@@ -29,6 +37,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
@@ -63,7 +72,6 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.designer.core.IDesignerCoreService;
-import org.talend.repository.ProjectManager;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
@@ -310,7 +318,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             // ~19528
 
             IMetadataConnection metadataConnection = ConvertionHelper.convert(connection);
-            IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+            final IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
 
             ITDQRepositoryService tdqRepService = null;
 
@@ -407,7 +415,23 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     connectionProperty.setLabel(connectionProperty.getDisplayName());
                     this.connection.setName(connectionProperty.getDisplayName());
                     this.connection.setLabel(connectionProperty.getDisplayName());
-                    factory.save(connectionItem);
+
+                    // Modified by Marvin Wang on Apr. 40, 2012 for bug TDI-20744
+                    // factory.save(connectionItem);
+
+                    IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                    IWorkspaceRunnable operation = new IWorkspaceRunnable() {
+
+                        public void run(IProgressMonitor monitor) throws CoreException {
+                            try {
+                                factory.save(connectionItem);
+                            } catch (PersistenceException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+                    workspace.run(operation, null);
+
                     // 0005170: Schema renamed - new name not pushed out to dependant jobs
                     boolean isModified = propertiesWizardPage.isNameModifiedByUser();
                     if (isModified) {
@@ -419,7 +443,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                             }
                         }
                     }
-                    ProxyRepositoryFactory.getInstance().saveProject(ProjectManager.getInstance().getCurrentProject());
+                    // ProxyRepositoryFactory.getInstance().saveProject(ProjectManager.getInstance().getCurrentProject());
                     closeLockStrategy();
 
                 }
