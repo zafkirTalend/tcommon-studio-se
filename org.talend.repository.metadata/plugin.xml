@@ -158,7 +158,6 @@
          point="org.eclipse.ui.navigator.navigatorContent">
       <navigatorContent
             activeByDefault="true"
-            appearsBefore="org.talend.repository.viewer.root.documentation"
             contentProvider="org.talend.repository.metadata.content.MetadataTopNodeContentProvider"
             icon="icons/metadata.png"
             id="org.talend.repository.viewer.root.metadata"
