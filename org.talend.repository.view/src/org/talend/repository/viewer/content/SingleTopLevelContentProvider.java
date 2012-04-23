@@ -14,13 +14,14 @@ package org.talend.repository.viewer.content;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.ui.navigator.SaveablesProvider;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
-public abstract class SingleTopLevelContentProvider implements ITreeContentProvider {
+public abstract class SingleTopLevelContentProvider extends TalendSaveablesProvider implements ITreeContentProvider {
 
     private final IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
 
