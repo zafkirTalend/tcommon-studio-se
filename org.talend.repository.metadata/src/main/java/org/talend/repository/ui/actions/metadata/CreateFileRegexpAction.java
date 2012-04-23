@@ -77,6 +77,7 @@ public class CreateFileRegexpAction extends AbstractCreateAction {
         this.setImageDescriptor(defaultImage);
     }
 
+    @Override
     protected void doRun() {
         // RepositoryNode metadataNode = getViewPart().getRoot().getChildren().get(6);
         // RepositoryNode fileRegexpNode = metadataNode.getChildren().get(3);
@@ -111,14 +112,15 @@ public class CreateFileRegexpAction extends AbstractCreateAction {
         wizardDialog.setPageSize(WIZARD_WIDTH, WIZARD_HEIGHT);
         wizardDialog.create();
         wizardDialog.open();
-        RepositoryManager.refreshCreatedNode(ERepositoryObjectType.METADATA_FILE_REGEXP);
 
     }
 
+    @Override
     public Class getClassForDoubleClick() {
         return RegExFileConnectionItem.class;
     }
 
+    @Override
     protected void init(RepositoryNode node) {
         ERepositoryObjectType nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
         if (!ERepositoryObjectType.METADATA_FILE_REGEXP.equals(nodeType)) {

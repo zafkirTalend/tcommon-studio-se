@@ -328,13 +328,6 @@ public class DeleteAction extends AContextualAction {
                             service.refreshBusinessModel(editors);
                         }
                     }
-
-                    if (!deleteActionCache.isDocRefresh() && !CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) { // not
-                                                                                                                                    // refresh
-                                                                                                                                    // in
-                                                                                                                                    // JobDeleteListener
-                        RepositoryManager.refreshCreatedNode(ERepositoryObjectType.DOCUMENTATION);
-                    }
                 }
                 deleteActionCache.revertParameters();
             }

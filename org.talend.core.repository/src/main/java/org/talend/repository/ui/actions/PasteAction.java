@@ -30,7 +30,6 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.ui.ICDCProviderService;
@@ -92,11 +91,6 @@ public class PasteAction extends AContextualAction {
             if (contentType == null) {
                 contentType = target.getObjectType();
             }
-            RepositoryManager.refreshCreatedNode(contentType);
-            if (contentType.equals(ERepositoryObjectType.METADATA_CON_TABLE)) {
-                RepositoryManager.refreshCreatedNode(ERepositoryObjectType.METADATA_CONNECTIONS);
-            }
-            RepositoryManager.refreshCreatedNode(target.getContentType());
         }
     }
 
@@ -216,6 +210,7 @@ public class PasteAction extends AContextualAction {
      * 
      * @return the visible
      */
+    @Override
     public boolean isVisible() {
         return this.visible;
     }

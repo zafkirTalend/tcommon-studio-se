@@ -27,7 +27,6 @@ import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.MDMConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.ui.actions.metadata.AbstractCreateAction;
 import org.talend.core.ui.images.OverlayImageProvider;
@@ -210,8 +209,6 @@ public class CreateMDMConnectionAction extends AbstractCreateAction {
         if (view != null) {
             view.expand(repositoryNode, true);
         }
-
-        RepositoryManager.refreshCreatedNode(ERepositoryObjectType.METADATA_MDMCONNECTION);
 
     }
 

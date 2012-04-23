@@ -39,11 +39,11 @@ import org.talend.repository.ui.wizards.metadata.connection.ldap.LDAPSchemaWizar
  */
 public class CreateLDAPSchemaAction extends AbstractCreateAction {
 
-    private String editLabel; //$NON-NLS-1$
+    private final String editLabel; //$NON-NLS-1$
 
-    private String createLabel;
+    private final String createLabel;
 
-    private String openLabel;
+    private final String openLabel;
 
     protected static final int WIZARD_WIDTH = 800;
 
@@ -51,9 +51,9 @@ public class CreateLDAPSchemaAction extends AbstractCreateAction {
 
     private boolean creation = false;
 
-    private ImageDescriptor defaultImage, createImage;
+    private final ImageDescriptor defaultImage, createImage;
 
-    private ERepositoryObjectType currentNodeType;
+    private final ERepositoryObjectType currentNodeType;
 
     public CreateLDAPSchemaAction() {
         super();
@@ -79,6 +79,7 @@ public class CreateLDAPSchemaAction extends AbstractCreateAction {
         setToolbar(isToolbar);
     }
 
+    @Override
     protected void doRun() {
         // RepositoryNode metadataNode = getViewPart().getRoot().getChildren().get(6);
         // RepositoryNode fileLDAPSchemaNode = metadataNode.getChildren().get(6);
@@ -115,10 +116,10 @@ public class CreateLDAPSchemaAction extends AbstractCreateAction {
         wizardDialog.create();
 
         wizardDialog.open();
-        RepositoryManager.refreshCreatedNode(ERepositoryObjectType.METADATA_LDAP_SCHEMA);
 
     }
 
+    @Override
     protected void init(RepositoryNode node) {
         ERepositoryObjectType nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
         if (!currentNodeType.equals(nodeType)) {
@@ -160,6 +161,7 @@ public class CreateLDAPSchemaAction extends AbstractCreateAction {
         setEnabled(true);
     }
 
+    @Override
     public Class getClassForDoubleClick() {
         return LDAPSchemaConnectionItem.class;
     }

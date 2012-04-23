@@ -349,7 +349,7 @@ public abstract class AbstractForm extends Composite {
 
         control.addKeyListener(new KeyAdapter() {
 
-            private IRefreshable refreshableComposite = refresh;
+            private final IRefreshable refreshableComposite = refresh;
 
             /*
              * (non-Javadoc)
@@ -466,7 +466,6 @@ public abstract class AbstractForm extends Composite {
                     // refresh current UI.
                     initialize();
                     adaptFormToEditable();
-                    // RepositoryManager.refreshCreatedNode(ERepositoryObjectType.CONTEXT);
                 }
             }
         }

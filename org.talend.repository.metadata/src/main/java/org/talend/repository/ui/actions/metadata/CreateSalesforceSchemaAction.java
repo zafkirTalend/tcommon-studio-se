@@ -71,6 +71,7 @@ public class CreateSalesforceSchemaAction extends AbstractCreateAction {
         this.setImageDescriptor(defaultImage);
     }
 
+    @Override
     protected void doRun() {
 
         if (repositoryNode == null) {
@@ -105,10 +106,10 @@ public class CreateSalesforceSchemaAction extends AbstractCreateAction {
         wizardDialog.setPageSize(WIZARD_WIDTH, WIZARD_HEIGHT);
         wizardDialog.create();
         wizardDialog.open();
-        RepositoryManager.refreshCreatedNode(ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA);
 
     }
 
+    @Override
     protected void init(RepositoryNode node) {
         ERepositoryObjectType nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
         if (!ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA.equals(nodeType)) {
@@ -150,6 +151,7 @@ public class CreateSalesforceSchemaAction extends AbstractCreateAction {
         setEnabled(true);
     }
 
+    @Override
     public Class getClassForDoubleClick() {
         return SalesforceSchemaConnectionItem.class;
     }

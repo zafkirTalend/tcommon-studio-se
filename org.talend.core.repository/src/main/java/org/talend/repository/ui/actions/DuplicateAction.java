@@ -12,19 +12,28 @@
 // ============================================================================
 package org.talend.repository.ui.actions;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeSelection;
@@ -51,7 +60,6 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryContentManager;
-import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.utils.KeywordsValidator;
@@ -151,7 +159,7 @@ public class DuplicateAction extends AContextualAction {
             return;
         }
 
-        Property property = (Property) sourceNode.getObject().getProperty();
+        Property property = sourceNode.getObject().getProperty();
 
         Property updatedProperty = null;
         try {
@@ -198,8 +206,6 @@ public class DuplicateAction extends AContextualAction {
 
         createOperation(jobNewName, sourceNode, copyObjectAction, selectionInClipboard);
 
-        RepositoryManager.refreshCreatedNode(sourceNode.getObjectType());
-
     }
 
     public String getDuplicateName(String value, final TreeSelection selectionInClipboard) throws BusinessException {
@@ -221,6 +227,7 @@ public class DuplicateAction extends AContextualAction {
 
     public static boolean isValid(String str) {
         Pattern pattern = Pattern.compile("^\\w+$");
+        ;
         return pattern.matcher(str).matches();
     }
 
@@ -294,8 +301,7 @@ public class DuplicateAction extends AContextualAction {
         for (int i = 0; i < configurationElements.length; i++) {
             IConfigurationElement element = configurationElements[i];
             String type = element.getAttribute("type");
-            ERepositoryObjectType repositoryNodeType = (ERepositoryObjectType) ERepositoryObjectType.valueOf(
-                    ERepositoryObjectType.class, type);
+            ERepositoryObjectType repositoryNodeType = ERepositoryObjectType.valueOf(ERepositoryObjectType.class, type);
             if (repositoryNodeType != null) {
                 arraysList.add(repositoryNodeType);
             }
@@ -383,73 +389,102 @@ public class DuplicateAction extends AContextualAction {
         return item;
     }
 
-    private void createOperation(String newJobName, RepositoryNode target, CopyObjectAction copyObjectAction,
-            TreeSelection selectionInClipboard) {
+    private void createOperation(final String newJobName, final RepositoryNode target, CopyObjectAction copyObjectAction,
+            final TreeSelection selectionInClipboard) {
 
-        Object currentSource = selectionInClipboard.toArray()[0];
-        try {
-            IPath path = RepositoryNodeUtilities.getPath(target);
+        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
-            if (((RepositoryNode) currentSource).getType().equals(ENodeType.REPOSITORY_ELEMENT)) {
-                Item originalItem = ((RepositoryNode) currentSource).getObject().getProperty().getItem();
-                List<IRepositoryViewObject> allVersion = factory.getAllVersion(originalItem.getProperty().getId());
-                for (IRepositoryViewObject obj : allVersion) {
-                    if (obj.getVersion().equals(originalItem.getProperty().getVersion())) {
-                        originalItem = obj.getProperty().getItem();
-                        break;
-                    }
-                }
+            public void run(IProgressMonitor monitor) throws CoreException {
+                Object currentSource = selectionInClipboard.toArray()[0];
+                try {
+                    IPath path = RepositoryNodeUtilities.getPath(target);
 
-                if (allVersion.size() == 1) {
-                    duplicateSingleVersionItem(originalItem, path, newJobName);
-
-                } else if (allVersion.size() > 1) {
-                    PastSelectorDialog dialog = new PastSelectorDialog(Display.getCurrent().getActiveShell(), allVersion,
-                            sourceNode);
-                    if (dialog.open() == Window.OK) {
-                        Set<IRepositoryViewObject> selectedVersionItems = dialog.getSelectedVersionItems();
-                        String id = null;
-                        String label = null;
-                        boolean isfirst = true;
-                        boolean needSys = true;
-                        for (IRepositoryViewObject object : selectedVersionItems) {
-                            Item selectedItem = object.getProperty().getItem();
-                            final Item copy = factory.copy(selectedItem, path);
-                            if (isfirst) {
-                                id = copy.getProperty().getId();
-                                label = copy.getProperty().getLabel();
-                                isfirst = false;
+                    if (((RepositoryNode) currentSource).getType().equals(ENodeType.REPOSITORY_ELEMENT)) {
+                        Item originalItem = ((RepositoryNode) currentSource).getObject().getProperty().getItem();
+                        List<IRepositoryViewObject> allVersion = factory.getAllVersion(originalItem.getProperty().getId());
+                        for (IRepositoryViewObject obj : allVersion) {
+                            if (obj.getVersion().equals(originalItem.getProperty().getVersion())) {
+                                originalItem = obj.getProperty().getItem();
+                                break;
                             }
-                            copy.getProperty().setId(id);
-                            copy.getProperty().setLabel(newJobName);
-                            //changed by hqzhang for TDI-19965
-                            copy.getProperty().setDisplayName(newJobName);
-                            if (needSys && originalItem instanceof RoutineItem) {
-                                String lastestVersion = getLastestVersion(selectedVersionItems);
-                                if (lastestVersion.equals(copy.getProperty().getVersion())) {
-                                    synDuplicatedRoutine((RoutineItem) copy);
-                                    needSys = false;
-                                }
-                            }
+                        }
 
-                            final RepositoryWorkUnit<Object> workUnit = new RepositoryWorkUnit<Object>(this.getText(), this) {
+                        if (allVersion.size() == 1) {
+                            duplicateSingleVersionItem(originalItem, path, newJobName);
 
-                                @Override
-                                protected void run() throws LoginException, PersistenceException {
-                                    if (copy instanceof ProcessItem) {
-                                        RelationshipItemBuilder.getInstance().addOrUpdateItem((ProcessItem) copy);
+                        } else if (allVersion.size() > 1) {
+                            PastSelectorDialog dialog = new PastSelectorDialog(Display.getCurrent().getActiveShell(), allVersion,
+                                    sourceNode);
+                            if (dialog.open() == Window.OK) {
+                                Set<IRepositoryViewObject> selectedVersionItems = dialog.getSelectedVersionItems();
+                                String id = null;
+                                String label = null;
+                                boolean isfirst = true;
+                                boolean needSys = true;
+                                for (IRepositoryViewObject object : selectedVersionItems) {
+                                    Item selectedItem = object.getProperty().getItem();
+                                    final Item copy = factory.copy(selectedItem, path);
+                                    if (isfirst) {
+                                        id = copy.getProperty().getId();
+                                        label = copy.getProperty().getLabel();
+                                        isfirst = false;
                                     }
-                                    factory.save(copy);
+                                    copy.getProperty().setId(id);
+                                    copy.getProperty().setLabel(newJobName);
+                                    // changed by hqzhang for TDI-19965
+                                    copy.getProperty().setDisplayName(newJobName);
+                                    if (needSys && originalItem instanceof RoutineItem) {
+                                        String lastestVersion = getLastestVersion(selectedVersionItems);
+                                        if (lastestVersion.equals(copy.getProperty().getVersion())) {
+                                            synDuplicatedRoutine((RoutineItem) copy);
+                                            needSys = false;
+                                        }
+                                    }
+
+                                    final RepositoryWorkUnit<Object> workUnit = new RepositoryWorkUnit<Object>(getText(), this) {
+
+                                        @Override
+                                        protected void run() throws LoginException, PersistenceException {
+                                            if (copy instanceof ProcessItem) {
+                                                RelationshipItemBuilder.getInstance().addOrUpdateItem(copy);
+                                            }
+                                            factory.save(copy);
+                                        }
+                                    };
+                                    workUnit.setAvoidUnloadResources(true);
+                                    factory.executeRepositoryWorkUnit(workUnit);
                                 }
-                            };
-                            workUnit.setAvoidUnloadResources(true);
-                            factory.executeRepositoryWorkUnit(workUnit);
+                            }
                         }
                     }
+                } catch (Exception e) {
+                    ExceptionHandler.process(e);
                 }
             }
-        } catch (Exception e) {
+        };
+
+        IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
+
+            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                try {
+                    ISchedulingRule schedulingRule = workspace.getRoot();
+                    // the update the project files need to be done in the workspace runnable to avoid all
+                    // notification
+                    // of changes before the end of the modifications.
+                    workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, monitor);
+                } catch (CoreException e) {
+                    throw new InvocationTargetException(e);
+                }
+
+            }
+        };
+        try {
+            new ProgressMonitorDialog(null).run(true, true, iRunnableWithProgress);
+        } catch (InvocationTargetException e) {
             ExceptionHandler.process(e);
+        } catch (InterruptedException e) {
+            //
         }
     }
 
@@ -463,7 +498,7 @@ public class DuplicateAction extends AContextualAction {
                     final Item newItem = factory.copy(item, path, true);
 
                     newItem.getProperty().setLabel(newName);
-                    //changed by hqzhang for TDI-19965
+                    // changed by hqzhang for TDI-19965
                     newItem.getProperty().setDisplayName(newName);
                     // qli modified to fix the bug 5400 and 6185.
                     if (newItem instanceof RoutineItem) {
@@ -479,7 +514,7 @@ public class DuplicateAction extends AContextualAction {
                         synDuplicatedBean(newItem);
                     }
                     if (newItem instanceof ProcessItem) {
-                        RelationshipItemBuilder.getInstance().addOrUpdateItem((ProcessItem) newItem);
+                        RelationshipItemBuilder.getInstance().addOrUpdateItem(newItem);
                     }
 
                     if (newItem instanceof ConnectionItem) {
@@ -521,9 +556,9 @@ public class DuplicateAction extends AContextualAction {
         ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
                 ICodeGeneratorService.class);
         if (codeGenService != null) {
-            codeGenService.createRoutineSynchronizer().renameRoutineClass((RoutineItem) item);
+            codeGenService.createRoutineSynchronizer().renameRoutineClass(item);
             try {
-                codeGenService.createRoutineSynchronizer().syncRoutine((RoutineItem) item, true);
+                codeGenService.createRoutineSynchronizer().syncRoutine(item, true);
             } catch (SystemException e) {
                 ExceptionHandler.process(e);
             }

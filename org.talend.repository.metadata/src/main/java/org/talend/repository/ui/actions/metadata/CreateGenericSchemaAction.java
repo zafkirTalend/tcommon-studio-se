@@ -21,7 +21,6 @@ import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.ui.actions.metadata.AbstractCreateAction;
 import org.talend.core.ui.images.OverlayImageProvider;
@@ -40,11 +39,11 @@ import org.talend.repository.ui.wizards.metadata.connection.genericshema.Generic
  */
 public class CreateGenericSchemaAction extends AbstractCreateAction {
 
-    private String editLabel; //$NON-NLS-1$
+    private final String editLabel; //$NON-NLS-1$
 
-    private String createLabel;
+    private final String createLabel;
 
-    private String openLabel;
+    private final String openLabel;
 
     protected static final int WIZARD_WIDTH = 800;
 
@@ -52,9 +51,9 @@ public class CreateGenericSchemaAction extends AbstractCreateAction {
 
     private boolean creation = false;
 
-    private ImageDescriptor defaultImage, createImage;
+    private final ImageDescriptor defaultImage, createImage;
 
-    private ERepositoryObjectType currentNodeType;
+    private final ERepositoryObjectType currentNodeType;
 
     public CreateGenericSchemaAction() {
         super();
@@ -77,6 +76,7 @@ public class CreateGenericSchemaAction extends AbstractCreateAction {
         setToolbar(isToolbar);
     }
 
+    @Override
     protected void doRun() {
         // RepositoryNode metadataNode = getViewPart().getRoot().getChildren().get(6);
         // RepositoryNode fileGenericSchemaNode = metadataNode.getChildren().get(7);
@@ -108,10 +108,10 @@ public class CreateGenericSchemaAction extends AbstractCreateAction {
         wizardDialog.setPageSize(WIZARD_WIDTH, WIZARD_HEIGHT);
         wizardDialog.create();
         wizardDialog.open();
-        RepositoryManager.refreshCreatedNode(ERepositoryObjectType.METADATA_GENERIC_SCHEMA);
 
     }
 
+    @Override
     protected void init(RepositoryNode node) {
         ERepositoryObjectType nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
         if (!currentNodeType.equals(nodeType)) {
@@ -153,6 +153,7 @@ public class CreateGenericSchemaAction extends AbstractCreateAction {
         setEnabled(true);
     }
 
+    @Override
     public Class getClassForDoubleClick() {
         return GenericSchemaConnectionItem.class;
     }

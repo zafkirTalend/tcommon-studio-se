@@ -34,7 +34,6 @@ import org.talend.core.database.conn.DatabaseConnStrUtil;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
-import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
@@ -134,8 +133,6 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                 parent = parent.getParent();
             }
             RepositoryManager.refreshSavedNode(parent);
-        } else {
-            RepositoryManager.refreshCreatedNode(nodeType);
         }
     }
 
@@ -246,8 +243,7 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                 metadataTable.setLabel(getStringIndexed(metadataTable.getLabel()));
                 String nextId = ProxyRepositoryFactory.getInstance().getNextId();
                 metadataTable.setId(nextId);
-                RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
-                        RecordFile.class);
+                RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), connection, RecordFile.class);
                 if (record != null) { // hywang
                     PackageHelper.addMetadataTable(metadataTable, record);
                 } else {
@@ -300,8 +296,7 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                 String nextId = ProxyRepositoryFactory.getInstance().getNextId();
                 metadataTable.setId(nextId);
                 metadataTable.setLabel(getStringIndexed(metadataTable.getLabel()));
-                RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
-                        RecordFile.class);
+                RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), connection, RecordFile.class);
                 if (record != null) { // hywang
                     PackageHelper.addMetadataTable(metadataTable, record);
                 } else {
@@ -354,8 +349,7 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                 String nextId = ProxyRepositoryFactory.getInstance().getNextId();
                 metadataTable.setId(nextId);
                 metadataTable.setLabel(getStringIndexed(metadataTable.getLabel()));
-                RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
-                        RecordFile.class);
+                RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), connection, RecordFile.class);
                 if (record != null) { // hywang
                     PackageHelper.addMetadataTable(metadataTable, record);
                 } else {
@@ -407,8 +401,7 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                 String nextId = ProxyRepositoryFactory.getInstance().getNextId();
                 metadataTable.setId(nextId);
                 metadataTable.setLabel(getStringIndexed(metadataTable.getLabel()));
-                RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
-                        RecordFile.class);
+                RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), connection, RecordFile.class);
                 if (record != null) { // hywang
                     PackageHelper.addMetadataTable(metadataTable, record);
                 } else {
@@ -460,8 +453,7 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                 String nextId = ProxyRepositoryFactory.getInstance().getNextId();
                 metadataTable.setId(nextId);
                 metadataTable.setLabel(getStringIndexed(metadataTable.getLabel()));
-                RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
-                        RecordFile.class);
+                RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), connection, RecordFile.class);
                 if (record != null) { // hywang
                     PackageHelper.addMetadataTable(metadataTable, record);
                 } else {
@@ -514,8 +506,7 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                 String nextId = ProxyRepositoryFactory.getInstance().getNextId();
                 metadataTable.setId(nextId);
                 metadataTable.setLabel(getStringIndexed(metadataTable.getLabel()));
-                RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
-                        RecordFile.class);
+                RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), connection, RecordFile.class);
                 if (record != null) { // hywang
                     PackageHelper.addMetadataTable(metadataTable, record);
                 } else {
@@ -561,7 +552,7 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                 String nextId = ProxyRepositoryFactory.getInstance().getNextId();
                 metadataTable.setId(nextId);
                 metadataTable.setLabel(getStringIndexed(metadataTable.getLabel()));
-                GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
+                GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), connection,
                         GenericPackage.class);
                 if (g != null) { // hywang
                     g.getOwnedElement().add(metadataTable);
@@ -614,7 +605,7 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                 String nextId = ProxyRepositoryFactory.getInstance().getNextId();
                 metadataTable.setId(nextId);
                 metadataTable.setLabel(getStringIndexed(metadataTable.getLabel()));
-                GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
+                GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), connection,
                         GenericPackage.class);
                 if (g != null) { // hywang
                     g.getOwnedElement().add(metadataTable);
@@ -669,7 +660,7 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                 String nextId = ProxyRepositoryFactory.getInstance().getNextId();
                 metadataTable.setId(nextId);
                 metadataTable.setLabel(getStringIndexed(metadataTable.getLabel()));
-                GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
+                GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), connection,
                         GenericPackage.class);
                 if (g != null) { // hywang
                     g.getOwnedElement().add(metadataTable);
@@ -829,7 +820,7 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                 String nextId = ProxyRepositoryFactory.getInstance().getNextId();
                 metadataTable.setId(nextId);
                 metadataTable.setLabel(getStringIndexed(metadataTable.getLabel()));
-                GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
+                GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), connection,
                         GenericPackage.class);
                 if (g != null) { // hywang
                     g.getOwnedElement().add(metadataTable);
@@ -986,6 +977,7 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
         job.setUser(true);
         job.addJobChangeListener(new JobChangeAdapter() {
 
+            @Override
             public void done(IJobChangeEvent event) {
                 if (!event.getResult().isOK()) {
                     log.error(event.getResult().getMessage(), event.getResult().getException());

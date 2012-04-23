@@ -36,17 +36,17 @@ import org.talend.repository.ui.wizards.metadata.connection.wsdl.WSDLSchemaWizar
  */
 public class CreateWSDLSchemaAction extends AbstractCreateAction {
 
-    private String createLabel;
+    private final String createLabel;
 
-    private ImageDescriptor defaultImage, createImage;
+    private final ImageDescriptor defaultImage, createImage;
 
-    private ERepositoryObjectType currentNodeType;
+    private final ERepositoryObjectType currentNodeType;
 
     private boolean creation = false;
 
-    private String openLabel;
+    private final String openLabel;
 
-    private String editLabel; //$NON-NLS-1$
+    private final String editLabel; //$NON-NLS-1$
 
     protected static final int WIZARD_WIDTH = 800;
 
@@ -123,10 +123,12 @@ public class CreateWSDLSchemaAction extends AbstractCreateAction {
         setEnabled(true);
     }
 
+    @Override
     public Class getClassForDoubleClick() {
         return WSDLSchemaConnectionItem.class;
     }
 
+    @Override
     protected void doRun() {
         if (repositoryNode == null) {
             repositoryNode = getCurrentRepositoryNode();
@@ -160,7 +162,6 @@ public class CreateWSDLSchemaAction extends AbstractCreateAction {
         wizardDialog.create();
 
         wizardDialog.open();
-        RepositoryManager.refreshCreatedNode(ERepositoryObjectType.METADATA_WSDL_SCHEMA);
 
     }
 }

@@ -76,6 +76,7 @@ public class CreateFileXmlAction extends AbstractCreateAction {
         this.setImageDescriptor(defaultImage);
     }
 
+    @Override
     protected void doRun() {
         // RepositoryNode metadataNode = getViewPart().getRoot().getChildren().get(6);
         // RepositoryNode fileXMLNode = metadataNode.getChildren().get(4);
@@ -108,14 +109,15 @@ public class CreateFileXmlAction extends AbstractCreateAction {
         wizardDialog.setPageSize(WIZARD_WIDTH, WIZARD_HEIGHT);
         wizardDialog.create();
         wizardDialog.open();
-        RepositoryManager.refreshCreatedNode(ERepositoryObjectType.METADATA_FILE_XML);
 
     }
 
+    @Override
     public Class getClassForDoubleClick() {
         return XmlFileConnectionItem.class;
     }
 
+    @Override
     protected void init(RepositoryNode node) {
         ERepositoryObjectType nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
         if (!ERepositoryObjectType.METADATA_FILE_XML.equals(nodeType)) {

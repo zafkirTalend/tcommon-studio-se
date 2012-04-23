@@ -70,6 +70,7 @@ public class CreateFileExcelAction extends AbstractCreateAction {
         this.setImageDescriptor(defaultImage);
     }
 
+    @Override
     protected void doRun() {
 
         if (repositoryNode == null) {
@@ -103,10 +104,10 @@ public class CreateFileExcelAction extends AbstractCreateAction {
         wizardDialog.setPageSize(WIZARD_WIDTH, WIZARD_HEIGHT);
         wizardDialog.create();
         wizardDialog.open();
-        RepositoryManager.refreshCreatedNode(ERepositoryObjectType.METADATA_FILE_EXCEL);
 
     }
 
+    @Override
     protected void init(RepositoryNode node) {
         ERepositoryObjectType nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
         if (!ERepositoryObjectType.METADATA_FILE_EXCEL.equals(nodeType)) {
@@ -146,6 +147,7 @@ public class CreateFileExcelAction extends AbstractCreateAction {
         setEnabled(true);
     }
 
+    @Override
     public Class getClassForDoubleClick() {
         return ExcelFileConnectionItem.class;
     }

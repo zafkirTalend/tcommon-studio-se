@@ -12,12 +12,22 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.context;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.INewWizard;
@@ -25,6 +35,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
@@ -43,7 +54,6 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryObject;
-import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -158,9 +168,9 @@ public class ContextWizard extends CheckLastVersionRepositoryWizard implements I
             if (node != null) {
                 IRepositoryViewObject object;
                 if (node.getObject() instanceof RepositoryObject)
-                    object = (RepositoryObject) node.getObject();
+                    object = node.getObject();
                 else {
-                    object = (RepositoryViewObject) node.getObject();
+                    object = node.getObject();
                 }
                 setRepositoryObject(object);
                 isRepositoryObjectEditable();
@@ -182,6 +192,7 @@ public class ContextWizard extends CheckLastVersionRepositoryWizard implements I
     /**
      * Adding the page to the wizard.
      */
+    @Override
     public void addPages() {
         setWindowTitle(Messages.getString("ContextWizard.Title")); //$NON-NLS-1$
         contextWizardPage0 = new Step0WizardPage(contextProperty, pathToSave, ERepositoryObjectType.CONTEXT,
@@ -206,6 +217,7 @@ public class ContextWizard extends CheckLastVersionRepositoryWizard implements I
      * This method determine if the 'Finish' button is enable This method is called when 'Finish' button is pressed in
      * the wizard. We will create an operation and run it using wizard as execution context.
      */
+    @Override
     public boolean performFinish() {
         // TimeMeasure.display = true;
         // TimeMeasure.measureActive = true;
@@ -223,14 +235,46 @@ public class ContextWizard extends CheckLastVersionRepositoryWizard implements I
                 if (creation) {
                     String nextId = factory.getNextId();
                     contextProperty.setId(nextId);
-                  //changed by hqzhang for TDI-19527, label=displayName
+                    // changed by hqzhang for TDI-19527, label=displayName
                     contextProperty.setLabel(contextProperty.getDisplayName());
                     contextManager.saveToEmf(contextItem.getContext());
                     contextItem.setDefaultContext(contextManager.getDefaultContext().getName());
-                    factory.create(contextItem, contextWizardPage0.getDestinationPath());
+                    final IPath path = contextWizardPage0.getDestinationPath();
+                    final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
+                        public void run(IProgressMonitor monitor) throws CoreException {
+                            try {
+                                factory.create(contextItem, path);
+                            } catch (PersistenceException e) {
+                                ExceptionHandler.process(e);
+                            }
+                        }
+                    };
+                    IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
+
+                        public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                            IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                            try {
+                                ISchedulingRule schedulingRule = workspace.getRoot();
+                                // the update the project files need to be done in the workspace runnable to avoid all
+                                // notification
+                                // of changes before the end of the modifications.
+                                workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, monitor);
+                            } catch (CoreException e) {
+                                throw new InvocationTargetException(e);
+                            }
+
+                        }
+                    };
+                    try {
+                        new ProgressMonitorDialog(null).run(true, true, iRunnableWithProgress);
+                    } catch (InvocationTargetException e) {
+                        ExceptionHandler.process(e);
+                    } catch (InterruptedException e) {
+                        //
+                    }
                 } else {
-                  //changed by hqzhang for TDI-19527, label=displayName
+                    // changed by hqzhang for TDI-19527, label=displayName
                     contextProperty.setLabel(contextProperty.getDisplayName());
                     contextItem.getContext().clear();
                     contextManager.saveToEmf(contextItem.getContext());
@@ -269,7 +313,39 @@ public class ContextWizard extends CheckLastVersionRepositoryWizard implements I
                         }
                     }
                     // contextItem.setProperty(ProxyRepositoryFactory.getInstance().getUptodateProperty(contextItem.getProperty()));
-                    factory.save(contextItem);
+                    final IWorkspaceRunnable op = new IWorkspaceRunnable() {
+
+                        public void run(IProgressMonitor monitor) throws CoreException {
+                            try {
+                                factory.save(contextItem);
+                            } catch (PersistenceException e) {
+                                ExceptionHandler.process(e);
+                            }
+                        }
+                    };
+                    IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
+
+                        public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                            IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                            try {
+                                ISchedulingRule schedulingRule = workspace.getRoot();
+                                // the update the project files need to be done in the workspace runnable to avoid all
+                                // notification
+                                // of changes before the end of the modifications.
+                                workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, monitor);
+                            } catch (CoreException e) {
+                                throw new InvocationTargetException(e);
+                            }
+
+                        }
+                    };
+                    try {
+                        new ProgressMonitorDialog(null).run(true, true, iRunnableWithProgress);
+                    } catch (InvocationTargetException e) {
+                        ExceptionHandler.process(e);
+                    } catch (InterruptedException e) {
+                        //
+                    }
 
                     updateRelatedView();
 

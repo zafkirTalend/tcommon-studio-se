@@ -66,6 +66,7 @@ public class EmptyRecycleBinAction extends AContextualAction {
         this.setImageDescriptor(ImageProvider.getImageDesc(ECoreImage.RECYCLE_BIN_EMPTY_ICON));
     }
 
+    @Override
     protected void doRun() {
         ISelection selection = getSelection();
         Object obj = ((IStructuredSelection) selection).getFirstElement();
@@ -160,9 +161,6 @@ public class EmptyRecycleBinAction extends AContextualAction {
      */
     private void refreshRelations() {
         // refresh
-        if (!DeleteActionCache.getInstance().isDocRefresh()) { // not refresh in JobDeleteListener
-            RepositoryManager.refreshCreatedNode(ERepositoryObjectType.DOCUMENTATION);
-        }
         RepositoryManager.refreshDeletedNode(null);
         IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
         if (activeWorkbenchWindow != null && GlobalServiceRegister.getDefault().isServiceRegistered(IDiagramModelService.class)) {

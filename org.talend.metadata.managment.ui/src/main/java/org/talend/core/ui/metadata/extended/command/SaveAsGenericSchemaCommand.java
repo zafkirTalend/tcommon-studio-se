@@ -24,7 +24,6 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
-import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.GenericPackage;
 import org.talend.core.model.metadata.builder.connection.GenericSchemaConnection;
@@ -36,7 +35,6 @@ import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
@@ -53,13 +51,13 @@ import orgomg.cwm.objectmodel.core.Package;
  */
 public class SaveAsGenericSchemaCommand extends Command {
 
-    private ExtendedTableModel extendedTableModel;
+    private final ExtendedTableModel extendedTableModel;
 
     protected static final int WIZARD_WIDTH = 800;
 
     protected static final int WIZARD_HEIGHT = 475;
 
-    private String dbmsId;
+    private final String dbmsId;
 
     public SaveAsGenericSchemaCommand(ExtendedTableModel extendedTableModel, String dbmsId) {
         this.extendedTableModel = extendedTableModel;
@@ -71,6 +69,7 @@ public class SaveAsGenericSchemaCommand extends Command {
      * 
      * @see org.eclipse.gef.commands.Command#execute()
      */
+    @Override
     public void execute() {
         if (extendedTableModel instanceof MetadataTableEditor) {
 
@@ -163,7 +162,7 @@ public class SaveAsGenericSchemaCommand extends Command {
 
                 createMetadataTable.getColumns().add(createMetadataColumn);
             }
-            GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
+            GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), connection,
                     GenericPackage.class);
             if (g != null) {
                 g.getOwnedElement().add(createMetadataTable);
@@ -184,7 +183,6 @@ public class SaveAsGenericSchemaCommand extends Command {
             } else {
                 this.saveMetaData(item, path);
             }
-            RepositoryManager.refreshCreatedNode(ERepositoryObjectType.METADATA_GENERIC_SCHEMA);
         }
     }
 

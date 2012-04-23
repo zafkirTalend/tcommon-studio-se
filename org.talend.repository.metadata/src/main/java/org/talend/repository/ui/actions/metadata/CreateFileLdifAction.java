@@ -72,6 +72,7 @@ public class CreateFileLdifAction extends AbstractCreateAction {
         this.setImageDescriptor(ImageProvider.getImageDesc(ECoreImage.METADATA_FILE_LDIF_ICON));
     }
 
+    @Override
     protected void doRun() {
         // RepositoryNode metadataNode = getViewPart().getRoot().getChildren().get(6);
         // RepositoryNode fileLdifNode = metadataNode.getChildren().get(5);
@@ -107,10 +108,10 @@ public class CreateFileLdifAction extends AbstractCreateAction {
         wizardDialog.setPageSize(WIZARD_WIDTH, WIZARD_HEIGHT);
         wizardDialog.create();
         wizardDialog.open();
-        RepositoryManager.refreshCreatedNode(ERepositoryObjectType.METADATA_FILE_LDIF);
 
     }
 
+    @Override
     protected void init(RepositoryNode node) {
         ERepositoryObjectType nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
         if (!ERepositoryObjectType.METADATA_FILE_LDIF.equals(nodeType)) {
@@ -152,6 +153,7 @@ public class CreateFileLdifAction extends AbstractCreateAction {
         setEnabled(true);
     }
 
+    @Override
     public Class getClassForDoubleClick() {
         return LdifFileConnectionItem.class;
     }

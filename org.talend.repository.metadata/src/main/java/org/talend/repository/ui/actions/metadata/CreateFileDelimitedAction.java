@@ -72,6 +72,7 @@ public class CreateFileDelimitedAction extends AbstractCreateAction {
         this.setImageDescriptor(defaultImage);
     }
 
+    @Override
     protected void doRun() {
         // RepositoryNode metadataNode = getViewPart().getRoot().getChildren().get(6);
         // RepositoryNode fileDelimitedNode = metadataNode.getChildren().get(1);
@@ -108,9 +109,9 @@ public class CreateFileDelimitedAction extends AbstractCreateAction {
         wizardDialog.setPageSize(WIZARD_WIDTH, WIZARD_HEIGHT);
         wizardDialog.create();
         wizardDialog.open();
-        RepositoryManager.refreshCreatedNode(ERepositoryObjectType.METADATA_FILE_DELIMITED);
     }
 
+    @Override
     protected void init(RepositoryNode node) {
         ERepositoryObjectType nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
         if (!ERepositoryObjectType.METADATA_FILE_DELIMITED.equals(nodeType)) {
@@ -152,6 +153,7 @@ public class CreateFileDelimitedAction extends AbstractCreateAction {
         setEnabled(true);
     }
 
+    @Override
     public Class getClassForDoubleClick() {
         return DelimitedFileConnectionItem.class;
     }
