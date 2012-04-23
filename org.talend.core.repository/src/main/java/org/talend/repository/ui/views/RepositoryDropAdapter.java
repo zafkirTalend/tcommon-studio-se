@@ -15,7 +15,12 @@ package org.talend.repository.ui.views;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -331,11 +336,29 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
             // ~TDQ-3545
 
             String moveName = "User action : Move Object"; //$NON-NLS-1$
-            RepositoryWorkUnit<Object> repositoryWorkUnit = new RepositoryWorkUnit<Object>(moveName,
-                    MoveObjectAction.getInstance()) {
+            // RepositoryWorkUnit<Object> repositoryWorkUnit = new RepositoryWorkUnit<Object>(moveName,
+            // MoveObjectAction.getInstance()) {
+            //
+            // @Override
+            // protected void run() throws LoginException, PersistenceException {
+            // try {
+            // for (Object obj : ((StructuredSelection) data).toArray()) {
+            // final RepositoryNode sourceNode = (RepositoryNode) obj;
+            //                            monitor.subTask(Messages.getString("RepositoryDropAdapter.moving") + sourceNode.getObject().getLabel()); //$NON-NLS-1$
+            // MoveObjectAction.getInstance().execute(sourceNode, targetNode, true);
+            // }
+            // } catch (Exception e) {
+            // throw new PersistenceException(e);
+            // }
+            // }
+            // };
+            // ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(repositoryWorkUnit);
+            // setReturnValue(true);
+            // monitor.done();
 
-                @Override
-                protected void run() throws LoginException, PersistenceException {
+            final IWorkspaceRunnable op = new IWorkspaceRunnable() {
+
+                public void run(IProgressMonitor monitor) throws CoreException {
                     try {
                         for (Object obj : ((StructuredSelection) data).toArray()) {
                             final RepositoryNode sourceNode = (RepositoryNode) obj;
@@ -343,11 +366,36 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
                             MoveObjectAction.getInstance().execute(sourceNode, targetNode, true);
                         }
                     } catch (Exception e) {
-                        throw new PersistenceException(e);
+                        ExceptionHandler.process(e);
                     }
                 }
+
             };
-            ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(repositoryWorkUnit);
+
+            IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
+
+                public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                    IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                    try {
+                        ISchedulingRule schedulingRule = workspace.getRoot();
+                        // the update the project files need to be done in the workspace runnable to avoid all
+                        // notification
+                        // of changes before the end of the modifications.
+                        workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, monitor);
+                    } catch (CoreException e) {
+                        throw new InvocationTargetException(e);
+                    }
+
+                }
+            };
+
+            try {
+                new ProgressMonitorDialog(null).run(true, true, iRunnableWithProgress);
+            } catch (InvocationTargetException e) {
+                ExceptionHandler.process(e);
+            } catch (InterruptedException e) {
+                //
+            }
             setReturnValue(true);
             monitor.done();
         }
