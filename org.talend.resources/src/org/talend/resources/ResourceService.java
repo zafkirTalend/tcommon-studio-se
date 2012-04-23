@@ -106,7 +106,7 @@ public class ResourceService implements IResourceService {
         if (projectname.equals(ESBDEMO)) {
             return Messages.getString("esbdemo.html"); //$NON-NLS-1$
         }
-        if(MDMEEPRODUCTDemo.equals(projectname)){
+        if(projectname.startsWith("MDM")){//$NON-NLS-1$
             return Messages.getString("mdmproductdemo.html"); //$NON-NLS-1$
         }
         // MOD gdbu 2011-5-10 bug : 21138
