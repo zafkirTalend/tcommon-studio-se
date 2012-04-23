@@ -32,6 +32,7 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.talend.core.ui.metadata.celleditor,
  org.talend.repository.metadata,
+ org.talend.repository.metadata.action,
  org.talend.repository.metadata.content,
  org.talend.repository.metadata.content.rules,
  org.talend.repository.metadata.tester,

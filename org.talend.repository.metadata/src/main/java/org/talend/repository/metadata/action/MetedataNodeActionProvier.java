@@ -17,7 +17,7 @@ import org.eclipse.ui.IActionBars;
 import org.talend.repository.viewer.action.RepoNodeActionProvider;
 
 /**
- * DOC ycbai class global comment. Detailled comment
+ * DOC hqzhang class global comment. Detailled comment
  */
 public class MetedataNodeActionProvier extends RepoNodeActionProvider {
 
