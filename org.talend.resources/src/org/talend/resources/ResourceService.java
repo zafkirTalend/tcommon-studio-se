@@ -51,7 +51,7 @@ public class ResourceService implements IResourceService {
 
     private final static String TDQEEDEMOJAVA = "TDQEEDEMOJAVA";//$NON-NLS-1$
     
-    private final static String MDMEEPRODUCTDemo="MDMPRODUCTDemo";
+    private final static String MDMEEPRODUCTDemo="MDMEEPRODUCTDEMO";
 
     private final static String ESBDEMO = "ESBDEMOS";//$NON-NLS-1$
 
