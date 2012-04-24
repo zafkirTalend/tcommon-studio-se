@@ -27,8 +27,7 @@ public class TalendSaveablesProvider extends SaveablesProvider {
      */
     @Override
     public Saveable[] getSaveables() {
-        // TODO Auto-generated method stub
-        return null;
+        return new Saveable[0];
     }
 
     /*
