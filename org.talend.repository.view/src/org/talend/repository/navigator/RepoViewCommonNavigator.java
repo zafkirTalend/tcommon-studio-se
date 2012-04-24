@@ -82,6 +82,7 @@ import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.repository.IRepositoryChangedListener;
 import org.talend.repository.RepositoryChangedEvent;
 import org.talend.repository.RepositoryViewPlugin;
+import org.talend.repository.i18n.Messages;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryService;
@@ -332,7 +333,7 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
     public void refreshContentDescription() {
         INavigatorDescriptor navDesc = (INavigatorDescriptor) Platform.getAdapterManager().getAdapter(
                 getCommonViewer().getInput(), INavigatorDescriptor.class);
-        setContentDescription(navDesc != null ? navDesc.getDescriptor() : "");
+        setContentDescription(navDesc != null ? navDesc.getDescriptor() : ""); //$NON-NLS-1$
     }
 
     /**
@@ -382,7 +383,7 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
                             }
                         }
                         if (login != null && !"".equals(login)) {//$NON-NLS-1$
-                            content = "  locked by " + login + " on " + application;
+                            content = Messages.getString("RepoViewCommonNavigator.Content", login, application); //$NON-NLS-1$ //$NON-NLS-2$
                         }
                     }
                     String description = object.getDescription();
@@ -395,7 +396,7 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
                         if (description == null || "".equals(description)) {//$NON-NLS-1$
                             return content;
                         }
-                        return content + "\n" + "  Description: " + description;//$NON-NLS-1$
+                        return content + "\n" + Messages.getString("RepoViewCommonNavigator.Desc") + description;//$NON-NLS-1$ //$NON-NLS-2$
                     }
                 } else {
                     //

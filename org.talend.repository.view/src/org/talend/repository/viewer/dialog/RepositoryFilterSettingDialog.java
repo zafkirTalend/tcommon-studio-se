@@ -56,6 +56,7 @@ import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.repository.ProjectManager;
+import org.talend.repository.i18n.Messages;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
@@ -131,7 +132,7 @@ public class RepositoryFilterSettingDialog extends Dialog {
     @Override
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
-        newShell.setText("Repository Filter Setting");
+        newShell.setText(Messages.getString("RepositoryFilterSettingDialog.FilterSetting")); //$NON-NLS-1$
     }
 
     @Override
@@ -172,7 +173,7 @@ public class RepositoryFilterSettingDialog extends Dialog {
         extensionsInstructionLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL | GridData.GRAB_HORIZONTAL
                 | GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_FILL));
         extensionsInstructionLabel.setFont(parent.getFont());
-        extensionsInstructionLabel.setText(CommonNavigatorMessages.CommonFilterSelectionDialog_Select_the_available_extensions);
+        extensionsInstructionLabel.setText("");
 
         repoProvider = RepoCommonViewerProvider.CHECKBOX;
         checkboxCommonViewer = (CheckboxRepoCommonViewer) repoProvider.createViewer(parent);
@@ -214,7 +215,7 @@ public class RepositoryFilterSettingDialog extends Dialog {
         layout.numColumns = 2;
         userPatternComp.setLayout(layout);
         enableUserPatternBtn = new Button(userPatternComp, SWT.CHECK);
-        enableUserPatternBtn.setText("Filter By Name : ");
+        enableUserPatternBtn.setText(Messages.getString("RepositoryFilterSettingDialog.FilterByName")); //$NON-NLS-1$
 
         boolean enabled = preferenceStore.getBoolean(IRepositoryPrefConstants.TAG_USER_DEFINED_PATTERNS_ENABLED);
         enableUserPatternBtn.setSelection(enabled);
@@ -229,7 +230,7 @@ public class RepositoryFilterSettingDialog extends Dialog {
 
         patternInfo = new Label(parent, SWT.NONE);
         patternInfo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        patternInfo.setText("The patterns are separated by comma, where\n* = any string, ? = any character, ,, = ,");
+        patternInfo.setText(Messages.getString("RepositoryFilterSettingDialog.PatternInfo")); //$NON-NLS-1$
         patternInfo.setEnabled(enabled);
 
         // filter by user
@@ -237,10 +238,10 @@ public class RepositoryFilterSettingDialog extends Dialog {
         userTop.setLayout(new GridLayout(2, false));
         userTop.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         Label filterByUser = new Label(userTop, SWT.NONE);
-        filterByUser.setText("Filter By User :");
+        filterByUser.setText(Messages.getString("RepositoryFilterSettingDialog.FilterByUser")); //$NON-NLS-1$
 
         allUsersBtn = new Button(userTop, SWT.CHECK | SWT.LEFT);
-        allUsersBtn.setText("All Users");
+        allUsersBtn.setText(Messages.getString("RepositoryFilterSettingDialog.AllUsers")); //$NON-NLS-1$
         boolean userTableEnable = preferenceStore.getBoolean(IRepositoryPrefConstants.USER_FILTER_TABLE_ENABLED);
         allUsersBtn.setSelection(!userTableEnable);
 
@@ -252,15 +253,15 @@ public class RepositoryFilterSettingDialog extends Dialog {
 
         TableColumn login = new TableColumn(userTable, SWT.NONE);
         login.setWidth(100);
-        login.setText("Login");
+        login.setText(Messages.getString("RepositoryFilterSettingDialog.Login")); //$NON-NLS-1$
 
         TableColumn firstName = new TableColumn(userTable, SWT.NONE);
         firstName.setWidth(100);
-        firstName.setText("FirstName");
+        firstName.setText(Messages.getString("RepositoryFilterSettingDialog.FirstName")); //$NON-NLS-1$
 
         TableColumn lastName = new TableColumn(userTable, SWT.NONE);
         lastName.setWidth(100);
-        lastName.setText("LastName");
+        lastName.setText(Messages.getString("RepositoryFilterSettingDialog.LastName")); //$NON-NLS-1$
 
         String[] filtersByPreferenceKey = RepositoryNodeFilterHelper
                 .getFiltersByPreferenceKey(IRepositoryPrefConstants.FILTER_BY_USER);
@@ -270,8 +271,8 @@ public class RepositoryFilterSettingDialog extends Dialog {
         for (User user : users) {
             TableItem item = new TableItem(userTable, SWT.NONE);
             item.setText(0, user.getLogin());
-            item.setText(1, user.getFirstName() == null ? "" : user.getFirstName());
-            item.setText(2, user.getLastName() == null ? "" : user.getLastName());
+            item.setText(1, user.getFirstName() == null ? "" : user.getFirstName()); //$NON-NLS-1$
+            item.setText(2, user.getLastName() == null ? "" : user.getLastName()); //$NON-NLS-1$
             if (!uncheckedUser.contains(user.getLogin())) {
                 item.setChecked(true);
             }
@@ -279,7 +280,7 @@ public class RepositoryFilterSettingDialog extends Dialog {
 
         // filter by status
         Label filterByStatus = new Label(parent, SWT.NONE);
-        filterByStatus.setText("Filter By Status :");
+        filterByStatus.setText(Messages.getString("RepositoryFilterSettingDialog.FilterByStatus")); //$NON-NLS-1$
         EList technicalStatus = emfProject.getTechnicalStatus();
         statusTable = new Table(parent, SWT.BORDER | SWT.CHECK);
         statusTable.setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -288,11 +289,11 @@ public class RepositoryFilterSettingDialog extends Dialog {
 
         TableColumn code = new TableColumn(statusTable, SWT.NONE);
         code.setWidth(100);
-        code.setText("Code");
+        code.setText(Messages.getString("RepositoryFilterSettingDialog.Code")); //$NON-NLS-1$
 
         TableColumn lable = new TableColumn(statusTable, SWT.NONE);
         lable.setWidth(100);
-        lable.setText("Label");
+        lable.setText(Messages.getString("RepositoryFilterSettingDialog.Label")); //$NON-NLS-1$
         String[] filters = RepositoryNodeFilterHelper.getFiltersByPreferenceKey(IRepositoryPrefConstants.FILTER_BY_STATUS);
         if (filters != null && filters.length > 0) {
             uncheckedStatus.addAll(Arrays.asList(filters));
@@ -308,7 +309,7 @@ public class RepositoryFilterSettingDialog extends Dialog {
 
         }
         TableItem item = new TableItem(statusTable, SWT.NONE);
-        item.setText(1, "not set status");
+        item.setText(1, Messages.getString("RepositoryFilterSettingDialog.Item")); //$NON-NLS-1$
         item.setData(RepositoryConstants.NOT_SET_STATUS, RepositoryConstants.NOT_SET_STATUS);
         if (!uncheckedStatus.contains(RepositoryConstants.NOT_SET_STATUS)) {
             item.setChecked(true);
@@ -323,7 +324,7 @@ public class RepositoryFilterSettingDialog extends Dialog {
                 if (e.detail == SWT.CHECK) {
                     TableItem item = (TableItem) e.item;
                     String text = item.getText(0);
-                    if (text == null || "".equals(text)) {
+                    if (text == null || "".equals(text)) { //$NON-NLS-1$
                         Object data = item.getData(RepositoryConstants.NOT_SET_STATUS);
                         if (data != null && RepositoryConstants.NOT_SET_STATUS.equals(data)) {
                             text = data.toString();
@@ -452,7 +453,7 @@ public class RepositoryFilterSettingDialog extends Dialog {
         preferenceStore.setValue(IRepositoryPrefConstants.FILTER_BY_USER,
                 users.length() > 2 ? users.substring(0, users.length() - 2) : users);
 
-        boolean canUserFilterEnable = this.userFilterPattern.getText() != null && !"".equals(this.userFilterPattern.getText());
+        boolean canUserFilterEnable = this.userFilterPattern.getText() != null && !"".equals(this.userFilterPattern.getText()); //$NON-NLS-1$
         preferenceStore.setValue(IRepositoryPrefConstants.FILTER_BY_NAME, this.userFilterPattern.getText());
         preferenceStore.setValue(IRepositoryPrefConstants.TAG_USER_DEFINED_PATTERNS_ENABLED,
                 this.enableUserPatternBtn.getSelection() && canUserFilterEnable);

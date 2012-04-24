@@ -20,6 +20,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
+import org.talend.repository.i18n.Messages;
 import org.talend.repository.viewer.action.AbstractRepositoryActionProvider;
 
 /**
@@ -58,7 +59,7 @@ public class PerspectiveFilterActionProvider extends AbstractRepositoryActionPro
     @Override
     protected void fillMenus(IMenuManager menuManager) {
         super.fillMenus(menuManager);
-        perspectiveFilterAction = new PerspectiveFilterAction(this, "Perspective Content Filter");
+        perspectiveFilterAction = new PerspectiveFilterAction(this, Messages.getString("PerspectiveFilterActionProvider.PerspectiveContentFilter")); //$NON-NLS-1$
         menuManager.add(perspectiveFilterAction);
 
         perspectiveFilterAction.setChecked(isFiltering);

@@ -17,6 +17,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.window.Window;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
+import org.talend.repository.i18n.Messages;
 import org.talend.repository.viewer.dialog.RepositoryFilterSettingDialog;
 
 /**
@@ -35,7 +36,7 @@ public class RepositoryFilterSettingActionProvider extends AbstractRepositoryFil
     @Override
     protected void fillMenus(IMenuManager menuManager) {
 
-        FilterSettingAction action = new FilterSettingAction("Filter Setting" + DOT);
+        FilterSettingAction action = new FilterSettingAction(Messages.getString("RepositoryFilterSettingActionProvider.FilterSetting") + DOT); //$NON-NLS-1$
         menuManager.add(action);
     }
 

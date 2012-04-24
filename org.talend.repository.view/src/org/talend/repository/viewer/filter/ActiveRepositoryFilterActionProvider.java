@@ -24,6 +24,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
+import org.talend.repository.i18n.Messages;
 import org.talend.repository.viewer.action.ActionConstants;
 
 /**
@@ -50,7 +51,7 @@ public class ActiveRepositoryFilterActionProvider extends AbstractRepositoryFilt
             toolBarManager.add(new Separator(ActionConstants.TALEND_GROUP_ID));
         }
         if (toolBarManager.find(ActiveFilterAction.ACTION_ID) == null) {
-            final ActiveFilterAction action = new ActiveFilterAction("Activate Filter");
+            final ActiveFilterAction action = new ActiveFilterAction(Messages.getString("ActiveRepositoryFilterActionProvider.ActivateFilter")); //$NON-NLS-1$
             toolBarManager.appendToGroup(ActionConstants.TALEND_GROUP_ID, action);
         }
     }
@@ -108,7 +109,7 @@ public class ActiveRepositoryFilterActionProvider extends AbstractRepositoryFilt
         public ActiveFilterAction(String label) {
             super(label, IAction.AS_CHECK_BOX);
             this.setChecked(isActivedFilter());
-            this.setToolTipText("Activte Filter \n(filter settings available in the view menu)");
+            this.setToolTipText(Messages.getString("ActiveRepositoryFilterActionProvider.ActiveFilterAvailable")); //$NON-NLS-1$
             this.setImageDescriptor(ImageProvider.getImageDesc(EImage.FILTER_ACTIVED_ICON));
             this.setDisabledImageDescriptor(ImageProvider.getImageDesc(EImage.FILTER_DEACTIVED_ICON));
             setId(ACTION_ID);

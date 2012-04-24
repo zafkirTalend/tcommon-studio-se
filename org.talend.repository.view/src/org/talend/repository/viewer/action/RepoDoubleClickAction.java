@@ -32,6 +32,7 @@ import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.SAPConnection;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.repository.i18n.Messages;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.QueryEMFRepositoryNode;
@@ -325,7 +326,7 @@ public class RepoDoubleClickAction extends Action {
                 }
 
             } else if (nodeType != null && nodeType.equals(ERepositoryObjectType.SERVICESOPERATION)) {
-                if (current.getClassForDoubleClick().getSimpleName().equals("ServiceOperation")) {
+                if (current.getClassForDoubleClick().getSimpleName().equals(Messages.getString("RepoDoubleClickAction.ServiceOperation"))) { //$NON-NLS-1$
                     return current;
                 }
 
