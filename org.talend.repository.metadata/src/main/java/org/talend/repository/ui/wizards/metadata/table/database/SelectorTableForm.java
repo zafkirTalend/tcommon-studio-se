@@ -65,6 +65,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ContainerCheckedTreeViewer;
 import org.eclipse.ui.dialogs.SearchPattern;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
@@ -172,7 +173,7 @@ public class SelectorTableForm extends AbstractForm {
     private boolean forTemplate = false;
 
     // store column number for each table name
-    private Map<String, Integer> tableColumnNums = new HashMap<String, Integer>();
+    private final Map<String, Integer> tableColumnNums = new HashMap<String, Integer>();
 
     private DatabaseConnection temConnection;
 
@@ -511,38 +512,62 @@ public class SelectorTableForm extends AbstractForm {
 
             @Override
             public void widgetSelected(final SelectionEvent e) {
-                updateStatus(IStatus.ERROR, null);
-                for (TreeItem catalogItem : tree.getItems()) {
-                    int type = ((TableNode) catalogItem.getData()).getType();
-                    if (type == TableNode.CATALOG) {
-                        for (TreeItem schemaItem : catalogItem.getItems()) {
-                            if (schemaItem.getData() != null) {
-                                int t = ((TableNode) schemaItem.getData()).getType();
-                                if (t == TableNode.SCHEMA) {
-                                    for (TreeItem tableItem : schemaItem.getItems()) {
-                                        updateItem(tableItem, true, false);
-                                    }
-                                    schemaItem.setChecked(true);
-                                } else if (t == TableNode.TABLE) {
-                                    updateItem(schemaItem, true, false);
-                                }
-                            }
-                        }
-                        catalogItem.setChecked(true);
-                        catalogItem.setGrayed(true);
-                    } else if (type == TableNode.SCHEMA) {
-                        for (TreeItem tableItem : catalogItem.getItems()) {
-                            updateItem(tableItem, true, false);
-                        }
-                        catalogItem.setChecked(true);
-                        catalogItem.setGrayed(true);
-                    } else if (type == TableNode.TABLE) {
-                        updateItem(catalogItem, true, false);
-                    }
-                }
+                try {
+                    parentWizardPage.getWizard().getContainer().run(true, true, new IRunnableWithProgress() {
 
-                if (forTemplate) {
-                    parentWizardPage.setPageComplete(true);
+                        @Override
+                        public void run(final IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                            PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+
+                                @Override
+                                public void run() {
+                                    monitor.beginTask("extract Columns", tree.getItems().length);
+                                    int length = tree.getItems().length;
+                                    updateStatus(IStatus.ERROR, null);
+                                    for (int i = 0; i < length; i++) {
+                                        monitor.worked(i + 1);
+                                        TreeItem catalogItem = tree.getItem(i);
+                                        int type = ((TableNode) catalogItem.getData()).getType();
+                                        if (type == TableNode.CATALOG) {
+                                            for (TreeItem schemaItem : catalogItem.getItems()) {
+                                                if (schemaItem.getData() != null) {
+                                                    int t = ((TableNode) schemaItem.getData()).getType();
+                                                    if (t == TableNode.SCHEMA) {
+                                                        for (TreeItem tableItem : schemaItem.getItems()) {
+                                                            updateItem(tableItem, true, false);
+                                                        }
+                                                        schemaItem.setChecked(true);
+                                                    } else if (t == TableNode.TABLE) {
+                                                        updateItem(schemaItem, true, false);
+                                                    }
+                                                }
+                                            }
+                                            catalogItem.setChecked(true);
+                                            catalogItem.setGrayed(true);
+                                        } else if (type == TableNode.SCHEMA) {
+                                            for (TreeItem tableItem : catalogItem.getItems()) {
+                                                updateItem(tableItem, true, false);
+                                            }
+                                            catalogItem.setChecked(true);
+                                            catalogItem.setGrayed(true);
+                                        } else if (type == TableNode.TABLE) {
+                                            updateItem(catalogItem, true, false);
+                                        }
+                                    }
+
+                                    if (forTemplate) {
+                                        parentWizardPage.setPageComplete(true);
+                                    }
+                                    monitor.done();
+                                }
+                            });
+                        }
+
+                    });
+                } catch (InvocationTargetException e1) {
+                    ExceptionHandler.process(e1);
+                } catch (InterruptedException e1) {
+                    ExceptionHandler.process(e1);
                 }
             }
         });
@@ -1663,7 +1688,7 @@ public class SelectorTableForm extends AbstractForm {
                         Display.getDefault().syncExec(new Runnable() {
 
                             public void run() {
-                                provider.executeInRunnable(metadataconnection, (TableNode) treeItem.getData(), getConnection());
+                                provider.executeInRunnable(metadataconnection, treeItem.getData(), getConnection());
                                 if (isCanceled()) {
                                     return;
                                 }
@@ -1752,7 +1777,7 @@ public class SelectorTableForm extends AbstractForm {
             return;
         }
         if (item != null && item instanceof TableNode) {
-            TableNode node = (TableNode) item;
+            TableNode node = item;
             if (node.getType() == TableNode.TABLE) {
                 if (deleteFromConnection) {
                     deleteTable(item);
