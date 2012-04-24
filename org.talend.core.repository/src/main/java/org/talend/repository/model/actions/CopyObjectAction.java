@@ -12,10 +12,19 @@
 // ============================================================================
 package org.talend.repository.model.actions;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.talend.commons.exception.LoginException;
@@ -180,7 +189,7 @@ public class CopyObjectAction {
                         }
                         copy.getProperty().setId(id);
                         copy.getProperty().setLabel(label);
-                        //changed by hqzhang for TDI-19965
+                        // changed by hqzhang for TDI-19965
                         copy.getProperty().setDisplayName(label);
                         if (needSys && originalItem instanceof RoutineItem) {
                             String lastestVersion = getLastestVersion(selectedVersionItems);
@@ -189,19 +198,62 @@ public class CopyObjectAction {
                                 needSys = false;
                             }
                         }
-                        RepositoryWorkUnit<Object> workUnit = new RepositoryWorkUnit<Object>("", this) {//$NON-NLS-1$
+                        //                        RepositoryWorkUnit<Object> workUnit = new RepositoryWorkUnit<Object>("", this) {//$NON-NLS-1$
+                        //
+                        // @Override
+                        // protected void run() throws LoginException, PersistenceException {
+                        // if (copy instanceof ProcessItem) {
+                        // RelationshipItemBuilder.getInstance().addOrUpdateItem((ProcessItem) copy);
+                        // }
+                        // factory.save(copy);
+                        // }
+                        // };
+                        // workUnit.setAvoidUnloadResources(true);
+                        // factory.executeRepositoryWorkUnit(workUnit);
 
-                            @Override
-                            protected void run() throws LoginException, PersistenceException {
+                        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
+
+                            public void run(IProgressMonitor monitor) throws CoreException {
                                 if (copy instanceof ProcessItem) {
                                     RelationshipItemBuilder.getInstance().addOrUpdateItem((ProcessItem) copy);
                                 }
-                                factory.save(copy);
+                                try {
+                                    factory.save(copy);
+                                } catch (PersistenceException e) {
+                                    ExceptionHandler.process(e);
+                                }
+                            }
+
+                        };
+
+                        IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
+
+                            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                                IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                                try {
+                                    ISchedulingRule schedulingRule = workspace.getRoot();
+                                    // the update the project files need to be done in the workspace runnable to avoid
+                                    // all
+                                    // notification
+                                    // of changes before the end of the modifications.
+                                    workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, monitor);
+                                } catch (CoreException e) {
+                                    throw new InvocationTargetException(e);
+                                }
+
                             }
                         };
-                        workUnit.setAvoidUnloadResources(true);
-                        factory.executeRepositoryWorkUnit(workUnit);
+
+                        try {
+                            new ProgressMonitorDialog(null).run(true, true, iRunnableWithProgress);
+                        } catch (InvocationTargetException e) {
+                            ExceptionHandler.process(e);
+                        } catch (InterruptedException e) {
+                            //
+                        }
+
                     }
+
                 }
             }
         }
