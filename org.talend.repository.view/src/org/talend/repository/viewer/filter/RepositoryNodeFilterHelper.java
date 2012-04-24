@@ -29,7 +29,6 @@ import org.eclipse.ui.internal.navigator.filters.UpdateActiveFiltersOperation;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonFilterDescriptor;
-import org.eclipse.ui.navigator.INavigatorContentDescriptor;
 import org.eclipse.ui.navigator.INavigatorContentService;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.repository.RepositoryViewPlugin;
@@ -56,13 +55,13 @@ public class RepositoryNodeFilterHelper {
             boolean activedPerspectiveFilter) {
         final CommonViewer commonViewer = (CommonViewer) commonActionSite.getStructuredViewer();
         final INavigatorContentService contentService = commonActionSite.getContentService();
-        final INavigatorContentDescriptor[] visibleExtensions = contentService.getVisibleExtensions();
+        String[] visibleExtensionIds = filterRemovedNavigatorContents(contentService.getVisibleExtensionIds());
 
         List<String> visibleIDsForPecpective = new ArrayList<String>();
         List<String> visibleIdsForActiveFilter = new ArrayList<String>();
 
-        for (INavigatorContentDescriptor nd : visibleExtensions) {
-            visibleIdsForActiveFilter.add(nd.getId());
+        for (String id : visibleExtensionIds) {
+            visibleIdsForActiveFilter.add(id);
         }
 
         if (activedPerspectiveFilter) {
@@ -204,6 +203,47 @@ public class RepositoryNodeFilterHelper {
             int index = list.size() - 1;
             list.set(index, ((String) list.get(index)) + pattern);
         }
+    }
+
+    /**
+     * DOC ycbai Comment method "filterRemovedNavigatorContents".
+     * 
+     * @param visibleExtensionIds
+     * @return
+     */
+    public static String[] filterRemovedNavigatorContents(String[] visibleExtensionIds) {
+        List<String> resultIds = new ArrayList<String>();
+        List<String> needRemovedExtensionIds = getExtensionIdsNeedRemove(visibleExtensionIds);
+        for (String extensionId : visibleExtensionIds) {
+            if (!needRemovedExtensionIds.contains(extensionId)) {
+                resultIds.add(extensionId);
+            }
+        }
+
+        return resultIds.toArray(new String[resultIds.size()]);
+    }
+
+    /**
+     * DOC ycbai Comment method "getExtensionIdsNeedRemove".
+     * 
+     * @param visibleExtensionIds
+     * @return
+     */
+    public static List<String> getExtensionIdsNeedRemove(String[] visibleExtensionIds) {
+        String REMOVE_FLAG = ".removed"; //$NON-NLS-1$
+        List<String> extensionIds = Arrays.asList(visibleExtensionIds);
+        List<String> needRemovedExtensionIds = new ArrayList<String>();
+        for (String extensionId : extensionIds) {
+            if (extensionId != null && extensionId.toLowerCase().endsWith(REMOVE_FLAG)) {
+                needRemovedExtensionIds.add(extensionId);
+                String realExtensionId = extensionId.substring(0, extensionId.lastIndexOf(REMOVE_FLAG));
+                if (extensionIds.contains(realExtensionId)) {
+                    needRemovedExtensionIds.add(realExtensionId);
+                }
+            }
+        }
+
+        return needRemovedExtensionIds;
     }
 
 }

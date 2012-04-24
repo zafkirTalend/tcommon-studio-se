@@ -80,7 +80,9 @@ public class PerspectiveFilterHelper {
     }
 
     private void unfilterView(boolean restoring) {
-        refreshNavigatorContents(getNavigatorContentService().getVisibleExtensionIds(), restoring);
+        refreshNavigatorContents(
+                RepositoryNodeFilterHelper.filterRemovedNavigatorContents(getNavigatorContentService().getVisibleExtensionIds()),
+                restoring);
     }
 
     /**
@@ -158,6 +160,7 @@ public class PerspectiveFilterHelper {
         }
         INavigatorContentService contentService = getNavigatorContentService();
         String[] filteredIds = perspectiveFilterExtensionsReader.getContentProviderFilteredIds(contentService, perspectiveId);
-        return filteredIds;
+        return RepositoryNodeFilterHelper.filterRemovedNavigatorContents(filteredIds);
     }
+
 }

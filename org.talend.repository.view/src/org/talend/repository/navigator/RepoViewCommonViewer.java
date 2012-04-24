@@ -13,6 +13,7 @@
 package org.talend.repository.navigator;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jface.util.LocalSelectionTransfer;
@@ -30,11 +31,14 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Item;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.internal.navigator.NavigatorActivationService;
 import org.eclipse.ui.navigator.CommonViewer;
+import org.eclipse.ui.navigator.INavigatorContentService;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.actions.MoveObjectAction;
 import org.talend.repository.ui.views.RepositoryDropAdapter;
+import org.talend.repository.viewer.filter.RepositoryNodeFilterHelper;
 
 /**
  * DOC sgandon class global comment. Detailled comment <br/>
@@ -62,6 +66,29 @@ public class RepoViewCommonViewer extends CommonViewer implements ITreeViewerLis
     public RepoViewCommonViewer(RepoViewCommonNavigator repViewCommonNavigator, String aViewerId, Composite parent, int style) {
         super(aViewerId, parent, style);
         this.repViewCommonNavigator = repViewCommonNavigator;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.ui.navigator.CommonViewer#init()
+     */
+    @Override
+    protected void init() {
+        super.init();
+        updateNavigatorContentState();
+    }
+
+    @SuppressWarnings("restriction")
+    private void updateNavigatorContentState() {
+        INavigatorContentService contentService = getNavigatorContentService();
+        String[] visibleExtensionIds = contentService.getVisibleExtensionIds();
+        List<String> needRemovedExtensionIds = RepositoryNodeFilterHelper.getExtensionIdsNeedRemove(visibleExtensionIds);
+        if (contentService.getActivationService() instanceof NavigatorActivationService) {
+            NavigatorActivationService activationService = (NavigatorActivationService) contentService.getActivationService();
+            activationService.setActive(needRemovedExtensionIds.toArray(new String[needRemovedExtensionIds.size()]), false);
+            activationService.persistExtensionActivations();
+        }
     }
 
     private RepositoryNode getRepositoryNode(Item node) {
