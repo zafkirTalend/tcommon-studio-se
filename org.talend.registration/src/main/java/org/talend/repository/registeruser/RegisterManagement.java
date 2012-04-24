@@ -253,7 +253,7 @@ public class RegisterManagement {
         try {
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                     IBrandingService.class);
-            result = proxy.createUser50(pseudo, password, firstname, lastname, country, version, brandingService.getAcronym(),
+            result = proxy.createUser(email,pseudo, password, firstname, lastname, country, version, brandingService.getAcronym(),
                     osName, osVersion, javaVersion, totalMemory + "", memRAM //$NON-NLS-1$
                             + "", nbProc + ""); //$NON-NLS-1$ //$NON-NLS-2$
             if (result.signum() > 0) {
