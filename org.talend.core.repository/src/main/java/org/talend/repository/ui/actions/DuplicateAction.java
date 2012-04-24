@@ -27,7 +27,9 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IInputValidator;
@@ -41,7 +43,6 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.talend.commons.exception.BusinessException;
-import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.SystemException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
@@ -66,7 +67,6 @@ import org.talend.core.utils.KeywordsValidator;
 import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.repository.ProjectManager;
-import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
@@ -392,108 +392,106 @@ public class DuplicateAction extends AContextualAction {
     private void createOperation(final String newJobName, final RepositoryNode target, CopyObjectAction copyObjectAction,
             final TreeSelection selectionInClipboard) {
 
-        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
+        Object currentSource = selectionInClipboard.toArray()[0];
+        try {
+            final IPath path = RepositoryNodeUtilities.getPath(target);
 
-            public void run(IProgressMonitor monitor) throws CoreException {
-                Object currentSource = selectionInClipboard.toArray()[0];
-                try {
-                    IPath path = RepositoryNodeUtilities.getPath(target);
+            if (((RepositoryNode) currentSource).getType().equals(ENodeType.REPOSITORY_ELEMENT)) {
+                Item originalItem = ((RepositoryNode) currentSource).getObject().getProperty().getItem();
+                List<IRepositoryViewObject> allVersion = factory.getAllVersion(originalItem.getProperty().getId());
+                for (IRepositoryViewObject obj : allVersion) {
+                    if (obj.getVersion().equals(originalItem.getProperty().getVersion())) {
+                        originalItem = obj.getProperty().getItem();
+                        break;
+                    }
+                }
 
-                    if (((RepositoryNode) currentSource).getType().equals(ENodeType.REPOSITORY_ELEMENT)) {
-                        Item originalItem = ((RepositoryNode) currentSource).getObject().getProperty().getItem();
-                        List<IRepositoryViewObject> allVersion = factory.getAllVersion(originalItem.getProperty().getId());
-                        for (IRepositoryViewObject obj : allVersion) {
-                            if (obj.getVersion().equals(originalItem.getProperty().getVersion())) {
-                                originalItem = obj.getProperty().getItem();
-                                break;
-                            }
-                        }
+                if (allVersion.size() == 1) {
+                    duplicateSingleVersionItem(originalItem, path, newJobName);
 
-                        if (allVersion.size() == 1) {
-                            duplicateSingleVersionItem(originalItem, path, newJobName);
+                } else if (allVersion.size() > 1) {
+                    final PastSelectorDialog dialog = new PastSelectorDialog(Display.getCurrent().getActiveShell(), allVersion,
+                            sourceNode);
+                    final Item item = originalItem;
+                    if (dialog.open() == Window.OK) {
+                        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
-                        } else if (allVersion.size() > 1) {
-                            PastSelectorDialog dialog = new PastSelectorDialog(Display.getCurrent().getActiveShell(), allVersion,
-                                    sourceNode);
-                            if (dialog.open() == Window.OK) {
+                            public void run(IProgressMonitor monitor) throws CoreException {
                                 Set<IRepositoryViewObject> selectedVersionItems = dialog.getSelectedVersionItems();
                                 String id = null;
                                 String label = null;
                                 boolean isfirst = true;
                                 boolean needSys = true;
-                                for (IRepositoryViewObject object : selectedVersionItems) {
-                                    Item selectedItem = object.getProperty().getItem();
-                                    final Item copy = factory.copy(selectedItem, path);
-                                    if (isfirst) {
-                                        id = copy.getProperty().getId();
-                                        label = copy.getProperty().getLabel();
-                                        isfirst = false;
-                                    }
-                                    copy.getProperty().setId(id);
-                                    copy.getProperty().setLabel(newJobName);
-                                    // changed by hqzhang for TDI-19965
-                                    copy.getProperty().setDisplayName(newJobName);
-                                    if (needSys && originalItem instanceof RoutineItem) {
-                                        String lastestVersion = getLastestVersion(selectedVersionItems);
-                                        if (lastestVersion.equals(copy.getProperty().getVersion())) {
-                                            synDuplicatedRoutine((RoutineItem) copy);
-                                            needSys = false;
+                                try {
+                                    for (IRepositoryViewObject object : selectedVersionItems) {
+                                        Item selectedItem = object.getProperty().getItem();
+                                        Item copy;
+                                        copy = factory.copy(selectedItem, path);
+                                        if (isfirst) {
+                                            id = copy.getProperty().getId();
+                                            label = copy.getProperty().getLabel();
+                                            isfirst = false;
                                         }
-                                    }
-
-                                    final RepositoryWorkUnit<Object> workUnit = new RepositoryWorkUnit<Object>(getText(), this) {
-
-                                        @Override
-                                        protected void run() throws LoginException, PersistenceException {
-                                            if (copy instanceof ProcessItem) {
-                                                RelationshipItemBuilder.getInstance().addOrUpdateItem(copy);
+                                        copy.getProperty().setId(id);
+                                        copy.getProperty().setLabel(newJobName);
+                                        // changed by hqzhang for TDI-19965
+                                        copy.getProperty().setDisplayName(newJobName);
+                                        if (needSys && item instanceof RoutineItem) {
+                                            String lastestVersion = getLastestVersion(selectedVersionItems);
+                                            if (lastestVersion.equals(copy.getProperty().getVersion())) {
+                                                synDuplicatedRoutine((RoutineItem) copy);
+                                                needSys = false;
                                             }
-                                            factory.save(copy);
                                         }
-                                    };
-                                    workUnit.setAvoidUnloadResources(true);
-                                    factory.executeRepositoryWorkUnit(workUnit);
+
+                                        if (copy instanceof ProcessItem) {
+                                            RelationshipItemBuilder.getInstance().addOrUpdateItem(copy);
+                                        }
+                                        factory.save(copy);
+                                    }
+                                } catch (PersistenceException e) {
+                                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository", "", e));
+                                } catch (BusinessException e) {
+                                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository", "", e));
                                 }
                             }
+                        };
+                        IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
+
+                            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                                IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                                try {
+                                    ISchedulingRule schedulingRule = workspace.getRoot();
+                                    // the update the project files need to be done in the workspace runnable to avoid
+                                    // all
+                                    // notification
+                                    // of changes before the end of the modifications.
+                                    workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, monitor);
+                                } catch (CoreException e) {
+                                    throw new InvocationTargetException(e);
+                                }
+
+                            }
+                        };
+                        try {
+                            new ProgressMonitorDialog(null).run(false, false, iRunnableWithProgress);
+                        } catch (InvocationTargetException e) {
+                            ExceptionHandler.process(e);
+                        } catch (InterruptedException e) {
+                            //
                         }
                     }
-                } catch (Exception e) {
-                    ExceptionHandler.process(e);
                 }
             }
-        };
-
-        IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
-
-            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                IWorkspace workspace = ResourcesPlugin.getWorkspace();
-                try {
-                    ISchedulingRule schedulingRule = workspace.getRoot();
-                    // the update the project files need to be done in the workspace runnable to avoid all
-                    // notification
-                    // of changes before the end of the modifications.
-                    workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, monitor);
-                } catch (CoreException e) {
-                    throw new InvocationTargetException(e);
-                }
-
-            }
-        };
-        try {
-            new ProgressMonitorDialog(null).run(true, true, iRunnableWithProgress);
-        } catch (InvocationTargetException e) {
+        } catch (Exception e) {
             ExceptionHandler.process(e);
-        } catch (InterruptedException e) {
-            //
         }
     }
 
     private void duplicateSingleVersionItem(final Item item, final IPath path, final String newName) {
+        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
-        RepositoryWorkUnit<Object> rwu = new RepositoryWorkUnit<Object>(this.getText(), this) {
-
-            @Override
-            protected void run() throws LoginException, PersistenceException {
+            public void run(IProgressMonitor monitor) throws CoreException {
                 try {
                     final Item newItem = factory.copy(item, path, true);
 
@@ -522,13 +520,37 @@ public class DuplicateAction extends AContextualAction {
                         connectionItem.getConnection().getSupplierDependency().clear();
                     }
                     factory.save(newItem);
-                } catch (Exception e) {
-                    ExceptionHandler.process(e);
+                } catch (PersistenceException e) {
+                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository", "", e));
+                } catch (BusinessException e) {
+                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository", "", e));
                 }
             }
         };
-        rwu.setAvoidUnloadResources(true);
-        factory.executeRepositoryWorkUnit(rwu);
+        IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
+
+            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                try {
+                    ISchedulingRule schedulingRule = workspace.getRoot();
+                    // the update the project files need to be done in the workspace runnable to avoid
+                    // all
+                    // notification
+                    // of changes before the end of the modifications.
+                    workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, monitor);
+                } catch (CoreException e) {
+                    throw new InvocationTargetException(e);
+                }
+
+            }
+        };
+        try {
+            new ProgressMonitorDialog(null).run(false, false, iRunnableWithProgress);
+        } catch (InvocationTargetException e) {
+            ExceptionHandler.process(e);
+        } catch (InterruptedException e) {
+            //
+        }
 
     }
 
