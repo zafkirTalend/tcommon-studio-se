@@ -37,9 +37,11 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchPartConstants;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.Saveable;
 import org.eclipse.ui.contexts.IContextActivation;
 import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.internal.dialogs.EventLoopProgressMonitor;
@@ -698,4 +700,11 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
         this.noNeedUpdate = noNeedUpdate;
     }
 
+    public Saveable[] getSaveables() {
+        return this.getActiveSaveables();
+    }
+
+    public void fireSaveabelsChanged() {
+        this.firePropertyChange(IWorkbenchPartConstants.PROP_DIRTY);
+    }
 }

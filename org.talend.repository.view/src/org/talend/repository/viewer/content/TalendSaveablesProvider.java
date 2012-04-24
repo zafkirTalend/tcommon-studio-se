@@ -12,13 +12,19 @@
 // ============================================================================
 package org.talend.repository.viewer.content;
 
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.Saveable;
 import org.eclipse.ui.navigator.SaveablesProvider;
+import org.talend.core.model.process.IProcess2;
+import org.talend.designer.core.IMultiPageTalendEditor;
+import org.talend.repository.model.IRepositoryNode;
 
 /**
  * Created by Marvin Wang on Apr. 20, 2012.
  */
-public class TalendSaveablesProvider extends SaveablesProvider {
+public class TalendSaveablesProvider extends SaveablesProvider implements IAdaptable {
 
     /*
      * (non-Javadoc)
@@ -27,7 +33,19 @@ public class TalendSaveablesProvider extends SaveablesProvider {
      */
     @Override
     public Saveable[] getSaveables() {
-        return new Saveable[0];
+        Saveable[] saveables = new Saveable[0];
+        if (PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage() != null) {
+            IEditorPart currEditorPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+            if (currEditorPart == null)
+                saveables = new Saveable[0];
+            else {
+                if (currEditorPart.isDirty()) {
+                    saveables = new Saveable[1];
+                    saveables[0] = new TalendSaveablePart(currEditorPart);
+                }
+            }
+        }
+        return saveables;
     }
 
     /*
@@ -37,7 +55,12 @@ public class TalendSaveablesProvider extends SaveablesProvider {
      */
     @Override
     public Object[] getElements(Saveable saveable) {
-        // TODO Auto-generated method stub
+        if (saveable instanceof IMultiPageTalendEditor) {
+            IMultiPageTalendEditor multiPageTE = (IMultiPageTalendEditor) saveable;
+            IProcess2 process = multiPageTE.getProcess();
+            IRepositoryNode repNode = process.getRepositoryNode();
+            return new Object[] { repNode };
+        }
         return null;
     }
 
@@ -48,7 +71,21 @@ public class TalendSaveablesProvider extends SaveablesProvider {
      */
     @Override
     public Saveable getSaveable(Object element) {
-        // TODO Auto-generated method stub
+        Saveable saveable = null;
+        IEditorPart currEditorPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+        if (currEditorPart != null && currEditorPart.isDirty())
+            saveable = new TalendSaveablePart(currEditorPart);
+
+        return saveable;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
+     */
+    @Override
+    public Object getAdapter(Class adapter) {
         return null;
     }
 
