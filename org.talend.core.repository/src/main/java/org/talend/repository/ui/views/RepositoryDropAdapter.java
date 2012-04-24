@@ -46,6 +46,7 @@ import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.utils.AbstractResourceChangesService;
 import org.talend.core.repository.utils.TDQServiceRegister;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.ERepositoryStatus;
@@ -225,15 +226,39 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
         return isValid;
     }
 
-    private void runInProgressDialog(IRunnableWithProgress runnable) {
-        try {
-            ProgressMonitorDialog progress = new ProgressMonitorDialog(getViewer().getControl().getShell());
-            progress.run(false, false, runnable);
-        } catch (InvocationTargetException e) {
-            ExceptionHandler.process(e);
-        } catch (InterruptedException e) {
-            ExceptionHandler.process(e);
-        }
+    private void runInProgressDialog(final IWorkspaceRunnable op) {
+        final IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
+
+            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                try {
+                    ISchedulingRule schedulingRule = workspace.getRoot();
+                    // the update the project files need to be done in the workspace runnable to avoid all
+                    // notifications.
+                    // of changes before the end of the modifications.
+                    workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, monitor);
+                } catch (CoreException e) {
+                    throw new InvocationTargetException(e);
+                }
+            }
+        };
+
+        RepositoryWorkUnit<Object> repositoryWorkUnit = new RepositoryWorkUnit<Object>("Move or Copy", this) {
+
+            @Override
+            protected void run() throws LoginException, PersistenceException {
+                try {
+                    ProgressMonitorDialog progress = new ProgressMonitorDialog(getViewer().getControl().getShell());
+                    progress.run(false, false, iRunnableWithProgress);
+                } catch (InvocationTargetException e) {
+                    ExceptionHandler.process(e);
+                } catch (InterruptedException e) {
+                    ExceptionHandler.process(e);
+                }
+            }
+        };
+        repositoryWorkUnit.setAvoidUnloadResources(true);
+        CoreRuntimePlugin.getInstance().getProxyRepositoryFactory().executeRepositoryWorkUnit(repositoryWorkUnit);
     }
 
     /**
@@ -251,7 +276,7 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
             this.targetNode = targetNode;
         }
 
-        public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+        public void run(IProgressMonitor monitor) throws CoreException {
             monitor.beginTask(getTaskName(), IProgressMonitor.UNKNOWN);
             String copyName = "User action : Copy Object"; //$NON-NLS-1$
             RepositoryWorkUnit<Object> repositoryWorkUnit = new RepositoryWorkUnit<Object>(copyName,
@@ -291,7 +316,7 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
             this.targetNode = targetNode;
         }
 
-        public void run(final IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+        public void run(final IProgressMonitor monitor) throws CoreException {
             monitor.beginTask(getTaskName(), IProgressMonitor.UNKNOWN);
             // MOD gdbu 2011-10-9 TDQ-3545
             List<?> selectItems = ((org.eclipse.jface.viewers.TreeSelection) data).toList();
@@ -336,29 +361,11 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
             // ~TDQ-3545
 
             String moveName = "User action : Move Object"; //$NON-NLS-1$
-            // RepositoryWorkUnit<Object> repositoryWorkUnit = new RepositoryWorkUnit<Object>(moveName,
-            // MoveObjectAction.getInstance()) {
-            //
-            // @Override
-            // protected void run() throws LoginException, PersistenceException {
-            // try {
-            // for (Object obj : ((StructuredSelection) data).toArray()) {
-            // final RepositoryNode sourceNode = (RepositoryNode) obj;
-            //                            monitor.subTask(Messages.getString("RepositoryDropAdapter.moving") + sourceNode.getObject().getLabel()); //$NON-NLS-1$
-            // MoveObjectAction.getInstance().execute(sourceNode, targetNode, true);
-            // }
-            // } catch (Exception e) {
-            // throw new PersistenceException(e);
-            // }
-            // }
-            // };
-            // ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(repositoryWorkUnit);
-            // setReturnValue(true);
-            // monitor.done();
+            RepositoryWorkUnit<Object> repositoryWorkUnit = new RepositoryWorkUnit<Object>(moveName,
+                    MoveObjectAction.getInstance()) {
 
-            final IWorkspaceRunnable op = new IWorkspaceRunnable() {
-
-                public void run(IProgressMonitor monitor) throws CoreException {
+                @Override
+                protected void run() throws LoginException, PersistenceException {
                     try {
                         for (Object obj : ((StructuredSelection) data).toArray()) {
                             final RepositoryNode sourceNode = (RepositoryNode) obj;
@@ -366,36 +373,14 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
                             MoveObjectAction.getInstance().execute(sourceNode, targetNode, true);
                         }
                     } catch (Exception e) {
-                        ExceptionHandler.process(e);
+                        throw new PersistenceException(e);
                     }
                 }
-
             };
+            ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(repositoryWorkUnit);
+            setReturnValue(true);
+            monitor.done();
 
-            IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
-
-                public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                    IWorkspace workspace = ResourcesPlugin.getWorkspace();
-                    try {
-                        ISchedulingRule schedulingRule = workspace.getRoot();
-                        // the update the project files need to be done in the workspace runnable to avoid all
-                        // notification
-                        // of changes before the end of the modifications.
-                        workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, monitor);
-                    } catch (CoreException e) {
-                        throw new InvocationTargetException(e);
-                    }
-
-                }
-            };
-
-            try {
-                new ProgressMonitorDialog(null).run(true, true, iRunnableWithProgress);
-            } catch (InvocationTargetException e) {
-                ExceptionHandler.process(e);
-            } catch (InterruptedException e) {
-                //
-            }
             setReturnValue(true);
             monitor.done();
         }
@@ -404,7 +389,7 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
     /**
      * hqzhang.
      */
-    abstract class RunnableWithReturnValue implements IRunnableWithProgress {
+    abstract class RunnableWithReturnValue implements IWorkspaceRunnable {
 
         public RunnableWithReturnValue(String taskName) {
             this.taskName = taskName;
