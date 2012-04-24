@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.connection.files.xml;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -21,10 +22,17 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -46,7 +54,6 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.MetadataToolHelper;
-import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
@@ -119,7 +126,7 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
 
     protected boolean xsdRootChange = false;
 
-    private Map<String, List<FOXTreeNode>> foxNodesMap = new HashMap<String, List<FOXTreeNode>>();
+    private final Map<String, List<FOXTreeNode>> foxNodesMap = new HashMap<String, List<FOXTreeNode>>();
 
     private boolean isToolbar;
 
@@ -248,8 +255,7 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             metadataTable.setId(factory.getNextId());
             // connection.getTables().add(metadataSchema);
-            RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
-                    RecordFile.class);
+            RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), connection, RecordFile.class);
             if (record != null) { // hywang
                 PackageHelper.addMetadataTable(metadataTable, record);
             } else {
@@ -291,6 +297,7 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
     /**
      * Adding the page to the wizard.
      */
+    @Override
     public void addPages() {
         if (isToolbar) {
             pathToSave = null;
@@ -382,6 +389,7 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
      * This method determine if the 'Finish' button is enable This method is called when 'Finish' button is pressed in
      * the wizard. We will create an operation and run it using wizard as execution context.
      */
+    @Override
     public boolean performFinish() {
         boolean formIsPerformed = false;
         IWizardPage finalPage = getCurrentPage();
@@ -420,14 +428,46 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
         }
 
         if (formIsPerformed) {
-            IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+            final IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             try {
                 if (creation) {
                     String nextId = factory.getNextId();
                     connectionProperty.setId(nextId);
                     // changed by hqzhang for TDI-19527, label=displayName
                     connectionProperty.setLabel(connectionProperty.getDisplayName());
-                    factory.create(connectionItem, propertiesWizardPage.getDestinationPath());
+                    final IWorkspaceRunnable op = new IWorkspaceRunnable() {
+
+                        public void run(IProgressMonitor monitor) throws CoreException {
+                            try {
+                                factory.create(connectionItem, propertiesWizardPage.getDestinationPath());
+                            } catch (PersistenceException e) {
+                                ExceptionHandler.process(e);
+                            }
+                        }
+                    };
+                    IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
+
+                        public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                            IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                            try {
+                                ISchedulingRule schedulingRule = workspace.getRoot();
+                                // the update the project files need to be done in the workspace runnable to avoid all
+                                // notification
+                                // of changes before the end of the modifications.
+                                workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, monitor);
+                            } catch (CoreException e) {
+                                throw new InvocationTargetException(e);
+                            }
+
+                        }
+                    };
+                    try {
+                        new ProgressMonitorDialog(null).run(true, true, iRunnableWithProgress);
+                    } catch (InvocationTargetException e) {
+                        ExceptionHandler.process(e);
+                    } catch (InterruptedException e) {
+                        //
+                    }
                 } else {
                     // changed by hqzhang for TDI-19527, label=displayName
                     connectionProperty.setLabel(connectionProperty.getDisplayName());
@@ -476,7 +516,39 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
                     }
                     // update
                     RepositoryUpdateManager.updateFileConnection(connectionItem);
-                    factory.save(connectionItem);
+                    final IWorkspaceRunnable op = new IWorkspaceRunnable() {
+
+                        public void run(IProgressMonitor monitor) throws CoreException {
+                            try {
+                                factory.save(connectionItem);
+                            } catch (PersistenceException e) {
+                                ExceptionHandler.process(e);
+                            }
+                        }
+                    };
+                    IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
+
+                        public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                            IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                            try {
+                                ISchedulingRule schedulingRule = workspace.getRoot();
+                                // the update the project files need to be done in the workspace runnable to avoid all
+                                // notification
+                                // of changes before the end of the modifications.
+                                workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, monitor);
+                            } catch (CoreException e) {
+                                throw new InvocationTargetException(e);
+                            }
+
+                        }
+                    };
+                    try {
+                        new ProgressMonitorDialog(null).run(true, true, iRunnableWithProgress);
+                    } catch (InvocationTargetException e) {
+                        ExceptionHandler.process(e);
+                    } catch (InterruptedException e) {
+                        //
+                    }
                     closeLockStrategy();
                 }
                 ProxyRepositoryFactory.getInstance().saveProject(ProjectManager.getInstance().getCurrentProject());
@@ -529,6 +601,7 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
         this.selection = selection2;
     }
 
+    @Override
     public ConnectionItem getConnectionItem() {
         return this.connectionItem;
     }
