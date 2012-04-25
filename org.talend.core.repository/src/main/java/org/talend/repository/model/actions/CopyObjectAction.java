@@ -27,6 +27,7 @@ import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
+import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.SystemException;
@@ -160,12 +161,12 @@ public class CopyObjectAction {
             targetNode = targetNode.getParent();
         }
 
-        IPath path = RepositoryNodeUtilities.getPath(targetNode);
+        final IPath path = RepositoryNodeUtilities.getPath(targetNode);
 
         if (sourceNode.getType().equals(ENodeType.REPOSITORY_ELEMENT)) {
             // Source is an repository element :
             // wzhang modified to fix bug 12349 and 11535
-            Item originalItem = sourceNode.getObject().getProperty().getItem();
+            final Item originalItem = sourceNode.getObject().getProperty().getItem();
             List<IRepositoryViewObject> allVersion = factory.getAllVersion(originalItem.getProperty().getId());
 
             if (allVersion.size() == 1) {
@@ -174,85 +175,90 @@ public class CopyObjectAction {
             } else if (allVersion.size() > 1) {
                 PastSelectorDialog dialog = new PastSelectorDialog(Display.getCurrent().getActiveShell(), allVersion, sourceNode);
                 if (dialog.open() == Window.OK) {
-                    Set<IRepositoryViewObject> selectedVersionItems = dialog.getSelectedVersionItems();
-                    String id = null;
-                    String label = null;
-                    boolean isfirst = true;
-                    boolean needSys = true;
-                    for (IRepositoryViewObject object : selectedVersionItems) {
-                        Item selectedItem = object.getProperty().getItem();
-                        final Item copy = factory.copy(selectedItem, path);
-                        if (isfirst) {
-                            id = copy.getProperty().getId();
-                            label = copy.getProperty().getLabel();
-                            isfirst = false;
-                        }
-                        copy.getProperty().setId(id);
-                        copy.getProperty().setLabel(label);
-                        // changed by hqzhang for TDI-19965
-                        copy.getProperty().setDisplayName(label);
-                        if (needSys && originalItem instanceof RoutineItem) {
-                            String lastestVersion = getLastestVersion(selectedVersionItems);
-                            if (lastestVersion.equals(copy.getProperty().getVersion())) {
-                                synDuplicatedRoutine((RoutineItem) copy);
-                                needSys = false;
-                            }
-                        }
-                        //                        RepositoryWorkUnit<Object> workUnit = new RepositoryWorkUnit<Object>("", this) {//$NON-NLS-1$
-                        //
-                        // @Override
-                        // protected void run() throws LoginException, PersistenceException {
-                        // if (copy instanceof ProcessItem) {
-                        // RelationshipItemBuilder.getInstance().addOrUpdateItem((ProcessItem) copy);
-                        // }
-                        // factory.save(copy);
-                        // }
-                        // };
-                        // workUnit.setAvoidUnloadResources(true);
-                        // factory.executeRepositoryWorkUnit(workUnit);
+                    final Set<IRepositoryViewObject> selectedVersionItems = dialog.getSelectedVersionItems();
 
-                        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
+                    //                        RepositoryWorkUnit<Object> workUnit = new RepositoryWorkUnit<Object>("", this) {//$NON-NLS-1$
+                    //
+                    // @Override
+                    // protected void run() throws LoginException, PersistenceException {
+                    // if (copy instanceof ProcessItem) {
+                    // RelationshipItemBuilder.getInstance().addOrUpdateItem((ProcessItem) copy);
+                    // }
+                    // factory.save(copy);
+                    // }
+                    // };
+                    // workUnit.setAvoidUnloadResources(true);
+                    // factory.executeRepositoryWorkUnit(workUnit);
 
-                            public void run(IProgressMonitor monitor) throws CoreException {
-                                if (copy instanceof ProcessItem) {
-                                    RelationshipItemBuilder.getInstance().addOrUpdateItem((ProcessItem) copy);
-                                }
+                    final IWorkspaceRunnable op = new IWorkspaceRunnable() {
+
+                        public void run(IProgressMonitor monitor) throws CoreException {
+                            String id = null;
+                            String label = null;
+                            boolean isfirst = true;
+                            boolean needSys = true;
+                            for (IRepositoryViewObject object : selectedVersionItems) {
+                                Item selectedItem = object.getProperty().getItem();
                                 try {
+                                    final Item copy = factory.copy(selectedItem, path);
+                                    if (isfirst) {
+                                        id = copy.getProperty().getId();
+                                        label = copy.getProperty().getLabel();
+                                        isfirst = false;
+                                    }
+                                    copy.getProperty().setId(id);
+                                    copy.getProperty().setLabel(label);
+                                    // changed by hqzhang for TDI-19965
+                                    copy.getProperty().setDisplayName(label);
+                                    if (needSys && originalItem instanceof RoutineItem) {
+                                        String lastestVersion = getLastestVersion(selectedVersionItems);
+                                        if (lastestVersion.equals(copy.getProperty().getVersion())) {
+                                            synDuplicatedRoutine((RoutineItem) copy);
+                                            needSys = false;
+                                        }
+                                    }
+                                    if (copy instanceof ProcessItem) {
+                                        RelationshipItemBuilder.getInstance().addOrUpdateItem((ProcessItem) copy);
+                                    }
+
                                     factory.save(copy);
                                 } catch (PersistenceException e) {
                                     ExceptionHandler.process(e);
+                                } catch (BusinessException e) {
+                                    ExceptionHandler.process(e);
                                 }
                             }
-
-                        };
-
-                        IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
-
-                            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                                IWorkspace workspace = ResourcesPlugin.getWorkspace();
-                                try {
-                                    ISchedulingRule schedulingRule = workspace.getRoot();
-                                    // the update the project files need to be done in the workspace runnable to avoid
-                                    // all
-                                    // notification
-                                    // of changes before the end of the modifications.
-                                    workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, monitor);
-                                } catch (CoreException e) {
-                                    throw new InvocationTargetException(e);
-                                }
-
-                            }
-                        };
-
-                        try {
-                            new ProgressMonitorDialog(null).run(true, true, iRunnableWithProgress);
-                        } catch (InvocationTargetException e) {
-                            ExceptionHandler.process(e);
-                        } catch (InterruptedException e) {
-                            //
                         }
 
+                    };
+
+                    IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
+
+                        public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                            IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                            try {
+                                ISchedulingRule schedulingRule = workspace.getRoot();
+                                // the update the project files need to be done in the workspace runnable to avoid
+                                // all
+                                // notification
+                                // of changes before the end of the modifications.
+                                workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, monitor);
+                            } catch (CoreException e) {
+                                throw new InvocationTargetException(e);
+                            }
+
+                        }
+                    };
+
+                    try {
+                        new ProgressMonitorDialog(null).run(true, true, iRunnableWithProgress);
+                    } catch (InvocationTargetException e) {
+                        ExceptionHandler.process(e);
+                    } catch (InterruptedException e) {
+                        //
                     }
+
+                    // }
 
                 }
             }
