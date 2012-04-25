@@ -145,6 +145,12 @@ public final class Java2SqlType {
             return Types.CLOB;
         } else if (sqlType.trim().equals("DISTINCT")) { //$NON-NLS-1$
             return Types.DISTINCT;
+        } else if (sqlType.trim().equals("DOUBLE")) { //$NON-NLS-1$
+            return Types.DOUBLE;
+        } else if (sqlType.trim().equals("LONGVAR")) { //$NON-NLS-1$
+            return Types.LONGVARCHAR;
+        } else if (sqlType.trim().equals("REAL")) { //$NON-NLS-1$
+            return Types.REAL;
         }
         return 0;
     }
