@@ -137,7 +137,7 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
     @Override
     public void init(IViewSite site) throws PartInitException {
         super.init(site);
-        // FIXME锛�later, will check this to initialize
+        // FIXME later, will check this to initialize
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
             final IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
                     IRepositoryService.class);

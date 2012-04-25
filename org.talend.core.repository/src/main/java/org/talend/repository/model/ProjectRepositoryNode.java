@@ -102,7 +102,6 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.model.repositoryObject.MetadataTableRepositoryObject;
 import org.talend.core.ui.ICDCProviderService;
 import org.talend.core.ui.IHeaderFooterProviderService;
-import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SubItemHelper;
@@ -188,109 +187,6 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             defaultProjRepoNode.initialize(null);
         }
         return defaultProjRepoNode;
-    }
-
-    private String getCurrentRepositoryType() {
-        if (IBrandingConfiguration.PERSPECTIVE_CAMEL_ID.equals(currentPerspective)) {
-            return "CAMEL";
-        }
-        return "DI"; // DI by default
-    }
-
-    private void removeContentType(ERepositoryObjectType contentType) {
-        if (contentType == ERepositoryObjectType.BUSINESS_PROCESS) {
-            this.businessProcessNode = null;
-        } else if (contentType == ERepositoryObjectType.PROCESS) {
-            this.processNode = null;
-        } else if (contentType == ERepositoryObjectType.CONTEXT) {
-            this.contextNode = null;
-        } else if (contentType == ERepositoryObjectType.ROUTINES) {
-            this.routineNode = null;
-        } else if (contentType == ERepositoryObjectType.SNIPPETS) {
-            this.snippetsNode = null;
-        } else if (contentType == ERepositoryObjectType.GENERATED || contentType == ERepositoryObjectType.JOBS
-                || contentType == ERepositoryObjectType.JOB_DOC || contentType == ERepositoryObjectType.JOBLETS
-                || contentType == ERepositoryObjectType.JOBLET_DOC || contentType == ERepositoryObjectType.DOCUMENTATION) {
-            this.docNode = null;
-        } else if (contentType == ERepositoryObjectType.METADATA) {
-            this.metadataNode = null;
-        } else if (contentType == ERepositoryObjectType.METADATA_CON_VIEW
-                || contentType == ERepositoryObjectType.METADATA_CON_SYNONYM
-                || contentType == ERepositoryObjectType.METADATA_CON_QUERY
-                || contentType == ERepositoryObjectType.METADATA_CON_CDC
-                || contentType == ERepositoryObjectType.METADATA_CONNECTIONS) {
-            this.metadataConNode = null;
-        } else if (contentType == ERepositoryObjectType.METADATA_SAPCONNECTIONS) {
-            this.metadataSAPConnectionNode = null;
-        } else if (contentType == ERepositoryObjectType.METADATA_HEADER_FOOTER) {
-            this.metadataHeaderFooterConnectionNode = null;
-        } else if (contentType == ERepositoryObjectType.SQLPATTERNS) {
-            this.sqlPatternNode = null;
-        } else if (contentType == ERepositoryObjectType.METADATA_FILE_DELIMITED) {
-            this.metadataFileNode = null;
-        } else if (contentType == ERepositoryObjectType.METADATA_FILE_POSITIONAL) {
-            this.metadataFilePositionalNode = null;
-        } else if (contentType == ERepositoryObjectType.METADATA_FILE_REGEXP) {
-            this.metadataFileRegexpNode = null;
-        } else if (contentType == ERepositoryObjectType.METADATA_FILE_XML) {
-            this.metadataFileXmlNode = null;
-        } else if (contentType == ERepositoryObjectType.METADATA_FILE_HL7) {
-            this.metadataHL7ConnectionNode = null;
-        } else if (contentType == ERepositoryObjectType.METADATA_FILE_FTP) {
-            this.metadataFTPConnectionNode = null;
-        } else if (contentType == ERepositoryObjectType.METADATA_FILE_BRMS) {
-            this.metadataBRMSConnectionNode = null;
-        } else if (contentType == ERepositoryObjectType.METADATA_FILE_LDIF) {
-            this.metadataFileLdifNode = null;
-        } else if (contentType == ERepositoryObjectType.METADATA_FILE_EXCEL) {
-            this.metadataFileExcelNode = null;
-        } else if (contentType == ERepositoryObjectType.METADATA_FILE_EBCDIC) {
-            this.metadataEbcdicConnectionNode = null;
-        } else if (contentType == ERepositoryObjectType.METADATA_MDMCONNECTION) {
-            this.metadataMDMConnectionNode = null;
-        } else if (contentType == ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA) {
-            this.metadataSalesforceSchemaNode = null;
-        } else if (contentType == ERepositoryObjectType.METADATA_GENERIC_SCHEMA) {
-            this.metadataGenericSchemaNode = null;
-        } else if (contentType == ERepositoryObjectType.METADATA_LDAP_SCHEMA) {
-            this.metadataLDAPSchemaNode = null;
-        } else if (contentType == ERepositoryObjectType.METADATA_WSDL_SCHEMA) {
-            this.metadataWSDLSchemaNode = null;
-        } else if (contentType == ERepositoryObjectType.METADATA_FILE_RULES) {
-            this.metadataRulesNode = null;
-        } else if (contentType == ERepositoryObjectType.METADATA_VALIDATION_RULES) {
-            this.metadataValidationRulesNode = null;
-        } else if (contentType == ERepositoryObjectType.METADATA_EDIFACT) {
-            this.metadataEDIFactConnectionNode = null;
-        } else if (contentType == ERepositoryObjectType.REFERENCED_PROJECTS) {
-            this.refProject = null;
-        } else if (contentType == ERepositoryObjectType.JOBLET) {
-            this.jobletNode = null;
-        }
-    }
-
-    private void hideNodesFromOtherProduct(IRepositoryNode container, String currentRepositoryType) {
-        for (IRepositoryNode node : new ArrayList<IRepositoryNode>(container.getChildren())) {
-            ERepositoryObjectType contentType = node.getContentType();
-            if (contentType != null && !ArrayUtils.contains(contentType.getProducts(), currentRepositoryType)) {
-                removeNode(this, node);
-                removeContentType(contentType);
-            } else {
-                hideNodesFromOtherProduct(node, currentRepositoryType);
-            }
-        }
-    }
-
-    private void removeNode(IRepositoryNode container, IRepositoryNode node) {
-        List<IRepositoryNode> nodes = container.getChildren();
-
-        if (nodes.contains(node)) {
-            nodes.remove(node);
-        } else {
-            for (IRepositoryNode n : nodes) {
-                removeNode(n, node);
-            }
-        }
     }
 
     private String showSVNRoot() {
@@ -573,9 +469,6 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         // *init the repository node from extension
         initExtensionRepositoryNodes(curParentNode);
 
-        // hide hidden nodes;
-        // hideHiddenNodes();
-
         try {
             hideHiddenNodesDependsUserRight();
         } catch (JSONException e) {
@@ -648,13 +541,23 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                 for (int i = 0; i < contentRight.length; i++) {
                     if (!ArrayUtils.contains(userRights, contentRight[i])) {
                         removeNode(this, node);
-                        removeContentType(contentType);
                     }
                 }
             }
 
         }
-        // hideHiddenNodesDependsUserRight(this, currentRepositoryType);
+    }
+
+    private void removeNode(IRepositoryNode container, IRepositoryNode node) {
+        List<IRepositoryNode> nodes = container.getChildren();
+
+        if (nodes.contains(node)) {
+            nodes.remove(node);
+        } else {
+            for (IRepositoryNode n : nodes) {
+                removeNode(n, node);
+            }
+        }
     }
 
     private void initExtensionRepositoryNodes(final IRepositoryNode curParentNode) {

@@ -17,6 +17,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.talend.repository.navigator.DescriptorAdapterFactory;
 import org.talend.repository.navigator.TalendRepositoryRoot;
+import org.talend.repository.viewer.content.ContentAdapterFactory;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -48,6 +49,8 @@ public class RepositoryViewPlugin extends AbstractUIPlugin {
      */
     private void registerAdapters() {
         Platform.getAdapterManager().registerAdapters(new DescriptorAdapterFactory(), TalendRepositoryRoot.class);
+        // TDI-20850
+        Platform.getAdapterManager().registerAdapters(new ContentAdapterFactory(), TalendRepositoryRoot.class);
     }
 
     /*
