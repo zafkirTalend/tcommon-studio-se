@@ -61,7 +61,7 @@ public class TalendSaveablesProvider extends SaveablesProvider implements IAdapt
             IRepositoryNode repNode = process.getRepositoryNode();
             return new Object[] { repNode };
         }
-        return null;
+        return new Object[0];
     }
 
     /*
