@@ -14,11 +14,14 @@ package org.talend.repository.navigator;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.util.LocalSelectionTransfer;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ITreeViewerListener;
@@ -34,8 +37,11 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPartListener;
+import org.eclipse.ui.ISaveablePart;
 import org.eclipse.ui.IViewSite;
+import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartConstants;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -102,7 +108,116 @@ import org.talend.repository.ui.views.IRepositoryView;
 public class RepoViewCommonNavigator extends CommonNavigator implements IRepositoryView, ITabbedPropertySheetPageContributor,
         IRepositoryChangedListener {
 
-    private static final String PERSPECTIVE_DI_ID = "org.talend.rcp.perspective"; //$NON-NLS-1$
+    /**
+     *  A savable to reflect the current editor status in the view
+     * 
+     */
+    public class EditorSavable extends Saveable {
+
+        /**
+         * DOC sgandon EditorSavable constructor comment.
+         * 
+         * @param repoViewCommonNavigator
+         */
+        public EditorSavable() {
+            // TODO Auto-generated constructor stub
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.ui.Saveable#getName()
+         */
+        @Override
+        public String getName() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.ui.Saveable#getToolTipText()
+         */
+        @Override
+        public String getToolTipText() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.ui.Saveable#getImageDescriptor()
+         */
+        @Override
+        public ImageDescriptor getImageDescriptor() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.ui.Saveable#doSave(org.eclipse.core.runtime.IProgressMonitor)
+         */
+        @Override
+        public void doSave(IProgressMonitor monitor) throws CoreException {
+            ISaveablePart currentEditorSavablePart = getCurrentEditorSavablePart();
+            if (currentEditorSavablePart != null) {
+                currentEditorSavablePart.doSave(monitor);
+                firePropertyChange(IWorkbenchPartConstants.PROP_DIRTY);
+
+            }
+
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.ui.Saveable#isDirty()
+         */
+        @Override
+        public boolean isDirty() {
+            ISaveablePart currentEditorSavablePart = getCurrentEditorSavablePart();
+            return currentEditorSavablePart != null ? currentEditorSavablePart.isDirty() : false;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.ui.Saveable#equals(java.lang.Object)
+         */
+        @Override
+        public boolean equals(Object object) {
+            // TODO Auto-generated method stub
+            return false;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.ui.Saveable#hashCode()
+         */
+        @Override
+        public int hashCode() {
+            // TODO Auto-generated method stub
+            return 0;
+        }
+
+        ISaveablePart getCurrentEditorSavablePart() {
+            IWorkbench workbench = PlatformUI.getWorkbench();
+            if (workbench != null && workbench.getActiveWorkbenchWindow() != null
+                    && workbench.getActiveWorkbenchWindow().getActivePage() != null) {
+                IEditorPart activeEditor = workbench.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+                if (activeEditor != null) {
+                    return activeEditor;
+                }// else return the null
+            }// else no workbench, or no active window or no activa page so return default
+            return null;
+        }
+
+    }
 
     private static Logger log = Logger.getLogger(RepoViewCommonNavigator.class);
 
@@ -385,7 +500,7 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
                             }
                         }
                         if (login != null && !"".equals(login)) {//$NON-NLS-1$
-                            content = Messages.getString("RepoViewCommonNavigator.Content", login, application); //$NON-NLS-1$ //$NON-NLS-2$
+                            content = Messages.getString("RepoViewCommonNavigator.Content", login, application); //$NON-NLS-1$ 
                         }
                     }
                     String description = object.getDescription();
@@ -418,6 +533,8 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
     }
 
     IContextActivation ca;
+
+    private EditorSavable editorSavable = new EditorSavable();
 
     private TreeItem getObject(Tree tree, Object objectToFind) {
         for (TreeItem item : tree.getItems()) {
@@ -700,11 +817,44 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
         this.noNeedUpdate = noNeedUpdate;
     }
 
-    public Saveable[] getSaveables() {
-        return this.getActiveSaveables();
+    /*
+     * does not return true for the internal editor saveable
+     * 
+     * @see org.eclipse.ui.navigator.CommonNavigator#isSaveOnCloseNeeded()
+     */
+    @Override
+    public boolean isSaveOnCloseNeeded() {
+        Saveable[] saveables = super.getSaveables();
+        for (Saveable saveable : saveables) {
+            if (saveable.isDirty()) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public void fireSaveabelsChanged() {
-        this.firePropertyChange(IWorkbenchPartConstants.PROP_DIRTY);
+    /**
+     * return the super active savable + the editor savable to reflect the editor state active is used for the save
+     * button state
+     * */
+    @Override
+    public Saveable[] getActiveSaveables() {
+        Saveable[] superActiveSaveables = super.getActiveSaveables();
+        Saveable[] allSavables = Arrays.copyOf(superActiveSaveables, superActiveSaveables.length + 1);
+        allSavables[allSavables.length - 1] = editorSavable;
+        return allSavables;
     }
+
+    /*
+     * return the super savable + the editor savable to reflect the editor state savable is used for the actually save
+     * the state
+     */
+    @Override
+    public Saveable[] getSaveables() {
+        Saveable[] superSaveables = super.getSaveables();
+        Saveable[] allSavables = Arrays.copyOf(superSaveables, superSaveables.length + 1);
+        allSavables[allSavables.length - 1] = editorSavable;
+        return allSavables;
+    }
+
 }

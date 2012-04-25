@@ -181,6 +181,7 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
         if (workspace != null && resouceChangeVisitor != null) {
             workspace.removeResourceChangeListener(resouceChangeVisitor);
         }// else workspace not accessible any more so do nothing
+        super.dispose();
     }
 
 }

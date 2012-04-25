@@ -16,11 +16,13 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.talend.core.GlobalServiceRegister;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.util.PropertyChangeEvent;
+import org.eclipse.jface.viewers.Viewer;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
-import org.talend.designer.core.IDesignerCoreService;
+import org.talend.core.model.repository.RepositoryManager;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
@@ -32,6 +34,8 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
     private AdapterImpl deleteFolderListener;
 
     private Project project;
+
+    private IPropertyChangeListener mergeRefListener;
 
     private final class DeletedFolderListener extends AdapterImpl {
 
@@ -131,25 +135,48 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
     /*
      * (non-Javadoc)
      * 
+     * @see
+     * org.talend.repository.viewer.content.FolderListenerSingleTopContentProvider#inputChanged(org.eclipse.jface.viewers
+     * .Viewer, java.lang.Object, java.lang.Object)
+     */
+    @Override
+    public void inputChanged(Viewer arg0, Object arg1, Object arg2) {
+        super.inputChanged(arg0, arg1, arg2);
+        // register a listener to refresh when merge items is activated
+
+        if (mergeRefListener == null) {
+            mergeRefListener = new IPropertyChangeListener() {
+
+                @Override
+                public void propertyChange(PropertyChangeEvent event) {
+                    if (IRepositoryPrefConstants.MERGE_REFERENCE_PROJECT.equals(event.getProperty())) {
+                        refreshTopLevelNode();
+                    }// else ignor other properties
+
+                }
+            };
+            IPreferenceStore preferenceStore = RepositoryManager.getPreferenceStore();
+            preferenceStore.addPropertyChangeListener(mergeRefListener);
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.repository.viewer.content.FolderListenerSingleTopContentProvider#dispose()
      */
     @Override
     public void dispose() {
         if (deleteFolderListener != null) {
             project.eAdapters().remove(deleteFolderListener);
+            deleteFolderListener = null;
         }// else nothing to remove
-        super.dispose();
-    }
-
-    protected boolean isMergeRefProject() {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
-            IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
-                    IDesignerCoreService.class);
-            IPreferenceStore preferenceStore = service.getDesignerCorePreferenceStore();
-            return preferenceStore.getBoolean(IRepositoryPrefConstants.MERGE_REFERENCE_PROJECT);
+        if (mergeRefListener != null) {
+            IPreferenceStore preferenceStore = RepositoryManager.getPreferenceStore();
+            preferenceStore.removePropertyChangeListener(mergeRefListener);
+            mergeRefListener = null;
         }
-        return false;
-
+        super.dispose();
     }
 
 }
