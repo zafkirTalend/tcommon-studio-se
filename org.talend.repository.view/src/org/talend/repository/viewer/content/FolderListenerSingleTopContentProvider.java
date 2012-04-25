@@ -144,6 +144,13 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
         if (arg0 instanceof CommonViewer) {
             this.viewer = (CommonViewer) arg0;
         }
+        addResourceChangeListener();
+    }
+
+    /**
+     * DOC sgandon Comment method "addResourceChangeListener".
+     */
+    protected void addResourceChangeListener() {
         IWorkspace workspace = ResourcesPlugin.getWorkspace();
         if (workspace != null) {
             if (resouceChangeVisitor != null) {// remove the previous listener
