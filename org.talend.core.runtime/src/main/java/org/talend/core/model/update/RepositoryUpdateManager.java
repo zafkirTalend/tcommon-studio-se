@@ -1997,7 +1997,7 @@ public abstract class RepositoryUpdateManager {
                     RelationshipItemBuilder.QUERY_RELATION);
         }
 
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(parameter, relations, true) {
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(parameter, relations) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
@@ -2021,7 +2021,7 @@ public abstract class RepositoryUpdateManager {
                     RelationshipItemBuilder.QUERY_RELATION);
         }
 
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(parameter, relations) {
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(parameter, relations, true) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
