@@ -40,12 +40,13 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.xsd.XSDSchema;
+import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
-import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.xml.XmlUtil;
 import org.talend.core.context.Context;
@@ -80,6 +81,7 @@ import org.talend.cwm.helper.PackageHelper;
 import org.talend.datatools.xml.utils.ATreeNode;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.ProjectManager;
+import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
@@ -429,136 +431,127 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
 
         if (formIsPerformed) {
             final IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
-            try {
-                if (creation) {
-                    String nextId = factory.getNextId();
-                    connectionProperty.setId(nextId);
-                    // changed by hqzhang for TDI-19527, label=displayName
-                    connectionProperty.setLabel(connectionProperty.getDisplayName());
-                    final IWorkspaceRunnable op = new IWorkspaceRunnable() {
+            final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
-                        public void run(IProgressMonitor monitor) throws CoreException {
-                            try {
-                                factory.create(connectionItem, propertiesWizardPage.getDestinationPath());
-                            } catch (PersistenceException e) {
-                                ExceptionHandler.process(e);
-                            }
-                        }
-                    };
-                    IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
+                public void run(IProgressMonitor monitor) throws CoreException {
+                    PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 
-                        public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                            IWorkspace workspace = ResourcesPlugin.getWorkspace();
-                            try {
-                                ISchedulingRule schedulingRule = workspace.getRoot();
-                                // the update the project files need to be done in the workspace runnable to avoid all
-                                // notification
-                                // of changes before the end of the modifications.
-                                workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, monitor);
-                            } catch (CoreException e) {
-                                throw new InvocationTargetException(e);
-                            }
+                        @Override
+                        public void run() {
+                            if (creation) {
+                                String nextId = factory.getNextId();
+                                connectionProperty.setId(nextId);
+                                // changed by hqzhang for TDI-19527, label=displayName
+                                connectionProperty.setLabel(connectionProperty.getDisplayName());
+                                final RepositoryWorkUnit<Object> workUnit = new RepositoryWorkUnit<Object>("", this) {
 
-                        }
-                    };
-                    try {
-                        new ProgressMonitorDialog(null).run(true, true, iRunnableWithProgress);
-                    } catch (InvocationTargetException e) {
-                        ExceptionHandler.process(e);
-                    } catch (InterruptedException e) {
-                        //
-                    }
-                } else {
-                    // changed by hqzhang for TDI-19527, label=displayName
-                    connectionProperty.setLabel(connectionProperty.getDisplayName());
-                    // update schemas
-                    Map<String, SchemaTarget> schemaTargetMap = new HashMap<String, SchemaTarget>();
-                    EList<XmlXPathLoopDescriptor> schema = connection.getSchema();
-                    if (schema != null && schema.size() > 0) {
-                        XmlXPathLoopDescriptor xmlXPathLoopDescriptor = schema.get(0);
-                        if (xmlXPathLoopDescriptor != null) {
-                            EList<SchemaTarget> schemaTargets = xmlXPathLoopDescriptor.getSchemaTargets();
-                            if (schemaTargets != null && schemaTargets.size() > 0) {
-                                for (SchemaTarget schemaTarget : schemaTargets) {
-                                    schemaTargetMap.put(schemaTarget.getTagName(), schemaTarget);
-                                }
-                            }
-                        }
-                    }
-                    Map<String, MetadataColumn> columnsMap = new HashMap<String, MetadataColumn>();
-                    MetadataTable[] tables = ConnectionHelper.getTables(connectionItem.getConnection()).toArray(
-                            new MetadataTable[0]);
-                    for (MetadataTable table : tables) {
-                        EList<MetadataColumn> columns = table.getColumns();
-                        Iterator<MetadataColumn> columnsIter = columns.iterator();
-                        while (columnsIter.hasNext()) {
-                            MetadataColumn column = columnsIter.next();
-                            if (schemaTargetMap.get(column.getLabel()) == null) {
-                                columnsIter.remove();
+                                    @Override
+                                    protected void run() throws LoginException, PersistenceException {
+                                        factory.create(connectionItem, propertiesWizardPage.getDestinationPath());
+                                    }
+
+                                };
+                                workUnit.setAvoidUnloadResources(true);
+                                factory.executeRepositoryWorkUnit(workUnit);
                             } else {
-                                columnsMap.put(column.getLabel(), column);
-                            }
-                        }
-                    }
-                    boolean hasAddedColumns = false;
-                    Iterator<Entry<String, SchemaTarget>> schemaTargetIter = schemaTargetMap.entrySet().iterator();
-                    while (schemaTargetIter.hasNext()) {
-                        Map.Entry<String, SchemaTarget> entry = schemaTargetIter.next();
-                        String key = entry.getKey();
-                        if (columnsMap.get(key) == null) {
-                            hasAddedColumns = true;
-                            break;
-                        }
-                    }
-                    if (hasAddedColumns) {
-                        MessageDialog.openInformation(getShell(), Messages.getString("XmlFileWizard.newColumnsDectect.title"), //$NON-NLS-1$
-                                Messages.getString("XmlFileWizard.newColumnsDectect.desc")); //$NON-NLS-1$
-                    }
-                    // update
-                    RepositoryUpdateManager.updateFileConnection(connectionItem);
-                    final IWorkspaceRunnable op = new IWorkspaceRunnable() {
+                                // changed by hqzhang for TDI-19527, label=displayName
+                                connectionProperty.setLabel(connectionProperty.getDisplayName());
+                                // update schemas
+                                Map<String, SchemaTarget> schemaTargetMap = new HashMap<String, SchemaTarget>();
+                                EList<XmlXPathLoopDescriptor> schema = connection.getSchema();
+                                if (schema != null && schema.size() > 0) {
+                                    XmlXPathLoopDescriptor xmlXPathLoopDescriptor = schema.get(0);
+                                    if (xmlXPathLoopDescriptor != null) {
+                                        EList<SchemaTarget> schemaTargets = xmlXPathLoopDescriptor.getSchemaTargets();
+                                        if (schemaTargets != null && schemaTargets.size() > 0) {
+                                            for (SchemaTarget schemaTarget : schemaTargets) {
+                                                schemaTargetMap.put(schemaTarget.getTagName(), schemaTarget);
+                                            }
+                                        }
+                                    }
+                                }
+                                Map<String, MetadataColumn> columnsMap = new HashMap<String, MetadataColumn>();
+                                MetadataTable[] tables = ConnectionHelper.getTables(connectionItem.getConnection()).toArray(
+                                        new MetadataTable[0]);
+                                for (MetadataTable table : tables) {
+                                    EList<MetadataColumn> columns = table.getColumns();
+                                    Iterator<MetadataColumn> columnsIter = columns.iterator();
+                                    while (columnsIter.hasNext()) {
+                                        MetadataColumn column = columnsIter.next();
+                                        if (schemaTargetMap.get(column.getLabel()) == null) {
+                                            columnsIter.remove();
+                                        } else {
+                                            columnsMap.put(column.getLabel(), column);
+                                        }
+                                    }
+                                }
+                                boolean hasAddedColumns = false;
+                                Iterator<Entry<String, SchemaTarget>> schemaTargetIter = schemaTargetMap.entrySet().iterator();
+                                while (schemaTargetIter.hasNext()) {
+                                    Map.Entry<String, SchemaTarget> entry = schemaTargetIter.next();
+                                    String key = entry.getKey();
+                                    if (columnsMap.get(key) == null) {
+                                        hasAddedColumns = true;
+                                        break;
+                                    }
+                                }
+                                if (hasAddedColumns) {
+                                    MessageDialog.openInformation(getShell(),
+                                            Messages.getString("XmlFileWizard.newColumnsDectect.title"), //$NON-NLS-1$
+                                            Messages.getString("XmlFileWizard.newColumnsDectect.desc")); //$NON-NLS-1$
+                                }
+                                // update
+                                RepositoryUpdateManager.updateFileConnection(connectionItem);
+                                final RepositoryWorkUnit<Object> workUnit = new RepositoryWorkUnit<Object>("", this) {
 
-                        public void run(IProgressMonitor monitor) throws CoreException {
-                            try {
-                                factory.save(connectionItem);
-                            } catch (PersistenceException e) {
-                                ExceptionHandler.process(e);
-                            }
-                        }
-                    };
-                    IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
+                                    @Override
+                                    protected void run() throws LoginException, PersistenceException {
+                                        factory.save(connectionItem);
+                                    }
 
-                        public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                            IWorkspace workspace = ResourcesPlugin.getWorkspace();
-                            try {
-                                ISchedulingRule schedulingRule = workspace.getRoot();
-                                // the update the project files need to be done in the workspace runnable to avoid all
-                                // notification
-                                // of changes before the end of the modifications.
-                                workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, monitor);
-                            } catch (CoreException e) {
-                                throw new InvocationTargetException(e);
+                                };
+                                workUnit.setAvoidUnloadResources(true);
+                                factory.executeRepositoryWorkUnit(workUnit);
+                                closeLockStrategy();
                             }
+                            final RepositoryWorkUnit<Object> workUnit = new RepositoryWorkUnit<Object>("", this) {
 
+                                @Override
+                                protected void run() throws LoginException, PersistenceException {
+                                    ProxyRepositoryFactory.getInstance().saveProject(
+                                            ProjectManager.getInstance().getCurrentProject());
+                                }
+
+                            };
+                            workUnit.setAvoidUnloadResources(true);
+                            factory.executeRepositoryWorkUnit(workUnit);
                         }
-                    };
-                    try {
-                        new ProgressMonitorDialog(null).run(true, true, iRunnableWithProgress);
-                    } catch (InvocationTargetException e) {
-                        ExceptionHandler.process(e);
-                    } catch (InterruptedException e) {
-                        //
-                    }
-                    closeLockStrategy();
+                    });
                 }
-                ProxyRepositoryFactory.getInstance().saveProject(ProjectManager.getInstance().getCurrentProject());
+            };
+            IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
 
-            } catch (PersistenceException e) {
-                String detailError = e.toString();
-                new ErrorDialogWidthDetailArea(getShell(), PID,
-                        Messages.getString("CommonWizard.persistenceException"), detailError); //$NON-NLS-1$
-                log.error(Messages.getString("CommonWizard.persistenceException") + "\n" + detailError); //$NON-NLS-1$ //$NON-NLS-2$
-                return false;
+                public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                    IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                    try {
+                        ISchedulingRule schedulingRule = workspace.getRoot();
+                        // the update the project files need to be done in the workspace runnable to avoid all
+                        // notification
+                        // of changes before the end of the modifications.
+                        workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, monitor);
+                    } catch (CoreException e) {
+                        throw new InvocationTargetException(e);
+                    }
+
+                }
+            };
+
+            try {
+                new ProgressMonitorDialog(null).run(true, true, iRunnableWithProgress);
+            } catch (InvocationTargetException e) {
+                ExceptionHandler.process(e);
+            } catch (InterruptedException e) {
+                //
             }
             return true;
         } else {
