@@ -87,7 +87,8 @@ public class ExtractMetaDataUtils {
     /**
      * DOC cantoine. Method to return DatabaseMetaData of a DB connection.
      * 
-     * @param AbstractConnection conn
+     * @param Connection conn
+     * @param Connection dbType
      * @return DatabaseMetaData
      * 
      * MOD by zshen this method don't care about sqlMode
@@ -141,6 +142,17 @@ public class ExtractMetaDataUtils {
     // }
     // return dbMetaData;
     // }
+
+    /**
+     * DOC cantoine. Method to return DatabaseMetaData of a DB connection.
+     * 
+     * @param Connection conn
+     * @param isSqlMode whether is sqlMode
+     * @param String dbType
+     * @return DatabaseMetaData
+     * 
+     * 
+     */
     public static DatabaseMetaData getDatabaseMetaData(Connection conn, String dbType, boolean isSqlMode, String database) {
 
         DatabaseMetaData dbMetaData = null;
@@ -168,11 +180,30 @@ public class ExtractMetaDataUtils {
         return dbMetaData;
     }
 
+    /**
+     * DOC cantoine. Method to return DatabaseMetaData of a DB connection.
+     * 
+     * @param Connection conn
+     * @param DatabaseConnection dbConn
+     * @return DatabaseMetaData
+     * 
+     * MOD by zshen this method don't care about sqlMode
+     */
     public static DatabaseMetaData getDatabaseMetaData(Connection conn, DatabaseConnection dbConn) {
         boolean isSqlMode = dbConn.isSQLMode();
         return getDatabaseMetaData(conn, dbConn, isSqlMode);
     }
 
+    /**
+     * DOC cantoine. Method to return DatabaseMetaData of a DB connection.
+     * 
+     * @param Connection conn
+     * @param isSqlMode
+     * @param DatabaseConnection dbConn
+     * @return DatabaseMetaData
+     * 
+     * 
+     */
     public static DatabaseMetaData getDatabaseMetaData(Connection conn, DatabaseConnection dbConn, boolean isSqlMode) {
 
         DatabaseMetaData dbMetaData = null;
