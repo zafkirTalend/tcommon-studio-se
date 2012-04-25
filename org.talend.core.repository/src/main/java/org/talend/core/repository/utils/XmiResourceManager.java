@@ -194,6 +194,11 @@ public class XmiResourceManager {
 
     public Resource createPropertyResource(Resource itemResource) {
         URI propertyResourceURI = getPropertyResourceURI(itemResource.getURI());
+        Resource propResource = resourceSet.getResource(propertyResourceURI, false);
+        if (propResource != null) {
+            propResource.unload();
+            resourceSet.getResources().remove(propResource);
+        }
         return resourceSet.createResource(propertyResourceURI);
     }
 
@@ -271,6 +276,11 @@ public class XmiResourceManager {
 
     private Resource createItemResource(boolean byteArrayResource, URI itemResourceURI) {
         Resource itemResource;
+        itemResource = resourceSet.getResource(itemResourceURI, false);
+        if (itemResource != null) {
+            itemResource.unload();
+            resourceSet.getResources().remove(itemResource);
+        }
         if (byteArrayResource) {
             itemResource = new ByteArrayResource(itemResourceURI);
             resourceSet.getResources().add(itemResource);
