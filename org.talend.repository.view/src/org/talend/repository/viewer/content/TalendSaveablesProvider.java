@@ -72,9 +72,11 @@ public class TalendSaveablesProvider extends SaveablesProvider implements IAdapt
     @Override
     public Saveable getSaveable(Object element) {
         Saveable saveable = null;
-        IEditorPart currEditorPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-        if (currEditorPart != null && currEditorPart.isDirty())
-            saveable = new TalendSaveablePart(currEditorPart);
+        if (PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage() != null) {
+            IEditorPart currEditorPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+            if (currEditorPart != null && currEditorPart.isDirty())
+                saveable = new TalendSaveablePart(currEditorPart);
+        }
 
         return saveable;
     }
