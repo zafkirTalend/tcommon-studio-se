@@ -12,10 +12,18 @@
 // ============================================================================
 package org.talend.repository.ui.actions;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -76,7 +84,7 @@ public class EmptyRecycleBinAction extends AContextualAction {
         String message = null;
         // TDI-20542
         List<IRepositoryNode> originalChildren = node.getChildren();
-        List<IRepositoryNode> children = new ArrayList<IRepositoryNode>(originalChildren);
+        final List<IRepositoryNode> children = new ArrayList<IRepositoryNode>(originalChildren);
         if (children.size() == 0) {
             return;
         } else if (children.size() > 1) {
@@ -91,35 +99,65 @@ public class EmptyRecycleBinAction extends AContextualAction {
             return;
         }
 
-        IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
-        for (IRepositoryNode child : children) {
-            // MOD klliu 2011-04-28 bug 20204 removing connection is synced to the connection view of SQL explore
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
-                ITDQRepositoryService tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
-                        ITDQRepositoryService.class);
-                if (!tdqRepService.removeAliasInSQLExplorer(child)) {
-                    MessageDialog.openWarning(shell, title, Messages.getString("EmptyRecycleBinAction.dialog.allDependencies"));
-                    try {
-                        factory.saveProject(ProjectManager.getInstance().getCurrentProject());
-                    } catch (PersistenceException e) {
-                        ExceptionHandler.process(e);
+            public void run(IProgressMonitor monitor) {
+                IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+
+                for (IRepositoryNode child : children) {
+                    // MOD klliu 2011-04-28 bug 20204 removing connection is synced to the connection view of SQL
+                    // explore
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+                        ITDQRepositoryService tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault()
+                                .getService(ITDQRepositoryService.class);
+                        if (!tdqRepService.removeAliasInSQLExplorer(child)) {
+                            MessageDialog.openWarning(shell, title,
+                                    Messages.getString("EmptyRecycleBinAction.dialog.allDependencies"));
+                            try {
+                                factory.saveProject(ProjectManager.getInstance().getCurrentProject());
+                            } catch (PersistenceException e) {
+                                ExceptionHandler.process(e);
+                            }
+                            return;
+                        }
                     }
-                    return;
+                    try {
+
+                        deleteElements(factory, (RepositoryNode) child);
+                    } catch (Exception e) {
+                        MessageBoxExceptionHandler.process(e);
+                    }
+                }
+                try {
+                    factory.saveProject(ProjectManager.getInstance().getCurrentProject());
+                } catch (PersistenceException e) {
+                    ExceptionHandler.process(e);
                 }
             }
-            try {
+        };
 
-                deleteElements(factory, (RepositoryNode) child);
-            } catch (Exception e) {
-                MessageBoxExceptionHandler.process(e);
+        IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
+
+            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                try {
+                    ISchedulingRule schedulingRule = workspace.getRoot();
+                    // the update the project files need to be done in the workspace runnable to avoid all
+                    // notification
+                    // of changes before the end of the modifications.
+                    workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, monitor);
+                } catch (CoreException e) {
+                    throw new InvocationTargetException(e);
+                }
+
             }
-        }
+        };
         try {
-            factory.saveProject(ProjectManager.getInstance().getCurrentProject());
-        } catch (PersistenceException e) {
+            PlatformUI.getWorkbench().getProgressService().run(true, true, iRunnableWithProgress);
+        } catch (Exception e) {
             ExceptionHandler.process(e);
         }
+
         // MOD qiongli 2011-1-24,avoid to refresh repositoryView for top
         if (!PluginChecker.isOnlyTopLoaded()) {
             RepositoryManager.refresh(ERepositoryObjectType.JOB_SCRIPT);
@@ -175,9 +213,9 @@ public class EmptyRecycleBinAction extends AContextualAction {
         }
     }
 
-    protected void deleteElements(IProxyRepositoryFactory factory, RepositoryNode currentNode) throws PersistenceException,
-            BusinessException {
-        IRepositoryViewObject objToDelete = currentNode.getObject();
+    protected void deleteElements(final IProxyRepositoryFactory factory, final RepositoryNode currentNode)
+            throws PersistenceException, BusinessException {
+        final IRepositoryViewObject objToDelete = currentNode.getObject();
         if (objToDelete == null) {
             return;
         }
@@ -189,25 +227,41 @@ public class EmptyRecycleBinAction extends AContextualAction {
                 factory.save(item);
             }
         } else {
-            IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-            for (IEditorReference editors : page.getEditorReferences()) {
-                String nameInEditor = editors.getName();
-                if (objToDelete.getLabel().equals(nameInEditor.substring(nameInEditor.indexOf(" ") + 1))) { //$NON-NLS-1$
-                    page.closeEditor(editors.getEditor(false), false);
-                }
-            }
-            if (objToDelete.getRepositoryObjectType() != ERepositoryObjectType.JOB_DOC
-                    && objToDelete.getRepositoryObjectType() != ERepositoryObjectType.JOBLET_DOC) {
-                if (currentNode.getType() == ENodeType.SIMPLE_FOLDER) {
-                    for (IRepositoryNode curNode : currentNode.getChildren()) {
-                        deleteElements(factory, (RepositoryNode) curNode);
+
+            Display.getDefault().syncExec(new Runnable() {
+
+                public void run() {
+                    try {
+                        IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+                        for (IEditorReference editors : page.getEditorReferences()) {
+                            String nameInEditor = editors.getName();
+                            if (objToDelete.getLabel().equals(nameInEditor.substring(nameInEditor.indexOf(" ") + 1))) { //$NON-NLS-1$
+                                page.closeEditor(editors.getEditor(false), false);
+                            }
+                        }
+                        if (objToDelete.getRepositoryObjectType() != ERepositoryObjectType.JOB_DOC
+                                && objToDelete.getRepositoryObjectType() != ERepositoryObjectType.JOBLET_DOC) {
+                            if (currentNode.getType() == ENodeType.SIMPLE_FOLDER) {
+                                for (IRepositoryNode curNode : currentNode.getChildren()) {
+                                    deleteElements(factory, (RepositoryNode) curNode);
+
+                                }
+                                factory.deleteFolder(ProjectManager.getInstance().getCurrentProject(),
+                                        currentNode.getContentType(),
+                                        RepositoryNodeUtilities.getFolderPath(currentNode.getObject().getProperty().getItem()),
+                                        true);
+                            } else {
+                                factory.deleteObjectPhysical(ProjectManager.getInstance().getCurrentProject(), objToDelete, null,
+                                        true);
+                            }
+                        }
+
+                    } catch (Exception e) {
+                        ExceptionHandler.process(e);
                     }
-                    factory.deleteFolder(ProjectManager.getInstance().getCurrentProject(), currentNode.getContentType(),
-                            RepositoryNodeUtilities.getFolderPath(currentNode.getObject().getProperty().getItem()), true);
-                } else {
-                    factory.deleteObjectPhysical(ProjectManager.getInstance().getCurrentProject(), objToDelete, null, true);
                 }
-            }
+            });
+
         }
     }
 
