@@ -213,10 +213,10 @@ public class DatabaseTableForm extends AbstractForm {
         this.metadataconnection = metadataconnection;
         final Set<MetadataTable> tables = ConnectionHelper.getTables(temConnection);
         for (MetadataTable t : tables) {
-            // if (metadataTable != null && t.getLabel().equals(metadataTable.getLabel())) {
-            this.metadataTable = t;
-            break;
-            // }
+            if ((metadataTable != null && t.getLabel().equals(metadataTable.getLabel())) || metadataTable == null) {
+                this.metadataTable = t;
+                break;
+            }
         }
         this.typeName = EDatabaseTypeName.getTypeFromDbType(metadataconnection.getDbType());
         /* use provider for the databse didn't use JDBC,for example: HBase */
