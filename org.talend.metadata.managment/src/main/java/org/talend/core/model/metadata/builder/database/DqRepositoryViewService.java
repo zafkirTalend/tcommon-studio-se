@@ -113,7 +113,7 @@ public final class DqRepositoryViewService {
             log.error(e, e);
         } // .replaceAll(B64ID, PREFIX);
         if (log.isDebugEnabled()) {
-            log.debug("Functional name: " + functionalName + " -> techname: " + techname);
+            log.debug("Functional name: " + functionalName + " -> techname: " + techname);//$NON-NLS-1$//$NON-NLS-2$
         }
         return techname;
     }
@@ -317,7 +317,7 @@ public final class DqRepositoryViewService {
 
         String catalogName = catalog.getName();
         if (catalogName == null) {
-            log.error("No catalog given. Cannot retrieve tables!");
+            log.error("No catalog given. Cannot retrieve tables!");//$NON-NLS-1$
             return tables;
         }
         return loadTables(dataProvider, catalog, null, tablePattern);
@@ -490,7 +490,7 @@ public final class DqRepositoryViewService {
      */
     public static String buildElementName(Property property) {
 
-        String elementName = "Unknown Label";
+        String elementName = "Unknown Label";//$NON-NLS-1$
         if (property != null) {
             elementName = property.getLabel() + " " + property.getVersion();
         }
