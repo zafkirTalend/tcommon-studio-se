@@ -76,7 +76,8 @@ public class SWTCalendarWithTime extends SWTCalendar {
         hourChooser.setMaximum(23);
         hourChooser.setIncrement(1);
         hourChooser.setPageIncrement(1);
-        hourChooser.setSelection(calendar.get(Calendar.HOUR_OF_DAY));
+        hour = calendar.get(Calendar.HOUR_OF_DAY);
+        hourChooser.setSelection(hour);
         hourChooser.addSelectionListener(new SelectionAdapter() {
 
             public void widgetSelected(SelectionEvent e) {
@@ -94,7 +95,8 @@ public class SWTCalendarWithTime extends SWTCalendar {
         minuteChooser.setMaximum(59);
         minuteChooser.setIncrement(1);
         minuteChooser.setPageIncrement(10);
-        minuteChooser.setSelection(calendar.get(Calendar.MINUTE));
+        minute = calendar.get(Calendar.MINUTE);
+        minuteChooser.setSelection(minute);
         minuteChooser.addSelectionListener(new SelectionAdapter() {
 
             public void widgetSelected(SelectionEvent e) {
@@ -112,7 +114,8 @@ public class SWTCalendarWithTime extends SWTCalendar {
         secondsChooser.setMaximum(59);
         secondsChooser.setIncrement(1);
         secondsChooser.setPageIncrement(10);
-        secondsChooser.setSelection(calendar.get(Calendar.SECOND));
+        seconds = calendar.get(Calendar.SECOND);
+        secondsChooser.setSelection(seconds);
         secondsChooser.addSelectionListener(new SelectionAdapter() {
 
             public void widgetSelected(SelectionEvent e) {
