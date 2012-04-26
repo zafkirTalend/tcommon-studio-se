@@ -39,6 +39,8 @@ public class CommonsPlugin extends Plugin {
 
     private static boolean storeLibsInWorkspace = false;
 
+    private static boolean isSameProjectLogonCommline = false;
+
     public static boolean isStoreLibsInWorkspace() {
         return storeLibsInWorkspace;
     }
@@ -69,7 +71,7 @@ public class CommonsPlugin extends Plugin {
     public static boolean isDebugMode() {
         return ArrayUtils.contains(Platform.getApplicationArgs(), TalendDebugHandler.TALEND_DEBUG);
     }
-    
+
     /**
      * Answer the file associated with name. This handles the case of running as a plugin and running standalone which
      * happens during testing.
@@ -82,4 +84,13 @@ public class CommonsPlugin extends Plugin {
         return url != null ? url.openStream() : null;
 
     }
+
+    public static boolean isSameProjectLogonCommline() {
+        return isSameProjectLogonCommline;
+    }
+
+    public static void setSameProjectLogonCommline(boolean isSameProjectLogonCommline) {
+        CommonsPlugin.isSameProjectLogonCommline = isSameProjectLogonCommline;
+    }
+
 }
