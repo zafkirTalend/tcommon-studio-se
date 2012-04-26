@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.metadata.content;
 
+import org.eclipse.jface.viewers.Viewer;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
@@ -30,9 +31,25 @@ public class RulesTopNodeContentProvider extends AbstractMetadataContentProvider
         return projectRepositoryNode.getRootRepositoryNode(ERepositoryObjectType.METADATA_RULES_MANAGEMENT);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.repository.viewer.content.ProjectRepoAbstractContentProvider#inputChanged(org.eclipse.jface.viewers
+     * .Viewer, java.lang.Object, java.lang.Object)
+     */
     @Override
-    protected void refreshTopLevelNode() {
-        this.setReInit(false); // don't re-init
-        super.refreshTopLevelNode();
+    public void inputChanged(Viewer arg0, Object arg1, Object arg2) {
+        // do nothing cause the is an empty node
+    }
+
+    @Override
+    protected Object[] getRepositoryNodeChildren(RepositoryNode repositoryNode) {
+        return NO_CHILDREN;
+    }
+
+    @Override
+    protected void setupDeleteFolderListener(ProjectRepositoryNode projRepo) {
+        // do nothing caus no need to refresh anything
     }
 }

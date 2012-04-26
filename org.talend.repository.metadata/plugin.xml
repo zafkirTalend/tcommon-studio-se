@@ -715,8 +715,7 @@
             id="org.talend.repository.viewer.metadata.rules"
             labelProvider="org.talend.repository.viewer.label.RepositoryViewLabelProvider"
             name="Rules Management"
-            priority="high"
-            providesSaveables="true">
+            priority="high">
          <triggerPoints>
             <and>
                <instanceof

@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.repository.viewer.filter;
 
-import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IPerspectiveListener;
@@ -39,7 +38,8 @@ public class PerspectiveFilterActionProvider extends AbstractRepositoryActionPro
 
     private boolean isFiltering = true; // default is enabled.
 
-    private PerspectiveFilterAction perspectiveFilterAction;
+    private PerspectiveFilterAction perspectiveFilterAction = new PerspectiveFilterAction(this,
+            Messages.getString("PerspectiveFilterActionProvider.PerspectiveContentFilter"));
 
     private final PerspectiveFilterHelper helper;
 
@@ -54,14 +54,6 @@ public class PerspectiveFilterActionProvider extends AbstractRepositoryActionPro
         helper.setTreeViewer(getCommonViewer());
         helper.setNavigatorContentService(getNavigatorContentService());
         helper.setActionProviderId(this.getActionSite().getExtensionId());
-    }
-
-    @Override
-    protected void fillMenus(IMenuManager menuManager) {
-        super.fillMenus(menuManager);
-        perspectiveFilterAction = new PerspectiveFilterAction(this, Messages.getString("PerspectiveFilterActionProvider.PerspectiveContentFilter")); //$NON-NLS-1$
-        menuManager.add(perspectiveFilterAction);
-
         perspectiveFilterAction.setChecked(isFiltering);
     }
 
