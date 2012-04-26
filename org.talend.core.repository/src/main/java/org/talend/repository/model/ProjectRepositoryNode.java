@@ -459,7 +459,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             metadataNode.getChildren().add(metadataEDIFactConnectionNode);
         }
         // Reference Projects
-        if (PluginChecker.isRefProjectLoaded() && getParent() != this && !getMergeRefProject() && project != null
+        if (PluginChecker.isRefProjectLoaded() && getParent() != this && project != null
                 && project.getEmfProject().getReferencedProjects().size() > 0) {
             refProject = new RepositoryNode(null, this, ENodeType.SYSTEM_FOLDER);
             refProject.setProperties(EProperties.LABEL, ERepositoryObjectType.REFERENCED_PROJECTS);
@@ -641,11 +641,11 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
     public void initializeChildren(Object parent) {
         initializeChildren(project, parent);
         if (PluginChecker.isRefProjectLoaded() && getMergeRefProject()) {
-            getRefProject(project.getEmfProject(), parent);
+            intitializeRefProject(project.getEmfProject(), parent);
         }
     }
 
-    private void getRefProject(Project project, Object parent) {
+    private void intitializeRefProject(Project project, Object parent) {
         for (ProjectReference refProject : (List<ProjectReference>) project.getReferencedProjects()) {
             String parentBranch = ProxyRepositoryFactory.getInstance().getRepositoryContext().getFields()
                     .get(IProxyRepositoryFactory.BRANCH_SELECTION + "_" + project.getTechnicalLabel()); //$NON-NLS-1$
@@ -662,7 +662,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                     list.add(p);
                 }
                 initializeChildren(new org.talend.core.model.general.Project(p), parent);
-                getRefProject(p, parent);
+                intitializeRefProject(p, parent);
             }
         }
 
