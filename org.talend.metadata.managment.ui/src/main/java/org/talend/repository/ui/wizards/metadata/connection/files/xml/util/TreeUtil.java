@@ -857,7 +857,11 @@ public class TreeUtil {
             Bundle b = Platform.getBundle("org.talend.repository.mdm"); //$NON-NLS-1$
             if (b == null)
                 return null;
-            URL url = FileLocator.toFileURL(FileLocator.find(b, new Path("/resources/UpdateReport.xsd"), null)); //$NON-NLS-1$
+            URL fileUrl = FileLocator.find(b, new Path("/resources/UpdateReport.xsd"), null); //$NON-NLS-1$
+            if (fileUrl == null) {
+                return null;
+            }
+            URL url = FileLocator.toFileURL(fileUrl);
             if (url != null) {
                 filePath = copyToTempFile(url, "UpdateReport.xsd"); //$NON-NLS-1$
                 fileExist = true;
