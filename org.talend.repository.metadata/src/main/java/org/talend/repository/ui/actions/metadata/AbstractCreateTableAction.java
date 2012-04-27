@@ -768,7 +768,7 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                 String nextId = ProxyRepositoryFactory.getInstance().getNextId();
                 metadataTable.setId(nextId);
                 metadataTable.setLabel(getStringIndexed(metadataTable.getLabel()));
-                creation = true;
+                creation = false;
             } else if (nodeType == ERepositoryObjectType.METADATA_SALESFORCE_MODULE) {
                 item = (SalesforceSchemaConnectionItem) node.getObject().getProperty().getItem();
                 connection = (SalesforceSchemaConnection) item.getConnection();
