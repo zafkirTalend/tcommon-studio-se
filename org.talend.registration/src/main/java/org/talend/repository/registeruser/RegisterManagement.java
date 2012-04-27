@@ -104,8 +104,7 @@ public class RegisterManagement {
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                     IBrandingService.class);
             result = proxy.registerUserWithAllUserInformationsAndReturnId(email, country, designerVersion,
-                    brandingService.getShortProductName(), projectLanguage, osName, osVersion, javaVersion,
-                    totalMemory + "", memRAM //$NON-NLS-1$
+                    brandingService.getAcronym(), projectLanguage, osName, osVersion, javaVersion, totalMemory + "", memRAM //$NON-NLS-1$
                             + "", nbProc + ""); //$NON-NLS-1$ //$NON-NLS-2$
             if (result.signum() > 0) {
                 PlatformUI.getPreferenceStore().setValue("REGISTRATION_DONE", 1); //$NON-NLS-1$
@@ -176,7 +175,7 @@ public class RegisterManagement {
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                     IBrandingService.class);
             result = proxy.updateUser(email, pseudo, oldPassword, password, firstname, lastname, country, version,
-                    brandingService.getShortProductName(), osName, osVersion, javaVersion, totalMemory + "", memRAM //$NON-NLS-1$
+                    brandingService.getAcronym(), osName, osVersion, javaVersion, totalMemory + "", memRAM //$NON-NLS-1$
                             + "", nbProc + ""); //$NON-NLS-1$ //$NON-NLS-2$
             if (result != null && result.signum() > 0) {
                 PlatformUI.getPreferenceStore().setValue("REGISTRATION_DONE", 1); //$NON-NLS-1$
@@ -254,7 +253,7 @@ public class RegisterManagement {
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                     IBrandingService.class);
             result = proxy.createUser(email, pseudo, password, firstname, lastname, country, version,
-                    brandingService.getShortProductName(), osName, osVersion, javaVersion, totalMemory + "", memRAM //$NON-NLS-1$
+                    brandingService.getAcronym(), osName, osVersion, javaVersion, totalMemory + "", memRAM //$NON-NLS-1$
                             + "", nbProc + ""); //$NON-NLS-1$ //$NON-NLS-2$
             if (result.signum() > 0) {
                 PlatformUI.getPreferenceStore().setValue("REGISTRATION_DONE", 1); //$NON-NLS-1$
@@ -326,8 +325,8 @@ public class RegisterManagement {
         try {
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                     IBrandingService.class);
-            result = proxy.createUser50(pseudo, password, firstname, lastname, country, version,
-                    brandingService.getShortProductName(), osName, osVersion, javaVersion, totalMemory + "", memRAM //$NON-NLS-1$
+            result = proxy.createUser50(pseudo, password, firstname, lastname, country, version, brandingService.getAcronym(),
+                    osName, osVersion, javaVersion, totalMemory + "", memRAM //$NON-NLS-1$
                             + "", nbProc + ""); //$NON-NLS-1$ //$NON-NLS-2$
             if (result.intValue() != -110 && result.signum() < 0) {
                 checkErrors(result.intValue());
