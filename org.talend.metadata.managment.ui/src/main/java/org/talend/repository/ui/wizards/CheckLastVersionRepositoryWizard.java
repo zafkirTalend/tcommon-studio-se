@@ -14,6 +14,13 @@ package org.talend.repository.ui.wizards;
 
 import java.util.List;
 
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.ui.IWorkbench;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
@@ -24,6 +31,7 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.ui.ILastVersionChecker;
+import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.ui.wizards.context.ContextWizard;
 import org.talend.repository.ui.wizards.documentation.DocumentationCreateWizard;
 import org.talend.repository.ui.wizards.documentation.DocumentationUpdateWizard;
@@ -103,5 +111,22 @@ public abstract class CheckLastVersionRepositoryWizard extends RepositoryWizard 
      */
     public void setLastVersion(Boolean lastVersion) {
         // TODO Auto-generated method stub
+    }
+
+    protected void updateConnectionItem() throws CoreException {
+        IWorkspace workspace = ResourcesPlugin.getWorkspace();
+        final IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+        IWorkspaceRunnable operation = new IWorkspaceRunnable() {
+
+            public void run(IProgressMonitor monitor) throws CoreException {
+                try {
+                    factory.save(connectionItem);
+                    closeLockStrategy();
+                } catch (PersistenceException e) {
+                    throw new CoreException(new Status(IStatus.ERROR, "", "", e));
+                }
+            }
+        };
+        workspace.run(operation, null);
     }
 }

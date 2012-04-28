@@ -15,7 +15,14 @@ package org.talend.repository.mdm.ui.wizard;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.WizardPage;
@@ -207,7 +214,7 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
     @Override
     public boolean performFinish() {
         // if (mdmWizardPage.isPageComplete()) {
-        IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+        final IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
 
         ITDQRepositoryService tdqRepService = null;
 
@@ -227,13 +234,26 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
                     tdqRepService.fillMetadata(connectionItem);
                 }
             } else {
-              //changed by hqzhang for TDI-19527, label=displayName
+                // changed by hqzhang for TDI-19527, label=displayName
                 connectionProperty.setLabel(connectionProperty.getDisplayName());
                 RepositoryUpdateManager.updateFileConnection(connectionItem);
-                factory.save(connectionItem);
-                closeLockStrategy();
+                // factory.save(connectionItem);
+
+                IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                IWorkspaceRunnable operation = new IWorkspaceRunnable() {
+
+                    public void run(IProgressMonitor monitor) throws CoreException {
+                        try {
+                            factory.save(connectionItem);
+                            closeLockStrategy();
+                        } catch (PersistenceException e) {
+                            throw new CoreException(new Status(IStatus.ERROR, "", "", e));
+                        }
+                    }
+                };
+                workspace.run(operation, null);
             }
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             String detailError = e.toString();
             new ErrorDialogWidthDetailArea(getShell(), PID, "", //$NON-NLS-1$
                     detailError);

@@ -183,13 +183,12 @@ public class SalesforceSchemasWizard extends CheckLastVersionRepositoryWizard im
                 } else {
                     // update
                     RepositoryUpdateManager.updateFileConnection(connectionItem);
-                    factory.save(connectionItem);
-                    closeLockStrategy();
+                    updateConnectionItem();
                 }
 
                 ProxyRepositoryFactory.getInstance().saveProject(ProjectManager.getInstance().getCurrentProject());
                 ProxyRepositoryFactory.getInstance().saveProject(ProjectManager.getInstance().getCurrentProject());
-            } catch (PersistenceException e) {
+            } catch (Exception e) {
                 String detailError = e.toString();
                 new ErrorDialogWidthDetailArea(getShell(), PID, Messages.getString("CommonWizard.persistenceException"), //$NON-NLS-1$
                         detailError);

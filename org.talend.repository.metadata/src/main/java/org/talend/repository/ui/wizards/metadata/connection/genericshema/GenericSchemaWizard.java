@@ -23,7 +23,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
-import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
@@ -365,15 +364,14 @@ public class GenericSchemaWizard extends CheckLastVersionRepositoryWizard implem
                     connectionProperty.setLabel(connectionProperty.getDisplayName());
                     // update
                     RepositoryUpdateManager.updateMultiSchema(connectionItem, oldMetadataTable, oldTableMap);
-                    factory.save(connectionItem);
+                    updateConnectionItem();
                     // 0005170: Schema renamed - new name not pushed out to dependant jobs
                     boolean isModified = genericSchemaWizardPage0.isNameModifiedByUser();
                     if (isModified) {
                         CoreRuntimePlugin.getInstance().getDesignerCoreService().refreshComponentView(connectionItem);
                     }
-                    closeLockStrategy();
                 }
-            } catch (PersistenceException e) {
+            } catch (Exception e) {
                 String detailError = e.toString();
                 new ErrorDialogWidthDetailArea(getShell(), PID, Messages.getString("CommonWizard.persistenceException"), //$NON-NLS-1$
                         detailError);

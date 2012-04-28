@@ -22,7 +22,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
-import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
@@ -79,8 +78,6 @@ public class LDAPSchemaWizard extends CheckLastVersionRepositoryWizard implement
     private LDAPSchemaConnection connection;
 
     private Property connectionProperty;
-
-    private ConnectionItem connectionItem;
 
     private boolean isSinglePageOnly;
 
@@ -433,10 +430,9 @@ public class LDAPSchemaWizard extends CheckLastVersionRepositoryWizard implement
                     // update
                     RepositoryUpdateManager.updateMultiSchema(connectionItem, oldMetadataTable, oldTableMap);
 
-                    factory.save(connectionItem);
-                    closeLockStrategy();
+                    updateConnectionItem();
                 }
-            } catch (PersistenceException e) {
+            } catch (Exception e) {
                 String detailError = e.toString();
                 new ErrorDialogWidthDetailArea(getShell(), PID, Messages.getString("CommonWizard.persistenceException"), //$NON-NLS-1$
                         detailError);
