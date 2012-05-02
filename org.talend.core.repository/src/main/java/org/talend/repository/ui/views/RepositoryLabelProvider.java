@@ -45,6 +45,7 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.model.repositoryObject.MetadataTableRepositoryObject;
 import org.talend.core.ui.ICDCProviderService;
 import org.talend.core.ui.IReferencedProjectService;
+import org.talend.core.ui.branding.IBrandingService;
 import org.talend.core.ui.images.OverlayImageProvider;
 import org.talend.core.ui.images.RepositoryImageProvider;
 import org.talend.repository.ProjectManager;
@@ -87,8 +88,13 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
     public String getText(IRepositoryViewObject object) {
         StringBuffer string = new StringBuffer();
         string.append(object.getLabel());
+        IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
+                IBrandingService.class);
+        boolean allowVerchange = brandingService.getBrandingConfiguration().isAllowChengeVersion();
         if (!(object instanceof Folder)) {
-            string.append(" " + object.getVersion()); //$NON-NLS-1$
+            if (allowVerchange) {
+                string.append(" " + object.getVersion()); //$NON-NLS-1$
+            }
         }
         // nodes in the recycle bin
         if (object.isDeleted()) {
