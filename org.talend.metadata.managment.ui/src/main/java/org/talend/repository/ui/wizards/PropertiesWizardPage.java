@@ -342,28 +342,33 @@ public abstract class PropertiesWizardPage extends WizardPage {
         lockerText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         // Version
-        Label versionLab = new Label(parent, SWT.NONE);
-        versionLab.setText(Messages.getString("PropertiesWizardPage.Version")); //$NON-NLS-1$
+        IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
+                IBrandingService.class);
+        allowVerchange = brandingService.getBrandingConfiguration().isAllowChengeVersion();
+        if (allowVerchange) {
+            Label versionLab = new Label(parent, SWT.NONE);
+            versionLab.setText(Messages.getString("PropertiesWizardPage.Version")); //$NON-NLS-1$
 
-        Composite versionContainer = new Composite(parent, SWT.NONE);
-        versionContainer.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        GridLayout versionLayout = new GridLayout(3, false);
-        versionLayout.marginHeight = 0;
-        versionLayout.marginWidth = 0;
-        versionLayout.horizontalSpacing = 0;
-        versionContainer.setLayout(versionLayout);
+            Composite versionContainer = new Composite(parent, SWT.NONE);
+            versionContainer.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+            GridLayout versionLayout = new GridLayout(3, false);
+            versionLayout.marginHeight = 0;
+            versionLayout.marginWidth = 0;
+            versionLayout.horizontalSpacing = 0;
+            versionContainer.setLayout(versionLayout);
 
-        versionText = new Text(versionContainer, SWT.BORDER);
-        versionText.setEnabled(false);
-        versionText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+            versionText = new Text(versionContainer, SWT.BORDER);
+            versionText.setEnabled(false);
+            versionText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-        versionMajorBtn = new Button(versionContainer, SWT.PUSH);
-        versionMajorBtn.setText(Messages.getString("PropertiesWizardPage.Version.Major")); //$NON-NLS-1$
-        versionMajorBtn.setEnabled(!readOnly && allowVerchange);
+            versionMajorBtn = new Button(versionContainer, SWT.PUSH);
+            versionMajorBtn.setText(Messages.getString("PropertiesWizardPage.Version.Major")); //$NON-NLS-1$
+            versionMajorBtn.setEnabled(!readOnly && allowVerchange);
 
-        versionMinorBtn = new Button(versionContainer, SWT.PUSH);
-        versionMinorBtn.setText(Messages.getString("PropertiesWizardPage.Version.Minor")); //$NON-NLS-1$
-        versionMinorBtn.setEnabled(!readOnly && allowVerchange);
+            versionMinorBtn = new Button(versionContainer, SWT.PUSH);
+            versionMinorBtn.setText(Messages.getString("PropertiesWizardPage.Version.Minor")); //$NON-NLS-1$
+            versionMinorBtn.setEnabled(!readOnly && allowVerchange);
+        }
 
         // Status
         Label statusLab = new Label(parent, SWT.NONE);
@@ -434,7 +439,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
         private String name;
 
-        private List<Folder> children;
+        private final List<Folder> children;
 
         private Folder parent;
 
@@ -520,7 +525,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
      */
     private class FoldersLabelProvider extends LabelProvider {
 
-        private RepositoryFolderSelectionDialog dialog;
+        private final RepositoryFolderSelectionDialog dialog;
 
         /**
          * yzhang PropertiesWizardPage.FoldersLabelProvider constructor comment.
@@ -534,6 +539,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
          * 
          * @see org.eclipse.jface.viewers.ILabelProvider#getImage(java.lang.Object)
          */
+        @Override
         public Image getImage(Object element) {
             ECoreImage image = (dialog.getExpandedState(element) ? ECoreImage.FOLDER_OPEN_ICON : ECoreImage.FOLDER_CLOSE_ICON);
             return ImageProvider.getImage(image);
@@ -544,6 +550,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
          * 
          * @see org.eclipse.jface.viewers.ILabelProvider#getText(java.lang.Object)
          */
+        @Override
         public String getText(Object element) {
             return ((Folder) element).getName();
         }
@@ -833,7 +840,9 @@ public abstract class PropertiesWizardPage extends WizardPage {
                     }
                 }
             }
-            versionText.setText(property.getVersion());
+            if (allowVerchange) {
+                versionText.setText(property.getVersion());
+            }
             statusText.setText(statusHelper.getStatusLabel(property.getStatusCode()));
             if (destinationPath != null) {
                 pathText.setText(destinationPath.toString());
@@ -910,37 +919,39 @@ public abstract class PropertiesWizardPage extends WizardPage {
             }
         });
 
-        versionMajorBtn.addSelectionListener(new SelectionAdapter() {
+        if (allowVerchange) {
+            versionMajorBtn.addSelectionListener(new SelectionAdapter() {
 
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                String version = property.getVersion();
-                if (lastVersionFound != null && VersionUtils.compareTo(lastVersionFound, version) > 0) {
-                    version = lastVersionFound;
+                @Override
+                public void widgetSelected(SelectionEvent e) {
+                    String version = property.getVersion();
+                    if (lastVersionFound != null && VersionUtils.compareTo(lastVersionFound, version) > 0) {
+                        version = lastVersionFound;
+                    }
+                    version = VersionUtils.upMajor(version);
+                    versionText.setText(version);
+                    property.setVersion(version);
+                    property.setCreationDate(new Date());
+                    updatePageStatus();
                 }
-                version = VersionUtils.upMajor(version);
-                versionText.setText(version);
-                property.setVersion(version);
-                property.setCreationDate(new Date());
-                updatePageStatus();
-            }
-        });
+            });
 
-        versionMinorBtn.addSelectionListener(new SelectionAdapter() {
+            versionMinorBtn.addSelectionListener(new SelectionAdapter() {
 
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                String version = property.getVersion();
-                if (lastVersionFound != null && VersionUtils.compareTo(lastVersionFound, version) > 0) {
-                    version = lastVersionFound;
+                @Override
+                public void widgetSelected(SelectionEvent e) {
+                    String version = property.getVersion();
+                    if (lastVersionFound != null && VersionUtils.compareTo(lastVersionFound, version) > 0) {
+                        version = lastVersionFound;
+                    }
+                    version = VersionUtils.upMinor(version);
+                    versionText.setText(version);
+                    property.setVersion(version);
+                    property.setCreationDate(new Date());
+                    updatePageStatus();
                 }
-                version = VersionUtils.upMinor(version);
-                versionText.setText(version);
-                property.setVersion(version);
-                property.setCreationDate(new Date());
-                updatePageStatus();
-            }
-        });
+            });
+        }
 
         statusText.addModifyListener(new ModifyListener() {
 
