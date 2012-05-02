@@ -22,6 +22,7 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.Item;
 import org.talend.repository.model.IRepositoryNode;
+import org.talend.utils.sugars.ReturnCode;
 
 /**
  * DOC bZhou class global comment. Detailled comment
@@ -63,7 +64,7 @@ public interface ITDQRepositoryService extends IService {
     public void reloadDatabase(ContextItem contextItem);
 
     // ADD zshen 2012-1-6 TDQ-4384
-    public void reloadDatabase(ConnectionItem connectionItem);
+    public ReturnCode reloadDatabase(ConnectionItem connectionItem);
 
     // ADD qiongli 2011-9-13 TDQ-3797
     public void updateImpactOnAnalysis(ConnectionItem connectionItem);

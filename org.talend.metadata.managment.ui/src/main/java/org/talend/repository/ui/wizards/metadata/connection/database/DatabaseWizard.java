@@ -312,9 +312,9 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             // ~19528
 
             IMetadataConnection metadataConnection = ConvertionHelper.convert(connection);
-//            if (dbType == EDatabaseTypeName.TERADATA) {
-//                ExtractMetaDataUtils.metadataCon = metadataConnection;
-//            }
+            // if (dbType == EDatabaseTypeName.TERADATA) {
+            // ExtractMetaDataUtils.metadataCon = metadataConnection;
+            // }
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
 
             ITDQRepositoryService tdqRepService = null;
@@ -383,13 +383,14 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                                 conn.setUiSchema(conn.getUiSchema().toUpperCase());
                             }
                         }
-                        // update
-                        RepositoryUpdateManager.updateDBConnection(connectionItem);
                         // bug 20700
                         if (reloadCheck.isOk()) {
                             if (needReload(reloadCheck.getMessage())) {
                                 if (tdqRepService != null) {
-                                    tdqRepService.reloadDatabase(connectionItem);
+                                    ReturnCode retCode = tdqRepService.reloadDatabase(connectionItem);
+                                    if (!retCode.isOk()) {
+                                        return Boolean.FALSE;
+                                    }
                                 }
                             } else {
                                 // save the ConnectionItem only, don't reload the database connection
@@ -402,6 +403,8 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                                 updateConnectionInformation(dbConn);
                             }
                         }
+                        // update
+                        RepositoryUpdateManager.updateDBConnection(connectionItem);
                     }
                     this.connection.setName(connectionProperty.getLabel());
                     factory.save(connectionItem);
@@ -515,7 +518,8 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
             dbType = metaConnection.getDbType();
             if (sqlConn != null) {
-                DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType,false,metaConnection.getDatabase());
+                DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType, false,
+                        metaConnection.getDatabase());
                 MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, dbMetaData,
                         MetadataConnectionUtils.getPackageFilter(dbConn, dbMetaData, true));
                 MetadataFillFactory.getDBInstance().fillSchemas(dbConn, dbMetaData,
