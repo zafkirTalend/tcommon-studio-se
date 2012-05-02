@@ -23,9 +23,14 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.BinaryResourceImpl;
@@ -35,6 +40,7 @@ import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.general.TalendNature;
+import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
@@ -113,14 +119,24 @@ public class XmiResourceManagerTest {
 
     /**
      * Test method for {@link org.talend.core.repository.utils.XmiResourceManager#resetResourceSet()}.
+     * 
+     * @throws CoreException
      */
     @Test
-    public void testResetResourceSet() {
-        XmiResourceManager xrm = new XmiResourceManager();
-        xrm.resourceSet.getResources().add(new BinaryResourceImpl());
-        assertTrue(!xrm.resourceSet.getResources().isEmpty());
-        xrm.resetResourceSet();
-        assertTrue(xrm.resourceSet.getResources().isEmpty());
+    public void testResetResourceSet() throws CoreException {
+        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
+
+            public void run(IProgressMonitor monitor) throws CoreException {
+                XmiResourceManager xrm = new XmiResourceManager();
+                xrm.resourceSet.getResources().add(new BinaryResourceImpl());
+                assertTrue(!xrm.resourceSet.getResources().isEmpty());
+                xrm.resetResourceSet();
+                assertTrue(xrm.resourceSet.getResources().isEmpty());
+            }
+
+        };
+        ResourcesPlugin.getWorkspace().run(op, ResourcesPlugin.getWorkspace().getRoot(), IWorkspace.AVOID_UPDATE,
+                new NullProgressMonitor());
     }
 
     /**
@@ -132,18 +148,31 @@ public class XmiResourceManagerTest {
      */
     @Test
     public void testLoadProject() throws PersistenceException, CoreException {
-        Project project = createTempProject();
-        XmiResourceManager xrm = new XmiResourceManager();
-        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-        IProject prj = root.getProject("TESTAUTO");
-        Resource projectResource = xrm.createProjectResource(prj);
-        projectResource.getContents().add(project.getEmfProject());
-        projectResource.getContents().add(project.getAuthor());
-        xrm.saveResource(projectResource);
-        IProject physProject = ResourceModelUtils.getProject(project);
-        org.talend.core.model.properties.Project emfProject = xrm.loadProject(physProject);
-        assertTrue(emfProject.getTechnicalLabel().equals("TESTAUTO"));
-        physProject.delete(true, null);
+        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
+
+            public void run(IProgressMonitor monitor) throws CoreException {
+                Project project;
+                try {
+                    project = createTempProject();
+                    XmiResourceManager xrm = new XmiResourceManager();
+                    IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+                    IProject prj = root.getProject("TESTAUTO");
+                    Resource projectResource = xrm.createProjectResource(prj);
+                    projectResource.getContents().add(project.getEmfProject());
+                    projectResource.getContents().add(project.getAuthor());
+                    xrm.saveResource(projectResource);
+                    IProject physProject = ResourceModelUtils.getProject(project);
+                    org.talend.core.model.properties.Project emfProject = xrm.loadProject(physProject);
+                    assertTrue(emfProject.getTechnicalLabel().equals("TESTAUTO"));
+                    physProject.delete(true, null);
+                } catch (PersistenceException e) {
+                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository.test", "", e));
+                }
+            }
+
+        };
+        ResourcesPlugin.getWorkspace().run(op, ResourcesPlugin.getWorkspace().getRoot(), IWorkspace.AVOID_UPDATE,
+                new NullProgressMonitor());
     }
 
     /**
@@ -156,17 +185,29 @@ public class XmiResourceManagerTest {
      */
     @Test
     public void testHasTalendProjectFile() throws PersistenceException, CoreException {
-        Project project = createTempProject();
-        XmiResourceManager xrm = new XmiResourceManager();
-        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-        IProject prj = root.getProject("TESTAUTO");
-        Resource projectResource = xrm.createProjectResource(prj);
-        projectResource.getContents().add(project.getEmfProject());
-        projectResource.getContents().add(project.getAuthor());
-        xrm.saveResource(projectResource);
-        IProject physProject = ResourceModelUtils.getProject(project);
-        assertTrue(xrm.hasTalendProjectFile(physProject));
-        physProject.delete(true, null);
+        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
+
+            public void run(IProgressMonitor monitor) throws CoreException {
+                try {
+                    Project project = createTempProject();
+                    XmiResourceManager xrm = new XmiResourceManager();
+                    IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+                    IProject prj = root.getProject("TESTAUTO");
+                    Resource projectResource = xrm.createProjectResource(prj);
+                    projectResource.getContents().add(project.getEmfProject());
+                    projectResource.getContents().add(project.getAuthor());
+                    xrm.saveResource(projectResource);
+                    IProject physProject = ResourceModelUtils.getProject(project);
+                    assertTrue(xrm.hasTalendProjectFile(physProject));
+                    physProject.delete(true, null);
+                } catch (PersistenceException e) {
+                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository.test", "", e));
+                }
+            }
+
+        };
+        ResourcesPlugin.getWorkspace().run(op, ResourcesPlugin.getWorkspace().getRoot(), IWorkspace.AVOID_UPDATE,
+                new NullProgressMonitor());
     }
 
     /**
@@ -178,13 +219,21 @@ public class XmiResourceManagerTest {
      */
     @Test
     public void testCreateProjectResource() throws CoreException {
-        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-        IProject prj = root.getProject("TESTAUTO");
-        prj.create(null);
-        XmiResourceManager xrm = new XmiResourceManager();
-        Resource resource = xrm.createProjectResource(prj);
-        assertTrue(resource != null);
-        prj.delete(true, null);
+        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
+
+            public void run(IProgressMonitor monitor) throws CoreException {
+                IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+                IProject prj = root.getProject("TESTAUTO");
+                prj.create(null);
+                XmiResourceManager xrm = new XmiResourceManager();
+                Resource resource = xrm.createProjectResource(prj);
+                assertTrue(resource != null);
+                prj.delete(true, null);
+            }
+
+        };
+        ResourcesPlugin.getWorkspace().run(op, ResourcesPlugin.getWorkspace().getRoot(), IWorkspace.AVOID_UPDATE,
+                new NullProgressMonitor());
     }
 
     /**
@@ -193,48 +242,66 @@ public class XmiResourceManagerTest {
      * .
      * 
      * @throws PersistenceException
+     * @throws CoreException
      */
     @Test
-    public void testCreateItemResource() throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
-        XmiResourceManager xrm = new XmiResourceManager();
+    public void testCreateItemResource() throws CoreException {
+        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
-        // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
-        // so test only the 2 actually. (will need some refactor if want to test all easily..)
+            public void run(IProgressMonitor monitor) throws CoreException {
+                try {
+                    IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
+                    XmiResourceManager xrm = new XmiResourceManager();
 
-        ProcessItem processItem = createTempProcessItem();
+                    // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
+                    // so test only the 2 actually. (will need some refactor if want to test all easily..)
 
-        Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS,
-                false);
-        assertTrue(processItemResource != null);
-        assertTrue(processItemResource.getURI().fileExtension().equals("item"));
-        ResourceUtils.deleteFile(URIHelper.getFile(processItemResource.getURI()));
-        xrm.resourceSet.getResources().remove(processItemResource);
+                    ProcessItem processItem = createTempProcessItem();
 
-        // test change of extension for the file.
-        processItem = createTempProcessItem();
-        processItem.setFileExtension("process");
+                    Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""),
+                            ERepositoryObjectType.PROCESS, false);
+                    assertTrue(processItemResource != null);
+                    assertTrue(processItemResource.getURI().fileExtension().equals("item"));
+                    ResourceUtils.deleteFile(URIHelper.getFile(processItemResource.getURI()));
+                    xrm.resourceSet.getResources().remove(processItemResource);
 
-        // after this there should be .properties / .process when create
+                    // test change of extension for the file.
+                    processItem = createTempProcessItem();
+                    processItem.setFileExtension("process");
 
-        processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS, false);
-        assertTrue(processItemResource != null);
-        assertTrue(processItemResource.getURI().fileExtension().equals("process"));
-        ResourceUtils.deleteFile(URIHelper.getFile(processItemResource.getURI()));
-        xrm.resourceSet.getResources().remove(processItemResource);
+                    // after this there should be .properties / .process when create
 
-        RoutineItem routineItem = createTempRoutineItem();
-        Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""), ERepositoryObjectType.ROUTINES,
-                true);
-        assertTrue(routineItemResource != null);
-        assertTrue(routineItemResource.getURI().fileExtension().equals("item"));
-        ResourceUtils.deleteFile(URIHelper.getFile(routineItemResource.getURI()));
-        xrm.resourceSet.getResources().remove(routineItemResource);
+                    processItemResource = xrm.createItemResource(project, processItem, new Path(""),
+                            ERepositoryObjectType.PROCESS, false);
+                    assertTrue(processItemResource != null);
+                    assertTrue(processItemResource.getURI().fileExtension().equals("process"));
+                    ResourceUtils.deleteFile(URIHelper.getFile(processItemResource.getURI()));
+                    xrm.resourceSet.getResources().remove(processItemResource);
+
+                    RoutineItem routineItem = createTempRoutineItem();
+                    Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""),
+                            ERepositoryObjectType.ROUTINES, true);
+                    assertTrue(routineItemResource != null);
+                    assertTrue(routineItemResource.getURI().fileExtension().equals("item"));
+                    ResourceUtils.deleteFile(URIHelper.getFile(routineItemResource.getURI()));
+                    xrm.resourceSet.getResources().remove(routineItemResource);
+                } catch (PersistenceException e) {
+                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository.test", "", e));
+                }
+            }
+
+        };
+        ResourcesPlugin.getWorkspace().run(op, ResourcesPlugin.getWorkspace().getRoot(), IWorkspace.AVOID_UPDATE,
+                new NullProgressMonitor());
     }
 
     private ProcessItem createTempProcessItem() {
         ProcessItem processItem = PropertiesFactory.eINSTANCE.createProcessItem();
         Property myProperty = PropertiesFactory.eINSTANCE.createProperty();
+        ItemState itemState = PropertiesFactory.eINSTANCE.createItemState();
+        itemState.setDeleted(false);
+        itemState.setPath("");
+        processItem.setState(itemState);
         processItem.setProperty(myProperty);
         myProperty.setLabel("myJob");
         myProperty.setVersion("0.1");
@@ -251,6 +318,10 @@ public class XmiResourceManagerTest {
         RoutineItem routineItem = PropertiesFactory.eINSTANCE.createRoutineItem();
         Property myProperty = PropertiesFactory.eINSTANCE.createProperty();
         routineItem.setProperty(myProperty);
+        ItemState itemState = PropertiesFactory.eINSTANCE.createItemState();
+        itemState.setDeleted(false);
+        itemState.setPath("");
+        routineItem.setState(itemState);
         myProperty.setLabel("myRoutine");
         myProperty.setVersion("0.1");
         routineItem.setContent(PropertiesFactory.eINSTANCE.createByteArray());
@@ -264,41 +335,55 @@ public class XmiResourceManagerTest {
      * .
      * 
      * @throws PersistenceException
+     * @throws CoreException
      */
     @Test
-    public void testDeleteResource() throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
-        XmiResourceManager xrm = new XmiResourceManager();
+    public void testDeleteResource() throws CoreException {
+        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
-        // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
-        // so test only the 2 actually. (will need some refactor if want to test all easily..)
+            public void run(IProgressMonitor monitor) throws CoreException {
+                try {
+                    IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
+                    XmiResourceManager xrm = new XmiResourceManager();
 
-        ProcessItem processItem = createTempProcessItem();
-        Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS,
-                false);
-        assertTrue(processItemResource != null);
-        IFile file = URIHelper.getFile(processItemResource.getURI());
-        xrm.deleteResource(processItemResource);
-        assertTrue(!file.exists());
-        assertTrue(!xrm.resourceSet.getResources().contains(processItemResource));
+                    // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
+                    // so test only the 2 actually. (will need some refactor if want to test all easily..)
 
-        processItem = createTempProcessItem();
-        processItem.setFileExtension("process"); // test with file extension change.
-        processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS, false);
-        assertTrue(processItemResource != null);
-        file = URIHelper.getFile(processItemResource.getURI());
-        xrm.deleteResource(processItemResource);
-        assertTrue(!file.exists());
-        assertTrue(!xrm.resourceSet.getResources().contains(processItemResource));
+                    ProcessItem processItem = createTempProcessItem();
+                    Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""),
+                            ERepositoryObjectType.PROCESS, false);
+                    assertTrue(processItemResource != null);
+                    IFile file = URIHelper.getFile(processItemResource.getURI());
+                    xrm.deleteResource(processItemResource);
+                    assertTrue(!file.exists());
+                    assertTrue(!xrm.resourceSet.getResources().contains(processItemResource));
 
-        RoutineItem routineItem = createTempRoutineItem();
-        Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""), ERepositoryObjectType.ROUTINES,
-                true);
-        assertTrue(routineItemResource != null);
-        file = URIHelper.getFile(routineItemResource.getURI());
-        xrm.deleteResource(routineItemResource);
-        assertTrue(!file.exists());
-        assertTrue(!xrm.resourceSet.getResources().contains(routineItemResource));
+                    processItem = createTempProcessItem();
+                    processItem.setFileExtension("process"); // test with file extension change.
+                    processItemResource = xrm.createItemResource(project, processItem, new Path(""),
+                            ERepositoryObjectType.PROCESS, false);
+                    assertTrue(processItemResource != null);
+                    file = URIHelper.getFile(processItemResource.getURI());
+                    xrm.deleteResource(processItemResource);
+                    assertTrue(!file.exists());
+                    assertTrue(!xrm.resourceSet.getResources().contains(processItemResource));
+
+                    RoutineItem routineItem = createTempRoutineItem();
+                    Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""),
+                            ERepositoryObjectType.ROUTINES, true);
+                    assertTrue(routineItemResource != null);
+                    file = URIHelper.getFile(routineItemResource.getURI());
+                    xrm.deleteResource(routineItemResource);
+                    assertTrue(!file.exists());
+                    assertTrue(!xrm.resourceSet.getResources().contains(routineItemResource));
+                } catch (PersistenceException e) {
+                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository.test", "", e));
+                }
+            }
+
+        };
+        ResourcesPlugin.getWorkspace().run(op, ResourcesPlugin.getWorkspace().getRoot(), IWorkspace.AVOID_UPDATE,
+                new NullProgressMonitor());
     }
 
     /**
@@ -309,39 +394,52 @@ public class XmiResourceManagerTest {
      * @throws PersistenceException
      */
     @Test
-    public void testCreatePropertyResource() throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
-        XmiResourceManager xrm = new XmiResourceManager();
+    public void testCreatePropertyResource() throws CoreException {
+        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
-        // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
-        // so test only the 2 actually. (will need some refactor if want to test all easily..)
+            public void run(IProgressMonitor monitor) throws CoreException {
+                try {
+                    IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
+                    XmiResourceManager xrm = new XmiResourceManager();
 
-        ProcessItem processItem = createTempProcessItem();
-        Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS,
-                false);
-        assertTrue(processItemResource != null);
-        Resource propertyResource = xrm.createPropertyResource(processItemResource);
-        assertTrue(propertyResource != null);
-        xrm.deleteResource(propertyResource);
-        xrm.deleteResource(processItemResource);
+                    // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
+                    // so test only the 2 actually. (will need some refactor if want to test all easily..)
 
-        processItem = createTempProcessItem();
-        processItem.setFileExtension("process"); // test with file extension change
-        processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS, false);
-        assertTrue(processItemResource != null);
-        propertyResource = xrm.createPropertyResource(processItemResource);
-        assertTrue(propertyResource != null);
-        xrm.deleteResource(propertyResource);
-        xrm.deleteResource(processItemResource);
+                    ProcessItem processItem = createTempProcessItem();
+                    Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""),
+                            ERepositoryObjectType.PROCESS, false);
+                    assertTrue(processItemResource != null);
+                    Resource propertyResource = xrm.createPropertyResource(processItemResource);
+                    assertTrue(propertyResource != null);
+                    xrm.deleteResource(propertyResource);
+                    xrm.deleteResource(processItemResource);
 
-        RoutineItem routineItem = createTempRoutineItem();
-        Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""), ERepositoryObjectType.ROUTINES,
-                true);
-        assertTrue(routineItemResource != null);
-        propertyResource = xrm.createPropertyResource(routineItemResource);
-        assertTrue(propertyResource != null);
-        xrm.deleteResource(propertyResource);
-        xrm.deleteResource(routineItemResource);
+                    processItem = createTempProcessItem();
+                    processItem.setFileExtension("process"); // test with file extension change
+                    processItemResource = xrm.createItemResource(project, processItem, new Path(""),
+                            ERepositoryObjectType.PROCESS, false);
+                    assertTrue(processItemResource != null);
+                    propertyResource = xrm.createPropertyResource(processItemResource);
+                    assertTrue(propertyResource != null);
+                    xrm.deleteResource(propertyResource);
+                    xrm.deleteResource(processItemResource);
+
+                    RoutineItem routineItem = createTempRoutineItem();
+                    Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""),
+                            ERepositoryObjectType.ROUTINES, true);
+                    assertTrue(routineItemResource != null);
+                    propertyResource = xrm.createPropertyResource(routineItemResource);
+                    assertTrue(propertyResource != null);
+                    xrm.deleteResource(propertyResource);
+                    xrm.deleteResource(routineItemResource);
+                } catch (PersistenceException e) {
+                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository.test", "", e));
+                }
+            }
+
+        };
+        ResourcesPlugin.getWorkspace().run(op, ResourcesPlugin.getWorkspace().getRoot(), IWorkspace.AVOID_UPDATE,
+                new NullProgressMonitor());
     }
 
     /**
@@ -352,63 +450,79 @@ public class XmiResourceManagerTest {
      * @throws PersistenceException
      */
     @Test
-    public void testGetItemResource() throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
-        XmiResourceManager xrm = new XmiResourceManager();
+    public void testGetItemResource() throws CoreException {
+        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
-        // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
-        // so test only the 2 actually. (will need some refactor if want to test all easily..)
+            public void run(IProgressMonitor monitor) throws CoreException {
+                try {
+                    IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
+                    XmiResourceManager xrm = new XmiResourceManager();
 
-        ProcessItem processItem = createTempProcessItem();
-        Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS,
-                false);
-        Resource propertyResource = xrm.createPropertyResource(processItemResource);
-        propertyResource.getContents().add(processItem.getProperty());
-        propertyResource.getContents().add(processItem);
-        processItemResource.getContents().add(processItem.getProcess());
-        xrm.saveResource(processItemResource);
-        xrm.saveResource(propertyResource);
+                    // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
+                    // so test only the 2 actually. (will need some refactor if want to test all easily..)
 
-        Resource itemResource = xrm.getItemResource(processItem);
-        assertTrue(itemResource != null && itemResource.equals(processItemResource));
-        xrm.deleteResource(propertyResource);
-        xrm.deleteResource(itemResource);
+                    ProcessItem processItem = createTempProcessItem();
+                    Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""),
+                            ERepositoryObjectType.PROCESS, false);
+                    Resource propertyResource = xrm.createPropertyResource(processItemResource);
+                    propertyResource.getContents().add(processItem.getProperty());
+                    propertyResource.getContents().add(processItem.getState());
+                    propertyResource.getContents().add(processItem);
+                    processItemResource.getContents().add(processItem.getProcess());
+                    xrm.saveResource(processItemResource);
+                    xrm.saveResource(propertyResource);
 
-        // process with file extension changed
+                    Resource itemResource = xrm.getItemResource(processItem);
+                    assertTrue(itemResource != null && itemResource.equals(processItemResource));
+                    xrm.deleteResource(propertyResource);
+                    xrm.deleteResource(itemResource);
 
-        processItem = createTempProcessItem();
-        processItem.setFileExtension("process");
-        processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS, false);
-        propertyResource = xrm.createPropertyResource(processItemResource);
-        propertyResource.getContents().add(processItem.getProperty());
-        propertyResource.getContents().add(processItem);
-        processItemResource.getContents().add(processItem.getProcess());
-        xrm.saveResource(processItemResource);
-        xrm.saveResource(propertyResource);
+                    // process with file extension changed
 
-        itemResource = xrm.getItemResource(processItem);
-        assertTrue(itemResource.getURI().fileExtension().equals("process"));
-        assertTrue(itemResource != null && itemResource.equals(processItemResource));
-        xrm.deleteResource(propertyResource);
-        xrm.deleteResource(itemResource);
+                    processItem = createTempProcessItem();
+                    processItem.setFileExtension("process");
+                    processItemResource = xrm.createItemResource(project, processItem, new Path(""),
+                            ERepositoryObjectType.PROCESS, false);
+                    propertyResource = xrm.createPropertyResource(processItemResource);
+                    propertyResource.getContents().add(processItem.getProperty());
+                    propertyResource.getContents().add(processItem.getState());
+                    propertyResource.getContents().add(processItem);
+                    processItemResource.getContents().add(processItem.getProcess());
+                    xrm.saveResource(processItemResource);
+                    xrm.saveResource(propertyResource);
 
-        // / routine
+                    itemResource = xrm.getItemResource(processItem);
+                    assertTrue(itemResource.getURI().fileExtension().equals("process"));
+                    assertTrue(itemResource != null && itemResource.equals(processItemResource));
+                    xrm.deleteResource(propertyResource);
+                    xrm.deleteResource(itemResource);
 
-        RoutineItem routineItem = createTempRoutineItem();
-        Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""), ERepositoryObjectType.ROUTINES,
-                true);
-        propertyResource = xrm.createPropertyResource(routineItemResource);
-        propertyResource.getContents().add(routineItem.getProperty());
-        propertyResource.getContents().add(routineItem);
-        routineItemResource.getContents().add(routineItem.getContent());
-        xrm.saveResource(routineItemResource);
-        xrm.saveResource(propertyResource);
+                    // / routine
 
-        itemResource = xrm.getItemResource(routineItem);
-        assertTrue(itemResource != null && itemResource.equals(routineItemResource));
+                    RoutineItem routineItem = createTempRoutineItem();
+                    Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""),
+                            ERepositoryObjectType.ROUTINES, true);
+                    propertyResource = xrm.createPropertyResource(routineItemResource);
+                    propertyResource.getContents().add(routineItem.getProperty());
+                    propertyResource.getContents().add(routineItem.getState());
+                    propertyResource.getContents().add(routineItem);
+                    routineItemResource.getContents().add(routineItem.getContent());
+                    xrm.saveResource(routineItemResource);
+                    xrm.saveResource(propertyResource);
 
-        xrm.deleteResource(propertyResource);
-        xrm.deleteResource(routineItemResource);
+                    itemResource = xrm.getItemResource(routineItem);
+                    assertTrue(itemResource != null && itemResource.equals(routineItemResource));
+
+                    xrm.deleteResource(propertyResource);
+                    xrm.deleteResource(routineItemResource);
+                } catch (PersistenceException e) {
+                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository.test", "", e));
+                }
+            }
+
+        };
+        ResourcesPlugin.getWorkspace().run(op, ResourcesPlugin.getWorkspace().getRoot(), IWorkspace.AVOID_UPDATE,
+                new NullProgressMonitor());
     }
 
     /**
@@ -419,83 +533,99 @@ public class XmiResourceManagerTest {
      * @throws PersistenceException
      */
     @Test
-    public void testGetAffectedResources() throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
-        XmiResourceManager xrm = new XmiResourceManager();
+    public void testGetAffectedResources() throws CoreException {
+        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
-        // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
-        // so test only the 2 actually. (will need some refactor if want to test all easily..)
+            public void run(IProgressMonitor monitor) throws CoreException {
+                try {
+                    IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
+                    XmiResourceManager xrm = new XmiResourceManager();
 
-        ProcessItem processItem = createTempProcessItem();
-        Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS,
-                false);
-        Resource propertyResource = xrm.createPropertyResource(processItemResource);
-        propertyResource.getContents().add(processItem.getProperty());
-        propertyResource.getContents().add(processItem);
-        processItemResource.getContents().add(processItem.getProcess());
-        Resource screenshotsResource = xrm.createScreenshotResource(project, processItem, new Path(""),
-                ERepositoryObjectType.PROCESS, false);
-        screenshotsResource.getContents().addAll(processItem.getProcess().getScreenshots());
+                    // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
+                    // so test only the 2 actually. (will need some refactor if want to test all easily..)
 
-        xrm.saveResource(processItemResource);
-        xrm.saveResource(propertyResource);
-        xrm.saveResource(screenshotsResource);
+                    ProcessItem processItem = createTempProcessItem();
+                    Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""),
+                            ERepositoryObjectType.PROCESS, false);
+                    Resource propertyResource = xrm.createPropertyResource(processItemResource);
+                    propertyResource.getContents().add(processItem.getProperty());
+                    propertyResource.getContents().add(processItem.getState());
+                    propertyResource.getContents().add(processItem);
+                    processItemResource.getContents().add(processItem.getProcess());
+                    Resource screenshotsResource = xrm.createScreenshotResource(project, processItem, new Path(""),
+                            ERepositoryObjectType.PROCESS, false);
+                    screenshotsResource.getContents().addAll(processItem.getProcess().getScreenshots());
 
-        List<Resource> resources = xrm.getAffectedResources(processItem.getProperty());
-        assertTrue(resources.size() == 3);
-        assertTrue(resources.contains(processItemResource));
-        assertTrue(resources.contains(propertyResource));
-        assertTrue(resources.contains(screenshotsResource));
+                    xrm.saveResource(processItemResource);
+                    xrm.saveResource(propertyResource);
+                    xrm.saveResource(screenshotsResource);
 
-        xrm.deleteResource(propertyResource);
-        xrm.deleteResource(processItemResource);
-        xrm.deleteResource(screenshotsResource);
+                    List<Resource> resources = xrm.getAffectedResources(processItem.getProperty());
+                    assertTrue(resources.size() == 3);
+                    assertTrue(resources.contains(processItemResource));
+                    assertTrue(resources.contains(propertyResource));
+                    assertTrue(resources.contains(screenshotsResource));
 
-        // process with file extension change
-        processItem = createTempProcessItem();
-        processItem.setFileExtension("process");
-        processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS, false);
-        propertyResource = xrm.createPropertyResource(processItemResource);
-        propertyResource.getContents().add(processItem.getProperty());
-        propertyResource.getContents().add(processItem);
-        processItemResource.getContents().add(processItem.getProcess());
-        screenshotsResource = xrm.createScreenshotResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS,
-                false);
-        screenshotsResource.getContents().addAll(processItem.getProcess().getScreenshots());
+                    xrm.deleteResource(propertyResource);
+                    xrm.deleteResource(processItemResource);
+                    xrm.deleteResource(screenshotsResource);
 
-        xrm.saveResource(processItemResource);
-        xrm.saveResource(propertyResource);
-        xrm.saveResource(screenshotsResource);
+                    // process with file extension change
+                    processItem = createTempProcessItem();
+                    processItem.setFileExtension("process");
+                    processItemResource = xrm.createItemResource(project, processItem, new Path(""),
+                            ERepositoryObjectType.PROCESS, false);
+                    propertyResource = xrm.createPropertyResource(processItemResource);
+                    propertyResource.getContents().add(processItem.getProperty());
+                    propertyResource.getContents().add(processItem.getState());
+                    propertyResource.getContents().add(processItem);
+                    processItemResource.getContents().add(processItem.getProcess());
+                    screenshotsResource = xrm.createScreenshotResource(project, processItem, new Path(""),
+                            ERepositoryObjectType.PROCESS, false);
+                    screenshotsResource.getContents().addAll(processItem.getProcess().getScreenshots());
 
-        resources = xrm.getAffectedResources(processItem.getProperty());
-        assertTrue(resources.size() == 3);
-        assertTrue(resources.contains(processItemResource));
-        assertTrue(resources.contains(propertyResource));
-        assertTrue(resources.contains(screenshotsResource));
+                    xrm.saveResource(processItemResource);
+                    xrm.saveResource(propertyResource);
+                    xrm.saveResource(screenshotsResource);
 
-        xrm.deleteResource(propertyResource);
-        xrm.deleteResource(processItemResource);
-        xrm.deleteResource(screenshotsResource);
+                    resources = xrm.getAffectedResources(processItem.getProperty());
+                    assertTrue(resources.size() == 3);
+                    assertTrue(resources.contains(processItemResource));
+                    assertTrue(resources.contains(propertyResource));
+                    assertTrue(resources.contains(screenshotsResource));
 
-        // routine
+                    xrm.deleteResource(propertyResource);
+                    xrm.deleteResource(processItemResource);
+                    xrm.deleteResource(screenshotsResource);
 
-        RoutineItem routineItem = createTempRoutineItem();
-        Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""), ERepositoryObjectType.ROUTINES,
-                true);
-        propertyResource = xrm.createPropertyResource(routineItemResource);
-        propertyResource.getContents().add(routineItem.getProperty());
-        propertyResource.getContents().add(routineItem);
-        routineItemResource.getContents().add(routineItem.getContent());
-        xrm.saveResource(routineItemResource);
-        xrm.saveResource(propertyResource);
+                    // routine
 
-        resources = xrm.getAffectedResources(routineItem.getProperty());
-        assertTrue(resources.size() == 2);
-        assertTrue(resources.contains(routineItemResource));
-        assertTrue(resources.contains(propertyResource));
+                    RoutineItem routineItem = createTempRoutineItem();
+                    Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""),
+                            ERepositoryObjectType.ROUTINES, true);
+                    propertyResource = xrm.createPropertyResource(routineItemResource);
+                    propertyResource.getContents().add(routineItem.getProperty());
+                    propertyResource.getContents().add(routineItem.getState());
+                    propertyResource.getContents().add(routineItem);
+                    routineItemResource.getContents().add(routineItem.getContent());
+                    xrm.saveResource(routineItemResource);
+                    xrm.saveResource(propertyResource);
 
-        xrm.deleteResource(propertyResource);
-        xrm.deleteResource(routineItemResource);
+                    resources = xrm.getAffectedResources(routineItem.getProperty());
+                    assertTrue(resources.size() == 2);
+                    assertTrue(resources.contains(routineItemResource));
+                    assertTrue(resources.contains(propertyResource));
+
+                    xrm.deleteResource(propertyResource);
+                    xrm.deleteResource(routineItemResource);
+                } catch (PersistenceException e) {
+                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository.test", "", e));
+                }
+            }
+
+        };
+        ResourcesPlugin.getWorkspace().run(op, ResourcesPlugin.getWorkspace().getRoot(), IWorkspace.AVOID_UPDATE,
+                new NullProgressMonitor());
     }
 
     /**
@@ -505,56 +635,72 @@ public class XmiResourceManagerTest {
      * @throws PersistenceException
      */
     @Test
-    public void testLoadProperty() throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
-        XmiResourceManager xrm = new XmiResourceManager();
+    public void testLoadProperty() throws CoreException {
+        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
-        // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
-        // so test only the 2 actually. (will need some refactor if want to test all easily..)
+            public void run(IProgressMonitor monitor) throws CoreException {
+                try {
+                    IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
+                    XmiResourceManager xrm = new XmiResourceManager();
 
-        ProcessItem processItem = createTempProcessItem();
-        Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS,
-                false);
-        Resource propertyResource = xrm.createPropertyResource(processItemResource);
-        propertyResource.getContents().add(processItem.getProperty());
-        propertyResource.getContents().add(processItem);
-        processItemResource.getContents().add(processItem.getProcess());
-        xrm.saveResource(processItemResource);
-        xrm.saveResource(propertyResource);
+                    // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
+                    // so test only the 2 actually. (will need some refactor if want to test all easily..)
 
-        IFile file = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.PROCESS)
-                + "/myJob_0.1.properties"));
+                    ProcessItem processItem = createTempProcessItem();
+                    Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""),
+                            ERepositoryObjectType.PROCESS, false);
+                    Resource propertyResource = xrm.createPropertyResource(processItemResource);
+                    propertyResource.getContents().add(processItem.getProperty());
+                    propertyResource.getContents().add(processItem.getState());
+                    propertyResource.getContents().add(processItem);
+                    processItemResource.getContents().add(processItem.getProcess());
+                    xrm.saveResource(processItemResource);
+                    xrm.saveResource(propertyResource);
 
-        Property property = xrm.loadProperty(file);
-        // old resource should be unloaded, since we force to reload
-        assertTrue(processItem.eResource() == null);
-        assertTrue(property.eResource() != null);
-        assertTrue(property.getLabel().equals("myJob"));
+                    IFile file = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.PROCESS)
+                            + "/myJob_0.1.properties"));
 
-        xrm.deleteResource(property.eResource());
-        xrm.deleteResource(property.getItem().eResource());
+                    Property property = xrm.loadProperty(file);
+                    // old resource should be unloaded, since we force to reload
+                    assertTrue(processItem.eResource() == null);
+                    assertTrue(property.eResource() != null);
+                    assertTrue(property.getLabel().equals("myJob"));
 
-        RoutineItem routineItem = createTempRoutineItem();
-        Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""), ERepositoryObjectType.ROUTINES,
-                true);
-        propertyResource = xrm.createPropertyResource(routineItemResource);
-        propertyResource.getContents().add(routineItem.getProperty());
-        propertyResource.getContents().add(routineItem);
-        routineItemResource.getContents().add(routineItem.getContent());
-        xrm.saveResource(routineItemResource);
-        xrm.saveResource(propertyResource);
+                    for (Resource resource : xrm.getAffectedResources(property)) {
+                        xrm.deleteResource(resource);
+                    }
 
-        file = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTINES)
-                + "/myRoutine_0.1.properties"));
+                    RoutineItem routineItem = createTempRoutineItem();
+                    Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""),
+                            ERepositoryObjectType.ROUTINES, true);
+                    propertyResource = xrm.createPropertyResource(routineItemResource);
+                    propertyResource.getContents().add(routineItem.getProperty());
+                    propertyResource.getContents().add(routineItem.getState());
+                    propertyResource.getContents().add(routineItem);
+                    routineItemResource.getContents().add(routineItem.getContent());
+                    xrm.saveResource(routineItemResource);
+                    xrm.saveResource(propertyResource);
 
-        property = xrm.loadProperty(file);
-        // old resource should be unloaded, since we force to reload
-        assertTrue(processItem.eResource() == null);
-        assertTrue(property.eResource() != null);
-        assertTrue(property.getLabel().equals("myRoutine"));
+                    file = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTINES)
+                            + "/myRoutine_0.1.properties"));
 
-        xrm.deleteResource(property.eResource());
-        xrm.deleteResource(property.getItem().eResource());
+                    property = xrm.loadProperty(file);
+                    // old resource should be unloaded, since we force to reload
+                    assertTrue(processItem.eResource() == null);
+                    assertTrue(property.eResource() != null);
+                    assertTrue(property.getLabel().equals("myRoutine"));
+
+                    for (Resource resource : xrm.getAffectedResources(property)) {
+                        xrm.deleteResource(resource);
+                    }
+                } catch (PersistenceException e) {
+                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository.test", "", e));
+                }
+            }
+
+        };
+        ResourcesPlugin.getWorkspace().run(op, ResourcesPlugin.getWorkspace().getRoot(), IWorkspace.AVOID_UPDATE,
+                new NullProgressMonitor());
     }
 
     /**
@@ -565,50 +711,66 @@ public class XmiResourceManagerTest {
      * @throws PersistenceException
      */
     @Test
-    public void testForceReloadProperty() throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
-        XmiResourceManager xrm = new XmiResourceManager();
+    public void testForceReloadProperty() throws CoreException {
+        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
-        // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
-        // so test only the 2 actually. (will need some refactor if want to test all easily..)
+            public void run(IProgressMonitor monitor) throws CoreException {
+                try {
+                    IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
+                    XmiResourceManager xrm = new XmiResourceManager();
 
-        ProcessItem processItem = createTempProcessItem();
-        Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS,
-                false);
-        Resource propertyResource = xrm.createPropertyResource(processItemResource);
-        propertyResource.getContents().add(processItem.getProperty());
-        propertyResource.getContents().add(processItem);
-        processItemResource.getContents().add(processItem.getProcess());
-        xrm.saveResource(processItemResource);
-        xrm.saveResource(propertyResource);
+                    // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
+                    // so test only the 2 actually. (will need some refactor if want to test all easily..)
 
-        Property property = xrm.forceReloadProperty(processItem.getProperty());
-        // old resource should be unloaded, since we force to reload
-        assertTrue(processItem.eResource() == null);
-        assertTrue(property.eResource() != null);
-        assertTrue(property.getLabel().equals("myJob"));
+                    ProcessItem processItem = createTempProcessItem();
+                    Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""),
+                            ERepositoryObjectType.PROCESS, false);
+                    Resource propertyResource = xrm.createPropertyResource(processItemResource);
+                    propertyResource.getContents().add(processItem.getProperty());
+                    propertyResource.getContents().add(processItem.getState());
+                    propertyResource.getContents().add(processItem);
+                    processItemResource.getContents().add(processItem.getProcess());
+                    xrm.saveResource(processItemResource);
+                    xrm.saveResource(propertyResource);
 
-        xrm.deleteResource(property.eResource());
-        xrm.deleteResource(property.getItem().eResource());
+                    Property property = xrm.forceReloadProperty(processItem.getProperty());
+                    // old resource should be unloaded, since we force to reload
+                    assertTrue(processItem.eResource() == null);
+                    assertTrue(property.eResource() != null);
+                    assertTrue(property.getLabel().equals("myJob"));
 
-        RoutineItem routineItem = createTempRoutineItem();
-        Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""), ERepositoryObjectType.ROUTINES,
-                true);
-        propertyResource = xrm.createPropertyResource(routineItemResource);
-        propertyResource.getContents().add(routineItem.getProperty());
-        propertyResource.getContents().add(routineItem);
-        routineItemResource.getContents().add(routineItem.getContent());
-        xrm.saveResource(routineItemResource);
-        xrm.saveResource(propertyResource);
+                    for (Resource resource : xrm.getAffectedResources(property)) {
+                        xrm.deleteResource(resource);
+                    }
 
-        property = xrm.forceReloadProperty(routineItem.getProperty());
-        // old resource should be unloaded, since we force to reload
-        assertTrue(routineItem.eResource() == null);
-        assertTrue(property.eResource() != null);
-        assertTrue(property.getLabel().equals("myRoutine"));
+                    RoutineItem routineItem = createTempRoutineItem();
+                    Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""),
+                            ERepositoryObjectType.ROUTINES, true);
+                    propertyResource = xrm.createPropertyResource(routineItemResource);
+                    propertyResource.getContents().add(routineItem.getProperty());
+                    propertyResource.getContents().add(routineItem.getState());
+                    propertyResource.getContents().add(routineItem);
+                    routineItemResource.getContents().add(routineItem.getContent());
+                    xrm.saveResource(routineItemResource);
+                    xrm.saveResource(propertyResource);
 
-        xrm.deleteResource(property.eResource());
-        xrm.deleteResource(property.getItem().eResource());
+                    property = xrm.forceReloadProperty(routineItem.getProperty());
+                    // old resource should be unloaded, since we force to reload
+                    assertTrue(routineItem.eResource() == null);
+                    assertTrue(property.eResource() != null);
+                    assertTrue(property.getLabel().equals("myRoutine"));
+
+                    for (Resource resource : xrm.getAffectedResources(property)) {
+                        xrm.deleteResource(resource);
+                    }
+                } catch (PersistenceException e) {
+                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository.test", "", e));
+                }
+            }
+
+        };
+        ResourcesPlugin.getWorkspace().run(op, ResourcesPlugin.getWorkspace().getRoot(), IWorkspace.AVOID_UPDATE,
+                new NullProgressMonitor());
     }
 
     /**
@@ -619,60 +781,76 @@ public class XmiResourceManagerTest {
      * @throws PersistenceException
      */
     @Test
-    public void testMoveResource() throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
-        XmiResourceManager xrm = new XmiResourceManager();
+    public void testMoveResource() throws CoreException {
+        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
-        // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
-        // so test only the 2 actually. (will need some refactor if want to test all easily..)
+            public void run(IProgressMonitor monitor) throws CoreException {
+                try {
+                    IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
+                    XmiResourceManager xrm = new XmiResourceManager();
 
-        ProcessItem processItem = createTempProcessItem();
-        Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS,
-                false);
-        assertTrue(processItemResource != null);
-        Resource propertyResource = xrm.createPropertyResource(processItemResource);
-        assertTrue(propertyResource != null);
-        propertyResource.getContents().add(processItem.getProperty());
-        propertyResource.getContents().add(processItem);
-        processItemResource.getContents().add(processItem.getProcess());
-        Resource screenshotsResource = xrm.createScreenshotResource(project, processItem, new Path(""),
-                ERepositoryObjectType.PROCESS, false);
-        screenshotsResource.getContents().addAll(processItem.getProcess().getScreenshots());
+                    // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
+                    // so test only the 2 actually. (will need some refactor if want to test all easily..)
 
-        xrm.saveResource(processItemResource);
-        xrm.saveResource(propertyResource);
-        xrm.saveResource(screenshotsResource);
+                    ProcessItem processItem = createTempProcessItem();
+                    Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""),
+                            ERepositoryObjectType.PROCESS, false);
+                    assertTrue(processItemResource != null);
+                    Resource propertyResource = xrm.createPropertyResource(processItemResource);
+                    assertTrue(propertyResource != null);
+                    propertyResource.getContents().add(processItem.getProperty());
+                    propertyResource.getContents().add(processItem.getState());
+                    propertyResource.getContents().add(processItem);
+                    processItemResource.getContents().add(processItem.getProcess());
+                    Resource screenshotsResource = xrm.createScreenshotResource(project, processItem, new Path(""),
+                            ERepositoryObjectType.PROCESS, false);
+                    screenshotsResource.getContents().addAll(processItem.getProcess().getScreenshots());
 
-        for (Resource resource : xrm.getAffectedResources(processItem.getProperty())) {
-            xrm.moveResource(resource, project.getFolder("/temp").getFullPath().append(resource.getURI().lastSegment()));
-        }
+                    xrm.saveResource(processItemResource);
+                    xrm.saveResource(propertyResource);
+                    xrm.saveResource(screenshotsResource);
 
-        assertTrue(processItem.eResource() != null);
-        assertTrue(processItem.eResource().getURI().toString().endsWith("/temp/myJob_0.1.properties"));
+                    for (Resource resource : xrm.getAffectedResources(processItem.getProperty())) {
+                        xrm.moveResource(resource,
+                                project.getFolder("/temp").getFullPath().append(resource.getURI().lastSegment()));
+                    }
 
-        xrm.deleteResource(propertyResource);
-        xrm.deleteResource(processItemResource);
-        xrm.deleteResource(screenshotsResource);
+                    assertTrue(processItem.eResource() != null);
+                    assertTrue(processItem.eResource().getURI().toString().endsWith("/temp/myJob_0.1.properties"));
 
-        RoutineItem routineItem = createTempRoutineItem();
-        Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""), ERepositoryObjectType.ROUTINES,
-                true);
-        propertyResource = xrm.createPropertyResource(routineItemResource);
-        propertyResource.getContents().add(routineItem.getProperty());
-        propertyResource.getContents().add(routineItem);
-        routineItemResource.getContents().add(routineItem.getContent());
-        xrm.saveResource(routineItemResource);
-        xrm.saveResource(propertyResource);
+                    xrm.deleteResource(propertyResource);
+                    xrm.deleteResource(processItemResource);
+                    xrm.deleteResource(screenshotsResource);
 
-        for (Resource resource : xrm.getAffectedResources(routineItem.getProperty())) {
-            xrm.moveResource(resource, project.getFolder("/temp").getFullPath().append(resource.getURI().lastSegment()));
-        }
+                    RoutineItem routineItem = createTempRoutineItem();
+                    Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""),
+                            ERepositoryObjectType.ROUTINES, true);
+                    propertyResource = xrm.createPropertyResource(routineItemResource);
+                    propertyResource.getContents().add(routineItem.getProperty());
+                    propertyResource.getContents().add(routineItem.getState());
+                    propertyResource.getContents().add(routineItem);
+                    routineItemResource.getContents().add(routineItem.getContent());
+                    xrm.saveResource(routineItemResource);
+                    xrm.saveResource(propertyResource);
 
-        assertTrue(routineItem.eResource() != null);
-        assertTrue(routineItem.eResource().getURI().toString().endsWith("/temp/myRoutine_0.1.properties"));
+                    for (Resource resource : xrm.getAffectedResources(routineItem.getProperty())) {
+                        xrm.moveResource(resource,
+                                project.getFolder("/temp").getFullPath().append(resource.getURI().lastSegment()));
+                    }
 
-        xrm.deleteResource(propertyResource);
-        xrm.deleteResource(routineItemResource);
+                    assertTrue(routineItem.eResource() != null);
+                    assertTrue(routineItem.eResource().getURI().toString().endsWith("/temp/myRoutine_0.1.properties"));
+
+                    xrm.deleteResource(propertyResource);
+                    xrm.deleteResource(routineItemResource);
+                } catch (PersistenceException e) {
+                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository.test", "", e));
+                }
+            }
+
+        };
+        ResourcesPlugin.getWorkspace().run(op, ResourcesPlugin.getWorkspace().getRoot(), IWorkspace.AVOID_UPDATE,
+                new NullProgressMonitor());
     }
 
     /**
@@ -683,52 +861,68 @@ public class XmiResourceManagerTest {
      * @throws PersistenceException
      */
     @Test
-    public void testSaveResource() throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
-        XmiResourceManager xrm = new XmiResourceManager();
+    public void testSaveResource() throws CoreException {
+        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
-        // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
-        // so test only the 2 actually. (will need some refactor if want to test all easily..)
+            public void run(IProgressMonitor monitor) throws CoreException {
+                try {
+                    IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
+                    XmiResourceManager xrm = new XmiResourceManager();
 
-        ProcessItem processItem = createTempProcessItem();
-        Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS,
-                false);
-        Resource propertyResource = xrm.createPropertyResource(processItemResource);
+                    // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
+                    // so test only the 2 actually. (will need some refactor if want to test all easily..)
 
-        propertyResource.getContents().add(processItem.getProperty());
-        propertyResource.getContents().add(processItem);
-        processItemResource.getContents().add(processItem.getProcess());
-        xrm.saveResource(processItemResource);
-        xrm.saveResource(propertyResource);
+                    ProcessItem processItem = createTempProcessItem();
+                    Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""),
+                            ERepositoryObjectType.PROCESS, false);
+                    Resource propertyResource = xrm.createPropertyResource(processItemResource);
 
-        Property property = xrm.forceReloadProperty(processItem.getProperty());
+                    propertyResource.getContents().add(processItem.getProperty());
+                    propertyResource.getContents().add(processItem.getState());
+                    propertyResource.getContents().add(processItem);
+                    processItemResource.getContents().add(processItem.getProcess());
+                    xrm.saveResource(processItemResource);
+                    xrm.saveResource(propertyResource);
 
-        assertTrue(((NodeType) ((ProcessItem) property.getItem()).getProcess().getNode().get(0)).getComponentName()
-                .equals("test"));
+                    Property property = xrm.forceReloadProperty(processItem.getProperty());
 
-        xrm.deleteResource(property.eResource());
-        xrm.deleteResource(property.getItem().eResource());
+                    assertTrue(((NodeType) ((ProcessItem) property.getItem()).getProcess().getNode().get(0)).getComponentName()
+                            .equals("test"));
 
-        RoutineItem routineItem = createTempRoutineItem();
-        Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""), ERepositoryObjectType.ROUTINES,
-                true);
-        propertyResource = xrm.createPropertyResource(routineItemResource);
+                    for (Resource resource : xrm.getAffectedResources(property)) {
+                        xrm.deleteResource(resource);
+                    }
 
-        routineItemResource.getContents().add(routineItem.getContent());
-        propertyResource.getContents().add(routineItem.getProperty());
-        propertyResource.getContents().add(routineItem);
-        xrm.saveResource(routineItemResource);
-        xrm.saveResource(propertyResource);
+                    RoutineItem routineItem = createTempRoutineItem();
+                    Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""),
+                            ERepositoryObjectType.ROUTINES, true);
+                    propertyResource = xrm.createPropertyResource(routineItemResource);
 
-        // check the routine still have the good value.
-        property = xrm.forceReloadProperty(routineItem.getProperty());
+                    routineItemResource.getContents().add(routineItem.getContent());
+                    propertyResource.getContents().add(routineItem.getProperty());
+                    propertyResource.getContents().add(routineItem.getState());
+                    propertyResource.getContents().add(routineItem);
+                    xrm.saveResource(routineItemResource);
+                    xrm.saveResource(propertyResource);
 
-        String content = new String(((RoutineItem) property.getItem()).getContent().getInnerContent());
+                    // check the routine still have the good value.
+                    property = xrm.forceReloadProperty(routineItem.getProperty());
 
-        assertTrue(content.equals("myRoutineContent"));
+                    String content = new String(((RoutineItem) property.getItem()).getContent().getInnerContent());
 
-        xrm.deleteResource(property.eResource());
-        xrm.deleteResource(property.getItem().eResource());
+                    assertTrue(content.equals("myRoutineContent"));
+
+                    for (Resource resource : xrm.getAffectedResources(property)) {
+                        xrm.deleteResource(resource);
+                    }
+                } catch (PersistenceException e) {
+                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository.test", "", e));
+                }
+            }
+
+        };
+        ResourcesPlugin.getWorkspace().run(op, ResourcesPlugin.getWorkspace().getRoot(), IWorkspace.AVOID_UPDATE,
+                new NullProgressMonitor());
     }
 
     /**
@@ -749,33 +943,47 @@ public class XmiResourceManagerTest {
      * @throws PersistenceException
      */
     @Test
-    public void testIsPropertyFileIFile() throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
-        XmiResourceManager xrm = new XmiResourceManager();
+    public void testIsPropertyFileIFile() throws CoreException {
+        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
-        // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
-        // so test only the 2 actually. (will need some refactor if want to test all easily..)
+            public void run(IProgressMonitor monitor) throws CoreException {
+                try {
+                    IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
+                    XmiResourceManager xrm = new XmiResourceManager();
 
-        ProcessItem processItem = createTempProcessItem();
-        Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS,
-                false);
-        Resource propertyResource = xrm.createPropertyResource(processItemResource);
+                    // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
+                    // so test only the 2 actually. (will need some refactor if want to test all easily..)
 
-        propertyResource.getContents().add(processItem.getProperty());
-        propertyResource.getContents().add(processItem);
+                    ProcessItem processItem = createTempProcessItem();
+                    Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""),
+                            ERepositoryObjectType.PROCESS, false);
+                    Resource propertyResource = xrm.createPropertyResource(processItemResource);
 
-        processItemResource.getContents().add(processItem.getProcess());
-        xrm.saveResource(processItemResource);
-        xrm.saveResource(propertyResource);
+                    propertyResource.getContents().add(processItem.getProperty());
+                    propertyResource.getContents().add(processItem.getState());
+                    propertyResource.getContents().add(processItem);
 
-        IFile file = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.PROCESS)
-                + "/myJob_0.1.properties"));
-        assertTrue(xrm.isPropertyFile(file));
-        file = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.PROCESS) + "/myJob_0.1.item"));
-        assertTrue(!xrm.isPropertyFile(file));
+                    processItemResource.getContents().add(processItem.getProcess());
+                    xrm.saveResource(processItemResource);
+                    xrm.saveResource(propertyResource);
 
-        xrm.deleteResource(propertyResource);
-        xrm.deleteResource(processItemResource);
+                    IFile file = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.PROCESS)
+                            + "/myJob_0.1.properties"));
+                    assertTrue(xrm.isPropertyFile(file));
+                    file = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.PROCESS)
+                            + "/myJob_0.1.item"));
+                    assertTrue(!xrm.isPropertyFile(file));
+
+                    xrm.deleteResource(propertyResource);
+                    xrm.deleteResource(processItemResource);
+                } catch (PersistenceException e) {
+                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository.test", "", e));
+                }
+            }
+
+        };
+        ResourcesPlugin.getWorkspace().run(op, ResourcesPlugin.getWorkspace().getRoot(), IWorkspace.AVOID_UPDATE,
+                new NullProgressMonitor());
     }
 
     /**
@@ -834,13 +1042,26 @@ public class XmiResourceManagerTest {
      * @throws PersistenceException
      */
     @Test
-    public void testPropagateFileName() throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
-        XmiResourceManager xrm = new XmiResourceManager();
+    public void testPropagateFileName() throws CoreException {
+        ResourcesPlugin.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
+        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
-        testProcesspropagateFileName(project, xrm);
+            public void run(IProgressMonitor monitor) throws CoreException {
+                try {
+                    IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
+                    XmiResourceManager xrm = new XmiResourceManager();
 
-        testRoutinepropagateFileName(project, xrm);
+                    testProcesspropagateFileName(project, xrm);
+
+                    testRoutinepropagateFileName(project, xrm);
+                } catch (PersistenceException e) {
+                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository.test", "", e));
+                }
+            }
+
+        };
+        ResourcesPlugin.getWorkspace().run(op, ResourcesPlugin.getWorkspace().getRoot(), IWorkspace.AVOID_UPDATE,
+                new NullProgressMonitor());
     }
 
     private void testProcesspropagateFileName(IProject project, XmiResourceManager xrm) throws PersistenceException {
@@ -849,6 +1070,7 @@ public class XmiResourceManagerTest {
                 false);
         Resource propertyResource = xrm.createPropertyResource(processItemResource);
         propertyResource.getContents().add(processItem.getProperty());
+        propertyResource.getContents().add(processItem.getState());
         propertyResource.getContents().add(processItem);
         processItemResource.getContents().add(processItem.getProcess());
         Resource screenshotsResource = xrm.createScreenshotResource(project, processItem, new Path(""),
@@ -937,21 +1159,34 @@ public class XmiResourceManagerTest {
         oldProperty = xrm.loadProperty(file);
         assertTrue(((NodeType) ((ProcessItem) oldProperty.getItem()).getProcess().getNode().get(0)).getComponentVersion().equals(
                 "0.1"));
+        List<Resource> resources = xrm.getAffectedResources(oldProperty);
+        for (Resource resource : resources) {
+            xrm.deleteResource(resource);
+        }
         file = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.PROCESS)
                 + "/myJob_0.2.properties"));
         oldProperty = xrm.loadProperty(file);
         assertTrue(((NodeType) ((ProcessItem) oldProperty.getItem()).getProcess().getNode().get(0)).getComponentVersion().equals(
                 "0.2"));
+        resources = xrm.getAffectedResources(oldProperty);
+        for (Resource resource : resources) {
+            xrm.deleteResource(resource);
+        }
         file = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.PROCESS)
                 + "/myJob_0.3.properties"));
         oldProperty = xrm.loadProperty(file);
         assertTrue(((NodeType) ((ProcessItem) oldProperty.getItem()).getProcess().getNode().get(0)).getComponentVersion().equals(
                 "0.3"));
+        resources = xrm.getAffectedResources(oldProperty);
+        for (Resource resource : resources) {
+            xrm.deleteResource(resource);
+        }
+
         assertTrue(((NodeType) processItem.getProcess().getNode().get(0)).getComponentVersion().equals("1.0"));
 
         Property property = xrm.forceReloadProperty(processItem.getProperty());
 
-        List<Resource> resources = xrm.getAffectedResources(property);
+        resources = xrm.getAffectedResources(property);
         for (Resource resource : resources) {
             xrm.deleteResource(resource);
         }
@@ -965,6 +1200,7 @@ public class XmiResourceManagerTest {
 
         routineItemResource.getContents().add(routineItem.getContent());
         propertyResource.getContents().add(routineItem.getProperty());
+        propertyResource.getContents().add(routineItem.getState());
         propertyResource.getContents().add(routineItem);
         xrm.saveResource(routineItemResource);
         xrm.saveResource(propertyResource);
@@ -1048,47 +1284,72 @@ public class XmiResourceManagerTest {
         oldProperty = xrm.loadProperty(file);
         content = new String(((RoutineItem) oldProperty.getItem()).getContent().getInnerContent());
         assertTrue(content.equals("myRoutineContent"));
+        List<Resource> resources = xrm.getAffectedResources(oldProperty);
+        for (Resource resource : resources) {
+            xrm.deleteResource(resource);
+        }
         file = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTINES)
                 + "/myRoutine_0.2.properties"));
         oldProperty = xrm.loadProperty(file);
         content = new String(((RoutineItem) oldProperty.getItem()).getContent().getInnerContent());
         assertTrue(content.equals("myRoutineContent_0.2"));
+        resources = xrm.getAffectedResources(oldProperty);
+        for (Resource resource : resources) {
+            xrm.deleteResource(resource);
+        }
         file = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTINES)
                 + "/myRoutine_0.3.properties"));
         oldProperty = xrm.loadProperty(file);
         content = new String(((RoutineItem) oldProperty.getItem()).getContent().getInnerContent());
         assertTrue(content.equals("myRoutineContent_0.3"));
+
+        resources = xrm.getAffectedResources(oldProperty);
+        for (Resource resource : resources) {
+            xrm.deleteResource(resource);
+        }
         content = new String(routineItem.getContent().getInnerContent());
         assertTrue(content.equals("myRoutineContent_1.0"));
 
         Property property = xrm.forceReloadProperty(routineItem.getProperty());
-        xrm.deleteResource(property.eResource());
-        xrm.deleteResource(property.getItem().eResource());
+        resources = xrm.getAffectedResources(property);
+        for (Resource resource : resources) {
+            xrm.deleteResource(resource);
+        }
     }
 
     /**
      * Test method for {@link org.talend.core.repository.utils.XmiResourceManager#unloadResources()}.
      * 
-     * @throws IOException
-     * @throws PersistenceException
      * @throws CoreException
      */
     @Test
-    public void testUnloadResources() throws IOException, PersistenceException, CoreException {
-        Project project = createTempProject();
-        XmiResourceManager xrm = new XmiResourceManager();
-        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-        IProject prj = root.getProject("TESTAUTO");
-        Resource projectResource = xrm.createProjectResource(prj);
-        projectResource.getContents().add(project.getEmfProject());
-        projectResource.getContents().add(project.getAuthor());
-        xrm.saveResource(projectResource);
-        org.talend.core.model.properties.Project emfProject = xrm.loadProject(prj);
-        assertTrue(emfProject.getTechnicalLabel().equals("TESTAUTO"));
-        assertTrue(emfProject.eResource().isLoaded());
-        xrm.unloadResources();
-        assertTrue(emfProject.eResource() == null);
-        prj.delete(true, null);
+    public void testUnloadResources() throws CoreException {
+        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
+
+            public void run(IProgressMonitor monitor) throws CoreException {
+                try {
+                    Project project = createTempProject();
+                    XmiResourceManager xrm = new XmiResourceManager();
+                    IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+                    IProject prj = root.getProject("TESTAUTO");
+                    Resource projectResource = xrm.createProjectResource(prj);
+                    projectResource.getContents().add(project.getEmfProject());
+                    projectResource.getContents().add(project.getAuthor());
+                    xrm.saveResource(projectResource);
+                    org.talend.core.model.properties.Project emfProject = xrm.loadProject(prj);
+                    assertTrue(emfProject.getTechnicalLabel().equals("TESTAUTO"));
+                    assertTrue(emfProject.eResource().isLoaded());
+                    xrm.unloadResources();
+                    assertTrue(emfProject.eResource() == null);
+                    prj.delete(true, null);
+                } catch (PersistenceException e) {
+                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository.test", "", e));
+                }
+            }
+
+        };
+        ResourcesPlugin.getWorkspace().run(op, ResourcesPlugin.getWorkspace().getRoot(), IWorkspace.AVOID_UPDATE,
+                new NullProgressMonitor());
     }
 
     /**
@@ -1096,59 +1357,77 @@ public class XmiResourceManagerTest {
      * {@link org.talend.core.repository.utils.XmiResourceManager#unloadResources(org.talend.core.model.properties.Property)}
      * .
      * 
-     * @throws PersistenceException
+     * @throws CoreException
      */
     @Test
-    public void testUnloadResourcesProperty() throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
-        XmiResourceManager xrm = new XmiResourceManager();
+    public void testUnloadResourcesProperty() throws CoreException {
+        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
-        // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
-        // so test only the 2 actually. (will need some refactor if want to test all easily..)
+            public void run(IProgressMonitor monitor) throws CoreException {
+                try {
+                    IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
+                    XmiResourceManager xrm = new XmiResourceManager();
 
-        ProcessItem processItem = createTempProcessItem();
-        Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS,
-                false);
-        Resource propertyResource = xrm.createPropertyResource(processItemResource);
-        propertyResource.getContents().add(processItem.getProperty());
-        propertyResource.getContents().add(processItem);
-        processItemResource.getContents().add(processItem.getProcess());
+                    // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
+                    // so test only the 2 actually. (will need some refactor if want to test all easily..)
 
-        xrm.saveResource(processItemResource);
-        xrm.saveResource(propertyResource);
+                    ProcessItem processItem = createTempProcessItem();
+                    Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""),
+                            ERepositoryObjectType.PROCESS, false);
+                    Resource propertyResource = xrm.createPropertyResource(processItemResource);
+                    propertyResource.getContents().add(processItem.getProperty());
+                    propertyResource.getContents().add(processItem.getState());
+                    propertyResource.getContents().add(processItem);
+                    processItemResource.getContents().add(processItem.getProcess());
 
-        xrm.unloadResources(processItem.getProperty());
-        assertTrue(processItem.eResource() == null);
-        assertTrue(processItem.getProperty().eResource() == null);
+                    xrm.saveResource(processItemResource);
+                    xrm.saveResource(propertyResource);
 
-        IFile file = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.PROCESS)
-                + "/myJob_0.1.properties"));
+                    xrm.unloadResources(processItem.getProperty());
+                    assertTrue(processItem.eResource() == null);
+                    assertTrue(processItem.getProperty().eResource() == null);
 
-        Property property = xrm.loadProperty(file);
+                    IFile file = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.PROCESS)
+                            + "/myJob_0.1.properties"));
 
-        xrm.deleteResource(property.eResource());
-        xrm.deleteResource(property.getItem().eResource());
+                    Property property = xrm.loadProperty(file);
 
-        RoutineItem routineItem = createTempRoutineItem();
-        Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""), ERepositoryObjectType.ROUTINES,
-                true);
-        propertyResource = xrm.createPropertyResource(routineItemResource);
-        propertyResource.getContents().add(routineItem.getProperty());
-        propertyResource.getContents().add(routineItem);
-        routineItemResource.getContents().add(routineItem.getContent());
-        xrm.saveResource(routineItemResource);
-        xrm.saveResource(propertyResource);
+                    List<Resource> resources = xrm.getAffectedResources(property);
+                    for (Resource resource : resources) {
+                        xrm.deleteResource(resource);
+                    }
 
-        xrm.unloadResources(routineItem.getProperty());
-        assertTrue(routineItem.eResource() == null);
-        assertTrue(routineItem.getProperty().eResource() == null);
-        file = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTINES)
-                + "/myRoutine_0.1.properties"));
+                    RoutineItem routineItem = createTempRoutineItem();
+                    Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""),
+                            ERepositoryObjectType.ROUTINES, true);
+                    propertyResource = xrm.createPropertyResource(routineItemResource);
+                    propertyResource.getContents().add(routineItem.getProperty());
+                    propertyResource.getContents().add(routineItem.getState());
+                    propertyResource.getContents().add(routineItem);
+                    routineItemResource.getContents().add(routineItem.getContent());
+                    xrm.saveResource(routineItemResource);
+                    xrm.saveResource(propertyResource);
 
-        property = xrm.loadProperty(file);
+                    xrm.unloadResources(routineItem.getProperty());
+                    assertTrue(routineItem.eResource() == null);
+                    assertTrue(routineItem.getProperty().eResource() == null);
+                    file = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTINES)
+                            + "/myRoutine_0.1.properties"));
 
-        xrm.deleteResource(property.eResource());
-        xrm.deleteResource(property.getItem().eResource());
+                    property = xrm.loadProperty(file);
+
+                    resources = xrm.getAffectedResources(property);
+                    for (Resource resource : resources) {
+                        xrm.deleteResource(resource);
+                    }
+                } catch (PersistenceException e) {
+                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository.test", "", e));
+                }
+            }
+
+        };
+        ResourcesPlugin.getWorkspace().run(op, ResourcesPlugin.getWorkspace().getRoot(), IWorkspace.AVOID_UPDATE,
+                new NullProgressMonitor());
     }
 
     /**
