@@ -44,11 +44,13 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.ui.gmf.util.DisplayUtils;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
@@ -200,9 +202,20 @@ public abstract class PropertiesWizardPage extends WizardPage {
                         listExistingObjects = service.getProxyRepositoryFactory().getAll(type, true, false);
                     }
                 } catch (PersistenceException e) {
-                    return new org.eclipse.core.runtime.Status(IStatus.ERROR, "", 1, "", e); //$NON-NLS-1$ //$NON-NLS-2$
+                    return new org.eclipse.core.runtime.Status(IStatus.ERROR, "org.talend.metadata.management.ui", 1, "", e); //$NON-NLS-1$ //$NON-NLS-2$
                 }
                 retrieveNameFinished = true;
+                // force the refresh of the text field, no matter successfull retrieve of not.
+                Display d = DisplayUtils.getDisplay();
+                if (d != null) {
+                    d.syncExec(new Runnable() {
+
+                        public void run() {
+                            evaluateTextField();
+                        }
+                        
+                    });
+                }
                 return Status.OK_STATUS;
             }
         };
@@ -969,6 +982,9 @@ public abstract class PropertiesWizardPage extends WizardPage {
     }
 
     protected void evaluateTextField() {
+        if (nameText == null || nameText.isDisposed()) {
+            return;
+        }
         if (nameText.getText().length() == 0) {
             nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameEmptyError")); //$NON-NLS-1$
         } else if (!Pattern.matches(RepositoryConstants.getPattern(getRepositoryObjectType()), nameText.getText())
