@@ -44,6 +44,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
@@ -197,9 +198,20 @@ public abstract class PropertiesWizardPage extends WizardPage {
                         listExistingObjects = service.getProxyRepositoryFactory().getAll(type, true, false);
                     }
                 } catch (PersistenceException e) {
-                    return new org.eclipse.core.runtime.Status(IStatus.ERROR, "", 1, "", e); //$NON-NLS-1$ //$NON-NLS-2$
+                    return new org.eclipse.core.runtime.Status(IStatus.ERROR, "org.talend.metadata.management.ui", 1, "", e); //$NON-NLS-1$ //$NON-NLS-2$
                 }
                 retrieveNameFinished = true;
+                // force the refresh of the text field, no matter successfull retrieve of not.
+                Display d = Display.getDefault();
+                if (d != null) {
+                    d.syncExec(new Runnable() {
+
+                        public void run() {
+                            evaluateTextField();
+                        }
+
+                    });
+                }
                 return Status.OK_STATUS;
             }
         };
@@ -951,6 +963,9 @@ public abstract class PropertiesWizardPage extends WizardPage {
     }
 
     protected void evaluateTextField() {
+        if (nameText == null || nameText.isDisposed()) {
+            return;
+        }
         if (nameText.getText().length() == 0) {
             nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameEmptyError")); //$NON-NLS-1$
         } else if (!Pattern.matches(RepositoryConstants.getPattern(getRepositoryObjectType()), nameText.getText())
