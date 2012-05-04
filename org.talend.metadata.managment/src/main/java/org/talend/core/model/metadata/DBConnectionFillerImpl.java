@@ -134,14 +134,14 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             if (sqlConnection == null || sqlConnection.isClosed()) {
                 this.checkConnection(metadataBean);
             }
-//            ExtractMetaDataUtils.metadataCon=metadataBean;
-//            MetadataConnectionUtils.setMetadataCon(metadataBean);
+            // ExtractMetaDataUtils.metadataCon=metadataBean;
+            // MetadataConnectionUtils.setMetadataCon(metadataBean);
             // fill some base parameter
             if (newConnection != null) {
                 fillMetadataParams(metadataBean, newConnection);
             }
             // software
-            DatabaseMetaData dbMetadata = ExtractMetaDataUtils.getDatabaseMetaData(sqlConnection, dbconn,false);
+            DatabaseMetaData dbMetadata = ExtractMetaDataUtils.getDatabaseMetaData(sqlConnection, dbconn, false);
             // for bug 22113, annotate it.
             // String connectionDbType = metadataBean.getDbType();
             // List<EDatabaseVersion4Drivers> dbTypeList = EDatabaseVersion4Drivers.indexOfByDbType(connectionDbType);
@@ -808,22 +808,24 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
                         String schemaname = catalogName + "." + schemaPattern + ".sysobjects";
                         String sql = "select name from " + schemaname + " where xtype='SN'";
-                        // SELECT name AS object_name ,SCHEMA_NAME(schema_id) AS schema_name FROM sys.objects where
-                        // type='SN'
-                        ResultSet rsTables = stmt.executeQuery(sql);
-                        while (rsTables.next()) {
-                            String nameKey = rsTables.getString("name").trim();
+                            // SELECT name AS object_name ,SCHEMA_NAME(schema_id) AS schema_name FROM sys.objects where
+                            // type='SN'
+                        if (!schemaname.contains("INFORMATION_SCHEMA") && !schemaname.contains("guest")) {
+                            ResultSet rsTables = stmt.executeQuery(sql);
+                            while (rsTables.next()) {
+                                String nameKey = rsTables.getString("name").trim();
 
-                            MetadataTable metadatatable = null;
-                            metadatatable = RelationalFactory.eINSTANCE.createTdTable();
+                                MetadataTable metadatatable = null;
+                                metadatatable = RelationalFactory.eINSTANCE.createTdTable();
 
-                            metadatatable.setName(nameKey);
-                            metadatatable.setTableType(ETableTypes.TABLETYPE_SYNONYM.getName());
-                            metadatatable.setLabel(metadatatable.getName());
-                            if (schemaPattern != null) {
-                                ColumnSetHelper.setTableOwner(schemaPattern, metadatatable);
+                                metadatatable.setName(nameKey);
+                                metadatatable.setTableType(ETableTypes.TABLETYPE_SYNONYM.getName());
+                                metadatatable.setLabel(metadatatable.getName());
+                                if (schemaPattern != null) {
+                                    ColumnSetHelper.setTableOwner(schemaPattern, metadatatable);
+                                }
+                                list.add(metadatatable);
                             }
-                            list.add(metadatatable);
                         }
                     }
                 }
@@ -1243,9 +1245,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         decimalDigits = columns.getInt(GetColumn.DECIMAL_DIGITS.name());
                         // ~
                     } else if (dbJDBCMetadata instanceof TeradataDataBaseMetadata) {
-//                        dataType = columns.getInt(GetColumn.TYPE_NAME.name());
+                        // dataType = columns.getInt(GetColumn.TYPE_NAME.name());
                         dataType = Java2SqlType.getTeradataJavaTypeBySqlTypeAsInt(typeName);
-                        typeName=Java2SqlType.getTeradataJavaTypeBySqlTypeAsString(typeName);
+                        typeName = Java2SqlType.getTeradataJavaTypeBySqlTypeAsString(typeName);
                     } else {
                         dataType = columns.getInt(GetColumn.DATA_TYPE.name());
                         numPrecRadix = columns.getInt(GetColumn.NUM_PREC_RADIX.name());
@@ -1270,7 +1272,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     int column_size = columns.getInt(GetColumn.COLUMN_SIZE.name());
                     column.setLength(column_size);
 
-
                 } catch (Exception e1) {
                     log.warn(e1, e1);
                 }
@@ -1282,7 +1283,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
                 // Null able
                 int nullable = 0;
-                if (dbJDBCMetadata instanceof DB2ForZosDataBaseMetadata||dbJDBCMetadata instanceof TeradataDataBaseMetadata) {
+                if (dbJDBCMetadata instanceof DB2ForZosDataBaseMetadata || dbJDBCMetadata instanceof TeradataDataBaseMetadata) {
                     String isNullable = columns.getString("IS_NULLABLE");//$NON-NLS-1$
                     if (!isNullable.equals("Y")) { //$NON-NLS-1$ //$NON-NLS-2$
                         nullable = 1;
@@ -1314,9 +1315,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 String dbmsId = dbConnection == null ? null : dbConnection.getDbmsId();
                 if (dbmsId != null) {
                     MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(dbmsId);
-                    String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName, ExtractMetaDataUtils
-.getIntMetaDataInfo(columns, "COLUMN_SIZE"), (dbJDBCMetadata instanceof TeradataDataBaseMetadata) ? 0 : ExtractMetaDataUtils.getIntMetaDataInfo(columns, //$NON-NLS-1$
-                            "DECIMAL_DIGITS")); //$NON-NLS-1$
+                    String talendType = mappingTypeRetriever
+                            .getDefaultSelectedTalendType(
+                                    typeName,
+                                    ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE"), (dbJDBCMetadata instanceof TeradataDataBaseMetadata) ? 0 : ExtractMetaDataUtils.getIntMetaDataInfo(columns, //$NON-NLS-1$
+                                                            "DECIMAL_DIGITS")); //$NON-NLS-1$
                     column.setTalendType(talendType);
                     String defaultSelectedDbType = MetadataTalendType.getMappingTypeRetriever(dbConnection.getDbmsId())
                             .getDefaultSelectedDbType(talendType);
