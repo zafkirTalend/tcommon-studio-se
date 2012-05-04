@@ -88,7 +88,6 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 /**
  * @author zshen
- * 
  */
 public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
@@ -808,8 +807,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
                         String schemaname = catalogName + "." + schemaPattern + ".sysobjects";
                         String sql = "select name from " + schemaname + " where xtype='SN'";
-                            // SELECT name AS object_name ,SCHEMA_NAME(schema_id) AS schema_name FROM sys.objects where
-                            // type='SN'
+                        // SELECT name AS object_name ,SCHEMA_NAME(schema_id) AS schema_name FROM sys.objects where
+                        // type='SN'
                         if (!schemaname.contains("INFORMATION_SCHEMA") && !schemaname.contains("guest")) {
                             ResultSet rsTables = stmt.executeQuery(sql);
                             while (rsTables.next()) {
