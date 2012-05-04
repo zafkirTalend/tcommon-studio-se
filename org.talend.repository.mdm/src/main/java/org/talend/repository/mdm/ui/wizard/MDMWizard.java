@@ -243,7 +243,7 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
         if (tdqRepService != null) {
             if (CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {
                 tdqRepService.openEditor(connectionItem);
-                tdqRepService.refresh();
+                tdqRepService.refresh(this.node);
             }
         }
 

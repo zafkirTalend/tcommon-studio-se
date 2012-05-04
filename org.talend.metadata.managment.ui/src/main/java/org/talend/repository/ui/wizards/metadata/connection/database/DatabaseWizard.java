@@ -112,6 +112,9 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
     private boolean isToolBar;
 
+    // Added yyin 20120504 TDQ-4959
+    private RepositoryNode node;
+
     /**
      * Constructor for DatabaseWizard. Analyse Iselection to extract DatabaseConnection and the pathToSave. Start the
      * Lock Strategy.
@@ -124,7 +127,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
         this.selection = selection;
         this.existingNames = existingNames;
         setNeedsProgressMonitor(true);
-        RepositoryNode node = null;
+        // RepositoryNode node = null;
         Object obj = ((IStructuredSelection) selection).getFirstElement();
         if (obj instanceof RepositoryNode) {
             node = (RepositoryNode) obj;
@@ -194,6 +197,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
     public DatabaseWizard(IWorkbench workbench, boolean creation, RepositoryNode node, String[] existingNames) {
         super(workbench, creation);
         this.existingNames = existingNames;
+        this.node = node;
         setNeedsProgressMonitor(true);
         switch (node.getType()) {
         case SIMPLE_FOLDER:
@@ -442,7 +446,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                 tdqRepService.notifySQLExplorer(connectionItem);
                 if (CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {
                     tdqRepService.openEditor(connectionItem);
-                    tdqRepService.refresh();
+                    tdqRepService.refresh(this.node);
                 }
             }
             updateTdqDependencies();
