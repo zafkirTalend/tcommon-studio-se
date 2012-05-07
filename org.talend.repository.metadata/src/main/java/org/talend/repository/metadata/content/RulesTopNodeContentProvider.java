@@ -52,4 +52,10 @@ public class RulesTopNodeContentProvider extends AbstractMetadataContentProvider
     protected void setupDeleteFolderListener(ProjectRepositoryNode projRepo) {
         // do nothing caus no need to refresh anything
     }
+
+    @Override
+    public void initRepositoryNode() {
+        // not need re-init it.
+        // super.initAndClear();
+    }
 }

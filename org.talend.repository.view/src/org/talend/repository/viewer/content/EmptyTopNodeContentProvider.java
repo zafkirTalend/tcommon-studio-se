@@ -54,4 +54,9 @@ public abstract class EmptyTopNodeContentProvider extends ProjectRepoDirectChild
         // do nothing caus we do not need any notification
     }
 
+    @Override
+    public void initRepositoryNode() {
+        // not need re-init it.
+        // super.initAndClear();
+    }
 }

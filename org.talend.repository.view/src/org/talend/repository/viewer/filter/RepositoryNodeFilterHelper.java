@@ -27,7 +27,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.navigator.filters.UpdateActiveExtensionsOperation;
 import org.eclipse.ui.internal.navigator.filters.UpdateActiveFiltersOperation;
 import org.eclipse.ui.navigator.CommonViewer;
-import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonFilterDescriptor;
 import org.eclipse.ui.navigator.INavigatorContentService;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
@@ -43,25 +42,24 @@ public class RepositoryNodeFilterHelper {
 
     private static final String PERSPECTIVE_SEPARATOR = ":";
 
-    public static void filter(final ICommonActionExtensionSite commonActionSite, boolean activedFilter,
-            boolean isPerspectiveFilter, boolean restoring) {
+    public static void filter(final CommonViewer commonViewer, boolean activedFilter, boolean activedPerspectiveFilter) {
 
-        processContentExtensions(commonActionSite, activedFilter, isPerspectiveFilter);
-        processCommonFilters(commonActionSite, activedFilter);
+        processContentExtensions(commonViewer, activedFilter, activedPerspectiveFilter);
+        processCommonFilters(commonViewer, activedFilter);
 
     }
 
-    private static void processContentExtensions(final ICommonActionExtensionSite commonActionSite, boolean activeFilter,
+    private static void processContentExtensions(final CommonViewer commonViewer, boolean activeFilter,
             boolean activedPerspectiveFilter) {
-        final CommonViewer commonViewer = (CommonViewer) commonActionSite.getStructuredViewer();
-        final INavigatorContentService contentService = commonActionSite.getContentService();
+        final INavigatorContentService contentService = commonViewer.getNavigatorContentService();
+
         String[] visibleExtensionIds = filterRemovedNavigatorContents(contentService.getVisibleExtensionIds());
 
         List<String> visibleIDsForPecpective = new ArrayList<String>();
         List<String> visibleIdsForActiveFilter = new ArrayList<String>();
 
-        for (String id : visibleExtensionIds) {
-            visibleIdsForActiveFilter.add(id);
+        if (visibleExtensionIds != null) {
+            visibleIdsForActiveFilter.addAll(Arrays.asList(visibleExtensionIds));
         }
 
         if (activedPerspectiveFilter) {
@@ -94,16 +92,14 @@ public class RepositoryNodeFilterHelper {
         } else {
             checkedExtensions.addAll(visibleIdsForActiveFilter);
         }
-
         String[] contentExtensionIdsToActivate = (String[]) checkedExtensions.toArray(new String[checkedExtensions.size()]);
         UpdateActiveExtensionsOperation updateExtensions = new UpdateActiveExtensionsOperation(commonViewer,
                 contentExtensionIdsToActivate);
         updateExtensions.execute(null, null);
     }
 
-    private static void processCommonFilters(final ICommonActionExtensionSite commonActionSite, boolean activedFilter) {
-        final CommonViewer commonViewer = (CommonViewer) commonActionSite.getStructuredViewer();
-        final ICommonFilterDescriptor[] visibleFilterDescriptors = commonActionSite.getContentService().getFilterService()
+    private static void processCommonFilters(final CommonViewer commonViewer, boolean activedFilter) {
+        final ICommonFilterDescriptor[] visibleFilterDescriptors = commonViewer.getNavigatorContentService().getFilterService()
                 .getVisibleFilterDescriptors();
 
         String[] filters = new String[visibleFilterDescriptors.length];
@@ -246,4 +242,13 @@ public class RepositoryNodeFilterHelper {
         return needRemovedExtensionIds;
     }
 
+    public static boolean isActivedFilter() {
+        final IPreferenceStore preferenceStore = RepositoryViewPlugin.getDefault().getPreferenceStore();
+        return preferenceStore.getBoolean(IRepositoryPrefConstants.USE_FILTER);
+    }
+
+    public static void setActivedFilter(boolean activedFilter) {
+        final IPreferenceStore preferenceStore = RepositoryViewPlugin.getDefault().getPreferenceStore();
+        preferenceStore.setValue(IRepositoryPrefConstants.USE_FILTER, activedFilter);
+    }
 }

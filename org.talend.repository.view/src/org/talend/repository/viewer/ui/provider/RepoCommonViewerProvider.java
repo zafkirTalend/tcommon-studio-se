@@ -85,7 +85,8 @@ public class RepoCommonViewerProvider extends AbstractViewerProvider {
                     helper.setActionProviderId(PerspectiveFilterActionProvider.ID);
 
                     String perspectiveId = activePage.getPerspective().getId();
-                    helper.doFiltering(perspectiveId, isActivedPerspectiveFilter(), false);
+                    helper.doFiltering(perspectiveId);
+
                 }
             }
         }
@@ -95,7 +96,4 @@ public class RepoCommonViewerProvider extends AbstractViewerProvider {
         return IRepositoryView.VIEW_ID;
     }
 
-    public static boolean isActivedPerspectiveFilter() {
-        return true; // FIXME true first.
-    }
 }

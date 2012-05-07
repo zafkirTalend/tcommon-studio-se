@@ -14,12 +14,15 @@ package org.talend.repository.viewer.filter;
 
 import java.util.Arrays;
 
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.ui.navigator.INavigatorContentDescriptor;
 import org.eclipse.ui.navigator.INavigatorContentService;
+import org.talend.core.model.repository.IRepositoryPrefConstants;
+import org.talend.repository.RepositoryViewPlugin;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -61,11 +64,11 @@ public class PerspectiveFilterHelper {
         this.actionProviderId = actionProviderId;
     }
 
-    public void doFiltering(final String perspectiveId, boolean filtering, boolean restoring) {
-        if (filtering) {
-            filterView(perspectiveId, restoring);
+    public void doFiltering(final String perspectiveId) {
+        if (isActivedPerspectiveFilter()) {
+            filterView(perspectiveId, false);
         } else {
-            unfilterView(restoring);
+            unfilterView(false);
         }
     }
 
@@ -163,4 +166,13 @@ public class PerspectiveFilterHelper {
         return RepositoryNodeFilterHelper.filterRemovedNavigatorContents(filteredIds);
     }
 
+    public static boolean isActivedPerspectiveFilter() {
+        final IPreferenceStore preferenceStore = RepositoryViewPlugin.getDefault().getPreferenceStore();
+        return preferenceStore.getBoolean(IRepositoryPrefConstants.USE_PERSPECTIVE_FILTER);
+    }
+
+    public static void setActivedPerspectiveFilter(boolean activedPerspectiveFilter) {
+        final IPreferenceStore preferenceStore = RepositoryViewPlugin.getDefault().getPreferenceStore();
+        preferenceStore.setValue(IRepositoryPrefConstants.USE_PERSPECTIVE_FILTER, activedPerspectiveFilter);
+    }
 }

@@ -12,9 +12,6 @@
 // ============================================================================
 package org.talend.repository.viewer.filter;
 
-import org.eclipse.jface.preference.IPreferenceStore;
-import org.talend.core.model.repository.IRepositoryPrefConstants;
-import org.talend.repository.RepositoryViewPlugin;
 import org.talend.repository.viewer.action.AbstractRepositoryActionProvider;
 
 /**
@@ -27,13 +24,19 @@ public abstract class AbstractRepositoryFilterActionProvider extends AbstractRep
     }
 
     protected boolean isActivedFilter() {
-        final IPreferenceStore preferenceStore = RepositoryViewPlugin.getDefault().getPreferenceStore();
-        return preferenceStore.getBoolean(IRepositoryPrefConstants.USE_FILTER);
+        return RepositoryNodeFilterHelper.isActivedFilter();
     }
 
     protected void setActivedFilter(boolean activedFilter) {
-        final IPreferenceStore preferenceStore = RepositoryViewPlugin.getDefault().getPreferenceStore();
-        preferenceStore.setValue(IRepositoryPrefConstants.USE_FILTER, activedFilter);
+        RepositoryNodeFilterHelper.setActivedFilter(activedFilter);
+    }
+
+    protected boolean isActivedPerspectiveFilter() {
+        return PerspectiveFilterHelper.isActivedPerspectiveFilter();
+    }
+
+    protected void setActivedPerspectiveFilter(boolean activedPerspectiveFilter) {
+        PerspectiveFilterHelper.setActivedPerspectiveFilter(activedPerspectiveFilter);
     }
 
 }

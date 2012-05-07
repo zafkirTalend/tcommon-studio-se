@@ -98,6 +98,7 @@ import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
+import org.talend.repository.viewer.filter.listener.RepoViewPerspectiveListener;
 
 /**
  * DOC sgandon class global comment. Detailled comment <br/>
@@ -109,7 +110,7 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
         IRepositoryChangedListener {
 
     /**
-     *  A savable to reflect the current editor status in the view
+     * A savable to reflect the current editor status in the view
      * 
      */
     public class EditorSavable extends Saveable {
@@ -227,7 +228,7 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
 
     private static boolean codeGenerationEngineInitialised;
 
-    protected boolean isFromFake = true;
+    // protected boolean isFromFake = true;
 
     public static Object initialInput;
 
@@ -307,9 +308,9 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
             viewer.addTreeListener((ITreeViewerListener) viewer);
         }
         getSite().setSelectionProvider(viewer);
-        if (isFromFake) {
-            refresh();
-        }
+        // if (isFromFake) {
+        // refresh();
+        // }
         // This only tree listener aim is to change open/close icons on folders :
         // TODO this should be done in the LabelProvider
         viewer.addTreeListener(new ITreeViewerListener() {
@@ -442,6 +443,13 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
         }
         expandTreeRootIfOnlyOneRoot();
         refreshContentDescription();
+
+        //
+        getNavigatorContentService().getActivationService().addExtensionActivationListener(
+                new RepoViewExtensionActivationListener(this));
+        // refresh for filters
+        PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+                .addPerspectiveListener(new RepoViewPerspectiveListener(this.getCommonViewer()));
     }
 
     /**

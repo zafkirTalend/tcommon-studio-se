@@ -44,7 +44,6 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.TreeItem;
-import org.eclipse.ui.internal.navigator.CommonNavigatorMessages;
 import org.eclipse.ui.internal.navigator.extensions.NavigatorContentExtension;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.navigator.CommonViewer;
@@ -460,8 +459,6 @@ public class RepositoryFilterSettingDialog extends Dialog {
 
         preferenceStore.setValue(IRepositoryPrefConstants.USER_FILTER_TABLE_ENABLED, !allUsersBtn.getSelection());
         super.okPressed();
-
-        RepositoryNodeFilterHelper.filter(actionSite, isActivedFilter(), isPerspectiveFilter(), false);
 
     }
 

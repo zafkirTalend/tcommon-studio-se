@@ -23,17 +23,18 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.ui.navigator.CommonViewer;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.repository.constants.FileConstants;
+import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.navigator.RepoViewCommonViewer;
 
 /**
  * this handle content that root node is of type ProjectRepositoryNode
  * */
 public abstract class FolderListenerSingleTopContentProvider extends SingleTopLevelContentProvider {
-
-    private boolean reInit = true; // default is true
 
     public FolderListenerSingleTopContentProvider() {
         super();
@@ -79,14 +80,6 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
         }
     }
 
-    protected boolean isReInit() {
-        return reInit;
-    }
-
-    protected void setReInit(boolean reInit) {
-        this.reInit = reInit;
-    }
-
     /**
      * This calls the refresh of the toplevel node, this must be invoke from the UI thread.
      * 
@@ -95,10 +88,8 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
     protected void refreshTopLevelNode() {
         RepositoryNode topLevelNode = getTopLevelNode();
         if (topLevelNode != null) {
-            if (isReInit()) {
-                topLevelNode.setInitialized(false);
-                topLevelNode.getChildren().clear();
-            }
+
+            initRepositoryNode();
 
             beforeRefreshTopLevelNode();
 
@@ -106,8 +97,33 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
             if (topLevelNode.getParent() instanceof ProjectRepositoryNode) {
                 ((ProjectRepositoryNode) topLevelNode.getParent()).clearNodeAndProjectCash();
             }
-            if (viewer != null) {
+            if (viewer != null && !viewer.getTree().isDisposed()) {
                 viewer.refresh(topLevelNode);
+            }
+        }
+    }
+
+    public void initRepositoryNode() {
+        initRepositoryNode(getTopLevelNode());
+    }
+
+    protected void initRepositoryNode(RepositoryNode currentTopNode) {
+        if (currentTopNode != null) {
+            currentTopNode.setInitialized(false);
+            currentTopNode.getChildren().clear();
+
+            IRepositoryNode rootRepositoryNode = currentTopNode.getRoot().getRootRepositoryNode(
+                    ERepositoryObjectType.REFERENCED_PROJECTS);
+            if (rootRepositoryNode != null) {
+                for (IRepositoryNode node : rootRepositoryNode.getChildren()) {
+                    if (node instanceof IProjectRepositoryNode) {
+                        IRepositoryNode refNode = ((IProjectRepositoryNode) node).getRootRepositoryNode(currentTopNode
+                                .getContentType());
+                        if (refNode instanceof RepositoryNode) {
+                            initRepositoryNode((RepositoryNode) refNode);
+                        }
+                    }
+                }
             }
         }
     }

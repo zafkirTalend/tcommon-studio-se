@@ -15,7 +15,6 @@ package org.talend.repository.viewer.filter;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.window.Window;
-import org.eclipse.ui.IMemento;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.talend.repository.i18n.Messages;
 import org.talend.repository.viewer.dialog.RepositoryFilterSettingDialog;
@@ -27,8 +26,6 @@ public class RepositoryFilterSettingActionProvider extends AbstractRepositoryFil
 
     private static final String DOT = "..."; //$NON-NLS-1$
 
-    private boolean isPecpectiveFiltering = true;
-
     public RepositoryFilterSettingActionProvider() {
         super();
     }
@@ -36,19 +33,9 @@ public class RepositoryFilterSettingActionProvider extends AbstractRepositoryFil
     @Override
     protected void fillMenus(IMenuManager menuManager) {
 
-        FilterSettingAction action = new FilterSettingAction(Messages.getString("RepositoryFilterSettingActionProvider.FilterSetting") + DOT); //$NON-NLS-1$
+        FilterSettingAction action = new FilterSettingAction(
+                Messages.getString("RepositoryFilterSettingActionProvider.FilterSetting") + DOT); //$NON-NLS-1$
         menuManager.add(action);
-    }
-
-    @Override
-    public void restoreState(IMemento aMemento) {
-        super.restoreState(aMemento);
-        if (aMemento != null) {
-            Integer isFilteringInt = aMemento.getInteger(IS_FILTERING_WITH_PERSPECTIVE);
-            if (isFilteringInt != null) {
-                isPecpectiveFiltering = isFilteringInt.intValue() == 1;
-            }
-        }
     }
 
     /**
@@ -68,8 +55,9 @@ public class RepositoryFilterSettingActionProvider extends AbstractRepositoryFil
             final ICommonActionExtensionSite actionSite = RepositoryFilterSettingActionProvider.this.getActionSite();
 
             RepositoryFilterSettingDialog dialog = new RepositoryFilterSettingDialog(actionSite, isActivedFilter(),
-                    isPecpectiveFiltering);
+                    isActivedPerspectiveFilter());
             if (dialog.open() == Window.OK) {
+                RepositoryNodeFilterHelper.filter(getCommonViewer(), isActivedFilter(), isActivedPerspectiveFilter());
                 actionSite.getStructuredViewer().refresh();
             }
         }
