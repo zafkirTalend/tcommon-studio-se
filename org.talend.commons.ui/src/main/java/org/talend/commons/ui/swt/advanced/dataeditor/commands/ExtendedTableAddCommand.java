@@ -61,7 +61,9 @@ public class ExtendedTableAddCommand extends Command implements IExtendedTableCo
         this.extendedTable = extendedTable;
         this.indexStartAdd = indexStartAdd;
         ArrayList list = new ArrayList(1);
-        list.add(beanToAdd);
+        if (beanToAdd != null) {
+            list.add(beanToAdd);
+        }
         this.beansToAdd = list;
     }
 
