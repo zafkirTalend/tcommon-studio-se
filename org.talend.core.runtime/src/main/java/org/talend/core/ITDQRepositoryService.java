@@ -46,6 +46,9 @@ public interface ITDQRepositoryService extends IService {
 
     public void refresh();
 
+    // Added 20120503 yyin
+    public void refresh(Object refreshObject);
+
     public void initProxyRepository();
 
     public void addPartListener();
