@@ -74,7 +74,6 @@ import org.talend.repository.ui.wizards.CheckLastVersionRepositoryWizard;
 import org.talend.repository.ui.wizards.PropertiesWizardPage;
 import org.talend.repository.ui.wizards.metadata.connection.Step0WizardPage;
 import org.talend.utils.sugars.ReturnCode;
-
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
@@ -387,13 +386,14 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                                 conn.setUiSchema(conn.getUiSchema().toUpperCase());
                             }
                         }
-                        // update
-                        RepositoryUpdateManager.updateDBConnection(connectionItem);
                         // bug 20700
                         if (reloadCheck.isOk()) {
                             if (needReload(reloadCheck.getMessage())) {
                                 if (tdqRepService != null) {
-                                    tdqRepService.reloadDatabase(connectionItem);
+                                    ReturnCode retCode = tdqRepService.reloadDatabase(connectionItem);
+                                    if (!retCode.isOk()) {
+                                        return Boolean.FALSE;
+                                    }
                                 }
                             } else {
                                 // save the ConnectionItem only, don't reload the database connection
@@ -406,7 +406,8 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                                 updateConnectionInformation(dbConn);
                             }
                         }
-
+                        // update
+                        RepositoryUpdateManager.updateDBConnection(connectionItem);
                     }
                     // changed by hqzhang for TDI-19527, label=displayName
                     connectionProperty.setLabel(connectionProperty.getDisplayName());
