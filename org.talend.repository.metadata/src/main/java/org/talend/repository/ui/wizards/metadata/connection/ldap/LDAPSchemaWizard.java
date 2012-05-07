@@ -91,6 +91,16 @@ public class LDAPSchemaWizard extends CheckLastVersionRepositoryWizard implement
 
     private boolean isToolbar;
 
+    private String originaleObjectLabel;
+
+    private String originalVersion;
+
+    private String originalPurpose;
+
+    private String originalDescription;
+
+    private String originalStatus;
+
     /**
      * Sets the isToolbar.
      * 
@@ -202,6 +212,13 @@ public class LDAPSchemaWizard extends CheckLastVersionRepositoryWizard implement
         }
         initTable();
         initConnection();
+        if (!creation) {
+            this.originaleObjectLabel = this.connectionItem.getProperty().getDisplayName();
+            this.originalVersion = this.connectionItem.getProperty().getVersion();
+            this.originalDescription = this.connectionItem.getProperty().getDescription();
+            this.originalPurpose = this.connectionItem.getProperty().getPurpose();
+            this.originalStatus = this.connectionItem.getProperty().getStatusCode();
+        }
     }
 
     public LDAPSchemaWizard(IWorkbench workbench, boolean creation, RepositoryNode node, String[] existingNames,
@@ -265,6 +282,13 @@ public class LDAPSchemaWizard extends CheckLastVersionRepositoryWizard implement
         }
         initTable();
         initConnection();
+        if (!creation) {
+            this.originaleObjectLabel = this.connectionItem.getProperty().getDisplayName();
+            this.originalVersion = this.connectionItem.getProperty().getVersion();
+            this.originalDescription = this.connectionItem.getProperty().getDescription();
+            this.originalPurpose = this.connectionItem.getProperty().getPurpose();
+            this.originalStatus = this.connectionItem.getProperty().getStatusCode();
+        }
     }
 
     private void initTable() {
@@ -443,6 +467,18 @@ public class LDAPSchemaWizard extends CheckLastVersionRepositoryWizard implement
         } else {
             return false;
         }
+    }
+
+    @Override
+    public boolean performCancel() {
+        if (!creation) {
+            connectionItem.getProperty().setVersion(this.originalVersion);
+            connectionItem.getProperty().setDisplayName(this.originaleObjectLabel);
+            connectionItem.getProperty().setDescription(this.originalDescription);
+            connectionItem.getProperty().setPurpose(this.originalPurpose);
+            connectionItem.getProperty().setStatusCode(this.originalStatus);
+        }
+        return super.performCancel();
     }
 
     /**

@@ -113,6 +113,11 @@ public class FilePositionalTableWizard extends AbstractRepositoryFileTableWizard
         return true;
     }
 
+    @Override
+    public boolean performCancel() {
+        return super.performCancel();
+    }
+
     /**
      * We will accept the selection in the workbench to see if we can initialize from it.
      * 

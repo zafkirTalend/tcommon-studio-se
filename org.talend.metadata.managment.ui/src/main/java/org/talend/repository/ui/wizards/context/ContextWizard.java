@@ -370,6 +370,7 @@ public class ContextWizard extends CheckLastVersionRepositoryWizard implements I
     public boolean performCancel() {
         contextItem.getProperty().setVersion(this.originalVersion);
         contextItem.getProperty().setLabel(this.originaleObjectLabel);
+        contextItem.getProperty().setDisplayName(this.originaleObjectLabel);
         contextItem.getProperty().setDescription(this.originalDescription);
         contextItem.getProperty().setPurpose(this.originalPurpose);
         contextItem.getProperty().setStatusCode(this.originalStatus);

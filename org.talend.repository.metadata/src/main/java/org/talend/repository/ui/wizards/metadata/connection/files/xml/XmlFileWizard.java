@@ -577,6 +577,7 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
         if (!creation) {
             connectionItem.getProperty().setVersion(this.originalVersion);
             connectionItem.getProperty().setLabel(this.originaleObjectLabel);
+            connectionItem.getProperty().setDisplayName(this.originaleObjectLabel);
             connectionItem.getProperty().setDescription(this.originalDescription);
             connectionItem.getProperty().setPurpose(this.originalPurpose);
             connectionItem.getProperty().setStatusCode(this.originalStatus);

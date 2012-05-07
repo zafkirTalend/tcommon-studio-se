@@ -350,6 +350,7 @@ public class PropertiesWizard extends Wizard {
         if (!alreadyEditedByUser) {
             object.getProperty().setVersion(this.originalVersion);
             object.getProperty().setLabel(this.originaleObjectLabel);
+            object.getProperty().setDisplayName(originaleObjectLabel);
             object.getProperty().setDescription(this.originalDescription);
             object.getProperty().setPurpose(this.originalPurpose);
             object.getProperty().setStatusCode(this.originalStatus);
