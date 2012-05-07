@@ -16,8 +16,17 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.ui.IWorkbench;
+import org.osgi.framework.FrameworkUtil;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.runtime.image.ECoreImage;
@@ -102,7 +111,7 @@ public class DocumentationUpdateWizard extends CheckLastVersionRepositoryWizard 
     public boolean performFinish() {
         boolean updated = false;
         InputStream stream = null;
-        IProxyRepositoryFactory repositoryFactory = ProxyRepositoryFactory.getInstance();
+        final IProxyRepositoryFactory repositoryFactory = ProxyRepositoryFactory.getInstance();
         try {
             if (getDocFilePath() != null && getDocFilePath().segmentCount() != 0) {
                 String fileStr = getDocFilePath().toString();
@@ -141,12 +150,28 @@ public class DocumentationUpdateWizard extends CheckLastVersionRepositoryWizard 
                     linkDocumentationItem.setExtension(getDocFilePath().getFileExtension());
                 }
             }
-          //changed by hqzhang for TDI-19527, label=displayName
+            // changed by hqzhang for TDI-19527, label=displayName
             docItem.getProperty().setLabel(docItem.getProperty().getDisplayName());
-            repositoryFactory.save(docItem);
-            closeLockStrategy();
+            IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
+
+                public void run(final IProgressMonitor monitor) throws CoreException {
+                    try {
+                        repositoryFactory.save(docItem);
+                        closeLockStrategy();
+                    } catch (PersistenceException pe) {
+                        throw new CoreException(new Status(IStatus.ERROR, FrameworkUtil.getBundle(this.getClass())
+                                .getSymbolicName(), "persistance error", pe)); //$NON-NLS-1$
+                    }
+                }
+            };
+            IWorkspace workspace = ResourcesPlugin.getWorkspace();
+            ISchedulingRule schedulingRule = workspace.getRoot();
+            // the update the project files need to be done in the workspace runnable to avoid all notification
+            // of changes before the end of the modifications.
+            workspace.run(runnable, schedulingRule, IWorkspace.AVOID_UPDATE, null);
             updated = true;
-        } catch (PersistenceException e) {
+            return true;
+        } catch (CoreException e) {
             MessageBoxExceptionHandler.process(e);
         } catch (IOException ioe) {
             MessageBoxExceptionHandler.process(ioe);

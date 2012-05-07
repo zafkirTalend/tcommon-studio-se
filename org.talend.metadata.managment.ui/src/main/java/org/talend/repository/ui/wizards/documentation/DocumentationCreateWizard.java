@@ -15,8 +15,17 @@ package org.talend.repository.ui.wizards.documentation;
 import java.io.File;
 import java.io.IOException;
 
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.ui.IWorkbench;
+import org.osgi.framework.FrameworkUtil;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.runtime.image.ECoreImage;
@@ -113,11 +122,11 @@ public class DocumentationCreateWizard extends CheckLastVersionRepositoryWizard 
     @Override
     public boolean performFinish() {
         boolean created = false;
-        IProxyRepositoryFactory repositoryFactory = ProxyRepositoryFactory.getInstance();
+        final IProxyRepositoryFactory repositoryFactory = ProxyRepositoryFactory.getInstance();
 
         try {
             property.setId(repositoryFactory.getNextId());
-            Item item = property.getItem();
+            final Item item = property.getItem();
             if (item != null) {
                 String fileStr = getDocFilePath().toString();
                 if (item instanceof LinkDocumentationItem) {
@@ -159,13 +168,28 @@ public class DocumentationCreateWizard extends CheckLastVersionRepositoryWizard 
                     docItem.setExtension(getDocFilePath().getFileExtension());
                 }
 
-                repositoryFactory.create(item, mainPage.getDestinationPath());
+                IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
+
+                    public void run(final IProgressMonitor monitor) throws CoreException {
+                        try {
+                            repositoryFactory.create(item, mainPage.getDestinationPath());
+                        } catch (PersistenceException pe) {
+                            throw new CoreException(new Status(IStatus.ERROR, FrameworkUtil.getBundle(this.getClass())
+                                    .getSymbolicName(), "persistance error", pe)); //$NON-NLS-1$
+                        }
+                    }
+                };
+                IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                ISchedulingRule schedulingRule = workspace.getRoot();
+                // the update the project files need to be done in the workspace runnable to avoid all notification
+                // of changes before the end of the modifications.
+                workspace.run(runnable, schedulingRule, IWorkspace.AVOID_UPDATE, null);
                 created = true;
             }
-        } catch (PersistenceException e) {
-            MessageBoxExceptionHandler.process(e);
         } catch (IOException ioe) {
             MessageBoxExceptionHandler.process(ioe);
+        } catch (CoreException e) {
+            MessageBoxExceptionHandler.process(e);
         }
         return created;
     }
