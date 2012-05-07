@@ -74,6 +74,7 @@ import org.talend.repository.ui.wizards.CheckLastVersionRepositoryWizard;
 import org.talend.repository.ui.wizards.PropertiesWizardPage;
 import org.talend.repository.ui.wizards.metadata.connection.Step0WizardPage;
 import org.talend.utils.sugars.ReturnCode;
+
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
@@ -110,6 +111,9 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
     private boolean isToolBar;
 
+    // Added 20120503 yyin TDQ-4959
+    private RepositoryNode node;
+
     /**
      * Constructor for DatabaseWizard. Analyse Iselection to extract DatabaseConnection and the pathToSave. Start the
      * Lock Strategy.
@@ -122,7 +126,8 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
         this.selection = selection;
         this.existingNames = existingNames;
         setNeedsProgressMonitor(true);
-        RepositoryNode node = null;
+        this.node = node;
+        // RepositoryNode node = null;
         Object obj = ((IStructuredSelection) selection).getFirstElement();
         if (obj instanceof RepositoryNode) {
             node = (RepositoryNode) obj;
@@ -192,6 +197,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
         super(workbench, creation);
         this.existingNames = existingNames;
         setNeedsProgressMonitor(true);
+        this.node = node;
         switch (node.getType()) {
         case SIMPLE_FOLDER:
         case REPOSITORY_ELEMENT:
@@ -446,7 +452,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                 tdqRepService.notifySQLExplorer(connectionItem);
                 if (CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {
                     tdqRepService.openEditor(connectionItem);
-                    tdqRepService.refresh();
+                    tdqRepService.refresh(node);
                 }
             }
             updateTdqDependencies();
