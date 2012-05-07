@@ -1545,6 +1545,13 @@ public class SelectorTableForm extends AbstractForm {
                 dbtable.setId(factory.getNextId());
                 dbtable.setTableType(tableNode.getItemType());
 
+                List<TdColumn> metadataColumns = new ArrayList<TdColumn>();
+                if (useProvider()) {
+                    metadataColumns = provider.returnMetadataColumnsFromTable(tableString, metadataconnection);
+                } else {
+                    metadataColumns = ExtractMetaDataFromDataBase.returnMetadataColumnsFormTable(metadataconnection, tableString);
+                }
+
                 List<MetadataColumn> metadataColumnsValid = new ArrayList<MetadataColumn>();
                 Iterator iterate = metadataColumns.iterator();
                 while (iterate.hasNext()) {

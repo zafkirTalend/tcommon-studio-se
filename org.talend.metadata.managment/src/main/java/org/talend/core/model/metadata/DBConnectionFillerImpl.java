@@ -795,22 +795,24 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
                         String schemaname = catalogName + "." + schemaPattern + ".sysobjects";
                         String sql = "select name from " + schemaname + " where xtype='SN'";
-                        // SELECT name AS object_name ,SCHEMA_NAME(schema_id) AS schema_name FROM sys.objects where
-                        // type='SN'
-                        ResultSet rsTables = stmt.executeQuery(sql);
-                        while (rsTables.next()) {
-                            String nameKey = rsTables.getString("name").trim();
+                        if (!schemaname.contains("INFORMATION_SCHEMA") && !schemaname.contains("guest")) {
+                            // SELECT name AS object_name ,SCHEMA_NAME(schema_id) AS schema_name FROM sys.objects where
+                            // type='SN'
+                            ResultSet rsTables = stmt.executeQuery(sql);
+                            while (rsTables.next()) {
+                                String nameKey = rsTables.getString("name").trim();
 
-                            MetadataTable metadatatable = null;
-                            metadatatable = RelationalFactory.eINSTANCE.createTdTable();
+                                MetadataTable metadatatable = null;
+                                metadatatable = RelationalFactory.eINSTANCE.createTdTable();
 
-                            metadatatable.setName(nameKey);
-                            metadatatable.setTableType(ETableTypes.TABLETYPE_SYNONYM.getName());
-                            metadatatable.setLabel(metadatatable.getName());
-                            if (schemaPattern != null) {
-                                ColumnSetHelper.setTableOwner(schemaPattern, metadatatable);
+                                metadatatable.setName(nameKey);
+                                metadatatable.setTableType(ETableTypes.TABLETYPE_SYNONYM.getName());
+                                metadatatable.setLabel(metadatatable.getName());
+                                if (schemaPattern != null) {
+                                    ColumnSetHelper.setTableOwner(schemaPattern, metadatatable);
+                                }
+                                list.add(metadatatable);
                             }
-                            list.add(metadatatable);
                         }
                     }
                 }
