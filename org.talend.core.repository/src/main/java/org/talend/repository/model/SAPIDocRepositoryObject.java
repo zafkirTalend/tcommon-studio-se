@@ -136,4 +136,14 @@ public class SAPIDocRepositoryObject extends RepositoryObject implements ISubRep
         return iDocUnit;
     }
 
+    @Override
+    public IRepositoryNode getRepositoryNode() {
+        return repObj.getRepositoryNode();
+    }
+
+    @Override
+    public boolean isDeleted() {
+        return this.getProperty().getItem().getState().isDeleted();
+    }
+
 }
