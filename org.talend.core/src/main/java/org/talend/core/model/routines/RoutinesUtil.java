@@ -109,6 +109,37 @@ public final class RoutinesUtil {
 
     /**
      * 
+     * DOC hcyi Comment method "getRoutineFromName".
+     * 
+     * @param tempProject
+     * @param name
+     * @return
+     */
+    public static IRepositoryViewObject getRoutineFromName(Project tempProject, String name) {
+        if (name == null)
+            return null;
+
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        try {
+            List<IRepositoryViewObject> all = factory.getAll(tempProject, ERepositoryObjectType.ROUTINES);
+            for (IRepositoryViewObject obj : all) {
+                if (obj != null && obj.getProperty() != null) {
+                    Item item = obj.getProperty().getItem();
+                    String label = obj.getProperty().getLabel();
+                    if (item != null && item instanceof RoutineItem && name.equals(label)) {
+                        return obj;
+                    }
+                }
+            }
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
+
+        return null;
+    }
+
+    /**
+     * 
      * ggu Comment method "collectRelatedRoutines".
      * 
      * @param includeRoutineIdOrNames if null, will add all.
