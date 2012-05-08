@@ -25,6 +25,7 @@ import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.FolderType;
@@ -590,7 +591,18 @@ public class RepositoryNodeUtilities {
                 IRepositoryViewObject obj = null;
                 String id = relation.getId();
                 if (RelationshipItemBuilder.ROUTINE_RELATION.equals(relation.getType())) {
-                    obj = getRoutineFromName(id, includeSystemItems);
+                    // TDI-20915
+                    Project mainProject = ProjectManager.getInstance().getCurrentProject();
+                    obj = getRoutineFromName(mainProject, id, includeSystemItems);
+                    if (obj == null) {
+                        List<Project> refProjects = ProjectManager.getInstance().getReferencedProjects(mainProject);
+                        for (Project refPro : refProjects) {
+                            obj = getRoutineFromName(refPro, id, includeSystemItems);
+                            if (obj != null) {
+                                break;
+                            }
+                        }
+                    }
                 } else {
                     if (id != null && id.indexOf(" - ") != -1) { //$NON-NLS-1$
                         id = id.substring(0, id.lastIndexOf(" - ")); //$NON-NLS-1$
@@ -663,14 +675,13 @@ public class RepositoryNodeUtilities {
         }
     }
 
-    public static IRepositoryViewObject getRoutineFromName(String name, boolean includeSystem) {
+    public static IRepositoryViewObject getRoutineFromName(Project tempProject, String name, boolean includeSystem) {
         if (name == null)
             return null;
 
         IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         try {
-            List<IRepositoryViewObject> all = factory.getAll(ProjectManager.getInstance().getCurrentProject(),
-                    ERepositoryObjectType.ROUTINES);
+            List<IRepositoryViewObject> all = factory.getAll(tempProject, ERepositoryObjectType.ROUTINES);
             for (IRepositoryViewObject obj : all) {
                 if (obj != null && obj.getProperty() != null) {
                     Item item = obj.getProperty().getItem();
