@@ -23,12 +23,9 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.ui.navigator.CommonViewer;
-import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.repository.constants.FileConstants;
-import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
-import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.navigator.RepoViewCommonViewer;
 
 /**
@@ -99,31 +96,6 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
             }
             if (viewer != null && !viewer.getTree().isDisposed()) {
                 viewer.refresh(topLevelNode);
-            }
-        }
-    }
-
-    public void initRepositoryNode() {
-        initRepositoryNode(getTopLevelNode());
-    }
-
-    protected void initRepositoryNode(RepositoryNode currentTopNode) {
-        if (currentTopNode != null) {
-            currentTopNode.setInitialized(false);
-            currentTopNode.getChildren().clear();
-
-            IRepositoryNode rootRepositoryNode = currentTopNode.getRoot().getRootRepositoryNode(
-                    ERepositoryObjectType.REFERENCED_PROJECTS);
-            if (rootRepositoryNode != null) {
-                for (IRepositoryNode node : rootRepositoryNode.getChildren()) {
-                    if (node instanceof IProjectRepositoryNode) {
-                        IRepositoryNode refNode = ((IProjectRepositoryNode) node).getRootRepositoryNode(currentTopNode
-                                .getContentType());
-                        if (refNode instanceof RepositoryNode) {
-                            initRepositoryNode((RepositoryNode) refNode);
-                        }
-                    }
-                }
             }
         }
     }

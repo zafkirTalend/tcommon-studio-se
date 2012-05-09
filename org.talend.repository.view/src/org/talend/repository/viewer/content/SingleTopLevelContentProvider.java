@@ -79,10 +79,41 @@ public abstract class SingleTopLevelContentProvider implements ITreeContentProvi
     private RepositoryNode getCachedTopLevelNode(RepositoryNode repositoryNode) {
         if (topLevelNode == null) {
             this.topLevelNode = getInitialTopLevelNode(repositoryNode);
+
+            initRepositoryNode();
         }// else already cached
         return topLevelNode;
     }
 
+    public void initRepositoryNode() {
+        final RepositoryNode topLevelNode2 = getTopLevelNode();
+        if (topLevelNode2 != null) {// reset top level node
+            topLevelNode2.setInitialized(false);
+            topLevelNode2.getChildren().clear();
+        }
+        // initRepositoryNode(topLevelNode2);
+    }
+
+    // protected void initRepositoryNode(RepositoryNode currentTopNode) {
+    // if (currentTopNode != null) {
+    // currentTopNode.setInitialized(false);
+    // currentTopNode.getChildren().clear();
+    //
+    // IRepositoryNode rootRepositoryNode = currentTopNode.getRoot().getRootRepositoryNode(
+    // ERepositoryObjectType.REFERENCED_PROJECTS);
+    // if (rootRepositoryNode != null) {
+    // for (IRepositoryNode node : rootRepositoryNode.getChildren()) {
+    // if (node instanceof IProjectRepositoryNode) {
+    // IRepositoryNode refNode = ((IProjectRepositoryNode) node).getRootRepositoryNode(currentTopNode
+    // .getContentType());
+    // if (refNode instanceof RepositoryNode) {
+    // initRepositoryNode((RepositoryNode) refNode);
+    // }
+    // }
+    // }
+    // }
+    // }
+    // }
     /**
      * this returnt the children for any type handle by this class. It first check if the element is a potential root
      * node, if so it store it. if element is the root node then getTopLevelNode is called to get the single children if

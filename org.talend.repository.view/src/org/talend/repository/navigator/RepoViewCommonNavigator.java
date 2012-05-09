@@ -234,6 +234,8 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
 
     private boolean noNeedUpdate = false;
 
+    private RepoViewPerspectiveListener perspectiveListener;
+
     /**
      * yzhang Comment method "addPreparedListeners".
      * 
@@ -444,12 +446,15 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
         expandTreeRootIfOnlyOneRoot();
         refreshContentDescription();
 
-        //
-        getNavigatorContentService().getActivationService().addExtensionActivationListener(
-                new RepoViewExtensionActivationListener(this));
         // refresh for filters
-        PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-                .addPerspectiveListener(new RepoViewPerspectiveListener(this.getCommonViewer()));
+        PlatformUI.getWorkbench().getActiveWorkbenchWindow().addPerspectiveListener(getRepoViewPerspectiveListener());
+    }
+
+    private RepoViewPerspectiveListener getRepoViewPerspectiveListener() {
+        if (perspectiveListener == null) {
+            perspectiveListener = new RepoViewPerspectiveListener(getCommonViewer());
+        }
+        return perspectiveListener;
     }
 
     /**
@@ -863,6 +868,12 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
         Saveable[] allSavables = Arrays.copyOf(superSaveables, superSaveables.length + 1);
         allSavables[allSavables.length - 1] = editorSavable;
         return allSavables;
+    }
+
+    @Override
+    public void dispose() {
+        PlatformUI.getWorkbench().getActiveWorkbenchWindow().removePerspectiveListener(getRepoViewPerspectiveListener());
+        super.dispose();
     }
 
 }
