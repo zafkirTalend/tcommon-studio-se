@@ -812,7 +812,12 @@ public class TreeUtil {
             node.getUniqueNames().addAll(treeNode.getUniqueNames());
         }
         MappingTypeRetriever retriever = MetadataTalendType.getMappingTypeRetriever("xsd_id");
-        node.setDataType(retriever.getDefaultSelectedTalendType("xs:" + treeNode.getOriginalDataType()));
+        //
+        String originalDataType = treeNode.getOriginalDataType();
+        if (originalDataType != null && !originalDataType.startsWith("xs:")) {
+            originalDataType = "xs:" + originalDataType;
+        }
+        node.setDataType(retriever.getDefaultSelectedTalendType(originalDataType));
         Object[] children = treeNode.getChildren();
         if (children != null) {
             for (int i = 0; i < children.length; i++) {
