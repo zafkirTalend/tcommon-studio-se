@@ -118,7 +118,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
     private static ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
 
-    private static final int MAX_TASKS = 9;
+    private static final int MAX_TASKS = 8;
 
     private static Logger log = Logger.getLogger(ProxyRepositoryFactory.class);
 
@@ -132,6 +132,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
     private ProjectManager projectManager;
 
+    @Override
     public synchronized void addPropertyChangeListener(PropertyChangeListener l) {
         if (l == null) {
             throw new IllegalArgumentException();
@@ -139,6 +140,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         support.addPropertyChangeListener(l);
     }
 
+    @Override
     public synchronized void removePropertyChangeListener(PropertyChangeListener l) {
         if (l != null) {
             support.removePropertyChangeListener(l);
@@ -170,6 +172,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#refreshJobPictureFolder()
      */
+    @Override
     public void refreshJobPictureFolder(String picFolder) {
         IFolder folder = RepositoryPathProvider.getFolder(picFolder);
         try {
@@ -186,6 +189,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#refreshJobPictureFolder()
      */
+    @Override
     public void refreshDocumentationFolder(String docFolder) {
         IFolder folder = RepositoryPathProvider.getFolder(docFolder);
         if (folder != null) {
@@ -203,6 +207,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#getRepositoryContext()
      */
+    @Override
     public RepositoryContext getRepositoryContext() {
         Context ctx = CoreRuntimePlugin.getInstance().getContext();
         return (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
@@ -324,6 +329,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return this.repositoryFactoryFromProvider.getMetadataConnectionsItem(project);
     }
 
+    @Override
     public List<ConnectionItem> getMetadataConnectionsItem() throws PersistenceException {
         return getMetadataConnectionsItem(projectManager.getCurrentProject());
     }
@@ -332,6 +338,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return this.repositoryFactoryFromProvider.getContextItem(project);
     }
 
+    @Override
     public List<ContextItem> getContextItem() throws PersistenceException {
         List<ContextItem> contextItems = getContextItem(projectManager.getCurrentProject());
         if (contextItems == null) {
@@ -352,10 +359,12 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @see org.talend.repository.model.IProxyRepositoryFactory#isNameAvailable(org.talend.core.model.properties.Item,
      * java.lang.String)
      */
+    @Override
     public boolean isNameAvailable(Item item, String name, List<IRepositoryViewObject>... givenList) throws PersistenceException {
         return isNameAvailable(projectManager.getCurrentProject(), item, name, givenList);
     }
 
+    @Override
     public boolean isNameAvailable(Project project, Item item, String name, List<IRepositoryViewObject>... givenList)
             throws PersistenceException {
         return this.repositoryFactoryFromProvider.isNameAvailable(project, item, name, givenList);
@@ -367,10 +376,12 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @seeorg.talend.repository.model.IProxyRepositoryFactory#isPathValid(org.talend.core.model.repository.
      * ERepositoryObjectType, org.eclipse.core.runtime.IPath, java.lang.String)
      */
+    @Override
     public boolean isPathValid(ERepositoryObjectType type, IPath path, String label) throws PersistenceException {
         return isPathValid(projectManager.getCurrentProject(), type, path, label);
     }
 
+    @Override
     public boolean isPathValid(Project proejct, ERepositoryObjectType type, IPath path, String label) throws PersistenceException {
         return this.repositoryFactoryFromProvider.isPathValid(proejct, type, path, label);
     }
@@ -381,6 +392,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @see org.talend.repository.model.IProxyRepositoryFactory#createProject(java.lang.String, java.lang.String,
      * org.talend.core.model.temp.ECodeLanguage, org.talend.core.model.properties.User)
      */
+    @Override
     public Project createProject(Project projectInfor) throws PersistenceException {
         checkFileName(projectInfor.getLabel(), RepositoryConstants.PROJECT_PATTERN);
         Project toReturn = this.repositoryFactoryFromProvider.createProject(projectInfor);
@@ -392,6 +404,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return toReturn;
     }
 
+    @Override
     public void saveProject(Project project) throws PersistenceException {
         repositoryFactoryFromProvider.saveProject(project);
     }
@@ -402,14 +415,17 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @seeorg.talend.repository.model.IProxyRepositoryFactory#createFolder(org.talend.core.model.repository.
      * ERepositoryObjectType, org.eclipse.core.runtime.IPath, java.lang.String)
      */
+    @Override
     public Folder createFolder(ERepositoryObjectType type, IPath path, String label) throws PersistenceException {
         return createFolder(projectManager.getCurrentProject(), type, path, label);
     }
 
+    @Override
     public Folder createFolder(Project project, ERepositoryObjectType type, IPath path, String label) throws PersistenceException {
         return createFolder(project, type, path, label, false);
     }
 
+    @Override
     public Folder createFolder(Project project, ERepositoryObjectType type, IPath path, String label, boolean isImportItem)
             throws PersistenceException {
         if (type.isDQItemType()) {
@@ -432,14 +448,17 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @seeorg.talend.repository.model.IProxyRepositoryFactory#deleteFolder(org.talend.core.model.repository.
      * ERepositoryObjectType, org.eclipse.core.runtime.IPath)
      */
+    @Override
     public synchronized void deleteFolder(ERepositoryObjectType type, IPath path) throws PersistenceException {
         deleteFolder(projectManager.getCurrentProject(), type, path);
     }
 
+    @Override
     public synchronized void deleteFolder(Project project, ERepositoryObjectType type, IPath path) throws PersistenceException {
         deleteFolder(projectManager.getCurrentProject(), type, path, false);
     }
 
+    @Override
     public synchronized void deleteFolder(Project project, ERepositoryObjectType type, IPath path, boolean fromEmptyRecycleBin)
             throws PersistenceException {
         this.repositoryFactoryFromProvider.deleteFolder(project, type, path, fromEmptyRecycleBin);
@@ -458,6 +477,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * org.talend.repository.model.IProxyRepositoryFactory#moveFolder(org.talend.core.model.repository.ERepositoryObjectType
      * , org.eclipse.core.runtime.IPath, org.eclipse.core.runtime.IPath)
      */
+    @Override
     public void moveFolder(ERepositoryObjectType type, IPath sourcePath, IPath targetPath) throws PersistenceException {
         this.repositoryFactoryFromProvider.moveFolder(type, sourcePath, targetPath);
         if (type == ERepositoryObjectType.PROCESS) {
@@ -474,6 +494,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#getNextId()
      */
+    @Override
     public String getNextId() {
         String nextId = this.repositoryFactoryFromProvider.getNextId();
 
@@ -493,6 +514,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#getRecycleBinItems()
      */
+    @Override
     public List<IRepositoryViewObject> getRecycleBinItems() throws PersistenceException {
         return getRecycleBinItems(projectManager.getCurrentProject());
     }
@@ -502,6 +524,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#readProject()
      */
+    @Override
     public Project[] readProject() throws PersistenceException, BusinessException {
         // mzhao initialize the DQ model packages.
         AbstractDQModelService dqModelService = CoreRuntimePlugin.getInstance().getDQModelService();
@@ -511,6 +534,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return this.repositoryFactoryFromProvider.readProject();
     }
 
+    @Override
     public Project[] readProject(boolean unloadResource) throws PersistenceException, BusinessException {
         return this.repositoryFactoryFromProvider.readProject(unloadResource);
     }
@@ -521,6 +545,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @seeorg.talend.repository.model.IProxyRepositoryFactory#renameFolder(org.talend.core.model.repository.
      * ERepositoryObjectType, org.eclipse.core.runtime.IPath, java.lang.String)
      */
+    @Override
     public void renameFolder(ERepositoryObjectType type, IPath path, String label) throws PersistenceException {
         // if (path.lastSegment().equalsIgnoreCase(label)) {
         // not supported to rename directly to another case.
@@ -551,10 +576,12 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @seeorg.talend.repository.model.IProxyRepositoryFactory#deleteObjectLogical(org.talend.core.model.repository.
      * IRepositoryViewObject)
      */
+    @Override
     public void deleteObjectLogical(IRepositoryViewObject objToDelete) throws PersistenceException, BusinessException {
         deleteObjectLogical(projectManager.getCurrentProject(), objToDelete);
     }
 
+    @Override
     public void deleteObjectLogical(Project project, IRepositoryViewObject objToDelete) throws PersistenceException,
             BusinessException {
         // RepositoryViewObject is dynamic, so force to use in all case the RepositoryObject with fixed object.
@@ -593,6 +620,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @seeorg.talend.repository.model.IProxyRepositoryFactory#deleteObjectPhysical(org.talend.core.model.repository.
      * IRepositoryViewObject)
      */
+    @Override
     public void forceDeleteObjectPhysical(IRepositoryViewObject objToDelete, String version) throws PersistenceException {
         this.repositoryFactoryFromProvider.deleteObjectPhysical(projectManager.getCurrentProject(), objToDelete, version);
         // i18n
@@ -607,23 +635,28 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @seeorg.talend.repository.model.IProxyRepositoryFactory#deleteObjectPhysical(org.talend.core.model.repository.
      * IRepositoryViewObject)
      */
+    @Override
     public void deleteObjectPhysical(IRepositoryViewObject objToDelete) throws PersistenceException {
         deleteObjectPhysical(objToDelete, null);
     }
 
+    @Override
     public void deleteObjectPhysical(IRepositoryViewObject objToDelete, String version) throws PersistenceException {
         deleteObjectPhysical(projectManager.getCurrentProject(), objToDelete, version);
     }
 
+    @Override
     public void deleteObjectPhysical(Project project, IRepositoryViewObject objToDelete) throws PersistenceException {
         deleteObjectPhysical(project, objToDelete, null);
     }
 
+    @Override
     public void deleteObjectPhysical(Project project, IRepositoryViewObject objToDelete, String version)
             throws PersistenceException {
         deleteObjectPhysical(project, objToDelete, version, false);
     }
 
+    @Override
     public void deleteObjectPhysical(Project project, IRepositoryViewObject objToDelete, String version,
             boolean fromEmptyRecycleBin) throws PersistenceException {
         if (project == null || objToDelete == null || objToDelete.getProperty() == null) {
@@ -693,6 +726,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @seeorg.talend.repository.model.IProxyRepositoryFactory#restoreObject(org.talend.core.model.repository.
      * IRepositoryViewObject , org.eclipse.core.runtime.IPath)
      */
+    @Override
     public void restoreObject(IRepositoryViewObject objToRestore, IPath path) throws PersistenceException, BusinessException {
         if (ProxyRepositoryFactory.getInstance().isUserReadOnlyOnCurrentProject()) {
             throw new BusinessException(Messages.getString("ProxyRepositoryFactory.bussinessException.itemNonModifiable")); //$NON-NLS-1$
@@ -732,6 +766,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * org.talend.repository.model.IProxyRepositoryFactory#moveObject(org.talend.core.model.repository.IRepositoryViewObject
      * , org.eclipse.core.runtime.IPath)
      */
+    @Override
     public void moveObject(IRepositoryViewObject objToMove, IPath targetPath, IPath... sourcePath) throws PersistenceException,
             BusinessException {
         checkAvailability(objToMove);
@@ -785,6 +820,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @see
      * org.talend.repository.model.IProxyRepositoryFactory#lock(org.talend.core.model.repository.IRepositoryViewObject)
      */
+    @Override
     public void lock(IRepositoryViewObject obj) throws PersistenceException, LoginException {
         lock(getItem(obj));
     }
@@ -794,6 +830,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#lock(org.talend.core.model.properties.Item)
      */
+    @Override
     public void lock(Item item) throws PersistenceException, LoginException {
         // getStatus(item)
         if (getStatus(item).isPotentiallyEditable()) {
@@ -822,11 +859,13 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#getAllVersion(java.lang.String)
      */
+    @Override
     public List<IRepositoryViewObject> getAllVersion(String id) throws PersistenceException {
         List<IRepositoryViewObject> allVersion = getAllRefVersion(projectManager.getCurrentProject(), id);
         return allVersion;
     }
 
+    @Override
     public List<IRepositoryViewObject> getAllVersion(String id, String folderPath, ERepositoryObjectType type)
             throws PersistenceException {
         List<IRepositoryViewObject> allVersion = getAllRefVersion(projectManager.getCurrentProject(), id, folderPath, type);
@@ -860,6 +899,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return allVersion;
     }
 
+    @Override
     public List<IRepositoryViewObject> getAllVersion(Project project, String id, boolean avoidSaveProject)
             throws PersistenceException {
         return this.repositoryFactoryFromProvider.getAllVersion(project, id, avoidSaveProject);
@@ -870,10 +910,12 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return this.repositoryFactoryFromProvider.getAllVersion(project, id, folderPath, type);
     }
 
+    @Override
     public IRepositoryViewObject getLastVersion(Project project, String id) throws PersistenceException {
         return this.repositoryFactoryFromProvider.getLastVersion(project, id);
     }
 
+    @Override
     public IRepositoryViewObject getLastVersion(Project project, String id, String folderPath, ERepositoryObjectType type)
             throws PersistenceException {
         return this.repositoryFactoryFromProvider.getLastVersion(project, id, folderPath, type);
@@ -884,6 +926,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return this.repositoryFactoryFromProvider.getLastVersion(projectManager.getCurrentProject(), id, folderPath, type);
     }
 
+    @Override
     public IRepositoryViewObject getLastVersion(String id) throws PersistenceException {
         IRepositoryViewObject lastRefVersion = getLastRefVersion(projectManager.getCurrentProject(), id);
         return lastRefVersion;
@@ -903,33 +946,40 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return lastVersion;
     }
 
+    @Override
     public List<IRepositoryViewObject> getAll(Project project, ERepositoryObjectType type) throws PersistenceException {
         return getAll(project, type, false);
     }
 
+    @Override
     public List<IRepositoryViewObject> getAll(Project project, ERepositoryObjectType type, boolean withDeleted)
             throws PersistenceException {
         return this.repositoryFactoryFromProvider.getAll(project, type, withDeleted, false);
     }
 
+    @Override
     public List<IRepositoryViewObject> getAll(Project project, ERepositoryObjectType type, boolean withDeleted,
             boolean allVersions) throws PersistenceException {
         return this.repositoryFactoryFromProvider.getAll(project, type, withDeleted, allVersions);
     }
 
+    @Override
     public List<IRepositoryViewObject> getAll(ERepositoryObjectType type) throws PersistenceException {
         return getAll(projectManager.getCurrentProject(), type, false);
     }
 
+    @Override
     public List<IRepositoryViewObject> getAll(ERepositoryObjectType type, boolean withDeleted) throws PersistenceException {
         return this.repositoryFactoryFromProvider.getAll(projectManager.getCurrentProject(), type, withDeleted, false);
     }
 
+    @Override
     public List<IRepositoryViewObject> getAll(ERepositoryObjectType type, boolean withDeleted, boolean allVersions)
             throws PersistenceException {
         return this.repositoryFactoryFromProvider.getAll(projectManager.getCurrentProject(), type, withDeleted, allVersions);
     }
 
+    @Override
     public List<String> getFolders(ERepositoryObjectType type) throws PersistenceException {
         return getFolders(projectManager.getCurrentProject(), type);
     }
@@ -983,6 +1033,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#getDocumentationStatus()
      */
+    @Override
     public List<Status> getDocumentationStatus() throws PersistenceException {
         return this.repositoryFactoryFromProvider.getDocumentationStatus();
     }
@@ -992,6 +1043,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#getTechnicalStatus()
      */
+    @Override
     public List<Status> getTechnicalStatus() throws PersistenceException {
         return this.repositoryFactoryFromProvider.getTechnicalStatus();
     }
@@ -1009,6 +1061,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#setDocumentationStatus(java.util.List)
      */
+    @Override
     public void setDocumentationStatus(List<Status> list) throws PersistenceException {
         this.repositoryFactoryFromProvider.setDocumentationStatus(list);
     }
@@ -1019,23 +1072,28 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @see org.talend.repository.model.IProxyRepositoryFactory#forceCreate(org.talend.core.model.properties.Item,
      * org.eclipse.core.runtime.IPath)
      */
+    @Override
     public void forceCreate(Item item, IPath path) throws PersistenceException {
         forceCreate(projectManager.getCurrentProject(), item, path);
     }
 
+    @Override
     public void forceCreate(Project project, Item item, IPath path) throws PersistenceException {
         this.repositoryFactoryFromProvider.create(project, item, path);
     }
 
+    @Override
     public void createParentFoldersRecursively(ERepositoryObjectType itemType, IPath path) throws PersistenceException {
         createParentFoldersRecursively(projectManager.getCurrentProject(), itemType, path);
     }
 
+    @Override
     public void createParentFoldersRecursively(Project project, ERepositoryObjectType itemType, IPath path)
             throws PersistenceException {
         createParentFoldersRecursively(project, itemType, path, false);
     }
 
+    @Override
     public void createParentFoldersRecursively(Project project, ERepositoryObjectType itemType, IPath path, boolean isImportItem)
             throws PersistenceException {
         List<String> folders = getFolders(project, itemType);
@@ -1056,6 +1114,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#setTechnicalStatus(java.util.List)
      */
+    @Override
     public void setTechnicalStatus(List<Status> list) throws PersistenceException {
         this.repositoryFactoryFromProvider.setTechnicalStatus(list);
     }
@@ -1065,10 +1124,12 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#setSpagoBiServer(java.util.List)
      */
+    @Override
     public void setSpagoBiServer(List<SpagoBiServer> list) throws PersistenceException {
         this.repositoryFactoryFromProvider.setSpagoBiServer(list);
     }
 
+    @Override
     public void setMigrationTasksDone(Project project, List<String> list) throws PersistenceException {
         this.repositoryFactoryFromProvider.setMigrationTasksDone(project, list);
     }
@@ -1092,10 +1153,12 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @see org.talend.repository.model.IProxyRepositoryFactory#create(org.talend.core.model.properties.Item,
      * org.eclipse.core.runtime.IPath)
      */
+    @Override
     public void create(Item item, IPath path, boolean... isImportItem) throws PersistenceException {
         create(projectManager.getCurrentProject(), item, path, isImportItem);
     }
 
+    @Override
     public void create(Project project, Item item, IPath path, boolean... isImportItem) throws PersistenceException {
         boolean isOherProcess = false;
         for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
@@ -1127,10 +1190,12 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#save(org.talend.core.model.properties.Item)
      */
+    @Override
     public void save(Item item, boolean... isMigrationTask) throws PersistenceException {
         save(projectManager.getCurrentProject(), item, isMigrationTask);
     }
 
+    @Override
     public void save(Project project, Item item, boolean... isMigrationTask) throws PersistenceException {
         this.repositoryFactoryFromProvider.save(project, item);
         if ((item instanceof ProcessItem || item instanceof JobletProcessItem)
@@ -1144,10 +1209,12 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#save(org.talend.core.model.properties.Property)
      */
+    @Override
     public void save(Property property, String... originalNameAndVersion) throws PersistenceException {
         save(projectManager.getCurrentProject(), property, originalNameAndVersion);
     }
 
+    @Override
     public void save(Project project, Property property, String... originalNameAndVersion) throws PersistenceException {
         this.repositoryFactoryFromProvider.save(project, property);
         if (property.getItem() instanceof ProcessItem || property.getItem() instanceof JobletProcessItem) {
@@ -1161,6 +1228,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @see org.talend.repository.model.IProxyRepositoryFactory#copy(org.talend.core.model.properties.Item,
      * org.eclipse.core.runtime.IPath)
      */
+    @Override
     public Item copy(Item sourceItem, IPath targetPath) throws PersistenceException, BusinessException {
         if (sourceItem instanceof ProcessItem) {
             try {
@@ -1181,6 +1249,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
     }
 
+    @Override
     public Item copy(Item sourceItem, IPath targetPath, boolean changeLabelWithCopyPrefix) throws PersistenceException,
             BusinessException {
 
@@ -1201,6 +1270,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
     }
 
+    @Override
     public void saveCopy(Item sourceItem, Item targetItem) {
         fireRepositoryPropertyChange(ERepositoryActionName.JOB_COPY.getName(), sourceItem, targetItem);
     }
@@ -1210,6 +1280,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#reload(org.talend.core.model.properties.Property)
      */
+    @Override
     public Property reload(Property property) throws PersistenceException {
         return this.repositoryFactoryFromProvider.reload(property);
     }
@@ -1231,6 +1302,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * org.talend.repository.model.IProxyRepositoryFactory#unlock(org.talend.core.model.repository.IRepositoryViewObject
      * )
      */
+    @Override
     public void unlock(IRepositoryViewObject obj) throws PersistenceException, LoginException {
         unlock(getItem(obj));
     }
@@ -1240,6 +1312,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#unlock(org.talend.core.model.properties.Item)
      */
+    @Override
     public void unlock(Item obj) throws PersistenceException, LoginException {
         if (getStatus(obj) == ERepositoryStatus.LOCK_BY_USER || obj instanceof JobletDocumentationItem
                 || obj instanceof JobDocumentationItem) {
@@ -1287,6 +1360,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#initialize()
      */
+    @Override
     public void initialize() throws PersistenceException {
         this.repositoryFactoryFromProvider.initialize();
     }
@@ -1318,6 +1392,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * org.talend.repository.model.IProxyRepositoryFactory#getStatus(org.talend.core.model.repository.IRepositoryViewObject
      * )
      */
+    @Override
     public ERepositoryStatus getStatus(IRepositoryViewObject obj) {
         if (obj instanceof ISubRepositoryObject) {
             ISubRepositoryObject subRepositoryObject = (ISubRepositoryObject) obj;
@@ -1331,6 +1406,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return getStatus(getItem(obj));
     }
 
+    @Override
     @Deprecated
     public boolean isDeleted(MetadataTable table) {
         // TODO SML/MHE Remove when table are items
@@ -1340,6 +1416,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return false;
     }
 
+    @Override
     public boolean isUserReadOnlyOnCurrentProject() {
         return this.repositoryFactoryFromProvider.isUserReadOnlyOnCurrentProject();
     }
@@ -1349,6 +1426,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#getStatus(org.talend.core.model.properties.Item)
      */
+    @Override
     public ERepositoryStatus getStatus(Item item) {
         ERepositoryStatus toReturn;
         toReturn = this.repositoryFactoryFromProvider.getStatus(item);
@@ -1367,6 +1445,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @see
      * org.talend.repository.model.IProxyRepositoryFactory#getStatus(org.talend.core.model.properties.InformationLevel)
      */
+    @Override
     public ERepositoryStatus getStatus(InformationLevel level) {
 
         if (level.getValue() == InformationLevel.WARN) {
@@ -1390,6 +1469,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * org.talend.repository.model.IProxyRepositoryFactory#isEditableAndLockIfPossible(org.talend.core.model.properties
      * .Item)
      */
+    @Override
     public boolean isEditableAndLockIfPossible(Item item) {
         if (!projectManager.isInCurrentMainProject(item)) {
             return false;
@@ -1440,6 +1520,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * org.talend.repository.model.IProxyRepositoryFactory#isEditableAndLockIfPossible(org.talend.core.model.repository
      * .IRepositoryViewObject)
      */
+    @Override
     public boolean isEditableAndLockIfPossible(IRepositoryViewObject obj) {
         if (obj instanceof ISubRepositoryObject) {
             AbstractMetadataObject abstractMetadataObject = ((ISubRepositoryObject) obj).getAbstractMetadataObject();
@@ -1453,6 +1534,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         }
     }
 
+    @Override
     public org.talend.core.model.properties.Project getProject(Item item) {
         EObject object = EcoreUtil.getRootContainer(item);
         if (object != null && object instanceof org.talend.core.model.properties.Project) {
@@ -1493,6 +1575,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @seeorg.talend.repository.model.IProxyRepositoryFactory#isPotentiallyEditable(org.talend.core.model.repository.
      * IRepositoryViewObject)
      */
+    @Override
     public boolean isPotentiallyEditable(IRepositoryViewObject obj) {
         // referenced project items can't be edited.
         if (!projectManager.getCurrentProject().getLabel().equals(obj.getProjectLabel())) {
@@ -1522,14 +1605,17 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return obj.getProperty().getItem();
     }
 
+    @Override
     public List<org.talend.core.model.properties.Project> getReferencedProjects(Project project) {
         return this.repositoryFactoryFromProvider.getReferencedProjects(project);
     }
 
+    @Override
     public Boolean hasChildren(Object parent) {
         return repositoryFactoryFromProvider.hasChildren(parent);
     }
 
+    @Override
     public synchronized List<ModuleNeeded> getModulesNeededForJobs() throws PersistenceException {
         return this.repositoryFactoryFromProvider.getModulesNeededForJobs();
     }
@@ -1620,10 +1706,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                     coreService.synchronizeSapLib();
                 }
 
-                if (!CommonsPlugin.isHeadless()) {
-                    coreService.initializeTemplates();
-                }
-
                 coreService.resetUniservLibraries();
                 TimeMeasure.step("logOnProject", "sync specific libraries");
 
@@ -1676,19 +1758,23 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return repositoryFactoryFromProvider.setAuthorByLogin(item, login);
     }
 
+    @Override
     public Property getUptodateProperty(Project project, Property property) throws PersistenceException {
         return repositoryFactoryFromProvider.getUptodateProperty(project, property);
     }
 
+    @Override
     public Property getUptodateProperty(Property property) throws PersistenceException {
         return getUptodateProperty(projectManager.getCurrentProject(), property);
     }
 
+    @Override
     public RootContainer<String, IRepositoryViewObject> getMetadata(Project project, ERepositoryObjectType type,
             boolean... options) throws PersistenceException {
         return this.repositoryFactoryFromProvider.getMetadata(project, type, options);
     }
 
+    @Override
     public RootContainer<String, IRepositoryViewObject> getMetadata(ERepositoryObjectType type) throws PersistenceException {
         return getMetadata(projectManager.getCurrentProject(), type);
     }
@@ -1699,6 +1785,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @see
      * org.talend.repository.model.IProxyRepositoryFactory#getRecycleBinItems(org.talend.core.model.general.Project)
      */
+    @Override
     public List<IRepositoryViewObject> getRecycleBinItems(Project project, boolean... options) throws PersistenceException {
         return this.repositoryFactoryFromProvider.getRecycleBinItems(project, options);
     }
@@ -1710,6 +1797,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * org.talend.repository.model.IProxyRepositoryFactory#getSpecificVersion(org.talend.core.model.general.Project,
      * java.lang.String, java.lang.String)
      */
+    @Override
     public IRepositoryViewObject getSpecificVersion(Project project, String id, String version, boolean avoidSaveProject)
             throws PersistenceException {
         List<IRepositoryViewObject> objList = getAllVersion(project, id, avoidSaveProject);
@@ -1726,6 +1814,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#getSpecificVersion(java.lang.String, java.lang.String)
      */
+    @Override
     public IRepositoryViewObject getSpecificVersion(String id, String version, boolean avoidSaveProject)
             throws PersistenceException {
         return getSpecificVersion(projectManager.getCurrentProject(), id, version, avoidSaveProject);
@@ -1735,6 +1824,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         this.repositoryFactoryFromProvider.checkAvailability();
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public void executeRepositoryWorkUnit(RepositoryWorkUnit workUnit) {
         this.repositoryFactoryFromProvider.executeRepositoryWorkUnit(workUnit);
@@ -1759,6 +1849,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         repositoryFactoryFromProvider.unloadResources();
     }
 
+    @Override
     public FolderItem getFolderItem(Project project, ERepositoryObjectType itemType, IPath path) {
         return repositoryFactoryFromProvider.getFolderItem(project, itemType, path);
     }
@@ -1788,6 +1879,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * org.talend.repository.model.IProxyRepositoryFactory#addRepositoryWorkUnitListener(org.talend.core.model.repository
      * .IRepositoryWorkUnitListener)
      */
+    @Override
     public void addRepositoryWorkUnitListener(IRepositoryWorkUnitListener listener) {
         repositoryFactoryFromProvider.addRepositoryWorkUnitListener(listener);
     }
@@ -1797,6 +1889,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#enableSandboxProject()
      */
+    @Override
     public boolean enableSandboxProject() throws PersistenceException {
         return repositoryFactoryFromProvider.enableSandboxProject();
     }
@@ -1806,6 +1899,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IProxyRepositoryFactory#isLocalConnectionProvider()
      */
+    @Override
     public boolean isLocalConnectionProvider() throws PersistenceException {
         return repositoryFactoryFromProvider.isLocalConnectionProvider();
     }
@@ -1817,6 +1911,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * org.talend.repository.model.IProxyRepositoryFactory#getMetadataByFolder(org.talend.core.model.general.Project,
      * org.talend.core.model.repository.ERepositoryObjectType, org.eclipse.core.runtime.IPath)
      */
+    @Override
     public List<IRepositoryViewObject> getMetadataByFolder(Project project, ERepositoryObjectType itemType, IPath path) {
         return repositoryFactoryFromProvider.getMetadataByFolder(project, itemType, path);
     }
@@ -1827,6 +1922,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @seeorg.talend.repository.model.IProxyRepositoryFactory#getMetadataByFolder(org.talend.core.model.repository.
      * ERepositoryObjectType, org.eclipse.core.runtime.IPath)
      */
+    @Override
     public List<IRepositoryViewObject> getMetadataByFolder(ERepositoryObjectType itemType, IPath path) {
         return repositoryFactoryFromProvider.getMetadataByFolder(projectManager.getCurrentProject(), itemType, path);
     }
@@ -1883,10 +1979,12 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return null;
     }
 
+    @Override
     public LockInfo getLockInfo(Item item) {
         return repositoryFactoryFromProvider.getLockInfo(item);
     }
 
+    @Override
     public String getNavigatorViewDescription() {
         return repositoryFactoryFromProvider.getNavigatorViewDescription();
     }

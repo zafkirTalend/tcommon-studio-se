@@ -13,7 +13,12 @@
 package org.talend.rcp.intro;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.SubMonitor;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IWorkbenchPreferenceConstants;
 import org.eclipse.ui.PlatformUI;
@@ -21,15 +26,15 @@ import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.eclipse.ui.internal.ide.application.IDEWorkbenchAdvisor;
-import org.talend.commons.CommonsPlugin;
 import org.talend.commons.utils.system.EclipseCommandLine;
-import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.designer.codegen.CodeGeneratorActivator;
 import org.talend.designer.runprocess.RunProcessPlugin;
+import org.talend.rcp.TalendSplashHandler;
 import org.talend.repository.registeruser.RegisterManagement;
+import org.talend.repository.utils.LoginTaskRegistryReader;
 
 /**
  * DOC ccarbone class global comment. Detailled comment <br/>
@@ -38,6 +43,8 @@ import org.talend.repository.registeruser.RegisterManagement;
  * 
  */
 public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
+
+    private static Logger log = Logger.getLogger(ApplicationWorkbenchAdvisor.class);
 
     /*
      * @Override public void preStartup() { WorkbenchAdapterBuilder.registerAdapters(); super.preStartup(); }
@@ -82,6 +89,7 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
         return PERSPECTIVE_ID;
     }
 
+    @SuppressWarnings("restriction")
     @Override
     public void preStartup() {
         super.preStartup();
@@ -93,6 +101,23 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
         // FIXME SML Remove that
         // PerlModuleActivator.getDefault();
         PerspectiveReviewUtil.resetPerspective();
+        // get all login task to execut at the end but is needed here for monitor count
+        LoginTaskRegistryReader loginTaskRegistryReader = new LoginTaskRegistryReader();
+        IRunnableWithProgress[] allLoginTasks = loginTaskRegistryReader.getAllTaskListInstance();
+        IProgressMonitor monitor = TalendSplashHandler.INSTANCE != null ? TalendSplashHandler.INSTANCE.getBundleProgressMonitor()
+                : new NullProgressMonitor();
+
+        SubMonitor subMonitor = SubMonitor.convert(monitor, allLoginTasks.length + 1);
+
+        // handle the login tasks created using the extension point org.talend.core.repository.login.task
+        for (IRunnableWithProgress toBeRun : allLoginTasks) {
+            try {
+                toBeRun.run(subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE));
+            } catch (Exception e) {
+                log.error("Error while execution a login task.", e); //$NON-NLS-1$
+            }
+        }
+
     }
 
     @Override
@@ -101,9 +126,6 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
 
         if (!ArrayUtils.contains(Platform.getApplicationArgs(), EclipseCommandLine.TALEND_DISABLE_LOGINDIALOG_COMMAND)) {
             RegisterManagement.getInstance().validateRegistration();
-        }
-        if (!CommonsPlugin.isHeadless()) {
-            CorePlugin.getDefault().getCodeGeneratorService().initializeTemplates();
         }
         // feature 19053
         PerspectiveReviewUtil.setPerspectiveTabs();

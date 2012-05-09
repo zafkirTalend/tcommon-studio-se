@@ -21,9 +21,9 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.ISafeRunnable;
 import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.ui.navigator.INavigatorContentService;
+import org.talend.core.utils.RegistryReader;
 
 /**
  * DOC sgandon class global comment. Detailled comment <br/>
@@ -32,21 +32,6 @@ import org.eclipse.ui.navigator.INavigatorContentService;
  * 
  */
 public class PerspectiveFilterRegistryReader extends RegistryReader {
-
-    /**
-     * DOC sgandon class global comment. Detailled comment <br/>
-     * 
-     * $Id: talend.epf 55206 2011-02-15 17:32:14Z mhirt $
-     * 
-     */
-    private abstract class RegistrySafeRunnable implements ISafeRunnable {
-
-        @Override
-        public void handleException(Throwable exception) {
-            log.error("error reading extention registry", exception); //$NON-NLS-1$
-
-        }
-    }
 
     public static class PerspectiveFilterDescription {
 
@@ -194,7 +179,7 @@ public class PerspectiveFilterRegistryReader extends RegistryReader {
     @Override
     protected boolean readElement(final IConfigurationElement element) {
         if (PERSPECTIVE_FILTER.equals(element.getName())) {
-            SafeRunner.run(new RegistrySafeRunnable() {
+            SafeRunner.run(new RegistryReader.RegistrySafeRunnable() {
 
                 @Override
                 public void run() throws Exception {

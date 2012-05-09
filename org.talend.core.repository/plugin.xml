@@ -9,6 +9,7 @@
    <extension-point id="repository_handler" name="Repository handler" schema="schema/repository_handler.exsd"/>
    <extension-point id="repository_service" name="Repository service" schema="schema/repository_service.exsd"/>
    <extension-point id="metadata_provider" name="Metadata provider" schema="schema/metadata_provider.exsd"/>
+   <extension-point id="org.talend.core.repository.login.task" name="Login Task" schema="schema/login_task.exsd"/>
 
    <extension
          point="org.talend.core.runtime.service">
@@ -571,6 +572,12 @@
             id="org.talend.core.repository.tRunJobDragAndDropFilter"
             name="tRunJob DnD Filter">
       </DragAndDropFilter>
+   </extension>
+   <extension
+         point="org.talend.core.repository.login.task">
+      <loginTask
+            class="org.talend.core.repository.GeneratedJetEmitersLoginTask">
+      </loginTask>
    </extension>
 
 

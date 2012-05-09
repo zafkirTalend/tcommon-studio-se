@@ -84,4 +84,11 @@
          pattern="org.eclipse.ui.ide.application/org.eclipse.update.ui.updateMenu">
    </activityPatternBinding>
 </extension>
+<extension
+      point="org.eclipse.ui.splashHandlers">
+   <splashHandler
+         class="org.talend.rcp.TalendSplashHandler"
+         id="org.talend.rcp.splashHandler">
+   </splashHandler>
+</extension>
 </plugin>
