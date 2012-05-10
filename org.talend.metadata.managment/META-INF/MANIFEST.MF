@@ -13,7 +13,8 @@ Require-Bundle: org.eclipse.ui,
  org.talend.utils,
  org.apache.log4j,
  javax.xml.rpc,
- org.eclipse.xsd
+ org.eclipse.xsd,
+ org.talend.libraries.jdbc.jtds
 Bundle-ActivationPolicy: lazy
 Export-Package: org.apache.axis,
  org.apache.axis.client,
