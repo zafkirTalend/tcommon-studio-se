@@ -882,6 +882,24 @@ public class ConnectionHelper {
     }
 
     /**
+     * Gets the metadata table by id from connection. Created by Marvin Wang on May 8, 2012.
+     * 
+     * @param connection
+     * @param id
+     * @return the metadata table if found, otherwise, return <code>null</code>.
+     */
+    public static MetadataTable getTableById(Connection connection, String id) {
+        Set<MetadataTable> tables = getTables(connection);
+        if (tables != null && tables.size() > 0) {
+            for (MetadataTable metadataTable : tables) {
+                if (metadataTable != null && id.equals(metadataTable.getId()))
+                    return metadataTable;
+            }
+        }
+        return null;
+    }
+
+    /**
      * return a set of all MetadataTable linked to this connection by inspecting through all the connection Package and
      * sub-packages
      * 

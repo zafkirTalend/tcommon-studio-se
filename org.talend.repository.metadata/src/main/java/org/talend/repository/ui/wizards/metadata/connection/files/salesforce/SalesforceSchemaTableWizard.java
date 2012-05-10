@@ -16,7 +16,6 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
@@ -60,15 +59,12 @@ public class SalesforceSchemaTableWizard extends CheckLastVersionRepositoryWizar
         if (connectionItem != null) {
             oldTableMap = RepositoryUpdateManager.getOldTableIdAndNameMap(connectionItem, metadataTable, creation);
             oldMetadataTable = ConvertionHelper.convert(metadataTable);
+            initConnectionCopy(connectionItem.getConnection());
         }
 
         setNeedsProgressMonitor(true);
         isRepositoryObjectEditable();
         initLockStrategy();
-    }
-
-    public void createControl(Composite parent) {
-        addPages();
     }
 
     /**
@@ -78,7 +74,7 @@ public class SalesforceSchemaTableWizard extends CheckLastVersionRepositoryWizar
     public void addPages() {
         setWindowTitle(Messages.getString("SchemaWizard.windowTitle")); //$NON-NLS-1$
 
-        tableWizardpage = new FileTableWizardPage(connectionItem, metadataTable, isRepositoryObjectEditable());
+        tableWizardpage = new FileTableWizardPage(connectionItem, metadataTableCopy, isRepositoryObjectEditable());
 
         if (creation) {
             tableWizardpage.setTitle(Messages.getString(
@@ -99,6 +95,7 @@ public class SalesforceSchemaTableWizard extends CheckLastVersionRepositoryWizar
      */
     public boolean performFinish() {
         if (tableWizardpage.isPageComplete()) {
+            applyConnectionCopy();
             // update
             RepositoryUpdateManager.updateSingleSchema(connectionItem, metadataTable, oldMetadataTable, oldTableMap);
             IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
@@ -111,6 +108,8 @@ public class SalesforceSchemaTableWizard extends CheckLastVersionRepositoryWizar
                         Messages.getString("CommonWizard.persistenceException"), detailError); //$NON-NLS-1$
                 log.error(Messages.getString("CommonWizard.persistenceException") + "\n" + detailError); //$NON-NLS-1$ //$NON-NLS-2$
             }
+            connectionCopy = null;
+            metadataTableCopy = null;
             return true;
         } else {
             return false;
@@ -131,5 +130,4 @@ public class SalesforceSchemaTableWizard extends CheckLastVersionRepositoryWizar
     public ConnectionItem getConnectionItem() {
         return this.connectionItem;
     }
-
 }
