@@ -69,9 +69,9 @@ public class CatalogImpl extends PackageImpl implements Catalog {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
-    protected CatalogImpl() {
+    public CatalogImpl() {
         super();
     }
 
