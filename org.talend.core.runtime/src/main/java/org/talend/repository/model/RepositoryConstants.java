@@ -78,7 +78,7 @@ public class RepositoryConstants {
 
     public static final String REPOSITORY_URL = "url"; //$NON-NLS-1$
 
-    public static final String TDQ_PAT_ITEM_PATTERN = ".*"; //$NON-NLS-1$
+    public static final String TDQ_PAT_ITEM_PATTERN = "[a-zA-Z_][a-zA-Z0-9\\.\\-_ ]*"; //$NON-NLS-1$
 
     // GLIU: add for TESB-3837
     public static final String SERVICES_NAME_PATTERN = "[a-zA-Z_][a-zA-Z0-9\\.\\-_]*";
