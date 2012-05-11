@@ -22,10 +22,9 @@ public class SchemaImpl extends PackageImpl implements Schema {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @generated NOT
+     * @generated
      */
-    public SchemaImpl() {
+    protected SchemaImpl() {
         super();
     }
 
