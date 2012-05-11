@@ -623,6 +623,11 @@ public class XmiResourceManager {
         }
 
         for (Resource resource : resourcesToSave) {
+            // add for bug TDI-20844
+            if (ResourceFilenameHelper.mustChangeLabel(fileNameTest) && resource.getURI() != null
+                    && resource.getURI().toString().endsWith(".screenshot")) {
+                continue;
+            }
             saveResource(resource);
         }
         if (!resourceProperty.equals(lastVersionProperty)) {
