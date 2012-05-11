@@ -978,7 +978,7 @@ public class DeleteAction extends AContextualAction {
         return deleteElements(factory, deleteActionCache, currentJobNode, null);
     }
 
-    boolean confirmFromDialog = false;
+    protected boolean confirmFromDialog = false;
 
     private boolean deleteElements(IProxyRepositoryFactory factory, DeleteActionCache deleteActionCache,
             final RepositoryNode currentJobNode, Boolean confirm) throws PersistenceException, BusinessException {
