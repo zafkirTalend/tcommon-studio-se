@@ -16,6 +16,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -41,6 +43,12 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.ServiceReference;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventAdmin;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.LoginException;
@@ -88,6 +96,7 @@ import org.talend.core.model.repository.LockInfo;
 import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.model.repository.RepositoryViewObject;
+import org.talend.core.repository.CoreRepositoryPlugin;
 import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.utils.RepositoryPathProvider;
@@ -847,11 +856,36 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                     this.repositoryFactoryFromProvider.lock(documentationItem);
                 }
             }
+            notifyLock(item, true);
             // i18n
             // log.debug("Lock [" + item + "] by \"" + getRepositoryContext().getUser() + "\".");
             String str[] = new String[] { item.toString(), getRepositoryContext().getUser().toString() };
             log.debug(Messages.getString("ProxyRepositoryFactory.log.lock", str)); //$NON-NLS-1$
         }
+    }
+
+    /**
+     * DOC sgandon Comment method "notifyLock".
+     * 
+     * @param item
+     */
+    private void notifyLock(Item item, boolean lock) {
+        Bundle bundle = FrameworkUtil.getBundle(this.getClass());
+        if (bundle != null) {
+            BundleContext bundleContext = CoreRepositoryPlugin.getDefault().getBundle().getBundleContext();
+            ServiceReference ref = bundleContext != null ? bundleContext.getServiceReference(EventAdmin.class.getName()) : null;
+            if (ref != null) {
+                @SuppressWarnings("null")
+                EventAdmin eventAdmin = (EventAdmin) bundleContext.getService(ref);
+
+                Dictionary<String, Object> properties = new Hashtable<String, Object>();
+                properties.put("item", item);
+
+                Event lockEvent = new Event("org/talend/repository/item/" + (lock ? "lock" : "unlock"), properties);
+
+                eventAdmin.postEvent(lockEvent);
+            }
+        }// else no bundle for this, should never happend.
     }
 
     /*
@@ -1331,6 +1365,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                         this.repositoryFactoryFromProvider.unlock(documentationItem);
                     }
                 }
+                notifyLock(obj, false);
                 // i18n
                 // log.debug("Unlock [" + obj + "] by \"" + getRepositoryContext().getUser() + "\".");
                 String str[] = new String[] { obj.toString(), getRepositoryContext().getUser().toString() };

@@ -12,13 +12,28 @@
 // ============================================================================
 package org.talend.repository.viewer.content;
 
+import java.util.Collections;
+import java.util.Hashtable;
+
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.swt.widgets.Display;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.ServiceRegistration;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventConstants;
+import org.osgi.service.event.EventHandler;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
@@ -36,6 +51,8 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
     private Project project;
 
     private IPropertyChangeListener mergeRefListener;
+
+    private ServiceRegistration lockService;
 
     private final class DeletedFolderListener extends AdapterImpl {
 
@@ -144,6 +161,14 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
         super.inputChanged(arg0, arg1, arg2);
         // register a listener to refresh when merge items is activated
 
+        registerMergeRefListgener();
+        registerLockUnlockServiceListener();
+    }
+
+    /**
+     * DOC sgandon Comment method "registerMergeRefListgener".
+     */
+    private void registerMergeRefListgener() {
         if (mergeRefListener == null) {
             mergeRefListener = new IPropertyChangeListener() {
 
@@ -158,6 +183,58 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
             IPreferenceStore preferenceStore = RepositoryManager.getPreferenceStore();
             preferenceStore.addPropertyChangeListener(mergeRefListener);
         }
+    }
+
+    /**
+     * DOC sgandon Comment method "registerLockUnlockServiceListener".
+     */
+    private void registerLockUnlockServiceListener() {
+        Bundle bundle = FrameworkUtil.getBundle(ProjectRepoAbstractContentProvider.class);
+        if (lockService == null) {
+            this.lockService = bundle.getBundleContext().registerService(
+                    EventHandler.class.getName(),
+                    new EventHandler() {
+
+                        @Override
+                        public void handleEvent(Event event) {
+                            Item item = (Item) event.getProperty("item");
+                            refreshContentIfNecessary(item);
+                        }
+                    },
+                    new Hashtable<String, String>(Collections.singletonMap(EventConstants.EVENT_TOPIC,
+                            "org/talend/repository/item/*")));
+        }// else already unlock service listener already registered
+    }
+
+    /**
+     * DOC sgandon Comment method "refreshContentIfNecessary".
+     * 
+     * @param item
+     */
+    protected void refreshContentIfNecessary(Item item) {
+        Resource propFileResouce = item.getProperty() != null ? item.getProperty().eResource() : null;
+        if (propFileResouce != null) {
+            URI uri = propFileResouce.getURI();
+
+            Path itemPath = new Path(uri.toPlatformString(false));
+            IPath workspaceTopNodePath = getWorkspaceTopNodePath();
+            if (workspaceTopNodePath != null && workspaceTopNodePath.isPrefixOf(itemPath)) {
+                System.out.println("refresh for lock :" + this);
+                Display.getDefault().asyncExec(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        RepositoryNode topLevelNode = getTopLevelNode();
+                        if (topLevelNode != null && viewer != null && !viewer.getTree().isDisposed()) {
+                            viewer.refresh(topLevelNode, true);
+                        }
+
+                    }
+                });
+
+            }// else not an item handled by this content provider so ignor.
+        }
+
     }
 
     /*
@@ -176,6 +253,10 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
             preferenceStore.removePropertyChangeListener(mergeRefListener);
             mergeRefListener = null;
         }
+        if (lockService != null) {
+            lockService.unregister();
+            lockService = null;
+        }// else service already unregistered or not event instanciated
         super.dispose();
     }
 

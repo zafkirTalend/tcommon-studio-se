@@ -12,7 +12,8 @@ Require-Bundle: org.eclipse.ui,
  org.talend.common.ui.runtime,
  org.talend.commons.ui,
  org.apache.log4j,
- org.talend.libraries.apache
+ org.talend.libraries.apache,
+ org.eclipse.osgi.services
 Export-Package: org.talend.core.ldap,
  org.talend.core.model.genhtml,
  org.talend.core.model.metadata,

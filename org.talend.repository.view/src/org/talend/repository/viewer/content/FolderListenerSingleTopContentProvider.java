@@ -21,9 +21,11 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.talend.core.repository.constants.FileConstants;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.navigator.RepoViewCommonViewer;
@@ -32,6 +34,8 @@ import org.talend.repository.navigator.RepoViewCommonViewer;
  * this handle content that root node is of type ProjectRepositoryNode
  * */
 public abstract class FolderListenerSingleTopContentProvider extends SingleTopLevelContentProvider {
+
+    private IPath workspaceRelativePath;
 
     public FolderListenerSingleTopContentProvider() {
         super();
@@ -48,33 +52,44 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
         @Override
         protected boolean visit(IResourceDelta delta, Collection<Runnable> runnables) {
             IResource resource = delta.getResource();
-            IPath path = resource.getProjectRelativePath();
-            String topLevelNodeProjectRelativePath = getTopLevelNodeProjectRelativePath();
-            if (topLevelNodeProjectRelativePath != null) {
+            IPath path = resource.getFullPath();
+            IPath topLevelNodeWorkspaceRelativePath = getWorkspaceTopNodePath();
+            if (topLevelNodeWorkspaceRelativePath != null) {
+                int matchingFirstSegments = path.matchingFirstSegments(topLevelNodeWorkspaceRelativePath);
+                if (path.segmentCount() == matchingFirstSegments
+                        || matchingFirstSegments == topLevelNodeWorkspaceRelativePath.segmentCount()) {
+                    // be sure we are the last path of the resources and then check for the right folder and then check
+                    // for
+                    // file of type .properties or folder.
+                    if ((delta.getAffectedChildren().length == 0)
+                            && (FileConstants.PROPERTIES_EXTENSION.equals(path.getFileExtension()) || (resource instanceof IContainer))) {
+                        if (viewer instanceof RepoViewCommonViewer) {
+                            runnables.add(new Runnable() {
 
-                // be sure we are the last path of the resources and then check for the right folder and then check for
-                // file of type .properties or folder.
-
-                if (delta.getAffectedChildren().length == 0
-                        && path.toPortableString().startsWith(topLevelNodeProjectRelativePath)
-                        && (FileConstants.PROPERTIES_EXTENSION.equals(path.getFileExtension()) || resource instanceof IContainer)) {
-                    if (viewer instanceof RepoViewCommonViewer) {
-                        runnables.add(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                refreshTopLevelNode();
-                            }
-                        });
+                                @Override
+                                public void run() {
+                                    refreshTopLevelNode();
+                                }
+                            });
+                        }// else nothing to update so stop visiting.
+                        return false;
+                    } else {// not the propoer resouce change so ignors and continue exploring
+                        return true;
                     }
-
-                    return false;
-                } else {// not the propoer resouce change so ignors and continue exploring
-                    return true;
-                }
+                }// else not the projer project or folder so stop visiting.
             }// else no root node so ignor children
             return false;
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.viewer.content.SingleTopLevelContentProvider#initRepositoryNode()
+     */
+    @Override
+    public void initRepositoryNode() {
+        super.initRepositoryNode();
     }
 
     /**
@@ -104,12 +119,23 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
         // do nothing here
     }
 
+    protected IPath getWorkspaceTopNodePath() {
+        if (workspaceRelativePath == null) {
+            String projectName = ProjectManager.getInstance().getCurrentProject().getTechnicalLabel();
+            String topLevelNodeProjectRelativePath = getTopLevelNodeProjectRelativePath();
+            if (projectName != null && (topLevelNodeProjectRelativePath != null && !"".equals(topLevelNodeProjectRelativePath))) { //$NON-NLS-1$
+                workspaceRelativePath = Path.fromPortableString('/' + projectName).append(topLevelNodeProjectRelativePath);
+            }
+        }
+        return workspaceRelativePath;
+    }
+
     /**
      * DOC sgandon Comment method "getTopLevelNodeProjectRelativePath".
      * 
-     * @return
+     * @return the relative path to the project or null if none
      */
-    public String getTopLevelNodeProjectRelativePath() {
+    protected String getTopLevelNodeProjectRelativePath() {
         RepositoryNode topLevelNode = getTopLevelNode();
         if (topLevelNode != null && topLevelNode.getContentType() != null) {
             return topLevelNode.getContentType().getFolder();
@@ -169,6 +195,7 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
         if (workspace != null && resouceChangeVisitor != null) {
             workspace.removeResourceChangeListener(resouceChangeVisitor);
         }// else workspace not accessible any more so do nothing
+        workspaceRelativePath = null;
         super.dispose();
     }
 
