@@ -37,9 +37,10 @@ public class TdColumnImpl extends MetadataColumnImpl implements TdColumn {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * 
+     * @generated NOT
      */
-    protected TdColumnImpl() {
+    public TdColumnImpl() {
         super();
     }
 
