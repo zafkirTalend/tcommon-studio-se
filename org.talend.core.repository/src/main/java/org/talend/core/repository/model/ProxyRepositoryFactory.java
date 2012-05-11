@@ -39,6 +39,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
@@ -63,9 +65,11 @@ import org.talend.core.AbstractDQModelService;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
 import org.talend.core.IESBService;
+import org.talend.core.ITDQRepositoryService;
 import org.talend.core.PluginChecker;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
+import org.talend.core.exception.TalendInternalPersistenceException;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.Project;
@@ -268,7 +272,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return false;
     }
 
-    private boolean checkIfHaveDuplicateName(Project project, Item item, IPath path) throws PersistenceException {
+    private boolean checkIfHaveDuplicateName(Project project, Item item, IPath path) throws
+            PersistenceException {
         String name = item.getProperty().getLabel();
 
         ERepositoryObjectType type = ERepositoryObjectType.getItemType(item);
@@ -313,16 +318,37 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 if (currentShell == null) {
                     currentShell = new Shell();
                 }
-                MessageBox box = new MessageBox(currentShell, SWT.ICON_WARNING | SWT.OK | SWT.CANCEL);
-                box.setText(Messages.getString("ProxyRepositoryFactory.JobNameErroe")); //$NON-NLS-1$
-                box.setMessage(Messages.getString("ProxyRepositoryFactory.Label") + " " + name + " " + Messages.getString("ProxyRepositoryFactory.ReplaceJob") + Messages.getString("ProxyRepositoryFactory.ReplaceJobHazardDescription")); //$NON-NLS-1$ //$NON-NLS-2$//$NON-NLS-3$//$NON-NLS-4$//$NON-NLS-5$
-                if (box.open() == SWT.OK) {
-                    deleteObjectPhysical(duplicateNameObject);
-                    return true;
+                ITDQRepositoryService tdqRepService = null;
+
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+                    tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
+                            ITDQRepositoryService.class);
+                }
+
+                boolean isThrow = true;
+                if (tdqRepService != null && CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {
+                    // change MessageBox to DeleteModelElementConfirmDialog
+                    InputDialog inputDialog = tdqRepService.getInputDialog(item);
+                    if (MessageDialog.OK == inputDialog.open()) {
+                        String newName = inputDialog.getValue();
+                        tdqRepService.changeElementName(item, newName);
+                        isThrow = false;
+                    }
                 } else {
-                    throw new IllegalArgumentException(Messages.getString(
+                    MessageBox box = new MessageBox(currentShell, SWT.ICON_WARNING | SWT.OK | SWT.CANCEL);
+                    box.setText(Messages.getString("ProxyRepositoryFactory.JobNameErroe")); //$NON-NLS-1$
+                    box.setMessage(Messages.getString("ProxyRepositoryFactory.Label") + " " + name + " " + Messages.getString("ProxyRepositoryFactory.ReplaceJob") + Messages.getString("ProxyRepositoryFactory.ReplaceJobHazardDescription")); //$NON-NLS-1$ //$NON-NLS-2$//$NON-NLS-3$//$NON-NLS-4$//$NON-NLS-5$
+
+                    if (box.open() == SWT.OK) {
+                        deleteObjectPhysical(duplicateNameObject);
+                        isThrow = false;
+                    }
+                }
+                if (isThrow) {
+                    throw new TalendInternalPersistenceException(Messages.getString(
                             "ProxyRepositoryFactory.illegalArgumentException.labeAlreadyInUse", new String[] { name })); //$NON-NLS-1$
                 }
+                return true;
             }
         }
         return true;
@@ -1211,12 +1237,14 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 // don't do anything
             }
         }
-        checkFileNameAndPath(project, item, RepositoryConstants.getPattern(ERepositoryObjectType.getItemType(item)), path, false,
+        checkFileNameAndPath(project, item,
+                RepositoryConstants.getPattern(ERepositoryObjectType.getItemType(item)), path, false,
                 isImportItem);
-        this.repositoryFactoryFromProvider.create(project, item, path, isImportItem);
-        if ((item instanceof ProcessItem || item instanceof JobletProcessItem) && (isImportItem.length == 0)) {
-            fireRepositoryPropertyChange(ERepositoryActionName.JOB_CREATE.getName(), null, item);
-        }
+
+            this.repositoryFactoryFromProvider.create(project, item, path, isImportItem);
+            if ((item instanceof ProcessItem || item instanceof JobletProcessItem) && (isImportItem.length == 0)) {
+                fireRepositoryPropertyChange(ERepositoryActionName.JOB_CREATE.getName(), null, item);
+            }
     }
 
     /*

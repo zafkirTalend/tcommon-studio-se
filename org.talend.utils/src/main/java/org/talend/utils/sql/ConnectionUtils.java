@@ -213,6 +213,22 @@ public final class ConnectionUtils {
     }
 
     /**
+     * 
+     * Comment method "isDB2".
+     * 
+     * @param metadata
+     * @return
+     * @throws SQLException
+     */
+    public static boolean isDB2(DatabaseMetaData metadata) throws SQLException {
+        if (metadata != null && metadata.getDatabaseProductName() != null
+                && metadata.getDatabaseProductName().indexOf(IBM_DB2_ZOS_PRODUCT_NAME) > -1) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * yyi 2010-08-25 for 14851, Sybase DB has several names with different productions and versions. For example the
      * Sybase IQ with version 12.6 is called 'Sybase' getting by JDBC but the version 15+ it is changed to 'Sybase IQ'.
      * it is user by org.talend.cwm.db.connection.ConnectionUtils.isSybase
