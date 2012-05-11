@@ -19,6 +19,7 @@ Bundle-ActivationPolicy: lazy
 Export-Package: org.apache.axis,
  org.apache.axis.client,
  org.talend.core.database.utils,
+ org.talend.core.i18n,
  org.talend.core.model,
  org.talend.core.model.metadata,
  org.talend.core.model.metadata.builder,
