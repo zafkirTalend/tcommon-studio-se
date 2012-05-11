@@ -219,7 +219,6 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
             Path itemPath = new Path(uri.toPlatformString(false));
             IPath workspaceTopNodePath = getWorkspaceTopNodePath();
             if (workspaceTopNodePath != null && workspaceTopNodePath.isPrefixOf(itemPath)) {
-                System.out.println("refresh for lock :" + this);
                 Display.getDefault().asyncExec(new Runnable() {
 
                     @Override
