@@ -12,9 +12,15 @@
 // ============================================================================
 package org.talend.repository.localprovider.model;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -36,6 +42,7 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
@@ -159,6 +166,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     private static Logger log = Logger.getLogger(LocalRepositoryFactory.class);
 
     private static LocalRepositoryFactory singleton = null;
+
+    private boolean copyScreenshotFlag = false;
 
     public LocalRepositoryFactory() {
         super();
@@ -1889,9 +1898,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             xmiResourceManager.saveResource(itemResource);
             /* should release the refereneces of resources */
             referenceFileReources = null;
-            if (screenshotFlag) {
+            if (screenshotFlag && !copyScreenshotFlag) {
                 xmiResourceManager.saveResource(screenshotResource);
             }
+            this.copyScreenshotFlag = false;
         }
     }
 
@@ -1928,6 +1938,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             // *need to create all referenece files when copy the item*//
             copyReferenceFiles(originalItem, newItem);
             create(getRepositoryContext().getProject(), newItem, path);
+            copyScreenshotFile(originalItem, newItem);
 
             if (newItem instanceof ConnectionItem) {
                 ConnectionItem connectionItem = (ConnectionItem) newItem;
@@ -1944,6 +1955,46 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
 
         return null;
+    }
+
+    // add for bug TDI-20844,when copy or duplicate a job,joblet.just copy .screenshot file will be ok.
+    private void copyScreenshotFile(Item originalItem, Item newItem) throws IOException {
+        int id = originalItem.eClass().getClassifierID();
+        if (id != PropertiesPackage.PROCESS_ITEM && id != PropertiesPackage.JOBLET_PROCESS_ITEM) {
+            return;
+        }
+        this.copyScreenshotFlag = true;
+        OutputStream os = null;
+        InputStream is = null;
+        try {
+            URI orgPropertyResourceURI = EcoreUtil.getURI(originalItem.getProperty());
+            URI orgRelativePlateformDestUri = orgPropertyResourceURI.trimFileExtension().appendFileExtension(
+                    FileConstants.SCREENSHOT_EXTENSION);
+            URL orgFileURL = FileLocator.toFileURL(new java.net.URL(
+                    "platform:/resource" + orgRelativePlateformDestUri.toPlatformString(true))); //$NON-NLS-1$
+
+            URI newPropertyResourceURI = EcoreUtil.getURI(newItem.getProperty());
+            URI newRelativePlateformDestUri = newPropertyResourceURI.trimFileExtension().appendFileExtension(
+                    FileConstants.SCREENSHOT_EXTENSION);
+            URL newFileURL = FileLocator.toFileURL(new java.net.URL(
+                    "platform:/resource" + newRelativePlateformDestUri.toPlatformString(true))); //$NON-NLS-1$
+
+            os = new FileOutputStream(newFileURL.getFile());
+            is = new BufferedInputStream(new FileInputStream(orgFileURL.getPath()));
+            byte[] bytearray = new byte[512];
+            int len = 0;
+            while ((len = is.read(bytearray)) != -1) {
+                os.write(bytearray, 0, len);
+            }
+        } finally {
+            if (os != null) {
+                os.close();
+            }
+            if (is != null) {
+                is.close();
+            }
+        }
+
     }
 
     private void copyReferenceFiles(Item originalItem, Item newItem) throws PersistenceException {
