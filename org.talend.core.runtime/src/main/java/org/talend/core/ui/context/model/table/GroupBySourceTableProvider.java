@@ -70,14 +70,17 @@ public class GroupBySourceTableProvider extends ContextProviderProxy {
      */
     private IContextParameter lookupContextParameter(String sourceId, String contextParaName, int index) {
         List<IContext> contextList = parentModel.getContexts();
-        IContext context = contextList.get(index);
-        List<IContextParameter> list = context.getContextParameterList();
-        if (list != null && list.size() > 0) {
-            for (IContextParameter contextPara : list) {
-                String tempSourceId = contextPara.getSource();
-                String tempContextParaName = contextPara.getName();
-                if (tempSourceId.equals(sourceId) && tempContextParaName.equals(contextParaName)) {
-                    return contextPara;
+        int size = contextList.size();
+        if (index < size) {
+            IContext context = contextList.get(index);
+            List<IContextParameter> list = context.getContextParameterList();
+            if (list != null && list.size() > 0) {
+                for (IContextParameter contextPara : list) {
+                    String tempSourceId = contextPara.getSource();
+                    String tempContextParaName = contextPara.getName();
+                    if (tempSourceId.equals(sourceId) && tempContextParaName.equals(contextParaName)) {
+                        return contextPara;
+                    }
                 }
             }
         }
@@ -130,10 +133,11 @@ public class GroupBySourceTableProvider extends ContextProviderProxy {
         String text = "";
         String sourceId = child.getContextParameter().getSource();
         String variableName = child.getContextParameter().getName();
+        List<IContext> contextList = parentModel.getContexts();
+        int size = contextList.size();
         if (columnIndex == 0)
             return child.getContextParameter().getName();
-        else {
-            List<IContext> contextList = parentModel.getContexts();
+        else if (columnIndex - 1 < size) {
             IContext context = contextList.get(columnIndex - 1);
             List<IContextParameter> list = context.getContextParameterList();
             if (list != null && list.size() > 0) {
