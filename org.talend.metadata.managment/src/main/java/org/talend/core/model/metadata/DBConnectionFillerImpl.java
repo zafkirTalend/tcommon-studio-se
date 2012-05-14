@@ -287,7 +287,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             }
             schemas = dbJDBCMetadata.getSchemas();
         } catch (SQLException e) {
-            log.warn("This database don't contian construct of schema.");
+            log.warn("This database doesn't contain any schema.");
         }
         boolean hasSchema = false;
         try {

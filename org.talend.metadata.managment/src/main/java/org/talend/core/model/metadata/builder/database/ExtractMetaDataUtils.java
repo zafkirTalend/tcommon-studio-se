@@ -29,6 +29,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import net.sourceforge.jtds.jdbc.ConnectionJDBC2;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IProject;
@@ -98,7 +100,9 @@ public class ExtractMetaDataUtils {
         DatabaseMetaData dbMetaData = null;
         try {
 
-            if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
+        	if ("net.sourceforge.jtds.jdbc.ConnectionJDBC3".equals(conn.getClass().getName())) { 
+        	 	dbMetaData = createJtdsDatabaseMetaData(conn); 
+        	} else if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) { 
                 dbMetaData = createFakeDatabaseMetaData(conn);
             }  else if (dbType.equals(EDatabaseTypeName.SAS.getXmlName())) {
                 dbMetaData = createSASFakeDatabaseMetaData(conn);
@@ -141,6 +145,11 @@ public class ExtractMetaDataUtils {
 //    	}
 //    	return dbMetaData;
 //    }
+    
+    private static DatabaseMetaData createJtdsDatabaseMetaData(Connection conn) { 
+        return new JtdsMetadataAdapter((ConnectionJDBC2) conn); 
+    }
+    
     public static DatabaseMetaData getDatabaseMetaData(Connection conn, String dbType,boolean isSqlMode,String database) {
     	
     	DatabaseMetaData dbMetaData = null;
@@ -198,7 +207,9 @@ public class ExtractMetaDataUtils {
     	try {
     		String dbType = dbConn.getDatabaseType();
     		
-    		if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
+    		if ("net.sourceforge.jtds.jdbc.ConnectionJDBC3".equals(conn.getClass().getName())) { 
+                dbMetaData = createJtdsDatabaseMetaData(conn); 
+            } else if ( dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
     			dbMetaData = createFakeDatabaseMetaData(conn);
     		} else if ( dbType.equals(EDatabaseTypeName.TERADATA.getXmlName())
     				&& isSqlMode) {
