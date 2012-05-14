@@ -1092,7 +1092,7 @@ public class SelectorTableForm extends AbstractForm {
                     && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 ExtractMetaDataUtils.closeConnection();
             }
             if (derbyDriver != null) {
@@ -1137,8 +1137,8 @@ public class SelectorTableForm extends AbstractForm {
                         // ConnectionHelper.addPackages(newDataPackage, getConnection());
 
                         // need to enhance later
-                        if (ExtractMetaDataUtils.isUseAllSynonyms()
-                                && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataconnection.getDbType())
+                        if (ExtractMetaDataUtils.isUseAllSynonyms() // before had a check if oracle connection, but
+                                                                    // remove since useAllSynonyms is only on Oracle
                                 || EDatabaseTypeName.ACCESS.getDisplayName().equals(metadataconnection.getDbType())) {
                             List<String> itemTableName = ExtractMetaDataFromDataBase.returnTablesFormConnection(
                                     metadataconnection, getTableInfoParameters());
@@ -1325,8 +1325,7 @@ public class SelectorTableForm extends AbstractForm {
             // For access's table's remove,must be accordance with its addTable
             ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, getConnection().getName(), getConnection(), tables);
         } else {
-            if ("".equals(schema) && ExtractMetaDataUtils.useAllSynonyms //$NON-NLS-1$
-                    && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataconnection.getDbType())) {
+            if ("".equals(schema) && ExtractMetaDataUtils.useAllSynonyms) {
                 schema = MetadataConnectionUtils.FAKE_SCHEMA_SYNONYMS;
             }
             ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, schema, getConnection(), tables);
@@ -1482,8 +1481,7 @@ public class SelectorTableForm extends AbstractForm {
                 IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
                 // only for oracle use all synonyms
                 boolean useAllSynonyms = ExtractMetaDataUtils.useAllSynonyms;
-                if (useAllSynonyms && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataconnection.getDbType())
-                        || isAccess) {
+                if (useAllSynonyms || isAccess) {
                     metadataColumns = ExtractMetaDataFromDataBase.returnMetadataColumnsFormTable(metadataconnection, tableString,
                             true);
                     if (ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString).equals(
@@ -1510,7 +1508,6 @@ public class SelectorTableForm extends AbstractForm {
                     lableName = MetadataToolHelper.validateValue(lableName);
                     dbtable.setLabel(lableName);
                 } else {
-                    metadataColumns = ExtractMetaDataFromDataBase.returnColumns(metadataconnection, tableNode, true);
                     String comment = null;
                     String type = null;
                     if (table instanceof TdTable) {
@@ -1538,19 +1535,18 @@ public class SelectorTableForm extends AbstractForm {
                     dbtable.setTableType(type);
                     String lableName = MetadataToolHelper.validateTableName(table.getName());
                     dbtable.setLabel(lableName);
+
+                    if (useProvider()) {
+                        metadataColumns = provider.returnMetadataColumnsFromTable(tableString, metadataconnection);
+                    } else {
+                        metadataColumns = ExtractMetaDataFromDataBase.returnColumns(metadataconnection, tableNode, true);
+                    }
                 }
                 initExistingNames();
 
                 dbtable.setSourceName(tableString);
                 dbtable.setId(factory.getNextId());
                 dbtable.setTableType(tableNode.getItemType());
-
-                List<TdColumn> metadataColumns = new ArrayList<TdColumn>();
-                if (useProvider()) {
-                    metadataColumns = provider.returnMetadataColumnsFromTable(tableString, metadataconnection);
-                } else {
-                    metadataColumns = ExtractMetaDataFromDataBase.returnMetadataColumnsFormTable(metadataconnection, tableString);
-                }
 
                 List<MetadataColumn> metadataColumnsValid = new ArrayList<MetadataColumn>();
                 Iterator iterate = metadataColumns.iterator();
@@ -1569,8 +1565,7 @@ public class SelectorTableForm extends AbstractForm {
                 if (!ConnectionHelper.getTables(getConnection()).contains(dbtable) && !limitTemplateTable(dbtable)) {
                     String catalog = "";
                     String schema = "";
-                    if (useAllSynonyms && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataconnection.getDbType())
-                            || isAccess) {
+                    if (useAllSynonyms || isAccess) {
 
                         // if use_all_synonyms and oracle,just create a fake schema to store all the synonyms.see bug
                         // TDI-18353
@@ -1820,8 +1815,7 @@ public class SelectorTableForm extends AbstractForm {
         if (isAccess) {
             ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, getConnection().getName(), getConnection(), tables);
         } else {
-            if ("".equals(schema) && ExtractMetaDataUtils.useAllSynonyms //$NON-NLS-1$
-                    && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataconnection.getDbType())) {
+            if ("".equals(schema) && ExtractMetaDataUtils.useAllSynonyms) {
                 schema = MetadataConnectionUtils.FAKE_SCHEMA_SYNONYMS;
             }
             ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, schema, getConnection(), tables);
