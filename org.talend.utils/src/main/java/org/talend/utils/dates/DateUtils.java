@@ -36,6 +36,9 @@ public final class DateUtils {
 
     public static final String PATTERN_6 = "yyyyMMddHHmmss";//$NON-NLS-1$
 
+    // Added yyin 2012-05-14 TDQ-5142
+    public static final String PATTERN_7 = "hh:mm:ss";//$NON-NLS-1$
+
     /**
      * DOC bZhou DateUtils constructor comment.
      */

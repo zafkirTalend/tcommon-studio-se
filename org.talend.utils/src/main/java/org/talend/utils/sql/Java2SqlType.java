@@ -100,6 +100,11 @@ public final class Java2SqlType {
         return type == Types.TIMESTAMP;
     }
 
+    // Added yyin 20120511 TDQ5241, judge the TIME type
+    public static boolean isTimeSQL(int type) {
+        return type == Types.TIME;
+    }
+
     public static boolean isOtherTypeInSQL(int type) {
         if (isTextInSQL(type) || isNumbericInSQL(type) || isDateInSQL(type)) {
             return false;
