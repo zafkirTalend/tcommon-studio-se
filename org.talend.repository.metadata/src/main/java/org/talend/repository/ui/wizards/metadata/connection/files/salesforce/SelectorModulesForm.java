@@ -577,11 +577,16 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                     monitor.beginTask(Messages.getString("CreateTableAction.action.createTitle"), IProgressMonitor.UNKNOWN); //$NON-NLS-1$
 
-                    managerConnection.check(getIMetadataConnection());
+                    managerConnection.check(getIMetadataConnection()); 
+                   
+                    String proxy = null;
+                    if (temConnection.isUseProxy()) {
+                        proxy = SalesforceModuleParseAPI.USE_SOCKS_PROXY;//$NON-NLS-1$
+                    } else if (temConnection.isUseHttpProxy()) {
+                        proxy = SalesforceModuleParseAPI.USE_HTTP_PROXY;//$NON-NLS-1$
+                    }
 
-                    // if (managerConnection.getIsValide()) {
-                    if (true) {
-                        itemTableName = connectFromCustomModuleName();
+                        itemTableName = connectFromCustomModuleName(proxy);
 
                         if (itemTableName.size() <= 0) {
                             // connection is done but any table exist
@@ -593,17 +598,6 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
                         } else {
                             createAllItems(displayMessageBox, null);
                         }
-                    } else if (displayMessageBox) {
-                        // connection failure
-                        getShell().getDisplay().asyncExec(new Runnable() {
-
-                            public void run() {
-                                new ErrorDialogWidthDetailArea(getShell(), PID, Messages
-                                        .getString("DatabaseTableForm.connectionFailureTip"), //$NON-NLS-1$
-                                        managerConnection.getMessageException());
-                            }
-                        });
-                    }
                     monitor.done();
                 }
             });
@@ -1327,7 +1321,7 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
         return this.itemTableName;
     }
 
-    public List<String> connectFromCustomModuleName() {
+    public List<String> connectFromCustomModuleName(String proxy) {
         preparModuleInit();
         SalesforceModuleParseAPI salesforceAPI = new SalesforceModuleParseAPI();
         String[] types = null;
@@ -1336,8 +1330,18 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
         boolean socksProxy = false;
         boolean httpProxy = false;
         boolean httpsProxy = false;
+        if (SalesforceModuleParseAPI.USE_SOCKS_PROXY.equals(proxy)) {
+            socksProxy = true;
+        }
+        if (SalesforceModuleParseAPI.USE_HTTP_PROXY.equals(proxy)) {
+            if (endPoint.startsWith("https")) {
+                httpsProxy = true;
+            } else {
+                httpProxy = true;
+            }
+        }
         try {
-            salesforceAPI.resetProxy(httpProxy, socksProxy, httpsProxy);
+            salesforceAPI.resetAllProxy();
             salesforceAPI.setProxy(proxyHost, proxyPort, proxyUsername, proxyPassword, httpProxy, socksProxy, httpsProxy);
             salesforceAPI.login(endPoint, username, pwd, timeOut);
             ISalesforceModuleParser currentAPI = salesforceAPI.getCurrentAPI();
@@ -1360,7 +1364,7 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
                 }
             }
 
-            salesforceAPI.resetProxy(httpProxy, socksProxy, httpsProxy);
+            salesforceAPI.resetAllProxy();
             INode node = getSalesforceNode();
 
             List list = new ArrayList();
