@@ -17,10 +17,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.ui.IViewPart;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.utils.sugars.ReturnCode;
 
@@ -75,7 +77,21 @@ public interface ITDQRepositoryService extends IService {
     // ADD qiongli 2011-9-13 TDQ-3930
     public boolean confirmUpdateAnalysis(ConnectionItem connectionItem);
 
+
+    // ADD zshen 2012-5-9 TDQ-4738
+    public int confimDelete(IRepositoryViewObject deleteObject);
+
+    // ADD zshen 2012-5-9 TDQ-4738
+    // public boolean deleteObjectPhysical(IRepositoryViewObject deleteObject, Item newItem);
+
+    // ADD zshen 2012-5-9 TDQ-4738
+    public InputDialog getInputDialog(final Item newItem);
+
+    // ADD zshen 2012-5-9 TDQ-4738
+    public void changeElementName(Item newItem, String newName);
+
     // ADD qiongli 2012-4-19 TDQ-5130
     public boolean hasClientDependences(ConnectionItem connectionItem);
+
 
 }

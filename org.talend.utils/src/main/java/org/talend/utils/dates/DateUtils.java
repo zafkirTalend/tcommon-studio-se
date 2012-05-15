@@ -13,6 +13,7 @@
 
 package org.talend.utils.dates;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,6 +33,8 @@ public final class DateUtils {
     public static final String PATTERN_4 = "MM/dd/yyyy HH:mm";//$NON-NLS-1$
 
     public static final String PATTERN_5 = "yyyy-MM-dd HH:mm:ss";//$NON-NLS-1$
+    
+    public static final String PATTERN_6 = "yyyyMMddHHmmss";//$NON-NLS-1$
 
     public static final String PATTERN_7 = "hh:mm:ss";//$NON-NLS-1$
 
@@ -66,5 +69,23 @@ public final class DateUtils {
     public static String getCurrentDate(String pattern) {
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         return sdf.format(new Date());
+    }
+    
+    /**
+     * 
+     * Comment method "formatTimeStamp".
+     * 
+     * @param date
+     * @return
+     */
+    public static String formatTimeStamp(String pattern, long date) {
+
+        if (pattern == null || pattern.length() == 0) {
+            pattern = "yyyyMMddHHmmss";//$NON-NLS-1$
+        }
+        java.util.Calendar nowDate = new java.util.GregorianCalendar();
+        nowDate.setTimeInMillis(date);
+        DateFormat df = new SimpleDateFormat(pattern);
+        return df.format(nowDate.getTime());
     }
 }
