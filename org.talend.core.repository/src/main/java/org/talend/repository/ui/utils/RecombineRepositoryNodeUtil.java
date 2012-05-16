@@ -15,7 +15,6 @@ package org.talend.repository.ui.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.talend.commons.utils.time.TimeMeasure;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.ProjectRepositoryNode;
@@ -53,17 +52,17 @@ public final class RecombineRepositoryNodeUtil {
 
     private IRepositoryNode getFixingTypesInputRoot(IProjectRepositoryNode projectRepoNode) {
         RepositoryNode tmpRootNode = new RepositoryNode(null, null, null);
-        TimeMeasure.step(RecombineRepositoryNodeUtil.class.getSimpleName(), "before getInputRoot, in MultiTypesProcessor"); //$NON-NLS-1$
+        //        TimeMeasure.step(RecombineRepositoryNodeUtil.class.getSimpleName(), "before getInputRoot, in MultiTypesProcessor"); //$NON-NLS-1$
 
         List<RepositoryNode> rootNodes = getRepositoryNodesByTypes(projectRepoNode);
-        TimeMeasure.step(RecombineRepositoryNodeUtil.class.getSimpleName(), "finished main project, in MultiTypesProcessor"); //$NON-NLS-1$ 
+        //        TimeMeasure.step(RecombineRepositoryNodeUtil.class.getSimpleName(), "finished main project, in MultiTypesProcessor"); //$NON-NLS-1$ 
 
         if (rootNodes != null) {
             tmpRootNode.getChildren().addAll(rootNodes);
         }
         // referenced project.
         addSubReferencedProjectNodes(tmpRootNode, projectRepoNode);
-        TimeMeasure.step(RecombineRepositoryNodeUtil.class.getSimpleName(), "finished ref-projects, in MultiTypesProcessor"); //$NON-NLS-1$
+        //        TimeMeasure.step(RecombineRepositoryNodeUtil.class.getSimpleName(), "finished ref-projects, in MultiTypesProcessor"); //$NON-NLS-1$
 
         return tmpRootNode;
     }

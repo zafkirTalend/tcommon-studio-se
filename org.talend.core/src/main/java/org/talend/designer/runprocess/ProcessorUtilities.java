@@ -525,9 +525,13 @@ public class ProcessorUtilities {
         TimeMeasure.displaySteps = CommonsPlugin.isDebugMode();
         TimeMeasure.measureActive = CommonsPlugin.isDebugMode();
 
-        String idTimer = "generateCode for job: " + jobInfo.getJobName();
-        TimeMeasure.begin(idTimer);
-
+        boolean timerStarted = false;
+        String idTimer = "generateCode for job: <job not loaded yet>";
+        if (jobInfo.getJobName() != null) {
+            idTimer = "generateCode for job: " + jobInfo.getJobName();
+            timerStarted = true;
+            TimeMeasure.begin(idTimer);
+        }
         try {
             if (progressMonitor == null) {
                 progressMonitor = new NullProgressMonitor();
@@ -586,8 +590,12 @@ public class ProcessorUtilities {
             } else {
                 currentProcess = jobInfo.getProcess();
             }
-            TimeMeasure.step(idTimer, "Loading job");
-
+            if (!timerStarted) {
+                idTimer = "generateCode for job: " + currentProcess.getName();
+                TimeMeasure.begin(idTimer);
+            } else {
+                TimeMeasure.step(idTimer, "Loading job");
+            }
             generateJobInfo(jobInfo, isMainJob, currentProcess, selectedProcessItem);
             TimeMeasure.step(idTimer, "generateJobInfo");
 
