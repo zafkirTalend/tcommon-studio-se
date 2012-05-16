@@ -116,7 +116,8 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
     @Override
     public ResultSet getSchemas() throws SQLException {
         // see the feature 5827
-        String sql = "SELECT DISTINCT CREATOR FROM SYSIBM.SYSTABLES"; //$NON-NLS-1$
+        // MOD yyin 2012-05-15 TDQ-5190
+        String sql = "SELECT DISTINCT NAME FROM SYSIBM.SYSSCHEMATA"; //$NON-NLS-1$
         ResultSet rs = null;
         Statement stmt = null;
         List<String[]> list = new ArrayList<String[]>();
@@ -125,7 +126,7 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                String creator = rs.getString("CREATOR"); //$NON-NLS-1$
+                String creator = rs.getString("NAME"); //$NON-NLS-1$
 
                 String[] r = new String[] { creator.trim() }; //$NON-NLS-1$ //$NON-NLS-2$
                 list.add(r);
@@ -212,6 +213,16 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
             sql = "SELECT * FROM SYSIBM.SYSTABLES"; //$NON-NLS-1$
             and = " where ";
         }
+        // ADDED yyin 20120516 TDQ-5190, same action as DB2
+        if (types != null) {
+            for (String type : types) {
+                if (TABLE.equals(type)) {
+                    sql = sql + " and TBSPACE!='SYSCATSPACE' ";
+                    break;
+                }
+            }
+        }
+
         // ADD xqliu 2012-04-17 TDQ-5118
         sql = addTypesToSql(sql, types, and);
         // ~ TDQ-5118
