@@ -12,6 +12,11 @@
 // ============================================================================
 package org.talend.repository.viewer.content;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.apache.commons.collections.functors.NotNullPredicate;
+import org.apache.commons.collections.set.PredicatedSet;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
@@ -26,7 +31,8 @@ public abstract class SingleTopLevelContentProvider implements ITreeContentProvi
 
     protected static final Object[] NO_CHILDREN = new Object[0];
 
-    private RepositoryNode topLevelNode;
+    // this is a temporary fix, the content provider should not hold the top level nodes at all.
+    private Set<RepositoryNode> topLevelNodes = PredicatedSet.decorate(new HashSet<RepositoryNode>(), NotNullPredicate.INSTANCE);
 
     // private ProjectRepositoryNode projectRepositoryNode;
 
@@ -35,11 +41,11 @@ public abstract class SingleTopLevelContentProvider implements ITreeContentProvi
      * 
      * @return the topLevelNode
      */
-    public RepositoryNode getTopLevelNode() {
-        return this.topLevelNode;
+    public Set<RepositoryNode> getTopLevelNodes() {
+        return topLevelNodes;
     }
 
-    private RepositoryNode rootNode;
+    // private RepositoryNode rootNode;
 
     /**
      * Getter for projectRepositoryNode.
@@ -49,13 +55,6 @@ public abstract class SingleTopLevelContentProvider implements ITreeContentProvi
     // public ProjectRepositoryNode getProjectRepositoryNode() {
     // return this.projectRepositoryNode;
     // }
-
-    /**
-     * DOC sgandon LegacyRepositoryContentProvider constructor comment.
-     */
-    public SingleTopLevelContentProvider() {
-
-    }
 
     protected IProxyRepositoryFactory getFactory() {
         return factory;
@@ -75,45 +74,44 @@ public abstract class SingleTopLevelContentProvider implements ITreeContentProvi
      */
     abstract protected RepositoryNode getInitialTopLevelNode(RepositoryNode theRootNode);
 
-    // use a cached version so that top level node does not get created again and again and we have a single instance
-    private RepositoryNode getCachedTopLevelNode(RepositoryNode repositoryNode) {
-        if (topLevelNode == null) {
-            this.topLevelNode = getInitialTopLevelNode(repositoryNode);
-
-            initRepositoryNode();
-        }// else already cached
-        return topLevelNode;
+    /*
+     * this must be called only with a node that is return true when isRootNodeType(repositoryNode) is called This will
+     * ask for top level node and store is in the internal set.
+     */
+    private RepositoryNode getAndStoreTopLevelNode(RepositoryNode repositoryNode) {
+        RepositoryNode aTopLevelNode = getInitialTopLevelNode(repositoryNode);
+        if (aTopLevelNode != null) {
+            boolean isNewTopLevel = topLevelNodes.add(aTopLevelNode);
+            if (isNewTopLevel) {// initialize it
+                initilizeContentProviderWithTopLevelNode(aTopLevelNode);
+            }// else already added so no need to initialised
+        }// else not top level node so return null
+        return aTopLevelNode;
     }
 
-    public void initRepositoryNode() {
-        final RepositoryNode topLevelNode2 = getTopLevelNode();
-        if (topLevelNode2 != null) {// reset top level node
-            topLevelNode2.setInitialized(false);
-            topLevelNode2.getChildren().clear();
+    /**
+     * This is called the first time the TopLevelnode is created and store in this content provider. Used to initialized
+     * content provider with the new topLevel. reset the top level node in this implmentation.
+     * 
+     * @param aTopLevelNode, never null
+     */
+    protected void initilizeContentProviderWithTopLevelNode(RepositoryNode aTopLevelNode) {
+        resetTopLevelNode(aTopLevelNode);
+
+    }
+
+    /**
+     * this is called when the model has changed and we need to reset the top level node for the next refresh. At the
+     * next refresh the model will be constructed again.
+     * */
+    protected void resetTopLevelNode(RepositoryNode aTopLevelNode) {
+        if (aTopLevelNode != null) {// reset top level node
+            aTopLevelNode.setInitialized(false);
+            aTopLevelNode.getChildren().clear();
         }
         // initRepositoryNode(topLevelNode2);
     }
 
-    // protected void initRepositoryNode(RepositoryNode currentTopNode) {
-    // if (currentTopNode != null) {
-    // currentTopNode.setInitialized(false);
-    // currentTopNode.getChildren().clear();
-    //
-    // IRepositoryNode rootRepositoryNode = currentTopNode.getRoot().getRootRepositoryNode(
-    // ERepositoryObjectType.REFERENCED_PROJECTS);
-    // if (rootRepositoryNode != null) {
-    // for (IRepositoryNode node : rootRepositoryNode.getChildren()) {
-    // if (node instanceof IProjectRepositoryNode) {
-    // IRepositoryNode refNode = ((IProjectRepositoryNode) node).getRootRepositoryNode(currentTopNode
-    // .getContentType());
-    // if (refNode instanceof RepositoryNode) {
-    // initRepositoryNode((RepositoryNode) refNode);
-    // }
-    // }
-    // }
-    // }
-    // }
-    // }
     /**
      * this returnt the children for any type handle by this class. It first check if the element is a potential root
      * node, if so it store it. if element is the root node then getTopLevelNode is called to get the single children if
@@ -122,16 +120,15 @@ public abstract class SingleTopLevelContentProvider implements ITreeContentProvi
      * */
     @Override
     public Object[] getChildren(Object element) {
+        RepositoryNode theRootNode = null;
         // store the root node
-        if (getRootNode() == null && isRootNodeType(element)) {
-            RepositoryNode potentialRootNode = extractPotentialRootNode(element);
-            setRootNode(potentialRootNode);
+        if (isRootNodeType(element)) {
+            theRootNode = extractPotentialRootNode(element);
         }
 
-        RepositoryNode theRootNode = getRootNode();
         // if root then return the top level node
-        if (isRootNodeType(element) && extractPotentialRootNode(element) == theRootNode) {
-            IRepositoryNode cachedTopLevelNode = getCachedTopLevelNode(theRootNode);
+        if (theRootNode != null) {
+            IRepositoryNode cachedTopLevelNode = getAndStoreTopLevelNode(theRootNode);
             return cachedTopLevelNode != null ? new Object[] { cachedTopLevelNode } : NO_CHILDREN;
         } else if (element instanceof RepositoryNode) {// else return children
             // // check that element is top level node or a children of it
@@ -158,25 +155,6 @@ public abstract class SingleTopLevelContentProvider implements ITreeContentProvi
      * @return the potential rootNode or null.
      */
     abstract protected RepositoryNode extractPotentialRootNode(Object element);
-
-    /**
-     * DOC sgandon Comment method "setRootNode".
-     * 
-     * @param theRootNode
-     */
-    protected void setRootNode(RepositoryNode theRootNode) {
-        rootNode = theRootNode;
-
-    }
-
-    /**
-     * the root object of this content provider.
-     * 
-     * @return
-     */
-    protected RepositoryNode getRootNode() {
-        return rootNode;
-    }
 
     /**
      * DOC sgandon Comment method "getRepositoryNodeChildren".
@@ -230,7 +208,9 @@ public abstract class SingleTopLevelContentProvider implements ITreeContentProvi
      */
     @Override
     public void dispose() {
-        // do nothing
+        // to help garbage collection
+        topLevelNodes.clear();
+        topLevelNodes = null;
 
     }
 

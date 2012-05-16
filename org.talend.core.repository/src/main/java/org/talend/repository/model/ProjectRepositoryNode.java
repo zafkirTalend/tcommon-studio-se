@@ -134,8 +134,6 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
 
     private RepositoryNode refProject;
 
-    private boolean mergeRefProject;
-
     public static boolean refProjectBool = false;
 
     public static boolean refreshBool = false;
@@ -1785,10 +1783,12 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
      * 
      * @see org.talend.repository.model.IProjectRepositoryNode#getProject()
      */
+    @Override
     public org.talend.core.model.general.Project getProject() {
         return this.project;
     }
 
+    @Override
     public RepositoryNode getRootRepositoryNode(ERepositoryObjectType type) {
         if (type == null) {
             return null;
@@ -1805,20 +1805,25 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
      * 
      * @see org.talend.repository.model.nodes.IProjectRepositoryNode#getRecBinNode()
      */
+    @Override
     public RepositoryNode getRecBinNode() {
         return this.recBinNode;
     }
 
     public boolean getMergeRefProject() {
         IPreferenceStore preferenceStore = RepositoryManager.getPreferenceStore();
-        this.mergeRefProject = preferenceStore.getBoolean(IRepositoryPrefConstants.MERGE_REFERENCE_PROJECT);
-        return this.mergeRefProject;
+        return preferenceStore.getBoolean(IRepositoryPrefConstants.MERGE_REFERENCE_PROJECT);
     }
 
     @Override
     public String getLabel() {
-        if (getProject() != null) {
-            return getProject().getLabel();
+        if (getProject() != null) {// compute branch url to add to the project label.
+            String urlBranch = null;
+            if (ProjectManager.getInstance().getCurrentBranchURL(project) != null) {
+                urlBranch = showSVNRoot();
+            }
+
+            return getProject().getLabel() + (urlBranch != null && !"".equals(urlBranch) ? '(' + urlBranch + ')' : ""); //$NON-NLS-1$//$NON-NLS-2$
         }
         return super.getLabel();
     }

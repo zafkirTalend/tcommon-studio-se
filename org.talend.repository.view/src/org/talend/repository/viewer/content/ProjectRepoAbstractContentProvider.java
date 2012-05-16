@@ -14,6 +14,7 @@ package org.talend.repository.viewer.content;
 
 import java.util.Collections;
 import java.util.Hashtable;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -64,7 +65,7 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
 
                         @Override
                         public void run() {
-                            refreshTopLevelNode();
+                            refreshTopLevelNodes();
 
                         }
                     });
@@ -161,21 +162,21 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
         super.inputChanged(arg0, arg1, arg2);
         // register a listener to refresh when merge items is activated
 
-        registerMergeRefListgener();
+        registerMergeRefListener();
         registerLockUnlockServiceListener();
     }
 
     /**
      * DOC sgandon Comment method "registerMergeRefListgener".
      */
-    private void registerMergeRefListgener() {
+    private void registerMergeRefListener() {
         if (mergeRefListener == null) {
             mergeRefListener = new IPropertyChangeListener() {
 
                 @Override
                 public void propertyChange(PropertyChangeEvent event) {
                     if (IRepositoryPrefConstants.MERGE_REFERENCE_PROJECT.equals(event.getProperty())) {
-                        refreshTopLevelNode();
+                        refreshTopLevelNodes();
                     }// else ignor other properties
 
                 }
@@ -183,6 +184,16 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
             IPreferenceStore preferenceStore = RepositoryManager.getPreferenceStore();
             preferenceStore.addPropertyChangeListener(mergeRefListener);
         }
+    }
+
+    /**
+     * DOC sgandon Comment method "refreshTopLevelNodes".
+     */
+    protected void refreshTopLevelNodes() {
+        for (RepositoryNode topLevelNode : getTopLevelNodes()) {
+            refreshTopLevelNode(topLevelNode);
+        }
+
     }
 
     /**
@@ -217,21 +228,24 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
             URI uri = propFileResouce.getURI();
 
             Path itemPath = new Path(uri.toPlatformString(false));
-            IPath workspaceTopNodePath = getWorkspaceTopNodePath();
-            if (workspaceTopNodePath != null && workspaceTopNodePath.isPrefixOf(itemPath)) {
-                Display.getDefault().asyncExec(new Runnable() {
+            Set<RepositoryNode> topLevelNodes = getTopLevelNodes();
+            for (final RepositoryNode repoNode : topLevelNodes) {
 
-                    @Override
-                    public void run() {
-                        RepositoryNode topLevelNode = getTopLevelNode();
-                        if (topLevelNode != null && viewer != null && !viewer.getTree().isDisposed()) {
-                            viewer.refresh(topLevelNode, true);
+                IPath workspaceTopNodePath = getWorkspaceTopNodePath(repoNode);
+                if (workspaceTopNodePath != null && workspaceTopNodePath.isPrefixOf(itemPath)) {
+                    Display.getDefault().asyncExec(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            if (repoNode != null && viewer != null && !viewer.getTree().isDisposed()) {
+                                viewer.refresh(repoNode, true);
+                            }
+
                         }
+                    });
 
-                    }
-                });
-
-            }// else not an item handled by this content provider so ignor.
+                }// else not an item handled by this content provider so ignor.
+            }
         }
 
     }

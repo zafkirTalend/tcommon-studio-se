@@ -55,7 +55,7 @@ public abstract class EmptyTopNodeContentProvider extends ProjectRepoDirectChild
     }
 
     @Override
-    public void initRepositoryNode() {
+    public void resetTopLevelNode(RepositoryNode aTopLevelNode) {
         // not need re-init it.
         // super.initAndClear();
     }
