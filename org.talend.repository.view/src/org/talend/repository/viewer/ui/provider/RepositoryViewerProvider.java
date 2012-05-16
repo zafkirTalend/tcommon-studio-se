@@ -28,6 +28,7 @@ import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
+import org.talend.repository.navigator.RepoViewCommonNavigator;
 import org.talend.repository.ui.utils.RecombineRepositoryNodeUtil;
 import org.talend.repository.ui.views.IRepositoryView;
 import org.talend.repository.ui.views.RepositoryLabelProvider;
@@ -46,6 +47,12 @@ public class RepositoryViewerProvider extends AbstractViewerProvider {
     protected IRepositoryView getRepView() {
         if (realRepView == null) {
             realRepView = RepositoryManagerHelper.findRepositoryView();
+        }
+        if (realRepView == null) {
+            realRepView = RepositoryManagerHelper.getRepositoryView();
+            if (realRepView != null && realRepView instanceof RepoViewCommonNavigator) {
+                ((RepoViewCommonNavigator) realRepView).getCommonViewer().expandToLevel(2);
+            }
         }
         return realRepView;
     }
