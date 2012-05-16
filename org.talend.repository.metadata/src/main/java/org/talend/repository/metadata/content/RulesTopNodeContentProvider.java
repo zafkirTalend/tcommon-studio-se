@@ -54,7 +54,7 @@ public class RulesTopNodeContentProvider extends AbstractMetadataContentProvider
     }
 
     @Override
-    public void initRepositoryNode() {
+    public void resetTopLevelNode(RepositoryNode aTopLevelNode) {
         // not need re-init it.
         // super.initAndClear();
     }
