@@ -116,7 +116,8 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
     @Override
     public ResultSet getSchemas() throws SQLException {
         // see the feature 5827
-        String sql = "SELECT DISTINCT CREATOR FROM SYSIBM.SYSTABLES"; //$NON-NLS-1$
+        // MOD yyin 2012-05-15 TDQ-5190
+        String sql = "SELECT DISTINCT NAME FROM SYSIBM.SYSSCHEMATA"; //$NON-NLS-1$
         ResultSet rs = null;
         Statement stmt = null;
         List<String[]> list = new ArrayList<String[]>();
@@ -125,7 +126,7 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                String creator = rs.getString("CREATOR"); //$NON-NLS-1$
+                String creator = rs.getString("NAME"); //$NON-NLS-1$
 
                 String[] r = new String[] { creator.trim() }; //$NON-NLS-1$ //$NON-NLS-2$
                 list.add(r);
@@ -261,15 +262,25 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
         if (types != null && types.length > 0) {
             String typeClause = " type in("; //$NON-NLS-1$
             int len = types.length;
+            boolean isTable = false;
             for (int i = 0; i < len; ++i) {
                 String comma = ""; //$NON-NLS-1$
                 if (i > 0) {
                     comma = " , "; //$NON-NLS-1$
                 }
                 typeClause = comma + typeClause + "'" + getDb2zosTypeName(types[i]) + "'";//$NON-NLS-1$ //$NON-NLS-2$
+
+                // ADDED yyin 20120516 TDQ-5190, same action as DB2
+                if (TABLE.equals(types[i])) {
+                    isTable = true;
+                }
             }
             typeClause = typeClause + ")"; //$NON-NLS-1$
             result = sql + and + typeClause;
+            // ADDED yyin 20120516 TDQ-5190, same action as DB2
+            if (isTable) {
+                result = result + " and TBSPACE!='SYSCATSPACE'";
+            }
         }
         return result;
     }
