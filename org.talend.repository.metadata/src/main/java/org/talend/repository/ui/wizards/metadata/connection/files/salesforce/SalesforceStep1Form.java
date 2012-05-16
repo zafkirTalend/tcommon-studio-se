@@ -13,7 +13,6 @@
 package org.talend.repository.ui.wizards.metadata.connection.files.salesforce;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -310,11 +309,6 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
                     getConnection().setUseProxy(false);
                     useProxyBtn.setSelection(false);
                 }
-
-                MessageDialog messageDialog = new MessageDialog(getShell(), "Restare", null, //$NON-NLS-1$
-                        "If you have modified the http set,you have to restare the system!", MessageDialog.INFORMATION,
-                        new String[] { "OK" }, 0);
-                messageDialog.open();
             }
         });
         proxyHostText.addModifyListener(new ModifyListener() {
