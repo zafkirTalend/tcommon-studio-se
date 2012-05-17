@@ -19,6 +19,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -189,61 +194,75 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
     @Override
     public boolean performFinish() {
         if (tableWizardpage.isPageComplete()) {
-            // temConnection will be set to model when finish
-            DatabaseConnection connection = (DatabaseConnection) connectionItem.getConnection();
+            IWorkspace workspace = ResourcesPlugin.getWorkspace();
 
-            /* compare the original datapackages and new datapackages */
-            EList<Package> dataPackageTemConnection = temConnection.getDataPackage();
-            EList<Package> dataPackageFromOrignalConnection = connection.getDataPackage();
+            IWorkspaceRunnable operation = new IWorkspaceRunnable() {
 
-            if (PluginChecker.isTDQLoaded()) {
-                /*
-                 * The first save,to make sure all the columns and tables in temConnection can has a eResource,or it
-                 * can't set uuids
-                 */
-                saveMetaData();
-                // MOD qiongli 2011-11-23,TDQ-3930,pop a question dilog when need to update DQ analyses,if user click
-                // cancel,will return and stop this retrive action.
-                ITDQRepositoryService tdqRepositoryService = null;
-                boolean needUpdateAnalysis = false;
-                if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
-                    tdqRepositoryService = (ITDQRepositoryService) org.talend.core.GlobalServiceRegister.getDefault().getService(
-                            ITDQRepositoryService.class);
-                    needUpdateAnalysis = isNeedUpdateDQ(temConnection, connection, tdqRepositoryService);
-                }
+                public void run(IProgressMonitor monitor) throws CoreException {
+                    // temConnection will be set to model when finish
+                    DatabaseConnection connection = (DatabaseConnection) connectionItem.getConnection();
 
-                if (tdqRepositoryService != null && needUpdateAnalysis) {
-                    if (!tdqRepositoryService.confirmUpdateAnalysis(connectionItem)) {
-                        return true;
+                    /* compare the original datapackages and new datapackages */
+                    EList<Package> dataPackageTemConnection = temConnection.getDataPackage();
+                    EList<Package> dataPackageFromOrignalConnection = connection.getDataPackage();
+
+                    if (PluginChecker.isTDQLoaded()) {
+                        /*
+                         * The first save,to make sure all the columns and tables in temConnection can has a
+                         * eResource,or it can't set uuids
+                         */
+                        saveMetaData();
+                        // MOD qiongli 2011-11-23,TDQ-3930,pop a question dilog when need to update DQ analyses,if user
+                        // click
+                        // cancel,will return and stop this retrive action.
+                        ITDQRepositoryService tdqRepositoryService = null;
+                        boolean needUpdateAnalysis = false;
+                        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+                            tdqRepositoryService = (ITDQRepositoryService) org.talend.core.GlobalServiceRegister.getDefault()
+                                    .getService(ITDQRepositoryService.class);
+                            needUpdateAnalysis = isNeedUpdateDQ(temConnection, connection, tdqRepositoryService);
+                        }
+
+                        if (tdqRepositoryService != null && needUpdateAnalysis) {
+                            if (!tdqRepositoryService.confirmUpdateAnalysis(connectionItem)) {
+                                return;
+                            }
+                        }
+
+                        /* generate the map contains old uuid and label for old tables and columns */
+                        generateOriginalColumnsMap(dataPackageFromOrignalConnection);
+                        Collection<Package> copyDataPackage = EcoreUtil.copyAll(dataPackageTemConnection);
+                        ConnectionHelper.addPackages(copyDataPackage, connection);
+                        /* using the old uuid to replace the old ones which on tables and columns */
+                        replaceUUidsForColumnsAndTables(copyDataPackage);
+                        /* The second save is used to save the changes of uuid */
+                        saveMetaData();
+
+                        // update related analysis for TDQ after saving connection.
+                        if (tdqRepositoryService != null && needUpdateAnalysis) {
+                            tdqRepositoryService.updateImpactOnAnalysis(connectionItem);
+                        }
+
+                    } else {
+                        Collection<Package> copyDataPackage = EcoreUtil.copyAll(dataPackageTemConnection);
+                        ConnectionHelper.addPackages(copyDataPackage, connection);
+                        saveMetaData();
                     }
+                    RepositoryUpdateManager.updateMultiSchema(connectionItem, oldMetadataTable, oldTableMap);
+                    closeLockStrategy();
+
+                    List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
+                    list.add(repositoryObject);
+                    CoreRuntimePlugin.getInstance().getRepositoryService().notifySQLBuilder(list);
+                    temConnection = null;
                 }
-
-                /* generate the map contains old uuid and label for old tables and columns */
-                generateOriginalColumnsMap(dataPackageFromOrignalConnection);
-                Collection<Package> copyDataPackage = EcoreUtil.copyAll(dataPackageTemConnection);
-                ConnectionHelper.addPackages(copyDataPackage, connection);
-                /* using the old uuid to replace the old ones which on tables and columns */
-                replaceUUidsForColumnsAndTables(copyDataPackage);
-                /* The second save is used to save the changes of uuid */
-                saveMetaData();
-
-                // update related analysis for TDQ after saving connection.
-                if (tdqRepositoryService != null && needUpdateAnalysis) {
-                    tdqRepositoryService.updateImpactOnAnalysis(connectionItem);
-                }
-
-            } else {
-                Collection<Package> copyDataPackage = EcoreUtil.copyAll(dataPackageTemConnection);
-                ConnectionHelper.addPackages(copyDataPackage, connection);
-                saveMetaData();
+            };
+            try {
+                workspace.run(operation, null);
+            } catch (CoreException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
-            RepositoryUpdateManager.updateMultiSchema(connectionItem, oldMetadataTable, oldTableMap);
-            closeLockStrategy();
-
-            List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
-            list.add(repositoryObject);
-            CoreRuntimePlugin.getInstance().getRepositoryService().notifySQLBuilder(list);
-            temConnection = null;
             return true;
         } else {
             return false;
