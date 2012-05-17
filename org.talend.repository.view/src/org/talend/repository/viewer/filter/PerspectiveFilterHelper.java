@@ -79,7 +79,8 @@ public class PerspectiveFilterHelper {
      * @param restoring
      */
     private void filterView(String perspectiveId, boolean restoring) {
-        refreshNavigatorContents(getExtensionIdsToActivate(perspectiveId), restoring);
+        refreshNavigatorContents(
+                RepositoryNodeFilterHelper.filterRemovedNavigatorContents(getExtensionIdsToActivate(perspectiveId)), restoring);
     }
 
     private void unfilterView(boolean restoring) {
@@ -163,7 +164,7 @@ public class PerspectiveFilterHelper {
         }
         INavigatorContentService contentService = getNavigatorContentService();
         String[] filteredIds = perspectiveFilterExtensionsReader.getContentProviderFilteredIds(contentService, perspectiveId);
-        return RepositoryNodeFilterHelper.filterRemovedNavigatorContents(filteredIds);
+        return filteredIds;
     }
 
     public static boolean isActivedPerspectiveFilter() {

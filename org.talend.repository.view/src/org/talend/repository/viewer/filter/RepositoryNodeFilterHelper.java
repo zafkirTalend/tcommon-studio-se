@@ -53,7 +53,7 @@ public class RepositoryNodeFilterHelper {
             boolean activedPerspectiveFilter) {
         final INavigatorContentService contentService = commonViewer.getNavigatorContentService();
 
-        String[] visibleExtensionIds = filterRemovedNavigatorContents(contentService.getVisibleExtensionIds());
+        String[] visibleExtensionIds = contentService.getVisibleExtensionIds();
 
         List<String> visibleIDsForPecpective = new ArrayList<String>();
         List<String> visibleIdsForActiveFilter = new ArrayList<String>();
@@ -226,20 +226,33 @@ public class RepositoryNodeFilterHelper {
      * @return
      */
     public static List<String> getExtensionIdsNeedRemove(String[] visibleExtensionIds) {
-        String REMOVE_FLAG = ".removed"; //$NON-NLS-1$
         List<String> extensionIds = Arrays.asList(visibleExtensionIds);
         List<String> needRemovedExtensionIds = new ArrayList<String>();
         for (String extensionId : extensionIds) {
-            if (extensionId != null && extensionId.toLowerCase().endsWith(REMOVE_FLAG)) {
-                needRemovedExtensionIds.add(extensionId);
-                String realExtensionId = extensionId.substring(0, extensionId.lastIndexOf(REMOVE_FLAG));
-                if (extensionIds.contains(realExtensionId)) {
-                    needRemovedExtensionIds.add(realExtensionId);
-                }
-            }
+            addRemoveExtensionId(extensionIds, needRemovedExtensionIds, extensionId, ".removed"); //$NON-NLS-1$
+            addRemoveExtensionId(extensionIds, needRemovedExtensionIds, extensionId, ".fake.for.activation"); //$NON-NLS-1$
         }
 
         return needRemovedExtensionIds;
+    }
+
+    /**
+     * DOC ycbai Comment method "addRemoveExtensionId".
+     * 
+     * @param extensionIds
+     * @param needRemovedExtensionIds
+     * @param extensionId
+     * @param removeFlag
+     */
+    private static void addRemoveExtensionId(List<String> extensionIds, List<String> needRemovedExtensionIds, String extensionId,
+            String removeFlag) {
+        if (extensionId != null && removeFlag != null && extensionId.toLowerCase().endsWith(removeFlag.toLowerCase())) {
+            needRemovedExtensionIds.add(extensionId);
+            String realExtensionId = extensionId.substring(0, extensionId.lastIndexOf(removeFlag));
+            if (extensionIds.contains(realExtensionId)) {
+                needRemovedExtensionIds.add(realExtensionId);
+            }
+        }
     }
 
     public static boolean isActivedFilter() {

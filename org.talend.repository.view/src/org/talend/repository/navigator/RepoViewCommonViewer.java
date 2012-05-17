@@ -76,7 +76,7 @@ public class RepoViewCommonViewer extends CommonViewer implements ITreeViewerLis
     @Override
     protected void init() {
         super.init();
-        updateNavigatorContentState();
+        // updateNavigatorContentState();
     }
 
     @SuppressWarnings("restriction")
