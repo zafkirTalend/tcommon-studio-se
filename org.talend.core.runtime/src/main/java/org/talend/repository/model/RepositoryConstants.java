@@ -85,6 +85,7 @@ public class RepositoryConstants {
     // GLIU: add for TESB-3837
     public static final String SERVICES_NAME_PATTERN = "[a-zA-Z_][a-zA-Z0-9\\.\\-_]*";
 
+    public static final String MDM_ITEM_PATTERN = ".*"; //$NON-NLS-1$
     public static String getPattern(ERepositoryObjectType type) {
         if (type == ERepositoryObjectType.FOLDER) {
             return FOLDER_PATTERN;
@@ -108,6 +109,8 @@ public class RepositoryConstants {
             return SERVICES_NAME_PATTERN;
         } else if (type != null && "ROUTES".equals(type.getType())) {
             return CODE_ITEM_PATTERN;
+        } else if (type != null && type.getType() != null && type.getType().startsWith("MDM.")) { //$NON-NLS-1$
+            return MDM_ITEM_PATTERN;
         } else {
             return TDQ_ALL_ITEM_PATTERN;
         }
