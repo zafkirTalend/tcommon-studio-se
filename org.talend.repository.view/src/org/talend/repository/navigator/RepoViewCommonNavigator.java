@@ -448,6 +448,8 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
 
         // refresh for filters
         PlatformUI.getWorkbench().getActiveWorkbenchWindow().addPerspectiveListener(getRepoViewPerspectiveListener());
+
+        refresh(true); // TDI-21197
     }
 
     private RepoViewPerspectiveListener getRepoViewPerspectiveListener() {
