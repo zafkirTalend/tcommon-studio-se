@@ -481,6 +481,11 @@ public class CoreService implements ICoreService {
                     BaseData baseData = (BaseData) bundleData;
                     final BundleFile bundleFile = baseData.getBundleFile();
                     final File baseFile = bundleFile.getBaseFile();
+                    // fix for TDI-21162
+                    File jarFile = new File(baseFile.getAbsolutePath(), jarNeeded);
+                    if (jarFile.exists()) {
+                        return;
+                    }
 
                     libManager.retrieve(jarNeeded, baseFile.getAbsolutePath(), new NullProgressMonitor());
                 }
