@@ -28,7 +28,8 @@ Require-Bundle: org.apache.commons.lang,
  org.talend.core.repository,
  org.talend.utils,
  org.talend.datatools.xml,
- org.talend.repository.view;resolution:=optional;visibility:=reexport
+ org.talend.repository.view;resolution:=optional;visibility:=reexport,
+ org.talend.libraries.jdbc.jtds
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.talend.core.ui.metadata.celleditor,

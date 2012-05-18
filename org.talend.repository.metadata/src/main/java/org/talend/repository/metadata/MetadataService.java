@@ -12,6 +12,11 @@
 // ============================================================================
 package org.talend.repository.metadata;
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+
+import net.sourceforge.jtds.jdbc.ConnectionJDBC2;
+
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -249,6 +254,11 @@ public class MetadataService implements IMetadataService {
     public AbstractRlueOperationChoice getOperationChoice(Shell shell, INode node, RulesItem[] repositoryRuleItems,
             LinkRulesItem[] linkRuleItems, EProcessTypeForRule rule, String ruleToEdit, boolean readOnly) {
         return new RuleOperationChoiceDialog(shell, node, repositoryRuleItems, linkRuleItems, rule, ruleToEdit, readOnly);
+    }
+
+    @Override
+    public DatabaseMetaData findCustomizedJTDSDBMetadata(Connection jtdsConn) {
+        return new JtdsMetadataAdapter((ConnectionJDBC2) jtdsConn);
     }
 
 }

@@ -29,8 +29,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import net.sourceforge.jtds.jdbc.ConnectionJDBC2;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IProject;
@@ -45,6 +43,7 @@ import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
 import org.talend.core.IManagementService;
+import org.talend.core.IService;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
@@ -61,6 +60,7 @@ import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.repository.ProjectManager;
+import org.talend.repository.model.IMetadataService;
 import org.talend.utils.sugars.TypedReturnCode;
 
 /**
@@ -147,7 +147,16 @@ public class ExtractMetaDataUtils {
     // }
 
     private static DatabaseMetaData createJtdsDatabaseMetaData(Connection conn) {
-        return new JtdsMetadataAdapter((ConnectionJDBC2) conn);
+        IService service = GlobalServiceRegister.getDefault().getService(IMetadataService.class);
+        if (service == null) {
+            try {
+                return conn.getMetaData();
+            } catch (SQLException e) {
+                log.error(e.toString());
+                throw new RuntimeException(e);
+            }
+        }
+        return ((IMetadataService) service).findCustomizedJTDSDBMetadata(conn);
     }
 
     /**

@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.model.metadata.builder.database;
+package org.talend.repository.metadata;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
