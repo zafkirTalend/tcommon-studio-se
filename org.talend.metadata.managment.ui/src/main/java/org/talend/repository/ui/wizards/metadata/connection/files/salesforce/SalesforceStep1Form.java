@@ -12,10 +12,7 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.connection.files.salesforce;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -31,8 +28,6 @@ import org.talend.commons.ui.swt.formtools.Form;
 import org.talend.commons.ui.swt.formtools.LabelledText;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
-import org.talend.core.model.process.IElementParameter;
-import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.metadata.managment.ui.i18n.Messages;
@@ -314,11 +309,6 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
                     getConnection().setUseProxy(false);
                     useProxyBtn.setSelection(false);
                 }
-
-                MessageDialog messageDialog = new MessageDialog(getShell(), "Restare", null, //$NON-NLS-1$
-                        "If you have modified the http set,you have to restare the system!", MessageDialog.INFORMATION,
-                        new String[] { "OK" }, 0);
-                messageDialog.open();
             }
         });
         proxyHostText.addModifyListener(new ModifyListener() {
