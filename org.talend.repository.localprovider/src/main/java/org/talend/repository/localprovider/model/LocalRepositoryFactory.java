@@ -1202,43 +1202,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 moveFolder(type, sourcePath.append(children.getProperty().getLabel()),
                         targetPath.append(emfFolder.getProperty().getLabel()));
             } else {
-                emfFolder.getChildren().remove(childrens[i]);
-                newFolder.getChildren().add(childrens[i]);
-                childrens[i].setParent(newFolder);
-
-                // MDO gdbu 2011-9-29 TDQ-3546
-                List<Resource> affectedResources = xmiResourceManager.getAffectedResources(childrens[i].getProperty());
-
-                for (Resource resource : affectedResources) {
-                    IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath)
-                            .append(resource.getURI().lastSegment());
-                    // Find cross reference and save them.
-                    Map<EObject, Collection<Setting>> find = EcoreUtil.ExternalCrossReferencer.find(resource);
-                    List<Resource> needSaves = new ArrayList<Resource>();
-                    for (EObject object : find.keySet()) {
-                        Resource re = object.eResource();
-                        if (re == null) {
-                            continue;
-                        }
-                        EcoreUtil.resolveAll(re);
-                        needSaves.add(re);
-                    }
-                    xmiResourceManager.moveResource(resource, path);
-
-                    AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
-                            AbstractResourceChangesService.class);
-                    if (resChangeService != null) {
-                        for (Resource toSave : needSaves) {
-                            resChangeService.saveResourceByEMFShared(toSave);
-                        }
-                    }
-                }
-
-                affectedResources = xmiResourceManager.getAffectedResources(childrens[i].getProperty());
-                for (Resource resource : affectedResources) {
-                    xmiResourceManager.saveResource(resource);
-                }
-                // ~TDQ-3546
+                moveOldContentToNewFolder(project, completeNewPath, emfFolder, newFolder, childrens[i]);
             }
         }
 
@@ -1258,23 +1222,104 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
     }
 
-    public void renameFolder(ERepositoryObjectType type, IPath path, String label) throws PersistenceException {
-        IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
+    public void renameFolder(ERepositoryObjectType type, IPath sourcePath, String label) throws PersistenceException {
+        IPath targetPath = sourcePath.removeLastSegments(1);
 
-        String completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString();
-        // Getting the folder :
-        IFolder folder = ResourceUtils.getFolder(fsProject, completePath, false);
+        Project project = getRepositoryContext().getProject();
+        IProject fsProject = ResourceModelUtils.getProject(project);
 
-        // IPath targetPath = new
-        // Path(SystemFolderNameFactory.getFolderName(type)).append(path).
-        // removeLastSegments(1).append(label);
-        IPath targetPath = new Path(label);
-        getFolderHelper(getRepositoryContext().getProject().getEmfProject()).renameFolder(completePath, label);
-        xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
-
-        if (folder.exists()) {
-            ResourceUtils.moveResource(folder, targetPath);
+        String completeOldPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + sourcePath.toPortableString();
+        String completeNewPath;
+        if (targetPath.isEmpty()) {
+            completeNewPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + label;
+        } else {
+            completeNewPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + targetPath.toString()
+                    + IPath.SEPARATOR + label;
         }
+        if (completeNewPath.equals(completeOldPath)) {
+            // nothing to do
+            return;
+        }
+        // Getting the folder :
+        IFolder folder = ResourceUtils.getFolder(fsProject, completeOldPath, false);
+
+        FolderHelper folderHelper = getFolderHelper(getRepositoryContext().getProject().getEmfProject());
+        FolderItem emfFolder = folderHelper.getFolder(completeOldPath);
+        if (emfFolder == null && (type == ERepositoryObjectType.JOB_DOC || type == ERepositoryObjectType.JOBLET_DOC)) {
+            IPath path = new Path(sourcePath.toString());
+            ProxyRepositoryFactory.getInstance().createParentFoldersRecursively(project, type, path);
+            emfFolder = folderHelper.getFolder(completeOldPath);
+        }
+
+        createFolder(getRepositoryContext().getProject(), type, targetPath, label);
+        FolderItem newFolder = folderHelper.getFolder(completeNewPath);
+
+        Item[] childrens = (Item[]) emfFolder.getChildren().toArray();
+        for (int i = 0; i < childrens.length; i++) {
+            if (childrens[i] instanceof FolderItem) {
+                FolderItem children = (FolderItem) childrens[i];
+                moveFolder(type, sourcePath.append(children.getProperty().getLabel()),
+                        targetPath.append(newFolder.getProperty().getLabel()));
+            } else {
+                moveOldContentToNewFolder(project, completeNewPath, emfFolder, newFolder, childrens[i]);
+            }
+        }
+
+        List<IRepositoryViewObject> serializableFromFolder = getSerializableFromFolder(project, folder, null, type, true, true,
+                true, false);
+        for (IRepositoryViewObject object : serializableFromFolder) {
+            List<Resource> affectedResources = xmiResourceManager.getAffectedResources(object.getProperty());
+            for (Resource resource : affectedResources) {
+                IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath)
+                        .append(resource.getURI().lastSegment());
+                xmiResourceManager.moveResource(resource, path);
+            }
+        }
+
+        deleteFolder(getRepositoryContext().getProject(), type, sourcePath);
+
+        xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
+    }
+
+    private void moveOldContentToNewFolder(Project project, String completeNewPath, FolderItem emfFolder, FolderItem newFolder,
+            Item child) throws PersistenceException {
+        emfFolder.getChildren().remove(child);
+        newFolder.getChildren().add(child);
+        child.setParent(newFolder);
+
+        // MDO gdbu 2011-9-29 TDQ-3546
+        List<Resource> affectedResources = xmiResourceManager.getAffectedResources(child.getProperty());
+
+        for (Resource resource : affectedResources) {
+            IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath)
+                    .append(resource.getURI().lastSegment());
+            // Find cross reference and save them.
+            Map<EObject, Collection<Setting>> find = EcoreUtil.ExternalCrossReferencer.find(resource);
+            List<Resource> needSaves = new ArrayList<Resource>();
+            for (EObject object : find.keySet()) {
+                Resource re = object.eResource();
+                if (re == null) {
+                    continue;
+                }
+                EcoreUtil.resolveAll(re);
+                needSaves.add(re);
+            }
+            xmiResourceManager.moveResource(resource, path);
+
+            AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
+                    AbstractResourceChangesService.class);
+            if (resChangeService != null) {
+                for (Resource toSave : needSaves) {
+                    resChangeService.saveResourceByEMFShared(toSave);
+                }
+            }
+        }
+
+        affectedResources = xmiResourceManager.getAffectedResources(child.getProperty());
+        for (Resource resource : affectedResources) {
+            xmiResourceManager.saveResource(resource);
+        }
+        // ~TDQ-3546
     }
 
     /*
