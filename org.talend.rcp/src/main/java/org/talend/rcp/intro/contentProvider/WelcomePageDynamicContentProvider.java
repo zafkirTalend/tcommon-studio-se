@@ -179,7 +179,7 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
                     + Messages.getString("WelcomePageDynamicContentProvider.CreateNewBusinessModelTitle")));
             hyperlinkBusiness.appendChild(spanBusiness);
             parent.appendChild(hyperlinkBusiness);
-            
+
             //
             parent.appendChild(dom.createElement("br"));
             Element imgBarChart = dom.createElement("img");
@@ -192,7 +192,7 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
             hyperlinkBarChart
                     .setAttribute(
                             "href",
-                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.dataprofiler.core&amp;class=org.talend.dataprofiler.core.ui.action.actions.CreateNewAnalysisAction&amp;id=org.talend.dataprofiler.core.ui.action.actions.CreateNewAnalysisAction&amp;type=ANALYSIS");
+                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.dataprofiler.core&class=org.talend.dataprofiler.core.ui.action.actions.CreateNewAnalysisAction&id=org.talend.dataprofiler.core.ui.action.actions.CreateNewAnalysisAction&type=ANALYSIS");
             Element spanBarChart = dom.createElement("span");
             spanBarChart.setAttribute("class", "style_3");
             spanBarChart.appendChild(dom.createTextNode(" "
@@ -254,14 +254,14 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
             hyperlinkService
                     .setAttribute(
                             "href",
-                            "");
+                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.repository.services&class=org.talend.repository.services.action.CreateESBAction&id=org.talend.repository.services.action.CreateESBAction&type=SERVICES");
             Element spanService = dom.createElement("span");
             spanService.setAttribute("class", "style_3");
             spanService.appendChild(dom.createTextNode(" "
                     + Messages.getString("WelcomePageDynamicContentProvider.CreateNewServiceTitle")));
             hyperlinkService.appendChild(spanService);
             parent.appendChild(hyperlinkService);
-            
+
             //
             parent.appendChild(dom.createElement("br"));
             Element imgRoute = dom.createElement("img");
@@ -274,14 +274,14 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
             hyperlinkRoute
                     .setAttribute(
                             "href",
-                            "");
+                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.camel.designer&class=org.talend.camel.designer.ui.CreateCamelProcess&id=org.talend.camel.designer.ui.CreateCamelProcess&type=ROUTES");
             Element spanRoute = dom.createElement("span");
             spanRoute.setAttribute("class", "style_3");
             spanRoute.appendChild(dom.createTextNode(" "
                     + Messages.getString("WelcomePageDynamicContentProvider.CreateNewRouteTitle")));
             hyperlinkRoute.appendChild(spanRoute);
             parent.appendChild(hyperlinkRoute);
-            
+
         } else if ("CREATENEWWITHDQESBTITLE".equals(id)) {
             Element span = dom.createElement("span");
             span.setAttribute("class", "style_1 style_2 style_3");
@@ -316,14 +316,14 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
             hyperlinkBusiness
                     .setAttribute(
                             "href",
-                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.designer.business.diagram&class=org.talend.designer.business.diagram.custom.actions.CreateDiagramAction&id=org.talend.designer.business.diagram.Action1&type=BUSINESS_PROCESS");
+                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.designer.business.diagram&class=org.talend.designer.business.diagram.custom.actions.CreateDiagramAction&id=org.talend.designer.business.diagram.custom.actions.CreateDiagramAction&type=BUSINESS_PROCESS");
             Element spanBusiness = dom.createElement("span");
             spanBusiness.setAttribute("class", "style_3");
             spanBusiness.appendChild(dom.createTextNode(" "
                     + Messages.getString("WelcomePageDynamicContentProvider.CreateNewBusinessModelTitle")));
             hyperlinkBusiness.appendChild(spanBusiness);
             parent.appendChild(hyperlinkBusiness);
-            
+
             //
             parent.appendChild(dom.createElement("br"));
             Element imgBarChart = dom.createElement("img");
@@ -336,14 +336,14 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
             hyperlinkBarChart
                     .setAttribute(
                             "href",
-                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.dataprofiler.core&amp;class=org.talend.dataprofiler.core.ui.action.actions.CreateNewAnalysisAction&amp;id=org.talend.dataprofiler.core.ui.action.actions.CreateNewAnalysisAction&amp;type=ANALYSIS");
+                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.dataprofiler.core&class=org.talend.dataprofiler.core.ui.action.actions.CreateNewAnalysisAction&id=org.talend.dataprofiler.core.ui.action.actions.CreateNewAnalysisAction&type=ANALYSIS");
             Element spanBarChart = dom.createElement("span");
             spanBarChart.setAttribute("class", "style_3");
             spanBarChart.appendChild(dom.createTextNode(" "
                     + Messages.getString("WelcomePageDynamicContentProvider.CreateNewAnalysisTitle")));
             hyperlinkBarChart.appendChild(spanBarChart);
             parent.appendChild(hyperlinkBarChart);
-            
+
             //
             parent.appendChild(dom.createElement("br"));
             Element imgService = dom.createElement("img");
@@ -356,14 +356,14 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
             hyperlinkService
                     .setAttribute(
                             "href",
-                            "");
+                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.repository.services&class=org.talend.repository.services.action.CreateESBAction&id=org.talend.repository.services.action.CreateESBAction&type=SERVICES");
             Element spanService = dom.createElement("span");
             spanService.setAttribute("class", "style_3");
             spanService.appendChild(dom.createTextNode(" "
                     + Messages.getString("WelcomePageDynamicContentProvider.CreateNewServiceTitle")));
             hyperlinkService.appendChild(spanService);
             parent.appendChild(hyperlinkService);
-            
+
             //
             parent.appendChild(dom.createElement("br"));
             Element imgRoute = dom.createElement("img");
@@ -376,14 +376,14 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
             hyperlinkRoute
                     .setAttribute(
                             "href",
-                            "");
+                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.camel.designer&class=org.talend.camel.designer.ui.CreateCamelProcess&id=org.talend.camel.designer.ui.CreateCamelProcess&type=ROUTES");
             Element spanRoute = dom.createElement("span");
             spanRoute.setAttribute("class", "style_3");
             spanRoute.appendChild(dom.createTextNode(" "
                     + Messages.getString("WelcomePageDynamicContentProvider.CreateNewRouteTitle")));
             hyperlinkRoute.appendChild(spanRoute);
             parent.appendChild(hyperlinkRoute);
-            
+
         } else if ("DOCUMENTATIONTITLE".equals(id)) {
             Element pDoc = dom.createElement("p");
             pDoc.setAttribute("class", "style_1 style_2 style_3");
