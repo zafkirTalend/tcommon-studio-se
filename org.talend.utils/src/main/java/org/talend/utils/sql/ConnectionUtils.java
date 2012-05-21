@@ -193,13 +193,14 @@ public final class ConnectionUtils {
     }
 
     /**
-     * DOC xqliu Comment method "getConnectionMetadata". 2009-07-13 bug 7888.
+     * @deprecated use ExtractMetaDataUtils#getConnectionMetadata(java.sql.Connection conn) instead.
+     * 
+     * xqliu method "getConnectionMetadata". 2009-07-13 bug 7888.
      * 
      * @param conn
      * @return
      * @throws SQLException
      */
-
     public static DatabaseMetaData getConnectionMetadata(java.sql.Connection conn) throws SQLException {
         DatabaseMetaData dbMetaData = conn.getMetaData();
         // MOD xqliu 2009-11-17 bug 7888
