@@ -1114,7 +1114,6 @@ public class SelectorTableForm extends AbstractForm {
 
                         // need to enhance later
                         if (ExtractMetaDataUtils.isUseAllSynonyms()
-                                && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataconnection.getDbType())
                                 || EDatabaseTypeName.ACCESS.getDisplayName().equals(metadataconnection.getDbType())) {
                             List<String> itemTableName = ExtractMetaDataFromDataBase.returnTablesFormConnection(
                                     metadataconnection, getTableInfoParameters());
@@ -1301,8 +1300,7 @@ public class SelectorTableForm extends AbstractForm {
             // For access's table's remove,must be accordance with its addTable
             ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, getConnection().getName(), getConnection(), tables);
         } else {
-            if ("".equals(schema) && ExtractMetaDataUtils.useAllSynonyms //$NON-NLS-1$
-                    && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataconnection.getDbType())) {
+            if ("".equals(schema) && ExtractMetaDataUtils.useAllSynonyms) {
                 schema = MetadataConnectionUtils.FAKE_SCHEMA_SYNONYMS;
             }
             ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, schema, getConnection(), tables);
@@ -1460,8 +1458,7 @@ public class SelectorTableForm extends AbstractForm {
                 boolean useAllSynonyms = ExtractMetaDataUtils.useAllSynonyms;
                 // Added a locker by Marvin Wang on May 15, 2012 for bug TDI-21058.
                 synchronized (locker) {
-                    if (useAllSynonyms && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataconnection.getDbType())
-                            || isAccess) {
+                    if (useAllSynonyms || isAccess) {
                         metadataColumns = ExtractMetaDataFromDataBase.returnMetadataColumnsFormTable(metadataconnection,
                                 tableString, true);
                         if (ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString).equals(
@@ -1488,7 +1485,6 @@ public class SelectorTableForm extends AbstractForm {
                         lableName = MetadataToolHelper.validateValue(lableName);
                         dbtable.setLabel(lableName);
                     } else {
-                        metadataColumns = ExtractMetaDataFromDataBase.returnColumns(metadataconnection, tableNode, true);
                         String comment = null;
                         String type = null;
                         if (table instanceof TdTable) {
@@ -1516,20 +1512,18 @@ public class SelectorTableForm extends AbstractForm {
                         dbtable.setTableType(type);
                         String lableName = MetadataToolHelper.validateTableName(table.getName());
                         dbtable.setLabel(lableName);
+
+                        if (useProvider()) {
+                            metadataColumns = provider.returnMetadataColumnsFromTable(tableString, metadataconnection);
+                        } else {
+                            metadataColumns = ExtractMetaDataFromDataBase.returnColumns(metadataconnection, tableNode, true);
+                        }
                     }
                     initExistingNames();
 
                     dbtable.setSourceName(tableString);
                     dbtable.setId(factory.getNextId());
                     dbtable.setTableType(tableNode.getItemType());
-
-                    List<TdColumn> metadataColumns = new ArrayList<TdColumn>();
-                    if (useProvider()) {
-                        metadataColumns = provider.returnMetadataColumnsFromTable(tableString, metadataconnection);
-                    } else {
-                        metadataColumns = ExtractMetaDataFromDataBase.returnMetadataColumnsFormTable(metadataconnection,
-                                tableString);
-                    }
 
                     List<MetadataColumn> metadataColumnsValid = new ArrayList<MetadataColumn>();
                     Iterator iterate = metadataColumns.iterator();
@@ -1548,9 +1542,7 @@ public class SelectorTableForm extends AbstractForm {
                     if (!ConnectionHelper.getTables(getConnection()).contains(dbtable) && !limitTemplateTable(dbtable)) {
                         String catalog = "";
                         String schema = "";
-                        if (useAllSynonyms
-                                && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataconnection.getDbType())
-                                || isAccess) {
+                        if (useAllSynonyms || isAccess) {
                             // if use_all_synonyms and oracle,just create a fake schema to store all the synonyms.see
                             // bug
                             // TDI-18353
@@ -1801,8 +1793,7 @@ public class SelectorTableForm extends AbstractForm {
         if (isAccess) {
             ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, getConnection().getName(), getConnection(), tables);
         } else {
-            if ("".equals(schema) && ExtractMetaDataUtils.useAllSynonyms //$NON-NLS-1$
-                    && EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataconnection.getDbType())) {
+            if ("".equals(schema) && ExtractMetaDataUtils.useAllSynonyms) {
                 schema = MetadataConnectionUtils.FAKE_SCHEMA_SYNONYMS;
             }
             ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, schema, getConnection(), tables);
