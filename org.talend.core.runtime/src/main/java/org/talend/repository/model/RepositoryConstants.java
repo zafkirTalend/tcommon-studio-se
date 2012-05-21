@@ -78,14 +78,13 @@ public class RepositoryConstants {
 
     public static final String REPOSITORY_URL = "url"; //$NON-NLS-1$
 
-    public static final String TDQ_ALL_ITEM_PATTERN = "[a-zA-Z_][a-zA-Z0-9\\.\\-_ ]*"; //$NON-NLS-1$
-
-    public static final String TDQ_PAT_ITEM_PATTERN = "[_A-Za-z0-9-][a-zA-Z0-9\\.\\-_(), ]*"; //$NON-NLS-1$
+    public static final String TDQ_ALL_ITEM_PATTERN = ".*"; //$NON-NLS-1$
 
     // GLIU: add for TESB-3837
     public static final String SERVICES_NAME_PATTERN = "[a-zA-Z_][a-zA-Z0-9\\.\\-_]*";
 
     public static final String MDM_ITEM_PATTERN = ".*"; //$NON-NLS-1$
+
     public static String getPattern(ERepositoryObjectType type) {
         if (type == ERepositoryObjectType.FOLDER) {
             return FOLDER_PATTERN;
@@ -96,13 +95,11 @@ public class RepositoryConstants {
             return ROUTINES_ITEM_PATTERN;
         } else if (type == ERepositoryObjectType.TDQ_JRAXML_ELEMENT || type == ERepositoryObjectType.TDQ_DATA_PROFILING
                 || type == ERepositoryObjectType.TDQ_ANALYSIS_ELEMENT || type == ERepositoryObjectType.TDQ_REPORT_ELEMENT
-                || type == ERepositoryObjectType.TDQ_LIBRARIES
-                || type == ERepositoryObjectType.TDQ_SOURCE_FILE_ELEMENT || type == ERepositoryObjectType.TDQ_RULES
-                || type == ERepositoryObjectType.TDQ_RULES_SQL || type == ERepositoryObjectType.TDQ_INDICATOR_ELEMENT) {
+                || type == ERepositoryObjectType.TDQ_LIBRARIES || type == ERepositoryObjectType.TDQ_SOURCE_FILE_ELEMENT
+                || type == ERepositoryObjectType.TDQ_RULES || type == ERepositoryObjectType.TDQ_RULES_SQL
+                || type == ERepositoryObjectType.TDQ_INDICATOR_ELEMENT || type == ERepositoryObjectType.TDQ_PATTERN_ELEMENT
+                || type == ERepositoryObjectType.TDQ_PATTERN_REGEX || type == ERepositoryObjectType.TDQ_PATTERN_SQL) {
             return TDQ_ALL_ITEM_PATTERN;
-        } else if (type == ERepositoryObjectType.TDQ_PATTERN_ELEMENT || type == ERepositoryObjectType.TDQ_PATTERN_REGEX
-                || type == ERepositoryObjectType.TDQ_PATTERN_SQL) {
-            return TDQ_PAT_ITEM_PATTERN;
         }
         // GLIU: add for TESB-3837
         else if (type != null && "SERVICES".equals(type.getType())) {
