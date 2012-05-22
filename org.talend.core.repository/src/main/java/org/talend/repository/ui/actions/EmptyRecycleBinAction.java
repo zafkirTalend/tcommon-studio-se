@@ -39,7 +39,6 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
-import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ITDQRepositoryService;
 import org.talend.core.model.properties.Item;
@@ -57,7 +56,6 @@ import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
-import org.talend.repository.ui.views.IRepositoryView;
 
 /**
  * Action used to empty the recycle bin.<br/>
@@ -158,14 +156,15 @@ public class EmptyRecycleBinAction extends AContextualAction {
             ExceptionHandler.process(e);
         }
 
+        // TDI-21238, have done listener to refresh in new CNF repository view
         // MOD qiongli 2011-1-24,avoid to refresh repositoryView for top
-        if (!PluginChecker.isOnlyTopLoaded()) {
-            RepositoryManager.refresh(ERepositoryObjectType.JOB_SCRIPT);
-            IRepositoryView view = getViewPart();
-            if (view != null) {
-                view.refresh();
-            }
-        }
+        // if (!PluginChecker.isOnlyTopLoaded()) {
+        // RepositoryManager.refresh(ERepositoryObjectType.JOB_SCRIPT);
+        // IRepositoryView view = getViewPart();
+        // if (view != null) {
+        // view.refresh();
+        // }
+        // }
 
     }
 
