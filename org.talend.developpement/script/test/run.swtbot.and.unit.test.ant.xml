@@ -97,7 +97,7 @@
                     <include name="org.eclipse.equinox.launcher_*.jar"/>
                 </fileset>
             </classpath>
-            <arg line="-application org.eclipse.test.uitestapplication"/>
+            <arg line="-application org.eclipse.swtbot.eclipse.junit4.headless.swtbottestapplication"/>
             <arg line="-testpluginname ${unit.test-plugin-name}"/>
             <arg line="-testApplication ${test-application} -clean -nl ta --disableLoginDialog -project TEST_NOLOGIN --deleteProjectIfExist -language java -login a@b.c"/>
             <arg line="-classname ${unit.test-class-name}"/>
