@@ -244,8 +244,16 @@ public class ContextTableValuesComposite extends AbstractContextTabEditComposite
 
                     @Override
                     public void sort(Viewer viewer, Object[] elements) {
-                        while (index < table.getColumns().length && table.getColumn(index) != column) {
-                            index++;
+                        boolean found = false;
+                        // find the sort column index
+                        for (index = 0; index < table.getColumns().length; index++) {
+                            if (table.getColumn(index) == table.getSortColumn()) {
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            index = 0; // first one as default
                         }
                         super.sort(viewer, elements);
                     }
