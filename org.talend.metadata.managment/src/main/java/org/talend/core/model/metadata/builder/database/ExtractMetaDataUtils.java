@@ -118,33 +118,6 @@ public class ExtractMetaDataUtils {
         }
         return dbMetaData;
     }
-//    public static DatabaseMetaData getDatabaseMetaData(Connection conn, String dbType,boolean isSqlMode) {
-//    	
-//    	DatabaseMetaData dbMetaData = null;
-//    	try {
-//    		
-//    		if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
-//    			dbMetaData = createFakeDatabaseMetaData(conn);
-//    		} else if ( dbType.equals(EDatabaseTypeName.TERADATA.getXmlName())
-//    				&& isSqlMode) {
-//    			dbMetaData = createTeradataFakeDatabaseMetaData(conn);
-//    			// add by wzhang for bug 8106. set database name for teradata.
-//    			TeradataDataBaseMetadata teraDbmeta = (TeradataDataBaseMetadata) dbMetaData;
-//    			teraDbmeta.setDatabaseName(ExtractMetaDataUtils.metadataCon.getDatabase());
-//    		} else if (dbType.equals(EDatabaseTypeName.SAS.getXmlName())) {
-//    			dbMetaData = createSASFakeDatabaseMetaData(conn);
-//    		} else {
-//    			dbMetaData = conn.getMetaData();
-//    		}
-//    	} catch (SQLException e) {
-//    		log.error(e.toString());
-//    		throw new RuntimeException(e);
-//    	} catch (Exception e) {
-//    		log.error(e.toString());
-//    		throw new RuntimeException(e);
-//    	}
-//    	return dbMetaData;
-//    }
     
     private static DatabaseMetaData createJtdsDatabaseMetaData(Connection conn) { 
         return new JtdsMetadataAdapter((ConnectionJDBC2) conn); 
@@ -155,7 +128,9 @@ public class ExtractMetaDataUtils {
     	DatabaseMetaData dbMetaData = null;
     	try {
     		
-    		if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
+    		if ("net.sourceforge.jtds.jdbc.ConnectionJDBC3".equals(conn.getClass().getName())) { 
+        	 	dbMetaData = createJtdsDatabaseMetaData(conn); 
+        	} else if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
     			dbMetaData = createFakeDatabaseMetaData(conn);
     		} else if ( dbType.equals(EDatabaseTypeName.TERADATA.getXmlName())
     				&& isSqlMode) {
@@ -237,7 +212,9 @@ public class ExtractMetaDataUtils {
       DatabaseMetaData dbMetaData = conn.getMetaData();
       // MOD xqliu 2009-11-17 bug 7888
       if (dbMetaData != null && dbMetaData.getDatabaseProductName() != null) {
-    	  if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
+    	  if ("net.sourceforge.jtds.jdbc.ConnectionJDBC3".equals(conn.getClass().getName())) { 
+      	 	  dbMetaData = createJtdsDatabaseMetaData(conn); 
+      	  }else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
     		  getDatabaseMetaData(conn,EDatabaseTypeName.IBMDB2ZOS.getXmlName());
     	  }else if(dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.TERADATA.getXmlName())){
     		  getDatabaseMetaData(conn,EDatabaseTypeName.TERADATA.getXmlName());
