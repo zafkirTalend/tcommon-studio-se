@@ -577,8 +577,8 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                     monitor.beginTask(Messages.getString("CreateTableAction.action.createTitle"), IProgressMonitor.UNKNOWN); //$NON-NLS-1$
 
-                    managerConnection.check(getIMetadataConnection()); 
-                   
+                    managerConnection.check(getIMetadataConnection());
+
                     String proxy = null;
                     if (temConnection.isUseProxy()) {
                         proxy = SalesforceModuleParseAPI.USE_SOCKS_PROXY;//$NON-NLS-1$
@@ -586,18 +586,18 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
                         proxy = SalesforceModuleParseAPI.USE_HTTP_PROXY;//$NON-NLS-1$
                     }
 
-                        itemTableName = connectFromCustomModuleName(proxy);
+                    itemTableName = connectFromCustomModuleName(proxy);
 
-                        if (itemTableName.size() <= 0) {
-                            // connection is done but any table exist
-                            if (displayMessageBox) {
-                                openInfoDialogInUIThread(getShell(),
-                                        Messages.getString("DatabaseTableForm.checkConnection"), Messages //$NON-NLS-1$
-                                                .getString("DatabaseTableForm.tableNoExist"), true);//$NON-NLS-1$
-                            }
-                        } else {
-                            createAllItems(displayMessageBox, null);
+                    if (itemTableName.size() <= 0) {
+                        // connection is done but any table exist
+                        if (displayMessageBox) {
+                            openInfoDialogInUIThread(getShell(),
+                                    Messages.getString("DatabaseTableForm.checkConnection"), Messages //$NON-NLS-1$
+                                            .getString("DatabaseTableForm.tableNoExist"), true);//$NON-NLS-1$
                         }
+                    } else {
+                        createAllItems(displayMessageBox, null);
+                    }
                     monitor.done();
                 }
             });
@@ -1419,7 +1419,7 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
         }
         useSocketProxy = connection.isUseProxy();
         proxyHost = connection.getProxyHost();
-        proxyPort = connection.getProxyHost();
+        proxyPort = connection.getProxyPort();
         proxyUsername = connection.getProxyUsername();
         proxyPassword = connection.getProxyPassword();
     }
