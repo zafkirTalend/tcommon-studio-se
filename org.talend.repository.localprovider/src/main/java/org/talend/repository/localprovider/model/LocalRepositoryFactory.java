@@ -40,12 +40,17 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.URI;
@@ -59,6 +64,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.osgi.framework.FrameworkUtil;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
@@ -1222,63 +1228,89 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
     }
 
-    public void renameFolder(ERepositoryObjectType type, IPath sourcePath, String label) throws PersistenceException {
-        IPath targetPath = sourcePath.removeLastSegments(1);
+    public void renameFolder(final ERepositoryObjectType type, final IPath sourcePath, final String label)
+            throws PersistenceException {
+        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
-        Project project = getRepositoryContext().getProject();
-        IProject fsProject = ResourceModelUtils.getProject(project);
+            public void run(IProgressMonitor monitor) throws CoreException {
+                try {
 
-        String completeOldPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + sourcePath.toPortableString();
-        String completeNewPath;
-        if (targetPath.isEmpty()) {
-            completeNewPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + label;
-        } else {
-            completeNewPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + targetPath.toString()
-                    + IPath.SEPARATOR + label;
+                    IPath targetPath = sourcePath.removeLastSegments(1);
+
+                    Project project = getRepositoryContext().getProject();
+                    IProject fsProject = ResourceModelUtils.getProject(project);
+
+                    String completeOldPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR
+                            + sourcePath.toPortableString();
+                    String completeNewPath;
+                    if (targetPath.isEmpty()) {
+                        completeNewPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + label;
+                    } else {
+                        completeNewPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + targetPath.toString()
+                                + IPath.SEPARATOR + label;
+                    }
+                    if (completeNewPath.equals(completeOldPath)) {
+                        // nothing to do
+                        return;
+                    }
+                    // Getting the folder :
+                    IFolder folder = ResourceUtils.getFolder(fsProject, completeOldPath, false);
+
+                    FolderHelper folderHelper = getFolderHelper(getRepositoryContext().getProject().getEmfProject());
+                    FolderItem emfFolder = folderHelper.getFolder(completeOldPath);
+                    if (emfFolder == null && (type == ERepositoryObjectType.JOB_DOC || type == ERepositoryObjectType.JOBLET_DOC)) {
+                        IPath path = new Path(sourcePath.toString());
+                        ProxyRepositoryFactory.getInstance().createParentFoldersRecursively(project, type, path);
+                        emfFolder = folderHelper.getFolder(completeOldPath);
+                    }
+
+                    createFolder(getRepositoryContext().getProject(), type, targetPath, label);
+                    FolderItem newFolder = folderHelper.getFolder(completeNewPath);
+
+                    Item[] childrens = (Item[]) emfFolder.getChildren().toArray();
+                    for (int i = 0; i < childrens.length; i++) {
+                        if (childrens[i] instanceof FolderItem) {
+                            FolderItem children = (FolderItem) childrens[i];
+                            moveFolder(type, sourcePath.append(children.getProperty().getLabel()),
+                                    targetPath.append(newFolder.getProperty().getLabel()));
+                        } else {
+                            moveOldContentToNewFolder(project, completeNewPath, emfFolder, newFolder, childrens[i]);
+                        }
+                    }
+
+                    List<IRepositoryViewObject> serializableFromFolder = getSerializableFromFolder(project, folder, null, type,
+                            true, true, true, false);
+                    for (IRepositoryViewObject object : serializableFromFolder) {
+                        List<Resource> affectedResources = xmiResourceManager.getAffectedResources(object.getProperty());
+                        for (Resource resource : affectedResources) {
+                            IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath)
+                                    .append(resource.getURI().lastSegment());
+                            xmiResourceManager.moveResource(resource, path);
+                        }
+                    }
+
+                    deleteFolder(getRepositoryContext().getProject(), type, sourcePath);
+
+                    xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
+
+                } catch (PersistenceException e) {
+                    throw new CoreException(new org.eclipse.core.runtime.Status(IStatus.ERROR, FrameworkUtil.getBundle(
+                            this.getClass()).getSymbolicName(), "Error", e));
+                }
+            };
+
+        };
+        IWorkspace workspace = ResourcesPlugin.getWorkspace();
+        try {
+            ISchedulingRule schedulingRule = workspace.getRoot();
+            // the update the project files need to be done in the workspace runnable to avoid all
+            // notification
+            // of changes before the end of the modifications.
+            workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, new NullProgressMonitor());
+        } catch (CoreException e) {
+            throw new PersistenceException(e.getCause());
         }
-        if (completeNewPath.equals(completeOldPath)) {
-            // nothing to do
-            return;
-        }
-        // Getting the folder :
-        IFolder folder = ResourceUtils.getFolder(fsProject, completeOldPath, false);
 
-        FolderHelper folderHelper = getFolderHelper(getRepositoryContext().getProject().getEmfProject());
-        FolderItem emfFolder = folderHelper.getFolder(completeOldPath);
-        if (emfFolder == null && (type == ERepositoryObjectType.JOB_DOC || type == ERepositoryObjectType.JOBLET_DOC)) {
-            IPath path = new Path(sourcePath.toString());
-            ProxyRepositoryFactory.getInstance().createParentFoldersRecursively(project, type, path);
-            emfFolder = folderHelper.getFolder(completeOldPath);
-        }
-
-        createFolder(getRepositoryContext().getProject(), type, targetPath, label);
-        FolderItem newFolder = folderHelper.getFolder(completeNewPath);
-
-        Item[] childrens = (Item[]) emfFolder.getChildren().toArray();
-        for (int i = 0; i < childrens.length; i++) {
-            if (childrens[i] instanceof FolderItem) {
-                FolderItem children = (FolderItem) childrens[i];
-                moveFolder(type, sourcePath.append(children.getProperty().getLabel()),
-                        targetPath.append(newFolder.getProperty().getLabel()));
-            } else {
-                moveOldContentToNewFolder(project, completeNewPath, emfFolder, newFolder, childrens[i]);
-            }
-        }
-
-        List<IRepositoryViewObject> serializableFromFolder = getSerializableFromFolder(project, folder, null, type, true, true,
-                true, false);
-        for (IRepositoryViewObject object : serializableFromFolder) {
-            List<Resource> affectedResources = xmiResourceManager.getAffectedResources(object.getProperty());
-            for (Resource resource : affectedResources) {
-                IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath)
-                        .append(resource.getURI().lastSegment());
-                xmiResourceManager.moveResource(resource, path);
-            }
-        }
-
-        deleteFolder(getRepositoryContext().getProject(), type, sourcePath);
-
-        xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
     }
 
     private void moveOldContentToNewFolder(Project project, String completeNewPath, FolderItem emfFolder, FolderItem newFolder,
