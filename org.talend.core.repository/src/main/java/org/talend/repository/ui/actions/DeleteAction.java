@@ -150,7 +150,11 @@ public class DeleteAction extends AContextualAction {
                     if (obj instanceof RepositoryNode) {
                         RepositoryNode node = (RepositoryNode) obj;
                         try {
-
+                            // ADD xqliu 2012-05-24 TDQ-4831
+                            if (sourceFileOpening(node)) {
+                                continue;
+                            }
+                            // ~ TDQ-4831
                             if (containParent(node, (IStructuredSelection) selection)) {
                                 continue;
                             }
@@ -264,6 +268,26 @@ public class DeleteAction extends AContextualAction {
                         }
                     }
                 }
+            }
+
+            /**
+             * DOC xqliu Comment method "sourceFileOpening".
+             * 
+             * @param node
+             * @return
+             */
+            private boolean sourceFileOpening(RepositoryNode node) {
+                boolean result = false;
+                if (node != null) {
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+                        ITDQRepositoryService service = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
+                                ITDQRepositoryService.class);
+                        if (service != null) {
+                            result = service.sourceFileOpening(node);
+                        }
+                    }
+                }
+                return result;
             }
         };
         try {

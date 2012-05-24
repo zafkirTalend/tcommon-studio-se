@@ -24,6 +24,7 @@ import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.repository.model.IRepositoryNode;
+import org.talend.repository.model.RepositoryNode;
 import org.talend.utils.sugars.ReturnCode;
 
 /**
@@ -93,5 +94,6 @@ public interface ITDQRepositoryService extends IService {
     // ADD qiongli 2012-4-19 TDQ-5130
     public boolean hasClientDependences(ConnectionItem connectionItem);
 
-
+    // ADD xqliu 2012-05-25 TDQ-4831
+    public boolean sourceFileOpening(RepositoryNode node);
 }
