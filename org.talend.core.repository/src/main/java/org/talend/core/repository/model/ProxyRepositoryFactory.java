@@ -272,8 +272,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return false;
     }
 
-    private boolean checkIfHaveDuplicateName(Project project, Item item, IPath path) throws
-            PersistenceException {
+    private boolean checkIfHaveDuplicateName(Project project, Item item, IPath path) throws PersistenceException {
         String name = item.getProperty().getLabel();
 
         ERepositoryObjectType type = ERepositoryObjectType.getItemType(item);
@@ -818,16 +817,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         log.debug(Messages.getString("ProxyRepositoryFactory.log.move", str)); //$NON-NLS-1$
         // unlock(getItem(objToMove));
 
-        boolean isExtendPoint = false;
-        ERepositoryObjectType repositoryObjectType = objToMove.getRepositoryObjectType();
-        for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
-            ERepositoryObjectType type = handler.getProcessType();
-            if (type != null && repositoryObjectType == type) {
-                isExtendPoint = true;
-                break;
-            }
-        }
-        if (isExtendPoint || objToMove.getRepositoryObjectType() == ERepositoryObjectType.PROCESS) {
+        if (objToMove.getRepositoryObjectType() == ERepositoryObjectType.PROCESS) {
             if (sourcePath != null && sourcePath.length == 1) {
                 fireRepositoryPropertyChange(ERepositoryActionName.JOB_MOVE.getName(), objToMove, new IPath[] { sourcePath[0],
                         targetPath });
@@ -1237,14 +1227,13 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 // don't do anything
             }
         }
-        checkFileNameAndPath(project, item,
-                RepositoryConstants.getPattern(ERepositoryObjectType.getItemType(item)), path, false,
+        checkFileNameAndPath(project, item, RepositoryConstants.getPattern(ERepositoryObjectType.getItemType(item)), path, false,
                 isImportItem);
 
-            this.repositoryFactoryFromProvider.create(project, item, path, isImportItem);
-            if ((item instanceof ProcessItem || item instanceof JobletProcessItem) && (isImportItem.length == 0)) {
-                fireRepositoryPropertyChange(ERepositoryActionName.JOB_CREATE.getName(), null, item);
-            }
+        this.repositoryFactoryFromProvider.create(project, item, path, isImportItem);
+        if ((item instanceof ProcessItem || item instanceof JobletProcessItem) && (isImportItem.length == 0)) {
+            fireRepositoryPropertyChange(ERepositoryActionName.JOB_CREATE.getName(), null, item);
+        }
     }
 
     /*
