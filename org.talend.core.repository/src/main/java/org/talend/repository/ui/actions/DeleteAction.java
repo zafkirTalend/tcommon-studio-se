@@ -74,7 +74,6 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryManager;
-import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.ISubRepositoryObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
@@ -100,7 +99,6 @@ import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
 import org.talend.repository.ui.dialog.ContextReferenceDialog;
 import org.talend.repository.ui.dialog.JobletReferenceDialog;
-import org.talend.repository.ui.views.IRepositoryView;
 
 /**
  * Action used to delete object from repository. This action manages logical and physical deletions.<br/>
@@ -126,6 +124,10 @@ public class DeleteAction extends AContextualAction {
         this.setImageDescriptor(ImageProvider.getImageDesc(EImage.DELETE_ICON));
         //        this.setActionDefinitionId("deleteItem"); //$NON-NLS-1$
         singleton = this;
+
+        // for restore, unload after, not before, since the state will change (item was normal, and change to "deleted")
+        this.setUnloadResourcesAfter(true);
+        this.setAvoidUnloadResources(true);
     }
 
     public static DeleteAction getInstance() {
@@ -295,7 +297,7 @@ public class DeleteAction extends AContextualAction {
         };
 
         try {
-            PlatformUI.getWorkbench().getProgressService().run(true, true, iRunnableWithProgress);
+            PlatformUI.getWorkbench().getProgressService().run(false, false, iRunnableWithProgress);
         } catch (Exception e) {
             ExceptionHandler.process(e);
         }
@@ -309,15 +311,6 @@ public class DeleteAction extends AContextualAction {
                     if (updatePalette && GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
                         ICoreService service = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
                         service.updatePalette();
-                    }
-
-                    if (!CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {
-                        RepositoryManager.refresh(ERepositoryObjectType.JOB_SCRIPT);
-                        // bug 16594
-                        IRepositoryView repositoryView = RepositoryManagerHelper.getRepositoryView();
-                        if (repositoryView != null) {
-                            repositoryView.refresh();
-                        }
                     }
 
                     IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
@@ -919,7 +912,7 @@ public class DeleteAction extends AContextualAction {
                 && nodeObject.getProperty().getItem() != null
                 && (nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_OTHER
                         || nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_USER || RepositoryManager
-                        .isOpenedItemInEditor(nodeObject)) && !(DELETE_FOREVER_TITLE.equals(getText()))) {
+                            .isOpenedItemInEditor(nodeObject)) && !(DELETE_FOREVER_TITLE.equals(getText()))) {
 
             final String title = Messages.getString("DeleteAction.error.title"); //$NON-NLS-1$
             String nodeName = ERepositoryObjectType.getDeleteFolderName(nodeObject.getRepositoryObjectType());

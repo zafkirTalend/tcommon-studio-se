@@ -91,6 +91,8 @@ public abstract class AContextualAction extends Action implements ITreeContextua
 
     private boolean avoidUnloadResources;
 
+    private boolean unloadResourcesAfter;
+
     protected RepositoryNode repositoryNode;
 
     private Item oldItem;
@@ -594,7 +596,8 @@ public abstract class AContextualAction extends Action implements ITreeContextua
                 }
             }
         };
-        repositoryWorkUnit.setAvoidUnloadResources(avoidUnloadResources);
+        repositoryWorkUnit.setAvoidUnloadResources(isAvoidUnloadResources());
+        repositoryWorkUnit.setUnloadResourcesAfterRun(isUnloadResourcesAfter());
         CoreRuntimePlugin.getInstance().getProxyRepositoryFactory().executeRepositoryWorkUnit(repositoryWorkUnit);
         oldItem = null;
     }
@@ -698,5 +701,15 @@ public abstract class AContextualAction extends Action implements ITreeContextua
      */
     public IRepositoryNode getNode() {
         return this.node;
+    }
+
+    
+    public boolean isUnloadResourcesAfter() {
+        return unloadResourcesAfter;
+    }
+
+    
+    public void setUnloadResourcesAfter(boolean unloadResourcesAfter) {
+        this.unloadResourcesAfter = unloadResourcesAfter;
     }
 }
