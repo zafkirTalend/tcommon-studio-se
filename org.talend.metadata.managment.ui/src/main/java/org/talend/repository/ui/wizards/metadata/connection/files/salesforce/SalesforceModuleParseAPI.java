@@ -195,7 +195,7 @@ public class SalesforceModuleParseAPI {
             boolean socksProxy, boolean httpsProxy) {
         Properties properties = System.getProperties();
         if (socksProxy && proxyHost != null && proxyPort != null) { //$NON-NLS-1$ 
-            if (properties.contains(SalesforceModuleParseAPI.SOCKS_PROXY_HOST)) {
+            if (properties.containsKey(SalesforceModuleParseAPI.SOCKS_PROXY_HOST)) {
                 oldProxyHost = (String) properties.get(SalesforceModuleParseAPI.SOCKS_PROXY_HOST);
                 oldProxyPort = (String) properties.get(SalesforceModuleParseAPI.SOCKS_PROXY_PORT);
                 oldProxyUser = (String) properties.get(SalesforceModuleParseAPI.SOCKS_PROXY_USERNAME);
@@ -209,7 +209,7 @@ public class SalesforceModuleParseAPI {
             properties.put(SalesforceModuleParseAPI.SOCKS_PROXY_USERNAME, proxyUsername == null ? "" : proxyUsername); //$NON-NLS-1$
             properties.put(SalesforceModuleParseAPI.SOCKS_PROXY_PASSWORD, proxyPassword == null ? "" : proxyPassword); //$NON-NLS-1$
         } else if (httpProxy && proxyHost != null && proxyPort != null) { //$NON-NLS-1$ 
-            if (properties.contains(SalesforceModuleParseAPI.HTTP_PROXY_HOST)) {
+            if (properties.containsKey(SalesforceModuleParseAPI.HTTP_PROXY_HOST)) {
                 oldHttpProxySet = (String) properties.get(SalesforceModuleParseAPI.HTTP_PROXY_SET);
                 oldProxyHost = (String) properties.get(SalesforceModuleParseAPI.HTTP_PROXY_HOST);
                 oldProxyPort = (String) properties.get(SalesforceModuleParseAPI.HTTP_PROXY_PORT);
@@ -225,7 +225,7 @@ public class SalesforceModuleParseAPI {
             properties.put(SalesforceModuleParseAPI.HTTP_PROXY_PASSWORD, proxyPassword == null ? "" : proxyPassword); //$NON-NLS-1$
 
         } else if (httpsProxy && proxyHost != null && proxyPort != null) {
-            if (properties.contains(SalesforceModuleParseAPI.HTTP_PROXY_HOST)) {
+            if (properties.containsKey(SalesforceModuleParseAPI.HTTP_PROXY_HOST)) {
                 oldHttpsProxySet = (String) properties.get(SalesforceModuleParseAPI.HTTPS_PROXY_SET);
                 oldProxyHost = (String) properties.get(SalesforceModuleParseAPI.HTTPS_PROXY_HOST);
                 oldProxyPort = (String) properties.get(SalesforceModuleParseAPI.HTTPS_PROXY_PORT);
@@ -245,7 +245,7 @@ public class SalesforceModuleParseAPI {
 
     public void resetAllProxy() {
         Properties properties = System.getProperties();
-        if (properties.contains(SalesforceModuleParseAPI.SOCKS_PROXY_HOST) && oldSocksProxySet) {
+        if (properties.containsKey(SalesforceModuleParseAPI.SOCKS_PROXY_HOST) && oldSocksProxySet) {
             properties.put(SalesforceModuleParseAPI.SOCKS_PROXY_HOST, oldProxyHost); //$NON-NLS-1$
             properties.put(SalesforceModuleParseAPI.SOCKS_PROXY_PORT, oldProxyPort); //$NON-NLS-1$
             properties.put(SalesforceModuleParseAPI.SOCKS_PROXY_USERNAME, oldProxyUser); //$NON-NLS-1$
@@ -258,7 +258,7 @@ public class SalesforceModuleParseAPI {
 
         }
 
-        if (properties.contains(SalesforceModuleParseAPI.HTTP_PROXY_SET) && "true".equals(oldHttpProxySet)) {
+        if (properties.containsKey(SalesforceModuleParseAPI.HTTP_PROXY_SET) && "true".equals(oldHttpProxySet)) {
             properties.put(SalesforceModuleParseAPI.HTTP_PROXY_SET, oldHttpProxySet); //$NON-NLS-1$
             properties.put(SalesforceModuleParseAPI.HTTP_PROXY_HOST, oldProxyHost); //$NON-NLS-1$
             properties.put(SalesforceModuleParseAPI.HTTP_PROXY_PORT, oldProxyPort); //$NON-NLS-1$
@@ -272,7 +272,7 @@ public class SalesforceModuleParseAPI {
             properties.remove(SalesforceModuleParseAPI.HTTP_PROXY_PASSWORD); //$NON-NLS-1$
         }
 
-        if (properties.contains(SalesforceModuleParseAPI.HTTPS_PROXY_SET) && "true".equals(oldHttpsProxySet)) {
+        if (properties.containsKey(SalesforceModuleParseAPI.HTTPS_PROXY_SET) && "true".equals(oldHttpsProxySet)) {
             properties.put(SalesforceModuleParseAPI.HTTPS_PROXY_SET, oldHttpsProxySet); //$NON-NLS-1$
             properties.put(SalesforceModuleParseAPI.HTTPS_PROXY_HOST, oldProxyHost); //$NON-NLS-1$
             properties.put(SalesforceModuleParseAPI.HTTPS_PROXY_PORT, oldProxyPort); //$NON-NLS-1$

@@ -1419,7 +1419,7 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
         }
         useSocketProxy = connection.isUseProxy();
         proxyHost = connection.getProxyHost();
-        proxyPort = connection.getProxyHost();
+        proxyPort = connection.getProxyPort();
         proxyUsername = connection.getProxyUsername();
         proxyPassword = connection.getProxyPassword();
     }
