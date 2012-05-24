@@ -1,4 +1,16 @@
-package org.talend.core.test;
+// ============================================================================
+//
+// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+//
+// This source code is available under agreement available at
+// %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+//
+// You should have received a copy of the agreement
+// along with this program; if not, write to Talend SA
+// 9 rue Pages 92150 Suresnes, France
+//
+// ============================================================================
+package org.talend.core.sqlbuilder.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -18,22 +30,31 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.User;
-import org.talend.core.sqlbuilder.util.TextUtil;
 
+/**
+ * DOC Administrator class global comment. Detailled comment
+ */
 public class TextUtilTest {
 
+    /**
+     * Test method for {@link org.talend.core.sqlbuilder.util.TextUtil#TextUtil()}.
+     */
     @Test
     public void testTextUtil() {
-
     }
 
+    /**
+     * Test method for {@link org.talend.core.sqlbuilder.util.TextUtil#getNewQueryLabel()}.
+     */
     @Test
     public void testGetNewQueryLabel() {
     }
 
+    /**
+     * Test method for {@link org.talend.core.sqlbuilder.util.TextUtil#removeLineBreaks(java.lang.String)}.
+     */
     @Test
     public void testRemoveLineBreaks() {
-
         String testString = "select \n from\t test where \r id='4' ";
 
         String expertString = "select   from  test where  id='4' ";
@@ -42,12 +63,13 @@ public class TextUtilTest {
         assertNull(tu.removeLineBreaks(null));
 
         assertEquals(tu.removeLineBreaks(testString), expertString);
-
     }
 
+    /**
+     * Test method for {@link org.talend.core.sqlbuilder.util.TextUtil#getWrappedText(java.lang.String)}.
+     */
     @Test
     public void testGetWrappedTextString() {
-
         TextUtil tu = mock(TextUtil.class);
 
         StringBuilder testString = new StringBuilder();
@@ -75,14 +97,19 @@ public class TextUtilTest {
 
         assertEquals(testString2.substring(0, tu.DEFAULT_WRAPLENGTH + 1),
                 tu.getWrappedText(testString2.toString()).substring(0, tu.DEFAULT_WRAPLENGTH + 1));
-
     }
 
+    /**
+     * Test method for {@link org.talend.core.sqlbuilder.util.TextUtil#getWrappedText(java.lang.String, int)}.
+     */
     @Test
     public void testGetWrappedTextStringInt() {
-
     }
 
+    /**
+     * Test method for
+     * {@link org.talend.core.sqlbuilder.util.TextUtil#replaceChar(java.lang.String, char, java.lang.String)}.
+     */
     @Test
     public void testReplaceChar() {
         String testString1 = "abcdedfwersdf";
@@ -99,10 +126,18 @@ public class TextUtilTest {
         assertEquals("abwhatdedfwersdf", tu.replaceChar(testString1, 'c', "what"));
     }
 
+    /**
+     * Test method for
+     * {@link org.talend.core.sqlbuilder.util.TextUtil#addSqlQuots(java.lang.String, java.lang.String, java.lang.String)}
+     * .
+     */
     @Test
     public void testAddSqlQuots() {
     }
 
+    /**
+     * Test method for {@link org.talend.core.sqlbuilder.util.TextUtil#removeQuots(java.lang.String)}.
+     */
     @Test
     public void testRemoveQuots() {
         TextUtil tu = mock(TextUtil.class);
@@ -136,21 +171,34 @@ public class TextUtilTest {
         assertNotNull(tu.removeQuots("\"select * from test\""));
 
         assertEquals(expectString, tu.removeQuots("\"select * from test\""));
-
     }
 
+    /**
+     * Test method for {@link org.talend.core.sqlbuilder.util.TextUtil#getDialogTitle()}.
+     */
     @Test
     public void testGetDialogTitle() {
     }
 
+    /**
+     * Test method for {@link org.talend.core.sqlbuilder.util.TextUtil#setDialogTitle(java.lang.String)}.
+     */
     @Test
     public void testSetDialogTitleString() {
     }
 
+    /**
+     * Test method for
+     * {@link org.talend.core.sqlbuilder.util.TextUtil#setDialogTitle(java.lang.String, java.lang.String, java.lang.String)}
+     * .
+     */
     @Test
     public void testSetDialogTitleStringStringString() {
     }
 
+    /**
+     * Test method for {@link org.talend.core.sqlbuilder.util.TextUtil#isDoubleQuotesNeededDbType(java.lang.String)}.
+     */
     @Test
     public void testIsDoubleQuotesNeededDbType() {
         TextUtil tu = mock(TextUtil.class);
@@ -168,9 +216,11 @@ public class TextUtilTest {
         assertFalse(tu.isDoubleQuotesNeededDbType("test"));
     }
 
+    /**
+     * Test method for {@link org.talend.core.sqlbuilder.util.TextUtil#isOracleDbType(java.lang.String)}.
+     */
     @Test
     public void testIsOracleDbType() {
-
         TextUtil tu = mock(TextUtil.class);
 
         assertTrue(tu.isOracleDbType(EDatabaseTypeName.ORACLEFORSID.getXmlName()));
@@ -189,6 +239,9 @@ public class TextUtilTest {
         assertFalse(tu.isOracleDbType("test"));
     }
 
+    /**
+     * Test method for {@link org.talend.core.sqlbuilder.util.TextUtil#calEscapeValue(java.lang.String)}.
+     */
     @Test
     public void testCalEscapeValue() {
         TextUtil tu = mock(TextUtil.class);

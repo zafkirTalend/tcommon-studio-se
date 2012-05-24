@@ -1,4 +1,16 @@
-package org.talend.core.test;
+// ============================================================================
+//
+// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+//
+// This source code is available under agreement available at
+// %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+//
+// You should have received a copy of the agreement
+// along with this program; if not, write to Talend SA
+// 9 rue Pages 92150 Suresnes, France
+//
+// ============================================================================
+package org.talend.core.model.metadata;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -15,12 +27,17 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
-import org.talend.core.model.metadata.QueryUtil;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.User;
 
+/**
+ * DOC Administrator class global comment. Detailled comment
+ */
 public class QueryUtilTest {
 
+    /**
+     * Test method for {@link org.talend.core.model.metadata.QueryUtil#needFormatSQL(java.lang.String)}.
+     */
     @Test
     public void testNeedFormatSQL() {
         QueryUtil qu = mock(QueryUtil.class);
@@ -52,48 +69,81 @@ public class QueryUtilTest {
         assertTrue(qu.needFormatSQL(EDatabaseTypeName.H2.getDisplayName()));
     }
 
+    /**
+     * Test method for
+     * {@link org.talend.core.model.metadata.QueryUtil#generateNewQuery(org.talend.core.model.process.IElement, org.talend.core.model.metadata.IMetadataTable, java.lang.String, java.lang.String, java.lang.String)}
+     * .
+     */
     @Test
     public void testGenerateNewQueryIElementIMetadataTableStringStringString() {
     }
 
+    /**
+     * Test method for
+     * {@link org.talend.core.model.metadata.QueryUtil#generateNewQuery(org.talend.core.model.process.IElement, org.talend.core.model.metadata.IMetadataTable, boolean, java.lang.String, java.lang.String, java.lang.String)}
+     * .
+     */
     @Test
     public void testGenerateNewQueryIElementIMetadataTableBooleanStringStringString() {
     }
 
+    /**
+     * Test method for
+     * {@link org.talend.core.model.metadata.QueryUtil#generateNewQuery(org.talend.core.model.process.IElement, org.talend.core.model.metadata.IMetadataTable, java.lang.String, java.lang.String, java.lang.String, boolean)}
+     * .
+     */
     @Test
     public void testGenerateNewQueryIElementIMetadataTableStringStringStringBoolean() {
     }
 
+    /**
+     * Test method for
+     * {@link org.talend.core.model.metadata.QueryUtil#generateNewQueryDelegate(org.talend.core.model.process.IElement, org.talend.core.model.metadata.IMetadataTable, java.lang.String, java.lang.String, java.lang.String)}
+     * .
+     */
     @Test
     public void testGenerateNewQueryDelegateIElementIMetadataTableStringStringString() {
     }
 
+    /**
+     * Test method for
+     * {@link org.talend.core.model.metadata.QueryUtil#generateNewQueryDelegate(org.talend.core.model.process.IElement, org.talend.core.model.metadata.IMetadataTable, java.lang.String, java.lang.String, java.lang.String, boolean)}
+     * .
+     */
     @Test
     public void testGenerateNewQueryDelegateIElementIMetadataTableStringStringStringBoolean() {
     }
 
+    /**
+     * Test method for
+     * {@link org.talend.core.model.metadata.QueryUtil#generateNewQuery(org.talend.core.model.metadata.IMetadataTable, java.lang.String, java.lang.String, boolean)}
+     * .
+     */
     @Test
     public void testGenerateNewQueryIMetadataTableStringStringBoolean() {
     }
 
+    /**
+     * Test method for
+     * {@link org.talend.core.model.metadata.QueryUtil#generateNewQuery(org.talend.core.model.metadata.IMetadataTable, java.lang.String, java.lang.String, java.lang.String[])}
+     * .
+     */
     @Test
     public void testGenerateNewQueryIMetadataTableStringStringStringArray() {
     }
 
+    /**
+     * Test method for
+     * {@link org.talend.core.model.metadata.QueryUtil#getTableName(org.talend.core.model.process.IElement, org.talend.core.model.metadata.IMetadataTable, java.lang.String, java.lang.String, java.lang.String)}
+     * .
+     */
     @Test
-    public void testCheckIfIsNoQuotesAtAll() {
-        String testQuery = "select mytable.ID from mytable";
-
-        String testQuery1 = "select mytable.\\\"ID\\\" form mytable";
-
-        QueryUtil qu = mock(QueryUtil.class);
-
-        assertTrue(qu.checkIfIsNoQuotesAtAll(testQuery));
-
-        assertTrue(!qu.checkIfIsNoQuotesAtAll(testQuery1));
-
+    public void testGetTableName() {
     }
 
+    /**
+     * Test method for {@link org.talend.core.model.metadata.QueryUtil#checkAndAddQuotes(java.lang.String)}.
+     */
     @Test
     public void testCheckAndAddQuotes() {
         String testQuery = "select mytable.ID from mytable";
@@ -126,10 +176,14 @@ public class QueryUtilTest {
         assertNotNull(qu.checkAndAddQuotes(expectQuery));
 
         assertEquals(qu.checkAndAddQuotes(expectQuery), expectQuery);
+
     }
 
+    /**
+     * Test method for {@link org.talend.core.model.metadata.QueryUtil#checkAndRemoveQuotes(java.lang.String)}.
+     */
     @Test
-    public void testcheckAndRemoveQuotes() {
+    public void testCheckAndRemoveQuotes() {
         String testQuery = "select mytable.ID from mytable";
 
         String expectQuery = "\"select mytable.ID from mytable\"";
@@ -162,8 +216,27 @@ public class QueryUtilTest {
         assertEquals(qu.checkAndRemoveQuotes(expectQuery), testQuery);
     }
 
+    /**
+     * Test method for {@link org.talend.core.model.metadata.QueryUtil#checkIfIsNoQuotesAtAll(java.lang.String)}.
+     */
     @Test
-    public void testcheckIfHasSpecialEscapeValue() {
+    public void testCheckIfIsNoQuotesAtAll() {
+        String testQuery = "select mytable.ID from mytable";
+
+        String testQuery1 = "select mytable.\\\"ID\\\" form mytable";
+
+        QueryUtil qu = mock(QueryUtil.class);
+
+        assertTrue(qu.checkIfIsNoQuotesAtAll(testQuery));
+
+        assertTrue(!qu.checkIfIsNoQuotesAtAll(testQuery1));
+    }
+
+    /**
+     * Test method for {@link org.talend.core.model.metadata.QueryUtil#checkIfHasSpecialEscapeValue(java.lang.String)}.
+     */
+    @Test
+    public void testCheckIfHasSpecialEscapeValue() {
         QueryUtil qu = mock(QueryUtil.class);
         assertTrue(qu.checkIfHasSpecialEscapeValue("select \\n"));
 
@@ -173,4 +246,5 @@ public class QueryUtilTest {
 
         assertFalse(qu.checkIfHasSpecialEscapeValue("test"));
     }
+
 }
