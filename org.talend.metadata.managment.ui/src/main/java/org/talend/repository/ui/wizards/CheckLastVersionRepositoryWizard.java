@@ -21,7 +21,9 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.ui.IWorkbench;
@@ -163,11 +165,14 @@ public abstract class CheckLastVersionRepositoryWizard extends RepositoryWizard 
                     factory.save(connectionItem);
                     closeLockStrategy();
                 } catch (PersistenceException e) {
-                    throw new CoreException(new Status(IStatus.ERROR, "", "", e));
+                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.metadata.management.ui", "Error when save the connection", e));
                 }
             }
         };
-        workspace.run(operation, null);
+        ISchedulingRule schedulingRule = workspace.getRoot();
+        // the update the project files need to be done in the workspace runnable to avoid all
+        // notification of changes before the end of the modifications.
+        workspace.run(operation, schedulingRule, IWorkspace.AVOID_UPDATE, new NullProgressMonitor());
     }
 
     public boolean performCancel() {

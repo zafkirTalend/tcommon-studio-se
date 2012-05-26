@@ -363,6 +363,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                 ExceptionHandler.process(e);
                             }
                             if (property != null) {
+                                if (property.getItem() == null || property.getItem().getState() == null) {
+                                    if (type != null) {
+                                        log.error("try to load wrong item:" + property.getLabel() + " / " + type);
+                                    } else {
+                                        log.error("try to load wrong item:" + property.getLabel());
+                                    }
+                                    continue;
+                                }
                                 if (currentFolderItem != null && !currentFolderItem.getChildren().contains(property.getItem())) {
                                     currentFolderItem.getChildren().add(property.getItem());
                                     property.getItem().setParent(currentFolderItem);
@@ -604,6 +612,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                     ExceptionHandler.process(e);
                                 }
                                 if (property != null) {
+                                    if (property.getItem() == null || property.getItem().getState() == null) {
+                                        if (type != null) {
+                                            log.error("try to load wrong item:" + property.getLabel() + " / " + type);
+                                        } else {
+                                            log.error("try to load wrong item:" + property.getLabel());
+                                        }
+                                        continue;
+                                    }
                                     addToHistory(property.getId(), type, property.getItem().getState().getPath());
                                     if (id == null || property.getId().equals(id)) {
                                         if (withDeleted || !property.getItem().getState().isDeleted()) {
@@ -940,8 +956,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public Project[] readProjects(boolean local) throws PersistenceException {
-        // TODO SML Delete this method when remote is implemented
-
         IProject[] prjs = ResourceUtils.getProjetWithNature(TalendNature.ID);
 
         List<Project> toReturn = new ArrayList<Project>();
@@ -970,16 +984,30 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         xmiResourceManager.setUseOldProjectFile(useOldProjectFile);
         try {
             if (xmiResourceManager.hasTalendProjectFile(p)) {
-                org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(p);
-                // if (emfProject.isLocal() == local) {
-                Project project = new Project(emfProject);
-                if (GlobalServiceRegister.getDefault().isServiceRegistered(ICorePerlService.class)) {
-                    toReturn.add(project);
+                Project curProject = ProjectManager.getInstance().getCurrentProject();
+                if (curProject != null && curProject.getTechnicalLabel().equals(p.getName())) {
+                    toReturn.add(curProject);
                 } else {
-                    if (project.getLanguage().equals(ECodeLanguage.JAVA))
-                        toReturn.add(project);
+                    boolean foundInRefs = false;
+                    if (curProject != null) {
+                        for (Project refP : ProjectManager.getInstance().getAllReferencedProjects()) {
+                            if (refP.getTechnicalLabel().equals(p.getName())) {
+                                toReturn.add(refP);
+                                break;
+                            }
+                        }
+                    }
+                    if (!foundInRefs) {
+                        org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(p);
+                        Project project = new Project(emfProject);
+                        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICorePerlService.class)) {
+                            toReturn.add(project);
+                        } else {
+                            if (project.getLanguage().equals(ECodeLanguage.JAVA))
+                                toReturn.add(project);
+                        }
+                    }
                 }
-                // }
             }
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
@@ -2384,7 +2412,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     public void unloadUnlockedResources() {
         if (!ProxyRepositoryFactory.getInstance().isFullLogonFinished()) {
-            // don't unload anything while logoon
+            // don't unload anything while logon
             return;
         }
         List<Resource> resourceToUnload = new ArrayList<Resource>();
