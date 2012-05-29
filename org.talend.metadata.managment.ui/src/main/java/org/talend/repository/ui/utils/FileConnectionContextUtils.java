@@ -12,6 +12,14 @@
 // ============================================================================
 package org.talend.repository.ui.utils;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,6 +28,7 @@ import java.util.Set;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.swt.widgets.Shell;
+import org.talend.commons.utils.encoding.CharsetToolkit;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
@@ -512,6 +521,32 @@ public final class FileConnectionContextUtils {
                 targetFileConnection.setUseLimit(sourceFileConnection.isUseLimit());
 
         }
+
+    /**
+     * 
+     * DOC Comment method "isFilePathAvailable".
+     * Added yyin 20120529 TDQ-4651 
+
+     * @param fileStr
+     * @param connection
+     * @return
+     * @throws IOException
+     * @throws UnsupportedEncodingException
+     * @throws FileNotFoundException
+     */
+    public static BufferedReader isFilePathAvailable(String fileStr, FileConnection connection) throws IOException,
+            UnsupportedEncodingException, FileNotFoundException {
+        BufferedReader in;
+        File file = new File(fileStr);
+        Charset guessedCharset = CharsetToolkit.guessEncoding(file, 4096);
+        if (connection.getEncoding() == null || connection.getEncoding().equals("")) { //$NON-NLS-1$
+            connection.setEncoding(guessedCharset.displayName());
+        }
+        // read the file width the limit : MAXIMUM_ROWS_TO_PREVIEW
+        in = new BufferedReader(new InputStreamReader(new FileInputStream(fileStr), guessedCharset.displayName()));
+
+        return in;
+    }
     public static void checkAndInitRowsToSkip() {
 
     }
