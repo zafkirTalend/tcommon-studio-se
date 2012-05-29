@@ -104,4 +104,6 @@ public interface IJobletProviderService extends IService {
 
     public boolean checkModify(IElement jobletContainer);
 
+    public void getMultiPrejobOrPostjobNodes(INode jobletNode, Map<String, List<INode>> multiNodes);
+
 }
