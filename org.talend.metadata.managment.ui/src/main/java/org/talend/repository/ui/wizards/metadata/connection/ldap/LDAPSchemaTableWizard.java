@@ -23,10 +23,13 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
+import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.metadata.builder.connection.GenericPackage;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.ui.wizards.CheckLastVersionRepositoryWizard;
@@ -63,7 +66,7 @@ public class LDAPSchemaTableWizard extends CheckLastVersionRepositoryWizard impl
         if (connectionItem != null) {
             oldTableMap = RepositoryUpdateManager.getOldTableIdAndNameMap(connectionItem, metadataTable, creation);
             oldMetadataTable = ConvertionHelper.convert(metadataTable);
-            initConnectionCopy(connectionItem.getConnection());
+            // initConnectionCopy(connectionItem.getConnection());
         }
         setNeedsProgressMonitor(true);
 
@@ -78,7 +81,7 @@ public class LDAPSchemaTableWizard extends CheckLastVersionRepositoryWizard impl
     public void addPages() {
         setWindowTitle(Messages.getString("SchemaWizard.windowTitle")); //$NON-NLS-1$
 
-        tableWizardpage = new FileTableWizardPage(connectionItem, metadataTableCopy, isRepositoryObjectEditable());
+        tableWizardpage = new FileTableWizardPage(connectionItem, metadataTable, isRepositoryObjectEditable());
 
         if (creation) {
             tableWizardpage.setTitle(Messages.getString(
@@ -99,7 +102,7 @@ public class LDAPSchemaTableWizard extends CheckLastVersionRepositoryWizard impl
      */
     public boolean performFinish() {
         if (tableWizardpage.isPageComplete()) {
-            applyConnectionCopy();
+            // applyConnectionCopy();
             IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
             try {
                 // update
@@ -113,8 +116,8 @@ public class LDAPSchemaTableWizard extends CheckLastVersionRepositoryWizard impl
                         Messages.getString("CommonWizard.persistenceException"), detailError); //$NON-NLS-1$
                 log.error(Messages.getString("CommonWizard.persistenceException") + "\n" + detailError); //$NON-NLS-1$ //$NON-NLS-2$
             }
-            connectionCopy = null;
-            metadataTableCopy = null;
+            // connectionCopy = null;
+            // metadataTableCopy = null;
             return true;
         } else {
             return false;
@@ -136,4 +139,16 @@ public class LDAPSchemaTableWizard extends CheckLastVersionRepositoryWizard impl
         return this.connectionItem;
     }
 
+    public boolean performCancel() {
+        // Remove the metadata table that is added into data package, if created for the first time.
+        // Caz the metadata table is added to GenericPackage when retrieve schema, refer to
+        // AbstractCreateTableAction.createLDAPSchemaWizard()
+        if (creation) {
+            Connection connection = connectionItem.getConnection();
+            GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), connection,
+                    GenericPackage.class);
+            g.getOwnedElement().remove(metadataTable);
+        }
+        return super.performCancel();
+    }
 }

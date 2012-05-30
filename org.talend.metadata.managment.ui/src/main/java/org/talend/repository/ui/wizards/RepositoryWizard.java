@@ -101,6 +101,8 @@ public abstract class RepositoryWizard extends Wizard {
      * @param IRepositoryObject
      */
     public boolean performCancel() {
+        if (repositoryObject != null)
+            repositoryObject.getProperty().eResource().unload();
         closeLockStrategy();
         return true;
     }
@@ -161,7 +163,7 @@ public abstract class RepositoryWizard extends Wizard {
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             repositoryObjectEditable = factory.isEditableAndLockIfPossible(repositoryObject);
 
-            if(!CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {                
+            if (!CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {
                 final IRepositoryNode repositoryNode = repositoryViewObject.getRepositoryNode();
                 IRepositoryView repositoryView = RepositoryManagerHelper.getRepositoryView();
                 if (repositoryView != null) {

@@ -1267,6 +1267,10 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @see org.talend.repository.model.IProxyRepositoryFactory#unlock(org.talend.core.model.properties.Item)
      */
     public void unlock(Item obj) throws PersistenceException, LoginException {
+        if (obj.eResource() == null || obj.getProperty().eResource() == null) {
+            // item has been unloaded
+            obj = getUptodateProperty(obj.getProperty()).getItem();
+        }
         if (getStatus(obj) == ERepositoryStatus.LOCK_BY_USER || obj instanceof JobletDocumentationItem
                 || obj instanceof JobDocumentationItem) {
             Date commitDate = obj.getState().getCommitDate();

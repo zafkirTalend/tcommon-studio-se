@@ -101,15 +101,22 @@ public class LDAPSchemaStep4Form extends AbstractLDAPSchemaStepForm {
      * 
      * @param Composite
      */
-    public LDAPSchemaStep4Form(Composite parent, ConnectionItem connectionItem) {
-        this(parent, connectionItem, null);
-    }
+    // public LDAPSchemaStep4Form(Composite parent, ConnectionItem connectionItem) {
+    // this(parent, connectionItem, null);
+    // }
 
     public LDAPSchemaStep4Form(Composite parent, ConnectionItem connectionItem, IMetadataContextModeManager contextModeManager) {
         super(parent, connectionItem, (MetadataTable) ConnectionHelper.getTables(
                 (LDAPSchemaConnection) connectionItem.getConnection()).toArray(new MetadataTable[0])[0], null);
         setConnectionItem(connectionItem);
         setContextModeManager(contextModeManager);
+        setupForm();
+    }
+
+    public LDAPSchemaStep4Form(Composite parent, ConnectionItem connectionItem, MetadataTable metadataTableCopy) {
+        super(parent, connectionItem, metadataTableCopy, null);
+        setConnectionItem(connectionItem);
+        setContextModeManager(null);
         setupForm();
     }
 

@@ -21,12 +21,14 @@ import javax.xml.rpc.ServiceException;
 import org.eclipse.datatools.connectivity.oda.OdaException;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.XSDPopulationUtil2;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.xsd.XSDSchema;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
+import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.repository.mdm.util.MDMUtil;
@@ -43,6 +45,8 @@ public abstract class AbstractMDMFileStepForm extends AbstractXmlStepForm {
     protected MDMConnection connection;
 
     protected String xsdFilePath;
+
+    protected MetadataTable metadataTable;
 
     /**
      * DOC Administrator AbstractMDMFileStepForm constructor comment.
@@ -193,6 +197,29 @@ public abstract class AbstractMDMFileStepForm extends AbstractXmlStepForm {
         } catch (OdaException e) {
             return null;
         }
+    }
+
+    /**
+     * Removes the column from metadatatable by the name identified, created by Marvin Wang on May 21, 2012.
+     * 
+     * @param orignalColumnName
+     * @return the index removed. If no need to remove, return -1.
+     */
+    protected synchronized int removeOriginalColumn(String orignalColumnName) {
+        int index = -1;
+        EList<MetadataColumn> columns = metadataTable.getColumns();
+        if (columns != null && !columns.isEmpty()) {
+            for (int i = 0; i < columns.size(); i++) {
+                MetadataColumn mdColumn = columns.get(i);
+                String name = mdColumn.getLabel();
+                if (name != null && name.equals(orignalColumnName)) {
+                    metadataTable.getColumns().remove(i);
+                    index = i;
+                }
+            }
+        }
+
+        return index;
     }
 
 }
