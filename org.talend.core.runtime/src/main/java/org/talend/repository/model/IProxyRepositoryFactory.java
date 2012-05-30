@@ -478,4 +478,6 @@ public interface IProxyRepositoryFactory {
      * @return
      */
     public String getNavigatorViewDescription();
+
+    public void updateLockStatus() throws PersistenceException;
 }

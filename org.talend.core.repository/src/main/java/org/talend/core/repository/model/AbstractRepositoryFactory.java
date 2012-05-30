@@ -266,4 +266,8 @@ public abstract class AbstractRepositoryFactory implements IRepositoryFactory {
         return readProject();
     }
 
+    @Override
+    public void updateLockStatus() throws PersistenceException {
+        // nothing to do, by default
+    }
 }

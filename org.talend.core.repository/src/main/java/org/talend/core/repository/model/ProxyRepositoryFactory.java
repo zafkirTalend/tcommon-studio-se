@@ -2040,4 +2040,10 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     public String getNavigatorViewDescription() {
         return repositoryFactoryFromProvider.getNavigatorViewDescription();
     }
+
+    @Override
+    public void updateLockStatus() throws PersistenceException {
+        this.repositoryFactoryFromProvider.updateLockStatus();
+
+    }
 }

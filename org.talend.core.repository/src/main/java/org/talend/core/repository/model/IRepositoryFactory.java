@@ -371,4 +371,12 @@ public interface IRepositoryFactory {
      * @return
      */
     public String getNavigatorViewDescription();
+
+    /**
+     * 
+     * DOC ggu Comment method "updateLockStatus".
+     * 
+     * update the lock status
+     */
+    public void updateLockStatus() throws PersistenceException;
 }
