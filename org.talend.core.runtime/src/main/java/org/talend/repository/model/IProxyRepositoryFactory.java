@@ -471,4 +471,6 @@ public interface IProxyRepositoryFactory {
     public List<IRepositoryViewObject> getMetadataByFolder(ERepositoryObjectType itemType, IPath path);
 
     public LockInfo getLockInfo(Item item);
+
+    public void updateLockStatus() throws PersistenceException;
 }

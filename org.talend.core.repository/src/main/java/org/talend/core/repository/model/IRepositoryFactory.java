@@ -364,4 +364,6 @@ public interface IRepositoryFactory {
      * @return
      */
     public LockInfo getLockInfo(Item item);
+
+    public void updateLockStatus() throws PersistenceException;
 }

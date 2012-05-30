@@ -1139,14 +1139,13 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 // don't do anything
             }
         }
-        checkFileNameAndPath(project, item,
-                RepositoryConstants.getPattern(ERepositoryObjectType.getItemType(item)), path, false,
+        checkFileNameAndPath(project, item, RepositoryConstants.getPattern(ERepositoryObjectType.getItemType(item)), path, false,
                 isImportItem);
 
-            this.repositoryFactoryFromProvider.create(project, item, path, isImportItem);
-            if ((item instanceof ProcessItem || item instanceof JobletProcessItem) && (isImportItem.length == 0)) {
-                fireRepositoryPropertyChange(ERepositoryActionName.JOB_CREATE.getName(), null, item);
-            }
+        this.repositoryFactoryFromProvider.create(project, item, path, isImportItem);
+        if ((item instanceof ProcessItem || item instanceof JobletProcessItem) && (isImportItem.length == 0)) {
+            fireRepositoryPropertyChange(ERepositoryActionName.JOB_CREATE.getName(), null, item);
+        }
     }
 
     /*
@@ -1912,5 +1911,10 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
     public LockInfo getLockInfo(Item item) {
         return repositoryFactoryFromProvider.getLockInfo(item);
+    }
+
+    public void updateLockStatus() throws PersistenceException {
+        this.repositoryFactoryFromProvider.updateLockStatus();
+
     }
 }
