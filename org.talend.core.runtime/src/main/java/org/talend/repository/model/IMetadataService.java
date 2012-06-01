@@ -14,7 +14,6 @@ package org.talend.repository.model;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
-import java.util.Map;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.viewers.ISelection;
@@ -55,6 +54,4 @@ public interface IMetadataService extends IService {
             LinkRulesItem[] linkRuleItems, EProcessTypeForRule rule, String ruleToEdit, boolean readOnly);
 
     public DatabaseMetaData findCustomizedJTDSDBMetadata(Connection conn);
-
-    public void fillOldMdmConValues(Map<String, Object> oldMdmConValues);
 }
