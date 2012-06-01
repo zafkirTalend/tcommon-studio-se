@@ -418,7 +418,7 @@ public final class RepositoryComponentManager {
                 final String outputComponent = setting.getOutputComponent();
                 final String defaultComponent = setting.getDefaultComponent();
                 if (componentName.equals(inputComponent) || componentName.equals(outputComponent)
-                        || componentName.equals(defaultComponent)) {
+                        || componentName.equals(defaultComponent) || componentName.equals("tMDMReceive")) {
                     return true;
                 }
             }

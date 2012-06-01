@@ -14,6 +14,8 @@ package org.talend.repository.metadata;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.util.HashMap;
+import java.util.Map;
 
 import net.sourceforge.jtds.jdbc.ConnectionJDBC2;
 
@@ -29,10 +31,12 @@ import org.eclipse.ui.PlatformUI;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.IProviderService;
 import org.talend.core.PluginChecker;
+import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.designerproperties.ComponentToRepositoryProperty;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.LinkRulesItem;
+import org.talend.core.model.properties.MDMConnectionItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RulesItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -67,6 +71,8 @@ import org.talend.repository.ui.wizards.metadata.connection.wsdl.WSDLSchemaWizar
 public class MetadataService implements IMetadataService {
 
     private GenericSchemaWizard genericSchemaWizard = null;
+
+    private Map<String, Object> oldMdmConValues = new HashMap<String, Object>();
 
     /*
      * (non-Javadoc)
@@ -166,6 +172,29 @@ public class MetadataService implements IMetadataService {
                             IMDMProviderService.class);
                     if (service != null) {
                         relatedWizard = service.newWizard(PlatformUI.getWorkbench(), creation, realNode, null);
+                        //
+                        if (node != null && "tMDMReceive".equals(node.getComponent().getName())) {
+                            if (relatedWizard != null && relatedWizard instanceof RepositoryWizard) {
+                                ConnectionItem connItem = ((RepositoryWizard) relatedWizard).getConnectionItem();
+                                if (connItem != null && connItem instanceof MDMConnectionItem) {
+                                    org.talend.core.model.metadata.builder.connection.Connection connection = ((MDMConnectionItem) connItem)
+                                            .getConnection();
+                                    if (connection != null && connection instanceof MDMConnection) {
+                                        if (oldMdmConValues.containsKey("username") && oldMdmConValues.get("username") != null) {
+                                            ((MDMConnection) connection).setUsername(oldMdmConValues.get("username").toString());
+                                            ((MDMConnection) connection).setPassword(oldMdmConValues.get("password").toString());
+                                            ((MDMConnection) connection).setServer(oldMdmConValues.get("server").toString());
+                                            ((MDMConnection) connection).setPort(oldMdmConValues.get("port").toString());
+                                        } else {
+                                            ((MDMConnection) connection).setUsername("userName");
+                                            ((MDMConnection) connection).setPassword("password");
+                                            ((MDMConnection) connection).setServer("localhost");
+                                            ((MDMConnection) connection).setPort("8080");
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             } else if (objectType.equals(ERepositoryObjectType.METADATA_SAPCONNECTIONS)) {
@@ -261,4 +290,8 @@ public class MetadataService implements IMetadataService {
         return new JtdsMetadataAdapter((ConnectionJDBC2) jtdsConn);
     }
 
+    @Override
+    public void fillOldMdmConValues(Map<String, Object> oldMdmConValues) {
+        this.oldMdmConValues = oldMdmConValues;
+    }
 }
