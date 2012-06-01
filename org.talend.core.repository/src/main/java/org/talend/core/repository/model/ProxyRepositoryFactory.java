@@ -101,6 +101,7 @@ import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.core.repository.CoreRepositoryPlugin;
+import org.talend.core.repository.constants.Constant;
 import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.utils.RepositoryPathProvider;
@@ -895,9 +896,10 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 EventAdmin eventAdmin = (EventAdmin) bundleContext.getService(ref);
 
                 Dictionary<String, Object> properties = new Hashtable<String, Object>();
-                properties.put("item", item);
+                properties.put(Constant.ITEM_EVENT_PROPERTY_KEY, item);
 
-                Event lockEvent = new Event("org/talend/repository/item/" + (lock ? "lock" : "unlock"), properties);
+                Event lockEvent = new Event(Constant.REPOSITORY_ITEM_EVENT_PREFIX
+                        + (lock ? Constant.ITEM_LOCK_EVENT_SUFFIX : Constant.ITEM_UNLOCK_EVENT_SUFFIX), properties);
 
                 eventAdmin.postEvent(lockEvent);
             }

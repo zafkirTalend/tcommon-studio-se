@@ -39,6 +39,7 @@ import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.core.model.repository.RepositoryManager;
+import org.talend.core.repository.constants.Constant;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
@@ -208,12 +209,12 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
 
                         @Override
                         public void handleEvent(Event event) {
-                            Item item = (Item) event.getProperty("item");
+                            Item item = (Item) event.getProperty(Constant.ITEM_EVENT_PROPERTY_KEY);
                             refreshContentIfNecessary(item);
                         }
                     },
                     new Hashtable<String, String>(Collections.singletonMap(EventConstants.EVENT_TOPIC,
-                            "org/talend/repository/item/*")));
+                            Constant.REPOSITORY_ITEM_EVENT_PREFIX + "*"))); //$NON-NLS-1$
         }// else already unlock service listener already registered
     }
 
