@@ -476,7 +476,16 @@ public class ExtractMetaDataFromDataBase {
 
             // metadataColumns = ExtractMetaDataFromDataBase.extractColumns(dbMetaData, newNode, iMetadataConnection,
             // dbType);
+            // bug TDI-21138:should same with extractColumns,deal with the primarykeys
+            HashMap<String, String> primaryKeys = getPrimaryKeys(iMetadataConnection, dbMetaData, tableNode);
 
+            for (TdColumn metadataColumn : metadataColumns) {
+                if (primaryKeys != null && !primaryKeys.isEmpty() && primaryKeys.get(metadataColumn.getOriginalField()) != null) {
+                    metadataColumn.setKey(true);
+                } else {
+                    metadataColumn.setKey(false);
+                }
+            }
             ColumnSetHelper.addColumns(table, metadataColumns);
 
             if (needCreateAndClose) {
@@ -2650,5 +2659,52 @@ public class ExtractMetaDataFromDataBase {
             }
         }
         return null;
+    }
+
+    public static HashMap<String, String> getPrimaryKeys(IMetadataConnection iMetadataConnection, DatabaseMetaData dbMetaData,
+            TableNode tableNode) {
+        HashMap<String, String> primaryKeys = new HashMap<String, String>();
+        boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType());
+        boolean isHive = MetadataConnectionUtils.isHive(dbMetaData);
+
+        String catalogName = null;
+        String schemaName = null;
+
+        TableNode parent = tableNode.getParent();
+        if (parent != null) {
+            if (parent.getType() == TableNode.CATALOG) {
+                catalogName = parent.getValue();
+            } else if (parent.getType() == TableNode.SCHEMA) {
+                schemaName = parent.getValue();
+                TableNode catalogNode = parent.getParent();
+                if (catalogNode != null) {
+                    catalogName = catalogNode.getValue();
+                }
+            }
+        }
+        if (!isHive) {
+            try {
+                ResultSet keys;
+                if (!isAccess) {
+                    keys = dbMetaData.getPrimaryKeys(catalogName, schemaName, tableNode.getValue());
+                } else {
+                    keys = dbMetaData.getIndexInfo(catalogName, schemaName, tableNode.getValue(), true, true);
+                }
+                primaryKeys.clear();
+                while (keys.next()) {
+                    primaryKeys.put(keys.getString("COLUMN_NAME"), "PRIMARY KEY"); //$NON-NLS-1$ //$NON-NLS-2$
+                }
+                keys.close();
+
+                // PTODO ftang: should to support all kinds of databases not only for Mysql.
+                Connection connection;
+                connection = dbMetaData.getConnection();
+                checkUniqueKeyConstraint(tableNode.getValue(), primaryKeys, connection);
+            } catch (Exception e) {
+                log.error(e.toString());
+            }
+
+        }
+        return primaryKeys;
     }
 }
