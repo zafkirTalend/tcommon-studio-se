@@ -1773,6 +1773,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public void save(Project project, Item item) throws PersistenceException {
+        xmiResourceManager.getAffectedResources(item.getProperty()); // only call this will force to load all sub items in case some are not loaded
+
         computePropertyMaxInformationLevel(item.getProperty());
         item.getProperty().setModificationDate(new Date());
         Resource itemResource = null;
@@ -1906,6 +1908,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public void save(Project project, Property property) throws PersistenceException {
+        xmiResourceManager.getAffectedResources(property); // only call this will force to load all sub items in case some are not loaded
+
         computePropertyMaxInformationLevel(property);
         propagateFileName(project, property);
         // update the property of the node repository object
