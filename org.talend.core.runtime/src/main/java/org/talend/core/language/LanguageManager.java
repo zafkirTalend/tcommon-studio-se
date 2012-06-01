@@ -67,7 +67,7 @@ public class LanguageManager {
             // should be run only when testing
             // e.printStackTrace();
             ExceptionHandler.process(e);
-            currentLanguage = ECodeLanguage.PERL;
+            currentLanguage = ECodeLanguage.JAVA;
         }
         return currentLanguage;
     }

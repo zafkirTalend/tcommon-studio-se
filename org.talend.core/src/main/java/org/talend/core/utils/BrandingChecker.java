@@ -48,7 +48,7 @@ public class BrandingChecker {
                         String oldBrandingName = preferenceStore.getString(LAST_STARTED_PRODUCT);
                         if (oldBrandingName == null || oldBrandingName.equals("") || !oldBrandingName.equals(fullProductName)) {
                             isBrandingChanged = true;
-                            preferenceStore.setValue(LAST_STARTED_PRODUCT, new String(fullProductName));
+                            preferenceStore.setValue(LAST_STARTED_PRODUCT, fullProductName);
                         }
                     }
                 });

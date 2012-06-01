@@ -265,7 +265,6 @@ public abstract class AbstractRepositoryFactory implements IRepositoryFactory {
     public Project[] readProject(boolean unloadResource) throws PersistenceException, BusinessException {
         return readProject();
     }
-
     @Override
     public void updateLockStatus() throws PersistenceException {
         // nothing to do, by default

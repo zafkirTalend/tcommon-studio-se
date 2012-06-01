@@ -41,12 +41,22 @@ public class CommonsPlugin extends Plugin {
 
     private static boolean isSameProjectLogonCommline = false;
 
+    private static boolean useCommandLineRepository = false;
+
     public static boolean isStoreLibsInWorkspace() {
         return storeLibsInWorkspace;
     }
 
     public static void setStoreLibsInWorkspace(boolean storeLibsInWorkspace) {
         CommonsPlugin.storeLibsInWorkspace = storeLibsInWorkspace;
+    }
+
+    public static boolean isUseCommandLineRepository() {
+        return useCommandLineRepository;
+    }
+
+    public static void setUseCommandLineRepository(boolean useCommandLineRepository) {
+        CommonsPlugin.useCommandLineRepository = useCommandLineRepository;
     }
 
     /**
