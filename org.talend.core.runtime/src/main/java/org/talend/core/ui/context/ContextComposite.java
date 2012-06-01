@@ -111,6 +111,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
         if (getContextManager() == null) {
             this.setEnabled(false);
             template.clear();
+            template.setEnabled(isReadOnly());
         } else {
             this.setEnabled(true);
             setTabEnable(!isReadOnly());
