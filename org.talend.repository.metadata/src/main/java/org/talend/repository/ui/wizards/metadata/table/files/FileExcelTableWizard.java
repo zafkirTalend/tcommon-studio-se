@@ -62,7 +62,7 @@ public class FileExcelTableWizard extends AbstractRepositoryFileTableWizard impl
         if (connectionItem != null) {
             oldTableMap = RepositoryUpdateManager.getOldTableIdAndNameMap(connectionItem, metadataTable, creation);
             oldMetadataTable = ConvertionHelper.convert(metadataTable);
-            initConnectionCopy(connectionItem.getConnection());
+            // initConnectionCopy(connectionItem.getConnection());
         }
         setNeedsProgressMonitor(true);
 
@@ -77,7 +77,7 @@ public class FileExcelTableWizard extends AbstractRepositoryFileTableWizard impl
     public void addPages() {
         setWindowTitle(Messages.getString("SchemaWizard.windowTitle")); //$NON-NLS-1$
 
-        tableWizardpage = new FileTableWizardPage(connectionItem, metadataTableCopy, isRepositoryObjectEditable());
+        tableWizardpage = new FileTableWizardPage(connectionItem, metadataTable, isRepositoryObjectEditable());
 
         if (creation) {
             tableWizardpage.setTitle(Messages.getString(
@@ -94,7 +94,7 @@ public class FileExcelTableWizard extends AbstractRepositoryFileTableWizard impl
 
     public boolean performFinish() {
         if (tableWizardpage.isPageComplete()) {
-            applyConnectionCopy();
+            // applyConnectionCopy();
             // update
             RepositoryUpdateManager.updateSingleSchema(connectionItem, metadataTable, oldMetadataTable, oldTableMap);
 
@@ -108,8 +108,8 @@ public class FileExcelTableWizard extends AbstractRepositoryFileTableWizard impl
                         Messages.getString("CommonWizard.persistenceException"), detailError); //$NON-NLS-1$
                 log.error(Messages.getString("CommonWizard.persistenceException") + "\n" + detailError); //$NON-NLS-1$ //$NON-NLS-2$
             }
-            connectionCopy = null;
-            metadataTableCopy = null;
+            // connectionCopy = null;
+            // metadataTableCopy = null;
             return true;
         } else {
             return false;

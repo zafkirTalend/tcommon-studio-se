@@ -1367,6 +1367,10 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      */
     @Override
     public void unlock(Item obj) throws PersistenceException, LoginException {
+        if (obj.eResource() == null || obj.getProperty().eResource() == null) {
+            // item has been unloaded
+            obj = getUptodateProperty(obj.getProperty()).getItem();
+        }
         if (getStatus(obj) == ERepositoryStatus.LOCK_BY_USER || obj instanceof JobletDocumentationItem
                 || obj instanceof JobDocumentationItem) {
             Date commitDate = obj.getState().getCommitDate();

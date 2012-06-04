@@ -182,7 +182,7 @@ public class FileTableWizardPage extends WizardPage {
 
             @Override
             public Object caseLDAPSchemaConnection(final LDAPSchemaConnection object) {
-                LDAPSchemaStep4Form ldapSchemaStep4Form = new LDAPSchemaStep4Form(parent, connectionItem);
+                LDAPSchemaStep4Form ldapSchemaStep4Form = new LDAPSchemaStep4Form(parent, connectionItem, metadataTable);
                 ldapSchemaStep4Form.setReadOnly(!isRepositoryObjectEditable);
                 ldapSchemaStep4Form.setListener(listener);
                 return ldapSchemaStep4Form;

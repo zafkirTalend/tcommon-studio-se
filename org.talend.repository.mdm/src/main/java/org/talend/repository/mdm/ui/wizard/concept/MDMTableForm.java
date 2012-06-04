@@ -52,6 +52,7 @@ import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.datatools.xml.utils.ATreeNode;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.mdm.i18n.Messages;
+import org.talend.repository.mdm.util.MDMUtil;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.TreePopulator;
 
@@ -162,6 +163,16 @@ public class MDMTableForm extends AbstractMDMFileStepForm {
         addUtilsButtonListeners();
     }
 
+    private void changeConceptName(String newName) {
+        Concept concept = MDMUtil.getConcept((MDMConnection) connectionItem.getConnection(), metadataTable);
+        if ("".equals(newName)) {
+            concept.setLabel(newName);
+            // Caz if the label of concept is empty, concept.getLabel() will get the concept name.
+            concept.setName(newName);
+        } else
+            concept.setLabel(newName);
+    }
+
     /**
      * Main Fields addControls.
      */
@@ -172,6 +183,7 @@ public class MDMTableForm extends AbstractMDMFileStepForm {
 
             public void modifyText(final ModifyEvent e) {
                 MetadataToolHelper.validateSchema(metadataNameText.getText());
+                changeConceptName(metadataNameText.getText());
                 metadataTable.setLabel(metadataNameText.getText());
                 checkFieldsValue();
             }

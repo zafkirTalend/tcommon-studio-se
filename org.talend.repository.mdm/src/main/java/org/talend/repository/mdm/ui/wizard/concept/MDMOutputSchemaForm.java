@@ -231,8 +231,8 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
                 this.exsitColumnNames.add(label);
                 column.setLabel(label);
             }
-            column.setTalendType(CoreRuntimePlugin.getInstance().getCoreService().getPreferenceStore().getString(
-                    MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE));
+            column.setTalendType(CoreRuntimePlugin.getInstance().getCoreService().getPreferenceStore()
+                    .getString(MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE));
             tempMetadataTable.getColumns().add(column);
             IMetadataColumn metaColumn = ConvertionHelper.convertToIMetaDataColumn(column);
             // if there are more than one unique,just set the first one to loop when guessing
@@ -1137,33 +1137,34 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
      */
     @Override
     protected void createTable() {
-        this.metadataTable = tempMetadataTable;
+        // this.metadataTable = tempMetadataTable;
         // if (!getConnection().getTables().contains(metadataTable)) {
         // getConnection().getTables().add(metadataTable);
         // }
-        if (!ConnectionHelper.getTables(getConnection()).contains(metadataTable)) {
-            TdXmlSchema d = (TdXmlSchema) ConnectionHelper.getPackage(((MDMConnection) connectionItem.getConnection())
-                    .getDatacluster(), connectionItem.getConnection(), TdXmlSchema.class);
+        if (!ConnectionHelper.getTables(getConnection()).contains(tempMetadataTable)) {
+            TdXmlSchema d = (TdXmlSchema) ConnectionHelper.getPackage(
+                    ((MDMConnection) connectionItem.getConnection()).getDatacluster(), connectionItem.getConnection(),
+                    TdXmlSchema.class);
             if (d != null) {
-                d.getOwnedElement().add(metadataTable);
+                d.getOwnedElement().add(tempMetadataTable);
             } else {
                 TdXmlSchema newXmlDoc = XmlFactory.eINSTANCE.createTdXmlSchema();
                 newXmlDoc.setName(((MDMConnection) connectionItem.getConnection()).getDatacluster());
                 ConnectionHelper.addPackage(newXmlDoc, connectionItem.getConnection());
-                PackageHelper.addMetadataTable(metadataTable, newXmlDoc);
+                PackageHelper.addMetadataTable(tempMetadataTable, newXmlDoc);
             }
             // ConnectionHelper.getTables(getConnection()).add(metadataTable);
         }
 
-        if (metadataTable.getSourceName() == null) {
+        if (tempMetadataTable.getSourceName() == null) {
             EList<XMLFileNode> loopList = this.concept.getLoop();
             if (loopList != null && loopList.size() > 0) {
                 String fullPath = loopList.get(0).getXMLPath();
                 if (fullPath.contains("/")) {
                     String source = fullPath.split("/")[1]; //$NON-NLS-1$ 
-                    metadataTable.setSourceName(source);
+                    tempMetadataTable.setSourceName(source);
                 } else {
-                    metadataTable.setSourceName(fullPath);
+                    tempMetadataTable.setSourceName(fullPath);
                 }
             }
         }

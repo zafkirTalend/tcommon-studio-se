@@ -68,7 +68,7 @@ public class FileDelimitedTableWizard extends AbstractRepositoryFileTableWizard 
         if (connectionItem != null) {
             oldTableMap = RepositoryUpdateManager.getOldTableIdAndNameMap(connectionItem, metadataTable, creation);
             oldMetadataTable = ConvertionHelper.convert(metadataTable);
-            initConnectionCopy(connectionItem.getConnection());
+            // initConnectionCopy(connectionItem.getConnection());
         }
         setNeedsProgressMonitor(true);
 
@@ -83,7 +83,7 @@ public class FileDelimitedTableWizard extends AbstractRepositoryFileTableWizard 
     public void addPages() {
         setWindowTitle(Messages.getString("SchemaWizard.windowTitle")); //$NON-NLS-1$
 
-        tableWizardpage = new FileTableWizardPage(connectionItem, metadataTableCopy, isRepositoryObjectEditable());
+        tableWizardpage = new FileTableWizardPage(connectionItem, metadataTable, isRepositoryObjectEditable());
 
         if (creation) {
             tableWizardpage.setTitle(Messages.getString(
@@ -104,7 +104,7 @@ public class FileDelimitedTableWizard extends AbstractRepositoryFileTableWizard 
      */
     public boolean performFinish() {
         if (tableWizardpage.isPageComplete()) {
-            applyConnectionCopy();
+            // applyConnectionCopy();
             // MOD qiongli 2011-11-23 TDQ-3930,TDQ-3797.pop a question dialog when there are anlaysises in TDQ need to
             // update.if user click cancel,will return and stop the retive action.
             boolean needUpdateAnalysis = false;
@@ -137,8 +137,8 @@ public class FileDelimitedTableWizard extends AbstractRepositoryFileTableWizard 
                         Messages.getString("CommonWizard.persistenceException"), detailError); //$NON-NLS-1$
                 log.error(Messages.getString("CommonWizard.persistenceException") + "\n" + detailError); //$NON-NLS-1$ //$NON-NLS-2$
             }
-            connectionCopy = null;
-            metadataTableCopy = null;
+            // connectionCopy = null;
+            // metadataTableCopy = null;
             return true;
         } else {
             return false;

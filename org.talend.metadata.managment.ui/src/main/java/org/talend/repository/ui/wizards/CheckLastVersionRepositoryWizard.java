@@ -53,9 +53,9 @@ public abstract class CheckLastVersionRepositoryWizard extends RepositoryWizard 
 
     protected MetadataTable metadataTable;
 
-    protected MetadataTable metadataTableCopy;
-
-    protected Connection connectionCopy;
+    // protected MetadataTable metadataTableCopy;
+    //
+    // protected Connection connectionCopy;
 
     public CheckLastVersionRepositoryWizard(IWorkbench workbench, boolean creation) {
         super(workbench, creation, false);
@@ -73,32 +73,32 @@ public abstract class CheckLastVersionRepositoryWizard extends RepositoryWizard 
     /**
      * Initializes the copies including connection and metadata table. The input parameter is not <code>null</code>.
      */
-    protected void initConnectionCopy(Connection connection) {
-        this.connectionCopy = cloneConnectionCopy(connection);
-        if (connectionCopy != null)
-            this.metadataTableCopy = ConnectionHelper.getTableById(connectionCopy, this.metadataTable.getId());
-    }
+    // protected void initConnectionCopy(Connection connection) {
+    // this.connectionCopy = cloneConnectionCopy(connection);
+    // if (connectionCopy != null)
+    // this.metadataTableCopy = ConnectionHelper.getTableById(connectionCopy, metadataTable.getId());
+    // }
 
     /**
      * Clones a copy of connection.
      * 
      * @param connection
      */
-    protected Connection cloneConnectionCopy(Connection connection) {
-        Connection connectionCopy = EcoreUtil.copy(connection);
-        EList<Package> dataPackage = connection.getDataPackage();
-        Collection<Package> newDataPackage = EcoreUtil.copyAll(dataPackage);
-        ConnectionHelper.addPackages(newDataPackage, connectionCopy);
-        return connectionCopy;
-    }
+    // protected Connection cloneConnectionCopy(Connection connection) {
+    // Connection connectionCopy = EcoreUtil.copy(connection);
+    // EList<Package> dataPackage = connection.getDataPackage();
+    // Collection<Package> newDataPackage = EcoreUtil.copyAll(dataPackage);
+    // ConnectionHelper.addPackages(newDataPackage, connectionCopy);
+    // return connectionCopy;
+    // }
 
     /**
      * Applys the copies to the actural object, inclues connection and metadata table.
      */
-    protected void applyConnectionCopy() {
-        connectionItem.setConnection(connectionCopy);
-        this.metadataTable = metadataTableCopy;
-    }
+    // protected void applyConnectionCopy() {
+    // connectionItem.setConnection(connectionCopy);
+    // this.metadataTable = metadataTableCopy;
+    // }
 
     @Override
     public boolean isRepositoryObjectEditable() {
@@ -176,8 +176,8 @@ public abstract class CheckLastVersionRepositoryWizard extends RepositoryWizard 
     }
 
     public boolean performCancel() {
-        connectionCopy = null;
-        metadataTableCopy = null;
+        // connectionCopy = null;
+        // metadataTableCopy = null;
         return super.performCancel();
     }
 }

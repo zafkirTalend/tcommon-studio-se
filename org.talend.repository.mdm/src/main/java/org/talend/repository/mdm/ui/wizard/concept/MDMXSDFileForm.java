@@ -28,6 +28,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
@@ -166,8 +167,6 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
     private WizardPage wizardPage;
 
     private String oldSelectedEntity;
-
-    private MetadataTable metadataTable;
 
     private boolean creation;
 
@@ -941,7 +940,9 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
         MappingTypeRetriever retriever = MetadataTalendType.getMappingTypeRetriever("xsd_id"); //$NON-NLS-1$
         List<ConceptTarget> targetList = concept.getConceptTargets();
         List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
-        metadataTable.getColumns().clear();
+        // Commentted by Marvin Wang on May 21, 2012. If clearing the columns(features), it will cause the columns you
+        // added can not be shown in table when editing column again.
+        // metadataTable.getColumns().clear();
         for (ConceptTarget target : targetList) {
             String relativeXpath = target.getRelativeLoopExpression();
             String fullPath = target.getSchema().getLoopExpression();
@@ -986,9 +987,16 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
 
                     metadataColumn.setTalendType(retriever.getDefaultSelectedTalendType("xs:" + curNode.getOriginalDataType())); //$NON-NLS-1$
                 }
-                if (!metadataTable.getColumns().contains(metadataColumn)) {
+                // Changed by Marvin Wang on May 21, 2012. Refer to the line above which is commentted
+                // "metadataTable.getColumns().clear();".
+                int index = removeOriginalColumn(target.getTargetName());
+                if (index < 0)
                     metadataTable.getColumns().add(metadataColumn);
-                }
+                else
+                    metadataTable.getColumns().add(index, metadataColumn);
+                // if (!metadataTable.getColumns().contains(metadataColumn)) {
+                // metadataTable.getColumns().add(metadataColumn);
+                // }
 
                 metadataColumns.add(metadataColumn);
             }
@@ -1011,5 +1019,4 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
         // getConnection().getTables().add(metadataTable);
         // }
     }
-
 }
