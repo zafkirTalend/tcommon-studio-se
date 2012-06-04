@@ -926,9 +926,11 @@ public class ConnectionHelper {
             return result;
         }
 
+        if (connection != null) {
         EList<Package> packages = connection.getDataPackage();
         for (Package pack : new ArrayList<Package>(packages)) {
             PackageHelper.getAllTables(pack, result);
+        }
         }
         return result;
     }
