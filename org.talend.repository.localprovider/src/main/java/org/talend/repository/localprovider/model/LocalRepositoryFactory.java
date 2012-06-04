@@ -2368,7 +2368,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                     break;
                                 }
                             }
-                            if (!haveTableDeleted) {
+                            if (!haveTableDeleted && connection != null) {
                                 QueriesConnection queriesConnection = connection.getQueries();
                                 if (queriesConnection != null) {
                                     for (Query query : queriesConnection.getQuery()) {
