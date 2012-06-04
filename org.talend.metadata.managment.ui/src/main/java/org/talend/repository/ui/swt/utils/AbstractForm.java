@@ -49,6 +49,7 @@ import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
+import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.repository.IDBMetadataProvider;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.metadata.managment.ui.MetadataManagmentUiPlugin;
@@ -457,12 +458,13 @@ public abstract class AbstractForm extends Composite {
                 ContextItem contextItem = ConnectionContextHelper.exportAsContext(connectionItem, getConetxtParams());
                 contextManager = ConnectionContextHelper.contextManager;
                 if (contextItem != null) { // create
+                    if (!(connectionItem instanceof DelimitedFileConnectionItem)) {// ADDED yyin 20120528 TDQ-5346
                     if (contextManager instanceof JobContextManager) {
                         Map<String, String> map = ((JobContextManager) contextManager).getNameMap();
                         // set properties for context mode
                         ConnectionContextHelper.setPropertiesForContextMode(connectionItem, contextItem, getConetxtParams(), map);
                     }
-
+                    }
                     // refresh current UI.
                     initialize();
                     adaptFormToEditable();
