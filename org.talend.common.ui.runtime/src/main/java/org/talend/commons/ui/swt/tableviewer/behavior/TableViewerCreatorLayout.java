@@ -39,8 +39,8 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.talend.commons.ui.runtime.ws.WindowSystem;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumnNotModifiable;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable;
 import org.talend.commons.ui.utils.threading.AsynchronousThreading;
 import org.talend.commons.utils.threading.ExecutionLimiter;
 
@@ -49,10 +49,11 @@ import org.talend.commons.utils.threading.ExecutionLimiter;
  * 
  * DefaultTableReflectLayout is based on <code>TableLayout</code> class.
  * 
- * This supports dynamically resize of columns of table parent composite when you set true <code>continuousLayout</code>.
+ * This supports dynamically resize of columns of table parent composite when you set true <code>continuousLayout</code>
+ * .
  * 
- * You can now force the layout with the <code>forceLayout</code> method, indeed the current layout method is
- * processed by default only once time.
+ * You can now force the layout with the <code>forceLayout</code> method, indeed the current layout method is processed
+ * by default only once time.
  * 
  * $Id: TableViewerCreatorLayout.java 7042 2007-11-15 15:13:48Z smallet $
  */
@@ -503,8 +504,8 @@ public class TableViewerCreatorLayout extends Layout {
     /**
      * Sets if if layout must be really processed at each call or not.
      * 
-     * @param continuousLayout <code>true</code> if layout must be really processed at each call, and
-     * <code>false</code> otherwise
+     * @param continuousLayout <code>true</code> if layout must be really processed at each call, and <code>false</code>
+     * otherwise
      */
     public void setContinuousLayout(boolean continuousLayout) {
         this.continuousLayout = continuousLayout;
@@ -583,10 +584,10 @@ public class TableViewerCreatorLayout extends Layout {
         if (!WindowSystem.isGTK() && !columnsResizingByLayout && (fillHorizontal || continuousLayout)) {
             // System.out.println("controlResizedExecute");
             if (continuousLayout && !fillHorizontal) {
-                asyncThreadingForManualColumnResizingFalse.interrupt();
-                if (!fillHorizontal) {
-                    manualResizing = false;
-                }
+                // asyncThreadingForManualColumnResizingFalse.interrupt();
+                // if (!fillHorizontal) {
+                // manualResizing = false;
+                // }
             }
             if (!manualResizing) {
                 manualResizing = true;
@@ -648,7 +649,25 @@ public class TableViewerCreatorLayout extends Layout {
                     }
                 }
                 if (continuousLayout && !fillHorizontal) {
-                    asyncThreadingForManualColumnResizingFalse.start();
+                    // asyncThreadingForManualColumnResizingFalse.start();
+                    Runnable runable = new Runnable() {
+
+                        public void run() {
+                            try {
+                                synchronized (this) {
+                                    wait(500);
+                                    manualResizing = false;
+                                }
+
+                            } catch (InterruptedException e) {
+                                manualResizing = false;
+                            }
+
+                        }
+
+                    };
+                    new Thread(runable).start();
+
                 }
             }
 
