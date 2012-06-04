@@ -38,6 +38,7 @@ import orgomg.cwm.resource.relational.ColumnSet;
 import orgomg.cwm.resource.relational.ForeignKey;
 import orgomg.cwm.resource.relational.PrimaryKey;
 import orgomg.cwm.resource.relational.Table;
+import orgomg.cwm.resource.relational.impl.RelationalFactoryImpl;
 
 /**
  * @author scorreia
@@ -139,6 +140,32 @@ public final class TableHelper extends SubItemHelper {
         }
         table.getOwnedElement().add(pk);
         return pk;
+    }
+
+    /**
+     * Method "addPrimaryKey".
+     * 
+     * @param table
+     * @param pk the primary key of the table
+     */
+    public static PrimaryKey addPrimaryKey(TdTable table, TdColumn col) {
+        assert table != null;
+        assert col != null;
+        PrimaryKey primaryKey = getPrimaryKey(table);
+        if (primaryKey == null) {
+            primaryKey = RelationalFactoryImpl.eINSTANCE.createPrimaryKey();
+            table.getOwnedElement().add(primaryKey);
+        }
+        primaryKey.getFeature().add(col);
+        StructuralFeature[] structuralFeaturethe = primaryKey.getFeature().toArray(
+                new StructuralFeature[primaryKey.getFeature().size()]);
+        for (StructuralFeature primaryKeyColumn : structuralFeaturethe) {
+            TdColumn theColumn = (TdColumn) (primaryKeyColumn);
+            theColumn.getUniqueKey().clear();
+            theColumn.getUniqueKey().add(primaryKey);
+        }
+
+        return primaryKey;
     }
 
     /**
@@ -261,6 +288,34 @@ public final class TableHelper extends SubItemHelper {
         assert table != null;
         assert foreignKeys != null;
         return table.getOwnedElement().addAll(foreignKeys);
+    }
+
+    /**
+     * Method "addForeignKey".
+     * 
+     * @param table
+     * @param foreignKey the foreign key of the given table
+     */
+    public static ForeignKey addForeignKey(TdTable table, ForeignKey foreignKey, TdColumn column) {
+        assert table != null;
+        assert foreignKey != null;
+        List<ForeignKey> foreignKeyList = getForeignKeys(table);
+        String newForeignKeyName = foreignKey.getName();
+        for (ForeignKey theForeignKey : foreignKeyList) {
+            if (theForeignKey.getName().equals(newForeignKeyName)) {
+                theForeignKey.getFeature().add(column);
+                StructuralFeature[] structuralFeaturethe = theForeignKey.getFeature().toArray(
+                        new StructuralFeature[theForeignKey.getFeature().size()]);
+                for (StructuralFeature foreignKeyColumn : structuralFeaturethe) {
+                    TdColumn theColumn = (TdColumn) (foreignKeyColumn);
+                    theColumn.getKeyRelationship().remove(foreignKey);
+                    theColumn.getKeyRelationship().add(theForeignKey);
+                }
+                return theForeignKey;
+            }
+        }
+        table.getOwnedElement().add(foreignKey);
+        return foreignKey;
     }
 
     /**
