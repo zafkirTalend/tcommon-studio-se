@@ -156,6 +156,7 @@ import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
+
 import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 
 /**
@@ -2476,7 +2477,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                     break;
                                 }
                             }
-                            if (!haveTableDeleted) {
+                            if (!haveTableDeleted && connection != null) {
                                 QueriesConnection queriesConnection = connection.getQueries();
                                 if (queriesConnection != null) {
                                     for (Query query : queriesConnection.getQuery()) {
