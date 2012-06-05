@@ -104,7 +104,7 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
         // get all login task to execut at the end but is needed here for monitor count
         LoginTaskRegistryReader loginTaskRegistryReader = new LoginTaskRegistryReader();
         IRunnableWithProgress[] allLoginTasks = loginTaskRegistryReader.getAllTaskListInstance();
-        IProgressMonitor monitor = TalendSplashHandler.INSTANCE != null ? TalendSplashHandler.INSTANCE.getBundleProgressMonitor()
+        IProgressMonitor monitor = TalendSplashHandler.instance != null ? TalendSplashHandler.instance.getBundleProgressMonitor()
                 : new NullProgressMonitor();
 
         SubMonitor subMonitor = SubMonitor.convert(monitor, allLoginTasks.length + 1);

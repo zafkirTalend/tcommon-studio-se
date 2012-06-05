@@ -20,14 +20,14 @@ import org.eclipse.ui.internal.splash.EclipseSplashHandler;
  * */
 public class TalendSplashHandler extends EclipseSplashHandler {
 
-    public static TalendSplashHandler INSTANCE;
+    public static TalendSplashHandler instance;
 
     /**
      * DOC sgandon TalendSplashHandler constructor comment.
      */
     public TalendSplashHandler() {
-        if (INSTANCE == null) {
-            INSTANCE = this;
+        if (instance == null) {
+            instance = this;
         }
     }
 }
