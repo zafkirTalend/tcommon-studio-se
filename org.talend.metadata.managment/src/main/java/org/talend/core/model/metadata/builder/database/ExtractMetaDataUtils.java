@@ -119,8 +119,17 @@ public class ExtractMetaDataUtils {
         return dbMetaData;
     }
     
-    private static DatabaseMetaData createJtdsDatabaseMetaData(Connection conn) { 
-        return new JtdsMetadataAdapter((ConnectionJDBC2) conn); 
+    private static DatabaseMetaData createJtdsDatabaseMetaData(Connection jtdsConn) { 
+        if (jtdsConn instanceof ConnectionJDBC2) { 
+            return new JtdsMetadataAdapter((ConnectionJDBC2) jtdsConn); 
+        } else { 
+            try { 
+                return jtdsConn.getMetaData(); 
+            } catch (SQLException e) { 
+                log.error(e); 
+                return null; 
+            } 
+        } 
     }
     
     public static DatabaseMetaData getDatabaseMetaData(Connection conn, String dbType,boolean isSqlMode,String database) {
