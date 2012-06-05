@@ -177,7 +177,7 @@ public class MappingTypeRetriever {
         String ignore = new String(""); //$NON-NLS-1$
         for (int i = 0; i < ignoreLP.size(); i++) {
             DbIgnoreLengthAndPrecision dbIgnore = (DbIgnoreLengthAndPrecision) ignoreLP.get(i);
-            if (dbIgnore.getDbType().equals(dbType)) {
+            if (dbIgnore.getDbType().equalsIgnoreCase(dbType)) {
                 ignore = dbIgnore.getIgnoreLength();
                 if (ignore == null) {
                     return false;
@@ -218,7 +218,7 @@ public class MappingTypeRetriever {
         String ignore = new String(""); //$NON-NLS-1$
         for (int i = 0; i < ignoreLP.size(); i++) {
             DbIgnoreLengthAndPrecision dbIgnore = (DbIgnoreLengthAndPrecision) ignoreLP.get(i);
-            if (dbIgnore.getDbType().equals(dbType)) {
+            if (dbIgnore.getDbType().equalsIgnoreCase(dbType)) {
                 ignore = dbIgnore.getIgnorePrecision();
                 if (ignore == null) {
                     return false;
