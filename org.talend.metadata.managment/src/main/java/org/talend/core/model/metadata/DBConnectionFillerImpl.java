@@ -1128,6 +1128,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     int column_size = columns.getInt(GetColumn.COLUMN_SIZE.name());
                     column.setLength(column_size);
                     decimalDigits = columns.getInt(GetColumn.DECIMAL_DIGITS.name());
+                    column.setPrecision(decimalDigits);
                     numPrecRadix = columns.getInt(GetColumn.NUM_PREC_RADIX.name());
                 } catch (Exception e1) {
                     log.warn(e1, e1);
