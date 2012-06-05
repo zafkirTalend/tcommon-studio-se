@@ -250,7 +250,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     schemaFilter.add(sid);
                 }
             } else {
-                IMetadataConnection iMetadataCon = ConvertionHelper.convert((DatabaseConnection) dbConn);
+                IMetadataConnection iMetadataCon = ConvertionHelper.convert(dbConn);
                 String sid = iMetadataCon.getDatabase();
                 if (sid != null && sid.length() > 0) {
                     schemaFilter.add(sid);
@@ -261,7 +261,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         if (dbConn != null && dbConn.isContextMode()) {
             if (EDatabaseTypeName.ORACLEFORSID.getProduct().equals(((DatabaseConnection) dbConn).getProductId())
                     || EDatabaseTypeName.IBMDB2.getProduct().equals(((DatabaseConnection) dbConn).getProductId())) {
-                IMetadataConnection iMetadataCon = ConvertionHelper.convert((DatabaseConnection) dbConn);
+                IMetadataConnection iMetadataCon = ConvertionHelper.convert(dbConn);
                 if (iMetadataCon != null) {
                     String schemaTemp = iMetadataCon.getSchema();
                     if ("".equals(schemaTemp)) {
@@ -363,7 +363,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             if (EDatabaseTypeName.MYSQL.getProduct().equals(((DatabaseConnection) dbConn).getProductId())
                     || EDatabaseTypeName.MSSQL.getProduct().equals(((DatabaseConnection) dbConn).getProductId())
                     || EDatabaseTypeName.MSSQL05_08.getProduct().equals(((DatabaseConnection) dbConn).getProductId())) {
-                IMetadataConnection iMetadataCon = ConvertionHelper.convert((DatabaseConnection) dbConn);
+                IMetadataConnection iMetadataCon = ConvertionHelper.convert(dbConn);
                 if (iMetadataCon != null) {
                     String catalogTemp = iMetadataCon.getDatabase();
                     if ("".equals(catalogTemp)) {
@@ -1116,6 +1116,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     int column_size = columns.getInt(GetColumn.COLUMN_SIZE.name());
                     column.setLength(column_size);
                     decimalDigits = columns.getInt(GetColumn.DECIMAL_DIGITS.name());
+                    column.setPrecision(decimalDigits);
                     numPrecRadix = columns.getInt(GetColumn.NUM_PREC_RADIX.name());
                 } catch (Exception e1) {
                     log.warn(e1, e1);
