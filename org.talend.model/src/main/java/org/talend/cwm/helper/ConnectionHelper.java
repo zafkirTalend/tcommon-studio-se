@@ -46,6 +46,7 @@ import org.talend.cwm.xml.TdXmlElementType;
 import org.talend.cwm.xml.TdXmlSchema;
 import org.talend.utils.security.CryptoHelper;
 import org.talend.utils.sql.ConnectionUtils;
+
 import orgomg.cwm.foundation.softwaredeployment.Component;
 import orgomg.cwm.foundation.softwaredeployment.DataManager;
 import orgomg.cwm.objectmodel.core.ModelElement;
