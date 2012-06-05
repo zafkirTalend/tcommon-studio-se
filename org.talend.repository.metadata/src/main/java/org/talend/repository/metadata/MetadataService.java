@@ -14,9 +14,11 @@ package org.talend.repository.metadata;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
 
 import net.sourceforge.jtds.jdbc.ConnectionJDBC2;
 
+import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -66,6 +68,7 @@ import org.talend.repository.ui.wizards.metadata.connection.wsdl.WSDLSchemaWizar
  */
 public class MetadataService implements IMetadataService {
 
+    private static Logger log = Logger.getLogger(MetadataService.class);
     private GenericSchemaWizard genericSchemaWizard = null;
 
     /*
@@ -258,7 +261,17 @@ public class MetadataService implements IMetadataService {
 
     @Override
     public DatabaseMetaData findCustomizedJTDSDBMetadata(Connection jtdsConn) {
-        return new JtdsMetadataAdapter((ConnectionJDBC2) jtdsConn);
+        if (jtdsConn instanceof ConnectionJDBC2) {
+            return new JtdsMetadataAdapter((ConnectionJDBC2) jtdsConn);
+        } else {
+            try {
+                return jtdsConn.getMetaData();
+            } catch (SQLException e) {
+                log.error(e);
+                return null;
+            }
+        }
+
     }
 
 }
