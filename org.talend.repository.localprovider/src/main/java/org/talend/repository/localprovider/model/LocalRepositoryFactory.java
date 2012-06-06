@@ -1773,7 +1773,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public void save(Project project, Item item) throws PersistenceException {
-        xmiResourceManager.getAffectedResources(item.getProperty()); // only call this will force to load all sub items in case some are not loaded
+        xmiResourceManager.getAffectedResources(item.getProperty()); // only call this will force to load all sub items
+                                                                     // in case some are not loaded
 
         computePropertyMaxInformationLevel(item.getProperty());
         item.getProperty().setModificationDate(new Date());
@@ -1908,7 +1909,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public void save(Project project, Property property) throws PersistenceException {
-        xmiResourceManager.getAffectedResources(property); // only call this will force to load all sub items in case some are not loaded
+        xmiResourceManager.getAffectedResources(property); // only call this will force to load all sub items in case
+                                                           // some are not loaded
 
         computePropertyMaxInformationLevel(property);
         propagateFileName(project, property);
@@ -2562,7 +2564,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 false, false, false);
         for (IRepositoryViewObject repositoryObject : serializableFromFolder) {
             ItemState state = repositoryObject.getProperty().getItem().getState();
-            state.setPath(targetPath.toString());
+            state.setPath(getItemStatePath(type, targetPath).toString());
             xmiResourceManager.saveResource(state.eResource());
         }
 
@@ -2573,6 +2575,22 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 }
             }
         }
+    }
+
+    /**
+     * get the correct ItemStatePath for TDQ Elements(Patterns, Indicators, Rules, etc.).
+     * 
+     * @param type ERepositoryObjectType of the TDQ Element
+     * @param targetPath target path of the TDQ Element
+     * @return
+     */
+    private IPath getItemStatePath(ERepositoryObjectType type, IPath targetPath) {
+        IPath itemStatePath = targetPath;
+        if (ERepositoryObjectType.TDQ_PATTERN_REGEX.equals(type) || ERepositoryObjectType.TDQ_PATTERN_SQL.equals(type)
+                || ERepositoryObjectType.TDQ_USERDEFINE_INDICATORS.equals(type)) {
+            itemStatePath = Path.fromOSString(type.getFolder()).removeFirstSegments(2).append(targetPath);
+        }
+        return itemStatePath;
     }
 
     public boolean setAuthorByLogin(Item item, String login) throws PersistenceException {
