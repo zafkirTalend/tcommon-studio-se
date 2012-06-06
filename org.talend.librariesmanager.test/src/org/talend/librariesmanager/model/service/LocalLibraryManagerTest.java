@@ -23,9 +23,11 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EMap;
+import org.junit.Before;
 import org.junit.Test;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
@@ -47,13 +49,23 @@ public class LocalLibraryManagerTest {
     private LocalLibraryManager localLibMana = new LocalLibraryManager();
 
     /**
+     * DOC Administrator Comment method "setUp".
+     * 
+     * @throws java.lang.Exception
+     */
+    @Before
+    public void setUp() throws Exception {
+
+    }
+
+    /**
      * Test method for
      * {@link org.talend.librariesmanager.model.service.LocalLibraryManagerTest#deploy(java.net.URI, org.eclipse.core.runtime.IProgressMonitor[])}
      * .
      * 
      * @throws IOException
      */
-    @Test(expected = ArithmeticException.class)
+    @Test
     public void testDeployURIIProgressMonitorArray() throws IOException {
         String librariesPath = PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA);
         File storageDir = new File(librariesPath);
@@ -65,7 +77,8 @@ public class LocalLibraryManagerTest {
         IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(IComponentsService.class);
         Map<String, File> componentsFolders = service.getComponentsFactory().getComponentsProvidersFolder();
         Set<String> contributeIdSet = componentsFolders.keySet();
-        String jarFileUri = "D:\\My Documents\\обть\\classpath.jar";
+        String jarFileUri = new Path(ResourcesPlugin.getWorkspace().getRoot().getLocationURI().getPath()).removeLastSegments(1)
+                .toOSString() + File.separator + "temp" + File.separator + "classpath.jar";
         File file = new File(jarFileUri);
         String contributeID = "";
         for (String contributor : contributeIdSet) {
@@ -126,9 +139,9 @@ public class LocalLibraryManagerTest {
      * 
      * @throws IOException
      */
-    @Test(expected = ArithmeticException.class)
+    @Test
     public void testRetrieveStringStringIProgressMonitorArray() throws IOException {
-        String pathToStore = "D:\\target-5.1.0\\lib\\java";
+        String pathToStore = PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA);
         String jarNeeded = "mysql-connector-java-5.1.0-bin.jar";
         LibrariesIndexManager.getInstance().loadResource();
         String sourcePath = null, targetPath = pathToStore;
@@ -184,7 +197,7 @@ public class LocalLibraryManagerTest {
      * {@link org.talend.librariesmanager.model.service.LocalLibraryManagerTest#list(org.eclipse.core.runtime.IProgressMonitor[])}
      * .
      */
-    @Test(expected = ArithmeticException.class)
+    @Test
     public void testList() throws MalformedURLException {
         Set<String> names = new HashSet<String>();
         List<File> jarFiles = FilesUtils.getJarFilesFromFolder(getStorageDirectory(), null);
@@ -195,7 +208,6 @@ public class LocalLibraryManagerTest {
         }
 
         LibrariesIndexManager.getInstance().loadResource();
-        //
         EMap<String, String> jarsToRelative = LibrariesIndexManager.getInstance().getIndex().getJarsToRelativePath();
         names.addAll(jarsToRelative.keySet());
 
@@ -207,7 +219,7 @@ public class LocalLibraryManagerTest {
      * Test method for
      * {@link org.talend.librariesmanager.model.service.LocalLibraryManagerTest#delete(java.lang.String)}.
      */
-    @Test(expected = ArithmeticException.class)
+    @Test
     public void testDelete() throws MalformedURLException {
         String jarName = "classpath.jar";
         List<File> jarFiles = FilesUtils.getJarFilesFromFolder(getStorageDirectory(), null);
