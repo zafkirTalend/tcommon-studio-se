@@ -37,7 +37,7 @@ public interface ICodeGeneratorService extends IService {
      * 
      * @return
      */
-    public void refreshTemplates();
+    public Job refreshTemplates();
 
     /**
      * DOC qian Comment method "createCodeGenerator".

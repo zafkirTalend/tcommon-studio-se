@@ -59,7 +59,6 @@ import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
-import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.LockInfo;
 import org.talend.core.model.repository.RepositoryViewObject;
@@ -873,15 +872,6 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
             allVersion.add(new RepositoryViewObject(property));
         }
 
-    }
-
-    public void deleteObjectPhysical(Project project, IRepositoryObject objToDelete) throws PersistenceException {
-        if (objToDelete.getRepositoryObjectType() == ERepositoryObjectType.PROCESS
-                || objToDelete.getRepositoryObjectType() == ERepositoryObjectType.JOBLET) {
-            if (coreSerivce.isAlreadyBuilt(project)) {
-                coreSerivce.removeItemRelations(objToDelete.getProperty().getItem());
-            }
-        }
     }
 
     public FolderItem getFolderItem(Project project, ERepositoryObjectType itemType, IPath path) {

@@ -178,9 +178,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     public LocalRepositoryFactory() {
         super();
-        singleton = this;
     }
 
+    /**
+     * Use instead functions from ProxyRepositoryFactory.
+     * @return
+     */
+    @Deprecated
     public static LocalRepositoryFactory getInstance() {
         if (singleton == null) {
             singleton = new LocalRepositoryFactory();
@@ -769,6 +773,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             }
         }
         Resource projectResource = project.getEmfProject().eResource();
+        if (projectResource == null) {
+            if (project.getEmfProject() != null && project.getEmfProject().eIsProxy()) {
+                ResourceSet resourceSet = xmiResourceManager.resourceSet;
+                project.setEmfProject((org.talend.core.model.properties.Project) EcoreUtil.resolve(project.getEmfProject(),
+                        resourceSet));
+                projectResource = project.getEmfProject().eResource();
+            }
+        }
         Collection<FolderItem> folders = EcoreUtil.getObjectsByType(projectResource.getContents(),
                 PropertiesPackage.eINSTANCE.getFolderItem());
         if (!folders.isEmpty()) {
@@ -787,15 +799,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 PropertiesPackage.eINSTANCE.getProperty());
         if (!properties.isEmpty()) {
             projectResource.getContents().removeAll(properties);
-        }
-
-        if (projectResource == null) {
-            if (project.getEmfProject() != null && project.getEmfProject().eIsProxy()) {
-                ResourceSet resourceSet = xmiResourceManager.resourceSet;
-                project.setEmfProject((org.talend.core.model.properties.Project) EcoreUtil.resolve(project.getEmfProject(),
-                        resourceSet));
-                projectResource = project.getEmfProject().eResource();
-            }
         }
         xmiResourceManager.saveResource(projectResource);
     }
@@ -1441,6 +1444,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         if ("".equals(version)) { //$NON-NLS-1$
             version = null; // for all version
         }
+        if (objToDelete.getRepositoryObjectType() == ERepositoryObjectType.PROCESS
+                || objToDelete.getRepositoryObjectType() == ERepositoryObjectType.JOBLET) {
+            if (coreSerivce.isAlreadyBuilt(project)) {
+                coreSerivce.removeItemRelations(objToDelete.getProperty().getItem());
+            }
+        }
+
         // can only delete in the main project
         List<IRepositoryViewObject> allVersionToDelete = getAllVersion(project, objToDelete.getId(), false);
         for (IRepositoryViewObject currentVersion : allVersionToDelete) {
@@ -1462,14 +1472,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public void restoreObject(IRepositoryViewObject objToRestore, IPath path) throws PersistenceException {
-        // IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
-        // IFolder typeRootFolder = ResourceUtils.getFolder(fsProject,
-        // ERepositoryObjectType.getFolderName(objToRestore.getType()),
-        // true);
-        // IPath thePath = (path == null ? typeRootFolder.getFullPath() :
-        // typeRootFolder.getFullPath().append(path));
-        // org.talend.core.model.properties.Project project = xmiResourceManager.loadProject(getProject());
-
         List<IRepositoryViewObject> allVersionToDelete = getAllVersion(getRepositoryContext().getProject(), objToRestore.getId(),
                 false);
         for (IRepositoryViewObject currentVersion : allVersionToDelete) {
@@ -1477,8 +1479,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             itemState.setDeleted(false);
             xmiResourceManager.saveResource(itemState.eResource());
         }
-
-        // xmiResourceManager.saveResource(project.eResource());
     }
 
     /*

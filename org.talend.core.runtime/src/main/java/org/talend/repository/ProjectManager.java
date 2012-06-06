@@ -25,7 +25,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.ICoreService;
 import org.talend.core.PluginChecker;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
@@ -61,8 +60,6 @@ public final class ProjectManager {
     private List<Project> allReferencedprojects = new ArrayList<Project>();
 
     private Map<String, String> mapProjectUrlToBranchUrl = new HashMap<String, String>();
-
-    private static ICoreService coreSerivce = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
 
     private static Map<String, List<FolderItem>> foldersMap = new HashMap<String, List<FolderItem>>();
 
