@@ -135,6 +135,7 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
         // listener
         treeViewer.addCheckStateListener(new ICheckStateListener() {
 
+            @Override
             public void checkStateChanged(CheckStateChangedEvent event) {
                 Object obj = event.getElement();
                 treeViewer.setGrayed(obj, false);
@@ -166,6 +167,7 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
         setButtonLayoutData(bSelectAll);
         bSelectAll.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 selectAll(true);
             }
@@ -177,6 +179,7 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
         setButtonLayoutData(bDeselectAll);
         bDeselectAll.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 selectAll(false);
             }
@@ -190,6 +193,7 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
             setButtonLayoutData(bExpand);
             bExpand.addSelectionListener(new SelectionAdapter() {
 
+                @Override
                 public void widgetSelected(SelectionEvent e) {
                     treeViewer.expandAll();
                 }
@@ -201,6 +205,7 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
             setButtonLayoutData(bCollapse);
             bCollapse.addSelectionListener(new SelectionAdapter() {
 
+                @Override
                 public void widgetSelected(SelectionEvent e) {
                     treeViewer.collapseAll();
                 }
@@ -343,6 +348,7 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
 
     class ContextTreeContentProvider implements ITreeContentProvider {
 
+        @Override
         public Object[] getChildren(Object parentElement) {
             if (parentElement instanceof ContextItem) {
                 ContextItem item = (ContextItem) parentElement;
@@ -351,11 +357,13 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
             return null;
         }
 
+        @Override
         public Object getParent(Object element) {
 
             return helper.getParentContextItem(element);
         }
 
+        @Override
         public boolean hasChildren(Object element) {
             if (element instanceof ContextItem) {
                 return true;
@@ -363,14 +371,17 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
             return false;
         }
 
+        @Override
         public Object[] getElements(Object inputElement) {
             return ((List) inputElement).toArray();
         }
 
+        @Override
         public void dispose() {
 
         }
 
+        @Override
         public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 
         }
@@ -383,6 +394,7 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
      */
     class ContextTreeLabelProvider implements ILabelProvider {
 
+        @Override
         public Image getImage(Object element) {
             // if (element instanceof ContextItem) {
             // return ImageProvider.getImageDesc(ECoreImage.CONTEXT_ICON).createImage();
@@ -390,6 +402,7 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
             return null;
         }
 
+        @Override
         public String getText(Object element) {
             if (element instanceof ContextItem) {
                 ContextItem item = (ContextItem) element;
@@ -411,19 +424,23 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
             return null;
         }
 
+        @Override
         public void addListener(ILabelProviderListener listener) {
 
         }
 
+        @Override
         public void dispose() {
 
         }
 
+        @Override
         public boolean isLabelProperty(Object element, String property) {
 
             return false;
         }
 
+        @Override
         public void removeListener(ILabelProviderListener listener) {
 
         }
@@ -456,13 +473,34 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
 
             if (element instanceof ContextType) {
                 ContextType contextType = (ContextType) element;
-                if (isExistedContextGroup(contextType.getName())) {
+                if (isExistedContextGroupInJob(contextType.getName())) {
                     return false;
                 }
             }
             return true;
         }
 
+    }
+
+    /**
+     * Added by Marvin Wang on Jun. 6, 2012 for judging if the context group from repository exists in job context
+     * groups without case sensitive.
+     * 
+     * @param repContextGrpName is not <code>null<code>.
+     * @return
+     */
+    private boolean isExistedContextGroupInJob(String repContextGrpName) {
+        List<IContext> contexts = manager.getListContext();
+        if (contexts != null && contexts.size() > 0) {
+            for (IContext context : manager.getListContext()) {
+                String contextName = context.getName();
+                if (contextName != null && repContextGrpName != null
+                        && contextName.toLowerCase().equals(repContextGrpName.toLowerCase())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private boolean isExistedContextGroup(String name) {
