@@ -15,10 +15,11 @@ package org.talend.core.model.metadata.builder.database;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import metadata.managment.i18n.Messages;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
-import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
