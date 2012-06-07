@@ -36,7 +36,7 @@ public class DatabaseConnectionParameterUtil {
             if (conn.getContextId() != null && !"".equals(conn.getContextId())) { // hywang modified for //$NON-NLS-1$
                 // 8846
                 String contextID = conn.getContextId();
-                paramValue = ContextParameterUtils.getVariableFromCode(paramValue);
+                // paramValue = ContextParameterUtils.getVariableFromCode(paramValue);
                 IRepositoryViewObject repObj;
                 try {
                     repObj = ProxyRepositoryFactory.getInstance().getLastVersion(contextID);
