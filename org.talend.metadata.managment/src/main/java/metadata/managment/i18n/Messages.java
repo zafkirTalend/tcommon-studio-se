@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.i18n;
+package metadata.managment.i18n;
 
 import java.util.ResourceBundle;
 
@@ -19,14 +19,14 @@ import org.talend.commons.i18n.MessagesCore;
 /**
  * Default implementation of MessageCore from org.talend.commons plug-in.<br/>
  * 
- * $Id: Messages.java 54939 2011-02-11 01:34:57Z mhirt $
+ * $Id: Messages.java 38013 2010-03-05 14:21:59Z mhirt $
  * 
  */
-public class Messages1 extends MessagesCore {
+public class Messages extends MessagesCore {
 
     private static final String BUNDLE_NAME = "messages"; //$NON-NLS-1$
 
-    private static final String PLUGIN_ID = "org.talend.core"; //$NON-NLS-1$
+    private static final String PLUGIN_ID = "org.talend.metadata.managment"; //$NON-NLS-1$
 
     private static ResourceBundle resourceBundle = ResourceBundle.getBundle(BUNDLE_NAME);
 

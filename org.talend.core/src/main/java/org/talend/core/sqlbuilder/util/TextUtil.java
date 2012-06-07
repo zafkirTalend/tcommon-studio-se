@@ -13,7 +13,7 @@
 package org.talend.core.sqlbuilder.util;
 
 import org.talend.core.database.EDatabaseTypeName;
-import org.talend.core.i18n.Messages1;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.utils.TalendTextUtils;
 
 /**
@@ -46,7 +46,7 @@ public class TextUtil {
     }
 
     public static String getNewQueryLabel() {
-        return Messages1.getString("GenerateSelectSQLAction.NewQuery", num++); //$NON-NLS-1$
+        return Messages.getString("GenerateSelectSQLAction.NewQuery", num++); //$NON-NLS-1$
     }
 
     /**
