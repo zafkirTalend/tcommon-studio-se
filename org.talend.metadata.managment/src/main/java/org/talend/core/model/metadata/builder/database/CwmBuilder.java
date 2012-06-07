@@ -18,8 +18,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import metadata.managment.i18n.Messages;
+
 import org.apache.log4j.Logger;
-import org.talend.core.i18n.Messages;
 
 /**
  * @author scorreia

@@ -21,13 +21,14 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import metadata.managment.i18n.Messages;
+
 import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;

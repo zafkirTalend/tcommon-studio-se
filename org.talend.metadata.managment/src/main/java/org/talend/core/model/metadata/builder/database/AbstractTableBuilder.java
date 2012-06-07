@@ -19,9 +19,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import metadata.managment.i18n.Messages;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.cwm.helper.ColumnSetHelper;
 import org.talend.cwm.relational.TdColumn;
