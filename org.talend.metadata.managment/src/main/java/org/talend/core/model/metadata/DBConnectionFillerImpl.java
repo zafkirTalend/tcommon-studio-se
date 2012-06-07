@@ -1432,7 +1432,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                                 foreignKeysMap.put(fkname, foreignKey);
                             }
                             columnMap.get(colName).getKeyRelationship().add(foreignKey);
-                            columnMap.get(colName).setKey(true);
+                            // bug TDI-21138:should not set the FK as true since DI side will use it to display the
+                            // PK,but DQ side do not need it.
+                            // columnMap.get(colName).setKey(true);
                         }
                         fkResult.close();
                         TableHelper.addForeignKeys((TdTable) colSet,

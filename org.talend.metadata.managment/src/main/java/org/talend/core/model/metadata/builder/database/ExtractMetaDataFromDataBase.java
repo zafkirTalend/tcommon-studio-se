@@ -477,16 +477,6 @@ public class ExtractMetaDataFromDataBase {
 
             // metadataColumns = ExtractMetaDataFromDataBase.extractColumns(dbMetaData, newNode, iMetadataConnection,
             // dbType);
-            // bug TDI-21138:should same with extractColumns,deal with the primarykeys
-            HashMap<String, String> primaryKeys = getPrimaryKeys(iMetadataConnection, dbMetaData, tableNode);
-
-            for (TdColumn metadataColumn : metadataColumns) {
-                if (primaryKeys != null && !primaryKeys.isEmpty() && primaryKeys.get(metadataColumn.getOriginalField()) != null) {
-                    metadataColumn.setKey(true);
-                } else {
-                    metadataColumn.setKey(false);
-                }
-            }
             ColumnSetHelper.addColumns(table, metadataColumns);
 
             if (needCreateAndClose) {
