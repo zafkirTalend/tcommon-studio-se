@@ -27,9 +27,9 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
  * DOC nrousseau class global comment. Detailled comment
- * 
+ *
  * @deprecated
- * 
+ *
  * Do not cache anymore. This class actually is only used for compatibility, and keep the system of LASTEST_VERSION
  */
 public class ItemCacheManager {
@@ -104,7 +104,7 @@ public class ItemCacheManager {
             return null;
         }
         // feature 19312
-        if (version.equals("") || version == null || LATEST_VERSION.equals(version)) {
+        if (version == null || version.equals("") || LATEST_VERSION.equals(version)) {
             return getProcessItem(project, processId);
         }
         ProcessItem selectedProcessItem = null;
