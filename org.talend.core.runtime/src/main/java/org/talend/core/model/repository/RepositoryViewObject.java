@@ -19,12 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.PlatformUI;
-import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.ECoreImage;
@@ -303,9 +299,10 @@ public class RepositoryViewObject implements IRepositoryViewObject {
             return property;
         } catch (PersistenceException e) {
             exception = e;
-            if (!CommonsPlugin.isHeadless() && PlatformUI.isWorkbenchRunning()) {
-                MessageDialog.openError(Display.getCurrent().getActiveShell(), "Error", exception.getMessage());
-            }
+            ExceptionHandler.process(e);
+            // if (!CommonsPlugin.isHeadless() && PlatformUI.isWorkbenchRunning()) {
+            // MessageDialog.openError(Display.getCurrent().getActiveShell(), "Error", exception.getMessage());
+            // }
         }
         return null;
     }
