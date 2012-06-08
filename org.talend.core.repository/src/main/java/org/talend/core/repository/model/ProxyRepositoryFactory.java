@@ -1367,7 +1367,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      */
     @Override
     public void unlock(Item obj) throws PersistenceException, LoginException {
-        if (obj.eResource() == null || obj.getProperty().eResource() == null) {
+        if (!(obj instanceof FolderItem) && (obj.eResource() == null || obj.getProperty().eResource() == null)) {
             // item has been unloaded
             obj = getUptodateProperty(obj.getProperty()).getItem();
         }
