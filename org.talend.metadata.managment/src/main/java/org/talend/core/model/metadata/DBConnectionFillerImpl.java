@@ -1432,7 +1432,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                                 foreignKeysMap.put(fkname, foreignKey);
                             }
                             columnMap.get(colName).getKeyRelationship().add(foreignKey);
-                            columnMap.get(colName).setKey(true);
+//                            columnMap.get(colName).setKey(true);
                         }
                         fkResult.close();
                         TableHelper.addForeignKeys((TdTable) colSet,
