@@ -13,13 +13,18 @@
 package org.talend.core.model.metadata;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.rule.PowerMockRule;
+import org.talend.commons.bridge.ReponsitoryContextBridge;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.utils.properties.PropertiesLoader;
 import org.talend.utils.properties.TypedProperties;
@@ -28,7 +33,11 @@ import org.talend.utils.properties.TypedProperties;
 /**
  * DOC zshen  class global comment. Detailled comment
  */
+@PrepareForTest({ ReponsitoryContextBridge.class, MetadataTalendType.class })
 public class MetadataFillFactoryTest {
+
+    @Rule
+    public PowerMockRule powerMockRule = new PowerMockRule();
 
     private Map<String, String> initParameterMap() {
         Map<String, String> returnMap = new HashMap<String, String>();
@@ -56,7 +65,9 @@ public class MetadataFillFactoryTest {
                 .toString());
         returnMap.put("port", connectionParams.get("port") == null ? null : connectionParams.get("port")
                 .toString());
-        returnMap.put("version", connectionParams.get("version") == null ? null : connectionParams.get("version")
+        returnMap.put("version",
+                connectionParams.get("version") == null || connectionParams.get("version").toString().isEmpty() ? null
+                        : connectionParams.get("version")
                 .toString());
         returnMap.put("retrieveAllMetadata", connectionParams.get("retrieveAllMetadata") == null ? null : connectionParams.get(
                 "retrieveAllMetadata")
@@ -90,10 +101,11 @@ public class MetadataFillFactoryTest {
         assertSame(metadataConnection.getAdditionalParams(), parameterMap.get("aDDParameter"));
         assertSame(metadataConnection.getDatabase(), parameterMap.get("dbName"));
         assertSame(metadataConnection.getDescription(), parameterMap.get("description"));
-        assertTrue(Boolean.toString(metadataConnection.isRetrieveAllMetadata()).equals(parameterMap.get("retrieveAllMetadata")));
+        assertTrue(parameterMap.get("retrieveAllMetadata") == null
+                || metadataConnection.equals(parameterMap.get("retrieveAllMetadata")));
         assertSame(metadataConnection.getUrl(), parameterMap.get("jdbcUrl"));
         assertNotNull("Product is not null", metadataConnection.getProduct());
-        assertNotNull("Mapping is not null", metadataConnection.getMapping());
+        assertNull("Mapping is null", metadataConnection.getMapping());
 
 
     }
