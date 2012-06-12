@@ -17,3 +17,4 @@ Export-Package: org.talend.commons.utils.generation,
  org.talend.commons.utils.workbench.resources
 Bundle-Vendor: .Talend SA.
 Bundle-ClassPath: .
+Eclipse-RegisterBuddy: org.mockito
