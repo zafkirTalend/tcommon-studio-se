@@ -97,30 +97,32 @@ public class EmptyRecycleBinAction extends AContextualAction {
             return;
         }
 
+        // TDQ-5359
+        for (IRepositoryNode child : children) {
+            // MOD klliu 2011-04-28 bug 20204 removing connection is synced to the connection view of SQL
+            // explore
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+                ITDQRepositoryService tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
+                        ITDQRepositoryService.class);
+                if (!tdqRepService.removeAliasInSQLExplorer(child)) {
+                    MessageDialog.openWarning(shell, title, Messages.getString("EmptyRecycleBinAction.dialog.allDependencies"));
+                    try {
+                        IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+                        factory.saveProject(ProjectManager.getInstance().getCurrentProject());
+                    } catch (PersistenceException e) {
+                        ExceptionHandler.process(e);
+                    }
+                    return;
+                }
+            }
+        }
+
         final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
             public void run(IProgressMonitor monitor) {
                 IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
-
                 for (IRepositoryNode child : children) {
-                    // MOD klliu 2011-04-28 bug 20204 removing connection is synced to the connection view of SQL
-                    // explore
-                    if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
-                        ITDQRepositoryService tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault()
-                                .getService(ITDQRepositoryService.class);
-                        if (!tdqRepService.removeAliasInSQLExplorer(child)) {
-                            MessageDialog.openWarning(shell, title,
-                                    Messages.getString("EmptyRecycleBinAction.dialog.allDependencies"));
-                            try {
-                                factory.saveProject(ProjectManager.getInstance().getCurrentProject());
-                            } catch (PersistenceException e) {
-                                ExceptionHandler.process(e);
-                            }
-                            return;
-                        }
-                    }
                     try {
-
                         deleteElements(factory, (RepositoryNode) child);
                     } catch (Exception e) {
                         MessageBoxExceptionHandler.process(e);
