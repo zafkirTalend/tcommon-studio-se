@@ -210,20 +210,18 @@ public class RegisterManagement {
     }
 
     public boolean createUser(String email, String pseudo, String password, String firstname, String lastname, String country,
-            boolean isProxyEnabled, String proxyHost, String proxyPort) throws BusinessException {
+            boolean isProxyEnabled, String proxyHost, String proxyPort, String proxyUser, String proxyPassword)
+            throws BusinessException {
         BigInteger result = BigInteger.valueOf(-1);
         registNumber = null;
         // if proxy is enabled
         if (isProxyEnabled) {
-            // get parameter and put them in System.properties.
-            System.setProperty("http.proxyHost", proxyHost); //$NON-NLS-1$
-            System.setProperty("http.proxyPort", proxyPort); //$NON-NLS-1$
-
-            // override automatic update parameters
-            if (proxyPort != null && proxyPort.trim().equals("")) { //$NON-NLS-1$
-                proxyPort = null;
-            }
-            SiteManager.setHttpProxyInfo(true, proxyHost, proxyPort);
+            Properties properties = System.getProperties();
+            properties.put("http.proxySet", "true"); //$NON-NLS-1$
+            properties.put("http.proxyHost", proxyHost);
+            properties.put("http.proxyPort", proxyPort);
+            properties.put("http.proxyUser", proxyUser); //$NON-NLS-1$
+            properties.put("http.proxyPassword", proxyPassword); //$NON-NLS-1$
         }
 
         // OS
@@ -253,8 +251,8 @@ public class RegisterManagement {
         try {
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                     IBrandingService.class);
-            result = proxy.createUser(email,pseudo, password, firstname, lastname, country, version, brandingService.getAcronym(),
-                    osName, osVersion, javaVersion, totalMemory + "", memRAM //$NON-NLS-1$
+            result = proxy.createUser(email, pseudo, password, firstname, lastname, country, version,
+                    brandingService.getAcronym(), osName, osVersion, javaVersion, totalMemory + "", memRAM //$NON-NLS-1$
                             + "", nbProc + ""); //$NON-NLS-1$ //$NON-NLS-2$
             if (result.signum() > 0) {
                 PlatformUI.getPreferenceStore().setValue("REGISTRATION_DONE", 1); //$NON-NLS-1$
@@ -284,20 +282,18 @@ public class RegisterManagement {
     }
 
     public boolean createUser(String pseudo, String password, String firstname, String lastname, String country,
-            boolean isProxyEnabled, String proxyHost, String proxyPort) throws BusinessException {
+            boolean isProxyEnabled, String proxyHost, String proxyPort, String proxyUser, String proxyPassword)
+            throws BusinessException {
         BigInteger result = BigInteger.valueOf(-1);
         registNumber = null;
         // if proxy is enabled
         if (isProxyEnabled) {
-            // get parameter and put them in System.properties.
-            System.setProperty("http.proxyHost", proxyHost); //$NON-NLS-1$
-            System.setProperty("http.proxyPort", proxyPort); //$NON-NLS-1$
-
-            // override automatic update parameters
-            if (proxyPort != null && proxyPort.trim().equals("")) { //$NON-NLS-1$
-                proxyPort = null;
-            }
-            SiteManager.setHttpProxyInfo(true, proxyHost, proxyPort);
+            Properties properties = System.getProperties();
+            properties.put("http.proxySet", "true"); //$NON-NLS-1$
+            properties.put("http.proxyHost", proxyHost);
+            properties.put("http.proxyPort", proxyPort);
+            properties.put("http.proxyUser", proxyUser); //$NON-NLS-1$
+            properties.put("http.proxyPassword", proxyPassword); //$NON-NLS-1$
         }
 
         // OS
