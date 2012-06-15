@@ -12,9 +12,11 @@
 // ============================================================================
 package org.talend.core.ui.images;
 
+import org.eclipse.swt.graphics.Image;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.IImage;
+import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.RepositoryContentManager;
@@ -121,5 +123,9 @@ public class RepositoryImageProvider {
             }
             return EImage.DEFAULT_IMAGE;
         }
+    }
+
+    public static Image getImage(ERepositoryObjectType type) {
+        return ImageProvider.getImage(getIcon(type));
     }
 }
