@@ -282,6 +282,17 @@ public enum SupportDBUrlType {
     }
 
     /**
+     * DOC msjian Comment method "isMssql".
+     * 
+     * @param dbKey
+     * @return
+     */
+    public static boolean isMssql(String dbKey) {
+        SupportDBUrlType dbTypeByKey = getDBTypeByKey(dbKey);
+        return dbTypeByKey != null && (dbTypeByKey == MSSQLDEFAULTURL || dbTypeByKey == MSSQL2008URL);
+    }
+
+    /**
      * DOC msjian Comment method "hasCatalog". (just have catalog: mysql,informix,sybase)
      * 
      * @param dbKey
