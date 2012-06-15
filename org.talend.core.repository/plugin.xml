@@ -10,7 +10,7 @@
    <extension-point id="repository_service" name="Repository service" schema="schema/repository_service.exsd"/>
    <extension-point id="metadata_provider" name="Metadata provider" schema="schema/metadata_provider.exsd"/>
    <extension-point id="org.talend.core.repository.login.task" name="Login Task" schema="schema/login_task.exsd"/>
-   <extension-point id="org.talend.core.repository.checkDeleteItemReference" name="Check Delete Item Reference" schema="schema/checkDeleteItemReference.exsd"/>
+   <extension-point id="checkDeleteItemReference" name="Check Delete Item Reference" schema="schema/checkDeleteItemReference.exsd"/>
 
    <extension
          point="org.talend.core.runtime.service">

@@ -3,7 +3,7 @@
 <schema targetNamespace="org.talend.core.repository" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="org.talend.core.repository" id="org.talend.core.repository.checkDeleteItemReference" name="Check Delete Item Reference"/>
+         <meta.schema plugin="org.talend.core.repository" id="checkDeleteItemReference" name="Check Delete Item Reference"/>
       </appinfo>
       <documentation>
          [Enter description of this extension point.]
