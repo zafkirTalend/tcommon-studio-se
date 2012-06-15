@@ -476,7 +476,7 @@ public class RegisterWizardPage2 extends AbstractBasicWizardDialog {
                             country, isProxyEnable, proxyHost, proxyPort);
                 } else {
                     success = RegisterManagement.getInstance().createUser(email, pseudonym, password, firstname, lastname,
-                            country, isProxyEnable, proxyHost, proxyPort);
+                            country, isProxyEnable, proxyHost, proxyPort, null, null);
                 }
                 if (success) {
                     updateOrCreateSuccess = true;
