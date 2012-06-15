@@ -48,14 +48,17 @@ import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.ISubRepositoryObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.repository.utils.RepositoryNodeDeleteManager;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
+import org.talend.repository.model.ItemReferenceBean;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
+import org.talend.repository.ui.dialog.ItemReferenceDialog;
 
 /**
  * Action used to empty the recycle bin.<br/>
@@ -92,6 +95,9 @@ public class EmptyRecycleBinAction extends AContextualAction {
             message = Messages.getString("DeleteAction.dialog.message1") + "\n" //$NON-NLS-1$ //$NON-NLS-2$
                     + Messages.getString("DeleteAction.dialog.message2"); //$NON-NLS-1$
         }
+
+        final List<ItemReferenceBean> unDeleteItems = RepositoryNodeDeleteManager.getInstance().getUnDeleteItems(children, null);
+
         final Shell shell = getShell();
         if (!(MessageDialog.openQuestion(shell, title, message))) {
             return;
@@ -156,6 +162,17 @@ public class EmptyRecycleBinAction extends AContextualAction {
             PlatformUI.getWorkbench().getProgressService().run(true, true, iRunnableWithProgress);
         } catch (Exception e) {
             ExceptionHandler.process(e);
+        }
+
+        if (unDeleteItems.size() > 0) {
+            Display.getDefault().syncExec(new Runnable() {
+
+                public void run() {
+                    ItemReferenceDialog dialog = new ItemReferenceDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+                            .getShell(), unDeleteItems);
+                    dialog.open();
+                }
+            });
         }
 
         // TDI-21238, have done listener to refresh in new CNF repository view

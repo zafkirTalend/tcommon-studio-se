@@ -79,6 +79,7 @@ import org.talend.core.repository.model.ISubRepositoryObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.model.repositoryObject.MetadataTableRepositoryObject;
 import org.talend.core.repository.utils.AbstractResourceChangesService;
+import org.talend.core.repository.utils.RepositoryNodeDeleteManager;
 import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.SubItemHelper;
@@ -93,12 +94,13 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
+import org.talend.repository.model.ItemReferenceBean;
 import org.talend.repository.model.JobletReferenceBean;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
 import org.talend.repository.ui.dialog.ContextReferenceDialog;
-import org.talend.repository.ui.dialog.JobletReferenceDialog;
+import org.talend.repository.ui.dialog.ItemReferenceDialog;
 
 /**
  * Action used to delete object from repository. This action manages logical and physical deletions.<br/>
@@ -153,35 +155,88 @@ public class DeleteAction extends AContextualAction {
 
             public void run(IProgressMonitor monitor) {
                 monitor.beginTask("Delete Running", IProgressMonitor.UNKNOWN); //$NON-NLS-1$
-                for (Object obj : ((IStructuredSelection) selection).toArray()) {
+                Object[] selections = ((IStructuredSelection) selection).toArray();
+                List<RepositoryNode> selectNodes = new ArrayList<RepositoryNode>();
+                for (Object obj : selections) {
                     if (obj instanceof RepositoryNode) {
-                        RepositoryNode node = (RepositoryNode) obj;
-                        try {
-                            // ADD xqliu 2012-05-24 TDQ-4831
-                            if (sourceFileOpening(node)) {
-                                continue;
+                        selectNodes.add((RepositoryNode) obj);
+                    }
+                }
+                final List<ItemReferenceBean> unDeleteItems = RepositoryNodeDeleteManager.getInstance().getUnDeleteItems(
+                        selectNodes, deleteActionCache);
+                for (RepositoryNode node : selectNodes) {
+                    try {
+                        // ADD xqliu 2012-05-24 TDQ-4831
+                        if (sourceFileOpening(node)) {
+                            continue;
+                        }
+                        // ~ TDQ-4831
+                        if (containParent(node, (IStructuredSelection) selection)) {
+                            continue;
+                        }
+
+                        if (isForbidNode(node)) {
+                            continue;
+                        }
+                        if (node.getType() == ENodeType.REPOSITORY_ELEMENT) {
+                            if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBService.class)) {
+                                IESBService service = (IESBService) GlobalServiceRegister.getDefault().getService(
+                                        IESBService.class);
+                                Item repoItem = node.getObject().getProperty().getItem();
+                                if (service != null && !repoItem.getState().isDeleted()) {
+                                    final StringBuffer jobNames = service.getAllTheJObNames(node);
+                                    if (jobNames != null) {
+                                        Display.getDefault().syncExec(new Runnable() {
+
+                                            public void run() {
+                                                String message = jobNames.toString()
+                                                        + Messages.getString("DeleteAction.deleteJobAssignedToOneService"); //$NON-NLS-1$
+                                                final Shell shell = getShell();
+                                                confirmAssignDialog = MessageDialog.openQuestion(shell, "", message); //$NON-NLS-1$
+
+                                            }
+                                        });
+                                        if (!confirmAssignDialog) {
+                                            continue;
+                                        }
+                                    }
+                                }
                             }
-                            // ~ TDQ-4831
-                            if (containParent(node, (IStructuredSelection) selection)) {
+
+                            if (isInDeletedFolder(deletedFolder, node.getParent())) {
                                 continue;
                             }
 
-                            if (isForbidNode(node)) {
-                                continue;
+                            boolean needReturn = deleteElements(factory, deleteActionCache, node);
+                            if (node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.JOBLET) {
+                                needToUpdataPalette = true;
                             }
-                            if (node.getType() == ENodeType.REPOSITORY_ELEMENT) {
+                            if (needReturn) {
+                                return;
+                            }
+                            types.add(node.getObjectType());
+                        } else if (node.getType() == ENodeType.SIMPLE_FOLDER) {
+                            FolderItem folderItem = (FolderItem) node.getObject().getProperty().getItem();
+                            if (node.getChildren().size() > 0 && !folderItem.getState().isDeleted()) {
                                 if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBService.class)) {
                                     IESBService service = (IESBService) GlobalServiceRegister.getDefault().getService(
                                             IESBService.class);
-                                    Item repoItem = node.getObject().getProperty().getItem();
-                                    if (service != null && !repoItem.getState().isDeleted()) {
+                                    if (service != null) {
                                         final StringBuffer jobNames = service.getAllTheJObNames(node);
                                         if (jobNames != null) {
                                             Display.getDefault().syncExec(new Runnable() {
 
                                                 public void run() {
-                                                    String message = jobNames.toString()
-                                                            + Messages.getString("DeleteAction.deleteJobAssignedToOneService"); //$NON-NLS-1$
+                                                    String message = null;
+                                                    if (jobNames.toString().contains(",")) { //$NON-NLS-1$
+                                                        message = jobNames.toString()
+                                                                + Messages
+                                                                        .getString("DeleteAction.deleteSomeJobsAssignedToServices"); //$NON-NLS-1$
+                                                    } else {
+                                                        message = jobNames.toString()
+                                                                + Messages
+                                                                        .getString("DeleteAction.deleteJobAssignedToOneService"); //$NON-NLS-1$
+                                                    }
                                                     final Shell shell = getShell();
                                                     confirmAssignDialog = MessageDialog.openQuestion(shell, "", message); //$NON-NLS-1$
 
@@ -193,87 +248,50 @@ public class DeleteAction extends AContextualAction {
                                         }
                                     }
                                 }
+                            }
+                            // bug 18158
+                            boolean isSqlTemplate = false;
+                            if (node.getObject() instanceof Folder) {
+                                // isSqlTemplate = ((Folder) node.getObject()).getContentType().equals(
+                                // ERepositoryObjectType.SQLPATTERNS);
 
-                                if (isInDeletedFolder(deletedFolder, node.getParent())) {
-                                    continue;
-                                }
+                                Object label = node.getProperties(EProperties.LABEL);
+                                if (ENodeType.SIMPLE_FOLDER.equals(node.getType())
+                                        && ERepositoryObjectType.SQLPATTERNS.equals(node.getContentType())
+                                        && (label.equals("Generic") || label.equals("UserDefined") || label.equals("MySQL") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                                                || label.equals("Netezza") || label.equals("Oracle") //$NON-NLS-1$ //$NON-NLS-2$
+                                                || label.equals("ParAccel") || label.equals("Teradata")) //$NON-NLS-1$ //$NON-NLS-2$
+                                        || label.equals("Hive")) { //$NON-NLS-1$
+                                    isSqlTemplate = true;
 
-                                boolean needReturn = deleteElements(factory, deleteActionCache, node);
-                                if (node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.JOBLET) {
-                                    needToUpdataPalette = true;
-                                }
-                                if (needReturn) {
-                                    return;
-                                }
-                                types.add(node.getObjectType());
-                            } else if (node.getType() == ENodeType.SIMPLE_FOLDER) {
-                                FolderItem folderItem = (FolderItem) node.getObject().getProperty().getItem();
-                                if (node.getChildren().size() > 0 && !folderItem.getState().isDeleted()) {
-                                    if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBService.class)) {
-                                        IESBService service = (IESBService) GlobalServiceRegister.getDefault().getService(
-                                                IESBService.class);
-                                        if (service != null) {
-                                            final StringBuffer jobNames = service.getAllTheJObNames(node);
-                                            if (jobNames != null) {
-                                                Display.getDefault().syncExec(new Runnable() {
-
-                                                    public void run() {
-                                                        String message = null;
-                                                        if (jobNames.toString().contains(",")) { //$NON-NLS-1$
-                                                            message = jobNames.toString()
-                                                                    + Messages
-                                                                            .getString("DeleteAction.deleteSomeJobsAssignedToServices"); //$NON-NLS-1$
-                                                        } else {
-                                                            message = jobNames.toString()
-                                                                    + Messages
-                                                                            .getString("DeleteAction.deleteJobAssignedToOneService"); //$NON-NLS-1$
-                                                        }
-                                                        final Shell shell = getShell();
-                                                        confirmAssignDialog = MessageDialog.openQuestion(shell, "", message); //$NON-NLS-1$
-
-                                                    }
-                                                });
-                                                if (!confirmAssignDialog) {
-                                                    continue;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                                // bug 18158
-                                boolean isSqlTemplate = false;
-                                if (node.getObject() instanceof Folder) {
-                                    // isSqlTemplate = ((Folder) node.getObject()).getContentType().equals(
-                                    // ERepositoryObjectType.SQLPATTERNS);
-
-                                    Object label = node.getProperties(EProperties.LABEL);
-                                    if (ENodeType.SIMPLE_FOLDER.equals(node.getType())
-                                            && ERepositoryObjectType.SQLPATTERNS.equals(node.getContentType())
-                                            && (label.equals("Generic") || label.equals("UserDefined") || label.equals("MySQL") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                                                    || label.equals("Netezza") || label.equals("Oracle") //$NON-NLS-1$ //$NON-NLS-2$
-                                                    || label.equals("ParAccel") || label.equals("Teradata")) //$NON-NLS-1$ //$NON-NLS-2$
-                                            || label.equals("Hive")) { //$NON-NLS-1$
-                                        isSqlTemplate = true;
-
-                                    }
-                                }
-                                if (!isSqlTemplate) {
-                                    types.add(node.getContentType());
-                                    // fixed for the documentation deleted
-                                    if (node.getContentType() == ERepositoryObjectType.PROCESS
-                                            || node.getContentType() == ERepositoryObjectType.JOBLET) {
-                                        types.add(ERepositoryObjectType.DOCUMENTATION);
-                                    }
-                                    deletedFolder.add(node);
-                                    deleteFolder(node, factory, deleteActionCache);
                                 }
                             }
-                        } catch (PersistenceException e) {
-                            MessageBoxExceptionHandler.process(e);
-                        } catch (BusinessException e) {
-                            MessageBoxExceptionHandler.process(e);
+                            if (!isSqlTemplate) {
+                                types.add(node.getContentType());
+                                // fixed for the documentation deleted
+                                if (node.getContentType() == ERepositoryObjectType.PROCESS
+                                        || node.getContentType() == ERepositoryObjectType.JOBLET) {
+                                    types.add(ERepositoryObjectType.DOCUMENTATION);
+                                }
+                                deletedFolder.add(node);
+                                deleteFolder(node, factory, deleteActionCache);
+                            }
                         }
+                    } catch (PersistenceException e) {
+                        MessageBoxExceptionHandler.process(e);
+                    } catch (BusinessException e) {
+                        MessageBoxExceptionHandler.process(e);
                     }
+                }
+                if (unDeleteItems.size() > 0) {
+                    Display.getDefault().syncExec(new Runnable() {
+
+                        public void run() {
+                            ItemReferenceDialog dialog = new ItemReferenceDialog(PlatformUI.getWorkbench()
+                                    .getActiveWorkbenchWindow().getShell(), unDeleteItems);
+                            dialog.open();
+                        }
+                    });
                 }
                 try {
                     factory.saveProject(ProjectManager.getInstance().getCurrentProject());
@@ -782,6 +800,7 @@ public class DeleteAction extends AContextualAction {
         return list;
     }
 
+    @Deprecated
     public static List<JobletReferenceBean> checkRepositoryNodeFromProcess(IProxyRepositoryFactory factory,
             DeleteActionCache deleteActionCache, RepositoryNode currentJobNode) {
         IRepositoryViewObject object = currentJobNode.getObject();
@@ -936,7 +955,7 @@ public class DeleteAction extends AContextualAction {
                 && nodeObject.getProperty().getItem() != null
                 && (nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_OTHER
                         || nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_USER || RepositoryManager
-                            .isOpenedItemInEditor(nodeObject)) && !(DELETE_FOREVER_TITLE.equals(getText()))) {
+                        .isOpenedItemInEditor(nodeObject)) && !(DELETE_FOREVER_TITLE.equals(getText()))) {
 
             final String title = Messages.getString("DeleteAction.error.title"); //$NON-NLS-1$
             String nodeName = ERepositoryObjectType.getDeleteFolderName(nodeObject.getRepositoryObjectType());
@@ -1001,20 +1020,6 @@ public class DeleteAction extends AContextualAction {
             final RepositoryNode currentJobNode, Boolean confirm) throws PersistenceException, BusinessException {
         boolean needReturn = false;
         final IRepositoryViewObject objToDelete = currentJobNode.getObject();
-
-        final List<JobletReferenceBean> checkRepository = checkRepositoryNodeFromProcess(factory, deleteActionCache,
-                currentJobNode);
-        if (checkRepository.size() > 0) {
-            Display.getDefault().syncExec(new Runnable() {
-
-                public void run() {
-                    JobletReferenceDialog dialog = new JobletReferenceDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-                            .getShell(), objToDelete, checkRepository);
-                    dialog.open();
-                }
-            });
-            return true;
-        }
 
         final List<ContextReferenceBean> checkContext = checkContextFromProcess(factory, deleteActionCache, currentJobNode);
         if (checkContext.size() > 0) {
