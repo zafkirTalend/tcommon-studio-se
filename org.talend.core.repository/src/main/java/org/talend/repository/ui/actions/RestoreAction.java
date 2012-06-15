@@ -14,8 +14,10 @@ package org.talend.repository.ui.actions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -35,6 +37,7 @@ import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.ISubRepositoryObject;
@@ -108,6 +111,7 @@ public class RestoreAction extends AContextualAction {
                     IRepositoryViewObject docObject = factory.getLastVersion(node.getObject().getId() + "doc"); //$NON-NLS-1$
                     if (docObject != null) {
                         factory.restoreObject(docObject, path);
+                        RepositoryManager.refresh(docObject.getRepositoryObjectType());
                     }
                 }
                 // disable SVG actions
@@ -152,9 +156,11 @@ public class RestoreAction extends AContextualAction {
         needToUpdatePalette = false;
         IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
 
+        final Set<ERepositoryObjectType> types = new HashSet<ERepositoryObjectType>();
         for (Object obj : ((IStructuredSelection) selection).toArray()) {
             if (obj instanceof RepositoryNode) {
                 RepositoryNode node = (RepositoryNode) obj;
+                types.add(node.getObjectType());
                 restoreNode(node);
 
                 // restore parents folder if deleted also
@@ -189,7 +195,8 @@ public class RestoreAction extends AContextualAction {
                     // bug 16594
                     IRepositoryView repositoryView = RepositoryManagerHelper.getRepositoryView();
                     if (repositoryView != null) {
-                        repositoryView.refresh();
+                        // repositoryView.refresh();
+                        RepositoryManager.refresh(types);
                     }
 
                     if (updatePalette && GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {

@@ -313,7 +313,9 @@ public class DeleteAction extends AContextualAction {
                         // bug 16594
                         IRepositoryView repositoryView = RepositoryManagerHelper.getRepositoryView();
                         if (repositoryView != null) {
-                            repositoryView.refresh();
+                            // repositoryView.refresh();
+                            RepositoryManager.refresh(types);
+
                         }
                     }
 

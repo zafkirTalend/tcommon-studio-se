@@ -56,7 +56,7 @@ public final class RepositoryManager {
     }
 
     public static boolean isRefreshManually() {
-        return getPreferenceStore().getBoolean(IRepositoryPrefConstants.MANUALLY_REFRESH);
+        return true;
     }
 
     public static boolean isRefreshCreated() {
