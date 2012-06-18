@@ -77,6 +77,7 @@ import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.cwm.helper.ConnectionHelper;
@@ -185,6 +186,8 @@ public final class ConnectionContextHelper {
             if (contextItem != null) {
                 contextItem.getProperty().setLabel(contextName);
             }
+            // TDI-21506
+            RepositoryManager.refreshCreatedNode(ERepositoryObjectType.CONTEXT);
             return contextItem;
         }
         return null;
