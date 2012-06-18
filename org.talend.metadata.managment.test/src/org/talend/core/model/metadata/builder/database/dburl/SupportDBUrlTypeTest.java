@@ -13,18 +13,15 @@
 package org.talend.core.model.metadata.builder.database.dburl;
 
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.when;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.rule.PowerMockRule;
 
 /**
  * DOC msjian class global comment. Detailled comment
  */
-// @RunWith(PowerMockRunner.class)
 @PrepareForTest({ SupportDBUrlType.class })
 public class SupportDBUrlTypeTest {
 
@@ -38,8 +35,6 @@ public class SupportDBUrlTypeTest {
     public void testIsMssql() {
 
         String dbKey = "Microsoft SQL Server"; //$NON-NLS-1$
-        PowerMockito.mockStatic(SupportDBUrlType.class);
-        when(SupportDBUrlType.isMssql(dbKey)).thenReturn(true);
         assertTrue(SupportDBUrlType.isMssql(dbKey));
 
     }
