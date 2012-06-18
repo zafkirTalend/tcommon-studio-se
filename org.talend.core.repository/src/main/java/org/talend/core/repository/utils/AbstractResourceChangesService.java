@@ -20,6 +20,8 @@ import org.talend.core.IService;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.properties.TDQItem;
+
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
@@ -76,5 +78,17 @@ public class AbstractResourceChangesService implements IService {
      */
     public void saveResourceByEMFShared(Resource toSave) {
 
+    }
+
+    /**
+     * Support to save the source file which is not an EMF model DOC yyin Comment method "saveSourceFile". added
+     * 20120614 TDQ-5468
+     * 
+     * @param item
+     * @return
+     */
+    public boolean saveSourceFile(TDQItem item) {
+        // TODO Auto-generated method stub
+        return false;
     }
 }
