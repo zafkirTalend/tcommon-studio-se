@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.model;
 
+import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -25,11 +26,13 @@ import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataConnection;
+import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.database.EDatabaseSchemaOrCatalogMapping;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
+import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
@@ -350,6 +353,7 @@ public class ProjectNodeHelper {
     public static void addTableForTemCatalogOrSchema(String dbsid, String schema, DatabaseConnection connection,
             MetadataTable dbtable, IMetadataConnection iMetadataConnection) {
         boolean hasSchemaInCatalog = false;
+        boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType());
         Catalog c = (Catalog) ConnectionHelper.getPackage(dbsid, connection, Catalog.class);
         Schema s = (Schema) ConnectionHelper.getPackage(schema, connection, Schema.class);
         List<Schema> subschemas = new ArrayList<Schema>();
@@ -392,13 +396,18 @@ public class ProjectNodeHelper {
                 }
                 // PackageHelper.addMetadataTable(dbtable, s);
             }
+        } else if (s == null && c == null && !isAccess) { // TDI-20584:after migration from 4.0 to 4.2,lost all catalogs
+                                                          // and schemas for database
+            // in case after migration connetion from the version before 4.0,there is no any db structure on
+            // temConnection,it will casue pbs,so sychronize with imetadataConnection
+            fillCatalogAndSchemas(iMetadataConnection, connection);
+            addTableForTemCatalogOrSchema(dbsid, schema, connection, dbtable, iMetadataConnection);
         } else {
             /*
              * if there is no catalog or schema,create the structure correctly rather than always create a catalog,found
              * this issue when fixing bug 16636
              */
             ProjectNodeHelper.addCatalogOrSchema(iMetadataConnection, connection);
-            boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType());
             if (isAccess) {
                 addTableForTemCatalogOrSchema(dbsid, connection.getName(), connection, dbtable, iMetadataConnection);
             } else {
@@ -481,6 +490,28 @@ public class ProjectNodeHelper {
                 c.getDataManager().add(dbconn);
                 ConnectionHelper.addCatalog(c, dbconn);
             }
+        }
+    }
+
+    public static void fillCatalogAndSchemas(IMetadataConnection iMetadataConnection, DatabaseConnection temConnection) {
+        java.sql.Connection sqlConn = null;
+        temConnection = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(iMetadataConnection,
+                temConnection);
+        sqlConn = (java.sql.Connection) MetadataConnectionUtils.checkConnection(iMetadataConnection).getObject();
+        // because there is no any structure after import into 423 from 402,just sychronized the two connection's
+        // UISchema for fill catalogs and scheams
+        if (((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getUiSchema() != null) {
+            temConnection.setUiSchema(((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getUiSchema());
+        }
+        String dbType = iMetadataConnection.getDbType();
+        if (sqlConn != null) {
+            DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType, false,
+                    iMetadataConnection.getDatabase());
+            MetadataFillFactory.getDBInstance().fillCatalogs(temConnection, dbMetaData,
+                    MetadataConnectionUtils.getPackageFilter(temConnection, dbMetaData, true));
+
+            MetadataFillFactory.getDBInstance().fillSchemas(temConnection, dbMetaData,
+                    MetadataConnectionUtils.getPackageFilter(temConnection, dbMetaData, false));
         }
     }
 
@@ -583,5 +614,4 @@ public class ProjectNodeHelper {
             // return nothing
         }
     }
-
 }

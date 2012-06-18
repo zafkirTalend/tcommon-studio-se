@@ -834,7 +834,6 @@ public class ExtractMetaDataFromDataBase {
                     tableLabel);
             metadataColumns = extractColumns(dbMetaData, iMetadataConnection, dbType, cataAndShema.get(0), cataAndShema.get(1),
                     tableLabel);
-
             if (needCreateAndClose) {
                 ExtractMetaDataUtils.closeConnection();
             }
@@ -2629,8 +2628,8 @@ public class ExtractMetaDataFromDataBase {
                 }
             }
         }
-        catalogAndSchema.add(catalogName);
-        catalogAndSchema.add(" ".equals(schemaName) ? null : schemaName); //$NON-NLS-1$
+        catalogAndSchema.add("".equals(catalogName) ? null : catalogName);
+        catalogAndSchema.add((" ".equals(schemaName) || "".equals(schemaName)) ? null : schemaName); //$NON-NLS-1$
         return catalogAndSchema;
     }
 

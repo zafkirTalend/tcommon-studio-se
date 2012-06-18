@@ -888,49 +888,45 @@ public class SelectorTableForm extends AbstractForm {
         }
         try {
             if (sqlConn != null) {
+
                 DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType, false,
                         metadataconnection.getDatabase());
                 MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, dm,
                         MetadataConnectionUtils.getPackageFilter(dbConn, dm, true));
                 MetadataFillFactory.getDBInstance().fillSchemas(dbConn, dm,
                         MetadataConnectionUtils.getPackageFilter(dbConn, dm, false));
-
-                // EList<Package> nps = dbConn.getDataPackage();
-                // EList<Package> ops = getConnection().getDataPackage();
+                // EList<orgomg.cwm.objectmodel.core.Package> nps = dbConn.getDataPackage();
+                // EList<orgomg.cwm.objectmodel.core.Package> ops = getConnection().getDataPackage();
                 // if (ops != null && !ops.isEmpty()) {
-                // for (Package op : ops) {
+                // for (orgomg.cwm.objectmodel.core.Package op : ops) {
                 // if (op instanceof Catalog) {
                 // Catalog c = (Catalog) ConnectionHelper.getPackage(((Catalog) op).getName(), dbConn, Catalog.class);
                 // if (nps != null && !nps.isEmpty()) {
-                // Package p = nps.get(0);
+                // orgomg.cwm.objectmodel.core.Package p = nps.get(0);
                 // if (p instanceof Catalog && c == null) {
-                // // EList<ModelElement> ownedElement = op.getOwnedElement();
-                // // if (ownedElement != null && !ownedElement.isEmpty()) {
-                // // Iterator<ModelElement> iterator = ownedElement.iterator();
-                // // while (iterator.hasNext()) {
-                // // ModelElement o = iterator.next();
-                // // if (o instanceof Schema) {
-                // // Iterator<ModelElement> i = ((Schema) o).getOwnedElement().iterator();
-                // // while (i.hasNext()) {
-                // // i.remove();
-                // // }
-                // // } else if (o instanceof MetadataTable) {
-                // // iterator.remove();
-                // // }
-                // // }
-                // // }
+                // EList<ModelElement> ownedElement = op.getOwnedElement();
+                // if (ownedElement != null && !ownedElement.isEmpty()) {
+                // Iterator<ModelElement> iterator = ownedElement.iterator();
+                // while (iterator.hasNext()) {
+                // ModelElement o = iterator.next();
+                // if (o instanceof Schema) {
+                // Iterator<ModelElement> i = ((Schema) o).getOwnedElement().iterator();
+                // while (i.hasNext()) {
+                // i.remove();
+                // }
+                // } else if (o instanceof MetadataTable) {
+                // iterator.remove();
+                // }
+                // }
+                // }
                 // ConnectionHelper.addCatalog((Catalog) op, dbConn);
                 // }
                 // }
                 // } else if (op instanceof Schema) {
                 // Schema s = (Schema) ConnectionHelper.getPackage(((Schema) op).getName(), dbConn, Schema.class);
                 // if (nps != null && !nps.isEmpty()) {
-                // Package p = nps.get(0);
+                // orgomg.cwm.objectmodel.core.Package p = nps.get(0);
                 // if (p instanceof Schema && s == null) {
-                // // Iterator<ModelElement> iterator = op.getOwnedElement().iterator();
-                // // while (iterator.hasNext()) {
-                // // iterator.remove();
-                // // }
                 // ConnectionHelper.addSchema((Schema) op, dbConn);
                 // }
                 // }
@@ -1556,10 +1552,12 @@ public class SelectorTableForm extends AbstractForm {
                     Iterator iterate = metadataColumns.iterator();
                     while (iterate.hasNext()) {
                         MetadataColumn metadataColumn = (MetadataColumn) iterate.next();
-                        if (metadataColumn.getTalendType().equals(JavaTypesManager.DATE.getId())
-                                || metadataColumn.getTalendType().equals(PerlTypesManager.DATE)) {
-                            if ("".equals(metadataColumn.getPattern())) { //$NON-NLS-1$
-                                metadataColumn.setPattern(TalendQuoteUtils.addQuotes("dd-MM-yyyy")); //$NON-NLS-1$
+                        if (metadataColumn.getTalendType() != null) {
+                            if (metadataColumn.getTalendType().equals(JavaTypesManager.DATE.getId())
+                                    || metadataColumn.getTalendType().equals(PerlTypesManager.DATE)) {
+                                if ("".equals(metadataColumn.getPattern())) { //$NON-NLS-1$
+                                    metadataColumn.setPattern(TalendQuoteUtils.addQuotes("dd-MM-yyyy")); //$NON-NLS-1$
+                                }
                             }
                         }
                         // Check the label and add it to the table
@@ -1597,7 +1595,6 @@ public class SelectorTableForm extends AbstractForm {
                                 }
                             }
                         }
-
                         ProjectNodeHelper.addTableForTemCatalogOrSchema(catalog, schema, getConnection(), dbtable,
                                 metadataconnection);
                     }
@@ -2043,6 +2040,16 @@ public class SelectorTableForm extends AbstractForm {
                             if (label.equals(tableNode.getValue())) {
                                 return true;
                             }
+                        }
+                    }
+                } else {
+                    for (Object obj : ConnectionHelper.getTables(getConnection())) {
+                        if (obj == null) {
+                            continue;
+                        }
+                        MetadataTable table = (MetadataTable) obj;
+                        if (table.getLabel().equals(tableNode.getValue())) {
+                            return true;
                         }
                     }
                 }
