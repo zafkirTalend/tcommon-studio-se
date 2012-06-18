@@ -1529,10 +1529,12 @@ public class SelectorTableForm extends AbstractForm {
                     Iterator iterate = metadataColumns.iterator();
                     while (iterate.hasNext()) {
                         MetadataColumn metadataColumn = (MetadataColumn) iterate.next();
-                        if (metadataColumn.getTalendType().equals(JavaTypesManager.DATE.getId())
-                                || metadataColumn.getTalendType().equals(PerlTypesManager.DATE)) {
-                            if ("".equals(metadataColumn.getPattern())) { //$NON-NLS-1$
-                                metadataColumn.setPattern(TalendQuoteUtils.addQuotes("dd-MM-yyyy")); //$NON-NLS-1$
+                        if (metadataColumn.getTalendType() != null) {
+                            if (metadataColumn.getTalendType().equals(JavaTypesManager.DATE.getId())
+                                    || metadataColumn.getTalendType().equals(PerlTypesManager.DATE)) {
+                                if ("".equals(metadataColumn.getPattern())) { //$NON-NLS-1$
+                                    metadataColumn.setPattern(TalendQuoteUtils.addQuotes("dd-MM-yyyy")); //$NON-NLS-1$
+                                }
                             }
                         }
                         // Check the label and add it to the table
@@ -2015,6 +2017,16 @@ public class SelectorTableForm extends AbstractForm {
                             if (label.equals(tableNode.getValue())) {
                                 return true;
                             }
+                        }
+                    }
+                } else {
+                    for (Object obj : ConnectionHelper.getTables(getConnection())) {
+                        if (obj == null) {
+                            continue;
+                        }
+                        MetadataTable table = (MetadataTable) obj;
+                        if (table.getLabel().equals(tableNode.getValue())) {
+                            return true;
                         }
                     }
                 }

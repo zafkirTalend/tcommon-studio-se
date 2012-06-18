@@ -2624,8 +2624,8 @@ public class ExtractMetaDataFromDataBase {
                 }
             }
         }
-        catalogAndSchema.add(catalogName);
-        catalogAndSchema.add(" ".equals(schemaName) ? null : schemaName); //$NON-NLS-1$
+        catalogAndSchema.add("".equals(catalogName) ? null : catalogName);
+        catalogAndSchema.add((" ".equals(schemaName) || "".equals(schemaName)) ? null : schemaName); //$NON-NLS-1$
         return catalogAndSchema;
     }
 
