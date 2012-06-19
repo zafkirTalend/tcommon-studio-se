@@ -1403,6 +1403,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 false);
         for (IRepositoryViewObject obj : allVersionToMove) {
             Item currentItem = obj.getProperty().getItem();
+            // Added yyin 20120614 TDQ-5468, add ByteArray into item from file.
+            if (currentItem instanceof TDQItem) {
+                this.saveTDQItem((TDQItem) currentItem);
+            }
             // ~
             if (currentItem.getParent() instanceof FolderItem) {
                 ((FolderItem) currentItem.getParent()).getChildren().remove(currentItem);
@@ -1415,10 +1419,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             state.setPath(newPath.toString());
             xmiResourceManager.saveResource(state.eResource());
 
-            // Added yyin 20120614 TDQ-5468, add ByteArray into item from file.
-            if (currentItem instanceof TDQItem) {
-                this.saveTDQItem((TDQItem) currentItem);
-            }
             // all resources attached must be saved before move the resources
             List<Resource> affectedResources = xmiResourceManager.getAffectedResources(obj.getProperty());
             for (Resource resource : affectedResources) {
