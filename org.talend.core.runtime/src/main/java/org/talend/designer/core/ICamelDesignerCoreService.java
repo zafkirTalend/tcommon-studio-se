@@ -44,4 +44,11 @@ public interface ICamelDesignerCoreService extends IService {
     public boolean isInstanceofCamelBeans(Item item);
 
     public boolean isCamelMulitPageEditor(IEditorPart editor);
+
+	/**
+	 * Synchronized Route resource
+	 * 
+	 * @param item
+	 */
+	public void synchronizeRouteResource(Item item);
 }
