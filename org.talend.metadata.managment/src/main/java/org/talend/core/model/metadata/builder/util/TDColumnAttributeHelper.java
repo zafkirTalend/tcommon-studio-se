@@ -22,6 +22,7 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.utils.ManagementTextUtils;
 import org.talend.core.model.metadata.MappingTypeRetriever;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -250,6 +251,7 @@ public class TDColumnAttributeHelper {
             if (columnRemark == null) {
                 columnRemark = "";
             }
+            columnRemark = ManagementTextUtils.filterSpecialChar(columnRemark);
         }
         ColumnHelper.setComment(columnRemark, column);
 

@@ -56,13 +56,17 @@ import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataConnection;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
+import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IMetadataService;
 import org.talend.utils.sugars.TypedReturnCode;
+import orgomg.cwm.objectmodel.core.Expression;
 
 /**
  * DOC cantoine. Extract Meta Data Table. Contains all the Table and Metadata about a DB Connection. <br/>
@@ -1035,5 +1039,40 @@ public class ExtractMetaDataUtils {
         // }
         // }
         // return false;
+    }
+
+    /**
+     * DOC ycbai Comment method "handleDefaultValue".
+     * 
+     * @param column
+     */
+    public static void handleDefaultValue(MetadataColumn column) {
+        if (column == null) {
+            return;
+        }
+        String talendType = column.getTalendType();
+        if (talendType == null) {
+            return;
+        }
+        Expression initialValue = column.getInitialValue();
+        if (initialValue == null) {
+            return;
+        }
+        String defautVal = initialValue.getBody();
+        if (StringUtils.isEmpty(defautVal)) {
+            return;
+        }
+        if (talendType.equals(JavaTypesManager.INTEGER.getId()) || talendType.equals(JavaTypesManager.FLOAT.getId())
+                || talendType.equals(JavaTypesManager.DOUBLE.getId()) || talendType.equals(JavaTypesManager.LONG.getId())
+                || talendType.equals(JavaTypesManager.SHORT.getId()) || talendType.equals(JavaTypesManager.BIGDECIMAL.getId())
+                || talendType.equals(JavaTypesManager.CHARACTER.getId())) {
+            defautVal = TalendQuoteUtils.removeQuotes(defautVal);
+            if (column.getTalendType().equals(JavaTypesManager.CHARACTER.getId())) {
+                defautVal = TalendQuoteUtils.addQuotes(defautVal, TalendQuoteUtils.SINGLE_QUOTE);
+            }
+            initialValue.setBody(defautVal);
+        } else {
+            initialValue.setBody(TalendQuoteUtils.addQuotesIfNotExist(defautVal));
+        }
     }
 }
