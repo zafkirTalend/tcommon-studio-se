@@ -12,7 +12,10 @@
 // ============================================================================
 package org.talend.core.ui;
 
+import java.util.List;
+
 import org.talend.core.IService;
+import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.ITargetExecutionConfig;
 import org.talend.designer.runprocess.ProcessorException;
 
@@ -22,6 +25,6 @@ import org.talend.designer.runprocess.ProcessorException;
 public interface ICommandlineClientService extends IService {
 
     public Process deployAndRunByCommandline(final ITargetExecutionConfig config, String jobName, String jobVersion,
-            String jobContextName, int statisticsPort, int tracePort, String watchParam, final boolean runnable)
-            throws ProcessorException;
+            String jobContextName, int statisticsPort, int tracePort, String watchParam, final boolean runnable,
+            List<IContextParameter> jobContextParams) throws ProcessorException;
 }
