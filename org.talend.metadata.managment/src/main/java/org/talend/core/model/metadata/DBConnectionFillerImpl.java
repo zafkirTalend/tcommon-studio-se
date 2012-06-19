@@ -1139,6 +1139,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 if (colComment == null) {
                     colComment = "";
                 }
+                colComment = ManagementTextUtils.filterSpecialChar(colComment);
+                column.setComment(colComment);
                 ColumnHelper.setComment(colComment, column);
 
                 // TdExpression
@@ -1149,6 +1151,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     log.warn(e1, e1);
                 }
                 String defaultStr = (defaultvalue != null) ? String.valueOf(defaultvalue) : null;
+                defaultStr = ManagementTextUtils.filterSpecialChar(defaultStr);
                 TdExpression defExpression = createTdExpression(GetColumn.COLUMN_DEF.name(), defaultStr);
                 column.setInitialValue(defExpression);
 
@@ -1173,6 +1176,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 } catch (Exception e) {
                     // do nothing
                 }
+                ExtractMetaDataUtils.handleDefaultValue(column);
                 returnColumns.add(column);
                 columnMap.put(columnName, column);
                 index++;
@@ -1299,6 +1303,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 String defaultStr = (defaultvalue != null) ? String.valueOf(defaultvalue) : null;
                 TdExpression defExpression = createTdExpression(GetColumn.COLUMN_DEF.name(), defaultStr);
                 column.setInitialValue(defExpression);
+                ExtractMetaDataUtils.handleDefaultValue(column);
 
                 DatabaseConnection dbConnection = (DatabaseConnection) ConnectionHelper.getConnection(colSet);
                 String dbmsId = dbConnection == null ? null : dbConnection.getDbmsId();
@@ -1432,7 +1437,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                                 foreignKeysMap.put(fkname, foreignKey);
                             }
                             columnMap.get(colName).getKeyRelationship().add(foreignKey);
-//                            columnMap.get(colName).setKey(true);
+                            // columnMap.get(colName).setKey(true);
                         }
                         fkResult.close();
                         TableHelper.addForeignKeys((TdTable) colSet,

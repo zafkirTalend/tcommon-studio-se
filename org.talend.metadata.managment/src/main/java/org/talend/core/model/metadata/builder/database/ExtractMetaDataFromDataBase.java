@@ -359,7 +359,7 @@ public class ExtractMetaDataFromDataBase {
                 continue;
             }
 
-            medataTable.setLabel(tableName); //$NON-NLS-1$
+            medataTable.setLabel(tableName);
             medataTable.setTableName(medataTable.getLabel());
 
             medataTable.setComment(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "REMARKS", null)); //$NON-NLS-1$
@@ -391,7 +391,7 @@ public class ExtractMetaDataFromDataBase {
             }
 
             try {
-                tableTypeMap.put(medataTable.getLabel(), tableType); //$NON-NLS-1$    
+                tableTypeMap.put(medataTable.getLabel(), tableType);
             } catch (Exception e) {
                 tableTypeMap.put(medataTable.getLabel(), "TABLE"); //$NON-NLS-1$
             }
@@ -565,7 +565,7 @@ public class ExtractMetaDataFromDataBase {
             try {
                 int column_size = columns.getInt("DATA_LENGTH");
                 column.setLength(column_size);
-                numPrecRadix = columns.getLong("DATA_PRECISION");//$NON-NLS-N$
+                numPrecRadix = columns.getLong("DATA_PRECISION");
                 column.setPrecision(numPrecRadix);
             } catch (Exception e1) {
                 log.warn(e1, e1);
@@ -642,7 +642,7 @@ public class ExtractMetaDataFromDataBase {
             try {
                 int column_size = columns.getInt("LENGTH");
                 column.setLength(column_size);
-                numPrecRadix = columns.getLong("SCALE");//$NON-NLS-N$
+                numPrecRadix = columns.getLong("SCALE");
                 column.setPrecision(numPrecRadix);
             } catch (Exception e1) {
                 log.warn(e1, e1);
@@ -752,7 +752,7 @@ public class ExtractMetaDataFromDataBase {
                     lenString = "CHARACTER_MAXIMUM_LENGTH";
                 }
                 column.setLength(column_size);
-                numPrecRadix = columns.getLong("NUMERIC_SCALE");//$NON-NLS-N$
+                numPrecRadix = columns.getLong("NUMERIC_SCALE");
                 column.setPrecision(numPrecRadix);
             } catch (Exception e1) {
                 log.warn(e1, e1);
@@ -764,8 +764,7 @@ public class ExtractMetaDataFromDataBase {
                 MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(dbmsId);
                 String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName,
                         ExtractMetaDataUtils.getIntMetaDataInfo(columns, lenString),
-                        ExtractMetaDataUtils.getIntMetaDataInfo(columns, //$NON-NLS-1$
-                                "NUMERIC_SCALE")); //$NON-NLS-1$
+                        ExtractMetaDataUtils.getIntMetaDataInfo(columns, "NUMERIC_SCALE")); //$NON-NLS-1$
                 column.setTalendType(talendType);
                 String defaultSelectedDbType = MetadataTalendType.getMappingTypeRetriever(dbConnection.getDbmsId())
                         .getDefaultSelectedDbType(talendType);
@@ -1049,7 +1048,7 @@ public class ExtractMetaDataFromDataBase {
                         label = "_" + label; //$NON-NLS-1$
                         b = true;
                     }
-                    metadataColumn.setLabel(label); //$NON-NLS-1$
+                    metadataColumn.setLabel(label);
                     //                    if (label2 != null && label2.length() > 0 && label2.startsWith("_")) { //$NON-NLS-1$
                     // String substring = label2.substring(1);
                     // if (b
@@ -1082,7 +1081,7 @@ public class ExtractMetaDataFromDataBase {
                     if (ExtractMetaDataUtils.isUseAllSynonyms()) {
                         typeName = "DATA_TYPE"; //$NON-NLS-1$
                     }
-                    String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, typeName, null).toUpperCase(); //$NON-NLS-1$
+                    String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, typeName, null).toUpperCase();
                     // For sometime the dbType will return one more space character at the end.So need to trim,comment
                     // for bug 17509
                     dbType = dbType.trim();
@@ -1095,7 +1094,7 @@ public class ExtractMetaDataFromDataBase {
                     // } else {
                     columnSize = ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE");
                     // }
-                    metadataColumn.setLength(columnSize); //$NON-NLS-1$
+                    metadataColumn.setLength(columnSize);
                     // Convert dbmsType to TalendType
 
                     String talendType = null;
@@ -1105,7 +1104,7 @@ public class ExtractMetaDataFromDataBase {
                         mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(metadataConnection.getMapping());
                     }
                     Integer intMetaDataInfo = ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS");
-                    talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, columnSize, intMetaDataInfo); //$NON-NLS-1$
+                    talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, columnSize, intMetaDataInfo);
                     talendType = ManagementTextUtils.filterSpecialChar(talendType);
                     if (talendType == null) {
                         if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
@@ -1132,7 +1131,7 @@ public class ExtractMetaDataFromDataBase {
                         commentInfo = ManagementTextUtils.filterSpecialChar(commentInfo);
                     }
                     // gcui:if not oracle database use "REMARKS" select comments
-                    metadataColumn.setComment(commentInfo); //$NON-NLS-1$
+                    metadataColumn.setComment(commentInfo);
                     if (!isAccess) { // jdbc-odbc driver won't apply methods for access
                         TDColumnAttributeHelper.addColumnAttribute(label, label2, dbType, columnSize, intMetaDataInfo,
                                 commentInfo, columns, metadataColumn,
@@ -1188,6 +1187,7 @@ public class ExtractMetaDataFromDataBase {
                     }
                     stringMetaDataInfo = ManagementTextUtils.filterSpecialChar(stringMetaDataInfo);
                     metadataColumn.setDefaultValue(stringMetaDataInfo);
+                    ExtractMetaDataUtils.handleDefaultValue(metadataColumn);
 
                     // for bug 6919, oracle driver doesn't give correctly the length for timestamp
                     if (EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataConnection.getDbType())
@@ -2456,8 +2456,9 @@ public class ExtractMetaDataFromDataBase {
                 if (tableTypeMap.containsKey(nameKey)) {
                     tableTypeMap.remove(nameKey);
                     tableTypeMap.put(nameKey, resultSet.getString("TABLE_TYPE"));
-                } else
+                } else {
                     tableTypeMap.put(nameKey, resultSet.getString("TABLE_TYPE"));
+                }
             }
             resultSet.close();
         }
@@ -2482,8 +2483,9 @@ public class ExtractMetaDataFromDataBase {
             if ("SYNONYM".equals(selectedTypeName)
                     && iMetadataConnection.getDbType().equals(EDatabaseTypeName.IBMDB2.getDisplayName())) {
                 types[i] = "ALIAS";
-            } else
+            } else {
                 types[i] = selectedTypeName;
+            }
         }
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn,
                 iMetadataConnection.getDbType(), iMetadataConnection.isSqlMode(), iMetadataConnection.getDatabase());
