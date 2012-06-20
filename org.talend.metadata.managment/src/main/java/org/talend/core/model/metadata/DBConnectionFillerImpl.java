@@ -1249,6 +1249,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     // sql
                     // data type it is null and results in a NPE
                     typeName = columns.getString(GetColumn.TYPE_NAME.name());
+                    typeName = typeName.toUpperCase().trim();
+                    typeName = ManagementTextUtils.filterSpecialChar(typeName);
+                    if (typeName.startsWith("TIMESTAMP(") && typeName.endsWith(")")) { //$NON-NLS-1$ //$NON-NLS-2$
+                        typeName = "TIMESTAMP"; //$NON-NLS-1$
+                    }
+                    typeName = MetadataToolHelper.validateValueForDBType(typeName);
                     if (dbJDBCMetadata instanceof DB2ForZosDataBaseMetadata) {
                         // MOD klliu bug TDQ-1164 2011-09-26
                         dataType = Java2SqlType.getJavaTypeBySqlType(typeName);
