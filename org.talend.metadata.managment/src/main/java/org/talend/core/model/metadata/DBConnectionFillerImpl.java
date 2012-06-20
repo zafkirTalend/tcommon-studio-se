@@ -1111,6 +1111,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously the sql
                 // data type it is null and results in a NPE
                 typeName = columns.getString(GetColumn.TYPE_NAME.name());
+                typeName = typeName.toUpperCase().trim();
+                typeName = ManagementTextUtils.filterSpecialChar(typeName);
+                if (typeName.startsWith("TIMESTAMP(") && typeName.endsWith(")")) { //$NON-NLS-1$ //$NON-NLS-2$
+                    typeName = "TIMESTAMP"; //$NON-NLS-1$
+                }
+                typeName = MetadataToolHelper.validateValueForDBType(typeName);
                 if (MetadataConnectionUtils.isMssql(dbJDBCMetadata)) {
                     if (typeName.toLowerCase().equals("date")) {
                         dataType = 91;
