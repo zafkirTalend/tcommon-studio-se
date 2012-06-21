@@ -157,9 +157,10 @@ public class ContextUtils {
         ContextType contextType = null;
         ContextType defaultContextType = null;
         for (ContextType type : contextTypeList) {
-            if (contextName != null && type.getName().equals(contextName)) {
+            // Modified by Marvin Wang on Jun. 21, 2012 for bug TDI-21009. To avoid case sensitive.
+            if (contextName != null && type.getName().toLowerCase().equals(contextName.toLowerCase())) {
                 contextType = type;
-            } else if (defaultContextName != null && type.getName().equals(defaultContextName)) {
+            } else if (defaultContextName != null && type.getName().toLowerCase().equals(defaultContextName.toLowerCase())) {
                 defaultContextType = type;
             }
         }
@@ -216,6 +217,7 @@ public class ContextUtils {
      * 
      * @deprecated by bug 13184
      */
+    @Deprecated
     public static ContextItem getContextItemById(String contextId) {
         if (checkObject(contextId)) {
             return null;
@@ -272,6 +274,7 @@ public class ContextUtils {
      * 
      * @deprecated by bug 13184
      */
+    @Deprecated
     public static ContextItem getContextItemByName(String name) {
         if (checkObject(name)) {
             return null;
@@ -288,6 +291,7 @@ public class ContextUtils {
      * 
      * @deprecated by bug 13184
      */
+    @Deprecated
     public static ContextItem getContextItemByName(List<ContextItem> contextItemList, String name) {
         if (checkObject(contextItemList) || checkObject(name)) {
             return null;
@@ -365,8 +369,8 @@ public class ContextUtils {
         } else {
             String[] existingTypes;
             existingTypes = ContextParameterJavaTypeManager.getPerlTypesLabels();
-            for (int k = 0; k < existingTypes.length; k++) {
-                if (existingTypes[k].equals(sourceParam.getType())) {
+            for (String existingType : existingTypes) {
+                if (existingType.equals(sourceParam.getType())) {
                     exists = true;
                 }
             }
@@ -592,8 +596,8 @@ public class ContextUtils {
         } else {
             String[] existingTypes;
             existingTypes = ContextParameterJavaTypeManager.getPerlTypesLabels();
-            for (int k = 0; k < existingTypes.length; k++) {
-                if (existingTypes[k].equals(contextParamType.getType())) {
+            for (String existingType : existingTypes) {
+                if (existingType.equals(contextParamType.getType())) {
                     exists = true;
                 }
             }
