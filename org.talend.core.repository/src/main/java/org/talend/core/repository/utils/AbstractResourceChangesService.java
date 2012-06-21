@@ -21,7 +21,6 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.TDQItem;
-
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
@@ -56,6 +55,14 @@ public class AbstractResourceChangesService implements IService {
 
     // ADD qiongli 2011-5-10.should remove dependecy after showing the question of physical delete and confirm.
     public void removeAllDependecies(Item item) {
+
+    }
+
+    /**
+     * 
+     * Handle the non-EMF file move action, such as sql source file & JRXML file etc.
+     */
+    public void postMove(Item dqItem, String targetPath) {
 
     }
 

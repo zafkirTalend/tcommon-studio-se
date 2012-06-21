@@ -150,7 +150,6 @@ import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
-
 import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 
 /**
@@ -1202,11 +1201,17 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             } else {
                 emfFolder.getChildren().remove(childrens[i]);
                 newFolder.getChildren().add(childrens[i]);
+
+                AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
+                        AbstractResourceChangesService.class);
+                if (resChangeService != null) {
+                    resChangeService.postMove(childrens[i], targetPath.toString() + IPath.SEPARATOR + sourcePath.lastSegment());
+                }
+
                 childrens[i].setParent(newFolder);
 
                 // MDO gdbu 2011-9-29 TDQ-3546
                 List<Resource> affectedResources = xmiResourceManager.getAffectedResources(childrens[i].getProperty());
-
                 for (Resource resource : affectedResources) {
                     IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath)
                             .append(resource.getURI().lastSegment());
@@ -1221,10 +1226,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         EcoreUtil.resolveAll(re);
                         needSaves.add(re);
                     }
+
                     xmiResourceManager.moveResource(resource, path);
 
-                    AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
-                            AbstractResourceChangesService.class);
                     if (resChangeService != null) {
                         for (Resource toSave : needSaves) {
                             resChangeService.saveResourceByEMFShared(toSave);
