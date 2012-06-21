@@ -157,9 +157,10 @@ public class ContextUtils {
         ContextType contextType = null;
         ContextType defaultContextType = null;
         for (ContextType type : contextTypeList) {
-            if (contextName != null && type.getName().equals(contextName)) {
+            // Modified by Marvin Wang on Jun. 21, 2012 for bug TDI-21009. To avoid case sensitive.
+            if (contextName != null && type.getName().toLowerCase().equals(contextName.toLowerCase())) {
                 contextType = type;
-            } else if (defaultContextName != null && type.getName().equals(defaultContextName)) {
+            } else if (defaultContextName != null && type.getName().toLowerCase().equals(defaultContextName.toLowerCase())) {
                 defaultContextType = type;
             }
         }
