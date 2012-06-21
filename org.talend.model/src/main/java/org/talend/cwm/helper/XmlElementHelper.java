@@ -27,13 +27,15 @@ import org.talend.cwm.xml.TdXmlSchema;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
- * DOC xqliu  class global comment. Detailled comment
+ * DOC xqliu class global comment. Detailled comment
  */
 public final class XmlElementHelper {
 
-    public static final String SLASH = "/";
+    public static final String SLASH = "/";//$NON-NLS-1$
 
-    public static final String DOUBLE_SLASH = "//";
+    public static final String DOUBLE_SLASH = "//";//$NON-NLS-1$
+
+    public static final String emptyString = "";//$NON-NLS-1$
 
     private XmlElementHelper() {
     }
@@ -157,5 +159,39 @@ public final class XmlElementHelper {
             }
         }
         return result;
+    }
+
+    /**
+     * 
+     * DOC qiongli Comment method "getFullPath".
+     * 
+     * @param xmlElement
+     * @param path
+     * @return
+     */
+    public static String getFullPath(TdXmlElementType xmlElement, String path) {
+        if (path == null) {
+            path = emptyString;
+        }
+        if (xmlElement == null) {
+            return path;
+        }
+
+        ModelElement parentElement = XmlElementHelper.getParentElement(xmlElement);
+        TdXmlSchema xmlSchema = SwitchHelpers.XMLSCHEMA_SWITCH.doSwitch(parentElement);
+        if (xmlSchema != null) {
+            return path;
+        } else {
+            TdXmlElementType parentXmlElement = SwitchHelpers.XMLELEMENTTYPE_SWITCH.doSwitch(parentElement);
+            if (parentXmlElement != null) {
+                if (path.equals(emptyString)) {
+                    path = parentElement.getName();
+                } else {
+                    path = parentElement.getName() + SLASH + path;
+                }
+                return getFullPath(parentXmlElement, path);
+            }
+        }
+        return path;
     }
 }
