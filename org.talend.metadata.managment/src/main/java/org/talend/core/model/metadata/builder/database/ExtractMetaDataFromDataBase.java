@@ -789,6 +789,7 @@ public class ExtractMetaDataFromDataBase {
      * @return Collection of MetadataColumn Object of a Table
      * @deprecated
      */
+    @Deprecated
     public static synchronized List<TdColumn> returnMetadataColumnsFormTable(IMetadataConnection iMetadataConnection,
             String tableLabel, boolean... dontCreateClose) {
 
@@ -1145,9 +1146,8 @@ public class ExtractMetaDataFromDataBase {
                         Integer ident1 = 0;
                         Integer ident2 = 0;
                         try {
-                            PreparedStatement statement = ExtractMetaDataUtils.conn
-                                    .prepareStatement(" select IDENT_SEED ( '" + tableName + "')," + "IDENT_INCR ( '" //$NON-NLS-N$ //$NON-NLS-N$ //$NON-NLS-N$
-                                            + tableName + "')"); //$NON-NLS-1$ 
+                            PreparedStatement statement = ExtractMetaDataUtils.conn.prepareStatement(" select IDENT_SEED ( '"
+                                    + tableName + "')," + "IDENT_INCR ( '" + tableName + "')"); //$NON-NLS-1$ 
                             ResultSet resultSet = null;
                             ExtractMetaDataUtils.setQueryStatementTimeout(statement);
                             if (statement.execute()) {
@@ -1213,14 +1213,14 @@ public class ExtractMetaDataFromDataBase {
                 try {
                     PreparedStatement statement = ExtractMetaDataUtils.conn
                             .prepareStatement("SELECT COMMENTS FROM USER_COL_COMMENTS WHERE TABLE_NAME='" //$NON-NLS-1$
-                                    + tableName + "'"); //$NON-NLS-1$ //$NON-NLS-2$
+                                    + tableName + "'"); //$NON-NLS-1$ 
                     ResultSet keys = null;
                     ExtractMetaDataUtils.setQueryStatementTimeout(statement);
                     if (statement.execute()) {
                         keys = statement.getResultSet();
                         int i = 0;
                         while (keys.next()) {
-                            MetadataColumn metadataColumn = (MetadataColumn) metadataColumns.get(i++);
+                            MetadataColumn metadataColumn = metadataColumns.get(i++);
                             metadataColumn.setComment(ManagementTextUtils.filterSpecialChar(keys.getString("COMMENTS"))); //$NON-NLS-1$
                         }
                     }
@@ -1345,7 +1345,7 @@ public class ExtractMetaDataFromDataBase {
                         label = "_" + label; //$NON-NLS-1$
                         b = true;
                     }
-                    metadataColumn.setLabel(label); //$NON-NLS-1$
+                    metadataColumn.setLabel(label);
                     //                    if (label2 != null && label2.length() > 0 && label2.startsWith("_")) { //$NON-NLS-1$
                     // String substring = label2.substring(1);
                     // if (b
@@ -1378,7 +1378,7 @@ public class ExtractMetaDataFromDataBase {
                     if (ExtractMetaDataUtils.isUseAllSynonyms()) {
                         typeName = "DATA_TYPE"; //$NON-NLS-1$
                     }
-                    String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, typeName, null).toUpperCase(); //$NON-NLS-1$
+                    String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, typeName, null).toUpperCase();
                     // For sometime the dbType will return one more space character at the end.So need to trim,comment
                     // for bug 17509
                     dbType = dbType.trim();
@@ -1391,7 +1391,7 @@ public class ExtractMetaDataFromDataBase {
                     // } else {
                     columnSize = ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE");
                     // }
-                    metadataColumn.setLength(columnSize); //$NON-NLS-1$
+                    metadataColumn.setLength(columnSize);
                     // Convert dbmsType to TalendType
 
                     String talendType = null;
@@ -2653,5 +2653,52 @@ public class ExtractMetaDataFromDataBase {
             }
         }
         return null;
+    }
+
+    public static HashMap<String, String> getPrimaryKeys(IMetadataConnection iMetadataConnection, DatabaseMetaData dbMetaData,
+            TableNode tableNode) {
+        HashMap<String, String> primaryKeys = new HashMap<String, String>();
+        boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType());
+        boolean isHive = MetadataConnectionUtils.isHive(dbMetaData);
+
+        String catalogName = null;
+        String schemaName = null;
+
+        TableNode parent = tableNode.getParent();
+        if (parent != null) {
+            if (parent.getType() == TableNode.CATALOG) {
+                catalogName = parent.getValue();
+            } else if (parent.getType() == TableNode.SCHEMA) {
+                schemaName = parent.getValue();
+                TableNode catalogNode = parent.getParent();
+                if (catalogNode != null) {
+                    catalogName = catalogNode.getValue();
+                }
+            }
+        }
+        if (!isHive) {
+            try {
+                ResultSet keys;
+                if (!isAccess) {
+                    keys = dbMetaData.getPrimaryKeys(catalogName, schemaName, tableNode.getValue());
+                } else {
+                    keys = dbMetaData.getIndexInfo(catalogName, schemaName, tableNode.getValue(), true, true);
+                }
+                primaryKeys.clear();
+                while (keys.next()) {
+                    primaryKeys.put(keys.getString("COLUMN_NAME"), "PRIMARY KEY"); //$NON-NLS-1$ //$NON-NLS-2$
+                }
+                keys.close();
+
+                // PTODO ftang: should to support all kinds of databases not only for Mysql.
+                Connection connection;
+                connection = dbMetaData.getConnection();
+                checkUniqueKeyConstraint(tableNode.getValue(), primaryKeys, connection);
+            } catch (Exception e) {
+                log.error(e.toString());
+            }
+
+        }
+        return primaryKeys;
     }
 }
