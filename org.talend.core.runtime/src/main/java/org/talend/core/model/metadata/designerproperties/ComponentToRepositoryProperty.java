@@ -100,13 +100,8 @@ public class ComponentToRepositoryProperty {
             // add url instance ------DataStringConnection
             DatabaseConnection conn = (DatabaseConnection) connection;
             // see bug in 18011, set url and driver_jar.
-            if (conn.getDatabaseType().equals(EDatabaseTypeName.GENERAL_JDBC.getDisplayName())) {
-                String url = conn.getURL();
-                conn.setURL(url);
-            } else {
-                String url = DatabaseConnStrUtil.getURLString(conn);
-                conn.setURL(url);
-            }
+            conn.setURL(DatabaseConnStrUtil.getURLString(conn));
+
             // see bug in feature 5998, set dbmsId.
             String repositoryType = node.getElementParameter("PROPERTY_TYPE").getRepositoryValue(); //$NON-NLS-1$
             if (repositoryType.startsWith("DATABASE") && repositoryType.contains(":")) { //$NON-NLS-1$ //$NON-NLS-2$
