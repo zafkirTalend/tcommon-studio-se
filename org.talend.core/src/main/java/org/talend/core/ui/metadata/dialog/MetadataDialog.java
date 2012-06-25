@@ -272,6 +272,14 @@ public class MetadataDialog extends Dialog {
         metaView.setShowPatternColumn(!eltComponent);
 
         metaView.setShowOriginalLength(isEBCDIC);
+
+        if (isEBCDIC) {
+            metaView.setShowOriginalLength(true);
+            List<String> fieldList = new ArrayList<String>();
+            fieldList.add("ImpliedDecimal"); //$NON-NLS-1$
+            fieldList.add("Signed"); //$NON-NLS-1$
+            metaView.setAdditionalFields(fieldList);
+        }
     }
 
     @Override

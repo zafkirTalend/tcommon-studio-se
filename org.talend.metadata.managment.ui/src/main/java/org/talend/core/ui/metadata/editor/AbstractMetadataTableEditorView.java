@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.core.ui.metadata.editor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
@@ -84,6 +87,10 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     public static final String ID_COLUMN_ORIGINALLENGTH = "ID_COLUMN_ORIGINALLENGTH"; //$NON-NLS-1$
 
+    public static final String ID_COLUMN_IMPLIEDDECIMAL = "ID_COLUMN_IMPLIEDDECIMAL"; //$NON-NLS-1$
+
+    public static final String ID_COLUMN_SIGNED = "ID_COLUMN_SIGNED"; //$NON-NLS-1$
+
     public static final String ID_COLUMN_LENGHT = "ID_COLUMN_LENGHT"; //$NON-NLS-1$
 
     public static final String ID_COLUMN_PRECISION = "ID_COLUMN_PRECISION"; //$NON-NLS-1$
@@ -93,6 +100,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
     public static final String ID_COLUMN_RELATIONSHIP_TYPE = "ID_COLUMN_RELATIONSHIP_TYPE";//$NON-NLS-1$
 
     public static final String ID_COLUMN_RELATED_ENTITY = "ID_COLUMN_RELATED_ENTITY";//$NON-NLS-1$
+
+    public static final String ID_COLUMN_ADDITIONAL_FIELD = "ID_COLUMN_ADDITIONAL_FIELD";
 
     protected boolean showDbColumnName, showOriginalLength;
 
@@ -109,6 +118,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
     private boolean showPatternColumn = true;
 
     protected String dbmsId;
+
+    private List<String> additionalFields;
 
     /**
      * DOC amaumont AbstractMetadataTableEditorView constructor comment.
@@ -261,6 +272,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
             configureOriginalLengthColumn(tableViewerCreator);
         }
 
+        configureAdditionalFieldColumns(tableViewerCreator);
         // //////////////////////////////////////////////////////////////////////////////////////
 
         configurePrecisionColumn(tableViewerCreator);
@@ -278,6 +290,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
             configureRelationshipType(tableViewerCreator);
             configureRelatedEntity(tableViewerCreator);
         }
+
     }
 
     /**
@@ -326,11 +339,42 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
     }
 
     /**
-     * DOC amaumont Comment method "getCommentAccessor".
+     * DOC ldong Comment method "getCommentAccessor".
      * 
      * @return
      */
     protected abstract IBeanPropertyAccessors<B, Integer> getOriginalLengthAccessor();
+
+    protected void configureAdditionalFieldColumns(TableViewerCreator<B> tableViewerCreator) {
+        if (additionalFields != null) {
+            for (String field : additionalFields) {
+                TableViewerCreatorColumn column;
+                column = new TableViewerCreatorColumn(tableViewerCreator);
+                column.setId(ID_COLUMN_ADDITIONAL_FIELD + "_" + field); //$NON-NLS-1$
+                column.setTitle(field);
+                column.setToolTipHeader(field);
+                column.setBeanPropertyAccessors(getAdditionalFieldAccessor(field));
+                column.setWeight(10);
+                column.setModifiable(true);
+                column.setMinimumWidth(20);
+                column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
+            }
+        }
+    }
+
+    /**
+     * DOC ldong Comment method "getCommentAccessor".
+     * 
+     * @return
+     */
+    protected abstract IBeanPropertyAccessors<B, String> getAdditionalFieldAccessor(String field);
+
+    /**
+     * DOC ldong Comment method "getCommentAccessor".
+     * 
+     * @return
+     */
+    // protected abstract IBeanPropertyAccessors<B, String> getSignedDecimalAccessor();
 
     /**
      * DOC amaumont Comment method "configureDefaultColumn".
@@ -939,5 +983,16 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     public void setShowOriginalLength(boolean showOriginalLength) {
         this.showOriginalLength = showOriginalLength;
+    }
+
+    public void setShowAdditionalFields(boolean showImpliedDecimal) {
+        List<String> fieldList = new ArrayList<String>();
+        fieldList.add("ImpliedDecimal");
+        fieldList.add("Signed");
+        setAdditionalFields(fieldList);
+    }
+
+    public void setAdditionalFields(List<String> additionalFields) {
+        this.additionalFields = additionalFields;
     }
 }

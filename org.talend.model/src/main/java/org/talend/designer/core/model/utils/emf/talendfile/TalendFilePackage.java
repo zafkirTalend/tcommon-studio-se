@@ -197,13 +197,22 @@ public interface TalendFilePackage extends EPackage {
     int COLUMN_TYPE__ORIGINAL_LENGTH = 13;
 
     /**
+     * The feature id for the '<em><b>Additional Field</b></em>' map.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COLUMN_TYPE__ADDITIONAL_FIELD = 14;
+
+    /**
      * The number of structural features of the '<em>Column Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE_FEATURE_COUNT = 14;
+    int COLUMN_TYPE_FEATURE_COUNT = 15;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl <em>Connection Type</em>}' class.
@@ -1665,6 +1674,43 @@ public interface TalendFilePackage extends EPackage {
     int SCREENSHOTS_MAP_FEATURE_COUNT = 2;
 
     /**
+     * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.AdditionalFieldMapImpl <em>Additional Field Map</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.core.model.utils.emf.talendfile.impl.AdditionalFieldMapImpl
+     * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getAdditionalFieldMap()
+     * @generated
+     */
+    int ADDITIONAL_FIELD_MAP = 24;
+
+    /**
+     * The feature id for the '<em><b>Key</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ADDITIONAL_FIELD_MAP__KEY = 0;
+
+    /**
+     * The feature id for the '<em><b>Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ADDITIONAL_FIELD_MAP__VALUE = 1;
+
+    /**
+     * The number of structural features of the '<em>Additional Field Map</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ADDITIONAL_FIELD_MAP_FEATURE_COUNT = 2;
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType <em>Column Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1827,6 +1873,17 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      */
     EAttribute getColumnType_OriginalLength();
+
+    /**
+     * Returns the meta object for the map '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getAdditionalField <em>Additional Field</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the map '<em>Additional Field</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getAdditionalField()
+     * @see #getColumnType()
+     * @generated
+     */
+    EReference getColumnType_AdditionalField();
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType <em>Connection Type</em>}'.
@@ -3304,6 +3361,40 @@ public interface TalendFilePackage extends EPackage {
     EAttribute getScreenshotsMap_Value();
 
     /**
+     * Returns the meta object for class '{@link java.util.Map.Entry <em>Additional Field Map</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Additional Field Map</em>'.
+     * @see java.util.Map.Entry
+     * @model keyDataType="org.eclipse.emf.ecore.EString"
+     *        valueDataType="org.eclipse.emf.ecore.EString"
+     * @generated
+     */
+    EClass getAdditionalFieldMap();
+
+    /**
+     * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Key</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Key</em>'.
+     * @see java.util.Map.Entry
+     * @see #getAdditionalFieldMap()
+     * @generated
+     */
+    EAttribute getAdditionalFieldMap_Key();
+
+    /**
+     * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Value</em>'.
+     * @see java.util.Map.Entry
+     * @see #getAdditionalFieldMap()
+     * @generated
+     */
+    EAttribute getAdditionalFieldMap_Value();
+
+    /**
      * Returns the factory that creates the instances of the model.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3446,6 +3537,14 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EAttribute COLUMN_TYPE__ORIGINAL_LENGTH = eINSTANCE.getColumnType_OriginalLength();
+
+        /**
+         * The meta object literal for the '<em><b>Additional Field</b></em>' map feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference COLUMN_TYPE__ADDITIONAL_FIELD = eINSTANCE.getColumnType_AdditionalField();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl <em>Connection Type</em>}' class.
@@ -4580,6 +4679,32 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EAttribute SCREENSHOTS_MAP__VALUE = eINSTANCE.getScreenshotsMap_Value();
+
+        /**
+         * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.AdditionalFieldMapImpl <em>Additional Field Map</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.core.model.utils.emf.talendfile.impl.AdditionalFieldMapImpl
+         * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getAdditionalFieldMap()
+         * @generated
+         */
+        EClass ADDITIONAL_FIELD_MAP = eINSTANCE.getAdditionalFieldMap();
+
+        /**
+         * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ADDITIONAL_FIELD_MAP__KEY = eINSTANCE.getAdditionalFieldMap_Key();
+
+        /**
+         * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ADDITIONAL_FIELD_MAP__VALUE = eINSTANCE.getAdditionalFieldMap_Value();
 
     }
 

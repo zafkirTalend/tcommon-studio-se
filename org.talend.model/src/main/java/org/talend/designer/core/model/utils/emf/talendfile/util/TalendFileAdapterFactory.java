@@ -156,6 +156,9 @@ public class TalendFileAdapterFactory extends AdapterFactoryImpl {
             public Object caseScreenshotsMap(Map.Entry object) {
                 return createScreenshotsMapAdapter();
             }
+            public Object caseAdditionalFieldMap(Map.Entry object) {
+                return createAdditionalFieldMapAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -507,6 +510,20 @@ public class TalendFileAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createScreenshotsMapAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link java.util.Map.Entry <em>Additional Field Map</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see java.util.Map.Entry
+     * @generated
+     */
+    public Adapter createAdditionalFieldMapAdapter() {
         return null;
     }
 

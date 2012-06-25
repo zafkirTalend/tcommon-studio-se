@@ -6,6 +6,9 @@
  */
 package org.talend.designer.core.model.utils.emf.talendfile;
 
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
+import java.util.Map;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -30,6 +33,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getRelatedEntity <em>Related Entity</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getRelationshipType <em>Relationship Type</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getOriginalLength <em>Original Length</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getAdditionalField <em>Additional Field</em>}</li>
  * </ul>
  * </p>
  *
@@ -522,5 +526,22 @@ public interface ColumnType extends EObject {
      * @generated
      */
     void setOriginalLength(int value);
+
+    /**
+     * Returns the value of the '<em><b>Additional Field</b></em>' map.
+     * The key is of type {@link java.lang.String},
+     * and the value is of type {@link java.lang.String},
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Additional Field</em>' reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Additional Field</em>' map.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getColumnType_AdditionalField()
+     * @model mapType="org.talend.designer.core.model.utils.emf.talendfile.AdditionalFieldMap" keyType="java.lang.String" valueType="java.lang.String"
+     * @generated
+     */
+    EMap getAdditionalField();
 
 } // ColumnType

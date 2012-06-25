@@ -247,6 +247,12 @@ public class TalendFileSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case TalendFilePackage.ADDITIONAL_FIELD_MAP: {
+                Map.Entry additionalFieldMap = (Map.Entry)theEObject;
+                Object result = caseAdditionalFieldMap(additionalFieldMap);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -608,6 +614,21 @@ public class TalendFileSwitch {
      * @generated
      */
     public Object caseScreenshotsMap(Map.Entry object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Additional Field Map</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Additional Field Map</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseAdditionalFieldMap(Map.Entry object) {
         return null;
     }
 

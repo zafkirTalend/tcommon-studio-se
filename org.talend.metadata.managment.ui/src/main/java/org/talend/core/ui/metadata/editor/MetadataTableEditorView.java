@@ -503,4 +503,19 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
 
         };
     }
+
+    @Override
+    protected IBeanPropertyAccessors<IMetadataColumn, String> getAdditionalFieldAccessor(final String field) {
+        return new IBeanPropertyAccessors<IMetadataColumn, String>() {
+
+            public String get(IMetadataColumn bean) {
+                return bean.getAdditionalField().get(field);
+            }
+
+            public void set(IMetadataColumn bean, String value) {
+                bean.getAdditionalField().put(field, value);
+            }
+
+        };
+    }
 }
