@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 
 /**
@@ -61,6 +64,8 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
     private String relationshipType = "";
 
     private String expression = "";
+
+    private Map<String, String> additionalField = new HashMap<String, String>();
 
     public MetadataColumn() {
         super();
@@ -610,5 +615,10 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
 
     public void setOriginalLength(Integer originalLength) {
         this.originalLength = originalLength;
+    }
+
+    @Override
+    public Map<String, String> getAdditionalField() {
+        return additionalField;
     }
 }

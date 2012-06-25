@@ -36,6 +36,7 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.types.PerlTypesManager;
+import org.talend.cwm.helper.TaggedValueHelper;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -45,6 +46,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+import orgomg.cwm.objectmodel.core.TaggedValue;
 
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
@@ -318,6 +320,9 @@ public class MetadataSchema {
                 final Node originalLength = nodeMap.getNamedItem("originalLength");
                 final Node originalField = nodeMap.getNamedItem("originalDbColumnName"); //$NON-NLS-1$
 
+                final Node impliedDecimal = nodeMap.getNamedItem("ImpliedDecimal"); //$NON-NLS-1$
+                final Node signed = nodeMap.getNamedItem("Signed"); //$NON-NLS-1$
+
                 // final Node function = nodeMap.getNamedItem("pattern"); //$NON-NLS-1$
                 // final Node parameter = nodeMap.getNamedItem("pattern"); //$NON-NLS-1$
                 // final Node preview = nodeMap.getNamedItem("pattern"); //$NON-NLS-1$
@@ -385,6 +390,18 @@ public class MetadataSchema {
                 if (!columnsAlreadyAdded.contains(metadataColumn.getLabel())) {
                     listColumns.add(metadataColumn);
                     columnsAlreadyAdded.add(metadataColumn.getLabel());
+                }
+
+                if (impliedDecimal.getNodeValue() != null) {
+                    TaggedValue impliedDc = TaggedValueHelper.createTaggedValue(
+                            "additionalField:" + impliedDecimal.getNodeName(), impliedDecimal.getNodeValue()); //$NON-NLS-1$
+                    metadataColumn.getTaggedValue().add(impliedDc);
+                }
+
+                if (signed.getNodeValue() != null) {
+                    TaggedValue sign = TaggedValueHelper.createTaggedValue(
+                            "additionalField:" + signed.getNodeName(), signed.getNodeValue()); //$NON-NLS-1$
+                    metadataColumn.getTaggedValue().add(sign);
                 }
             }
         }

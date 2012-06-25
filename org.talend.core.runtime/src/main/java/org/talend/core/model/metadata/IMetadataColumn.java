@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
+import java.util.Map;
+
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
  * 
@@ -140,4 +142,7 @@ public interface IMetadataColumn {
     public String getExpression();
 
     public void setExpression(String expression);
+
+    public Map<String, String> getAdditionalField();
+
 }
