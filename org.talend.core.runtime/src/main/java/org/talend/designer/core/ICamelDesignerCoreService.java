@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.designer.core;
 
+import java.util.List;
+
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.IEditorPart;
 import org.talend.core.IService;
@@ -50,5 +53,5 @@ public interface ICamelDesignerCoreService extends IService {
 	 * 
 	 * @param item
 	 */
-	public void synchronizeRouteResource(Item item);
+	public List<IPath> synchronizeRouteResource(Item item);
 }
