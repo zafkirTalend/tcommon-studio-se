@@ -172,6 +172,17 @@ public final class JavaSqlFactory {
                 }// else we keep the drive class to null, we do not know how to
                  // guess it anymore.
             } // else we are ok
+              // ADD mzhao 2012-06-25 bug TDI-21552, driver class should be replaced when in context mode.
+            if (conn.isContextMode()) {
+                IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
+                if (repositoryService != null) {
+                    // get the original value and select the defalut context
+                    String contextName = conn.getContextName();
+                    DatabaseConnection origValueConn = repositoryService.cloneOriginalValueConnection(dbConn,
+                            contextName == null ? true : false, contextName);
+                    driverClassName = origValueConn.getDriverClass();
+                }
+            }
             return driverClassName;
         }
         MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
