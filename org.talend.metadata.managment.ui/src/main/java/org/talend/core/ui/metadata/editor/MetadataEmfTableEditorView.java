@@ -23,12 +23,14 @@ import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.model.metadata.DbDefaultLengthAndPrecision;
 import org.talend.core.model.metadata.Dbms;
 import org.talend.core.model.metadata.MetadataTalendType;
+import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.impl.MetadataColumnImpl;
 import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.model.metadata.types.TypesManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.proposal.JavaSimpleDateFormatProposalProvider;
+import orgomg.cwm.objectmodel.core.TaggedValue;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -97,6 +99,7 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
         setExtendedTableModel(metadataTableEditor);
     }
 
+    @Override
     public TableViewerCreator<MetadataColumn> getTableViewerCreator() {
         return getExtendedTableViewer().getTableViewerCreator();
     }
@@ -403,12 +406,14 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
     protected boolean canModifyDBColumn(Object bean) {
         // TODO
         if (bean instanceof MetadataColumnImpl) {
-            if (((MetadataColumnImpl) bean).getLabel().equals(((MetadataColumnImpl) bean).getOriginalField()))
+            if (((MetadataColumnImpl) bean).getLabel().equals(((MetadataColumnImpl) bean).getOriginalField())) {
                 return true;
+            }
         }
         return false;
     }
 
+    @Override
     protected IBeanPropertyAccessors<MetadataColumn, String> getRelatedEntityAccessor() {
         return new IBeanPropertyAccessors<MetadataColumn, String>() {
 
@@ -423,6 +428,7 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
         };
     }
 
+    @Override
     protected IBeanPropertyAccessors<MetadataColumn, String> getRelationshipTypeAccessor() {
         return new IBeanPropertyAccessors<MetadataColumn, String>() {
 
@@ -432,6 +438,40 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
 
             public void set(MetadataColumn bean, String value) {
                 bean.setRelationshipType(value);
+            }
+
+        };
+    }
+
+    @Override
+    protected IBeanPropertyAccessors<MetadataColumn, String> getAdditionalFieldAccessor(final String field) {
+        return new IBeanPropertyAccessors<MetadataColumn, String>() {
+
+            public String get(MetadataColumn bean) {
+                String value = null;
+                for (TaggedValue tgValue : bean.getTaggedValue()) {
+                    String tag = tgValue.getTag();
+                    if (tag != null && tag.startsWith(ConvertionHelper.ADDITIONAL_FIELD_PREFIX) && tag.endsWith(field)) {
+                        value = tgValue.getValue();
+                        break;
+                    }
+                }
+                return value;
+            }
+
+            public void set(MetadataColumn bean, String value) {
+                // try to find the tag if exists
+                for (TaggedValue tgValue : bean.getTaggedValue()) {
+                    String tag = tgValue.getTag();
+                    if (tag != null && tag.startsWith(ConvertionHelper.ADDITIONAL_FIELD_PREFIX) && tag.endsWith(field)) {
+                        tgValue.setValue(value);
+                        return;
+                    }
+                }
+                // if no tag exists, create a new one
+                TaggedValue tgValue = orgomg.cwm.objectmodel.core.CoreFactory.eINSTANCE.createTaggedValue();
+                tgValue.setTag(ConvertionHelper.ADDITIONAL_FIELD_PREFIX + field);
+                tgValue.setValue(value);
             }
 
         };

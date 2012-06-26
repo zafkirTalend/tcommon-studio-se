@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.core.ui.metadata.editor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
@@ -94,6 +97,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     public static final String ID_COLUMN_RELATED_ENTITY = "ID_COLUMN_RELATED_ENTITY";//$NON-NLS-1$
 
+    public static final String ID_COLUMN_ADDITIONAL_FIELD = "ID_COLUMN_ADDITIONAL_FIELD";
+
     protected boolean showDbColumnName, showOriginalLength;
 
     protected boolean showDbTypeColumn;
@@ -109,6 +114,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
     private boolean showPatternColumn = true;
 
     protected String dbmsId;
+
+    private List<String> additionalFields;
 
     /**
      * DOC amaumont AbstractMetadataTableEditorView constructor comment.
@@ -261,6 +268,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
             configureOriginalLengthColumn(tableViewerCreator);
         }
 
+        configureAdditionalFieldColumns(tableViewerCreator);
+
         // //////////////////////////////////////////////////////////////////////////////////////
 
         configurePrecisionColumn(tableViewerCreator);
@@ -331,6 +340,30 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      * @return
      */
     protected abstract IBeanPropertyAccessors<B, Integer> getOriginalLengthAccessor();
+
+    protected void configureAdditionalFieldColumns(TableViewerCreator<B> tableViewerCreator) {
+        if (additionalFields != null) {
+            for (String field : additionalFields) {
+                TableViewerCreatorColumn column;
+                column = new TableViewerCreatorColumn(tableViewerCreator);
+                column.setId(ID_COLUMN_ADDITIONAL_FIELD + "_" + field); //$NON-NLS-1$
+                column.setTitle(field);
+                column.setToolTipHeader(field);
+                column.setBeanPropertyAccessors(getAdditionalFieldAccessor(field));
+                column.setWeight(10);
+                column.setModifiable(true);
+                column.setMinimumWidth(20);
+                column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
+            }
+        }
+    }
+
+    /**
+     * DOC ldong Comment method "getCommentAccessor".
+     * 
+     * @return
+     */
+    protected abstract IBeanPropertyAccessors<B, String> getAdditionalFieldAccessor(String field);
 
     /**
      * DOC amaumont Comment method "configureDefaultColumn".
@@ -430,6 +463,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
             column.setWeight(16);
             final ColumnCellModifier columnCellModifier = new ColumnCellModifier(column) {
 
+                @Override
                 public boolean canModify(Object bean) {
                     boolean typeIsDate = currentBeanHasJavaDateType(bean) && !isReadOnly();
                     boolean typeIsDynamic = isCurrentBeanHasType(bean, "id_Dynamic") && !isReadOnly(); //$NON-NLS-1$
@@ -750,7 +784,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
             CellEditorValueAdapter comboValueAdapter = CellEditorValueAdapterFactory.getComboAdapterForComboCellEditor();
             String[] arrayDbTypes = new String[0];
-            arrayDbTypes = MetadataTalendType.getDbTypes(getCurrentDbms()); //$NON-NLS-1$
+            arrayDbTypes = MetadataTalendType.getDbTypes(getCurrentDbms());
             // System.out.println("currentDbms:" + getCurrentDbms() + "
             // dbTypes:" + arrayDbTypes);
             ComboBoxCellEditor typeComboEditor = new ComboBoxCellEditor(tableViewerCreator.getTable(), arrayDbTypes,
@@ -821,6 +855,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      * @param minimumWidth
      * @param minimumHeight
      */
+    @Override
     public void setGridDataSize(final int minimumWidth, final int minimumHeight) {
         getMainComposite().setSize(minimumWidth, minimumHeight);
 
@@ -869,8 +904,9 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      * @return
      */
     public boolean isCurrentBeanHasType(Object element, String typeId) {
-        if (element == null || typeId == null)
+        if (element == null || typeId == null) {
             return false;
+        }
         String talendType = getTalendTypeAccessor().get((B) element);
         return typeId.equals(talendType);
     }
@@ -939,5 +975,16 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     public void setShowOriginalLength(boolean showOriginalLength) {
         this.showOriginalLength = showOriginalLength;
+    }
+
+    public void setShowAdditionalFields(boolean showImpliedDecimal) {
+        List<String> fieldList = new ArrayList<String>();
+        fieldList.add("ImpliedDecimal");
+        fieldList.add("Signed");
+        setAdditionalFields(fieldList);
+    }
+
+    public void setAdditionalFields(List<String> additionalFields) {
+        this.additionalFields = additionalFields;
     }
 }

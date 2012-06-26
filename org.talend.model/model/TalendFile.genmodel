@@ -21,6 +21,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ColumnType/relatedEntity"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ColumnType/relationshipType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ColumnType/originalLength"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TalendFile.ecore#//ColumnType/additionalField"/>
     </genClasses>
     <genClasses ecoreClass="TalendFile.ecore#//ConnectionType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TalendFile.ecore#//ConnectionType/elementParameter"/>
@@ -179,6 +180,10 @@
     <genClasses ecoreClass="TalendFile.ecore#//ScreenshotsMap">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ScreenshotsMap/key"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ScreenshotsMap/value"/>
+    </genClasses>
+    <genClasses ecoreClass="TalendFile.ecore#//AdditionalFieldMap">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//AdditionalFieldMap/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//AdditionalFieldMap/value"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

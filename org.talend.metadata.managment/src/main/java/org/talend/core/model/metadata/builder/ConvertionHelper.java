@@ -31,6 +31,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.repository.model.IRepositoryService;
+import orgomg.cwm.objectmodel.core.TaggedValue;
 
 /**
  * 
@@ -38,6 +39,8 @@ import org.talend.repository.model.IRepositoryService;
 public final class ConvertionHelper {
 
     private static ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+
+    public static String ADDITIONAL_FIELD_PREFIX = "additionalField:";
 
     /**
      * This method doesn't perform a deep copy. DOC tguiu Comment method "convert".
@@ -234,7 +237,16 @@ public final class ConvertionHelper {
             } else {
                 newColumn.setOriginalLength(Long.valueOf(column.getOriginalLength()).intValue());
             }
-
+            if (column.getTaggedValue().size() > 0) {
+                for (TaggedValue tv : column.getTaggedValue()) {
+                    String additionalTag = tv.getTag();
+                    if (additionalTag.startsWith(ADDITIONAL_FIELD_PREFIX)) {
+                        String[] splits = additionalTag.split(":");
+                        additionalTag = splits[1];
+                    }
+                    newColumn.getAdditionalField().put(additionalTag, tv.getValue());
+                }
+            }
             newColumn.setNullable(column.isNullable());
             if (column.getPrecision() < 0) {
                 newColumn.setPrecision(null);

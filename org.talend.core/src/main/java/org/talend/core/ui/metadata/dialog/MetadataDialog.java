@@ -272,6 +272,14 @@ public class MetadataDialog extends Dialog {
         metaView.setShowPatternColumn(!eltComponent);
 
         metaView.setShowOriginalLength(isEBCDIC);
+
+        if (isEBCDIC) {
+            metaView.setShowOriginalLength(true);
+            List<String> fieldList = new ArrayList<String>();
+            fieldList.add("ImpliedDecimal"); //$NON-NLS-1$
+            fieldList.add("Signed"); //$NON-NLS-1$
+            metaView.setAdditionalFields(fieldList);
+        }
     }
 
     @Override
@@ -303,7 +311,7 @@ public class MetadataDialog extends Dialog {
             GridData gridData = new GridData(GridData.FILL_BOTH);
             composite.setLayoutData(gridData);
 
-            metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput); //$NON-NLS-1$
+            metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput);
             inputMetaView = new MetadataTableEditorView(compositesSachForm.getLeftComposite(), SWT.NONE, metadataTableEditor,
                     inputReadOnly, true, true, false);
             initializeMetadataTableView(inputMetaView, inputNode, inputMetaTable);
@@ -353,8 +361,8 @@ public class MetadataDialog extends Dialog {
                     // if the selectionline above zero.just run the method "copyTable(list, getOutputMetaData())".
                     tableItem = inputMetaView.getTable().getSelection();
                     list = new ArrayList<IMetadataColumn>();
-                    for (int i = 0; i < tableItem.length; i++) {
-                        column = (IMetadataColumn) tableItem[i].getData();
+                    for (TableItem element : tableItem) {
+                        column = (IMetadataColumn) element.getData();
                         list.add(column);
                     }
                     if (tableItem.length > 0) {
@@ -405,8 +413,8 @@ public class MetadataDialog extends Dialog {
                     // if the selectionline above zero.just run the method "copyTable(list, getInputMetaData())".
                     tableItem = outputMetaView.getTable().getSelection();
                     list = new ArrayList<IMetadataColumn>();
-                    for (int i = 0; i < tableItem.length; i++) {
-                        column = (IMetadataColumn) tableItem[i].getData();
+                    for (TableItem element : tableItem) {
+                        column = (IMetadataColumn) element.getData();
                         list.add(column);
                     }
                     if (tableItem.length > 0) {
@@ -452,7 +460,7 @@ public class MetadataDialog extends Dialog {
 
                 public void handleEvent(ModifiedBeanEvent<IMetadataColumn> event) {
                     if (AbstractMetadataTableEditorView.ID_COLUMN_NAME.equals(event.column.getId())) {
-                        IMetadataColumn modifiedObject = (IMetadataColumn) event.bean;
+                        IMetadataColumn modifiedObject = event.bean;
                         if (modifiedObject != null) {
                             String originalLabel = changeNameOutColumns.get(modifiedObject);
                             if (originalLabel == null) {
@@ -485,7 +493,7 @@ public class MetadataDialog extends Dialog {
                     outputMetaView.getTableViewerCreator().refresh();
                 }
                 if (AbstractMetadataTableEditorView.ID_COLUMN_NAME.equals(event.column.getId())) {
-                    IMetadataColumn modifiedObject = (IMetadataColumn) event.bean;
+                    IMetadataColumn modifiedObject = event.bean;
                     if (modifiedObject != null) {
                         String originalLabel = changedNameColumns.get(modifiedObject);
                         if (originalLabel == null) {
@@ -565,10 +573,10 @@ public class MetadataDialog extends Dialog {
     private static String getMappingTypeLabelById(String mappingTypeId) {
         Dbms[] dbmsArray = MetadataTalendType.getAllDbmsArray();
 
-        for (int i = 0; i < dbmsArray.length; i++) {
-            String indexId = dbmsArray[i].getId();
+        for (Dbms element : dbmsArray) {
+            String indexId = element.getId();
             if (mappingTypeId.equals(indexId)) {
-                return dbmsArray[i].getLabel();
+                return element.getLabel();
             }
         }
         return null;

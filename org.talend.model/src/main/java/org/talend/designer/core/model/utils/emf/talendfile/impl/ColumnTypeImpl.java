@@ -6,9 +6,15 @@
 package org.talend.designer.core.model.utils.emf.talendfile.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EcoreEMap;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
 
@@ -31,6 +37,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getRelatedEntity <em>Related Entity</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getRelationshipType <em>Relationship Type</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getOriginalLength <em>Original Length</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getAdditionalField <em>Additional Field</em>}</li>
  * </ul>
  * </p>
  *
@@ -347,6 +354,16 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
      * @ordered
      */
     protected int originalLength = ORIGINAL_LENGTH_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getAdditionalField() <em>Additional Field</em>}' map.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getAdditionalField()
+     * @generated
+     * @ordered
+     */
+    protected EMap additionalField;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -729,6 +746,31 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EMap getAdditionalField() {
+        if (additionalField == null) {
+            additionalField = new EcoreEMap(TalendFilePackage.Literals.ADDITIONAL_FIELD_MAP, AdditionalFieldMapImpl.class, this, TalendFilePackage.COLUMN_TYPE__ADDITIONAL_FIELD);
+        }
+        return additionalField;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case TalendFilePackage.COLUMN_TYPE__ADDITIONAL_FIELD:
+                return ((InternalEList)getAdditionalField()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -762,6 +804,9 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
                 return getRelationshipType();
             case TalendFilePackage.COLUMN_TYPE__ORIGINAL_LENGTH:
                 return new Integer(getOriginalLength());
+            case TalendFilePackage.COLUMN_TYPE__ADDITIONAL_FIELD:
+                if (coreType) return getAdditionalField();
+                else return getAdditionalField().map();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -813,6 +858,9 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
                 return;
             case TalendFilePackage.COLUMN_TYPE__ORIGINAL_LENGTH:
                 setOriginalLength(((Integer)newValue).intValue());
+                return;
+            case TalendFilePackage.COLUMN_TYPE__ADDITIONAL_FIELD:
+                ((EStructuralFeature.Setting)getAdditionalField()).set(newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -866,6 +914,9 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
             case TalendFilePackage.COLUMN_TYPE__ORIGINAL_LENGTH:
                 setOriginalLength(ORIGINAL_LENGTH_EDEFAULT);
                 return;
+            case TalendFilePackage.COLUMN_TYPE__ADDITIONAL_FIELD:
+                getAdditionalField().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -904,6 +955,8 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
                 return RELATIONSHIP_TYPE_EDEFAULT == null ? relationshipType != null : !RELATIONSHIP_TYPE_EDEFAULT.equals(relationshipType);
             case TalendFilePackage.COLUMN_TYPE__ORIGINAL_LENGTH:
                 return originalLength != ORIGINAL_LENGTH_EDEFAULT;
+            case TalendFilePackage.COLUMN_TYPE__ADDITIONAL_FIELD:
+                return additionalField != null && !additionalField.isEmpty();
         }
         return super.eIsSet(featureID);
     }

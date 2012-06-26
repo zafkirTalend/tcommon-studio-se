@@ -191,6 +191,13 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
     private EClass screenshotsMapEClass = null;
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass additionalFieldMapEClass = null;
+
+    /**
      * Creates an instance of the model <b>Package</b>, registered with {@link org.eclipse.emf.ecore.EPackage.Registry
      * EPackage.Registry} by the package package URI value.
      * <p>
@@ -372,6 +379,15 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      */
     public EAttribute getColumnType_OriginalLength() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(13);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getColumnType_AdditionalField() {
+        return (EReference)columnTypeEClass.getEStructuralFeatures().get(14);
     }
 
     /**
@@ -1471,6 +1487,33 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getAdditionalFieldMap() {
+        return additionalFieldMapEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAdditionalFieldMap_Key() {
+        return (EAttribute)additionalFieldMapEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAdditionalFieldMap_Value() {
+        return (EAttribute)additionalFieldMapEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1510,6 +1553,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         createEAttribute(columnTypeEClass, COLUMN_TYPE__RELATED_ENTITY);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__RELATIONSHIP_TYPE);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__ORIGINAL_LENGTH);
+        createEReference(columnTypeEClass, COLUMN_TYPE__ADDITIONAL_FIELD);
 
         connectionTypeEClass = createEClass(CONNECTION_TYPE);
         createEReference(connectionTypeEClass, CONNECTION_TYPE__ELEMENT_PARAMETER);
@@ -1669,6 +1713,10 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         screenshotsMapEClass = createEClass(SCREENSHOTS_MAP);
         createEAttribute(screenshotsMapEClass, SCREENSHOTS_MAP__KEY);
         createEAttribute(screenshotsMapEClass, SCREENSHOTS_MAP__VALUE);
+
+        additionalFieldMapEClass = createEClass(ADDITIONAL_FIELD_MAP);
+        createEAttribute(additionalFieldMapEClass, ADDITIONAL_FIELD_MAP__KEY);
+        createEAttribute(additionalFieldMapEClass, ADDITIONAL_FIELD_MAP__VALUE);
     }
 
     /**
@@ -1713,6 +1761,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         initEAttribute(getColumnType_RelatedEntity(), theXMLTypePackage.getString(), "relatedEntity", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getColumnType_RelationshipType(), theXMLTypePackage.getString(), "relationshipType", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getColumnType_OriginalLength(), theXMLTypePackage.getInt(), "originalLength", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getColumnType_AdditionalField(), this.getAdditionalFieldMap(), null, "additionalField", null, 0, -1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(connectionTypeEClass, ConnectionType.class, "ConnectionType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getConnectionType_ElementParameter(), this.getElementParameterType(), null, "elementParameter", null, 0, -1, ConnectionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1872,6 +1921,10 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         initEClass(screenshotsMapEClass, Map.Entry.class, "ScreenshotsMap", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getScreenshotsMap_Key(), ecorePackage.getEString(), "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getScreenshotsMap_Value(), theXMLTypePackage.getBase64Binary(), "value", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(additionalFieldMapEClass, Map.Entry.class, "AdditionalFieldMap", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getAdditionalFieldMap_Key(), ecorePackage.getEString(), "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getAdditionalFieldMap_Value(), ecorePackage.getEString(), "value", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Create resource
         createResource(eNS_URI);
@@ -2916,7 +2969,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "ElementParameter",
              "namespace", "##targetNamespace"
-           });	
+           });		
     }
 
     /**
@@ -2933,7 +2986,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "ElementParameterType",
              "namespace", "##targetNamespace"
-           });																										
+           });																											
     }
 
     /**
@@ -2946,6 +2999,11 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         String source = "MapEntry";																																																																																																																																						
         addAnnotation
           (screenshotsMapEClass, 
+           source, 
+           new String[] {
+           });		
+        addAnnotation
+          (additionalFieldMapEClass, 
            source, 
            new String[] {
            });
