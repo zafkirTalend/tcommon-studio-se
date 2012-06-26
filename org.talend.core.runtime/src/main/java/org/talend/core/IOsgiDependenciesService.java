@@ -15,5 +15,5 @@ public interface IOsgiDependenciesService extends IService{
 	 * key is {@link #IMPORT_PACKAGE} {@link #REQUIRE_BUNDLE} {@link #BUNDLE_CLASSPATH}
 	 * @return
 	 */
-	public Map<String, String> getBundleDependences(ProcessItem pi, EMap additionProperties);
+	public Map<String, String> getBundleDependences(ProcessItem pi, EMap<?, ?> additionProperties);
 }
