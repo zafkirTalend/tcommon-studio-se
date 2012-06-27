@@ -21,7 +21,7 @@ import org.eclipse.gef.commands.Command;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.metadata.IEbcdicConstant;
 import org.talend.core.model.metadata.IMetadataTable;
-import org.talend.core.model.metadata.MetadataTool;
+import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.MultiSchemasUtil;
 import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IElementParameter;
@@ -104,9 +104,9 @@ public class RepositoryChangeMetadataForEBCDICCommand extends Command {
                         String schemaName = (String) line.get(IEbcdicConstant.FIELD_SCHEMA);
                         if (schemaName != null && schemaName.equals(newPropValue)) {
                             found = true;
-                            IMetadataTable table = MetadataTool.getMetadataTableFromNode(node, (String) newPropValue);
+                            IMetadataTable table = MetadataToolHelper.getMetadataTableFromNode(node, (String) newPropValue);
                             if (table != null) {
-                                MetadataTool.copyTable(newOutputMetadata, table);
+                                MetadataToolHelper.copyTable(newOutputMetadata, table);
                             }
 
                         }

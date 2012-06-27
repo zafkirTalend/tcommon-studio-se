@@ -49,7 +49,7 @@ import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
-import org.talend.core.model.metadata.MetadataTool;
+import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.IConnection;
@@ -293,8 +293,8 @@ public class MetadataDialogForMerge extends Dialog {
             folderInput.setUnselectedCloseVisible(false);
 
             Set<INode> inputNodeskey = inputInfos.keySet();
-            
-                  // zli modify for bug 7221
+
+            // zli modify for bug 7221
             INode mainNode = null;
             for (INode inputNode : inputNodeskey) {
                 List<? extends IConnection> outgoingConnections = inputNode.getOutgoingConnections();
@@ -381,12 +381,12 @@ public class MetadataDialogForMerge extends Dialog {
                     // if the selectionline above zero.just run the method "copyTable(list, getOutputMetaData())".
                     tableItem = inputMetaView.getTable().getSelection();
                     list = new ArrayList<IMetadataColumn>();
-                    for (int i = 0; i < tableItem.length; i++) {
-                        column = (IMetadataColumn) tableItem[i].getData();
+                    for (TableItem element : tableItem) {
+                        column = (IMetadataColumn) element.getData();
                         list.add(column);
                     }
                     if (tableItem.length > 0) {
-                        MetadataTool.copyTable(list, getOutputMetaData());
+                        MetadataToolHelper.copyTable(list, getOutputMetaData());
                         outputMetaView.getTableViewerCreator().refresh();
                     }
                 }
@@ -404,7 +404,7 @@ public class MetadataDialogForMerge extends Dialog {
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.Message")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
-                        MetadataTool.copyTable(getInputMetaData(), getOutputMetaData());
+                        MetadataToolHelper.copyTable(getInputMetaData(), getOutputMetaData());
                         outputMetaView.getTableViewerCreator().getTableViewer().refresh();
                     }
                 }
@@ -432,12 +432,12 @@ public class MetadataDialogForMerge extends Dialog {
                     // if the selectionline above zero.just run the method "copyTable(list, getInputMetaData())".
                     tableItem = outputMetaView.getTable().getSelection();
                     list = new ArrayList<IMetadataColumn>();
-                    for (int i = 0; i < tableItem.length; i++) {
-                        column = (IMetadataColumn) tableItem[i].getData();
+                    for (TableItem element : tableItem) {
+                        column = (IMetadataColumn) element.getData();
                         list.add(column);
                     }
                     if (tableItem.length > 0) {
-                        MetadataTool.copyTable(list, getInputMetaData());
+                        MetadataToolHelper.copyTable(list, getInputMetaData());
                         inputMetaView.getTableViewerCreator().refresh();
                     }
                 }
@@ -457,7 +457,7 @@ public class MetadataDialogForMerge extends Dialog {
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.TransferMessage")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
-                        MetadataTool.copyTable(getOutputMetaData(), getInputMetaData());
+                        MetadataToolHelper.copyTable(getOutputMetaData(), getInputMetaData());
                         inputMetaView.getTableViewerCreator().getTableViewer().refresh();
                     }
                 }
@@ -507,11 +507,11 @@ public class MetadataDialogForMerge extends Dialog {
 
             public void handleEvent(ModifiedBeanEvent<IMetadataColumn> event) {
                 if (outputMetaTable.isReadOnly() && outputNode.getComponent().isSchemaAutoPropagated()) {
-                    MetadataTool.copyTable(inputMetaTable, outputMetaTable);
+                    MetadataToolHelper.copyTable(inputMetaTable, outputMetaTable);
                     outputMetaView.getTableViewerCreator().getTableViewer().refresh();
                 }
                 if (AbstractMetadataTableEditorView.ID_COLUMN_NAME.equals(event.column.getId())) {
-                    IMetadataColumn modifiedObject = (IMetadataColumn) event.bean;
+                    IMetadataColumn modifiedObject = event.bean;
                     if (modifiedObject != null) {
                         String originalLabel = changedNameColumns.get(modifiedObject);
                         if (originalLabel == null) {

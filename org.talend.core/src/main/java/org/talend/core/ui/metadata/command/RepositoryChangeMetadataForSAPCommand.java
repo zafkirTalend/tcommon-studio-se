@@ -22,7 +22,7 @@ import org.talend.core.CorePlugin;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.ISAPConstant;
-import org.talend.core.model.metadata.MetadataTool;
+import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.MultiSchemasUtil;
 import org.talend.core.model.metadata.builder.connection.OutputSAPFunctionParameterTable;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn;
@@ -115,9 +115,9 @@ public class RepositoryChangeMetadataForSAPCommand extends Command {
                         String schemaName = (String) line.get(ISAPConstant.FIELD_SCHEMA);
                         if (schemaName != null && schemaName.equals(newPropValue)) {
                             found = true;
-                            IMetadataTable table = MetadataTool.getMetadataTableFromNode(node, (String) newPropValue);
+                            IMetadataTable table = MetadataToolHelper.getMetadataTableFromNode(node, (String) newPropValue);
                             if (table != null) {
-                                MetadataTool.copyTable(newOutputMetadata, table);
+                                MetadataToolHelper.copyTable(newOutputMetadata, table);
                             }
 
                         }

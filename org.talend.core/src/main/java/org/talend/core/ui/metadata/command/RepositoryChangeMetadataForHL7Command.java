@@ -23,7 +23,7 @@ import org.talend.core.model.metadata.IHL7Constant;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.ISAPConstant;
-import org.talend.core.model.metadata.MetadataTool;
+import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.MultiSchemasUtil;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
@@ -122,9 +122,9 @@ public class RepositoryChangeMetadataForHL7Command extends Command {
                         String mappingName = (String) line.get(IHL7Constant.FIELD_SCHEMA);
                         if (schemaName != null && schemaName.equals(newPropValue)) {
                             found = true;
-                            IMetadataTable table = MetadataTool.getMetadataTableFromNode(node, (String) newPropValue);
+                            IMetadataTable table = MetadataToolHelper.getMetadataTableFromNode(node, (String) newPropValue);
                             if (table != null) {
-                                MetadataTool.copyTable(newOutputMetadata, table);
+                                MetadataToolHelper.copyTable(newOutputMetadata, table);
                             }
 
                         }
@@ -176,7 +176,7 @@ public class RepositoryChangeMetadataForHL7Command extends Command {
         }
 
         newOutputMetadata.setLabel((String) newPropValue);
-        newOutputMetadata.setTableName((String) uinqueTableName);
+        newOutputMetadata.setTableName(uinqueTableName);
 
         node.getProcess().addUniqueConnectionName(uinqueTableName);
         node.getMetadataList().add(newOutputMetadata);

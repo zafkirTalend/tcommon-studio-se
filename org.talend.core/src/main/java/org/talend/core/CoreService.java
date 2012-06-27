@@ -57,7 +57,7 @@ import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.ColumnNameChanged;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTalendType;
-import org.talend.core.model.metadata.MetadataTool;
+import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.QueryUtil;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
@@ -98,15 +98,15 @@ public class CoreService implements ICoreService {
     private static Logger log = Logger.getLogger(CoreService.class);
 
     public List<ColumnNameChanged> getColumnNameChanged(IMetadataTable oldTable, IMetadataTable newTable) {
-        return MetadataTool.getColumnNameChanged(oldTable, newTable);
+        return MetadataToolHelper.getColumnNameChanged(oldTable, newTable);
     }
 
     public List<ColumnNameChanged> getNewMetadataColumns(IMetadataTable oldTable, IMetadataTable newTable) {
-        return MetadataTool.getNewMetadataColumns(oldTable, newTable);
+        return MetadataToolHelper.getNewMetadataColumns(oldTable, newTable);
     }
 
     public List<ColumnNameChanged> getRemoveMetadataColumns(IMetadataTable oldTable, IMetadataTable newTable) {
-        return MetadataTool.getRemoveMetadataColumns(oldTable, newTable);
+        return MetadataToolHelper.getRemoveMetadataColumns(oldTable, newTable);
     }
 
     public void initializeForTalendStartupJob() {
@@ -337,7 +337,7 @@ public class CoreService implements ICoreService {
     }
 
     public String validateValueForDBType(String columnName) {
-        return MetadataTool.validateValueForDBType(columnName);
+        return MetadataToolHelper.validateValueForDBType(columnName);
     }
 
     public void synchronizeMapptingXML() {
@@ -456,8 +456,8 @@ public class CoreService implements ICoreService {
                 final BundleFile bundleFile = baseData.getBundleFile();
                 final File baseFile = bundleFile.getBaseFile();
                 String[] allNeededModuls = SapJcoVersion.getAllNeededModuls();
-                for (int i = 0; i < allNeededModuls.length; i++) {
-                    String name = allNeededModuls[i];
+                for (String allNeededModul : allNeededModuls) {
+                    String name = allNeededModul;
                     if (!libManager.contains(name)) {
                         continue;
                     }

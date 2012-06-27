@@ -30,7 +30,7 @@ import org.talend.commons.ui.swt.tableviewer.behavior.DefaultCellModifier;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableLabelProvider;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
-import org.talend.core.model.metadata.MetadataTool;
+import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.types.TypesManager;
 import org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView;
 import org.talend.core.ui.metadata.editor.MetadataTableEditorView;
@@ -123,15 +123,16 @@ public class CustomTableManager {
                     }
 
                     public void widgetSelected(SelectionEvent e) {
-                        MetadataTool.copyTable(table, linkedTable);
-                        if (linkedTableEditorView != null)
+                        MetadataToolHelper.copyTable(table, linkedTable);
+                        if (linkedTableEditorView != null) {
                             linkedTableEditorView.getTableViewerCreator().getTableViewer().refresh();
+                        }
                     }
 
                 };
                 tableEditorView.getToolBar().getButtons();
-                for (Iterator iter = tableEditorView.getToolBar().getButtons().iterator(); iter.hasNext();) {
-                    ExtendedPushButton element = (ExtendedPushButton) iter.next();
+                for (Object element2 : tableEditorView.getToolBar().getButtons()) {
+                    ExtendedPushButton element = (ExtendedPushButton) element2;
                     element.getButton().addSelectionListener(updateLinkedTableListener);
                 }
             }

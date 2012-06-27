@@ -35,7 +35,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.SelectionDialog;
 import org.talend.core.i18n.Messages;
-import org.talend.core.model.metadata.MetadataTool;
+import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.SAPConnection;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
@@ -323,7 +323,7 @@ public class SchemaOperationChoiceDialog extends SelectionDialog {
         boolean valid = true;
         // valid = node.getProcess().checkValidConnectionName(schemaName);
         if (valid) {
-            if (MetadataTool.getMetadataTableFromNode(node, schemaCombo.getText()) != null) {
+            if (MetadataToolHelper.getMetadataTableFromNode(node, schemaCombo.getText()) != null) {
                 valid = false;
             }
         }
@@ -344,7 +344,7 @@ public class SchemaOperationChoiceDialog extends SelectionDialog {
                 List<MetadataTable> tables = getCurrentTables(item);
                 for (MetadataTable table : tables) {
                     if (table.getLabel().equals(schemaCombo.getText())) {
-                        this.selectedTable = (MetadataTable) table;
+                        this.selectedTable = table;
                         break;
                     }
                 }

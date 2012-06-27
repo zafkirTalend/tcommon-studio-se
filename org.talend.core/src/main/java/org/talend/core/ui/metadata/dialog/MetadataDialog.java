@@ -50,7 +50,7 @@ import org.talend.core.model.metadata.Dbms;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTalendType;
-import org.talend.core.model.metadata.MetadataTool;
+import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.GenericSchemaConnection;
@@ -207,7 +207,7 @@ public class MetadataDialog extends Dialog {
                     if (schemaType.equals("REPOSITORY")) { //$NON-NLS-1$
                         // repository mode
                         String metaRepositoryName = (String) node.getElementParameter("REPOSITORY_SCHEMA_TYPE").getValue(); //$NON-NLS-1$
-                        Connection connection = MetadataTool.getConnectionFromRepository(metaRepositoryName);
+                        Connection connection = MetadataToolHelper.getConnectionFromRepository(metaRepositoryName);
 
                         boolean isDatabaseConnection = connection instanceof DatabaseConnection;
                         boolean isGenericSchemaConnection = connection instanceof GenericSchemaConnection;
@@ -311,7 +311,7 @@ public class MetadataDialog extends Dialog {
             GridData gridData = new GridData(GridData.FILL_BOTH);
             composite.setLayoutData(gridData);
 
-            metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput); //$NON-NLS-1$
+            metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput);
             inputMetaView = new MetadataTableEditorView(compositesSachForm.getLeftComposite(), SWT.NONE, metadataTableEditor,
                     inputReadOnly, true, true, false);
             initializeMetadataTableView(inputMetaView, inputNode, inputMetaTable);
@@ -361,12 +361,12 @@ public class MetadataDialog extends Dialog {
                     // if the selectionline above zero.just run the method "copyTable(list, getOutputMetaData())".
                     tableItem = inputMetaView.getTable().getSelection();
                     list = new ArrayList<IMetadataColumn>();
-                    for (int i = 0; i < tableItem.length; i++) {
-                        column = (IMetadataColumn) tableItem[i].getData();
+                    for (TableItem element : tableItem) {
+                        column = (IMetadataColumn) element.getData();
                         list.add(column);
                     }
                     if (tableItem.length > 0) {
-                        MetadataTool.copyTable(list, getOutputMetaData());
+                        MetadataToolHelper.copyTable(list, getOutputMetaData());
                         outputMetaView.getTableViewerCreator().refresh();
                     }
                 }
@@ -385,7 +385,7 @@ public class MetadataDialog extends Dialog {
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.Message")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
-                        MetadataTool.copyTable(getInputMetaData(), getOutputMetaData());
+                        MetadataToolHelper.copyTable(getInputMetaData(), getOutputMetaData());
                         outputMetaView.getTableViewerCreator().refresh();
                     }
                 }
@@ -413,12 +413,12 @@ public class MetadataDialog extends Dialog {
                     // if the selectionline above zero.just run the method "copyTable(list, getInputMetaData())".
                     tableItem = outputMetaView.getTable().getSelection();
                     list = new ArrayList<IMetadataColumn>();
-                    for (int i = 0; i < tableItem.length; i++) {
-                        column = (IMetadataColumn) tableItem[i].getData();
+                    for (TableItem element : tableItem) {
+                        column = (IMetadataColumn) element.getData();
                         list.add(column);
                     }
                     if (tableItem.length > 0) {
-                        MetadataTool.copyTable(list, getInputMetaData());
+                        MetadataToolHelper.copyTable(list, getInputMetaData());
                         inputMetaView.getTableViewerCreator().refresh();
                     }
                 }
@@ -437,7 +437,7 @@ public class MetadataDialog extends Dialog {
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.TransferMessage")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
-                        MetadataTool.copyTable(getOutputMetaData(), getInputMetaData());
+                        MetadataToolHelper.copyTable(getOutputMetaData(), getInputMetaData());
                         inputMetaView.getTableViewerCreator().refresh();
                     }
                 }
@@ -460,7 +460,7 @@ public class MetadataDialog extends Dialog {
 
                 public void handleEvent(ModifiedBeanEvent<IMetadataColumn> event) {
                     if (AbstractMetadataTableEditorView.ID_COLUMN_NAME.equals(event.column.getId())) {
-                        IMetadataColumn modifiedObject = (IMetadataColumn) event.bean;
+                        IMetadataColumn modifiedObject = event.bean;
                         if (modifiedObject != null) {
                             String originalLabel = changeNameOutColumns.get(modifiedObject);
                             if (originalLabel == null) {
@@ -489,11 +489,11 @@ public class MetadataDialog extends Dialog {
             public void handleEvent(ModifiedBeanEvent<IMetadataColumn> event) {
                 if ((inputMetaTable != null) && outputMetaTable.isReadOnly()
                         && outputNode.getComponent().isSchemaAutoPropagated()) {
-                    MetadataTool.copyTable(inputMetaTable, outputMetaTable);
+                    MetadataToolHelper.copyTable(inputMetaTable, outputMetaTable);
                     outputMetaView.getTableViewerCreator().refresh();
                 }
                 if (AbstractMetadataTableEditorView.ID_COLUMN_NAME.equals(event.column.getId())) {
-                    IMetadataColumn modifiedObject = (IMetadataColumn) event.bean;
+                    IMetadataColumn modifiedObject = event.bean;
                     if (modifiedObject != null) {
                         String originalLabel = changedNameColumns.get(modifiedObject);
                         if (originalLabel == null) {
@@ -573,10 +573,10 @@ public class MetadataDialog extends Dialog {
     private static String getMappingTypeLabelById(String mappingTypeId) {
         Dbms[] dbmsArray = MetadataTalendType.getAllDbmsArray();
 
-        for (int i = 0; i < dbmsArray.length; i++) {
-            String indexId = dbmsArray[i].getId();
+        for (Dbms element : dbmsArray) {
+            String indexId = element.getId();
             if (mappingTypeId.equals(indexId)) {
-                return dbmsArray[i].getLabel();
+                return element.getLabel();
             }
         }
         return null;

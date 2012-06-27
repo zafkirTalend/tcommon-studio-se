@@ -39,7 +39,7 @@ import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.ISAPConstant;
 import org.talend.core.model.metadata.MetadataTable;
-import org.talend.core.model.metadata.MetadataTool;
+import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.ElementParameterParser;
@@ -191,7 +191,7 @@ public class SchemaCellEditor extends DialogCellEditor {
                             if ("".equals(newText.trim())) { //$NON-NLS-1$
                                 return Messages.getString("SchemaCellEditor.inputName"); //$NON-NLS-1$
                             }
-                            if (MetadataTool.getMetadataTableFromNodeTableName(node, newText) != null
+                            if (MetadataToolHelper.getMetadataTableFromNodeTableName(node, newText) != null
                                     || !node.getProcess().checkValidConnectionName(newText)) {
                                 return Messages.getString("SchemaCellEditor.nameExistOrInvalid"); //$NON-NLS-1$
                             }
@@ -296,7 +296,7 @@ public class SchemaCellEditor extends DialogCellEditor {
 
         } else {
 
-            tableToEdit = MetadataTool.getMetadataTableFromNodeTableName(node, schemaToEdit);
+            tableToEdit = MetadataToolHelper.getMetadataTableFromNodeTableName(node, schemaToEdit);
             if (getTableViewer() != null && tableToEdit != null && isEBCDICNode(node)) {
                 Table tTable = getTableViewer().getTable();
                 Object data = tTable.getItem(tTable.getSelectionIndex()).getData();
@@ -330,8 +330,9 @@ public class SchemaCellEditor extends DialogCellEditor {
                                 if (!schemaToEdit.equals(newSchema) || processType == EProcessType.BUILTIN) {
                                     // changed
                                     RepositoryChangeMetadataForEBCDICCommand cmd = new RepositoryChangeMetadataForEBCDICCommand(
-                                            node, IEbcdicConstant.TABLE_SCHEMAS, newSchema, schemaToEdit, ConvertionHelper //$NON-NLS-1$
-                                                    .convert(selectedMetadataTable), tableToEdit, tTable.getSelectionIndex());
+                                            node, IEbcdicConstant.TABLE_SCHEMAS, newSchema, schemaToEdit,
+                                            ConvertionHelper.convert(selectedMetadataTable), tableToEdit,
+                                            tTable.getSelectionIndex());
                                     executeCommand(cmd);
                                     if (getTableViewer() != null) {
                                         getTableViewer().refresh();
@@ -396,8 +397,9 @@ public class SchemaCellEditor extends DialogCellEditor {
                                 if (!schemaToEdit.equals(newSchema) || processType == EProcessType.BUILTIN) {
                                     // changed
                                     RepositoryChangeMetadataForSAPCommand cmd = new RepositoryChangeMetadataForSAPCommand(node,
-                                            ISAPConstant.TABLE_SCHEMAS, newSchema, schemaToEdit, ConvertionHelper //$NON-NLS-1$
-                                                    .convert(selectedMetadataTable), tableToEdit, tTable.getSelectionIndex());
+                                            ISAPConstant.TABLE_SCHEMAS, newSchema, schemaToEdit,
+                                            ConvertionHelper.convert(selectedMetadataTable), tableToEdit,
+                                            tTable.getSelectionIndex());
 
                                     // (node, ISAPConstant.TABLE_SCHEMAS, metaTable.getLabel(), metaTable, index)
                                     executeCommand(cmd);
