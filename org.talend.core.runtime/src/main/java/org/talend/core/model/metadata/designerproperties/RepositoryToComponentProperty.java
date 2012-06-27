@@ -1697,33 +1697,28 @@ public class RepositoryToComponentProperty {
             MDMConnection mdmConnection = (MDMConnection) connection;
             EList objectList = mdmConnection.getSchemas();
             for (Concept concept : (List<Concept>) objectList) {
-                if (concept.getLabel() == null || concept.getLabel().equals(metaTable.getLabel())) {
+                if (concept.getLabel() != null && concept.getLabel().equals(metaTable.getLabel())) {
                     if (value.equals("XML_MAPPING")) { //$NON-NLS-1$
-                        if (concept == null) {
-                            return;
-                        } else {
-                            String[] list = param.getListRepositoryItems();
+                        String[] list = param.getListRepositoryItems();
 
-                            int column = 0;
-                            boolean found = false;
-                            for (int k = 0; (k < list.length) && (!found); k++) {
-                                if (list[k].equals("XML_QUERY")) { //$NON-NLS-1$
-                                    column = k;
-                                    found = true;
-                                }
+                        int column = 0;
+                        boolean found = false;
+                        for (int k = 0; (k < list.length) && (!found); k++) {
+                            if (list[k].equals("XML_QUERY")) { //$NON-NLS-1$
+                                column = k;
+                                found = true;
                             }
-                            EList conceptTargetsList = concept.getConceptTargets();
-                            String[] names = param.getListItemsDisplayCodeName();
-                            for (int k = 0; k < conceptTargetsList.size(); k++) {
-                                if (tableInfo.size() > k) {
-                                    Map<String, Object> line = tableInfo.get(k);
-                                    if (metaTable != null) {
-                                        if (metaTable.getListColumns().size() > k) {
-                                            ConceptTarget conceptTarget = (ConceptTarget) conceptTargetsList.get(k);
-                                            String strValue = TalendQuoteUtils.addQuotes(conceptTarget
-                                                    .getRelativeLoopExpression());
-                                            line.put(names[column], strValue);
-                                        }
+                        }
+                        EList conceptTargetsList = concept.getConceptTargets();
+                        String[] names = param.getListItemsDisplayCodeName();
+                        for (int k = 0; k < conceptTargetsList.size(); k++) {
+                            if (tableInfo.size() > k) {
+                                Map<String, Object> line = tableInfo.get(k);
+                                if (metaTable != null) {
+                                    if (metaTable.getListColumns().size() > k) {
+                                        ConceptTarget conceptTarget = (ConceptTarget) conceptTargetsList.get(k);
+                                        String strValue = TalendQuoteUtils.addQuotes(conceptTarget.getRelativeLoopExpression());
+                                        line.put(names[column], strValue);
                                     }
                                 }
                             }
