@@ -5,4 +5,5 @@ Bundle-SymbolicName: org.talend.core.runtime.test
 Bundle-Version: 1.0.0.qualifier
 Fragment-Host: org.talend.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.junit4;bundle-version="4.8.1"
+Require-Bundle: org.junit4;bundle-version="4.8.1",
+ org.mockito
