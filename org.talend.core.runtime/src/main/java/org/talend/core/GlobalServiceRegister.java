@@ -34,9 +34,6 @@ public class GlobalServiceRegister {
     // The shared instance
     private static GlobalServiceRegister instance = new GlobalServiceRegister();
 
-
-
-
     public static GlobalServiceRegister getDefault() {
         return instance;
     }
@@ -45,13 +42,27 @@ public class GlobalServiceRegister {
 
     private Map<Class<?>, AbstractDQModelService> dqModelServices = new HashMap<Class<?>, AbstractDQModelService>();
 
-    private static IExtensionRegistry registry = Platform.getExtensionRegistry();
+    private static IConfigurationElement[] configurationElements = null;
 
-    private static IConfigurationElement[] configurationElements = registry == null ? null : registry
-            .getConfigurationElementsFor("org.talend.core.runtime.service"); //$NON-NLS-1$
+    private static IConfigurationElement[] configurationDQModelElements = null;
 
-    private static IConfigurationElement[] configurationDQModelElements = registry == null ? null : registry
-            .getConfigurationElementsFor("org.talend.core.runtime.dq_EMFModel_provider"); //$NON-NLS-1$
+    private IConfigurationElement[] getConfigurationElements() {
+        if (configurationElements == null) {
+            IExtensionRegistry registry = Platform.getExtensionRegistry();
+            configurationElements = (registry == null ? null : registry
+                    .getConfigurationElementsFor("org.talend.core.runtime.service")); //$NON-NLS-1$
+        }
+        return configurationElements;
+    }
+
+    private IConfigurationElement[] getConfigurationDQModelElements() {
+        if (configurationDQModelElements == null) {
+            IExtensionRegistry registry = Platform.getExtensionRegistry();
+            configurationDQModelElements = (registry == null ? null : registry
+                    .getConfigurationElementsFor("org.talend.core.runtime.dq_EMFModel_provider")); //$NON-NLS-1$
+        }
+        return configurationDQModelElements;
+    }
 
     public AbstractDQModelService getDQModelService(Class<?> klass) {
         AbstractDQModelService dqModelserviceInst = dqModelServices.get(klass);
@@ -96,11 +107,11 @@ public class GlobalServiceRegister {
      */
     public IService getService(Class klass) {
         IService service = services.get(klass);
-        if (service == null && configurationElements != null) {
+        if (service == null && getConfigurationElements() != null) {
             service = findService(klass);
             if (service == null) {
 
-                throw new RuntimeException(Messages.getString("GlobalServiceRegister.ServiceNotRegistered", klass.getName())); //$NON-NLS-1$ //$NON-NLS-2$
+                throw new RuntimeException(Messages.getString("GlobalServiceRegister.ServiceNotRegistered", klass.getName())); //$NON-NLS-1$ 
             }
             services.put(klass, service);
         }
@@ -115,24 +126,27 @@ public class GlobalServiceRegister {
      */
     private IService findService(Class klass) {
         String key = klass.getName();
-        for (int i = 0; i < configurationElements.length; i++) {
-            IConfigurationElement element = configurationElements[i];
-            if (element.isValid()) {
-                String id = element.getAttribute("serviceId"); //$NON-NLS-1$
-                if (!key.endsWith(id)) {
-                    continue;
-                }
-                try {
-                    Object service = element.createExecutableExtension("class"); //$NON-NLS-1$
-                    if (klass.isInstance(service)) {
-                        return (IService) service;
+        IConfigurationElement[] configElements = getConfigurationElements();
+        if (configElements != null) {
+            for (IConfigurationElement element : configElements) {
+                if (element.isValid()) {
+                    String id = element.getAttribute("serviceId"); //$NON-NLS-1$
+                    if (!key.endsWith(id)) {
+                        continue;
                     }
-                } catch (CoreException e) {
-                    ExceptionHandler.process(e);
-                }
-            }// else element is not valid because the bundle may have been stoped or uninstalled and the extension point
-             // registry is still holding values
-             // has mentionned in the class TODO, this class should be removed and OSGI dynamic services used.
+                    try {
+                        Object service = element.createExecutableExtension("class"); //$NON-NLS-1$
+                        if (klass.isInstance(service)) {
+                            return (IService) service;
+                        }
+                    } catch (CoreException e) {
+                        ExceptionHandler.process(e);
+                    }
+                }// else element is not valid because the bundle may have been stoped or uninstalled and the extension
+                 // point
+                 // registry is still holding values
+                 // has mentionned in the class TODO, this class should be removed and OSGI dynamic services used.
+            }
         }
         return null;
     }
@@ -144,20 +158,22 @@ public class GlobalServiceRegister {
      * @return IService
      */
     public IProviderService findService(String key) {
-        for (int i = 0; i < configurationElements.length; i++) {
-            IConfigurationElement element = configurationElements[i];
-            if (element.isValid()) {
-                String id = element.getAttribute("serviceId"); //$NON-NLS-1$
-                if (!key.equals(id)) {
-                    continue;
-                }
-                try {
-                    Object service = element.createExecutableExtension("class"); //$NON-NLS-1$
-                    if (service instanceof IProviderService) {
-                        return (IProviderService) service;
+        IConfigurationElement[] configElements = getConfigurationElements();
+        if (configElements != null) {
+            for (IConfigurationElement element : configElements) {
+                if (element.isValid()) {
+                    String id = element.getAttribute("serviceId"); //$NON-NLS-1$
+                    if (!key.equals(id)) {
+                        continue;
                     }
-                } catch (CoreException e) {
-                    ExceptionHandler.process(e);
+                    try {
+                        Object service = element.createExecutableExtension("class"); //$NON-NLS-1$
+                        if (service instanceof IProviderService) {
+                            return (IProviderService) service;
+                        }
+                    } catch (CoreException e) {
+                        ExceptionHandler.process(e);
+                    }
                 }
             }
         }
@@ -165,15 +181,17 @@ public class GlobalServiceRegister {
     }
 
     private AbstractDQModelService findDQModelService(Class<?> klass) {
-        for (int i = 0; i < configurationDQModelElements.length; i++) {
-            IConfigurationElement element = configurationDQModelElements[i];
-            try {
-                Object service = element.createExecutableExtension("class"); //$NON-NLS-1$
-                if (klass.isInstance(service)) {
-                    return (AbstractDQModelService) service;
+        IConfigurationElement[] configDQModelElements = getConfigurationDQModelElements();
+        if (configDQModelElements != null) {
+            for (IConfigurationElement element : configDQModelElements) {
+                try {
+                    Object service = element.createExecutableExtension("class"); //$NON-NLS-1$
+                    if (klass.isInstance(service)) {
+                        return (AbstractDQModelService) service;
+                    }
+                } catch (CoreException e) {
+                    ExceptionHandler.process(e);
                 }
-            } catch (CoreException e) {
-                ExceptionHandler.process(e);
             }
         }
         return null;
