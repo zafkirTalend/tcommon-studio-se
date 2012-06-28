@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.librariesmanager.model.service;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -86,6 +86,9 @@ public class LocalLibraryManagerTest {
                 contributeID = contributor;
                 break;
             }
+        }
+        if (file == null || !file.exists()) {
+            return;
         }
         if (contributeID.equals("")) {
             if (file.isDirectory()) {
