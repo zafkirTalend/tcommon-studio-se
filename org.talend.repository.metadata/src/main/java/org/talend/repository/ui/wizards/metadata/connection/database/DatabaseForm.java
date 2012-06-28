@@ -229,7 +229,7 @@ public class DatabaseForm extends AbstractForm {
         this.connectionItem = connectionItem;
         this.isCreation = isCreation;
         setConnectionItem(connectionItem); // must be first.
-        this.metadataconnection = ConvertionHelper.convert((DatabaseConnection) getConnection());
+        this.metadataconnection = ConvertionHelper.convert(getConnection());
         this.typeName = EDatabaseTypeName.getTypeFromDbType(metadataconnection.getDbType());
         /* use provider for the databse didn't use JDBC,for example: HBase */
         if (typeName != null && typeName.isUseProvider()) {
@@ -452,6 +452,7 @@ public class DatabaseForm extends AbstractForm {
 
         scrolledComposite.addControlListener(new ControlAdapter() {
 
+            @Override
             public void controlResized(ControlEvent e) {
                 Rectangle r = scrolledComposite.getClientArea();
                 scrolledComposite.setMinSize(newParent.computeSize(r.width, 300));
@@ -850,8 +851,7 @@ public class DatabaseForm extends AbstractForm {
                     isGeneralJDBC() ? generalJdbcUserText.getText() : usernameText.getText(),
                     isGeneralJDBC() ? generalJdbcPasswordText.getText() : passwordText.getText(), sidOrDatabaseText.getText(),
                     portText.getText(), fileField.getText(), datasourceText.getText(), isGeneralJDBC() ? jDBCschemaText.getText()
-                            : schemaText //$NON-NLS-1$
-                                    .getText(), additionParamText.getText(), generalJdbcClassNameText.getText(),
+                            : schemaText.getText(), additionParamText.getText(), generalJdbcClassNameText.getText(),
                     generalJdbcDriverjarText.getText(), enableDbVersion() ? versionStr : null);
 
             managerConnection.setDbRootPath(directoryField.getText());
@@ -906,6 +906,7 @@ public class DatabaseForm extends AbstractForm {
         // event FocusIn
         urlConnectionStringText.addListener(SWT.FocusIn, new Listener() {
 
+            @Override
             public void handleEvent(final Event e) {
                 if (!isContextMode()) {
                     if (dbTypeCombo.getSelectionIndex() >= 0) {
@@ -920,6 +921,7 @@ public class DatabaseForm extends AbstractForm {
 
         urlConnectionStringText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (urlConnectionStringText.getEditable()) {
@@ -1039,6 +1041,7 @@ public class DatabaseForm extends AbstractForm {
         // common Listener to force the choice of dbCombo
         Listener listener = new Listener() {
 
+            @Override
             public void handleEvent(final Event e) {
                 if (isContextMode()) {
                     //
@@ -1066,6 +1069,7 @@ public class DatabaseForm extends AbstractForm {
         // serverText : Event modifyText
         serverText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!urlConnectionStringText.getEditable()) {
@@ -1079,6 +1083,7 @@ public class DatabaseForm extends AbstractForm {
         // portText : Event modifyText
         portText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!urlConnectionStringText.getEditable()) {
@@ -1117,6 +1122,7 @@ public class DatabaseForm extends AbstractForm {
         // usernameText : Event modifyText
         usernameText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!urlConnectionStringText.getEditable()) {
@@ -1129,6 +1135,7 @@ public class DatabaseForm extends AbstractForm {
         // passwordText : Event modifyText
         passwordText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!urlConnectionStringText.getEditable()) {
@@ -1146,6 +1153,7 @@ public class DatabaseForm extends AbstractForm {
         // sidOrDatabaseText : Event modifyText
         sidOrDatabaseText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!urlConnectionStringText.getEditable()) {
@@ -1159,6 +1167,7 @@ public class DatabaseForm extends AbstractForm {
         // datasourceText : Event modifyText
         datasourceText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!urlConnectionStringText.getEditable()) {
@@ -1172,6 +1181,7 @@ public class DatabaseForm extends AbstractForm {
         // schemaText : Event modifyText
         schemaText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!urlConnectionStringText.getEditable()) {
@@ -1185,6 +1195,7 @@ public class DatabaseForm extends AbstractForm {
         // Db version
         dbVersionCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(dbVersionCombo.getText());
@@ -1201,6 +1212,7 @@ public class DatabaseForm extends AbstractForm {
         // additional parameters: Event modifyText
         additionParamText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!urlConnectionStringText.getEditable()) {
@@ -1258,6 +1270,7 @@ public class DatabaseForm extends AbstractForm {
         dbTypeCombo.addModifyListener(new ModifyListener() {
 
             // Event Modify
+            @Override
             public void modifyText(final ModifyEvent e) {
 
                 // add for bug 12649
@@ -1385,6 +1398,7 @@ public class DatabaseForm extends AbstractForm {
         fileField.addListener(SWT.FocusIn, new Listener() {
 
             // Event FocusIn
+            @Override
             public void handleEvent(final Event e) {
                 if (!isContextMode()) {
                     if (dbTypeCombo.getSelectionIndex() == -1) {
@@ -1406,6 +1420,7 @@ public class DatabaseForm extends AbstractForm {
         // Event Modify
         fileField.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!urlConnectionStringText.getEditable()) {
@@ -1418,6 +1433,7 @@ public class DatabaseForm extends AbstractForm {
 
         directoryField.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!urlConnectionStringText.getEditable()) {
@@ -1431,6 +1447,7 @@ public class DatabaseForm extends AbstractForm {
         // sqlSyntaxText : Event modifyText
         sqlSyntaxCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     getConnection().setSqlSynthax(sqlSyntaxCombo.getText());
@@ -1441,6 +1458,7 @@ public class DatabaseForm extends AbstractForm {
         // nullCharText : Event modifyText
         nullCharText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     getConnection().setNullChar(nullCharText.getText());
@@ -1451,6 +1469,7 @@ public class DatabaseForm extends AbstractForm {
         // stringQuoteText : Event modifyText
         stringQuoteText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     getConnection().setStringQuote(stringQuoteText.getText());
@@ -1610,6 +1629,7 @@ public class DatabaseForm extends AbstractForm {
 
         generalJdbcClassNameText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (validText(generalJdbcClassNameText.getText())) {
@@ -1622,6 +1642,7 @@ public class DatabaseForm extends AbstractForm {
 
         generalJdbcDriverjarText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (validText(generalJdbcDriverjarText.getText())) {
@@ -1634,6 +1655,7 @@ public class DatabaseForm extends AbstractForm {
 
         generalJdbcUrlText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (validText(generalJdbcUrlText.getText())) {
@@ -1646,6 +1668,7 @@ public class DatabaseForm extends AbstractForm {
 
         generalJdbcPasswordText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (validText(generalJdbcPasswordText.getText())) {
@@ -1663,6 +1686,7 @@ public class DatabaseForm extends AbstractForm {
 
         generalJdbcUserText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (validText(generalJdbcUserText.getText())) {
@@ -1675,6 +1699,7 @@ public class DatabaseForm extends AbstractForm {
 
         jDBCschemaText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     String text = jDBCschemaText.getText();
@@ -1689,6 +1714,7 @@ public class DatabaseForm extends AbstractForm {
 
         generalMappingFileText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (validText(generalMappingFileText.getText())) {
@@ -1701,6 +1727,7 @@ public class DatabaseForm extends AbstractForm {
 
         mappingFileText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (validText(mappingFileText.getText())) {
@@ -1943,35 +1970,36 @@ public class DatabaseForm extends AbstractForm {
         }
 
         if (s.contains(EDatabaseConnVar.HOST.getVariable()) && serverText.getCharCount() == 0) {
-            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.alert", serverText.getLabelText())); //$NON-NLS-1$
+            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.serverAlert", serverText.getLabelText())); //$NON-NLS-1$
             return false;
         }
         if (s.contains(EDatabaseConnVar.PORT.getVariable()) && portText.getCharCount() == 0) {
-            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.alert", portText.getLabelText())); //$NON-NLS-1$
+            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.portAlert", portText.getLabelText())); //$NON-NLS-1$
             return false;
         }
         if ((s.contains(EDatabaseConnVar.SID.getVariable()) || s.contains(EDatabaseConnVar.SERVICE_NAME.getVariable()))
                 && sidOrDatabaseText.getCharCount() == 0) {
-            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.alert", sidOrDatabaseText.getLabelText())); //$NON-NLS-1$
+            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.sidAlert", sidOrDatabaseText.getLabelText())); //$NON-NLS-1$
             return false;
         }
         if (s.contains(EDatabaseConnVar.FILENAME.getVariable()) && fileField.getText() == "") { //$NON-NLS-1$ 
-            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.alert", fileField.getLabelText())); //$NON-NLS-1$
+            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.dbFileAlert", fileField.getLabelText())); //$NON-NLS-1$
             return false;
         }
         if (s.contains(EDatabaseConnVar.DATASOURCE.getVariable()) && datasourceText.getText() == "") { //$NON-NLS-1$
-            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.alert", datasourceText.getLabelText())); //$NON-NLS-1$
+            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.dateSourceAlert", datasourceText.getLabelText())); //$NON-NLS-1$
             return false;
         }
         if (s.contains(EDatabaseConnVar.DBROOTPATH.getVariable()) && directoryField.getText() == "") { //$NON-NLS-1$ 
-            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.alert", directoryField.getLabelText())); //$NON-NLS-1$
+            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.dbRootAlert", directoryField.getLabelText())); //$NON-NLS-1$
             return false;
         }
 
         if (EDatabaseConnTemplate.isSchemaNeeded(getConnection().getDatabaseType()) && schemaText.getCharCount() == 0) {
-            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.alert", schemaText.getLabelText())); //$NON-NLS-1$
+            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.schemaAlert", schemaText.getLabelText())); //$NON-NLS-1$
             return false;
         }
+
         updateStatus(IStatus.OK, null);
         return true;
 
@@ -2494,7 +2522,7 @@ public class DatabaseForm extends AbstractForm {
                 String driverClass = ExtractMetaDataUtils.getDriverClassByDbType(connection.getDatabaseType());
                 connection.setDriverClass(driverClass);
             }
-            java.sql.Connection sqlConn = (java.sql.Connection) MetadataConnectionUtils.checkConnection(connection).getObject();
+            java.sql.Connection sqlConn = MetadataConnectionUtils.checkConnection(connection).getObject();
             if (sqlConn != null) {
                 try {
                     DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, connection);
