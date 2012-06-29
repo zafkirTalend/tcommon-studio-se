@@ -4,10 +4,12 @@
 package org.talend.core.model.metadata.builder.database;
 
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,7 @@ import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.commons.utils.database.SASDataBaseMetadata;
 import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.utils.ManagementTextUtils;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 
 /**
@@ -360,4 +363,272 @@ public class ExtractMetaDataUtilsTest {
 
     }
 
+    @Test
+    public void testGetStringMetaDataInfo_ThreeArguments4Null() throws SQLException {
+        ResultSet resultSet = mock(ResultSet.class);
+        DatabaseMetaData metadata = mock(DatabaseMetaData.class);
+
+        final String infoType = "test"; //$NON-NLS-1$
+        Assert.assertNull(ExtractMetaDataUtils.getStringMetaDataInfo(null, null, null));
+        Assert.assertNull(ExtractMetaDataUtils.getStringMetaDataInfo(null, null, metadata));
+        Assert.assertNull(ExtractMetaDataUtils.getStringMetaDataInfo(null, "test", metadata)); //$NON-NLS-1$
+
+        // test null DatabaseMetaData
+        final String value = "abc"; //$NON-NLS-1$
+        when(resultSet.getString(anyString())).thenReturn(value);
+        String actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType, null);
+
+        // only one time
+        verify(resultSet).getString(anyString());
+        Assert.assertEquals(actualResult, value); // because the matadata is null.
+
+        // second time, and have the metadata,but no functions
+        actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType, metadata);
+        verify(resultSet, times(2)).getString(anyString());
+        Assert.assertEquals(actualResult, ManagementTextUtils.QUOTATION_MARK + value + ManagementTextUtils.QUOTATION_MARK);
+    }
+
+    @Test
+    public void testGetStringMetaDataInfo_ThreeArguments4SQLException() throws SQLException {
+        ResultSet resultSet = mock(ResultSet.class);
+
+        final String infoType = "test"; //$NON-NLS-1$
+        final String value = "abc"; //$NON-NLS-1$
+        when(resultSet.getString(anyString())).thenReturn(value);
+
+        // test sql Exception
+        doThrow(new SQLException()).when(resultSet).getString(anyString());
+        String actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType, null);
+        // only one time
+        verify(resultSet).getString(anyString());
+        Assert.assertNull(actualResult);
+    }
+
+    @Test
+    public void testGetStringMetaDataInfo_ThreeArguments4Exception() throws SQLException {
+        ResultSet resultSet = mock(ResultSet.class);
+
+        final String infoType = "test"; //$NON-NLS-1$
+        final String value = "abc"; //$NON-NLS-1$
+        when(resultSet.getString(anyString())).thenReturn(value);
+
+        // test Exception
+        doThrow(new IllegalArgumentException()).when(resultSet).getString(anyString());
+        String actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType, null);
+        // only one time
+        verify(resultSet).getString(anyString());
+        Assert.assertNull(actualResult);
+    }
+
+    @Test
+    public void testGetStringMetaDataInfo_ThreeArguments4SystemFunctions_Contained() throws SQLException {
+        ResultSet resultSet = mock(ResultSet.class);
+
+        final String infoType = "TABLE_NAME"; //$NON-NLS-1$
+        final String value = "abc"; //$NON-NLS-1$
+        when(resultSet.getString(anyString())).thenReturn(value);
+
+        DatabaseMetaData metadata = mock(DatabaseMetaData.class);
+        // if contain.
+        when(metadata.getSystemFunctions()).thenReturn("abc,xyz"); //$NON-NLS-1$
+        String actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType, metadata);
+
+        verify(resultSet).getString(anyString());
+        verify(metadata, times(2)).getSystemFunctions();
+        Assert.assertEquals(actualResult, value);
+
+        // split
+        when(metadata.getSystemFunctions()).thenReturn("abc,  xyz"); //$NON-NLS-1$
+        actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType, metadata);
+
+        verify(resultSet, times(2)).getString(anyString());
+        verify(metadata, times(4)).getSystemFunctions();
+        Assert.assertEquals(actualResult, value);
+    }
+
+    @Test
+    public void testGetStringMetaDataInfo_ThreeArguments4SystemFunctions_NotContained() throws SQLException {
+        ResultSet resultSet = mock(ResultSet.class);
+
+        final String infoType = "TABLE_NAME"; //$NON-NLS-1$
+        final String value = "abc"; //$NON-NLS-1$
+        when(resultSet.getString(anyString())).thenReturn(value);
+
+        DatabaseMetaData metadata = mock(DatabaseMetaData.class);
+
+        // don't contain
+        when(metadata.getSystemFunctions()).thenReturn("123,xyz"); //$NON-NLS-1$
+        String actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType, metadata);
+
+        verify(resultSet).getString(anyString());
+        verify(metadata, times(2)).getSystemFunctions();
+        Assert.assertEquals(actualResult, ManagementTextUtils.QUOTATION_MARK + value + ManagementTextUtils.QUOTATION_MARK);
+
+        // split
+        when(metadata.getSystemFunctions()).thenReturn("123,  xyz"); //$NON-NLS-1$
+        actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType, metadata);
+
+        verify(resultSet, times(2)).getString(anyString());
+        verify(metadata, times(4)).getSystemFunctions();
+        Assert.assertEquals(actualResult, ManagementTextUtils.QUOTATION_MARK + value + ManagementTextUtils.QUOTATION_MARK);
+    }
+
+    @Test
+    public void testGetStringMetaDataInfo_ThreeArguments4NumericFunctions_Contained() throws SQLException {
+        ResultSet resultSet = mock(ResultSet.class);
+
+        final String infoType = "TABLE_NAME"; //$NON-NLS-1$
+        final String value = "abc"; //$NON-NLS-1$
+        when(resultSet.getString(anyString())).thenReturn(value);
+
+        DatabaseMetaData metadata = mock(DatabaseMetaData.class);
+        // if contain.
+        when(metadata.getNumericFunctions()).thenReturn("abc,xyz"); //$NON-NLS-1$
+        String actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType, metadata);
+
+        verify(resultSet).getString(anyString());
+        verify(metadata, times(2)).getNumericFunctions();
+        Assert.assertEquals(actualResult, value);
+
+        // split
+        when(metadata.getNumericFunctions()).thenReturn("abc,  xyz"); //$NON-NLS-1$
+        actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType, metadata);
+
+        verify(resultSet, times(2)).getString(anyString());
+        verify(metadata, times(4)).getNumericFunctions();
+        Assert.assertEquals(actualResult, value);
+    }
+
+    @Test
+    public void testGetStringMetaDataInfo_ThreeArguments4NumericFunctions_NotContained() throws SQLException {
+        ResultSet resultSet = mock(ResultSet.class);
+
+        final String infoType = "TABLE_NAME"; //$NON-NLS-1$
+        final String value = "abc"; //$NON-NLS-1$
+        when(resultSet.getString(anyString())).thenReturn(value);
+
+        DatabaseMetaData metadata = mock(DatabaseMetaData.class);
+
+        // don't contain
+        when(metadata.getNumericFunctions()).thenReturn("123,xyz"); //$NON-NLS-1$
+        String actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType, metadata);
+
+        verify(resultSet).getString(anyString());
+        verify(metadata, times(2)).getNumericFunctions();
+        Assert.assertEquals(actualResult, ManagementTextUtils.QUOTATION_MARK + value + ManagementTextUtils.QUOTATION_MARK);
+
+        // split
+        when(metadata.getNumericFunctions()).thenReturn("123,  xyz"); //$NON-NLS-1$
+        actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType, metadata);
+
+        verify(resultSet, times(2)).getString(anyString());
+        verify(metadata, times(4)).getNumericFunctions();
+        Assert.assertEquals(actualResult, ManagementTextUtils.QUOTATION_MARK + value + ManagementTextUtils.QUOTATION_MARK);
+    }
+
+    @Test
+    public void testGetStringMetaDataInfo_ThreeArguments4StringFunctions_Contained() throws SQLException {
+        ResultSet resultSet = mock(ResultSet.class);
+
+        final String infoType = "TABLE_NAME"; //$NON-NLS-1$
+        final String value = "abc"; //$NON-NLS-1$
+        when(resultSet.getString(anyString())).thenReturn(value);
+
+        DatabaseMetaData metadata = mock(DatabaseMetaData.class);
+        // if contain.
+        when(metadata.getStringFunctions()).thenReturn("abc,xyz"); //$NON-NLS-1$
+        String actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType, metadata);
+
+        verify(resultSet).getString(anyString());
+        verify(metadata, times(2)).getStringFunctions();
+        Assert.assertEquals(actualResult, value);
+
+        // split
+        when(metadata.getStringFunctions()).thenReturn("abc,  xyz"); //$NON-NLS-1$
+        actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType, metadata);
+
+        verify(resultSet, times(2)).getString(anyString());
+        verify(metadata, times(4)).getStringFunctions();
+        Assert.assertEquals(actualResult, value);
+    }
+
+    @Test
+    public void testGetStringMetaDataInfo_ThreeArguments4StringFunctions_NotContained() throws SQLException {
+        ResultSet resultSet = mock(ResultSet.class);
+
+        final String infoType = "TABLE_NAME"; //$NON-NLS-1$
+        final String value = "abc"; //$NON-NLS-1$
+        when(resultSet.getString(anyString())).thenReturn(value);
+
+        DatabaseMetaData metadata = mock(DatabaseMetaData.class);
+
+        // don't contain
+        when(metadata.getStringFunctions()).thenReturn("123,xyz"); //$NON-NLS-1$
+        String actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType, metadata);
+
+        verify(resultSet).getString(anyString());
+        verify(metadata, times(2)).getStringFunctions();
+        Assert.assertEquals(actualResult, ManagementTextUtils.QUOTATION_MARK + value + ManagementTextUtils.QUOTATION_MARK);
+
+        // split
+        when(metadata.getStringFunctions()).thenReturn("123,  xyz"); //$NON-NLS-1$
+        actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType, metadata);
+
+        verify(resultSet, times(2)).getString(anyString());
+        verify(metadata, times(4)).getStringFunctions();
+        Assert.assertEquals(actualResult, ManagementTextUtils.QUOTATION_MARK + value + ManagementTextUtils.QUOTATION_MARK);
+    }
+
+    @Test
+    public void testGetStringMetaDataInfo_ThreeArguments4TimeDateFunctions_Contained() throws SQLException {
+        ResultSet resultSet = mock(ResultSet.class);
+
+        final String infoType = "TABLE_NAME"; //$NON-NLS-1$
+        final String value = "abc"; //$NON-NLS-1$
+        when(resultSet.getString(anyString())).thenReturn(value);
+
+        DatabaseMetaData metadata = mock(DatabaseMetaData.class);
+        // if contain.
+        when(metadata.getTimeDateFunctions()).thenReturn("abc,xyz"); //$NON-NLS-1$
+        String actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType, metadata);
+
+        verify(resultSet).getString(anyString());
+        verify(metadata, times(2)).getTimeDateFunctions();
+        Assert.assertEquals(actualResult, value);
+
+        // split
+        when(metadata.getTimeDateFunctions()).thenReturn("abc,  xyz"); //$NON-NLS-1$
+        actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType, metadata);
+
+        verify(resultSet, times(2)).getString(anyString());
+        verify(metadata, times(4)).getTimeDateFunctions();
+        Assert.assertEquals(actualResult, value);
+    }
+
+    @Test
+    public void testGetStringMetaDataInfo_ThreeArguments4TimeDateFunctions_NotContained() throws SQLException {
+        ResultSet resultSet = mock(ResultSet.class);
+
+        final String infoType = "TABLE_NAME"; //$NON-NLS-1$
+        final String value = "abc"; //$NON-NLS-1$
+        when(resultSet.getString(anyString())).thenReturn(value);
+
+        DatabaseMetaData metadata = mock(DatabaseMetaData.class);
+
+        // don't contain
+        when(metadata.getTimeDateFunctions()).thenReturn("123,xyz"); //$NON-NLS-1$
+        String actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType, metadata);
+
+        verify(resultSet).getString(anyString());
+        verify(metadata, times(2)).getTimeDateFunctions();
+        Assert.assertEquals(actualResult, ManagementTextUtils.QUOTATION_MARK + value + ManagementTextUtils.QUOTATION_MARK);
+
+        // split
+        when(metadata.getTimeDateFunctions()).thenReturn("123,  xyz"); //$NON-NLS-1$
+        actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType, metadata);
+
+        verify(resultSet, times(2)).getString(anyString());
+        verify(metadata, times(4)).getTimeDateFunctions();
+        Assert.assertEquals(actualResult, ManagementTextUtils.QUOTATION_MARK + value + ManagementTextUtils.QUOTATION_MARK);
+    }
 }
