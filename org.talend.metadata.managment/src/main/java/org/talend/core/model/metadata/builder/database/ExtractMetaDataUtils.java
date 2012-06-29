@@ -76,6 +76,8 @@ import orgomg.cwm.objectmodel.core.Expression;
  */
 public class ExtractMetaDataUtils {
 
+    public static final String MSSQL_CONN_CLASS = "net.sourceforge.jtds.jdbc.ConnectionJDBC3";
+
     private static Logger log = Logger.getLogger(ExtractMetaDataUtils.class);
 
     private static final char SPLIT_CHAR = ',';
@@ -87,9 +89,6 @@ public class ExtractMetaDataUtils {
     public static boolean isReconnect = true;
 
     // public static IMetadataConnection metadataCon; // for teradata to use
-
-    // hywang add for bug 7038
-    private static List<String> functionlist = new ArrayList<String>();
 
     /**
      * DOC cantoine. Method to return DatabaseMetaData of a DB connection.
@@ -103,26 +102,123 @@ public class ExtractMetaDataUtils {
      * MOD by zshen this method don't care about sqlMode
      */
     public static DatabaseMetaData getDatabaseMetaData(Connection conn, String dbType) {
+        return getDatabaseMetaData(conn, dbType, false, null);
+    }
+
+    /**
+     * DOC cantoine. Method to return DatabaseMetaData of a DB connection.
+     * 
+     * @param Connection conn
+     * @param DatabaseConnection dbConn
+     * @return DatabaseMetaData
+     * 
+     * MOD by zshen this method don't care about sqlMode
+     */
+    public static DatabaseMetaData getDatabaseMetaData(Connection conn, DatabaseConnection dbConn) {
+        return getDatabaseMetaData(conn, dbConn, (dbConn != null ? dbConn.isSQLMode() : false));
+    }
+
+    /**
+     * DOC cantoine. Method to return DatabaseMetaData of a DB connection.
+     * 
+     * @param Connection conn
+     * @param isSqlMode
+     * @param DatabaseConnection dbConn
+     * @return DatabaseMetaData
+     * 
+     * 
+     */
+    public static DatabaseMetaData getDatabaseMetaData(Connection conn, DatabaseConnection dbConn, boolean isSqlMode) {
+        return getDatabaseMetaData(conn, (dbConn != null ? dbConn.getDatabaseType() : null), isSqlMode,
+                (dbConn != null ? dbConn.getSID() : null));
+    }
+
+    public static DatabaseMetaData getConnectionMetadata(java.sql.Connection conn) throws SQLException {
+        if (conn != null) {
+            DatabaseMetaData dbMetaData = conn.getMetaData();
+            // MOD xqliu 2009-11-17 bug 7888
+            if (dbMetaData != null && dbMetaData.getDatabaseProductName() != null) {
+                // because there is no sqlMode and the database arguments. so sqlMode is false, database is null.
+                return getDatabaseMetaData(conn, dbMetaData.getDatabaseProductName(), false, null);
+            }
+
+            return dbMetaData;
+        }
+        return null;
+    }
+
+    /**
+     * DOC cantoine. Method to return DatabaseMetaData of a DB connection.
+     * 
+     * @param Connection conn
+     * @param isSqlMode whether is sqlMode
+     * @param String dbType
+     * @return DatabaseMetaData
+     * 
+     * 
+     */
+    public static DatabaseMetaData getDatabaseMetaData(Connection conn, String dbType, boolean isSqlMode, String database) {
 
         DatabaseMetaData dbMetaData = null;
-        try {
-            if ("net.sourceforge.jtds.jdbc.ConnectionJDBC3".equals(conn.getClass().getName())) {
-                dbMetaData = createJtdsDatabaseMetaData(conn);
-            } else if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
-                dbMetaData = createFakeDatabaseMetaData(conn);
-            } else if (dbType.equals(EDatabaseTypeName.SAS.getXmlName())) {
-                dbMetaData = createSASFakeDatabaseMetaData(conn);
-            } else {
-                dbMetaData = conn.getMetaData();
+        if (conn != null) {
+            try {
+                // MOD sizhaoliu 2012-5-21 TDQ-4884
+                if (MSSQL_CONN_CLASS.equals(conn.getClass().getName())) {
+                    dbMetaData = createJtdsDatabaseMetaData(conn);
+                } else if (EDatabaseTypeName.IBMDB2ZOS.getXmlName().equals(dbType)) {
+                    dbMetaData = createDB2ForZosFakeDatabaseMetaData(conn);
+                } else if (EDatabaseTypeName.TERADATA.getXmlName().equals(dbType) && isSqlMode) {
+                    dbMetaData = createTeradataFakeDatabaseMetaData(conn);
+                    // add by wzhang for bug 8106. set database name for teradata.
+                    TeradataDataBaseMetadata teraDbmeta = (TeradataDataBaseMetadata) dbMetaData;
+                    teraDbmeta.setDatabaseName(database);
+                } else if (EDatabaseTypeName.SAS.getXmlName().equals(dbType)) {
+                    dbMetaData = createSASFakeDatabaseMetaData(conn);
+                } else {
+                    dbMetaData = conn.getMetaData();
+                }
+            } catch (SQLException e) {
+                log.error(e.toString());
+                throw new RuntimeException(e);
+            } catch (Exception e) {
+                log.error(e.toString());
+                throw new RuntimeException(e);
             }
-        } catch (SQLException e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
-        } catch (Exception e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
         }
         return dbMetaData;
+    }
+
+    public static boolean needFakeDatabaseMetaData(String dbType, boolean isSqlMode) {
+        if (EDatabaseTypeName.IBMDB2ZOS.getXmlName().equals(dbType)) {
+            return true;
+        } else if (EDatabaseTypeName.TERADATA.getXmlName().equals(dbType) && isSqlMode) {
+
+            return true;
+        } else if (EDatabaseTypeName.SAS.getXmlName().equals(dbType)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * only for db2 on z/os right now.
+     * 
+     * @param conn2
+     * @return
+     */
+    private static DatabaseMetaData createDB2ForZosFakeDatabaseMetaData(Connection conn) {
+        DB2ForZosDataBaseMetadata dmd = new DB2ForZosDataBaseMetadata(conn);
+        return dmd;
+    }
+
+    private static DatabaseMetaData createTeradataFakeDatabaseMetaData(Connection conn) {
+        TeradataDataBaseMetadata tmd = new TeradataDataBaseMetadata(conn);
+        return tmd;
+    }
+
+    private static DatabaseMetaData createSASFakeDatabaseMetaData(Connection conn) {
+        SASDataBaseMetadata tmd = new SASDataBaseMetadata(conn);
+        return tmd;
     }
 
     private static DatabaseMetaData createJtdsDatabaseMetaData(Connection conn) {
@@ -139,166 +235,6 @@ public class ExtractMetaDataUtils {
     }
 
     /**
-     * DOC cantoine. Method to return DatabaseMetaData of a DB connection.
-     * 
-     * @param Connection conn
-     * @param isSqlMode whether is sqlMode
-     * @param String dbType
-     * @return DatabaseMetaData
-     * 
-     * 
-     */
-    public static DatabaseMetaData getDatabaseMetaData(Connection conn, String dbType, boolean isSqlMode, String database) {
-
-        DatabaseMetaData dbMetaData = null;
-        try {
-            // MOD sizhaoliu 2012-5-21 TDQ-4884
-            if ("net.sourceforge.jtds.jdbc.ConnectionJDBC3".equals(conn.getClass().getName())) {
-                dbMetaData = createJtdsDatabaseMetaData(conn);
-            } else if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
-                dbMetaData = createFakeDatabaseMetaData(conn);
-            } else if (dbType.equals(EDatabaseTypeName.TERADATA.getXmlName()) && isSqlMode) {
-                dbMetaData = createTeradataFakeDatabaseMetaData(conn);
-                // add by wzhang for bug 8106. set database name for teradata.
-                TeradataDataBaseMetadata teraDbmeta = (TeradataDataBaseMetadata) dbMetaData;
-                teraDbmeta.setDatabaseName(database);
-            } else if (dbType.equals(EDatabaseTypeName.SAS.getXmlName())) {
-                dbMetaData = createSASFakeDatabaseMetaData(conn);
-            } else {
-                dbMetaData = conn.getMetaData();
-            }
-        } catch (SQLException e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
-        } catch (Exception e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
-        }
-        return dbMetaData;
-    }
-
-    /**
-     * DOC cantoine. Method to return DatabaseMetaData of a DB connection.
-     * 
-     * @param Connection conn
-     * @param DatabaseConnection dbConn
-     * @return DatabaseMetaData
-     * 
-     * MOD by zshen this method don't care about sqlMode
-     */
-    public static DatabaseMetaData getDatabaseMetaData(Connection conn, DatabaseConnection dbConn) {
-        boolean isSqlMode = dbConn.isSQLMode();
-        return getDatabaseMetaData(conn, dbConn, isSqlMode);
-    }
-
-    /**
-     * DOC cantoine. Method to return DatabaseMetaData of a DB connection.
-     * 
-     * @param Connection conn
-     * @param isSqlMode
-     * @param DatabaseConnection dbConn
-     * @return DatabaseMetaData
-     * 
-     * 
-     */
-    public static DatabaseMetaData getDatabaseMetaData(Connection conn, DatabaseConnection dbConn, boolean isSqlMode) {
-
-        DatabaseMetaData dbMetaData = null;
-        try {
-            String dbType = dbConn.getDatabaseType();
-
-            if ("net.sourceforge.jtds.jdbc.ConnectionJDBC3".equals(conn.getClass().getName())) {
-                dbMetaData = createJtdsDatabaseMetaData(conn);
-            } else if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
-                dbMetaData = createFakeDatabaseMetaData(conn);
-            } else if (dbType.equals(EDatabaseTypeName.TERADATA.getXmlName()) && isSqlMode) {
-                String database = dbConn.getSID();
-                dbMetaData = createTeradataFakeDatabaseMetaData(conn);
-                // add by wzhang for bug 8106. set database name for teradata.
-                TeradataDataBaseMetadata teraDbmeta = (TeradataDataBaseMetadata) dbMetaData;
-                teraDbmeta.setDatabaseName(database);
-            } else if (dbType.equals(EDatabaseTypeName.SAS.getXmlName())) {
-                dbMetaData = createSASFakeDatabaseMetaData(conn);
-            } else {
-                dbMetaData = conn.getMetaData();
-            }
-        } catch (SQLException e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
-        } catch (Exception e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
-        }
-        return dbMetaData;
-    }
-
-    public static DatabaseMetaData getConnectionMetadata(java.sql.Connection conn) throws SQLException {
-        DatabaseMetaData dbMetaData = conn.getMetaData();
-        // MOD xqliu 2009-11-17 bug 7888
-        if (dbMetaData != null && dbMetaData.getDatabaseProductName() != null) {
-            // MOD sizhaoliu 2012-5-21 TDQ-4884
-            if ("net.sourceforge.jtds.jdbc.ConnectionJDBC3".equals(conn.getClass().getName())) {
-                dbMetaData = createJtdsDatabaseMetaData(conn);
-            } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
-                getDatabaseMetaData(conn, EDatabaseTypeName.IBMDB2ZOS.getXmlName());
-            } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.TERADATA.getXmlName())) {
-                getDatabaseMetaData(conn, EDatabaseTypeName.TERADATA.getXmlName());
-            } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.SAS.getXmlName())) {
-                getDatabaseMetaData(conn, EDatabaseTypeName.SAS.getXmlName());
-            }
-        }
-        // if (dbMetaData != null && dbMetaData.getDatabaseProductName() != null) {
-        // if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.IBMDB2ZOS.getProduct())) {
-        // dbMetaData = createFakeDatabaseMetaData(conn);
-        // log.info("IBM DB2 for z/OS");
-        // } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.TERADATA.getProduct()) && metadataCon
-        // != null
-        // && metadataCon.isSqlMode()) {
-        // dbMetaData = createTeradataFakeDatabaseMetaData(conn);
-        // TeradataDataBaseMetadata teraDbmeta = (TeradataDataBaseMetadata) dbMetaData;
-        // teraDbmeta.setDatabaseName(ExtractMetaDataUtils.metadataCon.getDatabase());
-        // } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.SAS.getProduct())) {
-        // dbMetaData = createSASFakeDatabaseMetaData(conn);
-        // }
-        // }
-        // // ~
-        return dbMetaData;
-    }
-
-    public static boolean needFakeDatabaseMetaData(String dbType, boolean isSqlMode) {
-        if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
-            return true;
-        } else if (dbType.equals(EDatabaseTypeName.TERADATA.getXmlName()) && isSqlMode) {
-
-            return true;
-        } else if (dbType.equals(EDatabaseTypeName.SAS.getXmlName())) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * only for db2 on z/os right now.
-     * 
-     * @param conn2
-     * @return
-     */
-    private static DatabaseMetaData createFakeDatabaseMetaData(Connection conn) {
-        DB2ForZosDataBaseMetadata dmd = new DB2ForZosDataBaseMetadata(conn);
-        return dmd;
-    }
-
-    private static DatabaseMetaData createTeradataFakeDatabaseMetaData(Connection conn) {
-        TeradataDataBaseMetadata tmd = new TeradataDataBaseMetadata(conn);
-        return tmd;
-    }
-
-    private static DatabaseMetaData createSASFakeDatabaseMetaData(Connection conn) {
-        SASDataBaseMetadata tmd = new SASDataBaseMetadata(conn);
-        return tmd;
-    }
-
-    /**
      * DOC cantoine. Method to return MetaDataInfo on Column DataBaseConnection.
      * 
      * @param ResultSet columns
@@ -307,24 +243,26 @@ public class ExtractMetaDataUtils {
      */
     public static String getStringMetaDataInfo(ResultSet columns, String infoType, DatabaseMetaData dbMetaData) {
         String metaDataInfo = null;
-        try {
-            metaDataInfo = columns.getString(infoType);
-            // hywang modified it for bug 7038
-            List<String> funcions = getAllDBFuctions(dbMetaData);
-            if (metaDataInfo != null) {
-                if ((dbMetaData != null && funcions != null && !funcions.contains(metaDataInfo))) {
-                    metaDataInfo = ManagementTextUtils.QUOTATION_MARK + metaDataInfo + ManagementTextUtils.QUOTATION_MARK;
+        if (columns != null && infoType != null) {
+            try {
+                metaDataInfo = columns.getString(infoType);
+                // hywang modified it for bug 7038
+                List<String> funcions = getAllDBFuctions(dbMetaData);
+                if (metaDataInfo != null) {
+                    if ((dbMetaData != null && funcions != null && !funcions.contains(metaDataInfo))) {
+                        metaDataInfo = ManagementTextUtils.QUOTATION_MARK + metaDataInfo + ManagementTextUtils.QUOTATION_MARK;
+                    }
                 }
+                // Replace ALL ' in the retrieveSchema, cause PB for Default Value.
+                // metaDataInfo = metaDataInfo.replaceAll("'", ""); //$NON-NLS-1$
+                // //$NON-NLS-2$
+            } catch (SQLException e) {
+                // log.error(e.toString());
+                return metaDataInfo;
+            } catch (Exception e) {
+                // log.error(e.toString());
+                return metaDataInfo;
             }
-            // Replace ALL ' in the retrieveSchema, cause PB for Default Value.
-            // metaDataInfo = metaDataInfo.replaceAll("'", ""); //$NON-NLS-1$
-            // //$NON-NLS-2$
-        } catch (SQLException e) {
-            // log.error(e.toString());
-            return metaDataInfo;
-        } catch (Exception e) {
-            // log.error(e.toString());
-            return metaDataInfo;
         }
         return metaDataInfo;
     }
@@ -482,11 +420,11 @@ public class ExtractMetaDataUtils {
      */
     private static boolean isValidJarFile(final String[] driverJarPath) {
         boolean a = false;
-        for (int i = 0; i < driverJarPath.length; i++) {
-            if (driverJarPath[i] == null || driverJarPath[i].equals("")) { //$NON-NLS-1$
+        for (String element : driverJarPath) {
+            if (element == null || element.equals("")) { //$NON-NLS-1$
                 return a;
             }
-            File jarFile = new File(driverJarPath[i]);
+            File jarFile = new File(element);
             a = jarFile.exists() && jarFile.isFile();
         }
         return a;
@@ -780,8 +718,8 @@ public class ExtractMetaDataUtils {
                 if (driverJarPathArg.contains("\\") || driverJarPathArg.startsWith("/")) { //$NON-NLS-1$
                     if (driverJarPathArg.contains(";")) {
                         String jars[] = driverJarPathArg.split(";");
-                        for (int i = 0; i < jars.length; i++) {
-                            Path path = new Path(jars[i]);
+                        for (String jar : jars) {
+                            Path path = new Path(jar);
                             // fix for 19020
                             if (jarsAvailable.contains(path.lastSegment())) {
                                 if (!new File(getJavaLibPath() + path.lastSegment()).exists()) {
@@ -790,7 +728,7 @@ public class ExtractMetaDataUtils {
                                 }
                                 jarPathList.add(getJavaLibPath() + path.lastSegment());
                             } else {
-                                jarPathList.add(jars[i]);
+                                jarPathList.add(jar);
                             }
                         }
                     } else {
@@ -921,27 +859,30 @@ public class ExtractMetaDataUtils {
 
     // hywang added for bug 7038
     private static List<String> getAllDBFuctions(DatabaseMetaData dbMetadata) {
+        List<String> functionlist = new ArrayList<String>();
         if (dbMetadata == null) {
             return functionlist;
         }
         try {
+            final String CommaSplit = ",\\s*"; //$NON-NLS-1$
+
             String[] systemFunctions = null;
             if (dbMetadata.getSystemFunctions() != null) {
-                systemFunctions = dbMetadata.getSystemFunctions().split(",\\s*"); //$NON-NLS-N$ //$NON-NLS-1$
+                systemFunctions = dbMetadata.getSystemFunctions().split(CommaSplit);
             }
             String[] numericFunctions = null;
             if (dbMetadata.getNumericFunctions() != null) {
-                numericFunctions = dbMetadata.getNumericFunctions().split(",\\s*"); //$NON-NLS-N$ //$NON-NLS-1$
+                numericFunctions = dbMetadata.getNumericFunctions().split(CommaSplit);
             }
 
             String[] stringFunctions = null;
             if (dbMetadata.getStringFunctions() != null) {
-                stringFunctions = dbMetadata.getStringFunctions().split(",\\s*"); //$NON-NLS-N$ //$NON-NLS-1$
+                stringFunctions = dbMetadata.getStringFunctions().split(CommaSplit);
             }
 
             String[] timeFunctions = null;
             if (dbMetadata.getTimeDateFunctions() != null) {
-                timeFunctions = dbMetadata.getTimeDateFunctions().split(",\\s*"); //$NON-NLS-N$ //$NON-NLS-1$
+                timeFunctions = dbMetadata.getTimeDateFunctions().split(CommaSplit);
             }
 
             convertFunctions2Array(functionlist, systemFunctions);
@@ -961,8 +902,8 @@ public class ExtractMetaDataUtils {
     // hywang added for bug 7038
     private static List<String> convertFunctions2Array(List<String> functionlist, String[] functions) {
         if (functions != null) {
-            for (int i = 0; i < functions.length; i++) {
-                functionlist.add(functions[i]);
+            for (String function : functions) {
+                functionlist.add(function);
             }
 
         }
