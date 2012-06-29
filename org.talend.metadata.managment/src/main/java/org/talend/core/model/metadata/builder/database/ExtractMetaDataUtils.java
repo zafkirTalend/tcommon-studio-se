@@ -76,7 +76,7 @@ import orgomg.cwm.objectmodel.core.Expression;
  */
 public class ExtractMetaDataUtils {
 
-    public static final String MSSQL_CONN_CLASS = "net.sourceforge.jtds.jdbc.ConnectionJDBC3";
+    public static final String MSSQL_CONN_CLASS = "net.sourceforge.jtds.jdbc.ConnectionJDBC3"; //$NON-NLS-1$
 
     private static Logger log = Logger.getLogger(ExtractMetaDataUtils.class);
 
@@ -432,83 +432,6 @@ public class ExtractMetaDataUtils {
     }
 
     /**
-     * DOC cantoine. Method to connect to DataBase.
-     * 
-     * @param String driverClass
-     * @param String urlString pwdT
-     * @param String username
-     * @param String pwd
-     * @param String schemaBase
-     */
-    public static List getConnection(String dbType, String url, String username, String pwd, String dataBase, String schemaBase,
-            final String driverClassName, final String driverJarPath, String dbVersion, String additionalParams) {
-        boolean isColsed = false;
-        List conList = new ArrayList();
-        try {
-            if (conn != null) {
-                isColsed = conn.isClosed();
-            }
-        } catch (Exception e) {
-            log.error(e.toString());
-        }
-        // bug 9162
-        List list = new ArrayList();
-        DriverShim wapperDriver = null;
-        if (isReconnect || conn == null || isColsed) {
-            try {
-                closeConnection(true); // colse before connection.
-                checkDBConnectionTimeout();
-
-                list = connect(dbType, url, username, pwd, driverClassName, driverJarPath, dbVersion, additionalParams);
-                if (list != null && list.size() > 0) {
-                    for (int i = 0; i < list.size(); i++) {
-                        if (list.get(i) instanceof Connection) {
-                            conn = (Connection) list.get(i);
-                        }
-                        if (list.get(i) instanceof DriverShim) {
-                            wapperDriver = (DriverShim) list.get(i);
-                        }
-                    }
-                }
-                if (schemaBase != null && !schemaBase.equals("")) { //$NON-NLS-1$
-                    final boolean equals = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct()
-                            .equals(EDatabaseTypeName.ORACLEFORSID.getProduct());
-                    if (!ExtractMetaDataFromDataBase.checkSchemaConnection(schemaBase, conn, equals, dbType)) {
-                        schema = null;
-                    }
-                } else {
-                    boolean teradata = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct()
-                            .equals(EDatabaseTypeName.TERADATA.getProduct());
-                    // add for bug 10644
-                    boolean as400 = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct()
-                            .equals(EDatabaseTypeName.AS400.getProduct());
-                    if (teradata) {
-                        schema = dataBase;
-                    } else if (as400) {
-                        schema = retrieveSchemaPatternForAS400(url);
-                    } else if (EDatabaseTypeName.SAS.getProduct()
-                            .equals(EDatabaseTypeName.getTypeFromDbType(dbType).getProduct())) {
-                        schema = dataBase;
-                    } else {
-                        schema = null;
-                    }
-                }
-                conList.add(conn);
-                if (wapperDriver != null) {
-                    conList.add(wapperDriver);
-                }
-            } catch (SQLException e) {
-                log.error(e.toString());
-                throw new RuntimeException(e);
-            } catch (Exception e) {
-                log.error(e.toString());
-                throw new RuntimeException(e);
-            }
-        }
-        return conList;
-    }
-
-    /**
      * 
      * cli Comment method "retrieveSchemaPatternForAS400".
      * 
@@ -651,6 +574,83 @@ public class ExtractMetaDataUtils {
                 // no need to throw exception or this one will be throw all the time
             }
         }
+    }
+
+    /**
+     * DOC cantoine. Method to connect to DataBase.
+     * 
+     * @param String driverClass
+     * @param String urlString pwdT
+     * @param String username
+     * @param String pwd
+     * @param String schemaBase
+     */
+    public static List getConnection(String dbType, String url, String username, String pwd, String dataBase, String schemaBase,
+            final String driverClassName, final String driverJarPath, String dbVersion, String additionalParams) {
+        boolean isColsed = false;
+        List conList = new ArrayList();
+        try {
+            if (conn != null) {
+                isColsed = conn.isClosed();
+            }
+        } catch (Exception e) {
+            log.error(e.toString());
+        }
+        // bug 9162
+        List list = new ArrayList();
+        DriverShim wapperDriver = null;
+        if (isReconnect || conn == null || isColsed) {
+            try {
+                closeConnection(true); // colse before connection.
+                checkDBConnectionTimeout();
+
+                list = connect(dbType, url, username, pwd, driverClassName, driverJarPath, dbVersion, additionalParams);
+                if (list != null && list.size() > 0) {
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i) instanceof Connection) {
+                            conn = (Connection) list.get(i);
+                        }
+                        if (list.get(i) instanceof DriverShim) {
+                            wapperDriver = (DriverShim) list.get(i);
+                        }
+                    }
+                }
+                if (schemaBase != null && !schemaBase.equals("")) { //$NON-NLS-1$
+                    final boolean equals = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct()
+                            .equals(EDatabaseTypeName.ORACLEFORSID.getProduct());
+                    if (!ExtractMetaDataFromDataBase.checkSchemaConnection(schemaBase, conn, equals, dbType)) {
+                        schema = null;
+                    }
+                } else {
+                    boolean teradata = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct()
+                            .equals(EDatabaseTypeName.TERADATA.getProduct());
+                    // add for bug 10644
+                    boolean as400 = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct()
+                            .equals(EDatabaseTypeName.AS400.getProduct());
+                    if (teradata) {
+                        schema = dataBase;
+                    } else if (as400) {
+                        schema = retrieveSchemaPatternForAS400(url);
+                    } else if (EDatabaseTypeName.SAS.getProduct()
+                            .equals(EDatabaseTypeName.getTypeFromDbType(dbType).getProduct())) {
+                        schema = dataBase;
+                    } else {
+                        schema = null;
+                    }
+                }
+                conList.add(conn);
+                if (wapperDriver != null) {
+                    conList.add(wapperDriver);
+                }
+            } catch (SQLException e) {
+                log.error(e.toString());
+                throw new RuntimeException(e);
+            } catch (Exception e) {
+                log.error(e.toString());
+                throw new RuntimeException(e);
+            }
+        }
+        return conList;
     }
 
     /**
@@ -833,6 +833,14 @@ public class ExtractMetaDataUtils {
         return conList;
     }
 
+    public static List getConnectionList(IMetadataConnection metadataConnection) {
+        List list = getConnection(metadataConnection.getDbType(), metadataConnection.getUrl(), metadataConnection.getUsername(),
+                metadataConnection.getPassword(), metadataConnection.getDatabase(), metadataConnection.getSchema(),
+                metadataConnection.getDriverClass(), metadataConnection.getDriverJarPath(),
+                metadataConnection.getDbVersionString(), metadataConnection.getAdditionalParams());
+        return list;
+    }
+
     /**
      * 
      * DOC YeXiaowei Comment method "getJavaLibPath".
@@ -948,21 +956,21 @@ public class ExtractMetaDataUtils {
         return imetadataConnection.getSchema();
     }
 
-    public static List getConnectionList(IMetadataConnection metadataConnection) {
-        List list = getConnection(metadataConnection.getDbType(), metadataConnection.getUrl(), metadataConnection.getUsername(),
-                metadataConnection.getPassword(), metadataConnection.getDatabase(), metadataConnection.getSchema(),
-                metadataConnection.getDriverClass(), metadataConnection.getDriverJarPath(),
-                metadataConnection.getDbVersionString(), metadataConnection.getAdditionalParams());
-        return list;
-    }
-
     public static boolean isOLAPConnection(DatabaseConnection connection) {
-        if (connection != null && connection.getProductId().equals(EDatabaseTypeName.GENERAL_JDBC.getProduct())) {
+        if (connection != null && EDatabaseTypeName.GENERAL_JDBC.getProduct().equals(connection.getProductId())) {
             String url = connection.getURL();
-            String value = url.substring(url.indexOf(":") + 1);
-            String substring = value.substring(0, value.indexOf(":"));
-            if (substring.contains("olap")) {
-                return true;
+            if (url != null) {
+                // String value = url.substring(url.indexOf(":") + 1);
+                // String substring = value.substring(0, value.indexOf(":"));
+                // if (substring.contains("olap")) {
+                // return true;
+                // }
+
+                // FIXME why not to use like this
+                if (url.toLowerCase().startsWith("jdbc:olap:")) { //$NON-NLS-1$
+                    return true;
+                }
+
             }
         }
         return false;

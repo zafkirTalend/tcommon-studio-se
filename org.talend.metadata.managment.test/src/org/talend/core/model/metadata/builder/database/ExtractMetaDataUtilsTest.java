@@ -631,4 +631,109 @@ public class ExtractMetaDataUtilsTest {
         verify(metadata, times(4)).getTimeDateFunctions();
         Assert.assertEquals(actualResult, ManagementTextUtils.QUOTATION_MARK + value + ManagementTextUtils.QUOTATION_MARK);
     }
+
+    @Test
+    public void testIsOLAPConnection4Null() {
+
+        Assert.assertFalse(ExtractMetaDataUtils.isOLAPConnection(null));
+
+        DatabaseConnection conn = mock(DatabaseConnection.class);
+        when(conn.getProductId()).thenReturn(null);
+
+        boolean is = ExtractMetaDataUtils.isOLAPConnection(conn);
+        verify(conn).getProductId();
+        Assert.assertFalse(is);
+
+    }
+
+    @Test
+    public void testIsOLAPConnection4NullURL() {
+        DatabaseConnection conn = mock(DatabaseConnection.class);
+        when(conn.getProductId()).thenReturn(EDatabaseTypeName.GENERAL_JDBC.getProduct());
+        when(conn.getURL()).thenReturn(null);
+
+        boolean is = ExtractMetaDataUtils.isOLAPConnection(conn);
+        verify(conn).getProductId();
+        verify(conn).getURL();
+        Assert.assertFalse(is);
+
+    }
+
+    @Test
+    public void testIsOLAPConnection4EmptyURL() {
+        DatabaseConnection conn = mock(DatabaseConnection.class);
+        when(conn.getProductId()).thenReturn(EDatabaseTypeName.GENERAL_JDBC.getProduct());
+        when(conn.getURL()).thenReturn(""); //$NON-NLS-1$
+
+        boolean is = ExtractMetaDataUtils.isOLAPConnection(conn);
+        verify(conn).getProductId();
+        verify(conn).getURL();
+        Assert.assertFalse(is);
+
+    }
+
+    @Test
+    public void testIsOLAPConnection4URL1() {
+        DatabaseConnection conn = mock(DatabaseConnection.class);
+        when(conn.getProductId()).thenReturn(EDatabaseTypeName.GENERAL_JDBC.getProduct());
+        when(conn.getURL()).thenReturn("jdbc:xxx://yyy:zzz");//$NON-NLS-1$
+
+        boolean is = ExtractMetaDataUtils.isOLAPConnection(conn);
+        verify(conn).getProductId();
+        verify(conn).getURL();
+        Assert.assertFalse(is);
+
+    }
+
+    @Test
+    public void testIsOLAPConnection4URL2() {
+        DatabaseConnection conn = mock(DatabaseConnection.class);
+        when(conn.getProductId()).thenReturn(EDatabaseTypeName.GENERAL_JDBC.getProduct());
+        when(conn.getURL()).thenReturn("JDBC:OLAP://yyy:zzz");//$NON-NLS-1$
+
+        boolean is = ExtractMetaDataUtils.isOLAPConnection(conn);
+        verify(conn).getProductId();
+        verify(conn).getURL();
+        Assert.assertTrue(is);
+
+    }
+
+    @Test
+    public void testIsOLAPConnection4URL3() {
+        DatabaseConnection conn = mock(DatabaseConnection.class);
+        when(conn.getProductId()).thenReturn(EDatabaseTypeName.GENERAL_JDBC.getProduct());
+        when(conn.getURL()).thenReturn("jdbc:olap://yyy:zzz");//$NON-NLS-1$
+
+        boolean is = ExtractMetaDataUtils.isOLAPConnection(conn);
+        verify(conn).getProductId();
+        verify(conn).getURL();
+        Assert.assertTrue(is);
+
+    }
+
+    @Test
+    public void testIsOLAPConnection4URL4() {
+        DatabaseConnection conn = mock(DatabaseConnection.class);
+        when(conn.getProductId()).thenReturn(EDatabaseTypeName.GENERAL_JDBC.getProduct());
+        when(conn.getURL()).thenReturn("jdbc:olapx://yyy:zzz");//$NON-NLS-1$
+
+        boolean is = ExtractMetaDataUtils.isOLAPConnection(conn);
+        verify(conn).getProductId();
+        verify(conn).getURL();
+        Assert.assertFalse(is);
+
+    }
+
+    @Test
+    public void testIsOLAPConnection4URL5() {
+        DatabaseConnection conn = mock(DatabaseConnection.class);
+        when(conn.getProductId()).thenReturn(EDatabaseTypeName.GENERAL_JDBC.getProduct());
+        when(conn.getURL()).thenReturn("jdbc:olap,abc");//$NON-NLS-1$
+
+        boolean is = ExtractMetaDataUtils.isOLAPConnection(conn);
+        verify(conn).getProductId();
+        verify(conn).getURL();
+        Assert.assertFalse(is);
+
+    }
 }
