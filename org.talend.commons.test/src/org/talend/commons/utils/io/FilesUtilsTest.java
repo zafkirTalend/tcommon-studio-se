@@ -88,7 +88,7 @@ public class FilesUtilsTest {
      */
     @Test
     public void testParse_1() throws Exception {
-        String path = "D:\\分析导出\\Row_Count_0.1.definition";
+        String path = "分析导出\\Row_Count_0.1.definition";
         FilesUtils.parse(path);
     }
 
@@ -100,7 +100,7 @@ public class FilesUtilsTest {
      */
     @Test
     public void testParse_2() throws Exception {
-        File f = new File("D:\\testParse.xml");
+        File f = new File("testParse.xml");
         BufferedWriter output = new BufferedWriter(new FileWriter(f));
         String str = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
                 + "<dataquality.indicators.definition:IndicatorDefinition xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:dataquality.indicators.definition=\"http://dataquality.indicators.definition\" xmi:id=\"_ccFOkBF2Ed2PKb6nEJEvhw\" name=\"Row Count1\" label=\"Row Count\">\n"
