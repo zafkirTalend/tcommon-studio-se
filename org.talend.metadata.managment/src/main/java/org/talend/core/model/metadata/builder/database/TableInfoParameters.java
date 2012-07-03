@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase.ETableTypes;
+import org.talend.core.model.metadata.builder.database.manager.dbs.OracleExtractManager;
 
 /**
  * qzhang class global comment. Detailled comment <br/>
@@ -27,7 +28,7 @@ public class TableInfoParameters {
 
     public static final String DEFAULT_FILTER = "%"; //$NON-NLS-1$
 
-    public static final String ORACLE_10G_RECBIN_SQL = "select object_name from recyclebin"; //$NON-NLS-1$
+    public static final String ORACLE_10G_RECBIN_SQL = OracleExtractManager.ORACLE_10G_RECBIN_SQL;
 
     private boolean usedName = true;
 
