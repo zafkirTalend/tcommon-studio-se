@@ -99,6 +99,7 @@ import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
 import org.talend.repository.viewer.filter.listener.RepoViewPerspectiveListener;
+import org.talend.repository.viewer.ui.provider.RepositoryNameSorter;
 
 /**
  * DOC sgandon class global comment. Detailled comment <br/>
@@ -444,6 +445,7 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
             });
         }
         expandTreeRootIfOnlyOneRoot();
+        viewer.setSorter(new RepositoryNameSorter());
         refreshContentDescription();
 
         // refresh for filters
