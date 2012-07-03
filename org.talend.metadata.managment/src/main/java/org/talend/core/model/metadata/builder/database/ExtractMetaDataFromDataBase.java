@@ -20,7 +20,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
@@ -113,6 +112,8 @@ public class ExtractMetaDataFromDataBase {
      */
     private static Map<String, String> tableTypeMap = new Hashtable<String, String>();
 
+    public static Map<String, String> tableCommentsMap = new Hashtable<String, String>();
+
     private static DatabaseMetaData oldMetadata = null;
 
     private static String oldSchema = null;
@@ -202,7 +203,11 @@ public class ExtractMetaDataFromDataBase {
             String tableLabel, boolean... dontCreateClose) {
         ExtractManager extractManager = ExtractManagerFactory.createByDisplayName(iMetadataConnection.getDbType());
         if (extractManager != null) {
-            return extractManager.returnMetadataColumnsFormTable(iMetadataConnection, tableLabel, dontCreateClose);
+            List<TdColumn> columns = extractManager.returnMetadataColumnsFormTable(iMetadataConnection, tableLabel,
+                    dontCreateClose);
+            tableCommentsMap.clear();
+            tableCommentsMap.putAll(extractManager.getTableCommentsMap());
+            return columns;
         }
         return Collections.emptyList();
 
@@ -529,7 +534,7 @@ public class ExtractMetaDataFromDataBase {
      */
     public static List<String> getTableNamesFromQuery(ResultSet resultSet) throws SQLException {
         List<String> itemTablesName = new ArrayList<String>();
-        Map<String, String> tableCommentsMap = new HashMap<String, String>();
+        tableCommentsMap.clear();
         while (resultSet.next()) {
             String nameKey = resultSet.getString(1).trim();
             String tableComment = getTableComment(nameKey, resultSet, false);

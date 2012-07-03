@@ -90,6 +90,8 @@ public class ExtractManager {
 
     private Map<String, String> tableTypeMap = new Hashtable<String, String>();
 
+    private Map<String, String> tableCommentsMap = new HashMap<String, String>();
+
     private int columnIndex;
 
     public ExtractManager(EDatabaseTypeName dbType) {
@@ -103,6 +105,10 @@ public class ExtractManager {
 
     public Map<String, String> getTableTypeMap() {
         return tableTypeMap;
+    }
+
+    public Map<String, String> getTableCommentsMap() {
+        return tableCommentsMap;
     }
 
     /**
@@ -946,7 +952,7 @@ public class ExtractManager {
     protected List<String> getTableNamesFromTables(ResultSet resultSet, IMetadataConnection metadataConnection)
             throws SQLException {
         List<String> itemTablesName = new ArrayList<String>();
-        Map<String, String> tableCommentsMap = new HashMap<String, String>();
+        tableCommentsMap.clear();
         if (resultSet != null) {
 
             while (resultSet.next()) {
