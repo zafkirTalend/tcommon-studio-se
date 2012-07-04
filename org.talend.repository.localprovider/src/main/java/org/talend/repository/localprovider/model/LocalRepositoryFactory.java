@@ -1202,12 +1202,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 emfFolder.getChildren().remove(childrens[i]);
                 newFolder.getChildren().add(childrens[i]);
 
-                AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
-                        AbstractResourceChangesService.class);
-                if (resChangeService != null) {
-                    resChangeService.postMove(childrens[i], targetPath.toString() + IPath.SEPARATOR + sourcePath.lastSegment());
-                }
-
                 childrens[i].setParent(newFolder);
 
                 // MDO gdbu 2011-9-29 TDQ-3546
@@ -1229,6 +1223,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
                     xmiResourceManager.moveResource(resource, path);
 
+                    AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
+                            AbstractResourceChangesService.class);
                     if (resChangeService != null) {
                         for (Resource toSave : needSaves) {
                             resChangeService.saveResourceByEMFShared(toSave);
