@@ -197,6 +197,7 @@ public class RestoreAction extends AContextualAction {
                     if (repositoryView != null) {
                         // repositoryView.refresh();
                         RepositoryManager.refresh(types);
+                        repositoryView.refreshView();
                     }
 
                     if (updatePalette && GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
