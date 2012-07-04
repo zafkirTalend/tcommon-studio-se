@@ -99,7 +99,7 @@ public class ExtractManager {
         this.dbType = dbType;
     }
 
-    protected EDatabaseTypeName getDbType() {
+    public EDatabaseTypeName getDbType() {
         return dbType;
     }
 
@@ -231,7 +231,7 @@ public class ExtractManager {
                 continue;
             }
 
-            medataTable.setLabel(tableName); //$NON-NLS-1$
+            medataTable.setLabel(tableName);
             medataTable.setTableName(medataTable.getLabel());
 
             medataTable.setComment(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "REMARKS", null)); //$NON-NLS-1$
@@ -260,7 +260,7 @@ public class ExtractManager {
             }
 
             try {
-                tableTypeMap.put(medataTable.getLabel(), tableType); //$NON-NLS-1$    
+                tableTypeMap.put(medataTable.getLabel(), tableType);
             } catch (Exception e) {
                 tableTypeMap.put(medataTable.getLabel(), "TABLE"); //$NON-NLS-1$
             }
@@ -351,7 +351,7 @@ public class ExtractManager {
             log.error(e);
         } finally {
             // bug 22619
-            closeConnect(metadataConnection, wapperDriver);
+            closeConnection(metadataConnection, wapperDriver);
         }
 
         return metadataColumns;
@@ -394,23 +394,24 @@ public class ExtractManager {
      * 
      * @param wapperDriver
      */
-    public boolean closeConnect(IMetadataConnection metadataConnection, DriverShim wapperDriver) {
+    public boolean closeConnection(IMetadataConnection metadataConnection, DriverShim wapperDriver) {
         if (wapperDriver != null && metadataConnection != null
-                && metadataConnection.getDriverClass().equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())) {
-            closeConnectForDerby(wapperDriver);
-            return true;
+                && EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass().equals(metadataConnection.getDriverClass())) {
+            return closeConnectionForDerby(wapperDriver);
         }
         return false;
     }
 
-    public void closeConnectForDerby(DriverShim wapperDriver) {
+    public boolean closeConnectionForDerby(DriverShim wapperDriver) {
         if (wapperDriver != null) {
             try {
-                wapperDriver.connect(DERBY_SHUTDOWN, null); //$NON-NLS-1$
+                wapperDriver.connect(DERBY_SHUTDOWN, null);
+                return true;
             } catch (SQLException e) {
                 // exception of shutdown success. no need to catch.
             }
         }
+        return false;
     }
 
     /**
@@ -423,6 +424,7 @@ public class ExtractManager {
      * @return
      * @deprecated because still use it
      */
+    @Deprecated
     public synchronized List<TdColumn> returnMetadataColumnsFormTable(IMetadataConnection metadataConnection, String tableLabel,
             boolean... dontCreateClose) {
 
@@ -467,7 +469,7 @@ public class ExtractManager {
             log.error(e.toString());
             throw new RuntimeException(e);
         } finally {
-            closeConnect(metadataConnection, wapperDriver);
+            closeConnection(metadataConnection, wapperDriver);
 
         }
 
@@ -599,7 +601,7 @@ public class ExtractManager {
                         label = "_" + label; //$NON-NLS-1$
                         b = true;
                     }
-                    metadataColumn.setLabel(label); //$NON-NLS-1$
+                    metadataColumn.setLabel(label);
                     metadataColumn.setOriginalField(label2);
 
                     // Validate the column if it contains space or illegal
@@ -623,7 +625,7 @@ public class ExtractManager {
                     if (ExtractMetaDataUtils.isUseAllSynonyms()) {
                         typeName = "DATA_TYPE"; //$NON-NLS-1$
                     }
-                    String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, typeName, null).toUpperCase(); //$NON-NLS-1$
+                    String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, typeName, null).toUpperCase();
                     // For sometime the dbType will return one more space character at the end.So need to trim,comment
                     // for bug 17509
                     dbType = dbType.trim();
@@ -636,7 +638,7 @@ public class ExtractManager {
                     // } else {
                     columnSize = ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE");
                     // }
-                    metadataColumn.setLength(columnSize); //$NON-NLS-1$
+                    metadataColumn.setLength(columnSize);
                     // Convert dbmsType to TalendType
 
                     String talendType = null;
@@ -646,7 +648,7 @@ public class ExtractManager {
                         mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(metadataConnection.getMapping());
                     }
                     Integer intMetaDataInfo = ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS");
-                    talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, columnSize, intMetaDataInfo); //$NON-NLS-1$
+                    talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, columnSize, intMetaDataInfo);
                     talendType = ManagementTextUtils.filterSpecialChar(talendType);
                     if (talendType == null) {
                         if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
@@ -670,7 +672,7 @@ public class ExtractManager {
                         commentInfo = ManagementTextUtils.filterSpecialChar(commentInfo);
                     }
                     // gcui:if not oracle database use "REMARKS" select comments
-                    metadataColumn.setComment(commentInfo); //$NON-NLS-1$
+                    metadataColumn.setComment(commentInfo);
                     // jdbc-odbc driver won't apply methods for access
                     addColumnAttributes(metadataConnection, columns, metadataColumn, label, label2, dbType, columnSize,
                             intMetaDataInfo, commentInfo);
@@ -848,7 +850,7 @@ public class ExtractManager {
         }
 
         // added for retrieve schema derby close
-        closeConnect(metadataConnection, wapperDriver);
+        closeConnection(metadataConnection, wapperDriver);
 
         return itemTablesName;
     }
@@ -919,8 +921,9 @@ public class ExtractManager {
             if ("SYNONYM".equals(selectedTypeName)
                     && iMetadataConnection.getDbType().equals(EDatabaseTypeName.IBMDB2.getDisplayName())) {
                 types[i] = "ALIAS";
-            } else
+            } else {
                 types[i] = selectedTypeName;
+            }
         }
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn,
                 iMetadataConnection.getDbType(), iMetadataConnection.isSqlMode(), iMetadataConnection.getDatabase());
@@ -959,7 +962,7 @@ public class ExtractManager {
                 String nameKey = resultSet.getString(GetTable.TABLE_NAME.name());
                 String colComment = getTableComment(metadataConnection, resultSet, nameKey);
 
-                itemTablesName.add(nameKey); //$NON-NLS-1$
+                itemTablesName.add(nameKey);
                 if (tableCommentsMap.containsKey(nameKey)) {
                     if (colComment == null) {
                         colComment = "";
@@ -972,8 +975,9 @@ public class ExtractManager {
                 if (tableTypeMap.containsKey(nameKey)) {
                     tableTypeMap.remove(nameKey);
                     tableTypeMap.put(nameKey, resultSet.getString("TABLE_TYPE"));
-                } else
+                } else {
                     tableTypeMap.put(nameKey, resultSet.getString("TABLE_TYPE"));
+                }
             }
             resultSet.close();
         }

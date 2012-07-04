@@ -30,21 +30,6 @@ import org.talend.core.model.metadata.builder.database.manager.dbs.TeradataExtra
  */
 public final class ExtractManagerFactory {
 
-    public static ExtractManager createByProduct(String product) {
-        if (product == null) {
-            return null;
-        }
-        EDatabaseTypeName dbType = null;
-        for (EDatabaseTypeName type : EDatabaseTypeName.values()) {
-            if (product.equals(type.getProduct())) {
-                dbType = type;
-                break;
-            }
-        }
-
-        return create(dbType);
-    }
-
     public static ExtractManager createByDisplayName(String displayName) {
         if (displayName == null) {
             return null;
@@ -80,6 +65,7 @@ public final class ExtractManagerFactory {
         case IBMDB2:
         case IBMDB2ZOS:
             return new IBMDB2ExtractManager(dbType);
+        case JAVADB:
         case JAVADB_EMBEDED:
         case JAVADB_DERBYCLIENT:
         case JAVADB_JCCJDBC:

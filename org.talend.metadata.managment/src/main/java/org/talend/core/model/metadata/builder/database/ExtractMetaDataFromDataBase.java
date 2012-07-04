@@ -327,9 +327,9 @@ public class ExtractMetaDataFromDataBase {
             }
             ExtractManager extractManager = ExtractManagerFactory.createByDisplayName(dbType);
             if (extractManager != null) {
-                extractManager.closeConnect(null, wapperDriver);
+                extractManager.closeConnection(null, wapperDriver);
                 if (driverClassName.equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())) {
-                    extractManager.closeConnectForDerby(wapperDriver);
+                    extractManager.closeConnectionForDerby(wapperDriver);
                 }
             }
 
@@ -416,7 +416,7 @@ public class ExtractMetaDataFromDataBase {
         ExtractMetaDataUtils.closeConnection();
         ExtractManager extractManager = ExtractManagerFactory.createByDisplayName(dbType);
         if (extractManager != null) {
-            extractManager.closeConnect(iMetadataConnection, wapperDriver);
+            extractManager.closeConnection(iMetadataConnection, wapperDriver);
         }
 
         Iterator<IMetadataTable> iterate = metadataTables.iterator();
@@ -464,9 +464,9 @@ public class ExtractMetaDataFromDataBase {
 
         ExtractManager extractManager = ExtractManagerFactory.createByDisplayName(dbType);
         if (extractManager != null) {
-            extractManager.closeConnect(null, wapperDriver);
+            extractManager.closeConnection(null, wapperDriver);
             if (iMetadataConnection.getDriverClass().equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass())) {
-                extractManager.closeConnectForDerby(wapperDriver);
+                extractManager.closeConnectionForDerby(wapperDriver);
             }
         }
 

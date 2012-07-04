@@ -30,11 +30,10 @@ public class JAVADBExtractManager extends ExtractManager {
     }
 
     @Override
-    public boolean closeConnect(IMetadataConnection metadataConnection, DriverShim wapperDriver) {
-        boolean closed = super.closeConnect(metadataConnection, wapperDriver);
+    public boolean closeConnection(IMetadataConnection metadataConnection, DriverShim wapperDriver) {
+        boolean closed = super.closeConnection(metadataConnection, wapperDriver);
         if (!closed) {
-            closeConnectForDerby(wapperDriver);
-            closed = true;
+            closed = closeConnectionForDerby(wapperDriver);
         }
         return closed;
 
