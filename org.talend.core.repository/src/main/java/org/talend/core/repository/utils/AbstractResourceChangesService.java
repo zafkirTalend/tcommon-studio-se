@@ -59,14 +59,6 @@ public class AbstractResourceChangesService implements IService {
     }
 
     /**
-     * 
-     * Handle the non-EMF file move action, such as sql source file & JRXML file etc.
-     */
-    public void postMove(Item dqItem, String targetPath) {
-
-    }
-
-    /**
      * update the connection item's dependencies when the version changed.
      * 
      * @param connItem
