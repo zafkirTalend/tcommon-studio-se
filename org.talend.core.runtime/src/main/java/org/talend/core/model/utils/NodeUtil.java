@@ -56,30 +56,41 @@ public class NodeUtil {
             conns = new ArrayList<IConnection>(outgoingConnections);
             Collections.sort(conns, new Comparator<IConnection>() {
 
+                @Override
                 public int compare(IConnection o1, IConnection o2) {
-                    if (EConnectionType.ROUTE_WHEN == o1.getLineStyle())
+                    if (EConnectionType.ROUTE_WHEN == o1.getLineStyle()) {
                         return -1;
-                    if (EConnectionType.ROUTE_OTHER == o1.getLineStyle())
-                        if (EConnectionType.ROUTE_WHEN == o2.getLineStyle())
+                    }
+                    if (EConnectionType.ROUTE_OTHER == o1.getLineStyle()) {
+                        if (EConnectionType.ROUTE_WHEN == o2.getLineStyle()) {
                             return 1;
+                        }
+                    }
                     if (EConnectionType.ROUTE_ENDBLOCK == o1.getLineStyle()) {
-                        if (EConnectionType.ROUTE_WHEN == o2.getLineStyle() || EConnectionType.ROUTE_OTHER == o2.getLineStyle())
+                        if (EConnectionType.ROUTE_WHEN == o2.getLineStyle() || EConnectionType.ROUTE_OTHER == o2.getLineStyle()) {
                             return 2;
+                        }
                         if (EConnectionType.ROUTE_TRY == o2.getLineStyle() || EConnectionType.ROUTE_CATCH == o2.getLineStyle()
-                                || EConnectionType.ROUTE_FINALLY == o2.getLineStyle())
+                                || EConnectionType.ROUTE_FINALLY == o2.getLineStyle()) {
                             return 3;
+                        }
                         if (EConnectionType.ROUTE == o2.getLineStyle()) {
                             return 4;
                         }
                     }
-                    if (EConnectionType.ROUTE_TRY == o1.getLineStyle())
+                    if (EConnectionType.ROUTE_TRY == o1.getLineStyle()) {
                         return -1;
-                    if (EConnectionType.ROUTE_CATCH == o1.getLineStyle())
-                        if (EConnectionType.ROUTE_TRY == o2.getLineStyle())
+                    }
+                    if (EConnectionType.ROUTE_CATCH == o1.getLineStyle()) {
+                        if (EConnectionType.ROUTE_TRY == o2.getLineStyle()) {
                             return 1;
-                    if (EConnectionType.ROUTE_FINALLY == o1.getLineStyle())
-                        if (EConnectionType.ROUTE_TRY == o2.getLineStyle() || EConnectionType.ROUTE_CATCH == o2.getLineStyle())
+                        }
+                    }
+                    if (EConnectionType.ROUTE_FINALLY == o1.getLineStyle()) {
+                        if (EConnectionType.ROUTE_TRY == o2.getLineStyle() || EConnectionType.ROUTE_CATCH == o2.getLineStyle()) {
                             return 2;
+                        }
+                    }
 
                     return 0;
                 }
@@ -99,6 +110,7 @@ public class NodeUtil {
             conns = new ArrayList<IConnection>(outgoingConnections);
             Collections.sort(conns, new Comparator<IConnection>() {
 
+                @Override
                 public int compare(IConnection connection1, IConnection connection2) {
 
                     EConnectionType lineStyle = connection1.getLineStyle();
@@ -501,5 +513,33 @@ public class NodeUtil {
         } else {
             return component.isDataAutoPropagated();
         }
+    }
+
+    /**
+     * DOC wliu
+     * <p>
+     * get the original connection instance className of the pamameter:conn.\n It is used to help optimize the code to
+     * avoid 65535 bytes in a method
+     * </p>
+     * Notice: It is used in tFileOutputMSXML in TDI-21606
+     * 
+     * @param connection
+     * @return
+     */
+    public static String getPrivateConnClassName(final IConnection conn) {
+        // INode designedNode = node.getDesignSubjobStartNode();
+        INode node = conn.getSource();
+        if (node.isSubProcessStart() || !(NodeUtil.isDataAutoPropagated(node))) {
+            return conn.getUniqueName();
+        }
+        List<? extends IConnection> listInConns = node.getIncomingConnections();
+        IConnection inConnTemp = null;
+        if (listInConns != null && listInConns.size() > 0) {
+            inConnTemp = listInConns.get(0);
+            if (inConnTemp.getLineStyle().hasConnectionCategory(IConnectionCategory.DATA)) {
+                return getPrivateConnClassName(inConnTemp);
+            }
+        }
+        return ""; //$NON-NLS-1$
     }
 }
