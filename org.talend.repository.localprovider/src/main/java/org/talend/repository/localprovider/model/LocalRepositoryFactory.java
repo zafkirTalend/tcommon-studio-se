@@ -156,7 +156,6 @@ import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
-
 import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 
 /**
@@ -1241,12 +1240,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 moveFolder(type, sourcePath.append(children.getProperty().getLabel()),
                         targetPath.append(emfFolder.getProperty().getLabel()));
             } else {
-                // Added TDQ-5468 yyin 20120621
-                AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
-                        AbstractResourceChangesService.class);
-                if (resChangeService != null) {
-                    resChangeService.postMove(childrens[i], targetPath.toString() + IPath.SEPARATOR + sourcePath.lastSegment());
-                }// ~
                 moveOldContentToNewFolder(project, completeNewPath, emfFolder, newFolder, childrens[i]);
             }
         }

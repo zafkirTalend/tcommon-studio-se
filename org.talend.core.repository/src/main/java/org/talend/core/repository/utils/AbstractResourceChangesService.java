@@ -21,7 +21,6 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.TDQItem;
-
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
@@ -92,10 +91,5 @@ public class AbstractResourceChangesService implements IService {
         return false;
     }
 
-    /**
-     * TDQ-5468 yyin 20120625 Handle the non-EMF file move action, such as sql source file & JRXML file etc.
-     */
-    public void postMove(Item dqItem, String targetPath) {
 
-    }
 }
