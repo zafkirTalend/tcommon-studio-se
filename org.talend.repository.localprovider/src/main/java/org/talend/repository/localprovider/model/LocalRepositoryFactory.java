@@ -1514,7 +1514,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             Item currentItem = obj.getProperty().getItem();
             // Added yyin 20120614 TDQ-5468, add ByteArray into item from file.
             if (currentItem instanceof TDQItem) {
-                this.saveTDQItem((TDQItem) currentItem);
+                this.loadFileContentInItem((TDQItem) currentItem);
             }
             // ~
             if (currentItem.getParent() instanceof FolderItem) {
@@ -1568,11 +1568,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     // Added yyin 20120614 TDQ-5468
-    private boolean saveTDQItem(TDQItem item) {
+    private boolean loadFileContentInItem(TDQItem item) {
         AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
                 AbstractResourceChangesService.class);
         if (resChangeService != null) {
-        return resChangeService.saveSourceFile(item);
+        return resChangeService.loadFileContent(item);
         }
         return false;
     }
