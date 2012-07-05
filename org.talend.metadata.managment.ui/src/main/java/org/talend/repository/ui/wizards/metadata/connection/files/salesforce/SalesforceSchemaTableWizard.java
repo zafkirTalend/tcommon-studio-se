@@ -27,9 +27,11 @@ import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.update.RepositoryUpdateManager;
+import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.ui.views.IRepositoryView;
 import org.talend.repository.ui.wizards.CheckLastVersionRepositoryWizard;
 import org.talend.repository.ui.wizards.metadata.table.files.FileTableWizardPage;
 
@@ -107,6 +109,11 @@ public class SalesforceSchemaTableWizard extends CheckLastVersionRepositoryWizar
             try {
                 factory.save(repositoryObject.getProperty().getItem());
                 closeLockStrategy();
+                // bug TDI-21553
+                IRepositoryView repositoryView = RepositoryManagerHelper.getRepositoryView();
+                if (repositoryView != null) {
+                    repositoryView.refreshView();
+                }
             } catch (PersistenceException e) {
                 String detailError = e.toString();
                 new ErrorDialogWidthDetailArea(getShell(), PID,

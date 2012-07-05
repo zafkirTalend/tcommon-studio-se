@@ -45,6 +45,7 @@ import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.update.RepositoryUpdateManager;
+import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.repository.mdm.i18n.Messages;
@@ -53,6 +54,7 @@ import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
+import org.talend.repository.ui.views.IRepositoryView;
 import org.talend.repository.ui.wizards.RepositoryWizard;
 
 /**
@@ -246,6 +248,11 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
             EObject eObject = metadataTable.eContainer();
             RepositoryUpdateManager.updateMultiSchema(connectionItem, oldMetadataTable, oldTableMap);
             updateRelation();
+            // bug TDI-21553
+            IRepositoryView repositoryView = RepositoryManagerHelper.getRepositoryView();
+            if (repositoryView != null) {
+                repositoryView.refreshView();
+            }
             return true;
         }
         return false;
