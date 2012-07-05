@@ -502,4 +502,32 @@ public class NodeUtil {
             return component.isDataAutoPropagated();
         }
     }
+
+    /**
+     * DOC wliu
+     * <p>
+     * get the original connection instance className of the pamameter:conn.\n It is used to help optimize the code to
+     * avoid 65535 bytes in a method
+     * </p>
+     * Notice: It is used in tFileOutputMSXML in TDI-21606
+     * 
+     * @param connection
+     * @return
+     */
+    public static String getPrivateConnClassName(final IConnection conn) {
+        // INode designedNode = node.getDesignSubjobStartNode();
+        INode node = conn.getSource();
+        if (node.isSubProcessStart() || !(NodeUtil.isDataAutoPropagated(node))) {
+            return conn.getUniqueName();
+        }
+        List<? extends IConnection> listInConns = node.getIncomingConnections();
+        IConnection inConnTemp = null;
+        if (listInConns != null && listInConns.size() > 0) {
+            inConnTemp = listInConns.get(0);
+            if (inConnTemp.getLineStyle().hasConnectionCategory(IConnectionCategory.DATA)) {
+                return getPrivateConnClassName(inConnTemp);
+            }
+        }
+        return ""; //$NON-NLS-1$
+    }
 }
