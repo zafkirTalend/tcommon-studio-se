@@ -2002,9 +2002,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     Property property = repositoryViewObject.getProperty();
                     item = property.getItem();
                 }
-                // Added yyin 20120614 TDQ-5468, add ByteArray into item from file.
-                this.saveTDQItem((TDQItem) item);
-                // ~
                 itemResource = save((TDQItem) item);
             } else {
                 for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
