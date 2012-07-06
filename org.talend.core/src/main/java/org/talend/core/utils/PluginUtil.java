@@ -20,21 +20,27 @@ import org.eclipse.core.runtime.Platform;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 
 /**
- * DOC ycbai class global comment. Util class about plugin.
+ * Util class about plugin.
  */
 public class PluginUtil {
 
     /**
-     * DOC ycbai Get the absolute install path of plugin.
+     * Get the absolute installation path of plugin.
      * 
      * @param pluginId
+     * @return the plugin path or an empty string when it's not found.
      */
     public static String getPluginInstallPath(String pluginId) {
-        String pluginPath = null;
+        String pluginPath = "";
         try {
+            boolean running = Platform.isRunning();
+            if (!running) {
+                return pluginPath;
+            }
             URL url = FileLocator.resolve(Platform.getBundle(pluginId).getEntry("/")); //$NON-NLS-1$
-            if (url == null)
-                return null;
+            if (url == null) {
+                return pluginPath;
+            }
             pluginPath = url.getFile();
             String protoPath = url.getProtocol();
             if (pluginPath.startsWith("file:")) { //$NON-NLS-1$
