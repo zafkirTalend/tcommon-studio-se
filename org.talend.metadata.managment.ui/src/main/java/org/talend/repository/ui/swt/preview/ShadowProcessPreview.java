@@ -31,7 +31,7 @@ import org.talend.repository.preview.ProcessDescription;
 /**
  * Create SWT Table to show the content of a file. <br/>
  * 
- * $Id:ShadowProcessPreview.java 1185 2006-12-22 10:43:29 +0000 (星期五, 22 十二月 2006) amaumont $
+ * $Id:ShadowProcessPreview.java 1185 2006-12-22 10:43:29 +0000 (閺勭喐婀℃禍锟�22 閸椾椒绨╅張锟�006) amaumont $
  * 
  */
 public class ShadowProcessPreview {
@@ -50,6 +50,12 @@ public class ShadowProcessPreview {
     private String[] header;
 
     protected Table table;
+
+    private boolean csvRowsEmpty = false;
+
+    public boolean isCsvRowsEmpty() {
+        return csvRowsEmpty;
+    }
 
     public Table getTable() {
         return this.table;
@@ -327,8 +333,9 @@ public class ShadowProcessPreview {
      */
     public void refreshTablePreview(final CsvArray csvArray, final boolean firstRowIsLabel, List<SchemaTarget> schemaTarget) {
         List<String[]> csvRows = csvArray.getRows();
-
+        this.csvRowsEmpty = false;
         if (csvRows.isEmpty()) {
+            this.csvRowsEmpty = true;
             return;
         }
         // init the title columns
@@ -475,11 +482,11 @@ public class ShadowProcessPreview {
      * DOC ocarbone Comment method "clearTablePreview".
      */
     public void clearTablePreview() {
-        // table.clearAll();
-        // for (int i = 0; i < table.getColumnCount(); i++) {
-        // table.getColumn(i).setText(""); //$NON-NLS-1$
-        // table.getColumn(i).setWidth(0);
-        // }
+        table.clearAll();
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumn(i).setText(""); //$NON-NLS-1$
+            table.getColumn(i).setWidth(0);
+        }
     }
 
     public void removePreviewContent() {
