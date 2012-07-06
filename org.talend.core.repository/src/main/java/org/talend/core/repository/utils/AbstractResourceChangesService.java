@@ -21,6 +21,7 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.TDQItem;
+
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
@@ -86,7 +87,7 @@ public class AbstractResourceChangesService implements IService {
      * @param item
      * @return
      */
-    public boolean saveSourceFile(TDQItem item) {
+    public boolean loadFileContent(TDQItem item) {
         // TODO Auto-generated method stub
         return false;
     }
