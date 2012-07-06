@@ -20,6 +20,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableCopyCommand;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedControlModel;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedControlViewer;
 import org.talend.commons.ui.swt.extended.table.ExtendedButtonEvent;
@@ -132,8 +133,12 @@ public abstract class ExtendedPushButton implements IExtendedPushButton {
         beforeCommandExecution();
         this.commandToExecute = getCommandToExecute();
         if (this.commandToExecute != null) {
-            executeCommand(this.commandToExecute);
-            afterCommandExecution(this.commandToExecute);
+            if (commandToExecute instanceof ExtendedTableCopyCommand) {
+                commandToExecute.execute();
+            } else {
+                executeCommand(this.commandToExecute);
+                afterCommandExecution(this.commandToExecute);
+            }
         }
     }
 
