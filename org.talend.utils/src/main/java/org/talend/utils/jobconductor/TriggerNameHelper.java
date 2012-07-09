@@ -14,6 +14,8 @@ package org.talend.utils.jobconductor;
 
 import java.util.Date;
 
+import org.talend.utils.IdGenerator;
+
 /**
  * 
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -105,7 +107,9 @@ public final class TriggerNameHelper {
     }
 
     public String buildInstantRunTriggerName(int idTask) {
-        return PREFIX_INSTANT_RUN_TRIGGER + idTask + "_" + new Date().getTime();
+        return (new StringBuilder(PREFIX_INSTANT_RUN_TRIGGER)).append(idTask).append("_").append((new Date()).getTime())
+                .append("_")
+                + IdGenerator.getAsciiRandomString(5);
     }
 
     public String buildQuartzTriggerName(TRIGGER_TYPE triggerType, int talendTriggerId) {
@@ -139,8 +143,7 @@ public final class TriggerNameHelper {
     }
 
     public boolean isTalendTriggerDependent(String quartzTriggerName) {
-        return isTimeTriggerName(quartzTriggerName)
-                || isFileTriggerName(quartzTriggerName);
+        return isTimeTriggerName(quartzTriggerName) || isFileTriggerName(quartzTriggerName);
     }
 
 }
