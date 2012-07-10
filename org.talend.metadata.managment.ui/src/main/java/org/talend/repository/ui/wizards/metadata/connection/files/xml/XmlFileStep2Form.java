@@ -517,6 +517,19 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
             protected void previewEnded(CsvArray result) {
                 xmlFilePreview.refreshTablePreview(result, false,
                         ((XmlXPathLoopDescriptor) getConnection().getSchema().get(0)).getSchemaTargets());
+                if (xmlFilePreview.isCsvRowsEmpty()) {
+                    clearPreview();
+                    Display.getDefault().asyncExec(new Runnable() {
+
+                        public void run() {
+                            handleErrorOutput(outputComposite, tabFolder, outputTabItem);
+
+                        }
+                    });
+                    log.error(Messages.getString("FileStep2.noresult")); //$NON-NLS-1$  
+                    previewButton.setEnabled(true);
+                }
+
             }
 
             @Override
@@ -670,21 +683,22 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
                 if (!previewButton.getText().equals(Messages.getString("FileStep2.wait"))) { //$NON-NLS-1$
                     previewButton.setText(Messages.getString("FileStep2.wait")); //$NON-NLS-1$
                     if (getConnection().getXmlFilePath() != null
-                            && !getConnection().getXmlFilePath().equals("") //$NON-NLS-1$
+                            && getConnection().getXmlFilePath().length() != 0 //$NON-NLS-1$
                             && getConnection().getSchema() != null
                             && !getConnection().getSchema().isEmpty()
                             && ((XmlXPathLoopDescriptor) getConnection().getSchema().get(0)).getAbsoluteXPathQuery() != null
-                            && !("").equals(((XmlXPathLoopDescriptor) getConnection().getSchema().get(0)).getAbsoluteXPathQuery()) //$NON-NLS-1$
+                            && ((XmlXPathLoopDescriptor) getConnection().getSchema().get(0)).getAbsoluteXPathQuery().length() != 0 //$NON-NLS-1$
                             && ((XmlXPathLoopDescriptor) getConnection().getSchema().get(0)).getSchemaTargets() != null
-                            && !((XmlXPathLoopDescriptor) getConnection().getSchema().get(0)).getSchemaTargets().isEmpty()) {
+                            && ((XmlXPathLoopDescriptor) getConnection().getSchema().get(0)).getSchemaTargets().size() != 0) {
                         refreshPreview();
+                        outputTabItem.setControl(null);
                     } else {
                         previewButton.setText(Messages.getString("FileStep2.refreshPreview")); //$NON-NLS-1$
                         if (!previewButton.getEnabled()) {
                             // new ErrorDialogWidthDetailArea(getShell(), PID, Messages.getString("FileStep2.noresult"),
                             // Messages //$NON-NLS-1$
                             // .getString("FileStep2.noresultDetailMessage")); //$NON-NLS-1$
-
+                            clearPreview();
                             Display.getDefault().asyncExec(new Runnable() {
 
                                 public void run() {
@@ -720,6 +734,9 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
      * ftang Comment method "handleErrorOutput".
      */
     private void handleErrorOutput(Composite outputComposite, CTabFolder tabFolder, CTabItem outputTabItem) {
+        outputComposite = Form.startNewGridLayout(tabFolder, 1);
+        outputTabItem.setControl(outputComposite);
+
         Font font = new Font(Display.getDefault(), "courier", 8, SWT.NONE); //$NON-NLS-1$
 
         StyledText text = new StyledText(outputComposite, SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL | SWT.READ_ONLY);
