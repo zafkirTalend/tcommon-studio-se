@@ -50,7 +50,6 @@ import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
-import org.talend.core.database.utils.ManagementTextUtils;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataConnection;
@@ -310,12 +309,12 @@ public class ExtractMetaDataUtils {
         try {
             metaDataInfo = columns.getString(infoType);
             // hywang modified it for bug 7038
-            List<String> funcions = getAllDBFuctions(dbMetaData);
-            if (metaDataInfo != null) {
-                if ((dbMetaData != null && funcions != null && !funcions.contains(metaDataInfo))) {
-                    metaDataInfo = ManagementTextUtils.QUOTATION_MARK + metaDataInfo + ManagementTextUtils.QUOTATION_MARK;
-                }
-            }
+            // List<String> funcions = getAllDBFuctions(dbMetaData);
+            // if (metaDataInfo != null) {
+            // if ((dbMetaData != null && funcions != null && !funcions.contains(metaDataInfo))) {
+            // metaDataInfo = ManagementTextUtils.QUOTATION_MARK + metaDataInfo + ManagementTextUtils.QUOTATION_MARK;
+            // }
+            // }
             // Replace ALL ' in the retrieveSchema, cause PB for Default Value.
             // metaDataInfo = metaDataInfo.replaceAll("'", ""); //$NON-NLS-1$
             // //$NON-NLS-2$
@@ -1046,7 +1045,7 @@ public class ExtractMetaDataUtils {
      * 
      * @param column
      */
-    public static void handleDefaultValue(MetadataColumn column) {
+    public static void handleDefaultValue(MetadataColumn column, DatabaseMetaData dbMetaData) {
         if (column == null) {
             return;
         }
@@ -1062,17 +1061,25 @@ public class ExtractMetaDataUtils {
         if (StringUtils.isEmpty(defautVal)) {
             return;
         }
-        if (talendType.equals(JavaTypesManager.INTEGER.getId()) || talendType.equals(JavaTypesManager.FLOAT.getId())
-                || talendType.equals(JavaTypesManager.DOUBLE.getId()) || talendType.equals(JavaTypesManager.LONG.getId())
-                || talendType.equals(JavaTypesManager.SHORT.getId()) || talendType.equals(JavaTypesManager.BIGDECIMAL.getId())
-                || talendType.equals(JavaTypesManager.CHARACTER.getId())) {
-            defautVal = TalendQuoteUtils.removeQuotes(defautVal);
-            if (column.getTalendType().equals(JavaTypesManager.CHARACTER.getId())) {
-                defautVal = TalendQuoteUtils.addQuotes(defautVal, TalendQuoteUtils.SINGLE_QUOTE);
-            }
-            initialValue.setBody(defautVal);
-        } else {
-            initialValue.setBody(TalendQuoteUtils.addQuotesIfNotExist(defautVal));
+        boolean defaultValueIsFunction = false;
+        List<String> functions = getAllDBFuctions(dbMetaData);
+        if (functions.contains(defautVal)) {
+            defaultValueIsFunction = true;
         }
+        if (!defaultValueIsFunction) {
+            if (talendType.equals(JavaTypesManager.INTEGER.getId()) || talendType.equals(JavaTypesManager.FLOAT.getId())
+                    || talendType.equals(JavaTypesManager.DOUBLE.getId()) || talendType.equals(JavaTypesManager.LONG.getId())
+                    || talendType.equals(JavaTypesManager.SHORT.getId())
+                    || talendType.equals(JavaTypesManager.BIGDECIMAL.getId())
+                    || talendType.equals(JavaTypesManager.CHARACTER.getId())) {
+                defautVal = TalendQuoteUtils.removeQuotes(defautVal);
+                if (column.getTalendType().equals(JavaTypesManager.CHARACTER.getId())) {
+                    defautVal = TalendQuoteUtils.addQuotes(defautVal, TalendQuoteUtils.SINGLE_QUOTE);
+                }
+            } else {
+                defautVal = TalendQuoteUtils.addSingleQuotesIfNotExist(defautVal);
+            }
+        }
+        initialValue.setBody(defautVal);
     }
 }

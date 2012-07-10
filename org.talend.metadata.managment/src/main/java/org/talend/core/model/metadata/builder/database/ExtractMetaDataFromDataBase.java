@@ -1187,7 +1187,7 @@ public class ExtractMetaDataFromDataBase {
                     }
                     stringMetaDataInfo = ManagementTextUtils.filterSpecialChar(stringMetaDataInfo);
                     metadataColumn.setDefaultValue(stringMetaDataInfo);
-                    ExtractMetaDataUtils.handleDefaultValue(metadataColumn);
+                    ExtractMetaDataUtils.handleDefaultValue(metadataColumn, dbMetaData);
 
                     // for bug 6919, oracle driver doesn't give correctly the length for timestamp
                     if (EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataConnection.getDbType())
@@ -1401,7 +1401,7 @@ public class ExtractMetaDataFromDataBase {
                         mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(metadataConnection.getMapping());
                     }
                     Integer intMetaDataInfo = ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS");
-                    talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, columnSize, intMetaDataInfo); //$NON-NLS-1$
+                    talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, columnSize, intMetaDataInfo);
                     talendType = ManagementTextUtils.filterSpecialChar(talendType);
                     if (talendType == null) {
                         if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
@@ -1428,7 +1428,7 @@ public class ExtractMetaDataFromDataBase {
                         commentInfo = ManagementTextUtils.filterSpecialChar(commentInfo);
                     }
                     // gcui:if not oracle database use "REMARKS" select comments
-                    metadataColumn.setComment(commentInfo); //$NON-NLS-1$
+                    metadataColumn.setComment(commentInfo);
                     if (!isAccess) { // jdbc-odbc driver won't apply methods for access
                         TDColumnAttributeHelper.addColumnAttribute(label, label2, dbType, columnSize, intMetaDataInfo,
                                 commentInfo, columns, metadataColumn,
@@ -1442,9 +1442,8 @@ public class ExtractMetaDataFromDataBase {
                         Integer ident1 = 0;
                         Integer ident2 = 0;
                         try {
-                            PreparedStatement statement = ExtractMetaDataUtils.conn
-                                    .prepareStatement(" select IDENT_SEED ( '" + tableNode.getValue() + "')," + "IDENT_INCR ( '" //$NON-NLS-N$ //$NON-NLS-N$ //$NON-NLS-N$
-                                            + tableNode.getValue() + "')"); //$NON-NLS-1$ 
+                            PreparedStatement statement = ExtractMetaDataUtils.conn.prepareStatement(" select IDENT_SEED ( '"
+                                    + tableNode.getValue() + "')," + "IDENT_INCR ( '" + tableNode.getValue() + "')"); //$NON-NLS-1$ 
                             ResultSet resultSet = null;
                             ExtractMetaDataUtils.setQueryStatementTimeout(statement);
                             if (statement.execute()) {
