@@ -98,21 +98,29 @@ public final class TalendQuoteUtils {
 
     }
 
+    public static String addSingleQuotesIfNotExist(String text) {
+        return addQuotesIfNotExist(text, SINGLE_QUOTE);
+    }
+
+    public static String addQuotesIfNotExist(String text) {
+        return addQuotesIfNotExist(text, QUOTATION_MARK);
+    }
+
     /**
      * DOC ycbai Comment method "addQuotesIfNotExist".
      * 
      * @param text
      * @return
      */
-    public static String addQuotesIfNotExist(String text) {
+    public static String addQuotesIfNotExist(String text, String quote) {
         if (text == null) {
             return null;
         }
-        if (!text.startsWith(QUOTATION_MARK)) {
-            text = QUOTATION_MARK + text;
+        if (!text.startsWith(quote)) {
+            text = quote + text;
         }
-        if (!text.endsWith(QUOTATION_MARK)) {
-            text = text + QUOTATION_MARK;
+        if (!text.endsWith(quote)) {
+            text = text + quote;
         }
         return text;
     }

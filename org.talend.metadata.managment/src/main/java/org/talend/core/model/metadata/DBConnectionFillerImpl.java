@@ -1193,7 +1193,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 } catch (Exception e) {
                     // do nothing
                 }
-                ExtractMetaDataUtils.handleDefaultValue(column);
+                ExtractMetaDataUtils.handleDefaultValue(column, dbJDBCMetadata);
                 returnColumns.add(column);
                 columnMap.put(columnName, column);
                 index++;
@@ -1326,7 +1326,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 String defaultStr = (defaultvalue != null) ? String.valueOf(defaultvalue) : null;
                 TdExpression defExpression = createTdExpression(GetColumn.COLUMN_DEF.name(), defaultStr);
                 column.setInitialValue(defExpression);
-                ExtractMetaDataUtils.handleDefaultValue(column);
+                ExtractMetaDataUtils.handleDefaultValue(column, dbJDBCMetadata);
 
                 DatabaseConnection dbConnection = (DatabaseConnection) ConnectionHelper.getConnection(colSet);
                 String dbmsId = dbConnection == null ? null : dbConnection.getDbmsId();
