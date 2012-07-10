@@ -687,7 +687,7 @@ public class ExtractManager {
                     }
                     stringMetaDataInfo = ManagementTextUtils.filterSpecialChar(stringMetaDataInfo);
                     metadataColumn.setDefaultValue(stringMetaDataInfo);
-                    ExtractMetaDataUtils.handleDefaultValue(metadataColumn);
+                    ExtractMetaDataUtils.handleDefaultValue(metadataColumn, dbMetaData);
 
                     // for bug 6919, oracle driver doesn't give correctly the length for timestamp
                     checkTypeForTimestamp(metadataConnection, metadataColumn, dbType);
