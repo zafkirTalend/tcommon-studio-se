@@ -107,7 +107,18 @@ public class TimeMeasure {
             }
             long totalElapsedTime = timeStack.getTotalElapsedTime();
             if (display) {
-                System.out.println(indent(indent) + "End '" + idTimer + "', total elapsed time: " + totalElapsedTime + " ms "); //$NON-NLS-1$  //$NON-NLS-2$  //$NON-NLS-3$
+                if (printMemoryUsed) {
+                    // GC must be forced when check memory, or we can't mesure the difference
+                    Runtime.getRuntime().gc();
+                    long usedMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+
+                    System.out.println(indent(indent)
+                            + "End '" + idTimer + "', total elapsed time: " + totalElapsedTime + " ms, " //$NON-NLS-1$  //$NON-NLS-2$  //$NON-NLS-3$
+                            + " current memory [" + usedMemory + "] bytes"); //$NON-NLS-1$  //$NON-NLS-2$
+                } else {
+                    System.out
+                            .println(indent(indent) + "End '" + idTimer + "', total elapsed time: " + totalElapsedTime + " ms "); //$NON-NLS-1$  //$NON-NLS-2$  //$NON-NLS-3$
+                }
             }
             indent--;
             if (isLogToFile && logger != null) {
@@ -138,7 +149,16 @@ public class TimeMeasure {
         } else {
             long time = timers.get(idTimer).getTotalElapsedTime();
             if (display) {
-                System.out.println(indent(indent) + "-> '" + idTimer + "', elapsed time since start: " + time + " ms "); //$NON-NLS-1$  //$NON-NLS-2$  //$NON-NLS-3$
+                if (printMemoryUsed) {
+                    // GC must be forced when check memory, or we can't mesure the difference
+                    Runtime.getRuntime().gc();
+                    long usedMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+
+                    System.out.println(indent(indent) + "-> '" + idTimer + "', elapsed time since start: " + time + " ms," //$NON-NLS-1$  //$NON-NLS-2$  //$NON-NLS-3$
+                            + " current memory [" + usedMemory + "] bytes"); //$NON-NLS-1$  //$NON-NLS-2$
+                } else {
+                    System.out.println(indent(indent) + "-> '" + idTimer + "', elapsed time since start: " + time + " ms "); //$NON-NLS-1$  //$NON-NLS-2$  //$NON-NLS-3$
+                }
             }
             return time;
         }
@@ -172,9 +192,21 @@ public class TimeMeasure {
             Date now = ca.getTime();
             long time = timeStack.getLastStepElapsedTime();
             if (display && displaySteps) {
-                String timerStepName = idTimer + "', step name '" + stepName;
-                System.out.println(indent(indent)
-                        + "-> '" + timerStepName + "', elapsed time since previous step: " + time + " ms "); //$NON-NLS-1$  //$NON-NLS-2$
+                long usedMemory = 0;
+                if (printMemoryUsed) {
+                    // GC must be forced when check memory, or we can't mesure the difference
+                    Runtime.getRuntime().gc();
+                    usedMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+                }
+                String timerStepName = idTimer + "', step name '" + stepName; //$NON-NLS-1$
+                if (printMemoryUsed) {
+                    System.out.println(indent(indent)
+                            + "-> '" + timerStepName + "', elapsed time since previous step: " + time + " ms," + //$NON-NLS-1$  //$NON-NLS-2$  //$NON-NLS-3$
+                            " current memory [" + usedMemory + "] bytes"); //$NON-NLS-1$  //$NON-NLS-2$
+                } else {
+                    System.out.println(indent(indent)
+                            + "-> '" + timerStepName + "', elapsed time since previous step: " + time + " ms"); //$NON-NLS-1$  //$NON-NLS-2$  //$NON-NLS-3$
+                }
                 if (isLogToFile) {
                     boolean foundTimerKey = false;
                     for (String keyTimer : logValue.keySet()) {
@@ -189,9 +221,6 @@ public class TimeMeasure {
                                 newRowValue.put(ELogFileColumnConstant.TIME_USED.locationY, time);
                                 // memory used
                                 if (printMemoryUsed) {
-                                    // GC must be forced when check memory, or we can't mesure the difference
-                                    Runtime.getRuntime().gc();
-                                    long usedMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
                                     newRowValue.put(ELogFileColumnConstant.MEMO_USED.locationY, usedMemory);
                                 }
                                 // current time
@@ -211,9 +240,6 @@ public class TimeMeasure {
                         newRowValue.put(ELogFileColumnConstant.TIME_USED.locationY, time);
                         // memory used
                         if (printMemoryUsed) {
-                            // GC must be forced when check memory, or we can't mesure the difference
-                            Runtime.getRuntime().gc();
-                            long usedMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
                             newRowValue.put(ELogFileColumnConstant.MEMO_USED.locationY, usedMemory);
                         }
                         // current time
@@ -242,6 +268,7 @@ public class TimeMeasure {
             // long time = times.getElapsedTimeSinceLastRequest();
             time.pause();
             if (display) {
+                // do nothing... yet
             }
         }
     }
@@ -259,9 +286,10 @@ public class TimeMeasure {
             return;
         } else {
             TimeStack times = timers.get(idTimer);
-            long time = times.getLastStepElapsedTime();
+            // long time = times.getLastStepElapsedTime();
             times.resume();
             if (display) {
+                // do nothing... yet
             }
         }
     }
@@ -286,11 +314,11 @@ public class TimeMeasure {
     /* this enum define the attributes of columns in a log file */
     public enum ELogFileColumnConstant {
 
-        TITLE(0, 0, "Welcome to CommandLine performance test"), //$NON-NLS-N$
-        STEP(0, 1, "Step"), //$NON-NLS-N$
-        TIME_USED(1, 1, "TimeUsed(ms)"), //$NON-NLS-N$
-        MEMO_USED(2, 1, "memoryUsed(bytes)"), //$NON-NLS-N$
-        TIMETRACE(3, 1, "timeLine");//$NON-NLS-N$
+        TITLE(0, 0, "Welcome to CommandLine performance test"), //$NON-NLS-1$
+        STEP(0, 1, "Step"), //$NON-NLS-1$
+        TIME_USED(1, 1, "TimeUsed(ms)"), //$NON-NLS-1$
+        MEMO_USED(2, 1, "memoryUsed(bytes)"), //$NON-NLS-1$
+        TIMETRACE(3, 1, "timeLine"); //$NON-NLS-1$
 
         public int locationY;
 
