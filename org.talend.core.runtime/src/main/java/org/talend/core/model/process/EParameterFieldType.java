@@ -73,8 +73,8 @@ public enum EParameterFieldType {
     TREE_TABLE, // hcyi TDI-17115
 	SURVIVOR_RELATION, // sizhaoliu TDQ-3724
 
-	ROUTE_RESOURCE_TYPE;// Xiaopeng Li TESB-6226
-
+	ROUTE_RESOURCE_TYPE, // Xiaopeng Li TESB-6226
+	ROUTE_COMPONENT_TYPE;
     public String getName() {
         return toString();
     }
