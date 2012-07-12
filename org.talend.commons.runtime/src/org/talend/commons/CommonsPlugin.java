@@ -16,8 +16,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
+import org.talend.commons.debug.TalendDebugHandler;
 
 /**
  * Activator for Code Generator.
@@ -77,7 +79,7 @@ public class CommonsPlugin extends Plugin {
     }
 
     public static boolean isDebugMode() {
-        return true; // ArrayUtils.contains(Platform.getApplicationArgs(), TalendDebugHandler.TALEND_DEBUG);
+        return ArrayUtils.contains(Platform.getApplicationArgs(), TalendDebugHandler.TALEND_DEBUG);
     }
 
     /**
