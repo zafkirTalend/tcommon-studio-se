@@ -37,6 +37,7 @@ public enum EMetadataEncoding {
     ISO88598("ISO-8859-8", Messages.getString("EMetadataEncoding.Hebrew")), //$NON-NLS-1$ //$NON-NLS-2$
     ISO88599("ISO-8859-9", Messages.getString("EMetadataEncoding.Latin5")), //$NON-NLS-1$ //$NON-NLS-2$
     ISO885910("ISO-8859-10", Messages.getString("EMetadataEncoding.Latin6")), //$NON-NLS-1$ //$NON-NLS-2$
+    ISO885915("ISO-8859-15", Messages.getString("EMetadataEncoding.Latin9")), //$NON-NLS-1$ //$NON-NLS-2$
     windows1252("windows-1252", Messages.getString("EMetadataEncoding.Microsoft_Latin1")), //$NON-NLS-1$ //$NON-NLS-2$
     BIG5("BIG5", Messages.getString("EMetadataEncoding.Big5")), //$NON-NLS-1$ //$NON-NLS-2$
     GB18030("GB18030", Messages.getString("EMetadataEncoding.GB18030")), //$NON-NLS-1$ //$NON-NLS-2$

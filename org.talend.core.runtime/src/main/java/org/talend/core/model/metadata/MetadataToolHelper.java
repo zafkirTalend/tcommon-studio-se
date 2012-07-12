@@ -208,13 +208,13 @@ public final class MetadataToolHelper {
      * 
      * 
      */
-    public static String validateColumnName(String columnName, int index) {
-        String originalColumnName = new String(columnName);
+    public static String validateColumnName(final String columnName, final int index) {
+        String originalColumnName = new String(mapSpecialChar(columnName));
         final String underLine = "_"; //$NON-NLS-1$
 
         boolean isKeyword = KeywordsValidator.isKeyword(originalColumnName);
 
-        columnName = "";
+        String returnedColumnName = "";
         if (!isKeyword) {
             boolean isAllowSpecific = isAllowSpecificCharacters();
 
@@ -227,21 +227,21 @@ public final class MetadataToolHelper {
                     // other characters should have only a-z or A-Z or _ or 0-9
                     if (((car >= 'a') && (car <= 'z')) || ((car >= 'A') && (car <= 'Z')) || car == '_'
                             || ((car >= '0') && (car <= '9') && (i != 0))) {
-                        columnName += car;
+                        returnedColumnName += car;
                     } else {
-                        columnName += underLine;
+                        returnedColumnName += underLine;
                     }
                 } else {
-                    columnName += car;
+                    returnedColumnName += car;
                 }
             }
         }
         if (isKeyword
-                || org.apache.commons.lang.StringUtils.countMatches(columnName, underLine) > (originalColumnName.length() / 2)) {
-            columnName = "Column" + index; //$NON-NLS-1$
+                || org.apache.commons.lang.StringUtils.countMatches(returnedColumnName, underLine) > (originalColumnName.length() / 2)) {
+            returnedColumnName = "Column" + index; //$NON-NLS-1$
         }
 
-        return columnName;
+        return returnedColumnName;
 
     }
 
