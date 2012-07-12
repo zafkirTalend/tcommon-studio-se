@@ -35,7 +35,6 @@ import org.eclipse.emf.common.util.EList;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
-import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.utils.ManagementTextUtils;
 import org.talend.core.language.ECodeLanguage;
@@ -72,6 +71,20 @@ import orgomg.cwm.resource.relational.Schema;
  * DOC ggu class global comment. Detailled comment
  */
 public class ExtractManager {
+
+    public static final String TABLE_TYPE = "TABLE_TYPE"; //$NON-NLS-1$
+
+    public static final String TABLE_SCHEMA = "TABLE_SCHEM"; //$NON-NLS-1$
+
+    public static final String REMARKS = "REMARKS"; //$NON-NLS-1$
+
+    public static final String SYNONYM_NAME = "SYNONYM_NAME"; //$NON-NLS-1$
+
+    public static final String TABLE_NAME = "TABLE_NAME"; //$NON-NLS-1$
+
+    public static final String TABLETYPE_VIEW = "V"; //$NON-NLS-1$
+
+    public static final String TABLETYPE_TABLE = "T"; //$NON-NLS-1$
 
     protected static final String EMPTY = ""; //$NON-NLS-1$
 
@@ -130,29 +143,11 @@ public class ExtractManager {
         }
         String schema = getSchema(metadataConnection);
         List<String> tablesToFilter = getTablesToFilter(metadataConnection);
-
+        if (tablesToFilter == null) {
+            tablesToFilter = new ArrayList<String>();
+        }
         try {
-            ResultSet rsTableTypes = dbMetaData.getTableTypes();
-            Set<String> availableTableTypes = new HashSet<String>();
-            String[] neededTableTypes = { ETableTypes.TABLETYPE_TABLE.getName(), ETableTypes.TABLETYPE_VIEW.getName(),
-                    ETableTypes.TABLETYPE_SYNONYM.getName() };
-
-            try {
-                while (rsTableTypes.next()) {
-                    // StringUtils.trimToEmpty(name) is because bug 4547
-                    String currentTableType = StringUtils.trimToEmpty(rsTableTypes.getString("TABLE_TYPE")); //$NON-NLS-1$
-                    // Because BASE TABLE which UniJDBCClientResultSet gets is not the support type of
-                    // UniJDBCDatabaseMetaData, do this so as to dispose bug 17281.
-                    if ("BASE TABLE".equalsIgnoreCase(currentTableType)) { //$NON-NLS-1$
-                        currentTableType = ETableTypes.TABLETYPE_TABLE.getName();
-                    }
-                    if (ArrayUtils.contains(neededTableTypes, currentTableType)) {
-                        availableTableTypes.add(currentTableType);
-                    }
-                }
-            } finally {
-                rsTableTypes.close();// See bug 5029 Avoid "Invalid cursor exception"
-            }
+            Set<String> availableTableTypes = getAvailableTableTypes(dbMetaData);
             retrieveTables(dbMetaData, schema, medataTables, availableTableTypes, tablesToFilter, limit);
         } catch (SQLException e) {
             ExceptionHandler.process(e);
@@ -164,6 +159,41 @@ public class ExtractManager {
             throw new RuntimeException(e);
         }
         return medataTables;
+    }
+
+    /**
+     * DOC ggu Comment method "getAvailableTableTypes".
+     * 
+     * 
+     * make it's public,just for junit
+     * 
+     * @param dbMetaData
+     * @return
+     * @throws SQLException
+     */
+    public Set<String> getAvailableTableTypes(DatabaseMetaData dbMetaData) throws SQLException {
+        ResultSet rsTableTypes = dbMetaData.getTableTypes();
+        Set<String> availableTableTypes = new HashSet<String>();
+        String[] neededTableTypes = { ETableTypes.TABLETYPE_TABLE.getName(), ETableTypes.TABLETYPE_VIEW.getName(),
+                ETableTypes.TABLETYPE_SYNONYM.getName() };
+
+        try {
+            while (rsTableTypes.next()) {
+                // StringUtils.trimToEmpty(name) is because bug 4547
+                String currentTableType = StringUtils.trimToEmpty(rsTableTypes.getString(ExtractManager.TABLE_TYPE));
+                // Because BASE TABLE which UniJDBCClientResultSet gets is not the support type of
+                // UniJDBCDatabaseMetaData, do this so as to dispose bug 17281.
+                if ("BASE TABLE".equalsIgnoreCase(currentTableType)) { //$NON-NLS-1$
+                    currentTableType = ETableTypes.TABLETYPE_TABLE.getName();
+                }
+                if (ArrayUtils.contains(neededTableTypes, currentTableType)) {
+                    availableTableTypes.add(currentTableType);
+                }
+            }
+        } finally {
+            rsTableTypes.close();// See bug 5029 Avoid "Invalid cursor exception"
+        }
+        return availableTableTypes;
     }
 
     public String getSchema(IMetadataConnection metadataConnection) {
@@ -212,19 +242,24 @@ public class ExtractManager {
             limitNum = limit[0];
         }
         while (rsTables.next()) {
+            index++;
+            // must be here, else will return limitNum+1 tables
+            if (limitNum > 0 && index > limitNum) {
+                break;
+            }
             boolean isSynonym = false;
             MetadataTable medataTable = new MetadataTable();
-            medataTable.setId(medataTables.size() + 1 + ""); //$NON-NLS-1$
+            medataTable.setId(index + ""); //$NON-NLS-1$
             // See bug 5029 In some Linux odbc driver for MS SQL, their columns in ResultSet have not alias names.
             // Must use column index to fetch values.
 
-            String tableName = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "TABLE_NAME", null); //$NON-NLS-1$
+            String tableName = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, ExtractManager.TABLE_NAME, null);
             if (tableName == null) {
                 tableName = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, 3);
             }
             if (tableName == null) {
                 // in case it's in fact a synonym
-                tableName = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "SYNONYM_NAME", null); //$NON-NLS-1$
+                tableName = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, ExtractManager.SYNONYM_NAME, null);
                 isSynonym = true;
             }
             if (tableName == null || tablesToFilter.contains(tableName) || tableName.startsWith("/")) {
@@ -234,24 +269,24 @@ public class ExtractManager {
             medataTable.setLabel(tableName);
             medataTable.setTableName(medataTable.getLabel());
 
-            medataTable.setComment(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "REMARKS", null)); //$NON-NLS-1$
+            medataTable.setComment(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, ExtractManager.REMARKS, null));
 
-            String schema = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "TABLE_SCHEM", null); //$NON-NLS-1$
+            String schema = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, ExtractManager.TABLE_SCHEMA, null);
             if (schema == null) {
                 schema = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, 2);
             }
 
-            String tableType = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "TABLE_TYPE", null); //$NON-NLS-1$
+            String tableType = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, ExtractManager.TABLE_TYPE, null);
             if (tableType == null) {
                 tableType = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, 4);
             }
             // if (tableType.startsWith("A")) {
             // System.out.println("AA");
             // }
-            if ("T".equals(tableType)) { //$NON-NLS-1$
+            if (ExtractManager.TABLETYPE_TABLE.equals(tableType)) {
                 tableType = ETableTypes.TABLETYPE_TABLE.getName();
             }
-            if ("V".equals(tableType)) { //$NON-NLS-1$
+            if (ExtractManager.TABLETYPE_VIEW.equals(tableType)) {
                 tableType = ETableTypes.TABLETYPE_VIEW.getName();
             }
 
@@ -262,13 +297,10 @@ public class ExtractManager {
             try {
                 tableTypeMap.put(medataTable.getLabel(), tableType);
             } catch (Exception e) {
-                tableTypeMap.put(medataTable.getLabel(), "TABLE"); //$NON-NLS-1$
+                tableTypeMap.put(medataTable.getLabel(), ETableTypes.TABLETYPE_TABLE.getName());
             }
             medataTables.add(medataTable);
-            index++;
-            if (limitNum > 0 && index > limitNum) {
-                break;
-            }
+
         }
     }
 
@@ -395,10 +427,6 @@ public class ExtractManager {
      * @param wapperDriver
      */
     public boolean closeConnection(IMetadataConnection metadataConnection, DriverShim wapperDriver) {
-        if (wapperDriver != null && metadataConnection != null
-                && EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass().equals(metadataConnection.getDriverClass())) {
-            return closeConnectionForDerby(wapperDriver);
-        }
         return false;
     }
 
@@ -580,7 +608,7 @@ public class ExtractManager {
             IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
             while (columns.next()) {
                 Boolean b = false;
-                String fetchTableName = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TABLE_NAME", null); //$NON-NLS-1$
+                String fetchTableName = ExtractMetaDataUtils.getStringMetaDataInfo(columns, ExtractManager.TABLE_NAME, null);
                 fetchTableName = ManagementTextUtils.filterSpecialChar(fetchTableName); // for 8115
                 if (fetchTableName.equals(tableName) || databaseType.equals(EDatabaseTypeName.SQLITE.getDisplayName())) {
                     TdColumn metadataColumn = RelationalFactory.eINSTANCE.createTdColumn();
@@ -667,7 +695,7 @@ public class ExtractManager {
                     metadataColumn.setNullable(isNullable);
 
                     // gcui:see bug 6450, if in the commentInfo have some invalid character then will remove it.
-                    String commentInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS", null); //$NON-NLS-1$
+                    String commentInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, ExtractManager.REMARKS, null);
                     if (commentInfo != null && commentInfo.length() > 0) {
                         commentInfo = ManagementTextUtils.filterSpecialChar(commentInfo);
                     }
@@ -934,7 +962,7 @@ public class ExtractManager {
         String[] neededTableTypes = { ETableTypes.TABLETYPE_TABLE.getName(), ETableTypes.TABLETYPE_VIEW.getName(),
                 ETableTypes.TABLETYPE_SYNONYM.getName() };
         while (rsTableTypes.next()) {
-            String currentTableType = StringUtils.trimToEmpty(rsTableTypes.getString("TABLE_TYPE")); //$NON-NLS-1$
+            String currentTableType = StringUtils.trimToEmpty(rsTableTypes.getString(ExtractManager.TABLE_TYPE));
             if (ArrayUtils.contains(neededTableTypes, currentTableType)) {
                 availableTableTypes.add(currentTableType);
             }
@@ -974,9 +1002,9 @@ public class ExtractManager {
                 // bug 0017782 ,db2's SYNONYM need to convert to ALIAS;
                 if (tableTypeMap.containsKey(nameKey)) {
                     tableTypeMap.remove(nameKey);
-                    tableTypeMap.put(nameKey, resultSet.getString("TABLE_TYPE"));
+                    tableTypeMap.put(nameKey, resultSet.getString(ExtractManager.TABLE_TYPE));
                 } else {
-                    tableTypeMap.put(nameKey, resultSet.getString("TABLE_TYPE"));
+                    tableTypeMap.put(nameKey, resultSet.getString(ExtractManager.TABLE_TYPE));
                 }
             }
             resultSet.close();

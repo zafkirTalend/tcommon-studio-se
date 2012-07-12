@@ -22,6 +22,7 @@ import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataConnection;
+import org.talend.core.model.metadata.builder.database.DriverShim;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.manager.ExtractManager;
 import org.talend.core.model.metadata.builder.database.manager.ExtractManagerFactory;
@@ -54,7 +55,7 @@ public class GeneralJDBCExtractManager extends ExtractManager {
             }
             //
             String dbType = metadataConnection.getDbType();
-            if (driverJar != null && !EMPTY.equals(driverJar)) {//$NON-NLS-1$
+            if (driverJar != null && !EMPTY.equals(driverJar)) {
                 EDatabaseVersion4Drivers dbversion4Driver = getDBVersionByClassNameAndDriverJar(driverClassName, driverJar);
                 if (dbversion4Driver != null) {
                     newMetadataConn.setDbVersionString(dbversion4Driver.getVersionValue());
@@ -101,4 +102,37 @@ public class GeneralJDBCExtractManager extends ExtractManager {
         return null;
 
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.model.metadata.builder.database.manager.ExtractManager#closeConnection(org.talend.core.model.
+     * metadata.IMetadataConnection, org.talend.core.model.metadata.builder.database.DriverShim)
+     */
+    @Override
+    public boolean closeConnection(IMetadataConnection metadataConnection, DriverShim wapperDriver) {
+        if (wapperDriver != null && metadataConnection != null) {
+            String driverClass = metadataConnection.getDriverClass();
+            if (driverClass != null) {
+                List<EDatabase4DriverClassName> db4DriverClasses = EDatabase4DriverClassName.indexOfByDriverClass(driverClass);
+                if (!db4DriverClasses.isEmpty()) {
+                    // use the firest one
+                    ExtractManager manager = ExtractManagerFactory.create(db4DriverClasses.get(0).getDbType());
+                    if (manager != null) {
+                        IMetadataConnection newMetadataConn = new MetadataConnection();
+
+                        newMetadataConn.setDbType(manager.getDbType().getXmlName());
+                        newMetadataConn.setDbVersionString(metadataConnection.getDbVersionString());
+                        newMetadataConn.setDriverClass(metadataConnection.getDriverClass());
+                        newMetadataConn.setDriverJarPath(metadataConnection.getDriverJarPath());
+
+                        return manager.closeConnection(newMetadataConn, wapperDriver);
+                    }
+                }
+            }
+        }
+        return super.closeConnection(metadataConnection, wapperDriver);
+    }
+
 }

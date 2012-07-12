@@ -48,14 +48,15 @@ public class AS400ExtractManager extends ExtractManager {
     @Override
     protected void retrieveTables(DatabaseMetaData dbMetaData, String schema, List<IMetadataTable> medataTables,
             Set<String> availableTableTypes, List<String> tablesToFilter, int... limit) throws SQLException {
-        if (dbMetaData.supportsSchemasInTableDefinitions() && schema != null && !EMPTY.equals(schema)) {
+        boolean supportsSchemasInTableDefinitions = dbMetaData.supportsSchemasInTableDefinitions();
+        if (supportsSchemasInTableDefinitions && schema != null && !EMPTY.equals(schema)) {
             String[] multiSchems = ExtractMetaDataUtils.getMultiSchems(schema);
             if (multiSchems != null) {
                 ResultSet rsTables = null;
                 for (String s : multiSchems) {
                     rsTables = dbMetaData.getTables(null, s.trim(), null, availableTableTypes.toArray(new String[] {}));
                     try {
-                        getMetadataTables(medataTables, rsTables, dbMetaData.supportsSchemasInTableDefinitions(), tablesToFilter,
+                        getMetadataTables(medataTables, rsTables, supportsSchemasInTableDefinitions, tablesToFilter,
                                 limit);
                     } finally {
                         rsTables.close();
