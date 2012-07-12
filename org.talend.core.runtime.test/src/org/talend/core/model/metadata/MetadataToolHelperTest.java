@@ -176,65 +176,50 @@ public class MetadataToolHelperTest {
      */
     @Test
     public void testValidateColumnName() {
-        List<String> nameList = new ArrayList<String>();
-        nameList.add("public");
-        nameList.add("id");
-        nameList.add("na&me");
-        nameList.add("addr_ess");
-        nameList.add("9city");
-        nameList.add("country1");
-        nameList.add("_dic");
-        for (int j = 0; j < nameList.size(); j++) {
-            String columnName = nameList.get(j);
-            columnName = MetadataToolHelper.validateColumnName(columnName, j);
+        CoreRuntimePlugin.getInstance().getDesignerCoreService().getDesignerCorePreferenceStore()
+                .setValue(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS, false);
 
-            // int index = j;
-            // String originalColumnName = new String(columnName);
-            //            final String underLine = "_"; //$NON-NLS-1$
-            //
-            // boolean isKeyword = KeywordsValidator.isKeyword(originalColumnName);
-            //
-            // columnName = "";
-            // if (!isKeyword) {
-            // for (int i = 0; i < originalColumnName.length(); i++) {
-            // Character car = originalColumnName.charAt(i);
-            // if (car.toString().getBytes().length == 1) {
-            // // first character should have only a-z or A-Z or _
-            // // other characters should have only a-z or A-Z or _ or 0-9
-            // if (((car >= 'a') && (car <= 'z')) || ((car >= 'A') && (car <= 'Z')) || car == '_'
-            // || ((car >= '0') && (car <= '9') && (i != 0))) {
-            // columnName += car;
-            // } else {
-            // columnName += underLine;
-            // }
-            // } else {
-            // columnName += car;
-            // }
-            // }
-            // }
-            // if (isKeyword
-            // || org.apache.commons.lang.StringUtils.countMatches(columnName, underLine) > (originalColumnName.length()
-            // / 2)) {
-            //                columnName = "Column" + index; //$NON-NLS-1$
-            // }
+        String columnName = MetadataToolHelper.validateColumnName("public", 0);
+        assertEquals(columnName, "Column0");
 
-            if (j == 0) {
-                assertEquals(columnName, "Column0");
-            } else if (j == 1) {
-                assertEquals(columnName, "id");
-            } else if (j == 2) {
-                assertEquals(columnName, "na_me");
-            } else if (j == 3) {
-                assertEquals(columnName, "addr_ess");
-            } else if (j == 4) {
-                assertEquals(columnName, "_city");
-            } else if (j == 5) {
-                assertEquals(columnName, "country1");
-            } else if (j == 5) {
-                assertEquals(columnName, "_dic");
-            }
-        }
+        columnName = MetadataToolHelper.validateColumnName("id", 0);
+        assertEquals(columnName, "id");
 
+        columnName = MetadataToolHelper.validateColumnName("na&me", 0);
+        assertEquals(columnName, "na_me");
+
+        columnName = MetadataToolHelper.validateColumnName("addr_ess", 0);
+        assertEquals(columnName, "addr_ess");
+
+        columnName = MetadataToolHelper.validateColumnName("9city", 0);
+        assertEquals(columnName, "_city");
+
+        columnName = MetadataToolHelper.validateColumnName("country1", 0);
+        assertEquals(columnName, "country1");
+
+        columnName = MetadataToolHelper.validateColumnName("problème", 0);
+        assertEquals(columnName, "probleme");
+
+        columnName = MetadataToolHelper.validateColumnName("test(a)", 0);
+        assertEquals(columnName, "test_a_");
+
+        columnName = MetadataToolHelper.validateColumnName("MyColumn_你好", 0);
+        assertEquals("MyColumn___", columnName);
+
+        columnName = MetadataToolHelper.validateColumnName("你好", 0);
+        assertEquals("Column0", columnName);
+
+        CoreRuntimePlugin.getInstance().getDesignerCoreService().getDesignerCorePreferenceStore()
+                .setValue(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS, true);
+
+        columnName = MetadataToolHelper.validateColumnName("你好", 0);
+        assertEquals("你好", columnName);
+
+        columnName = MetadataToolHelper.validateColumnName("My Strange (?) Column !", 0);
+        assertEquals("My_Strange_____Column__", columnName);
+
+        CoreRuntimePlugin.getInstance().getDesignerCoreService().getDesignerCorePreferenceStore()
+                .setToDefault(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS);
     }
 
     /**
@@ -254,31 +239,6 @@ public class MetadataToolHelperTest {
             String tableName = nameList.get(j);
 
             tableName = MetadataToolHelper.validateTableName(tableName);
-
-            // int index = j;
-            // String originalTableName = new String(tableName);
-            //            final String underLine = "_"; //$NON-NLS-1$
-            //
-            // boolean isKeyword = KeywordsValidator.isKeyword(originalTableName);
-            //
-            // tableName = "";
-            //
-            // for (int i = 0; i < originalTableName.length(); i++) {
-            // Character car = originalTableName.charAt(i);
-            // if (car.toString().getBytes().length == 1) {
-            // if (((car >= 'a') && (car <= 'z')) || ((car >= 'A') && (car <= 'Z')) || car == '_'
-            // || ((car >= '0') && (car <= '9') && (i != 0))) {
-            // tableName += car;
-            // } else {
-            // tableName += underLine;
-            // }
-            // } else {
-            // tableName += car;
-            // }
-            // }
-            // if (isKeyword) {
-            // tableName = tableName + "_1";
-            // }
 
             if (j == 0) {
                 assertEquals(tableName, "public_1");
@@ -316,19 +276,6 @@ public class MetadataToolHelperTest {
             String columnName = nameList.get(i);
 
             String resultName = MetadataToolHelper.validateTableName(columnName);
-
-            // columnName = mapSpecialChar(columnName);
-            //            final String underLine = "_"; //$NON-NLS-1$
-            //            if (columnName.matches("^\\d.*")) { //$NON-NLS-1$
-            // columnName = underLine + columnName;
-            // }
-            //
-            //            String testColumnName = columnName.replaceAll("[^a-zA-Z0-9_]", underLine); //$NON-NLS-1$
-            // String resultName = columnName;
-            // if (org.apache.commons.lang.StringUtils.countMatches(testColumnName, underLine) < (columnName.length() /
-            // 2)) {
-            // resultName = testColumnName;
-            // }
             if (i == 0) {
                 assertEquals(resultName, "public_1");
             } else if (i == 1) {
@@ -366,14 +313,6 @@ public class MetadataToolHelperTest {
             String columnName = nameList.get(i);
 
             columnName = MetadataToolHelper.validateValueNoLengthLimit(columnName);
-
-            // columnName = mapSpecialChar(columnName);
-            //            final String underLine = "_"; //$NON-NLS-1$
-            //            if (columnName.matches("^\\d.*")) { //$NON-NLS-1$
-            // columnName = underLine + columnName;
-            // }
-            //
-            //            columnName = columnName.replaceAll("[^a-zA-Z0-9_]", underLine); //$NON-NLS-1$
             if (i == 0) {
                 assertEquals(columnName, "public");
             } else if (i == 1) {
@@ -413,18 +352,6 @@ public class MetadataToolHelperTest {
 
             String resultName = MetadataToolHelper.validateValueForDBType(columnName);
 
-            // columnName = mapSpecialChar(columnName);
-            //            final String underLine = "_"; //$NON-NLS-1$
-            //            if (columnName.matches("^\\d.*")) { //$NON-NLS-1$
-            // columnName = underLine + columnName;
-            // }
-            //
-            //            String testColumnName = columnName.replaceAll("[^a-zA-Z0-9_]", underLine); //$NON-NLS-1$
-            // String resultName = columnName;
-            // if (org.apache.commons.lang.StringUtils.countMatches(testColumnName, underLine) < (columnName.length() /
-            // 2)) {
-            // resultName = testColumnName;
-            // }
             if (i == 0) {
                 assertEquals(resultName, "public");
             } else if (i == 1) {
