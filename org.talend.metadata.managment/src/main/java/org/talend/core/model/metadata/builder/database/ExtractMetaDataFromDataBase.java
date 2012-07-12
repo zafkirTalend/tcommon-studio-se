@@ -20,6 +20,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
@@ -112,7 +113,7 @@ public class ExtractMetaDataFromDataBase {
      */
     private static Map<String, String> tableTypeMap = new Hashtable<String, String>();
 
-    public static Map<String, String> tableCommentsMap = new Hashtable<String, String>();
+    public static Map<String, String> tableCommentsMap = new HashMap<String, String>();
 
     private static DatabaseMetaData oldMetadata = null;
 
