@@ -39,6 +39,7 @@ import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.core.model.repository.RepositoryManager;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
@@ -181,8 +182,11 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
 
                 }
             };
-            IPreferenceStore preferenceStore = RepositoryManager.getPreferenceStore();
-            preferenceStore.addPropertyChangeListener(mergeRefListener);
+            // the merge only for DI repository,need to judge null for other product
+            if (CoreRuntimePlugin.getInstance().getDesignerCoreService() != null) {
+                IPreferenceStore preferenceStore = RepositoryManager.getPreferenceStore();
+                preferenceStore.addPropertyChangeListener(mergeRefListener);
+            }
         }
     }
 
