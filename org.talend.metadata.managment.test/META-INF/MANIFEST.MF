@@ -15,5 +15,6 @@ Export-Package: org.talend.core.model.metadata,
  org.talend.core.model.metadata.builder.database,
  org.talend.core.model.metadata.builder.database.dburl,
  org.talend.core.model.metadata.builder.database.manager,
- org.talend.core.model.metadata.builder.database.manager.dbs
+ org.talend.core.model.metadata.builder.database.manager.dbs,
+ org.talend.core.model.metadata.builder.util
 

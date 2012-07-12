@@ -34,9 +34,6 @@ import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.Platform;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
-import org.talend.commons.utils.database.SASDataBaseMetadata;
-import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
@@ -102,57 +99,7 @@ public class MetadataConnectionUtils {
 
     private static Driver derbyDriver;
 
-    public static final String FAKE_SCHEMA_SYNONYMS = "AllSynonyms";//$NON-NLS-N$
-
-    /**
-     * DOC xqliu Comment method "getConnectionMetadata". 2009-07-13 bug 7888.
-     * 
-     * @param conn
-     * @return
-     * @throws SQLException
-     */
-
-    // public static DatabaseMetaData getConnectionMetadata(java.sql.Connection conn) throws SQLException {
-    // DatabaseMetaData dbMetaData = conn.getMetaData();
-    // // MOD xqliu 2009-11-17 bug 7888
-    // if (dbMetaData != null && dbMetaData.getDatabaseProductName() != null) {
-    // if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.IBMDB2ZOS.getProduct())) {
-    // dbMetaData = createFakeDatabaseMetaData(conn);
-    // log.info("IBM DB2 for z/OS");
-    // } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.TERADATA.getProduct()) && metadataCon !=
-    // null
-    // && metadataCon.isSqlMode()) {
-    // dbMetaData = createTeradataFakeDatabaseMetaData(conn);
-    // TeradataDataBaseMetadata teraDbmeta = (TeradataDataBaseMetadata) dbMetaData;
-    // teraDbmeta.setDatabaseName(ExtractMetaDataUtils.metadataCon.getDatabase());
-    // } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.SAS.getProduct())) {
-    // dbMetaData = createSASFakeDatabaseMetaData(conn);
-    // }
-    // }
-    // // ~
-    // return dbMetaData;
-    // }
-
-    /**
-     * only for db2 on z/os right now. 2009-07-13 bug 7888.
-     * 
-     * @param conn2
-     * @return
-     */
-    private static DatabaseMetaData createFakeDatabaseMetaData(java.sql.Connection conn) {
-        DB2ForZosDataBaseMetadata dmd = new DB2ForZosDataBaseMetadata(conn);
-        return dmd;
-    }
-
-    private static DatabaseMetaData createTeradataFakeDatabaseMetaData(java.sql.Connection conn) {
-        TeradataDataBaseMetadata tmd = new TeradataDataBaseMetadata(conn);
-        return tmd;
-    }
-
-    private static DatabaseMetaData createSASFakeDatabaseMetaData(java.sql.Connection conn) {
-        SASDataBaseMetadata tmd = new SASDataBaseMetadata(conn);
-        return tmd;
-    }
+    public static final String FAKE_SCHEMA_SYNONYMS = "AllSynonyms";
 
     /**
      * 
@@ -968,41 +915,6 @@ public class MetadataConnectionUtils {
 
     }
 
-    // /**
-    // * DOC xqliu Comment method "fillConnectionMetadataInformation".
-    // *
-    // * @param conn
-    // * @return
-    // */
-    // public static Connection fillConnectionMetadataInformation(Connection conn) {
-    // // ADD xqliu 2010-10-13 bug 15756
-    // int tSize = conn.getTaggedValue().size();
-    // EList<Package> dataPackage = conn.getDataPackage();
-    // // ~ 15756
-    // Property property = PropertyHelper.getProperty(conn);
-    // // fill name and label
-    // conn.setName(property.getLabel());
-    // conn.setLabel(property.getLabel());
-    // // fill metadata
-    // MetadataHelper.setAuthor(conn, property.getAuthor().getLogin());
-    // MetadataHelper.setDescription(property.getDescription(), conn);
-    // String statusCode = property.getStatusCode() == null ? "" : property.getStatusCode();
-    // MetadataHelper.setDevStatus(conn, "".equals(statusCode) ? DevelopmentStatus.DRAFT.getLiteral() : statusCode);
-    // MetadataHelper.setPurpose(property.getPurpose(), conn);
-    // MetadataHelper.setVersion(property.getVersion(), conn);
-    // String retrieveAllMetadataStr = MetadataHelper.getRetrieveAllMetadata(conn);
-    // // ADD xqliu 2010-10-13 bug 15756
-    // if (tSize == 0 && dataPackage.size() == 1 && !"".equals(dataPackage.get(0).getName())) {
-    // retrieveAllMetadataStr = "false";
-    // }
-    // // ~ 15756
-    // // MOD klliu bug 15821 retrieveAllMetadataStr for Diff database
-    // MetadataHelper.setRetrieveAllMetadata(retrieveAllMetadataStr == null ? "true" : retrieveAllMetadataStr, conn);
-    // String schema = MetadataHelper.getOtherParameter(conn);
-    // MetadataHelper.setOtherParameter(schema, conn);
-    // return conn;
-    // }
-
     /**
      * DOC xqliu Comment method "fillDbConnectionInformation".
      * 
@@ -1034,7 +946,7 @@ public class MetadataConnectionUtils {
                 // ParameterUtil.toMap(ConnectionUtils.createConnectionParam(dbConn));
                 IMetadataConnection metaConnection = MetadataFillFactory.getDBInstance().fillUIParams(dbConn);
                 dbConn = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(metaConnection, dbConn);
-                sqlConn = (java.sql.Connection) MetadataConnectionUtils.checkConnection(metaConnection).getObject();
+                sqlConn = MetadataConnectionUtils.checkConnection(metaConnection).getObject();
                 DatabaseMetaData databaseMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbConn, false);
                 if (sqlConn != null) {
                     MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, databaseMetaData,
@@ -1057,31 +969,6 @@ public class MetadataConnectionUtils {
         return dbConn;
     }
 
-    // /**
-    // * update the RETRIEVE_ALL tagged value of this connection.
-    // *
-    // * @param conn
-    // */
-    // private static void updateRetrieveAllFlag(Connection conn) {
-    // if (conn != null && conn instanceof DatabaseConnection) {
-    // String sid = ((DatabaseConnection) conn).getSID();
-    // if (sid != null && sid.trim().length() > 0) {
-    // TaggedValueHelper.setTaggedValue(conn, TaggedValueHelper.RETRIEVE_ALL, "false");
-    // } else {
-    // TaggedValueHelper.setTaggedValue(conn, TaggedValueHelper.RETRIEVE_ALL, "true");
-    // }
-    // }
-    // }
-
-    // MOD by zshen don't needed can replaced by ExtractMetaDataUtils
-    // public static IMetadataConnection getMetadataCon() {
-    // return metadataCon;
-    // }
-    //
-    // public static void setMetadataCon(IMetadataConnection metadataConnection) {
-    // metadataCon = metadataConnection;
-    // }
-
     public static boolean isPostgresql(java.sql.Connection connection) throws SQLException {
         return isPostgresql(ExtractMetaDataUtils.getConnectionMetadata(connection));
     }
@@ -1102,7 +989,7 @@ public class MetadataConnectionUtils {
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                        .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()));
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()));
     }
 
     public static boolean isHsqlInprocess(IMetadataConnection metadataConnection) {
