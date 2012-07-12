@@ -12,8 +12,10 @@
 // ============================================================================
 package org.talend.core.utils;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,18 +51,10 @@ public class CsvArray {
 
         String[] row = null;
 
-        // CSVReader csvReader = new CsvReader(new BufferedReader(new InputStreamReader(new java.io.FileInputStream(is),
-        // encoding == null ? ENCODING : encoding)), ';');
-        // csvReader.setRecordDelimiter('\n');
-        // csvReader.setSkipEmptyRecords(true);
-        // csvReader.setTextQualifier('"');
-        // csvReader.setEscapeMode(com.csvreader.CsvReader.ESCAPE_MODE_DOUBLED);
-        // while (csvReader.readRecord()) {
-        // array.add(csvReader.getValues());
-        // }
-        CSVReader csvReader = new SimpleReader();// (new FileReader(is), '\n');
+        CSVReader csvReader = new SimpleReader();
         csvReader.setSeperator(';');
-        List items = csvReader.parse(is);
+        List items = csvReader.parse(new BufferedReader(new InputStreamReader(new java.io.FileInputStream(is),
+                encoding == null ? ENCODING : encoding)));
         for (Object item : items) {
             array.add((String[]) item);
         }
