@@ -11,4 +11,9 @@ Require-Bundle: org.mockito,
  org.eclipse.osgi.services
 Bundle-ClassPath: .
 Bundle-Vendor: .Talend SA.
+Export-Package: org.talend.core.model.metadata,
+ org.talend.core.model.metadata.builder.database,
+ org.talend.core.model.metadata.builder.database.dburl,
+ org.talend.core.model.metadata.builder.database.manager,
+ org.talend.core.model.metadata.builder.database.manager.dbs
 
