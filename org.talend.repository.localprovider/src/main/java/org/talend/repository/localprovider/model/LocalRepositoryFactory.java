@@ -150,6 +150,7 @@ import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
+
 import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 
 /**
@@ -2604,8 +2605,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     private IPath getItemStatePath(ERepositoryObjectType type, IPath targetPath) {
         IPath itemStatePath = targetPath;
         if (ERepositoryObjectType.TDQ_PATTERN_REGEX.equals(type) || ERepositoryObjectType.TDQ_PATTERN_SQL.equals(type)
-                || ERepositoryObjectType.TDQ_USERDEFINE_INDICATORS.equals(type)) {
+                || ERepositoryObjectType.TDQ_USERDEFINE_INDICATORS.equals(type)
+                || ERepositoryObjectType.TDQ_SOURCE_FILE_ELEMENT.equals(type)) {
             itemStatePath = Path.fromOSString(type.getFolder()).removeFirstSegments(2).append(targetPath);
+        } else if (targetPath.toOSString().startsWith(ERepositoryObjectType.TDQ_SOURCE_FILE_ELEMENT.getFolder())) {
+            itemStatePath = targetPath.removeFirstSegments(2);
         }
         return itemStatePath;
     }
