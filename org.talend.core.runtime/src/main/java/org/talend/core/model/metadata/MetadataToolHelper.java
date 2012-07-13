@@ -26,6 +26,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ICoreService;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -569,7 +570,8 @@ public final class MetadataToolHelper {
 
         if (connection != null) {
             if (connection instanceof SAPConnection) {
-                return getMetadataTableFromSAPFunction((SAPConnection) connection, name2);
+                // Changed by Marvin Wang on Jun. 19, 2012 for subtask TDI-21657.
+                return getMetadataTableFromSAPFunction((SAPConnection) connection, metaRepositoryId);
             }
             Set tables = ConnectionHelper.getTables(connection);
             for (Object tableObj : tables) {
@@ -582,13 +584,44 @@ public final class MetadataToolHelper {
         return null;
     }
 
+    /**
+     * Added by Marvin Wang on Jun. 20, 2012 for getting the <code>MetadataTable</code> by given parameters.
+     * 
+     * @param connectionId
+     * @param functionId
+     * @param tableName
+     * @return
+     */
+    public static MetadataTable getMetadataTableFromSAPFunction(String connectionId, String functionId, String tableName) {
+        org.talend.core.model.metadata.builder.connection.Connection connection;
+        if (connectionId != null) {
+            connection = getConnectionFromRepository(connectionId);
+            if (connection != null && connection instanceof SAPConnection) {
+                SAPConnection sapConn = (SAPConnection) connection;
+                EList<SAPFunctionUnit> fuctions = sapConn.getFuntions();
+                for (Object obj : fuctions) {
+                    SAPFunctionUnit function = (SAPFunctionUnit) obj;
+                    if (functionId != null && functionId.equals(function.getId())) {
+                        for (Object object : function.getTables()) {
+                            MetadataTable table = (MetadataTable) object;
+                            if (tableName.equals(table.getLabel())) {
+                                return table;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     private static MetadataTable getMetadataTableFromSAPFunction(SAPConnection connection, String name) {
         String functionName = null;
-        String metadataName = null;
+        String tableName = null;
         String[] names = name.split(" - "); //$NON-NLS-1$
         if (names.length == 2) {
             functionName = names[0];
-            metadataName = names[1];
+            tableName = names[1];
         } else {
             return null;
         }
@@ -598,7 +631,7 @@ public final class MetadataToolHelper {
             if (functionName.equals(function.getLabel())) {
                 for (Object object : function.getTables()) {
                     MetadataTable table = (MetadataTable) object;
-                    if (metadataName.equals(table.getLabel())) {
+                    if (tableName.equals(table.getLabel())) {
                         return table;
                     }
                 }
@@ -667,5 +700,80 @@ public final class MetadataToolHelper {
             }
         }
         return null;
+    }
+
+    public static IMetadataTable getMetadataFromRepository(String metaRepositoryId) {
+        MetadataTable table = getMetadataTableFromRepository(metaRepositoryId);
+        if (table != null) {
+            return convert(table);
+        }
+        return null;
+
+    }
+
+    private static IMetadataTable convert(MetadataTable old) {
+        ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+        IMetadataTable result = new org.talend.core.model.metadata.MetadataTable();
+        result.setComment(old.getComment());
+        result.setId(old.getId());
+        result.setLabel(old.getLabel());
+        String sourceName = old.getName();
+        if (sourceName == null) {
+            sourceName = old.getLabel();
+        }
+        result.setTableName(sourceName);
+        List<IMetadataColumn> columns = new ArrayList<IMetadataColumn>(old.getColumns().size());
+        for (Object o : old.getColumns()) {
+            org.talend.core.model.metadata.builder.connection.MetadataColumn column = (org.talend.core.model.metadata.builder.connection.MetadataColumn) o;
+            IMetadataColumn newColumn = new org.talend.core.model.metadata.MetadataColumn();
+            columns.add(newColumn);
+            newColumn.setComment(column.getComment());
+            newColumn.setDefault(column.getDefaultValue());
+            newColumn.setKey(column.isKey());
+            String label2 = column.getLabel();
+            if (coreService != null) {
+                if (coreService.isKeyword(label2)) {
+                    label2 = "_" + label2; //$NON-NLS-1$
+                }
+            }
+            newColumn.setLabel(label2);
+            newColumn.setPattern(column.getPattern());
+            if (column.getLength() < 0) {
+                newColumn.setLength(null);
+            } else {
+                newColumn.setLength(Long.valueOf(column.getLength()).intValue());
+            }
+            // if (column.getOriginalLength() < 0) {
+            // newColumn.setOriginalLength(null);
+            // } else {
+            // newColumn.setOriginalLength(Long.valueOf(column.getOriginalLength()).intValue());
+            // }
+
+            newColumn.setNullable(column.isNullable());
+            if (column.getPrecision() < 0) {
+                newColumn.setPrecision(null);
+            } else {
+                newColumn.setPrecision(Long.valueOf(column.getPrecision()).intValue());
+            }
+            newColumn.setTalendType(column.getTalendType());
+            newColumn.setType(column.getSourceType());
+            if (column.getName() == null || column.getName().equals("")) { //$NON-NLS-1$
+                String label = label2;
+                if (label != null && label.length() > 0) {
+                    String substring = label.substring(1);
+                    if (coreService != null) {
+                        if (label.startsWith("_") && coreService.isKeyword(substring)) { //$NON-NLS-1$
+                            label = substring;
+                        }
+                    }
+                }
+                newColumn.setOriginalDbColumnName(label);
+            } else {
+                newColumn.setOriginalDbColumnName(column.getName());
+            }
+            // columns.add(convertToIMetaDataColumn(column));
+        }
+        result.setListColumns(columns);
+        return result;
     }
 }
