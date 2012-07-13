@@ -32,6 +32,7 @@ import org.talend.commons.utils.data.map.MultiLazyValuesMap;
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
  * 
+ * @deprecated use {@link}
  * @param <B> bean which contains the property id
  * @param <KP> type of the key/property
  */
@@ -128,7 +129,7 @@ public class Locker<B, KP> {
 
         public String toString() {
             return StringUtils.replacePrms(
-                    "InternalKeyLock: key={0}, contextInfo={1}", Thread.currentThread().getName(), key, contextInfo); //$NON-NLS-1$
+                    "InternalKeyLock: thread={0}, key={1}, contextInfo={2}", Thread.currentThread().getName(), key, contextInfo); //$NON-NLS-1$
         }
     }
 
@@ -203,10 +204,12 @@ public class Locker<B, KP> {
 
     private IGetterPropertyAccessor<B, KP> getterId;
 
-    private boolean allowLockWithSameThread = true;
+    private boolean allowReentrantLockFromLockerThread = true;
 
     /**
      * DOC amaumont Locker constructor comment.
+     * 
+     * @deprecated use instead {@link org.talend.commons.utils.threading.LockerByKey}
      */
     public Locker() {
         super();
@@ -214,17 +217,20 @@ public class Locker<B, KP> {
 
     /**
      * 
-     * DOC amaumont Locker constructor comment.
+     * Constructor Locker.
      * 
-     * @param allowLockWithSameThread default is true
+     * @param allowReentrantLockFromLockerThread default is true
+     * @deprecated use instead {@link org.talend.commons.utils.threading.LockerByKey}
      */
-    public Locker(boolean allowLockWithSameThread) {
+    public Locker(boolean allowReentrantLockFromLockerThread) {
         super();
-        this.allowLockWithSameThread = allowLockWithSameThread;
+        this.allowReentrantLockFromLockerThread = allowReentrantLockFromLockerThread;
     }
 
     /**
      * DOC amaumont Locker constructor comment.
+     * 
+     * @deprecated use instead {@link org.talend.commons.utils.threading.LockerByKey}
      */
     public Locker(IGetterPropertyAccessor<B, KP> getterId) {
         this();
@@ -239,17 +245,26 @@ public class Locker<B, KP> {
      * DOC amaumont Locker constructor comment.
      * 
      * @param getterId
-     * @param allowLockWithSameThread default is true
+     * @param allowReentrantLockFromLockerThread default is true
+     * @deprecated use instead {@link org.talend.commons.utils.threading.LockerByKey}
      */
-    public Locker(boolean allowLockWithSameThread, IGetterPropertyAccessor<B, KP> getterId) {
+    public Locker(boolean allowReentrantLock, IGetterPropertyAccessor<B, KP> getterId) {
         this();
         this.getterId = getterId;
         if (getterId == null) {
             throw new IllegalArgumentException("getterId can't be null"); //$NON-NLS-1$
         }
-        this.allowLockWithSameThread = allowLockWithSameThread;
+        this.allowReentrantLockFromLockerThread = allowReentrantLock;
     }
 
+    /**
+     * 
+     * DOC amaumont Comment method "isLockedBean".
+     * 
+     * @param bean
+     * @return
+     * @deprecated use instead {@link org.talend.commons.utils.threading.LockerByKey#isLocked(Object)}
+     */
     public synchronized boolean isLockedBean(B bean) {
         checkBean(bean);
         KP key = getterId.get(bean);
@@ -261,6 +276,7 @@ public class Locker<B, KP> {
      * 
      * @param key
      * @return
+     * @deprecated use instead {@link org.talend.commons.utils.threading.LockerByKey#isLocked(Object)}
      */
     public synchronized boolean isLocked(KP key) {
         check(key);
@@ -279,6 +295,8 @@ public class Locker<B, KP> {
      * @param bean
      * @return previous lock state, true was locked
      * @throws IllegalArgumentException if bean is null
+     * @deprecated use instead replaced by
+     * {@link org.talend.commons.utils.threading.LockerByKey#lockInterruptibly(Object)}
      */
     public synchronized boolean lockBean(B bean) {
         return lockBean(bean, UNDEFINED_CONTEXT_INFO);
@@ -290,6 +308,8 @@ public class Locker<B, KP> {
      * @param bean
      * @return previous lock state, true was locked
      * @throws IllegalArgumentException if bean is null
+     * @deprecated use instead replaced by
+     * {@link org.talend.commons.utils.threading.LockerByKey#lockInterruptibly(Object)}
      */
     public synchronized boolean lockBean(B bean, String contextInfo) {
         checkBean(bean);
@@ -298,20 +318,27 @@ public class Locker<B, KP> {
     }
 
     /**
-     * DOC amaumont Comment method "lock".
+     * 
+     * Method "lock". Lock the operations on the provided <code>key</code>.
      * 
      * @param key
-     * @return
+     * @return true if already locked, false if the lock is a new one
+     * @deprecated use instead replaced by
+     * {@link org.talend.commons.utils.threading.LockerByKey#lockInterruptibly(Object)}
      */
     public boolean lock(KP key) {
         return lock(key, UNDEFINED_CONTEXT_INFO);
     }
 
     /**
-     * DOC amaumont Comment method "lock".
+     * 
+     * Method "lock". Lock the operations on the provided <code>key</code>.
      * 
      * @param key
-     * @return
+     * @param contextInfo
+     * @return true if already locked, false if the lock is a new one
+     * @deprecated use instead replaced by
+     * {@link org.talend.commons.utils.threading.LockerByKey#lockInterruptibly(Object)}
      */
     public boolean lock(KP key, String contextInfo) {
         check(key);
@@ -334,6 +361,7 @@ public class Locker<B, KP> {
      * @param bean
      * @return true if lock has been done or current thread has already locked the same bean, else false.
      * @throws IllegalArgumentException if bean is null
+     * @deprecated use instead {@link org.talend.commons.utils.threading.LockerByKey#tryLock(Object)}
      */
     public synchronized boolean lockIfUnlockedBean(B bean) {
         return lockIfUnlockedBean(bean, UNDEFINED_CONTEXT_INFO);
@@ -345,6 +373,7 @@ public class Locker<B, KP> {
      * @param bean
      * @return true if lock has been done or current thread has already locked the same bean, else false.
      * @throws IllegalArgumentException if bean is null
+     * @deprecated use instead {@link org.talend.commons.utils.threading.LockerByKey#tryLock(Object)}
      */
     public synchronized boolean lockIfUnlockedBean(B bean, String contextInfo) {
         checkBean(bean);
@@ -355,7 +384,7 @@ public class Locker<B, KP> {
             KP key = getterId.get(bean);
             matchingKey.key = key;
             LockerValue valueLock = lockKeyToThreadsMap.get(matchingKey);
-            if (allowLockWithSameThread && valueLock != null && Thread.currentThread() == valueLock.thread) {
+            if (allowReentrantLockFromLockerThread && valueLock != null && Thread.currentThread() == valueLock.thread) {
                 return true;
             } else {
                 return false;
@@ -369,6 +398,7 @@ public class Locker<B, KP> {
      * @param bean
      * @return true if lock has been done or current thread has already locked the same bean, else false.
      * @throws IllegalArgumentException if bean is null
+     * @deprecated use instead {@link org.talend.commons.utils.threading.LockerByKey#tryLock(Object)}
      */
     public synchronized boolean lockIfUnlocked(KP key) {
         return lockIfUnlocked(key, UNDEFINED_CONTEXT_INFO);
@@ -380,6 +410,7 @@ public class Locker<B, KP> {
      * @param bean
      * @return true if lock has been done or current thread has already locked the same bean, else false.
      * @throws IllegalArgumentException if bean is null
+     * @deprecated use instead {@link org.talend.commons.utils.threading.LockerByKey#tryLock(Object)}
      */
     public synchronized boolean lockIfUnlocked(KP key, String contextInfo) {
         check(key);
@@ -389,7 +420,7 @@ public class Locker<B, KP> {
         } else {
             matchingKey.key = key;
             LockerValue valueLock = lockKeyToThreadsMap.get(matchingKey);
-            if (allowLockWithSameThread && valueLock != null && Thread.currentThread() == valueLock.thread) {
+            if (allowReentrantLockFromLockerThread && valueLock != null && Thread.currentThread() == valueLock.thread) {
                 // System.out.println("Same thread");
                 return true;
             } else {
@@ -421,22 +452,24 @@ public class Locker<B, KP> {
     }
 
     /**
-     * Unlock.
+     * Method "unlock". Unlock the operations with the provided key.
      * 
      * @param bean
-     * @return true unlock has been done, else false if no lock was exist
+     * @return true if the key has unlocked, false if the key unlocked nothing
      * @throws IllegalArgumentException if bean is null
+     * @deprecated use instead {@link org.talend.commons.utils.threading.LockerByKey#unlock(Object)}
      */
     public boolean unlockBean(B bean) {
         return unlockBean(bean, UNDEFINED_CONTEXT_INFO);
     }
 
     /**
-     * Unlock.
+     * Method "unlock". Unlock the operations with the provided key.
      * 
      * @param bean
-     * @return true unlock has been done, else false if no lock was exist
+     * @return true if the key has unlocked, false if the key unlocked nothing
      * @throws IllegalArgumentException if bean is null
+     * @deprecated use instead {@link org.talend.commons.utils.threading.LockerByKey#unlock(Object)}
      */
     public synchronized boolean unlockBean(B bean, String contextInfo) {
         if (bean == null) {
@@ -448,20 +481,22 @@ public class Locker<B, KP> {
     }
 
     /**
-     * DOC amaumont Comment method "unlock".
+     * Method "unlock". Unlock the operations with the provided key.
      * 
      * @param key
-     * @return
+     * @return true if the key has unlocked, false if the key unlocked nothing
+     * @deprecated use instead {@link org.talend.commons.utils.threading.LockerByKey#unlock(Object)}
      */
     public boolean unlock(KP key) {
         return unlock(key, UNDEFINED_CONTEXT_INFO);
     }
 
     /**
-     * DOC amaumont Comment method "unlock".
+     * Method "unlock". Unlock the operations with the provided key.
      * 
      * @param key
-     * @return
+     * @return true if the key has unlocked, false if the key unlocked nothing
+     * @deprecated use instead {@link org.talend.commons.utils.threading.LockerByKey#unlock(Object)}
      */
     public synchronized boolean unlock(KP key, String contextInfo) {
         check(key);
@@ -485,22 +520,30 @@ public class Locker<B, KP> {
     }
 
     /**
-     * DOC amaumont Comment method "waitForLockBean".
+     * Method "waitForLockBean". Lock now if possible with the provided key, else wait for unlocked to lock.
      * 
-     * @param executionTask
-     * @param idLockForceInitCheck
+     * @param bean
+     * @return true if the current thread has wait a time before able to lock, else false.
+     * @throws InterruptedException
+     * @throws IllegalArgumentException if bean is null
+     * @deprecated use instead {@link org.talend.commons.utils.threading.LockerByKey#lockInterruptibly(KP)}
      */
     public boolean waitForLockBean(B bean) throws InterruptedException {
         return waitForLockBean(bean, UNDEFINED_CONTEXT_INFO);
     }
 
     /**
-     * Lock if it is unlocked, else waiting for unlocked to lock.
+     * Method "waitForLockBean". Lock now if possible with the provided key, else wait for unlocked to lock.
+     * 
+     * It allows by default reentrant locks from the first locker thread. If you don't want reentrant lock, you have to
+     * set <code>allowReentrantLockFromLockerThread</code> = <code>false</code> from the <code>Locker</code>
+     * constructor.
      * 
      * @param bean
      * @return true if the current thread has wait a time before able to lock, else false.
      * @throws InterruptedException
      * @throws IllegalArgumentException if bean is null
+     * @deprecated use instead {@link org.talend.commons.utils.threading.LockerByKey#lockInterruptibly(KP)}
      */
     public boolean waitForLockBean(B bean, String contextInfo) throws InterruptedException {
         checkBean(bean);
@@ -533,37 +576,52 @@ public class Locker<B, KP> {
     }
 
     /**
-     * Lock if it is unlocked, else waiting for unlocked to lock.
+     * Method "waitForLock". Lock now if possible with the provided key, else wait for unlocked to lock.
+     * 
+     * It allows by default reentrant locks from the first locker thread. If you don't want reentrant lock, you have to
+     * set <code>allowReentrantLockFromLockerThread</code> = <code>false</code> from the <code>Locker</code>
+     * constructor.
      * 
      * @param bean
      * @return true if thread has wait a time, else false.
      * @throws InterruptedException
      * @throws IllegalArgumentException if bean is null
+     * @deprecated use instead {@link org.talend.commons.utils.threading.LockerByKey#lockInterruptibly(KP)}
      */
     public boolean waitForLock(KP key) throws InterruptedException {
         return waitForLock(key, UNDEFINED_CONTEXT_INFO);
     }
 
     /**
-     * Lock if it is unlocked, else waiting for unlocked to lock.
+     * Method "waitForLock". Lock now if possible with the provided key, else wait for unlocked to lock.
+     * 
+     * It allows by default reentrant locks from the first locker thread. If you don't want reentrant lock, you have to
+     * set <code>allowReentrantLockFromLockerThread</code> = <code>false</code> from the <code>Locker</code>
+     * constructor.
      * 
      * @param key
      * @param waitTimeMax the maximum time to wait in milliseconds.
      * @return true if thread has wait a time, else false.
      * @throws InterruptedException
      * @throws IllegalArgumentException if bean is null
+     * @deprecated use instead {@link org.talend.commons.utils.threading.LockerByKey#tryLock(Object, long)}
      */
     public boolean waitForLock(KP key, Long waitTimeMax) throws InterruptedException {
         return waitForLock(key, waitTimeMax, UNDEFINED_CONTEXT_INFO);
     }
 
     /**
-     * Lock if it is unlocked, else waiting for unlocked to lock.
+     * Method "waitForLock". Lock now if possible with the provided key, else wait for unlocked to lock.
      * 
-     * @param bean
+     * It allows by default reentrant locks from the first locker thread. If you don't want reentrant lock, you have to
+     * set <code>allowReentrantLockFromLockerThread</code> = <code>false</code> from the <code>Locker</code>
+     * constructor.
+     * 
+     * @param key
      * @return true if thread has wait a time, else false.
      * @throws InterruptedException
      * @throws IllegalArgumentException if bean is null
+     * @deprecated use instead {@link org.talend.commons.utils.threading.LockerByKey#lockInterruptibly(KP)}
      */
     public boolean waitForLock(KP key, String contextInfo) throws InterruptedException {
         return waitForLock(key, null, contextInfo);
@@ -574,6 +632,7 @@ public class Locker<B, KP> {
      * 
      * @param bean
      * @return locker value.
+     * @deprecated use instead {@link org.talend.commons.utils.threading.LockerByKey#getLocker(Object)}
      */
     public LockerValue getLocker(KP key) {
         check(key);
@@ -583,13 +642,20 @@ public class Locker<B, KP> {
     }
 
     /**
-     * Lock if it is unlocked, else waiting for unlocked to lock.
+     * Method "waitForLock". Lock now if possible with the provided key, else wait for unlocked to lock.
+     * 
+     * It allows by default reentrant locks from the first locker thread. If you don't want reentrant lock, you have to
+     * set <code>allowReentrantLockFromLockerThread</code> = <code>false</code> from the <code>Locker</code>
+     * constructor.
      * 
      * @param key
      * @param waitTimeMax the maximum time to wait in milliseconds.
      * @return true if thread has wait a time, else false.
      * @throws InterruptedException
      * @throws IllegalArgumentException if bean is null
+     * @deprecated use instead {@link org.talend.commons.utils.threading.LockerByKey#lockInterruptibly(KP)} or
+     * {@link org.talend.commons.utils.threading.LockerByKey#tryLock(Object, long)} according the case (without or with
+     * timeout)
      */
     public boolean waitForLock(KP key, final Long waitTimeMax, String contextInfo) throws InterruptedException {
         check(key);
@@ -641,8 +707,12 @@ public class Locker<B, KP> {
                         threadAlreadyNotified[0] = true;
                     }
                 } else {
-                    synchronized (mainThread) {
-                        mainThread.wait();
+                    synchronized (this) {
+                        if (!lockIfUnlocked(key, contextInfo)) {
+                            synchronized (mainThread) {
+                                mainThread.wait();
+                            }
+                        }
                     }
                 }
                 if (log.isTraceEnabled()) {
@@ -673,6 +743,10 @@ public class Locker<B, KP> {
         });
     }
 
+    /**
+     * 
+     * @deprecated use instead {@link org.talend.commons.utils.threading.LockerByKey}
+     */
     public synchronized void shutdown() {
         Object[] values = waitingThreadsByKey.values().toArray(new Object[0]);
         for (int j = 0; j < values.length; j++) {
@@ -694,17 +768,6 @@ public class Locker<B, KP> {
                 }
             }
         }
-    }
-
-    /**
-     * 
-     * DOC amaumont Comment method "setVerbose".
-     * 
-     * @param verbose
-     * 
-     * @deprecated enable logs with TRACE level for this class instead use this method
-     */
-    public static void setVerbose(boolean verbose) {
     }
 
     public String toString() {
