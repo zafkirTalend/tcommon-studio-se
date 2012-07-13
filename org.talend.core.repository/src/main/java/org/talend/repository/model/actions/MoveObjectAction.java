@@ -85,6 +85,14 @@ public class MoveObjectAction {
             return false;
         }
 
+        // TDI-21745 only allow drag&drop the services main element into business model
+        if (isDnd
+                && objectToCopy != null
+                && (objectToCopy.getRepositoryObjectType().equals(ERepositoryObjectType.SERVICESOPERATION) || objectToCopy
+                        .getRepositoryObjectType().equals(ERepositoryObjectType.SERVICESPORT))) {
+            return false;
+        }
+
         // Cannot move system routines:
         // if (objectToCopy != null && objectToCopy.getType() == ERepositoryObjectType.ROUTINES) {
         // Property property = objectToCopy.getProperty();
