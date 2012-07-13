@@ -585,7 +585,8 @@ public final class MetadataToolHelper {
 
         if (connection != null) {
             if (connection instanceof SAPConnection) {
-                return getMetadataTableFromSAPFunction((SAPConnection) connection, name2);
+                // Changed by Marvin Wang on Jun. 19, 2012 for subtask TDI-21657.
+                return getMetadataTableFromSAPFunction((SAPConnection) connection, metaRepositoryId);
             }
             Set tables = ConnectionHelper.getTables(connection);
             for (Object tableObj : tables) {
@@ -598,13 +599,44 @@ public final class MetadataToolHelper {
         return null;
     }
 
+    /**
+     * Added by Marvin Wang on Jun. 20, 2012 for getting the <code>MetadataTable</code> by given parameters.
+     * 
+     * @param connectionId
+     * @param functionId
+     * @param tableName
+     * @return
+     */
+    public static MetadataTable getMetadataTableFromSAPFunction(String connectionId, String functionId, String tableName) {
+        org.talend.core.model.metadata.builder.connection.Connection connection;
+        if (connectionId != null) {
+            connection = getConnectionFromRepository(connectionId);
+            if (connection != null && connection instanceof SAPConnection) {
+                SAPConnection sapConn = (SAPConnection) connection;
+                EList<SAPFunctionUnit> fuctions = sapConn.getFuntions();
+                for (Object obj : fuctions) {
+                    SAPFunctionUnit function = (SAPFunctionUnit) obj;
+                    if (functionId != null && functionId.equals(function.getId())) {
+                        for (Object object : function.getTables()) {
+                            MetadataTable table = (MetadataTable) object;
+                            if (tableName.equals(table.getLabel())) {
+                                return table;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     private static MetadataTable getMetadataTableFromSAPFunction(SAPConnection connection, String name) {
         String functionName = null;
-        String metadataName = null;
+        String tableName = null;
         String[] names = name.split(" - "); //$NON-NLS-1$
         if (names.length == 2) {
             functionName = names[0];
-            metadataName = names[1];
+            tableName = names[1];
         } else {
             return null;
         }
@@ -614,7 +646,7 @@ public final class MetadataToolHelper {
             if (functionName.equals(function.getLabel())) {
                 for (Object object : function.getTables()) {
                     MetadataTable table = (MetadataTable) object;
-                    if (metadataName.equals(table.getLabel())) {
+                    if (tableName.equals(table.getLabel())) {
                         return table;
                     }
                 }
