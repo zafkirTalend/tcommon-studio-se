@@ -707,12 +707,8 @@ public class Locker<B, KP> {
                         threadAlreadyNotified[0] = true;
                     }
                 } else {
-                    synchronized (this) {
-                        if (!lockIfUnlocked(key, contextInfo)) {
-                            synchronized (mainThread) {
-                                mainThread.wait();
-                            }
-                        }
+                    synchronized (mainThread) {
+                        mainThread.wait();
                     }
                 }
                 if (log.isTraceEnabled()) {
