@@ -351,4 +351,8 @@ public class ArchiveFileExportOperationFullPath implements IRunnableWithProgress
     public void setUseTarFormat(boolean value) {
         useTarFormat = value;
     }
+
+    public String getDestinationFilename() {
+        return destinationFilename;
+    }
 }
