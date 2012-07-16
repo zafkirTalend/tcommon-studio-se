@@ -719,25 +719,14 @@ public class DatabaseForm extends AbstractForm {
                 String perId = page.getPerspective().getId();
                 if ((!"".equals(perId) && null != perId)) {
                     // eg : use DI, then switch to DQ : All view from DI must be hidden when switch
-                    if (perId.equalsIgnoreCase(IBrandingConfiguration.PERSPECTIVE_DI_ID)) {
+                	//MOD qiongli 2012-7-10 TDQ-5801,hide also 'MSsql 2005/2008' for DQ after delete that MS jars. 
+                	if (perId.equalsIgnoreCase(IBrandingConfiguration.PERSPECTIVE_DI_ID)
+                            || perId.equalsIgnoreCase(IBrandingConfiguration.PERSPECTIVE_DQ_ID)) {
                         if (dbTypeDisplayList != null) {
                             ArrayList<String> newList = new ArrayList<String>(dbTypeDisplayList);
                             for (int i = 0; i < newList.size(); i++) {
                                 if (newList.get(i).equalsIgnoreCase(("Microsoft SQL Server 2005/2008"))) {
                                     newList.remove(i);
-                                }
-                            }
-                            dbTypeDisplayList = newList;
-                        }
-                    } else if (perId.equalsIgnoreCase(IBrandingConfiguration.PERSPECTIVE_DQ_ID)) {
-                        if (dbTypeDisplayList != null) {
-                            ArrayList<String> newList = new ArrayList<String>(dbTypeDisplayList);
-                            if (!newList.contains(("Microsoft SQL Server 2005/2008"))) {
-                                for (int i = 0; i < newList.size(); i++) {
-                                    if (newList.get(i).equalsIgnoreCase(("Microsoft SQL Server"))) {
-                                        newList.add(i, "Microsoft SQL Server 2005/2008");
-                                        break;
-                                    }
                                 }
                             }
                             dbTypeDisplayList = newList;
