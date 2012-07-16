@@ -29,7 +29,6 @@ import org.talend.commons.ui.runtime.image.ImageUtils;
 import org.talend.commons.ui.runtime.image.ImageUtils.ICON_SIZE;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
-import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
@@ -125,11 +124,11 @@ public class RepositoryViewObject implements IRepositoryViewObject {
             InformationLevel informationLevel = property.getMaxInformationLevel();
             informationStatus = factory.getStatus(informationLevel);
         }
-        if (avoidGuiInfos) {
+        if (!avoidGuiInfos) {
             if (type == ERepositoryObjectType.JOBLET) {
                 JobletProcessItem item = (JobletProcessItem) property.getItem();
                 if (item.getIcon() != null && item.getIcon().getInnerContent() != null
-                        && item.getIcon().getInnerContent().length == 0) {
+                        && item.getIcon().getInnerContent().length != 0) {
                     customImage = getJobletCustomIcon(property);
                     customImage = ImageUtils.propertyLabelScale(property.getId(), customImage, ICON_SIZE.ICON_16);
                 }
@@ -212,42 +211,52 @@ public class RepositoryViewObject implements IRepositoryViewObject {
 
     }
 
+    @Override
     public User getAuthor() {
         return this.author;
     }
 
+    @Override
     public Date getCreationDate() {
         return this.creationDate;
     }
 
+    @Override
     public String getDescription() {
         return this.description;
     }
 
+    @Override
     public String getId() {
         return this.id;
     }
 
+    @Override
     public Date getModificationDate() {
         return this.modificationDate;
     }
 
+    @Override
     public String getLabel() {
         return this.label;
     }
 
+    @Override
     public String getPurpose() {
         return this.purpose;
     }
 
+    @Override
     public String getStatusCode() {
         return this.statusCode;
     }
 
+    @Override
     public String getVersion() {
         return this.version;
     }
 
+    @Override
     public Property getProperty() {
         exception = null;
         try {
@@ -283,7 +292,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
             if (type == ERepositoryObjectType.JOBLET) {
                 JobletProcessItem item = (JobletProcessItem) property.getItem();
                 if (item.getIcon() != null && item.getIcon().getInnerContent() != null
-                        && item.getIcon().getInnerContent().length == 0) {
+                        && item.getIcon().getInnerContent().length != 0) {
                     customImage = getJobletCustomIcon(property);
                     customImage = ImageUtils.propertyLabelScale(property.getId(), customImage, ICON_SIZE.ICON_16);
                 }
@@ -307,10 +316,12 @@ public class RepositoryViewObject implements IRepositoryViewObject {
         return null;
     }
 
+    @Override
     public ERepositoryObjectType getRepositoryObjectType() {
         return type;
     }
 
+    @Override
     public List<IRepositoryViewObject> getChildren() {
         List<IRepositoryViewObject> toReturn = new ArrayList<IRepositoryViewObject>();
         return toReturn;
@@ -321,6 +332,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
      * 
      * @see org.talend.core.model.repository.IRepositoryObject#getRepositoryNode()
      */
+    @Override
     public IRepositoryNode getRepositoryNode() {
         return this.repositoryNode;
     }
@@ -331,6 +343,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
      * @see
      * org.talend.core.model.repository.IRepositoryObject#setRepositoryNode(org.talend.repository.model.RepositoryNode)
      */
+    @Override
     public void setRepositoryNode(IRepositoryNode node) {
         this.repositoryNode = node;
 
@@ -420,7 +433,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
                         table2.setSynchronised(table.isSynchronised());
                         table2.setTableType(table.getTableType());
                         List<MetadataColumn> list = new ArrayList<MetadataColumn>();
-                        for (MetadataColumn column : (List<MetadataColumn>) table.getColumns()) {
+                        for (MetadataColumn column : table.getColumns()) {
                             MetadataColumn column2 = ConnectionFactory.eINSTANCE.createMetadataColumn();
                             column2.setProperties(column.getProperties());
                             column2.setComment(column.getComment());
@@ -445,7 +458,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
                         newTs.add(table2);
                     }
                 }
-                Catalog c = (Catalog) ConnectionHelper.getPackage(conn.getSID(), (Connection) conn, Catalog.class);
+                Catalog c = (Catalog) ConnectionHelper.getPackage(conn.getSID(), conn, Catalog.class);
                 if (c != null) {
                     PackageHelper.addMetadataTable(newTs, c);
                     c.getOwnedElement().addAll(newTs);
@@ -469,6 +482,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
      * 
      * @see org.talend.core.model.repository.IRepositoryViewObject#isDeleted()
      */
+    @Override
     public boolean isDeleted() {
         return deleted;
     }
@@ -478,6 +492,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
      * 
      * @return the projectLabel
      */
+    @Override
     public String getProjectLabel() {
         return this.projectLabel;
     }
@@ -487,6 +502,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
      * 
      * @see org.talend.core.model.repository.IRepositoryViewObject#getPath()
      */
+    @Override
     public String getPath() {
         return path;
     }
@@ -496,6 +512,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
      * 
      * @see org.talend.core.model.repository.IRepositoryViewObject#getInformationStatus()
      */
+    @Override
     public ERepositoryStatus getInformationStatus() {
         return informationStatus;
     }
@@ -505,6 +522,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
      * 
      * @see org.talend.core.model.repository.IRepositoryViewObject#getRepositoryStatus()
      */
+    @Override
     public ERepositoryStatus getRepositoryStatus() {
         return repositoryStatus;
     }
