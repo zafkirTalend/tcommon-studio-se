@@ -52,7 +52,7 @@ import org.talend.cwm.relational.TdTable;
  * created by ggu on Jul 4, 2012 Detailled comment
  * 
  */
-public class AbstractExtractmanagerTest {
+public class AbstractTest4ExtractManager {
 
     private ExtractManager extractManger;
 

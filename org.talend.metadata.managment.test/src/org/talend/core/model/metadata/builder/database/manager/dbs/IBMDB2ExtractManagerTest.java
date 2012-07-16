@@ -20,7 +20,7 @@ import org.talend.core.database.EDatabaseTypeName;
  * created by ggu on Jul 6, 2012 Detailled comment
  * 
  */
-public class IBMDB2ExtractManagerTest extends AbstractExtractmanagerTest {
+public class IBMDB2ExtractManagerTest extends AbstractTest4ExtractManager {
 
     @Before
     public void setUp() throws Exception {

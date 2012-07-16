@@ -22,7 +22,7 @@ import org.talend.core.database.EDatabaseTypeName;
  * created by ggu on Jul 11, 2012 Detailled comment
  * 
  */
-public class SASExtractManagerTest extends AbstractExtractmanagerTest {
+public class SASExtractManagerTest extends AbstractTest4ExtractManager {
 
     @Before
     public void setUp() throws Exception {

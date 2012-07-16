@@ -35,7 +35,7 @@ import org.talend.core.model.metadata.builder.database.DriverShim;
  * created by ggu on Jul 4, 2012 Detailled comment
  * 
  */
-public class HSQLDBExtractManagerTest extends AbstractExtractmanagerTest {
+public class HSQLDBExtractManagerTest extends AbstractTest4ExtractManager {
 
     @Before
     public void setUp() throws Exception {
