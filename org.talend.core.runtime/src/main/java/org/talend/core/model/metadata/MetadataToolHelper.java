@@ -65,6 +65,7 @@ import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryConstants;
+import orgomg.cwm.objectmodel.core.TaggedValue;
 
 /**
  * ggu class global comment. Detailled comment
@@ -1163,6 +1164,17 @@ public final class MetadataToolHelper {
                 newColumn.setOriginalLength(null);
             } else {
                 newColumn.setOriginalLength(Long.valueOf(column.getOriginalLength()).intValue());
+            }
+
+            if (column.getTaggedValue().size() > 0) {
+                for (TaggedValue tv : column.getTaggedValue()) {
+                    String additionalTag = tv.getTag();
+                    if (additionalTag.startsWith("additionalField:")) {
+                        String[] splits = additionalTag.split(":");
+                        additionalTag = splits[1];
+                    }
+                    newColumn.getAdditionalField().put(additionalTag, tv.getValue());
+                }
             }
 
             newColumn.setNullable(column.isNullable());
