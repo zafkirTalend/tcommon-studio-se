@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -36,6 +37,8 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.emf.ecore.xmi.impl.XMLParserPoolImpl;
 import org.talend.commons.emf.EmfHelper;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
@@ -86,14 +89,20 @@ public class XmiResourceManager {
 
     public XmiResourceManager() {
         setUseOldProjectFile(false);
-        resourceSet.getLoadOptions().put("OPTION_DEFER_IDREF_RESOLUTION", Boolean.TRUE);
-        resourceSet.getLoadOptions().put("OPTION_USE_PARSER_POOL", Boolean.TRUE);
+        resourceSet.getLoadOptions().put(XMLResource.OPTION_DEFER_ATTACHMENT, Boolean.TRUE);
+        resourceSet.getLoadOptions().put(XMLResource.OPTION_DEFER_IDREF_RESOLUTION, Boolean.TRUE);
+        resourceSet.getLoadOptions().put(XMLResource.OPTION_USE_PARSER_POOL, new XMLParserPoolImpl());
+        resourceSet.getLoadOptions().put(XMLResource.OPTION_USE_XML_NAME_TO_FEATURE_MAP, new HashMap<Object, Object>());
+        resourceSet.getLoadOptions().put(XMLResource.OPTION_USE_DEPRECATED_METHODS, Boolean.FALSE);
     }
 
     public void resetResourceSet() {
         resourceSet = new ResourceSetImpl();
-        resourceSet.getLoadOptions().put("OPTION_DEFER_IDREF_RESOLUTION", Boolean.TRUE);
-        resourceSet.getLoadOptions().put("OPTION_USE_PARSER_POOL", Boolean.TRUE);
+        resourceSet.getLoadOptions().put(XMLResource.OPTION_DEFER_ATTACHMENT, Boolean.TRUE);
+        resourceSet.getLoadOptions().put(XMLResource.OPTION_DEFER_IDREF_RESOLUTION, Boolean.TRUE);
+        resourceSet.getLoadOptions().put(XMLResource.OPTION_USE_PARSER_POOL, new XMLParserPoolImpl());
+        resourceSet.getLoadOptions().put(XMLResource.OPTION_USE_XML_NAME_TO_FEATURE_MAP, new HashMap<Object, Object>());
+        resourceSet.getLoadOptions().put(XMLResource.OPTION_USE_DEPRECATED_METHODS, Boolean.FALSE);
     }
 
     public Project loadProject(IProject project) throws PersistenceException {
