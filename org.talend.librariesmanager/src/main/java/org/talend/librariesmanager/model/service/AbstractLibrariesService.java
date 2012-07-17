@@ -67,10 +67,13 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
 
     // protected String LIBS = "libs";
 
+    @Override
     public abstract URL getRoutineTemplate();
 
+    @Override
     public abstract URL getBeanTemplate();
 
+    @Override
     public ELibraryInstallStatus getLibraryStatus(String libName) throws BusinessException {
         checkInstalledLibraries();
         for (ModuleNeeded current : ModulesNeededProvider.getModulesNeeded()) {
@@ -81,15 +84,13 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         throw new BusinessException(Messages.getString("ModulesNeededProvider.Module.Exception", libName)); //$NON-NLS-1$
     }
 
+    @Override
     public void deployLibrary(URL source) throws IOException {
         LocalLibraryManager repositoryBundleService = (LocalLibraryManager) CorePlugin.getDefault().getRepositoryBundleService();
-        // TODO SML Allow perl module to be deploy in a folder structure in "lib/perl/..."
-        /* fix for bug 0020350,if URL contains a space character it will cause problem */
-        //            URI sourceURI = new URI(source.toString().replace(' ', '\0'));//$NON-NLS-0$ //$NON-NLS-1$
 
         // fix for bug 0020953
         // if jdk is not 1.5, need decode %20 for space.
-        final String decode = URLDecoder.decode(source.getFile(), "UTF-8"); //$NON-NLS-N$
+        final String decode = URLDecoder.decode(source.getFile(), "UTF-8");
 
         final File sourceFile = new File(decode);
         final File targetFile = new File(PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA) + File.separatorChar
@@ -100,10 +101,8 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         }
 
         ModulesNeededProvider.userAddImportModules(targetFile.getPath(), sourceFile.getName(), ELibraryInstallStatus.INSTALLED);
-        // if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
-        // addResolvedClasspathPath(sourceFile.getName());
-        // }
-        fireLibrariesChanges();
+
+        resetModulesNeeded();
 
         // for feature 12877
         Project currentProject = ProjectManager.getInstance().getCurrentProject();
@@ -115,6 +114,7 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         if (PluginChecker.isSVNProviderPluginLoaded()) {
             RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit(currentProject, "") {
 
+                @Override
                 public void run() throws PersistenceException {
 
                     String path = new Path(Platform.getInstanceLocation().getURL().getPath()).toFile().getPath();
@@ -143,6 +143,7 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
     protected void addResolvedClasspathPath(String libName) {
     }
 
+    @Override
     public void undeployLibrary(String jarName) throws IOException {
         ILibraryManagerService service = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
                 ILibraryManagerService.class);
@@ -155,6 +156,7 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         }
     }
 
+    @Override
     public List<Problem> getProblems(INode node, IElement element) {
         List<Problem> toReturn = new ArrayList<Problem>();
         List<ModuleNeeded> list = node.getComponent().getModulesNeeded();
@@ -176,11 +178,13 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         return toReturn;
     }
 
+    @Override
     public void resetModulesNeeded() {
         ModulesNeededProvider.reset();
         checkLibraries();
     }
 
+    @Override
     public void checkLibraries() {
         this.checkInstalledLibraries();
         fireLibrariesChanges();
@@ -188,10 +192,12 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
 
     public abstract void checkInstalledLibraries();
 
+    @Override
     public void addChangeLibrariesListener(IChangedLibrariesListener listener) {
         listeners.add(listener);
     }
 
+    @Override
     public void removeChangeLibrariesListener(IChangedLibrariesListener listener) {
         listeners.remove(listener);
     }
@@ -209,6 +215,7 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
      * org.talend.core.model.general.ILibrariesService#resetModulesNeededForCurrentJob(org.talend.core.model.properties
      * .Item)
      */
+    @Override
     public void updateModulesNeededForCurrentJob(IProcess process) {
         ModulesNeededProvider.resetCurrentJobNeededModuleList(process);
         checkLibraries();

@@ -23,9 +23,11 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EMap;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
@@ -47,6 +49,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     // private long totalSizeCanBeReduced = 0;
 
+    @Override
     public boolean isInitialized() {
         String installLocation = getStorageDirectory().getAbsolutePath();
         File indexFile = new File(installLocation + JAR_INDEX);
@@ -57,6 +60,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
         return false;
     }
 
+    @Override
     public void setInitialized() {
         LibrariesIndexManager.getInstance().loadResource();
         LibrariesIndexManager.getInstance().getIndex().setInitialized(true);
@@ -68,6 +72,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
      * 
      * @see org.talend.core.IRepositoryBundleService#deploy()
      */
+    @Override
     public void deploy(URI jarFileUri, IProgressMonitor... monitorWrap) {
         String installLocation = getStorageDirectory().getAbsolutePath();
         File indexFile = new File(installLocation + JAR_INDEX);
@@ -88,8 +93,17 @@ public class LocalLibraryManager implements ILibraryManagerService {
                     break;
                 }
             }
-            if (file == null || !file.exists())
+            if (!"".equals(contributeID)) {
+                String actualPluginPath = FileLocator.getBundleFile(Platform.getBundle(contributeID)).getPath();
+                // check if the path of the imported jar is at least from the same studio, in case import a jar from a
+                // studio to another one.
+                if (!file.getAbsolutePath().startsWith(actualPluginPath)) {
+                    contributeID = "";
+                }
+            }
+            if (file == null || !file.exists()) {
                 return;
+            }
             if (contributeID.equals("")) {
                 if (file.isDirectory()) {
                     FilesUtils.copyFolder(new File(jarFileUri), getStorageDirectory(), false,
@@ -152,9 +166,11 @@ public class LocalLibraryManager implements ILibraryManagerService {
      * @see org.talend.core.IRepositoryBundleService#deploy(java.util.Collection,
      * org.eclipse.core.runtime.IProgressMonitor[])
      */
+    @Override
     public void deploy(Collection<URI> jarFileUris, IProgressMonitor... monitorWrap) {
-        if (jarFileUris == null || jarFileUris.size() == 0)
+        if (jarFileUris == null || jarFileUris.size() == 0) {
             return;
+        }
         for (URI uri : jarFileUris) {
             deploy(uri, monitorWrap);
         }
@@ -165,6 +181,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
      * 
      * @see org.talend.core.IRepositoryBundleService#retrieve(java.lang.String, java.lang.String)
      */
+    @Override
     public boolean retrieve(String jarNeeded, String pathToStore, IProgressMonitor... monitorWrap) {
         LibrariesIndexManager.getInstance().loadResource();
         String sourcePath = null, targetPath = pathToStore;
@@ -227,9 +244,11 @@ public class LocalLibraryManager implements ILibraryManagerService {
      * @see org.talend.core.IRepositoryBundleService#retrieve(java.util.Collection, java.lang.String,
      * org.eclipse.core.runtime.IProgressMonitor[])
      */
+    @Override
     public boolean retrieve(Collection<String> jarsNeeded, String pathToStore, IProgressMonitor... monitorWrap) {
-        if (jarsNeeded == null || jarsNeeded.size() == 0)
+        if (jarsNeeded == null || jarsNeeded.size() == 0) {
             return false;
+        }
         boolean allIsOK = true;
         for (String jar : jarsNeeded) {
             if (!retrieve(jar, pathToStore, monitorWrap)) {
@@ -244,6 +263,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
      * 
      * @see org.talend.core.IRepositoryBundleService#list(org.eclipse.core.runtime.IProgressMonitor[])
      */
+    @Override
     public Set<String> list(IProgressMonitor... monitorWrap) {
         Set<String> names = new HashSet<String>();
         try {
@@ -273,6 +293,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
         return storageDir;
     }
 
+    @Override
     public void clearCache() {
         if (isInitialized()) {
             LibrariesIndexManager.getInstance().loadResource();
@@ -282,6 +303,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
         }
     }
 
+    @Override
     public boolean contains(String jarName) {
         if (jarList.contains(jarName)) {
             return true;
@@ -295,6 +317,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
      * 
      * @see org.talend.core.ILibraryManagerService#delete(java.lang.String)
      */
+    @Override
     public boolean delete(String jarName) {
         // only delete jar from lib/java, do not delete jars from original components providers.
 
