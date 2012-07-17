@@ -809,7 +809,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         String sql = "select name from " + schemaname + " where xtype='SN'";
                         // SELECT name AS object_name ,SCHEMA_NAME(schema_id) AS schema_name FROM sys.objects where
                         // type='SN'
-                        if (!schemaname.contains("INFORMATION_SCHEMA") && !schemaname.contains("guest")) {
+                        if (schemaPattern.equalsIgnoreCase("dbo")) {
                             ResultSet rsTables = stmt.executeQuery(sql);
                             while (rsTables.next()) {
                                 String nameKey = rsTables.getString("name").trim();
