@@ -56,6 +56,7 @@ public class MdmConceptWizardPage1 extends AbstractRetrieveConceptPage {
      * 
      * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
      */
+    @Override
     public void createControl(Composite parent) {
         Composite composite = new Composite(parent, SWT.NONE);
         GridLayout layout = new GridLayout();
@@ -74,17 +75,23 @@ public class MdmConceptWizardPage1 extends AbstractRetrieveConceptPage {
         getConcept();
         inputModeButton = new Button(composite, SWT.RADIO);
         inputModeButton.setText(Messages.getString("MdmConceptWizardPage1_input_mdm")); //$NON-NLS-1$
-        inputModeButton.setSelection(MdmConceptType.INPUT.equals(concept.getConceptType()));
+        if (concept != null) {
+            inputModeButton.setSelection(MdmConceptType.INPUT.equals(concept.getConceptType()));
+        }
         inputModeButton.setEnabled(creation);
 
         outputModeButton = new Button(composite, SWT.RADIO);
         outputModeButton.setText(Messages.getString("MdmConceptWizardPage1_output_mdm")); //$NON-NLS-1$
-        outputModeButton.setSelection(MdmConceptType.OUTPUT.equals(concept.getConceptType()));
+        if (concept != null) {
+            outputModeButton.setSelection(MdmConceptType.OUTPUT.equals(concept.getConceptType()));
+        }
         outputModeButton.setEnabled(creation);
 
         mdmReceiveBtn = new Button(composite, SWT.RADIO);
         mdmReceiveBtn.setText(Messages.getString("MdmConceptWizardPage1_receive_mdm")); //$NON-NLS-1$
-        mdmReceiveBtn.setSelection(MdmConceptType.RECEIVE.equals(concept.getConceptType()));
+        if (concept != null) {
+            mdmReceiveBtn.setSelection(MdmConceptType.RECEIVE.equals(concept.getConceptType()));
+        }
         mdmReceiveBtn.setEnabled(creation);
 
         setControl(composite);

@@ -101,18 +101,26 @@ public class LDAPSchemaStep4Form extends AbstractLDAPSchemaStepForm {
      * 
      * @param Composite
      */
-    public LDAPSchemaStep4Form(Composite parent, ConnectionItem connectionItem) {
-        this(parent, connectionItem, null);
-    }
+    // public LDAPSchemaStep4Form(Composite parent, ConnectionItem connectionItem) {
+    // this(parent, connectionItem, null);
+    // }
 
     public LDAPSchemaStep4Form(Composite parent, ConnectionItem connectionItem, IMetadataContextModeManager contextModeManager) {
-        super(parent, connectionItem, (MetadataTable) ConnectionHelper.getTables(
-                (LDAPSchemaConnection) connectionItem.getConnection()).toArray(new MetadataTable[0])[0], null);
+        super(parent, connectionItem,
+                ConnectionHelper.getTables(connectionItem.getConnection()).toArray(new MetadataTable[0])[0], null);
         setConnectionItem(connectionItem);
         setContextModeManager(contextModeManager);
         setupForm();
     }
 
+    public LDAPSchemaStep4Form(Composite parent, ConnectionItem connectionItem, MetadataTable metadataTableCopy) {
+        super(parent, connectionItem, metadataTableCopy, null);
+        setConnectionItem(connectionItem);
+        setContextModeManager(null);
+        setupForm();
+    }
+
+    @Override
     protected void addFields() {
 
         // Header Fields
@@ -158,11 +166,13 @@ public class LDAPSchemaStep4Form extends AbstractLDAPSchemaStepForm {
      * 
      * @param cancelButton
      */
+    @Override
     protected void addUtilsButtonListeners() {
 
         // Event guessButton
         guessButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(final SelectionEvent e) {
                 if (tableEditorView.getMetadataEditor().getBeanCount() > 0) {
 
@@ -192,6 +202,7 @@ public class LDAPSchemaStep4Form extends AbstractLDAPSchemaStepForm {
             // Event CancelButton
             cancelButton.addSelectionListener(new SelectionAdapter() {
 
+                @Override
                 public void widgetSelected(final SelectionEvent e) {
                     getShell().close();
                 }
@@ -204,6 +215,7 @@ public class LDAPSchemaStep4Form extends AbstractLDAPSchemaStepForm {
      * 
      * Initialize value, forceFocus first field.
      */
+    @Override
     protected void initialize() {
         // init the metadata Table
         String label = MetadataToolHelper.validateValue(metadataTable.getLabel());
@@ -253,10 +265,12 @@ public class LDAPSchemaStep4Form extends AbstractLDAPSchemaStepForm {
     /**
      * Main Fields addControls.
      */
+    @Override
     protected void addFieldsListeners() {
         // metadataNameText : Event modifyText
         metadataNameText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 MetadataToolHelper.validateSchema(metadataNameText.getText());
                 metadataTable.setLabel(metadataNameText.getText());
@@ -266,6 +280,7 @@ public class LDAPSchemaStep4Form extends AbstractLDAPSchemaStepForm {
         // metadataNameText : Event KeyListener
         metadataNameText.addKeyListener(new KeyAdapter() {
 
+            @Override
             public void keyPressed(KeyEvent e) {
                 MetadataToolHelper.checkSchema(getShell(), e);
             }
@@ -274,6 +289,7 @@ public class LDAPSchemaStep4Form extends AbstractLDAPSchemaStepForm {
         // metadataCommentText : Event modifyText
         metadataCommentText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 metadataTable.setComment(metadataCommentText.getText());
             }
@@ -282,6 +298,7 @@ public class LDAPSchemaStep4Form extends AbstractLDAPSchemaStepForm {
         // add listener to tableMetadata (listen the event of the toolbars)
         tableEditorView.getMetadataEditor().addAfterOperationListListener(new IListenableListListener() {
 
+            @Override
             public void handleEvent(ListenableListEvent event) {
                 checkFieldsValue();
             }
@@ -293,6 +310,7 @@ public class LDAPSchemaStep4Form extends AbstractLDAPSchemaStepForm {
      * 
      * @return
      */
+    @Override
     protected boolean checkFieldsValue() {
         if (metadataNameText.getCharCount() == 0) {
             metadataNameText.forceFocus();
@@ -395,7 +413,7 @@ public class LDAPSchemaStep4Form extends AbstractLDAPSchemaStepForm {
             String[] label = new String[numberOfCol.intValue()];
             String[] originalName = new String[numberOfCol.intValue()];
             for (int i = 0; i < numberOfCol; i++) {
-                label[i] = DEFAULT_LABEL + i; //$NON-NLS-1$
+                label[i] = DEFAULT_LABEL + i;
                 if (firstRowToExtractMetadata == 0) {
                     label[i] = processDescription.getSchema().get(0).getListColumns().get(i).getLabel();
                     originalName[i] = processDescription.getSchema().get(0).getListColumns().get(i).getOriginalDbColumnName();
@@ -552,6 +570,7 @@ public class LDAPSchemaStep4Form extends AbstractLDAPSchemaStepForm {
      * 
      * @see org.eclipse.swt.widgets.Control#setVisible(boolean)
      */
+    @Override
     public void setVisible(boolean visible) {
         super.setVisible(visible);
         if (super.isVisible()) {

@@ -77,10 +77,12 @@ public class FileTableWizardPage extends WizardPage {
      * 
      * @see IDialogPage#createControl(Composite)
      */
+    @Override
     public void createControl(final Composite parent) {
 
         final AbstractForm.ICheckListener listener = new AbstractForm.ICheckListener() {
 
+            @Override
             public void checkPerformed(final AbstractForm source) {
                 if (source.isStatusOnError()) {
                     FileTableWizardPage.this.setPageComplete(false);
@@ -135,6 +137,7 @@ public class FileTableWizardPage extends WizardPage {
                 return regexpFileStep3Form;
             }
 
+            @Override
             public Object caseXmlFileConnection(final XmlFileConnection object) {
                 XmlFileConnection xmlFileConnection = (XmlFileConnection) connectionItem.getConnection();
                 boolean isInputModel = xmlFileConnection.isInputModel();
@@ -182,7 +185,7 @@ public class FileTableWizardPage extends WizardPage {
 
             @Override
             public Object caseLDAPSchemaConnection(final LDAPSchemaConnection object) {
-                LDAPSchemaStep4Form ldapSchemaStep4Form = new LDAPSchemaStep4Form(parent, connectionItem);
+                LDAPSchemaStep4Form ldapSchemaStep4Form = new LDAPSchemaStep4Form(parent, connectionItem, metadataTable);
                 ldapSchemaStep4Form.setReadOnly(!isRepositoryObjectEditable);
                 ldapSchemaStep4Form.setListener(listener);
                 return ldapSchemaStep4Form;

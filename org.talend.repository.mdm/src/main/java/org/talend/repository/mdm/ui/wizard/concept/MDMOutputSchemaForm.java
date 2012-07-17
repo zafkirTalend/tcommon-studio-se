@@ -231,8 +231,8 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
                 this.exsitColumnNames.add(label);
                 column.setLabel(label);
             }
-            column.setTalendType(CoreRuntimePlugin.getInstance().getCoreService().getPreferenceStore().getString(
-                    MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE));
+            column.setTalendType(CoreRuntimePlugin.getInstance().getCoreService().getPreferenceStore()
+                    .getString(MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE));
             tempMetadataTable.getColumns().add(column);
             IMetadataColumn metaColumn = ConvertionHelper.convertToIMetaDataColumn(column);
             // if there are more than one unique,just set the first one to loop when guessing
@@ -259,20 +259,21 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
         FOXTreeNode treeNode = (FOXTreeNode) node.getData();
         IMetadataColumn column = treeNode.getColumn();
         if (column != null) {
-            for (int i = 0; i < tableItems.length; i++) {
-                MetadataColumn metadataColumn = (MetadataColumn) tableItems[i].getData();
+            for (TableItem tableItem : tableItems) {
+                MetadataColumn metadataColumn = (MetadataColumn) tableItem.getData();
                 if (metadataColumn.getLabel().equals(column.getLabel())) {
-                    linker.addLoopLink(tableItems[i], tableItems[i].getData(), xmlViewer.getTree(), treeNode, true);
+                    linker.addLoopLink(tableItem, tableItem.getData(), xmlViewer.getTree(), treeNode, true);
                     break;
                 }
             }
         }
         TreeItem[] children = node.getItems();
-        for (int i = 0; i < children.length; i++) {
-            initLinker(children[i], tableItems);
+        for (TreeItem element : children) {
+            initLinker(element, tableItems);
         }
     }
 
+    @Override
     public void redrawLinkers() {
         linker.removeAllLinks();
         TreeItem root = xmlViewer.getTree().getItem(0);
@@ -380,6 +381,7 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
         menuMgr.setRemoveAllWhenShown(true);
         menuMgr.addMenuListener(new IMenuListener() {
 
+            @Override
             public void menuAboutToShow(IMenuManager manager) {
                 fillContextMenu(manager);
             }
@@ -388,6 +390,7 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
         xmlViewer.getControl().setMenu(menu);
         xmlViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 
+            @Override
             public void selectionChanged(SelectionChangedEvent event) {
 
             }
@@ -546,6 +549,7 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
         return false;
     }
 
+    @Override
     public void updateStatus() {
         checkFieldsValue();
     }
@@ -606,8 +610,9 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
                 parent = tmpParent;
             }
 
-            if (parent != null)
+            if (parent != null) {
                 parent.addChild(temp);
+            }
         }
 
         return temp;
@@ -828,14 +833,17 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
         return treeNodes;
     }
 
+    @Override
     public MetadataTable getMetadataTable() {
         return tempMetadataTable;
     }
 
+    @Override
     public TableViewer getSchemaViewer() {
         return this.schemaViewer;
     }
 
+    @Override
     public void updateConnection() {
         ConnectionHelper.getTables(getConnection());
         EList root = concept.getRoot();
@@ -985,10 +993,12 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
 
     }
 
+    @Override
     public void setSelectedText(String label) {
         selectedText = label;
     }
 
+    @Override
     public List<FOXTreeNode> getTreeData() {
         return treeData;
     }
@@ -1071,14 +1081,17 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
 
         Boolean validateLabel;
 
+        @Override
         public void applyEditorValue() {
             String text = getControl().getText();
             onValueChanged(text, true, property);
         }
 
+        @Override
         public void cancelEditor() {
         }
 
+        @Override
         public void editorValueChanged(boolean oldValidState, boolean newValidState) {
             onValueChanged(getControl().getText(), false, property);
         }
@@ -1137,33 +1150,34 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
      */
     @Override
     protected void createTable() {
-        this.metadataTable = tempMetadataTable;
+        // this.metadataTable = tempMetadataTable;
         // if (!getConnection().getTables().contains(metadataTable)) {
         // getConnection().getTables().add(metadataTable);
         // }
-        if (!ConnectionHelper.getTables(getConnection()).contains(metadataTable)) {
-            TdXmlSchema d = (TdXmlSchema) ConnectionHelper.getPackage(((MDMConnection) connectionItem.getConnection())
-                    .getDatacluster(), connectionItem.getConnection(), TdXmlSchema.class);
+        if (!ConnectionHelper.getTables(getConnection()).contains(tempMetadataTable)) {
+            TdXmlSchema d = (TdXmlSchema) ConnectionHelper.getPackage(
+                    ((MDMConnection) connectionItem.getConnection()).getDatacluster(), connectionItem.getConnection(),
+                    TdXmlSchema.class);
             if (d != null) {
-                d.getOwnedElement().add(metadataTable);
+                d.getOwnedElement().add(tempMetadataTable);
             } else {
                 TdXmlSchema newXmlDoc = XmlFactory.eINSTANCE.createTdXmlSchema();
                 newXmlDoc.setName(((MDMConnection) connectionItem.getConnection()).getDatacluster());
                 ConnectionHelper.addPackage(newXmlDoc, connectionItem.getConnection());
-                PackageHelper.addMetadataTable(metadataTable, newXmlDoc);
+                PackageHelper.addMetadataTable(tempMetadataTable, newXmlDoc);
             }
             // ConnectionHelper.getTables(getConnection()).add(metadataTable);
         }
 
-        if (metadataTable.getSourceName() == null) {
+        if (tempMetadataTable.getSourceName() == null) {
             EList<XMLFileNode> loopList = this.concept.getLoop();
             if (loopList != null && loopList.size() > 0) {
                 String fullPath = loopList.get(0).getXMLPath();
                 if (fullPath.contains("/")) {
                     String source = fullPath.split("/")[1]; //$NON-NLS-1$ 
-                    metadataTable.setSourceName(source);
+                    tempMetadataTable.setSourceName(source);
                 } else {
-                    metadataTable.setSourceName(fullPath);
+                    tempMetadataTable.setSourceName(fullPath);
                 }
             }
         }

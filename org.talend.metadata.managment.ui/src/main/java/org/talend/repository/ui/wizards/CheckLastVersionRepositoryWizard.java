@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.repository.ui.wizards;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.resources.IWorkspace;
@@ -24,25 +23,20 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.ui.IWorkbench;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.VersionUtils;
-import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.ui.ILastVersionChecker;
-import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.ui.wizards.context.ContextWizard;
 import org.talend.repository.ui.wizards.documentation.DocumentationCreateWizard;
 import org.talend.repository.ui.wizards.documentation.DocumentationUpdateWizard;
-import orgomg.cwm.objectmodel.core.Package;
 
 /**
  * DOC hywang class global comment. Detailled comment
@@ -53,9 +47,9 @@ public abstract class CheckLastVersionRepositoryWizard extends RepositoryWizard 
 
     protected MetadataTable metadataTable;
 
-    protected MetadataTable metadataTableCopy;
-
-    protected Connection connectionCopy;
+    // protected MetadataTable metadataTableCopy;
+    //
+    // protected Connection connectionCopy;
 
     public CheckLastVersionRepositoryWizard(IWorkbench workbench, boolean creation) {
         super(workbench, creation, false);
@@ -65,6 +59,7 @@ public abstract class CheckLastVersionRepositoryWizard extends RepositoryWizard 
         super(workbench, creation, forceReadOnly);
     }
 
+    @Override
     public boolean performFinish() {
         // TODO Auto-generated method stub
         return false;
@@ -73,32 +68,32 @@ public abstract class CheckLastVersionRepositoryWizard extends RepositoryWizard 
     /**
      * Initializes the copies including connection and metadata table. The input parameter is not <code>null</code>.
      */
-    protected void initConnectionCopy(Connection connection) {
-        this.connectionCopy = cloneConnectionCopy(connection);
-        if (connectionCopy != null)
-            this.metadataTableCopy = ConnectionHelper.getTableById(connectionCopy, this.metadataTable.getId());
-    }
+    // protected void initConnectionCopy(Connection connection) {
+    // this.connectionCopy = cloneConnectionCopy(connection);
+    // if (connectionCopy != null)
+    // this.metadataTableCopy = ConnectionHelper.getTableById(connectionCopy, this.metadataTable.getId());
+    // }
 
     /**
      * Clones a copy of connection.
      * 
      * @param connection
      */
-    protected Connection cloneConnectionCopy(Connection connection) {
-        Connection connectionCopy = EcoreUtil.copy(connection);
-        EList<Package> dataPackage = connection.getDataPackage();
-        Collection<Package> newDataPackage = EcoreUtil.copyAll(dataPackage);
-        ConnectionHelper.addPackages(newDataPackage, connectionCopy);
-        return connectionCopy;
-    }
+    // protected Connection cloneConnectionCopy(Connection connection) {
+    // Connection connectionCopy = EcoreUtil.copy(connection);
+    // EList<Package> dataPackage = connection.getDataPackage();
+    // Collection<Package> newDataPackage = EcoreUtil.copyAll(dataPackage);
+    // ConnectionHelper.addPackages(newDataPackage, connectionCopy);
+    // return connectionCopy;
+    // }
 
     /**
      * Applys the copies to the actural object, inclues connection and metadata table.
      */
-    protected void applyConnectionCopy() {
-        connectionItem.setConnection(connectionCopy);
-        this.metadataTable = metadataTableCopy;
-    }
+    // protected void applyConnectionCopy() {
+    // connectionItem.setConnection(connectionCopy);
+    // this.metadataTable = metadataTableCopy;
+    // }
 
     @Override
     public boolean isRepositoryObjectEditable() {
@@ -165,7 +160,8 @@ public abstract class CheckLastVersionRepositoryWizard extends RepositoryWizard 
                     factory.save(connectionItem);
                     closeLockStrategy();
                 } catch (PersistenceException e) {
-                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.metadata.management.ui", "Error when save the connection", e));
+                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.metadata.management.ui",
+                            "Error when save the connection", e));
                 }
             }
         };
@@ -175,9 +171,10 @@ public abstract class CheckLastVersionRepositoryWizard extends RepositoryWizard 
         workspace.run(operation, schedulingRule, IWorkspace.AVOID_UPDATE, new NullProgressMonitor());
     }
 
+    @Override
     public boolean performCancel() {
-        connectionCopy = null;
-        metadataTableCopy = null;
+        // connectionCopy = null;
+        // metadataTableCopy = null;
         return super.performCancel();
     }
 }

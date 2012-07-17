@@ -167,8 +167,6 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
 
     private String oldSelectedEntity;
 
-    private MetadataTable metadataTable;
-
     private boolean creation;
 
     /**
@@ -317,6 +315,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
         if (WindowSystem.isGTK() && firstTimeWizardOpened.equals(Boolean.TRUE)) {
             schemaTargetGroup.addListener(SWT.Paint, new Listener() {
 
+                @Override
                 public void handleEvent(Event event) {
                     Point offsetPoint = event.display.map(linker.getBgDrawableComposite(), schemaTargetGroup, new Point(0, 0));
                     linker.setOffset(offsetPoint);
@@ -346,6 +345,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
         if (WindowSystem.isGTK() && firstTimeWizardOpened.equals(Boolean.TRUE)) {
             loopTableEditorComposite.addListener(SWT.Paint, new Listener() {
 
+                @Override
                 public void handleEvent(Event event) {
                     Point offsetPoint = event.display.map(linker.getBgDrawableComposite(), loopTableEditorComposite, new Point(0,
                             0));
@@ -369,6 +369,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
         if (WindowSystem.isGTK() && firstTimeWizardOpened.equals(Boolean.TRUE)) {
             fieldTableEditorComposite.addListener(SWT.Paint, new Listener() {
 
+                @Override
                 public void handleEvent(Event event) {
                     Point offsetPoint = event.display.map(linker.getBgDrawableComposite(), fieldTableEditorComposite, new Point(
                             0, 0));
@@ -567,6 +568,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
         // add listener to tableMetadata (listen the event of the toolbars)
         fieldsTableEditorView.getExtendedTableModel().addAfterOperationListListener(new IListenableListListener() {
 
+            @Override
             public void handleEvent(ListenableListEvent event) {
                 checkFieldsValue();
             }
@@ -574,6 +576,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
 
         fieldsTableEditorView.getExtendedTableModel().addModifiedBeanListener(new IModifiedBeanListener<ConceptTarget>() {
 
+            @Override
             public void handleEvent(ModifiedBeanEvent<ConceptTarget> event) {
 
                 updateStatus(IStatus.OK, null);
@@ -687,10 +690,10 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
                     //&& !getConnection().getXmlFilePath().equals("") //$NON-NLS-1$
                     getConnection().getSchemas() != null
                             && !getConnection().getSchemas().isEmpty()
-                            && ((Concept) getConnection().getSchemas().get(0)).getLoopExpression() != null
-                            && !("").equals(((Concept) getConnection().getSchemas().get(0)).getLoopExpression()) //$NON-NLS-1$
-                            && ((Concept) getConnection().getSchemas().get(0)).getConceptTargets() != null
-                            && !((Concept) getConnection().getSchemas().get(0)).getConceptTargets().isEmpty()) {
+                            && (getConnection().getSchemas().get(0)).getLoopExpression() != null
+                            && !("").equals((getConnection().getSchemas().get(0)).getLoopExpression()) //$NON-NLS-1$
+                            && (getConnection().getSchemas().get(0)).getConceptTargets() != null
+                            && !(getConnection().getSchemas().get(0)).getConceptTargets().isEmpty()) {
                         refreshPreview();
                     } else {
                         previewButton.setText(Messages.getString("MdmReceiveForm.refreshPreview")); //$NON-NLS-1$
@@ -701,6 +704,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
 
                             Display.getDefault().asyncExec(new Runnable() {
 
+                                @Override
                                 public void run() {
                                     handleErrorOutput(outputComposite, tabFolder, outputTabItem);
 
@@ -924,10 +928,12 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
      * 
      * @see org.talend.repository.ui.swt.utils.IRefreshable#refresh()
      */
+    @Override
     public void refresh() {
         refreshPreview();
     }
 
+    @Override
     protected void createTable() {
         if (concept == null) {
             return;
@@ -941,7 +947,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
         MappingTypeRetriever retriever = MetadataTalendType.getMappingTypeRetriever("xsd_id"); //$NON-NLS-1$
         List<ConceptTarget> targetList = concept.getConceptTargets();
         List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
-        metadataTable.getColumns().clear();
+        // metadataTable.getColumns().clear();
         for (ConceptTarget target : targetList) {
             String relativeXpath = target.getRelativeLoopExpression();
             String fullPath = target.getSchema().getLoopExpression();
@@ -986,10 +992,17 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
 
                     metadataColumn.setTalendType(retriever.getDefaultSelectedTalendType("xs:" + curNode.getOriginalDataType())); //$NON-NLS-1$
                 }
-                if (!metadataTable.getColumns().contains(metadataColumn)) {
+                // Changed by Marvin Wang on May 21, 2012. Refer to the line above which is commentted
+                // "metadataTable.getColumns().clear();".
+                int index = removeOriginalColumn(target.getTargetName());
+                if (index < 0) {
                     metadataTable.getColumns().add(metadataColumn);
+                } else {
+                    metadataTable.getColumns().add(index, metadataColumn);
                 }
-
+                // if (!metadataTable.getColumns().contains(metadataColumn)) {
+                // metadataTable.getColumns().add(metadataColumn);
+                // }
                 metadataColumns.add(metadataColumn);
             }
         }

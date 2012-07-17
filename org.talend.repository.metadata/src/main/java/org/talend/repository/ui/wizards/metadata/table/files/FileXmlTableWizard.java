@@ -52,7 +52,7 @@ public class FileXmlTableWizard extends AbstractRepositoryFileTableWizard implem
      * 
      * @param ISelection
      */
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public FileXmlTableWizard(IWorkbench workbench, boolean creation, ConnectionItem connectionItem, MetadataTable metadataTable,
             boolean forceReadOnly) {
         super(workbench, creation, forceReadOnly);
@@ -61,7 +61,7 @@ public class FileXmlTableWizard extends AbstractRepositoryFileTableWizard implem
         if (connectionItem != null) {
             oldTableMap = RepositoryUpdateManager.getOldTableIdAndNameMap(connectionItem, metadataTable, creation);
             oldMetadataTable = ConvertionHelper.convert(metadataTable);
-            initConnectionCopy(connectionItem.getConnection());
+            // initConnectionCopy(connectionItem.getConnection());
         }
         setNeedsProgressMonitor(true);
 
@@ -73,10 +73,11 @@ public class FileXmlTableWizard extends AbstractRepositoryFileTableWizard implem
      * Adding the page to the wizard.
      */
 
+    @Override
     public void addPages() {
         setWindowTitle(Messages.getString("SchemaWizard.windowTitle")); //$NON-NLS-1$
 
-        tableWizardpage = new FileTableWizardPage(connectionItem, metadataTableCopy, isRepositoryObjectEditable());
+        tableWizardpage = new FileTableWizardPage(connectionItem, metadataTable, isRepositoryObjectEditable());
 
         if (creation) {
             tableWizardpage.setTitle(Messages.getString(
@@ -95,9 +96,10 @@ public class FileXmlTableWizard extends AbstractRepositoryFileTableWizard implem
      * This method determine if the 'Finish' button is enable This method is called when 'Finish' button is pressed in
      * the wizard. We will create an operation and run it using wizard as execution context.
      */
+    @Override
     public boolean performFinish() {
         if (tableWizardpage.isPageComplete()) {
-            applyConnectionCopy();
+            // applyConnectionCopy();
             // update
             RepositoryUpdateManager.updateSingleSchema(connectionItem, metadataTable, oldMetadataTable, oldTableMap);
 
@@ -111,8 +113,8 @@ public class FileXmlTableWizard extends AbstractRepositoryFileTableWizard implem
                         Messages.getString("CommonWizard.persistenceException"), detailError); //$NON-NLS-1$
                 log.error(Messages.getString("CommonWizard.persistenceException") + "\n" + detailError); //$NON-NLS-1$ //$NON-NLS-2$
             }
-            connectionCopy = null;
-            metadataTableCopy = null;
+            // connectionCopy = null;
+            // metadataTableCopy = null;
             return true;
         } else {
             return false;
@@ -125,6 +127,7 @@ public class FileXmlTableWizard extends AbstractRepositoryFileTableWizard implem
      * 
      * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
      */
+    @Override
     public void init(final IWorkbench workbench, final IStructuredSelection selection) {
         this.selection = selection;
     }

@@ -19,6 +19,7 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
@@ -33,16 +34,14 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
-import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.MDMConnectionItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
-import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -70,7 +69,7 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
 
     private ConnectionItem connectionItem;
 
-    private MDMConnection connection;
+    private Connection connection;
 
     private Property connectionProperty;
 
@@ -84,13 +83,17 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
 
     private boolean readonly;
 
-    private MetadataTable metadataTable;
-
     private List<IMetadataTable> oldMetadataTable;
 
     private Map<String, String> oldTableMap;
 
     private WizardPage currentPage;
+
+    protected MetadataTable metadataTable;
+
+    // protected MetadataTable metadataTableCopy;
+
+    // protected Connection connectionCopy;
 
     private XSDSchema xsdSchema;
 
@@ -114,6 +117,9 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
         if (connectionItem != null) {
             oldTableMap = RepositoryUpdateManager.getOldTableIdAndNameMap(connectionItem, metadataTable, false);
             oldMetadataTable = RepositoryUpdateManager.getConversionMetadataTables(connectionItem.getConnection());
+            connection = connectionItem.getConnection();
+            // initConnectionCopy(connectionItem.getConnection());
+            // connectionItem.setConnection(connectionCopy);
         }
         switch (node.getType()) {
         case SIMPLE_FOLDER:
@@ -141,7 +147,7 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
             break;
 
         case REPOSITORY_ELEMENT:
-            connection = (MDMConnection) ((ConnectionItem) node.getObject().getProperty().getItem()).getConnection();
+            connection = ((ConnectionItem) node.getObject().getProperty().getItem()).getConnection();
             connectionProperty = node.getObject().getProperty();
             initTalendProperty();
             connectionItem = (ConnectionItem) node.getObject().getProperty().getItem();
@@ -216,6 +222,7 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
             updateRelation();
             return true;
         } else if (!creation && tablePage.isPageComplete()) {
+            EObject eObject = metadataTable.eContainer();
             RepositoryUpdateManager.updateMultiSchema(connectionItem, oldMetadataTable, oldTableMap);
             updateRelation();
             return true;
@@ -271,6 +278,7 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
      * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench,
      * org.eclipse.jface.viewers.IStructuredSelection)
      */
+    @Override
     public void init(IWorkbench workbench, IStructuredSelection selection) {
 
     }
@@ -295,9 +303,10 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
         return false;
     }
 
+    @Override
     public boolean performCancel() {
-        closeLockStrategy();
-        RepositoryManager.refresh(ERepositoryObjectType.METADATA_MDMCONNECTION);
+        // closeLockStrategy();
+        // RepositoryManager.refresh(ERepositoryObjectType.METADATA_MDMCONNECTION);
         return super.performCancel();
     }
 

@@ -100,7 +100,12 @@ public abstract class RepositoryWizard extends Wizard {
      * 
      * @param IRepositoryObject
      */
+    @Override
     public boolean performCancel() {
+        // Backport by Marvin Wang on July 16, 2012 for TDI-21766.
+        if (repositoryObject != null) {
+            repositoryObject.getProperty().eResource().unload();
+        }
         closeLockStrategy();
         return true;
     }

@@ -52,6 +52,7 @@ import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.datatools.xml.utils.ATreeNode;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.mdm.i18n.Messages;
+import org.talend.repository.mdm.util.MDMUtil;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.TreePopulator;
 
@@ -162,6 +163,17 @@ public class MDMTableForm extends AbstractMDMFileStepForm {
         addUtilsButtonListeners();
     }
 
+    private void changeConceptName(String newName) {
+        Concept concept = MDMUtil.getConcept((MDMConnection) connectionItem.getConnection(), metadataTable);
+        if ("".equals(newName)) {
+            concept.setLabel(newName);
+            // Caz if the label of concept is empty, concept.getLabel() will get the concept name.
+            concept.setName(newName);
+        } else {
+            concept.setLabel(newName);
+        }
+    }
+
     /**
      * Main Fields addControls.
      */
@@ -170,8 +182,10 @@ public class MDMTableForm extends AbstractMDMFileStepForm {
         // metadataNameText : Event modifyText
         metadataNameText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 MetadataToolHelper.validateSchema(metadataNameText.getText());
+                changeConceptName(metadataNameText.getText());
                 metadataTable.setLabel(metadataNameText.getText());
                 checkFieldsValue();
             }
@@ -188,6 +202,7 @@ public class MDMTableForm extends AbstractMDMFileStepForm {
         // metadataCommentText : Event modifyText
         metadataCommentText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 metadataTable.setComment(metadataCommentText.getText());
             }
@@ -196,6 +211,7 @@ public class MDMTableForm extends AbstractMDMFileStepForm {
         // add listener to tableMetadata (listen the event of the toolbars)
         tableEditorView.getMetadataEditor().addAfterOperationListListener(new IListenableListListener() {
 
+            @Override
             public void handleEvent(ListenableListEvent event) {
                 checkFieldsValue();
             }
@@ -257,7 +273,7 @@ public class MDMTableForm extends AbstractMDMFileStepForm {
      */
     protected void runShadowProcess() {
         MDMConnection connection2 = getConnection();
-        refreshMetaDataTable(((Concept) connection2.getSchemas().get(0)).getConceptTargets());
+        refreshMetaDataTable((connection2.getSchemas().get(0)).getConceptTargets());
         checkFieldsValue();
         return;
     }
