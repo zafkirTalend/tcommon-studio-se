@@ -61,7 +61,9 @@ public abstract class AbstractThreadSafetyTester<T extends IThreadSafetyOperator
                 }
             }
             barrier.await(); // wait for all threads to be ready
+            long startClean = System.currentTimeMillis();
             barrier.await(); // wait for all threads to finish
+            System.out.println("ThreadSafetyTester duration: " + (System.currentTimeMillis() - startClean) + " ms");
         } catch (Exception e) {
             throw e;
         }

@@ -15,6 +15,12 @@ package org.talend.commons.utils.threading;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+
 import org.junit.Test;
 import org.talend.commons.utils.threading.LockerByKey.LockerValue;
 import org.talend.commons.utils.threading.lockerbykeyoperators.AbstractLockerByKeyOperator;
@@ -139,36 +145,6 @@ public class LockerByKeyTest {
     @SuppressWarnings("unchecked")
     @Test(timeout = 2000)
     // @Test()
-    public void testCleanDisabled() throws Throwable {
-        final LockerByKey locker = new LockerByKey(true, 0);
-
-        final int keyOne = 1;
-
-        boolean isLocked = locker.isLocked(keyOne);
-        assertThat(isLocked, is(false));
-
-        for (int i = 0; i < 1000; i++) {
-            locker.lockInterruptibly(i);
-
-            isLocked = locker.isLocked(i);
-            assertThat(isLocked, is(true));
-
-            boolean hasUnlocked = locker.unlock(i);
-            assertThat(hasUnlocked, is(true));
-
-            isLocked = locker.isLocked(i);
-            assertThat(isLocked, is(false));
-        }
-
-        for (int i = 0; i < 1000; i++) {
-            assertThat(locker.getLocker(i), is(notNullValue()));
-        }
-
-    }
-
-    @SuppressWarnings("unchecked")
-    @Test(timeout = 2000)
-    // @Test()
     public void testCleanEnabledDefault() throws Throwable {
         final LockerByKey locker = new LockerByKey();
 
@@ -239,6 +215,102 @@ public class LockerByKeyTest {
     @SuppressWarnings("unchecked")
     @Test(timeout = 2000)
     // @Test()
+    public void testShutdown_Lock() throws Throwable {
+        final LockerByKey locker = createLockerInstance();
+
+        ExecutorService poolRunnable1 = Executors.newCachedThreadPool();
+        ExecutorService poolRunnable2 = Executors.newCachedThreadPool();
+
+        final int keyOne = 1;
+        final String expectedResult = "ended";
+        Callable<String> runnable = new Callable<String>() {
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see java.util.concurrent.Callable#call()
+             */
+            @Override
+            public String call() throws Exception {
+                locker.lockInterruptibly(keyOne);
+                return expectedResult;
+            }
+        };
+
+        Future<String> future1 = poolRunnable1.submit(runnable);
+        Thread.sleep(WAIT_THREAD_STARTED);
+        String result1 = future1.get(2, TimeUnit.SECONDS);
+        assertThat(result1, is(expectedResult));
+
+        Future<String> future2 = poolRunnable2.submit(runnable);
+        Thread.sleep(WAIT_THREAD_STARTED);
+
+        locker.shutdown();
+
+        try {
+            future2.get(2, TimeUnit.SECONDS);
+            fail("Should be interrupted by the shutdown");
+        } catch (Exception e) {
+            boolean isInterruptedException = e.getCause() instanceof InterruptedException;
+            if (!isInterruptedException) {
+                e.printStackTrace();
+                fail("Should be an InterruptedException, please read logs");
+            }
+        }
+
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test(timeout = 2000)
+    // @Test()
+    public void testShutdown_TryLock() throws Throwable {
+        final LockerByKey locker = createLockerInstance();
+
+        ExecutorService poolRunnable1 = Executors.newCachedThreadPool();
+        ExecutorService poolRunnable2 = Executors.newCachedThreadPool();
+
+        final int keyOne = 1;
+        final String expectedResult = "ended";
+        Callable<String> runnable = new Callable<String>() {
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see java.util.concurrent.Callable#call()
+             */
+            @Override
+            public String call() throws Exception {
+                locker.tryLock(keyOne, 10000);
+                return expectedResult;
+            }
+        };
+
+        Future<String> future1 = poolRunnable1.submit(runnable);
+        Thread.sleep(WAIT_THREAD_STARTED);
+        String result1 = future1.get(2, TimeUnit.SECONDS);
+        assertThat(result1, is(expectedResult));
+
+        Future<String> future2 = poolRunnable2.submit(runnable);
+        Thread.sleep(WAIT_THREAD_STARTED);
+
+        locker.shutdown();
+
+        try {
+            future2.get(2, TimeUnit.SECONDS);
+            fail("Should be interrupted by the shutdown");
+        } catch (Exception e) {
+            boolean isInterruptedException = e.getCause() instanceof InterruptedException;
+            if (!isInterruptedException) {
+                e.printStackTrace();
+                fail("Should be an InterruptedException, please read logs");
+            }
+        }
+
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test(timeout = 2000)
+    // @Test()
     public void testUnlock_withGetLockerValue() throws Throwable {
         final LockerByKey locker = createLockerInstance();
 
@@ -258,7 +330,7 @@ public class LockerByKeyTest {
         LockerValue lockerValue2 = locker.getLocker(keyOne);
         assertThat(lockerValue2, is(lockerValue1));
 
-        locker.clean();
+        locker.shutdown();
         LockerValue lockerValue3 = locker.getLocker(keyOne);
         assertThat(lockerValue3, is(nullValue()));
 
@@ -270,23 +342,23 @@ public class LockerByKeyTest {
         final LockerByKey locker = createLockerInstance();
 
         final int keyOne = 1;
-        LockInterruptiblyThread threadWaitForLockKeyOne_first = new LockInterruptiblyThread(locker, keyOne);
-        threadWaitForLockKeyOne_first.start();
-        threadWaitForLockKeyOne_first.join(WAIT_JOIN);
-        assertThat(threadWaitForLockKeyOne_first.isAlive(), is(false));
-        if (threadWaitForLockKeyOne_first.throwable != null) {
-            throw threadWaitForLockKeyOne_first.throwable;
+        LockInterruptiblyThread threadLockKeyOne_first = new LockInterruptiblyThread(locker, keyOne);
+        threadLockKeyOne_first.start();
+        threadLockKeyOne_first.join(WAIT_JOIN);
+        assertThat(threadLockKeyOne_first.isAlive(), is(false));
+        if (threadLockKeyOne_first.throwable != null) {
+            throw threadLockKeyOne_first.throwable;
         }
 
-        LockInterruptiblyThread threadWaitForLockKeyOne_second = new LockInterruptiblyThread(locker, keyOne);
-        threadWaitForLockKeyOne_second.start();
+        LockInterruptiblyThread threadLockKeyOne_second = new LockInterruptiblyThread(locker, keyOne);
+        threadLockKeyOne_second.start();
         Thread.sleep(WAIT_THREAD_STARTED);
-        assertThat(threadWaitForLockKeyOne_second.isAlive(), is(true));
-        threadWaitForLockKeyOne_second.interrupt();
-        threadWaitForLockKeyOne_second.join(WAIT_JOIN);
-        assertThat(threadWaitForLockKeyOne_second.isAlive(), is(false));
-        assertThat(threadWaitForLockKeyOne_second.throwable, is(notNullValue()));
-        assertThat(threadWaitForLockKeyOne_second.throwable, is(instanceOf(InterruptedException.class)));
+        assertThat(threadLockKeyOne_second.isAlive(), is(true));
+        threadLockKeyOne_second.interrupt();
+        threadLockKeyOne_second.join(WAIT_JOIN);
+        assertThat(threadLockKeyOne_second.isAlive(), is(false));
+        assertThat(threadLockKeyOne_second.throwable, is(notNullValue()));
+        assertThat(threadLockKeyOne_second.throwable, is(instanceOf(InterruptedException.class)));
     }
 
     @Test(timeout = 2000)
@@ -296,24 +368,24 @@ public class LockerByKeyTest {
 
         final int keyOne = 1;
         final Integer keyOneInteger1 = new Integer(keyOne);
-        LockInterruptiblyThread threadWaitForLockKeyOne_first = new LockInterruptiblyThread(locker, keyOneInteger1);
-        threadWaitForLockKeyOne_first.start();
-        threadWaitForLockKeyOne_first.join(WAIT_JOIN);
-        assertThat(threadWaitForLockKeyOne_first.isAlive(), is(false));
-        if (threadWaitForLockKeyOne_first.throwable != null) {
-            throw threadWaitForLockKeyOne_first.throwable;
+        LockInterruptiblyThread threadLockKeyOne_first = new LockInterruptiblyThread(locker, keyOneInteger1);
+        threadLockKeyOne_first.start();
+        threadLockKeyOne_first.join(WAIT_JOIN);
+        assertThat(threadLockKeyOne_first.isAlive(), is(false));
+        if (threadLockKeyOne_first.throwable != null) {
+            throw threadLockKeyOne_first.throwable;
         }
 
         final Integer keyOneInteger2 = new Integer(keyOne);
-        LockInterruptiblyThread threadWaitForLockKeyOne_second = new LockInterruptiblyThread(locker, keyOneInteger2);
-        threadWaitForLockKeyOne_second.start();
+        LockInterruptiblyThread threadLockKeyOne_second = new LockInterruptiblyThread(locker, keyOneInteger2);
+        threadLockKeyOne_second.start();
         Thread.sleep(WAIT_THREAD_STARTED);
-        assertThat(threadWaitForLockKeyOne_second.isAlive(), is(true));
-        threadWaitForLockKeyOne_second.interrupt();
-        threadWaitForLockKeyOne_second.join(WAIT_JOIN);
-        assertThat(threadWaitForLockKeyOne_second.isAlive(), is(false));
-        assertThat(threadWaitForLockKeyOne_second.throwable, is(notNullValue()));
-        assertThat(threadWaitForLockKeyOne_second.throwable, is(instanceOf(InterruptedException.class)));
+        assertThat(threadLockKeyOne_second.isAlive(), is(true));
+        threadLockKeyOne_second.interrupt();
+        threadLockKeyOne_second.join(WAIT_JOIN);
+        assertThat(threadLockKeyOne_second.isAlive(), is(false));
+        assertThat(threadLockKeyOne_second.throwable, is(notNullValue()));
+        assertThat(threadLockKeyOne_second.throwable, is(instanceOf(InterruptedException.class)));
     }
 
     @Test(timeout = 2000)
@@ -321,12 +393,12 @@ public class LockerByKeyTest {
         final LockerByKey locker = createLockerInstance();
 
         final int keyOne = 1;
-        LockInterruptiblyThread threadWaitForLockKeyOne_first = new LockInterruptiblyThread(locker, keyOne);
-        threadWaitForLockKeyOne_first.start();
-        threadWaitForLockKeyOne_first.join(WAIT_JOIN);
-        assertThat(threadWaitForLockKeyOne_first.isAlive(), is(false));
-        if (threadWaitForLockKeyOne_first.throwable != null) {
-            throw threadWaitForLockKeyOne_first.throwable;
+        LockInterruptiblyThread threadLockKeyOne_first = new LockInterruptiblyThread(locker, keyOne);
+        threadLockKeyOne_first.start();
+        threadLockKeyOne_first.join(WAIT_JOIN);
+        assertThat(threadLockKeyOne_first.isAlive(), is(false));
+        if (threadLockKeyOne_first.throwable != null) {
+            throw threadLockKeyOne_first.throwable;
         }
 
         final int keyTwo = 2;
@@ -334,8 +406,8 @@ public class LockerByKeyTest {
         threadLockKeyOne_second.start();
         threadLockKeyOne_second.join(WAIT_JOIN);
         assertThat(threadLockKeyOne_second.isAlive(), is(false));
-        if (threadWaitForLockKeyOne_first.throwable != null) {
-            throw threadWaitForLockKeyOne_first.throwable;
+        if (threadLockKeyOne_first.throwable != null) {
+            throw threadLockKeyOne_first.throwable;
         }
 
     }
@@ -346,12 +418,12 @@ public class LockerByKeyTest {
         final LockerByKey locker = createLockerInstance();
 
         final int keyOne = 1;
-        LockInterruptiblyThread threadWaitForLockKeyOne = new LockInterruptiblyThread(locker, keyOne);
-        threadWaitForLockKeyOne.start();
-        threadWaitForLockKeyOne.join(WAIT_JOIN);
-        assertThat(threadWaitForLockKeyOne.isAlive(), is(false));
-        if (threadWaitForLockKeyOne.throwable != null) {
-            throw threadWaitForLockKeyOne.throwable;
+        LockInterruptiblyThread threadLockKeyOne = new LockInterruptiblyThread(locker, keyOne);
+        threadLockKeyOne.start();
+        threadLockKeyOne.join(WAIT_JOIN);
+        assertThat(threadLockKeyOne.isAlive(), is(false));
+        if (threadLockKeyOne.throwable != null) {
+            throw threadLockKeyOne.throwable;
         }
 
         UnlockThread threadUnlockKeyOne = new UnlockThread(locker, keyOne);
@@ -363,131 +435,125 @@ public class LockerByKeyTest {
 
     @Test(timeout = 2000)
     // @Test
-    public void testTryLock_waitForLockTwiceFromFirstLockerThread() throws Throwable {
+    public void testTryLock_LockTwiceFromFirstLockerThread() throws Throwable {
         final LockerByKey locker = createLockerInstance();
 
         final int keyOne = 1;
-        LockInterruptiblyTwiceThread threadWaitForLockTwiceKeyOne = new LockInterruptiblyTwiceThread(locker, keyOne);
-        threadWaitForLockTwiceKeyOne.start();
-        threadWaitForLockTwiceKeyOne.join(WAIT_JOIN);
-        assertThat(threadWaitForLockTwiceKeyOne.isAlive(), is(false));
-        if (threadWaitForLockTwiceKeyOne.throwable != null) {
-            throw threadWaitForLockTwiceKeyOne.throwable;
+        LockInterruptiblyTwiceThread threadLockTwiceKeyOne = new LockInterruptiblyTwiceThread(locker, keyOne);
+        threadLockTwiceKeyOne.start();
+        threadLockTwiceKeyOne.join(WAIT_JOIN);
+        assertThat(threadLockTwiceKeyOne.isAlive(), is(false));
+        if (threadLockTwiceKeyOne.throwable != null) {
+            throw threadLockTwiceKeyOne.throwable;
         }
 
     }
 
     @Test(timeout = 2000)
     // @Test()
-    public void testTryLock_waitForLockTwiceFromDifferentThread() throws Throwable {
+    public void testTryLock_LockTwiceFromDifferentThread() throws Throwable {
         final LockerByKey locker = createLockerInstance();
 
         final int keyOne = 1;
-        LockInterruptiblyThread threadWaitForLock_threadOne = new LockInterruptiblyThread(locker, keyOne);
-        threadWaitForLock_threadOne.start();
-        threadWaitForLock_threadOne.join(WAIT_JOIN);
-        assertThat(threadWaitForLock_threadOne.isAlive(), is(false));
-        if (threadWaitForLock_threadOne.throwable != null) {
-            throw threadWaitForLock_threadOne.throwable;
+        LockInterruptiblyThread threadLock_threadOne = new LockInterruptiblyThread(locker, keyOne);
+        threadLock_threadOne.start();
+        threadLock_threadOne.join(WAIT_JOIN);
+        assertThat(threadLock_threadOne.isAlive(), is(false));
+        if (threadLock_threadOne.throwable != null) {
+            throw threadLock_threadOne.throwable;
         }
 
-        LockInterruptiblyThread threadWaitForLock_threadTwo = new LockInterruptiblyThread(locker, keyOne);
-        threadWaitForLock_threadTwo.start();
+        LockInterruptiblyThread threadLock_threadTwo = new LockInterruptiblyThread(locker, keyOne);
+        threadLock_threadTwo.start();
         Thread.sleep(WAIT_THREAD_STARTED);
-        threadWaitForLock_threadTwo.interrupt();
-        assertThat(threadWaitForLock_threadTwo.isAlive(), is(true));
-        threadWaitForLock_threadTwo.join(WAIT_JOIN);
-        assertThat(threadWaitForLock_threadTwo.isAlive(), is(false));
-        assertThat(threadWaitForLock_threadTwo.throwable, is(notNullValue()));
-        assertThat(threadWaitForLock_threadTwo.throwable, is(instanceOf(InterruptedException.class)));
+        threadLock_threadTwo.interrupt();
+        assertThat(threadLock_threadTwo.isAlive(), is(true));
+        threadLock_threadTwo.join(WAIT_JOIN);
+        assertThat(threadLock_threadTwo.isAlive(), is(false));
+        assertThat(threadLock_threadTwo.throwable, is(notNullValue()));
+        assertThat(threadLock_threadTwo.throwable, is(instanceOf(InterruptedException.class)));
     }
 
     @Test(timeout = 2000)
     // @Test()
-    public void testTryLock_waitForLockTwiceFromSameThread_forbidReentrantLockFromOtherThread() throws Throwable {
+    public void testTryLock_LockTwiceFromSameThread_forbidReentrantLockFromOtherThread() throws Throwable {
         final LockerByKey locker = createLockerInstance();
 
         final int keyOne = 1;
-        LockInterruptiblyTwiceThread threadWaitForLockTwiceKeyOne = new LockInterruptiblyTwiceThread(locker, keyOne);
-        threadWaitForLockTwiceKeyOne.start();
+        LockInterruptiblyTwiceThread threadLockTwiceKeyOne = new LockInterruptiblyTwiceThread(locker, keyOne);
+        threadLockTwiceKeyOne.start();
         Thread.sleep(WAIT_THREAD_STARTED);
-        assertThat(threadWaitForLockTwiceKeyOne.isAlive(), is(false));
-        assertThat(threadWaitForLockTwiceKeyOne.throwable, is(nullValue()));
+        assertThat(threadLockTwiceKeyOne.isAlive(), is(false));
+        assertThat(threadLockTwiceKeyOne.throwable, is(nullValue()));
 
-        // assertThat(threadWaitForLockTwiceKeyOne.throwable, is(notNullValue()));
-        // assertThat(threadWaitForLockTwiceKeyOne.throwable, is(instanceOf(InterruptedException.class)));
+        // assertThat(threadLockTwiceKeyOne.throwable, is(notNullValue()));
+        // assertThat(threadLockTwiceKeyOne.throwable, is(instanceOf(InterruptedException.class)));
     }
 
     @Test(timeout = 2000)
     // @Test()
-    public void testTryLock_waitForLockTwiceFromDifferentThread_forbidReentrantLockFromLockerThread() throws Throwable {
+    public void testTryLock_LockTwiceFromDifferentThread_forbidReentrantLockFromLockerThread() throws Throwable {
         final LockerByKey locker = createLockerInstance();
 
         final int keyOne = 1;
-        LockInterruptiblyThread threadWaitForLock_threadOne = new LockInterruptiblyThread(locker, keyOne);
-        threadWaitForLock_threadOne.start();
-        threadWaitForLock_threadOne.join(WAIT_JOIN);
-        assertThat(threadWaitForLock_threadOne.isAlive(), is(false));
-        if (threadWaitForLock_threadOne.throwable != null) {
-            throw threadWaitForLock_threadOne.throwable;
+        LockInterruptiblyThread threadLock_threadOne = new LockInterruptiblyThread(locker, keyOne);
+        threadLock_threadOne.start();
+        threadLock_threadOne.join(WAIT_JOIN);
+        assertThat(threadLock_threadOne.isAlive(), is(false));
+        if (threadLock_threadOne.throwable != null) {
+            throw threadLock_threadOne.throwable;
         }
 
-        LockInterruptiblyThread threadWaitForLock_threadTwo = new LockInterruptiblyThread(locker, keyOne);
-        threadWaitForLock_threadTwo.start();
+        LockInterruptiblyThread threadLock_threadTwo = new LockInterruptiblyThread(locker, keyOne);
+        threadLock_threadTwo.start();
         Thread.sleep(WAIT_THREAD_STARTED);
-        assertThat(threadWaitForLock_threadTwo.isAlive(), is(true));
-        threadWaitForLock_threadTwo.interrupt();
-        threadWaitForLock_threadTwo.join(WAIT_JOIN);
-        assertThat(threadWaitForLock_threadTwo.isAlive(), is(false));
-        assertThat(threadWaitForLock_threadTwo.throwable, is(notNullValue()));
-        assertThat(threadWaitForLock_threadTwo.throwable, is(instanceOf(InterruptedException.class)));
+        assertThat(threadLock_threadTwo.isAlive(), is(true));
+        threadLock_threadTwo.interrupt();
+        threadLock_threadTwo.join(WAIT_JOIN);
+        assertThat(threadLock_threadTwo.isAlive(), is(false));
+        assertThat(threadLock_threadTwo.throwable, is(notNullValue()));
+        assertThat(threadLock_threadTwo.throwable, is(instanceOf(InterruptedException.class)));
     }
 
     @Test(timeout = 20000)
     // @Test
-    public void testThreadSafetyWithWaitForLockThenUnlock() throws Exception {
-        final LockerByKey locker = createLockerInstance();
+    public void testThreadSafety_LockThenUnlock() throws Exception {
+        final LockerByKey locker = new LockerByKey();
+        // final LockerByKey locker = new LockerByKey(true, 100);
+        // final LockerByKey locker = new LockerByKey(true, Integer.MAX_VALUE);
         final int nOperatorsByClassOperator = 30;
         final int nOperationsByOperator = 500;
-        launchThreadSafetyTestWithWaitForLockThenUnlock(locker, nOperatorsByClassOperator, nOperationsByOperator);
+        boolean assertEntriesLessThanCleanPeriod = true;
+        launchThreadSafetyTestWithLockThenUnlock(locker, nOperatorsByClassOperator, nOperationsByOperator,
+                assertEntriesLessThanCleanPeriod, LockThenUnlockOperator.class, TryLockWithTimeoutThenUnlockOperator.class,
+                TryLockThenUnlockOperator.class);
     }
 
-    @Test(timeout = 30000)
-    // @Test
-    public void testThreadSafetyWithWaitForLockThenUnlock_2_operators() throws Exception {
-        final LockerByKey locker = createLockerInstance();
-        final int nOperatorsByClassOperator = 2;
-        final int nOperationsByOperator = 1;
-        launchThreadSafetyTestWithWaitForLockThenUnlock(locker, nOperatorsByClassOperator, nOperationsByOperator);
-    }
+    // @Test(timeout = 30000)
+    // // @Test
+    // public void testThreadSafety_LockThenUnlock_2_operators() throws Exception {
+    // final LockerByKey locker = createLockerInstance();
+    // final int nOperatorsByClassOperator = 2;
+    // final int nOperationsByOperator = 1;
+    // boolean assertEntriesLessThanCleanPeriod = true;
+    // launchThreadSafetyTestWithLockThenUnlock(locker, nOperatorsByClassOperator, nOperationsByOperator,
+    // assertEntriesLessThanCleanPeriod, LockThenUnlockOperator.class, TryLockWithTimeoutThenUnlockOperator.class,
+    // TryLockThenUnlockOperator.class);
+    // }
 
-    @Test(timeout = 30000)
-    // @Test
-    public void testThreadSafetyWithWaitForLockThenUnlock_3_operators() throws Exception {
-        final LockerByKey locker = createLockerInstance();
-        final int nOperatorsByClassOperator = 3;
-        final int nOperationsByOperator = 1;
-        launchThreadSafetyTestWithWaitForLockThenUnlock(locker, nOperatorsByClassOperator, nOperationsByOperator);
-    }
-
-    @Test(timeout = 30000)
-    // @Test
-    public void testThreadSafetyWithWaitForLockThenUnlock_5_operators() throws Exception {
-        final LockerByKey locker = createLockerInstance();
-        final int nOperatorsByClassOperator = 5;
-        final int nOperationsByOperator = 500;
-        launchThreadSafetyTestWithWaitForLockThenUnlock(locker, nOperatorsByClassOperator, nOperationsByOperator);
-    }
-
-    private void launchThreadSafetyTestWithWaitForLockThenUnlock(final LockerByKey locker, final int nOperatorsByClassOperator,
-            final int nOperationsByOperator) throws Exception {
+    private void launchThreadSafetyTestWithLockThenUnlock(final LockerByKey locker, final int nOperatorsByClassOperator,
+            final int nOperationsByOperator, boolean assertEntriesLessThanCleanPeriod,
+            Class<? extends AbstractLockerByKeyOperator>... classOperators) throws Exception {
         final ResultContainer resultContainer = new ResultContainer();
 
         class LockerThreadSafetyTester extends AbstractThreadSafetyTester<AbstractLockerByKeyOperator> {
 
-            public LockerThreadSafetyTester(int nOperatorsByClassOperator,
+            private boolean assertEntriesLessThanCleanPeriod;
+
+            public LockerThreadSafetyTester(int nOperatorsByClassOperator, boolean assertEntriesLessThanCleanPeriod,
                     Class<? extends AbstractLockerByKeyOperator>... classOperators) {
                 super(nOperatorsByClassOperator, classOperators);
+                this.assertEntriesLessThanCleanPeriod = assertEntriesLessThanCleanPeriod;
             }
 
             /*
@@ -523,9 +589,13 @@ public class LockerByKeyTest {
                     }
                 }
                 assertThat(actualSumLockedAtEnd, is(0));
-                assertTrue(actualSumLockersAtEnd < locker.getCleanPeriod());
+                if (assertEntriesLessThanCleanPeriod) {
+                    assertTrue("actualSumLockersAtEnd > locker.getCleanPeriod() where actualSumLockersAtEnd="
+                            + actualSumLockersAtEnd + " and locker.getCleanPeriod()=" + locker.getCleanPeriod(),
+                            actualSumLockersAtEnd < locker.getCleanPeriod());
+                }
 
-                locker.clean();
+                locker.shutdown();
                 actualSumLockedAtEnd = 0;
                 actualSumLockersAtEnd = 0;
                 for (int i = 0; i < nOperationsByOperator; i++) {
@@ -549,7 +619,7 @@ public class LockerByKeyTest {
 
         @SuppressWarnings("unchecked")
         LockerThreadSafetyTester lockerThreadSafetyTester = new LockerThreadSafetyTester(nOperatorsByClassOperator,
-                LockThenUnlockOperator.class, TryLockWithTimeoutThenUnlockOperator.class, TryLockThenUnlockOperator.class);
+                assertEntriesLessThanCleanPeriod, classOperators);
         lockerThreadSafetyTester.start();
     }
 }
