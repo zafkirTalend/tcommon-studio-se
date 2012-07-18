@@ -84,8 +84,6 @@ import orgomg.cwm.resource.relational.PrimaryKey;
 import orgomg.cwm.resource.relational.Schema;
 import orgomg.cwm.resource.relational.enumerations.NullableType;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
-
 /**
  * @author zshen
  */
@@ -600,7 +598,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         } catch (IllegalAccessException e) {
         } catch (InvocationTargetException e) {
             // Case of JDK1.5
-            if (e.getTargetException().getClass().toString().equals(SQLServerException.class.toString())) {
+            if (e.getTargetException().getClass().toString().equals("SQLServerException")) {
                 throw e.getTargetException();
             }
         } catch (SQLException e) {
