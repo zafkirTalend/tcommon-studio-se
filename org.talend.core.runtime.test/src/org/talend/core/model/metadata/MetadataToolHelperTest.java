@@ -12,25 +12,41 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Vector;
 
+import org.eclipse.core.runtime.Path;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import org.talend.core.GlobalServiceRegister;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.connection.QueriesConnection;
+import org.talend.core.model.metadata.builder.connection.SAPConnection;
+import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.metadata.types.JavaTypesManager;
-import org.talend.core.model.repository.IRepositoryPrefConstants;
-import org.talend.core.model.routines.IRoutinesService;
+import org.talend.core.model.properties.DatabaseConnectionItem;
+import org.talend.core.model.properties.ItemState;
+import org.talend.core.model.properties.PropertiesFactory;
+import org.talend.core.model.properties.Property;
+import org.talend.core.model.properties.SAPConnectionItem;
 import org.talend.core.runtime.CoreRuntimePlugin;
-import org.talend.designer.core.IDesignerCoreService;
+import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.cwm.helper.PackageHelper;
+import org.talend.repository.model.IProxyRepositoryFactory;
+import orgomg.cwm.resource.record.RecordFactory;
+import orgomg.cwm.resource.record.RecordFile;
 
 /**
  * DOC hwang class global comment. Detailled comment <br/>
@@ -40,17 +56,60 @@ import org.talend.designer.core.IDesignerCoreService;
  */
 public class MetadataToolHelperTest {
 
-    private final int MIN = 192;
+    private static org.talend.core.model.metadata.builder.connection.Connection connection;
 
-    private final int MAX = 255;
+    private static DatabaseConnectionItem databaseConnItem;
+
+    private static MetadataTable inputTable;
 
     /**
      * DOC Administrator Comment method "setUp".
      * 
-     * @throws java.lang.Exception
+     * @throws PersistenceException
+     * 
+     * 
      */
-    @Before
-    public void setUp() throws Exception {
+    @BeforeClass
+    public static void setUp() throws PersistenceException {
+        init();
+    }
+
+    private static void init() throws PersistenceException {
+        connection = ConnectionFactory.eINSTANCE.createDatabaseConnection();
+        connection.setName("mysql_1");
+
+        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+        connection.setId(factory.getNextId());
+        databaseConnItem = PropertiesFactory.eINSTANCE.createDatabaseConnectionItem();
+        Property myProperty = PropertiesFactory.eINSTANCE.createProperty();
+        myProperty.setId(factory.getNextId());
+        myProperty.setLabel("mysql_1");
+        myProperty.setVersion("0.1");
+
+        ItemState itemState = PropertiesFactory.eINSTANCE.createItemState();
+        itemState.setPath("");
+
+        databaseConnItem.setProperty(myProperty);
+        databaseConnItem.setState(itemState);
+        databaseConnItem.setConnection(connection);
+
+        RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), connection, RecordFile.class);
+        inputTable = ConnectionFactory.eINSTANCE.createMetadataTable();
+
+        inputTable.setId(factory.getNextId());
+        inputTable.setLabel("Input");
+
+        if (record != null) {
+            PackageHelper.addMetadataTable(inputTable, record);
+        } else {
+            RecordFile newrecord = RecordFactory.eINSTANCE.createRecordFile();
+            newrecord.setName(connection.getName());
+            ConnectionHelper.addPackage(newrecord, connection);
+            PackageHelper.addMetadataTable(inputTable, newrecord);
+        }
+
+        factory.create(databaseConnItem, new Path(""));
+        factory.save(databaseConnItem);
     }
 
     /**
@@ -176,50 +235,35 @@ public class MetadataToolHelperTest {
      */
     @Test
     public void testValidateColumnName() {
-        CoreRuntimePlugin.getInstance().getDesignerCoreService().getDesignerCorePreferenceStore()
-                .setValue(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS, false);
+        List<String> nameList = new ArrayList<String>();
+        nameList.add("public");
+        nameList.add("id");
+        nameList.add("na&me");
+        nameList.add("addr_ess");
+        nameList.add("9city");
+        nameList.add("country1");
+        nameList.add("_dic");
+        for (int j = 0; j < nameList.size(); j++) {
+            String columnName = nameList.get(j);
+            columnName = MetadataToolHelper.validateColumnName(columnName, j);
 
-        String columnName = MetadataToolHelper.validateColumnName("public", 0);
-        assertEquals(columnName, "Column0");
+            if (j == 0) {
+                assertEquals(columnName, "Column0");
+            } else if (j == 1) {
+                assertEquals(columnName, "id");
+            } else if (j == 2) {
+                assertEquals(columnName, "na_me");
+            } else if (j == 3) {
+                assertEquals(columnName, "addr_ess");
+            } else if (j == 4) {
+                assertEquals(columnName, "_city");
+            } else if (j == 5) {
+                assertEquals(columnName, "country1");
+            } else if (j == 5) {
+                assertEquals(columnName, "_dic");
+            }
+        }
 
-        columnName = MetadataToolHelper.validateColumnName("id", 0);
-        assertEquals(columnName, "id");
-
-        columnName = MetadataToolHelper.validateColumnName("na&me", 0);
-        assertEquals(columnName, "na_me");
-
-        columnName = MetadataToolHelper.validateColumnName("addr_ess", 0);
-        assertEquals(columnName, "addr_ess");
-
-        columnName = MetadataToolHelper.validateColumnName("9city", 0);
-        assertEquals(columnName, "_city");
-
-        columnName = MetadataToolHelper.validateColumnName("country1", 0);
-        assertEquals(columnName, "country1");
-
-        columnName = MetadataToolHelper.validateColumnName("problème", 0);
-        assertEquals(columnName, "probleme");
-
-        columnName = MetadataToolHelper.validateColumnName("test(a)", 0);
-        assertEquals(columnName, "test_a_");
-
-        columnName = MetadataToolHelper.validateColumnName("MyColumn_你好", 0);
-        assertEquals("MyColumn___", columnName);
-
-        columnName = MetadataToolHelper.validateColumnName("你好", 0);
-        assertEquals("Column0", columnName);
-
-        CoreRuntimePlugin.getInstance().getDesignerCoreService().getDesignerCorePreferenceStore()
-                .setValue(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS, true);
-
-        columnName = MetadataToolHelper.validateColumnName("你好", 0);
-        assertEquals("你好", columnName);
-
-        columnName = MetadataToolHelper.validateColumnName("My Strange (?) Column !", 0);
-        assertEquals("My_Strange_____Column__", columnName);
-
-        CoreRuntimePlugin.getInstance().getDesignerCoreService().getDesignerCorePreferenceStore()
-                .setToDefault(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS);
     }
 
     /**
@@ -276,6 +320,7 @@ public class MetadataToolHelperTest {
             String columnName = nameList.get(i);
 
             String resultName = MetadataToolHelper.validateTableName(columnName);
+
             if (i == 0) {
                 assertEquals(resultName, "public_1");
             } else if (i == 1) {
@@ -313,6 +358,7 @@ public class MetadataToolHelperTest {
             String columnName = nameList.get(i);
 
             columnName = MetadataToolHelper.validateValueNoLengthLimit(columnName);
+
             if (i == 0) {
                 assertEquals(columnName, "public");
             } else if (i == 1) {
@@ -373,164 +419,120 @@ public class MetadataToolHelperTest {
     /**
      * Test method for
      * {@link org.talend.core.model.metadata.MetadataToolHelper#getMetadataTableFromRepository(java.lang.String)}.
+     * 
+     * 
      */
     @Test
     public void testGetMetadataTableFromRepository() {
-        org.talend.core.model.metadata.builder.connection.Connection connection;
-        List<String> nameList = new ArrayList<String>();
-        nameList.add("sddfg - gjhsdhfjfjgjh");
-        nameList.add("sddfg - gjhsdhfjfjgjh - assss");
-        for (int i = 0; i < nameList.size(); i++) {
-            String metaRepositoryId = nameList.get(i);
-            String[] names = metaRepositoryId.split(" - "); //$NON-NLS-1$
-            String linkedRepository = names[0];
-            assertEquals("sddfg", linkedRepository);
-            String name2 = null;
-            if (names.length == 2) {
-                name2 = names[1];
-                assertEquals("gjhsdhfjfjgjh", name2);
-            } else if (names.length > 2) {
-                name2 = metaRepositoryId.substring(linkedRepository.length() + 3);
-                assertEquals("gjhsdhfjfjgjh - assss", name2);
-            }
-        }
+        String metaRepositoryId = databaseConnItem.getProperty().getId() + " - " + inputTable.getLabel();
+        MetadataTable table = MetadataToolHelper.getMetadataTableFromRepository(metaRepositoryId);
+        assertEquals(inputTable.getLabel(), table.getLabel());
 
+        metaRepositoryId = databaseConnItem.getProperty().getId();
+        table = MetadataToolHelper.getMetadataTableFromRepository(metaRepositoryId);
+        assertNull(table);
     }
 
     /**
      * Test method for
      * {@link org.talend.core.model.metadata.MetadataToolHelper#getConnectionFromRepository(java.lang.String)}.
+     * 
      */
     @Test
     public void testGetConnectionFromRepository() {
-        String functionName = null;
-        String metadataName = null;
-        String name = "sddfg - gjhsdhfjfjgjh";
-        String[] names = name.split(" - "); //$NON-NLS-1$
-        if (names.length == 2) {
-            functionName = names[0];
-            assertEquals("sddfg", functionName);
-            metadataName = names[1];
-            assertEquals("gjhsdhfjfjgjh", metadataName);
-        }
+        DatabaseConnection conn = (DatabaseConnection) MetadataToolHelper.getConnectionFromRepository(databaseConnItem
+                .getProperty().getId());
+        assertEquals(conn.getId(), connection.getId());
     }
 
     /**
      * Test method for
      * {@link org.talend.core.model.metadata.MetadataToolHelper#getConnectionItemFromRepository(java.lang.String)}.
+     * 
+     * 
      */
     @Test
     public void testGetConnectionItemFromRepository() {
-        String metaRepositoryid = "sddfg - gjhsdhfjfjgjh";
-        String connectionId = metaRepositoryid;
-        String[] names = metaRepositoryid.split(" - "); //$NON-NLS-1$
-        if (names.length == 2) {
-            connectionId = names[0];
-            assertEquals("sddfg", connectionId);
-        }
+        DatabaseConnectionItem item = (DatabaseConnectionItem) MetadataToolHelper
+                .getConnectionItemFromRepository(databaseConnItem.getProperty().getId());
+        assertEquals(item, databaseConnItem);
 
+        String metaRepositoryId = databaseConnItem.getProperty().getId() + " - " + inputTable.getLabel();
+        item = (DatabaseConnectionItem) MetadataToolHelper.getConnectionItemFromRepository(metaRepositoryId);
+        assertEquals(item, databaseConnItem);
     }
 
     /**
      * Test method for
      * {@link org.talend.core.model.metadata.MetadataToolHelper#getQueryFromRepository(java.lang.String)}.
+     * 
+     * 
      */
     @Test
     public void testGetQueryFromRepository() {
-        List<String> nameList = new ArrayList<String>();
-        nameList.add("sddfg - gjhsdhfjfjgjh");
-        nameList.add("sddfg - gjhsdhfjfjgjh - assss");
-        for (int i = 0; i < nameList.size(); i++) {
-            String metaRepositoryId = nameList.get(i);
-            String[] names = metaRepositoryId.split(" - "); //$NON-NLS-1$
-            String linkedRepository = names[0];
-            assertEquals("sddfg", linkedRepository);
-            String name2 = null;
-            if (names.length == 2) {
-                name2 = names[1];
-                assertEquals("gjhsdhfjfjgjh", name2);
-            } else if (names.length > 2) {
-                name2 = metaRepositoryId.substring(linkedRepository.length() + 3);
-                assertEquals("gjhsdhfjfjgjh - assss", name2);
-            }
-        }
+        QueriesConnection queryConn = ConnectionFactory.eINSTANCE.createQueriesConnection();
+        queryConn.setConnection(connection);
+        org.talend.core.model.metadata.builder.connection.Query query = ConnectionFactory.eINSTANCE.createQuery();
 
+        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+        query.setName("query");
+        query.setLabel("query");
+        query.setId(factory.getNextId());
+        queryConn.getQuery().add(query);
+
+        String qid = databaseConnItem.getProperty().getId() + " - " + query.getLabel();
+        org.talend.core.model.metadata.builder.connection.Query qu = MetadataToolHelper.getQueryFromRepository(qid);
+        assertEquals(query.getId(), qu.getId());
+
+        qid = databaseConnItem.getProperty().getId();
+        qu = MetadataToolHelper.getQueryFromRepository(qid);
+        assertNull(qu);
     }
 
     /**
      * Test method for
      * {@link org.talend.core.model.metadata.MetadataToolHelper#getSAPFunctionFromRepository(java.lang.String)}.
+     * 
+     * @throws PersistenceException
      */
     @Test
-    public void testGetSAPFunctionFromRepository() {
-        org.talend.core.model.metadata.builder.connection.Connection connection;
+    public void testGetSAPFunctionFromRepository() throws PersistenceException {
+        SAPConnection sapConn = ConnectionFactory.eINSTANCE.createSAPConnection();
 
-        List<String> nameList = new ArrayList<String>();
-        nameList.add("sddfg - gjhsdhfjfjgjh");
-        nameList.add("sddfg - gjhsdhfjfjgjh - assss");
-        for (int i = 0; i < nameList.size(); i++) {
-            String functionRepositoryId = nameList.get(i);
-            String[] names = functionRepositoryId.split(" - "); //$NON-NLS-1$
-            String linkedRepository = names[0];
-            assertEquals("sddfg", linkedRepository);
-            String name2 = null;
-            if (names.length == 2) {
-                name2 = names[1];
-                assertEquals("gjhsdhfjfjgjh", name2);
-            } else if (names.length > 2) {
-                name2 = functionRepositoryId.substring(linkedRepository.length() + 3);
-                assertEquals("gjhsdhfjfjgjh - assss", name2);
-            }
-        }
+        sapConn.setName("sap");
 
-    }
+        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+        sapConn.setId(factory.getNextId());
+        SAPConnectionItem sapItem = PropertiesFactory.eINSTANCE.createSAPConnectionItem();
+        Property myProperty = PropertiesFactory.eINSTANCE.createProperty();
+        myProperty.setId(factory.getNextId());
+        myProperty.setLabel("sap");
+        myProperty.setVersion("0.1");
 
-    private static boolean isAllowSpecificCharacters() {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
-            return CoreRuntimePlugin.getInstance().getDesignerCoreService().getDesignerCorePreferenceStore()
-                    .getBoolean(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS);
-        }
-        return false;
-    }
+        ItemState itemState = PropertiesFactory.eINSTANCE.createItemState();
+        itemState.setPath("");
 
-    private String mapSpecialChar(String columnName) {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(IRoutinesService.class)) {
-            IRoutinesService service = (IRoutinesService) GlobalServiceRegister.getDefault().getService(IRoutinesService.class);
-            if (service != null) {
-                Vector map = service.getAccents();
-                map.setElementAt("AE", 4);//$NON-NLS-1$
-                map.setElementAt("OE", 22);//$NON-NLS-1$
-                map.setElementAt("UE", 28);//$NON-NLS-1$
-                map.setElementAt("ss", 31);//$NON-NLS-1$
-                map.setElementAt("ae", 36);//$NON-NLS-1$
-                map.setElementAt("oe", 54);//$NON-NLS-1$
-                map.setElementAt("ue", 60);//$NON-NLS-1$
-                Vector addedMap = new Vector();
-                for (int i = 257; i < 304; i++) {
-                    addedMap.add(String.valueOf((char) i));
-                }
-                map.addAll(addedMap);
-                map.add("I");//$NON-NLS-1$
+        sapItem.setProperty(myProperty);
+        sapItem.setState(itemState);
+        sapItem.setConnection(sapConn);
 
-                return initSpecificMapping(columnName, map);
-            }
-        }
-        return columnName;
-    }
+        SAPFunctionUnit function = ConnectionFactory.eINSTANCE.createSAPFunctionUnit();
 
-    private String initSpecificMapping(String columnName, Vector map) {
-        for (int i = 0; i < columnName.toCharArray().length; i++) {
-            int carVal = columnName.charAt(i);
-            if (carVal >= MIN && carVal <= MIN + map.size()) {
-                String oldVal = String.valueOf(columnName.toCharArray()[i]);
-                String newVal = (String) map.get(carVal - MIN);
-                if (!(oldVal.equals(newVal))) {
-                    columnName = columnName.replaceAll(oldVal, newVal);
-                }
-            }
-        }
+        sapConn.getFuntions().add(function);
 
-        return columnName;
+        function.setId(factory.getNextId());
+        function.setLabel("function");
+
+        factory.create(sapItem, new Path(""));
+        factory.save(sapItem);
+
+        String id = sapItem.getProperty().getId() + " - " + function.getLabel();
+        SAPFunctionUnit unit = MetadataToolHelper.getSAPFunctionFromRepository(id);
+        assertEquals(unit, function);
+
+        id = sapItem.getProperty().getId();
+        unit = MetadataToolHelper.getSAPFunctionFromRepository(id);
+        assertNull(unit);
     }
 
 }
