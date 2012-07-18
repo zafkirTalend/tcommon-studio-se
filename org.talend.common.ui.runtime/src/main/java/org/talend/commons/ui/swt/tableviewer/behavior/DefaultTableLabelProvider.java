@@ -18,8 +18,8 @@ import org.eclipse.jface.viewers.ITableColorProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumnNotModifiable;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable;
 import org.talend.commons.ui.swt.tableviewer.data.AccessorUtils;
 
 /**
@@ -38,19 +38,21 @@ public class DefaultTableLabelProvider implements ITableLabelProvider, ITableCol
         this.tableViewerCreator = tableViewerCreator;
     }
 
+    @Override
     public Image getColumnImage(Object element, int columnIndex) {
-        TableViewerCreatorColumnNotModifiable column = (TableViewerCreatorColumnNotModifiable) this.tableViewerCreator.getColumns().get(
-                columnIndex);
+        TableViewerCreatorColumnNotModifiable column = (TableViewerCreatorColumnNotModifiable) this.tableViewerCreator
+                .getColumns().get(columnIndex);
         if (column.getImageProvider() != null) {
             return column.getImageProvider().getImage(element);
         }
         return null;
     }
 
+    @Override
     public String getColumnText(Object element, int columnIndex) {
         String returnValue = null;
-        TableViewerCreatorColumnNotModifiable column = (TableViewerCreatorColumnNotModifiable) this.tableViewerCreator.getColumns().get(
-                columnIndex);
+        TableViewerCreatorColumnNotModifiable column = (TableViewerCreatorColumnNotModifiable) this.tableViewerCreator
+                .getColumns().get(columnIndex);
 
         if (column.getLabelProvider() != null) {
             returnValue = column.getLabelProvider().getLabel(element);
@@ -72,6 +74,15 @@ public class DefaultTableLabelProvider implements ITableLabelProvider, ITableCol
                 Object value = AccessorUtils.get(element, column);
                 CellEditor cellEditor = column.getCellEditor();
                 CellEditorValueAdapter retrieverValue = column.getCellEditorValueAdapter();
+                // add for bug TDI-21505
+                if (value != null && column.getCellEditorValueAdapter() != null
+                        && column.getCellEditorValueAdapter() instanceof ComboEditorValueAdapter) {
+                    Object returnObject = column.getCellEditorValueAdapter().getCellEditorTypedValue(column.getCellEditor(),
+                            value);
+                    if ("-1".equals(returnObject + "")) {
+                        return "";
+                    }
+                }
                 if (cellEditor != null && retrieverValue != null && value != null) {
                     returnValue = retrieverValue.getColumnText(cellEditor, element, value);
                 } else if (value != null) {
@@ -84,16 +95,20 @@ public class DefaultTableLabelProvider implements ITableLabelProvider, ITableCol
         return returnValue;
     }
 
+    @Override
     public void addListener(ILabelProviderListener listener) {
     }
 
+    @Override
     public void dispose() {
     }
 
+    @Override
     public boolean isLabelProperty(Object element, String property) {
         return false;
     }
 
+    @Override
     public void removeListener(ILabelProviderListener lpl) {
     }
 
@@ -102,9 +117,10 @@ public class DefaultTableLabelProvider implements ITableLabelProvider, ITableCol
      * 
      * @see org.eclipse.jface.viewers.ITableColorProvider#getBackground(java.lang.Object, int)
      */
+    @Override
     public Color getBackground(Object element, int columnIndex) {
-        TableViewerCreatorColumnNotModifiable column = (TableViewerCreatorColumnNotModifiable) this.tableViewerCreator.getColumns().get(
-                columnIndex);
+        TableViewerCreatorColumnNotModifiable column = (TableViewerCreatorColumnNotModifiable) this.tableViewerCreator
+                .getColumns().get(columnIndex);
         if (column.getColorProvider() != null) {
             return column.getColorProvider().getBackgroundColor(element);
         }
@@ -116,9 +132,10 @@ public class DefaultTableLabelProvider implements ITableLabelProvider, ITableCol
      * 
      * @see org.eclipse.jface.viewers.ITableColorProvider#getForeground(java.lang.Object, int)
      */
+    @Override
     public Color getForeground(Object element, int columnIndex) {
-        TableViewerCreatorColumnNotModifiable column = (TableViewerCreatorColumnNotModifiable) this.tableViewerCreator.getColumns().get(
-                columnIndex);
+        TableViewerCreatorColumnNotModifiable column = (TableViewerCreatorColumnNotModifiable) this.tableViewerCreator
+                .getColumns().get(columnIndex);
         if (column.getColorProvider() != null) {
             return column.getColorProvider().getForegroundColor(element);
         }
