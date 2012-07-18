@@ -133,12 +133,8 @@ public abstract class ExtendedPushButton implements IExtendedPushButton {
         beforeCommandExecution();
         this.commandToExecute = getCommandToExecute();
         if (this.commandToExecute != null) {
-            if (commandToExecute instanceof ExtendedTableCopyCommand) {
-                commandToExecute.execute();
-            } else {
-                executeCommand(this.commandToExecute);
-                afterCommandExecution(this.commandToExecute);
-            }
+            executeCommand(this.commandToExecute);
+            afterCommandExecution(this.commandToExecute);
         }
     }
 
