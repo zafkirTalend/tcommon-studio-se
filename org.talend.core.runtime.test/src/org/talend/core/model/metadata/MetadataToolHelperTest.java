@@ -17,9 +17,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.eclipse.core.runtime.Path;
 import org.junit.After;
@@ -41,6 +39,7 @@ import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.SAPConnectionItem;
+import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
@@ -235,34 +234,50 @@ public class MetadataToolHelperTest {
      */
     @Test
     public void testValidateColumnName() {
-        List<String> nameList = new ArrayList<String>();
-        nameList.add("public");
-        nameList.add("id");
-        nameList.add("na&me");
-        nameList.add("addr_ess");
-        nameList.add("9city");
-        nameList.add("country1");
-        nameList.add("_dic");
-        for (int j = 0; j < nameList.size(); j++) {
-            String columnName = nameList.get(j);
-            columnName = MetadataToolHelper.validateColumnName(columnName, j);
+        CoreRuntimePlugin.getInstance().getDesignerCoreService().getDesignerCorePreferenceStore()
+                .setValue(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS, false);
 
-            if (j == 0) {
-                assertEquals(columnName, "Column0");
-            } else if (j == 1) {
-                assertEquals(columnName, "id");
-            } else if (j == 2) {
-                assertEquals(columnName, "na_me");
-            } else if (j == 3) {
-                assertEquals(columnName, "addr_ess");
-            } else if (j == 4) {
-                assertEquals(columnName, "_city");
-            } else if (j == 5) {
-                assertEquals(columnName, "country1");
-            } else if (j == 5) {
-                assertEquals(columnName, "_dic");
-            }
-        }
+        String columnName = MetadataToolHelper.validateColumnName("public", 0);
+        assertEquals(columnName, "Column0");
+
+        columnName = MetadataToolHelper.validateColumnName("id", 0);
+        assertEquals(columnName, "id");
+
+        columnName = MetadataToolHelper.validateColumnName("na&me", 0);
+        assertEquals(columnName, "na_me");
+
+        columnName = MetadataToolHelper.validateColumnName("addr_ess", 0);
+        assertEquals(columnName, "addr_ess");
+
+        columnName = MetadataToolHelper.validateColumnName("9city", 0);
+        assertEquals(columnName, "_city");
+
+        columnName = MetadataToolHelper.validateColumnName("country1", 0);
+        assertEquals(columnName, "country1");
+
+        columnName = MetadataToolHelper.validateColumnName("problème", 0);
+        assertEquals(columnName, "probleme");
+
+        columnName = MetadataToolHelper.validateColumnName("test(a)", 0);
+        assertEquals(columnName, "test_a_");
+
+        columnName = MetadataToolHelper.validateColumnName("MyColumn_你好", 0);
+        assertEquals("MyColumn___", columnName);
+
+        columnName = MetadataToolHelper.validateColumnName("你好", 0);
+        assertEquals("Column0", columnName);
+
+        CoreRuntimePlugin.getInstance().getDesignerCoreService().getDesignerCorePreferenceStore()
+                .setValue(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS, true);
+
+        columnName = MetadataToolHelper.validateColumnName("你好", 0);
+        assertEquals("你好", columnName);
+
+        columnName = MetadataToolHelper.validateColumnName("My Strange (?) Column !", 0);
+        assertEquals("My_Strange_____Column__", columnName);
+
+        CoreRuntimePlugin.getInstance().getDesignerCoreService().getDesignerCorePreferenceStore()
+                .setToDefault(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS);
 
     }
 
@@ -271,35 +286,34 @@ public class MetadataToolHelperTest {
      */
     @Test
     public void testValidateTableName() {
-        List<String> nameList = new ArrayList<String>();
-        nameList.add("public");
-        nameList.add("id");
-        nameList.add("na&me");
-        nameList.add("addr_ess");
-        nameList.add("9city");
-        nameList.add("country1");
-        nameList.add("_dic");
-        for (int j = 0; j < nameList.size(); j++) {
-            String tableName = nameList.get(j);
 
-            tableName = MetadataToolHelper.validateTableName(tableName);
+        String tableName = "public";
+        tableName = MetadataToolHelper.validateTableName(tableName);
+        assertEquals(tableName, "public_1");
 
-            if (j == 0) {
-                assertEquals(tableName, "public_1");
-            } else if (j == 1) {
-                assertEquals(tableName, "id");
-            } else if (j == 2) {
-                assertEquals(tableName, "na_me");
-            } else if (j == 3) {
-                assertEquals(tableName, "addr_ess");
-            } else if (j == 4) {
-                assertEquals(tableName, "_city");
-            } else if (j == 5) {
-                assertEquals(tableName, "country1");
-            } else if (j == 5) {
-                assertEquals(tableName, "_dic");
-            }
-        }
+        tableName = "id";
+        tableName = MetadataToolHelper.validateTableName(tableName);
+        assertEquals(tableName, "id");
+
+        tableName = "na&me";
+        tableName = MetadataToolHelper.validateTableName(tableName);
+        assertEquals(tableName, "na_me");
+
+        tableName = "addr_ess";
+        tableName = MetadataToolHelper.validateTableName(tableName);
+        assertEquals(tableName, "addr_ess");
+
+        tableName = "9city";
+        tableName = MetadataToolHelper.validateTableName(tableName);
+        assertEquals(tableName, "_city");
+
+        tableName = "cou ntry1";
+        tableName = MetadataToolHelper.validateTableName(tableName);
+        assertEquals(tableName, "cou_ntry1");
+
+        tableName = "_dic";
+        tableName = MetadataToolHelper.validateTableName(tableName);
+        assertEquals(tableName, "_dic");
 
     }
 
@@ -308,35 +322,34 @@ public class MetadataToolHelperTest {
      */
     @Test
     public void testValidateValue() {
-        List<String> nameList = new ArrayList<String>();
-        nameList.add("public");
-        nameList.add("id");
-        nameList.add("na&me");
-        nameList.add("addr_ess");
-        nameList.add("9city");
-        nameList.add("cou ntry1");
-        nameList.add("_dic");
-        for (int i = 0; i < nameList.size(); i++) {
-            String columnName = nameList.get(i);
 
-            String resultName = MetadataToolHelper.validateTableName(columnName);
+        String columnName = "public";
+        String resultName = MetadataToolHelper.validateValue(columnName);
+        assertEquals(resultName, "public");
 
-            if (i == 0) {
-                assertEquals(resultName, "public_1");
-            } else if (i == 1) {
-                assertEquals(resultName, "id");
-            } else if (i == 2) {
-                assertEquals(resultName, "na_me");
-            } else if (i == 3) {
-                assertEquals(resultName, "addr_ess");
-            } else if (i == 4) {
-                assertEquals(resultName, "_city");
-            } else if (i == 5) {
-                assertEquals(resultName, "cou_ntry1");
-            } else if (i == 6) {
-                assertEquals(resultName, "_dic");
-            }
-        }
+        columnName = "id";
+        resultName = MetadataToolHelper.validateValue(columnName);
+        assertEquals(resultName, "id");
+
+        columnName = "na&me";
+        resultName = MetadataToolHelper.validateValue(columnName);
+        assertEquals(resultName, "na_me");
+
+        columnName = "addr_ess";
+        resultName = MetadataToolHelper.validateValue(columnName);
+        assertEquals(resultName, "addr_ess");
+
+        columnName = "9city";
+        resultName = MetadataToolHelper.validateValue(columnName);
+        assertEquals(resultName, "_9city");
+
+        columnName = "cou ntry1";
+        resultName = MetadataToolHelper.validateValue(columnName);
+        assertEquals(resultName, "cou_ntry1");
+
+        columnName = "_dic";
+        resultName = MetadataToolHelper.validateValue(columnName);
+        assertEquals(resultName, "_dic");
 
     }
 
@@ -346,35 +359,33 @@ public class MetadataToolHelperTest {
      */
     @Test
     public void testValidateValueNoLengthLimit() {
-        List<String> nameList = new ArrayList<String>();
-        nameList.add("public");
-        nameList.add("id");
-        nameList.add("na&me");
-        nameList.add("addr_ess");
-        nameList.add("9city");
-        nameList.add("cou ntry1");
-        nameList.add("_dic");
-        for (int i = 0; i < nameList.size(); i++) {
-            String columnName = nameList.get(i);
+        String columnName = "public";
+        columnName = MetadataToolHelper.validateValueNoLengthLimit(columnName);
+        assertEquals(columnName, "public");
 
-            columnName = MetadataToolHelper.validateValueNoLengthLimit(columnName);
+        columnName = "id";
+        columnName = MetadataToolHelper.validateValueNoLengthLimit(columnName);
+        assertEquals(columnName, "id");
 
-            if (i == 0) {
-                assertEquals(columnName, "public");
-            } else if (i == 1) {
-                assertEquals(columnName, "id");
-            } else if (i == 2) {
-                assertEquals(columnName, "na_me");
-            } else if (i == 3) {
-                assertEquals(columnName, "addr_ess");
-            } else if (i == 4) {
-                assertEquals(columnName, "_9city");
-            } else if (i == 5) {
-                assertEquals(columnName, "cou_ntry1");
-            } else if (i == 6) {
-                assertEquals(columnName, "_dic");
-            }
-        }
+        columnName = "na&me";
+        columnName = MetadataToolHelper.validateValueNoLengthLimit(columnName);
+        assertEquals(columnName, "na_me");
+
+        columnName = "addr_ess";
+        columnName = MetadataToolHelper.validateValueNoLengthLimit(columnName);
+        assertEquals(columnName, "addr_ess");
+
+        columnName = "9city";
+        columnName = MetadataToolHelper.validateValueNoLengthLimit(columnName);
+        assertEquals(columnName, "_9city");
+
+        columnName = "cou ntry1";
+        columnName = MetadataToolHelper.validateValueNoLengthLimit(columnName);
+        assertEquals(columnName, "cou_ntry1");
+
+        columnName = "_dic";
+        columnName = MetadataToolHelper.validateValueNoLengthLimit(columnName);
+        assertEquals(columnName, "_dic");
 
     }
 
@@ -385,35 +396,34 @@ public class MetadataToolHelperTest {
     @Test
     public void testValidateValueForDBType() {
 
-        List<String> nameList = new ArrayList<String>();
-        nameList.add("public");
-        nameList.add("id");
-        nameList.add("na&me");
-        nameList.add("addr_ess");
-        nameList.add("9city");
-        nameList.add("cou ntry1");
-        nameList.add("_dic");
-        for (int i = 0; i < nameList.size(); i++) {
-            String columnName = nameList.get(i);
+        String columnName = "public";
+        String resultName = MetadataToolHelper.validateValueForDBType(columnName);
+        assertEquals(resultName, "public");
 
-            String resultName = MetadataToolHelper.validateValueForDBType(columnName);
+        columnName = "id";
+        resultName = MetadataToolHelper.validateValueForDBType(columnName);
+        assertEquals(resultName, "id");
 
-            if (i == 0) {
-                assertEquals(resultName, "public");
-            } else if (i == 1) {
-                assertEquals(resultName, "id");
-            } else if (i == 2) {
-                assertEquals(resultName, "na_me");
-            } else if (i == 3) {
-                assertEquals(resultName, "addr_ess");
-            } else if (i == 4) {
-                assertEquals(resultName, "_9city");
-            } else if (i == 5) {
-                assertEquals(resultName, "cou ntry1");
-            } else if (i == 6) {
-                assertEquals(resultName, "_dic");
-            }
-        }
+        columnName = "na&me";
+        resultName = MetadataToolHelper.validateValueForDBType(columnName);
+        assertEquals(resultName, "na_me");
+
+        columnName = "addr_ess";
+        resultName = MetadataToolHelper.validateValueForDBType(columnName);
+        assertEquals(resultName, "addr_ess");
+
+        columnName = "9city";
+        resultName = MetadataToolHelper.validateValueForDBType(columnName);
+        assertEquals(resultName, "_9city");
+
+        columnName = "cou ntry1";
+        resultName = MetadataToolHelper.validateValueForDBType(columnName);
+        assertEquals(resultName, "cou ntry1");
+
+        columnName = "_dic";
+        resultName = MetadataToolHelper.validateValueForDBType(columnName);
+        assertEquals(resultName, "_dic");
+
     }
 
     /**
