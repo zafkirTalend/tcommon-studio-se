@@ -119,6 +119,12 @@ public class LockerByKey<KP> {
         }
     }
 
+    /**
+     * 
+     * CustomReentrantLock class.
+     * 
+     * @see java.util.concurrent.locks.ReentrantLock
+     */
     class CustomReentrantLock extends ReentrantLock {
 
         private static final long serialVersionUID = 3730576759454516775L;
