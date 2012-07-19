@@ -795,7 +795,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
                         String schemaname = catalogName + "." + schemaPattern + ".sysobjects";
                         String sql = "select name from " + schemaname + " where xtype='SN'";
-                        if (!schemaname.contains("INFORMATION_SCHEMA") && !schemaname.contains("guest")) {
+                        if (schemaPattern.equalsIgnoreCase("dbo")) {
                             // SELECT name AS object_name ,SCHEMA_NAME(schema_id) AS schema_name FROM sys.objects where
                             // type='SN'
                             ResultSet rsTables = stmt.executeQuery(sql);
