@@ -377,11 +377,11 @@ public class MetadataSchema {
                 metadataColumn.setNullable(Boolean.parseBoolean(nullable.getNodeValue()));
                 metadataColumn.setDefaultValue(defaultValue.getNodeValue());
                 metadataColumn.setComment(comment.getNodeValue());
-                if (originalLength.getNodeValue() != null) {
+                if (originalLength != null && originalLength.getNodeValue() != null) {
                     try {
                         metadataColumn.setOriginalLength(Integer.parseInt(originalLength.getNodeValue()));
                     } catch (final NumberFormatException e) {
-                        metadataColumn.setLength(0);
+                        metadataColumn.setOriginalLength(0);
                     }
 
                 }
@@ -395,13 +395,13 @@ public class MetadataSchema {
                     columnsAlreadyAdded.add(metadataColumn.getLabel());
                 }
 
-                if (impliedDecimal.getNodeValue() != null) {
+                if (impliedDecimal != null && impliedDecimal.getNodeValue() != null) {
                     TaggedValue impliedDc = TaggedValueHelper.createTaggedValue(
                             "additionalField:" + impliedDecimal.getNodeName(), impliedDecimal.getNodeValue()); //$NON-NLS-1$
                     metadataColumn.getTaggedValue().add(impliedDc);
                 }
 
-                if (signed.getNodeValue() != null) {
+                if (signed != null && signed.getNodeValue() != null) {
                     TaggedValue sign = TaggedValueHelper.createTaggedValue(
                             "additionalField:" + signed.getNodeName(), signed.getNodeValue()); //$NON-NLS-1$
                     metadataColumn.getTaggedValue().add(sign);
