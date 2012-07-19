@@ -80,7 +80,7 @@ public class ExtractMetaDataUtilsTest {
      * 
      * Can't test the the mssql
      */
-    @Test
+    // @Test
     public void testGetDatabaseMetaData_FourArguments4MSSQL() throws Exception {
         // ConnectionJDBC2 mockConn = mock(ConnectionJDBC2.class);
         //
@@ -247,7 +247,7 @@ public class ExtractMetaDataUtilsTest {
      * 
      * Can't test the the mssql
      */
-    @Test
+    // @Test
     public void testGetConnectionMetadata4MSSQL() throws Exception {
         /*
          * There are two difficult things:

@@ -15,7 +15,6 @@ package org.talend.core.model.metadata.builder.database.manager.dbs;
 import java.sql.Connection;
 
 import org.junit.Before;
-import org.junit.Test;
 import org.talend.core.database.EDatabaseTypeName;
 
 /**
@@ -30,7 +29,7 @@ public class SASExtractManagerTest extends AbstractTest4ExtractManager {
     }
 
     @Override
-    @Test
+    // @Test
     public void testReturnColumns4DontCreateConnection() throws Exception {
         // super.testReturnColumns4DontCreateConnection();
         PTODO();

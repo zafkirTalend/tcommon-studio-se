@@ -75,7 +75,7 @@ public class GeneralJDBCExtractManagerTest extends AbstractTest4ExtractManager {
      * 
      * @throws Exception
      */
-    @Test
+    // @Test
     public void testCloseConnect4DirverClass_JavaDB() throws Exception {
         PTODO();
     }
@@ -88,7 +88,7 @@ public class GeneralJDBCExtractManagerTest extends AbstractTest4ExtractManager {
      * 
      * @throws Exception
      */
-    @Test
+    // @Test
     public void testCloseConnect4DirverClass_HsqlDB() throws Exception {
         PTODO();
     }

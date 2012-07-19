@@ -20,7 +20,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.junit.Before;
-import org.junit.Test;
 import org.talend.core.database.EDatabaseTypeName;
 
 /**
@@ -41,7 +40,7 @@ public class AS400ExtractManagerTest extends AbstractTest4ExtractManager {
      * @see AS400ExtractManager.getSchema(IMetadataConnection)
      */
     @Override
-    @Test
+    // @Test
     public void testGetSchema() {
         PTODO();
     }
@@ -67,7 +66,7 @@ public class AS400ExtractManagerTest extends AbstractTest4ExtractManager {
      * 
      * @throws Exception
      */
-    @Test
+    // @Test
     public void testExtractTablesFromDB4MultiSchemas() throws Exception {
         PTODO();
     }
@@ -80,7 +79,7 @@ public class AS400ExtractManagerTest extends AbstractTest4ExtractManager {
      * 
      * @throws Exception
      */
-    @Test
+    // @Test
     public void testExtractTablesFromDB4SupportsSchemasInTableDefinitions() throws Exception {
         PTODO();
     }

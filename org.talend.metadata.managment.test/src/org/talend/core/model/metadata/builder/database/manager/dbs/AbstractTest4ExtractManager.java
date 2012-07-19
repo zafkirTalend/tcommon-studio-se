@@ -534,7 +534,7 @@ public class AbstractTest4ExtractManager {
      * 
      * @throws Exception
      */
-    @Test
+    // @Test
     public void testReturnColumns4DontCreateConnection2TableTypeSynonym() throws Exception {
         PTODO();
     }
@@ -547,7 +547,7 @@ public class AbstractTest4ExtractManager {
      * 
      * @throws Exception
      */
-    @Test
+    // @Test
     public void testReturnColumns4reCreateConnection() throws Exception {
         PTODO();
     }
@@ -559,7 +559,7 @@ public class AbstractTest4ExtractManager {
      * @see ExtractManager.returnTablesFormConnection(IMetadataConnection, TableInfoParameters)
      * @throws Exception
      */
-    @Test
+    // @Test
     public void testReturnTablesFormConnection() throws Exception {
         PTODO();
     }

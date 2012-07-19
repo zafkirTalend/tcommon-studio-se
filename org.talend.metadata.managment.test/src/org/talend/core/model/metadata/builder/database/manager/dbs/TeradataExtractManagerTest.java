@@ -13,7 +13,6 @@
 package org.talend.core.model.metadata.builder.database.manager.dbs;
 
 import org.junit.Before;
-import org.junit.Test;
 import org.talend.core.database.EDatabaseTypeName;
 
 /**
@@ -34,7 +33,7 @@ public class TeradataExtractManagerTest extends AbstractTest4ExtractManager {
      * @see TeradataExtractManager.getSchema(IMetadataConnection)
      */
     @Override
-    @Test
+    // @Test
     public void testGetSchema() {
         PTODO();
     }
@@ -47,7 +46,7 @@ public class TeradataExtractManagerTest extends AbstractTest4ExtractManager {
      * 
      * @throws Exception
      */
-    @Test
+    // @Test
     public void testReturnColumns4DontCreateConnection2TrueSQLMode() throws Exception {
         PTODO();
     }
