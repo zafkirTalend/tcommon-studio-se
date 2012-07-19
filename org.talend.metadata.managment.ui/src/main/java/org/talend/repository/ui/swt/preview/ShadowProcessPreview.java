@@ -51,6 +51,12 @@ public class ShadowProcessPreview {
 
     protected Table table;
 
+    private boolean csvRowsEmpty = false;
+
+    public boolean isCsvRowsEmpty() {
+        return csvRowsEmpty;
+    }
+
     public Table getTable() {
         return this.table;
     }
@@ -327,8 +333,9 @@ public class ShadowProcessPreview {
      */
     public void refreshTablePreview(final CsvArray csvArray, final boolean firstRowIsLabel, List<SchemaTarget> schemaTarget) {
         List<String[]> csvRows = csvArray.getRows();
-
+        this.csvRowsEmpty = false;
         if (csvRows.isEmpty()) {
+            this.csvRowsEmpty = true;
             return;
         }
         // init the title columns
@@ -475,11 +482,11 @@ public class ShadowProcessPreview {
      * DOC ocarbone Comment method "clearTablePreview".
      */
     public void clearTablePreview() {
-        // table.clearAll();
-        // for (int i = 0; i < table.getColumnCount(); i++) {
-        // table.getColumn(i).setText(""); //$NON-NLS-1$
-        // table.getColumn(i).setWidth(0);
-        // }
+        table.clearAll();
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumn(i).setText(""); //$NON-NLS-1$
+            table.getColumn(i).setWidth(0);
+        }
     }
 
     public void removePreviewContent() {
