@@ -177,7 +177,7 @@ public class RunStat implements Runnable {
                                 + "\nUsually, please check the tRunJob, it should uncheck the option \"Use an independent process to run child job\".");
                 // todo: if here open another new Socket in childJob, need to close it in the API: stopThreadStat()
                 // s = new Socket(clientHost, portStats);
-                output = System.err;
+                output = System.out;
             } else {
                 s = (Socket) object;
                 output = s.getOutputStream();
@@ -206,7 +206,7 @@ public class RunStat implements Runnable {
 			output = s.getOutputStream();
 			System.out.println("[statistics] connected"); //$NON-NLS-1$
 		} else {
-			output = System.err;
+			output = System.out;
 			System.out.println("[statistics] connected refused"); //$NON-NLS-1$
 		}
 		if (debug) {
