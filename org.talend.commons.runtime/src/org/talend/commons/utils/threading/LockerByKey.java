@@ -20,6 +20,8 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.log4j.Logger;
 import org.talend.commons.utils.StringUtils;
+import org.talend.commons.utils.threading.lockerbykey.ILockerByKey;
+import org.talend.commons.utils.threading.lockerbykey.LockerValue;
 
 /**
  * This class is useful to lock some part of code from the provided key.
@@ -34,7 +36,7 @@ import org.talend.commons.utils.StringUtils;
  * 
  * @param <KP> type of the key
  */
-public class LockerByKey<KP> {
+public class LockerByKey<KP> implements ILockerByKey<KP> {
 
     private static Logger log = Logger.getLogger(LockerByKey.class);
 
@@ -46,7 +48,11 @@ public class LockerByKey<KP> {
 
     private AtomicInteger runningOperations = new AtomicInteger();
 
-    private int cleanPeriod = 500;
+    private final static int DEFAULT_CLEAN_PERIOD = 500;
+
+    private final static boolean DEFAULT_FAIR = true;
+
+    private int cleanPeriod;
 
     /**
      * 
@@ -119,83 +125,7 @@ public class LockerByKey<KP> {
         }
     }
 
-    /**
-     * 
-     * CustomReentrantLock class.
-     * 
-     * @see java.util.concurrent.locks.ReentrantLock
-     */
-    class CustomReentrantLock extends ReentrantLock {
-
-        private static final long serialVersionUID = 3730576759454516775L;
-
-        public CustomReentrantLock() {
-            super();
-        }
-
-        public CustomReentrantLock(boolean fair) {
-            super(fair);
-        }
-
-        /* (non-Javadoc)
-         * @see java.util.concurrent.locks.ReentrantLock#getQueuedThreads()
-         */
-        @Override
-        protected Collection<Thread> getQueuedThreads() {
-            return super.getQueuedThreads();
-        }
-        
-    }
-    
-    /**
-     * 
-     * LockerValue.<br/>
-     * 
-     * @param <VKP> key
-     */
-    public class LockerValue<VKP> {
-
-        private CustomReentrantLock lock;
-
-        private VKP key;
-
-        /**
-         * LockerValue constructor.
-         * 
-         * @param thread
-         * @param contextInfo
-         * @param fair
-         */
-        public LockerValue(VKP key, boolean fair) {
-            this.lock = new CustomReentrantLock(fair);
-            this.key = key;
-        }
-
-        public String toString() {
-            return StringUtils.replacePrms("LockerValue: key={0}, lock={1}", String.valueOf(key), lock.toString()); //$NON-NLS-1$
-        }
-
-        /**
-         * Getter for key.
-         * 
-         * @return the key
-         */
-        public VKP getKey() {
-            return key;
-        }
-
-        /**
-         * Getter for lock.
-         * 
-         * @return the lock
-         */
-        public CustomReentrantLock getLock() {
-            return lock;
-        }
-
-    }
-
-    private boolean fair = true;
+    private boolean fair;
 
     private volatile boolean blockAllOperations;
 
@@ -207,7 +137,7 @@ public class LockerByKey<KP> {
      * LockerByKey constructor.
      */
     public LockerByKey() {
-        super();
+        this(DEFAULT_FAIR, DEFAULT_CLEAN_PERIOD);
     }
 
     /**
@@ -217,8 +147,18 @@ public class LockerByKey<KP> {
      * @param fair {@code true} if this lock should use a fair ordering policy
      */
     public LockerByKey(boolean fair) {
-        super();
-        this.fair = fair;
+        this(fair, DEFAULT_CLEAN_PERIOD);
+    }
+
+    /**
+     * 
+     * Constructor LockerByKey.
+     * 
+     * @param cleanPeriod in number of operations, it means that an automatic clean will be done for each
+     * <code>cleanPeriod</code> number of unlock operation.
+     */
+    public LockerByKey(int cleanPeriod) {
+        this(DEFAULT_FAIR, cleanPeriod);
     }
 
     /**
@@ -246,9 +186,10 @@ public class LockerByKey<KP> {
      * 
      * @see java.util.concurrent.locks.ReentrantLock#isLocked()
      */
+    @Override
     public boolean isLocked(KP key) {
         checkKey(key);
-        LockerValue<KP> locker = getLocker(key);
+        LockerValue<KP> locker = getLockerValue(key);
         return locker != null && locker.getLock().isLocked();
     }
 
@@ -260,11 +201,14 @@ public class LockerByKey<KP> {
      * @throws InterruptedException
      * @see java.util.concurrent.locks.ReentrantLock#lockInterruptibly()
      */
+    @Override
     public void lockInterruptibly(KP key) throws InterruptedException {
         checkStopped();
         checkKey(key);
         blockOperationIfRequired();
+        incrementRunningOperations();
         LockerValue<KP> locker = prepareInternalLock(key);
+        decrementRunningOperations();
         locker.getLock().lockInterruptibly();
     }
 
@@ -295,13 +239,16 @@ public class LockerByKey<KP> {
      * @throws IllegalArgumentException if bean is null
      * @see java.util.concurrent.locks.ReentrantLock#tryLock()
      */
-    public boolean tryLock(KP key) throws InterruptedException {
+    @Override
+    public boolean tryLock(KP key) {
         if (stopped || shuttingDown) {
             return false;
         }
         checkKey(key);
         blockOperationIfRequired();
+        incrementRunningOperations();
         LockerValue<KP> locker = prepareInternalLock(key);
+        decrementRunningOperations();
         return locker.getLock().tryLock();
     }
 
@@ -316,6 +263,7 @@ public class LockerByKey<KP> {
      * @throws IllegalArgumentException if bean is null
      * @see java.util.concurrent.locks.ReentrantLock#tryLock(long, java.util.concurrent.TimeUnit)
      */
+    @Override
     public boolean tryLock(KP key, long timeout) throws InterruptedException {
         return tryLock(key, timeout, TimeUnit.MILLISECONDS);
     }
@@ -333,16 +281,19 @@ public class LockerByKey<KP> {
      * 
      * @see java.util.concurrent.locks.ReentrantLock#tryLock(long, java.util.concurrent.TimeUnit)
      */
+    @Override
     public boolean tryLock(KP key, long timeout, TimeUnit unit) throws InterruptedException {
         checkStopped();
         checkKey(key);
         blockOperationIfRequired();
+        incrementRunningOperations();
         LockerValue<KP> locker = prepareInternalLock(key);
+        decrementRunningOperations();
+        interruptIfStopping();
         return locker.getLock().tryLock(timeout, unit);
     }
 
-    private LockerValue<KP> prepareInternalLock(KP key) throws InterruptedException {
-        incrementRunningOperations();
+    private LockerValue<KP> prepareInternalLock(KP key) {
         InternalKeyLock<KP> internalKeyLock = new InternalKeyLock<KP>(key);
         LockerValue<KP> lockerValue = new LockerValue<KP>(key, fair);
         LockerValue<KP> previousLockerValue = null;
@@ -350,8 +301,6 @@ public class LockerByKey<KP> {
         if (previousLockerValue != null) {
             lockerValue = previousLockerValue;
         }
-        decrementRunningOperations();
-        interruptIfStopping();
         return lockerValue;
     }
 
@@ -368,18 +317,19 @@ public class LockerByKey<KP> {
      * @return true if the key has been found to release the lock; and false otherwise
      * @see java.util.concurrent.locks.ReentrantLock#unlock()
      */
+    @Override
     public boolean unlock(KP key) {
-        cleanAccordingOperations();
         checkKey(key);
         blockOperationIfRequired();
         incrementRunningOperations();
-        LockerValue<KP> lockerValue = getLocker(key);
+        LockerValue<KP> lockerValue = getLockerValue(key);
         boolean returnValue = false;
         if (lockerValue != null) {
             lockerValue.getLock().unlock();
             returnValue = true;
         }
         decrementRunningOperations();
+        cleanAccordingOperations();
         return returnValue;
     }
 
@@ -407,8 +357,9 @@ public class LockerByKey<KP> {
         synchronized (lockAllOperations) {
             waitForRunningOperationsEnded();
             Collection<LockerValue<KP>> values = mapKeyLockToValueLock.values();
-            log.trace("Cleaning " + values.size() + " keys ...");
-            System.out.println("Cleaning " + values.size() + " keys ...");
+            if (log.isTraceEnabled()) {
+                log.trace("Cleaning " + this.toString() + " : " + values.size() + " keys/values ...");
+            }
             InternalKeyLock<KP> internalKeyLock = new InternalKeyLock<KP>();
             for (LockerValue<KP> lockerValue : values) {
                 ReentrantLock lock = lockerValue.getLock();
@@ -443,12 +394,14 @@ public class LockerByKey<KP> {
 
     private void blockOperationIfRequired() {
         if (blockAllOperations) {
-            try {
-                synchronized (lockAllOperations) {
-                    lockAllOperations.wait();
+            synchronized (lockAllOperations) {
+                if (blockAllOperations) {
+                    try {
+                        lockAllOperations.wait();
+                    } catch (InterruptedException e) {
+                        log.warn(e.getMessage(), e);
+                    }
                 }
-            } catch (InterruptedException e) {
-                log.warn(e.getMessage(), e);
             }
         }
     }
@@ -467,12 +420,14 @@ public class LockerByKey<KP> {
      * @param bean
      * @return locker value.
      */
-    public LockerValue<KP> getLocker(KP key) {
+    @Override
+    public LockerValue<KP> getLockerValue(KP key) {
         checkKey(key);
         InternalKeyLock<KP> internalKeyLock = new InternalKeyLock<KP>(key);
         return mapKeyLockToValueLock.get(internalKeyLock);
     }
 
+    @Override
     public synchronized void shutdown() {
         shuttingDown = true;
         waitForRunningOperationsEnded();
@@ -496,6 +451,7 @@ public class LockerByKey<KP> {
      * 
      * @return the cleanFrequency
      */
+    @Override
     public int getCleanPeriod() {
         return cleanPeriod;
     }
