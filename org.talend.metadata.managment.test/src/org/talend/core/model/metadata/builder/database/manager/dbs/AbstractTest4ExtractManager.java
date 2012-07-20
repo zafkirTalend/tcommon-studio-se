@@ -12,8 +12,17 @@
 // ============================================================================
 package org.talend.core.model.metadata.builder.database.manager.dbs;
 
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.isNull;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -41,6 +50,7 @@ import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.database.DriverShim;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase.ETableTypes;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
+import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.metadata.builder.database.TableNode;
 import org.talend.core.model.metadata.builder.database.manager.ExtractManager;
 import org.talend.core.model.metadata.builder.database.manager.ExtractManagerFactory;
@@ -559,8 +569,86 @@ public class AbstractTest4ExtractManager {
      * @see ExtractManager.returnTablesFormConnection(IMetadataConnection, TableInfoParameters)
      * @throws Exception
      */
-    // @Test
+    @Test
     public void testReturnTablesFormConnection() throws Exception {
-        PTODO();
+        Assert.assertNotNull(getExtractManger());
+
+        IMetadataConnection metadataConn = mockMetadataConnection4ReturnTablesFormConnection();
+        Connection conn = mockConnection4ReturnTablesFormConnection();
+        ExtractMetaDataUtils.conn = conn;
+        ExtractMetaDataUtils.isReconnect = false;
+
+        DatabaseMetaData dbMetadata = mockDatabaseMetaData4ReturnTablesFormConnection();
+        when(conn.getMetaData()).thenReturn(dbMetadata);
+
+        ResultSet resultSet = mockGetColumnsResultSet4ReturnTablesFormConnection();
+        when(dbMetadata.getTableTypes()).thenReturn(resultSet);
+        final String value = "abc";
+        when(resultSet.getString(anyString())).thenReturn(value);
+        //
+        TableInfoParameters tableInfoParameters = mock(TableInfoParameters.class);
+        when(tableInfoParameters.isUsedName()).thenReturn(false);
+        when(tableInfoParameters.getSqlFiter()).thenReturn("");
+
+        List connList = getExtractManger().returnTablesFormConnection(metadataConn, tableInfoParameters);
+        Assert.assertNotNull(connList);
+        Assert.assertTrue(connList.isEmpty());
+
+        // verify
+        // verifyMeatadataConnection4ReturnTablesFormConnection(metadataConn);
+        // verifyConnection4ReturnTablesFormConnection(conn);
+        // verifyDbMetadata4ReturnTablesFormConnection(dbMetadata);
+
+        ExtractMetaDataUtils.conn = null;
+    }
+
+    protected IMetadataConnection mockMetadataConnection4ReturnTablesFormConnection() {
+        IMetadataConnection metadataConn = mock(IMetadataConnection.class);
+
+        String dbType = this.getExtractManger().getDbType().getXmlName();
+        when(metadataConn.getDbType()).thenReturn(dbType);
+        when(metadataConn.getUsername()).thenReturn("root");
+        when(metadataConn.getPassword()).thenReturn("root");
+        // only for TERADATA
+        when(metadataConn.isSqlMode()).thenReturn(false);
+        when(metadataConn.getDatabase()).thenReturn("talend"); //$NON-NLS-1$
+        // PTODO
+        return metadataConn;
+    }
+
+    protected Connection mockConnection4ReturnTablesFormConnection() throws Exception {
+        Connection conn = mock(Connection.class);
+        // make sure use the mock connection
+        when(conn.isClosed()).thenReturn(false);
+        doNothing().when(conn).close();
+        return conn;
+    }
+
+    protected DatabaseMetaData mockDatabaseMetaData4ReturnTablesFormConnection() throws Exception {
+        DatabaseMetaData dbMetadata = mock(DatabaseMetaData.class);
+        return dbMetadata;
+    }
+
+    protected ResultSet mockGetColumnsResultSet4ReturnTablesFormConnection() throws Exception {
+        ResultSet resultSet = mock(ResultSet.class);
+        // maybe need test some SQLException
+        doNothing().when(resultSet).close();
+        // FIXME, later, should find a way to do it,when true
+        when(resultSet.next()).thenReturn(false);
+        return resultSet;
+    }
+
+    protected void verifyMeatadataConnection4ReturnTablesFormConnection(IMetadataConnection metadataConn) {
+        verify(metadataConn).getDbType();
+        verify(metadataConn).isSqlMode();
+        verify(metadataConn).getDatabase();
+    }
+
+    protected void verifyConnection4ReturnTablesFormConnection(Connection conn) throws SQLException {
+        verify(conn).isClosed();
+    }
+
+    protected void verifyDbMetadata4ReturnTablesFormConnection(DatabaseMetaData dbMetadata) throws SQLException {
+        verify(dbMetadata).getColumns(anyString(), anyString(), anyString(), anyString());
     }
 }
