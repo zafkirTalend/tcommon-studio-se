@@ -553,9 +553,64 @@ public class AbstractTest4ExtractManager {
      * 
      * @throws Exception
      */
-    // @Test
+    @Test
     public void testReturnColumns4DontCreateConnection2TableTypeSynonym() throws Exception {
-        PTODO();
+        Assert.assertNotNull(getExtractManger());
+
+        Connection conn = mockConnection4ReturnColumns();
+        ExtractMetaDataUtils.conn = conn;
+
+        DatabaseMetaData dbMetadata = mockDatabaseMetaData4ReturnColumns();
+        when(conn.getMetaData()).thenReturn(dbMetadata);
+
+        // getColumns
+        ResultSet getColumnsResultSet = mockGetColumnsResultSet4ReturnColumns();
+        doReturn(getColumnsResultSet).when(dbMetadata).getColumns(anyString(), anyString(), anyString(), anyString());
+
+        IMetadataConnection metadataConn = mockMetadataConnection4ReturnColumns();
+        TableNode tableNode = mockTableNode4ReturnColumns2TableTypeSynonym();
+        TdTable tdTable = mockTable4ReturnColumns();
+        when(tableNode.getTable()).thenReturn(tdTable);
+        // PTODO
+
+        List<TdColumn> columns = getExtractManger().returnColumns(metadataConn, tableNode, true);
+
+        Assert.assertNotNull(columns);
+        Assert.assertTrue(columns.isEmpty());
+        // verify
+        verifyTableNode4ReturnColumns2TableTypeSynonym(tableNode);
+        // verifyTdTable4ReturnColumns4DontCreateConnection(tdTable);
+        verifyMeatadataConnection4ReturnColumns4DontCreateConnection(metadataConn);
+        verifyConnection4ReturnColumns4DontCreateConnection(conn);
+        // verifyDbMetadata4ReturnColumns4DontCreateConnection(dbMetadata);
+        // verifyColumnsResultSet4ReturnColumns4DontCreateConnection(getColumnsResultSet);
+
+        ExtractMetaDataUtils.conn = null;
+    }
+
+    protected TableNode mockTableNode4ReturnColumns2TableTypeSynonym() throws Exception {
+        TableNode tableNode = spy(new TableNode());
+        // must type for table
+        when(tableNode.getType()).thenReturn(TableNode.TABLE);
+
+        // because want to test the replace for "/"
+        // will do assert getValue, so don't stub it.
+        //        when(tableNode.getValue()).thenReturn("/table1"); //$NON-NLS-1$
+        tableNode.setValue("/table2"); //$NON-NLS-1$
+
+        // only test table type， if SYNONYM, will do it in following test method
+        // "testReturnColumns4DontCreateConnection2TableTypeSynonym"
+        when(tableNode.getItemType()).thenReturn(ETableTypes.TABLETYPE_SYNONYM.getName());
+        // PTODO
+        return tableNode;
+    }
+
+    protected void verifyTableNode4ReturnColumns2TableTypeSynonym(TableNode tableNode) {
+        verify(tableNode).getType();
+        verify(tableNode).getTable();
+        verify(tableNode, times(2)).getValue();
+        Assert.assertEquals(tableNode.getValue(), "/table2"); //$NON-NLS-1$
+        verify(tableNode).getItemType();
     }
 
     /**
