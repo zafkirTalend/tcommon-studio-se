@@ -29,6 +29,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.Driver;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
@@ -41,8 +42,12 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.junit.After;
+import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.rule.PowerMockRule;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataConnection;
@@ -62,7 +67,11 @@ import org.talend.cwm.relational.TdTable;
  * created by ggu on Jul 4, 2012 Detailled comment
  * 
  */
+@PrepareForTest({ ExtractMetaDataUtils.class })
 public class AbstractTest4ExtractManager {
+
+    @Rule
+    public PowerMockRule powerMockRule = new PowerMockRule();
 
     private ExtractManager extractManger;
 
@@ -557,9 +566,116 @@ public class AbstractTest4ExtractManager {
      * 
      * @throws Exception
      */
-    // @Test
+    @Test
     public void testReturnColumns4reCreateConnection() throws Exception {
-        PTODO();
+        Assert.assertNotNull(getExtractManger());
+
+        Connection conn = mockConnection4ReturnColumns4reCreateConnection();
+        ExtractMetaDataUtils.conn = conn;
+
+        IMetadataConnection metadataConn = mockMetadataConnection4ReturnColumns4reCreateConnection();
+        //
+        DatabaseMetaData dbMetadata = mockDatabaseMetaData4ReturnColumns4reCreateConnection();
+        when(conn.getMetaData()).thenReturn(dbMetadata);
+
+        // getColumns
+        ResultSet getColumnsResultSet = mockGetColumnsResultSet4ReturnColumns4reCreateConnection();
+        doReturn(getColumnsResultSet).when(dbMetadata).getColumns(anyString(), anyString(), anyString(), anyString());
+
+        TableNode tableNode = mockTableNode4ReturnColumns4reCreateConnection();
+        TdTable tdTable = mockTable4ReturnColumns4reCreateConnection();
+        when(tableNode.getTable()).thenReturn(tdTable);
+
+        // powermock the reConnection
+        PowerMockito.mockStatic(ExtractMetaDataUtils.class);
+        List conList = new ArrayList();
+        conList.add(conn);
+        DriverShim wapperDriver = mock(DriverShim.class);
+        conList.add(wapperDriver);
+        when(
+                ExtractMetaDataUtils.getConnection(anyString(), anyString(), anyString(), anyString(), anyString(), anyString(),
+                        anyString(), anyString(), anyString(), anyString())).thenReturn(conList);
+
+        when(
+                ExtractMetaDataUtils.getDatabaseMetaData(conn, metadataConn.getDbType(), metadataConn.isSqlMode(),
+                        metadataConn.getDatabase())).thenReturn(dbMetadata);
+
+        //
+        List<TdColumn> columns = getExtractManger().returnColumns(metadataConn, tableNode, false);
+        Assert.assertNotNull(columns);
+        Assert.assertTrue(columns.isEmpty());
+        // verify
+        // PTODO
+
+        ExtractMetaDataUtils.conn = null;
+
+    }
+
+    protected Connection mockConnection4ReturnColumns4reCreateConnection() throws Exception {
+        Connection conn = mock(Connection.class);
+        // make sure use the mock connection
+        when(conn.isClosed()).thenReturn(false);
+        doNothing().when(conn).close();
+        return conn;
+    }
+
+    protected IMetadataConnection mockMetadataConnection4ReturnColumns4reCreateConnection() {
+        IMetadataConnection metadataConn = mock(IMetadataConnection.class);
+
+        String dbType = this.getExtractManger().getDbType().getXmlName();
+        when(metadataConn.getDbType()).thenReturn(dbType);
+        when(metadataConn.getUsername()).thenReturn("root");
+        when(metadataConn.getPassword()).thenReturn("root");
+        // only for TERADATA
+        when(metadataConn.isSqlMode()).thenReturn(false);
+        when(metadataConn.getDatabase()).thenReturn("talend"); //$NON-NLS-1$
+        // PTODO
+        return metadataConn;
+    }
+
+    protected DatabaseMetaData mockDatabaseMetaData4ReturnColumns4reCreateConnection() throws Exception {
+        DatabaseMetaData dbMetadata = mock(DatabaseMetaData.class);
+        // PTODO
+        return dbMetadata;
+    }
+
+    protected ResultSet mockGetColumnsResultSet4ReturnColumns4reCreateConnection() throws Exception {
+        ResultSet resultSet = mock(ResultSet.class);
+        // maybe need test some SQLException
+        doNothing().when(resultSet).close();
+
+        // FIXME, later, should find a way to do it,when true
+        when(resultSet.next()).thenReturn(false);
+
+        return resultSet;
+    }
+
+    protected TableNode mockTableNode4ReturnColumns4reCreateConnection() throws Exception {
+        TableNode tableNode = spy(new TableNode());
+        // must type for table
+        when(tableNode.getType()).thenReturn(TableNode.TABLE);
+
+        // because want to test the replace for "/"
+        // will do assert getValue, so don't stub it.
+        //        when(tableNode.getValue()).thenReturn("/table2"); //$NON-NLS-1$
+        tableNode.setValue("/table2"); //$NON-NLS-1$
+
+        // only test table type， if SYNONYM, will do it in following test method
+        // "testReturnColumns4DontCreateConnection2TableTypeSynonym"
+        when(tableNode.getItemType()).thenReturn(ETableTypes.TABLETYPE_TABLE.getName());
+        // PTODO
+        return tableNode;
+    }
+
+    protected TdTable mockTable4ReturnColumns4reCreateConnection() throws Exception {
+        TdTable tdTable = mock(TdTable.class);
+        when(tdTable.getName()).thenReturn("TestTable2");
+        ResourceSet resourceSet = new ResourceSetImpl();
+        Resource resource = resourceSet.createResource(URI.createFileURI("tdtable.xml")); //$NON-NLS-1$
+        if (resource != null) {
+            resource.getContents().add(tdTable);
+        }
+        return tdTable;
     }
 
     /**
