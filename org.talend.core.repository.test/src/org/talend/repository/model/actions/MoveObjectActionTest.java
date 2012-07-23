@@ -31,7 +31,7 @@ import org.talend.repository.model.RepositoryNode;
 public class MoveObjectActionTest {
 
     @Test
-    public void TestValidateAction() {
+    public void testValidateAction() {
         // mock
         RepositoryNode sourceNode = mock(RepositoryNode.class);
         RepositoryViewObject object = mock(RepositoryViewObject.class);
