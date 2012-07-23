@@ -36,7 +36,6 @@ import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
  *   <li>{@link org.talend.core.model.properties.Project#getAllowedComponents <em>Allowed Components</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getReferencedProjects <em>Referenced Projects</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getAvailableRefProject <em>Available Ref Project</em>}</li>
- *   <li>{@link org.talend.core.model.properties.Project#getMigrationTasks <em>Migration Tasks</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getMasterJobId <em>Master Job Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getSpagoBiServer <em>Spago Bi Server</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getProductVersion <em>Product Version</em>}</li>
@@ -52,6 +51,8 @@ import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
  *   <li>{@link org.talend.core.model.properties.Project#getType <em>Type</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getItemsRelationVersion <em>Items Relation Version</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getExchangeUser <em>Exchange User</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Project#getMigrationTasks <em>Migration Tasks</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Project#getMigrationTask <em>Migration Task</em>}</li>
  * </ul>
  * </p>
  *
@@ -302,10 +303,26 @@ public interface Project extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Migration Tasks</em>' attribute list.
      * @see org.talend.core.model.properties.PropertiesPackage#getProject_MigrationTasks()
-     * @model ordered="false"
+     * @model
      * @generated
      */
     EList getMigrationTasks();
+
+    /**
+     * Returns the value of the '<em><b>Migration Task</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.core.model.properties.MigrationTask}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Migration Task</em>' containment reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Migration Task</em>' containment reference list.
+     * @see org.talend.core.model.properties.PropertiesPackage#getProject_MigrationTask()
+     * @model type="org.talend.core.model.properties.MigrationTask" containment="true"
+     * @generated
+     */
+    EList getMigrationTask();
 
     /**
      * Returns the value of the '<em><b>Master Job Id</b></em>' attribute.

@@ -81,6 +81,8 @@ import org.talend.core.model.properties.LinkDocumentationItem;
 import org.talend.core.model.properties.LinkRulesItem;
 import org.talend.core.model.properties.LinkType;
 import org.talend.core.model.properties.MDMConnectionItem;
+import org.talend.core.model.properties.MigrationStatus;
+import org.talend.core.model.properties.MigrationTask;
 import org.talend.core.model.properties.NotationHolder;
 import org.talend.core.model.properties.Notification;
 import org.talend.core.model.properties.PlanExecutionHistory;
@@ -841,6 +843,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    private EClass migrationTaskEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     private EClass referenceFileItemEClass = null;
 
     /**
@@ -870,6 +879,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EEnum informationLevelEEnum = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EEnum migrationStatusEEnum = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -1108,7 +1124,16 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getProject_MigrationTasks() {
-        return (EAttribute)projectEClass.getEStructuralFeatures().get(17);
+        return (EAttribute)projectEClass.getEStructuralFeatures().get(32);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getProject_MigrationTask() {
+        return (EReference)projectEClass.getEStructuralFeatures().get(33);
     }
 
     /**
@@ -1117,7 +1142,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getProject_MasterJobId() {
-        return (EAttribute)projectEClass.getEStructuralFeatures().get(18);
+        return (EAttribute)projectEClass.getEStructuralFeatures().get(17);
     }
 
     /**
@@ -1126,7 +1151,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EReference getProject_SpagoBiServer() {
-        return (EReference)projectEClass.getEStructuralFeatures().get(19);
+        return (EReference)projectEClass.getEStructuralFeatures().get(18);
     }
 
     /**
@@ -1135,7 +1160,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getProject_ProductVersion() {
-        return (EAttribute)projectEClass.getEStructuralFeatures().get(20);
+        return (EAttribute)projectEClass.getEStructuralFeatures().get(19);
     }
 
     /**
@@ -1144,7 +1169,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EReference getProject_ComponentsSettings() {
-        return (EReference)projectEClass.getEStructuralFeatures().get(21);
+        return (EReference)projectEClass.getEStructuralFeatures().get(20);
     }
 
     /**
@@ -1153,7 +1178,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getProject_Url() {
-        return (EAttribute)projectEClass.getEStructuralFeatures().get(22);
+        return (EAttribute)projectEClass.getEStructuralFeatures().get(21);
     }
 
     /**
@@ -1162,7 +1187,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EReference getProject_StatAndLogsSettings() {
-        return (EReference)projectEClass.getEStructuralFeatures().get(23);
+        return (EReference)projectEClass.getEStructuralFeatures().get(22);
     }
 
     /**
@@ -1171,7 +1196,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EReference getProject_ImplicitContextSettings() {
-        return (EReference)projectEClass.getEStructuralFeatures().get(24);
+        return (EReference)projectEClass.getEStructuralFeatures().get(23);
     }
 
     /**
@@ -1180,7 +1205,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getProject_HidePassword() {
-        return (EAttribute)projectEClass.getEStructuralFeatures().get(25);
+        return (EAttribute)projectEClass.getEStructuralFeatures().get(24);
     }
 
     /**
@@ -1189,7 +1214,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EReference getProject_ItemsRelations() {
-        return (EReference)projectEClass.getEStructuralFeatures().get(26);
+        return (EReference)projectEClass.getEStructuralFeatures().get(25);
     }
 
     /**
@@ -1198,7 +1223,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getProject_Reference() {
-        return (EAttribute)projectEClass.getEStructuralFeatures().get(27);
+        return (EAttribute)projectEClass.getEStructuralFeatures().get(26);
     }
 
     /**
@@ -1207,7 +1232,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EReference getProject_CustomComponentSettings() {
-        return (EReference)projectEClass.getEStructuralFeatures().get(28);
+        return (EReference)projectEClass.getEStructuralFeatures().get(27);
     }
 
     /**
@@ -1216,7 +1241,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getProject_DeletedFolders() {
-        return (EAttribute)projectEClass.getEStructuralFeatures().get(29);
+        return (EAttribute)projectEClass.getEStructuralFeatures().get(28);
     }
 
     /**
@@ -1225,7 +1250,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getProject_Type() {
-        return (EAttribute)projectEClass.getEStructuralFeatures().get(30);
+        return (EAttribute)projectEClass.getEStructuralFeatures().get(29);
     }
 
     /**
@@ -1234,7 +1259,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getProject_ItemsRelationVersion() {
-        return (EAttribute)projectEClass.getEStructuralFeatures().get(31);
+        return (EAttribute)projectEClass.getEStructuralFeatures().get(30);
     }
 
     /**
@@ -1243,7 +1268,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EReference getProject_ExchangeUser() {
-        return (EReference)projectEClass.getEStructuralFeatures().get(32);
+        return (EReference)projectEClass.getEStructuralFeatures().get(31);
     }
 
     /**
@@ -5985,6 +6010,51 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getMigrationTask() {
+        return migrationTaskEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMigrationTask_Id() {
+        return (EAttribute)migrationTaskEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMigrationTask_Breaks() {
+        return (EAttribute)migrationTaskEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMigrationTask_Version() {
+        return (EAttribute)migrationTaskEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMigrationTask_Status() {
+        return (EAttribute)migrationTaskEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getReferenceFileItem() {
         return referenceFileItemEClass;
     }
@@ -6057,6 +6127,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EEnum getMigrationStatus() {
+        return migrationStatusEEnum;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public PropertiesFactory getPropertiesFactory() {
         return (PropertiesFactory)getEFactoryInstance();
     }
@@ -6098,7 +6177,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEReference(projectEClass, PROJECT__ALLOWED_COMPONENTS);
         createEReference(projectEClass, PROJECT__REFERENCED_PROJECTS);
         createEReference(projectEClass, PROJECT__AVAILABLE_REF_PROJECT);
-        createEAttribute(projectEClass, PROJECT__MIGRATION_TASKS);
         createEAttribute(projectEClass, PROJECT__MASTER_JOB_ID);
         createEReference(projectEClass, PROJECT__SPAGO_BI_SERVER);
         createEAttribute(projectEClass, PROJECT__PRODUCT_VERSION);
@@ -6114,6 +6192,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(projectEClass, PROJECT__TYPE);
         createEAttribute(projectEClass, PROJECT__ITEMS_RELATION_VERSION);
         createEReference(projectEClass, PROJECT__EXCHANGE_USER);
+        createEAttribute(projectEClass, PROJECT__MIGRATION_TASKS);
+        createEReference(projectEClass, PROJECT__MIGRATION_TASK);
 
         projectComponentAuthorisationEClass = createEClass(PROJECT_COMPONENT_AUTHORISATION);
         createEReference(projectComponentAuthorisationEClass, PROJECT_COMPONENT_AUTHORISATION__PROJECT);
@@ -6744,11 +6824,18 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(additionalInfoMapEClass, ADDITIONAL_INFO_MAP__KEY);
         createEAttribute(additionalInfoMapEClass, ADDITIONAL_INFO_MAP__VALUE);
 
+        migrationTaskEClass = createEClass(MIGRATION_TASK);
+        createEAttribute(migrationTaskEClass, MIGRATION_TASK__ID);
+        createEAttribute(migrationTaskEClass, MIGRATION_TASK__BREAKS);
+        createEAttribute(migrationTaskEClass, MIGRATION_TASK__VERSION);
+        createEAttribute(migrationTaskEClass, MIGRATION_TASK__STATUS);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
         userModuleAuthorizationTypeEEnum = createEEnum(USER_MODULE_AUTHORIZATION_TYPE);
         informationLevelEEnum = createEEnum(INFORMATION_LEVEL);
+        migrationStatusEEnum = createEEnum(MIGRATION_STATUS);
     }
 
     /**
@@ -6775,8 +6862,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         setNsURI(eNS_URI);
 
         // Obtain other dependent packages
-        EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
         XMLTypePackage theXMLTypePackage = (XMLTypePackage)EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
+        EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
         NotationPackage theNotationPackage = (NotationPackage)EPackage.Registry.INSTANCE.getEPackage(NotationPackage.eNS_URI);
         BusinessPackage theBusinessPackage = (BusinessPackage)EPackage.Registry.INSTANCE.getEPackage(BusinessPackage.eNS_URI);
         ComponentPackage theComponentPackage = (ComponentPackage)EPackage.Registry.INSTANCE.getEPackage(ComponentPackage.eNS_URI);
@@ -6853,7 +6940,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEReference(getProject_AllowedComponents(), this.getProjectComponentAuthorisation(), this.getProjectComponentAuthorisation_Project(), "allowedComponents", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
         initEReference(getProject_ReferencedProjects(), this.getProjectReference(), this.getProjectReference_Project(), "referencedProjects", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
         initEReference(getProject_AvailableRefProject(), this.getProjectReference(), this.getProjectReference_ReferencedProject(), "availableRefProject", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-        initEAttribute(getProject_MigrationTasks(), theEcorePackage.getEString(), "migrationTasks", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
         initEAttribute(getProject_MasterJobId(), theXMLTypePackage.getString(), "masterJobId", null, 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProject_SpagoBiServer(), this.getSpagoBiServer(), null, "spagoBiServer", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
         initEAttribute(getProject_ProductVersion(), theEcorePackage.getEString(), "productVersion", null, 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -6869,6 +6955,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getProject_Type(), theEcorePackage.getEString(), "type", null, 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_ItemsRelationVersion(), ecorePackage.getEString(), "itemsRelationVersion", null, 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProject_ExchangeUser(), this.getExchangeUser(), null, "exchangeUser", null, 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getProject_MigrationTasks(), theEcorePackage.getEString(), "migrationTasks", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getProject_MigrationTask(), this.getMigrationTask(), null, "migrationTask", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(projectComponentAuthorisationEClass, ProjectComponentAuthorisation.class, "ProjectComponentAuthorisation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getProjectComponentAuthorisation_Project(), this.getProject(), this.getProject_AllowedComponents(), "project", null, 1, 1, ProjectComponentAuthorisation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -7499,6 +7587,12 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getAdditionalInfoMap_Key(), theEcorePackage.getEString(), "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getAdditionalInfoMap_Value(), theEcorePackage.getEString(), "value", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+        initEClass(migrationTaskEClass, MigrationTask.class, "MigrationTask", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getMigrationTask_Id(), ecorePackage.getEString(), "id", null, 1, 1, MigrationTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMigrationTask_Breaks(), ecorePackage.getEString(), "breaks", "5.1.9", 0, 1, MigrationTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMigrationTask_Version(), ecorePackage.getEString(), "version", null, 1, 1, MigrationTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMigrationTask_Status(), this.getMigrationStatus(), "status", "0", 1, 1, MigrationTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");
         addEEnumLiteral(folderTypeEEnum, FolderType.FOLDER_LITERAL);
@@ -7518,6 +7612,12 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         addEEnumLiteral(informationLevelEEnum, InformationLevel.INFO_LITERAL);
         addEEnumLiteral(informationLevelEEnum, InformationLevel.WARN_LITERAL);
         addEEnumLiteral(informationLevelEEnum, InformationLevel.ERROR_LITERAL);
+
+        initEEnum(migrationStatusEEnum, MigrationStatus.class, "MigrationStatus");
+        addEEnumLiteral(migrationStatusEEnum, MigrationStatus.DEFAULT_LITERAL);
+        addEEnumLiteral(migrationStatusEEnum, MigrationStatus.OK_LITERAL);
+        addEEnumLiteral(migrationStatusEEnum, MigrationStatus.FAILED_LITERAL);
+        addEEnumLiteral(migrationStatusEEnum, MigrationStatus.NOIMPACT_LITERAL);
 
         // Create resource
         createResource(eNS_URI);

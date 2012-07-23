@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.migration;
 
-import java.util.Date;
 
 /**
  * Define an atomic migration task to run on a workspace to assure comptibility trough Talend versions. See
@@ -21,18 +20,8 @@ import java.util.Date;
  * $Id: talend.epf 1 2006-09-29 17:06:40 +0000 (ven., 29 sept. 2006) nrousseau $
  * 
  */
-public interface IWorkspaceMigrationTask {
-
-    public String getId();
-
-    public void setId(String id);
-
-    public String getName();
-
-    public void setName(String name);
+public interface IWorkspaceMigrationTask extends IMigrationTask {
 
     public boolean execute();
 
-    // Use to manage task order. Tasks are sorted (ASC) by this date, then executed following this order.
-    public Date getOrder();
 }

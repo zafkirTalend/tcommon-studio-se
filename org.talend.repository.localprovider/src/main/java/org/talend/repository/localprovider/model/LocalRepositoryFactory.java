@@ -111,6 +111,7 @@ import org.talend.core.model.properties.JobletDocumentationItem;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.LinkDocumentationItem;
 import org.talend.core.model.properties.LinkRulesItem;
+import org.talend.core.model.properties.MigrationTask;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.PropertiesFactory;
@@ -1532,9 +1533,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             // all resources attached must be saved before move the resources
             List<Resource> affectedResources = xmiResourceManager.getAffectedResources(obj.getProperty());
             for (Resource resource : affectedResources) {
-                    xmiResourceManager.saveResource(resource);
-                }
-            
+                xmiResourceManager.saveResource(resource);
+            }
+
             for (Resource resource : affectedResources) {
                 IPath path = folder.getFullPath().append(resource.getURI().lastSegment());
                 // Find cross reference and save them.
@@ -1573,7 +1574,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
                 AbstractResourceChangesService.class);
         if (resChangeService != null) {
-        return resChangeService.loadFileContent(item);
+            return resChangeService.loadFileContent(item);
         }
         return false;
     }
@@ -1663,12 +1664,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         saveProject(curProject);
     }
 
-    public void setMigrationTasksDone(Project project, List<String> list) throws PersistenceException {
+    public void setMigrationTasksDone(Project project, List<MigrationTask> list) throws PersistenceException {
         // reloadProject(project);
         // IProject iproject = ResourceModelUtils.getProject(project);
         // org.talend.core.model.properties.Project loadProject = xmiResourceManager.loadProject(iproject);
-        project.getEmfProject().getMigrationTasks().clear();
-        project.getEmfProject().getMigrationTasks().addAll(list);
+        project.getEmfProject().getMigrationTask().clear();
+        project.getEmfProject().getMigrationTask().addAll(list);
         saveProject(project);
     }
 
@@ -2868,7 +2869,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     public void executeMigrations(Project mainProject, boolean beforeLogon, SubMonitor monitorWrap) {
         IMigrationToolService service = (IMigrationToolService) GlobalServiceRegister.getDefault().getService(
                 IMigrationToolService.class);
-        service.executeProjectTasks(mainProject, beforeLogon, monitorWrap);
+        service.executeMigrationTasksForLogon(mainProject, beforeLogon, monitorWrap);
     }
 
     public String getNavigatorViewDescription() {

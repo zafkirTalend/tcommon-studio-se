@@ -40,8 +40,6 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
 
     private Project project;
 
-    private ExecutionResult status;
-
     public ExecutionResult execute(Project project) {
         setProject(project);
         IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
@@ -93,6 +91,10 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
         }
     }
 
+    public ExecutionResult execute(Project project, boolean doSave) {
+        return execute(project);
+    }
+
     public ExecutionResult execute(Project project, Item item) {
         if (!getTypes().contains(ERepositoryObjectType.getItemType(item))) {
             return ExecutionResult.NOTHING_TO_DO;
@@ -132,18 +134,6 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
      */
     public void setProject(Project project) {
         this.project = project;
-    }
-
-    public boolean isDeprecated() {
-        return false;
-    }
-
-    public void setStatus(ExecutionResult status) {
-        this.status = status;
-    }
-
-    public ExecutionResult getStatus() {
-        return status;
     }
 
 }

@@ -151,6 +151,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.EXCHANGE_USER: return createExchangeUser();
             case PropertiesPackage.ARTIFACT_NOTIFICATION: return createArtifactNotification();
             case PropertiesPackage.ADDITIONAL_INFO_MAP: return (EObject)createAdditionalInfoMap();
+            case PropertiesPackage.MIGRATION_TASK: return createMigrationTask();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -171,6 +172,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
                 return createUserModuleAuthorizationTypeFromString(eDataType, initialValue);
             case PropertiesPackage.INFORMATION_LEVEL:
                 return createInformationLevelFromString(eDataType, initialValue);
+            case PropertiesPackage.MIGRATION_STATUS:
+                return createMigrationStatusFromString(eDataType, initialValue);
             default:
                 throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
@@ -191,6 +194,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
                 return convertUserModuleAuthorizationTypeToString(eDataType, instanceValue);
             case PropertiesPackage.INFORMATION_LEVEL:
                 return convertInformationLevelToString(eDataType, instanceValue);
+            case PropertiesPackage.MIGRATION_STATUS:
+                return convertMigrationStatusToString(eDataType, instanceValue);
             default:
                 throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
@@ -1067,6 +1072,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public MigrationTask createMigrationTask() {
+        MigrationTaskImpl migrationTask = new MigrationTaskImpl();
+        return migrationTask;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1144,6 +1159,26 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
      * @generated
      */
     public String convertInformationLevelToString(EDataType eDataType, Object instanceValue) {
+        return instanceValue == null ? null : instanceValue.toString();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public MigrationStatus createMigrationStatusFromString(EDataType eDataType, String initialValue) {
+        MigrationStatus result = MigrationStatus.get(initialValue);
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        return result;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String convertMigrationStatusToString(EDataType eDataType, Object instanceValue) {
         return instanceValue == null ? null : instanceValue.toString();
     }
 

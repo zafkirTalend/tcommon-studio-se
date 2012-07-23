@@ -743,6 +743,15 @@ public interface PropertiesFactory extends EFactory {
     ArtifactNotification createArtifactNotification();
 
     /**
+     * Returns a new object of class '<em>Migration Task</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Migration Task</em>'.
+     * @generated
+     */
+    MigrationTask createMigrationTask();
+
+    /**
      * Returns a new object of class '<em>Reference File Item</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

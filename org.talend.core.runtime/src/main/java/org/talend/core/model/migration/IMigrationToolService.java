@@ -12,9 +12,13 @@
 // ============================================================================
 package org.talend.core.model.migration;
 
+import java.util.List;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.core.IService;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.MigrationTask;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -32,6 +36,34 @@ public interface IMigrationToolService extends IService {
 
     public void executeMigration(boolean pluginModel);
 
-    public void executeProjectTasks(Project project, boolean beforeLogon, IProgressMonitor monitorWrap);
+    public void executeMigrationTasksForLogon(Project project, boolean beforeLogon, IProgressMonitor monitorWrap);
+
+    /**
+     * DOC ycbai Comment method "executeMigrationTasksForImport".
+     * 
+     * @param project
+     * @param item
+     * @param migrationTasksToApply
+     * @param monitor
+     * @throws Exception
+     */
+    public void executeMigrationTasksForImport(Project project, Item item, List<MigrationTask> migrationTasksToApply,
+            final IProgressMonitor monitor) throws Exception;
+
+    /**
+     * DOC ycbai Comment method "checkMigrationTasks".
+     * 
+     * @param project
+     * @return
+     */
+    public boolean checkMigrationTasks(org.talend.core.model.properties.Project project);
+
+    /**
+     * DOC ycbai Comment method "updateMigrationSystem".
+     * 
+     * @param project
+     * @param persistence
+     */
+    public void updateMigrationSystem(org.talend.core.model.properties.Project project, boolean persistence);
 
 }

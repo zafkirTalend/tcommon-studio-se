@@ -13,7 +13,7 @@
 package org.talend.core;
 
 import org.talend.core.model.properties.Item;
-import org.talend.migration.IProjectMigrationTask.ExecutionResult;
+import org.talend.migration.IMigrationTask.ExecutionResult;
 
 /**
  * DOC bZhou class global comment. Detailled comment

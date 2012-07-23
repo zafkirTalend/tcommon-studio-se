@@ -27,6 +27,12 @@
       <genEnumLiterals ecoreEnumLiteral="properties.ecore#//InformationLevel/WARN"/>
       <genEnumLiterals ecoreEnumLiteral="properties.ecore#//InformationLevel/ERROR"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="properties.ecore#//MigrationStatus">
+      <genEnumLiterals ecoreEnumLiteral="properties.ecore#//MigrationStatus/default"/>
+      <genEnumLiterals ecoreEnumLiteral="properties.ecore#//MigrationStatus/ok"/>
+      <genEnumLiterals ecoreEnumLiteral="properties.ecore#//MigrationStatus/failed"/>
+      <genEnumLiterals ecoreEnumLiteral="properties.ecore#//MigrationStatus/noimpact"/>
+    </genEnums>
     <genClasses ecoreClass="properties.ecore#//Project">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//Project/technicalStatus"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//Project/documentationStatus"/>
@@ -45,7 +51,6 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Project/allowedComponents"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Project/referencedProjects"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Project/availableRefProject"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Project/migrationTasks"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Project/masterJobId"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//Project/spagoBiServer"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Project/productVersion"/>
@@ -61,6 +66,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Project/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Project/itemsRelationVersion"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Project/exchangeUser"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Project/migrationTasks"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//Project/migrationTask"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//ProjectComponentAuthorisation">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ProjectComponentAuthorisation/project"/>
@@ -664,6 +671,12 @@
     <genClasses ecoreClass="properties.ecore#//AdditionalInfoMap">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//AdditionalInfoMap/key"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//AdditionalInfoMap/value"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//MigrationTask">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//MigrationTask/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//MigrationTask/breaks"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//MigrationTask/version"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//MigrationTask/status"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

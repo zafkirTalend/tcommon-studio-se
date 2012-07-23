@@ -84,6 +84,8 @@ public class GetTasksHelper {
                             currentAction.setId(configurationElement.getAttribute("id")); //$NON-NLS-1$
                             currentAction.setName(configurationElement.getAttribute("name")); //$NON-NLS-1$
                             currentAction.setDescription(configurationElement.getAttribute("description")); //$NON-NLS-1$
+                            currentAction.setVersion(configurationElement.getAttribute("version"));
+                            currentAction.setBreaks(configurationElement.getAttribute("breaks"));
                             return currentAction;
                         }
                     } catch (CoreException e) {
@@ -128,6 +130,8 @@ public class GetTasksHelper {
                         currentAction.setId(configurationElement.getAttribute("id")); //$NON-NLS-1$
                         currentAction.setName(configurationElement.getAttribute("name")); //$NON-NLS-1$
                         currentAction.setDescription(configurationElement.getAttribute("description")); //$NON-NLS-1$
+                        currentAction.setVersion(configurationElement.getAttribute("version"));
+                        currentAction.setBreaks(configurationElement.getAttribute("breaks"));
                         return currentAction;
                     }
                 } catch (CoreException e) {
@@ -163,6 +167,8 @@ public class GetTasksHelper {
                             .createExecutableExtension("class"); //$NON-NLS-1$
                     currentAction.setId(configurationElement.getAttribute("id")); //$NON-NLS-1$
                     currentAction.setName(configurationElement.getAttribute("name")); //$NON-NLS-1$
+                    currentAction.setVersion(configurationElement.getAttribute("version"));
+                    currentAction.setBreaks(configurationElement.getAttribute("breaks"));
                     return currentAction;
                 } catch (CoreException e) {
                     ExceptionHandler.process(e);

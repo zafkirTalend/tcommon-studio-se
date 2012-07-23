@@ -56,9 +56,11 @@
    <extension
          point="org.talend.core.migrationTask">
       <workspacetask
+            breaks="5.1.1"
             class="org.talend.core.prefs.InitConnectionsMigrationTask"
             id="org.talend.core.InitConnectionsMigrationTask"
-            name="Init connections preferences"/>
+            name="Init connections preferences"
+            version="5.1.2"/>
    </extension>
    <extension
          point="org.eclipse.ui.startup">

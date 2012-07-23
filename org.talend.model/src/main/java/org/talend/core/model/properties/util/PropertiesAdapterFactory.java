@@ -452,6 +452,9 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseAdditionalInfoMap(Map.Entry object) {
                 return createAdditionalInfoMapAdapter();
             }
+            public Object caseMigrationTask(MigrationTask object) {
+                return createMigrationTaskAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -1693,6 +1696,20 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createAdditionalInfoMapAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.MigrationTask <em>Migration Task</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.MigrationTask
+     * @generated
+     */
+    public Adapter createMigrationTaskAdapter() {
         return null;
     }
 

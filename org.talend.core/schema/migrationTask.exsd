@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.talend.core">
+<schema targetNamespace="org.talend.core" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
          <meta.schema plugin="org.talend.core" id="migrationTask" name="Migration tool atomic task"/>
@@ -11,6 +11,11 @@
    </annotation>
 
    <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
       <complexType>
          <sequence>
             <element ref="workspacetask" minOccurs="0" maxOccurs="unbounded"/>
@@ -72,6 +77,26 @@
                </appInfo>
             </annotation>
          </attribute>
+         <attribute name="version" type="string" use="required">
+            <annotation>
+               <documentation>
+                  This is the Talend version when this migration task was introduced.
+               </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="breaks" type="string">
+            <annotation>
+               <documentation>
+                  this is the version of the latest version of Studio that will not be able to load the data migrated with the current task. default value is considered : 5.1.9
+               </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 
@@ -119,6 +144,26 @@
                <documentation>
                   
                </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="version" type="string" use="required">
+            <annotation>
+               <documentation>
+                  This is the Talend version when this migration task was introduced.
+               </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="breaks" type="string">
+            <annotation>
+               <documentation>
+                  this is the version of the latest version of Studio that will not be able to load the data migrated with the current task. default value is considered : 5.1.9
+               </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
             </annotation>
          </attribute>
       </complexType>

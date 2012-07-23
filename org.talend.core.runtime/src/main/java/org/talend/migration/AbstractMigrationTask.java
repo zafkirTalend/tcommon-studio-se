@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.migration;
 
+import org.talend.migration.IMigrationTask.ExecutionResult;
+
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
@@ -25,6 +27,12 @@ public abstract class AbstractMigrationTask {
     private String name;
 
     private String description = ""; //$NON-NLS-1$
+
+    private String version;
+
+    private String breaks;
+
+    private ExecutionResult status;
 
     /**
      * DOC smallet AbstractMigrationTask constructor comment.
@@ -69,5 +77,33 @@ public abstract class AbstractMigrationTask {
         if (description != null) {
             this.description = description;
         }
+    }
+
+    public String getVersion() {
+        return this.version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public String getBreaks() {
+        return this.breaks;
+    }
+
+    public void setBreaks(String breaks) {
+        this.breaks = breaks;
+    }
+
+    public void setStatus(ExecutionResult status) {
+        this.status = status;
+    }
+
+    public ExecutionResult getStatus() {
+        return status;
+    }
+
+    public boolean isDeprecated() {
+        return false;
     }
 }

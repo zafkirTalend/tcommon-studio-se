@@ -36,8 +36,6 @@
         upperBound="-1" eType="#//ProjectReference" eOpposite="#//ProjectReference/project"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="availableRefProject" ordered="false"
         upperBound="-1" eType="#//ProjectReference" eOpposite="#//ProjectReference/referencedProject"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="migrationTasks" ordered="false"
-        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="masterJobId" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="spagoBiServer" ordered="false"
         upperBound="-1" eType="#//SpagoBiServer" containment="true"/>
@@ -62,6 +60,10 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" unique="false" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="itemsRelationVersion" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="exchangeUser" eType="#//ExchangeUser"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="migrationTasks" upperBound="-1"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="migrationTask" upperBound="-1"
+        eType="#//MigrationTask" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProjectComponentAuthorisation">
     <eStructuralFeatures xsi:type="ecore:EReference" name="project" lowerBound="1"
@@ -838,5 +840,20 @@
     <eAnnotations source="MapEntry"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MigrationTask">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="breaks" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="5.1.9"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" lowerBound="1"
+        eType="#//MigrationStatus" defaultValueLiteral="0"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="MigrationStatus">
+    <eLiterals name="default" literal="default"/>
+    <eLiterals name="ok" value="1"/>
+    <eLiterals name="failed" value="2"/>
+    <eLiterals name="noimpact" value="3"/>
   </eClassifiers>
 </ecore:EPackage>

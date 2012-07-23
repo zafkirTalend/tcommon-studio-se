@@ -217,21 +217,12 @@ public interface PropertiesPackage extends EPackage {
     int PROJECT__AVAILABLE_REF_PROJECT = 16;
 
     /**
-     * The feature id for the '<em><b>Migration Tasks</b></em>' attribute list.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int PROJECT__MIGRATION_TASKS = 17;
-
-    /**
      * The feature id for the '<em><b>Master Job Id</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PROJECT__MASTER_JOB_ID = 18;
+    int PROJECT__MASTER_JOB_ID = 17;
 
     /**
      * The feature id for the '<em><b>Spago Bi Server</b></em>' containment reference list.
@@ -240,7 +231,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__SPAGO_BI_SERVER = 19;
+    int PROJECT__SPAGO_BI_SERVER = 18;
 
     /**
      * The feature id for the '<em><b>Product Version</b></em>' attribute.
@@ -248,7 +239,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__PRODUCT_VERSION = 20;
+    int PROJECT__PRODUCT_VERSION = 19;
 
     /**
      * The feature id for the '<em><b>Components Settings</b></em>' containment reference list.
@@ -257,7 +248,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__COMPONENTS_SETTINGS = 21;
+    int PROJECT__COMPONENTS_SETTINGS = 20;
 
     /**
      * The feature id for the '<em><b>Url</b></em>' attribute.
@@ -265,7 +256,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__URL = 22;
+    int PROJECT__URL = 21;
 
     /**
      * The feature id for the '<em><b>Stat And Logs Settings</b></em>' containment reference.
@@ -274,7 +265,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__STAT_AND_LOGS_SETTINGS = 23;
+    int PROJECT__STAT_AND_LOGS_SETTINGS = 22;
 
     /**
      * The feature id for the '<em><b>Implicit Context Settings</b></em>' containment reference.
@@ -283,7 +274,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__IMPLICIT_CONTEXT_SETTINGS = 24;
+    int PROJECT__IMPLICIT_CONTEXT_SETTINGS = 23;
 
     /**
      * The feature id for the '<em><b>Hide Password</b></em>' attribute.
@@ -291,7 +282,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__HIDE_PASSWORD = 25;
+    int PROJECT__HIDE_PASSWORD = 24;
 
     /**
      * The feature id for the '<em><b>Items Relations</b></em>' containment reference list.
@@ -300,7 +291,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__ITEMS_RELATIONS = 26;
+    int PROJECT__ITEMS_RELATIONS = 25;
 
     /**
      * The feature id for the '<em><b>Reference</b></em>' attribute.
@@ -308,7 +299,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__REFERENCE = 27;
+    int PROJECT__REFERENCE = 26;
 
     /**
      * The feature id for the '<em><b>Custom Component Settings</b></em>' containment reference list.
@@ -317,7 +308,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__CUSTOM_COMPONENT_SETTINGS = 28;
+    int PROJECT__CUSTOM_COMPONENT_SETTINGS = 27;
 
     /**
      * The feature id for the '<em><b>Deleted Folders</b></em>' attribute list.
@@ -326,7 +317,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__DELETED_FOLDERS = 29;
+    int PROJECT__DELETED_FOLDERS = 28;
 
     /**
      * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -335,7 +326,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__TYPE = 30;
+    int PROJECT__TYPE = 29;
 
     /**
      * The feature id for the '<em><b>Items Relation Version</b></em>' attribute.
@@ -344,7 +335,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__ITEMS_RELATION_VERSION = 31;
+    int PROJECT__ITEMS_RELATION_VERSION = 30;
 
     /**
      * The feature id for the '<em><b>Exchange User</b></em>' reference.
@@ -353,7 +344,25 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__EXCHANGE_USER = 32;
+    int PROJECT__EXCHANGE_USER = 31;
+
+    /**
+     * The feature id for the '<em><b>Migration Tasks</b></em>' attribute list.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT__MIGRATION_TASKS = 32;
+
+    /**
+     * The feature id for the '<em><b>Migration Task</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT__MIGRATION_TASK = 33;
 
     /**
      * The number of structural features of the '<em>Project</em>' class.
@@ -361,7 +370,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT_FEATURE_COUNT = 33;
+    int PROJECT_FEATURE_COUNT = 34;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.PropertyImpl <em>Property</em>}' class.
@@ -8913,6 +8922,61 @@ public interface PropertiesPackage extends EPackage {
     int ADDITIONAL_INFO_MAP_FEATURE_COUNT = 2;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.MigrationTaskImpl <em>Migration Task</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.MigrationTaskImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getMigrationTask()
+     * @generated
+     */
+    int MIGRATION_TASK = 100;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MIGRATION_TASK__ID = 0;
+
+    /**
+     * The feature id for the '<em><b>Breaks</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MIGRATION_TASK__BREAKS = 1;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MIGRATION_TASK__VERSION = 2;
+
+    /**
+     * The feature id for the '<em><b>Status</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MIGRATION_TASK__STATUS = 3;
+
+    /**
+     * The number of structural features of the '<em>Migration Task</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MIGRATION_TASK_FEATURE_COUNT = 4;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -8920,7 +8984,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 100;
+    int FOLDER_TYPE = 101;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -8929,7 +8993,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 101;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 102;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserModuleAuthorizationType <em>User Module Authorization Type</em>}' enum.
@@ -8938,7 +9002,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 102;
+    int USER_MODULE_AUTHORIZATION_TYPE = 103;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.InformationLevel <em>Information Level</em>}' enum.
@@ -8947,7 +9011,17 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 103;
+    int INFORMATION_LEVEL = 104;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.MigrationStatus <em>Migration Status</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.MigrationStatus
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getMigrationStatus()
+     * @generated
+     */
+    int MIGRATION_STATUS = 105;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.Status <em>Status</em>}'. <!--
@@ -9121,6 +9195,17 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getProject_MigrationTasks();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.properties.Project#getMigrationTask <em>Migration Task</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Migration Task</em>'.
+     * @see org.talend.core.model.properties.Project#getMigrationTask()
+     * @see #getProject()
+     * @generated
+     */
+    EReference getProject_MigrationTask();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Project#getMasterJobId <em>Master Job Id</em>}'.
@@ -13833,6 +13918,60 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getAdditionalInfoMap_Value();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.MigrationTask <em>Migration Task</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Migration Task</em>'.
+     * @see org.talend.core.model.properties.MigrationTask
+     * @generated
+     */
+    EClass getMigrationTask();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.MigrationTask#getId <em>Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id</em>'.
+     * @see org.talend.core.model.properties.MigrationTask#getId()
+     * @see #getMigrationTask()
+     * @generated
+     */
+    EAttribute getMigrationTask_Id();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.MigrationTask#getBreaks <em>Breaks</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Breaks</em>'.
+     * @see org.talend.core.model.properties.MigrationTask#getBreaks()
+     * @see #getMigrationTask()
+     * @generated
+     */
+    EAttribute getMigrationTask_Breaks();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.MigrationTask#getVersion <em>Version</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Version</em>'.
+     * @see org.talend.core.model.properties.MigrationTask#getVersion()
+     * @see #getMigrationTask()
+     * @generated
+     */
+    EAttribute getMigrationTask_Version();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.MigrationTask#getStatus <em>Status</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Status</em>'.
+     * @see org.talend.core.model.properties.MigrationTask#getStatus()
+     * @see #getMigrationTask()
+     * @generated
+     */
+    EAttribute getMigrationTask_Status();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ReferenceFileItem <em>Reference File Item</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -14824,6 +14963,16 @@ public interface PropertiesPackage extends EPackage {
     EEnum getInformationLevel();
 
     /**
+     * Returns the meta object for enum '{@link org.talend.core.model.properties.MigrationStatus <em>Migration Status</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for enum '<em>Migration Status</em>'.
+     * @see org.talend.core.model.properties.MigrationStatus
+     * @generated
+     */
+    EEnum getMigrationStatus();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.UserRole <em>User Role</em>}'. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -15032,6 +15181,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute PROJECT__MIGRATION_TASKS = eINSTANCE.getProject_MigrationTasks();
+
+        /**
+         * The meta object literal for the '<em><b>Migration Task</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PROJECT__MIGRATION_TASK = eINSTANCE.getProject_MigrationTask();
 
         /**
          * The meta object literal for the '<em><b>Master Job Id</b></em>' attribute feature.
@@ -18769,6 +18926,48 @@ public interface PropertiesPackage extends EPackage {
         EAttribute ADDITIONAL_INFO_MAP__VALUE = eINSTANCE.getAdditionalInfoMap_Value();
 
         /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.MigrationTaskImpl <em>Migration Task</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.MigrationTaskImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getMigrationTask()
+         * @generated
+         */
+        EClass MIGRATION_TASK = eINSTANCE.getMigrationTask();
+
+        /**
+         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute MIGRATION_TASK__ID = eINSTANCE.getMigrationTask_Id();
+
+        /**
+         * The meta object literal for the '<em><b>Breaks</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute MIGRATION_TASK__BREAKS = eINSTANCE.getMigrationTask_Breaks();
+
+        /**
+         * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute MIGRATION_TASK__VERSION = eINSTANCE.getMigrationTask_Version();
+
+        /**
+         * The meta object literal for the '<em><b>Status</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute MIGRATION_TASK__STATUS = eINSTANCE.getMigrationTask_Status();
+
+        /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ReferenceFileItemImpl <em>Reference File Item</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -19522,6 +19721,16 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EEnum INFORMATION_LEVEL = eINSTANCE.getInformationLevel();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.MigrationStatus <em>Migration Status</em>}' enum.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.MigrationStatus
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getMigrationStatus()
+         * @generated
+         */
+        EEnum MIGRATION_STATUS = eINSTANCE.getMigrationStatus();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.UserRoleImpl <em>User Role</em>}' class.

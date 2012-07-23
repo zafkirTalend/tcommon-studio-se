@@ -27,6 +27,7 @@ import org.talend.core.model.properties.ExchangeUser;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.ImplicitContextSettings;
 import org.talend.core.model.properties.ItemRelations;
+import org.talend.core.model.properties.MigrationTask;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.ProjectComponentAuthorisation;
 import org.talend.core.model.properties.ProjectReference;
@@ -59,7 +60,6 @@ import org.talend.core.model.properties.UserProjectAuthorization;
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getAllowedComponents <em>Allowed Components</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getReferencedProjects <em>Referenced Projects</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getAvailableRefProject <em>Available Ref Project</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getMigrationTasks <em>Migration Tasks</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getMasterJobId <em>Master Job Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getSpagoBiServer <em>Spago Bi Server</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getProductVersion <em>Product Version</em>}</li>
@@ -75,6 +75,8 @@ import org.talend.core.model.properties.UserProjectAuthorization;
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getItemsRelationVersion <em>Items Relation Version</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getExchangeUser <em>Exchange User</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getMigrationTasks <em>Migration Tasks</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getMigrationTask <em>Migration Task</em>}</li>
  * </ul>
  * </p>
  *
@@ -340,16 +342,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected EList availableRefProject;
 
     /**
-     * The cached value of the '{@link #getMigrationTasks() <em>Migration Tasks</em>}' attribute list. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @see #getMigrationTasks()
-     * @generated
-     * @ordered
-     */
-    protected EList migrationTasks;
-
-    /**
      * The default value of the '{@link #getMasterJobId() <em>Master Job Id</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -570,6 +562,26 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected ExchangeUser exchangeUser;
 
     /**
+     * The cached value of the '{@link #getMigrationTasks() <em>Migration Tasks</em>}' attribute list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @see #getMigrationTasks()
+     * @generated
+     * @ordered
+     */
+    protected EList migrationTasks;
+
+    /**
+     * The cached value of the '{@link #getMigrationTask() <em>Migration Task</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMigrationTask()
+     * @generated
+     * @ordered
+     */
+    protected EList migrationTask;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -772,6 +784,18 @@ public class ProjectImpl extends EObjectImpl implements Project {
             migrationTasks = new EDataTypeUniqueEList(String.class, this, PropertiesPackage.PROJECT__MIGRATION_TASKS);
         }
         return migrationTasks;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EList getMigrationTask() {
+        if (migrationTask == null) {
+            migrationTask = new EObjectContainmentEList(MigrationTask.class, this, PropertiesPackage.PROJECT__MIGRATION_TASK);
+        }
+        return migrationTask;
     }
 
     /**
@@ -1259,6 +1283,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return ((InternalEList)getItemsRelations()).basicRemove(otherEnd, msgs);
             case PropertiesPackage.PROJECT__CUSTOM_COMPONENT_SETTINGS:
                 return ((InternalEList)getCustomComponentSettings()).basicRemove(otherEnd, msgs);
+            case PropertiesPackage.PROJECT__MIGRATION_TASK:
+                return ((InternalEList)getMigrationTask()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -1305,8 +1331,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return getReferencedProjects();
             case PropertiesPackage.PROJECT__AVAILABLE_REF_PROJECT:
                 return getAvailableRefProject();
-            case PropertiesPackage.PROJECT__MIGRATION_TASKS:
-                return getMigrationTasks();
             case PropertiesPackage.PROJECT__MASTER_JOB_ID:
                 return getMasterJobId();
             case PropertiesPackage.PROJECT__SPAGO_BI_SERVER:
@@ -1338,6 +1362,10 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__EXCHANGE_USER:
                 if (resolve) return getExchangeUser();
                 return basicGetExchangeUser();
+            case PropertiesPackage.PROJECT__MIGRATION_TASKS:
+                return getMigrationTasks();
+            case PropertiesPackage.PROJECT__MIGRATION_TASK:
+                return getMigrationTask();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1408,10 +1436,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 getAvailableRefProject().clear();
                 getAvailableRefProject().addAll((Collection)newValue);
                 return;
-            case PropertiesPackage.PROJECT__MIGRATION_TASKS:
-                getMigrationTasks().clear();
-                getMigrationTasks().addAll((Collection)newValue);
-                return;
             case PropertiesPackage.PROJECT__MASTER_JOB_ID:
                 setMasterJobId((String)newValue);
                 return;
@@ -1461,6 +1485,14 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return;
             case PropertiesPackage.PROJECT__EXCHANGE_USER:
                 setExchangeUser((ExchangeUser)newValue);
+                return;
+            case PropertiesPackage.PROJECT__MIGRATION_TASKS:
+                getMigrationTasks().clear();
+                getMigrationTasks().addAll((Collection)newValue);
+                return;
+            case PropertiesPackage.PROJECT__MIGRATION_TASK:
+                getMigrationTask().clear();
+                getMigrationTask().addAll((Collection)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -1524,9 +1556,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__AVAILABLE_REF_PROJECT:
                 getAvailableRefProject().clear();
                 return;
-            case PropertiesPackage.PROJECT__MIGRATION_TASKS:
-                getMigrationTasks().clear();
-                return;
             case PropertiesPackage.PROJECT__MASTER_JOB_ID:
                 setMasterJobId(MASTER_JOB_ID_EDEFAULT);
                 return;
@@ -1571,6 +1600,12 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return;
             case PropertiesPackage.PROJECT__EXCHANGE_USER:
                 setExchangeUser((ExchangeUser)null);
+                return;
+            case PropertiesPackage.PROJECT__MIGRATION_TASKS:
+                getMigrationTasks().clear();
+                return;
+            case PropertiesPackage.PROJECT__MIGRATION_TASK:
+                getMigrationTask().clear();
                 return;
         }
         super.eUnset(featureID);
@@ -1617,8 +1652,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return referencedProjects != null && !referencedProjects.isEmpty();
             case PropertiesPackage.PROJECT__AVAILABLE_REF_PROJECT:
                 return availableRefProject != null && !availableRefProject.isEmpty();
-            case PropertiesPackage.PROJECT__MIGRATION_TASKS:
-                return migrationTasks != null && !migrationTasks.isEmpty();
             case PropertiesPackage.PROJECT__MASTER_JOB_ID:
                 return MASTER_JOB_ID_EDEFAULT == null ? masterJobId != null : !MASTER_JOB_ID_EDEFAULT.equals(masterJobId);
             case PropertiesPackage.PROJECT__SPAGO_BI_SERVER:
@@ -1649,6 +1682,10 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return ITEMS_RELATION_VERSION_EDEFAULT == null ? itemsRelationVersion != null : !ITEMS_RELATION_VERSION_EDEFAULT.equals(itemsRelationVersion);
             case PropertiesPackage.PROJECT__EXCHANGE_USER:
                 return exchangeUser != null;
+            case PropertiesPackage.PROJECT__MIGRATION_TASKS:
+                return migrationTasks != null && !migrationTasks.isEmpty();
+            case PropertiesPackage.PROJECT__MIGRATION_TASK:
+                return migrationTask != null && !migrationTask.isEmpty();
         }
         return super.eIsSet(featureID);
     }
@@ -1680,8 +1717,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
         result.append(deleteDate);
         result.append(", creationDate: ");
         result.append(creationDate);
-        result.append(", migrationTasks: ");
-        result.append(migrationTasks);
         result.append(", masterJobId: ");
         result.append(masterJobId);
         result.append(", productVersion: ");
@@ -1698,6 +1733,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
         result.append(type);
         result.append(", itemsRelationVersion: ");
         result.append(itemsRelationVersion);
+        result.append(", migrationTasks: ");
+        result.append(migrationTasks);
         result.append(')');
         return result.toString();
     }
