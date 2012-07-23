@@ -3,9 +3,13 @@
  */
 package org.talend.core.model.metadata.builder.database;
 
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.fail;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -16,19 +20,30 @@ import java.util.List;
 
 import junit.framework.Assert;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.rule.PowerMockRule;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.commons.utils.database.SASDataBaseMetadata;
 import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.database.utils.ManagementTextUtils;
+import org.talend.core.model.metadata.IMetadataConnection;
+import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 
 /**
  * @author zshen
  * 
  */
+@PrepareForTest({ ConvertionHelper.class })
 public class ExtractMetaDataUtilsTest {
+
+    @Rule
+    public PowerMockRule powerMockRule = new PowerMockRule();
 
     /**
      * Test method for
@@ -769,5 +784,61 @@ public class ExtractMetaDataUtilsTest {
         //
         Assert.assertEquals(ExtractMetaDataUtils.getDbTypeByClassNameAndDriverJar("sun.jdbc.odbc.JdbcOdbcDriver",
                 "mysql-connector-java-5.1.3-bin.jar"), EDatabaseTypeName.ACCESS.getXmlName());
+    }
+
+    @Test
+    public void testGetMeataConnectionSchema4EmptyURL() {
+        IMetadataConnection metadataConnection = mock(IMetadataConnection.class);
+        when(metadataConnection.getSchema()).thenReturn("schemaTest");
+        when(metadataConnection.getDbType()).thenReturn(EDatabaseConnTemplate.GENERAL_JDBC.getDBDisplayName());
+        when(metadataConnection.getUrl()).thenReturn("");
+        Assert.assertEquals(ExtractMetaDataUtils.getMeataConnectionSchema(metadataConnection), "schemaTest");
+        // verify
+        verify(metadataConnection).getSchema();
+        verify(metadataConnection).getDbType();
+        verify(metadataConnection).getUrl();
+    }
+
+    @Test
+    public void testGetMeataConnectionSchema4URL1() {
+        IMetadataConnection metadataConnection = mock(IMetadataConnection.class);
+        when(metadataConnection.getSchema()).thenReturn("schemaTest");
+        when(metadataConnection.getUsername()).thenReturn("userNameTest");
+        when(metadataConnection.getDbType()).thenReturn(EDatabaseConnTemplate.GENERAL_JDBC.getDBDisplayName());
+        when(metadataConnection.getUrl()).thenReturn(EDatabaseConnTemplate.ORACLEFORSID.getUrlTemplate(null));
+        Assert.assertEquals(ExtractMetaDataUtils.getMeataConnectionSchema(metadataConnection), metadataConnection.getUsername()
+                .toUpperCase());
+        // verify
+        verify(metadataConnection).getSchema();
+        verify(metadataConnection).getDbType();
+        verify(metadataConnection).getUrl();
+        verify(metadataConnection, times(2)).getUsername();
+    }
+
+    @Test
+    public void testGetMeataConnectionSchema4Null() {
+        IMetadataConnection metadataConnection = mock(IMetadataConnection.class);
+        when(metadataConnection.getSchema()).thenReturn(null);
+        when(metadataConnection.getUsername()).thenReturn(null);
+        when(metadataConnection.getDbType()).thenReturn(null);
+        when(metadataConnection.getUrl()).thenReturn(null);
+        Assert.assertNull(ExtractMetaDataUtils.getMeataConnectionSchema(metadataConnection));
+        // verify
+        verify(metadataConnection).getSchema();
+        verify(metadataConnection).getDbType();
+        verify(metadataConnection).getUrl();
+    }
+
+    @Test
+    public void testGetDBConnectionSchema() {
+        DatabaseConnection conn = mock(DatabaseConnection.class);
+        IMetadataConnection metadataConnection = mock(IMetadataConnection.class);
+        when(metadataConnection.getSchema()).thenReturn("schemaTest");
+        // powermock
+        PowerMockito.mockStatic(ConvertionHelper.class);
+        when(ConvertionHelper.convert(conn, true)).thenReturn(metadataConnection);
+        Assert.assertEquals(ExtractMetaDataUtils.getDBConnectionSchema(conn), metadataConnection.getSchema());
+        // verify
+        verify(metadataConnection, times(2)).getSchema();
     }
 }
