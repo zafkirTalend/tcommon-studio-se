@@ -340,13 +340,23 @@ public class MigrationToolService implements IMigrationToolService {
         ProductVersion topTaskVersion = new ProductVersion(0, 0, 0);
         ProductVersion topTaskBreaks = new ProductVersion(0, 0, 0);
         for (MigrationTask task : migrationTasks) {
-            ProductVersion taskVersion = ProductVersion.fromString(task.getVersion());
-            if (taskVersion.compareTo(topTaskVersion) > 0) {
-                topTaskVersion = taskVersion;
+            String version = task.getVersion();
+            if (version == null) {
+                log.warn(Messages.getString("MigrationToolService.taskVersionIsNull", task.getId())); //$NON-NLS-1$
+            } else {
+                ProductVersion taskVersion = ProductVersion.fromString(version);
+                if (taskVersion.compareTo(topTaskVersion) > 0) {
+                    topTaskVersion = taskVersion;
+                }
             }
-            ProductVersion taskBreaks = ProductVersion.fromString(task.getBreaks());
-            if (taskBreaks.compareTo(topTaskBreaks) > 0) {
-                topTaskBreaks = taskBreaks;
+            String breaks = task.getBreaks();
+            if (breaks == null) {
+                log.warn(Messages.getString("MigrationToolService.taskBreaksIsNull", task.getId())); //$NON-NLS-1$
+            } else {
+                ProductVersion taskBreaks = ProductVersion.fromString(breaks);
+                if (taskBreaks.compareTo(topTaskBreaks) > 0) {
+                    topTaskBreaks = taskBreaks;
+                }
             }
         }
         ProductVersion productVersion = ProductVersion.fromString(VersionUtils.getTalendVersion());
