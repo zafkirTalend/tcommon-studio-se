@@ -34,6 +34,7 @@ import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
@@ -116,7 +117,7 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
 
     private ATreeNode treeNode;
 
-    private boolean creation;
+    private final boolean creation;
 
     private boolean valid = true;
 
@@ -150,7 +151,7 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
                 initFileContent();
                 xmlXsdPath = tempXmlXsdPath;
             }
-            if (XmlUtil.isXSDFile(xmlXsdPath)) {
+            if (XmlUtil.isXSDFile(xmlXsdPath) || xmlXsdPath.endsWith(".zip")) {
                 try {
                     XSDSchema xsdSchema = TreeUtil.getXSDSchema(xmlXsdPath);
                     List<ATreeNode> rootNodes = new XSDPopulationUtil2().getAllRootNodes(xsdSchema);
@@ -537,6 +538,7 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
     protected void addUtilsButtonListeners() {
         noFileButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 xmlXsdFilePath.setEditable(false);
                 xmlXsdFilePath.setText("");
@@ -555,6 +557,7 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
         });
         useFileButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 xmlXsdFilePath.setEditable(true);
                 String text = xmlXsdFilePath.getText();
@@ -699,6 +702,8 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
             fileName = StringUtil.TMP_XML_FILE;
         } else if (xmlXsdPath != null && XmlUtil.isXSDFile(xmlXsdPath)) {
             fileName = StringUtil.TMP_XSD_FILE;
+        } else if (xmlXsdPath.contains(".zip")) {
+            fileName = new Path(xmlXsdPath).lastSegment();
         }
         File temfile = new File(temPath + File.separator + fileName);
         if (!temfile.exists()) {

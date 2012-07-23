@@ -18,9 +18,14 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.xerces.xs.XSModel;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -34,14 +39,17 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.commons.xml.XmlUtil;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.MappingTypeRetriever;
 import org.talend.core.model.metadata.MetadataTalendType;
+import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.ui.metadata.dialog.RootNodeSelectDialog;
 import org.talend.datatools.xml.utils.ATreeNode;
 import org.talend.datatools.xml.utils.OdaException;
 import org.talend.datatools.xml.utils.SchemaPopulationUtil;
 import org.talend.datatools.xml.utils.XSDPopulationUtil;
 import org.talend.datatools.xml.utils.XSDPopulationUtil2;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.Attribute;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.Element;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
@@ -490,7 +498,90 @@ public class TreeUtil {
             return list;
         }
         try {
-            if (XmlUtil.isXSDFile(filePath)) {
+            if (filePath.endsWith(".zip")) {
+                // unzip the file than add all treenode from unzip file
+                Project project = ProjectManager.getInstance().getCurrentProject();
+                IProject fsProject = null;
+                try {
+                    fsProject = ResourceModelUtils.getProject(project);
+                } catch (PersistenceException e2) {
+                    ExceptionHandler.process(e2);
+                }
+                IPath path = new Path(fsProject.getLocationURI().getPath());
+                path = path.append("temp").append("unzip_" + new Path(filePath).lastSegment());
+                String unzipPath = path.toPortableString();
+                File zip = new File(filePath);
+                if (zip.exists()) {
+                    try {
+                        FilesUtils.unzip(zip.getAbsolutePath(), unzipPath);
+                    } catch (Exception e) {
+                        ExceptionHandler.process(e);
+                    }
+                }
+                File unzipFile = new File(unzipPath);
+                List<ATreeNode> allTreeNodes = new ArrayList<ATreeNode>();
+                XSDSchema xsModel = null;
+                Map<XSDSchema, List<ATreeNode>> schemaTreeNodeMap = new HashMap<XSDSchema, List<ATreeNode>>();
+                if (unzipFile.exists() && unzipFile.isDirectory()) {
+                    File[] tempXSDFiles = unzipFile.listFiles();
+                    for (File tempXSDFile : tempXSDFiles) {
+                        XSDPopulationUtil2 popUtil = new XSDPopulationUtil2();
+                        for (File tempXSDFile1 : tempXSDFiles) {
+                            popUtil.addSchema(tempXSDFile1.getAbsolutePath());
+                        }
+                        XSDSchema tempXSD = popUtil.getXSDSchema(tempXSDFile.getAbsolutePath());
+                        List<ATreeNode> tempTreeNodes = new XSDPopulationUtil2().getAllRootNodes(tempXSD);
+                        schemaTreeNodeMap.put(tempXSD, tempTreeNodes);
+                        allTreeNodes.addAll(tempTreeNodes);
+                    }
+                }
+                ATreeNode selectedTreeNode = null;
+                if (allTreeNodes != null && !allTreeNodes.isEmpty()) {
+                    if (allTreeNodes.size() > 1) {
+                        String[] split = absoluteXPathQuery.split("/");
+                        if (split.length > 1) {
+                            boolean found = false;
+                            for (int i = 0; i < allTreeNodes.size(); i++) {
+                                if (split[1] != null && split[1].equals(allTreeNodes.get(i).getValue())) {
+                                    selectedTreeNode = allTreeNodes.get(i);
+                                    found = true;
+                                    Set set = schemaTreeNodeMap.keySet();
+                                    Iterator it = set.iterator();
+                                    while (it.hasNext()) {
+                                        XSDSchema tempSchema = (XSDSchema) it.next();
+                                        List<ATreeNode> tempTreeNodes = schemaTreeNodeMap.get(tempSchema);
+                                        if (tempTreeNodes.contains(selectedTreeNode)) {
+                                            xsModel = tempSchema;
+                                        }
+                                    }
+                                    break;
+                                }
+                            }
+                            if (!found) {
+                                for (int i = 0; i < allTreeNodes.size(); i++) {
+                                    ATreeNode node = allTreeNodes.get(i);
+                                    String[] nodeValue = ((String) node.getValue()).split(":");
+                                    if (nodeValue.length > 1) {
+                                        if (split[1].equals(nodeValue[1])) {
+                                            List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
+                                            selectedTreeNode = allTreeNodes.get(i);
+                                            found = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        if (selectedTreeNode == null) {
+                            selectedTreeNode = allTreeNodes.get(0);
+                        }
+                    } else {
+                        selectedTreeNode = allTreeNodes.get(0);
+                    }
+                    list = getFoxTreeNodesByRootNode(xsModel, selectedTreeNode, false, true, true);
+                }
+            } else if (XmlUtil.isXSDFile(filePath)) {
                 XSDSchema xsModel = getXSDSchema(filePath);
                 List<ATreeNode> allTreeNodes = new XSDPopulationUtil2().getAllRootNodes(xsModel);
                 ATreeNode selectedTreeNode = null;
@@ -778,13 +869,43 @@ public class TreeUtil {
     public static XSDSchema getXSDSchema(String fileName) {
         XSDSchema schema = null;
         try {
-            String newFilePath;
-            try {
-                newFilePath = CopyDeleteFileUtilForWizard.copyToTemp(fileName);
-            } catch (PersistenceException e1) {
-                newFilePath = fileName;
+            if (fileName.endsWith(".zip")) {
+                Project project = ProjectManager.getInstance().getCurrentProject();
+                IProject fsProject = null;
+                try {
+                    fsProject = ResourceModelUtils.getProject(project);
+                } catch (PersistenceException e2) {
+                    ExceptionHandler.process(e2);
+                }
+                IPath path = new Path(fsProject.getLocationURI().getPath());
+                path = path.append("temp").append("unzip_" + new Path(fileName).lastSegment());
+                String unzipPath = path.toPortableString();
+                File zip = new File(fileName);
+                if (zip.exists()) {
+                    try {
+                        FilesUtils.unzip(zip.getAbsolutePath(), unzipPath);
+                    } catch (Exception e) {
+                        ExceptionHandler.process(e);
+                    }
+                }
+                File unzipFile = new File(unzipPath);
+                XSDPopulationUtil2 popUtil = new XSDPopulationUtil2();
+                if (unzipFile.exists() && unzipFile.isDirectory()) {
+                    File[] tempXSDFiles = unzipFile.listFiles();
+                    for (File tempXSDFile : tempXSDFiles) {
+                        popUtil.addSchema(tempXSDFile.getAbsolutePath());
+                    }
+                    schema = popUtil.getXSDSchema(tempXSDFiles[0].getAbsolutePath());
+                }
+            } else {
+                String newFilePath;
+                try {
+                    newFilePath = CopyDeleteFileUtilForWizard.copyToTemp(fileName);
+                } catch (PersistenceException e1) {
+                    newFilePath = fileName;
+                }
+                schema = new XSDPopulationUtil2().getXSDSchema(newFilePath);
             }
-            schema = new XSDPopulationUtil2().getXSDSchema(newFilePath);
         } catch (Exception e) {
             ExceptionHandler.process(e);
         }
