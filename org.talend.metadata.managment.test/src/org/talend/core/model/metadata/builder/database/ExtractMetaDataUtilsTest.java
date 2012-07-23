@@ -736,4 +736,38 @@ public class ExtractMetaDataUtilsTest {
         Assert.assertFalse(is);
 
     }
+
+    @Test
+    public void testGetDriverClassByDbType() {
+        // null
+        Assert.assertNull(ExtractMetaDataUtils.getDriverClassByDbType(null));
+        // mysql
+        Assert.assertEquals(ExtractMetaDataUtils.getDriverClassByDbType(EDatabaseTypeName.MYSQL.getXmlName()),
+                "org.gjt.mm.mysql.Driver");
+        // oracle
+        Assert.assertEquals(ExtractMetaDataUtils.getDriverClassByDbType(EDatabaseTypeName.ORACLEFORSID.getXmlName()),
+                "oracle.jdbc.OracleDriver");
+        // ibm db2
+        Assert.assertEquals(ExtractMetaDataUtils.getDriverClassByDbType(EDatabaseTypeName.IBMDB2.getXmlName()),
+                "com.ibm.db2.jcc.DB2Driver");
+    }
+
+    @Test
+    public void testGetDbTypeByClassNameAndDriverJar() {
+        // null
+        Assert.assertNull(ExtractMetaDataUtils.getDbTypeByClassNameAndDriverJar(null, null));
+        // mysql and DriverJar null
+        Assert.assertEquals(ExtractMetaDataUtils.getDbTypeByClassNameAndDriverJar("org.gjt.mm.mysql.Driver", null),
+                EDatabaseTypeName.MYSQL.getXmlName());
+        // for some dbs use the same driverClassName. will got the first one
+        Assert.assertEquals(ExtractMetaDataUtils.getDbTypeByClassNameAndDriverJar("org.postgresql.Driver", null),
+                EDatabaseTypeName.GREENPLUM.getXmlName());
+        // postgresql
+        Assert.assertEquals(
+                ExtractMetaDataUtils.getDbTypeByClassNameAndDriverJar("org.postgresql.Driver", "postgresql-8.3-603.jdbc4.jar"),
+                EDatabaseTypeName.PSQL.getXmlName());
+        //
+        Assert.assertEquals(ExtractMetaDataUtils.getDbTypeByClassNameAndDriverJar("sun.jdbc.odbc.JdbcOdbcDriver",
+                "mysql-connector-java-5.1.3-bin.jar"), EDatabaseTypeName.ACCESS.getXmlName());
+    }
 }
