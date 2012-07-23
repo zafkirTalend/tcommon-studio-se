@@ -26,6 +26,7 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.MigrationTask;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.SpagoBiServer;
 import org.talend.core.model.properties.Status;
@@ -227,7 +228,7 @@ public interface IRepositoryFactory {
 
     void setSpagoBiServer(List<SpagoBiServer> list) throws PersistenceException;
 
-    void setMigrationTasksDone(Project project, List<String> list) throws PersistenceException;
+    void setMigrationTasksDone(Project project, List<MigrationTask> list) throws PersistenceException;
 
     public String isServerValid() throws BusinessException;
 

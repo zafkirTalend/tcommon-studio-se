@@ -85,6 +85,7 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobDocumentationItem;
 import org.talend.core.model.properties.JobletDocumentationItem;
 import org.talend.core.model.properties.JobletProcessItem;
+import org.talend.core.model.properties.MigrationTask;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
@@ -259,6 +260,23 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     /* hywang for 17295,need to migration refProjects when login using svn repository */
     private void executeMigrations(Project mainProject, boolean beforeLogon, SubMonitor monitorWrap) {
         this.repositoryFactoryFromProvider.executeMigrations(mainProject, beforeLogon, monitorWrap);
+    }
+
+    /**
+     * DOC ycbai Comment method "checkProjectCompatibility".
+     * 
+     * @param project
+     * @throws LoginException
+     */
+    private void checkProjectCompatibility(Project project) throws LoginException {
+        IMigrationToolService migrationToolService = (IMigrationToolService) GlobalServiceRegister.getDefault().getService(
+                IMigrationToolService.class);
+        // update migration system.
+        migrationToolService.updateMigrationSystem(project.getEmfProject(), false);
+        boolean isProjectCompatibility = migrationToolService.checkMigrationTasks(project.getEmfProject());
+        if (!isProjectCompatibility) {
+            throw new LoginException(Messages.getString("ProxyRepositoryFactory.projectIsNotCompatible", project.getLabel())); //$NON-NLS-1$
+        }
     }
 
     private boolean checkFileNameAndPath(Project project, Item item, String pattern, IPath path, boolean folder,
@@ -1182,7 +1200,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     }
 
     @Override
-    public void setMigrationTasksDone(Project project, List<String> list) throws PersistenceException {
+    public void setMigrationTasksDone(Project project, List<MigrationTask> list) throws PersistenceException {
         this.repositoryFactoryFromProvider.setMigrationTasksDone(project, list);
     }
 
@@ -1703,6 +1721,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.logonInProgress"), 1); //$NON-NLS-1$
                 LanguageManager.reset();
                 getRepositoryContext().setProject(project);
+
+                // Check project compatibility
+                checkProjectCompatibility(project);
 
                 currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
                 currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.initializeProjectConnection"), 1); //$NON-NLS-1$
