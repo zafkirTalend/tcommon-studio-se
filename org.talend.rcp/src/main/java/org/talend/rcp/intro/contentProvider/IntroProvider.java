@@ -12,37 +12,56 @@
 // ============================================================================
 package org.talend.rcp.intro.contentProvider;
 
+import org.eclipse.ui.IPerspectiveDescriptor;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.intro.config.IIntroXHTMLContentProvider;
+import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.ui.branding.IBrandingConfiguration;
+import org.w3c.dom.Element;
 
 /**
  * DOC wchen class global comment. Detailled comment
  */
 public abstract class IntroProvider implements IIntroXHTMLContentProvider {
 
+    protected String branding = System.getProperty("talend.license.branding");
+
     protected boolean isItemShow(String type) {
-        String branding = System.getProperty("talend.license.branding");
         if ("ANALYSIS".equals(type)) {
-            if (!"TIS_EE".equals(branding) && !"TIS_EE_MPX".equals(branding) && !"TIS_PE".equals(branding)
-                    && !"TIS_PE_RTX".equals(branding) && !"TIS_TE".equals(branding) && !"ESB_BPM".equals(branding)
-                    && !"DS_EE_MPX".equals(branding) && !"DS_EE".equals(branding) && !"DS_PE".equals(branding)
-                    && !"DS_TE".equals(branding) && !"BPM_EE_MPX".equals(branding) && !"BPM_EE".equals(branding)
-                    && !"BPM_PE".equals(branding) && !"BPM_TE".equals(branding)) {
+            IPerspectiveDescriptor pd = PlatformUI.getWorkbench().getPerspectiveRegistry()
+                    .findPerspectiveWithId(IBrandingConfiguration.PERSPECTIVE_DQ_ID);
+            if (pd != null) {
                 return true;
             } else {
                 return false;
             }
-        } else if ("SERVICES".equals(type) || "ROUTE".equals(type)) {
-            if ("ESB_BPM".equals(branding) || "DS_EE_MPX".equals(branding) || "DS_EE".equals(branding)
-                    || "DS_PE".equals(branding) || "DS_TE".equals(branding) || "CLOUD_EE_MPX".equals(branding)
-                    || "CLOUD_EE".equals(branding) || "CLOUD_PE".equals(branding) || "CLOUD_TE".equals(branding)
-                    || "BPM_EE_MPX".equals(branding) || "BPM_EE".equals(branding) || "BPM_PE".equals(branding)
-                    || "BPM_TE".equals(branding) || "DS_BD_DQ".equals(branding) || "DS_TE_DQ".equals(branding)
-                    || "DS_PE_DQ".equals(branding) || "DS_CE_DQ".equals(branding) || "ESB_EE".equals(branding)) {
+        } else if ("SERVICES".equals(type) || "ROUTES".equals(type)) {
+            if (ERepositoryObjectType.valueOf(ERepositoryObjectType.class, type) != null) {
                 return true;
             } else {
                 return false;
             }
         }
         return false;
+    }
+
+    protected void setTDStyle(Element td) {
+        String defaultBranding = System.getProperty("talend.branding.type");
+        String color = null;
+        if ("DI".equals(defaultBranding)) {
+            color = "#c9282d";
+        } else if ("DQ".equals(defaultBranding)) {
+            color = "#ffa11b";
+        } else if ("MDM".equals(defaultBranding)) {
+            color = "#00a8e1";
+        }
+        if (color == null) {
+            // other brandings use the gloable css
+            td.setAttribute("class", "separator");
+        } else {
+            String style = "border-left: 2px solid " + color + ";padding-left:5px;margin-left:15px;";
+            td.setAttribute("style", style);
+        }
+
     }
 }

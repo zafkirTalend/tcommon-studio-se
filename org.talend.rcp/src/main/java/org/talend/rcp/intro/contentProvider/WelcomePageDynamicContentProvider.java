@@ -12,12 +12,12 @@
 // ============================================================================
 package org.talend.rcp.intro.contentProvider;
 
-import java.io.File;
 import java.io.PrintWriter;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.intro.config.IIntroContentProviderSite;
+import org.eclipse.ui.intro.config.IIntroXHTMLContentProvider;
 import org.talend.rcp.i18n.Messages;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -25,7 +25,7 @@ import org.w3c.dom.Element;
 /**
  * DOC hcyi class global comment. Detailled comment
  */
-public class WelcomePageDynamicContentProvider extends IntroProvider {
+public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProvider {
 
     private static final String BROWSER_URL = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.rcp&class=org.talend.rcp.intro.OpenWebBrowserAction&type="; //$NON-NLS-1$
 
@@ -37,49 +37,352 @@ public class WelcomePageDynamicContentProvider extends IntroProvider {
     public void createContent(String id, Element parent) {
         Document dom = parent.getOwnerDocument();
         String content = dom.getBaseURI();
-        // baseUri like :file:///D:/Talend_trunk_gtk/org.talend.rcp.branding.generic/content/root.xhtml
         if (content != null && !"".equals(content)) {
-            File file = new File(content);
-            int index = content.indexOf(file.getName());
-            content = content.substring(0, index);
+            content = content.substring(0, content.length() - 10);
         }
-        if ("CREATE_NEW_ITEM".equals(id)) {
-            createTitlePart(dom, parent, Messages.getString("WelcomePageDynamicContentProvider.CreateNewTitle"));
-            // create job
-            String text = Messages.getString("WelcomePageDynamicContentProvider.LatestItemsJob.Title");
-            String url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.designer.core&class=org.talend.designer.core.ui.action.CreateProcess&id=org.talend.designer.core.actions.createprocess&type=PROCESS";
-            String title = "Create a data integration process";
-            createANewItem(dom, parent, content + "imgs/img_process.jpg", text, title, url);
+        if ("ITEMSJOB".equals(id)) {
+            Element span = dom.createElement("span");
+            span.setAttribute("class", "style_1 style_2 style_3");
+            span.appendChild(dom.createTextNode(Messages.getString("WelcomePageDynamicContentProvider.LatestItems.Title")));
+            parent.appendChild(span);
+            parent.appendChild(dom.createElement("br"));
+            Element img = dom.createElement("img");
+            img.setAttribute("style", "padding-top:10px;margin-left:15px;");
+            img.setAttribute("src", content + "imgs/img_process.jpg");
+            Element span2 = dom.createElement("span");
+            span2.setAttribute("class", "style_3");
+            span2.appendChild(dom.createTextNode(" "
+                    + Messages.getString("WelcomePageDynamicContentProvider.LatestItemsJob.Title")));
+            parent.appendChild(img);
+            parent.appendChild(span2);
+        } else if ("ITEMSBUSINESSMODEL".equals(id)) {
+            Element img = dom.createElement("img");
+            img.setAttribute("style", "padding-top:15px;margin-left:15px;");
+            img.setAttribute("src", content + "imgs/img_businessProcess.jpg");
+            Element span = dom.createElement("span");
+            span.setAttribute("class", "style_3");
+            span.appendChild(dom.createTextNode(" "
+                    + Messages.getString("WelcomePageDynamicContentProvider.LatestItemsBusinessModel.Title")));
+            parent.appendChild(img);
+            parent.appendChild(span);
 
-            // create business
-            text = Messages.getString("WelcomePageDynamicContentProvider.CreateNewBusinessModelTitle");
-            url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.designer.business.diagram&class=org.talend.designer.business.diagram.custom.actions.CreateDiagramAction&id=org.talend.designer.business.diagram.custom.actions.CreateDiagramAction&type=BUSINESS_PROCESS";
-            title = "Create a business model";
-            createANewItem(dom, parent, content + "imgs/img_businessProcess.jpg", text, title, url);
+        } else if ("ITEMSANALYSIS".equals(id)) {
+            Element img = dom.createElement("img");
+            img.setAttribute("style", "padding-top:10px;margin-left:15px;");
+            img.setAttribute("src", content + "imgs/chart_bar.png");
+            Element span = dom.createElement("span");
+            span.setAttribute("class", "style_3");
+            span.appendChild(dom.createTextNode(" "
+                    + Messages.getString("WelcomePageDynamicContentProvider.LatestItemsAnalysis.Title")));
+            parent.appendChild(img);
+            parent.appendChild(span);
+        } else if ("ITEMSSERVICESPORT".equals(id)) {
+            Element img = dom.createElement("img");
+            img.setAttribute("style", "padding-top:10px;margin-left:15px;");
+            img.setAttribute("src", content + "imgs/img_service.png");
+            Element span = dom.createElement("span");
+            span.setAttribute("class", "style_3");
+            span.appendChild(dom.createTextNode(" "
+                    + Messages.getString("WelcomePageDynamicContentProvider.LatestItemsServices.Title")));
+            parent.appendChild(img);
+            parent.appendChild(span);
+        } else if ("ITEMSROUTE".equals(id)) {
+            Element img = dom.createElement("img");
+            img.setAttribute("style", "padding-top:15px;margin-left:15px;");
+            img.setAttribute("src", content + "imgs/img_route.png");
+            Element span = dom.createElement("span");
+            span.setAttribute("class", "style_3");
+            span.appendChild(dom.createTextNode(" "
+                    + Messages.getString("WelcomePageDynamicContentProvider.LatestItemsRoutes.Title")));
+            parent.appendChild(img);
+            parent.appendChild(span);
+        } else if ("CREATENEWTITLE".equals(id)) {
+            Element span = dom.createElement("span");
+            span.setAttribute("class", "style_1 style_2 style_3");
+            span.appendChild(dom.createTextNode(Messages.getString("WelcomePageDynamicContentProvider.CreateNewTitle")));
+            parent.appendChild(span);
+            parent.appendChild(dom.createElement("br"));
+            Element imgJob = dom.createElement("img");
+            imgJob.setAttribute("style", "padding-top:10px;margin-left:15px;");
+            imgJob.setAttribute("src", content + "imgs/img_process.jpg");
+            parent.appendChild(imgJob);
+            Element hyperlinkJob = dom.createElement("a");
+            hyperlinkJob.setAttribute("class", "xh");
+            hyperlinkJob.setAttribute("title", "Create a data integration process");
+            hyperlinkJob
+                    .setAttribute(
+                            "href",
+                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.designer.core&class=org.talend.designer.core.ui.action.CreateProcess&id=org.talend.designer.core.actions.createprocess&type=PROCESS");
+            Element span2 = dom.createElement("span");
+            span2.setAttribute("class", "style_3");
+            span2.appendChild(dom.createTextNode(" " + Messages.getString("WelcomePageDynamicContentProvider.CreateNewJobTitle")));
+            hyperlinkJob.appendChild(span2);
+            parent.appendChild(hyperlinkJob);
+            //
+            parent.appendChild(dom.createElement("br"));
+            Element imgBusiness = dom.createElement("img");
+            imgBusiness.setAttribute("style", "padding-top:15px;margin-left:15px;");
+            imgBusiness.setAttribute("src", content + "imgs/img_businessProcess.jpg");
+            parent.appendChild(imgBusiness);
+            Element hyperlinkBusiness = dom.createElement("a");
+            hyperlinkBusiness.setAttribute("class", "xh");
+            hyperlinkBusiness.setAttribute("title", "Create a business model");
+            hyperlinkBusiness
+                    .setAttribute(
+                            "href",
+                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.designer.business.diagram&class=org.talend.designer.business.diagram.custom.actions.CreateDiagramAction&id=org.talend.designer.business.diagram.Action1&type=BUSINESS_PROCESS");
+            Element spanBusiness = dom.createElement("span");
+            spanBusiness.setAttribute("class", "style_3");
+            spanBusiness.appendChild(dom.createTextNode(" "
+                    + Messages.getString("WelcomePageDynamicContentProvider.CreateNewBusinessModelTitle")));
+            hyperlinkBusiness.appendChild(spanBusiness);
+            parent.appendChild(hyperlinkBusiness);
 
-            // create analysis
-            if (isItemShow("ANALYSIS")) {
-                text = Messages.getString("WelcomePageDynamicContentProvider.CreateNewAnalysisTitle");
-                url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.dataprofiler.core&class=org.talend.dataprofiler.core.ui.action.actions.CreateNewAnalysisAction&id=org.talend.dataprofiler.core.ui.action.actions.CreateNewAnalysisAction&type=ANALYSIS";
-                title = "Create an analysis";
-                createANewItem(dom, parent, content + "imgs/chart_bar.png", text, title, url);
-            }
+        } else if ("CREATENEWWITHDQTITLE".equals(id)) {
+            Element span = dom.createElement("span");
+            span.setAttribute("class", "style_1 style_2 style_3");
+            span.appendChild(dom.createTextNode(Messages.getString("WelcomePageDynamicContentProvider.CreateNewTitle")));
+            parent.appendChild(span);
+            parent.appendChild(dom.createElement("br"));
+            Element imgJob = dom.createElement("img");
+            imgJob.setAttribute("style", "padding-top:10px;margin-left:15px;");
+            imgJob.setAttribute("src", content + "imgs/img_process.jpg");
+            parent.appendChild(imgJob);
+            Element hyperlinkJob = dom.createElement("a");
+            hyperlinkJob.setAttribute("class", "xh");
+            hyperlinkJob.setAttribute("title", "Create a data integration process");
+            hyperlinkJob
+                    .setAttribute(
+                            "href",
+                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.designer.core&class=org.talend.designer.core.ui.action.CreateProcess&id=org.talend.designer.core.actions.createprocess&type=PROCESS");
+            Element span2 = dom.createElement("span");
+            span2.setAttribute("class", "style_3");
+            span2.appendChild(dom.createTextNode(" " + Messages.getString("WelcomePageDynamicContentProvider.CreateNewJobTitle")));
+            hyperlinkJob.appendChild(span2);
+            parent.appendChild(hyperlinkJob);
+            //
+            parent.appendChild(dom.createElement("br"));
+            Element imgBusiness = dom.createElement("img");
+            imgBusiness.setAttribute("style", "padding-top:15px;margin-left:15px;");
+            imgBusiness.setAttribute("src", content + "imgs/img_businessProcess.jpg");
+            parent.appendChild(imgBusiness);
+            Element hyperlinkBusiness = dom.createElement("a");
+            hyperlinkBusiness.setAttribute("class", "xh");
+            hyperlinkBusiness.setAttribute("title", "Create a business model");
+            hyperlinkBusiness
+                    .setAttribute(
+                            "href",
+                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.designer.business.diagram&class=org.talend.designer.business.diagram.custom.actions.CreateDiagramAction&id=org.talend.designer.business.diagram.Action1&type=BUSINESS_PROCESS");
+            Element spanBusiness = dom.createElement("span");
+            spanBusiness.setAttribute("class", "style_3");
+            spanBusiness.appendChild(dom.createTextNode(" "
+                    + Messages.getString("WelcomePageDynamicContentProvider.CreateNewBusinessModelTitle")));
+            hyperlinkBusiness.appendChild(spanBusiness);
+            parent.appendChild(hyperlinkBusiness);
 
-            // create service
-            if (isItemShow("SERVICES")) {
-                text = Messages.getString("WelcomePageDynamicContentProvider.CreateNewServiceTitle");
-                url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.repository.services&class=org.talend.repository.services.action.CreateESBAction&id=org.talend.repository.services.action.CreateESBAction&type=SERVICES";
-                title = "Create a service";
-                createANewItem(dom, parent, content + "imgs/img_service.png", text, title, url);
-            }
+            //
+            parent.appendChild(dom.createElement("br"));
+            Element imgBarChart = dom.createElement("img");
+            imgBarChart.setAttribute("style", "padding-top:15px;margin-left:15px;");
+            imgBarChart.setAttribute("src", content + "imgs/chart_bar.png");
+            parent.appendChild(imgBarChart);
+            Element hyperlinkBarChart = dom.createElement("a");
+            hyperlinkBarChart.setAttribute("class", "xh");
+            hyperlinkBarChart.setAttribute("title", "Create an analysis");
+            hyperlinkBarChart
+                    .setAttribute(
+                            "href",
+                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.dataprofiler.core&class=org.talend.dataprofiler.core.ui.action.actions.CreateNewAnalysisAction&id=org.talend.dataprofiler.core.ui.action.actions.CreateNewAnalysisAction&type=ANALYSIS");
+            Element spanBarChart = dom.createElement("span");
+            spanBarChart.setAttribute("class", "style_3");
+            spanBarChart.appendChild(dom.createTextNode(" "
+                    + Messages.getString("WelcomePageDynamicContentProvider.CreateNewAnalysisTitle")));
+            hyperlinkBarChart.appendChild(spanBarChart);
+            parent.appendChild(hyperlinkBarChart);
 
-            // create route
-            if (isItemShow("ROUTE")) {
-                text = Messages.getString("WelcomePageDynamicContentProvider.CreateNewRouteTitle");
-                url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.camel.designer&class=org.talend.camel.designer.ui.CreateCamelProcess&id=org.talend.camel.designer.ui.CreateCamelProcess&type=ROUTES";
-                title = "Create a route";
-                createANewItem(dom, parent, content + "imgs/img_route.png", text, title, url);
-            }
+        } else if ("CREATENEWWITHESBTITLE".equals(id)) {
+            Element span = dom.createElement("span");
+            span.setAttribute("class", "style_1 style_2 style_3");
+            span.appendChild(dom.createTextNode(Messages.getString("WelcomePageDynamicContentProvider.CreateNewTitle")));
+            parent.appendChild(span);
+            parent.appendChild(dom.createElement("br"));
+            Element imgJob = dom.createElement("img");
+            imgJob.setAttribute("style", "padding-top:10px;margin-left:15px;");
+            imgJob.setAttribute("src", content + "imgs/img_process.jpg");
+            parent.appendChild(imgJob);
+            Element hyperlinkJob = dom.createElement("a");
+            hyperlinkJob.setAttribute("class", "xh");
+            hyperlinkJob.setAttribute("title", "Create a data integration process");
+            hyperlinkJob
+                    .setAttribute(
+                            "href",
+                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.designer.core&class=org.talend.designer.core.ui.action.CreateProcess&id=org.talend.designer.core.actions.createprocess&type=PROCESS");
+            Element span2 = dom.createElement("span");
+            span2.setAttribute("class", "style_3");
+            span2.appendChild(dom.createTextNode(" " + Messages.getString("WelcomePageDynamicContentProvider.CreateNewJobTitle")));
+            hyperlinkJob.appendChild(span2);
+            parent.appendChild(hyperlinkJob);
+            //
+            parent.appendChild(dom.createElement("br"));
+            Element imgBusiness = dom.createElement("img");
+            imgBusiness.setAttribute("style", "padding-top:15px;margin-left:15px;");
+            imgBusiness.setAttribute("src", content + "imgs/img_businessProcess.jpg");
+            parent.appendChild(imgBusiness);
+            Element hyperlinkBusiness = dom.createElement("a");
+            hyperlinkBusiness.setAttribute("class", "xh");
+            hyperlinkBusiness.setAttribute("title", "Create a business model");
+            hyperlinkBusiness
+                    .setAttribute(
+                            "href",
+                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.designer.business.diagram&class=org.talend.designer.business.diagram.custom.actions.CreateDiagramAction&id=org.talend.designer.business.diagram.Action1&type=BUSINESS_PROCESS");
+            Element spanBusiness = dom.createElement("span");
+            spanBusiness.setAttribute("class", "style_3");
+            spanBusiness.appendChild(dom.createTextNode(" "
+                    + Messages.getString("WelcomePageDynamicContentProvider.CreateNewBusinessModelTitle")));
+            hyperlinkBusiness.appendChild(spanBusiness);
+            parent.appendChild(hyperlinkBusiness);
+
+            //
+            parent.appendChild(dom.createElement("br"));
+            Element imgService = dom.createElement("img");
+            imgService.setAttribute("style", "padding-top:15px;margin-left:15px;");
+            imgService.setAttribute("src", content + "imgs/img_service.png");
+            parent.appendChild(imgService);
+            Element hyperlinkService = dom.createElement("a");
+            hyperlinkService.setAttribute("class", "xh");
+            hyperlinkService.setAttribute("title", "Create a service");
+            hyperlinkService
+                    .setAttribute(
+                            "href",
+                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.repository.services&class=org.talend.repository.services.action.CreateESBAction&id=org.talend.repository.services.action.CreateESBAction&type=SERVICES");
+            Element spanService = dom.createElement("span");
+            spanService.setAttribute("class", "style_3");
+            spanService.appendChild(dom.createTextNode(" "
+                    + Messages.getString("WelcomePageDynamicContentProvider.CreateNewServiceTitle")));
+            hyperlinkService.appendChild(spanService);
+            parent.appendChild(hyperlinkService);
+
+            //
+            parent.appendChild(dom.createElement("br"));
+            Element imgRoute = dom.createElement("img");
+            imgRoute.setAttribute("style", "padding-top:15px;margin-left:15px;");
+            imgRoute.setAttribute("src", content + "imgs/img_route.png");
+            parent.appendChild(imgRoute);
+            Element hyperlinkRoute = dom.createElement("a");
+            hyperlinkRoute.setAttribute("class", "xh");
+            hyperlinkRoute.setAttribute("title", "Create a service");
+            hyperlinkRoute
+                    .setAttribute(
+                            "href",
+                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.camel.designer&class=org.talend.camel.designer.ui.CreateCamelProcess&id=org.talend.camel.designer.ui.CreateCamelProcess&type=ROUTES");
+            Element spanRoute = dom.createElement("span");
+            spanRoute.setAttribute("class", "style_3");
+            spanRoute.appendChild(dom.createTextNode(" "
+                    + Messages.getString("WelcomePageDynamicContentProvider.CreateNewRouteTitle")));
+            hyperlinkRoute.appendChild(spanRoute);
+            parent.appendChild(hyperlinkRoute);
+
+        } else if ("CREATENEWWITHDQESBTITLE".equals(id)) {
+            Element span = dom.createElement("span");
+            span.setAttribute("class", "style_1 style_2 style_3");
+            span.appendChild(dom.createTextNode(Messages.getString("WelcomePageDynamicContentProvider.CreateNewTitle")));
+            parent.appendChild(span);
+            parent.appendChild(dom.createElement("br"));
+            Element imgJob = dom.createElement("img");
+            imgJob.setAttribute("style", "padding-top:10px;margin-left:15px;");
+            imgJob.setAttribute("src", content + "imgs/img_process.jpg");
+            parent.appendChild(imgJob);
+            Element hyperlinkJob = dom.createElement("a");
+            hyperlinkJob.setAttribute("class", "xh");
+            hyperlinkJob.setAttribute("title", "Create a data integration process");
+            hyperlinkJob
+                    .setAttribute(
+                            "href",
+                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.designer.core&class=org.talend.designer.core.ui.action.CreateProcess&id=org.talend.designer.core.actions.createprocess&type=PROCESS");
+            Element span2 = dom.createElement("span");
+            span2.setAttribute("class", "style_3");
+            span2.appendChild(dom.createTextNode(" " + Messages.getString("WelcomePageDynamicContentProvider.CreateNewJobTitle")));
+            hyperlinkJob.appendChild(span2);
+            parent.appendChild(hyperlinkJob);
+            //
+            parent.appendChild(dom.createElement("br"));
+            Element imgBusiness = dom.createElement("img");
+            imgBusiness.setAttribute("style", "padding-top:15px;margin-left:15px;");
+            imgBusiness.setAttribute("src", content + "imgs/img_businessProcess.jpg");
+            parent.appendChild(imgBusiness);
+            Element hyperlinkBusiness = dom.createElement("a");
+            hyperlinkBusiness.setAttribute("class", "xh");
+            hyperlinkBusiness.setAttribute("title", "Create a business model");
+            hyperlinkBusiness
+                    .setAttribute(
+                            "href",
+                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.designer.business.diagram&class=org.talend.designer.business.diagram.custom.actions.CreateDiagramAction&id=org.talend.designer.business.diagram.custom.actions.CreateDiagramAction&type=BUSINESS_PROCESS");
+            Element spanBusiness = dom.createElement("span");
+            spanBusiness.setAttribute("class", "style_3");
+            spanBusiness.appendChild(dom.createTextNode(" "
+                    + Messages.getString("WelcomePageDynamicContentProvider.CreateNewBusinessModelTitle")));
+            hyperlinkBusiness.appendChild(spanBusiness);
+            parent.appendChild(hyperlinkBusiness);
+
+            //
+            parent.appendChild(dom.createElement("br"));
+            Element imgBarChart = dom.createElement("img");
+            imgBarChart.setAttribute("style", "padding-top:15px;margin-left:15px;");
+            imgBarChart.setAttribute("src", content + "imgs/chart_bar.png");
+            parent.appendChild(imgBarChart);
+            Element hyperlinkBarChart = dom.createElement("a");
+            hyperlinkBarChart.setAttribute("class", "xh");
+            hyperlinkBarChart.setAttribute("title", "Create an analysis");
+            hyperlinkBarChart
+                    .setAttribute(
+                            "href",
+                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.dataprofiler.core&class=org.talend.dataprofiler.core.ui.action.actions.CreateNewAnalysisAction&id=org.talend.dataprofiler.core.ui.action.actions.CreateNewAnalysisAction&type=ANALYSIS");
+            Element spanBarChart = dom.createElement("span");
+            spanBarChart.setAttribute("class", "style_3");
+            spanBarChart.appendChild(dom.createTextNode(" "
+                    + Messages.getString("WelcomePageDynamicContentProvider.CreateNewAnalysisTitle")));
+            hyperlinkBarChart.appendChild(spanBarChart);
+            parent.appendChild(hyperlinkBarChart);
+
+            //
+            parent.appendChild(dom.createElement("br"));
+            Element imgService = dom.createElement("img");
+            imgService.setAttribute("style", "padding-top:15px;margin-left:15px;");
+            imgService.setAttribute("src", content + "imgs/img_service.png");
+            parent.appendChild(imgService);
+            Element hyperlinkService = dom.createElement("a");
+            hyperlinkService.setAttribute("class", "xh");
+            hyperlinkService.setAttribute("title", "Create a service");
+            hyperlinkService
+                    .setAttribute(
+                            "href",
+                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.repository.services&class=org.talend.repository.services.action.CreateESBAction&id=org.talend.repository.services.action.CreateESBAction&type=SERVICES");
+            Element spanService = dom.createElement("span");
+            spanService.setAttribute("class", "style_3");
+            spanService.appendChild(dom.createTextNode(" "
+                    + Messages.getString("WelcomePageDynamicContentProvider.CreateNewServiceTitle")));
+            hyperlinkService.appendChild(spanService);
+            parent.appendChild(hyperlinkService);
+
+            //
+            parent.appendChild(dom.createElement("br"));
+            Element imgRoute = dom.createElement("img");
+            imgRoute.setAttribute("style", "padding-top:15px;margin-left:15px;");
+            imgRoute.setAttribute("src", content + "imgs/img_route.png");
+            parent.appendChild(imgRoute);
+            Element hyperlinkRoute = dom.createElement("a");
+            hyperlinkRoute.setAttribute("class", "xh");
+            hyperlinkRoute.setAttribute("title", "Create a service");
+            hyperlinkRoute
+                    .setAttribute(
+                            "href",
+                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.camel.designer&class=org.talend.camel.designer.ui.CreateCamelProcess&id=org.talend.camel.designer.ui.CreateCamelProcess&type=ROUTES");
+            Element spanRoute = dom.createElement("span");
+            spanRoute.setAttribute("class", "style_3");
+            spanRoute.appendChild(dom.createTextNode(" "
+                    + Messages.getString("WelcomePageDynamicContentProvider.CreateNewRouteTitle")));
+            hyperlinkRoute.appendChild(spanRoute);
+            parent.appendChild(hyperlinkRoute);
 
         } else if ("DOCUMENTATIONTITLE".equals(id)) {
             Element pDoc = dom.createElement("p");
@@ -140,31 +443,6 @@ public class WelcomePageDynamicContentProvider extends IntroProvider {
             blockquoteGS.appendChild(blockquotePGS);
             parent.appendChild(blockquoteGS);
         }
-    }
-
-    private void createTitlePart(Document dom, Element parent, String title) {
-        Element span = dom.createElement("span");
-        span.setAttribute("class", "style_1 style_2 style_3");
-        span.appendChild(dom.createTextNode(title));
-        parent.appendChild(span);
-    }
-
-    private void createANewItem(Document dom, Element parent, String imgPath, String text, String title, String url) {
-        parent.appendChild(dom.createElement("br"));
-        Element imgJob = dom.createElement("img");
-        imgJob.setAttribute("style", "padding-top:10px;margin-left:15px;");
-        imgJob.setAttribute("src", imgPath);
-        parent.appendChild(imgJob);
-        Element hyperlinkJob = dom.createElement("a");
-        hyperlinkJob.setAttribute("class", "xh");
-        hyperlinkJob.setAttribute("title", title);
-        hyperlinkJob.setAttribute("href", url);
-        Element span2 = dom.createElement("span");
-        span2.setAttribute("class", "style_3");
-        span2.appendChild(dom.createTextNode(text));
-        hyperlinkJob.appendChild(span2);
-        parent.appendChild(hyperlinkJob);
-
     }
 
     /*

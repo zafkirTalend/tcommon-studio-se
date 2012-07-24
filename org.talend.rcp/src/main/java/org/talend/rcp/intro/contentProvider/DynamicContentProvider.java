@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.rcp.intro.contentProvider;
 
-import java.io.File;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -47,7 +46,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * wchen class global comment. Detailled comment
+ * DOC WCHEN keep this class for old branding system before feature TDI-18168
  */
 public class DynamicContentProvider extends IntroProvider {
 
@@ -55,49 +54,17 @@ public class DynamicContentProvider extends IntroProvider {
 
     private static final String LEVEL_SEPARATOR = "."; //$NON-NLS-1$
 
-    private IIntroContentProviderSite site;
-
     /*
      * (non-Javadoc)
      * 
      * @see org.eclipse.ui.intro.config.IIntroXHTMLContentProvider#createContent(java.lang.String, org.w3c.dom.Element)
      */
     public void createContent(String id, Element parent) {
-        String dBranding = "default";
-        String branding = System.getProperty("talend.license.branding");
-        if (branding == null || "".equals(branding)) {
-            branding = dBranding;
-        }
-        Document dom = parent.getOwnerDocument();
-
-        String imgBrandingPath = "";
-        String imgCommonPath = "";
-
-        String content = dom.getBaseURI();
-        // baseUri like :file:///D:/Talend_trunk_gtk/org.talend.rcp.branding.generic/content/root.xhtml
-        if (content != null && !"".equals(content)) {
-            File file = new File(content);
-            int index = content.indexOf(file.getName());
-            imgBrandingPath = content.substring(0, index) + "../brandings/" + branding;
-            imgCommonPath = content.substring(0, index);
-        }
-
-        // latest Items
+        // content for latest modified jobs and business models
         List<IRepositoryViewObject> latestItems = new ArrayList<IRepositoryViewObject>();
+        Document dom = parent.getOwnerDocument();
         String url = "";
-        if ("TOP_IMAGE".equals(id)) {
-            Element img = dom.createElement("img");
-            img.setAttribute("src", imgBrandingPath + "/icons/welcome_logo.png");
-            parent.appendChild(img);
-        } else if (ERepositoryObjectType.PROCESS.name().equals(id)) {
-            Element span = dom.createElement("span");
-            span.setAttribute("class", "style_1 style_2 style_3");
-            span.appendChild(dom.createTextNode(Messages.getString("WelcomePageDynamicContentProvider.LatestItems.Title")));
-            parent.appendChild(span);
-            span.appendChild(dom.createElement("br"));
-            String title = Messages.getString("WelcomePageDynamicContentProvider.LatestItemsJob.Title");
-            createLatestItemTitlePart(dom, parent, imgCommonPath + "imgs/img_process.jpg", title);
-
+        if (ERepositoryObjectType.PROCESS.name().equals(id)) {
             latestItems = getLatestModifiedItems(ERepositoryObjectType.PROCESS, 8);
             url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.designer.core&"
                     + "class=org.talend.designer.core.ui.action.EditProcess&"
@@ -105,29 +72,7 @@ public class DynamicContentProvider extends IntroProvider {
             if (latestItems.size() == 0) {
                 parent.appendChild(dom.createElement("br"));
             }
-        } else if (ERepositoryObjectType.BUSINESS_PROCESS.name().equals(id)) {
-            String title = Messages.getString("WelcomePageDynamicContentProvider.LatestItemsBusinessModel.Title");
-            createLatestItemTitlePart(dom, parent, imgCommonPath + "imgs/img_businessProcess.jpg", title);
-            latestItems = getLatestModifiedItems(ERepositoryObjectType.BUSINESS_PROCESS, 8);
-            url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.designer.business.diagram&"
-                    + "class=org.talend.designer.business.diagram.custom.actions.OpenDiagramAction&"
-                    + "id=org.talend.designer.business.diagram.Action2&nodeId=";
-            if (latestItems.size() == 0) {
-                parent.appendChild(dom.createElement("br"));
-            }
-        } else if ("ANALYSIS".equals(id) && isItemShow("ANALYSIS")) {
-            String title = Messages.getString("WelcomePageDynamicContentProvider.LatestItemsAnalysis.Title");
-            createLatestItemTitlePart(dom, parent, imgCommonPath + "imgs/chart_bar.png", title);
-            latestItems = getLatestModifiedItems(ERepositoryObjectType.TDQ_ANALYSIS_ELEMENT, 8);
-            url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.dataprofiler.core&"
-                    + "class=org.talend.dataprofiler.core.ui.action.actions.OpenItemEditorAction&"
-                    + "id=org.talend.dataprofiler.core.ui.action.actions.OpenItemEditorAction&nodeId=";
-            if (latestItems.size() == 0) {
-                parent.appendChild(dom.createElement("br"));
-            }
-        } else if ("SERVICES".equals(id) && isItemShow("SERVICES")) {
-            String title = Messages.getString("WelcomePageDynamicContentProvider.LatestItemsServices.Title");
-            createLatestItemTitlePart(dom, parent, imgCommonPath + "imgs/img_service.png", title);
+        } else if (ERepositoryObjectType.SERVICESPORT.name().equals(id)) {
             latestItems = getLatestModifiedItems(ERepositoryObjectType.SERVICESPORT, 8);
             url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.repository.services&"
                     + "class=org.talend.repository.services.action.OpenWSDLEditorAction&"
@@ -135,9 +80,7 @@ public class DynamicContentProvider extends IntroProvider {
             if (latestItems.size() == 0) {
                 parent.appendChild(dom.createElement("br"));
             }
-        } else if ("ROUTE".equals(id) && isItemShow("ROUTE")) {
-            String title = Messages.getString("WelcomePageDynamicContentProvider.LatestItemsRoutes.Title");
-            createLatestItemTitlePart(dom, parent, imgCommonPath + "imgs/img_route.png", title);
+        } else if ("ROUTE".equals(id)) {
             ERepositoryObjectType repositoryRoutesType = (ERepositoryObjectType) ERepositoryObjectType.valueOf(
                     ERepositoryObjectType.class, "ROUTES");
             latestItems = getLatestModifiedItems(repositoryRoutesType, 8);
@@ -147,41 +90,58 @@ public class DynamicContentProvider extends IntroProvider {
             if (latestItems.size() == 0) {
                 parent.appendChild(dom.createElement("br"));
             }
-        } else if ("ALWAYS_WELCOME".equals(id)) {
-            // content for always welcome check box
-            IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
-            boolean showIntroConfig = store.getBoolean(ITalendCorePrefConstants.ALWAYS_WELCOME);
-            url = "location.href='http://org.eclipse.ui.intro/runAction?pluginId=org.talend.rcp&"
-                    + "class=org.talend.rcp.intro.AlwaysWelcomeAction'";
-            Element input = dom.createElement("input");
-            input.setAttribute("type", "checkbox");
-            if (!showIntroConfig) {
-                input.setAttribute("checked", "checked");
+        } else if (ERepositoryObjectType.BUSINESS_PROCESS.name().equals(id)) {
+            latestItems = getLatestModifiedItems(ERepositoryObjectType.BUSINESS_PROCESS, 8);
+            url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.designer.business.diagram&"
+                    + "class=org.talend.designer.business.diagram.custom.actions.OpenDiagramAction&"
+                    + "id=org.talend.designer.business.diagram.Action2&nodeId=";
+            if (latestItems.size() == 0) {
+                parent.appendChild(dom.createElement("br"));
             }
-            input.setAttribute("onclick", url);
-
-            input.appendChild(dom.createTextNode(Messages.getString("DynamicContentProvider.isDisplayTitle")));
-            parent.appendChild(input);
+        } else if ("ANALYSIS".equals(id)) {
+            latestItems = getLatestModifiedItems(ERepositoryObjectType.TDQ_ANALYSIS_ELEMENT, 8);
+            url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.dataprofiler.core&"
+                    + "class=org.talend.dataprofiler.core.ui.action.actions.OpenItemEditorAction&"
+                    + "id=org.talend.dataprofiler.core.ui.action.actions.OpenItemEditorAction&nodeId=";
+            if (latestItems.size() == 0) {
+                parent.appendChild(dom.createElement("br"));
+            }
+        } else if ("ALWAYS_WELCOME".equals(id)) {
+            creatAlwaysWelcome(dom, parent);
         } else if ("CUSTOMER_PAGE".equals(id)) {
             createOnlinePage(dom, parent);
         }
 
-        for (int i = 0; i < latestItems.size(); i++) {
-            IRepositoryViewObject object = latestItems.get(i);
+        for (IRepositoryViewObject object : latestItems) {
             Element hyperlink = dom.createElement("a");
-            hyperlink.setAttribute("class", "xh");
             hyperlink.setAttribute("href", url + object.getId());
             hyperlink.setAttribute("title", "Modified at " + object.getModificationDate() + " by " + object.getAuthor() + "\n"
                     + "Created at " + object.getCreationDate() + " by " + object.getAuthor());
             hyperlink.appendChild(dom.createTextNode(object.getLabel() + " " + object.getVersion()));
             parent.appendChild(hyperlink);
-            if (i != latestItems.size() - 1) {
-                parent.appendChild(dom.createElement("br"));
-            }
+            parent.appendChild(dom.createElement("br"));
         }
+
     }
 
-    private String getOnlinePageURL() {
+    protected void creatAlwaysWelcome(Document dom, Element parent) {
+        // content for always welcome check box
+        IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+        boolean showIntroConfig = store.getBoolean(ITalendCorePrefConstants.ALWAYS_WELCOME);
+        String url = "location.href='http://org.eclipse.ui.intro/runAction?pluginId=org.talend.rcp&"
+                + "class=org.talend.rcp.intro.AlwaysWelcomeAction'";
+        Element input = dom.createElement("input");
+        input.setAttribute("type", "checkbox");
+        if (!showIntroConfig) {
+            input.setAttribute("checked", "checked");
+        }
+        input.setAttribute("onclick", url);
+
+        input.appendChild(dom.createTextNode(Messages.getString("DynamicContentProvider.isDisplayTitle")));
+        parent.appendChild(input);
+    }
+
+    protected String getOnlinePageURL() {
         StringBuffer url = new StringBuffer();
         url.append(ONLINE_PAGE_URL);
         // edition
@@ -219,7 +179,7 @@ public class DynamicContentProvider extends IntroProvider {
         return url.toString();
     }
 
-    private void createOnlinePage(Document dom, Element parent) {
+    protected void createOnlinePage(Document dom, Element parent) {
         HttpURLConnection urlConnection = null;
         try {
             URL url = new URL(getOnlinePageURL());
@@ -241,7 +201,7 @@ public class DynamicContentProvider extends IntroProvider {
         // online content
 
         Element tdElem = dom.createElement("td");
-        tdElem.setAttribute("class", "separator");
+        setTDAttribute(tdElem);
         parent.appendChild(tdElem);
 
         Element div = dom.createElement("div");
@@ -263,22 +223,11 @@ public class DynamicContentProvider extends IntroProvider {
         div.appendChild(iFrame);
     }
 
-    private void createLatestItemTitlePart(Document dom, Element parent, String imgPath, String title) {
-        Element img = dom.createElement("img");
-        img.setAttribute("style", "padding-top:10px;margin-left:15px;");
-        img.setAttribute("src", imgPath);
-        Element span2 = dom.createElement("span");
-        span2.setAttribute("class", "style_3");
-        span2.appendChild(dom.createTextNode(title));
-        parent.appendChild(img);
-        parent.appendChild(span2);
-        parent.appendChild(dom.createElement("br"));
-        Element blockquote = dom.createElement("blockquote");
-        blockquote.setAttribute("style", "margin-left:30px;");
-        parent.appendChild(blockquote);
+    protected void setTDAttribute(Element tdElem) {
+        tdElem.setAttribute("class", "separator");
     }
 
-    private List<IRepositoryViewObject> getLatestModifiedItems(ERepositoryObjectType type, int count) {
+    protected List<IRepositoryViewObject> getLatestModifiedItems(ERepositoryObjectType type, int count) {
         List<IRepositoryViewObject> latestItems = new ArrayList<IRepositoryViewObject>();
         try {
             Project currentProject = ProjectManager.getInstance().getCurrentProject();
@@ -383,7 +332,6 @@ public class DynamicContentProvider extends IntroProvider {
      * org.eclipse.ui.intro.config.IIntroContentProvider#init(org.eclipse.ui.intro.config.IIntroContentProviderSite)
      */
     public void init(IIntroContentProviderSite site) {
-        this.site = site;
     }
 
 }
