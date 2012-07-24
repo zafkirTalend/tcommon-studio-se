@@ -13,6 +13,8 @@
 package org.talend.core.model.metadata.builder.database.manager.dbs;
 
 import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.talend.core.database.EDatabaseTypeName;
 
 /**
@@ -33,7 +35,8 @@ public class IBMDB2ExtractManagerTest extends AbstractTest4ExtractManager {
      * @see IBMDB2ExtractManager.getSchema(IMetadataConnection)
      */
     @Override
-    // @Test
+    @Test
+    @Ignore
     public void testGetSchema() {
         PTODO();
     }
@@ -45,7 +48,8 @@ public class IBMDB2ExtractManagerTest extends AbstractTest4ExtractManager {
      * @throws Exception
      */
     @Override
-    // @Test
+    @Test
+    @Ignore
     public void testGetTableNameBySynonyms() throws Exception {
         PTODO();
     }

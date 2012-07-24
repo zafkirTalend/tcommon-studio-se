@@ -13,6 +13,8 @@
 package org.talend.core.model.metadata.builder.database.manager.dbs;
 
 import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.talend.core.database.EDatabaseTypeName;
 
 /**
@@ -40,7 +42,8 @@ public class OracleExtractManagerTest extends AbstractTest4ExtractManager {
     }
 
     @Override
-    // @Test
+    @Test
+    @Ignore
     public void testExtractTablesFromDB() throws Exception {
         // super.testExtractTablesFromDB();
         // there is NPE for OracleExtractManager.getTablesToFilter line 74
@@ -55,7 +58,8 @@ public class OracleExtractManagerTest extends AbstractTest4ExtractManager {
      * @throws Exception
      */
     @Override
-    // @Test
+    @Test
+    @Ignore
     public void testGetTableNameBySynonyms() throws Exception {
         PTODO();
     }

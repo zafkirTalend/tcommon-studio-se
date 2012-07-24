@@ -20,6 +20,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.talend.core.database.EDatabaseTypeName;
 
 /**
@@ -40,7 +42,8 @@ public class AS400ExtractManagerTest extends AbstractTest4ExtractManager {
      * @see AS400ExtractManager.getSchema(IMetadataConnection)
      */
     @Override
-    // @Test
+    @Test
+    @Ignore
     public void testGetSchema() {
         PTODO();
     }

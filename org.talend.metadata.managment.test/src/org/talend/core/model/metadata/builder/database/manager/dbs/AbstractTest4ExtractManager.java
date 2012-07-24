@@ -12,17 +12,8 @@
 // ============================================================================
 package org.talend.core.model.metadata.builder.database.manager.dbs;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.isNull;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -475,9 +466,9 @@ public class AbstractTest4ExtractManager {
 
         tdTable.setName("TestTable"); //$NON-NLS-1$
 
-        ResourceSet resourceSet = new ResourceSetImpl();
-        Resource resource = resourceSet.createResource(URI.createFileURI("tdtable.xml")); //$NON-NLS-1$
-        resource.getContents().add(tdTable);
+        // ResourceSet resourceSet = new ResourceSetImpl();
+        //        Resource resource = resourceSet.createResource(URI.createFileURI("tdtable.xml")); //$NON-NLS-1$
+        // resource.getContents().add(tdTable);
 
         return spy(tdTable);
     }
