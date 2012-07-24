@@ -15,6 +15,7 @@ package org.talend.commons.utils;
 import junit.framework.Assert;
 
 import org.junit.Test;
+import org.talend.utils.ProductVersion;
 
 /**
  * DOC ycbai class global comment. Detailled comment
@@ -26,7 +27,8 @@ public class VersionUtilsTest {
      */
     @Test
     public void testGetTalendVersion() {
-        Assert.assertEquals(VersionUtils.getVersion(), VersionUtils.getTalendVersion());
+        ProductVersion talendVersion = ProductVersion.fromString(VersionUtils.getTalendVersion());
+        ProductVersion studioVersion = ProductVersion.fromString(VersionUtils.getVersion());
+        Assert.assertEquals(studioVersion, talendVersion);
     }
-
 }
