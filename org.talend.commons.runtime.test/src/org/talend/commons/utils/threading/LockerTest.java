@@ -18,11 +18,11 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.talend.commons.utils.threading.Locker;
 import org.talend.commons.utils.threading.Locker.LockerValue;
-import org.talend.commons.utils.threading.lockeroperators.AbstractLockerOperator;
-import org.talend.commons.utils.threading.lockeroperators.LockOperator;
-import org.talend.commons.utils.threading.lockeroperators.ResultContainer;
-import org.talend.commons.utils.threading.lockeroperators.UnlockOperator;
-import org.talend.commons.utils.threading.lockeroperators.WaitForLockThenUnlockOperator;
+import org.talend.commons.utils.threading.locker.operators.AbstractLockerOperator;
+import org.talend.commons.utils.threading.locker.operators.LockOperator;
+import org.talend.commons.utils.threading.locker.operators.ResultContainer;
+import org.talend.commons.utils.threading.locker.operators.UnlockOperator;
+import org.talend.commons.utils.threading.locker.operators.WaitForLockThenUnlockOperator;
 import org.talend.commons.utils.threading.threadsafetester.AbstractThreadSafetyTester;
 
 public class LockerTest {

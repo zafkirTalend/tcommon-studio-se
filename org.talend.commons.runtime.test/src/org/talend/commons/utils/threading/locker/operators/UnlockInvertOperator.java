@@ -1,4 +1,4 @@
-package org.talend.commons.utils.threading.lockeroperators;
+package org.talend.commons.utils.threading.locker.operators;
 
 import org.talend.commons.utils.threading.threadsafetester.IThreadSafetyOperator;
 

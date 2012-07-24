@@ -76,6 +76,9 @@ public class MemoryMeasurer {
         if (usedMemoryAtBeginning == null) {
             throw new IllegalStateException("The method begin must be called first.");
         }
+        if (useGCBeforeMeasure) {
+            System.gc();
+        }
         return getUsedMemoryFromBeginToCurrent(false);
     }
 
@@ -100,6 +103,9 @@ public class MemoryMeasurer {
     public long end(boolean useGCBeforeMeasure) {
         if (usedMemoryAtBeginning == null) {
             throw new IllegalStateException("The method begin must be called first.");
+        }
+        if (useGCBeforeMeasure) {
+            System.gc();
         }
         if (usedMemoryAtEnd == null) {
             return getUsedMemoryFromBeginToCurrent(true);

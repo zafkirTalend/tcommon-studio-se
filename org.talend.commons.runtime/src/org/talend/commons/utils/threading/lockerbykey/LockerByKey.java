@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.commons.utils.threading;
+package org.talend.commons.utils.threading.lockerbykey;
 
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,8 +20,6 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.log4j.Logger;
 import org.talend.commons.utils.StringUtils;
-import org.talend.commons.utils.threading.lockerbykey.ILockerByKey;
-import org.talend.commons.utils.threading.lockerbykey.LockerValue;
 
 /**
  * This class is useful to lock some part of code from the provided key.
@@ -53,77 +51,6 @@ public class LockerByKey<KP> implements ILockerByKey<KP> {
     private final static boolean DEFAULT_FAIR = true;
 
     private int cleanPeriod;
-
-    /**
-     * 
-     * LockerByKey class.<br/>
-     * 
-     * @param <IKP> key
-     */
-    class InternalKeyLock<IKP> {
-
-        private IKP key;
-
-        public InternalKeyLock() {
-        }
-
-        /**
-         * InternalKeyLock constructor comment.
-         * 
-         * @param key2
-         */
-        public InternalKeyLock(IKP key) {
-            this.key = key;
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.lang.Object#hashCode()
-         */
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((this.key == null) ? 0 : this.key.hashCode());
-            return result;
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.lang.Object#equals(java.lang.Object)
-         */
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null) {
-                return false;
-            }
-            if (getClass() != obj.getClass()) {
-                return false;
-            }
-            final InternalKeyLock other = (InternalKeyLock) obj;
-            if (this.key == null) {
-                if (other.key != null) {
-                    return false;
-                }
-            } else if (!this.key.equals(other.key)) {
-                return false;
-            }
-            return true;
-        }
-
-        public void setKey(IKP key) {
-            this.key = key;
-        }
-
-        public String toString() {
-            return StringUtils.replacePrms(InternalKeyLock.class.getSimpleName() + ": key={0}", key); //$NON-NLS-1$
-        }
-    }
 
     private boolean fair;
 
@@ -166,7 +93,7 @@ public class LockerByKey<KP> implements ILockerByKey<KP> {
      * Constructor LockerByKey.
      * 
      * @param fair {@code true} if this lock should use a fair ordering policy
-     * @param cleanPeriod in number of operations, it means that an automatic clean will be done for each
+     * @param cleanPeriod in number of operations, it means that an automatic clean will be done after each
      * <code>cleanPeriod</code> number of unlock operation.
      */
     public LockerByKey(boolean fair, int cleanPeriod) {
@@ -176,6 +103,23 @@ public class LockerByKey<KP> implements ILockerByKey<KP> {
             throw new IllegalArgumentException("The cleanPeriod value has to be greater than 0");
         }
         this.cleanPeriod = cleanPeriod;
+    }
+
+    /**
+     * 
+     * Constructor LockerByKey.
+     * 
+     * @param fair {@code true} if this lock should use a fair ordering policy
+     * @param cleanDisabled true to disable the clean completely <code>cleanPeriod</code> number of unlock operation.
+     */
+    protected LockerByKey(boolean fair, boolean cleanDisabled) {
+        super();
+        this.fair = fair;
+        if (cleanDisabled) {
+            this.cleanPeriod = 0;
+        } else {
+            this.cleanPeriod = DEFAULT_CLEAN_PERIOD;
+        }
     }
 
     /**
@@ -210,23 +154,6 @@ public class LockerByKey<KP> implements ILockerByKey<KP> {
         LockerValue<KP> locker = prepareInternalLock(key);
         decrementRunningOperations();
         locker.getLock().lockInterruptibly();
-    }
-
-    private void checkStopped() {
-        if (stopped || shuttingDown) {
-            throw new IllegalStateException("This locker is already stopped or is shutting down !");
-        }
-    }
-
-    /**
-     * Method "check". Check if the key is not null.
-     * 
-     * @param key
-     */
-    private void checkKey(KP key) {
-        if (key == null) {
-            throw new IllegalArgumentException("key can't be null"); //$NON-NLS-1$
-        }
     }
 
     /**
@@ -353,7 +280,7 @@ public class LockerByKey<KP> implements ILockerByKey<KP> {
      * The default clean will do an automatic clean all 1000 unlock operation, you can disable or change this value from
      * the constructor.
      */
-    private void clean() {
+    public void clean() {
         synchronized (lockAllOperations) {
             waitForRunningOperationsEnded();
             Collection<LockerValue<KP>> values = mapKeyLockToValueLock.values();
@@ -363,12 +290,30 @@ public class LockerByKey<KP> implements ILockerByKey<KP> {
             InternalKeyLock<KP> internalKeyLock = new InternalKeyLock<KP>();
             for (LockerValue<KP> lockerValue : values) {
                 ReentrantLock lock = lockerValue.getLock();
-                if (!lock.hasQueuedThreads() && !lock.isLocked()) {
+                LockerValueHandler handler = lockerValue.getHandler();
+                if (!lock.hasQueuedThreads() && !lock.isLocked() && handler == null) {
                     internalKeyLock.setKey(lockerValue.getKey());
                     mapKeyLockToValueLock.remove(internalKeyLock);
                 }
             }
             resumeAllOperations();
+        }
+    }
+
+    private void checkStopped() {
+        if (stopped || shuttingDown) {
+            throw new IllegalStateException("This locker is already stopped or is shutting down !");
+        }
+    }
+
+    /**
+     * Method "check". Check if the key is not null.
+     * 
+     * @param key
+     */
+    private void checkKey(KP key) {
+        if (key == null) {
+            throw new IllegalArgumentException("key can't be null"); //$NON-NLS-1$
         }
     }
 
@@ -454,6 +399,77 @@ public class LockerByKey<KP> implements ILockerByKey<KP> {
     @Override
     public int getCleanPeriod() {
         return cleanPeriod;
+    }
+
+    /**
+     * 
+     * LockerByKey class.<br/>
+     * 
+     * @param <IKP> key
+     */
+    class InternalKeyLock<IKP> {
+
+        private IKP key;
+
+        public InternalKeyLock() {
+        }
+
+        /**
+         * InternalKeyLock constructor comment.
+         * 
+         * @param key2
+         */
+        public InternalKeyLock(IKP key) {
+            this.key = key;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.lang.Object#hashCode()
+         */
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((this.key == null) ? 0 : this.key.hashCode());
+            return result;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.lang.Object#equals(java.lang.Object)
+         */
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final InternalKeyLock other = (InternalKeyLock) obj;
+            if (this.key == null) {
+                if (other.key != null) {
+                    return false;
+                }
+            } else if (!this.key.equals(other.key)) {
+                return false;
+            }
+            return true;
+        }
+
+        public void setKey(IKP key) {
+            this.key = key;
+        }
+
+        public String toString() {
+            return StringUtils.replacePrms(InternalKeyLock.class.getSimpleName() + ": key={0}", key); //$NON-NLS-1$
+        }
     }
 
 }
