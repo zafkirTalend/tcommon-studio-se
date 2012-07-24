@@ -603,9 +603,16 @@ public class ActionBarBuildHelper implements IActionBarHelper {
     }
 
     protected void hideHelpActions() {
+    	//MOD by zshen 2012-07-24 for bug TDQ-5664
+    	String tdqNeeded="org.eclipse.ui.cheatsheets.actions.CheatSheetHelpMenuAction";//$NON-NLS-1$
+    	
         String[] removeIds = { "org.eclipse.equinox.p2.ui.sdk.update", "group.assist", //$NON-NLS-1$ //$NON-NLS-2$
                 "org.eclipse.ui.actions.showKeyAssistHandler", "additions", "group.tutorials", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                "org.eclipse.ui.cheatsheets.actions.CheatSheetHelpMenuAction", "subversive", "subversive.help" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                 "subversive", "subversive.help" }; //$NON-NLS-1$ //$NON-NLS-2$ 
+        if(!org.talend.commons.utils.platform.PluginChecker.isTDQLoaded()){
+        	helpMenu.remove(tdqNeeded);
+        }
+      //~
         for (String id : removeIds) {
             helpMenu.remove(id);
         }
