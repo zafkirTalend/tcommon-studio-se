@@ -34,6 +34,8 @@ import org.talend.core.database.utils.ManagementTextUtils;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.connection.MetadataColumn;
+import orgomg.cwm.objectmodel.core.Expression;
 
 /**
  * @author zshen
@@ -840,5 +842,25 @@ public class ExtractMetaDataUtilsTest {
         Assert.assertEquals(ExtractMetaDataUtils.getDBConnectionSchema(conn), metadataConnection.getSchema());
         // verify
         verify(metadataConnection, times(2)).getSchema();
+    }
+
+    @Test
+    public void testHandleDefaultValueIsFunction() throws SQLException {
+        DatabaseMetaData dbMetadata = mock(DatabaseMetaData.class);
+        when(dbMetadata.getSystemFunctions()).thenReturn("test1,bodyTest");
+
+        MetadataColumn metadataColumn = mock(MetadataColumn.class);
+        when(metadataColumn.getTalendType()).thenReturn("id_Integer");
+
+        Expression initialValue = mock(Expression.class);
+        when(metadataColumn.getInitialValue()).thenReturn(initialValue);
+        when(initialValue.getBody()).thenReturn("bodyTest");
+
+        ExtractMetaDataUtils.handleDefaultValue(metadataColumn, dbMetadata);
+        // verify
+        verify(metadataColumn).getTalendType();
+        verify(metadataColumn).getInitialValue();
+        verify(initialValue).getBody();
+        verify(initialValue).setBody(initialValue.getBody());
     }
 }
