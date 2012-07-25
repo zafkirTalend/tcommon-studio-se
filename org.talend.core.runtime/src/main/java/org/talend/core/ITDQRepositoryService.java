@@ -93,4 +93,7 @@ public interface ITDQRepositoryService extends IService {
 
     // ADD xqliu 2012-05-25 TDQ-4831
     public boolean sourceFileOpening(RepositoryNode node);
+
+    // ADD xqliu 2012-07-24 TDQ-5853
+    public void checkUsernameBeforeSaveConnection(ConnectionItem connectionItem);
 }

@@ -348,6 +348,9 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     this.connection.setName(displayName);
                     this.connection.setLabel(displayName);
 
+                    if (tdqRepService != null) {
+                        tdqRepService.checkUsernameBeforeSaveConnection(connectionItem);
+                    }
                     factory.create(connectionItem, propertiesWizardPage.getDestinationPath());
 
                     // MOD yyi 2011-04-14:20362 reload connection

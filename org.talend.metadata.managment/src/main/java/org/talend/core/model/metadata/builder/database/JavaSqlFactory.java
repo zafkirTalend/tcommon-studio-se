@@ -46,8 +46,6 @@ public final class JavaSqlFactory {
 
     public static final String DEFAULT_USERNAME = "root";
 
-    public static final String DEFAULT_PASSWORD = "";
-
     @SuppressWarnings("unused")
     private static Logger log = Logger.getLogger(JavaSqlFactory.class);
 
@@ -133,10 +131,8 @@ public final class JavaSqlFactory {
             return rc;
         }
         Properties props = new Properties();
-        // MOD xqliu 2010-08-06 bug 14593
-        props.put(TaggedValueHelper.USER, getUsernameDefault(connection));
-        props.put(TaggedValueHelper.PASSWORD, getPasswordDefault(connection));
-        // ~ 14593
+        props.put(TaggedValueHelper.USER, getUsername(connection));
+        props.put(TaggedValueHelper.PASSWORD, getPassword(connection));
         java.sql.Connection sqlConnection = null;
         try {
             sqlConnection = ConnectionUtils.createConnection(url, driverClassName, props);
@@ -194,52 +190,6 @@ public final class JavaSqlFactory {
             return "";
         }
         return null;
-    }
-
-    /**
-     * DOC xqliu Comment method "getUsernameDefault".
-     * 
-     * @param conn
-     * @return username of the connection or default username
-     */
-    public static String getUsernameDefault(Connection conn) {
-        return getUsername(conn, DEFAULT_USERNAME);
-    }
-
-    /**
-     * DOC xqliu Comment method "getPasswordDefault".
-     * 
-     * @param conn
-     * @return password of the connection or default password
-     */
-    public static String getPasswordDefault(Connection conn) {
-        return getPassword(conn, DEFAULT_PASSWORD);
-    }
-
-    /**
-     * DOC xqliu Comment method "getUsername".
-     * 
-     * @param conn
-     * @param defaultUsername
-     * @return username of the connection or given username
-     */
-    public static String getUsername(Connection conn, String defaultUsername) {
-        String result = getUsername(conn);
-        result = (result == null || "".equals(result.trim())) ? defaultUsername : result;
-        return result;
-    }
-
-    /**
-     * DOC xqliu Comment method "getPassword".
-     * 
-     * @param conn
-     * @param defaultPassword
-     * @return password of the connection or given password
-     */
-    public static String getPassword(Connection conn, String defaultPassword) {
-        String result = getPassword(conn);
-        result = result == null ? defaultPassword : result;
-        return result;
     }
 
     /**
