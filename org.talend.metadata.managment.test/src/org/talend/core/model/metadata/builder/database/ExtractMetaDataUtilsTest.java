@@ -863,4 +863,35 @@ public class ExtractMetaDataUtilsTest {
         verify(initialValue).getBody();
         verify(initialValue).setBody(initialValue.getBody());
     }
+
+    @Test
+    public void testGetMultiSchems() {
+        // null
+        Assert.assertNull(ExtractMetaDataUtils.getMultiSchems(null));
+
+        String[] split = ExtractMetaDataUtils.getMultiSchems("hello,word");
+        Assert.assertEquals(split[0], "hello");
+        Assert.assertEquals(split[1], "word");
+    }
+
+    @Test
+    public void testRetrieveSchemaPatternForAS4004EmptyURL() {
+        Assert.assertNull(ExtractMetaDataUtils.retrieveSchemaPatternForAS400(""));
+        // verify
+    }
+
+    @Test
+    public void testRetrieveSchemaPatternForAS4004URL1() {
+        String url = "jdbc:as400://127.0.0.1/test;libraries=test;prompt=false";
+        String schema = ExtractMetaDataUtils.retrieveSchemaPatternForAS400(url);
+        Assert.assertEquals(schema, "test");
+        // verify
+    }
+
+    @Test
+    public void testRetrieveSchemaPatternForAS4004URL2() {
+        String url = "jdbc:as400://localhost/test;prompt=false";
+        String schema = ExtractMetaDataUtils.retrieveSchemaPatternForAS400(url);
+        Assert.assertNull(schema);
+    }
 }
