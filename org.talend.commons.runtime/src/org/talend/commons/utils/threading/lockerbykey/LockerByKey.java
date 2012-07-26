@@ -12,7 +12,9 @@
 // ============================================================================
 package org.talend.commons.utils.threading.lockerbykey;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -60,6 +62,21 @@ public class LockerByKey<KP> implements ILockerByKey<KP> {
 
     private volatile boolean stopped;
 
+    private static boolean detectSuspectLocksStatic = false;
+
+    private boolean detectSuspectLocks = false;
+
+    static {
+        String optionKey = "detectSuspectLocks";
+        String lockDeployOnSameAddressStr = System.getProperty(optionKey);
+        if (lockDeployOnSameAddressStr != null && lockDeployOnSameAddressStr.length() > 0) {
+            detectSuspectLocksStatic = Boolean.parseBoolean(lockDeployOnSameAddressStr);
+        }
+        if (detectSuspectLocksStatic) {
+            log.info("System property \"" + optionKey + "\"=" + detectSuspectLocksStatic);
+        }
+    }
+
     /**
      * LockerByKey constructor.
      */
@@ -103,6 +120,10 @@ public class LockerByKey<KP> implements ILockerByKey<KP> {
             throw new IllegalArgumentException("The cleanPeriod value has to be greater than 0");
         }
         this.cleanPeriod = cleanPeriod;
+        this.detectSuspectLocks = detectSuspectLocksStatic;
+        if (this.detectSuspectLocks) {
+            launchThreadDebugger();
+        }
     }
 
     /**
@@ -120,6 +141,45 @@ public class LockerByKey<KP> implements ILockerByKey<KP> {
         } else {
             this.cleanPeriod = DEFAULT_CLEAN_PERIOD;
         }
+        this.detectSuspectLocks = detectSuspectLocksStatic;
+        if (this.detectSuspectLocks) {
+            launchThreadDebugger();
+        }
+    }
+
+    private void launchThreadDebugger() {
+        new Thread(this.getClass().getSimpleName() + "-ThreadDebugger-" + this.hashCode()) {
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see java.lang.Thread#run()
+             */
+            @Override
+            public void run() {
+                while (!stopped && !shuttingDown) {
+                    try {
+                        Thread.sleep(30000);
+                    } catch (InterruptedException e) {
+                        break;
+                    }
+                    long timeDetectionLimitMs = 30000L;
+                    List<LockerValue<KP>> lockerValues = getSuspectLocks(timeDetectionLimitMs);
+                    StringBuilder sb = new StringBuilder();
+                    for (LockerValue<KP> lockerValue : lockerValues) {
+                        long duration = System.currentTimeMillis() - lockerValue.getLockedTime();
+                        StackTraceElement[] stackTraceOfLocker = lockerValue.getStackTraceOfLocker();
+                        for (StackTraceElement trace : stackTraceOfLocker) {
+                            StackTraceElement stackTraceElement = trace;
+                            sb.append(stackTraceElement.toString());
+                            sb.append("\n");
+                        }
+                        log.warn("Suspect lock done since " + duration + " ms by: " + sb.toString());
+                    }
+                }
+            }
+        }.start();
+
     }
 
     /**
@@ -151,17 +211,18 @@ public class LockerByKey<KP> implements ILockerByKey<KP> {
         checkKey(key);
         blockOperationIfRequired();
         incrementRunningOperations();
-        LockerValue<KP> locker = prepareInternalLock(key);
+        LockerValue<KP> lockerValue = prepareInternalLock(key);
         decrementRunningOperations();
-        locker.getLock().lockInterruptibly();
+        lockerValue.getLock().lockInterruptibly();
+        traceStackForDebugging(lockerValue);
     }
 
     /**
      * Method "tryLock".
      * 
      * @param key
-     * @return true if the lock was free and was acquired by the current thread, or the lock was already held by the
-     * current thread; and false if the waiting time elapsed before the lock could be acquired
+     * @return {@code true} if the lock was free and was acquired by the current thread, or the lock was already held by
+     * the current thread; and {@code false} otherwise
      * @throws InterruptedException
      * @throws IllegalArgumentException if bean is null
      * @see java.util.concurrent.locks.ReentrantLock#tryLock()
@@ -174,9 +235,13 @@ public class LockerByKey<KP> implements ILockerByKey<KP> {
         checkKey(key);
         blockOperationIfRequired();
         incrementRunningOperations();
-        LockerValue<KP> locker = prepareInternalLock(key);
+        LockerValue<KP> lockerValue = prepareInternalLock(key);
         decrementRunningOperations();
-        return locker.getLock().tryLock();
+        boolean locked = lockerValue.getLock().tryLock();
+        if (locked) {
+            traceStackForDebugging(lockerValue);
+        }
+        return locked;
     }
 
     /**
@@ -214,10 +279,14 @@ public class LockerByKey<KP> implements ILockerByKey<KP> {
         checkKey(key);
         blockOperationIfRequired();
         incrementRunningOperations();
-        LockerValue<KP> locker = prepareInternalLock(key);
+        LockerValue<KP> lockerValue = prepareInternalLock(key);
         decrementRunningOperations();
         interruptIfStopping();
-        return locker.getLock().tryLock(timeout, unit);
+        boolean locked = lockerValue.getLock().tryLock(timeout, unit);
+        if (locked) {
+            traceStackForDebugging(lockerValue);
+        }
+        return locked;
     }
 
     private LockerValue<KP> prepareInternalLock(KP key) {
@@ -258,6 +327,13 @@ public class LockerByKey<KP> implements ILockerByKey<KP> {
         decrementRunningOperations();
         cleanAccordingOperations();
         return returnValue;
+    }
+
+    void traceStackForDebugging(LockerValue<KP> lockerValue) {
+        if (this.detectSuspectLocks) {
+            lockerValue.setStackTraceOfLocker(Thread.currentThread().getStackTrace());
+            lockerValue.setLockedTime(System.currentTimeMillis());
+        }
     }
 
     private void cleanAccordingOperations() {
@@ -399,6 +475,45 @@ public class LockerByKey<KP> implements ILockerByKey<KP> {
     @Override
     public int getCleanPeriod() {
         return cleanPeriod;
+    }
+
+    /**
+     * Getter for detectSuspectLocks.
+     * 
+     * @return the detectSuspectLocks
+     */
+    @Override
+    public boolean isDetectSuspectLocks() {
+        return this.detectSuspectLocks;
+    }
+
+    /**
+     * Sets the detectSuspectLocks.
+     * 
+     * @param detectSuspectLocks the detectSuspectLocks to set
+     */
+    @Override
+    public void setDetectSuspectLocks(boolean detectSuspectLocks) {
+        this.detectSuspectLocks = detectSuspectLocks;
+    }
+
+    @Override
+    public List<LockerValue<KP>> getSuspectLocks(long timeDetectionLimitMs) {
+        if (this.detectSuspectLocks) {
+            Collection<LockerValue<KP>> values = mapKeyLockToValueLock.values();
+            List<LockerValue<KP>> stacks = new ArrayList<LockerValue<KP>>();
+            for (LockerValue<KP> lockerValue : values) {
+                long lockedTime = lockerValue.getLockedTime();
+                long duration = System.currentTimeMillis() - lockedTime;
+                if (lockedTime > 0 && duration > timeDetectionLimitMs && lockerValue.getLock().isLocked()) {
+                    stacks.add(lockerValue);
+                }
+            }
+            return stacks;
+        } else {
+            throw new UnsupportedOperationException(
+                    "You have to enable the 'detectSuspectLocks' mode by using the JVM argument -DdetectSuspectLocks=true");
+        }
     }
 
     /**
