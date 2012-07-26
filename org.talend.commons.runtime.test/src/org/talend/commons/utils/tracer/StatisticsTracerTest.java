@@ -15,16 +15,16 @@ package org.talend.commons.utils.tracer;
 import static org.junit.Assert.*;
 
 import java.io.File;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.io.IOException;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 
 import org.apache.log4j.Logger;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
 /**
  * DOC amaumont class global comment. Detailled comment
@@ -36,6 +36,9 @@ public class StatisticsTracerTest {
     private static final String MY_TRACER_TEST2 = "myTracerTest2";
 
     private static Logger log = Logger.getLogger(StatisticsTracerTest.class);
+
+    @Rule
+    public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
     public void testStatisticTracer() throws InterruptedException {
@@ -96,32 +99,27 @@ public class StatisticsTracerTest {
     }
 
     @Test
-    public void testStatisticTracerAndTraceToFile() throws InterruptedException {
+    public void testStatisticTracerAndTraceToFile() throws InterruptedException, IOException {
 
         StatisticsTracer myTracerTest1 = StatisticsTracer.getTracer(MY_TRACER_TEST1);
 
-        URL resource = StatisticsTracer.class.getResource(StatisticsTracer.class.getSimpleName() + ".class");
-        File refClassFile = null;
-        try {
-            refClassFile = new File(new URI(resource.toString()));
-        } catch (URISyntaxException e) {
-            fail(e.getMessage());
-        }
-        File folder = refClassFile.getParentFile();
-
-        String pathFile = folder.getAbsolutePath() + "/myTracerTest3";
+        testFolder.create();
+        File newFile = testFolder.newFile("myTracerTest3");
+        String pathFile = newFile.getPath();
         myTracerTest1.traceToFile(pathFile, false);
 
         int sleepTime = 100;
         int executionsCount = 10;
         String firstRowStr = "";
-        for (int i = 0; i < 10; i++) {
+        firstRowStr = myTracerTest1.toDataRow();
+        for (int i = 0; i < executionsCount; i++) {
             long id = myTracerTest1.start();
-            firstRowStr = myTracerTest1.toDataRow();
             Thread.sleep(sleepTime);
             myTracerTest1.stop(id);
             myTracerTest1.print();
         }
+
+        long elapsedTimeSinceFirstStart = myTracerTest1.getElapsedTimeSinceFirstStart();
 
         long averageWorkTime = myTracerTest1.getAverageWorkTime();
         long totalTime = myTracerTest1.getElapsedTime();
@@ -131,8 +129,8 @@ public class StatisticsTracerTest {
         // assertTrue(averageWorkTime >= sleepTime && averageWorkTime < sleepTime + 10);
 
         int exepectedElapsedTimeSinceFirstStart = sleepTime * executionsCount;
-        long elapsedTimeSinceFirstStart = myTracerTest1.getElapsedTimeSinceFirstStart();
-        assertTrue(elapsedTimeSinceFirstStart >= exepectedElapsedTimeSinceFirstStart
+        assertTrue("elapsedTimeSinceFirstStart=" + elapsedTimeSinceFirstStart + ", exepectedElapsedTimeSinceFirstStart="
+                + exepectedElapsedTimeSinceFirstStart, elapsedTimeSinceFirstStart >= exepectedElapsedTimeSinceFirstStart
                 && elapsedTimeSinceFirstStart < exepectedElapsedTimeSinceFirstStart + 50);
 
         long countExecutions = myTracerTest1.getCountExecutions();
@@ -145,6 +143,7 @@ public class StatisticsTracerTest {
         int fistRowByteLength = firstRowStr.getBytes().length;
         assertTrue(file.length() > (fistRowByteLength + 1) * executionsCount);
         file.delete();
+        testFolder.delete();
 
         StatisticsTracer.removeTracer(MY_TRACER_TEST1);
 
