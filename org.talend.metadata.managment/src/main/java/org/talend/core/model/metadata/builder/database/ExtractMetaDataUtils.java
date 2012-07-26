@@ -438,6 +438,9 @@ public class ExtractMetaDataUtils {
      * bug 12179
      */
     public static String retrieveSchemaPatternForAS400(String url) {
+        if (url == null || "".equals(url)) {
+            return null;
+        }
         String libsPattern = "libraries\\s*=\\s*"; //$NON-NLS-1$
         Pattern regex = Pattern.compile(libsPattern + "(([\\w.]+?)\\s*,?\\s*)*\\s*;?", //$NON-NLS-1$
                 Pattern.CANON_EQ | Pattern.CASE_INSENSITIVE);

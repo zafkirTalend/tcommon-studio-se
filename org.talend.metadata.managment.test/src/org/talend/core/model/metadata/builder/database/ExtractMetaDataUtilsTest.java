@@ -662,13 +662,18 @@ public class ExtractMetaDataUtilsTest {
     }
 
     @Test
+    public void testRetrieveSchemaPatternForAS4004Null() {
+        Assert.assertNull(ExtractMetaDataUtils.retrieveSchemaPatternForAS400(null));
+    }
+
+    @Test
     public void testRetrieveSchemaPatternForAS4004EmptyURL() {
         Assert.assertNull(ExtractMetaDataUtils.retrieveSchemaPatternForAS400(""));
-        // verify
     }
 
     @Test
     public void testRetrieveSchemaPatternForAS4004URL1() {
+        // have one library in the url
         String url = "jdbc:as400://127.0.0.1/test;libraries=test;prompt=false";
         String schema = ExtractMetaDataUtils.retrieveSchemaPatternForAS400(url);
         Assert.assertEquals(schema, "test");
@@ -676,7 +681,17 @@ public class ExtractMetaDataUtilsTest {
     }
 
     @Test
+    public void testRetrieveSchemaPatternForAS4004URLMultiLibrary() {
+        // multi-library in the url
+        String url = "jdbc:as400://127.0.0.1/test;libraries=abc,xyz;prompt=false";
+        String schema = ExtractMetaDataUtils.retrieveSchemaPatternForAS400(url);
+        Assert.assertEquals(schema, "abc,xyz");
+        // verify
+    }
+
+    @Test
     public void testRetrieveSchemaPatternForAS4004URL2() {
+        // no library in the url
         String url = "jdbc:as400://localhost/test;prompt=false";
         String schema = ExtractMetaDataUtils.retrieveSchemaPatternForAS400(url);
         Assert.assertNull(schema);
