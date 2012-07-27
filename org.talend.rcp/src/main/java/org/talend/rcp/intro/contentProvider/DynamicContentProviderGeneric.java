@@ -60,6 +60,11 @@ public class DynamicContentProviderGeneric extends DynamicContentProvider {
             Element img = dom.createElement("img");
             img.setAttribute("src", imgBrandingPath + "/icons/welcome_logo.png");
             parent.appendChild(img);
+        } else if ("BOTTOM_IMG".equals(id)) {
+            Element img = dom.createElement("img");
+            img.setAttribute("src", imgBrandingPath + "/icons/bottom.png");
+            img.setAttribute("width", "880px");
+            parent.appendChild(img);
         } else if (ERepositoryObjectType.PROCESS.name().equals(id)) {
             Element span = dom.createElement("span");
             span.setAttribute("class", "style_1 style_2 style_3");
