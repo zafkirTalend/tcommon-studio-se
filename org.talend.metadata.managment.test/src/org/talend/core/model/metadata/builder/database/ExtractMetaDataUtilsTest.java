@@ -20,18 +20,13 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.rule.PowerMockRule;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.commons.utils.database.SASDataBaseMetadata;
 import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.model.metadata.IMetadataConnection;
-import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import orgomg.cwm.objectmodel.core.Expression;
@@ -40,11 +35,7 @@ import orgomg.cwm.objectmodel.core.Expression;
  * @author zshen
  * 
  */
-@PrepareForTest({ ConvertionHelper.class })
 public class ExtractMetaDataUtilsTest {
-
-    @Rule
-    public PowerMockRule powerMockRule = new PowerMockRule();
 
     /**
      * Test method for
@@ -621,23 +612,17 @@ public class ExtractMetaDataUtilsTest {
     @Test
     public void testGetDBConnectionSchema() {
         DatabaseConnection conn = mock(DatabaseConnection.class);
-        IMetadataConnection metadataConnection = mock(IMetadataConnection.class);
-        when(metadataConnection.getSchema()).thenReturn("schemaTest");
-        // powermock
-        PowerMockito.mockStatic(ConvertionHelper.class);
-        when(ConvertionHelper.convert(conn, true)).thenReturn(metadataConnection);
-        Assert.assertEquals(ExtractMetaDataUtils.getDBConnectionSchema(conn), metadataConnection.getSchema());
-        // verify
-        verify(metadataConnection, times(2)).getSchema();
+        when(conn.getUiSchema()).thenReturn("schemaTest");
+        Assert.assertEquals(ExtractMetaDataUtils.getDBConnectionSchema(conn), "schemaTest");
     }
 
     @Test
-    public void testHandleDefaultValueIsFunction() throws SQLException {
+    public void testHandleDefaultValue4SystemFunctions_Contained() throws SQLException {
         DatabaseMetaData dbMetadata = mock(DatabaseMetaData.class);
-        when(dbMetadata.getSystemFunctions()).thenReturn("test1,bodyTest");
+        when(dbMetadata.getSystemFunctions()).thenReturn("abc,bodyTest");
 
         MetadataColumn metadataColumn = mock(MetadataColumn.class);
-        when(metadataColumn.getTalendType()).thenReturn("id_Integer");
+        when(metadataColumn.getTalendType()).thenReturn("id_Object");
 
         Expression initialValue = mock(Expression.class);
         when(metadataColumn.getInitialValue()).thenReturn(initialValue);
@@ -647,8 +632,168 @@ public class ExtractMetaDataUtilsTest {
         // verify
         verify(metadataColumn).getTalendType();
         verify(metadataColumn).getInitialValue();
+        verify(dbMetadata, times(2)).getSystemFunctions();
         verify(initialValue).getBody();
         verify(initialValue).setBody(initialValue.getBody());
+    }
+
+    @Test
+    public void testHandleDefaultValue4SystemFunctions_NotContained() throws SQLException {
+        DatabaseMetaData dbMetadata = mock(DatabaseMetaData.class);
+        when(dbMetadata.getSystemFunctions()).thenReturn("abc,xyz");
+
+        MetadataColumn metadataColumn = mock(MetadataColumn.class);
+        // test integer javaType
+        when(metadataColumn.getTalendType()).thenReturn("id_Integer");
+
+        Expression initialValue = mock(Expression.class);
+        when(metadataColumn.getInitialValue()).thenReturn(initialValue);
+        // don't contain
+        when(initialValue.getBody()).thenReturn("bodyTest");
+
+        ExtractMetaDataUtils.handleDefaultValue(metadataColumn, dbMetadata);
+        Assert.assertEquals(initialValue.getBody(), "bodyTest");
+        // verify
+        verify(metadataColumn, times(2)).getTalendType();
+        verify(metadataColumn).getInitialValue();
+        verify(dbMetadata, times(2)).getSystemFunctions();
+        verify(initialValue, times(2)).getBody();
+        verify(initialValue, times(2)).setBody(initialValue.getBody());
+    }
+
+    @Test
+    public void testHandleDefaultValue4NumericFunctions_Contained() throws SQLException {
+        DatabaseMetaData dbMetadata = mock(DatabaseMetaData.class);
+        when(dbMetadata.getNumericFunctions()).thenReturn("abc,bodyTest");
+
+        MetadataColumn metadataColumn = mock(MetadataColumn.class);
+        when(metadataColumn.getTalendType()).thenReturn("id_Float");
+
+        Expression initialValue = mock(Expression.class);
+        when(metadataColumn.getInitialValue()).thenReturn(initialValue);
+        when(initialValue.getBody()).thenReturn("bodyTest");
+
+        ExtractMetaDataUtils.handleDefaultValue(metadataColumn, dbMetadata);
+        // verify
+        verify(metadataColumn).getTalendType();
+        verify(metadataColumn).getInitialValue();
+        verify(dbMetadata, times(2)).getNumericFunctions();
+        verify(initialValue).getBody();
+        verify(initialValue).setBody(initialValue.getBody());
+    }
+
+    @Test
+    public void testHandleDefaultValue4NumericFunctions_NotContained() throws SQLException {
+        DatabaseMetaData dbMetadata = mock(DatabaseMetaData.class);
+        when(dbMetadata.getNumericFunctions()).thenReturn("abc,xyz");
+
+        MetadataColumn metadataColumn = mock(MetadataColumn.class);
+        // test bigDecimal javaType
+        when(metadataColumn.getTalendType()).thenReturn("id_BigDecimal");
+
+        Expression initialValue = mock(Expression.class);
+        when(metadataColumn.getInitialValue()).thenReturn(initialValue);
+        // don't contain
+        when(initialValue.getBody()).thenReturn("123");
+
+        ExtractMetaDataUtils.handleDefaultValue(metadataColumn, dbMetadata);
+        Assert.assertEquals(initialValue.getBody(), "123");
+        // verify
+        verify(metadataColumn, times(2)).getTalendType();
+        verify(metadataColumn).getInitialValue();
+        verify(dbMetadata, times(2)).getNumericFunctions();
+        verify(initialValue, times(2)).getBody();
+        verify(initialValue, times(2)).setBody(initialValue.getBody());
+    }
+
+    @Test
+    public void testHandleDefaultValue4StringFunctions_Contained() throws SQLException {
+        DatabaseMetaData dbMetadata = mock(DatabaseMetaData.class);
+        when(dbMetadata.getStringFunctions()).thenReturn("abc,bodyTest");
+
+        MetadataColumn metadataColumn = mock(MetadataColumn.class);
+        when(metadataColumn.getTalendType()).thenReturn("id_String");
+
+        Expression initialValue = mock(Expression.class);
+        when(metadataColumn.getInitialValue()).thenReturn(initialValue);
+        when(initialValue.getBody()).thenReturn("bodyTest");
+
+        ExtractMetaDataUtils.handleDefaultValue(metadataColumn, dbMetadata);
+        // verify
+        verify(metadataColumn).getTalendType();
+        verify(metadataColumn).getInitialValue();
+        verify(dbMetadata, times(2)).getStringFunctions();
+        verify(initialValue).getBody();
+        verify(initialValue).setBody(initialValue.getBody());
+    }
+
+    @Test
+    public void testHandleDefaultValue4StringFunctions_NotContained() throws SQLException {
+        DatabaseMetaData dbMetadata = mock(DatabaseMetaData.class);
+        when(dbMetadata.getStringFunctions()).thenReturn("abc,xyz");
+
+        MetadataColumn metadataColumn = mock(MetadataColumn.class);
+        // test character javaType
+        when(metadataColumn.getTalendType()).thenReturn("id_Character");
+
+        Expression initialValue = mock(Expression.class);
+        when(metadataColumn.getInitialValue()).thenReturn(initialValue);
+        // don't contain
+        when(initialValue.getBody()).thenReturn("a");
+
+        ExtractMetaDataUtils.handleDefaultValue(metadataColumn, dbMetadata);
+        Assert.assertEquals(initialValue.getBody(), "a");
+        // verify
+        verify(metadataColumn, times(2)).getTalendType();
+        verify(metadataColumn).getInitialValue();
+        verify(dbMetadata, times(2)).getStringFunctions();
+        verify(initialValue, times(2)).getBody();
+        verify(initialValue, times(2)).setBody(initialValue.getBody());
+    }
+
+    @Test
+    public void testHandleDefaultValue4TimeDateFunctions_Contained() throws SQLException {
+        DatabaseMetaData dbMetadata = mock(DatabaseMetaData.class);
+        when(dbMetadata.getTimeDateFunctions()).thenReturn("abc,bodyTest");
+
+        MetadataColumn metadataColumn = mock(MetadataColumn.class);
+        when(metadataColumn.getTalendType()).thenReturn("id_Date");
+
+        Expression initialValue = mock(Expression.class);
+        when(metadataColumn.getInitialValue()).thenReturn(initialValue);
+        when(initialValue.getBody()).thenReturn("bodyTest");
+
+        ExtractMetaDataUtils.handleDefaultValue(metadataColumn, dbMetadata);
+        // verify
+        verify(metadataColumn).getTalendType();
+        verify(metadataColumn).getInitialValue();
+        verify(dbMetadata, times(2)).getTimeDateFunctions();
+        verify(initialValue).getBody();
+        verify(initialValue).setBody(initialValue.getBody());
+    }
+
+    @Test
+    public void testHandleDefaultValue4TimeDateFunctions_NotContained() throws SQLException {
+        DatabaseMetaData dbMetadata = mock(DatabaseMetaData.class);
+        when(dbMetadata.getTimeDateFunctions()).thenReturn("abc,xyz");
+
+        MetadataColumn metadataColumn = mock(MetadataColumn.class);
+        // test date javaType
+        when(metadataColumn.getTalendType()).thenReturn("id_Date");
+
+        Expression initialValue = mock(Expression.class);
+        when(metadataColumn.getInitialValue()).thenReturn(initialValue);
+        // don't contain
+        when(initialValue.getBody()).thenReturn("2012-7-27");
+
+        ExtractMetaDataUtils.handleDefaultValue(metadataColumn, dbMetadata);
+        Assert.assertEquals(initialValue.getBody(), "2012-7-27");
+        // verify
+        verify(metadataColumn).getTalendType();
+        verify(metadataColumn).getInitialValue();
+        verify(dbMetadata, times(2)).getTimeDateFunctions();
+        verify(initialValue, times(2)).getBody();
+        verify(initialValue, times(2)).setBody(initialValue.getBody());
     }
 
     @Test
