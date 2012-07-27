@@ -37,6 +37,7 @@ import org.talend.core.model.general.Project;
 import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.MigrationStatus;
 import org.talend.core.model.properties.MigrationTask;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
@@ -350,9 +351,10 @@ public class MigrationToolService implements IMigrationToolService {
                 }
             }
             String breaks = task.getBreaks();
+            MigrationStatus status = task.getStatus();
             if (breaks == null) {
                 log.warn(Messages.getString("MigrationToolService.taskBreaksIsNull", task.getId())); //$NON-NLS-1$
-            } else {
+            } else if (status != MigrationStatus.NOIMPACT_LITERAL) {
                 ProductVersion taskBreaks = ProductVersion.fromString(breaks);
                 if (taskBreaks.compareTo(topTaskBreaks) > 0) {
                     topTaskBreaks = taskBreaks;
