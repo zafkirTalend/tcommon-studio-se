@@ -25,6 +25,8 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -113,6 +115,7 @@ public class JobletReferenceDialog extends SelectionDialog {
     @Override
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
+        newShell.setSize(540, 400);
         newShell.setText(Messages.getString("JobletReferenceDialog.Title")); //$NON-NLS-1$
     }
 
@@ -189,4 +192,13 @@ public class JobletReferenceDialog extends SelectionDialog {
         viewer.setInput(referenceList);
         return composite;
     }
+
+    protected void initializeBounds() {
+        super.initializeBounds();
+
+        Point size = getShell().getSize();
+        Point location = getInitialLocation(size);
+        getShell().setBounds(getConstrainedShellBounds(new Rectangle(location.x, location.y, size.x, size.y)));
+    }
+
 }
