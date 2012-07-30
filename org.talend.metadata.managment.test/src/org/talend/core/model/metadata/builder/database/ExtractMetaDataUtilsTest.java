@@ -14,6 +14,7 @@ import static org.mockito.Mockito.when;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -840,5 +841,252 @@ public class ExtractMetaDataUtilsTest {
         String url = "jdbc:as400://localhost/test;prompt=false";
         String schema = ExtractMetaDataUtils.retrieveSchemaPatternForAS400(url);
         Assert.assertNull(schema);
+    }
+
+    @Test
+    public void testGetStringMetaDataInfo_TwoArguments() throws SQLException {
+        ResultSet resultSet = mock(ResultSet.class);
+
+        final int infoType = 1;
+        final String value = "abc";
+        when(resultSet.getString(infoType)).thenReturn(value);
+        String actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType);
+        Assert.assertEquals(actualResult, value);
+        // verify
+        verify(resultSet).getString(infoType);
+
+    }
+
+    @Test
+    public void testGetStringMetaDataInfo_TwoArguments4SQLException() throws SQLException {
+        ResultSet resultSet = mock(ResultSet.class);
+
+        final int infoType = 1;
+        final String value = "abc";
+        when(resultSet.getString(infoType)).thenReturn(value);
+
+        // test sql Exception
+        doThrow(new SQLException()).when(resultSet).getString(infoType);
+        String actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType);
+        Assert.assertNull(actualResult);
+        // verify
+        verify(resultSet).getString(infoType);
+    }
+
+    @Test
+    public void testGetStringMetaDataInfo_TwoArguments4Exception() throws SQLException {
+        ResultSet resultSet = mock(ResultSet.class);
+
+        final int infoType = 1;
+        final String value = "abc";
+        when(resultSet.getString(infoType)).thenReturn(value);
+
+        // test Exception
+        doThrow(new IllegalArgumentException()).when(resultSet).getString(infoType);
+        String actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType);
+        Assert.assertNull(actualResult);
+        // verify
+        verify(resultSet).getString(infoType);
+    }
+
+    @Test
+    public void testGetIntMetaDataInfo() throws SQLException {
+        ResultSet resultSet = mock(ResultSet.class);
+
+        final String infoType = "test";
+        final Integer value = 1;
+        when(resultSet.getInt(anyString())).thenReturn(value);
+        Integer actualResult = ExtractMetaDataUtils.getIntMetaDataInfo(resultSet, infoType);
+        Assert.assertEquals(actualResult, value);
+        // verify
+        verify(resultSet).getInt(anyString());
+    }
+
+    @Test
+    public void testGetIntMetaDataInfo4SQLException() throws SQLException {
+        ResultSet resultSet = mock(ResultSet.class);
+
+        final String infoType = "test";
+        final Integer value = 2;
+        when(resultSet.getInt(anyString())).thenReturn(value);
+
+        // test sql Exception
+        doThrow(new SQLException()).when(resultSet).getInt(anyString());
+        Integer actualResult = ExtractMetaDataUtils.getIntMetaDataInfo(resultSet, infoType);
+        Assert.assertEquals(actualResult, new Integer(0));
+        // verify
+        verify(resultSet).getInt(anyString());
+    }
+
+    @Test
+    public void testGetIntMetaDataInfo4Exception() throws SQLException {
+        ResultSet resultSet = mock(ResultSet.class);
+
+        final String infoType = "test";
+        final Integer value = 3;
+        when(resultSet.getInt(anyString())).thenReturn(value);
+
+        // test Exception
+        doThrow(new IllegalArgumentException()).when(resultSet).getInt(anyString());
+        Integer actualResult = ExtractMetaDataUtils.getIntMetaDataInfo(resultSet, infoType);
+        Assert.assertEquals(actualResult, new Integer(0));
+        // verify
+        verify(resultSet).getInt(anyString());
+    }
+
+    @Test
+    public void testGetOracleIntMatadataInfo() throws SQLException {
+        ResultSet resultSet = mock(ResultSet.class);
+
+        final String infoType = "test";
+        final Integer value = 8;
+        final Integer actualValue = value / 2;
+        when(resultSet.getInt(anyString())).thenReturn(value);
+        when(resultSet.getString(anyString())).thenReturn("C");
+
+        Integer actualResult = ExtractMetaDataUtils.getOracleIntMatadataInfo(resultSet, infoType);
+        Assert.assertEquals(actualResult, actualValue);
+        // verify
+        verify(resultSet).getInt(anyString());
+        verify(resultSet).getString(anyString());
+    }
+
+    @Test
+    public void testGetOracleIntMatadataInfo4SQLException() throws SQLException {
+        ResultSet resultSet = mock(ResultSet.class);
+
+        final String infoType = "test";
+        final Integer value = 16;
+        when(resultSet.getInt(anyString())).thenReturn(value);
+        when(resultSet.getString(anyString())).thenReturn("C");
+
+        // test sql Exception 1
+        doThrow(new SQLException()).when(resultSet).getInt(anyString());
+        Integer actualResult1 = ExtractMetaDataUtils.getOracleIntMatadataInfo(resultSet, infoType);
+        Assert.assertEquals(actualResult1, new Integer(0));
+
+        // test sql Exception 2
+        doThrow(new SQLException()).when(resultSet).getString(anyString());
+        Integer actualResult2 = ExtractMetaDataUtils.getOracleIntMatadataInfo(resultSet, infoType);
+        Assert.assertEquals(actualResult2, new Integer(0));
+        // verify
+        verify(resultSet, times(2)).getInt(anyString());
+    }
+
+    @Test
+    public void testGetOracleIntMatadataInfo4Exception() throws SQLException {
+        ResultSet resultSet = mock(ResultSet.class);
+
+        final String infoType = "test";
+        final Integer value = 32;
+        when(resultSet.getInt(anyString())).thenReturn(value);
+        when(resultSet.getString(anyString())).thenReturn("C");
+
+        // test Exception 1
+        doThrow(new IllegalArgumentException()).when(resultSet).getInt(anyString());
+        Integer actualResult1 = ExtractMetaDataUtils.getOracleIntMatadataInfo(resultSet, infoType);
+        Assert.assertEquals(actualResult1, new Integer(0));
+
+        // test Exception 2
+        doThrow(new IllegalArgumentException()).when(resultSet).getString(anyString());
+        Integer actualResult2 = ExtractMetaDataUtils.getOracleIntMatadataInfo(resultSet, infoType);
+        Assert.assertEquals(actualResult2, new Integer(0));
+        // verify
+        verify(resultSet, times(2)).getInt(anyString());
+    }
+
+    @Test
+    public void testGetMysqlIntMetaDataInfo() throws SQLException {
+        ResultSetMetaData rMetadata = mock(ResultSetMetaData.class);
+
+        final int columnIndex = 1;
+        final Integer value = 2;
+        when(rMetadata.getPrecision(columnIndex)).thenReturn(value);
+        Integer actualResult = ExtractMetaDataUtils.getMysqlIntMetaDataInfo(rMetadata, columnIndex);
+        Assert.assertEquals(actualResult, value);
+        // verify
+        verify(rMetadata).getPrecision(columnIndex);
+    }
+
+    @Test
+    public void testGetMysqlIntMetaDataInfo4SQLException() throws SQLException {
+        ResultSetMetaData rMetadata = mock(ResultSetMetaData.class);
+
+        final int columnIndex = 1;
+        final Integer value = 2;
+        when(rMetadata.getPrecision(columnIndex)).thenReturn(value);
+
+        // test sql Exception
+        doThrow(new SQLException()).when(rMetadata).getPrecision(columnIndex);
+        Integer actualResult = ExtractMetaDataUtils.getMysqlIntMetaDataInfo(rMetadata, columnIndex);
+        Assert.assertEquals(actualResult, new Integer(0));
+        // verify
+        verify(rMetadata).getPrecision(columnIndex);
+    }
+
+    @Test
+    public void testGetMysqlIntMetaDataInfo4Exception() throws SQLException {
+        ResultSetMetaData rMetadata = mock(ResultSetMetaData.class);
+
+        final int columnIndex = 1;
+        final Integer value = 2;
+        when(rMetadata.getPrecision(columnIndex)).thenReturn(value);
+
+        // test Exception
+        doThrow(new IllegalArgumentException()).when(rMetadata).getPrecision(columnIndex);
+        Integer actualResult = ExtractMetaDataUtils.getMysqlIntMetaDataInfo(rMetadata, columnIndex);
+        Assert.assertEquals(actualResult, new Integer(0));
+        // verify
+        verify(rMetadata).getPrecision(columnIndex);
+    }
+
+    @Test
+    public void testGetBooleanMetaDataInfo4Null() throws SQLException {
+        ResultSet resultSet = mock(ResultSet.class);
+
+        final String infoType = "test";
+        when(resultSet.getString(anyString())).thenReturn(null);
+        boolean actualResult = ExtractMetaDataUtils.getBooleanMetaDataInfo(resultSet, infoType);
+        Assert.assertFalse(actualResult);
+        // verify
+        verify(resultSet).getString(anyString());
+    }
+
+    @Test
+    public void testGetBooleanMetaDataInfo() throws SQLException {
+        ResultSet resultSet = mock(ResultSet.class);
+
+        final String infoType = "test";
+        when(resultSet.getString(anyString())).thenReturn("YES");
+        boolean actualResult = ExtractMetaDataUtils.getBooleanMetaDataInfo(resultSet, infoType);
+        Assert.assertTrue(actualResult);
+        // verify
+        verify(resultSet).getString(anyString());
+    }
+
+    @Test
+    public void testGetBooleanMetaDataInfo4SQLException() throws SQLException {
+        ResultSet resultSet = mock(ResultSet.class);
+
+        final String infoType = "test";
+        // test sql Exception
+        doThrow(new SQLException()).when(resultSet).getString(anyString());
+        boolean actualResult = ExtractMetaDataUtils.getBooleanMetaDataInfo(resultSet, infoType);
+        Assert.assertTrue(actualResult);
+        // verify
+        verify(resultSet).getString(anyString());
+    }
+
+    @Test
+    public void testGetBooleanMetaDataInfo4Exception() throws SQLException {
+        ResultSet resultSet = mock(ResultSet.class);
+
+        final String infoType = "test";
+        // test Exception
+        doThrow(new IllegalArgumentException()).when(resultSet).getString(anyString());
+        boolean actualResult = ExtractMetaDataUtils.getBooleanMetaDataInfo(resultSet, infoType);
+        Assert.assertTrue(actualResult);
+        // verify
+        verify(resultSet).getString(anyString());
     }
 }
