@@ -1879,7 +1879,7 @@ public class RepositoryToComponentProperty {
             if (metadataTable != null) {
                 for (Concept concept : (List<Concept>) objectList) {
                     // test if sourcename is null, this is only for compatibility with first mdm repository released.
-                    if (concept != null && (concept.getLabel() == null || concept.getLabel().equals(metadataTable.getLabel()))) {
+                    if (concept != null && concept.getLabel() != null && concept.getLabel().equals(metadataTable.getLabel())) {
                         List<ConceptTarget> conceptTargets = concept.getConceptTargets();
                         List<Map<String, Object>> maps = new ArrayList<Map<String, Object>>();
                         for (IMetadataColumn col : metadataTable.getListColumns()) {
