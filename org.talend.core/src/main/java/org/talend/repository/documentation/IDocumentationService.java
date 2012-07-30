@@ -22,4 +22,6 @@ public interface IDocumentationService extends IService {
 
     public boolean saveDocumentNode(Item item) throws Exception;
 
+    public boolean createNodeDocumentationItemFromItem(Item item) throws Exception;
+
 }
