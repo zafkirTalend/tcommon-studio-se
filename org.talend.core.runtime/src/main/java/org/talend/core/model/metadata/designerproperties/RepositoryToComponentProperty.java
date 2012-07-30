@@ -195,7 +195,7 @@ public class RepositoryToComponentProperty {
         }
         SAPFunctionUnit unit = null;
         for (int i = 0; i < conn.getFuntions().size(); i++) {
-            SAPFunctionUnit tmp = (SAPFunctionUnit) conn.getFuntions().get(i);
+            SAPFunctionUnit tmp = conn.getFuntions().get(i);
             if (tmp.getLabel().equals(functionLabel)) {
                 unit = tmp;
                 break;
@@ -212,7 +212,7 @@ public class RepositoryToComponentProperty {
         value2.clear(); // Make sure for this
         Map<String, List<Object>> mergedKeyValues = new HashMap<String, List<Object>>(); // all merged columns's key
         for (int i = 0; i < table.getColumns().size(); i++) {
-            SAPFunctionParameterColumn column = (SAPFunctionParameterColumn) table.getColumns().get(i);
+            SAPFunctionParameterColumn column = table.getColumns().get(i);
             Map<String, Object> map = new HashMap<String, Object>();
             if (isInput) {
                 mergeColumn(map, column, table.getColumns(), mergedKeyValues);
@@ -237,26 +237,26 @@ public class RepositoryToComponentProperty {
         String value = "";
         String talendType = getTalendTypeFromJCOType(column.getDataType());
         if (talendType.contains("String")) { //$NON-NLS-1$
-            value = TalendQuoteUtils.addQuotes(column.getValue()); //$NON-NLS-1$
+            value = TalendQuoteUtils.addQuotes(column.getValue());
         } else {
-            value = column.getValue(); //$NON-NLS-1$
+            value = column.getValue();
         }
 
         for (SAPFunctionParameterColumn current : columns) {
             String currentValue = "";
             if (talendType.contains("String")) { //$NON-NLS-1$
-                currentValue = TalendQuoteUtils.addQuotes(current.getValue()); //$NON-NLS-1$
+                currentValue = TalendQuoteUtils.addQuotes(current.getValue());
             } else {
-                currentValue = current.getValue(); //$NON-NLS-1$
+                currentValue = current.getValue();
             }
             if (current.getStructureOrTableName() != null && !"".equals(current.getStructureOrTableName())) {
                 if (current.getStructureOrTableName().equals(column.getStructureOrTableName())
                         && current.getName().equals(column.getName())) {
 
-                    String key = current.getStructureOrTableName() + "_" + current.getName(); //$NON-NLS-N$
+                    String key = current.getStructureOrTableName() + "_" + current.getName();
                     if (!mergedMapping.keySet().contains(key)) {// need
                         // merge
-                        mergeType = column.getParameterType().replace('.', '_'); //$NON-NLS-0$ //$NON-NLS-1$
+                        mergeType = column.getParameterType().replace('.', '_');
                         mergeStructure = current.getStructureOrTableName();
                         if ("".equals(mergeValue)) {
                             mergeValue = value;
@@ -272,7 +272,7 @@ public class RepositoryToComponentProperty {
                          */
                     } else if (mergedMapping.keySet().contains(key) && !mergedMapping.get(key).contains(current.getValue())) {
                         mergedMapping.get(key).add(current.getValue());
-                        mergeType = column.getParameterType().replace('.', '_'); //$NON-NLS-0$ //$NON-NLS-1$
+                        mergeType = column.getParameterType().replace('.', '_');
                         mergeStructure = current.getStructureOrTableName();
                         if ("".equals(mergeValue)) {
                             mergeValue = value;
@@ -314,7 +314,7 @@ public class RepositoryToComponentProperty {
             return null;
         }
         for (int i = 0; i < conn.getFuntions().size(); i++) {
-            unit = (SAPFunctionUnit) conn.getFuntions().get(i);
+            unit = conn.getFuntions().get(i);
             if (unit.getLabel().equals(functionLabel)) {
                 break;
             }
@@ -655,9 +655,9 @@ public class RepositoryToComponentProperty {
     private static Object getMDMValue(MDMConnection connection, String value, IMetadataTable table) {
         if ("MDMURL".equals(value)) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getServer()) && isContextMode(connection, connection.getPort())) {
-                return "http://" + connection.getServer() + ":" + connection.getPort() + "/talend/TalendPort";//$NON-NLS-1$//$NON-NLS-1$//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                return "http://" + connection.getServer() + ":" + connection.getPort() + "/talend/TalendPort";//$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
             } else {
-                return TalendQuoteUtils.addQuotes("http://" + connection.getServer() + ":" + connection.getPort()//$NON-NLS-1$//$NON-NLS-1$ //$NON-NLS-2$
+                return TalendQuoteUtils.addQuotes("http://" + connection.getServer() + ":" + connection.getPort()//$NON-NLS-1$//$NON-NLS-2$
                         + "/talend/TalendPort");//$NON-NLS-1$
             }
         } else if ("USERNAME".equals(value)) { //$NON-NLS-1$
@@ -744,7 +744,7 @@ public class RepositoryToComponentProperty {
 
     private static Concept getConcept(MDMConnection connection, IMetadataTable table) {
         if (table != null) {
-            for (Concept concept : (List<Concept>) connection.getSchemas()) {
+            for (Concept concept : connection.getSchemas()) {
                 // test if sourcename is null, this is only for compatibility with first mdm repository
                 // released.
                 if (concept != null && (concept.getLabel() != null && concept.getLabel().equals(table.getLabel()))) {
@@ -1593,7 +1593,7 @@ public class RepositoryToComponentProperty {
             List<IMetadataTable> newMetaTables = new ArrayList<IMetadataTable>(metaTables);
             HL7Connection hl7Connection = (HL7Connection) connection;
             tableInfo.clear();
-            for (MetadataTable repTable : (Set<MetadataTable>) ConnectionHelper.getTables(connection)) {
+            for (MetadataTable repTable : ConnectionHelper.getTables(connection)) {
                 IMetadataTable metaTable = null;
                 Iterator<IMetadataTable> iterator = newMetaTables.iterator();
                 while (iterator.hasNext()) {
@@ -1605,7 +1605,7 @@ public class RepositoryToComponentProperty {
                     }
                 }
                 String xpathValue = "";
-                for (MetadataColumn col : (List<MetadataColumn>) repTable.getColumns()) {
+                for (MetadataColumn col : repTable.getColumns()) {
                     String original = col.getOriginalField();
                     if (original != null && !"".equals(original)) {
                         if (original.indexOf(TalendQuoteUtils.LBRACKET) != -1) {
@@ -1628,7 +1628,7 @@ public class RepositoryToComponentProperty {
                                 .getService(IMetadataManagmentService.class);
                         IMetadataTable convert = mmService.convertMetadataTable(repTable);
                         String uinqueTableName = node.getProcess().generateUniqueConnectionName(
-                                MultiSchemasUtil.getConnectionBaseName((String) repTable.getLabel()));
+                                MultiSchemasUtil.getConnectionBaseName(repTable.getLabel()));
                         convert.setTableName(uinqueTableName);
                         // IProxyRepositoryFactory factory =
                         // CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
@@ -1879,7 +1879,7 @@ public class RepositoryToComponentProperty {
             if (metadataTable != null) {
                 for (Concept concept : (List<Concept>) objectList) {
                     // test if sourcename is null, this is only for compatibility with first mdm repository released.
-                    if (concept != null && (concept.getLabel() == null || concept.getLabel().equals(metadataTable.getLabel()))) {
+                    if (concept != null && concept.getLabel() != null && concept.getLabel().equals(metadataTable.getLabel())) {
                         List<ConceptTarget> conceptTargets = concept.getConceptTargets();
                         List<Map<String, Object>> maps = new ArrayList<Map<String, Object>>();
                         for (IMetadataColumn col : metadataTable.getListColumns()) {
@@ -1908,7 +1908,7 @@ public class RepositoryToComponentProperty {
                 for (MetadataTable table : (Set<MetadataTable>) objectList) {
                     if (table != null && (table.getLabel() == null || table.getLabel().equals(tableOfNode.getLabel()))) {
                         String xpathValue = "";
-                        for (MetadataColumn col : (List<MetadataColumn>) table.getColumns()) {
+                        for (MetadataColumn col : table.getColumns()) {
                             String original = col.getOriginalField();
                             if (original != null && !"".equals(original)) {
                                 if (original.indexOf(TalendQuoteUtils.LBRACKET) != -1) {
@@ -2011,8 +2011,9 @@ public class RepositoryToComponentProperty {
                 if (connection.getCustomEncode() == null) {
                     // get the default encoding
                     return TalendQuoteUtils.addQuotes(EMetadataEncoding.getMetadataEncoding("").getName()); //$NON-NLS-1$
-                } else
+                } else {
                     return TalendQuoteUtils.addQuotes(connection.getCustomEncode());
+                }
             }
         }
         if (value.equals("USE_PROXY")) {
