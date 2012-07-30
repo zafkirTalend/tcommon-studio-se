@@ -22,4 +22,11 @@ public interface IDocumentationService extends IService {
 
     public boolean saveDocumentNode(Item item) throws Exception;
 
+    /**
+     * DOC Administrator Comment method "createNodeDocumentationItemFromItem".
+     * 
+     * @param item
+     */
+    public boolean createNodeDocumentationItemFromItem(Item item) throws Exception;
+
 }
