@@ -1117,6 +1117,9 @@ public abstract class PropertiesWizardPage extends WizardPage {
      * ftang Comment method "evaluateNameInRoutine".
      */
     protected void evaluateNameInRoutine() {
+    	if(nameText == null){
+    		return;
+    	}
         String jobName = nameText.getText().trim();
         boolean isValid = isNameValidInRountine(jobName);
 
