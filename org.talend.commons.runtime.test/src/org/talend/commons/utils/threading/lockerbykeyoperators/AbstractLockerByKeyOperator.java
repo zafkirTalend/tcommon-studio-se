@@ -12,13 +12,13 @@
 // ============================================================================
 package org.talend.commons.utils.threading.lockerbykeyoperators;
 
-import org.talend.commons.utils.threading.LockerByKey;
+import org.talend.commons.utils.threading.lockerbykey.ILockerByKey;
 import org.talend.commons.utils.threading.threadsafetester.IThreadSafetyOperator;
 
 
 public abstract class AbstractLockerByKeyOperator implements IThreadSafetyOperator {
 
-    protected LockerByKey locker;
+    protected ILockerByKey locker;
 
     protected int nOperationsByOperator;
 
@@ -35,7 +35,7 @@ public abstract class AbstractLockerByKeyOperator implements IThreadSafetyOperat
      * 
      * @param locker the locker to set
      */
-    public void setLocker(LockerByKey locker) {
+    public void setLocker(ILockerByKey locker) {
         this.locker = locker;
     }
 

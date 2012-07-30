@@ -632,7 +632,7 @@ public class Locker<B, KP> {
      * 
      * @param bean
      * @return locker value.
-     * @deprecated use instead {@link org.talend.commons.utils.threading.LockerByKey#getLocker(Object)}
+     * @deprecated use instead {@link org.talend.commons.utils.threading.LockerByKey#getLockerValue(Object)}
      */
     public LockerValue getLocker(KP key) {
         check(key);

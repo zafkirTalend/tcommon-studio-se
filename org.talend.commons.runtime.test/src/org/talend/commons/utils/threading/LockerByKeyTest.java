@@ -22,7 +22,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
-import org.talend.commons.utils.threading.LockerByKey.LockerValue;
+import org.talend.commons.utils.threading.lockerbykey.LockerValue;
 import org.talend.commons.utils.threading.lockerbykeyoperators.AbstractLockerByKeyOperator;
 import org.talend.commons.utils.threading.lockerbykeyoperators.LockThenUnlockOperator;
 import org.talend.commons.utils.threading.lockerbykeyoperators.ResultContainer;
@@ -170,7 +170,7 @@ public class LockerByKeyTest {
          * Be warn, the last is not removed by the auto clean, need to call clean again to clear all.
          */
         for (int i = 0; i < 999; i++) {
-            assertThat(locker.getLocker(i), is(nullValue()));
+            assertThat(locker.getLockerValue(i), is(nullValue()));
         }
 
     }
@@ -203,10 +203,10 @@ public class LockerByKeyTest {
          * Be warn, the last is not removed by the auto clean, need to call clean again to clear all.
          */
         for (int i = 0; i < 1000; i++) {
-            if (i < 599) {
-                assertThat(locker.getLocker(i), is(nullValue()));
+            if (i < 600) {
+                assertThat(locker.getLockerValue(i), is(nullValue()));
             } else {
-                assertThat(locker.getLocker(i), is(notNullValue()));
+                assertThat(locker.getLockerValue(i), is(notNullValue()));
             }
         }
 
@@ -316,22 +316,22 @@ public class LockerByKeyTest {
 
         final int keyOne = 1;
 
-        LockerValue lockerValue = locker.getLocker(keyOne);
+        LockerValue lockerValue = locker.getLockerValue(keyOne);
         assertThat(lockerValue, is(nullValue()));
 
         locker.lockInterruptibly(keyOne);
 
-        LockerValue lockerValue1 = locker.getLocker(keyOne);
+        LockerValue lockerValue1 = locker.getLockerValue(keyOne);
         assertThat(lockerValue1, is(notNullValue()));
 
         boolean hasUnlocked = locker.unlock(keyOne);
         assertThat(hasUnlocked, is(true));
 
-        LockerValue lockerValue2 = locker.getLocker(keyOne);
+        LockerValue lockerValue2 = locker.getLockerValue(keyOne);
         assertThat(lockerValue2, is(lockerValue1));
 
         locker.shutdown();
-        LockerValue lockerValue3 = locker.getLocker(keyOne);
+        LockerValue lockerValue3 = locker.getLockerValue(keyOne);
         assertThat(lockerValue3, is(nullValue()));
 
     }
@@ -594,7 +594,7 @@ public class LockerByKeyTest {
                 int actualSumLockedAtEnd = 0;
                 int actualSumLockersAtEnd = 0;
                 for (int i = 0; i < nOperationsByOperator; i++) {
-                    LockerValue lockerValue = locker.getLocker(i);
+                    LockerValue lockerValue = locker.getLockerValue(i);
                     if (lockerValue != null) {
                         int queueLength = lockerValue.getLock().getQueueLength();
                         if (lockerValue != null) {
@@ -614,7 +614,7 @@ public class LockerByKeyTest {
                 actualSumLockedAtEnd = 0;
                 actualSumLockersAtEnd = 0;
                 for (int i = 0; i < nOperationsByOperator; i++) {
-                    LockerValue lockerValue = locker.getLocker(i);
+                    LockerValue lockerValue = locker.getLockerValue(i);
                     if (lockerValue != null) {
                         int queueLength = lockerValue.getLock().getQueueLength();
                         if (lockerValue != null) {
@@ -628,6 +628,7 @@ public class LockerByKeyTest {
 
                 assertThat(AbstractLockerByKeyOperator.getNotThreadSafeCounter(),
                         is(resultContainer.sumThreadSafeOperations.get()));
+                System.out.println("Total of operations done: " + resultContainer.sumThreadSafeOperations.get());
             }
 
         }
