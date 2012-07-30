@@ -32,8 +32,7 @@ import org.talend.commons.utils.StringUtils;
  * 
  * @see java.util.concurrent.locks.ReentrantLock
  * 
- * @param <B> bean which contains the property id
- * @param <KP> type of the key/property
+ * @param <KP> type of the key
  */
 public class LockerByKey<KP> {
 

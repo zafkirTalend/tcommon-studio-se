@@ -529,7 +529,7 @@ public class LockerByKeyTest {
                 TryLockThenUnlockOperator.class);
     }
 
-    // @Test(timeout = 30000)
+    @Test(timeout = 30000)
     // @Test
     public void testThreadSafetyWithWaitForLockThenUnlock_2_operators() throws Exception {
         final LockerByKey locker = createLockerInstance();
@@ -538,7 +538,7 @@ public class LockerByKeyTest {
         launchThreadSafetyTestWithWaitForLockThenUnlock(locker, nOperatorsByClassOperator, nOperationsByOperator);
     }
 
-    // @Test(timeout = 30000)
+    @Test(timeout = 30000)
     // @Test
     public void testThreadSafetyWithWaitForLockThenUnlock_3_operators() throws Exception {
         final LockerByKey locker = createLockerInstance();
@@ -547,7 +547,7 @@ public class LockerByKeyTest {
         launchThreadSafetyTestWithWaitForLockThenUnlock(locker, nOperatorsByClassOperator, nOperationsByOperator);
     }
 
-    // @Test(timeout = 30000)
+    @Test(timeout = 30000)
     // @Test
     public void testThreadSafetyWithWaitForLockThenUnlock_5_operators() throws Exception {
         final LockerByKey locker = createLockerInstance();
