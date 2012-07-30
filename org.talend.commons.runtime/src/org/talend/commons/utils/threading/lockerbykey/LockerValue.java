@@ -19,6 +19,10 @@ public class LockerValue<VKP> {
 
     private List<LockerValueHandler> handlers;
 
+    private StackTraceElement[] stackTraceOfLocker;
+
+    private long lockedTime;
+
     /**
      * LockerValue constructor.
      * 
@@ -97,6 +101,42 @@ public class LockerValue<VKP> {
             return lockerValueHandler;
         }
         return null;
+    }
+
+    /**
+     * Getter for stackTraceElements.
+     * 
+     * @return the stackTraceElements
+     */
+    public StackTraceElement[] getStackTraceOfLocker() {
+        return stackTraceOfLocker;
+    }
+
+    /**
+     * Sets the stackTraceElements.
+     * 
+     * @param stackTraceElements the stackTraceElements to set
+     */
+    public void setStackTraceOfLocker(StackTraceElement[] stackTraceElements) {
+        this.stackTraceOfLocker = stackTraceElements;
+    }
+
+    /**
+     * Getter for lockedTime.
+     * 
+     * @return the lockedTime
+     */
+    public long getLockedTime() {
+        return lockedTime;
+    }
+
+    /**
+     * Sets the lockedTime.
+     * 
+     * @param lockedTime the lockedTime to set
+     */
+    public void setLockedTime(long lockedTime) {
+        this.lockedTime = lockedTime;
     }
 
 }

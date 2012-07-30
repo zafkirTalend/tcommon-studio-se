@@ -15,13 +15,17 @@ package org.talend.commons.utils.threading.lockerbykey;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.MethodRule;
+import org.junit.rules.Timeout;
 import org.talend.commons.utils.memory.MemoryMeasurer;
 import org.talend.commons.utils.threading.lockerbykey.operators.AbstractLockerByKeyOperator;
 import org.talend.commons.utils.threading.lockerbykey.operators.CleanOperator;
@@ -33,26 +37,29 @@ import org.talend.commons.utils.threading.threadsafetester.AbstractThreadSafetyT
 
 public class LockerByKeyTest {
 
-    private static final int WAIT_THREAD_STARTED = 100;
+    @Rule
+    public MethodRule globalTimeout = new Timeout(60000);
 
-    private static final int WAIT_JOIN = 100;
+    private static final int WAIT_THREAD_STARTED = 200;
+
+    private static final int WAIT_JOIN = 200;
 
     private static final boolean DEBUG = false;
 
-    protected LockerByKey createLockerInstance() {
+    protected ILockerByKey createLockerInstance() {
         // default implementation when running this TestCase
         return new LockerByKey();
     }
 
     class LockInterruptiblyThread extends Thread {
 
-        private LockerByKey locker;
+        private ILockerByKey locker;
 
         Integer key;
 
         public Throwable throwable;
 
-        public LockInterruptiblyThread(LockerByKey locker, Integer key) {
+        public LockInterruptiblyThread(ILockerByKey locker, Integer key) {
             super();
             this.locker = locker;
             this.key = key;
@@ -72,13 +79,13 @@ public class LockerByKeyTest {
 
     class LockInterruptiblyTwiceThread extends Thread {
 
-        private LockerByKey locker;
+        private ILockerByKey locker;
 
         Integer key;
 
         public Throwable throwable;
 
-        public LockInterruptiblyTwiceThread(LockerByKey locker, Integer key) {
+        public LockInterruptiblyTwiceThread(ILockerByKey locker, Integer key) {
             super();
             this.locker = locker;
             this.key = key;
@@ -98,13 +105,13 @@ public class LockerByKeyTest {
 
     class UnlockThread extends Thread {
 
-        private LockerByKey locker;
+        private ILockerByKey locker;
 
         Integer key;
 
         public Throwable throwable;
 
-        public UnlockThread(LockerByKey locker, Integer key) {
+        public UnlockThread(ILockerByKey locker, Integer key) {
             super();
             this.locker = locker;
             this.key = key;
@@ -126,7 +133,7 @@ public class LockerByKeyTest {
     @Test(timeout = 2000)
     // @Test()
     public void testIsLocked_with_Lock_then_Unlock() throws Throwable {
-        final LockerByKey locker = createLockerInstance();
+        final ILockerByKey locker = createLockerInstance();
 
         final int keyOne = 1;
 
@@ -149,7 +156,7 @@ public class LockerByKeyTest {
     // @Test(timeout = 2000)
     @Test()
     public void testLockWithThread1_and_UnlockWithThread2() throws Throwable {
-        final LockerByKey locker = createLockerInstance();
+        final ILockerByKey locker = createLockerInstance();
 
         final int keyOne = 1;
 
@@ -193,7 +200,7 @@ public class LockerByKeyTest {
     @Test(timeout = 2000)
     // @Test()
     public void testTryLockWithThread1_and_UnlockWithThread2() throws Throwable {
-        final LockerByKey locker = createLockerInstance();
+        final ILockerByKey locker = createLockerInstance();
 
         final int keyOne = 1;
 
@@ -238,7 +245,7 @@ public class LockerByKeyTest {
     @Test(timeout = 2000)
     // @Test()
     public void testUnlock_with_noPreviousLock() throws Throwable {
-        final LockerByKey locker = createLockerInstance();
+        final ILockerByKey locker = createLockerInstance();
 
         final int keyOne = 1;
 
@@ -253,7 +260,7 @@ public class LockerByKeyTest {
     @Test(timeout = 2000)
     // @Test()
     public void testCleanEnabledDefault() throws Throwable {
-        final LockerByKey locker = new LockerByKey();
+        final ILockerByKey locker = createLockerInstance();
 
         final int keyOne = 1;
 
@@ -276,7 +283,7 @@ public class LockerByKeyTest {
         /*
          * Be warn, the last is not removed by the auto clean, need to call clean again to clear all.
          */
-        for (int i = 0; i < 999; i++) {
+        for (int i = 0; i < 1000; i++) {
             assertThat(locker.getLockerValue(i), is(nullValue()));
         }
 
@@ -286,7 +293,7 @@ public class LockerByKeyTest {
     @Test(timeout = 2000)
     // @Test()
     public void testCleanEnabledProvidedPeriod() throws Throwable {
-        final LockerByKey locker = new LockerByKey(true, 600);
+        final ILockerByKey<Integer> locker = new LockerByKey<Integer>(true, 600);
 
         final int keyOne = 1;
 
@@ -323,7 +330,7 @@ public class LockerByKeyTest {
     @Test(timeout = 2000)
     // @Test()
     public void testShutdown_Lock() throws Throwable {
-        final LockerByKey locker = createLockerInstance();
+        final ILockerByKey locker = createLockerInstance();
 
         ExecutorService poolRunnable1 = Executors.newCachedThreadPool();
         ExecutorService poolRunnable2 = Executors.newCachedThreadPool();
@@ -371,7 +378,7 @@ public class LockerByKeyTest {
     @Test(timeout = 2000)
     // @Test()
     public void testShutdown_TryLockWithTimeout() throws Throwable {
-        final LockerByKey locker = createLockerInstance();
+        final ILockerByKey locker = createLockerInstance();
 
         ExecutorService poolRunnable1 = Executors.newCachedThreadPool();
         ExecutorService poolRunnable2 = Executors.newCachedThreadPool();
@@ -419,7 +426,7 @@ public class LockerByKeyTest {
     @Test(timeout = 2000)
     // @Test()
     public void testUnlock_withGetLockerValue() throws Throwable {
-        final LockerByKey locker = createLockerInstance();
+        final ILockerByKey locker = createLockerInstance();
 
         final int keyOne = 1;
 
@@ -446,7 +453,7 @@ public class LockerByKeyTest {
     @Test(timeout = 2000)
     // @Test()
     public void testLock_LockTwiceWithSameKey() throws Throwable {
-        final LockerByKey locker = createLockerInstance();
+        final ILockerByKey locker = createLockerInstance();
 
         final int keyOne = 1;
         LockInterruptiblyThread threadLockKeyOne_first = new LockInterruptiblyThread(locker, keyOne);
@@ -471,7 +478,7 @@ public class LockerByKeyTest {
     @Test(timeout = 2000)
     // @Test()
     public void testLock_LockTwiceWithSamePrimitiveValueButDifferentInteger() throws Throwable {
-        final LockerByKey locker = createLockerInstance();
+        final ILockerByKey locker = createLockerInstance();
 
         final int keyOne = 1;
         final Integer keyOneInteger1 = new Integer(keyOne);
@@ -497,7 +504,7 @@ public class LockerByKeyTest {
 
     @Test(timeout = 2000)
     public void testLock_LockTwiceWithDifferentKeys() throws Throwable {
-        final LockerByKey locker = createLockerInstance();
+        final ILockerByKey locker = createLockerInstance();
 
         final int keyOne = 1;
         LockInterruptiblyThread threadLockKeyOne_first = new LockInterruptiblyThread(locker, keyOne);
@@ -522,7 +529,7 @@ public class LockerByKeyTest {
     @Test(timeout = 2000)
     // @Test
     public void testLock_ThenUnlockFromOtherThread() throws Throwable {
-        final LockerByKey locker = createLockerInstance();
+        final ILockerByKey locker = createLockerInstance();
 
         final int keyOne = 1;
         LockInterruptiblyThread threadLockKeyOne = new LockInterruptiblyThread(locker, keyOne);
@@ -543,7 +550,7 @@ public class LockerByKeyTest {
     @Test(timeout = 2000)
     // @Test()
     public void testLock_LockTwiceFromDifferentThread() throws Throwable {
-        final LockerByKey locker = createLockerInstance();
+        final ILockerByKey locker = createLockerInstance();
 
         final int keyOne = 1;
         LockInterruptiblyThread threadLock_threadOne = new LockInterruptiblyThread(locker, keyOne);
@@ -568,7 +575,7 @@ public class LockerByKeyTest {
     @Test(timeout = 2000)
     // @Test()
     public void testLock_LockTwiceFromSameThread_forbidReentrantLockFromOtherThread() throws Throwable {
-        final LockerByKey locker = createLockerInstance();
+        final ILockerByKey locker = createLockerInstance();
 
         final int keyOne = 1;
         LockInterruptiblyTwiceThread threadLockTwiceKeyOne = new LockInterruptiblyTwiceThread(locker, keyOne);
@@ -581,7 +588,7 @@ public class LockerByKeyTest {
     @Test(timeout = 2000)
     // @Test()
     public void testLock_LockTwiceFromDifferentThread_forbidReentrantLockFromLockerThread() throws Throwable {
-        final LockerByKey locker = createLockerInstance();
+        final ILockerByKey locker = createLockerInstance();
 
         final int keyOne = 1;
         LockInterruptiblyThread threadLock_threadOne = new LockInterruptiblyThread(locker, keyOne);
@@ -603,10 +610,30 @@ public class LockerByKeyTest {
         assertThat(threadLock_threadTwo.throwable, is(instanceOf(InterruptedException.class)));
     }
 
+    @Test(timeout = 1000)
+    // @Test
+    public void testGetSuspectLocks() throws Exception {
+        final ILockerByKey<Integer> locker = createLockerInstance();
+        locker.setDetectSuspectLocks(true);
+        int keyOne = 1;
+
+        locker.lockInterruptibly(keyOne);
+        List<LockerValue<Integer>> suspectLocks = locker.getSuspectLocks(1000);
+        assertThat(suspectLocks.size(), is(0));
+
+        Thread.sleep(100);
+        suspectLocks = locker.getSuspectLocks(50);
+        assertThat(suspectLocks.size(), is(1));
+
+        locker.unlock(keyOne);
+        suspectLocks = locker.getSuspectLocks(50);
+        assertThat(suspectLocks.size(), is(0));
+    }
+
     @Test(timeout = 20000)
     // @Test
     public void testThreadSafety_LockThenUnlock() throws Exception {
-        final LockerByKey locker = new LockerByKey();
+        final ILockerByKey locker = createLockerInstance();
         final int nOperatorsByClassOperator = 30;
         final int nOperationsByOperator = 500;
         boolean assertEntriesLessThanCleanPeriod = true;
@@ -620,7 +647,7 @@ public class LockerByKeyTest {
     @Test(timeout = 20000)
     // @Test
     public void testThreadSafety_LockThenUnlock_with_randomClean() throws Exception {
-        final LockerByKey locker = new LockerByKey();
+        final ILockerByKey locker = createLockerInstance();
         final int nOperatorsByClassOperator = 30;
         final int nOperationsByOperator = 500;
         boolean assertEntriesLessThanCleanPeriod = true;

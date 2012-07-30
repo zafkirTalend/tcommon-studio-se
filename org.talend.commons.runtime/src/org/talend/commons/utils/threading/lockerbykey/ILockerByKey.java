@@ -13,6 +13,7 @@
 
 package org.talend.commons.utils.threading.lockerbykey;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -40,5 +41,11 @@ public interface ILockerByKey<KP> {
     public abstract boolean isLocked(KP key);
 
     public abstract void clean();
+
+    public abstract List<LockerValue<KP>> getSuspectLocks(long timeDetectionLimitMs);
+
+    public abstract void setDetectSuspectLocks(boolean detectSuspectLocks);
+
+    public abstract boolean isDetectSuspectLocks();
 
 }

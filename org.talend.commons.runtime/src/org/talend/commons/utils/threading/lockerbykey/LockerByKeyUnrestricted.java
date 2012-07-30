@@ -13,6 +13,7 @@
 package org.talend.commons.utils.threading.lockerbykey;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CyclicBarrier;
@@ -136,13 +137,31 @@ public class LockerByKeyUnrestricted<KP> implements ILockerByKey<KP> {
      */
     @Override
     public void lockInterruptibly(final KP key) throws InterruptedException {
+        blockOperationIfRequired();
+        incrementRunningOperations();
+        try {
+            locker.lockInterruptibly(key);
+        } finally {
+            decrementRunningOperations();
+        }
+    }
+
+    /**
+     * 
+     * Method "lockInterruptiblyUnrestricted".
+     * 
+     * @param key
+     * @throws InterruptedException
+     * @see java.util.concurrent.locks.ReentrantLock#lockInterruptibly()
+     */
+    public void lockInterruptiblyUnrestricted(final KP key) throws InterruptedException {
         checkStopped();
         blockOperationIfRequired();
 
         LockerValue<KP> lockerValue = null;
         LockerValueHandler handler = null;
 
-        if (tryLock(key)) {
+        if (tryLockUnrestricted(key)) {
             return;
         }
 
@@ -215,7 +234,38 @@ public class LockerByKeyUnrestricted<KP> implements ILockerByKey<KP> {
         }
     }
 
+    /**
+     * Method "tryLock".
+     * 
+     * @param key
+     * @return {@code true} if the lock was free and was acquired by the current thread, or the lock was already held by
+     * the current thread; and {@code false} otherwise
+     * @throws InterruptedException
+     * @throws IllegalArgumentException if bean is null
+     * @see java.util.concurrent.locks.ReentrantLock#tryLock()
+     */
+    @Override
     public boolean tryLock(final KP key) {
+        blockOperationIfRequired();
+        incrementRunningOperations();
+        try {
+            return locker.tryLock(key);
+        } finally {
+            decrementRunningOperations();
+        }
+    }
+
+    /**
+     * Method "tryLockUnrestricted".
+     * 
+     * @param key
+     * @return {@code true} if the lock was free and was acquired by the current thread, or the lock was already held by
+     * the current thread; and {@code false} otherwise
+     * @throws InterruptedException
+     * @throws IllegalArgumentException if bean is null
+     * @see java.util.concurrent.locks.ReentrantLock#tryLock()
+     */
+    public boolean tryLockUnrestricted(final KP key) {
         checkStopped();
         blockOperationIfRequired();
         incrementRunningOperations();
@@ -269,13 +319,75 @@ public class LockerByKeyUnrestricted<KP> implements ILockerByKey<KP> {
         return tryLockResultBoolean;
     }
 
+    /**
+     * Method "tryLock".
+     * 
+     * @param key
+     * @param timeout the time to wait for the lock in milliseconds
+     * @return true if the lock was free and was acquired by the current thread, or the lock was already held by the
+     * current thread; and false if the waiting time elapsed before the lock could be acquired
+     * @throws InterruptedException
+     * @throws IllegalArgumentException if bean is null
+     * @see java.util.concurrent.locks.ReentrantLock#tryLock(long, java.util.concurrent.TimeUnit)
+     */
     @Override
     public boolean tryLock(final KP key, final long timeout) throws InterruptedException {
-        return tryLock(key, timeout, TimeUnit.MILLISECONDS);
+        return locker.tryLock(key, timeout, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Method "tryLockUnrestricted".
+     * 
+     * @param key
+     * @param timeout the time to wait for the lock in milliseconds
+     * @return true if the lock was free and was acquired by the current thread, or the lock was already held by the
+     * current thread; and false if the waiting time elapsed before the lock could be acquired
+     * @throws InterruptedException
+     * @throws IllegalArgumentException if bean is null
+     * @see java.util.concurrent.locks.ReentrantLock#tryLock(long, java.util.concurrent.TimeUnit)
+     */
+    public boolean tryLockUnrestricted(final KP key, final long timeout) throws InterruptedException {
+        return tryLockUnrestricted(key, timeout, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Method "tryLock".
+     * 
+     * @param key
+     * @param timeout the time to wait for the lock
+     * @param unit the time unit of the timeout argument
+     * @return true if the lock was free and was acquired by the current thread, or the lock was already held by the
+     * current thread; and false if the waiting time elapsed before the lock could be acquired
+     * @throws InterruptedException
+     * @throws IllegalArgumentException if bean is null
+     * 
+     * @see java.util.concurrent.locks.ReentrantLock#tryLock(long, java.util.concurrent.TimeUnit)
+     */
     @Override
     public boolean tryLock(final KP key, final long timeout, final TimeUnit unit) throws InterruptedException {
+        blockOperationIfRequired();
+        incrementRunningOperations();
+        try {
+            return locker.tryLock(key, timeout, unit);
+        } finally {
+            decrementRunningOperations();
+        }
+    }
+
+    /**
+     * Method "tryLockUnrestricted".
+     * 
+     * @param key
+     * @param timeout the time to wait for the lock
+     * @param unit the time unit of the timeout argument
+     * @return true if the lock was free and was acquired by the current thread, or the lock was already held by the
+     * current thread; and false if the waiting time elapsed before the lock could be acquired
+     * @throws InterruptedException
+     * @throws IllegalArgumentException if bean is null
+     * 
+     * @see java.util.concurrent.locks.ReentrantLock#tryLock(long, java.util.concurrent.TimeUnit)
+     */
+    public boolean tryLockUnrestricted(final KP key, final long timeout, final TimeUnit unit) throws InterruptedException {
         checkStopped();
         blockOperationIfRequired();
         incrementRunningOperations();
@@ -330,6 +442,7 @@ public class LockerByKeyUnrestricted<KP> implements ILockerByKey<KP> {
                 LockerValue<KP> lockerValue = locker.getLockerValue(key);
                 Thread threadLocker = Thread.currentThread();
                 lockerValue.addHandler(new LockerValueHandler(futureTask, cyclicBarrier, threadLocker));
+                locker.traceStackForDebugging(lockerValue);
             }
         } finally {
             decrementRunningOperations();
@@ -342,7 +455,7 @@ public class LockerByKeyUnrestricted<KP> implements ILockerByKey<KP> {
      * Method "unlock". Unlock the operations with the provided key.
      * 
      * To detect incorrect unlocking, this method may return an <code>IllegalStateException</code> when the lock has
-     * been already unlocked or it never be locked.
+     * been already unlocked or it never been locked.
      * 
      * @param key
      * @return true if the key has been found to release the lock; and false otherwise
@@ -351,6 +464,31 @@ public class LockerByKeyUnrestricted<KP> implements ILockerByKey<KP> {
      */
     @Override
     public boolean unlock(final KP key) {
+        boolean returnedValue = false;
+        try {
+            checkStopped();
+            blockOperationIfRequired();
+            incrementRunningOperations();
+            returnedValue = locker.unlock(key);
+        } finally {
+            decrementRunningOperations();
+        }
+        cleanAccordingOperations();
+        return returnedValue;
+    }
+
+    /**
+     * Method "unlockUnrestricted". Unlock the operations with the provided key.
+     * 
+     * To detect incorrect unlocking, this method may return an <code>IllegalStateException</code> when the lock has
+     * been already unlocked or it never been locked.
+     * 
+     * @param key
+     * @return true if the key has been found to release the lock; and false otherwise
+     * @throws IllegalStateException
+     * @see java.util.concurrent.locks.ReentrantLock#unlock()
+     */
+    public boolean unlockUnrestricted(final KP key) {
         checkStopped();
         blockOperationIfRequired();
         Boolean resultFuture;
@@ -361,6 +499,10 @@ public class LockerByKeyUnrestricted<KP> implements ILockerByKey<KP> {
                 throw new IllegalStateException(NOT_ALREADY_LOCKED_MESSAGE + " key=" + key);
             }
             LockerValueHandler handler = lockerValue.getHandlerAndRemove();
+            if (handler == null) {
+                throw new UnsupportedOperationException(
+                        "Either you have to use the restricted unlock() method to unlock, or you have to use '*Lock*Unrestricted()' methods to lock !");
+            }
             CyclicBarrier barrier = handler.getBarrier();
             try {
                 // STEP 2
@@ -498,6 +640,18 @@ public class LockerByKeyUnrestricted<KP> implements ILockerByKey<KP> {
     @Override
     public boolean isLocked(KP key) {
         return locker.isLocked(key);
+    }
+
+    public List<LockerValue<KP>> getSuspectLocks(long timeDetectionLimitMs) {
+        return locker.getSuspectLocks(timeDetectionLimitMs);
+    }
+
+    public void setDetectSuspectLocks(boolean detectSuspectLocks) {
+        locker.setDetectSuspectLocks(detectSuspectLocks);
+    }
+
+    public boolean isDetectSuspectLocks() {
+        return locker.isDetectSuspectLocks();
     }
 
 }
