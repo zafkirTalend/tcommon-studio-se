@@ -30,13 +30,13 @@ public abstract class AbstractThreadSafetyTester<T extends IThreadSafetyOperator
 
     private final ExecutorService pool = Executors.newCachedThreadPool();
 
-    private volatile Throwable throwable;
-
     private final CyclicBarrier barrier;
 
     protected int nOperatorsByClassOperator;
 
     protected Class<? extends T>[] classOperators;
+
+    private long duration;
 
     public AbstractThreadSafetyTester(int nOperatorsByClassOperator, Class<? extends T>... classOperators) {
         this.nOperatorsByClassOperator = nOperatorsByClassOperator;
@@ -61,9 +61,10 @@ public abstract class AbstractThreadSafetyTester<T extends IThreadSafetyOperator
                 }
             }
             barrier.await(); // wait for all threads to be ready
-            long startClean = System.currentTimeMillis();
+            long start = System.currentTimeMillis();
             barrier.await(); // wait for all threads to finish
-            System.out.println("ThreadSafetyTester duration: " + (System.currentTimeMillis() - startClean) + " ms");
+            duration = System.currentTimeMillis() - start;
+            System.out.println("ThreadSafetyTester duration: " + duration + " ms");
         } catch (Exception e) {
             throw e;
         }
@@ -71,12 +72,25 @@ public abstract class AbstractThreadSafetyTester<T extends IThreadSafetyOperator
             int operatorsHandlerListListSize = operatorsHandlerList.size();
             for (int i = 0; i < operatorsHandlerListListSize; i++) {
                 Future<Object> futureTask = operatorsHandlerList.get(i);
-                futureTask.get();
+                try {
+                    futureTask.get();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         } finally {
             pool.shutdown();
         }
         assertFinal();
+    }
+
+    /**
+     * Getter for duration.
+     * 
+     * @return the duration
+     */
+    public long getDuration() {
+        return duration;
     }
 
     protected abstract void initInstance(T operatorInstance);

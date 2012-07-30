@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.commons.utils.threading.lockeroperators;
+package org.talend.commons.utils.threading.locker.operators;
 
 import org.talend.commons.utils.threading.Locker;
 import org.talend.commons.utils.threading.threadsafetester.IThreadSafetyOperator;

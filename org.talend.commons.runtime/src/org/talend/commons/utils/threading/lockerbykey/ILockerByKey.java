@@ -39,4 +39,6 @@ public interface ILockerByKey<KP> {
 
     public abstract boolean isLocked(KP key);
 
+    public abstract void clean();
+
 }

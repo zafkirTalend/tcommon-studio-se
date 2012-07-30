@@ -2,7 +2,6 @@ package org.talend.commons.utils.threading.lockerbykey;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Future;
 
 import org.talend.commons.utils.StringUtils;
 
@@ -18,7 +17,7 @@ public class LockerValue<VKP> {
 
     private VKP key;
 
-    private List<Future<Boolean>> futureTasks;
+    private List<LockerValueHandler> handlers;
 
     /**
      * LockerValue constructor.
@@ -54,16 +53,48 @@ public class LockerValue<VKP> {
         return lock;
     }
 
-    public synchronized void addFuture(Future<Boolean> futureTask) {
-        if (futureTasks == null) {
-            futureTasks = new ArrayList<Future<Boolean>>();
+    /**
+     * 
+     * Method "addHandler". Add handler to internal list.
+     * 
+     * @param handler
+     */
+    public synchronized void addHandler(LockerValueHandler handler) {
+        if (handlers == null) {
+            handlers = new ArrayList<LockerValueHandler>();
         }
-        futureTasks.add(futureTask);
+        handlers.add(handler);
     }
 
-    public synchronized Future<Boolean> getFuture() {
-        if (futureTasks.size() > 0) {
-            return futureTasks.get(0);
+    /**
+     * 
+     * Method "getHandlerAndRemove".
+     * 
+     * Return the next available handler then remove it from internal list, else null if not exist.
+     * 
+     * @return the next available handler, else null if not exist
+     */
+    public synchronized LockerValueHandler getHandler() {
+        if (handlers != null && handlers.size() > 0) {
+            LockerValueHandler lockerValueHandler = handlers.get(0);
+            return lockerValueHandler;
+        }
+        return null;
+    }
+
+    /**
+     * 
+     * Method "getHandlerAndRemove".
+     * 
+     * Return the next available handler then remove it from internal list, else null if not exist.
+     * 
+     * @return the next available handler, else null if not exist
+     */
+    public synchronized LockerValueHandler getHandlerAndRemove() {
+        if (handlers != null && handlers.size() > 0) {
+            LockerValueHandler lockerValueHandler = handlers.get(0);
+            handlers.remove(0);
+            return lockerValueHandler;
         }
         return null;
     }
