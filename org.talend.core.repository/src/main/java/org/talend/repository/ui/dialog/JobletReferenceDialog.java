@@ -25,6 +25,8 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -50,6 +52,7 @@ public class JobletReferenceDialog extends SelectionDialog {
      */
     class JobletsProvide extends LabelProvider implements ITableLabelProvider {
 
+        @Override
         public Image getColumnImage(Object element, int columnIndex) {
             if (columnIndex == 0) {
                 if (element instanceof JobletReferenceBean) {
@@ -65,6 +68,7 @@ public class JobletReferenceDialog extends SelectionDialog {
             return null;
         }
 
+        @Override
         public String getColumnText(Object element, int columnIndex) {
             JobletReferenceBean bean = (JobletReferenceBean) element;
             switch (columnIndex) {
@@ -113,6 +117,7 @@ public class JobletReferenceDialog extends SelectionDialog {
     @Override
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
+        newShell.setSize(540, 400);
         newShell.setText(Messages.getString("JobletReferenceDialog.Title")); //$NON-NLS-1$
     }
 
@@ -121,7 +126,7 @@ public class JobletReferenceDialog extends SelectionDialog {
         createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
     }
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     @Override
     protected Control createDialogArea(Composite parent) {
         Composite composite = (Composite) super.createDialogArea(parent);
@@ -135,16 +140,19 @@ public class JobletReferenceDialog extends SelectionDialog {
         viewer.setLabelProvider(new JobletsProvide());
         viewer.setContentProvider(new IStructuredContentProvider() {
 
+            @Override
             public void dispose() {
                 //
 
             }
 
+            @Override
             public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
                 //
 
             }
 
+            @Override
             public Object[] getElements(Object inputElement) {
                 if (inputElement != null) {
                     return ((List) inputElement).toArray();
@@ -189,4 +197,14 @@ public class JobletReferenceDialog extends SelectionDialog {
         viewer.setInput(referenceList);
         return composite;
     }
+
+    @Override
+    protected void initializeBounds() {
+        super.initializeBounds();
+
+        Point size = getShell().getSize();
+        Point location = getInitialLocation(size);
+        getShell().setBounds(getConstrainedShellBounds(new Rectangle(location.x, location.y, size.x, size.y)));
+    }
+
 }
