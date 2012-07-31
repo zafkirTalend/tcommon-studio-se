@@ -150,7 +150,6 @@ import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
-
 import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 
 /**
@@ -1404,11 +1403,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 false);
         for (IRepositoryViewObject obj : allVersionToMove) {
             Item currentItem = obj.getProperty().getItem();
-            // Added yyin 20120614 TDQ-5468, add ByteArray into item from file.
-            if (currentItem instanceof TDQItem) {
-                this.saveTDQItem((TDQItem) currentItem);
-            }
-            // ~
             if (currentItem.getParent() instanceof FolderItem) {
                 ((FolderItem) currentItem.getParent()).getChildren().remove(currentItem);
             }
@@ -1459,15 +1453,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         saveProject(project);
     }
 
-    // Added yyin 20120614 TDQ-5468
-    private boolean saveTDQItem(TDQItem item) {
-        AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
-                AbstractResourceChangesService.class);
-        if (resChangeService != null) {
-        return resChangeService.saveSourceFile(item);
-        }
-        return false;
-    }
 
     public void lock(Item item) throws PersistenceException {
         if (getStatus(item) == ERepositoryStatus.DEFAULT) {
