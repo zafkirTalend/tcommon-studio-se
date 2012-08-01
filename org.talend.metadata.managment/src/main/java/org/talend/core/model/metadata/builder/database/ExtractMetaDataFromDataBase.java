@@ -474,7 +474,9 @@ public class ExtractMetaDataFromDataBase {
         Iterator<IMetadataTable> iterate = metadataTables.iterator();
         while (iterate.hasNext()) {
             IMetadataTable metadataTable = iterate.next();
-            itemTablesName.add(ConvertionHelper.convert(metadataTable));
+            if (!metadataTable.getLabel().contains("=")) {
+                itemTablesName.add(ConvertionHelper.convert(metadataTable));
+            }
         }
 
         return itemTablesName;
