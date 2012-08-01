@@ -32,65 +32,12 @@
          -->
       </perspectiveExtension>
    </extension>
+   
+   
+   
+   
    <extension
          point="org.eclipse.ui.navigator.navigatorContent">
-    
- <!-- example for OEMs 
-   <navigatorContent
-            appearsBefore="org.talend.repository.viewer.root.jobDesigns"
-            contentProvider="org.talend.repository.viewer.content.example.ExampleCompContentProvider"
-            id="org.talend.repository.viewer.root.content.OemModelContent"
-            labelProvider="org.talend.repository.viewer.label.example.ExampleCompLabelProvider"
-            name="OEM model">
-         <triggerPoints>
-            <or>
-               <adapt
-                     type="org.talend.repository.model.ProjectRepositoryNode">
-               </adapt>
-               <instanceof
-                     value="org.talend.repository.model.ProjectRepositoryNode">
-               </instanceof>
-            </or>
-         </triggerPoints>
-         <possibleChildren>
-            <instanceof
-                  value="java.lang.String">
-            </instanceof>
-         </possibleChildren>
-         <actionProvider
-               class="org.talend.repository.viewer.action.OemActionProvider">
-         </actionProvider>
-      </navigatorContent>
-      <navigatorContent
-            activeByDefault="true"
-            contentProvider="org.talend.repository.viewer.content.example.ExampleSubCompProvider"
-            id="org.talend.repository.viewer.content.OemExtension.content"
-            labelProvider="org.talend.repository.viewer.label.example.ExampleCompLabelProvider"
-            name="OEM content extension">
-         <triggerPoints>
-            <or>
-               <and>
-                  <instanceof
-                        value="java.lang.String">
-                  </instanceof>
-                  <test
-                        forcePluginActivation="true"
-                        property="org.talend.example.isBM">
-                  </test>
-               </and>
-               <and>
-                  <instanceof
-                        value="org.talend.repository.model.RepositoryNode">
-                  </instanceof>
-                  <test
-                        forcePluginActivation="true"
-                        property="org.talend.example.isJob">
-                  </test>
-               </and>
-            </or>
-          </triggerPoints>
-      </navigatorContent>
--->      
       <navigatorContent
             activeByDefault="true"
             contentProvider="org.talend.repository.viewer.content.RecycleBinContentProvider"
@@ -290,20 +237,6 @@
    <extension
          point="org.eclipse.core.expressions.propertyTesters">
       <propertyTester
-            class="org.talend.repository.tester.example.ExampleTester"
-            id="org.talend.example.tester"
-            namespace="org.talend.example"
-            properties="isBM"
-            type="java.lang.String">
-      </propertyTester>
-      <propertyTester
-            class="org.talend.repository.tester.example.ExampleTester"
-            id="org.talend.repository.view.propertyTester2"
-            namespace="org.talend.example"
-            properties="isJob"
-            type="org.talend.repository.model.RepositoryNode">
-      </propertyTester>
-      <propertyTester
             class="org.talend.repository.tester.RecycleBinNodeTester"
             id="org.talend.repository.node.tester.recyclebin"
             namespace="org.talend.repository.node"
@@ -354,5 +287,4 @@
             class="org.talend.repository.viewer.preference.RepoViewPreferenceInitializer">
       </initializer>
    </extension>
-
 </plugin>
