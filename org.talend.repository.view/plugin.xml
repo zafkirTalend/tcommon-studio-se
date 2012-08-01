@@ -34,17 +34,23 @@
    </extension>
    <extension
          point="org.eclipse.ui.navigator.navigatorContent">
-    <!--
-    <navigatorContent
+    
+ <!-- example for OEMs 
+   <navigatorContent
             appearsBefore="org.talend.repository.viewer.root.jobDesigns"
             contentProvider="org.talend.repository.viewer.content.example.ExampleCompContentProvider"
             id="org.talend.repository.viewer.root.content.OemModelContent"
             labelProvider="org.talend.repository.viewer.label.example.ExampleCompLabelProvider"
             name="OEM model">
          <triggerPoints>
-            <instanceof
-                  value="org.talend.repository.model.ProjectRepositoryNode">
-            </instanceof>
+            <or>
+               <adapt
+                     type="org.talend.repository.model.ProjectRepositoryNode">
+               </adapt>
+               <instanceof
+                     value="org.talend.repository.model.ProjectRepositoryNode">
+               </instanceof>
+            </or>
          </triggerPoints>
          <possibleChildren>
             <instanceof
@@ -84,7 +90,7 @@
             </or>
           </triggerPoints>
       </navigatorContent>
-      -->
+-->      
       <navigatorContent
             activeByDefault="true"
             contentProvider="org.talend.repository.viewer.content.RecycleBinContentProvider"

@@ -19,13 +19,13 @@ import org.eclipse.ui.navigator.ICommonContentProvider;
 
 public class ExampleCompContentProvider implements ICommonContentProvider {
 
-    static BusinessModelsContainer theContainer;
+    static TopLevelContainer theContainer;
 
-    static public class BusinessModelsContainer {
+    static public class TopLevelContainer {
 
         private final String label;
 
-        public BusinessModelsContainer(String label) {
+        public TopLevelContainer(String label) {
             this.label = label;
         }
 
@@ -42,8 +42,8 @@ public class ExampleCompContentProvider implements ICommonContentProvider {
 
     @Override
     public Object[] getChildren(Object parentElement) {
-        if (parentElement instanceof BusinessModelsContainer) {
-            //            return new Object[] { "bm1", "bm2", "bm3" }; //$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
+        if (parentElement instanceof TopLevelContainer) {
+            return new Object[] { "bm1", "bm2", "bm3" }; //$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
         }
         return new Object[0];
     }
@@ -55,7 +55,7 @@ public class ExampleCompContentProvider implements ICommonContentProvider {
 
     @Override
     public boolean hasChildren(Object element) {
-        return (element instanceof BusinessModelsContainer);
+        return (element instanceof TopLevelContainer);
     }
 
     @Override
@@ -82,6 +82,6 @@ public class ExampleCompContentProvider implements ICommonContentProvider {
 
     @Override
     public void init(ICommonContentExtensionSite aConfig) {
-        theContainer = new BusinessModelsContainer(aConfig.getExtension().getDescriptor().getName());
+        theContainer = new TopLevelContainer(aConfig.getExtension().getDescriptor().getName());
     } // implements ITreeContentProvider {
 }
