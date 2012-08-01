@@ -35,8 +35,9 @@ public class RepositoryNameSorter extends ViewerSorter {
      */
     @Override
     public int category(Object element) {
-        if (!(element instanceof RepositoryNode)) {// this sorter return 0 if this is not a repository element.
-            return 0;
+        if (!(element instanceof RepositoryNode)) {// this sorter return super value if this is not a repository
+                                                   // element.
+            return super.category(element);
         }
         RepositoryNode node = (RepositoryNode) element;
 
