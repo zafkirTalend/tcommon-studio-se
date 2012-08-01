@@ -35,6 +35,9 @@ public class RepositoryNameSorter extends ViewerSorter {
      */
     @Override
     public int category(Object element) {
+        if (!(element instanceof RepositoryNode)) {// this sorter return 0 if this is not a repository element.
+            return 0;
+        }
         RepositoryNode node = (RepositoryNode) element;
 
         if (node.isBin()) {
@@ -47,7 +50,7 @@ public class RepositoryNameSorter extends ViewerSorter {
                 return 199;
             }
             if (contentType == ERepositoryObjectType.BUSINESS_PROCESS) {
-                return 0;
+                return 1;
             } else if (contentType == ERepositoryObjectType.PROCESS) {
                 return 5;
             } else if (contentType == ERepositoryObjectType.JOBLET) {
@@ -145,6 +148,7 @@ public class RepositoryNameSorter extends ViewerSorter {
              * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
              */
 
+            @Override
             public int compare(String o1, String o2) {
                 // Replace all "_" to " " due to avoid this situation: job name
                 // "a_b_c" before "a_b" in the job list.
