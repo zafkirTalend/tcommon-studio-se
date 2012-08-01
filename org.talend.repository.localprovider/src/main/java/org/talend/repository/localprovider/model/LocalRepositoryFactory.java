@@ -156,6 +156,7 @@ import org.talend.repository.localprovider.exceptions.IncorrectFileException;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IProxyRepositoryService;
 import org.talend.repository.model.RepositoryConstants;
 
 import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
@@ -1180,6 +1181,15 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
             // }
 
+            // bug:TDI-21371
+            IProxyRepositoryService service = (IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    IProxyRepositoryService.class);
+            List<String> listExistingObjects = service.getProxyRepositoryFactory().getFolders(type);
+            for (String existName : listExistingObjects) {
+                if (existName.equalsIgnoreCase(label)) {
+                    return false;
+                }
+            }
             // Getting the folder :
             IFolder existingFolder = ResourceUtils.getFolder(fsProject, completePath, false);
             return !existingFolder.exists();
