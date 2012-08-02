@@ -49,6 +49,7 @@ import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.xml.XmlUtil;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
@@ -79,6 +80,7 @@ import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.datatools.xml.utils.ATreeNode;
+import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
@@ -502,6 +504,16 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
                                 }
                                 // update
                                 RepositoryUpdateManager.updateFileConnection(connectionItem);
+                                boolean isModified = propertiesWizardPage.isNameModifiedByUser();
+                                if (isModified) {
+                                    if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
+                                        IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault()
+                                                .getService(IDesignerCoreService.class);
+                                        if (service != null) {
+                                            service.refreshComponentView(connectionItem);
+                                        }
+                                    }
+                                }
                                 final RepositoryWorkUnit<Object> workUnit = new RepositoryWorkUnit<Object>("", this) {
 
                                     @Override

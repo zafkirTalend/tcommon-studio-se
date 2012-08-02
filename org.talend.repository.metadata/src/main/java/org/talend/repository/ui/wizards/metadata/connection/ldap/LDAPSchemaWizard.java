@@ -26,11 +26,11 @@ import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.utils.VersionUtils;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.metadata.IMetadataTable;
-import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.GenericPackage;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
@@ -44,6 +44,7 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
+import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -135,7 +136,7 @@ public class LDAPSchemaWizard extends CheckLastVersionRepositoryWizard implement
             MetadataTable metadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             metadataTable.setId(factory.getNextId());
-            GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
+            GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), connection,
                     GenericPackage.class);
             if (g != null) { // hywang
                 g.getOwnedElement().add(metadataTable);
@@ -178,7 +179,7 @@ public class LDAPSchemaWizard extends CheckLastVersionRepositoryWizard implement
             MetadataTable metadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             metadataTable.setId(factory.getNextId());
-            GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
+            GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), connection,
                     GenericPackage.class);
             if (g != null) { // hywang
                 g.getOwnedElement().add(metadataTable);
@@ -248,7 +249,7 @@ public class LDAPSchemaWizard extends CheckLastVersionRepositoryWizard implement
             MetadataTable metadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             metadataTable.setId(factory.getNextId());
-            GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
+            GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), connection,
                     GenericPackage.class);
             if (g != null) { // hywang
                 g.getOwnedElement().add(metadataTable);
@@ -311,6 +312,7 @@ public class LDAPSchemaWizard extends CheckLastVersionRepositoryWizard implement
     /**
      * Adding the page to the wizard.
      */
+    @Override
     public void addPages() {
 
         ldapSchemaWizardPage0 = null;
@@ -453,7 +455,16 @@ public class LDAPSchemaWizard extends CheckLastVersionRepositoryWizard implement
                     connectionProperty.setLabel(connectionProperty.getDisplayName());
                     // update
                     RepositoryUpdateManager.updateMultiSchema(connectionItem, oldMetadataTable, oldTableMap);
-
+                    boolean isModified = ldapSchemaWizardPage0.isNameModifiedByUser();
+                    if (isModified) {
+                        if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
+                            IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                                    IDesignerCoreService.class);
+                            if (service != null) {
+                                service.refreshComponentView(connectionItem);
+                            }
+                        }
+                    }
                     updateConnectionItem();
                 }
             } catch (Exception e) {
@@ -504,6 +515,7 @@ public class LDAPSchemaWizard extends CheckLastVersionRepositoryWizard implement
      * 
      * @see org.talend.repository.ui.wizards.RepositoryWizard#getConnectionItem()
      */
+    @Override
     public ConnectionItem getConnectionItem() {
         return this.connectionItem;
     }

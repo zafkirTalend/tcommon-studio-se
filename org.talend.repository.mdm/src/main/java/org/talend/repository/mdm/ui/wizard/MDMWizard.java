@@ -50,6 +50,7 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.designer.core.IDesignerCoreService;
 import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
@@ -77,7 +78,7 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
 
     private boolean isToolBar;
 
-    private RepositoryNode node;
+    private final RepositoryNode node;
 
     private WizardPage currentPage;
 
@@ -238,6 +239,16 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
                 connectionProperty.setLabel(connectionProperty.getDisplayName());
                 RepositoryUpdateManager.updateFileConnection(connectionItem);
                 // factory.save(connectionItem);
+                boolean isModified = propertiesWizardPage.isNameModifiedByUser();
+                if (isModified) {
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
+                        IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                                IDesignerCoreService.class);
+                        if (service != null) {
+                            service.refreshComponentView(connectionItem);
+                        }
+                    }
+                }
 
                 IWorkspace workspace = ResourcesPlugin.getWorkspace();
                 IWorkspaceRunnable operation = new IWorkspaceRunnable() {

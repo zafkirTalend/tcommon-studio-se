@@ -23,10 +23,10 @@ import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.utils.VersionUtils;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
-import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
@@ -38,6 +38,7 @@ import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
+import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.metadata.i18n.Messages;
@@ -121,8 +122,7 @@ public class RegexpFileWizard extends CheckLastVersionRepositoryWizard implement
             MetadataTable metadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
             IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
             metadataTable.setId(factory.getNextId());
-            RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
-                    RecordFile.class);
+            RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), connection, RecordFile.class);
             if (record != null) { // hywang
                 PackageHelper.addMetadataTable(metadataTable, record);
             } else {
@@ -186,8 +186,7 @@ public class RegexpFileWizard extends CheckLastVersionRepositoryWizard implement
             MetadataTable metadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
             IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
             metadataTable.setId(factory.getNextId());
-            RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
-                    RecordFile.class);
+            RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), connection, RecordFile.class);
             if (record != null) { // hywang
                 PackageHelper.addMetadataTable(metadataTable, record);
             } else {
@@ -240,6 +239,7 @@ public class RegexpFileWizard extends CheckLastVersionRepositoryWizard implement
     /**
      * Adding the page to the wizard.
      */
+    @Override
     public void addPages() {
         if (isToolbar) {
             pathToSave = null;
@@ -307,6 +307,7 @@ public class RegexpFileWizard extends CheckLastVersionRepositoryWizard implement
      * This method determine if the 'Finish' button is enable This method is called when 'Finish' button is pressed in
      * the wizard. We will create an operation and run it using wizard as execution context.
      */
+    @Override
     public boolean performFinish() {
 
         boolean formIsPerformed;
@@ -330,7 +331,16 @@ public class RegexpFileWizard extends CheckLastVersionRepositoryWizard implement
                     connectionProperty.setLabel(connectionProperty.getDisplayName());
                     // update
                     RepositoryUpdateManager.updateFileConnection(connectionItem);
-
+                    boolean isModified = regexpFileWizardPage0.isNameModifiedByUser();
+                    if (isModified) {
+                        if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
+                            IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                                    IDesignerCoreService.class);
+                            if (service != null) {
+                                service.refreshComponentView(connectionItem);
+                            }
+                        }
+                    }
                     updateConnectionItem();
                 }
                 factory.saveProject(ProjectManager.getInstance().getCurrentProject());
@@ -384,6 +394,7 @@ public class RegexpFileWizard extends CheckLastVersionRepositoryWizard implement
      * 
      * @see org.talend.repository.ui.wizards.RepositoryWizard#getConnectionItem()
      */
+    @Override
     public ConnectionItem getConnectionItem() {
         return this.connectionItem;
     }
