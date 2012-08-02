@@ -12,4 +12,5 @@ Import-Package: org.eclipse.core.runtime,
  org.talend.core.model.repository
 Require-Bundle: org.talend.core.runtime,
  org.eclipse.core.expressions,
- org.talend.repository.view
+ org.talend.repository.view,
+ org.talend.repository.view.di

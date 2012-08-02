@@ -62,15 +62,101 @@
       <navigatorContent
             activeByDefault="true"
             contentProvider="org.talend.repository.viewer.content.EmptyContentProvider"
-            id="org.talend.repository.viewer.root.metadata.removed"
+            id="org.talend.repository.viewer.root.removed"
             labelProvider="org.talend.repository.viewer.label.EmptyLabelProvider"
-            name="remove metadata content">
+            name="remove jobs content">
          <override
                policy="InvokeAlwaysRegardlessOfSuppressedExt"
-               suppressedExtensionId="org.talend.repository.viewer.root.metadata">
+               suppressedExtensionId="org.talend.repository.viewer.root.jobDesigns">
          </override>
          <triggerPoints></triggerPoints>
+         <possibleChildren>
+         </possibleChildren>
       </navigatorContent>
+      <navigatorContent
+            contentProvider="org.talend.repository.viewer.content.example.JobWithoutAnAContentProvider"
+            id="org.talend.repository.viewer.root.example.jobs.withoutAnA"
+            labelProvider="org.talend.repository.viewer.label.example.JobWithoutAnALabelProvider"
+            name="job without an A">
+         <triggerPoints>
+            <or>
+               <adapt
+                     type="org.talend.repository.model.ProjectRepositoryNode">
+               </adapt>
+               <instanceof
+                     value="org.talend.repository.model.ProjectRepositoryNode">
+               </instanceof>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <instanceof
+                  value="org.talend.repository.model.RepositoryNode">
+            </instanceof>
+         </possibleChildren>
+      </navigatorContent>
+      <navigatorContent
+            contentProvider="org.talend.repository.viewer.content.example.JobOnlyWithAnAContentProvider"
+            id="org.talend.repository.viewer.root.example.jobs.only.withAnA"
+            labelProvider="org.talend.repository.viewer.label.example.JobOnlyWithAnALabelProvider"
+            name="job only with an A">
+         <triggerPoints>
+            <or>
+               <adapt
+                     type="org.talend.repository.model.ProjectRepositoryNode">
+               </adapt>
+               <instanceof
+                     value="org.talend.repository.model.ProjectRepositoryNode">
+               </instanceof>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <instanceof
+                  value="org.talend.repository.model.RepositoryNode">
+            </instanceof>
+         </possibleChildren>
+         <actionProvider
+               class="org.talend.repository.viewer.actions.example.JobOnlyWithAnAActionProvider"
+               overrides="org.talend.repository.viewer.root.jobDesigns.ActionProvider"
+               priority="highest">
+            <enablement>
+               <and>
+                  <instanceof
+                        value="org.talend.repository.model.RepositoryNode">
+                  </instanceof>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.talend.repository.node.isJobBranch">
+                  </test>
+                  <not>
+                     <test
+                           forcePluginActivation="true"
+                           property="org.talend.repository.node.isDeleted">
+                     </test>
+                  </not>
+               </and>
+            </enablement>
+         </actionProvider>
+      </navigatorContent>
+      <actionProvider
+            class="org.talend.repository.view.di.viewer.action.DIRepositoryNodeActionProvider">
+         <enablement>
+            <and>
+               <instanceof
+                     value="org.talend.repository.model.RepositoryNode">
+               </instanceof>
+               <test
+                     forcePluginActivation="true"
+                     property="org.talend.repository.node.isJobBranch">
+               </test>
+               <not>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.talend.repository.node.isDeleted">
+                  </test>
+               </not>
+            </and>
+         </enablement>
+      </actionProvider>
 </extension>
 <extension
       point="org.eclipse.core.expressions.propertyTesters">
