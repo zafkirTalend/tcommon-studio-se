@@ -23,10 +23,10 @@ import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.utils.VersionUtils;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
-import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
@@ -39,6 +39,7 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
+import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.metadata.i18n.Messages;
@@ -103,7 +104,7 @@ public class LdifFileWizard extends CheckLastVersionRepositoryWizard implements 
      * @param selection
      * @param strings
      */
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public LdifFileWizard(IWorkbench workbench, boolean creation, ISelection selection, String[] existingNames) {
         super(workbench, creation);
         this.selection = selection;
@@ -131,8 +132,7 @@ public class LdifFileWizard extends CheckLastVersionRepositoryWizard implements 
             MetadataTable metadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             metadataTable.setId(factory.getNextId());
-            RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
-                    RecordFile.class);
+            RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), connection, RecordFile.class);
             if (record != null) { // hywang
                 PackageHelper.addMetadataTable(metadataTable, record);
             } else {
@@ -196,8 +196,7 @@ public class LdifFileWizard extends CheckLastVersionRepositoryWizard implements 
             MetadataTable metadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             metadataTable.setId(factory.getNextId());
-            RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
-                    RecordFile.class);
+            RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), connection, RecordFile.class);
             if (record != null) { // hywang
                 PackageHelper.addMetadataTable(metadataTable, record);
             } else {
@@ -250,6 +249,7 @@ public class LdifFileWizard extends CheckLastVersionRepositoryWizard implements 
     /**
      * Adding the page to the wizard.
      */
+    @Override
     public void addPages() {
         if (isToobar) {
             pathToSave = null;
@@ -318,6 +318,7 @@ public class LdifFileWizard extends CheckLastVersionRepositoryWizard implements 
      * This method determine if the 'Finish' button is enable This method is called when 'Finish' button is pressed in
      * the wizard. We will create an operation and run it using wizard as execution context.
      */
+    @Override
     public boolean performFinish() {
 
         boolean formIsPerformed;
@@ -341,7 +342,16 @@ public class LdifFileWizard extends CheckLastVersionRepositoryWizard implements 
                     connectionProperty.setLabel(connectionProperty.getDisplayName());
                     // update
                     RepositoryUpdateManager.updateFileConnection(connectionItem);
-
+                    boolean isModified = ldifFileWizardPage0.isNameModifiedByUser();
+                    if (isModified) {
+                        if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
+                            IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                                    IDesignerCoreService.class);
+                            if (service != null) {
+                                service.refreshComponentView(connectionItem);
+                            }
+                        }
+                    }
                     updateConnectionItem();
                 }
                 ProxyRepositoryFactory.getInstance().saveProject(ProjectManager.getInstance().getCurrentProject());
@@ -377,6 +387,7 @@ public class LdifFileWizard extends CheckLastVersionRepositoryWizard implements 
      * 
      * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
      */
+    @Override
     public void init(final IWorkbench workbench, final IStructuredSelection selection2) {
         this.selection = selection2;
     }
@@ -386,6 +397,7 @@ public class LdifFileWizard extends CheckLastVersionRepositoryWizard implements 
      * 
      * @see org.talend.repository.ui.wizards.RepositoryWizard#getConnectionItem()
      */
+    @Override
     public ConnectionItem getConnectionItem() {
         return this.connectionItem;
     }

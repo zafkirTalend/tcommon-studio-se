@@ -49,6 +49,7 @@ import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.xml.XmlUtil;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
@@ -79,6 +80,7 @@ import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.datatools.xml.utils.ATreeNode;
+import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
@@ -162,7 +164,7 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
      * @param selection
      * @param strings
      */
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public XmlFileWizard(IWorkbench workbench, boolean creation, ISelection selection, String[] existingNames) {
         super(workbench, creation);
         this.selection = selection;
@@ -433,6 +435,7 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
             final IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
+                @Override
                 public void run(IProgressMonitor monitor) throws CoreException {
                     PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 
@@ -502,6 +505,16 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
                                 }
                                 // update
                                 RepositoryUpdateManager.updateFileConnection(connectionItem);
+                                boolean isModified = propertiesWizardPage.isNameModifiedByUser();
+                                if (isModified) {
+                                    if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
+                                        IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault()
+                                                .getService(IDesignerCoreService.class);
+                                        if (service != null) {
+                                            service.refreshComponentView(connectionItem);
+                                        }
+                                    }
+                                }
                                 final RepositoryWorkUnit<Object> workUnit = new RepositoryWorkUnit<Object>("", this) {
 
                                     @Override
@@ -531,6 +544,7 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
             };
             IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
 
+                @Override
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                     IWorkspace workspace = ResourcesPlugin.getWorkspace();
                     try {
@@ -591,6 +605,7 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
      * 
      * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
      */
+    @Override
     public void init(final IWorkbench workbench, final IStructuredSelection selection2) {
         this.selection = selection2;
     }
@@ -638,7 +653,7 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
             // the first rows is used to define the label of any metadata
             String[] label = new String[numberOfCol];
             for (int i = 0; i < numberOfCol; i++) {
-                label[i] = DEFAULT_LABEL + i; //$NON-NLS-1$
+                label[i] = DEFAULT_LABEL + i;
 
                 if (firstRowToExtractMetadata == 0) {
                     if (schemaTarget.get(i).getTagName() != null && !schemaTarget.get(i).getTagName().equals("")) { //$NON-NLS-1$

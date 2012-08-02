@@ -31,12 +31,12 @@ import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.utils.VersionUtils;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.metadata.IMetadataTable;
-import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.GenericPackage;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
@@ -51,6 +51,7 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.webService.WebServiceTosSaveManager;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
+import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -144,7 +145,7 @@ public class WSDLSchemaWizard extends CheckLastVersionRepositoryWizard implement
             MetadataTable metadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             metadataTable.setId(factory.getNextId());
-            GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
+            GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), connection,
                     GenericPackage.class);
             if (g != null) { // hywang
                 g.getOwnedElement().add(metadataTable);
@@ -188,7 +189,7 @@ public class WSDLSchemaWizard extends CheckLastVersionRepositoryWizard implement
             MetadataTable metadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             metadataTable.setId(factory.getNextId());
-            GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
+            GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), connection,
                     GenericPackage.class);
             if (g != null) { // hywang
                 g.getOwnedElement().add(metadataTable);
@@ -259,7 +260,7 @@ public class WSDLSchemaWizard extends CheckLastVersionRepositoryWizard implement
             MetadataTable metadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             metadataTable.setId(factory.getNextId());
-            GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
+            GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), connection,
                     GenericPackage.class);
             if (g != null) { // hywang
                 g.getOwnedElement().add(metadataTable);
@@ -323,6 +324,7 @@ public class WSDLSchemaWizard extends CheckLastVersionRepositoryWizard implement
     /**
      * Adding the page to the wizard.
      */
+    @Override
     public void addPages() {
         wsdlSchemaWizardPage0 = null;
         wsdlSchemaWizardPage1 = null;
@@ -466,6 +468,7 @@ public class WSDLSchemaWizard extends CheckLastVersionRepositoryWizard implement
      * 
      * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
      */
+    @Override
     public void init(final IWorkbench workbench, final IStructuredSelection selection2) {
         this.selection = selection2;
     }
@@ -533,7 +536,16 @@ public class WSDLSchemaWizard extends CheckLastVersionRepositoryWizard implement
                     connectionProperty.setLabel(connectionProperty.getDisplayName());
                     // update
                     RepositoryUpdateManager.updateWSDLConnection(connectionItem, false, false);
-
+                    boolean isModified = wsdlSchemaWizardPage0.isNameModifiedByUser();
+                    if (isModified) {
+                        if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
+                            IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                                    IDesignerCoreService.class);
+                            if (service != null) {
+                                service.refreshComponentView(connectionItem);
+                            }
+                        }
+                    }
                     updateConnectionItem();
                 }
             } catch (Exception e) {
@@ -549,6 +561,7 @@ public class WSDLSchemaWizard extends CheckLastVersionRepositoryWizard implement
         }
     }
 
+    @Override
     public boolean performCancel() {
         if (!creation) {
             connectionItem.getProperty().setVersion(this.originalVersion);
@@ -566,6 +579,7 @@ public class WSDLSchemaWizard extends CheckLastVersionRepositoryWizard implement
      * 
      * @see org.talend.repository.ui.wizards.RepositoryWizard#getConnectionItem()
      */
+    @Override
     public ConnectionItem getConnectionItem() {
         return this.connectionItem;
     }
@@ -578,6 +592,7 @@ public class WSDLSchemaWizard extends CheckLastVersionRepositoryWizard implement
         this.dynamicWizardPages = dynamicWizardPages;
     }
 
+    @Override
     public IWizardPage getNextPage(IWizardPage page) {
         IWizardPage nextPage = null;
         if (page instanceof WSDLSchemaWizardPage) {
@@ -618,7 +633,7 @@ public class WSDLSchemaWizard extends CheckLastVersionRepositoryWizard implement
     private void warningDialog(String title) {
         MessageBox box = new MessageBox(Display.getCurrent().getActiveShell(), SWT.ICON_WARNING | SWT.OK);
         box.setText("WARNING"); //$NON-NLS-1$
-        box.setMessage(title); //$NON-NLS-1$
+        box.setMessage(title);
         box.open();
     }
 }
