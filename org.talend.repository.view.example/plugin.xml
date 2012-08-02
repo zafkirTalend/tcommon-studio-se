@@ -115,7 +115,7 @@
             </instanceof>
          </possibleChildren>
          <actionProvider
-               class="org.talend.repository.viewer.actions.example.JobOnlyWithAnAActionProvider"
+               class="org.talend.repository.viewer.actions.example.ActionProviderThatRemovesCreateFolderContextualMenu"
                overrides="org.talend.repository.viewer.root.jobDesigns.ActionProvider"
                priority="highest">
             <enablement>

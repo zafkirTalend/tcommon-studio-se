@@ -3,9 +3,9 @@ package org.talend.repository.viewer.actions.example;
 import org.eclipse.jface.action.IMenuManager;
 import org.talend.repository.view.di.viewer.action.DIRepositoryNodeActionProvider;
 
-public class JobOnlyWithAnAActionProvider extends DIRepositoryNodeActionProvider {
+public class ActionProviderThatRemovesCreateFolderContextualMenu extends DIRepositoryNodeActionProvider {
 
-    public JobOnlyWithAnAActionProvider() {
+    public ActionProviderThatRemovesCreateFolderContextualMenu() {
         // TODO Auto-generated constructor stub
     }
 
