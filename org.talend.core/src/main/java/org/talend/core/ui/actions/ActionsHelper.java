@@ -38,7 +38,7 @@ public class ActionsHelper {
 
     private static final Comparator COMP = new ActionsLevelComparator();
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public static List<ITreeContextualAction> getRepositoryContextualsActions() {
         List<ITreeContextualAction> toReturn = new ArrayList<ITreeContextualAction>();
         IExtensionPointLimiter actionExtensionPoint = new ExtensionPointLimiterImpl(
@@ -51,6 +51,7 @@ public class ActionsHelper {
                 ITreeContextualAction currentAction = (ITreeContextualAction) current.createExecutableExtension("class"); //$NON-NLS-1$
                 try {
                     int level = Integer.parseInt(current.getAttribute("level")); //$NON-NLS-1$
+                    currentAction.setId(current.getAttribute("id")); //$NON-NLS-1$
                     currentAction.setLevel(level);
                 } catch (NumberFormatException e) {
                     currentAction.setLevel(1000);
@@ -141,7 +142,7 @@ public class ActionsHelper {
 
     /**
      * 
-     *hywang ActionsHelper class global comment. Detailled comment
+     * hywang ActionsHelper class global comment. Detailled comment
      */
     static class RepositoryContextualsActionGroup {
 
