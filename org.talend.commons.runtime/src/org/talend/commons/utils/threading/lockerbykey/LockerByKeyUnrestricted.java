@@ -572,7 +572,7 @@ public class LockerByKeyUnrestricted<KP> implements ILockerByKey<KP> {
         blockAllOperations();
         boolean breakAtNext = false;
         while (true) {
-            Collection<LockerValue<KP>> values = locker.mapKeyLockToValueLock.values();
+            Collection<LockerValue<KP>> values = locker.getMapKeyLockToValueLock().values();
             int waitingThreads = 0;
             for (LockerValue<KP> lockerValue : values) {
                 waitingThreads += lockerValue.getLock().getQueueLength();

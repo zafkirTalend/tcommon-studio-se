@@ -14,7 +14,9 @@ package org.talend.commons.utils.threading.lockerbykey;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -40,7 +42,7 @@ public class LockerByKey<KP> implements ILockerByKey<KP> {
 
     private static Logger log = Logger.getLogger(LockerByKey.class);
 
-    ConcurrentHashMap<InternalKeyLock<KP>, LockerValue<KP>> mapKeyLockToValueLock = new ConcurrentHashMap<InternalKeyLock<KP>, LockerValue<KP>>();
+    private ConcurrentHashMap<InternalKeyLock<KP>, LockerValue<KP>> mapKeyLockToValueLock = new ConcurrentHashMap<InternalKeyLock<KP>, LockerValue<KP>>();
 
     private final Object lockAllOperations = new Object();
 
@@ -585,6 +587,15 @@ public class LockerByKey<KP> implements ILockerByKey<KP> {
         public String toString() {
             return StringUtils.replacePrms(InternalKeyLock.class.getSimpleName() + ": key={0}", key); //$NON-NLS-1$
         }
+    }
+
+    /**
+     * Getter for mapKeyLockToValueLock.
+     * 
+     * @return the mapKeyLockToValueLock
+     */
+    Map<InternalKeyLock<KP>, LockerValue<KP>> getMapKeyLockToValueLock() {
+        return new HashMap<InternalKeyLock<KP>, LockerValue<KP>>(mapKeyLockToValueLock);
     }
 
 }

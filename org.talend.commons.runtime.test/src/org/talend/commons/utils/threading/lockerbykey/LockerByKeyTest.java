@@ -15,18 +15,17 @@ package org.talend.commons.utils.threading.lockerbykey;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.Rule;
+import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.rules.MethodRule;
-import org.junit.rules.Timeout;
-import org.talend.commons.utils.memory.MemoryMeasurer;
 import org.talend.commons.utils.threading.lockerbykey.operators.AbstractLockerByKeyOperator;
 import org.talend.commons.utils.threading.lockerbykey.operators.CleanOperator;
 import org.talend.commons.utils.threading.lockerbykey.operators.LockThenUnlockOperator;
@@ -35,16 +34,22 @@ import org.talend.commons.utils.threading.lockerbykey.operators.TryLockThenUnloc
 import org.talend.commons.utils.threading.lockerbykey.operators.TryLockWithTimeoutThenUnlockOperator;
 import org.talend.commons.utils.threading.threadsafetester.AbstractThreadSafetyTester;
 
+import com.javamex.classmexer.MemoryUtil;
+
 public class LockerByKeyTest {
 
-    @Rule
-    public MethodRule globalTimeout = new Timeout(60000);
+    // @Rule
+    // public MethodRule globalTimeout = new Timeout(60000);
 
     private static final int WAIT_THREAD_STARTED = 200;
 
     private static final int WAIT_JOIN = 200;
 
     private static final boolean DEBUG = false;
+
+//    static {
+//        MemoryUtilAgentLoader.loadAgent();
+//    }
 
     protected ILockerByKey createLockerInstance() {
         // default implementation when running this TestCase
@@ -630,6 +635,7 @@ public class LockerByKeyTest {
         assertThat(suspectLocks.size(), is(0));
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Test(timeout = 20000)
     // @Test
     public void testThreadSafety_LockThenUnlock() throws Exception {
@@ -637,13 +643,13 @@ public class LockerByKeyTest {
         final int nOperatorsByClassOperator = 30;
         final int nOperationsByOperator = 500;
         boolean assertEntriesLessThanCleanPeriod = true;
-        boolean warmupRound = false;
         boolean shutdownAtEnd = true;
         launchThreadSafetyTest(locker, nOperatorsByClassOperator, nOperationsByOperator, assertEntriesLessThanCleanPeriod,
-                warmupRound, shutdownAtEnd, LockThenUnlockOperator.class, TryLockWithTimeoutThenUnlockOperator.class,
+                shutdownAtEnd, LockThenUnlockOperator.class, TryLockWithTimeoutThenUnlockOperator.class,
                 TryLockThenUnlockOperator.class);
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Test(timeout = 20000)
     // @Test
     public void testThreadSafety_LockThenUnlock_with_randomClean() throws Exception {
@@ -651,10 +657,9 @@ public class LockerByKeyTest {
         final int nOperatorsByClassOperator = 30;
         final int nOperationsByOperator = 500;
         boolean assertEntriesLessThanCleanPeriod = true;
-        boolean warmupRound = false;
         boolean shutdownAtEnd = true;
         launchThreadSafetyTest(locker, nOperatorsByClassOperator, nOperationsByOperator, assertEntriesLessThanCleanPeriod,
-                warmupRound, shutdownAtEnd, LockThenUnlockOperator.class, TryLockWithTimeoutThenUnlockOperator.class,
+                shutdownAtEnd, LockThenUnlockOperator.class, TryLockWithTimeoutThenUnlockOperator.class,
                 TryLockThenUnlockOperator.class, CleanOperator.class);
     }
 
@@ -663,68 +668,49 @@ public class LockerByKeyTest {
      * 
      * @throws Exception
      */
+    @SuppressWarnings("unchecked")
     @Test(timeout = 30000)
     // @Test
-    public void testMemory_iterations() throws Exception {
-        ILockerByKey locker = new LockerByKeyUnrestricted();
+    @Ignore("Ignored while JUnit buils is not modified to allow measure of memory")
+    public void testMemory() throws Exception {
+        ILockerByKey locker = createLockerInstance();
+
         final int nOperatorsByClassOperator = 30;
         final int nOperationsByOperator = 50;
         boolean assertEntriesLessThanCleanPeriod = true;
-        boolean warmupRound = true;
         boolean shutdownAtEnd = false;
-        int warmupRounds = 3;
-        int mesureRounds = 3;
 
-        MemoryMeasurer globalMemoryMeasurer = new MemoryMeasurer();
-        globalMemoryMeasurer.begin();
-        for (int i = 0; i < warmupRounds; i++) {
+        long previousDeepMemoryUsageOfLocker = MemoryUtil.deepMemoryUsageOf(locker);
+        System.out.println("deepMemoryUsageOfLocker=" + previousDeepMemoryUsageOfLocker);
+        Set<Long> memoryResults = new HashSet<Long>();
+
+        int maxMesureRounds = 10;
+        for (int i = 0; i < maxMesureRounds; i++) {
             launchThreadSafetyTest(locker, nOperatorsByClassOperator, nOperationsByOperator, assertEntriesLessThanCleanPeriod,
-                    warmupRound, shutdownAtEnd, LockThenUnlockOperator.class, TryLockWithTimeoutThenUnlockOperator.class,
+                    shutdownAtEnd, LockThenUnlockOperator.class, TryLockWithTimeoutThenUnlockOperator.class,
                     TryLockThenUnlockOperator.class);
-            globalMemoryMeasurer.printUsedMemory("Global used memory mesure");
+            locker.clean();
+            System.gc();
+            Thread.sleep(500); // memory seems more stable when waiting a bit
+            long deepMemoryUsageOfLocker = MemoryUtil.deepMemoryUsageOf(locker);
+            System.out.println("deepMemoryUsageOfLocker=" + deepMemoryUsageOfLocker);
+            if (memoryResults.contains(deepMemoryUsageOfLocker)) {
+                break;
+            } else if (i == maxMesureRounds - 1) {
+                fail("Used memory is unstable after " + maxMesureRounds + " rounds");
+            }
+            memoryResults.add(deepMemoryUsageOfLocker);
         }
-        globalMemoryMeasurer.end();
-
-        warmupRound = false;
-
-        globalMemoryMeasurer = new MemoryMeasurer();
-        globalMemoryMeasurer.begin();
-        long usedMemory = 0;
-        for (int i = 0; i < mesureRounds; i++) {
-            launchThreadSafetyTest(locker, nOperatorsByClassOperator, nOperationsByOperator, assertEntriesLessThanCleanPeriod,
-                    warmupRound, shutdownAtEnd, LockThenUnlockOperator.class, TryLockWithTimeoutThenUnlockOperator.class,
-                    TryLockThenUnlockOperator.class);
-            boolean useGCBeforeMeasure = true;
-            usedMemory = globalMemoryMeasurer.step(useGCBeforeMeasure);
-            globalMemoryMeasurer.printUsedMemory("Global used memory mesure");
-        }
-
-        assertTrue("Used memory exceeds the expected", usedMemory < 200000);
 
         locker.shutdown();
-
-        usedMemory = globalMemoryMeasurer.end();
-        globalMemoryMeasurer.printUsedMemory("Global used memory mesure after shutdown");
-
-        assertTrue("Used memory exceeds the expected", usedMemory < 20000);
-
-        locker = null;
-
-        usedMemory = globalMemoryMeasurer.end();
-        globalMemoryMeasurer.printUsedMemory("Global used memory mesure after set to null");
-        assertTrue("Used memory exceeds the expected", usedMemory < 20000);
-
     }
 
-    private void launchThreadSafetyTest(final ILockerByKey locker, final int nOperatorsByClassOperator,
-            final int nOperationsByOperator, boolean assertEntriesLessThanCleanPeriod, boolean warmupRound,
-            final boolean shutdownAtEnd, Class<? extends AbstractLockerByKeyOperator>... classOperators) throws Exception {
+    protected void launchThreadSafetyTest(final ILockerByKey locker, final int nOperatorsByClassOperator,
+            final int nOperationsByOperator, boolean assertEntriesLessThanCleanPeriod, final boolean shutdownAtEnd,
+            Class<? extends AbstractLockerByKeyOperator>... classOperators) throws Exception {
         final ResultContainer resultContainer = new ResultContainer();
 
-        System.out.println("####################################################################################");
-        if (warmupRound) {
-            System.out.println("!!! WARMUP ROUND !!! (don't take account the results of this round)");
-        }
+        System.out.println("------------------------------------------------------------------------------------");
 
         class LockerThreadSafetyTester extends AbstractThreadSafetyTester<AbstractLockerByKeyOperator> {
 

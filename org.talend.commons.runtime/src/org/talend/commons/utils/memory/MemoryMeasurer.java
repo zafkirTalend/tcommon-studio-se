@@ -61,7 +61,7 @@ public class MemoryMeasurer {
      * @return the difference between the used memory at beginning and at end of measure
      */
     public long step() {
-        boolean useGCBeforeMeasure = false;
+        boolean useGCBeforeMeasure = true;
         return step(useGCBeforeMeasure);
     }
 
@@ -129,7 +129,7 @@ public class MemoryMeasurer {
      * 
      */
     public void printUsedMemory(String contextInfo) {
-        callMultipleGC();
+        callGC();
         String formated = String.format("%,d", getUsedMemoryFromBeginToCurrent(false));
         System.out.println((contextInfo != null ? contextInfo + " : " : "") + formated + " bytes");
     }
@@ -146,19 +146,9 @@ public class MemoryMeasurer {
         return usedMemory - usedMemoryAtBeginning;
     }
 
-    private void callMultipleGC() {
+    private void callGC() {
         Runtime runtime = Runtime.getRuntime();
         runtime.gc();
-        // runtime.gc();
-        // runtime.gc();
-        // runtime.gc();
-        // runtime.gc();
-        // runtime.gc();
-        // runtime.gc();
-        // runtime.gc();
-        // runtime.gc();
-        // runtime.gc();
-        // runtime.gc();
     }
 
     public void printInformations() {
