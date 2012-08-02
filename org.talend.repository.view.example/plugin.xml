@@ -138,7 +138,8 @@
          </actionProvider>
       </navigatorContent>
       <actionProvider
-            class="org.talend.repository.view.di.viewer.action.DIRepositoryNodeActionProvider">
+            class="org.talend.repository.view.di.viewer.action.DIRepositoryNodeActionProvider"
+            id="org.talend.repository.view.example.actionprovider.to.remove.create.folder">
          <enablement>
             <and>
                <instanceof
