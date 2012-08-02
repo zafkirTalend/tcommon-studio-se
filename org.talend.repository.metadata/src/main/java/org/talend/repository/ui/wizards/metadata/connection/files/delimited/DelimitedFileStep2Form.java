@@ -402,6 +402,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
         csvRadio = new Button(compositeEscapeChar, SWT.RADIO);
         csvRadio.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 getConnection().setCsvOption(csvRadio.getSelection());
                 if (csvRadio.getSelection()) {
@@ -435,6 +436,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
         splitwayRecordForJavaFID.setToolTipText(Messages.getString("FileStep2.splitwayRecordForJavaFIDTip")); //$NON-NLS-1$
         splitwayRecordForJavaFID.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 getConnection().setSplitRecord(splitwayRecordForJavaFID.getSelection());
             }
@@ -489,9 +491,9 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
         tabFolder.setLayoutData(new GridData(GridData.FILL_BOTH));
 
         previewTabItem = new CTabItem(tabFolder, SWT.BORDER);
-        previewTabItem.setText("Preview"); //$NON-NLS-1$
+        previewTabItem.setText(Messages.getString("FileStep2Form.preview"));
         outputTabItem = new CTabItem(tabFolder, SWT.BORDER);
-        outputTabItem.setText("Output"); //$NON-NLS-1$
+        outputTabItem.setText(Messages.getString("FileStep2Form.output"));
 
         Composite previewComposite = Form.startNewGridLayout(tabFolder, 1);
         outputComposite = Form.startNewGridLayout(tabFolder, 1);
@@ -1180,6 +1182,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
 
         boolean firstRowIsCatption = false;
 
+        @Override
         public boolean preProcessStart() {
             previewButton.setText(Messages.getString("FileStep2.stop")); //$NON-NLS-1$
 
@@ -1224,6 +1227,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
             return true;
         }
 
+        @Override
         public void nonUIProcessInThread() {
             // get the XmlArray width an adapt ProcessDescription
             try {
@@ -1257,12 +1261,14 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
 
         }
 
+        @Override
         public void updateUIInThreadIfThreadIsCanceled() {
             if (!previewInformationLabel.isDisposed()) {
                 previewInformationLabel.setText(""); //$NON-NLS-1$
             }
         }
 
+        @Override
         public void updateUIInThreadIfThreadIsNotCanceled() {
             if (previewInformationLabel.isDisposed()) {
                 return;
@@ -1286,6 +1292,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
             }
         }
 
+        @Override
         public void updateUIInThreadIfThreadFinally() {
             if (!previewButton.isDisposed()) {
                 previewButton.setText(Messages.getString("FileStep2.refreshPreview")); //$NON-NLS-1$
@@ -1294,6 +1301,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
             }
         }
 
+        @Override
         public void postProcessCancle() {
             previewButton.setEnabled(false);
         }
@@ -1397,6 +1405,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
 
     }
 
+    @Override
     protected void collectConnParams() {
         super.collectConnParams();
         addContextParams(EFileParamName.RowSeparator, true);

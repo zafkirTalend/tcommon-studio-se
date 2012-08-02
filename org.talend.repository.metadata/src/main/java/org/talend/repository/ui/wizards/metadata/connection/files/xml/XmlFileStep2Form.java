@@ -192,7 +192,7 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
 
         if (xmlXPathLoopDescriptor == null) {
             if (getConnection().getSchema() != null && !getConnection().getSchema().isEmpty()) {
-                xmlXPathLoopDescriptor = (XmlXPathLoopDescriptor) getConnection().getSchema().get(0);
+                xmlXPathLoopDescriptor = getConnection().getSchema().get(0);
                 xmlFilePath = getConnection().getXmlFilePath();
                 if (isContextMode()) {
                     ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(
@@ -320,7 +320,7 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
 
         CommandStackForComposite commandStack = new CommandStackForComposite(schemaTargetGroup);
 
-        loopModel = new XmlExtractorLoopModel("Xpath loop expression"); //$NON-NLS-1$
+        loopModel = new XmlExtractorLoopModel(Messages.getString("XmlFileStep2Form.Xpath_loop_expression"));
 
         loopTableEditorView = new ExtractionLoopWithXPathEditorView(loopModel, schemaTargetGroup);
         loopTableEditorView.getExtendedTableViewer().setCommandStack(commandStack);
@@ -347,7 +347,7 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
         // ///////////////////////////////////////////
 
         // Messages.getString("FileStep3.metadataDescription")
-        fieldsModel = new XmlExtractorFieldModel("Fields to extract"); //$NON-NLS-1$
+        fieldsModel = new XmlExtractorFieldModel(Messages.getString("XmlFileStep2Form.Fields_to_extract"));
         fieldsTableEditorView = new ExtractionFieldsWithXPathEditorView(fieldsModel, schemaTargetGroup);
         fieldsTableEditorView.getExtendedTableViewer().setCommandStack(commandStack);
         final Composite fieldTableEditorComposite = fieldsTableEditorView.getMainComposite();
@@ -391,9 +391,9 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
         tabFolder.setLayoutData(new GridData(GridData.FILL_BOTH));
 
         previewTabItem = new CTabItem(tabFolder, SWT.BORDER);
-        previewTabItem.setText("Preview"); //$NON-NLS-1$
+        previewTabItem.setText(Messages.getString("XmlFileStep2Form.Preview")); //$NON-NLS-1$
         outputTabItem = new CTabItem(tabFolder, SWT.BORDER);
-        outputTabItem.setText("Output"); //$NON-NLS-1$
+        outputTabItem.setText(Messages.getString("XmlFileStep2Form.Output"));
 
         Composite previewComposite = Form.startNewGridLayout(tabFolder, 1);
         outputComposite = Form.startNewGridLayout(tabFolder, 1);
@@ -515,8 +515,7 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
              */
             @Override
             protected void previewEnded(CsvArray result) {
-                xmlFilePreview.refreshTablePreview(result, false,
-                        ((XmlXPathLoopDescriptor) getConnection().getSchema().get(0)).getSchemaTargets());
+                xmlFilePreview.refreshTablePreview(result, false, (getConnection().getSchema().get(0)).getSchemaTargets());
                 if (xmlFilePreview.isCsvRowsEmpty()) {
                     clearPreview();
                     Display.getDefault().asyncExec(new Runnable() {
@@ -685,10 +684,10 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
                             && getConnection().getXmlFilePath().length() != 0 //$NON-NLS-1$
                             && getConnection().getSchema() != null
                             && !getConnection().getSchema().isEmpty()
-                            && ((XmlXPathLoopDescriptor) getConnection().getSchema().get(0)).getAbsoluteXPathQuery() != null
-                            && ((XmlXPathLoopDescriptor) getConnection().getSchema().get(0)).getAbsoluteXPathQuery().length() != 0 //$NON-NLS-1$
-                            && ((XmlXPathLoopDescriptor) getConnection().getSchema().get(0)).getSchemaTargets() != null
-                            && ((XmlXPathLoopDescriptor) getConnection().getSchema().get(0)).getSchemaTargets().size() != 0) {
+                            && (getConnection().getSchema().get(0)).getAbsoluteXPathQuery() != null
+                            && (getConnection().getSchema().get(0)).getAbsoluteXPathQuery().length() != 0 //$NON-NLS-1$
+                            && (getConnection().getSchema().get(0)).getSchemaTargets() != null
+                            && (getConnection().getSchema().get(0)).getSchemaTargets().size() != 0) {
                         refreshPreview();
                         outputTabItem.setControl(null);
                     } else {
