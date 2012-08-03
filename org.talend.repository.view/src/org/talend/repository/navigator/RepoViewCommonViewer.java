@@ -19,13 +19,11 @@ import java.util.Map;
 import org.eclipse.jface.util.LocalSelectionTransfer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DragSourceAdapter;
 import org.eclipse.swt.dnd.DragSourceEvent;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Item;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.internal.navigator.NavigatorActivationService;
@@ -155,14 +153,7 @@ public class RepoViewCommonViewer extends CommonViewer {
         RepositoryDropAdapter adapter = new RepositoryDropAdapter(this);
         adapter.setFeedbackEnabled(false);
         this.addDropSupport(ops | DND.DROP_DEFAULT, transfers, adapter);
-        dragDetectListener = new Listener() {
 
-            @Override
-            public void handleEvent(Event event) {
-                // dragDetected = true;
-            }
-        };
-        this.getControl().addListener(SWT.DragDetect, dragDetectListener);
     }
 
     @Override
