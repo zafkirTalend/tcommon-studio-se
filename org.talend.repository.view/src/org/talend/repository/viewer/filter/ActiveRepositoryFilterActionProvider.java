@@ -51,9 +51,9 @@ public class ActiveRepositoryFilterActionProvider extends AbstractRepositoryFilt
 
     void setFiltering(boolean activedFilter, boolean restoring) {
         if (activedFilter != isActivedFilter()) {
+            setActivedFilter(activedFilter);
             RepositoryNodeFilterHelper.filter(getCommonViewer(), activedFilter, isActivedPerspectiveFilter());
 
-            setActivedFilter(activedFilter);
         }
     }
 

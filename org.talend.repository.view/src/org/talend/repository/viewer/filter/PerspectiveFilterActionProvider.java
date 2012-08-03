@@ -47,9 +47,9 @@ public class PerspectiveFilterActionProvider extends AbstractRepositoryFilterAct
      */
     public void setFiltering(boolean activedPerspectiveFilter, boolean restoring) {
         if (activedPerspectiveFilter != isActivedPerspectiveFilter()) {
+            setActivedPerspectiveFilter(activedPerspectiveFilter);
             RepositoryNodeFilterHelper.filter(getCommonViewer(), isActivedFilter(), activedPerspectiveFilter);
 
-            setActivedPerspectiveFilter(activedPerspectiveFilter);
         }
     }
 
