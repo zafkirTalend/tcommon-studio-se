@@ -24,11 +24,11 @@ import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.internal.navigator.NavigatorFilterService;
 import org.eclipse.ui.internal.navigator.filters.UpdateActiveExtensionsOperation;
-import org.eclipse.ui.internal.navigator.filters.UpdateActiveFiltersOperation;
 import org.eclipse.ui.navigator.CommonViewer;
-import org.eclipse.ui.navigator.ICommonFilterDescriptor;
 import org.eclipse.ui.navigator.INavigatorContentService;
+import org.eclipse.ui.navigator.INavigatorFilterService;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.repository.RepositoryViewPlugin;
 
@@ -99,17 +99,22 @@ public class RepositoryNodeFilterHelper {
     }
 
     private static void processCommonFilters(final CommonViewer commonViewer, boolean activedFilter) {
-        final ICommonFilterDescriptor[] visibleFilterDescriptors = commonViewer.getNavigatorContentService().getFilterService()
-                .getVisibleFilterDescriptors();
-
-        String[] filters = new String[visibleFilterDescriptors.length];
-
-        for (int i = 0; i < visibleFilterDescriptors.length; i++) {
-            final String id = visibleFilterDescriptors[i].getId();
-            filters[i] = id;
+        // final ICommonFilterDescriptor[] visibleFilterDescriptors =
+        // commonViewer.getNavigatorContentService().getFilterService()
+        // .getVisibleFilterDescriptors();
+        //
+        // String[] filters = new String[visibleFilterDescriptors.length];
+        //
+        // for (int i = 0; i < visibleFilterDescriptors.length; i++) {
+        // final String id = visibleFilterDescriptors[i].getId();
+        // filters[i] = id;
+        // }
+        // UpdateActiveFiltersOperation updateFilters = new UpdateActiveFiltersOperation(commonViewer, filters);
+        // updateFilters.execute(null, null);
+        INavigatorFilterService filterService = commonViewer.getNavigatorContentService().getFilterService();
+        if (filterService instanceof NavigatorFilterService) {
+            ((NavigatorFilterService) filterService).updateViewer();
         }
-        UpdateActiveFiltersOperation updateFilters = new UpdateActiveFiltersOperation(commonViewer, filters);
-        updateFilters.execute(null, null);
     }
 
     public static String getPerspectiveId() {
