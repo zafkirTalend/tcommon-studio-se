@@ -73,9 +73,9 @@ public class JavaSimpleDateFormatProposalProvider implements IContentProposalPro
                 new DateFormatContentProposal(
                         "\"MM/dd/yyyy\" : common format", "MM/dd/yyyy", "Date\n Examples : \n  01/01/2007\n  12/31/2007"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                 new DateFormatContentProposal("\"yyyy-MM-dd'T'HH:mm:ss\" : common format", "yyyy-MM-dd'T'HH:mm:ss", //$NON-NLS-1$ //$NON-NLS-2$
-                        "Date\n Examples : \n  01/01/2007\n  12/31/2007"), // hywang //$NON-NLS-1$
+                        "Date\n Examples : \n  2007-01-01T00:00:00\n  2007-12-31T23:59:59"), // hywang //$NON-NLS-1$
                 new DateFormatContentProposal("\"yyyy-MM-dd'T'HH:mm:ss'000Z'\" : common format", "yyyy-MM-dd'T'HH:mm:ss'000Z'", //$NON-NLS-1$ //$NON-NLS-2$
-                        "Date\n Examples : \n  01/01/2007\n  12/31/2007"), // hywang //$NON-NLS-1$
+                        "Date\n Examples : \n  2007-01-01T00:00:00000Z\n  2007-12-31T23:59:59000Z"), // hywang //$NON-NLS-1$
                 new DateFormatContentProposal(
                         "\"HH:mm:ss\" : common format", "HH:mm:ss", "Date\n Examples : \n  00:00:00 \n  23:59:59"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                 new DateFormatContentProposal("\"yy\" : Year (00-99)", "yy", "Year \nExamples : \n  98\n  07"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
