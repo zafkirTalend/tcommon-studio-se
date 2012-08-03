@@ -54,7 +54,7 @@ public class JobOnlyWithAnAContentProvider extends org.talend.repository.view.di
             if (jobTester.isJob(potentialJob)) {
                 RepositoryNode job = (RepositoryNode) potentialJob;
                 String jobLabel = job.getLabel();
-                if (jobLabel != null && jobLabel.toLowerCase().contains("a")) {
+                if (jobLabel != null && !jobLabel.toLowerCase().contains("a")) {
                     removedObjects.add(potentialJob);
                 }// else ignor the job
             }// else not a job.
