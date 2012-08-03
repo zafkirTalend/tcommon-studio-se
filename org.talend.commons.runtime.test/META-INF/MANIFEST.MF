@@ -7,6 +7,6 @@ Fragment-Host: org.talend.commons.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.junit,
  org.talend.utils,
- org.mockito;bundle-version="1.0.0"
+ org.talend.testutils;bundle-version="1.0.0"
 Bundle-ClassPath: data/,
  .

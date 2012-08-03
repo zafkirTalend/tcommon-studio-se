@@ -5,4 +5,4 @@ Bundle-SymbolicName: org.talend.migrationTool.test
 Bundle-Version: 1.0.0.qualifier
 Fragment-Host: org.talend.migrationTool
 Bundle-Vendor: .Talend SA.
-Require-Bundle: org.mockito
+Require-Bundle: org.talend.testutils
