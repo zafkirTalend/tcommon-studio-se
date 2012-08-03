@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Example plugin for Repository usage
+Bundle-SymbolicName: org.talend.repository.view.example;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.eclipse.core.runtime,
+ org.eclipse.jface.viewers,
+ org.eclipse.swt.graphics,
+ org.eclipse.ui,
+ org.eclipse.ui.navigator,
+ org.talend.core.model.repository
+Require-Bundle: org.talend.core.runtime,
+ org.eclipse.core.expressions,
+ org.talend.repository.view,
+ org.talend.repository.view.di
