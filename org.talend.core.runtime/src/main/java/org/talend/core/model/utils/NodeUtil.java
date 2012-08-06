@@ -530,4 +530,28 @@ public class NodeUtil {
         }
         return ""; //$NON-NLS-1$
     }
+    /**
+     * DOC jyhu
+     * <p>
+     * function:get the node from generating nodes by unique name.
+     * aim:to get the property value from any node.
+     * </p>
+     * Notice: It is used to get property values from the pointed node.
+     * 
+     * @param node:node from the job @param uniqueName:the unique name of the pointed node.
+     * @return 
+     */
+    public static INode getNodeByUniqueName(final INode node,String uniqueName){
+    	
+    	
+    	List<INode> nodes = (List<INode>)node.getProcess().getGeneratingNodes();
+    	INode return_node = null;
+    	for(INode current_node:nodes){
+    		if(uniqueName.equals(current_node.getUniqueName())){
+    			return_node = current_node;
+    		}
+    	}
+    	return return_node;
+    }
 }
+
