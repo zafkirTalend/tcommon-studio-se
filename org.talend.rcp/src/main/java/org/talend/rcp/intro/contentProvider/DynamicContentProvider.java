@@ -59,6 +59,7 @@ public class DynamicContentProvider extends IntroProvider {
      * 
      * @see org.eclipse.ui.intro.config.IIntroXHTMLContentProvider#createContent(java.lang.String, org.w3c.dom.Element)
      */
+    @Override
     public void createContent(String id, Element parent) {
         // content for latest modified jobs and business models
         List<IRepositoryViewObject> latestItems = new ArrayList<IRepositoryViewObject>();
@@ -81,8 +82,7 @@ public class DynamicContentProvider extends IntroProvider {
                 parent.appendChild(dom.createElement("br"));
             }
         } else if ("ROUTE".equals(id)) {
-            ERepositoryObjectType repositoryRoutesType = (ERepositoryObjectType) ERepositoryObjectType.valueOf(
-                    ERepositoryObjectType.class, "ROUTES");
+            ERepositoryObjectType repositoryRoutesType = ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "ROUTES");
             latestItems = getLatestModifiedItems(repositoryRoutesType, 8);
             url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.camel.designer&"
                     + "class=org.talend.camel.designer.ui.EditCamelProcess&"
@@ -115,6 +115,7 @@ public class DynamicContentProvider extends IntroProvider {
         for (IRepositoryViewObject object : latestItems) {
             Element hyperlink = dom.createElement("a");
             hyperlink.setAttribute("href", url + object.getId());
+            hyperlink.setAttribute("class", "xh");
             hyperlink.setAttribute("title", "Modified at " + object.getModificationDate() + " by " + object.getAuthor() + "\n"
                     + "Created at " + object.getCreationDate() + " by " + object.getAuthor());
             hyperlink.appendChild(dom.createTextNode(object.getLabel() + " " + object.getVersion()));
@@ -267,8 +268,8 @@ public class DynamicContentProvider extends IntroProvider {
         Node[] array = ModelUtil.getArray(elementsByTagName);
         Element leftDiv = null;
         Element rightDiv = null;
-        for (int i = 0; i < array.length; i++) {
-            Element node = (Element) array[i];
+        for (Node element : array) {
+            Element node = (Element) element;
             if ("div_left_part".equals(node.getAttribute("id"))) {
                 leftDiv = node;
             } else if ("div_right_part".equals(node.getAttribute("id"))) {
@@ -299,6 +300,7 @@ public class DynamicContentProvider extends IntroProvider {
      * 
      * @see org.eclipse.ui.intro.config.IIntroContentProvider#createContent(java.lang.String, java.io.PrintWriter)
      */
+    @Override
     public void createContent(String id, PrintWriter out) {
         // TODO Auto-generated method stub
 
@@ -310,6 +312,7 @@ public class DynamicContentProvider extends IntroProvider {
      * @see org.eclipse.ui.intro.config.IIntroContentProvider#createContent(java.lang.String,
      * org.eclipse.swt.widgets.Composite, org.eclipse.ui.forms.widgets.FormToolkit)
      */
+    @Override
     public void createContent(String id, Composite parent, FormToolkit toolkit) {
         // TODO Auto-generated method stub
 
@@ -320,6 +323,7 @@ public class DynamicContentProvider extends IntroProvider {
      * 
      * @see org.eclipse.ui.intro.config.IIntroContentProvider#dispose()
      */
+    @Override
     public void dispose() {
         // TODO Auto-generated method stub
 
@@ -331,6 +335,7 @@ public class DynamicContentProvider extends IntroProvider {
      * @see
      * org.eclipse.ui.intro.config.IIntroContentProvider#init(org.eclipse.ui.intro.config.IIntroContentProviderSite)
      */
+    @Override
     public void init(IIntroContentProviderSite site) {
     }
 
