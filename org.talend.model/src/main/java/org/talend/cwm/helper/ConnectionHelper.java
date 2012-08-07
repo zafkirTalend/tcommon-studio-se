@@ -422,20 +422,23 @@ public class ConnectionHelper {
         } catch (Exception e1) {
             log.warn(Messages.getString("DatabaseContentRetriever.CANNOTGETPRODUCTVERSION") + e1, e1);//$NON-NLS-1$
         }
-        try {
-            int databaseMinorVersion = databaseMetadata.getDatabaseMinorVersion();
-            int databaseMajorVersion = databaseMetadata.getDatabaseMajorVersion();
-            // simplify the database product version when these informations are accessible
-            databaseProductVersion = Integer.toString(databaseMajorVersion) + DOT_STRING + databaseMinorVersion;
+        // Hive connection dosen't have getDatabaseMinorVersion/getDatabaseMinorVersion
+        if (!"Hive".equals(databaseProductName)) { //$NON-NLS-1$
+            try {
+                int databaseMinorVersion = databaseMetadata.getDatabaseMinorVersion();
+                int databaseMajorVersion = databaseMetadata.getDatabaseMajorVersion();
+                // simplify the database product version when these informations are accessible
+                databaseProductVersion = Integer.toString(databaseMajorVersion) + DOT_STRING + databaseMinorVersion;
 
-            if (log.isDebugEnabled()) {
-                log.debug("Database=" + databaseProductName + " | " + databaseProductVersion + ". DB version: "//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
-                        + databaseMajorVersion + DOT_STRING + databaseMinorVersion);
-            }
-        } catch (RuntimeException e) {
-            // happens for Sybase ASE for example
-            if (log.isDebugEnabled()) {
-                log.debug("Database=" + databaseProductName + " | " + databaseProductVersion + " " + e, e);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
+                if (log.isDebugEnabled()) {
+                    log.debug("Database=" + databaseProductName + " | " + databaseProductVersion + ". DB version: "//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
+                            + databaseMajorVersion + DOT_STRING + databaseMinorVersion);
+                }
+            } catch (RuntimeException e) {
+                // happens for Sybase ASE for example
+                if (log.isDebugEnabled()) {
+                    log.debug("Database=" + databaseProductName + " | " + databaseProductVersion + " " + e, e);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
+                }
             }
         }
 

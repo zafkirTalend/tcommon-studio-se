@@ -175,7 +175,16 @@ public enum SupportDBUrlType {
            null,
            null,
            "sun.jdbc.odbc.JdbcOdbcDriver", //$NON-NLS-1$
-           "datasourceName", "Access"); //$NON-NLS-1$ //$NON-NLS-2$
+           "datasourceName", "Access"), //$NON-NLS-1$ //$NON-NLS-2$
+    // MOD qiongli 2012-7-30 TDQ-5907 support Hive
+    HIVEDEFAULTURL("Hive", //$NON-NLS-1$
+                   "localhost", //$NON-NLS-1$
+                   "10000", //$NON-NLS-1$
+                   null,
+                   null,
+                   "org.apache.hadoop.hive.jdbc.HiveDriver", //$NON-NLS-1$
+                   null,
+                   "Hive"); //$NON-NLS-1$
 
     private final String dbKey;
 
