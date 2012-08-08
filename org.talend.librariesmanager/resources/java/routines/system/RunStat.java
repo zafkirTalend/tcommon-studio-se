@@ -218,7 +218,6 @@ public class RunStat implements Runnable {
         t.start();
     }
 
-    @Override
     public void run() {
         if (!debug) {
             synchronized (this) {
