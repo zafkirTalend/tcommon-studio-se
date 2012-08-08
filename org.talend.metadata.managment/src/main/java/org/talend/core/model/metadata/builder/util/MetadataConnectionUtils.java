@@ -620,36 +620,11 @@ public class MetadataConnectionUtils {
                 }
             } else {
                 // tdq
-                try {
-                    List<?> connList = getConnection(metadataBean);
-                    if (connList != null && !connList.isEmpty()) { // FIXME unnecessary check !connList.isEmpty()
-                        // FIXME scorreia 2011-03-31 why do we loop here? Is it possible to have several drivers. If
-                        // yes,
-                        // what do we do?
-                        for (int i = 0; i < connList.size(); i++) {
-                            if (connList.get(i) instanceof Driver) {
-                                driver = (DriverShim) connList.get(i); // FIXME scorreia 2011-03-31 strange cast here.
-                            }
-                        }
-                    }
-                } catch (Exception e) {
-                    log.error(e, e);
-                }
+            	driver = getDriver(metadataBean);
             }
         } else {
             // tos
-            try {
-                List<?> connList = getConnection(metadataBean);
-                if (connList != null && !connList.isEmpty()) {
-                    for (int i = 0; i < connList.size(); i++) {
-                        if (connList.get(i) instanceof Driver) {
-                            driver = (DriverShim) connList.get(i);
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                log.error(e, e);
-            }
+        	driver = getDriver(metadataBean);
         }
         // MOD mzhao 2009-06-05,Bug 7571 Get driver from catch first, if not
         // exist then get a new instance.
@@ -658,6 +633,47 @@ public class MetadataConnectionUtils {
         }
         return driver;
     }
+
+	/**
+	 * get driver.
+	 * @param metadataBean
+	 * @param driver
+	 * @return
+	 */
+	private static Driver getDriver(IMetadataConnection metadataBean) {
+		Driver driver = null;
+		List<?> connList = getConnection(metadataBean);
+		try {
+		    if (connList != null && !connList.isEmpty()) { // FIXME unnecessary check !connList.isEmpty()
+		        // FIXME scorreia 2011-03-31 why do we loop here? Is it possible to have several drivers. If
+		        // yes,
+		        // what do we do?
+			    for (int i = 0; i < connList.size(); i++) {
+					if (connList.get(i) instanceof Driver) {
+				        driver = (DriverShim) connList.get(i); // FIXME scorreia 2011-03-31 strange cast here.
+			        }
+			    }
+		    }
+		} catch (Exception e) {
+		    log.error(e, e);
+		}finally{
+			// ADD msjian TDQ-5952: we should close the unused connection at once.
+			try {
+			    for (int i = 0; i < connList.size(); i++) {
+			        if (connList.get(i) instanceof java.sql.Connection) {
+			        	java.sql.Connection con = (java.sql.Connection) connList.get(i);
+					    if (con != null && !con.isClosed()) {
+					    	con.close();
+					    }
+			        }
+			    }
+			} catch (SQLException e) {
+				  log.error(e, e);
+			}
+			// TDQ-5952~
+		}
+		return driver;
+	}
 
     /**
      * This method to get all database template supported by TDQ.
