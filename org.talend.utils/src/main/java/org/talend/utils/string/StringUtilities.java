@@ -14,6 +14,7 @@ package org.talend.utils.string;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.StringTokenizer;
 
 import org.talend.utils.sugars.ReturnCode;
@@ -81,5 +82,22 @@ public final class StringUtilities {
             return new ReturnCode("too many " + openingBlock + " at position " + i, false);
         }
         return new ReturnCode();
+    }
+
+    /**
+     * DOC xqliu Comment method "getRandomString".
+     * 
+     * @param length
+     * @return
+     */
+    public static String getRandomString(int length) {
+        String str = "abcdefghigklmnopkrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ0123456789";
+        Random random = new Random();
+        StringBuffer sf = new StringBuffer();
+        for (int i = 0; i < length; i++) {
+            int number = random.nextInt(62);// 0~61
+            sf.append(str.charAt(number));
+        }
+        return sf.toString();
     }
 }
