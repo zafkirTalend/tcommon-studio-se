@@ -119,7 +119,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
     /** Version upgrade minor button. */
     private Button versionMinorBtn;
 
-    private Text pathText;
+	protected Text pathText;
 
     protected IStatus nameStatus;
 
