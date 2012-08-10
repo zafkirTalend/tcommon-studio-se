@@ -21,9 +21,9 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.utils.IComponentName;
 import org.talend.core.model.utils.IDragAndDropServiceHandler;
+import org.talend.repository.example.model.demo.ExampleDemoConnection;
 import org.talend.repository.model.ExampleDemoRepositoryNodeType;
 import org.talend.repository.model.RepositoryNode;
-import org.talend.repository.model.demo.ExampleDemoConnection;
 
 /**
  * DOC ggu class global comment. Detailled comment <br/>

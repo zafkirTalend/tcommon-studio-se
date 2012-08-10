@@ -25,11 +25,11 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.utils.XmiResourceManager;
+import org.talend.repository.example.model.demo.DemoFactory;
+import org.talend.repository.example.model.demo.ExampleDemoConnectionItem;
 import org.talend.repository.image.EExampleDemoImage;
 import org.talend.repository.model.ExampleDemoRepositoryNodeType;
 import org.talend.repository.model.RepositoryNode;
-import org.talend.repository.model.demo.DemoFactory;
-import org.talend.repository.model.demo.ExampleDemoConnectionItem;
 
 /**
  * DOC ggu class global comment. Detailled comment <br/>

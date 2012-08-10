@@ -40,6 +40,9 @@ import org.talend.core.repository.ui.actions.metadata.AbstractCreateAction;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.images.OverlayImageProvider;
 import org.talend.repository.ProjectManager;
+import org.talend.repository.example.model.demo.DemoFactory;
+import org.talend.repository.example.model.demo.ExampleDemoConnection;
+import org.talend.repository.example.model.demo.ExampleDemoConnectionItem;
 import org.talend.repository.image.EExampleDemoImage;
 import org.talend.repository.model.ExampleDemoRepositoryNodeType;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -47,9 +50,6 @@ import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
-import org.talend.repository.model.demo.DemoFactory;
-import org.talend.repository.model.demo.ExampleDemoConnection;
-import org.talend.repository.model.demo.ExampleDemoConnectionItem;
 
 /**
  * DOC ggu class global comment. Detailled comment <br/>

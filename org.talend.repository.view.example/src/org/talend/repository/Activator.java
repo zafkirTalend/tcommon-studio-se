@@ -2,7 +2,6 @@ package org.talend.repository;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-import org.talend.repository.model.demo.DemoPackage;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -30,8 +29,6 @@ public class Activator extends AbstractUIPlugin {
     public void start(BundleContext context) throws Exception {
         super.start(context);
         plugin = this;
-        // register, else will be error for "Package with uri 'http://www.talend.com/exampleDemo' not found"
-        DemoPackage instance = DemoPackage.eINSTANCE;
     }
 
     /*

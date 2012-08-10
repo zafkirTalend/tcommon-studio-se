@@ -276,4 +276,11 @@
             class="org.talend.repository.viewer.handler.demo.ExampleDemoDragAndDropHandler">
       </RepositoryHandler>
    </extension>
+   <extension
+         point="org.eclipse.emf.ecore.generated_package">
+      <package
+            class="org.talend.repository.example.model.demo.DemoPackage"
+            uri="http://www.talend.com/exampleDemo">
+      </package>
+   </extension>
 </plugin>

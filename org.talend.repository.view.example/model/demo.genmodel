@@ -5,7 +5,7 @@
     modelPluginID="org.talend.repository.view.example" modelName="Demo" importerID="org.eclipse.emf.importer.ecore"
     complianceLevel="6.0" copyrightFields="false" runtimeVersion="2.6" usedGenPackages="../../org.talend.model/model/Business.genmodel#//business ../../org.talend.model/model/Component.genmodel#//component ../../org.talend.cwm.mip/model/cwm_mip.genmodel#//orgomg platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.talend.model/model/joblet.genmodel#//model ../../org.talend.model/model/metadata.genmodel#//connection platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation ../../org.talend.model/model/properties.genmodel#//properties ../../org.talend.model/model/TalendFile.genmodel#//talendfile">
   <foreignModel>demo.ecore</foreignModel>
-  <genPackages prefix="Demo" basePackage="org.talend.repository.model" resource="XML"
+  <genPackages prefix="Demo" basePackage="org.talend.repository.example.model" resource="XML"
       disposableProviderFactory="true" ecorePackage="demo.ecore#/">
     <genClasses ecoreClass="demo.ecore#//ExampleDemoConnectionItem"/>
     <genClasses ecoreClass="demo.ecore#//ExampleDemoConnection">
