@@ -1090,7 +1090,7 @@ public class SelectorTableForm extends AbstractForm {
                     && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 ExtractMetaDataUtils.closeConnection();
             }
             if (derbyDriver != null) {
@@ -1155,6 +1155,9 @@ public class SelectorTableForm extends AbstractForm {
                                 openInfoDialogInUIThread(getShell(), "Error", "No catalog or schema exist", true);
                             }
                         } else {
+                            // filter to display the extra context schema if exist after migration from 402 to new
+                            // version
+                            tableNodeList = filterItemContextSchema(tableNodeList);
                             createAllItems(displayMessageBox, null);
                         }
                     } else if (displayMessageBox) {
@@ -2460,5 +2463,22 @@ public class SelectorTableForm extends AbstractForm {
             return true;
         }
 
+    }
+
+    public List<TableNode> filterItemContextSchema(List<TableNode> tableList) {
+        List<TableNode> allDisplayNodes = tableList;
+        TableNode contextItemNode = null;
+        for (TableNode tn : allDisplayNodes) {
+            if (tn.getSchema() instanceof Schema) {
+                Schema s = tn.getSchema();
+                if ((s.getName().equals("") || s.getName().contains("context")) && s.getOwnedElement().size() > 0) {
+                    contextItemNode = tn;
+                }
+            }
+        }
+        if (contextItemNode != null) {
+            allDisplayNodes.remove(contextItemNode);
+        }
+        return allDisplayNodes;
     }
 }
