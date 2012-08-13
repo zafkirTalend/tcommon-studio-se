@@ -193,26 +193,25 @@ public class RunStat implements Runnable {
         }
 
         System.out.println("[statistics] connecting to socket on port " + portStats); //$NON-NLS-1$
-        boolean isConnect = false;
-        OutputStream output = null;
-        try {
-            s = new Socket(clientHost, portStats);
-            isConnect = true;
-        } catch (Exception e) {
-            System.err.println("The socket clientHost:" + clientHost + "-portStats:" + portStats
-                    + "for statistics connect is refused ");
-        }
-        if (isConnect) {
-            GlobalResource.resourceMap.put(portStats, s);
-            output = s.getOutputStream();
-            System.out.println("[statistics] connected"); //$NON-NLS-1$
-        } else {
-            output = System.out;
-            System.out.println("[statistics] connected refused"); //$NON-NLS-1$
-        }
-        if (debug) {
-            output = System.out;
-        }
+        boolean isConnect=false;
+        OutputStream output=null;
+	try {
+		s = new Socket(clientHost, portStats);
+		isConnect = true;
+	} catch (Exception e) {
+		System.err.println("Unable to connect to "+clientHost+" on the port "+portStats");
+	}
+	if (isConnect) {
+		GlobalResource.resourceMap.put(portStats, s);
+		output = s.getOutputStream();
+		System.out.println("[statistics] connected"); //$NON-NLS-1$
+	} else {
+		output = System.out;
+		System.out.println("[statistics] connection refused"); //$NON-NLS-1$
+	}
+	if (debug) {
+		output = System.out;
+	}
         pred = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(output)), true);
         Thread t = new Thread(this);
         t.start();
