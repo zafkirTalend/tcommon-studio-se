@@ -1030,4 +1030,30 @@ public class FilesUtils {
         return uuid;
     }
 
+    /**
+     * rename the folder.
+     * 
+     * @param srcfolder
+     * @param targetfolder
+     */
+    public static void renameFolder(File srcfolder, File targetfolder) {
+        if (srcfolder.exists() && srcfolder.isDirectory()) {
+            try {
+                if (!targetfolder.exists()) {
+                    targetfolder.mkdirs();
+                }
+                File[] listFiles = srcfolder.listFiles();
+                for (File file : listFiles) {
+                    if (file.isDirectory()) {
+                        copyDirectory(file, targetfolder);
+                    } else if (file.isFile()) {
+                        copyFile(file, targetfolder);
+                    }
+                }
+            } catch (Exception e) {
+                logger.warn(e, e);
+            }
+            deleteFile(srcfolder, true);
+        }
+    }
 }

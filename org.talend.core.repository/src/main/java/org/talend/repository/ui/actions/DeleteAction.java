@@ -610,9 +610,12 @@ public class DeleteAction extends AContextualAction {
     public static List<ContextReferenceBean> checkContextFromProcess(IProxyRepositoryFactory factory,
             DeleteActionCache deleteActionCache, RepositoryNode currentJobNode) {
         IRepositoryViewObject object = currentJobNode.getObject();
-        Item nodeItem = object.getProperty().getItem();
+        Item nodeItem = null;
+        if (object != null && object.getProperty() != null) {
+            nodeItem = object.getProperty().getItem();
+        }
         boolean contextIsUsed = false;
-        if (nodeItem instanceof ContextItem) {
+        if (nodeItem != null && nodeItem instanceof ContextItem) {
             contextIsUsed = true;
         }
         // List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
@@ -1018,10 +1021,13 @@ public class DeleteAction extends AContextualAction {
             return true;
         }
 
-        Item item = objToDelete.getProperty().getItem();
+        Item item = null;
+        if (objToDelete != null && objToDelete.getProperty() != null) {
+            item = objToDelete.getProperty().getItem();
+        }
         AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
                 AbstractResourceChangesService.class);
-        if (resChangeService != null && item instanceof ConnectionItem && item.getState().isDeleted()) {
+        if (resChangeService != null && item != null && item instanceof ConnectionItem && item.getState().isDeleted()) {
             if (!resChangeService.handleResourceChange(((ConnectionItem) item).getConnection())) {
                 return true;
             }
