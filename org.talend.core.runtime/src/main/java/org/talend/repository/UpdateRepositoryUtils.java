@@ -50,7 +50,7 @@ public final class UpdateRepositoryUtils {
      * 
      * get Query
      */
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public static Query getQueryById(Item item, final String queryId) {
         if (item == null || queryId == null) {
             return null;
@@ -120,7 +120,7 @@ public final class UpdateRepositoryUtils {
      * 
      * get MetadataTable
      */
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public static MetadataTable getTableById(Item item, final String tableId) {
         if (item == null || tableId == null) {
             return null;
@@ -256,7 +256,7 @@ public final class UpdateRepositoryUtils {
                 if (queryConn != null) {
                     final EList query = queryConn.getQuery();
                     if (query != null) {
-                        return (List<Query>) query;
+                        return query;
                     }
                 }
             }
@@ -275,7 +275,7 @@ public final class UpdateRepositoryUtils {
                 if (queryConn != null) {
                     final EList query = queryConn.getQuery();
                     if (query != null) {
-                        return (List<Query>) query;
+                        return query;
                     }
                 }
             }
@@ -342,14 +342,22 @@ public final class UpdateRepositoryUtils {
      * @return
      */
     public static IRepositoryViewObject getRepositoryObjectById(final String id) {
+        return getRepositoryObjectById(id, false);
+    }
+
+    public static IRepositoryViewObject getRepositoryObjectById(final String id, boolean withDeleted) {
         if (id == null || "".equals(id) || RepositoryNode.NO_ID.equals(id)) { //$NON-NLS-1$
             return null;
         }
         IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         try {
             IRepositoryViewObject lastVersion = factory.getLastVersion(id);
-            if (lastVersion != null && factory.getStatus(lastVersion) != ERepositoryStatus.DELETED) {
-                return lastVersion;
+            if (lastVersion != null) {
+                if (withDeleted) {
+                    return lastVersion;
+                } else if (factory.getStatus(lastVersion) != ERepositoryStatus.DELETED) {
+                    return lastVersion;
+                }
             }
         } catch (PersistenceException e) {
             //
@@ -368,7 +376,7 @@ public final class UpdateRepositoryUtils {
         return UpdateRepositoryHelper.getRepositorySourceName(item);
     }
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public static IMetadataTable getTableByName(ConnectionItem item, String name) {
         if (item == null || name == null) {
             return null;
@@ -413,7 +421,7 @@ public final class UpdateRepositoryUtils {
         return null;
     }
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public static Query getQueryByName(ConnectionItem item, String name) {
         if (item == null || name == null) {
             return null;
