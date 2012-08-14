@@ -28,6 +28,7 @@ import org.talend.core.model.process.ElementParameterParser;
 import org.talend.core.model.process.IConnection;
 import org.talend.core.model.process.IConnectionCategory;
 import org.talend.core.model.process.INode;
+import org.talend.core.model.process.IProcess;
 
 /**
  * DOC xtan class global comment. Detailled comment <br/>
@@ -541,10 +542,10 @@ public class NodeUtil {
      * @param node:node from the job @param uniqueName:the unique name of the pointed node.
      * @return 
      */
-    public static INode getNodeByUniqueName(final INode node,String uniqueName){
+    public static INode getNodeByUniqueName(final IProcess process,String uniqueName){
     	
     	
-    	List<INode> nodes = (List<INode>)node.getProcess().getGeneratingNodes();
+    	List<INode> nodes = (List<INode>) process.getGeneratingNodes();
     	INode return_node = null;
     	for(INode current_node:nodes){
     		if(uniqueName.equals(current_node.getUniqueName())){
