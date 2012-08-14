@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.repository.ui.wizards;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.resources.IWorkspace;
@@ -24,25 +23,22 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.ui.IWorkbench;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.VersionUtils;
-import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.ui.ILastVersionChecker;
-import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.designer.core.IDesignerCoreService;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.ui.wizards.context.ContextWizard;
 import org.talend.repository.ui.wizards.documentation.DocumentationCreateWizard;
 import org.talend.repository.ui.wizards.documentation.DocumentationUpdateWizard;
-import orgomg.cwm.objectmodel.core.Package;
 
 /**
  * DOC hywang class global comment. Detailled comment
@@ -65,6 +61,7 @@ public abstract class CheckLastVersionRepositoryWizard extends RepositoryWizard 
         super(workbench, creation, forceReadOnly);
     }
 
+    @Override
     public boolean performFinish() {
         // TODO Auto-generated method stub
         return false;
@@ -165,7 +162,8 @@ public abstract class CheckLastVersionRepositoryWizard extends RepositoryWizard 
                     factory.save(connectionItem);
                     closeLockStrategy();
                 } catch (PersistenceException e) {
-                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.metadata.management.ui", "Error when save the connection", e));
+                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.metadata.management.ui",
+                            "Error when save the connection", e));
                 }
             }
         };
@@ -175,9 +173,22 @@ public abstract class CheckLastVersionRepositoryWizard extends RepositoryWizard 
         workspace.run(operation, schedulingRule, IWorkspace.AVOID_UPDATE, new NullProgressMonitor());
     }
 
+    @Override
     public boolean performCancel() {
         // connectionCopy = null;
         // metadataTableCopy = null;
         return super.performCancel();
+    }
+
+    protected void refreshInFinish(boolean isModified) {
+        if (isModified) {
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
+                IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                        IDesignerCoreService.class);
+                if (service != null) {
+                    service.refreshComponentView(connectionItem);
+                }
+            }
+        }
     }
 }

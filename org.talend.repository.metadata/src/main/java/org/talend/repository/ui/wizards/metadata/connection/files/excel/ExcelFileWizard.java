@@ -22,7 +22,6 @@ import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.utils.VersionUtils;
-import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
@@ -38,7 +37,6 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
-import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.metadata.i18n.Messages;
@@ -265,16 +263,7 @@ public class ExcelFileWizard extends CheckLastVersionRepositoryWizard implements
                     // changed by hqzhang for TDI-19527, label=displayName
                     connectionProperty.setLabel(connectionProperty.getDisplayName());
                     RepositoryUpdateManager.updateFileConnection(connectionItem);
-                    boolean isModified = excelFileWizardPage0.isNameModifiedByUser();
-                    if (isModified) {
-                        if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
-                            IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
-                                    IDesignerCoreService.class);
-                            if (service != null) {
-                                service.refreshComponentView(connectionItem);
-                            }
-                        }
-                    }
+                    refreshInFinish(excelFileWizardPage0.isNameModifiedByUser());
                     updateConnectionItem();
                 }
                 ProxyRepositoryFactory.getInstance().saveProject(ProjectManager.getInstance().getCurrentProject());
