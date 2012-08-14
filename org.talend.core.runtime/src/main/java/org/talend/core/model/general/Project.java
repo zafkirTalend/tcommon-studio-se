@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.model.general;
 
+import java.util.Locale;
+
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.PlatformUI;
 import org.talend.core.language.ECodeLanguage;
@@ -94,6 +96,7 @@ public class Project {
         project.setTechnicalLabel(technicalLabel);
     }
 
+    @Override
     public String toString() {
         return getLabel();
     }
@@ -182,7 +185,7 @@ public class Project {
             name = name.substring(0, name.length() - 1);
         }
         if (name != null) {
-            name = name.toUpperCase();
+            name = name.toUpperCase(Locale.ENGLISH);
             name = name.replace(" ", "_"); //$NON-NLS-1$ //$NON-NLS-2$
             name = name.replace("-", "_"); //$NON-NLS-1$ //$NON-NLS-2$
         }
