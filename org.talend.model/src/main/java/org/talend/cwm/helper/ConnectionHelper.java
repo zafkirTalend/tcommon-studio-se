@@ -885,6 +885,22 @@ public class ConnectionHelper {
     }
 
     /**
+     * 
+     * judge if it is hive connection by DatabaseType.
+     * 
+     * @param connection
+     * @return
+     */
+    public static boolean isHive(Connection connection) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(connection);
+        if (dbConn != null) {
+            String databaseType = dbConn.getDatabaseType() == null ? "" : dbConn.getDatabaseType(); //$NON-NLS-1$
+            return "Hive".equalsIgnoreCase(databaseType); //$NON-NLS-1$
+        }
+        return false;
+    }
+
+    /**
      * Gets the metadata table by id from connection. Created by Marvin Wang on May 8, 2012.
      * 
      * @param connection
