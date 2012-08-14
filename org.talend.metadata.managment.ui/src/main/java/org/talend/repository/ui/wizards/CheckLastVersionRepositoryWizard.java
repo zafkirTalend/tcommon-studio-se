@@ -27,12 +27,14 @@ import org.eclipse.ui.IWorkbench;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.VersionUtils;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.ui.ILastVersionChecker;
+import org.talend.designer.core.IDesignerCoreService;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.ui.wizards.context.ContextWizard;
 import org.talend.repository.ui.wizards.documentation.DocumentationCreateWizard;
@@ -176,5 +178,17 @@ public abstract class CheckLastVersionRepositoryWizard extends RepositoryWizard 
         // connectionCopy = null;
         // metadataTableCopy = null;
         return super.performCancel();
+    }
+
+    protected void refreshInFinish(boolean isModified) {
+        if (isModified) {
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
+                IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                        IDesignerCoreService.class);
+                if (service != null) {
+                    service.refreshComponentView(connectionItem);
+                }
+            }
+        }
     }
 }
