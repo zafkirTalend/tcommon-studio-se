@@ -69,6 +69,7 @@ import org.talend.repository.ui.wizards.metadata.connection.wsdl.WSDLSchemaWizar
 public class MetadataService implements IMetadataService {
 
     private static Logger log = Logger.getLogger(MetadataService.class);
+
     private GenericSchemaWizard genericSchemaWizard = null;
 
     /*
@@ -77,6 +78,7 @@ public class MetadataService implements IMetadataService {
      * @see org.talend.repository.model.IRepositoryService#getGenericSchemaWizardDialog(org.eclipse.swt.widgets.Shell,
      * org.eclipse.ui.IWorkbench, boolean, org.eclipse.jface.viewers.ISelection, java.lang.String[], boolean)
      */
+    @Override
     public WizardDialog getGenericSchemaWizardDialog(Shell shell, IWorkbench workbench, boolean creation, ISelection selection,
             String[] existingNames, boolean isSinglePageOnly) {
 
@@ -89,6 +91,7 @@ public class MetadataService implements IMetadataService {
      * 
      * @see org.talend.repository.model.IRepositoryService#getPropertyFromWizardDialog()
      */
+    @Override
     public Property getPropertyFromWizardDialog() {
         if (this.genericSchemaWizard != null) {
             return this.genericSchemaWizard.getConnectionProperty();
@@ -101,6 +104,7 @@ public class MetadataService implements IMetadataService {
      * 
      * @see org.talend.repository.model.IRepositoryService#getPathForSaveAsGenericSchema()
      */
+    @Override
     public IPath getPathForSaveAsGenericSchema() {
         if (this.genericSchemaWizard != null) {
             return this.genericSchemaWizard.getPathForSaveAsGenericSchema();
@@ -108,6 +112,7 @@ public class MetadataService implements IMetadataService {
         return null;
     }
 
+    @Override
     public void openMetadataConnection(IRepositoryViewObject o, INode node) {
         final RepositoryNode realNode = RepositoryNodeUtilities.getRepositoryNode(o);
         openMetadataConnection(false, realNode, node);
@@ -149,16 +154,14 @@ public class MetadataService implements IMetadataService {
                 relatedWizard = new SalesforceSchemaWizard(PlatformUI.getWorkbench(), creation, realNode, null, false);
             } else if (objectType.equals(ERepositoryObjectType.METADATA_FILE_EBCDIC)) {
                 if (PluginChecker.isEBCDICPluginLoaded()) {
-                    IProviderService iebcdicService = (IProviderService) GlobalServiceRegister.getDefault().findService(
-                            "IEBCDICProviderService");
+                    IProviderService iebcdicService = GlobalServiceRegister.getDefault().findService("IEBCDICProviderService");
                     if (iebcdicService != null) {
                         relatedWizard = iebcdicService.newWizard(PlatformUI.getWorkbench(), creation, realNode, null);
                     }
                 }
             } else if (objectType.equals(ERepositoryObjectType.METADATA_FILE_HL7)) {
                 if (PluginChecker.isHL7PluginLoaded()) {
-                    IProviderService service = (IProviderService) GlobalServiceRegister.getDefault().findService(
-                            "IHL7ProviderService");
+                    IProviderService service = GlobalServiceRegister.getDefault().findService("IHL7ProviderService");
                     if (service != null) {
                         relatedWizard = service.newWizard(PlatformUI.getWorkbench(), creation, realNode, null);
                     }
@@ -173,8 +176,7 @@ public class MetadataService implements IMetadataService {
                 }
             } else if (objectType.equals(ERepositoryObjectType.METADATA_SAPCONNECTIONS)) {
                 if (PluginChecker.isSAPWizardPluginLoaded()) {
-                    IProviderService service = (IProviderService) GlobalServiceRegister.getDefault().findService(
-                            "ISAPProviderService");
+                    IProviderService service = GlobalServiceRegister.getDefault().findService("ISAPProviderService");
                     if (service != null) {
                         relatedWizard = service.newWizard(PlatformUI.getWorkbench(), creation, realNode, null);
                     }
@@ -189,7 +191,7 @@ public class MetadataService implements IMetadataService {
                 }
             } else if (objectType.equals(ERepositoryObjectType.METADATA_FILE_FTP)) {
                 if (PluginChecker.isFTPPluginLoaded()) {
-                    IProviderService service = (IProviderService) GlobalServiceRegister.getDefault().findService(
+                    IProviderService service = GlobalServiceRegister.getDefault().findService(
                             "org.talend.core.ui.IFTPProviderService");
                     if (service != null) {
                         relatedWizard = service.newWizard(PlatformUI.getWorkbench(), creation, realNode, null);
@@ -197,8 +199,7 @@ public class MetadataService implements IMetadataService {
                 }
             } else if (objectType.equals(ERepositoryObjectType.METADATA_FILE_BRMS)) {
                 if (PluginChecker.isBRMSPluginLoaded()) {
-                    IProviderService service = (IProviderService) GlobalServiceRegister.getDefault().findService(
-                            "IBRMSProviderService");
+                    IProviderService service = GlobalServiceRegister.getDefault().findService("IBRMSProviderService");
                     if (service != null) {
                         relatedWizard = service.newWizard(PlatformUI.getWorkbench(), creation, realNode, null);
                     }
@@ -216,7 +217,7 @@ public class MetadataService implements IMetadataService {
                 if (connItem != null && changed) {
                     // Open the Wizard
                     WizardDialog wizardDialog = new WizardDialog(Display.getCurrent().getActiveShell(), relatedWizard);
-                    wizardDialog.setPageSize(600, 500);
+                    wizardDialog.setPageSize(600, 540);
                     wizardDialog.create();
                     if (wizardDialog.open() == wizardDialog.OK) {
                         return connItem;
@@ -227,6 +228,7 @@ public class MetadataService implements IMetadataService {
         return null;
     }
 
+    @Override
     public void openEditSchemaWizard(String value) {
         final RepositoryNode realNode = RepositoryNodeUtilities.getMetadataTableFromConnection(value);
         if (realNode != null) {
