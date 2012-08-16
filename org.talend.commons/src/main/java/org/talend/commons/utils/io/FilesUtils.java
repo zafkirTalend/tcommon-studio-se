@@ -57,6 +57,7 @@ import org.eclipse.core.runtime.Path;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.i18n.internal.Messages;
+import org.talend.commons.utils.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -311,8 +312,10 @@ public class FilesUtils {
             BufferedReader buf = new BufferedReader(inR);
             String line;
             while ((line = buf.readLine()) != null) {
-                buffer.append(line.replaceAll(regex, replacement)).append("\n"); //$NON-NLS-1$
+                buffer.append(StringUtils.replace(line, regex, replacement)).append("\n"); //$NON-NLS-1$
             }
+        } catch (Exception e) {
+            logger.error(e);
         } finally {
             in.close();
         }
@@ -323,22 +326,6 @@ public class FilesUtils {
     }
 
     public static List<URL> getFilesFromFolder(Bundle bundle, String path, String extension) {
-        // List<URL> toReturn = new ArrayList<URL>();
-        //
-        // Enumeration entryPaths = bundle.getEntryPaths(path);
-        // for (Enumeration enumer = entryPaths; enumer.hasMoreElements();) {
-        // String fileName = (String) enumer.nextElement();
-        // if (fileName.endsWith(extension)) {
-        // URL url = bundle.getEntry(fileName);
-        // try {
-        // toReturn.add(FileLocator.toFileURL(url));
-        // } catch (IOException e) {
-        // CommonExceptionHandler.process(e);
-        // }
-        // }
-        // }
-        // return toReturn;
-
         return getFilesFromFolder(bundle, path, extension, true, false);
     }
 
