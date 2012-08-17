@@ -44,6 +44,7 @@ import java.util.zip.ZipFile;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -311,8 +312,10 @@ public class FilesUtils {
             BufferedReader buf = new BufferedReader(inR);
             String line;
             while ((line = buf.readLine()) != null) {
-                buffer.append(line.replaceAll(regex, replacement)).append("\n"); //$NON-NLS-1$
+                buffer.append(StringUtils.replace(line, regex, replacement)).append("\n"); //$NON-NLS-1$
             }
+        } catch (Exception e) {
+            logger.error(e);
         } finally {
             in.close();
         }
@@ -323,22 +326,6 @@ public class FilesUtils {
     }
 
     public static List<URL> getFilesFromFolder(Bundle bundle, String path, String extension) {
-        // List<URL> toReturn = new ArrayList<URL>();
-        //
-        // Enumeration entryPaths = bundle.getEntryPaths(path);
-        // for (Enumeration enumer = entryPaths; enumer.hasMoreElements();) {
-        // String fileName = (String) enumer.nextElement();
-        // if (fileName.endsWith(extension)) {
-        // URL url = bundle.getEntry(fileName);
-        // try {
-        // toReturn.add(FileLocator.toFileURL(url));
-        // } catch (IOException e) {
-        // CommonExceptionHandler.process(e);
-        // }
-        // }
-        // }
-        // return toReturn;
-
         return getFilesFromFolder(bundle, path, extension, true, false);
     }
 
