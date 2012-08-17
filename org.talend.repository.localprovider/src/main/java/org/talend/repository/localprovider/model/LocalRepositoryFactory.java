@@ -1276,20 +1276,18 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
     }
 
-    @Override
-    public void renameFolderForLocal(final ERepositoryObjectType type, final IPath sourcePath, final String label)
+    private void renameFolderForLocal(final ERepositoryObjectType type, final IPath sourcePath, final String label)
             throws PersistenceException {
         IPath lastPath = sourcePath;
         if (sourcePath.lastSegment().equalsIgnoreCase(label)) {
             String tmpLabel = label.concat(this.getNextId());
-            renameFolder(type, sourcePath, tmpLabel);
+            renameFolderExecute(type, sourcePath, tmpLabel);
             lastPath = sourcePath.removeLastSegments(1).append(tmpLabel);
         }
-        renameFolder(type, lastPath, label);
+        renameFolderExecute(type, lastPath, label);
     }
 
-    @Override
-    public void renameFolder(final ERepositoryObjectType type, final IPath sourcePath, final String label)
+    private void renameFolderExecute(final ERepositoryObjectType type, final IPath sourcePath, final String label)
             throws PersistenceException {
         final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
@@ -1372,7 +1370,20 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         } catch (CoreException e) {
             throw new PersistenceException(e.getCause());
         }
+    }
 
+    @Override
+    public void renameFolder(final ERepositoryObjectType type, final IPath sourcePath, final String label)
+            throws PersistenceException {
+        try {
+            if (isLocalConnectionProvider()) {
+                renameFolderForLocal(type, sourcePath, label);
+            } else {
+                renameFolderExecute(type, sourcePath, label);
+            }
+        } catch (UnsupportedOperationException e) {
+            renameFolderExecute(type, sourcePath, label);
+        }
     }
 
     private void moveOldContentToNewFolder(Project project, String completeNewPath, FolderItem emfFolder, FolderItem newFolder,

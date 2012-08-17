@@ -588,11 +588,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         // to simplify for now, we don't allow to rename one folder to another case.
         // return;
         // }
-        if (this.repositoryFactoryFromProvider.isLocalConnectionProvider()) {
-            this.repositoryFactoryFromProvider.renameFolderForLocal(type, path, label);
-        } else {
-            this.repositoryFactoryFromProvider.renameFolder(type, path, label);
-        }
+        this.repositoryFactoryFromProvider.renameFolder(type, path, label);
         if (type == ERepositoryObjectType.PROCESS) {
             fireRepositoryPropertyChange(ERepositoryActionName.FOLDER_RENAME.getName(), path, label);
         }

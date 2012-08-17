@@ -118,9 +118,6 @@ public interface IRepositoryFactory {
 
     public void renameFolder(ERepositoryObjectType type, IPath path, String label) throws PersistenceException;
 
-    public void renameFolderForLocal(final ERepositoryObjectType type, final IPath sourcePath, final String label)
-            throws PersistenceException;
-
     /**
      * Returns all version of an object given its id.
      * 
