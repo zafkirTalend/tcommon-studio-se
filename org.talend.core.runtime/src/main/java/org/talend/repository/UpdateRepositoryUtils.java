@@ -36,7 +36,6 @@ import org.talend.core.model.utils.UpdateRepositoryHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.service.IMetadataManagmentService;
 import org.talend.cwm.helper.ConnectionHelper;
-import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 
@@ -64,11 +63,8 @@ public final class UpdateRepositoryUtils {
                     final EList queries = queryConn.getQuery();
                     if (queries != null) {
                         for (Query query : (List<Query>) queries) {
-                            Object object = query.getProperties().get("deleted"); //$NON-NLS-1$
-                            if (object == null || (object != null && !object.equals(Boolean.TRUE.toString()))) {
-                                if (query.getId().equals(queryId)) {
-                                    return query;
-                                }
+                            if (query.getId().equals(queryId)) {
+                                return query;
                             }
                         }
                     }
@@ -88,11 +84,9 @@ public final class UpdateRepositoryUtils {
         }
         if (metadataConnectionsItem != null) {
             for (ConnectionItem connectionItem : metadataConnectionsItem) {
-                if (factory.getStatus(connectionItem) != ERepositoryStatus.DELETED) {
-                    Query query = getQueryById(connectionItem, queryId);
-                    if (query != null) {
-                        return query;
-                    }
+                Query query = getQueryById(connectionItem, queryId);
+                if (query != null) {
+                    return query;
                 }
             }
         }
@@ -132,14 +126,11 @@ public final class UpdateRepositoryUtils {
                 final Set tables = ConnectionHelper.getTables(connection);
                 if (tables != null) {
                     for (MetadataTable table : (Set<MetadataTable>) tables) {
-                        Object object = table.getProperties().get("deleted"); //$NON-NLS-1$
-                        if (object == null || (object != null && !object.equals(Boolean.TRUE.toString()))) {
-                            if (table.getId().equals(tableId)) {
-                                return table;
-                            }
+                        if (table.getId().equals(tableId)) {
+                            return table;
                         }
-
                     }
+
                 }
             }
         }
@@ -156,11 +147,9 @@ public final class UpdateRepositoryUtils {
         }
         if (metadataConnectionsItem != null) {
             for (ConnectionItem connectionItem : metadataConnectionsItem) {
-                if (factory.getStatus(connectionItem) != ERepositoryStatus.DELETED) {
-                    MetadataTable table = getTableById(connectionItem, tableId);
-                    if (table != null) {
-                        return table;
-                    }
+                MetadataTable table = getTableById(connectionItem, tableId);
+                if (table != null) {
+                    return table;
                 }
             }
         }
@@ -234,7 +223,7 @@ public final class UpdateRepositoryUtils {
      * get item by id
      */
     public static ConnectionItem getConnectionItemByItemId(String itemId) {
-        return getConnectionItemByItemId(itemId, false);
+        return getConnectionItemByItemId(itemId, true);
     }
 
     public static ConnectionItem getConnectionItemByItemId(String itemId, boolean deleted) {
@@ -342,23 +331,13 @@ public final class UpdateRepositoryUtils {
      * @return
      */
     public static IRepositoryViewObject getRepositoryObjectById(final String id) {
-        return getRepositoryObjectById(id, false);
-    }
-
-    public static IRepositoryViewObject getRepositoryObjectById(final String id, boolean withDeleted) {
         if (id == null || "".equals(id) || RepositoryNode.NO_ID.equals(id)) { //$NON-NLS-1$
             return null;
         }
         IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         try {
             IRepositoryViewObject lastVersion = factory.getLastVersion(id);
-            if (lastVersion != null) {
-                if (withDeleted) {
-                    return lastVersion;
-                } else if (factory.getStatus(lastVersion) != ERepositoryStatus.DELETED) {
-                    return lastVersion;
-                }
-            }
+            return lastVersion;
         } catch (PersistenceException e) {
             //
         }
@@ -389,14 +368,11 @@ public final class UpdateRepositoryUtils {
                 Object tableObject = tables.get(0);
                 if (tableObject instanceof MetadataTable) {
                     for (MetadataTable table : (List<MetadataTable>) tables) {
-                        Object object = table.getProperties().get("deleted"); //$NON-NLS-1$
-                        if (object == null || (object != null && !object.equals(Boolean.TRUE.toString()))) {
-                            if (table.getLabel().equals(name)) {
-                                if (GlobalServiceRegister.getDefault().isServiceRegistered(IMetadataManagmentService.class)) {
-                                    IMetadataManagmentService mmService = (IMetadataManagmentService) GlobalServiceRegister
-                                            .getDefault().getService(IMetadataManagmentService.class);
-                                    return mmService.convertMetadataTable(table);
-                                }
+                        if (table.getLabel().equals(name)) {
+                            if (GlobalServiceRegister.getDefault().isServiceRegistered(IMetadataManagmentService.class)) {
+                                IMetadataManagmentService mmService = (IMetadataManagmentService) GlobalServiceRegister
+                                        .getDefault().getService(IMetadataManagmentService.class);
+                                return mmService.convertMetadataTable(table);
                             }
                         }
                     }
@@ -404,14 +380,11 @@ public final class UpdateRepositoryUtils {
                 } else if (tableObject instanceof EObjectContainmentEList) {
                     EObjectContainmentEList eObjectContainmentEList = (EObjectContainmentEList) tableObject;
                     for (MetadataTable table : (List<MetadataTable>) eObjectContainmentEList) {
-                        Object object = table.getProperties().get("deleted"); //$NON-NLS-1$
-                        if (object == null || (object != null && !object.equals(Boolean.TRUE.toString()))) {
-                            if (table.getLabel().equals(name)) {
-                                if (GlobalServiceRegister.getDefault().isServiceRegistered(IMetadataManagmentService.class)) {
-                                    IMetadataManagmentService mmService = (IMetadataManagmentService) GlobalServiceRegister
-                                            .getDefault().getService(IMetadataManagmentService.class);
-                                    return mmService.convertMetadataTable(table);
-                                }
+                        if (table.getLabel().equals(name)) {
+                            if (GlobalServiceRegister.getDefault().isServiceRegistered(IMetadataManagmentService.class)) {
+                                IMetadataManagmentService mmService = (IMetadataManagmentService) GlobalServiceRegister
+                                        .getDefault().getService(IMetadataManagmentService.class);
+                                return mmService.convertMetadataTable(table);
                             }
                         }
                     }
@@ -433,11 +406,8 @@ public final class UpdateRepositoryUtils {
                 final EList queries = queryConn.getQuery();
                 if (queries != null) {
                     for (Query query : (List<Query>) queries) {
-                        Object object = query.getProperties().get("deleted"); //$NON-NLS-1$
-                        if (object == null || (object != null && !object.equals(Boolean.TRUE.toString()))) {
-                            if (query.getLabel().equals(name)) {
-                                return query;
-                            }
+                        if (query.getLabel().equals(name)) {
+                            return query;
                         }
                     }
                 }
