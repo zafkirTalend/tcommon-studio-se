@@ -77,6 +77,8 @@ public class PropertiesWizard extends Wizard {
 
     private String lastVersionFound;
 
+    private boolean isLock = false;
+
     public PropertiesWizard(IRepositoryViewObject repositoryViewObject, IPath path, boolean useLastVersion) {
         super();
 
@@ -94,6 +96,12 @@ public class PropertiesWizard extends Wizard {
                     IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
                     try {
                         ItemState state = item.getState();
+                        if (state != null) {
+                            boolean haveLock = state.isLocked();
+                            if (haveLock) {
+                                isLock = true;
+                            }
+                        }
                         if (useLastVersion) {
                             if (state != null && state.getPath() != null) {
                                 this.object = (IRepositoryObject) factory.getLastVersion(new Project(ProjectManager.getInstance()
@@ -192,7 +200,7 @@ public class PropertiesWizard extends Wizard {
             IProxyRepositoryService service = (IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(
                     IProxyRepositoryService.class);
             IProxyRepositoryFactory repositoryFactory = service.getProxyRepositoryFactory();
-            return !repositoryFactory.getStatus(object).isEditable() || alreadyEditedByUser;
+            return !repositoryFactory.getStatus(object).isEditable() || alreadyEditedByUser || isLock;
         }
         return true;
     }
@@ -207,7 +215,7 @@ public class PropertiesWizard extends Wizard {
                 GridLayout layout = new GridLayout(2, false);
                 container.setLayout(layout);
 
-                if (alreadyEditedByUser) {
+                if (alreadyEditedByUser && isLock) {
                     Label label = new Label(container, SWT.NONE);
                     label.setForeground(ColorConstants.red);
                     label.setText(Messages.getString("PropertiesWizard.alreadyLockedByUser")); //$NON-NLS-1$
@@ -247,7 +255,7 @@ public class PropertiesWizard extends Wizard {
 
     @Override
     public boolean performFinish() {
-        if (alreadyEditedByUser) {
+        if (alreadyEditedByUser || isLock) {
             return false;
         }
         try {
@@ -332,7 +340,9 @@ public class PropertiesWizard extends Wizard {
 
     @Override
     public void dispose() {
-        unlockObject();
+        if (!isLock) {
+            unlockObject();
+        }
         super.dispose();
     }
 }
