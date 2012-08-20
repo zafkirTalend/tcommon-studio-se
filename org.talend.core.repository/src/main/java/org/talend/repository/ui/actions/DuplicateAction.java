@@ -94,6 +94,7 @@ public class DuplicateAction extends AContextualAction {
         this.setImageDescriptor(ImageProvider.getImageDesc(EImage.DUPLICATE_ICON));
     }
 
+    @Override
     public void init(TreeViewer viewer, IStructuredSelection selection) {
 
         boolean canWork = true;
@@ -192,6 +193,7 @@ public class DuplicateAction extends AContextualAction {
         InputDialog jobNewNameDialog = new InputDialog(null, Messages.getString("DuplicateAction.input.title"), //$NON-NLS-1$
                 Messages.getString("DuplicateAction.input.message"), jobNameValue, new IInputValidator() { //$NON-NLS-1$
 
+                    @Override
                     public String isValid(String newText) {
                         return validJobName(newText, selectionInClipboard);
                     }
@@ -298,8 +300,7 @@ public class DuplicateAction extends AContextualAction {
         IExtensionRegistry registry = Platform.getExtensionRegistry();
         IConfigurationElement[] configurationElements = registry
                 .getConfigurationElementsFor("org.talend.core.repository.repository_node_provider");
-        for (int i = 0; i < configurationElements.length; i++) {
-            IConfigurationElement element = configurationElements[i];
+        for (IConfigurationElement element : configurationElements) {
             String type = element.getAttribute("type");
             ERepositoryObjectType repositoryNodeType = ERepositoryObjectType.valueOf(ERepositoryObjectType.class, type);
             if (repositoryNodeType != null) {
@@ -373,6 +374,8 @@ public class DuplicateAction extends AContextualAction {
                     item = PropertiesFactory.eINSTANCE.createEDIFACTConnectionItem();
                 } else if (repositoryType == ERepositoryObjectType.METADATA_VALIDATION_RULES) {
                     item = PropertiesFactory.eINSTANCE.createValidationRulesConnectionItem();
+                } else if (repositoryType == ERepositoryObjectType.METADATA_HEADER_FOOTER) {
+                    item = PropertiesFactory.eINSTANCE.createHeaderFooterConnectionItem();
                 }
                 if (item == null) {
                     for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
@@ -418,6 +421,7 @@ public class DuplicateAction extends AContextualAction {
                     if (dialog.open() == Window.OK) {
                         final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
+                            @Override
                             public void run(IProgressMonitor monitor) throws CoreException {
                                 Set<IRepositoryViewObject> selectedVersionItems = dialog.getSelectedVersionItems();
                                 String id = null;
@@ -460,6 +464,7 @@ public class DuplicateAction extends AContextualAction {
                         };
                         IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
 
+                            @Override
                             public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                                 IWorkspace workspace = ResourcesPlugin.getWorkspace();
                                 try {
@@ -493,6 +498,7 @@ public class DuplicateAction extends AContextualAction {
     private void duplicateSingleVersionItem(final Item item, final IPath path, final String newName) {
         final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
+            @Override
             public void run(IProgressMonitor monitor) throws CoreException {
                 try {
                     final Item newItem = factory.copy(item, path, true);
@@ -531,6 +537,7 @@ public class DuplicateAction extends AContextualAction {
         };
         IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
 
+            @Override
             public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                 IWorkspace workspace = ResourcesPlugin.getWorkspace();
                 try {
