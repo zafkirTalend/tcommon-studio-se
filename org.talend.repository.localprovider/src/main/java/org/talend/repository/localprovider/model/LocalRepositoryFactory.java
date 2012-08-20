@@ -156,9 +156,7 @@ import org.talend.repository.localprovider.exceptions.IncorrectFileException;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.model.IProxyRepositoryService;
 import org.talend.repository.model.RepositoryConstants;
-
 import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 
 /**
@@ -1181,15 +1179,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
             // }
 
-            // bug:TDI-21371
-            IProxyRepositoryService service = (IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(
-                    IProxyRepositoryService.class);
-            List<String> listExistingObjects = service.getProxyRepositoryFactory().getFolders(type);
-            for (String existName : listExistingObjects) {
-                if (existName.equalsIgnoreCase(label)) {
-                    return false;
-                }
-            }
             // Getting the folder :
             IFolder existingFolder = ResourceUtils.getFolder(fsProject, completePath, false);
             return !existingFolder.exists();
@@ -1289,8 +1278,18 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
     }
 
-    @Override
-    public void renameFolder(final ERepositoryObjectType type, final IPath sourcePath, final String label)
+    private void renameFolderForLocal(final ERepositoryObjectType type, final IPath sourcePath, final String label)
+            throws PersistenceException {
+        IPath lastPath = sourcePath;
+        if (sourcePath.lastSegment().equalsIgnoreCase(label)) {
+            String tmpLabel = label.concat(this.getNextId());
+            renameFolder(type, sourcePath, tmpLabel);
+            lastPath = sourcePath.removeLastSegments(1).append(tmpLabel);
+        }
+        renameFolder(type, lastPath, label);
+    }
+
+    private void renameFolderExecute(final ERepositoryObjectType type, final IPath sourcePath, final String label)
             throws PersistenceException {
         final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
@@ -1373,7 +1372,20 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         } catch (CoreException e) {
             throw new PersistenceException(e.getCause());
         }
+    }
 
+    @Override
+    public void renameFolder(final ERepositoryObjectType type, final IPath sourcePath, final String label)
+            throws PersistenceException {
+        try {
+            if (isLocalConnectionProvider()) {
+                renameFolderForLocal(type, sourcePath, label);
+            } else {
+                renameFolderExecute(type, sourcePath, label);
+            }
+        } catch (UnsupportedOperationException e) {
+            renameFolderExecute(type, sourcePath, label);
+        }
     }
 
     private void moveOldContentToNewFolder(Project project, String completeNewPath, FolderItem emfFolder, FolderItem newFolder,

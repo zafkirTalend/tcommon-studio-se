@@ -145,7 +145,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
     private boolean fullLogonFinished;
 
-    private ProjectManager projectManager;
+    private final ProjectManager projectManager;
 
     @Override
     public synchronized void addPropertyChangeListener(PropertyChangeListener l) {
