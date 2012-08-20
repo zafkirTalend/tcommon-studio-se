@@ -394,6 +394,8 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     private boolean isResouce = true;
 
     private String[] userRight;
+    
+    private String namePattern = null;
 
     static {
 
@@ -415,6 +417,13 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             this.isResouce = isResouce[0];
         }
     }
+    
+    /* dynamic nodes should use this constructor ,type is required */
+    ERepositoryObjectType(String key, String folder, String type, boolean isStaticNode, int ordinal, String[] products,
+            String[] userRight, String namePattern, boolean... isResouce) {
+        this(key, folder, type, isStaticNode, ordinal, products, userRight, isResouce);
+        this.namePattern = namePattern;
+    }
 
     ERepositoryObjectType(String key, String type, int ordinal, boolean isStaticNode, boolean subItem, String[] products,
             String[] userRight, boolean... isResouce) {
@@ -426,11 +435,23 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             this.isResouce = isResouce[0];
         }
     }
+    
+    ERepositoryObjectType(String key, String type, int ordinal, boolean isStaticNode, boolean subItem, String[] products,
+            String[] userRight, String namePattern, boolean... isResouce) {
+        this(key, type, ordinal, isStaticNode, subItem, products, userRight, isResouce);
+        this.namePattern = namePattern;
+    }
 
     ERepositoryObjectType(String key, String folder, String type, int ordinal, boolean isStaticNode, String alias,
             String[] products, String[] userRight, boolean... isResouce) {
         this(key, folder, type, isStaticNode, ordinal, products, userRight, isResouce);
         this.alias = alias;
+    }
+    
+    ERepositoryObjectType(String key, String folder, String type, int ordinal, boolean isStaticNode, String alias,
+            String[] products, String[] userRight, String namePattern, boolean... isResouce) {
+        this(key, folder, type, ordinal, isStaticNode, alias, products, userRight, isResouce);
+        this.namePattern = namePattern;
     }
 
     public static <E> DynaEnum<? extends DynaEnum<?>>[] values() {
@@ -477,6 +498,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
                     if (rightAttribute == null) {
                         rightAttribute = "";
                     }
+                    String namePatternAttribute = element.getAttribute("name_pattern");//$NON-NLS-N$
                     String productsAttribute = element.getAttribute("products");//$NON-NLS-N$
                     String[] products = productsAttribute.split("\\|");//$NON-NLS-N$
                     String[] user_right = rightAttribute.split(";");//$NON-NLS-N$
@@ -495,10 +517,19 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
                         user_right = new String[] { rightAttribute };
                     }
                     int ordinal = diyNode.getOrdinal();
-                    Constructor<E> dynamicConstructor = getConstructor(clazz,
-                            new Class[] { String.class, String.class, String.class, int.class, boolean.class, String.class,
-                                    String[].class, String[].class, boolean[].class });
-                    dynamicConstructor.newInstance(label, folder, type, ordinal, false, alias, products, user_right, resource);
+                    
+                    if(namePatternAttribute == null || "".equals(namePatternAttribute.trim())){
+                        Constructor<E> dynamicConstructor = getConstructor(clazz,
+                                new Class[] { String.class, String.class, String.class, int.class, boolean.class, String.class,
+                                        String[].class, String[].class, boolean[].class });
+                        dynamicConstructor.newInstance(label, folder, type, ordinal, false, alias, products, user_right, resource);
+
+                    }else{
+                    	 Constructor<E> dynamicConstructor = getConstructor(clazz,
+                                 new Class[] { String.class, String.class, String.class, int.class, boolean.class, String.class,
+                                         String[].class, String[].class, String.class, boolean[].class });
+                         dynamicConstructor.newInstance(label, folder, type, ordinal, false, alias, products, user_right, namePatternAttribute.trim(), resource);
+                    }
 
                 }
             }
@@ -1054,4 +1085,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         return userRight;
     }
 
+    public String getNamePattern() {
+		return namePattern;
+	}
 }

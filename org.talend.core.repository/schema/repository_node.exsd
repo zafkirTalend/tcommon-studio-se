@@ -123,6 +123,13 @@ like this: DI|DQ ....
                </documentation>
             </annotation>
          </attribute>
+         <attribute name="name_pattern" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 

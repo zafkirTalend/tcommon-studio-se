@@ -184,7 +184,7 @@ public class DuplicateAction extends AContextualAction {
         String jobNameValue = null;
 
         try {
-            jobNameValue = getDuplicateName(initNameValue, selectionInClipboard);
+            jobNameValue = getDuplicateName(sourceNode, initNameValue, selectionInClipboard);
         } catch (BusinessException e) {
             jobNameValue = ""; //$NON-NLS-1$
         }
@@ -193,7 +193,7 @@ public class DuplicateAction extends AContextualAction {
                 Messages.getString("DuplicateAction.input.message"), jobNameValue, new IInputValidator() { //$NON-NLS-1$
 
                     public String isValid(String newText) {
-                        return validJobName(newText, selectionInClipboard);
+                        return validJobName(sourceNode, newText, selectionInClipboard);
                     }
 
                 });
@@ -208,14 +208,14 @@ public class DuplicateAction extends AContextualAction {
 
     }
 
-    public String getDuplicateName(String value, final TreeSelection selectionInClipboard) throws BusinessException {
+    public String getDuplicateName(RepositoryNode node, String value, final TreeSelection selectionInClipboard) throws BusinessException {
 
-        if (validJobName(value, selectionInClipboard) == null) {
+        if (validJobName(node, value, selectionInClipboard) == null) {
             return value;
         } else {
             char j = 'a';
             String temp = value;
-            while (validJobName(temp, selectionInClipboard) != null) {
+            while (validJobName(node, temp, selectionInClipboard) != null) {
                 if (j > 'z') {
                     throw new BusinessException(Messages.getString("DuplicateAction.cannotGenerateItem")); //$NON-NLS-1$
                 }
@@ -223,6 +223,22 @@ public class DuplicateAction extends AContextualAction {
             }
             return temp;
         }
+    }
+    
+    private boolean isValid(RepositoryNode node, String str) {
+    	String namePattern = "^\\w+$";
+    	Object contentType = node.getContentType();
+    	if(contentType == null){
+    		contentType = node.getProperties(EProperties.CONTENT_TYPE);
+    	}
+    	if(contentType != null && contentType instanceof ERepositoryObjectType){
+    		String tmp = ((ERepositoryObjectType)contentType).getNamePattern();
+    		if(tmp != null){
+    			namePattern = tmp;
+    		}
+    	}
+        Pattern pattern = Pattern.compile(namePattern);
+        return pattern.matcher(str).matches();
     }
 
     public static boolean isValid(String str) {
@@ -234,13 +250,14 @@ public class DuplicateAction extends AContextualAction {
     /**
      * 
      * DOC YeXiaowei Comment method "isValid".
+     * @param node 
      * 
      * @param itemName
      * @param selectionInClipboard
      * @return null means valid, other means some error exist
      */
-    private String validJobName(String itemName, TreeSelection selectionInClipboard) {
-        if (!isValid(itemName)) {
+    private String validJobName(RepositoryNode node, String itemName, TreeSelection selectionInClipboard) {
+        if (!isValid(node, itemName)) {
             return Messages.getString("DuplicateAction.NameFormatError");
         }
         IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
