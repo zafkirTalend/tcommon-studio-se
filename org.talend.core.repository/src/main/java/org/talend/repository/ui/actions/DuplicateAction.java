@@ -373,6 +373,8 @@ public class DuplicateAction extends AContextualAction {
                     item = PropertiesFactory.eINSTANCE.createEDIFACTConnectionItem();
                 } else if (repositoryType == ERepositoryObjectType.METADATA_VALIDATION_RULES) {
                     item = PropertiesFactory.eINSTANCE.createValidationRulesConnectionItem();
+                } else if (repositoryType == ERepositoryObjectType.METADATA_HEADER_FOOTER) {
+                    item = PropertiesFactory.eINSTANCE.createHeaderFooterConnectionItem();
                 }
                 if (item == null) {
                     for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
