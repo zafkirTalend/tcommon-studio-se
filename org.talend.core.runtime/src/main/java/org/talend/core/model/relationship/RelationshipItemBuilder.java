@@ -458,38 +458,40 @@ public class RelationshipItemBuilder {
         if (item instanceof JobletProcessItem) {
             processType = ((JobletProcessItem) item).getJobletProcess();
         }
-        for (Object o : processType.getNode()) {
-            if (o instanceof NodeType) {
-                NodeType currentNode = (NodeType) o;
-                if ("tRunJob".equals(currentNode.getComponentName())) { //$NON-NLS-1$
-                    // in case of tRunJob
-                    String jobIdStr = null;
-                    String jobVersion = LATEST_VERSION;
-                    String nowVersion = "";
-                    for (Object o2 : currentNode.getElementParameter()) {
-                        if (o2 instanceof ElementParameterType) {
-                            ElementParameterType param = (ElementParameterType) o2;
-                            if (param.getName().equals("PROCESS:PROCESS_TYPE_PROCESS") //$NON-NLS-1$
-                                    || param.getName().equals("PROCESS_TYPE_PROCESS")) { //$NON-NLS-1$
-                                // feature 19312
-                                String jobIds = param.getValue();
-                                String[] jobsArr = jobIds.split(RelationshipItemBuilder.COMMA);
-                                for (String jobId : jobsArr) {
-                                    if (StringUtils.isNotEmpty(jobId)) {
-                                        addRelationShip(item, jobId, nowVersion, JOB_RELATION);
-                                        // factory.save(project, item.getProperty());
-                                        factory.save(project, item);
+        if (processType != null) {
+            for (Object o : processType.getNode()) {
+                if (o instanceof NodeType) {
+                    NodeType currentNode = (NodeType) o;
+                    if ("tRunJob".equals(currentNode.getComponentName())) { //$NON-NLS-1$
+                        // in case of tRunJob
+                        String jobIdStr = null;
+                        String jobVersion = LATEST_VERSION;
+                        String nowVersion = "";
+                        for (Object o2 : currentNode.getElementParameter()) {
+                            if (o2 instanceof ElementParameterType) {
+                                ElementParameterType param = (ElementParameterType) o2;
+                                if (param.getName().equals("PROCESS:PROCESS_TYPE_PROCESS") //$NON-NLS-1$
+                                        || param.getName().equals("PROCESS_TYPE_PROCESS")) { //$NON-NLS-1$
+                                    // feature 19312
+                                    String jobIds = param.getValue();
+                                    String[] jobsArr = jobIds.split(RelationshipItemBuilder.COMMA);
+                                    for (String jobId : jobsArr) {
+                                        if (StringUtils.isNotEmpty(jobId)) {
+                                            addRelationShip(item, jobId, nowVersion, JOB_RELATION);
+                                            // factory.save(project, item.getProperty());
+                                            factory.save(project, item);
+                                        }
+                                        jobIdStr = jobId;
                                     }
-                                    jobIdStr = jobId;
                                 }
-                            }
-                            if (param.getName().equals("PROCESS:PROCESS_TYPE_VERSION") //$NON-NLS-1$
-                                    || param.getName().equals("PROCESS_TYPE_VERSION")) { //$NON-NLS-1$
-                                jobVersion = param.getValue();
-                                if (jobVersion.equals(LATEST_VERSION)) {
-                                    if (!versions.isEmpty()) {
-                                        nowVersion = versions.get(jobIdStr);
-                                        param.setValue(nowVersion);
+                                if (param.getName().equals("PROCESS:PROCESS_TYPE_VERSION") //$NON-NLS-1$
+                                        || param.getName().equals("PROCESS_TYPE_VERSION")) { //$NON-NLS-1$
+                                    jobVersion = param.getValue();
+                                    if (jobVersion.equals(LATEST_VERSION)) {
+                                        if (!versions.isEmpty()) {
+                                            nowVersion = versions.get(jobIdStr);
+                                            param.setValue(nowVersion);
+                                        }
                                     }
                                 }
                             }
