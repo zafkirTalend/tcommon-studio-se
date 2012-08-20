@@ -56,7 +56,7 @@ public class GroupBySourceTableProvider extends ContextProviderProxy {
     private String lookupContextParameterValue(String sourceId, String contextParaName, int index) {
         IContextParameter contextPara = lookupContextParameter(sourceId, contextParaName, index);
         if (contextPara != null)
-            return contextPara.getValue();
+            return ContextParameterUtils.checkAndHideValue(contextPara);
         return null;
     }
 
@@ -145,7 +145,7 @@ public class GroupBySourceTableProvider extends ContextProviderProxy {
                     String tempName = contextPara.getName();
                     String tempSourceId = contextPara.getSource();
                     if (tempName.equals(variableName) && tempSourceId.equals(sourceId)) {
-                        return contextPara.getValue();
+                        return ContextParameterUtils.checkAndHideValue(contextPara);
                     }
                 }
             }
