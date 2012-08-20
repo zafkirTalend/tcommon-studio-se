@@ -11,11 +11,14 @@ import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
@@ -78,6 +81,7 @@ import orgomg.cwmx.resource.express.SimpleDimension;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#isActivatedCDC <em>Activated CDC</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getColumns <em>Columns</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getConnection <em>Connection</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getAdditionalProperties <em>Additional Properties</em>}</li>
  * </ul>
  * </p>
  *
@@ -338,6 +342,16 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
      * @ordered
      */
     protected boolean activatedCDC = ACTIVATED_CDC_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getAdditionalProperties() <em>Additional Properties</em>}' map.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getAdditionalProperties()
+     * @generated
+     * @ordered
+     */
+    protected EMap<String, String> additionalProperties;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -629,6 +643,19 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EMap<String, String> getAdditionalProperties() {
+        if (additionalProperties == null) {
+            additionalProperties = new EcoreEMap<String, String>(ConnectionPackage.Literals.ADDITIONAL_PROPERTIES,
+                    AdditionalPropertiesImpl.class, this, ConnectionPackage.METADATA_TABLE__ADDITIONAL_PROPERTIES);
+        }
+        return additionalProperties;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -771,6 +798,8 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
             return ((InternalEList<?>) getSimpleDimension()).basicRemove(otherEnd, msgs);
         case ConnectionPackage.METADATA_TABLE__INDEX:
             return ((InternalEList<?>) getIndex()).basicRemove(otherEnd, msgs);
+        case ConnectionPackage.METADATA_TABLE__ADDITIONAL_PROPERTIES:
+            return ((InternalEList<?>) getAdditionalProperties()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -830,6 +859,11 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
             if (resolve)
                 return getConnection();
             return basicGetConnection();
+        case ConnectionPackage.METADATA_TABLE__ADDITIONAL_PROPERTIES:
+            if (coreType)
+                return getAdditionalProperties();
+            else
+                return getAdditionalProperties().map();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -925,6 +959,9 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
             getColumns().clear();
             getColumns().addAll((Collection<? extends MetadataColumn>) newValue);
             return;
+        case ConnectionPackage.METADATA_TABLE__ADDITIONAL_PROPERTIES:
+            ((EStructuralFeature.Setting) getAdditionalProperties()).set(newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1002,6 +1039,9 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
         case ConnectionPackage.METADATA_TABLE__COLUMNS:
             getColumns().clear();
             return;
+        case ConnectionPackage.METADATA_TABLE__ADDITIONAL_PROPERTIES:
+            getAdditionalProperties().clear();
+            return;
         }
         super.eUnset(featureID);
     }
@@ -1059,6 +1099,8 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
             return !getColumns().isEmpty();
         case ConnectionPackage.METADATA_TABLE__CONNECTION:
             return basicGetConnection() != null;
+        case ConnectionPackage.METADATA_TABLE__ADDITIONAL_PROPERTIES:
+            return additionalProperties != null && !additionalProperties.isEmpty();
         }
         return super.eIsSet(featureID);
     }

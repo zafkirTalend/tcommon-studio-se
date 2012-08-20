@@ -540,6 +540,17 @@ public class ConnectionHelper {
     }
 
     /**
+     * DOC ycbai Comment method "getSchemaByName".
+     * 
+     * @param dataProvider
+     * @param schemaName
+     * @return
+     */
+    public static Schema getSchemaByName(Connection dataProvider, String schemaName) {
+        return SchemaHelper.getSchemaByName(dataProvider.getDataPackage(), schemaName);
+    }
+
+    /**
      * 
      * DOC mzhao Comment method "getTdXmlDocument".
      * 

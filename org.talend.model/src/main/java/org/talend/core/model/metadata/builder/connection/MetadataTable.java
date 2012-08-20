@@ -6,6 +6,7 @@
 package org.talend.core.model.metadata.builder.connection;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Metadata Table</b></em>'. <!-- end-user-doc -->
@@ -23,6 +24,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataTable#isActivatedCDC <em>Activated CDC</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getColumns <em>Columns</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getConnection <em>Connection</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getAdditionalProperties <em>Additional Properties</em>}</li>
  * </ul>
  * </p>
  *
@@ -90,6 +92,23 @@ public interface MetadataTable extends AbstractMetadataObject, orgomg.cwm.object
      * @generated
      */
     Connection getConnection();
+
+    /**
+     * Returns the value of the '<em><b>Additional Properties</b></em>' map.
+     * The key is of type {@link java.lang.String},
+     * and the value is of type {@link java.lang.String},
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Additional Properties</em>' map isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Additional Properties</em>' map.
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataTable_AdditionalProperties()
+     * @model mapType="org.talend.core.model.metadata.builder.connection.AdditionalProperties<org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EString>"
+     * @generated
+     */
+    EMap<String, String> getAdditionalProperties();
 
     /**
      * Returns the value of the '<em><b>Table Type</b></em>' attribute. <!-- begin-user-doc -->

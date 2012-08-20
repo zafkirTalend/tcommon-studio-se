@@ -1058,6 +1058,14 @@ public class ConnectionSwitch<T> {
                 result = defaultCase(theEObject);
             return result;
         }
+        case ConnectionPackage.ADDITIONAL_PROPERTIES: {
+            @SuppressWarnings("unchecked")
+            Map.Entry<String, String> additionalProperties = (Map.Entry<String, String>) theEObject;
+            T result = caseAdditionalProperties(additionalProperties);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
         default:
             return defaultCase(theEObject);
         }
@@ -1680,6 +1688,21 @@ public class ConnectionSwitch<T> {
      * @generated
      */
     public T caseSalesforceModuleUnit(SalesforceModuleUnit object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Additional Properties</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Additional Properties</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseAdditionalProperties(Map.Entry<String, String> object) {
         return null;
     }
 

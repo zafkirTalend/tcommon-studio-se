@@ -15,6 +15,7 @@ package org.talend.core.model.utils;
 import java.util.List;
 
 import org.talend.core.model.components.IComponent;
+import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.Item;
@@ -43,7 +44,7 @@ public interface IDragAndDropServiceHandler {
      * @param connection - connection
      * @param value - parameter name
      */
-    public String getComponentValue(Connection connection, String value);
+    public Object getComponentValue(Connection connection, String value, IMetadataTable table);
 
     /**
      * DOC hwang Comment method "filterNeededComponents".

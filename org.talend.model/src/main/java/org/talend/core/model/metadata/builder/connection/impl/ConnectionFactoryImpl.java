@@ -205,6 +205,8 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             return createEDIFACTColumn();
         case ConnectionPackage.SALESFORCE_MODULE_UNIT:
             return createSalesforceModuleUnit();
+        case ConnectionPackage.ADDITIONAL_PROPERTIES:
+            return (EObject) createAdditionalProperties();
         default:
             throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -695,6 +697,16 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     public SalesforceModuleUnit createSalesforceModuleUnit() {
         SalesforceModuleUnitImpl salesforceModuleUnit = new SalesforceModuleUnitImpl();
         return salesforceModuleUnit;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Map.Entry<String, String> createAdditionalProperties() {
+        AdditionalPropertiesImpl additionalProperties = new AdditionalPropertiesImpl();
+        return additionalProperties;
     }
 
     /**

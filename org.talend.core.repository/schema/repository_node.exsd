@@ -76,6 +76,13 @@ just set the value Metadata
                </documentation>
             </annotation>
          </attribute>
+         <attribute name="alias" type="string">
+            <annotation>
+               <documentation>
+                  It is the alias of this type.
+               </documentation>
+            </annotation>
+         </attribute>
          <attribute name="type" type="string" use="required">
             <annotation>
                <documentation>

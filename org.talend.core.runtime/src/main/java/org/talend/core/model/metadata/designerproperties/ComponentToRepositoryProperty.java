@@ -182,7 +182,7 @@ public class ComponentToRepositoryProperty {
      * @param paramName
      * @return
      */
-    private static String getParameterValue(Connection connection, INode node, String paramName) {
+    public static String getParameterValue(Connection connection, INode node, String paramName) {
         String originalValue = getParameterOriginalValue(connection, node, paramName);
         if (originalValue != null) {
             return TalendQuoteUtils.removeQuotes(originalValue);

@@ -43,7 +43,7 @@ public class RepositoryComponentSetting implements IComponentName {
         return name;
     }
 
-    void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -54,7 +54,7 @@ public class RepositoryComponentSetting implements IComponentName {
         return repositoryType;
     }
 
-    void setRepositoryType(String repositoryType) {
+    public void setRepositoryType(String repositoryType) {
         this.repositoryType = repositoryType;
     }
 
@@ -62,7 +62,7 @@ public class RepositoryComponentSetting implements IComponentName {
         return withSchema;
     }
 
-    void setWithSchema(boolean withSchema) {
+    public void setWithSchema(boolean withSchema) {
         this.withSchema = withSchema;
     }
 
@@ -70,7 +70,7 @@ public class RepositoryComponentSetting implements IComponentName {
         return inputComponent;
     }
 
-    void setInputComponent(String inputComponent) {
+    public void setInputComponent(String inputComponent) {
         this.inputComponent = inputComponent;
     }
 
@@ -78,7 +78,7 @@ public class RepositoryComponentSetting implements IComponentName {
         return outputComponent;
     }
 
-    void setOutputComponent(String outputComponent) {
+    public void setOutputComponent(String outputComponent) {
         this.outputComponent = outputComponent;
     }
 
@@ -104,7 +104,7 @@ public class RepositoryComponentSetting implements IComponentName {
         }
     }
 
-    void setClasses(Class<Item>[] classes) {
+    public void setClasses(Class<Item>[] classes) {
         this.classes = classes;
     }
 

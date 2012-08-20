@@ -413,6 +413,13 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     private EClass salesforceModuleUnitEClass = null;
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass additionalPropertiesEClass = null;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -900,6 +907,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      */
     public EReference getMetadataTable_Connection() {
         return (EReference) metadataTableEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getMetadataTable_AdditionalProperties() {
+        return (EReference) metadataTableEClass.getEStructuralFeatures().get(6);
     }
 
     /**
@@ -3514,6 +3530,33 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getAdditionalProperties() {
+        return additionalPropertiesEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAdditionalProperties_Key() {
+        return (EAttribute) additionalPropertiesEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAdditionalProperties_Value() {
+        return (EAttribute) additionalPropertiesEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -3811,6 +3854,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(metadataTableEClass, METADATA_TABLE__ACTIVATED_CDC);
         createEReference(metadataTableEClass, METADATA_TABLE__COLUMNS);
         createEReference(metadataTableEClass, METADATA_TABLE__CONNECTION);
+        createEReference(metadataTableEClass, METADATA_TABLE__ADDITIONAL_PROPERTIES);
 
         fileConnectionEClass = createEClass(FILE_CONNECTION);
         createEAttribute(fileConnectionEClass, FILE_CONNECTION__SERVER);
@@ -4200,6 +4244,10 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEReference(salesforceModuleUnitEClass, SALESFORCE_MODULE_UNIT__TABLES);
         createEAttribute(salesforceModuleUnitEClass, SALESFORCE_MODULE_UNIT__MODULE_NAME);
 
+        additionalPropertiesEClass = createEClass(ADDITIONAL_PROPERTIES);
+        createEAttribute(additionalPropertiesEClass, ADDITIONAL_PROPERTIES__KEY);
+        createEAttribute(additionalPropertiesEClass, ADDITIONAL_PROPERTIES__VALUE);
+
         // Create enums
         fileFormatEEnum = createEEnum(FILE_FORMAT);
         fieldSeparatorEEnum = createEEnum(FIELD_SEPARATOR);
@@ -4402,6 +4450,9 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEReference(getMetadataTable_Connection(), this.getConnection(), null, "connection", null, 0, 1, MetadataTable.class,
                 IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
                 !IS_DERIVED, IS_ORDERED);
+        initEReference(getMetadataTable_AdditionalProperties(), this.getAdditionalProperties(), null, "additionalProperties",
+                null, 0, -1, MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(fileConnectionEClass, FileConnection.class, "FileConnection", IS_ABSTRACT, !IS_INTERFACE,
                 IS_GENERATED_INSTANCE_CLASS);
@@ -5346,6 +5397,13 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
                 SalesforceModuleUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
                 !IS_DERIVED, IS_ORDERED);
 
+        initEClass(additionalPropertiesEClass, Map.Entry.class, "AdditionalProperties", !IS_ABSTRACT, !IS_INTERFACE,
+                !IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getAdditionalProperties_Key(), ecorePackage.getEString(), "key", null, 0, 1, Map.Entry.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getAdditionalProperties_Value(), ecorePackage.getEString(), "value", null, 0, 1, Map.Entry.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
         // Initialize enums and add enum literals
         initEEnum(fileFormatEEnum, FileFormat.class, "FileFormat");
         addEEnumLiteral(fileFormatEEnum, FileFormat.UNIX_LITERAL);
@@ -5414,6 +5472,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         // Create annotations
         // http://www.eclipse.org/emf/2002/GenModel
         createGenModelAnnotations();
+        // MapEntry
+        createMapEntryAnnotations();
     }
 
     /**
@@ -5551,6 +5611,17 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
                 new String[] {
                         "documentation",
                         "Default CWM package to use when none of the existing cwm packages fit the metadata to describe.\r\nThis is a container between Connection and MetadataTable" });
+    }
+
+    /**
+     * Initializes the annotations for <b>MapEntry</b>.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void createMapEntryAnnotations() {
+        String source = "MapEntry";
+        addAnnotation(additionalPropertiesEClass, source, new String[] {});
     }
 
 } // ConnectionPackageImpl

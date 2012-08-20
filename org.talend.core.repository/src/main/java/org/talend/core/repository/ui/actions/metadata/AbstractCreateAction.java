@@ -22,6 +22,8 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.MetadataColumnRepositoryObject;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.repository.IRepositoryContentHandler;
+import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.ProjectManager;
@@ -57,6 +59,13 @@ public abstract class AbstractCreateAction extends AContextualAction {
         if (repNode.getObject() instanceof MetadataColumnRepositoryObject) {
             repNode = repNode.getParent().getParent();
         }
+
+        for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+            if (handler.hideAction(repNode, this.getClass())) {
+                return;
+            }
+        }
+
         init(repNode);
         repositoryNode = repNode;
     }

@@ -955,17 +955,17 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                 }
 
                 if (connection != null) {
-                QueriesConnection queriesConnection = connection.getQueries();
-                if (queriesConnection != null) {
-                    for (Query query : queriesConnection.getQuery()) {
-                        if (SubItemHelper.isDeleted(query)) {
-                            RepositoryNode queryNode = createQueryNode(currentParentNode,
-                                    new RepositoryViewObject(item.getProperty()), query);
-                            currentParentNode.getChildren().add(queryNode);
-                            queryNode.setParent(currentParentNode);
+                    QueriesConnection queriesConnection = connection.getQueries();
+                    if (queriesConnection != null) {
+                        for (Query query : queriesConnection.getQuery()) {
+                            if (SubItemHelper.isDeleted(query)) {
+                                RepositoryNode queryNode = createQueryNode(currentParentNode,
+                                        new RepositoryViewObject(item.getProperty()), query);
+                                currentParentNode.getChildren().add(queryNode);
+                                queryNode.setParent(currentParentNode);
+                            }
                         }
                     }
-                }
                 }
             }
         }
@@ -1346,6 +1346,12 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         }
         for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
             handler.addNode(type, recBinNode, repositoryObject, node);
+            if (handler.isCreateTableNode()) {
+                Item item = repositoryObject.getProperty().getItem();
+                if (item != null && item instanceof ConnectionItem) {
+                    createTables(recBinNode, node, repositoryObject, ((ConnectionItem) item).getConnection());
+                }
+            }
         }
     }
 

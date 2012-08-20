@@ -156,6 +156,8 @@
         <details key="documentation" value="@deprecated use MetadataTableHelper.getFirstconnection()&#xD;&#xA;ref to the connection that contains this table"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="additionalProperties" upperBound="-1"
+        eType="#//AdditionalProperties" containment="true" resolveProxies="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Map" instanceClassName="java.util.HashMap"/>
   <eClassifiers xsi:type="ecore:EClass" name="FileConnection" abstract="true" eSuperTypes="#//Connection">
@@ -781,6 +783,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="tables" upperBound="-1"
         eType="#//MetadataTable" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="moduleName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AdditionalProperties" instanceClassName="java.util.Map$Entry">
+    <eAnnotations source="MapEntry"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eSubpackages name="cwm" nsURI="http://www.talend.org/cwm/2010" nsPrefix="cwm">
     <eSubpackages name="relational" nsURI="http://www.talend.org/cwm/resource/relational/2010"

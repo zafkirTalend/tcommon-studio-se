@@ -51,6 +51,26 @@ public final class SchemaHelper {
         return schemas;
     }
 
+    /**
+     * DOC ycbai Comment method "getSchemaByName".
+     * 
+     * @param elements
+     * @param schemaName
+     * @return
+     */
+    public static Schema getSchemaByName(Collection<? extends EObject> elements, String schemaName) {
+        if (schemaName == null) {
+            return null;
+        }
+        for (EObject modelElement : new ArrayList<EObject>(elements)) {
+            Schema schema = SwitchHelpers.SCHEMA_SWITCH.doSwitch(modelElement);
+            if (schema != null && schemaName.equals(schema.getName())) {
+                return schema;
+            }
+        }
+        return null;
+    }
+
     public static List<TdTable> getTables(Schema schema) {
         // MOD xqliu 2009-04-27 bug 6507
         // TaggedValue tv = TaggedValueHelper.getTaggedValue(TaggedValueHelper.TABLE_FILTER, schema.getTaggedValue());

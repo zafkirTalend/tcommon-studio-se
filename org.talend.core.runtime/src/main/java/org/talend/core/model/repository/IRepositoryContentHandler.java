@@ -13,6 +13,7 @@
 package org.talend.core.model.repository;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
@@ -21,6 +22,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.image.IImage;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.Status;
+import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -52,5 +55,37 @@ public interface IRepositoryContentHandler {
     public void addContents(Collection<EObject> collection, Resource resource);
 
     public IImage getIcon(Item item);
+
+    /**
+     * DOC ycbai Comment method "getPropertyStatus".
+     * 
+     * @param item
+     * @return the property status list.
+     */
+    public List<Status> getPropertyStatus(Item item);
+
+    /**
+     * DOC ycbai Comment method "isCreateTableNode".
+     * 
+     * @return true if you want to create Table Schema node under connection.
+     */
+    public boolean isCreateTableNode();
+
+    /**
+     * DOC ycbai Comment method "hideAction".
+     * 
+     * @param node
+     * @param actionType actionType the type of action which you want to hide for this node.
+     * @return true if you want to hide the action.
+     */
+    public boolean hideAction(IRepositoryNode node, Class actionType);
+
+    /**
+     * DOC ycbai Comment method "isOwnTable".
+     * 
+     * @param node
+     * @return true if the table or column node belong to the item.
+     */
+    public boolean isOwnTable(IRepositoryNode node, Class type);
 
 }

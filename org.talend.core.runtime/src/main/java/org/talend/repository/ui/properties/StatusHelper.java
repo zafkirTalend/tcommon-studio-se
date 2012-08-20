@@ -25,6 +25,8 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.Status;
+import org.talend.core.model.repository.IRepositoryContentHandler;
+import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
@@ -118,6 +120,13 @@ public class StatusHelper {
                         if (flag) {
                             status = repositoryFactory.getTechnicalStatus();
                         }
+                    }
+                }
+                for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+                    List<Status> propertyStatus = handler.getPropertyStatus(item);
+                    if (propertyStatus != null && propertyStatus.size() > 0) {
+                        status = propertyStatus;
+                        break;
                     }
                 }
             }

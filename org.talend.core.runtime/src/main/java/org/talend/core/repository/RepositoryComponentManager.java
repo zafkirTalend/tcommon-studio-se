@@ -274,7 +274,7 @@ public final class RepositoryComponentManager {
         return filterAttrValues;
     }
 
-    static RepositoryComponentSetting[] getSettings() {
+    public static RepositoryComponentSetting[] getSettings() {
         return repComponentSettings.toArray(new RepositoryComponentSetting[0]);
     }
 

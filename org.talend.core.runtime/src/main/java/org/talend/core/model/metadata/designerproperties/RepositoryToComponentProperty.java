@@ -143,7 +143,7 @@ public class RepositoryToComponentProperty {
 
         for (IDragAndDropServiceHandler handler : DragAndDropManager.getHandlers()) {
             if (handler.canHandle(connection)) {
-                return handler.getComponentValue(connection, value);
+                return handler.getComponentValue(connection, value, table);
             }
         }
         return null;

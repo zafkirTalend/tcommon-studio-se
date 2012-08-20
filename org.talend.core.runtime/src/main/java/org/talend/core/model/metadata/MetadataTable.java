@@ -14,6 +14,7 @@ package org.talend.core.model.metadata;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.model.components.EReadOnlyComlumnPosition;
@@ -43,6 +44,8 @@ public class MetadataTable implements IMetadataTable, Cloneable {
     private String id;
 
     private String comment;
+
+    private Map<String, String> additionalProperties;
 
     public String getReadOnlyColumnPosition() {
         return this.readOnlyColumnPosition;
@@ -338,5 +341,9 @@ public class MetadataTable implements IMetadataTable, Cloneable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Map<String, String> getAdditionalProperties() {
+        return this.additionalProperties;
     }
 }

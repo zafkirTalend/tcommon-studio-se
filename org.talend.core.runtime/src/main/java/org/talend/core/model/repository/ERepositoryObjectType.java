@@ -466,6 +466,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
                 if (extensionNode instanceof IExtendRepositoryNode) {
                     IExtendRepositoryNode diyNode = (IExtendRepositoryNode) extensionNode;
                     String label = element.getAttribute("label");//$NON-NLS-N$
+                    String alias = element.getAttribute("alias");//$NON-NLS-N$
                     String type = element.getAttribute("type");//$NON-NLS-N$
                     String folder = element.getAttribute("folder");//$NON-NLS-N$
                     if (folder == null) {
@@ -494,9 +495,10 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
                         user_right = new String[] { rightAttribute };
                     }
                     int ordinal = diyNode.getOrdinal();
-                    Constructor<E> dynamicConstructor = getConstructor(clazz, new Class[] { String.class, String.class,
-                            String.class, boolean.class, int.class, String[].class, String[].class, boolean[].class });
-                    dynamicConstructor.newInstance(label, folder, type, false, ordinal, products, user_right, resource);
+                    Constructor<E> dynamicConstructor = getConstructor(clazz,
+                            new Class[] { String.class, String.class, String.class, int.class, boolean.class, String.class,
+                                    String[].class, String[].class, boolean[].class });
+                    dynamicConstructor.newInstance(label, folder, type, ordinal, false, alias, products, user_right, resource);
 
                 }
             }

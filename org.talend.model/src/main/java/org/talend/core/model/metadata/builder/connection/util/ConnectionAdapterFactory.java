@@ -373,6 +373,11 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
         }
 
         @Override
+        public Adapter caseAdditionalProperties(Map.Entry<String, String> object) {
+            return createAdditionalPropertiesAdapter();
+        }
+
+        @Override
         public Adapter caseElement(Element object) {
             return createElementAdapter();
         }
@@ -1116,6 +1121,20 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createSalesforceModuleUnitAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link java.util.Map.Entry <em>Additional Properties</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see java.util.Map.Entry
+     * @generated
+     */
+    public Adapter createAdditionalPropertiesAdapter() {
         return null;
     }
 

@@ -1853,13 +1853,22 @@ public interface ConnectionPackage extends EPackage {
     int METADATA_TABLE__CONNECTION = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 22;
 
     /**
+     * The feature id for the '<em><b>Additional Properties</b></em>' map.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int METADATA_TABLE__ADDITIONAL_PROPERTIES = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 23;
+
+    /**
      * The number of structural features of the '<em>Metadata Table</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int METADATA_TABLE_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 23;
+    int METADATA_TABLE_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 24;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.FileConnectionImpl <em>File Connection</em>}' class.
@@ -12378,6 +12387,15 @@ public interface ConnectionPackage extends EPackage {
     int SUBSCRIBER_TABLE__CONNECTION = RelationalPackage.TD_TABLE__CONNECTION;
 
     /**
+     * The feature id for the '<em><b>Additional Properties</b></em>' map.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SUBSCRIBER_TABLE__ADDITIONAL_PROPERTIES = RelationalPackage.TD_TABLE__ADDITIONAL_PROPERTIES;
+
+    /**
      * The feature id for the '<em><b>Using Trigger</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 
@@ -13129,6 +13147,15 @@ public interface ConnectionPackage extends EPackage {
      * @ordered
      */
     int CONCEPT__CONNECTION = RelationalPackage.TD_TABLE__CONNECTION;
+
+    /**
+     * The feature id for the '<em><b>Additional Properties</b></em>' map.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT__ADDITIONAL_PROPERTIES = RelationalPackage.TD_TABLE__ADDITIONAL_PROPERTIES;
 
     /**
      * The feature id for the '<em><b>Using Trigger</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
@@ -17659,13 +17686,50 @@ public interface ConnectionPackage extends EPackage {
     int SALESFORCE_MODULE_UNIT_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 4;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.AdditionalPropertiesImpl <em>Additional Properties</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.AdditionalPropertiesImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getAdditionalProperties()
+     * @generated
+     */
+    int ADDITIONAL_PROPERTIES = 50;
+
+    /**
+     * The feature id for the '<em><b>Key</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ADDITIONAL_PROPERTIES__KEY = 0;
+
+    /**
+     * The feature id for the '<em><b>Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ADDITIONAL_PROPERTIES__VALUE = 1;
+
+    /**
+     * The number of structural features of the '<em>Additional Properties</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ADDITIONAL_PROPERTIES_FEATURE_COUNT = 2;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.FileFormat
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileFormat()
      * @generated
      */
-    int FILE_FORMAT = 50;
+    int FILE_FORMAT = 51;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FieldSeparator <em>Field Separator</em>}' enum.
@@ -17674,7 +17738,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFieldSeparator()
      * @generated
      */
-    int FIELD_SEPARATOR = 51;
+    int FIELD_SEPARATOR = 52;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Escape <em>Escape</em>}' enum.
@@ -17683,7 +17747,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEscape()
      * @generated
      */
-    int ESCAPE = 52;
+    int ESCAPE = 53;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RowSeparator <em>Row Separator</em>}' enum.
@@ -17692,7 +17756,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRowSeparator()
      * @generated
      */
-    int ROW_SEPARATOR = 53;
+    int ROW_SEPARATOR = 54;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.MDMConnectionProtocol <em>MDM Connection Protocol</em>}' enum.
@@ -17701,7 +17765,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMDMConnectionProtocol()
      * @generated
      */
-    int MDM_CONNECTION_PROTOCOL = 54;
+    int MDM_CONNECTION_PROTOCOL = 55;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.MdmConceptType <em>Mdm Concept Type</em>}' enum.
@@ -17711,7 +17775,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMdmConceptType()
      * @generated
      */
-    int MDM_CONCEPT_TYPE = 55;
+    int MDM_CONCEPT_TYPE = 56;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RuleType <em>Rule Type</em>}' enum.
@@ -17721,7 +17785,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRuleType()
      * @generated
      */
-    int RULE_TYPE = 56;
+    int RULE_TYPE = 57;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Function <em>Function</em>}' enum.
@@ -17731,7 +17795,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFunction()
      * @generated
      */
-    int FUNCTION = 57;
+    int FUNCTION = 58;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Operator <em>Operator</em>}' enum.
@@ -17741,7 +17805,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getOperator()
      * @generated
      */
-    int OPERATOR = 58;
+    int OPERATOR = 59;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.LogicalOperator <em>Logical Operator</em>}' enum.
@@ -17751,7 +17815,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getLogicalOperator()
      * @generated
      */
-    int LOGICAL_OPERATOR = 59;
+    int LOGICAL_OPERATOR = 60;
 
     /**
      * The meta object id for the '<em>Map</em>' data type.
@@ -17760,7 +17824,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMap()
      * @generated
      */
-    int MAP = 60;
+    int MAP = 61;
 
     /**
      * The meta object id for the '<em>List</em>' data type.
@@ -17769,7 +17833,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getList()
      * @generated
      */
-    int LIST = 61;
+    int LIST = 62;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
@@ -18158,6 +18222,17 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      */
     EReference getMetadataTable_Connection();
+
+    /**
+     * Returns the meta object for the map '{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getAdditionalProperties <em>Additional Properties</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the map '<em>Additional Properties</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.MetadataTable#getAdditionalProperties()
+     * @see #getMetadataTable()
+     * @generated
+     */
+    EReference getMetadataTable_AdditionalProperties();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.FileConnection <em>File Connection</em>}'.
@@ -21610,6 +21685,40 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getSalesforceModuleUnit_ModuleName();
 
     /**
+     * Returns the meta object for class '{@link java.util.Map.Entry <em>Additional Properties</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Additional Properties</em>'.
+     * @see java.util.Map.Entry
+     * @model keyDataType="org.eclipse.emf.ecore.EString"
+     *        valueDataType="org.eclipse.emf.ecore.EString"
+     * @generated
+     */
+    EClass getAdditionalProperties();
+
+    /**
+     * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Key</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Key</em>'.
+     * @see java.util.Map.Entry
+     * @see #getAdditionalProperties()
+     * @generated
+     */
+    EAttribute getAdditionalProperties_Key();
+
+    /**
+     * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Value</em>'.
+     * @see java.util.Map.Entry
+     * @see #getAdditionalProperties()
+     * @generated
+     */
+    EAttribute getAdditionalProperties_Value();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection <em>Validation Rules Connection</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -22225,6 +22334,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EReference METADATA_TABLE__CONNECTION = eINSTANCE.getMetadataTable_Connection();
+
+        /**
+         * The meta object literal for the '<em><b>Additional Properties</b></em>' map feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference METADATA_TABLE__ADDITIONAL_PROPERTIES = eINSTANCE.getMetadataTable_AdditionalProperties();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.FileConnectionImpl <em>File Connection</em>}' class.
@@ -24886,6 +25003,32 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute SALESFORCE_MODULE_UNIT__MODULE_NAME = eINSTANCE.getSalesforceModuleUnit_ModuleName();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.AdditionalPropertiesImpl <em>Additional Properties</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.AdditionalPropertiesImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getAdditionalProperties()
+         * @generated
+         */
+        EClass ADDITIONAL_PROPERTIES = eINSTANCE.getAdditionalProperties();
+
+        /**
+         * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ADDITIONAL_PROPERTIES__KEY = eINSTANCE.getAdditionalProperties_Key();
+
+        /**
+         * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ADDITIONAL_PROPERTIES__VALUE = eINSTANCE.getAdditionalProperties_Value();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.ValidationRulesConnectionImpl <em>Validation Rules Connection</em>}' class.

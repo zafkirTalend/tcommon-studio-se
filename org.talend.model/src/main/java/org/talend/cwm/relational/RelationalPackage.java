@@ -514,6 +514,15 @@ public interface RelationalPackage extends EPackage {
     int TD_TABLE__CONNECTION = ConnectionPackage.METADATA_TABLE__CONNECTION;
 
     /**
+     * The feature id for the '<em><b>Additional Properties</b></em>' map.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TABLE__ADDITIONAL_PROPERTIES = ConnectionPackage.METADATA_TABLE__ADDITIONAL_PROPERTIES;
+
+    /**
      * The feature id for the '<em><b>Using Trigger</b></em>' reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1035,6 +1044,15 @@ public interface RelationalPackage extends EPackage {
      * @ordered
      */
     int TD_VIEW__CONNECTION = ConnectionPackage.METADATA_TABLE__CONNECTION;
+
+    /**
+     * The feature id for the '<em><b>Additional Properties</b></em>' map.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_VIEW__ADDITIONAL_PROPERTIES = ConnectionPackage.METADATA_TABLE__ADDITIONAL_PROPERTIES;
 
     /**
      * The feature id for the '<em><b>Using Trigger</b></em>' reference list.

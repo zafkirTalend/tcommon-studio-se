@@ -32,6 +32,8 @@ import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.SAPConnection;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryContentHandler;
+import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.repository.i18n.Messages;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
@@ -302,6 +304,11 @@ public class RepoDoubleClickAction extends Action {
                     return current;
                 }
 
+                for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+                    if (handler.isOwnTable(obj, current.getClassForDoubleClick())) {
+                        return current;
+                    }
+                }
                 // Added for v2.0.0
             } else if (nodeType != null && nodeType.equals(ERepositoryObjectType.METADATA_CON_QUERY)) {
                 if (current.getClassForDoubleClick().equals(QueryEMFRepositoryNode.class)) {
@@ -326,7 +333,8 @@ public class RepoDoubleClickAction extends Action {
                 }
 
             } else if (nodeType != null && nodeType.equals(ERepositoryObjectType.SERVICESOPERATION)) {
-                if (current.getClassForDoubleClick().getSimpleName().equals(Messages.getString("RepoDoubleClickAction.ServiceOperation"))) { //$NON-NLS-1$
+                if (current.getClassForDoubleClick().getSimpleName()
+                        .equals(Messages.getString("RepoDoubleClickAction.ServiceOperation"))) { //$NON-NLS-1$
                     return current;
                 }
 
@@ -338,7 +346,6 @@ public class RepoDoubleClickAction extends Action {
         }
         return null;
     }
-
     // protected ISelection getSelection() {
     // IRepositoryView view = getViewPart();
     // if (view != null) {

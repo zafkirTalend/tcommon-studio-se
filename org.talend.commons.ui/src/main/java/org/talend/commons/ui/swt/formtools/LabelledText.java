@@ -349,6 +349,10 @@ public class LabelledText {
         return text.getEditable();
     }
 
+    public boolean getEnable() {
+        return text.isEnabled();
+    }
+
     /**
      * getCharCount to Text Object.
      * 
