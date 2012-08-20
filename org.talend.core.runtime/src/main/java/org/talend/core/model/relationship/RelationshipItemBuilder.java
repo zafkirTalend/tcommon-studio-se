@@ -458,45 +458,47 @@ public class RelationshipItemBuilder {
         if (item instanceof JobletProcessItem) {
             processType = ((JobletProcessItem) item).getJobletProcess();
         }
-        for (Object o : processType.getNode()) {
-            if (o instanceof NodeType) {
-                NodeType currentNode = (NodeType) o;
-                if ("tRunJob".equals(currentNode.getComponentName())) { //$NON-NLS-1$
-                    // in case of tRunJob
-                    String jobIdStr = null;
-                    String jobVersion = LATEST_VERSION;
-                    String nowVersion = "";
-                    Set<String> jobIdSet = new HashSet<String>();
-                    for (Object o2 : currentNode.getElementParameter()) {
-                        if (o2 instanceof ElementParameterType) {
-                            ElementParameterType param = (ElementParameterType) o2;
-                            if (param.getName().equals("PROCESS:PROCESS_TYPE_PROCESS") //$NON-NLS-1$
-                                    || param.getName().equals("PROCESS_TYPE_PROCESS")) { //$NON-NLS-1$
-                                // feature 19312
-                                String jobIds = param.getValue();
-                                String[] jobsArr = jobIds.split(RelationshipItemBuilder.COMMA);
-                                for (String jobId : jobsArr) {
-                                    if (StringUtils.isNotEmpty(jobId)) {
-                                        jobIdSet.add(jobId);
+        if (processType != null) {
+            for (Object o : processType.getNode()) {
+                if (o instanceof NodeType) {
+                    NodeType currentNode = (NodeType) o;
+                    if ("tRunJob".equals(currentNode.getComponentName())) { //$NON-NLS-1$
+                        // in case of tRunJob
+                        String jobIdStr = null;
+                        String jobVersion = LATEST_VERSION;
+                        String nowVersion = "";
+                        Set<String> jobIdSet = new HashSet<String>();
+                        for (Object o2 : currentNode.getElementParameter()) {
+                            if (o2 instanceof ElementParameterType) {
+                                ElementParameterType param = (ElementParameterType) o2;
+                                if (param.getName().equals("PROCESS:PROCESS_TYPE_PROCESS") //$NON-NLS-1$
+                                        || param.getName().equals("PROCESS_TYPE_PROCESS")) { //$NON-NLS-1$
+                                    // feature 19312
+                                    String jobIds = param.getValue();
+                                    String[] jobsArr = jobIds.split(RelationshipItemBuilder.COMMA);
+                                    for (String jobId : jobsArr) {
+                                        if (StringUtils.isNotEmpty(jobId)) {
+                                            jobIdSet.add(jobId);
+                                        }
+                                        jobIdStr = jobId;
                                     }
-                                    jobIdStr = jobId;
                                 }
-                            }
-                            if (param.getName().equals("PROCESS:PROCESS_TYPE_VERSION") //$NON-NLS-1$
-                                    || param.getName().equals("PROCESS_TYPE_VERSION")) { //$NON-NLS-1$
-                                jobVersion = param.getValue();
-                                if (jobVersion.equals(LATEST_VERSION)) {
-                                    if (!versions.isEmpty()) {
-                                        nowVersion = versions.get(jobIdStr);
-                                        param.setValue(nowVersion);
+                                if (param.getName().equals("PROCESS:PROCESS_TYPE_VERSION") //$NON-NLS-1$
+                                        || param.getName().equals("PROCESS_TYPE_VERSION")) { //$NON-NLS-1$
+                                    jobVersion = param.getValue();
+                                    if (jobVersion.equals(LATEST_VERSION)) {
+                                        if (!versions.isEmpty()) {
+                                            nowVersion = versions.get(jobIdStr);
+                                            param.setValue(nowVersion);
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                    for (String jobId : jobIdSet) {
-                        addRelationShip(item, jobId, nowVersion, JOB_RELATION);
-                        factory.save(project, item);
+                        for (String jobId : jobIdSet) {
+                            addRelationShip(item, jobId, nowVersion, JOB_RELATION);
+                            factory.save(project, item);
+                        }
                     }
                 }
             }
@@ -586,7 +588,7 @@ public class RelationshipItemBuilder {
                             currentValue = param.getValue();
                         }
 
-                        if (builtIn != null && currentValue != null) { //$NON-NLS-1$
+                        if (builtIn != null && currentValue != null) {
                             if (!builtIn) {
                                 addRelationShip(item, currentValue, LATEST_VERSION, relationType);
                             }
@@ -640,7 +642,7 @@ public class RelationshipItemBuilder {
                                 currentValue = param.getValue();
                             }
 
-                            if (builtIn != null && currentValue != null) { //$NON-NLS-1$
+                            if (builtIn != null && currentValue != null) {
                                 if (!builtIn) {
                                     addRelationShip(item, currentValue, LATEST_VERSION, relationType);
                                 }
@@ -661,7 +663,7 @@ public class RelationshipItemBuilder {
 
                             // only for SurvivorshipFileItem
                             if (param.getField() != null
-                                    && param.getField().equals(EParameterFieldType.SURVIVOR_RELATION.getName())) { //$NON-NLS-1$
+                                    && param.getField().equals(EParameterFieldType.SURVIVOR_RELATION.getName())) {
                                 String relatedID = param.getValue();
                                 addRelationShip(item, relatedID, LATEST_VERSION, SURVIVOR_RELATION);
                             }
@@ -700,8 +702,9 @@ public class RelationshipItemBuilder {
                         }
 
                         Property property = service.getJobletComponentItem(cc);
-                        if (property != null)
+                        if (property != null) {
                             addRelationShip(item, property.getId(), version, JOBLET_RELATION);
+                        }
                     }
                     if ("tRunJob".equals(currentNode.getComponentName())) { //$NON-NLS-1$
                         // in case of tRunJob
@@ -829,28 +832,37 @@ public class RelationshipItemBuilder {
 
         @Override
         public boolean equals(Object obj) {
-            if (this == obj)
+            if (this == obj) {
                 return true;
-            if (obj == null)
+            }
+            if (obj == null) {
                 return false;
-            if (getClass() != obj.getClass())
+            }
+            if (getClass() != obj.getClass()) {
                 return false;
+            }
             Relation other = (Relation) obj;
             if (id == null) {
-                if (other.id != null)
+                if (other.id != null) {
                     return false;
-            } else if (!id.equals(other.id))
+                }
+            } else if (!id.equals(other.id)) {
                 return false;
+            }
             if (type == null) {
-                if (other.type != null)
+                if (other.type != null) {
                     return false;
-            } else if (!type.equals(other.type))
+                }
+            } else if (!type.equals(other.type)) {
                 return false;
+            }
             if (version == null) {
-                if (other.version != null)
+                if (other.version != null) {
                     return false;
-            } else if (!version.equals(other.version))
+                }
+            } else if (!version.equals(other.version)) {
                 return false;
+            }
             // if (name == null) {
             // if (other.name != null)
             // return false;
@@ -868,6 +880,7 @@ public class RelationshipItemBuilder {
             this.version = version;
         }
 
+        @Override
         protected Object clone() throws CloneNotSupportedException {
             return super.clone();
         }
