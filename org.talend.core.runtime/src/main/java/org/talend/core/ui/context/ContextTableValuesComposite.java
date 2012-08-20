@@ -28,8 +28,12 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TreeEditor;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -132,35 +136,33 @@ public class ContextTableValuesComposite extends AbstractContextTabEditComposite
 
         final TreeEditor treeEditor = new TreeEditor(viewer.getTree());
 
-        // viewer.getTree().addMouseListener(new MouseAdapter() {
-        //
-        // @Override
-        // public void mouseDown(MouseEvent e) {
-        // if (modelManager.isReadOnly()) {
-        // return;
-        // }
-        // Point pt = new Point(e.x, e.y);
-        // if (e.x > 0 && e.x < (viewer.getTree().getColumnCount()) * ContextTableValuesComposite.CONTEXT_COLUMN_WIDTH)
-        // {
-        // createEditorListener(treeEditor, e.x / CONTEXT_COLUMN_WIDTH);
-        // }
-        // TreeItem item = viewer.getTree().getItem(pt);
-        // // deactivate the current cell editor
-        // if (cellEditor != null && !cellEditor.getControl().isDisposed()) {
-        // deactivateCellEditor(treeEditor, e.x / CONTEXT_COLUMN_WIDTH);
-        // }
-        // if (item != null && !item.isDisposed()) {
-        // Rectangle rect = item.getBounds(viewer.getTree().getColumnCount() - 1);
-        //
-        // if (e.x > 0 && e.x < (viewer.getTree().getColumnCount()) * ContextTableValuesComposite.CONTEXT_COLUMN_WIDTH)
-        // {
-        // handleSelect(item, viewer.getTree(), treeEditor, viewer.getTree().getColumnCount() - 1, e.x
-        // / CONTEXT_COLUMN_WIDTH);
-        // }
-        // }
-        //
-        // }
-        // });
+        viewer.getTree().addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseDown(MouseEvent e) {
+                if (modelManager.isReadOnly()) {
+                    return;
+                }
+                Point pt = new Point(e.x, e.y);
+                if (e.x > 0 && e.x < (viewer.getTree().getColumnCount()) * ContextTableValuesComposite.CONTEXT_COLUMN_WIDTH) {
+                    createEditorListener(treeEditor, e.x / CONTEXT_COLUMN_WIDTH);
+                }
+                TreeItem item = viewer.getTree().getItem(pt);
+                // deactivate the current cell editor
+                if (cellEditor != null && !cellEditor.getControl().isDisposed()) {
+                    deactivateCellEditor(treeEditor, e.x / CONTEXT_COLUMN_WIDTH);
+                }
+                if (item != null && !item.isDisposed()) {
+                    Rectangle rect = item.getBounds(viewer.getTree().getColumnCount() - 1);
+
+                    if (e.x > 0 && e.x < (viewer.getTree().getColumnCount()) * ContextTableValuesComposite.CONTEXT_COLUMN_WIDTH) {
+                        handleSelect(item, viewer.getTree(), treeEditor, viewer.getTree().getColumnCount() - 1, e.x
+                                / CONTEXT_COLUMN_WIDTH);
+                    }
+                }
+
+            }
+        });
         valueChecker = new ContextValueErrorChecker(viewer);
         if (LanguageManager.getCurrentLanguage() == ECodeLanguage.PERL) {
             createTreeTooltip(tree);
@@ -225,6 +227,7 @@ public class ContextTableValuesComposite extends AbstractContextTabEditComposite
 
             private int direction = 1;
 
+            @Override
             public void handleEvent(Event e) {
                 final TreeColumn column = (TreeColumn) e.widget;
 
@@ -338,6 +341,7 @@ public class ContextTableValuesComposite extends AbstractContextTabEditComposite
         activateCellEditor(item, tree, treeEditor, columnIndex, column);
     }
 
+    @Override
     public boolean isGroupBySource() {
         boolean isRepositoryContext = false;
         if (modelManager != null) {
@@ -364,13 +368,16 @@ public class ContextTableValuesComposite extends AbstractContextTabEditComposite
     private ICellEditorListener createEditorListener(final TreeEditor tableEditor, final int columnIndex) {
         editorListener = new ICellEditorListener() {
 
+            @Override
             public void cancelEditor() {
                 deactivateCellEditor(tableEditor, columnIndex);
             }
 
+            @Override
             public void editorValueChanged(boolean oldValidState, boolean newValidState) {
             }
 
+            @Override
             public void applyEditorValue() {
                 editing = true;
             }
@@ -426,10 +433,12 @@ public class ContextTableValuesComposite extends AbstractContextTabEditComposite
         return contexts;
     }
 
+    @Override
     public IContextModelManager getContextModelManager() {
         return this.modelManager;
     }
 
+    @Override
     public TreeViewer getViewer() {
         return this.viewer;
     }
@@ -538,6 +547,7 @@ public class ContextTableValuesComposite extends AbstractContextTabEditComposite
          * 
          * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
          */
+        @Override
         public int compare(IContext o1, IContext o2) {
             String name1 = o1.getName().toUpperCase();
             String name2 = o2.getName().toUpperCase();
