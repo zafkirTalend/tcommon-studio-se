@@ -104,12 +104,6 @@ public class PropertiesWizard extends Wizard {
                     IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
                     try {
                         ItemState state = item.getState();
-                        if (state != null) {
-                            boolean haveLock = state.isLocked();
-                            if (haveLock) {
-                                isLock = true;
-                            }
-                        }
                         if (useLastVersion) {
                             if (state != null && state.getPath() != null) {
                                 this.object = (IRepositoryObject) factory.getLastVersion(new Project(ProjectManager.getInstance()
@@ -160,6 +154,9 @@ public class PropertiesWizard extends Wizard {
                 if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
                     ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
                     isOpened = coreService.isOpenedItemInEditor(object);
+                }
+                if (repositoryFactory.getStatus(object).equals(ERepositoryStatus.LOCK_BY_USER)) {
+                    isLock = true;
                 }
                 if (repositoryFactory.getStatus(object).equals(ERepositoryStatus.LOCK_BY_USER) && isOpened) {
                     alreadyEditedByUser = true;
