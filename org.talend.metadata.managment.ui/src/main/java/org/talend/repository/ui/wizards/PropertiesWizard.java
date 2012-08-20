@@ -13,6 +13,7 @@
 package org.talend.repository.ui.wizards;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRunnable;
@@ -249,6 +250,17 @@ public class PropertiesWizard extends Wizard {
                         evaluateNameInRoutine();
                     } else if (type == ERepositoryObjectType.ROUTINES || type == ERepositoryObjectType.METADATA_FILE_RULES) {
                         evaluateNameInJob();
+                    }else{
+                    	String namePattern = type.getNamePattern();
+                    	if(namePattern == null || "".equals(namePattern.trim())){
+                    		return;
+                    	}
+                    	Pattern pattern = Pattern.compile(namePattern);
+                    	if(pattern.matcher(nameText.getText()).matches()){
+                    		return;
+                    	}
+                    	 nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameIsInvalid")); //$NON-NLS-1$
+                         updatePageStatus();
                     }
                 }
             }
