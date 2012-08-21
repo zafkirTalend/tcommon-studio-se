@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getREADONLYIF <em>READONLYIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getREPOSITORYVALUE <em>REPOSITORYVALUE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isREQUIRED <em>REQUIRED</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getREQUIREDIF <em>REQUIREDIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isSHOW <em>SHOW</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getSHOWIF <em>SHOWIF</em>}</li>
  * </ul>
@@ -828,6 +829,33 @@ public interface PARAMETERType extends EObject {
      * @generated
      */
     boolean isSetREQUIRED();
+
+    /**
+     * Returns the value of the '<em><b>REQUIREDIF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>REQUIREDIF</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>REQUIREDIF</em>' attribute.
+     * @see #setREQUIREDIF(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_REQUIREDIF()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='REQUIRED_IF' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getREQUIREDIF();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getREQUIREDIF <em>REQUIREDIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>REQUIREDIF</em>' attribute.
+     * @see #getREQUIREDIF()
+     * @generated
+     */
+    void setREQUIREDIF(String value);
 
     /**
      * Returns the value of the '<em><b>SHOW</b></em>' attribute.

@@ -61,6 +61,8 @@ public interface IElementParameter {
 
     public boolean isRequired();
 
+    public boolean isRequired(List<? extends IElementParameter> listParam);
+
     public void setRequired(final boolean required);
 
     public void setShow(final boolean show);

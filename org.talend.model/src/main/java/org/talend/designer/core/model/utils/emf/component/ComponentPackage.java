@@ -1892,13 +1892,22 @@ public interface ComponentPackage extends EPackage {
     int PARAMETER_TYPE__REQUIRED = 22;
 
     /**
+     * The feature id for the '<em><b>REQUIREDIF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PARAMETER_TYPE__REQUIREDIF = 23;
+
+    /**
      * The feature id for the '<em><b>SHOW</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__SHOW = 23;
+    int PARAMETER_TYPE__SHOW = 24;
 
     /**
      * The feature id for the '<em><b>SHOWIF</b></em>' attribute.
@@ -1907,7 +1916,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__SHOWIF = 24;
+    int PARAMETER_TYPE__SHOWIF = 25;
 
     /**
      * The number of structural features of the '<em>PARAMETER Type</em>' class.
@@ -1916,7 +1925,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE_FEATURE_COUNT = 25;
+    int PARAMETER_TYPE_FEATURE_COUNT = 26;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.PLUGINDEPENDENCIESTypeImpl <em>PLUGINDEPENDENCIES Type</em>}' class.
@@ -4309,6 +4318,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getPARAMETERType_REQUIRED();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getREQUIREDIF <em>REQUIREDIF</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>REQUIREDIF</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.PARAMETERType#getREQUIREDIF()
+     * @see #getPARAMETERType()
+     * @generated
+     */
+    EAttribute getPARAMETERType_REQUIREDIF();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isSHOW <em>SHOW</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6246,6 +6266,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute PARAMETER_TYPE__REQUIRED = eINSTANCE.getPARAMETERType_REQUIRED();
+
+        /**
+         * The meta object literal for the '<em><b>REQUIREDIF</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PARAMETER_TYPE__REQUIREDIF = eINSTANCE.getPARAMETERType_REQUIREDIF();
 
         /**
          * The meta object literal for the '<em><b>SHOW</b></em>' attribute feature.

@@ -1960,7 +1960,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_SHOW() {
+    public EAttribute getPARAMETERType_REQUIREDIF() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(23);
     }
 
@@ -1969,8 +1969,17 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_SHOWIF() {
+    public EAttribute getPARAMETERType_SHOW() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(24);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getPARAMETERType_SHOWIF() {
+        return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(25);
     }
 
     /**
@@ -2553,6 +2562,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__READONLYIF);
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__REPOSITORYVALUE);
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__REQUIRED);
+        createEAttribute(parameterTypeEClass, PARAMETER_TYPE__REQUIREDIF);
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__SHOW);
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__SHOWIF);
 
@@ -2835,6 +2845,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getPARAMETERType_READONLYIF(), theXMLTypePackage.getString(), "rEADONLYIF", null, 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPARAMETERType_REPOSITORYVALUE(), theXMLTypePackage.getString(), "rEPOSITORYVALUE", null, 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPARAMETERType_REQUIRED(), theXMLTypePackage.getBoolean(), "rEQUIRED", "false", 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getPARAMETERType_REQUIREDIF(), theXMLTypePackage.getString(), "rEQUIREDIF", null, 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPARAMETERType_SHOW(), theXMLTypePackage.getBoolean(), "sHOW", "true", 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPARAMETERType_SHOWIF(), theXMLTypePackage.getString(), "sHOWIF", null, 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -4319,6 +4330,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "attribute",
              "name", "REQUIRED",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getPARAMETERType_REQUIREDIF(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "REQUIRED_IF",
              "namespace", "##targetNamespace"
            });		
         addAnnotation

@@ -55,6 +55,7 @@ import org.talend.designer.core.model.utils.emf.component.TABLEType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getREADONLYIF <em>READONLYIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getREPOSITORYVALUE <em>REPOSITORYVALUE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#isREQUIRED <em>REQUIRED</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getREQUIREDIF <em>REQUIREDIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#isSHOW <em>SHOW</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getSHOWIF <em>SHOWIF</em>}</li>
  * </ul>
@@ -554,6 +555,26 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * @ordered
      */
     protected boolean rEQUIREDESet;
+
+    /**
+     * The default value of the '{@link #getREQUIREDIF() <em>REQUIREDIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getREQUIREDIF()
+     * @generated
+     * @ordered
+     */
+    protected static final String REQUIREDIF_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getREQUIREDIF() <em>REQUIREDIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getREQUIREDIF()
+     * @generated
+     * @ordered
+     */
+    protected String rEQUIREDIF = REQUIREDIF_EDEFAULT;
 
     /**
      * The default value of the '{@link #isSHOW() <em>SHOW</em>}' attribute.
@@ -1291,6 +1312,27 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getREQUIREDIF() {
+        return rEQUIREDIF;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setREQUIREDIF(String newREQUIREDIF) {
+        String oldREQUIREDIF = rEQUIREDIF;
+        rEQUIREDIF = newREQUIREDIF;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__REQUIREDIF, oldREQUIREDIF, rEQUIREDIF));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public boolean isSHOW() {
         return sHOW;
     }
@@ -1473,6 +1515,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return getREPOSITORYVALUE();
             case ComponentPackage.PARAMETER_TYPE__REQUIRED:
                 return isREQUIRED() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.PARAMETER_TYPE__REQUIREDIF:
+                return getREQUIREDIF();
             case ComponentPackage.PARAMETER_TYPE__SHOW:
                 return isSHOW() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.PARAMETER_TYPE__SHOWIF:
@@ -1561,6 +1605,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__REQUIRED:
                 setREQUIRED(((Boolean)newValue).booleanValue());
                 return;
+            case ComponentPackage.PARAMETER_TYPE__REQUIREDIF:
+                setREQUIREDIF((String)newValue);
+                return;
             case ComponentPackage.PARAMETER_TYPE__SHOW:
                 setSHOW(((Boolean)newValue).booleanValue());
                 return;
@@ -1648,6 +1695,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__REQUIRED:
                 unsetREQUIRED();
                 return;
+            case ComponentPackage.PARAMETER_TYPE__REQUIREDIF:
+                setREQUIREDIF(REQUIREDIF_EDEFAULT);
+                return;
             case ComponentPackage.PARAMETER_TYPE__SHOW:
                 unsetSHOW();
                 return;
@@ -1712,6 +1762,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return REPOSITORYVALUE_EDEFAULT == null ? rEPOSITORYVALUE != null : !REPOSITORYVALUE_EDEFAULT.equals(rEPOSITORYVALUE);
             case ComponentPackage.PARAMETER_TYPE__REQUIRED:
                 return isSetREQUIRED();
+            case ComponentPackage.PARAMETER_TYPE__REQUIREDIF:
+                return REQUIREDIF_EDEFAULT == null ? rEQUIREDIF != null : !REQUIREDIF_EDEFAULT.equals(rEQUIREDIF);
             case ComponentPackage.PARAMETER_TYPE__SHOW:
                 return isSetSHOW();
             case ComponentPackage.PARAMETER_TYPE__SHOWIF:
@@ -1768,6 +1820,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
         result.append(rEPOSITORYVALUE);
         result.append(", rEQUIRED: ");
         if (rEQUIREDESet) result.append(rEQUIRED); else result.append("<unset>");
+        result.append(", rEQUIREDIF: ");
+        result.append(rEQUIREDIF);
         result.append(", sHOW: ");
         if (sHOWESet) result.append(sHOW); else result.append("<unset>");
         result.append(", sHOWIF: ");
