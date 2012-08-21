@@ -73,6 +73,7 @@ public enum EDatabase4DriverClassName {
     TERADATA(EDatabaseTypeName.TERADATA, "com.teradata.jdbc.TeraDriver"), //$NON-NLS-1$
 
     VERTICA(EDatabaseTypeName.VERTICA, "com.vertica.Driver"), //$NON-NLS-1$
+    VERTICA2(EDatabaseTypeName.VERTICA, "com.vertica.jdbc.Driver"), //$NON-NLS-1$
 
     HIVE(EDatabaseTypeName.HIVE, "org.apache.hadoop.hive.jdbc.HiveDriver"), //$NON-NLS-1$
     H2(EDatabaseTypeName.H2, "org.h2.Driver")//$NON-NLS-1$

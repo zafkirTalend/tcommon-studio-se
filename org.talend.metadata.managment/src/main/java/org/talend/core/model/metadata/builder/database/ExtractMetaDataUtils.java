@@ -714,6 +714,11 @@ public class ExtractMetaDataUtils {
                         jarPathList.add(getJavaLibPath() + jar);
                     }
                     driverClassName = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
+                    // feature TDI-22108
+                    if (EDatabaseTypeName.VERTICA.getXmlName().equals(dbType)
+                            && EDatabaseVersion4Drivers.VERTICA_6.getVersionValue().equals(dbVersion)) {
+                        driverClassName = EDatabase4DriverClassName.VERTICA2.getDriverClass();
+                    }
                 }
             } else {
                 Set<String> jarsAvailable = librairesManagerService.list(new NullProgressMonitor());

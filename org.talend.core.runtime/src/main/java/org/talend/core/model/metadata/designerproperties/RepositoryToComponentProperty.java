@@ -26,6 +26,7 @@ import org.eclipse.emf.common.util.EList;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.utils.PathUtils;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
@@ -918,6 +919,9 @@ public class RepositoryToComponentProperty {
                 String driverValue = EDatabaseVersion4Drivers.getDriversStr(databaseType, dbVersionString);
                 if (isContextMode(connection, dbVersionString)) {
                     return dbVersionString;
+                } else if (EDatabaseTypeName.VERTICA.getXmlName().equals(databaseType)
+                        && EDatabaseVersion4Drivers.VERTICA_6.getVersionValue().equals(dbVersionString)) {
+                    return "VERTICA_6_0";
                 } else {
                     return driverValue;
                 }

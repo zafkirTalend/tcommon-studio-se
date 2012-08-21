@@ -39,6 +39,7 @@ import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
@@ -309,6 +310,11 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(connection.getDatabaseType());
             if (dbType != EDatabaseTypeName.GENERAL_JDBC) {
                 String driverClass = ExtractMetaDataUtils.getDriverClassByDbType(connection.getDatabaseType());
+                // feature TDI-22108
+                if (EDatabaseTypeName.VERTICA.equals(dbType)
+                        && EDatabaseVersion4Drivers.VERTICA_6.getVersionValue().equals(connection.getDbVersionString())) {
+                    driverClass = EDatabase4DriverClassName.VERTICA2.getDriverClass();
+                }
                 ((DatabaseConnection) connectionItem.getConnection()).setDriverClass(driverClass);
             }
             // ~19528
