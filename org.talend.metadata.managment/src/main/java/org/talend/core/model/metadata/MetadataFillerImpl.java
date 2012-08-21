@@ -13,11 +13,14 @@
 package org.talend.core.model.metadata;
 
 import java.sql.DatabaseMetaData;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
+import org.eclipse.emf.common.util.EMap;
 import org.talend.commons.bridge.ReponsitoryContextBridge;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
@@ -278,8 +281,27 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
         // universe
         metadataConnection.setUniverse(ConnectionHelper.getUniverse(conn));
         metadataConnection.setSqlMode(conn.isSQLMode());
+        fillOtherParameters(metadataConnection, conn);
         return metadataConnection;
 
+    }
+
+    /**
+     * Fills other parameters from db connection into metadata connection. Added by Marvin Wang on Aug 13, 2012.
+     * 
+     * @param metaConn
+     * @param dbConn
+     */
+    protected void fillOtherParameters(IMetadataConnection metaConn, DatabaseConnection dbConn) {
+        EMap<String, String> map = dbConn.getParameters();
+        if (map != null && map.size() > 0) {
+            Map<String, Object> metadataMap = metaConn.getOtherParameters();
+            if (metadataMap == null)
+                metadataMap = new HashMap<String, Object>();
+            for (Entry<String, String> entry : map.entrySet()) {
+                metadataMap.put(entry.getKey(), entry.getValue());
+            }
+        }
     }
 
     /*

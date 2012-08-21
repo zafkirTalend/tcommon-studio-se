@@ -91,5 +91,4 @@ class DbVersion4Drivers {
     List<EDatabaseTypeName> getDbTypes() {
         return this.dbTypes;
     }
-
 }

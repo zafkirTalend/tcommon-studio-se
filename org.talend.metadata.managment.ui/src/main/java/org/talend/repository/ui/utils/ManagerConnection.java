@@ -14,8 +14,10 @@ package org.talend.repository.ui.utils;
 
 import org.apache.log4j.Logger;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
+import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
 import org.talend.core.repository.ConnectionStatus;
 import org.talend.core.repository.IDBMetadataProvider;
 import org.talend.metadata.managment.ui.i18n.Messages;
@@ -187,6 +189,14 @@ public class ManagerConnection {
                             metadataConnection.getDbVersionString(), metadataConnection.getAdditionalParams());
                 }
             } else {
+                if (EDatabaseTypeName.HIVE.getDisplayName().equals(metadataConnection.getDbType())) {
+                    String key = (String) metadataConnection.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
+                    if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(key)) {
+                        System.setProperty("hive.metastore.local", "false");
+                        System.setProperty("hive.metastore.uris", "thrift://" + metadataConnection.getServerName() + ":"
+                                + metadataConnection.getPort());
+                    }
+                }
                 testConnection = ExtractMetaDataFromDataBase.testConnection(metadataConnection.getDbType(),
                         metadataConnection.getUrl(), metadataConnection.getUsername(), metadataConnection.getPassword(),
                         metadataConnection.getSchema(), metadataConnection.getDriverClass(),
@@ -251,6 +261,10 @@ public class ManagerConnection {
             System.setProperty("derby.system.home", dbRootPath); //$NON-NLS-1$
         }
         this.dbRootPath = dbRootPath;
+    }
+
+    public void setUrlConnectionString(String urlConnectionString) {
+        this.urlConnectionString = urlConnectionString;
     }
 
 }

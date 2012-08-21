@@ -30,6 +30,8 @@ import org.eclipse.ui.progress.UIJob;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.model.metadata.IMetadataConnection;
@@ -51,6 +53,7 @@ import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
+import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
@@ -906,13 +909,23 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                                     && !metadataConnection.getDbType().equals(EDatabaseConnTemplate.ACCESS.getDBDisplayName())
                                     && !metadataConnection.getDbType().equals(
                                             EDatabaseConnTemplate.GENERAL_JDBC.getDBDisplayName())) {
-                                String genUrl = DatabaseConnStrUtil.getURLString(metadataConnection.getDbType(),
-                                        metadataConnection.getDbVersionString(), metadataConnection.getServerName(),
-                                        metadataConnection.getUsername(), metadataConnection.getPassword(),
-                                        metadataConnection.getPort(), metadataConnection.getDatabase(),
-                                        metadataConnection.getFileFieldName(), metadataConnection.getDataSourceName(),
-                                        metadataConnection.getDbRootPath(), metadataConnection.getAdditionalParams());
-                                metadataConnection.setUrl(genUrl);
+                                // TODO 1. To identify if it is hive connection.
+                                String hiveMode = (String) metadataConnection
+                                        .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
+                                if (EDatabaseTypeName.HIVE.getDisplayName().equals(metadataConnection.getDbType())
+                                        && HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(hiveMode)) {
+                                    metadataConnection.setUrl(connection.getURL());
+                                } else {
+
+                                    String genUrl = DatabaseConnStrUtil.getURLString(metadataConnection.getDbType(),
+                                            metadataConnection.getDbVersionString(), metadataConnection.getServerName(),
+                                            metadataConnection.getUsername(), metadataConnection.getPassword(),
+                                            metadataConnection.getPort(), metadataConnection.getDatabase(),
+                                            metadataConnection.getFileFieldName(), metadataConnection.getDataSourceName(),
+                                            metadataConnection.getDbRootPath(), metadataConnection.getAdditionalParams());
+                                    metadataConnection.setUrl(genUrl);
+                                }
+
                             }
                             // bug 23508:even open type is metaTable,not connection,we always need the connection's
                             // datapackage to find the table schema when click the retrieve schema button

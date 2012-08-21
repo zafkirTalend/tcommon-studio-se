@@ -5101,13 +5101,22 @@ public interface ConnectionPackage extends EPackage {
     int DATABASE_CONNECTION__UI_SCHEMA = CONNECTION_FEATURE_COUNT + 24;
 
     /**
+     * The feature id for the '<em><b>Parameters</b></em>' map.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_CONNECTION__PARAMETERS = CONNECTION_FEATURE_COUNT + 25;
+
+    /**
      * The number of structural features of the '<em>Database Connection</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 25;
+    int DATABASE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 26;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPConnectionImpl <em>SAP Connection</em>}' class.
@@ -18931,6 +18940,17 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getDatabaseConnection_UiSchema();
 
     /**
+     * Returns the meta object for the map '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getParameters <em>Parameters</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the map '<em>Parameters</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getParameters()
+     * @see #getDatabaseConnection()
+     * @generated
+     */
+    EReference getDatabaseConnection_Parameters();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SAPConnection <em>SAP Connection</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>SAP Connection</em>'.
@@ -22868,6 +22888,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute DATABASE_CONNECTION__UI_SCHEMA = eINSTANCE.getDatabaseConnection_UiSchema();
+
+        /**
+         * The meta object literal for the '<em><b>Parameters</b></em>' map feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference DATABASE_CONNECTION__PARAMETERS = eINSTANCE.getDatabaseConnection_Parameters();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPConnectionImpl <em>SAP Connection</em>}' class.

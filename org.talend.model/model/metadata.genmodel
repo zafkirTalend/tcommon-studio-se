@@ -183,6 +183,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/SQLMode"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/UiSchema"/>
     </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//Parameters">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//Parameters/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//Parameters/value"/>
+    </genClasses>
     <genClasses ecoreClass="metadata.ecore#//SAPConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPConnection/Host"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPConnection/Username"/>

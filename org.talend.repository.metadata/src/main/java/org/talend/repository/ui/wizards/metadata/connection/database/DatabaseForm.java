@@ -23,6 +23,7 @@ import java.util.regex.Pattern;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -61,6 +62,7 @@ import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
 import org.talend.core.database.conn.EDatabaseConnVar;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
@@ -75,6 +77,7 @@ import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBa
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.extractots.IDBMetadataProviderObject;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
+import org.talend.core.model.metadata.connection.hive.HiveConnUtils;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -124,6 +127,12 @@ public class DatabaseForm extends AbstractForm {
     private LabelledCombo dbVersionCombo;
 
     private LabelledCombo sqlSyntaxCombo;
+
+    private LabelledCombo hiveModeCombo;
+
+    private LabelledCombo distributionCombo;
+
+    private LabelledCombo hiveVersionCombo;
 
     private LabelledText serverText;
 
@@ -194,6 +203,8 @@ public class DatabaseForm extends AbstractForm {
 
     private Composite compositeGroupDbSettings;
 
+    private Group hiveComposite;
+
     private LabelledText generalMappingFileText;
 
     // changed by hqzhang for TDI 19754
@@ -214,6 +225,12 @@ public class DatabaseForm extends AbstractForm {
     private Composite newParent;
 
     private ScrolledComposite scrolledComposite;
+
+    private int currIndexofDistribution = -1;
+
+    private int currIndexofHiveVersion = -1;
+
+    private int currIndexofHiveMode = -1;
 
     /**
      * Constructor to use by a Wizard to create a new database connection.
@@ -257,6 +274,7 @@ public class DatabaseForm extends AbstractForm {
                 initializeGeneralJDBC();
             }
         }
+        initHiveInfo();
         if (isContextMode()) {
             adaptFormToEditable();
             urlConnectionStringText.setText(getStringConnection());
@@ -474,6 +492,28 @@ public class DatabaseForm extends AbstractForm {
         layout2.marginTop = 0;
         layout2.marginBottom = 0;
 
+        hiveComposite = new Group(typeDbCompositeParent, SWT.NONE);
+        hiveComposite.setText("Version info");
+        GridDataFactory.fillDefaults().span(layout2.numColumns, 1).applyTo(hiveComposite);
+
+        hiveComposite.setLayout(new GridLayout(6, false));
+
+        distributionCombo = new LabelledCombo(hiveComposite, Messages.getString("DatabaseForm.distribution.labelName"),
+                Messages.getString("DatabaseForm.distribution.tips"), new String[] {
+                        Messages.getString("DatabaseForm.distribution.hortonWorks"),
+                        Messages.getString("DatabaseForm.distribution.apache"),
+                        Messages.getString("DatabaseForm.distribution.cloudera") }, 1, false);
+
+        hiveVersionCombo = new LabelledCombo(hiveComposite, Messages.getString("DatabaseForm.hiveVersion.labelName"),
+                Messages.getString("DatabaseForm.hiveVersion.tips"), new String[] {}, 1, false);
+
+        hiveModeCombo = new LabelledCombo(hiveComposite, Messages.getString("DatabaseForm.hiveMode.labelName"),
+                Messages.getString("DatabaseForm.hiveMode.tips"), new String[] {
+                        Messages.getString("DatabaseForm.hiveMode.standalone"),
+                        Messages.getString("DatabaseForm.hiveMode.embedded") }, 1, false);
+        // Default is hidding the combo box.
+        hiveModeCombo.setHideWidgets(true);
+
         dbVersionCombo = new LabelledCombo(typeDbCompositeParent, Messages.getString("DatabaseForm.dbversion"), Messages //$NON-NLS-1$
                 .getString("DatabaseForm.dbversion.tip"), new String[0], 2, true); //$NON-NLS-1$
 
@@ -660,6 +700,9 @@ public class DatabaseForm extends AbstractForm {
         stringQuoteText = new LabelledText(compositeGroupDbProperties, Messages.getString("DatabaseForm.stringQuote"), false); //$NON-NLS-1$
         nullCharText = new LabelledText(compositeGroupDbProperties, Messages.getString("DatabaseForm.nullChar"), false); //$NON-NLS-1$
 
+        // hiveMode = new LabelledCombo(compositeGroupDbProperties, "Hive Mode: ", "Select a Hive mode.", new String[] {
+        // "Standalone", "Embedded" }, 3);
+
         gridData = new GridData();
         gridData.horizontalSpan = 2;
         standardButton = new Button(compositeGroupDbProperties, SWT.RADIO);
@@ -692,6 +735,8 @@ public class DatabaseForm extends AbstractForm {
         button2.setVisible(false);
 
         sqlSyntaxCombo.setVisible(!CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected());
+        hiveModeCombo.setVisible(!CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected());
+
         group1.setVisible(!isTOPStandaloneMode());
         if (metadataconnection != null) {
             IDBMetadataProviderObject providerObj = ExtractMetaDataFromDataBase.getProviderObjectByDbType(metadataconnection
@@ -719,8 +764,8 @@ public class DatabaseForm extends AbstractForm {
                 String perId = page.getPerspective().getId();
                 if ((!"".equals(perId) && null != perId)) {
                     // eg : use DI, then switch to DQ : All view from DI must be hidden when switch
-                	//MOD qiongli 2012-7-10 TDQ-5801,hide also 'MSsql 2005/2008' for DQ after delete that MS jars. 
-                	if (perId.equalsIgnoreCase(IBrandingConfiguration.PERSPECTIVE_DI_ID)
+                    // MOD qiongli 2012-7-10 TDQ-5801,hide also 'MSsql 2005/2008' for DQ after delete that MS jars.
+                    if (perId.equalsIgnoreCase(IBrandingConfiguration.PERSPECTIVE_DI_ID)
                             || perId.equalsIgnoreCase(IBrandingConfiguration.PERSPECTIVE_DQ_ID)) {
                         if (dbTypeDisplayList != null) {
                             ArrayList<String> newList = new ArrayList<String>(dbTypeDisplayList);
@@ -833,6 +878,10 @@ public class DatabaseForm extends AbstractForm {
             if (version != null) {
                 versionStr = version.getVersionValue();
             }
+            // TODO If the current DB type is Hive, then to identify if Hive mode is EMBEDDED, if so, then setup some
+            // system
+            // properties.
+            doHivePreSetup();
             // set the value
             managerConnection.setValue(0, dbTypeCombo.getItem(dbTypeCombo.getSelectionIndex()),
                     isGeneralJDBC() ? generalJdbcUrlText.getText() : urlConnectionStringText.getText(), serverText.getText(),
@@ -848,8 +897,12 @@ public class DatabaseForm extends AbstractForm {
         }
         managerConnection.setValueProperties(sqlSyntaxCombo.getItem(sqlSyntaxCombo.getSelectionIndex()),
                 stringQuoteText.getText(), nullCharText.getText());
+
         // check the connection
         databaseSettingIsValide = managerConnection.check();
+
+        if (!databaseSettingIsValide)
+            doRemoveHiveSetup();
 
         // update the button
         checkButton.setEnabled(true);
@@ -1449,6 +1502,9 @@ public class DatabaseForm extends AbstractForm {
 
         addGeneralDbFieldsListeners();
 
+        // Registers listeners for the combos of Hive, including distribution, hive mode and hive version.
+        regHiveCombosListener();
+
         // urlConnectionStringText : Event modifyText
         // urlConnectionStringText.addModifyListener(new ModifyListener() {
         //
@@ -1968,13 +2024,21 @@ public class DatabaseForm extends AbstractForm {
 
     private String getStringConnection() {
         String s = null;
+        String versionStr = dbVersionCombo.getText();
         if (isContextMode()) {
             s = DBConnectionContextUtils.getUrlConnectionString(connectionItem, true);
         } else {
-            String versionStr = dbVersionCombo.getText();
-            EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(versionStr);
-            if (version != null) {
-                versionStr = version.getVersionValue();
+            if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbTypeCombo.getText())) {
+                int distributionIndex = distributionCombo.getSelectionIndex();
+                int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
+                int hiveModeIndex = hiveModeCombo.getSelectionIndex();
+
+                versionStr = HiveConnUtils.getHiveModeObj(distributionIndex, hiveVersionIndex, hiveModeIndex).getKey();
+            } else {
+                EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(versionStr);
+                if (version != null) {
+                    versionStr = version.getVersionValue();
+                }
             }
             s = DatabaseConnStrUtil.getURLString(dbTypeCombo.getText(), versionStr, serverText.getText(), usernameText.getText(),
                     passwordText.getText(), portText.getText(), sidOrDatabaseText.getText(), fileField.getText().toLowerCase(),
@@ -2016,6 +2080,9 @@ public class DatabaseForm extends AbstractForm {
     private void setPropertiesFormEditable(boolean visible) {
         clearContextParams();
         EDBParamName sidOrDatabase = null;
+
+        // hiveMode.setHideWidgets(true);
+        doHideHiveWidgets(true);
         // update the UI label
         if (EDatabaseTypeName.ORACLEFORSID.getProduct().equals(getConnection().getProductId())) {
             if (EDatabaseConnTemplate.ORACLESN.getDBDisplayName().equals(getConnection().getDatabaseType())) {
@@ -2145,6 +2212,19 @@ public class DatabaseForm extends AbstractForm {
                     addContextParams(EDBParamName.Schema, false);
                 }
 
+                // Below added by Marvin Wang on Aug.3, 2012 for sub-task TDI-22201 of task TDI-22130.
+            } else if (template == EDatabaseConnTemplate.HIVE) {
+                schemaTextIsShow = false;
+                // hiveMode.setHideWidgets(false);
+                doHideHiveWidgets(false);
+                // int selectionIndex = hiveModeCombo.getSelectionIndex();
+                // if (selectionIndex == -1 || selectionIndex == 0) {
+                // hiveModeCombo.select(0);
+                // handleStandaloneMode();
+                // } else if (selectionIndex == 1) {
+                // hiveModeCombo.select(selectionIndex);
+                // handleEmbeddedMode();
+                // }
             } else {
                 // schemaText.hide();
                 schemaTextIsShow = false;
@@ -2177,8 +2257,19 @@ public class DatabaseForm extends AbstractForm {
             }
             if (s.contains(EDatabaseConnVar.SID.getVariable()) || s.contains(EDatabaseConnVar.SERVICE_NAME.getVariable())) {
                 if (!EDatabaseConnTemplate.GENERAL_JDBC.getDBTypeName().equals(dbTypeCombo.getText())) {
-                    sidOrDatabaseText.show();
-                    sidOrDatabaseText.setEditable(visible);
+                    // Added by Marvin Wang on Aug. 15, 2012 for handling the case of Hive.
+                    if (EDatabaseTypeName.HIVE.getDisplayName().equalsIgnoreCase(dbTypeCombo.getText())) {
+                        if (isHiveEmbeddedMode()) {
+                            sidOrDatabaseText.hide();
+                            sidOrDatabaseText.setEditable(false);
+                        } else {
+                            sidOrDatabaseText.show();
+                            sidOrDatabaseText.setEditable(true);
+                        }
+                    } else {
+                        sidOrDatabaseText.show();
+                        sidOrDatabaseText.setEditable(visible);
+                    }
                     addContextParams(sidOrDatabase, visible);
                 } else {
                     sidOrDatabaseText.hide();
@@ -2281,6 +2372,7 @@ public class DatabaseForm extends AbstractForm {
             }
         }
 
+        hiveComposite.layout();
         compositeDbSettings.layout();
         typeDbCompositeParent.layout();
         newParent.layout();
@@ -2505,6 +2597,279 @@ public class DatabaseForm extends AbstractForm {
     }
 
     /**
+     * Initializes hive info for Hive UI. If the distribution value from connection is <code>null</code>, the default
+     * selected indexs of hive combos like distribution, hive vesion and hive mode are 0. Added by Marvin Wang on Aug
+     * 10, 2012.
+     */
+    protected void initHiveInfo() {
+        DatabaseConnection connection = getConnection();
+        String distributionObj = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
+        String hiveVersion = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
+        String hiveMode = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
+
+        if (distributionObj != null) {
+
+            currIndexofDistribution = HiveConnUtils.getIndexOfDistribution(distributionObj == null ? null
+                    : ((String) distributionObj));
+            updateHiveDistributionAndMakeSelection(currIndexofDistribution);
+
+            currIndexofHiveVersion = HiveConnUtils.getIndexOfHiveVersion(distributionObj == null ? null
+                    : ((String) distributionObj), hiveVersion == null ? null : ((String) hiveVersion));
+            updateHiveVersionAndMakeSelection(currIndexofDistribution, currIndexofHiveVersion);
+
+            currIndexofHiveMode = HiveConnUtils.getIndexOfHiveMode(distributionObj == null ? null : ((String) distributionObj),
+                    hiveVersion == null ? null : ((String) hiveVersion), hiveMode == null ? null : ((String) hiveMode));
+            updateHiveModeAndMakeSelection(currIndexofDistribution, currIndexofHiveVersion, currIndexofHiveMode);
+
+            doHiveModeModify();
+        } else {
+            updateHiveDistributionAndMakeSelection(0);
+            updateHiveVersionAndMakeSelection(0, 0);
+            updateHiveModeAndMakeSelection(0, 0, 0);
+            doHiveModeModify();
+        }
+
+    }
+
+    /**
+     * Registers a listener for the combo of Hive Mode. Added by Marvin Wang on Aug. 3, 2012.
+     */
+    protected void regHiveCombosListener() {
+        regHiveDistributionComboListener();
+        regHiveVersionComboListener();
+        regHiveModeComboListener();
+    }
+
+    /**
+     * Registers a selection listener for the combo of distribution. It invokes {@link #doHiveDistributionModify()} when
+     * an item is selected. Added by Marvin Wang on Aug 15, 2012.
+     */
+    private void regHiveDistributionComboListener() {
+        distributionCombo.getCombo().addSelectionListener(new SelectionAdapter() {
+
+            public void widgetSelected(SelectionEvent e) {
+                doHiveDistributionModify();
+            }
+        });
+    }
+
+    /**
+     * Registers a selection listener for hive version combo. It invokes {@link #doHiveVersionModify()} when an item is
+     * selected. Added by Marvin Wang on Aug 15, 2012.
+     */
+    private void regHiveVersionComboListener() {
+        hiveVersionCombo.getCombo().addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                doHiveVersionModify();
+            }
+        });
+    }
+
+    /**
+     * Registers a selection listener for hive mode combo. It invokes {@link #doHiveModeModify()} when an item is
+     * selected. Added by Marvin Wang on Aug 15, 2012.
+     */
+    private void regHiveModeComboListener() {
+        hiveModeCombo.getCombo().addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                doHiveModeModify();
+            }
+        });
+    }
+
+    /**
+     * This method is invoked when an item of Hive mode is selected. If the selected is Embedded, it invokes
+     * {@link #handleEmbeddedMode()}, {@link #handleStandaloneMode()} otherwise. Then it invokes the method
+     * {@link #doUpdateConnection()} to update connection. Added by Marvin Wang on Aug. 3, 2012.
+     */
+    protected void doHiveModeModify() {
+        int distributionIndex = distributionCombo.getSelectionIndex();
+        int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
+        int hiveModeIndex = hiveModeCombo.getSelectionIndex();
+        boolean isEmbeddedMode = HiveConnUtils.isEmbeddedMode(distributionIndex, hiveVersionIndex, hiveModeIndex);
+
+        getConnection().setURL(getStringConnection());
+        if (isEmbeddedMode)
+            handleEmbeddedMode();
+        else
+            handleStandaloneMode();
+
+        doUpdateConnection();
+    }
+
+    /**
+     * 
+     * Added by Marvin Wang on Aug 10, 2012.
+     */
+    protected void doHiveDistributionModify() {
+        int indexSelected = distributionCombo.getSelectionIndex();
+        if (currIndexofDistribution != indexSelected) {
+            // 1. To update Hive Version List and make a default selection. 2. To do the same as Hive Version list
+            // for Hive mode. 3. To update connection parameters.
+            currIndexofDistribution = indexSelected;
+            updateHiveVersionAndMakeSelection(indexSelected, 0);
+            updateHiveModeAndMakeSelection(currIndexofDistribution, 0, 0);
+
+            doHiveModeModify();
+        }
+    }
+
+    protected void doHiveVersionModify() {
+        int distributionIndex = distributionCombo.getSelectionIndex();
+        int currSelectedIndex = hiveVersionCombo.getSelectionIndex();
+        if (currIndexofHiveVersion != currSelectedIndex) {
+            currIndexofHiveVersion = currSelectedIndex;
+            updateHiveModeAndMakeSelection(distributionIndex, currSelectedIndex, 0);
+
+            doHiveModeModify();
+        }
+    }
+
+    protected void updateHiveDistributionAndMakeSelection(int distributionIndex) {
+        distributionCombo.getCombo().setItems(HiveConnUtils.getDistributionNames());
+        distributionCombo.select(distributionIndex);
+        currIndexofDistribution = distributionIndex;
+    }
+
+    protected void updateHiveVersionAndMakeSelection(int distributionIndex, int hiveVersionIndex) {
+        hiveVersionCombo.getCombo().setItems(HiveConnUtils.getHiveVersionNames(distributionIndex));
+        hiveVersionCombo.select(hiveVersionIndex);
+        currIndexofHiveVersion = hiveVersionIndex;
+    }
+
+    protected void updateHiveModeAndMakeSelection(int distributionIndex, int hiveVersionIndex, int hiveModeIndex) {
+        hiveModeCombo.getCombo().setItems(HiveConnUtils.getHiveModeNames(distributionIndex, hiveVersionIndex));
+        hiveModeCombo.select(hiveModeIndex);
+        currIndexofHiveMode = hiveModeIndex;
+    }
+
+    protected String getHiveModeKey() {
+        int distributionIndex = distributionCombo.getSelectionIndex();
+        int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
+        int hiveModeIndex = hiveModeCombo.getSelectionIndex();
+
+        return HiveConnUtils.getHiveModeObjKey(distributionIndex, hiveVersionIndex, hiveModeIndex);
+    }
+
+    /**
+     * It is invoked when the mode STANDALONE is selected. Added by Marvin Wang on Aug. 3, 2012.
+     */
+    public void handleStandaloneMode() {
+        urlConnectionStringText.setText(getConnection().getURL());
+        sidOrDatabaseText.show();
+        sidOrDatabaseText.setEditable(true);
+        hiveComposite.layout();
+        compositeDbSettings.layout();
+        typeDbCompositeParent.layout();
+        newParent.layout();
+        databaseSettingGroup.layout();
+        compositeGroupDbSettings.layout();
+
+    }
+
+    /**
+     * It is invoked when the mode EMBEDDED is selected. Added by Marvin Wang on Aug. 3, 2012.
+     */
+    public void handleEmbeddedMode() {
+        urlConnectionStringText.setText(getConnection().getURL());
+        sidOrDatabaseText.setVisible(false);
+        hiveComposite.layout();
+        compositeDbSettings.layout();
+        typeDbCompositeParent.layout();
+        newParent.layout();
+        databaseSettingGroup.layout();
+        compositeGroupDbSettings.layout();
+    }
+
+    /**
+     * When selecting the DB type of Hive, make the combo box of Hive mode visible and STANDALONE default selected.
+     */
+    protected void doHiveDBTypeSelected() {
+        hiveModeCombo.setHideWidgets(false);
+        hiveModeCombo.select(0);
+
+    }
+
+    protected void doHideHiveWidgets(boolean hide) {
+        GridData gridData = (GridData) hiveComposite.getLayoutData();
+        hiveComposite.setVisible(!hide);
+        gridData.exclude = hide;
+        distributionCombo.setHideWidgets(hide);
+        hiveVersionCombo.setHideWidgets(hide);
+        hiveModeCombo.setHideWidgets(hide);
+    }
+
+    /**
+     * Updates the parameter of Hive mode in connection. Put the values of distribution, hive version and hive mode in
+     * the parameters of connection.
+     */
+    protected void doUpdateConnection() {
+        if (!isContextMode()) {
+            int distributionIndex = distributionCombo.getSelectionIndex();
+            int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
+            int hiveModeIndex = hiveModeCombo.getSelectionIndex();
+
+            String key = HiveConnUtils.getHiveModeObj(distributionIndex, hiveVersionIndex, hiveModeIndex).getKey();
+
+            EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersion(key);
+            if (version != null) {
+                DatabaseConnection conn = getConnection();
+                conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION,
+                        HiveConnUtils.getDistributionObj(distributionIndex).getKey());
+                conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION,
+                        HiveConnUtils.getHiveVersionObj(distributionIndex, hiveVersionIndex).getKey());
+                conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE,
+                        HiveConnUtils.getHiveModeObj(distributionIndex, hiveVersionIndex, hiveModeIndex).getKey());
+            }
+            // urlConnectionStringText.setText(getStringConnection());
+            // checkFieldsValue();
+        }
+    }
+
+    protected void doHivePreSetup() {
+        String dbType = dbTypeCombo.getText();
+        if (EDatabaseTypeName.HIVE.getDisplayName().equalsIgnoreCase(dbType)) {
+            String hiveModeDisplayName = hiveModeCombo.getText();
+            if (hiveModeDisplayName != null
+                    && hiveModeDisplayName.equalsIgnoreCase(Messages.getString("DatabaseForm.hiveMode.embedded"))) {
+
+                System.setProperty("hive.metastore.local", "false");
+                System.setProperty("hive.metastore.uris", "thrift://" + serverText.getText() == null ? "" : serverText.getText()
+                        + ":" + portText.getText() == null ? "" : portText.getText());
+                System.setProperty("hive.metastore.execute.setugi", "true");
+            }
+        }
+    }
+
+    protected void doRemoveHiveSetup() {
+        System.clearProperty("hive.metastore.local");
+        System.clearProperty("hive.metastore.uris");
+        System.clearProperty("hive.metastore.execute.setugi");
+    }
+
+    /**
+     * To identify if the mode of current DB type is Hive EMBEDDED, if so, return <code>true</code>, <code>false</code>
+     * otherwise.
+     * 
+     * @return
+     */
+    protected boolean isHiveEmbeddedMode() {
+        String dbType = dbTypeCombo.getText();
+        if (EDatabaseTypeName.HIVE.getDisplayName().equalsIgnoreCase(dbType)) {
+            String hiveModeDisplayName = hiveModeCombo.getText();
+            if (hiveModeDisplayName != null
+                    && hiveModeDisplayName.equalsIgnoreCase(Messages.getString("DatabaseForm.hiveMode.embedded"))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * 
      * DOC zshen Comment method "getMetadataConnection".
      * 
@@ -2513,4 +2878,17 @@ public class DatabaseForm extends AbstractForm {
     public IMetadataConnection getMetadataConnection() {
         return this.metadataconnection;
     }
+
+    public LabelledCombo getHiveModeCombo() {
+        return this.hiveModeCombo;
+    }
+
+    public LabelledCombo getDistributionCombo() {
+        return this.distributionCombo;
+    }
+
+    public LabelledCombo getHiveVersionCombo() {
+        return this.hiveVersionCombo;
+    }
+
 }

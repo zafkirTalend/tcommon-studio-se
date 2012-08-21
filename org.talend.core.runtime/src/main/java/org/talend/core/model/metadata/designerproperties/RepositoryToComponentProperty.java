@@ -27,6 +27,7 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.utils.PathUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.language.ECodeLanguage;
@@ -1078,6 +1079,18 @@ public class RepositoryToComponentProperty {
             } else {
                 return TalendQuoteUtils.addQuotes(connection.getServerName());
             }
+        }
+
+        if (value.equals("DISTRIBUTION")) {
+            return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
+        }
+
+        if (value.equals("HIVE_VERSION")) {
+            return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
+        }
+
+        if (value.equals("CONNECTION_MODE")) {
+            return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
         }
         return null;
     }

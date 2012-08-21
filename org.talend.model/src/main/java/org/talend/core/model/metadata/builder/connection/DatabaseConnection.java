@@ -5,6 +5,8 @@
  */
 package org.talend.core.model.metadata.builder.connection;
 
+import org.eclipse.emf.common.util.EMap;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Database Connection</b></em>'.
@@ -42,6 +44,7 @@ package org.talend.core.model.metadata.builder.connection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getCdcTypeMode <em>Cdc Type Mode</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#isSQLMode <em>SQL Mode</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getUiSchema <em>Ui Schema</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getParameters <em>Parameters</em>}</li>
  * </ul>
  * </p>
  *
@@ -781,5 +784,22 @@ public interface DatabaseConnection extends Connection {
      * @generated
      */
     void setUiSchema(String value);
+
+    /**
+     * Returns the value of the '<em><b>Parameters</b></em>' map.
+     * The key is of type {@link java.lang.String},
+     * and the value is of type {@link java.lang.String},
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Parameters</em>' map isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Parameters</em>' map.
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_Parameters()
+     * @model mapType="org.talend.core.model.metadata.builder.connection.AdditionalProperties<org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EString>"
+     * @generated
+     */
+    EMap<String, String> getParameters();
 
 } // DatabaseConnection

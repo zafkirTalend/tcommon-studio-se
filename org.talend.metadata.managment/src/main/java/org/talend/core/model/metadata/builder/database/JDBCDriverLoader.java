@@ -82,6 +82,13 @@ public class JDBCDriverLoader {
             wapperDriver = new DriverShim((Driver) (driver.newInstance()));
 
             Properties info = new Properties();
+
+            // url = "jdbc:hive://";
+            // username = "jjzhou";
+            // password = "talend";
+            // System.setProperty("hive.metastore.local", "false");
+            // System.setProperty("hive.metastore.uris", "thrift://" + "192.168.30.162" + ":" + "9083");
+            // System.setProperty("hive.metastore.execute.setugi", "true");
             // to avoid NPE
             username = username != null ? username : "";
             password = password != null ? password : "";
@@ -98,7 +105,7 @@ public class JDBCDriverLoader {
                         && additionalParams.indexOf(SHUTDOWN_PARAM) == -1) {
                     url = url + SHUTDOWN_PARAM;
                 }
-                // MOD klliu TDQ-4659 sso could not check passed.2012-02-10           
+                // MOD klliu TDQ-4659 sso could not check passed.2012-02-10
                 if (dbType.equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
                     connection = ConnectionUtils.createConnection(url, (Driver) (driver.newInstance()), info);
                 } else {

@@ -13,7 +13,9 @@
 package org.talend.core.model.metadata;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * DOC cantoine Meta Data Connection. Contains info of conncection. <br/>
@@ -69,7 +71,6 @@ public class MetadataConnection implements IMetadataConnection {
 
     private boolean sqlMode;
 
-
     // MOD by zshen for mdmConnection of top
     private String datafilter;
 
@@ -108,9 +109,6 @@ public class MetadataConnection implements IMetadataConnection {
 
     // ~
 
-
-
-
     private String comment;
 
     private String id;
@@ -119,7 +117,11 @@ public class MetadataConnection implements IMetadataConnection {
 
     private Object connection;
 
+    private Map<String, Object> otherParameters;
 
+    public MetadataConnection() {
+        otherParameters = new HashMap<String, Object>();
+    }
 
     public boolean isSqlMode() {
         return this.sqlMode;
@@ -578,7 +580,6 @@ public class MetadataConnection implements IMetadataConnection {
         return label;
     }
 
-
     public String getDatafilter() {
         return datafilter;
     }
@@ -602,7 +603,6 @@ public class MetadataConnection implements IMetadataConnection {
     public void setRetrieveAllMetadata(boolean retrieveAllMetadata) {
         this.retrieveAllMetadata = retrieveAllMetadata;
     }
-
 
     public void setId(String id) {
         this.id = id;
@@ -722,6 +722,35 @@ public class MetadataConnection implements IMetadataConnection {
 
     public void setContextName(String contextName) {
         this.contextName = contextName;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.metadata.IMetadataConnection#getParameter(java.lang.String)
+     */
+    public Object getParameter(String key) {
+        if (otherParameters != null)
+            return otherParameters.get(key);
+        return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.metadata.IMetadataConnection#setParameter(java.lang.String, java.lang.Object)
+     */
+    public void setParameter(String key, Object value) {
+        if (otherParameters == null)
+            otherParameters = new HashMap<String, Object>();
+        otherParameters.put(key, value);
+    }
+
+    /**
+     * In this class, all parameters that will be added later are stored in map, so return the map.
+     */
+    public Map<String, Object> getOtherParameters() {
+        return otherParameters;
     }
 
 }

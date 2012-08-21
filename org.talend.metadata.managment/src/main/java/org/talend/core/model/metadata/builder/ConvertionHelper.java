@@ -14,7 +14,10 @@ package org.talend.core.model.metadata.builder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 
+import org.eclipse.emf.common.util.EMap;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
 import org.talend.core.model.metadata.IMetadataColumn;
@@ -119,8 +122,28 @@ public final class ConvertionHelper {
         // handle oracle database connnection of general_jdbc.
         result.setSchema(ExtractMetaDataUtils.getMeataConnectionSchema(result));
 
+        convertOtherParameters(result, connection);
+
         return result;
 
+    }
+
+    /**
+     * Copies other parameters from <code>DatabaseConnection</code> to <code>IMetadataConnection</code>. Added by Marvin
+     * Wang on Aug.8, 2012.
+     * 
+     * @param result
+     * @param connection
+     */
+    static void convertOtherParameters(IMetadataConnection result, DatabaseConnection connection) {
+        EMap<String, String> otherParameters = connection.getParameters();
+
+        if (otherParameters != null && otherParameters.size() > 0) {
+            Set<Entry<String, String>> set = otherParameters.entrySet();
+            for (Entry<String, String> entry : set) {
+                result.setParameter(entry.getKey(), entry.getValue());
+            }
+        }
     }
 
     /**

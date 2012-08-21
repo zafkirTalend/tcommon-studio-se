@@ -14,11 +14,14 @@ package org.talend.repository.ui.utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.EMap;
 import org.talend.commons.bridge.ReponsitoryContextBridge;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.utils.PathUtils;
@@ -419,6 +422,7 @@ public final class DBConnectionContextUtils {
         cloneConn.setReadOnly(dbConn.isReadOnly());
         cloneConn.setDriverClass(className);
         cloneConn.setName(dbConn.getName());
+        cloneOtherParameters(dbConn, cloneConn);
         if (dbConn.isSetSQLMode()) {
             cloneConn.setSQLMode(dbConn.isSQLMode());
         } else {
@@ -448,6 +452,22 @@ public final class DBConnectionContextUtils {
         }
 
         return cloneConn;
+    }
+
+    /**
+     * Clones other parameters from the original parameters. Added by Marvin Wang on Aug 13, 2012.
+     * 
+     * @param dbConn
+     * @param cloneConn
+     */
+    protected static void cloneOtherParameters(DatabaseConnection dbConn, DatabaseConnection cloneConn) {
+        EMap<String, String> originalParams = dbConn.getParameters();
+        if (originalParams != null && originalParams.size() > 0) {
+            EMap<String, String> clonedMap = cloneConn.getParameters();
+            for (Entry<String, String> entry : originalParams.entrySet()) {
+                clonedMap.put(entry.getKey(), entry.getValue());
+            }
+        }
     }
 
     static void revertPropertiesForContextMode(DatabaseConnection conn, ContextType contextType) {

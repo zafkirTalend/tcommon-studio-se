@@ -7,9 +7,13 @@ package org.talend.core.model.metadata.builder.connection.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EcoreEMap;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.model.metadata.builder.connection.CDCConnection;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
@@ -47,6 +51,7 @@ import org.talend.cwm.helper.ConnectionHelper;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getCdcTypeMode <em>Cdc Type Mode</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#isSQLMode <em>SQL Mode</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getUiSchema <em>Ui Schema</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getParameters <em>Parameters</em>}</li>
  * </ul>
  * </p>
  *
@@ -549,6 +554,16 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * @ordered
      */
     protected String uiSchema = UI_SCHEMA_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getParameters() <em>Parameters</em>}' map.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getParameters()
+     * @generated
+     * @ordered
+     */
+    protected EMap<String, String> parameters;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1163,6 +1178,19 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EMap<String, String> getParameters() {
+        if (parameters == null) {
+            parameters = new EcoreEMap<String, String>(ConnectionPackage.Literals.ADDITIONAL_PROPERTIES,
+                    AdditionalPropertiesImpl.class, this, ConnectionPackage.DATABASE_CONNECTION__PARAMETERS);
+        }
+        return parameters;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1187,6 +1215,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         switch (featureID) {
         case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
             return basicSetCdcConns(null, msgs);
+        case ConnectionPackage.DATABASE_CONNECTION__PARAMETERS:
+            return ((InternalEList<?>) getParameters()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -1249,6 +1279,11 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
             return isSQLMode();
         case ConnectionPackage.DATABASE_CONNECTION__UI_SCHEMA:
             return getUiSchema();
+        case ConnectionPackage.DATABASE_CONNECTION__PARAMETERS:
+            if (coreType)
+                return getParameters();
+            else
+                return getParameters().map();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1352,6 +1387,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         case ConnectionPackage.DATABASE_CONNECTION__UI_SCHEMA:
             setUiSchema((String) newValue);
             return;
+        case ConnectionPackage.DATABASE_CONNECTION__PARAMETERS:
+            ((EStructuralFeature.Setting) getParameters()).set(newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1438,6 +1476,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         case ConnectionPackage.DATABASE_CONNECTION__UI_SCHEMA:
             setUiSchema(UI_SCHEMA_EDEFAULT);
             return;
+        case ConnectionPackage.DATABASE_CONNECTION__PARAMETERS:
+            getParameters().clear();
+            return;
         }
         super.eUnset(featureID);
     }
@@ -1501,6 +1542,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
             return isSetSQLMode();
         case ConnectionPackage.DATABASE_CONNECTION__UI_SCHEMA:
             return UI_SCHEMA_EDEFAULT == null ? uiSchema != null : !UI_SCHEMA_EDEFAULT.equals(uiSchema);
+        case ConnectionPackage.DATABASE_CONNECTION__PARAMETERS:
+            return parameters != null && !parameters.isEmpty();
         }
         return super.eIsSet(featureID);
     }

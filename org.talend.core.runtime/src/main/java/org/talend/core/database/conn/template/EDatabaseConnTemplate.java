@@ -165,8 +165,8 @@ public enum EDatabaseConnTemplate {
             "jdbc:xxx://<xxx>:<xxx>", //$NON-NLS-1$
             "xxxx")), //$NON-NLS-1$
 
-    HIVE(new DbConnStr(EDatabaseTypeName.HIVE, "jdbc:hive://<host>:<port>/<sid>", //$NON-NLS-1$
-            "10000")),
+    HIVE(new DbConnStrForHive(EDatabaseTypeName.HIVE, "jdbc:hive://<host>:<port>/<sid>",//$NON-NLS-1$
+            new EDatabaseVersion4Drivers[] { EDatabaseVersion4Drivers.HIVE, EDatabaseVersion4Drivers.HIVE_EMBEDDED })),
 
     HBASE(new DbConnStr(EDatabaseTypeName.HBASE, "127.0.0.1", //$NON-NLS-1$
             "2181"));
