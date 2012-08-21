@@ -71,10 +71,16 @@ public enum EParameterFieldType {
     VALIDATION_RULE_TYPE,
     DCSCHEMA, // Datacert custom EparameterFieldType for DCSchemaController
     TREE_TABLE, // hcyi TDI-17115
-	SURVIVOR_RELATION, // sizhaoliu TDQ-3724
+    SURVIVOR_RELATION, // sizhaoliu TDQ-3724
 
-	ROUTE_RESOURCE_TYPE, // Xiaopeng Li TESB-6226
-	ROUTE_COMPONENT_TYPE;
+    ROUTE_RESOURCE_TYPE, // Xiaopeng Li TESB-6226
+    ROUTE_COMPONENT_TYPE,
+
+    FILE_HADOOP, // ycbai add for feature TDI-22111
+    DIRECTORY_HADOOP, // ycbai add for feature TDI-22111
+
+    ;
+
     public String getName() {
         return toString();
     }
