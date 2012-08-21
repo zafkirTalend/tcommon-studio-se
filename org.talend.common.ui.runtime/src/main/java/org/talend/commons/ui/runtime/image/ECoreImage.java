@@ -54,6 +54,7 @@ public enum ECoreImage implements IImage {
     PROCESS_WIZ("/icons1/process_wiz.png"), //$NON-NLS-1$
     PROCESS_TEMPLATE_ICON("/icons1/process_icon.gif"), //$NON-NLS-1$
     PROCESS_TEMPLATE_WIZ("/icons1/process_template_wiz.png"), //$NON-NLS-1$
+    SERVICES_ICON("/icons1/services.png"), //$NON-NLS-1$
     JOBLET_ICON("/icons1/joblet_icon.png"), //$NON-NLS-1$
     CONTEXT_ICON("/icons1/context_icon.gif"), //$NON-NLS-1$
     CONTEXT_CONF_ICON("/icons1/context_conf_icon.gif"), //$NON-NLS-1$
@@ -168,7 +169,7 @@ public enum ECoreImage implements IImage {
     PROGRESSGRAYBAR("/icons1/gray.gif"), //$NON-NLS-1$
     PROGRESSGRAYGEBAR("/icons1/graygeBar.gif"), //$NON-NLS-1$
     TRIANGLE("/icons1/triangle.gif"), // triangle.gif //$NON-NLS-1$
-    COMPARE("/icons1/compare.gif"), //$NON-NLS-N$
+    COMPARE("/icons1/compare.gif"),
     EXCHNAGETAB("/icons/exchangeTab.jpg"), // $NON-NLS-1$
     EXCHNAGEIMAGEMISSING("/icons/component_missing.gif"); // $NON-NLS-1$
 
@@ -187,6 +188,7 @@ public enum ECoreImage implements IImage {
      * 
      * @return the path
      */
+    @Override
     public String getPath() {
         return this.path;
     }
@@ -196,6 +198,7 @@ public enum ECoreImage implements IImage {
      * 
      * @return the clazz
      */
+    @Override
     public Class getLocation() {
         return ECoreImage.class;
         // return CorePlugin.class;
