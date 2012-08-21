@@ -854,7 +854,7 @@ public class ExtractManager {
                     stmt.close();
                 }
             } else {
-                retrieveItemTables(metadataConnection, tableInfoParameters, itemTablesName);
+                itemTablesName = retrieveItemTables(metadataConnection, tableInfoParameters, itemTablesName);
             }
         } catch (SQLException e) {
             log.error(e.toString());
@@ -883,7 +883,7 @@ public class ExtractManager {
         return itemTablesName;
     }
 
-    protected void retrieveItemTables(IMetadataConnection metadataConnection, TableInfoParameters tableInfoParameters,
+    protected List<String> retrieveItemTables(IMetadataConnection metadataConnection, TableInfoParameters tableInfoParameters,
             List<String> itemTablesName) throws SQLException {
         Set<String> nameFiters = tableInfoParameters.getNameFilters();
 
@@ -900,6 +900,7 @@ public class ExtractManager {
                 }
             }
         }
+        return itemTablesName;
     }
 
     protected void filterTablesFromRecycleBin(IMetadataConnection metadataConnection, List<String> itemTablesName) {

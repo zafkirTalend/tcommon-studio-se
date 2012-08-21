@@ -322,7 +322,7 @@ public class OracleExtractManager extends ExtractManager {
     }
 
     @Override
-    protected void retrieveItemTables(IMetadataConnection metadataConnection, TableInfoParameters tableInfoParameters,
+    protected List<String> retrieveItemTables(IMetadataConnection metadataConnection, TableInfoParameters tableInfoParameters,
             List<String> itemTablesName) throws SQLException {
         // if want to get all tables and synonyms,need to get the value of the public_synonym_checken botton
         if (ExtractMetaDataUtils.conn != null && ExtractMetaDataUtils.conn.toString().contains("oracle.jdbc.driver") //$NON-NLS-1$
@@ -359,8 +359,9 @@ public class OracleExtractManager extends ExtractManager {
             }
 
         } else {
-            super.retrieveItemTables(metadataConnection, tableInfoParameters, itemTablesName);
+            itemTablesName = super.retrieveItemTables(metadataConnection, tableInfoParameters, itemTablesName);
         }
+        return itemTablesName;
     }
 
     @Override
