@@ -846,4 +846,14 @@ public class ObjectElementParameter implements IElementParameter {
         return 0;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElementParameter#isRequired(java.util.List)
+     */
+    public boolean isRequired(List<? extends IElementParameter> listParam) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }
