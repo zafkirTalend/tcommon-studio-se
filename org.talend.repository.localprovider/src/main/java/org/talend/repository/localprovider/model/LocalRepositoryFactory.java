@@ -1283,10 +1283,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         IPath lastPath = sourcePath;
         if (sourcePath.lastSegment().equalsIgnoreCase(label)) {
             String tmpLabel = label.concat(this.getNextId());
-            renameFolder(type, sourcePath, tmpLabel);
+            renameFolderExecute(type, sourcePath, tmpLabel);
             lastPath = sourcePath.removeLastSegments(1).append(tmpLabel);
         }
-        renameFolder(type, lastPath, label);
+        renameFolderExecute(type, lastPath, label);
     }
 
     private void renameFolderExecute(final ERepositoryObjectType type, final IPath sourcePath, final String label)
