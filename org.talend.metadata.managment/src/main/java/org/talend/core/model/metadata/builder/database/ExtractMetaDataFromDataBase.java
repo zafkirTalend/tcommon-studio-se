@@ -492,7 +492,7 @@ public class ExtractMetaDataFromDataBase {
                     && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 ExtractMetaDataUtils.closeConnection();
             }
             if (wapperDriver != null
@@ -500,7 +500,7 @@ public class ExtractMetaDataFromDataBase {
                             || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 try {
                     wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                 } catch (SQLException e) {
@@ -848,7 +848,7 @@ public class ExtractMetaDataFromDataBase {
                             || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 try {
                     wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                 } catch (SQLException e) {
@@ -1504,14 +1504,14 @@ public class ExtractMetaDataFromDataBase {
                 try {
                     PreparedStatement statement = ExtractMetaDataUtils.conn
                             .prepareStatement("SELECT COMMENTS FROM USER_COL_COMMENTS WHERE TABLE_NAME='" //$NON-NLS-1$
-                                    + tableNode.getValue() + "'"); //$NON-NLS-1$ //$NON-NLS-2$
+                                    + tableNode.getValue() + "'"); //$NON-NLS-1$ 
                     ResultSet keys = null;
                     ExtractMetaDataUtils.setQueryStatementTimeout(statement);
                     if (statement.execute()) {
                         keys = statement.getResultSet();
                         int i = 0;
                         while (keys.next()) {
-                            MetadataColumn metadataColumn = (MetadataColumn) metadataColumns.get(i++);
+                            MetadataColumn metadataColumn = metadataColumns.get(i++);
                             metadataColumn.setComment(ManagementTextUtils.filterSpecialChar(keys.getString("COMMENTS"))); //$NON-NLS-1$
                         }
                     }
@@ -1544,6 +1544,7 @@ public class ExtractMetaDataFromDataBase {
      * @return Collection of MetadataColumn Object
      * @deprecated
      */
+    @Deprecated
     public static List<TdColumn> extractMetadataColumnsFormTable(DatabaseMetaData dbMetaData, String medataLabel,
             IMetadataConnection metadataConnection, String databaseType) {
         columnIndex = 0;
@@ -1637,7 +1638,7 @@ public class ExtractMetaDataFromDataBase {
                         b = true;
                     }
 
-                    metadataColumn.setLabel(label); //$NON-NLS-1$
+                    metadataColumn.setLabel(label);
                     // String label2 = metadataColumn.getLabel();
                     //                    if (label2 != null && label2.length() > 0 && label2.startsWith("_")) { //$NON-NLS-1$
                     // String substring = label2.substring(1);
@@ -1671,7 +1672,7 @@ public class ExtractMetaDataFromDataBase {
                     if (ExtractMetaDataUtils.isUseAllSynonyms()) {
                         typeName = "DATA_TYPE"; //$NON-NLS-1$
                     }
-                    String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, typeName, null).toUpperCase(); //$NON-NLS-1$
+                    String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, typeName, null).toUpperCase();
                     // For sometime the dbType will return one more space character at the end.So need to trim,comment
                     // for bug 17509
                     dbType = dbType.trim();
@@ -1688,7 +1689,7 @@ public class ExtractMetaDataFromDataBase {
                             columnSize = ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE");
                         }
                     }
-                    metadataColumn.setLength(columnSize); //$NON-NLS-1$
+                    metadataColumn.setLength(columnSize);
                     // Convert dbmsType to TalendType
 
                     String talendType = null;
@@ -1698,7 +1699,7 @@ public class ExtractMetaDataFromDataBase {
                         mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(metadataConnection.getMapping());
                     }
                     Integer intMetaDataInfo = ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS");
-                    talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, columnSize, intMetaDataInfo); //$NON-NLS-1$
+                    talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, columnSize, intMetaDataInfo);
                     talendType = ManagementTextUtils.filterSpecialChar(talendType);
                     if (talendType == null) {
                         if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
@@ -1733,7 +1734,7 @@ public class ExtractMetaDataFromDataBase {
                         commentInfo = ManagementTextUtils.filterSpecialChar(commentInfo);
                     }
                     // gcui:if not oracle database use "REMARKS" select comments
-                    metadataColumn.setComment(commentInfo); //$NON-NLS-1$
+                    metadataColumn.setComment(commentInfo);
                     if (!isAccess) { // jdbc-odbc driver won't apply methods for access
                         TDColumnAttributeHelper.addColumnAttribute(label, label2, dbType, columnSize, intMetaDataInfo,
                                 commentInfo, columns, metadataColumn,
@@ -1747,9 +1748,8 @@ public class ExtractMetaDataFromDataBase {
                         Integer ident1 = 0;
                         Integer ident2 = 0;
                         try {
-                            PreparedStatement statement = ExtractMetaDataUtils.conn
-                                    .prepareStatement(" select IDENT_SEED ( '" + medataLabel + "')," + "IDENT_INCR ( '" //$NON-NLS-N$ //$NON-NLS-N$ //$NON-NLS-N$
-                                            + medataLabel + "')"); //$NON-NLS-1$ 
+                            PreparedStatement statement = ExtractMetaDataUtils.conn.prepareStatement(" select IDENT_SEED ( '"
+                                    + medataLabel + "')," + "IDENT_INCR ( '" + medataLabel + "')"); //$NON-NLS-1$ 
                             ResultSet resultSet = null;
                             ExtractMetaDataUtils.setQueryStatementTimeout(statement);
                             if (statement.execute()) {
@@ -1810,14 +1810,14 @@ public class ExtractMetaDataFromDataBase {
                 try {
                     PreparedStatement statement = ExtractMetaDataUtils.conn
                             .prepareStatement("SELECT COMMENTS FROM USER_COL_COMMENTS WHERE TABLE_NAME='" //$NON-NLS-1$
-                                    + medataLabel + "'"); //$NON-NLS-1$ //$NON-NLS-2$
+                                    + medataLabel + "'"); //$NON-NLS-1$ 
                     ResultSet keys = null;
                     ExtractMetaDataUtils.setQueryStatementTimeout(statement);
                     if (statement.execute()) {
                         keys = statement.getResultSet();
                         int i = 0;
                         while (keys.next()) {
-                            MetadataColumn metadataColumn = (MetadataColumn) metadataColumns.get(i++);
+                            MetadataColumn metadataColumn = metadataColumns.get(i++);
                             metadataColumn.setComment(ManagementTextUtils.filterSpecialChar(keys.getString("COMMENTS"))); //$NON-NLS-1$
                         }
                     }
@@ -1975,7 +1975,7 @@ public class ExtractMetaDataFromDataBase {
                             || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 try {
                     wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                 } catch (SQLException e) {
@@ -2084,7 +2084,7 @@ public class ExtractMetaDataFromDataBase {
                 || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                 || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName())
                 || dbType.equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()) || dbType.equals(generalJDBCDisplayName))
-                && (url != null && url.contains("jdbc:derby")) && wapperDriver != null) { //$NON-NLS-1$ //$NON-NLS-2$
+                && (url != null && url.contains("jdbc:derby")) && wapperDriver != null) { //$NON-NLS-1$ 
             try {
                 wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
             } catch (SQLException e) {
@@ -2140,7 +2140,7 @@ public class ExtractMetaDataFromDataBase {
                         || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                        .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
             try {
                 wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
             } catch (SQLException e) {
@@ -2302,7 +2302,7 @@ public class ExtractMetaDataFromDataBase {
                         || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                        .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
             try {
                 wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
             } catch (SQLException e) {
@@ -2414,7 +2414,7 @@ public class ExtractMetaDataFromDataBase {
                 boolean isDerby = false;
                 if (iMetadataConnection != null) {
                     String dbType = iMetadataConnection.getDbType();
-                    if (dbType.equals("General JDBC")) {//$NON-NLS-N$
+                    if (dbType.equals("General JDBC")) {
                         String driverClassName = iMetadataConnection.getDriverClass();
                         String driverJar = iMetadataConnection.getDriverJarPath();
                         if (driverJar != null && !"".equals(driverJar)) {
@@ -2430,7 +2430,7 @@ public class ExtractMetaDataFromDataBase {
                     }
                     isDerby = "JavaDB Embeded".equals(dbType) || "HSQLDB In-Process".equals(dbType);//$NON-NLS-1$//$NON-NLS-2$
                 }
-                String colComment = "";//$NON-NLS-N$
+                String colComment = "";
                 if (!isDerby) {
                     if (EDatabaseTypeName.ORACLEFORSID.getProduct().equals(iMetadataConnection.getProduct())
                             && iMetadataConnection.getDbVersionString() != null
@@ -2442,7 +2442,7 @@ public class ExtractMetaDataFromDataBase {
                         colComment = getTableComment(nameKey, resultSet, true);
                     }
                 }
-                itemTablesName.add(nameKey); //$NON-NLS-1$
+                itemTablesName.add(nameKey);
                 if (ExtractMetaDataFromDataBase.tableCommentsMap.containsKey(nameKey)) {
                     if (colComment == null) {
                         colComment = "";
@@ -2631,8 +2631,8 @@ public class ExtractMetaDataFromDataBase {
                 }
             }
         }
-        catalogAndSchema.add(catalogName);
-        catalogAndSchema.add(" ".equals(schemaName) ? null : schemaName); //$NON-NLS-1$
+        catalogAndSchema.add("".equals(catalogName) ? null : catalogName);
+        catalogAndSchema.add((" ".equals(schemaName) || "".equals(schemaName)) ? null : schemaName); //$NON-NLS-1$
         return catalogAndSchema;
     }
 

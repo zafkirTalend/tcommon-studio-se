@@ -301,7 +301,7 @@ public class SelectorTableForm extends AbstractForm {
         // Button Create Table
         String displayStr = Messages.getString("SelectorTableForm.selectAllTables"); //$NON-NLS-1$
         Point buttonSize = gc.stringExtent(displayStr);
-        selectAllTablesButton = new UtilsButton(compositeRetreiveSchemaButton, displayStr, buttonSize.x + 12, HEIGHT_BUTTON_PIXEL); //$NON-NLS-1$
+        selectAllTablesButton = new UtilsButton(compositeRetreiveSchemaButton, displayStr, buttonSize.x + 12, HEIGHT_BUTTON_PIXEL);
 
         displayStr = Messages.getString("SelectorTableForm.selectNoneTables"); //$NON-NLS-1$
         buttonSize = gc.stringExtent(displayStr);
@@ -344,6 +344,7 @@ public class SelectorTableForm extends AbstractForm {
         // if table already exist in connection, should set checked.
         tree.addListener(SWT.Expand, new Listener() {
 
+            @Override
             public void handleEvent(Event event) {
                 TreeItem treeItem = (TreeItem) event.item;
                 for (TreeItem item : treeItem.getItems()) {
@@ -420,6 +421,7 @@ public class SelectorTableForm extends AbstractForm {
 
             private final Comparator strComparator = new Comparator() {
 
+                @Override
                 public int compare(Object arg0, Object arg1) {
 
                     TableItem t1 = (TableItem) arg0;
@@ -1094,7 +1096,7 @@ public class SelectorTableForm extends AbstractForm {
                     && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 ExtractMetaDataUtils.closeConnection();
             }
             if (derbyDriver != null) {
@@ -1119,6 +1121,7 @@ public class SelectorTableForm extends AbstractForm {
             }
             parentWizardPage.getWizard().getContainer().run(true, true, new IRunnableWithProgress() {
 
+                @Override
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                     monitor.beginTask(Messages.getString("CreateTableAction.action.createTitle"), IProgressMonitor.UNKNOWN); //$NON-NLS-1$
                     // add
@@ -1159,12 +1162,16 @@ public class SelectorTableForm extends AbstractForm {
                                 openInfoDialogInUIThread(getShell(), "Error", "No catalog or schema exist", true);
                             }
                         } else {
+                            // filter to display the extra context schema if exist after migration from 402 to new
+                            // version
+                            tableNodeList = filterItemContextSchema(tableNodeList);
                             createAllItems(displayMessageBox, null);
                         }
                     } else if (displayMessageBox) {
                         // connection failure
                         parentWizardPage.getShell().getDisplay().asyncExec(new Runnable() {
 
+                            @Override
                             public void run() {
                                 new ErrorDialogWidthDetailArea(getShell(), PID, Messages
                                         .getString("DatabaseTableForm.connectionFailureTip"), //$NON-NLS-1$
@@ -1190,6 +1197,7 @@ public class SelectorTableForm extends AbstractForm {
     private void createAllItems(final boolean displayMessageBox, final List<String> newList) {
         Display.getDefault().asyncExec(new Runnable() {
 
+            @Override
             public void run() {
                 viewer.setInput(tableNodeList);
                 // restoreCheckItems();
@@ -1205,6 +1213,7 @@ public class SelectorTableForm extends AbstractForm {
         if (ifUseRunnable) {
             shell.getDisplay().asyncExec(new Runnable() {
 
+                @Override
                 public void run() {
                     MessageDialog.openInformation(shell, title, msg);
                 }
@@ -1399,8 +1408,8 @@ public class SelectorTableForm extends AbstractForm {
             if (runnable != null) {
                 return runnable;
             }
-            for (Iterator iter = getQueue().iterator(); iter.hasNext();) {
-                RetrieveColumnRunnable element = (RetrieveColumnRunnable) iter.next();
+            for (Object element2 : getQueue()) {
+                RetrieveColumnRunnable element = (RetrieveColumnRunnable) element2;
                 if (element.getTreeItem() == key) {
                     return element;
                 }
@@ -1462,6 +1471,7 @@ public class SelectorTableForm extends AbstractForm {
             tableString = treeItem.getText(0);
         }
 
+        @Override
         public void run() {
             boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(metadataconnection.getDbType());
             if (isCanceled()) {
@@ -1556,10 +1566,12 @@ public class SelectorTableForm extends AbstractForm {
                     Iterator iterate = metadataColumns.iterator();
                     while (iterate.hasNext()) {
                         MetadataColumn metadataColumn = (MetadataColumn) iterate.next();
-                        if (metadataColumn.getTalendType().equals(JavaTypesManager.DATE.getId())
-                                || metadataColumn.getTalendType().equals(PerlTypesManager.DATE)) {
-                            if ("".equals(metadataColumn.getPattern())) { //$NON-NLS-1$
-                                metadataColumn.setPattern(TalendQuoteUtils.addQuotes("dd-MM-yyyy")); //$NON-NLS-1$
+                        if (metadataColumn.getTalendType() != null) {
+                            if (metadataColumn.getTalendType().equals(JavaTypesManager.DATE.getId())
+                                    || metadataColumn.getTalendType().equals(PerlTypesManager.DATE)) {
+                                if ("".equals(metadataColumn.getPattern())) { //$NON-NLS-1$
+                                    metadataColumn.setPattern(TalendQuoteUtils.addQuotes("dd-MM-yyyy")); //$NON-NLS-1$
+                                }
                             }
                         }
                         // Check the label and add it to the table
@@ -1608,6 +1620,7 @@ public class SelectorTableForm extends AbstractForm {
 
             Display.getDefault().syncExec(new Runnable() {
 
+                @Override
                 public void run() {
                     if (isCanceled()) {
                         return;
@@ -1695,6 +1708,7 @@ public class SelectorTableForm extends AbstractForm {
 
                         Display.getDefault().syncExec(new Runnable() {
 
+                            @Override
                             public void run() {
                                 provider.executeInRunnable(metadataconnection, treeItem.getData(), getConnection());
                                 if (isCanceled()) {
@@ -1851,6 +1865,7 @@ public class SelectorTableForm extends AbstractForm {
     protected void addFieldsListeners() {
         nameFilter.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 viewer.refresh();
             }
@@ -1885,6 +1900,7 @@ public class SelectorTableForm extends AbstractForm {
     private void refreshExistItem(final MetadataTable existTable, final TreeItem item) {
         Display.getDefault().syncExec(new Runnable() {
 
+            @Override
             public void run() {
                 orgomg.cwm.objectmodel.core.Package pack = (orgomg.cwm.objectmodel.core.Package) existTable.eContainer();
                 boolean confirm = MessageDialog.openConfirm(Display.getDefault().getActiveShell(), "Confirm", "Another '"
@@ -2043,6 +2059,16 @@ public class SelectorTableForm extends AbstractForm {
                             if (label.equals(tableNode.getValue())) {
                                 return true;
                             }
+                        }
+                    }
+                } else {
+                    for (Object obj : ConnectionHelper.getTables(getConnection())) {
+                        if (obj == null) {
+                            continue;
+                        }
+                        MetadataTable table = (MetadataTable) obj;
+                        if (table.getLabel().equals(tableNode.getValue())) {
+                            return true;
                         }
                     }
                 }
@@ -2453,5 +2479,22 @@ public class SelectorTableForm extends AbstractForm {
             return true;
         }
 
+    }
+
+    public List<TableNode> filterItemContextSchema(List<TableNode> tableList) {
+        List<TableNode> allDisplayNodes = tableList;
+        TableNode contextItemNode = null;
+        for (TableNode tn : allDisplayNodes) {
+            if (tn.getSchema() instanceof Schema) {
+                Schema s = tn.getSchema();
+                if ((s.getName().equals("") || s.getName().contains("context")) && s.getOwnedElement().size() > 0) {
+                    contextItemNode = tn;
+                }
+            }
+        }
+        if (contextItemNode != null) {
+            allDisplayNodes.remove(contextItemNode);
+        }
+        return allDisplayNodes;
     }
 }
