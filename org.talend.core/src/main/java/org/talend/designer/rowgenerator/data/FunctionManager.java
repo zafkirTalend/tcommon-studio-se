@@ -57,7 +57,7 @@ public class FunctionManager {
      * @return
      */
     @SuppressWarnings("unchecked")//$NON-NLS-1$
-    public List<Function> getFunctionByName(String name) {
+    public List<Function> getFunctionsByType(String name) {
         List<Function> funtions = new ArrayList<Function>();
 
         for (TalendType talendType : talendTypes) {
