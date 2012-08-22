@@ -54,6 +54,7 @@ import org.talend.repository.ui.wizards.license.LicenseWizardDialog;
  */
 public class Application implements IApplication {
 
+    @Override
     public Object start(IApplicationContext context) throws Exception {
         Display display = PlatformUI.createDisplay();
         try {
@@ -69,7 +70,7 @@ public class Application implements IApplication {
             CoreRepositoryPlugin.getDefault().setRCPMode();
 
             if (!ArrayUtils.contains(Platform.getApplicationArgs(), EclipseCommandLine.TALEND_DISABLE_LOGINDIALOG_COMMAND)
-                    && !Boolean.parseBoolean(System.getProperty("talend.project.reload"))) {//$NON-NLS-1$ //$NON-NLS-2$
+                    && !Boolean.parseBoolean(System.getProperty("talend.project.reload"))) {//$NON-NLS-1$ 
                 openLicenseAndRegister(shell);
             }
 
@@ -135,7 +136,9 @@ public class Application implements IApplication {
                 // if relaunch, should delete the "disableLoginDialog" argument in eclipse data for bug TDI-19214
                 EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand(
                         EclipseCommandLine.TALEND_DISABLE_LOGINDIALOG_COMMAND, null, true);
-                return IApplication.EXIT_RELAUNCH;
+                // TDI-8426, fix the swith project failure, when in dev also.
+                // return IApplication.EXIT_RELAUNCH;
+                return IApplication.EXIT_RESTART;
             } else {
                 return IApplication.EXIT_OK;
             }
@@ -273,6 +276,7 @@ public class Application implements IApplication {
         return service.openLoginDialog(shell, inuse);
     }
 
+    @Override
     public void stop() {
         final IWorkbench workbench = PlatformUI.getWorkbench();
         if (workbench == null) {
@@ -281,6 +285,7 @@ public class Application implements IApplication {
         final Display display = workbench.getDisplay();
         display.syncExec(new Runnable() {
 
+            @Override
             public void run() {
                 if (!display.isDisposed()) {
                     workbench.close();
