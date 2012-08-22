@@ -45,6 +45,7 @@ import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.metadata.types.TypesManager;
 import org.talend.core.model.process.EParameterFieldType;
+import org.talend.core.model.process.IElement;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
@@ -889,6 +890,7 @@ public final class MetadataToolHelper {
     public static void initilializeSchemaFromElementParameters(IMetadataTable metadataTable,
             List<IElementParameter> elementParameters) {
         IElementParameter mappingParameter = getMappingParameter(elementParameters);
+        String uniqueName = null;
         for (int i = 0; i < elementParameters.size(); i++) {
             IElementParameter param = elementParameters.get(i);
             if (param.getFieldType().equals(EParameterFieldType.SCHEMA_TYPE)
@@ -912,7 +914,17 @@ public final class MetadataToolHelper {
                     // }
                     for (int k = 0; k < table.getListColumns().size(); k++) {
                         IMetadataColumn newColumn = table.getListColumns().get(k);
+                        IElement element = param.getElement();
                         IMetadataColumn oldColumn = metadataTable.getColumn(newColumn.getLabel());
+                        if (element instanceof INode && oldColumn == null) {
+                            INode node = (INode) element;
+                            if (node.getComponent().getName().equals("tGenKeyHadoop")) { //$NON-NLS-1$
+                                int lastIndexOf = node.getLabel().lastIndexOf("_"); //$NON-NLS-1$
+                                oldColumn = metadataTable
+                                        .getColumn(newColumn.getLabel() + node.getLabel().substring(lastIndexOf));
+                            }
+                        }
+
                         if (oldColumn != null) {
                             // if column exists, then override read only /
                             // custom
@@ -939,6 +951,7 @@ public final class MetadataToolHelper {
                     }
                 }
             }
+
         }
         metadataTable.sortCustomColumns();
     }
