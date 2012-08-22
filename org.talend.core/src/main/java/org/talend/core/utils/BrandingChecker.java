@@ -26,12 +26,12 @@ public class BrandingChecker {
 
     private static boolean isBrandingChanged;
 
-    private static final String LAST_STARTED_PRODUCT = "last started product";
+    private static final String LAST_STARTED_PRODUCT = "last started product"; //$NON-NLS-1$
 
     public static boolean isBrandingChanged() {
         if (!isBrandingChanged) {
             if (CommonsPlugin.isHeadless()) {
-                isBrandingChanged = true;
+                isBrandingChanged = false;
             } else {
                 IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                         IBrandingService.class);
@@ -46,7 +46,7 @@ public class BrandingChecker {
                     public void run() {
                         IPreferenceStore preferenceStore = CorePlugin.getDefault().getPreferenceStore();
                         String oldBrandingName = preferenceStore.getString(LAST_STARTED_PRODUCT);
-                        if (oldBrandingName == null || oldBrandingName.equals("") || !oldBrandingName.equals(fullProductName)) {
+                        if (oldBrandingName == null || oldBrandingName.equals("") || !oldBrandingName.equals(fullProductName)) { //$NON-NLS-1$
                             isBrandingChanged = true;
                             preferenceStore.setValue(LAST_STARTED_PRODUCT, fullProductName);
                         }
