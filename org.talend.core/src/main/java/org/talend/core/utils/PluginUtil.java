@@ -17,6 +17,10 @@ import java.net.URL;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 
 /**
@@ -56,6 +60,26 @@ public class PluginUtil {
      */
     public static String getProductInstallPath() {
         return (Platform.getInstallLocation().getURL()).getFile();
+    }
+
+    public static boolean isMediation() {
+        IWorkbenchWindow workbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+        if (null == workbenchWindow) {
+            return false;
+        }
+        IWorkbenchPage workbenchPage = workbenchWindow.getActivePage();
+        if (null == workbenchPage) {
+            return false;
+        }
+        IEditorPart part = workbenchPage.getActiveEditor();
+        if (part == null) {
+            return false;
+        }
+        String editorID = part.getEditorSite().getId();
+        if (editorID.equals("org.talend.camel.designer.core.ui.CamelMultiPageTalendEditor")) {
+            return true;
+        }
+        return false;
     }
 
 }
