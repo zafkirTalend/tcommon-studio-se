@@ -34,7 +34,7 @@
 			
 	<target name="clean.application.config.and.workspace">
  		<delete includeemptydirs="true" quiet="true">
-    		<fileset dir="${rcp-app-home}/configuration" includes="**/*" excludes="config.ini,*.javacache,*.perlcache"/>
+    		<fileset dir="${rcp-app-home}/configuration" includes="**/*" excludes="config.ini,*.javacache,*.perlcache,org.talend**/*"/>
     		<fileset dir="${temp-workspace}" includes="**/*" excludes=".JETEmitters/**/*"/>
 		</delete>
 	</target>
@@ -54,6 +54,9 @@
 			<fileset file="${swtbot.log.path}"/>
 			<fileset dir="${rcp-app-home}/screenshots"/>
 		</delete>
+        <condition property="extra.jvm.args" value = "-XstartOnFirstThread" else="">
+                <equals arg1="${os.name}" arg2="Mac OS X"/>
+        </condition>    	
     	<java dir="${rcp-app-home}" fork="true" output="${swtbot.log.path}" logError="true"
     	classname="org.eclipse.core.launcher.Main" failonerror="false">
     		<syspropertyset refid="swtbot.test.class.collector.properties"/>
@@ -65,7 +68,7 @@
     	    </classpath>
     	    <arg line="-application org.eclipse.swtbot.eclipse.junit4.headless.swtbottestapplication"/>
     	    <arg line="-testPluginName ${swtbot.test-plugin-name}"/>
-    	    <arg line="-testApplication ${test-application} -clean -nl ta --disableLoginDialog -project TEST_NOLOGIN --deleteProjectIfExist -language java -login a@b.c"/>
+    	    <arg line="-clean -nl ta --disableLoginDialog -project TEST_NOLOGIN --deleteProjectIfExist -language java -login a@b.c"/>
     	    <arg line="-className ${swtbot.test-class-name}"/>
     	    <arg line="formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,${swtbot.junit.results.path}"/>
     	    <arg line="-consoleLog"/>
@@ -99,7 +102,7 @@
             </classpath>
             <arg line="-application org.eclipse.swtbot.eclipse.junit4.headless.swtbottestapplication"/>
             <arg line="-testpluginname ${unit.test-plugin-name}"/>
-            <arg line="-testApplication ${test-application} -clean -nl ta --disableLoginDialog -project TEST_NOLOGIN --deleteProjectIfExist -language java -login a@b.c"/>
+            <arg line="-clean -nl ta --disableLoginDialog -project TEST_NOLOGIN --deleteProjectIfExist -language java -login a@b.c"/>
             <arg line="-classname ${unit.test-class-name}"/>
             <arg line="formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,${unit.junit.results.path}"/>
             <arg line="-consoleLog"/>
