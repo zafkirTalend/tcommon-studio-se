@@ -76,10 +76,11 @@ public class MigrationToolService implements IMigrationToolService {
      * org.talend.core.model.migration.IMigrationToolService#executeProjectTasks(org.talend.core.model.general.Project,
      * boolean, org.eclipse.core.runtime.IProgressMonitor)
      */
+    @Override
     public void executeProjectTasks(final Project project, final boolean beforeLogon, final IProgressMonitor monitorWrap) {
 
         String taskDesc = "Migration tool: project [" + project.getLabel() + "] tasks"; //$NON-NLS-1$ //$NON-NLS-2$
-        log.trace(taskDesc); //$NON-NLS-1$ //$NON-NLS-2$ 
+        log.trace(taskDesc);
 
         final List<IProjectMigrationTask> toExecute = GetTasksHelper.getProjectTasks(beforeLogon);
         final List<String> done = new ArrayList<String>(project.getEmfProject().getMigrationTasks());
@@ -90,6 +91,7 @@ public class MigrationToolService implements IMigrationToolService {
 
         Collections.sort(toExecute, new Comparator<IProjectMigrationTask>() {
 
+            @Override
             public int compare(IProjectMigrationTask o1, IProjectMigrationTask o2) {
                 return o1.getOrder().compareTo(o2.getOrder());
             }
@@ -139,12 +141,14 @@ public class MigrationToolService implements IMigrationToolService {
 
         RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit(project, taskDesc) {
 
+            @Override
             public void run() throws PersistenceException {
                 boolean needSave = false;
                 if (!beforeLogon) {
                     ERepositoryObjectType[] types = (ERepositoryObjectType[]) ERepositoryObjectType.values();
                     Arrays.sort(types, new Comparator<ERepositoryObjectType>() {
 
+                        @Override
                         public int compare(ERepositoryObjectType arg0, ERepositoryObjectType arg1) {
                             if (arg0 == ERepositoryObjectType.PROCESS) {
                                 return 1;
@@ -252,10 +256,10 @@ public class MigrationToolService implements IMigrationToolService {
                 if (needSave) {
                     saveProjectMigrationTasksDone(project, done);
                 }
-                RelationshipItemBuilder.getInstance().saveRelations();
                 if (!RelationshipItemBuilder.INDEX_VERSION.equals(project.getEmfProject().getItemsRelationVersion())) {
                     project.getEmfProject().setItemsRelationVersion(RelationshipItemBuilder.INDEX_VERSION);
                 }
+                RelationshipItemBuilder.getInstance().saveRelations();
             }
         };
         repositoryWorkUnit.setAvoidUnloadResources(true);
@@ -268,6 +272,7 @@ public class MigrationToolService implements IMigrationToolService {
      * 
      * @see org.talend.core.model.migration.IMigrationToolService#initNewProjectTasks()
      */
+    @Override
     public void initNewProjectTasks(Project project) {
         List<IProjectMigrationTask> toExecute = GetTasksHelper.getProjectTasks(true);
         toExecute.addAll(GetTasksHelper.getProjectTasks(false));
@@ -301,6 +306,7 @@ public class MigrationToolService implements IMigrationToolService {
      * 
      * @see org.talend.core.model.migration.IMigrationToolService#executeWorspaceTasks()
      */
+    @Override
     public void executeWorspaceTasks() {
         log.trace("Migration tool: workspace tasks"); //$NON-NLS-1$
 
@@ -328,6 +334,7 @@ public class MigrationToolService implements IMigrationToolService {
 
         Collections.sort(toExecute, new Comparator<IWorkspaceMigrationTask>() {
 
+            @Override
             public int compare(IWorkspaceMigrationTask o1, IWorkspaceMigrationTask o2) {
                 return o1.getOrder().compareTo(o2.getOrder());
             }
@@ -366,6 +373,7 @@ public class MigrationToolService implements IMigrationToolService {
      * 
      * @see org.talend.core.model.migration.IMigrationToolService#executeMigration()
      */
+    @Override
     public void executeMigration(boolean underPluginModel) {
         new AlertUserOnLogin().startup(underPluginModel);
     }
@@ -375,6 +383,7 @@ public class MigrationToolService implements IMigrationToolService {
      * 
      * @see org.talend.core.model.migration.IMigrationToolService#needExecutemigration()
      */
+    @Override
     public boolean needExecutemigration() {
         return !AlertUserOnLogin.executed;
     }
