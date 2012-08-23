@@ -533,6 +533,7 @@ public class ExtractMetaDataFromDataBase {
         ResultSet columns = sta.executeQuery(synSQL);
         String typeName = null;
         int index = 0;
+        List<String> columnLabels = new ArrayList<String>();
         while (columns.next()) {
             long numPrecRadix = 0;
             String columnName = columns.getString(GetColumn.COLUMN_NAME.name());
@@ -554,7 +555,7 @@ public class ExtractMetaDataFromDataBase {
                 label = "_" + label; //$NON-NLS-1$
             }
 
-            label = MetadataToolHelper.validateColumnName(label, index);
+            label = MetadataToolHelper.validateColumnName(label, columnIndex, columnLabels);
             column.setLabel(label);
             column.setOriginalField(label2);
 
@@ -589,6 +590,7 @@ public class ExtractMetaDataFromDataBase {
                 log.error(e);
             }
             metadataColumns.add(column);
+            columnLabels.add(column.getLabel());
             index++;
 
         }
@@ -610,6 +612,7 @@ public class ExtractMetaDataFromDataBase {
         ResultSet columns = sta.executeQuery(synSQL);
         String typeName = null;
         int index = 0;
+        List<String> columnLabels = new ArrayList<String>();
         while (columns.next()) {
             long numPrecRadix = 0;
             String columnName = columns.getString("COLNAME");
@@ -631,7 +634,7 @@ public class ExtractMetaDataFromDataBase {
                 label = "_" + label; //$NON-NLS-1$
             }
 
-            label = MetadataToolHelper.validateColumnName(label, index);
+            label = MetadataToolHelper.validateColumnName(label, columnIndex, columnLabels);
             column.setLabel(label);
             column.setOriginalField(label2);
 
@@ -666,6 +669,7 @@ public class ExtractMetaDataFromDataBase {
                 log.error(e);
             }
             metadataColumns.add(column);
+            columnLabels.add(column.getLabel());
             index++;
 
         }
@@ -713,6 +717,7 @@ public class ExtractMetaDataFromDataBase {
         ResultSet columns = sta.executeQuery(synSQL);
         String typeName = null;
         int index = 0;
+        List<String> columnLabels = new ArrayList<String>();
         while (columns.next()) {
             int column_size = 0;
             String lenString = null;
@@ -736,7 +741,7 @@ public class ExtractMetaDataFromDataBase {
                 label = "_" + label; //$NON-NLS-1$
             }
 
-            label = MetadataToolHelper.validateColumnName(label, index);
+            label = MetadataToolHelper.validateColumnName(label, columnIndex, columnLabels);
             column.setLabel(label);
             column.setOriginalField(label2);
 
@@ -776,6 +781,7 @@ public class ExtractMetaDataFromDataBase {
                 log.error(e);
             }
             metadataColumns.add(column);
+            columnLabels.add(column.getLabel());
             index++;
         }
         columns.close();
@@ -1262,6 +1268,7 @@ public class ExtractMetaDataFromDataBase {
             IMetadataConnection metadataConnection, String databaseType) {
         columnIndex = 0;
         List<TdColumn> metadataColumns = new ArrayList<TdColumn>();
+        List<String> columnLabels = new ArrayList<String>();
         HashMap<String, String> primaryKeys = new HashMap<String, String>();
 
         try {
@@ -1347,7 +1354,7 @@ public class ExtractMetaDataFromDataBase {
                         label = "_" + label; //$NON-NLS-1$
                         b = true;
                     }
-                    metadataColumn.setLabel(label);
+                    // metadataColumn.setLabel(label);
                     //                    if (label2 != null && label2.length() > 0 && label2.startsWith("_")) { //$NON-NLS-1$
                     // String substring = label2.substring(1);
                     // if (b
@@ -1361,12 +1368,12 @@ public class ExtractMetaDataFromDataBase {
 
                     // Validate the column if it contains space or illegal
                     // characters.
-                    if (repositoryService != null) {
-                        // metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),
-                        // columnIndex));
-                        label = repositoryService.validateColumnName(label, columnIndex);
-                        metadataColumn.setLabel(label);
-                    }
+                    // if (repositoryService != null) {
+                    // metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),
+                    // columnIndex));
+                    label = MetadataToolHelper.validateColumnName(label, columnIndex, columnLabels);
+                    metadataColumn.setLabel(label);
+                    // }
                     columnIndex++;
 
                     if (primaryKeys != null && !primaryKeys.isEmpty()
@@ -1495,6 +1502,7 @@ public class ExtractMetaDataFromDataBase {
                         }
                     }
                     metadataColumns.add(metadataColumn);
+                    columnLabels.add(metadataColumn.getLabel());
                 }
             }
 
