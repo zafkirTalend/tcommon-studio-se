@@ -17,6 +17,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -120,6 +121,7 @@ public class IBMDB2ExtractManager extends ExtractManager {
             ResultSet columns = sta.executeQuery(synSQL);
             String typeName = null;
             int index = 0;
+            List<String> columnLabels = new ArrayList<String>();
             try {
                 while (columns.next()) {
                     long numPrecRadix = 0;
@@ -142,7 +144,7 @@ public class IBMDB2ExtractManager extends ExtractManager {
                         label = "_" + label; //$NON-NLS-1$
                     }
 
-                    label = MetadataToolHelper.validateColumnName(label, index);
+                    label = MetadataToolHelper.validateColumnName(label, index, columnLabels);
                     column.setLabel(label);
                     column.setOriginalField(label2);
 
@@ -154,7 +156,7 @@ public class IBMDB2ExtractManager extends ExtractManager {
                     try {
                         int column_size = columns.getInt("LENGTH");
                         column.setLength(column_size);
-                        numPrecRadix = columns.getLong("SCALE");//$NON-NLS-N$
+                        numPrecRadix = columns.getLong("SCALE");
                         column.setPrecision(numPrecRadix);
                     } catch (Exception e1) {
                         log.warn(e1, e1);
@@ -178,6 +180,7 @@ public class IBMDB2ExtractManager extends ExtractManager {
                         log.error(e);
                     }
                     metadataColumns.add(column);
+                    columnLabels.add(column.getLabel());
                     index++;
 
                 }

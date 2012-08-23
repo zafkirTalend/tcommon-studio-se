@@ -18,6 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -132,6 +133,7 @@ public class MSSQLExtractManager extends ExtractManager {
             ResultSet columns = sta.executeQuery(synSQL);
             String typeName = null;
             int index = 0;
+            List<String> columnLabels = new ArrayList<String>();
             try {
                 while (columns.next()) {
                     int column_size = 0;
@@ -156,7 +158,7 @@ public class MSSQLExtractManager extends ExtractManager {
                         label = "_" + label; //$NON-NLS-1$
                     }
 
-                    label = MetadataToolHelper.validateColumnName(label, index);
+                    label = MetadataToolHelper.validateColumnName(label, index, columnLabels);
                     column.setLabel(label);
                     column.setOriginalField(label2);
 
@@ -174,7 +176,7 @@ public class MSSQLExtractManager extends ExtractManager {
                             lenString = "CHARACTER_MAXIMUM_LENGTH";
                         }
                         column.setLength(column_size);
-                        numPrecRadix = columns.getLong("NUMERIC_SCALE");//$NON-NLS-N$
+                        numPrecRadix = columns.getLong("NUMERIC_SCALE");
                         column.setPrecision(numPrecRadix);
                     } catch (Exception e1) {
                         log.warn(e1, e1);
@@ -186,8 +188,7 @@ public class MSSQLExtractManager extends ExtractManager {
                         MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(dbmsId);
                         String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName,
                                 ExtractMetaDataUtils.getIntMetaDataInfo(columns, lenString),
-                                ExtractMetaDataUtils.getIntMetaDataInfo(columns, //$NON-NLS-1$
-                                        "NUMERIC_SCALE")); //$NON-NLS-1$
+                                ExtractMetaDataUtils.getIntMetaDataInfo(columns, "NUMERIC_SCALE")); //$NON-NLS-1$
                         column.setTalendType(talendType);
                         String defaultSelectedDbType = MetadataTalendType.getMappingTypeRetriever(dbConnection.getDbmsId())
                                 .getDefaultSelectedDbType(talendType);
@@ -199,6 +200,7 @@ public class MSSQLExtractManager extends ExtractManager {
                         log.error(e);
                     }
                     metadataColumns.add(column);
+                    columnLabels.add(column.getLabel());
                     index++;
                 }
             } finally {
@@ -219,9 +221,8 @@ public class MSSQLExtractManager extends ExtractManager {
             ResultSet resultSet = null;
             PreparedStatement statement = null;
             try {
-                statement = ExtractMetaDataUtils.conn
-                        .prepareStatement(" select IDENT_SEED ( '" + tableName + "')," + "IDENT_INCR ( '" //$NON-NLS-N$ //$NON-NLS-N$ //$NON-NLS-N$
-                                + tableName + "')"); //$NON-NLS-1$ 
+                statement = ExtractMetaDataUtils.conn.prepareStatement(" select IDENT_SEED ( '" + tableName + "'),"
+                        + "IDENT_INCR ( '" + tableName + "')"); //$NON-NLS-1$ 
                 ExtractMetaDataUtils.setQueryStatementTimeout(statement);
                 if (statement.execute()) {
                     resultSet = statement.getResultSet();

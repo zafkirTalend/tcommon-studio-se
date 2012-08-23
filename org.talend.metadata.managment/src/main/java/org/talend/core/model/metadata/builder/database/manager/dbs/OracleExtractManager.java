@@ -179,6 +179,7 @@ public class OracleExtractManager extends ExtractManager {
             ResultSet columns = sta.executeQuery(synSQL);
             String typeName = null;
             int index = 0;
+            List<String> columnLabels = new ArrayList<String>();
             try {
                 while (columns.next()) {
                     long numPrecRadix = 0;
@@ -201,7 +202,7 @@ public class OracleExtractManager extends ExtractManager {
                         label = "_" + label; //$NON-NLS-1$
                     }
 
-                    label = MetadataToolHelper.validateColumnName(label, index);
+                    label = MetadataToolHelper.validateColumnName(label, index, columnLabels);
                     column.setLabel(label);
                     column.setOriginalField(label2);
 
@@ -214,7 +215,7 @@ public class OracleExtractManager extends ExtractManager {
                     try {
                         int column_size = columns.getInt("DATA_LENGTH");
                         column.setLength(column_size);
-                        numPrecRadix = columns.getLong("DATA_PRECISION");//$NON-NLS-N$
+                        numPrecRadix = columns.getLong("DATA_PRECISION");
                         column.setPrecision(numPrecRadix);
                     } catch (Exception e1) {
                         log.warn(e1, e1);
@@ -238,6 +239,7 @@ public class OracleExtractManager extends ExtractManager {
                         log.error(e);
                     }
                     metadataColumns.add(column);
+                    columnLabels.add(column.getLabel());
                     index++;
 
                 }
@@ -276,13 +278,13 @@ public class OracleExtractManager extends ExtractManager {
         PreparedStatement statement = null;
         try {
             statement = ExtractMetaDataUtils.conn.prepareStatement("SELECT COMMENTS FROM USER_COL_COMMENTS WHERE TABLE_NAME='" //$NON-NLS-1$
-                    + tableName + "'"); //$NON-NLS-1$ //$NON-NLS-2$
+                    + tableName + "'"); //$NON-NLS-1$ 
             ExtractMetaDataUtils.setQueryStatementTimeout(statement);
             if (statement.execute()) {
                 keys = statement.getResultSet();
                 int i = 0;
                 while (keys.next()) {
-                    MetadataColumn metadataColumn = (MetadataColumn) metadataColumns.get(i++);
+                    MetadataColumn metadataColumn = metadataColumns.get(i++);
                     metadataColumn.setComment(ManagementTextUtils.filterSpecialChar(keys.getString("COMMENTS"))); //$NON-NLS-1$
                 }
             }

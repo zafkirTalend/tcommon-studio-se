@@ -789,8 +789,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             }
             if (dbJDBCMetadata.getDatabaseProductName() != null
                     && dbJDBCMetadata.getDatabaseProductName().equals("Microsoft SQL Server")) {
-                for (int i = 0; i < tableType.length; i++) {
-                    if (tableType[i].equals("SYNONYM")) {
+                for (String element : tableType) {
+                    if (element.equals("SYNONYM")) {
                         Statement stmt = ExtractMetaDataUtils.conn.createStatement();
                         ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
                         String schemaname = catalogName + "." + schemaPattern + ".sysobjects";
@@ -818,8 +818,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 }
             } else if (dbJDBCMetadata.getDatabaseProductName() != null
                     && dbJDBCMetadata.getDatabaseProductName().equals("DB2/NT")) {
-                for (int i = 0; i < tableType.length; i++) {
-                    if (tableType[i].equals("SYNONYM")) {
+                for (String element : tableType) {
+                    if (element.equals("SYNONYM")) {
                         Statement stmt = ExtractMetaDataUtils.conn.createStatement();
                         ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
                         String sql = "SELECT NAME FROM SYSIBM.SYSTABLES where TYPE='A' and BASE_SCHEMA = '" + schemaPattern + "'";
@@ -1046,6 +1046,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             return null;
         }
         List<TdColumn> returnColumns = new ArrayList<TdColumn>();
+        List<String> columnLabels = new ArrayList<String>();
         Map<String, TdColumn> columnMap = new HashMap<String, TdColumn>();
         String typeName = null;
         try {
@@ -1086,7 +1087,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     label = "_" + label; //$NON-NLS-1$
                 }
 
-                label = MetadataToolHelper.validateColumnName(label, index);
+                label = MetadataToolHelper.validateColumnName(label, index, columnLabels);
                 column.setLabel(label);
                 column.setOriginalField(label2);
 
@@ -1184,6 +1185,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 }
                 ExtractMetaDataUtils.handleDefaultValue(column, dbJDBCMetadata);
                 returnColumns.add(column);
+                columnLabels.add(column.getLabel());
                 columnMap.put(columnName, column);
                 index++;
             }
@@ -1290,7 +1292,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 int nullable = 0;
                 if (dbJDBCMetadata instanceof DB2ForZosDataBaseMetadata || dbJDBCMetadata instanceof TeradataDataBaseMetadata) {
                     String isNullable = columns.getString("IS_NULLABLE");//$NON-NLS-1$
-                    if (!isNullable.equals("Y")) { //$NON-NLS-1$ //$NON-NLS-2$
+                    if (!isNullable.equals("Y")) { //$NON-NLS-1$ 
                         nullable = 1;
                     }
                 } else {

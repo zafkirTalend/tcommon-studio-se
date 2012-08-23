@@ -45,6 +45,7 @@ import org.talend.core.model.metadata.MappingTypeRetriever;
 import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.MetadataTable;
 import org.talend.core.model.metadata.MetadataTalendType;
+import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.database.DriverShim;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
@@ -597,6 +598,7 @@ public class ExtractManager {
         MappingTypeRetriever mappingTypeRetriever = null;
         columnIndex = 0;
         List<TdColumn> metadataColumns = new ArrayList<TdColumn>();
+        List<String> columnLabels = new ArrayList<String>();
         Map<String, String> primaryKeys = new HashMap<String, String>();
         ResultSet columns = null;
         Statement stmt = null;
@@ -634,12 +636,12 @@ public class ExtractManager {
 
                     // Validate the column if it contains space or illegal
                     // characters.
-                    if (repositoryService != null) {
-                        // metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),
-                        // columnIndex));
-                        label = repositoryService.validateColumnName(label, columnIndex);
-                        metadataColumn.setLabel(label);
-                    }
+                    // if (repositoryService != null) {
+                    // metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),
+                    // columnIndex));
+                    label = MetadataToolHelper.validateColumnName(label, columnIndex, columnLabels);
+                    metadataColumn.setLabel(label);
+                    // }
                     columnIndex++;
 
                     if (primaryKeys != null && !primaryKeys.isEmpty()
@@ -720,6 +722,7 @@ public class ExtractManager {
                     // for bug 6919, oracle driver doesn't give correctly the length for timestamp
                     checkTypeForTimestamp(metadataConnection, metadataColumn, dbType);
                     metadataColumns.add(metadataColumn);
+                    columnLabels.add(metadataColumn.getLabel());
                 }
             }
 
