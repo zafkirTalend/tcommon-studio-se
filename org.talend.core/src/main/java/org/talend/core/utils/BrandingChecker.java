@@ -24,12 +24,14 @@ import org.talend.core.ui.branding.IBrandingService;
  */
 public class BrandingChecker {
 
+    private static boolean initialized = false;
+
     private static boolean isBrandingChanged;
 
     private static final String LAST_STARTED_PRODUCT = "last started product";
 
     public static boolean isBrandingChanged() {
-        if (!isBrandingChanged) {
+        if (!initialized) {
             if (CommonsPlugin.isHeadless()) {
                 isBrandingChanged = false;
             } else {
@@ -53,6 +55,7 @@ public class BrandingChecker {
                     }
                 });
             }
+            initialized = true;
         }
         return isBrandingChanged;
     }
