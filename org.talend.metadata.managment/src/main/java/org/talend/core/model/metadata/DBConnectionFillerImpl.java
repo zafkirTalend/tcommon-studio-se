@@ -1056,6 +1056,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             return null;
         }
         List<TdColumn> returnColumns = new ArrayList<TdColumn>();
+        List<String> columnLabels = new ArrayList<String>();
         Map<String, TdColumn> columnMap = new HashMap<String, TdColumn>();
         String typeName = null;
         try {
@@ -1096,7 +1097,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     label = "_" + label; //$NON-NLS-1$
                 }
 
-                label = MetadataToolHelper.validateColumnName(label, index);
+                label = MetadataToolHelper.validateColumnName(label, index, columnLabels);
                 column.setLabel(label);
                 column.setOriginalField(label2);
 
@@ -1193,6 +1194,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 }
                 ExtractMetaDataUtils.handleDefaultValue(column, dbJDBCMetadata);
                 returnColumns.add(column);
+                columnLabels.add(column.getLabel());
                 columnMap.put(columnName, column);
                 index++;
             }

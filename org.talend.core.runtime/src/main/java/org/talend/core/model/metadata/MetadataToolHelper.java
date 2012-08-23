@@ -25,6 +25,7 @@ import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.utils.data.list.UniqueStringGenerator;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
 import org.talend.core.language.ECodeLanguage;
@@ -244,6 +245,19 @@ public final class MetadataToolHelper {
 
         return columnName;
 
+    }
+
+    public static String validateColumnName(final String columnName, final int index, List<String> labels) {
+        String name = validateColumnName(columnName, index);
+        UniqueStringGenerator<String> uniqueStringGenerator = new UniqueStringGenerator<String>(name, labels) {
+
+            @Override
+            protected String getBeanString(String bean) {
+                return bean;
+            }
+
+        };
+        return uniqueStringGenerator.getUniqueString();
     }
 
     /**

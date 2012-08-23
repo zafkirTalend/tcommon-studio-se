@@ -490,7 +490,7 @@ public class ExtractMetaDataFromDataBase {
                     && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 ExtractMetaDataUtils.closeConnection();
             }
             if (wapperDriver != null
@@ -498,7 +498,7 @@ public class ExtractMetaDataFromDataBase {
                             || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 try {
                     wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                 } catch (SQLException e) {
@@ -531,6 +531,7 @@ public class ExtractMetaDataFromDataBase {
         ResultSet columns = sta.executeQuery(synSQL);
         String typeName = null;
         int index = 0;
+        List<String> columnLabels = new ArrayList<String>();
         while (columns.next()) {
             long numPrecRadix = 0;
             String columnName = columns.getString(GetColumn.COLUMN_NAME.name());
@@ -552,7 +553,7 @@ public class ExtractMetaDataFromDataBase {
                 label = "_" + label; //$NON-NLS-1$
             }
 
-            label = MetadataToolHelper.validateColumnName(label, index);
+            label = MetadataToolHelper.validateColumnName(label, columnIndex, columnLabels);
             column.setLabel(label);
             column.setOriginalField(label2);
 
@@ -587,6 +588,7 @@ public class ExtractMetaDataFromDataBase {
                 log.error(e);
             }
             metadataColumns.add(column);
+            columnLabels.add(column.getLabel());
             index++;
 
         }
@@ -608,6 +610,7 @@ public class ExtractMetaDataFromDataBase {
         ResultSet columns = sta.executeQuery(synSQL);
         String typeName = null;
         int index = 0;
+        List<String> columnLabels = new ArrayList<String>();
         while (columns.next()) {
             long numPrecRadix = 0;
             String columnName = columns.getString("COLNAME");
@@ -629,7 +632,7 @@ public class ExtractMetaDataFromDataBase {
                 label = "_" + label; //$NON-NLS-1$
             }
 
-            label = MetadataToolHelper.validateColumnName(label, index);
+            label = MetadataToolHelper.validateColumnName(label, columnIndex, columnLabels);
             column.setLabel(label);
             column.setOriginalField(label2);
 
@@ -664,6 +667,7 @@ public class ExtractMetaDataFromDataBase {
                 log.error(e);
             }
             metadataColumns.add(column);
+            columnLabels.add(column.getLabel());
             index++;
 
         }
@@ -711,6 +715,7 @@ public class ExtractMetaDataFromDataBase {
         ResultSet columns = sta.executeQuery(synSQL);
         String typeName = null;
         int index = 0;
+        List<String> columnLabels = new ArrayList<String>();
         while (columns.next()) {
             int column_size = 0;
             String lenString = null;
@@ -734,7 +739,7 @@ public class ExtractMetaDataFromDataBase {
                 label = "_" + label; //$NON-NLS-1$
             }
 
-            label = MetadataToolHelper.validateColumnName(label, index);
+            label = MetadataToolHelper.validateColumnName(label, columnIndex, columnLabels);
             column.setLabel(label);
             column.setOriginalField(label2);
 
@@ -775,6 +780,7 @@ public class ExtractMetaDataFromDataBase {
                 log.error(e);
             }
             metadataColumns.add(column);
+            columnLabels.add(column.getLabel());
             index++;
         }
         columns.close();
@@ -846,7 +852,7 @@ public class ExtractMetaDataFromDataBase {
                             || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 try {
                     wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                 } catch (SQLException e) {
@@ -1025,6 +1031,7 @@ public class ExtractMetaDataFromDataBase {
             // }
             IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
             boolean isMSSQL = EDatabaseTypeName.MSSQL.getDisplayName().equals(metadataConnection.getDbType());
+            List<String> columnLabels = new ArrayList<String>();
             while (columns.next()) {
                 Boolean b = false;
                 String fetchTableName = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TABLE_NAME", null); //$NON-NLS-1$
@@ -1047,7 +1054,6 @@ public class ExtractMetaDataFromDataBase {
                         label = "_" + label; //$NON-NLS-1$
                         b = true;
                     }
-                    metadataColumn.setLabel(label); //$NON-NLS-1$
                     //                    if (label2 != null && label2.length() > 0 && label2.startsWith("_")) { //$NON-NLS-1$
                     // String substring = label2.substring(1);
                     // if (b
@@ -1061,12 +1067,12 @@ public class ExtractMetaDataFromDataBase {
 
                     // Validate the column if it contains space or illegal
                     // characters.
-                    if (repositoryService != null) {
-                        // metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),
-                        // columnIndex));
-                        label = repositoryService.validateColumnName(label, columnIndex);
-                        metadataColumn.setLabel(label);
-                    }
+                    // if (repositoryService != null) {
+                    // metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),
+                    // columnIndex));
+                    label = MetadataToolHelper.validateColumnName(label, columnIndex, columnLabels);
+                    metadataColumn.setLabel(label);
+                    // }
                     columnIndex++;
 
                     if (primaryKeys != null && !primaryKeys.isEmpty()
@@ -1199,6 +1205,7 @@ public class ExtractMetaDataFromDataBase {
                         }
                     }
                     metadataColumns.add(metadataColumn);
+                    columnLabels.add(metadataColumn.getLabel());
                 }
             }
 
@@ -1322,6 +1329,7 @@ public class ExtractMetaDataFromDataBase {
             // }
             IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
             boolean isMSSQL = EDatabaseTypeName.MSSQL.getDisplayName().equals(metadataConnection.getDbType());
+            List<String> columnLabels = new ArrayList<String>();
             while (columns.next()) {
                 Boolean b = false;
                 String fetchTableName = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TABLE_NAME", null); //$NON-NLS-1$
@@ -1344,7 +1352,7 @@ public class ExtractMetaDataFromDataBase {
                         label = "_" + label; //$NON-NLS-1$
                         b = true;
                     }
-                    metadataColumn.setLabel(label); //$NON-NLS-1$
+                    //                    metadataColumn.setLabel(label); //$NON-NLS-1$
                     //                    if (label2 != null && label2.length() > 0 && label2.startsWith("_")) { //$NON-NLS-1$
                     // String substring = label2.substring(1);
                     // if (b
@@ -1358,12 +1366,12 @@ public class ExtractMetaDataFromDataBase {
 
                     // Validate the column if it contains space or illegal
                     // characters.
-                    if (repositoryService != null) {
-                        // metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),
-                        // columnIndex));
-                        label = repositoryService.validateColumnName(label, columnIndex);
-                        metadataColumn.setLabel(label);
-                    }
+                    // if (repositoryService != null) {
+                    // metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),
+                    // columnIndex));
+                    label = MetadataToolHelper.validateColumnName(label, columnIndex, columnLabels);
+                    metadataColumn.setLabel(label);
+                    // }
                     columnIndex++;
 
                     if (primaryKeys != null && !primaryKeys.isEmpty()
@@ -1493,6 +1501,7 @@ public class ExtractMetaDataFromDataBase {
                         }
                     }
                     metadataColumns.add(metadataColumn);
+                    columnLabels.add(metadataColumn.getLabel());
                 }
             }
 
@@ -1614,6 +1623,7 @@ public class ExtractMetaDataFromDataBase {
             }
             IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
             boolean isMSSQL = EDatabaseTypeName.MSSQL.getDisplayName().equals(metadataConnection.getDbType());
+            List<String> columnLabels = new ArrayList<String>();
             while (columns.next()) {
                 Boolean b = false;
                 String fetchTableName = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TABLE_NAME", null); //$NON-NLS-1$
@@ -1637,7 +1647,7 @@ public class ExtractMetaDataFromDataBase {
                         b = true;
                     }
 
-                    metadataColumn.setLabel(label); //$NON-NLS-1$
+                    //                    metadataColumn.setLabel(label); //$NON-NLS-1$
                     // String label2 = metadataColumn.getLabel();
                     //                    if (label2 != null && label2.length() > 0 && label2.startsWith("_")) { //$NON-NLS-1$
                     // String substring = label2.substring(1);
@@ -1652,12 +1662,12 @@ public class ExtractMetaDataFromDataBase {
 
                     // Validate the column if it contains space or illegal
                     // characters.
-                    if (repositoryService != null) {
-                        // metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),
-                        // columnIndex));
-                        label = repositoryService.validateColumnName(label, columnIndex);
-                        metadataColumn.setLabel(label);
-                    }
+                    // if (repositoryService != null) {
+                    // metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),
+                    // columnIndex));
+                    label = MetadataToolHelper.validateColumnName(label, columnIndex, columnLabels);
+                    metadataColumn.setLabel(label);
+                    // }
                     columnIndex++;
 
                     if (primaryKeys != null && !primaryKeys.isEmpty()
@@ -1782,6 +1792,7 @@ public class ExtractMetaDataFromDataBase {
                     }
 
                     metadataColumns.add(metadataColumn);
+                    columnLabels.add(metadataColumn.getLabel());
                     // cantoine : patch to fix 0x0 pb cause by Bad Schema
                     // description
                     String stringMetaDataInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_DEF", dbMetaData); //$NON-NLS-1$
@@ -1971,7 +1982,7 @@ public class ExtractMetaDataFromDataBase {
                             || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 try {
                     wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                 } catch (SQLException e) {
@@ -2136,7 +2147,7 @@ public class ExtractMetaDataFromDataBase {
                         || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                        .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
             try {
                 wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
             } catch (SQLException e) {
@@ -2298,7 +2309,7 @@ public class ExtractMetaDataFromDataBase {
                         || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                        .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
             try {
                 wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
             } catch (SQLException e) {
