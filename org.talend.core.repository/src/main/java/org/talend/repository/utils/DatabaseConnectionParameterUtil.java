@@ -82,7 +82,7 @@ public class DatabaseConnectionParameterUtil {
                 IRepositoryViewObject repObj;
                 try {
                     repObj = ProxyRepositoryFactory.getInstance().getLastVersion(contextID);
-                    if (repObj.getProperty().getItem() instanceof ContextItem) {
+                    if (repObj != null && repObj.getProperty() != null && repObj.getProperty().getItem() instanceof ContextItem) {
                         ContextItem contextItem = (ContextItem) repObj.getProperty().getItem();
                         List list = contextItem.getContext();
                         Iterator it = list.iterator();
