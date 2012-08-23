@@ -39,7 +39,6 @@ import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.core.repository.CoreRepositoryPlugin;
 import org.talend.core.tis.ICoreTisService;
 import org.talend.core.ui.branding.IBrandingService;
-import org.talend.rcp.Activator;
 import org.talend.rcp.i18n.Messages;
 import org.talend.rcp.intro.linksbar.Workbench3xImplementation4CoolBar;
 import org.talend.repository.RegistrationPlugin;
@@ -138,10 +137,8 @@ public class Application implements IApplication {
                 EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand(
                         EclipseCommandLine.TALEND_DISABLE_LOGINDIALOG_COMMAND, null, true, true);
                 // TDI-8426, fix the swith project failure, when in dev also.
-                // TDI-8426, fix the swith project failure, when in dev also.
-                boolean devMode = Activator.getDefault().getBundle().getBundleContext().getProperty("osgi.dev") != null; //$NON-NLS-1$
                 // if dev, can't be restart, so specially for dev.
-                if (devMode) {
+                if (Platform.inDevelopmentMode()) {
                     return IApplication.EXIT_RESTART;
                 }
                 return IApplication.EXIT_RELAUNCH;
