@@ -57,6 +57,10 @@ public class EclipseCommandLine {
      */
     static public final String TALEND_DISABLE_LOGINDIALOG_COMMAND = "--disableLoginDialog"; //$NON-NLS-1$    
 
+    static public void updateOrCreateExitDataPropertyWithCommand(String command, String value, boolean delete) {
+        updateOrCreateExitDataPropertyWithCommand(command, value, delete, false);
+    }
+
     /**
      * this creates or updates the org.eclipse.equinox.app.IApplicationContext.EXIT_DATA_PROPERTY by adding or changing
      * the command with value, except if value is null then the command shall be removed.
@@ -64,8 +68,9 @@ public class EclipseCommandLine {
      * @param command the command to add or update or remove (if value is null) (usually starts with a -)
      * @param value the value of the command,if the value is null,will only update the commmand
      * @param delete the flag used to trigger delete or insert/update the command
+     * @param isOption this flag used to trigger for the option command without any arguments.
      */
-    static public void updateOrCreateExitDataPropertyWithCommand(String command, String value, boolean delete) {
+    static public void updateOrCreateExitDataPropertyWithCommand(String command, String value, boolean delete, boolean isOption) {
         boolean isValueNull = false;
         if (value == null || "".equals(value)) {
             isValueNull = true;
@@ -73,21 +78,31 @@ public class EclipseCommandLine {
         StringBuffer result = new StringBuffer(512);
 
         String currentProperty = System.getProperty(org.eclipse.equinox.app.IApplicationContext.EXIT_DATA_PROPERTY);
+        String patternStr = "\\s+.+\\s"; //$NON-NLS-1$
+        // if the command is only one option. should only process the command without arguments.
+        if (isOption) {
+            patternStr = "\\s+"; //$NON-NLS-1$
+        }
+
         if (currentProperty != null) {// update the property
-            Pattern commandPattern = Pattern.compile(command + "\\s+.+\\s");//$NON-NLS-1$ -talendRestart\s+.+\s
+            Pattern commandPattern = Pattern.compile(command + patternStr);// -talendRestart\s+.+\s
             Matcher restartMatcher = commandPattern.matcher(currentProperty);
 
             if (delete) {// if delete,no matter the value is null or not,remove the command directly
                 if (restartMatcher.find()) {// match found so remove it
-                    currentProperty = restartMatcher.replaceAll("");
+                    currentProperty = restartMatcher.replaceAll(""); //$NON-NLS-1$
                 } // else no match so do nothing
             } else {// else add or update the command
                     // try to find existing commands to update them
                     // find the index of the arg to replace its value
                 // if value is null,only add or update the command
                 if (restartMatcher.find()) {// match found so update the command
-                    currentProperty = restartMatcher.replaceAll(command + EclipseCommandLine.NEW_LINE
-                            + (isValueNull ? "" : value + EclipseCommandLine.NEW_LINE));//$NON-NLS-N$
+                    if (isOption) {
+                        // because no arguments, if have been existed, so ignore.
+                    } else {
+                        currentProperty = restartMatcher.replaceAll(command + EclipseCommandLine.NEW_LINE
+                                + (isValueNull ? "" : value + EclipseCommandLine.NEW_LINE));
+                    }
                 } else {// no match so insert it before the CMD_VMARGS
                     int indexOfVmArgs = currentProperty.indexOf(CMD_VMARGS);
                     if (indexOfVmArgs >= 0) {// found it so insert command before
@@ -124,12 +139,12 @@ public class EclipseCommandLine {
                     result.append(command);
                     result.append(EclipseCommandLine.NEW_LINE);
                     if (!isValueNull) {
-                        result.append(value); //$NON-NLS-1$
+                        result.append(value);
                         result.append(EclipseCommandLine.NEW_LINE);
                     }
                 }// else command shall be removed,but it does not exists so ignor it
             } else {
-                Pattern commandPattern = Pattern.compile(command + "\\s+.+\\s");//$NON-NLS-1$ -talendRestart\s+.+\s
+                Pattern commandPattern = Pattern.compile(command + patternStr);// -talendRestart\s+.+\s
                 Matcher restartMatcher = commandPattern.matcher(property);
 
                 if (delete) {// if delete,no matter the value is null or not,remove the command dirctly
@@ -138,8 +153,12 @@ public class EclipseCommandLine {
                     }
                 } else {// else need add or update the
                     if (restartMatcher.find()) {// match found so update the command
-                        property = restartMatcher.replaceAll(command + EclipseCommandLine.NEW_LINE
-                                + (isValueNull ? "" : value + EclipseCommandLine.NEW_LINE));
+                        if (isOption) {
+                            // because no arguments, if have been existed, so ignore.
+                        } else {
+                            property = restartMatcher.replaceAll(command + EclipseCommandLine.NEW_LINE
+                                    + (isValueNull ? "" : value + EclipseCommandLine.NEW_LINE));
+                        }
                     } else {// no match so add it
                         result.append(command);
                         result.append(EclipseCommandLine.NEW_LINE);
