@@ -1027,6 +1027,7 @@ public class ExtractMetaDataFromDataBase {
             // }
             IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
             boolean isMSSQL = EDatabaseTypeName.MSSQL.getDisplayName().equals(metadataConnection.getDbType());
+            List<String> columnLabels = new ArrayList<String>();
             while (columns.next()) {
                 Boolean b = false;
                 String fetchTableName = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TABLE_NAME", null); //$NON-NLS-1$
@@ -1049,7 +1050,7 @@ public class ExtractMetaDataFromDataBase {
                         label = "_" + label; //$NON-NLS-1$
                         b = true;
                     }
-                    metadataColumn.setLabel(label);
+                    // metadataColumn.setLabel(label);
                     //                    if (label2 != null && label2.length() > 0 && label2.startsWith("_")) { //$NON-NLS-1$
                     // String substring = label2.substring(1);
                     // if (b
@@ -1063,12 +1064,12 @@ public class ExtractMetaDataFromDataBase {
 
                     // Validate the column if it contains space or illegal
                     // characters.
-                    if (repositoryService != null) {
-                        // metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),
-                        // columnIndex));
-                        label = repositoryService.validateColumnName(label, columnIndex);
-                        metadataColumn.setLabel(label);
-                    }
+                    // if (repositoryService != null) {
+                    // metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),
+                    // columnIndex));
+                    label = MetadataToolHelper.validateColumnName(label, columnIndex, columnLabels);
+                    metadataColumn.setLabel(label);
+                    // }
                     columnIndex++;
 
                     if (primaryKeys != null && !primaryKeys.isEmpty()
@@ -1200,6 +1201,7 @@ public class ExtractMetaDataFromDataBase {
                         }
                     }
                     metadataColumns.add(metadataColumn);
+                    columnLabels.add(metadataColumn.getLabel());
                 }
             }
 
