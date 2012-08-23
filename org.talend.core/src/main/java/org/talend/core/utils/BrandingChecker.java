@@ -31,7 +31,7 @@ public class BrandingChecker {
     public static boolean isBrandingChanged() {
         if (!isBrandingChanged) {
             if (CommonsPlugin.isHeadless()) {
-                isBrandingChanged = true;
+                isBrandingChanged = false;
             } else {
                 IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                         IBrandingService.class);
