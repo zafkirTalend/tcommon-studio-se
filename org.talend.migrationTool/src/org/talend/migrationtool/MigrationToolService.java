@@ -85,10 +85,6 @@ public class MigrationToolService implements IMigrationToolService {
         final List<IProjectMigrationTask> toExecute = GetTasksHelper.getProjectTasks(beforeLogon);
         final List<String> done = new ArrayList<String>(project.getEmfProject().getMigrationTasks());
 
-        // force execute migration in case user copy-past items with diffrent path on the file system and refresh
-        // the studio,it may cause bug TDI-19229
-        done.remove("org.talend.repository.model.migration.FixProjectResourceLink");
-
         Collections.sort(toExecute, new Comparator<IProjectMigrationTask>() {
 
             @Override
@@ -113,6 +109,10 @@ public class MigrationToolService implements IMigrationToolService {
             // force to redo this migration task, to make sure the relationship is done correctly
             done.remove(RELATION_TASK);
         }
+
+        // force execute migration in case user copy-past items with diffrent path on the file system and refresh
+        // the studio,it may cause bug TDI-19229
+        done.remove("org.talend.repository.model.migration.FixProjectResourceLink");
 
         boolean haveAnyBinFolder = false; // to avoid some problems of migration, sometimes
         IWorkspace workspace = ResourcesPlugin.getWorkspace();
