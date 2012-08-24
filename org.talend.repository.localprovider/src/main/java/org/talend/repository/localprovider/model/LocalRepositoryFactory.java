@@ -963,7 +963,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     private void createFolder(IProject prj, FolderHelper folderHelper, String path) throws PersistenceException {
         IFolder folderTemp = ResourceUtils.getFolder(prj, path, false);
         if (!folderTemp.exists()) {
-            ResourceUtils.createFolder(folderTemp);
+            createFolder(folderTemp);
         }
         if (folderHelper.getFolder(new Path(path)) == null) {
             folderHelper.createSystemFolder(new Path(path));
@@ -1137,10 +1137,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // Getting the folder :
         IFolder folder = ResourceUtils.getFolder(fsProject, completePath, false);
         if (!folder.exists()) {
-            ResourceUtils.createFolder(folder);
+            createFolder(folder);
         }
 
         return new Folder(folderItem.getProperty(), type);
+    }
+
+    protected void createFolder(IFolder folder) throws PersistenceException {
+        ResourceUtils.createFolder(folder);
     }
 
     /*
@@ -1270,7 +1274,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             for (Resource resource : affectedResources) {
                 IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath)
                         .append(resource.getURI().lastSegment());
-                xmiResourceManager.moveResource(resource, path);
+                moveResource(resource, path);
             }
         }
 
@@ -1348,7 +1352,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         for (Resource resource : affectedResources) {
                             IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath)
                                     .append(resource.getURI().lastSegment());
-                            xmiResourceManager.moveResource(resource, path);
+                            moveResource(resource, path);
                         }
                     }
 
@@ -1413,7 +1417,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 EcoreUtil.resolveAll(re);
                 needSaves.add(re);
             }
-            xmiResourceManager.moveResource(resource, path);
+            moveResource(resource, path);
 
             AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
                     AbstractResourceChangesService.class);
@@ -1592,7 +1596,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     EcoreUtil.resolveAll(re);
                     needSaves.add(re);
                 }
-                xmiResourceManager.moveResource(resource, path);
+                moveResource(resource, path);
 
                 AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
                         AbstractResourceChangesService.class);
@@ -1610,6 +1614,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             }
         }
         saveProject(project);
+    }
+
+    protected void moveResource(Resource resource, IPath path) throws PersistenceException {
+        xmiResourceManager.moveResource(resource, path);
     }
 
     @Override
@@ -1707,6 +1715,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     @Override
     public void setMigrationTasksDone(Project project, List<String> list) throws PersistenceException {
+        List oldMigrationTasks = project.getEmfProject().getMigrationTasks();
+        if (oldMigrationTasks.size() == list.size()) {
+            return;
+        }
         project.getEmfProject().getMigrationTasks().clear();
         project.getEmfProject().getMigrationTasks().addAll(list);
         saveProject(project);
