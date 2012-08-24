@@ -514,6 +514,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     @Override
     public synchronized void deleteFolder(Project project, ERepositoryObjectType type, IPath path, boolean fromEmptyRecycleBin)
             throws PersistenceException {
+        if (hasLockedItems(type, path)) {
+            throw new PersistenceException("Cannot delete a folder which contains locked items");
+        }
         this.repositoryFactoryFromProvider.deleteFolder(project, type, path, fromEmptyRecycleBin);
         if (type == ERepositoryObjectType.PROCESS) {
             fireRepositoryPropertyChange(ERepositoryActionName.FOLDER_DELETE.getName(), path, type);
@@ -521,6 +524,21 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         if (type == ERepositoryObjectType.JOBLET) {
             fireRepositoryPropertyChange(ERepositoryActionName.JOBLET_FOLDER_DELETE.getName(), path, type);
         }
+    }
+
+    private boolean hasLockedItems(ERepositoryObjectType type, IPath path) throws PersistenceException {
+        if (ERepositoryObjectType.COMPONENTS.equals(type)) {
+            return false;
+        }
+        Project baseProject = getRepositoryContext().getProject();
+        List<IRepositoryViewObject> objects = this.repositoryFactoryFromProvider.getMetadataByFolder(baseProject, type, path);
+        for (IRepositoryViewObject repositoryObject : objects) {
+            if (getStatus(repositoryObject.getProperty().getItem()) == ERepositoryStatus.LOCK_BY_USER
+                    || getStatus(repositoryObject.getProperty().getItem()) == ERepositoryStatus.LOCK_BY_OTHER) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /*
@@ -532,6 +550,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      */
     @Override
     public void moveFolder(ERepositoryObjectType type, IPath sourcePath, IPath targetPath) throws PersistenceException {
+        if (hasLockedItems(type, sourcePath)) {
+            throw new PersistenceException("Cannot move a folder which contains locked items");
+        }
         this.repositoryFactoryFromProvider.moveFolder(type, sourcePath, targetPath);
         if (type == ERepositoryObjectType.PROCESS) {
             fireRepositoryPropertyChange(ERepositoryActionName.FOLDER_MOVE.getName(), sourcePath, targetPath);
@@ -600,13 +621,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      */
     @Override
     public void renameFolder(ERepositoryObjectType type, IPath path, String label) throws PersistenceException {
-        // if (path.lastSegment().equalsIgnoreCase(label)) {
-        // not supported to rename directly to another case.
-        // actually only possible way without it, would be to move to another temp folder, then rename again.
-        // (means 2 commits)
-        // to simplify for now, we don't allow to rename one folder to another case.
-        // return;
-        // }
+        if (hasLockedItems(type, path)) {
+            throw new PersistenceException("Cannot rename a folder which contains locked items");
+        }
         this.repositoryFactoryFromProvider.renameFolder(type, path, label);
         if (type == ERepositoryObjectType.PROCESS) {
             fireRepositoryPropertyChange(ERepositoryActionName.FOLDER_RENAME.getName(), path, label);
@@ -617,12 +634,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         this.repositoryFactoryFromProvider.updateItemsPath(type, path.removeLastSegments(1).append(label));
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IRepositoryFactory#deleteObject(org.talend.core.model.general.Project,
-     * org.talend.core.model.repository.IRepositoryViewObject)
-     */
     /*
      * (non-Javadoc)
      * 
