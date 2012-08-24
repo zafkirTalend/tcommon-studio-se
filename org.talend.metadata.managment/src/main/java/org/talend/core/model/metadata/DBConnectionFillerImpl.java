@@ -378,6 +378,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     && dbJDBCMetadata.getDatabaseProductName().indexOf(EDatabaseTypeName.ORACLEFORSID.getProduct()) > -1) {
                 return catalogList;
             }
+            // ODBC teradata dosen't support 'dbJDBCMetadata.getCatalogs()',return at here.
             if (ConnectionUtils.isOdbcTeradata(dbJDBCMetadata)) {
                 return catalogList;
             }
@@ -1228,6 +1229,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             }
             // --- add columns to table
             ResultSet columns = dbJDBCMetadata.getColumns(catalogName, schemaPattern, tablePattern, columnPattern);
+            // MOD qiongli 2012-8-15 TDQ-5898,Odbc Terdata don't support some API.
+            boolean isOdbcTeradata = ConnectionUtils.isOdbcTeradata(dbJDBCMetadata);
             while (columns.next()) {
                 int decimalDigits = 0;
                 int numPrecRadix = 0;
@@ -1257,8 +1260,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         typeName = Java2SqlType.getTeradataJavaTypeBySqlTypeAsString(typeName);
                     } else {
                         dataType = columns.getInt(GetColumn.DATA_TYPE.name());
-                        numPrecRadix = columns.getInt(GetColumn.NUM_PREC_RADIX.name());
-                        decimalDigits = columns.getInt(GetColumn.DECIMAL_DIGITS.name());
+                        if (!isOdbcTeradata) {
+                            numPrecRadix = columns.getInt(GetColumn.NUM_PREC_RADIX.name());
+                            decimalDigits = columns.getInt(GetColumn.DECIMAL_DIGITS.name());
+                        }
                     }
                     if (MetadataConnectionUtils.isMssql(dbJDBCMetadata)) {
                         if (typeName.toLowerCase().equals("date")) {
@@ -1276,8 +1281,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         }
                     }
 
-                    int column_size = columns.getInt(GetColumn.COLUMN_SIZE.name());
-                    column.setLength(column_size);
+                    if (!isOdbcTeradata) {
+                        int column_size = columns.getInt(GetColumn.COLUMN_SIZE.name());
+                        column.setLength(column_size);
+                    }
 
                 } catch (Exception e1) {
                     log.warn(e1, e1);
@@ -1310,7 +1317,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 // TdExpression
                 Object defaultvalue = null;
                 try {
-                    defaultvalue = columns.getObject(GetColumn.COLUMN_DEF.name());
+                    if (!isOdbcTeradata) {
+                        defaultvalue = columns.getObject(GetColumn.COLUMN_DEF.name());
+                    }
                 } catch (Exception e1) {
                     log.warn(e1, e1);
                 }
