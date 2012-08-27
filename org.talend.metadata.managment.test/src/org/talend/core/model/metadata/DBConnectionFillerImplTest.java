@@ -12,14 +12,11 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.atMost;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.powermock.api.support.membermodification.MemberMatcher.method;
-import static org.powermock.api.support.membermodification.MemberModifier.stub;
+import static org.junit.Assert.*;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
+import static org.powermock.api.support.membermodification.MemberMatcher.*;
+import static org.powermock.api.support.membermodification.MemberModifier.*;
 
 import java.sql.DatabaseMetaData;
 import java.sql.Driver;
@@ -41,16 +38,24 @@ import org.powermock.modules.junit4.rule.PowerMockRule;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
 import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.cwm.helper.CatalogHelper;
+import org.talend.cwm.helper.ColumnSetHelper;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
+import org.talend.cwm.helper.SchemaHelper;
+import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
+import org.talend.utils.sql.ConnectionUtils;
+import org.talend.utils.sql.metadata.constants.GetColumn;
 import org.talend.utils.sql.metadata.constants.GetTable;
 import org.talend.utils.sql.metadata.constants.TableType;
 import orgomg.cwm.resource.relational.Catalog;
+import orgomg.cwm.resource.relational.ColumnSet;
 import orgomg.cwm.resource.relational.Schema;
 
 /**
@@ -58,7 +63,8 @@ import orgomg.cwm.resource.relational.Schema;
  */
 
 @PrepareForTest({ StringUtils.class, ExtractMetaDataFromDataBase.class, MetadataConnectionUtils.class, PackageHelper.class,
-        ConnectionHelper.class, ProxyRepositoryFactory.class, ExtensionImplementationProvider.class })
+        ConnectionHelper.class, ProxyRepositoryFactory.class, ExtensionImplementationProvider.class, CatalogHelper.class,
+        SchemaHelper.class, ConnectionUtils.class, ColumnSetHelper.class })
 public class DBConnectionFillerImplTest {
 
     @Rule
@@ -109,11 +115,59 @@ public class DBConnectionFillerImplTest {
     }
 
     /**
-     * Test method for {@link org.talend.core.model.metadata.DBConnectionFillerImpl#fillColumns(orgomg.cwm.resource.relational.ColumnSet, java.sql.DatabaseMetaData, java.util.List, java.lang.String)}.
+     * Test method for
+     * {@link org.talend.core.model.metadata.DBConnectionFillerImpl#fillColumns(orgomg.cwm.resource.relational.ColumnSet, java.sql.DatabaseMetaData, java.util.List, java.lang.String)}
+     * .
+     * 
+     * @throws Exception
      */
     @Test
-    public void testFillColumnsColumnSetDatabaseMetaDataListOfStringString() {
-        // fail("Not yet implemented");
+    public void testFillColumnsColumnSetDatabaseMetaDataListOfStringString_odbcTerdata() throws Exception {
+        ColumnSet columnSet = orgomg.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumnSet();
+        columnSet.setName("table1");
+        DatabaseMetaData dbJDBCMetadata = mock(DatabaseMetaData.class);
+        List<String> columnFilter = new ArrayList<String>();
+        Schema schema = mock(Schema.class);
+        when(schema.getName()).thenReturn("talend");
+        PowerMockito.mockStatic(CatalogHelper.class);
+        when(CatalogHelper.getParentCatalog(columnSet)).thenReturn(null);
+        PowerMockito.mockStatic(SchemaHelper.class);
+        when(SchemaHelper.getParentSchema(columnSet)).thenReturn(schema);
+        stub(method(MetadataConnectionUtils.class, "isSybase", DatabaseMetaData.class)).toReturn(false);
+        stub(method(MetadataConnectionUtils.class, "isMssql", DatabaseMetaData.class)).toReturn(false);
+        PowerMockito.mockStatic(ConnectionUtils.class);
+        when(ConnectionUtils.isOdbcTeradata(dbJDBCMetadata)).thenReturn(true);
+        ResultSet rs = mock(ResultSet.class);
+
+        when(rs.next()).thenReturn(true).thenReturn(true).thenReturn(false);
+        when(rs.getString(GetColumn.COLUMN_NAME.name())).thenReturn("column1").thenReturn("column2");
+        when(rs.getString(GetColumn.TYPE_NAME.name())).thenReturn("VARCHAR");
+        when(rs.getInt(GetColumn.NULLABLE.name())).thenReturn(0);
+        when(rs.getInt(GetColumn.DATA_TYPE.name())).thenReturn(1);
+
+        when(rs.getString(GetColumn.REMARKS.name())).thenReturn("");
+        when(rs.getString(GetColumn.IS_NULLABLE.name())).thenReturn("YES");
+        when(dbJDBCMetadata.getColumns(anyString(), anyString(), anyString(), anyString())).thenReturn(rs);
+
+        DatabaseConnection dbConnection = mock(DatabaseConnection.class);
+        PowerMockito.mockStatic(ConnectionHelper.class);
+        when(ConnectionHelper.getConnection(columnSet)).thenReturn(dbConnection);
+
+        stub(method(MetadataToolHelper.class, "validateValueForDBType", String.class)).toReturn("VARCHAR");
+        PowerMockito.mockStatic(ColumnSetHelper.class);
+        stub(method(ColumnSetHelper.class, "addColumns")).toReturn(true);
+
+        List<TdColumn> fillColumns = dBConnectionFillerImpl.fillColumns(columnSet, dbJDBCMetadata, columnFilter, null);
+        assertNotNull(fillColumns);
+        assertTrue(fillColumns.size() == 2);
+        // for odbc teradata,should assert like this
+        for (TdColumn tdColumn : fillColumns) {
+            assertEquals(tdColumn.getSqlDataType().getNumericPrecision(), 0);
+            assertEquals(tdColumn.getSqlDataType().getNumericPrecisionRadix(), 0);
+            assertEquals(tdColumn.getLength(), 0);
+            assertNull(null, tdColumn.getInitialValue().getBody());
+        }
+
     }
 
     /**
@@ -141,11 +195,24 @@ public class DBConnectionFillerImplTest {
     }
 
     /**
-     * Test method for {@link org.talend.core.model.metadata.DBConnectionFillerImpl#fillCatalogs(org.talend.core.model.metadata.builder.connection.Connection, java.sql.DatabaseMetaData, java.util.List)}.
+     * Test method for
+     * {@link org.talend.core.model.metadata.DBConnectionFillerImpl#fillCatalogs(org.talend.core.model.metadata.builder.connection.Connection, java.sql.DatabaseMetaData, java.util.List)}
+     * .
+     * 
+     * @throws SQLException
      */
     @Test
-    public void testFillCatalogs() {
-        // fail("Not yet implemented");
+    public void testFillCatalogs_OdbcTeradata() throws SQLException {
+        DatabaseMetaData dbJDBCMetadata = mock(DatabaseMetaData.class);
+        when(dbJDBCMetadata.getDatabaseProductName()).thenReturn("teradata");
+        stub(method(ConnectionUtils.class, "isOdbcTeradata", DatabaseMetaData.class)).toReturn(true);
+        List<String> catalogFilter = new ArrayList<String>();
+        Connection connection = mock(Connection.class);
+        when(connection.isContextMode()).thenReturn(false);
+        List<Catalog> fillCatalogs = this.dBConnectionFillerImpl.fillCatalogs(connection, dbJDBCMetadata, catalogFilter);
+        assertTrue(fillCatalogs.isEmpty());
+
+        
     }
 
     /**
