@@ -283,4 +283,14 @@ public class EmptyRepositoryObject implements IRepositoryObject {
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryViewObject#isModified()
+     */
+    public boolean isModified() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }
