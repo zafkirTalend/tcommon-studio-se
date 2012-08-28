@@ -225,9 +225,10 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
             TreeItem root = xmlViewer.getTree().getItem(0);
             TableItem[] tableItems = schemaViewer.getTable().getItems();
             initLinker(root, tableItems);
-            // if (linker.linkSize() == 0) {
-            linker.updateLinksStyleAndControlsSelection(xmlViewer.getTree(), true);
-            // }
+            // TDI-19250:has updateLink in initLinker(),no need to update again except the linkSize is empty
+            if (linker.linkSize() == 0) {
+                linker.updateLinksStyleAndControlsSelection(xmlViewer.getTree(), true);
+            }
         }
     }
 
