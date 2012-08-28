@@ -203,20 +203,21 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
         FOXTreeNode treeNode = (FOXTreeNode) node.getData();
         IMetadataColumn column = treeNode.getColumn();
         if (column != null) {
-            for (int i = 0; i < tableItems.length; i++) {
-                MetadataColumn metadataColumn = (MetadataColumn) tableItems[i].getData();
+            for (TableItem tableItem : tableItems) {
+                MetadataColumn metadataColumn = (MetadataColumn) tableItem.getData();
                 if (metadataColumn.getLabel().equals(column.getLabel())) {
-                    linker.addLoopLink(tableItems[i], tableItems[i].getData(), xmlViewer.getTree(), treeNode, false);
+                    linker.addLoopLink(tableItem, tableItem.getData(), xmlViewer.getTree(), treeNode, false);
                     break;
                 }
             }
         }
         TreeItem[] children = node.getItems();
-        for (int i = 0; i < children.length; i++) {
-            initLinker(children[i], tableItems);
+        for (TreeItem element : children) {
+            initLinker(element, tableItems);
         }
     }
 
+    @Override
     public void redrawLinkers() {
         int maxColumnsNumber = CoreRuntimePlugin.getInstance().getPreferenceStore()
                 .getInt(ITalendCorePrefConstants.MAXIMUM_AMOUNT_OF_COLUMNS_FOR_XML);
@@ -225,9 +226,10 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
             TreeItem root = xmlViewer.getTree().getItem(0);
             TableItem[] tableItems = schemaViewer.getTable().getItems();
             initLinker(root, tableItems);
-            // if (linker.linkSize() == 0) {
-            linker.updateLinksStyleAndControlsSelection(xmlViewer.getTree(), true);
-            // }
+            // TDI-19250:has updateLink in initLinker(),no need to update again except the linkSize is empty
+            if (linker.linkSize() == 0) {
+                linker.updateLinksStyleAndControlsSelection(xmlViewer.getTree(), true);
+            }
         }
     }
 
@@ -278,6 +280,7 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
 
         xmlViewer.setCellModifier(new ICellModifier() {
 
+            @Override
             public void modify(Object element, String property, Object value) {
                 TreeItem treeItem = (TreeItem) element;
                 FOXTreeNode node = (FOXTreeNode) treeItem.getData();
@@ -290,6 +293,7 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
                 xmlViewer.refresh(node);
             }
 
+            @Override
             public Object getValue(Object element, String property) {
                 FOXTreeNode node = (FOXTreeNode) element;
                 if (property.equals("C1")) { //$NON-NLS-1$
@@ -302,6 +306,7 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
                 return null;
             }
 
+            @Override
             public boolean canModify(Object element, String property) {
                 FOXTreeNode node = (FOXTreeNode) element;
                 if (property.equals("C1")) {
@@ -336,6 +341,7 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
         menuMgr.setRemoveAllWhenShown(true);
         menuMgr.addMenuListener(new IMenuListener() {
 
+            @Override
             public void menuAboutToShow(IMenuManager manager) {
                 fillContextMenu(manager);
             }
@@ -344,6 +350,7 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
         xmlViewer.getControl().setMenu(menu);
         xmlViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 
+            @Override
             public void selectionChanged(SelectionChangedEvent event) {
 
             }
@@ -354,8 +361,9 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
     }
 
     private void displayRootCombo(boolean visible) {
-        if (rootCombo == null)
+        if (rootCombo == null) {
             return;
+        }
         rootCombo.setVisible(visible);
         GridData layoutData = (GridData) rootCombo.getLayoutData();
         layoutData.exclude = !visible;
@@ -437,6 +445,7 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
     protected void addFieldsListeners() {
         rootComboViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 
+            @Override
             public void selectionChanged(SelectionChangedEvent event) {
                 IStructuredSelection selection = (IStructuredSelection) event.getSelection();
                 ATreeNode node = (ATreeNode) selection.getFirstElement();
@@ -547,6 +556,7 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
         return false;
     }
 
+    @Override
     public void updateStatus() {
         checkFieldsValue();
     }
@@ -596,8 +606,9 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
                 parent = tmpParent;
             }
 
-            if (parent != null)
+            if (parent != null) {
                 parent.addChild(temp);
+            }
         }
 
         return temp;
@@ -800,14 +811,17 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
         treeData.add(rootNode);
     }
 
+    @Override
     public MetadataTable getMetadataTable() {
         return ConnectionHelper.getTables(getConnection()).toArray(new MetadataTable[0])[0];
     }
 
+    @Override
     public TableViewer getSchemaViewer() {
         return this.schemaViewer;
     }
 
+    @Override
     public void updateConnection() {
         ConnectionHelper.getTables(getConnection());
         EList root = getConnection().getRoot();
@@ -888,10 +902,12 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
 
     }
 
+    @Override
     public void setSelectedText(String label) {
         selectedText = label;
     }
 
+    @Override
     public List<FOXTreeNode> getTreeData() {
         return treeData;
     }
@@ -963,14 +979,17 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
 
         Boolean validateLabel;
 
+        @Override
         public void applyEditorValue() {
             String text = getControl().getText();
             onValueChanged(text, true, property);
         }
 
+        @Override
         public void cancelEditor() {
         }
 
+        @Override
         public void editorValueChanged(boolean oldValidState, boolean newValidState) {
             onValueChanged(getControl().getText(), false, property);
         }
