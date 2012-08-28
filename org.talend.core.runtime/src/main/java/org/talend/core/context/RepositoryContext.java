@@ -33,6 +33,10 @@ public class RepositoryContext {
 
     private boolean otp = false;
 
+    private boolean offline = false;
+
+    private boolean editableAsReadOnly = false;
+
     private Map<String, String> fields;
 
     /**
@@ -104,7 +108,7 @@ public class RepositoryContext {
     public void setClearPassword(String clearPassword) {
         this.clearPassword = clearPassword;
     }
-    
+
     public boolean isOtp() {
         return otp;
     }
@@ -112,7 +116,7 @@ public class RepositoryContext {
     public void setOtp(boolean otp) {
         this.otp = otp;
     }
-    
+
     /*
      * (non-Javadoc)
      * 
@@ -161,4 +165,29 @@ public class RepositoryContext {
         return true;
     }
 
+    /**
+     * Getter for offline.
+     * 
+     * @return the offline
+     */
+    public boolean isOffline() {
+        return this.offline;
+    }
+
+    /**
+     * Sets the offline.
+     * 
+     * @param offline the offline to set
+     */
+    public void setOffline(boolean offline) {
+        this.offline = offline;
+    }
+
+    public boolean isEditableAsReadOnly() {
+        return this.editableAsReadOnly;
+    }
+
+    public void setEditableAsReadOnly(boolean editableAsReadOnly) {
+        this.editableAsReadOnly = editableAsReadOnly;
+    }
 }

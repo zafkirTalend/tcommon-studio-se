@@ -27,9 +27,8 @@ import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IRepositoryNode;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
-
 /**
- * DOC klliu  class global comment. Detailled comment
+ * DOC klliu class global comment. Detailled comment
  */
 public class MetadataXmlSchemaRepositoryObject extends MetadataXmlSchema implements ISubRepositoryObject {
 
@@ -43,10 +42,12 @@ public class MetadataXmlSchemaRepositoryObject extends MetadataXmlSchema impleme
         return this.viewObject;
     }
 
+    @Override
     public IRepositoryNode getRepositoryNode() {
         return this.repositoryNode;
     }
-    
+
+    @Override
     public void setRepositoryNode(IRepositoryNode repositoryNode) {
         this.repositoryNode = repositoryNode;
     }
@@ -55,6 +56,7 @@ public class MetadataXmlSchemaRepositoryObject extends MetadataXmlSchema impleme
         return this.tdXmlSchema;
     }
 
+    @Override
     public List<IRepositoryViewObject> getChildren() {
         return this.viewObject.getChildren();
     }
@@ -70,26 +72,32 @@ public class MetadataXmlSchemaRepositoryObject extends MetadataXmlSchema impleme
         this.tdXmlSchema = tdXmlSchema;
     }
 
+    @Override
     public String getLabel() {
         return getTdXmlSchema().getName();
     }
 
+    @Override
     public String getId() {
         return getTdXmlSchema().getName();
     }
 
+    @Override
     public AbstractMetadataObject getAbstractMetadataObject() {
         return null;
     }
 
+    @Override
     public ERepositoryObjectType getRepositoryObjectType() {
         return ERepositoryObjectType.MDM_SCHEMA;
     }
 
+    @Override
     public boolean isDeleted() {
         return false;
     }
 
+    @Override
     public void removeFromParent() {
     }
 
@@ -97,58 +105,81 @@ public class MetadataXmlSchemaRepositoryObject extends MetadataXmlSchema impleme
     }
 
     // @Override
+    @Override
     public Property getProperty() {
         Property property = viewObject.getProperty();
         updateCatalog(property);
         return property;
     }
 
+    @Override
     public String getVersion() {
         return viewObject.getVersion();
     }
 
+    @Override
     public User getAuthor() {
         return viewObject.getAuthor();
     }
 
+    @Override
     public Date getCreationDate() {
         return viewObject.getCreationDate();
     }
 
+    @Override
     public String getDescription() {
         return viewObject.getDescription();
     }
 
+    @Override
     public ERepositoryStatus getInformationStatus() {
         return viewObject.getInformationStatus();
     }
 
+    @Override
     public Date getModificationDate() {
         return viewObject.getModificationDate();
     }
 
+    @Override
     public String getPath() {
         return viewObject.getPath();
     }
 
+    @Override
     public String getProjectLabel() {
         return viewObject.getProjectLabel();
     }
 
+    @Override
     public String getPurpose() {
         return viewObject.getPurpose();
     }
 
+    @Override
     public ERepositoryStatus getRepositoryStatus() {
         return viewObject.getRepositoryStatus();
     }
 
+    @Override
     public String getStatusCode() {
         return viewObject.getStatusCode();
     }
 
+    @Override
     public ModelElement getModelElement() {
         return this.tdXmlSchema;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryViewObject#isModified()
+     */
+    @Override
+    public boolean isModified() {
+        return viewObject.isModified();
     }
 
 }

@@ -3009,4 +3009,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return descBuffer.toString();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.repository.model.IRepositoryFactory#isModified(org.talend.core.model.properties.Item)
+     */
+    @Override
+    public boolean isModified(Property property) {
+        return false;
+    }
+
 }

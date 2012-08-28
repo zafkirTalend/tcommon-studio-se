@@ -1561,6 +1561,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         if (!projectManager.isInCurrentMainProject(item)) {
             return false;
         }
+        if (getRepositoryContext().isEditableAsReadOnly()) {
+            return true;
+        }
 
         ERepositoryStatus status = getStatus(item);
         if (status.isPotentiallyEditable()) {
@@ -2083,5 +2086,10 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     public void updateLockStatus() throws PersistenceException {
         this.repositoryFactoryFromProvider.updateLockStatus();
 
+    }
+
+    @Override
+    public boolean isModified(Property property) {
+        return repositoryFactoryFromProvider.isModified(property);
     }
 }

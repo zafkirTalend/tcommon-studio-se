@@ -12,10 +12,12 @@
 // ============================================================================
 package org.talend.repository.viewer.content;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Hashtable;
 import java.util.Set;
 
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -41,6 +43,7 @@ import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.repository.constants.Constant;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
@@ -214,8 +217,15 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
 
                         @Override
                         public void handleEvent(Event event) {
-                            Item item = (Item) event.getProperty(Constant.ITEM_EVENT_PROPERTY_KEY);
-                            refreshContentIfNecessary(item);
+                            if (event.getProperty(Constant.ITEM_EVENT_PROPERTY_KEY) != null) {
+                                Item item = (Item) event.getProperty(Constant.ITEM_EVENT_PROPERTY_KEY);
+                                refreshContentIfNecessary(item);
+                            } else if (event.getProperty(Constant.FILE_LIST_EVENT_PROPERTY_KEY) != null) {
+                                Collection<String> fileList = (Collection<String>) event
+                                        .getProperty(Constant.FILE_LIST_EVENT_PROPERTY_KEY);
+                                refreshContentIfNecessary(fileList);
+
+                            }
                         }
                     },
                     new Hashtable<String, String>(Collections.singletonMap(EventConstants.EVENT_TOPIC,
@@ -250,10 +260,42 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
                         }
                     });
 
-                }// else not an item handled by this content provider so ignor.
+                }// else not an item handled by this content provider so ignore it.
             }
         }
 
+    }
+
+    protected void refreshContentIfNecessary(Collection<String> fileList) {
+        String workspace = ResourcesPlugin.getWorkspace().getRoot().getLocation().toPortableString();
+        for (String file : fileList) {
+            Path itemPath = new Path(file.replace(workspace, "")); //$NON-NLS-1$
+            Set<RepositoryNode> topLevelNodes = getTopLevelNodes();
+            for (final RepositoryNode repoNode : topLevelNodes) {
+
+                IPath workspaceTopNodePath = getWorkspaceTopNodePath(repoNode);
+                if (workspaceTopNodePath != null && workspaceTopNodePath.isPrefixOf(itemPath)) {
+                    for (IRepositoryNode childNode : repoNode.getChildren()) {
+                        if (childNode == null || childNode.getObject() == null) {
+                            continue;
+                        }
+                        childNode.getObject().getProperty(); // only update the property, this will update everything
+                                                             // automatically.
+                    }
+                    Display.getDefault().asyncExec(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            if (repoNode != null && viewer != null && !viewer.getTree().isDisposed()) {
+                                viewer.refresh(repoNode, true);
+                            }
+
+                        }
+                    });
+
+                }// else not an item handled by this content provider so ignore it.
+            }
+        }
     }
 
     /*

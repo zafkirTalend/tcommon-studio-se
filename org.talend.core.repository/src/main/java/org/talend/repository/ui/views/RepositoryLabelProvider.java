@@ -30,6 +30,8 @@ import org.talend.commons.ui.runtime.image.ImageUtils;
 import org.talend.commons.ui.runtime.image.ImageUtils.ICON_SIZE;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
+import org.talend.core.context.Context;
+import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.Item;
@@ -43,6 +45,7 @@ import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.model.repositoryObject.MetadataTableRepositoryObject;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.ICDCProviderService;
 import org.talend.core.ui.IReferencedProjectService;
 import org.talend.core.ui.branding.IBrandingService;
@@ -120,6 +123,7 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
         return string.toString();
     }
 
+    @Override
     public String getText(Object obj) {
         if (obj instanceof IRepositoryViewObject) {
             return getText((IRepositoryViewObject) obj);
@@ -131,8 +135,9 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
 
         if (node.getType() == ENodeType.REPOSITORY_ELEMENT || node.getType() == ENodeType.SIMPLE_FOLDER) {
             IRepositoryViewObject object = node.getObject();
-            if (object == null) {
-                return node.getLabel();
+            String label = ""; //$NON-NLS-1$
+            if (object.isModified()) {
+                label = "> "; //$NON-NLS-1$
             }
             org.talend.core.model.properties.Project mainProject = ProjectManager.getInstance().getCurrentProject()
                     .getEmfProject();
@@ -150,7 +155,7 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
                     || repositoryObjectType == ERepositoryObjectType.METADATA_SAP_FUNCTION
                     || repositoryObjectType == ERepositoryObjectType.METADATA_SALESFORCE_MODULE
                     || repositoryObjectType == ERepositoryObjectType.METADATA_CON_COLUMN) {
-                String label = object.getLabel();
+                label = label + object.getLabel();
                 if (!mainProject.getLabel().equals(projectLabel) && PluginChecker.isRefProjectLoaded()) {
 
                     IReferencedProjectService service = (IReferencedProjectService) GlobalServiceRegister.getDefault()
@@ -162,7 +167,7 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
                 }
                 return label;
             }
-            String label = getText(object);
+            label = label + getText(object);
             if (!mainProject.getLabel().equals(projectLabel) && PluginChecker.isRefProjectLoaded()) {
                 IReferencedProjectService service = (IReferencedProjectService) GlobalServiceRegister.getDefault().getService(
                         IReferencedProjectService.class);
@@ -212,6 +217,15 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
 
         ERepositoryStatus repositoryStatus = object.getRepositoryStatus();
 
+        Context ctx = CoreRuntimePlugin.getInstance().getContext();
+        RepositoryContext rc = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+
+        if (rc.isEditableAsReadOnly()) {
+            if (repositoryStatus == ERepositoryStatus.LOCK_BY_USER) {
+                repositoryStatus = ERepositoryStatus.DEFAULT;
+            }
+        }
+
         Image image = OverlayImageProvider.getImageWithStatus(img, repositoryStatus);
 
         ERepositoryStatus informationStatus = object.getInformationStatus();
@@ -259,6 +273,7 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
 
     private static Map<byte[], Image> cachedImages = new HashMap<byte[], Image>();
 
+    @Override
     public Image getImage(Object obj) {
         if (obj instanceof IRepositoryViewObject) {
             return getImage((IRepositoryViewObject) obj);
@@ -329,10 +344,12 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
         }
     }
 
+    @Override
     public Color getBackground(Object element) {
         return null;
     }
 
+    @Override
     public Color getForeground(Object element) {
         RepositoryNode node = (RepositoryNode) element;
         switch (node.getType()) {
@@ -378,6 +395,7 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
         }
     }
 
+    @Override
     public Font getFont(Object element) {
         RepositoryNode node = (RepositoryNode) element;
         switch (node.getType()) {

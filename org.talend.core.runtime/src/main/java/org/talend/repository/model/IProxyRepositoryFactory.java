@@ -481,4 +481,6 @@ public interface IProxyRepositoryFactory {
     public String getNavigatorViewDescription();
 
     public void updateLockStatus() throws PersistenceException;
+
+    public boolean isModified(Property property);
 }

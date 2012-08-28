@@ -151,10 +151,12 @@ public class RepositoryNameSorter extends ViewerSorter {
 
             @Override
             public int compare(String o1, String o2) {
+                String a = o1.replace("> ", "");
+                String b = o2.replace("> ", "");
                 // Replace all "_" to " " due to avoid this situation: job name
                 // "a_b_c" before "a_b" in the job list.
-                return o1.replaceAll("_", " ").compareToIgnoreCase( //$NON-NLS-1$ //$NON-NLS-2$
-                        o2.replaceAll("_", " ")); //$NON-NLS-1$ //$NON-NLS-2$
+                return a.replaceAll("_", " ").compareToIgnoreCase( //$NON-NLS-1$ //$NON-NLS-2$
+                        b.replaceAll("_", " ")); //$NON-NLS-1$ //$NON-NLS-2$
             }
         };
     }

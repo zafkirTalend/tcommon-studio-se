@@ -380,4 +380,6 @@ public interface IRepositoryFactory {
      * update the lock status
      */
     public void updateLockStatus() throws PersistenceException;
+
+    public boolean isModified(Property property);
 }

@@ -77,4 +77,12 @@ public interface IRepositoryViewObject {
     public ERepositoryStatus getRepositoryStatus();
 
     public ERepositoryStatus getInformationStatus();
+
+    /**
+     * DOC nrousseau Comment method "isModified".
+     * 
+     * @return
+     */
+    public boolean isModified();
+
 }

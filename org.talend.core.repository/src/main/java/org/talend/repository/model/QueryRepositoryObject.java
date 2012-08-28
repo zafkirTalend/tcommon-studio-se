@@ -44,20 +44,24 @@ public class QueryRepositoryObject extends org.talend.core.model.metadata.Query 
         this.query = table;
     }
 
+    @Override
     public Property getProperty() {
         Property property = repObj.getProperty();
         updateQuery(property);
         return property;
     }
 
+    @Override
     public String getVersion() {
         return repObj.getVersion();
     }
 
+    @Override
     public String getLabel() {
         return query.getLabel();
     }
 
+    @Override
     public String getId() {
         return query.getId();
     }
@@ -66,10 +70,12 @@ public class QueryRepositoryObject extends org.talend.core.model.metadata.Query 
         return query;
     }
 
+    @Override
     public AbstractMetadataObject getAbstractMetadataObject() {
         return getQuery();
     }
 
+    @Override
     public void removeFromParent() {
         query.getQueries().getQuery().remove(query);
     }
@@ -98,68 +104,94 @@ public class QueryRepositoryObject extends org.talend.core.model.metadata.Query 
 
     }
 
+    @Override
     public User getAuthor() {
         return repObj.getAuthor();
     }
 
+    @Override
     public List<IRepositoryViewObject> getChildren() {
         return repObj.getChildren();
     }
 
+    @Override
     public Date getCreationDate() {
         return repObj.getCreationDate();
     }
 
+    @Override
     public String getDescription() {
         return repObj.getDescription();
     }
 
+    @Override
     public ERepositoryStatus getInformationStatus() {
         return repObj.getInformationStatus();
     }
 
+    @Override
     public Date getModificationDate() {
         return repObj.getModificationDate();
     }
 
+    @Override
     public String getPath() {
         return repObj.getPath();
     }
 
+    @Override
     public String getProjectLabel() {
         return repObj.getProjectLabel();
     }
 
+    @Override
     public String getPurpose() {
         return repObj.getPurpose();
     }
 
+    @Override
     public IRepositoryNode getRepositoryNode() {
         return repObj.getRepositoryNode();
     }
 
+    @Override
     public ERepositoryStatus getRepositoryStatus() {
         return repObj.getRepositoryStatus();
     }
 
+    @Override
     public String getStatusCode() {
         return repObj.getStatusCode();
     }
 
+    @Override
     public ERepositoryObjectType getRepositoryObjectType() {
         return ERepositoryObjectType.METADATA_CON_QUERY;
     }
 
+    @Override
     public boolean isDeleted() {
         return repObj.isDeleted();
     }
 
+    @Override
     public void setRepositoryNode(IRepositoryNode node) {
         repObj.setRepositoryNode(node);
     }
 
+    @Override
     public ModelElement getModelElement() {
         return this.query;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryViewObject#isModified()
+     */
+    @Override
+    public boolean isModified() {
+        return repObj.isModified();
     }
 
 }

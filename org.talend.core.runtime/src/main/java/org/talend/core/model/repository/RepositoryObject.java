@@ -21,7 +21,6 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.IService;
-import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
@@ -63,10 +62,12 @@ public class RepositoryObject implements IRepositoryObject {
         this.property = property;
     }
 
+    @Override
     public Property getProperty() {
         return this.property;
     }
 
+    @Override
     public void setProperty(Property property) {
         this.property = property;
     }
@@ -94,26 +95,32 @@ public class RepositoryObject implements IRepositoryObject {
         return getProperty().equals(another.getProperty());
     }
 
+    @Override
     public User getAuthor() {
         return this.property.getAuthor();
     }
 
+    @Override
     public Date getCreationDate() {
         return this.property.getCreationDate();
     }
 
+    @Override
     public String getDescription() {
         return this.property.getDescription();
     }
 
+    @Override
     public String getId() {
         return this.property.getId();
     }
 
+    @Override
     public Date getModificationDate() {
         return this.property.getModificationDate();
     }
 
+    @Override
     public String getLabel() {
         return this.property.getLabel();
     }
@@ -122,58 +129,72 @@ public class RepositoryObject implements IRepositoryObject {
         return this.property.getDisplayName();
     }
 
+    @Override
     public String getPurpose() {
         return this.property.getPurpose();
     }
 
+    @Override
     public String getStatusCode() {
         return this.property.getStatusCode();
     }
 
+    @Override
     public String getVersion() {
         return this.property.getVersion();
     }
 
+    @Override
     public void setAuthor(User value) {
         this.property.setAuthor(value);
     }
 
+    @Override
     public void setCreationDate(Date value) {
         this.property.setCreationDate(value);
     }
 
+    @Override
     public void setDescription(String value) {
         this.property.setDescription(value);
     }
 
+    @Override
     public void setId(String value) {
         this.property.setId(value);
     }
 
+    @Override
     public void setModificationDate(Date value) {
         this.property.setModificationDate(value);
     }
 
+    @Override
     public void setLabel(String value) {
         this.property.setLabel(value);
     }
 
+    @Override
     public void setPurpose(String value) {
         this.property.setPurpose(value);
     }
 
+    @Override
     public void setStatusCode(String value) {
         this.property.setStatusCode(value);
     }
 
+    @Override
     public void setVersion(String value) {
         this.property.setVersion(value);
     }
 
+    @Override
     public ERepositoryObjectType getRepositoryObjectType() {
         return ERepositoryObjectType.getItemType(this.property.getItem());
     }
 
+    @Override
     public List<IRepositoryViewObject> getChildren() {
         List<IRepositoryViewObject> toReturn = new ArrayList<IRepositoryViewObject>();
         return toReturn;
@@ -265,7 +286,7 @@ public class RepositoryObject implements IRepositoryObject {
                         table2.setSynchronised(table.isSynchronised());
                         table2.setTableType(table.getTableType());
                         List<MetadataColumn> list = new ArrayList<MetadataColumn>();
-                        for (MetadataColumn column : (List<MetadataColumn>) table.getColumns()) {
+                        for (MetadataColumn column : table.getColumns()) {
                             MetadataColumn column2 = ConnectionFactory.eINSTANCE.createMetadataColumn();
                             column2.setProperties(column.getProperties());
                             column2.setComment(column.getComment());
@@ -290,7 +311,7 @@ public class RepositoryObject implements IRepositoryObject {
                         newTs.add(table2);
                     }
                 }
-                Catalog c = (Catalog) ConnectionHelper.getPackage(conn.getSID(), (Connection) conn, Catalog.class);
+                Catalog c = (Catalog) ConnectionHelper.getPackage(conn.getSID(), conn, Catalog.class);
                 if (c != null) {
                     PackageHelper.addMetadataTable(newTs, c);
                     c.getOwnedElement().addAll(newTs);
@@ -314,6 +335,7 @@ public class RepositoryObject implements IRepositoryObject {
      * 
      * @see org.talend.core.model.repository.IRepositoryObject#getRepositoryNode()
      */
+    @Override
     public IRepositoryNode getRepositoryNode() {
         return this.repositoryNode;
     }
@@ -324,6 +346,7 @@ public class RepositoryObject implements IRepositoryObject {
      * @see
      * org.talend.core.model.repository.IRepositoryObject#setRepositoryNode(org.talend.repository.model.RepositoryNode)
      */
+    @Override
     public void setRepositoryNode(IRepositoryNode node) {
         this.repositoryNode = node;
 
@@ -334,6 +357,7 @@ public class RepositoryObject implements IRepositoryObject {
      * 
      * @see org.talend.core.model.repository.IRepositoryViewObject#isDeleted()
      */
+    @Override
     public boolean isDeleted() {
         return property.getItem().getState().isDeleted();
     }
@@ -343,6 +367,7 @@ public class RepositoryObject implements IRepositoryObject {
      * 
      * @see org.talend.core.model.repository.IRepositoryViewObject#getProjectLabel()
      */
+    @Override
     public String getProjectLabel() {
         org.talend.core.model.properties.Project emfproject = ProjectManager.getInstance().getProject(property.getItem());
         return emfproject.getLabel();
@@ -353,6 +378,7 @@ public class RepositoryObject implements IRepositoryObject {
      * 
      * @see org.talend.core.model.repository.IRepositoryViewObject#getPath()
      */
+    @Override
     public String getPath() {
         return property.getItem().getState().getPath();
     }
@@ -362,6 +388,7 @@ public class RepositoryObject implements IRepositoryObject {
      * 
      * @see org.talend.core.model.repository.IRepositoryViewObject#getInformationStatus()
      */
+    @Override
     public ERepositoryStatus getInformationStatus() {
 
         IService service = GlobalServiceRegister.getDefault().getService(IProxyRepositoryService.class);
@@ -375,6 +402,7 @@ public class RepositoryObject implements IRepositoryObject {
      * 
      * @see org.talend.core.model.repository.IRepositoryViewObject#getRepositoryStatus()
      */
+    @Override
     public ERepositoryStatus getRepositoryStatus() {
         IService service = GlobalServiceRegister.getDefault().getService(IProxyRepositoryService.class);
         IProxyRepositoryFactory factory = ((IProxyRepositoryService) service).getProxyRepositoryFactory();
@@ -411,5 +439,17 @@ public class RepositoryObject implements IRepositoryObject {
             item.setParent(null);
         }
         property = null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryViewObject#isModified()
+     */
+    @Override
+    public boolean isModified() {
+        IService service = GlobalServiceRegister.getDefault().getService(IProxyRepositoryService.class);
+        IProxyRepositoryFactory factory = ((IProxyRepositoryService) service).getProxyRepositoryFactory();
+        return factory.isModified(property);
     }
 }

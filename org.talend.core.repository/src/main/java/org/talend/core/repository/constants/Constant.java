@@ -39,4 +39,16 @@ public final class Constant {
      */
     public static final String ITEM_EVENT_PROPERTY_KEY = "item"; //$NON-NLS-1$
 
+    /**
+     * key used to get/set the property of an event related to a list of files modified in the repository
+     * (REPOSITORY_ITEM_EVENT_PREFIX). The value is the Collection of String (list of all files modified).
+     */
+    public static final String FILE_LIST_EVENT_SUFFIX = "fileList"; //$NON-NLS-1$
+
+    /**
+     * key used to get/set the property of an event related to a list of files modified in the repository
+     * (REPOSITORY_ITEM_EVENT_PREFIX). The value is the Collection of String (list of all files modified).
+     */
+    public static final String FILE_LIST_EVENT_PROPERTY_KEY = "fileList"; //$NON-NLS-1$
+
 }

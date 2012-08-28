@@ -100,6 +100,8 @@ public class RepositoryViewObject implements IRepositoryViewObject {
 
     private PersistenceException exception;
 
+    private boolean modified = false;
+
     public RepositoryViewObject(Property property, boolean avoidGuiInfos) {
         this.id = property.getId();
         this.author = property.getAuthor();
@@ -123,6 +125,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
             repositoryStatus = factory.getStatus(property.getItem());
             InformationLevel informationLevel = property.getMaxInformationLevel();
             informationStatus = factory.getStatus(informationLevel);
+            modified = factory.isModified(property);
         }
         if (!avoidGuiInfos) {
             if (type == ERepositoryObjectType.JOBLET) {
@@ -274,6 +277,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
             }
             this.customImage = null;
             Property property = object.getProperty();
+            modified = factory.isModified(property);
             this.id = property.getId();
             this.author = property.getAuthor();
             this.creationDate = property.getCreationDate();
@@ -545,5 +549,15 @@ public class RepositoryViewObject implements IRepositoryViewObject {
         if (exception != null) {
             throw exception;
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryViewObject#isModified()
+     */
+    @Override
+    public boolean isModified() {
+        return modified;
     }
 }
