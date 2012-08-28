@@ -17,8 +17,14 @@ import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
+
+import org.talend.commons.utils.data.list.IListenableListListener;
+import org.talend.commons.utils.data.list.ListenableList;
+import org.talend.commons.utils.data.list.ListenableListEvent;
 
 /**
  * Abstract base class of elements in the model. All elements in the diagram must extends this class <br/>
@@ -31,10 +37,49 @@ public abstract class Element implements Cloneable, IElement {
 
     public static final int ALPHA_VALUE = 50;
 
-    private List<IElementParameter> listParam = new ArrayList<IElementParameter>();
+    private ListenableList<IElementParameter> listParam = new ListenableList<IElementParameter>(
+            new ArrayList<IElementParameter>());
 
     // property change listeners
     protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+
+    private Map<String, IElementParameter> mapNameToParam = new HashMap<String, IElementParameter>();
+
+    private IListenableListListener listenableListener = new IListenableListListener() {
+
+        public void handleEvent(ListenableListEvent event) {
+            switch (event.type) {
+            case ADDED:
+                for (Object o : event.addedObjects) {
+                    if (o instanceof IElementParameter) {
+                        IElementParameter param = (IElementParameter) o;
+                        mapNameToParam.put(param.getName(), param);
+                    }
+                }
+                break;
+            case REMOVED:
+                for (Object o : event.removedObjects) {
+                    if (o instanceof IElementParameter) {
+                        IElementParameter param = (IElementParameter) o;
+                        mapNameToParam.remove(param.getName());
+                    }
+                }
+                break;
+            case CLEARED:
+                mapNameToParam.clear();
+                break;
+            }
+        }
+
+    };
+
+    /**
+     * DOC nrousseau Element constructor comment.
+     */
+    public Element() {
+        super();
+        listParam.addPostOperationListener(listenableListener);
+    }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         listeners.addPropertyChangeListener(listener);
@@ -134,9 +179,9 @@ public abstract class Element implements Cloneable, IElement {
         return fullListParam;
     }
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
     public void setElementParameters(List<? extends IElementParameter> parameters) {
-        this.listParam = (List<IElementParameter>) parameters;
+        this.listParam.clear();
+        this.listParam.addAll(parameters);
     }
 
     public IElementParameter getElementParameter(String name) {
@@ -156,6 +201,12 @@ public abstract class Element implements Cloneable, IElement {
     }
 
     private IElementParameter findElementParameter(String name, String paramName) {
+        if (mapNameToParam.containsKey(name)) {
+            IElementParameter param = mapNameToParam.get(name);
+            if (param != null) {
+                return param;
+            }
+        }
 
         if (name != null && name.contains(":")) { // look for the parent first, then will retrieve the children //$NON-NLS-1$
             StringTokenizer token = new StringTokenizer(name, ":"); //$NON-NLS-1$
@@ -165,31 +216,6 @@ public abstract class Element implements Cloneable, IElement {
                 if (listParam.get(i).getName().equals(parentId)) {
                     IElementParameter parent = listParam.get(i);
                     return parent.getChildParameters().get(childId);
-                }
-            }
-        } else {
-            for (IElementParameter elementParam : listParam) {
-                if (elementParam.getName().equals(name)) {
-                    return elementParam;
-                }
-            }
-        }
-
-        // if not found, look for the name if it's the name of a children
-        // this code is added only for compatibility and will be executed only one time
-        // to initialize the child.
-        // The parameters name are unique, so we just take the first one.
-        for (IElementParameter elementParam : listParam) {
-            for (String key : elementParam.getChildParameters().keySet()) {
-                IElementParameter param = elementParam.getChildParameters().get(key);
-                if (paramName == null || paramName.equals("")) { //$NON-NLS-1$
-                    if (param.getName().equals(name)) {
-                        return param;
-                    }
-                } else {
-                    if (param.getName().equals(name) && (elementParam.getName().equals(paramName))) {
-                        return param;
-                    }
                 }
             }
         }
@@ -232,4 +258,5 @@ public abstract class Element implements Cloneable, IElement {
     }
 
     public abstract String getElementName();
+
 }

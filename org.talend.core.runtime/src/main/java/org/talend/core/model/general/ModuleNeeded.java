@@ -77,7 +77,7 @@ public class ModuleNeeded {
     public ModuleNeeded(String context, String moduleName, String informationMsg, boolean required) {
         super();
         this.context = context;
-        this.moduleName = moduleName;
+        setModuleName(moduleName);
         this.informationMsg = informationMsg;
         this.required = required;
     }
@@ -86,7 +86,7 @@ public class ModuleNeeded {
             String requiredIf) {
         super();
         this.context = context;
-        this.moduleName = moduleName;
+        setModuleName(moduleName);
         this.informationMsg = informationMsg;
         this.required = required;
         this.installURL = installURL;
@@ -172,15 +172,16 @@ public class ModuleNeeded {
     }
 
     public String getModuleName() {
-        if (moduleName != null) {
-            return moduleName.replaceAll(QUOTATION_MARK, "").replaceAll(SINGLE_QUOTE, //$NON-NLS-1$
-                    ""); //$NON-NLS-1$
-        }
         return this.moduleName;
     }
 
     public void setModuleName(String moduleName) {
-        this.moduleName = moduleName;
+        if (moduleName != null) {
+            this.moduleName = moduleName.replaceAll(QUOTATION_MARK, "").replaceAll(SINGLE_QUOTE, //$NON-NLS-1$
+                    ""); //$NON-NLS-1$
+        } else {
+            this.moduleName = moduleName;
+        }
     }
 
     public boolean isRequired() {
