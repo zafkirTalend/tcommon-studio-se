@@ -46,7 +46,7 @@ public class TimeMeasure {
 
     public static boolean isLogToFile = false;
 
-    public static boolean printMemoryUsed = true;
+    public static boolean printMemoryUsed = false;
 
     public static ITimeMeasureLogger logger;
 
