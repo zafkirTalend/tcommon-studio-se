@@ -478,8 +478,12 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
                                     Iterator<MetadataColumn> columnsIter = columns.iterator();
                                     while (columnsIter.hasNext()) {
                                         MetadataColumn column = columnsIter.next();
-                                        if (schemaTargetMap.get(column.getLabel()) == null) {
-                                            columnsIter.remove();
+                                        if (connection.isInputModel()) {
+                                            if (schemaTargetMap.get(column.getLabel()) == null) {
+                                                columnsIter.remove();
+                                            } else {
+                                                columnsMap.put(column.getLabel(), column);
+                                            }
                                         } else {
                                             columnsMap.put(column.getLabel(), column);
                                         }
