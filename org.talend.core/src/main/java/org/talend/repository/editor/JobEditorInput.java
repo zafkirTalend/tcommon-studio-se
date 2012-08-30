@@ -75,7 +75,7 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
         } else {
 
             saveProcessBefore();
-            saveProcess(null, null);
+            saveProcess(null, null, true);
         }
         if (readonly == null) {
             checkReadOnly();
@@ -97,6 +97,7 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
         return ResourceUtils.getFile(folder, prefix + item.getProperty().getId(), false);
     }
 
+    @Override
     public void setReadOnly(boolean readOnly) {
         super.setReadOnly(readOnly);
         if (loadedProcess != null) {
@@ -114,7 +115,10 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
     }
 
     public boolean saveProcess(IProgressMonitor monitor, IPath path) {
-        // PTODO SML Removed null test on monitor after assure that in can't be
+        return saveProcess(monitor, path, false);
+    }
+
+    public boolean saveProcess(IProgressMonitor monitor, IPath path, final boolean avoidSaveRelations) {
         try {
             if (monitor != null) {
                 monitor.beginTask("save process", 100); //$NON-NLS-1$
@@ -149,7 +153,9 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
                         loadedProcess.setProperty(getItem().getProperty());
                         // 9035
 
-                        RelationshipItemBuilder.getInstance().addOrUpdateItem(getItem());
+                        if (!avoidSaveRelations) {
+                            RelationshipItemBuilder.getInstance().addOrUpdateItem(getItem());
+                        }
                     }
                 };
                 rwu.setAvoidUnloadResources(true);
