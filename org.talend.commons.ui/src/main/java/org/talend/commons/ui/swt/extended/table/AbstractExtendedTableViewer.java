@@ -295,7 +295,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
                                 tableViewerCreator.getSelectionHelper().setSelection(event.index,
                                         event.index + event.addedObjects.size() - 1);
                             } else if (event.indicesTarget != null) {
-                                int[] selection = ArrayUtils.toPrimitive((Integer[]) event.indicesTarget.toArray(new Integer[0]));
+                                int[] selection = ArrayUtils.toPrimitive(event.indicesTarget.toArray(new Integer[0]));
                                 tableViewerCreator.getSelectionHelper().setSelection(selection);
 
                             }
@@ -318,7 +318,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
 
                         } else if (event.type == TYPE.SWAPED) {
                             if (event.indicesTarget != null) {
-                                int[] selection = ArrayUtils.toPrimitive((Integer[]) event.indicesTarget.toArray(new Integer[0]));
+                                int[] selection = ArrayUtils.toPrimitive(event.indicesTarget.toArray(new Integer[0]));
                                 tableViewerCreator.getSelectionHelper().setSelection(selection);
                             }
                         }
@@ -374,8 +374,9 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
                 }).start();
             } else {
 
-                // tableViewer.refresh();
                 if (event.type == TYPE.ADDED) {
+                    // tableViewer.setItemCount(event.source.size());
+                    tableViewer.refresh();
 
                 } else if (event.type == TYPE.SWAPED) {
 
@@ -383,8 +384,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
 
                     Object[] swapedObjects = event.swapedObjects;
 
-                    for (int j = 0; j < swapedObjects.length; j++) {
-                        Object data = swapedObjects[j];
+                    for (Object data : swapedObjects) {
                         tableViewer.refresh(data, true, true);
                     }
 
@@ -402,6 +402,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
                     // tableViewer.refresh(bean);
                     // }
                 } else {
+                    tableViewer.setItemCount(event.source.size());
                     tableViewer.refresh();
                 }
 

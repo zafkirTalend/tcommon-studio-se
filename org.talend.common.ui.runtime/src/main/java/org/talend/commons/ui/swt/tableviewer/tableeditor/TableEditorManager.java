@@ -77,7 +77,7 @@ public class TableEditorManager {
 
         @Override
         public Collection instanciateNewCollection() {
-            return (Collection) new ArrayList();
+            return new ArrayList();
         }
 
     };
@@ -107,6 +107,16 @@ public class TableEditorManager {
      */
     public TableEditorManager(TableViewerCreatorNotModifiable tableViewerCreator) {
         this.tableViewerCreator = tableViewerCreator;
+        columns = tableViewerCreator.getColumns();
+        columnsWithEditorContent = new ArrayList<TableViewerCreatorColumnNotModifiable>(columns.size());
+
+        for (int iCol = 0; iCol < columns.size(); iCol++) {
+            TableViewerCreatorColumnNotModifiable column = columns.get(iCol);
+            TableEditorContentNotModifiable tableEditorContent = column.getTableEditorContent();
+            if (tableEditorContent != null) {
+                columnsWithEditorContent.add(column);
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -119,6 +129,7 @@ public class TableEditorManager {
                 if (column.getTableColumnSelectionListener() instanceof ITableColumnSelectionListener) {
                     column.getTableColumnSelectionListener().addColumnSortedListener(new IColumnSortedListener() {
 
+                        @Override
                         public void handle() {
                             refresh();
                         }
@@ -131,6 +142,7 @@ public class TableEditorManager {
 
                 this.listenableListListener = new IListenableListListener() {
 
+                    @Override
                     public void handleEvent(ListenableListEvent event) {
 
                         if (event.type == TYPE.ADDED) {
@@ -169,6 +181,7 @@ public class TableEditorManager {
 
             new AsynchronousThreading(10, true, compositeParent.getDisplay(), new Runnable() {
 
+                @Override
                 public void run() {
                     if (!compositeParent.isDisposed()) {
                         handleAddedEvent(event);
@@ -188,6 +201,7 @@ public class TableEditorManager {
 
             new AsynchronousThreading(10, true, tableViewerCreator.getCompositeParent().getDisplay(), new Runnable() {
 
+                @Override
                 public void run() {
                     if (!compositeParent.isDisposed()) {
                         handleRemovedEvent(event);
@@ -212,9 +226,9 @@ public class TableEditorManager {
 
         List<TableEditor> addedTableEditor = new ArrayList<TableEditor>();
 
-        for (int i = 0; i < items.length; i++) {
-            TableItem tableItem = items[i];
-            if (!previousItemsHash.contains(tableItem)) {
+        for (TableItem item : items) {
+            TableItem tableItem = item;
+            if (previousItemsHash == null || !previousItemsHash.contains(tableItem)) {
 
                 for (int iEditorCol = 0; iEditorCol < columnsWithEditorContent.size(); iEditorCol++) {
                     TableViewerCreatorColumnNotModifiable column = columnsWithEditorContent.get(iEditorCol);
@@ -224,7 +238,9 @@ public class TableEditorManager {
                     String idProperty = column.getId();
 
                     TableEditor tableEditor = addTableEditor(column, tableEditorContent, idProperty, tableItem);
-                    addedTableEditor.add(tableEditor);
+                    if (tableEditor != null) {
+                        addedTableEditor.add(tableEditor);
+                    }
 
                 }
             }
@@ -233,14 +249,13 @@ public class TableEditorManager {
         for (int i = indexStart; i < items.length; i++) {
             TableItem tableItem = items[i];
             Object data = tableItem.getData();
-            Collection<TableEditor> tableEditorCollection = (Collection<TableEditor>) dataToMultipleDataEditor
-                    .getCollection(data);
+            Collection<TableEditor> tableEditorCollection = dataToMultipleDataEditor.getCollection(data);
             for (TableEditor tableEditor : tableEditorCollection) {
                 tableEditor.setItem(tableItem);
             }
         }
 
-        previousItemsHash = new HashSet<TableItem>(Arrays.asList((TableItem[]) items));
+        previousItemsHash = new HashSet<TableItem>(Arrays.asList(items));
 
     }
 
@@ -286,14 +301,12 @@ public class TableEditorManager {
         // Warning: using identity comparison
         // //////////////////////////////////
         Set dataHash = MapBackedSet.decorate(new IdentityHashMap());
-        dataHash.addAll(Arrays.asList((Object[]) event.swapedObjects));
+        dataHash.addAll(Arrays.asList(event.swapedObjects));
         ;
-        for (int i = 0; i < items.length; i++) {
-            TableItem tableItem = items[i];
+        for (TableItem tableItem : items) {
             Object data = tableItem.getData();
             if (dataHash.contains(data)) {
-                Collection<TableEditor> tableEditorCollection = (Collection<TableEditor>) dataToMultipleDataEditor
-                        .getCollection(data);
+                Collection<TableEditor> tableEditorCollection = dataToMultipleDataEditor.getCollection(data);
                 for (TableEditor tableEditor : tableEditorCollection) {
                     tableEditor.setItem(tableItem);
                 }
@@ -323,18 +336,7 @@ public class TableEditorManager {
 
         TableItem[] items = table.getItems();
 
-        previousItemsHash = new HashSet<TableItem>(Arrays.asList((TableItem[]) items));
-
-        columns = tableViewerCreator.getColumns();
-        columnsWithEditorContent = new ArrayList<TableViewerCreatorColumnNotModifiable>(columns.size());
-
-        for (int iCol = 0; iCol < columns.size(); iCol++) {
-            TableViewerCreatorColumnNotModifiable column = columns.get(iCol);
-            TableEditorContentNotModifiable tableEditorContent = column.getTableEditorContent();
-            if (tableEditorContent != null) {
-                columnsWithEditorContent.add(column);
-            }
-        }
+        previousItemsHash = new HashSet<TableItem>(Arrays.asList(items));
 
         for (int iEditorCol = 0; iEditorCol < columnsWithEditorContent.size(); iEditorCol++) {
             TableViewerCreatorColumnNotModifiable column = columnsWithEditorContent.get(iEditorCol);
@@ -343,15 +345,55 @@ public class TableEditorManager {
 
             String idProperty = column.getId();
 
-            for (int i = 0; i < items.length; i++) {
-                addTableEditor(column, tableEditorContent, idProperty, items[i]);
+            for (TableItem item : items) {
+                addTableEditor(column, tableEditorContent, idProperty, item);
             }
         }
 
     }
 
+    public void refreshColumn(int index) {
+        Table table = tableViewerCreator.getTable();
+        if (table.isDisposed()) {
+            return;
+        }
+        for (int iEditorCol = 0; iEditorCol < columnsWithEditorContent.size(); iEditorCol++) {
+            TableViewerCreatorColumnNotModifiable column = columnsWithEditorContent.get(iEditorCol);
+
+            TableEditorContentNotModifiable tableEditorContent = column.getTableEditorContent();
+
+            String idProperty = column.getId();
+
+            TableItem tableItem = table.getItems()[index];
+            if (dataToMultipleDataEditor.containsKey(tableItem.getData())) {
+                Collection<TableEditor> object = dataToMultipleDataEditor.getCollection(tableItem.getData());
+                for (TableEditor tableEditor : object) {
+                    tableEditor.setItem(tableItem);
+                    Control editor = tableEditor.getEditor();
+                    if (editor != null) {
+                        editor.redraw();
+                    }
+                }
+                if (object.size() == columnsWithEditorContent.size()) {
+                    break;
+                } else {
+                    if (iEditorCol < object.size()) {
+                        continue;
+                    } else {
+                        addTableEditor(column, tableEditorContent, idProperty, table.getItems()[index]);
+                    }
+                }
+            } else {
+                addTableEditor(column, tableEditorContent, idProperty, table.getItems()[index]);
+            }
+        }
+    }
+
     private TableEditor addTableEditor(TableViewerCreatorColumnNotModifiable column,
             TableEditorContentNotModifiable tableEditorContent, String idProperty, TableItem tableItem) {
+        if (tableItem.getData() == null) {
+            return null;
+        }
 
         tableEditorContent.setLayoutEnabled(true);
         TableEditor tableEditor = tableEditorContent.createTableEditor(tableItem.getParent());
@@ -359,7 +401,8 @@ public class TableEditorManager {
         dataToMultipleDataEditor.put(tableItem.getData(), tableEditor);
 
         Object currentRowObject = tableItem.getData();
-        Object value = tableViewerCreator.getCellModifier().getValue(currentRowObject, idProperty);
+        // Object value = tableViewerCreator.getCellModifier().getValue(currentRowObject, idProperty);
+        Object value = column.getBeanPropertyAccessors().get(tableItem.getData());
         Control control = tableEditorContent.initialize(tableItem.getParent(), tableEditor, column, currentRowObject, value);
 
         // control.addDisposeListener(new DisposeListener() {
