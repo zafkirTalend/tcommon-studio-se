@@ -28,6 +28,7 @@ import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.IContentProvider;
+import org.eclipse.jface.viewers.ILazyContentProvider;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.TableLayout;
@@ -58,8 +59,8 @@ import org.eclipse.swt.widgets.TableItem;
 import org.talend.commons.ui.runtime.i18n.Messages;
 import org.talend.commons.ui.runtime.ws.WindowSystem;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultHeaderColumnSelectionListener;
-import org.talend.commons.ui.swt.tableviewer.behavior.DefaultStructuredContentProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableLabelProvider;
+import org.talend.commons.ui.swt.tableviewer.behavior.LazyContentProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.TableViewerCreatorLayout;
 import org.talend.commons.ui.swt.tableviewer.data.AccessorUtils;
 import org.talend.commons.ui.swt.tableviewer.data.ModifiedObjectInfo;
@@ -217,7 +218,9 @@ public class TableViewerCreatorNotModifiable<B> {
 
     private ITableLabelProvider labelProvider;
 
-    private IStructuredContentProvider contentProvider;
+    private IStructuredContentProvider contentProviderold;
+
+    private ILazyContentProvider contentProvider;
 
     private ControlListener tableParentResizedListener;
 
@@ -356,7 +359,7 @@ public class TableViewerCreatorNotModifiable<B> {
         }
 
         if (hasChanged) {
-            refreshTableEditorControls();
+            // refreshTableEditorControls();
         }
 
     }
@@ -393,7 +396,7 @@ public class TableViewerCreatorNotModifiable<B> {
         if (this.table != null) {
             this.table.dispose();
         }
-        this.table = new Table(compositeParent, checkTableStyles());
+        this.table = new Table(compositeParent, SWT.VIRTUAL | checkTableStyles());
 
         // new TableEditor(table);
         tableViewer = new TableViewer(table) {
@@ -426,6 +429,7 @@ public class TableViewerCreatorNotModifiable<B> {
             public void insert(Object element, int position) {
                 super.insert(element, position);
                 // tableEditorManager.redrawControls();
+                refreshTableEditorControls();
             }
 
             /*
@@ -449,7 +453,8 @@ public class TableViewerCreatorNotModifiable<B> {
             @Override
             public void replace(Object element, int index) {
                 super.replace(element, index);
-                refreshTableEditorControls();
+                refreshTableEditorColumn(index);
+                // refreshTableEditorControls();
             }
 
             /*
@@ -537,6 +542,26 @@ public class TableViewerCreatorNotModifiable<B> {
                 }
             }
 
+            /*
+             * (non-Javadoc)
+             * 
+             * @see org.eclipse.jface.viewers.AbstractTableViewer#inputChanged(java.lang.Object, java.lang.Object)
+             */
+            @Override
+            protected void inputChanged(Object input, Object oldInput) {
+                if (input instanceof List) {
+                    int newSize = ((List) input).size();
+                    int oldSize = 0;
+                    if (oldInput instanceof List) {
+                        oldSize = ((List) oldInput).size();
+                    }
+                    if (newSize != oldSize) {
+                        tableViewer.setItemCount(newSize);
+                    }
+                }
+                super.inputChanged(input, oldInput);
+            }
+
         };
         setTablePreferences();
 
@@ -562,6 +587,7 @@ public class TableViewerCreatorNotModifiable<B> {
         if (this.emptyZoneColor != null && !WindowSystem.isGTK() && !WindowSystem.isOSX()) {
             Listener paintListener = new Listener() {
 
+                @Override
                 public void handleEvent(Event event) {
                     GC gc = event.gc;
                     Rectangle area = table.getClientArea();
@@ -582,8 +608,8 @@ public class TableViewerCreatorNotModifiable<B> {
                     }
                     TableColumn[] tableColumns = table.getColumns();
                     int widthColumns = 0;
-                    for (int i = 0; i < tableColumns.length; i++) {
-                        widthColumns += tableColumns[i].getWidth();
+                    for (TableColumn tableColumn : tableColumns) {
+                        widthColumns += tableColumn.getWidth();
                     }
                     if (widthColumns < area.width) {
                         // System.out.println("widthColumns + 1, 0, area.width, area.height");
@@ -647,14 +673,17 @@ public class TableViewerCreatorNotModifiable<B> {
 
         final MouseListener mouseListener = new MouseListener() {
 
+            @Override
             public void mouseDoubleClick(MouseEvent e) {
 
             }
 
+            @Override
             public void mouseDown(MouseEvent mouseEvent) {
                 controlClicked = mouseEvent.getSource();
             }
 
+            @Override
             public void mouseUp(MouseEvent e) {
 
             }
@@ -663,6 +692,7 @@ public class TableViewerCreatorNotModifiable<B> {
 
         final TraverseListener traverseListenerForControls = new TraverseListener() {
 
+            @Override
             public void keyTraversed(TraverseEvent e) {
                 if (!keyboardManagementForCellEdition) {
                     return;
@@ -692,6 +722,7 @@ public class TableViewerCreatorNotModifiable<B> {
             private void forceTableFocus() {
                 new AsynchronousThreading(10, false, getTable().getDisplay(), new Runnable() {
 
+                    @Override
                     public void run() {
                         getTable().forceFocus();
                     }
@@ -701,6 +732,7 @@ public class TableViewerCreatorNotModifiable<B> {
 
         final TraverseListener traverseListenerForTable = new TraverseListener() {
 
+            @Override
             public void keyTraversed(TraverseEvent e) {
                 if (!keyboardManagementForCellEdition) {
                     return;
@@ -720,6 +752,7 @@ public class TableViewerCreatorNotModifiable<B> {
 
         final KeyListener keyListenerForTable = new KeyListener() {
 
+            @Override
             public void keyPressed(KeyEvent e) {
                 if (!keyboardManagementForCellEdition) {
                     return;
@@ -731,6 +764,7 @@ public class TableViewerCreatorNotModifiable<B> {
                 }
             }
 
+            @Override
             public void keyReleased(KeyEvent e) {
             }
 
@@ -739,6 +773,7 @@ public class TableViewerCreatorNotModifiable<B> {
 
         getTable().addDisposeListener(new DisposeListener() {
 
+            @Override
             public void widgetDisposed(DisposeEvent e) {
                 if (tableEditorManager != null) {
                     tableEditorManager.release();
@@ -751,6 +786,7 @@ public class TableViewerCreatorNotModifiable<B> {
         if (tableEditorManager != null) {
             tableEditorManager.addListener(new ITableEditorManagerListener() {
 
+                @Override
                 public void notifyEvent(TableEditorManagerEvent event) {
                     Control editor = event.getTableEditor().getEditor();
                     if (event.getEventType() == EVENT_TYPE.CONTROL_CREATED) {
@@ -845,6 +881,7 @@ public class TableViewerCreatorNotModifiable<B> {
 
             Runnable runnable = new Runnable() {
 
+                @Override
                 public void run() {
 
                     boolean continueRun = (keyPressed == SWT.TRAVERSE_TAB_NEXT || keyPressed == SWT.TRAVERSE_TAB_PREVIOUS
@@ -977,6 +1014,7 @@ public class TableViewerCreatorNotModifiable<B> {
 
         eraseItemListener = new Listener() {
 
+            @Override
             public void handleEvent(Event event) {
 
                 // System.out.println(event);
@@ -1093,9 +1131,13 @@ public class TableViewerCreatorNotModifiable<B> {
     }
 
     protected void attachContentProvider() {
+        // if (this.contentProvider == null) {
+        // this.contentProvider = new DefaultStructuredContentProvider(this);
+        // }
         if (this.contentProvider == null) {
-            this.contentProvider = new DefaultStructuredContentProvider(this);
+            this.contentProvider = new LazyContentProvider(this);
         }
+
         tableViewer.setContentProvider(this.contentProvider);
     }
 
@@ -1324,6 +1366,7 @@ public class TableViewerCreatorNotModifiable<B> {
             this.swtStyle = swtStyle;
         }
 
+        @Override
         public int getSwtStyle() {
             return swtStyle;
         }
@@ -1352,6 +1395,7 @@ public class TableViewerCreatorNotModifiable<B> {
             this.swtStyle = swtStyle;
         }
 
+        @Override
         public int getSwtStyle() {
             return swtStyle;
         }
@@ -1570,7 +1614,7 @@ public class TableViewerCreatorNotModifiable<B> {
         return contentProvider;
     }
 
-    public void setContentProvider(IStructuredContentProvider contentProvider) {
+    public void setContentProvider(ILazyContentProvider contentProvider) {
         if (tableViewer != null && tableViewer.getContentProvider() != contentProvider) {
             tableViewer.setContentProvider(contentProvider);
         }
@@ -1739,6 +1783,13 @@ public class TableViewerCreatorNotModifiable<B> {
         if (tableEditorManager != null) {
             tableEditorManager.refresh();
             tableEditorManager.redrawControls();
+        }
+    }
+
+    public void refreshTableEditorColumn(int index) {
+        if (tableEditorManager != null) {
+            tableEditorManager.refreshColumn(index);
+            // tableEditorManager.redrawControls();
         }
     }
 
