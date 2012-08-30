@@ -107,6 +107,26 @@ public abstract class AbstractRepositoryContentHandler implements IRepositoryCon
     /*
      * (non-Javadoc)
      * 
+     * @see org.talend.core.model.repository.IRepositoryContentHandler#getHandleType()
+     */
+    @Override
+    public ERepositoryObjectType getHandleType() {
+        return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryContentHandler#hasSchemas()
+     */
+    @Override
+    public boolean hasSchemas() {
+        return false;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see
      * org.talend.core.model.repository.IRepositoryContentHandler#getPropertyStatus(org.talend.core.model.properties
      * .Item)
@@ -122,16 +142,6 @@ public abstract class AbstractRepositoryContentHandler implements IRepositoryCon
         }
 
         return null;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.model.repository.IRepositoryContentHandler#isCreateTableNode()
-     */
-    @Override
-    public boolean isCreateTableNode() {
-        return false;
     }
 
     /*

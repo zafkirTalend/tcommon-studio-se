@@ -1346,12 +1346,6 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         }
         for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
             handler.addNode(type, recBinNode, repositoryObject, node);
-            if (handler.isCreateTableNode()) {
-                Item item = repositoryObject.getProperty().getItem();
-                if (item != null && item instanceof ConnectionItem) {
-                    createTables(recBinNode, node, repositoryObject, ((ConnectionItem) item).getConnection());
-                }
-            }
         }
     }
 

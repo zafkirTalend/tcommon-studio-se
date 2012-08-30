@@ -57,19 +57,26 @@ public interface IRepositoryContentHandler {
     public IImage getIcon(Item item);
 
     /**
+     * DOC ycbai Comment method "getHandleType".
+     * 
+     * @return the ERepositoryObjectType which the handler process.
+     */
+    public ERepositoryObjectType getHandleType();
+
+    /**
+     * DOC ycbai Comment method "hasSchemas".
+     * 
+     * @return whether has schema node.
+     */
+    public boolean hasSchemas();
+
+    /**
      * DOC ycbai Comment method "getPropertyStatus".
      * 
      * @param item
      * @return the property status list.
      */
     public List<Status> getPropertyStatus(Item item);
-
-    /**
-     * DOC ycbai Comment method "isCreateTableNode".
-     * 
-     * @return true if you want to create Table Schema node under connection.
-     */
-    public boolean isCreateTableNode();
 
     /**
      * DOC ycbai Comment method "hideAction".
