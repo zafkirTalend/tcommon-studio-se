@@ -39,6 +39,7 @@ import org.osgi.service.event.EventHandler;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
+import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.repository.constants.Constant;
@@ -266,6 +267,18 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
 
     }
 
+    private RepositoryNode findFolder(String path, RepositoryNode repoNode) {
+        for (IRepositoryNode childNode : repoNode.getChildren()) {
+            if (childNode.getObject() instanceof Folder) {
+                String startingPath = "/" + childNode.getLabel(); //$NON-NLS-1$
+                if (path.startsWith(startingPath)) {
+                    return findFolder(path.replace(startingPath, ""), (RepositoryNode) childNode); //$NON-NLS-1$
+                }
+            }
+        }
+        return repoNode;
+    }
+
     protected void refreshContentIfNecessary(Collection<String> fileList) {
         String workspace = ResourcesPlugin.getWorkspace().getRoot().getLocation().toPortableString();
         for (String file : fileList) {
@@ -275,7 +288,12 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
 
                 IPath workspaceTopNodePath = getWorkspaceTopNodePath(repoNode);
                 if (workspaceTopNodePath != null && workspaceTopNodePath.isPrefixOf(itemPath)) {
-                    for (IRepositoryNode childNode : repoNode.getChildren()) {
+                    RepositoryNode folderToUpdate = findFolder(
+                            itemPath.toPortableString().replace(workspaceTopNodePath.toPortableString(), ""), repoNode); //$NON-NLS-1$
+                    if (folderToUpdate == null) {
+                        continue;
+                    }
+                    for (IRepositoryNode childNode : folderToUpdate.getChildren()) {
                         if (childNode == null || childNode.getObject() == null) {
                             continue;
                         }
