@@ -219,6 +219,25 @@ public abstract class Element implements Cloneable, IElement {
                 }
             }
         }
+
+        // if not found, look for the name if it's the name of a children
+        // this code is added only for compatibility and will be executed only one time
+        // to initialize the child.
+        // The parameters name are unique, so we just take the first one.
+        for (IElementParameter elementParam : listParam) {
+            for (String key : elementParam.getChildParameters().keySet()) {
+                IElementParameter param = elementParam.getChildParameters().get(key);
+                if (paramName == null || paramName.equals("")) { //$NON-NLS-1$
+                    if (param.getName().equals(name)) {
+                        return param;
+                    }
+                } else {
+                    if (param.getName().equals(name) && (elementParam.getName().equals(paramName))) {
+                        return param;
+                    }
+                }
+            }
+        }
         return null;
     }
 
