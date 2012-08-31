@@ -72,14 +72,14 @@ public final class StringUtilities {
                 level--;
             }
             if (level < 0) {
-                return new ReturnCode("too many " + closingBlock + " at position " + i, false);
+                return new ReturnCode("too many " + closingBlock + " at position " + i, false); //$NON-NLS-1$//$NON-NLS-2$
             }
         }
         if (level < 0) {
-            return new ReturnCode("too many " + closingBlock + " at position " + i, false);
+            return new ReturnCode("too many " + closingBlock + " at position " + i, false); //$NON-NLS-1$ //$NON-NLS-2$
         }
         if (level > 0) {
-            return new ReturnCode("too many " + openingBlock + " at position " + i, false);
+            return new ReturnCode("too many " + openingBlock + " at position " + i, false); //$NON-NLS-1$//$NON-NLS-2$
         }
         return new ReturnCode();
     }
@@ -91,7 +91,7 @@ public final class StringUtilities {
      * @return
      */
     public static String getRandomString(int length) {
-        String str = "abcdefghigklmnopkrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ0123456789";
+        String str = "abcdefghigklmnopkrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ0123456789"; //$NON-NLS-1$
         Random random = new Random();
         StringBuffer sf = new StringBuffer();
         for (int i = 0; i < length; i++) {

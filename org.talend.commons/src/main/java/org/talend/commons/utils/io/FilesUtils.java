@@ -84,8 +84,8 @@ public class FilesUtils {
     public static boolean isSVNFolder(String name) {
         if (name != null) {
             name = name.toLowerCase();
-            for (int i = 0; i < SVN_FOLDER_NAMES.length; i++) {
-                if (SVN_FOLDER_NAMES[i].equals(name) || name.endsWith(SVN_FOLDER_NAMES[i])) {
+            for (String element : SVN_FOLDER_NAMES) {
+                if (element.equals(name) || name.endsWith(element)) {
                     return true;
                 }
             }
@@ -377,8 +377,9 @@ public class FilesUtils {
                     || (excludedFile != null && excludedFile.equals(file.getName()))) {
                 canAdd = false;
             }
-            if (canAdd)
+            if (canAdd) {
                 results.add(file);
+            }
         } else if (file.isDirectory() && nested) {
             if (excludedFolder != null && excludedFolder.equals(file.getName())) {
                 return results;
@@ -471,7 +472,7 @@ public class FilesUtils {
         FileFilter filter = new FileFilter() {
 
             public boolean accept(File pathname) {
-                return !isSVNFolder(pathname) && !pathname.toString().endsWith(".dummy"); //$NON-NLS-1$ //$NON-NLS-2$
+                return !isSVNFolder(pathname) && !pathname.toString().endsWith(".dummy"); //$NON-NLS-1$ 
             }
 
         };
@@ -794,7 +795,7 @@ public class FilesUtils {
             for (File sample : fileList) {
                 boolean isDeleted = sample.delete();
                 log.info(sample.getAbsolutePath() + (isDeleted ? " is deleted." : " failed to delete."));
-                boolean isrenamed = new File(sample.getAbsolutePath() + MIGRATION_FILE_EXT).renameTo(sample); //$NON-NLS-1$
+                boolean isrenamed = new File(sample.getAbsolutePath() + MIGRATION_FILE_EXT).renameTo(sample);
                 log.info(sample.getAbsolutePath() + MIGRATION_FILE_EXT + (isrenamed ? " is renamed." : " failed to rename."));
             }
         }
@@ -890,8 +891,8 @@ public class FilesUtils {
         if (source.isDirectory()) {
             tarpath.mkdir();
             File[] dir = source.listFiles();
-            for (int i = 0; i < dir.length; i++) {
-                copyDirectory(dir[i], tarpath);
+            for (File element : dir) {
+                copyDirectory(element, tarpath);
             }
         } else {
             try {
@@ -918,8 +919,8 @@ public class FilesUtils {
                 file.delete();
             } else if (file.isDirectory()) {
                 File files[] = file.listFiles();
-                for (int i = 0; i < files.length; i++) {
-                    deleteFile(files[i], true);
+                for (File file2 : files) {
+                    deleteFile(file2, true);
                 }
             }
             if (delete) {
@@ -1034,7 +1035,7 @@ public class FilesUtils {
                     if (file.isDirectory()) {
                         copyDirectory(file, targetfolder);
                     } else if (file.isFile()) {
-                        copyFile(file, targetfolder);
+                        copyFile(file, new File(targetfolder.getAbsolutePath() + File.separator + file.getName()));
                     }
                 }
             } catch (Exception e) {
