@@ -12,11 +12,7 @@
 // ============================================================================
 package org.talend.repository.localprovider.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.HashSet;
 import java.util.List;
@@ -78,60 +74,67 @@ public class LocalRepositoryFactoryTest {
 
     private static LocalRepositoryFactory repositoryFactory;
 
+    private static Project originalProject;
+
     @BeforeClass
     public static void beforeAllTests() {
+        Context ctx = CoreRuntimePlugin.getInstance().getContext();
+        RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+        originalProject = repositoryContext.getProject();
+
         repositoryFactory = new LocalRepositoryFactory();
     }
 
     @AfterClass
     public static void afterAllTests() {
         repositoryFactory = null;
-    }
 
-    Project originalProject;
+        Context ctx = CoreRuntimePlugin.getInstance().getContext();
+        RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+        repositoryContext.setProject(originalProject);
+    }
 
     @Before
     public void beforeTest() throws PersistenceException, CoreException, LoginException {
         createTempProject();
         Context ctx = CoreRuntimePlugin.getInstance().getContext();
         RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
-        originalProject = repositoryContext.getProject();
         repositoryContext.setProject(sampleProject);
     }
 
     @After
     public void afterTest() throws Exception {
         // make sure there is nothing in both jobs / routines after do anything
-        final List<IRepositoryViewObject> allJobs = repositoryFactory.getAll(ProjectManager.getInstance().getCurrentProject(),
-                ERepositoryObjectType.PROCESS, true, true);
-        assertNotNull(allJobs);
-        Set<String> jobs = new HashSet<String>();
-        for (IRepositoryViewObject object : allJobs) {
-            jobs.add(object.getLabel());
-        }
-        if (!jobs.isEmpty()) {
-            throw new Exception("job:" + jobs + " should have been deleted before");
-        }
-        assertTrue(allJobs.isEmpty());
-
-        final List<IRepositoryViewObject> allRoutines = repositoryFactory.getAll(
-                ProjectManager.getInstance().getCurrentProject(), ERepositoryObjectType.ROUTINES, true, true);
-        assertNotNull(allRoutines);
-        for (IRepositoryViewObject o : allRoutines) {
-            RoutineItem ri = (RoutineItem) o.getProperty().getItem();
-            if (!ri.isBuiltIn()) {
-                System.out.println("routine:" + o.getLabel() + " should have been deleted before");
+        try {
+            final List<IRepositoryViewObject> allJobs = repositoryFactory.getAll(
+                    ProjectManager.getInstance().getCurrentProject(), ERepositoryObjectType.PROCESS, true, true);
+            assertNotNull(allJobs);
+            Set<String> jobs = new HashSet<String>();
+            for (IRepositoryViewObject object : allJobs) {
+                jobs.add(object.getLabel());
             }
-            assertTrue(ri.isBuiltIn()); // should only have system routines, not others
-        }
+            if (!jobs.isEmpty()) {
+                throw new Exception("job:" + jobs + " should have been deleted before");
+            }
+            assertTrue(allJobs.isEmpty());
 
-        removeTempProject();
-        ProjectManager.getInstance().getFolders(sampleProject.getEmfProject()).clear();
-        Context ctx = CoreRuntimePlugin.getInstance().getContext();
-        RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
-        repositoryContext.setProject(originalProject);
-        originalProject = null;
-        sampleProject = null;
+            final List<IRepositoryViewObject> allRoutines = repositoryFactory.getAll(ProjectManager.getInstance()
+                    .getCurrentProject(), ERepositoryObjectType.ROUTINES, true, true);
+            assertNotNull(allRoutines);
+            for (IRepositoryViewObject o : allRoutines) {
+                RoutineItem ri = (RoutineItem) o.getProperty().getItem();
+                if (!ri.isBuiltIn()) {
+                    System.out.println("routine:" + o.getLabel() + " should have been deleted before");
+                }
+                assertTrue(ri.isBuiltIn()); // should only have system routines, not others
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            removeTempProject();
+            ProjectManager.getInstance().getFolders(sampleProject.getEmfProject()).clear();
+            sampleProject = null;
+        }
     }
 
     Project sampleProject;
@@ -663,7 +666,7 @@ public class LocalRepositoryFactoryTest {
         }
         Object fullFolder;
         if (folder instanceof IFolder) {
-            fullFolder = (IFolder) repositoryFactory.getFolder(project, itemType);
+            fullFolder = repositoryFactory.getFolder(project, itemType);
             if (path != null && !"".equals(path)) {
                 fullFolder = ((IFolder) fullFolder).getFolder(new Path(path));
             }
