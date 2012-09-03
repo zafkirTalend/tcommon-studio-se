@@ -15,7 +15,7 @@ Require-Bundle: org.eclipse.ui,
  javax.xml.rpc,
  org.eclipse.xsd
 Bundle-ActivationPolicy: lazy
-Eclipse-RegisterBuddy: org.mockito
+Eclipse-RegisterBuddy: org.talend.testutils
 Export-Package: metadata.managment.i18n,
  org.apache.axis,
  org.apache.axis.client,
