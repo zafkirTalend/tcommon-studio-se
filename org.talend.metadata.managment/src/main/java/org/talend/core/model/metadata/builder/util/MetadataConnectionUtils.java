@@ -41,7 +41,6 @@ import org.talend.core.model.metadata.DBConnectionFillerImpl;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataConnection;
 import org.talend.core.model.metadata.MetadataFillFactory;
-import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
@@ -961,7 +960,7 @@ public class MetadataConnectionUtils {
                                      // schemas
                 // Map<String, String> paramMap =
                 // ParameterUtil.toMap(ConnectionUtils.createConnectionParam(dbConn));
-                IMetadataConnection metaConnection = ConvertionHelper.convert(dbConn);
+                IMetadataConnection metaConnection = MetadataFillFactory.getDBInstance().fillUIParams(dbConn);
                 dbConn = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(metaConnection, dbConn);
                 sqlConn = MetadataConnectionUtils.checkConnection(metaConnection).getObject();
                 DatabaseMetaData databaseMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbConn, false);
