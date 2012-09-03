@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.talend.core.model.metadata.builder.connection.Connection;
-import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
@@ -41,15 +40,6 @@ public interface IMetadataFiller {
      * @return null only if paramMap is null
      */
     public IMetadataConnection fillUIParams(Map<String, String> paramMap);
-
-    /**
-     * 
-     * zshen Comment method "fillUIParams". convert a DatabaseConnection object to IMetadataConnection
-     * 
-     * @param conn
-     * @return null only if conn is null
-     */
-    public IMetadataConnection fillUIParams(DatabaseConnection conn);
 
     /**
      * 

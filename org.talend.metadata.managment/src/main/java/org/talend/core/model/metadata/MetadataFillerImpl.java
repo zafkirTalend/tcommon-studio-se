@@ -13,28 +13,22 @@
 package org.talend.core.model.metadata;
 
 import java.sql.DatabaseMetaData;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
-import org.eclipse.emf.common.util.EMap;
 import org.talend.commons.bridge.ReponsitoryContextBridge;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.model.metadata.builder.connection.Connection;
-import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.util.EDataBaseType;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
-import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdView;
 import org.talend.mdm.webservice.WSPing;
 import org.talend.mdm.webservice.XtentisBindingStub;
-import org.talend.repository.model.IRepositoryService;
 import org.talend.utils.sugars.ReturnCode;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
@@ -201,107 +195,6 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
             }
         }
         return metadataConnection;
-    }
-
-    /*
-     * @see org.talend.core.model.metadata.IMetadataFill#fillUIParams(java.util.Map)
-     */
-    public IMetadataConnection fillUIParams(DatabaseConnection conn) {
-        if (conn == null) {
-            return null;
-        }
-        IMetadataConnection metadataConnection = new MetadataConnection();
-        IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
-        if (repositoryService != null) {
-            repositoryService.setMetadataConnectionParameter(conn, metadataConnection);
-        } else {
-            // driverPath
-            metadataConnection.setDriverJarPath(conn.getDriverJarPath());
-
-            // set dbType
-            metadataConnection.setDbType(conn.getDatabaseType());
-            // set product(ProductId) and Schema(UISchema)
-            EDatabaseTypeName edatabasetypeInstance = EDatabaseTypeName.getTypeFromDisplayName(conn.getDatabaseType());
-            String product = edatabasetypeInstance.getProduct();
-            metadataConnection.setProduct(product);
-            // set mapping(DbmsId)
-            if (!ReponsitoryContextBridge.isDefautProject()) {
-                Dbms defaultDbmsFromProduct = MetadataTalendType.getDefaultDbmsFromProduct(product);
-                if (defaultDbmsFromProduct != null) {
-                    String mapping = defaultDbmsFromProduct.getId();
-                    metadataConnection.setMapping(mapping);
-                }
-            }
-            // set dbVersionString
-            metadataConnection.setDbVersionString(conn.getDbVersionString());
-
-            // filePath
-            metadataConnection.setFileFieldName(conn.getFileFieldName());
-            // jdbcUrl
-            metadataConnection.setUrl(conn.getURL());
-            // aDDParameter
-            metadataConnection.setAdditionalParams(conn.getAdditionalParams());
-            // driverClassName
-            metadataConnection.setDriverClass(conn.getDriverClass());
-            // host
-            metadataConnection.setServerName(conn.getServerName());
-            // port
-            metadataConnection.setPort(conn.getPort());
-            // dbName
-            metadataConnection.setDatabase(conn.getSID());
-            // otherParameter
-            metadataConnection.setOtherParameter(ConnectionHelper.getOtherParameter(conn));
-            // password
-            metadataConnection.setPassword(ConnectionHelper.getPassword(conn));
-            // user
-            metadataConnection.setUsername(conn.getUsername());
-            // dbName
-            metadataConnection.setDataSourceName(conn.getDatasourceName());
-            // schema
-            metadataConnection.setSchema(conn.getUiSchema());
-            // dbmsId
-            if (metadataConnection.getMapping() == null) {
-                metadataConnection.setMapping(conn.getDbmsId());
-            }
-        }
-        // retrieveAllMetadata
-        // metadataConnection.setRetrieveAllMetadata(ConnectionHelper.getRetrieveAllMetadata(conn));
-        // name
-        metadataConnection.setLabel(conn.getLabel());
-        // purpose
-        metadataConnection.setPurpose(ConnectionHelper.getPurpose(conn));
-        // description
-        metadataConnection.setDescription(ConnectionHelper.getDescription(conn));
-        // author
-        metadataConnection.setAuthor(ConnectionHelper.getAuthor(conn));
-        // status
-        metadataConnection.setStatus(ConnectionHelper.getDevStatus(conn));
-        // version
-        metadataConnection.setVersion(ConnectionHelper.getVersion(conn));
-        // universe
-        metadataConnection.setUniverse(ConnectionHelper.getUniverse(conn));
-        metadataConnection.setSqlMode(conn.isSQLMode());
-        fillOtherParameters(metadataConnection, conn);
-        return metadataConnection;
-
-    }
-
-    /**
-     * Fills other parameters from db connection into metadata connection. Added by Marvin Wang on Aug 13, 2012.
-     * 
-     * @param metaConn
-     * @param dbConn
-     */
-    protected void fillOtherParameters(IMetadataConnection metaConn, DatabaseConnection dbConn) {
-        EMap<String, String> map = dbConn.getParameters();
-        if (map != null && map.size() > 0) {
-            Map<String, Object> metadataMap = metaConn.getOtherParameters();
-            if (metadataMap == null)
-                metadataMap = new HashMap<String, Object>();
-            for (Entry<String, String> entry : map.entrySet()) {
-                metadataMap.put(entry.getKey(), entry.getValue());
-            }
-        }
     }
 
     /*
