@@ -123,4 +123,6 @@ public interface IProcess2 extends IRepositoryObject, IProcess {
 
     boolean isSubjobEnabled();
 
+    void removeProblems4ProcessDeleted();
+
 }

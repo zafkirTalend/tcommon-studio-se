@@ -59,6 +59,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.SubscriberTable;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.INode;
+import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
@@ -178,6 +179,7 @@ public class DeleteAction extends AContextualAction {
                         if (isForbidNode(node)) {
                             continue;
                         }
+
                         if (node.getType() == ENodeType.REPOSITORY_ELEMENT) {
                             if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBService.class)) {
                                 IESBService service = (IESBService) GlobalServiceRegister.getDefault().getService(
@@ -215,6 +217,19 @@ public class DeleteAction extends AContextualAction {
                                 return;
                             }
                             types.add(node.getObjectType());
+
+                            // TDI-22550
+                            IDesignerCoreService coreService = (IDesignerCoreService) GlobalServiceRegister.getDefault()
+                                    .getService(IDesignerCoreService.class);
+                            IRepositoryViewObject object = node.getObject();
+                            if (coreService != null && object != null && object.getProperty() != null) {
+                                Item item = object.getProperty().getItem();
+                                IProcess iProcess = coreService.getProcessFromItem(item);
+                                if (iProcess != null && iProcess instanceof IProcess2) {
+                                    IProcess2 process = (IProcess2) iProcess;
+                                    process.removeProblems4ProcessDeleted();
+                                }
+                            }
                         } else if (node.getType() == ENodeType.SIMPLE_FOLDER) {
                             FolderItem folderItem = (FolderItem) node.getObject().getProperty().getItem();
                             if (node.getChildren().size() > 0 && !folderItem.getState().isDeleted()) {
@@ -558,6 +573,17 @@ public class DeleteAction extends AContextualAction {
 
         } else {
             IRepositoryViewObject objToDelete = repositoryNode.getObject();
+            // TDI-22550
+            IDesignerCoreService coreService = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                    IDesignerCoreService.class);
+            if (coreService != null && objToDelete != null && objToDelete.getProperty() != null) {
+                Item item = objToDelete.getProperty().getItem();
+                IProcess iProcess = coreService.getProcessFromItem(item);
+                if (iProcess != null && iProcess instanceof IProcess2) {
+                    IProcess2 process = (IProcess2) iProcess;
+                    process.removeProblems4ProcessDeleted();
+                }
+            }
             factory.deleteObjectLogical(objToDelete);
         }
     }
@@ -958,7 +984,7 @@ public class DeleteAction extends AContextualAction {
                 && nodeObject.getProperty().getItem() != null
                 && (nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_OTHER
                         || nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_USER || RepositoryManager
-                            .isOpenedItemInEditor(nodeObject)) && !(DELETE_FOREVER_TITLE.equals(getText()))) {
+                        .isOpenedItemInEditor(nodeObject)) && !(DELETE_FOREVER_TITLE.equals(getText()))) {
 
             final String title = Messages.getString("DeleteAction.error.title"); //$NON-NLS-1$
             String nodeName = ERepositoryObjectType.getDeleteFolderName(nodeObject.getRepositoryObjectType());
