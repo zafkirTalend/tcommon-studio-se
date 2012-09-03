@@ -79,7 +79,12 @@ public class VersionUtils {
     /**
      * DOC ycbai Comment method "getTalendVersion".
      * 
-     * @return the talend version.
+     * return the internal version of the studio that may be different from the Studio version in OEM distribution. look
+     * for version in org.talend.commons.runtime/talend.properties with the key talend.version if none found then return
+     * the Studio version.
+     * 
+     * @return the talend version or the Studio version or null if none found.
+     * 
      */
     public static String getTalendVersion() {
         String version = null;
@@ -92,18 +97,21 @@ public class VersionUtils {
                     URL url = FileLocator.toFileURL(fileUrl);
                     if (url != null) {
                         FileInputStream in = new FileInputStream(url.getPath());
-                        Properties props = new Properties();
-                        props.load(in);
-                        version = props.getProperty(TALEND_VERSION_PROP);
-                        in.close();
+                        try {
+                            Properties props = new Properties();
+                            props.load(in);
+                            version = props.getProperty(TALEND_VERSION_PROP);
+                        } finally {
+                            in.close();
+                        }
                     }
                 }
             } catch (IOException e) {
                 log.error(Messages.getString("VersionUtils.readPropertyFileError"), e);
             }
-            if (version == null) {
-                version = getVersion();
-            }
+        }
+        if (version == null) {
+            version = getVersion();
         }
 
         return version;
