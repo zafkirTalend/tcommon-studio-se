@@ -2356,6 +2356,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getUser_Technical() {
+        return (EAttribute)userEClass.getEStructuralFeatures().get(25);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getFolderItem() {
         return folderItemEClass;
     }
@@ -6345,6 +6354,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(userEClass, USER__LANGUAGE);
         createEAttribute(userEClass, USER__TYPE);
         createEAttribute(userEClass, USER__ADDITIONNAL_DATA);
+        createEAttribute(userEClass, USER__TECHNICAL);
 
         folderItemEClass = createEClass(FOLDER_ITEM);
         createEReference(folderItemEClass, FOLDER_ITEM__CHILDREN);
@@ -7108,6 +7118,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getUser_Language(), ecorePackage.getEString(), "language", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getUser_Type(), ecorePackage.getEString(), "type", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getUser_AdditionnalData(), ecorePackage.getEString(), "additionnalData", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getUser_Technical(), theEcorePackage.getEBoolean(), "technical", null, 0, 1, User.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(folderItemEClass, FolderItem.class, "FolderItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getFolderItem_Children(), this.getItem(), null, "children", null, 0, -1, FolderItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

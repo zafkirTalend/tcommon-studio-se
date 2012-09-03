@@ -54,6 +54,7 @@ import org.talend.core.model.properties.UserRole;
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getLanguage <em>Language</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getAdditionnalData <em>Additionnal Data</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.UserImpl#isTechnical <em>Technical</em>}</li>
  * </ul>
  * </p>
  *
@@ -517,6 +518,26 @@ public class UserImpl extends EObjectImpl implements User {
      * @ordered
      */
     protected String additionnalData = ADDITIONNAL_DATA_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isTechnical() <em>Technical</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isTechnical()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean TECHNICAL_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isTechnical() <em>Technical</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isTechnical()
+     * @generated
+     * @ordered
+     */
+    protected boolean technical = TECHNICAL_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1017,6 +1038,27 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isTechnical() {
+        return technical;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setTechnical(boolean newTechnical) {
+        boolean oldTechnical = technical;
+        technical = newTechnical;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__TECHNICAL, oldTechnical, technical));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1105,6 +1147,8 @@ public class UserImpl extends EObjectImpl implements User {
                 return getType();
             case PropertiesPackage.USER__ADDITIONNAL_DATA:
                 return getAdditionnalData();
+            case PropertiesPackage.USER__TECHNICAL:
+                return isTechnical() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1194,6 +1238,9 @@ public class UserImpl extends EObjectImpl implements User {
             case PropertiesPackage.USER__ADDITIONNAL_DATA:
                 setAdditionnalData((String)newValue);
                 return;
+            case PropertiesPackage.USER__TECHNICAL:
+                setTechnical(((Boolean)newValue).booleanValue());
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1280,6 +1327,9 @@ public class UserImpl extends EObjectImpl implements User {
             case PropertiesPackage.USER__ADDITIONNAL_DATA:
                 setAdditionnalData(ADDITIONNAL_DATA_EDEFAULT);
                 return;
+            case PropertiesPackage.USER__TECHNICAL:
+                setTechnical(TECHNICAL_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1341,6 +1391,8 @@ public class UserImpl extends EObjectImpl implements User {
                 return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
             case PropertiesPackage.USER__ADDITIONNAL_DATA:
                 return ADDITIONNAL_DATA_EDEFAULT == null ? additionnalData != null : !ADDITIONNAL_DATA_EDEFAULT.equals(additionnalData);
+            case PropertiesPackage.USER__TECHNICAL:
+                return technical != TECHNICAL_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }

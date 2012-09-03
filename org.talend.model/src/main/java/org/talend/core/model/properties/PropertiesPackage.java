@@ -3257,12 +3257,21 @@ public interface PropertiesPackage extends EPackage {
     int USER__ADDITIONNAL_DATA = 24;
 
     /**
+     * The feature id for the '<em><b>Technical</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__TECHNICAL = 25;
+
+    /**
      * The number of structural features of the '<em>User</em>' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int USER_FEATURE_COUNT = 25;
+    int USER_FEATURE_COUNT = 26;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -10417,6 +10426,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getUser_AdditionnalData();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.User#isTechnical <em>Technical</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Technical</em>'.
+     * @see org.talend.core.model.properties.User#isTechnical()
+     * @see #getUser()
+     * @generated
+     */
+    EAttribute getUser_Technical();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.FolderItem <em>Folder Item</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Folder Item</em>'.
@@ -16152,6 +16172,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute USER__ADDITIONNAL_DATA = eINSTANCE.getUser_AdditionnalData();
+
+        /**
+         * The meta object literal for the '<em><b>Technical</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute USER__TECHNICAL = eINSTANCE.getUser_Technical();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.FolderItemImpl <em>Folder Item</em>}' class.
