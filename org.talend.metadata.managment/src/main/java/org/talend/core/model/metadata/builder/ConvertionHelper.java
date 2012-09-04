@@ -13,16 +13,22 @@
 package org.talend.core.model.metadata.builder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.EMap;
+import org.talend.commons.bridge.ReponsitoryContextBridge;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
+import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.model.metadata.Dbms;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
@@ -33,6 +39,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.repository.model.IRepositoryService;
 import orgomg.cwm.objectmodel.core.TaggedValue;
 
@@ -43,7 +50,7 @@ public final class ConvertionHelper {
 
     private static ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
 
-    public static String ADDITIONAL_FIELD_PREFIX = "additionalField:";
+    public static String ADDITIONAL_FIELD_PREFIX = "additionalField:"; //$NON-NLS-1$
 
     /**
      * This method doesn't perform a deep copy. DOC tguiu Comment method "convert".
@@ -55,6 +62,13 @@ public final class ConvertionHelper {
         return convert(sourceConnection, false);
     }
 
+    /**
+     * convert a Connection to IMetadataConnection.
+     * 
+     * @param sourceConnection
+     * @param defaultContext
+     * @return
+     */
     public static IMetadataConnection convert(Connection sourceConnection, boolean defaultContext) {
         if (sourceConnection instanceof DatabaseConnection) {
             return convert((DatabaseConnection) sourceConnection, defaultContext, null);
@@ -66,6 +80,83 @@ public final class ConvertionHelper {
         return null;
     }
 
+    /**
+     * fillUIParams from DatabaseConnection to IMetadataConnection..
+     * 
+     * @param metadataConnection
+     * @param conn
+     */
+    public static void fillUIParams(IMetadataConnection metadataConnection, DatabaseConnection conn) {
+        if (conn == null) {
+            return;
+        }
+        IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
+        if (repositoryService != null) {
+            repositoryService.setMetadataConnectionParameter(conn, metadataConnection);
+        } else {
+            // set product(ProductId) and Schema(UISchema)
+            EDatabaseTypeName edatabasetypeInstance = EDatabaseTypeName.getTypeFromDisplayName(conn.getDatabaseType());
+            String product = edatabasetypeInstance.getProduct();
+            metadataConnection.setProduct(product);
+            // set mapping(DbmsId)
+            if (!ReponsitoryContextBridge.isDefautProject()) {
+                Dbms defaultDbmsFromProduct = MetadataTalendType.getDefaultDbmsFromProduct(product);
+                if (defaultDbmsFromProduct != null) {
+                    String mapping = defaultDbmsFromProduct.getId();
+                    metadataConnection.setMapping(mapping);
+                }
+            }
+
+            // otherParameter
+            metadataConnection.setOtherParameter(ConnectionHelper.getOtherParameter(conn));
+        }
+
+        // name
+        metadataConnection.setLabel(conn.getLabel());
+        // purpose
+        metadataConnection.setPurpose(ConnectionHelper.getPurpose(conn));
+        // description
+        metadataConnection.setDescription(ConnectionHelper.getDescription(conn));
+        // author
+        metadataConnection.setAuthor(ConnectionHelper.getAuthor(conn));
+        // status
+        metadataConnection.setStatus(ConnectionHelper.getDevStatus(conn));
+        // version
+        metadataConnection.setVersion(ConnectionHelper.getVersion(conn));
+        // universe
+        metadataConnection.setUniverse(ConnectionHelper.getUniverse(conn));
+
+        fillOtherParameters(metadataConnection, conn);
+
+    }
+
+    /**
+     * fillOtherParameters from DatabaseConnection to IMetadataConnection.
+     * 
+     * @param metaConn
+     * @param dbConn
+     */
+    private static void fillOtherParameters(IMetadataConnection metaConn, DatabaseConnection dbConn) {
+        EMap<String, String> map = dbConn.getParameters();
+        if (map != null && map.size() > 0) {
+            Map<String, Object> metadataMap = metaConn.getOtherParameters();
+            if (metadataMap == null) {
+                metadataMap = new HashMap<String, Object>();
+            }
+            for (Entry<String, String> entry : map.entrySet()) {
+                metadataMap.put(entry.getKey(), entry.getValue());
+            }
+        }
+    }
+
+    /**
+     * convert a DatabaseConnection to IMetadataConnection.
+     * 
+     * @param sourceConnection
+     * @param defaultContext
+     * @param selectedContext
+     * @return
+     */
     public static IMetadataConnection convert(DatabaseConnection sourceConnection, boolean defaultContext, String selectedContext) {
 
         if (sourceConnection == null) {
@@ -123,7 +214,10 @@ public final class ConvertionHelper {
         result.setSchema(ExtractMetaDataUtils.getMeataConnectionSchema(result));
 
         convertOtherParameters(result, connection);
-
+        // ADD msjian TDQ-5908 2012-9-3:should set the UI parameters
+        fillUIParams(result, connection);
+        // TDQ-5908~
+        
         return result;
 
     }
