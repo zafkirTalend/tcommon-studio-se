@@ -44,6 +44,8 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.commons.utils.VersionUtils;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.IESBService;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
@@ -614,7 +616,15 @@ public abstract class AContextualAction extends Action implements ITreeContextua
 
                 Item item = repositoryObject.getObject().getProperty().getItem();
                 if (item instanceof ConnectionItem) {
-                    return true;
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBService.class)) {
+                        IESBService service = (IESBService) GlobalServiceRegister.getDefault().getService(IESBService.class);
+                        if (service != null) {
+                            boolean flag = service.isServiceItem(item.eClass().getClassifierID());
+                            if (!flag) {
+                                return true;
+                            }
+                        }
+                    }
                 }
 
                 List<IRepositoryViewObject> allVersion = null;
@@ -703,12 +713,10 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         return this.node;
     }
 
-    
     public boolean isUnloadResourcesAfter() {
         return unloadResourcesAfter;
     }
 
-    
     public void setUnloadResourcesAfter(boolean unloadResourcesAfter) {
         this.unloadResourcesAfter = unloadResourcesAfter;
     }
