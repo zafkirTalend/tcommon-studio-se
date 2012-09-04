@@ -46,6 +46,8 @@ public interface IMetadataFiller {
      * 
      * zshen Comment method "fillUIParams". convert a DatabaseConnection object to IMetadataConnection
      * 
+     * @deprecated
+     * @see {@link org.talend.core.model.metadata.builder.ConvertionHelper#fillUIParams(IMetadataConnection, DatabaseConnection)}
      * @param conn
      * @return null only if conn is null
      */

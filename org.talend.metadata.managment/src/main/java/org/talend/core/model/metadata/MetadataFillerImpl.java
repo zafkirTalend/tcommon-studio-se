@@ -201,7 +201,7 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
     }
 
     /*
-     * @see org.talend.core.model.metadata.IMetadataFill#fillUIParams(java.util.Map)
+     * @see org.talend.core.model.metadata.IMetadataFiller#fillUIParams(DatabaseConnection)
      */
     public IMetadataConnection fillUIParams(DatabaseConnection conn) {
         if (conn == null) {

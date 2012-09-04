@@ -526,7 +526,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
         java.sql.Connection sqlConn = null;
         String dbType = null;
         try {
-            IMetadataConnection metaConnection = MetadataFillFactory.getDBInstance().fillUIParams(dbConn);
+            IMetadataConnection metaConnection = ConvertionHelper.convert(dbConn);
             dbConn = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(metaConnection, dbConn);
             sqlConn = (java.sql.Connection) MetadataConnectionUtils.checkConnection(metaConnection).getObject();
 
