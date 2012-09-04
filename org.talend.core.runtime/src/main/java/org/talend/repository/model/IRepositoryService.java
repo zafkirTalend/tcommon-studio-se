@@ -76,6 +76,8 @@ public interface IRepositoryService extends IService {
 
     public boolean openLoginDialog(Shell shell, boolean inuse);
 
+    public boolean openReadOnlyDialog(Shell shell);
+
     /**
      * initialize before running of job that extends the "IStartup" extension.
      */

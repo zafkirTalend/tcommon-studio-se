@@ -577,7 +577,8 @@
    <extension
          point="org.talend.core.repository.login.task">
       <loginTask
-            class="org.talend.core.repository.GeneratedJetEmitersLoginTask">
+            class="org.talend.core.repository.GeneratedJetEmitersLoginTask"
+            priority="highest">
       </loginTask>
    </extension>
    <extension
@@ -586,6 +587,13 @@
             class="org.talend.core.repository.model.CheckJobletDeleteReference"
             priority="high">
       </check>
+   </extension>
+   <extension
+         point="org.talend.core.repository.login.task">
+      <loginTask
+            class="org.talend.core.repository.ReadOnlyProjectConfirm"
+            priority="high">
+      </loginTask>
    </extension>
 
 
