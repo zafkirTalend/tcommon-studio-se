@@ -15,6 +15,7 @@ package org.talend.core.model.metadata.query;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.query.generator.AS400QueryGenerator;
 import org.talend.core.model.metadata.query.generator.H2QueryGenerator;
+import org.talend.core.model.metadata.query.generator.HiveQueryGenerator;
 import org.talend.core.model.metadata.query.generator.NetezzaQueryGenerator;
 import org.talend.core.model.metadata.query.generator.NonDatabaseDefaultQueryGenerator;
 import org.talend.core.model.metadata.query.generator.OldDelegateQueryGenerator;
@@ -43,6 +44,8 @@ public final class GenerateQueryFactory {
             return null;
         }
         switch (dbType) {
+        case HIVE:
+            return new HiveQueryGenerator(dbType);
         case H2:
             return new H2QueryGenerator(dbType);
         case NETEZZA:

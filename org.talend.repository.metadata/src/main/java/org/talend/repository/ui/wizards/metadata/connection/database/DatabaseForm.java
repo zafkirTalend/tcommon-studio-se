@@ -2022,6 +2022,11 @@ public class DatabaseForm extends AbstractForm {
 
     }
 
+    /**
+     * Set up the URL by checking the current hive mode. Added by Marvin Wang on Sep 4, 2012.
+     * 
+     * @return
+     */
     private String getStringConnection() {
         String s = null;
         String versionStr = dbVersionCombo.getText();
@@ -2040,6 +2045,8 @@ public class DatabaseForm extends AbstractForm {
                     versionStr = version.getVersionValue();
                 }
             }
+            // TODO It should be reverted if emembedded is available.
+            versionStr = "STANDALONE";
             s = DatabaseConnStrUtil.getURLString(dbTypeCombo.getText(), versionStr, serverText.getText(), usernameText.getText(),
                     passwordText.getText(), portText.getText(), sidOrDatabaseText.getText(), fileField.getText().toLowerCase(),
                     datasourceText.getText(), directoryField.getText(), additionParamText.getText());
@@ -2260,8 +2267,11 @@ public class DatabaseForm extends AbstractForm {
                     // Added by Marvin Wang on Aug. 15, 2012 for handling the case of Hive.
                     if (EDatabaseTypeName.HIVE.getDisplayName().equalsIgnoreCase(dbTypeCombo.getText())) {
                         if (isHiveEmbeddedMode()) {
-                            sidOrDatabaseText.hide();
-                            sidOrDatabaseText.setEditable(false);
+                            // TODO It should be reverted if emembedded is available.
+                            sidOrDatabaseText.show();
+                            sidOrDatabaseText.setEditable(true);
+                            // sidOrDatabaseText.hide();
+                            // sidOrDatabaseText.setEditable(false);
                         } else {
                             sidOrDatabaseText.show();
                             sidOrDatabaseText.setEditable(true);
@@ -2776,7 +2786,9 @@ public class DatabaseForm extends AbstractForm {
      */
     public void handleEmbeddedMode() {
         urlConnectionStringText.setText(getConnection().getURL());
-        sidOrDatabaseText.setVisible(false);
+        // TODO It should be reverted if emembedded is available.
+        sidOrDatabaseText.setVisible(true);
+        // sidOrDatabaseText.setVisible(false);
         hiveComposite.layout();
         compositeDbSettings.layout();
         typeDbCompositeParent.layout();
