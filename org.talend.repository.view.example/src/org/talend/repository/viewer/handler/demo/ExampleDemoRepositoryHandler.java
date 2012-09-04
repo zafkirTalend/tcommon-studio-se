@@ -13,22 +13,27 @@
 package org.talend.repository.viewer.handler.demo;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.IImage;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.Status;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.utils.XmiResourceManager;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.repository.example.model.demo.DemoFactory;
 import org.talend.repository.example.model.demo.ExampleDemoConnectionItem;
 import org.talend.repository.image.EExampleDemoImage;
 import org.talend.repository.model.ExampleDemoRepositoryNodeType;
+import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -200,6 +205,67 @@ public class ExampleDemoRepositoryHandler implements IRepositoryContentHandler {
     @Override
     public void addContents(Collection<EObject> collection, Resource resource) {
 
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryContentHandler#getHandleType()
+     */
+    @Override
+    public ERepositoryObjectType getHandleType() {
+        return ExampleDemoRepositoryNodeType.repositoryExampleDemoType;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryContentHandler#hasSchemas()
+     */
+    @Override
+    public boolean hasSchemas() {
+        return true;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.model.repository.IRepositoryContentHandler#getPropertyStatus(org.talend.core.model.properties
+     * .Item)
+     */
+    @Override
+    public List<Status> getPropertyStatus(Item item) {
+        try {
+            return CoreRuntimePlugin.getInstance().getProxyRepositoryFactory().getTechnicalStatus();
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
+        return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.model.repository.IRepositoryContentHandler#hideAction(org.talend.repository.model.IRepositoryNode
+     * , java.lang.Class)
+     */
+    @Override
+    public boolean hideAction(IRepositoryNode node, Class actionType) {
+        return node != null ? isRepObjType(node.getObjectType()) : false;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.model.repository.IRepositoryContentHandler#isOwnTable(org.talend.repository.model.IRepositoryNode
+     * , java.lang.Class)
+     */
+    @Override
+    public boolean isOwnTable(IRepositoryNode node, Class type) {
+        return node != null ? isRepObjType(node.getObjectType()) : false;
     }
 
 }

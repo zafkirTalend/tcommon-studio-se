@@ -15,6 +15,7 @@ package org.talend.repository.viewer.handler.demo;
 import java.util.List;
 
 import org.talend.core.model.components.IComponent;
+import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.Item;
@@ -57,15 +58,15 @@ public class ExampleDemoDragAndDropHandler implements IDragAndDropServiceHandler
      * 
      * @see
      * org.talend.core.model.utils.IDragAndDropServiceHandler#getComponentValue(org.talend.core.model.metadata.builder
-     * .connection.Connection, java.lang.String)
+     * .connection.Connection, java.lang.String, org.talend.core.model.metadata.IMetadataTable)
      */
     @Override
-    public String getComponentValue(Connection connection, String value) {
+    public String getComponentValue(Connection connection, String value, IMetadataTable table) {
         if (value != null && canHandle(connection)) {
             ExampleDemoConnection demoConn = (ExampleDemoConnection) connection;
-            if ("TYPE".equals(value)) {
+            if ("TYPE".equals(value)) { //$NON-NLS-1$
                 return demoConn.getType();
-            } else if ("VALID".equals(value)) {
+            } else if ("VALID".equals(value)) { //$NON-NLS-1$
                 return Boolean.toString(demoConn.isValid());
             }
         }
