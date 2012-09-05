@@ -101,9 +101,9 @@ public abstract class RepositoryWizard extends Wizard {
      * @param IRepositoryObject
      */
     public boolean performCancel() {
+        closeLockStrategy();
         if (repositoryObject != null)
             repositoryObject.getProperty().eResource().unload();
-        closeLockStrategy();
         return true;
     }
 
