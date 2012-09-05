@@ -63,7 +63,8 @@
          </possibleChildren>
 
          <actionProvider
-               class="org.talend.repository.viewer.action.RecycleBinActionProvider">
+               class="org.talend.repository.viewer.action.RecycleBinActionProvider"
+               id="org.talend.repository.recyclebin.action.provider.id">
             <enablement>
                <and>
                   <instanceof
@@ -103,7 +104,8 @@
             </instanceof>
          </possibleChildren>
          <actionProvider
-               class="org.talend.repository.viewer.action.RepoNodeActionProvider">
+               class="org.talend.repository.viewer.action.RepoNodeActionProvider"
+               id="org.talend.repository.code.action.provider.id">
             <enablement>
                <and>
                   <instanceof
