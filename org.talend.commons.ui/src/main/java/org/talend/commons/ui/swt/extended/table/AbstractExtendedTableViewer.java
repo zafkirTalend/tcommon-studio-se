@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.gef.commands.CommandStack;
+import org.eclipse.jface.viewers.ILazyContentProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
@@ -402,7 +403,9 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
                     // tableViewer.refresh(bean);
                     // }
                 } else {
-                    tableViewer.setItemCount(event.source.size());
+                    if (tableViewer.getContentProvider() instanceof ILazyContentProvider) {
+                        tableViewer.setItemCount(event.source.size());
+                    }
                     tableViewer.refresh();
                 }
 
