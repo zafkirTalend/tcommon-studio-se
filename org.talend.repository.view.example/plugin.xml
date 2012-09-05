@@ -26,7 +26,8 @@
             </instanceof>
          </possibleChildren>
          <actionProvider
-               class="org.talend.repository.viewer.action.OemActionProvider">
+               class="org.talend.repository.viewer.action.OemActionProvider"
+               id="org.talend.repository.oem.model.action.provider.id">
          </actionProvider>
       </navigatorContent>
       <navigatorContent
@@ -116,6 +117,7 @@
          </possibleChildren>
          <actionProvider
                class="org.talend.repository.viewer.actions.example.ActionProviderThatRemovesCreateFolderContextualMenu"
+               id="org.talend.repository.job.only.with.an.a.action.provider.id"
                overrides="org.talend.repository.viewer.root.jobDesigns.ActionProvider"
                priority="highest">
             <enablement>
@@ -163,7 +165,8 @@
             </and>
          </triggerPoints>
          <actionProvider
-               class="org.talend.repository.viewer.actions.demo.ExampleDemoNodeActionProvier">
+               class="org.talend.repository.viewer.actions.demo.ExampleDemoNodeActionProvier"
+               id="org.talend.repository.example.demo.action.provider.id">
             <enablement>
                <and>
                   <instanceof
