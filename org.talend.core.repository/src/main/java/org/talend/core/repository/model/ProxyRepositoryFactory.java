@@ -871,18 +871,18 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         // getStatus(item)
         if (getStatus(item).isPotentiallyEditable()) {
             this.repositoryFactoryFromProvider.lock(item);
-            //
-            if ((item instanceof JobletProcessItem || item instanceof ProcessItem)
-                    && getStatus(item) == ERepositoryStatus.LOCK_BY_USER) {
-                String docId = item.getProperty().getId() + "doc";
-                IRepositoryViewObject repositoryViewObject = this.repositoryFactoryFromProvider.getLastVersion(
-                        projectManager.getCurrentProject(), docId);
-                if (repositoryViewObject != null) {
-                    Property property = repositoryViewObject.getProperty();
-                    Item documentationItem = property.getItem();
-                    this.repositoryFactoryFromProvider.lock(documentationItem);
-                }
-            }
+            // TDI-21187 Lock a job with doc, on TAC side both job and documentation are locked.
+            // if ((item instanceof JobletProcessItem || item instanceof ProcessItem)
+            // && getStatus(item) == ERepositoryStatus.LOCK_BY_USER) {
+            // String docId = item.getProperty().getId() + "doc";
+            // IRepositoryViewObject repositoryViewObject = this.repositoryFactoryFromProvider.getLastVersion(
+            // projectManager.getCurrentProject(), docId);
+            // if (repositoryViewObject != null) {
+            // Property property = repositoryViewObject.getProperty();
+            // Item documentationItem = property.getItem();
+            // this.repositoryFactoryFromProvider.lock(documentationItem);
+            // }
+            // }
             notifyLock(item, true);
             // i18n
             // log.debug("Lock [" + item + "] by \"" + getRepositoryContext().getUser() + "\".");
@@ -1382,17 +1382,17 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             Date modificationDate = obj.getProperty().getModificationDate();
             if (modificationDate == null || commitDate == null || modificationDate.before(commitDate)) {
                 this.repositoryFactoryFromProvider.unlock(obj);
-                //
-                if (obj instanceof JobletProcessItem || obj instanceof ProcessItem) {
-                    String docId = obj.getProperty().getId() + "doc";
-                    IRepositoryViewObject repositoryViewObject = this.repositoryFactoryFromProvider.getLastVersion(
-                            projectManager.getCurrentProject(), docId);
-                    if (repositoryViewObject != null) {
-                        Property property = repositoryViewObject.getProperty();
-                        Item documentationItem = property.getItem();
-                        this.repositoryFactoryFromProvider.unlock(documentationItem);
-                    }
-                }
+                // TDI-21187 Lock a job with doc, on TAC side both job and documentation are locked.
+                // if (obj instanceof JobletProcessItem || obj instanceof ProcessItem) {
+                // String docId = obj.getProperty().getId() + "doc";
+                // IRepositoryViewObject repositoryViewObject = this.repositoryFactoryFromProvider.getLastVersion(
+                // projectManager.getCurrentProject(), docId);
+                // if (repositoryViewObject != null) {
+                // Property property = repositoryViewObject.getProperty();
+                // Item documentationItem = property.getItem();
+                // this.repositoryFactoryFromProvider.unlock(documentationItem);
+                // }
+                // }
                 notifyLock(obj, false);
                 // i18n
                 // log.debug("Unlock [" + obj + "] by \"" + getRepositoryContext().getUser() + "\".");
