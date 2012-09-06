@@ -32,4 +32,16 @@ public final class TalendPropertiesUtil {
 
         return Boolean.parseBoolean(value);
     }
+
+    /**
+     * 
+     * DOC ggu Comment method "isHideBuildNumber".
+     * 
+     * @return
+     */
+    public static boolean isHideBuildNumber() {
+        String value = System.getProperty("talend.hide.buildNumber"); //$NON-NLS-1$
+
+        return Boolean.parseBoolean(value);
+    }
 }
