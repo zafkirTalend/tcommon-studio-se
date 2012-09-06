@@ -12,6 +12,12 @@
 // ============================================================================
 package org.talend.core.model.metadata.builder.util;
 
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
+
 import junit.framework.Assert;
 
 import org.junit.Test;
@@ -115,6 +121,34 @@ public class MetadataConnectionUtilsTest {
     // @Test
     public void testFillDbConnectionInformation() {
         PTODO();
+    }
+
+    /**
+     * 
+     * test for judging if it is hive connection. normal case.
+     * 
+     * @throws SQLException
+     */
+    @Test
+    public void testIsHive_1() throws SQLException {
+        DatabaseMetaData dbMetadata = mock(DatabaseMetaData.class);
+        when(dbMetadata.getDatabaseProductName()).thenReturn("Hive");//$NON-NLS-1$
+        boolean hive = MetadataConnectionUtils.isHive(dbMetadata);
+        assertTrue(hive);
+    }
+
+    /**
+     * 
+     * test for judging if it is hive connection. abnormal case
+     * 
+     * @throws SQLException
+     */
+    @Test
+    public void testIsHive_2() throws SQLException {
+        DatabaseMetaData dbMetadata = mock(DatabaseMetaData.class);
+        when(dbMetadata.getDatabaseProductName()).thenReturn("Mysql");//$NON-NLS-1$
+        boolean hive = MetadataConnectionUtils.isHive(dbMetadata);
+        assertFalse(hive);
     }
 
 }
