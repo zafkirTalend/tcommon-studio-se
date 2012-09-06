@@ -16,6 +16,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.JobletProcessItem;
+import org.talend.core.model.properties.ProcessItem;
 import org.talend.repository.documentation.ERepositoryActionName;
 
 /**
@@ -24,12 +26,13 @@ import org.talend.repository.documentation.ERepositoryActionName;
  */
 public abstract class AbstractJobSaveListener implements PropertyChangeListener {
 
+    @Override
     public void propertyChange(PropertyChangeEvent event) {
-        if (!event.getPropertyName().equals(ERepositoryActionName.JOB_SAVE.getName())) {
+        if (!event.getPropertyName().equals(ERepositoryActionName.SAVE.getName())) {
             return;
         }
 
-        if (!(event.getNewValue() instanceof Item)) {
+        if (!(event.getNewValue() instanceof ProcessItem) && !(event.getNewValue() instanceof JobletProcessItem)) {
             return;
         }
 

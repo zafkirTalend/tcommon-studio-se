@@ -470,9 +470,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             checkFileNameAndPath(project, label, RepositoryConstants.FOLDER_PATTERN, type, path, true);
         }
         Folder createFolder = this.repositoryFactoryFromProvider.createFolder(project, type, path, label, isImportItem);
-        if (type == ERepositoryObjectType.PROCESS || type == ERepositoryObjectType.JOBLET) {
-            fireRepositoryPropertyChange(ERepositoryActionName.FOLDER_CREATE.getName(), path, new Object[] { createFolder, type });
-        }
+        fireRepositoryPropertyChange(ERepositoryActionName.FOLDER_CREATE.getName(), path, new Object[] { createFolder, type });
         return createFolder;
     }
 
@@ -638,25 +636,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         // log.debug("Logical deletion [" + objToDelete + "] by " + getRepositoryContext().getUser() + ".");
         String str[] = new String[] { object + "", getRepositoryContext().getUser() + "" };//$NON-NLS-1$ //$NON-NLS-2$
         log.debug(Messages.getString("ProxyRepositoryFactory.log.logicalDeletion", str)); //$NON-NLS-1$
-        boolean isExtendPoint = false;
-        ERepositoryObjectType repositoryObjectType = object.getRepositoryObjectType();
-        for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
-            isExtendPoint = handler.isRepObjType(repositoryObjectType);
-            if (isExtendPoint == true) {
-                break;
-            }
-        }
-        // TODO this need to be refactered after M2.
-        if (isExtendPoint || object.getRepositoryObjectType() == ERepositoryObjectType.PROCESS
-                || object.getRepositoryObjectType() == ERepositoryObjectType.JOBLET
-                || object.getRepositoryObjectType() == ERepositoryObjectType.ROUTINES
-                || object.getRepositoryObjectType() == ERepositoryObjectType.JOB_SCRIPT) {
-            fireRepositoryPropertyChange(ERepositoryActionName.JOB_DELETE_TO_RECYCLE_BIN.getName(), null, object);
-        }
 
-        if (objToDelete.getRepositoryObjectType() == ERepositoryObjectType.BUSINESS_PROCESS) {
-            fireRepositoryPropertyChange(ERepositoryActionName.BUSINESS_DELETE_TO_RECYCLE_BIN.getName(), null, object);
-        }
+        fireRepositoryPropertyChange(ERepositoryActionName.DELETE_TO_RECYCLE_BIN.getName(), null, object);
     }
 
     /*
@@ -711,12 +692,13 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         IRepositoryViewObject object = new RepositoryObject(objToDelete.getProperty());
         boolean isExtendPoint = false;
 
+        fireRepositoryPropertyChange(ERepositoryActionName.DELETE_FOREVER.getName(), null, object);
+
         ERepositoryObjectType repositoryObjectType = object.getRepositoryObjectType();
         for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
             isExtendPoint = handler.isRepObjType(repositoryObjectType);
             if (isExtendPoint == true) {
                 if (repositoryObjectType == handler.getProcessType()) {
-                    fireRepositoryPropertyChange(ERepositoryActionName.JOB_DELETE_FOREVER.getName(), null, object);
                     coreService.removeJobLaunch(object);
                 }
                 if (repositoryObjectType == handler.getCodeType()) {
@@ -729,24 +711,17 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 break;
             }
         }
-        if (repositoryObjectType == ERepositoryObjectType.PROCESS || repositoryObjectType == ERepositoryObjectType.JOBLET
-                || repositoryObjectType == ERepositoryObjectType.ROUTINES) {
-            fireRepositoryPropertyChange(ERepositoryActionName.JOB_DELETE_FOREVER.getName(), null, object);
-            if (repositoryObjectType == ERepositoryObjectType.PROCESS) {
-                // delete the job launch, for bug 8878
-                coreService.removeJobLaunch(object);
-            }
-
-            if (repositoryObjectType == ERepositoryObjectType.ROUTINES) {
-                try {
-                    coreService.deleteRoutinefile(object);
-                } catch (Exception e) {
-                    ExceptionHandler.process(e);
-                }
-            }
+        if (repositoryObjectType == ERepositoryObjectType.PROCESS) {
+            // delete the job launch, for bug 8878
+            coreService.removeJobLaunch(object);
         }
-        if (repositoryObjectType == ERepositoryObjectType.BUSINESS_PROCESS) {
-            fireRepositoryPropertyChange(ERepositoryActionName.BUSINESS_DELETE_FOREVER.getName(), null, object);
+
+        if (repositoryObjectType == ERepositoryObjectType.ROUTINES) {
+            try {
+                coreService.deleteRoutinefile(object);
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
+            }
         }
 
         if (repositoryObjectType == ERepositoryObjectType.PROCESS) {
@@ -791,11 +766,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 break;
             }
         }
-        if (isExtendPoint || objToRestore.getRepositoryObjectType() == ERepositoryObjectType.PROCESS
-                || objToRestore.getRepositoryObjectType() == ERepositoryObjectType.JOBLET
-                || objToRestore.getRepositoryObjectType() == ERepositoryObjectType.ROUTINES) {
-            fireRepositoryPropertyChange(ERepositoryActionName.JOB_RESTORE.getName(), null, objToRestore);
-        }
+        fireRepositoryPropertyChange(ERepositoryActionName.RESTORE.getName(), null, objToRestore);
     }
 
     /*
@@ -828,19 +799,10 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         log.debug(Messages.getString("ProxyRepositoryFactory.log.move", str)); //$NON-NLS-1$
         // unlock(getItem(objToMove));
 
-        if (objToMove.getRepositoryObjectType() == ERepositoryObjectType.PROCESS) {
-            if (sourcePath != null && sourcePath.length == 1) {
-                fireRepositoryPropertyChange(ERepositoryActionName.JOB_MOVE.getName(), objToMove, new IPath[] { sourcePath[0],
-                        targetPath });
-            }
+        if (sourcePath != null && sourcePath.length == 1) {
+            fireRepositoryPropertyChange(ERepositoryActionName.MOVE.getName(), objToMove,
+                    new IPath[] { sourcePath[0], targetPath });
         }
-        if (objToMove.getRepositoryObjectType() == ERepositoryObjectType.JOBLET) {
-            if (sourcePath != null && sourcePath.length == 1) {
-                fireRepositoryPropertyChange(ERepositoryActionName.JOBLET_MOVE.getName(), objToMove, new IPath[] { sourcePath[0],
-                        targetPath });
-            }
-        }
-
     }
 
     // TODO SML Renommer et finir la m�thode et la plugger dans toutes les m�thodes
@@ -1242,8 +1204,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 isImportItem);
 
         this.repositoryFactoryFromProvider.create(project, item, path, isImportItem);
-        if ((item instanceof ProcessItem || item instanceof JobletProcessItem) && (isImportItem.length == 0)) {
-            fireRepositoryPropertyChange(ERepositoryActionName.JOB_CREATE.getName(), null, item);
+        if (isImportItem.length == 0) {
+            // no listener if from import, or it will be too slow.
+            fireRepositoryPropertyChange(ERepositoryActionName.CREATE.getName(), null, item);
         }
     }
 
@@ -1260,9 +1223,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     @Override
     public void save(Project project, Item item, boolean... isMigrationTask) throws PersistenceException {
         this.repositoryFactoryFromProvider.save(project, item);
-        if ((item instanceof ProcessItem || item instanceof JobletProcessItem)
-                && (isMigrationTask == null || isMigrationTask.length == 0)) {
-            fireRepositoryPropertyChange(ERepositoryActionName.JOB_SAVE.getName(), null, item);
+        if (isMigrationTask == null || isMigrationTask.length == 0) {
+            fireRepositoryPropertyChange(ERepositoryActionName.SAVE.getName(), null, item);
         }
     }
 
@@ -1279,9 +1241,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     @Override
     public void save(Project project, Property property, String... originalNameAndVersion) throws PersistenceException {
         this.repositoryFactoryFromProvider.save(project, property);
-        if (property.getItem() instanceof ProcessItem || property.getItem() instanceof JobletProcessItem) {
-            fireRepositoryPropertyChange(ERepositoryActionName.JOB_PROPERTIES_CHANGE.getName(), originalNameAndVersion, property);
-        }
+        fireRepositoryPropertyChange(ERepositoryActionName.PROPERTIES_CHANGE.getName(), originalNameAndVersion, property);
     }
 
     /*
@@ -1304,9 +1264,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
         Item targetItem = this.repositoryFactoryFromProvider.copy(sourceItem, targetPath);
 
-        if (sourceItem instanceof ProcessItem || sourceItem instanceof JobletProcessItem) {
-            fireRepositoryPropertyChange(ERepositoryActionName.JOB_COPY.getName(), sourceItem, targetItem);
-        }
+        fireRepositoryPropertyChange(ERepositoryActionName.COPY.getName(), sourceItem, targetItem);
         return targetItem;
 
     }
@@ -1334,7 +1292,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
     @Override
     public void saveCopy(Item sourceItem, Item targetItem) {
-        fireRepositoryPropertyChange(ERepositoryActionName.JOB_COPY.getName(), sourceItem, targetItem);
+        fireRepositoryPropertyChange(ERepositoryActionName.COPY.getName(), sourceItem, targetItem);
     }
 
     /*

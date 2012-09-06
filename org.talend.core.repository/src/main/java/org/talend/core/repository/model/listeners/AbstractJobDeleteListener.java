@@ -27,9 +27,10 @@ public abstract class AbstractJobDeleteListener implements PropertyChangeListene
 
     public static final int DELETE_PHISICAL = 1;
 
+    @Override
     public void propertyChange(PropertyChangeEvent event) {
-        boolean leleteLogical = event.getPropertyName().equals(ERepositoryActionName.JOB_DELETE_TO_RECYCLE_BIN.getName());
-        boolean deletePhisical = event.getPropertyName().equals(ERepositoryActionName.JOB_DELETE_FOREVER.getName());
+        boolean leleteLogical = event.getPropertyName().equals(ERepositoryActionName.DELETE_TO_RECYCLE_BIN.getName());
+        boolean deletePhisical = event.getPropertyName().equals(ERepositoryActionName.DELETE_FOREVER.getName());
 
         if (!leleteLogical && !deletePhisical) {
             return;
