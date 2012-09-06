@@ -12,9 +12,8 @@
 // ============================================================================
 package org.talend.core.sqlbuilder.util;
 
-import metadata.managment.i18n.Messages;
-
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.utils.TalendTextUtils;
 
 /**
