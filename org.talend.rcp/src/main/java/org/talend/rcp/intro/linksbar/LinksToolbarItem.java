@@ -29,6 +29,7 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.general.IExchangeService;
+import org.talend.core.model.utils.TalendPropertiesUtil;
 import org.talend.rcp.Activator;
 import org.talend.rcp.i18n.Messages;
 
@@ -146,30 +147,30 @@ public class LinksToolbarItem extends ContributionItem {
         }
 
         // 4. Link to Talend Exchange
-        Label exchangeLabel = new Label(composite, SWT.NONE);
+        if (PluginChecker.isExchangeSystemLoaded() && !TalendPropertiesUtil.isHideExchange()) {
+            Label exchangeLabel = new Label(composite, SWT.NONE);
 
-        if (registry.get("exchange") == null) {
-            registry.put("exchange", Activator.getImageDescriptor("icons/exchange_view.gif").createImage());
-        }
-        exchangeLabel.setImage(registry.get("exchange")); //$NON-NLS-1$
+            if (registry.get("exchange") == null) {
+                registry.put("exchange", Activator.getImageDescriptor("icons/exchange_view.gif").createImage());
+            }
+            exchangeLabel.setImage(registry.get("exchange")); //$NON-NLS-1$
 
-        Link exchange = new Link(composite, SWT.NONE);
-        exchange.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
-        exchange.setText(EXCHANGE_URL);
-        exchange.setToolTipText(Messages.getString("LinksToolbarItem_exchange"));
+            Link exchange = new Link(composite, SWT.NONE);
+            exchange.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
+            exchange.setText(EXCHANGE_URL);
+            exchange.setToolTipText(Messages.getString("LinksToolbarItem_exchange"));
 
-        exchange.addListener(SWT.Selection, new Listener() {
+            exchange.addListener(SWT.Selection, new Listener() {
 
-            @Override
-            public void handleEvent(Event event) {
-                if (PluginChecker.isExchangeSystemLoaded()) {
+                @Override
+                public void handleEvent(Event event) {
                     IExchangeService service = (IExchangeService) GlobalServiceRegister.getDefault().getService(
                             IExchangeService.class);
                     service.openExchangeEditor();
                 }
-            }
-        });
+            });
 
+        }
         return composite;
     }
 
