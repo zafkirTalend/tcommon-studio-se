@@ -41,8 +41,10 @@ import org.talend.commons.ui.command.CommandStackForComposite;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.advanced.composite.ThreeCompositesSashForm;
+import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListener;
 import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.i18n.Messages;
@@ -290,8 +292,8 @@ public class MetadataDialog extends Dialog {
         if (inputMetaTable == null) {
             composite.setLayout(new FillLayout());
             metadataTableEditor = new MetadataTableEditor(outputMetaTable, titleOutput);
-            outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly, true, true,
-                    false);
+            outputMetaView = new DialogMetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly, true,
+                    true, false);
 
             initializeMetadataTableView(outputMetaView, outputNode, outputMetaTable);
             outputMetaView.initGraphicComponents();
@@ -312,8 +314,8 @@ public class MetadataDialog extends Dialog {
             composite.setLayoutData(gridData);
 
             metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput);
-            inputMetaView = new MetadataTableEditorView(compositesSachForm.getLeftComposite(), SWT.NONE, metadataTableEditor,
-                    inputReadOnly, true, true, false);
+            inputMetaView = new DialogMetadataTableEditorView(compositesSachForm.getLeftComposite(), SWT.NONE,
+                    metadataTableEditor, inputReadOnly, true, true, false);
             initializeMetadataTableView(inputMetaView, inputNode, inputMetaTable);
             inputMetaView.initGraphicComponents();
             inputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
@@ -448,7 +450,7 @@ public class MetadataDialog extends Dialog {
                 copySelectionToInput.setEnabled(false);
             }
 
-            outputMetaView = new MetadataTableEditorView(compositesSachForm.getRightComposite(), SWT.NONE,
+            outputMetaView = new DialogMetadataTableEditorView(compositesSachForm.getRightComposite(), SWT.NONE,
                     new MetadataTableEditor(outputMetaTable, titleOutput + " (Output)"), outputReadOnly, true, true, //$NON-NLS-1$
                     false);
             initializeMetadataTableView(outputMetaView, outputNode, outputMetaTable);
@@ -636,6 +638,29 @@ public class MetadataDialog extends Dialog {
             return preColumnSet;
         }
         return preColumnSet;
+    }
+
+    class DialogMetadataTableEditorView extends MetadataTableEditorView {
+
+        public DialogMetadataTableEditorView(Composite parentComposite, int mainCompositeStyle,
+                ExtendedTableModel<IMetadataColumn> extendedTableModel, boolean readOnly, boolean toolbarVisible,
+                boolean labelVisible, boolean initGraphicsComponents) {
+            super(parentComposite, mainCompositeStyle, extendedTableModel, readOnly, toolbarVisible, labelVisible,
+                    initGraphicsComponents);
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see
+         * org.talend.core.ui.metadata.editor.MetadataTableEditorView#setTableViewerCreatorOptions(org.talend.commons
+         * .ui.swt.tableviewer.TableViewerCreator)
+         */
+        @Override
+        protected void setTableViewerCreatorOptions(TableViewerCreator<IMetadataColumn> newTableViewerCreator) {
+            super.setTableViewerCreatorOptions(newTableViewerCreator);
+            newTableViewerCreator.setLazyLoad(true);
+        }
     }
 
 }

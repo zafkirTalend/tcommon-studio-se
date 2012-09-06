@@ -476,4 +476,17 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
 
         };
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView#setTableViewerCreatorOptions(org.talend.commons
+     * .ui.swt.tableviewer.TableViewerCreator)
+     */
+    @Override
+    protected void setTableViewerCreatorOptions(TableViewerCreator<MetadataColumn> newTableViewerCreator) {
+        super.setTableViewerCreatorOptions(newTableViewerCreator);
+        newTableViewerCreator.setLazyLoad(true);
+    }
 }
