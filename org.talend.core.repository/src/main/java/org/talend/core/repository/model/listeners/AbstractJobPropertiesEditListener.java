@@ -15,6 +15,8 @@ package org.talend.core.repository.model.listeners;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import org.talend.core.model.properties.JobletProcessItem;
+import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.repository.documentation.ERepositoryActionName;
 
@@ -23,8 +25,9 @@ import org.talend.repository.documentation.ERepositoryActionName;
  */
 public abstract class AbstractJobPropertiesEditListener implements PropertyChangeListener {
 
+    @Override
     public void propertyChange(PropertyChangeEvent event) {
-        if (!event.getPropertyName().equals(ERepositoryActionName.JOB_PROPERTIES_CHANGE.getName())) {
+        if (!event.getPropertyName().equals(ERepositoryActionName.PROPERTIES_CHANGE.getName())) {
             return;
         }
 
@@ -36,7 +39,9 @@ public abstract class AbstractJobPropertiesEditListener implements PropertyChang
         }
         String[] originalJobNameAndVersion = (String[]) event.getOldValue();
         Property jobProperty = (Property) event.getNewValue();
-        execute(jobProperty, originalJobNameAndVersion);
+        if (jobProperty.getItem() instanceof ProcessItem || jobProperty.getItem() instanceof JobletProcessItem) {
+            execute(jobProperty, originalJobNameAndVersion);
+        }
     }
 
     public abstract void execute(Property property, String[] originalJobNameAndVersion);

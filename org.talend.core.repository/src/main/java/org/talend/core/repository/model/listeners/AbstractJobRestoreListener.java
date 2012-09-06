@@ -23,8 +23,9 @@ import org.talend.repository.documentation.ERepositoryActionName;
  */
 public abstract class AbstractJobRestoreListener implements PropertyChangeListener {
 
+    @Override
     public void propertyChange(PropertyChangeEvent event) {
-        if (!event.getPropertyName().equals(ERepositoryActionName.JOB_RESTORE.getName())) {
+        if (!event.getPropertyName().equals(ERepositoryActionName.RESTORE.getName())) {
             return;
         }
 

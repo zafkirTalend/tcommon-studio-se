@@ -17,30 +17,32 @@ package org.talend.repository.documentation;
  */
 public enum ERepositoryActionName {
 
-    JOB_RESTORE("job restore"), //$NON-NLS-1$
-    JOB_MOVE("job move"), //$NON-NLS-1$
-    JOB_COPY("job copy"), //$NON-NLS-1$
+    RESTORE("restore"), //$NON-NLS-1$
+    MOVE("move"), //$NON-NLS-1$
+    COPY("copy"), //$NON-NLS-1$
 
-    JOB_CREATE("job create"), //$NON-NLS-1$
-    JOB_SAVE("job save"), //$NON-NLS-1$
-    JOB_PROPERTIES_CHANGE("job properties change"), //$NON-NLS-1$
-    JOB_DELETE_TO_RECYCLE_BIN("job delete to recycle bin"), //$NON-NLS-1$
-    JOB_DELETE_FOREVER("job delete forever"), //$NON-NLS-1$
-    BUSINESS_DELETE_TO_RECYCLE_BIN("business delete to recycle bin"), //$NON-NLS-1$
-    BUSINESS_DELETE_FOREVER("business delete forever"), //$NON-NLS-1$
+    CREATE("create"), //$NON-NLS-1$
+    SAVE("save"), //$NON-NLS-1$
+    PROPERTIES_CHANGE("properties change"), //$NON-NLS-1$
 
-    // for normal job
     FOLDER_CREATE("folder create"), //$NON-NLS-1$
+
+    DELETE_TO_RECYCLE_BIN("delete to recycle bin"), //$NON-NLS-1$
+    DELETE_FOREVER("delete forever"), //$NON-NLS-1$
+
+    // these actions bellow are only for jobs and joblet actually, need to review.
+
+    // for jobs only
     FOLDER_DELETE("folder delete"), //$NON-NLS-1$
     FOLDER_RENAME("folder rename"), //$NON-NLS-1$
     FOLDER_MOVE("folder move"), //$NON-NLS-1$
 
-    // for joblet
-    JOBLET_MOVE("joblet.move"), //$NON-NLS-1$
-    JOBLET_FOLDER_CREATE("joblet.folder.create"), //$NON-NLS-1$
+    // for joblet only
     JOBLET_FOLDER_DELETE("joblet.folder.delete"), //$NON-NLS-1$
     JOBLET_FOLDER_RENAME("joblet.folder.rename"), //$NON-NLS-1$
-    JOBLET_FOLDER_MOVE("joblet.folder.move"); //$NON-NLS-1$
+    JOBLET_FOLDER_MOVE("joblet.folder.move") //$NON-NLS-1$
+
+    ;
 
     private String name;
 
