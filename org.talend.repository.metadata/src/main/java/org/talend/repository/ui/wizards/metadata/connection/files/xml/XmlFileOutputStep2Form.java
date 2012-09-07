@@ -14,6 +14,7 @@ package org.talend.repository.ui.wizards.metadata.connection.files.xml;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.EList;
@@ -202,11 +203,19 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
     private void initLinker(TreeItem node, TableItem[] tableItems) {
         FOXTreeNode treeNode = (FOXTreeNode) node.getData();
         IMetadataColumn column = treeNode.getColumn();
+        Properties prop = System.getProperties();
+        String os = prop.getProperty("os.name");
+        boolean isLastOne = false;
         if (column != null) {
             for (TableItem tableItem : tableItems) {
                 MetadataColumn metadataColumn = (MetadataColumn) tableItem.getData();
                 if (metadataColumn.getLabel().equals(column.getLabel())) {
-                    linker.addLoopLink(tableItem, tableItem.getData(), xmlViewer.getTree(), treeNode, false);
+                    // TDI-19250: if in linux,just need to refresh one time when addLoopLink,should not set
+                    // "isLastOne" directly to false
+                    if (os.startsWith("Linux")) {
+                        isLastOne = true;
+                    }
+                    linker.addLoopLink(tableItem, tableItem.getData(), xmlViewer.getTree(), treeNode, isLastOne);
                     break;
                 }
             }
@@ -226,10 +235,9 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
             TreeItem root = xmlViewer.getTree().getItem(0);
             TableItem[] tableItems = schemaViewer.getTable().getItems();
             initLinker(root, tableItems);
-            // TDI-19250:has updateLink in initLinker(),no need to update again except the linkSize is empty
-            if (linker.linkSize() == 0) {
-                linker.updateLinksStyleAndControlsSelection(xmlViewer.getTree(), true);
-            }
+            // if (linker.linkSize() == 0) {
+            linker.updateLinksStyleAndControlsSelection(xmlViewer.getTree(), true);
+            // }
         }
     }
 
