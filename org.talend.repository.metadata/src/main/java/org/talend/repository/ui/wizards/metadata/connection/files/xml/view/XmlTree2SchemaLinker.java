@@ -23,7 +23,6 @@ import org.eclipse.swt.widgets.Widget;
 import org.talend.commons.ui.swt.drawing.background.IBackgroundRefresher;
 import org.talend.commons.ui.swt.linking.TreeToTablesLinker;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.extraction.XmlExtractorBgRefresher;
 
 /**
  * DOC ycbai class global comment. Detailled comment
@@ -52,7 +51,7 @@ public class XmlTree2SchemaLinker extends TreeToTablesLinker<Object, Object> {
         this.tree = treeViewer.getTree();
         this.table = tableViewer.getTable();
 
-        init(tree, new Table[] { table }, new XmlExtractorBgRefresher(this));
+        init(tree, new Table[] { table }, delegateLinker.getBackgroundRefresher());
         initListeners();
     }
 
