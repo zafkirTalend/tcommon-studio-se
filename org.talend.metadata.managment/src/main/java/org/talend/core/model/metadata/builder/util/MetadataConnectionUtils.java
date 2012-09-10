@@ -13,6 +13,7 @@
 package org.talend.core.model.metadata.builder.util;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.sql.DatabaseMetaData;
 import java.sql.Driver;
 import java.sql.SQLException;
@@ -37,6 +38,7 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.commons.utils.database.SASDataBaseMetadata;
 import org.talend.commons.utils.database.TeradataDataBaseMetadata;
+import org.talend.commons.utils.encoding.CharsetToolkit;
 import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
@@ -44,7 +46,6 @@ import org.talend.core.model.metadata.DBConnectionFillerImpl;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataConnection;
 import org.talend.core.model.metadata.MetadataFillFactory;
-import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
@@ -98,8 +99,8 @@ public class MetadataConnectionUtils {
 
     private static List<String> sybaseDBProductsNames;
 
-//    MOD  by zshen don't needed can replaced by ExtractMetaDataUtils.metadataCon 
-//    private static IMetadataConnection metadataCon;
+    // MOD by zshen don't needed can replaced by ExtractMetaDataUtils.metadataCon
+    // private static IMetadataConnection metadataCon;
 
     private static Driver derbyDriver;
 
@@ -112,26 +113,27 @@ public class MetadataConnectionUtils {
      * @return
      * @throws SQLException
      */
-//  MOD  by zshen don't needed can replaced by ExtractMetaDataUtils.getDatabaseMetaData()
-//    public static DatabaseMetaData getConnectionMetadata(java.sql.Connection conn) throws SQLException {
-//        DatabaseMetaData dbMetaData = conn.getMetaData();
-//        // MOD xqliu 2009-11-17 bug 7888
-//        if (dbMetaData != null && dbMetaData.getDatabaseProductName() != null) {
-//            if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.IBMDB2ZOS.getProduct())) {
-//                dbMetaData = createFakeDatabaseMetaData(conn);
-//                log.info("IBM DB2 for z/OS");
-//            } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.TERADATA.getProduct()) && metadataCon != null
-//                    && metadataCon.isSqlMode()) {
-//                dbMetaData = createTeradataFakeDatabaseMetaData(conn);
-//                TeradataDataBaseMetadata teraDbmeta = (TeradataDataBaseMetadata) dbMetaData;
-//                teraDbmeta.setDatabaseName(ExtractMetaDataUtils.metadataCon.getDatabase());
-//            } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.SAS.getProduct())) {
-//                dbMetaData = createSASFakeDatabaseMetaData(conn);
-//            }
-//        }
-//        // ~
-//        return dbMetaData;
-//    }
+    // MOD by zshen don't needed can replaced by ExtractMetaDataUtils.getDatabaseMetaData()
+    // public static DatabaseMetaData getConnectionMetadata(java.sql.Connection conn) throws SQLException {
+    // DatabaseMetaData dbMetaData = conn.getMetaData();
+    // // MOD xqliu 2009-11-17 bug 7888
+    // if (dbMetaData != null && dbMetaData.getDatabaseProductName() != null) {
+    // if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.IBMDB2ZOS.getProduct())) {
+    // dbMetaData = createFakeDatabaseMetaData(conn);
+    // log.info("IBM DB2 for z/OS");
+    // } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.TERADATA.getProduct()) && metadataCon !=
+    // null
+    // && metadataCon.isSqlMode()) {
+    // dbMetaData = createTeradataFakeDatabaseMetaData(conn);
+    // TeradataDataBaseMetadata teraDbmeta = (TeradataDataBaseMetadata) dbMetaData;
+    // teraDbmeta.setDatabaseName(ExtractMetaDataUtils.metadataCon.getDatabase());
+    // } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.SAS.getProduct())) {
+    // dbMetaData = createSASFakeDatabaseMetaData(conn);
+    // }
+    // }
+    // // ~
+    // return dbMetaData;
+    // }
 
     /**
      * only for db2 on z/os right now. 2009-07-13 bug 7888.
@@ -179,6 +181,10 @@ public class MetadataConnectionUtils {
         Properties props = new Properties();
         props.setProperty(TaggedValueHelper.PASSWORD, password == null ? "" : password);
         props.setProperty(TaggedValueHelper.USER, userName == null ? "" : userName);
+        Charset systemCharset = CharsetToolkit.getInternalSystemCharset();
+        if (systemCharset != null && systemCharset.displayName() != null) {
+            props.put("charSet", systemCharset.displayName()); //$NON-NLS-1$
+        }
 
         if (StringUtils.isNotBlank(dbUrl) && StringUtils.isNotBlank(driverClass)) {
             java.sql.Connection sqlConn = null;
@@ -620,11 +626,11 @@ public class MetadataConnectionUtils {
                 }
             } else {
                 // tdq
-            	driver = getDriver(metadataBean);
+                driver = getDriver(metadataBean);
             }
         } else {
             // tos
-        	driver = getDriver(metadataBean);
+            driver = getDriver(metadataBean);
         }
         // MOD mzhao 2009-06-05,Bug 7571 Get driver from catch first, if not
         // exist then get a new instance.
@@ -634,46 +640,47 @@ public class MetadataConnectionUtils {
         return driver;
     }
 
-	/**
-	 * get driver.
-	 * @param metadataBean
-	 * @param driver
-	 * @return
-	 */
-	private static Driver getDriver(IMetadataConnection metadataBean) {
-		Driver driver = null;
-		List<?> connList = getConnection(metadataBean);
-		try {
-		    if (connList != null && !connList.isEmpty()) { // FIXME unnecessary check !connList.isEmpty()
-		        // FIXME scorreia 2011-03-31 why do we loop here? Is it possible to have several drivers. If
-		        // yes,
-		        // what do we do?
-			    for (int i = 0; i < connList.size(); i++) {
-					if (connList.get(i) instanceof Driver) {
-				        driver = (DriverShim) connList.get(i); // FIXME scorreia 2011-03-31 strange cast here.
-			        }
-			    }
-		    }
-		} catch (Exception e) {
-		    log.error(e, e);
-		}finally{
-			// ADD msjian TDQ-5952: we should close the unused connection at once.
-			try {
-			    for (int i = 0; i < connList.size(); i++) {
-			        if (connList.get(i) instanceof java.sql.Connection) {
-			        	java.sql.Connection con = (java.sql.Connection) connList.get(i);
-					    if (con != null && !con.isClosed()) {
-					    	con.close();
-					    }
-			        }
-			    }
-			} catch (SQLException e) {
-				  log.error(e, e);
-			}
-			// TDQ-5952~
-		}
-		return driver;
-	}
+    /**
+     * get driver.
+     * 
+     * @param metadataBean
+     * @param driver
+     * @return
+     */
+    private static Driver getDriver(IMetadataConnection metadataBean) {
+        Driver driver = null;
+        List<?> connList = getConnection(metadataBean);
+        try {
+            if (connList != null && !connList.isEmpty()) { // FIXME unnecessary check !connList.isEmpty()
+                // FIXME scorreia 2011-03-31 why do we loop here? Is it possible to have several drivers. If
+                // yes,
+                // what do we do?
+                for (int i = 0; i < connList.size(); i++) {
+                    if (connList.get(i) instanceof Driver) {
+                        driver = (DriverShim) connList.get(i); // FIXME scorreia 2011-03-31 strange cast here.
+                    }
+                }
+            }
+        } catch (Exception e) {
+            log.error(e, e);
+        } finally {
+            // ADD msjian TDQ-5952: we should close the unused connection at once.
+            try {
+                for (int i = 0; i < connList.size(); i++) {
+                    if (connList.get(i) instanceof java.sql.Connection) {
+                        java.sql.Connection con = (java.sql.Connection) connList.get(i);
+                        if (con != null && !con.isClosed()) {
+                            con.close();
+                        }
+                    }
+                }
+            } catch (SQLException e) {
+                log.error(e, e);
+            }
+            // TDQ-5952~
+        }
+        return driver;
+    }
 
     /**
      * This method to get all database template supported by TDQ.
@@ -1050,14 +1057,14 @@ public class MetadataConnectionUtils {
                 // ParameterUtil.toMap(ConnectionUtils.createConnectionParam(dbConn));
                 IMetadataConnection metaConnection = MetadataFillFactory.getDBInstance().fillUIParams(dbConn);
                 String databaseType = metaConnection.getDbType();
-//            	EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(databaseType);
-//            	if (dbType == EDatabaseTypeName.TERADATA) {
-//                    ExtractMetaDataUtils.metadataCon = metaConnection;
-//                }
+                // EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(databaseType);
+                // if (dbType == EDatabaseTypeName.TERADATA) {
+                // ExtractMetaDataUtils.metadataCon = metaConnection;
+                // }
                 dbConn = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(metaConnection, dbConn);
-           
+
                 sqlConn = (java.sql.Connection) MetadataConnectionUtils.checkConnection(metaConnection).getObject();
-               DatabaseMetaData databaseMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn,dbConn,false);
+                DatabaseMetaData databaseMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbConn, false);
                 if (sqlConn != null) {
                     MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, databaseMetaData,
                             MetadataConnectionUtils.getPackageFilter(dbConn, databaseMetaData, true));
@@ -1094,14 +1101,14 @@ public class MetadataConnectionUtils {
     // }
     // }
     // }
-//    MOD  by zshen don't needed can replaced by ExtractMetaDataUtils
-//    public static IMetadataConnection getMetadataCon() {
-//        return metadataCon;
-//    }
-//
-//    public static void setMetadataCon(IMetadataConnection metadataConnection) {
-//        metadataCon = metadataConnection;
-//    }
+    // MOD by zshen don't needed can replaced by ExtractMetaDataUtils
+    // public static IMetadataConnection getMetadataCon() {
+    // return metadataCon;
+    // }
+    //
+    // public static void setMetadataCon(IMetadataConnection metadataConnection) {
+    // metadataCon = metadataConnection;
+    // }
 
     public static boolean isPostgresql(java.sql.Connection connection) throws SQLException {
         return isPostgresql(ExtractMetaDataUtils.getConnectionMetadata(connection));
