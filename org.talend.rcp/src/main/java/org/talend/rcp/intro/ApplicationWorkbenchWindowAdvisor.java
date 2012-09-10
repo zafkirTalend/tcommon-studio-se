@@ -67,6 +67,9 @@ import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.prefs.PreferenceManipulator;
+import org.talend.core.prefs.hidden.HidePreferencePageProvider;
+import org.talend.core.prefs.hidden.HidePreferencePagesManager;
+import org.talend.core.prefs.hidden.IHidePreferencePageValidator;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.token.TokenCollectorFactory;
@@ -160,7 +163,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         if (localProvider) {
             configurer
                     .setTitle(appName
-                            + " (" + buildId + ") | " + project.getLabel() + " (" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+                            + " (" + buildId + ") | " + project.getLabel() + " (" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
                             + Messages.getString("ApplicationWorkbenchWindowAdvisor.repositoryConnection") + ": " + prefManipulator.getLastConnection() + ")"); //$NON-NLS-1$ //$NON-NLS-2$
         } else {
             configurer
@@ -219,13 +222,23 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
          */
         if (!PluginChecker.isRefProjectLoaded()) {
             String[] prefsId = { "org.talend.designer.core.ui.preferences.RepositoryPreferencePage" }; //$NON-NLS-1$
-            ApplicationDeletionUtil.removeAndResetPreferencePages(this.getWindowConfigurer().getWindow(), Arrays.asList(prefsId), true);
+            ApplicationDeletionUtil.removeAndResetPreferencePages(this.getWindowConfigurer().getWindow(), Arrays.asList(prefsId),
+                    true);
+        } else {
+            String[] prefsId = { "org.talend.mdm.repository.ui.preferences.RepositoryPreferencePage" }; //$NON-NLS-1$
+            ApplicationDeletionUtil.removeAndResetPreferencePages(this.getWindowConfigurer().getWindow(), Arrays.asList(prefsId),
+                    false);
         }
-        else{
-        	String[] prefsId = { "org.talend.mdm.repository.ui.preferences.RepositoryPreferencePage" }; //$NON-NLS-1$
-        	ApplicationDeletionUtil.removeAndResetPreferencePages(this.getWindowConfigurer().getWindow(), Arrays.asList(prefsId), false); 
+        List<HidePreferencePageProvider> providers = HidePreferencePagesManager.getInstance().getProviders();
+        List<String> needRemovedPrefs = new ArrayList<String>();
+        for (HidePreferencePageProvider provider : providers) {
+            String prefPageId = provider.getPrefPageId();
+            IHidePreferencePageValidator validator = provider.getValidator();
+            if (prefPageId != null && (validator == null || validator.validate())) {
+                needRemovedPrefs.add(prefPageId);
+            }
         }
-        
+        ApplicationDeletionUtil.removeAndResetPreferencePages(this.getWindowConfigurer().getWindow(), needRemovedPrefs, false);
         // MOD mzhao feature 9207. 2009-09-21 ,Add part listener.
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
             ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
