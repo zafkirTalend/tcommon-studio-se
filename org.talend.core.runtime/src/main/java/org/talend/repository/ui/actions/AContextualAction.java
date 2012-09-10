@@ -192,10 +192,11 @@ public abstract class AContextualAction extends Action implements ITreeContextua
      * Convenience method user to refresh view on wich action had been called.
      */
     public void refresh() {
-        IRepositoryView viewPart = getViewPart();
-        if (viewPart != null) {
-            viewPart.refresh();
-        }
+        // TDI-21143 : Studio repository view : remove all refresh call to repo view
+        // IRepositoryView viewPart = getViewPart();
+        // if (viewPart != null) {
+        // viewPart.refresh();
+        // }
     }
 
     /**
@@ -206,7 +207,8 @@ public abstract class AContextualAction extends Action implements ITreeContextua
     public void refresh(Object obj) {
         IRepositoryView viewPart = getViewPart();
         if (viewPart != null) {
-            viewPart.refresh(obj);
+            // TDI-21143 : Studio repository view : remove all refresh call to repo view
+            // viewPart.refresh(obj);
             viewPart.expand(obj, true);
         }
     }
@@ -454,7 +456,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
             if (repositoryNode.getContentType() == type) {
                 foundNode = repositoryNode;
             } else {
-                foundNode = searchRepositoryNode((RepositoryNode) repositoryNode, type);
+                foundNode = searchRepositoryNode(repositoryNode, type);
             }
             if (foundNode != null) {
                 return (RepositoryNode) foundNode;
@@ -590,9 +592,6 @@ public abstract class AContextualAction extends Action implements ITreeContextua
                         exist = true;
                         doRun();
                     }
-                    if (!exist) {
-                        refreshRelatedItem(getOldItem());
-                    }
                 } else {
                     doRun();
                 }
@@ -682,17 +681,6 @@ public abstract class AContextualAction extends Action implements ITreeContextua
 
     public Item getOldItem() {
         return this.oldItem;
-    }
-
-    protected void refreshRelatedItem(Item item) {
-        if (item == null) {
-            return;
-        }
-        IRepositoryView viewPart = getViewPart();
-        if (viewPart != null) {
-            ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(item);
-            viewPart.refresh(itemType);
-        }
     }
 
     /**

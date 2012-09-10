@@ -105,10 +105,11 @@ public class CreateConnectionAction extends AbstractCreateAction {
                 repositoryNode = getRepositoryNodeForDefault(ERepositoryObjectType.METADATA_CONNECTIONS);
             }
         }
-        IRepositoryView view = getViewPart();
-        if (view != null) {
-            view.refresh();
-        }
+        // TDI-21143 : Studio repository view : remove all refresh call to repo view
+        // IRepositoryView view = getViewPart();
+        // if (view != null) {
+        // view.refresh();
+        // }
         RepositoryNode metadataNode = repositoryNode.getParent();
         if (metadataNode != null) {
             // Force focus to the repositoryView and open Metadata and DbConnection nodes
