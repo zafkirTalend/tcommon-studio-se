@@ -61,6 +61,7 @@ import org.talend.commons.ui.runtime.ws.WindowSystem;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultHeaderColumnSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultStructuredContentProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableLabelProvider;
+import org.talend.commons.ui.swt.tableviewer.behavior.LazyContentProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.TableViewerCreatorLayout;
 import org.talend.commons.ui.swt.tableviewer.data.AccessorUtils;
 import org.talend.commons.ui.swt.tableviewer.data.ModifiedObjectInfo;
@@ -214,6 +215,8 @@ public class TableViewerCreatorNotModifiable<B> {
 
     private boolean columnsSortableByDefault;
 
+    private boolean lazyLoad;
+
     private ICellModifier cellModifier;
 
     private ITableLabelProvider labelProvider;
@@ -358,7 +361,7 @@ public class TableViewerCreatorNotModifiable<B> {
             tableEditorManager.init(this.listenableList);
         }
 
-        if (hasChanged) {
+        if (hasChanged && !(contentProvider instanceof ILazyContentProvider)) {
             refreshTableEditorControls();
         }
 
@@ -428,7 +431,6 @@ public class TableViewerCreatorNotModifiable<B> {
             @Override
             public void insert(Object element, int position) {
                 super.insert(element, position);
-                // tableEditorManager.redrawControls();
                 refreshTableEditorControls();
             }
 
@@ -663,6 +665,9 @@ public class TableViewerCreatorNotModifiable<B> {
         }
         if (verticalScroll) {
             style |= SWT.V_SCROLL;
+        }
+        if (lazyLoad) {
+            style |= SWT.VIRTUAL;
         }
         return style;
     }
@@ -1136,10 +1141,6 @@ public class TableViewerCreatorNotModifiable<B> {
         if (this.contentProvider == null) {
             this.contentProvider = new DefaultStructuredContentProvider(this);
         }
-        //
-        // if (this.contentProvider == null) {
-        // this.contentProvider = new LazyContentProvider(this);
-        // }
 
         tableViewer.setContentProvider(this.contentProvider);
     }
@@ -2150,6 +2151,15 @@ public class TableViewerCreatorNotModifiable<B> {
 
     public void setTriggerEditorActivate(boolean editorActivate) {
         this.editorActivate = editorActivate;
+    }
+
+    public boolean isLazyLoad() {
+        return this.lazyLoad;
+    }
+
+    public void setLazyLoad(boolean lazyLoad) {
+        this.lazyLoad = lazyLoad;
+        setContentProvider(new LazyContentProvider(this));
     }
 
 }

@@ -376,7 +376,9 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
             } else {
 
                 if (event.type == TYPE.ADDED) {
-                    // tableViewer.setItemCount(event.source.size());
+                    if (tableViewer.getContentProvider() instanceof ILazyContentProvider) {
+                        tableViewer.setItemCount(event.source.size());
+                    }
                     tableViewer.refresh();
 
                 } else if (event.type == TYPE.SWAPED) {

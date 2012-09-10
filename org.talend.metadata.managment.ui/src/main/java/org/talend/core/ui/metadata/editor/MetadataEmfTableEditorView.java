@@ -99,6 +99,7 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
         setExtendedTableModel(metadataTableEditor);
     }
 
+    @Override
     public TableViewerCreator<MetadataColumn> getTableViewerCreator() {
         return getExtendedTableViewer().getTableViewerCreator();
     }
@@ -405,12 +406,14 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
     protected boolean canModifyDBColumn(Object bean) {
         // TODO
         if (bean instanceof MetadataColumnImpl) {
-            if (((MetadataColumnImpl) bean).getLabel().equals(((MetadataColumnImpl) bean).getOriginalField()))
+            if (((MetadataColumnImpl) bean).getLabel().equals(((MetadataColumnImpl) bean).getOriginalField())) {
                 return true;
+            }
         }
         return false;
     }
 
+    @Override
     protected IBeanPropertyAccessors<MetadataColumn, String> getRelatedEntityAccessor() {
         return new IBeanPropertyAccessors<MetadataColumn, String>() {
 
@@ -425,6 +428,7 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
         };
     }
 
+    @Override
     protected IBeanPropertyAccessors<MetadataColumn, String> getRelationshipTypeAccessor() {
         return new IBeanPropertyAccessors<MetadataColumn, String>() {
 
@@ -471,5 +475,18 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
             }
 
         };
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView#setTableViewerCreatorOptions(org.talend.commons
+     * .ui.swt.tableviewer.TableViewerCreator)
+     */
+    @Override
+    protected void setTableViewerCreatorOptions(TableViewerCreator<MetadataColumn> newTableViewerCreator) {
+        super.setTableViewerCreatorOptions(newTableViewerCreator);
+        newTableViewerCreator.setLazyLoad(true);
     }
 }
