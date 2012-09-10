@@ -19,10 +19,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PerspectiveAdapter;
 import org.eclipse.ui.PlatformUI;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.model.repository.RepositoryManager;
-import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
-import org.talend.repository.ui.views.IRepositoryView;
 
 /**
  * DOC ccarbone class global comment. Detailed comment <br/>
@@ -50,15 +47,17 @@ public class Perspective implements IPerspectiveFactory {
              * @see org.eclipse.ui.IPerspectiveListener#perspectiveActivated(org.eclipse.ui.IWorkbenchPage,
              * org.eclipse.ui.IPerspectiveDescriptor)
              */
+            @Override
             public void perspectiveActivated(IWorkbenchPage page, IPerspectiveDescriptor perspective) {
                 String pId = perspective.getId();
-                IRepositoryView view = RepositoryManager.getRepositoryView();
-                if (view != null) {
-                    if (IBrandingConfiguration.PERSPECTIVE_DI_ID.equals(pId)
-                            || IBrandingConfiguration.PERSPECTIVE_CAMEL_ID.equals(pId)) {
-                        view.refresh();
-                    }
-                }
+                // TDI-21143 : Studio repository view : remove all refresh call to repo view
+                // IRepositoryView view = RepositoryManager.getRepositoryView();
+                // if (view != null) {
+                // if (IBrandingConfiguration.PERSPECTIVE_DI_ID.equals(pId)
+                // || IBrandingConfiguration.PERSPECTIVE_CAMEL_ID.equals(pId)) {
+                // view.refresh();
+                // }
+                // }
             }
         });
     }
