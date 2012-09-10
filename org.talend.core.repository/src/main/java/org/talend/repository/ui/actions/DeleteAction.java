@@ -1267,11 +1267,6 @@ public class DeleteAction extends AContextualAction {
                     }
 
                     if (isDeleted) {
-                        if (ERepositoryObjectType.METADATA_CON_TABLE.equals(nodeType)) {
-                            visible = false;
-                            break;
-                        }
-
                         if (ERepositoryObjectType.METADATA_CON_COLUMN.equals(nodeType)) {
                             visible = false;
                             break;
