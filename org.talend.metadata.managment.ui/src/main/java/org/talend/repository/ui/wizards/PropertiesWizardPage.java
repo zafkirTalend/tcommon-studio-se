@@ -119,7 +119,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
     /** Version upgrade minor button. */
     private Button versionMinorBtn;
 
-	protected Text pathText;
+    protected Text pathText;
 
     protected IStatus nameStatus;
 
@@ -213,7 +213,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
                         public void run() {
                             evaluateTextField();
                         }
-                        
+
                     });
                 }
                 return Status.OK_STATUS;
@@ -1117,9 +1117,9 @@ public abstract class PropertiesWizardPage extends WizardPage {
      * ftang Comment method "evaluateNameInRoutine".
      */
     protected void evaluateNameInRoutine() {
-    	if(nameText == null){
-    		return;
-    	}
+        if (nameText == null) {
+            return;
+        }
         String jobName = nameText.getText().trim();
         boolean isValid = isNameValidInRountine(jobName);
 
@@ -1186,5 +1186,9 @@ public abstract class PropertiesWizardPage extends WizardPage {
             return false;
         }
         return isValid;
+    }
+
+    public List<IRepositoryViewObject> getListExistingObjects() {
+        return listExistingObjects;
     }
 }
