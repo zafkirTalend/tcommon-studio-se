@@ -65,6 +65,7 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.model.utils.RepositoryManagerHelper;
+import org.talend.core.model.utils.TalendPropertiesUtil;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.prefs.PreferenceManipulator;
 import org.talend.core.prefs.hidden.HidePreferencePageProvider;
@@ -146,8 +147,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                 Context.REPOSITORY_CONTEXT_KEY);
         Project project = repositoryContext.getProject();
 
-        Object buildId = VersionUtils.getVersion();
-
         IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
         IBrandingConfiguration brandingConfiguration = service.getBrandingConfiguration();
         String appName = service.getFullProductName();
@@ -158,17 +157,23 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         try {
             localProvider = factory.isLocalConnectionProvider();
         } catch (PersistenceException e) {
-            e.printStackTrace();
+            localProvider = true;
+        }
+        String buildIdField = " (" + VersionUtils.getVersion() + ")"; //$NON-NLS-1$ //$NON-NLS-2$
+        if (TalendPropertiesUtil.isHideBuildNumber()) {
+            buildIdField = ""; //$NON-NLS-1$
         }
         if (localProvider) {
             configurer
                     .setTitle(appName
-                            + " (" + buildId + ") | " + project.getLabel() + " (" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
+                            + buildIdField
+                            + " | " + project.getLabel() + " (" //$NON-NLS-1$ //$NON-NLS-2$ 
                             + Messages.getString("ApplicationWorkbenchWindowAdvisor.repositoryConnection") + ": " + prefManipulator.getLastConnection() + ")"); //$NON-NLS-1$ //$NON-NLS-2$
         } else {
             configurer
                     .setTitle(appName
-                            + " (" + buildId + ") | " + repositoryContext.getUser() + " | " + project.getLabel() + " (" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+                            + buildIdField
+                            + " | " + repositoryContext.getUser() + " | " + project.getLabel() + " (" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
                             + Messages.getString("ApplicationWorkbenchWindowAdvisor.repositoryConnection") + ": " + prefManipulator.getLastConnection() + ")"); //$NON-NLS-1$ //$NON-NLS-2$
         }
         ActionBarBuildHelper helper = (ActionBarBuildHelper) brandingConfiguration.getHelper();
