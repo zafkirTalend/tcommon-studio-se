@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.model.metadata.builder.database;
 
+import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.collections.map.MultiKeyMap;
+import org.talend.commons.utils.encoding.CharsetToolkit;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.utils.sql.ConnectionUtils;
@@ -94,6 +96,10 @@ public class JDBCDriverLoader {
             password = password != null ? password : "";
             info.put("user", username); //$NON-NLS-1$
             info.put("password", password); //$NON-NLS-1$
+            Charset systemCharset = CharsetToolkit.getInternalSystemCharset();
+            if (systemCharset != null && systemCharset.displayName() != null) {
+                info.put("charSet", systemCharset.displayName()); //$NON-NLS-1$
+            }
 
             if (additionalParams != null && !"".equals(additionalParams) && dbType.toUpperCase().contains("ORACLE")) {
                 additionalParams = additionalParams.replaceAll("&", "\n");//$NON-NLS-1$//$NON-NLS-2$
