@@ -71,6 +71,7 @@ import org.talend.core.CorePlugin;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.process.IContextParameter;
+import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -175,6 +176,21 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         buff.append("\tprivate static java.util.Properties context = new java.util.Properties();\n"); //$NON-NLS-1$
         buff.append("\tprivate static final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();\n"); //$NON-NLS-1$
 
+        /*
+         * Special for cProcessor
+         * https://jira.talendforge.org/browse/TESB-3687
+         */
+        try{
+        	IProcess activeProcess = CorePlugin.getDefault().getRunProcessService().getActiveProcess();
+        	if(activeProcess != null && "org.talend.camel.designer.ui.editor.RouteProcess".equals(activeProcess.getClass().getName())){
+        		 buff.append("\tprivate org.apache.camel.Exchange exchange;\n"); //$NON-NLS-1$
+        		 buff.append("\torg.apache.camel.impl.DefaultCamelContext camelContext;\n"); //$NON-NLS-1$
+        		 buff.append("\tjavax.jms.ConnectionFactory jmsConnectionFactory;\n"); //$NON-NLS-1$
+        	}
+        }catch(Exception e){
+        }
+        //end of https://jira.talendforge.org/browse/TESB-3687
+        
         buff.append("\tpublic void myFunction(){\n"); //$NON-NLS-1$
         buff.append("\t  if( \n"); //$NON-NLS-1$
 
