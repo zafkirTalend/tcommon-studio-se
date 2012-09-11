@@ -259,7 +259,9 @@ public class TableEditorManager {
 
             previousItemsHash = new HashSet<TableItem>(Arrays.asList(items));
         } else {
-            refreshColumn(indexStart);
+            for (int i = 0; i < event.addedObjects.size(); i++) {
+                refreshColumn(indexStart + i);
+            }
         }
     }
 
@@ -358,7 +360,7 @@ public class TableEditorManager {
 
     public void refreshColumn(int index) {
         Table table = tableViewerCreator.getTable();
-        if (table.isDisposed()) {
+        if (table.isDisposed() || index >= table.getItems().length) {
             return;
         }
         for (int iEditorCol = 0; iEditorCol < columnsWithEditorContent.size(); iEditorCol++) {
