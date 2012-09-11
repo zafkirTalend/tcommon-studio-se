@@ -1244,7 +1244,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             return;
         }
         // Getting the folder :
-        IFolder folder = ResourceUtils.getFolder(fsProject, completeOldPath, false);
+        IFolder folder = ResourceUtils.getFolder(fsProject, completeOldPath, true);
 
         FolderHelper folderHelper = getFolderHelper(getRepositoryContext().getProject().getEmfProject());
         FolderItem emfFolder = folderHelper.getFolder(completeOldPath);
@@ -1322,7 +1322,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         return;
                     }
                     // Getting the folder :
-                    IFolder folder = ResourceUtils.getFolder(fsProject, completeOldPath, false);
+                    IFolder folder = ResourceUtils.getFolder(fsProject, completeOldPath, true);
 
                     FolderHelper folderHelper = getFolderHelper(getRepositoryContext().getProject().getEmfProject());
                     FolderItem emfFolder = folderHelper.getFolder(completeOldPath);
