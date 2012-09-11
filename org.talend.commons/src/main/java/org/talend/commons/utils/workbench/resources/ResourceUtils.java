@@ -81,6 +81,7 @@ public final class ResourceUtils {
         List<IProject> projects = new ArrayList<IProject>();
         for (IProject prj : allProjects) {
             try {
+                prj.open(IResource.BACKGROUND_REFRESH, null);
                 if (prj.hasNature(natureId)) {
                     projects.add(prj);
                 }
