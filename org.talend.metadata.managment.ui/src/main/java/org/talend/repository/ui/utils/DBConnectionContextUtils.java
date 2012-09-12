@@ -14,7 +14,6 @@ package org.talend.repository.ui.utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -305,7 +304,7 @@ public final class DBConnectionContextUtils {
             return null;
         }
         DatabaseConnection dbConn = (DatabaseConnection) connectionItem.getConnection();
-        ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(dbConn, defaultContext);
+        ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(dbConn, null, defaultContext);
 
         String server = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getServerName());
         String username = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getUsername());
@@ -356,6 +355,7 @@ public final class DBConnectionContextUtils {
         if (dbConn == null) {
             return null;
         }
+        selectedContext = ConnectionContextHelper.selectedContextString;
         ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(null, dbConn, selectedContext,
                 defaultContext);
         DatabaseConnection cloneConn = ConnectionFactory.eINSTANCE.createDatabaseConnection();
