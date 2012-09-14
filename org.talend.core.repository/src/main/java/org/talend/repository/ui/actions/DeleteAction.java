@@ -30,6 +30,7 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorReference;
@@ -53,6 +54,7 @@ import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.SubscriberTable;
 import org.talend.core.model.process.IContext;
+import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
@@ -76,6 +78,7 @@ import org.talend.core.repository.model.ISubRepositoryObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.model.repositoryObject.MetadataTableRepositoryObject;
 import org.talend.core.repository.utils.AbstractResourceChangesService;
+import org.talend.core.repository.utils.RepositoryReferenceBeanUtils;
 import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.SubItemHelper;
@@ -670,10 +673,19 @@ public class DeleteAction extends AContextualAction {
                     for (Project refP : refParentProjects) {
                         List<IRepositoryViewObject> objList = new ArrayList<IRepositoryViewObject>();
                         List<IRepositoryViewObject> processes = factory.getAll(refP, ERepositoryObjectType.PROCESS);
+                        List<IRepositoryViewObject> allJobVersions = new ArrayList<IRepositoryViewObject>();
+                        // Added by Marvin Wang on Sep.14, 2012 for bug TDI-21878. It assumes that for a job the low
+                        // version maybe use the Context Group, but the latest version does not use it. So it has to to
+                        // check all job versions.
+                        if (processes != null && processes.size() > 0) {
+                            for (IRepositoryViewObject process : processes) {
+                                allJobVersions.addAll(factory.getAllVersion(process.getId()));
+                            }
+                        }
                         List<IRepositoryViewObject> jobletes = factory.getAll(refP, ERepositoryObjectType.JOBLET);
-                        processes.addAll(jobletes);
-                        deleteActionCache.setProcessList(processes);
-                        objList.addAll(processes);
+                        allJobVersions.addAll(jobletes);
+                        deleteActionCache.setProcessList(allJobVersions);
+                        objList.addAll(allJobVersions);
 
                         List<IRepositoryViewObject> connectionc = factory
                                 .getAll(refP, ERepositoryObjectType.METADATA_CONNECTIONS);
@@ -721,34 +733,66 @@ public class DeleteAction extends AContextualAction {
                             }
                             List<IContext> contextList = null;
                             String contextID = null;
-                            if (!isOpenedItem(item2, deleteActionCache.getOpenProcessMap())) {
-                                IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault()
-                                        .getService(IDesignerCoreService.class);
+                            // if (!isOpenedItem(item2, deleteActionCache.getOpenProcessMap())) {
+                            // The following logic is added by Marvin Wang on Sep. 14, 2012 for bug TDI-21878.
+                            // The reason to check if the above "process" is opened is the give "process" may be
+                            // changed, that means user may do some operation on the process and not save. So I need to
+                            // get the changed process in order to get the correct context list.
+                            List<IProcess2> openedProcesses = RepositoryManagerHelper.getOpenedProcess();
+                            boolean isOpenedProcess = false;
+                            if (openedProcesses != null && openedProcesses.size() > 0) {
+                                for (IProcess2 tempPro : openedProcesses) {
+                                    if (process.getId().equals(tempPro.getId())) {
+                                        isOpenedProcess = true;
+                                        contextList = tempPro.getContextManager().getListContext();
+                                        break;
+                                    }
+                                }
+                            }
+                            IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                                    IDesignerCoreService.class);
+                            // Commented by Marvin Wang on Sep.14, 2012.
+                            // If the given "process" is not opened, it indicates there are no changes(no dirty) on job.
+                            // So we can use IDesignerCoreService.getProcessFromProcessItem(Item) to get IProcess by
+                            // loading file. That is why it can not use the method to get IProcess directly without
+                            // checking if "process" is opened.
+                            if (!isOpenedProcess) {
                                 if (item2 instanceof ProcessItem) {
                                     contextList = service.getProcessFromProcessItem((ProcessItem) item2).getContextManager()
                                             .getListContext();
-                                } else if (item2 instanceof JobletProcessItem) {
-                                    contextList = service.getProcessFromJobletProcessItem((JobletProcessItem) item2)
-                                            .getContextManager().getListContext();
-                                } else if (item2 instanceof ConnectionItem) {
-                                    contextID = ((ConnectionItem) item2).getConnection().getContextId();
                                 }
+
+                            }
+                            if (item2 instanceof JobletProcessItem) {
+                                contextList = service.getProcessFromJobletProcessItem((JobletProcessItem) item2)
+                                        .getContextManager().getListContext();
+                            } else if (item2 instanceof ConnectionItem) {
+                                contextID = ((ConnectionItem) item2).getConnection().getContextId();
                             }
                             if (contextList != null) {
-                                // isExtensionComponent(node);
-                                for (IContext context : contextList) {
-                                    if (context.getContextParameterList().size() <= 0) {
-                                        continue;
-                                    }
-                                    String source = context.getContextParameterList().get(0).getSource();
-                                    if (source.equals(item.getProperty().getId())) {
-                                        String path = item2.getState().getPath();
-                                        String type = process.getRepositoryObjectType().getType();
-                                        ContextReferenceBean bean = new ContextReferenceBean(property2.getLabel(), type,
-                                                property2.getVersion(), path, refP.getLabel());
-                                        bean.setJobFlag(isJob, isDelete);
-                                        list.add(bean);
-                                        break;
+                                // Added by Marvin Wang on Sep.14, 2012 for bug TDI-21878. It just needs to check the
+                                // first IContext, normally it is named "default". In order to add the different version
+                                // jobs to ContextReferenceBean, below uses
+                                // "RepositoryReferenceBeanUtils.hasReferenceBean" to filter the repeat object.
+                                List<IContextParameter> contextParams = contextList.get(0).getContextParameterList();
+                                if (contextParams != null && contextParams.size() > 0) {
+                                    for (IContextParameter contextParameter : contextParams) {
+                                        if (contextParameter.isBuiltIn())
+                                            continue;
+                                        String contextId = item.getProperty().getId();
+                                        String sourceId = contextParameter.getSource();
+                                        if (contextId != null && contextId.equals(sourceId)) {
+                                            String processName = process.getLabel();
+                                            String processVersion = process.getVersion();
+                                            if (!RepositoryReferenceBeanUtils.hasReferenceBean(list, processName, processVersion)) {
+                                                String path = item2.getState().getPath();
+                                                String type = process.getRepositoryObjectType().getType();
+                                                ContextReferenceBean bean = new ContextReferenceBean(property2.getLabel(), type,
+                                                        property2.getVersion(), path, refP.getLabel());
+                                                bean.setJobFlag(isJob, isDelete);
+                                                list.add(bean);
+                                            }
+                                        }
                                     }
                                 }
                             } else if (contextID != null) {
@@ -1017,6 +1061,8 @@ public class DeleteAction extends AContextualAction {
     private boolean deleteElements(IProxyRepositoryFactory factory, DeleteActionCache deleteActionCache,
             final RepositoryNode currentJobNode, Boolean confirm) throws PersistenceException, BusinessException {
         boolean needReturn = false;
+        final boolean[] enableDeleting = new boolean[1];
+        enableDeleting[0] = true;
         final IRepositoryViewObject objToDelete = currentJobNode.getObject();
 
         final List<JobletReferenceBean> checkRepository = checkRepositoryNodeFromProcess(factory, deleteActionCache,
@@ -1030,6 +1076,7 @@ public class DeleteAction extends AContextualAction {
                     dialog.open();
                 }
             });
+            enableDeleting[0] = false;
             return true;
         }
 
@@ -1040,9 +1087,20 @@ public class DeleteAction extends AContextualAction {
                 public void run() {
                     ContextReferenceDialog dialog = new ContextReferenceDialog(PlatformUI.getWorkbench()
                             .getActiveWorkbenchWindow().getShell(), objToDelete, checkContext);
-                    dialog.open();
+                    int returnCode = dialog.open();
+                    switch (returnCode) {
+                    case Window.OK:
+                        enableDeleting[0] = true;
+                        break;
+                    case Window.CANCEL:
+                        enableDeleting[0] = false;
+                        break;
+                    }
                 }
             });
+        }
+
+        if (!enableDeleting[0]) {
             return true;
         }
 
@@ -1138,10 +1196,27 @@ public class DeleteAction extends AContextualAction {
                 }
             } else {
                 factory.deleteObjectLogical(objToDelete);
+                updateRelatedViews();
             }
         }
 
         return needReturn;
+    }
+
+    private void updateRelatedViews() {
+        Display.getDefault().syncExec(new Runnable() {
+
+            public void run() {
+                IDesignerCoreService designerCoreService = CoreRuntimePlugin.getInstance().getDesignerCoreService();
+                if (designerCoreService != null) {
+                    designerCoreService.switchToCurContextsView();
+                    // for tRunJob component
+                    designerCoreService.switchToCurComponentSettingsView();
+                    // for 2608
+                    designerCoreService.switchToCurJobSettingsView();
+                }
+            }
+        });
     }
 
     /*

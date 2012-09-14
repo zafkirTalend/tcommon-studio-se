@@ -121,7 +121,7 @@ public class ContextReferenceDialog extends SelectionDialog {
             Item item = objToDelete.getProperty().getItem();
             if (item != null) {
                 setMessage(Messages.getString(
-                        "ContextReferenceDialog.Messages", item.getProperty().getLabel(), item.getProperty().getVersion())); //$NON-NLS-1$
+                        "ContextReferenceDialog.kindMessages1", item.getProperty().getLabel(), item.getProperty().getVersion())); //$NON-NLS-1$
             }
         }
         setHelpAvailable(false);
@@ -136,7 +136,8 @@ public class ContextReferenceDialog extends SelectionDialog {
 
     @Override
     protected void createButtonsForButtonBar(Composite parent) {
-        createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
+        createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, false);
+        createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, true);
     }
 
     @SuppressWarnings("unchecked")//$NON-NLS-1$
