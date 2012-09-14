@@ -28,7 +28,6 @@ import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.IContentProvider;
-import org.eclipse.jface.viewers.ILazyContentProvider;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.TableLayout;
@@ -61,7 +60,6 @@ import org.talend.commons.ui.runtime.ws.WindowSystem;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultHeaderColumnSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultStructuredContentProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableLabelProvider;
-import org.talend.commons.ui.swt.tableviewer.behavior.LazyContentProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.TableViewerCreatorLayout;
 import org.talend.commons.ui.swt.tableviewer.data.AccessorUtils;
 import org.talend.commons.ui.swt.tableviewer.data.ModifiedObjectInfo;
@@ -215,15 +213,11 @@ public class TableViewerCreatorNotModifiable<B> {
 
     private boolean columnsSortableByDefault;
 
-    private boolean lazyLoad;
-
     private ICellModifier cellModifier;
 
     private ITableLabelProvider labelProvider;
 
-    private IStructuredContentProvider contentProviderold;
-
-    private IContentProvider contentProvider;
+    private IStructuredContentProvider contentProvider;
 
     private ControlListener tableParentResizedListener;
 
@@ -282,6 +276,8 @@ public class TableViewerCreatorNotModifiable<B> {
     protected int keyPressed;
 
     private ListenableList<B> listenableList;
+
+    private boolean lazyLoad;
 
     /**
      * Constructor.
@@ -361,7 +357,7 @@ public class TableViewerCreatorNotModifiable<B> {
             tableEditorManager.init(this.listenableList);
         }
 
-        if (hasChanged && !(contentProvider instanceof ILazyContentProvider)) {
+        if (hasChanged && !isLazyLoad()) {
             refreshTableEditorControls();
         }
 
@@ -431,7 +427,7 @@ public class TableViewerCreatorNotModifiable<B> {
             @Override
             public void insert(Object element, int position) {
                 super.insert(element, position);
-                refreshTableEditorControls();
+                // tableEditorManager.redrawControls();
             }
 
             /*
@@ -455,10 +451,7 @@ public class TableViewerCreatorNotModifiable<B> {
             @Override
             public void replace(Object element, int index) {
                 super.replace(element, index);
-                refreshTableEditorColumn(index);
-                if (!(contentProvider instanceof ILazyContentProvider)) {
-                    refreshTableEditorControls();
-                }
+                refreshTableEditorControls();
             }
 
             /*
@@ -546,25 +539,38 @@ public class TableViewerCreatorNotModifiable<B> {
                 }
             }
 
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.eclipse.jface.viewers.AbstractTableViewer#inputChanged(java.lang.Object, java.lang.Object)
-             */
+            // @Override
+            // protected void internalRefresh(Object element, boolean updateLabels) {
+            // int oldCount = tableViewer.getTable().getItemCount();
+            // if (getInputList() != null && oldCount != getInputList().size()) {
+            // setItemCount(getInputList().size());
+            // }
+            // super.internalRefresh(element, updateLabels);
+            // };
+
             @Override
-            protected void inputChanged(Object input, Object oldInput) {
-                if (input instanceof List && contentProvider instanceof ILazyContentProvider) {
-                    int newSize = ((List) input).size();
-                    int oldSize = 0;
-                    if (oldInput instanceof List) {
-                        oldSize = ((List) oldInput).size();
+            protected void hookControl(Control control) {
+                super.hookControl(control);
+                table.addListener(SWT.SetData, new Listener() {
+
+                    @Override
+                    public void handleEvent(Event event) {
+                        TableItem item = (TableItem) event.item;
+                        int index = table.indexOf(item);
+
+                        if (index == -1) {
+                            return;
+                        }
+                        B element = getInputList().get(index);
+                        // if (element != item.getData()) {
+                        associate(element, item);
+                        updateItem(item, element);
+                        refreshTableEditorColumn(index);
+                        // }
                     }
-                    if (newSize != oldSize) {
-                        tableViewer.setItemCount(newSize);
-                    }
-                }
-                super.inputChanged(input, oldInput);
-            }
+
+                });
+            };
 
         };
         setTablePreferences();
@@ -666,7 +672,7 @@ public class TableViewerCreatorNotModifiable<B> {
         if (verticalScroll) {
             style |= SWT.V_SCROLL;
         }
-        if (lazyLoad) {
+        if (isLazyLoad()) {
             style |= SWT.VIRTUAL;
         }
         return style;
@@ -1141,7 +1147,6 @@ public class TableViewerCreatorNotModifiable<B> {
         if (this.contentProvider == null) {
             this.contentProvider = new DefaultStructuredContentProvider(this);
         }
-
         tableViewer.setContentProvider(this.contentProvider);
     }
 
@@ -1618,7 +1623,7 @@ public class TableViewerCreatorNotModifiable<B> {
         return contentProvider;
     }
 
-    public void setContentProvider(IContentProvider contentProvider) {
+    public void setContentProvider(IStructuredContentProvider contentProvider) {
         if (tableViewer != null && tableViewer.getContentProvider() != contentProvider) {
             tableViewer.setContentProvider(contentProvider);
         }
@@ -1791,9 +1796,8 @@ public class TableViewerCreatorNotModifiable<B> {
     }
 
     public void refreshTableEditorColumn(int index) {
-        if (tableEditorManager != null && contentProvider instanceof ILazyContentProvider) {
+        if (tableEditorManager != null && isLazyLoad()) {
             tableEditorManager.refreshColumn(index);
-            // tableEditorManager.redrawControls();
         }
     }
 
@@ -2159,7 +2163,6 @@ public class TableViewerCreatorNotModifiable<B> {
 
     public void setLazyLoad(boolean lazyLoad) {
         this.lazyLoad = lazyLoad;
-        setContentProvider(new LazyContentProvider(this));
     }
 
 }
