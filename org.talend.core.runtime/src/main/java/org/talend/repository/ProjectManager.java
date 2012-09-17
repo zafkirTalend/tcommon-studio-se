@@ -421,7 +421,7 @@ public final class ProjectManager {
 
     public boolean enableSpecialTechnicalProjectName() {
         // FIXME TDI-21185, add the function to enable disabling this function.
-        return TalendPropertiesUtil.isEnabledMultiBranchesInWorkspacee();
+        return TalendPropertiesUtil.isEnabledMultiBranchesInWorkspace();
     }
 
     /**

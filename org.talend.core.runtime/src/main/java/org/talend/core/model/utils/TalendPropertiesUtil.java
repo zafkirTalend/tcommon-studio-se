@@ -51,7 +51,7 @@ public final class TalendPropertiesUtil {
      * 
      * @return
      */
-    public static boolean isEnabledMultiBranchesInWorkspacee() {
+    public static boolean isEnabledMultiBranchesInWorkspace() {
         String value = System.getProperty("talend.enable.multiBranchesInWorkspace"); //$NON-NLS-1$
 
         return Boolean.parseBoolean(value);
