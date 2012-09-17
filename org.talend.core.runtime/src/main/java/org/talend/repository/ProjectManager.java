@@ -38,6 +38,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.model.repository.SVNConstant;
+import org.talend.core.model.utils.TalendPropertiesUtil;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.IReferencedProjectService;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -419,7 +420,8 @@ public final class ProjectManager {
     }
 
     public boolean enableSpecialTechnicalProjectName() {
-        return true; // FIXME TDI-21185, add the function to enable disabling this function.
+        // FIXME TDI-21185, add the function to enable disabling this function.
+        return TalendPropertiesUtil.isEnabledMultiBranchesInWorkspacee();
     }
 
     /**
