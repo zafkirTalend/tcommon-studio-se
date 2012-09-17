@@ -63,6 +63,7 @@ public class QueryUtil {
                 case MYSQL:
                 case IBMDB2:
                 case IBMDB2ZOS:
+                case HIVE:
                     /*
                      * if not work on DefaultQueryGenerator.
                      */
