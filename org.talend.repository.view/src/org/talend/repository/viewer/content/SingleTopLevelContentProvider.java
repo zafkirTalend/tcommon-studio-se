@@ -223,7 +223,8 @@ public abstract class SingleTopLevelContentProvider implements ITreeContentProvi
      */
     @Override
     public void inputChanged(Viewer arg0, Object arg1, Object arg2) {
-        // do nothing caus there is nothing to update.
+        // FIXME by TDI-22701, If the input model has been changed, so need clean
+        topLevelNodes.clear();
     }
 
 }

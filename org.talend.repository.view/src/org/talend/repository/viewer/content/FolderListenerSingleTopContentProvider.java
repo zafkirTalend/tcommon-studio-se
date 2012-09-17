@@ -177,6 +177,10 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
         if (arg0 instanceof CommonViewer) {
             this.viewer = (CommonViewer) arg0;
         }
+        // FIXME by TDI-22701, If the input model has been changed, so need clean
+        super.inputChanged(arg0, arg1, arg2);
+        topLevelNodeToPathMap.clear();
+
         addResourceChangeListener();
     }
 
