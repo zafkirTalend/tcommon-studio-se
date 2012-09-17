@@ -17,6 +17,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
@@ -239,7 +243,7 @@ public final class ModelElementHelper {
      */
     public static ModelElement getContainer(ModelElement modelElement) {
         if (modelElement instanceof TdColumn) {
-            return ColumnHelper.getColumnSetOwner((TdColumn) modelElement);
+            return ColumnHelper.getColumnSetOwner(modelElement);
         } else if (modelElement instanceof TdXmlElementType) {
             return XmlElementHelper.getParentElement((TdXmlElementType) modelElement);
         }
@@ -319,5 +323,17 @@ public final class ModelElementHelper {
             return mElement1.eResource().getURIFragment(mElement1).equals(mElement2.eResource().getURIFragment(mElement2));
         }
         return false;
+    }
+
+    /**
+     * DOC xqliu Comment method "getIFile".
+     * 
+     * @param modelElement
+     * @return
+     */
+    public static IFile getIFile(ModelElement modelElement) {
+        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+        String platformString = modelElement.eResource().getURI().toPlatformString(true);
+        return root.getFile(new Path(platformString));
     }
 }
