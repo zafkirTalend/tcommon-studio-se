@@ -20,9 +20,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.Reader;
 import java.io.Writer;
 import java.net.URL;
 import java.util.HashMap;
@@ -149,8 +147,7 @@ public class HTMLHandler {
         Writer writer = null;
         try {
             File xmlFile = new File(xmlFilePath);
-            Reader reader = new InputStreamReader(new FileInputStream(xmlFile), "GBK");
-            javax.xml.transform.Source xmlSource = new javax.xml.transform.stream.StreamSource(reader);
+            javax.xml.transform.Source xmlSource = new javax.xml.transform.stream.StreamSource(xmlFile);
 
             // will create the path needed
             Path htmlPath = new Path(htmlFilePath);
@@ -161,7 +158,7 @@ public class HTMLHandler {
 
             // Note that if the are chinese in the file, should set the encoding
             // type to "UTF-8", this is caused by DOM4J.
-            writer = new BufferedWriter(new OutputStreamWriter(output, "GBK")); //$NON-NLS-1$
+            writer = new BufferedWriter(new OutputStreamWriter(output, "UTF-8")); //$NON-NLS-1$
 
             javax.xml.transform.Result result = new javax.xml.transform.stream.StreamResult(writer);
 
