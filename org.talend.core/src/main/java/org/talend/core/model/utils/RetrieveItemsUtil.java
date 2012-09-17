@@ -21,7 +21,6 @@ import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
-import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProjectReference;
@@ -226,9 +225,7 @@ public final class RetrieveItemsUtil {
         if (withRefProject) {
             Context ctx = CorePlugin.getContext();
             if (ctx != null) {
-                RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
-                String parentBranch = repositoryContext.getFields().get(
-                        IProxyRepositoryFactory.BRANCH_SELECTION + "_" + project.getTechnicalLabel());
+                String parentBranch = ProjectManager.getInstance().getMainProjectBranch(project);
 
                 EList refProjects = project.getEmfProject().getReferencedProjects();
                 for (ProjectReference pRef : (List<ProjectReference>) refProjects) {

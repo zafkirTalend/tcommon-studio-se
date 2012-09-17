@@ -157,7 +157,6 @@ import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.localprovider.exceptions.IncorrectFileException;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.model.ERepositoryStatus;
-import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 
@@ -2778,9 +2777,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     @Override
     public List<org.talend.core.model.properties.Project> getReferencedProjects(Project project) {
-        String parentBranch = getRepositoryContext().getFields().get(
-                IProxyRepositoryFactory.BRANCH_SELECTION + "_" + project.getTechnicalLabel());
-
+        String parentBranch = ProjectManager.getInstance().getMainProjectBranch(project);
         List<org.talend.core.model.properties.Project> refProjectList = new ArrayList<org.talend.core.model.properties.Project>();
         for (ProjectReference refProject : (List<ProjectReference>) getRepositoryContext().getProject().getEmfProject()
                 .getReferencedProjects()) {
@@ -3004,7 +3001,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             return ""; //$NON-NLS-1$
         }
         StringBuffer descBuffer = new StringBuffer();
-        descBuffer.append("LOCAL: ").append(currentProject.getLabel());
+        descBuffer.append(ProjectManager.LOCAL);
+        descBuffer.append(": ").append(currentProject.getLabel()); //$NON-NLS-1$
 
         return descBuffer.toString();
     }

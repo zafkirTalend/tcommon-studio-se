@@ -76,8 +76,6 @@ import org.talend.repository.ProjectManager;
  */
 public class XmiResourceManager {
 
-    private static final String OLD_PROJECT_FILENAME = "talendProject"; //$NON-NLS-1$
-
     // PTODO mhelleboid should use a custom ResourceFactory
     // PTODO mhelleboid test duplicate resourcesUri in resourceSet !
 
@@ -663,7 +661,7 @@ public class XmiResourceManager {
 
     public String getProjectFilename() {
         if (useOldProjectFile) {
-            return OLD_PROJECT_FILENAME;
+            return FileConstants.OLD_TALEND_PROJECT_FILENAME;
         } else {
             return FileConstants.LOCAL_PROJECT_FILENAME;
         }

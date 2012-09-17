@@ -16,6 +16,8 @@ package org.talend.core.repository.constants;
  */
 public class FileConstants {
 
+    public static final String OLD_TALEND_PROJECT_FILENAME = "talend.project"; //$NON-NLS-1$
+
     public static final String LOCAL_PROJECT_FILENAME = "talend.project"; //$NON-NLS-1$
 
     public static final String PROPERTIES_EXTENSION = "properties"; //$NON-NLS-1$

@@ -12,8 +12,6 @@
 // ============================================================================
 package org.talend.repository.localprovider.model;
 
-import static org.junit.Assert.*;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -66,6 +64,8 @@ import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
 import org.talend.repository.ProjectManager;
+
+import static org.junit.Assert.*;
 
 /**
  * DOC nrousseau class global comment. Detailled comment
@@ -159,7 +159,7 @@ public class LocalRepositoryFactoryTest {
             if (prj.exists()) {
                 prj.delete(true, null); // always delete to avoid conflicts between 2 tests
             }
-            desc = workspace.newProjectDescription(projectInfor.getLabel());
+            desc = workspace.newProjectDescription(technicalLabel);
             desc.setNatureIds(new String[] { TalendNature.ID });
             desc.setComment(projectInfor.getDescription());
 

@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
@@ -36,6 +37,7 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryManager;
+import org.talend.core.model.repository.SVNConstant;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.IReferencedProjectService;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -48,6 +50,10 @@ import org.talend.repository.ui.views.IRepositoryView;
  * ggu class global comment. Detailled comment
  */
 public final class ProjectManager {
+
+    public static final String LOCAL = "LOCAL"; //$NON-NLS-1$
+
+    public static final String UNDER_LINE = "_"; //$NON-NLS-1$
 
     private static ProjectManager singleton;
 
@@ -93,9 +99,7 @@ public final class ProjectManager {
     private void resolveRefProject(org.talend.core.model.properties.Project p) {
         Context ctx = CoreRuntimePlugin.getInstance().getContext();
         if (p != null && ctx != null) {
-            RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
-            String parentBranch = repositoryContext.getFields().get(
-                    IProxyRepositoryFactory.BRANCH_SELECTION + "_" + p.getTechnicalLabel());
+            String parentBranch = ProjectManager.getInstance().getMainProjectBranch(p);
             for (ProjectReference pr : (List<ProjectReference>) p.getReferencedProjects()) {
                 if (pr.getBranch() == null || parentBranch.equals(pr.getBranch())) {
                     resolveRefProject(pr.getReferencedProject()); // only to resolve all
@@ -107,9 +111,7 @@ public final class ProjectManager {
     private void resolveSubRefProject(org.talend.core.model.properties.Project p) {
         Context ctx = CoreRuntimePlugin.getInstance().getContext();
         if (ctx != null && p != null) {
-            RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
-            String parentBranch = repositoryContext.getFields().get(
-                    IProxyRepositoryFactory.BRANCH_SELECTION + "_" + p.getTechnicalLabel());
+            String parentBranch = ProjectManager.getInstance().getMainProjectBranch(p);
             for (ProjectReference pr : (List<ProjectReference>) p.getReferencedProjects()) {
                 if (pr.getBranch() == null || parentBranch.equals(pr.getBranch())) {
                     Project project = new Project(pr.getReferencedProject());
@@ -203,9 +205,7 @@ public final class ProjectManager {
             if (project.equals(this.currentProject)) {
                 return getReferencedProjects();
             }
-            RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
-            String parentBranch = repositoryContext.getFields().get(
-                    IProxyRepositoryFactory.BRANCH_SELECTION + "_" + project.getTechnicalLabel());
+            String parentBranch = getMainProjectBranch(project);
 
             List<Project> refProjects = new ArrayList<Project>();
             for (ProjectReference refProject : (List<ProjectReference>) project.getEmfProject().getReferencedProjects()) {
@@ -331,7 +331,7 @@ public final class ProjectManager {
     public static IProjectRepositoryNode researchProjectNode(Project project) {
         final IRepositoryView repositoryView = RepositoryManager.getRepositoryView();
         if (repositoryView != null && project != null) {
-            IProjectRepositoryNode root = (IProjectRepositoryNode) repositoryView.getRoot();
+            IProjectRepositoryNode root = repositoryView.getRoot();
             return researchProjectNode(root, project);
         }
         return null;
@@ -410,5 +410,145 @@ public final class ProjectManager {
             }
         }
         return null;
+    }
+
+    public synchronized void cleanupViewProjects() {
+        if (viewProjectNodes != null) {
+            viewProjectNodes.clear();
+        }
+    }
+
+    public boolean enableSpecialTechnicalProjectName() {
+        return true; // FIXME TDI-21185, add the function to enable disabling this function.
+    }
+
+    /**
+     * 
+     * DOC ggu Comment method "getLocalTechnicalProjectName". TDI-21185
+     * 
+     * @param projectLabel
+     * @return
+     */
+
+    public String getLocalTechnicalProjectName(String projectLabel) {
+        if (projectLabel != null) {
+            String technicalName = getTechnicalProjectLabel(projectLabel);
+            if (enableSpecialTechnicalProjectName()) {
+                return LOCAL + UNDER_LINE + technicalName;
+            }
+            return technicalName;
+        }
+        return null;
+    }
+
+    public String getTechnicalProjectLabel(String lable) {
+        String projectLabel = lable;
+        if (projectLabel != null) {
+            // TDI-6044
+            projectLabel = projectLabel.trim();
+
+            projectLabel = projectLabel.toUpperCase(Locale.ENGLISH);
+            projectLabel = projectLabel.replace(" ", "_"); //$NON-NLS-1$ //$NON-NLS-2$
+            projectLabel = projectLabel.replace("-", "_"); //$NON-NLS-1$ //$NON-NLS-2$
+        }
+        return projectLabel;
+    }
+
+    /**
+     * 
+     * DOC ggu Comment method "getProjectDisplayLabel".
+     * 
+     * @param project
+     * @return
+     */
+    public String getProjectDisplayLabel(org.talend.core.model.properties.Project project) {
+        if (project != null) {
+            if (project.getLabel().equals(project.getTechnicalLabel())) {
+                return project.getLabel();
+            }
+            return project.getLabel() + " (" + project.getTechnicalLabel() + ")"; //$NON-NLS-1$ //$NON-NLS-2$
+        }
+        return ""; //$NON-NLS-1$
+    }
+
+    public String getMainProjectBranch(Project project) {
+        return project != null ? getMainProjectBranch(project.getEmfProject()) : null;
+    }
+
+    public String getMainProjectBranch(org.talend.core.model.properties.Project project) {
+        return project != null ? getMainProjectBranch(project.getTechnicalLabel()) : null;
+    }
+
+    /**
+     * 
+     * DOC ggu Comment method "getMainProjectBranch".
+     * 
+     * @param technicalLabel
+     * @return
+     */
+    public String getMainProjectBranch(String technicalLabel) {
+        Map<String, String> fields = getRepositoryContextFields();
+        if (fields == null || technicalLabel == null) {
+            return null;
+        }
+        String branchKey = IProxyRepositoryFactory.BRANCH_SELECTION + SVNConstant.UNDER_LINE_CHAR + technicalLabel;
+        if (fields.containsKey(branchKey)) {
+            String branchForMainProject = fields.get(branchKey);
+            return branchForMainProject;
+        }
+        return null;
+    }
+
+    /**
+     * DOC ggu Comment method "getRepositoryContextFields".
+     * 
+     * @return
+     */
+    private Map<String, String> getRepositoryContextFields() {
+        Context ctx = CoreRuntimePlugin.getInstance().getContext();
+        if (ctx == null) {
+            return null;
+        }
+        RepositoryContext repContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+        if (repContext == null) {
+            return null;
+        }
+        Map<String, String> fields = repContext.getFields();
+        return fields;
+    }
+
+    public void setMainProjectBranch(Project project, String branchValue) {
+        if (project != null) {
+            setMainProjectBranch(project.getEmfProject(), branchValue);
+        }
+    }
+
+    public void setMainProjectBranch(org.talend.core.model.properties.Project project, String branchValue) {
+        if (project != null) {
+            setMainProjectBranch(project.getTechnicalLabel(), branchValue);
+        }
+    }
+
+    /**
+     * 
+     * DOC ggu Comment method "setMainProjectBranch".
+     * 
+     * When use this method to set the branch value, make sure that have set the RepositoryContext object in context
+     * "ctx.putProperty(Context.REPOSITORY_CONTEXT_KEY, repositoryContext)"
+     * 
+     * @param technicalLabel
+     * @param branchValue
+     */
+    public void setMainProjectBranch(String technicalLabel, String branchValue) {
+        Map<String, String> fields = getRepositoryContextFields();
+        if (fields == null || technicalLabel == null) {
+            return;
+        }
+        String key = IProxyRepositoryFactory.BRANCH_SELECTION + SVNConstant.UNDER_LINE_CHAR + technicalLabel;
+        if (branchValue == null) {
+            fields.put(key, ""); //$NON-NLS-1$
+        } else {
+            fields.put(key, branchValue);
+        }
     }
 }

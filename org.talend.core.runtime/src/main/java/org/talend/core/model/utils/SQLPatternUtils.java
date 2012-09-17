@@ -18,7 +18,6 @@ import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.context.Context;
-import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IElement;
 import org.talend.core.model.properties.Item;
@@ -96,11 +95,9 @@ public final class SQLPatternUtils {
             if (ctx == null) {
                 return;
             }
-            RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
-            String parentBranch = repositoryContext.getFields().get(
-                    IProxyRepositoryFactory.BRANCH_SELECTION + "_" + project.getTechnicalLabel());
+            String parentBranch = ProjectManager.getInstance().getMainProjectBranch(project);
 
-            List<ProjectReference> referencedProjects = (List<ProjectReference>) project.getEmfProject().getReferencedProjects();
+            List<ProjectReference> referencedProjects = project.getEmfProject().getReferencedProjects();
             for (ProjectReference referenced : referencedProjects) {
                 org.talend.core.model.properties.Project referencedEmfProject = referenced.getReferencedProject();
                 EList refeInRef = referencedEmfProject.getReferencedProjects();

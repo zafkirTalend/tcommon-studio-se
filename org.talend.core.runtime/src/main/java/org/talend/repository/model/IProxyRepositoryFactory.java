@@ -49,7 +49,7 @@ import org.talend.repository.RepositoryWorkUnit;
  */
 public interface IProxyRepositoryFactory {
 
-    public static final String BRANCH_SELECTION = "branchSelection";
+    public static final String BRANCH_SELECTION = "branchSelection"; //$NON-NLS-1$
 
     public abstract RepositoryContext getRepositoryContext();
 

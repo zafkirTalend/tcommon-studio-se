@@ -12,8 +12,6 @@
 // ============================================================================
 package org.talend.core.model.general;
 
-import java.util.Locale;
-
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.PlatformUI;
 import org.talend.core.language.ECodeLanguage;
@@ -21,6 +19,7 @@ import org.talend.core.model.process.IElement;
 import org.talend.core.model.properties.ExchangeUser;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.User;
+import org.talend.repository.ProjectManager;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -180,16 +179,7 @@ public class Project {
      * @return
      */
     public static String createTechnicalName(String name) {
-        // for bug 11214
-        while (name.endsWith(" ")) {//$NON-NLS-1$
-            name = name.substring(0, name.length() - 1);
-        }
-        if (name != null) {
-            name = name.toUpperCase(Locale.ENGLISH);
-            name = name.replace(" ", "_"); //$NON-NLS-1$ //$NON-NLS-2$
-            name = name.replace("-", "_"); //$NON-NLS-1$ //$NON-NLS-2$
-        }
-        return name;
+        return ProjectManager.getInstance().getLocalTechnicalProjectName(name);
     }
 
     public org.talend.core.model.properties.Project getEmfProject() {

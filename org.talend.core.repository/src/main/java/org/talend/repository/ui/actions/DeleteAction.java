@@ -54,7 +54,6 @@ import org.talend.core.ICoreService;
 import org.talend.core.IESBService;
 import org.talend.core.ITDQRepositoryService;
 import org.talend.core.context.Context;
-import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.SubscriberTable;
@@ -158,6 +157,7 @@ public class DeleteAction extends AContextualAction {
         final List<RepositoryNode> deletedFolder = new ArrayList<RepositoryNode>();
         final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
+            @Override
             public void run(IProgressMonitor monitor) {
                 monitor.beginTask("Delete Running", IProgressMonitor.UNKNOWN); //$NON-NLS-1$
                 Object[] selections = ((IStructuredSelection) selection).toArray();
@@ -194,6 +194,7 @@ public class DeleteAction extends AContextualAction {
                                     if (jobNames != null) {
                                         Display.getDefault().syncExec(new Runnable() {
 
+                                            @Override
                                             public void run() {
                                                 String message = jobNames.toString()
                                                         + Messages.getString("DeleteAction.deleteJobAssignedToOneService"); //$NON-NLS-1$
@@ -245,6 +246,7 @@ public class DeleteAction extends AContextualAction {
                                         if (jobNames != null) {
                                             Display.getDefault().syncExec(new Runnable() {
 
+                                                @Override
                                                 public void run() {
                                                     String message = null;
                                                     if (jobNames.toString().contains(",")) { //$NON-NLS-1$
@@ -305,6 +307,7 @@ public class DeleteAction extends AContextualAction {
                 if (unDeleteItems.size() > 0) {
                     Display.getDefault().syncExec(new Runnable() {
 
+                        @Override
                         public void run() {
                             ItemReferenceDialog dialog = new ItemReferenceDialog(PlatformUI.getWorkbench()
                                     .getActiveWorkbenchWindow().getShell(), unDeleteItems);
@@ -342,6 +345,7 @@ public class DeleteAction extends AContextualAction {
 
         IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
 
+            @Override
             public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                 IWorkspace workspace = ResourcesPlugin.getWorkspace();
                 try {
@@ -366,6 +370,7 @@ public class DeleteAction extends AContextualAction {
         final boolean updatePalette = needToUpdataPalette;
         Display.getCurrent().syncExec(new Runnable() {
 
+            @Override
             public void run() {
                 // MOD qiongli 2011-1-24,avoid to refresh repositoryView for top
                 if (!org.talend.commons.utils.platform.PluginChecker.isOnlyTopLoaded()) {
@@ -604,6 +609,7 @@ public class DeleteAction extends AContextualAction {
         final List<IEditorReference> list = new ArrayList<IEditorReference>();
         Display.getDefault().syncExec(new Runnable() {
 
+            @Override
             public void run() {
                 IEditorReference[] reference = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
                         .getEditorReferences();
@@ -637,9 +643,7 @@ public class DeleteAction extends AContextualAction {
             if (ctx == null) {
                 return false;
             }
-            RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
-            String parentBranch = repositoryContext.getFields().get(
-                    IProxyRepositoryFactory.BRANCH_SELECTION + "_" + parentProject.getTechnicalLabel()); //$NON-NLS-1$
+            String parentBranch = ProjectManager.getInstance().getMainProjectBranch(parentProject);
 
             EList referencedProjects = parentProject.getEmfProject().getReferencedProjects();
             for (ProjectReference pRef : (List<ProjectReference>) referencedProjects) {
@@ -1036,9 +1040,10 @@ public class DeleteAction extends AContextualAction {
             final String message = Messages.getString("DeleteAction.error.lockedOrOpenedObject.newMessage", nodeName);//$NON-NLS-1$
             Display.getDefault().syncExec(new Runnable() {
 
+                @Override
                 public void run() {
                     MessageDialog dialog = new MessageDialog(new Shell(), title, null, message, MessageDialog.ERROR,
-                            new String[] { IDialogConstants.OK_LABEL }, 0);//$NON-NLS-1$
+                            new String[] { IDialogConstants.OK_LABEL }, 0);
                     dialog.open();
                 }
             });
@@ -1101,6 +1106,7 @@ public class DeleteAction extends AContextualAction {
         if (checkContext.size() > 0) {
             Display.getDefault().syncExec(new Runnable() {
 
+                @Override
                 public void run() {
                     ContextReferenceDialog dialog = new ContextReferenceDialog(PlatformUI.getWorkbench()
                             .getActiveWorkbenchWindow().getShell(), objToDelete, checkContext);
@@ -1138,6 +1144,7 @@ public class DeleteAction extends AContextualAction {
         if (nodeType != null && nodeType.isSubItem()) {
             Display.getDefault().syncExec(new Runnable() {
 
+                @Override
                 public void run() {
                     final DeleteTableAction deleteTableAction = new DeleteTableAction();
                     deleteTableAction.setWorkbenchPart(getWorkbenchPart());
@@ -1150,6 +1157,7 @@ public class DeleteAction extends AContextualAction {
                 if (confirm == null) {
                     Display.getDefault().syncExec(new Runnable() {
 
+                        @Override
                         public void run() {
                             String title = Messages.getString("DeleteAction.dialog.title"); //$NON-NLS-1$
 
@@ -1246,6 +1254,7 @@ public class DeleteAction extends AContextualAction {
      * @see org.talend.repository.ui.actions.ITreeContextualAction#init(org.eclipse.jface.viewers.TreeViewer,
      * org.eclipse.jface.viewers.IStructuredSelection)
      */
+    @Override
     public void init(TreeViewer viewer, IStructuredSelection selection) {
         visible = !selection.isEmpty();
         if (selection.isEmpty()) {

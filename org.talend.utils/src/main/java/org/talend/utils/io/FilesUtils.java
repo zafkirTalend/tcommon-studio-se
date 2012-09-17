@@ -55,9 +55,9 @@ public final class FilesUtils {
 
     public static boolean isSVNFolder(String name) {
         if (name != null) {
-            name = name.toLowerCase();
-            for (int i = 0; i < SVN_FOLDER_NAMES.length; i++) {
-                if (SVN_FOLDER_NAMES[i].equals(name) || name.endsWith(SVN_FOLDER_NAMES[i])) {
+            String checkedName = name.toLowerCase();
+            for (String element : SVN_FOLDER_NAMES) {
+                if (element.equals(checkedName) || checkedName.endsWith(element)) {
                     return true;
                 }
             }
@@ -80,8 +80,9 @@ public final class FilesUtils {
         File file = new File(path);
         if (file.isDirectory()) {
             File[] files = file.listFiles();
-            if (files.length <= 0)
+            if (files.length <= 0) {
                 return true;
+            }
         }
         return false;
     }
@@ -163,10 +164,12 @@ public final class FilesUtils {
             try {
                 source.close();
             } catch (Exception e) {
+                //
             }
             try {
                 fos.close();
             } catch (Exception e) {
+                //
             }
         }
 
@@ -177,8 +180,8 @@ public final class FilesUtils {
         if (source.isDirectory()) {
             tarpath.mkdir();
             File[] dir = source.listFiles();
-            for (int i = 0; i < dir.length; i++) {
-                copyDirectory(dir[i], tarpath);
+            for (File element : dir) {
+                copyDirectory(element, tarpath);
             }
         } else {
             try {
@@ -361,15 +364,16 @@ public final class FilesUtils {
     }
 
     private static void zipDirWithApache(org.apache.tools.zip.ZipOutputStream out, File f, String base) throws Exception {
+        String baseValue = base;
         if (f.isDirectory()) {
             File[] fl = f.listFiles();
-            out.putNextEntry(new org.apache.tools.zip.ZipEntry(base + "/"));
-            base = base.length() == 0 ? "" : base + "/";
-            for (int i = 0; i < fl.length; i++) {
-                zipDirWithApache(out, fl[i], base + fl[i].getName());
+            out.putNextEntry(new org.apache.tools.zip.ZipEntry(baseValue + "/"));
+            baseValue = baseValue.length() == 0 ? "" : baseValue + "/";
+            for (File element : fl) {
+                zipDirWithApache(out, element, baseValue + element.getName());
             }
         } else {
-            out.putNextEntry(new org.apache.tools.zip.ZipEntry(base));
+            out.putNextEntry(new org.apache.tools.zip.ZipEntry(baseValue));
             FileInputStream in = new FileInputStream(f);
             int b;
             while ((b = in.read()) != -1) {
@@ -555,13 +559,15 @@ public final class FilesUtils {
      * @throws Exception
      */
     private static void zip(ZipOutputStream out, File f, String base) throws Exception {
+        String baseValue = base;
         if (f.isDirectory()) {
             File[] fc = f.listFiles();
-            if (base != null)
-                out.putNextEntry(new ZipEntry(base + "/"));
-            base = base == null ? "" : base + "/";
-            for (int i = 0; i < fc.length; i++) {
-                zip(out, fc[i], base + fc[i].getName());
+            if (baseValue != null) {
+                out.putNextEntry(new ZipEntry(baseValue + "/"));
+            }
+            baseValue = baseValue == null ? "" : baseValue + "/";
+            for (File element : fc) {
+                zip(out, element, baseValue + element.getName());
             }
         } else {
             out.putNextEntry(new ZipEntry(f.getName()));
@@ -590,13 +596,15 @@ public final class FilesUtils {
      * @throws Exception
      */
     private static void zips(ZipOutputStream out, File f, String base) throws Exception {
+        String baseValue = base;
         if (f.isDirectory()) {
             File[] fc = f.listFiles();
-            if (base != null)
-                out.putNextEntry(new ZipEntry(base + "/"));
-            base = base == null ? "" : base + "/";
-            for (int i = 0; i < fc.length; i++) {
-                zip(out, fc[i], base + fc[i].getName());
+            if (baseValue != null) {
+                out.putNextEntry(new ZipEntry(baseValue + "/"));
+            }
+            baseValue = baseValue == null ? "" : baseValue + "/";
+            for (File element : fc) {
+                zip(out, element, baseValue + element.getName());
             }
         } else {
             out.putNextEntry(new ZipEntry(f.getName()));
@@ -623,8 +631,8 @@ public final class FilesUtils {
     private static void zipFiles(File f, ZipOutputStream out) throws Exception {
         if (f.isDirectory()) {
             File[] fc = f.listFiles();
-            for (int i = 0; i < fc.length; i++) {
-                zipFiles(fc[i], out);
+            for (File element : fc) {
+                zipFiles(element, out);
             }
         } else {
             out.putNextEntry(new ZipEntry(f.getName()));
@@ -675,25 +683,28 @@ public final class FilesUtils {
         } catch (Exception e) {
             throw e;
         } finally {
-            if (out != null)
+            if (out != null) {
                 out.close();
+            }
         }
     }
 
     private static void zipFolderRecursion(ZipOutputStream out, File f, String base) throws Exception {
+        String baseValue = base;
         if (f.isDirectory()) {
             File[] fc = f.listFiles();
-            if (base != null && base != "")
-                out.putNextEntry(new ZipEntry(base + "/"));
-            base = base == null ? "" : base + "/";
-            for (int i = 0; i < fc.length; i++) {
-                zipFolderRecursion(out, fc[i], base + fc[i].getName());
+            if (baseValue != null && !"".equals(baseValue)) { //$NON-NLS-1$
+                out.putNextEntry(new ZipEntry(baseValue + "/")); //$NON-NLS-1$
+            }
+            baseValue = baseValue == null ? "" : baseValue + "/";
+            for (File element : fc) {
+                zipFolderRecursion(out, element, baseValue + element.getName());
             }
         } else {
             FileInputStream in = null;
             try {
                 // System.out.println(base);
-                out.putNextEntry(new ZipEntry(base));
+                out.putNextEntry(new ZipEntry(baseValue));
                 in = new FileInputStream(f);
                 byte[] b = new byte[BUFFER_SIZE];
                 int readBytes = 0;
@@ -703,8 +714,9 @@ public final class FilesUtils {
                 out.flush();
                 return;
             } finally {
-                if (in != null)
+                if (in != null) {
                     in.close();
+                }
             }
         }
     }
@@ -829,8 +841,8 @@ public final class FilesUtils {
                 file.delete();
             } else if (file.isDirectory()) {
                 File files[] = file.listFiles();
-                for (int i = 0; i < files.length; i++) {
-                    deleteFile(files[i], true);
+                for (File file2 : files) {
+                    deleteFile(file2, true);
                 }
             }
             if (delete) {

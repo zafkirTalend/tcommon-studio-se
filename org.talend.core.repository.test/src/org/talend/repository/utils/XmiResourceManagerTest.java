@@ -12,8 +12,6 @@
 // ============================================================================
 package org.talend.repository.utils;
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -55,6 +53,8 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
 import org.talend.repository.ProjectManager;
+
+import static org.junit.Assert.*;
 
 /**
  * DOC nrousseau class global comment. Detailled comment
@@ -104,7 +104,7 @@ public class XmiResourceManagerTest {
             if (prj.exists()) {
                 prj.delete(true, null); // always delete to avoid conflicts between 2 tests
             }
-            desc = workspace.newProjectDescription(projectInfor.getLabel());
+            desc = workspace.newProjectDescription(technicalLabel);
             desc.setNatureIds(new String[] { TalendNature.ID });
             desc.setComment(projectInfor.getDescription());
 
@@ -653,7 +653,7 @@ public class XmiResourceManagerTest {
      * .
      * 
      * @throws PersistenceException
-     * @throws CoreException 
+     * @throws CoreException
      */
     @Test
     public void testMoveResource() throws PersistenceException, CoreException {
@@ -680,7 +680,7 @@ public class XmiResourceManagerTest {
         xrm.saveResource(processItemResource);
         xrm.saveResource(propertyResource);
         xrm.saveResource(screenshotsResource);
-        
+
         IFolder folder = project.getFolder("/temp");
         if (!folder.exists()) {
             folder.create(false, true, null);
@@ -1159,7 +1159,8 @@ public class XmiResourceManagerTest {
         assertTrue(emfProject.eResource().isLoaded());
         xrm.unloadResources();
         assertTrue(emfProject.eResource() == null);
-        assertTrue(sampleProject.getEmfProject().eResource() != null); // not same instance so emf should be loaded still
+        assertTrue(sampleProject.getEmfProject().eResource() != null); // not same instance so emf should be loaded
+                                                                       // still
     }
 
     /**

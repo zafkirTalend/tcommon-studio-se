@@ -645,8 +645,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
 
     private void intitializeRefProject(Project project, Object parent) {
         for (ProjectReference refProject : (List<ProjectReference>) project.getReferencedProjects()) {
-            String parentBranch = ProxyRepositoryFactory.getInstance().getRepositoryContext().getFields()
-                    .get(IProxyRepositoryFactory.BRANCH_SELECTION + "_" + project.getTechnicalLabel()); //$NON-NLS-1$
+            String parentBranch = ProjectManager.getInstance().getMainProjectBranch(project);
             if (refProject.getBranch() == null || parentBranch.equals(refProject.getBranch())) {
                 Project p = refProject.getReferencedProject();
                 List<Project> list = nodeAndProject.get(parent);
@@ -1182,8 +1181,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
     private void handleReferenced(RepositoryNode parent) {
         if (parent.getType().equals(ENodeType.SYSTEM_FOLDER)) {
             for (ProjectReference refProject : (List<ProjectReference>) project.getEmfProject().getReferencedProjects()) {
-                String parentBranch = ProxyRepositoryFactory.getInstance().getRepositoryContext().getFields()
-                        .get(IProxyRepositoryFactory.BRANCH_SELECTION + "_" + project.getTechnicalLabel()); //$NON-NLS-1$
+                String parentBranch = ProjectManager.getInstance().getMainProjectBranch(project);
                 // if not a DB ref project, modified by nma, order 12519
                 if (refProject.getReferencedProject().getUrl() != null
                         && refProject.getReferencedProject().getUrl().startsWith("teneo") //$NON-NLS-1$
@@ -1901,4 +1899,8 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         super.dispose();
     }
 
+    public void cleanup() {
+        // reset it
+        defaultProjRepoNode = null;
+    }
 }
