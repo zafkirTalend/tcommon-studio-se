@@ -115,7 +115,7 @@ public class ConnectionHelper {
             Connection con = null;
             Iterator<Connection> it = tdDataProviders.iterator();
             while (it.hasNext()) {
-                con = (Connection) it.next();
+                con = it.next();
                 if (con.getDataPackage().contains(catalog)) {
                     break;
                 }
@@ -387,7 +387,15 @@ public class ConnectionHelper {
         return false;
     }
 
+    /**
+     * 
+     * @deprecated use {@link SoftwareSystemManager#getSoftwareSystem(Connection dataProvider)} instead.
+     * @param dataProvider
+     * @return
+     */
+    @Deprecated
     public static TdSoftwareSystem getSoftwareSystem(Connection dataProvider) {
+
         final Component component = dataProvider.getComponent();
         if (component != null) {
             final Namespace namespace = component.getNamespace();
@@ -398,6 +406,18 @@ public class ConnectionHelper {
         }
         return null;
     }
+
+    // public static TdSoftwareSystem getSoftwareSystem(MetadataConnection dataProvider) {
+    // final Component component = dataProvider.getComponent();
+    // if (component != null) {
+    // final Namespace namespace = component.getNamespace();
+    // if (namespace != null) {
+    // final TdSoftwareSystem softwareSystem = SwitchHelpers.TDSOFTWARE_SYSTEM_SWITCH.doSwitch(namespace);
+    // return softwareSystem;
+    // }
+    // }
+    // return null;
+    // }
 
     public static TdSoftwareSystem getSoftwareSystem(java.sql.Connection connection) throws SQLException {
         // MOD xqliu 2009-07-13 bug 7888
@@ -510,8 +530,9 @@ public class ConnectionHelper {
         if ((connection != null) && (pack != null)) {
             for (Package oldPack : connection.getDataPackage()) {
                 if (pack.getName() != null && oldPack.getName() != null) {
-                    if (pack.getName().equals(oldPack.getName()))
+                    if (pack.getName().equals(oldPack.getName())) {
                         return added;
+                    }
                 }
             }
             added = connection.getDataPackage().add(pack);
@@ -668,6 +689,7 @@ public class ConnectionHelper {
      * @param element
      * @deprecated don't use TaggedValue any more
      */
+    @Deprecated
     public static void setRetrieveAllMetadata(boolean retrieveAllMetadata, ModelElement element) {
         TaggedValueHelper.setTaggedValue(element, TaggedValueHelper.RETRIEVE_ALL, String.valueOf(retrieveAllMetadata));
     }
@@ -922,8 +944,9 @@ public class ConnectionHelper {
         Set<MetadataTable> tables = getTables(connection);
         if (tables != null && tables.size() > 0) {
             for (MetadataTable metadataTable : tables) {
-                if (metadataTable != null && id.equals(metadataTable.getId()))
+                if (metadataTable != null && id.equals(metadataTable.getId())) {
                     return metadataTable;
+                }
             }
         }
         return null;
@@ -1350,8 +1373,9 @@ public class ConnectionHelper {
                 thePackage = (RecordFile) mTable.getNamespace();
             }
         }
-        if (thePackage == null)
+        if (thePackage == null) {
             return null;
+        }
         return getTdDataProvider(thePackage);
     }
 
