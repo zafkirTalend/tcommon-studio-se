@@ -36,14 +36,10 @@ public final class ConnectionUtils {
 
     private static List<String> sybaseDBProductsNames;
 
-    public static final String IBM_DB2_ZOS_PRODUCT_NAME = "DB2";
+    public static final String IBM_DB2_ZOS_PRODUCT_NAME = "DB2"; //$NON-NLS-1$
 
-    public static final String SYBASE_LANGUAGE = "Adaptive Server Enterprise | Sybase Adaptive Server IQ";
+    public static final String SYBASE_LANGUAGE = "Adaptive Server Enterprise | Sybase Adaptive Server IQ"; //$NON-NLS-1$
 
-    /**
-     * The query to execute in order to verify the connection.
-     */
-    // private static final String PING_SELECT = "SELECT 1";
     /**
      * private constructor.
      */
@@ -72,7 +68,6 @@ public final class ConnectionUtils {
     }
 
     /**
-     * 
      * zshen Method "createConnection".
      * 
      * @param url the database url
@@ -97,10 +92,9 @@ public final class ConnectionUtils {
                 try {
                     connection = driver.connect(url, props);
                 } catch (Exception exception) {
+                    // do nothing
                 }
             }
-            // connection = DriverManager.getConnection(url, props.getProperty("user"), props.getProperty("password"));
-
         }
         return connection;
     }
@@ -114,31 +108,23 @@ public final class ConnectionUtils {
     public static ReturnCode isValid(final Connection connection) {
         ReturnCode retCode = new ReturnCode();
         if (connection == null) {
-            retCode.setReturnCode("Connection is null!", false);
+            retCode.setReturnCode("Connection is null!", false); //$NON-NLS-1$
             return retCode;
         }
 
         ResultSet ping = null;
         try {
             if (connection.isClosed()) {
-                retCode.setReturnCode("Connection is closed", false);
+                retCode.setReturnCode("Connection is closed", false); //$NON-NLS-1$
                 return retCode;
             }
 
             // do something so that exception is thrown is database connection failed
             connection.getAutoCommit();
 
-            // select 1 is not understood by Oracle => do not use it
-            // ping = connection.createStatement().executeQuery(PING_SELECT);
-            // boolean next = ping.next();
-            // if (!next) {
-            // retCode.setReturnCode("Problem executing query " + PING_SELECT, next);
-            // return retCode;
-            // }
-            // if we are here, everything is ok
             return retCode;
         } catch (SQLException sqle) {
-            retCode.setReturnCode("SQLException caught:" + sqle.getMessage() + " SQL error code: " + sqle.getErrorCode(), false);
+            retCode.setReturnCode("SQLException caught:" + sqle.getMessage() + " SQL error code: " + sqle.getErrorCode(), false); //$NON-NLS-1$ //$NON-NLS-2$
             return retCode;
         } finally {
             if (ping != null) {
@@ -167,7 +153,7 @@ public final class ConnectionUtils {
                 connection.close();
             }
         } catch (SQLException e) {
-            rc.setReturnCode("Failed to close connection. Reason: " + e.getMessage(), false);
+            rc.setReturnCode("Failed to close connection. Reason: " + e.getMessage(), false); //$NON-NLS-1$
         }
         return rc;
     }
@@ -201,20 +187,20 @@ public final class ConnectionUtils {
      * @return
      * @throws SQLException
      */
+    @Deprecated
     public static DatabaseMetaData getConnectionMetadata(java.sql.Connection conn) throws SQLException {
         DatabaseMetaData dbMetaData = conn.getMetaData();
         // MOD xqliu 2009-11-17 bug 7888
         if (dbMetaData != null && dbMetaData.getDatabaseProductName() != null
                 && dbMetaData.getDatabaseProductName().equals(IBM_DB2_ZOS_PRODUCT_NAME)) {
             dbMetaData = conn.getMetaData();
-            log.info("IBM DB2 for z/OS");
+            log.info("IBM DB2 for z/OS"); //$NON-NLS-1$
         }
         // ~
         return dbMetaData;
     }
 
     /**
-     * 
      * Comment method "isDB2".
      * 
      * @param metadata
@@ -240,18 +226,17 @@ public final class ConnectionUtils {
     public static String[] getSybaseDBProductsName() {
         if (null == sybaseDBProductsNames) {
             sybaseDBProductsNames = new ArrayList<String>();
-            for (String name : SYBASE_LANGUAGE.split("\\|")) {
+            for (String name : SYBASE_LANGUAGE.split("\\|")) { //$NON-NLS-1$
                 sybaseDBProductsNames.add(name.trim());
             }
-            sybaseDBProductsNames.add("Sybase");
-            sybaseDBProductsNames.add("Sybase IQ");
-            sybaseDBProductsNames.add("Adaptive Server Enterprise | Sybase Adaptive Server IQ");
+            sybaseDBProductsNames.add("Sybase"); //$NON-NLS-1$
+            sybaseDBProductsNames.add("Sybase IQ"); //$NON-NLS-1$
+            sybaseDBProductsNames.add("Adaptive Server Enterprise | Sybase Adaptive Server IQ"); //$NON-NLS-1$
         }
         return sybaseDBProductsNames.toArray(new String[sybaseDBProductsNames.size()]);
     }
 
     /**
-     * 
      * DOC klliu Comment method "isOdbcTeradata".
      * 
      * @param metadata
@@ -260,21 +245,11 @@ public final class ConnectionUtils {
      */
     public static boolean isOdbcTeradata(DatabaseMetaData metadata) throws SQLException {
         if (metadata.getDriverName() != null
-                && metadata.getDriverName().toLowerCase().startsWith("jdbc-odbc bridge (tdata32.dll)")
+                && metadata.getDriverName().toLowerCase().startsWith("jdbc-odbc bridge (tdata32.dll)") //$NON-NLS-1$
                 && metadata.getDatabaseProductName() != null
-                && metadata.getDatabaseProductName().toLowerCase().indexOf("teradata") > -1) {
+                && metadata.getDatabaseProductName().toLowerCase().indexOf("teradata") > -1) { //$NON-NLS-1$
             return true;
         }
         return false;
     }
-    /**
-     * only for db2 on z/os right now. 2009-07-13 bug 7888.
-     * 
-     * @param conn2
-     * @return
-     */
-    // private static DatabaseMetaData createFakeDatabaseMetaData(java.sql.Connection conn) {
-    // DB2ForZosDataBaseMetadata dmd = new DB2ForZosDataBaseMetadata(conn);
-    // return dmd;
-    // }
 }
