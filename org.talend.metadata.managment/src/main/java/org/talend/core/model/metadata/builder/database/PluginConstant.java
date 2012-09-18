@@ -36,13 +36,8 @@ public final class PluginConstant {
 
     public static final String FILTER_TABLE_VIEW_COLUMN = "FILTER_TABLE_VIEW_COLUMN"; //$NON-NLS-1$
 
-    public static final String CLASS_NAME_TEXT = "CLASS_NAME_TEXT";//$NON-NLS-1$
-
-    public static final String JAR_FILE_PATH = "JAR_FILE_PATH";//$NON-NLS-1$
-
     public static final String MDM_PATH = "metadata/MDMconnections";//$NON-NLS-1$
 
     public static final String CONN_PATH = "metadata/connections";//$NON-NLS-1$
 
 }
-
