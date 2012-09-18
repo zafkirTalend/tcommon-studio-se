@@ -51,6 +51,7 @@ public class ContextReferenceDialog extends SelectionDialog {
      */
     class ContextsProvide extends LabelProvider implements ITableLabelProvider {
 
+        @Override
         public Image getColumnImage(Object element, int columnIndex) {
             if (columnIndex == 0) {
                 if (element instanceof ContextReferenceBean) {
@@ -82,6 +83,7 @@ public class ContextReferenceDialog extends SelectionDialog {
             return null;
         }
 
+        @Override
         public String getColumnText(Object element, int columnIndex) {
             ContextReferenceBean bean = (ContextReferenceBean) element;
             switch (columnIndex) {
@@ -121,7 +123,7 @@ public class ContextReferenceDialog extends SelectionDialog {
             Item item = objToDelete.getProperty().getItem();
             if (item != null) {
                 setMessage(Messages.getString(
-                        "ContextReferenceDialog.Messages", item.getProperty().getLabel(), item.getProperty().getVersion())); //$NON-NLS-1$
+                        "ContextReferenceDialog.kindMessages1", item.getProperty().getLabel(), item.getProperty().getVersion())); //$NON-NLS-1$ 
             }
         }
         setHelpAvailable(false);
@@ -136,10 +138,11 @@ public class ContextReferenceDialog extends SelectionDialog {
 
     @Override
     protected void createButtonsForButtonBar(Composite parent) {
-        createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
+        createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, false);
+        createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, true);
     }
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     @Override
     protected Control createDialogArea(Composite parent) {
         Composite composite = (Composite) super.createDialogArea(parent);
@@ -153,16 +156,19 @@ public class ContextReferenceDialog extends SelectionDialog {
         viewer.setLabelProvider(new ContextsProvide());
         viewer.setContentProvider(new IStructuredContentProvider() {
 
+            @Override
             public void dispose() {
                 //
 
             }
 
+            @Override
             public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
                 //
 
             }
 
+            @Override
             public Object[] getElements(Object inputElement) {
                 if (inputElement != null) {
                     return ((List) inputElement).toArray();
