@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.viewer.content;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Hashtable;
@@ -293,7 +294,7 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
                     if (folderToUpdate == null) {
                         continue;
                     }
-                    for (IRepositoryNode childNode : folderToUpdate.getChildren()) {
+                    for (IRepositoryNode childNode : new ArrayList<IRepositoryNode>(folderToUpdate.getChildren())) {
                         if (childNode == null || childNode.getObject() == null) {
                             continue;
                         }
