@@ -105,8 +105,8 @@ public enum EDatabaseVersion4Drivers {
     // "hadoop-core-1.0.0.jar", "commons-logging-1.0.4.jar", "log4j-1.2.15.jar", "slf4j-api-1.6.1.jar",
     // "slf4j-log4j12-1.6.1.jar" })),
 
-    HIVE(new DbVersion4Drivers(EDatabaseTypeName.HIVE, "STANDALONE", "STANDALONE", new String[] { "hive-jdbc-0.8.1-cdh4.0.1.jar",
-            "hive-metastore-0.8.1-cdh4.0.1.jar", "hive-exec-0.8.1-cdh4.0.1.jar", "hive-service-0.8.1-cdh4.0.1.jar",
+    HIVE(new DbVersion4Drivers(EDatabaseTypeName.HIVE, "STANDALONE", "STANDALONE", new String[] { "hive-jdbc-0.9.0.jar",
+            "hive-metastore-0.9.0.jar", "hive-exec-0.9.0.jar", "hive-service-0.9.0.jar",
             "libfb303-0.7.0.jar", "hadoop-core-2.0.0-mr1-cdh4.0.0.jar", "commons-logging-1.0.4.jar", "log4j-1.2.16.jar",
             "slf4j-api-1.6.1.jar", "slf4j-log4j12-1.6.1.jar" })),
 
@@ -117,9 +117,9 @@ public enum EDatabaseVersion4Drivers {
             "commons-dbcp-1.4.jar", "commons-lang-2.4.jar", "commons-logging-1.0.4.jar", "commons-pool-1.5.4.jar",
             "datanucleus-connectionpool-2.0.3.jar", "datanucleus-core-2.0.3.jar", "datanucleus-enhancer-2.0.3.jar",
             "datanucleus-rdbms-2.0.3.jar", "derby-10.4.2.0.jar", "guava-r09.jar", "hadoop-auth-2.0.0-cdh4.0.1.jar",
-            "hadoop-common-2.0.0-cdh4.0.1.jar", "hadoop-core-2.0.0-mr1-cdh4.0.1.jar", "hive-builtins-0.8.1-cdh4.0.1.jar",
-            "hive-exec-0.8.1-cdh4.0.1.jar", "hive-jdbc-0.8.1-cdh4.0.1.jar", "hive-metastore-0.8.1-cdh4.0.1.jar",
-            "hive-service-0.8.1-cdh4.0.1.jar", "jdo2-api-2.3-ec.jar", "libfb303-0.7.0.jar", "libthrift-0.7.0.jar",
+            "hadoop-common-2.0.0-cdh4.0.1.jar", "hadoop-core-2.0.0-mr1-cdh4.0.1.jar", "hive-builtins-0.9.0.jar",
+            "hive-exec-0.9.0.jar", "hive-jdbc-0.9.0.jar", "hive-metastore-0.9.0.jar",
+            "hive-service-0.9.0.jar", "jdo2-api-2.3-ec.jar", "libfb303-0.7.0.jar", "libthrift-0.7.0.jar",
             "log4j-1.2.16.jar", "slf4j-api-1.6.1.jar", "slf4j-log4j12-1.6.1.jar", "mysql-connector-java-5.1.15-bin.jar" })),
 
     HBASE(new DbVersion4Drivers(EDatabaseTypeName.HBASE, new String[] { "hadoop-core-0.20.2-cdh3u0.jar",
