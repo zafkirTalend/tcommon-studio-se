@@ -586,6 +586,10 @@
             class="org.talend.core.repository.model.CheckJobletDeleteReference"
             priority="high">
       </check>
+      <check
+            class="org.talend.core.repository.model.CheckJobDeleteReference"
+            priority="high">
+      </check>
    </extension>
 
 </plugin>
