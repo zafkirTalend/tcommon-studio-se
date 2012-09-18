@@ -90,9 +90,11 @@ public class JDBCDriverLoader {
             password = password != null ? password : "";
             info.put("user", username); //$NON-NLS-1$
             info.put("password", password); //$NON-NLS-1$
-            Charset systemCharset = CharsetToolkit.getInternalSystemCharset();
-            if (systemCharset != null && systemCharset.displayName() != null) {
-                info.put("charSet", systemCharset.displayName()); //$NON-NLS-1$
+            if (dbType.equals(EDatabaseTypeName.ACCESS.getXmlName()) || dbType.equals(EDatabaseTypeName.GODBC.getXmlName())) {
+                Charset systemCharset = CharsetToolkit.getInternalSystemCharset();
+                if (systemCharset != null && systemCharset.displayName() != null) {
+                    info.put("charSet", systemCharset.displayName()); //$NON-NLS-1$
+                }
             }
 
             if (additionalParams != null && !"".equals(additionalParams) && dbType.toUpperCase().contains("ORACLE")) {
