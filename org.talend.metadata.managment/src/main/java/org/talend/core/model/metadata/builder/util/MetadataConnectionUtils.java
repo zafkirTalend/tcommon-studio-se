@@ -129,9 +129,11 @@ public class MetadataConnectionUtils {
         Properties props = new Properties();
         props.setProperty(TaggedValueHelper.PASSWORD, password == null ? "" : password);
         props.setProperty(TaggedValueHelper.USER, userName == null ? "" : userName);
-        Charset systemCharset = CharsetToolkit.getInternalSystemCharset();
-        if (systemCharset != null && systemCharset.displayName() != null) {
-            props.put("charSet", systemCharset.displayName()); //$NON-NLS-1$
+        if (dbType.equals(EDatabaseTypeName.ACCESS.getXmlName()) || dbType.equals(EDatabaseTypeName.GODBC.getXmlName())) {
+            Charset systemCharset = CharsetToolkit.getInternalSystemCharset();
+            if (systemCharset != null && systemCharset.displayName() != null) {
+                props.put("charSet", systemCharset.displayName()); //$NON-NLS-1$
+            }
         }
 
         if (StringUtils.isNotBlank(dbUrl) && StringUtils.isNotBlank(driverClass)) {

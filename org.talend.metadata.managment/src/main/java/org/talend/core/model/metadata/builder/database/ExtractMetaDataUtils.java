@@ -825,13 +825,13 @@ public class ExtractMetaDataUtils {
                 Properties info = new Properties();
                 info.put("user", username); //$NON-NLS-1$
                 info.put("password", pwd); //$NON-NLS-1$
-                Charset systemCharset = CharsetToolkit.getInternalSystemCharset();
-                if (systemCharset != null && systemCharset.displayName() != null) {
-                    info.put("charSet", systemCharset.displayName()); //$NON-NLS-1$
+                if (dbType.equals(EDatabaseTypeName.ACCESS.getXmlName()) || dbType.equals(EDatabaseTypeName.GODBC.getXmlName())) {
+                    Charset systemCharset = CharsetToolkit.getInternalSystemCharset();
+                    if (systemCharset != null && systemCharset.displayName() != null) {
+                        info.put("charSet", systemCharset.displayName()); //$NON-NLS-1$
+                    }
                 }
-
                 connection = ((Driver) klazz.newInstance()).connect(url, info);
-
             }
 
             // throw a new exception.
