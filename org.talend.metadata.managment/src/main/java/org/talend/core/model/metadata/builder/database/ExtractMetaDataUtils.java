@@ -13,6 +13,7 @@
 package org.talend.core.model.metadata.builder.database;
 
 import java.io.File;
+import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.Driver;
@@ -41,6 +42,7 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.commons.utils.database.SASDataBaseMetadata;
 import org.talend.commons.utils.database.TeradataDataBaseMetadata;
+import org.talend.commons.utils.encoding.CharsetToolkit;
 import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
@@ -876,6 +878,12 @@ public class ExtractMetaDataUtils {
                 Properties info = new Properties();
                 info.put("user", username); //$NON-NLS-1$
                 info.put("password", pwd); //$NON-NLS-1$
+                if (dbType.equals(EDatabaseTypeName.ACCESS.getXmlName()) || dbType.equals(EDatabaseTypeName.GODBC.getXmlName())) {
+                    Charset systemCharset = CharsetToolkit.getInternalSystemCharset();
+                    if (systemCharset != null && systemCharset.displayName() != null) {
+                        info.put("charSet", systemCharset.displayName()); //$NON-NLS-1$
+                    }
+                }
 
                 connection = ((Driver) klazz.newInstance()).connect(url, info);
 

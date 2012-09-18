@@ -13,6 +13,7 @@
 package org.talend.core.model.metadata.builder.util;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.sql.DatabaseMetaData;
 import java.sql.Driver;
 import java.sql.SQLException;
@@ -37,6 +38,7 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.commons.utils.database.SASDataBaseMetadata;
 import org.talend.commons.utils.database.TeradataDataBaseMetadata;
+import org.talend.commons.utils.encoding.CharsetToolkit;
 import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
@@ -103,7 +105,7 @@ public class MetadataConnectionUtils {
 
     private static Driver derbyDriver;
 
-    public static final String FAKE_SCHEMA_SYNONYMS = "AllSynonyms";//$NON-NLS-N$
+    public static final String FAKE_SCHEMA_SYNONYMS = "AllSynonyms";
 
     /**
      * DOC xqliu Comment method "getConnectionMetadata". 2009-07-13 bug 7888.
@@ -180,6 +182,12 @@ public class MetadataConnectionUtils {
         Properties props = new Properties();
         props.setProperty(TaggedValueHelper.PASSWORD, password == null ? "" : password);
         props.setProperty(TaggedValueHelper.USER, userName == null ? "" : userName);
+        Charset systemCharset = CharsetToolkit.getInternalSystemCharset();
+        if (dbType.equals(EDatabaseTypeName.ACCESS.getXmlName()) || dbType.equals(EDatabaseTypeName.GODBC.getXmlName())) {
+            if (systemCharset != null && systemCharset.displayName() != null) {
+                props.put("charSet", systemCharset.displayName()); //$NON-NLS-1$
+            }
+        }
 
         if (StringUtils.isNotBlank(dbUrl) && StringUtils.isNotBlank(driverClass)) {
             java.sql.Connection sqlConn = null;
@@ -621,11 +629,11 @@ public class MetadataConnectionUtils {
                 }
             } else {
                 // tdq
-            	driver = getDriver(metadataBean);
+                driver = getDriver(metadataBean);
             }
         } else {
             // tos
-        	driver = getDriver(metadataBean);
+            driver = getDriver(metadataBean);
         }
         // MOD mzhao 2009-06-05,Bug 7571 Get driver from catch first, if not
         // exist then get a new instance.
@@ -635,46 +643,47 @@ public class MetadataConnectionUtils {
         return driver;
     }
 
-	/**
-	 * get driver.
-	 * @param metadataBean
-	 * @param driver
-	 * @return
-	 */
-	private static Driver getDriver(IMetadataConnection metadataBean) {
-		Driver driver = null;
-		List<?> connList = getConnection(metadataBean);
-		try {
-		    if (connList != null && !connList.isEmpty()) { // FIXME unnecessary check !connList.isEmpty()
-		        // FIXME scorreia 2011-03-31 why do we loop here? Is it possible to have several drivers. If
-		        // yes,
-		        // what do we do?
-			    for (int i = 0; i < connList.size(); i++) {
-					if (connList.get(i) instanceof Driver) {
-				        driver = (DriverShim) connList.get(i); // FIXME scorreia 2011-03-31 strange cast here.
-			        }
-			    }
-		    }
-		} catch (Exception e) {
-		    log.error(e, e);
-		}finally{
-			// ADD msjian TDQ-5952: we should close the unused connection at once.
-			try {
-			    for (int i = 0; i < connList.size(); i++) {
-			        if (connList.get(i) instanceof java.sql.Connection) {
-			        	java.sql.Connection con = (java.sql.Connection) connList.get(i);
-					    if (con != null && !con.isClosed()) {
-					    	con.close();
-					    }
-			        }
-			    }
-			} catch (SQLException e) {
-				  log.error(e, e);
-			}
-			// TDQ-5952~
-		}
-		return driver;
-	}
+    /**
+     * get driver.
+     * 
+     * @param metadataBean
+     * @param driver
+     * @return
+     */
+    private static Driver getDriver(IMetadataConnection metadataBean) {
+        Driver driver = null;
+        List<?> connList = getConnection(metadataBean);
+        try {
+            if (connList != null && !connList.isEmpty()) { // FIXME unnecessary check !connList.isEmpty()
+                // FIXME scorreia 2011-03-31 why do we loop here? Is it possible to have several drivers. If
+                // yes,
+                // what do we do?
+                for (int i = 0; i < connList.size(); i++) {
+                    if (connList.get(i) instanceof Driver) {
+                        driver = (DriverShim) connList.get(i); // FIXME scorreia 2011-03-31 strange cast here.
+                    }
+                }
+            }
+        } catch (Exception e) {
+            log.error(e, e);
+        } finally {
+            // ADD msjian TDQ-5952: we should close the unused connection at once.
+            try {
+                for (int i = 0; i < connList.size(); i++) {
+                    if (connList.get(i) instanceof java.sql.Connection) {
+                        java.sql.Connection con = (java.sql.Connection) connList.get(i);
+                        if (con != null && !con.isClosed()) {
+                            con.close();
+                        }
+                    }
+                }
+            } catch (SQLException e) {
+                log.error(e, e);
+            }
+            // TDQ-5952~
+        }
+        return driver;
+    }
 
     /**
      * This method to get all database template supported by TDQ.
@@ -1051,7 +1060,7 @@ public class MetadataConnectionUtils {
                 // ParameterUtil.toMap(ConnectionUtils.createConnectionParam(dbConn));
                 IMetadataConnection metaConnection = ConvertionHelper.convert(dbConn);
                 dbConn = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(metaConnection, dbConn);
-                sqlConn = (java.sql.Connection) MetadataConnectionUtils.checkConnection(metaConnection).getObject();
+                sqlConn = MetadataConnectionUtils.checkConnection(metaConnection).getObject();
                 DatabaseMetaData databaseMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbConn, false);
                 if (sqlConn != null) {
                     MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, databaseMetaData,

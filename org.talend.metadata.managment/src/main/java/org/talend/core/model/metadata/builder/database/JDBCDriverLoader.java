@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.model.metadata.builder.database;
 
+import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.collections.map.MultiKeyMap;
+import org.talend.commons.utils.encoding.CharsetToolkit;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.utils.sql.ConnectionUtils;
@@ -54,22 +56,22 @@ public class JDBCDriverLoader {
             loader = (HotClassLoader) classLoadersMap.get(dbType, dbVersion);
             if (loader == null) {
                 loader = new HotClassLoader();
-                for (int i = 0; i < jarPath.length; i++) {
-                    loader.addPath(jarPath[i]);
+                for (String element : jarPath) {
+                    loader.addPath(element);
                 }
                 classLoadersMap.put(dbType, dbVersion, loader);
             }
         } else {
             loader = HotClassLoader.getInstance();
-            for (int i = 0; i < jarPath.length; i++) {
+            for (String element : jarPath) {
                 // bug 17800 fixed: fix a problem of jdbc drivers used in the wizard.
-                if (jarPath[i].contains(";")) {
-                    String[] splittedPath = jarPath[i].split(";");
-                    for (int j = 0; j < splittedPath.length; j++) {
-                        loader.addPath(splittedPath[j]);
+                if (element.contains(";")) {
+                    String[] splittedPath = element.split(";");
+                    for (String element2 : splittedPath) {
+                        loader.addPath(element2);
                     }
                 } else {
-                    loader.addPath(jarPath[i]);
+                    loader.addPath(element);
                 }
             }
         }
@@ -87,6 +89,12 @@ public class JDBCDriverLoader {
             password = password != null ? password : "";
             info.put("user", username); //$NON-NLS-1$
             info.put("password", password); //$NON-NLS-1$
+            if (dbType.equals(EDatabaseTypeName.ACCESS.getXmlName()) || dbType.equals(EDatabaseTypeName.GODBC.getXmlName())) {
+                Charset systemCharset = CharsetToolkit.getInternalSystemCharset();
+                if (systemCharset != null && systemCharset.displayName() != null) {
+                    info.put("charSet", systemCharset.displayName()); //$NON-NLS-1$
+                }
+            }
 
             if (additionalParams != null && !"".equals(additionalParams) && dbType.toUpperCase().contains("ORACLE")) {
                 additionalParams = additionalParams.replaceAll("&", "\n");//$NON-NLS-1$//$NON-NLS-2$
@@ -98,7 +106,7 @@ public class JDBCDriverLoader {
                         && additionalParams.indexOf(SHUTDOWN_PARAM) == -1) {
                     url = url + SHUTDOWN_PARAM;
                 }
-                // MOD klliu TDQ-4659 sso could not check passed.2012-02-10           
+                // MOD klliu TDQ-4659 sso could not check passed.2012-02-10
                 if (dbType.equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
                     connection = ConnectionUtils.createConnection(url, (Driver) (driver.newInstance()), info);
                 } else {

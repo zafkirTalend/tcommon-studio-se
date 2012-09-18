@@ -54,8 +54,8 @@ public class CharsetToolkit {
     /**
      * Defines the default <code>Charset</code> used in case the buffer represents an 8-bit <code>Charset</code>.
      * 
-     * @param defaultCharset the default <code>Charset</code> to be returned by <code>guessEncoding()</code> if an
-     * 8-bit <code>Charset</code> is encountered.
+     * @param defaultCharset the default <code>Charset</code> to be returned by <code>guessEncoding()</code> if an 8-bit
+     * <code>Charset</code> is encountered.
      */
     public void setDefaultCharset(Charset defaultCharset) {
         if (defaultCharset != null) {
@@ -297,6 +297,17 @@ public class CharsetToolkit {
      */
     public static Charset getDefaultSystemCharset() {
         return Charset.forName(System.getProperty("file.encoding")); //$NON-NLS-1$
+    }
+
+    /**
+     * DOC ycbai Comment method "getInternalSystemCharset".
+     * 
+     * Retrieve the system charset from "sun.jnu.encoding" property.
+     * 
+     * @return
+     */
+    public static Charset getInternalSystemCharset() {
+        return Charset.forName(System.getProperty("sun.jnu.encoding")); //$NON-NLS-1$
     }
 
     /**
