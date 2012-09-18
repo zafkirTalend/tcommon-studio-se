@@ -419,7 +419,7 @@ public final class ProjectManager {
         }
     }
 
-    public boolean enableSpecialTechnicalProjectName() {
+    public static boolean enableSpecialTechnicalProjectName() {
         // FIXME TDI-21185, add the function to enable disabling this function.
         return TalendPropertiesUtil.isEnabledMultiBranchesInWorkspace();
     }
@@ -432,7 +432,7 @@ public final class ProjectManager {
      * @return
      */
 
-    public String getLocalTechnicalProjectName(String projectLabel) {
+    public static String getLocalTechnicalProjectName(String projectLabel) {
         if (projectLabel != null) {
             String technicalName = getTechnicalProjectLabel(projectLabel);
             if (enableSpecialTechnicalProjectName()) {
@@ -443,7 +443,7 @@ public final class ProjectManager {
         return null;
     }
 
-    public String getTechnicalProjectLabel(String lable) {
+    public static String getTechnicalProjectLabel(String lable) {
         String projectLabel = lable;
         if (projectLabel != null) {
             // TDI-6044
@@ -463,7 +463,7 @@ public final class ProjectManager {
      * @param project
      * @return
      */
-    public String getProjectDisplayLabel(org.talend.core.model.properties.Project project) {
+    public static String getProjectDisplayLabel(org.talend.core.model.properties.Project project) {
         if (project != null) {
             if (project.getLabel().equals(project.getTechnicalLabel())) {
                 return project.getLabel();

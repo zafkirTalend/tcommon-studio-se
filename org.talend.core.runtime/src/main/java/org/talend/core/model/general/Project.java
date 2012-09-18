@@ -179,7 +179,7 @@ public class Project {
      * @return
      */
     public static String createTechnicalName(String name) {
-        return ProjectManager.getInstance().getLocalTechnicalProjectName(name);
+        return ProjectManager.getLocalTechnicalProjectName(name);
     }
 
     public org.talend.core.model.properties.Project getEmfProject() {
