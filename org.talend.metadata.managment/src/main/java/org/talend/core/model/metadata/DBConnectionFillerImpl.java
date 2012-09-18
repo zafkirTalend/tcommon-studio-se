@@ -147,7 +147,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     && dbconn.getDriverClass() != null
                     && dbconn.getDriverClass().equals(EDatabase4DriverClassName.HIVE.getDriverClass());
             if (!isHive && !isHiveJdbc) {
-                TdSoftwareSystem softwareSystem = MetadataConnectionUtils.getSoftwareSystem(sqlConnection);
+                TdSoftwareSystem softwareSystem = ConnectionHelper.getSoftwareSystem(sqlConnection);
                 if (softwareSystem != null) {
                     ConnectionHelper.setSoftwareSystem(dbconn, softwareSystem);
                 }
