@@ -18,14 +18,18 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.eclipse.jface.window.Window;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.core.database.conn.DatabaseConnStrUtil;
 import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.ui.wizards.metadata.ContextSetsSelectionDialog;
@@ -79,6 +83,13 @@ public class SwitchContextGroupNameImpl implements ISwitchContext {
                 }
             }
             con.setContextName(selectedContext);
+            if (con instanceof DatabaseConnection) {
+                DatabaseConnection dbConn = (DatabaseConnection) connItem.getConnection();
+                String newURL = getChangedURL(dbConn, selectedContext);
+                dbConn.setURL(newURL);
+                ConnectionHelper.setUsingURL(dbConn, newURL);
+            }
+
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             try {
                 factory.save(connItem);
@@ -88,6 +99,29 @@ public class SwitchContextGroupNameImpl implements ISwitchContext {
             return true;
         }
         return false;
+    }
+
+    /**
+     * change the URL according to selected context Added yyin 20120918 TDQ-5668
+     * 
+     * @param connItem
+     * @param con
+     * @param selectedContext
+     */
+    private String getChangedURL(DatabaseConnection dbConn, String selectedContext) {
+        ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(dbConn, selectedContext, false);
+        String server = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getServerName());
+        String username = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getUsername());
+        String password = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getRawPassword());
+        String port = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getPort());
+        String sidOrDatabase = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getSID());
+        String datasource = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getDatasourceName());
+        String filePath = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getFileFieldName());
+        String dbRootPath = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getDBRootPath());
+        String additionParam = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getAdditionalParams());
+
+        return DatabaseConnStrUtil.getURLString(dbConn.getDatabaseType(), dbConn.getDbVersionString(), server, username,
+                password, port, sidOrDatabase, filePath.toLowerCase(), datasource, dbRootPath, additionParam);
     }
 
     /*
