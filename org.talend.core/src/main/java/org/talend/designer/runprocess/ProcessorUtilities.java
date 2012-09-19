@@ -690,19 +690,17 @@ public class ProcessorUtilities {
             // handle subjob in joblet. see bug 004937: tRunJob in a Joblet
             List<? extends INode> graphicalNodes = currentProcess.getGeneratingNodes();
             for (INode node : graphicalNodes) {
-				String componentName = node.getComponent().getName();
-				if ((node != null)
-						&& (componentName.equals("tRunJob") || componentName
-								.equals("cTalendJob"))) { //$NON-NLS-1$
-					// if the cTalendJob is configured by external Jar, then ignore it
-					if("cTalendJob".equals(componentName)){
-						IElementParameter fromExternal = node.getElementParameter("FROM_EXTERNAL_JAR");
-						Object value = fromExternal.getValue();
-						if(value!=null && "true".equals(value.toString())){
-							continue;
-						}
-					}
-					
+                String componentName = node.getComponent().getName();
+                if ((node != null) && (componentName.equals("tRunJob") || componentName.equals("cTalendJob"))) { //$NON-NLS-1$
+                    // if the cTalendJob is configured by external Jar, then ignore it
+                    if ("cTalendJob".equals(componentName)) {
+                        IElementParameter fromExternal = node.getElementParameter("FROM_EXTERNAL_JAR");
+                        Object value = fromExternal.getValue();
+                        if (value != null && "true".equals(value.toString())) {
+                            continue;
+                        }
+                    }
+
                     IElementParameter processIdparam = node.getElementParameter("PROCESS_TYPE_PROCESS"); //$NON-NLS-1$
                     // feature 19312
                     String jobIds = (String) processIdparam.getValue();
@@ -748,6 +746,7 @@ public class ProcessorUtilities {
                                 } else {
                                     generateCode(subJobInfo, selectedContextName, statistics, false, true, GENERATE_ALL_CHILDS,
                                             progressMonitor);
+                                    currentProcess.setNeedRegenerateCode(true);
                                 }
                                 LastGenerationInfo
                                         .getInstance()
