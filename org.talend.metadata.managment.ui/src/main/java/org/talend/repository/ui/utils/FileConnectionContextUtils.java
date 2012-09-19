@@ -246,7 +246,7 @@ public final class FileConnectionContextUtils {
         if (fileConn == null) {
             return null;
         }
-        ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(shell, fileConn, null, defaultContext);
+        ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(shell, fileConn, defaultContext);
         return cloneOriginalValueConnection(fileConn, contextType);
     }
 

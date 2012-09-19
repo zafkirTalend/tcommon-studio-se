@@ -265,6 +265,7 @@ public class DelimitedFileStep3Form extends AbstractDelimitedFileStepForm {
                     if (MessageDialog.openConfirm(getShell(), Messages.getString("FileStep3.guessConfirmation"), Messages //$NON-NLS-1$
                             .getString("FileStep3.guessConfirmationMessage"))) { //$NON-NLS-1$
                         runShadowProcess();
+                        ConnectionContextHelper.selectedContextString = null;
                     }
                     return;
                 }
@@ -428,8 +429,7 @@ public class DelimitedFileStep3Form extends AbstractDelimitedFileStepForm {
         if (super.isVisible()) {
             DelimitedFileConnection originalValueConnection = getOriginalValueConnection();
             if (originalValueConnection.getFilePath() != null && (!originalValueConnection.getFilePath().equals("")) //$NON-NLS-1$
-                    && new File(originalValueConnection.getFilePath()).exists())
-            {
+                    && new File(originalValueConnection.getFilePath()).exists()) {
                 runShadowProcess();
             }
 
