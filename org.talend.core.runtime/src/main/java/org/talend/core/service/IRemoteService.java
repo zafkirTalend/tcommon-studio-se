@@ -24,4 +24,6 @@ import org.talend.json.JSONObject;
 public interface IRemoteService extends IService {
 
     public JSONObject getArchivaObject(User user, String password, String url) throws PersistenceException, LoginException;
+
+    public JSONObject getLicenseKey(String user, String password, String url) throws PersistenceException, LoginException;
 }
