@@ -728,6 +728,7 @@ public class ProcessorUtilities {
                                 } else {
                                     generateCode(subJobInfo, selectedContextName, statistics, false, true, GENERATE_ALL_CHILDS,
                                             progressMonitor);
+                                    currentProcess.setNeedRegenerateCode(true);
                                 }
                                 LastGenerationInfo
                                         .getInstance()
