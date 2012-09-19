@@ -45,6 +45,21 @@ public class HTMLDocUtils {
     }
 
     /**
+     * special Strings handler.
+     * 
+     * @param str <code>String</code>
+     * @return string
+     */
+    public static String handleString(String str) {
+        String special = "Ã";
+        String normal = "Ã";
+        if (str.contains(special)) {
+            str = str.replace(special, normal);
+        }
+        return str;
+    }
+
+    /**
      * Dates handler.
      * 
      * @param date

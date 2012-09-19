@@ -39,7 +39,6 @@ import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
-import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.ui.IJobletProviderService;
 import org.talend.core.ui.images.CoreImageProvider;
 
@@ -288,8 +287,10 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
                     }
                     columnElement.addAttribute("precision", precision); //$NON-NLS-1$
                     columnElement.addAttribute("nullable", HTMLDocUtils.checkString(columnType.isNullable() + "")); //$NON-NLS-1$ //$NON-NLS-2$
-                    columnElement.addAttribute("comment", HTMLDocUtils.checkString(ElementParameterParser.parse(node, columnType //$NON-NLS-1$
-                            .getComment())));
+                    columnElement
+                            .addAttribute(
+                                    "comment", HTMLDocUtils.handleString(HTMLDocUtils.checkString(ElementParameterParser.parse(node, columnType //$NON-NLS-1$
+                                                                            .getComment()))));
                     if (PluginChecker.isDatacertPluginLoaded()) {
                         columnElement.addAttribute(
                                 "relatedentity", HTMLDocUtils.checkString(ElementParameterParser.parse(node, columnType //$NON-NLS-1$
