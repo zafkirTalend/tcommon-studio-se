@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -33,7 +32,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.ui.IEditorPart;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.PersistenceException;
@@ -454,7 +452,7 @@ public class ProcessorUtilities {
             CorePlugin.getDefault().getRunProcessService().updateLibraries(jarList, currentProcess);
             if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA && codeModified) {
                 try {
-                    ((IJavaProject) CorePlugin.getDefault().getRunProcessService().getJavaProject()).getProject().build(
+                    (CorePlugin.getDefault().getRunProcessService().getJavaProject()).getProject().build(
                             IncrementalProjectBuilder.AUTO_BUILD, null);
                 } catch (CoreException e) {
                     throw new ProcessorException(e);
@@ -736,6 +734,7 @@ public class ProcessorUtilities {
                                 } else {
                                     generateCode(subJobInfo, selectedContextName, statistics, false, true, GENERATE_ALL_CHILDS,
                                             progressMonitor);
+                                    currentProcess.setNeedRegenerateCode(true);
                                 }
                                 LastGenerationInfo
                                         .getInstance()
@@ -804,8 +803,7 @@ public class ProcessorUtilities {
             String selectedContextName) {
 
         if (jobInfo.isApplyContextToChildren()) {
-            for (Iterator<? extends INode> iter = currentProcess.getGeneratingNodes().iterator(); iter.hasNext();) {
-                INode node = iter.next();
+            for (INode node : currentProcess.getGeneratingNodes()) {
                 if ((node != null) && node.getComponent().getName().equals("tRunJob")) { //$NON-NLS-1$
                     // the corresponding parameter is
                     // EParameterName.PROCESS_TYPE_CONTEXT
@@ -1120,8 +1118,7 @@ public class ProcessorUtilities {
         IProcessor processor = getProcessor(currentProcess, selectedProcessItem.getProperty(), currentContext);
         String[] cmd = new String[] { processor.getCodePath().removeFirstSegments(1).toString().replace("/", ".") }; //$NON-NLS-1$ //$NON-NLS-2$
         if (codeOptions != null) {
-            for (int i = 0; i < codeOptions.length; i++) {
-                String string = codeOptions[i];
+            for (String string : codeOptions) {
                 if (string != null) {
                     cmd = (String[]) ArrayUtils.add(cmd, string);
                 }
@@ -1279,7 +1276,7 @@ public class ProcessorUtilities {
         sb.append(""); //$NON-NLS-1$
         if (cmd != null && cmd.length > 0) {
             for (String s : cmd) {
-                sb.append(s).append(' '); //$NON-NLS-1$
+                sb.append(s).append(' ');
             }
         }
         String commandStr = CorePlugin.getDefault().getPreferenceStore().getString(ITalendCorePrefConstants.COMMAND_STR);
