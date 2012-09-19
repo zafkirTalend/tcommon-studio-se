@@ -213,7 +213,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
                         public void run() {
                             evaluateTextField();
                         }
-                        
+
                     });
                 }
                 return Status.OK_STATUS;
@@ -1183,5 +1183,9 @@ public abstract class PropertiesWizardPage extends WizardPage {
             return false;
         }
         return isValid;
+    }
+
+    public List<IRepositoryViewObject> getListExistingObjects() {
+        return listExistingObjects;
     }
 }
