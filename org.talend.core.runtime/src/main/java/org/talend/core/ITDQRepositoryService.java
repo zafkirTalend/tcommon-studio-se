@@ -20,7 +20,6 @@ import java.util.Map;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.ui.IViewPart;
 import org.talend.core.model.properties.ConnectionItem;
-import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.repository.model.IRepositoryNode;
@@ -63,9 +62,6 @@ public interface ITDQRepositoryService extends IService {
     public List<Map<String, String>> getPaserRulesFromResources(Object[] rules);
 
     public List<Map<String, String>> getPaserRulesFromRules(Object parser);
-
-    // ADD qiongli 2011-9-13 TDQ-3317
-    public void reloadDatabase(ContextItem contextItem);
 
     // ADD zshen 2012-1-6 TDQ-4384
     public ReturnCode reloadDatabase(ConnectionItem connectionItem);
