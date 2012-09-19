@@ -45,6 +45,21 @@ public class HTMLDocUtils {
     }
 
     /**
+     * special Strings handler.
+     * 
+     * @param str <code>String</code>
+     * @return string
+     */
+    public static String handleString(String str) {
+        String special = "Ã";
+        String normal = "Ã";
+        if (str.contains(special)) {
+            str = str.replace(special, normal);
+        }
+        return str;
+    }
+
+    /**
      * Dates handler.
      * 
      * @param date
@@ -73,7 +88,7 @@ public class HTMLDocUtils {
         } catch (Exception e) {
             ExceptionHandler.process(e);
         }
-        tmpFolder = tmpFolder + File.separatorChar + IHTMLDocConstants.TEMP_FOLDER_NAME; //$NON-NLS-1$
+        tmpFolder = tmpFolder + File.separatorChar + IHTMLDocConstants.TEMP_FOLDER_NAME;
         File file = new File(tmpFolder);
         if (!file.exists()) {
             file.mkdirs();
