@@ -213,6 +213,20 @@ public class DeleteAction extends AContextualAction {
                             if (isInDeletedFolder(deletedFolder, node.getParent())) {
                                 continue;
                             }
+                            // TDI-22550
+                            if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
+                                IDesignerCoreService coreService = (IDesignerCoreService) GlobalServiceRegister.getDefault()
+                                        .getService(IDesignerCoreService.class);
+                                IRepositoryViewObject object = node.getObject();
+                                if (coreService != null && object != null && object.getProperty() != null) {
+                                    Item item = object.getProperty().getItem();
+                                    IProcess iProcess = coreService.getProcessFromItem(item);
+                                    if (iProcess != null && iProcess instanceof IProcess2) {
+                                        IProcess2 process = (IProcess2) iProcess;
+                                        process.removeProblems4ProcessDeleted();
+                                    }
+                                }
+                            }
 
                             boolean needReturn = deleteElements(factory, deleteActionCache, node);
                             if (node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.JOBLET) {
@@ -223,18 +237,6 @@ public class DeleteAction extends AContextualAction {
                             }
                             types.add(node.getObjectType());
 
-                            // TDI-22550
-                            IDesignerCoreService coreService = (IDesignerCoreService) GlobalServiceRegister.getDefault()
-                                    .getService(IDesignerCoreService.class);
-                            IRepositoryViewObject object = node.getObject();
-                            if (coreService != null && object != null && object.getProperty() != null) {
-                                Item item = object.getProperty().getItem();
-                                IProcess iProcess = coreService.getProcessFromItem(item);
-                                if (iProcess != null && iProcess instanceof IProcess2) {
-                                    IProcess2 process = (IProcess2) iProcess;
-                                    process.removeProblems4ProcessDeleted();
-                                }
-                            }
                         } else if (node.getType() == ENodeType.SIMPLE_FOLDER) {
                             FolderItem folderItem = (FolderItem) node.getObject().getProperty().getItem();
                             if (node.getChildren().size() > 0 && !folderItem.getState().isDeleted()) {
@@ -583,14 +585,16 @@ public class DeleteAction extends AContextualAction {
         } else {
             IRepositoryViewObject objToDelete = repositoryNode.getObject();
             // TDI-22550
-            IDesignerCoreService coreService = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
-                    IDesignerCoreService.class);
-            if (coreService != null && objToDelete != null && objToDelete.getProperty() != null) {
-                Item item = objToDelete.getProperty().getItem();
-                IProcess iProcess = coreService.getProcessFromItem(item);
-                if (iProcess != null && iProcess instanceof IProcess2) {
-                    IProcess2 process = (IProcess2) iProcess;
-                    process.removeProblems4ProcessDeleted();
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
+                IDesignerCoreService coreService = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                        IDesignerCoreService.class);
+                if (coreService != null && objToDelete != null && objToDelete.getProperty() != null) {
+                    Item item = objToDelete.getProperty().getItem();
+                    IProcess iProcess = coreService.getProcessFromItem(item);
+                    if (iProcess != null && iProcess instanceof IProcess2) {
+                        IProcess2 process = (IProcess2) iProcess;
+                        process.removeProblems4ProcessDeleted();
+                    }
                 }
             }
             factory.deleteObjectLogical(objToDelete);
