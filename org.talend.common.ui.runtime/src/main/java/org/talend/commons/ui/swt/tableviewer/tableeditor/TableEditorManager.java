@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.collections.set.MapBackedSet;
-import org.eclipse.jface.viewers.ILazyContentProvider;
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -223,44 +222,40 @@ public class TableEditorManager {
             return;
         }
 
-        if (!(tableViewerCreator.getContentProvider() instanceof ILazyContentProvider)) {
-            TableItem[] items = tableViewerCreator.getTable().getItems();
+        TableItem[] items = tableViewerCreator.getTable().getItems();
 
-            List<TableEditor> addedTableEditor = new ArrayList<TableEditor>();
+        List<TableEditor> addedTableEditor = new ArrayList<TableEditor>();
 
-            for (TableItem item : items) {
-                TableItem tableItem = item;
-                if (previousItemsHash == null || !previousItemsHash.contains(tableItem)) {
+        for (TableItem item : items) {
+            TableItem tableItem = item;
+            if (previousItemsHash == null || !previousItemsHash.contains(tableItem)) {
 
-                    for (int iEditorCol = 0; iEditorCol < columnsWithEditorContent.size(); iEditorCol++) {
-                        TableViewerCreatorColumnNotModifiable column = columnsWithEditorContent.get(iEditorCol);
+                for (int iEditorCol = 0; iEditorCol < columnsWithEditorContent.size(); iEditorCol++) {
+                    TableViewerCreatorColumnNotModifiable column = columnsWithEditorContent.get(iEditorCol);
 
-                        TableEditorContentNotModifiable tableEditorContent = column.getTableEditorContent();
+                    TableEditorContentNotModifiable tableEditorContent = column.getTableEditorContent();
 
-                        String idProperty = column.getId();
+                    String idProperty = column.getId();
 
-                        TableEditor tableEditor = addTableEditor(column, tableEditorContent, idProperty, tableItem);
-                        if (tableEditor != null) {
-                            addedTableEditor.add(tableEditor);
-                        }
-
+                    TableEditor tableEditor = addTableEditor(column, tableEditorContent, idProperty, tableItem);
+                    if (tableEditor != null) {
+                        addedTableEditor.add(tableEditor);
                     }
+
                 }
             }
-
-            for (int i = indexStart; i < items.length; i++) {
-                TableItem tableItem = items[i];
-                Object data = tableItem.getData();
-                Collection<TableEditor> tableEditorCollection = dataToMultipleDataEditor.getCollection(data);
-                for (TableEditor tableEditor : tableEditorCollection) {
-                    tableEditor.setItem(tableItem);
-                }
-            }
-
-            previousItemsHash = new HashSet<TableItem>(Arrays.asList(items));
-        } else {
-            refreshColumn(indexStart);
         }
+
+        for (int i = indexStart; i < items.length; i++) {
+            TableItem tableItem = items[i];
+            Object data = tableItem.getData();
+            Collection<TableEditor> tableEditorCollection = dataToMultipleDataEditor.getCollection(data);
+            for (TableEditor tableEditor : tableEditorCollection) {
+                tableEditor.setItem(tableItem);
+            }
+        }
+
+        previousItemsHash = new HashSet<TableItem>(Arrays.asList(items));
     }
 
     private void handleRemovedEvent(final ListenableListEvent event) {
@@ -358,7 +353,7 @@ public class TableEditorManager {
 
     public void refreshColumn(int index) {
         Table table = tableViewerCreator.getTable();
-        if (table.isDisposed()) {
+        if (table.isDisposed() || index >= table.getItems().length) {
             return;
         }
         for (int iEditorCol = 0; iEditorCol < columnsWithEditorContent.size(); iEditorCol++) {

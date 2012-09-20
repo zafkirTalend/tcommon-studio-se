@@ -16,7 +16,6 @@ import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.gef.commands.CommandStack;
-import org.eclipse.jface.viewers.ILazyContentProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
@@ -374,41 +373,36 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
 
                 }).start();
             } else {
-
-                if (event.type == TYPE.ADDED) {
-                    if (tableViewer.getContentProvider() instanceof ILazyContentProvider) {
-                        tableViewer.setItemCount(event.source.size());
-                    }
+                if (tableViewerCreator.isLazyLoad()) {
                     tableViewer.refresh();
-
-                } else if (event.type == TYPE.SWAPED) {
-
-                    // tableViewer.refresh();
-
-                    Object[] swapedObjects = event.swapedObjects;
-
-                    for (Object data : swapedObjects) {
-                        tableViewer.refresh(data, true, true);
-                    }
-
-                } else if (event.type == TYPE.REMOVED) {
-
-                    // if(event.index != null) {
-                    // tableViewerCreator.getSelectionHelper().select(event.index);
-                    // } else if(event.indicesOrigin != null) {
-                    // Integer startIndex = event.indicesOrigin.get(0);
-                    // tableViewerCreator.getSelectionHelper().select(startIndex);
-                    // }
-
-                    // Collection<B> addedObjects = event.addedObjects;
-                    // for (B bean : addedObjects) {
-                    // tableViewer.refresh(bean);
-                    // }
                 } else {
-                    if (tableViewer.getContentProvider() instanceof ILazyContentProvider) {
-                        tableViewer.setItemCount(event.source.size());
+                    if (event.type == TYPE.ADDED) {
+                    } else if (event.type == TYPE.SWAPED) {
+
+                        // tableViewer.refresh();
+
+                        Object[] swapedObjects = event.swapedObjects;
+
+                        for (Object data : swapedObjects) {
+                            tableViewer.refresh(data, true, true);
+                        }
+
+                    } else if (event.type == TYPE.REMOVED) {
+
+                        // if(event.index != null) {
+                        // tableViewerCreator.getSelectionHelper().select(event.index);
+                        // } else if(event.indicesOrigin != null) {
+                        // Integer startIndex = event.indicesOrigin.get(0);
+                        // tableViewerCreator.getSelectionHelper().select(startIndex);
+                        // }
+
+                        // Collection<B> addedObjects = event.addedObjects;
+                        // for (B bean : addedObjects) {
+                        // tableViewer.refresh(bean);
+                        // }
+                    } else {
+                        tableViewer.refresh();
                     }
-                    tableViewer.refresh();
                 }
 
             }
