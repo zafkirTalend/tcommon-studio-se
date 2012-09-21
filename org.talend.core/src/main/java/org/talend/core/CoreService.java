@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -153,7 +152,7 @@ public class CoreService implements ICoreService {
      * 
      * @see org.talend.core.ICoreService#getRoutineAndJars()
      */
-    public Map<String, List<URI>> getRoutineAndJars() {
+    public Map<String, List<String>> getRoutineAndJars() {
         return RoutineLibraryMananger.getInstance().getRoutineAndJars();
     }
 

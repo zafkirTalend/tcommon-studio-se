@@ -14,7 +14,9 @@ package org.talend.librariesmanager.model;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -40,6 +42,7 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.routines.RoutineLibraryMananger;
 import org.talend.core.model.routines.RoutinesUtil;
 import org.talend.designer.core.model.utils.emf.component.IMPORTType;
 import org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType;
@@ -287,6 +290,23 @@ public class ModulesNeededProvider {
                 }
             }
         }
+
+        // add modules which internal system routine(which under system folder and don't have item) need.
+        if (system) {
+            Map<String, List<String>> routineAndJars = RoutineLibraryMananger.getInstance().getRoutineAndJars();
+            Iterator<Map.Entry<String, List<String>>> iter = routineAndJars.entrySet().iterator();
+            while (iter.hasNext()) {
+                Map.Entry<String, List<String>> entry = iter.next();
+                String routineName = entry.getKey();
+                List<String> needJars = entry.getValue();
+                for (String jar : needJars) {
+                    ModuleNeeded toAdd = new ModuleNeeded("Routine " + routineName, jar, //$NON-NLS-1$
+                            "", true);
+                    importNeedsList.add(toAdd);
+                }
+            }
+        }
+
         return importNeedsList;
     }
 

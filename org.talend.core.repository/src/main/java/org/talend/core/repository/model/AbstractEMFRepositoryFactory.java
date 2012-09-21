@@ -14,7 +14,6 @@ package org.talend.core.repository.model;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -401,7 +400,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         }
 
         List<IRepositoryViewObject> repositoryObjects = getAll(project, ERepositoryObjectType.ROUTINES, false, false);
-        Map<String, List<URI>> routineAndJars = coreSerivce.getRoutineAndJars();
+        Map<String, List<String>> routineAndJars = coreSerivce.getRoutineAndJars();
         for (URL url : routines) {
             String[] fragments = url.toString().split("/"); //$NON-NLS-1$
             String label = fragments[fragments.length - 1];
@@ -509,7 +508,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
      * @param url
      * @throws PersistenceException
      */
-    private void createRoutine(URL url, IPath path, String label, List<URI> neededJars) throws PersistenceException {
+    private void createRoutine(URL url, IPath path, String label, List<String> neededJars) throws PersistenceException {
         if (url == null) {
             throw new IllegalArgumentException();
         }
@@ -533,13 +532,12 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
             routineItem.setContent(byteArray);
             routineItem.setBuiltIn(true);
             if (neededJars != null) {
-                for (URI jar : neededJars) {
+                for (String jar : neededJars) {
                     IMPORTType type = ComponentFactory.eINSTANCE.createIMPORTType();
                     type.setMESSAGE("");
                     type.setNAME(label);
                     type.setREQUIRED(true);
-                    type.setMODULE(new Path(jar.getPath()).lastSegment());
-                    type.setUrlPath(jar.getPath());
+                    type.setMODULE(jar);
                     routineItem.getImports().add(type);
                 }
             }

@@ -14,14 +14,11 @@ package org.talend.librariesmanager.model.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
@@ -194,12 +191,14 @@ public class JavaLibrariesService extends AbstractLibrariesService {
             }
 
             // 3. system routine libraries
-            Map<String, List<URI>> routineAndJars = RoutineLibraryMananger.getInstance().getRoutineAndJars();
-            Iterator<Entry<String, List<URI>>> rjsIter = routineAndJars.entrySet().iterator();
-            while (rjsIter.hasNext()) {
-                Map.Entry<String, List<URI>> entry = rjsIter.next();
-                repositoryBundleService.deploy(entry.getValue(), monitorWrap);
-            }
+            // Map<String, List<URI>> routineAndJars = RoutineLibraryMananger.getInstance().getRoutineAndJars();
+            // Iterator<Entry<String, List<URI>>> rjsIter = routineAndJars.entrySet().iterator();
+            // while (rjsIter.hasNext()) {
+            // Map.Entry<String, List<URI>> entry = rjsIter.next();
+            // repositoryBundleService.deploy(entry.getValue(), monitorWrap);
+            // }
+            // 3. deploy system routine libraries
+            RoutineLibraryMananger.getInstance().initializeSystemLibs();
 
             // 4. check in the libs directory of the project and add the jar with other ones.
             syncLibrariesFromLibs(monitorWrap);

@@ -95,4 +95,43 @@
             uri="www.talend.com/librariesindex">
       </package>
    </extension>
+   <extension
+         point="org.talend.core.systemRoutineLibrary">
+      <systemRoutine
+            name="Document">
+         <library
+               name="dom4j-1.6.1.jar">
+         </library>
+      </systemRoutine>
+      <systemRoutine
+            name="DocumentHelper">
+         <library
+               name="dom4j-1.6.1.jar">
+         </library>
+      </systemRoutine>
+      <systemRoutine
+            name="DocumentToFlat">
+         <library
+               name="dom4j-1.6.1.jar">
+         </library>
+      </systemRoutine>
+      <systemRoutine
+            name="NameSpaceTool">
+         <library
+               name="dom4j-1.6.1.jar">
+         </library>
+      </systemRoutine>
+      <systemRoutine
+            name="ParserUtils">
+         <library
+               name="dom4j-1.6.1.jar">
+         </library>
+      </systemRoutine>
+      <systemRoutine
+            name="TalendMDMJob">
+         <library
+               name="dom4j-1.6.1.jar">
+         </library>
+      </systemRoutine>
+   </extension>
 </plugin>
