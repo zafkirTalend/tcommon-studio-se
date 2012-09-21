@@ -18,7 +18,7 @@
       </annotation>
       <complexType>
          <sequence minOccurs="0" maxOccurs="unbounded">
-            <element ref="libraryNeeded"/>
+            <element ref="systemRoutine"/>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -47,26 +47,27 @@
       </complexType>
    </element>
 
-   <element name="libraryNeeded">
+   <element name="systemRoutine">
       <complexType>
-         <attribute name="routineName" type="string">
+         <sequence minOccurs="0" maxOccurs="unbounded">
+            <element ref="library"/>
+         </sequence>
+         <attribute name="name" type="string">
             <annotation>
                <documentation>
                   
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="moduleName" type="string">
+      </complexType>
+   </element>
+
+   <element name="library">
+      <complexType>
+         <attribute name="name" type="string" use="required">
             <annotation>
                <documentation>
-                  
-               </documentation>
-            </annotation>
-         </attribute>
-         <attribute name="language" type="string">
-            <annotation>
-               <documentation>
-                  
+                  The name of library.
                </documentation>
             </annotation>
          </attribute>

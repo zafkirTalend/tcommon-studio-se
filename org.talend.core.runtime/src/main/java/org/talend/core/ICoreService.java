@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.core;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
@@ -61,7 +60,7 @@ public interface ICoreService extends IService {
 
     public boolean getContextFlagFromQueryUtils();
 
-    public Map<String, List<URI>> getRoutineAndJars();
+    public Map<String, List<String>> getRoutineAndJars();
 
     public String getTemplateString();
 
