@@ -14,14 +14,11 @@ package org.talend.librariesmanager.model.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
@@ -91,6 +88,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
      * 
      * @see org.talend.core.model.general.ILibrariesService#getSqlPatternTemplate()
      */
+    @Override
     public URL getSqlPatternTemplate() {
         return Activator.BUNDLE.getEntry("resources/java/" + SOURCE_SQLPATTERN_FOLDER + "/__TEMPLATE__" + TEMPLATE_SUFFIX); //$NON-NLS-1$ //$NON-NLS-2$
     }
@@ -100,6 +98,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
      * 
      * @see org.talend.core.model.general.ILibrariesService#getSystemRoutines()
      */
+    @Override
     public List<URL> getSystemRoutines() {
         List<URL> toReturn = new ArrayList<URL>();
 
@@ -109,6 +108,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         return toReturn;
     }
 
+    @Override
     public List<URL> getSystemSQLPatterns() {
         return FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/java/" + SOURCE_SQLPATTERN_FOLDER, //$NON-NLS-1$
                 SQLPATTERN_FILE_SUFFIX, false, true);
@@ -119,6 +119,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
      * 
      * @see org.talend.core.model.general.ILibrariesService#getTalendRoutines()
      */
+    @Override
     public List<URL> getTalendRoutinesFolder() throws IOException {
         List<URL> toReturn = new ArrayList<URL>();
 
@@ -129,6 +130,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         return toReturn;
     }
 
+    @Override
     public List<URL> getTalendBeansFolder() throws IOException {
         List<URL> toReturn = new ArrayList<URL>();
 
@@ -139,6 +141,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         return toReturn;
     }
 
+    @Override
     public List<URL> getTalendRoutines() {
         List<URL> toReturn = new ArrayList<URL>();
         for (IRoutinesProvider routineProvider : RoutineProviderManager.getInstance().getProviders(ECodeLanguage.JAVA)) {
@@ -169,6 +172,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         }
     }
 
+    @Override
     public void syncLibraries(IProgressMonitor... monitorWrap) {
         try {
             // 1. Talend libraries:
@@ -181,7 +185,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
             }
             // Add a new system file, if exists, means all components libs are already setup, so no need to do again.
             // if clean the component cache, it will automatically recheck all libs still.
-            if (!repositoryBundleService.isInitialized()) { //$NON-NLS-1$
+            if (!repositoryBundleService.isInitialized()) {
                 // 2. Components libraries
                 IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
                         IComponentsService.class);
@@ -194,12 +198,14 @@ public class JavaLibrariesService extends AbstractLibrariesService {
             }
 
             // 3. system routine libraries
-            Map<String, List<URI>> routineAndJars = RoutineLibraryMananger.getInstance().getRoutineAndJars();
-            Iterator<Entry<String, List<URI>>> rjsIter = routineAndJars.entrySet().iterator();
-            while (rjsIter.hasNext()) {
-                Map.Entry<String, List<URI>> entry = rjsIter.next();
-                repositoryBundleService.deploy(entry.getValue(), monitorWrap);
-            }
+            // Map<String, List<URI>> routineAndJars = RoutineLibraryMananger.getInstance().getRoutineAndJars();
+            // Iterator<Entry<String, List<URI>>> rjsIter = routineAndJars.entrySet().iterator();
+            // while (rjsIter.hasNext()) {
+            // Map.Entry<String, List<URI>> entry = rjsIter.next();
+            // repositoryBundleService.deploy(entry.getValue(), monitorWrap);
+            // }
+            // 3. deploy system routine libraries
+            RoutineLibraryMananger.getInstance().initializeSystemLibs();
 
             // 4. check in the libs directory of the project and add the jar with other ones.
             syncLibrariesFromLibs(monitorWrap);
@@ -292,6 +298,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
      * 
      * @see org.talend.core.model.general.ILibrariesService#isLibSynchronized()
      */
+    @Override
     public boolean isLibSynchronized() {
         return this.isLibSynchronized;
 
@@ -302,6 +309,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
      * 
      * @see org.talend.core.model.general.ILibrariesService#getPerlLibrariesPath()
      */
+    @Override
     public String getPerlLibrariesPath() {
         // TODO Auto-generated method stub
         return null;
@@ -314,6 +322,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
      * org.talend.core.model.general.ILibrariesService#syncLibrariesFromLibs(org.eclipse.core.runtime.IProgressMonitor
      * [])
      */
+    @Override
     public void syncLibrariesFromLibs(IProgressMonitor... monitorWrap) {
         // for feature 12877
         if (PluginChecker.isSVNProviderPluginLoaded()) {
