@@ -31,6 +31,7 @@ import org.talend.core.model.general.ILibrariesService.IChangedLibrariesListener
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.service.ILibrariesPerlService;
 import org.talend.librariesmanager.ui.actions.CheckModulesAction;
+import org.talend.librariesmanager.ui.actions.DownloadExternalJarAction;
 import org.talend.librariesmanager.ui.actions.ImportExternalJarAction;
 import org.talend.librariesmanager.ui.actions.RemoveExternalJarAction;
 
@@ -73,6 +74,7 @@ public class ModulesView extends ViewPart {
 
         changedLibrariesListener = new IChangedLibrariesListener() {
 
+            @Override
             public void afterChangingLibraries() {
                 modulesViewComposite.refresh();
             }
@@ -126,6 +128,8 @@ public class ModulesView extends ViewPart {
             manager.add(removeAction);
             ImportExternalJarAction importAction = new ImportExternalJarAction();
             manager.add(importAction);
+            DownloadExternalJarAction downloadAcion = new DownloadExternalJarAction();
+            manager.add(downloadAcion);
             return;
         }
         case PERL: {

@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -29,6 +30,9 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EMap;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
+import org.talend.commons.CommonsPlugin;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
@@ -37,6 +41,7 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.IComponentsService;
 import org.talend.librariesmanager.emf.librariesindex.LibrariesIndex;
 import org.talend.librariesmanager.prefs.PreferencesUtilities;
+import org.talend.librariesmanager.utils.ModulesInstaller;
 
 /**
  * DOC ycbai class global comment. Detailled comment
@@ -183,6 +188,11 @@ public class LocalLibraryManager implements ILibraryManagerService {
      */
     @Override
     public boolean retrieve(String jarNeeded, String pathToStore, IProgressMonitor... monitorWrap) {
+        return retrieve(jarNeeded, pathToStore, true, monitorWrap);
+    }
+
+    private boolean retrieve(String jarNeeded, String pathToStore, boolean popUp, IProgressMonitor... monitorWrap) {
+
         LibrariesIndexManager.getInstance().loadResource();
         String sourcePath = null, targetPath = pathToStore;
         try {
@@ -201,9 +211,6 @@ public class LocalLibraryManager implements ILibraryManagerService {
             else {
                 EMap<String, String> jarsToRelative = LibrariesIndexManager.getInstance().getIndex().getJarsToRelativePath();
                 String relativePath = jarsToRelative.get(jarNeeded);
-                if (relativePath == null) {
-                    return false;
-                }
                 String bundleLocation = "";
                 String jarLocation = "";
                 IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
@@ -211,23 +218,36 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 Map<String, File> componentsFolders = service.getComponentsFactory().getComponentsProvidersFolder();
                 Set<String> contributeIdSet = componentsFolders.keySet();
                 boolean jarFound = false;
-                for (String contributor : contributeIdSet) {
-                    if (relativePath.contains(contributor)) {
-                        // caculate the the absolute path of the jar
-                        bundleLocation = componentsFolders.get(contributor).getAbsolutePath();
-                        int index = bundleLocation.indexOf(contributor);
-                        jarLocation = new Path(bundleLocation.substring(0, index)).append(relativePath).toPortableString();
-                        jarFound = true;
-                        break;
+                if (relativePath != null) {
+                    for (String contributor : contributeIdSet) {
+                        if (relativePath.contains(contributor)) {
+                            // caculate the the absolute path of the jar
+                            bundleLocation = componentsFolders.get(contributor).getAbsolutePath();
+                            int index = bundleLocation.indexOf(contributor);
+                            jarLocation = new Path(bundleLocation.substring(0, index)).append(relativePath).toPortableString();
+                            jarFound = true;
+                            break;
+                        }
                     }
                 }
                 sourcePath = jarLocation;
+
+                if (!jarFound && popUp && !CommonsPlugin.isHeadless()) {
+                    Shell shell = Display.getCurrent().getActiveShell();
+                    Collection<String> installModules = ModulesInstaller.installModules(new Shell(shell),
+                            new String[] { jarNeeded });
+                    if (installModules != null && !installModules.isEmpty()) {
+                        sourcePath = getStorageDirectory() + File.separator + jarNeeded;
+                        jarFound = true;
+                    }
+                }
+
                 if (!jarFound) {
                     ExceptionHandler.process(new Exception("Jar: " + jarNeeded + " not found, not in the plugins available:"
                             + contributeIdSet));
                     return false;
                 }
-                FilesUtils.copyFile(new File(jarLocation), new File(pathToStore, jarNeeded));
+                FilesUtils.copyFile(new File(sourcePath), new File(pathToStore, jarNeeded));
                 return true;
             }
         } catch (MalformedURLException e) {
@@ -236,6 +256,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
             ExceptionHandler.process(new Exception("Can not copy: " + sourcePath + " to :" + targetPath, e));
         }
         return false;
+
     }
 
     /*
@@ -249,12 +270,27 @@ public class LocalLibraryManager implements ILibraryManagerService {
         if (jarsNeeded == null || jarsNeeded.size() == 0) {
             return false;
         }
+        List<String> jarNotFound = new ArrayList<String>();
+
         boolean allIsOK = true;
         for (String jar : jarsNeeded) {
-            if (!retrieve(jar, pathToStore, monitorWrap)) {
+            if (!retrieve(jar, pathToStore, false, monitorWrap)) {
+                jarNotFound.add(jar);
                 allIsOK = false;
             }
         }
+        if (!jarNotFound.isEmpty() && !CommonsPlugin.isHeadless()) {
+            Shell shell = Display.getCurrent().getActiveShell();
+            ModulesInstaller.installModules(new Shell(shell), jarNotFound.toArray(new String[jarNotFound.size()]));
+            // retreive again after instlled
+            for (String jar : jarNotFound) {
+                if (!retrieve(jar, pathToStore, false, monitorWrap)) {
+                    jarNotFound.add(jar);
+                    allIsOK = false;
+                }
+            }
+        }
+
         return allIsOK;
     }
 

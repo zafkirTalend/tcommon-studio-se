@@ -24,6 +24,7 @@ Export-Package: org.talend.librariesmanager.model,
  org.talend.librariesmanager.model.service,
  org.talend.librariesmanager.prefs,
  org.talend.librariesmanager.ui.views,
+ org.talend.librariesmanager.utils,
  routines,
  routines.system
 Import-Package: org.eclipse.emf.ecore.xmi.impl

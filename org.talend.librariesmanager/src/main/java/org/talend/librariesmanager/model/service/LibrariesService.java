@@ -77,7 +77,7 @@ public class LibrariesService implements ILibrariesService {
         case PERL:
             return loadPerlLibrariesService();
         default:
-            throw unsupportedOperationException; //$NON-NLS-1$
+            throw unsupportedOperationException;
         }
     }
 
@@ -89,10 +89,17 @@ public class LibrariesService implements ILibrariesService {
         return loadPerlLibrariesService();
     }
 
+    @Override
     public void deployLibrary(URL source) throws IOException {
         this.getLibrariesService().deployLibrary(source);
     }
 
+    @Override
+    public void deployLibrarys(URL[] source) throws IOException {
+        this.getLibrariesService().deployLibrarys(source);
+    }
+
+    @Override
     public String getPerlLibrariesPath() {
         if (this.getPerlLibrariesService() != null) {
             return this.getPerlLibrariesService().getPerlLibrariesPath();
@@ -100,18 +107,22 @@ public class LibrariesService implements ILibrariesService {
         return null;
     }
 
+    @Override
     public ELibraryInstallStatus getLibraryStatus(String libName) throws BusinessException {
         return this.getLibrariesService().getLibraryStatus(libName);
     }
 
+    @Override
     public List<Problem> getProblems(INode node, IElement element) {
         return this.getLibrariesService().getProblems(node, element);
     }
 
+    @Override
     public URL getRoutineTemplate() {
         return this.getLibrariesService().getRoutineTemplate();
     }
 
+    @Override
     public URL getBeanTemplate() {
         return this.getLibrariesService().getBeanTemplate();
     }
@@ -121,42 +132,52 @@ public class LibrariesService implements ILibrariesService {
      * 
      * @see org.talend.core.model.general.ILibrariesService#getSqlPatternTemplate()
      */
+    @Override
     public URL getSqlPatternTemplate() {
         return this.getLibrariesService().getSqlPatternTemplate();
     }
 
+    @Override
     public List<URL> getSystemRoutines() {
         return this.getLibrariesService().getSystemRoutines();
     }
 
+    @Override
     public List<URL> getTalendRoutinesFolder() throws IOException {
         return this.getLibrariesService().getTalendRoutinesFolder();
     }
 
+    @Override
     public List<URL> getTalendBeansFolder() throws IOException {
         return this.getLibrariesService().getTalendBeansFolder();
     }
 
+    @Override
     public List<URL> getTalendRoutines() {
         return this.getLibrariesService().getTalendRoutines();
     }
 
+    @Override
     public void syncLibraries(IProgressMonitor... monitorWrap) {
         this.getLibrariesService().syncLibraries(monitorWrap);
     }
 
+    @Override
     public void checkLibraries() {
         this.getLibrariesService().checkLibraries();
     }
 
+    @Override
     public void addChangeLibrariesListener(IChangedLibrariesListener listener) {
         this.getLibrariesService().addChangeLibrariesListener(listener);
     }
 
+    @Override
     public void removeChangeLibrariesListener(IChangedLibrariesListener listener) {
         this.getLibrariesService().removeChangeLibrariesListener(listener);
     }
 
+    @Override
     public void resetModulesNeeded() {
         this.getLibrariesService().resetModulesNeeded();
     }
@@ -166,6 +187,7 @@ public class LibrariesService implements ILibrariesService {
      * 
      * @see org.talend.core.model.general.ILibrariesService#undeployLibrary(java.net.URL)
      */
+    @Override
     public void undeployLibrary(String path) throws IOException {
         this.getLibrariesService().undeployLibrary(path);
     }
@@ -175,6 +197,7 @@ public class LibrariesService implements ILibrariesService {
      * 
      * @see org.talend.core.model.general.ILibrariesService#isLibSynchronized()
      */
+    @Override
     public boolean isLibSynchronized() {
         return this.getLibrariesService().isLibSynchronized();
     }
@@ -184,6 +207,7 @@ public class LibrariesService implements ILibrariesService {
      * 
      * @see org.talend.core.model.general.ILibrariesService#getSystemSQLPatterns()
      */
+    @Override
     public List<URL> getSystemSQLPatterns() {
         return this.getLibrariesService().getSystemSQLPatterns();
     }
@@ -195,6 +219,7 @@ public class LibrariesService implements ILibrariesService {
      * org.talend.core.model.general.ILibrariesService#resetModulesNeededForCurrentJob(org.talend.core.model.properties
      * .Item)
      */
+    @Override
     public void updateModulesNeededForCurrentJob(IProcess process) {
         this.getLibrariesService().updateModulesNeededForCurrentJob(process);
 
@@ -207,6 +232,7 @@ public class LibrariesService implements ILibrariesService {
      * org.talend.core.model.general.ILibrariesService#syncLibrariesFromLibs(org.eclipse.core.runtime.IProgressMonitor
      * [])
      */
+    @Override
     public void syncLibrariesFromLibs(IProgressMonitor... monitorWrap) {
         this.getLibrariesService().syncLibrariesFromLibs(monitorWrap);
     }

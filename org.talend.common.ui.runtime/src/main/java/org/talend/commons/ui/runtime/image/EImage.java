@@ -115,6 +115,9 @@ public enum EImage implements IImage {
     FONT_COLOR_ICON("/icons/font_color.gif"), //$NON-NLS-1$
     FILL_COLOR_ICON("/icons/fill_color.gif"), //$NON-NLS-1$
 
+    OPEN_IN_BROWSER("/icons/open.gif"), //$NON-NLS-1$
+    DOWNLOAD_MODULE("/icons/download.gif"), //$NON-NLS-1$
+
     COMPONENT_MISSING("/icons/component_missing.gif"), //$NON-NLS-1$
 
     FILTER_DEACTIVED_ICON("/icons/filter_deactivated.png"), //$NON-NLS-1$
@@ -135,6 +138,7 @@ public enum EImage implements IImage {
      * 
      * @return the path
      */
+    @Override
     public String getPath() {
         return this.path;
     }
@@ -144,6 +148,7 @@ public enum EImage implements IImage {
      * 
      * @return the clazz
      */
+    @Override
     public Class getLocation() {
         return EImage.class;
     }

@@ -86,6 +86,10 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
 
     @Override
     public void deployLibrary(URL source) throws IOException {
+        deployLibrary(source, true);
+    }
+
+    private void deployLibrary(URL source, boolean reset) throws IOException {
         LocalLibraryManager repositoryBundleService = (LocalLibraryManager) CorePlugin.getDefault().getRepositoryBundleService();
 
         // fix for bug 0020953
@@ -101,7 +105,24 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         }
 
         ModulesNeededProvider.userAddImportModules(targetFile.getPath(), sourceFile.getName(), ELibraryInstallStatus.INSTALLED);
+        if (reset) {
+            resetAndRefreshLocal(new String[] { sourceFile.getName() });
+        }
 
+    }
+
+    @Override
+    public void deployLibrarys(URL[] source) throws IOException {
+        String[] namse = new String[source.length];
+        for (int i = 0; i < source.length; i++) {
+            URL url = source[i];
+            namse[i] = new File(url.toString()).getName();
+            deployLibrary(url, false);
+        }
+        resetAndRefreshLocal(namse);
+    }
+
+    private void resetAndRefreshLocal(final String names[]) {
         resetModulesNeeded();
 
         // for feature 12877
@@ -116,19 +137,20 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
 
                 @Override
                 public void run() throws PersistenceException {
-
-                    String path = new Path(Platform.getInstanceLocation().getURL().getPath()).toFile().getPath();
-                    path = path + File.separatorChar + projectLabel + File.separatorChar
-                            + ERepositoryObjectType.getFolderName(ERepositoryObjectType.LIBS) + File.separatorChar
-                            + sourceFile.getName();
-                    File libsTargetFile = new File(path);
-
                     try {
-                        FilesUtils.copyFile(sourceFile, libsTargetFile);
+                        for (String name : names) {
+                            String path = new Path(Platform.getInstanceLocation().getURL().getPath()).toFile().getPath();
+                            path = path + File.separatorChar + projectLabel + File.separatorChar
+                                    + ERepositoryObjectType.getFolderName(ERepositoryObjectType.LIBS) + File.separatorChar + name;
+                            File libsTargetFile = new File(path);
+                            File source = new File(PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA) + File.separatorChar
+                                    + name);
+                            FilesUtils.copyFile(source, libsTargetFile);
+                        }
                         eclipseProject.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
-                    } catch (CoreException e1) {
-                        ExceptionHandler.process(e1);
                     } catch (IOException e) {
+                        ExceptionHandler.process(e);
+                    } catch (CoreException e) {
                         ExceptionHandler.process(e);
                     }
                 }

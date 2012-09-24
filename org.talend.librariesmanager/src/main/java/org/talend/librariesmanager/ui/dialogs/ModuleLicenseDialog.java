@@ -1,0 +1,119 @@
+// ============================================================================
+//
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
+//
+// This source code is available under agreement available at
+// %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+//
+// You should have received a copy of the agreement
+// along with this program; if not, write to Talend SA
+// 9 rue Pages 92150 Suresnes, France
+//
+// ============================================================================
+package org.talend.librariesmanager.ui.dialogs;
+
+import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
+import org.talend.librariesmanager.Activator;
+
+/**
+ * created by WCHEN on 2012-9-18 Detailled comment
+ * 
+ */
+public class ModuleLicenseDialog extends Dialog {
+
+    private Browser clufText;
+
+    private String licenseUrl;
+
+    private String licenseType;
+
+    private String description;
+
+    /**
+     * DOC WCHEN ModuleLicenseDialog constructor comment.
+     * 
+     * @param parentShell
+     */
+    public ModuleLicenseDialog(Shell parentShell, String licenseType, String license, String description) {
+        super(parentShell);
+        setShellStyle(SWT.CLOSE | SWT.MAX | SWT.TITLE | SWT.BORDER | SWT.APPLICATION_MODAL | SWT.RESIZE | getDefaultOrientation());
+        this.licenseType = licenseType;
+        this.licenseUrl = license;
+        this.description = description;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.window.Window#configureShell(org.eclipse.swt.widgets.Shell)
+     */
+    @Override
+    protected void configureShell(Shell newShell) {
+        super.configureShell(newShell);
+        newShell.setText("License");
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.dialogs.Dialog#createDialogArea(org.eclipse.swt.widgets.Composite)
+     */
+    @Override
+    protected Control createDialogArea(Composite parent) {
+        ((GridData) parent.getLayoutData()).widthHint = 580;
+        ((GridData) parent.getLayoutData()).heightHint = 400;
+        GridData data = new GridData(GridData.FILL_BOTH);
+        Composite container = new Composite(parent, SWT.NONE);
+        GridLayout layout = new GridLayout();
+        layout.marginTop = 10;
+        layout.marginLeft = 5;
+        layout.marginRight = 5;
+        container.setLayout(layout);
+        container.setLayoutData(data);
+        data = new GridData(GridData.FILL_HORIZONTAL);
+        Label subTitleLabel = new Label(container, SWT.NONE);
+        String desc = "You have to accept the licence of '" + description + "' to continue";
+        subTitleLabel.setText(desc);
+        subTitleLabel.setLayoutData(data);
+
+        clufText = new Browser(container, SWT.MULTI | SWT.WRAP | SWT.LEFT | SWT.BORDER);
+        clufText.setBackground(new Color(null, 255, 255, 255));
+        if (licenseUrl != null) {
+            clufText.setUrl(licenseUrl);
+        } else {
+            clufText.setText(desc);
+        }
+        data = new GridData(GridData.FILL_BOTH);
+        clufText.setLayoutData(data);
+
+        return parent;
+    }
+
+    @Override
+    protected void createButtonsForButtonBar(Composite parent) {
+        super.createButtonsForButtonBar(parent);
+        getButton(IDialogConstants.OK_ID).setText("Accept");
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.dialogs.Dialog#okPressed()
+     */
+    @Override
+    protected void okPressed() {
+        Activator.getDefault().getPreferenceStore().setValue(licenseType, true);
+        super.okPressed();
+    }
+
+}

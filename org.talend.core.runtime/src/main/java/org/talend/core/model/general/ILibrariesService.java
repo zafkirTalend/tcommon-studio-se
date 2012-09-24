@@ -55,6 +55,8 @@ public interface ILibrariesService extends IService {
 
     public void deployLibrary(URL source) throws IOException;
 
+    public void deployLibrarys(URL[] source) throws IOException;
+
     public void undeployLibrary(String jarName) throws IOException;
 
     public URL getRoutineTemplate();
