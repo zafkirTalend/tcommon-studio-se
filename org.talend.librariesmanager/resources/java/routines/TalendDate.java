@@ -5,6 +5,7 @@
 // ============================================================================
 package routines;
 
+import java.text.DateFormat;
 import java.text.FieldPosition;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,6 +16,7 @@ import java.util.TimeZone;
 
 import routines.system.FastDateParser;
 import routines.system.LocaleProvider;
+import routines.system.TalendTimestampWithTZ;
 
 public class TalendDate {
 
@@ -37,8 +39,9 @@ public class TalendDate {
      */
     public static int getPartOfDate(String partName, Date date) {
 
-        if (partName == null || date == null)
+        if (partName == null || date == null) {
             return 0;
+        }
         int ret = 0;
         String[] fieldsName = { "YEAR", "MONTH", "HOUR", "MINUTE", "SECOND", "DAY_OF_WEEK", "DAY_OF_MONTH", "DAY_OF_YEAR",
                 "WEEK_OF_MONTH", "DAY_OF_WEEK_IN_MONTH", "WEEK_OF_YEAR", "TIMEZONE" };
@@ -733,7 +736,16 @@ public class TalendDate {
      */
     public synchronized static Date parseDate(String pattern, String stringDate) {
         try {
-            return FastDateParser.getInstance(pattern).parse(stringDate);
+            DateFormat df = FastDateParser.getInstance(pattern);
+            Date d = df.parse(stringDate);
+            int offset = df.getCalendar().get(Calendar.ZONE_OFFSET);
+            char sign = offset >= 0 ? '+' : '-';
+            int hour = Math.abs(offset) / 1000 / 60 / 60;
+            int min = Math.abs(offset) / 1000 / 60 % 60;
+            String minStr = min < 10 ? "0" + min : min + "";
+            TalendTimestampWithTZ tstz = new TalendTimestampWithTZ(new java.sql.Timestamp(d.getTime()),
+                    TimeZone.getTimeZone("GMT" + sign + hour + ":" + minStr));
+            return tstz;
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
