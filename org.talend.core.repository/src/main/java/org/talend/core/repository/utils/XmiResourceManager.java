@@ -553,7 +553,8 @@ public class XmiResourceManager {
         ResourceFilenameHelper.FileName fileNameTest = ResourceFilenameHelper.create(resourceProperty.eResource(),
                 resourceProperty, lastVersionProperty);
 
-        if (!ResourceFilenameHelper.mustChangeVersion(fileNameTest) && !ResourceFilenameHelper.mustChangeLabel(fileNameTest)) {
+        if (!ResourceFilenameHelper.mustChangeVersion(fileNameTest) && !ResourceFilenameHelper.mustChangeLabel(fileNameTest)
+                && !(resourceProperty.getItem() instanceof JobletProcessItem)) {
             return;
         }
 
@@ -596,6 +597,9 @@ public class XmiResourceManager {
                     moveResource(resource, ResourceFilenameHelper.getExpectedFilePath(fileName, false));
                 }
                 resourcesToSave.add(resource);
+            } else if (resourceProperty.getItem() instanceof JobletProcessItem && resource.getURI().toString().endsWith(".item")) {
+                saveResource(resource);
+                return;
             }
         }
 

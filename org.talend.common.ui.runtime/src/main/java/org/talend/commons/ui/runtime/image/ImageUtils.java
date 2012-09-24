@@ -103,7 +103,7 @@ public class ImageUtils {
      * RAP.
      */
     public static Image scale(Image image, int percent) {
-        float scale = (float) percent / 100f;
+        float scale = percent / 100f;
         int newWidth = (int) (scale * image.getImageData().width);
         int newHeight = (int) (scale * image.getImageData().height);
         ImageData imageData = image.getImageData().scaledTo(newWidth, newHeight);
@@ -118,7 +118,7 @@ public class ImageUtils {
         return image;
     }
 
-    private static Map<String, Image> propertyImgCachedImages = new HashMap<String, Image>();
+    public static Map<String, Image> propertyImgCachedImages = new HashMap<String, Image>();
 
     public static Image propertyLabelScale(String id, Image image, ICON_SIZE size) {
         if (image != null && size != null) {
@@ -201,8 +201,9 @@ public class ImageUtils {
                 if (baos != null) {
                     try {
                         baos.close();
-                        if (img != null && !img.isDisposed())
+                        if (img != null && !img.isDisposed()) {
                             img.dispose();
+                        }
                     } catch (IOException e) {
                         ExceptionHandler.process(e);
                     }
@@ -283,11 +284,11 @@ public class ImageUtils {
             // if width is mort than height.
             if (w > h) {
                 newSize.x = requiredSize.x;
-                newSize.y = (int) (w >= 1 ? Math.round(originalSize.y / w) : Math.round(originalSize.y * w));
+                newSize.y = (w >= 1 ? Math.round(originalSize.y / w) : Math.round(originalSize.y * w));
             }
             // if width is less than height.
             else if (w < h) {
-                newSize.x = (int) (h >= 1 ? Math.round(originalSize.x / h) : Math.round(originalSize.x * h));
+                newSize.x = (h >= 1 ? Math.round(originalSize.x / h) : Math.round(originalSize.x * h));
                 newSize.y = requiredSize.y;
             }
             // if equal
