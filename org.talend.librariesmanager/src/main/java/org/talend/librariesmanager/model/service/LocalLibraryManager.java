@@ -285,7 +285,6 @@ public class LocalLibraryManager implements ILibraryManagerService {
             // retreive again after instlled
             for (String jar : jarNotFound) {
                 if (!retrieve(jar, pathToStore, false, monitorWrap)) {
-                    jarNotFound.add(jar);
                     allIsOK = false;
                 }
             }
