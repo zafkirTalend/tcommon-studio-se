@@ -331,7 +331,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                             if (options.length > 0 && options[0] == true) {
                                 // called from repository view
                                 currentObject = new RepositoryViewObject(property);
-                                ImageUtils.propertyImgCachedImages.clear();
                             } else {
                                 currentObject = new RepositoryObject(property);
                             }
