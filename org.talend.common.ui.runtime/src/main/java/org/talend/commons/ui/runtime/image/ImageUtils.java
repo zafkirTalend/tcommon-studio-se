@@ -118,7 +118,7 @@ public class ImageUtils {
         return image;
     }
 
-    public static Map<String, Image> propertyImgCachedImages = new HashMap<String, Image>();
+    private static Map<String, Image> propertyImgCachedImages = new HashMap<String, Image>();
 
     public static Image propertyLabelScale(String id, Image image, ICON_SIZE size) {
         if (image != null && size != null) {
