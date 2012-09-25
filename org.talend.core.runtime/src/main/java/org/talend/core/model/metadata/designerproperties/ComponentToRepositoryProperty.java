@@ -296,6 +296,11 @@ public class ComponentToRepositoryProperty {
                 connection.setDatabaseType(EDatabaseTypeName.GENERAL_JDBC.getDisplayName());
                 connection.setProductId(EDatabaseTypeName.GENERAL_JDBC.getProduct());
             }
+            // vertica output component have no TYPE ElementParameter .
+            if (para.getRepositoryValue().endsWith(EDatabaseTypeName.VERTICA.getProduct())) {
+                connection.setDatabaseType(EDatabaseTypeName.VERTICA.getDisplayName());
+                connection.setProductId(EDatabaseTypeName.VERTICA.getProduct());
+            }
             return;
         }
         // mysql
@@ -369,12 +374,10 @@ public class ComponentToRepositoryProperty {
             connection.setProductId(EDatabaseTypeName.AS400.getProduct());
         }
         // Vertica
-        // not exist in "DB Type" in Database Connection page.
-        // else if (EDatabaseTypeName.VERTICA.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
-        // connection.setDatabaseType(EDatabaseTypeName.VERTICA.getDisplayName());
-        // connection.setProductId(EDatabaseTypeName.VERTICA.getProduct());
-        // }
-
+        else if (EDatabaseTypeName.VERTICA.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
+            connection.setDatabaseType(EDatabaseTypeName.VERTICA.getDisplayName());
+            connection.setProductId(EDatabaseTypeName.VERTICA.getProduct());
+        }
         // MaxDB
         else if (EDatabaseTypeName.MAXDB.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
             connection.setDatabaseType(EDatabaseTypeName.MAXDB.getDisplayName());
@@ -566,6 +569,9 @@ public class ComponentToRepositoryProperty {
         if (connection.getDatabaseType().equals(EDatabaseTypeName.AS400.getDisplayName())) {
             setDatabaseValueForAs400(connection, node, repositoryValue);
         }
+        if (connection.getDatabaseType().equals(EDatabaseTypeName.VERTICA.getDisplayName())) {
+            setDatabaseValueForVertica(connection, node, repositoryValue);
+        }
         if (connection.getDatabaseType().equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
             setDatabaseValueForMSSql(connection, node, repositoryValue);
         }
@@ -662,6 +668,16 @@ public class ComponentToRepositoryProperty {
             String value = getParameterValue(connection, node, "PROPERTIES"); //$NON-NLS-1$
             if (value != null) {
                 connection.setAdditionalParams(value);
+            }
+        }
+    }
+
+    private static void setDatabaseValueForVertica(DatabaseConnection connection, INode node, String repositoryValue) {
+        if ("DB_VERSION".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(connection, node, "DB_VERSION"); //$NON-NLS-1$
+            String dbVersionName = EDatabaseVersion4Drivers.getDbVersionName(EDatabaseTypeName.VERTICA, value);
+            if (value != null) {
+                connection.setDbVersionString(dbVersionName);
             }
         }
     }
