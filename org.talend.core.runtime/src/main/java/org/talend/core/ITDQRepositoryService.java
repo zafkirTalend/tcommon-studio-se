@@ -60,6 +60,10 @@ public interface ITDQRepositoryService extends IService {
     // MOD klliu 2011-04-28 bug 20204 removing connection is synced to the connection view of SQL explore
     public boolean removeAliasInSQLExplorer(IRepositoryNode children);
 
+    // MOD zshen 2012-09-19 bug TDQ-5850 change the action for create softWareSystemResource, so need to delete it when
+    // connection just be deleted.
+    public boolean removeSoftWareSystem(IRepositoryNode children);
+
     public void createParserRuleItem(ArrayList<HashMap<String, Object>> values, String parserRuleName);
 
     public List<Map<String, String>> getPaserRulesFromResources(Object[] rules);
@@ -77,7 +81,6 @@ public interface ITDQRepositoryService extends IService {
 
     // ADD qiongli 2011-9-13 TDQ-3930
     public boolean confirmUpdateAnalysis(ConnectionItem connectionItem);
-
 
     // ADD zshen 2012-5-9 TDQ-4738
     public int confimDelete(IRepositoryViewObject deleteObject);

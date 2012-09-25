@@ -60,6 +60,7 @@ import orgomg.cwm.resource.relational.Catalog;
 /**
  * DOC Administrator class global comment. Detailled comment
  */
+
 public class RepositoryViewObject implements IRepositoryViewObject {
 
     private IRepositoryNode repositoryNode;
@@ -211,52 +212,42 @@ public class RepositoryViewObject implements IRepositoryViewObject {
 
     }
 
-    @Override
     public User getAuthor() {
         return this.author;
     }
 
-    @Override
     public Date getCreationDate() {
         return this.creationDate;
     }
 
-    @Override
     public String getDescription() {
         return this.description;
     }
 
-    @Override
     public String getId() {
         return this.id;
     }
 
-    @Override
     public Date getModificationDate() {
         return this.modificationDate;
     }
 
-    @Override
     public String getLabel() {
         return this.label;
     }
 
-    @Override
     public String getPurpose() {
         return this.purpose;
     }
 
-    @Override
     public String getStatusCode() {
         return this.statusCode;
     }
 
-    @Override
     public String getVersion() {
         return this.version;
     }
 
-    @Override
     public Property getProperty() {
         exception = null;
         try {
@@ -316,12 +307,10 @@ public class RepositoryViewObject implements IRepositoryViewObject {
         return null;
     }
 
-    @Override
     public ERepositoryObjectType getRepositoryObjectType() {
         return type;
     }
 
-    @Override
     public List<IRepositoryViewObject> getChildren() {
         List<IRepositoryViewObject> toReturn = new ArrayList<IRepositoryViewObject>();
         return toReturn;
@@ -332,7 +321,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
      * 
      * @see org.talend.core.model.repository.IRepositoryObject#getRepositoryNode()
      */
-    @Override
+
     public IRepositoryNode getRepositoryNode() {
         return this.repositoryNode;
     }
@@ -343,7 +332,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
      * @see
      * org.talend.core.model.repository.IRepositoryObject#setRepositoryNode(org.talend.repository.model.RepositoryNode)
      */
-    @Override
+
     public void setRepositoryNode(IRepositoryNode node) {
         this.repositoryNode = node;
 
@@ -482,7 +471,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
      * 
      * @see org.talend.core.model.repository.IRepositoryViewObject#isDeleted()
      */
-    @Override
+
     public boolean isDeleted() {
         return deleted;
     }
@@ -492,7 +481,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
      * 
      * @return the projectLabel
      */
-    @Override
+
     public String getProjectLabel() {
         return this.projectLabel;
     }
@@ -502,7 +491,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
      * 
      * @see org.talend.core.model.repository.IRepositoryViewObject#getPath()
      */
-    @Override
+
     public String getPath() {
         return path;
     }
@@ -512,7 +501,6 @@ public class RepositoryViewObject implements IRepositoryViewObject {
      * 
      * @see org.talend.core.model.repository.IRepositoryViewObject#getInformationStatus()
      */
-    @Override
     public ERepositoryStatus getInformationStatus() {
         return informationStatus;
     }
@@ -522,7 +510,6 @@ public class RepositoryViewObject implements IRepositoryViewObject {
      * 
      * @see org.talend.core.model.repository.IRepositoryViewObject#getRepositoryStatus()
      */
-    @Override
     public ERepositoryStatus getRepositoryStatus() {
         return repositoryStatus;
     }
