@@ -54,20 +54,17 @@ public final class ElementParameterParser {
     }
 
     public static String getValue(final IElement node, final String text) {
-        String newText = new String(""); //$NON-NLS-1$
+        String value = new String(""); //$NON-NLS-1$
         if (text == null) {
-            return newText;
+            return value;
         }
-        IElementParameter param = null;
-        boolean end = false;
 
         List<IElementParameter> params = (List<IElementParameter>) node.getElementParametersWithChildrens();
         if (params != null && !params.isEmpty()) {
-            for (int i = 0; i < params.size() && !end; i++) {
-                param = params.get(i);
+            for (IElementParameter param : params) {
                 if (text.indexOf(param.getVariableName()) != -1) {
-                    newText = getDisplayValue(param);
-                    end = true;
+                    value = getDisplayValue(param);
+                    break;
                 }
             }
         }
@@ -78,11 +75,11 @@ public final class ElementParameterParser {
              * Apply to all components in Perl mode
              */
             if (isPerlProject()) {
-                return PerlVarParserUtils.findAndReplacesAll(newText, valueNode);
+                return PerlVarParserUtils.findAndReplacesAll(value, valueNode);
             }
         }
 
-        return newText;
+        return value;
     }
 
     public static String getStringElementParameterValue(IElementParameter parameter) {
