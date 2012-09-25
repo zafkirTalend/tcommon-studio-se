@@ -401,25 +401,15 @@ public class ConnectionHelper {
             final Namespace namespace = component.getNamespace();
             if (namespace != null) {
                 final TdSoftwareSystem softwareSystem = SwitchHelpers.TDSOFTWARE_SYSTEM_SWITCH.doSwitch(namespace);
+                dataProvider.getDeployedSoftwareSystem().addAll(softwareSystem.getDeployment());
                 return softwareSystem;
             }
         }
         return null;
     }
 
-    // public static TdSoftwareSystem getSoftwareSystem(MetadataConnection dataProvider) {
-    // final Component component = dataProvider.getComponent();
-    // if (component != null) {
-    // final Namespace namespace = component.getNamespace();
-    // if (namespace != null) {
-    // final TdSoftwareSystem softwareSystem = SwitchHelpers.TDSOFTWARE_SYSTEM_SWITCH.doSwitch(namespace);
-    // return softwareSystem;
-    // }
-    // }
-    // return null;
-    // }
-
     public static TdSoftwareSystem getSoftwareSystem(java.sql.Connection connection) throws SQLException {
+
         // MOD xqliu 2009-07-13 bug 7888
         DatabaseMetaData databaseMetadata = org.talend.utils.sql.ConnectionUtils.getConnectionMetadata(connection);
         // ~
