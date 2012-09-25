@@ -887,8 +887,11 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             }
         } else if (item.getState() != null && item.getState().isDeleted()) {
             try {
-                if (item.getProperty().getVersion()
-                        .equals(ProxyRepositoryFactory.getInstance().getLastVersion(item.getProperty().getId()).getVersion())) {
+                if (ProxyRepositoryFactory.getInstance().getLastVersion(item.getProperty().getId()) != null
+                        && item.getProperty()
+                                .getVersion()
+                                .equals(ProxyRepositoryFactory.getInstance().getLastVersion(item.getProperty().getId())
+                                        .getVersion())) {
                     RepositoryNode repNode = new RepositoryNode(new RepositoryViewObject(item.getProperty()), currentParentNode,
                             ENodeType.REPOSITORY_ELEMENT);
                     repNode.setProperties(EProperties.CONTENT_TYPE, itemType);
