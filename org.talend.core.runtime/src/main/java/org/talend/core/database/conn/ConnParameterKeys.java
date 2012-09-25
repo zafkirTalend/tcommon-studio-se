@@ -32,4 +32,7 @@ public class ConnParameterKeys {
     public static final String CONN_PARA_KEY_HIVE_DISTRIBUTION = "CONN_PARA_KEY_HIVE_DISTRIBUTION";
 
     public static final String CONN_PARA_KEY_HIVE_VERSION = "CONN_PARA_KEY_HIVE_VERSION";
+
+    public static final String CONN_PARA_KEY_CHARACTER_ENCODING = "CONN_PARA_KEY_CHARACTER_ENCODING";
+
 }

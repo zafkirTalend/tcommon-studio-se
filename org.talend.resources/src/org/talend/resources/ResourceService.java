@@ -35,29 +35,35 @@ import org.talend.resources.i18n.Messages;
 
 /**
  * yzhang class global comment. Detailled comment <br/>
- *
+ * 
  * $Id: talend.epf 1 2006-09-29 17:06:40Z nrousseau $
- *
+ * 
  */
 public class ResourceService implements IResourceService {
 
-    private final static String RESOURCE_LOCATION = "org.talend.resources"; //$NON-NLS-1$
+    private final static String RESOURCE_LOCATION = ResourcesPlugin.PLUGIN_ID;
 
     private final static String PERL_RESOURCE_LOCATION = "org.talend.resources.perl";
 
     private final static String JAVA_LIBRARIE = "resources/demoprojects/java/TALENDDEMOSJAVA/lib/java"; //$NON-NLS-1$
 
+    private final static String ANT_BUILD_FILE_PATH = "resources/buildScripts/ant/build.xml"; //$NON-NLS-1$
+
+    private final static String MAVEN_BUILD_FILE_PATH = "resources/buildScripts/maven/pom.xml"; //$NON-NLS-1$
+
+    private final static String MAVEN_ASSEMBLY_FILE_PATH = "resources/buildScripts/maven/assembly.xml"; //$NON-NLS-1$
+
     private final static String RESOURCES = "resources"; //$NON-NLS-1$
 
     private final static String TDQEEDEMOJAVA = "TDQEEDEMOJAVA";//$NON-NLS-1$
-    
-    private final static String MDMEEPRODUCTDemo="MDMEEPRODUCTDEMO";
+
+    private final static String MDMEEPRODUCTDemo = "MDMEEPRODUCTDEMO";
 
     private final static String ESBDEMO = "ESBDEMOS";//$NON-NLS-1$
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.talend.resource.IResourceService#getJavaLibraryPath()
      */
     public String getJavaLibraryPath() {
@@ -106,7 +112,7 @@ public class ResourceService implements IResourceService {
         if (projectname.equals(ESBDEMO)) {
             return Messages.getString("esbdemo.html"); //$NON-NLS-1$
         }
-        if(projectname.startsWith("MDM")){//$NON-NLS-1$
+        if (projectname.startsWith("MDM")) {//$NON-NLS-1$
             return Messages.getString("mdmproductdemo.html"); //$NON-NLS-1$
         }
         // MOD gdbu 2011-5-10 bug : 21138
@@ -117,4 +123,53 @@ public class ResourceService implements IResourceService {
         }
         // ~21138
     }
+
+    public String getAntScriptFilePath() {
+        Bundle b = Platform.getBundle(RESOURCE_LOCATION);
+        URL url = null;
+        try {
+            url = FileLocator.toFileURL(FileLocator.find(b, new Path(ANT_BUILD_FILE_PATH), null));
+        } catch (IOException e) {
+            RuntimeExceptionHandler.process(e);
+        }
+
+        if (url != null) {
+            return url.getFile();
+        } else {
+            return null;
+        }
+    }
+
+    public String getMavenScriptFilePath() {
+        Bundle b = Platform.getBundle(RESOURCE_LOCATION);
+        URL url = null;
+        try {
+            url = FileLocator.toFileURL(FileLocator.find(b, new Path(MAVEN_BUILD_FILE_PATH), null));
+        } catch (IOException e) {
+            RuntimeExceptionHandler.process(e);
+        }
+
+        if (url != null) {
+            return url.getFile();
+        } else {
+            return null;
+        }
+    }
+
+    public String getMavenAssemblyFilePath() {
+        Bundle b = Platform.getBundle(RESOURCE_LOCATION);
+        URL url = null;
+        try {
+            url = FileLocator.toFileURL(FileLocator.find(b, new Path(MAVEN_ASSEMBLY_FILE_PATH), null));
+        } catch (IOException e) {
+            RuntimeExceptionHandler.process(e);
+        }
+
+        if (url != null) {
+            return url.getFile();
+        } else {
+            return null;
+        }
+    }
+
 }

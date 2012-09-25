@@ -1,0 +1,143 @@
+<project name="build.project" basedir="." default="compile.project">
+	<property environment="env" />
+  <property name="project.root" value="${basedir}" />
+  <property name="src.dir" location="src"/>
+  <property name="classes.dir" location="classes"/>
+  <property name="lib.dir" value="../lib"/>
+  <property name="routines.dir" value="routines"/>
+  <property file="build.properties" />
+
+	<path id="project.classpath">
+  	<fileset dir="${lib.dir}">
+    	<include name="**/*.jar"/>
+    </fileset>
+	</path>
+	
+	<taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="project.classpath"/>
+	
+	<!-- compile project -->
+	<target name="compile.project">
+		<ant target="initialize" />
+		<ant target="compile.src" />
+		<ant target="compile.system.routines" />
+		<ant target="compile.user.routines" />
+		<ant target="publish" />
+		<ant target="clean" />
+	</target>
+
+	<!-- initialize project -->
+	<target name="initialize">
+		<mkdir dir="${classes.dir}" />
+	</target>
+
+	<!-- compile source codes -->
+	<target name="compile.src">
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" encoding="UTF-8" includeantruntime="false" classpathref="project.classpath"/>
+	</target>
+
+	<!-- compile system routines -->
+	<target name="compile.system.routines">
+		<jar destfile="${lib.dir}/systemRoutines.jar" whenmanifestonly="skip">
+			<fileset dir="${classes.dir}">
+				<include name="${routines.dir}/system/*.class" />
+				<include name="${routines.dir}/system" />
+				<include name="${routines.dir}/system/api/*.class" />
+				<include name="${routines.dir}/system/api" />
+				<include name="${routines.dir}/DataOperation*.class" />
+				<include name="${routines.dir}/DataQuality*.class" />
+				<include name="${routines.dir}/DQTechnical*.class" />
+				<include name="${routines.dir}/DqStringHandling*.class" />
+				<include name="${routines.dir}/Mathematical*.class" />
+				<include name="${routines.dir}/Numeric*.class" />
+				<include name="${routines.dir}/Relational*.class" />
+				<include name="${routines.dir}/SQLike*.class" />
+				<include name="${routines.dir}/StringHandling*.class" />
+				<include name="${routines.dir}/TalendDataGenerator*.class" />
+				<include name="${routines.dir}/TalendDate*.class" />
+				<include name="${routines.dir}/TalendString*.class" />
+			</fileset>
+			<manifest>
+      	<attribute name="Built-By" value="${user.name}"/>
+      	<attribute name="Implementation-Vendor" value="${product.vendor}"/>
+      	<attribute name="Implementation-Title" value="${product.name}"/>
+      	<attribute name="Implementation-Version" value="${product.version}"/>
+    	</manifest>
+		</jar>
+	</target>
+
+	<!-- compile user routines -->
+	<target name="compile.user.routines">
+		<jar destfile="${lib.dir}/userRoutines.jar" whenmanifestonly="skip">
+			<fileset dir="${classes.dir}">
+				<include name="${routines.dir}/**" />
+				<exclude name="${routines.dir}/system/*.class" />
+				<exclude name="${routines.dir}/system" />
+				<exclude name="${routines.dir}/system/api/*.class" />
+				<exclude name="${routines.dir}/system/api" />
+				<exclude name="${routines.dir}/DataOperation*.class" />
+				<exclude name="${routines.dir}/DataQuality*.class" />
+				<exclude name="${routines.dir}/DQTechnical*.class" />
+				<exclude name="${routines.dir}/DqStringHandling*.class" />
+				<exclude name="${routines.dir}/Mathematical*.class" />
+				<exclude name="${routines.dir}/Numeric*.class" />
+				<exclude name="${routines.dir}/Relational*.class" />
+				<exclude name="${routines.dir}/SQLike*.class" />
+				<exclude name="${routines.dir}/StringHandling*.class" />
+				<exclude name="${routines.dir}/TalendDataGenerator*.class" />
+				<exclude name="${routines.dir}/TalendDate*.class" />
+				<exclude name="${routines.dir}/TalendString*.class" />
+			</fileset>
+			<manifest>
+      	<attribute name="Built-By" value="${user.name}"/>
+      	<attribute name="Implementation-Vendor" value="${product.vendor}"/>
+      	<attribute name="Implementation-Title" value="${product.name}"/>
+      	<attribute name="Implementation-Version" value="${product.version}"/>
+    	</manifest>
+		</jar>
+	</target>
+	
+	<!-- publish project -->
+	<target name="publish">
+		<foreach target="pack.project" param="project.name.absolute">
+			<path>
+				<dirset dir="${classes.dir}/">
+					<exclude name="routines" />
+					<include name="*" />
+				</dirset>
+			</path>
+		</foreach>
+	</target>
+
+	<!-- pack project -->
+	<target name="pack.project">
+		<basename property="project.name.relative" file="${project.name.absolute}"/>
+		<property name="curProject" value="${project.name.relative}"/>
+		<foreach target="pack.job" param="job" inheritAll="true">
+			<path location=".">
+				<dirset dir="${classes.dir}/${project.name.relative}/" includes="*"></dirset>
+			</path>
+		</foreach>
+	</target>
+
+	<!-- pack job -->
+	<target name="pack.job">
+		<basename property="job.name" file="${job}"/>  
+		<jar destfile="${job.name}.jar" whenmanifestonly="skip">
+			<fileset dir="${classes.dir}">
+				<include name="${curProject}/${job.name}/*.class" />
+			</fileset>
+			<manifest>
+      	<attribute name="Built-By" value="${user.name}"/>
+      	<attribute name="Implementation-Vendor" value="${product.vendor}"/>
+      	<attribute name="Implementation-Title" value="${product.name}"/>
+      	<attribute name="Implementation-Version" value="${product.version}"/>
+    	</manifest>
+		</jar>
+	</target>
+	
+	<!-- clean project -->
+	<target name="clean">
+  	<delete dir="${classes.dir}" />
+	</target>
+	
+</project>

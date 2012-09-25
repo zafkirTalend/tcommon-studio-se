@@ -46,4 +46,9 @@ public interface IRepositoryPrefConstants {
     public static final String USE_EXPORT_SAVE = "use_export_save_for_jobscript";
 
     public static final String ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS = "allow_specific_characters_for_schema_columns";
+
+    public static final String ANT_SCRIPT_TEMPLATE = "ant_script_template"; //$NON-NLS-1$
+
+    public static final String MAVEN_SCRIPT_TEMPLATE = "maven_script_template"; //$NON-NLS-1$
+
 }

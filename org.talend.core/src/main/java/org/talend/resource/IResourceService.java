@@ -29,5 +29,32 @@ public interface IResourceService extends IService {
 
     // MOD gdbu 2011-5-10 bug : 21138
     public String getDemoDescription(ECodeLanguage language, String projectname);
-    // ~21138
+
+    /**
+     * DOC ycbai Comment method "getAntScriptFilePath".
+     * 
+     * Get the path of ant script template file.
+     * 
+     * @return
+     */
+    public String getAntScriptFilePath();
+
+    /**
+     * DOC ycbai Comment method "getMavenScriptFilePath".
+     * 
+     * Get the path of maven script template file.
+     * 
+     * @return
+     */
+    public String getMavenScriptFilePath();
+
+    /**
+     * DOC ycbai Comment method "getMavenAssemblyFilePath".
+     * 
+     * get the path of maven assembly template file.
+     * 
+     * @return
+     */
+    public String getMavenAssemblyFilePath();
+
 }
