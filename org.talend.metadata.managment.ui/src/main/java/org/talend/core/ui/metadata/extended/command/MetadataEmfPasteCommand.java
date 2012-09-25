@@ -66,8 +66,7 @@ public class MetadataEmfPasteCommand extends ExtendedTablePasteCommand {
             newColumnName = columnName + (firstTime ? "" : (++indexNewColumn)); //$NON-NLS-1$
             firstTime = false;
             boolean allAreDifferent = true;
-            for (int j = 0; j < labels.length; j++) {
-                String label = labels[j];
+            for (String label : labels) {
                 if (label.equals(newColumnName)) {
                     allAreDifferent = false;
                     break;
@@ -91,6 +90,7 @@ public class MetadataEmfPasteCommand extends ExtendedTablePasteCommand {
     public List createPastableBeansList(ExtendedTableModel extendedTable, List copiedObjectsList) {
         ArrayList addItemList = new ArrayList();
         ArrayList list = new ArrayList();
+        ArrayList<String> labelsExisted = getLabelsExisted(extendedTable);
         int indice = 1;
         MetadataEmfTableEditor tableEditor = (MetadataEmfTableEditor) extendedTable;
         for (Object current : copiedObjectsList) {
@@ -98,6 +98,10 @@ public class MetadataEmfPasteCommand extends ExtendedTablePasteCommand {
                 // create a new column as a copy of this column
                 MetadataColumn metadataColumn = (MetadataColumn) current;
                 String nextGeneratedColumnName = tableEditor.getNextGeneratedColumnName(metadataColumn.getLabel());
+                if (labelsExisted.contains(nextGeneratedColumnName)) {
+                    nextGeneratedColumnName = validateColumnName(nextGeneratedColumnName, labelsExisted);
+                }
+                labelsExisted.add(nextGeneratedColumnName);
                 MetadataColumn newColumnCopy = new ConnectionFactoryImpl().copy(metadataColumn, nextGeneratedColumnName);
                 newColumnCopy.setLabel(nextGeneratedColumnName);
                 addItemList.add(newColumnCopy);
@@ -111,13 +115,13 @@ public class MetadataEmfPasteCommand extends ExtendedTablePasteCommand {
                     nextGeneratedColumnName = tableEditor.getNextGeneratedColumnName(nextGeneratedColumnName, null);
                     metaColumnUnique = true;
                     iMetaColumnUnique = false;
-                    if (list.size() == 0)
+                    if (list.size() == 0) {
                         iMetaColumnUnique = true;
-                    else {
+                    } else {
                         tempNewColumnName = this.getUniqueString(list, nextGeneratedColumnName);
-                        if (tempNewColumnName.equals(nextGeneratedColumnName))
+                        if (tempNewColumnName.equals(nextGeneratedColumnName)) {
                             iMetaColumnUnique = true;
-                        else {
+                        } else {
                             iMetaColumnUnique = false;
                             nextGeneratedColumnName = tempNewColumnName;
                         }
@@ -131,5 +135,15 @@ public class MetadataEmfPasteCommand extends ExtendedTablePasteCommand {
             }
         }
         return addItemList;
+    }
+
+    private ArrayList<String> getLabelsExisted(ExtendedTableModel extendedTable) {
+        ArrayList<String> labelsExisted = new ArrayList<String>();
+        for (Object obj : extendedTable.getBeansList()) {
+            if (obj instanceof MetadataColumn) {
+                labelsExisted.add(((MetadataColumn) obj).getLabel());
+            }
+        }
+        return labelsExisted;
     }
 }

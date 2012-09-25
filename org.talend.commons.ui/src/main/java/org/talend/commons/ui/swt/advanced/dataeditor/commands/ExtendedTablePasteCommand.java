@@ -19,6 +19,7 @@ import org.eclipse.gef.commands.Command;
 import org.talend.commons.ui.runtime.i18n.Messages;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.utils.SimpleClipboard;
+import org.talend.commons.utils.data.list.UniqueStringGenerator;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -55,7 +56,7 @@ public abstract class ExtendedTablePasteCommand extends Command implements IExte
      * 
      * @see org.eclipse.gef.commands.Command#execute()
      */
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     @Override
     public void execute() {
 
@@ -78,6 +79,19 @@ public abstract class ExtendedTablePasteCommand extends Command implements IExte
     @Override
     public boolean canUndo() {
         return true;
+    }
+
+    public String validateColumnName(final String columnName, List<String> labels) {
+        String name = columnName;
+        UniqueStringGenerator<String> uniqueStringGenerator = new UniqueStringGenerator<String>(name, labels) {
+
+            @Override
+            protected String getBeanString(String bean) {
+                return bean;
+            }
+
+        };
+        return uniqueStringGenerator.getUniqueString();
     }
 
 }

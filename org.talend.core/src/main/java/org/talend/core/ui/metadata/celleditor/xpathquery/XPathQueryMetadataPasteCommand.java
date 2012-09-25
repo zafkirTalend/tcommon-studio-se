@@ -36,10 +36,17 @@ public class XPathQueryMetadataPasteCommand extends MetadataPasteCommand {
     @Override
     public List createPastableBeansList(ExtendedTableModel extendedTable, List copiedObjectsList) {
         ArrayList list = new ArrayList();
+        ArrayList<String> labelsExisted = getLabelsExisted(extendedTable);
         for (Object current : copiedObjectsList) {
             if (current instanceof IMetadataColumn) {
                 IMetadataColumn copy = ((IMetadataColumn) current).clone();
-                copy.setLabel(((MetadataTableEditor) extendedTable).getNextGeneratedColumnName(copy.getLabel()));
+                String nextGeneratedColumnName = ((MetadataTableEditor) extendedTable)
+                        .getNextGeneratedColumnName(copy.getLabel());
+                if (labelsExisted.contains(nextGeneratedColumnName)) {
+                    nextGeneratedColumnName = validateColumnName(nextGeneratedColumnName, labelsExisted);
+                }
+                labelsExisted.add(nextGeneratedColumnName);
+                copy.setLabel(nextGeneratedColumnName);
                 if (copy instanceof XPathQueryMetadataColumnExt) {
                     list.add(copy);
                 }
