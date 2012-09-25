@@ -91,6 +91,7 @@ public class MetadataEmfPasteCommand extends ExtendedTablePasteCommand {
     public List createPastableBeansList(ExtendedTableModel extendedTable, List copiedObjectsList) {
         ArrayList addItemList = new ArrayList();
         ArrayList list = new ArrayList();
+        ArrayList<String> labelsExisted = getLabelsExisted(extendedTable);
         int indice = 1;
         MetadataEmfTableEditor tableEditor = (MetadataEmfTableEditor) extendedTable;
         for (Object current : copiedObjectsList) {
@@ -98,6 +99,10 @@ public class MetadataEmfPasteCommand extends ExtendedTablePasteCommand {
                 // create a new column as a copy of this column
                 MetadataColumn metadataColumn = (MetadataColumn) current;
                 String nextGeneratedColumnName = tableEditor.getNextGeneratedColumnName(metadataColumn.getLabel());
+                if (labelsExisted.contains(nextGeneratedColumnName)) {
+                    nextGeneratedColumnName = validateColumnName(nextGeneratedColumnName, labelsExisted);
+                }
+                labelsExisted.add(nextGeneratedColumnName);
                 MetadataColumn newColumnCopy = new ConnectionFactoryImpl().copy(metadataColumn, nextGeneratedColumnName);
                 newColumnCopy.setLabel(nextGeneratedColumnName);
                 addItemList.add(newColumnCopy);
@@ -131,5 +136,15 @@ public class MetadataEmfPasteCommand extends ExtendedTablePasteCommand {
             }
         }
         return addItemList;
+    }
+
+    private ArrayList<String> getLabelsExisted(ExtendedTableModel extendedTable) {
+        ArrayList<String> labelsExisted = new ArrayList<String>();
+        for (Object obj : extendedTable.getBeansList()) {
+            if (obj instanceof MetadataColumn) {
+                labelsExisted.add(((MetadataColumn) obj).getLabel());
+            }
+        }
+        return labelsExisted;
     }
 }

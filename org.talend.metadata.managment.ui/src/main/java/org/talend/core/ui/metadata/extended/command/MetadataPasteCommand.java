@@ -91,10 +91,17 @@ public class MetadataPasteCommand extends ExtendedTablePasteCommand {
     public List createPastableBeansList(ExtendedTableModel extendedTable, List copiedObjectsList) {
         ArrayList addItemList = new ArrayList();
         ArrayList list = new ArrayList();
+        ArrayList<String> labelsExisted = getLabelsExisted(extendedTable);
         for (Object current : copiedObjectsList) {
             if (current instanceof IMetadataColumn) {
                 IMetadataColumn copy = ((IMetadataColumn) current).clone();
-                copy.setLabel(((MetadataTableEditor) extendedTable).getNextGeneratedColumnName(copy.getLabel()));
+                String nextGeneratedColumnName = ((MetadataTableEditor) extendedTable)
+                        .getNextGeneratedColumnName(copy.getLabel());
+                if (labelsExisted.contains(nextGeneratedColumnName)) {
+                    nextGeneratedColumnName = validateColumnName(nextGeneratedColumnName, labelsExisted);
+                }
+                labelsExisted.add(nextGeneratedColumnName);
+                copy.setLabel(nextGeneratedColumnName);
                 addItemList.add(copy);
             }
             // Add a new statement to fix the MetadataColumn type.
@@ -130,5 +137,15 @@ public class MetadataPasteCommand extends ExtendedTablePasteCommand {
             }
         }
         return addItemList;
+    }
+
+    public ArrayList<String> getLabelsExisted(ExtendedTableModel extendedTable) {
+        ArrayList<String> labelsExisted = new ArrayList<String>();
+        for (Object obj : extendedTable.getBeansList()) {
+            if (obj instanceof IMetadataColumn) {
+                labelsExisted.add(((IMetadataColumn) obj).getLabel());
+            }
+        }
+        return labelsExisted;
     }
 }
