@@ -65,7 +65,6 @@ import org.talend.cwm.relational.TdExpression;
 import org.talend.cwm.relational.TdSqlDataType;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
-import org.talend.cwm.softwaredeployment.TdSoftwareSystem;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sql.Java2SqlType;
 import org.talend.utils.sql.metadata.constants.GetColumn;
@@ -147,10 +146,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     && dbconn.getDriverClass() != null
                     && dbconn.getDriverClass().equals(EDatabase4DriverClassName.HIVE.getDriverClass());
             if (!isHive && !isHiveJdbc) {
-                TdSoftwareSystem softwareSystem = ConnectionHelper.getSoftwareSystem(sqlConnection);
-                if (softwareSystem != null) {
-                    ConnectionHelper.setSoftwareSystem(dbconn, softwareSystem);
-                }
+                // TdSoftwareSystem softwareSystem = ConnectionHelper.getSoftwareSystem(sqlConnection);
+                // if (softwareSystem != null) {
+                // ConnectionHelper.setSoftwareSystem(dbconn, softwareSystem);
+                // }
                 // identifierQuote
                 String identifierQuote = dbMetadata.getIdentifierQuoteString();
                 ConnectionHelper.setIdentifierQuoteString(identifierQuote == null ? "" : identifierQuote, dbconn);
