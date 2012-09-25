@@ -497,7 +497,7 @@ public final class ElementParameterParser {
     public static String getUNIQUENAME(NodeType node) {
         List<ElementParameterType> parameters = node.getElementParameter();
         for (ElementParameterType elementParam : parameters) {
-            if (elementParam.getName().equals("UNIQUE_NAME")) { //$NON-NLS-1$
+            if (UNIQUE_NAME.equals(elementParam.getName())) {
                 return elementParam.getValue();
             }
         }
