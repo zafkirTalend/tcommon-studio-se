@@ -15,6 +15,8 @@ package org.talend.core.repository.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.talend.core.model.process.IProcess2;
+import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.repository.model.ContextReferenceBean;
 
 /**
@@ -43,5 +45,19 @@ public class RepositoryReferenceBeanUtils {
         }
 
         return has;
+    }
+
+    public static boolean isOpenedProcess(IProcess2 process) {
+        List<IProcess2> openedProcesses = RepositoryManagerHelper.getOpenedProcess();
+        boolean isOpenedProcess = false;
+        if (openedProcesses != null && openedProcesses.size() > 0) {
+            for (IProcess2 tempPro : openedProcesses) {
+                if (process.getId().equals(tempPro.getId())) {
+                    isOpenedProcess = true;
+                    break;
+                }
+            }
+        }
+        return isOpenedProcess;
     }
 }

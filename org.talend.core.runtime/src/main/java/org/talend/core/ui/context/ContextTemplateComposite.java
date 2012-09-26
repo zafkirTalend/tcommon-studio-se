@@ -423,6 +423,9 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
                     ContextItem item = helper.getContextItemById(param.getSource());
                     if (item == null) { // source not found
                         param.setSource(IContextParameter.BUILT_IN);
+                        // Added by Marvin Wang on Sep.24 for bug TDI-21878. The mode is changed, it should notify to
+                        // make editor dirty.
+                        modelManager.onContextModify(getContextManager(), param);
                         continue;
                     }
                     // // the variable not exist in the ContextItem
