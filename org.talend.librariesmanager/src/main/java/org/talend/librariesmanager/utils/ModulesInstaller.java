@@ -66,8 +66,8 @@ public class ModulesInstaller {
     public static Collection<String> installModules(Shell shell, String[] jarNames) {
         if (!Activator.getDefault().getPreferenceStore()
                 .getBoolean(ExternalModulesInstallDialog.DO_NOT_SHOW_EXTERNALMODULESINSTALLDIALOG)) {
-            String text = "Current operation  requires the following third party modules";
-            String title = "List of modules not installed for component current operation";
+            String text = "Current operation requires the following third party modules";
+            String title = "List of modules not installed for current operation";
             OperationExternalModulesDialog dialog = new OperationExternalModulesDialog(shell, jarNames, text, title);
             if (dialog.needOpen()) {
                 dialog.open();

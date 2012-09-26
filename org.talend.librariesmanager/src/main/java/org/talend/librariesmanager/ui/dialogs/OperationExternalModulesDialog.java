@@ -47,7 +47,7 @@ public class OperationExternalModulesDialog extends ComponentExternalModulesDial
      * @see org.talend.librariesmanager.ui.dialogs.ComponentExternalModulesDialog#getModulesToInstall()
      */
     @Override
-    protected List<ModuleToInstall> getModulesToInstall() {
+    protected List<ModuleToInstall> getUpdatedModulesToInstall() {
         if (!installedJars.isEmpty()) {
             Set<String> updated = new HashSet<String>();
             int n = 0;

@@ -86,7 +86,7 @@ public class ComponentExternalModulesDialog extends ExternalModulesInstallDialog
      * @see org.talend.librariesmanager.ui.dialogs.ExternalModulesInstallDialog#getModulesToInstall()
      */
     @Override
-    protected List<ModuleToInstall> getModulesToInstall() {
+    protected List<ModuleToInstall> getUpdatedModulesToInstall() {
         List<ModuleNeeded> updatedModules = new ArrayList<ModuleNeeded>();
         // get module from provider incase it is rested
         List<ModuleNeeded> modulesNeeded = ModulesNeededProvider.getModulesNeeded();

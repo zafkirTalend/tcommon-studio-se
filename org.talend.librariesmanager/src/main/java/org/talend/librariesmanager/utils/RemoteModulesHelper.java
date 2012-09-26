@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -24,6 +25,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleToInstall;
@@ -43,6 +49,8 @@ public class RemoteModulesHelper {
     // private static final String serviceUrl = "http://www.talend.com/TalendRegisterWS/modules.php";
 
     private static final String serviceUrl = "http://www.talendforge.org/modules/webservices/modules.php";
+
+    private static final String SEPARATOR_DISPLAY = " | ";
 
     private static final String SEPARATOR = "|";
 
@@ -100,6 +108,7 @@ public class RemoteModulesHelper {
             return toInstall;
         }
         getModuleUrlsFromWebService(jarNames, toInstall, contextMap);
+
         return toInstall;
     }
 
@@ -132,70 +141,87 @@ public class RemoteModulesHelper {
         return toInstall;
     }
 
-    private void getModuleUrlsFromWebService(String jarNames, List<ModuleToInstall> toInstall,
-            Map<String, List<ModuleNeeded>> contextMap) {
-        JSONObject message = new JSONObject();
-        try {
-            JSONObject child = new JSONObject();
-            child.put("vaction", "getModules");
-            child.put("name", jarNames);
-            message.put("module", child);
-            String url = serviceUrl + "?data=" + message;
+    private void getModuleUrlsFromWebService(final String jarNames, final List<ModuleToInstall> toInstall,
+            final Map<String, List<ModuleNeeded>> contextMap) {
 
-            JSONObject resultStr = readJsonFromUrl(url);
-            JSONArray jsonArray = resultStr.getJSONArray("result");
-            if (jsonArray != null) {
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject obj = jsonArray.getJSONObject(i);
-                    if (obj != null) {
+        IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
 
-                        String url_description = obj.getString("url_description");
-                        String url_download = obj.getString("url_download");
-                        String name = obj.getString("filename");
-                        if ((url_description == null && url_download == null)
-                                || (("".equals(url_description) || "null".equals(url_description)) && ("".equals(url_download) || "null"
-                                        .equals(url_download)))) {
-                            ExceptionHandler.log("Module " + name + " download url is not avialable currently");
-                            continue;
-                        }
+            @Override
+            public void run(final IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                int size = jarNames.split(SEPARATOR).length;
+                monitor.beginTask("Update items version", size);
+                JSONObject message = new JSONObject();
+                try {
+                    JSONObject child = new JSONObject();
+                    child.put("vaction", "getModules");
+                    child.put("name", jarNames);
+                    message.put("module", child);
+                    String url = serviceUrl + "?data=" + message;
+                    monitor.worked(size / 2);
+                    JSONObject resultStr = readJsonFromUrl(url);
+                    JSONArray jsonArray = resultStr.getJSONArray("result");
+                    if (jsonArray != null) {
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject obj = jsonArray.getJSONObject(i);
+                            if (obj != null) {
 
-                        ModuleToInstall m = new ModuleToInstall();
+                                String url_description = obj.getString("url_description");
+                                String url_download = obj.getString("url_download");
+                                String name = obj.getString("filename");
+                                if ((url_description == null && url_download == null)
+                                        || (("".equals(url_description) || "null".equals(url_description)) && (""
+                                                .equals(url_download) || "null".equals(url_download)))) {
+                                    ExceptionHandler.log("Module " + name + " download url is not avialable currently");
+                                    continue;
+                                }
 
-                        m.setName(name);
-                        if (contextMap != null) {
-                            List<ModuleNeeded> nm = contextMap.get(m.getName());
-                            m.setContext(getContext(nm));
-                            m.setRequired(isRequired(nm));
-                        } else {
-                            m.setContext("Current Operation");
-                            m.setRequired(true);
+                                ModuleToInstall m = new ModuleToInstall();
+
+                                m.setName(name);
+                                if (contextMap != null) {
+                                    List<ModuleNeeded> nm = contextMap.get(m.getName());
+                                    m.setContext(getContext(nm));
+                                    m.setRequired(isRequired(nm));
+                                } else {
+                                    m.setContext("Current Operation");
+                                    m.setRequired(true);
+                                }
+                                String license = obj.getString("licence");
+                                m.setLicenseType(license);
+                                if ("".equals(license) || "null".equals(license)) {
+                                    m.setLicenseType(null);
+                                }
+                                String description = obj.getString("description");
+                                if (description == null || "".equals(description) || "null".equals(description)) {
+                                    description = m.getName();
+                                }
+                                m.setDescription(description);
+                                m.setUrl_description(url_description);
+                                if (url_download == null || "".equals(url_download) || "null".equals(url_download)) {
+                                    m.setUrl_download(null);
+                                } else {
+                                    m.setUrl_download(url_download);
+                                }
+                                toInstall.add(m);
+                                cache.put(m.getName(), m);
+                            }
+                            monitor.worked(1);
                         }
-                        String license = obj.getString("licence");
-                        m.setLicenseType(license);
-                        if ("".equals(license) || "null".equals(license)) {
-                            m.setLicenseType(null);
-                        }
-                        String description = obj.getString("description");
-                        if (description == null || "".equals(description) || "null".equals(description)) {
-                            description = m.getName();
-                        }
-                        m.setDescription(description);
-                        m.setUrl_description(url_description);
-                        if (url_download == null || "".equals(url_download) || "null".equals(url_download)) {
-                            m.setUrl_download(null);
-                        } else {
-                            m.setUrl_download(url_download);
-                        }
-                        toInstall.add(m);
-                        cache.put(m.getName(), m);
                     }
-                }
-            }
 
-        } catch (JSONException e) {
-            ExceptionHandler.process(e);
-        } catch (IOException e) {
-            ExceptionHandler.process(e);
+                } catch (JSONException e) {
+                    ExceptionHandler.process(e);
+                } catch (IOException e) {
+                    ExceptionHandler.process(e);
+                }
+                monitor.done();
+            }
+        };
+        try {
+            Shell shell = Display.getCurrent().getActiveShell();
+            new ProgressMonitorDialog(shell).run(true, false, iRunnableWithProgress);
+        } catch (InvocationTargetException e1) {
+        } catch (InterruptedException e1) {
         }
 
     }
@@ -229,7 +255,7 @@ public class RemoteModulesHelper {
         StringBuffer context = new StringBuffer();
         for (ModuleNeeded module : neededModules) {
             if (context.length() != 0) {
-                context.append(SEPARATOR);
+                context.append(SEPARATOR_DISPLAY);
             }
             context.append(module.getContext());
         }
@@ -251,7 +277,7 @@ public class RemoteModulesHelper {
     public String getLicenseUrl(String licenseType) {
 
         // ///////////test
-        licenseType = "LGPL_v3";
+        // licenseType = "LGPL_v3";
         // //////////test
 
         JSONObject message = new JSONObject();
@@ -282,7 +308,7 @@ public class RemoteModulesHelper {
         ModuleToInstall m1 = new ModuleToInstall();
         m1 = new ModuleToInstall();
         m1.setName("jtds-1.2.5.jar");
-        m1.setContext("tMysqlInput|tMysqlOutput");
+        m1.setContext("tMysqlInput | tMysqlOutput");
         m1.setDescription("Mysql Driver");
         m1.setUrl_description("http://jtds.sourceforge.net/");
         m1.setUrl_download(null);

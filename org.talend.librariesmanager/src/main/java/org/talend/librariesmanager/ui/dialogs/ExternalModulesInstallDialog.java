@@ -94,9 +94,11 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
 
     private Button installAllBtn;
 
-    private JobChangeAdapter jobListener;
-
     protected List<String> installedJars = new ArrayList<String>();
+
+    private List<Button> installButtons = new ArrayList<Button>();
+
+    private List<ModuleToInstall> inputList;
 
     /**
      * DOC wchen TalendForgeDialog constructor comment.
@@ -185,7 +187,6 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Required"); //$NON-NLS-1$
         column.setDisplayedValue("");
-        column.setModifiable(false);
         column.setImageProvider(new IColumnImageProvider<ModuleToInstall>() {
 
             @Override
@@ -202,13 +203,13 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
         column.setWeight(2);
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("URL"); //$NON-NLS-1$
-
+        column.setTitle("License"); //$NON-NLS-1$
+        column.setSortable(true);
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<ModuleToInstall, String>() {
 
             @Override
             public String get(ModuleToInstall bean) {
-                return bean.getUrl_description();
+                return bean.getLicenseType();
             }
 
             @Override
@@ -216,16 +217,23 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
             }
         });
 
-        column.setModifiable(true);
-        column.setWeight(8);
-
-        column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("Install"); //$NON-NLS-1$
         column.setModifiable(false);
-        column.setWeight(5);
+        column.setWeight(3);
 
-        tableViewerCreator.init(getModulesToInstall());
-        addInstallButtons(column);
+        TableViewerCreatorColumn urlcolumn = new TableViewerCreatorColumn(tableViewerCreator);
+        urlcolumn.setTitle("URL"); //$NON-NLS-1$
+        urlcolumn.setModifiable(false);
+        urlcolumn.setWeight(8);
+
+        TableViewerCreatorColumn installcolumn = new TableViewerCreatorColumn(tableViewerCreator);
+        installcolumn.setTitle("Install"); //$NON-NLS-1$
+        installcolumn.setModifiable(false);
+        installcolumn.setWeight(5);
+        if (inputList == null) {
+            inputList = getUpdatedModulesToInstall();
+        }
+        tableViewerCreator.init(inputList);
+        addInstallButtons(installcolumn, urlcolumn);
         layoutData = new GridData(GridData.FILL_BOTH);
         tableViewerCreator.getTable().setLayoutData(layoutData);
 
@@ -252,50 +260,54 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
     }
 
     private void addListeners() {
-        jobListener = new JobChangeAdapter() {
-
-            @Override
-            public void done(final IJobChangeEvent event) {
-
-                Display.getDefault().asyncExec(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        if (event.getJob() instanceof DownloadModuleJob) {
-                            DownloadModuleJob job = (DownloadModuleJob) event.getJob();
-                            Set<String> downloadFialed = job.getDownloadFialed();
-                            installedJars.addAll(job.getInstalledModules());
-                            int installedModules = job.getInstalledModules().size();
-                            String success = installedModules + " Modules installed successfully ! \n";
-                            String message = success;
-                            if (!downloadFialed.isEmpty()) {
-                                String fail = "Some modules installed failed :";
-                                String names = "";
-                                for (String name : downloadFialed) {
-                                    if (names.length() > 0) {
-                                        names = " | " + name;
-                                    } else {
-                                        names = name;
-                                    }
-                                }
-                                message = message + fail + names;
-                            }
-                            MessageDialog.openInformation(getShell(), "Information", message);
-                            refreshUI();
-                        }
-                    }
-                });
-            }
-        };
 
         installAllBtn.addSelectionListener(new SelectionAdapter() {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
+
+                for (Button button : installButtons) {
+                    button.setEnabled(false);
+                }
+
                 List<ModuleToInstall> inputList = tableViewerCreator.getInputList();
                 final DownloadModuleJob job = new DownloadModuleJob(inputList);
 
-                job.addJobChangeListener(jobListener);
+                job.addJobChangeListener(new JobChangeAdapter() {
+
+                    @Override
+                    public void done(final IJobChangeEvent event) {
+
+                        Display.getDefault().asyncExec(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                if (event.getJob() instanceof DownloadModuleJob) {
+                                    DownloadModuleJob job = (DownloadModuleJob) event.getJob();
+                                    Set<String> downloadFialed = job.getDownloadFialed();
+                                    installedJars.addAll(job.getInstalledModules());
+                                    int installedModules = job.getInstalledModules().size();
+                                    String success = installedModules + " Modules installed successfully ! \n";
+                                    String message = success;
+                                    if (!downloadFialed.isEmpty()) {
+                                        String fail = "Some modules installed failed :";
+                                        String names = "";
+                                        for (String name : downloadFialed) {
+                                            if (names.length() > 0) {
+                                                names = " | " + name;
+                                            } else {
+                                                names = name;
+                                            }
+                                        }
+                                        message = message + fail + names;
+                                    }
+                                    MessageDialog.openInformation(getShell(), "Information", message);
+                                    refreshUI();
+                                }
+                            }
+                        });
+                    }
+                });
                 job.setUser(true);
                 job.setPriority(Job.INTERACTIVE);
                 job.schedule();
@@ -306,7 +318,11 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
 
     }
 
-    protected List<ModuleToInstall> getModulesToInstall() {
+    /**
+     * 
+     * ONLY call this function if need to update the module list
+     */
+    protected List<ModuleToInstall> getUpdatedModulesToInstall() {
         List<ModuleNeeded> updatedModules = new ArrayList<ModuleNeeded>();
         for (ModuleNeeded neededModule : ModulesNeededProvider.getModulesNeeded()) {
             if (neededModule.getStatus() != ELibraryInstallStatus.NOT_INSTALLED) {
@@ -319,10 +335,12 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
     }
 
     private void refreshUI() {
-        List<ModuleToInstall> modulesToInstall = getModulesToInstall();
-        if (!modulesToInstall.isEmpty()) {
-            tableViewerCreator.init(modulesToInstall);
-            tableViewerCreator.refresh();
+        inputList = getUpdatedModulesToInstall();
+        if (!inputList.isEmpty()) {
+            if (!tableViewerCreator.getTable().isDisposed()) {
+                tableViewerCreator.init(inputList);
+                tableViewerCreator.refresh();
+            }
         } else {
             okPressed();
         }
@@ -331,7 +349,8 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
     protected void createFooter(Composite parent) {
     }
 
-    private void addInstallButtons(TableViewerCreatorColumn column) {
+    private void addInstallButtons(TableViewerCreatorColumn installColumn, TableViewerCreatorColumn urlColumn) {
+        installButtons.clear();
         tableViewerCreator.getTableViewer().getControl().setRedraw(false);
         final Table table = tableViewerCreator.getTable();
         for (final TableItem item : table.getItems()) {
@@ -343,18 +362,33 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
                 if (data.getUrl_download() != null) {
                     final Button button = new Button(table, SWT.FLAT);
                     control = button;
+                    installButtons.add(button);
                     button.setText("Download and Install");
                     button.setData(item);
                     button.addSelectionListener(new SelectionAdapter() {
 
                         @Override
                         public void widgetSelected(SelectionEvent e) {
+                            button.setEnabled(false);
                             table.select(table.indexOf(item));
                             List<ModuleToInstall> datalist = new ArrayList<ModuleToInstall>();
                             datalist.add(data);
                             final DownloadModuleJob job = new DownloadModuleJob(datalist);
 
-                            job.addJobChangeListener(jobListener);
+                            job.addJobChangeListener(new JobChangeAdapter() {
+
+                                @Override
+                                public void done(final IJobChangeEvent event) {
+
+                                    Display.getDefault().asyncExec(new Runnable() {
+
+                                        @Override
+                                        public void run() {
+                                            // button.setEnabled(true);
+                                        }
+                                    });
+                                }
+                            });
                             job.setUser(true);
                             job.setPriority(Job.INTERACTIVE);
                             job.schedule();
@@ -383,11 +417,38 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
                         }
                     });
                 }
+                editor.grabHorizontal = true;
+                editor.minimumHeight = 20;
+                editor.setEditor(control, item, tableViewerCreator.getColumns().indexOf(installColumn));
+                editor.layout();
+
+                // url
+                editor = new TableEditor(table);
+                Composite composite = new Composite(table, SWT.NONE);
+                composite.setBackground(color);
+                GridLayout layout = new GridLayout();
+                layout.marginHeight = 0;
+                layout.marginRight = 0;
+                layout.verticalSpacing = 1;
+                composite.setLayout(layout);
+                GridData gData = new GridData(GridData.FILL_HORIZONTAL);
+                // gData.verticalAlignment = SWT.CENTER;
+                final Link openLink = new Link(composite, SWT.NONE);
+                openLink.setLayoutData(gData);
+                openLink.setBackground(color);
+                openLink.setText("<a href=\"\">" + data.getUrl_description() + "</a>"); //$NON-NLS-1$ //$NON-NLS-2$
+                openLink.addSelectionListener(new SelectionAdapter() {
+
+                    @Override
+                    public void widgetSelected(final SelectionEvent e) {
+                        Program.launch(data.getUrl_description());
+                    }
+                });
+                editor.grabHorizontal = true;
+                editor.minimumHeight = 20;
+                editor.setEditor(composite, item, tableViewerCreator.getColumns().indexOf(urlColumn));
+                editor.layout();
             }
-            editor.grabHorizontal = true;
-            editor.minimumHeight = 20;
-            editor.setEditor(control, item, tableViewerCreator.getColumns().indexOf(column));
-            editor.layout();
         }
         tableViewerCreator.getTableViewer().getTable().layout();
         tableViewerCreator.getTableViewer().refresh(true);
@@ -408,6 +469,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
         super.okPressed();
         font.dispose();
         color.dispose();
+        fontMac.dispose();
     }
 
     class DownloadModuleJob extends Job {
@@ -522,7 +584,8 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
     }
 
     public boolean needOpen() {
-        if (!getModulesToInstall().isEmpty()) {
+        inputList = getUpdatedModulesToInstall();
+        if (!inputList.isEmpty()) {
             return true;
         }
         return false;
