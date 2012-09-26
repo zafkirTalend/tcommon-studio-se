@@ -130,6 +130,7 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
         return modelManager.getContextManager();
     }
 
+    @Override
     public IContextModelManager getContextModelManager() {
         return modelManager;
     }
@@ -224,6 +225,7 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
 
         viewer.addPostSelectionChangedListener(new ISelectionChangedListener() {
 
+            @Override
             public void selectionChanged(SelectionChangedEvent event) {
                 checkButtonEnableState();
             }
@@ -267,6 +269,7 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
         menuMgr.setRemoveAllWhenShown(true);
         menuMgr.addMenuListener(new IMenuListener() {
 
+            @Override
             public void menuAboutToShow(IMenuManager mgr) {
                 ContextBuiltinToRepositoryAction action = new ContextBuiltinToRepositoryAction(modelManager);
                 action.init(viewer, (IStructuredSelection) viewer.getSelection());
@@ -368,6 +371,7 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
         return readOnly;
     }
 
+    @Override
     public boolean isGroupBySource() {
         boolean isRepositoryContext = false;
         if (modelManager != null) {
@@ -423,6 +427,9 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
                     ContextItem item = helper.getContextItemById(param.getSource());
                     if (item == null) { // source not found
                         param.setSource(IContextParameter.BUILT_IN);
+                        // Added by Marvin Wang on Sep.24 for bug TDI-21878. The mode is changed, it should notify to
+                        // make editor dirty.
+                        modelManager.onContextModify(getContextManager(), param);
                         continue;
                     }
                     // // the variable not exist in the ContextItem
@@ -771,6 +778,7 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
         return this.getContextManager().getDefaultContext();
     }
 
+    @Override
     public TreeViewer getViewer() {
         return this.viewer;
     }

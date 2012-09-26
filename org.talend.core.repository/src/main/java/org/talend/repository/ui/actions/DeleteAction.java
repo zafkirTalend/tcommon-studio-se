@@ -865,11 +865,18 @@ public class DeleteAction extends AContextualAction {
                                     Item item2 = property2.getItem();
                                     String path = item2.getState().getPath();
 
-                                    ContextReferenceBean bean = new ContextReferenceBean(property2.getLabel(), openedProcess
-                                            .getRepositoryObjectType().getType(), property2.getVersion(), path, refP.getLabel());
-                                    bean.setJobFlag(isJob, isDelete);
-                                    list.add(bean);
-                                    break;
+                                    String processName = openedProcess.getLabel();
+                                    String processVersion = openedProcess.getVersion();
+                                    // Added by Marvin Wang on Sep. 24, 2012 for bug TDI-21878 to filter the bean that
+                                    // has been added in the list.
+                                    if (!RepositoryReferenceBeanUtils.hasReferenceBean(list, processName, processVersion)) {
+                                        ContextReferenceBean bean = new ContextReferenceBean(property2.getLabel(), openedProcess
+                                                .getRepositoryObjectType().getType(), property2.getVersion(), path,
+                                                refP.getLabel());
+                                        bean.setJobFlag(isJob, isDelete);
+                                        list.add(bean);
+                                        break;
+                                    }
                                 }
                             }
                         }
