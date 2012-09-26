@@ -12,11 +12,12 @@
 // ============================================================================
 package org.talend.librariesmanager.model.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,7 @@ import org.junit.Test;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.IComponentsService;
 import org.talend.librariesmanager.emf.librariesindex.LibrariesIndex;
@@ -44,9 +46,9 @@ public class LocalLibraryManagerTest {
 
     private static final String JAR_INDEX = "/index.xml"; //$NON-NLS-1$
 
-    private Set<String> jarList = new HashSet<String>();
+    private final Set<String> jarList = new HashSet<String>();
 
-    private LocalLibraryManager localLibMana = new LocalLibraryManager();
+    private final LocalLibraryManager localLibMana = new LocalLibraryManager();
 
     /**
      * DOC Administrator Comment method "setUp".
@@ -216,6 +218,52 @@ public class LocalLibraryManagerTest {
 
         assertTrue(names.size() > 0);
 
+    }
+
+    /**
+     * Test method for studio have all the lib for the system of db connection .
+     */
+    @Test
+    public void testMissingJar() throws MalformedURLException {
+        Set<String> names = new HashSet<String>();
+        List<File> jarFiles = FilesUtils.getJarFilesFromFolder(getStorageDirectory(), null);
+        if (jarFiles.size() > 0) {
+            for (File file : jarFiles) {
+                names.add(file.getName());
+            }
+        }
+        LibrariesIndexManager.getInstance().loadResource();
+        EMap<String, String> jarsToRelative = LibrariesIndexManager.getInstance().getIndex().getJarsToRelativePath();
+        names.addAll(jarsToRelative.keySet());
+
+        List<String> allJars = new ArrayList<String>();
+        EDatabaseVersion4Drivers[] values = EDatabaseVersion4Drivers.values();
+        for (EDatabaseVersion4Drivers driver : values) {
+            Set<String> providerDrivers = driver.getProviderDrivers();
+            allJars.addAll(providerDrivers);
+        }
+
+        List<String> missJars = new ArrayList<String>();
+        for (String jar : allJars) {
+            boolean hadInstalled = false;
+            for (String installJar : names) {
+                if (jar.equals(installJar)) {
+                    hadInstalled = true;
+                }
+            }
+            if (!hadInstalled) {
+                missJars.add(jar);
+            }
+        }
+
+        if (missJars.size() > 0) {
+            System.out.println("*****db system missing jars!*****");
+            for (String missJar : missJars) {
+                System.out.println(missJar);
+            }
+            System.out.println("**********");
+        }
+        assertTrue(missJars.size() == 0);
     }
 
     /**
