@@ -1044,4 +1044,17 @@ public class FilesUtils {
             deleteFile(srcfolder, true);
         }
     }
+
+    /**
+     * DOC xqliu Comment method "getAllFilesFromFolder".
+     * 
+     * @param aFolder
+     * @param filenameFilter
+     * @return
+     */
+    public static List<File> getAllFilesFromFolder(File aFolder, FilenameFilter filenameFilter) {
+        List<File> files = new ArrayList<File>();
+        getAllFilesFromFolder(aFolder, files, filenameFilter);
+        return files;
+    }
 }
