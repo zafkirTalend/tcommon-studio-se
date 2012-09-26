@@ -82,6 +82,15 @@ public final class ElementParameterParser {
         return value;
     }
 
+    public static String getValue(final IProcess process, final String nodeUniqueName, final String key) {
+        for (INode processNode : process.getGeneratingNodes()) {
+            if(nodeUniqueName.equals(processNode.getUniqueName())) {
+                return ElementParameterParser.getValue(processNode, key);
+            }
+        }
+        return "";
+    }
+
     public static String getStringElementParameterValue(IElementParameter parameter) {
         return getDisplayValue(parameter);
     }
