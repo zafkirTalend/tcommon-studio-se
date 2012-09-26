@@ -46,15 +46,6 @@ public interface IResourceService extends IService {
      * 
      * @return
      */
-    public String getMavenScriptFilePath();
-
-    /**
-     * DOC ycbai Comment method "getMavenAssemblyFilePath".
-     * 
-     * get the path of maven assembly template file.
-     * 
-     * @return
-     */
-    public String getMavenAssemblyFilePath();
+    public String getMavenScriptFilePath(String file);
 
 }

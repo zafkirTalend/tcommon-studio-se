@@ -49,9 +49,7 @@ public class ResourceService implements IResourceService {
 
     private final static String ANT_BUILD_FILE_PATH = "resources/buildScripts/ant/build.xml"; //$NON-NLS-1$
 
-    private final static String MAVEN_BUILD_FILE_PATH = "resources/buildScripts/maven/pom.xml"; //$NON-NLS-1$
-
-    private final static String MAVEN_ASSEMBLY_FILE_PATH = "resources/buildScripts/maven/assembly.xml"; //$NON-NLS-1$
+    private final static String MAVEN_BUILD_FILE_PATH = "resources/buildScripts/maven/"; //$NON-NLS-1$
 
     private final static String RESOURCES = "resources"; //$NON-NLS-1$
 
@@ -66,6 +64,7 @@ public class ResourceService implements IResourceService {
      * 
      * @see org.talend.resource.IResourceService#getJavaLibraryPath()
      */
+    @Override
     public String getJavaLibraryPath() {
         // TODO Auto-generated method stub
 
@@ -85,6 +84,7 @@ public class ResourceService implements IResourceService {
 
     }
 
+    @Override
     public String getResourcesPath() {
         Bundle b = Platform.getBundle(PERL_RESOURCE_LOCATION);
         URL url = null;
@@ -104,6 +104,7 @@ public class ResourceService implements IResourceService {
         }
     }
 
+    @Override
     public String getDemoDescription(ECodeLanguage language, String projectname) {
         if (language == null) {
             language = ECodeLanguage.PERL;
@@ -124,6 +125,7 @@ public class ResourceService implements IResourceService {
         // ~21138
     }
 
+    @Override
     public String getAntScriptFilePath() {
         Bundle b = Platform.getBundle(RESOURCE_LOCATION);
         URL url = null;
@@ -140,27 +142,12 @@ public class ResourceService implements IResourceService {
         }
     }
 
-    public String getMavenScriptFilePath() {
+    @Override
+    public String getMavenScriptFilePath(String fileName) {
         Bundle b = Platform.getBundle(RESOURCE_LOCATION);
         URL url = null;
         try {
-            url = FileLocator.toFileURL(FileLocator.find(b, new Path(MAVEN_BUILD_FILE_PATH), null));
-        } catch (IOException e) {
-            RuntimeExceptionHandler.process(e);
-        }
-
-        if (url != null) {
-            return url.getFile();
-        } else {
-            return null;
-        }
-    }
-
-    public String getMavenAssemblyFilePath() {
-        Bundle b = Platform.getBundle(RESOURCE_LOCATION);
-        URL url = null;
-        try {
-            url = FileLocator.toFileURL(FileLocator.find(b, new Path(MAVEN_ASSEMBLY_FILE_PATH), null));
+            url = FileLocator.toFileURL(FileLocator.find(b, new Path(MAVEN_BUILD_FILE_PATH + fileName), null));
         } catch (IOException e) {
             RuntimeExceptionHandler.process(e);
         }

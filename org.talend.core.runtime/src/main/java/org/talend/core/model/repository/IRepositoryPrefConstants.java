@@ -51,4 +51,6 @@ public interface IRepositoryPrefConstants {
 
     public static final String MAVEN_SCRIPT_TEMPLATE = "maven_script_template"; //$NON-NLS-1$
 
+    public static final String MAVEN_OSGI_SCRIPT_TEMPLATE = "maven_osgi_script_template"; //$NON-NLS-1$
+
 }
