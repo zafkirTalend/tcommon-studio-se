@@ -237,11 +237,51 @@ public final class TaggedValueHelper {
      * @return the validation status of the element
      */
     public static Boolean getValidStatus(ModelElement element) {
-        TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.VALID_STATUS, element.getTaggedValue());
-        if (taggedValue == null) {
-            return false;
-        }
-        return Boolean.valueOf(taggedValue.getValue());
+        return getValueBoolean(TaggedValueHelper.VALID_STATUS, element);
+    }
+
+    /**
+     * get the Boolean value according to the tag name, if the TaggedValue is null, return false.
+     * 
+     * @param tag
+     * @param element
+     * @return
+     */
+    public static Boolean getValueBoolean(String tag, ModelElement element) {
+        TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(tag, element.getTaggedValue());
+        return taggedValue == null ? false : Boolean.valueOf(taggedValue.getValue());
+    }
+
+    /**
+     * get the CLASS_NAME_TEXT value.
+     * 
+     * @param element
+     * @return
+     */
+    public static String getClassNameText(ModelElement element) {
+        return getValueString(TaggedValueHelper.CLASS_NAME_TEXT, element);
+    }
+
+    /**
+     * get the JAR_FILE_PATH value.
+     * 
+     * @param element
+     * @return
+     */
+    public static String getJarFilePath(ModelElement element) {
+        return getValueString(TaggedValueHelper.JAR_FILE_PATH, element);
+    }
+
+    /**
+     * get the String value according to the tag name, if the TaggedValue is null, return empty string.
+     * 
+     * @param tag
+     * @param element
+     * @return
+     */
+    public static String getValueString(String tag, ModelElement element) {
+        TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(tag, element.getTaggedValue());
+        return taggedValue == null ? "" : taggedValue.getValue(); //$NON-NLS-1$
     }
 
     /**
