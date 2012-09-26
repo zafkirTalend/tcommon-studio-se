@@ -397,7 +397,8 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
 
                     });
                 } else {
-                    Composite composite = new Composite(table, SWT.BORDER);
+                    Composite composite = new Composite(table, SWT.NONE);
+                    composite.setBackground(color);
                     control = composite;
                     GridLayout layout = new GridLayout();
                     layout.marginHeight = 0;
@@ -407,6 +408,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
                     gData.horizontalAlignment = SWT.CENTER;
                     gData.verticalAlignment = SWT.CENTER;
                     final Link openLink = new Link(composite, SWT.NONE);
+                    openLink.setBackground(color);
                     openLink.setLayoutData(gData);
                     openLink.setText("<a href=\"\">" + "Open in browser" + "</a>"); //$NON-NLS-1$ //$NON-NLS-2$
                     openLink.addSelectionListener(new SelectionAdapter() {
