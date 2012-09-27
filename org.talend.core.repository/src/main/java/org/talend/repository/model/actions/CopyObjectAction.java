@@ -267,35 +267,62 @@ public class CopyObjectAction {
     }
 
     private void copySingleVersionItem(final Item item, final IPath path) {
-        final RepositoryWorkUnit<Object> workUnit = new RepositoryWorkUnit<Object>("", this) {//$NON-NLS-1$
+    	final RepositoryWorkUnit<Object> workUnit = new RepositoryWorkUnit<Object>("", this) {//$NON-NLS-1$
 
             @Override
             protected void run() throws LoginException, PersistenceException {
+                final IWorkspaceRunnable op = new IWorkspaceRunnable() {
+
+                    public void run(IProgressMonitor monitor) throws CoreException {
+                        try {
+                            Item newItem = factory.copy(item, path, true);
+                            // qli modified to fix the bug 5400 and 6185.
+                            if (newItem instanceof RoutineItem) {
+                                synDuplicatedRoutine((RoutineItem) newItem);
+                            }
+                            ICamelDesignerCoreService service = null;
+                            if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+                                service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                                        ICamelDesignerCoreService.class);
+                            }
+                            if (service != null && service.isInstanceofCamelBeans(item)) {
+                                // for camel
+                                synDuplicatedBean(newItem);
+                            }
+                            if (newItem instanceof ProcessItem || newItem instanceof JobletProcessItem) {
+                                RelationshipItemBuilder.getInstance().addOrUpdateItem(newItem);
+                            }
+                            if (newItem instanceof ConnectionItem) {
+                                ConnectionItem connectionItem = (ConnectionItem) newItem;
+                                connectionItem.getConnection().getSupplierDependency().clear();
+                            }
+                            factory.save(newItem);
+                        } catch (Exception e) {
+                            ExceptionHandler.process(e);
+                        }
+                    }
+
+                };
+
+                IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
+
+                    public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                        IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                        try {
+                            ISchedulingRule schedulingRule = workspace.getRoot();
+                            workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, monitor);
+                        } catch (CoreException e) {
+                            throw new InvocationTargetException(e);
+                        }
+
+                    }
+                };
                 try {
-                    Item newItem = factory.copy(item, path, true);
-                    // qli modified to fix the bug 5400 and 6185.
-                    if (newItem instanceof RoutineItem) {
-                        synDuplicatedRoutine((RoutineItem) newItem);
-                    }
-                    ICamelDesignerCoreService service = null;
-                    if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
-                        service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
-                                ICamelDesignerCoreService.class);
-                    }
-                    if (service != null && service.isInstanceofCamelBeans(item)) {
-                        // for camel
-                        synDuplicatedBean(newItem);
-                    }
-                    if (newItem instanceof ProcessItem || newItem instanceof JobletProcessItem) {
-                        RelationshipItemBuilder.getInstance().addOrUpdateItem(newItem);
-                    }
-                    if (newItem instanceof ConnectionItem) {
-                        ConnectionItem connectionItem = (ConnectionItem) newItem;
-                        connectionItem.getConnection().getSupplierDependency().clear();
-                    }
-                    factory.save(newItem);
-                } catch (Exception e) {
+                    new ProgressMonitorDialog(null).run(true, true, iRunnableWithProgress);
+                } catch (InvocationTargetException e) {
                     ExceptionHandler.process(e);
+                } catch (InterruptedException e) {
+                    //
                 }
             }
         };
