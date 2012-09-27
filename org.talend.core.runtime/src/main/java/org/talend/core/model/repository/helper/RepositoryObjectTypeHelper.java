@@ -24,6 +24,8 @@ package org.talend.core.model.repository.helper;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.repository.ERepositoryObjectType;
 
 /**
@@ -111,5 +113,29 @@ public final class RepositoryObjectTypeHelper {
         }
 
         return result;
+    }
+
+    /**
+     * 
+     * create Connection instance by connType
+     * 
+     * @param connType
+     * @return Connection which be Created, null if connType is null.
+     * @exception throw UnsupportedOperationException if connType is not be use
+     */
+    public static Connection CreateConnectionFromType(ERepositoryObjectType connType) {
+        if (connType == null) {
+            return null;
+        }
+        if (ERepositoryObjectType.METADATA_CONNECTIONS.equals(connType)) {
+            return ConnectionFactory.eINSTANCE.createDatabaseConnection();
+        } else if (ERepositoryObjectType.METADATA_MDMCONNECTION.equals(connType)) {
+            return ConnectionFactory.eINSTANCE.createMDMConnection();
+        } else if (ERepositoryObjectType.METADATA_FILE_DELIMITED.equals(connType)) {
+            return ConnectionFactory.eINSTANCE.createDelimitedFileConnection();
+        } else {
+            throw new UnsupportedOperationException();
+        }
+
     }
 }
