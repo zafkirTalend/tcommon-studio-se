@@ -535,6 +535,17 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 return true;
             }
         }
+        // TUP-202 sizhaoliu 2012-10-3 recursively check lock status of items in sub folders
+        FolderItem folderItem = repositoryFactoryFromProvider.getFolderItem(baseProject, type, path);
+        if (folderItem != null) {
+            for (Object child : folderItem.getChildren()) {
+                if (child instanceof FolderItem) {
+                    if (hasLockedItems(type, path.append(((FolderItem) child).getProperty().getLabel()))) {
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
