@@ -69,6 +69,12 @@ public class RenameFolderAction extends AContextualAction {
     protected void doRun() {
         ISelection selection = getSelection();
         Object obj = ((IStructuredSelection) selection).getFirstElement();
+        if (obj == null) {
+            MessageDialog.openWarning(new Shell(), Messages.getString("RenameFolderAction.warning.cannotFind.title"), Messages //$NON-NLS-1$
+                    .getString("RenameFolderAction.warning.cannotFind.message")); //$NON-NLS-1$
+            return;
+        }
+
         RepositoryNode node = (RepositoryNode) obj;
 
         // Check if some jobs in the folder are currently opened:
@@ -86,6 +92,10 @@ public class RenameFolderAction extends AContextualAction {
         path = RepositoryNodeUtilities.getPath(node);
         objectType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
 
+        openFolderWizard(node, objectType, path);
+    }
+
+    protected void openFolderWizard(RepositoryNode node, ERepositoryObjectType objectType, IPath path) {
         if (objectType != null) {
             FolderWizard processWizard = new FolderWizard(path, objectType, node.getObject().getLabel());
             Shell activeShell = Display.getCurrent().getActiveShell();
