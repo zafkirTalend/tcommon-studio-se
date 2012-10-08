@@ -111,7 +111,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
         if (osName.contains("Mac")) {
             font = fontMac;
         }
-        this.title = "Here are all the modules not yet installed in the product";
+        this.title = "The following modules are not yet installed. Please download and install all required modules.";
         this.text = "List of modules not installed in the product";
     }
 
@@ -146,11 +146,13 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
         tableViewerCreator.setCheckboxInFirstColumn(false);
         tableViewerCreator.setColumnsResizableByDefault(true);
         tableViewerCreator.setLinesVisible(true);
-        tableViewerCreator.setLayoutMode(LAYOUT_MODE.FILL_HORIZONTAL);
+        tableViewerCreator.setLayoutMode(LAYOUT_MODE.CONTINUOUS);
+
         tableViewerCreator.createTable();
 
         TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("Name"); //$NON-NLS-1$
+        column.setTitle("Module");
+        column.setToolTipHeader("Module");
         column.setSortable(true);
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<ModuleToInstall, String>() {
 
@@ -168,7 +170,8 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
         column.setModifiable(false);
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("Context"); //$NON-NLS-1$
+        column.setTitle("Required by component");
+        column.setToolTipHeader("Required by component");
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<ModuleToInstall, String>() {
 
             @Override
@@ -185,7 +188,8 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
         column.setWeight(6);
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("Required"); //$NON-NLS-1$
+        column.setTitle("Required");
+        column.setToolTipHeader("Required");
         column.setDisplayedValue("");
         column.setImageProvider(new IColumnImageProvider<ModuleToInstall>() {
 
@@ -203,7 +207,8 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
         column.setWeight(2);
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("License"); //$NON-NLS-1$
+        column.setTitle("License");
+        column.setToolTipHeader("License");
         column.setSortable(true);
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<ModuleToInstall, String>() {
 
@@ -221,12 +226,14 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
         column.setWeight(3);
 
         TableViewerCreatorColumn urlcolumn = new TableViewerCreatorColumn(tableViewerCreator);
-        urlcolumn.setTitle("URL"); //$NON-NLS-1$
+        urlcolumn.setTitle("More information");
+        urlcolumn.setToolTipHeader("More information");
         urlcolumn.setModifiable(false);
         urlcolumn.setWeight(8);
 
         TableViewerCreatorColumn installcolumn = new TableViewerCreatorColumn(tableViewerCreator);
-        installcolumn.setTitle("Install"); //$NON-NLS-1$
+        installcolumn.setTitle("Available on TalendForge");
+        installcolumn.setToolTipHeader("Available on TalendForge");
         installcolumn.setModifiable(false);
         installcolumn.setWeight(5);
         if (inputList == null) {
