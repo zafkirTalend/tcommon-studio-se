@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project 
+	xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
@@ -8,12 +10,11 @@
 	<artifactId>${job.name}</artifactId>
 	<version>${job.version}</version>
 
-
-	<properties>
-		<project.name>XXX</project.name>
-		<job.name>YYY</job.name>
-		<job.version>x.y</job.version>
-		<job.name.exportedJar>${job.name}_${job.version}</job.name.exportedJar>
+	<properties> <!-- define the variables which will be replaced by API -->
+		<project.name>@ProjectName@</project.name>
+		<job.name>@JobName@</job.name>
+		<job.version>@JobVersion@</job.version>
+		<job.exportedJar.name>@JobExportedJarName@</job.exportedJar.name>
 	</properties>
 
 	<dependencies>
@@ -21,7 +22,7 @@
 
 	<build>
 		<sourceDirectory>${basedir}/src</sourceDirectory>
-		<finalName>${job.name.exportedJar}</finalName>
+		<finalName>${job.exportedJar.name}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -36,7 +37,7 @@
 							<descriptors>
 								<descriptor>assembly.xml</descriptor>
 							</descriptors>
-							<!-- <finalName>${project.build.finalName}</finalName> -->
+							<finalName>${job.name}_${job.version}</finalName>
 							<tarLongFileMode>gnu</tarLongFileMode>
 						</configuration>
 					</execution>

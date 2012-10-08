@@ -41,8 +41,6 @@ import org.talend.resources.i18n.Messages;
  */
 public class ResourceService implements IResourceService {
 
-    private final static String RESOURCE_LOCATION = ResourcesPlugin.PLUGIN_ID;
-
     private final static String PERL_RESOURCE_LOCATION = "org.talend.resources.perl";
 
     private final static String JAVA_LIBRARIE = "resources/demoprojects/java/TALENDDEMOSJAVA/lib/java"; //$NON-NLS-1$
@@ -68,7 +66,7 @@ public class ResourceService implements IResourceService {
     public String getJavaLibraryPath() {
         // TODO Auto-generated method stub
 
-        Bundle b = Platform.getBundle(RESOURCE_LOCATION);
+        Bundle b = Platform.getBundle(ResourcesPlugin.PLUGIN_ID);
         URL url = null;
         try {
             url = FileLocator.toFileURL(FileLocator.find(b, new Path(JAVA_LIBRARIE), null));
@@ -127,7 +125,7 @@ public class ResourceService implements IResourceService {
 
     @Override
     public String getAntScriptFilePath() {
-        Bundle b = Platform.getBundle(RESOURCE_LOCATION);
+        Bundle b = Platform.getBundle(ResourcesPlugin.PLUGIN_ID);
         URL url = null;
         try {
             url = FileLocator.toFileURL(FileLocator.find(b, new Path(ANT_BUILD_FILE_PATH), null));
@@ -144,7 +142,7 @@ public class ResourceService implements IResourceService {
 
     @Override
     public String getMavenScriptFilePath(String fileName) {
-        Bundle b = Platform.getBundle(RESOURCE_LOCATION);
+        Bundle b = Platform.getBundle(ResourcesPlugin.PLUGIN_ID);
         URL url = null;
         try {
             url = FileLocator.toFileURL(FileLocator.find(b, new Path(MAVEN_BUILD_FILE_PATH + fileName), null));
