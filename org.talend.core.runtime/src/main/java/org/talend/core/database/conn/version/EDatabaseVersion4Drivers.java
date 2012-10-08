@@ -73,7 +73,7 @@ public enum EDatabaseVersion4Drivers {
     MSSQL2008(new DbVersion4Drivers(EDatabaseTypeName.MSSQL05_08,
             "MSSQL2008", "MSSQL_2008", new String[] { "sqljdbc.jar", "sqljdbc4.jar" })), //$NON-NLS-1$
 
-    VERTICA_6(new DbVersion4Drivers(EDatabaseTypeName.VERTICA, "VERTICA 6", "VERTICA_6", "vertica_6.0.0_jdk_5.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    VERTICA_6(new DbVersion4Drivers(EDatabaseTypeName.VERTICA, "VERTICA 6", "VERTICA_6", "vertica-jdk5-6.0.0-0.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     VERTICA_5(new DbVersion4Drivers(EDatabaseTypeName.VERTICA, "VERTICA 5", "VERTICA_5", "vertica_4.1.14_jdk_5.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     VERTICA_4_1(new DbVersion4Drivers(EDatabaseTypeName.VERTICA, "VERTICA 4.1", "VERTICA_4_1", "vertica_4.1.7_jdk_5.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     VERTICA_4(new DbVersion4Drivers(EDatabaseTypeName.VERTICA, "VERTICA 4", "VERTICA_4", "vertica_4.0_jdk_5.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -106,9 +106,9 @@ public enum EDatabaseVersion4Drivers {
     // "slf4j-log4j12-1.6.1.jar" })),
 
     HIVE(new DbVersion4Drivers(EDatabaseTypeName.HIVE, "STANDALONE", "STANDALONE", new String[] { "hive-jdbc-0.9.0.jar",
-            "hive-metastore-0.9.0.jar", "hive-exec-0.9.0.jar", "hive-service-0.9.0.jar",
-            "libfb303-0.7.0.jar", "hadoop-core-2.0.0-mr1-cdh4.0.0.jar", "commons-logging-1.0.4.jar", "log4j-1.2.16.jar",
-            "slf4j-api-1.6.1.jar", "slf4j-log4j12-1.6.1.jar" })),
+            "hive-metastore-0.9.0.jar", "hive-exec-0.9.0.jar", "hive-service-0.9.0.jar", "libfb303-0.7.0.jar",
+            "hadoop-core-2.0.0-mr1-cdh4.0.0.jar", "commons-logging-1.0.4.jar", "log4j-1.2.16.jar", "slf4j-api-1.6.1.jar",
+            "slf4j-log4j12-1.6.1.jar" })),
 
     /**
      * Added by Marvin Wang on Aug. 7, 2012 for feature TDI-22130. It is just to add a new EMBEDDED mode for Hive.
@@ -118,9 +118,9 @@ public enum EDatabaseVersion4Drivers {
             "datanucleus-connectionpool-2.0.3.jar", "datanucleus-core-2.0.3.jar", "datanucleus-enhancer-2.0.3.jar",
             "datanucleus-rdbms-2.0.3.jar", "derby-10.4.2.0.jar", "guava-r09.jar", "hadoop-auth-2.0.0-cdh4.0.1.jar",
             "hadoop-common-2.0.0-cdh4.0.1.jar", "hadoop-core-2.0.0-mr1-cdh4.0.1.jar", "hive-builtins-0.9.0.jar",
-            "hive-exec-0.9.0.jar", "hive-jdbc-0.9.0.jar", "hive-metastore-0.9.0.jar",
-            "hive-service-0.9.0.jar", "jdo2-api-2.3-ec.jar", "libfb303-0.7.0.jar", "libthrift-0.7.0.jar",
-            "log4j-1.2.16.jar", "slf4j-api-1.6.1.jar", "slf4j-log4j12-1.6.1.jar", "mysql-connector-java-5.1.15-bin.jar" })),
+            "hive-exec-0.9.0.jar", "hive-jdbc-0.9.0.jar", "hive-metastore-0.9.0.jar", "hive-service-0.9.0.jar",
+            "jdo2-api-2.3-ec.jar", "libfb303-0.7.0.jar", "libthrift-0.7.0.jar", "log4j-1.2.16.jar", "slf4j-api-1.6.1.jar",
+            "slf4j-log4j12-1.6.1.jar", "mysql-connector-java-5.1.15-bin.jar" })),
 
     HBASE(new DbVersion4Drivers(EDatabaseTypeName.HBASE, new String[] { "hadoop-core-0.20.2-cdh3u0.jar",
             "hbase-0.90.1-cdh3u0.jar", "zookeeper-3.3.3-cdh3u0.jar", "commons-lang3-3.0.jar", "commons-logging-1.1.1.jar",
