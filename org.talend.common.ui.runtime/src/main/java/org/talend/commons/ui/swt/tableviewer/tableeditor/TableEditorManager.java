@@ -400,8 +400,13 @@ public class TableEditorManager {
         dataToMultipleDataEditor.put(tableItem.getData(), tableEditor);
 
         Object currentRowObject = tableItem.getData();
-        // Object value = tableViewerCreator.getCellModifier().getValue(currentRowObject, idProperty);
-        Object value = column.getBeanPropertyAccessors().get(tableItem.getData());
+        Object value = null;
+        if (column.getBeanPropertyAccessors() != null) {
+            value = column.getBeanPropertyAccessors().get(tableItem.getData());
+        } else {
+            value = tableViewerCreator.getCellModifier().getValue(currentRowObject, idProperty);
+        }
+
         Control control = tableEditorContent.initialize(tableItem.getParent(), tableEditor, column, currentRowObject, value);
 
         // control.addDisposeListener(new DisposeListener() {
