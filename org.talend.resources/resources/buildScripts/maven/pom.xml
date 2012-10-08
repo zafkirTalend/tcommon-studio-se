@@ -4,17 +4,24 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId><!--project.name--></groupId>
-	<artifactId><!--job.name--></artifactId>
-	<version><!--job.version--></version>
-	<packaging>jar</packaging>
+	<groupId>${project.name}</groupId>
+	<artifactId>${job.name}</artifactId>
+	<version>${job.version}</version>
+
+
+	<properties>
+		<project.name>XXX</project.name>
+		<job.name>YYY</job.name>
+		<job.version>x.y</job.version>
+		<job.name.exportedJar>${job.name}_${job.version}</job.name.exportedJar>
+	</properties>
 
 	<dependencies>
 	</dependencies>
 
 	<build>
 		<sourceDirectory>${basedir}/src</sourceDirectory>
-		<finalName>${project.artifactId}_${project.version}</finalName>
+		<finalName>${job.name.exportedJar}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -29,7 +36,7 @@
 							<descriptors>
 								<descriptor>assembly.xml</descriptor>
 							</descriptors>
-							<finalName>${project.build.finalName}</finalName>
+							<!-- <finalName>${project.build.finalName}</finalName> -->
 							<tarLongFileMode>gnu</tarLongFileMode>
 						</configuration>
 					</execution>

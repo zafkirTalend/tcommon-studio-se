@@ -1,38 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<assembly>
+<assembly
+	xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
 
-    <id>bin</id>
+	<id>bin</id>
 
-    <formats>
-        <format>zip</format>
-        <format>tar.gz</format>
-    </formats>
+	<formats>
+		<format>zip</format>
+		<format>tar.gz</format>
+	</formats>
 
-    <fileSets>
+	<fileSets>
+		<fileSet> <!-- add jar of job with routines classes  -->
+			<directory>${project.build.directory}</directory>
+			<outputDirectory>${project.artifactId}</outputDirectory>
+			<includes>
+				<include>${project.build.finalName}.jar</include>
+			</includes>
+		</fileSet>
+		<fileSet> <!-- add the classpath.jar -->
+			<directory>.</directory>
+			<outputDirectory>${project.artifactId}</outputDirectory>
+			<includes>
+				<include>classpath.jar</include>
+			</includes>
+		</fileSet>
+		<fileSet> <!-- add all lib jars except routines jar -->
+			<directory>../lib</directory>
+			<outputDirectory>/lib</outputDirectory>
+			<includes>
+				<include>*.jar</include>
+			</includes>
+			<excludes> <!--Because rebuild routines, so no need the original jar -->
+				<exclude>systemRoutines.jar</exclude>
+				<exclude>userRoutines.jar</exclude>
+			</excludes>
+		</fileSet>
+		<fileSet> <!-- add context properties -->
+			<directory>${project.groupId}</directory>
+			<outputDirectory>${project.artifactId}/${project.groupId}</outputDirectory>
+			<includes>
+				<include>**</include>
+			</includes>
+		</fileSet>
+		<!--
+		<fileSet> 
+			<directory>items</directory>
+			<outputDirectory>${project.artifactId}/items</outputDirectory>
+			<includes>
+				<include>**</include>
+			</includes>
+		</fileSet>
+		<fileSet> 
+			<directory>${project.build.sourceDirectory}</directory>
+			<outputDirectory>${project.artifactId}/src</outputDirectory>
+			<includes>
+				<include>**</include>
+			</includes>
+		</fileSet>
+		-->
 		<fileSet>
-            <directory>target</directory>
-            <outputDirectory>/</outputDirectory>
-            <includes>
-                <include>*.jar</include>
-            </includes>
-        </fileSet>
-        <fileSet>
-            <directory>.</directory>
-            <outputDirectory>/</outputDirectory>
-            <includes>
-                <include>classpath.jar</include>
-            </includes>
-        </fileSet>
-        <fileSet>
-            <directory>.</directory>
-            <outputDirectory>/</outputDirectory>
-            <lineEnding>unix</lineEnding>
-            <fileMode>0755</fileMode>
-            <includes>
-                <include>*.sh</include>
-                <include>*.bat</include>
-            </includes>
-        </fileSet>
-    </fileSets>
-
+			<directory>.</directory>
+			<outputDirectory>${project.artifactId}</outputDirectory>
+			<lineEnding>unix</lineEnding>
+			<fileMode>0755</fileMode>
+			<includes>
+				<include>*.sh</include>
+				<include>*.bat</include>
+			</includes>
+		</fileSet>
+	</fileSets>
 </assembly>
