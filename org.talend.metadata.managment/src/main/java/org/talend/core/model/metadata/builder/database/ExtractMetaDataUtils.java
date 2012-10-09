@@ -1069,6 +1069,7 @@ public class ExtractMetaDataUtils {
         if (StringUtils.isEmpty(defautVal)) {
             return;
         }
+        defautVal = defautVal.trim();
         boolean defaultValueIsFunction = false;
         List<String> functions = getAllDBFuctions(dbMetaData);
         if (functions.contains(defautVal)) {
