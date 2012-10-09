@@ -36,8 +36,8 @@ public class Step0WizardPage extends PropertiesWizardPage {
         super("WizardPage", property, destinationPath, readOnly, editPath); //$NON-NLS-1$
         this.type = type;
 
-        setTitle(Messages.getString("Step0WizardPage.title")); //$NON-NLS-1$
-        setDescription(Messages.getString("Step0WizardPage.description")); //$NON-NLS-1$
+        setTitle(Messages.getString("Step0WizardPage.title2")); //$NON-NLS-1$
+        setDescription(Messages.getString("Step0WizardPage.description2")); //$NON-NLS-1$
     }
 
     /*
