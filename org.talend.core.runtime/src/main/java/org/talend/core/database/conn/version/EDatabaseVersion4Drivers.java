@@ -53,8 +53,7 @@ public enum EDatabaseVersion4Drivers {
     JAVADB_EMBEDED(new DbVersion4Drivers(EDatabaseTypeName.JAVADB_EMBEDED, "derby.jar")), //$NON-NLS-1$
     SQLITE(new DbVersion4Drivers(EDatabaseTypeName.SQLITE, "sqlitejdbc-v056.jar")), //$NON-NLS-1$
     FIREBIRD(new DbVersion4Drivers(EDatabaseTypeName.FIREBIRD, "jaybird-full-2.1.1.jar")), //$NON-NLS-1$
-    TERADATA(new DbVersion4Drivers(EDatabaseTypeName.TERADATA,
-            new String[] { "terajdbc4.jar", "tdgssconfig.jar", "tdgssjava.jar" })), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    TERADATA(new DbVersion4Drivers(EDatabaseTypeName.TERADATA, new String[] { "terajdbc4.jar", "tdgssconfig.jar" })), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     JAVADB_DERBYCLIENT(new DbVersion4Drivers(EDatabaseTypeName.JAVADB_DERBYCLIENT, "derbyclient.jar")), //$NON-NLS-1$
     NETEZZA(new DbVersion4Drivers(EDatabaseTypeName.NETEZZA, "nzjdbc.jar")), //$NON-NLS-1$
     INFORMIX(new DbVersion4Drivers(EDatabaseTypeName.INFORMIX, "ifxjdbc.jar")), //$NON-NLS-1$
@@ -106,35 +105,39 @@ public enum EDatabaseVersion4Drivers {
     // "slf4j-log4j12-1.6.1.jar" })),
 
     HIVE(new DbVersion4Drivers(EDatabaseTypeName.HIVE, "STANDALONE", "STANDALONE", new String[] { "hive-jdbc-0.9.0.jar",
-            "hive-metastore-0.9.0.jar", "hive-exec-0.9.0.jar", "hive-service-0.9.0.jar",
-            "libfb303-0.7.0.jar", "hadoop-core-1.0.3.jar", "commons-logging-1.0.4.jar", "log4j-1.2.16.jar",
-            "slf4j-api-1.6.1.jar", "slf4j-log4j12-1.6.1.jar" })),
+            "hive-metastore-0.9.0.jar", "hive-exec-0.9.0.jar", "hive-service-0.9.0.jar", "libfb303-0.7.0.jar",
+            "hadoop-core-1.0.3.jar", "commons-logging-1.0.4.jar", "log4j-1.2.16.jar", "slf4j-api-1.6.1.jar",
+            "slf4j-log4j12-1.6.1.jar" })),
 
     /**
      * Added by Marvin Wang on Aug. 7, 2012 for feature TDI-22130. It is just to add a new EMBEDDED mode for Hive.
      */
-//    HIVE_EMBEDDED(new DbVersion4Drivers(EDatabaseTypeName.HIVE, "EMBEDDED", "EMBEDDED", new String[] { "antlr-runtime-3.0.1.jar",
-//            "commons-dbcp-1.4.jar", "commons-lang-2.4.jar", "commons-logging-1.0.4.jar", "commons-pool-1.5.4.jar","datanucleus-api-jdo-3.0.7.jar",
-//            "datanucleus-connectionpool-2.0.3.jar", "datanucleus-core-3.0.7.jar", "datanucleus-enhancer-2.0.3.jar",
-//            "datanucleus-rdbms-3.0.8.jar", "derby-10.4.2.0.jar", "guava-r09.jar", "hadoop-auth-2.0.0-cdh4.0.1.jar",
-////            "hadoop-common-2.0.0-cdh4.0.1.jar",
-//             "hadoop-core-1.0.3.jar", "hive-builtins-0.9.0.jar",
-//            "hive-exec-0.9.0.jar", "hive-jdbc-0.9.0.jar", "hive-metastore-0.9.0.jar","commons-configuration-1.6.jar","aspectjtools-1.6.5.jar",
-//            "hive-service-0.9.0.jar", "jdo2-api-2.3-eb.jar", "libfb303-0.7.0.jar", "libthrift-0.7.0.jar",
-//            "log4j-1.2.16.jar", "slf4j-api-1.6.1.jar", "slf4j-log4j12-1.6.1.jar", "mysql-connector-java-5.1.21-bin.jar","jackson-core-asl-1.8.8.jar"
-//            ,"jackson-mapper-asl-1.8.8.jar"})),
-         
-//            All jars are referred from tHiveConnection_java.xml
-      HIVE_EMBEDDED(new DbVersion4Drivers(EDatabaseTypeName.HIVE, "EMBEDDED", "EMBEDDED", new String[] { "commons-logging-1.0.4.jar",
-            		"datanucleus-api-jdo-3.0.7.jar","datanucleus-core-3.0.9.jar","datanucleus-rdbms-3.0.8.jar","hadoop-core-1.0.3.jar",
-            		"hive-builtins-0.9.0.jar","hive-exec-0.9.0.jar","hive-jdbc-0.9.0.jar","hive-metastore-0.9.0.jar","hive-service-0.9.0.jar",
-            		"libfb303-0.7.0.jar","libthrift-0.7.0.jar","log4j-1.2.15.jar","slf4j-api-1.6.1.jar","antlr-runtime-3.0.1.jar",
-            		"jdo2-api-2.3-ec.jar","commons-dbcp-1.4.jar","commons-pool-1.5.4.jar","derby-10.4.2.0.jar","commons-configuration-1.6.jar",
-            		"commons-lang-2.4.jar","slf4j-log4j12-1.6.1.jar","jackson-core-asl-1.8.8.jar","jackson-mapper-asl-1.8.8.jar"})),
-//    Changed by Marvin Wang on Oct.9, 2012, just because the libs checking can not pass, Remy updated some jars from 
-    HBASE(new DbVersion4Drivers(EDatabaseTypeName.HBASE, new String[] { "hadoop-core-1.0.0.jar",
-            "hbase-0.90.1-cdh3u0.jar", "zookeeper-3.3.3-cdh3u0.jar", "commons-lang3-3.0.jar", "commons-logging-1.1.1.jar",
-            "log4j-1.2.16.jar" }));
+    // HIVE_EMBEDDED(new DbVersion4Drivers(EDatabaseTypeName.HIVE, "EMBEDDED", "EMBEDDED", new String[] {
+    // "antlr-runtime-3.0.1.jar",
+    // "commons-dbcp-1.4.jar", "commons-lang-2.4.jar", "commons-logging-1.0.4.jar",
+    // "commons-pool-1.5.4.jar","datanucleus-api-jdo-3.0.7.jar",
+    // "datanucleus-connectionpool-2.0.3.jar", "datanucleus-core-3.0.7.jar", "datanucleus-enhancer-2.0.3.jar",
+    // "datanucleus-rdbms-3.0.8.jar", "derby-10.4.2.0.jar", "guava-r09.jar", "hadoop-auth-2.0.0-cdh4.0.1.jar",
+    // // "hadoop-common-2.0.0-cdh4.0.1.jar",
+    // "hadoop-core-1.0.3.jar", "hive-builtins-0.9.0.jar",
+    // "hive-exec-0.9.0.jar", "hive-jdbc-0.9.0.jar",
+    // "hive-metastore-0.9.0.jar","commons-configuration-1.6.jar","aspectjtools-1.6.5.jar",
+    // "hive-service-0.9.0.jar", "jdo2-api-2.3-eb.jar", "libfb303-0.7.0.jar", "libthrift-0.7.0.jar",
+    // "log4j-1.2.16.jar", "slf4j-api-1.6.1.jar", "slf4j-log4j12-1.6.1.jar",
+    // "mysql-connector-java-5.1.21-bin.jar","jackson-core-asl-1.8.8.jar"
+    // ,"jackson-mapper-asl-1.8.8.jar"})),
+
+    // All jars are referred from tHiveConnection_java.xml
+    HIVE_EMBEDDED(new DbVersion4Drivers(EDatabaseTypeName.HIVE, "EMBEDDED", "EMBEDDED", new String[] {
+            "commons-logging-1.0.4.jar", "datanucleus-api-jdo-3.0.7.jar", "datanucleus-core-3.0.9.jar",
+            "datanucleus-rdbms-3.0.8.jar", "hadoop-core-1.0.3.jar", "hive-builtins-0.9.0.jar", "hive-exec-0.9.0.jar",
+            "hive-jdbc-0.9.0.jar", "hive-metastore-0.9.0.jar", "hive-service-0.9.0.jar", "libfb303-0.7.0.jar",
+            "libthrift-0.7.0.jar", "log4j-1.2.15.jar", "slf4j-api-1.6.1.jar", "antlr-runtime-3.0.1.jar", "jdo2-api-2.3-ec.jar",
+            "commons-dbcp-1.4.jar", "commons-pool-1.5.4.jar", "derby-10.4.2.0.jar", "commons-configuration-1.6.jar",
+            "commons-lang-2.4.jar", "slf4j-log4j12-1.6.1.jar", "jackson-core-asl-1.8.8.jar", "jackson-mapper-asl-1.8.8.jar" })),
+    // Changed by Marvin Wang on Oct.9, 2012, just because the libs checking can not pass, Remy updated some jars from
+    HBASE(new DbVersion4Drivers(EDatabaseTypeName.HBASE, new String[] { "hadoop-core-1.0.0.jar", "hbase-0.90.1-cdh3u0.jar",
+            "zookeeper-3.3.3-cdh3u0.jar", "commons-lang3-3.0.jar", "commons-logging-1.1.1.jar", "log4j-1.2.16.jar" }));
 
     private DbVersion4Drivers dbVersionBean;
 
