@@ -23,7 +23,7 @@
 			<dbType type="BINARY_DOUBLE" ignoreLen="true" ignorePre="true"/>
 			<dbType type="DATE" ignoreLen="true" ignorePre="true"/>
 			<dbType type="TIMESTAMP" defaultPrecision="6" ignoreLen="true" ignorePre="false"/>
-			<dbType type="TIMESTAMP(6) WITH TIME ZONE" defaultPrecision="6" ignoreLen="true" ignorePre="false"/>
+			<dbType type="TIMESTAMP WITH TIME ZONE" defaultLength="6" ignoreLen="true" ignorePre="true"/>
 			<dbType type="BLOB" ignoreLen="true" ignorePre="true" />
 			<dbType type="CLOB" ignoreLen="true" ignorePre="true" />
 			<dbType type="BFILE" ignoreLen="true" ignorePre="true"/>
@@ -54,7 +54,7 @@
 				<talendType type="id_Date">
 					<dbType type="DATE" default="true"/>
 					<dbType type="TIMESTAMP"/>
-					<dbType type="TIMESTAMP(6) WITH TIME ZONE"/>
+					<dbType type="TIMESTAMP WITH TIME ZONE"/>
 				</talendType>
 				<talendType type="id_BigDecimal">
 					<dbType type="DEC" default="true"/>
@@ -165,7 +165,7 @@
 				<dbType type="TIMESTAMP">
 					<talendType type="id_Date" default="true" />				
 				</dbType>
-				<dbType type="TIMESTAMP(6) WITH TIME ZONE">
+				<dbType type="TIMESTAMP WITH TIME ZONE">
 					<talendType type="id_Date" default="true" />				
 				</dbType>
 				<dbType type="BLOB">

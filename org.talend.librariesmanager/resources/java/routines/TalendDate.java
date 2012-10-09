@@ -114,7 +114,13 @@ public class TalendDate {
      */
 
     public synchronized static String formatDate(String pattern, java.util.Date date) {
-        return FastDateParser.getInstance(pattern).format(date);
+        if (date instanceof TalendTimestampWithTZ) {
+            DateFormat format = FastDateParser.getInstance(pattern);
+            format.setTimeZone(((TalendTimestampWithTZ) date).getTimeZone());
+            return format.format(date.getTime());
+        } else {
+            return FastDateParser.getInstance(pattern).format(date);
+        }
     }
 
     /**
