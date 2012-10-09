@@ -50,6 +50,8 @@ public class LocalLibraryManagerTest {
 
     private final LocalLibraryManager localLibMana = new LocalLibraryManager();
 
+    private List<String> notDilivers = new ArrayList<String>();
+
     /**
      * DOC Administrator Comment method "setUp".
      * 
@@ -57,7 +59,11 @@ public class LocalLibraryManagerTest {
      */
     @Before
     public void setUp() throws Exception {
-
+        notDilivers.add("nzjdbc.jar");
+        notDilivers.add("sas.svc.connection.jar");
+        notDilivers.add("sas.core.jar");
+        notDilivers.add("sas.intrnet.javatools.jar");
+        notDilivers.add("sas.security.sspi.jar");
     }
 
     /**
@@ -243,7 +249,7 @@ public class LocalLibraryManagerTest {
             allJars.addAll(providerDrivers);
         }
 
-        List<String> missJars = new ArrayList<String>();
+        Set<String> missJars = new HashSet<String>();
         for (String jar : allJars) {
             boolean hadInstalled = false;
             for (String installJar : names) {
@@ -257,6 +263,11 @@ public class LocalLibraryManagerTest {
         }
 
         if (missJars.size() > 0) {
+            for (String notDiliver : notDilivers) {
+                if (missJars.contains(notDiliver)) {
+                    missJars.remove(notDiliver);
+                }
+            }
             StringBuffer buffer = new StringBuffer();
             buffer.append("db system missing jars! \n");
             for (String missJar : missJars) {
