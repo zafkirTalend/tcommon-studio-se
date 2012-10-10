@@ -116,20 +116,20 @@ public enum SupportDBUrlType {
                        "myserver", "Informix"), //$NON-NLS-1$ //$NON-NLS-2$
     FIREBIRDDEFAULTURL("FireBird", //$NON-NLS-1$
                        "localhost", //$NON-NLS-1$
-                       null, //$NON-NLS-1$
+                       null,
                        "dbname", //$NON-NLS-1$
                        null,
                        "org.firebirdsql.jdbc.FBDriver", //$NON-NLS-1$
                        null,
                        "FireBird"), //$NON-NLS-1$
-    INGRESDEFAULTURL("Ingres", "localhost", "II7", "dbname", null, "com.ingres.jdbc.IngresDriver", null, "Ingres"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+    INGRESDEFAULTURL("Ingres", "localhost", "II7", "dbname", null, "ca.ingres.jdbc.IngresDriver", null, "Ingres"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
     SQLITE3DEFAULTURL("SQLite", "localhost", "", "dbname", null, "org.sqlite.JDBC", null, "SQLite"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
     GENERICJDBCDEFAULTURL("General JDBC", "", "", "", null, "", null, "General JDBC"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
     // MOD klliu 2010-06-04 bug 12819: upgrade jdbc driver class used in sql explorer
     TERADATADEFAULTURL("Teradata", "localhost", null, "dbname", null, "com.teradata.jdbc.TeraDriver", null, "Teradata"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
     AS400DEFAULTURL("AS400", //$NON-NLS-1$
                     "localhost", //$NON-NLS-1$
-                    null, //$NON-NLS-1$
+                    null,
                     "dbname", //$NON-NLS-1$
                     null,
                     "com.ibm.as400.access.AS400JDBCDriver", //$NON-NLS-1$
