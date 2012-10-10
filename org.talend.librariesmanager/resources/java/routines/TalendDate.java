@@ -742,16 +742,31 @@ public class TalendDate {
      */
     public synchronized static Date parseDate(String pattern, String stringDate) {
         try {
+            boolean hasZone = false;
+            boolean inQuote = false;
+            char[] ps = pattern.toCharArray();
+            for (char p : ps) {
+                if (p == '\'') {
+                    inQuote = !inQuote;
+                } else if (!inQuote && (p == 'Z' || p == 'z')) {
+                    hasZone = true;
+                    break;
+                }
+            }
             DateFormat df = FastDateParser.getInstance(pattern);
             Date d = df.parse(stringDate);
-            int offset = df.getCalendar().get(Calendar.ZONE_OFFSET);
-            char sign = offset >= 0 ? '+' : '-';
-            int hour = Math.abs(offset) / 1000 / 60 / 60;
-            int min = Math.abs(offset) / 1000 / 60 % 60;
-            String minStr = min < 10 ? "0" + min : min + "";
-            TalendTimestampWithTZ tstz = new TalendTimestampWithTZ(new java.sql.Timestamp(d.getTime()),
-                    TimeZone.getTimeZone("GMT" + sign + hour + ":" + minStr));
-            return tstz;
+            if (hasZone) {
+                int offset = df.getCalendar().get(Calendar.ZONE_OFFSET);
+                char sign = offset >= 0 ? '+' : '-';
+                int hour = Math.abs(offset) / 1000 / 60 / 60;
+                int min = Math.abs(offset) / 1000 / 60 % 60;
+                String minStr = min < 10 ? "0" + min : min + "";
+                TalendTimestampWithTZ tstz = new TalendTimestampWithTZ(new java.sql.Timestamp(d.getTime()),
+                        TimeZone.getTimeZone("GMT" + sign + hour + ":" + minStr));
+                return tstz;
+            } else {
+                return d;
+            }
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
