@@ -19,6 +19,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.librariesmanager.Activator;
+import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.ui.dialogs.ComponentExternalModulesDialog;
 import org.talend.librariesmanager.ui.dialogs.ExternalModulesInstallDialog;
 import org.talend.librariesmanager.ui.dialogs.OperationExternalModulesDialog;
@@ -32,8 +33,8 @@ public class ModulesInstaller {
     public static void installModules(Shell shell, IComponent component) {
         if (!Activator.getDefault().getPreferenceStore()
                 .getBoolean(ExternalModulesInstallDialog.DO_NOT_SHOW_EXTERNALMODULESINSTALLDIALOG)) {
-            String text = "Component " + component.getName() + " requires the following third party modules";
-            String title = "List of modules not installed for component " + component.getName();
+            String text = Messages.getString("ModulesInstaller_text1", component.getName());
+            String title = Messages.getString("ModulesInstaller_title1") + component.getName(); //$NON-NLS-1$
             if (!component.getModulesNeeded().isEmpty()) {
                 ComponentExternalModulesDialog dialog = new ComponentExternalModulesDialog(shell, component.getModulesNeeded(),
                         text, title);
@@ -45,8 +46,8 @@ public class ModulesInstaller {
     public static void installModules(Shell shell, List<IComponent> components) {
         if (!Activator.getDefault().getPreferenceStore()
                 .getBoolean(ExternalModulesInstallDialog.DO_NOT_SHOW_EXTERNALMODULESINSTALLDIALOG)) {
-            String text = "Selected components require the following third party modules";
-            String title = "List of modules not installed for the selected components";
+            String text = Messages.getString("ModulesInstaller_text2"); //$NON-NLS-1$
+            String title = Messages.getString("ModulesInstaller_title2"); //$NON-NLS-1$
             List<ModuleNeeded> needed = new ArrayList<ModuleNeeded>();
             for (IComponent component : components) {
                 needed.addAll(component.getModulesNeeded());
@@ -61,8 +62,8 @@ public class ModulesInstaller {
     public static void installModules(Shell shell, String[] jarNames) {
         if (!Activator.getDefault().getPreferenceStore()
                 .getBoolean(ExternalModulesInstallDialog.DO_NOT_SHOW_EXTERNALMODULESINSTALLDIALOG)) {
-            String text = "Current operation requires the following third party modules";
-            String title = "List of modules not installed for current operation";
+            String text = Messages.getString("ModulesInstaller_text3"); //$NON-NLS-1$
+            String title = Messages.getString("ModulesInstaller_title3"); //$NON-NLS-1$
             OperationExternalModulesDialog dialog = new OperationExternalModulesDialog(shell, jarNames, text, title);
             dialog.openDialog();
         }
