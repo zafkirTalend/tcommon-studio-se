@@ -94,10 +94,6 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
 
     protected List<String> jarsInstalledSuccuss = new ArrayList<String>();
 
-    protected List<ModuleNeeded> modules;
-
-    protected String[] neededJars;
-
     private List<Button> installButtons = new ArrayList<Button>();
 
     protected List<ModuleToInstall> inputList = new ArrayList<ModuleToInstall>();
@@ -108,23 +104,6 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         super(shell);
         this.text = text;
         this.title = title;
-        updateModulesToInstall();
-    }
-
-    public ExternalModulesInstallDialog(Shell shell, List<ModuleNeeded> modules, String text, String title) {
-        super(shell);
-        this.text = text;
-        this.title = title;
-        this.modules = modules;
-        updateModulesToInstall();
-    }
-
-    public ExternalModulesInstallDialog(Shell shell, String[] neededJars, String text, String title) {
-        super(shell);
-        this.text = text;
-        this.title = title;
-        this.neededJars = neededJars;
-        updateModulesToInstall();
     }
 
     @Override
@@ -334,7 +313,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                                         message = message + fail + names;
                                     }
                                     MessageDialog.openInformation(getShell(), "Information", message);
-                                    refreshUI();
+                                    // refreshUI();
                                 }
                             }
                         });
@@ -349,11 +328,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
 
     }
 
-    /**
-     * 
-     * ONLY call this function if need to update the module list
-     */
-    protected void updateModulesToInstall() {
+    public void openDialog() {
         List<ModuleNeeded> updatedModules = new ArrayList<ModuleNeeded>();
         for (ModuleNeeded neededModule : ModulesNeededProvider.getModulesNeeded()) {
             if (neededModule.getStatus() != ELibraryInstallStatus.NOT_INSTALLED) {
@@ -367,7 +342,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
 
     private void refreshUI() {
         showMessage = false;
-        updateModulesToInstall();
+        openDialog();
     }
 
     protected void createFooter(Composite parent) {

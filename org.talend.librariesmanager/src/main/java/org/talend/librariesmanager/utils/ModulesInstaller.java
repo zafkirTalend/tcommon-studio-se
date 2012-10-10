@@ -37,6 +37,7 @@ public class ModulesInstaller {
             if (!component.getModulesNeeded().isEmpty()) {
                 ComponentExternalModulesDialog dialog = new ComponentExternalModulesDialog(shell, component.getModulesNeeded(),
                         text, title);
+                dialog.openDialog();
             }
         }
     }
@@ -52,6 +53,7 @@ public class ModulesInstaller {
             }
             if (!needed.isEmpty()) {
                 ComponentExternalModulesDialog dialog = new ComponentExternalModulesDialog(shell, needed, text, title);
+                dialog.openDialog();
             }
         }
     }
@@ -62,6 +64,7 @@ public class ModulesInstaller {
             String text = "Current operation requires the following third party modules";
             String title = "List of modules not installed for current operation";
             OperationExternalModulesDialog dialog = new OperationExternalModulesDialog(shell, jarNames, text, title);
+            dialog.openDialog();
         }
     }
 

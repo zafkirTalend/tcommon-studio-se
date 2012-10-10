@@ -24,6 +24,8 @@ import org.talend.librariesmanager.utils.RemoteModulesHelper;
  */
 public class OperationExternalModulesDialog extends ComponentExternalModulesDialog {
 
+    private String[] neededJars;
+
     /**
      * DOC WCHEN OperationExternalModulesDialog constructor comment.
      * 
@@ -33,7 +35,8 @@ public class OperationExternalModulesDialog extends ComponentExternalModulesDial
      * @param title
      */
     public OperationExternalModulesDialog(Shell shell, String[] neededJars, String text, String title) {
-        super(shell, neededJars, text, title);
+        super(shell, text, title);
+        this.neededJars = neededJars;
     }
 
     /*
@@ -42,7 +45,7 @@ public class OperationExternalModulesDialog extends ComponentExternalModulesDial
      * @see org.talend.librariesmanager.ui.dialogs.ComponentExternalModulesDialog#getModulesToInstall()
      */
     @Override
-    protected void updateModulesToInstall() {
+    public void openDialog() {
         inputList.clear();
         if (!jarsInstalledSuccuss.isEmpty()) {
             Set<String> updated = new HashSet<String>();

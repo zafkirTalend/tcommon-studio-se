@@ -235,10 +235,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 if (!jarFound && popUp && !CommonsPlugin.isHeadless()) {
                     Shell shell = Display.getCurrent().getActiveShell();
                     ModulesInstaller.installModules(new Shell(shell), new String[] { jarNeeded });
-                    // if (installModules != null && !installModules.isEmpty()) {
-                    sourcePath = getStorageDirectory() + File.separator + jarNeeded;
-                    jarFound = true;
-                    // }
+                    return false;
                 }
 
                 if (!jarFound) {
@@ -281,12 +278,6 @@ public class LocalLibraryManager implements ILibraryManagerService {
         if (!jarNotFound.isEmpty() && !CommonsPlugin.isHeadless()) {
             Shell shell = Display.getCurrent().getActiveShell();
             ModulesInstaller.installModules(new Shell(shell), jarNotFound.toArray(new String[jarNotFound.size()]));
-            // retreive again after instlled
-            for (String jar : jarNotFound) {
-                if (!retrieve(jar, pathToStore, false, monitorWrap)) {
-                    allIsOK = false;
-                }
-            }
         }
 
         return allIsOK;

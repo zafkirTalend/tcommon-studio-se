@@ -37,6 +37,7 @@ public class DownloadExternalJarAction extends Action {
         String text = "List of modules not installed in the product";
         ExternalModulesInstallDialog dialog = new ExternalModulesInstallDialog(PlatformUI.getWorkbench()
                 .getActiveWorkbenchWindow().getShell(), text, title);
+        dialog.openDialog();
     }
 
 }

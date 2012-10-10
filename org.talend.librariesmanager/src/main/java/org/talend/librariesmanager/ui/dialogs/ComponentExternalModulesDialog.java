@@ -34,6 +34,8 @@ import org.talend.librariesmanager.utils.RemoteModulesHelper;
  */
 public class ComponentExternalModulesDialog extends ExternalModulesInstallDialog {
 
+    private List<ModuleNeeded> modules;
+
     private Button doNotShowBtn;
 
     /**
@@ -43,11 +45,12 @@ public class ComponentExternalModulesDialog extends ExternalModulesInstallDialog
      * @param modulesToInstall
      */
     public ComponentExternalModulesDialog(Shell shell, List<ModuleNeeded> modules, String text, String title) {
-        super(shell, modules, text, title);
+        super(shell, text, title);
+        this.modules = modules;
     }
 
-    public ComponentExternalModulesDialog(Shell shell, String[] neededJars, String text, String title) {
-        super(shell, neededJars, text, title);
+    public ComponentExternalModulesDialog(Shell shell, String text, String title) {
+        super(shell, text, title);
     }
 
     @Override
@@ -81,7 +84,7 @@ public class ComponentExternalModulesDialog extends ExternalModulesInstallDialog
      * @see org.talend.librariesmanager.ui.dialogs.ExternalModulesInstallDialog#getModulesToInstall()
      */
     @Override
-    protected void updateModulesToInstall() {
+    public void openDialog() {
         List<ModuleNeeded> updatedModules = new ArrayList<ModuleNeeded>();
         // get module from provider incase it is rested
         List<ModuleNeeded> modulesNeeded = ModulesNeededProvider.getModulesNeeded();
