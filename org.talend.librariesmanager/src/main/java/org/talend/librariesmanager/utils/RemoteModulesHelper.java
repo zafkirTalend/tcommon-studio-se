@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -26,13 +25,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jface.dialogs.ProgressMonitorDialog;
-import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.IJobChangeEvent;
+import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleToInstall;
+import org.talend.librariesmanager.ui.dialogs.IModulesListener;
 
 import us.monoid.json.JSONArray;
 import us.monoid.json.JSONException;
@@ -54,6 +55,8 @@ public class RemoteModulesHelper {
 
     private static final String SEPARATOR = "|";
 
+    private static final String SEPARATOR_SLIP = "\\|";
+
     private Map<String, ModuleToInstall> cache = new HashMap<String, ModuleToInstall>();
 
     private RemoteModulesHelper() {
@@ -67,9 +70,13 @@ public class RemoteModulesHelper {
         return helper;
     }
 
-    public List<ModuleToInstall> getNotInstalledModules(List<ModuleNeeded> neededModules) {
-        List<ModuleToInstall> toInstall = new ArrayList<ModuleToInstall>();
+    public void getNotInstalledModules(List<ModuleNeeded> neededModules, List<ModuleToInstall> toInstall,
+            IModulesListener listener) {
+        getNotInstalledModules(neededModules, toInstall, listener, false);
+    }
 
+    public void getNotInstalledModules(List<ModuleNeeded> neededModules, List<ModuleToInstall> toInstall,
+            IModulesListener listener, boolean isUser) {
         Map<String, List<ModuleNeeded>> contextMap = new HashMap<String, List<ModuleNeeded>>();
 
         StringBuffer jars = new StringBuffer();
@@ -105,17 +112,17 @@ public class RemoteModulesHelper {
 
         String jarNames = jars.toString();
         if (jarNames.isEmpty()) {
-            return toInstall;
+            listener.listModulesDone();
+            return;
         }
-        getModuleUrlsFromWebService(jarNames, toInstall, contextMap);
 
-        return toInstall;
+        getModuleUrlsFromWebService(jarNames, toInstall, contextMap, listener, isUser);
+
     }
 
-    public List<ModuleToInstall> getNotInstalledModules(String[] names) {
-        List<ModuleToInstall> toInstall = new ArrayList<ModuleToInstall>();
+    public void getNotInstalledModules(String[] names, List<ModuleToInstall> toInstall, IModulesListener listener) {
         StringBuffer jars = new StringBuffer();
-        if (names != null) {
+        if (names != null && names.length > 0) {
             for (String module : names) {
                 String moduleName = module.trim();
                 ModuleToInstall moduleToInstall = cache.get(moduleName);
@@ -134,22 +141,23 @@ public class RemoteModulesHelper {
         String jarNames = jars.toString();
 
         if (jarNames.isEmpty()) {
-            return toInstall;
+            listener.listModulesDone();
+            return;
         }
-        getModuleUrlsFromWebService(jarNames, toInstall, null);
+        getModuleUrlsFromWebService(jarNames, toInstall, null, listener, false);
 
-        return toInstall;
     }
 
-    private void getModuleUrlsFromWebService(final String jarNames, final List<ModuleToInstall> toInstall,
-            final Map<String, List<ModuleNeeded>> contextMap) {
+    private synchronized void getModuleUrlsFromWebService(final String jarNames, final List<ModuleToInstall> toInstall,
+            final Map<String, List<ModuleNeeded>> contextMap, final IModulesListener listener, boolean isUser) {
 
-        IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
+        Job job = new Job("Get Module from server") {
 
             @Override
-            public void run(final IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                int size = jarNames.split(SEPARATOR).length;
-                monitor.beginTask("Update items version", size);
+            protected IStatus run(IProgressMonitor monitor) {
+
+                int size = jarNames.split(SEPARATOR_SLIP).length;
+                monitor.beginTask("Get modules from talendforge", size * 10);
                 JSONObject message = new JSONObject();
                 try {
                     JSONObject child = new JSONObject();
@@ -157,14 +165,13 @@ public class RemoteModulesHelper {
                     child.put("name", jarNames);
                     message.put("module", child);
                     String url = serviceUrl + "?data=" + message;
-                    monitor.worked(size / 2);
+                    monitor.worked(10);
                     JSONObject resultStr = readJsonFromUrl(url);
                     JSONArray jsonArray = resultStr.getJSONArray("result");
                     if (jsonArray != null) {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject obj = jsonArray.getJSONObject(i);
                             if (obj != null) {
-
                                 String url_description = obj.getString("url_description");
                                 String url_download = obj.getString("url_download");
                                 String name = obj.getString("filename");
@@ -172,6 +179,9 @@ public class RemoteModulesHelper {
                                         || (("".equals(url_description) || "null".equals(url_description)) && (""
                                                 .equals(url_download) || "null".equals(url_download)))) {
                                     ExceptionHandler.log("Module " + name + " download url is not avialable currently");
+                                    // keep null in cache no need to check from server again
+                                    cache.put(name, null);
+
                                     continue;
                                 }
 
@@ -205,7 +215,7 @@ public class RemoteModulesHelper {
                                 toInstall.add(m);
                                 cache.put(m.getName(), m);
                             }
-                            monitor.worked(1);
+                            monitor.worked(10);
                         }
                     }
 
@@ -214,16 +224,22 @@ public class RemoteModulesHelper {
                 } catch (IOException e) {
                     ExceptionHandler.process(e);
                 }
+
                 monitor.done();
+                return Status.OK_STATUS;
             }
         };
-        try {
-            Shell shell = Display.getCurrent().getActiveShell();
-            new ProgressMonitorDialog(shell).run(true, false, iRunnableWithProgress);
-        } catch (InvocationTargetException e1) {
-        } catch (InterruptedException e1) {
-        }
+        job.addJobChangeListener(new JobChangeAdapter() {
 
+            @Override
+            public void done(IJobChangeEvent event) {
+                listener.listModulesDone();
+            }
+        });
+
+        job.setUser(isUser);
+        job.setPriority(Job.INTERACTIVE);
+        job.schedule();
     }
 
     private JSONObject readJsonFromUrl(String url) throws IOException {
@@ -252,6 +268,9 @@ public class RemoteModulesHelper {
     }
 
     private String getContext(List<ModuleNeeded> neededModules) {
+        if (neededModules == null) {
+            return "";
+        }
         StringBuffer context = new StringBuffer();
         for (ModuleNeeded module : neededModules) {
             if (context.length() != 0) {
@@ -264,6 +283,9 @@ public class RemoteModulesHelper {
     }
 
     private boolean isRequired(List<ModuleNeeded> neededModules) {
+        if (neededModules == null) {
+            return false;
+        }
         boolean isRequired = false;
         for (ModuleNeeded module : neededModules) {
             isRequired = isRequired | module.isRequired();
@@ -275,11 +297,6 @@ public class RemoteModulesHelper {
     }
 
     public String getLicenseUrl(String licenseType) {
-
-        // ///////////test
-        // licenseType = "LGPL_v3";
-        // //////////test
-
         JSONObject message = new JSONObject();
         try {
             JSONObject child = new JSONObject();
@@ -310,6 +327,15 @@ public class RemoteModulesHelper {
         m1.setName("jtds-1.2.5.jar");
         m1.setContext("tMysqlInput | tMysqlOutput");
         m1.setDescription("Mysql Driver");
+        m1.setUrl_description("http://jtds.sourceforge.net/");
+        m1.setUrl_download(null);
+        m1.setLicenseType("LGPL_v3");
+        toInstall.add(m1);
+        m1 = new ModuleToInstall();
+        m1 = new ModuleToInstall();
+        m1.setName("test.jar");
+        m1.setContext("tMysqalInput | tMysfqlOutput");
+        m1.setDescription("testaaaaa");
         m1.setUrl_description("http://jtds.sourceforge.net/");
         m1.setUrl_download(null);
         m1.setLicenseType("LGPL_v3");

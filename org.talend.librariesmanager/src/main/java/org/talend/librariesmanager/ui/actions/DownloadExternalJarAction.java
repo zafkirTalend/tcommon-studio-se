@@ -13,7 +13,6 @@
 package org.talend.librariesmanager.ui.actions;
 
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
@@ -34,14 +33,10 @@ public class DownloadExternalJarAction extends Action {
 
     @Override
     public void run() {
+        String title = "The following modules are not yet installed. Please download and install all required modules.";
+        String text = "List of modules not installed in the product";
         ExternalModulesInstallDialog dialog = new ExternalModulesInstallDialog(PlatformUI.getWorkbench()
-                .getActiveWorkbenchWindow().getShell());
-        if (dialog.needOpen()) {
-            dialog.open();
-        } else {
-            MessageDialog.openInformation(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Information",
-                    "No external modules avialable");
-        }
+                .getActiveWorkbenchWindow().getShell(), text, title);
     }
 
 }

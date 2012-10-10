@@ -14,7 +14,6 @@ package org.talend.librariesmanager.ui.dialogs;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -28,9 +27,7 @@ import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
@@ -52,6 +49,7 @@ import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
@@ -74,7 +72,7 @@ import org.talend.librariesmanager.utils.RemoteModulesHelper;
 /**
  * DOC wchen class global comment. Detailled comment
  */
-public class ExternalModulesInstallDialog extends TitleAreaDialog {
+public class ExternalModulesInstallDialog extends TitleAreaDialog implements IModulesListener {
 
     public static final String DO_NOT_SHOW_EXTERNALMODULESINSTALLDIALOG = "do_not_show_ExternalModulesInstallDialog";
 
@@ -94,25 +92,39 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
 
     private Button installAllBtn;
 
-    protected List<String> installedJars = new ArrayList<String>();
+    protected List<String> jarsInstalledSuccuss = new ArrayList<String>();
+
+    protected List<ModuleNeeded> modules;
+
+    protected String[] neededJars;
 
     private List<Button> installButtons = new ArrayList<Button>();
 
-    private List<ModuleToInstall> inputList;
+    protected List<ModuleToInstall> inputList = new ArrayList<ModuleToInstall>();
 
-    /**
-     * DOC wchen TalendForgeDialog constructor comment.
-     * 
-     * @param shell
-     */
-    public ExternalModulesInstallDialog(Shell shell) {
+    private boolean showMessage = true;
+
+    public ExternalModulesInstallDialog(Shell shell, String text, String title) {
         super(shell);
-        setShellStyle(SWT.CLOSE | SWT.MAX | SWT.TITLE | SWT.BORDER | SWT.APPLICATION_MODAL | SWT.RESIZE | getDefaultOrientation());
-        if (osName.contains("Mac")) {
-            font = fontMac;
-        }
-        this.title = "The following modules are not yet installed. Please download and install all required modules.";
-        this.text = "List of modules not installed in the product";
+        this.text = text;
+        this.title = title;
+        updateModulesToInstall();
+    }
+
+    public ExternalModulesInstallDialog(Shell shell, List<ModuleNeeded> modules, String text, String title) {
+        super(shell);
+        this.text = text;
+        this.title = title;
+        this.modules = modules;
+        updateModulesToInstall();
+    }
+
+    public ExternalModulesInstallDialog(Shell shell, String[] neededJars, String text, String title) {
+        super(shell);
+        this.text = text;
+        this.title = title;
+        this.neededJars = neededJars;
+        updateModulesToInstall();
     }
 
     @Override
@@ -126,6 +138,10 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
     @Override
     protected void configureShell(final Shell newShell) {
         super.configureShell(newShell);
+        setShellStyle(SWT.CLOSE | SWT.MAX | SWT.TITLE | SWT.BORDER | SWT.APPLICATION_MODAL | SWT.RESIZE | getDefaultOrientation());
+        if (osName.contains("Mac")) {
+            font = fontMac;
+        }
         newShell.setText(text);
 
     }
@@ -236,9 +252,6 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
         installcolumn.setToolTipHeader("Available on TalendForge");
         installcolumn.setModifiable(false);
         installcolumn.setWeight(5);
-        if (inputList == null) {
-            inputList = getUpdatedModulesToInstall();
-        }
         tableViewerCreator.init(inputList);
         addInstallButtons(installcolumn, urlcolumn);
         layoutData = new GridData(GridData.FILL_BOTH);
@@ -272,13 +285,25 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
-
+                installAllBtn.setEnabled(false);
                 for (Button button : installButtons) {
                     button.setEnabled(false);
                 }
 
                 List<ModuleToInstall> inputList = tableViewerCreator.getInputList();
-                final DownloadModuleJob job = new DownloadModuleJob(inputList);
+
+                List<ModuleToInstall> toInstall = new ArrayList<ModuleToInstall>();
+                if (!jarsInstalledSuccuss.isEmpty()) {
+                    for (ModuleToInstall module : inputList) {
+                        if (!jarsInstalledSuccuss.contains(module.getName())) {
+                            toInstall.add(module);
+                        }
+                    }
+                } else {
+                    toInstall.addAll(inputList);
+                }
+
+                final DownloadModuleJob job = new DownloadModuleJob(toInstall);
 
                 job.addJobChangeListener(new JobChangeAdapter() {
 
@@ -291,9 +316,9 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
                             public void run() {
                                 if (event.getJob() instanceof DownloadModuleJob) {
                                     DownloadModuleJob job = (DownloadModuleJob) event.getJob();
-                                    Set<String> downloadFialed = job.getDownloadFialed();
-                                    installedJars.addAll(job.getInstalledModules());
-                                    int installedModules = job.getInstalledModules().size();
+                                    Set<String> downloadFialed = job.downloadFialed;
+                                    jarsInstalledSuccuss.addAll(job.installedModules);
+                                    int installedModules = job.installedModules.size();
                                     String success = installedModules + " Modules installed successfully ! \n";
                                     String message = success;
                                     if (!downloadFialed.isEmpty()) {
@@ -318,7 +343,6 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
                 job.setUser(true);
                 job.setPriority(Job.INTERACTIVE);
                 job.schedule();
-                job.wakeUp();
             }
 
         });
@@ -329,7 +353,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
      * 
      * ONLY call this function if need to update the module list
      */
-    protected List<ModuleToInstall> getUpdatedModulesToInstall() {
+    protected void updateModulesToInstall() {
         List<ModuleNeeded> updatedModules = new ArrayList<ModuleNeeded>();
         for (ModuleNeeded neededModule : ModulesNeededProvider.getModulesNeeded()) {
             if (neededModule.getStatus() != ELibraryInstallStatus.NOT_INSTALLED) {
@@ -337,20 +361,13 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
             }
             updatedModules.add(neededModule);
         }
-
-        return RemoteModulesHelper.getInstance().getNotInstalledModules(updatedModules);
+        inputList.clear();
+        RemoteModulesHelper.getInstance().getNotInstalledModules(updatedModules, inputList, this, true);
     }
 
     private void refreshUI() {
-        inputList = getUpdatedModulesToInstall();
-        if (!inputList.isEmpty()) {
-            if (!tableViewerCreator.getTable().isDisposed()) {
-                tableViewerCreator.init(inputList);
-                tableViewerCreator.refresh();
-            }
-        } else {
-            okPressed();
-        }
+        showMessage = false;
+        updateModulesToInstall();
     }
 
     protected void createFooter(Composite parent) {
@@ -381,17 +398,21 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
                             List<ModuleToInstall> datalist = new ArrayList<ModuleToInstall>();
                             datalist.add(data);
                             final DownloadModuleJob job = new DownloadModuleJob(datalist);
-
                             job.addJobChangeListener(new JobChangeAdapter() {
 
                                 @Override
-                                public void done(final IJobChangeEvent event) {
-
+                                public void done(IJobChangeEvent event) {
                                     Display.getDefault().asyncExec(new Runnable() {
 
                                         @Override
                                         public void run() {
-                                            // button.setEnabled(true);
+                                            String message = data.getName() + "installed ";
+                                            if (!job.installedModules.isEmpty()) {
+                                                message += "successful!";
+                                            } else {
+                                                message += "failed!";
+                                            }
+                                            MessageDialog.openInformation(getShell(), "Information", message);
                                         }
                                     });
                                 }
@@ -399,7 +420,15 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
                             job.setUser(true);
                             job.setPriority(Job.INTERACTIVE);
                             job.schedule();
-                            job.wakeUp();
+                            int n = 0;
+                            for (Button button : installButtons) {
+                                if (!button.isEnabled()) {
+                                    n++;
+                                }
+                            }
+                            if (n == installButtons.size()) {
+                                installAllBtn.setEnabled(false);
+                            }
                         }
 
                     });
@@ -489,6 +518,8 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
 
         private Set<String> installedModules;
 
+        private boolean accepted = false;
+
         public DownloadModuleJob(List<ModuleToInstall> toDownload) {
             super("Download extended modules");
             this.toDownload = toDownload;
@@ -498,106 +529,107 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog {
 
         @Override
         protected IStatus run(final IProgressMonitor monitor) {
-            monitor.beginTask("Download modules", toDownload.size() * 2);
-            Display.getDefault().syncExec(new Runnable() {
-
-                @Override
-                public void run() {
-                    downLoad(monitor);
-                }
-            });
+            monitor.beginTask("Download modules", toDownload.size() * 10 + 5);
+            downLoad(monitor);
             monitor.done();
             return Status.OK_STATUS;
         }
 
-        private void downLoad(IProgressMonitor monitor) {
-            IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
+        private void downLoad(final IProgressMonitor monitor) {
+            final List<URL> downloadOk = new ArrayList<URL>();
+            for (final ModuleToInstall module : toDownload) {
+                if (!monitor.isCanceled()) {
+                    monitor.subTask("Downloading " + module.getName() + " from " + module.getUrl_description());
+                    monitor.worked(5);
+                    DownloadHelper downloader = new DownloadHelper();
+                    String librariesPath = PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA);
+                    File target = new File(librariesPath);
+                    if (module.getUrl_download() != null && !"".equals(module.getUrl_download())) {
+                        try {
+                            // check license
+                            boolean isLicenseAccepted = Activator.getDefault().getPreferenceStore()
+                                    .getBoolean(module.getLicenseType());
+                            if (!isLicenseAccepted) {
+                                Display.getDefault().syncExec(new Runnable() {
 
-                @Override
-                public void run(final IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                    Display.getDefault().syncExec(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            monitor.beginTask("Download modules", toDownload.size());
-                            List<URL> downloadOk = new ArrayList<URL>();
-                            for (final ModuleToInstall module : toDownload) {
-                                monitor.subTask("Download " + module.getName() + module.getUrl_description());
-                                DownloadHelper downloader = new DownloadHelper();
-                                // downloader.addDownloadListener(this);
-                                String librariesPath = PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA);
-                                File target = new File(librariesPath);
-                                if (module.getUrl_download() != null && !"".equals(module.getUrl_download())) {
-                                    try {
-                                        // check license
-                                        boolean isLicenseAccepted = Activator.getDefault().getPreferenceStore()
-                                                .getBoolean(module.getLicenseType());
-                                        if (!isLicenseAccepted) {
-                                            String license = RemoteModulesHelper.getInstance().getLicenseUrl(
-                                                    module.getLicenseType());
-                                            ModuleLicenseDialog licenseDialog = new ModuleLicenseDialog(getShell(), module
-                                                    .getLicenseType(), license, module.getDescription());
-                                            if (licenseDialog.open() != Window.OK) {
-                                                downloadFialed.add(module.getName());
-                                                monitor.worked(1);
-                                                continue;
-                                            }
+                                    @Override
+                                    public void run() {
+                                        String license = RemoteModulesHelper.getInstance().getLicenseUrl(module.getLicenseType());
+                                        ModuleLicenseDialog licenseDialog = new ModuleLicenseDialog(getShell(), module
+                                                .getLicenseType(), license, module.getDescription());
+                                        if (licenseDialog.open() != Window.OK) {
+                                            downloadFialed.add(module.getName());
+                                            accepted = false;
+                                        } else {
+                                            accepted = true;
                                         }
-
-                                        File destination = new File(target.toString() + File.separator + module.getName());
-                                        downloader.download(new URL(module.getUrl_download()), destination);
-                                        downloadOk.add(destination.toURL());
-                                        installedModules.add(module.getName());
-                                        monitor.worked(1);
-                                    } catch (Exception e) {
-                                        downloadFialed.add(module.getName());
-                                        continue;
                                     }
-                                }
+                                });
 
+                            } else {
+                                accepted = true;
                             }
-                            try {
-                                if (!downloadOk.isEmpty()) {
-                                    CorePlugin.getDefault().getLibrariesService()
-                                            .deployLibrarys(downloadOk.toArray(new URL[downloadOk.size()]));
-                                }
-                            } catch (IOException e) {
-                                ExceptionHandler.process(e);
+                            if (!accepted) {
+                                monitor.worked(5);
+                                continue;
                             }
-                            monitor.done();
+
+                            File destination = new File(target.toString() + File.separator + module.getName());
+                            downloader.download(new URL(module.getUrl_download()), destination);
+                            downloadOk.add(destination.toURL());
+                            installedModules.add(module.getName());
+                            monitor.worked(2);
+                        } catch (Exception e) {
+                            downloadFialed.add(module.getName());
+                            ExceptionHandler.process(e);
+                            continue;
                         }
-                    });
+                    }
+                    accepted = false;
+                } else {
+                    downloadFialed.add(module.getName());
                 }
-            };
+            }
+            if (!downloadOk.isEmpty()) {
+                Display.getDefault().syncExec(new Runnable() {
 
-            try {
-                new ProgressMonitorDialog(getShell()).run(true, true, iRunnableWithProgress);
-            } catch (InvocationTargetException e1) {
-            } catch (InterruptedException e1) {
+                    @Override
+                    public void run() {
+                        try {
+                            CorePlugin.getDefault().getLibrariesService()
+                                    .deployLibrarys(downloadOk.toArray(new URL[downloadOk.size()]));
+                        } catch (IOException e) {
+                            ExceptionHandler.process(e);
+                        }
+                        monitor.worked(5);
+                    }
+                });
             }
 
         }
 
-        public Set<String> getInstalledModules() {
-            return this.installedModules;
-        }
-
-        public Set<String> getDownloadFialed() {
-            return this.downloadFialed;
-        }
-
     }
 
-    public List<String> getInstalledJars() {
-        return this.installedJars;
-    }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.librariesmanager.ui.dialogs.IJobDownListener#downloadProgress()
+     */
+    @Override
+    public void listModulesDone() {
+        Display.getDefault().syncExec(new Runnable() {
 
-    public boolean needOpen() {
-        inputList = getUpdatedModulesToInstall();
-        if (!inputList.isEmpty()) {
-            return true;
-        }
-        return false;
+            @Override
+            public void run() {
+                if (inputList.size() > 0) {
+                    open();
+                } else if (showMessage) {
+                    MessageDialog.openInformation(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Information",
+                            "No external modules avialable");
+                }
+            }
+        });
+
     }
 
 }

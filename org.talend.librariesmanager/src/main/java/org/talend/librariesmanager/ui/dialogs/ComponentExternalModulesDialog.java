@@ -20,10 +20,10 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
-import org.talend.core.model.general.ModuleToInstall;
 import org.talend.librariesmanager.Activator;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.utils.RemoteModulesHelper;
@@ -36,8 +36,6 @@ public class ComponentExternalModulesDialog extends ExternalModulesInstallDialog
 
     private Button doNotShowBtn;
 
-    private List<ModuleNeeded> modules;
-
     /**
      * DOC Administrator ComponentExternalModulesDialog constructor comment.
      * 
@@ -45,14 +43,11 @@ public class ComponentExternalModulesDialog extends ExternalModulesInstallDialog
      * @param modulesToInstall
      */
     public ComponentExternalModulesDialog(Shell shell, List<ModuleNeeded> modules, String text, String title) {
-        this(shell, text, title);
-        this.modules = modules;
+        super(shell, modules, text, title);
     }
 
-    public ComponentExternalModulesDialog(Shell shell, String text, String title) {
-        super(shell);
-        this.text = text;
-        this.title = title;
+    public ComponentExternalModulesDialog(Shell shell, String[] neededJars, String text, String title) {
+        super(shell, neededJars, text, title);
     }
 
     @Override
@@ -86,20 +81,39 @@ public class ComponentExternalModulesDialog extends ExternalModulesInstallDialog
      * @see org.talend.librariesmanager.ui.dialogs.ExternalModulesInstallDialog#getModulesToInstall()
      */
     @Override
-    protected List<ModuleToInstall> getUpdatedModulesToInstall() {
+    protected void updateModulesToInstall() {
         List<ModuleNeeded> updatedModules = new ArrayList<ModuleNeeded>();
         // get module from provider incase it is rested
         List<ModuleNeeded> modulesNeeded = ModulesNeededProvider.getModulesNeeded();
-        for (ModuleNeeded module : modules) {
-            for (ModuleNeeded fromProvider : modulesNeeded) {
-                if (fromProvider.getModuleName().equals(module.getModuleName())
-                        && fromProvider.getContext().equals(module.getContext())
-                        && ELibraryInstallStatus.NOT_INSTALLED == fromProvider.getStatus()) {
-                    updatedModules.add(fromProvider);
-                    break;
+        if (modules != null) {
+            for (ModuleNeeded module : modules) {
+                for (ModuleNeeded fromProvider : modulesNeeded) {
+                    if (fromProvider.getModuleName().equals(module.getModuleName())
+                            && fromProvider.getContext().equals(module.getContext())
+                            && ELibraryInstallStatus.NOT_INSTALLED == fromProvider.getStatus()) {
+                        updatedModules.add(fromProvider);
+                        break;
+                    }
                 }
             }
         }
-        return RemoteModulesHelper.getInstance().getNotInstalledModules(updatedModules);
+        inputList.clear();
+        RemoteModulesHelper.getInstance().getNotInstalledModules(updatedModules, inputList, this);
     }
+
+    @Override
+    public void listModulesDone() {
+
+        Display.getDefault().syncExec(new Runnable() {
+
+            @Override
+            public void run() {
+                if (inputList.size() > 0) {
+                    open();
+                }
+            }
+        });
+
+    }
+
 }

@@ -13,7 +13,6 @@
 package org.talend.librariesmanager.utils;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.swt.widgets.Shell;
@@ -38,9 +37,6 @@ public class ModulesInstaller {
             if (!component.getModulesNeeded().isEmpty()) {
                 ComponentExternalModulesDialog dialog = new ComponentExternalModulesDialog(shell, component.getModulesNeeded(),
                         text, title);
-                if (dialog.needOpen()) {
-                    dialog.open();
-                }
             }
         }
     }
@@ -56,25 +52,17 @@ public class ModulesInstaller {
             }
             if (!needed.isEmpty()) {
                 ComponentExternalModulesDialog dialog = new ComponentExternalModulesDialog(shell, needed, text, title);
-                if (dialog.needOpen()) {
-                    dialog.open();
-                }
             }
         }
     }
 
-    public static Collection<String> installModules(Shell shell, String[] jarNames) {
+    public static void installModules(Shell shell, String[] jarNames) {
         if (!Activator.getDefault().getPreferenceStore()
                 .getBoolean(ExternalModulesInstallDialog.DO_NOT_SHOW_EXTERNALMODULESINSTALLDIALOG)) {
             String text = "Current operation requires the following third party modules";
             String title = "List of modules not installed for current operation";
             OperationExternalModulesDialog dialog = new OperationExternalModulesDialog(shell, jarNames, text, title);
-            if (dialog.needOpen()) {
-                dialog.open();
-            }
-            return dialog.getInstalledJars();
         }
-        return null;
     }
 
 }

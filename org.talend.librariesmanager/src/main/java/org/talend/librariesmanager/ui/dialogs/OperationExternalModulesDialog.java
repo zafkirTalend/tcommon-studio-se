@@ -13,11 +13,9 @@
 package org.talend.librariesmanager.ui.dialogs;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.eclipse.swt.widgets.Shell;
-import org.talend.core.model.general.ModuleToInstall;
 import org.talend.librariesmanager.utils.RemoteModulesHelper;
 
 /**
@@ -25,8 +23,6 @@ import org.talend.librariesmanager.utils.RemoteModulesHelper;
  * 
  */
 public class OperationExternalModulesDialog extends ComponentExternalModulesDialog {
-
-    private String[] neededJars;
 
     /**
      * DOC WCHEN OperationExternalModulesDialog constructor comment.
@@ -37,8 +33,7 @@ public class OperationExternalModulesDialog extends ComponentExternalModulesDial
      * @param title
      */
     public OperationExternalModulesDialog(Shell shell, String[] neededJars, String text, String title) {
-        super(shell, text, title);
-        this.neededJars = neededJars;
+        super(shell, neededJars, text, title);
     }
 
     /*
@@ -47,25 +42,30 @@ public class OperationExternalModulesDialog extends ComponentExternalModulesDial
      * @see org.talend.librariesmanager.ui.dialogs.ComponentExternalModulesDialog#getModulesToInstall()
      */
     @Override
-    protected List<ModuleToInstall> getUpdatedModulesToInstall() {
-        if (!installedJars.isEmpty()) {
+    protected void updateModulesToInstall() {
+        inputList.clear();
+        if (!jarsInstalledSuccuss.isEmpty()) {
             Set<String> updated = new HashSet<String>();
             int n = 0;
-            for (String jarName : neededJars) {
-                boolean found = false;
-                for (int i = 0; i < installedJars.size() && n != installedJars.size(); i++) {
-                    if (jarName.endsWith(installedJars.get(i))) {
-                        found = true;
-                        n++;
+            if (neededJars != null) {
+                for (String jarName : neededJars) {
+                    boolean found = false;
+                    for (int i = 0; i < jarsInstalledSuccuss.size() && n != jarsInstalledSuccuss.size(); i++) {
+                        if (jarName.endsWith(jarsInstalledSuccuss.get(i))) {
+                            found = true;
+                            n++;
+                        }
+                    }
+                    if (!found) {
+                        updated.add(jarName);
                     }
                 }
-                if (!found) {
-                    updated.add(jarName);
-                }
             }
-            return RemoteModulesHelper.getInstance().getNotInstalledModules(updated.toArray(new String[updated.size()]));
+            RemoteModulesHelper.getInstance()
+                    .getNotInstalledModules(updated.toArray(new String[updated.size()]), inputList, this);
         } else {
-            return RemoteModulesHelper.getInstance().getNotInstalledModules(neededJars);
+            RemoteModulesHelper.getInstance().getNotInstalledModules(neededJars, inputList, this);
         }
     }
+
 }

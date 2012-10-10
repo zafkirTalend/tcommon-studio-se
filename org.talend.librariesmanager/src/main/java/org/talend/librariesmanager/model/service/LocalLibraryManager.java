@@ -234,12 +234,11 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
                 if (!jarFound && popUp && !CommonsPlugin.isHeadless()) {
                     Shell shell = Display.getCurrent().getActiveShell();
-                    Collection<String> installModules = ModulesInstaller.installModules(new Shell(shell),
-                            new String[] { jarNeeded });
-                    if (installModules != null && !installModules.isEmpty()) {
-                        sourcePath = getStorageDirectory() + File.separator + jarNeeded;
-                        jarFound = true;
-                    }
+                    ModulesInstaller.installModules(new Shell(shell), new String[] { jarNeeded });
+                    // if (installModules != null && !installModules.isEmpty()) {
+                    sourcePath = getStorageDirectory() + File.separator + jarNeeded;
+                    jarFound = true;
+                    // }
                 }
 
                 if (!jarFound) {
