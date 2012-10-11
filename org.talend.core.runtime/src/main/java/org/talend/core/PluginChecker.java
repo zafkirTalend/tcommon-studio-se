@@ -78,6 +78,8 @@ public class PluginChecker {
 
     private static final String TRACEDEBUG_PLUGIN_ID = "org.talend.designer.runprocess.debug"; //$NON-NLS-1$ 
 
+    private static final String HDFS_PLUGIN_ID = "org.talend.repository.hdfs"; //$NON-NLS-1$ 
+
     /**
      * Check if specific plug-in is loaded.
      * 
@@ -234,5 +236,9 @@ public class PluginChecker {
 
     public static boolean isDatacertPluginLoaded() {
         return isPluginLoaded(DATACERT_PLUGIN_ID);
+    }
+
+    public static boolean isHDFSPluginLoaded() {
+        return isPluginLoaded(HDFS_PLUGIN_ID);
     }
 }

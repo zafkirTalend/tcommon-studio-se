@@ -200,6 +200,13 @@ public class MetadataService implements IMetadataService {
                         relatedWizard = service.newWizard(PlatformUI.getWorkbench(), creation, realNode, null);
                     }
                 }
+            } else if (objectType.equals(ERepositoryObjectType.METADATA_HDFS)) {
+                if (PluginChecker.isHDFSPluginLoaded()) {
+                    IProviderService service = GlobalServiceRegister.getDefault().findService("IHDFSProviderService");
+                    if (service != null) {
+                        relatedWizard = service.newWizard(PlatformUI.getWorkbench(), creation, realNode, null);
+                    }
+                }
             }
             boolean changed = false;
             if (relatedWizard != null) {
