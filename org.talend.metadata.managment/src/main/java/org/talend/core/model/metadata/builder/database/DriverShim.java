@@ -16,7 +16,9 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverPropertyInfo;
 import java.sql.SQLException;
+import java.sql.SQLFeatureNotSupportedException;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 /**
  * 
@@ -53,5 +55,9 @@ public class DriverShim implements Driver {
 
     public boolean jdbcCompliant() {
         return this.driver.jdbcCompliant();
+    }
+
+    public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+        throw new SQLFeatureNotSupportedException("Java 1.7 methods are not supported");
     }
 }
