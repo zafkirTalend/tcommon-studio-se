@@ -58,6 +58,9 @@ public final class ElementParameterParser {
         if (text == null) {
             return value;
         }
+        if (node == null) {
+            return null;
+        }
 
         List<IElementParameter> params = (List<IElementParameter>) node.getElementParametersWithChildrens();
         if (params != null && !params.isEmpty()) {
@@ -84,7 +87,7 @@ public final class ElementParameterParser {
 
     public static String getValue(final IProcess process, final String nodeUniqueName, final String key) {
         for (INode processNode : process.getGeneratingNodes()) {
-            if(nodeUniqueName.equals(processNode.getUniqueName())) {
+            if (nodeUniqueName.equals(processNode.getUniqueName())) {
                 return ElementParameterParser.getValue(processNode, key);
             }
         }
