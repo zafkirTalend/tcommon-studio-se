@@ -17,20 +17,29 @@ package org.talend.resources.util;
  * 
  * $Id: talend.epf 55206 2011-02-15 17:32:14Z mhirt $
  * 
+ * This is a mapping enum for variable and maven properties.
  */
 public enum EMavenBuildScriptProperties {
-    ProjectName,
-    JobName,
-    JobVersion,
-    JobExportedJarName,
+    ItemProjectName,
+    ItemName,
+    ItemVersion,
+    //
+    ItemExportedJarName,
+    //
+    BundleConfigPrivatePackage,
+    BundleConfigExportService,
     //
     ;
 
-    public String getName() {
+    EMavenBuildScriptProperties() {
+    }
+
+    public String getVarName() {
         return this.name();
     }
 
-    public String getScript() {
-        return '@' + this.getName() + '@';
+    public String getVarScript() {
+        return '@' + this.getVarName() + '@';
     }
+
 }
