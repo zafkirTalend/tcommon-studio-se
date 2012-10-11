@@ -26,7 +26,8 @@
 						</goals>
 						<configuration>
 							<finalName>${item.name}_${project.version}</finalName>
-							<resourcesDir>${project.build.directory}/bin</resourcesDir><!-- just let it empty for karaf -->
+							<!-- just let it empty for karaf -->
+							<resourcesDir>${project.build.directory}/bin</resourcesDir>
 							<featuresFile>${resources.path}/feature/feature.xml</featuresFile>
 						</configuration>
 					</execution>
