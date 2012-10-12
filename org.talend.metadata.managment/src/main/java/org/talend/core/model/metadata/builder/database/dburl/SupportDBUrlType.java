@@ -293,7 +293,7 @@ public enum SupportDBUrlType {
     }
 
     /**
-     * DOC msjian Comment method "hasCatalog". (just have catalog: mysql,informix,sybase)
+     * DOC msjian Comment method "hasCatalog". (just have catalog: mysql)
      * 
      * @param dbKey
      * @return
