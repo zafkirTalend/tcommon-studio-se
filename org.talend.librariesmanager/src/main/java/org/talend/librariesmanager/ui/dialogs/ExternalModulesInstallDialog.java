@@ -103,7 +103,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
 
     public ExternalModulesInstallDialog(Shell shell, String text, String title) {
         super(shell);
-        setShellStyle(SWT.CLOSE | SWT.MAX | SWT.TITLE | SWT.BORDER | SWT.APPLICATION_MODAL | SWT.RESIZE | getDefaultOrientation());
+        setShellStyle(SWT.CLOSE | SWT.MIN | SWT.MAX | SWT.TITLE | SWT.BORDER | SWT.RESIZE | getDefaultOrientation());
         if (osName.contains("Mac")) { //$NON-NLS-1$
             font = fontMac;
         }
