@@ -92,7 +92,7 @@ public class WebServiceSchemaWizardPage extends WSDLSchemaWizardPage {
             Iterator<MetadataTable> it = tables.iterator();
             while (it.hasNext()) {
                 MetadataTable table = (MetadataTable) it.next();
-                if (table.getLabel().equals("OutPut")) {
+                if (table.getLabel().equals("Output")) {
                     metadataTable2 = table;
                 }
             }

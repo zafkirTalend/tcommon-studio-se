@@ -549,12 +549,14 @@ public class WebServiceStep2Form extends AbstractWSDLSchemaStepForm {
     public void setVisible(boolean visible) {
         super.setVisible(visible);
         if (super.isVisible()) {
+            initialize();
             if ((tableEditorView.getMetadataEditor().getBeanCount() <= 0)) {
                 // runShadowProcess();
             }
             if (isReadOnly() != readOnly) {
                 adaptFormToReadOnly();
             }
+
         }
     }
 
