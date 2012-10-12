@@ -53,7 +53,7 @@ public enum EDatabaseVersion4Drivers {
     JAVADB_EMBEDED(new DbVersion4Drivers(EDatabaseTypeName.JAVADB_EMBEDED, "derby.jar")), //$NON-NLS-1$
     SQLITE(new DbVersion4Drivers(EDatabaseTypeName.SQLITE, "sqlitejdbc-v056.jar")), //$NON-NLS-1$
     FIREBIRD(new DbVersion4Drivers(EDatabaseTypeName.FIREBIRD, "jaybird-full-2.1.1.jar")), //$NON-NLS-1$
-    TERADATA(new DbVersion4Drivers(EDatabaseTypeName.TERADATA, new String[] { "terajdbc4.jar", "tdgssconfig.jar" })), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    TERADATA(new DbVersion4Drivers(EDatabaseTypeName.TERADATA, new String[] { "terajdbc4.jar", "tdgssconfig.jar" })), //$NON-NLS-1$ //$NON-NLS-2$ 
     JAVADB_DERBYCLIENT(new DbVersion4Drivers(EDatabaseTypeName.JAVADB_DERBYCLIENT, "derbyclient.jar")), //$NON-NLS-1$
     NETEZZA(new DbVersion4Drivers(EDatabaseTypeName.NETEZZA, "nzjdbc.jar")), //$NON-NLS-1$
     INFORMIX(new DbVersion4Drivers(EDatabaseTypeName.INFORMIX, "ifxjdbc.jar")), //$NON-NLS-1$
@@ -67,10 +67,6 @@ public enum EDatabaseVersion4Drivers {
     MYSQL_4(new DbVersion4Drivers(EDatabaseTypeName.MYSQL, "MySQL 4", "MYSQL_4", "mysql-connector-java-3.1.14-bin.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     // add for 9594
     MSSQL(new DbVersion4Drivers(EDatabaseTypeName.MSSQL, "jtds-1.2.5.jar")), //$NON-NLS-1$
-    MSSQL2005(new DbVersion4Drivers(EDatabaseTypeName.MSSQL05_08,
-            "MSSQL2005", "MSSQL_2005", new String[] { "sqljdbc.jar", "sqljdbc4.jar" })), //$NON-NLS-1$
-    MSSQL2008(new DbVersion4Drivers(EDatabaseTypeName.MSSQL05_08,
-            "MSSQL2008", "MSSQL_2008", new String[] { "sqljdbc.jar", "sqljdbc4.jar" })), //$NON-NLS-1$
 
     VERTICA_6(new DbVersion4Drivers(EDatabaseTypeName.VERTICA, "VERTICA 6", "VERTICA_6", "vertica-jdk5-6.0.0-0.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     VERTICA_5(new DbVersion4Drivers(EDatabaseTypeName.VERTICA, "VERTICA 5", "VERTICA_5", "vertica_4.1.14_jdk_5.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -93,7 +89,7 @@ public enum EDatabaseVersion4Drivers {
     PARACCEL(new DbVersion4Drivers(EDatabaseTypeName.PARACCEL, "paraccel-jdbc.jar")), //$NON-NLS-1$
     VECTORWISE(new DbVersion4Drivers(EDatabaseTypeName.VECTORWISE, "iijdbc.jar")), //$NON-NLS-1$
 
-    EXASOL(new DbVersion4Drivers(EDatabaseTypeName.EXASOL, "jdbc14.jar")), //$NON-NLS-1$ 
+    EXASOL(new DbVersion4Drivers(EDatabaseTypeName.EXASOL, "exajdbc.jar")), //$NON-NLS-1$ 
     MAXDB(new DbVersion4Drivers(EDatabaseTypeName.MAXDB, "sapdbc.jar")), //$NON-NLS-1$
 
     INGRES(new DbVersion4Drivers(EDatabaseTypeName.INGRES, "iijdbc.jar")), //$NON-NLS-1$
