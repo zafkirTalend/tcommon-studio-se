@@ -817,7 +817,8 @@ public class MetadataConnectionUtils {
                     }
                 }
                 if (isCatalog) {
-                    if (dbMetaData.supportsCatalogsInIndexDefinitions()) {
+                    if (dbMetaData.supportsCatalogsInIndexDefinitions()
+                            || dbConnection.getDatabaseType().equalsIgnoreCase(EDatabaseTypeName.INFORMIX.name())) {
                         String sid = dbConnection.getSID();
                         if (origValueConn != null) {
                             sid = origValueConn.getSID();
