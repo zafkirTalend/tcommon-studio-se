@@ -11,9 +11,10 @@
 
 	<properties>
 		<item.name>@ItemName@</item.name>
-		
+
 		<bundle.config.private.package>@BundleConfigPrivatePackage@</bundle.config.private.package>
 		<bundle.config.export.service>@BundleConfigExportService@</bundle.config.export.service>
+		<bundle.config.bundle.classpath>@BundleConfigBundleClasspath@</bundle.config.bundle.classpath>
 
 		<resources.path>${basedir}/src/main/resources</resources.path>
 		<lib.path>${resources.path}/lib</lib.path>
@@ -34,7 +35,7 @@
 				</excludes>
 			</resource>
 		</resources>
-		
+
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -75,7 +76,7 @@
 							{maven-resources}, {maven-dependencies},
 						</Include-Resource>
 						<Bundle-ClassPath>
-							.,
+							${bundle.config.bundle.classpath},
 							{maven-dependencies}
 						</Bundle-ClassPath>
 					</instructions>
