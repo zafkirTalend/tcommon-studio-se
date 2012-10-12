@@ -150,6 +150,8 @@ public class MetadataConnectionUtils {
                             sqlConn = (java.sql.Connection) list.get(i);
                         }
                     }
+                } else if (isGeneralJDBC(metadataBean)) {
+                    sqlConn = ConnectionUtils.createConnection(dbUrl, driverClass, props);
                 } else {
                     driver = getClassDriver(metadataBean);
                     sqlConn = ConnectionUtils.createConnection(dbUrl, driver, props);
@@ -167,7 +169,7 @@ public class MetadataConnectionUtils {
                     rc.setOk(true);
                 }
             } catch (SQLException e) {
-                log.error(e, e);
+                log.error(e.getMessage());
                 rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
             } catch (InstantiationException e) {
                 log.error(e, e);
@@ -1023,6 +1025,16 @@ public class MetadataConnectionUtils {
         if (metadataConnection != null) {
             String dbType = metadataConnection.getDbType();
             if (dbType != null && dbType.equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isGeneralJDBC(IMetadataConnection metadataConnection) {
+        if (metadataConnection != null) {
+            String dbType = metadataConnection.getDbType();
+            if (dbType != null && dbType.equals(EDatabaseTypeName.GENERAL_JDBC.getDisplayName())) {
                 return true;
             }
         }

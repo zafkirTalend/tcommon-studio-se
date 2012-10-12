@@ -62,9 +62,7 @@ public final class ConnectionUtils {
     public static Connection createConnection(String url, String driverClassName, Properties props) throws SQLException,
             InstantiationException, IllegalAccessException, ClassNotFoundException {
         Driver driver = (Driver) Class.forName(driverClassName).newInstance();
-        DriverManager.registerDriver(driver);
-        Connection connection = DriverManager.getConnection(url, props);
-        return connection;
+        return createConnection(url, driver, props);
     }
 
     /**
@@ -84,17 +82,8 @@ public final class ConnectionUtils {
             InstantiationException, IllegalAccessException, ClassNotFoundException {
         Connection connection = null;
         if (driver != null) {
-            try {
-                DriverManager.registerDriver(driver);
-                Class.forName(driver.getClass().getName());
-                connection = DriverManager.getConnection(url, props);
-            } catch (ClassNotFoundException e) {// MOD zshen for mssql2008
-                try {
-                    connection = driver.connect(url, props);
-                } catch (Exception exception) {
-                    // do nothing
-                }
-            }
+            DriverManager.registerDriver(driver);
+            connection = driver.connect(url, props);
         }
         return connection;
     }

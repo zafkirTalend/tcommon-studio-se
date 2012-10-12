@@ -2631,7 +2631,11 @@ public class DatabaseForm extends AbstractForm {
                     hiveVersion == null ? null : ((String) hiveVersion), hiveMode == null ? null : ((String) hiveMode));
             updateHiveModeAndMakeSelection(currIndexofDistribution, currIndexofHiveVersion, currIndexofHiveMode);
 
-            doHiveModeModify();
+            // MOD sizhaoliu TDQ-6288 call doHiveModeModify() only for existing hive connection, to avoid a metadata
+            // reload exception when finish the wizard
+            if (EDatabaseTypeName.HIVE.getDisplayName().equals(connection.getDatabaseType())) {
+                doHiveModeModify();
+            }
         } else {
             updateHiveDistributionAndMakeSelection(0);
             updateHiveVersionAndMakeSelection(0, 0);
