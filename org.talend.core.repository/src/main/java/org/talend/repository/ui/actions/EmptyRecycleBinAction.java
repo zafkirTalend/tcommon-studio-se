@@ -321,6 +321,10 @@ public class EmptyRecycleBinAction extends AContextualAction {
         if (factory.isUserReadOnlyOnCurrentProject()) {
             canWork = false;
         }
+        // TDI-23105:only for read-only(tag) project
+        if (!factory.getRepositoryContext().isOffline() && factory.getRepositoryContext().isEditableAsReadOnly()) {
+            canWork = false;
+        }
         if (canWork) {
             Object o = selection.getFirstElement();
             RepositoryNode node = (RepositoryNode) o;

@@ -861,14 +861,16 @@ public class DeleteAction extends AContextualAction {
                                     String path = item2.getState().getPath();
                                     String processName = openedProcess.getLabel();
                                     String processVersion = openedProcess.getVersion();
-//                                    Added by Marvin Wang on Sep. 24, 2012 for bug TDI-21878 to filter the bean that has been added in the list.
+                                    // Added by Marvin Wang on Sep. 24, 2012 for bug TDI-21878 to filter the bean that
+                                    // has been added in the list.
                                     if (!RepositoryReferenceBeanUtils.hasReferenceBean(list, processName, processVersion)) {
-                                    	
-                                    	ContextReferenceBean bean = new ContextReferenceBean(property2.getLabel(), openedProcess
-                                    			.getRepositoryObjectType().getType(), property2.getVersion(), path, refP.getLabel());
-                                    	bean.setJobFlag(isJob, isDelete);
-                                    	list.add(bean);
-                                    	break;
+
+                                        ContextReferenceBean bean = new ContextReferenceBean(property2.getLabel(), openedProcess
+                                                .getRepositoryObjectType().getType(), property2.getVersion(), path,
+                                                refP.getLabel());
+                                        bean.setJobFlag(isJob, isDelete);
+                                        list.add(bean);
+                                        break;
                                     }
                                 }
                             }
@@ -1275,6 +1277,10 @@ public class DeleteAction extends AContextualAction {
         this.setText(null);
         IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
         if (factory.isUserReadOnlyOnCurrentProject()) {
+            visible = false;
+        }
+        // TDI-23105:only for read-only(tag) project
+        if (!factory.getRepositoryContext().isOffline() && factory.getRepositoryContext().isEditableAsReadOnly()) {
             visible = false;
         }
         for (Object o : (selection).toArray()) {
