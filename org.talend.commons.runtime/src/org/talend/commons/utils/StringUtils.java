@@ -107,6 +107,8 @@ public class StringUtils {
         input = input.replaceAll(">", "gt"); //$NON-NLS-1$ //$NON-NLS-2$
         input = input.replaceAll("'", "apos"); //$NON-NLS-1$ //$NON-NLS-2$
         input = input.replaceAll("\"", "quot"); //$NON-NLS-1$ //$NON-NLS-2$
+        input = input.replaceAll("\\(", "_"); //$NON-NLS-1$ //$NON-NLS-2$
+        input = input.replaceAll("\\)", "_"); //$NON-NLS-1$ //$NON-NLS-2$
         return input;
     }
 
@@ -353,6 +355,5 @@ public class StringUtils {
         }
         return text;
     }
-
 
 }
