@@ -272,9 +272,12 @@ public class DatabaseForm extends AbstractForm {
             if (isGeneralJDBC()) {
                 switchBetweenTypeandGeneralDB(false);
                 initializeGeneralJDBC();
+            } else if (isHiveDBConnSelected()) {
+                // Changed by Marvin Wang on Oct. 15, 2012 for but TDI-23235.
+                initHiveInfo();
             }
         }
-        initHiveInfo();
+        // initHiveInfo();
         if (isContextMode()) {
             adaptFormToEditable();
             urlConnectionStringText.setText(getStringConnection());
@@ -1315,6 +1318,19 @@ public class DatabaseForm extends AbstractForm {
                         generalJdbcPasswordText.setText("");
                     }
 
+                } else if (isHiveDBConnSelected()) {
+                    // Added by Marvin Wang on Oct. 15, 2012 for bug TDI-23235.
+                    if (urlConnectionStringText != null) {
+                        urlConnectionStringText.setText("");
+                    }
+                    if (usernameText != null) {
+
+                        usernameText.setText("");
+                    }
+                    if (passwordText != null) {
+                        passwordText.setText("");
+                    }
+                    initHiveInfo();
                 } else {
                     if (urlConnectionStringText != null) {
                         urlConnectionStringText.setText("");
@@ -1823,6 +1839,15 @@ public class DatabaseForm extends AbstractForm {
      */
     private boolean isGeneralJDBC() {
         return dbTypeCombo.getText().equals(EDatabaseConnTemplate.GENERAL_JDBC.getDBDisplayName());
+    }
+
+    /**
+     * To check if the current db selected is Hive. Added by Marvin Wang on Oct 15, 2012.
+     * 
+     * @return
+     */
+    private boolean isHiveDBConnSelected() {
+        return EDatabaseTypeName.HIVE.getDisplayName().equals(dbTypeCombo.getText());
     }
 
     /**
