@@ -296,8 +296,9 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
         EMap<String, String> map = dbConn.getParameters();
         if (map != null && map.size() > 0) {
             Map<String, Object> metadataMap = metaConn.getOtherParameters();
-            if (metadataMap == null)
+            if (metadataMap == null) {
                 metadataMap = new HashMap<String, Object>();
+            }
             for (Entry<String, String> entry : map.entrySet()) {
                 metadataMap.put(entry.getKey(), entry.getValue());
             }
@@ -378,11 +379,19 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
         return rc;
     }
 
-    protected boolean filterMetadaElement(List<String> packageList, String elementName) {
-        if (packageList == null || packageList.isEmpty()) {
+    /**
+     * 
+     * This method is to judge whether the db element need to be created or not according to the filter list.
+     * 
+     * @param filterList
+     * @param elementName
+     * @return true if there is no filter set on UI, or the currently elementName is included in this filter list.
+     */
+    protected boolean isCreateElement(List<String> filterList, String elementName) {
+        if (filterList == null || filterList.isEmpty()) {
             return true;
         }
-        for (String name : packageList) {
+        for (String name : filterList) {
             if (elementName.equalsIgnoreCase(name)) {
                 return true;
             }

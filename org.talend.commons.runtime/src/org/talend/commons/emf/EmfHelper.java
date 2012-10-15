@@ -63,8 +63,8 @@ public class EmfHelper {
         }
         visitedObjects.add(object.eClass().getName() + ";" + object.getClass().getPackage().getName());
         List<EObject> toVisit = new ArrayList<EObject>();
-        for (Iterator iterator = object.eClass().getEAllReferences().iterator(); iterator.hasNext();) {
-            EReference reference = (EReference) iterator.next();
+        for (Object element : object.eClass().getEAllReferences()) {
+            EReference reference = (EReference) element;
             if (reference.isMany()) {
                 List list = (List) object.eGet(reference);
                 for (Iterator iterator2 = list.iterator(); iterator2.hasNext();) {

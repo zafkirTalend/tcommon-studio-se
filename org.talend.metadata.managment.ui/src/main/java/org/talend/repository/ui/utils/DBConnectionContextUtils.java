@@ -40,10 +40,14 @@ import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.utils.TalendQuoteUtils;
+import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.cwm.helper.SchemaHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.model.IConnParamName;
 import orgomg.cwm.objectmodel.core.ModelElement;
+import orgomg.cwm.resource.relational.Catalog;
+import orgomg.cwm.resource.relational.Schema;
 
 /**
  * ggu class global comment. Detailled comment
@@ -231,6 +235,7 @@ public final class DBConnectionContextUtils {
                 case ServiceName:
                     conn.setSID(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
                     break;
+
                 case Login:
                     conn.setUsername(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
                     break;
@@ -355,7 +360,9 @@ public final class DBConnectionContextUtils {
         if (dbConn == null) {
             return null;
         }
-        selectedContext = ConnectionContextHelper.selectedContextString;
+        if (selectedContext == null || selectedContext.length() == 0) {
+            selectedContext = ConnectionContextHelper.selectedContextString;
+        }
         ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(null, dbConn, selectedContext,
                 defaultContext);
         DatabaseConnection cloneConn = ConnectionFactory.eINSTANCE.createDatabaseConnection();
@@ -509,7 +516,7 @@ public final class DBConnectionContextUtils {
         if (conn.getDataPackage() != null) {
             for (orgomg.cwm.objectmodel.core.Package dataPackage : conn.getDataPackage()) {
                 if (dataPackage instanceof ModelElement) {
-                    ModelElement element = (ModelElement) dataPackage;
+                    ModelElement element = dataPackage;
                     if (conn.getSID() != null && conn.getSID().equals(element.getName())) {
                         element.setName(sidOrDatabase);
                     }
@@ -524,7 +531,30 @@ public final class DBConnectionContextUtils {
         conn.setDriverJarPath(driverJar);
         conn.setDriverClass(className);
         conn.setDbmsId(mappingFile);
+        revertConnSubElement(conn, contextType);
 
+    }
+
+    /**
+     * revert the name of Catalog or schema
+     * 
+     * @param conn the target which need to revert
+     * @param contextType the type of Context
+     */
+    private static void revertConnSubElement(DatabaseConnection conn, ContextType contextType) {
+        if (!(conn.getSID() == null || conn.getSID().equals(""))) { //$NON-NLS-1$
+            String sidOrDatabase = ConnectionContextHelper.getOriginalValue(contextType, conn.getSID());
+            Catalog catalog = CatalogHelper.getCatalog(conn, conn.getSID());
+            if (catalog != null) {
+                catalog.setName(sidOrDatabase);
+            }
+        } else if (!(conn.getUiSchema() == null || conn.getUiSchema().equals(""))) { //$NON-NLS-1$
+            String schemName = ConnectionContextHelper.getOriginalValue(contextType, conn.getUiSchema());
+            Schema schema = SchemaHelper.getSchema(conn, conn.getUiSchema());
+            if (schema != null) {
+                schema.setName(schemName);
+            }
+        }
     }
 
     public static void setMetadataConnectionParameter(DatabaseConnection conn, IMetadataConnection metadataConnection) {
@@ -599,7 +629,6 @@ public final class DBConnectionContextUtils {
         if (conn == null || metadataConnection == null) {
             return;
         }
-        ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(conn);
 
         // driverPath
         conn.setDriverJarPath(metadataConnection.getDriverJarPath());

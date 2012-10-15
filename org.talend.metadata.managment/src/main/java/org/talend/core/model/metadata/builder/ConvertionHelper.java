@@ -197,7 +197,7 @@ public final class ConvertionHelper {
         result.setPort(connection.getPort());
         result.setServerName(connection.getServerName());
         result.setSqlSyntax(connection.getSqlSynthax());
-        result.setSchema(connection.getUiSchema());
+        result.setUiSchema(connection.getUiSchema());
         result.setStringQuote(connection.getStringQuote());
         result.setUrl(connection.getURL());
         result.setAdditionalParams(connection.getAdditionalParams());
@@ -212,12 +212,11 @@ public final class ConvertionHelper {
         result.setContextName(connection.getContextName());
         // handle oracle database connnection of general_jdbc.
         result.setSchema(ExtractMetaDataUtils.getMeataConnectionSchema(result));
-
         convertOtherParameters(result, connection);
         // ADD msjian TDQ-5908 2012-9-3:should set the UI parameters
         fillUIParams(result, connection);
         // TDQ-5908~
-        
+
         return result;
 
     }

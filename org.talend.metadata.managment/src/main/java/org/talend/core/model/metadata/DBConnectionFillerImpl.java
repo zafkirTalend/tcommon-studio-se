@@ -51,6 +51,7 @@ import org.talend.core.model.metadata.builder.util.DatabaseConstant;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.service.TalendCWMService;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.ColumnHelper;
 import org.talend.cwm.helper.ColumnSetHelper;
@@ -59,6 +60,7 @@ import org.talend.cwm.helper.PackageHelper;
 import org.talend.cwm.helper.SchemaHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.i18n.Messages;
+import org.talend.cwm.mip.service.CWMService;
 import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdExpression;
@@ -296,11 +298,17 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         schemaName = schemas.getString(1);
                     }
                     hasSchema = true;
-                    if (!filterMetadaElement(schemaFilter, schemaName)) {
-                        continue;
+                    if (!isNullUiSchema(dbConn) && dbConn != null) {
+                        String uiSchemaOnConnWizard = ((DatabaseConnection) dbConn).getUiSchema();
+                        // If the UiSchema on ui is not empty, the shema name should be same to this UiSchema name.
+                        CWMService cwmService = new TalendCWMService();
+                        Schema schema = SchemaHelper.createSchema(cwmService.getReadableName(dbConn, uiSchemaOnConnWizard));
+                        returnSchemas.add(schema);
+                        break;
+                    } else if (isCreateElement(schemaFilter, schemaName)) {
+                        Schema schema = SchemaHelper.createSchema(schemaName);
+                        returnSchemas.add(schema);
                     }
-                    Schema schema = SchemaHelper.createSchema(schemaName);
-                    returnSchemas.add(schema);
 
                 }
                 schemas.close();
@@ -365,11 +373,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 IMetadataConnection iMetadataCon = ConvertionHelper.convert(dbConn);
                 if (iMetadataCon != null) {
                     String catalogTemp = iMetadataCon.getDatabase();
-                    if ("".equals(catalogTemp)) {
+                    if ("".equals(catalogTemp)) { //$NON-NLS-1$
                         catalogFilter.clear();
                     }
                 }
             }
+
         }
 
         try {
@@ -403,9 +412,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         }
                         catalogName = catalogNames.getString(temp);
                         // MOD zshen filter ODBC catalog
+                        // FIXME isODBCCatalog is not a good name
                         if (!isHive && !MetadataConnectionUtils.isODBCCatalog(catalogName, dbJDBCMetadata)) {
                             continue;
                         }
+
                     } catch (Exception e) {
                         log.warn(e, e);
                         if (dbJDBCMetadata.getDatabaseProductName() != null
@@ -419,49 +430,17 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                             dbJDBCMetadata.getConnection().toString()); // FIXME assertion string must not be
                                                                         // externalized
                     // MOD xqliu 2010-03-03 feature 11412
-                    Catalog catalog = null;
-                    if (filterMetadaElement(catalogFilter, catalogName)) {
-                        // give a sid for TOS if the attribute can't be set by user on UI.
-                        // if (StringUtils.isEmpty(((DatabaseConnection) dbConn).getSID())) {
-                        // ((DatabaseConnection) dbConn).setSID(catalogName);
-                        // }
-                        catalog = CatalogHelper.createCatalog(catalogName);
-                        catalogList.add(catalog);
-                    } else {
-                        continue;
+
+                    if (!isNullSID(dbConn) && dbConn != null) {
+                        String databaseOnConnWizard = ((DatabaseConnection) dbConn).getSID();
+                        // If the SID on ui is not empty, the catalog name should be same to this SID name.
+                        CWMService cwmService = new TalendCWMService();
+                        postFillCatalog(catalogList, filterList, cwmService.getReadableName(dbConn, databaseOnConnWizard), dbConn);
+                        break;
+                    } else if (isCreateElement(catalogFilter, catalogName)) {
+                        postFillCatalog(catalogList, filterList, catalogName, dbConn);
                     }
 
-                    DatabaseConnection dbConnection = (DatabaseConnection) dbConn;
-
-                    filterList = new ArrayList<String>();
-                    if (dbConnection.getDatabaseType() != null
-                            && dbConnection.getDatabaseType().equals(EDatabaseTypeName.AS400.getDisplayName())) {// AS400
-                        // TDI-17986
-                        IMetadataConnection iMetadataCon = ConvertionHelper.convert(dbConnection);
-                        if (iMetadataCon != null) {
-                            if (!StringUtils.isEmpty(iMetadataCon.getDatabase())
-                                    && !filterList.contains(iMetadataCon.getDatabase())) {
-                                filterList.add(iMetadataCon.getDatabase());
-                            }
-                            String pattern = ExtractMetaDataUtils.retrieveSchemaPatternForAS400(iMetadataCon
-                                    .getAdditionalParams());
-                            if (pattern != null && !"".equals(pattern)) {
-                                String[] multiSchems = ExtractMetaDataUtils.getMultiSchems(pattern);
-                                if (multiSchems != null) {
-                                    for (String s : multiSchems) {
-                                        if (!StringUtils.isEmpty(s) && !filterList.contains(s)) {
-                                            filterList.add(s);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    } else {
-                        String uiSchema = dbConnection.getUiSchema();
-                        if (!StringUtils.isBlank(uiSchema) && !filterList.contains(uiSchema)) {
-                            filterList.add(uiSchema);
-                        }
-                    }
                     // ~11412
                 }
                 // --- release the result set.
@@ -572,6 +551,88 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         return catalogList;
     }
 
+    /**
+     * 
+     * judge whether SID is null or empty string whatever context mode or nor
+     * 
+     * @param dbConn
+     * @return
+     */
+    private boolean isNullSID(Connection dbConn) {
+        if (dbConn instanceof DatabaseConnection) {
+            String databaseOnConnWizard = ((DatabaseConnection) dbConn).getSID();
+            CWMService cwmService = new TalendCWMService();
+            String readableName = cwmService.getReadableName(dbConn, databaseOnConnWizard);
+            if (isEmptyString(databaseOnConnWizard) && isEmptyString(readableName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * judge whether UiSchema is null or empty string whatever context mode or nor
+     * 
+     * @param dbConn
+     * @return
+     */
+    private boolean isNullUiSchema(Connection dbConn) {
+        if (dbConn instanceof DatabaseConnection) {
+            String databaseOnConnWizard = ((DatabaseConnection) dbConn).getUiSchema();
+            CWMService cwmService = new TalendCWMService();
+            String readableName = cwmService.getReadableName(dbConn, databaseOnConnWizard);
+            if (isEmptyString(databaseOnConnWizard) && isEmptyString(readableName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 
+     * judge whether str is null or length is zreo
+     * 
+     * @param str
+     * @return
+     */
+    private boolean isEmptyString(final String str) {
+        return str == null || str.length() == 0;
+    }
+
+    private void postFillCatalog(List<Catalog> catalogList, List<String> filterList, String catalogName, Connection dbConn) {
+        Catalog catalog = CatalogHelper.createCatalog(catalogName);
+        catalogList.add(catalog);
+        DatabaseConnection dbConnection = (DatabaseConnection) dbConn;
+
+        filterList = new ArrayList<String>();
+        if (dbConnection.getDatabaseType() != null
+                && dbConnection.getDatabaseType().equals(EDatabaseTypeName.AS400.getDisplayName())) {// AS400
+            // TDI-17986
+            IMetadataConnection iMetadataCon = ConvertionHelper.convert(dbConnection);
+            if (iMetadataCon != null) {
+                if (!StringUtils.isEmpty(iMetadataCon.getDatabase()) && !filterList.contains(iMetadataCon.getDatabase())) {
+                    filterList.add(iMetadataCon.getDatabase());
+                }
+                String pattern = ExtractMetaDataUtils.retrieveSchemaPatternForAS400(iMetadataCon.getAdditionalParams());
+                if (pattern != null && !"".equals(pattern)) {
+                    String[] multiSchems = ExtractMetaDataUtils.getMultiSchems(pattern);
+                    if (multiSchems != null) {
+                        for (String s : multiSchems) {
+                            if (!StringUtils.isEmpty(s) && !filterList.contains(s)) {
+                                filterList.add(s);
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            String uiSchema = dbConnection.getUiSchema();
+            if (!StringUtils.isBlank(uiSchema) && !filterList.contains(uiSchema)) {
+                filterList.add(uiSchema);
+            }
+        }
+    }
+
     public List<Schema> fillSchemaToCatalog(Connection dbConn, DatabaseMetaData dbJDBCMetadata, Catalog catalog,
             List<String> schemaFilter) throws Throwable {
 
@@ -615,24 +676,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 String catalogName = null;
                 try {
                     schemaName = schemaRs.getString(MetaDataConstants.TABLE_SCHEM.name());
-                    // if (schemaName.equals("Base")) {
-                    // System.out.println("aa");
-                    // executeGetSchemas(dbJDBCMetadata);
-                    // }
-
-                    // if (catalogName.equals("new_Base")) {
-                    // System.out.println("aa");
-                    // }
-
                     // MOD klliu bug 19004 2011-03-31
-                    // java.sql.Connection connection = dbJDBCMetadata.getConnection();
-                    // if (!MetadataConnectionUtils.isOdbcConnection(connection)) {
                     if (!MetadataConnectionUtils.isPostgresql(dbJDBCMetadata)) {
                         catalogName = schemaRs.getString(MetaDataConstants.TABLE_CATALOG.name());
                     }
                     // the case for mssql
-                    // dbJDBCMetadata.getDatabaseMajorVersion() > 8 it mean that the column TABLE_CATALOG is exist.
-                    // dbJDBCMetadata.getDriverMajorVersion() > 1 mean that the connection use 2005/2008 driver
                     if (MetadataConnectionUtils.isMssql(dbJDBCMetadata) && dbJDBCMetadata.getDatabaseMajorVersion() > 8
                             && dbJDBCMetadata.getDriverMajorVersion() > 1) {
                         if (catalogName != null && catalogName != schemaName) {
@@ -641,25 +689,28 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     }
                     if (schemaName == null || !MetadataConnectionUtils.isMssql(dbJDBCMetadata.getConnection())
                             && catalogName != null && !catalogName.equals(catalog.getName())) {
-                        // the case for olap
-                        // if (schemaName == null) {
+
                         continue;
                     }
-                    // }
                 } catch (Exception e) {
-                    // log.warn(e.getMessage(), e);
+                    // not some things need to do
                 }
                 // MOD mzhao bug 9606 filter duplicated schemas.
 
                 if (!schemaNameCacheTmp.contains(schemaName) && !MetadataConnectionUtils.isMysql(dbJDBCMetadata)) {
-                    schemaNameCacheTmp.add(schemaName);
-                    Schema schema = SchemaHelper.createSchema(schemaName);
-                    if (!filterMetadaElement(schemaFilter, schemaName)) {
-                        continue;
+                    if (!isNullUiSchema(dbConn) && dbConn != null) {
+                        String uiSchemaOnConnWizard = ((DatabaseConnection) dbConn).getUiSchema();
+                        // If the UiSchema on ui is not empty, the shema name should be same to this UiSchema name.
+                        CWMService cwmService = new TalendCWMService();
+                        Schema schema = SchemaHelper.createSchema(cwmService.getReadableName(dbConn, uiSchemaOnConnWizard));
+                        schemaList.add(schema);
+                        break;
+                    } else if (isCreateElement(schemaFilter, schemaName)) {
+                        Schema schema = SchemaHelper.createSchema(schemaName);
+                        schemaList.add(schema);
+                        schemaNameCacheTmp.add(schemaName);
                     }
-                    schemaList.add(schema);
                 }
-
             }
             schemaRs.close();
         } catch (Exception e) {
@@ -749,7 +800,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     }
                 }
                 // for
-                if (!filterMetadaElement(tableFilter, tableName)) {
+                if (!isCreateElement(tableFilter, tableName)) {
                     continue;
                 }
                 if (tableName == null || tablesToFilter.contains(tableName) || tableName.startsWith("/")) {
@@ -916,7 +967,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 }
 
                 // for
-                if (!filterMetadaElement(tableFilter, tableName)) {
+                if (!isCreateElement(tableFilter, tableName)) {
                     continue;
                 }
 
@@ -994,7 +1045,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
                 String tableName = tables.getString(GetTable.TABLE_NAME.name());
                 String type = tables.getString(GetTable.TABLE_TYPE.name());
-                if (!filterMetadaElement(viewFilter, tableName)) {
+                if (!isCreateElement(viewFilter, tableName)) {
                     continue;
                 }
                 String tableOwner = null;

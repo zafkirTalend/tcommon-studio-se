@@ -2,8 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: runtime (low dependencies) for Talend common classes
 Bundle-SymbolicName: org.talend.commons.runtime
-Bundle-Version: 2.2.0.qualifier
-Require-Bundle: org.eclipse.core.runtime,
+Bundle-Version: 5.0.0.qualifier
+Require-Bundle: org.talend.libraries.apache,
+ org.eclipse.core.runtime,
  org.eclipse.emf.ecore.xmi
 Export-Package: org.talend.commons,
  org.talend.commons.debug,
@@ -24,7 +25,6 @@ Export-Package: org.talend.commons,
  org.talend.commons.utils.encoding,
  org.talend.commons.utils.generation,
  org.talend.commons.utils.io,
- org.talend.commons.utils.memory,
  org.talend.commons.utils.network,
  org.talend.commons.utils.performance,
  org.talend.commons.utils.platform,
@@ -32,7 +32,6 @@ Export-Package: org.talend.commons,
  org.talend.commons.utils.scalability,
  org.talend.commons.utils.system,
  org.talend.commons.utils.threading,
- org.talend.commons.utils.threading.lockerbykey,
  org.talend.commons.utils.time,
  org.talend.commons.utils.tracer,
  org.talend.commons.utils.workbench.extensions,

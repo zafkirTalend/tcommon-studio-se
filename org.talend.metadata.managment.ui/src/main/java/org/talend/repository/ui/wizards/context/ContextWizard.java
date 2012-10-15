@@ -91,7 +91,7 @@ public class ContextWizard extends CheckLastVersionRepositoryWizard implements I
 
     private String originalStatus;
 
-    ProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();;
+    ProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
 
     /**
      * 
@@ -165,9 +165,9 @@ public class ContextWizard extends CheckLastVersionRepositoryWizard implements I
             }
             if (node != null) {
                 IRepositoryViewObject object;
-                if (node.getObject() instanceof RepositoryObject)
+                if (node.getObject() instanceof RepositoryObject) {
                     object = node.getObject();
-                else {
+                } else {
                     object = node.getObject();
                 }
                 setRepositoryObject(object);
