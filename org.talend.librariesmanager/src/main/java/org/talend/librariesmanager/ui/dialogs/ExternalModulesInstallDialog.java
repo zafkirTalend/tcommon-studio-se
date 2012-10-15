@@ -56,6 +56,7 @@ import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable.LAYOUT_MODE;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable.SORT;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.CorePlugin;
@@ -115,7 +116,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
     @Override
     protected void initializeBounds() {
         super.initializeBounds();
-        getShell().setSize(860, 400);
+        getShell().setSize(900, 400);
         Point location = getInitialLocation(getShell().getSize());
         getShell().setLocation(location.x, location.y);
     }
@@ -147,6 +148,25 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         tableViewerCreator.createTable();
 
         TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
+        column.setTitle(Messages.getString("ExternalModulesInstallDialog_ColumnJarName")); //$NON-NLS-1$
+        column.setToolTipHeader(Messages.getString("ExternalModulesInstallDialog_ColumnJarName")); //$NON-NLS-1$
+        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<ModuleToInstall, String>() {
+
+            @Override
+            public String get(ModuleToInstall bean) {
+                return bean.getName();
+            }
+
+            @Override
+            public void set(ModuleToInstall bean, String value) {
+            }
+        });
+        column.setSortable(true);
+        tableViewerCreator.setDefaultSort(column, SORT.ASC);
+        column.setWeight(3);
+        column.setModifiable(false);
+
+        column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle(Messages.getString("ExternalModulesInstallDialog_ColumnModuleName")); //$NON-NLS-1$
         column.setToolTipHeader(Messages.getString("ExternalModulesInstallDialog_ColumnModuleName")); //$NON-NLS-1$
         column.setSortable(true);
@@ -161,30 +181,11 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
             public void set(ModuleToInstall bean, String value) {
             }
         });
-
         column.setWeight(4);
         column.setModifiable(false);
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle(Messages.getString("ExternalModulesInstallDialog_ColumnJarName")); //$NON-NLS-1$
-        column.setToolTipHeader(Messages.getString("ExternalModulesInstallDialog_ColumnJarName")); //$NON-NLS-1$
         column.setSortable(true);
-        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<ModuleToInstall, String>() {
-
-            @Override
-            public String get(ModuleToInstall bean) {
-                return bean.getName();
-            }
-
-            @Override
-            public void set(ModuleToInstall bean, String value) {
-            }
-        });
-
-        column.setWeight(4);
-        column.setModifiable(false);
-
-        column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle(Messages.getString("ExternalModulesInstallDialog_ColumnRequiredBy")); //$NON-NLS-1$
         column.setToolTipHeader(Messages.getString("ExternalModulesInstallDialog_ColumnRequiredBy")); //$NON-NLS-1$
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<ModuleToInstall, String>() {
@@ -206,6 +207,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         column.setTitle(Messages.getString("ExternalModulesInstallDialog_ColumnRequired")); //$NON-NLS-1$
         column.setToolTipHeader(Messages.getString("ExternalModulesInstallDialog_ColumnRequired")); //$NON-NLS-1$
         column.setDisplayedValue(""); //$NON-NLS-1$
+        column.setSortable(true);
         column.setImageProvider(new IColumnImageProvider<ModuleToInstall>() {
 
             @Override
@@ -217,9 +219,20 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                 }
             }
         });
+        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<ModuleToInstall, Boolean>() {
+
+            @Override
+            public Boolean get(ModuleToInstall bean) {
+                return bean.isRequired();
+            }
+
+            @Override
+            public void set(ModuleToInstall bean, Boolean value) {
+            }
+        });
 
         column.setModifiable(false);
-        column.setWeight(2);
+        column.setWeight(3);
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle(Messages.getString("ExternalModulesInstallDialog_ColumnLicense")); //$NON-NLS-1$
@@ -244,17 +257,20 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         urlcolumn.setTitle(Messages.getString("ExternalModulesInstallDialog_ColumnUrl")); //$NON-NLS-1$
         urlcolumn.setToolTipHeader(Messages.getString("ExternalModulesInstallDialog_ColumnUrl")); //$NON-NLS-1$
         urlcolumn.setModifiable(false);
-        urlcolumn.setWeight(8);
+        urlcolumn.setSortable(true);
+        urlcolumn.setWeight(7);
 
         TableViewerCreatorColumn installcolumn = new TableViewerCreatorColumn(tableViewerCreator);
         installcolumn.setTitle(Messages.getString("ExternalModulesInstallDialog_AvailableOnTalendForge")); //$NON-NLS-1$
         installcolumn.setToolTipHeader(Messages.getString("ExternalModulesInstallDialog_AvailableOnTalendForge")); //$NON-NLS-1$
         installcolumn.setModifiable(false);
-        installcolumn.setWeight(5);
+        installcolumn.setSortable(true);
+        installcolumn.setWeight(6);
         tableViewerCreator.init(inputList);
         addInstallButtons(installcolumn, urlcolumn);
         layoutData = new GridData(GridData.FILL_BOTH);
         tableViewerCreator.getTable().setLayoutData(layoutData);
+        tableViewerCreator.getTable().pack();
 
         Composite footComposite = new Composite(composite, SWT.NONE);
         layoutData = new GridData(GridData.FILL_HORIZONTAL);
