@@ -94,7 +94,8 @@ Require-Bundle: org.eclipse.gef,
  org.eclipse.jface.text,
  org.eclipse.ui.editors,
  org.talend.libraries.csv,
- org.eclipse.ui.views.properties.tabbed
+ org.eclipse.ui.views.properties.tabbed,
+ org.eclipse.osgi.services
 Import-Package: org.eclipse.debug.core
 Bundle-Activator: org.talend.core.runtime.CoreRuntimePlugin
 Bundle-ActivationPolicy: lazy

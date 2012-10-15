@@ -541,6 +541,18 @@ public class ConnectionHelper {
     }
 
     /**
+     * 
+     * Judge whether contain Catalog for the dataProvider
+     * 
+     * @param dataProvider
+     * @return
+     */
+    public static boolean hasCatalog(Connection dataProvider) {
+        List<Catalog> catalogs = CatalogHelper.getCatalogs(dataProvider.getDataPackage());
+        return catalogs.size() > 0;
+    }
+
+    /**
      * Method "getSchema".
      * 
      * @param dataProvider the data provider
@@ -548,6 +560,19 @@ public class ConnectionHelper {
      */
     public static List<Schema> getSchema(Connection dataProvider) {
         return SchemaHelper.getSchemas(dataProvider.getDataPackage());
+    }
+
+    public static boolean hasSchema(Connection dataProvider) {
+        List<Schema> schemas = SchemaHelper.getSchemas(dataProvider.getDataPackage());
+        if (schemas.size() == 0) {
+            List<Catalog> catalogs = CatalogHelper.getCatalogs(dataProvider.getDataPackage());
+            for (Catalog catalog : catalogs) {
+                return CatalogHelper.getSchemas(catalog).size() > 0;
+            }
+        } else {
+            return true;
+        }
+        return false;
     }
 
     /**

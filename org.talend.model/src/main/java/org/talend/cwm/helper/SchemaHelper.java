@@ -16,12 +16,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Namespace;
+import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Schema;
 
 /**
@@ -69,6 +72,22 @@ public final class SchemaHelper {
             }
         }
         return null;
+    }
+
+    /**
+     * 
+     * Get a Schema by Connection and Schema name.
+     * 
+     * @param conn
+     * @param schemaName
+     * @return
+     */
+    public static Schema getSchema(Connection conn, String schemaName) {
+        if (conn == null) {
+            return null;
+        }
+        EList<Package> elements = conn.getDataPackage();
+        return getSchemaByName(elements, schemaName);
     }
 
     public static List<TdTable> getTables(Schema schema) {

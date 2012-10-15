@@ -307,7 +307,7 @@ public class TalendTextUtils {
             Matcher matcher2 = pattern2.matcher(temp);
 
             // for bug 12092
-            boolean isSqlKeyword = KeywordsValidator.isSqlKeyword(temp, name.getProduct()); //$NON-NLS-1$  
+            boolean isSqlKeyword = KeywordsValidator.isSqlKeyword(temp, name.getProduct());
 
             boolean isH2 = EDatabaseTypeName.H2 == name;
 
@@ -464,6 +464,17 @@ public class TalendTextUtils {
      */
     public static boolean isCommonString(final String str) {
         return TalendQuoteUtils.isCommonString(str);
+    }
+
+    /**
+     * 
+     * judge whether str is null or length is zreo
+     * 
+     * @param str
+     * @return
+     */
+    public static boolean isEmptyString(final String str) {
+        return str == null || str.length() > 0;
     }
 
     /**
