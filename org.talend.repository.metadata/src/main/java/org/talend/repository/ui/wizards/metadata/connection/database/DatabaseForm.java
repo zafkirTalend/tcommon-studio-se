@@ -720,8 +720,8 @@ public class DatabaseForm extends AbstractForm {
                 String perId = page.getPerspective().getId();
                 if ((!"".equals(perId) && null != perId)) {
                     // eg : use DI, then switch to DQ : All view from DI must be hidden when switch
-                	//MOD qiongli 2012-7-10 TDQ-5801,hide also 'MSsql 2005/2008' for DQ after delete that MS jars. 
-                	if (perId.equalsIgnoreCase(IBrandingConfiguration.PERSPECTIVE_DI_ID)
+                    // MOD qiongli 2012-7-10 TDQ-5801,hide also 'MSsql 2005/2008' for DQ after delete that MS jars.
+                    if (perId.equalsIgnoreCase(IBrandingConfiguration.PERSPECTIVE_DI_ID)
                             || perId.equalsIgnoreCase(IBrandingConfiguration.PERSPECTIVE_DQ_ID)) {
                         if (dbTypeDisplayList != null) {
                             ArrayList<String> newList = new ArrayList<String>(dbTypeDisplayList);
@@ -2512,7 +2512,8 @@ public class DatabaseForm extends AbstractForm {
                 connection.setDriverClass(driverClass);
             }
             java.sql.Connection sqlConn = MetadataConnectionUtils.checkConnection(connection).getObject();
-            if (sqlConn != null) {
+            // if the dbtype is Access,it will throw a sqlException
+            if (sqlConn != null && dbType != null && !dbType.equals(EDatabaseTypeName.ACCESS)) {
                 try {
                     DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, connection);
                     int versionNum = dm.getDatabaseMajorVersion();

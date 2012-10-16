@@ -40,6 +40,8 @@ public final class ConnectionUtils {
 
     public static final String SYBASE_LANGUAGE = "Adaptive Server Enterprise | Sybase Adaptive Server IQ"; //$NON-NLS-1$
 
+    private static final String ACCESS_DRIVER = "Microsoft Access Driver"; //$NON-NLS-1$
+
     /**
      * private constructor.
      */
@@ -96,7 +98,23 @@ public final class ConnectionUtils {
                 }
             }
         }
+        if (isAccess(url)) {
+            connection = DriverManager.getConnection(url, props);
+        }
         return connection;
+    }
+
+    /**
+     * Method "isAccess".
+     * 
+     * @param url
+     * @return if the url is a Access url
+     */
+    public static boolean isAccess(String url) {
+        if (url != null && url.contains(ACCESS_DRIVER)) {
+            return true;
+        }
+        return false;
     }
 
     /**
