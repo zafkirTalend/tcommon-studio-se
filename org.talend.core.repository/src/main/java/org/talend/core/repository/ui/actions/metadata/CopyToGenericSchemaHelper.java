@@ -123,12 +123,12 @@ public class CopyToGenericSchemaHelper {
             listColumns = (ConnectionHelper.getTables(dbConnection).toArray(new MetadataTable[0])[0]).getColumns();
         }
 
-        boolean isConnectionTableSchema = checkIsConnectionTableSchema(tableToMove);
-        if (isConnectionTableSchema) {
-            metadataTable.setLabel(DEFAULT_TABLE_NAME);
-        } else {
-            metadataTable.setLabel(tableToMove.getLabel() == null ? DEFAULT_TABLE_NAME : tableToMove.getLabel());
-        }
+        // boolean isConnectionTableSchema = checkIsConnectionTableSchema(tableToMove);
+        // if (isConnectionTableSchema) {
+        // metadataTable.setLabel(DEFAULT_TABLE_NAME);
+        // } else {
+        metadataTable.setLabel(tableToMove.getLabel() == null ? DEFAULT_TABLE_NAME : tableToMove.getLabel());
+        // }
         for (Object temp : listColumns) {
             MetadataColumn column = (MetadataColumnImpl) temp;
             MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
@@ -162,8 +162,7 @@ public class CopyToGenericSchemaHelper {
         connectionProperty.setLabel(connectionLabel);
         metadataTable.setId(factory.getNextId());
 
-        GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
-                GenericPackage.class);
+        GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), connection, GenericPackage.class);
         if (g != null) { // hywang
             g.getOwnedElement().add(metadataTable);
         } else {
@@ -176,7 +175,7 @@ public class CopyToGenericSchemaHelper {
         connectionProperty.setItem(connectionItem);
         connectionProperty.setId(factory.getNextId());
 
-        if (!repositoryFactory.isNameAvailable(connectionItem, connectionLabel))// name is existing in generic
+        if (!repositoryFactory.isNameAvailable(connectionItem, connectionLabel)) {
             // schema.
             try {
                 setPropNewName(connectionProperty);
@@ -184,6 +183,7 @@ public class CopyToGenericSchemaHelper {
                 // e.printStackTrace();
                 ExceptionHandler.process(e);
             }
+        }
 
         repositoryFactory.create(connectionItem, targetPath);
     }
