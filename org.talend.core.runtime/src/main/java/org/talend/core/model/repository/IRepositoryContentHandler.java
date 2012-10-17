@@ -19,6 +19,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jface.wizard.IWizard;
+import org.eclipse.ui.IWorkbench;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.image.IImage;
 import org.talend.core.model.properties.Item;
@@ -94,5 +96,16 @@ public interface IRepositoryContentHandler {
      * @return true if the table or column node belong to the item.
      */
     public boolean isOwnTable(IRepositoryNode node, Class type);
+
+    /**
+     * DOC ycbai Comment method "newWizard".
+     * 
+     * @param workbench
+     * @param creation
+     * @param node
+     * @param existingNames
+     * @return a new wizard related to the node.
+     */
+    public IWizard newWizard(IWorkbench workbench, boolean creation, RepositoryNode node, String[] existingNames);
 
 }

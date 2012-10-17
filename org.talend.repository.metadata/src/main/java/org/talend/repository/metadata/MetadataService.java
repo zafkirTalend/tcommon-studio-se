@@ -38,7 +38,9 @@ import org.talend.core.model.properties.LinkRulesItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RulesItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.ui.IHeaderFooterProviderService;
 import org.talend.core.ui.IMDMProviderService;
 import org.talend.core.ui.metadata.celleditor.EProcessTypeForRule;
@@ -200,14 +202,20 @@ public class MetadataService implements IMetadataService {
                         relatedWizard = service.newWizard(PlatformUI.getWorkbench(), creation, realNode, null);
                     }
                 }
-            } else if (objectType.equals(ERepositoryObjectType.METADATA_HDFS)) {
-                if (PluginChecker.isHDFSPluginLoaded()) {
-                    IProviderService service = GlobalServiceRegister.getDefault().findService("IHDFSProviderService");
-                    if (service != null) {
-                        relatedWizard = service.newWizard(PlatformUI.getWorkbench(), creation, realNode, null);
+            }
+
+            // Handle the extention node wizards.
+            if (relatedWizard == null) {
+                for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+                    if (handler.isRepObjType(objectType)) {
+                        relatedWizard = handler.newWizard(PlatformUI.getWorkbench(), creation, realNode, null);
+                        if (relatedWizard != null) {
+                            break;
+                        }
                     }
                 }
             }
+
             boolean changed = false;
             if (relatedWizard != null) {
                 ConnectionItem connItem = null;
