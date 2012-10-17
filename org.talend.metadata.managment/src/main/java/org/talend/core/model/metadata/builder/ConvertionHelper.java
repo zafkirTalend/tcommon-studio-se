@@ -13,13 +13,8 @@
 package org.talend.core.model.metadata.builder;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
-import org.eclipse.emf.common.util.EMap;
 import org.talend.commons.bridge.ReponsitoryContextBridge;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
@@ -176,7 +171,7 @@ public final class ConvertionHelper {
         result.setPort(connection.getPort());
         result.setServerName(connection.getServerName());
         result.setSqlSyntax(connection.getSqlSynthax());
-        result.setSchema(connection.getUiSchema());
+        result.setUiSchema(connection.getUiSchema());
         result.setStringQuote(connection.getStringQuote());
         result.setUrl(connection.getURL());
         result.setAdditionalParams(connection.getAdditionalParams());
@@ -195,7 +190,7 @@ public final class ConvertionHelper {
         // ADD msjian TDQ-5908 2012-9-3:should set the UI parameters
         fillUIParams(result, connection);
         // TDQ-5908~
-        
+
         return result;
 
     }

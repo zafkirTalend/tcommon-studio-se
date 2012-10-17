@@ -121,7 +121,7 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl {
             String techXSDFolderName = getTechXSDFolderName();
 
             for (WSDataModelPK pk : pks) {
-                if (filterMetadaElement(schemaFilter, pk.getPk())) {
+                if (isCreateElement(schemaFilter, pk.getPk())) {
                     adaptToCWMDocument(xmlDocs, stub, pk.getPk(), techXSDFolderName, dbConn);
                 }
             }

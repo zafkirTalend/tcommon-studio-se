@@ -90,6 +90,7 @@ public class MetadataFillFactory {
      * @param conn
      * @return null only if conn is null
      */
+    @Deprecated
     public IMetadataConnection fillUIParams(DatabaseConnection conn) {
         return metadataFiller.fillUIParams(conn);
     }
@@ -109,7 +110,8 @@ public class MetadataFillFactory {
 
     /**
      * 
-     * DOC zshen Comment method "fillCatalogs".
+     * Fill the catalog with the restrain of catalogFilter, note that if the database name (e.g SID for SQL server ) on
+     * connection wizard UI is set, then this method will only return one catalog with this name.
      * 
      * @param dbConn the connection which you want schema to be filled.Can't be null if need to fill the catalogs into
      * the object of connection. And if Linked is false everything is ok.
@@ -123,8 +125,8 @@ public class MetadataFillFactory {
     }
 
     /**
-     * 
-     * zshen Comment method "fillSchemas".
+     * Fill the schema with the restrain of schemaFilter, note that if the schema name (e.g UISchema for Oracle ) on
+     * connection wizard UI is set, then this method will only return one schema with this name.
      * 
      * @param dbConn the connection which you want schema to be filled.Can't be null if need to fill the schemas into
      * the object of connection.And if Linked is false everything is ok.
@@ -293,6 +295,17 @@ public class MetadataFillFactory {
         return metadataFiller.checkConnection(metadataBean);
     }
 
+    /**
+     * 
+     Fill the schema to catalog with the restrain of schemaFilter, note that if the schema name (e.g UISchema for SQL
+     * server ) on connection wizard UI is set, then this method will only return one schema with this name.
+     * 
+     * @param dbConn
+     * @param dbJDBCMetadata
+     * @param catalog
+     * @param schemaFilter
+     * @return
+     */
     public List<Schema> fillSchemaToCatalog(Connection dbConn, DatabaseMetaData dbJDBCMetadata, Catalog catalog,
             List<String> schemaFilter) {
 

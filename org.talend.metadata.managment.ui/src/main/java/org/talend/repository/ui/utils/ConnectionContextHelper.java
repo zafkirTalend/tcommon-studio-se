@@ -125,7 +125,7 @@ public final class ConnectionContextHelper {
             return null;
         }
         String contextId = connection.getContextId();
-        if (contextId == null || EMPTY.equals(contextId.trim()) || RepositoryNode.NO_ID.equals(contextId.trim())) { //$NON-NLS-1$
+        if (contextId == null || EMPTY.equals(contextId.trim()) || RepositoryNode.NO_ID.equals(contextId.trim())) {
             return null;
         }
         IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
@@ -192,7 +192,7 @@ public final class ConnectionContextHelper {
         return null;
     }
 
-    private static String convertContextLabel(String label) {
+    public static String convertContextLabel(String label) {
         if (label != null) {
             String newLabel = label.replaceAll("[\\.\\-\\ \\(\\)\\[\\]=]", "_"); //$NON-NLS-1$ //$NON-NLS-2$
             Pattern pattern = Pattern.compile("^[0-9]+.*$"); //$NON-NLS-1$
@@ -394,7 +394,7 @@ public final class ConnectionContextHelper {
         return selection;
     }
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     static String getContextValue(ContextType contextType, final String value, final String paramName) {
         if (value == null) {
             return EMPTY;
@@ -739,7 +739,7 @@ public final class ConnectionContextHelper {
 
     }
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public static void addContextVarForJob(IProcess2 process, final ContextItem contextItem, final Set<String> addedVars) {
         if (process == null || contextItem == null || addedVars == null || addedVars.isEmpty()) {
             return;
@@ -968,7 +968,7 @@ public final class ConnectionContextHelper {
      * 
      * if value is context mode, return original value.
      */
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public static String getOriginalValue(ContextType contextType, final String value) {
         if (value == null) {
             return EMPTY;
@@ -996,7 +996,7 @@ public final class ConnectionContextHelper {
         return value;
     }
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public static void cloneConnectionProperties(Connection sourceConn, Connection targetConn) {
         if (sourceConn == null || targetConn == null) {
             return;
@@ -1012,7 +1012,7 @@ public final class ConnectionContextHelper {
             QueriesConnection cloneQueriesConnection = ConnectionFactory.eINSTANCE.createQueriesConnection();
 
             cloneQueriesConnection.getQuery().clear();
-            List<Query> queries = (List<Query>) queryConnection.getQuery();
+            List<Query> queries = queryConnection.getQuery();
             for (Query query : queries) {
                 Query cloneQuery = ConnectionFactory.eINSTANCE.createQuery();
                 cloneConnectionProperties(query, cloneQuery);
@@ -1030,7 +1030,7 @@ public final class ConnectionContextHelper {
 
         // Package pkg = (Package) ConnectionHelper.getPackage(targetConn.getName(), targetConn, Package.class);
 
-        Set<MetadataTable> tables = (Set<MetadataTable>) ConnectionHelper.getTables(sourceConn);
+        Set<MetadataTable> tables = ConnectionHelper.getTables(sourceConn);
         for (MetadataTable table : tables) {
             MetadataTable cloneTable = ConnectionFactory.eINSTANCE.createMetadataTable();
 
@@ -1043,7 +1043,7 @@ public final class ConnectionContextHelper {
 
             cloneTable.getColumns().clear();
 
-            List<MetadataColumn> columns = (List<MetadataColumn>) table.getColumns();
+            List<MetadataColumn> columns = table.getColumns();
             for (MetadataColumn column : columns) {
                 MetadataColumn cloneColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
 
@@ -1094,7 +1094,7 @@ public final class ConnectionContextHelper {
 
     }
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     private static void cloneConnectionProperties(AbstractMetadataObject sourceObj, AbstractMetadataObject targetObj) {
         if (sourceObj == null || targetObj == null) {
             return;
