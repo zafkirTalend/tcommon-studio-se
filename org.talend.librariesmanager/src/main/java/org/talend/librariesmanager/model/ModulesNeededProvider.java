@@ -180,7 +180,7 @@ public class ModulesNeededProvider {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
         IComponentsFactory compFac = ComponentsFactoryProvider.getInstance();
         Set<IComponent> componentList = compFac.getComponents();
-        for (IComponent comp : componentList) {
+        for (IComponent comp : componentList.toArray(new IComponent[0])) {
             importNeedsList.addAll(comp.getModulesNeeded());
         }
         return importNeedsList;
