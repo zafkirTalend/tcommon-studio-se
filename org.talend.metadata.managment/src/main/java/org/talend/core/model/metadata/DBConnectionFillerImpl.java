@@ -392,7 +392,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             }
             ResultSet catalogNames = null;
             catalogNames = dbJDBCMetadata.getCatalogs();
-            List<String> filterList = null;
+            List<String> filterList = new ArrayList<String>();
             if (catalogNames != null) {
 
                 boolean isHive = MetadataConnectionUtils.isHive(dbJDBCMetadata);
@@ -435,10 +435,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         String databaseOnConnWizard = ((DatabaseConnection) dbConn).getSID();
                         // If the SID on ui is not empty, the catalog name should be same to this SID name.
                         CWMService cwmService = new TalendCWMService();
-                        postFillCatalog(catalogList, filterList, cwmService.getReadableName(dbConn, databaseOnConnWizard), dbConn);
+                        filterList.addAll(postFillCatalog(catalogList, filterList,
+                                cwmService.getReadableName(dbConn, databaseOnConnWizard), dbConn));
                         break;
                     } else if (isCreateElement(catalogFilter, catalogName)) {
-                        postFillCatalog(catalogList, filterList, catalogName, dbConn);
+                        filterList.addAll(postFillCatalog(catalogList, filterList, catalogName, dbConn));
                     }
 
                     // ~11412
@@ -599,12 +600,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         return str == null || str.length() == 0;
     }
 
-    private void postFillCatalog(List<Catalog> catalogList, List<String> filterList, String catalogName, Connection dbConn) {
+    private List<String> postFillCatalog(List<Catalog> catalogList, List<String> filterList, String catalogName, Connection dbConn) {
         Catalog catalog = CatalogHelper.createCatalog(catalogName);
         catalogList.add(catalog);
         DatabaseConnection dbConnection = (DatabaseConnection) dbConn;
 
-        filterList = new ArrayList<String>();
         if (dbConnection.getDatabaseType() != null
                 && dbConnection.getDatabaseType().equals(EDatabaseTypeName.AS400.getDisplayName())) {// AS400
             // TDI-17986
@@ -631,6 +631,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 filterList.add(uiSchema);
             }
         }
+        return filterList;
     }
 
     public List<Schema> fillSchemaToCatalog(Connection dbConn, DatabaseMetaData dbJDBCMetadata, Catalog catalog,
