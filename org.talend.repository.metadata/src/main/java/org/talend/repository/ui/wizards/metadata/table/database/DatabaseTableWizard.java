@@ -107,7 +107,7 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
      * @param existingNames
      * @param managerConnection
      */
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public DatabaseTableWizard(IWorkbench workbench, boolean creation, IRepositoryViewObject object, MetadataTable metadataTable,
             String[] existingNames, boolean forceReadOnly, ManagerConnection managerConnection,
             IMetadataConnection metadataConnection) {
@@ -198,6 +198,7 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
 
             IWorkspaceRunnable operation = new IWorkspaceRunnable() {
 
+                @Override
                 public void run(IProgressMonitor monitor) throws CoreException {
                     // temConnection will be set to model when finish
                     DatabaseConnection connection = (DatabaseConnection) connectionItem.getConnection();
@@ -283,6 +284,10 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
                             originalColumnsMap.put(generateKey(column), oldColumnUuid);
                         }
                     }
+                } else if (mol instanceof Schema) {
+                    List<Schema> subschemas = new ArrayList<Schema>();
+                    subschemas.add((Schema) mol);
+                    generateOriginalColumnsMap(subschemas);
                 }
                 if (mol instanceof Catalog) {
                     Catalog catlog = (Catalog) mol;
@@ -316,6 +321,10 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
                             }
                         }
                     }
+                } else if (mol instanceof Schema) {
+                    List<Schema> subschemas = new ArrayList<Schema>();
+                    subschemas.add((Schema) mol);
+                    replaceUUidsForColumnsAndTables(subschemas);
                 }
                 if (mol instanceof Catalog) {
                     Catalog catlog = (Catalog) mol;
@@ -370,6 +379,7 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
      * 
      * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
      */
+    @Override
     public void init(final IWorkbench workbench, final IStructuredSelection selection2) {
         this.selection = selection2;
     }
@@ -406,7 +416,7 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
      * clone a new DB connection
      */
     private void cloneBaseDataBaseConnection(DatabaseConnection connection) {
-        temConnection = (DatabaseConnection) EcoreUtil.copy(connection);
+        temConnection = EcoreUtil.copy(connection);
         EList<Package> dataPackage = connection.getDataPackage();
         Collection<Package> newDataPackage = EcoreUtil.copyAll(dataPackage);
         ConnectionHelper.addPackages(newDataPackage, temConnection);
