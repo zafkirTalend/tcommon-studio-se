@@ -547,9 +547,8 @@ public final class ProjectManager {
             return;
         }
         String key = IProxyRepositoryFactory.BRANCH_SELECTION + SVNConstant.UNDER_LINE_CHAR + technicalLabel;
-        if (branchValue == null) {
-            fields.put(key, ""); //$NON-NLS-1$
-        } else {
+        // TDI-23291:when branchValue is null,should not set "" to the branchkey.
+        if (branchValue != null) {
             fields.put(key, branchValue);
         }
     }
