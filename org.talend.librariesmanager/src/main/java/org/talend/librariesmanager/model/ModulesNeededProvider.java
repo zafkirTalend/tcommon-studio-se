@@ -180,7 +180,7 @@ public class ModulesNeededProvider {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
         IComponentsFactory compFac = ComponentsFactoryProvider.getInstance();
         Set<IComponent> componentList = compFac.getComponents();
-        for (IComponent comp : componentList) {
+        for (IComponent comp : componentList.toArray(new IComponent[0])) {
             importNeedsList.addAll(comp.getModulesNeeded());
         }
         return importNeedsList;
@@ -231,12 +231,13 @@ public class ModulesNeededProvider {
                             .getRoutinesParameter()) {
 
                         Property property = findRoutinesPropery(infor.getId(), infor.getName(), routines);
-                        if (property != null)
+                        if (property != null) {
                             if (((RoutineItem) property.getItem()).isBuiltIn()) {
                                 systemRoutines.add(infor.getId());
                             } else {
                                 userRoutines.add(infor.getId());
                             }
+                        }
 
                     }
                 }
