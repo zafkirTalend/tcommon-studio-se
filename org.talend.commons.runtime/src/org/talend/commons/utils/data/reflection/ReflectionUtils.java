@@ -121,7 +121,6 @@ public class ReflectionUtils {
      * @return
      */
     public static Object invokeMethod(Object owner, String methodName, Object[] args) {
-        Thread.currentThread().getContextClassLoader();
         Object returnValue = null;
         Class ownerClass = owner.getClass();
         Class[] argsClass = new Class[args.length];
