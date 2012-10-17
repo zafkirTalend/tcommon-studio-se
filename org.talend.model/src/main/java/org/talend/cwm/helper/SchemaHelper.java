@@ -16,8 +16,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
 import orgomg.cwm.objectmodel.core.ModelElement;
@@ -49,6 +51,42 @@ public final class SchemaHelper {
             }
         }
         return schemas;
+    }
+
+    /**
+     * 
+     * Get a Schema by Connection and Schema name.
+     * 
+     * @param conn
+     * @param schemaName
+     * @return
+     */
+    public static Schema getSchema(Connection conn, String schemaName) {
+        if (conn == null) {
+            return null;
+        }
+        EList<orgomg.cwm.objectmodel.core.Package> elements = conn.getDataPackage();
+        return getSchemaByName(elements, schemaName);
+    }
+
+    /**
+     * DOC ycbai Comment method "getSchemaByName".
+     * 
+     * @param elements
+     * @param schemaName
+     * @return
+     */
+    public static Schema getSchemaByName(Collection<? extends EObject> elements, String schemaName) {
+        if (schemaName == null) {
+            return null;
+        }
+        for (EObject modelElement : new ArrayList<EObject>(elements)) {
+            Schema schema = SwitchHelpers.SCHEMA_SWITCH.doSwitch(modelElement);
+            if (schema != null && schemaName.equals(schema.getName())) {
+                return schema;
+            }
+        }
+        return null;
     }
 
     public static List<TdTable> getTables(Schema schema) {
