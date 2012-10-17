@@ -2638,7 +2638,8 @@ public class DatabaseForm extends AbstractForm {
                 connection.setDriverClass(driverClass);
             }
             java.sql.Connection sqlConn = MetadataConnectionUtils.checkConnection(connection).getObject();
-            if (sqlConn != null) {
+            // if the dbtype is Access,it will throw a sqlException
+            if (sqlConn != null && dbType != null && !dbType.equals(EDatabaseTypeName.ACCESS)) {
                 try {
                     DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, connection);
                     int versionNum = dm.getDatabaseMajorVersion();
