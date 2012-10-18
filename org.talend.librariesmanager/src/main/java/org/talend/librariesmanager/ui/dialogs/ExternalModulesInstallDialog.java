@@ -26,14 +26,19 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
+import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
@@ -49,6 +54,8 @@ import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.EImage;
@@ -77,6 +84,8 @@ import org.talend.librariesmanager.utils.RemoteModulesHelper;
 public class ExternalModulesInstallDialog extends TitleAreaDialog implements IModulesListener {
 
     public static final String DO_NOT_SHOW_EXTERNALMODULESINSTALLDIALOG = "do_not_show_ExternalModulesInstallDialog"; //$NON-NLS-1$
+
+    private static final String HELP_CONTENT = "http://talendforge.org/wiki/doku.php?id=doc:installation_guide&s[]=jar#install_jar_dependencies";
 
     private Font font = new Font(null, "Arial", 9, SWT.NORMAL); //$NON-NLS-1$
 
@@ -292,6 +301,61 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         setTitle(title);
         addListeners();
         return composite;
+    }
+
+    @Override
+    protected Control createHelpControl(Composite parent) {
+        Image helpImage = JFaceResources.getImage(DLG_IMG_HELP);
+        if (helpImage != null) {
+            return createHelpImageButton(parent, helpImage);
+        }
+        return createHelpLink(parent);
+    }
+
+    private Link createHelpLink(Composite parent) {
+        Link link = new Link(parent, SWT.WRAP | SWT.NO_FOCUS);
+        ((GridLayout) parent.getLayout()).numColumns++;
+        link.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_CENTER));
+        link.setText("<a>" + IDialogConstants.HELP_LABEL + "</a>"); //$NON-NLS-1$ //$NON-NLS-2$
+        link.setToolTipText(IDialogConstants.HELP_LABEL);
+        link.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                helpPressed();
+            }
+        });
+        return link;
+    }
+
+    private void helpPressed() {
+        Program.launch(HELP_CONTENT);
+    }
+
+    private ToolBar createHelpImageButton(Composite parent, Image image) {
+        ToolBar toolBar = new ToolBar(parent, SWT.FLAT | SWT.NO_FOCUS);
+        ((GridLayout) parent.getLayout()).numColumns++;
+        toolBar.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_CENTER));
+        final Cursor cursor = new Cursor(parent.getDisplay(), SWT.CURSOR_HAND);
+        toolBar.setCursor(cursor);
+        toolBar.addDisposeListener(new DisposeListener() {
+
+            @Override
+            public void widgetDisposed(DisposeEvent e) {
+                cursor.dispose();
+            }
+        });
+        ToolItem item = new ToolItem(toolBar, SWT.NONE);
+        item.setImage(image);
+        item.setToolTipText(JFaceResources.getString("helpToolTip")); //$NON-NLS-1$
+        item.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                helpPressed();
+            }
+        });
+        return toolBar;
     }
 
     private void addListeners() {
