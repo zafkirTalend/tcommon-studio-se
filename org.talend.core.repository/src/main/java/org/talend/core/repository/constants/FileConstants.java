@@ -45,4 +45,26 @@ public class FileConstants {
 
     // MOD klliu 2010-11-26
     public static final String JRXML_EXTENSION = "jrxml"; //$NON-NLS-1$
+
+    public static final String PROPERTIES_FILE_SUFFIX = '.' + PROPERTIES_EXTENSION;
+
+    public static final String ITEM_FILE_SUFFIX = '.' + ITEM_EXTENSION;
+
+    public static final String SCREENSHOT_FILE_SUFFIX = '.' + SCREENSHOT_EXTENSION;
+
+    public static final String ZIP_FILE_SUFFIX = ".zip"; //$NON-NLS-1$
+
+    public static final String TAR_FILE_SUFFIX = ".tar"; //$NON-NLS-1$
+
+    public static final String TAR_GZ_FILE_SUFFIX = ".tar.gz"; //$NON-NLS-1$
+
+    public static final String JAR_FILE_SUFFIX = ".jar"; //$NON-NLS-1$
+
+    public static final String WAR_FILE_SUFFIX = ".war"; //$NON-NLS-1$
+
+    public static final String ESB_FILE_SUFFIX = ".esb"; //$NON-NLS-1$
+
+    public static final String SH_FILE_SUFFIX = ".sh"; //$NON-NLS-1$
+
+    public static final String BAT_FILE_SUFFIX = ".bat"; //$NON-NLS-1$
 }
