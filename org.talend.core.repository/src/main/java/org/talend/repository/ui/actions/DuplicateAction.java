@@ -49,8 +49,11 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ITDQRepositoryService;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.PropertiesFactory;
@@ -94,6 +97,7 @@ public class DuplicateAction extends AContextualAction {
         this.setImageDescriptor(ImageProvider.getImageDesc(EImage.DUPLICATE_ICON));
     }
 
+    @Override
     public void init(TreeViewer viewer, IStructuredSelection selection) {
 
         boolean canWork = true;
@@ -192,6 +196,7 @@ public class DuplicateAction extends AContextualAction {
         InputDialog jobNewNameDialog = new InputDialog(null, Messages.getString("DuplicateAction.input.title"), //$NON-NLS-1$
                 Messages.getString("DuplicateAction.input.message"), jobNameValue, new IInputValidator() { //$NON-NLS-1$
 
+                    @Override
                     public String isValid(String newText) {
                         return validJobName(sourceNode, newText, selectionInClipboard);
                     }
@@ -208,7 +213,8 @@ public class DuplicateAction extends AContextualAction {
 
     }
 
-    public String getDuplicateName(RepositoryNode node, String value, final TreeSelection selectionInClipboard) throws BusinessException {
+    public String getDuplicateName(RepositoryNode node, String value, final TreeSelection selectionInClipboard)
+            throws BusinessException {
 
         if (validJobName(node, value, selectionInClipboard) == null) {
             return value;
@@ -224,19 +230,19 @@ public class DuplicateAction extends AContextualAction {
             return temp;
         }
     }
-    
+
     private boolean isValid(RepositoryNode node, String str) {
-    	String namePattern = "^\\w+$";
-    	Object contentType = node.getContentType();
-    	if(contentType == null){
-    		contentType = node.getProperties(EProperties.CONTENT_TYPE);
-    	}
-    	if(contentType != null && contentType instanceof ERepositoryObjectType){
-    		String tmp = ((ERepositoryObjectType)contentType).getNamePattern();
-    		if(tmp != null){
-    			namePattern = tmp;
-    		}
-    	}
+        String namePattern = "^\\w+$";
+        Object contentType = node.getContentType();
+        if (contentType == null) {
+            contentType = node.getProperties(EProperties.CONTENT_TYPE);
+        }
+        if (contentType != null && contentType instanceof ERepositoryObjectType) {
+            String tmp = ((ERepositoryObjectType) contentType).getNamePattern();
+            if (tmp != null) {
+                namePattern = tmp;
+            }
+        }
         Pattern pattern = Pattern.compile(namePattern);
         return pattern.matcher(str).matches();
     }
@@ -250,7 +256,8 @@ public class DuplicateAction extends AContextualAction {
     /**
      * 
      * DOC YeXiaowei Comment method "isValid".
-     * @param node 
+     * 
+     * @param node
      * 
      * @param itemName
      * @param selectionInClipboard
@@ -315,8 +322,7 @@ public class DuplicateAction extends AContextualAction {
         IExtensionRegistry registry = Platform.getExtensionRegistry();
         IConfigurationElement[] configurationElements = registry
                 .getConfigurationElementsFor("org.talend.core.repository.repository_node_provider");
-        for (int i = 0; i < configurationElements.length; i++) {
-            IConfigurationElement element = configurationElements[i];
+        for (IConfigurationElement element : configurationElements) {
             String type = element.getAttribute("type");
             ERepositoryObjectType repositoryNodeType = ERepositoryObjectType.valueOf(ERepositoryObjectType.class, type);
             if (repositoryNodeType != null) {
@@ -437,6 +443,7 @@ public class DuplicateAction extends AContextualAction {
                     if (dialog.open() == Window.OK) {
                         final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
+                            @Override
                             public void run(IProgressMonitor monitor) throws CoreException {
                                 Set<IRepositoryViewObject> selectedVersionItems = dialog.getSelectedVersionItems();
                                 String id = null;
@@ -469,6 +476,15 @@ public class DuplicateAction extends AContextualAction {
                                             RelationshipItemBuilder.getInstance().addOrUpdateItem(copy);
                                         }
                                         factory.save(copy);
+                                        // MOD qiongli 2012-10-16 TDQ-6166 notify sqlExplore when duplicate a new
+                                        // connection
+                                        if (copy instanceof DatabaseConnectionItem) {
+                                            Connection connection = ((DatabaseConnectionItem) copy).getConnection();
+                                            connection.getSupplierDependency().clear();
+                                            connection.setLabel(newJobName);
+                                            connection.setName(newJobName);
+                                            notifySQLExplorer(copy);
+                                        }
                                     }
                                 } catch (PersistenceException e) {
                                     throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository", "", e));
@@ -479,6 +495,7 @@ public class DuplicateAction extends AContextualAction {
                         };
                         IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
 
+                            @Override
                             public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                                 IWorkspace workspace = ResourcesPlugin.getWorkspace();
                                 try {
@@ -512,6 +529,7 @@ public class DuplicateAction extends AContextualAction {
     private void duplicateSingleVersionItem(final Item item, final IPath path, final String newName) {
         final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
+            @Override
             public void run(IProgressMonitor monitor) throws CoreException {
                 try {
                     final Item newItem = factory.copy(item, path, true);
@@ -538,9 +556,14 @@ public class DuplicateAction extends AContextualAction {
 
                     if (newItem instanceof ConnectionItem) {
                         ConnectionItem connectionItem = (ConnectionItem) newItem;
-                        connectionItem.getConnection().getSupplierDependency().clear();
+                        Connection connection = connectionItem.getConnection();
+                        connection.setLabel(newName);
+                        connection.setName(newName);
+                        connection.getSupplierDependency().clear();
                     }
                     factory.save(newItem);
+                    // MOD qiongli 2012-10-16 TDQ-6166 notify sqlExplore when duplicate a new connection
+                    notifySQLExplorer(newItem);
                 } catch (PersistenceException e) {
                     throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository", "", e));
                 } catch (BusinessException e) {
@@ -550,6 +573,7 @@ public class DuplicateAction extends AContextualAction {
         };
         IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
 
+            @Override
             public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                 IWorkspace workspace = ResourcesPlugin.getWorkspace();
                 try {
@@ -629,5 +653,15 @@ public class DuplicateAction extends AContextualAction {
      */
     protected boolean resetProcessVersion() {
         return false;
+    }
+
+    private void notifySQLExplorer(Item item) {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+            ITDQRepositoryService tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    ITDQRepositoryService.class);
+            if (tdqRepService != null) {
+                tdqRepService.notifySQLExplorer(item);
+            }
+        }
     }
 }

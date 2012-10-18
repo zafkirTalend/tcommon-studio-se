@@ -38,8 +38,10 @@ import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
+import org.talend.core.ITDQRepositoryService;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -106,11 +108,23 @@ public class RestoreAction extends AContextualAction {
                 // IPath path = restoreFolder.restoreFolderIfNotExists(nodeType, node);
                 String oldPath = node.getObject().getProperty().getItem().getState().getPath();
                 IPath path = new Path(oldPath);
-                if (node.getObject().getProperty().getItem() instanceof FolderItem) {
-                    node.getObject().getProperty().getItem().getState().setDeleted(false);
+                Item item = node.getObject().getProperty().getItem();
+                if (item instanceof FolderItem) {
+                    item.getState().setDeleted(false);
                 } else {
                     RestoreObjectAction restoreObjectAction = RestoreObjectAction.getInstance();
                     restoreObjectAction.execute(node, null, path);
+                    // MOD qiongli 2012-10-16 TDQ-6166 notify sql exploere when restore a connection.
+                    if (item instanceof DatabaseConnectionItem) {
+                        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+                            ITDQRepositoryService tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault()
+                                    .getService(ITDQRepositoryService.class);
+                            if (tdqRepService != null) {
+                                tdqRepService.notifySQLExplorer(item);
+                            }
+                        }
+
+                    }
                 }
 
                 ProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
@@ -154,6 +168,7 @@ public class RestoreAction extends AContextualAction {
 
         final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
+            @Override
             public void run(IProgressMonitor monitor) {
                 IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
 
@@ -189,6 +204,7 @@ public class RestoreAction extends AContextualAction {
 
         IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
 
+            @Override
             public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                 IWorkspace workspace = ResourcesPlugin.getWorkspace();
                 try {
@@ -215,10 +231,10 @@ public class RestoreAction extends AContextualAction {
             final boolean updatePalette = needToUpdatePalette;
             Display.getCurrent().syncExec(new Runnable() {
 
+                @Override
                 public void run() {
                     if (updatePalette && GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
-                        ICoreService service = (ICoreService) GlobalServiceRegister.getDefault().getService(
-                                ICoreService.class);
+                        ICoreService service = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
                         service.updatePalette();
                     }
                 }
@@ -235,6 +251,7 @@ public class RestoreAction extends AContextualAction {
      * @see org.talend.repository.ui.actions.ITreeContextualAction#init(org.eclipse.jface.viewers.TreeViewer,
      * org.eclipse.jface.viewers.IStructuredSelection)
      */
+    @Override
     public void init(TreeViewer viewer, IStructuredSelection selection) {
         boolean canWork = !selection.isEmpty();
         IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();

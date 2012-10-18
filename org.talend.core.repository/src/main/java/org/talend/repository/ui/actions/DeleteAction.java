@@ -64,6 +64,7 @@ import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
+import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.FolderType;
 import org.talend.core.model.properties.Item;
@@ -598,6 +599,7 @@ public class DeleteAction extends AContextualAction {
                 }
             }
             factory.deleteObjectLogical(objToDelete);
+            removeConnFromSQLExplorer(repositoryNode);
         }
     }
 
@@ -816,8 +818,9 @@ public class DeleteAction extends AContextualAction {
                                 List<IContextParameter> contextParams = contextList.get(0).getContextParameterList();
                                 if (contextParams != null && contextParams.size() > 0) {
                                     for (IContextParameter contextParameter : contextParams) {
-                                        if (contextParameter.isBuiltIn())
+                                        if (contextParameter.isBuiltIn()) {
                                             continue;
+                                        }
                                         String contextId = item.getProperty().getId();
                                         String sourceId = contextParameter.getSource();
                                         if (contextId != null && contextId.equals(sourceId)) {
@@ -1044,7 +1047,7 @@ public class DeleteAction extends AContextualAction {
                 && nodeObject.getProperty().getItem() != null
                 && (nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_OTHER
                         || nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_USER || RepositoryManager
-                        .isOpenedItemInEditor(nodeObject)) && !(DELETE_FOREVER_TITLE.equals(getText()))) {
+                            .isOpenedItemInEditor(nodeObject)) && !(DELETE_FOREVER_TITLE.equals(getText()))) {
 
             final String title = Messages.getString("DeleteAction.error.title"); //$NON-NLS-1$
             String nodeName = ERepositoryObjectType.getDeleteFolderName(nodeObject.getRepositoryObjectType());
@@ -1219,13 +1222,6 @@ public class DeleteAction extends AContextualAction {
                         if (resChangeService != null && (item instanceof TDQItem || item instanceof ConnectionItem)) {
                             resChangeService.removeAllDependecies(item);
                         }
-                        // MOD qiongli 2012-3-30 remove SQL Explore only when it is confirmed to delete.
-                        if (item instanceof ConnectionItem
-                                && GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
-                            ITDQRepositoryService tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault()
-                                    .getService(ITDQRepositoryService.class);
-                            tdqRepService.removeAliasInSQLExplorer(currentJobNode);
-                        }
                         factory.deleteObjectPhysical(objToDelete);
                         ExpressionPersistance.getInstance().jobDeleted(objToDelete.getLabel());
                     }
@@ -1233,6 +1229,7 @@ public class DeleteAction extends AContextualAction {
             } else {
                 factory.deleteObjectLogical(objToDelete);
                 updateRelatedViews();
+                removeConnFromSQLExplorer(currentJobNode);
             }
         }
 
@@ -1246,6 +1243,7 @@ public class DeleteAction extends AContextualAction {
     private void updateRelatedViews() {
         Display.getDefault().syncExec(new Runnable() {
 
+            @Override
             public void run() {
                 IDesignerCoreService designerCoreService = CoreRuntimePlugin.getInstance().getDesignerCoreService();
                 if (designerCoreService != null) {
@@ -1257,6 +1255,28 @@ public class DeleteAction extends AContextualAction {
                 }
             }
         });
+    }
+
+    /**
+     * 
+     * Remove the dbconnection in sql explorer after logical delete.
+     * 
+     * @param node
+     */
+    private void removeConnFromSQLExplorer(IRepositoryNode node) {
+        IRepositoryViewObject object = node.getObject();
+        Property prop = null;
+        if (object != null) {
+            prop = object.getProperty();
+        }
+        if (prop == null || prop.getItem() == null || !(prop.getItem() instanceof DatabaseConnectionItem)) {
+            return;
+        }
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+            ITDQRepositoryService tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    ITDQRepositoryService.class);
+            tdqRepService.removeAliasInSQLExplorer(node);
+        }
     }
 
     /*
