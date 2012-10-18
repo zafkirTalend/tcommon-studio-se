@@ -45,15 +45,9 @@ public class ResourceService implements IResourceService {
 
     private final static String JAVA_LIBRARIE = "resources/demoprojects/java/TALENDDEMOSJAVA/lib/java"; //$NON-NLS-1$
 
-    private final static String ANT_BUILD_FILE_PATH = "resources/buildScripts/ant/build.xml"; //$NON-NLS-1$
-
-    private final static String MAVEN_BUILD_FILE_PATH = "resources/buildScripts/maven/"; //$NON-NLS-1$
-
     private final static String RESOURCES = "resources"; //$NON-NLS-1$
 
     private final static String TDQEEDEMOJAVA = "TDQEEDEMOJAVA";//$NON-NLS-1$
-
-    private final static String MDMEEPRODUCTDemo = "MDMEEPRODUCTDEMO";
 
     private final static String ESBDEMO = "ESBDEMOS";//$NON-NLS-1$
 
@@ -121,40 +115,6 @@ public class ResourceService implements IResourceService {
             return Messages.getString("demodescription.html", language.getCaseName()); //$NON-NLS-1$
         }
         // ~21138
-    }
-
-    @Override
-    public String getAntScriptFilePath() {
-        Bundle b = Platform.getBundle(ResourcesPlugin.PLUGIN_ID);
-        URL url = null;
-        try {
-            url = FileLocator.toFileURL(FileLocator.find(b, new Path(ANT_BUILD_FILE_PATH), null));
-        } catch (IOException e) {
-            RuntimeExceptionHandler.process(e);
-        }
-
-        if (url != null) {
-            return url.getFile();
-        } else {
-            return null;
-        }
-    }
-
-    @Override
-    public String getMavenScriptFilePath(String fileName) {
-        Bundle b = Platform.getBundle(ResourcesPlugin.PLUGIN_ID);
-        URL url = null;
-        try {
-            url = FileLocator.toFileURL(FileLocator.find(b, new Path(MAVEN_BUILD_FILE_PATH + fileName), null));
-        } catch (IOException e) {
-            RuntimeExceptionHandler.process(e);
-        }
-
-        if (url != null) {
-            return url.getFile();
-        } else {
-            return null;
-        }
     }
 
 }
