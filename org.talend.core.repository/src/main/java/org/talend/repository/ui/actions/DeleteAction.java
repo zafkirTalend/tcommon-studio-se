@@ -1275,7 +1275,9 @@ public class DeleteAction extends AContextualAction {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
             ITDQRepositoryService tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
                     ITDQRepositoryService.class);
-            tdqRepService.removeAliasInSQLExplorer(node);
+            if (tdqRepService != null) {
+                tdqRepService.removeAliasInSQLExplorer(node);
+            }
         }
     }
 
