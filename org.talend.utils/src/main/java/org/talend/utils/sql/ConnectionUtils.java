@@ -64,6 +64,7 @@ public final class ConnectionUtils {
     public static Connection createConnection(String url, String driverClassName, Properties props) throws SQLException,
             InstantiationException, IllegalAccessException, ClassNotFoundException {
         Driver driver = (Driver) Class.forName(driverClassName).newInstance();
+        // bug TDI-23197 is caused by commit 92079
         return createConnection(url, driver, props);
     }
 
