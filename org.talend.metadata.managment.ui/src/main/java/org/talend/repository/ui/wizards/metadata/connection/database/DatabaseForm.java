@@ -79,6 +79,7 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.branding.IBrandingConfiguration;
+import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.ui.swt.utils.AbstractForm;
@@ -229,7 +230,7 @@ public class DatabaseForm extends AbstractForm {
         this.connectionItem = connectionItem;
         this.isCreation = isCreation;
         setConnectionItem(connectionItem); // must be first.
-        this.metadataconnection = ConvertionHelper.convert((DatabaseConnection) getConnection());
+        this.metadataconnection = ConvertionHelper.convert(getConnection());
         this.typeName = EDatabaseTypeName.getTypeFromDbType(metadataconnection.getDbType());
         /* use provider for the databse didn't use JDBC,for example: HBase */
         if (typeName != null && typeName.isUseProvider()) {
@@ -452,6 +453,7 @@ public class DatabaseForm extends AbstractForm {
 
         scrolledComposite.addControlListener(new ControlAdapter() {
 
+            @Override
             public void controlResized(ControlEvent e) {
                 Rectangle r = scrolledComposite.getClientArea();
                 scrolledComposite.setMinSize(newParent.computeSize(r.width, 300));
@@ -839,8 +841,7 @@ public class DatabaseForm extends AbstractForm {
                     isGeneralJDBC() ? generalJdbcUserText.getText() : usernameText.getText(),
                     isGeneralJDBC() ? generalJdbcPasswordText.getText() : passwordText.getText(), sidOrDatabaseText.getText(),
                     portText.getText(), fileField.getText(), datasourceText.getText(), isGeneralJDBC() ? jDBCschemaText.getText()
-                            : schemaText //$NON-NLS-1$
-                                    .getText(), additionParamText.getText(), generalJdbcClassNameText.getText(),
+                            : schemaText.getText(), additionParamText.getText(), generalJdbcClassNameText.getText(),
                     generalJdbcDriverjarText.getText(), enableDbVersion() ? versionStr : null);
 
             managerConnection.setDbRootPath(directoryField.getText());
@@ -1165,6 +1166,7 @@ public class DatabaseForm extends AbstractForm {
                 if (!isContextMode()) {
                     if (!urlConnectionStringText.getEditable()) {
                         getConnection().setUiSchema(schemaText.getText());
+                        ConnectionHelper.setUsingURL(getConnection(), getConnection().getURL() + "change Schema");
                         modifyFieldValue();
                     }
                 }
@@ -2483,7 +2485,7 @@ public class DatabaseForm extends AbstractForm {
                 String driverClass = ExtractMetaDataUtils.getDriverClassByDbType(connection.getDatabaseType());
                 connection.setDriverClass(driverClass);
             }
-            java.sql.Connection sqlConn = (java.sql.Connection) MetadataConnectionUtils.checkConnection(connection).getObject();
+            java.sql.Connection sqlConn = MetadataConnectionUtils.checkConnection(connection).getObject();
             if (sqlConn != null) {
                 try {
                     DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, connection);
