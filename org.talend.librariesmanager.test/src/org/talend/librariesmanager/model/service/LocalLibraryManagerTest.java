@@ -268,6 +268,8 @@ public class LocalLibraryManagerTest {
                     missJars.remove(notDiliver);
                 }
             }
+        }
+        if (missJars.size() > 0) {
             StringBuffer buffer = new StringBuffer();
             buffer.append("db system missing jars! \n");
             for (String missJar : missJars) {
@@ -275,6 +277,7 @@ public class LocalLibraryManagerTest {
             }
             throw new RuntimeException(buffer.toString());
         }
+        assertTrue(missJars.size() == 0);
     }
 
     /**
