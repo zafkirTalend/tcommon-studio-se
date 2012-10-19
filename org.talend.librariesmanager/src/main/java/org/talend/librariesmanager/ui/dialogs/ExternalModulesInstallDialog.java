@@ -484,11 +484,13 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
 
                                         @Override
                                         public void run() {
-                                            String message = data.getName() + " installed "; //$NON-NLS-1$
+                                            String message = ""; //$NON-NLS-1$
                                             if (!job.installedModules.isEmpty()) {
-                                                message += "successful!"; //$NON-NLS-1$
+                                                message = Messages.getString(
+                                                        "ExternalModulesInstallDialog_Download_Ok", data.getName()); //$NON-NLS-1$
                                             } else {
-                                                message += "failed!"; //$NON-NLS-1$
+                                                message = Messages.getString(
+                                                        "ExternalModulesInstallDialog_Download_Fialed", data.getName());; //$NON-NLS-1$
                                             }
                                             MessageDialog.openInformation(getShell(), "Information", message); //$NON-NLS-1$
                                         }
