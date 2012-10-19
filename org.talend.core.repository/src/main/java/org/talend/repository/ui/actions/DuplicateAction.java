@@ -52,6 +52,7 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ITDQRepositoryService;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
@@ -476,8 +477,8 @@ public class DuplicateAction extends AContextualAction {
                                         }
                                         // MOD qiongli 2012-10-16 TDQ-6166 notify sqlExplore when duplicate a new
                                         // connection
-                                        if (copy instanceof DatabaseConnectionItem) {
-                                            Connection connection = ((DatabaseConnectionItem) copy).getConnection();
+                                        if (copy instanceof ConnectionItem) {
+                                            Connection connection = ((ConnectionItem) copy).getConnection();
                                             if (connection != null) {
                                                 connection.getSupplierDependency().clear();
                                                 connection.setLabel(newJobName);
@@ -555,9 +556,8 @@ public class DuplicateAction extends AContextualAction {
                         RelationshipItemBuilder.getInstance().addOrUpdateItem(newItem);
                     }
 
-                    if (newItem instanceof DatabaseConnectionItem) {
-                        DatabaseConnectionItem connectionItem = (DatabaseConnectionItem) newItem;
-                        Connection connection = connectionItem.getConnection();
+                    if (newItem instanceof ConnectionItem) {
+                        Connection connection = ((ConnectionItem) newItem).getConnection();
                         if (connection != null) {
                             connection.setLabel(newName);
                             connection.setName(newName);
