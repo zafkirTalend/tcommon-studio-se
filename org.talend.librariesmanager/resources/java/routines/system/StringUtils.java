@@ -203,7 +203,7 @@ public class StringUtils {
             } else {
                 // case 3:
                 if (replacement == null) {
-                    if (src.equals(search)) {
+                    if ( (caseSensitive && src.equals(search)) || (!caseSensitive && src.equalsIgnoreCase(search))) {
                         // regex != null && src != null && replacement != null, and match the whole src
                         return replacement;
                     } else {
