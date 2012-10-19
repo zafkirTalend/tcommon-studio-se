@@ -39,8 +39,11 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ITDQRepositoryService;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.PropertiesFactory;
@@ -431,6 +434,16 @@ public class DuplicateAction extends AContextualAction {
                                     needSys = false;
                                 }
                             }
+                            // MOD qiongli 2012-10-16 TDQ-6166 notify sqlExplore when duplicate a new
+                            // connection
+                            if (copy instanceof DatabaseConnectionItem) {
+                                Connection connection = ((DatabaseConnectionItem) copy).getConnection();
+                                if (connection != null) {
+                                    connection.getSupplierDependency().clear();
+                                    connection.setLabel(newJobName);
+                                    connection.setName(newJobName);
+                                }
+                            }
 
                             final RepositoryWorkUnit<Object> workUnit = new RepositoryWorkUnit<Object>(this.getText(), this) {
 
@@ -440,6 +453,7 @@ public class DuplicateAction extends AContextualAction {
                                         RelationshipItemBuilder.getInstance().addOrUpdateItem((ProcessItem) copy);
                                     }
                                     factory.save(copy);
+                                    notifySQLExplorer(copy);
                                 }
                             };
                             workUnit.setAvoidUnloadResources(true);
@@ -481,10 +495,16 @@ public class DuplicateAction extends AContextualAction {
                     }
 
                     if (newItem instanceof ConnectionItem) {
-                        ConnectionItem connectionItem = (ConnectionItem) newItem;
-                        connectionItem.getConnection().getSupplierDependency().clear();
+                        Connection connection = ((ConnectionItem) newItem).getConnection();
+                        if (connection != null) {
+                            connection.setLabel(newName);
+                            connection.setName(newName);
+                            connection.getSupplierDependency().clear();
+                        }
                     }
                     factory.save(newItem);
+                    // MOD qiongli 2012-10-16 TDQ-6166 notify sqlExplore when duplicate a new connection
+                    notifySQLExplorer(newItem);
                 } catch (Exception e) {
                     ExceptionHandler.process(e);
                 }
@@ -550,4 +570,16 @@ public class DuplicateAction extends AContextualAction {
     protected boolean resetProcessVersion() {
         return false;
     }
+
+    private void notifySQLExplorer(Item item) {
+        if (item instanceof DatabaseConnectionItem
+                && GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+            ITDQRepositoryService tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    ITDQRepositoryService.class);
+            if (tdqRepService != null) {
+                tdqRepService.notifySQLExplorer(item);
+            }
+        }
+    }
+
 }
