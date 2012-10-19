@@ -601,7 +601,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         private boolean accepted = false;
 
         public DownloadModuleJob(List<ModuleToInstall> toDownload) {
-            super("Download extended modules"); //$NON-NLS-1$
+            super("Downloading..."); //$NON-NLS-1$
             this.toDownload = toDownload;
             downloadFialed = new HashSet<String>();
             installedModules = new HashSet<String>();

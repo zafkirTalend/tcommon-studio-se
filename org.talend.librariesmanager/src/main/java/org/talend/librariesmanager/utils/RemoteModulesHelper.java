@@ -33,6 +33,7 @@ import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleToInstall;
+import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.ui.dialogs.IModulesListener;
 
 import us.monoid.json.JSONArray;
@@ -156,13 +157,13 @@ public class RemoteModulesHelper {
     private synchronized void getModuleUrlsFromWebService(final String jarNames, final List<ModuleToInstall> toInstall,
             final Map<String, List<ModuleNeeded>> contextMap, final IModulesListener listener, boolean isUser) {
 
-        Job job = new Job("Get Module from server") {
+        Job job = new Job(Messages.getString("RemoteModulesHelper.job.title")) {
 
             @Override
             protected IStatus run(IProgressMonitor monitor) {
 
                 int size = jarNames.split(SEPARATOR_SLIP).length;
-                monitor.beginTask("Get modules from talendforge", size * 10);
+                monitor.beginTask(Messages.getString("RemoteModulesHelper.job.task"), size * 10);
                 JSONObject message = new JSONObject();
                 try {
                     JSONObject child = new JSONObject();
