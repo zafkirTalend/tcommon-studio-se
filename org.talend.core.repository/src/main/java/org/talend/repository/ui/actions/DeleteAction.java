@@ -65,6 +65,7 @@ import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
+import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.FolderType;
 import org.talend.core.model.properties.Item;
@@ -599,6 +600,7 @@ public class DeleteAction extends AContextualAction {
                 }
             }
             factory.deleteObjectLogical(objToDelete);
+            removeConnFromSQLExplorer(repositoryNode);
         }
     }
 
@@ -1224,13 +1226,6 @@ public class DeleteAction extends AContextualAction {
                         if (resChangeService != null && (item instanceof TDQItem || item instanceof ConnectionItem)) {
                             resChangeService.removeAllDependecies(item);
                         }
-                        // MOD qiongli 2012-3-30 remove SQL Explore only when it is confirmed to delete.
-                        if (item instanceof ConnectionItem
-                                && GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
-                            ITDQRepositoryService tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault()
-                                    .getService(ITDQRepositoryService.class);
-                            tdqRepService.removeAliasInSQLExplorer(currentJobNode);
-                        }
                         factory.deleteObjectPhysical(objToDelete);
                         ExpressionPersistance.getInstance().jobDeleted(objToDelete.getLabel());
                     }
@@ -1238,6 +1233,7 @@ public class DeleteAction extends AContextualAction {
             } else {
                 factory.deleteObjectLogical(objToDelete);
                 updateRelatedViews();
+                removeConnFromSQLExplorer(repositoryNode);
             }
         }
 
@@ -1264,6 +1260,29 @@ public class DeleteAction extends AContextualAction {
             }
         });
     }
+    
+   /* * 
+    * Remove the dbconnection in sql explorer after logical delete.
+    * 
+    * @param node
+    */
+   private void removeConnFromSQLExplorer(IRepositoryNode node) {
+       IRepositoryViewObject object = node.getObject();
+       Property prop = null;
+       if (object != null) {
+           prop = object.getProperty();
+       }
+       if (prop == null || prop.getItem() == null || !(prop.getItem() instanceof DatabaseConnectionItem)) {
+           return;
+       }
+       if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+           ITDQRepositoryService tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
+                   ITDQRepositoryService.class);
+           if (tdqRepService != null) {
+               tdqRepService.removeAliasInSQLExplorer(node);
+           }
+       }
+   }
 
     /*
      * (non-Javadoc)

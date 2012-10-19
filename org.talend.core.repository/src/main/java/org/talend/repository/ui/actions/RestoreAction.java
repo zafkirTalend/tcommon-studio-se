@@ -38,8 +38,10 @@ import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
+import org.talend.core.ITDQRepositoryService;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -106,11 +108,22 @@ public class RestoreAction extends AContextualAction {
                 // IPath path = restoreFolder.restoreFolderIfNotExists(nodeType, node);
                 String oldPath = node.getObject().getProperty().getItem().getState().getPath();
                 IPath path = new Path(oldPath);
-                if (node.getObject().getProperty().getItem() instanceof FolderItem) {
-                    node.getObject().getProperty().getItem().getState().setDeleted(false);
-                } else {
+                Item item = node.getObject().getProperty().getItem();
+                if (item instanceof FolderItem) {
+                    item.getState().setDeleted(false);
+                }  else {
                     RestoreObjectAction restoreObjectAction = RestoreObjectAction.getInstance();
                     restoreObjectAction.execute(node, null, path);
+                 // MOD qiongli 2012-10-16 TDQ-6166 notify sql exploere when restore a connection.
+                    if (item instanceof DatabaseConnectionItem) {
+                        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+                            ITDQRepositoryService tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault()
+                                    .getService(ITDQRepositoryService.class);
+                            if (tdqRepService != null) {
+                                tdqRepService.notifySQLExplorer(item);
+                            }
+                        }
+                    }
                 }
 
                 ProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
