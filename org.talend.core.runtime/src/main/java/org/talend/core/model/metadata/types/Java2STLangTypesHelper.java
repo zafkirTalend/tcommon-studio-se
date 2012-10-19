@@ -53,7 +53,7 @@ public class Java2STLangTypesHelper {
 
         // Characters: char(Character)
         if (typeToGenerate.equals("char")) { //$NON-NLS-1$
-            return "char"; //$NON-NLS-1$
+            return "string"; //$NON-NLS-1$
         }
 
         // others treat as string
