@@ -836,7 +836,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
     // TODO SML Renommer et finir la m�thode et la plugger dans toutes les m�thodes
     private void checkAvailability(IRepositoryViewObject objToMove) throws BusinessException {
-        if (!isPotentiallyEditable(objToMove) || ProxyRepositoryFactory.getInstance().isUserReadOnlyOnCurrentProject()) {
+        if (!getRepositoryContext().isEditableAsReadOnly()
+                && (!isPotentiallyEditable(objToMove) || ProxyRepositoryFactory.getInstance().isUserReadOnlyOnCurrentProject())) {
             throw new BusinessException(Messages.getString("ProxyRepositoryFactory.bussinessException.itemNonModifiable")); //$NON-NLS-1$
         }
     }
