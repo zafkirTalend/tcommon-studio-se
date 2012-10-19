@@ -32,11 +32,11 @@ public enum EDatabaseVersion4Drivers {
             "Oracle 11", "ORACLE_11", new String[] { DbVersion4DriversForOracle11.DRIVER_1_5, //$NON-NLS-1$ //$NON-NLS-2$
                     DbVersion4DriversForOracle11.DRIVER_1_6 })),
     ORACLE_10(new DbVersion4Drivers(new EDatabaseTypeName[] { EDatabaseTypeName.ORACLEFORSID, EDatabaseTypeName.ORACLESN,
-            EDatabaseTypeName.ORACLE_OCI, EDatabaseTypeName.ORACLE_RAC }, "Oracle 10", "ORACLE_10", "ojdbc14-10g.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            EDatabaseTypeName.ORACLE_OCI, EDatabaseTypeName.ORACLE_RAC }, "Oracle 10", "ORACLE_10", "ojdbc14.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     ORACLE_9(new DbVersion4Drivers(new EDatabaseTypeName[] { EDatabaseTypeName.ORACLEFORSID, EDatabaseTypeName.ORACLESN,
             EDatabaseTypeName.ORACLE_OCI, EDatabaseTypeName.ORACLE_RAC }, "Oracle 9", "ORACLE_9", "ojdbc14-9i.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     ORACLE_8(new DbVersion4Drivers(new EDatabaseTypeName[] { EDatabaseTypeName.ORACLEFORSID, EDatabaseTypeName.ORACLESN,
-            EDatabaseTypeName.ORACLE_OCI, EDatabaseTypeName.ORACLE_RAC }, "Oracle 8", "ORACLE_8", "ojdbc12-8i.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            EDatabaseTypeName.ORACLE_OCI, EDatabaseTypeName.ORACLE_RAC }, "Oracle 8", "ORACLE_8", "ojdbc12.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     // AS400
     AS400_V5R4_V6R1(new DbVersion4Drivers(EDatabaseTypeName.AS400, "V5R4 to V6R1", "V5R4 to V6R1", "jt400_V5R3.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     AS400_V5R2_V5R4(new DbVersion4Drivers(EDatabaseTypeName.AS400, "V5R2 to V5R4", "V5R2 to V5R4", "jt400_V5R2.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$

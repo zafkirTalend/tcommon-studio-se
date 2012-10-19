@@ -22,9 +22,9 @@ import org.talend.core.database.EDatabaseTypeName;
  */
 public class DbVersion4DriversForOracle11 extends DbVersion4Drivers {
 
-    static final String DRIVER_1_6 = "ojdbc6-11g.jar"; //$NON-NLS-1$
+    public static final String DRIVER_1_6 = "ojdbc6.jar"; //$NON-NLS-1$
 
-    static final String DRIVER_1_5 = "ojdbc5-11g.jar"; //$NON-NLS-1$
+    public static final String DRIVER_1_5 = "ojdbc5.jar"; //$NON-NLS-1$
 
     DbVersion4DriversForOracle11(EDatabaseTypeName[] dbTypes, String versionDisplayName, String versionValue, String[] drivers) {
         super(dbTypes, versionDisplayName, versionValue, drivers);
