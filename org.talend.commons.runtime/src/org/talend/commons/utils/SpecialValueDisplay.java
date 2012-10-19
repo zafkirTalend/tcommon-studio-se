@@ -11,17 +11,23 @@
 //
 // ============================================================================
 package org.talend.commons.utils;
+
 /**
  * This class store all the constant of SpecialValue.
  * 
  */
-public final class  SpecialValueDisplay {
+public final class SpecialValueDisplay {
 
-	private SpecialValueDisplay() {
-		// TODO Auto-generated constructor stub
-	}
-	public static final String NULL_FIELD = "Null field"; //$NON-NLS-1$
+    private SpecialValueDisplay() {
+        // TODO Auto-generated constructor stub
+    }
+
+    public static final String NULL_FIELD = "Null field"; //$NON-NLS-1$
 
     public static final String EMPTY_FIELD = "Empty field"; //$NON-NLS-1$
+
+    public static final String ZREO_FIELD = "0"; //$NON-NLS-1$
+
+    public static final String INVALID_FIELD = "invalid"; //$NON-NLS-1$
 
 }
