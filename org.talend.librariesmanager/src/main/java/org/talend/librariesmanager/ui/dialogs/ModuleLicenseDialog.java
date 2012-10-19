@@ -70,8 +70,8 @@ public class ModuleLicenseDialog extends Dialog {
      */
     @Override
     protected Control createDialogArea(Composite parent) {
-        ((GridData) parent.getLayoutData()).widthHint = 580;
-        ((GridData) parent.getLayoutData()).heightHint = 400;
+        ((GridData) parent.getLayoutData()).minimumWidth = 600;
+        ((GridData) parent.getLayoutData()).heightHint = 500;
         GridData data = new GridData(GridData.FILL_BOTH);
         Composite container = new Composite(parent, SWT.NONE);
         GridLayout layout = new GridLayout();
@@ -114,6 +114,16 @@ public class ModuleLicenseDialog extends Dialog {
     protected void okPressed() {
         Activator.getDefault().getPreferenceStore().setValue(licenseType, true);
         super.okPressed();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.dialogs.Dialog#cancelPressed()
+     */
+    @Override
+    protected void cancelPressed() {
+        super.cancelPressed();
     }
 
 }

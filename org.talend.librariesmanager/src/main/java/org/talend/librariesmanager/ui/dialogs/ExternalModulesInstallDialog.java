@@ -125,7 +125,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
     @Override
     protected void initializeBounds() {
         super.initializeBounds();
-        getShell().setSize(900, 400);
+        getShell().setSize(1050, 400);
         Point location = getInitialLocation(getShell().getSize());
         getShell().setLocation(location.x, location.y);
     }
@@ -172,7 +172,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         });
         column.setSortable(true);
         tableViewerCreator.setDefaultSort(column, SORT.ASC);
-        column.setWeight(3);
+        column.setWeight(5);
         column.setModifiable(false);
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
@@ -210,7 +210,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         });
 
         column.setModifiable(false);
-        column.setWeight(6);
+        column.setWeight(5);
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle(Messages.getString("ExternalModulesInstallDialog_ColumnRequired")); //$NON-NLS-1$
@@ -241,7 +241,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         });
 
         column.setModifiable(false);
-        column.setWeight(3);
+        column.setWeight(2);
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle(Messages.getString("ExternalModulesInstallDialog_ColumnLicense")); //$NON-NLS-1$
@@ -274,7 +274,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         installcolumn.setToolTipHeader(Messages.getString("ExternalModulesInstallDialog_AvailableOnTalendForge")); //$NON-NLS-1$
         installcolumn.setModifiable(false);
         installcolumn.setSortable(true);
-        installcolumn.setWeight(6);
+        installcolumn.setWeight(5);
         tableViewerCreator.init(inputList);
         addInstallButtons(installcolumn, urlcolumn);
         layoutData = new GridData(GridData.FILL_BOTH);
@@ -364,10 +364,10 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
 
             @Override
             public void widgetSelected(SelectionEvent e) {
-                installAllBtn.setEnabled(false);
-                for (Button button : installButtons) {
-                    button.setEnabled(false);
-                }
+                // installAllBtn.setEnabled(false);
+                // for (Button button : installButtons) {
+                // button.setEnabled(false);
+                // }
 
                 List<ModuleToInstall> inputList = tableViewerCreator.getInputList();
 
@@ -406,9 +406,9 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                                         String names = ""; //$NON-NLS-1$
                                         for (String name : downloadFialed) {
                                             if (names.length() > 0) {
-                                                names = " | " + name; //$NON-NLS-1$
+                                                names += " , " + name; //$NON-NLS-1$
                                             } else {
-                                                names = name;
+                                                names += name;
                                             }
                                         }
                                         message = message + fail + names;
@@ -423,6 +423,8 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                 job.setUser(true);
                 job.setPriority(Job.INTERACTIVE);
                 job.schedule();
+
+                close();
             }
 
         });
@@ -503,7 +505,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                                 }
                             }
                             if (n == installButtons.size()) {
-                                installAllBtn.setEnabled(false);
+                                close();
                             }
                         }
 
@@ -605,7 +607,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
 
         @Override
         protected IStatus run(final IProgressMonitor monitor) {
-            monitor.beginTask("Download modules", toDownload.size() * 10 + 5); //$NON-NLS-1$
+            monitor.beginTask("Downloading", toDownload.size() * 10 + 5); //$NON-NLS-1$
             downLoad(monitor);
             monitor.done();
             return Status.OK_STATUS;
@@ -615,7 +617,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
             final List<URL> downloadOk = new ArrayList<URL>();
             for (final ModuleToInstall module : toDownload) {
                 if (!monitor.isCanceled()) {
-                    monitor.subTask("Downloading " + module.getName() + " from " + module.getUrl_description()); //$NON-NLS-1$ //$NON-NLS-2$
+                    monitor.subTask(module.getName());
                     monitor.worked(5);
                     DownloadHelper downloader = new DownloadHelper();
                     String librariesPath = PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA);
@@ -693,7 +695,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
      */
     @Override
     public void listModulesDone() {
-        Display.getDefault().syncExec(new Runnable() {
+        Display.getDefault().asyncExec(new Runnable() {
 
             @Override
             public void run() {

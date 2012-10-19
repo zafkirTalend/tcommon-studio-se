@@ -97,7 +97,7 @@ public class RemoteModulesHelper {
                 contextMap.get(moduleName).add(module);
             }
         }
-
+        List<String> notFound = new ArrayList<String>();
         // get from cache first
         if (!cache.isEmpty()) {
             for (String moduleName : contextMap.keySet()) {
@@ -106,12 +106,17 @@ public class RemoteModulesHelper {
                     List<ModuleNeeded> moduleContext = contextMap.get(moduleName);
                     moduleToInstall.setContext(getContext(moduleContext));
                     toInstall.add(moduleToInstall);
+                } else {
+                    notFound.add(moduleName);
                 }
             }
         }
 
         String jarNames = jars.toString();
         if (jarNames.isEmpty()) {
+            for (String jarNotFound : notFound) {
+                ExceptionHandler.log("The download URL for " + jarNotFound + " is not available");
+            }
             listener.listModulesDone();
             return;
         }
@@ -178,7 +183,7 @@ public class RemoteModulesHelper {
                                 if ((url_description == null && url_download == null)
                                         || (("".equals(url_description) || "null".equals(url_description)) && (""
                                                 .equals(url_download) || "null".equals(url_download)))) {
-                                    ExceptionHandler.log("Module " + name + " download url is not avialable currently");
+                                    ExceptionHandler.log("The download URL for " + name + " is not available");
                                     // keep null in cache no need to check from server again
                                     cache.put(name, null);
 

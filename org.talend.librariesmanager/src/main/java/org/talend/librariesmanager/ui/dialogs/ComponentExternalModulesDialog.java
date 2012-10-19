@@ -107,7 +107,7 @@ public class ComponentExternalModulesDialog extends ExternalModulesInstallDialog
     @Override
     public void listModulesDone() {
 
-        Display.getDefault().syncExec(new Runnable() {
+        Display.getDefault().asyncExec(new Runnable() {
 
             @Override
             public void run() {
