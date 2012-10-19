@@ -425,8 +425,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                             IResource[] binFolder = ResourceUtils.getMembers((IFolder) current);
                             if (binFolder.length == 0 || (binFolder.length == 1 && FilesUtils.isSVNFolder(binFolder[0]))) {
                                 try {
-                                    ((IFolder) current).delete(true, null);
-                                } catch (CoreException e) {
+                                    deleteResource(current);
+                                } catch (PersistenceException e) {
                                     // not catched, not important if can delete or not
                                 }
                             }
@@ -671,8 +671,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
                                 if (binFolder.length == 0 || (binFolder.length == 1 && FilesUtils.isSVNFolder(binFolder[0]))) {
                                     try {
-                                        ((IFolder) current).delete(true, null);
-                                    } catch (CoreException e) {
+                                        deleteResource(current);
+                                    } catch (PersistenceException e) {
                                         // not catched, not important if can delete or not
                                     }
                                 }
@@ -1214,7 +1214,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // changed by hqzhang for TDI-20600, FolderHelper.deleteFolder will fire the DeletedFolderListener in
         // ProjectRepoAbstractContentProvider class to refresh the node, if don't delete resource first, the deleted
         // foler display in repository view
-        ResourceUtils.deleteResource(folder);
+        deleteResource(folder);
         getFolderHelper(project.getEmfProject()).deleteFolder(completePath);
         if (!fromEmptyRecycleBin) {
             saveProject(project);
@@ -1516,7 +1516,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 currentItem.setParent(null);
                 List<Resource> affectedResources = xmiResourceManager.getAffectedResources(currentVersion.getProperty());
                 for (Resource resource : affectedResources) {
-                    xmiResourceManager.deleteResource(resource);
+                    deleteResource(resource);
                 }
             }
         }
@@ -1615,6 +1615,30 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             }
         }
         saveProject(project);
+    }
+
+    /**
+     * Used normally for folders only, it could be used for other resources if needed anyway.
+     * 
+     * @param resource
+     * @throws PersistenceException
+     */
+    protected void deleteResource(IResource resource) throws PersistenceException {
+        try {
+            resource.delete(true, null);
+        } catch (CoreException e) {
+            throw new PersistenceException(e);
+        }
+    }
+
+    /**
+     * Used only for emf related files since this one will update the resourceset.
+     * 
+     * @param resource
+     * @throws PersistenceException
+     */
+    protected void deleteResource(Resource resource) throws PersistenceException {
+        xmiResourceManager.deleteResource(resource);
     }
 
     protected void moveResource(Resource resource, IPath path) throws PersistenceException {

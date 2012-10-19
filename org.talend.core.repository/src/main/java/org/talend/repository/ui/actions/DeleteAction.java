@@ -1039,15 +1039,26 @@ public class DeleteAction extends AContextualAction {
      * @return
      */
     private boolean isForbidNode(RepositoryNode node) {
+        IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
 
         IRepositoryViewObject nodeObject = node.getObject();
+
+        if (nodeObject == null || nodeObject.getProperty() == null || nodeObject.getProperty().getItem() == null) {
+            // invalid item, but allow the delete
+            // to review later, but normally we should be able to delete even invalid items.
+            return false;
+        }
+
+        boolean locked = false;
+
+        if (!factory.getRepositoryContext().isEditableAsReadOnly()) {
+            if (nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_OTHER
+                    || nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_USER) {
+                locked = true;
+            }
+        }
         // Avoid to delete node which is locked.
-        if (nodeObject != null
-                && nodeObject.getProperty() != null
-                && nodeObject.getProperty().getItem() != null
-                && (nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_OTHER
-                        || nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_USER || RepositoryManager
-                            .isOpenedItemInEditor(nodeObject)) && !(DELETE_FOREVER_TITLE.equals(getText()))) {
+        if ((locked || RepositoryManager.isOpenedItemInEditor(nodeObject)) && !(DELETE_FOREVER_TITLE.equals(getText()))) {
 
             final String title = Messages.getString("DeleteAction.error.title"); //$NON-NLS-1$
             String nodeName = ERepositoryObjectType.getDeleteFolderName(nodeObject.getRepositoryObjectType());
