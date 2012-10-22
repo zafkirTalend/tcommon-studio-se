@@ -1141,6 +1141,8 @@ public class SelectorTableForm extends AbstractForm {
                     		
                     		managerConnection.checkForHive(properties);
                         	
+                        }else if(HiveConnVersionInfo.MODE_STANDALONE.getKey().equals(key)){
+                        	managerConnection.check(metadataconnection, true);
                         }
                     }else
                     	managerConnection.check(metadataconnection, true);
