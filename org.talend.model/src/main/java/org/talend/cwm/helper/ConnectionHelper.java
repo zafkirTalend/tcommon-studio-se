@@ -562,6 +562,13 @@ public class ConnectionHelper {
         return SchemaHelper.getSchemas(dataProvider.getDataPackage());
     }
 
+    /**
+     * 
+     * Two case has been contain one is only schema another one is schema contain in some catalog
+     * 
+     * @param dataProvider
+     * @return
+     */
     public static boolean hasSchema(Connection dataProvider) {
         List<Schema> schemas = SchemaHelper.getSchemas(dataProvider.getDataPackage());
         if (schemas.size() == 0) {
