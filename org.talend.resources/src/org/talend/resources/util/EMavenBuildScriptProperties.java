@@ -27,7 +27,9 @@ public enum EMavenBuildScriptProperties {
     ItemExportedJarName,
     //
     BundleConfigPrivatePackage,
+    BundleConfigExportPackage,
     BundleConfigExportService,
+    BundleConfigImportPackage,
     BundleConfigBundleClasspath,
     //
     ;
