@@ -49,7 +49,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
@@ -288,11 +287,18 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         layout.numColumns = 2;
         footComposite.setLayout(layout);
 
-        Label label = new Label(footComposite, SWT.WRAP);
+        final Link moreInfor = new Link(footComposite, SWT.NONE);
         layoutData = new GridData(GridData.FILL_HORIZONTAL);
         layoutData.widthHint = 200;
-        label.setText(Messages.getString("ExternalModulesInstallDialog_MoreInfor")); //$NON-NLS-1$
-        label.setLayoutData(layoutData);
+        moreInfor.setText(Messages.getString("ExternalModulesInstallDialog_MoreInfor")); //$NON-NLS-1$
+        moreInfor.setLayoutData(layoutData);
+        moreInfor.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                Program.launch(HELP_CONTENT);
+            }
+        });
 
         installAllBtn = new Button(footComposite, SWT.NONE);
         installAllBtn.setText(Messages.getString("ExternalModulesInstallDialog_InstallAll")); //$NON-NLS-1$
