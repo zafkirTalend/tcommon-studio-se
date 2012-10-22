@@ -1005,20 +1005,18 @@ public class DatabaseForm extends AbstractForm {
         managerConnection.setValueProperties(sqlSyntaxCombo.getItem(sqlSyntaxCombo.getSelectionIndex()),
                 stringQuoteText.getText(), nullCharText.getText());
 
-        if(isHiveDBConnSelected()){
-        	if(isHiveEmbeddedMode()){
-        		Map<String, String> properties = new HashMap<String, String>();
-        		properties.put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR, metastoreConnDriverJar.getText());
-        		properties.put("dbTypeString", dbTypeCombo.getItem(dbTypeCombo.getSelectionIndex()));
-        		properties.put("urlConnectionString",metastoreConnURLTxt.getText());
-        		properties.put("username",metastoreConnUserName.getText());
-        		properties.put("password",metastoreConnPassword.getText());
-        		properties.put("driverClassName",metastoreConnDriverName.getText());
-        		properties.put("dbVersionString","");
-        		properties.put("additionalParams","");
-        		
-        		databaseSettingIsValide = managerConnection.checkForHive(properties);
-        	}
+        if(isHiveDBConnSelected() && isHiveEmbeddedMode()){
+    		Map<String, String> properties = new HashMap<String, String>();
+    		properties.put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR, metastoreConnDriverJar.getText());
+    		properties.put("dbTypeString", dbTypeCombo.getItem(dbTypeCombo.getSelectionIndex()));
+    		properties.put("urlConnectionString",metastoreConnURLTxt.getText());
+    		properties.put("username",metastoreConnUserName.getText());
+    		properties.put("password",metastoreConnPassword.getText());
+    		properties.put("driverClassName",metastoreConnDriverName.getText());
+    		properties.put("dbVersionString","");
+    		properties.put("additionalParams","");
+    		
+    		databaseSettingIsValide = managerConnection.checkForHive(properties);
         }else{
         	// check the connection
         	databaseSettingIsValide = managerConnection.check();

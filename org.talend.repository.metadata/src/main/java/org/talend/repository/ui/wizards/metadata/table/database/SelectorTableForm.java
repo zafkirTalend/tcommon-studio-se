@@ -75,6 +75,7 @@ import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.commons.utils.data.text.IndiceHelper;
 import org.talend.commons.utils.threading.TalendCustomThreadPoolExecutor;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.MetadataToolHelper;
@@ -87,6 +88,7 @@ import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.metadata.builder.database.TableNode;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
+import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
 import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.metadata.types.PerlTypesManager;
@@ -1090,7 +1092,8 @@ public class SelectorTableForm extends AbstractForm {
                     && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
-                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())) 
+                            || EDatabaseTypeName.HIVE.getDisplayName().equalsIgnoreCase(dbType)) {
                 ExtractMetaDataUtils.closeConnection();
             }
             if (derbyDriver != null) {
@@ -1118,7 +1121,29 @@ public class SelectorTableForm extends AbstractForm {
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                     monitor.beginTask(Messages.getString("CreateTableAction.action.createTitle"), IProgressMonitor.UNKNOWN); //$NON-NLS-1$
                     // add
-                    managerConnection.check(metadataconnection, true);
+                    if (EDatabaseTypeName.HIVE.getDisplayName().equals(metadataconnection.getDbType())) {
+                        String key = (String) metadataconnection.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
+                        if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(key)) {
+                        	Map<String, String> properties = new HashMap<String, String>();
+                    		properties.put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR, (String)metadataconnection
+                        			.getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR));
+                    		properties.put("dbTypeString", metadataconnection.getDbType());
+                    		properties.put("urlConnectionString",(String)metadataconnection
+                        			.getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_URL));
+                    		properties.put("username",(String)metadataconnection
+                        			.getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_USERNAME));
+                    		properties.put("password",(String)metadataconnection
+                        			.getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_PASSWORD));
+                    		properties.put("driverClassName",(String)metadataconnection
+                        			.getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME));
+                    		properties.put("dbVersionString",metadataconnection.getDbVersionString());
+                    		properties.put("additionalParams",metadataconnection.getAdditionalParams());
+                    		
+                    		managerConnection.checkForHive(properties);
+                        	
+                        }
+                    }else
+                    	managerConnection.check(metadataconnection, true);
                     if (managerConnection.getIsValide()) {
                         // need to check catalog/schema if import a old db connection
                         /* use extractor for the databse didn't use JDBC,for example: HBase */
