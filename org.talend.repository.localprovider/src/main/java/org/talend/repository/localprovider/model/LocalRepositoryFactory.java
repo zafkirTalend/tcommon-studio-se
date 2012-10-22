@@ -1145,6 +1145,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     protected void createFolder(IFolder folder) throws PersistenceException {
+        if (!folder.getParent().exists()) {
+            if (folder.getParent() instanceof IFolder) {
+                createFolder((IFolder) folder.getParent());
+            }
+        }
         ResourceUtils.createFolder(folder);
     }
 
