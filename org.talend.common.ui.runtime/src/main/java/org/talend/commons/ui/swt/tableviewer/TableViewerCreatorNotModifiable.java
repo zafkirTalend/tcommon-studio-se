@@ -737,7 +737,9 @@ public class TableViewerCreatorNotModifiable<B> {
 
                     @Override
                     public void run() {
-                        getTable().forceFocus();
+                        if (!getTable().isDisposed()) {
+                            getTable().forceFocus();
+                        }
                     }
                 }).start();
             }
