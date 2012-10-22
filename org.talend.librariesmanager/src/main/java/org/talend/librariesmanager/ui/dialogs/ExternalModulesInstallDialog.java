@@ -84,7 +84,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
 
     public static final String DO_NOT_SHOW_EXTERNALMODULESINSTALLDIALOG = "do_not_show_ExternalModulesInstallDialog"; //$NON-NLS-1$
 
-    private static final String HELP_CONTENT = "http://talendforge.org/wiki/doku.php?id=doc:installation_guide&s[]=jar#install_jar_dependencies";
+    private static final String HELP_CONTENT = "http://talendforge.org/wiki/doku.php?id=doc:installation_guide&s[]=jar#install_jar_dependencies"; //$NON-NLS-1$
 
     private Font font = new Font(null, "Arial", 9, SWT.NORMAL); //$NON-NLS-1$
 
@@ -419,7 +419,8 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                                         }
                                         message = message + fail + names;
                                     }
-                                    MessageDialog.openInformation(getShell(), "Information", message); //$NON-NLS-1$
+                                    MessageDialog.openInformation(getShell(),
+                                            Messages.getString("ExternalModulesInstallDialog.MessageDialog.Infor"), message); //$NON-NLS-1$
                                     // refreshUI();
                                 }
                             }
@@ -498,7 +499,9 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                                                 message = Messages.getString(
                                                         "ExternalModulesInstallDialog_Download_Fialed", data.getName());; //$NON-NLS-1$
                                             }
-                                            MessageDialog.openInformation(getShell(), "Information", message); //$NON-NLS-1$
+                                            MessageDialog.openInformation(
+                                                    getShell(),
+                                                    Messages.getString("ExternalModulesInstallDialog.MessageDialog.Infor"), message); //$NON-NLS-1$
                                         }
                                     });
                                 }
@@ -532,7 +535,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                     final Link openLink = new Link(composite, SWT.NONE);
                     openLink.setBackground(color);
                     openLink.setLayoutData(gData);
-                    openLink.setText("<a href=\"\">" + "Open in browser" + "</a>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                    openLink.setText("<a href=\"\">" + Messages.getString("ExternalModulesInstallDialog.openInBrowser") + "</a>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                     openLink.addSelectionListener(new SelectionAdapter() {
 
                         @Override
@@ -607,7 +610,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         private boolean accepted = false;
 
         public DownloadModuleJob(List<ModuleToInstall> toDownload) {
-            super("Downloading..."); //$NON-NLS-1$
+            super(Messages.getString("ExternalModulesInstallDialog.downloading1")); //$NON-NLS-1$
             this.toDownload = toDownload;
             downloadFialed = new HashSet<String>();
             installedModules = new HashSet<String>();
@@ -615,7 +618,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
 
         @Override
         protected IStatus run(final IProgressMonitor monitor) {
-            monitor.beginTask("Downloading", toDownload.size() * 10 + 5); //$NON-NLS-1$
+            monitor.beginTask(Messages.getString("ExternalModulesInstallDialog.downloading2"), toDownload.size() * 10 + 5); //$NON-NLS-1$
             downLoad(monitor);
             monitor.done();
             return Status.OK_STATUS;
@@ -642,7 +645,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                                     public void run() {
                                         String license = RemoteModulesHelper.getInstance().getLicenseUrl(module.getLicenseType());
                                         ModuleLicenseDialog licenseDialog = new ModuleLicenseDialog(getShell(), module
-                                                .getLicenseType(), license, module.getDescription());
+                                                .getLicenseType(), license, module.getName());
                                         if (licenseDialog.open() != Window.OK) {
                                             downloadFialed.add(module.getName());
                                             accepted = false;
@@ -710,7 +713,8 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                 if (inputList.size() > 0) {
                     open();
                 } else if (showMessage) {
-                    MessageDialog.openInformation(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Information", //$NON-NLS-1$
+                    MessageDialog.openInformation(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+                            Messages.getString("ExternalModulesInstallDialog.MessageDialog.Infor"), //$NON-NLS-1$
                             Messages.getString("ExternalModulesInstallDialog_NoExternalModules")); //$NON-NLS-1$
                 }
             }

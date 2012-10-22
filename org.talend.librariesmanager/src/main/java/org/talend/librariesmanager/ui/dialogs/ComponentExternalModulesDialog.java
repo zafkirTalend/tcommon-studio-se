@@ -25,6 +25,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.librariesmanager.Activator;
+import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.utils.RemoteModulesHelper;
 
@@ -56,7 +57,7 @@ public class ComponentExternalModulesDialog extends ExternalModulesInstallDialog
     @Override
     protected void createFooter(Composite parent) {
         doNotShowBtn = new Button(parent, SWT.CHECK);
-        doNotShowBtn.setText("Do not show again");
+        doNotShowBtn.setText(Messages.getString("ComponentExternalModulesDialog.doNotShow"));
         doNotShowBtn.addSelectionListener(new SelectionAdapter() {
 
             @Override

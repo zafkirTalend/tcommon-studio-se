@@ -50,13 +50,13 @@ public class RemoteModulesHelper {
 
     // private static final String serviceUrl = "http://www.talend.com/TalendRegisterWS/modules.php";
 
-    private static final String serviceUrl = "http://www.talendforge.org/modules/webservices/modules.php";
+    private static final String serviceUrl = "http://www.talendforge.org/modules/webservices/modules.php";//$NON-NLS-1$
 
-    private static final String SEPARATOR_DISPLAY = " | ";
+    private static final String SEPARATOR_DISPLAY = " | ";//$NON-NLS-1$
 
-    private static final String SEPARATOR = "|";
+    private static final String SEPARATOR = "|";//$NON-NLS-1$
 
-    private static final String SEPARATOR_SLIP = "\\|";
+    private static final String SEPARATOR_SLIP = "\\|";//$NON-NLS-1$
 
     private Map<String, ModuleToInstall> cache = new HashMap<String, ModuleToInstall>();
 
@@ -116,7 +116,7 @@ public class RemoteModulesHelper {
         String jarNames = jars.toString();
         if (jarNames.isEmpty()) {
             for (String jarNotFound : notFound) {
-                ExceptionHandler.log("The download URL for " + jarNotFound + " is not available");
+                ExceptionHandler.log("The download URL for " + jarNotFound + " is not available");//$NON-NLS-1$
             }
             listener.listModulesDone();
             return;
@@ -133,7 +133,7 @@ public class RemoteModulesHelper {
                 String moduleName = module.trim();
                 ModuleToInstall moduleToInstall = cache.get(moduleName);
                 if (moduleToInstall != null) {
-                    moduleToInstall.setContext("Current Operation");
+                    moduleToInstall.setContext("Current Operation");//$NON-NLS-1$
                     toInstall.add(moduleToInstall);
                 } else {
                     if (jars.length() != 0) {
@@ -157,34 +157,34 @@ public class RemoteModulesHelper {
     private synchronized void getModuleUrlsFromWebService(final String jarNames, final List<ModuleToInstall> toInstall,
             final Map<String, List<ModuleNeeded>> contextMap, final IModulesListener listener, boolean isUser) {
 
-        Job job = new Job(Messages.getString("RemoteModulesHelper.job.title")) {
+        Job job = new Job(Messages.getString("RemoteModulesHelper.job.title")) {//$NON-NLS-1$
 
             @Override
             protected IStatus run(IProgressMonitor monitor) {
 
                 int size = jarNames.split(SEPARATOR_SLIP).length;
-                monitor.beginTask(Messages.getString("RemoteModulesHelper.job.task"), size * 10);
+                monitor.beginTask(Messages.getString("RemoteModulesHelper.job.task"), size * 10);//$NON-NLS-1$
                 JSONObject message = new JSONObject();
                 try {
                     JSONObject child = new JSONObject();
-                    child.put("vaction", "getModules");
-                    child.put("name", jarNames);
-                    message.put("module", child);
+                    child.put("vaction", "getModules");//$NON-NLS-1$
+                    child.put("name", jarNames);//$NON-NLS-1$
+                    message.put("module", child);//$NON-NLS-1$
                     String url = serviceUrl + "?data=" + message;
                     monitor.worked(10);
                     JSONObject resultStr = readJsonFromUrl(url);
-                    JSONArray jsonArray = resultStr.getJSONArray("result");
+                    JSONArray jsonArray = resultStr.getJSONArray("result");//$NON-NLS-1$
                     if (jsonArray != null) {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject obj = jsonArray.getJSONObject(i);
                             if (obj != null) {
-                                String url_description = obj.getString("url_description");
-                                String url_download = obj.getString("url_download");
-                                String name = obj.getString("filename");
+                                String url_description = obj.getString("url_description");//$NON-NLS-1$
+                                String url_download = obj.getString("url_download");//$NON-NLS-1$
+                                String name = obj.getString("filename");//$NON-NLS-1$
                                 if ((url_description == null && url_download == null)
-                                        || (("".equals(url_description) || "null".equals(url_description)) && (""
-                                                .equals(url_download) || "null".equals(url_download)))) {
-                                    ExceptionHandler.log("The download URL for " + name + " is not available");
+                                        || (("".equals(url_description) || "null".equals(url_description)) && (""//$NON-NLS-1$
+                                        .equals(url_download) || "null".equals(url_download)))) {//$NON-NLS-1$
+                                    ExceptionHandler.log("The download URL for " + name + " is not available");//$NON-NLS-1$
                                     // keep null in cache no need to check from server again
                                     cache.put(name, null);
 
@@ -199,21 +199,21 @@ public class RemoteModulesHelper {
                                     m.setContext(getContext(nm));
                                     m.setRequired(isRequired(nm));
                                 } else {
-                                    m.setContext("Current Operation");
+                                    m.setContext("Current Operation");//$NON-NLS-1$
                                     m.setRequired(true);
                                 }
-                                String license = obj.getString("licence");
+                                String license = obj.getString("licence");//$NON-NLS-1$
                                 m.setLicenseType(license);
-                                if ("".equals(license) || "null".equals(license)) {
+                                if ("".equals(license) || "null".equals(license)) {//$NON-NLS-1$
                                     m.setLicenseType(null);
                                 }
-                                String description = obj.getString("description");
-                                if (description == null || "".equals(description) || "null".equals(description)) {
+                                String description = obj.getString("description");//$NON-NLS-1$
+                                if (description == null || "".equals(description) || "null".equals(description)) {//$NON-NLS-1$
                                     description = m.getName();
                                 }
                                 m.setDescription(description);
                                 m.setUrl_description(url_description);
-                                if (url_download == null || "".equals(url_download) || "null".equals(url_download)) {
+                                if (url_download == null || "".equals(url_download) || "null".equals(url_download)) {//$NON-NLS-1$
                                     m.setUrl_download(null);
                                 } else {
                                     m.setUrl_download(url_download);
@@ -253,7 +253,7 @@ public class RemoteModulesHelper {
         String jsonText = "";
         JSONObject json = null;
         try {
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));//$NON-NLS-1$
             jsonText = readAll(rd);
             json = new JSONObject(jsonText);
         } catch (Exception e) {
@@ -306,16 +306,16 @@ public class RemoteModulesHelper {
         JSONObject message = new JSONObject();
         try {
             JSONObject child = new JSONObject();
-            child.put("vaction", "getLicense");
-            child.put("label", licenseType);
-            message.put("module", child);
+            child.put("vaction", "getLicense");//$NON-NLS-1$
+            child.put("label", licenseType);//$NON-NLS-1$
+            message.put("module", child);//$NON-NLS-1$
             String url = serviceUrl + "?data=" + message;
             JSONObject resultStr = readJsonFromUrl(url);
-            JSONArray jsonArray = resultStr.getJSONArray("result");
+            JSONArray jsonArray = resultStr.getJSONArray("result");//$NON-NLS-1$
             if (jsonArray != null) {
                 JSONObject object = jsonArray.getJSONObject(0);
                 if (object != null) {
-                    return object.getString("licenseText");
+                    return object.getString("licenseText");//$NON-NLS-1$
                 }
             }
         } catch (JSONException e) {

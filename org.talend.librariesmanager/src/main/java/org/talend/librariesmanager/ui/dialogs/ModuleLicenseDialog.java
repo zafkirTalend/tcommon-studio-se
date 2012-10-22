@@ -24,6 +24,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.librariesmanager.Activator;
+import org.talend.librariesmanager.i18n.Messages;
 
 /**
  * created by WCHEN on 2012-9-18 Detailled comment
@@ -37,19 +38,19 @@ public class ModuleLicenseDialog extends Dialog {
 
     private String licenseType;
 
-    private String description;
+    private String name;
 
     /**
      * DOC WCHEN ModuleLicenseDialog constructor comment.
      * 
      * @param parentShell
      */
-    public ModuleLicenseDialog(Shell parentShell, String licenseType, String license, String description) {
+    public ModuleLicenseDialog(Shell parentShell, String licenseType, String license, String name) {
         super(parentShell);
         setShellStyle(SWT.CLOSE | SWT.MAX | SWT.TITLE | SWT.BORDER | SWT.APPLICATION_MODAL | SWT.RESIZE | getDefaultOrientation());
         this.licenseType = licenseType;
         this.licenseUrl = license;
-        this.description = description;
+        this.name = name;
     }
 
     /*
@@ -60,7 +61,7 @@ public class ModuleLicenseDialog extends Dialog {
     @Override
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
-        newShell.setText("License");
+        newShell.setText(Messages.getString("ModuleLicenseDialog.license"));//$NON-NLS-1$
     }
 
     /*
@@ -82,7 +83,7 @@ public class ModuleLicenseDialog extends Dialog {
         container.setLayoutData(data);
         data = new GridData(GridData.FILL_HORIZONTAL);
         Label subTitleLabel = new Label(container, SWT.NONE);
-        String desc = "You have to accept the licence of '" + description + "' to continue";
+        String desc = Messages.getString("ModuleLicenseDialog.license.notFound", name);//$NON-NLS-1$
         subTitleLabel.setText(desc);
         subTitleLabel.setLayoutData(data);
 
@@ -102,7 +103,7 @@ public class ModuleLicenseDialog extends Dialog {
     @Override
     protected void createButtonsForButtonBar(Composite parent) {
         super.createButtonsForButtonBar(parent);
-        getButton(IDialogConstants.OK_ID).setText("Accept");
+        getButton(IDialogConstants.OK_ID).setText(Messages.getString("ModuleLicenseDialog.license.accept"));//$NON-NLS-1$
     }
 
     /*
