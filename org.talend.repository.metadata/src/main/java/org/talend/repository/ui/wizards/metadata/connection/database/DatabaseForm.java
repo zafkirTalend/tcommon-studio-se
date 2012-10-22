@@ -1586,7 +1586,14 @@ public class DatabaseForm extends AbstractForm {
                     else
                     	doHiveDBTypeNotSelected();
                 }
-                checkScrolledCompositeSize();
+                
+//              Added by Marvin Wang on Oct. 22, 2012 just for show the scrolled bar when a hive DB type is selected.
+//              It is not the better way to do this, if the code of DB part is required to refactor, this code could 
+//              be removed.
+                if(isHiveDBConnSelected()){
+                	scrolledComposite.setMinSize(newParent.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+                }else
+                	checkScrolledCompositeSize();
             }
 
         });
@@ -3327,6 +3334,7 @@ public class DatabaseForm extends AbstractForm {
         newParent.layout();
         databaseSettingGroup.layout();
         compositeGroupDbSettings.layout();
+        scrolledComposite.layout();
     }
 
     private void doHiveUIContentsLayout(){
@@ -3338,6 +3346,7 @@ public class DatabaseForm extends AbstractForm {
         newParent.layout();
         databaseSettingGroup.layout();
         compositeGroupDbSettings.layout();
+        scrolledComposite.layout();
     }
     
     /**
