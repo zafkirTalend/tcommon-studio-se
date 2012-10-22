@@ -2544,6 +2544,7 @@ public class DatabaseForm extends AbstractForm {
                         } else {
                         	portText.show();
                 			serverText.show();
+                			serverText.setEditable(true);
                             sidOrDatabaseText.show();
                             sidOrDatabaseText.setEditable(true);
                         }
@@ -2668,6 +2669,7 @@ public class DatabaseForm extends AbstractForm {
             		portText.show();
             		serverText.show();
             	}
+            	schemaText.hide();
             }
         }
 
@@ -3344,9 +3346,6 @@ public class DatabaseForm extends AbstractForm {
     protected void handleUIWhenEmbeddedModeSelected(){
 //    	handleHiveRelatedWidgetsStatus(true,false);
 //		handleOtherWidgetsStatusForHive(true,true);
-//    	server and port is no use for Hive Embedded mode.
-    	serverText.setHideWidgets(true);
-    	portText.setHideWidgets(true);
     	handleOtherWidgetsStatusForHive(true);
     	setHideHadoopInfoWidgets(false);
 		setHideMetastoreInfoWidgets(false);
@@ -3354,8 +3353,6 @@ public class DatabaseForm extends AbstractForm {
     }
     
     protected void handleUIWhenStandaloneModeSelected(){
-    	serverText.setHideWidgets(false);
-    	portText.setHideWidgets(false);
     	handleOtherWidgetsStatusForHive(false);
     	setHideHadoopInfoWidgets(true);
 		setHideMetastoreInfoWidgets(true);;
@@ -3442,10 +3439,15 @@ public class DatabaseForm extends AbstractForm {
      * @param hide
      */
     private void handleOtherWidgetsStatusForHive(boolean hide){
+//    	server and port is no use for Hive Embedded mode.
+    	serverText.setHideWidgets(hide);
+    	serverText.setEditable(!hide);
+    	portText.setHideWidgets(hide);
 		usernameText.setHideWidgets(hide);
 		passwordText.setHideWidgets(hide);
 		sidOrDatabaseText.setHideWidgets(hide);
-		schemaText.setHideWidgets(hide);
+		sidOrDatabaseText.setEditable(!hide);
+		schemaText.setHideWidgets(true);
     }
     
     /**
