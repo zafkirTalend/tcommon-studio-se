@@ -106,6 +106,27 @@ public class ReflectionUtils {
         return fieldValue;
     }
 
+    /**
+     * To set the field using the given <code>value</code>.
+     * Added by Marvin Wang on Oct 19, 2012.
+     */
+    public static void setStaticFieldValue(String className, ClassLoader loader, String fieldName, Object value){
+        try {
+            Class ownerClass = null;
+            if (loader != null) {
+                ownerClass = Class.forName(className, true, loader);
+            } else {
+                ownerClass = Class.forName(className);
+            }
+            Field field = ownerClass.getDeclaredField(fieldName);
+            field.setAccessible(true);
+            field.set(null, value);
+        } catch (Exception e) {
+            log.error(e);
+            e.printStackTrace();
+        }
+    }
+    
     public static Object getStaticField(String className, String fieldName) {
         return getStaticField(className, null, fieldName);
     }
