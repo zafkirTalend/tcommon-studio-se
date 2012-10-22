@@ -15,6 +15,7 @@ package org.talend.core.model.metadata.builder.database;
 import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.Driver;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -60,6 +61,10 @@ public class JDBCDriverLoader {
                     loader.addPath(jarPath[i]);
                 }
                 classLoadersMap.put(dbType, dbVersion, loader);
+            }else{
+            	for (int i = 0; i < jarPath.length; i++) {
+                    loader.addPath(jarPath[i]);
+                }
             }
         } else {
             loader = HotClassLoader.getInstance();
@@ -85,12 +90,6 @@ public class JDBCDriverLoader {
 
             Properties info = new Properties();
 
-            // url = "jdbc:hive://";
-            // username = "jjzhou";
-            // password = "talend";
-            // System.setProperty("hive.metastore.local", "false");
-            // System.setProperty("hive.metastore.uris", "thrift://" + "192.168.30.162" + ":" + "9083");
-            // System.setProperty("hive.metastore.execute.setugi", "true");
             // to avoid NPE
             username = username != null ? username : "";
             password = password != null ? password : "";
@@ -117,7 +116,10 @@ public class JDBCDriverLoader {
                 if (dbType.equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
                     connection = ConnectionUtils.createConnection(url, (Driver) (driver.newInstance()), info);
                 } else {
+//                	ClassLoader currentContextCL = Thread.currentThread().getContextClassLoader();
+                    Thread.currentThread().setContextClassLoader(loader);
                     connection = wapperDriver.connect(url, info);
+//                    Thread.currentThread().setContextClassLoader(currentContextCL);
                 }
             }
             // DriverManager.deregisterDriver(wapperDriver);

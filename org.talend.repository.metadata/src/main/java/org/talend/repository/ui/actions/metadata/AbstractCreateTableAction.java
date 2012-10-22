@@ -13,7 +13,9 @@
 package org.talend.repository.ui.actions.metadata;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -914,7 +916,10 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                                         .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
                                 if (EDatabaseTypeName.HIVE.getDisplayName().equals(metadataConnection.getDbType())
                                         && HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(hiveMode)) {
+//                                	metadataConnection.setDriverJarPath((String)metadataConnection
+//                                			.getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR));
                                     metadataConnection.setUrl(connection.getURL());
+                                    doHivePreSetup(metadataConnection);
                                 } else {
 
                                     String genUrl = DatabaseConnStrUtil.getURLString(metadataConnection.getDbType(),
@@ -936,7 +941,28 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                                         (DatabaseConnection) metadataConnection.getCurrentConnection());
                             }
                             if (creation) {
-                                managerConnection.check(metadataConnection);
+                            	String hiveMode = (String) metadataConnection
+                                	.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
+                            	if(EDatabaseTypeName.HIVE.getDisplayName().equals(metadataConnection.getDbType())
+                                        && HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(hiveMode)){
+                            		Map<String, String> properties = new HashMap<String, String>();
+                            		properties.put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR, (String)metadataConnection
+                                			.getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR));
+                            		properties.put("dbTypeString", metadataConnection.getDbType());
+                            		properties.put("urlConnectionString",(String)metadataConnection
+                                			.getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_URL));
+                            		properties.put("username",(String)metadataConnection
+                                			.getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_USERNAME));
+                            		properties.put("password",(String)metadataConnection
+                                			.getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_PASSWORD));
+                            		properties.put("driverClassName",(String)metadataConnection
+                                			.getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME));
+                            		properties.put("dbVersionString",metadataConnection.getDbVersionString());
+                            		properties.put("additionalParams",metadataConnection.getAdditionalParams());
+                            		
+                            		managerConnection.checkForHive(properties);
+                            	}else
+                            		managerConnection.check(metadataConnection);
 
                                 // ExtractMetaDataUtils.metadataCon = metadataConnection;
                                 // when open,set use synonyms false.
@@ -1001,6 +1027,28 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
 
     }
 
+    /**
+     * If it is hive embedded mode, then set up the following properties to ensure the function of "retrieve" is avaiable.
+     * <li>URL to hive metastore DB, the key is {@link ConnParameterKeys#CONN_PARA_KEY_METASTORE_CONN_URL}</li>
+     * <li>User name for hive metastore DB, the key is {@link ConnParameterKeys#CONN_PARA_KEY_METASTORE_CONN_USERNAME}</li>
+     * <li>Password for hive metastore DB, the key is {@link ConnParameterKeys#CONN_PARA_KEY_METASTORE_CONN_PASSWORD}</li>
+     * <li>Driver jar for connecting hive metastore DB, the key is {@link ConnParameterKeys#CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR}</li>
+     * <li>Driver name for connecting hive metastore DB, the key is {@link ConnParameterKeys#CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME}</li>
+     * Added by Marvin Wang on Oct 18, 2012.
+     */
+    private void doHivePreSetup(IMetadataConnection metadataConn){
+    	Object metastoreConnURLStr = metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_URL);
+    	Object metastoreConnUserNameStr = metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_USERNAME);
+    	Object metastoreConnPasswordStr = metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_PASSWORD);
+//    	Object metastoreConnDriverJarStr = metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR);
+    	Object metastoreConnDriverNameStr = metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME);
+    	
+    	System.setProperty("javax.jdo.option.ConnectionURL", metastoreConnURLStr == null ? "" : (String)metastoreConnURLStr);
+    	System.setProperty("javax.jdo.option.ConnectionUserName", metastoreConnUserNameStr == null ? "" : (String)metastoreConnUserNameStr);
+    	System.setProperty("javax.jdo.option.ConnectionPassword", metastoreConnPasswordStr == null ? "" : (String)metastoreConnPasswordStr);
+    	System.setProperty("javax.jdo.option.ConnectionDriverName", metastoreConnDriverNameStr == null ? "" : (String)metastoreConnDriverNameStr);
+    }
+    
     public boolean checkConnectStatus(ManagerConnection managerConnection, IMetadataConnection metadataConnection) {
         boolean skipStep = false;
         managerConnection.check(metadataConnection);

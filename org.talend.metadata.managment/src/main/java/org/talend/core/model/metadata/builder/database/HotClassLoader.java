@@ -12,8 +12,10 @@
 // ============================================================================
 package org.talend.core.model.metadata.builder.database;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.net.URLClassLoader;
 
@@ -58,5 +60,53 @@ public class HotClassLoader extends URLClassLoader {
             }
         }
     }
+    
+//	public static String getClassFile(String name){
+//		if(name != null && !"".equals(name))
+//			return name.replace(".", "/").concat(".class");
+//		return null;
+//	}
+//    
+//	/**
+//	 * "hive driver"
+//	 */
+//	public Class findClass(String name) throws ClassNotFoundException{
+//		Class clazz = null;
+//		byte[] data = loadClassData(name);
+//		
+//		clazz = defineClass(name, data, 0, data.length);
+//		URL url = clazz.getProtectionDomain().getCodeSource().getLocation();
+//		return clazz;
+//	}
+//	
+//	
+//	public byte[] loadClassData(String name) throws ClassNotFoundException{
+//		InputStream input = null;
+//		ByteArrayOutputStream output = null;
+//		byte[] data = null;
+//		URL[] urls = this.getURLs();
+//		if(urls != null){
+//			boolean isFind = false;
+//			for(URL url : urls){
+//				try {
+//					String newDriverName = HotClassLoader.getClassFile(name);
+//					URL newURL = new URL("jar:" + url.toString() + "!/"+ newDriverName);
+//					input = newURL.openStream();
+//					output = new ByteArrayOutputStream();
+//					int ch = 0;
+//					while((ch = input.read()) != -1){
+//						output.write(ch);
+//					}
+//					data = output.toByteArray();
+//					isFind = true;
+//					break;
+//				} catch (IOException e) {
+//				}
+//			}
+//			if(!isFind)
+//				throw new ClassNotFoundException("Can not find " + name + "!");
+//		}
+//		return data;
+//	}
 
 }

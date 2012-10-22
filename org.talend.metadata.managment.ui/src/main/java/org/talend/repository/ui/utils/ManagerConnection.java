@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.repository.ui.utils;
 
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
@@ -115,6 +117,30 @@ public class ManagerConnection {
         this.nullChar = nullChar;
     }
 
+    /**
+     * Just for Hive embedded mode to check if a remote metastore db can be connected.
+     * Added by Marvin Wang on Oct 19, 2012.
+     * @param properties
+     * @return
+     */
+    public boolean checkForHive(Map<String,String> properties){
+    	driverJarPath = properties.get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR);
+    	dbTypeString = properties.get("dbTypeString");
+    	urlConnectionString = properties.get("urlConnectionString");
+    	username = properties.get("username");
+    	password = properties.get("password");
+    	driverClassName = properties.get("driverClassName");
+    	dbVersionString = properties.get("dbVersionString");
+    	additionalParams = properties.get("additionalParams");
+    	
+    	
+    	ConnectionStatus testConnection = ExtractMetaDataFromDataBase.testConnection(dbTypeString, urlConnectionString, username,
+                password, "", driverClassName, driverJarPath, dbVersionString, additionalParams);
+    	isValide = testConnection.getResult();
+        messageException = testConnection.getMessageException();
+    	return isValide;
+    }
+    
     /**
      * Check connexion from the fields form.
      * 
