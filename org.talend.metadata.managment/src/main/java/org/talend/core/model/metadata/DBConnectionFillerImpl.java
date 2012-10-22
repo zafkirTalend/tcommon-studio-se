@@ -59,6 +59,7 @@ import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.cwm.helper.SchemaHelper;
 import org.talend.cwm.helper.TableHelper;
+import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.i18n.Messages;
 import org.talend.cwm.mip.service.CWMService;
 import org.talend.cwm.relational.RelationalFactory;
@@ -155,6 +156,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 // identifierQuote
                 String identifierQuote = dbMetadata.getIdentifierQuoteString();
                 ConnectionHelper.setIdentifierQuoteString(identifierQuote == null ? "" : identifierQuote, dbconn);
+
+                String productName = dbMetadata.getDatabaseProductName();
+                String productVersion = dbMetadata.getDatabaseProductVersion();
+                TaggedValueHelper.setTaggedValue(dbconn, TaggedValueHelper.DB_PRODUCT_NAME, productName);
+                TaggedValueHelper.setTaggedValue(dbconn, TaggedValueHelper.DB_PRODUCT_VERSION, productVersion);
+
                 // for bug 22113, annotate it.
                 // dbversion
                 // int versionNum = 0;

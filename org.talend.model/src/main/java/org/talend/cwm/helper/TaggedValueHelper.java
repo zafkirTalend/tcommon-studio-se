@@ -87,6 +87,11 @@ public final class TaggedValueHelper {
 
     public static final String DB_IDENTIFIER_QUOTE_STRING = "DB IdentifierQuoteString"; //$NON-NLS-1$
 
+    // ADD sizhaoliu TDQ-6316 add 2 tagged values to replace software system
+    public static final String DB_PRODUCT_NAME = "DB ProductName";//$NON-NLS-1$
+
+    public static final String DB_PRODUCT_VERSION = "DB ProductVersion";//$NON-NLS-1$
+
     public static final String UNIVERSE = "universe"; //$NON-NLS-1$
 
     public static final String RETRIEVE_ALL = "RETRIEVE_ALL"; //$NON-NLS-1$

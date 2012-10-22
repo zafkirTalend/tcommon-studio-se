@@ -316,7 +316,6 @@ public class ExtractMetaDataFromDataBase {
             ExceptionHandler.process(e);
             connectionStatus.setMessageException(e.getMessage());
         } catch (Exception e) {
-            ExceptionHandler.process(e);
             connectionStatus.setMessageException(e.getMessage());
         } finally {
             try {

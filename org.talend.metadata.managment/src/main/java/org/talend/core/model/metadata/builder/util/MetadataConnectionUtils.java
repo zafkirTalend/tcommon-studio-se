@@ -53,14 +53,11 @@ import org.talend.core.model.metadata.builder.database.IDriverService;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
-import org.talend.cwm.constants.SoftwareSystemConstants;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdSqlDataType;
-import org.talend.cwm.softwaredeployment.SoftwaredeploymentFactory;
-import org.talend.cwm.softwaredeployment.TdSoftwareSystem;
 import org.talend.mdm.webservice.XtentisBindingStub;
 import org.talend.mdm.webservice.XtentisPort;
 import org.talend.mdm.webservice.XtentisServiceLocator;
@@ -69,7 +66,6 @@ import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.string.AsciiUtils;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
-import orgomg.cwm.foundation.softwaredeployment.Component;
 import orgomg.cwm.foundation.softwaredeployment.DataProvider;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
@@ -172,13 +168,13 @@ public class MetadataConnectionUtils {
                 log.error(e.getMessage());
                 rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
             } catch (InstantiationException e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
             } catch (IllegalAccessException e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
             } catch (ClassNotFoundException e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
             }
         } else {
@@ -251,63 +247,6 @@ public class MetadataConnectionUtils {
         metadataConnection.setPassword(password);
         metadataConnection.setUrl(dbUrl);
         return checkConnection(metadataConnection);
-    }
-
-    public static TdSoftwareSystem getSoftwareSystem(java.sql.Connection connection) throws SQLException {
-        // MOD xqliu 2009-07-13 bug 7888
-
-        DatabaseMetaData databaseMetadata = ExtractMetaDataUtils.getConnectionMetadata(connection);
-        // ~
-        // --- get informations
-        String databaseProductName = null;
-        try {
-            databaseProductName = databaseMetadata.getDatabaseProductName();
-            if (log.isInfoEnabled()) {
-                log.info("Database Product Name: " + databaseProductName);
-            }
-        } catch (Exception e1) {
-            log.warn("could not get database product name. " + e1, e1);
-        }
-        String databaseProductVersion = null;
-        try {
-            databaseProductVersion = databaseMetadata.getDatabaseProductVersion();
-            if (log.isInfoEnabled()) {
-                log.info("Database Product Version: " + databaseProductVersion);
-            }
-        } catch (Exception e1) {
-            log.warn("Could not get database product version. " + e1, e1);
-        }
-        try {
-            int databaseMinorVersion = databaseMetadata.getDatabaseMinorVersion();
-            int databaseMajorVersion = databaseMetadata.getDatabaseMajorVersion();
-            // simplify the database product version when these informations are accessible
-            databaseProductVersion = Integer.toString(databaseMajorVersion) + "." + databaseMinorVersion;
-
-            if (log.isDebugEnabled()) {
-                log.debug("Database=" + databaseProductName + " | " + databaseProductVersion + ". DB version: "
-                        + databaseMajorVersion + "." + databaseMinorVersion);
-            }
-        } catch (RuntimeException e) {
-            // happens for Sybase ASE for example
-            if (log.isDebugEnabled()) {
-                log.debug("Database=" + databaseProductName + " | " + databaseProductVersion + " " + e, e);
-            }
-        }
-
-        // --- create and fill the software system
-        TdSoftwareSystem system = SoftwaredeploymentFactory.eINSTANCE.createTdSoftwareSystem();
-        if (databaseProductName != null) {
-            system.setName(databaseProductName);
-            system.setSubtype(databaseProductName);
-        }
-        system.setType(SoftwareSystemConstants.DBMS.toString());
-        if (databaseProductVersion != null) {
-            system.setVersion(databaseProductVersion);
-        }
-        Component component = orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentFactory.eINSTANCE.createComponent();
-        system.getOwnedElement().add(component);
-
-        return system;
     }
 
     /**

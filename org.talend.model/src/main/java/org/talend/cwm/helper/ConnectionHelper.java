@@ -62,6 +62,9 @@ import orgomg.cwm.resource.relational.Schema;
  * 
  * Utility class for data provider handling.
  */
+/**
+ * DOC root class global comment. Detailled comment
+ */
 public class ConnectionHelper {
 
     public static final String DOT_STRING = "."; //$NON-NLS-1$
@@ -392,8 +395,8 @@ public class ConnectionHelper {
      * @deprecated use {@link SoftwareSystemManager#getSoftwareSystem(Connection dataProvider)} instead.
      * @param dataProvider
      * @return
+     * @deprecated software system is not used any more
      */
-    @Deprecated
     public static TdSoftwareSystem getSoftwareSystem(Connection dataProvider) {
 
         final Component component = dataProvider.getComponent();
@@ -408,6 +411,12 @@ public class ConnectionHelper {
         return null;
     }
 
+    /**
+     * @param connection
+     * @return
+     * @throws SQLException
+     * @deprecated software system is not used any more
+     */
     public static TdSoftwareSystem getSoftwareSystem(java.sql.Connection connection) throws SQLException {
 
         // MOD xqliu 2009-07-13 bug 7888
