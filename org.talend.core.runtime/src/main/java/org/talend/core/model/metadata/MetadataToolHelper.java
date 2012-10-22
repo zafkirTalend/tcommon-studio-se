@@ -241,7 +241,7 @@ public final class MetadataToolHelper {
             for (int i = 0; i < originalColumnName.length(); i++) {
                 Character car = originalColumnName.charAt(i);
                 // MOD yyin TDQ-4929 20120330
-                if (car.toString().getBytes().length == 1 && !isAllowSpecific) {
+                if (car.toString().getBytes().length == 1 || !isAllowSpecific) {
                     // first character should have only a-z or A-Z or _
                     // other characters should have only a-z or A-Z or _ or 0-9
                     if (((car >= 'a') && (car <= 'z')) || ((car >= 'A') && (car <= 'Z')) || car == '_'
