@@ -21,6 +21,7 @@ import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
@@ -36,9 +37,12 @@ import orgomg.cwm.objectmodel.core.CoreFactory;
 import orgomg.cwm.objectmodel.core.Expression;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.TaggedValue;
+import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.ColumnSet;
 import orgomg.cwm.resource.relational.ForeignKey;
+import orgomg.cwm.resource.relational.NamedColumnSet;
 import orgomg.cwm.resource.relational.PrimaryKey;
+import orgomg.cwm.resource.relational.Schema;
 
 /**
  * @author scorreia
@@ -57,6 +61,7 @@ public final class ColumnHelper {
      * @return the created column.
      * @deprecated use createTdColumn() instead
      */
+    @Deprecated
     public static TdColumn createColumn(String name) {
         return createTdColumn(name);
     }
@@ -141,6 +146,7 @@ public final class ColumnHelper {
      * @return the name of the container of the column or null
      * @deprecated use getTableFullName()
      */
+    @Deprecated
     public static String getColumnSetFullName(MetadataColumn column) {
         return getTableFullName(column);
     }
@@ -163,6 +169,7 @@ public final class ColumnHelper {
      * @return the owner of the given column or null
      * @deprecated use getOwnerAsColumnSet
      */
+    @Deprecated
     public static ColumnSet getColumnSetOwner(ModelElement column) {
         return getColumnOwnerAsColumnSet(column);
     }
@@ -309,6 +316,7 @@ public final class ColumnHelper {
      * @return the primary key object or null
      * @deprecated use removeColumnFromTablePrimaryKey instead
      */
+    @Deprecated
     public static PrimaryKey removePrimaryKey(TdColumn column) {
         assert column != null;
         PrimaryKey primaryKey = getPrimaryKey(column);
@@ -594,13 +602,74 @@ public final class ColumnHelper {
         EList<MetadataColumn> columnLs = mTable.getColumns();
         Integer index = null;
         for (int i = 0; i < columnLs.size(); i++) {
-            mc = (MetadataColumn) columnLs.get(i);
+            mc = columnLs.get(i);
             if (mColumn.equals(mc)) {
                 index = Integer.valueOf(i);
                 break;
             }
         }
         return index;
+    }
+
+    /**
+     * 
+     * Given connection and column set name, return a list of TdColumn.<BR>
+     * Note that this method won't connect database, but iterate each existing element (catalog, schema,table) in
+     * connection in order to get the columns.
+     * 
+     * @param connection
+     * @param columnSetName
+     * @return
+     */
+    public static List<TdColumn> getColumnListByTableName(Connection connection, String columnSetName) {
+        List<TdColumn> columnList = new ArrayList<TdColumn>();
+        Set<Catalog> catalogList = ConnectionHelper.getAllCatalogs(connection);
+        Set<Schema> schemaList = ConnectionHelper.getAllSchemas(connection);
+        if (catalogList != null && catalogList.size() != 0) {
+            for (Catalog catalog : catalogList) {
+                List<Schema> schemesInCatalog = CatalogHelper.getSchemas(catalog);
+                if (schemesInCatalog != null && schemesInCatalog.size() != 0) {
+                    // Connection has both catalog and schema.
+                    for (Schema schemaInCat : schemesInCatalog) {
+                        columnList = getColumnsFromPackageByTableName(schemaInCat, columnSetName);
+                        if (columnList.size() > 0) {
+                            return columnList;
+                        }
+                    }
+                } else {
+                    // Connection has catalog only
+                    columnList = getColumnsFromPackageByTableName(catalog, columnSetName);
+                    if (columnList.size() > 0) {
+                        return columnList;
+                    }
+                }
+            }
+        } else if (schemaList != null && schemaList.size() != 0) {
+            // Connection has schema only
+            for (Schema schema : schemaList) {
+                columnList = getColumnsFromPackageByTableName(schema, columnSetName);
+                if (columnList.size() > 0) {
+                    return columnList;
+                }
+            }
+        }
+        return columnList;
+    }
+
+    private static List<TdColumn> getColumnsFromPackageByTableName(orgomg.cwm.objectmodel.core.Package packageOrSchema,
+            String columnSetName) {
+        List<TdColumn> columnList = new ArrayList<TdColumn>();
+        List<NamedColumnSet> columnSetList = PackageHelper.getNmaedColumnSets(packageOrSchema);
+        for (NamedColumnSet colSet : columnSetList) {
+            if (colSet == null || colSet.getName() == null) {
+                continue;
+            }
+            if (colSet.getName().equals(columnSetName)) {
+                columnList = ColumnSetHelper.getColumns(colSet);
+                return columnList;
+            }
+        }
+        return columnList;
     }
 
 }
