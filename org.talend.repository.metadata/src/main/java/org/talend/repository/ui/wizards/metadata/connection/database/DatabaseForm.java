@@ -1227,13 +1227,17 @@ public class DatabaseForm extends AbstractForm {
             		}
             	}
                 checkConnection();
-                try {
-                	forceSetFlagForHiveCreateDefaultDB();
-                } catch (ClassNotFoundException e1) {
-                	e1.printStackTrace();
-                }
-//                Thread.currentThread().setContextClassLoader(currentContextCL);
-                doRemoveHiveSetup();
+                if(isHiveDBConnSelected()){
+            		if(isHiveEmbeddedMode()){
+            			try {
+            				forceSetFlagForHiveCreateDefaultDB();
+            			} catch (ClassNotFoundException e1) {
+            				e1.printStackTrace();
+            			}
+//                		Thread.currentThread().setContextClassLoader(currentContextCL);
+            			doRemoveHiveSetup();
+            		}
+            	}
             }
         });
     }
