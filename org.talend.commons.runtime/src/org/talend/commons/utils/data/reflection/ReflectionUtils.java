@@ -46,8 +46,7 @@ public class ReflectionUtils {
             Field field = ownerClass.getField(fieldName);
             fieldValue = field.get(owner);
         } catch (Exception e) {
-            log.error(e);
-            e.printStackTrace();
+            log.error("", e);
         }
 
         return fieldValue;
@@ -70,8 +69,7 @@ public class ReflectionUtils {
             f.setAccessible(true);
             fieldValue = f.get(owner);
         } catch (Exception e) {
-            log.error(e);
-            e.printStackTrace();
+            log.error("", e);
         }
 
         return fieldValue;
@@ -99,18 +97,16 @@ public class ReflectionUtils {
             Field field = ownerClass.getField(fieldName);
             fieldValue = field.get(ownerClass);
         } catch (Exception e) {
-            log.error(e);
-            e.printStackTrace();
+            log.error("", e);
         }
 
         return fieldValue;
     }
 
     /**
-     * To set the field using the given <code>value</code>.
-     * Added by Marvin Wang on Oct 19, 2012.
+     * To set the field using the given <code>value</code>. Added by Marvin Wang on Oct 19, 2012.
      */
-    public static void setStaticFieldValue(String className, ClassLoader loader, String fieldName, Object value){
+    public static void setStaticFieldValue(String className, ClassLoader loader, String fieldName, Object value) {
         try {
             Class ownerClass = null;
             if (loader != null) {
@@ -122,11 +118,10 @@ public class ReflectionUtils {
             field.setAccessible(true);
             field.set(null, value);
         } catch (Exception e) {
-            log.error(e);
-            e.printStackTrace();
+            log.error("", e);
         }
     }
-    
+
     public static Object getStaticField(String className, String fieldName) {
         return getStaticField(className, null, fieldName);
     }
@@ -152,8 +147,7 @@ public class ReflectionUtils {
             Method method = ownerClass.getMethod(methodName, argsClass);
             returnValue = method.invoke(owner, args);
         } catch (Exception e) {
-            log.error(e);
-            e.printStackTrace();
+            log.error("", e);
         }
 
         return returnValue;
@@ -186,8 +180,7 @@ public class ReflectionUtils {
             Method method = ownerClass.getMethod(methodName, argsClass);
             returnValue = method.invoke(null, args);
         } catch (Exception e) {
-            log.error(e);
-            e.printStackTrace();
+            log.error("", e);
         }
 
         return returnValue;
@@ -224,8 +217,7 @@ public class ReflectionUtils {
             Constructor cons = newClass.getConstructor(argsClass);
             instance = cons.newInstance(args);
         } catch (Exception e) {
-            log.error(e);
-            e.printStackTrace();
+            log.error("", e);
         }
 
         return instance;
