@@ -83,13 +83,22 @@ public final class ConnectionUtils {
      */
     public static Connection createConnection(String url, Driver driver, Properties props) throws SQLException,
             InstantiationException, IllegalAccessException, ClassNotFoundException {
+        // MOD sizhaoliu TDI-23409 revert this method to previeus version of 92079 to fix the bug.
+        // TDI-23197 was fixed separately and can be resolved by this revert too. the method isAccess() is kept.
         Connection connection = null;
         if (driver != null) {
-            DriverManager.registerDriver(driver);
-            connection = driver.connect(url, props);
-        }
-        if (isAccess(url)) {
-            connection = DriverManager.getConnection(url, props);
+            try {
+                DriverManager.registerDriver(driver);
+                // Class.forName(driver.getClass().getName());
+                // connection = DriverManager.getConnection(url, props);
+                connection = driver.connect(url, props);
+            } catch (Throwable e) {// MOD zshen for mssql2008
+                try {
+                    connection = driver.connect(url, props);
+                } catch (Exception exception) {
+                    // do nothing
+                }
+            }
         }
         return connection;
     }
