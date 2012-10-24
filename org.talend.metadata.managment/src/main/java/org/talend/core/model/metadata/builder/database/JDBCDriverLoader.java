@@ -12,10 +12,10 @@
 // ============================================================================
 package org.talend.core.model.metadata.builder.database;
 
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.Driver;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -35,6 +35,44 @@ public class JDBCDriverLoader {
     public static final String SHUTDOWN_PARAM = ";shutdown=true"; //$NON-NLS-1$
 
     private static MultiKeyMap classLoadersMap = new MultiKeyMap();
+    
+    /**
+     * Loads the jars for hive embedded mode required, I do not think it is the better method 
+     * to do this here. Due to the limitation on code structure, I have to write this method 
+     * to load the jar required by Hive. If metadata connection part is refactored, developer 
+     * could adjust this method.
+     * Added by Marvin Wang on Oct 24, 2012.
+     * @param libraries
+     * @param dbType
+     * @param dbVersion
+     */
+    public void loadForHiveEmbedded(List<String> libraries,String dbType, String dbVersion){
+    	boolean flog = EDatabaseVersion4Drivers.containTypeAndVersion(dbType, dbVersion);
+    	HotClassLoader loader = null;
+    	if (flog) {
+            loader = (HotClassLoader) classLoadersMap.get(dbType, dbVersion);
+            if (loader == null) {
+                loader = new HotClassLoader();
+                for (int i = 0; i < libraries.size(); i++) {
+                    loader.addPath(libraries.get(i));
+                }
+                classLoadersMap.put(dbType, dbVersion, loader);
+            }else{
+            	URL[] urls = loader.getURLs();
+            	if(urls != null && urls.length > 0){
+            		for(int i = 0;i < urls.length ; i++){
+            			String urlPath = urls[i].getPath();
+            			for (int j = 0; j < libraries.size(); j++) {
+            				if(urlPath != null && !"".equals(urlPath) && urlPath.equals(libraries.get(j))){
+            					loader.addPath(libraries.get(j));
+            					break;
+            				}
+            			}
+            		}
+            	}
+            }
+        }
+    }
 
     /**
      * 
