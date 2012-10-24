@@ -1051,7 +1051,7 @@ public class DeleteAction extends AContextualAction {
                 && nodeObject.getProperty().getItem() != null
                 && (nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_OTHER
                         || nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_USER || RepositoryManager
-                        .isOpenedItemInEditor(nodeObject)) && !(DELETE_FOREVER_TITLE.equals(getText()))) {
+                            .isOpenedItemInEditor(nodeObject)) && !(DELETE_FOREVER_TITLE.equals(getText()))) {
 
             final String title = Messages.getString("DeleteAction.error.title"); //$NON-NLS-1$
             String nodeName = ERepositoryObjectType.getDeleteFolderName(nodeObject.getRepositoryObjectType());
@@ -1233,7 +1233,7 @@ public class DeleteAction extends AContextualAction {
             } else {
                 factory.deleteObjectLogical(objToDelete);
                 updateRelatedViews();
-                removeConnFromSQLExplorer(repositoryNode);
+                removeConnFromSQLExplorer(currentJobNode);
             }
         }
 
@@ -1260,29 +1260,29 @@ public class DeleteAction extends AContextualAction {
             }
         });
     }
-    
-   /* * 
-    * Remove the dbconnection in sql explorer after logical delete.
-    * 
-    * @param node
-    */
-   private void removeConnFromSQLExplorer(IRepositoryNode node) {
-       IRepositoryViewObject object = node.getObject();
-       Property prop = null;
-       if (object != null) {
-           prop = object.getProperty();
-       }
-       if (prop == null || prop.getItem() == null || !(prop.getItem() instanceof DatabaseConnectionItem)) {
-           return;
-       }
-       if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
-           ITDQRepositoryService tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
-                   ITDQRepositoryService.class);
-           if (tdqRepService != null) {
-               tdqRepService.removeAliasInSQLExplorer(node);
-           }
-       }
-   }
+
+    /* *
+     * Remove the dbconnection in sql explorer after logical delete.
+     * 
+     * @param node
+     */
+    private void removeConnFromSQLExplorer(IRepositoryNode node) {
+        IRepositoryViewObject object = node.getObject();
+        Property prop = null;
+        if (object != null) {
+            prop = object.getProperty();
+        }
+        if (prop == null || prop.getItem() == null || !(prop.getItem() instanceof DatabaseConnectionItem)) {
+            return;
+        }
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+            ITDQRepositoryService tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    ITDQRepositoryService.class);
+            if (tdqRepService != null) {
+                tdqRepService.removeAliasInSQLExplorer(node);
+            }
+        }
+    }
 
     /*
      * (non-Javadoc)
