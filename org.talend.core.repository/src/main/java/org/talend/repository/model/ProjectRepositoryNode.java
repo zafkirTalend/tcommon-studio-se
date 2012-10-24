@@ -1147,7 +1147,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                         "ProjectRepositoryNode.itemInvalid", repositoryObject.getRepositoryObjectType(), //$NON-NLS-1$,
                         repositoryObject.getLabel()));
 
-                if (repositoryObject.getProperty().getInformations().isEmpty()) {
+                if (repositoryObject.getProperty() != null && repositoryObject.getProperty().getInformations().isEmpty()) {
                     Information info = PropertiesFactory.eINSTANCE.createInformation();
                     info.setLevel(InformationLevel.ERROR_LITERAL);
                     info.setText(Messages.getString("ProjectRepositoryNode.invalidItem")); //$NON-NLS-1$
