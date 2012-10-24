@@ -146,8 +146,6 @@ public class MetadataConnectionUtils {
                             sqlConn = (java.sql.Connection) list.get(i);
                         }
                     }
-                } else if (isGeneralJDBC(metadataBean)) {
-                    sqlConn = ConnectionUtils.createConnection(dbUrl, driverClass, props);
                 } else {
                     driver = getClassDriver(metadataBean);
                     sqlConn = ConnectionUtils.createConnection(dbUrl, driver, props);
