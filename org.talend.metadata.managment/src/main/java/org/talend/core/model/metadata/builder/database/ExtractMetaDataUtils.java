@@ -659,6 +659,33 @@ public class ExtractMetaDataUtils {
     }
 
     /**
+     * Load the jars required by Hive Embedded mode, but this method should be here. It is 
+     * better to put it in JDBCDriverLoader.java. Due to the limitation on code structure, 
+     * I have to put it here, so if the part of metadata connection will be refactored later, 
+     * then developer could remove it to anyway they want.
+     * Added by Marvin Wang on Oct 24, 2012.
+     * @param dbType
+     * @param dbVersion
+     */
+    public static void loadJarRequiredByDriver(String dbType, String dbVersion){
+    	JDBCDriverLoader loader = new JDBCDriverLoader();
+    	List<String> jarPathList = new ArrayList<String>();
+    	ILibraryManagerService librairesManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault()
+        	.getService(ILibraryManagerService.class);
+    	List<String> driverNames = EDatabaseVersion4Drivers.getDrivers(dbType, dbVersion);
+        if (driverNames != null) {
+            for (String jar : driverNames) {
+                if (!new File(getJavaLibPath() + jar).exists()) {
+                    librairesManagerService.retrieve(jar, getJavaLibPath(), new NullProgressMonitor());
+                }
+                jarPathList.add(getJavaLibPath() + jar);
+            }
+        }
+        
+        loader.loadForHiveEmbedded(jarPathList, dbType, dbVersion);
+    }
+    
+    /**
      * DOC xye Comment method "connect".
      * 
      * @param dbType
@@ -807,6 +834,10 @@ public class ExtractMetaDataUtils {
                     && (isValidJarFile(driverJarPath) || dbType.equalsIgnoreCase(EDatabaseTypeName.GODBC.getXmlName()))) {
                 // Load jdbc driver class dynamicly
                 JDBCDriverLoader loader = new JDBCDriverLoader();
+//            	The procedure to load jars for hive embedded mode is added by Marvin Wang on Oct. 24. Bug is TDI-23400.
+            	if(EDatabaseTypeName.HIVE.getDisplayName().equals(dbType) && "EMBEDDED".equalsIgnoreCase(dbVersion)){
+            		loadJarRequiredByDriver(dbType, dbVersion);
+            	}
                 list = loader.getConnection(driverJarPath, driverClassName, url, username, pwd, dbType, dbVersion,
                         additionalParams);
                 if (list != null && list.size() > 0) {
