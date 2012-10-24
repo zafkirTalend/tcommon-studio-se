@@ -539,6 +539,9 @@ public class NodeUtil {
             if (inConnTemp.getLineStyle().hasConnectionCategory(IConnectionCategory.DATA)) {
                 return getPrivateConnClassName(inConnTemp);
             }
+            if (inConnTemp.getLineStyle().hasConnectionCategory(IConnectionCategory.USE_ITERATE)) {
+                return conn.getUniqueName();
+            }
         }
         return ""; //$NON-NLS-1$
     }
