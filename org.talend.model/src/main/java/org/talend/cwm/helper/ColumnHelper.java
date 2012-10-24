@@ -21,11 +21,13 @@ import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.cwm.relational.RelationalFactory;
+import org.talend.cwm.relational.RelationalPackage;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
 import orgomg.cwm.foundation.keysindexes.KeyRelationship;
@@ -621,7 +623,7 @@ public final class ColumnHelper {
      * @param columnSetName
      * @return
      */
-    public static List<TdColumn> getColumnListByTableName(Connection connection, String columnSetName) {
+    public static List<TdColumn> genNewColumnListByTableName(Connection connection, String columnSetName) {
         List<TdColumn> columnList = new ArrayList<TdColumn>();
         Set<Catalog> catalogList = ConnectionHelper.getAllCatalogs(connection);
         Set<Schema> schemaList = ConnectionHelper.getAllSchemas(connection);
@@ -631,14 +633,14 @@ public final class ColumnHelper {
                 if (schemesInCatalog != null && schemesInCatalog.size() != 0) {
                     // Connection has both catalog and schema.
                     for (Schema schemaInCat : schemesInCatalog) {
-                        columnList = getColumnsFromPackageByTableName(schemaInCat, columnSetName);
+                        columnList = genNewColumnsFromPackageByTableName(schemaInCat, columnSetName);
                         if (columnList.size() > 0) {
                             return columnList;
                         }
                     }
                 } else {
                     // Connection has catalog only
-                    columnList = getColumnsFromPackageByTableName(catalog, columnSetName);
+                    columnList = genNewColumnsFromPackageByTableName(catalog, columnSetName);
                     if (columnList.size() > 0) {
                         return columnList;
                     }
@@ -647,7 +649,7 @@ public final class ColumnHelper {
         } else if (schemaList != null && schemaList.size() != 0) {
             // Connection has schema only
             for (Schema schema : schemaList) {
-                columnList = getColumnsFromPackageByTableName(schema, columnSetName);
+                columnList = genNewColumnsFromPackageByTableName(schema, columnSetName);
                 if (columnList.size() > 0) {
                     return columnList;
                 }
@@ -656,7 +658,7 @@ public final class ColumnHelper {
         return columnList;
     }
 
-    private static List<TdColumn> getColumnsFromPackageByTableName(orgomg.cwm.objectmodel.core.Package packageOrSchema,
+    private static List<TdColumn> genNewColumnsFromPackageByTableName(orgomg.cwm.objectmodel.core.Package packageOrSchema,
             String columnSetName) {
         List<TdColumn> columnList = new ArrayList<TdColumn>();
         List<NamedColumnSet> columnSetList = PackageHelper.getNmaedColumnSets(packageOrSchema);
@@ -665,8 +667,14 @@ public final class ColumnHelper {
                 continue;
             }
             if (colSet.getName().equals(columnSetName)) {
-                columnList = ColumnSetHelper.getColumns(colSet);
-                return columnList;
+                List<TdColumn> oldColumns = ColumnSetHelper.getColumns(colSet);
+                // Get a new instance of TdColumn.
+                for (TdColumn oldCol : oldColumns) {
+                    TdColumn newCol = RelationalPackage.eINSTANCE.getRelationalFactory().createTdColumn();
+                    newCol = EcoreUtil.copy(oldCol);
+                    columnList.add(newCol);
+                }
+                break;
             }
         }
         return columnList;
