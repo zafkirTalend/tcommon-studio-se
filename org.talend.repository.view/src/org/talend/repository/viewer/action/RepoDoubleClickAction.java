@@ -65,6 +65,10 @@ public class RepoDoubleClickAction extends Action {
         }
     }
 
+    public StructuredViewer getStructuredViewer() {
+        return structuredViewer;
+    }
+
     /*
      * (non-Javadoc)
      * 
