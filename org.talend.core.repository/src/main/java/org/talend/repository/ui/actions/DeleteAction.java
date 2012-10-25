@@ -598,7 +598,14 @@ public class DeleteAction extends AContextualAction {
                     }
                 }
             }
-            factory.deleteObjectLogical(objToDelete);
+            try {
+                factory.deleteObjectLogical(objToDelete);
+            } catch (BusinessException e) {
+                final Shell shell = getShell();
+                MessageDialog.openWarning(shell, Messages.getString("DeleteAction.warning.title"), objToDelete.getLabel()
+                        + Messages.getString("DeleteAction.warning.message"));
+                throw new BusinessException(e.getMessage());
+            }
             removeConnFromSQLExplorer(repositoryNode);
         }
     }
