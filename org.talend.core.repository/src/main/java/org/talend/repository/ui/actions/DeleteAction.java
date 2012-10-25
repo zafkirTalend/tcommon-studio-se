@@ -599,7 +599,14 @@ public class DeleteAction extends AContextualAction {
                     }
                 }
             }
-            factory.deleteObjectLogical(objToDelete);
+            try {
+                factory.deleteObjectLogical(objToDelete);
+            } catch (BusinessException e) {
+                final Shell shell = getShell();
+                MessageDialog.openWarning(shell, Messages.getString("DeleteAction.warning.title"), objToDelete.getLabel()
+                        + Messages.getString("DeleteAction.warning.message"));
+                throw new BusinessException(e.getMessage());
+            }
             removeConnFromSQLExplorer(repositoryNode);
         }
     }
@@ -1051,7 +1058,7 @@ public class DeleteAction extends AContextualAction {
                 && nodeObject.getProperty().getItem() != null
                 && (nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_OTHER
                         || nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_USER || RepositoryManager
-                            .isOpenedItemInEditor(nodeObject)) && !(DELETE_FOREVER_TITLE.equals(getText()))) {
+                        .isOpenedItemInEditor(nodeObject)) && !(DELETE_FOREVER_TITLE.equals(getText()))) {
 
             final String title = Messages.getString("DeleteAction.error.title"); //$NON-NLS-1$
             String nodeName = ERepositoryObjectType.getDeleteFolderName(nodeObject.getRepositoryObjectType());
