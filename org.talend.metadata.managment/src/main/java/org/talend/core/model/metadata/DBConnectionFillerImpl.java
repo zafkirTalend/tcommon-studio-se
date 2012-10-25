@@ -852,7 +852,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     if (element.equals("SYNONYM")) {
                         Statement stmt = ExtractMetaDataUtils.conn.createStatement();
                         ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
-                        String schemaname = catalogName + "." + schemaPattern + ".sysobjects";
+                        String schemaname = schemaPattern + ".sysobjects";
                         String sql = "select name from " + schemaname + " where xtype='SN'";
                         if (schemaPattern.equalsIgnoreCase("dbo")) {
                             // SELECT name AS object_name ,SCHEMA_NAME(schema_id) AS schema_name FROM sys.objects where
