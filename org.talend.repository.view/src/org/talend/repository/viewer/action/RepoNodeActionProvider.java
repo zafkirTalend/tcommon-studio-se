@@ -20,7 +20,9 @@ import org.eclipse.core.commands.IHandler;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IWorkbenchActionConstants;
@@ -121,9 +123,17 @@ public class RepoNodeActionProvider extends CommonActionProvider {
     }
 
     protected void makeActions() {
+        boolean isNewDoubleClickAction = false;
+        if (doubleClickAction != null) {
+            StructuredViewer structuredViewer = doubleClickAction.getStructuredViewer();
+            ISelection selection = structuredViewer.getSelection();
+            if (selection.isEmpty()) {
+                isNewDoubleClickAction = true;
+            }
+        }
 
         // FIXME need check this service for other product. because the extension point is in org.talend.core.
-        if (contextualsActions == null) {
+        if (contextualsActions == null || isNewDoubleClickAction) {
             ICommonViewerWorkbenchSite navWorkSite = ((ICommonViewerWorkbenchSite) getActionSite().getViewSite());
             IHandlerService handlerService = (IHandlerService) navWorkSite.getSite().getService(IHandlerService.class);
             IHandler handler = null;

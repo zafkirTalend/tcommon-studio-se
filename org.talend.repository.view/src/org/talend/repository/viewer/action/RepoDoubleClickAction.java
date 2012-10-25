@@ -63,6 +63,10 @@ public class RepoDoubleClickAction extends Action {
         }
     }
 
+    public StructuredViewer getStructuredViewer() {
+        return structuredViewer;
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -326,7 +330,8 @@ public class RepoDoubleClickAction extends Action {
                 }
 
             } else if (nodeType != null && nodeType.equals(ERepositoryObjectType.SERVICESOPERATION)) {
-                if (current.getClassForDoubleClick().getSimpleName().equals(Messages.getString("RepoDoubleClickAction.ServiceOperation"))) { //$NON-NLS-1$
+                if (current.getClassForDoubleClick().getSimpleName()
+                        .equals(Messages.getString("RepoDoubleClickAction.ServiceOperation"))) { //$NON-NLS-1$
                     return current;
                 }
 
