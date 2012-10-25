@@ -191,12 +191,7 @@ public class FormatterUtils {
         String doubleString = String.valueOf(arg);
         int index = doubleString.indexOf("E");
         if (index != -1) {
-            if (doubleString.charAt(index + 1) != '-') {
-            	return df.format(arg);
-            } else {
-            	String position = doubleString.substring(index + 2);
-                return String.format("%1." + position + "f", arg);
-            }
+    		return (new BigDecimal(doubleString)).toPlainString();
         }
         return doubleString;
     }
