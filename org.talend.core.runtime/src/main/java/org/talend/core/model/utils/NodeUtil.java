@@ -516,23 +516,24 @@ public class NodeUtil {
      * @return
      */
     public static String getPrivateConnClassName(final IConnection conn) {
-        // INode designedNode = node.getDesignSubjobStartNode();
-        INode node = conn.getSource();
-        if (node.isSubProcessStart() || !(NodeUtil.isDataAutoPropagated(node))) {
-            return conn.getUniqueName();
-        }
-        List<? extends IConnection> listInConns = node.getIncomingConnections();
-        IConnection inConnTemp = null;
-        if (listInConns != null && listInConns.size() > 0) {
-            inConnTemp = listInConns.get(0);
-            if (inConnTemp.getLineStyle().hasConnectionCategory(IConnectionCategory.DATA)) {
-                return getPrivateConnClassName(inConnTemp);
-            }
-            if (inConnTemp.getLineStyle().hasConnectionCategory(IConnectionCategory.USE_ITERATE)) {
-                return conn.getUniqueName();
-            }
-        }
-        return ""; //$NON-NLS-1$
+    	
+    	if (conn.getLineStyle().hasConnectionCategory(IConnectionCategory.DATA)) {
+    		INode node = conn.getSource();
+	        if (node.isSubProcessStart() || !(NodeUtil.isDataAutoPropagated(node))) {
+	            return conn.getUniqueName();
+	        }
+	        List<? extends IConnection> listInConns = node.getIncomingConnections();
+	        if (listInConns != null && listInConns.size() > 0) {
+	            String retResult = getPrivateConnClassName(listInConns.get(0)); //$NON-NLS-1$
+            	if (retResult==null) {
+            		return conn.getUniqueName();
+            	} else {
+            		return retResult;
+            	}
+	        }
+    	}
+    	return null; //$NON-NLS-2$
+    	
     }
     /**
      * DOC jyhu
