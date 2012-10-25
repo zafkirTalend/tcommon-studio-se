@@ -25,6 +25,7 @@ import java.util.regex.Pattern;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -79,6 +80,8 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.ui.context.ContextManagerHelper;
+import org.talend.core.ui.context.SelectRepositoryContextGroupDialog;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
@@ -510,7 +513,8 @@ public final class ConnectionContextHelper {
                     // find added variables
                     Set<String> addedVars = checkAndAddContextVariables(contextItem, neededVars, process.getContextManager(),
                             false);
-                    if (addedVars != null && !addedVars.isEmpty()) {
+                    if (addedVars != null && !addedVars.isEmpty()
+                            && !isAddContextVar(contextItem, process.getContextManager(), neededVars)) {
                         boolean added = false;
                         if (ignoreContextMode) {
                             addContextVarForJob(process, contextItem, addedVars);
@@ -519,9 +523,7 @@ public final class ConnectionContextHelper {
                             // show
                             Map<String, Set<String>> addedVarsMap = new HashMap<String, Set<String>>();
                             addedVarsMap.put(connItem.getProperty().getId(), addedVars);
-                            ShowAddedContextdialog showDialog = new ShowAddedContextdialog(addedVarsMap, true);
-                            if (showDialog.open() == Window.OK) {
-                                addContextVarForJob(process, contextItem, addedVars);
+                            if (showContextdialog(process, contextItem, process.getContextManager(), addedVarsMap, addedVars)) {
                                 added = true;
                             }
                         }
@@ -538,6 +540,39 @@ public final class ConnectionContextHelper {
             }
 
         }
+    }
+
+    public static boolean showContextdialog(IProcess2 process, ContextItem contextItem, IContextManager contextManager,
+            Map<String, Set<String>> addedVarsMap, Set<String> addedVars) {
+        boolean isAddContext = false;
+        ShowAddedContextdialog showDialog = new ShowAddedContextdialog(addedVarsMap, true);
+        if (showDialog.open() == Window.OK) {
+            // construct selectedContextItems
+            List<ContextItem> selectedContextItems = new ArrayList<ContextItem>();
+            selectedContextItems.add(contextItem);
+            // check Show ContextGroup
+            Set<String> groupSet = new HashSet<String>();
+            for (ContextType type : (List<ContextType>) contextItem.getContext()) {
+                groupSet.add(type.getName());
+            }
+            Set<String> curGroupSet = new HashSet<String>();
+            for (IContext context : contextManager.getListContext()) {
+                curGroupSet.add(context.getName());
+            }
+            Set<String> contextGoupNameSet = new HashSet<String>();
+            if (!curGroupSet.containsAll(groupSet)) {
+                // ask to copy all context group
+                SelectRepositoryContextGroupDialog groupDialog = new SelectRepositoryContextGroupDialog(PlatformUI.getWorkbench()
+                        .getDisplay().getActiveShell(), contextManager, new ContextManagerHelper(contextManager),
+                        selectedContextItems);
+                if (Dialog.OK == groupDialog.open()) {
+                    contextGoupNameSet = groupDialog.getSelectedContextGroupName();
+                }
+            }
+            addContextVarForJob(process, contextItem, contextManager, addedVars, contextGoupNameSet);
+            isAddContext = true;
+        }
+        return isAddContext;
     }
 
     /**
@@ -762,6 +797,125 @@ public final class ConnectionContextHelper {
                 commandStack.execute(cmd);
             }
         }
+    }
+
+    public static void addContextVarForJob(IProcess2 process, final ContextItem contextItem,
+            final IContextManager contextManager, final Set<String> addedVars, final Set<String> contextGoupNameSet) {
+        if (process == null || contextItem == null || contextManager == null || addedVars == null || addedVars.isEmpty()) {
+            return;
+        }
+        CommandStack commandStack = process.getCommandStack();
+
+        Command cmd = new Command() {
+
+            @Override
+            public void execute() {
+                checkAndAddContextVariables(contextItem, contextManager, addedVars, contextGoupNameSet);
+            }
+        };
+        if (commandStack == null) {
+            cmd.execute();
+        } else {
+            commandStack.execute(cmd);
+        }
+    }
+
+    public static void checkAndAddContextVariables(ContextItem item, IContextManager contextManager, Set<String> addedVars,
+            Set<String> contextGoupNameSet) {
+        EList context = item.getContext();
+        Map<String, List<ContextParameterTypeImpl>> map = new HashMap<String, List<ContextParameterTypeImpl>>();
+        Iterator iterator = context.iterator();
+        while (iterator.hasNext()) {
+            Object obj = iterator.next();
+            if (obj instanceof ContextTypeImpl) {
+                ContextTypeImpl contextTypeImpl = (ContextTypeImpl) obj;
+                String name = contextTypeImpl.getName();
+                EList contextParameters = contextTypeImpl.getContextParameter();
+                Iterator contextParas = contextParameters.iterator();
+                List<ContextParameterTypeImpl> list = new ArrayList<ContextParameterTypeImpl>();
+                while (contextParas.hasNext()) {
+                    ContextParameterTypeImpl contextParameterType = (ContextParameterTypeImpl) contextParas.next();
+                    list.add(contextParameterType);
+                }
+                map.put(name, list);
+            }
+        }
+        if (map.isEmpty()) {
+            return;
+        }
+        String defaultContextName = item.getDefaultContext();
+        JobContext defJobContext = null;
+        for (IContext con : contextManager.getListContext()) {
+            if (con.getName() != null && (con.getName()).equals(defaultContextName)) {
+                contextGoupNameSet.add(con.getName());
+                if (con instanceof JobContext) {
+                    defJobContext = (JobContext) con;
+                }
+            }
+        }
+
+        for (String key : map.keySet()) {
+            for (String groupName : contextGoupNameSet) {
+                if (key.equals(groupName)) {
+                    List<ContextParameterTypeImpl> list = map.get(key);
+                    JobContext jobContext = new JobContext(key);
+                    boolean isDefContext = false;
+                    if (key.equals(defaultContextName) && defJobContext != null) {
+                        jobContext = defJobContext;
+                        isDefContext = true;
+                    }
+
+                    for (ContextParameterTypeImpl contextImpl : list) {
+                        for (String var : addedVars) {
+                            if (var.equals(contextImpl.getName())) {
+                                JobContextParameter contextParam = new JobContextParameter();
+                                ContextUtils.updateParameter(contextImpl, contextParam);
+                                contextParam.setSource(item.getProperty().getId());
+                                contextParam.setContext(jobContext);
+                                jobContext.getContextParameterList().add(contextParam);
+                            }
+                        }
+                    }
+                    if (!isDefContext) {
+                        contextManager.getListContext().add(jobContext);
+                    }
+                    break;
+                }
+            }
+        }
+
+    }
+
+    public static boolean isAddContextVar(ContextItem contextItem, IContextManager contextManager, Set<String> neededVars) {
+        boolean isAdd = true;
+        Set<String> addedVars = new HashSet<String>();
+        for (IContext context : contextManager.getListContext()) {
+            ContextType contextType = null;
+            List<ContextType> contextTypeList = contextItem.getContext();
+            for (ContextType contye : contextTypeList) {
+                if (context.getName() != null && contye.getName().toLowerCase().equals(context.getName().toLowerCase())) {
+                    contextType = contye;
+                    break;
+                }
+            }
+            if (contextType != null) {
+                for (String var : neededVars) {
+                    if (context.getContextParameter(var) != null) {
+                        continue;
+                    }
+                    ContextParameterType param = ContextUtils.getContextParameterTypeByName(contextType, var);
+                    if (param != null) {
+                        addedVars.add(var);
+                    }
+                }
+                break;
+            }
+        }
+        if (addedVars != null && !addedVars.isEmpty()) {
+            isAdd = false;
+        }
+
+        return isAdd;
     }
 
     /**
