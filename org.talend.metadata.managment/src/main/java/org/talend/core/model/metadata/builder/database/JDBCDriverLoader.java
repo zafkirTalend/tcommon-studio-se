@@ -154,8 +154,11 @@ public class JDBCDriverLoader {
                 if (dbType.equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
                     connection = ConnectionUtils.createConnection(url, (Driver) (driver.newInstance()), info);
                 } else {
+//                	we need to change later when TDQ supports hive embedded mode.
+                	if(EDatabaseTypeName.HIVE.getDisplayName().equals(dbType) && "EMBEDDED".equalsIgnoreCase(dbVersion)){
+                		Thread.currentThread().setContextClassLoader(loader);
+                	}
 //                	ClassLoader currentContextCL = Thread.currentThread().getContextClassLoader();
-                    Thread.currentThread().setContextClassLoader(loader);
                     connection = wapperDriver.connect(url, info);
 //                    Thread.currentThread().setContextClassLoader(currentContextCL);
                 }
