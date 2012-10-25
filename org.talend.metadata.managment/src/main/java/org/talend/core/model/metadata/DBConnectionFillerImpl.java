@@ -141,6 +141,13 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             }
             // software
             DatabaseMetaData dbMetadata = ExtractMetaDataUtils.getDatabaseMetaData(sqlConnection, dbconn, false);
+
+            // MOD sizhaoliu TDQ-6316 The 2 tagged values should be added for all database including Hive
+            String productName = dbMetadata.getDatabaseProductName();
+            String productVersion = dbMetadata.getDatabaseProductVersion();
+            TaggedValueHelper.setTaggedValue(dbconn, TaggedValueHelper.DB_PRODUCT_NAME, productName);
+            TaggedValueHelper.setTaggedValue(dbconn, TaggedValueHelper.DB_PRODUCT_VERSION, productVersion);
+
             // for bug 22113, annotate it.
             // String connectionDbType = metadataBean.getDbType();
             // List<EDatabaseVersion4Drivers> dbTypeList = EDatabaseVersion4Drivers.indexOfByDbType(connectionDbType);
@@ -156,11 +163,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 // identifierQuote
                 String identifierQuote = dbMetadata.getIdentifierQuoteString();
                 ConnectionHelper.setIdentifierQuoteString(identifierQuote == null ? "" : identifierQuote, dbconn);
-
-                String productName = dbMetadata.getDatabaseProductName();
-                String productVersion = dbMetadata.getDatabaseProductVersion();
-                TaggedValueHelper.setTaggedValue(dbconn, TaggedValueHelper.DB_PRODUCT_NAME, productName);
-                TaggedValueHelper.setTaggedValue(dbconn, TaggedValueHelper.DB_PRODUCT_VERSION, productVersion);
 
                 // for bug 22113, annotate it.
                 // dbversion
