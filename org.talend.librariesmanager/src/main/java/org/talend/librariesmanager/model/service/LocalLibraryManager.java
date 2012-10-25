@@ -255,14 +255,9 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.IRepositoryBundleService#retrieve(java.util.Collection, java.lang.String,
-     * org.eclipse.core.runtime.IProgressMonitor[])
-     */
     @Override
-    public boolean retrieve(Collection<String> jarsNeeded, String pathToStore, IProgressMonitor... monitorWrap) {
+    public boolean retrieve(Collection<String> jarsNeeded, String pathToStore, boolean showDialog,
+            IProgressMonitor... monitorWrap) {
         if (jarsNeeded == null || jarsNeeded.size() == 0) {
             return false;
         }
@@ -275,12 +270,23 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 allIsOK = false;
             }
         }
-        if (!jarNotFound.isEmpty() && !CommonsPlugin.isHeadless()) {
+        if (showDialog && !jarNotFound.isEmpty() && !CommonsPlugin.isHeadless()) {
             Shell shell = Display.getCurrent().getActiveShell();
             ModulesInstaller.installModules(new Shell(shell), jarNotFound.toArray(new String[jarNotFound.size()]));
         }
 
         return allIsOK;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.IRepositoryBundleService#retrieve(java.util.Collection, java.lang.String,
+     * org.eclipse.core.runtime.IProgressMonitor[])
+     */
+    @Override
+    public boolean retrieve(Collection<String> jarsNeeded, String pathToStore, IProgressMonitor... monitorWrap) {
+        return retrieve(jarsNeeded, pathToStore, true, monitorWrap);
     }
 
     /*
