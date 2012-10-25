@@ -32,7 +32,7 @@ my $rootpath = "/tmp/svnmerge.".$$;
 my $rooturl = "http://talendforge.org/svn";
 
 sub usage {
-	print "backport 123 456 ... from x.x/trunk to x.x/trunk\n";
+	print "backport 123 456 ... from x.x/trunk to x.x/trunk/branch-abc\n";
 }
 
 if (scalar @ARGV == 0) {
@@ -69,11 +69,14 @@ for my $arg(@ARGV) {
        } elsif ($arg =~ m/^(\d+)\.(\d+)\.(.*)$/) {
 	   $from = "branch ".$1.".".$2.".".$3;
 	   $fromurl = "branches/branch-".$1."_".$2."_".$3;
+       } elsif ($arg =~ /^branch-.*$/) {
+	   $from = $arg;
+	   $fromurl = "branches/".$arg;
        } elsif ($arg eq "to") {
 	   $type = 2;
        } else {
 	   usage;
-	   die $arg." must be x.x or x.y.z or or trunk";
+	   die $arg." must be x.x or x.y.z or trunk or branch-abc.";
        }
    } elsif ($type == 2) {
        if ($arg eq "trunk") {
@@ -85,9 +88,12 @@ for my $arg(@ARGV) {
        } elsif ($arg =~ m/^(\d+)\.(\d+)\.(.*)$/) {
 	   $to = "branch ".$1.".".$2.".".$3;
 	   $tourl = "branches/branch-".$1."_".$2."_".$3;
+       } elsif ($arg =~ /^branch-.*$/) {
+	   $to = $arg;
+	   $tourl = "branches/".$arg;
        } else {
 	   usage;
-	   die $arg." must be x.x or x.y.z or trunk";
+	   die $arg." must be x.x or x.y.z or trunk or branch-abc.";
        }
    }
 }
