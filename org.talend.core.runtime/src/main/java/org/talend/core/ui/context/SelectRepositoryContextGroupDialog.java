@@ -79,7 +79,7 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
 
     private Set<String> nameSet = new HashSet<String>();
 
-    protected SelectRepositoryContextGroupDialog(Shell parentShell, IContextManager manager, ContextManagerHelper helper,
+    public SelectRepositoryContextGroupDialog(Shell parentShell, IContextManager manager, ContextManagerHelper helper,
             List<ContextItem> selectedContextItems) {
         super(parentShell);
         setBlockOnOpen(true);
