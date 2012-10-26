@@ -46,6 +46,9 @@ public class FileConstants {
     // MOD klliu 2010-11-26
     public static final String JRXML_EXTENSION = "jrxml"; //$NON-NLS-1$
 
+    /*
+     * file suffix
+     */
     public static final String PROPERTIES_FILE_SUFFIX = '.' + PROPERTIES_EXTENSION;
 
     public static final String ITEM_FILE_SUFFIX = '.' + ITEM_EXTENSION;
@@ -67,4 +70,13 @@ public class FileConstants {
     public static final String SH_FILE_SUFFIX = ".sh"; //$NON-NLS-1$
 
     public static final String BAT_FILE_SUFFIX = ".bat"; //$NON-NLS-1$
+
+    public static final String KAR_FILE_SUFFIX = ".kar"; //$NON-NLS-1$
+
+    /*
+     * file names
+     */
+    public static final String MANIFEST_MF_FILE_NAME = "MANIFEST.MF"; //$NON-NLS-1$
+
+    public static final String META_INF_FOLDER_NAME = "META-INF"; //$NON-NLS-1$
 }

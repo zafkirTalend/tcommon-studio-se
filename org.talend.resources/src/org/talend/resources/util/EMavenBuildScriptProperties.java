@@ -21,6 +21,7 @@ package org.talend.resources.util;
  */
 public enum EMavenBuildScriptProperties {
     ItemProjectName,
+    ItemGroupName,
     ItemName,
     ItemVersion,
     //

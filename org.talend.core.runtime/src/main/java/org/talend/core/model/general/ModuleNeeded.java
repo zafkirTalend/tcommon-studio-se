@@ -244,4 +244,83 @@ public class ModuleNeeded {
             return moduleName + "[" + bundleName + ":" + bundleVersion + "]";
         }
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        int hashCode = 31;
+        if (this.getModuleName() != null) {
+            hashCode *= this.getModuleName().hashCode();
+        }
+        if (this.getBundleName() != null) {
+            hashCode *= this.getBundleName().hashCode();
+        }
+        if (this.getBundleVersion() != null) {
+            hashCode *= this.getBundleVersion().hashCode();
+        }
+        hashCode *= new Boolean(this.isRequired()).hashCode();
+        return hashCode;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof ModuleNeeded)) {
+            return false;
+        }
+        ModuleNeeded other = (ModuleNeeded) obj;
+
+        // ModuleName
+        if (other.getModuleName() == null) {
+            if (this.getModuleName() != null) {
+                return false;
+            }
+        } else {
+            if (this.getModuleName() == null) {
+                return false;
+            } else if (!other.getModuleName().equals(this.getModuleName())) {
+                return false;
+            }
+        }
+        // BundleName
+        if (other.getBundleName() == null) {
+            if (this.getBundleName() != null) {
+                return false;
+            }
+        } else {
+            if (this.getBundleName() == null) {
+                return false;
+            } else if (!other.getBundleName().equals(this.getBundleName())) {
+                return false;
+            }
+        }
+        // BundleVersion
+        if (other.getBundleVersion() == null) {
+            if (this.getBundleVersion() != null) {
+                return false;
+            }
+        } else {
+            if (this.getBundleVersion() == null) {
+                return false;
+            } else if (!other.getBundleVersion().equals(this.getBundleVersion())) {
+                return false;
+            }
+        }
+        if (other.isRequired() != this.isRequired()) {
+            return false;
+        }
+        return true;
+    }
+
 }
