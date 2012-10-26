@@ -36,6 +36,7 @@ public class ByteArrayResource extends ResourceImpl {
         super(uri);
     }
 
+    @Override
     protected void doLoad(InputStream inputStream, Map options) throws IOException {
         BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
         byte[] content = new byte[bufferedInputStream.available()];
@@ -46,13 +47,17 @@ public class ByteArrayResource extends ResourceImpl {
         getContents().add(byteArray);
     }
 
+    @Override
     protected void doSave(OutputStream outputStream, Map options) throws IOException {
-        ByteArray byteArray = (ByteArray) getContents().get(0);
-        BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream);
-        bufferedOutputStream.write(byteArray.getInnerContent());
-        bufferedOutputStream.flush();
+        if (getContents().size() > 0) {
+            ByteArray byteArray = (ByteArray) getContents().get(0);
+            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream);
+            bufferedOutputStream.write(byteArray.getInnerContent());
+            bufferedOutputStream.flush();
+        }
     }
-    
+
+    @Override
     protected void doUnload() {
         super.doUnload();
     }
