@@ -726,11 +726,13 @@ public final class FilesUtils {
      * 
      * @param zipFile The component zip file
      * @param targetFolder The user folder
+     * @param fileSuffixes Case-insensitive Suffixes , if these parameter are set, only the files named with these
+     * suffixes will be extracted
      * @return
      * @throws Exception
      */
     @SuppressWarnings("unchecked")
-    public static void unzip(String zipFile, String targetFolder) throws Exception {
+    public static void unzip(String zipFile, String targetFolder, String... fileSuffixes) throws Exception {
         Exception exception = null;
         ZipFile zip = new ZipFile(zipFile);
         byte[] buf = new byte[8192];
@@ -748,6 +750,9 @@ public final class FilesUtils {
                     }
                 } else {
 
+                    if (fileSuffixes.length > 0 && !isReservedFile(file.getName(), fileSuffixes)) {
+                        continue;
+                    }
                     if (!file.getParentFile().exists()) {
                         file.getParentFile().mkdirs();
                     }
@@ -790,6 +795,18 @@ public final class FilesUtils {
                 throw exception;
             }
         }
+    }
+
+    private static boolean isReservedFile(String name, String[] fileSuffixes) {
+        if (name != null) {
+            String checkedName = name.toLowerCase();
+            for (String element : fileSuffixes) {
+                if (element.equals(checkedName) || checkedName.endsWith(element)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /** fullPath,eg: "D:\\ALL_integrate_patch_v4.2.2.r63143-20110722.zip **/
