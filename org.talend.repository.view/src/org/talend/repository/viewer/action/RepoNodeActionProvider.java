@@ -124,10 +124,10 @@ public class RepoNodeActionProvider extends CommonActionProvider {
 
     protected void makeActions() {
         boolean isNewDoubleClickAction = false;
-        if (doubleClickAction != null) {
+        if (doubleClickAction != null && doubleClickAction.getStructuredViewer() != null) {
             StructuredViewer structuredViewer = doubleClickAction.getStructuredViewer();
             ISelection selection = structuredViewer.getSelection();
-            if (selection.isEmpty()) {
+            if (selection == null || selection.isEmpty()) {
                 isNewDoubleClickAction = true;
             }
         }
