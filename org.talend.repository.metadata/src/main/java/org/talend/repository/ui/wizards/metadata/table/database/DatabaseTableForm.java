@@ -16,14 +16,19 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -73,6 +78,7 @@ import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
+import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
@@ -191,6 +197,8 @@ public class DatabaseTableForm extends AbstractForm {
 
     private DatabaseConnection temConnection;
 
+    private Map<String, Map<String, String>> labelChanged;
+
     /**
      * TableForm Constructor to use by RCP Wizard.
      * 
@@ -223,6 +231,7 @@ public class DatabaseTableForm extends AbstractForm {
         if (typeName != null && typeName.isUseProvider()) {
             this.provider = ExtractMetaDataFromDataBase.getProviderByDbType(metadataconnection.getDbType());
         }
+        labelChanged = new HashMap<String, Map<String, String>>();
         setupForm();
     }
 
@@ -248,6 +257,7 @@ public class DatabaseTableForm extends AbstractForm {
      * Initialize value, forceFocus first field for right Click (new Table).
      * 
      */
+    @Override
     public void initialize() {
 
     }
@@ -301,14 +311,14 @@ public class DatabaseTableForm extends AbstractForm {
         String[] allTableLabel = tablenames.toArray(new String[0]);
         Arrays.sort(allTableLabel);
 
-        for (int i = 0; i < allTableLabel.length; i++) {
-            if (allTableLabel[i].equals(metadataTable.getLabel())) {
+        for (String element : allTableLabel) {
+            if (element.equals(metadataTable.getLabel())) {
                 TableItem subItem = new TableItem(tableNavigator, SWT.NONE);
-                subItem.setText(allTableLabel[i]);
+                subItem.setText(element);
                 tableNavigator.setSelection(subItem);
             } else /* if (!TableHelper.isDeleted(TableHelper.findByLabel(getConnection(), allTableLabel[i]))) */{
                 TableItem subItem = new TableItem(tableNavigator, SWT.NULL);
-                subItem.setText(allTableLabel[i]);
+                subItem.setText(element);
             }
         }
     }
@@ -353,6 +363,7 @@ public class DatabaseTableForm extends AbstractForm {
         // add listener to tableMetadata (listen the event of the toolbars)
         metadataEditor.addAfterOperationListListener(new IListenableListListener() {
 
+            @Override
             public void handleEvent(ListenableListEvent event) {
                 changeTableNavigatorStatus(checkFieldsValue());
             }
@@ -390,6 +401,7 @@ public class DatabaseTableForm extends AbstractForm {
         ProgressMonitorDialog progressDialog = new ProgressMonitorDialog(this.getShell());
         IRunnableWithProgress runnable = new IRunnableWithProgress() {
 
+            @Override
             public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                 try {
                     monitor.beginTask("", IProgressMonitor.UNKNOWN); //$NON-NLS-1$
@@ -416,6 +428,7 @@ public class DatabaseTableForm extends AbstractForm {
                             final int count = size;
                             Display.getDefault().syncExec(new Runnable() {
 
+                                @Override
                                 public void run() {
                                     tableCombo.setVisibleItemCount(count);
                                     tableCombo.removeAll();
@@ -464,7 +477,7 @@ public class DatabaseTableForm extends AbstractForm {
         case JAVA:
             String returnValue = bean.getDefaultValue();
             if (bean.getTalendType().equals(JavaTypesManager.STRING.getId())
-                    || bean.getTalendType().equals(JavaTypesManager.DATE.getId())) { //$NON-NLS-1$ //$NON-NLS-2$
+                    || bean.getTalendType().equals(JavaTypesManager.DATE.getId())) {
                 if (returnValue == null || returnValue.length() == 0) {
                     returnValue = null;
                 } else if (returnValue.equalsIgnoreCase("null")) { //$NON-NLS-1$
@@ -497,6 +510,7 @@ public class DatabaseTableForm extends AbstractForm {
         }
     }
 
+    @Override
     protected void addFields() {
         int leftCompositeWidth = 125;
         int rightCompositeWidth = WIDTH_GRIDDATA_PIXEL - leftCompositeWidth;
@@ -660,8 +674,9 @@ public class DatabaseTableForm extends AbstractForm {
         addTableButton = new UtilsButton(group, displayStr, girdData);
         displayStr = Messages.getString("DatabaseTableForm.RemoveTable");
         buttonSize = gc.stringExtent(displayStr);
-        if (buttonSize.x + 12 > girdData.widthHint)
+        if (buttonSize.x + 12 > girdData.widthHint) {
             girdData.widthHint = buttonSize.x + 12;
+        }
         girdData = new GridData(buttonSize.x + 12, HEIGHT_BUTTON_PIXEL);
         girdData.horizontalAlignment = SWT.CENTER;
         removeTableButton = new UtilsButton(group, displayStr, girdData);
@@ -673,9 +688,11 @@ public class DatabaseTableForm extends AbstractForm {
      * addButtonControls.
      * 
      */
+    @Override
     protected void addUtilsButtonListeners() {
         button.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(final SelectionEvent e) {
                 if (button.getEnabled()) {
 
@@ -698,6 +715,7 @@ public class DatabaseTableForm extends AbstractForm {
         // Event retreiveSchemaButton
         retreiveSchemaButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(final SelectionEvent e) {
                 if (retreiveSchemaButton.getEnabled()) {
                     pressRetreiveSchemaButton();
@@ -709,6 +727,7 @@ public class DatabaseTableForm extends AbstractForm {
         // Event guessSchemaButton
         guessSchemaButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(final SelectionEvent e) {
                 if (guessSchemaButton.getEnabled()) {
                     pressGuessSchemaButton();
@@ -720,6 +739,7 @@ public class DatabaseTableForm extends AbstractForm {
         // Event addTable Button
         addTableButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(final SelectionEvent e) {
                 if (addTableButton.getEnabled()) {
                     addTableButton.setEnabled(true);
@@ -858,11 +878,13 @@ public class DatabaseTableForm extends AbstractForm {
     /**
      * Main Fields addControls.
      */
+    @Override
     protected void addFieldsListeners() {
 
         // Navigation : when the user select a table
         tableNavigator.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 String schemaLabel = tableNavigator.getSelection()[0].getText();
                 metadataTable = TableHelper.findByLabel(getConnection(), schemaLabel);
@@ -878,6 +900,7 @@ public class DatabaseTableForm extends AbstractForm {
         // nameText : Event modifyText
         nameText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 String labelText = nameText.getText();
                 MetadataToolHelper.validateSchema(labelText);
@@ -893,6 +916,7 @@ public class DatabaseTableForm extends AbstractForm {
         // nameText : Event KeyListener
         nameText.addKeyListener(new KeyAdapter() {
 
+            @Override
             public void keyPressed(KeyEvent e) {
                 MetadataToolHelper.checkSchema(getShell(), e);
             }
@@ -901,6 +925,7 @@ public class DatabaseTableForm extends AbstractForm {
         // commentText : Event modifyText
         commentText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 metadataTable.setComment(commentText.getText());
             }
@@ -911,6 +936,7 @@ public class DatabaseTableForm extends AbstractForm {
     /**
      * Ensures that fields are set. Update checkEnable / use to checkTableSetting().
      */
+    @Override
     protected boolean checkFieldsValue() {
 
         updateRetreiveSchemaButton();
@@ -931,13 +957,13 @@ public class DatabaseTableForm extends AbstractForm {
     private boolean checkAllTablesIsCorrect() {
         Set<MetadataTable> tableset = ConnectionHelper.getTables(getConnection());
         MetadataTable[] tables = tableset.toArray(new MetadataTable[0]);
-        for (int i = 0; i < tables.length; i++) {
-            MetadataTable table = (MetadataTable) tables[i];
+        for (MetadataTable table2 : tables) {
+            MetadataTable table = table2;
 
             String[] exisNames = TableHelper.getTableNames(getConnection(), table.getLabel());
             List existNames = existingNames == null ? Collections.EMPTY_LIST : Arrays.asList(exisNames);
 
-            if (StringUtils.isEmpty(table.getLabel())) { //$NON-NLS-1$
+            if (StringUtils.isEmpty(table.getLabel())) {
                 updateStatus(IStatus.ERROR, Messages.getString("DatabaseTableForm.nameAlert")); //$NON-NLS-1$
                 return false;
 
@@ -1142,6 +1168,7 @@ public class DatabaseTableForm extends AbstractForm {
      * 
      * @see org.talend.repository.ui.swt.AbstractForm#adaptFormToReadOnly()
      */
+    @Override
     protected void adaptFormToReadOnly() {
         readOnly = isReadOnly();
 
@@ -1158,12 +1185,64 @@ public class DatabaseTableForm extends AbstractForm {
      * 
      * @see org.eclipse.swt.widgets.Control#setVisible(boolean)
      */
+    @Override
     public void setVisible(boolean visible) {
         super.setVisible(visible);
+
+        Adapter adaptor = new Adapter() {
+
+            @Override
+            public Notifier getTarget() {
+                return null;
+            }
+
+            @Override
+            public boolean isAdapterForType(Object arg0) {
+                return false;
+            }
+
+            @Override
+            public void notifyChanged(Notification arg0) {
+                int type = arg0.getEventType();
+                int featureId = arg0.getFeatureID(ConnectionPackage.class);
+                if (type == Notification.SET && featureId == ConnectionPackage.ABSTRACT_METADATA_OBJECT__LABEL) {
+                    MetadataColumn column = (MetadataColumn) arg0.getNotifier();
+                    String tableName = column.getTable().getLabel();
+                    Map<String, String> columnChanged = labelChanged.get(tableName);
+                    if (columnChanged == null) {
+                        columnChanged = new HashMap<String, String>();
+                        labelChanged.put(tableName, columnChanged);
+                    }
+                    String originalColumnName = columnChanged.get(arg0.getOldStringValue());
+                    if (originalColumnName == null) {
+                        columnChanged.put(arg0.getNewStringValue(), arg0.getOldStringValue());
+                    } else {
+                        columnChanged.clear();
+                        columnChanged.put(arg0.getNewStringValue(), originalColumnName);
+                    }
+                }
+            }
+
+            @Override
+            public void setTarget(Notifier arg0) {
+            }
+
+        };
+
         if (visible) {
             initializeForm();
             // bug 16595
             // checkConnection(false);
+
+            for (MetadataColumn column : metadataTable.getColumns()) {
+                column.eAdapters().add(adaptor);
+            }
+        } else {
+            for (MetadataColumn column : metadataTable.getColumns()) {
+                if (column.eAdapters().contains(adaptor)) {
+                    column.eAdapters().remove(adaptor);
+                }
+            }
         }
         if (isReadOnly() != readOnly) {
             adaptFormToReadOnly();
@@ -1249,6 +1328,15 @@ public class DatabaseTableForm extends AbstractForm {
         this.addTableButton.setVisible(isVisible);
         this.removeTableButton.setVisible(isVisible);
 
+    }
+
+    /**
+     * Getter for labelChanged.
+     * 
+     * @return the labelChanged
+     */
+    public Map<String, Map<String, String>> getLabelChanged() {
+        return this.labelChanged;
     }
 
 }
