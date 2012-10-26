@@ -13,6 +13,7 @@
 package org.talend.repository.ui.wizards.metadata.table.database;
 
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.jface.dialogs.IDialogPage;
 import org.eclipse.jface.wizard.IWizardPage;
@@ -82,6 +83,7 @@ public class DatabaseTableWizardPage extends WizardPage {
      * 
      * @see IDialogPage#createControl(Composite)
      */
+    @Override
     public void createControl(final Composite parent) {
 
         tableForm = new DatabaseTableForm(parent, connectionItem, metadataTable, managerConnection, this, temConnection,
@@ -91,6 +93,7 @@ public class DatabaseTableWizardPage extends WizardPage {
 
         AbstractForm.ICheckListener listener = new AbstractForm.ICheckListener() {
 
+            @Override
             public void checkPerformed(final AbstractForm source) {
                 if (source.isStatusOnError()) {
                     DatabaseTableWizardPage.this.setPageComplete(false);
@@ -107,6 +110,7 @@ public class DatabaseTableWizardPage extends WizardPage {
         setControl(tableForm);
     }
 
+    @Override
     public IWizardPage getPreviousPage() {
         IWizardPage perviousPage = super.getPreviousPage();
         if (perviousPage instanceof SelectorTableWizardPage) {
@@ -116,5 +120,9 @@ public class DatabaseTableWizardPage extends WizardPage {
             }
         }
         return perviousPage;
+    }
+
+    public Map<String, Map<String, String>> getLabelChanged() {
+        return tableForm.getLabelChanged();
     }
 }

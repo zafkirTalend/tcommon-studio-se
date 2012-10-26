@@ -40,6 +40,7 @@ import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ITDQRepositoryService;
+import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -314,7 +315,24 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
                     for (ModelElement col : table.getFeature()) {
                         if (col instanceof MetadataColumn) {
                             MetadataColumn column = (MetadataColumn) col;
+                            // manually renamed column still get previous uuid
+                            String newLabel = column.getLabel();
+                            boolean changed = false;
+                            Map<String, Map<String, String>> labelChanged = tableWizardpage.getLabelChanged();
+                            if (labelChanged != null) {
+                                Map<String, String> map = labelChanged.get(column.getTable().getLabel());
+                                if (map != null && !map.isEmpty()) {
+                                    String originalLabel = map.get(newLabel);
+                                    if (originalLabel != null) {
+                                        column.setLabel(originalLabel);
+                                        changed = true;
+                                    }
+                                }
+                            }
                             String columnKey = generateKey(column);
+                            if (changed) {
+                                column.setLabel(newLabel);
+                            }
                             String oldColumnID = originalColumnsMap.get(columnKey);
                             if (oldColumnID != null) {
                                 setUUid(column, oldColumnID);
@@ -361,15 +379,17 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
      * @return
      */
     private String generateKey(ModelElement element) {
-
         StringBuilder buider = new StringBuilder();
 
         EObject eContainer = element.eContainer();
         if (eContainer != null && eContainer instanceof ModelElement) {
             buider.append(generateKey((ModelElement) eContainer));
         }
-
-        buider.append(element.getName() + "_");
+        if (element instanceof MetadataColumn) {
+            buider.append(((MetadataColumn) element).getLabel() + "_");
+        } else {
+            buider.append(element.getName() + "_");
+        }
 
         return buider.toString();
     }
@@ -446,7 +466,23 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
         if (!isNeed) {
             if (oldMetadataTable != null) {
                 List<IMetadataTable> newMetadataTable = RepositoryUpdateManager.getConversionMetadataTables(newconn);
-                isNeed = !RepositoryUpdateManager.sameAsMetadatTable(newMetadataTable, oldMetadataTable, oldTableMap);
+                // change the manually changed label to the old label before compare it
+                Map<String, Map<String, String>> labelChanged = tableWizardpage.getLabelChanged();
+                if (labelChanged != null) {
+                    for (IMetadataTable newTable : newMetadataTable) {
+                        Map<String, String> map = labelChanged.get(newTable.getLabel());
+                        if (map != null && !map.isEmpty()) {
+                            for (IMetadataColumn newColumn : newTable.getListColumns()) {
+                                String oldColumnLabel = map.get(newColumn.getLabel());
+                                if (oldColumnLabel != null) {
+                                    newColumn.setLabel(oldColumnLabel);
+                                }
+                            }
+                        }
+                    }
+                }
+                isNeed = !RepositoryUpdateManager.sameAsMetadatTable(newMetadataTable, oldMetadataTable, oldTableMap,
+                        IMetadataColumn.OPTIONS_IGNORE_DBCOLUMNNAME);
             }
         }
         if (!isNeed) {

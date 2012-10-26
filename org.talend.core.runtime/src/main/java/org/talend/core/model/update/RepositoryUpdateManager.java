@@ -296,6 +296,7 @@ public abstract class RepositoryUpdateManager {
             boolean cancelable = !needForcePropagation();
             IRunnableWithProgress runnable = new IRunnableWithProgress() {
 
+                @Override
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                     List<UpdateResult> returnResult = checkJobItemsForUpdate(monitor, getTypes(), onlyImpactAnalysis);
                     if (returnResult != null) {
@@ -455,7 +456,7 @@ public abstract class RepositoryUpdateManager {
         }
         // query for wizard
         if (parameter instanceof QueriesConnection && object instanceof Query) {
-            for (Query query : (List<Query>) ((QueriesConnection) parameter).getQuery()) {
+            for (Query query : ((QueriesConnection) parameter).getQuery()) {
                 if (query.getId().equals(((Query) object).getId())) {
                     return true;
                 }
@@ -508,7 +509,7 @@ public abstract class RepositoryUpdateManager {
                 Set<MetadataTable> tables = ConnectionHelper.getTables((Connection) parameter);
                 if (tables.size() == 1) {
                     IMetadataTable table1 = ((IMetadataTable) object);
-                    MetadataTable table2 = (MetadataTable) tables.toArray(new MetadataTable[0])[0];
+                    MetadataTable table2 = tables.toArray(new MetadataTable[0])[0];
                     return table1.getId().equals(table2.getId());
                 }
                 if (parameter instanceof XmlFileConnection) {
@@ -888,6 +889,7 @@ public abstract class RepositoryUpdateManager {
         final List<IEditorReference> list = new ArrayList<IEditorReference>();
         Display.getDefault().syncExec(new Runnable() {
 
+            @Override
             public void run() {
                 IEditorReference[] reference = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
                         .getEditorReferences();
@@ -915,6 +917,7 @@ public abstract class RepositoryUpdateManager {
         final List<IEditorReference> list = new ArrayList<IEditorReference>();
         Display.getDefault().syncExec(new Runnable() {
 
+            @Override
             public void run() {
                 IEditorReference[] reference = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
                         .getEditorReferences();
@@ -1491,7 +1494,7 @@ public abstract class RepositoryUpdateManager {
         Map<String, String> idAndNameMap = new HashMap<String, String>();
         Set<MetadataTable> tables = ConnectionHelper.getTables(connItem.getConnection());
         if (tables != null) {
-            for (MetadataTable table : (Set<MetadataTable>) tables) {
+            for (MetadataTable table : tables) {
                 idAndNameMap.put(table.getId(), table.getLabel());
             }
         }
@@ -1542,7 +1545,7 @@ public abstract class RepositoryUpdateManager {
         final String prefix = connItem.getProperty().getId() + UpdatesConstants.SEGMENT_LINE;
         Set<MetadataTable> tables = ConnectionHelper.getTables(connItem.getConnection());
         if (tables != null) {
-            for (MetadataTable table : (Set<MetadataTable>) tables) {
+            for (MetadataTable table : tables) {
                 String oldName = oldTableMap.get(table.getId());
                 String newName = table.getLabel();
                 if (oldName != null && !oldName.equals(newName)) {
@@ -1573,7 +1576,7 @@ public abstract class RepositoryUpdateManager {
         final String prefix = property.getId() + UpdatesConstants.SEGMENT_LINE;
         Set<MetadataTable> tables = ConnectionHelper.getTables(connection);
         if (tables != null) {
-            for (MetadataTable table : (Set<MetadataTable>) tables) {
+            for (MetadataTable table : tables) {
                 String oldName = oldTableMap.get(table.getId());
                 String newName = table.getLabel();
                 if (oldName != null && !oldName.equals(newName)) {
@@ -1691,8 +1694,7 @@ public abstract class RepositoryUpdateManager {
 
         List<IRepositoryViewObject> updateList = new ArrayList<IRepositoryViewObject>();
         List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
-                ((ConnectionItem) connItem).getProperty().getId(), ItemCacheManager.LATEST_VERSION,
-                RelationshipItemBuilder.PROPERTY_RELATION);
+                (connItem).getProperty().getId(), ItemCacheManager.LATEST_VERSION, RelationshipItemBuilder.PROPERTY_RELATION);
 
         /*
          * the id for schema which stored in .project file is like "_dlkjfhjkdfioi - metadata",not only indicate by a
@@ -1700,9 +1702,9 @@ public abstract class RepositoryUpdateManager {
          * RelationshipItemBuilder.PROPERTY_RELATION,it can't find
          */
         if (connItem instanceof GenericSchemaConnectionItem) {
-            String id = ((ConnectionItem) connItem).getProperty().getId();
+            String id = (connItem).getProperty().getId();
             if (table instanceof MetadataTable) {
-                id = id + " - " + ((MetadataTable) table).getLabel(); //$NON-NLS-N$ 
+                id = id + " - " + ((MetadataTable) table).getLabel();
             }
             List<RelationshipItemBuilder.Relation> schemaRelations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(id,
                     ItemCacheManager.LATEST_VERSION, RelationshipItemBuilder.SCHEMA_RELATION);
@@ -1809,6 +1811,11 @@ public abstract class RepositoryUpdateManager {
      */
     public static boolean sameAsMetadatTable(List<IMetadataTable> newTables, List<IMetadataTable> oldTables,
             Map<String, String> oldTableMap) {
+        return sameAsMetadatTable(newTables, oldTables, oldTableMap, IMetadataColumn.OPTIONS_NONE);
+    }
+
+    public static boolean sameAsMetadatTable(List<IMetadataTable> newTables, List<IMetadataTable> oldTables,
+            Map<String, String> oldTableMap, int options) {
         if (newTables == null || oldTables == null) {
             return false;
         }
@@ -1824,7 +1831,7 @@ public abstract class RepositoryUpdateManager {
                 if (oldTable == null) {
                     return false;
                 } else {
-                    if (!newTable.sameMetadataAs(oldTable, IMetadataColumn.OPTIONS_NONE)) {
+                    if (!newTable.sameMetadataAs(oldTable, options)) {
                         return false;
                     }
                 }
@@ -1935,7 +1942,7 @@ public abstract class RepositoryUpdateManager {
         IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         List<IRepositoryViewObject> updateList = new ArrayList<IRepositoryViewObject>();
         List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
-                ((ConnectionItem) connItem).getProperty().getId(), RelationshipItemBuilder.LATEST_VERSION,
+                (connItem).getProperty().getId(), RelationshipItemBuilder.LATEST_VERSION,
                 RelationshipItemBuilder.PROPERTY_RELATION);
 
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(table, relations) {
