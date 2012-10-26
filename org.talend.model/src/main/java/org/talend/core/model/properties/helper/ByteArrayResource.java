@@ -47,12 +47,14 @@ public class ByteArrayResource extends ResourceImpl {
     }
 
     protected void doSave(OutputStream outputStream, Map options) throws IOException {
-        ByteArray byteArray = (ByteArray) getContents().get(0);
-        BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream);
-        bufferedOutputStream.write(byteArray.getInnerContent());
-        bufferedOutputStream.flush();
+        if (getContents().size() > 0) {
+            ByteArray byteArray = (ByteArray) getContents().get(0);
+            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream);
+            bufferedOutputStream.write(byteArray.getInnerContent());
+            bufferedOutputStream.flush();
+        }
     }
-    
+
     protected void doUnload() {
         super.doUnload();
     }
