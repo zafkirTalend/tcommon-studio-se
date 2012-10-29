@@ -275,7 +275,9 @@ public class DatabaseForm extends AbstractForm {
         this.connectionItem = connectionItem;
         this.isCreation = isCreation;
         setConnectionItem(connectionItem); // must be first.
-        this.metadataconnection = ConvertionHelper.convert(getConnection());
+//      For bug TDI-22983, do not show the dialog to choose a context for the first time. 
+//      Changed by Marvin Wang on Oct. 29, 2012.
+        this.metadataconnection = ConvertionHelper.convert(getConnection(), true);
         this.typeName = EDatabaseTypeName.getTypeFromDbType(metadataconnection.getDbType());
         /* use provider for the databse didn't use JDBC,for example: HBase */
         if (typeName != null && typeName.isUseProvider()) {
@@ -1229,6 +1231,7 @@ public class DatabaseForm extends AbstractForm {
                 checkConnection();
                 if(isHiveDBConnSelected()){
             		if(isHiveEmbeddedMode()){
+//            			Thread.currentThread().setContextClassLoader(currentContextCL);
             			try {
             				forceSetFlagForHiveCreateDefaultDB();
             			} catch (ClassNotFoundException e1) {
