@@ -386,9 +386,6 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType SYSTEM_INDICATORS_FRAUDDETECTION = new ERepositoryObjectType(
             "repository.systemIndicators.fraudDetection", "TDQ_Libraries/Indicators/System Indicators/Fraud Detection", "SYSTEM_INDICATORS_FRAUDDETECTION", 103, true, "repository.systemIndicators.fraudDetectionStatistics.alias", new String[] { "DQ" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
 
-    public final static ERepositoryObjectType METADATA_HDFS = new ERepositoryObjectType(
-            "HDFS", "metadata/hdfs", "HDFS", 104, false, "HDFS", new String[] { "DI" }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
-
     private String alias;
 
     private String folder = "";
