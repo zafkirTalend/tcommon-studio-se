@@ -87,9 +87,9 @@ public class MetadataConnectionUtils {
 
     private static final String REPLACEMENT_CHARS = "_"; //$NON-NLS-1$
 
-    private static final String DRIVER_EXTENSION_POINT_ID = "org.talend.metadata.managment.DBDriver_extension";
+    private static final String DRIVER_EXTENSION_POINT_ID = "org.talend.metadata.managment.DBDriver_extension"; //$NON-NLS-1$
 
-    private static final String TOP_DRIVER_EXTENSION_ID = "org.talend.dataprofiler.core.TOPDriverService";
+    private static final String TOP_DRIVER_EXTENSION_ID = "org.talend.dataprofiler.core.TOPDriverService"; //$NON-NLS-1$
 
     private static List<String> sybaseDBProductsNames;
 
@@ -98,7 +98,7 @@ public class MetadataConnectionUtils {
 
     private static Driver derbyDriver;
 
-    public static final String FAKE_SCHEMA_SYNONYMS = "AllSynonyms";
+    public static final String FAKE_SCHEMA_SYNONYMS = "AllSynonyms"; //$NON-NLS-1$
 
     /**
      * 
@@ -113,7 +113,7 @@ public class MetadataConnectionUtils {
         TypedReturnCode<java.sql.Connection> rc = new TypedReturnCode<java.sql.Connection>();
         rc.setOk(false);
         if (metadataBean == null) {
-            rc.setMessage("connection information can not be null");
+            rc.setMessage("connection information can not be null"); //$NON-NLS-1$
             return rc;
         }
         String driverClass = metadataBean.getDriverClass();
@@ -123,8 +123,8 @@ public class MetadataConnectionUtils {
         String dbType = metadataBean.getDbType();
 
         Properties props = new Properties();
-        props.setProperty(TaggedValueHelper.PASSWORD, password == null ? "" : password);
-        props.setProperty(TaggedValueHelper.USER, userName == null ? "" : userName);
+        props.setProperty(TaggedValueHelper.PASSWORD, password == null ? "" : password); //$NON-NLS-1$
+        props.setProperty(TaggedValueHelper.USER, userName == null ? "" : userName); //$NON-NLS-1$
         if (dbType.equals(EDatabaseTypeName.ACCESS.getXmlName()) || dbType.equals(EDatabaseTypeName.GODBC.getXmlName())) {
             Charset systemCharset = CharsetToolkit.getInternalSystemCharset();
             if (systemCharset != null && systemCharset.displayName() != null) {
@@ -177,9 +177,9 @@ public class MetadataConnectionUtils {
             }
         } else {
             if (StringUtils.isNotBlank(dbUrl)) {
-                rc.setMessage("the driver of connection parameter can not be null");
+                rc.setMessage("the driver of connection parameter can not be null"); //$NON-NLS-1$
             } else {
-                rc.setMessage("the url of connection parameter can not be null");
+                rc.setMessage("the url of connection parameter can not be null"); //$NON-NLS-1$
             }
         }
         return rc;
@@ -378,7 +378,7 @@ public class MetadataConnectionUtils {
         if (isOdbcConnection(connectionMetadata)) {
             String userCatalogName = connectionMetadata.getConnection().getCatalog();
             if (catalogName != null
-                    && (catalogName.equals(userCatalogName) || userCatalogName == null || "null".equals(userCatalogName))) {
+                    && (catalogName.equals(userCatalogName) || userCatalogName == null || "null".equals(userCatalogName))) { //$NON-NLS-1$
 
                 return true;
             } else {
@@ -464,11 +464,11 @@ public class MetadataConnectionUtils {
     public static String[] getSybaseDBProductsName() {
         if (null == sybaseDBProductsNames) {
             sybaseDBProductsNames = new ArrayList<String>();
-            sybaseDBProductsNames.add("Adaptive Server Enterprise");
-            sybaseDBProductsNames.add(" Sybase Adaptive Server IQ");
-            sybaseDBProductsNames.add("Sybase");
-            sybaseDBProductsNames.add("Sybase IQ");
-            sybaseDBProductsNames.add("Adaptive Server Enterprise | Sybase Adaptive Server IQ");
+            sybaseDBProductsNames.add("Adaptive Server Enterprise"); //$NON-NLS-1$
+            sybaseDBProductsNames.add(" Sybase Adaptive Server IQ"); //$NON-NLS-1$
+            sybaseDBProductsNames.add("Sybase"); //$NON-NLS-1$
+            sybaseDBProductsNames.add("Sybase IQ"); //$NON-NLS-1$
+            sybaseDBProductsNames.add("Adaptive Server Enterprise | Sybase Adaptive Server IQ"); //$NON-NLS-1$
         }
         return sybaseDBProductsNames.toArray(new String[sybaseDBProductsNames.size()]);
     }
@@ -487,7 +487,7 @@ public class MetadataConnectionUtils {
         String driverClassName = metadataBean.getDriverClass();
         // MOD mzhao 2009-06-05,Bug 7571 Get driver from catch first, if not
         // exist then get a new instance.
-        if (driverClassName.equals("org.apache.derby.jdbc.EmbeddedDriver")) {
+        if (driverClassName.equals("org.apache.derby.jdbc.EmbeddedDriver")) { //$NON-NLS-1$
             DRIVER_CACHE.remove(driverClassName);
         }
         Driver driver = DRIVER_CACHE.get(driverClassName);
@@ -507,7 +507,7 @@ public class MetadataConnectionUtils {
                 IConfigurationElement[] configurationElement = extension.getConfigurationElements();
                 for (IConfigurationElement ele : configurationElement) {
                     try {
-                        IDriverService driverService = (IDriverService) ele.createExecutableExtension("class");
+                        IDriverService driverService = (IDriverService) ele.createExecutableExtension("class"); //$NON-NLS-1$
                         driver = driverService.getDriver(metadataBean);
                     } catch (Exception e) {
                         log.error(e, e);
@@ -582,7 +582,7 @@ public class MetadataConnectionUtils {
             IConfigurationElement[] configurationElement = extension.getConfigurationElements();
             for (IConfigurationElement ele : configurationElement) {
                 try {
-                    IDriverService driverService = (IDriverService) ele.createExecutableExtension("class");
+                    IDriverService driverService = (IDriverService) ele.createExecutableExtension("class"); //$NON-NLS-1$
                     return driverService.getTDQSupportDBTemplate();
                 } catch (Exception e) {
                     log.error(e, e);
@@ -604,14 +604,14 @@ public class MetadataConnectionUtils {
         if (productName == null) {
             return null;
         }
-        productName = productName.replaceAll(" ", "_");
+        productName = productName.replaceAll(" ", "_"); //$NON-NLS-1$ //$NON-NLS-2$
         EDataBaseType eDataBaseType = null;
         try {
             eDataBaseType = EDataBaseType.valueOf(productName);
         } catch (Exception e) {
             eDataBaseType = EDataBaseType.Microsoft_SQL_Server;
         }
-        String sqlStr = "";
+        String sqlStr = ""; //$NON-NLS-1$
         switch (eDataBaseType) {
         case Oracle:
             sqlStr = "SELECT COMMENTS FROM USER_TAB_COMMENTS WHERE TABLE_NAME='" + tableName + "'"; //$NON-NLS-1$ //$NON-NLS-2$
@@ -696,14 +696,14 @@ public class MetadataConnectionUtils {
         if (universe == null || universe.trim().length() == 0) {
             stub.setUsername(userName);
         } else {
-            stub.setUsername(universe + "/" + userName);
+            stub.setUsername(universe + "/" + userName); //$NON-NLS-1$
         }
         stub.setPassword(password);
         return stub;
     }
 
     public static void main(String[] args) {
-        MetadataConnectionUtils.getCommonQueryStr(EDataBaseType.Microsoft_SQL_Server.getProductName(), "tableName");
+        MetadataConnectionUtils.getCommonQueryStr(EDataBaseType.Microsoft_SQL_Server.getProductName(), "tableName"); //$NON-NLS-1$
     }
 
     /**
@@ -716,7 +716,7 @@ public class MetadataConnectionUtils {
     public static String createTechnicalName(final String functionalName) {
         String techname = "no_name"; //$NON-NLS-1$
         if (functionalName == null) {
-            log.warn("A functional name should not be null");
+            log.warn("A functional name should not be null"); //$NON-NLS-1$
             return techname;
         }
         // encode in base 64 so that all characters such white spaces, accents, everything that is dangerous when used
@@ -731,7 +731,7 @@ public class MetadataConnectionUtils {
             log.error(e, e);
         } // .replaceAll(B64ID, PREFIX);
         if (log.isDebugEnabled()) {
-            log.debug("Functional name: " + functionalName + " -> techname: " + techname);
+            log.debug("Functional name: " + functionalName + " -> techname: " + techname); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return techname;
     }
@@ -955,7 +955,7 @@ public class MetadataConnectionUtils {
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                        .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()));
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()));
     }
 
     public static boolean isHsqlInprocess(IMetadataConnection metadataConnection) {

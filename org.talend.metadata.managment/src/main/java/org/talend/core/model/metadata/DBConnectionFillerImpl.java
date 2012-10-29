@@ -88,7 +88,6 @@ import orgomg.cwm.resource.relational.enumerations.NullableType;
 
 /**
  * @author zshen
- * 
  */
 public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
@@ -109,11 +108,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         }
         DatabaseConnection dbconn = null;
         if (newConnection != null) {
-
             dbconn = (DatabaseConnection) newConnection;
         } else {
             dbconn = (DatabaseConnection) connection;
-
         }
         if (newConnection != null) {
             dbconn.setDriverJarPath(metadataBean.getDriverJarPath());
@@ -148,71 +145,14 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             TaggedValueHelper.setTaggedValue(dbconn, TaggedValueHelper.DB_PRODUCT_NAME, productName);
             TaggedValueHelper.setTaggedValue(dbconn, TaggedValueHelper.DB_PRODUCT_VERSION, productVersion);
 
-            // for bug 22113, annotate it.
-            // String connectionDbType = metadataBean.getDbType();
-            // List<EDatabaseVersion4Drivers> dbTypeList = EDatabaseVersion4Drivers.indexOfByDbType(connectionDbType);
             boolean isHive = dbconn.getDatabaseType().equals(EDatabaseTypeName.HIVE.getDisplayName());
             boolean isHiveJdbc = dbconn.getDatabaseType().equals(EDatabaseTypeName.GENERAL_JDBC.getDisplayName())
                     && dbconn.getDriverClass() != null
                     && dbconn.getDriverClass().equals(EDatabase4DriverClassName.HIVE.getDriverClass());
             if (!isHive && !isHiveJdbc) {
-                // TdSoftwareSystem softwareSystem = ConnectionHelper.getSoftwareSystem(sqlConnection);
-                // if (softwareSystem != null) {
-                // ConnectionHelper.setSoftwareSystem(dbconn, softwareSystem);
-                // }
-                // identifierQuote
                 String identifierQuote = dbMetadata.getIdentifierQuoteString();
-                ConnectionHelper.setIdentifierQuoteString(identifierQuote == null ? "" : identifierQuote, dbconn);
-
-                // for bug 22113, annotate it.
-                // dbversion
-                // int versionNum = 0;
-                // try {
-                // versionNum = sqlConnection.getMetaData().getDatabaseMajorVersion();
-                // } catch (RuntimeException e) {
-                // // happens for Sybase for example
-                // if (log.isDebugEnabled()) {
-                // log.debug(e, e);
-                // }
-                // }
-
-                // if (dbTypeList.size() == 1) {
-                // dbconn.setDbVersionString(dbTypeList.get(0).getVersionValue());
-                // } else if (dbTypeList.size() > 1) {
-                // for (EDatabaseVersion4Drivers eDatabaseVersion : dbTypeList) {
-                // String[] strArray = eDatabaseVersion.getVersionValue().split("_");
-                // if (strArray.length > 1 && strArray[1].startsWith(Integer.toString(versionNum))) {
-                // dbconn.setDbVersionString(eDatabaseVersion.getVersionValue());
-                // break;
-                // }
-                // }
-                // }
+                ConnectionHelper.setIdentifierQuoteString(identifierQuote == null ? "" : identifierQuote, dbconn); //$NON-NLS-1$
             }
-            // uiSchema
-            // EDatabaseTypeName edatabasetypeInstance = EDatabaseTypeName.getTypeFromDisplayName(connectionDbType);
-            // if (edatabasetypeInstance.isNeedSchema() && StringUtils.isEmpty(dbconn.getUiSchema())) {
-            // this.setLinked(false);
-            // List<Schema> schemata = ListUtils.castList(Schema.class,
-            // this.fillSchemas(connection, sqlConnection.getMetaData(), null));
-            // List<Catalog> catalogs = this.fillCatalogs(connection, sqlConnection.getMetaData(), null);
-            // this.setLinked(true);
-            // if (schemata.size() == 0 && catalogs.size() > 0) {
-            // schemata = CatalogHelper
-            // .getSchemas(SwitchHelpers.CATALOG_SWITCH.doSwitch((CatalogImpl) catalogs.toArray()[0]));
-            // }
-            //
-            // // FIXME Bzhou why here need to add a default schema?
-            // // if (edatabasetypeInstance.getSchemaMappingField() == EDatabaseSchemaOrCatalogMapping.Schema
-            // // && schemata.size() > 0) {
-            // // Iterator<Schema> iter = schemata.iterator();
-            // // while (iter.hasNext()) {
-            // // String uischema = iter.next().getName();
-            // // dbconn.setUiSchema(uischema);
-            // // break;
-            // // }
-            // //
-            // // }
-            // }
         } catch (SQLException e) {
             log.error(e, e);
         } finally {
@@ -225,14 +165,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     // exception of shutdown success. no need to catch.
                 }
             }
-
         }
         if (newConnection != null) {
             return newConnection;
         } else {
             return connection;
         }
-
     }
 
     @Override
@@ -246,7 +184,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
     }
 
     public List<Package> fillSchemas(Connection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> schemaFilter) {
-
         List<Schema> returnSchemas = new ArrayList<Schema>();
         if (dbJDBCMetadata == null || (dbConn != null && ConnectionHelper.getCatalogs(dbConn).size() > 0)) {
             return null;
@@ -274,7 +211,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 IMetadataConnection iMetadataCon = ConvertionHelper.convert(dbConn);
                 if (iMetadataCon != null) {
                     String schemaTemp = iMetadataCon.getSchema();
-                    if ("".equals(schemaTemp)) {
+                    if ("".equals(schemaTemp)) { //$NON-NLS-1$
                         schemaFilter.clear();
                     }
                 }
@@ -287,7 +224,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             }
             schemas = dbJDBCMetadata.getSchemas();
         } catch (SQLException e) {
-            log.warn("This database doesn't contain any schema.");
+            log.warn("This database doesn't contain any schema."); //$NON-NLS-1$
         }
         boolean hasSchema = false;
         try {
@@ -318,7 +255,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         Schema schema = SchemaHelper.createSchema(schemaName);
                         returnSchemas.add(schema);
                     }
-
                 }
                 schemas.close();
             }
@@ -387,7 +323,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     }
                 }
             }
-
         }
 
         try {
@@ -403,7 +338,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             catalogNames = dbJDBCMetadata.getCatalogs();
             List<String> filterList = new ArrayList<String>();
             if (catalogNames != null) {
-
                 boolean isHive = MetadataConnectionUtils.isHive(dbJDBCMetadata);
                 boolean isSybase = MetadataConnectionUtils.isSybase(dbJDBCMetadata);
                 // else DB support getCatalogs() method
@@ -425,21 +359,18 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         if (!isHive && !MetadataConnectionUtils.isODBCCatalog(catalogName, dbJDBCMetadata)) {
                             continue;
                         }
-
                     } catch (Exception e) {
                         log.warn(e, e);
                         if (dbJDBCMetadata.getDatabaseProductName() != null
                                 && dbJDBCMetadata.getDatabaseProductName().toLowerCase()
                                         .indexOf(DatabaseConstant.POSTGRESQL_PRODUCT_NAME) > -1) {
-                            catalogName = "";
+                            catalogName = ""; //$NON-NLS-1$
                         }
                     }
                     // ~
                     assert catalogName != null && !isHive : Messages.getString("CatalogBuilder.CatalogNameNull",//$NON-NLS-1$
                             dbJDBCMetadata.getConnection().toString()); // FIXME assertion string must not be
-                                                                        // externalized
                     // MOD xqliu 2010-03-03 feature 11412
-
                     if (!isNullSID(dbConn) && dbConn != null) {
                         String databaseOnConnWizard = ((DatabaseConnection) dbConn).getSID();
                         // If the SID on ui is not empty, the catalog name should be same to this SID name.
@@ -450,7 +381,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     } else if (isCreateElement(catalogFilter, catalogName)) {
                         filterList.addAll(postFillCatalog(catalogList, filterList, catalogName, dbConn));
                     }
-
                     // ~11412
                 }
                 // --- release the result set.
@@ -552,17 +482,15 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         ConnectionHelper.addCatalog(catalog, dbConn);
                     }
                 }
-
             }
         } catch (SQLException e) {
-            log.warn("JDBC getCatalogs() method is not available with this driver.", e);
+            log.warn("JDBC getCatalogs() method is not available with this driver.", e); //$NON-NLS-1$
         }
 
         return catalogList;
     }
 
     /**
-     * 
      * judge whether SID is null or empty string whatever context mode or nor
      * 
      * @param dbConn
@@ -599,7 +527,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
     }
 
     /**
-     * 
      * judge whether str is null or length is zreo
      * 
      * @param str
@@ -623,7 +550,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     filterList.add(iMetadataCon.getDatabase());
                 }
                 String pattern = ExtractMetaDataUtils.retrieveSchemaPatternForAS400(iMetadataCon.getAdditionalParams());
-                if (pattern != null && !"".equals(pattern)) {
+                if (pattern != null && !"".equals(pattern)) { //$NON-NLS-1$
                     String[] multiSchems = ExtractMetaDataUtils.getMultiSchems(pattern);
                     if (multiSchems != null) {
                         for (String s : multiSchems) {
@@ -645,22 +572,24 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
     public List<Schema> fillSchemaToCatalog(Connection dbConn, DatabaseMetaData dbJDBCMetadata, Catalog catalog,
             List<String> schemaFilter) throws Throwable {
-
         ResultSet schemaRs = null;
         try {
             // Case of JDK 1.6
             if (dbJDBCMetadata.getDriverName().equals(DatabaseConstant.MSSQL_DRIVER_NAME_JDBC2_0)) {
-                Method getSchemaMethod = dbJDBCMetadata.getClass().getMethod("getSchemas", String.class, String.class);
+                Method getSchemaMethod = dbJDBCMetadata.getClass().getMethod("getSchemas", String.class, String.class); //$NON-NLS-1$
                 schemaRs = (ResultSet) getSchemaMethod.invoke(dbJDBCMetadata, catalog.getName(), null);
             }
         } catch (SecurityException e) {
             // Case of JDK1.5
         } catch (NoSuchMethodException e) {
+            // do nothing here !!!
         } catch (IllegalArgumentException e) {
+            // do nothing here !!!
         } catch (IllegalAccessException e) {
+            // do nothing here !!!
         } catch (InvocationTargetException e) {
             // Case of JDK1.5
-            if (e.getTargetException().getClass().toString().equals("SQLServerException")) {
+            if (e.getTargetException().getClass().toString().equals("SQLServerException")) { //$NON-NLS-1$
                 throw e.getTargetException();
             }
         } catch (SQLException e) {
@@ -680,52 +609,54 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
         List<String> schemaNameCacheTmp = new ArrayList<String>();
         List<Schema> schemaList = new ArrayList<Schema>();
-        try {
-            while (schemaRs.next()) {
-                String schemaName = null;
-                String catalogName = null;
-                try {
-                    schemaName = schemaRs.getString(MetaDataConstants.TABLE_SCHEM.name());
-                    // MOD klliu bug 19004 2011-03-31
-                    if (!MetadataConnectionUtils.isPostgresql(dbJDBCMetadata)) {
-                        catalogName = schemaRs.getString(MetaDataConstants.TABLE_CATALOG.name());
+
+        if (schemaRs != null) {
+            try {
+                while (schemaRs.next()) {
+                    String schemaName = null;
+                    String catalogName = null;
+                    try {
+                        schemaName = schemaRs.getString(MetaDataConstants.TABLE_SCHEM.name());
+                        // MOD klliu bug 19004 2011-03-31
+                        if (!MetadataConnectionUtils.isPostgresql(dbJDBCMetadata)) {
+                            catalogName = schemaRs.getString(MetaDataConstants.TABLE_CATALOG.name());
+                        }
+                        // the case for mssql
+                        if (MetadataConnectionUtils.isMssql(dbJDBCMetadata) && dbJDBCMetadata.getDatabaseMajorVersion() > 8
+                                && dbJDBCMetadata.getDriverMajorVersion() > 1) {
+                            if (catalogName != null && catalogName != schemaName) {
+                                schemaName = catalogName;
+                            }
+                        }
+                        if (schemaName == null || !MetadataConnectionUtils.isMssql(dbJDBCMetadata.getConnection())
+                                && catalogName != null && !catalogName.equals(catalog.getName())) {
+
+                            continue;
+                        }
+                    } catch (Exception e) {
+                        // not some things need to do
                     }
-                    // the case for mssql
-                    if (MetadataConnectionUtils.isMssql(dbJDBCMetadata) && dbJDBCMetadata.getDatabaseMajorVersion() > 8
-                            && dbJDBCMetadata.getDriverMajorVersion() > 1) {
-                        if (catalogName != null && catalogName != schemaName) {
-                            schemaName = catalogName;
+                    // MOD mzhao bug 9606 filter duplicated schemas.
+                    if (!schemaNameCacheTmp.contains(schemaName) && !MetadataConnectionUtils.isMysql(dbJDBCMetadata)) {
+                        if (!isNullUiSchema(dbConn) && dbConn != null) {
+                            String uiSchemaOnConnWizard = ((DatabaseConnection) dbConn).getUiSchema();
+                            // If the UiSchema on ui is not empty, the shema name should be same to this UiSchema name.
+                            CWMService cwmService = new TalendCWMService();
+                            Schema schema = SchemaHelper.createSchema(cwmService.getReadableName(dbConn, uiSchemaOnConnWizard));
+                            schemaList.add(schema);
+                            break;
+                        } else if (isCreateElement(schemaFilter, schemaName)) {
+                            Schema schema = SchemaHelper.createSchema(schemaName);
+                            schemaList.add(schema);
+                            schemaNameCacheTmp.add(schemaName);
                         }
                     }
-                    if (schemaName == null || !MetadataConnectionUtils.isMssql(dbJDBCMetadata.getConnection())
-                            && catalogName != null && !catalogName.equals(catalog.getName())) {
-
-                        continue;
-                    }
-                } catch (Exception e) {
-                    // not some things need to do
                 }
-                // MOD mzhao bug 9606 filter duplicated schemas.
-
-                if (!schemaNameCacheTmp.contains(schemaName) && !MetadataConnectionUtils.isMysql(dbJDBCMetadata)) {
-                    if (!isNullUiSchema(dbConn) && dbConn != null) {
-                        String uiSchemaOnConnWizard = ((DatabaseConnection) dbConn).getUiSchema();
-                        // If the UiSchema on ui is not empty, the shema name should be same to this UiSchema name.
-                        CWMService cwmService = new TalendCWMService();
-                        Schema schema = SchemaHelper.createSchema(cwmService.getReadableName(dbConn, uiSchemaOnConnWizard));
-                        schemaList.add(schema);
-                        break;
-                    } else if (isCreateElement(schemaFilter, schemaName)) {
-                        Schema schema = SchemaHelper.createSchema(schemaName);
-                        schemaList.add(schema);
-                        schemaNameCacheTmp.add(schemaName);
-                    }
+                schemaRs.close();
+            } catch (Exception e) {
+                if (log.isDebugEnabled()) {
+                    log.debug(e, e);
                 }
-            }
-            schemaRs.close();
-        } catch (Exception e) {
-            if (log.isDebugEnabled()) {
-                log.debug(e, e);
             }
         }
 
@@ -764,7 +695,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 flag = MetadataConnectionUtils.isOracle8i(c);
                 boolean isOracle = MetadataConnectionUtils.isOracle(c);
                 boolean isOracleJdbc = MetadataConnectionUtils.isOracleJDBC(c);
-                // MetadataConnectionUtils.isOracle8i(connection)
                 if ((isOracleJdbc || isOracle) && !flag) {// oracle and not oracle8
                     Statement stmt;
                     try {
@@ -786,8 +716,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
             boolean isHive = MetadataConnectionUtils.isHive(dbJDBCMetadata);
             while (tables.next()) {
-                // tableCatalog never called and will cause problem for specific db.
-                // String tableCatalog = tables.getString(GetTable.TABLE_CAT.name());
                 String tableSchema = null;
                 if (schemaPattern != null) {
                     tableSchema = tables.getString(GetTable.TABLE_SCHEM.name());
@@ -813,7 +741,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 if (!isCreateElement(tableFilter, tableName)) {
                     continue;
                 }
-                if (tableName == null || tablesToFilter.contains(tableName) || tableName.startsWith("/")) {
+                if (tableName == null || tablesToFilter.contains(tableName) || tableName.startsWith("/")) { //$NON-NLS-1$
                     continue;
                 }
                 String tableOwner = null;
@@ -849,19 +777,19 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 list.add(metadatatable);
             }
             if (dbJDBCMetadata.getDatabaseProductName() != null
-                    && dbJDBCMetadata.getDatabaseProductName().equals("Microsoft SQL Server")) {
+                    && dbJDBCMetadata.getDatabaseProductName().equals("Microsoft SQL Server")) { //$NON-NLS-1$
                 for (String element : tableType) {
-                    if (element.equals("SYNONYM")) {
+                    if (element.equals("SYNONYM")) { //$NON-NLS-1$
                         Statement stmt = ExtractMetaDataUtils.conn.createStatement();
                         ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
-                        String schemaname = schemaPattern + ".sysobjects";
-                        String sql = "select name from " + schemaname + " where xtype='SN'";
-                        if (schemaPattern.equalsIgnoreCase("dbo")) {
+                        String schemaname = schemaPattern + ".sysobjects"; //$NON-NLS-1$
+                        String sql = "select name from " + schemaname + " where xtype='SN'"; //$NON-NLS-1$//$NON-NLS-2$
+                        if ("dbo".equalsIgnoreCase(schemaPattern)) { //$NON-NLS-1$
                             // SELECT name AS object_name ,SCHEMA_NAME(schema_id) AS schema_name FROM sys.objects where
                             // type='SN'
                             ResultSet rsTables = stmt.executeQuery(sql);
                             while (rsTables.next()) {
-                                String nameKey = rsTables.getString("name").trim();
+                                String nameKey = rsTables.getString("name").trim(); //$NON-NLS-1$
 
                                 MetadataTable metadatatable = null;
                                 metadatatable = RelationalFactory.eINSTANCE.createTdTable();
@@ -878,15 +806,15 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     }
                 }
             } else if (dbJDBCMetadata.getDatabaseProductName() != null
-                    && dbJDBCMetadata.getDatabaseProductName().equals("DB2/NT")) {
+                    && dbJDBCMetadata.getDatabaseProductName().equals("DB2/NT")) { //$NON-NLS-1$
                 for (String element : tableType) {
-                    if (element.equals("SYNONYM")) {
+                    if (element.equals("SYNONYM")) { //$NON-NLS-1$
                         Statement stmt = ExtractMetaDataUtils.conn.createStatement();
                         ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
-                        String sql = "SELECT NAME FROM SYSIBM.SYSTABLES where TYPE='A' and BASE_SCHEMA = '" + schemaPattern + "'";
+                        String sql = "SELECT NAME FROM SYSIBM.SYSTABLES where TYPE='A' and BASE_SCHEMA = '" + schemaPattern + "'"; //$NON-NLS-1$ //$NON-NLS-2$
                         ResultSet rsTables = stmt.executeQuery(sql);
                         while (rsTables.next()) {
-                            String nameKey = rsTables.getString("NAME").trim();
+                            String nameKey = rsTables.getString("NAME").trim(); //$NON-NLS-1$
 
                             MetadataTable metadatatable = null;
                             metadatatable = RelationalFactory.eINSTANCE.createTdTable();
@@ -922,7 +850,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         String catalogName = null;
         String schemaPattern = null;
 
-        // String[] tableType = new String[] { TableType.TABLE.toString() };
         if (catalogOrSchema != null) {
             // catalog
             if (catalogOrSchema instanceof Catalog) {
@@ -966,9 +893,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, tablePattern, tableType);
             String productName = dbJDBCMetadata.getDatabaseProductName();
             while (tables.next()) {
-                // tableCatalog never called and will cause problem for specific db.
-                // String tableCatalog = tables.getString(GetTable.TABLE_CAT.name());
-                // String tableSchema = tables.getString(GetTable.TABLE_SCHEM.name());
                 String tableName = tables.getString(GetTable.TABLE_NAME.name());
                 String temptableType = tables.getString(GetTable.TABLE_TYPE.name());
                 // if TableType is view type don't create it at here.
@@ -981,7 +905,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     continue;
                 }
 
-                if (tableName == null || tablesToFilter.contains(tableName) || tableName.startsWith("/")) {
+                if (tableName == null || tablesToFilter.contains(tableName) || tableName.startsWith("/")) { //$NON-NLS-1$
                     continue;
                 }
                 String tableOwner = null;
@@ -1168,12 +1092,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 }
                 typeName = MetadataToolHelper.validateValueForDBType(typeName);
                 if (MetadataConnectionUtils.isMssql(dbJDBCMetadata)) {
-                    if (typeName.toLowerCase().equals("date")) {
+                    if (typeName.toLowerCase().equals("date")) { //$NON-NLS-1$
                         dataType = 91;
                         // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously
                         // the sql
                         // data type it is null and results in a NPE
-                    } else if (typeName.toLowerCase().equals("time")) {
+                    } else if (typeName.toLowerCase().equals("time")) { //$NON-NLS-1$
                         dataType = 92;
                         // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously
                         // the sql
@@ -1205,7 +1129,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 // Comment
                 String colComment = columns.getString(GetColumn.REMARKS.name());
                 if (colComment == null) {
-                    colComment = "";
+                    colComment = ""; //$NON-NLS-1$
                 }
                 colComment = ManagementTextUtils.filterSpecialChar(colComment);
                 column.setComment(colComment);
@@ -1231,12 +1155,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                             .getIntMetaDataInfo(columns, "COLUMN_SIZE"), ExtractMetaDataUtils.getIntMetaDataInfo(columns, //$NON-NLS-1$
                             "DECIMAL_DIGITS")); //$NON-NLS-1$
                     column.setTalendType(talendType);
-
-                    // del for bug TDI-19653
-                    // String defaultSelectedDbType =
-                    // MetadataTalendType.getMappingTypeRetriever(dbConnection.getDbmsId())
-                    // .getDefaultSelectedDbType(talendType);
-                    // column.setSourceType(defaultSelectedDbType);
                     column.setSourceType(typeName);
                 }
                 try {
@@ -1255,12 +1173,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 ColumnSetHelper.addColumns(colSet, returnColumns);
             }
             fillPkandFk(colSet, columnMap, dbJDBCMetadata, catalogName, schemaPattern, tablePattern);
-
         } catch (Exception e) {
-
             log.error(e, e);
         }
-
         // ~
         return returnColumns;
     }
@@ -1326,13 +1241,13 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         }
                     }
                     if (MetadataConnectionUtils.isMssql(dbJDBCMetadata)) {
-                        if (typeName.toLowerCase().equals("date")) {
+                        if (typeName.toLowerCase().equals("date")) { //$NON-NLS-1$
                             dataType = 91;
                             // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because
                             // obviously
                             // the sql
                             // data type it is null and results in a NPE
-                        } else if (typeName.toLowerCase().equals("time")) {
+                        } else if (typeName.toLowerCase().equals("time")) { //$NON-NLS-1$
                             dataType = 92;
                             // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because
                             // obviously
@@ -1409,19 +1324,15 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 }
                 returnColumns.add(column);
                 columnMap.put(columnName, column);
-
             }
             columns.close();
             if (isLinked()) {
                 ColumnSetHelper.addColumns(colSet, returnColumns);
             }
             fillPkandFk(colSet, columnMap, dbJDBCMetadata, catalogName, schemaPattern, tablePattern);
-
         } catch (Exception e) {
-
             log.error(e, e);
         }
-
         // ~
         return returnColumns;
     }
@@ -1479,7 +1390,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     // MOD qiongli 2011-2-21,bug 18828 ,Access database dosen't support 'getPrimaryKeys(...)'.
                     if (MetadataConnectionUtils.isOdbcExcel(dbJDBCMetadata) || MetadataConnectionUtils.isAccess(dbJDBCMetadata)
                             || MetadataConnectionUtils.isHive(dbJDBCMetadata)) {
-                        log.info("This database don't support primary key and foreign key");
+                        log.info("This database don't support primary key and foreign key"); //$NON-NLS-1$
                         return;
                     }
                     ResultSet pkResult = dbJDBCMetadata.getPrimaryKeys(catalogName, schemaName, tableName);
@@ -1494,7 +1405,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                             primaryKey = orgomg.cwm.resource.relational.RelationalFactory.eINSTANCE.createPrimaryKey();
                             primaryKey.setName(pkName);
                         } else if (!pkName.equals(primaryKey.getName())) {
-                            throw new Exception("the table" + colSet + " have two or more primaryKeys");
+                            throw new Exception("the table" + colSet + " have two or more primaryKeys"); //$NON-NLS-1$ //$NON-NLS-2$
                         }
                         columnMap.get(colName).getUniqueKey().add(primaryKey);
                         columnMap.get(colName).setKey(true);
@@ -1520,9 +1431,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                                 foreignKeysMap.put(fkname, foreignKey);
                             }
                             columnMap.get(colName).getKeyRelationship().add(foreignKey);
-                            // bug TDI-21138:should not set the FK as true since DI side will use it to display the
-                            // PK,but DQ side do not need it.
-                            // columnMap.get(colName).setKey(true);
                         }
                         fkResult.close();
                         TableHelper.addForeignKeys((TdTable) colSet,
@@ -1536,7 +1444,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
     }
 
     /**
-     * 
      * zshen Comment method "createTdExpression". from BooleanExpressionHelper.
      * 
      * @param language
@@ -1553,26 +1460,4 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
     public static void setDriver(Driver d) {
         driver = d;
     }
-
-    // public static void executeGetSchemas(DatabaseMetaData dbmd) {
-    // try {
-    //
-    // ResultSet rs = dbmd.getSchemas();
-    // ResultSetMetaData rsmd = rs.getMetaData();
-    //
-    // // Display the result set data.
-    // int cols = rsmd.getColumnCount();
-    // while (rs.next()) {
-    // for (int i = 1; i <= cols; i++) {
-    // System.out.println(rs.getString(i));
-    // }
-    // }
-    // rs.close();
-    // }
-    //
-    // catch (Exception e) {
-    // e.printStackTrace();
-    // }
-    // }
-
 }
