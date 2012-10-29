@@ -17,6 +17,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.ui.actions.SelectionProviderAction;
 import org.talend.repository.ui.swt.utils.AbstractXmlStepForm;
+import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.Element;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.StringUtil;
 
@@ -40,6 +41,7 @@ public class FixValueAction extends SelectionProviderAction {
         this.form = form;
     }
 
+    @Override
     public void run() {
         FOXTreeNode node = (FOXTreeNode) this.getStructuredSelection().getFirstElement();
         if (node != null) {
@@ -48,7 +50,7 @@ public class FixValueAction extends SelectionProviderAction {
     }
 
     private void setFixValue(FOXTreeNode node) {
-        String label = null; //$NON-NLS-1$
+        String label = null;
         while (!StringUtil.validateLabelForFixedValue(label)) {
             InputDialog dialog = new InputDialog(null, "Input a fix value", "Input the default value' valid label", "", null);
             int status = dialog.open();
@@ -80,7 +82,19 @@ public class FixValueAction extends SelectionProviderAction {
             } else if (node.getColumn() != null) {
                 this.setEnabled(false);
             } else if (node.getChildren() != null && !node.getChildren().isEmpty()) {
-                this.setEnabled(false);
+                // this.setEnabled(false);
+                boolean haveElementChild = false;
+                for (FOXTreeNode child : node.getChildren()) {
+                    if (child instanceof Element) {
+                        haveElementChild = true;
+                        break;
+                    }
+                }
+                if (haveElementChild) {
+                    setEnabled(false);
+                } else {
+                    setEnabled(true);
+                }
             } else {
                 this.setEnabled(true);
             }

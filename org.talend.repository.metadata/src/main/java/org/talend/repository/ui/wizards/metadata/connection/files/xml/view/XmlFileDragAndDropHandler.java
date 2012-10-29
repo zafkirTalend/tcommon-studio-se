@@ -103,14 +103,17 @@ public class XmlFileDragAndDropHandler {
 
     class TreeDragSourceListener implements TransferDragSourceListener {
 
+        @Override
         public void dragFinished(DragSourceEvent event) {
             event.getSource();
         }
 
+        @Override
         public void dragSetData(DragSourceEvent event) {
             event.getSource();
         }
 
+        @Override
         public void dragStart(DragSourceEvent event) {
             TableItem[] items = linker.getSource().getSelection();
             if (items.length == 0) {
@@ -126,6 +129,7 @@ public class XmlFileDragAndDropHandler {
 
         }
 
+        @Override
         public Transfer getTransfer() {
             return LocalDataTransfer.getInstance();
         }
@@ -137,29 +141,36 @@ public class XmlFileDragAndDropHandler {
      */
     class TableDropTargetListener implements TransferDropTargetListener {
 
+        @Override
         public void dragEnter(DropTargetEvent event) {
 
         }
 
+        @Override
         public void dragLeave(DropTargetEvent event) {
 
         }
 
+        @Override
         public void dragOperationChanged(DropTargetEvent event) {
         }
 
+        @Override
         public void dropAccept(DropTargetEvent event) {
 
         }
 
+        @Override
         public Transfer getTransfer() {
             return LocalDataTransfer.getInstance();
         }
 
+        @Override
         public boolean isEnabled(DropTargetEvent event) {
             return true;
         }
 
+        @Override
         public void dragOver(DropTargetEvent event) {
             Item targetItem = (Item) event.item;
             if (targetItem == null) {
@@ -207,6 +218,7 @@ public class XmlFileDragAndDropHandler {
             treeNode.setDefaultValue(null);
         }
 
+        @Override
         public void drop(DropTargetEvent event) {
             DropTarget dropTarget = (DropTarget) event.getSource();
             Item targetItem = (Item) event.item;
@@ -224,26 +236,26 @@ public class XmlFileDragAndDropHandler {
             FOXTreeNode targetNode = (FOXTreeNode) (targetItem.getData());
 
             if (dragdedData.size() == 1 && isDropRelatedColumn(event)) {
-                if (!targetNode.hasChildren()) {
-                    // IMetadataColumn metaColumn = (IMetadataColumn) dragdedData.get(0);
-                    IMetadataColumn metaColumn = ConvertionHelper.convertToIMetaDataColumn((MetadataColumn) dragdedData.get(0));
-                    targetNode.setDefaultValue(null);
-                    targetNode.setColumn(metaColumn);
-                    targetNode.setTable(table);
-                    targetNode.setDataType(metaColumn.getTalendType());
-                    // targetNode.setRow(row);
+                // if (!targetNode.hasChildren()) {
+                // IMetadataColumn metaColumn = (IMetadataColumn) dragdedData.get(0);
+                IMetadataColumn metaColumn = ConvertionHelper.convertToIMetaDataColumn((MetadataColumn) dragdedData.get(0));
+                targetNode.setDefaultValue(null);
+                targetNode.setColumn(metaColumn);
+                targetNode.setTable(table);
+                targetNode.setDataType(metaColumn.getTalendType());
+                // targetNode.setRow(row);
 
-                    linker.getXMLViewer().refresh(targetNode);
-                    linker.getXMLViewer().expandAll();
+                linker.getXMLViewer().refresh(targetNode);
+                linker.getXMLViewer().expandAll();
 
-                    Display display = linker.getSource().getDisplay();
-                    Cursor cursor = new Cursor(display, SWT.CURSOR_WAIT);
-                    linker.getSource().getShell().setCursor(cursor);
+                Display display = linker.getSource().getDisplay();
+                Cursor cursor = new Cursor(display, SWT.CURSOR_WAIT);
+                linker.getSource().getShell().setCursor(cursor);
 
-                    linker.valuedChanged(targetItem);
+                linker.valuedChanged(targetItem);
 
-                    linker.getSource().getShell().setCursor(null);
-                }
+                linker.getSource().getShell().setCursor(null);
+                // }
             } else if (dragdedData.size() > 0) {
                 DragAndDrogDialog dialog = new DragAndDrogDialog(null);
                 dialog.open();
@@ -252,7 +264,7 @@ public class XmlFileDragAndDropHandler {
                 }
 
                 if (dialog.getSelectValue().equals(DragAndDrogDialog.CREATE_AS_TEXT)) {
-                    if (targetNode.hasChildren()) {
+                    if (hasElementChildren(targetNode)) {
                         List<FOXTreeNode> children = targetNode.getChildren();
                         for (FOXTreeNode foxTreeNode : children) {
                             if (!(foxTreeNode instanceof Attribute) && !(foxTreeNode instanceof NameSpaceNode)) {
@@ -272,7 +284,7 @@ public class XmlFileDragAndDropHandler {
 
                     targetNode.setColumn(metaColumn);
                     targetNode.setDataType(metaColumn.getTalendType());
-                    setDefaultFixValue(targetNode);
+                    targetNode.setDefaultValue(null);
 
                 } else if (dialog.getSelectValue().equals(DragAndDrogDialog.CREATE_AS_SUBELEMENT)) {
                     if (!(targetNode instanceof Element)) {
@@ -346,7 +358,7 @@ public class XmlFileDragAndDropHandler {
                             targetNode.addChild(child);
                         }
                     }
-                    setDefaultFixValue(targetNode);
+                    // setDefaultFixValue(targetNode);
                 }
                 linker.getXMLViewer().refresh();
                 linker.getXMLViewer().expandAll();
@@ -365,6 +377,17 @@ public class XmlFileDragAndDropHandler {
             linker.getForm().updateConnection();
             linker.getForm().updateStatus();
         }
+    }
+
+    private boolean hasElementChildren(FOXTreeNode node) {
+        boolean haveElementChild = false;
+        for (FOXTreeNode child : node.getChildren()) {
+            if (child instanceof Element) {
+                haveElementChild = true;
+                break;
+            }
+        }
+        return haveElementChild;
     }
 
 }
