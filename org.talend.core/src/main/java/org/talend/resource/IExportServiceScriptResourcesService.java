@@ -16,15 +16,6 @@ package org.talend.resource;
 /**
  * DOC ycbai class global comment. Detailled comment
  */
-public interface IExportJobResourcesService extends IExportScriptResourcesService {
-
-    /**
-     * DOC ycbai Comment method "getAntScriptFilePath".
-     * 
-     * Get the path of ant script template file.
-     * 
-     * @return
-     */
-    public String getAntScriptFilePath();
+public interface IExportServiceScriptResourcesService extends IExportScriptResourcesService {
 
 }
