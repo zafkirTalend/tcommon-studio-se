@@ -1813,7 +1813,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
     }
 
     public boolean getMergeRefProject() {
-        IPreferenceStore preferenceStore = RepositoryManager.getPreferenceStore();
+        IPreferenceStore preferenceStore = RepositoryManager.getRepositoryPreferenceStore();
         return preferenceStore.getBoolean(IRepositoryPrefConstants.MERGE_REFERENCE_PROJECT);
     }
 
