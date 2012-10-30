@@ -41,6 +41,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.commons.utils.database.SASDataBaseMetadata;
+import org.talend.commons.utils.database.SybaseDatabaseMetaData;
 import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.commons.utils.encoding.CharsetToolkit;
 import org.talend.commons.utils.platform.PluginChecker;
@@ -104,15 +105,16 @@ public class ExtractMetaDataUtils {
      * MOD by zshen this method don't care about sqlMode
      */
     public static DatabaseMetaData getDatabaseMetaData(Connection conn, String dbType) {
-
         DatabaseMetaData dbMetaData = null;
         try {
-            if ("net.sourceforge.jtds.jdbc.ConnectionJDBC3".equals(conn.getClass().getName())) {
+            if ("net.sourceforge.jtds.jdbc.ConnectionJDBC3".equals(conn.getClass().getName())) { //$NON-NLS-1$
                 dbMetaData = createJtdsDatabaseMetaData(conn);
             } else if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
                 dbMetaData = createFakeDatabaseMetaData(conn);
             } else if (dbType.equals(EDatabaseTypeName.SAS.getXmlName())) {
                 dbMetaData = createSASFakeDatabaseMetaData(conn);
+            } else if (EDatabaseTypeName.SYBASEASE.getDisplayName().equals(dbType)) {
+                dbMetaData = createSybaseFakeDatabaseMetaData(conn);
             } else {
                 dbMetaData = conn.getMetaData();
             }
@@ -150,11 +152,10 @@ public class ExtractMetaDataUtils {
      * 
      */
     public static DatabaseMetaData getDatabaseMetaData(Connection conn, String dbType, boolean isSqlMode, String database) {
-
         DatabaseMetaData dbMetaData = null;
         try {
             // MOD sizhaoliu 2012-5-21 TDQ-4884
-            if ("net.sourceforge.jtds.jdbc.ConnectionJDBC3".equals(conn.getClass().getName())) {
+            if ("net.sourceforge.jtds.jdbc.ConnectionJDBC3".equals(conn.getClass().getName())) { //$NON-NLS-1$
                 dbMetaData = createJtdsDatabaseMetaData(conn);
             } else if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
                 dbMetaData = createFakeDatabaseMetaData(conn);
@@ -203,12 +204,10 @@ public class ExtractMetaDataUtils {
      * 
      */
     public static DatabaseMetaData getDatabaseMetaData(Connection conn, DatabaseConnection dbConn, boolean isSqlMode) {
-
         DatabaseMetaData dbMetaData = null;
         try {
             String dbType = dbConn.getDatabaseType();
-
-            if ("net.sourceforge.jtds.jdbc.ConnectionJDBC3".equals(conn.getClass().getName())) {
+            if ("net.sourceforge.jtds.jdbc.ConnectionJDBC3".equals(conn.getClass().getName())) { //$NON-NLS-1$
                 dbMetaData = createJtdsDatabaseMetaData(conn);
             } else if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
                 dbMetaData = createFakeDatabaseMetaData(conn);
@@ -220,6 +219,8 @@ public class ExtractMetaDataUtils {
                 teraDbmeta.setDatabaseName(database);
             } else if (dbType.equals(EDatabaseTypeName.SAS.getXmlName())) {
                 dbMetaData = createSASFakeDatabaseMetaData(conn);
+            } else if (EDatabaseTypeName.SYBASEASE.getDisplayName().equals(dbType)) {
+                dbMetaData = createSybaseFakeDatabaseMetaData(conn);
             } else {
                 dbMetaData = conn.getMetaData();
             }
@@ -238,7 +239,7 @@ public class ExtractMetaDataUtils {
         // MOD xqliu 2009-11-17 bug 7888
         if (dbMetaData != null && dbMetaData.getDatabaseProductName() != null) {
             // MOD sizhaoliu 2012-5-21 TDQ-4884
-            if ("net.sourceforge.jtds.jdbc.ConnectionJDBC3".equals(conn.getClass().getName())) {
+            if ("net.sourceforge.jtds.jdbc.ConnectionJDBC3".equals(conn.getClass().getName())) { //$NON-NLS-1$
                 dbMetaData = createJtdsDatabaseMetaData(conn);
             } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
                 getDatabaseMetaData(conn, EDatabaseTypeName.IBMDB2ZOS.getXmlName());
@@ -248,21 +249,6 @@ public class ExtractMetaDataUtils {
                 getDatabaseMetaData(conn, EDatabaseTypeName.SAS.getXmlName());
             }
         }
-        // if (dbMetaData != null && dbMetaData.getDatabaseProductName() != null) {
-        // if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.IBMDB2ZOS.getProduct())) {
-        // dbMetaData = createFakeDatabaseMetaData(conn);
-        // log.info("IBM DB2 for z/OS");
-        // } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.TERADATA.getProduct()) && metadataCon
-        // != null
-        // && metadataCon.isSqlMode()) {
-        // dbMetaData = createTeradataFakeDatabaseMetaData(conn);
-        // TeradataDataBaseMetadata teraDbmeta = (TeradataDataBaseMetadata) dbMetaData;
-        // teraDbmeta.setDatabaseName(ExtractMetaDataUtils.metadataCon.getDatabase());
-        // } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.SAS.getProduct())) {
-        // dbMetaData = createSASFakeDatabaseMetaData(conn);
-        // }
-        // }
-        // // ~
         return dbMetaData;
     }
 
@@ -270,7 +256,6 @@ public class ExtractMetaDataUtils {
         if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
             return true;
         } else if (dbType.equals(EDatabaseTypeName.TERADATA.getXmlName()) && isSqlMode) {
-
             return true;
         } else if (dbType.equals(EDatabaseTypeName.SAS.getXmlName())) {
             return true;
@@ -299,6 +284,11 @@ public class ExtractMetaDataUtils {
         return tmd;
     }
 
+    private static DatabaseMetaData createSybaseFakeDatabaseMetaData(Connection conn) throws SQLException {
+        SybaseDatabaseMetaData dmd = new SybaseDatabaseMetaData(conn);
+        return dmd;
+    }
+
     /**
      * DOC cantoine. Method to return MetaDataInfo on Column DataBaseConnection.
      * 
@@ -310,21 +300,9 @@ public class ExtractMetaDataUtils {
         String metaDataInfo = null;
         try {
             metaDataInfo = columns.getString(infoType);
-            // hywang modified it for bug 7038
-            // List<String> funcions = getAllDBFuctions(dbMetaData);
-            // if (metaDataInfo != null) {
-            // if ((dbMetaData != null && funcions != null && !funcions.contains(metaDataInfo))) {
-            // metaDataInfo = ManagementTextUtils.QUOTATION_MARK + metaDataInfo + ManagementTextUtils.QUOTATION_MARK;
-            // }
-            // }
-            // Replace ALL ' in the retrieveSchema, cause PB for Default Value.
-            // metaDataInfo = metaDataInfo.replaceAll("'", ""); //$NON-NLS-1$
-            // //$NON-NLS-2$
         } catch (SQLException e) {
-            // log.error(e.toString());
             return metaDataInfo;
         } catch (Exception e) {
-            // log.error(e.toString());
             return metaDataInfo;
         }
         return metaDataInfo;
@@ -342,14 +320,9 @@ public class ExtractMetaDataUtils {
         String metaDataInfo = null;
         try {
             metaDataInfo = columns.getString(infoType);
-            // Replace ALL ' in the retrieveSchema, cause PB for Default Value.
-            // metaDataInfo = metaDataInfo.replaceAll("'", ""); //$NON-NLS-1$
-            // //$NON-NLS-2$
         } catch (SQLException e) {
-            // log.error(e.toString());
             return metaDataInfo;
         } catch (Exception e) {
-            // log.error(e.toString());
             return metaDataInfo;
         }
         return metaDataInfo;
@@ -1037,15 +1010,6 @@ public class ExtractMetaDataUtils {
     public static boolean haveLoadMetadataNode() {
         boolean loadMetadata = PluginChecker.isPluginLoaded("org.talend.repository.metadata");
         return loadMetadata;
-        // IRepositoryView repoView = RepositoryManagerHelper.findRepositoryView();
-        // if (repoView != null) {
-        // IProjectRepositoryNode root = repoView.getRoot();
-        // final IRepositoryNode rootRepositoryNode = root.getRootRepositoryNode(ERepositoryObjectType.METADATA);
-        // if (rootRepositoryNode != null) {
-        // return true;
-        // }
-        // }
-        // return false;
     }
 
     /**
