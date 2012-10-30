@@ -184,7 +184,7 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
             };
             // the merge only for DI repository,need to judge null for other product
             if (CoreRuntimePlugin.getInstance().getDesignerCoreService() != null) {
-                IPreferenceStore preferenceStore = RepositoryManager.getPreferenceStore();
+                IPreferenceStore preferenceStore = RepositoryManager.getRepositoryPreferenceStore();
                 preferenceStore.addPropertyChangeListener(mergeRefListener);
             }
         }

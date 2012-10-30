@@ -50,6 +50,16 @@ public final class RepositoryManager {
         return CoreRuntimePlugin.getInstance().getDesignerCoreService().getDesignerCorePreferenceStore();
     }
 
+    /**
+     * 
+     * DOC wchen DesignerCorePreference disappear in some case ,so i change to use repository preference store.
+     * 
+     * @return
+     */
+    public static IPreferenceStore getRepositoryPreferenceStore() {
+        return CoreRuntimePlugin.getInstance().getRepositoryService().getRepositoryPreferenceStore();
+    }
+
     public static boolean isRefreshManually() {
         return getPreferenceStore().getBoolean(IRepositoryPrefConstants.MANUALLY_REFRESH);
     }
