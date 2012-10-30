@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.data.list.ListUtils;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
+import org.talend.commons.utils.database.SybaseDatabaseMetaData;
 import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.core.ICoreService;
 import org.talend.core.database.EDatabase4DriverClassName;
@@ -335,7 +336,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 return catalogList;
             }
             ResultSet catalogNames = null;
-            catalogNames = dbJDBCMetadata.getCatalogs();
+            if (dbJDBCMetadata instanceof SybaseDatabaseMetaData) {
+                catalogNames = ((SybaseDatabaseMetaData) dbJDBCMetadata).getCatalogs(((DatabaseConnection) dbConn).getUsername());
+            } else {
+                catalogNames = dbJDBCMetadata.getCatalogs();
+            }
             List<String> filterList = new ArrayList<String>();
             if (catalogNames != null) {
                 boolean isHive = MetadataConnectionUtils.isHive(dbJDBCMetadata);
@@ -598,8 +603,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
         if (schemaRs == null) {
             try {
-                // schemaRs = dbJDBCMetadata.getSchemas(catalog.getName(), null);
-                schemaRs = dbJDBCMetadata.getSchemas();
+                if (dbJDBCMetadata instanceof SybaseDatabaseMetaData) {
+                    schemaRs = ((SybaseDatabaseMetaData) dbJDBCMetadata).getSchemas(catalog.getName(), null);
+                } else {
+                    schemaRs = dbJDBCMetadata.getSchemas();
+                }
             } catch (SQLException e) {
                 if (log.isDebugEnabled()) {
                     log.debug(e, e);
@@ -618,9 +626,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     try {
                         schemaName = schemaRs.getString(MetaDataConstants.TABLE_SCHEM.name());
                         // MOD klliu bug 19004 2011-03-31
-                        if (!MetadataConnectionUtils.isPostgresql(dbJDBCMetadata)) {
+                        if (!(MetadataConnectionUtils.isPostgresql(dbJDBCMetadata) || MetadataConnectionUtils
+                                .isSybase(dbJDBCMetadata))) {
                             catalogName = schemaRs.getString(MetaDataConstants.TABLE_CATALOG.name());
                         }
+
                         // the case for mssql
                         if (MetadataConnectionUtils.isMssql(dbJDBCMetadata) && dbJDBCMetadata.getDatabaseMajorVersion() > 8
                                 && dbJDBCMetadata.getDriverMajorVersion() > 1) {
@@ -630,7 +640,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         }
                         if (schemaName == null || !MetadataConnectionUtils.isMssql(dbJDBCMetadata.getConnection())
                                 && catalogName != null && !catalogName.equals(catalog.getName())) {
-
                             continue;
                         }
                     } catch (Exception e) {

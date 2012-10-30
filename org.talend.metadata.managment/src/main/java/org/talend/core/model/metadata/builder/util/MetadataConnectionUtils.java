@@ -35,6 +35,7 @@ import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.Platform;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.utils.database.SybaseDatabaseMetaData;
 import org.talend.commons.utils.encoding.CharsetToolkit;
 import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.database.EDatabase4DriverClassName;
@@ -321,6 +322,9 @@ public class MetadataConnectionUtils {
     }
 
     public static boolean isSybase(DatabaseMetaData connectionMetadata) throws SQLException {
+        if (connectionMetadata instanceof SybaseDatabaseMetaData) {
+            return true;
+        }
         if (connectionMetadata.getDriverName() != null && connectionMetadata.getDatabaseProductName() != null) {
             for (String keyString : getSybaseDBProductsName()) {
                 if (keyString.trim().equals(connectionMetadata.getDatabaseProductName().trim())) {
@@ -365,7 +369,6 @@ public class MetadataConnectionUtils {
     }
 
     /**
-     * 
      * zshen Comment method "isODBCCatalog".
      * 
      * @param catalogName the name for need to be decided.
@@ -962,6 +965,16 @@ public class MetadataConnectionUtils {
         if (metadataConnection != null) {
             String dbType = metadataConnection.getDbType();
             if (dbType != null && dbType.equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isSybase(IMetadataConnection metadataConnection) {
+        if (metadataConnection != null) {
+            String dbType = metadataConnection.getDbType();
+            if (dbType != null && dbType.equals(EDatabaseTypeName.SYBASEASE.getDisplayName())) {
                 return true;
             }
         }
