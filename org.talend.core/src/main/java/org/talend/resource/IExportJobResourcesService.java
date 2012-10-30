@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.resource;
 
+import java.net.URL;
+import java.util.List;
 
 /**
  * DOC ycbai class global comment. Detailled comment
@@ -26,5 +28,12 @@ public interface IExportJobResourcesService extends IExportScriptResourcesServic
      * @return
      */
     public String getAntScriptFilePath();
+
+    /**
+     * DOC ycbai Comment method "getAntRequiredLibs".
+     * 
+     * @return urls of libs which ant requires.
+     */
+    public List<URL> getAntRequiredLibs();
 
 }
