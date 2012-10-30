@@ -42,6 +42,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.commons.utils.database.SASDataBaseMetadata;
+import org.talend.commons.utils.database.SybaseDatabaseMetaData;
 import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.commons.utils.encoding.CharsetToolkit;
 import org.talend.commons.utils.platform.PluginChecker;
@@ -101,16 +102,16 @@ public class ExtractMetaDataUtils {
      * MOD by zshen this method don't care about sqlMode
      */
     public static DatabaseMetaData getDatabaseMetaData(Connection conn, String dbType) {
-
         DatabaseMetaData dbMetaData = null;
         try {
-
-            if ("net.sourceforge.jtds.jdbc.ConnectionJDBC3".equals(conn.getClass().getName())) {
+            if ("net.sourceforge.jtds.jdbc.ConnectionJDBC3".equals(conn.getClass().getName())) { //$NON-NLS-1$
                 dbMetaData = createJtdsDatabaseMetaData(conn);
             } else if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
                 dbMetaData = createFakeDatabaseMetaData(conn);
             } else if (dbType.equals(EDatabaseTypeName.SAS.getXmlName())) {
                 dbMetaData = createSASFakeDatabaseMetaData(conn);
+            } else if (EDatabaseTypeName.SYBASEASE.getDisplayName().equals(dbType)) {
+                dbMetaData = createSybaseFakeDatabaseMetaData(conn);
             } else {
                 dbMetaData = conn.getMetaData();
             }
@@ -138,11 +139,9 @@ public class ExtractMetaDataUtils {
     }
 
     public static DatabaseMetaData getDatabaseMetaData(Connection conn, String dbType, boolean isSqlMode, String database) {
-
         DatabaseMetaData dbMetaData = null;
         try {
-
-            if ("net.sourceforge.jtds.jdbc.ConnectionJDBC3".equals(conn.getClass().getName())) {
+            if ("net.sourceforge.jtds.jdbc.ConnectionJDBC3".equals(conn.getClass().getName())) { //$NON-NLS-1$
                 dbMetaData = createJtdsDatabaseMetaData(conn);
             } else if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
                 dbMetaData = createFakeDatabaseMetaData(conn);
@@ -153,6 +152,8 @@ public class ExtractMetaDataUtils {
                 teraDbmeta.setDatabaseName(database);
             } else if (dbType.equals(EDatabaseTypeName.SAS.getXmlName())) {
                 dbMetaData = createSASFakeDatabaseMetaData(conn);
+            } else if (EDatabaseTypeName.SYBASEASE.getDisplayName().equals(dbType)) {
+                dbMetaData = createSybaseFakeDatabaseMetaData(conn);
             } else {
                 dbMetaData = conn.getMetaData();
             }
@@ -190,12 +191,10 @@ public class ExtractMetaDataUtils {
      * 
      */
     public static DatabaseMetaData getDatabaseMetaData(Connection conn, DatabaseConnection dbConn, boolean isSqlMode) {
-
         DatabaseMetaData dbMetaData = null;
         try {
             String dbType = dbConn.getDatabaseType();
-
-            if ("net.sourceforge.jtds.jdbc.ConnectionJDBC3".equals(conn.getClass().getName())) {
+            if ("net.sourceforge.jtds.jdbc.ConnectionJDBC3".equals(conn.getClass().getName())) { //$NON-NLS-1$
                 dbMetaData = createJtdsDatabaseMetaData(conn);
             } else if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
                 dbMetaData = createFakeDatabaseMetaData(conn);
@@ -207,6 +206,8 @@ public class ExtractMetaDataUtils {
                 teraDbmeta.setDatabaseName(database);
             } else if (dbType.equals(EDatabaseTypeName.SAS.getXmlName())) {
                 dbMetaData = createSASFakeDatabaseMetaData(conn);
+            } else if (EDatabaseTypeName.SYBASEASE.getDisplayName().equals(dbType)) {
+                dbMetaData = createSybaseFakeDatabaseMetaData(conn);
             } else {
                 dbMetaData = conn.getMetaData();
             }
@@ -224,7 +225,7 @@ public class ExtractMetaDataUtils {
         DatabaseMetaData dbMetaData = conn.getMetaData();
         // MOD xqliu 2009-11-17 bug 7888
         if (dbMetaData != null && dbMetaData.getDatabaseProductName() != null) {
-            if ("net.sourceforge.jtds.jdbc.ConnectionJDBC3".equals(conn.getClass().getName())) {
+            if ("net.sourceforge.jtds.jdbc.ConnectionJDBC3".equals(conn.getClass().getName())) { //$NON-NLS-1$
                 dbMetaData = createJtdsDatabaseMetaData(conn);
             } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
                 getDatabaseMetaData(conn, EDatabaseTypeName.IBMDB2ZOS.getXmlName());
@@ -234,21 +235,6 @@ public class ExtractMetaDataUtils {
                 getDatabaseMetaData(conn, EDatabaseTypeName.SAS.getXmlName());
             }
         }
-        // if (dbMetaData != null && dbMetaData.getDatabaseProductName() != null) {
-        // if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.IBMDB2ZOS.getProduct())) {
-        // dbMetaData = createFakeDatabaseMetaData(conn);
-        // log.info("IBM DB2 for z/OS");
-        // } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.TERADATA.getProduct()) && metadataCon
-        // != null
-        // && metadataCon.isSqlMode()) {
-        // dbMetaData = createTeradataFakeDatabaseMetaData(conn);
-        // TeradataDataBaseMetadata teraDbmeta = (TeradataDataBaseMetadata) dbMetaData;
-        // teraDbmeta.setDatabaseName(ExtractMetaDataUtils.metadataCon.getDatabase());
-        // } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.SAS.getProduct())) {
-        // dbMetaData = createSASFakeDatabaseMetaData(conn);
-        // }
-        // }
-        // // ~
         return dbMetaData;
     }
 
@@ -283,6 +269,11 @@ public class ExtractMetaDataUtils {
     private static DatabaseMetaData createSASFakeDatabaseMetaData(Connection conn) {
         SASDataBaseMetadata tmd = new SASDataBaseMetadata(conn);
         return tmd;
+    }
+
+    private static DatabaseMetaData createSybaseFakeDatabaseMetaData(Connection conn) throws SQLException {
+        SybaseDatabaseMetaData dmd = new SybaseDatabaseMetaData(conn);
+        return dmd;
     }
 
     /**
@@ -469,11 +460,11 @@ public class ExtractMetaDataUtils {
      */
     private static boolean isValidJarFile(final String[] driverJarPath) {
         boolean a = false;
-        for (int i = 0; i < driverJarPath.length; i++) {
-            if (driverJarPath[i] == null || driverJarPath[i].equals("")) { //$NON-NLS-1$
+        for (String element : driverJarPath) {
+            if (element == null || element.equals("")) { //$NON-NLS-1$
                 return a;
             }
-            File jarFile = new File(driverJarPath[i]);
+            File jarFile = new File(element);
             a = jarFile.exists() && jarFile.isFile();
         }
         return a;
@@ -767,8 +758,8 @@ public class ExtractMetaDataUtils {
                 if (driverJarPathArg.contains("\\") || driverJarPathArg.startsWith("/")) { //$NON-NLS-1$
                     if (driverJarPathArg.contains(";")) {
                         String jars[] = driverJarPathArg.split(";");
-                        for (int i = 0; i < jars.length; i++) {
-                            Path path = new Path(jars[i]);
+                        for (String jar : jars) {
+                            Path path = new Path(jar);
                             // fix for 19020
                             if (jarsAvailable.contains(path.lastSegment())) {
                                 if (!new File(getJavaLibPath() + path.lastSegment()).exists()) {
@@ -777,7 +768,7 @@ public class ExtractMetaDataUtils {
                                 }
                                 jarPathList.add(getJavaLibPath() + path.lastSegment());
                             } else {
-                                jarPathList.add(jars[i]);
+                                jarPathList.add(jar);
                             }
                         }
                     } else {
@@ -920,21 +911,21 @@ public class ExtractMetaDataUtils {
         try {
             String[] systemFunctions = null;
             if (dbMetadata.getSystemFunctions() != null) {
-                systemFunctions = dbMetadata.getSystemFunctions().split(",\\s*"); //$NON-NLS-N$ //$NON-NLS-1$
+                systemFunctions = dbMetadata.getSystemFunctions().split(",\\s*"); //$NON-NLS-1$
             }
             String[] numericFunctions = null;
             if (dbMetadata.getNumericFunctions() != null) {
-                numericFunctions = dbMetadata.getNumericFunctions().split(",\\s*"); //$NON-NLS-N$ //$NON-NLS-1$
+                numericFunctions = dbMetadata.getNumericFunctions().split(",\\s*"); //$NON-NLS-1$
             }
 
             String[] stringFunctions = null;
             if (dbMetadata.getStringFunctions() != null) {
-                stringFunctions = dbMetadata.getStringFunctions().split(",\\s*"); //$NON-NLS-N$ //$NON-NLS-1$
+                stringFunctions = dbMetadata.getStringFunctions().split(",\\s*"); //$NON-NLS-1$
             }
 
             String[] timeFunctions = null;
             if (dbMetadata.getTimeDateFunctions() != null) {
-                timeFunctions = dbMetadata.getTimeDateFunctions().split(",\\s*"); //$NON-NLS-N$ //$NON-NLS-1$
+                timeFunctions = dbMetadata.getTimeDateFunctions().split(",\\s*"); //$NON-NLS-1$
             }
 
             convertFunctions2Array(functionlist, systemFunctions);
@@ -954,8 +945,8 @@ public class ExtractMetaDataUtils {
     // hywang added for bug 7038
     private static List<String> convertFunctions2Array(List<String> functionlist, String[] functions) {
         if (functions != null) {
-            for (int i = 0; i < functions.length; i++) {
-                functionlist.add(functions[i]);
+            for (String function : functions) {
+                functionlist.add(function);
             }
 
         }

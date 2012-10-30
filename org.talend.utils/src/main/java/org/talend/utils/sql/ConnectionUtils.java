@@ -97,10 +97,17 @@ public final class ConnectionUtils {
                 try {
                     connection = driver.connect(url, props);
                 } catch (Exception exception) {
+                    log.info(exception);
+                }
+            } catch (SQLException e) {// MOD xqliu for sybase
+                if (url != null && url.toLowerCase().indexOf("sybase") > -1) { //$NON-NLS-1$
+                    try {
+                        connection = driver.connect(url, props);
+                    } catch (Exception exception) {
+                        log.info(exception);
+                    }
                 }
             }
-            // connection = DriverManager.getConnection(url, props.getProperty("user"), props.getProperty("password"));
-
         }
         return connection;
     }

@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.data.list.ListUtils;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
+import org.talend.commons.utils.database.SybaseDatabaseMetaData;
 import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.core.ICoreService;
 import org.talend.core.database.EDatabase4DriverClassName;
@@ -130,78 +131,18 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             if (sqlConnection == null || sqlConnection.isClosed()) {
                 this.checkConnection(metadataBean);
             }
-            // ExtractMetaDataUtils.metadataCon=metadataBean;
-            // MetadataConnectionUtils.setMetadataCon(metadataBean);
-            // fill some base parameter
             if (newConnection != null) {
                 fillMetadataParams(metadataBean, newConnection);
             }
-            // software
             DatabaseMetaData dbMetadata = ExtractMetaDataUtils.getDatabaseMetaData(sqlConnection, dbconn, false);
-            // for bug 22113, annotate it.
-            // String connectionDbType = metadataBean.getDbType();
-            // List<EDatabaseVersion4Drivers> dbTypeList = EDatabaseVersion4Drivers.indexOfByDbType(connectionDbType);
             boolean isHive = dbconn.getDatabaseType().equals(EDatabaseTypeName.HIVE.getDisplayName());
             boolean isHiveJdbc = dbconn.getDatabaseType().equals(EDatabaseTypeName.GENERAL_JDBC.getDisplayName())
                     && dbconn.getDriverClass() != null
                     && dbconn.getDriverClass().equals(EDatabase4DriverClassName.HIVE.getDriverClass());
             if (!isHive && !isHiveJdbc) {
-                // TdSoftwareSystem softwareSystem = MetadataConnectionUtils.getSoftwareSystem(sqlConnection);
-                // if (softwareSystem != null) {
-                // ConnectionHelper.setSoftwareSystem(dbconn, softwareSystem);
-                // }
-                // identifierQuote
                 String identifierQuote = dbMetadata.getIdentifierQuoteString();
                 ConnectionHelper.setIdentifierQuoteString(identifierQuote == null ? "" : identifierQuote, dbconn);
-                // for bug 22113, annotate it.
-                // dbversion
-                // int versionNum = 0;
-                // try {
-                // versionNum = sqlConnection.getMetaData().getDatabaseMajorVersion();
-                // } catch (RuntimeException e) {
-                // // happens for Sybase for example
-                // if (log.isDebugEnabled()) {
-                // log.debug(e, e);
-                // }
-                // }
-
-                // if (dbTypeList.size() == 1) {
-                // dbconn.setDbVersionString(dbTypeList.get(0).getVersionValue());
-                // } else if (dbTypeList.size() > 1) {
-                // for (EDatabaseVersion4Drivers eDatabaseVersion : dbTypeList) {
-                // String[] strArray = eDatabaseVersion.getVersionValue().split("_");
-                // if (strArray.length > 1 && strArray[1].startsWith(Integer.toString(versionNum))) {
-                // dbconn.setDbVersionString(eDatabaseVersion.getVersionValue());
-                // break;
-                // }
-                // }
-                // }
             }
-            // uiSchema
-            // EDatabaseTypeName edatabasetypeInstance = EDatabaseTypeName.getTypeFromDisplayName(connectionDbType);
-            // if (edatabasetypeInstance.isNeedSchema() && StringUtils.isEmpty(dbconn.getUiSchema())) {
-            // this.setLinked(false);
-            // List<Schema> schemata = ListUtils.castList(Schema.class,
-            // this.fillSchemas(connection, sqlConnection.getMetaData(), null));
-            // List<Catalog> catalogs = this.fillCatalogs(connection, sqlConnection.getMetaData(), null);
-            // this.setLinked(true);
-            // if (schemata.size() == 0 && catalogs.size() > 0) {
-            // schemata = CatalogHelper
-            // .getSchemas(SwitchHelpers.CATALOG_SWITCH.doSwitch((CatalogImpl) catalogs.toArray()[0]));
-            // }
-            //
-            // // FIXME Bzhou why here need to add a default schema?
-            // // if (edatabasetypeInstance.getSchemaMappingField() == EDatabaseSchemaOrCatalogMapping.Schema
-            // // && schemata.size() > 0) {
-            // // Iterator<Schema> iter = schemata.iterator();
-            // // while (iter.hasNext()) {
-            // // String uischema = iter.next().getName();
-            // // dbconn.setUiSchema(uischema);
-            // // break;
-            // // }
-            // //
-            // // }
-            // }
         } catch (SQLException e) {
             log.error(e, e);
         } finally {
@@ -214,14 +155,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     // exception of shutdown success. no need to catch.
                 }
             }
-
         }
         if (newConnection != null) {
             return newConnection;
         } else {
             return connection;
         }
-
     }
 
     @Override
@@ -235,7 +174,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
     }
 
     public List<Package> fillSchemas(Connection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> schemaFilter) {
-
         List<Schema> returnSchemas = new ArrayList<Schema>();
         if (dbJDBCMetadata == null || (dbConn != null && ConnectionHelper.getCatalogs(dbConn).size() > 0)) {
             return null;
@@ -390,10 +328,13 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 return catalogList;
             }
             ResultSet catalogNames = null;
-            catalogNames = dbJDBCMetadata.getCatalogs();
+            if (dbJDBCMetadata instanceof SybaseDatabaseMetaData) {
+                catalogNames = ((SybaseDatabaseMetaData) dbJDBCMetadata).getCatalogs(((DatabaseConnection) dbConn).getUsername());
+            } else {
+                catalogNames = dbJDBCMetadata.getCatalogs();
+            }
             List<String> filterList = null;
             if (catalogNames != null) {
-
                 boolean isHive = MetadataConnectionUtils.isHive(dbJDBCMetadata);
                 boolean isSybase = MetadataConnectionUtils.isSybase(dbJDBCMetadata);
                 // else DB support getCatalogs() method
@@ -593,8 +534,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         } catch (SecurityException e) {
             // Case of JDK1.5
         } catch (NoSuchMethodException e) {
+            // do nothing here !!!
         } catch (IllegalArgumentException e) {
+            // do nothing here !!!
         } catch (IllegalAccessException e) {
+            // do nothing here !!!
         } catch (InvocationTargetException e) {
             // Case of JDK1.5
             if (e.getTargetException().getClass().toString().equals("SQLServerException")) {
@@ -606,8 +550,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
         if (schemaRs == null) {
             try {
-                // schemaRs = dbJDBCMetadata.getSchemas(catalog.getName(), null);
-                schemaRs = dbJDBCMetadata.getSchemas();
+                if (dbJDBCMetadata instanceof SybaseDatabaseMetaData) {
+                    schemaRs = ((SybaseDatabaseMetaData) dbJDBCMetadata).getSchemas(catalog.getName(), null);
+                } else {
+                    schemaRs = dbJDBCMetadata.getSchemas();
+                }
             } catch (SQLException e) {
                 if (log.isDebugEnabled()) {
                     log.debug(e, e);
@@ -617,62 +564,44 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
         List<String> schemaNameCacheTmp = new ArrayList<String>();
         List<Schema> schemaList = new ArrayList<Schema>();
-        try {
-            while (schemaRs.next()) {
-                String schemaName = null;
-                String catalogName = null;
-                try {
-                    schemaName = schemaRs.getString(MetaDataConstants.TABLE_SCHEM.name());
-                    // if (schemaName.equals("Base")) {
-                    // System.out.println("aa");
-                    // executeGetSchemas(dbJDBCMetadata);
-                    // }
-
-                    // if (catalogName.equals("new_Base")) {
-                    // System.out.println("aa");
-                    // }
-
-                    // MOD klliu bug 19004 2011-03-31
-                    // java.sql.Connection connection = dbJDBCMetadata.getConnection();
-                    // if (!MetadataConnectionUtils.isOdbcConnection(connection)) {
-                    if (!MetadataConnectionUtils.isPostgresql(dbJDBCMetadata)) {
-                        catalogName = schemaRs.getString(MetaDataConstants.TABLE_CATALOG.name());
-                    }
-                    // the case for mssql
-                    // dbJDBCMetadata.getDatabaseMajorVersion() > 8 it mean that the column TABLE_CATALOG is exist.
-                    // dbJDBCMetadata.getDriverMajorVersion() > 1 mean that the connection use 2005/2008 driver
-                    if (MetadataConnectionUtils.isMssql(dbJDBCMetadata) && dbJDBCMetadata.getDatabaseMajorVersion() > 8
-                            && dbJDBCMetadata.getDriverMajorVersion() > 1) {
-                        if (catalogName != null && catalogName != schemaName) {
-                            schemaName = catalogName;
+        if (schemaRs != null) {
+            try {
+                while (schemaRs.next()) {
+                    String schemaName = null;
+                    String catalogName = null;
+                    try {
+                        schemaName = schemaRs.getString(MetaDataConstants.TABLE_SCHEM.name());
+                        if (!(MetadataConnectionUtils.isPostgresql(dbJDBCMetadata) || MetadataConnectionUtils
+                                .isSybase(dbJDBCMetadata))) {
+                            catalogName = schemaRs.getString(MetaDataConstants.TABLE_CATALOG.name());
                         }
+                        if (MetadataConnectionUtils.isMssql(dbJDBCMetadata) && dbJDBCMetadata.getDatabaseMajorVersion() > 8
+                                && dbJDBCMetadata.getDriverMajorVersion() > 1) {
+                            if (catalogName != null && catalogName != schemaName) {
+                                schemaName = catalogName;
+                            }
+                        }
+                        if (schemaName == null || !MetadataConnectionUtils.isMssql(dbJDBCMetadata.getConnection())
+                                && catalogName != null && !catalogName.equals(catalog.getName())) {
+                            continue;
+                        }
+                    } catch (Exception e) {
+                        // log.warn(e.getMessage(), e);
                     }
-                    if (schemaName == null || !MetadataConnectionUtils.isMssql(dbJDBCMetadata.getConnection())
-                            && catalogName != null && !catalogName.equals(catalog.getName())) {
-                        // the case for olap
-                        // if (schemaName == null) {
-                        continue;
+                    if (!schemaNameCacheTmp.contains(schemaName) && !MetadataConnectionUtils.isMysql(dbJDBCMetadata)) {
+                        schemaNameCacheTmp.add(schemaName);
+                        Schema schema = SchemaHelper.createSchema(schemaName);
+                        if (!filterMetadaElement(schemaFilter, schemaName)) {
+                            continue;
+                        }
+                        schemaList.add(schema);
                     }
-                    // }
-                } catch (Exception e) {
-                    // log.warn(e.getMessage(), e);
                 }
-                // MOD mzhao bug 9606 filter duplicated schemas.
-
-                if (!schemaNameCacheTmp.contains(schemaName) && !MetadataConnectionUtils.isMysql(dbJDBCMetadata)) {
-                    schemaNameCacheTmp.add(schemaName);
-                    Schema schema = SchemaHelper.createSchema(schemaName);
-                    if (!filterMetadaElement(schemaFilter, schemaName)) {
-                        continue;
-                    }
-                    schemaList.add(schema);
+                schemaRs.close();
+            } catch (Exception e) {
+                if (log.isDebugEnabled()) {
+                    log.debug(e, e);
                 }
-
-            }
-            schemaRs.close();
-        } catch (Exception e) {
-            if (log.isDebugEnabled()) {
-                log.debug(e, e);
             }
         }
 
