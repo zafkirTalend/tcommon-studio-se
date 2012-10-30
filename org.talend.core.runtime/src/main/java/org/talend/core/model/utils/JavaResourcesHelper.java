@@ -21,6 +21,7 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
+import org.talend.core.ui.branding.IBrandingService;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.repository.ProjectManager;
 
@@ -86,6 +87,30 @@ public class JavaResourcesHelper {
         String projectFolderName = p.getTechnicalLabel();
         projectFolderName = projectFolderName.toLowerCase();
         return projectFolderName;
+    }
+
+    public static String getGroupItemName(String projectName, String itemName) {
+        if (itemName == null) {
+            return null;
+        }
+        String itemGroupPrefixName = "org."; //$NON-NLS-1$
+        String corporationName = null;
+        IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
+        if (service != null) {
+            corporationName = service.getCorporationName();
+            if (corporationName != null) {
+                corporationName = corporationName.trim();
+            }
+        }
+        if (corporationName == null || "".equals(corporationName)) { //$NON-NLS-1$
+            corporationName = "talend"; //$NON-NLS-1$
+        }
+        itemGroupPrefixName += corporationName;
+        if (projectName != null) {
+            itemGroupPrefixName += '.' + projectName;
+        }
+        itemGroupPrefixName += '.' + itemName;
+        return itemGroupPrefixName.trim().toLowerCase();
     }
 
 }

@@ -20,8 +20,8 @@ package org.talend.resources.util;
  * This is a mapping enum for variable and maven properties.
  */
 public enum EMavenBuildScriptProperties {
-    ItemProjectName,
     ItemGroupName,
+    ItemProjectName,
     ItemName,
     ItemVersion,
     //
