@@ -318,6 +318,25 @@ public class LocalLibraryManager implements ILibraryManagerService {
         return names;
     }
 
+    @Override
+    public Set<String> listAllDllFiles() {
+        Set<String> names = new HashSet<String>();
+        try {
+            List<File> dllFiles = FilesUtils.getDllFilesFromFolder(getStorageDirectory(), null);
+            if (dllFiles.size() > 0) {
+                for (File file : dllFiles) {
+                    names.add(file.getName());
+                }
+            } else {
+
+            }
+        } catch (MalformedURLException e) {
+            ExceptionHandler.process(e);
+        }
+
+        return names;
+    }
+
     private File getStorageDirectory() {
         String librariesPath = PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA);
         File storageDir = new File(librariesPath);

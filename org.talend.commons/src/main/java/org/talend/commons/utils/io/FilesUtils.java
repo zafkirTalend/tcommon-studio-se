@@ -468,6 +468,10 @@ public class FilesUtils {
         return getFilesFromFolderByName(file, fileName, new String[] { ".jar", ".zip", ".bar" }, null, true); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
 
+    public static List<File> getDllFilesFromFolder(File file, String fileName) throws MalformedURLException {
+        return getFilesFromFolderByName(file, fileName, new String[] { ".dll" }, null, true); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    }
+
     public static FileFilter getExcludeSystemFilesFilter() {
         FileFilter filter = new FileFilter() {
 
