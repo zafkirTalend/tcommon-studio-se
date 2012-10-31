@@ -1202,7 +1202,7 @@ public class DeleteAction extends AContextualAction {
             } else {
                 factory.deleteObjectLogical(objToDelete);
                 updateRelatedViews();
-                removeConnFromSQLExplorer(repositoryNode);
+                removeConnFromSQLExplorer(currentJobNode);
             }
         }
 
