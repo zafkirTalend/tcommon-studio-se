@@ -90,24 +90,40 @@ public final class ConnectionUtils {
             try {
                 DriverManager.registerDriver(driver);
                 Class.forName(driver.getClass().getName());
-                connection = DriverManager.getConnection(url, props);
+                if (isMsSqlServer(url) || isSybase(url)) {
+                    connection = driver.connect(url, props);
+                } else {
+                    connection = DriverManager.getConnection(url, props);
+                }
             } catch (ClassNotFoundException e) {// MOD zshen for mssql2008
                 try {
                     connection = driver.connect(url, props);
                 } catch (Exception exception) {
                     log.info(exception);
                 }
-            } catch (SQLException e) {// MOD xqliu for sybase
-                if (url != null && url.toLowerCase().indexOf("sybase") > -1) { //$NON-NLS-1$
-                    try {
-                        connection = driver.connect(url, props);
-                    } catch (Exception exception) {
-                        log.info(exception);
-                    }
-                }
             }
         }
         return connection;
+    }
+
+    /**
+     * if the url include "sybase", return true, else return false
+     * 
+     * @param url
+     * @return
+     */
+    public static boolean isSybase(String url) {
+        return url.indexOf("sybase") > -1; //$NON-NLS-1$
+    }
+
+    /**
+     * if the url include "sqlserver", return true, else return false
+     * 
+     * @param url
+     * @return
+     */
+    public static boolean isMsSqlServer(String url) {
+        return url.indexOf("sqlserver") > -1; //$NON-NLS-1$
     }
 
     /**
