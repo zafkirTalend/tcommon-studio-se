@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParsePosition;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -31,12 +32,27 @@ import org.xml.sax.SAXException;
 public class ParserUtils {
 
     public static List parseTo_List(String s) {
-        if (s != null) {
-            List list = new ArrayList();
-            list.add(s);
+        return parseTo_List(s, null);
+    }
+    /**
+     * the source should be a string wrapped in chars[ ] which stands for it is a collection
+     * @param stSrc
+     * @param fieldSep
+     * @return
+     */
+    public static List<String> parseTo_List(String strSrc, String fieldSep) {
+    	if (strSrc == null) {
+    		return null;
+    	}
+    	List<String> list = new ArrayList<String>();
+    	
+    	// the source string is wrap in [] which means it is a collection
+    	if ( (fieldSep == null || "".equals(fieldSep)) || !(strSrc.startsWith("[") && strSrc.endsWith("]"))) {
+            list.add(strSrc);
             return list;
-        }
-        return null;
+    	}
+    	
+    	return Arrays.asList(strSrc.split(fieldSep,-1));
     }
 
     public static Character parseTo_Character(String s) {
