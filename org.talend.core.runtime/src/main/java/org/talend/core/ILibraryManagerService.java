@@ -69,6 +69,14 @@ public interface ILibraryManagerService extends IService {
      */
     public Set<String> list(IProgressMonitor... monitorWrap);
 
+    /**
+     * 
+     * List all .dll files
+     * 
+     * @return
+     */
+    public Set<String> listAllDllFiles();
+
     public boolean delete(String jarName);
 
     public boolean contains(String jarName);
