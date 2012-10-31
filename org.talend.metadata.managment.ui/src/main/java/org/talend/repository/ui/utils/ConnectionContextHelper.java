@@ -195,6 +195,13 @@ public final class ConnectionContextHelper {
         return null;
     }
 
+    /**
+     * 
+     * change the mode of lebel to Context mode
+     * 
+     * @param label which you want to convert(it is the name of connection normal)
+     * @return Context mode label
+     */
     public static String convertContextLabel(String label) {
         if (label != null) {
             String newLabel = label.replaceAll("[\\.\\-\\ \\(\\)\\[\\]=]", "_"); //$NON-NLS-1$ //$NON-NLS-2$

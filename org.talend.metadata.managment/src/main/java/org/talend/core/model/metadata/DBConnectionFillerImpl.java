@@ -62,7 +62,6 @@ import org.talend.cwm.helper.SchemaHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.i18n.Messages;
-import org.talend.cwm.mip.service.CWMService;
 import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdExpression;
@@ -248,8 +247,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     if (!isNullUiSchema(dbConn) && dbConn != null) {
                         String uiSchemaOnConnWizard = ((DatabaseConnection) dbConn).getUiSchema();
                         // If the UiSchema on ui is not empty, the shema name should be same to this UiSchema name.
-                        CWMService cwmService = new TalendCWMService();
-                        Schema schema = SchemaHelper.createSchema(cwmService.getReadableName(dbConn, uiSchemaOnConnWizard));
+                        Schema schema = SchemaHelper.createSchema(TalendCWMService.getReadableName(dbConn, uiSchemaOnConnWizard));
                         returnSchemas.add(schema);
                         break;
                     } else if (isCreateElement(schemaFilter, schemaName)) {
@@ -379,9 +377,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     if (!isNullSID(dbConn) && dbConn != null) {
                         String databaseOnConnWizard = ((DatabaseConnection) dbConn).getSID();
                         // If the SID on ui is not empty, the catalog name should be same to this SID name.
-                        CWMService cwmService = new TalendCWMService();
                         filterList.addAll(postFillCatalog(catalogList, filterList,
-                                cwmService.getReadableName(dbConn, databaseOnConnWizard), dbConn));
+                                TalendCWMService.getReadableName(dbConn, databaseOnConnWizard), dbConn));
                         break;
                     } else if (isCreateElement(catalogFilter, catalogName)) {
                         filterList.addAll(postFillCatalog(catalogList, filterList, catalogName, dbConn));
@@ -504,8 +501,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
     private boolean isNullSID(Connection dbConn) {
         if (dbConn instanceof DatabaseConnection) {
             String databaseOnConnWizard = ((DatabaseConnection) dbConn).getSID();
-            CWMService cwmService = new TalendCWMService();
-            String readableName = cwmService.getReadableName(dbConn, databaseOnConnWizard);
+            String readableName = TalendCWMService.getReadableName(dbConn, databaseOnConnWizard);
             if (isEmptyString(databaseOnConnWizard) && isEmptyString(readableName)) {
                 return true;
             }
@@ -522,8 +518,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
     private boolean isNullUiSchema(Connection dbConn) {
         if (dbConn instanceof DatabaseConnection) {
             String databaseOnConnWizard = ((DatabaseConnection) dbConn).getUiSchema();
-            CWMService cwmService = new TalendCWMService();
-            String readableName = cwmService.getReadableName(dbConn, databaseOnConnWizard);
+            String readableName = TalendCWMService.getReadableName(dbConn, databaseOnConnWizard);
             if (isEmptyString(databaseOnConnWizard) && isEmptyString(readableName)) {
                 return true;
             }
@@ -645,23 +640,26 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     } catch (Exception e) {
                         // not some things need to do
                     }
+
                     // MOD mzhao bug 9606 filter duplicated schemas.
+
                     if (!schemaNameCacheTmp.contains(schemaName) && !MetadataConnectionUtils.isMysql(dbJDBCMetadata)) {
                         if (!isNullUiSchema(dbConn) && dbConn != null) {
                             String uiSchemaOnConnWizard = ((DatabaseConnection) dbConn).getUiSchema();
                             // If the UiSchema on ui is not empty, the shema name should be same to this UiSchema name.
-                            CWMService cwmService = new TalendCWMService();
-                            Schema schema = SchemaHelper.createSchema(cwmService.getReadableName(dbConn, uiSchemaOnConnWizard));
+                            Schema schema = SchemaHelper.createSchema(TalendCWMService.getReadableName(dbConn,
+                                    uiSchemaOnConnWizard));
                             schemaList.add(schema);
                             break;
                         } else if (isCreateElement(schemaFilter, schemaName)) {
                             Schema schema = SchemaHelper.createSchema(schemaName);
                             schemaList.add(schema);
                             schemaNameCacheTmp.add(schemaName);
+
                         }
                     }
+                    schemaRs.close();
                 }
-                schemaRs.close();
             } catch (Exception e) {
                 if (log.isDebugEnabled()) {
                     log.debug(e, e);

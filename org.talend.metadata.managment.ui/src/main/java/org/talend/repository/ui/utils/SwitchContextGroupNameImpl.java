@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.eclipse.jface.window.Window;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
@@ -36,7 +35,6 @@ import org.talend.cwm.helper.SchemaHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.ui.wizards.metadata.ContextSetsSelectionDialog;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.Schema;
 
@@ -71,7 +69,7 @@ public class SwitchContextGroupNameImpl implements ISwitchContext {
      * org.talend.core.model.metadata.builder.database.ISwitchContext#updateContextGroup(org.talend.core.model.properties
      * .ContextItem, org.talend.core.model.metadata.builder.connection.Connection)
      */
-    public boolean updateContextGroup(ConnectionItem connItem) {
+    public boolean updateContextGroup(ConnectionItem connItem, String selectedContext) {
         if (connItem == null) {
             return false;
         }
@@ -80,16 +78,8 @@ public class SwitchContextGroupNameImpl implements ISwitchContext {
         if (con != null) {
             // TDQ-4559~
             String oldContextName = con.getContextName();
-            String contextId = con.getContextId();
-            ContextItem contextItem = ContextUtils.getContextItemById2(contextId);
-            String selectedContext = contextItem.getDefaultContext();
-            if (contextItem.getContext().size() > 1) {
-                ContextSetsSelectionDialog setsDialog = new ContextSetsSelectionDialog(contextItem);
-                if (setsDialog.open() == Window.OK) {
-                    selectedContext = setsDialog.getSelectedContext();
-                }
-            }
-            if (!checkContextIsValid(selectedContext, con)) {
+
+            if (!isContextIsValid(selectedContext, con)) {
                 return false;
             }
             con.setContextName(selectedContext);
@@ -118,7 +108,7 @@ public class SwitchContextGroupNameImpl implements ISwitchContext {
      * @param selectedContext
      * @paramconn
      */
-    private boolean checkContextIsValid(String selectedContext, Connection conn) {
+    private boolean isContextIsValid(String selectedContext, Connection conn) {
         String oldContextName = conn.getContextName();
         boolean retCode = false;
         if (conn instanceof DatabaseConnection) {

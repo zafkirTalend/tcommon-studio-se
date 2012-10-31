@@ -22,7 +22,7 @@ import org.talend.core.model.properties.ContextItem;
  */
 public interface ISwitchContext {
 
-    public boolean updateContextGroup(ConnectionItem connItem);
+    public boolean updateContextGroup(ConnectionItem connItem, String selectedContext);
 
     public boolean updateContextForConnectionItems(Map<String, String> contextGroupRanamedMap, ContextItem contextItem);
 

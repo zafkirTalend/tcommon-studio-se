@@ -542,13 +542,13 @@ public final class DBConnectionContextUtils {
      * @param contextType the type of Context
      */
     private static void revertConnSubElement(DatabaseConnection conn, ContextType contextType) {
-        if (!(conn.getSID() == null || conn.getSID().equals(""))) { //$NON-NLS-1$
+        if (conn.getSID() != null && !(conn.getSID().equals(""))) { //$NON-NLS-1$
             String sidOrDatabase = ConnectionContextHelper.getOriginalValue(contextType, conn.getSID());
             Catalog catalog = CatalogHelper.getCatalog(conn, conn.getSID());
             if (catalog != null) {
                 catalog.setName(sidOrDatabase);
             }
-        } else if (!(conn.getUiSchema() == null || conn.getUiSchema().equals(""))) { //$NON-NLS-1$
+        } else if (conn.getUiSchema() != null && !(conn.getUiSchema().equals(""))) { //$NON-NLS-1$
             String schemName = ConnectionContextHelper.getOriginalValue(contextType, conn.getUiSchema());
             Schema schema = SchemaHelper.getSchema(conn, conn.getUiSchema());
             if (schema != null) {
