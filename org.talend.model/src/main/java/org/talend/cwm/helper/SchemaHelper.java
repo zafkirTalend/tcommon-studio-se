@@ -55,10 +55,10 @@ public final class SchemaHelper {
     }
 
     /**
-     * DOC ycbai Comment method "getSchemaByName".
+     * get schema by the name from collection which you pass.
      * 
-     * @param elements
-     * @param schemaName
+     * @param elements packages of connection
+     * @param schemaName the name of schema
      * @return
      */
     public static Schema getSchemaByName(Collection<? extends EObject> elements, String schemaName) {

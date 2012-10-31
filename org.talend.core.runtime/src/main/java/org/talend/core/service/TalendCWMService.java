@@ -7,17 +7,25 @@ import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.utils.ContextParameterUtils;
-import org.talend.cwm.mip.service.CWMService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import orgomg.cwm.foundation.softwaredeployment.DataManager;
 
-public class TalendCWMService extends CWMService {
+public class TalendCWMService {
 
-    private Logger log = Logger.getLogger(TalendCWMService.class);
+    private static Logger log = Logger.getLogger(TalendCWMService.class);
 
-    @Override
-    public String getReadableName(DataManager dataManager, String contextualName) {
+    /**
+     * 
+     * Get the readable name (actual item display name) via context style name when the item is on context mode.<BR>
+     * Note that in order to make it easier for caller to get a name, this contextualName may be passed as an actual
+     * display name, in this case, this name will be simply returned.
+     * 
+     * @param dataManager
+     * @param contextualName eigher the contextual name or the actual display name.
+     * @return the readable actual item display name.
+     */
+    public static String getReadableName(DataManager dataManager, String contextualName) {
         if (contextualName == null) {
             log.error("Null context name in connection " + dataManager); //$NON-NLS-1$
             return contextualName;

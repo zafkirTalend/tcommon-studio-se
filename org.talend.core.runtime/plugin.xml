@@ -82,11 +82,4 @@
          </Component>
       </SortedComponents>
    </extension>
-      <extension
-            point="org.talend.cwm.mip.cwmService">
-         <cwmService
-               class="org.talend.core.service.TalendCWMService"
-               serviceId="CWMService">
-         </cwmService>
-      </extension>
 </plugin>
