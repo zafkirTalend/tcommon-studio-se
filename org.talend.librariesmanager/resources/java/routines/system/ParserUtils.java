@@ -18,7 +18,6 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParsePosition;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -40,7 +39,7 @@ public class ParserUtils {
      * @param fieldSep
      * @return
      */
-    public static List<String> parseTo_List(String strSrc, String fieldSep) {
+    public static List<String> parseTo_List(final String strSrc, String fieldSep) {
     	if (strSrc == null) {
     		return null;
     	}
@@ -51,8 +50,11 @@ public class ParserUtils {
             list.add(strSrc);
             return list;
     	}
-    	
-    	return Arrays.asList(strSrc.split(fieldSep,-1));
+    	String strTemp = strSrc.substring(1, strSrc.length()-1); // remove the [ ]
+    	for (String str : strTemp.split(fieldSep, -1)) {
+    		list.add(str);
+    	}
+    	return list;
     }
 
     public static Character parseTo_Character(String s) {
