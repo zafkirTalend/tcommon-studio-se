@@ -2260,7 +2260,7 @@ public class DatabaseForm extends AbstractForm {
             }
         }
 
-        if (isDBTypeSelected(EDatabaseConnTemplate.HBASE) && !checkHadoopSettings()) {
+        if (isDBTypeSelected(EDatabaseConnTemplate.HBASE) && !checkHBaseSettings()) {
             return false;
         }
 
@@ -2390,13 +2390,13 @@ public class DatabaseForm extends AbstractForm {
 
     }
 
-    private boolean checkHadoopSettings() {
+    private boolean checkHBaseSettings() {
         if (hbaseDistributionCombo.getSelectionIndex() == -1) {
-            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.hadoop.distributionAlert")); //$NON-NLS-1$
+            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.hbase.distributionAlert")); //$NON-NLS-1$
             return false;
         }
         if (hbaseVersionCombo.getSelectionIndex() == -1) {
-            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.hadoop.versionAlert")); //$NON-NLS-1$
+            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.hbase.versionAlert")); //$NON-NLS-1$
             return false;
         }
         updateStatus(IStatus.OK, null);
