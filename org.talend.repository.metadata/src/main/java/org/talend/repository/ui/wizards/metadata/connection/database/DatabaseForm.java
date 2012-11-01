@@ -70,6 +70,8 @@ import org.talend.core.database.conn.DatabaseConnStrUtil;
 import org.talend.core.database.conn.EDatabaseConnVar;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
+import org.talend.core.database.hbase.conn.version.EHBaseDistribution4Versions;
+import org.talend.core.database.hbase.conn.version.EHBaseDistributions;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.IMetadataConnection;
@@ -123,31 +125,31 @@ public class DatabaseForm extends AbstractForm {
     private boolean databaseSettingIsValide = false;
 
     private boolean readOnly;
-    
+
     /*********** Fields for Hive Embedded **************/
-    
+
     private Group hadoopPropGrp;
-    
+
     private LabelledText nameNodeURLTxt;
-    
+
     private LabelledText jobTrackerURLTxt;
-    
+
     private Group metastorePropGrp;
-    
-    private LabelledText metastoreConnURLTxt;//javax.jdo.option.ConnectionURL
-    
+
+    private LabelledText metastoreConnURLTxt;// javax.jdo.option.ConnectionURL
+
     private LabelledText metastoreConnDriverJar;
-    
+
     private Button metastoreJarFilesButton;
-    
-    private LabelledCombo metastoreConnDriverName;//javax.jdo.option.ConnectionDriverName
-    
-    private LabelledText metastoreConnUserName;//javax.jdo.option.ConnectionUserName
-    
-    private LabelledText metastoreConnPassword; //javax.jdo.option.ConnectionPassword
-    
+
+    private LabelledCombo metastoreConnDriverName;// javax.jdo.option.ConnectionDriverName
+
+    private LabelledText metastoreConnUserName;// javax.jdo.option.ConnectionUserName
+
+    private LabelledText metastoreConnPassword; // javax.jdo.option.ConnectionPassword
+
     /***************************************************/
-    
+
     /**
      * Main Fields.
      */
@@ -226,6 +228,12 @@ public class DatabaseForm extends AbstractForm {
 
     private Group databaseSettingGroup;
 
+    private Group hbaseSettingGroup;
+
+    private LabelledCombo hbaseDistributionCombo;
+
+    private LabelledCombo hbaseVersionCombo;
+
     private Composite typeDbCompositeParent;
 
     private Composite generalDbCompositeParent;
@@ -275,8 +283,8 @@ public class DatabaseForm extends AbstractForm {
         this.connectionItem = connectionItem;
         this.isCreation = isCreation;
         setConnectionItem(connectionItem); // must be first.
-//      For bug TDI-22983, do not show the dialog to choose a context for the first time. 
-//      Changed by Marvin Wang on Oct. 29, 2012.
+        // For bug TDI-22983, do not show the dialog to choose a context for the first time.
+        // Changed by Marvin Wang on Oct. 29, 2012.
         this.metadataconnection = ConvertionHelper.convert(getConnection(), true);
         this.typeName = EDatabaseTypeName.getTypeFromDbType(metadataconnection.getDbType());
         /* use provider for the databse didn't use JDBC,for example: HBase */
@@ -303,13 +311,15 @@ public class DatabaseForm extends AbstractForm {
             if (isGeneralJDBC()) {
                 switchBetweenTypeandGeneralDB(false);
                 initializeGeneralJDBC();
+            } else if (isDBTypeSelected(EDatabaseConnTemplate.HBASE)) {
+                initHBaseSettings();
             } else if (isHiveDBConnSelected()) {
                 // Changed by Marvin Wang on Oct. 15, 2012 for but TDI-23235.
-            	doRemoveHiveSetup();
+                doRemoveHiveSetup();
                 initHiveInfo();
                 doHiveDBTypeSelected();
-            } else{
-            	doHiveDBTypeNotSelected();
+            } else {
+                doHiveDBTypeNotSelected();
             }
         }
         // initHiveInfo();
@@ -446,15 +456,14 @@ public class DatabaseForm extends AbstractForm {
     protected void addFields() {
         int width = getSize().x;
         GridLayout layout2;
-//        The orginal high is 270.
-//        databaseSettingGroup = Form.createGroup(this, 1, Messages.getString("DatabaseForm.groupDatabaseSettings"), 450); //$NON-NLS-1$
-//        
+        // The orginal high is 270.
+        //        databaseSettingGroup = Form.createGroup(this, 1, Messages.getString("DatabaseForm.groupDatabaseSettings"), 450); //$NON-NLS-1$
+        //
         databaseSettingGroup = new Group(this, SWT.NONE);
         GridLayout gridLayout1 = new GridLayout(1, false);
         databaseSettingGroup.setLayout(gridLayout1);
         GridData gridData1 = new GridData(SWT.FILL, SWT.FILL, true, true);
         databaseSettingGroup.setLayoutData(gridData1);
-        
 
         scrolledComposite = new ScrolledComposite(databaseSettingGroup, SWT.V_SCROLL | SWT.H_SCROLL);
         scrolledComposite.setExpandHorizontal(true);
@@ -519,7 +528,7 @@ public class DatabaseForm extends AbstractForm {
             @Override
             public void controlResized(ControlEvent e) {
                 Rectangle r = scrolledComposite.getClientArea();
-//                scrolledComposite.setMinSize(newParent.computeSize(r.width-100, 550));
+                // scrolledComposite.setMinSize(newParent.computeSize(r.width-100, 550));
                 scrolledComposite.setMinSize(newParent.computeSize(SWT.DEFAULT, 550));
             }
         });
@@ -532,7 +541,6 @@ public class DatabaseForm extends AbstractForm {
      * @param compositeGroupDbSettings
      */
     private void addFieldsForTypeDB(Composite compositeGroupDbSettings) {
-
         typeDbCompositeParent = new Composite(compositeGroupDbSettings, SWT.NULL);
         typeDbCompositeParent.setLayout(new GridLayout(3, false));
         GridLayout layout2 = (GridLayout) typeDbCompositeParent.getLayout();
@@ -540,8 +548,10 @@ public class DatabaseForm extends AbstractForm {
         layout2.marginTop = 0;
         layout2.marginBottom = 0;
 
+        createHBaseSettingContents(typeDbCompositeParent);
+
         createHadoopVersionInfoForHiveEmbedded(typeDbCompositeParent);
-        
+
         dbVersionCombo = new LabelledCombo(typeDbCompositeParent, Messages.getString("DatabaseForm.dbversion"), Messages //$NON-NLS-1$
                 .getString("DatabaseForm.dbversion.tip"), new String[0], 2, true); //$NON-NLS-1$
 
@@ -577,18 +587,72 @@ public class DatabaseForm extends AbstractForm {
         mappingSelectButton = new Button(typeDbCompositeParent, SWT.NONE);
         mappingSelectButton.setText("..."); //$NON-NLS-1$
         mappingSelectButton.setToolTipText(Messages.getString("DatabaseForm.selectRule")); //$NON-NLS-1$
-        
+
         createHadoopUIContentsForHiveEmbedded(typeDbCompositeParent);
         createMetastoreUIContentsForHiveEmbedded(typeDbCompositeParent);
     }
-    
+
+    private void createHBaseSettingContents(Composite parent) {
+        hbaseSettingGroup = Form.createGroup(parent, 4, Messages.getString("DatabaseForm.hbase.settings"), 60); //$NON-NLS-1$
+        GridLayout parentLayout = (GridLayout) parent.getLayout();
+        GridDataFactory.fillDefaults().span(parentLayout.numColumns, 1).applyTo(hbaseSettingGroup);
+
+        hbaseDistributionCombo = new LabelledCombo(hbaseSettingGroup,
+                Messages.getString("DatabaseForm.hbase.distribution"), //$NON-NLS-1$
+                Messages.getString("DatabaseForm.hbase.distribution.tooltip"), EHBaseDistributions.getAllDistributionDisplayNames() //$NON-NLS-1$
+                        .toArray(new String[0]), 1, true);
+        hbaseVersionCombo = new LabelledCombo(hbaseSettingGroup, Messages.getString("DatabaseForm.hbase.version"), //$NON-NLS-1$
+                Messages.getString("DatabaseForm.hbase.version.tooltip"), new String[0], 1, true); //$NON-NLS-1$
+        hideHBaseSettings(true);
+    }
+
+    private void hideHBaseSettings(boolean hide) {
+        GridData hadoopData = (GridData) hbaseSettingGroup.getLayoutData();
+        hbaseSettingGroup.setVisible(!hide);
+        hadoopData.exclude = hide;
+        hbaseDistributionCombo.setHideWidgets(hide);
+        hbaseVersionCombo.setHideWidgets(hide);
+    }
+
+    private void initHBaseSettings() {
+        DatabaseConnection connection = getConnection();
+        String hadoopDistribution = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_DISTRIBUTION);
+        String hadoopVersion = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION);
+
+        EHBaseDistributions distribution = EHBaseDistributions.getDistributionByName(hadoopDistribution, false);
+        if (distribution != null) {
+            String distributionDisplayName = distribution.getDisplayName();
+            hbaseDistributionCombo.setText(distributionDisplayName);
+            updateHBaseVersionCombo(distributionDisplayName);
+        } else {
+            hbaseDistributionCombo.select(0);
+        }
+        EHBaseDistribution4Versions version4Drivers = EHBaseDistribution4Versions.indexOfByVersion(hadoopVersion);
+        if (version4Drivers != null) {
+            hbaseVersionCombo.setText(version4Drivers.getVersionDisplayName());
+        } else {
+            hbaseVersionCombo.select(0);
+        }
+    }
+
+    private void updateHBaseVersionCombo(String distribution) {
+        List<String> items = EHBaseDistribution4Versions.getHadoopDistributionVersions(distribution);
+        String[] versions = new String[items.size()];
+        items.toArray(versions);
+        hbaseVersionCombo.getCombo().setItems(versions);
+        if (versions.length > 0) {
+            hbaseVersionCombo.getCombo().select(0);
+        }
+    }
+
     /**
      * Added by Marvin Wang on Oct. 15, 2012.
+     * 
      * @param parent
      */
-    private void createHadoopVersionInfoForHiveEmbedded(Composite parent){
-    	GridLayout layout2 = (GridLayout) parent.getLayout();
-    	hiveComposite = new Group(parent, SWT.NONE);
+    private void createHadoopVersionInfoForHiveEmbedded(Composite parent) {
+        GridLayout layout2 = (GridLayout) parent.getLayout();
+        hiveComposite = new Group(parent, SWT.NONE);
         hiveComposite.setText(Messages.getString("DatabaseForm.hiveEmbedded.versionInfo"));
         GridDataFactory.fillDefaults().span(layout2.numColumns, 1).applyTo(hiveComposite);
 
@@ -607,51 +671,57 @@ public class DatabaseForm extends AbstractForm {
                 Messages.getString("DatabaseForm.hiveMode.tips"), new String[] {
                         Messages.getString("DatabaseForm.hiveMode.standalone"),
                         Messages.getString("DatabaseForm.hiveMode.embedded") }, 1, false);
-        
+
         setHideVersionInfoWidgets(true);
     }
-    
+
     /**
-     * The contents only show up when the current db type is hive and hive mode is embedded. Contents include name node url and job tracker url.  
-     * Added by Marvin Wang on Oct. 15, 2012.
+     * The contents only show up when the current db type is hive and hive mode is embedded. Contents include name node
+     * url and job tracker url. Added by Marvin Wang on Oct. 15, 2012.
+     * 
      * @param parent
      */
-    private void createHadoopUIContentsForHiveEmbedded(Composite parent){
-    	GridLayout layout2 = (GridLayout) parent.getLayout();
-    	hadoopPropGrp = new Group(parent, SWT.NONE);
-    	hadoopPropGrp.setText(Messages.getString("DatabaseForm.hiveEmbedded.hadoopInfo"));
+    private void createHadoopUIContentsForHiveEmbedded(Composite parent) {
+        GridLayout layout2 = (GridLayout) parent.getLayout();
+        hadoopPropGrp = new Group(parent, SWT.NONE);
+        hadoopPropGrp.setText(Messages.getString("DatabaseForm.hiveEmbedded.hadoopInfo"));
         GridDataFactory.fillDefaults().span(layout2.numColumns, 1).applyTo(hadoopPropGrp);
-        
+
         hadoopPropGrp.setLayout(new GridLayout(2, false));
-        
-        nameNodeURLTxt = new LabelledText(hadoopPropGrp, Messages.getString("DatabaseForm.hiveEmbedded.nameNodeURL"),1);
-        jobTrackerURLTxt = new LabelledText(hadoopPropGrp, Messages.getString("DatabaseForm.hiveEmbedded.jobTrackerURL"),1);
-        
+
+        nameNodeURLTxt = new LabelledText(hadoopPropGrp, Messages.getString("DatabaseForm.hiveEmbedded.nameNodeURL"), 1);
+        jobTrackerURLTxt = new LabelledText(hadoopPropGrp, Messages.getString("DatabaseForm.hiveEmbedded.jobTrackerURL"), 1);
+
         setHideHadoopInfoWidgets(true);
     }
-    
+
     /**
      * 
      * @param parent
      */
-    private void createMetastoreUIContentsForHiveEmbedded(Composite parent){
-    	GridLayout layout2 = (GridLayout) parent.getLayout();
-    	metastorePropGrp = new Group(parent, SWT.NULL);
-    	metastorePropGrp.setText("Metastore Info");
-        GridDataFactory.fillDefaults().span(layout2.numColumns, 1).minSize(getSize().x - 10, SWT.DEFAULT).applyTo(metastorePropGrp);
-        
+    private void createMetastoreUIContentsForHiveEmbedded(Composite parent) {
+        GridLayout layout2 = (GridLayout) parent.getLayout();
+        metastorePropGrp = new Group(parent, SWT.NULL);
+        metastorePropGrp.setText("Metastore Info");
+        GridDataFactory.fillDefaults().span(layout2.numColumns, 1).minSize(getSize().x - 10, SWT.DEFAULT)
+                .applyTo(metastorePropGrp);
+
         metastorePropGrp.setLayout(new GridLayout(3, false));
-        metastoreConnURLTxt = new LabelledText(metastorePropGrp, Messages.getString("DatabaseForm.hiveEmbedded.metastore.connURL"),2);
-        metastoreConnUserName = new LabelledText(metastorePropGrp, Messages.getString("DatabaseForm.hiveEmbedded.metastore.connUserName"),2);
-        metastoreConnPassword = new LabelledText(metastorePropGrp, Messages.getString("DatabaseForm.hiveEmbedded.metastore.connPassword"),2);
-        metastoreConnDriverJar = new LabelledText(metastorePropGrp, Messages.getString("DatabaseForm.hiveEmbedded.metastore.connDriverJar"),1);
-        
+        metastoreConnURLTxt = new LabelledText(metastorePropGrp,
+                Messages.getString("DatabaseForm.hiveEmbedded.metastore.connURL"), 2);
+        metastoreConnUserName = new LabelledText(metastorePropGrp,
+                Messages.getString("DatabaseForm.hiveEmbedded.metastore.connUserName"), 2);
+        metastoreConnPassword = new LabelledText(metastorePropGrp,
+                Messages.getString("DatabaseForm.hiveEmbedded.metastore.connPassword"), 2);
+        metastoreConnDriverJar = new LabelledText(metastorePropGrp,
+                Messages.getString("DatabaseForm.hiveEmbedded.metastore.connDriverJar"), 1);
+
         metastoreJarFilesButton = new Button(metastorePropGrp, SWT.NONE);
         metastoreJarFilesButton.setText("..."); //$NON-NLS-1$
         metastoreJarFilesButton.setToolTipText(Messages.getString("DatabaseForm.selectJar")); //$NON-NLS-1$
         metastoreConnDriverName = new LabelledCombo(metastorePropGrp,
                 Messages.getString("DatabaseForm.hiveEmbedded.metastore.connDriverName"), "", null, 2, true, SWT.NONE);
-        
+
         setHideMetastoreInfoWidgets(true);
     }
 
@@ -976,22 +1046,22 @@ public class DatabaseForm extends AbstractForm {
             }
             urlConnectionStringText.setText(urlStr);
         } else {
-        	String versionStr = dbVersionCombo.getText();
-//        	The hive contents are not good, if this class is refactored, then this can be handled correspondingly.
-        	if(EDatabaseTypeName.HIVE.getDisplayName().equals(dbTypeCombo.getText())){
-        		EDatabaseVersion4Drivers driver = EDatabaseVersion4Drivers.indexOfByVersionDisplay(hiveModeCombo.getText());
-        		versionStr = driver.getVersionValue();
-        	}else{
-        		EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(versionStr);
-        		if (version != null) {
-        			versionStr = version.getVersionValue();
-        		}
-        	}
-        	
+            String versionStr = dbVersionCombo.getText();
+            // The hive contents are not good, if this class is refactored, then this can be handled correspondingly.
+            if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbTypeCombo.getText())) {
+                EDatabaseVersion4Drivers driver = EDatabaseVersion4Drivers.indexOfByVersionDisplay(hiveModeCombo.getText());
+                versionStr = driver.getVersionValue();
+            } else {
+                EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(versionStr);
+                if (version != null) {
+                    versionStr = version.getVersionValue();
+                }
+            }
+
             // TODO If the current DB type is Hive, then to identify if Hive mode is EMBEDDED, if so, then setup some
             // system
             // properties.
-//            doHivePreSetup();
+            // doHivePreSetup();
             // set the value
             managerConnection.setValue(0, dbTypeCombo.getItem(dbTypeCombo.getSelectionIndex()),
                     isGeneralJDBC() ? generalJdbcUrlText.getText() : urlConnectionStringText.getText(), serverText.getText(),
@@ -1007,48 +1077,48 @@ public class DatabaseForm extends AbstractForm {
         managerConnection.setValueProperties(sqlSyntaxCombo.getItem(sqlSyntaxCombo.getSelectionIndex()),
                 stringQuoteText.getText(), nullCharText.getText());
 
-        if(isHiveDBConnSelected() && isHiveEmbeddedMode()){
-        	Map<String, String> properties = new HashMap<String, String>();
-        	String mestoreConnURLStr = metastoreConnURLTxt.getText();
-        	String metastoreConnUserNameStr = metastoreConnUserName.getText();
-        	String metastoreConnPasswordStr = metastoreConnPassword.getText();
-        	String metastoreConnDriverJarStr = metastoreConnDriverJar.getText();
-        	String metastoreConnDriverNameStr = metastoreConnDriverName.getText();
-        	if("".equals(mestoreConnURLStr) && "".equals(metastoreConnUserNameStr) && "".equals(metastoreConnPasswordStr)
-        			&& "".equals(metastoreConnDriverJarStr) && "".equals(metastoreConnDriverNameStr)){
-        		properties.put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR, metastoreConnDriverJar.getText());
-        		properties.put("dbTypeString", dbTypeCombo.getItem(dbTypeCombo.getSelectionIndex()));
-//        		properties.put("urlConnectionString",metastoreConnURLTxt.getText());
-        		properties.put("urlConnectionString",urlConnectionStringText.getText());
-        		properties.put("username","");
-        		properties.put("password","");
-        		properties.put("driverClassName","");
-        	}else{
-        		properties.put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR, metastoreConnDriverJar.getText());
-        		properties.put("dbTypeString", dbTypeCombo.getItem(dbTypeCombo.getSelectionIndex()));
-        		properties.put("urlConnectionString",metastoreConnURLTxt.getText());
-        		properties.put("username",metastoreConnUserName.getText());
-        		properties.put("password",metastoreConnPassword.getText());
-        		properties.put("driverClassName",metastoreConnDriverName.getText());
-        	}
-    		
-    		int distributionIndex = distributionCombo.getSelectionIndex();
+        if (isHiveDBConnSelected() && isHiveEmbeddedMode()) {
+            Map<String, String> properties = new HashMap<String, String>();
+            String mestoreConnURLStr = metastoreConnURLTxt.getText();
+            String metastoreConnUserNameStr = metastoreConnUserName.getText();
+            String metastoreConnPasswordStr = metastoreConnPassword.getText();
+            String metastoreConnDriverJarStr = metastoreConnDriverJar.getText();
+            String metastoreConnDriverNameStr = metastoreConnDriverName.getText();
+            if ("".equals(mestoreConnURLStr) && "".equals(metastoreConnUserNameStr) && "".equals(metastoreConnPasswordStr)
+                    && "".equals(metastoreConnDriverJarStr) && "".equals(metastoreConnDriverNameStr)) {
+                properties.put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR, metastoreConnDriverJar.getText());
+                properties.put("dbTypeString", dbTypeCombo.getItem(dbTypeCombo.getSelectionIndex()));
+                // properties.put("urlConnectionString",metastoreConnURLTxt.getText());
+                properties.put("urlConnectionString", urlConnectionStringText.getText());
+                properties.put("username", "");
+                properties.put("password", "");
+                properties.put("driverClassName", "");
+            } else {
+                properties.put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR, metastoreConnDriverJar.getText());
+                properties.put("dbTypeString", dbTypeCombo.getItem(dbTypeCombo.getSelectionIndex()));
+                properties.put("urlConnectionString", metastoreConnURLTxt.getText());
+                properties.put("username", metastoreConnUserName.getText());
+                properties.put("password", metastoreConnPassword.getText());
+                properties.put("driverClassName", metastoreConnDriverName.getText());
+            }
+
+            int distributionIndex = distributionCombo.getSelectionIndex();
             int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
             int hiveModeIndex = hiveModeCombo.getSelectionIndex();
             String key = HiveConnUtils.getHiveModeObj(distributionIndex, hiveVersionIndex, hiveModeIndex).getKey();
-    		
-    		properties.put("dbVersionString",key);
-    		properties.put("additionalParams","");
-    		
-    		databaseSettingIsValide = managerConnection.checkForHive(properties);
-        }else{
-        	// check the connection
-        	databaseSettingIsValide = managerConnection.check();
+
+            properties.put("dbVersionString", key);
+            properties.put("additionalParams", "");
+
+            databaseSettingIsValide = managerConnection.checkForHive(properties);
+        } else {
+            // check the connection
+            databaseSettingIsValide = managerConnection.check();
         }
 
-//        if (!databaseSettingIsValide)
-//      If checking is complete, it need to   
-//        	doRemoveHiveSetup();
+        // if (!databaseSettingIsValide)
+        // If checking is complete, it need to
+        // doRemoveHiveSetup();
 
         // update the button
         checkButton.setEnabled(true);
@@ -1082,14 +1152,14 @@ public class DatabaseForm extends AbstractForm {
     }
 
     /**
-     * If the current db type is also hive, return <code>true</code>.
-     * Changed by Marvin Wang on Oct 17, 2012.
+     * If the current db type is also hive, return <code>true</code>. Changed by Marvin Wang on Oct 17, 2012.
+     * 
      * @return
      */
     private boolean enableDbVersion() {
         return oracleVersionEnable() || as400VersionEnable()
                 || EDatabaseConnTemplate.ACCESS.getDBDisplayName().equals(dbTypeCombo.getText())
-                || EDatabaseConnTemplate.MYSQL.getDBDisplayName().equals(dbTypeCombo.getText()) 
+                || EDatabaseConnTemplate.MYSQL.getDBDisplayName().equals(dbTypeCombo.getText())
                 || EDatabaseConnTemplate.HIVE.getDBDisplayName().equals(dbTypeCombo.getText());
     }
 
@@ -1222,38 +1292,39 @@ public class DatabaseForm extends AbstractForm {
 
             @Override
             public void widgetSelected(final SelectionEvent e) {
-//            	ClassLoader currentContextCL = Thread.currentThread().getContextClassLoader();
-            	if(isHiveDBConnSelected()){
-            		if(isHiveEmbeddedMode()){
-            			doHivePreSetup();
-            		}
-            	}
+                // ClassLoader currentContextCL = Thread.currentThread().getContextClassLoader();
+                if (isHiveDBConnSelected()) {
+                    if (isHiveEmbeddedMode()) {
+                        doHivePreSetup();
+                    }
+                }
                 checkConnection();
-                if(isHiveDBConnSelected()){
-            		if(isHiveEmbeddedMode()){
-//            			Thread.currentThread().setContextClassLoader(currentContextCL);
-            			try {
-            				forceSetFlagForHiveCreateDefaultDB();
-            			} catch (ClassNotFoundException e1) {
-            				e1.printStackTrace();
-            			}
-//                		Thread.currentThread().setContextClassLoader(currentContextCL);
-            			doRemoveHiveSetup();
-            		}
-            	}
+                if (isHiveDBConnSelected()) {
+                    if (isHiveEmbeddedMode()) {
+                        // Thread.currentThread().setContextClassLoader(currentContextCL);
+                        try {
+                            forceSetFlagForHiveCreateDefaultDB();
+                        } catch (ClassNotFoundException e1) {
+                            e1.printStackTrace();
+                        }
+                        // Thread.currentThread().setContextClassLoader(currentContextCL);
+                        doRemoveHiveSetup();
+                    }
+                }
             }
         });
     }
-    
+
     /**
-     * Makes the flag of createDefaultDB <code>false</code> each time when a checking is complete.
-     * Added by Marvin Wang on Oct 19, 2012.
+     * Makes the flag of createDefaultDB <code>false</code> each time when a checking is complete. Added by Marvin Wang
+     * on Oct 19, 2012.
+     * 
      * @throws ClassNotFoundException
      */
-    private void forceSetFlagForHiveCreateDefaultDB() throws ClassNotFoundException{
-    	ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-    	ReflectionUtils.setStaticFieldValue("org.apache.hadoop.hive.metastore.HiveMetaStore$HMSHandler", 
-    			classLoader, "createDefaultDB", false);
+    private void forceSetFlagForHiveCreateDefaultDB() throws ClassNotFoundException {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        ReflectionUtils.setStaticFieldValue("org.apache.hadoop.hive.metastore.HiveMetaStore$HMSHandler", classLoader,
+                "createDefaultDB", false);
     }
 
     /**
@@ -1496,7 +1567,7 @@ public class DatabaseForm extends AbstractForm {
             // Event Modify
             @Override
             public void modifyText(final ModifyEvent e) {
-
+                getConnection().getParameters().clear();
                 // add for bug 12649
                 boolean isGeneralJDBC = isGeneralJDBC();
                 if (isGeneralJDBC) {
@@ -1523,6 +1594,8 @@ public class DatabaseForm extends AbstractForm {
                         passwordText.setText("");
                     }
                     initHiveInfo();
+                } else if (isDBTypeSelected(EDatabaseConnTemplate.HBASE)) {
+                    initHBaseSettings();
                 } else {
                     if (urlConnectionStringText != null) {
                         urlConnectionStringText.setText("");
@@ -1610,19 +1683,19 @@ public class DatabaseForm extends AbstractForm {
                     if (!schemaText.getEditable()) {
                         schemaText.setText(""); //$NON-NLS-1$
                     }
-                    if(isHiveDBConnSelected())
-                    	doHiveDBTypeSelected();
+                    if (isHiveDBConnSelected())
+                        doHiveDBTypeSelected();
                     else
-                    	doHiveDBTypeNotSelected();
+                        doHiveDBTypeNotSelected();
                 }
-                
-//              Added by Marvin Wang on Oct. 22, 2012 just for show the scrolled bar when a hive DB type is selected.
-//              It is not the better way to do this, if the code of DB part is required to refactor, this code could 
-//              be removed.
-                if(isHiveDBConnSelected()){
-                	scrolledComposite.setMinSize(newParent.computeSize(SWT.DEFAULT, SWT.DEFAULT));
-                }else
-                	checkScrolledCompositeSize();
+
+                // Added by Marvin Wang on Oct. 22, 2012 just for show the scrolled bar when a hive DB type is selected.
+                // It is not the better way to do this, if the code of DB part is required to refactor, this code could
+                // be removed.
+                if (isHiveDBConnSelected()) {
+                    scrolledComposite.setMinSize(newParent.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+                } else
+                    checkScrolledCompositeSize();
             }
 
         });
@@ -1727,10 +1800,12 @@ public class DatabaseForm extends AbstractForm {
 
         addGeneralDbFieldsListeners();
 
+        addHBaseSettingFieldsListeners();
+
         // Registers listeners for the combos of Hive, including distribution, hive mode and hive version.
-//        regHiveCombosListener();
-        
-//        Registers all listeners of hive widgets.
+        // regHiveCombosListener();
+
+        // Registers all listeners of hive widgets.
         regHiveRelatedWidgetsListeners();
 
         // urlConnectionStringText : Event modifyText
@@ -1874,6 +1949,50 @@ public class DatabaseForm extends AbstractForm {
             }
         }
         urlConnectionStringText.setText(getStringConnection());
+    }
+
+    private void addHBaseSettingFieldsListeners() {
+        hbaseDistributionCombo.addModifyListener(new ModifyListener() {
+
+            public void modifyText(final ModifyEvent e) {
+                if (isContextMode()) {
+                    return;
+                }
+                String originalDistributionName = getConnection().getParameters().get(
+                        ConnParameterKeys.CONN_PARA_KEY_HBASE_DISTRIBUTION);
+                String newDistributionDisplayName = hbaseDistributionCombo.getText();
+                EHBaseDistributions newDistribution = EHBaseDistributions
+                        .getDistributionByDisplayName(newDistributionDisplayName);
+                EHBaseDistributions originalDistribution = EHBaseDistributions.getDistributionByName(originalDistributionName,
+                        false);
+                if (newDistribution != null && newDistribution != originalDistribution) {
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_DISTRIBUTION,
+                            newDistribution.getName());
+                    updateHBaseVersionCombo(newDistributionDisplayName);
+                    checkFieldsValue();
+                }
+            }
+        });
+
+        hbaseVersionCombo.addModifyListener(new ModifyListener() {
+
+            public void modifyText(final ModifyEvent e) {
+                if (isContextMode()) {
+                    return;
+                }
+                String originalVersionName = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION);
+                String newVersionDisplayName = hbaseVersionCombo.getText();
+                EHBaseDistribution4Versions newVersion4Drivers = EHBaseDistribution4Versions
+                        .indexOfByVersionDisplay(newVersionDisplayName);
+                EHBaseDistribution4Versions originalVersion4Drivers = EHBaseDistribution4Versions
+                        .indexOfByVersion(originalVersionName);
+                if (newVersion4Drivers != null && newVersion4Drivers != originalVersion4Drivers) {
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION,
+                            newVersion4Drivers.getVersionValue());
+                    checkFieldsValue();
+                }
+            }
+        });
     }
 
     /**
@@ -2141,6 +2260,10 @@ public class DatabaseForm extends AbstractForm {
             }
         }
 
+        if (isDBTypeSelected(EDatabaseConnTemplate.HBASE) && !checkHadoopSettings()) {
+            return false;
+        }
+
         if (!databaseSettingIsValide) {
             updateStatus(IStatus.INFO, Messages.getString("DatabaseForm.checkInformation")); //$NON-NLS-1$
             return false;
@@ -2267,6 +2390,19 @@ public class DatabaseForm extends AbstractForm {
 
     }
 
+    private boolean checkHadoopSettings() {
+        if (hbaseDistributionCombo.getSelectionIndex() == -1) {
+            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.hadoop.distributionAlert")); //$NON-NLS-1$
+            return false;
+        }
+        if (hbaseVersionCombo.getSelectionIndex() == -1) {
+            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.hadoop.versionAlert")); //$NON-NLS-1$
+            return false;
+        }
+        updateStatus(IStatus.OK, null);
+        return true;
+    }
+
     /**
      * Set up the URL by checking the current hive mode. Added by Marvin Wang on Sep 4, 2012.
      * 
@@ -2291,7 +2427,7 @@ public class DatabaseForm extends AbstractForm {
                 }
             }
             // It should be reverted if emembedded is available.(--Done by Marvin Wang on Oct.15, 2012.)
-//            versionStr = "STANDALONE";
+            // versionStr = "STANDALONE";
             s = DatabaseConnStrUtil.getURLString(dbTypeCombo.getText(), versionStr, serverText.getText(), usernameText.getText(),
                     passwordText.getText(), portText.getText(), sidOrDatabaseText.getText(), fileField.getText().toLowerCase(),
                     datasourceText.getText(), directoryField.getText(), additionParamText.getText());
@@ -2319,8 +2455,8 @@ public class DatabaseForm extends AbstractForm {
             }
             if (isGeneralJDBC()) {
                 checkButton.setEnabled(true);
-            }else if(isHiveDBConnSelected()){
-            	checkButton.setEnabled(true);
+            } else if (isHiveDBConnSelected()) {
+                checkButton.setEnabled(true);
             }
         }
     }
@@ -2336,8 +2472,8 @@ public class DatabaseForm extends AbstractForm {
         EDBParamName sidOrDatabase = null;
 
         // hiveMode.setHideWidgets(true);
-//		TODO if refectoring is failed, then revert this code.        
-//        doHideHiveWidgets(true);
+        // TODO if refectoring is failed, then revert this code.
+        // doHideHiveWidgets(true);
         // update the UI label
         if (EDatabaseTypeName.ORACLEFORSID.getProduct().equals(getConnection().getProductId())) {
             if (EDatabaseConnTemplate.ORACLESN.getDBDisplayName().equals(getConnection().getDatabaseType())) {
@@ -2425,18 +2561,19 @@ public class DatabaseForm extends AbstractForm {
             EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(dbTypeCombo.getText());
             String s = ""; //$NON-NLS-1$
             if (template != null) {
-            	EDatabaseVersion4Drivers version = null;
-            	if(EDatabaseTypeName.HIVE.getDisplayName().equals(template.getDBDisplayName())){
-            		version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(hiveModeCombo.getText());
-            		s = template.getUrlTemplate(version);
-            	}else{
-            		version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(dbVersionCombo.getText());
-            		s = template.getUrlTemplate(version);
-            	}
+                EDatabaseVersion4Drivers version = null;
+                if (EDatabaseTypeName.HIVE.getDisplayName().equals(template.getDBDisplayName())) {
+                    version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(hiveModeCombo.getText());
+                    s = template.getUrlTemplate(version);
+                } else {
+                    version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(dbVersionCombo.getText());
+                    s = template.getUrlTemplate(version);
+                }
             }
             if (isHbase) {
                 urlConnectionStringText.setVisible(false);
             }
+            hideHBaseSettings(!isHbase);
             urlConnectionStringText.setEditable(!visible);
             // schemaText.hide();
             boolean schemaTextIsShow = true;
@@ -2474,20 +2611,20 @@ public class DatabaseForm extends AbstractForm {
                 }
 
                 // Below added by Marvin Wang on Aug.3, 2012 for sub-task TDI-22201 of task TDI-22130.
-            } 
-//            else if (template == EDatabaseConnTemplate.HIVE) {
-//                schemaTextIsShow = false;
-//                // hiveMode.setHideWidgets(false);
-//                doHideHiveWidgets(false);
-//                // int selectionIndex = hiveModeCombo.getSelectionIndex();
-//                // if (selectionIndex == -1 || selectionIndex == 0) {
-//                // hiveModeCombo.select(0);
-//                // handleStandaloneMode();
-//                // } else if (selectionIndex == 1) {
-//                // hiveModeCombo.select(selectionIndex);
-//                // handleEmbeddedMode();
-//                // }
-//            }
+            }
+            // else if (template == EDatabaseConnTemplate.HIVE) {
+            // schemaTextIsShow = false;
+            // // hiveMode.setHideWidgets(false);
+            // doHideHiveWidgets(false);
+            // // int selectionIndex = hiveModeCombo.getSelectionIndex();
+            // // if (selectionIndex == -1 || selectionIndex == 0) {
+            // // hiveModeCombo.select(0);
+            // // handleStandaloneMode();
+            // // } else if (selectionIndex == 1) {
+            // // hiveModeCombo.select(selectionIndex);
+            // // handleEmbeddedMode();
+            // // }
+            // }
             else {
                 // schemaText.hide();
                 schemaTextIsShow = false;
@@ -2507,19 +2644,19 @@ public class DatabaseForm extends AbstractForm {
                     addContextParams(EDBParamName.Server, visible);
                 }
             } else {
-            	if(isHiveDBConnSelected()){
-            		if(isHiveEmbeddedMode()){
-            			serverText.hide();
-            			portText.hide();
-            		}else{
-            			portText.show();
-            			serverText.show();
-            			portText.setEditable(true);
-            			serverText.setEditable(visible);
-            		}
-            		addContextParams(EDBParamName.Server, visible);
-            	}else
-            		serverText.hide();
+                if (isHiveDBConnSelected()) {
+                    if (isHiveEmbeddedMode()) {
+                        serverText.hide();
+                        portText.hide();
+                    } else {
+                        portText.show();
+                        serverText.show();
+                        portText.setEditable(true);
+                        serverText.setEditable(visible);
+                    }
+                    addContextParams(EDBParamName.Server, visible);
+                } else
+                    serverText.hide();
                 addContextParams(EDBParamName.Server, false);
             }
             if (s.contains(EDatabaseConnVar.PORT.getVariable()) || isHbase) {
@@ -2527,12 +2664,12 @@ public class DatabaseForm extends AbstractForm {
                 portText.setEditable(visible);
                 addContextParams(EDBParamName.Port, visible);
             } else {
-            	if(isHiveDBConnSelected()){
-            		portText.show();
-            		portText.setEditable(visible);
-            		addContextParams(EDBParamName.Port, visible);
-            	}else
-            		portText.hide();
+                if (isHiveDBConnSelected()) {
+                    portText.show();
+                    portText.setEditable(visible);
+                    addContextParams(EDBParamName.Port, visible);
+                } else
+                    portText.hide();
                 addContextParams(EDBParamName.Port, false);
             }
             if (s.contains(EDatabaseConnVar.SID.getVariable()) || s.contains(EDatabaseConnVar.SERVICE_NAME.getVariable())) {
@@ -2541,17 +2678,17 @@ public class DatabaseForm extends AbstractForm {
                     if (EDatabaseTypeName.HIVE.getDisplayName().equalsIgnoreCase(dbTypeCombo.getText())) {
                         if (isHiveEmbeddedMode()) {
                             // It should be reverted if emembedded is available.
-//                            sidOrDatabaseText.show();
-//                            sidOrDatabaseText.setEditable(true);
-//                            (--Done by Marvin Wang on Oct.15, 2012.)
-                        	 serverText.hide();
-                        	 portText.hide();
-                             sidOrDatabaseText.hide();
-                             sidOrDatabaseText.setEditable(false);
+                            // sidOrDatabaseText.show();
+                            // sidOrDatabaseText.setEditable(true);
+                            // (--Done by Marvin Wang on Oct.15, 2012.)
+                            serverText.hide();
+                            portText.hide();
+                            sidOrDatabaseText.hide();
+                            sidOrDatabaseText.setEditable(false);
                         } else {
-                        	portText.show();
-                			serverText.show();
-                			serverText.setEditable(true);
+                            portText.show();
+                            serverText.show();
+                            serverText.setEditable(true);
                             sidOrDatabaseText.show();
                             sidOrDatabaseText.setEditable(true);
                         }
@@ -2605,15 +2742,15 @@ public class DatabaseForm extends AbstractForm {
                 if (isHbase) {
                     usernameText.hide();
                     passwordText.hide();
-                }else if(isHiveDBConnSelected()){
-                	if(isHiveEmbeddedMode()){
-                		usernameText.hide();
+                } else if (isHiveDBConnSelected()) {
+                    if (isHiveEmbeddedMode()) {
+                        usernameText.hide();
                         passwordText.hide();
-                	}else{
-                		usernameText.show();
+                    } else {
+                        usernameText.show();
                         passwordText.show();
-                	}
-                		
+                    }
+
                 }
                 addContextParams(EDBParamName.Login, true);
                 addContextParams(EDBParamName.Password, true);
@@ -2668,19 +2805,20 @@ public class DatabaseForm extends AbstractForm {
                 portText.setEditable(true);
                 addContextParams(EDBParamName.Port, true);
             }
-            if(isHiveDBConnSelected()){
-            	if(isHiveEmbeddedMode()){
-            		portText.hide();
-            		serverText.hide();
-            	}else{
-            		portText.show();
-            		serverText.show();
-            	}
-            	schemaText.hide();
+            if (isHiveDBConnSelected()) {
+                if (isHiveEmbeddedMode()) {
+                    portText.hide();
+                    serverText.hide();
+                } else {
+                    portText.show();
+                    serverText.show();
+                }
+                schemaText.hide();
             }
         }
 
         doHiveUIContentsLayout();
+        hbaseSettingGroup.layout();
         hadoopPropGrp.layout();
         metastorePropGrp.layout();
         compositeDbSettings.layout();
@@ -2776,6 +2914,14 @@ public class DatabaseForm extends AbstractForm {
         EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(dbTypeCombo.getText());
         return template != null && template == EDatabaseConnTemplate.HBASE
                 && LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA);
+    }
+
+    private boolean isDBTypeSelected(EDatabaseConnTemplate dbTemplate) {
+        if (dbTypeCombo == null) {
+            return false;
+        }
+        EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(dbTypeCombo.getText());
+        return template != null && template == dbTemplate;
     }
 
     /*
@@ -2917,7 +3063,7 @@ public class DatabaseForm extends AbstractForm {
         String distributionObj = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
         String hiveVersion = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
         String hiveMode = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
-        
+
         if (distributionObj != null) {
 
             currIndexofDistribution = HiveConnUtils.getIndexOfDistribution(distributionObj == null ? null
@@ -2943,22 +3089,26 @@ public class DatabaseForm extends AbstractForm {
             updateHiveModeAndMakeSelection(0, 0, 0);
             doHiveModeModify();
         }
-        
-        if(isHiveEmbeddedMode()){
-//          Hadoop properties
+
+        if (isHiveEmbeddedMode()) {
+            // Hadoop properties
             String nameNodeURLstr = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL);
             String jobTrackerURLStr = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL);
-            
-//            Parameters for connecting to metastore.
+
+            // Parameters for connecting to metastore.
             String metastoreConnURLStr = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_URL);
-            String metastoreConnUserNameStr = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_USERNAME);
-            String metastoreConnPasswordStr = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_PASSWORD);
-            String metastoreConnDriverJarStr = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR);
-            String metastoreConnDriverNameStr = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME);
-            
+            String metastoreConnUserNameStr = connection.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_USERNAME);
+            String metastoreConnPasswordStr = connection.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_PASSWORD);
+            String metastoreConnDriverJarStr = connection.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR);
+            String metastoreConnDriverNameStr = connection.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME);
+
             nameNodeURLTxt.setText(nameNodeURLstr == null ? "" : nameNodeURLstr);
             jobTrackerURLTxt.setText(jobTrackerURLStr == null ? "" : jobTrackerURLStr);
-            
+
             metastoreConnURLTxt.setText(metastoreConnURLStr == null ? "" : metastoreConnURLStr);
             metastoreConnUserName.setText(metastoreConnUserNameStr == null ? "" : metastoreConnUserNameStr);
             metastoreConnPassword.setText(metastoreConnPasswordStr == null ? "" : metastoreConnPasswordStr);
@@ -2977,21 +3127,20 @@ public class DatabaseForm extends AbstractForm {
     }
 
     /**
-     * Registers all listeners for the widgets of hive related.
-     * Added by Marvin Wang on Oct 17, 2012.
+     * Registers all listeners for the widgets of hive related. Added by Marvin Wang on Oct 17, 2012.
      */
-    protected void regHiveRelatedWidgetsListeners(){
-    	regHiveCombosListener();
-    	regHiveRelatedWidgetNameNodeURLTxtListener();
-    	regHiveRelatedWidgetJobTrackerTxtListener();
-    	regHiveRelatedWidgetMetastoreConnURLListener();
-    	regHiveRelatedWidgetMetastoreConnUserNameListener();
-    	regHiveRelatedWidgetMetastoreConnPasswordListener();
-    	regHiveRelatedWidgetMetastoreConnDriverJarListener();
-    	regHiveRelatedWidgetMetastoreConnDriverNameListener();
-    	regHiveRelatedWidgetMetastoreConnDriverJarBrowserListener();
+    protected void regHiveRelatedWidgetsListeners() {
+        regHiveCombosListener();
+        regHiveRelatedWidgetNameNodeURLTxtListener();
+        regHiveRelatedWidgetJobTrackerTxtListener();
+        regHiveRelatedWidgetMetastoreConnURLListener();
+        regHiveRelatedWidgetMetastoreConnUserNameListener();
+        regHiveRelatedWidgetMetastoreConnPasswordListener();
+        regHiveRelatedWidgetMetastoreConnDriverJarListener();
+        regHiveRelatedWidgetMetastoreConnDriverNameListener();
+        regHiveRelatedWidgetMetastoreConnDriverJarBrowserListener();
     }
-    
+
     /**
      * Registers a selection listener for the combo of distribution. It invokes {@link #doHiveDistributionModify()} when
      * an item is selected. Added by Marvin Wang on Aug 15, 2012.
@@ -3033,150 +3182,152 @@ public class DatabaseForm extends AbstractForm {
             }
         });
     }
-    
-    /**
-     * Registers a listener for the text widget of name node url, it invokes {@link #doNameNodeModify()} when the text contents 
-     * is changed.
-     * Added by Marvin Wang on Oct 17, 2012.
-     */
-    private void regHiveRelatedWidgetNameNodeURLTxtListener(){
-    	nameNodeURLTxt.getTextControl().addModifyListener(new ModifyListener(){
 
-			@Override
-			public void modifyText(ModifyEvent e) {
-				doNameNodeModify();
-			}});
-    }
-    
     /**
-     * Registers a listener for the text widget of job tracker, it invokes {@link #doJobTrackerModify()()} when the text contents 
-     * is changed.
-     * Added by Marvin Wang on Oct 17, 2012.
+     * Registers a listener for the text widget of name node url, it invokes {@link #doNameNodeModify()} when the text
+     * contents is changed. Added by Marvin Wang on Oct 17, 2012.
      */
-    private void regHiveRelatedWidgetJobTrackerTxtListener(){
-    	jobTrackerURLTxt.getTextControl().addModifyListener(new ModifyListener(){
+    private void regHiveRelatedWidgetNameNodeURLTxtListener() {
+        nameNodeURLTxt.getTextControl().addModifyListener(new ModifyListener() {
 
-			@Override
-			public void modifyText(ModifyEvent e) {
-				doJobTrackerModify();
-			}});
+            @Override
+            public void modifyText(ModifyEvent e) {
+                doNameNodeModify();
+            }
+        });
     }
-    
+
     /**
-     * Registers a listener for the text widget of metastore connection url, it invokes {@link #doMetastoreConnURLModify()()} 
-     * when the text contents is changed.
-     * Added by Marvin Wang on Oct 17, 2012.
+     * Registers a listener for the text widget of job tracker, it invokes {@link #doJobTrackerModify()()} when the text
+     * contents is changed. Added by Marvin Wang on Oct 17, 2012.
      */
-    private void regHiveRelatedWidgetMetastoreConnURLListener(){
-    	metastoreConnURLTxt.getTextControl().addModifyListener(new ModifyListener(){
+    private void regHiveRelatedWidgetJobTrackerTxtListener() {
+        jobTrackerURLTxt.getTextControl().addModifyListener(new ModifyListener() {
 
-			@Override
-			public void modifyText(ModifyEvent e) {
-				doMetastoreConnURLModify();
-			}});
+            @Override
+            public void modifyText(ModifyEvent e) {
+                doJobTrackerModify();
+            }
+        });
     }
-    
+
     /**
-     * Registers a listener for the text widget of metastore connection user name, it invokes {@link #doMetastoreConnUserNameModify()()} 
-     * when the text contents is changed.
-     * Added by Marvin Wang on Oct 17, 2012.
+     * Registers a listener for the text widget of metastore connection url, it invokes
+     * {@link #doMetastoreConnURLModify()()} when the text contents is changed. Added by Marvin Wang on Oct 17, 2012.
      */
-    private void regHiveRelatedWidgetMetastoreConnUserNameListener(){
-    	metastoreConnUserName.getTextControl().addModifyListener(new ModifyListener(){
+    private void regHiveRelatedWidgetMetastoreConnURLListener() {
+        metastoreConnURLTxt.getTextControl().addModifyListener(new ModifyListener() {
 
-			@Override
-			public void modifyText(ModifyEvent e) {
-				doMetastoreConnUserNameModify();
-			}});
+            @Override
+            public void modifyText(ModifyEvent e) {
+                doMetastoreConnURLModify();
+            }
+        });
     }
-    
+
     /**
-     * Registers a listener for the text widget of metastore connection password, it invokes {@link #doMetastoreConnPasswordModify()()} 
-     * when the text contents is changed.
-     * Added by Marvin Wang on Oct 17, 2012.
+     * Registers a listener for the text widget of metastore connection user name, it invokes
+     * {@link #doMetastoreConnUserNameModify()()} when the text contents is changed. Added by Marvin Wang on Oct 17,
+     * 2012.
      */
-    private void regHiveRelatedWidgetMetastoreConnPasswordListener(){
-    	metastoreConnPassword.getTextControl().addModifyListener(new ModifyListener(){
+    private void regHiveRelatedWidgetMetastoreConnUserNameListener() {
+        metastoreConnUserName.getTextControl().addModifyListener(new ModifyListener() {
 
-			@Override
-			public void modifyText(ModifyEvent e) {
-				doMetastoreConnPasswordModify();
-			}});
+            @Override
+            public void modifyText(ModifyEvent e) {
+                doMetastoreConnUserNameModify();
+            }
+        });
     }
-    
-    
+
     /**
-     * Registers a listener for the text widget of metastore connection driver jar, it invokes {@link #doMetastoreConnDriverJarModify()()} 
-     * when the text contents is changed.
-     * Added by Marvin Wang on Oct 17, 2012.
+     * Registers a listener for the text widget of metastore connection password, it invokes
+     * {@link #doMetastoreConnPasswordModify()()} when the text contents is changed. Added by Marvin Wang on Oct 17,
+     * 2012.
      */
-    private void regHiveRelatedWidgetMetastoreConnDriverJarListener(){
-    	metastoreConnDriverJar.getTextControl().addModifyListener(new ModifyListener(){
+    private void regHiveRelatedWidgetMetastoreConnPasswordListener() {
+        metastoreConnPassword.getTextControl().addModifyListener(new ModifyListener() {
 
-			@Override
-			public void modifyText(ModifyEvent e) {
-				doMetastoreConnDriverJarModify();
-			}});
+            @Override
+            public void modifyText(ModifyEvent e) {
+                doMetastoreConnPasswordModify();
+            }
+        });
     }
-    
+
+    /**
+     * Registers a listener for the text widget of metastore connection driver jar, it invokes
+     * {@link #doMetastoreConnDriverJarModify()()} when the text contents is changed. Added by Marvin Wang on Oct 17,
+     * 2012.
+     */
+    private void regHiveRelatedWidgetMetastoreConnDriverJarListener() {
+        metastoreConnDriverJar.getTextControl().addModifyListener(new ModifyListener() {
+
+            @Override
+            public void modifyText(ModifyEvent e) {
+                doMetastoreConnDriverJarModify();
+            }
+        });
+    }
+
     /**
      * 
      * Added by Marvin Wang on Oct 18, 2012.
      */
-    private void regHiveRelatedWidgetMetastoreConnDriverJarBrowserListener(){
+    private void regHiveRelatedWidgetMetastoreConnDriverJarBrowserListener() {
         metastoreJarFilesButton.addSelectionListener(new SelectionAdapter() {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
                 SelectDatabaseJarDialog dialog = new SelectDatabaseJarDialog(getShell(), metastoreConnDriverJar.getText());
                 if (dialog.open() == Window.OK) {
-                	metastoreConnDriverJar.setText(dialog.getJarsString());
+                    metastoreConnDriverJar.setText(dialog.getJarsString());
                 }
-                
-//                generalJdbcClassNameText.removeAll();
+
+                // generalJdbcClassNameText.removeAll();
                 for (String stringToFile : metastoreConnDriverJar.getText().trim().split(";")) { //$NON-NLS-1$
                     File file = new File(stringToFile);
                     if (file != null) {
                         try {
-                        	ClassLoader currentContextClassLoader = Thread.currentThread().getContextClassLoader();
-                        	if(currentContextClassLoader instanceof HotClassLoader){
-                        		HotClassLoader hotClassLoader = (HotClassLoader)currentContextClassLoader;
-        						hotClassLoader.addPath(file.getPath());
-                        	}
-//                            MyURLClassLoader cl = new MyURLClassLoader(file.toURL());
-//                            Class[] classes = cl.getAssignableClasses(Driver.class);
-//                            for (int i = 0; i < classes.length; ++i) {
-//                                generalJdbcClassNameText.add(classes[i].getName());
-//                            }
+                            ClassLoader currentContextClassLoader = Thread.currentThread().getContextClassLoader();
+                            if (currentContextClassLoader instanceof HotClassLoader) {
+                                HotClassLoader hotClassLoader = (HotClassLoader) currentContextClassLoader;
+                                hotClassLoader.addPath(file.getPath());
+                            }
+                            // MyURLClassLoader cl = new MyURLClassLoader(file.toURL());
+                            // Class[] classes = cl.getAssignableClasses(Driver.class);
+                            // for (int i = 0; i < classes.length; ++i) {
+                            // generalJdbcClassNameText.add(classes[i].getName());
+                            // }
                         } catch (Exception ex) {
                             ExceptionHandler.process(ex);
                         }
                     }
                 }
-//                if (generalJdbcClassNameText.getItemCount() > 0) {
-//                    String driverClassName = generalJdbcClassNameText.getItem(0);
-//                    generalJdbcClassNameText.setText(driverClassName);
-//                }
+                // if (generalJdbcClassNameText.getItemCount() > 0) {
+                // String driverClassName = generalJdbcClassNameText.getItem(0);
+                // generalJdbcClassNameText.setText(driverClassName);
+                // }
             }
 
         });
     }
-    
-    
-    /**
-     * Registers a listener for the text widget of metastore connection driver name, it invokes {@link #doMetastoreConnDriverNameModify()} when the text contents 
-     * is changed.
-     * Added by Marvin Wang on Oct 17, 2012.
-     */
-    private void regHiveRelatedWidgetMetastoreConnDriverNameListener(){
-    	metastoreConnDriverName.addModifyListener(new ModifyListener(){
 
-			@Override
-			public void modifyText(ModifyEvent e) {
-				doMetastoreConnDriverNameModify();
-			}});
+    /**
+     * Registers a listener for the text widget of metastore connection driver name, it invokes
+     * {@link #doMetastoreConnDriverNameModify()} when the text contents is changed. Added by Marvin Wang on Oct 17,
+     * 2012.
+     */
+    private void regHiveRelatedWidgetMetastoreConnDriverNameListener() {
+        metastoreConnDriverName.addModifyListener(new ModifyListener() {
+
+            @Override
+            public void modifyText(ModifyEvent e) {
+                doMetastoreConnDriverNameModify();
+            }
+        });
     }
-    
+
     /**
      * This method is invoked when an item of Hive mode is selected. If the selected is Embedded, it invokes
      * {@link #handleEmbeddedMode()}, {@link #handleStandaloneMode()} otherwise. Then it invokes the method
@@ -3190,11 +3341,11 @@ public class DatabaseForm extends AbstractForm {
 
         getConnection().setURL(getStringConnection());
         if (isEmbeddedMode) {
-//            handleEmbeddedMode();
-        	handleUIWhenEmbeddedModeSelected();
+            // handleEmbeddedMode();
+            handleUIWhenEmbeddedModeSelected();
         } else {
-//            handleStandaloneMode();
-        	handleUIWhenStandaloneModeSelected();
+            // handleStandaloneMode();
+            handleUIWhenStandaloneModeSelected();
         }
 
         doUpdateConnection();
@@ -3236,73 +3387,78 @@ public class DatabaseForm extends AbstractForm {
      * 
      * Added by Marvin Wang on Oct 17, 2012.
      */
-    protected void doNameNodeModify(){
-    	if(!isContextMode()){
-    		getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL, nameNodeURLTxt.getText());
+    protected void doNameNodeModify() {
+        if (!isContextMode()) {
+            getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL, nameNodeURLTxt.getText());
             checkFieldsValue();
-    	}
+        }
     }
-    
+
     /**
      * 
      * Added by Marvin Wang on Oct 17, 2012.
      */
-    protected void doJobTrackerModify(){
-    	if(!isContextMode()){
-    		getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL, jobTrackerURLTxt.getText());
-    	}
+    protected void doJobTrackerModify() {
+        if (!isContextMode()) {
+            getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL, jobTrackerURLTxt.getText());
+        }
     }
-    
+
     /**
      * 
      * Added by Marvin Wang on Oct 17, 2012.
      */
-    protected void doMetastoreConnURLModify(){
-    	if(!isContextMode()){
-    		getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_URL, metastoreConnURLTxt.getText());
-    	}
+    protected void doMetastoreConnURLModify() {
+        if (!isContextMode()) {
+            getConnection().getParameters()
+                    .put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_URL, metastoreConnURLTxt.getText());
+        }
     }
-    
+
     /**
      * 
      * Added by Marvin Wang on Oct 17, 2012.
      */
-    protected void doMetastoreConnUserNameModify(){
-    	if(!isContextMode()){
-    		getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_USERNAME, metastoreConnUserName.getText());
-    	}
+    protected void doMetastoreConnUserNameModify() {
+        if (!isContextMode()) {
+            getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_USERNAME,
+                    metastoreConnUserName.getText());
+        }
     }
-    
+
     /**
      * 
      * Added by Marvin Wang on Oct 17, 2012.
      */
-    protected void doMetastoreConnPasswordModify(){
-    	if(!isContextMode()){
-    		getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_PASSWORD, metastoreConnPassword.getText());
-    	}
+    protected void doMetastoreConnPasswordModify() {
+        if (!isContextMode()) {
+            getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_PASSWORD,
+                    metastoreConnPassword.getText());
+        }
     }
-    
+
     /**
      * 
      * Added by Marvin Wang on Oct 17, 2012.
      */
-    protected void doMetastoreConnDriverJarModify(){
-    	if(!isContextMode()){
-    		getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR, metastoreConnDriverJar.getText());
-    	}
+    protected void doMetastoreConnDriverJarModify() {
+        if (!isContextMode()) {
+            getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR,
+                    metastoreConnDriverJar.getText());
+        }
     }
-    
+
     /**
      * 
      * Added by Marvin Wang on Oct 17, 2012.
      */
-    protected void doMetastoreConnDriverNameModify(){
-    	if(!isContextMode()){
-    		getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME, metastoreConnDriverName.getText());
-    	}
+    protected void doMetastoreConnDriverNameModify() {
+        if (!isContextMode()) {
+            getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME,
+                    metastoreConnDriverName.getText());
+        }
     }
-    
+
     protected void updateHiveDistributionAndMakeSelection(int distributionIndex) {
         distributionCombo.getCombo().setItems(HiveConnUtils.getDistributionNames());
         distributionCombo.select(distributionIndex);
@@ -3334,13 +3490,13 @@ public class DatabaseForm extends AbstractForm {
      */
     public void handleStandaloneMode() {
         urlConnectionStringText.setText(getConnection().getURL());
-//        sidOrDatabaseText.show();
-//        sidOrDatabaseText.setEditable(true);
-//        usernameText.show();
-//        passwordText.show();
+        // sidOrDatabaseText.show();
+        // sidOrDatabaseText.setEditable(true);
+        // usernameText.show();
+        // passwordText.show();
         handleHiveRelatedWidgetsStatus(true);
         handleOtherWidgetsStatusForHive(false);
-        
+
         doHiveUIContentsLayout();
         compositeDbSettings.layout();
         typeDbCompositeParent.layout();
@@ -3350,35 +3506,36 @@ public class DatabaseForm extends AbstractForm {
 
     }
 
-    protected void handleUIWhenEmbeddedModeSelected(){
-//    	handleHiveRelatedWidgetsStatus(true,false);
-//		handleOtherWidgetsStatusForHive(true,true);
-    	handleOtherWidgetsStatusForHive(true);
-    	setHideHadoopInfoWidgets(false);
-		setHideMetastoreInfoWidgets(false);
-		doHiveUIContentsLayout();
+    protected void handleUIWhenEmbeddedModeSelected() {
+        // handleHiveRelatedWidgetsStatus(true,false);
+        // handleOtherWidgetsStatusForHive(true,true);
+        handleOtherWidgetsStatusForHive(true);
+        setHideHadoopInfoWidgets(false);
+        setHideMetastoreInfoWidgets(false);
+        doHiveUIContentsLayout();
     }
-    
-    protected void handleUIWhenStandaloneModeSelected(){
-    	handleOtherWidgetsStatusForHive(false);
-    	setHideHadoopInfoWidgets(true);
-		setHideMetastoreInfoWidgets(true);;
-		doHiveUIContentsLayout();
+
+    protected void handleUIWhenStandaloneModeSelected() {
+        handleOtherWidgetsStatusForHive(false);
+        setHideHadoopInfoWidgets(true);
+        setHideMetastoreInfoWidgets(true);
+        ;
+        doHiveUIContentsLayout();
     }
-    
+
     /**
      * It is invoked when the mode EMBEDDED is selected. Added by Marvin Wang on Aug. 3, 2012.
      */
     public void handleEmbeddedMode() {
         urlConnectionStringText.setText(getConnection().getURL());
-//         It should be reverted if emembedded is available. (--Done by Marvin Wang on Oct.15, 2012.)
-//        sidOrDatabaseText.setVisible(true);
-//        sidOrDatabaseText.setHideWidgets(true);
-//        usernameText.setHideWidgets(true);
-//        passwordText.setHideWidgets(true);
+        // It should be reverted if emembedded is available. (--Done by Marvin Wang on Oct.15, 2012.)
+        // sidOrDatabaseText.setVisible(true);
+        // sidOrDatabaseText.setHideWidgets(true);
+        // usernameText.setHideWidgets(true);
+        // passwordText.setHideWidgets(true);
         handleHiveRelatedWidgetsStatus(false);
         handleOtherWidgetsStatusForHive(true);
-        
+
         doHiveUIContentsLayout();
         compositeDbSettings.layout();
         typeDbCompositeParent.layout();
@@ -3388,8 +3545,8 @@ public class DatabaseForm extends AbstractForm {
         scrolledComposite.layout();
     }
 
-    private void doHiveUIContentsLayout(){
-    	hiveComposite.layout();
+    private void doHiveUIContentsLayout() {
+        hiveComposite.layout();
         hadoopPropGrp.layout();
         metastorePropGrp.layout();
         typeDbCompositeParent.layout();
@@ -3399,143 +3556,109 @@ public class DatabaseForm extends AbstractForm {
         compositeGroupDbSettings.layout();
         scrolledComposite.layout();
     }
-    
+
     /**
-     * When a db type is selected in DBTypeCombo, this method should be invoked. But before invoking this method, 
-     * the method {@link #initHiveInfo()} should be called first. 
+     * When a db type is selected in DBTypeCombo, this method should be invoked. But before invoking this method, the
+     * method {@link #initHiveInfo()} should be called first.
      */
     protected void doHiveDBTypeSelected() {
-    	setHideVersionInfoWidgets(false);
-//      To identify what the current hive mode is, standalone or embedded, When the current DB type is hive.
-    	if(isHiveEmbeddedMode()){
-//    		Showing UIs including hadoop property, metastaore property,version info. Hiding userName, password, database, shcemas...
-    		handleUIWhenEmbeddedModeSelected();
-    	}else{
-//    		Hiding UIs including hadoop property, metastore property, Showing version info.
-    		handleUIWhenStandaloneModeSelected();
-    	}
+        setHideVersionInfoWidgets(false);
+        // To identify what the current hive mode is, standalone or embedded, When the current DB type is hive.
+        if (isHiveEmbeddedMode()) {
+            // Showing UIs including hadoop property, metastaore property,version info. Hiding userName, password,
+            // database, shcemas...
+            handleUIWhenEmbeddedModeSelected();
+        } else {
+            // Hiding UIs including hadoop property, metastore property, Showing version info.
+            handleUIWhenStandaloneModeSelected();
+        }
     }
-    
-    protected void doHiveDBTypeNotSelected(){
-    	setHideVersionInfoWidgets(true);
-    	setHideHadoopInfoWidgets(true);
-		setHideMetastoreInfoWidgets(true);;
-		doHiveUIContentsLayout();
+
+    protected void doHiveDBTypeNotSelected() {
+        setHideVersionInfoWidgets(true);
+        setHideHadoopInfoWidgets(true);
+        setHideMetastoreInfoWidgets(true);
+        ;
+        doHiveUIContentsLayout();
     }
-    
+
     /**
-     * This method is used to handle the groups including version info, hadoop info and metastore info are hide or visible.
-     * Added by Marvin Wang on Oct 16, 2012.
+     * This method is used to handle the groups including version info, hadoop info and metastore info are hide or
+     * visible. Added by Marvin Wang on Oct 16, 2012.
+     * 
      * @param hide
      */
-    private void handleHiveRelatedWidgetsStatus(boolean hide){
-		setHideHadoopInfoWidgets(hide);
-		setHideMetastoreInfoWidgets(hide);
+    private void handleHiveRelatedWidgetsStatus(boolean hide) {
+        setHideHadoopInfoWidgets(hide);
+        setHideMetastoreInfoWidgets(hide);
     }
-    
+
     /**
-     * Invokes this method to handle the status of other widgets, for hive the following widgets need to handle:
-     * <li> The text widget of userName, variable is <code>usernameText</code>. </li>
-     * <li> The text widget of password, variable is <code>passwordText</code>. </li>
-     * <li> The text widget of database, variable is <code>sidOrDatabaseText</code>. </li>
-     * <li> The text widget of schema, variable is <code>schemaText</code>.</li>
-     * All these will be hidden when the current db type is <code>Hive</code> and the current hive mode is 
-     * <code>STANDALONE</code>. Otherwise, all will be visible when the current db type is <code>Hive</code> 
-     * and the current hive mode is <code>EMBEDDED</code>.
-     * Added by Marvin Wang on Oct 17, 2012.
+     * Invokes this method to handle the status of other widgets, for hive the following widgets need to handle: <li>The
+     * text widget of userName, variable is <code>usernameText</code>.</li> <li>The text widget of password, variable is
+     * <code>passwordText</code>.</li> <li>The text widget of database, variable is <code>sidOrDatabaseText</code>.</li>
+     * <li>The text widget of schema, variable is <code>schemaText</code>.</li> All these will be hidden when the
+     * current db type is <code>Hive</code> and the current hive mode is <code>STANDALONE</code>. Otherwise, all will be
+     * visible when the current db type is <code>Hive</code> and the current hive mode is <code>EMBEDDED</code>. Added
+     * by Marvin Wang on Oct 17, 2012.
+     * 
      * @param hide
      */
-    private void handleOtherWidgetsStatusForHive(boolean hide){
-//    	server and port is no use for Hive Embedded mode.
-    	serverText.setHideWidgets(hide);
-    	serverText.setEditable(!hide);
-    	portText.setHideWidgets(hide);
-		usernameText.setHideWidgets(hide);
-		passwordText.setHideWidgets(hide);
-		sidOrDatabaseText.setHideWidgets(hide);
-		sidOrDatabaseText.setEditable(!hide);
-		schemaText.setHideWidgets(true);
+    private void handleOtherWidgetsStatusForHive(boolean hide) {
+        // server and port is no use for Hive Embedded mode.
+        serverText.setHideWidgets(hide);
+        serverText.setEditable(!hide);
+        portText.setHideWidgets(hide);
+        usernameText.setHideWidgets(hide);
+        passwordText.setHideWidgets(hide);
+        sidOrDatabaseText.setHideWidgets(hide);
+        sidOrDatabaseText.setEditable(!hide);
+        schemaText.setHideWidgets(true);
     }
-    
+
     /**
-     * Invokes this method to handle the widget status of hive version info related, hide or visible.
-     * Added by Marvin Wang on Oct 16, 2012.
+     * Invokes this method to handle the widget status of hive version info related, hide or visible. Added by Marvin
+     * Wang on Oct 16, 2012.
+     * 
      * @param hide
      */
-    private void setHideVersionInfoWidgets(boolean hide){
-    	GridData hiveCompGD = (GridData) hiveComposite.getLayoutData();
-    	hiveComposite.setVisible(!hide);
-    	hiveCompGD.exclude = hide;
-    	distributionCombo.setHideWidgets(hide);
+    private void setHideVersionInfoWidgets(boolean hide) {
+        GridData hiveCompGD = (GridData) hiveComposite.getLayoutData();
+        hiveComposite.setVisible(!hide);
+        hiveCompGD.exclude = hide;
+        distributionCombo.setHideWidgets(hide);
         hiveVersionCombo.setHideWidgets(hide);
         hiveModeCombo.setHideWidgets(hide);
     }
-    
+
     /**
-     * Invokes this method to make the widgets of hadoop info related hidden or visible. Widgets include 
-     * text of name node url, job tracker url.
-     * Added by Marvin Wang on Oct 17, 2012.
+     * Invokes this method to make the widgets of hadoop info related hidden or visible. Widgets include text of name
+     * node url, job tracker url. Added by Marvin Wang on Oct 17, 2012.
+     * 
      * @param hide
      */
-    private void setHideHadoopInfoWidgets(boolean hide){
-//    	GridData hadoopPropGrpGD = (GridData)hadoopPropGrp.getLayoutData();
-//        hadoopPropGrp.setVisible(!hide);
-//        hadoopPropGrpGD.exclude = hide;
-//        nameNodeURLTxt.setHideWidgets(hide);
-//        jobTrackerURLTxt.setHideWidgets(hide);
-//        
-        GridData hadoopPropGrpGD = (GridData)hadoopPropGrp.getLayoutData();
+    private void setHideHadoopInfoWidgets(boolean hide) {
+        // GridData hadoopPropGrpGD = (GridData)hadoopPropGrp.getLayoutData();
+        // hadoopPropGrp.setVisible(!hide);
+        // hadoopPropGrpGD.exclude = hide;
+        // nameNodeURLTxt.setHideWidgets(hide);
+        // jobTrackerURLTxt.setHideWidgets(hide);
+        //
+        GridData hadoopPropGrpGD = (GridData) hadoopPropGrp.getLayoutData();
         hadoopPropGrp.setVisible(false);
         hadoopPropGrpGD.exclude = true;
         nameNodeURLTxt.setHideWidgets(true);
         jobTrackerURLTxt.setHideWidgets(true);
     }
-    
+
     /**
-     * Invokes this method to make the widgets of metastore connection related hidden or visible, including 
-     * connection URL, user name, password, driver jar directory and driver name.
-     * Added by Marvin Wang on Oct 17, 2012.
-     * @param hide
-     */
-    private void setHideMetastoreInfoWidgets(boolean hide){
-    	GridData metastorePropGrpGD = (GridData)metastorePropGrp.getLayoutData();
-        metastorePropGrp.setVisible(!hide);
-        metastorePropGrpGD.exclude = hide;
-        metastoreConnUserName.setHideWidgets(hide);
-        metastoreConnPassword.setHideWidgets(hide);
-        metastoreConnURLTxt.setHideWidgets(hide);
-        metastoreConnDriverJar.setHideWidgets(hide);
-        metastoreConnDriverName.setHideWidgets(hide);
-    }
-    
-    /**
-     * Invokes this method when an existing connection is opened or a new db connection is created. 
-     * For developer, if you add any widgets, you have to add them here to be hide or visible.
+     * Invokes this method to make the widgets of metastore connection related hidden or visible, including connection
+     * URL, user name, password, driver jar directory and driver name. Added by Marvin Wang on Oct 17, 2012.
      * 
-     * Added by Marvin Wang on Oct 16, 2012.
      * @param hide
      */
-    protected void doHideHiveWidgets(boolean hide) {
-        GridData gridData = (GridData) hiveComposite.getLayoutData();
-        hiveComposite.setVisible(!hide);
-        gridData.exclude = hide;
-        distributionCombo.setHideWidgets(hide);
-        hiveVersionCombo.setHideWidgets(hide);
-        hiveModeCombo.setHideWidgets(hide);
-//        usernameText.setHideWidgets(hide);
-//        passwordText.setHideWidgets(hide);
-//        sidOrDatabaseText.setHideWidgets(hide);
-//        schemaText.setHideWidgets(hide);
-        
-//        For hadoop properties.
-        GridData hadoopPropGrpGD = (GridData)hadoopPropGrp.getLayoutData();
-        hadoopPropGrp.setVisible(!hide);
-        hadoopPropGrpGD.exclude = hide;
-        nameNodeURLTxt.setHideWidgets(hide);
-        jobTrackerURLTxt.setHideWidgets(hide);
-        
-//        For metastore connection parameters.
-        GridData metastorePropGrpGD = (GridData)metastorePropGrp.getLayoutData();
+    private void setHideMetastoreInfoWidgets(boolean hide) {
+        GridData metastorePropGrpGD = (GridData) metastorePropGrp.getLayoutData();
         metastorePropGrp.setVisible(!hide);
         metastorePropGrpGD.exclude = hide;
         metastoreConnUserName.setHideWidgets(hide);
@@ -3546,17 +3669,55 @@ public class DatabaseForm extends AbstractForm {
     }
 
     /**
-     * Updates the parameter of Hive mode in connection. Put the following parameters in <code>DatabaseConnection</code>.
-     * <li>Hive distribution, the key is {@link ConnParameterKeys#CONN_PARA_KEY_HIVE_DISTRIBUTION}</li>
-     * <li>Hive version, the key is {@link ConnParameterKeys#CONN_PARA_KEY_HIVE_VERSION}</li>
-     * <li>Hive mode, the key is {@link ConnParameterKeys#CONN_PARA_KEY_HIVE_MODE}</li>
-     * <li>Name node URL, the key is {@link ConnParameterKeys#CONN_PARA_KEY_NAME_NODE_URL}</li>
-     * <li>Job Tracker URL, the key is {@link ConnParameterKeys#CONN_PARA_KEY_JOB_TRACKER_URL}</li>
-     * <li>URL to hive metastore DB, the key is {@link ConnParameterKeys#CONN_PARA_KEY_METASTORE_CONN_URL}</li>
-     * <li>User name for hive metastore DB, the key is {@link ConnParameterKeys#CONN_PARA_KEY_METASTORE_CONN_USERNAME}</li>
-     * <li>Password for hive metastore DB, the key is {@link ConnParameterKeys#CONN_PARA_KEY_METASTORE_CONN_PASSWORD}</li>
-     * <li>Driver jar for connecting hive metastore DB, the key is {@link ConnParameterKeys#CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR}</li>
-     * <li>Driver name for connecting hive metastore DB, the key is {@link ConnParameterKeys#CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME}</li>
+     * Invokes this method when an existing connection is opened or a new db connection is created. For developer, if
+     * you add any widgets, you have to add them here to be hide or visible.
+     * 
+     * Added by Marvin Wang on Oct 16, 2012.
+     * 
+     * @param hide
+     */
+    protected void doHideHiveWidgets(boolean hide) {
+        GridData gridData = (GridData) hiveComposite.getLayoutData();
+        hiveComposite.setVisible(!hide);
+        gridData.exclude = hide;
+        distributionCombo.setHideWidgets(hide);
+        hiveVersionCombo.setHideWidgets(hide);
+        hiveModeCombo.setHideWidgets(hide);
+        // usernameText.setHideWidgets(hide);
+        // passwordText.setHideWidgets(hide);
+        // sidOrDatabaseText.setHideWidgets(hide);
+        // schemaText.setHideWidgets(hide);
+
+        // For hadoop properties.
+        GridData hadoopPropGrpGD = (GridData) hadoopPropGrp.getLayoutData();
+        hadoopPropGrp.setVisible(!hide);
+        hadoopPropGrpGD.exclude = hide;
+        nameNodeURLTxt.setHideWidgets(hide);
+        jobTrackerURLTxt.setHideWidgets(hide);
+
+        // For metastore connection parameters.
+        GridData metastorePropGrpGD = (GridData) metastorePropGrp.getLayoutData();
+        metastorePropGrp.setVisible(!hide);
+        metastorePropGrpGD.exclude = hide;
+        metastoreConnUserName.setHideWidgets(hide);
+        metastoreConnPassword.setHideWidgets(hide);
+        metastoreConnURLTxt.setHideWidgets(hide);
+        metastoreConnDriverJar.setHideWidgets(hide);
+        metastoreConnDriverName.setHideWidgets(hide);
+    }
+
+    /**
+     * Updates the parameter of Hive mode in connection. Put the following parameters in <code>DatabaseConnection</code>
+     * . <li>Hive distribution, the key is {@link ConnParameterKeys#CONN_PARA_KEY_HIVE_DISTRIBUTION}</li> <li>Hive
+     * version, the key is {@link ConnParameterKeys#CONN_PARA_KEY_HIVE_VERSION}</li> <li>Hive mode, the key is
+     * {@link ConnParameterKeys#CONN_PARA_KEY_HIVE_MODE}</li> <li>Name node URL, the key is
+     * {@link ConnParameterKeys#CONN_PARA_KEY_NAME_NODE_URL}</li> <li>Job Tracker URL, the key is
+     * {@link ConnParameterKeys#CONN_PARA_KEY_JOB_TRACKER_URL}</li> <li>URL to hive metastore DB, the key is
+     * {@link ConnParameterKeys#CONN_PARA_KEY_METASTORE_CONN_URL}</li> <li>User name for hive metastore DB, the key is
+     * {@link ConnParameterKeys#CONN_PARA_KEY_METASTORE_CONN_USERNAME}</li> <li>Password for hive metastore DB, the key
+     * is {@link ConnParameterKeys#CONN_PARA_KEY_METASTORE_CONN_PASSWORD}</li> <li>Driver jar for connecting hive
+     * metastore DB, the key is {@link ConnParameterKeys#CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR}</li> <li>Driver name
+     * for connecting hive metastore DB, the key is {@link ConnParameterKeys#CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME}</li>
      */
     protected void doUpdateConnection() {
         if (!isContextMode()) {
@@ -3571,15 +3732,14 @@ public class DatabaseForm extends AbstractForm {
                 conn.setDbVersionString(version.getVersionDisplay());
             }
             conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION,
-            		HiveConnUtils.getDistributionObj(distributionIndex).getKey());
+                    HiveConnUtils.getDistributionObj(distributionIndex).getKey());
             conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION,
-            		HiveConnUtils.getHiveVersionObj(distributionIndex, hiveVersionIndex).getKey());
+                    HiveConnUtils.getHiveVersionObj(distributionIndex, hiveVersionIndex).getKey());
             conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE,
-            		HiveConnUtils.getHiveModeObj(distributionIndex, hiveVersionIndex, hiveModeIndex).getKey());
-            
+                    HiveConnUtils.getHiveModeObj(distributionIndex, hiveVersionIndex, hiveModeIndex).getKey());
+
         }
     }
-
 
     /**
      * 
@@ -3600,25 +3760,25 @@ public class DatabaseForm extends AbstractForm {
                 System.setProperty("hive.metastore.execute.setugi", "true");
                 System.setProperty("fs.default.name", nameNodeURLTxt.getText());
                 System.setProperty("mapred.job.tracker", jobTrackerURLTxt.getText());
-                if(metastoreConnURLTxt.getText() == null)
-                	System.setProperty("javax.jdo.option.ConnectionURL", "");
+                if (metastoreConnURLTxt.getText() == null)
+                    System.setProperty("javax.jdo.option.ConnectionURL", "");
                 else
-                	System.setProperty("javax.jdo.option.ConnectionURL", metastoreConnURLTxt.getText());
-                
-                if(metastoreConnUserName.getText() == null)
-                	System.setProperty("javax.jdo.option.ConnectionUserName", "");
+                    System.setProperty("javax.jdo.option.ConnectionURL", metastoreConnURLTxt.getText());
+
+                if (metastoreConnUserName.getText() == null)
+                    System.setProperty("javax.jdo.option.ConnectionUserName", "");
                 else
-                	System.setProperty("javax.jdo.option.ConnectionUserName", metastoreConnUserName.getText());
+                    System.setProperty("javax.jdo.option.ConnectionUserName", metastoreConnUserName.getText());
                 System.setProperty("javax.jdo.option.ConnectionPassword", metastoreConnPassword.getText());
-//                System.setProperty("javax.jdo.option.ConnectionUserName", metastoreConnURLTxt.getText());
+                // System.setProperty("javax.jdo.option.ConnectionUserName", metastoreConnURLTxt.getText());
                 System.setProperty("javax.jdo.option.ConnectionDriverName", metastoreConnDriverName.getText());
             }
         }
     }
 
     /**
-     * When checking connection is complete, these hive properties need to remove from system property.
-     * Added by Marvin Wang on Oct 17, 2012.
+     * When checking connection is complete, these hive properties need to remove from system property. Added by Marvin
+     * Wang on Oct 17, 2012.
      */
     protected void doRemoveHiveSetup() {
         System.clearProperty("hive.metastore.local");
@@ -3633,8 +3793,9 @@ public class DatabaseForm extends AbstractForm {
     }
 
     /**
-     * Indentifies the hive mode selected in hive mode combo is standalone or embedded. 
-     * If embedded, return <code>true</code>, <code>false</code> otherwise.
+     * Indentifies the hive mode selected in hive mode combo is standalone or embedded. If embedded, return
+     * <code>true</code>, <code>false</code> otherwise.
+     * 
      * @return
      */
     protected boolean isHiveEmbeddedMode() {
@@ -3649,8 +3810,8 @@ public class DatabaseForm extends AbstractForm {
         return false;
     }
 
-//    private boolean
-    
+    // private boolean
+
     /**
      * 
      * DOC zshen Comment method "getMetadataConnection".

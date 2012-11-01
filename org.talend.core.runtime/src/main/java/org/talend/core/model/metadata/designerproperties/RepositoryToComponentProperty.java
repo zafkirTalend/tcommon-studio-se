@@ -26,7 +26,6 @@ import org.eclipse.emf.common.util.EList;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.utils.PathUtils;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
@@ -1096,6 +1095,15 @@ public class RepositoryToComponentProperty {
         if (value.equals("CONNECTION_MODE")) {
             return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
         }
+
+        if (value.equals("HBASE_DISTRIBUTION")) {
+            return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_DISTRIBUTION);
+        }
+
+        if (value.equals("HBASE_VERSION")) {
+            return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION);
+        }
+
         return null;
     }
 

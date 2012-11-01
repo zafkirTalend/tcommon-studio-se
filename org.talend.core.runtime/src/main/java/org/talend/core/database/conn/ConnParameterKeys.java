@@ -27,26 +27,33 @@ public class ConnParameterKeys {
     /**
      * The key is used for Hive Mode to store its value.
      */
-    public static final String CONN_PARA_KEY_HIVE_MODE = "CONN_PARA_KEY_HIVE_MODE";
+    public static final String CONN_PARA_KEY_HIVE_MODE = "CONN_PARA_KEY_HIVE_MODE"; //$NON-NLS-1$
 
-    public static final String CONN_PARA_KEY_HIVE_DISTRIBUTION = "CONN_PARA_KEY_HIVE_DISTRIBUTION";
+    public static final String CONN_PARA_KEY_HIVE_DISTRIBUTION = "CONN_PARA_KEY_HIVE_DISTRIBUTION"; //$NON-NLS-1$
 
-    public static final String CONN_PARA_KEY_HIVE_VERSION = "CONN_PARA_KEY_HIVE_VERSION";
+    public static final String CONN_PARA_KEY_HIVE_VERSION = "CONN_PARA_KEY_HIVE_VERSION"; //$NON-NLS-1$
 
-    public static final String CONN_PARA_KEY_CHARACTER_ENCODING = "CONN_PARA_KEY_CHARACTER_ENCODING";
-    
-    public static final String CONN_PARA_KEY_NAME_NODE_URL = "CONN_PARA_KEY_NAME_NODE_URL";
-    
-    public static final String CONN_PARA_KEY_JOB_TRACKER_URL = "CONN_PARA_KEY_JOB_TRACKER_URL";
-    
-    public static final String CONN_PARA_KEY_METASTORE_CONN_URL = "CONN_PARA_KEY_METASTORE_CONN_URL";
-    
-    public static final String CONN_PARA_KEY_METASTORE_CONN_USERNAME = "CONN_PARA_KEY_METASTORE_CONN_USERNAME";
-    
-    public static final String CONN_PARA_KEY_METASTORE_CONN_PASSWORD = "CONN_PARA_KEY_METASTORE_CONN_PASSWORD";
-    
-    public static final String CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR = "CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR";
-    
-    public static final String CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME = "CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME";
-    
+    public static final String CONN_PARA_KEY_CHARACTER_ENCODING = "CONN_PARA_KEY_CHARACTER_ENCODING"; //$NON-NLS-1$
+
+    public static final String CONN_PARA_KEY_NAME_NODE_URL = "CONN_PARA_KEY_NAME_NODE_URL"; //$NON-NLS-1$
+
+    public static final String CONN_PARA_KEY_JOB_TRACKER_URL = "CONN_PARA_KEY_JOB_TRACKER_URL"; //$NON-NLS-1$
+
+    public static final String CONN_PARA_KEY_METASTORE_CONN_URL = "CONN_PARA_KEY_METASTORE_CONN_URL"; //$NON-NLS-1$
+
+    public static final String CONN_PARA_KEY_METASTORE_CONN_USERNAME = "CONN_PARA_KEY_METASTORE_CONN_USERNAME"; //$NON-NLS-1$
+
+    public static final String CONN_PARA_KEY_METASTORE_CONN_PASSWORD = "CONN_PARA_KEY_METASTORE_CONN_PASSWORD"; //$NON-NLS-1$
+
+    public static final String CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR = "CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR"; //$NON-NLS-1$
+
+    public static final String CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME = "CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME"; //$NON-NLS-1$
+
+    /**
+     * keys used for Hadoop settings.
+     */
+    public static final String CONN_PARA_KEY_HBASE_DISTRIBUTION = "CONN_PARA_KEY_HBASE_DISTRIBUTION"; //$NON-NLS-1$
+
+    public static final String CONN_PARA_KEY_HBASE_VERSION = "CONN_PARA_KEY_HBASE_VERSION"; //$NON-NLS-1$
+
 }

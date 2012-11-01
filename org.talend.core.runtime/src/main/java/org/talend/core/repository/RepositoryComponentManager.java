@@ -340,7 +340,6 @@ public final class RepositoryComponentManager {
         List<IComponent> exceptedComponents = new ArrayList<IComponent>();
 
         for (IComponent component : components) {
-            //
             for (RepositoryComponentDndFilterSetting dndFilter : getDndFilterSettings()) {
                 IRepositoryComponentDndFilter filter = dndFilter.getFilter();
                 if (filter == null) {
