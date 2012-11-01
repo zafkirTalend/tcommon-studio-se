@@ -217,6 +217,10 @@ public class MoveObjectAction {
     public boolean isLock(RepositoryNode sourceNode) {
         boolean isLock = false;
 
+        if (ProxyRepositoryFactory.getInstance().getRepositoryContext().isEditableAsReadOnly()) {
+            return false;
+        }
+
         try {
 
             ProxyRepositoryFactory.getInstance().initialize();

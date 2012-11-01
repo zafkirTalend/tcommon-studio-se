@@ -1319,8 +1319,8 @@ public class DeleteAction extends AContextualAction {
         if (factory.isUserReadOnlyOnCurrentProject()) {
             visible = false;
         }
-        // TDI-23105:only for read-only(tag) project
-        if (!factory.getRepositoryContext().isOffline() && factory.getRepositoryContext().isEditableAsReadOnly()) {
+        // TDI-23105:only for read-only(tag) project > also for offline, since TDI-23336
+        if (factory.getRepositoryContext().isOffline() || factory.getRepositoryContext().isEditableAsReadOnly()) {
             visible = false;
         }
         for (Object o : (selection).toArray()) {

@@ -125,6 +125,7 @@ public class EmptyRecycleBinAction extends AContextualAction {
 
         final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
+            @Override
             public void run(IProgressMonitor monitor) {
                 IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
                 for (IRepositoryNode child : children) {
@@ -144,6 +145,7 @@ public class EmptyRecycleBinAction extends AContextualAction {
 
         IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
 
+            @Override
             public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                 IWorkspace workspace = ResourcesPlugin.getWorkspace();
                 try {
@@ -167,6 +169,7 @@ public class EmptyRecycleBinAction extends AContextualAction {
         if (unDeleteItems.size() > 0) {
             Display.getDefault().syncExec(new Runnable() {
 
+                @Override
                 public void run() {
                     ItemReferenceDialog dialog = new ItemReferenceDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow()
                             .getShell(), unDeleteItems);
@@ -248,6 +251,7 @@ public class EmptyRecycleBinAction extends AContextualAction {
 
             Display.getDefault().syncExec(new Runnable() {
 
+                @Override
                 public void run() {
                     try {
                         IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
@@ -315,14 +319,15 @@ public class EmptyRecycleBinAction extends AContextualAction {
      * @see org.talend.repository.ui.actions.ITreeContextualAction#init(org.eclipse.jface.viewers.TreeViewer,
      * org.eclipse.jface.viewers.IStructuredSelection)
      */
+    @Override
     public void init(TreeViewer viewer, IStructuredSelection selection) {
         boolean canWork = !selection.isEmpty() && selection.size() == 1;
         IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
         if (factory.isUserReadOnlyOnCurrentProject()) {
             canWork = false;
         }
-        // TDI-23105:only for read-only(tag) project
-        if (!factory.getRepositoryContext().isOffline() && factory.getRepositoryContext().isEditableAsReadOnly()) {
+        // TDI-23105:only for read-only(tag) project > also for offline, since TDI-23336
+        if (factory.getRepositoryContext().isOffline() || factory.getRepositoryContext().isEditableAsReadOnly()) {
             canWork = false;
         }
         if (canWork) {
