@@ -22,6 +22,9 @@ import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.PlatformUI;
 import org.talend.core.model.general.ConnectionBean;
+import org.talend.json.JSONArray;
+import org.talend.json.JSONException;
+import org.talend.json.JSONObject;
 
 /**
  * Used to store connections / users for the login dialog <br/>
@@ -30,6 +33,8 @@ import org.talend.core.model.general.ConnectionBean;
  * 
  */
 public final class PreferenceManipulator implements ITalendCorePrefConstants {
+
+    private static final String JSON_CONNECTIONS = "Connections.new";
 
     private static final String PREF_DELIMITER = "|"; //$NON-NLS-1$
 
@@ -74,14 +79,28 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
         return array;
     }
 
-    private List<String> readStringList(final String prefName) {
+    private JSONArray readJsonArray(final String prefName) {
         String prefs = store.getString(prefName);
-        List<String> strings = new ArrayList<String>();
-        StringTokenizer st = new StringTokenizer(prefs, PREF_DELIMITER);
-        while (st.hasMoreTokens()) {
-            strings.add(st.nextToken());
-        }
 
+        if (prefs != null) {
+            try {
+                return new JSONArray(prefs);
+            } catch (JSONException e) {
+                //
+            }
+        }
+        return new JSONArray();
+    }
+
+    private List<String> readStringList(final String prefName) {
+        List<String> strings = new ArrayList<String>();
+        String prefs = store.getString(prefName);
+        if (prefs != null) {
+            StringTokenizer st = new StringTokenizer(prefs, PREF_DELIMITER);
+            while (st.hasMoreTokens()) {
+                strings.add(st.nextToken());
+            }
+        }
         return strings;
     }
 
@@ -100,6 +119,11 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
             }
         }
         store.setValue(prefName, prefs.toString());
+        save();
+    }
+
+    private void saveJsonArray(final JSONArray prefArray, String prefName) {
+        store.setValue(prefName, prefArray.toString());
         save();
     }
 
@@ -128,20 +152,34 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
         for (String currentConnectionToLoad : readStringArray(CONNECTIONS)) {
             toReturn.add(ConnectionBean.writeFromString(currentConnectionToLoad));
         }
+        store.setValue(CONNECTIONS, "");
+
+        JSONArray jsonArray = readJsonArray(JSON_CONNECTIONS);
+        for (int i = 0; i < jsonArray.length(); i++) {
+            try {
+                Object object = jsonArray.get(i);
+                if (object instanceof JSONObject) {
+                    toReturn.add(ConnectionBean.writeFromJSON((JSONObject) object));
+                }
+            } catch (JSONException e) {
+                //
+            }
+        }
         return toReturn;
     }
 
     public void saveConnections(List<ConnectionBean> cons) {
-        String[] prefArray = new String[cons.size()];
-        int i = 0;
+        JSONArray array = new JSONArray();
         for (ConnectionBean currentConnection : cons) {
-            prefArray[i++] = currentConnection.readToString();
+            array.put(currentConnection.getConDetails());
         }
-        saveStringArray(prefArray, CONNECTIONS);
+        saveJsonArray(array, JSON_CONNECTIONS);
     }
 
     public void addConnection(ConnectionBean con) {
-        addStringToArray(con.readToString(), CONNECTIONS);
+        JSONArray array = new JSONArray();
+        array.put(con.getConDetails());
+        saveJsonArray(array, JSON_CONNECTIONS);
     }
 
     /**

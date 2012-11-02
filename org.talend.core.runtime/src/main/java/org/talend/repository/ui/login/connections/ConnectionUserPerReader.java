@@ -30,7 +30,11 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.adaptor.LocationManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.PlatformUI;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.model.general.ConnectionBean;
+import org.talend.json.JSONArray;
+import org.talend.json.JSONException;
+import org.talend.json.JSONObject;
 
 /**
  * DOC hwang class global comment. Detailled comment
@@ -89,22 +93,35 @@ public class ConnectionUserPerReader {
      * @throws DocumentException
      */
     public List<ConnectionBean> readConnections() {
-        if (!isRead)
+        if (!isRead) {
             this.readProperties();
+        }
+        List<ConnectionBean> toReturn = new ArrayList<ConnectionBean>();
+
         String userString = proper.getProperty("connection.users"); //$NON-NLS-1$
-        if (userString == null) {
-            userString = "";//$NON-NLS-1$
-            return new ArrayList<ConnectionBean>(0);
-        } else {
+        if (userString != null) {
             String[] users = userString.split("\\|");//$NON-NLS-1$
-            List<ConnectionBean> toReturn = new ArrayList<ConnectionBean>(users.length);
             for (String usr : users) {
                 ConnectionBean conBean = ConnectionBean.writeFromString(proper.getProperty(usr));
                 toReturn.add(conBean);
             }
-            return toReturn;
+            // FIXME
+            proper.remove("connection.users");
         }
-
+        try {
+            String jsonString = proper.getProperty("connection.define"); //$NON-NLS-1$
+            if (jsonString != null) {
+                JSONArray users = new JSONArray(jsonString);
+                for (int i = 0; i < users.length(); i++) {
+                    JSONObject user = users.getJSONObject(i);
+                    ConnectionBean conBean = ConnectionBean.writeFromJSON(user);
+                    toReturn.add(conBean);
+                }
+            }
+        } catch (JSONException e) {
+            ExceptionHandler.process(e);
+        }
+        return toReturn;
     }
 
     private ConnectionUserPerReader readProperties() {
@@ -151,23 +168,23 @@ public class ConnectionUserPerReader {
             createPropertyFile();
         if (!isRead)
             this.readProperties();
-        StringBuilder sb = new StringBuilder();
-        int i = 0;
         if (cons == null || cons.size() == 0) {
             proper.remove("connection.users");//$NON-NLS-1$
         } else {
+            JSONArray usersJsonArray = new JSONArray();
             for (ConnectionBean currentConnection : cons) {
-                String userName = currentConnection.getName();
-
-                if (i != 0 && userName != null) {
-                    sb.append("|");//$NON-NLS-1$
-                }
-                if (userName != null)
-                    sb.append(userName);
-                proper.setProperty(userName, currentConnection.readToString());
-                i++;
+                // String userName = currentConnection.getName();
+                // if (i != 0 && userName != null) {
+                //                    sb.append("|");//$NON-NLS-1$
+                // }
+                // if (userName != null) {
+                JSONObject userJson = currentConnection.getConDetails();
+                // proper.setProperty(userName, userJson.toString());
+                usersJsonArray.put(userJson);
+                // }
             }
-            proper.setProperty("connection.users", sb.toString());//$NON-NLS-1$
+            //proper.setProperty("connection.users", sb.toString());//$NON-NLS-1$
+            proper.setProperty("connection.define", usersJsonArray.toString());//$NON-NLS-1$
         }
         try {
 
