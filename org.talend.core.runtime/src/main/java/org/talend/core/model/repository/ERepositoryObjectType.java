@@ -475,6 +475,18 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             return toReturn.toArray(new ERepositoryObjectType[] {});
 
         }
+        // Bad code here to fix bug TDI-23178. If DQ repository type implemented by extention point like what MDM does
+        // will avoid this bug.
+        if (!PluginChecker.isPluginLoaded("org.talend.dataprofiler.core")) { //$NON-NLS-1$
+            List<ERepositoryObjectType> toReturn = new ArrayList<ERepositoryObjectType>();
+            for (ERepositoryObjectType currentType : values(ERepositoryObjectType.class)) {
+                if (!(currentType.getProducts().length == 1 && ArrayUtils.contains(currentType.getProducts(), "DQ"))) { //$NON-NLS-1$
+                    toReturn.add(currentType);
+                }
+            }
+            return toReturn.toArray(new ERepositoryObjectType[0]);
+        }
+
         return values(ERepositoryObjectType.class);
     }
 
