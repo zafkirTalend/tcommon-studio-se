@@ -152,7 +152,7 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
         for (String currentConnectionToLoad : readStringArray(CONNECTIONS)) {
             toReturn.add(ConnectionBean.writeFromString(currentConnectionToLoad));
         }
-        store.setValue(CONNECTIONS, "");
+        // store.setValue(CONNECTIONS, "");
 
         JSONArray jsonArray = readJsonArray(JSON_CONNECTIONS);
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -173,12 +173,16 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
         for (ConnectionBean currentConnection : cons) {
             array.put(currentConnection.getConDetails());
         }
+        // clear the old value
+        store.setValue(CONNECTIONS, "");
         saveJsonArray(array, JSON_CONNECTIONS);
     }
 
     public void addConnection(ConnectionBean con) {
         JSONArray array = new JSONArray();
         array.put(con.getConDetails());
+        // clear the old value
+        store.setValue(CONNECTIONS, "");
         saveJsonArray(array, JSON_CONNECTIONS);
     }
 

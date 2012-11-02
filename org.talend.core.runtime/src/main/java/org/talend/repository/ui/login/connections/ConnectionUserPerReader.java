@@ -106,7 +106,7 @@ public class ConnectionUserPerReader {
                 toReturn.add(conBean);
             }
             // FIXME
-            proper.remove("connection.users");
+            // proper.remove("connection.users");
         }
         try {
             String jsonString = proper.getProperty("connection.define"); //$NON-NLS-1$
@@ -184,6 +184,9 @@ public class ConnectionUserPerReader {
                 // }
             }
             //proper.setProperty("connection.users", sb.toString());//$NON-NLS-1$
+            if (proper.getProperty("connection.users") != null) {
+                proper.remove("connection.users");
+            }
             proper.setProperty("connection.define", usersJsonArray.toString());//$NON-NLS-1$
         }
         try {
