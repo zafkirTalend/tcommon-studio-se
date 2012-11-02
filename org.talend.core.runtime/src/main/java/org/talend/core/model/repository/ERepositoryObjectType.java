@@ -385,7 +385,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     private String alias;
 
-    private String folder = ""; //$NON-NLS-N$
+    private String folder = "";
 
     private String[] products;
 
@@ -451,6 +451,18 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             return toReturn.toArray(new ERepositoryObjectType[] {});
 
         }
+        // Bad code here to fix bug TDI-23178. If DQ repository type implemented by extention point like what MDM does
+        // will avoid this bug.
+        if (!PluginChecker.isPluginLoaded("org.talend.dataprofiler.core")) { //$NON-NLS-1$
+            List<ERepositoryObjectType> toReturn = new ArrayList<ERepositoryObjectType>();
+            for (ERepositoryObjectType currentType : values(ERepositoryObjectType.class)) {
+                if (!(currentType.getProducts().length == 1 && ArrayUtils.contains(currentType.getProducts(), "DQ"))) { //$NON-NLS-1$
+                    toReturn.add(currentType);
+                }
+            }
+            return toReturn.toArray(new ERepositoryObjectType[0]);
+        }
+
         return values(ERepositoryObjectType.class);
     }
 
@@ -460,25 +472,24 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         IConfigurationElement[] configurationElements = registry
                 .getConfigurationElementsFor("org.talend.core.repository.repository_node_provider"); //$NON-NLS-1$
         try {
-            for (int i = 0; i < configurationElements.length; i++) {
-                IConfigurationElement element = configurationElements[i];
-                Object extensionNode = element.createExecutableExtension("class");//$NON-NLS-N$
+            for (IConfigurationElement element : configurationElements) {
+                Object extensionNode = element.createExecutableExtension("class");
                 if (extensionNode instanceof IExtendRepositoryNode) {
                     IExtendRepositoryNode diyNode = (IExtendRepositoryNode) extensionNode;
-                    String label = element.getAttribute("label");//$NON-NLS-N$
-                    String type = element.getAttribute("type");//$NON-NLS-N$
-                    String folder = element.getAttribute("folder");//$NON-NLS-N$
+                    String label = element.getAttribute("label");
+                    String type = element.getAttribute("type");
+                    String folder = element.getAttribute("folder");
                     if (folder == null) {
                         folder = "";
                     }
-                    String isResouce = element.getAttribute("isResouce");//$NON-NLS-N$
-                    String rightAttribute = element.getAttribute("user_right");//$NON-NLS-N$
+                    String isResouce = element.getAttribute("isResouce");
+                    String rightAttribute = element.getAttribute("user_right");
                     if (rightAttribute == null) {
                         rightAttribute = "";
                     }
-                    String productsAttribute = element.getAttribute("products");//$NON-NLS-N$
-                    String[] products = productsAttribute.split("\\|");//$NON-NLS-N$
-                    String[] user_right = rightAttribute.split(";");//$NON-NLS-N$
+                    String productsAttribute = element.getAttribute("products");
+                    String[] products = productsAttribute.split("\\|");
+                    String[] user_right = rightAttribute.split(";");
 
                     boolean isResource = false;
                     if (isResouce != null) {
@@ -550,18 +561,18 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
         if (type == GENERATED || type == JOBS || type == JOB_DOC) {
             if ((PluginChecker.isDocumentationPluginLoaded())) {
-                return type.getFolder(); //$NON-NLS-1$
+                return type.getFolder();
             }
         }
         if (type == JOBLETS || type == JOBLET_DOC) {
             if (PluginChecker.isJobLetPluginLoaded()) {
-                return type.getFolder(); //$NON-NLS-1$
+                return type.getFolder();
             }
         } else {
 
             return type.getFolder();
         }
-        throw new IllegalArgumentException(Messages.getString("ERepositoryObjectType.FolderNotFound", type)); //$NON-NLS-1$ //$NON-NLS-2$
+        throw new IllegalArgumentException(Messages.getString("ERepositoryObjectType.FolderNotFound", type)); //$NON-NLS-1$ 
     }
 
     public static String getDeleteFolderName(ERepositoryObjectType type) {
@@ -751,6 +762,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
                 return FOLDER;
             }
 
+            @Override
             public Object caseDocumentationItem(DocumentationItem object) {
                 return DOCUMENTATION;
             }
@@ -776,6 +788,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
              * @seeorg.talend.core.model.properties.util.PropertiesSwitch# caseJobDocumentationItem
              * (org.talend.core.model.properties.JobDocumentationItem)
              */
+            @Override
             public Object caseJobDocumentationItem(JobDocumentationItem object) {
                 return JOB_DOC;
             }
@@ -786,10 +799,12 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
              * @seeorg.talend.core.model.properties.util.PropertiesSwitch# caseJobletDocumentationItem
              * (org.talend.core.model.properties.JobletDocumentationItem)
              */
+            @Override
             public Object caseJobletDocumentationItem(JobletDocumentationItem object) {
                 return JOBLET_DOC;
             }
 
+            @Override
             public Object caseRoutineItem(RoutineItem object) {
                 return ROUTINES;
             }
@@ -798,6 +813,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             // return BEANS;
             // }
 
+            @Override
             public Object caseJobScriptItem(JobScriptItem object) {
                 return JOB_SCRIPT;
             }
@@ -813,6 +829,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
                 return SQLPATTERNS;
             }
 
+            @Override
             public Object caseProcessItem(ProcessItem object) {
 
                 return PROCESS;
@@ -829,26 +846,32 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
                 return JOBLET;
             }
 
+            @Override
             public Object caseContextItem(ContextItem object) {
                 return CONTEXT;
             }
 
+            @Override
             public Object caseSnippetItem(SnippetItem object) {
                 return SNIPPETS;
             }
 
+            @Override
             public Object caseSnippetVariable(SnippetVariable object) {
                 return SNIPPETS;
             }
 
+            @Override
             public Object caseBusinessProcessItem(BusinessProcessItem object) {
                 return BUSINESS_PROCESS;
             }
 
+            @Override
             public Object caseCSVFileConnectionItem(CSVFileConnectionItem object) {
                 throw new IllegalStateException(Messages.getString("ERepositoryObjectType.NotImplemented")); //$NON-NLS-1$
             }
 
+            @Override
             public Object caseDatabaseConnectionItem(DatabaseConnectionItem object) {
                 return METADATA_CONNECTIONS;
             }
@@ -858,46 +881,57 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
                 return METADATA_SAPCONNECTIONS;
             }
 
+            @Override
             public Object caseDelimitedFileConnectionItem(DelimitedFileConnectionItem object) {
                 return METADATA_FILE_DELIMITED;
             }
 
+            @Override
             public Object casePositionalFileConnectionItem(PositionalFileConnectionItem object) {
                 return METADATA_FILE_POSITIONAL;
             }
 
+            @Override
             public Object caseRegExFileConnectionItem(RegExFileConnectionItem object) {
                 return METADATA_FILE_REGEXP;
             }
 
+            @Override
             public Object caseXmlFileConnectionItem(XmlFileConnectionItem object) {
                 return METADATA_FILE_XML;
             }
 
+            @Override
             public Object caseExcelFileConnectionItem(ExcelFileConnectionItem object) {
                 return METADATA_FILE_EXCEL;
             }
 
+            @Override
             public Object caseLdifFileConnectionItem(LdifFileConnectionItem object) {
                 return METADATA_FILE_LDIF;
             }
 
+            @Override
             public Object caseLDAPSchemaConnectionItem(LDAPSchemaConnectionItem object) {
                 return METADATA_LDAP_SCHEMA;
             }
 
+            @Override
             public Object caseGenericSchemaConnectionItem(GenericSchemaConnectionItem object) {
                 return METADATA_GENERIC_SCHEMA;
             }
 
+            @Override
             public Object caseSalesforceSchemaConnectionItem(SalesforceSchemaConnectionItem object) {
                 return METADATA_SALESFORCE_SCHEMA;
             }
 
+            @Override
             public Object caseWSDLSchemaConnectionItem(WSDLSchemaConnectionItem object) {
                 return METADATA_WSDL_SCHEMA;
             }
 
+            @Override
             public Object caseEDIFACTConnectionItem(EDIFACTConnectionItem object) {
                 return METADATA_EDIFACT;
             }
@@ -907,10 +941,12 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
                 return METADATA_FILE_EBCDIC;
             }
 
+            @Override
             public Object caseHL7ConnectionItem(HL7ConnectionItem object) {
                 return METADATA_FILE_HL7;
             }
 
+            @Override
             public Object caseFTPConnectionItem(FTPConnectionItem object) {
                 return METADATA_FILE_FTP;
             }
@@ -920,6 +956,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
                 return METADATA_FILE_BRMS;
             }
 
+            @Override
             public Object caseMDMConnectionItem(MDMConnectionItem object) {
                 return METADATA_MDMCONNECTION;
             }
@@ -929,6 +966,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
                 return SVG_BUSINESS_PROCESS;
             }
 
+            @Override
             public Object caseHeaderFooterConnectionItem(HeaderFooterConnectionItem object) {
                 return METADATA_HEADER_FOOTER;
             }
@@ -939,10 +977,12 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
                 return TDQ_ELEMENT;
             }
 
+            @Override
             public Object caseValidationRulesConnectionItem(ValidationRulesConnectionItem object) {
                 return METADATA_VALIDATION_RULES;
             }
 
+            @Override
             public Object defaultCase(EObject object) {
                 throw new IllegalStateException();
             }
@@ -985,7 +1025,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
      * @return
      */
     public boolean isDQItemType() {
-        return Arrays.asList(this.getProducts()).contains("DQ"); //$NON-NLS-N$
+        return Arrays.asList(this.getProducts()).contains("DQ");
     }
 
     /**
@@ -997,7 +1037,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
      * @return
      */
     public boolean isDIItemType() {
-        return Arrays.asList(this.getProducts()).contains("DI"); //$NON-NLS-N$
+        return Arrays.asList(this.getProducts()).contains("DI");
     }
 
     /**
@@ -1017,6 +1057,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
      * 
      * @see org.talend.core.model.repository.DynaEnum#name()
      */
+    @Override
     public String name() {
         if (isStaticNode()) {
             Field[] allFields = ERepositoryObjectType.class.getDeclaredFields();
