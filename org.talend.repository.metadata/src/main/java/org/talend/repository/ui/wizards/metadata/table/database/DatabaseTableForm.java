@@ -1234,13 +1234,17 @@ public class DatabaseTableForm extends AbstractForm {
             // bug 16595
             // checkConnection(false);
 
-            for (MetadataColumn column : metadataTable.getColumns()) {
-                column.eAdapters().add(adaptor);
+            if (metadataTable != null) {
+                for (MetadataColumn column : metadataTable.getColumns()) {
+                    column.eAdapters().add(adaptor);
+                }
             }
         } else {
-            for (MetadataColumn column : metadataTable.getColumns()) {
-                if (column.eAdapters().contains(adaptor)) {
-                    column.eAdapters().remove(adaptor);
+            if (metadataTable != null) {
+                for (MetadataColumn column : metadataTable.getColumns()) {
+                    if (column.eAdapters().contains(adaptor)) {
+                        column.eAdapters().remove(adaptor);
+                    }
                 }
             }
         }
