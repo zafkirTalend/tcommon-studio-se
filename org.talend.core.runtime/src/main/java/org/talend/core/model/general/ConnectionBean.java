@@ -13,10 +13,13 @@
 package org.talend.core.model.general;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.runtime.i18n.Messages;
+import org.talend.json.JSONException;
+import org.talend.json.JSONObject;
 import org.talend.repository.model.RepositoryConstants;
 
 /**
@@ -31,21 +34,23 @@ public class ConnectionBean implements Cloneable {
 
     private static final String FIELDS_SEPARATOR = "#"; //$NON-NLS-1$
 
-    private String repositoryId;
+    private static final String ID = "id"; //$NON-NLS-1$
 
-    private String name;
+    private static final String DESCRIPTION = "description"; //$NON-NLS-1$
 
-    private String description;
+    private static final String NAME = "name"; //$NON-NLS-1$
 
-    private String user;
+    private static final String PASSWORD = "password"; //$NON-NLS-1$
 
-    private String password;
+    private static final String USER = "user"; //$NON-NLS-1$
 
-    private Map<String, String> dynamicFields = new HashMap<String, String>();
+    private static final String WORKSPACE = "workSpace"; //$NON-NLS-1$
 
-    private boolean complete;
+    private static final String DYNAMICFIELDS = "dynamicFields"; //$NON-NLS-1$
 
-    private String workSpace;
+    private static final String COMPLETE = "complete"; //$NON-NLS-1$
+
+    JSONObject conDetails = new JSONObject();
 
     /**
      * DOC smallet ConnectionBean constructor comment.
@@ -73,12 +78,33 @@ public class ConnectionBean implements Cloneable {
         return newConnection;
     }
 
+    /**
+     * Getter for ID.
+     * 
+     * @return the ID
+     */
     public String getRepositoryId() {
-        return this.repositoryId;
+        try {
+            if (conDetails.has(ID)) {
+                return conDetails.getString(ID);
+            }
+        } catch (JSONException e) {
+            //
+        }
+        return "";
     }
 
+    /**
+     * Sets the ID.
+     * 
+     * @param id the id to set
+     */
     public void setRepositoryId(String repositoryId) {
-        this.repositoryId = repositoryId;
+        try {
+            conDetails.put(ID, repositoryId);
+        } catch (JSONException e) {
+            //
+        }
     }
 
     /**
@@ -87,7 +113,14 @@ public class ConnectionBean implements Cloneable {
      * @return the description
      */
     public String getDescription() {
-        return this.description;
+        try {
+            if (conDetails.has(DESCRIPTION)) {
+                return conDetails.getString(DESCRIPTION);
+            }
+        } catch (JSONException e) {
+            //
+        }
+        return "";
     }
 
     /**
@@ -96,7 +129,11 @@ public class ConnectionBean implements Cloneable {
      * @param description the description to set
      */
     public void setDescription(String description) {
-        this.description = description;
+        try {
+            conDetails.put(DESCRIPTION, description);
+        } catch (JSONException e) {
+            //
+        }
     }
 
     /**
@@ -105,7 +142,14 @@ public class ConnectionBean implements Cloneable {
      * @return the name
      */
     public String getName() {
-        return this.name;
+        try {
+            if (conDetails.has(NAME)) {
+                return conDetails.getString(NAME);
+            }
+        } catch (JSONException e) {
+            //
+        }
+        return "";
     }
 
     /**
@@ -114,7 +158,11 @@ public class ConnectionBean implements Cloneable {
      * @param name the name to set
      */
     public void setName(String name) {
-        this.name = name;
+        try {
+            conDetails.put(NAME, name);
+        } catch (JSONException e) {
+            //
+        }
     }
 
     /**
@@ -123,7 +171,14 @@ public class ConnectionBean implements Cloneable {
      * @return the password
      */
     public String getPassword() {
-        return this.password;
+        try {
+            if (conDetails.has(PASSWORD)) {
+                return conDetails.getString(PASSWORD);
+            }
+        } catch (JSONException e) {
+            //
+        }
+        return "";
     }
 
     /**
@@ -132,7 +187,11 @@ public class ConnectionBean implements Cloneable {
      * @param password the password to set
      */
     public void setPassword(String password) {
-        this.password = password;
+        try {
+            conDetails.put(PASSWORD, password);
+        } catch (JSONException e) {
+            //
+        }
     }
 
     /**
@@ -141,7 +200,14 @@ public class ConnectionBean implements Cloneable {
      * @return the user
      */
     public String getUser() {
-        return this.user;
+        try {
+            if (conDetails.has(USER)) {
+                return conDetails.getString(USER);
+            }
+        } catch (JSONException e) {
+            //
+        }
+        return "";
     }
 
     /**
@@ -150,7 +216,11 @@ public class ConnectionBean implements Cloneable {
      * @param user the user to set
      */
     public void setUser(String user) {
-        this.user = user;
+        try {
+            conDetails.put(USER, user);
+        } catch (JSONException e) {
+            //
+        }
     }
 
     /**
@@ -159,10 +229,14 @@ public class ConnectionBean implements Cloneable {
      * @return the workSpace
      */
     public String getWorkSpace() {
-        if (this.workSpace == null) {
-            return ""; //$NON-NLS-1$
+        try {
+            if (conDetails.has(WORKSPACE)) {
+                return conDetails.getString(WORKSPACE);
+            }
+        } catch (JSONException e) {
+            //
         }
-        return this.workSpace;
+        return "";
     }
 
     /**
@@ -171,65 +245,72 @@ public class ConnectionBean implements Cloneable {
      * @param workSpace the workSpace to set
      */
     public void setWorkSpace(String workSpace) {
-        this.workSpace = workSpace;
+        try {
+            conDetails.put(WORKSPACE, workSpace);
+        } catch (JSONException e) {
+            //
+        }
     }
 
     public Map<String, String> getDynamicFields() {
-        return this.dynamicFields;
+        Map<String, String> dynamicFields = new HashMap<String, String>();
+        try {
+            if (conDetails.has(DYNAMICFIELDS)) {
+                Object object = conDetails.get(DYNAMICFIELDS);
+                if (object instanceof JSONObject) {
+                    JSONObject dynamicJson = (JSONObject) object;
+                    Iterator sortedKeys = dynamicJson.sortedKeys();
+                    while (sortedKeys.hasNext()) {
+                        String key = (String) sortedKeys.next();
+                        String value = dynamicJson.getString(key);
+                        dynamicFields.put(key, value);
+                    }
+                }
+            }
+        } catch (JSONException e) {
+        }
+        return dynamicFields;
     }
 
     public void setDynamicFields(Map<String, String> dynamicFields) {
-        this.dynamicFields = dynamicFields;
+        try {
+            JSONObject dynamicJson = new JSONObject();
+            for (String key : dynamicFields.keySet()) {
+                dynamicJson.put(key, dynamicFields.get(key));
+            }
+            conDetails.put(DYNAMICFIELDS, dynamicJson);
+        } catch (JSONException e) {
+            //
+        }
     }
 
     public boolean isComplete() {
-        return this.complete;
+        try {
+            if (conDetails.has(COMPLETE)) {
+                return (Boolean) conDetails.get(COMPLETE);
+            }
+        } catch (JSONException e) {
+            //
+        }
+        return false;
     }
 
     public void setComplete(boolean complete) {
-        this.complete = complete;
+        try {
+            conDetails.put(COMPLETE, complete);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public ConnectionBean clone() throws CloneNotSupportedException {
-        ConnectionBean object = (ConnectionBean) super.clone();
-        object.setDynamicFields(new HashMap<String, String>(this.dynamicFields));
-        return object;
+        return writeFromJSON(this.getConDetails());
     }
 
     @Override
     public String toString() {
-        StringBuffer string = new StringBuffer("Repository:" + getRepositoryId() + ", Name:" + getName() //$NON-NLS-1$ //$NON-NLS-2$
-                + ", Desription:" + getDescription() + ", User:" + getUser() + ", Password:" + getPassword() //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                + ", WorkSpace:" + getWorkSpace() + ", Complete:" + isComplete()); //$NON-NLS-1$//$NON-NLS-1$ //$NON-NLS-2$
-        string.append(", Dyn:").append(dynamicFields); //$NON-NLS-1$
-        return string.toString();
-    }
-
-    public String readToString() {
-        StringBuffer fields = new StringBuffer(256);
-        fields.append(assertValue(getRepositoryId()));
-        fields.append(FIELDS_SEPARATOR);
-        fields.append(assertValue(getName()));
-        fields.append(FIELDS_SEPARATOR);
-        fields.append(assertValue(getDescription()));
-        fields.append(FIELDS_SEPARATOR);
-        fields.append(assertValue(getUser()));
-        fields.append(FIELDS_SEPARATOR);
-        fields.append(assertValue(getPassword()));
-        fields.append(FIELDS_SEPARATOR);
-        fields.append(assertValue(getWorkSpace()));
-        fields.append(FIELDS_SEPARATOR);
-        fields.append(isComplete());
-
-        if (dynamicFields.size() > 0) {
-            for (String current : dynamicFields.keySet()) {
-                fields.append(FIELDS_SEPARATOR);
-                fields.append(current + DYN_FIELDS_SEPARATOR + dynamicFields.get(current));
-            }
-        }
-
-        return fields.toString();
+        return this.getConDetails().toString();
     }
 
     public static ConnectionBean writeFromString(String s) {
@@ -244,41 +325,28 @@ public class ConnectionBean implements Cloneable {
             toReturn.setPassword(st[i++]);
             toReturn.setWorkSpace(st[i++]);
             toReturn.setComplete(new Boolean(st[i++]));
+            JSONObject dynamicJson = new JSONObject();
+            toReturn.getConDetails().put(DYNAMICFIELDS, dynamicJson);
             while (i < st.length) {
                 String[] st2 = st[i++].split(DYN_FIELDS_SEPARATOR, -1);
-                toReturn.getDynamicFields().put(st2[0], st2[1]);
+                dynamicJson.put(st2[0], st2[1]);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            // e.printStackTrace();
+            ExceptionHandler.process(e);
+        } catch (JSONException e) {
             ExceptionHandler.process(e);
         }
         return toReturn;
     }
 
-    // public static void main(String[] args) {
-    // ConnectionBean tt = new ConnectionBean();
-    // tt.setName("tagada");
-    // System.out.println(tt);
-    // tt.setDescription("MyDesc");
-    // tt.setUser("smallet@talend.com");
-    // tt.setPassword("");
-    // tt.getDynamicFields().put("DbLogin", "root");
-    // tt.getDynamicFields().put("DbPassword", "toor");
-    // String test2 = tt.readToString();
-    // ConnectionBean bean2 = writeFromString(test2);
-    // System.out.println(bean2 + " (" + test2 + ")");
-    // }
-
-    /**
-     * 
-     * DOC ggu Comment method "assertValue".
-     */
-    private String assertValue(final String value) {
-        if (value == null) {
-            return ""; //$NON-NLS-1$
+    public static ConnectionBean writeFromJSON(JSONObject json) {
+        ConnectionBean toReturn = new ConnectionBean();
+        try {
+            toReturn.setConDetails(new JSONObject(json.toString()));
+        } catch (JSONException e) {
+            //
         }
-        return value;
-
+        return toReturn;
     }
 
     @Override
@@ -289,8 +357,17 @@ public class ConnectionBean implements Cloneable {
         if (!(obj instanceof ConnectionBean)) {
             return false;
         }
+        ConnectionBean other = (ConnectionBean) obj;
 
-        return this.readToString().equals(((ConnectionBean) obj).readToString());
+        return this.getConDetails().toString().equals(other.getConDetails().toString());
+    }
+
+    public JSONObject getConDetails() {
+        return conDetails;
+    }
+
+    public void setConDetails(JSONObject conDetails) {
+        this.conDetails = conDetails;
     }
 
 }
