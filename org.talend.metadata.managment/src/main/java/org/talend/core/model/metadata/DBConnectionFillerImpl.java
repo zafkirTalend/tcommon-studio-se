@@ -658,8 +658,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
                         }
                     }
-                    schemaRs.close();
                 }
+                schemaRs.close();
             } catch (Exception e) {
                 if (log.isDebugEnabled()) {
                     log.debug(e, e);
