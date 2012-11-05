@@ -428,13 +428,20 @@ public class DeleteAction extends AContextualAction {
         ERepositoryObjectType objectType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
         List<IRepositoryNode> repositoryList = node.getChildren();
         boolean success = true;
+        Exception bex = null;
         for (IRepositoryNode repositoryNode : repositoryList) {
             try {
                 deleteRepositoryNode(repositoryNode, factory);
             } catch (Exception e) {
+                bex = e;
                 ExceptionHandler.process(e);
                 success = false;
             }
+        }
+        if (bex != null) {
+            final Shell shell = getShell();
+            MessageDialog.openWarning(shell, Messages.getString("DeleteAction.warning.title"),
+                    Messages.getString("DeleteAction.warning.message1"));
         }
         if (!success) {
             return;
@@ -598,14 +605,7 @@ public class DeleteAction extends AContextualAction {
                     }
                 }
             }
-            try {
-                factory.deleteObjectLogical(objToDelete);
-            } catch (BusinessException e) {
-                final Shell shell = getShell();
-                MessageDialog.openWarning(shell, Messages.getString("DeleteAction.warning.title"), objToDelete.getLabel()
-                        + Messages.getString("DeleteAction.warning.message"));
-                throw new BusinessException(e.getMessage());
-            }
+            factory.deleteObjectLogical(objToDelete);
             removeConnFromSQLExplorer(repositoryNode);
         }
     }
