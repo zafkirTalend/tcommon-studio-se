@@ -43,4 +43,12 @@ public class FileConstants {
 
     // MOD klliu 2010-11-26
     public static final String JRXML_EXTENSION = "jrxml"; //$NON-NLS-1$
+
+    public static final String ZIP_FILE_SUFFIX = ".zip"; //$NON-NLS-1$
+
+    public static final String TAR_FILE_SUFFIX = ".tar"; //$NON-NLS-1$
+
+    public static final String TAR_GZ_FILE_SUFFIX = ".tar.gz"; //$NON-NLS-1$
+
+    public static final String PROPERTIES_FILE_SUFFIX = '.' + PROPERTIES_EXTENSION;
 }
