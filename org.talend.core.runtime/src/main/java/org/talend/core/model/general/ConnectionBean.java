@@ -50,7 +50,9 @@ public class ConnectionBean implements Cloneable {
 
     private static final String COMPLETE = "complete"; //$NON-NLS-1$
 
-    JSONObject conDetails = new JSONObject();
+    private JSONObject conDetails = new JSONObject();
+
+    private Map<String, String> dynamicFields = new HashMap<String, String>();
 
     /**
      * DOC smallet ConnectionBean constructor comment.
@@ -89,7 +91,7 @@ public class ConnectionBean implements Cloneable {
                 return conDetails.getString(ID);
             }
         } catch (JSONException e) {
-            //
+            ExceptionHandler.process(e);
         }
         return "";
     }
@@ -103,7 +105,7 @@ public class ConnectionBean implements Cloneable {
         try {
             conDetails.put(ID, repositoryId);
         } catch (JSONException e) {
-            //
+            ExceptionHandler.process(e);
         }
     }
 
@@ -118,7 +120,7 @@ public class ConnectionBean implements Cloneable {
                 return conDetails.getString(DESCRIPTION);
             }
         } catch (JSONException e) {
-            //
+            ExceptionHandler.process(e);
         }
         return "";
     }
@@ -132,7 +134,7 @@ public class ConnectionBean implements Cloneable {
         try {
             conDetails.put(DESCRIPTION, description);
         } catch (JSONException e) {
-            //
+            ExceptionHandler.process(e);
         }
     }
 
@@ -147,7 +149,7 @@ public class ConnectionBean implements Cloneable {
                 return conDetails.getString(NAME);
             }
         } catch (JSONException e) {
-            //
+            ExceptionHandler.process(e);
         }
         return "";
     }
@@ -161,7 +163,7 @@ public class ConnectionBean implements Cloneable {
         try {
             conDetails.put(NAME, name);
         } catch (JSONException e) {
-            //
+            ExceptionHandler.process(e);
         }
     }
 
@@ -176,7 +178,7 @@ public class ConnectionBean implements Cloneable {
                 return conDetails.getString(PASSWORD);
             }
         } catch (JSONException e) {
-            //
+            ExceptionHandler.process(e);
         }
         return "";
     }
@@ -190,7 +192,7 @@ public class ConnectionBean implements Cloneable {
         try {
             conDetails.put(PASSWORD, password);
         } catch (JSONException e) {
-            //
+            ExceptionHandler.process(e);
         }
     }
 
@@ -205,7 +207,7 @@ public class ConnectionBean implements Cloneable {
                 return conDetails.getString(USER);
             }
         } catch (JSONException e) {
-            //
+            ExceptionHandler.process(e);
         }
         return "";
     }
@@ -219,7 +221,7 @@ public class ConnectionBean implements Cloneable {
         try {
             conDetails.put(USER, user);
         } catch (JSONException e) {
-            //
+            ExceptionHandler.process(e);
         }
     }
 
@@ -234,7 +236,7 @@ public class ConnectionBean implements Cloneable {
                 return conDetails.getString(WORKSPACE);
             }
         } catch (JSONException e) {
-            //
+            ExceptionHandler.process(e);
         }
         return "";
     }
@@ -248,40 +250,16 @@ public class ConnectionBean implements Cloneable {
         try {
             conDetails.put(WORKSPACE, workSpace);
         } catch (JSONException e) {
-            //
+            ExceptionHandler.process(e);
         }
     }
 
     public Map<String, String> getDynamicFields() {
-        Map<String, String> dynamicFields = new HashMap<String, String>();
-        try {
-            if (conDetails.has(DYNAMICFIELDS)) {
-                Object object = conDetails.get(DYNAMICFIELDS);
-                if (object instanceof JSONObject) {
-                    JSONObject dynamicJson = (JSONObject) object;
-                    Iterator sortedKeys = dynamicJson.sortedKeys();
-                    while (sortedKeys.hasNext()) {
-                        String key = (String) sortedKeys.next();
-                        String value = dynamicJson.getString(key);
-                        dynamicFields.put(key, value);
-                    }
-                }
-            }
-        } catch (JSONException e) {
-        }
         return dynamicFields;
     }
 
     public void setDynamicFields(Map<String, String> dynamicFields) {
-        try {
-            JSONObject dynamicJson = new JSONObject();
-            for (String key : dynamicFields.keySet()) {
-                dynamicJson.put(key, dynamicFields.get(key));
-            }
-            conDetails.put(DYNAMICFIELDS, dynamicJson);
-        } catch (JSONException e) {
-            //
-        }
+        this.dynamicFields = dynamicFields;
     }
 
     public boolean isComplete() {
@@ -290,7 +268,7 @@ public class ConnectionBean implements Cloneable {
                 return (Boolean) conDetails.get(COMPLETE);
             }
         } catch (JSONException e) {
-            //
+            ExceptionHandler.process(e);
         }
         return false;
     }
@@ -344,7 +322,7 @@ public class ConnectionBean implements Cloneable {
         try {
             toReturn.setConDetails(new JSONObject(json.toString()));
         } catch (JSONException e) {
-            //
+            ExceptionHandler.process(e);
         }
         return toReturn;
     }
@@ -363,11 +341,37 @@ public class ConnectionBean implements Cloneable {
     }
 
     public JSONObject getConDetails() {
+        JSONObject dynamicJson = new JSONObject();
+        try {
+            for (String key : dynamicFields.keySet()) {
+                dynamicJson.put(key, dynamicFields.get(key));
+            }
+            conDetails.put(DYNAMICFIELDS, dynamicJson);
+        } catch (JSONException e) {
+            ExceptionHandler.process(e);
+        }
+
         return conDetails;
     }
 
     public void setConDetails(JSONObject conDetails) {
         this.conDetails = conDetails;
+        try {
+            if (conDetails.has(DYNAMICFIELDS)) {
+                Object object = conDetails.get(DYNAMICFIELDS);
+                if (object instanceof JSONObject) {
+                    JSONObject dynamicJson = (JSONObject) object;
+                    Iterator sortedKeys = dynamicJson.sortedKeys();
+                    while (sortedKeys.hasNext()) {
+                        String key = (String) sortedKeys.next();
+                        String value = dynamicJson.getString(key);
+                        dynamicFields.put(key, value);
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            ExceptionHandler.process(e);
+        }
     }
 
 }
