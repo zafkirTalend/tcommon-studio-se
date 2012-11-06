@@ -188,6 +188,19 @@ public class XSDPopulationUtil2 {
         return rootNodes;
     }
 
+    private XSDSchema getXSDSchemaFromNamespace(String namespace) {
+        for (Resource resource : resourceSet.getResources()) {
+            if (resource instanceof XSDResourceImpl) {
+                XSDResourceImpl xsdResource = (XSDResourceImpl) resource;
+                XSDSchema schema = xsdResource.getSchema();
+                if (schema.getTargetNamespace().equals(namespace)) {
+                    return schema;
+                }
+            }
+        }
+        return null;
+    }
+
     private void addParticleDetail(XSDSchema xsdSchema, XSDParticle xsdParticle, ATreeNode parentNode, String currentPath)
             throws OdaException, IllegalAccessException, InvocationTargetException {
         XSDTerm xsdTerm = xsdParticle.getTerm();
@@ -198,6 +211,15 @@ public class XSDPopulationUtil2 {
             String prefix = null;
             String namespace = xsdElementDeclarationParticle.getTargetNamespace();
             XSDTypeDefinition typeDef = xsdElementDeclarationParticle.getTypeDefinition();
+            if (typeDef == null) {
+                XSDSchema schemaFromNamespace = getXSDSchemaFromNamespace(namespace);
+                if (schemaFromNamespace == null) {
+                    schemaFromNamespace = xsdSchema;
+                }
+                xsdElementDeclarationParticle = schemaFromNamespace.resolveElementDeclarationURI(xsdElementDeclarationParticle
+                        .getURI());
+                typeDef = xsdElementDeclarationParticle.getType();
+            }
             if (namespace != null) {
                 prefix = namespaceToPrefix.get(namespace);
                 if (prefix == null) {
