@@ -56,6 +56,14 @@ public final class ProjectManager {
 
     public static final String UNDER_LINE = "_"; //$NON-NLS-1$
 
+    public static final String SEP_CHAR = SVNConstant.SEP_CHAR;
+
+    public static final String NAME_TRUNK = SVNConstant.NAME_TRUNK;
+
+    public static final String NAME_BRANCHES = SVNConstant.NAME_BRANCHES;
+
+    public static final String NAME_TAGS = SVNConstant.NAME_TAGS;
+
     private static ProjectManager singleton;
 
     private Project currentProject;
@@ -471,6 +479,30 @@ public final class ProjectManager {
             return project.getLabel() + " (" + project.getTechnicalLabel() + ")"; //$NON-NLS-1$ //$NON-NLS-2$
         }
         return ""; //$NON-NLS-1$
+    }
+
+    /**
+     * 
+     * DOC ldong Comment method "getCurrentBranchLabel".
+     * 
+     * @param project
+     * @return
+     */
+    public static String getCurrentBranchLabel(Project project) {
+        // just for TAC session,they do not want the label start with "/"
+        String branchSelection = NAME_TRUNK;
+        String branchSelectionFromProject = ProjectManager.getInstance().getMainProjectBranch(project);
+        if (branchSelectionFromProject != null) {
+            branchSelection = branchSelectionFromProject;
+        } else {
+            ProjectManager.getInstance().setMainProjectBranch(project, NAME_TRUNK);
+        }
+
+        if (!branchSelection.contains(NAME_TAGS) && !branchSelection.contains(NAME_BRANCHES)
+                && !branchSelection.contains(NAME_TRUNK)) {
+            branchSelection = NAME_BRANCHES + branchSelection;
+        }
+        return branchSelection;
     }
 
     public String getMainProjectBranch(Project project) {
