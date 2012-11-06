@@ -14,7 +14,6 @@ package org.talend.core.repository.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -192,8 +191,8 @@ public class XmiResourceManager {
     public Resource createTempProjectResource() {
         URI uri = null;
         try {
-            uri = URI.createPlatformResourceURI(Platform.getInstallLocation().getURL().toURI().toString());
-        } catch (URISyntaxException e) {
+            uri = URI.createPlatformResourceURI(Platform.getInstallLocation().getURL().getFile(), true);
+        } catch (Exception e) {
             ExceptionHandler.process(e);
         }
         return resourceSet.createResource(uri);
