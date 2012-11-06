@@ -23,9 +23,9 @@ import org.eclipse.ui.intro.config.IIntroAction;
  */
 public class OpenWebBrowserAction implements IIntroAction {
 
-    private static final String USERGUIDE_URL = "http://www.talend.com/resources/documentation.php#TOS_UG"; //$NON-NLS-1$
+    private static final String USERGUIDE_URL = "http://www.talend.com/download/data-integration?qt-product_download_tabs=2#qt-product_download_tabs"; //$NON-NLS-1$
 
-    private static final String REFERENCEGUIDE_URL = "http://www.talend.com/resources/documentation.php#TOS_RG"; //$NON-NLS-1$
+    private static final String REFERENCEGUIDE_URL = "http://www.talend.com/download/data-integration?qt-product_download_tabs=2#qt-product_download_tabs"; //$NON-NLS-1$
 
     private static final String TUTORIALS_URL = "http://www.talendforge.org/tutorials"; //$NON-NLS-1$
 
