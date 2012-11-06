@@ -160,8 +160,14 @@ public enum EConnectionType implements IConnectionCategory, IDraw2dGraphics {
             CAMEL | UNIQUE_NAME,
             "Route", "Route", //$NON-NLS-1$ //$NON-NLS-2$
             new Integer(LINE_SOLID),
-            new RGB(230, 100, 0));
-
+            new RGB(230, 100, 0)),
+    
+    STARTS(21, "STARTS", EConnectionCategory.OTHER, 
+    		CONDITION | DEPENDENCY | UNIQUE_NAME,
+    		"Starts", Messages.getString("EConnectionType.startsMenu"),
+    		new Integer(LINE_SOLID),
+    		new RGB(0,0,150));
+    
     private String name;
 
     private int id;
