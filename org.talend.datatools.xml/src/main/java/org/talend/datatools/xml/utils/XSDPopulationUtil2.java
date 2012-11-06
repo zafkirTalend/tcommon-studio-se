@@ -198,6 +198,15 @@ public class XSDPopulationUtil2 {
             String prefix = null;
             String namespace = xsdElementDeclarationParticle.getTargetNamespace();
             XSDTypeDefinition typeDef = xsdElementDeclarationParticle.getTypeDefinition();
+            if (typeDef == null) {
+                XSDSchema schemaFromNamespace = getXSDSchemaFromNamespace(namespace);
+                if (schemaFromNamespace == null) {
+                    schemaFromNamespace = xsdSchema;
+                }
+                xsdElementDeclarationParticle = schemaFromNamespace.resolveElementDeclarationURI(xsdElementDeclarationParticle
+                        .getURI());
+                typeDef = xsdElementDeclarationParticle.getType();
+            }
             if (namespace != null) {
                 prefix = namespaceToPrefix.get(namespace);
                 if (prefix == null) {
@@ -285,8 +294,8 @@ public class XSDPopulationUtil2 {
             XSDModelGroup xsdModelGroup = (XSDModelGroup) xsdTerm;
             ATreeNode node = addChoiceDetails(parentNode, xsdModelGroup);
             handleOptionalAttribute(node, xsdParticle);
-            for (Iterator j = xsdModelGroup.getParticles().iterator(); j.hasNext();) {
-                XSDParticle childParticle = (XSDParticle) j.next();
+            for (Object element : xsdModelGroup.getParticles()) {
+                XSDParticle childParticle = (XSDParticle) element;
                 addParticleDetail(xsdSchema, childParticle, node, currentPath);
             }
         }
@@ -312,6 +321,19 @@ public class XSDPopulationUtil2 {
         }
 
         return parentNode;
+    }
+
+    private XSDSchema getXSDSchemaFromNamespace(String namespace) {
+        for (Resource resource : resourceSet.getResources()) {
+            if (resource instanceof XSDResourceImpl) {
+                XSDResourceImpl xsdResource = (XSDResourceImpl) resource;
+                XSDSchema schema = xsdResource.getSchema();
+                if (schema.getTargetNamespace().equals(namespace)) {
+                    return schema;
+                }
+            }
+        }
+        return null;
     }
 
     public ATreeNode getSchemaTree(XSDSchema xsdSchema, ATreeNode selectedNode) {
@@ -657,8 +679,8 @@ public class XSDPopulationUtil2 {
         if (xsdComplexTypeDefinition.getContentType() instanceof XSDParticle) {
             addParticleDetail(xsdSchema, (XSDParticle) xsdComplexTypeDefinition.getContentType(), node, currentPath);
         }
-        for (Iterator attributeUses = xsdComplexTypeDefinition.getAttributeUses().iterator(); attributeUses.hasNext();) {
-            XSDAttributeUse xsdAttributeUse = (XSDAttributeUse) attributeUses.next();
+        for (Object element : xsdComplexTypeDefinition.getAttributeUses()) {
+            XSDAttributeUse xsdAttributeUse = (XSDAttributeUse) element;
             XSDAttributeDeclaration xsdAttributeDeclaration = xsdAttributeUse.getAttributeDeclaration();
             String attributeDeclarationName = xsdAttributeDeclaration.getName();
             ATreeNode childNode = new ATreeNode();
