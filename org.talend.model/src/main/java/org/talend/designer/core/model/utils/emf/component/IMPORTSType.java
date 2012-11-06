@@ -37,7 +37,7 @@ public interface IMPORTSType extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>IMPORT</em>' containment reference list.
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTSType_IMPORT()
-     * @model type="org.talend.designer.core.model.utils.emf.component.IMPORTType" containment="true" required="true"
+     * @model type="org.talend.designer.core.model.utils.emf.component.IMPORTType" containment="true"
      *        extendedMetaData="kind='element' name='IMPORT' namespace='##targetNamespace'"
      * @generated
      */
