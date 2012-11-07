@@ -223,8 +223,10 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 }
                 sourcePath = jarLocation;
                 if (!jarFound) {
-                    ExceptionHandler.process(new Exception("Jar: " + jarNeeded + " not found, not in the plugins available:"
-                            + contributeIdSet));
+                    // Just for bug TUP-221, it will not show more errors.
+                    // ExceptionHandler.process(new Exception("Jar: " + jarNeeded +
+                    // " not found, not in the plugins available:"
+                    // + contributeIdSet));
                     return false;
                 }
                 FilesUtils.copyFile(new File(jarLocation), new File(pathToStore, jarNeeded));
