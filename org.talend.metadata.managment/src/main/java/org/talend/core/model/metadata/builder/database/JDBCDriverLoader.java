@@ -24,7 +24,6 @@ import org.apache.commons.collections.map.MultiKeyMap;
 import org.talend.commons.utils.encoding.CharsetToolkit;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
-import org.talend.utils.sql.ConnectionUtils;
 
 /**
  * DOC YeXiaowei class global comment. Detailled comment <br/>
@@ -151,9 +150,9 @@ public class JDBCDriverLoader {
                     url = url + SHUTDOWN_PARAM;
                 }
                 // MOD klliu TDQ-4659 sso could not check passed.2012-02-10
-                if (dbType.equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
-                    connection = ConnectionUtils.createConnection(url, (Driver) (driver.newInstance()), info);
-                } else {
+                // if (dbType.equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
+                    // connection = ConnectionUtils.createConnection(url, (Driver) (driver.newInstance()), info);
+                // } else {
 //                	we need to change later when TDQ supports hive embedded mode.
                 	if(EDatabaseTypeName.HIVE.getDisplayName().equals(dbType) && "EMBEDDED".equalsIgnoreCase(dbVersion)){
                 		Thread.currentThread().setContextClassLoader(loader);
@@ -162,7 +161,7 @@ public class JDBCDriverLoader {
                     connection = wapperDriver.connect(url, info);
 //                    Thread.currentThread().setContextClassLoader(currentContextCL);
                 }
-            }
+            // }
             // DriverManager.deregisterDriver(wapperDriver);
             // bug 9162
             list.add(connection);

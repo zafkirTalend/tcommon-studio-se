@@ -532,6 +532,10 @@ public class MetadataConnectionUtils {
         return driver;
     }
 
+    public static Map<String, Driver> getDriverCache() {
+        return DRIVER_CACHE;
+    }
+
     /**
      * get driver.
      * 
