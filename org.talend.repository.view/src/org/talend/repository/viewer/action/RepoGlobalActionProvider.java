@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.viewer.action;
 
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.internal.navigator.TextActionHandler;
@@ -38,14 +39,27 @@ public class RepoGlobalActionProvider extends CommonActionProvider {
     public void fillActionBars(IActionBars actionBars) {
         super.fillActionBars(actionBars);
         // actionBars.setGlobalActionHandler(ICommonActionConstants.OPEN, doubleClickAction);
-        actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), CopyAction.getInstance());
-        actionBars.setGlobalActionHandler(ActionFactory.PASTE.getId(), PasteAction.getInstance());
+
+        CopyAction copyActionInstance = CopyAction.getInstance();
+        PasteAction pasteActionInstance = PasteAction.getInstance();
+        actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), copyActionInstance);
+        actionBars.setGlobalActionHandler(ActionFactory.PASTE.getId(), pasteActionInstance);
         actionBars.setGlobalActionHandler(ActionFactory.DELETE.getId(), DeleteAction.getInstance());
+
+        // init copy action and paste action
+        if (copyActionInstance != null && pasteActionInstance != null && getContext() != null
+                && getContext().getSelection() instanceof IStructuredSelection) {
+            IStructuredSelection sel = (IStructuredSelection) getContext().getSelection();
+            if (sel != null) {
+                copyActionInstance.init(null, sel);
+                pasteActionInstance.init(null, sel);
+            }
+        }
 
         // TODO TextActionHandler is an internal class and should not be used.
         TextActionHandler textActionHandler = new TextActionHandler(actionBars);
-        textActionHandler.setCopyAction(CopyAction.getInstance());
-        textActionHandler.setPasteAction(PasteAction.getInstance());
+        textActionHandler.setCopyAction(copyActionInstance);
+        textActionHandler.setPasteAction(pasteActionInstance);
         textActionHandler.setDeleteAction(DeleteAction.getInstance());
 
     }

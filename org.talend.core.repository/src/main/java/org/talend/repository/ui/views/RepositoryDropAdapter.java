@@ -96,8 +96,9 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
             case DND.DROP_COPY:
                 RunnableWithReturnValue runnable = new CopyRunnable(
                         Messages.getString("RepositoryDropAdapter_copyingItems"), data, targetNode); //$NON-NLS-1$
-                runInProgressDialog(runnable);
-                toReturn = (Boolean) runnable.getReturnValue();
+                // runInProgressDialog(runnable);
+                // toReturn = (Boolean) runnable.getReturnValue();
+                runCopy(data, targetNode);
                 break;
             case DND.DROP_MOVE:
                 runnable = new MoveRunnable(Messages.getString("RepositoryDropAdapter_movingItems"), data, targetNode); //$NON-NLS-1$
@@ -227,6 +228,25 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
         }
 
         return isValid;
+    }
+
+    private void runCopy(final Object data, final RepositoryNode targetNode) {
+        String copyName = "User action : Copy Object"; //$NON-NLS-1$
+        RepositoryWorkUnit<Object> repositoryWorkUnit = new RepositoryWorkUnit<Object>(copyName, CopyObjectAction.getInstance()) {
+
+            @Override
+            protected void run() throws LoginException, PersistenceException {
+                try {
+                    for (Object obj : ((StructuredSelection) data).toArray()) {
+                        final RepositoryNode sourceNode = (RepositoryNode) obj;
+                        CopyObjectAction.getInstance().execute(sourceNode, targetNode);
+                    }
+                } catch (Exception e) {
+                    throw new PersistenceException(e);
+                }
+            }
+        };
+        ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(repositoryWorkUnit);
     }
 
     private void runInProgressDialog(final IWorkspaceRunnable op) {
