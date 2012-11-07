@@ -39,7 +39,7 @@ import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.Schema;
 
 /**
- * DOC msjian class global comment. Detailled comment
+ * this class is used when switching context group name.
  */
 public class SwitchContextGroupNameImpl implements ISwitchContext {
 
@@ -51,7 +51,7 @@ public class SwitchContextGroupNameImpl implements ISwitchContext {
     }
 
     /**
-     * DOC msjian Comment method "getInstance".
+     * get a instance of this class.
      * 
      * @return
      */
@@ -183,7 +183,7 @@ public class SwitchContextGroupNameImpl implements ISwitchContext {
 
     /**
      * 
-     * judge whether str is null or length is zreo
+     * check whether str is null or length is zero
      * 
      * @param str
      * @return

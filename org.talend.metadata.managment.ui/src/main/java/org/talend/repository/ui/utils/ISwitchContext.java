@@ -18,12 +18,26 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
 
 /**
- * DOC msjian class global comment. Detailled comment
+ * this interface is used for update context property values after switching context.
  */
 public interface ISwitchContext {
 
+    /**
+     * update Context Group for one Connection Item.
+     * 
+     * @param connItem
+     * @param selectedContext
+     * @return
+     */
     public boolean updateContextGroup(ConnectionItem connItem, String selectedContext);
 
+    /**
+     * update Context For all Connection Items.
+     * 
+     * @param contextGroupRanamedMap
+     * @param contextItem
+     * @return
+     */
     public boolean updateContextForConnectionItems(Map<String, String> contextGroupRanamedMap, ContextItem contextItem);
 
 }
