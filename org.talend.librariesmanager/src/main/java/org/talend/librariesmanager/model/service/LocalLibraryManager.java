@@ -239,8 +239,8 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 }
 
                 if (!jarFound) {
-                    ExceptionHandler.process(new Exception("Jar: " + jarNeeded + " not found, not in the plugins available:"
-                            + contributeIdSet));
+                    // CommonExceptionHandler.log("Jar: " + jarNeeded + " not found, not in the plugins available:"
+                    // + contributeIdSet);
                     return false;
                 }
                 FilesUtils.copyFile(new File(sourcePath), new File(pathToStore, jarNeeded));

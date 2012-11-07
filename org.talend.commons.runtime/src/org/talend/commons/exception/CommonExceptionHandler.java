@@ -54,6 +54,10 @@ public final class CommonExceptionHandler {
         log.log(Level.INFO, message);
     }
 
+    public static void warn(String message) {
+        log.log(Level.WARN, message);
+    }
+
     /**
      * Return priority corresponding to the exception implementation.
      * 
