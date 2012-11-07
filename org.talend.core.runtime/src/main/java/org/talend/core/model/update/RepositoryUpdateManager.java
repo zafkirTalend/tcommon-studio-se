@@ -584,6 +584,10 @@ public abstract class RepositoryUpdateManager {
                                     dbConn.setDriverJarPath(newValue);
                                 } else if (dbConn.getURL() != null && dbConn.getURL().equals(oldValue)) {
                                     dbConn.setURL(newValue);
+                                } else if (dbConn.getUiSchema() != null && dbConn.getUiSchema().equals(oldValue)) {
+                                    // Added by Marvin Wang on Nov. 7, 2012 for bug TDI-12596, because schema can not be
+                                    // propagated to metadata db.
+                                    dbConn.setUiSchema(newValue);
                                 }
                                 factory.save(item);
                             }
