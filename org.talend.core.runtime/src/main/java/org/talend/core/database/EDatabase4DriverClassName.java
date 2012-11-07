@@ -67,6 +67,7 @@ public enum EDatabase4DriverClassName {
 
     SYBASEASE(EDatabaseTypeName.SYBASEASE, "com.sybase.jdbc3.jdbc.SybDriver"), //$NON-NLS-1$
     SYBASEIQ(EDatabaseTypeName.SYBASEIQ, "com.sybase.jdbc3.jdbc.SybDriver"), //$NON-NLS-1$
+    SYBASE(EDatabaseTypeName.SYBASEASE, "com.sybase.jdbc3.jdbc.SybDataSource"), //$NON-NLS-1$
 
     EXASOLUTION(EDatabaseTypeName.EXASOL, "com.exasol.jdbc.EXADriver"), //$NON-NLS-1$
     // MOD klliu 2010-06-04 bug 12819: upgrade jdbc driver class used in sql explorer

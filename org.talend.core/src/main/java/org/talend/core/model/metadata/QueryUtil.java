@@ -214,7 +214,7 @@ public class QueryUtil {
         for (int i = 0; i < metaDataColumnList.size(); i++) {
             IMetadataColumn metaDataColumn = metaDataColumnList.get(i);
             String columnName = quoteStringValue(metaDataColumn.getOriginalDbColumnName(), dbType);
-
+            
             String columnStr = columnName;
 
             if (i != index - 1) {
@@ -251,6 +251,14 @@ public class QueryUtil {
                         TalendTextUtils.declareString(" FROM "), declareString + realTableName[0].substring(2, realTableName[0].length() - 2) //$NON-NLS-1$
                                 + declareString);
             }
+            query = checkAndConcatString(checkAndConcatString(query, columnsQuery), end);
+        } else if (dbType != null && dbType.equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
+            String declareString = TalendTextUtils.getStringDeclare();
+            String end = checkAndConcatString(
+                    TalendTextUtils.declareString(" FROM "), declareString + realTableName[0] + declareString); //$NON-NLS-1$
+
+            end = replaceTheSchemaString(end);
+
             query = checkAndConcatString(checkAndConcatString(query, columnsQuery), end);
         } else {
             String end = checkAndConcatString(TalendTextUtils.declareString(" FROM "), tableNameWithQuoteIfNeed); //$NON-NLS-1$
