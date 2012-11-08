@@ -39,7 +39,7 @@
 	<target name="clean.application.config.and.workspace">
  		<delete includeemptydirs="true" quiet="true">
     		<fileset dir="${rcp-app-home}/configuration" includes="**/*" excludes="config.ini,*.javacache,*.perlcache,org.talend.configurator/*"/>
-    		<fileset dir="${temp-workspace}" includes="**/*" excludes=".JETEmitters/**/*"/>
+    		<fileset dir="${temp-workspace}" includes="**/*"/>
 		</delete>
 	</target>
 
