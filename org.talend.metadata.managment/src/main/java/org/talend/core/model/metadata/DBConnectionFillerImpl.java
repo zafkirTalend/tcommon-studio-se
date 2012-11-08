@@ -822,7 +822,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
                         String schemaname = schemaPattern + ".sysobjects"; //$NON-NLS-1$
                         String sql = "select name from " + schemaname + " where xtype='SN'"; //$NON-NLS-1$ //$NON-NLS-2$
-                        if (schemaPattern.equalsIgnoreCase("dbo")) { //$NON-NLS-1$
+                        if ("dbo".equalsIgnoreCase(schemaPattern)) { //$NON-NLS-1$
                             // SELECT name AS object_name ,SCHEMA_NAME(schema_id) AS schema_name FROM sys.objects where
                             // type='SN'
                             ResultSet rsTables = stmt.executeQuery(sql);

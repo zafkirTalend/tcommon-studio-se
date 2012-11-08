@@ -37,12 +37,13 @@ public class JtdsMetadataAdapter extends JtdsDatabaseMetaData {
         // TODO Auto-generated constructor stub
     }
 
+    @Override
     public ResultSet getSchemas() throws SQLException {
         java.sql.Statement statement = connection.createStatement();
         String sql;
         if (connection.getDatabaseMajorVersion() >= 9) {
-            sql = Driver.JDBC3 ? "SELECT name AS TABLE_SCHEM, NULL as TABLE_CATALOG FROM " + connection.getCatalog()
-                    + ".sys.schemas" : "SELECT name AS TABLE_SCHEM FROM " + connection.getCatalog() + ".sys.schemas";
+            sql = Driver.JDBC3 ? "SELECT name AS TABLE_SCHEM, NULL as TABLE_CATALOG FROM \"" + connection.getCatalog()
+                    + "\".sys.schemas" : "SELECT name AS TABLE_SCHEM FROM \"" + connection.getCatalog() + "\".sys.schemas";
         } else {
             sql = Driver.JDBC3 ? "SELECT name AS TABLE_SCHEM, NULL as TABLE_CATALOG FROM dbo.sysusers"
                     : "SELECT name AS TABLE_SCHEM FROM dbo.sysusers";
