@@ -85,13 +85,13 @@ public class ExtractMetaDataUtils {
 
     private static final char SPLIT_CHAR = ',';
 
+    private static final String SYBASE_DATABASE_PRODUCT_NAME = "Adaptive Server Enterprise"; //$NON-NLS-1$
+
     public static Connection conn;
 
     public static String schema;
 
     public static boolean isReconnect = true;
-
-    // public static IMetadataConnection metadataCon; // for teradata to use
 
     /**
      * DOC cantoine. Method to return DatabaseMetaData of a DB connection.
@@ -176,7 +176,8 @@ public class ExtractMetaDataUtils {
                     teraDbmeta.setDatabaseName(database);
                 } else if (EDatabaseTypeName.SAS.getXmlName().equals(dbType)) {
                     dbMetaData = createSASFakeDatabaseMetaData(conn);
-                } else if (EDatabaseTypeName.SYBASEASE.getDisplayName().equals(dbType)) {
+                } else if (EDatabaseTypeName.SYBASEASE.getDisplayName().equals(dbType)
+                        || SYBASE_DATABASE_PRODUCT_NAME.equals(dbType)) {
                     dbMetaData = createSybaseFakeDatabaseMetaData(conn);
                 } else {
                     dbMetaData = conn.getMetaData();
