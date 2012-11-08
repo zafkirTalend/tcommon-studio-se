@@ -33,6 +33,8 @@ public interface IProcess2 extends IRepositoryObject, IProcess {
 
     ProcessType saveXmlFile() throws IOException;
 
+    ProcessType saveXmlFile(boolean checkJoblet) throws IOException;
+
     void setPropertyValue(String id, Object value);
 
     void updateProperties();

@@ -118,6 +118,46 @@ public abstract class UpdateResult {
         }
     }
 
+    /**
+     * 
+     * hwang Comment method "setResult".
+     * 
+     * @param updateType
+     * @param resultType
+     * @param parameter
+     * @param remark
+     * @param open
+     */
+    public void setResult(EUpdateItemType updateType, EUpdateResult resultType, Object parameter, String remark,
+            boolean openedJoblet) {
+        this.updateType = updateType;
+        this.resultType = resultType;
+        this.parameter = parameter;
+        this.remark = remark;
+        // must initialize the checked==true, so it will show in the dialog
+        switch (resultType) {
+        case UPDATE:
+            break;
+        case ADD:
+        case DELETE:
+            if (openedJoblet) {
+                setChecked(true);
+            } else {
+                setChecked(false);
+            }
+
+            break;
+        default:
+            if (openedJoblet) {
+                setChecked(true);
+            } else {
+                setChecked(false);
+            }
+
+            setReadOnly(true);
+        }
+    }
+
     public void setResult(EUpdateItemType updateType, EUpdateResult resultType, Object parameter) {
         setResult(updateType, resultType, parameter, null);
     }
