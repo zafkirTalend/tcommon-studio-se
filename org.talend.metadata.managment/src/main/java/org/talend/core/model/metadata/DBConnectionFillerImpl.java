@@ -338,7 +338,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             } else {
                 catalogNames = dbJDBCMetadata.getCatalogs();
             }
-            List<String> filterList = null;
+            List<String> filterList = new ArrayList<String>();
             if (catalogNames != null) {
                 boolean isHive = MetadataConnectionUtils.isHive(dbJDBCMetadata);
                 boolean isSybase = MetadataConnectionUtils.isSybase(dbJDBCMetadata);
@@ -372,51 +372,14 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     assert catalogName != null && !isHive : Messages.getString("CatalogBuilder.CatalogNameNull",//$NON-NLS-1$
                             dbJDBCMetadata.getConnection().toString()); // FIXME assertion string must not be
                                                                         // externalized
-                    // MOD xqliu 2010-03-03 feature 11412
-                    Catalog catalog = null;
-                    if (filterMetadaElement(catalogFilter, catalogName)) {
-                        // give a sid for TOS if the attribute can't be set by user on UI.
-                        // if (StringUtils.isEmpty(((DatabaseConnection) dbConn).getSID())) {
-                        // ((DatabaseConnection) dbConn).setSID(catalogName);
-                        // }
-                        catalog = CatalogHelper.createCatalog(catalogName);
-                        catalogList.add(catalog);
-                    } else {
-                        continue;
+                    if (!isNullSID(dbConn) && dbConn != null) {
+                        String databaseOnConnWizard = ((DatabaseConnection) dbConn).getSID();
+                        // If the SID on ui is not empty, the catalog name should be same to this SID name.
+                        filterList.addAll(postFillCatalog(catalogList, filterList, databaseOnConnWizard, dbConn));
+                        break;
+                    } else if (filterMetadaElement(catalogFilter, catalogName)) {
+                        filterList.addAll(postFillCatalog(catalogList, filterList, catalogName, dbConn));
                     }
-
-                    DatabaseConnection dbConnection = (DatabaseConnection) dbConn;
-
-                    filterList = new ArrayList<String>();
-                    if (dbConnection.getDatabaseType() != null
-                            && dbConnection.getDatabaseType().equals(EDatabaseTypeName.AS400.getDisplayName())) {// AS400
-                        // TDI-17986
-                        IMetadataConnection iMetadataCon = ConvertionHelper.convert(dbConnection);
-                        if (iMetadataCon != null) {
-                            if (!StringUtils.isEmpty(iMetadataCon.getDatabase())
-                                    && !filterList.contains(iMetadataCon.getDatabase())) {
-                                filterList.add(iMetadataCon.getDatabase());
-                            }
-                            String pattern = ExtractMetaDataUtils.retrieveSchemaPatternForAS400(iMetadataCon
-                                    .getAdditionalParams());
-                            if (pattern != null && !"".equals(pattern)) {
-                                String[] multiSchems = ExtractMetaDataUtils.getMultiSchems(pattern);
-                                if (multiSchems != null) {
-                                    for (String s : multiSchems) {
-                                        if (!StringUtils.isEmpty(s) && !filterList.contains(s)) {
-                                            filterList.add(s);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    } else {
-                        String uiSchema = dbConnection.getUiSchema();
-                        if (!StringUtils.isBlank(uiSchema) && !filterList.contains(uiSchema)) {
-                            filterList.add(uiSchema);
-                        }
-                    }
-                    // ~11412
                 }
                 // --- release the result set.
                 catalogNames.close();
@@ -524,6 +487,32 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         }
 
         return catalogList;
+    }
+
+    /**
+     * judge whether SID is null or empty string whatever context mode or nor
+     * 
+     * @param dbConn
+     * @return
+     */
+    private boolean isNullSID(Connection dbConn) {
+        if (dbConn instanceof DatabaseConnection) {
+            String databaseOnConnWizard = ((DatabaseConnection) dbConn).getSID();
+            if (isEmptyString(databaseOnConnWizard)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * judge whether str is null or length is zreo
+     * 
+     * @param str
+     * @return
+     */
+    private boolean isEmptyString(final String str) {
+        return str == null || str.length() == 0;
     }
 
     /**
