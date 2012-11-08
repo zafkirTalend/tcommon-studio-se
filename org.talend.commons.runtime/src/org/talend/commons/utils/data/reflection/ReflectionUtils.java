@@ -15,6 +15,7 @@ package org.talend.commons.utils.data.reflection;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import org.apache.log4j.Logger;
@@ -37,17 +38,18 @@ public class ReflectionUtils {
      * @param owner
      * @param fieldName
      * @return
+     * @throws NoSuchFieldException
+     * @throws SecurityException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
      * @throws Exception
      */
-    public static Object getPublicField(Object owner, String fieldName) {
+    public static Object getPublicField(Object owner, String fieldName) throws SecurityException, NoSuchFieldException,
+            IllegalArgumentException, IllegalAccessException {
         Object fieldValue = null;
         Class ownerClass = owner.getClass();
-        try {
-            Field field = ownerClass.getField(fieldName);
-            fieldValue = field.get(owner);
-        } catch (Exception e) {
-            log.error("", e);
-        }
+        Field field = ownerClass.getField(fieldName);
+        fieldValue = field.get(owner);
 
         return fieldValue;
     }
@@ -60,17 +62,18 @@ public class ReflectionUtils {
      * @param owner
      * @param fieldName
      * @return
+     * @throws NoSuchFieldException
+     * @throws SecurityException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
      */
-    public static Object getPrivateField(Object owner, String fieldName) {
+    public static Object getPrivateField(Object owner, String fieldName) throws SecurityException, NoSuchFieldException,
+            IllegalArgumentException, IllegalAccessException {
         Object fieldValue = null;
         Class ownerClass = owner.getClass();
-        try {
-            Field f = ownerClass.getDeclaredField(fieldName);
-            f.setAccessible(true);
-            fieldValue = f.get(owner);
-        } catch (Exception e) {
-            log.error("", e);
-        }
+        Field f = ownerClass.getDeclaredField(fieldName);
+        f.setAccessible(true);
+        fieldValue = f.get(owner);
 
         return fieldValue;
     }
@@ -84,21 +87,23 @@ public class ReflectionUtils {
      * @param loader
      * @param fieldName
      * @return
+     * @throws ClassNotFoundException
+     * @throws NoSuchFieldException
+     * @throws SecurityException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
      */
-    public static Object getStaticField(String className, ClassLoader loader, String fieldName) {
+    public static Object getStaticField(String className, ClassLoader loader, String fieldName) throws ClassNotFoundException,
+            SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
         Object fieldValue = null;
-        try {
-            Class ownerClass = null;
-            if (loader != null) {
-                ownerClass = Class.forName(className, true, loader);
-            } else {
-                ownerClass = Class.forName(className);
-            }
-            Field field = ownerClass.getField(fieldName);
-            fieldValue = field.get(ownerClass);
-        } catch (Exception e) {
-            log.error("", e);
+        Class ownerClass = null;
+        if (loader != null) {
+            ownerClass = Class.forName(className, true, loader);
+        } else {
+            ownerClass = Class.forName(className);
         }
+        Field field = ownerClass.getField(fieldName);
+        fieldValue = field.get(ownerClass);
 
         return fieldValue;
     }
@@ -122,7 +127,8 @@ public class ReflectionUtils {
         }
     }
 
-    public static Object getStaticField(String className, String fieldName) {
+    public static Object getStaticField(String className, String fieldName) throws SecurityException, IllegalArgumentException,
+            ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
         return getStaticField(className, null, fieldName);
     }
 
@@ -135,20 +141,22 @@ public class ReflectionUtils {
      * @param methodName
      * @param args
      * @return
+     * @throws NoSuchMethodException
+     * @throws SecurityException
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
      */
-    public static Object invokeMethod(Object owner, String methodName, Object[] args) {
+    public static Object invokeMethod(Object owner, String methodName, Object[] args) throws SecurityException,
+            NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
         Object returnValue = null;
         Class ownerClass = owner.getClass();
         Class[] argsClass = new Class[args.length];
         for (int i = 0, j = args.length; i < j; i++) {
             argsClass[i] = args[i].getClass();
         }
-        try {
-            Method method = ownerClass.getMethod(methodName, argsClass);
-            returnValue = method.invoke(owner, args);
-        } catch (Exception e) {
-            log.error("", e);
-        }
+        Method method = ownerClass.getMethod(methodName, argsClass);
+        returnValue = method.invoke(owner, args);
 
         return returnValue;
     }
@@ -163,30 +171,36 @@ public class ReflectionUtils {
      * @param methodName
      * @param args
      * @return
+     * @throws ClassNotFoundException
+     * @throws NoSuchMethodException
+     * @throws SecurityException
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
      */
-    public static Object invokeStaticMethod(String className, ClassLoader loader, String methodName, Object[] args) {
+    public static Object invokeStaticMethod(String className, ClassLoader loader, String methodName, Object[] args)
+            throws ClassNotFoundException, SecurityException, NoSuchMethodException, IllegalArgumentException,
+            IllegalAccessException, InvocationTargetException {
         Object returnValue = null;
-        try {
-            Class ownerClass = null;
-            if (loader != null) {
-                ownerClass = Class.forName(className, true, loader);
-            } else {
-                ownerClass = Class.forName(className);
-            }
-            Class[] argsClass = new Class[args.length];
-            for (int i = 0, j = args.length; i < j; i++) {
-                argsClass[i] = args[i].getClass();
-            }
-            Method method = ownerClass.getMethod(methodName, argsClass);
-            returnValue = method.invoke(null, args);
-        } catch (Exception e) {
-            log.error("", e);
+        Class ownerClass = null;
+        if (loader != null) {
+            ownerClass = Class.forName(className, true, loader);
+        } else {
+            ownerClass = Class.forName(className);
         }
+        Class[] argsClass = new Class[args.length];
+        for (int i = 0, j = args.length; i < j; i++) {
+            argsClass[i] = args[i].getClass();
+        }
+        Method method = ownerClass.getMethod(methodName, argsClass);
+        returnValue = method.invoke(null, args);
 
         return returnValue;
     }
 
-    public static Object invokeStaticMethod(String className, String methodName, Object[] args) {
+    public static Object invokeStaticMethod(String className, String methodName, Object[] args) throws SecurityException,
+            IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException,
+            InvocationTargetException {
         return invokeStaticMethod(className, null, methodName, args);
     }
 
@@ -200,30 +214,37 @@ public class ReflectionUtils {
      * @param loader
      * @param args
      * @return
+     * @throws ClassNotFoundException
+     * @throws NoSuchMethodException
+     * @throws SecurityException
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     * @throws IllegalArgumentException
      */
-    public static Object newInstance(String className, ClassLoader loader, Object[] args) {
+    public static Object newInstance(String className, ClassLoader loader, Object[] args) throws ClassNotFoundException,
+            SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException, IllegalAccessException,
+            InvocationTargetException {
         Object instance = null;
-        try {
-            Class newClass = null;
-            if (loader != null) {
-                newClass = Class.forName(className, true, loader);
-            } else {
-                newClass = Class.forName(className);
-            }
-            Class[] argsClass = new Class[args.length];
-            for (int i = 0, j = args.length; i < j; i++) {
-                argsClass[i] = args[i].getClass();
-            }
-            Constructor cons = newClass.getConstructor(argsClass);
-            instance = cons.newInstance(args);
-        } catch (Exception e) {
-            log.error("", e);
+        Class newClass = null;
+        if (loader != null) {
+            newClass = Class.forName(className, true, loader);
+        } else {
+            newClass = Class.forName(className);
         }
+        Class[] argsClass = new Class[args.length];
+        for (int i = 0, j = args.length; i < j; i++) {
+            argsClass[i] = args[i].getClass();
+        }
+        Constructor cons = newClass.getConstructor(argsClass);
+        instance = cons.newInstance(args);
 
         return instance;
     }
 
-    public static Object newInstance(String className, Object[] args) {
+    public static Object newInstance(String className, Object[] args) throws SecurityException, IllegalArgumentException,
+            ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException,
+            InvocationTargetException {
         return newInstance(className, null, args);
     }
 
