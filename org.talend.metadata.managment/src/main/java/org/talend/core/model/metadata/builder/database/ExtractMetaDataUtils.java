@@ -82,6 +82,8 @@ public class ExtractMetaDataUtils {
 
     private static final char SPLIT_CHAR = ',';
 
+    private static final String SYBASE_DATABASE_PRODUCT_NAME = "Adaptive Server Enterprise"; //$NON-NLS-1$
+
     public static Connection conn;
 
     public static String schema;
@@ -113,7 +115,7 @@ public class ExtractMetaDataUtils {
                 dbMetaData = createFakeDatabaseMetaData(conn);
             } else if (dbType.equals(EDatabaseTypeName.SAS.getXmlName())) {
                 dbMetaData = createSASFakeDatabaseMetaData(conn);
-            } else if (EDatabaseTypeName.SYBASEASE.getDisplayName().equals(dbType)) {
+            } else if (EDatabaseTypeName.SYBASEASE.getDisplayName().equals(dbType) || SYBASE_DATABASE_PRODUCT_NAME.equals(dbType)) {
                 dbMetaData = createSybaseFakeDatabaseMetaData(conn);
             } else {
                 dbMetaData = conn.getMetaData();
@@ -166,6 +168,8 @@ public class ExtractMetaDataUtils {
                 teraDbmeta.setDatabaseName(database);
             } else if (dbType.equals(EDatabaseTypeName.SAS.getXmlName())) {
                 dbMetaData = createSASFakeDatabaseMetaData(conn);
+            } else if (EDatabaseTypeName.SYBASEASE.getDisplayName().equals(dbType) || SYBASE_DATABASE_PRODUCT_NAME.equals(dbType)) {
+                dbMetaData = createSybaseFakeDatabaseMetaData(conn);
             } else {
                 dbMetaData = conn.getMetaData();
             }
@@ -219,7 +223,7 @@ public class ExtractMetaDataUtils {
                 teraDbmeta.setDatabaseName(database);
             } else if (dbType.equals(EDatabaseTypeName.SAS.getXmlName())) {
                 dbMetaData = createSASFakeDatabaseMetaData(conn);
-            } else if (EDatabaseTypeName.SYBASEASE.getDisplayName().equals(dbType)) {
+            } else if (EDatabaseTypeName.SYBASEASE.getDisplayName().equals(dbType) || SYBASE_DATABASE_PRODUCT_NAME.equals(dbType)) {
                 dbMetaData = createSybaseFakeDatabaseMetaData(conn);
             } else {
                 dbMetaData = conn.getMetaData();
@@ -242,11 +246,13 @@ public class ExtractMetaDataUtils {
             if ("net.sourceforge.jtds.jdbc.ConnectionJDBC3".equals(conn.getClass().getName())) { //$NON-NLS-1$
                 dbMetaData = createJtdsDatabaseMetaData(conn);
             } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
-                getDatabaseMetaData(conn, EDatabaseTypeName.IBMDB2ZOS.getXmlName());
+                dbMetaData = getDatabaseMetaData(conn, EDatabaseTypeName.IBMDB2ZOS.getXmlName());
             } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.TERADATA.getXmlName())) {
-                getDatabaseMetaData(conn, EDatabaseTypeName.TERADATA.getXmlName());
+                dbMetaData = getDatabaseMetaData(conn, EDatabaseTypeName.TERADATA.getXmlName());
             } else if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.SAS.getXmlName())) {
-                getDatabaseMetaData(conn, EDatabaseTypeName.SAS.getXmlName());
+                dbMetaData = getDatabaseMetaData(conn, EDatabaseTypeName.SAS.getXmlName());
+            } else if (dbMetaData.getDatabaseProductName().equals(SYBASE_DATABASE_PRODUCT_NAME)) {
+                dbMetaData = getDatabaseMetaData(conn, SYBASE_DATABASE_PRODUCT_NAME);
             }
         }
         return dbMetaData;
