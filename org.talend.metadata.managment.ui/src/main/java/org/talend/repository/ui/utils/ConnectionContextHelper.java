@@ -851,46 +851,78 @@ public final class ConnectionContextHelper {
             return;
         }
         String defaultContextName = item.getDefaultContext();
-        JobContext defJobContext = null;
+        Set<String> existGroupNameSet = new HashSet<String>();
         for (IContext con : contextManager.getListContext()) {
-            if (con.getName() != null && (con.getName()).equals(defaultContextName)) {
-                contextGoupNameSet.add(con.getName());
-                if (con instanceof JobContext) {
-                    defJobContext = (JobContext) con;
-                }
-            }
+            existGroupNameSet.add(con.getName());
         }
-
+        if (contextGoupNameSet.isEmpty()) {
+            contextGoupNameSet.add(defaultContextName);
+        }
+        Set<String> alreadyUpdateNameSet = new HashSet<String>();
         for (String key : map.keySet()) {
             for (String groupName : contextGoupNameSet) {
-                if (key.equals(groupName)) {
+                boolean isExtraGroup = false;
+                for (String existGroup : existGroupNameSet) {
+                    if (key.equals(existGroup)) {
+                        isExtraGroup = true;
+                        alreadyUpdateNameSet.add(existGroup);
+                        break;
+                    }
+                }
+                if (key.equals(groupName) || isExtraGroup) {
                     List<ContextParameterTypeImpl> list = map.get(key);
                     JobContext jobContext = new JobContext(key);
-                    boolean isDefContext = false;
-                    if (key.equals(defaultContextName) && defJobContext != null) {
-                        jobContext = defJobContext;
-                        isDefContext = true;
-                    }
-
-                    for (ContextParameterTypeImpl contextImpl : list) {
-                        for (String var : addedVars) {
-                            if (var.equals(contextImpl.getName())) {
-                                JobContextParameter contextParam = new JobContextParameter();
-                                ContextUtils.updateParameter(contextImpl, contextParam);
-                                contextParam.setSource(item.getProperty().getId());
-                                contextParam.setContext(jobContext);
-                                jobContext.getContextParameterList().add(contextParam);
+                    boolean isExistContext = false;
+                    if (isExtraGroup) {
+                        for (IContext con : contextManager.getListContext()) {
+                            if (key.equals(con.getName())) {
+                                if (con instanceof JobContext) {
+                                    jobContext = (JobContext) con;
+                                    isExistContext = true;
+                                    break;
+                                }
                             }
                         }
                     }
-                    if (!isDefContext) {
+                    setContextParameter(item, addedVars, list, jobContext);
+                    if (!isExistContext) {
                         contextManager.getListContext().add(jobContext);
                     }
                     break;
                 }
             }
         }
+        // if job context group is not in current add's context,then update context group value to default group value
+        existGroupNameSet.removeAll(alreadyUpdateNameSet);
+        List<ContextParameterTypeImpl> list = map.get(defaultContextName);
+        if (list == null) {
+            return;
+        }
+        for (String existGroup : existGroupNameSet) {
+            for (IContext con : contextManager.getListContext()) {
+                if ((existGroup).equals(con.getName())) {
+                    if (con instanceof JobContext) {
+                        JobContext jobContext = (JobContext) con;
+                        setContextParameter(item, addedVars, list, jobContext);
+                    }
+                }
+            }
+        }
+    }
 
+    public static void setContextParameter(ContextItem item, Set<String> addedVars, List<ContextParameterTypeImpl> list,
+            JobContext jobContext) {
+        for (ContextParameterTypeImpl contextImpl : list) {
+            for (String var : addedVars) {
+                if (var.equals(contextImpl.getName())) {
+                    JobContextParameter contextParam = new JobContextParameter();
+                    ContextUtils.updateParameter(contextImpl, contextParam);
+                    contextParam.setSource(item.getProperty().getId());
+                    contextParam.setContext(jobContext);
+                    jobContext.getContextParameterList().add(contextParam);
+                }
+            }
+        }
     }
 
     public static boolean isAddContextVar(ContextItem contextItem, IContextManager contextManager, Set<String> neededVars) {
