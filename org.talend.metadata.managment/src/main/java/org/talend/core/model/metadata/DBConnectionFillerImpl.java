@@ -175,7 +175,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
     public List<Package> fillSchemas(Connection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> schemaFilter) {
         List<Schema> returnSchemas = new ArrayList<Schema>();
-        if (dbJDBCMetadata == null || (dbConn != null && ConnectionHelper.getCatalogs(dbConn).size() > 0)) {
+        if (dbJDBCMetadata == null || (dbConn != null && ConnectionHelper.getCatalogs(dbConn).size() > 0)
+                || ConnectionUtils.isPostgresql(dbJDBCMetadata)) {
             return null;
         }
         ResultSet schemas = null;
@@ -304,6 +305,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         if (dbJDBCMetadata == null) {
             return null;
         }
+
+        if (ConnectionUtils.isPostgresql(dbJDBCMetadata)) {
+            return fillPostgresqlCatalogs(dbConn, dbJDBCMetadata, catalogList);
+        }
+
         // TDI-17172 : if the catalog is not fill, as the db context model, should clear "catalogFilter" .
         if (dbConn != null && dbConn.isContextMode()) {
             if (EDatabaseTypeName.MYSQL.getProduct().equals(((DatabaseConnection) dbConn).getProductId())
@@ -519,6 +525,75 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         }
 
         return catalogList;
+    }
+
+    /**
+     * fill the catalog and schemas into Postgresql database connection.
+     * 
+     * @param dbConn
+     * @param dbJDBCMetadata
+     * @param catalogList
+     * @return
+     */
+    private List<Catalog> fillPostgresqlCatalogs(Connection dbConn, DatabaseMetaData dbJDBCMetadata, List<Catalog> catalogList) {
+        DatabaseConnection databaseConnection = (DatabaseConnection) dbConn;
+        String catalogName = databaseConnection.getSID();
+
+        if (StringUtils.isEmpty(catalogName)) {
+            catalogName = databaseConnection.getUsername();
+        }
+
+        if (StringUtils.isNotEmpty(catalogName)) {
+            List<String> filterList = new ArrayList<String>();
+            filterList.addAll(postFillCatalog(catalogList, filterList, catalogName, dbConn));
+            for (Catalog catalog : catalogList) {
+                List<Schema> schemaList = new ArrayList<Schema>();
+                try {
+                    schemaList = fillSchemaToCatalog(dbConn, dbJDBCMetadata, catalog, filterList);
+                    if (!schemaList.isEmpty() && schemaList.size() > 0) {
+                        CatalogHelper.addSchemas(schemaList, catalog);
+                    }
+                } catch (Throwable e) {
+                    log.info(e);
+                }
+                ConnectionHelper.addCatalog(catalog, dbConn);
+            }
+        }
+        return catalogList;
+    }
+
+    private List<String> postFillCatalog(List<Catalog> catalogList, List<String> filterList, String catalogName, Connection dbConn) {
+        Catalog catalog = CatalogHelper.createCatalog(catalogName);
+        catalogList.add(catalog);
+        DatabaseConnection dbConnection = (DatabaseConnection) dbConn;
+
+        if (dbConnection.getDatabaseType() != null
+                && dbConnection.getDatabaseType().equals(EDatabaseTypeName.AS400.getDisplayName())) {// AS400
+            // TDI-17986
+            IMetadataConnection iMetadataCon = ConvertionHelper.convert(dbConnection);
+            if (iMetadataCon != null) {
+                if (!StringUtils.isEmpty(iMetadataCon.getDatabase()) && !filterList.contains(iMetadataCon.getDatabase())) {
+                    filterList.add(iMetadataCon.getDatabase());
+                }
+                String pattern = ExtractMetaDataUtils.retrieveSchemaPatternForAS400(iMetadataCon.getAdditionalParams());
+                if (pattern != null && !"".equals(pattern)) { //$NON-NLS-1$
+                    String[] multiSchems = ExtractMetaDataUtils.getMultiSchems(pattern);
+                    if (multiSchems != null) {
+                        for (String s : multiSchems) {
+                            if (!StringUtils.isEmpty(s) && !filterList.contains(s)) {
+                                filterList.add(s);
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            String uiSchema = dbConnection.getUiSchema();
+            if (!StringUtils.isBlank(uiSchema) && !filterList.contains(uiSchema)) {
+                filterList.add(uiSchema);
+            }
+        }
+        return filterList;
     }
 
     public List<Schema> fillSchemaToCatalog(Connection dbConn, DatabaseMetaData dbJDBCMetadata, Catalog catalog,
