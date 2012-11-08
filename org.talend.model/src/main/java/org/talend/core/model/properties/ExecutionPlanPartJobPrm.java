@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getCustomValue <em>Custom Value</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getPartCustomValue <em>Part Custom Value</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getItemType <em>Item Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -185,5 +186,31 @@ public interface ExecutionPlanPartJobPrm extends EObject {
      * @generated
      */
     void setPartCustomValue(String value);
+
+    /**
+     * Returns the value of the '<em><b>Item Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Item Type</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Item Type</em>' attribute.
+     * @see #setItemType(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlanPartJobPrm_ItemType()
+     * @model
+     * @generated
+     */
+    String getItemType();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getItemType <em>Item Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Item Type</em>' attribute.
+     * @see #getItemType()
+     * @generated
+     */
+    void setItemType(String value);
 
 } // ExecutionPlanPartJobPrm

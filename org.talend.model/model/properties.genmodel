@@ -313,6 +313,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlanPartJobPrm/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlanPartJobPrm/customValue"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlanPartJobPrm/partCustomValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlanPartJobPrm/itemType"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//ExecutionTask">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/label"/>

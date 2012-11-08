@@ -4410,13 +4410,22 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_PLAN_PART_JOB_PRM__PART_CUSTOM_VALUE = 5;
 
     /**
+     * The feature id for the '<em><b>Item Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_PART_JOB_PRM__ITEM_TYPE = 6;
+
+    /**
      * The number of structural features of the '<em>Execution Plan Part Job Prm</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_PLAN_PART_JOB_PRM_FEATURE_COUNT = 6;
+    int EXECUTION_PLAN_PART_JOB_PRM_FEATURE_COUNT = 7;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -14207,6 +14216,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionPlanPartJobPrm_PartCustomValue();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getItemType <em>Item Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Item Type</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanPartJobPrm#getItemType()
+     * @see #getExecutionPlanPartJobPrm()
+     * @generated
+     */
+    EAttribute getExecutionPlanPartJobPrm_ItemType();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.LinkRulesItem#getExtension <em>Extension</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Extension</em>'.
@@ -19015,6 +19035,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute EXECUTION_PLAN_PART_JOB_PRM__PART_CUSTOM_VALUE = eINSTANCE.getExecutionPlanPartJobPrm_PartCustomValue();
+
+        /**
+         * The meta object literal for the '<em><b>Item Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_PLAN_PART_JOB_PRM__ITEM_TYPE = eINSTANCE.getExecutionPlanPartJobPrm_ItemType();
 
         /**
          * The meta object literal for the '<em><b>Extension</b></em>' attribute feature.

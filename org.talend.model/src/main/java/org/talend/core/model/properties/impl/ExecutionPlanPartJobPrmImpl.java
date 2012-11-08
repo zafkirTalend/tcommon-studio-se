@@ -31,6 +31,7 @@ import org.talend.core.model.properties.PropertiesPackage;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartJobPrmImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartJobPrmImpl#getCustomValue <em>Custom Value</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartJobPrmImpl#getPartCustomValue <em>Part Custom Value</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartJobPrmImpl#getItemType <em>Item Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -146,6 +147,26 @@ public class ExecutionPlanPartJobPrmImpl extends EObjectImpl implements Executio
      * @ordered
      */
     protected String partCustomValue = PART_CUSTOM_VALUE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getItemType() <em>Item Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getItemType()
+     * @generated
+     * @ordered
+     */
+    protected static final String ITEM_TYPE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getItemType() <em>Item Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getItemType()
+     * @generated
+     * @ordered
+     */
+    protected String itemType = ITEM_TYPE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -314,6 +335,27 @@ public class ExecutionPlanPartJobPrmImpl extends EObjectImpl implements Executio
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getItemType() {
+        return itemType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setItemType(String newItemType) {
+        String oldItemType = itemType;
+        itemType = newItemType;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__ITEM_TYPE, oldItemType, itemType));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
@@ -330,6 +372,8 @@ public class ExecutionPlanPartJobPrmImpl extends EObjectImpl implements Executio
                 return getCustomValue();
             case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__PART_CUSTOM_VALUE:
                 return getPartCustomValue();
+            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__ITEM_TYPE:
+                return getItemType();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -359,6 +403,9 @@ public class ExecutionPlanPartJobPrmImpl extends EObjectImpl implements Executio
                 return;
             case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__PART_CUSTOM_VALUE:
                 setPartCustomValue((String)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__ITEM_TYPE:
+                setItemType((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -390,6 +437,9 @@ public class ExecutionPlanPartJobPrmImpl extends EObjectImpl implements Executio
             case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__PART_CUSTOM_VALUE:
                 setPartCustomValue(PART_CUSTOM_VALUE_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__ITEM_TYPE:
+                setItemType(ITEM_TYPE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -414,6 +464,8 @@ public class ExecutionPlanPartJobPrmImpl extends EObjectImpl implements Executio
                 return CUSTOM_VALUE_EDEFAULT == null ? customValue != null : !CUSTOM_VALUE_EDEFAULT.equals(customValue);
             case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__PART_CUSTOM_VALUE:
                 return PART_CUSTOM_VALUE_EDEFAULT == null ? partCustomValue != null : !PART_CUSTOM_VALUE_EDEFAULT.equals(partCustomValue);
+            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__ITEM_TYPE:
+                return ITEM_TYPE_EDEFAULT == null ? itemType != null : !ITEM_TYPE_EDEFAULT.equals(itemType);
         }
         return super.eIsSet(featureID);
     }
@@ -438,6 +490,8 @@ public class ExecutionPlanPartJobPrmImpl extends EObjectImpl implements Executio
         result.append(customValue);
         result.append(", partCustomValue: ");
         result.append(partCustomValue);
+        result.append(", itemType: ");
+        result.append(itemType);
         result.append(')');
         return result.toString();
     }
