@@ -38,6 +38,8 @@ public final class ConnectionUtils {
 
     public static final String IBM_DB2_ZOS_PRODUCT_NAME = "DB2"; //$NON-NLS-1$
 
+    public static final String POSTGRESQL_PRODUCT_NAME = "POSTGRESQL"; //$NON-NLS-1$
+
     public static final String SYBASE_LANGUAGE = "Adaptive Server Enterprise | Sybase Adaptive Server IQ"; //$NON-NLS-1$
 
     private static final String ACCESS_DRIVER = "Microsoft Access Driver"; //$NON-NLS-1$
@@ -253,6 +255,19 @@ public final class ConnectionUtils {
             return true;
         }
         return false;
+    }
+
+    public static boolean isPostgresql(DatabaseMetaData metadata) {
+        boolean result = false;
+        try {
+            if (metadata != null && metadata.getDatabaseProductName() != null
+                    && metadata.getDatabaseProductName().toUpperCase().indexOf(POSTGRESQL_PRODUCT_NAME) > -1) {
+                result = true;
+            }
+        } catch (SQLException e) {
+            result = false;
+        }
+        return result;
     }
 
     /**

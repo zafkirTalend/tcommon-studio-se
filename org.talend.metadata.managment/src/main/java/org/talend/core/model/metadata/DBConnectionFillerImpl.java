@@ -185,7 +185,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
     public List<Package> fillSchemas(Connection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> schemaFilter) {
         List<Schema> returnSchemas = new ArrayList<Schema>();
-        if (dbJDBCMetadata == null || (dbConn != null && ConnectionHelper.getCatalogs(dbConn).size() > 0)) {
+        if (dbJDBCMetadata == null || (dbConn != null && ConnectionHelper.getCatalogs(dbConn).size() > 0)
+                || ConnectionUtils.isPostgresql(dbJDBCMetadata)) {
             return null;
         }
         ResultSet schemas = null;
@@ -309,6 +310,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         if (dbJDBCMetadata == null) {
             return null;
         }
+
+        if (ConnectionUtils.isPostgresql(dbJDBCMetadata)) {
+            return fillPostgresqlCatalogs(dbConn, dbJDBCMetadata, catalogList);
+        }
+
         // TDI-17172 : if the catalog is not fill, as the db context model, should clear "catalogFilter" .
         if (dbConn != null && dbConn.isContextMode()) {
             if (EDatabaseTypeName.MYSQL.getProduct().equals(((DatabaseConnection) dbConn).getProductId())
@@ -489,6 +495,42 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             log.warn("JDBC getCatalogs() method is not available with this driver.", e); //$NON-NLS-1$
         }
 
+        return catalogList;
+    }
+
+    /**
+     * fill the catalog and schemas into Postgresql database connection.
+     * 
+     * @param dbConn
+     * @param dbJDBCMetadata
+     * @param catalogList
+     * @return
+     */
+    private List<Catalog> fillPostgresqlCatalogs(Connection dbConn, DatabaseMetaData dbJDBCMetadata, List<Catalog> catalogList) {
+        DatabaseConnection databaseConnection = (DatabaseConnection) dbConn;
+        String catalogName = databaseConnection.getSID();
+
+        if (StringUtils.isEmpty(catalogName)) {
+            catalogName = databaseConnection.getUsername();
+        }
+
+        if (StringUtils.isNotEmpty(catalogName)) {
+            List<String> filterList = new ArrayList<String>();
+            filterList.addAll(postFillCatalog(catalogList, filterList, TalendCWMService.getReadableName(dbConn, catalogName),
+                    dbConn));
+            for (Catalog catalog : catalogList) {
+                List<Schema> schemaList = new ArrayList<Schema>();
+                try {
+                    schemaList = fillSchemaToCatalog(dbConn, dbJDBCMetadata, catalog, filterList);
+                    if (!schemaList.isEmpty() && schemaList.size() > 0) {
+                        CatalogHelper.addSchemas(schemaList, catalog);
+                    }
+                } catch (Throwable e) {
+                    log.info(e);
+                }
+                ConnectionHelper.addCatalog(catalog, dbConn);
+            }
+        }
         return catalogList;
     }
 
