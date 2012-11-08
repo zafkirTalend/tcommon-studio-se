@@ -127,14 +127,17 @@ public class JobContextManager implements IContextManager {
         loadFromEmf(contextTypeList, defaultContextName);
     }
 
+    @Override
     public void addContextListener(IContextListener listener) {
         contextListenerList.add(listener);
     }
 
+    @Override
     public void removeContextListener(IContextListener listener) {
         contextListenerList.remove(listener);
     }
 
+    @Override
     public void fireContextsChangedEvent() {
         for (IContextListener contextListener : contextListenerList) {
             contextListener.contextsChanged();
@@ -170,6 +173,7 @@ public class JobContextManager implements IContextManager {
      * 
      * @see org.talend.core.model.process.IContextManager#getDefaultContext()
      */
+    @Override
     public IContext getDefaultContext() {
         return defaultContext;
     }
@@ -179,6 +183,7 @@ public class JobContextManager implements IContextManager {
      * 
      * @see org.talend.core.model.process.IContextManager#setDefaultContext(org.talend.core.model.process.IContext)
      */
+    @Override
     public void setDefaultContext(IContext context) {
         defaultContext = context;
     }
@@ -188,6 +193,7 @@ public class JobContextManager implements IContextManager {
      * 
      * @see org.talend.core.model.process.IContextManager#getListContext()
      */
+    @Override
     public List<IContext> getListContext() {
         return listContext;
     }
@@ -197,6 +203,7 @@ public class JobContextManager implements IContextManager {
      * 
      * @see org.talend.core.model.process.IContextManager#getListContext(java.util.List)
      */
+    @Override
     public void setListContext(List<IContext> listContext) {
         this.listContext = listContext;
     }
@@ -208,6 +215,7 @@ public class JobContextManager implements IContextManager {
      * @param uniqueName
      * @return true if the name is unique
      */
+    @Override
     public boolean checkValidParameterName(String oldContextName, String newContextName) {
         for (IContextParameter contextParameter : listContext.get(0).getContextParameterList()) {
             // TDI-17682:avoid to compare the lower/uper case with the parameter itself
@@ -234,6 +242,7 @@ public class JobContextManager implements IContextManager {
         return Pattern.matches(RepositoryConstants.CONTEXT_AND_VARIABLE_PATTERN, newContextName);
     }
 
+    @Override
     public IContext getContext(String name) {
         for (int i = 0; i < listContext.size(); i++) {
             if (listContext.get(i).getName().equals(name)) {
@@ -243,6 +252,7 @@ public class JobContextManager implements IContextManager {
         return defaultContext;
     }
 
+    @Override
     public void saveToEmf(EList contextTypeList) {
         ContextType contextType;
         IContext context;
@@ -295,6 +305,7 @@ public class JobContextManager implements IContextManager {
         }
     }
 
+    @Override
     public void loadFromEmf(EList contextTypeList, String defaultContextName) {
         IContext context;
         ContextType contextType;
@@ -316,7 +327,7 @@ public class JobContextManager implements IContextManager {
             contextType = (ContextType) contextTypeList.get(i);
             String name = contextType.getName();
             if (name == null) {
-                name = "Default";
+                name = IContext.DEFAULT;
             }
             context = new JobContext(name);
             context.setConfirmationNeeded(contextType.isConfirmationNeeded());
@@ -342,8 +353,8 @@ public class JobContextManager implements IContextManager {
                 } else {
                     String[] existingTypes;
                     existingTypes = ContextParameterJavaTypeManager.getPerlTypesLabels();
-                    for (int k = 0; k < existingTypes.length; k++) {
-                        if (existingTypes[k].equals(contextParamType.getType())) {
+                    for (String existingType : existingTypes) {
+                        if (existingType.equals(contextParamType.getType())) {
                             exists = true;
                         }
                     }
@@ -383,6 +394,7 @@ public class JobContextManager implements IContextManager {
         }
     }
 
+    @Override
     public boolean sameAs(IContextManager contextManager) {
         if (!contextManager.getDefaultContext().getName().equals(defaultContext.getName())) {
             return false;

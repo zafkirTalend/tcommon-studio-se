@@ -27,6 +27,7 @@ import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 import org.talend.core.CorePlugin;
 import org.talend.core.ILibraryManagerService;
+import org.talend.core.repository.constants.FileConstants;
 
 /**
  * wchen class global comment. Detailled comment
@@ -36,8 +37,6 @@ public class RoutineLibraryMananger {
     private static final String EXTENSION_POINT_ID = "org.talend.core.systemRoutineLibrary"; //$NON-NLS-1$
 
     private static final String LIB_FOLDER = "/lib"; //$NON-NLS-1$
-
-    private static final String LIB_EXT = ".jar"; //$NON-NLS-1$
 
     private static final String LIBRARY_ELE = "library"; //$NON-NLS-1$
 
@@ -79,7 +78,7 @@ public class RoutineLibraryMananger {
                     Object entryPath = entryPaths.nextElement();
                     if (entryPath != null && entryPath instanceof String) {
                         String path = (String) entryPath;
-                        if (path.endsWith(LIB_EXT)) {
+                        if (path.endsWith(FileConstants.JAR_FILE_SUFFIX)) {
                             URL entry = bundle.getEntry(path);
                             if (entry != null) {
                                 try {

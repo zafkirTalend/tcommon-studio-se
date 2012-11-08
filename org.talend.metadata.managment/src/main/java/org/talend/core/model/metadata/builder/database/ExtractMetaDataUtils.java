@@ -62,6 +62,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.utils.TalendQuoteUtils;
@@ -407,7 +408,7 @@ public class ExtractMetaDataUtils {
             return t4d.get(0).getDbTypeName();
         } else if (t4d.size() > 1) {
             // for some dbs use the same driverClassName.
-            if (driverJar == null || "".equals(driverJar) || !driverJar.contains(".jar")) {
+            if (driverJar == null || "".equals(driverJar) || !driverJar.contains(FileConstants.JAR_FILE_SUFFIX)) {
                 return t4d.get(0).getDbTypeName();
             } else if (driverJar.contains("postgresql-8.3-603.jdbc3.jar") || driverJar.contains("postgresql-8.3-603.jdbc4.jar")
                     || driverJar.contains("postgresql-8.3-603.jdbc2.jar")) {//
