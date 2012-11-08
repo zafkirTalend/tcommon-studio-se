@@ -185,8 +185,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
     public List<Package> fillSchemas(Connection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> schemaFilter) {
         List<Schema> returnSchemas = new ArrayList<Schema>();
-        if (dbJDBCMetadata == null || (dbConn != null && ConnectionHelper.getCatalogs(dbConn).size() > 0)
-                || ConnectionUtils.isPostgresql(dbJDBCMetadata)) {
+        if (dbJDBCMetadata == null || (dbConn != null && ConnectionHelper.getCatalogs(dbConn).size() > 0)) {
             return null;
         }
         ResultSet schemas = null;
