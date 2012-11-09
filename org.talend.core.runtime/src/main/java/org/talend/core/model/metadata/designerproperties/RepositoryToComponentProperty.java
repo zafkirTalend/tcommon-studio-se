@@ -2055,14 +2055,29 @@ public class RepositoryToComponentProperty {
             return connection.getXmlField();
         }
         if (value.equals("GUVNOR_URL")) {
-            return connection.getUrlName();
+            return addQuotesIfNecessary(connection, connection.getUrlName());
+        }
+        if (value.equals("TAC_WEBAPP")) {
+            return addQuotesIfNecessary(connection, connection.getTacWebappName());
         }
         if (value.equals("CLASS_NAME")) {
-            return connection.getClassName();
+            return addQuotesIfNecessary(connection, connection.getClassName());
+        }
+        if (value.equals("GUVNOR_PACKAGE")) {
+            return addQuotesIfNecessary(connection, connection.getPackage());
         }
         if (value.equals("MODULE_USED")) {
             return connection.getModuleUsed();
         }
         return null;
+    }
+
+    private static Object addQuotesIfNecessary(Connection connection, String value) {
+        if (!isContextMode(connection, value)) {
+            if (!value.startsWith(TalendQuoteUtils.QUOTATION_MARK) && !value.endsWith(TalendQuoteUtils.QUOTATION_MARK)) {
+                return TalendQuoteUtils.addQuotes(value);
+            }
+        }
+        return value;
     }
 }
