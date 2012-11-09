@@ -1157,6 +1157,13 @@ public class ComponentToRepositoryProperty {
             }
         }
 
+        if ("TAC_WEBAPP".equals(repositoryValue)) {//$NON-NLS-1$
+            String value = getParameterValue(connection, node, "TAC_WEBAPP"); //$NON-NLS-1$
+            if (value != null) {
+                connection.setTacWebappName(value);
+            }
+        }
+
         if ("CLASS_NAME".equals(repositoryValue)) {//$NON-NLS-1$
             String value = getParameterValue(connection, node, "CLASS_NAME"); //$NON-NLS-1$
             if (value != null) {
