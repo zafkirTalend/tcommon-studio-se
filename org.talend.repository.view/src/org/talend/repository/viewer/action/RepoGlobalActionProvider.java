@@ -46,13 +46,12 @@ public class RepoGlobalActionProvider extends CommonActionProvider {
         actionBars.setGlobalActionHandler(ActionFactory.PASTE.getId(), pasteActionInstance);
         actionBars.setGlobalActionHandler(ActionFactory.DELETE.getId(), DeleteAction.getInstance());
 
-        // init copy action and paste action
+        // init copy action
         if (copyActionInstance != null && pasteActionInstance != null && getContext() != null
                 && getContext().getSelection() instanceof IStructuredSelection) {
             IStructuredSelection sel = (IStructuredSelection) getContext().getSelection();
             if (sel != null) {
                 copyActionInstance.init(null, sel);
-                pasteActionInstance.init(null, sel);
             }
         }
 

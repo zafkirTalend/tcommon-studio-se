@@ -68,6 +68,11 @@ public class CopyAction extends AContextualAction {
 
         LocalSelectionTransfer.getTransfer().setSelection(selection);
         LocalSelectionTransfer.getTransfer().setSelectionSetTime(System.currentTimeMillis());
+        // init paste action
+        PasteAction pasteActionInstance = PasteAction.getInstance();
+        if (pasteActionInstance != null) {
+            pasteActionInstance.init(null, selection);
+        }
         // refresh();
     }
 

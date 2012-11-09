@@ -96,10 +96,10 @@ public class PasteAction extends AContextualAction {
 
     public void init(TreeViewer viewer, IStructuredSelection selection) {
         boolean enabled = true;
-        if (selection.size() != 1) { // only one current node selected
-            setEnabled(false);
-            return;
-        }
+        // if (selection.size() != 1) { // only one current node selected
+        // setEnabled(false);
+        // return;
+        // }
 
         Object targetObject = selection.getFirstElement();
         if (!(targetObject instanceof RepositoryNode)) {
