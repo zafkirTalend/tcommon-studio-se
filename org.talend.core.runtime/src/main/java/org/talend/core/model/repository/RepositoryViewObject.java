@@ -312,7 +312,8 @@ public class RepositoryViewObject implements IRepositoryViewObject {
             return property;
         } catch (PersistenceException e) {
             exception = e;
-            ExceptionHandler.process(e);
+            // for TDI-23371:no need this warning
+            // ExceptionHandler.process(e);
             // if (!CommonsPlugin.isHeadless() && PlatformUI.isWorkbenchRunning()) {
             // MessageDialog.openError(Display.getCurrent().getActiveShell(), "Error", exception.getMessage());
             // }
