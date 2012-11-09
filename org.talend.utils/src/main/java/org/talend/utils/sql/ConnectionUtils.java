@@ -40,6 +40,8 @@ public final class ConnectionUtils {
 
     public static final String POSTGRESQL_PRODUCT_NAME = "POSTGRESQL"; //$NON-NLS-1$
 
+    public static final String SYBASE_PRODUCT_NAME = "SYBASE"; //$NON-NLS-1$
+
     public static final String SYBASE_LANGUAGE = "Adaptive Server Enterprise | Sybase Adaptive Server IQ"; //$NON-NLS-1$
 
     private static final String ACCESS_DRIVER = "Microsoft Access Driver"; //$NON-NLS-1$
@@ -266,6 +268,15 @@ public final class ConnectionUtils {
             }
         } catch (SQLException e) {
             result = false;
+        }
+        return result;
+    }
+
+    public static boolean isSybase(DatabaseMetaData metadata) {
+        boolean result = false;
+        // if it is sybase database, it will be the fake DatabaseMetaData
+        if (metadata != null && "org.talend.commons.utils.database.SybaseDatabaseMetaData".equals(metadata.getClass().getName())) {//$NON-NLS-1$
+            result = true;
         }
         return result;
     }
