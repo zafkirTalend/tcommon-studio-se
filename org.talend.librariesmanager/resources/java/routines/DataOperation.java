@@ -40,13 +40,13 @@ public class DataOperation {
     }
 
     /**
-     * FIX( ) Rounds an expression to a decimal number having the accuracy specified by the PRECISION statement.
+     * FIX(double) expression Rounds given double numbers to the closest long.
      * 
      * {talendTypes} long | Long
      * 
      * {Category} DataOperation
      * 
-     * {param} double (0.0) d:decimal number
+     * {param} double (0.0) d:double number
      * 
      * {example} FIX(3.14)
      * 
