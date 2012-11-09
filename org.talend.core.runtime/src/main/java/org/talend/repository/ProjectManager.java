@@ -36,6 +36,7 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryManager;
+import org.talend.core.model.repository.SVNConstant;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.IReferencedProjectService;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -62,6 +63,16 @@ public final class ProjectManager {
     private Map<String, String> mapProjectUrlToBranchUrl = new HashMap<String, String>();
 
     private static Map<String, List<FolderItem>> foldersMap = new HashMap<String, List<FolderItem>>();
+    
+    public static final String SEP_CHAR = SVNConstant.SEP_CHAR;
+
+    public static final String NAME_TRUNK = SVNConstant.NAME_TRUNK;
+
+    public static final String NAME_BRANCHES = SVNConstant.NAME_BRANCHES;
+
+    public static final String NAME_TAGS = SVNConstant.NAME_TAGS;
+    
+    public static final String UNDER_LINE_CHAR = SVNConstant.UNDER_LINE_CHAR;
 
     private ProjectManager() {
         initCurrentProject();
@@ -356,7 +367,29 @@ public final class ProjectManager {
         }
         return null;
     }
-
+    /**
+     * 
+     * DOC ldong Comment method "getCurrentBranchLabel".
+     * 
+     * @param project
+     * @return
+     */
+    public static String getCurrentBranchLabel(Project project) {
+        // just for TAC session,they do not want the label start with "/"
+    	
+    	Context ctx = CoreRuntimePlugin.getInstance().getContext();
+    	RepositoryContext context = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+    	String branchSelection =  NAME_TRUNK;
+        String branchKey = IProxyRepositoryFactory.BRANCH_SELECTION + UNDER_LINE_CHAR + project.getTechnicalLabel();
+        if (context.getFields().containsKey(branchKey)
+                && context.getFields().get(branchKey) != null) {
+            branchSelection = context.getFields().get(branchKey);
+            if (!branchSelection.contains(NAME_BRANCHES) && !branchSelection.contains(NAME_TRUNK)) {
+                branchSelection = NAME_BRANCHES + branchSelection;
+            }
+        } 
+        return branchSelection;
+    }
     public String getCurrentBranchURL(Project project) {
         if (mapProjectUrlToBranchUrl != null && project != null && project.getEmfProject() != null) {
             return mapProjectUrlToBranchUrl.get(project.getEmfProject().getUrl());
