@@ -201,7 +201,11 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
      * DOC sgandon Comment method "refreshTopLevelNodes".
      */
     protected void refreshTopLevelNodes() {
-        for (RepositoryNode topLevelNode : getTopLevelNodes()) {
+        Set<RepositoryNode> topLevelNodes = getTopLevelNodes();
+        if (topLevelNodes == null) {
+            return;
+        }
+        for (RepositoryNode topLevelNode : topLevelNodes) {
             refreshTopLevelNode(topLevelNode);
         }
 
