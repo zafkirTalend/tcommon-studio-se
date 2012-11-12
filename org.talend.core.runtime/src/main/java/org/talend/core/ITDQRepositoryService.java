@@ -98,4 +98,8 @@ public interface ITDQRepositoryService extends IService {
 
     // ADD xqliu 2012-07-24 TDQ-5853
     public void checkUsernameBeforeSaveConnection(ConnectionItem connectionItem);
+
+    // ADD qiongli 2012-11-12 TDQ-6166
+    public void initAllConnectionsToSQLExplorer();
+
 }
