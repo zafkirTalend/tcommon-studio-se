@@ -9,7 +9,6 @@
 -->
 
 <plugin>
-   <extension-point id="cwmService" name="cwm service" schema="schema/cwmService.exsd"/>
 
   <extension point="org.eclipse.emf.ecore.generated_package">
     <package 
