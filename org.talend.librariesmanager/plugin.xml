@@ -101,36 +101,54 @@
             name="Document">
          <library
                name="dom4j-1.6.1.jar">
+            <bundleId
+                  bundleId="org.apache.servicemix.bundles.dom4j">
+            </bundleId>
          </library>
       </systemRoutine>
       <systemRoutine
             name="DocumentHelper">
          <library
                name="dom4j-1.6.1.jar">
+            <bundleId
+                  bundleId="org.apache.servicemix.bundles.dom4j">
+            </bundleId>
          </library>
       </systemRoutine>
       <systemRoutine
             name="DocumentToFlat">
          <library
                name="dom4j-1.6.1.jar">
+            <bundleId
+                  bundleId="org.apache.servicemix.bundles.dom4j">
+            </bundleId>
          </library>
       </systemRoutine>
       <systemRoutine
             name="NameSpaceTool">
          <library
                name="dom4j-1.6.1.jar">
+            <bundleId
+                  bundleId="org.apache.servicemix.bundles.dom4j">
+            </bundleId>
          </library>
       </systemRoutine>
       <systemRoutine
             name="ParserUtils">
          <library
                name="dom4j-1.6.1.jar">
+            <bundleId
+                  bundleId="org.apache.servicemix.bundles.dom4j">
+            </bundleId>
          </library>
       </systemRoutine>
       <systemRoutine
             name="TalendMDMJob">
          <library
                name="dom4j-1.6.1.jar">
+            <bundleId
+                  bundleId="org.apache.servicemix.bundles.dom4j">
+            </bundleId>
          </library>
       </systemRoutine>
    </extension>

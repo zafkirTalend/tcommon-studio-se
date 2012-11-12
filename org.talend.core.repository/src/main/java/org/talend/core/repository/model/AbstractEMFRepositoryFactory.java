@@ -40,6 +40,7 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
 import org.talend.core.IStatusPreferenceInitService;
 import org.talend.core.model.general.ILibrariesService;
+import org.talend.core.model.general.LibraryInfo;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.EParameterFieldType;
@@ -399,7 +400,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         }
 
         List<IRepositoryViewObject> repositoryObjects = getAll(project, ERepositoryObjectType.ROUTINES, false, false);
-        Map<String, List<String>> routineAndJars = coreSerivce.getRoutineAndJars();
+        Map<String, List<LibraryInfo>> routineAndJars = coreSerivce.getRoutineAndJars();
         for (URL url : routines) {
             String[] fragments = url.toString().split("/"); //$NON-NLS-1$
             String label = fragments[fragments.length - 1];
@@ -507,7 +508,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
      * @param url
      * @throws PersistenceException
      */
-    private void createRoutine(URL url, IPath path, String label, List<String> neededJars) throws PersistenceException {
+    private void createRoutine(URL url, IPath path, String label, List<LibraryInfo> neededJars) throws PersistenceException {
         if (url == null) {
             throw new IllegalArgumentException();
         }
@@ -531,12 +532,13 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
             routineItem.setContent(byteArray);
             routineItem.setBuiltIn(true);
             if (neededJars != null) {
-                for (String jar : neededJars) {
+                for (LibraryInfo jar : neededJars) {
                     IMPORTType type = ComponentFactory.eINSTANCE.createIMPORTType();
                     type.setMESSAGE("");
                     type.setNAME(label);
                     type.setREQUIRED(true);
-                    type.setMODULE(jar);
+                    type.setMODULE(jar.getLibName());
+                    type.setBundleID(jar.getBundleId());
                     routineItem.getImports().add(type);
                 }
             }

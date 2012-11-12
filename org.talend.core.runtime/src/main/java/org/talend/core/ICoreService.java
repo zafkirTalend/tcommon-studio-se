@@ -27,6 +27,7 @@ import org.eclipse.swt.graphics.Image;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.SystemException;
 import org.talend.commons.ui.swt.actions.ITreeContextualAction;
+import org.talend.core.model.general.LibraryInfo;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.ColumnNameChanged;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -60,7 +61,7 @@ public interface ICoreService extends IService {
 
     public boolean getContextFlagFromQueryUtils();
 
-    public Map<String, List<String>> getRoutineAndJars();
+    public Map<String, List<LibraryInfo>> getRoutineAndJars();
 
     public String getTemplateString();
 

@@ -52,6 +52,7 @@ import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.xml.XmlUtil;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.ComponentUtilities;
+import org.talend.core.model.general.LibraryInfo;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.ColumnNameChanged;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -152,7 +153,7 @@ public class CoreService implements ICoreService {
      * 
      * @see org.talend.core.ICoreService#getRoutineAndJars()
      */
-    public Map<String, List<String>> getRoutineAndJars() {
+    public Map<String, List<LibraryInfo>> getRoutineAndJars() {
         return RoutineLibraryMananger.getInstance().getRoutineAndJars();
     }
 
