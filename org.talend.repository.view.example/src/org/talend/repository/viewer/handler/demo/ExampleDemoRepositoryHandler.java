@@ -19,6 +19,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jface.wizard.IWizard;
+import org.eclipse.ui.IWorkbench;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.IImage;
@@ -266,6 +268,18 @@ public class ExampleDemoRepositoryHandler implements IRepositoryContentHandler {
     @Override
     public boolean isOwnTable(IRepositoryNode node, Class type) {
         return node != null ? isRepObjType(node.getObjectType()) : false;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryContentHandler#newWizard(org.eclipse.ui.IWorkbench, boolean,
+     * org.talend.repository.model.RepositoryNode, java.lang.String[])
+     */
+    @Override
+    public IWizard newWizard(IWorkbench workbench, boolean creation, RepositoryNode node, String[] existingNames) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }
