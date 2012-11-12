@@ -17,6 +17,8 @@ import java.util.Properties;
 import org.eclipse.swt.program.Program;
 import org.eclipse.ui.intro.IIntroSite;
 import org.eclipse.ui.intro.config.IIntroAction;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ui.branding.IBrandingService;
 
 /**
  * DOC hcyi class global comment. Detailled comment
@@ -33,6 +35,16 @@ public class OpenWebBrowserAction implements IIntroAction {
 
     private static final String EXCHANGE_URL = "http://www.talendforge.org/exchange"; //$NON-NLS-1$
 
+    private static final String TOS_DI = "http://www.talend.com/download/data-integration?qt-product_download_tabs=2#qt-product_download_tabs"; //$NON-NLS-1$
+
+    private static final String TOS_DQ = "http://www.talend.com/download/data-quality?qt-product_download_tabs=2#qt-product_download_tabs"; //$NON-NLS-1$
+
+    private static final String TOS_ESB = "http://www.talend.com/download/esb?qt-product_download_tabs=2#qt-product_download_tabs"; //$NON-NLS-1$
+
+    private static final String TOS_MDM = "http://www.talend.com/download/mdm?qt-product_download_tabs=2#qt-product_download_tabs"; //$NON-NLS-1$
+
+    private static final String TOS_BD = "http://www.talend.com/download/big-data?qt-product_download_tabs=2#qt-product_download_tabs"; //$NON-NLS-1$
+
     /*
      * (non-Javadoc)
      * 
@@ -45,7 +57,22 @@ public class OpenWebBrowserAction implements IIntroAction {
         Object type = params.get("type");
         if (type != null) {
             if ("showUserGuide".equals(type.toString())) {
-                Program.launch(USERGUIDE_URL);
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(IBrandingService.class)) {
+                    IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
+                            IBrandingService.class);
+                    String userManuals = brandingService.getUserManuals();
+                    if ("DI".equals(userManuals)) {
+                        Program.launch(TOS_DI);
+                    } else if ("DQ".equals(userManuals)) {
+                        Program.launch(TOS_DQ);
+                    } else if ("ESB".equals(userManuals)) {
+                        Program.launch(TOS_ESB);
+                    } else if ("MDM".equals(userManuals)) {
+                        Program.launch(TOS_MDM);
+                    } else if ("BD".equals(userManuals)) {
+                        Program.launch(TOS_BD);
+                    }
+                }
             } else if ("showReferenceGuide".equals(type.toString())) {
                 Program.launch(REFERENCEGUIDE_URL);
             } else if ("showTutorials".equals(type.toString())) {

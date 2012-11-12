@@ -187,13 +187,15 @@ public class DynamicContentProviderGeneric extends DynamicContentProvider {
 
             // documentation
             title = Messages.getString("WelcomePageDynamicContentProvider.DocumentationTitle");
-            String huGuide = Messages.getString("WelcomePageDynamicContentProvider.DocumentationUserGuideTitle");
-            String hrGuide = Messages.getString("WelcomePageDynamicContentProvider.DocumentationReferenceGuideTitle");
-            String[] hyperlinkText = new String[] { huGuide, hrGuide };
+            // String huGuide = Messages.getString("WelcomePageDynamicContentProvider.DocumentationUserGuideTitle");
+            // String hrGuide =
+            // Messages.getString("WelcomePageDynamicContentProvider.DocumentationReferenceGuideTitle");
+            String userManuals = Messages.getString("WelcomePageDynamicContentProvider.DocumentationUserManuals");
+            String[] hyperlinkText = new String[] { userManuals };
 
-            String[] urls = new String[] { BROWSER_URL + "showUserGuide", BROWSER_URL + "showReferenceGuide" };
+            String[] urls = new String[] { BROWSER_URL + "showUserGuide" };
 
-            String[] extTexts = new String[2];
+            String[] extTexts = new String[1];
             parent.appendChild(dom.createElement("br"));
             createFixedPart(dom, parent, title, hyperlinkText, urls, extTexts);
 

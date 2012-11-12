@@ -43,4 +43,8 @@ public abstract class AbstractBrandingService implements IBrandingService {
         // default is StartingBrowser implement in org.talend.rcp
         return "org.talend.rcp.intro.starting.StartingBrowser";
     }
+
+    public String getUserManuals() {
+        return "DI";
+    }
 }
