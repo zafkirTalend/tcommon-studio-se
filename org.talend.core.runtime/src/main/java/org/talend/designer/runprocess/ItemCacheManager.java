@@ -19,6 +19,7 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -26,17 +27,18 @@ import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
- * DOC nrousseau class global comment. Detailled comment
- *
- * @deprecated
- *
- * Do not cache anymore. This class actually is only used for compatibility, and keep the system of LASTEST_VERSION
+ * Class to review, no cache anymore here.
+ * 
+ * to be renamed in future versions.
  */
 public class ItemCacheManager {
 
-    public static final String LATEST_VERSION = "Latest"; //$NON-NLS-1$
+    // variable to replace by RelationshipItemBuilder.LATEST_VERSION later
+    public static final String LATEST_VERSION = RelationshipItemBuilder.LATEST_VERSION;
 
+    @Deprecated
     public static void clearCache() {
+        // deprecated, do nothing
     }
 
     public static ProcessItem getProcessItem(Project project, String processId) {
@@ -104,7 +106,7 @@ public class ItemCacheManager {
             return null;
         }
         // feature 19312
-        if (version == null || version.equals("") || LATEST_VERSION.equals(version)) {
+        if (version == null || version.equals("") || LATEST_VERSION.equals(version)) { //$NON-NLS-1$
             return getProcessItem(project, processId);
         }
         ProcessItem selectedProcessItem = null;
