@@ -44,7 +44,7 @@ import org.talend.utils.sugars.TypedReturnCode;
  */
 public final class JavaSqlFactory {
 
-    public static final String DEFAULT_USERNAME = "root";
+    public static final String DEFAULT_USERNAME = "root"; //$NON-NLS-1$
 
     @SuppressWarnings("unused")
     private static Logger log = Logger.getLogger(JavaSqlFactory.class);
@@ -65,6 +65,7 @@ public final class JavaSqlFactory {
      * @return a ReturnCode (never null)
      * @deprecated
      */
+    @Deprecated
     public static TypedReturnCode<java.sql.Connection> createConnection(DatabaseConnection providerConnection) {
         TypedReturnCode<java.sql.Connection> rc = new TypedReturnCode<java.sql.Connection>(false);
         String url = providerConnection.getURL();
@@ -126,7 +127,7 @@ public final class JavaSqlFactory {
         String driverClassName = getDriverClass(connection);
         // MOD scorreia 2010-10-20 bug 16403 avoid NPE while importing items
         if (StringUtils.isEmpty(driverClassName)) {
-            rc.setMessage("No classname given to find the driver");
+            rc.setMessage(Messages.getString("JavaSqlFactory.NoClassName")); //$NON-NLS-1$
             rc.setOk(false);
             return rc;
         }
@@ -183,11 +184,11 @@ public final class JavaSqlFactory {
         }
         MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
         if (mdmConn != null) {
-            return "";
+            return ""; //$NON-NLS-1$
         }
         DelimitedFileConnection dfConn = SwitchHelpers.DELIMITEDFILECONNECTION_SWITCH.doSwitch(conn);
         if (dfConn != null) {
-            return "";
+            return ""; //$NON-NLS-1$
         }
         return null;
     }
@@ -252,7 +253,7 @@ public final class JavaSqlFactory {
      */
     public static String getPassword(Connection conn) {
         DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
-        String psw = null;
+        String psw = "";//$NON-NLS-1$
         if (dbConn != null) {
             psw = dbConn.getPassword();
             if (conn.isContextMode()) {
@@ -266,13 +267,17 @@ public final class JavaSqlFactory {
                 }
 
             }
-            return psw;
+
+        } else {
+            MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
+            if (mdmConn != null) {
+                psw = ConnectionHelper.getPassword(mdmConn);
+            }
         }
-        MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
-        if (mdmConn != null) {
-            return ConnectionHelper.getPassword(mdmConn);
+        if (psw == null) {
+            psw = "";//$NON-NLS-1$
         }
-        return null;
+        return psw;
     }
 
     /**
