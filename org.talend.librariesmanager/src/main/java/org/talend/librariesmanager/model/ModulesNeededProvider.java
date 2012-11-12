@@ -32,6 +32,7 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsFactory;
+import org.talend.core.model.general.LibraryInfo;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.general.Project;
@@ -294,15 +295,29 @@ public class ModulesNeededProvider {
 
         // add modules which internal system routine(which under system folder and don't have item) need.
         if (system) {
-            Map<String, List<String>> routineAndJars = RoutineLibraryMananger.getInstance().getRoutineAndJars();
-            Iterator<Map.Entry<String, List<String>>> iter = routineAndJars.entrySet().iterator();
+            Map<String, List<LibraryInfo>> routineAndJars = RoutineLibraryMananger.getInstance().getRoutineAndJars();
+            Iterator<Map.Entry<String, List<LibraryInfo>>> iter = routineAndJars.entrySet().iterator();
             while (iter.hasNext()) {
-                Map.Entry<String, List<String>> entry = iter.next();
+                Map.Entry<String, List<LibraryInfo>> entry = iter.next();
                 String routineName = entry.getKey();
-                List<String> needJars = entry.getValue();
-                for (String jar : needJars) {
-                    ModuleNeeded toAdd = new ModuleNeeded("Routine " + routineName, jar, //$NON-NLS-1$
+                List<LibraryInfo> needJars = entry.getValue();
+                for (LibraryInfo jar : needJars) {
+                    ModuleNeeded toAdd = new ModuleNeeded("Routine " + routineName, jar.getLibName(), //$NON-NLS-1$
                             "", true);
+                    String bundleId = jar.getBundleId();
+                    if (bundleId != null) {
+                        String bundleName = null;
+                        String bundleVersion = null;
+                        if (bundleId.contains(":")) { //$NON-NLS-1$
+                            String[] nameAndVersion = bundleId.split(":"); //$NON-NLS-1$
+                            bundleName = nameAndVersion[0];
+                            bundleVersion = nameAndVersion[1];
+                        } else {
+                            bundleName = bundleId;
+                        }
+                        toAdd.setBundleName(bundleName);
+                        toAdd.setBundleVersion(bundleVersion);
+                    }
                     importNeedsList.add(toAdd);
                 }
             }

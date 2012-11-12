@@ -64,10 +64,36 @@
 
    <element name="library">
       <complexType>
+         <sequence minOccurs="0" maxOccurs="1">
+            <element ref="bundleId"/>
+         </sequence>
          <attribute name="name" type="string" use="required">
             <annotation>
                <documentation>
                   The name of library.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="bundleId">
+      <complexType>
+         <attribute name="bundleId" type="string">
+            <annotation>
+               <documentation>
+                  Note: parameter used only for OSGI, other exports won&apos;t use this.
+
+If defined in the library:
+- emtpy value:
+  - jar will never be exported.
+  
+- have one value:
+  - jar will be exported, and value will be used for the OSGI bundle (name,version) .
+
+
+ If not defined at all:
+ - jar will always be exported.
                </documentation>
             </annotation>
          </attribute>
