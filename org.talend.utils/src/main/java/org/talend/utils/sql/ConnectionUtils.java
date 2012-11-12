@@ -234,6 +234,15 @@ public final class ConnectionUtils {
         return dbMetaData;
     }
 
+    public static boolean isSybase(DatabaseMetaData metadata) {
+        boolean result = false;
+        // if it is sybase database, it will be the fake DatabaseMetaData
+        if (metadata != null && "org.talend.commons.utils.database.SybaseDatabaseMetaData".equals(metadata.getClass().getName())) {//$NON-NLS-1$
+            result = true;
+        }
+        return result;
+    }
+
     /**
      * yyi 2010-08-25 for 14851, Sybase DB has several names with different productions and versions. For example the
      * Sybase IQ with version 12.6 is called 'Sybase' getting by JDBC but the version 15+ it is changed to 'Sybase IQ'.
