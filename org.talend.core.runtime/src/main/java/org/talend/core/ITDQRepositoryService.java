@@ -99,4 +99,7 @@ public interface ITDQRepositoryService extends IService {
 
     // ADD xqliu 2012-05-25 TDQ-4831
     public boolean sourceFileOpening(RepositoryNode node);
+
+    // ADD qiongli 2012-11-12 TDQ-6166
+    public void initAllConnectionsToSQLExplorer();
 }
