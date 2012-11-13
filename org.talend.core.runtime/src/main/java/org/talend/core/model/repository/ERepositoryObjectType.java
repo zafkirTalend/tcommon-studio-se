@@ -344,9 +344,6 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType SYSTEM_INDICATORS_FUNCTIONAL_DEPENDENCY = new ERepositoryObjectType(
             "repository.systemIndicators.functionalDependency", "TDQ_Libraries/Indicators/System Indicators/Functional Dependency", "SYSTEM_INDICATORS_FUNCTIONAL_DEPENDENCY", 89, true, "repository.systemIndicators.functionalDependency.alias", new String[] { "DQ" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
 
-    public final static ERepositoryObjectType SYSTEM_INDICATORS_OVERVIEW = new ERepositoryObjectType(
-            "repository.systemIndicators.overview, repository.systemIndicators.overview.alias", "TDQ_Libraries/Indicators/System Indicators/Overview", "SYSTEM_INDICATORS_OVERVIEW", true, 90, new String[] { "DQ" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
-
     public final static ERepositoryObjectType SYSTEM_INDICATORS_PATTERN_FINDER = new ERepositoryObjectType(
             "repository.systemIndicators.patternFinder", "TDQ_Libraries/Indicators/System Indicators/Pattern Finder", "SYSTEM_INDICATORS_PATTERN_FINDER", 91, true, "repository.systemIndicators.patternFinder.alias", new String[] { "DQ" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
 
