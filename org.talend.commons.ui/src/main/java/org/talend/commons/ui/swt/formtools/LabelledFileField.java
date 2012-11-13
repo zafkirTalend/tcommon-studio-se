@@ -171,7 +171,7 @@ public class LabelledFileField {
         gridLayout.marginWidth = 0;
 
         compositeButton.setLayout(gridLayout);
-        compositeButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, true));
+        compositeButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
         button = new Button(compositeButton, SWT.PUSH);
         GridDataFactory.swtDefaults().applyTo(button);
         button.setText(Messages.getString("LabelledFileField.BrowseButton.Text")); //$NON-NLS-1$
