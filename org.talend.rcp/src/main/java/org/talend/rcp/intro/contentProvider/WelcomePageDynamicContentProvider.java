@@ -395,7 +395,7 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
             Element blockquoteA1Doc = dom.createElement("a");
             blockquoteA1Doc.setAttribute("href", BROWSER_URL + "showUserGuide");
             blockquoteA1Doc.appendChild(dom.createTextNode(Messages
-                    .getString("WelcomePageDynamicContentProvider.DocumentationUserGuideTitle")));
+                    .getString("WelcomePageDynamicContentProvider.DocumentationUserManuals")));
 
             Element blockquoteA2Doc = dom.createElement("a");
             blockquoteA2Doc.setAttribute("href", BROWSER_URL + "showReferenceGuide");
@@ -403,7 +403,7 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
                     .getString("WelcomePageDynamicContentProvider.DocumentationReferenceGuideTitle")));
             blockquotePDoc.appendChild(blockquoteA1Doc);
             blockquotePDoc.appendChild(dom.createElement("br"));
-            blockquotePDoc.appendChild(blockquoteA2Doc);
+            // blockquotePDoc.appendChild(blockquoteA2Doc);
             blockquoteDoc.appendChild(blockquotePDoc);
             parent.appendChild(blockquoteDoc);
         } else if ("GETTINGSTARTEDTITLE".equals(id)) {
