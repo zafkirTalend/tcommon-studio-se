@@ -96,8 +96,9 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
             case DND.DROP_COPY:
                 RunnableWithReturnValue runnable = new CopyRunnable(
                         Messages.getString("RepositoryDropAdapter_copyingItems"), data, targetNode); //$NON-NLS-1$
-                runInProgressDialog(runnable);
-                toReturn = (Boolean) runnable.getReturnValue();
+                // runInProgressDialog(runnable);
+                // toReturn = (Boolean) runnable.getReturnValue();
+                runCopy(data, targetNode);
                 break;
             case DND.DROP_MOVE:
                 runnable = new MoveRunnable(Messages.getString("RepositoryDropAdapter_movingItems"), data, targetNode); //$NON-NLS-1$
@@ -167,8 +168,9 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
      */
     @Override
     public boolean validateDrop(Object target, int operation, TransferData transferType) {
-        if (target == null)
+        if (target == null) {
             return false;
+        }
         super.validateDrop(target, operation, transferType);
         boolean isValid = true;
         for (Object obj : ((StructuredSelection) getViewer().getSelection()).toArray()) {
@@ -229,9 +231,29 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
         return isValid;
     }
 
+    private void runCopy(final Object data, final RepositoryNode targetNode) {
+        String copyName = "User action : Copy Object"; //$NON-NLS-1$
+        RepositoryWorkUnit<Object> repositoryWorkUnit = new RepositoryWorkUnit<Object>(copyName, CopyObjectAction.getInstance()) {
+
+            @Override
+            protected void run() throws LoginException, PersistenceException {
+                try {
+                    for (Object obj : ((StructuredSelection) data).toArray()) {
+                        final RepositoryNode sourceNode = (RepositoryNode) obj;
+                        CopyObjectAction.getInstance().execute(sourceNode, targetNode);
+                    }
+                } catch (Exception e) {
+                    throw new PersistenceException(e);
+                }
+            }
+        };
+        ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(repositoryWorkUnit);
+    }
+
     private void runInProgressDialog(final IWorkspaceRunnable op) {
         final IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
 
+            @Override
             public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                 IWorkspace workspace = ResourcesPlugin.getWorkspace();
                 try {
@@ -279,6 +301,7 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
             this.targetNode = targetNode;
         }
 
+        @Override
         public void run(IProgressMonitor monitor) throws CoreException {
             monitor.beginTask(getTaskName(), IProgressMonitor.UNKNOWN);
             String copyName = "User action : Copy Object"; //$NON-NLS-1$
@@ -319,6 +342,7 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
             this.targetNode = targetNode;
         }
 
+        @Override
         public void run(final IProgressMonitor monitor) throws CoreException {
             monitor.beginTask(getTaskName(), IProgressMonitor.UNKNOWN);
             // MOD gdbu 2011-10-9 TDQ-3545
@@ -340,7 +364,7 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
                         }
                         MessageDialog.openInformation(getViewer().getControl().getShell(),
                                 Messages.getString("RepositoryDropAdapter_moveTitle"), //$NON-NLS-1$
-                                errorMsg); //$NON-NLS-1$ 
+                                errorMsg);
                         setReturnValue(false);
                         return;
                     }
@@ -371,6 +395,7 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
                 protected void run() throws LoginException, PersistenceException {
                     final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
+                        @Override
                         public void run(IProgressMonitor monitor) throws CoreException {
                             try {
                                 for (Object obj : ((StructuredSelection) data).toArray()) {

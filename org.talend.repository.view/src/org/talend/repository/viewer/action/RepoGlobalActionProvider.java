@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.viewer.action;
 
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.internal.navigator.TextActionHandler;
@@ -38,13 +39,22 @@ public class RepoGlobalActionProvider extends CommonActionProvider {
     public void fillActionBars(IActionBars actionBars) {
         super.fillActionBars(actionBars);
         // actionBars.setGlobalActionHandler(ICommonActionConstants.OPEN, doubleClickAction);
-        actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), CopyAction.getInstance());
+        CopyAction copyActionInstance = CopyAction.getInstance();
+        actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), copyActionInstance);
         actionBars.setGlobalActionHandler(ActionFactory.PASTE.getId(), PasteAction.getInstance());
         actionBars.setGlobalActionHandler(ActionFactory.DELETE.getId(), DeleteAction.getInstance());
 
+        // init copy action
+        if (copyActionInstance != null && getContext() != null && getContext().getSelection() instanceof IStructuredSelection) {
+            IStructuredSelection sel = (IStructuredSelection) getContext().getSelection();
+            if (sel != null) {
+                copyActionInstance.init(null, sel);
+            }
+        }
+
         // TODO TextActionHandler is an internal class and should not be used.
         TextActionHandler textActionHandler = new TextActionHandler(actionBars);
-        textActionHandler.setCopyAction(CopyAction.getInstance());
+        textActionHandler.setCopyAction(copyActionInstance);
         textActionHandler.setPasteAction(PasteAction.getInstance());
         textActionHandler.setDeleteAction(DeleteAction.getInstance());
 
