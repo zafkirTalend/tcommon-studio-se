@@ -382,11 +382,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     if (!isNullSID(dbConn) && dbConn != null) {
                         String databaseOnConnWizard = ((DatabaseConnection) dbConn).getSID();
                         // If the SID on ui is not empty, the catalog name should be same to this SID name.
-                        filterList.addAll(postFillCatalog(catalogList, filterList,
-                                TalendCWMService.getReadableName(dbConn, databaseOnConnWizard), dbConn));
+                        postFillCatalog(catalogList, filterList, TalendCWMService.getReadableName(dbConn, databaseOnConnWizard),
+                                dbConn);
                         break;
                     } else if (isCreateElement(catalogFilter, catalogName)) {
-                        filterList.addAll(postFillCatalog(catalogList, filterList, catalogName, dbConn));
+                        postFillCatalog(catalogList, filterList, catalogName, dbConn);
                     }
                     // ~11412
                 }
@@ -543,7 +543,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         if (dbConn instanceof DatabaseConnection) {
             String databaseOnConnWizard = ((DatabaseConnection) dbConn).getSID();
             String readableName = TalendCWMService.getReadableName(dbConn, databaseOnConnWizard);
-            if (isEmptyString(databaseOnConnWizard) && isEmptyString(readableName)) {
+            if (isEmptyString(databaseOnConnWizard) || isEmptyString(readableName)) {
                 return true;
             }
         }
@@ -560,7 +560,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         if (dbConn instanceof DatabaseConnection) {
             String databaseOnConnWizard = ((DatabaseConnection) dbConn).getUiSchema();
             String readableName = TalendCWMService.getReadableName(dbConn, databaseOnConnWizard);
-            if (isEmptyString(databaseOnConnWizard) && isEmptyString(readableName)) {
+            if (isEmptyString(databaseOnConnWizard) || isEmptyString(readableName)) {
                 return true;
             }
         }
@@ -604,6 +604,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             }
         } else {
             String uiSchema = dbConnection.getUiSchema();
+            if (uiSchema != null) {
+                uiSchema = TalendCWMService.getReadableName(dbConn, uiSchema);
+            }
             if (!StringUtils.isBlank(uiSchema) && !filterList.contains(uiSchema)) {
                 filterList.add(uiSchema);
             }
