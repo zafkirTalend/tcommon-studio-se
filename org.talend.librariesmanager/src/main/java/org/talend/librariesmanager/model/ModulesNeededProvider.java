@@ -29,6 +29,7 @@ import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
+import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsFactory;
@@ -90,6 +91,7 @@ public class ModulesNeededProvider {
 
             // TimeMeasure.begin("ModulesNeededProvider.getModulesNeededForApplication");
             componentImportNeedsList.addAll(getModulesNeededForApplication());
+            componentImportNeedsList.addAll(getModulesNeededForDBConnWizard());
             //            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded", "ModulesNeededProvider.getModulesNeededForApplication"); //$NON-NLS-1$ //$NON-NLS-2$
 
             // TimeMeasure.resume("ModulesNeededProvider.getModulesNeededForJobs");
@@ -394,6 +396,19 @@ public class ModulesNeededProvider {
             }
         }
 
+        return importNeedsList;
+    }
+
+    private static List<ModuleNeeded> getModulesNeededForDBConnWizard() {
+        List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
+        EDatabaseVersion4Drivers[] dbVersions = EDatabaseVersion4Drivers.values();
+        for (EDatabaseVersion4Drivers temp : dbVersions) {
+            Set<String> drivers = temp.getProviderDrivers();
+            for (String driver : drivers) {
+                String message = Messages.getString("ModulesNeededProvider.ModulesForDBConnWizard"); //$NON-NLS-1$;
+                importNeedsList.add(new ModuleNeeded(temp.name(), driver, message, true));
+            }
+        }
         return importNeedsList;
     }
 
