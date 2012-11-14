@@ -20,6 +20,8 @@ import org.talend.cwm.softwaredeployment.TdMachine;
 
 /**
  * DOC scorreia class global comment. Detailled comment
+ * 
+ * @deprecated this class does not seem to be used anymore. Remove it?
  */
 public class DataManagerBuilder extends CwmBuilder {
 

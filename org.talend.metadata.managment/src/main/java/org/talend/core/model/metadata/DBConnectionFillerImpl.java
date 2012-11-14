@@ -61,7 +61,6 @@ import org.talend.cwm.helper.PackageHelper;
 import org.talend.cwm.helper.SchemaHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.helper.TaggedValueHelper;
-import org.talend.cwm.i18n.Messages;
 import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdExpression;

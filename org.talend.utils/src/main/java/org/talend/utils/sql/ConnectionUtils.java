@@ -237,7 +237,7 @@ public final class ConnectionUtils {
         // MOD xqliu 2009-11-17 bug 7888
         if (dbMetaData != null && dbMetaData.getDatabaseProductName() != null
                 && dbMetaData.getDatabaseProductName().equals(IBM_DB2_ZOS_PRODUCT_NAME)) {
-            dbMetaData = conn.getMetaData();
+            dbMetaData = conn.getMetaData(); // FIXME why do we call this method a second time?
             log.info("IBM DB2 for z/OS"); //$NON-NLS-1$
         }
         // ~

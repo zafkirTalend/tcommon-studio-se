@@ -139,7 +139,7 @@ public final class UpdateContextReferenceHelper {
 
                 // update the job state
                 if (process instanceof IProcess2) {
-                    CommandStack commandStack = ((IProcess2) process).getCommandStack();
+                    CommandStack commandStack = process.getCommandStack();
                     if (commandStack != null) {
                         commandStack.execute(new Command() {
                         });
@@ -252,7 +252,7 @@ public final class UpdateContextReferenceHelper {
      */
     private static void updateProcessItemforVariablesReference(JobContextManager curRepositoryManager, final String curContextId,
             final Set<String> repositoryVarsSet, final Map<String, String> renamedMap) {
-        IProxyRepositoryFactory factory = factory = ProxyRepositoryFactory.getInstance();
+        IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
 
         try {
             List<IRepositoryViewObject> repositoryObjList = factory.getAll(ERepositoryObjectType.PROCESS, true);

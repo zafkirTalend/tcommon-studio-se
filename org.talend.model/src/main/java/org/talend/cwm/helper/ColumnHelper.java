@@ -397,7 +397,7 @@ public final class ColumnHelper {
         Set<DataProvider> dataProviderSets = new HashSet<DataProvider>();
         for (TdColumn column : columns) {
             ColumnSet columnSetOwner = getColumnSetOwner(column);
-            DataProvider dp = DataProviderHelper.getConnection(columnSetOwner);
+            DataProvider dp = ConnectionHelper.getConnection(columnSetOwner);
             dataProviderSets.add(dp);
         }
         return dataProviderSets.size() == 1;

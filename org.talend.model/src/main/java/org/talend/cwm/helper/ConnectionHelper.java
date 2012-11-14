@@ -512,6 +512,7 @@ public class ConnectionHelper {
                 eResource.getContents().addAll(packages);
             }
 
+            // FIXME potential NPE here!
             added = packageList.addAll(packages);
         }
         return added;

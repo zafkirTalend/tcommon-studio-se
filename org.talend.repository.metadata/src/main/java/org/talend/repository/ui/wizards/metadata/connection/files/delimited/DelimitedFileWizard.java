@@ -100,13 +100,15 @@ public class DelimitedFileWizard extends CheckLastVersionRepositoryWizard implem
     }
 
     /**
+     * @Deprecated does not seem to be used anymore. Confirm and delete this constructor
+     * 
      * Constructor for FileWizard.
      * 
      * @param workbench
      * @param selection
      * @param strings
      */
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public DelimitedFileWizard(IWorkbench workbench, boolean creation, ISelection selection, String[] existingNames) {
         super(workbench, creation);
         this.selection = selection;
@@ -381,6 +383,7 @@ public class DelimitedFileWizard extends CheckLastVersionRepositoryWizard implem
      * 
      * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
      */
+    @Override
     public void init(final IWorkbench workbench, final IStructuredSelection selection2) {
         this.selection = selection2;
     }

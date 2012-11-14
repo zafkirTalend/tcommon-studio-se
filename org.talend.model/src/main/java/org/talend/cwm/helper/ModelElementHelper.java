@@ -227,10 +227,10 @@ public final class ModelElementHelper {
 
     public static final Connection getConnection(ModelElement element) {
         if (element instanceof TdColumn) {
-            return DataProviderHelper.getConnection((TdColumn) element);
+            return ConnectionHelper.getConnection((TdColumn) element);
         }
         if (element instanceof TdXmlElementType) {
-            return DataProviderHelper.getConnection((TdXmlElementType) element);
+            return ConnectionHelper.getConnection((TdXmlElementType) element);
         }
         return null;
     }

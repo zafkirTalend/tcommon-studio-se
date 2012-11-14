@@ -36,6 +36,7 @@ import orgomg.cwm.resource.relational.PrimaryKey;
  * @author scorreia
  * 
  * A class for creating Tables from a connection. By default, no column is retrieved.
+ * @deprecated this class does not seem to be used anymore. Remove it?
  */
 public class TableBuilder extends AbstractTableBuilder<TdTable> {
 
@@ -60,6 +61,7 @@ public class TableBuilder extends AbstractTableBuilder<TdTable> {
      * TableBuilder constructor.
      * 
      * @param conn the connection from which the tables will be created.
+     * @deprecated this method does not seem to be used anymore. Remove it?
      */
     public TableBuilder(org.talend.core.model.metadata.builder.connection.Connection conn) {
         super(conn, TableType.TABLE);

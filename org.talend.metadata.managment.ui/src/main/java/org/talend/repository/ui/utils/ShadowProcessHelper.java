@@ -38,7 +38,6 @@ import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.WSDLParameter;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
-import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
 import org.talend.core.utils.CsvArray;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.metadata.managment.ui.i18n.Messages;
@@ -176,17 +175,16 @@ public class ShadowProcessHelper {
     public static ProcessDescription getProcessDescription(final XmlFileConnection connection) {
         ProcessDescription processDescription = new ProcessDescription();
         processDescription.setFilepath(TalendQuoteUtils.addQuotes(PathUtils.getPortablePath(connection.getXmlFilePath())));
-        processDescription.setLoopQuery(TalendQuoteUtils.addQuotes(((XmlXPathLoopDescriptor) connection.getSchema().get(0))
-                .getAbsoluteXPathQuery()));
-        if (((XmlXPathLoopDescriptor) connection.getSchema().get(0)).getLimitBoucle() != null
-                && !("").equals(((XmlXPathLoopDescriptor) connection.getSchema().get(0)).getLimitBoucle()) //$NON-NLS-1$
-                && (((XmlXPathLoopDescriptor) connection.getSchema().get(0)).getLimitBoucle().intValue()) != 0) {
-            processDescription.setLoopLimit(((XmlXPathLoopDescriptor) connection.getSchema().get(0)).getLimitBoucle());
+        processDescription.setLoopQuery(TalendQuoteUtils.addQuotes(connection.getSchema().get(0).getAbsoluteXPathQuery()));
+        if (connection.getSchema().get(0).getLimitBoucle() != null
+                && !("").equals(connection.getSchema().get(0).getLimitBoucle()) //$NON-NLS-1$
+                && (connection.getSchema().get(0).getLimitBoucle().intValue()) != 0) {
+            processDescription.setLoopLimit(connection.getSchema().get(0).getLimitBoucle());
         }
 
         List<Map<String, String>> mapping = new ArrayList<Map<String, String>>();
 
-        List<SchemaTarget> schemaTargets = ((XmlXPathLoopDescriptor) connection.getSchema().get(0)).getSchemaTargets();
+        List<SchemaTarget> schemaTargets = connection.getSchema().get(0).getSchemaTargets();
 
         if (schemaTargets != null && !schemaTargets.isEmpty()) {
             Iterator<SchemaTarget> iterate = schemaTargets.iterator();
@@ -408,8 +406,8 @@ public class ShadowProcessHelper {
             preview = (IPreview) configurationElements[0].createExecutableExtension("class"); //$NON-NLS-1$
         }
 
-        for (int i = 0; i < configurationElements.length; i++) {
-            IPreview pre = (IPreview) configurationElements[i].createExecutableExtension("class"); //$NON-NLS-1$
+        for (IConfigurationElement configurationElement : configurationElements) {
+            IPreview pre = (IPreview) configurationElement.createExecutableExtension("class"); //$NON-NLS-1$
             if (!PluginChecker.isOnlyTopLoaded() && !pre.isTopPreview()) {
                 preview = pre;
             }
