@@ -159,7 +159,7 @@ public class RunStat implements Runnable {
 
     private boolean jobIsFinished = false;
 
-    private StringBuffer str = new StringBuffer(); //$NON-NLS-1$
+    private String str = ""; //$NON-NLS-1$
 
     public void startThreadStat(String clientHost, int portStats) throws java.io.IOException, java.net.UnknownHostException {
         if (!openSocket) {
@@ -263,20 +263,19 @@ public class RunStat implements Runnable {
             // it is connection
             int jobStat = sb.getJobStat();
             if (jobStat == JOBDEFAULT) {
-            	str.delete(0, str.length());
-                str = str.append(TYPE1_CONNECTION + "|" + rootPid + "|" + fatherPid + "|" + pid + "|").append(sb.getConnectionId());
+                str = TYPE1_CONNECTION + "|" + rootPid + "|" + fatherPid + "|" + pid + "|" + sb.getConnectionId();
                 // str = sb.getConnectionId();
                 if (sb.getState() == RunStat.CLEAR) {
-                    str.append( "|" + "clear"); //$NON-NLS-1$ //$NON-NLS-2$
+                    str += "|" + "clear"; //$NON-NLS-1$ //$NON-NLS-2$
                 } else {
 
                     if (sb.getExec() == null) {
-                        str.append("|").append(sb.getNbLine()).append("|").append(sb.getEndTime() - sb.getStartTime()); //$NON-NLS-1$ //$NON-NLS-2$
+                        str += "|" + sb.getNbLine() + "|" + (sb.getEndTime() - sb.getStartTime()); //$NON-NLS-1$ //$NON-NLS-2$
                     } else {
-                        str.append("|").append(sb.getExec()); //$NON-NLS-1$
+                        str += "|" + sb.getExec(); //$NON-NLS-1$
                     }
                     if (sb.getState() != RunStat.RUNNING) {
-                        str.append("|" + ((sb.getState() == RunStat.BEGIN) ? "start" : "stop")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                        str += "|" + ((sb.getState() == RunStat.BEGIN) ? "start" : "stop"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                     }
                 }
             } else {
@@ -293,11 +292,11 @@ public class RunStat implements Runnable {
                     jobStatStr = jobName + "|" + "end job" + "|" + itemId + "|"
                             + simpleDateFormat.format(new Date(sb.getEndTime()));
                 }
-                str.delete(0, str.length());
-                str.append( TYPE0_JOB + "|" + rootPid + "|" + fatherPid + "|" + pid + "|").append(jobStatStr);
+
+                str = TYPE0_JOB + "|" + rootPid + "|" + fatherPid + "|" + pid + "|" + jobStatStr;
             }
             // System.out.println(str);
-            pred.println(str.toString()); // envoi d'un message
+            pred.println(str); // envoi d'un message
         }
         keysList.clear();
 
@@ -366,12 +365,10 @@ public class RunStat implements Runnable {
 
     public synchronized void updateStatOnConnection(String connectionId, int mode, String exec) {
         StatBean bean;
-        StringBuffer key = new StringBuffer();
-        key.append(connectionId + "|" + mode);
+        String key = connectionId + "|" + mode;
 
         if (connectionId.startsWith("iterate")) {
-        	key.delete(0, key.length());
-            key.append(connectionId + "|" + mode + "|" + exec);
+            key = connectionId + "|" + mode + "|" + exec;
         } else {
             if (connectionId.contains(".")) {
                 String firstKey = null;
@@ -396,7 +393,7 @@ public class RunStat implements Runnable {
         if (keysList.contains(key)) {
             keysList.remove(key);
         }
-        keysList.add(key.toString());
+        keysList.add(key);
         // System.out.println(connectionId);
         if (processStats.containsKey(key)) {
             bean = processStats.get(key);
@@ -405,7 +402,7 @@ public class RunStat implements Runnable {
         }
         bean.setState(mode);
         bean.setExec(exec);
-        processStats.put(key.toString(), bean);
+        processStats.put(key, bean);
 
         // Set a maximum interval for each update of 250ms.
         // since Iterate can be fast, we try to update the UI often.
