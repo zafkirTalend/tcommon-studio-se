@@ -153,11 +153,13 @@ public class ArchiveFileExportOperationFullPath implements IRunnableWithProgress
                 if (rootName != null && !"".equals(destinationName)) { //$NON-NLS-1$
                     if (file.getName().equals(Messages.getString("ArchiveFileExportOperationFullPath.SpecialFile"))) { //$NON-NLS-1$
                         destinationName = rootName.substring(0, rootName.indexOf("/")) + SEPARATOR + destinationName; //$NON-NLS-1$
-                    } else {
+                    } else if (!"".equals(rootName)) { //$NON-NLS-1$
                         destinationName = rootName + SEPARATOR + destinationName;
                     }
                 }
             }
+
+            destinationName = destinationName.replace("//", SEPARATOR); //$NON-NLS-1$
 
             monitor.subTask(destinationName);
 
