@@ -40,7 +40,8 @@ public class DataOperation {
     }
 
     /**
-     * FIX(double) expression Rounds given double numbers to the closest long.
+     * FIX(double) Rounds a number of type Double to a number of type Long with the precision specified in the PRECISION
+     * statement.
      * 
      * {talendTypes} long | Long
      * 
