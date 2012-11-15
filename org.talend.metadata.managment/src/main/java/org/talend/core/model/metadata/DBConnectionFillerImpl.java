@@ -374,9 +374,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                             catalogName = ""; //$NON-NLS-1$
                         }
                     }
-                    // ~
-                    assert catalogName != null && !isHive : Messages.getString("CatalogBuilder.CatalogNameNull",//$NON-NLS-1$
-                            dbJDBCMetadata.getConnection().toString()); // FIXME assertion string must not be
                     // MOD xqliu 2010-03-03 feature 11412
                     if (!isNullSID(dbConn) && dbConn != null) {
                         String databaseOnConnWizard = ((DatabaseConnection) dbConn).getSID();
