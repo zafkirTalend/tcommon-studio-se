@@ -27,6 +27,7 @@ import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProv
 import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
 import org.talend.core.CorePlugin;
+import org.talend.core.PluginChecker;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
@@ -91,7 +92,9 @@ public class ModulesNeededProvider {
 
             // TimeMeasure.begin("ModulesNeededProvider.getModulesNeededForApplication");
             componentImportNeedsList.addAll(getModulesNeededForApplication());
-            componentImportNeedsList.addAll(getModulesNeededForDBConnWizard());
+            if (PluginChecker.isMetadataPluginLoaded()) {
+                componentImportNeedsList.addAll(getModulesNeededForDBConnWizard());
+            }
             //            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded", "ModulesNeededProvider.getModulesNeededForApplication"); //$NON-NLS-1$ //$NON-NLS-2$
 
             // TimeMeasure.resume("ModulesNeededProvider.getModulesNeededForJobs");

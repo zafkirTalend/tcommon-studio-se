@@ -80,6 +80,8 @@ public class PluginChecker {
 
     private static final String HDFS_PLUGIN_ID = "org.talend.repository.hdfs"; //$NON-NLS-1$ 
 
+    private static final String METADATA_PLUGIN_ID = "org.talend.repository.metadata"; //$NON-NLS-1$ 
+
     /**
      * Check if specific plug-in is loaded.
      * 
@@ -240,5 +242,9 @@ public class PluginChecker {
 
     public static boolean isHDFSPluginLoaded() {
         return isPluginLoaded(HDFS_PLUGIN_ID);
+    }
+
+    public static boolean isMetadataPluginLoaded() {
+        return isPluginLoaded(METADATA_PLUGIN_ID);
     }
 }
