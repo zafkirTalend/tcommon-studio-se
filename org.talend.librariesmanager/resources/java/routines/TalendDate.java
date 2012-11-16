@@ -959,6 +959,18 @@ public class TalendDate {
     public static void test_isDate() {
         System.out.println("isDate: " + Boolean.toString(TalendDate.isDate("2008-11-35 12:15:25", "yyyy-MM-dd HH:mm") == false)); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$       
     }
+    
+    /**
+     * format date to mssql 2008 type datetimeoffset ISO 8601 string with local time zone
+     * format string : yyyy-MM-dd HH:mm:ss.SSSXXX(JDK7 support it)
+     */
+    public static String formatDatetimeoffset(Date date) {
+        String dateString = formatDate("yyyy-MM-dd HH:mm:ss.SSSZ", date);//keep the max precision in java
+        StringBuilder sb = new StringBuilder(30);
+        sb.append(dateString);
+        sb.insert(dateString.length()-2,':');
+        return sb.toString();
+    }
 
     /**
      * 
