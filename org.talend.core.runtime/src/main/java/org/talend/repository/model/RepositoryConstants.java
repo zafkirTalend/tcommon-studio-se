@@ -84,6 +84,9 @@ public class RepositoryConstants {
     public static final String SERVICES_NAME_PATTERN = "[a-zA-Z_][a-zA-Z0-9\\.\\-_]*";
 
     public static final String MDM_ITEM_PATTERN = ".*"; //$NON-NLS-1$
+
+    public static final String METADATA_NAME_PATTERN = "^[^\\s\\\\~\\!\\`\\@\\#\\$\\%\\^\\&\\*\\(\\)\\-\\+\\=\\{\\[\\]\\}\\:\\;\\'\\|\\<\\,\\>\\.\\?\\/\"￥；：‘”、《，》。？……]{1,}$";
+
     public static String getPattern(ERepositoryObjectType type) {
         if (type == ERepositoryObjectType.FOLDER) {
             return FOLDER_PATTERN;
@@ -99,7 +102,18 @@ public class RepositoryConstants {
                 || type == ERepositoryObjectType.TDQ_SOURCE_FILE_ELEMENT || type == ERepositoryObjectType.TDQ_RULES
                 || type == ERepositoryObjectType.TDQ_RULES_SQL || type == ERepositoryObjectType.TDQ_INDICATOR_ELEMENT) {
             return TDQ_ALL_ITEM_PATTERN;
-        } 
+        } else if (type == ERepositoryObjectType.METADATA_CONNECTIONS || type == ERepositoryObjectType.METADATA_FILE_DELIMITED
+                || type == ERepositoryObjectType.METADATA_FILE_POSITIONAL || type == ERepositoryObjectType.METADATA_FILE_REGEXP
+                || type == ERepositoryObjectType.METADATA_FILE_XML || type == ERepositoryObjectType.METADATA_FILE_EXCEL
+                || type == ERepositoryObjectType.METADATA_FILE_LDIF || type == ERepositoryObjectType.METADATA_LDAP_SCHEMA
+                || type == ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA
+                || type == ERepositoryObjectType.METADATA_GENERIC_SCHEMA || type == ERepositoryObjectType.METADATA_MDMCONNECTION
+                || type == ERepositoryObjectType.METADATA_FILE_HL7 || type == ERepositoryObjectType.METADATA_FILE_RULES
+                || type == ERepositoryObjectType.METADATA_FILE_EBCDIC || type == ERepositoryObjectType.METADATA_WSDL_SCHEMA
+                || type == ERepositoryObjectType.METADATA_VALIDATION_RULES || type == ERepositoryObjectType.METADATA_FILE_FTP
+                || type == ERepositoryObjectType.METADATA_EDIFACT) {
+            return METADATA_NAME_PATTERN;
+        }
         // GLIU: add for TESB-3837
         else if (type != null && "SERVICES".equals(type.getType())) {
             return SERVICES_NAME_PATTERN;
