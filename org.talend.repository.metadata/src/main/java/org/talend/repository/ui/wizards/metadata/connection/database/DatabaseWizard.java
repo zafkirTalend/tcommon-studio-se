@@ -419,12 +419,17 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
                     // Modified by Marvin Wang on Apr. 40, 2012 for bug TDI-20744
                     // factory.save(connectionItem);
+                    boolean isNameModified = propertiesWizardPage.isNameModifiedByUser();
 
-                    updateConnectionItem();
-
-                    // 0005170: Schema renamed - new name not pushed out to dependant jobs
-                    boolean isModified = propertiesWizardPage.isNameModifiedByUser();
-                    if (isModified) {
+                    // MOD yyin 20121115 TDQ-6395, save all dependency of the connection when the name is changed.
+                    if (isNameModified && tdqRepService != null) {
+                        tdqRepService.saveConnectionWithDependency(connectionItem);
+                        closeLockStrategy();
+                    } else {
+                        updateConnectionItem();
+                    }
+                    // ~
+                    if (isNameModified) {
                         if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
                             IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
                                     IDesignerCoreService.class);
