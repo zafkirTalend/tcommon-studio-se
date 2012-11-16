@@ -227,6 +227,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             connection = (DatabaseConnection) ((ConnectionItem) node.getObject().getProperty().getItem()).getConnection();
             connectionProperty = node.getObject().getProperty();
             connectionItem = (ConnectionItem) node.getObject().getProperty().getItem();
+
             // set the repositoryObject, lock and set isRepositoryObjectEditable
             setRepositoryObject(node.getObject());
             isRepositoryObjectEditable();
@@ -248,6 +249,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
         // initialize the context mode
         ConnectionContextHelper.checkContextMode(connectionItem);
     }
+
 
     /**
      * yzhang Comment method "setToolBar".
@@ -421,12 +423,19 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
                     // Modified by Marvin Wang on Apr. 40, 2012 for bug TDI-20744
                     // factory.save(connectionItem);
-
-                    updateConnectionItem();
-
                     // 0005170: Schema renamed - new name not pushed out to dependant jobs
-                    boolean isModified = propertiesWizardPage.isNameModifiedByUser();
-                    if (isModified) {
+                    boolean isNameModified = propertiesWizardPage.isNameModifiedByUser();
+
+                    // MOD yyin 20121115 TDQ-6395, save all dependency of the connection when the name is changed.
+                    if (isNameModified && tdqRepService != null) {
+                        tdqRepService.saveConnectionWithDependency(connectionItem);
+                        closeLockStrategy();
+                    } else {
+                        updateConnectionItem();
+                    }
+                    // ~
+
+                    if (isNameModified) {
                         if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
                             IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
                                     IDesignerCoreService.class);
@@ -435,9 +444,6 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                             }
                         }
                     }
-                    // ProxyRepositoryFactory.getInstance().saveProject(ProjectManager.getInstance().getCurrentProject());
-                    // closeLockStrategy();
-
                 }
             } catch (Exception e) {
                 String detailError = e.toString();
