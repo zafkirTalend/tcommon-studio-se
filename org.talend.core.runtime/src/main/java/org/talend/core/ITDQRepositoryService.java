@@ -102,4 +102,7 @@ public interface ITDQRepositoryService extends IService {
     // ADD qiongli 2012-11-12 TDQ-6166
     public void initAllConnectionsToSQLExplorer();
 
+    // Add yyin 2012-11-15 TDQ-6395
+    public void saveConnectionWithDependency(ConnectionItem connectionItem);
+
 }
