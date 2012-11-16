@@ -411,10 +411,19 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                         RepositoryUpdateManager.updateDBConnection(connectionItem);
                     }
                     this.connection.setName(connectionProperty.getLabel());
-                    factory.save(connectionItem);
-                    // 0005170: Schema renamed - new name not pushed out to dependant jobs
-                    boolean isModified = propertiesWizardPage.isNameModifiedByUser();
-                    if (isModified) {
+
+                    boolean isNameModified = propertiesWizardPage.isNameModifiedByUser();
+
+                    // MOD yyin 20121115 TDQ-6395, save all dependency of the connection when the name is changed.
+                    if (isNameModified && tdqRepService != null) {
+                        tdqRepService.saveConnectionWithDependency(connectionItem);
+
+                    } else {
+                        factory.save(connectionItem);
+                    }
+                    closeLockStrategy();
+                    // ~
+                    if (isNameModified) {
                         if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
                             IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
                                     IDesignerCoreService.class);
