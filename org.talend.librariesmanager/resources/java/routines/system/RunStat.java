@@ -356,6 +356,7 @@ public class RunStat implements Runnable {
                 sendMessages();
                 lastStatsUpdate = newStatsUpdate;
             }
+            bean.setStartTime(System.currentTimeMillis());
         }
 
         if (debug) {
