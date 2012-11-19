@@ -306,7 +306,7 @@ public final class DBConnectionContextUtils {
             return null;
         }
         DatabaseConnection dbConn = (DatabaseConnection) connectionItem.getConnection();
-        ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(dbConn, null, defaultContext);
+        ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(dbConn, defaultContext);
 
         String server = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getServerName());
         String username = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getUsername());
@@ -356,9 +356,6 @@ public final class DBConnectionContextUtils {
             String selectedContext) {
         if (dbConn == null) {
             return null;
-        }
-        if (selectedContext == null || selectedContext.length() == 0) {
-            selectedContext = ConnectionContextHelper.selectedContextString;
         }
         ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(null, dbConn, selectedContext,
                 defaultContext);

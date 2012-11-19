@@ -188,6 +188,7 @@ public class DelimitedFileStep3Form extends AbstractDelimitedFileStepForm {
         // metadataNameText : Event modifyText
         metadataNameText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 MetadataToolHelper.validateSchema(metadataNameText.getText());
                 metadataTable.setLabel(metadataNameText.getText());
@@ -206,6 +207,7 @@ public class DelimitedFileStep3Form extends AbstractDelimitedFileStepForm {
         // metadataCommentText : Event modifyText
         metadataCommentText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 metadataTable.setComment(metadataCommentText.getText());
             }
@@ -214,6 +216,7 @@ public class DelimitedFileStep3Form extends AbstractDelimitedFileStepForm {
         // add listener to tableMetadata (listen the event of the toolbars)
         tableEditorView.getMetadataEditor().addAfterOperationListListener(new IListenableListListener() {
 
+            @Override
             public void handleEvent(ListenableListEvent event) {
                 checkFieldsValue();
             }
@@ -265,7 +268,6 @@ public class DelimitedFileStep3Form extends AbstractDelimitedFileStepForm {
                     if (MessageDialog.openConfirm(getShell(), Messages.getString("FileStep3.guessConfirmation"), Messages //$NON-NLS-1$
                             .getString("FileStep3.guessConfirmationMessage"))) { //$NON-NLS-1$
                         runShadowProcess();
-                        ConnectionContextHelper.selectedContextString = null;
                     }
                     return;
                 }

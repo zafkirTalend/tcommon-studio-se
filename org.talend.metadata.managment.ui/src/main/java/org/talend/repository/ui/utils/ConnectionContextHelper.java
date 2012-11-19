@@ -111,8 +111,6 @@ public final class ConnectionContextHelper {
 
     public static IContextManager contextManager;
 
-    public static String selectedContextString = null;
-
     /**
      * 
      * ggu Comment method "checkContextMode".
@@ -1068,7 +1066,7 @@ public final class ConnectionContextHelper {
      * if defaultContext is true, will use the default context.
      */
     public static ContextType getContextTypeForContextMode(Connection connection, boolean defaultContext) {
-        return getContextTypeForContextMode(null, connection, selectedContextString, defaultContext);
+        return getContextTypeForContextMode(null, connection, null, defaultContext);
     }
 
     public static ContextType getContextTypeForContextMode(Connection connection, String selectedContext, boolean defaultContext) {
@@ -1076,7 +1074,7 @@ public final class ConnectionContextHelper {
     }
 
     public static ContextType getContextTypeForContextMode(Shell shell, Connection connection) {
-        return getContextTypeForContextMode(shell, connection, selectedContextString, false);
+        return getContextTypeForContextMode(shell, connection, null, false);
     }
 
     public static ContextType getContextTypeForContextMode(Shell shell, Connection connection, String selectedContext,
@@ -1085,7 +1083,7 @@ public final class ConnectionContextHelper {
     }
 
     public static ContextType getContextTypeForContextMode(Shell shell, Connection connection, boolean canCancel) {
-        return getContextTypeForContextMode(shell, connection, selectedContextString, false, canCancel);
+        return getContextTypeForContextMode(shell, connection, null, false, canCancel);
     }
 
     /**
@@ -1098,7 +1096,6 @@ public final class ConnectionContextHelper {
      */
     private static ContextType getContextTypeForContextMode(Shell shell, Connection connection, String selectedContext,
             boolean defaultContext, boolean canCancel) {
-        selectedContextString = selectedContext;
         if (connection == null) {
             return null;
         }
@@ -1122,9 +1119,9 @@ public final class ConnectionContextHelper {
                                     setsDialog.open();
                                 }
                             });
-                    selectedContextString = setsDialog.getSelectedContext();
+                    selectedContext = setsDialog.getSelectedContext();
                 } else {
-                    selectedContextString = contextItem.getDefaultContext();
+                    selectedContext = contextItem.getDefaultContext();
                 }
             }
             // if can cancel, can't return the default contex by auto.
