@@ -910,8 +910,7 @@ public class RepositoryToComponentProperty {
 
         if (value.equals("DB_VERSION")) { //$NON-NLS-1$
             String dbVersionString = connection.getDbVersionString();
-            if (EDatabaseConnTemplate.ACCESS.getDBDisplayName().equals(databaseType)
-                    || EDatabaseConnTemplate.MYSQL.getDBDisplayName().equals(databaseType)) {
+            if (EDatabaseConnTemplate.ACCESS.getDBDisplayName().equals(databaseType)) {
                 // @Deprecated: see bug 7262 this bug is Deprecated
                 return dbVersionString;
             } else {
