@@ -265,7 +265,6 @@ public class DelimitedFileStep3Form extends AbstractDelimitedFileStepForm {
                     if (MessageDialog.openConfirm(getShell(), Messages.getString("FileStep3.guessConfirmation"), Messages //$NON-NLS-1$
                             .getString("FileStep3.guessConfirmationMessage"))) { //$NON-NLS-1$
                         runShadowProcess();
-                        ConnectionContextHelper.selectedContextString = null;
                     }
                     return;
                 }
