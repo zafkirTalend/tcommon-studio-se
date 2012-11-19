@@ -51,6 +51,7 @@ import org.talend.core.ui.webService.WebServiceTosSaveManager;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
@@ -623,5 +624,14 @@ public class WSDLSchemaWizard extends CheckLastVersionRepositoryWizard implement
         box.setText("WARNING"); //$NON-NLS-1$
         box.setMessage(title); //$NON-NLS-1$
         box.open();
+    }
+
+    @Override
+    public boolean canFinish() {
+        boolean flag = ProjectManager.getInstance().isInCurrentMainProject(this.connectionItem);
+        if (!flag) {
+            return false;
+        }
+        return true;
     }
 }
