@@ -250,7 +250,6 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
         ConnectionContextHelper.checkContextMode(connectionItem);
     }
 
-
     /**
      * yzhang Comment method "setToolBar".
      * 
@@ -461,10 +460,22 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             }
 
             if (tdqRepService != null) {
-                tdqRepService.notifySQLExplorer(connectionItem);
+                // MOD qiongli 2012-11-19 TDQ-6287
+                if (creation) {
+                    tdqRepService.notifySQLExplorer(connectionItem);
+                } else {
+                    tdqRepService.removeAliasInSQLExplorer(node);
+                    tdqRepService.notifySQLExplorer(connectionItem);
+                }
+                // reopen the opened connection editor whatever is in DI or DQ perspective.
+                tdqRepService.openEditor(connectionItem);
                 if (CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {
-                    tdqRepService.openEditor(connectionItem);
-                    tdqRepService.refresh(node);
+                    if (node.getParent() != null) {
+                        tdqRepService.refresh(node.getParent());
+                    } else {
+                        tdqRepService.refresh();
+                    }
+
                 }
             }
             updateTdqDependencies();
