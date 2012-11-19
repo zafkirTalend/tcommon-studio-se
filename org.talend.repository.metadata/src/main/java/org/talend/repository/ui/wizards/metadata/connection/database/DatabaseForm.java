@@ -2545,7 +2545,8 @@ public class DatabaseForm extends AbstractForm {
         mappingFileText.setEditable(false);
         mappingSelectButton.setEnabled(false);
 
-        if (EDatabaseConnTemplate.GODBC.getDBTypeName().equals(dbTypeCombo.getText())) {
+        if (EDatabaseConnTemplate.GODBC.getDBTypeName().equals(dbTypeCombo.getText())
+                || EDatabaseConnTemplate.GENERAL_JDBC.getDBTypeName().equals(dbTypeCombo.getText())) {
             addContextParams(EDBParamName.MappingFile, true);
             mappingFileText.show();
             mappingFileText.setEditable(true);
