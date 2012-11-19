@@ -112,6 +112,10 @@ public abstract class UpdateResult {
         case DELETE:
             setChecked(true);
             break;
+        case JOBLET_UPDATE:
+        case RELOAD:
+            setChecked(true);
+            break;
         default:
             setChecked(true);
             setReadOnly(true);
@@ -140,19 +144,23 @@ public abstract class UpdateResult {
             break;
         case ADD:
         case DELETE:
+            setChecked(true);
+            break;
+        case JOBLET_UPDATE:
+        case RELOAD:
             if (openedJoblet) {
                 setChecked(true);
+                setReadOnly(true);
             } else {
                 setChecked(false);
             }
-
             break;
         default:
-            if (openedJoblet) {
-                setChecked(true);
-            } else {
-                setChecked(false);
-            }
+            // if (openedJoblet) {
+            setChecked(true);
+            // } else {
+            // setChecked(false);
+            // }
 
             setReadOnly(true);
         }
