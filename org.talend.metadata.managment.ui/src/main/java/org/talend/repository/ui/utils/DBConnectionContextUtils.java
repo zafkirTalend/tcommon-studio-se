@@ -360,7 +360,7 @@ public final class DBConnectionContextUtils {
         if (dbConn == null) {
             return null;
         }
-        ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(null, dbConn, selectedContext,
+        ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(null, dbConn, dbConn.getContextName(),
                 defaultContext);
         DatabaseConnection cloneConn = ConnectionFactory.eINSTANCE.createDatabaseConnection();
         // get values
@@ -558,7 +558,7 @@ public final class DBConnectionContextUtils {
         if (conn == null || metadataConnection == null) {
             return;
         }
-        ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(conn);
+        ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(conn, conn.getContextName());
 
         // driverPath
         metadataConnection.setDriverJarPath(ConnectionContextHelper.getOriginalValue(contextType, conn.getDriverJarPath()));
