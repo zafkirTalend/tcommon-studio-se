@@ -17,11 +17,14 @@ import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.collections.map.MultiKeyMap;
 import org.talend.commons.utils.encoding.CharsetToolkit;
+import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 
@@ -34,21 +37,22 @@ public class JDBCDriverLoader {
     public static final String SHUTDOWN_PARAM = ";shutdown=true"; //$NON-NLS-1$
 
     private static MultiKeyMap classLoadersMap = new MultiKeyMap();
-    
+
+    private static final Map<String, DriverShim> DRIVER_CACHE = new HashMap<String, DriverShim>();
+
     /**
-     * Loads the jars for hive embedded mode required, I do not think it is the better method 
-     * to do this here. Due to the limitation on code structure, I have to write this method 
-     * to load the jar required by Hive. If metadata connection part is refactored, developer 
-     * could adjust this method.
-     * Added by Marvin Wang on Oct 24, 2012.
+     * Loads the jars for hive embedded mode required, I do not think it is the better method to do this here. Due to
+     * the limitation on code structure, I have to write this method to load the jar required by Hive. If metadata
+     * connection part is refactored, developer could adjust this method. Added by Marvin Wang on Oct 24, 2012.
+     * 
      * @param libraries
      * @param dbType
      * @param dbVersion
      */
-    public void loadForHiveEmbedded(List<String> libraries,String dbType, String dbVersion){
-    	boolean flog = EDatabaseVersion4Drivers.containTypeAndVersion(dbType, dbVersion);
-    	HotClassLoader loader = null;
-    	if (flog) {
+    public void loadForHiveEmbedded(List<String> libraries, String dbType, String dbVersion) {
+        boolean flog = EDatabaseVersion4Drivers.containTypeAndVersion(dbType, dbVersion);
+        HotClassLoader loader = null;
+        if (flog) {
             loader = (HotClassLoader) classLoadersMap.get(dbType, dbVersion);
             if (loader == null) {
                 loader = new HotClassLoader();
@@ -56,19 +60,19 @@ public class JDBCDriverLoader {
                     loader.addPath(libraries.get(i));
                 }
                 classLoadersMap.put(dbType, dbVersion, loader);
-            }else{
-            	URL[] urls = loader.getURLs();
-            	if(urls != null && urls.length > 0){
-            		for(int i = 0;i < urls.length ; i++){
-            			String urlPath = urls[i].getPath();
-            			for (int j = 0; j < libraries.size(); j++) {
-            				if(urlPath != null && !"".equals(urlPath) && urlPath.equals(libraries.get(j))){
-            					loader.addPath(libraries.get(j));
-            					break;
-            				}
-            			}
-            		}
-            	}
+            } else {
+                URL[] urls = loader.getURLs();
+                if (urls != null && urls.length > 0) {
+                    for (int i = 0; i < urls.length; i++) {
+                        String urlPath = urls[i].getPath();
+                        for (int j = 0; j < libraries.size(); j++) {
+                            if (urlPath != null && !"".equals(urlPath) && urlPath.equals(libraries.get(j))) {
+                                loader.addPath(libraries.get(j));
+                                break;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -98,8 +102,8 @@ public class JDBCDriverLoader {
                     loader.addPath(jarPath[i]);
                 }
                 classLoadersMap.put(dbType, dbVersion, loader);
-            }else{
-            	for (int i = 0; i < jarPath.length; i++) {
+            } else {
+                for (int i = 0; i < jarPath.length; i++) {
                     loader.addPath(jarPath[i]);
                 }
             }
@@ -123,8 +127,13 @@ public class JDBCDriverLoader {
         try {
             Class<?> driver = Class.forName(driverClassName, true, loader);
             // Object driver = loader.loadClass(driverClassName).newInstance();
-            wapperDriver = new DriverShim((Driver) (driver.newInstance()));
-
+            // the jtds mode to connect sqlserver database only Instance driver once
+            if (EDatabaseTypeName.MSSQL.getDisplayName().equals(dbType)
+                    && DRIVER_CACHE.containsKey(EDatabase4DriverClassName.MSSQL.getDriverClass()) && "".equals(username)) {
+                wapperDriver = DRIVER_CACHE.get(EDatabase4DriverClassName.MSSQL.getDriverClass());
+            } else {
+                wapperDriver = new DriverShim((Driver) (driver.newInstance()));
+            }
             Properties info = new Properties();
 
             // to avoid NPE
@@ -151,17 +160,21 @@ public class JDBCDriverLoader {
                 }
                 // MOD klliu TDQ-4659 sso could not check passed.2012-02-10
                 // if (dbType.equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
-                    // connection = ConnectionUtils.createConnection(url, (Driver) (driver.newInstance()), info);
+                // connection = ConnectionUtils.createConnection(url, (Driver) (driver.newInstance()), info);
                 // } else {
-//                	we need to change later when TDQ supports hive embedded mode.
-                	if(EDatabaseTypeName.HIVE.getDisplayName().equals(dbType) && "EMBEDDED".equalsIgnoreCase(dbVersion)){
-                		Thread.currentThread().setContextClassLoader(loader);
-                	}
-//                	ClassLoader currentContextCL = Thread.currentThread().getContextClassLoader();
-                    connection = wapperDriver.connect(url, info);
-//                    Thread.currentThread().setContextClassLoader(currentContextCL);
+                // we need to change later when TDQ supports hive embedded mode.
+                if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbType) && "EMBEDDED".equalsIgnoreCase(dbVersion)) {
+                    Thread.currentThread().setContextClassLoader(loader);
                 }
+                // ClassLoader currentContextCL = Thread.currentThread().getContextClassLoader();
+                connection = wapperDriver.connect(url, info);
+                // Thread.currentThread().setContextClassLoader(currentContextCL);
+            }
             // }
+            if (EDatabaseTypeName.MSSQL.getDisplayName().equals(dbType)
+                    && !DRIVER_CACHE.containsKey(EDatabase4DriverClassName.MSSQL.getDriverClass()) && "".equals(username)) {
+                DRIVER_CACHE.put(EDatabase4DriverClassName.MSSQL.getDriverClass(), wapperDriver);
+            }
             // DriverManager.deregisterDriver(wapperDriver);
             // bug 9162
             list.add(connection);
