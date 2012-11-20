@@ -991,6 +991,10 @@ public final class ConnectionContextHelper {
         return getContextTypeForContextMode(connection, false);
     }
 
+    public static ContextType getContextTypeForContextMode(Connection connection, String contextName) {
+        return getContextTypeForContextMode(connection, contextName, false);
+    }
+
     /**
      * 
      * wzhang Comment method "containsVariable".
@@ -1124,6 +1128,7 @@ public final class ConnectionContextHelper {
                     selectedContext = contextItem.getDefaultContext();
                 }
             }
+            connection.setContextName(selectedContext);
             // if can cancel, can't return the default contex by auto.
             return ContextUtils.getContextTypeByName(contextItem, selectedContext, !canCancel);
         }

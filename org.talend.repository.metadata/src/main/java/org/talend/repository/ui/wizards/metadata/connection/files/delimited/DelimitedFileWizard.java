@@ -243,8 +243,8 @@ public class DelimitedFileWizard extends CheckLastVersionRepositoryWizard implem
         ConnectionContextHelper.checkContextMode(connectionItem);
         contextModeManager = new MetadataContextModeManager();
         if (connectionItem.getConnection().isContextMode()) {
-            ContextType contextTypeForContextMode = ConnectionContextHelper.getContextTypeForContextMode(connectionItem
-                    .getConnection());
+            ContextType contextTypeForContextMode = ConnectionContextHelper.getContextTypeForContextMode(
+                    connectionItem.getConnection(), connectionItem.getConnection().getContextName());
             contextModeManager.setSelectedContextType(contextTypeForContextMode);
         }
     }
