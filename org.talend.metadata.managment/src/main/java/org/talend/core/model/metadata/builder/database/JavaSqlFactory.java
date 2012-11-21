@@ -65,6 +65,7 @@ public final class JavaSqlFactory {
      * @return a ReturnCode (never null)
      * @deprecated
      */
+    @Deprecated
     public static TypedReturnCode<java.sql.Connection> createConnection(DatabaseConnection providerConnection) {
         TypedReturnCode<java.sql.Connection> rc = new TypedReturnCode<java.sql.Connection>(false);
         String url = providerConnection.getURL();
@@ -252,7 +253,7 @@ public final class JavaSqlFactory {
      */
     public static String getPassword(Connection conn) {
         DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
-        String psw = null;
+        String psw = "";//$NON-NLS-1$ 
         if (dbConn != null) {
             psw = dbConn.getPassword();
             if (conn.isContextMode()) {
@@ -266,13 +267,16 @@ public final class JavaSqlFactory {
                 }
 
             }
-            return psw;
+        } else {
+            MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
+            if (mdmConn != null) {
+                return ConnectionHelper.getPassword(mdmConn);
+            }
         }
-        MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
-        if (mdmConn != null) {
-            return ConnectionHelper.getPassword(mdmConn);
+        if (psw == null) {
+            psw = "";//$NON-NLS-1$
         }
-        return null;
+        return psw;
     }
 
     /**
