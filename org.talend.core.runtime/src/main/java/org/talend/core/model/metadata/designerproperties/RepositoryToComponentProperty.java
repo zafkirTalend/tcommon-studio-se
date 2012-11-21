@@ -917,6 +917,12 @@ public class RepositoryToComponentProperty {
                 return dbVersionString;
             } else {
                 String driverValue = EDatabaseVersion4Drivers.getDriversStr(databaseType, dbVersionString);
+                if (EDatabaseConnTemplate.ORACLE_OCI.getDBDisplayName().equals(databaseType)
+                        || EDatabaseConnTemplate.ORACLE_RAC.getDBDisplayName().equals(databaseType)
+                        || EDatabaseConnTemplate.ORACLEFORSID.getDBDisplayName().equals(databaseType)
+                        || EDatabaseConnTemplate.ORACLESN.getDBDisplayName().equals(databaseType)) {
+                    driverValue = dbVersionString;
+                }
                 if (isContextMode(connection, dbVersionString)) {
                     return dbVersionString;
                 } else if (EDatabaseTypeName.VERTICA.getXmlName().equals(databaseType)
