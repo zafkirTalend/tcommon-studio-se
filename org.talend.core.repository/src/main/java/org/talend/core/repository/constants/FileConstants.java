@@ -73,6 +73,8 @@ public class FileConstants {
 
     public static final String KAR_FILE_SUFFIX = ".kar"; //$NON-NLS-1$
 
+    public static final String XLS_FILE_SUFFIX = ".xls"; //$NON-NLS-1$
+
     /*
      * file names
      */
