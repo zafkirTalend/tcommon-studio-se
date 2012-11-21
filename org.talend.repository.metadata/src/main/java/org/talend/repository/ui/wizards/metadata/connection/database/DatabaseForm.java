@@ -1111,6 +1111,12 @@ public class DatabaseForm extends AbstractForm {
             properties.put("additionalParams", "");
 
             databaseSettingIsValide = managerConnection.checkForHive(properties);
+            // try {
+            // IMetadataConnection metadataConn = ConvertionHelper.convert(connectionItem.getConnection(), true);
+            // databaseSettingIsValide = managerConnection.checkForHive(metadataConn);
+            // } catch (Exception e) {
+            // e.printStackTrace();
+            // }
         } else {
             // check the connection
             databaseSettingIsValide = managerConnection.check();
@@ -3652,10 +3658,10 @@ public class DatabaseForm extends AbstractForm {
         // jobTrackerURLTxt.setHideWidgets(hide);
         //
         GridData hadoopPropGrpGD = (GridData) hadoopPropGrp.getLayoutData();
-        hadoopPropGrp.setVisible(false);
-        hadoopPropGrpGD.exclude = true;
-        nameNodeURLTxt.setHideWidgets(true);
-        jobTrackerURLTxt.setHideWidgets(true);
+        hadoopPropGrp.setVisible(!hide);
+        hadoopPropGrpGD.exclude = hide;
+        nameNodeURLTxt.setHideWidgets(hide);
+        jobTrackerURLTxt.setHideWidgets(hide);
     }
 
     /**
@@ -3763,7 +3769,7 @@ public class DatabaseForm extends AbstractForm {
                 String serverTextStr = serverText.getText() == null ? "" : serverText.getText();
                 String protTextStr = portText.getText() == null ? "" : portText.getText();
                 String thriftURL = "thrift://" + serverTextStr + ":" + protTextStr;
-                System.setProperty("hive.metastore.uris", thriftURL);
+                // System.setProperty("hive.metastore.uris", thriftURL);
                 System.setProperty("hive.metastore.execute.setugi", "true");
                 System.setProperty("fs.default.name", nameNodeURLTxt.getText());
                 System.setProperty("mapred.job.tracker", jobTrackerURLTxt.getText());
