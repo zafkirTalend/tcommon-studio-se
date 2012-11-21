@@ -173,58 +173,59 @@ public class RemoteModulesHelper {
                     String url = serviceUrl + "?data=" + message;
                     monitor.worked(10);
                     JSONObject resultStr = readJsonFromUrl(url);
-                    JSONArray jsonArray = resultStr.getJSONArray("result");//$NON-NLS-1$
-                    if (jsonArray != null) {
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject obj = jsonArray.getJSONObject(i);
-                            if (obj != null) {
-                                String url_description = obj.getString("url_description");//$NON-NLS-1$
-                                String url_download = obj.getString("url_download");//$NON-NLS-1$
-                                String name = obj.getString("filename");//$NON-NLS-1$
-                                if ((url_description == null && url_download == null)
-                                        || (("".equals(url_description) || "null".equals(url_description)) && (""//$NON-NLS-1$
-                                        .equals(url_download) || "null".equals(url_download)))) {//$NON-NLS-1$
-                                    ExceptionHandler.log("The download URL for " + name + " is not available");//$NON-NLS-1$
-                                    // keep null in cache no need to check from server again
-                                    cache.put(name, null);
+                    if (resultStr != null) {
+                        JSONArray jsonArray = resultStr.getJSONArray("result");//$NON-NLS-1$
+                        if (jsonArray != null) {
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject obj = jsonArray.getJSONObject(i);
+                                if (obj != null) {
+                                    String url_description = obj.getString("url_description");//$NON-NLS-1$
+                                    String url_download = obj.getString("url_download");//$NON-NLS-1$
+                                    String name = obj.getString("filename");//$NON-NLS-1$
+                                    if ((url_description == null && url_download == null)
+                                            || (("".equals(url_description) || "null".equals(url_description)) && (""//$NON-NLS-1$
+                                            .equals(url_download) || "null".equals(url_download)))) {//$NON-NLS-1$
+                                        ExceptionHandler.log("The download URL for " + name + " is not available");//$NON-NLS-1$
+                                        // keep null in cache no need to check from server again
+                                        cache.put(name, null);
 
-                                    continue;
-                                }
+                                        continue;
+                                    }
 
-                                ModuleToInstall m = new ModuleToInstall();
+                                    ModuleToInstall m = new ModuleToInstall();
 
-                                m.setName(name);
-                                if (contextMap != null) {
-                                    List<ModuleNeeded> nm = contextMap.get(m.getName());
-                                    m.setContext(getContext(nm));
-                                    m.setRequired(isRequired(nm));
-                                } else {
-                                    m.setContext("Current Operation");//$NON-NLS-1$
-                                    m.setRequired(true);
+                                    m.setName(name);
+                                    if (contextMap != null) {
+                                        List<ModuleNeeded> nm = contextMap.get(m.getName());
+                                        m.setContext(getContext(nm));
+                                        m.setRequired(isRequired(nm));
+                                    } else {
+                                        m.setContext("Current Operation");//$NON-NLS-1$
+                                        m.setRequired(true);
+                                    }
+                                    String license = obj.getString("licence");//$NON-NLS-1$
+                                    m.setLicenseType(license);
+                                    if ("".equals(license) || "null".equals(license)) {//$NON-NLS-1$
+                                        m.setLicenseType(null);
+                                    }
+                                    String description = obj.getString("description");//$NON-NLS-1$
+                                    if (description == null || "".equals(description) || "null".equals(description)) {//$NON-NLS-1$
+                                        description = m.getName();
+                                    }
+                                    m.setDescription(description);
+                                    m.setUrl_description(url_description);
+                                    if (url_download == null || "".equals(url_download) || "null".equals(url_download)) {//$NON-NLS-1$
+                                        m.setUrl_download(null);
+                                    } else {
+                                        m.setUrl_download(url_download);
+                                    }
+                                    toInstall.add(m);
+                                    cache.put(m.getName(), m);
                                 }
-                                String license = obj.getString("licence");//$NON-NLS-1$
-                                m.setLicenseType(license);
-                                if ("".equals(license) || "null".equals(license)) {//$NON-NLS-1$
-                                    m.setLicenseType(null);
-                                }
-                                String description = obj.getString("description");//$NON-NLS-1$
-                                if (description == null || "".equals(description) || "null".equals(description)) {//$NON-NLS-1$
-                                    description = m.getName();
-                                }
-                                m.setDescription(description);
-                                m.setUrl_description(url_description);
-                                if (url_download == null || "".equals(url_download) || "null".equals(url_download)) {//$NON-NLS-1$
-                                    m.setUrl_download(null);
-                                } else {
-                                    m.setUrl_download(url_download);
-                                }
-                                toInstall.add(m);
-                                cache.put(m.getName(), m);
+                                monitor.worked(10);
                             }
-                            monitor.worked(10);
                         }
                     }
-
                 } catch (JSONException e) {
                     ExceptionHandler.process(e);
                 } catch (IOException e) {
@@ -257,7 +258,7 @@ public class RemoteModulesHelper {
             jsonText = readAll(rd);
             json = new JSONObject(jsonText);
         } catch (Exception e) {
-            System.out.println(jsonText);
+            ExceptionHandler.process(new Exception(Messages.getString("RemoteModulesHelper.readJsonFromUrl.error")));
         } finally {
             is.close();
         }
