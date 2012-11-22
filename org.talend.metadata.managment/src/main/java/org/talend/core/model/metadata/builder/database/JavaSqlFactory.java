@@ -19,7 +19,9 @@ import metadata.managment.i18n.Messages;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
+import org.talend.core.database.conn.HiveConfKeysForTalend;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
@@ -348,5 +350,47 @@ public final class JavaSqlFactory {
             return dfConnection.getFilePath();
         }
         return null;
+    }
+
+    /**
+     * Just for hive pre-setup, some configurations are required to set up to the properties of system. Added by Marvin
+     * Wang on Nov 22, 2012.(Just a reminder: TDQ-6462)
+     * 
+     * @param conn
+     */
+    public static void doHivePreSetup(Connection conn) {
+        if (conn instanceof DatabaseConnection) {
+            DatabaseConnection dbConn = (DatabaseConnection) conn;
+
+            // If metastore is local or not.
+            System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_LOCAL.getKey(), "false"); //$NON-NLS-1$
+
+            // metastore uris
+            String thriftURL = "thrift://" + dbConn.getServerName() + ":" + dbConn.getPort(); //$NON-NLS-1$//$NON-NLS-2$
+            System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_URI.getKey(), thriftURL);
+            System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_EXECUTE_SETUGI.getKey(), "true"); //$NON-NLS-1$
+
+            // hdfs
+            System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_FS_DEFAULT_NAME.getKey(),
+                    dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL));
+
+            // job tracker
+            System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_MAPRED_JOB_TRACKER.getKey(),
+                    dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL));
+
+            // For metastore infos.
+            // url
+            System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_URL.getKey(),
+                    dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_URL));
+            // user name
+            System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_USERNAME.getKey(),
+                    dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_USERNAME));
+            // password
+            System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_PASSWORD.getKey(),
+                    dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_PASSWORD));
+            // driver name
+            System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_DRIVERNAME.getKey(), dbConn.getParameters()
+                    .get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME));
+        }
     }
 }
