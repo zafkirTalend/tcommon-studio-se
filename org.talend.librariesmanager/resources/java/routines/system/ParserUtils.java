@@ -31,12 +31,30 @@ import org.xml.sax.SAXException;
 public class ParserUtils {
 
     public static List parseTo_List(String s) {
-        if (s != null) {
-            List list = new ArrayList();
-            list.add(s);
+        return parseTo_List(s, null);
+    }
+    /**
+     * the source should be a string wrapped in chars[ ] which stands for it is a collection
+     * @param stSrc
+     * @param fieldSep
+     * @return
+     */
+    public static List<String> parseTo_List(final String strSrc, String fieldSep) {
+        if (strSrc == null) {
+            return null;
+        }
+        List<String> list = new ArrayList<String>();
+        
+        // the source string is wrap in [] which means it is a collection
+        if ( (fieldSep == null || "".equals(fieldSep)) || !(strSrc.startsWith("[") && strSrc.endsWith("]"))) {
+            list.add(strSrc);
             return list;
         }
-        return null;
+        String strTemp = strSrc.substring(1, strSrc.length()-1); // remove the [ ]
+        for (String str : strTemp.split(fieldSep, -1)) {
+            list.add(str);
+        }
+        return list;
     }
 
     public static Character parseTo_Character(String s) {
