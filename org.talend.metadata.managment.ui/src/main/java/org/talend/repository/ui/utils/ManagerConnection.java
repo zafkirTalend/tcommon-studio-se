@@ -76,6 +76,8 @@ public class ManagerConnection {
 
     private String driverJarPath;
 
+    private Map<String, Object> otherParameters;
+
     IMetadataConnection oldConnection;
 
     /**
@@ -111,6 +113,15 @@ public class ManagerConnection {
 
     }
 
+    public void setValue(Integer id, final String dbType, final String url, final String server, final String username,
+            final String password, final String sidOrDatabase, final String port, final String file, final String datasource,
+            final String schemaOracle, final String additionalParams, final String driverClassName, final String driverJarPath,
+            final String dbVersionString, Map<String, Object> otherParameters) {
+        setValue(id, dbType, url, server, username, password, sidOrDatabase, port, file, datasource, schemaOracle,
+                additionalParams, driverClassName, driverJarPath, dbVersionString);
+        this.otherParameters = otherParameters;
+    }
+
     public void setValueProperties(final String sqlSyntax, final String strQuote, final String nullChar) {
         this.sqlSyntax = sqlSyntax;
         this.strQuote = strQuote;
@@ -118,29 +129,29 @@ public class ManagerConnection {
     }
 
     /**
-     * Just for Hive embedded mode to check if a remote metastore db can be connected.
-     * Added by Marvin Wang on Oct 19, 2012.
+     * Just for Hive embedded mode to check if a remote metastore db can be connected. Added by Marvin Wang on Oct 19,
+     * 2012.
+     * 
      * @param properties
      * @return
      */
-    public boolean checkForHive(Map<String,String> properties){
-    	driverJarPath = properties.get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR);
-    	dbTypeString = properties.get("dbTypeString");
-    	urlConnectionString = properties.get("urlConnectionString");
-    	username = properties.get("username");
-    	password = properties.get("password");
-    	driverClassName = properties.get("driverClassName");
-    	dbVersionString = properties.get("dbVersionString");
-    	additionalParams = properties.get("additionalParams");
-    	
-    	
-    	ConnectionStatus testConnection = ExtractMetaDataFromDataBase.testConnection(dbTypeString, urlConnectionString, username,
+    public boolean checkForHive(Map<String, String> properties) {
+        driverJarPath = properties.get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR);
+        dbTypeString = properties.get("dbTypeString");
+        urlConnectionString = properties.get("urlConnectionString");
+        username = properties.get("username");
+        password = properties.get("password");
+        driverClassName = properties.get("driverClassName");
+        dbVersionString = properties.get("dbVersionString");
+        additionalParams = properties.get("additionalParams");
+
+        ConnectionStatus testConnection = ExtractMetaDataFromDataBase.testConnection(dbTypeString, urlConnectionString, username,
                 password, "", driverClassName, driverJarPath, dbVersionString, additionalParams);
-    	isValide = testConnection.getResult();
+        isValide = testConnection.getResult();
         messageException = testConnection.getMessageException();
-    	return isValide;
+        return isValide;
     }
-    
+
     /**
      * Check connexion from the fields form.
      * 
@@ -156,7 +167,8 @@ public class ManagerConnection {
                 IDBMetadataProvider extractorToUse = ExtractMetaDataFromDataBase.getProviderByDbType(dbTypeString);
                 if (extractorToUse != null) {
                     testConnection = extractorToUse.testConnection(dbTypeString, urlConnectionString, username, password,
-                            schemaOracle, server, port, driverClassName, driverJarPath, dbVersionString, additionalParams);
+                            schemaOracle, server, port, driverClassName, driverJarPath, dbVersionString, additionalParams,
+                            otherParameters);
                 }
             } else {
                 // MOD xqliu 2012-01-05 TDQ-4162
@@ -212,7 +224,8 @@ public class ManagerConnection {
                             metadataConnection.getUsername(), metadataConnection.getPassword(), metadataConnection.getSchema(),
                             metadataConnection.getServerName(), metadataConnection.getPort(),
                             metadataConnection.getDriverClass(), metadataConnection.getDriverJarPath(),
-                            metadataConnection.getDbVersionString(), metadataConnection.getAdditionalParams());
+                            metadataConnection.getDbVersionString(), metadataConnection.getAdditionalParams(),
+                            metadataConnection.getOtherParameters());
                 }
             } else {
                 if (EDatabaseTypeName.HIVE.getDisplayName().equals(metadataConnection.getDbType())) {

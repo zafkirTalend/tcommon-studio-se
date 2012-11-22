@@ -352,7 +352,8 @@ public class SelectorTableForm extends AbstractForm {
                     if (item.getData() != null) {
                         TableNode node = (TableNode) item.getData();
                         if (useProvider()) {
-                            if (node.getType() == provider.getRunnableAccessNodeType()) {
+                            if (node.getType() == provider.getRunnableAccessNodeType()
+                                    || node.getType() == TableNode.COLUMN_FAMILY) {
                                 if (isExistTable(node)) {
                                     item.setChecked(true);
                                 } else {
@@ -1092,8 +1093,8 @@ public class SelectorTableForm extends AbstractForm {
                     && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
-                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())) 
-                            || EDatabaseTypeName.HIVE.getDisplayName().equalsIgnoreCase(dbType)) {
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))
+                    || EDatabaseTypeName.HIVE.getDisplayName().equalsIgnoreCase(dbType)) {
                 ExtractMetaDataUtils.closeConnection();
             }
             if (derbyDriver != null) {
@@ -1124,28 +1125,28 @@ public class SelectorTableForm extends AbstractForm {
                     if (EDatabaseTypeName.HIVE.getDisplayName().equals(metadataconnection.getDbType())) {
                         String key = (String) metadataconnection.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
                         if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(key)) {
-                        	Map<String, String> properties = new HashMap<String, String>();
-                    		properties.put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR, (String)metadataconnection
-                        			.getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR));
-                    		properties.put("dbTypeString", metadataconnection.getDbType());
-                    		properties.put("urlConnectionString",(String)metadataconnection
-                        			.getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_URL));
-                    		properties.put("username",(String)metadataconnection
-                        			.getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_USERNAME));
-                    		properties.put("password",(String)metadataconnection
-                        			.getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_PASSWORD));
-                    		properties.put("driverClassName",(String)metadataconnection
-                        			.getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME));
-                    		properties.put("dbVersionString",metadataconnection.getDbVersionString());
-                    		properties.put("additionalParams",metadataconnection.getAdditionalParams());
-                    		
-                    		managerConnection.checkForHive(properties);
-                        	
-                        }else if(HiveConnVersionInfo.MODE_STANDALONE.getKey().equals(key)){
-                        	managerConnection.check(metadataconnection, true);
+                            Map<String, String> properties = new HashMap<String, String>();
+                            properties.put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR, (String) metadataconnection
+                                    .getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR));
+                            properties.put("dbTypeString", metadataconnection.getDbType());
+                            properties.put("urlConnectionString",
+                                    (String) metadataconnection.getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_URL));
+                            properties.put("username", (String) metadataconnection
+                                    .getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_USERNAME));
+                            properties.put("password", (String) metadataconnection
+                                    .getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_PASSWORD));
+                            properties.put("driverClassName", (String) metadataconnection
+                                    .getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME));
+                            properties.put("dbVersionString", metadataconnection.getDbVersionString());
+                            properties.put("additionalParams", metadataconnection.getAdditionalParams());
+
+                            managerConnection.checkForHive(properties);
+
+                        } else if (HiveConnVersionInfo.MODE_STANDALONE.getKey().equals(key)) {
+                            managerConnection.check(metadataconnection, true);
                         }
-                    }else
-                    	managerConnection.check(metadataconnection, true);
+                    } else
+                        managerConnection.check(metadataconnection, true);
                     if (managerConnection.getIsValide()) {
                         // need to check catalog/schema if import a old db connection
                         /* use extractor for the databse didn't use JDBC,for example: HBase */

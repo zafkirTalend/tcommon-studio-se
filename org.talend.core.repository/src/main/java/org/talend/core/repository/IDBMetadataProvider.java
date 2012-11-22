@@ -28,9 +28,9 @@ public interface IDBMetadataProvider {
     public Map getConnectionMap();
 
     /** test connection used for test a connection,for example ,click "check" button on database wizard **/
-
     public ConnectionStatus testConnection(String dbType, String url, String username, String pwd, String schema, String server,
-            String port, final String driverClassName, final String driverJarPath, String dbVersionString, String additionalParam);
+            String port, final String driverClassName, final String driverJarPath, String dbVersionString,
+            String additionalParam, Map<String, Object> otherParameters);
 
     /** when check connection ,will update the package,this one no use for HBASE **/
     public void updatePackage(IMetadataConnection metadataConnection);

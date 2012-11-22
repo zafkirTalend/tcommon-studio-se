@@ -61,7 +61,6 @@ import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.commons.ui.utils.PathUtils;
 import org.talend.commons.ui.utils.loader.MyURLClassLoader;
 import org.talend.commons.utils.PasswordEncryptUtil;
-import org.talend.commons.utils.data.reflection.ReflectionUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
 import org.talend.core.database.EDatabaseTypeName;
@@ -88,6 +87,7 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.branding.IBrandingConfiguration;
+import org.talend.core.utils.ReflectionUtils;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.metadata.i18n.Messages;
@@ -1069,7 +1069,8 @@ public class DatabaseForm extends AbstractForm {
                     isGeneralJDBC() ? generalJdbcPasswordText.getText() : passwordText.getText(), sidOrDatabaseText.getText(),
                     portText.getText(), fileField.getText(), datasourceText.getText(), isGeneralJDBC() ? jDBCschemaText.getText()
                             : schemaText.getText(), additionParamText.getText(), generalJdbcClassNameText.getText(),
-                    generalJdbcDriverjarText.getText(), enableDbVersion() ? versionStr : null);
+                    generalJdbcDriverjarText.getText(), enableDbVersion() ? versionStr : null, metadataconnection
+                            .getOtherParameters());
 
             managerConnection.setDbRootPath(directoryField.getText());
 
