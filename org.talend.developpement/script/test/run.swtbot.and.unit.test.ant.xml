@@ -143,8 +143,6 @@
         <generate.extra.bundles.info studio.root="${rcp-app-home}" property="extra.bundle.info.text" bundle.prefix.pattern="${unit.test.plugin.prefix}" bundle.suffix.pattern="${unit.test.plugin.suffix}">
             <bundles.pattern.set>
                 <patternset >
-                    <include name="org.talend.*.test_*"/>
-
                 	<include name="*junit_*"/>
                     <include name="org.apache.log4j*"/>
                     <include name="test.all.test.suite*"/>
@@ -213,18 +211,18 @@
     	<!--compute pattern for test plugins-->
     	<generate.extra.bundles.info studio.root="${rcp-app-home}" property="extra.bundle.info.text" bundle.prefix.pattern="${unit.test.plugin.prefix}" bundle.suffix.pattern="${unit.test.plugin.suffix}">
             <bundles.pattern.set>
-            	<patternset	includes="org.talend*.test_*" excludes="*swtbot.test*">
+            	<patternset	excludes="*swtbot.test*">
             		 <include name="org.talend.testutils*"/>
                     <include name="*junit_*"/>
-            		                    <include name="test.all.test.suite*"/>
-            		                    <include name="org.junit_4.8.1*"/>
-            		                    <include name="*swtbot*"/>
-            		                    <include name="org.hamcrest*"/>
-            		                    <include name="org.eclipse.jdt.groovy*"/>
-            		                    <include name="org.codehaus.groovy*"/>
-            		                    <exclude name="org.talend.configurator.test*"/>
-            		                    <exclude name="*.source_*"/>
-            		                    <exclude name="*.nl_*"/>
+                    <include name="test.all.test.suite*"/>
+                    <include name="org.junit_4.8.1*"/>
+                    <include name="*swtbot*"/>
+                    <include name="org.hamcrest*"/>
+                    <include name="org.eclipse.jdt.groovy*"/>
+                    <include name="org.codehaus.groovy*"/>
+                    <exclude name="org.talend.configurator.test*"/>
+                    <exclude name="*.source_*"/>
+                    <exclude name="*.nl_*"/>
             	</patternset>
             </bundles.pattern.set>
     	</generate.extra.bundles.info>
@@ -239,19 +237,20 @@
 		<element name="bundles.pattern.set" description="patternset to be used for finding the plugins"/> 
 		<sequential> 
 	        <var name="test.plugins.pattern" value=""/>
+		    <!-- create a patter from the prefix and suffix properties -->
 	        <for list="@{bundle.suffix.pattern}" delimiter="," param="suffix">
 	            <sequential>
-	                <propertyregex property="ant.test.bundles.prefix.pattern" input="@{bundle.prefix.pattern}" regexp="(?&lt;=,|^)([^,\n]*)" replace="**/\1*@{suffix},**/\1*@{suffix}.jar" global="true"/>
+	                <propertyregex property="ant.test.bundles.prefix.pattern" input="@{bundle.prefix.pattern}" regexp="(?&lt;=,|^)([^,\n]*)" replace="\1*@{suffix}_*" global="true"/>
 	                <var name="test.plugins.pattern" value="${test.plugins.pattern}${ant.test.bundles.prefix.pattern},"/>
 	                <var name="ant.test.bundles.prefix.pattern" unset="true"/>              
 	            </sequential>
 	        </for>
-	        <echo message="unit.test.plugin.prefix=${test.plugins.pattern}"/>
+	        <echo message="test.plugin.prefix.patternd=${test.plugins.pattern}"/>
 	        <path id="all.test.plugins.path">
-	            <fileset dir="@{studio.root}/plugins">
+	            <fileset dir="@{studio.root}/plugins" includes="${test.plugins.pattern}">
 	                <bundles.pattern.set/>
 	            </fileset>
-	            <dirset dir="@{studio.root}/plugins">
+	            <dirset dir="@{studio.root}/plugins" includes="${test.plugins.pattern}">
 	                <bundles.pattern.set/>
 	            </dirset>
 	        </path>
