@@ -368,6 +368,8 @@ public final class JavaSqlFactory {
             // metastore uris
             String thriftURL = "thrift://" + dbConn.getServerName() + ":" + dbConn.getPort(); //$NON-NLS-1$//$NON-NLS-2$
             System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_URI.getKey(), thriftURL);
+
+            // ugi
             System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_EXECUTE_SETUGI.getKey(), "true"); //$NON-NLS-1$
 
             // hdfs
@@ -392,5 +394,20 @@ public final class JavaSqlFactory {
             System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_DRIVERNAME.getKey(), dbConn.getParameters()
                     .get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME));
         }
+    }
+
+    /**
+     * For these which are pre-set up, we need to clear these. Added by Marvin Wang on Nov 22, 2012.
+     */
+    public static void doHiveConfigurationClear() {
+        System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_LOCAL.getKey());
+        System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_URI.getKey());
+        System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_EXECUTE_SETUGI.getKey());
+        System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_FS_DEFAULT_NAME.getKey());
+        System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_MAPRED_JOB_TRACKER.getKey());
+        System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_URL.getKey());
+        System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_USERNAME.getKey());
+        System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_PASSWORD.getKey());
+        System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_DRIVERNAME.getKey());
     }
 }
