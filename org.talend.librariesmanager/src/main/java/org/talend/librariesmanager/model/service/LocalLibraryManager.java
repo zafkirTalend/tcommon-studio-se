@@ -158,6 +158,12 @@ public class LocalLibraryManager implements ILibraryManagerService {
                             LibrariesIndexManager.getInstance().saveResource();
                         }
                     }
+
+                    // copy dll files
+                    List<File> dlls = FilesUtils.getDllFilesFromFolder(file, null);
+                    for (File dllFile : dlls) {
+                        FilesUtils.copyFile(dllFile, new File(installLocation, dllFile.getName()));
+                    }
                 }
             }
         } catch (IOException e) {
