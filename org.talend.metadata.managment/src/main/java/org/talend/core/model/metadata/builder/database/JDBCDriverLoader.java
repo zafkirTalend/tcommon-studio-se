@@ -17,14 +17,11 @@ import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.collections.map.MultiKeyMap;
 import org.talend.commons.utils.encoding.CharsetToolkit;
-import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 
@@ -37,8 +34,6 @@ public class JDBCDriverLoader {
     public static final String SHUTDOWN_PARAM = ";shutdown=true"; //$NON-NLS-1$
 
     private static MultiKeyMap classLoadersMap = new MultiKeyMap();
-
-    private static final Map<String, DriverShim> DRIVER_CACHE = new HashMap<String, DriverShim>();
 
     /**
      * Loads the jars for hive embedded mode required, I do not think it is the better method to do this here. Due to
@@ -127,13 +122,8 @@ public class JDBCDriverLoader {
         try {
             Class<?> driver = Class.forName(driverClassName, true, loader);
             // Object driver = loader.loadClass(driverClassName).newInstance();
-            // the jtds mode to connect sqlserver database only Instance driver once
-            if (EDatabaseTypeName.MSSQL.getDisplayName().equals(dbType)
-                    && DRIVER_CACHE.containsKey(EDatabase4DriverClassName.MSSQL.getDriverClass()) && "".equals(username)) {
-                wapperDriver = DRIVER_CACHE.get(EDatabase4DriverClassName.MSSQL.getDriverClass());
-            } else {
-                wapperDriver = new DriverShim((Driver) (driver.newInstance()));
-            }
+            wapperDriver = new DriverShim((Driver) (driver.newInstance()));
+
             Properties info = new Properties();
 
             // to avoid NPE
@@ -171,10 +161,6 @@ public class JDBCDriverLoader {
                 // Thread.currentThread().setContextClassLoader(currentContextCL);
             }
             // }
-            if (EDatabaseTypeName.MSSQL.getDisplayName().equals(dbType)
-                    && !DRIVER_CACHE.containsKey(EDatabase4DriverClassName.MSSQL.getDriverClass()) && "".equals(username)) {
-                DRIVER_CACHE.put(EDatabase4DriverClassName.MSSQL.getDriverClass(), wapperDriver);
-            }
             // DriverManager.deregisterDriver(wapperDriver);
             // bug 9162
             list.add(connection);

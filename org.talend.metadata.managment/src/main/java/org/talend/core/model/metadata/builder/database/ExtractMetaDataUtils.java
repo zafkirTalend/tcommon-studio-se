@@ -23,8 +23,10 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -92,6 +94,8 @@ public class ExtractMetaDataUtils {
     public static String schema;
 
     public static boolean isReconnect = true;
+
+    private static final Map<String, DriverShim> DRIVER_CACHE = new HashMap<String, DriverShim>();
 
     /**
      * DOC cantoine. Method to return DatabaseMetaData of a DB connection.
@@ -838,6 +842,33 @@ public class ExtractMetaDataUtils {
                     }
                 }
 
+            } else if (dbType != null && dbType.equalsIgnoreCase(EDatabaseTypeName.MSSQL.getDisplayName()) && "".equals(username)) {
+                // the jtds mode to connect sqlserver database only Instance driver once
+                if (DRIVER_CACHE.containsKey(EDatabase4DriverClassName.MSSQL.getDriverClass())) {
+                    wapperDriver = DRIVER_CACHE.get(EDatabase4DriverClassName.MSSQL.getDriverClass());
+                    Properties info = new Properties();
+                    // to avoid NPE
+                    username = username != null ? username : "";
+                    pwd = pwd != null ? pwd : "";
+                    info.put("user", username);
+                    info.put("password", pwd);
+                    connection = wapperDriver.connect(url, info);
+                } else {
+                    JDBCDriverLoader loader = new JDBCDriverLoader();
+                    list = loader.getConnection(driverJarPath, driverClassName, url, username, pwd, dbType, dbVersion,
+                            additionalParams);
+                    if (list != null && list.size() > 0) {
+                        for (int i = 0; i < list.size(); i++) {
+                            if (list.get(i) instanceof Connection) {
+                                connection = (Connection) list.get(i);
+                            }
+                            if (list.get(i) instanceof DriverShim) {
+                                wapperDriver = (DriverShim) list.get(i);
+                            }
+                        }
+                        DRIVER_CACHE.put(EDatabase4DriverClassName.MSSQL.getDriverClass(), wapperDriver);
+                    }
+                }
             } else if (dbType != null
                     && (isValidJarFile(driverJarPath) || dbType.equalsIgnoreCase(EDatabaseTypeName.GODBC.getXmlName()))) {
                 // Load jdbc driver class dynamicly
