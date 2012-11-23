@@ -225,7 +225,7 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
         }
     }
 
-    protected boolean checkReadOnly() throws PersistenceException {
+    public boolean checkReadOnly() throws PersistenceException {
         return loadedProcess.checkReadOnly();
     }
 
