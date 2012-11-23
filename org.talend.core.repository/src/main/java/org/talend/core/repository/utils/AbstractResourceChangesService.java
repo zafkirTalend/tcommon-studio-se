@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.repository.utils;
 
+import java.io.File;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -20,7 +22,7 @@ import org.talend.core.IService;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
-
+import org.talend.core.model.properties.TDQItem;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
@@ -76,8 +78,14 @@ public class AbstractResourceChangesService implements IService {
      * @throws PersistenceException
      */
     public void saveResourceByEMFShared(Resource toSave) {
-
     }
 
-
+    /**
+     * if move TDQReportItem, need to move the generated doc of it also.
+     * 
+     * @param tdqItem
+     * @param tarFolder
+     */
+    public void moveReportGeneratedDocFolder(TDQItem tdqItem, File tarFolder) {
+    }
 }

@@ -469,7 +469,7 @@ public class FilesUtils {
     }
 
     public static List<File> getDllFilesFromFolder(File file, String fileName) throws MalformedURLException {
-        return getFilesFromFolderByName(file, fileName, new String[] { ".dll" }, null, true); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        return getFilesFromFolderByName(file, fileName, new String[] { ".dll" }, null, true); //$NON-NLS-1$ 
     }
 
     public static FileFilter getExcludeSystemFilesFilter() {
@@ -897,6 +897,36 @@ public class FilesUtils {
             File[] dir = source.listFiles();
             for (File element : dir) {
                 copyDirectory(element, tarpath);
+            }
+        } else {
+            try {
+                InputStream is = new FileInputStream(source);
+                OutputStream os = new FileOutputStream(tarpath);
+                byte[] buf = new byte[1024];
+                int len = 0;
+                while ((len = is.read(buf)) != -1) {
+                    os.write(buf, 0, len);
+                }
+                is.close();
+                os.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void copyDirectoryWithoutSvnFolder(File source, File target) {
+        File tarpath = new File(target, source.getName());
+        if (source.isDirectory()) {
+            tarpath.mkdir();
+            File[] dir = source.listFiles();
+            for (File element : dir) {
+                if (element.getName().equals(".svn")) { //$NON-NLS-1$
+                    continue;
+                }
+                copyDirectoryWithoutSvnFolder(element, tarpath);
             }
         } else {
             try {
