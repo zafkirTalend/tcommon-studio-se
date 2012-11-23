@@ -72,7 +72,6 @@ import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.Property;
-import org.talend.core.model.properties.TDQItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -1159,18 +1158,8 @@ public class DeleteAction extends AContextualAction {
             return true;
         }
 
-        Item item = null;
-        if (objToDelete != null && objToDelete.getProperty() != null) {
-            item = objToDelete.getProperty().getItem();
-        }
         AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
                 AbstractResourceChangesService.class);
-        if (resChangeService != null && item != null && item instanceof ConnectionItem && item.getState().isDeleted()) {
-            if (!resChangeService.handleResourceChange(((ConnectionItem) item).getConnection())) {
-                return true;
-            }
-        }
-
         // To manage case of we have a subitem. This is possible using 'DEL' shortcut:
         ERepositoryObjectType nodeType = (ERepositoryObjectType) currentJobNode.getProperties(EProperties.CONTENT_TYPE);
         if (nodeType != null && nodeType.isSubItem()) {
@@ -1186,6 +1175,9 @@ public class DeleteAction extends AContextualAction {
             needReturn = true;
         } else {
             if (factory.getStatus(objToDelete) == ERepositoryStatus.DELETED) {
+                if (resChangeService != null && resChangeService.hasDependcesInDQ(currentJobNode)) {
+                    return true;
+                }
                 if (confirm == null) {
                     Display.getDefault().syncExec(new Runnable() {
 
@@ -1237,8 +1229,11 @@ public class DeleteAction extends AContextualAction {
                     } else {
                         // MOD qiongli 2011-5-10,bug 21189.should remove dependency after showing the question dialog of
                         // physical delete.
-                        if (resChangeService != null && (item instanceof TDQItem || item instanceof ConnectionItem)) {
-                            resChangeService.removeAllDependecies(item);
+                        if (resChangeService != null && objToDelete != null && objToDelete.getProperty() != null) {
+                            Item item = objToDelete.getProperty().getItem();
+                            if (item != null) {
+                                resChangeService.removeAllDependecies(item);
+                            }
                         }
                         factory.deleteObjectPhysical(objToDelete);
                         ExpressionPersistance.getInstance().jobDeleted(objToDelete.getLabel());

@@ -124,12 +124,10 @@ public class DeleteTableAction extends AContextualAction {
                         return;
                     }
                     boolean isSave = true;
-                    if (item instanceof ConnectionItem) {
-                        AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance()
-                                .getResourceChangeService(AbstractResourceChangesService.class);
-                        if (resChangeService != null) {
-                            isSave = resChangeService.handleResourceChange(((ConnectionItem) item).getConnection());
-                        }
+                    AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
+                            AbstractResourceChangesService.class);
+                    if (resChangeService != null) {
+                        isSave = !resChangeService.hasDependcesInDQ(node);
                     }
                     if (isSave) {
                         //
@@ -180,6 +178,7 @@ public class DeleteTableAction extends AContextualAction {
         }
         Display.getCurrent().syncExec(new Runnable() {
 
+            @Override
             public void run() {
                 RepositoryManager.refreshDeletedNode(types);
             }
@@ -205,6 +204,7 @@ public class DeleteTableAction extends AContextualAction {
      * @see org.talend.repository.ui.actions.ITreeContextualAction#init(org.eclipse.jface.viewers.TreeViewer,
      * org.eclipse.jface.viewers.IStructuredSelection)
      */
+    @Override
     public void init(TreeViewer viewer, IStructuredSelection selection) {
         boolean canWork = false;
         setText(null);

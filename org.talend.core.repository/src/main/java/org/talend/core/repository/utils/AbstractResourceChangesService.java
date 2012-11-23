@@ -13,6 +13,7 @@
 package org.talend.core.repository.utils;
 
 import java.io.File;
+import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
@@ -23,7 +24,7 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.TDQItem;
-import orgomg.cwm.objectmodel.core.ModelElement;
+import org.talend.repository.model.IRepositoryNode;
 
 /**
  * DOC mzhao Abstract unload resource service which can be extended by client.
@@ -34,10 +35,6 @@ public class AbstractResourceChangesService implements IService {
     }
 
     // Add new elements to resource, remove elements from resource, delete resource
-    public boolean handleResourceChange(ModelElement modelElement) {
-        return true;
-    }
-
     public void handleLogicalDelete(Property prop) {
     }
 
@@ -88,4 +85,13 @@ public class AbstractResourceChangesService implements IService {
      */
     public void moveReportGeneratedDocFolder(TDQItem tdqItem, File tarFolder) {
     }
+
+    public boolean hasDependcesInDQ(IRepositoryNode currentNode) {
+        return false;
+    }
+
+    public boolean canEmptyRecycleBin(List<IRepositoryNode> children) {
+        return true;
+    }
+
 }

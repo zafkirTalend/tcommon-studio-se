@@ -38,7 +38,6 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.business.BusinessType;
-import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
@@ -150,10 +149,9 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
                 // iRepositoryNode.getObject().getProperty().getItem().eResource().unload();
                 Item item = repositoryNode.getObject() == null ? null : repositoryNode.getObject().getProperty().getItem();
                 if (resourceChangeService != null && null != item) {
-                    boolean handleResourceChange = resourceChangeService.handleResourceChange(((ConnectionItem) item)
-                            .getConnection());
-                    if (!handleResourceChange) {
-                        return handleResourceChange;
+                    boolean hasDependencyInDQ = resourceChangeService.hasDependcesInDQ(repositoryNode);
+                    if (hasDependencyInDQ) {
+                        return false;
                     }
                 }
             }
@@ -168,8 +166,9 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
      */
     @Override
     public boolean validateDrop(Object target, int operation, TransferData transferType) {
-        if (target == null)
+        if (target == null) {
             return false;
+        }
         super.validateDrop(target, operation, transferType);
         boolean isValid = true;
         for (Object obj : ((StructuredSelection) getViewer().getSelection()).toArray()) {
@@ -252,6 +251,7 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
     private void runInProgressDialog(final IWorkspaceRunnable op) {
         final IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
 
+            @Override
             public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                 IWorkspace workspace = ResourcesPlugin.getWorkspace();
                 try {
@@ -299,6 +299,7 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
             this.targetNode = targetNode;
         }
 
+        @Override
         public void run(IProgressMonitor monitor) throws CoreException {
             monitor.beginTask(getTaskName(), IProgressMonitor.UNKNOWN);
             String copyName = "User action : Copy Object"; //$NON-NLS-1$
@@ -339,6 +340,7 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
             this.targetNode = targetNode;
         }
 
+        @Override
         public void run(final IProgressMonitor monitor) throws CoreException {
             monitor.beginTask(getTaskName(), IProgressMonitor.UNKNOWN);
             // MOD gdbu 2011-10-9 TDQ-3545
@@ -360,7 +362,7 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
                         }
                         MessageDialog.openInformation(getViewer().getControl().getShell(),
                                 Messages.getString("RepositoryDropAdapter_moveTitle"), //$NON-NLS-1$
-                                errorMsg); //$NON-NLS-1$ 
+                                errorMsg);
                         setReturnValue(false);
                         return;
                     }
@@ -391,6 +393,7 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
                 protected void run() throws LoginException, PersistenceException {
                     final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
+                        @Override
                         public void run(IProgressMonitor monitor) throws CoreException {
                             try {
                                 for (Object obj : ((StructuredSelection) data).toArray()) {
