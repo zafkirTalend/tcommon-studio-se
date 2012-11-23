@@ -49,7 +49,7 @@ import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.routines.IRoutinesProvider;
 import org.talend.core.model.routines.RoutineLibraryMananger;
-import org.talend.core.utils.BrandingChecker;
+import org.talend.core.utils.TalendCacheUtils;
 import org.talend.librariesmanager.Activator;
 import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
@@ -88,6 +88,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
      * 
      * @see org.talend.core.model.general.ILibrariesService#getSqlPatternTemplate()
      */
+    @Override
     public URL getSqlPatternTemplate() {
         return Activator.BUNDLE.getEntry("resources/java/" + SOURCE_SQLPATTERN_FOLDER + "/__TEMPLATE__" + TEMPLATE_SUFFIX); //$NON-NLS-1$ //$NON-NLS-2$
     }
@@ -97,6 +98,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
      * 
      * @see org.talend.core.model.general.ILibrariesService#getSystemRoutines()
      */
+    @Override
     public List<URL> getSystemRoutines() {
         List<URL> toReturn = new ArrayList<URL>();
 
@@ -106,6 +108,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         return toReturn;
     }
 
+    @Override
     public List<URL> getSystemSQLPatterns() {
         return FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/java/" + SOURCE_SQLPATTERN_FOLDER, //$NON-NLS-1$
                 SQLPATTERN_FILE_SUFFIX, false, true);
@@ -116,6 +119,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
      * 
      * @see org.talend.core.model.general.ILibrariesService#getTalendRoutines()
      */
+    @Override
     public List<URL> getTalendRoutinesFolder() throws IOException {
         List<URL> toReturn = new ArrayList<URL>();
 
@@ -126,6 +130,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         return toReturn;
     }
 
+    @Override
     public List<URL> getTalendBeansFolder() throws IOException {
         List<URL> toReturn = new ArrayList<URL>();
 
@@ -136,6 +141,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         return toReturn;
     }
 
+    @Override
     public List<URL> getTalendRoutines() {
         List<URL> toReturn = new ArrayList<URL>();
         for (IRoutinesProvider routineProvider : RoutineProviderManager.getInstance().getProviders(ECodeLanguage.JAVA)) {
@@ -168,19 +174,19 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         }
     }
 
+    @Override
     public void syncLibraries(IProgressMonitor... monitorWrap) {
         try {
             // 1. Talend libraries:
             File talendLibraries = new File(FileLocator.resolve(Activator.BUNDLE.getEntry("resources/java/lib/")).getFile()); //$NON-NLS-1$
             repositoryBundleService.deploy(talendLibraries.toURI(), monitorWrap);
 
-            if (ArrayUtils.contains(Platform.getApplicationArgs(), "--clean_component_cache")
-                    || BrandingChecker.isBrandingChanged()) {
+            if (TalendCacheUtils.cleanComponentCache()) {
                 repositoryBundleService.clearCache();
             }
             // Add a new system file, if exists, means all components libs are already setup, so no need to do again.
             // if clean the component cache, it will automatically recheck all libs still.
-            if (!repositoryBundleService.isInitialized()) { //$NON-NLS-1$
+            if (!repositoryBundleService.isInitialized()) {
                 // 2. Components libraries
                 IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
                         IComponentsService.class);
@@ -293,6 +299,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
      * 
      * @see org.talend.core.model.general.ILibrariesService#isLibSynchronized()
      */
+    @Override
     public boolean isLibSynchronized() {
         return this.isLibSynchronized;
 
@@ -303,6 +310,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
      * 
      * @see org.talend.core.model.general.ILibrariesService#getPerlLibrariesPath()
      */
+    @Override
     public String getPerlLibrariesPath() {
         // TODO Auto-generated method stub
         return null;
@@ -315,6 +323,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
      * org.talend.core.model.general.ILibrariesService#syncLibrariesFromLibs(org.eclipse.core.runtime.IProgressMonitor
      * [])
      */
+    @Override
     public void syncLibrariesFromLibs(IProgressMonitor... monitorWrap) {
         // for feature 12877
         if (PluginChecker.isSVNProviderPluginLoaded()) {
