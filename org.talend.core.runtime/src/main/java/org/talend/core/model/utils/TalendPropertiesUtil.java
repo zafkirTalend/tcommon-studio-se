@@ -56,4 +56,17 @@ public final class TalendPropertiesUtil {
 
         return Boolean.parseBoolean(value);
     }
+
+    /**
+     * 
+     * DOC ggu Comment method "isEnabledMultiBranchesInWorkspacee".
+     * 
+     * @return
+     */
+    public static boolean isCleanCache() {
+        String value = System.getProperty("talend.clean.cache"); //$NON-NLS-1$
+
+        return Boolean.parseBoolean(value);
+    }
+
 }
