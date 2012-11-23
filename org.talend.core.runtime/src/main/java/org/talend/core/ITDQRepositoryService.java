@@ -41,7 +41,7 @@ public interface ITDQRepositoryService extends IService {
 
     public IViewPart getTDQRespositoryView();
 
-    public void openEditor(Item item);
+    public void openConnectionEditor(Item item);
 
     public void notifySQLExplorer(Item... items);
 
@@ -104,5 +104,7 @@ public interface ITDQRepositoryService extends IService {
 
     // Add yyin 2012-11-15 TDQ-6395
     public void saveConnectionWithDependency(ConnectionItem connectionItem);
+
+    public void refreshConnectionEditor(Item item);
 
 }

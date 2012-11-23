@@ -253,6 +253,7 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
                 IWorkspace workspace = ResourcesPlugin.getWorkspace();
                 IWorkspaceRunnable operation = new IWorkspaceRunnable() {
 
+                    @Override
                     public void run(IProgressMonitor monitor) throws CoreException {
                         try {
                             factory.save(connectionItem);
@@ -275,9 +276,15 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
         list.add(repositoryObject);
 
         if (tdqRepService != null) {
+            // MOD qiongli 2012-11-23 TDQ-6287
+            if (creation) {
+                tdqRepService.openConnectionEditor(connectionItem);
+            } else {
+                // refresh the opened connection editor whatever is in DI or DQ perspective.
+                tdqRepService.refreshConnectionEditor(connectionItem);
+            }
             if (CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {
-                tdqRepService.openEditor(connectionItem);
-                tdqRepService.refresh(node);
+                tdqRepService.refresh(node.getParent());
             }
         }
 
@@ -308,6 +315,7 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
      * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench,
      * org.eclipse.jface.viewers.IStructuredSelection)
      */
+    @Override
     public void init(IWorkbench workbench, IStructuredSelection selection) {
         // TODO Auto-generated method stub
 
