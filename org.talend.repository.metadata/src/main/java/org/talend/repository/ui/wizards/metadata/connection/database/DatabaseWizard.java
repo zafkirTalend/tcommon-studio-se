@@ -463,19 +463,15 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                 // MOD qiongli 2012-11-19 TDQ-6287
                 if (creation) {
                     tdqRepService.notifySQLExplorer(connectionItem);
+                    tdqRepService.openConnectionEditor(connectionItem);
                 } else {
                     tdqRepService.removeAliasInSQLExplorer(node);
                     tdqRepService.notifySQLExplorer(connectionItem);
+                    // refresh the opened connection editor whatever is in DI or DQ perspective.
+                    tdqRepService.refreshConnectionEditor(connectionItem);
                 }
-                // reopen the opened connection editor whatever is in DI or DQ perspective.
-                tdqRepService.openEditor(connectionItem);
                 if (CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {
-                    if (node.getParent() != null) {
-                        tdqRepService.refresh(node.getParent());
-                    } else {
-                        tdqRepService.refresh();
-                    }
-
+                    tdqRepService.refresh(node.getParent());
                 }
             }
             updateTdqDependencies();
