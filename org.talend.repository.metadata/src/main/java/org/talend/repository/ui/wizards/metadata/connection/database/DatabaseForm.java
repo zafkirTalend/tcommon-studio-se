@@ -373,7 +373,7 @@ public class DatabaseForm extends AbstractForm {
         generalJdbcDriverjarText.setText(getConnection().getDriverJarPath());
         generalMappingFileText.setText(getConnection().getDbmsId());
 
-        String jdbcUrlString = "";
+        String jdbcUrlString = ""; //$NON-NLS-1$
         if (isContextMode()) {
             ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(getShell(), getConnection(), true);
             if (contextType != null) {
@@ -658,19 +658,32 @@ public class DatabaseForm extends AbstractForm {
 
         hiveComposite.setLayout(new GridLayout(6, false));
 
+        List<String> distributionItems = new ArrayList<String>();
+        distributionItems.add(Messages.getString("DatabaseForm.distribution.hortonWorks")); //$NON-NLS-1$
+        distributionItems.add(Messages.getString("DatabaseForm.distribution.apache")); //$NON-NLS-1$
+        distributionItems.add(Messages.getString("DatabaseForm.distribution.cloudera")); //$NON-NLS-1$
+
+        List<String> hiveModeItems = new ArrayList<String>();
+        hiveModeItems.add(Messages.getString("DatabaseForm.hiveMode.standalone")); //$NON-NLS-1$
+        hiveModeItems.add(Messages.getString("DatabaseForm.hiveMode.embedded")); //$NON-NLS-1$
+
+        // As the embedded mode is not working for top, we need to hide some menus
+        if (isTOPStandaloneMode()) {
+            distributionItems.remove(0);
+            hiveModeItems.remove(1);
+        }
+
+        String[] distributionstr = distributionItems.toArray(new String[distributionItems.size()]);
+        String[] hiveModestr = hiveModeItems.toArray(new String[hiveModeItems.size()]);
+
         distributionCombo = new LabelledCombo(hiveComposite, Messages.getString("DatabaseForm.distribution.labelName"),//$NON-NLS-1$
-                Messages.getString("DatabaseForm.distribution.tips"), new String[] {//$NON-NLS-1$
-                Messages.getString("DatabaseForm.distribution.hortonWorks"),//$NON-NLS-1$
-                        Messages.getString("DatabaseForm.distribution.apache"),//$NON-NLS-1$
-                        Messages.getString("DatabaseForm.distribution.cloudera") }, 1, false);//$NON-NLS-1$
+                Messages.getString("DatabaseForm.distribution.tips"), distributionstr, 1, false);//$NON-NLS-1$
 
         hiveVersionCombo = new LabelledCombo(hiveComposite, Messages.getString("DatabaseForm.hiveVersion.labelName"),//$NON-NLS-1$
                 Messages.getString("DatabaseForm.hiveVersion.tips"), new String[] {}, 1, false);//$NON-NLS-1$
 
         hiveModeCombo = new LabelledCombo(hiveComposite, Messages.getString("DatabaseForm.hiveMode.labelName"),//$NON-NLS-1$
-                Messages.getString("DatabaseForm.hiveMode.tips"), new String[] {//$NON-NLS-1$
-                Messages.getString("DatabaseForm.hiveMode.standalone"),//$NON-NLS-1$
-                        Messages.getString("DatabaseForm.hiveMode.embedded") }, 1, false);//$NON-NLS-1$
+                Messages.getString("DatabaseForm.hiveMode.tips"), hiveModestr, 1, false);//$NON-NLS-1$
 
         setHideVersionInfoWidgets(true);
     }
@@ -763,11 +776,11 @@ public class DatabaseForm extends AbstractForm {
         browseJarFilesButton.setToolTipText(Messages.getString("DatabaseForm.selectJar")); //$NON-NLS-1$
 
         generalJdbcClassNameText = new LabelledCombo(generalDbCompositeParent,
-                Messages.getString("DatabaseForm.general.classname"), "", null, 1, true, SWT.NONE); //$NON-NLS-1$
+                Messages.getString("DatabaseForm.general.classname"), "", null, 1, true, SWT.NONE); //$NON-NLS-1$ //$NON-NLS-2$
 
         browseClassButton = new Button(generalDbCompositeParent, SWT.NONE);
         browseClassButton.setText("..."); //$NON-NLS-1$
-        browseClassButton.setToolTipText("Select class name");
+        browseClassButton.setToolTipText("Select class name"); //$NON-NLS-1$
 
         generalJdbcUserText = new LabelledText(generalDbCompositeParent, Messages.getString("DatabaseForm.general.user"), 2); //$NON-NLS-1$
 
@@ -935,7 +948,7 @@ public class DatabaseForm extends AbstractForm {
             IWorkbenchPage page = workBenchWindow.getActivePage();
             if (page != null) {
                 String perId = page.getPerspective().getId();
-                if ((!"".equals(perId) && null != perId)) {
+                if ((!"".equals(perId) && null != perId)) { //$NON-NLS-1$
                     // eg : use DI, then switch to DQ : All view from DI must be hidden when switch
                     // MOD qiongli 2012-7-10 TDQ-5801,hide also 'MSsql 2005/2008' for DQ after delete that MS jars.
                     if (perId.equalsIgnoreCase(IBrandingConfiguration.PERSPECTIVE_DI_ID)
@@ -1085,22 +1098,22 @@ public class DatabaseForm extends AbstractForm {
             String metastoreConnPasswordStr = metastoreConnPassword.getText();
             String metastoreConnDriverJarStr = metastoreConnDriverJar.getText();
             String metastoreConnDriverNameStr = metastoreConnDriverName.getText();
-            if ("".equals(mestoreConnURLStr) && "".equals(metastoreConnUserNameStr) && "".equals(metastoreConnPasswordStr)
-                    && "".equals(metastoreConnDriverJarStr) && "".equals(metastoreConnDriverNameStr)) {
+            if ("".equals(mestoreConnURLStr) && "".equals(metastoreConnUserNameStr) && "".equals(metastoreConnPasswordStr) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                    && "".equals(metastoreConnDriverJarStr) && "".equals(metastoreConnDriverNameStr)) { //$NON-NLS-1$ //$NON-NLS-2$
                 properties.put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR, metastoreConnDriverJar.getText());
-                properties.put("dbTypeString", dbTypeCombo.getItem(dbTypeCombo.getSelectionIndex()));
+                properties.put("dbTypeString", dbTypeCombo.getItem(dbTypeCombo.getSelectionIndex())); //$NON-NLS-1$
                 // properties.put("urlConnectionString",metastoreConnURLTxt.getText());
-                properties.put("urlConnectionString", urlConnectionStringText.getText());
-                properties.put("username", "");
-                properties.put("password", "");
-                properties.put("driverClassName", "");
+                properties.put("urlConnectionString", urlConnectionStringText.getText()); //$NON-NLS-1$
+                properties.put("username", ""); //$NON-NLS-1$ //$NON-NLS-2$
+                properties.put("password", ""); //$NON-NLS-1$ //$NON-NLS-2$
+                properties.put("driverClassName", ""); //$NON-NLS-1$ //$NON-NLS-2$
             } else {
                 properties.put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR, metastoreConnDriverJar.getText());
-                properties.put("dbTypeString", dbTypeCombo.getItem(dbTypeCombo.getSelectionIndex()));
-                properties.put("urlConnectionString", metastoreConnURLTxt.getText());
-                properties.put("username", metastoreConnUserName.getText());
-                properties.put("password", metastoreConnPassword.getText());
-                properties.put("driverClassName", metastoreConnDriverName.getText());
+                properties.put("dbTypeString", dbTypeCombo.getItem(dbTypeCombo.getSelectionIndex())); //$NON-NLS-1$
+                properties.put("urlConnectionString", metastoreConnURLTxt.getText()); //$NON-NLS-1$
+                properties.put("username", metastoreConnUserName.getText()); //$NON-NLS-1$
+                properties.put("password", metastoreConnPassword.getText()); //$NON-NLS-1$
+                properties.put("driverClassName", metastoreConnDriverName.getText()); //$NON-NLS-1$
             }
 
             int distributionIndex = distributionCombo.getSelectionIndex();
@@ -1108,8 +1121,8 @@ public class DatabaseForm extends AbstractForm {
             int hiveModeIndex = hiveModeCombo.getSelectionIndex();
             String key = HiveConnUtils.getHiveModeObj(distributionIndex, hiveVersionIndex, hiveModeIndex).getKey();
 
-            properties.put("dbVersionString", key);
-            properties.put("additionalParams", "");
+            properties.put("dbVersionString", key); //$NON-NLS-1$
+            properties.put("additionalParams", ""); //$NON-NLS-1$ //$NON-NLS-2$
 
             databaseSettingIsValide = managerConnection.checkForHive(properties);
             // try {
@@ -1330,8 +1343,8 @@ public class DatabaseForm extends AbstractForm {
      */
     private void forceSetFlagForHiveCreateDefaultDB() throws ClassNotFoundException {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        ReflectionUtils.setStaticFieldValue("org.apache.hadoop.hive.metastore.HiveMetaStore$HMSHandler", classLoader,
-                "createDefaultDB", false);
+        ReflectionUtils.setStaticFieldValue("org.apache.hadoop.hive.metastore.HiveMetaStore$HMSHandler", classLoader, //$NON-NLS-1$
+                "createDefaultDB", false); //$NON-NLS-1$
     }
 
     /**
@@ -1487,7 +1500,7 @@ public class DatabaseForm extends AbstractForm {
                 if (!isContextMode()) {
                     if (!urlConnectionStringText.getEditable()) {
                         getConnection().setUiSchema(schemaText.getText());
-                        ConnectionHelper.setUsingURL(getConnection(), getConnection().getURL() + "change Schema");
+                        ConnectionHelper.setUsingURL(getConnection(), getConnection().getURL() + "change Schema"); //$NON-NLS-1$
                         modifyFieldValue();
                     }
                 }
@@ -1579,74 +1592,74 @@ public class DatabaseForm extends AbstractForm {
                 boolean isGeneralJDBC = isGeneralJDBC();
                 if (isGeneralJDBC) {
                     if (generalJdbcUrlText != null) {
-                        generalJdbcUrlText.setText("");
+                        generalJdbcUrlText.setText(""); //$NON-NLS-1$
                     }
                     if (generalJdbcUserText != null) {
-                        generalJdbcUserText.setText("");
+                        generalJdbcUserText.setText(""); //$NON-NLS-1$
                     }
                     if (generalJdbcPasswordText != null) {
-                        generalJdbcPasswordText.setText("");
+                        generalJdbcPasswordText.setText(""); //$NON-NLS-1$
                     }
 
                 } else if (isHiveDBConnSelected()) {
                     // Added by Marvin Wang on Oct. 15, 2012 for bug TDI-23235.
                     if (urlConnectionStringText != null) {
-                        urlConnectionStringText.setText("");
+                        urlConnectionStringText.setText(""); //$NON-NLS-1$
                     }
                     if (usernameText != null) {
 
-                        usernameText.setText("");
+                        usernameText.setText(""); //$NON-NLS-1$
                     }
                     if (passwordText != null) {
-                        passwordText.setText("");
+                        passwordText.setText(""); //$NON-NLS-1$
                     }
                     initHiveInfo();
                 } else if (isDBTypeSelected(EDatabaseConnTemplate.HBASE)) {
                     initHBaseSettings();
                 } else {
                     if (urlConnectionStringText != null) {
-                        urlConnectionStringText.setText("");
+                        urlConnectionStringText.setText(""); //$NON-NLS-1$
                     }
                     if (usernameText != null) {
 
-                        usernameText.setText("");
+                        usernameText.setText(""); //$NON-NLS-1$
                     }
                     if (passwordText != null) {
-                        passwordText.setText("");
+                        passwordText.setText(""); //$NON-NLS-1$
                     }
                 }
                 if (schemaText != null) {
-                    schemaText.setText("");
+                    schemaText.setText(""); //$NON-NLS-1$
                 }
                 if (serverText != null) {
-                    serverText.setText("");
+                    serverText.setText(""); //$NON-NLS-1$
                 }
                 if (sidOrDatabaseText != null) {
-                    sidOrDatabaseText.setText("");
+                    sidOrDatabaseText.setText(""); //$NON-NLS-1$
                 }
                 if (portText != null && portText.getText() != null) {
-                    portText.setText("");
+                    portText.setText(""); //$NON-NLS-1$
                 }
                 if (fileField != null) {
-                    fileField.setText("");
+                    fileField.setText(""); //$NON-NLS-1$
                 }
                 if (datasourceText != null) {
-                    datasourceText.setText("");
+                    datasourceText.setText(""); //$NON-NLS-1$
                 }
                 if (additionParamText != null) {
-                    additionParamText.setText("");
+                    additionParamText.setText(""); //$NON-NLS-1$
                 }
                 if (generalJdbcClassNameText != null) {
-                    generalJdbcClassNameText.setText("");
+                    generalJdbcClassNameText.setText(""); //$NON-NLS-1$
                 }
                 if (generalJdbcDriverjarText != null) {
-                    generalJdbcDriverjarText.setText("");
+                    generalJdbcDriverjarText.setText(""); //$NON-NLS-1$
                 }
                 if (additionParamText != null) {
-                    additionParamText.setText("");
+                    additionParamText.setText(""); //$NON-NLS-1$
                 }
                 if (mappingFileText != null) {
-                    mappingFileText.setText("");
+                    mappingFileText.setText(""); //$NON-NLS-1$
                 }
 
                 boolean hiddenGeneral = !isGeneralJDBC();
@@ -1680,7 +1693,7 @@ public class DatabaseForm extends AbstractForm {
                     getConnection().setDbmsId(mapping);
                     additionParamText.setText(EDatabaseConnTemplate.getAdditionProperty(dbTypeCombo.getText()));
                     if (dbTypeCombo.getText().equals(EDatabaseConnTemplate.INFORMIX.getDBDisplayName())) {
-                        datasourceText.setLabelText(Messages.getString("DatabaseForm.informixInstance"));
+                        datasourceText.setLabelText(Messages.getString("DatabaseForm.informixInstance")); //$NON-NLS-1$
                     }
                     checkAndSetIniSQLModel();
                     checkAS400SpecificCase();
@@ -2230,7 +2243,7 @@ public class DatabaseForm extends AbstractForm {
         // feature 17159
         if (CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {
             if (!isSupportByTDQ()) {
-                updateStatus(IStatus.WARNING, "some database types are not usable in the Data Profiler perspective.");
+                updateStatus(IStatus.WARNING, "some database types are not usable in the Data Profiler perspective."); //$NON-NLS-1$
                 return false;
             }
         }
@@ -2604,7 +2617,7 @@ public class DatabaseForm extends AbstractForm {
                 schemaText.setEditable(true);
                 addContextParams(EDBParamName.Schema, true);
             } else if (template == EDatabaseConnTemplate.GENERAL_JDBC) {
-                String jdbcUrlString = "";
+                String jdbcUrlString = ""; //$NON-NLS-1$
                 if (isContextMode()) {
                     ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(getShell(), getConnection(),
                             true);
@@ -2649,7 +2662,7 @@ public class DatabaseForm extends AbstractForm {
                     serverText.setEditable(visible);
                     if (isHbase) {
                         String serverName = getConnection().getServerName();
-                        if (serverName == null || "".equals(serverName)) {
+                        if (serverName == null || "".equals(serverName)) { //$NON-NLS-1$
                             serverText.setText(EDatabaseConnTemplate.HBASE.getUrlTemplate(EDatabaseVersion4Drivers.HBASE));
                         }
                     }
@@ -2796,7 +2809,7 @@ public class DatabaseForm extends AbstractForm {
                 schemaText.setEditable(visible);
                 // for hbase it should be using column family to replace the common schema.
                 if (isHbase) {
-                    schemaText.setLabelText("Column Family");
+                    schemaText.setLabelText("Column Family"); //$NON-NLS-1$
                 }
                 addContextParams(EDBParamName.Schema, visible);
             } else {
@@ -3055,7 +3068,7 @@ public class DatabaseForm extends AbstractForm {
                     if (strArray.length > 1 && strArray[1].startsWith(Integer.toString(versionNum))) {
                         msg = null;
                     } else {
-                        msg = "Version detected on server is \"" + strArray[0] + " " + versionNum + "\".";
+                        msg = "Version detected on server is \"" + strArray[0] + " " + versionNum + "\"."; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                     }
                 } catch (SQLException exp) {
                     ExceptionHandler.process(exp);
@@ -3120,14 +3133,14 @@ public class DatabaseForm extends AbstractForm {
             String metastoreConnDriverNameStr = connection.getParameters().get(
                     ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME);
 
-            nameNodeURLTxt.setText(nameNodeURLstr == null ? "" : nameNodeURLstr);
-            jobTrackerURLTxt.setText(jobTrackerURLStr == null ? "" : jobTrackerURLStr);
+            nameNodeURLTxt.setText(nameNodeURLstr == null ? "" : nameNodeURLstr); //$NON-NLS-1$
+            jobTrackerURLTxt.setText(jobTrackerURLStr == null ? "" : jobTrackerURLStr); //$NON-NLS-1$
 
-            metastoreConnURLTxt.setText(metastoreConnURLStr == null ? "" : metastoreConnURLStr);
-            metastoreConnUserName.setText(metastoreConnUserNameStr == null ? "" : metastoreConnUserNameStr);
-            metastoreConnPassword.setText(metastoreConnPasswordStr == null ? "" : metastoreConnPasswordStr);
-            metastoreConnDriverJar.setText(metastoreConnDriverJarStr == null ? "" : metastoreConnDriverJarStr);
-            metastoreConnDriverName.setText(metastoreConnDriverNameStr == null ? "" : metastoreConnDriverNameStr);
+            metastoreConnURLTxt.setText(metastoreConnURLStr == null ? "" : metastoreConnURLStr); //$NON-NLS-1$
+            metastoreConnUserName.setText(metastoreConnUserNameStr == null ? "" : metastoreConnUserNameStr); //$NON-NLS-1$
+            metastoreConnPassword.setText(metastoreConnPasswordStr == null ? "" : metastoreConnPasswordStr); //$NON-NLS-1$
+            metastoreConnDriverJar.setText(metastoreConnDriverJarStr == null ? "" : metastoreConnDriverJarStr); //$NON-NLS-1$
+            metastoreConnDriverName.setText(metastoreConnDriverNameStr == null ? "" : metastoreConnDriverNameStr); //$NON-NLS-1$
         }
     }
 
@@ -3351,16 +3364,22 @@ public class DatabaseForm extends AbstractForm {
         int distributionIndex = distributionCombo.getSelectionIndex();
         int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
         int hiveModeIndex = hiveModeCombo.getSelectionIndex();
-        boolean isEmbeddedMode = HiveConnUtils.isEmbeddedMode(distributionIndex, hiveVersionIndex, hiveModeIndex);
-
-        getConnection().setURL(getStringConnection());
-        if (isEmbeddedMode) {
-            // handleEmbeddedMode();
-            handleUIWhenEmbeddedModeSelected();
-        } else {
-            // handleStandaloneMode();
+        // MOD msjian TDQ-6407 2012-11-26: for top, until now, not support embeded mode for hive
+        if (isTOPStandaloneMode()) {
+            getConnection().setURL(getStringConnection());
             handleUIWhenStandaloneModeSelected();
+        } else {
+            boolean isEmbeddedMode = HiveConnUtils.isEmbeddedMode(distributionIndex, hiveVersionIndex, hiveModeIndex);
+            getConnection().setURL(getStringConnection());
+            if (isEmbeddedMode) {
+                // handleEmbeddedMode();
+                handleUIWhenEmbeddedModeSelected();
+            } else {
+                // handleStandaloneMode();
+                handleUIWhenStandaloneModeSelected();
+            }
         }
+        // TDQ-6407~
 
         doUpdateConnection();
     }
@@ -3764,30 +3783,30 @@ public class DatabaseForm extends AbstractForm {
         if (EDatabaseTypeName.HIVE.getDisplayName().equalsIgnoreCase(dbType)) {
             String hiveModeDisplayName = hiveModeCombo.getText();
             if (hiveModeDisplayName != null
-                    && hiveModeDisplayName.equalsIgnoreCase(Messages.getString("DatabaseForm.hiveMode.embedded"))) {
+                    && hiveModeDisplayName.equalsIgnoreCase(Messages.getString("DatabaseForm.hiveMode.embedded"))) { //$NON-NLS-1$
 
-                System.setProperty("hive.metastore.local", "false");
-                String serverTextStr = serverText.getText() == null ? "" : serverText.getText();
-                String protTextStr = portText.getText() == null ? "" : portText.getText();
-                String thriftURL = "thrift://" + serverTextStr + ":" + protTextStr;
+                System.setProperty("hive.metastore.local", "false"); //$NON-NLS-1$ //$NON-NLS-2$
+                String serverTextStr = serverText.getText() == null ? "" : serverText.getText(); //$NON-NLS-1$
+                String protTextStr = portText.getText() == null ? "" : portText.getText(); //$NON-NLS-1$
+                String thriftURL = "thrift://" + serverTextStr + ":" + protTextStr; //$NON-NLS-1$ //$NON-NLS-2$
                 // System.setProperty("hive.metastore.uris", thriftURL);
-                System.setProperty("hive.metastore.execute.setugi", "true");
-                System.setProperty("fs.default.name", nameNodeURLTxt.getText());
-                System.setProperty("mapred.job.tracker", jobTrackerURLTxt.getText());
+                System.setProperty("hive.metastore.execute.setugi", "true"); //$NON-NLS-1$ //$NON-NLS-2$
+                System.setProperty("fs.default.name", nameNodeURLTxt.getText()); //$NON-NLS-1$
+                System.setProperty("mapred.job.tracker", jobTrackerURLTxt.getText()); //$NON-NLS-1$
                 if (metastoreConnURLTxt.getText() == null) {
-                    System.setProperty("javax.jdo.option.ConnectionURL", "");
+                    System.setProperty("javax.jdo.option.ConnectionURL", ""); //$NON-NLS-1$ //$NON-NLS-2$
                 } else {
-                    System.setProperty("javax.jdo.option.ConnectionURL", metastoreConnURLTxt.getText());
+                    System.setProperty("javax.jdo.option.ConnectionURL", metastoreConnURLTxt.getText()); //$NON-NLS-1$
                 }
 
                 if (metastoreConnUserName.getText() == null) {
-                    System.setProperty("javax.jdo.option.ConnectionUserName", "");
+                    System.setProperty("javax.jdo.option.ConnectionUserName", ""); //$NON-NLS-1$ //$NON-NLS-2$
                 } else {
-                    System.setProperty("javax.jdo.option.ConnectionUserName", metastoreConnUserName.getText());
+                    System.setProperty("javax.jdo.option.ConnectionUserName", metastoreConnUserName.getText()); //$NON-NLS-1$
                 }
-                System.setProperty("javax.jdo.option.ConnectionPassword", metastoreConnPassword.getText());
+                System.setProperty("javax.jdo.option.ConnectionPassword", metastoreConnPassword.getText()); //$NON-NLS-1$
                 // System.setProperty("javax.jdo.option.ConnectionUserName", metastoreConnURLTxt.getText());
-                System.setProperty("javax.jdo.option.ConnectionDriverName", metastoreConnDriverName.getText());
+                System.setProperty("javax.jdo.option.ConnectionDriverName", metastoreConnDriverName.getText()); //$NON-NLS-1$
             }
         }
     }
@@ -3797,15 +3816,15 @@ public class DatabaseForm extends AbstractForm {
      * Wang on Oct 17, 2012.
      */
     protected void doRemoveHiveSetup() {
-        System.clearProperty("hive.metastore.local");
-        System.clearProperty("hive.metastore.uris");
-        System.clearProperty("hive.metastore.execute.setugi");
-        System.clearProperty("fs.default.name");
-        System.clearProperty("mapred.job.tracker");
-        System.clearProperty("javax.jdo.option.ConnectionURL");
-        System.clearProperty("javax.jdo.option.ConnectionUserName");
-        System.clearProperty("javax.jdo.option.ConnectionPassword");
-        System.clearProperty("javax.jdo.option.ConnectionDriverName");
+        System.clearProperty("hive.metastore.local"); //$NON-NLS-1$
+        System.clearProperty("hive.metastore.uris"); //$NON-NLS-1$
+        System.clearProperty("hive.metastore.execute.setugi"); //$NON-NLS-1$
+        System.clearProperty("fs.default.name"); //$NON-NLS-1$
+        System.clearProperty("mapred.job.tracker"); //$NON-NLS-1$
+        System.clearProperty("javax.jdo.option.ConnectionURL"); //$NON-NLS-1$
+        System.clearProperty("javax.jdo.option.ConnectionUserName"); //$NON-NLS-1$
+        System.clearProperty("javax.jdo.option.ConnectionPassword"); //$NON-NLS-1$
+        System.clearProperty("javax.jdo.option.ConnectionDriverName"); //$NON-NLS-1$
     }
 
     /**
@@ -3819,7 +3838,7 @@ public class DatabaseForm extends AbstractForm {
         if (EDatabaseTypeName.HIVE.getDisplayName().equalsIgnoreCase(dbType)) {
             String hiveModeDisplayName = hiveModeCombo.getText();
             if (hiveModeDisplayName != null
-                    && hiveModeDisplayName.equalsIgnoreCase(Messages.getString("DatabaseForm.hiveMode.embedded"))) {
+                    && hiveModeDisplayName.equalsIgnoreCase(Messages.getString("DatabaseForm.hiveMode.embedded"))) { //$NON-NLS-1$
                 return true;
             }
         }

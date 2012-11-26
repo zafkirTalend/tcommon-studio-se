@@ -15,6 +15,8 @@ package org.talend.core.model.metadata.connection.hive;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.talend.commons.utils.platform.PluginChecker;
+
 /**
  * @author Marvin Wang
  * @version 1.0 jdk1.6
@@ -31,10 +33,11 @@ public class HiveConnUtils {
      */
     public static String[] getDistributionNames() {
         List<String> list = getDistributionNameList();
-        if (list == null)
+        if (list == null) {
             return new String[0];
-        else
+        } else {
             return list.toArray(new String[list.size()]);
+        }
     }
 
     /**
@@ -81,8 +84,9 @@ public class HiveConnUtils {
         HiveConnVersionInfo[] followsBeans = bean.getFollows();
         if (followsBeans != null && followsBeans.length > 0) {
             for (HiveConnVersionInfo followsBean : followsBeans) {
-                if (followsBean.getKey().equals(key))
+                if (followsBean.getKey().equals(key)) {
                     listFollowingKey.add(bean);
+                }
             }
         }
     }
@@ -117,9 +121,15 @@ public class HiveConnUtils {
             List<HiveConnVersionInfo> list = new ArrayList<HiveConnVersionInfo>();
             for (HiveConnVersionInfo bean : beans) {
                 int beanLevel = bean.getLevel();
-                if (level == beanLevel)
+                if (level == beanLevel) {
                     list.add(bean);
+                }
             }
+            // ADD msjian TDQ-6407 2012-11-26:for top not support hive embedded mode
+            if (PluginChecker.isOnlyTopLoaded() && level == 0) {
+                list.remove(0);
+            }
+            // TDQ-6407~
             return list;
         }
         return null;
@@ -135,8 +145,9 @@ public class HiveConnUtils {
         String[] names = getDistributionNames();
         if (names != null && names.length > 0) {
             for (int i = 0; i < names.length; i++) {
-                if (displayName != null && displayName.equals(names[i]))
+                if (displayName != null && displayName.equals(names[i])) {
                     return i;
+                }
             }
         }
         return -1;
@@ -153,8 +164,9 @@ public class HiveConnUtils {
         List<HiveConnVersionInfo> beans = getObjectsByLevel(level);
         if (beans != null && beans.size() > 0) {
             for (HiveConnVersionInfo bean : beans) {
-                if (displayName != null && displayName.equals(bean.getDisplayName()))
+                if (displayName != null && displayName.equals(bean.getDisplayName())) {
                     return bean.getKey();
+                }
             }
         }
         return null;
@@ -187,10 +199,11 @@ public class HiveConnUtils {
 
     public static String[] getHiveVersionNames(int distributionIndex) {
         List<String> hiveVersionNameList = getHiveVersionNameList(distributionIndex);
-        if (hiveVersionNameList != null && hiveVersionNameList.size() > 0)
+        if (hiveVersionNameList != null && hiveVersionNameList.size() > 0) {
             return hiveVersionNameList.toArray(new String[hiveVersionNameList.size()]);
-        else
+        } else {
             return new String[0];
+        }
     }
 
     /**
@@ -212,6 +225,11 @@ public class HiveConnUtils {
 
     protected static List<String> getHiveModeNameList(int distributionIndex, int versionIndex) {
         List<HiveConnVersionInfo> hiveModeObjs = getHiveModes(distributionIndex, versionIndex);
+        // ADD msjian TDQ-6407 2012-11-26: for top, not support hive embeded mode,hide this menu
+        if (PluginChecker.isOnlyTopLoaded() && hiveModeObjs.size() > 1) {
+            hiveModeObjs.remove(0);
+        }
+        // TDQ-6407~
         if (hiveModeObjs != null && hiveModeObjs.size() > 0) {
             List<String> hiveModeNameList = new ArrayList<String>();
             for (HiveConnVersionInfo bean : hiveModeObjs) {
@@ -224,10 +242,11 @@ public class HiveConnUtils {
 
     public static String[] getHiveModeNames(int distributionIndex, int versionIndex) {
         List<String> hiveModeNameList = getHiveModeNameList(distributionIndex, versionIndex);
-        if (hiveModeNameList != null && hiveModeNameList.size() > 0)
+        if (hiveModeNameList != null && hiveModeNameList.size() > 0) {
             return hiveModeNameList.toArray(new String[hiveModeNameList.size()]);
-        else
+        } else {
             return new String[0];
+        }
     }
 
     public static int getIndexOfDistribution(String distributionKey) {
@@ -235,8 +254,9 @@ public class HiveConnUtils {
         List<HiveConnVersionInfo> distributions = getObjectsByLevel(level);
         if (distributions != null && distributions.size() > 0) {
             for (int i = 0; i < distributions.size(); i++) {
-                if (distributions.get(i).getKey().equals(distributionKey))
+                if (distributions.get(i).getKey().equals(distributionKey)) {
                     return i;
+                }
             }
         }
         return -1;
@@ -252,8 +272,9 @@ public class HiveConnUtils {
         List<HiveConnVersionInfo> hiveVersions = getHiveVersions(distributionIndex);
         if (hiveVersions != null && hiveVersions.size() > 0) {
             for (int i = 0; i < hiveVersions.size(); i++) {
-                if (hiveVersions.get(i).getKey().equals(hiveVersionKey))
+                if (hiveVersions.get(i).getKey().equals(hiveVersionKey)) {
                     return i;
+                }
             }
         }
         return -1;
@@ -271,8 +292,9 @@ public class HiveConnUtils {
         List<HiveConnVersionInfo> hiveModes = getHiveModes(distributionIndex, hiveVersionIndex);
         if (hiveModes != null && hiveModes.size() > 0) {
             for (int i = 0; i < hiveModes.size(); i++) {
-                if (hiveModes.get(i).getKey().equals(hiveModeKey))
+                if (hiveModes.get(i).getKey().equals(hiveModeKey)) {
                     return i;
+                }
             }
         }
         return -1;
@@ -290,8 +312,9 @@ public class HiveConnUtils {
         List<HiveConnVersionInfo> hiveModes = getHiveModes(distributionIndex, hiveVersionIndex);
         if (hiveModes != null && hiveModes.size() > 0) {
             HiveConnVersionInfo hiveMode = hiveModes.get(hiveModeIndex);
-            if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(hiveMode.getKey()))
+            if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(hiveMode.getKey())) {
                 return true;
+            }
         }
         return false;
     }
@@ -305,8 +328,9 @@ public class HiveConnUtils {
      */
     public static HiveConnVersionInfo getDistributionObj(int index) {
         List<HiveConnVersionInfo> distributions = getObjectsByLevel(0);
-        if (distributions != null && distributions.size() > 0)
+        if (distributions != null && distributions.size() > 0) {
             return distributions.get(index);
+        }
         return null;
     }
 
@@ -320,8 +344,9 @@ public class HiveConnUtils {
      */
     public static HiveConnVersionInfo getHiveVersionObj(int distributionIndex, int hiveVersionIndex) {
         List<HiveConnVersionInfo> objs = getHiveVersions(distributionIndex);
-        if (objs != null && objs.size() > 0)
+        if (objs != null && objs.size() > 0) {
             return objs.get(hiveVersionIndex);
+        }
         return null;
     }
 
@@ -336,15 +361,17 @@ public class HiveConnUtils {
      */
     public static HiveConnVersionInfo getHiveModeObj(int distributionIndex, int hiveVersionIndex, int hiveModeIndex) {
         List<HiveConnVersionInfo> objs = getHiveModes(distributionIndex, hiveVersionIndex);
-        if (objs != null && objs.size() > 0)
+        if (objs != null && objs.size() > 0) {
             return objs.get(hiveModeIndex);
+        }
         return null;
     }
 
     public static String getHiveModeObjKey(int distributionIndex, int hiveVersionIndex, int hiveModeIndex) {
         HiveConnVersionInfo hiveModeObj = getHiveModeObj(distributionIndex, hiveVersionIndex, hiveModeIndex);
-        if (hiveModeObj != null)
+        if (hiveModeObj != null) {
             return hiveModeObj.getKey();
+        }
         return null;
     }
 
