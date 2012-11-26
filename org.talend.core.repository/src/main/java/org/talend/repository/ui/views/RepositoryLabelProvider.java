@@ -193,6 +193,10 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
         if (object instanceof RepositoryViewObject && ((RepositoryViewObject) object).getCustomImage() != null) {
             img = ((RepositoryViewObject) object).getCustomImage();
         } else {
+            if (property == null) {
+                // means item has been deleted or is not available for display now, so just return null
+                return null;
+            }
             // MOD sizhaoliu 2011-10-14
             // TDQ-3356 enable different icons of extension points under a same repository node
             Item item = property.getItem();
