@@ -217,7 +217,6 @@ public class DatabaseForm extends AbstractForm {
 
     private ScrolledComposite scrolledComposite;
 
-    // for jdbc
     private ContextType selectedContextType;
 
     /**

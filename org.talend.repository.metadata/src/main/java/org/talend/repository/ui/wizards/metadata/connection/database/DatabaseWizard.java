@@ -318,7 +318,12 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             if (databaseWizardPage.getSelectedContextType() != null) {
                 contextName = databaseWizardPage.getSelectedContextType().getName();
             }
-            IMetadataConnection metadataConnection = ConvertionHelper.convert(connection, false, contextName);
+            IMetadataConnection metadataConnection = null;
+            if (contextName == null) {
+                metadataConnection = ConvertionHelper.convert(connection, true);
+            } else {
+                metadataConnection = ConvertionHelper.convert(connection, false, contextName);
+            }
             final IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
 
             ITDQRepositoryService tdqRepService = null;
