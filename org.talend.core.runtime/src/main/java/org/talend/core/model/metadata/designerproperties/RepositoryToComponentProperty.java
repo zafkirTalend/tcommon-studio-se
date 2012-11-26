@@ -1118,7 +1118,7 @@ public class RepositoryToComponentProperty {
             return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION);
         }
 
-        if (value.equals(EParameterNameForComponent.PARA_NAME_FS_DEFAULT_NAME)) {
+        if (value.equals(EParameterNameForComponent.PARA_NAME_FS_DEFAULT_NAME.getName())) {
             String nameNodeURL = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL);
             if (isContextMode(connection, nameNodeURL)) {
                 return nameNodeURL;
@@ -1127,7 +1127,7 @@ public class RepositoryToComponentProperty {
             }
         }
 
-        if (value.equals(EParameterNameForComponent.PARA_NAME_MAPRED_JT)) {
+        if (value.equals(EParameterNameForComponent.PARA_NAME_MAPRED_JT.getName())) {
             String jobTrackerURL = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL);
             if (isContextMode(connection, jobTrackerURL)) {
                 return jobTrackerURL;
