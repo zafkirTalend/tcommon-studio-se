@@ -1235,89 +1235,70 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             // The "system" folder wasn't allowed to move
             return;
         }
-        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
+        Project project = getRepositoryContext().getProject();
+        IProject fsProject = ResourceModelUtils.getProject(project);
 
-            @Override
-            public void run(IProgressMonitor monitor) throws CoreException {
-                try {
-                    Project project = getRepositoryContext().getProject();
-                    IProject fsProject = ResourceModelUtils.getProject(project);
-
-                    String completeOldPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + sourcePath.toString();
-                    String completeNewPath;
-                    if (targetPath.equals("")) { //$NON-NLS-1$
-                        completeNewPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + sourcePath.lastSegment();
-                    } else {
-                        completeNewPath = ERepositoryObjectType.getFolderName(type)
-                                + ("".equals(targetPath.toString()) ? "" : IPath.SEPARATOR + targetPath.toString()) //$NON-NLS-1$//$NON-NLS-2$
-                                + IPath.SEPARATOR + sourcePath.lastSegment();
-                    }
-                    if (completeNewPath.equals(completeOldPath)) {
-                        // nothing to do
-                        return;
-                    }
-                    // Getting the folder :
-                    IFolder folder = ResourceUtils.getFolder(fsProject, completeOldPath, true);
-
-                    FolderHelper folderHelper = getFolderHelper(getRepositoryContext().getProject().getEmfProject());
-                    FolderItem emfFolder = folderHelper.getFolder(completeOldPath);
-                    if (emfFolder == null && (type == ERepositoryObjectType.JOB_DOC || type == ERepositoryObjectType.JOBLET_DOC)) {
-                        IPath path = new Path(sourcePath.toString());
-                        ProxyRepositoryFactory.getInstance().createParentFoldersRecursively(project, type, path);
-                        emfFolder = folderHelper.getFolder(completeOldPath);
-                    }
-
-                    createFolder(getRepositoryContext().getProject(), type, targetPath, emfFolder.getProperty().getLabel());
-                    FolderItem newFolder = folderHelper.getFolder(completeNewPath);
-
-                    Item[] childrens = (Item[]) emfFolder.getChildren().toArray();
-                    for (Item children2 : childrens) {
-                        if (children2 instanceof FolderItem) {
-                            FolderItem children = (FolderItem) children2;
-                            moveFolder(type, sourcePath.append(children.getProperty().getLabel()),
-                                    targetPath.append(emfFolder.getProperty().getLabel()));
-                        } else {
-                            moveOldContentToNewFolder(project, completeNewPath, emfFolder, newFolder, children2);
-                        }
-                    }
-
-                    List<IRepositoryViewObject> serializableFromFolder = getSerializableFromFolder(project, folder, null, type,
-                            true, true, true, false);
-                    for (IRepositoryViewObject object : serializableFromFolder) {
-                        // this method should be called before the method moveResource(Resource, IPath)
-                        dealTdqResourceMove(project, completeNewPath, object);
-                        List<Resource> affectedResources = xmiResourceManager.getAffectedResources(object.getProperty());
-                        for (Resource resource : affectedResources) {
-                            IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath)
-                                    .append(resource.getURI().lastSegment());
-                            // Find cross reference and save them.
-                            List<Resource> needSaves = findCrossReference(resource);
-                            moveResource(resource, path);
-                            saveCrossReference(needSaves);
-                        }
-                        affectedResources = xmiResourceManager.getAffectedResources(object.getProperty());
-                        for (Resource resource : affectedResources) {
-                            xmiResourceManager.saveResource(resource);
-                        }
-                    }
-
-                    deleteFolder(getRepositoryContext().getProject(), type, sourcePath);
-
-                    xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
-                } catch (PersistenceException e) {
-                    throw new CoreException(new org.eclipse.core.runtime.Status(IStatus.ERROR, FrameworkUtil.getBundle(
-                            this.getClass()).getSymbolicName(), "Error", e));
-                }
-            }
-
-        };
-        IWorkspace workspace = ResourcesPlugin.getWorkspace();
-        try {
-            ISchedulingRule schedulingRule = workspace.getRoot();
-            workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, new NullProgressMonitor());
-        } catch (CoreException e) {
-            throw new PersistenceException(e.getCause());
+        String completeOldPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + sourcePath.toString();
+        String completeNewPath;
+        if (targetPath.equals("")) { //$NON-NLS-1$
+            completeNewPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + sourcePath.lastSegment();
+        } else {
+            completeNewPath = ERepositoryObjectType.getFolderName(type)
+                    + ("".equals(targetPath.toString()) ? "" : IPath.SEPARATOR + targetPath.toString()) //$NON-NLS-1$//$NON-NLS-2$
+                    + IPath.SEPARATOR + sourcePath.lastSegment();
         }
+        if (completeNewPath.equals(completeOldPath)) {
+            // nothing to do
+            return;
+        }
+        // Getting the folder :
+        IFolder folder = ResourceUtils.getFolder(fsProject, completeOldPath, true);
+
+        FolderHelper folderHelper = getFolderHelper(getRepositoryContext().getProject().getEmfProject());
+        FolderItem emfFolder = folderHelper.getFolder(completeOldPath);
+        if (emfFolder == null && (type == ERepositoryObjectType.JOB_DOC || type == ERepositoryObjectType.JOBLET_DOC)) {
+            IPath path = new Path(sourcePath.toString());
+            ProxyRepositoryFactory.getInstance().createParentFoldersRecursively(project, type, path);
+            emfFolder = folderHelper.getFolder(completeOldPath);
+        }
+
+        createFolder(getRepositoryContext().getProject(), type, targetPath, emfFolder.getProperty().getLabel());
+        FolderItem newFolder = folderHelper.getFolder(completeNewPath);
+
+        Item[] childrens = (Item[]) emfFolder.getChildren().toArray();
+        for (Item children2 : childrens) {
+            if (children2 instanceof FolderItem) {
+                FolderItem children = (FolderItem) children2;
+                moveFolder(type, sourcePath.append(children.getProperty().getLabel()),
+                        targetPath.append(emfFolder.getProperty().getLabel()));
+            } else {
+                moveOldContentToNewFolder(project, completeNewPath, emfFolder, newFolder, children2);
+            }
+        }
+
+        List<IRepositoryViewObject> serializableFromFolder = getSerializableFromFolder(project, folder, null, type, true, true,
+                true, false);
+        for (IRepositoryViewObject object : serializableFromFolder) {
+            // this method should be called before the method moveResource(Resource, IPath)
+            dealTdqResourceMove(project, completeNewPath, object);
+            List<Resource> affectedResources = xmiResourceManager.getAffectedResources(object.getProperty());
+            for (Resource resource : affectedResources) {
+                IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath)
+                        .append(resource.getURI().lastSegment());
+                // Find cross reference and save them.
+                List<Resource> needSaves = findCrossReference(resource);
+                moveResource(resource, path);
+                saveCrossReference(needSaves);
+            }
+            affectedResources = xmiResourceManager.getAffectedResources(object.getProperty());
+            for (Resource resource : affectedResources) {
+                xmiResourceManager.saveResource(resource);
+            }
+        }
+
+        deleteFolder(getRepositoryContext().getProject(), type, sourcePath);
+
+        xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
     }
 
     /**
