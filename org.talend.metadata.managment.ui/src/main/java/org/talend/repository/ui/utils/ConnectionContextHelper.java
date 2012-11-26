@@ -1128,7 +1128,6 @@ public final class ConnectionContextHelper {
                     selectedContext = contextItem.getDefaultContext();
                 }
             }
-            connection.setContextName(selectedContext);
             // if can cancel, can't return the default contex by auto.
             return ContextUtils.getContextTypeByName(contextItem, selectedContext, !canCancel);
         }
