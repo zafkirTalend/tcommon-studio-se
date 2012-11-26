@@ -1385,6 +1385,12 @@ public class DeleteAction extends AContextualAction {
                         break;
                     }
 
+                    if (contentType == ERepositoryObjectType.METADATA_CON_TABLE) {
+                        enabled = false;
+                        visible = false;
+                        break;
+                    }
+
                     IRepositoryViewObject repObj = node.getObject();
 
                     ERepositoryStatus status = repObj.getRepositoryStatus();
