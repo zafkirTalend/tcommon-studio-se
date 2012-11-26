@@ -51,6 +51,7 @@ public interface IMetadataFiller {
      * @param conn
      * @return null only if conn is null
      */
+    @Deprecated
     public IMetadataConnection fillUIParams(DatabaseConnection conn);
 
     /**
@@ -77,6 +78,9 @@ public interface IMetadataFiller {
      */
     public List<Catalog> fillCatalogs(Connection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> catalogFilter);
 
+    public List<Catalog> fillCatalogs(Connection dbConn, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
+            List<String> catalogFilter);
+
     /**
      * 
      * zshen Comment method "fillSchemas".
@@ -89,6 +93,9 @@ public interface IMetadataFiller {
      * @return The list of schemas after filter.Will return null only if dbJDBCMetadata isn't normal.
      */
     public List<Package> fillSchemas(Connection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> Filter);
+
+    public List<Package> fillSchemas(Connection dbConn, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
+            List<String> Filter);
 
     /**
      * wzhang Comment method "fillAll".

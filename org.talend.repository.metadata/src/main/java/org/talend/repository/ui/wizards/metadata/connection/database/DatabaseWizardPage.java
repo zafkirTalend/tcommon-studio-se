@@ -17,6 +17,7 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.ui.swt.utils.AbstractForm;
 import org.talend.repository.ui.wizards.RepositoryWizard;
 
@@ -53,6 +54,7 @@ public class DatabaseWizardPage extends WizardPage {
      * 
      * @see IDialogPage#createControl(Composite)
      */
+    @Override
     public void createControl(final Composite parent) {
         boolean isCreation = false;
         if (this.getWizard() instanceof RepositoryWizard) {
@@ -63,6 +65,7 @@ public class DatabaseWizardPage extends WizardPage {
 
         AbstractForm.ICheckListener listener = new AbstractForm.ICheckListener() {
 
+            @Override
             public void checkPerformed(final AbstractForm source) {
                 if (source.isStatusOnError()) {
                     DatabaseWizardPage.this.setPageComplete(false);
@@ -89,5 +92,9 @@ public class DatabaseWizardPage extends WizardPage {
      */
     public IMetadataConnection getMetadataConnection() {
         return databaseForm.getMetadataConnection();
+    }
+
+    public ContextType getSelectedContextType() {
+        return databaseForm.getSelectedContextType();
     }
 }

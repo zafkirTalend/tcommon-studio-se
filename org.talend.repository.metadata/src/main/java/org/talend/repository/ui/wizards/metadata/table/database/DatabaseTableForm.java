@@ -99,13 +99,11 @@ import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.designer.core.IDesignerCoreService;
-import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.runprocess.ProcessorException;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.ProjectNodeHelper;
 import org.talend.repository.ui.swt.utils.AbstractForm;
-import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.ManagerConnection;
 import org.talend.repository.ui.wizards.metadata.connection.GuessSchemaUtil;
 
@@ -618,13 +616,7 @@ public class DatabaseTableForm extends AbstractForm {
         tableEditorView = new MetadataEmfTableEditorView(compositeTable, SWT.NONE, false);
         tableEditorView.setShowDbTypeColumn(true, true, true);
         tableEditorView.setShowDbColumnName(true, false);
-        final DatabaseConnection databaseConnection = getConnection();
-        String trueDbmsID = databaseConnection.getDbmsId();
-        if (databaseConnection.isContextMode()) {
-            ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(getShell(), databaseConnection, null,
-                    false);
-            trueDbmsID = ConnectionContextHelper.getOriginalValue(contextType, trueDbmsID);
-        }
+        String trueDbmsID = metadataconnection.getMapping();
         // 9846
         tableEditorView.setCurrentDbms(trueDbmsID);
         tableEditorView.initGraphicComponents();
@@ -1108,7 +1100,9 @@ public class DatabaseTableForm extends AbstractForm {
                                 Messages.getString("DatabaseTableForm.no_such_table"), Messages.getString("DatabaseTableForm.type_another_name")); //$NON-NLS-1$ //$NON-NLS-2$
                 return;
             }
-            array = designerService.convertNode(connectionItem, tableName);
+            // fix for TDI-23745 and related tasks ,use the converted connnection with selected context group to guess
+            // query ,no need ask context group again
+            array = designerService.convertNode(connectionItem, getIMetadataConnection(), tableName);
             tableEditorView.getMetadataEditor().removeAll();
 
             List<MetadataColumn> columns = new ArrayList<MetadataColumn>();

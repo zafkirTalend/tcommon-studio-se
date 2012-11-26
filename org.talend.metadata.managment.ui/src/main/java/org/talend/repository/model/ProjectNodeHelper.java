@@ -507,10 +507,10 @@ public class ProjectNodeHelper {
         if (sqlConn != null) {
             DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType, false,
                     iMetadataConnection.getDatabase());
-            MetadataFillFactory.getDBInstance().fillCatalogs(temConnection, dbMetaData,
+            MetadataFillFactory.getDBInstance().fillCatalogs(temConnection, dbMetaData, iMetadataConnection,
                     MetadataConnectionUtils.getPackageFilter(temConnection, dbMetaData, true));
 
-            MetadataFillFactory.getDBInstance().fillSchemas(temConnection, dbMetaData,
+            MetadataFillFactory.getDBInstance().fillSchemas(temConnection, dbMetaData, iMetadataConnection,
                     MetadataConnectionUtils.getPackageFilter(temConnection, dbMetaData, false));
         }
     }

@@ -253,13 +253,15 @@ public final class DBConnectionContextUtils {
      * set the ManagerConnection parameter and return the url string connection.
      */
     public static String setManagerConnectionValues(ManagerConnection managerConnection, ConnectionItem connectionItem,
-            final String dbType, final int dbTypeIndex) {
+            ContextType contextType, final String dbType, final int dbTypeIndex) {
         if (managerConnection == null || connectionItem == null || dbType == null || dbTypeIndex < 0) {
             return null;
         }
         DatabaseConnection dbConn = (DatabaseConnection) connectionItem.getConnection();
 
-        ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(dbConn);
+        if (contextType == null) {
+            contextType = ConnectionContextHelper.getContextTypeForContextMode(dbConn);
+        }
 
         String server = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getServerName());
         String username = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getUsername());
@@ -296,6 +298,11 @@ public final class DBConnectionContextUtils {
         managerConnection.setDbRootPath(dbRootPath);
 
         return urlConnection;
+    }
+
+    public static String setManagerConnectionValues(ManagerConnection managerConnection, ConnectionItem connectionItem,
+            final String dbType, final int dbTypeIndex) {
+        return setManagerConnectionValues(managerConnection, connectionItem, null, dbType, dbTypeIndex);
     }
 
     /**
@@ -360,7 +367,7 @@ public final class DBConnectionContextUtils {
         if (dbConn == null) {
             return null;
         }
-        ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(null, dbConn, dbConn.getContextName(),
+        ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(null, dbConn, selectedContext,
                 defaultContext);
         DatabaseConnection cloneConn = ConnectionFactory.eINSTANCE.createDatabaseConnection();
         // get values
