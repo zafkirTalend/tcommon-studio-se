@@ -152,6 +152,23 @@ public class ParserUtils {
         return s;
     }
 
+    public static String parseTo_String(final List<String> s, String fieldSep) {
+        if (s == null) {
+            return null;
+        }
+        StringBuffer result = new StringBuffer();
+        result.append("[");
+        for (int i = 0; i < s.size(); i++) {
+            if (i != 0) {
+                result.append(fieldSep);
+            }
+            result.append(s.get(i));
+        }
+        result.append("]");
+        
+        return result.toString();
+    }
+
     public static BigDecimal parseTo_BigDecimal(String s) {
         if (s == null) {
             return null;
