@@ -10,13 +10,12 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.utils;
+package org.talend.core;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.widgets.Display;
 import org.talend.commons.CommonsPlugin;
-import org.talend.core.CorePlugin;
-import org.talend.core.GlobalServiceRegister;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.branding.IBrandingService;
 
 /**
@@ -28,7 +27,7 @@ public class BrandingChecker {
 
     private static boolean isBrandingChanged;
 
-    private static final String LAST_STARTED_PRODUCT = "last started product";
+    private static final String LAST_STARTED_PRODUCT = "last_started_product";
 
     public static boolean isBrandingChanged() {
         if (!initialized) {
@@ -45,8 +44,9 @@ public class BrandingChecker {
                 }
                 display.syncExec(new Runnable() {
 
+                    @Override
                     public void run() {
-                        IPreferenceStore preferenceStore = CorePlugin.getDefault().getPreferenceStore();
+                        IPreferenceStore preferenceStore = CoreRuntimePlugin.getInstance().getPreferenceStore();
                         String oldBrandingName = preferenceStore.getString(LAST_STARTED_PRODUCT);
                         if (oldBrandingName == null || oldBrandingName.equals("") || !oldBrandingName.equals(fullProductName)) {
                             isBrandingChanged = true;

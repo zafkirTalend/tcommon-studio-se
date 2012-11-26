@@ -49,7 +49,7 @@ import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.routines.IRoutinesProvider;
 import org.talend.core.model.routines.RoutineLibraryMananger;
-import org.talend.core.utils.BrandingChecker;
+import org.talend.core.utils.TalendCacheUtils;
 import org.talend.librariesmanager.Activator;
 import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
@@ -181,8 +181,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
             File talendLibraries = new File(FileLocator.resolve(Activator.BUNDLE.getEntry("resources/java/lib/")).getFile()); //$NON-NLS-1$
             repositoryBundleService.deploy(talendLibraries.toURI(), monitorWrap);
 
-            if (ArrayUtils.contains(Platform.getApplicationArgs(), "--clean_component_cache")
-                    || BrandingChecker.isBrandingChanged()) {
+            if (TalendCacheUtils.cleanComponentCache()) {
                 repositoryBundleService.clearCache();
             }
             // Add a new system file, if exists, means all components libs are already setup, so no need to do again.
