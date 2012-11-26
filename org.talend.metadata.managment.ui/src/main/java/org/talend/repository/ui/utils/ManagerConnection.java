@@ -12,17 +12,31 @@
 // ============================================================================
 package org.talend.repository.ui.utils;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ILibraryManagerService;
+import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
+import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
+import org.talend.core.model.metadata.builder.database.JDBCDriverLoader;
 import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
 import org.talend.core.repository.ConnectionStatus;
 import org.talend.core.repository.IDBMetadataProvider;
+import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.metadata.managment.ui.i18n.Messages;
+import org.talend.repository.ProjectManager;
 
 /**
  * @author ocarbone
@@ -129,27 +143,104 @@ public class ManagerConnection {
     }
 
     /**
-     * Just for Hive embedded mode to check if a remote metastore db can be connected. Added by Marvin Wang on Oct 19,
-     * 2012.
      * 
-     * @param properties
+     * Added by Marvin Wang on Nov 22, 2012.
+     * 
+     * @param metadataConn
      * @return
      */
-    public boolean checkForHive(Map<String, String> properties) {
-        driverJarPath = properties.get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR);
-        dbTypeString = properties.get("dbTypeString");
-        urlConnectionString = properties.get("urlConnectionString");
-        username = properties.get("username");
-        password = properties.get("password");
-        driverClassName = properties.get("driverClassName");
-        dbVersionString = properties.get("dbVersionString");
-        additionalParams = properties.get("additionalParams");
+    public boolean checkForHive(IMetadataConnection metadataConn) {
+        dbTypeString = metadataConn.getDbType();
+        dbVersionString = metadataConn.getDbVersionString();
+        urlConnectionString = metadataConn.getUrl();
+        username = metadataConn.getUsername();
+        password = metadataConn.getPassword();
+        JDBCDriverLoader loader = new JDBCDriverLoader();
+        List<String> jarPathList = fetchEmbeddedHiveDriverJars(metadataConn);
+        jarPathList.addAll(fetchJarRequiredByMetastoreDB(metadataConn));
 
-        ConnectionStatus testConnection = ExtractMetaDataFromDataBase.testConnection(dbTypeString, urlConnectionString, username,
-                password, "", driverClassName, driverJarPath, dbVersionString, additionalParams);
-        isValide = testConnection.getResult();
-        messageException = testConnection.getMessageException();
+        try {
+            loader.getConnection(jarPathList.toArray(new String[jarPathList.size()]),
+                    EDatabase4DriverClassName.HIVE.getDriverClass(), urlConnectionString, username, password, dbTypeString,
+                    dbVersionString, additionalParams);
+            isValide = true;
+            messageException = Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful"); //$NON-NLS-1$
+        } catch (Exception e) {
+            isValide = false;
+            messageException = e.getMessage();
+        }
         return isValide;
+    }
+
+    /**
+     * 
+     * Added by Marvin Wang on Nov 22, 2012.
+     * 
+     * @param metadataConn
+     * @return
+     */
+    private List<String> fetchJarRequiredByMetastoreDB(IMetadataConnection metadataConn) {
+        String jars = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR);
+        List<String> requiredJars = new ArrayList<String>();
+        if (jars.contains(";")) { //$NON-NLS-1$
+            String[] splittedPath = jars.split(";"); //$NON-NLS-1$
+            for (String jarName : splittedPath) {
+                requiredJars.add(jarName);
+            }
+        } else {
+            requiredJars.add(jars);
+        }
+        return requiredJars;
+    }
+
+    /**
+     * 
+     * Added by Marvin Wang on Nov 22, 2012.
+     * 
+     * @param metadataConn
+     * @return
+     */
+    private List<String> fetchEmbeddedHiveDriverJars(IMetadataConnection metadataConn) {
+        String dbType = metadataConn.getDbType();
+        String dbVersion = metadataConn.getDbVersionString();
+        ILibraryManagerService librairesManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
+                ILibraryManagerService.class);
+
+        List<String> jarPathList = new ArrayList<String>();
+        List<String> driverNames = EDatabaseVersion4Drivers.getDrivers(dbType, dbVersion);
+        if (driverNames != null) {
+            for (String jar : driverNames) {
+                if (!new File(getJavaLibPath() + jar).exists()) {
+                    librairesManagerService.retrieve(jar, getJavaLibPath(), new NullProgressMonitor());
+                }
+                jarPathList.add(getJavaLibPath() + jar);
+            }
+        }
+        return jarPathList;
+    }
+
+    /**
+     * 
+     * DOC YeXiaowei Comment method "getJavaLibPath".
+     * 
+     * @return
+     */
+    public static String getJavaLibPath() {
+        Project project = ProjectManager.getInstance().getCurrentProject();
+        IProject physProject;
+        String tmpFolder = System.getProperty("user.dir"); //$NON-NLS-1$
+        try {
+            physProject = ResourceModelUtils.getProject(project);
+            tmpFolder = physProject.getFolder("temp").getLocation().toPortableString(); //$NON-NLS-1$
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
+        tmpFolder = tmpFolder + "/dbWizard"; //$NON-NLS-1$
+        File file = new File(tmpFolder);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        return tmpFolder + "/"; //$NON-NLS-1$
     }
 
     /**

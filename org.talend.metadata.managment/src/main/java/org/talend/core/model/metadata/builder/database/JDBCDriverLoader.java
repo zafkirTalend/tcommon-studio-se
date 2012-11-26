@@ -58,8 +58,8 @@ public class JDBCDriverLoader {
             } else {
                 URL[] urls = loader.getURLs();
                 if (urls != null && urls.length > 0) {
-                    for (int i = 0; i < urls.length; i++) {
-                        String urlPath = urls[i].getPath();
+                    for (URL url : urls) {
+                        String urlPath = url.getPath();
                         for (int j = 0; j < libraries.size(); j++) {
                             if (urlPath != null && !"".equals(urlPath) && urlPath.equals(libraries.get(j))) {
                                 loader.addPath(libraries.get(j));
@@ -93,26 +93,26 @@ public class JDBCDriverLoader {
             loader = (HotClassLoader) classLoadersMap.get(dbType, dbVersion);
             if (loader == null) {
                 loader = new HotClassLoader();
-                for (int i = 0; i < jarPath.length; i++) {
-                    loader.addPath(jarPath[i]);
+                for (String element : jarPath) {
+                    loader.addPath(element);
                 }
                 classLoadersMap.put(dbType, dbVersion, loader);
             } else {
-                for (int i = 0; i < jarPath.length; i++) {
-                    loader.addPath(jarPath[i]);
+                for (String element : jarPath) {
+                    loader.addPath(element);
                 }
             }
         } else {
             loader = HotClassLoader.getInstance();
-            for (int i = 0; i < jarPath.length; i++) {
+            for (String element : jarPath) {
                 // bug 17800 fixed: fix a problem of jdbc drivers used in the wizard.
-                if (jarPath[i].contains(";")) {
-                    String[] splittedPath = jarPath[i].split(";");
-                    for (int j = 0; j < splittedPath.length; j++) {
-                        loader.addPath(splittedPath[j]);
+                if (element.contains(";")) {
+                    String[] splittedPath = element.split(";");
+                    for (String element2 : splittedPath) {
+                        loader.addPath(element2);
                     }
                 } else {
-                    loader.addPath(jarPath[i]);
+                    loader.addPath(element);
                 }
             }
         }

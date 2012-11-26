@@ -17,10 +17,8 @@ import java.sql.DatabaseMetaData;
 import java.sql.Driver;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.eclipse.core.runtime.IStatus;
@@ -80,6 +78,7 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.HotClassLoader;
+import org.talend.core.model.metadata.builder.database.JavaSqlFactory;
 import org.talend.core.model.metadata.builder.database.extractots.IDBMetadataProviderObject;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.metadata.connection.hive.HiveConnUtils;
@@ -147,6 +146,12 @@ public class DatabaseForm extends AbstractForm {
     private LabelledText metastoreConnUserName;// javax.jdo.option.ConnectionUserName
 
     private LabelledText metastoreConnPassword; // javax.jdo.option.ConnectionPassword
+
+    // private Group studioStandloneGrp;
+    //
+    // private LabelledText metastoreServerTxt;
+    //
+    // private LabelledText metastoreServerPortTxt;
 
     /***************************************************/
 
@@ -1092,45 +1097,13 @@ public class DatabaseForm extends AbstractForm {
                 stringQuoteText.getText(), nullCharText.getText());
 
         if (isHiveDBConnSelected() && isHiveEmbeddedMode()) {
-            Map<String, String> properties = new HashMap<String, String>();
-            String mestoreConnURLStr = metastoreConnURLTxt.getText();
-            String metastoreConnUserNameStr = metastoreConnUserName.getText();
-            String metastoreConnPasswordStr = metastoreConnPassword.getText();
-            String metastoreConnDriverJarStr = metastoreConnDriverJar.getText();
-            String metastoreConnDriverNameStr = metastoreConnDriverName.getText();
-            if ("".equals(mestoreConnURLStr) && "".equals(metastoreConnUserNameStr) && "".equals(metastoreConnPasswordStr) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                    && "".equals(metastoreConnDriverJarStr) && "".equals(metastoreConnDriverNameStr)) { //$NON-NLS-1$ //$NON-NLS-2$
-                properties.put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR, metastoreConnDriverJar.getText());
-                properties.put("dbTypeString", dbTypeCombo.getItem(dbTypeCombo.getSelectionIndex())); //$NON-NLS-1$
-                // properties.put("urlConnectionString",metastoreConnURLTxt.getText());
-                properties.put("urlConnectionString", urlConnectionStringText.getText()); //$NON-NLS-1$
-                properties.put("username", ""); //$NON-NLS-1$ //$NON-NLS-2$
-                properties.put("password", ""); //$NON-NLS-1$ //$NON-NLS-2$
-                properties.put("driverClassName", ""); //$NON-NLS-1$ //$NON-NLS-2$
-            } else {
-                properties.put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR, metastoreConnDriverJar.getText());
-                properties.put("dbTypeString", dbTypeCombo.getItem(dbTypeCombo.getSelectionIndex())); //$NON-NLS-1$
-                properties.put("urlConnectionString", metastoreConnURLTxt.getText()); //$NON-NLS-1$
-                properties.put("username", metastoreConnUserName.getText()); //$NON-NLS-1$
-                properties.put("password", metastoreConnPassword.getText()); //$NON-NLS-1$
-                properties.put("driverClassName", metastoreConnDriverName.getText()); //$NON-NLS-1$
+            try {
+                IMetadataConnection metadataConn = ConvertionHelper.convert(connectionItem.getConnection(), true);
+                databaseSettingIsValide = managerConnection.checkForHive(metadataConn);
+            } catch (Exception e) {
+                databaseSettingIsValide = false;
+                e.printStackTrace();
             }
-
-            int distributionIndex = distributionCombo.getSelectionIndex();
-            int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
-            int hiveModeIndex = hiveModeCombo.getSelectionIndex();
-            String key = HiveConnUtils.getHiveModeObj(distributionIndex, hiveVersionIndex, hiveModeIndex).getKey();
-
-            properties.put("dbVersionString", key); //$NON-NLS-1$
-            properties.put("additionalParams", ""); //$NON-NLS-1$ //$NON-NLS-2$
-
-            databaseSettingIsValide = managerConnection.checkForHive(properties);
-            // try {
-            // IMetadataConnection metadataConn = ConvertionHelper.convert(connectionItem.getConnection(), true);
-            // databaseSettingIsValide = managerConnection.checkForHive(metadataConn);
-            // } catch (Exception e) {
-            // e.printStackTrace();
-            // }
         } else {
             // check the connection
             databaseSettingIsValide = managerConnection.check();
@@ -2671,8 +2644,13 @@ public class DatabaseForm extends AbstractForm {
             } else {
                 if (isHiveDBConnSelected()) {
                     if (isHiveEmbeddedMode()) {
-                        serverText.hide();
-                        portText.hide();
+                        // Need to revert if required, changed by Marvin Wang on Nov. 22, 2012.
+                        // serverText.hide();
+                        // portText.hide();
+                        portText.show();
+                        serverText.show();
+                        portText.setEditable(true);
+                        serverText.setEditable(true);
                     } else {
                         portText.show();
                         serverText.show();
@@ -2708,8 +2686,12 @@ public class DatabaseForm extends AbstractForm {
                             // sidOrDatabaseText.show();
                             // sidOrDatabaseText.setEditable(true);
                             // (--Done by Marvin Wang on Oct.15, 2012.)
-                            serverText.hide();
-                            portText.hide();
+                            // Need to revert if required, changed by Marvin Wang on Nov. 22, 2012.
+                            // serverText.hide();
+                            // portText.hide();
+                            portText.show();
+                            serverText.show();
+                            serverText.setEditable(true);
                             sidOrDatabaseText.hide();
                             sidOrDatabaseText.setEditable(false);
                         } else {
@@ -2771,8 +2753,12 @@ public class DatabaseForm extends AbstractForm {
                     passwordText.hide();
                 } else if (isHiveDBConnSelected()) {
                     if (isHiveEmbeddedMode()) {
-                        usernameText.hide();
-                        passwordText.hide();
+                        // Need to revert if required, changed by Marvin Wang on Nov. 22, 2012.
+                        // usernameText.hide();
+                        // passwordText.hide();
+                        usernameText.show();
+                        passwordText.show();
+                        serverText.setEditable(true);
                     } else {
                         usernameText.show();
                         passwordText.show();
@@ -2834,11 +2820,18 @@ public class DatabaseForm extends AbstractForm {
             }
             if (isHiveDBConnSelected()) {
                 if (isHiveEmbeddedMode()) {
-                    portText.hide();
-                    serverText.hide();
+                    // Need to revert if required, changed by Marvin Wang on Nov. 22, 2012.
+                    // portText.hide();
+                    // serverText.hide();
+                    usernameText.hide();
+                    passwordText.hide();
+                    portText.show();
+                    serverText.show();
                 } else {
                     portText.show();
                     serverText.show();
+                    usernameText.show();
+                    passwordText.show();
                 }
                 schemaText.hide();
             }
@@ -3166,6 +3159,8 @@ public class DatabaseForm extends AbstractForm {
         regHiveRelatedWidgetMetastoreConnDriverJarListener();
         regHiveRelatedWidgetMetastoreConnDriverNameListener();
         regHiveRelatedWidgetMetastoreConnDriverJarBrowserListener();
+        // regHiveMetastoreServerTxtListener();
+        // regHiveMetastorePortTxtListener();
     }
 
     /**
@@ -3552,7 +3547,6 @@ public class DatabaseForm extends AbstractForm {
         handleOtherWidgetsStatusForHive(false);
         setHideHadoopInfoWidgets(true);
         setHideMetastoreInfoWidgets(true);
-        ;
         doHiveUIContentsLayout();
     }
 
@@ -3611,7 +3605,6 @@ public class DatabaseForm extends AbstractForm {
         setHideVersionInfoWidgets(true);
         setHideHadoopInfoWidgets(true);
         setHideMetastoreInfoWidgets(true);
-        ;
         doHiveUIContentsLayout();
     }
 
@@ -3639,9 +3632,14 @@ public class DatabaseForm extends AbstractForm {
      */
     private void handleOtherWidgetsStatusForHive(boolean hide) {
         // server and port is no use for Hive Embedded mode.
-        serverText.setHideWidgets(hide);
-        serverText.setEditable(!hide);
-        portText.setHideWidgets(hide);
+        // Need to revert if required, changed by Marvin Wang on Nov. 22, 2012.
+        // serverText.setHideWidgets(hide);
+        // serverText.setEditable(!hide);
+        // portText.setHideWidgets(hide);
+        serverText.show();
+        portText.show();
+        serverText.setEditable(true);
+        portText.setEditable(true);
         usernameText.setHideWidgets(hide);
         passwordText.setHideWidgets(hide);
         sidOrDatabaseText.setHideWidgets(hide);
@@ -3785,28 +3783,7 @@ public class DatabaseForm extends AbstractForm {
             if (hiveModeDisplayName != null
                     && hiveModeDisplayName.equalsIgnoreCase(Messages.getString("DatabaseForm.hiveMode.embedded"))) { //$NON-NLS-1$
 
-                System.setProperty("hive.metastore.local", "false"); //$NON-NLS-1$ //$NON-NLS-2$
-                String serverTextStr = serverText.getText() == null ? "" : serverText.getText(); //$NON-NLS-1$
-                String protTextStr = portText.getText() == null ? "" : portText.getText(); //$NON-NLS-1$
-                String thriftURL = "thrift://" + serverTextStr + ":" + protTextStr; //$NON-NLS-1$ //$NON-NLS-2$
-                // System.setProperty("hive.metastore.uris", thriftURL);
-                System.setProperty("hive.metastore.execute.setugi", "true"); //$NON-NLS-1$ //$NON-NLS-2$
-                System.setProperty("fs.default.name", nameNodeURLTxt.getText()); //$NON-NLS-1$
-                System.setProperty("mapred.job.tracker", jobTrackerURLTxt.getText()); //$NON-NLS-1$
-                if (metastoreConnURLTxt.getText() == null) {
-                    System.setProperty("javax.jdo.option.ConnectionURL", ""); //$NON-NLS-1$ //$NON-NLS-2$
-                } else {
-                    System.setProperty("javax.jdo.option.ConnectionURL", metastoreConnURLTxt.getText()); //$NON-NLS-1$
-                }
-
-                if (metastoreConnUserName.getText() == null) {
-                    System.setProperty("javax.jdo.option.ConnectionUserName", ""); //$NON-NLS-1$ //$NON-NLS-2$
-                } else {
-                    System.setProperty("javax.jdo.option.ConnectionUserName", metastoreConnUserName.getText()); //$NON-NLS-1$
-                }
-                System.setProperty("javax.jdo.option.ConnectionPassword", metastoreConnPassword.getText()); //$NON-NLS-1$
-                // System.setProperty("javax.jdo.option.ConnectionUserName", metastoreConnURLTxt.getText());
-                System.setProperty("javax.jdo.option.ConnectionDriverName", metastoreConnDriverName.getText()); //$NON-NLS-1$
+                JavaSqlFactory.doHivePreSetup(getConnection());
             }
         }
     }
@@ -3816,15 +3793,7 @@ public class DatabaseForm extends AbstractForm {
      * Wang on Oct 17, 2012.
      */
     protected void doRemoveHiveSetup() {
-        System.clearProperty("hive.metastore.local"); //$NON-NLS-1$
-        System.clearProperty("hive.metastore.uris"); //$NON-NLS-1$
-        System.clearProperty("hive.metastore.execute.setugi"); //$NON-NLS-1$
-        System.clearProperty("fs.default.name"); //$NON-NLS-1$
-        System.clearProperty("mapred.job.tracker"); //$NON-NLS-1$
-        System.clearProperty("javax.jdo.option.ConnectionURL"); //$NON-NLS-1$
-        System.clearProperty("javax.jdo.option.ConnectionUserName"); //$NON-NLS-1$
-        System.clearProperty("javax.jdo.option.ConnectionPassword"); //$NON-NLS-1$
-        System.clearProperty("javax.jdo.option.ConnectionDriverName"); //$NON-NLS-1$
+        JavaSqlFactory.doHiveConfigurationClear();
     }
 
     /**

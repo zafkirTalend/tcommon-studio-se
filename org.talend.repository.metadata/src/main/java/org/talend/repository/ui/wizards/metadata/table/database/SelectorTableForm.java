@@ -303,7 +303,7 @@ public class SelectorTableForm extends AbstractForm {
         // Button Create Table
         String displayStr = Messages.getString("SelectorTableForm.selectAllTables"); //$NON-NLS-1$
         Point buttonSize = gc.stringExtent(displayStr);
-        selectAllTablesButton = new UtilsButton(compositeRetreiveSchemaButton, displayStr, buttonSize.x + 12, HEIGHT_BUTTON_PIXEL); //$NON-NLS-1$
+        selectAllTablesButton = new UtilsButton(compositeRetreiveSchemaButton, displayStr, buttonSize.x + 12, HEIGHT_BUTTON_PIXEL);
 
         displayStr = Messages.getString("SelectorTableForm.selectNoneTables"); //$NON-NLS-1$
         buttonSize = gc.stringExtent(displayStr);
@@ -346,6 +346,7 @@ public class SelectorTableForm extends AbstractForm {
         // if table already exist in connection, should set checked.
         tree.addListener(SWT.Expand, new Listener() {
 
+            @Override
             public void handleEvent(Event event) {
                 TreeItem treeItem = (TreeItem) event.item;
                 for (TreeItem item : treeItem.getItems()) {
@@ -423,6 +424,7 @@ public class SelectorTableForm extends AbstractForm {
 
             private final Comparator strComparator = new Comparator() {
 
+                @Override
                 public int compare(Object arg0, Object arg1) {
 
                     TableItem t1 = (TableItem) arg0;
@@ -1119,34 +1121,25 @@ public class SelectorTableForm extends AbstractForm {
             }
             parentWizardPage.getWizard().getContainer().run(true, true, new IRunnableWithProgress() {
 
+                @Override
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                     monitor.beginTask(Messages.getString("CreateTableAction.action.createTitle"), IProgressMonitor.UNKNOWN); //$NON-NLS-1$
                     // add
                     if (EDatabaseTypeName.HIVE.getDisplayName().equals(metadataconnection.getDbType())) {
                         String key = (String) metadataconnection.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
                         if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(key)) {
-                            Map<String, String> properties = new HashMap<String, String>();
-                            properties.put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR, (String) metadataconnection
-                                    .getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR));
-                            properties.put("dbTypeString", metadataconnection.getDbType());
-                            properties.put("urlConnectionString",
-                                    (String) metadataconnection.getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_URL));
-                            properties.put("username", (String) metadataconnection
-                                    .getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_USERNAME));
-                            properties.put("password", (String) metadataconnection
-                                    .getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_PASSWORD));
-                            properties.put("driverClassName", (String) metadataconnection
-                                    .getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME));
-                            properties.put("dbVersionString", metadataconnection.getDbVersionString());
-                            properties.put("additionalParams", metadataconnection.getAdditionalParams());
-
-                            managerConnection.checkForHive(properties);
+                            try {
+                                managerConnection.checkForHive(metadataconnection);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
 
                         } else if (HiveConnVersionInfo.MODE_STANDALONE.getKey().equals(key)) {
                             managerConnection.check(metadataconnection, true);
                         }
-                    } else
+                    } else {
                         managerConnection.check(metadataconnection, true);
+                    }
                     if (managerConnection.getIsValide()) {
                         // need to check catalog/schema if import a old db connection
                         /* use extractor for the databse didn't use JDBC,for example: HBase */
@@ -1192,6 +1185,7 @@ public class SelectorTableForm extends AbstractForm {
                         // connection failure
                         parentWizardPage.getShell().getDisplay().asyncExec(new Runnable() {
 
+                            @Override
                             public void run() {
                                 new ErrorDialogWidthDetailArea(getShell(), PID, Messages
                                         .getString("DatabaseTableForm.connectionFailureTip"), //$NON-NLS-1$
@@ -1217,6 +1211,7 @@ public class SelectorTableForm extends AbstractForm {
     private void createAllItems(final boolean displayMessageBox, final List<String> newList) {
         Display.getDefault().asyncExec(new Runnable() {
 
+            @Override
             public void run() {
                 viewer.setInput(tableNodeList);
                 // restoreCheckItems();
@@ -1232,6 +1227,7 @@ public class SelectorTableForm extends AbstractForm {
         if (ifUseRunnable) {
             shell.getDisplay().asyncExec(new Runnable() {
 
+                @Override
                 public void run() {
                     MessageDialog.openInformation(shell, title, msg);
                 }
@@ -1426,8 +1422,8 @@ public class SelectorTableForm extends AbstractForm {
             if (runnable != null) {
                 return runnable;
             }
-            for (Iterator iter = getQueue().iterator(); iter.hasNext();) {
-                RetrieveColumnRunnable element = (RetrieveColumnRunnable) iter.next();
+            for (Object element2 : getQueue()) {
+                RetrieveColumnRunnable element = (RetrieveColumnRunnable) element2;
                 if (element.getTreeItem() == key) {
                     return element;
                 }
@@ -1489,6 +1485,7 @@ public class SelectorTableForm extends AbstractForm {
             tableString = treeItem.getText(0);
         }
 
+        @Override
         public void run() {
             boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(metadataconnection.getDbType());
             if (isCanceled()) {
@@ -1636,6 +1633,7 @@ public class SelectorTableForm extends AbstractForm {
 
             Display.getDefault().syncExec(new Runnable() {
 
+                @Override
                 public void run() {
                     if (isCanceled()) {
                         return;
@@ -1723,6 +1721,7 @@ public class SelectorTableForm extends AbstractForm {
 
                         Display.getDefault().syncExec(new Runnable() {
 
+                            @Override
                             public void run() {
                                 provider.executeInRunnable(metadataconnection, treeItem.getData(), getConnection());
                                 if (isCanceled()) {
@@ -1879,6 +1878,7 @@ public class SelectorTableForm extends AbstractForm {
     protected void addFieldsListeners() {
         nameFilter.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 viewer.refresh();
             }
@@ -1913,6 +1913,7 @@ public class SelectorTableForm extends AbstractForm {
     private void refreshExistItem(final MetadataTable existTable, final TreeItem item) {
         Display.getDefault().syncExec(new Runnable() {
 
+            @Override
             public void run() {
                 orgomg.cwm.objectmodel.core.Package pack = (orgomg.cwm.objectmodel.core.Package) existTable.eContainer();
                 boolean confirm = MessageDialog.openConfirm(Display.getDefault().getActiveShell(), "Confirm", "Another '"

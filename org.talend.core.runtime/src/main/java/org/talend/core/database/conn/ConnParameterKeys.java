@@ -50,6 +50,16 @@ public class ConnParameterKeys {
     public static final String CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME = "CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME"; //$NON-NLS-1$
 
     /**
+     * The key is for metastore server.
+     */
+    public static final String CONN_PARA_KEY_METASTORE_SERVERNAME = "CONN_PARA_KEY_METASTORE_SERVERNAME"; //$NON-NLS-1$
+
+    /**
+     * The key is for metastore server port.
+     */
+    public static final String CONN_PARA_KEY_METASTORE_PROT = "CONN_PARA_KEY_METASTORE_PROT"; //$NON-NLS-1$
+
+    /**
      * keys used for Hadoop settings.
      */
     public static final String CONN_PARA_KEY_HBASE_DISTRIBUTION = "CONN_PARA_KEY_HBASE_DISTRIBUTION"; //$NON-NLS-1$
