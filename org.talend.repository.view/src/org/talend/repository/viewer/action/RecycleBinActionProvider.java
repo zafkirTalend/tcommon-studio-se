@@ -12,26 +12,22 @@
 // ============================================================================
 package org.talend.repository.viewer.action;
 
-import org.talend.repository.ui.actions.DeleteAction;
-import org.talend.repository.ui.actions.EmptyRecycleBinAction;
-import org.talend.repository.ui.actions.RestoreAction;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public class RecycleBinActionProvider extends AbstractRepositoryActionProvider {
+public class RecycleBinActionProvider extends RepoNodeActionProvider {
 
     public RecycleBinActionProvider() {
         super();
     }
 
-    @Override
-    protected void makeContextualActions() {
-        super.makeContextualActions();
-
-        addContextualAction(new EmptyRecycleBinAction());
-        addContextualAction(new DeleteAction());
-        addContextualAction(new RestoreAction());
-    }
-
+    // @Override
+    // protected void makeContextualActions() {
+    // super.makeContextualActions();
+    //
+    // addContextualAction(new EmptyRecycleBinAction());
+    // addContextualAction(new DeleteAction());
+    // addContextualAction(new RestoreAction());
+    // }
 }
