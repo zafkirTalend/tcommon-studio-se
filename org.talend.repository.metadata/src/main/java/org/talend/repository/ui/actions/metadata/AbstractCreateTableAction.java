@@ -233,7 +233,11 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
             PositionalFileConnectionItem item = null;
 
             if (nodeType == ERepositoryObjectType.METADATA_CON_TABLE) {
-                item = (PositionalFileConnectionItem) node.getParent().getObject().getProperty().getItem();
+                if (node.getParent().isBin() && node.getParent().getObject() == null) {
+                    item = (PositionalFileConnectionItem) node.getObject().getProperty().getItem();
+                } else {
+                    item = (PositionalFileConnectionItem) node.getParent().getObject().getProperty().getItem();
+                }
                 connection = (PositionalFileConnection) item.getConnection();
                 metadataTable = TableHelper.findByLabel(connection, tableLabel);
                 creation = false;
@@ -289,7 +293,11 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
             RegExFileConnectionItem item = null;
 
             if (nodeType == ERepositoryObjectType.METADATA_CON_TABLE) {
-                item = (RegExFileConnectionItem) node.getParent().getObject().getProperty().getItem();
+                if (node.getParent().isBin() && node.getParent().getObject() == null) {
+                    item = (RegExFileConnectionItem) node.getObject().getProperty().getItem();
+                } else {
+                    item = (RegExFileConnectionItem) node.getParent().getObject().getProperty().getItem();
+                }
                 connection = (RegexpFileConnection) item.getConnection();
                 metadataTable = TableHelper.findByLabel(connection, tableLabel);
                 creation = false;
@@ -342,7 +350,11 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
             XmlFileConnectionItem item = null;
 
             if (nodeType == ERepositoryObjectType.METADATA_CON_TABLE) {
-                item = (XmlFileConnectionItem) node.getParent().getObject().getProperty().getItem();
+                if (node.getParent().isBin() && node.getParent().getObject() == null) {
+                    item = (XmlFileConnectionItem) node.getObject().getProperty().getItem();
+                } else {
+                    item = (XmlFileConnectionItem) node.getParent().getObject().getProperty().getItem();
+                }
                 connection = (XmlFileConnection) item.getConnection();
                 metadataTable = TableHelper.findByLabel(connection, tableLabel);
                 creation = false;
@@ -394,7 +406,11 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
 
             DelimitedFileConnectionItem item = null;
             if (nodeType == ERepositoryObjectType.METADATA_CON_TABLE) {
-                item = (DelimitedFileConnectionItem) node.getParent().getObject().getProperty().getItem();
+                if (node.getParent().isBin() && node.getParent().getObject() == null) {
+                    item = (DelimitedFileConnectionItem) node.getObject().getProperty().getItem();
+                } else {
+                    item = (DelimitedFileConnectionItem) node.getParent().getObject().getProperty().getItem();
+                }
                 connection = (DelimitedFileConnection) item.getConnection();
                 metadataTable = TableHelper.findByLabel(connection, tableLabel);
                 creation = false;
@@ -446,7 +462,11 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
 
             LdifFileConnectionItem item = null;
             if (nodeType == ERepositoryObjectType.METADATA_CON_TABLE) {
-                item = (LdifFileConnectionItem) node.getParent().getObject().getProperty().getItem();
+                if (node.getParent().isBin() && node.getParent().getObject() == null) {
+                    item = (LdifFileConnectionItem) node.getObject().getProperty().getItem();
+                } else {
+                    item = (LdifFileConnectionItem) node.getParent().getObject().getProperty().getItem();
+                }
                 connection = (LdifFileConnection) item.getConnection();
                 metadataTable = TableHelper.findByLabel(connection, tableLabel);
                 creation = false;
@@ -499,7 +519,11 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
 
             ExcelFileConnectionItem item = null;
             if (nodeType == ERepositoryObjectType.METADATA_CON_TABLE) {
-                item = (ExcelFileConnectionItem) node.getParent().getObject().getProperty().getItem();
+                if (node.getParent().isBin() && node.getParent().getObject() == null) {
+                    item = (ExcelFileConnectionItem) node.getObject().getProperty().getItem();
+                } else {
+                    item = (ExcelFileConnectionItem) node.getParent().getObject().getProperty().getItem();
+                }
                 connection = (FileExcelConnection) item.getConnection();
                 metadataTable = TableHelper.findByLabel(connection, tableLabel);
                 creation = false;
@@ -545,7 +569,11 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
             GenericSchemaConnectionItem item = null;
 
             if (nodeType == ERepositoryObjectType.METADATA_CON_TABLE) {
-                item = (GenericSchemaConnectionItem) node.getParent().getObject().getProperty().getItem();
+                if (node.getParent().isBin() && node.getParent().getObject() == null) {
+                    item = (GenericSchemaConnectionItem) node.getObject().getProperty().getItem();
+                } else {
+                    item = (GenericSchemaConnectionItem) node.getParent().getObject().getProperty().getItem();
+                }
                 connection = (GenericSchemaConnection) item.getConnection();
                 metadataTable = TableHelper.findByLabel(connection, tableLabel);
                 creation = false;
@@ -598,7 +626,11 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
             LDAPSchemaConnectionItem item = null;
 
             if (nodeType == ERepositoryObjectType.METADATA_CON_TABLE) {
-                item = (LDAPSchemaConnectionItem) node.getParent().getObject().getProperty().getItem();
+                if (node.getParent().isBin() && node.getParent().getObject() == null) {
+                    item = (LDAPSchemaConnectionItem) node.getObject().getProperty().getItem();
+                } else {
+                    item = (LDAPSchemaConnectionItem) node.getParent().getObject().getProperty().getItem();
+                }
                 connection = (LDAPSchemaConnection) item.getConnection();
                 metadataTable = TableHelper.findByLabel(connection, tableLabel);
                 creation = false;
@@ -653,7 +685,11 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
 
             SalesforceSchemaConnectionItem item = null;
             if (nodeType == ERepositoryObjectType.METADATA_CON_TABLE) {
-                item = (SalesforceSchemaConnectionItem) node.getParent().getObject().getProperty().getItem();
+                if (node.getParent().isBin() && node.getParent().getObject() == null) {
+                    item = (SalesforceSchemaConnectionItem) node.getObject().getProperty().getItem();
+                } else {
+                    item = (SalesforceSchemaConnectionItem) node.getParent().getObject().getProperty().getItem();
+                }
                 connection = (SalesforceSchemaConnection) item.getConnection();
                 metadataTable = TableHelper.findByLabel(connection, tableLabel);
                 creation = false;
@@ -760,8 +796,11 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
 
             SalesforceSchemaConnectionItem item = null;
             if (nodeType == ERepositoryObjectType.METADATA_CON_TABLE) {
-
-                item = (SalesforceSchemaConnectionItem) node.getParent().getObject().getProperty().getItem();
+                if (node.getParent().isBin() && node.getParent().getObject() == null) {
+                    item = (SalesforceSchemaConnectionItem) node.getObject().getProperty().getItem();
+                } else {
+                    item = (SalesforceSchemaConnectionItem) node.getParent().getObject().getProperty().getItem();
+                }
                 connection = (SalesforceSchemaConnection) item.getConnection();
                 metadataTable = TableHelper.findByLabel(connection, tableLabel);
                 creation = false;
@@ -813,7 +852,11 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
 
             WSDLSchemaConnectionItem item = null;
             if (nodeType == ERepositoryObjectType.METADATA_CON_TABLE) {
-                item = (WSDLSchemaConnectionItem) node.getParent().getObject().getProperty().getItem();
+                if (node.getParent().isBin() && node.getParent().getObject() == null) {
+                    item = (WSDLSchemaConnectionItem) node.getObject().getProperty().getItem();
+                } else {
+                    item = (WSDLSchemaConnectionItem) node.getParent().getObject().getProperty().getItem();
+                }
                 connection = (WSDLSchemaConnection) item.getConnection();
                 metadataTable = TableHelper.findByLabel(connection, tableLabel);
                 creation = false;
