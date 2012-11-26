@@ -314,7 +314,11 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             // ~19528
 
             // use the context group of selected on check button to check the selection in perform finish.
-            IMetadataConnection metadataConnection = ConvertionHelper.convert(connection, false, connection.getContextName());
+            String contextName = null;
+            if (databaseWizardPage.getSelectedContextType() != null) {
+                contextName = databaseWizardPage.getSelectedContextType().getName();
+            }
+            IMetadataConnection metadataConnection = ConvertionHelper.convert(connection, false, contextName);
             final IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
 
             ITDQRepositoryService tdqRepService = null;

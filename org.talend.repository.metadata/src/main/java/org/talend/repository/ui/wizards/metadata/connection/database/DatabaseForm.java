@@ -843,14 +843,13 @@ public class DatabaseForm extends AbstractForm {
         ManagerConnection managerConnection = new ManagerConnection();
 
         if (isContextMode()) { // context mode
+            selectedContextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection());
             String urlStr = DBConnectionContextUtils.setManagerConnectionValues(managerConnection, connectionItem,
-                    dbTypeCombo.getItem(dbTypeCombo.getSelectionIndex()), dbTypeCombo.getSelectionIndex());
+                    selectedContextType, dbTypeCombo.getItem(dbTypeCombo.getSelectionIndex()), dbTypeCombo.getSelectionIndex());
             if (urlStr == null) {
                 if (dbTypeCombo.getText().equals(EDatabaseConnTemplate.GENERAL_JDBC.getDBDisplayName())) {
                     DatabaseConnection dbConn = (DatabaseConnection) connectionItem.getConnection();
-
-                    ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(dbConn);
-                    urlStr = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getURL());
+                    urlStr = ConnectionContextHelper.getOriginalValue(selectedContextType, dbConn.getURL());
                 } else {
                     urlStr = getStringConnection();
                 }
@@ -2573,5 +2572,14 @@ public class DatabaseForm extends AbstractForm {
      */
     public IMetadataConnection getMetadataConnection() {
         return this.metadataconnection;
+    }
+
+    /**
+     * Getter for selectedContextType.
+     * 
+     * @return the selectedContextType
+     */
+    public ContextType getSelectedContextType() {
+        return this.selectedContextType;
     }
 }

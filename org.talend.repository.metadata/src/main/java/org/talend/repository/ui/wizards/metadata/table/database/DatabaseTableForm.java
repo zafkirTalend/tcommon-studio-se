@@ -99,13 +99,11 @@ import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.designer.core.IDesignerCoreService;
-import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.runprocess.ProcessorException;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.ProjectNodeHelper;
 import org.talend.repository.ui.swt.utils.AbstractForm;
-import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.ManagerConnection;
 import org.talend.repository.ui.wizards.metadata.connection.GuessSchemaUtil;
 
@@ -619,14 +617,6 @@ public class DatabaseTableForm extends AbstractForm {
         tableEditorView.setShowDbTypeColumn(true, true, true);
         tableEditorView.setShowDbColumnName(true, false);
         String trueDbmsID = metadataconnection.getMapping();
-        if (trueDbmsID == null || "".equals(trueDbmsID)) {
-            final DatabaseConnection databaseConnection = getConnection();
-            if (databaseConnection.isContextMode()) {
-                ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(getShell(), databaseConnection,
-                        databaseConnection.getContextName(), false);
-                trueDbmsID = ConnectionContextHelper.getOriginalValue(contextType, trueDbmsID);
-            }
-        }
         // 9846
         tableEditorView.setCurrentDbms(trueDbmsID);
         tableEditorView.initGraphicComponents();
