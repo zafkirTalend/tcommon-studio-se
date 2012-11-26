@@ -967,6 +967,13 @@ public class RepositoryToComponentProperty {
                     String h2Prefix = "jdbc:h2:"; //$NON-NLS-1$
                     if (url.startsWith(h2Prefix)) {
                         String path = url.substring(h2Prefix.length(), url.length());
+                        // TDI-23861: handle the server mode of H2 which url has more than one colon.
+                        if (path.split(":").length > 2) { //$NON-NLS-1$
+                            int startIndex = path.lastIndexOf(":") - 1; //$NON-NLS-1$
+                            String filePath = path.substring(startIndex);
+                            h2Prefix += path.substring(0, startIndex);
+                            path = filePath;
+                        }
                         path = PathUtils.getPortablePath(path);
                         url = h2Prefix + path;
                     }
