@@ -313,7 +313,8 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             }
             // ~19528
 
-            IMetadataConnection metadataConnection = ConvertionHelper.convert(connection);
+            // use the context group of selected on check button to check the selection in perform finish.
+            IMetadataConnection metadataConnection = ConvertionHelper.convert(connection, false, connection.getContextName());
             final IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
 
             ITDQRepositoryService tdqRepService = null;
@@ -406,7 +407,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                         } else {
                             DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
                             if (dbConn != null && dbConn instanceof DatabaseConnection) {
-                                updateConnectionInformation(dbConn);
+                                updateConnectionInformation(dbConn, metadataConnection);
                             }
                         }
                         // update
@@ -529,11 +530,10 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
      * 
      * @param dbConn
      */
-    private void updateConnectionInformation(DatabaseConnection dbConn) {
+    private void updateConnectionInformation(DatabaseConnection dbConn, IMetadataConnection metaConnection) {
         java.sql.Connection sqlConn = null;
         String dbType = null;
         try {
-            IMetadataConnection metaConnection = ConvertionHelper.convert(dbConn);
             dbConn = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(metaConnection, dbConn);
             sqlConn = MetadataConnectionUtils.checkConnection(metaConnection).getObject();
 
@@ -541,9 +541,9 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             if (sqlConn != null) {
                 DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType, false,
                         metaConnection.getDatabase());
-                MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, dbMetaData,
+                MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, dbMetaData, metaConnection,
                         MetadataConnectionUtils.getPackageFilter(dbConn, dbMetaData, true));
-                MetadataFillFactory.getDBInstance().fillSchemas(dbConn, dbMetaData,
+                MetadataFillFactory.getDBInstance().fillSchemas(dbConn, dbMetaData, metaConnection,
                         MetadataConnectionUtils.getPackageFilter(dbConn, dbMetaData, false));
             }
         } finally {

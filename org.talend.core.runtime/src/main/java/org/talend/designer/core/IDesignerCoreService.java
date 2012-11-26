@@ -32,6 +32,7 @@ import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.IConnection;
 import org.talend.core.model.process.IElementParameter;
@@ -142,7 +143,8 @@ public interface IDesignerCoreService extends IService {
 
     public void removeConnection(INode node, String schemaName);
 
-    public CsvArray convertNode(ConnectionItem connectionItem, String tableName) throws ProcessorException;
+    public CsvArray convertNode(ConnectionItem connectionItem, IMetadataConnection convertedConnection, String tableName)
+            throws ProcessorException;
 
     public void updateTraceColumnValues(IConnection conn, Map<String, String> changedNameColumns, Set<String> addedColumns);
 

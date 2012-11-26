@@ -65,12 +65,16 @@ public final class ConvertionHelper {
      * @return
      */
     public static IMetadataConnection convert(Connection sourceConnection, boolean defaultContext) {
+        return convert(sourceConnection, defaultContext, null);
+    }
+
+    public static IMetadataConnection convert(Connection sourceConnection, boolean defaultContext, String selectedContext) {
         if (sourceConnection instanceof DatabaseConnection) {
-            return convert((DatabaseConnection) sourceConnection, defaultContext, null);
+            return convert((DatabaseConnection) sourceConnection, defaultContext, selectedContext);
         } else if (sourceConnection instanceof MDMConnection) {
-            return convert((MDMConnection) sourceConnection, defaultContext, null);
+            return convert((MDMConnection) sourceConnection, defaultContext, selectedContext);
         } else if (sourceConnection instanceof DelimitedFileConnection) {
-            return convert((DelimitedFileConnection) sourceConnection, defaultContext, null);
+            return convert((DelimitedFileConnection) sourceConnection, defaultContext, selectedContext);
         }
         return null;
     }
@@ -176,7 +180,11 @@ public final class ConvertionHelper {
         result.setUrl(connection.getURL());
         result.setAdditionalParams(connection.getAdditionalParams());
         result.setUsername(connection.getUsername());
-        result.setMapping(connection.getDbmsId());
+        String dbmsId = connection.getDbmsId();
+        if (dbmsId == null || "".equals(dbmsId)) {
+            dbmsId = "mysql_id";
+        }
+        result.setMapping(dbmsId);
         result.setProduct(connection.getProductId());
         result.setDbRootPath(connection.getDBRootPath());
         result.setSqlMode(connection.isSQLMode());

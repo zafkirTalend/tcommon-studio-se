@@ -80,6 +80,7 @@ import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.ui.swt.utils.AbstractForm;
@@ -216,6 +217,9 @@ public class DatabaseForm extends AbstractForm {
 
     private ScrolledComposite scrolledComposite;
 
+    // for jdbc
+    private ContextType selectedContextType;
+
     /**
      * Constructor to use by a Wizard to create a new database connection.
      * 
@@ -313,15 +317,35 @@ public class DatabaseForm extends AbstractForm {
 
         String jdbcUrlString = "";
         if (isContextMode()) {
-            ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(getShell(), getConnection(), true);
-            if (contextType != null) {
-                jdbcUrlString = ConnectionContextHelper.getOriginalValue(contextType, getConnection().getURL());
+            if (selectedContextType == null) {
+                // use default when open
+                selectedContextType = ConnectionContextHelper.getContextTypeForContextMode(getConnection(), null, true);
+            }
+            if (selectedContextType != null) {
+                jdbcUrlString = ConnectionContextHelper.getOriginalValue(selectedContextType, getConnection().getURL());
             }
         } else {
             jdbcUrlString = generalJdbcUrlText.getText();
         }
         if (jdbcUrlString.contains("sqlserver")) {//$NON-NLS-1$
-            jDBCschemaText.setText(getConnection().getUiSchema());
+            // incase change from other jdbc to sqlserver jdbc ,uischema is empty
+            String schema = getConnection().getUiSchema();
+            if (schema == null || "".equals(schema)) {
+                for (ContextParameterType param : (List<ContextParameterType>) selectedContextType.getContextParameter()) {
+                    if (param.getName() != null && param.getName().endsWith(ConnectionContextHelper.LINE + EDBParamName.Schema)) {
+                        if (getConnection().isContextMode()) {
+                            schema = "context." + param.getName();
+                        } else {
+                            schema = param.getValue();
+                        }
+                        // ??
+                        // getConnection().setUiSchema(schema);
+                        break;
+                    }
+                }
+
+            }
+            jDBCschemaText.setText(schema);
         } else {
             jDBCschemaText.setHideWidgets(true);
         }
@@ -2116,7 +2140,8 @@ public class DatabaseForm extends AbstractForm {
         mappingFileText.setEditable(false);
         mappingSelectButton.setEnabled(false);
 
-        if (EDatabaseConnTemplate.GODBC.getDBTypeName().equals(dbTypeCombo.getText())) {
+        if (EDatabaseConnTemplate.GODBC.getDBTypeName().equals(dbTypeCombo.getText())
+                || EDatabaseConnTemplate.GENERAL_JDBC.getDBTypeName().equals(dbTypeCombo.getText())) {
             addContextParams(EDBParamName.MappingFile, true);
             mappingFileText.show();
             mappingFileText.setEditable(true);
@@ -2162,10 +2187,12 @@ public class DatabaseForm extends AbstractForm {
             } else if (template == EDatabaseConnTemplate.GENERAL_JDBC) {
                 String jdbcUrlString = "";
                 if (isContextMode()) {
-                    ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(getShell(), getConnection(),
-                            true);
-                    if (contextType != null) {
-                        jdbcUrlString = ConnectionContextHelper.getOriginalValue(contextType, getConnection().getURL());
+                    if (selectedContextType == null) {
+                        selectedContextType = ConnectionContextHelper.getContextTypeForContextMode(getShell(), getConnection(),
+                                true);
+                    }
+                    if (selectedContextType != null) {
+                        jdbcUrlString = ConnectionContextHelper.getOriginalValue(selectedContextType, getConnection().getURL());
                     }
                 } else {
                     jdbcUrlString = generalJdbcUrlText.getText();

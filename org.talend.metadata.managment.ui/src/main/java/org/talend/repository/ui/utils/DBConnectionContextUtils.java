@@ -357,7 +357,7 @@ public final class DBConnectionContextUtils {
         if (dbConn == null) {
             return null;
         }
-        ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(null, dbConn, dbConn.getContextName(),
+        ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(null, dbConn, selectedContext,
                 defaultContext);
         DatabaseConnection cloneConn = ConnectionFactory.eINSTANCE.createDatabaseConnection();
         // get values

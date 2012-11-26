@@ -208,6 +208,12 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl {
         return null;
     }
 
+    public List<Catalog> fillCatalogs(Connection dbConn, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
+            List<String> catalogFilter) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
     public List<TdTable> fillTables(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter, String tablePattern,
             String[] tableType) {
         // TODO Auto-generated method stub
@@ -222,6 +228,19 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl {
 
     public List<MetadataTable> fillAll(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter,
             String tablePattern, String[] tableType) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.model.metadata.IMetadataFiller#fillSchemas(org.talend.core.model.metadata.builder.connection.
+     * Connection, java.sql.DatabaseMetaData, org.talend.core.model.metadata.IMetadataConnection, java.util.List)
+     */
+    public List<Package> fillSchemas(Connection dbConn, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
+            List<String> Filter) {
         // TODO Auto-generated method stub
         return null;
     }

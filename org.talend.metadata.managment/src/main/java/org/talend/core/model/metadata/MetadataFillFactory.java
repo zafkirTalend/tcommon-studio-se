@@ -124,6 +124,11 @@ public class MetadataFillFactory {
         return metadataFiller.fillCatalogs(dbConn, dbJDBCMetadata, catalogFilter);
     }
 
+    public List<Catalog> fillCatalogs(Connection dbConn, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
+            List<String> catalogFilter) {
+        return metadataFiller.fillCatalogs(dbConn, dbJDBCMetadata, metaConnection, catalogFilter);
+    }
+
     /**
      * Fill the schema with the restrain of schemaFilter, note that if the schema name (e.g UISchema for Oracle ) on
      * connection wizard UI is set, then this method will only return one schema with this name.
@@ -137,6 +142,11 @@ public class MetadataFillFactory {
      */
     public List<Package> fillSchemas(Connection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> schemaFilter) {
         return metadataFiller.fillSchemas(dbConn, dbJDBCMetadata, schemaFilter);
+    }
+
+    public List<Package> fillSchemas(Connection dbConn, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
+            List<String> schemaFilter) {
+        return metadataFiller.fillSchemas(dbConn, dbJDBCMetadata, metaConnection, schemaFilter);
     }
 
     /**
