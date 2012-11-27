@@ -32,6 +32,7 @@ import org.talend.core.repository.utils.AbstractResourceChangesService;
 import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.JobletReferenceBean;
@@ -294,8 +295,9 @@ public class MoveObjectAction {
                             AbstractResourceChangesService resourceChangeService = TDQServiceRegister.getInstance()
                                     .getResourceChangeService(AbstractResourceChangesService.class);
                             if (null != resourceChangeService) {
-                                boolean hasDependecesInDQ = resourceChangeService.hasDependcesInDQ(sourceNode);
-                                if (hasDependecesInDQ) {
+                                List<IRepositoryNode> dependentNodes = resourceChangeService.getDependentNodes(sourceNode);
+                                if (dependentNodes != null && !dependentNodes.isEmpty()) {
+                                    resourceChangeService.openDependcesDialog(dependentNodes);
                                     return;
                                 }
                             }

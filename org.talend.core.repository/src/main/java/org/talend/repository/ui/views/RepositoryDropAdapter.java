@@ -149,8 +149,9 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
                 // iRepositoryNode.getObject().getProperty().getItem().eResource().unload();
                 Item item = repositoryNode.getObject() == null ? null : repositoryNode.getObject().getProperty().getItem();
                 if (resourceChangeService != null && null != item) {
-                    boolean hasDependencyInDQ = resourceChangeService.hasDependcesInDQ(repositoryNode);
-                    if (hasDependencyInDQ) {
+                    List<IRepositoryNode> dependentNodes = resourceChangeService.getDependentNodes(repositoryNode);
+                    if (dependentNodes != null && !dependentNodes.isEmpty()) {
+                        resourceChangeService.openDependcesDialog(dependentNodes);
                         return false;
                     }
                 }

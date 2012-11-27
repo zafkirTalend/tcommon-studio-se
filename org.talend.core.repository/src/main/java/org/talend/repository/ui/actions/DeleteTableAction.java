@@ -52,6 +52,7 @@ import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.RepositoryConstants;
@@ -127,7 +128,11 @@ public class DeleteTableAction extends AContextualAction {
                     AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
                             AbstractResourceChangesService.class);
                     if (resChangeService != null) {
-                        isSave = !resChangeService.hasDependcesInDQ(node);
+                        List<IRepositoryNode> dependentNodes = resChangeService.getDependentNodes(node);
+                        if (dependentNodes != null && !dependentNodes.isEmpty()) {
+                            resChangeService.openDependcesDialog(dependentNodes);
+                            isSave = false;
+                        }
                     }
                     if (isSave) {
                         //

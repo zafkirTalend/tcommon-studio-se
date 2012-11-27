@@ -1175,8 +1175,12 @@ public class DeleteAction extends AContextualAction {
             needReturn = true;
         } else {
             if (factory.getStatus(objToDelete) == ERepositoryStatus.DELETED) {
-                if (resChangeService != null && resChangeService.hasDependcesInDQ(currentJobNode)) {
-                    return true;
+                if (resChangeService != null) {
+                    List<IRepositoryNode> dependentNodes = resChangeService.getDependentNodes(currentJobNode);
+                    if (dependentNodes != null && !dependentNodes.isEmpty()) {
+                        resChangeService.openDependcesDialog(dependentNodes);
+                        return true;
+                    }
                 }
                 if (confirm == null) {
                     Display.getDefault().syncExec(new Runnable() {

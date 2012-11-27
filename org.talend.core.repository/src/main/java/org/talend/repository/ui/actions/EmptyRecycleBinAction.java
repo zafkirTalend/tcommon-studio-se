@@ -95,8 +95,12 @@ public class EmptyRecycleBinAction extends AContextualAction {
         }
         AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
                 AbstractResourceChangesService.class);
-        if (resChangeService != null && !resChangeService.canEmptyRecycleBin(children)) {
-            return;
+        if (resChangeService != null) {
+            List<IRepositoryNode> dependentNodes = resChangeService.getDependentConnNodesInRecycleBin(children);
+            if (dependentNodes != null && !dependentNodes.isEmpty()) {
+                resChangeService.openDependcesDialog(dependentNodes);
+                return;
+            }
         }
         if (children.size() > 1) {
             message = Messages.getString("DeleteAction.dialog.messageAllElements") + "\n" + //$NON-NLS-1$ //$NON-NLS-2$

@@ -86,12 +86,16 @@ public class AbstractResourceChangesService implements IService {
     public void moveReportGeneratedDocFolder(TDQItem tdqItem, File tarFolder) {
     }
 
-    public boolean hasDependcesInDQ(IRepositoryNode currentNode) {
-        return false;
+    public List<IRepositoryNode> getDependentNodes(IRepositoryNode currentNode) {
+        return null;
     }
 
-    public boolean canEmptyRecycleBin(List<IRepositoryNode> children) {
-        return true;
+    public List<IRepositoryNode> getDependentConnNodesInRecycleBin(List<IRepositoryNode> children) {
+        return null;
+    }
+
+    public void openDependcesDialog(List<IRepositoryNode> nodes) {
+
     }
 
 }
