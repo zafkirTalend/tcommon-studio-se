@@ -19,8 +19,6 @@ import java.util.regex.Pattern;
 import org.eclipse.swt.graphics.RGB;
 import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
-import org.talend.core.language.ECodeLanguage;
-import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.QueryUtil;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.utils.KeywordsValidator;
@@ -73,17 +71,19 @@ public class TalendTextUtils {
         return TalendQuoteUtils.addQuotes(text, quoteStyle);
     }
 
+    public static String addSQLQuotes(String text, boolean force) {
+        if (force) { // in this case, do not consider context params
+            return addSQLQuotes(text, QUOTATION_MARK);
+        } else {
+            return addSQLQuotes(text);
+        }
+    }
+
     public static String addSQLQuotes(String text) {
-        ECodeLanguage language = LanguageManager.getCurrentLanguage();
         if (ContextParameterUtils.isContainContextParam(text)) {
             return text;
         }
-        switch (language) {
-        case JAVA:
-            return addSQLQuotes(text, QUOTATION_MARK);
-        default: // PERL
-            return addSQLQuotes(text, SINGLE_QUOTE);
-        }
+        return addSQLQuotes(text, QUOTATION_MARK);
     }
 
     private static String addSQLQuotes(String text, String quoteStyle) {
