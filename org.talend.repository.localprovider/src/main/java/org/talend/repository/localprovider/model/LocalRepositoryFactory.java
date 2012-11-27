@@ -15,6 +15,7 @@ package org.talend.repository.localprovider.model;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -424,8 +425,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                             IResource[] binFolder = ResourceUtils.getMembers((IFolder) current);
                             if (binFolder.length == 0 || (binFolder.length == 1 && FilesUtils.isSVNFolder(binFolder[0]))) {
                                 try {
-                                    ((IFolder) current).delete(true, null);
-                                } catch (CoreException e) {
+                                    deleteResource(current);
+                                } catch (PersistenceException e) {
                                     // not catched, not important if can delete or not
                                 }
                             }
@@ -670,8 +671,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
                                 if (binFolder.length == 0 || (binFolder.length == 1 && FilesUtils.isSVNFolder(binFolder[0]))) {
                                     try {
-                                        ((IFolder) current).delete(true, null);
-                                    } catch (CoreException e) {
+                                        deleteResource(current);
+                                    } catch (PersistenceException e) {
                                         // not catched, not important if can delete or not
                                     }
                                 }
@@ -1144,6 +1145,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     protected void createFolder(IFolder folder) throws PersistenceException {
+        if (!folder.getParent().exists()) {
+            if (folder.getParent() instanceof IFolder) {
+                createFolder((IFolder) folder.getParent());
+            }
+        }
         ResourceUtils.createFolder(folder);
     }
 
@@ -1213,7 +1219,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // changed by hqzhang for TDI-20600, FolderHelper.deleteFolder will fire the DeletedFolderListener in
         // ProjectRepoAbstractContentProvider class to refresh the node, if don't delete resource first, the deleted
         // foler display in repository view
-        ResourceUtils.deleteResource(folder);
+        deleteResource(folder);
         getFolderHelper(project.getEmfProject()).deleteFolder(completePath);
         if (!fromEmptyRecycleBin) {
             saveProject(project);
@@ -1221,7 +1227,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     @Override
-    public void moveFolder(ERepositoryObjectType type, IPath sourcePath, IPath targetPath) throws PersistenceException {
+    public void moveFolder(final ERepositoryObjectType type, final IPath sourcePath, final IPath targetPath)
+            throws PersistenceException {
         if (RepositoryConstants.isSystemFolder(sourcePath.toString())
                 || RepositoryConstants.isSystemFolder(targetPath.toString())) {
             // The "system" folder wasn't allowed to move
@@ -1232,10 +1239,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         String completeOldPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + sourcePath.toString();
         String completeNewPath;
-        if (targetPath.equals("")) {
+        if (targetPath.equals("")) { //$NON-NLS-1$
             completeNewPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + sourcePath.lastSegment();
         } else {
-            completeNewPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + targetPath.toString()
+            completeNewPath = ERepositoryObjectType.getFolderName(type)
+                    + ("".equals(targetPath.toString()) ? "" : IPath.SEPARATOR + targetPath.toString()) //$NON-NLS-1$//$NON-NLS-2$
                     + IPath.SEPARATOR + sourcePath.lastSegment();
         }
         if (completeNewPath.equals(completeOldPath)) {
@@ -1243,7 +1251,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             return;
         }
         // Getting the folder :
-        IFolder folder = ResourceUtils.getFolder(fsProject, completeOldPath, false);
+        IFolder folder = ResourceUtils.getFolder(fsProject, completeOldPath, true);
 
         FolderHelper folderHelper = getFolderHelper(getRepositoryContext().getProject().getEmfProject());
         FolderItem emfFolder = folderHelper.getFolder(completeOldPath);
@@ -1270,17 +1278,48 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         List<IRepositoryViewObject> serializableFromFolder = getSerializableFromFolder(project, folder, null, type, true, true,
                 true, false);
         for (IRepositoryViewObject object : serializableFromFolder) {
+            // this method should be called before the method moveResource(Resource, IPath)
+            dealTdqResourceMove(project, completeNewPath, object);
             List<Resource> affectedResources = xmiResourceManager.getAffectedResources(object.getProperty());
             for (Resource resource : affectedResources) {
                 IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath)
                         .append(resource.getURI().lastSegment());
+                // Find cross reference and save them.
+                List<Resource> needSaves = findCrossReference(resource);
                 moveResource(resource, path);
+                saveCrossReference(needSaves);
+            }
+            affectedResources = xmiResourceManager.getAffectedResources(object.getProperty());
+            for (Resource resource : affectedResources) {
+                xmiResourceManager.saveResource(resource);
             }
         }
 
         deleteFolder(getRepositoryContext().getProject(), type, sourcePath);
 
         xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
+    }
+
+    /**
+     * if move TDQReportItem, need to move the generated doc folder also.
+     * 
+     * @param project
+     * @param completeNewPath
+     * @param object
+     * @throws PersistenceException
+     */
+    private void dealTdqResourceMove(Project project, String completeNewPath, IRepositoryViewObject object)
+            throws PersistenceException {
+        Item item = object.getProperty() == null ? null : object.getProperty().getItem();
+        if (item != null && item instanceof TDQItem) {
+            AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
+                    AbstractResourceChangesService.class);
+
+            if (resChangeService != null) {
+                File tarFolder = getPhysicalProject(project).getLocation().append(completeNewPath).toFile();
+                resChangeService.moveReportGeneratedDocFolder((TDQItem) item, tarFolder);
+            }
+        }
     }
 
     private void renameFolderForLocal(final ERepositoryObjectType type, final IPath sourcePath, final String label)
@@ -1321,7 +1360,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         return;
                     }
                     // Getting the folder :
-                    IFolder folder = ResourceUtils.getFolder(fsProject, completeOldPath, false);
+                    IFolder folder = ResourceUtils.getFolder(fsProject, completeOldPath, true);
 
                     FolderHelper folderHelper = getFolderHelper(getRepositoryContext().getProject().getEmfProject());
                     FolderItem emfFolder = folderHelper.getFolder(completeOldPath);
@@ -1352,7 +1391,15 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         for (Resource resource : affectedResources) {
                             IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath)
                                     .append(resource.getURI().lastSegment());
+                            // Find cross reference and save them.
+                            List<Resource> needSaves = findCrossReference(resource);
                             moveResource(resource, path);
+                            saveCrossReference(needSaves);
+                        }
+
+                        affectedResources = xmiResourceManager.getAffectedResources(object.getProperty());
+                        for (Resource resource : affectedResources) {
+                            xmiResourceManager.saveResource(resource);
                         }
                     }
 
@@ -1400,6 +1447,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         child.setParent(newFolder);
 
+        moveDQItemToNewFolder(project, completeNewPath, child);
+
         // MDO gdbu 2011-9-29 TDQ-3546
         List<Resource> affectedResources = xmiResourceManager.getAffectedResources(child.getProperty());
 
@@ -1407,25 +1456,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath)
                     .append(resource.getURI().lastSegment());
             // Find cross reference and save them.
-            Map<EObject, Collection<Setting>> find = EcoreUtil.ExternalCrossReferencer.find(resource);
-            List<Resource> needSaves = new ArrayList<Resource>();
-            for (EObject object : find.keySet()) {
-                Resource re = object.eResource();
-                if (re == null) {
-                    continue;
-                }
-                EcoreUtil.resolveAll(re);
-                needSaves.add(re);
-            }
+            List<Resource> needSaves = findCrossReference(resource);
             moveResource(resource, path);
-
-            AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
-                    AbstractResourceChangesService.class);
-            if (resChangeService != null) {
-                for (Resource toSave : needSaves) {
-                    resChangeService.saveResourceByEMFShared(toSave);
-                }
-            }
+            saveCrossReference(needSaves);
         }
 
         affectedResources = xmiResourceManager.getAffectedResources(child.getProperty());
@@ -1433,6 +1466,26 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             xmiResourceManager.saveResource(resource);
         }
         // ~TDQ-3546
+    }
+
+    /**
+     * do something when move a TDQItem, eg. if move TDQReportItem, need to move the generated doc of it also.
+     * 
+     * @param project
+     * @param completeNewPath
+     * @param child
+     * @throws PersistenceException
+     */
+    private void moveDQItemToNewFolder(Project project, String completeNewPath, Item child) throws PersistenceException {
+        AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
+                AbstractResourceChangesService.class);
+
+        if (resChangeService != null) {
+            if (child instanceof TDQItem) {
+                File tarFolder = getPhysicalProject(project).getLocation().append(completeNewPath).toFile();
+                resChangeService.moveReportGeneratedDocFolder((TDQItem) child, tarFolder);
+            }
+        }
     }
 
     /*
@@ -1515,7 +1568,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 currentItem.setParent(null);
                 List<Resource> affectedResources = xmiResourceManager.getAffectedResources(currentVersion.getProperty());
                 for (Resource resource : affectedResources) {
-                    xmiResourceManager.deleteResource(resource);
+                    deleteResource(resource);
                 }
             }
         }
@@ -1586,25 +1639,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             for (Resource resource : affectedResources) {
                 IPath path = folder.getFullPath().append(resource.getURI().lastSegment());
                 // Find cross reference and save them.
-                Map<EObject, Collection<Setting>> find = EcoreUtil.ExternalCrossReferencer.find(resource);
-                List<Resource> needSaves = new ArrayList<Resource>();
-                for (EObject object : find.keySet()) {
-                    Resource re = object.eResource();
-                    if (re == null) {
-                        continue;
-                    }
-                    EcoreUtil.resolveAll(re);
-                    needSaves.add(re);
-                }
+                List<Resource> needSaves = findCrossReference(resource);
                 moveResource(resource, path);
-
-                AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
-                        AbstractResourceChangesService.class);
-                if (resChangeService != null) {
-                    for (Resource toSave : needSaves) {
-                        resChangeService.saveResourceByEMFShared(toSave);
-                    }
-                }
+                saveCrossReference(needSaves);
             }
             // all resources attached must be saved again after move the resources, or author will link to wrong path
             // for project file
@@ -1614,6 +1651,65 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             }
         }
         saveProject(project);
+    }
+
+    /**
+     * Find cross reference.
+     * 
+     * @param resource
+     * @return
+     */
+    private List<Resource> findCrossReference(Resource resource) {
+        List<Resource> needSaves = new ArrayList<Resource>();
+        Map<EObject, Collection<Setting>> find = EcoreUtil.ExternalCrossReferencer.find(resource);
+        for (EObject object : find.keySet()) {
+            Resource re = object.eResource();
+            if (re == null) {
+                continue;
+            }
+            EcoreUtil.resolveAll(re);
+            needSaves.add(re);
+        }
+        return needSaves;
+    }
+
+    /**
+     * Save cross reference.
+     * 
+     * @param needSaves
+     */
+    private void saveCrossReference(List<Resource> needSaves) {
+        AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
+                AbstractResourceChangesService.class);
+        if (resChangeService != null) {
+            for (Resource toSave : needSaves) {
+                resChangeService.saveResourceByEMFShared(toSave);
+            }
+        }
+    }
+
+    /**
+     * Used normally for folders only, it could be used for other resources if needed anyway.
+     * 
+     * @param resource
+     * @throws PersistenceException
+     */
+    protected void deleteResource(IResource resource) throws PersistenceException {
+        try {
+            resource.delete(true, null);
+        } catch (CoreException e) {
+            throw new PersistenceException(e);
+        }
+    }
+
+    /**
+     * Used only for emf related files since this one will update the resourceset.
+     * 
+     * @param resource
+     * @throws PersistenceException
+     */
+    protected void deleteResource(Resource resource) throws PersistenceException {
+        xmiResourceManager.deleteResource(resource);
     }
 
     protected void moveResource(Resource resource, IPath path) throws PersistenceException {
