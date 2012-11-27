@@ -19,8 +19,6 @@ import java.util.List;
 
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
-import org.talend.core.language.ECodeLanguage;
-import org.talend.core.language.LanguageManager;
 
 /**
  * cli class global comment. Detailled comment
@@ -257,37 +255,16 @@ public enum EDatabaseConnTemplate {
                 databaseType.add(typeName);
             }
         }
-        if (!all && LanguageManager.getCurrentLanguage() == ECodeLanguage.PERL) {
-            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.MSSQL, display));
-            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.INGRES, display));
-            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.INTERBASE, display));
-            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.INFORMIX, display));
-            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.FIREBIRD, display));
-            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.ACCESS, display));
-            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.TERADATA, display));
-            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.AS400, display));
-            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.JAVADB_DERBYCLIENT, display));
-            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.JAVADB_EMBEDED, display));
-            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.JAVADB_JCCJDBC, display));
-            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.HSQLDB_IN_PROGRESS, display));
-            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.HSQLDB_SERVER, display));
-            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.HSQLDB_WEBSERVER, display));
-            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.VERTICA, display));
-            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.HIVE, display));
-            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.HBASE, display));
-        }
         if (sort) {
             String[] sortedArray = databaseType.toArray(new String[0]);
-            Arrays.sort(sortedArray, new Comparator() {
+            Arrays.sort(sortedArray, new Comparator<String>() {
 
-                public int compare(Object o1, Object o2) {
-                    if (o1 instanceof String && o2 instanceof String) {
-                        return o1.toString().compareTo(o2.toString());
-                    }
-                    return 0;
+                @Override
+                public int compare(String o1, String o2) {
+                    return o1.compareTo(o2);
                 }
             });
-            return Arrays.asList(sortedArray);
+            return new ArrayList<String>(Arrays.asList(sortedArray));
         }
         return databaseType;
     }
