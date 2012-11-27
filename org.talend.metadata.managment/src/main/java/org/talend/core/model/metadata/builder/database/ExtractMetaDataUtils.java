@@ -112,6 +112,10 @@ public class ExtractMetaDataUtils {
         return getDatabaseMetaData(conn, dbType, false, null);
     }
 
+    public static Map<String, DriverShim> getDriverCache() {
+        return DRIVER_CACHE;
+    }
+
     /**
      * DOC cantoine. Method to return DatabaseMetaData of a DB connection.
      * 
