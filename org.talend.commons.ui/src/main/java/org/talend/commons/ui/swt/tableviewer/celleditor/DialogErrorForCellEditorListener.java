@@ -106,7 +106,9 @@ public abstract class DialogErrorForCellEditorListener implements ICellEditorLis
                                     Messages.getString("DialogErrorForCellEditorListener.Error.MsgDialogTitle"), Messages.getString("ErrorDialogWidthDetailArea.ErrorMessage.ColumnText")); //$NON-NLS-1$
                             final int columnPosition = tableViewerCreator.getColumns().indexOf(column);
                             tableViewerCreator.getTableViewer().editElement(currentModifiedBean, columnPosition);
-                            text.setText(newValue);
+                            if (!("").equals(newValue)) {
+                                text.setText(newValue);
+                            }
                             text.setSelection(selection.x, selection.y);
                         } else {
                             MessageDialog.openError(text.getShell(),
