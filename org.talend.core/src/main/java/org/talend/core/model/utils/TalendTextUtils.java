@@ -589,4 +589,5 @@ public class TalendTextUtils {
             return string + " ---> " + key; //$NON-NLS-1$
         }
     }
+
 }

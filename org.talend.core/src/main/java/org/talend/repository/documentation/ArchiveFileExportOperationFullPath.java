@@ -35,6 +35,7 @@ import org.eclipse.jface.operation.ModalContext;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.i18n.Messages;
 
 /**
@@ -216,7 +217,7 @@ public class ArchiveFileExportOperationFullPath implements IRunnableWithProgress
                 String relativePath = (String) iter.next();
                 Set<URL> resource = fileResource.getResourcesByRelativePath(relativePath);
                 for (URL url : resource) {
-                    String currentResource = url.getPath();
+                    String currentResource = FilesUtils.getFileRealPath(url.getPath());
                     exportResource(rootName, relativePath, currentResource, 1);
                 }
             }

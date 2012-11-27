@@ -409,7 +409,7 @@ public class FilesUtils {
         List<URL> urls = new ArrayList<URL>();
         List<File> files = getFiles(file, extension, excludedFile, excludedFolder, nested);
         for (File file2 : files) {
-            urls.add(file2.toURL());
+            urls.add(file2.toURI().toURL());
         }
         return urls;
     }
@@ -1090,5 +1090,18 @@ public class FilesUtils {
         List<File> files = new ArrayList<File>();
         getAllFilesFromFolder(aFolder, files, filenameFilter);
         return files;
+    }
+
+    public static String getFileRealPath(String filePath) {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            filePath = filePath.replace("%20", " "); //$NON-NLS-1$ //$NON-NLS-2$
+            file = new File(filePath);
+            if (file.exists()) {
+                return filePath;
+            }
+        }
+
+        return filePath;
     }
 }
