@@ -375,7 +375,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     // MOD klliu 2012-02-08 TDQ-4645 add package filter for connection
                     ConnectionHelper.setPackageFilter(connection, "");//$NON-NLS-1$
 
-                    MetadataConnectionUtils.fillConnectionInformation(connectionItem);
+                    MetadataConnectionUtils.fillConnectionInformation(connectionItem, metadataConnection);
 
                     // if after fillConnection there is still no dataPackages, need to fill them from extractor
                     List<Catalog> catalogs = ConnectionHelper.getCatalogs(connection);
