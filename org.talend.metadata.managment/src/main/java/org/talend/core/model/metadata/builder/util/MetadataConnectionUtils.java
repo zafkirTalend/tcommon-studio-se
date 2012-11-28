@@ -906,6 +906,10 @@ public class MetadataConnectionUtils {
         return dataprovider instanceof MDMConnection;
     }
 
+    public static Connection fillConnectionInformation(ConnectionItem connItem) {
+        return fillConnectionInformation(connItem, null);
+    }
+
     /**
      * DOC connection created by TOS need to fill the basic information for useing in TOP.<br>
      * 
@@ -913,7 +917,7 @@ public class MetadataConnectionUtils {
      * @param conn
      * @return
      */
-    public static Connection fillConnectionInformation(ConnectionItem connItem) {
+    public static Connection fillConnectionInformation(ConnectionItem connItem, IMetadataConnection metadataConnection) {
         boolean saveFlag = false;
         Connection conn = connItem.getConnection();
         // // fill metadata of connection
@@ -945,7 +949,7 @@ public class MetadataConnectionUtils {
             if (dbConn != null) {
                 saveFlag = true;
 
-                conn = fillDbConnectionInformation(dbConn);
+                conn = fillDbConnectionInformation(dbConn, metadataConnection);
             }
             // else {
             // MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
@@ -1040,7 +1044,7 @@ public class MetadataConnectionUtils {
      * @param dbConn
      * @return
      */
-    public static DatabaseConnection fillDbConnectionInformation(DatabaseConnection dbConn) {
+    public static DatabaseConnection fillDbConnectionInformation(DatabaseConnection dbConn, IMetadataConnection metadataConnection) {
         // fill database structure
         // if (DatabaseConstant.XML_EXIST_DRIVER_NAME.equals(dbConn.getDriverClass())) { // xmldb(e.g eXist)
         // IXMLDBConnection xmlDBConnection = new EXistXMLDBConnection(dbConn.getDriverClass(), dbConn.getURL());
@@ -1063,14 +1067,17 @@ public class MetadataConnectionUtils {
                                      // schemas
                 // Map<String, String> paramMap =
                 // ParameterUtil.toMap(ConnectionUtils.createConnectionParam(dbConn));
-                IMetadataConnection metaConnection = ConvertionHelper.convert(dbConn);
+                IMetadataConnection metaConnection = metadataConnection;
+                if (metadataConnection == null) {
+                    metaConnection = ConvertionHelper.convert(dbConn);
+                }
                 dbConn = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(metaConnection, dbConn);
                 sqlConn = MetadataConnectionUtils.checkConnection(metaConnection).getObject();
                 DatabaseMetaData databaseMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbConn, false);
                 if (sqlConn != null) {
-                    MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, databaseMetaData,
+                    MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, databaseMetaData, metaConnection,
                             MetadataConnectionUtils.getPackageFilter(dbConn, databaseMetaData, true));
-                    MetadataFillFactory.getDBInstance().fillSchemas(dbConn, databaseMetaData,
+                    MetadataFillFactory.getDBInstance().fillSchemas(dbConn, databaseMetaData, metaConnection,
                             MetadataConnectionUtils.getPackageFilter(dbConn, databaseMetaData, false));
                 }
             }
