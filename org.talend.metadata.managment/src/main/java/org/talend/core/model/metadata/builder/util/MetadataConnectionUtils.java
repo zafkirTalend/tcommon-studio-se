@@ -1070,11 +1070,8 @@ public class MetadataConnectionUtils {
                 if (sqlConn != null) {
                     MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, databaseMetaData,
                             MetadataConnectionUtils.getPackageFilter(dbConn, databaseMetaData, true));
-                    // if it is sybase, the schemas should be under the catalogs
-                    if (!ConnectionUtils.isSybase(databaseMetaData)) {
-                        MetadataFillFactory.getDBInstance().fillSchemas(dbConn, databaseMetaData,
-                                MetadataConnectionUtils.getPackageFilter(dbConn, databaseMetaData, false));
-                    }
+                    MetadataFillFactory.getDBInstance().fillSchemas(dbConn, databaseMetaData,
+                            MetadataConnectionUtils.getPackageFilter(dbConn, databaseMetaData, false));
                 }
             }
         } catch (Exception e) {

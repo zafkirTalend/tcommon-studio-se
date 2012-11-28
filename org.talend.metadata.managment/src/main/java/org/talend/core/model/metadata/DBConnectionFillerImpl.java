@@ -180,7 +180,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
     public List<Package> fillSchemas(Connection dbConn, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
             List<String> schemaFilter) {
         List<Schema> returnSchemas = new ArrayList<Schema>();
-        if (dbJDBCMetadata == null || (dbConn != null && ConnectionHelper.getCatalogs(dbConn).size() > 0)) {
+        if (dbJDBCMetadata == null || (dbConn != null && ConnectionHelper.getCatalogs(dbConn).size() > 0)
+                || ConnectionUtils.isSybase(dbJDBCMetadata)) {
             return null;
         }
         ResultSet schemas = null;
