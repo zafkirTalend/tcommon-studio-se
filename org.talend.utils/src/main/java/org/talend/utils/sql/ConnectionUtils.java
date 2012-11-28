@@ -94,7 +94,7 @@ public final class ConnectionUtils {
             try {
                 DriverManager.registerDriver(driver);
                 Class.forName(driver.getClass().getName());
-                if (isMsSqlServer(url) || isSybase(url)) {
+                if (isMsSqlServer(url) || isSybase(url) || isHiveServer(url)) {
                     connection = driver.connect(url, props);
                 } else {
                     connection = DriverManager.getConnection(url, props);
@@ -128,6 +128,10 @@ public final class ConnectionUtils {
      */
     public static boolean isMsSqlServer(String url) {
         return url.indexOf("sqlserver") > -1; //$NON-NLS-1$
+    }
+
+    public static boolean isHiveServer(String url) {
+        return url.indexOf("hive") > -1; //$NON-NLS-1$
     }
 
     /**
@@ -193,7 +197,7 @@ public final class ConnectionUtils {
         assert connection != null;
         ReturnCode rc = new ReturnCode(true);
         try {
-            if (!connection.isClosed()) {
+            if (connection != null && !connection.isClosed()) {
                 connection.close();
             }
         } catch (SQLException e) {

@@ -39,6 +39,7 @@ import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataFillFactory;
@@ -47,9 +48,11 @@ import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
+import org.talend.core.model.metadata.builder.database.JavaSqlFactory;
 import org.talend.core.model.metadata.builder.database.PluginConstant;
 import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlType;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
+import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
@@ -375,6 +378,11 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     // MOD klliu 2012-02-08 TDQ-4645 add package filter for connection
                     ConnectionHelper.setPackageFilter(connection, "");//$NON-NLS-1$
 
+                    String hiveMode = (String) metadataConnection.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
+                    if (EDatabaseTypeName.HIVE.getDisplayName().equals(metadataConnection.getDbType())
+                            && HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(hiveMode)) {
+                        JavaSqlFactory.doHivePreSetup(connection);
+                    }
                     MetadataConnectionUtils.fillConnectionInformation(connectionItem, metadataConnection);
 
                     // if after fillConnection there is still no dataPackages, need to fill them from extractor

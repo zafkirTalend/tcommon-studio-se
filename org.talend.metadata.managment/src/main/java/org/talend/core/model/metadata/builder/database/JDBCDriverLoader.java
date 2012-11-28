@@ -48,7 +48,7 @@ public class JDBCDriverLoader {
         boolean flog = EDatabaseVersion4Drivers.containTypeAndVersion(dbType, dbVersion);
         HotClassLoader loader = null;
         if (flog) {
-            loader = (HotClassLoader) classLoadersMap.get(dbType, dbVersion);
+            loader = getHotClassLoaderFromCache(dbType, dbVersion);
             if (loader == null) {
                 loader = new HotClassLoader();
                 for (int i = 0; i < libraries.size(); i++) {
@@ -73,6 +73,19 @@ public class JDBCDriverLoader {
     }
 
     /**
+     * DOC msjian Comment method "getHotClassLoaderFromCache".
+     * 
+     * @param dbType
+     * @param dbVersion
+     * @return
+     */
+    public HotClassLoader getHotClassLoaderFromCache(String dbType, String dbVersion) {
+        HotClassLoader loader;
+        loader = (HotClassLoader) classLoadersMap.get(dbType, dbVersion);
+        return loader;
+    }
+
+    /**
      * 
      * DOC YeXiaowei Comment method "getConnection".
      * 
@@ -90,7 +103,7 @@ public class JDBCDriverLoader {
         HotClassLoader loader;
         boolean flog = EDatabaseVersion4Drivers.containTypeAndVersion(dbType, dbVersion);
         if (flog) {
-            loader = (HotClassLoader) classLoadersMap.get(dbType, dbVersion);
+            loader = getHotClassLoaderFromCache(dbType, dbVersion);
             if (loader == null) {
                 loader = new HotClassLoader();
                 for (String element : jarPath) {
@@ -171,22 +184,5 @@ public class JDBCDriverLoader {
         }
 
     }
-    // public static void main(String[] args) {
-    // // test IBM DB2
-    //        String jarPath = "D:\\YeXiaowei\\workrela\\eclipse_3_3\\lib\\java\\db2jcc.jar"; //$NON-NLS-1$
-    //        String driverClassName = "com.ibm.db2.jcc.DB2Driver"; //$NON-NLS-1$
-    //        String url = "jdbc:db2://192.168.0.108:50000/talend"; //$NON-NLS-1$
-    //        String username = "root"; //$NON-NLS-1$
-    //        String password = "toor"; //$NON-NLS-1$
-    //
-    // JDBCDriverLoader loader = new JDBCDriverLoader();
-    // Connection conn;
-    // try {
-    // conn = loader.getConnection(String[] jarPath, driverClassName, url, username, password);
-    // } catch (Throwable e) {
-    // e.printStackTrace();
-    // }
-    // // System.out.println(conn.getClass());
-    // }
 
 }
