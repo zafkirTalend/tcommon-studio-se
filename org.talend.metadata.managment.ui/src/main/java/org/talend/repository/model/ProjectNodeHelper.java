@@ -124,7 +124,7 @@ public class ProjectNodeHelper {
                     for (Schema current : subschemas) {
                         if (current.getName() == null) {
                             /* if the current schema no name should set an empty string for name, bug 17244 */
-                            current.setName(""); //$NON-NLS-N$
+                            current.setName("");
                         }
                         if (current.getName().equals(schema)) {
                             s = current;
@@ -497,12 +497,17 @@ public class ProjectNodeHelper {
         java.sql.Connection sqlConn = null;
         temConnection = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(iMetadataConnection,
                 temConnection);
-        sqlConn = (java.sql.Connection) MetadataConnectionUtils.checkConnection(iMetadataConnection).getObject();
+        sqlConn = MetadataConnectionUtils.checkConnection(iMetadataConnection).getObject();
         // because there is no any structure after import into 423 from 402,just sychronized the two connection's
         // UISchema for fill catalogs and scheams
         if (((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getUiSchema() != null) {
             temConnection.setUiSchema(((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getUiSchema());
         }
+
+        if (((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getSID() != null) {
+            temConnection.setSID(((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getSID());
+        }
+
         String dbType = iMetadataConnection.getDbType();
         if (sqlConn != null) {
             DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType, false,
