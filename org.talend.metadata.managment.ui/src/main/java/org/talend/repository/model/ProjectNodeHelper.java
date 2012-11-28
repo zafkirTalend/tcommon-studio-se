@@ -443,6 +443,10 @@ public class ProjectNodeHelper {
         if (((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getUiSchema() != null) {
             temConnection.setUiSchema(((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getUiSchema());
         }
+
+        if (((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getSID() != null) {
+            temConnection.setSID(((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getSID());
+        }
         String dbType = iMetadataConnection.getDbType();
         if (sqlConn != null) {
             DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType, false,
