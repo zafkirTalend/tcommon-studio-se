@@ -552,29 +552,37 @@ public final class ConnectionContextHelper {
         boolean isAddContext = false;
         ShowAddedContextdialog showDialog = new ShowAddedContextdialog(addedVarsMap, true);
         if (showDialog.open() == Window.OK) {
-            // construct selectedContextItems
-            List<ContextItem> selectedContextItems = new ArrayList<ContextItem>();
-            selectedContextItems.add(contextItem);
-            // check Show ContextGroup
-            Set<String> groupSet = new HashSet<String>();
-            for (ContextType type : (List<ContextType>) contextItem.getContext()) {
-                groupSet.add(type.getName());
-            }
-            Set<String> curGroupSet = new HashSet<String>();
-            for (IContext context : contextManager.getListContext()) {
-                curGroupSet.add(context.getName());
-            }
-            Set<String> contextGoupNameSet = new HashSet<String>();
-            if (!curGroupSet.containsAll(groupSet)) {
-                // ask to copy all context group
-                SelectRepositoryContextGroupDialog groupDialog = new SelectRepositoryContextGroupDialog(PlatformUI.getWorkbench()
-                        .getDisplay().getActiveShell(), contextManager, new ContextManagerHelper(contextManager),
-                        selectedContextItems);
-                if (Dialog.OK == groupDialog.open()) {
-                    contextGoupNameSet = groupDialog.getSelectedContextGroupName();
+            if (ConnectionContextHelper.containsVariable(contextManager)) {
+                Set<String> addedContext = ConnectionContextHelper.checkAndAddContextVariables(contextItem, addedVars,
+                        contextManager, false);
+                if (addedContext != null && addedContext.size() > 0) {
+                    ConnectionContextHelper.addContextVarForJob(process, contextItem, addedVars);
                 }
+            } else {
+                // construct selectedContextItems
+                List<ContextItem> selectedContextItems = new ArrayList<ContextItem>();
+                selectedContextItems.add(contextItem);
+                // check Show ContextGroup
+                Set<String> groupSet = new HashSet<String>();
+                for (ContextType type : (List<ContextType>) contextItem.getContext()) {
+                    groupSet.add(type.getName());
+                }
+                Set<String> curGroupSet = new HashSet<String>();
+                for (IContext context : contextManager.getListContext()) {
+                    curGroupSet.add(context.getName());
+                }
+                Set<String> contextGoupNameSet = new HashSet<String>();
+                if (!curGroupSet.containsAll(groupSet)) {
+                    // ask to copy all context group
+                    SelectRepositoryContextGroupDialog groupDialog = new SelectRepositoryContextGroupDialog(PlatformUI
+                            .getWorkbench().getDisplay().getActiveShell(), contextManager, new ContextManagerHelper(
+                            contextManager), selectedContextItems);
+                    if (Dialog.OK == groupDialog.open()) {
+                        contextGoupNameSet = groupDialog.getSelectedContextGroupName();
+                    }
+                }
+                addContextVarForJob(process, contextItem, contextManager, addedVars, contextGoupNameSet);
             }
-            addContextVarForJob(process, contextItem, contextManager, addedVars, contextGoupNameSet);
             isAddContext = true;
         }
         return isAddContext;
