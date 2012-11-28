@@ -169,31 +169,50 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
     }
 
     public static ISourceViewer createViewer(Composite composite, int styles, boolean checkCode) {
+    	/*
+    	 * Special for cProcessor
+    	 * https://jira.talendforge.org/browse/TESB-3687
+    	 * for cJavaDSLProcessor
+    	 * https://jira.talendforge.org/browse/TESB-7615
+    	 */
+    	boolean isRouteProcess = isRouteProcess();
+    	
         StringBuffer buff = new StringBuffer();
         buff.append("package internal;\n\n"); //$NON-NLS-1$
         buff.append(getImports());
+        
+        //add special imports for RouteBuilder
+        if(isRouteProcess){
+        	buff.append("import org.apache.camel.*;");
+        }
+        
         buff.append("public class " + VIEWER_CLASS_NAME + currentId + " {\n"); //$NON-NLS-1$ //$NON-NLS-2$
         buff.append("\tprivate static java.util.Properties context = new java.util.Properties();\n"); //$NON-NLS-1$
         buff.append("\tprivate static final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();\n"); //$NON-NLS-1$
 
-        /*
-         * Special for cProcessor
-         * https://jira.talendforge.org/browse/TESB-3687
-         */
-        try{
-        	IProcess activeProcess = CorePlugin.getDefault().getRunProcessService().getActiveProcess();
-        	if(activeProcess != null && "org.talend.camel.designer.ui.editor.RouteProcess".equals(activeProcess.getClass().getName())){
-        		 buff.append("\tprivate org.apache.camel.Exchange exchange;\n"); //$NON-NLS-1$
-        		 buff.append("\torg.apache.camel.impl.DefaultCamelContext camelContext;\n"); //$NON-NLS-1$
-        		 buff.append("\tjavax.jms.ConnectionFactory jmsConnectionFactory;\n"); //$NON-NLS-1$
-        	}
-        }catch(Exception e){
+    	/*
+    	 * Special for cProcessor
+    	 * https://jira.talendforge.org/browse/TESB-3687
+    	 */
+        if(isRouteProcess){
+        	buff.append("\tprivate org.apache.camel.Exchange exchange;\n"); //$NON-NLS-1$
+        	buff.append("\torg.apache.camel.impl.DefaultCamelContext camelContext;\n"); //$NON-NLS-1$
+        	buff.append("\tjavax.jms.ConnectionFactory jmsConnectionFactory;\n"); //$NON-NLS-1$
         }
         //end of https://jira.talendforge.org/browse/TESB-3687
         
         buff.append("\tpublic void myFunction(){\n"); //$NON-NLS-1$
         buff.append("\t  if( \n"); //$NON-NLS-1$
 
+    	/*
+    	 * for cJavaDSLProcessor
+    	 * https://jira.talendforge.org/browse/TESB-7615
+    	 */
+        if(isRouteProcess){
+        	buff.append("new org.apache.camel.model.RouteDefinition()\n");
+        }
+        // End of https://jira.talendforge.org/browse/TESB-7615
+        
         int documentOffset = buff.toString().length();
         buff.append("){\n\t}"); //$NON-NLS-1$
         buff.append("\n\t\n}\n}"); //$NON-NLS-1$
@@ -203,6 +222,22 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         return initializeViewer(composite, styles, checkCode, document, documentOffset);
     }
 
+    /**
+     * if the current process is a route process or not
+     * @return
+     */
+    private static boolean isRouteProcess(){
+		try {
+			IProcess activeProcess = CorePlugin.getDefault()
+					.getRunProcessService().getActiveProcess();
+			boolean isRouteProcess = (activeProcess != null && "org.talend.camel.designer.ui.editor.RouteProcess"
+					.equals(activeProcess.getClass().getName()));
+			return isRouteProcess;
+		} catch (Throwable e) {
+			return false;
+		}
+    }
+    
     public static ISourceViewer createViewerForIfConnection(Composite composite) {
         StringBuffer buff = new StringBuffer();
         buff.append("package internal;\n\n"); //$NON-NLS-1$
