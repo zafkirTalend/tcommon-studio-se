@@ -49,10 +49,12 @@ public class RepositoryEditorInput extends FileEditorInput implements IRepositor
         return name;
     }
 
+    @Override
     public Item getItem() {
         return this.item;
     }
 
+    @Override
     public void setItem(Item item) {
         this.item = item;
         if (item != null) {
@@ -62,14 +64,17 @@ public class RepositoryEditorInput extends FileEditorInput implements IRepositor
         }
     }
 
+    @Override
     public boolean isReadOnly() {
         return this.readOnly;
     }
 
+    @Override
     public void setReadOnly(boolean readOnly) {
         this.readOnly = readOnly;
     }
 
+    @Override
     public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
@@ -89,6 +94,7 @@ public class RepositoryEditorInput extends FileEditorInput implements IRepositor
         return true;
     }
 
+    @Override
     public int hashCode() {
         if (getItem() != null) {
             return super.hashCode() & getItem().hashCode();
@@ -98,6 +104,7 @@ public class RepositoryEditorInput extends FileEditorInput implements IRepositor
 
     protected RepositoryNode repositoryNode;
 
+    @Override
     public RepositoryNode getRepositoryNode() {
         return this.repositoryNode;
     }
@@ -107,6 +114,7 @@ public class RepositoryEditorInput extends FileEditorInput implements IRepositor
      * 
      * @param node
      */
+    @Override
     public void setRepositoryNode(IRepositoryNode repositoryNode) {
         if (repositoryNode != null) {
             this.repositoryNode = (RepositoryNode) repositoryNode;
