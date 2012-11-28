@@ -97,7 +97,7 @@ public class ExtractMetaDataUtils {
     // hywang add for bug 7038
     private static List<String> functionlist = new ArrayList<String>();
 
-    private static final Map<String, DriverShim> DRIVER_CACHE = new HashMap<String, DriverShim>();
+    private static final Map<String, Object> DRIVER_CACHE = new HashMap<String, Object>();
 
     /**
      * DOC cantoine. Method to return DatabaseMetaData of a DB connection.
@@ -840,15 +840,17 @@ public class ExtractMetaDataUtils {
                 }
 
             } else if (dbType != null && dbType.equalsIgnoreCase(EDatabaseTypeName.MSSQL.getDisplayName()) && "".equals(username)) {
-                if (DRIVER_CACHE.containsKey(EDatabase4DriverClassName.MSSQL.getDriverClass())) {
-                    wapperDriver = DRIVER_CACHE.get(EDatabase4DriverClassName.MSSQL.getDriverClass());
-                    Properties info = new Properties();
-                    // to avoid NPE
-                    username = username != null ? username : "";
-                    pwd = pwd != null ? pwd : "";
-                    info.put("user", username);
-                    info.put("password", pwd);
-                    connection = wapperDriver.connect(url, info);
+                String wapperDriverKey = EDatabase4DriverClassName.MSSQL.getDriverClass() + "wapperDriver";
+                String connectionKey = EDatabase4DriverClassName.MSSQL.getDriverClass() + "connection";
+                if (DRIVER_CACHE.containsKey(wapperDriverKey) && DRIVER_CACHE.containsKey(connectionKey)) {
+                    Object object1 = DRIVER_CACHE.get(wapperDriverKey);
+                    if (object1 != null && object1 instanceof DriverShim) {
+                        wapperDriver = (DriverShim) object1;
+                    }
+                    Object object2 = DRIVER_CACHE.get(connectionKey);
+                    if (object2 != null && object2 instanceof Connection) {
+                        connection = (Connection) object2;
+                    }
                 } else {
                     JDBCDriverLoader loader = new JDBCDriverLoader();
                     list = loader.getConnection(driverJarPath, driverClassName, url, username, pwd, dbType, dbVersion,
@@ -862,7 +864,8 @@ public class ExtractMetaDataUtils {
                                 wapperDriver = (DriverShim) list.get(i);
                             }
                         }
-                        DRIVER_CACHE.put(EDatabase4DriverClassName.MSSQL.getDriverClass(), wapperDriver);
+                        DRIVER_CACHE.put(wapperDriverKey, wapperDriver);
+                        DRIVER_CACHE.put(connectionKey, connection);
                     }
                 }
             } else if (dbType != null
