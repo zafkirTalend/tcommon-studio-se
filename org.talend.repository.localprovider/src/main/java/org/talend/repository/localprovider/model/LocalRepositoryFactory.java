@@ -440,7 +440,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             // in case any property has been deleted manually, should delete from the emf model
             if (currentFolderItem != null) { // test if null only for bin directory
                 List<Item> itemsDeleted = new ArrayList<Item>();
-                for (Item curItem : (List<Item>) currentFolderItem.getChildren()) {
+                for (Item curItem : new ArrayList<Item>(currentFolderItem.getChildren())) {
                     if (!(curItem instanceof FolderItem)) {
                         String name;
                         if (curItem.eResource() != null) {
