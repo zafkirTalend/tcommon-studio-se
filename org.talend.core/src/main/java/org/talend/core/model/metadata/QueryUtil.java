@@ -213,7 +213,13 @@ public class QueryUtil {
         for (int i = 0; i < metaDataColumnList.size(); i++) {
             IMetadataColumn metaDataColumn = metaDataColumnList.get(i);
             String columnName = quoteStringValue(metaDataColumn.getOriginalDbColumnName(), dbType);
-            
+
+            // guess query :id in mssql is isSqlKeyword,columnName will get a wrong value
+            if (metaDataColumn.getOriginalDbColumnName().contains("id")//$NON-NLS-1$
+                    && EDatabaseTypeName.getTypeFromDbType(dbType).equals(EDatabaseTypeName.MSSQL)) {
+                columnName = TalendTextUtils.declareString(metaDataColumn.getOriginalDbColumnName());
+            }
+
             String columnStr = columnName;
 
             if (i != index - 1) {
