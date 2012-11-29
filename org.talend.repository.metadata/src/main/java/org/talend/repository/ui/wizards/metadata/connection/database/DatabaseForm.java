@@ -396,7 +396,7 @@ public class DatabaseForm extends AbstractForm {
         if (jdbcUrlString.contains("sqlserver")) {//$NON-NLS-1$
             // incase change from other jdbc to sqlserver jdbc ,uischema is empty
             String schema = getConnection().getUiSchema();
-            if (schema == null || "".equals(schema)) {
+            if (selectedContextType != null && (schema == null || "".equals(schema))) {
                 for (ContextParameterType param : (List<ContextParameterType>) selectedContextType.getContextParameter()) {
                     if (param.getName() != null && param.getName().endsWith(ConnectionContextHelper.LINE + EDBParamName.Schema)) {
                         if (getConnection().isContextMode()) {
