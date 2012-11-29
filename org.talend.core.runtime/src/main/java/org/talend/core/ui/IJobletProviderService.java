@@ -103,4 +103,6 @@ public interface IJobletProviderService extends IService {
     public List<INode> checkDeleteNodes(IElement jobletContainer);
 
     public boolean checkModify(IElement jobletContainer);
+
+    public boolean jobletIsDirty(INode node);
 }
