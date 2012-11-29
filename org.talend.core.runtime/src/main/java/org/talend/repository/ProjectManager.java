@@ -109,9 +109,11 @@ public final class ProjectManager {
         Context ctx = CoreRuntimePlugin.getInstance().getContext();
         if (p != null && ctx != null) {
             String parentBranch = ProjectManager.getInstance().getMainProjectBranch(p);
-            for (ProjectReference pr : (List<ProjectReference>) p.getReferencedProjects()) {
-                if (pr.getBranch() == null || parentBranch.equals(pr.getBranch())) {
-                    resolveRefProject(pr.getReferencedProject()); // only to resolve all
+            if (parentBranch != null) {
+                for (ProjectReference pr : (List<ProjectReference>) p.getReferencedProjects()) {
+                    if (pr.getBranch() == null || parentBranch.equals(pr.getBranch())) {
+                        resolveRefProject(pr.getReferencedProject()); // only to resolve all
+                    }
                 }
             }
         }
@@ -121,11 +123,13 @@ public final class ProjectManager {
         Context ctx = CoreRuntimePlugin.getInstance().getContext();
         if (ctx != null && p != null) {
             String parentBranch = ProjectManager.getInstance().getMainProjectBranch(p);
-            for (ProjectReference pr : (List<ProjectReference>) p.getReferencedProjects()) {
-                if (pr.getBranch() == null || parentBranch.equals(pr.getBranch())) {
-                    Project project = new Project(pr.getReferencedProject());
-                    allReferencedprojects.add(project);
-                    resolveSubRefProject(pr.getReferencedProject()); // only to resolve all
+            if (parentBranch != null) {
+                for (ProjectReference pr : (List<ProjectReference>) p.getReferencedProjects()) {
+                    if (pr.getBranch() == null || parentBranch.equals(pr.getBranch())) {
+                        Project project = new Project(pr.getReferencedProject());
+                        allReferencedprojects.add(project);
+                        resolveSubRefProject(pr.getReferencedProject()); // only to resolve all
+                    }
                 }
             }
         }

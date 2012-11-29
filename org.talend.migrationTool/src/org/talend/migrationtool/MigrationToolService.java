@@ -159,6 +159,8 @@ public class MigrationToolService implements IMigrationToolService {
         final List<IProjectMigrationTask> toExecute = GetTasksHelper.getProjectTasks(beforeLogon);
         final List<MigrationTask> done = new ArrayList<MigrationTask>(project.getEmfProject().getMigrationTask());
 
+        final boolean newProject = done.isEmpty();
+
         sortMigrationTasks(toExecute);
 
         int nbMigrationsToDo = 0;
@@ -172,12 +174,15 @@ public class MigrationToolService implements IMigrationToolService {
         // force to redo the migration task for the relations only if user ask for "clean" or if relations is empty
         // or if there is at least another migration to do.
         if (!beforeLogon
-                && (!RelationshipItemBuilder.INDEX_VERSION.equals(project.getEmfProject().getItemsRelationVersion())
-                        || project.getEmfProject().getItemsRelations() == null
-                        || project.getEmfProject().getItemsRelations().isEmpty() || nbMigrationsToDo > 0)) {
+                && (!RelationshipItemBuilder.INDEX_VERSION.equals(project.getEmfProject().getItemsRelationVersion()) || nbMigrationsToDo > 0)) {
             // force to redo this migration task, to make sure the relationship is done correctly
             // done.remove(RELATION_TASK);
             MigrationUtil.removeMigrationTaskById(done, RELATION_TASK);
+            RelationshipItemBuilder.getInstance().unloadRelations();
+            nbMigrationsToDo++;
+        }
+        if (nbMigrationsToDo == 0) {
+            return;
         }
 
         // force execute migration in case user copy-past items with diffrent path on the file system and refresh
@@ -302,7 +307,10 @@ public class MigrationToolService implements IMigrationToolService {
                             }
                             switch (status) {
                             case SUCCESS_WITH_ALERT:
-                                doneThisSession.add(task);
+                                if (!newProject) { // if it's a new project, no need to display any alert, since no real
+                                                   // migration.
+                                    doneThisSession.add(task);
+                                }
                             case SUCCESS_NO_ALERT:
                                 log.debug("Task \"" + task.getName() + "\" done"); //$NON-NLS-1$ //$NON-NLS-2$
                             case NOTHING_TO_DO:

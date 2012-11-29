@@ -103,8 +103,6 @@ public class RelationshipItemBuilder {
 
     public static final String SURVIVOR_RELATION = "survivorshipRuleRelation"; //$NON-NLS-1$
 
-    public static RelationshipItemBuilder instance;
-
     private Map<Relation, Set<Relation>> currentProjectItemsRelations;
 
     private Map<Relation, Set<Relation>> referencesItemsRelations;
@@ -117,14 +115,20 @@ public class RelationshipItemBuilder {
 
     private static final String COMMA = ";";
 
+    private static Map<String, RelationshipItemBuilder> projectToInstanceMap = new HashMap<String, RelationshipItemBuilder>();
+
     private RelationshipItemBuilder() {
 
     }
 
     public static RelationshipItemBuilder getInstance() {
-        if (instance == null) {
-            instance = new RelationshipItemBuilder();
+        String currentProject = ProjectManager.getInstance().getCurrentProject().getTechnicalLabel();
+
+        if (projectToInstanceMap.containsKey(currentProject)) {
+            return projectToInstanceMap.get(currentProject);
         }
+        RelationshipItemBuilder instance = new RelationshipItemBuilder();
+        projectToInstanceMap.put(currentProject, instance);
         return instance;
     }
 
@@ -588,7 +592,7 @@ public class RelationshipItemBuilder {
                             currentValue = param.getValue();
                         }
 
-                        if (builtIn != null && currentValue != null) { //$NON-NLS-1$
+                        if (builtIn != null && currentValue != null) {
                             if (!builtIn) {
                                 addRelationShip(item, currentValue, LATEST_VERSION, relationType);
                             }
@@ -642,7 +646,7 @@ public class RelationshipItemBuilder {
                                 currentValue = param.getValue();
                             }
 
-                            if (builtIn != null && currentValue != null) { //$NON-NLS-1$
+                            if (builtIn != null && currentValue != null) {
                                 if (!builtIn) {
                                     addRelationShip(item, currentValue, LATEST_VERSION, relationType);
                                 }
@@ -663,7 +667,7 @@ public class RelationshipItemBuilder {
 
                             // only for SurvivorshipFileItem
                             if (param.getField() != null
-                                    && param.getField().equals(EParameterFieldType.SURVIVOR_RELATION.getName())) { //$NON-NLS-1$
+                                    && param.getField().equals(EParameterFieldType.SURVIVOR_RELATION.getName())) {
                                 String relatedID = param.getValue();
                                 addRelationShip(item, relatedID, LATEST_VERSION, SURVIVOR_RELATION);
                             }
@@ -702,8 +706,9 @@ public class RelationshipItemBuilder {
                         }
 
                         Property property = service.getJobletComponentItem(cc);
-                        if (property != null)
+                        if (property != null) {
                             addRelationShip(item, property.getId(), version, JOBLET_RELATION);
+                        }
                     }
                     if ("tRunJob".equals(currentNode.getComponentName())) { //$NON-NLS-1$
                         // in case of tRunJob
@@ -831,28 +836,37 @@ public class RelationshipItemBuilder {
 
         @Override
         public boolean equals(Object obj) {
-            if (this == obj)
+            if (this == obj) {
                 return true;
-            if (obj == null)
+            }
+            if (obj == null) {
                 return false;
-            if (getClass() != obj.getClass())
+            }
+            if (getClass() != obj.getClass()) {
                 return false;
+            }
             Relation other = (Relation) obj;
             if (id == null) {
-                if (other.id != null)
+                if (other.id != null) {
                     return false;
-            } else if (!id.equals(other.id))
+                }
+            } else if (!id.equals(other.id)) {
                 return false;
+            }
             if (type == null) {
-                if (other.type != null)
+                if (other.type != null) {
                     return false;
-            } else if (!type.equals(other.type))
+                }
+            } else if (!type.equals(other.type)) {
                 return false;
+            }
             if (version == null) {
-                if (other.version != null)
+                if (other.version != null) {
                     return false;
-            } else if (!version.equals(other.version))
+                }
+            } else if (!version.equals(other.version)) {
                 return false;
+            }
             // if (name == null) {
             // if (other.name != null)
             // return false;
@@ -870,6 +884,7 @@ public class RelationshipItemBuilder {
             this.version = version;
         }
 
+        @Override
         protected Object clone() throws CloneNotSupportedException {
             return super.clone();
         }
