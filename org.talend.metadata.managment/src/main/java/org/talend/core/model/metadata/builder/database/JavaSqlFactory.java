@@ -361,13 +361,13 @@ public final class JavaSqlFactory {
     public static void doHivePreSetup(Connection conn) {
         if (conn instanceof DatabaseConnection) {
             DatabaseConnection dbConn = (DatabaseConnection) conn;
-
+            // TODO with thrift way, we must enable the two parameters below whereas in JDBC way, we don't need it.
             // If metastore is local or not.
-            System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_LOCAL.getKey(), "false"); //$NON-NLS-1$
+            //            System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_LOCAL.getKey(), "false"); //$NON-NLS-1$
 
             // metastore uris
-            String thriftURL = "thrift://" + dbConn.getServerName() + ":" + dbConn.getPort(); //$NON-NLS-1$//$NON-NLS-2$
-            System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_URI.getKey(), thriftURL);
+            //            String thriftURL = "thrift://" + dbConn.getServerName() + ":" + dbConn.getPort(); //$NON-NLS-1$//$NON-NLS-2$
+            // System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_URI.getKey(), thriftURL);
             System.setProperty("hive.metastore.warehouse.dir", "/user/hive/warehouse"); //$NON-NLS-1$ //$NON-NLS-2$
             // ugi
             System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_EXECUTE_SETUGI.getKey(), "true"); //$NON-NLS-1$
