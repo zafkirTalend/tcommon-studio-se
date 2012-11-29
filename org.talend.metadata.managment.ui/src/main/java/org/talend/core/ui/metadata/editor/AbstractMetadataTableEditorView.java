@@ -679,7 +679,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
             @Override
             public boolean canModify(Object bean) {
-                return super.canModify(bean) && canModifyDBColumn(bean);
+                return super.canModify(bean);
             }
 
         });

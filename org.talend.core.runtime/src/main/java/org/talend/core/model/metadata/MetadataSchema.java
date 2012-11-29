@@ -388,8 +388,12 @@ public class MetadataSchema {
                 if (pattern.getNodeValue() != null) {
                     metadataColumn.setPattern(pattern.getNodeValue());
                 }
-                metadataColumn.setOriginalField(metadataColumn.getLabel());
-
+                if (originalField.getNodeValue() != null) {
+                    String originalFieldValue = MetadataToolHelper.validateColumnName(originalField.getNodeValue(), 0);
+                    metadataColumn.setOriginalField(originalFieldValue);
+                } else {
+                    metadataColumn.setOriginalField(metadataColumn.getLabel());
+                }
                 if (!columnsAlreadyAdded.contains(metadataColumn.getLabel())) {
                     listColumns.add(metadataColumn);
                     columnsAlreadyAdded.add(metadataColumn.getLabel());
