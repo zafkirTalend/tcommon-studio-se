@@ -168,6 +168,7 @@ public class ManagerConnection {
         } catch (Exception e) {
             isValide = false;
             messageException = e.getMessage();
+            ExceptionHandler.process(e);
         }
         return isValide;
     }
@@ -182,6 +183,9 @@ public class ManagerConnection {
     private List<String> fetchJarRequiredByMetastoreDB(IMetadataConnection metadataConn) {
         String jars = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR);
         List<String> requiredJars = new ArrayList<String>();
+        if (jars == null) {
+            return requiredJars;
+        }
         if (jars.contains(";")) { //$NON-NLS-1$
             String[] splittedPath = jars.split(";"); //$NON-NLS-1$
             for (String jarName : splittedPath) {

@@ -40,7 +40,10 @@ public enum HiveConfKeysForTalend {
 
     HIVE_CONF_KEY_HIVE_METASTORE_URI("hive.metastore.uris"), //$NON-NLS-1$
 
-    HIVE_CONF_KEY_HIVE_METASTORE_EXECUTE_SETUGI("hive.metastore.execute.setugi"); //$NON-NLS-1$
+    HIVE_CONF_KEY_HIVE_METASTORE_EXECUTE_SETUGI("hive.metastore.execute.setugi"), //$NON-NLS-1$
+
+    HIVE_CONF_KEY_TALEND_HIVE_MODE("talend.hive.mode"), //$NON-NLS-1$
+    ;
 
     private String key;
 

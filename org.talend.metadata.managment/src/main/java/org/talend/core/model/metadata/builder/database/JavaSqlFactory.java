@@ -29,6 +29,7 @@ import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlStore;
 import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlType;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
+import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SwitchHelpers;
@@ -353,8 +354,8 @@ public final class JavaSqlFactory {
     }
 
     /**
-     * Just for hive pre-setup, some configurations are required to set up to the properties of system. Added by Marvin
-     * Wang on Nov 22, 2012.(Just a reminder: TDQ-6462)
+     * Just for hive pre-setup, some configurations are required to set up to the properties of system. It is just for
+     * Hive embedded mode.Added by Marvin Wang on Nov 22, 2012.(Just a reminder: TDQ-6462)
      * 
      * @param conn
      */
@@ -363,11 +364,11 @@ public final class JavaSqlFactory {
             DatabaseConnection dbConn = (DatabaseConnection) conn;
             // TODO with thrift way, we must enable the two parameters below whereas in JDBC way, we don't need it.
             // If metastore is local or not.
-            //            System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_LOCAL.getKey(), "false"); //$NON-NLS-1$
+            System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_LOCAL.getKey(), "false"); //$NON-NLS-1$
 
             // metastore uris
-            //            String thriftURL = "thrift://" + dbConn.getServerName() + ":" + dbConn.getPort(); //$NON-NLS-1$//$NON-NLS-2$
-            // System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_URI.getKey(), thriftURL);
+            String thriftURL = "thrift://" + dbConn.getServerName() + ":" + dbConn.getPort(); //$NON-NLS-1$//$NON-NLS-2$
+            System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_URI.getKey(), thriftURL);
             System.setProperty("hive.metastore.warehouse.dir", "/user/hive/warehouse"); //$NON-NLS-1$ //$NON-NLS-2$
             // ugi
             System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_EXECUTE_SETUGI.getKey(), "true"); //$NON-NLS-1$
@@ -380,19 +381,27 @@ public final class JavaSqlFactory {
             System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_MAPRED_JOB_TRACKER.getKey(),
                     dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL));
 
+            // hive mode for talend
+            String hiveMode = dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
+            if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(hiveMode)) {
+                System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_TALEND_HIVE_MODE.getKey(), "true"); //$NON-NLS-1$
+            } else {
+                System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_TALEND_HIVE_MODE.getKey(), "false"); //$NON-NLS-1$
+            }
             // For metastore infos.
             // url
-            System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_URL.getKey(),
-                    dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_URL));
-            // user name
-            System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_USERNAME.getKey(),
-                    dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_USERNAME));
-            // password
-            System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_PASSWORD.getKey(),
-                    dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_PASSWORD));
-            // driver name
-            System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_DRIVERNAME.getKey(), dbConn.getParameters()
-                    .get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME));
+            // System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_URL.getKey(),
+            // dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_URL));
+            // // user name
+            // System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_USERNAME.getKey(),
+            // dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_USERNAME));
+            // // password
+            // System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_PASSWORD.getKey(),
+            // dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_PASSWORD));
+            // // driver name
+            // System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_DRIVERNAME.getKey(),
+            // dbConn.getParameters()
+            // .get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME));
         }
     }
 

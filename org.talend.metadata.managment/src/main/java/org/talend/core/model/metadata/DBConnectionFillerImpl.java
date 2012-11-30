@@ -48,6 +48,7 @@ import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBa
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase.ETableTypes;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
+import org.talend.core.model.metadata.builder.database.hive.EmbeddedHiveDataBaseMetadata;
 import org.talend.core.model.metadata.builder.util.DatabaseConstant;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
@@ -1342,7 +1343,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
                 // Null able
                 int nullable = 0;
-                if (dbJDBCMetadata instanceof DB2ForZosDataBaseMetadata || dbJDBCMetadata instanceof TeradataDataBaseMetadata) {
+                if (dbJDBCMetadata instanceof DB2ForZosDataBaseMetadata || dbJDBCMetadata instanceof TeradataDataBaseMetadata
+                        || dbJDBCMetadata instanceof EmbeddedHiveDataBaseMetadata) {
                     String isNullable = columns.getString("IS_NULLABLE");//$NON-NLS-1$
                     if (!isNullable.equals("Y")) { //$NON-NLS-1$ 
                         nullable = 1;

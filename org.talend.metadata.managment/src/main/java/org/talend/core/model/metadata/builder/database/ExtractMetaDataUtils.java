@@ -53,6 +53,7 @@ import org.talend.core.IManagementService;
 import org.talend.core.IService;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.conn.HiveConfKeysForTalend;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.model.general.Project;
@@ -61,6 +62,7 @@ import org.talend.core.model.metadata.MetadataConnection;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
+import org.talend.core.model.metadata.builder.database.hive.EmbeddedHiveDataBaseMetadata;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.prefs.ITalendCorePrefConstants;
@@ -172,6 +174,10 @@ public class ExtractMetaDataUtils {
         DatabaseMetaData dbMetaData = null;
         if (conn != null) {
             try {
+                // FIXME, maybe, it's not good way, need check later.
+                final boolean isHiveEmbedded = Boolean.parseBoolean(System
+                        .getProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_TALEND_HIVE_MODE.getKey()));
+
                 // MOD sizhaoliu 2012-5-21 TDQ-4884
                 if (MSSQL_CONN_CLASS.equals(conn.getClass().getName())) {
                     dbMetaData = createJtdsDatabaseMetaData(conn);
@@ -187,6 +193,8 @@ public class ExtractMetaDataUtils {
                 } else if (EDatabaseTypeName.SYBASEASE.getDisplayName().equals(dbType)
                         || SYBASE_DATABASE_PRODUCT_NAME.equals(dbType)) {
                     dbMetaData = createSybaseFakeDatabaseMetaData(conn);
+                } else if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbType) && isHiveEmbedded) {
+                    dbMetaData = new EmbeddedHiveDataBaseMetadata(conn);
                 } else {
                     dbMetaData = conn.getMetaData();
                 }
@@ -202,11 +210,16 @@ public class ExtractMetaDataUtils {
     }
 
     public static boolean needFakeDatabaseMetaData(String dbType, boolean isSqlMode) {
+        // FIXME, maybe, it's not good way, need check later.
+        final boolean isHiveEmbedded = Boolean.parseBoolean(System
+                .getProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_TALEND_HIVE_MODE.getKey()));
         if (EDatabaseTypeName.IBMDB2ZOS.getXmlName().equals(dbType)) {
             return true;
         } else if (EDatabaseTypeName.TERADATA.getXmlName().equals(dbType) && isSqlMode) {
             return true;
         } else if (EDatabaseTypeName.SAS.getXmlName().equals(dbType)) {
+            return true;
+        } else if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbType) && isHiveEmbedded) {
             return true;
         }
         return false;
