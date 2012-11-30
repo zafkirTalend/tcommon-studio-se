@@ -29,6 +29,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.ModifyEvent;
@@ -216,6 +218,9 @@ public class DatabaseForm extends AbstractForm {
 
     private ScrolledComposite scrolledComposite;
 
+    private String originalUischema;
+
+    private String originalURL;
     /**
      * Constructor to use by a Wizard to create a new database connection.
      * 
@@ -231,6 +236,10 @@ public class DatabaseForm extends AbstractForm {
         this.isCreation = isCreation;
         setConnectionItem(connectionItem); // must be first.
         this.metadataconnection = ConvertionHelper.convert(getConnection());
+
+        originalUischema = metadataconnection.getUiSchema();
+        originalURL = metadataconnection.getUrl();
+
         this.typeName = EDatabaseTypeName.getTypeFromDbType(metadataconnection.getDbType());
         /* use provider for the databse didn't use JDBC,for example: HBase */
         if (typeName != null && typeName.isUseProvider()) {
@@ -1166,13 +1175,29 @@ public class DatabaseForm extends AbstractForm {
                 if (!isContextMode()) {
                     if (!urlConnectionStringText.getEditable()) {
                         getConnection().setUiSchema(schemaText.getText());
-                        ConnectionHelper.setUsingURL(getConnection(), getConnection().getURL() + "change Schema");
                         modifyFieldValue();
                     }
                 }
             }
         });
+        // MOD yyin 20121130 TDQ-6485 check setURL only when the schema is changed.
+        schemaText.addFocusListener(new FocusListener() {
 
+            public void focusGained(FocusEvent e) {
+            }
+
+            public void focusLost(FocusEvent e) {
+                if (!isContextMode()) {
+                    if (originalUischema != null) {
+                        if (!originalUischema.equalsIgnoreCase(schemaText.getText())) {
+                            ConnectionHelper.setUsingURL(getConnection(), getConnection().getURL() + "change Schema"); //$NON-NLS-1$
+                        } else if (originalURL.equalsIgnoreCase(getConnection().getURL().replace("change Schema", ""))) {
+                            ConnectionHelper.setUsingURL(getConnection(), originalURL);
+                        }
+                    }
+                }
+            }
+        });// ~
         // Db version
         dbVersionCombo.addModifyListener(new ModifyListener() {
 
