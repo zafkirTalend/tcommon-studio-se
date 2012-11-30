@@ -746,6 +746,10 @@ public class DatabaseForm extends AbstractForm {
         setHideHadoopInfoWidgets(true);
     }
 
+    private void createMappingUIForHive(Composite parent) {
+
+    }
+
     /**
      * 
      * @param parent
@@ -2707,11 +2711,13 @@ public class DatabaseForm extends AbstractForm {
                         serverText.show();
                         portText.setEditable(true);
                         serverText.setEditable(true);
+                        hideMappingFileRelatedWidgets(true);
                     } else {
                         portText.show();
                         serverText.show();
                         portText.setEditable(true);
                         serverText.setEditable(visible);
+                        hideMappingFileRelatedWidgets(true);
                     }
                     addContextParams(EDBParamName.Server, visible);
                 } else {
@@ -2750,12 +2756,14 @@ public class DatabaseForm extends AbstractForm {
                             serverText.setEditable(true);
                             sidOrDatabaseText.hide();
                             sidOrDatabaseText.setEditable(false);
+                            hideMappingFileRelatedWidgets(true);
                         } else {
                             portText.show();
                             serverText.show();
                             serverText.setEditable(true);
                             sidOrDatabaseText.show();
                             sidOrDatabaseText.setEditable(true);
+                            hideMappingFileRelatedWidgets(true);
                         }
                     } else {
                         sidOrDatabaseText.show();
@@ -2815,9 +2823,13 @@ public class DatabaseForm extends AbstractForm {
                         usernameText.show();
                         passwordText.show();
                         serverText.setEditable(true);
+
+                        hideMappingFileRelatedWidgets(true);
                     } else {
                         usernameText.show();
                         passwordText.show();
+
+                        hideMappingFileRelatedWidgets(true);
                     }
 
                 }
@@ -2883,11 +2895,13 @@ public class DatabaseForm extends AbstractForm {
                     passwordText.hide();
                     portText.show();
                     serverText.show();
+                    hideMappingFileRelatedWidgets(true);
                 } else {
                     portText.show();
                     serverText.show();
                     usernameText.show();
                     passwordText.show();
+                    hideMappingFileRelatedWidgets(true);
                 }
                 schemaText.hide();
             }
@@ -2902,6 +2916,19 @@ public class DatabaseForm extends AbstractForm {
         newParent.layout();
         databaseSettingGroup.layout();
         compositeGroupDbSettings.layout();
+    }
+
+    /**
+     * 
+     * Added by Marvin Wang on Nov 29, 2012.
+     * 
+     * @param hide
+     */
+    private void hideMappingFileRelatedWidgets(boolean hide) {
+        mappingFileText.setHideWidgets(hide);
+        mappingFileText.setEditable(!hide);
+        mappingSelectButton.setVisible(!hide);
+        mappingSelectButton.setEnabled(!hide);
     }
 
     /**
@@ -3209,12 +3236,12 @@ public class DatabaseForm extends AbstractForm {
         regHiveCombosListener();
         regHiveRelatedWidgetNameNodeURLTxtListener();
         regHiveRelatedWidgetJobTrackerTxtListener();
-        regHiveRelatedWidgetMetastoreConnURLListener();
-        regHiveRelatedWidgetMetastoreConnUserNameListener();
-        regHiveRelatedWidgetMetastoreConnPasswordListener();
-        regHiveRelatedWidgetMetastoreConnDriverJarListener();
-        regHiveRelatedWidgetMetastoreConnDriverNameListener();
-        regHiveRelatedWidgetMetastoreConnDriverJarBrowserListener();
+        // regHiveRelatedWidgetMetastoreConnURLListener();
+        // regHiveRelatedWidgetMetastoreConnUserNameListener();
+        // regHiveRelatedWidgetMetastoreConnPasswordListener();
+        // regHiveRelatedWidgetMetastoreConnDriverJarListener();
+        // regHiveRelatedWidgetMetastoreConnDriverNameListener();
+        // regHiveRelatedWidgetMetastoreConnDriverJarBrowserListener();
         // regHiveMetastoreServerTxtListener();
         // regHiveMetastorePortTxtListener();
     }
@@ -3595,7 +3622,7 @@ public class DatabaseForm extends AbstractForm {
         // handleOtherWidgetsStatusForHive(true,true);
         handleOtherWidgetsStatusForHive(true);
         setHideHadoopInfoWidgets(false);
-        setHideMetastoreInfoWidgets(false);
+        setHideMetastoreInfoWidgets(true);
         doHiveUIContentsLayout();
     }
 
@@ -3672,7 +3699,7 @@ public class DatabaseForm extends AbstractForm {
      */
     private void handleHiveRelatedWidgetsStatus(boolean hide) {
         setHideHadoopInfoWidgets(hide);
-        setHideMetastoreInfoWidgets(hide);
+        setHideMetastoreInfoWidgets(true);
     }
 
     /**
