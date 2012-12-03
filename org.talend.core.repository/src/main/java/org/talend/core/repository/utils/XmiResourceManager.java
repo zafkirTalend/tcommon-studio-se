@@ -121,8 +121,9 @@ public class XmiResourceManager {
 
     public void loadScreenshots(Property property, ProcessType processType) {
         Resource screenshotResource = getScreenshotResource(property.getItem());
-        processType.getScreenshots().addAll(screenshotResource.getContents());
-
+        if (screenshotResource != null) { // if no screenshot, we will try to add later when save
+            processType.getScreenshots().addAll(screenshotResource.getContents());
+        }
     }
 
     public Property loadProperty(IResource iResource) {
@@ -334,17 +335,29 @@ public class XmiResourceManager {
         return itemResource;
     }
 
+    public Resource getScreenshotResource(Item item) {
+        return getScreenshotResource(item, false);
+    }
+
     /*
      * Get a resource obj from Item resource file. if the resouce file does not exist ,will create it first.
      */
-    public Resource getScreenshotResource(Item item) {
+    public Resource getScreenshotResource(Item item, boolean createIfNotExist) {
         URI itemResourceURI = null;
         itemResourceURI = getScreenshotResourceURI(getItemURI(item));
-        Resource itemResource;
-        try {
-            // judge whether the physical file exists or not
-            itemResource = resourceSet.getResource(itemResourceURI, true);
-        } catch (Exception e) {
+        IPath path = URIHelper.convert(itemResourceURI);
+        IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
+        Resource itemResource = null;
+        if (file.exists()) {
+            try {
+                // judge whether the physical file exists or not
+                itemResource = resourceSet.getResource(itemResourceURI, true);
+            } catch (Exception e) {
+                // do nothing, consider the file don't exist
+                itemResource = null;
+            }
+        } 
+        if (itemResource == null && createIfNotExist) {
             itemResource = resourceSet.createResource(itemResourceURI);
         }
         return itemResource;
