@@ -73,7 +73,7 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
     private RepositoryNode node;
 
     private WizardPage currentPage;
-    
+
     private String originaleObjectLabel;
 
     private String originalVersion;
@@ -226,8 +226,15 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
                     tdqRepService.fillMetadata(connectionItem);
                 }
             } else {
-                RepositoryUpdateManager.updateFileConnection(connectionItem);
-                factory.save(connectionItem);
+                connectionItem.getConnection().setLabel(connectionProperty.getLabel());
+                connectionItem.getConnection().setName(connectionProperty.getLabel());
+                boolean isNameModified = propertiesWizardPage.isNameModifiedByUser();
+                if (isNameModified && tdqRepService != null) {
+                    tdqRepService.saveConnectionWithDependency(connectionItem);
+                } else {
+                    RepositoryUpdateManager.updateFileConnection(connectionItem);
+                    factory.save(connectionItem);
+                }
                 closeLockStrategy();
             }
         } catch (PersistenceException e) {
@@ -261,6 +268,7 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
      * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench,
      * org.eclipse.jface.viewers.IStructuredSelection)
      */
+    @Override
     public void init(IWorkbench workbench, IStructuredSelection selection) {
         // TODO Auto-generated method stub
 
@@ -297,6 +305,7 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
     public ConnectionItem getConnectionItem() {
         return this.connectionItem;
     }
+
     @Override
     public boolean performCancel() {
         if (!creation) {
