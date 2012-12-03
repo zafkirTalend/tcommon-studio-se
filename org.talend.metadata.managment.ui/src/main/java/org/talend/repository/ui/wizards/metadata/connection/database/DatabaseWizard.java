@@ -354,7 +354,8 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     factory.create(connectionItem, propertiesWizardPage.getDestinationPath());
 
                     // MOD yyi 2011-04-14:20362 reload connection
-                    ConnectionHelper.setUsingURL(connection, connection.getURL());
+                    // MOD yyin 20121203 TDQ-6497
+                    ConnectionHelper.setIsConnNeedReload(connection, Boolean.TRUE);
 
                     MetadataConnectionUtils.fillConnectionInformation(connectionItem);
 
@@ -398,7 +399,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                                 }
                             } else {
                                 // save the ConnectionItem only, don't reload the database connection
-                                ConnectionHelper.setUsingURL(this.connection, this.connection.getURL());
+                                ConnectionHelper.setIsConnNeedReload(this.connection, Boolean.FALSE);
                                 relpacePackageName(this.connection);
                             }
                         } else {

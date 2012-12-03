@@ -1330,14 +1330,17 @@ public class ConnectionHelper {
         return getTdDataProvider(thePackage);
     }
 
-    public static String getUsingURL(Connection conn) {
-        TaggedValue value = TaggedValueHelper.getTaggedValue(TaggedValueHelper.USING_URL, conn.getTaggedValue());
-        return null == value ? null : value.getValue();
+    // Added yyin 20121203 TDQ-6497 use "IS_DB_NEED_RELOAD" to replace "USING_URL"
+    public static boolean setIsConnNeedReload(Connection conn, boolean isNeedReload) {
+        return TaggedValueHelper.setTaggedValue(conn, TaggedValueHelper.IS_CONN_NEED_RELOAD, String.valueOf(isNeedReload));
     }
 
-    public static boolean setUsingURL(Connection conn, String url) {
-        return TaggedValueHelper.setTaggedValue(conn, TaggedValueHelper.USING_URL, url);
+    public static boolean getIsConnNeedReload(Connection conn) {
+        TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.IS_CONN_NEED_RELOAD, conn.getTaggedValue());
+        return taggedValue == null ? false : Boolean.valueOf(taggedValue.getValue());
     }
+
+    // ~
 
     /**
      * Compares this Using URL tagged value to the specified connection. The result is true if and only if the url is
@@ -1349,8 +1352,8 @@ public class ConnectionHelper {
     public static boolean isUrlChanged(Connection conn) {
 
         DatabaseConnection connection1 = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
-        if (connection1 != null && getUsingURL(conn) != null) {
-            return !connection1.getURL().equals(getUsingURL(conn));
+        if (connection1 != null) {
+            return getIsConnNeedReload(connection1);
         }
         return false;
     }

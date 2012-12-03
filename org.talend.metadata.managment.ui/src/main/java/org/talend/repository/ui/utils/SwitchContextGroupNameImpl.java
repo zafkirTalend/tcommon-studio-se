@@ -87,7 +87,7 @@ public class SwitchContextGroupNameImpl implements ISwitchContext {
                 DatabaseConnection dbConn = (DatabaseConnection) connItem.getConnection();
                 String newURL = getChangedURL(dbConn, selectedContext);
                 dbConn.setURL(newURL);
-                ConnectionHelper.setUsingURL(dbConn, newURL);
+                ConnectionHelper.setIsConnNeedReload(dbConn, Boolean.TRUE);
             }
 
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
