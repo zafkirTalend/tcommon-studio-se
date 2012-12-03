@@ -237,6 +237,8 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
             } else {
                 // changed by hqzhang for TDI-19527, label=displayName
                 connectionProperty.setLabel(connectionProperty.getDisplayName());
+                connectionItem.getConnection().setLabel(connectionProperty.getDisplayName());
+                connectionItem.getConnection().setName(connectionProperty.getDisplayName());
                 RepositoryUpdateManager.updateFileConnection(connectionItem);
                 // factory.save(connectionItem);
                 boolean isModified = propertiesWizardPage.isNameModifiedByUser();
@@ -249,21 +251,26 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
                         }
                     }
                 }
+                boolean isNameModified = propertiesWizardPage.isNameModifiedByUser();
+                if (isNameModified && tdqRepService != null) {
+                    tdqRepService.saveConnectionWithDependency(connectionItem);
+                    closeLockStrategy();
+                } else {
+                    IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                    IWorkspaceRunnable operation = new IWorkspaceRunnable() {
 
-                IWorkspace workspace = ResourcesPlugin.getWorkspace();
-                IWorkspaceRunnable operation = new IWorkspaceRunnable() {
-
-                    @Override
-                    public void run(IProgressMonitor monitor) throws CoreException {
-                        try {
-                            factory.save(connectionItem);
-                            closeLockStrategy();
-                        } catch (PersistenceException e) {
-                            throw new CoreException(new Status(IStatus.ERROR, "", "", e));
+                        @Override
+                        public void run(IProgressMonitor monitor) throws CoreException {
+                            try {
+                                factory.save(connectionItem);
+                                closeLockStrategy();
+                            } catch (PersistenceException e) {
+                                throw new CoreException(new Status(IStatus.ERROR, "", "", e));
+                            }
                         }
-                    }
-                };
-                workspace.run(operation, null);
+                    };
+                    workspace.run(operation, null);
+                }
             }
         } catch (Exception e) {
             String detailError = e.toString();
