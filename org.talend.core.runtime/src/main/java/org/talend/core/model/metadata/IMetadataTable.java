@@ -13,6 +13,7 @@
 package org.talend.core.model.metadata;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -83,5 +84,9 @@ public interface IMetadataTable {
     public boolean isDynamicSchema();
 
     public IMetadataColumn getDynamicColumn();
+
+    public Map<String, String> getAdditionalProperties();
+
+    public void setAdditionalProperties(Map<String, String> additionalProperties);
 
 }

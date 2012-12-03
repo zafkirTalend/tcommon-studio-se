@@ -17,6 +17,7 @@ import java.util.List;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.process.IElement;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -82,4 +83,15 @@ public interface IDragAndDropServiceHandler {
      * DOC zwzhao Comment method "getType".
      */
     public ERepositoryObjectType getType(String repositoryType);
+
+    /**
+     * DOC ycbai Comment method "handleTableRelevantParameters".
+     * 
+     * Set metadata table relevant parameters value of the element.
+     * 
+     * @param ele
+     * @param metadataTable
+     */
+    public void handleTableRelevantParameters(IElement ele, IMetadataTable metadataTable);
+
 }
