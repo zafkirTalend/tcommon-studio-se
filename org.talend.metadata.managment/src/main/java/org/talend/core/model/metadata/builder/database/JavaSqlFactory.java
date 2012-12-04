@@ -19,6 +19,7 @@ import metadata.managment.i18n.Messages;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.IProject;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
 import org.talend.core.database.conn.HiveConfKeysForTalend;
@@ -34,6 +35,7 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.helper.TaggedValueHelper;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sugars.ReturnCode;
@@ -361,6 +363,11 @@ public final class JavaSqlFactory {
      */
     public static void doHivePreSetup(Connection conn) {
         if (conn instanceof DatabaseConnection) {
+            IProject project = ProjectManager.getInstance().getResourceProject(
+                    ProjectManager.getInstance().getCurrentProject().getEmfProject());
+            String fullPathTemp = project.getFolder("temp").getLocation().append("metastore_db").toPortableString(); //$NON-NLS-1$ //$NON-NLS-2$
+            System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_URL.getKey(), "jdbc:derby:;databaseName=" //$NON-NLS-1$
+                    + fullPathTemp + ";create=true"); //$NON-NLS-1$
             DatabaseConnection dbConn = (DatabaseConnection) conn;
             // TODO with thrift way, we must enable the two parameters below whereas in JDBC way, we don't need it.
             // If metastore is local or not.
@@ -414,9 +421,9 @@ public final class JavaSqlFactory {
         System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_EXECUTE_SETUGI.getKey());
         System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_FS_DEFAULT_NAME.getKey());
         System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_MAPRED_JOB_TRACKER.getKey());
-        System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_URL.getKey());
-        System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_USERNAME.getKey());
-        System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_PASSWORD.getKey());
-        System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_DRIVERNAME.getKey());
+        // System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_URL.getKey());
+        // System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_USERNAME.getKey());
+        // System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_PASSWORD.getKey());
+        // System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_DRIVERNAME.getKey());
     }
 }
