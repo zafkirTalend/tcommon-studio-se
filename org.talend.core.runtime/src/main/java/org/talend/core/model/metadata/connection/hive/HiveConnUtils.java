@@ -126,7 +126,7 @@ public class HiveConnUtils {
                 }
             }
             // ADD msjian TDQ-6407 2012-11-26:for top not support hive embedded mode
-            if (PluginChecker.isOnlyTopLoaded() && level == 0) {
+            if (PluginChecker.isOnlyTopLoaded() && (level == 0 || level == 2)) {
                 list.remove(0);
             }
             // TDQ-6407~
