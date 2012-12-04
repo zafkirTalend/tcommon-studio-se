@@ -153,7 +153,8 @@ public class PropertiesWizard extends Wizard {
                     ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
                     isOpened = coreService.isOpenedItemInEditor(object);
                 }
-                if (repositoryFactory.getStatus(object).equals(ERepositoryStatus.LOCK_BY_USER) && isOpened) {
+                if (!repositoryFactory.getStatus(object).equals(ERepositoryStatus.LOCK_BY_OTHER) && isOpened) {
+                    // means if editor is opened, locked by user or opened as read only. (3 cases possible normally)
                     alreadyEditedByUser = true;
                 } else {
                     repositoryFactory.lock(object);
