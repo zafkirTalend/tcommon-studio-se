@@ -20,9 +20,12 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.eclipse.core.runtime.ContributorFactoryOSGi;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IContributor;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
+import org.osgi.framework.Bundle;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabaseTypeName;
@@ -63,18 +66,21 @@ public final class RepositoryComponentManager {
         // sort by level
         Collections.sort(repComponentDndFilterSettings, new Comparator<RepositoryComponentDndFilterSetting>() {
 
+            @Override
             public int compare(RepositoryComponentDndFilterSetting o1, RepositoryComponentDndFilterSetting o2) {
                 return o1.getLevel() - o2.getLevel();
             }
         });
         Collections.sort(sortedComponentSetting, new Comparator<SortedComponentSetting>() {
 
+            @Override
             public int compare(SortedComponentSetting o1, SortedComponentSetting o2) {
                 return o1.getLevel() - o2.getLevel();
             }
         });
         Collections.sort(specialSortedComponentSetting, new Comparator<SortedComponentSetting>() {
 
+            @Override
             public int compare(SortedComponentSetting o1, SortedComponentSetting o2) {
                 return o1.getLevel() - o2.getLevel();
             }
@@ -89,8 +95,7 @@ public final class RepositoryComponentManager {
         List<String> dndFilterIds = new ArrayList<String>();
         List<String> componentIds = new ArrayList<String>();
 
-        for (int i = 0; i < configurationElements.length; i++) {
-            IConfigurationElement element = configurationElements[i];
+        for (IConfigurationElement element : configurationElements) {
             if (element.getName().equals("ExtensionFilter")) { //$NON-NLS-1$
                 //
                 List<String> filterAttrs = getFilterAttrs(element, "RepositoryComponentFilter", //$NON-NLS-1$
@@ -109,8 +114,7 @@ public final class RepositoryComponentManager {
             }
         }
 
-        for (int i = 0; i < configurationElements.length; i++) {
-            IConfigurationElement element = configurationElements[i];
+        for (IConfigurationElement element : configurationElements) {
             if (element.getName().equals("RepositoryComponent")) { //$NON-NLS-1$
                 String name = element.getAttribute("name"); //$NON-NLS-1$
                 if (repositoryComponentNames.contains(name)) {
@@ -190,7 +194,9 @@ public final class RepositoryComponentManager {
         for (IConfigurationElement ce : children) {
             String className = ce.getAttribute("clazz"); //$NON-NLS-1$
             try {
-                Class clazz = Class.forName(className);
+                IContributor contributor = ce.getContributor();
+                Bundle bundle = ContributorFactoryOSGi.resolve(contributor);
+                Class clazz = bundle.loadClass(className);
                 list.add(clazz);
             } catch (ClassNotFoundException e) {
                 ExceptionHandler.process(e);
