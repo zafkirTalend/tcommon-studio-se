@@ -36,6 +36,7 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.types.PerlTypesManager;
+import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.utils.TalendQuoteUtils;
@@ -228,6 +229,12 @@ public final class DefaultCellEditorFactory {
                     return;
                 }
                 para.setValue(value);
+                if (getModelManager().getContextManager() != null) {
+                    IContext context = getModelManager().getContextManager().getContext(para.getContext().getName());
+                    if (context != null && context.getContextParameter(para.getName()) != null) {
+                        context.getContextParameter(para.getName()).setValue(value);
+                    }
+                }
                 refreshCurrentSelection();
                 setModifyFlag();
             }

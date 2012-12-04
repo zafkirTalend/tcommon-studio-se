@@ -30,6 +30,7 @@ public class ContextTableCellModifier extends AbstractContextCellModifier {
         super(parentModel, reposFlag);
     }
 
+    @Override
     protected ContextTableValuesComposite getParentMode() {
         return (ContextTableValuesComposite) super.getParentMode();
     }
@@ -39,9 +40,11 @@ public class ContextTableCellModifier extends AbstractContextCellModifier {
      * 
      * @see org.eclipse.jface.viewers.ICellModifier#canModify(java.lang.Object, java.lang.String)
      */
+    @Override
     public boolean canModify(Object element, String property) {
-        if (getModelManager().isReadOnly())
+        if (getModelManager().isReadOnly()) {
             return false;
+        }
 
         if (element instanceof ContextTableTabParentModel) {
             ContextTableTabParentModel contextTableTabParentModel = (ContextTableTabParentModel) element;
@@ -62,6 +65,7 @@ public class ContextTableCellModifier extends AbstractContextCellModifier {
      * 
      * @see org.eclipse.jface.viewers.ICellModifier#getValue(java.lang.Object, java.lang.String)
      */
+    @Override
     public Object getValue(Object element, String property) {
         // IContextParameter para = null;
         // Only built-in can edit, so must be ContextTableTabParentModel.
@@ -127,7 +131,7 @@ public class ContextTableCellModifier extends AbstractContextCellModifier {
                 }
             } else if (element instanceof ContextTableTabChildModel) {
                 ContextTableTabChildModel child = (ContextTableTabChildModel) element;
-                para = child.getContextParameter();
+                para = context.getContextParameter(child.getContextParameter().getName());
             }
         }
         return para;
@@ -138,6 +142,7 @@ public class ContextTableCellModifier extends AbstractContextCellModifier {
      * 
      * @see org.eclipse.jface.viewers.ICellModifier#modify(java.lang.Object, java.lang.String, java.lang.Object)
      */
+    @Override
     public void modify(Object element, final String property, final Object value) {
         TreeItem item = (TreeItem) element;
         final Object object = item.getData();
@@ -198,8 +203,9 @@ public class ContextTableCellModifier extends AbstractContextCellModifier {
                     ContextTableTabChildModel child = (ContextTableTabChildModel) obj;
                     String tempSourceId = child.getContextParameter().getSource();
                     String name = child.getName();
-                    if (!sourceId.equals(tempSourceId) && name.equals(name))
+                    if (!sourceId.equals(tempSourceId) && name.equals(name)) {
                         updateObjs.add(obj);
+                    }
                 }
             }
         }
