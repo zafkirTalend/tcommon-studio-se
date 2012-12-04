@@ -17,6 +17,7 @@ import java.util.List;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.process.IElement;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -126,6 +127,19 @@ public class ExampleDemoDragAndDropHandler implements IDragAndDropServiceHandler
             return ExampleDemoRepositoryNodeType.repositoryExampleDemoType;
         }
         return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.model.utils.IDragAndDropServiceHandler#handleTableRelevantParameters(org.talend.core.model.process
+     * .IElement, org.talend.core.model.metadata.IMetadataTable)
+     */
+    @Override
+    public void handleTableRelevantParameters(IElement ele, IMetadataTable metadataTable) {
+        // TODO Auto-generated method stub
+
     }
 
 }
