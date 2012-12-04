@@ -13,6 +13,9 @@
 package org.talend.repository.ui.utils;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +33,7 @@ import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
+import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.JDBCDriverLoader;
 import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
 import org.talend.core.repository.ConnectionStatus;
@@ -160,14 +164,37 @@ public class ManagerConnection {
         jarPathList.addAll(fetchJarRequiredByMetastoreDB(metadataConn));
 
         try {
-            loader.getConnection(jarPathList.toArray(new String[jarPathList.size()]),
+            List<?> list = loader.getConnection(jarPathList.toArray(new String[jarPathList.size()]),
                     EDatabase4DriverClassName.HIVE.getDriverClass(), urlConnectionString, username, password, dbTypeString,
                     dbVersionString, additionalParams);
-            isValide = true;
-            messageException = Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful"); //$NON-NLS-1$
+
+            if (list != null) {
+                Connection conn = (Connection) list.get(0);
+                return checkHiveEmbeddedConnFromMetaDataDatabase(conn);
+            } else {
+                return checkHiveEmbeddedConnFromMetaDataDatabase(null);
+            }
         } catch (Exception e) {
+            return checkHiveEmbeddedConnFromMetaDataDatabase(null);
+        }
+    }
+
+    /**
+     * For hive embedded mode, it should use this instead of checking hive connection directly. Added by Marvin Wang on
+     * Dec 4, 2012.
+     * 
+     * @param conn
+     * @return
+     */
+    private boolean checkHiveEmbeddedConnFromMetaDataDatabase(Connection conn) {
+        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(conn, dbTypeString);
+        try {
+            dbMetaData.getTables(null, null, "%", new String[] { "TABLE", "VIEW", "SYSTEM_TABLE" }); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+            isValide = true;
+            messageException = Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful"); //$NON-NLS-1$  
+        } catch (SQLException e) {
             isValide = false;
-            messageException = e.getMessage();
+            messageException = Messages.getString("ManagerConnection.connectionFailed"); //$NON-NLS-1$
             ExceptionHandler.process(e);
         }
         return isValide;

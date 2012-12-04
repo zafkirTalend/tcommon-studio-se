@@ -172,11 +172,11 @@ public class ExtractMetaDataUtils {
      */
     public static DatabaseMetaData getDatabaseMetaData(Connection conn, String dbType, boolean isSqlMode, String database) {
         DatabaseMetaData dbMetaData = null;
+        // FIXME, maybe, it's not good way, need check later.
+        final boolean isHiveEmbedded = Boolean.parseBoolean(System
+                .getProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_TALEND_HIVE_MODE.getKey()));
         if (conn != null) {
             try {
-                // FIXME, maybe, it's not good way, need check later.
-                final boolean isHiveEmbedded = Boolean.parseBoolean(System
-                        .getProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_TALEND_HIVE_MODE.getKey()));
 
                 // MOD sizhaoliu 2012-5-21 TDQ-4884
                 if (MSSQL_CONN_CLASS.equals(conn.getClass().getName())) {
@@ -204,6 +204,13 @@ public class ExtractMetaDataUtils {
             } catch (Exception e) {
                 log.error(e.toString());
                 throw new RuntimeException(e);
+            }
+        } else {
+            // Added by Marvin Wang on Dec.4, 2012. For Hive Embedded mode, in fact, sometimes there is no connenction
+            // for Hive DatabaseMetadata.
+            // Refer to EmbeddedHiveDataBaseMetadata that is a "fake" class.
+            if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbType) && isHiveEmbedded) {
+                dbMetaData = new EmbeddedHiveDataBaseMetadata(null);
             }
         }
         return dbMetaData;
