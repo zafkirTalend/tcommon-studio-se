@@ -903,6 +903,10 @@ public abstract class PropertiesWizardPage extends WizardPage {
                     }
 
                 }
+                if (property != null && nameStatus.getSeverity() == IStatus.OK && purposeText.getText().length() == 0) {
+                    purposeStatus = createStatus(IStatus.WARNING, Messages.getString("PropertiesWizardPage.EmptyPurposeWarning")); //$NON-NLS-1$
+                    updatePageStatus();
+                }
             }
         });
 
@@ -913,6 +917,9 @@ public abstract class PropertiesWizardPage extends WizardPage {
                     purposeStatus = createStatus(IStatus.WARNING, Messages.getString("PropertiesWizardPage.EmptyPurposeWarning")); //$NON-NLS-1$
                 } else {
                     purposeStatus = createOkStatus();
+                }
+                if (property != null && purposeStatus.getSeverity() == IStatus.OK && descriptionText.getText().length() == 0) {
+                    commentStatus = createStatus(IStatus.WARNING, Messages.getString("PropertiesWizardPage.EmptyDescWarning")); //$NON-NLS-1$
                 }
                 property.setPurpose(StringUtils.trimToNull(purposeText.getText()));
                 updatePageStatus();
