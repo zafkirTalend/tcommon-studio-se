@@ -2061,8 +2061,8 @@ public class DatabaseForm extends AbstractForm {
                 if (!isContextMode()) {
                     if (validText(generalJdbcClassNameText.getText())) {
                         getConnection().setDriverClass(generalJdbcClassNameText.getText());
-                        checkFieldsValue();
                     }
+                    checkFieldsValue();
                 }
             }
         });
@@ -2074,8 +2074,8 @@ public class DatabaseForm extends AbstractForm {
                 if (!isContextMode()) {
                     if (validText(generalJdbcDriverjarText.getText())) {
                         getConnection().setDriverJarPath(generalJdbcDriverjarText.getText());
-                        checkFieldsValue();
                     }
+                    checkFieldsValue();
                 }
             }
         });
@@ -2087,8 +2087,8 @@ public class DatabaseForm extends AbstractForm {
                 if (!isContextMode()) {
                     if (validText(generalJdbcUrlText.getText())) {
                         getConnection().setURL(generalJdbcUrlText.getText());
-                        checkFieldsValue();
                     }
+                    checkFieldsValue();
                 }
             }
         });
@@ -2105,8 +2105,8 @@ public class DatabaseForm extends AbstractForm {
                         } catch (Exception ex) {
                             ExceptionHandler.process(ex);
                         }
-                        checkFieldsValue();
                     }
+                    checkFieldsValue();
                 }
             }
         });
@@ -2118,8 +2118,8 @@ public class DatabaseForm extends AbstractForm {
                 if (!isContextMode()) {
                     if (validText(generalJdbcUserText.getText())) {
                         getConnection().setUsername(generalJdbcUserText.getText());
-                        checkFieldsValue();
                     }
+                    checkFieldsValue();
                 }
             }
         });
@@ -2146,8 +2146,8 @@ public class DatabaseForm extends AbstractForm {
                 if (!isContextMode()) {
                     if (validText(generalMappingFileText.getText())) {
                         getConnection().setDbmsId(generalMappingFileText.getText());
-                        checkFieldsValue();
                     }
+                    checkFieldsValue();
                 }
             }
         });
@@ -2357,37 +2357,43 @@ public class DatabaseForm extends AbstractForm {
     private boolean checkGeneralDBFieldValues() {
         String value = generalJdbcUrlText.getText();
         if (!validText(value)) {
-            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.alert", generalJdbcUrlText.getLabelText())); //$NON-NLS-1$
+            updateStatus(IStatus.WARNING,
+                    Messages.getString("DatabaseForm.genaralJDBC.urlAlert", generalJdbcUrlText.getLabelText())); //$NON-NLS-1$
             return false;
         }
 
         value = generalJdbcDriverjarText.getText();
         if (!validText(value)) {
-            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.alert", generalJdbcDriverjarText.getLabelText())); //$NON-NLS-1$
+            updateStatus(IStatus.WARNING,
+                    Messages.getString("DatabaseForm.genaralJDBC.driverAlert", generalJdbcDriverjarText.getLabelText())); //$NON-NLS-1$
             return false;
         }
 
         value = generalJdbcClassNameText.getText();
         if (!validText(value)) {
-            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.alert", generalJdbcClassNameText.getText())); //$NON-NLS-1$
+            updateStatus(IStatus.WARNING,
+                    Messages.getString("DatabaseForm.genaralJDBC.classNameAlert", generalJdbcClassNameText.getText())); //$NON-NLS-1$
             return false;
         }
 
         value = generalJdbcUserText.getText();
         if (!validText(value)) {
-            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.alert", generalJdbcUserText.getLabelText())); //$NON-NLS-1$
+            updateStatus(IStatus.WARNING,
+                    Messages.getString("DatabaseForm.genaralJDBC.userNameAlert", generalJdbcUserText.getLabelText())); //$NON-NLS-1$
             return false;
         }
 
         value = generalJdbcPasswordText.getText();
         if (!validText(value)) {
-            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.alert", generalJdbcPasswordText.getLabelText())); //$NON-NLS-1$
+            updateStatus(IStatus.WARNING,
+                    Messages.getString("DatabaseForm.genaralJDBC.passwordAlert", generalJdbcPasswordText.getLabelText())); //$NON-NLS-1$
             return false;
         }
 
-        value = jDBCschemaText.getText();
+        value = generalMappingFileText.getText();
         if (!validText(value)) {
-            updateStatus(IStatus.WARNING, Messages.getString("DatabaseForm.alert", jDBCschemaText.getLabelText())); //$NON-NLS-1$
+            updateStatus(IStatus.WARNING,
+                    Messages.getString("DatabaseForm.genaralJDBC.mappingFileAlert", generalMappingFileText.getLabelText())); //$NON-NLS-1$
             return false;
         }
 
