@@ -691,6 +691,8 @@ public class ExtractManager {
                     }
 
                     metadataColumn.setTalendType(talendType);
+                    // move for bug TDI-24016
+                    String stringMetaDataInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_DEF", dbMetaData); //$NON-NLS-1$
                     // for bug 13078
 
                     boolean isNullable = ExtractMetaDataUtils.getBooleanMetaDataInfo(columns, "IS_NULLABLE"); //$NON-NLS-1$ 
@@ -711,7 +713,6 @@ public class ExtractManager {
 
                     // cantoine : patch to fix 0x0 pb cause by Bad Schema
                     // description
-                    String stringMetaDataInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_DEF", dbMetaData); //$NON-NLS-1$
                     if (stringMetaDataInfo != null && stringMetaDataInfo.length() > 0 && stringMetaDataInfo.charAt(0) == 0x0) {
                         stringMetaDataInfo = "\\0"; //$NON-NLS-1$
                     }
