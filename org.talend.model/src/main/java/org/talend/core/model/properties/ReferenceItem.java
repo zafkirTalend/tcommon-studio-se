@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.talend.core.model.properties.ReferenceItem#getState <em>State</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ReferenceItem#getParent <em>Parent</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ReferenceItem#isReloadFromFile <em>Reload From File</em>}</li>
  * </ul>
  * </p>
  *
@@ -77,5 +78,32 @@ public interface ReferenceItem extends EObject {
      * @generated
      */
     void setParent(EObject value);
+
+    /**
+     * Returns the value of the '<em><b>Reload From File</b></em>' attribute.
+     * The default value is <code>"true"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Reload From File</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Reload From File</em>' attribute.
+     * @see #setReloadFromFile(boolean)
+     * @see org.talend.core.model.properties.PropertiesPackage#getReferenceItem_ReloadFromFile()
+     * @model default="true" transient="true"
+     * @generated
+     */
+    boolean isReloadFromFile();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ReferenceItem#isReloadFromFile <em>Reload From File</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Reload From File</em>' attribute.
+     * @see #isReloadFromFile()
+     * @generated
+     */
+    void setReloadFromFile(boolean value);
 
 } // ReferenceItem

@@ -825,6 +825,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//ItemState"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"
         transient="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="reloadFromFile" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
+        transient="true" defaultValueLiteral="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExchangeUser">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="username" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

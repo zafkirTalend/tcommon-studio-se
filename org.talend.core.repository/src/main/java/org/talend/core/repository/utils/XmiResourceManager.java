@@ -214,36 +214,41 @@ public class XmiResourceManager {
         return resourceSet.createResource(propertyResourceURI);
     }
 
-    public Resource getReferenceFileResource(Resource itemResource, String extension, boolean needLoad) {
-        URI referenceFileURI = getReferenceFileURI(itemResource.getURI(), extension);
+    public Resource getReferenceFileResource(Resource itemResource, ReferenceFileItem refFile, boolean needLoad) {
+        URI referenceFileURI = getReferenceFileURI(itemResource.getURI(), refFile.getExtension());
         URIConverter converter = resourceSet.getURIConverter();
         Resource referenceResource = new ByteArrayResource(referenceFileURI);
         InputStream inputStream = null;
 
         List<Resource> resources = new ArrayList<Resource>(resourceSet.getResources());
-        for (Resource res : resources) {
-            if (res != null && referenceFileURI.toString().equals(res.getURI().toString())) {
-                res.unload();
-                resourceSet.getResources().remove(res);
+        // in case ESB load reference file from the physcial file,but DI need reference from the EMF,so add this flag
+        if (refFile.isReloadFromFile()) {
+            for (Resource res : resources) {
+                if (res != null && referenceFileURI.toString().equals(res.getURI().toString())) {
+                    res.unload();
+                    resourceSet.getResources().remove(res);
+                }
             }
-        }
 
-        resourceSet.getResources().add(referenceResource);
-        try {
-            if (needLoad) {
-                inputStream = converter.createInputStream(referenceFileURI);
-                referenceResource.load(inputStream, null);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
+            resourceSet.getResources().add(referenceResource);
             try {
-                if (inputStream != null) {
-                    inputStream.close();
+                if (needLoad) {
+                    inputStream = converter.createInputStream(referenceFileURI);
+                    referenceResource.load(inputStream, null);
                 }
             } catch (IOException e) {
-                ExceptionHandler.process(e);
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (inputStream != null) {
+                        inputStream.close();
+                    }
+                } catch (IOException e) {
+                    ExceptionHandler.process(e);
+                }
             }
+        } else {
+            referenceResource = resourceSet.getResource(referenceFileURI, true);
         }
         return referenceResource;
     }
