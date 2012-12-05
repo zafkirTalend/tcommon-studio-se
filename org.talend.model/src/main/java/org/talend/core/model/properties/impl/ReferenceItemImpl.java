@@ -28,6 +28,7 @@ import org.talend.core.model.properties.ReferenceItem;
  * <ul>
  *   <li>{@link org.talend.core.model.properties.impl.ReferenceItemImpl#getState <em>State</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ReferenceItemImpl#getParent <em>Parent</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ReferenceItemImpl#isReloadFromFile <em>Reload From File</em>}</li>
  * </ul>
  * </p>
  *
@@ -53,6 +54,26 @@ public class ReferenceItemImpl extends EObjectImpl implements ReferenceItem {
      * @ordered
      */
     protected EObject parent;
+
+    /**
+     * The default value of the '{@link #isReloadFromFile() <em>Reload From File</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isReloadFromFile()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean RELOAD_FROM_FILE_EDEFAULT = true;
+
+    /**
+     * The cached value of the '{@link #isReloadFromFile() <em>Reload From File</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isReloadFromFile()
+     * @generated
+     * @ordered
+     */
+    protected boolean reloadFromFile = RELOAD_FROM_FILE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -154,6 +175,27 @@ public class ReferenceItemImpl extends EObjectImpl implements ReferenceItem {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isReloadFromFile() {
+        return reloadFromFile;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setReloadFromFile(boolean newReloadFromFile) {
+        boolean oldReloadFromFile = reloadFromFile;
+        reloadFromFile = newReloadFromFile;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.REFERENCE_ITEM__RELOAD_FROM_FILE, oldReloadFromFile, reloadFromFile));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
@@ -163,6 +205,8 @@ public class ReferenceItemImpl extends EObjectImpl implements ReferenceItem {
             case PropertiesPackage.REFERENCE_ITEM__PARENT:
                 if (resolve) return getParent();
                 return basicGetParent();
+            case PropertiesPackage.REFERENCE_ITEM__RELOAD_FROM_FILE:
+                return isReloadFromFile() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -180,6 +224,9 @@ public class ReferenceItemImpl extends EObjectImpl implements ReferenceItem {
                 return;
             case PropertiesPackage.REFERENCE_ITEM__PARENT:
                 setParent((EObject)newValue);
+                return;
+            case PropertiesPackage.REFERENCE_ITEM__RELOAD_FROM_FILE:
+                setReloadFromFile(((Boolean)newValue).booleanValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -199,6 +246,9 @@ public class ReferenceItemImpl extends EObjectImpl implements ReferenceItem {
             case PropertiesPackage.REFERENCE_ITEM__PARENT:
                 setParent((EObject)null);
                 return;
+            case PropertiesPackage.REFERENCE_ITEM__RELOAD_FROM_FILE:
+                setReloadFromFile(RELOAD_FROM_FILE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -215,8 +265,25 @@ public class ReferenceItemImpl extends EObjectImpl implements ReferenceItem {
                 return state != null;
             case PropertiesPackage.REFERENCE_ITEM__PARENT:
                 return parent != null;
+            case PropertiesPackage.REFERENCE_ITEM__RELOAD_FROM_FILE:
+                return reloadFromFile != RELOAD_FROM_FILE_EDEFAULT;
         }
         return super.eIsSet(featureID);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String toString() {
+        if (eIsProxy()) return super.toString();
+
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (reloadFromFile: ");
+        result.append(reloadFromFile);
+        result.append(')');
+        return result.toString();
     }
 
 } //ReferenceItemImpl
