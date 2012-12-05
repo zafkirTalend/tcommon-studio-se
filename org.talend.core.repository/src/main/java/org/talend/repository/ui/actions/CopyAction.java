@@ -76,9 +76,15 @@ public class CopyAction extends AContextualAction {
         // refresh();
     }
 
+    @Override
     public void init(TreeViewer viewer, IStructuredSelection selection) {
         boolean canWork = true;
-        RepositoryNode node = (RepositoryNode) selection.getFirstElement();
+        Object firstElement = selection.getFirstElement();
+        if (!(firstElement instanceof RepositoryNode)) {
+            setEnabled(false);
+            return;
+        }// else the right type so keep going.
+        RepositoryNode node = (RepositoryNode) firstElement;
         if (selection.isEmpty()) {
             setEnabled(false);
             return;
