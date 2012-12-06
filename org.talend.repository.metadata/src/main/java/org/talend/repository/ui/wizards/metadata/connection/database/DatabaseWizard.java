@@ -129,7 +129,6 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
         this.selection = selection;
         this.existingNames = existingNames;
         setNeedsProgressMonitor(true);
-        this.node = node;
         // RepositoryNode node = null;
         Object obj = ((IStructuredSelection) selection).getFirstElement();
         if (obj instanceof RepositoryNode) {
@@ -374,7 +373,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     factory.create(connectionItem, propertiesWizardPage.getDestinationPath());
 
                     // MOD yyi 2011-04-14:20362 reload connection
-                    ConnectionHelper.setUsingURL(connection, connection.getURL());
+                    ConnectionHelper.setIsConnNeedReload(connection, Boolean.TRUE);
                     // MOD klliu 2012-02-08 TDQ-4645 add package filter for connection
                     ConnectionHelper.setPackageFilter(connection, "");//$NON-NLS-1$
 
