@@ -153,7 +153,7 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
                 xmlXsdPath = tempXmlXsdPath;
             }
 
-            if (XmlUtil.isXSDFile(xmlXsdPath) || xmlXsdPath.endsWith(".zip")) {
+            if (xmlXsdPath != null && !"".equals(xmlXsdPath) && (XmlUtil.isXSDFile(xmlXsdPath) || xmlXsdPath.endsWith(".zip"))) {
                 try {
                     XSDSchema xsdSchema = TreeUtil.getXSDSchema(xmlXsdPath);
                     getTreeNode(xsdSchema);
