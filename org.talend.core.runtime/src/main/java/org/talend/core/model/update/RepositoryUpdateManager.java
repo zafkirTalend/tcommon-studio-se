@@ -1281,10 +1281,10 @@ public abstract class RepositoryUpdateManager {
             List<UpdateResult> resultFromProcess = getResultFromProcess(process2, types, onlySimpleShow);
 
             for (UpdateResult result : resultFromProcess) {
+                result.setFromItem(true);
                 if (result.getJob() != null) {
                     result.setJob(null);
                 }
-                result.setFromItem(true);
                 result.setObjectId(item.getProperty().getId());
             }
 
