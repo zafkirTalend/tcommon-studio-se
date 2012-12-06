@@ -98,6 +98,7 @@ import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
+import org.talend.repository.viewer.RepoViewPartListener;
 import org.talend.repository.viewer.filter.listener.RepoViewPerspectiveListener;
 import org.talend.repository.viewer.ui.provider.RepositoryNameSorter;
 
@@ -236,6 +237,8 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
     private boolean noNeedUpdate = false;
 
     private RepoViewPerspectiveListener perspectiveListener;
+
+    private RepoViewPartListener partListener;
 
     /**
      * yzhang Comment method "addPreparedListeners".
@@ -450,6 +453,8 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
 
         // refresh for filters
         PlatformUI.getWorkbench().getActiveWorkbenchWindow().addPerspectiveListener(getRepoViewPerspectiveListener());
+
+        PlatformUI.getWorkbench().getActiveWorkbenchWindow().getPartService().addPartListener(getRepoViewPartListener());
     }
 
     private RepoViewPerspectiveListener getRepoViewPerspectiveListener() {
@@ -457,6 +462,13 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
             perspectiveListener = new RepoViewPerspectiveListener(getCommonViewer());
         }
         return perspectiveListener;
+    }
+
+    private RepoViewPartListener getRepoViewPartListener() {
+        if (partListener == null) {
+            partListener = new RepoViewPartListener();
+        }
+        return partListener;
     }
 
     /**

@@ -26,7 +26,6 @@ import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.core.ui.images.RepositoryImageProvider;
-import org.talend.repository.ProjectManager;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 
 /**
@@ -52,8 +51,9 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
 
     private Map<EProperties, Object> properties = new Hashtable<EProperties, Object>();
 
-    // private IProjectRepositoryNode root;
-    private String projectTechnicalLabel;
+    private IProjectRepositoryNode root;
+
+    // private String projectTechnicalLabel;
 
     private IImage icon;
 
@@ -120,6 +120,7 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
      * 
      * @see org.talend.repository.model.RepositoryNode#getChildren()
      */
+    @Override
     public List<IRepositoryNode> getChildren() {
         if (true) {
             // FIXME SML Remove when mhelleboid attach item to folders
@@ -157,6 +158,7 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
      * 
      * @see org.talend.repository.model.RepositoryNode#hasChildren()
      */
+    @Override
     public boolean hasChildren() {
         return !getChildren().isEmpty();
     }
@@ -166,6 +168,7 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
      * 
      * @see org.talend.repository.model.RepositoryNode#getId()
      */
+    @Override
     public String getId() {
         return this.id;
     }
@@ -184,6 +187,7 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
      * 
      * @see org.talend.repository.model.RepositoryNode#getObject()
      */
+    @Override
     public IRepositoryViewObject getObject() {
         return this.object;
     }
@@ -193,6 +197,7 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
      * 
      * @see org.talend.repository.model.RepositoryNode#getParent()
      */
+    @Override
     public RepositoryNode getParent() {
         return this.parent;
     }
@@ -211,6 +216,7 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
      * 
      * @see org.talend.repository.model.RepositoryNode#getType()
      */
+    @Override
     public ENodeType getType() {
         if (type == ENodeType.REPOSITORY_ELEMENT && getObject().getRepositoryObjectType() == ERepositoryObjectType.FOLDER) {
             return ENodeType.SIMPLE_FOLDER;
@@ -223,6 +229,7 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
      * 
      * @see org.talend.repository.model.RepositoryNode#getObjectType()
      */
+    @Override
     public ERepositoryObjectType getObjectType() {
         if (getObject() != null) {
             return getObject().getRepositoryObjectType();
@@ -235,6 +242,7 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
      * 
      * @see org.talend.repository.model.RepositoryNode#getContentType()
      */
+    @Override
     public ERepositoryObjectType getContentType() {
         if (getObject() != null) {
             if (getObject() instanceof Folder) {
@@ -263,6 +271,7 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
      * 
      * @see org.talend.repository.model.RepositoryNode#getLabel()
      */
+    @Override
     public String getLabel() {
         switch (getType()) {
         case REFERENCED_PROJECT:
@@ -325,6 +334,7 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
      * @see org.talend.repository.model.RepositoryNode#getProperties(org.talend.
      * repository.model.RepositoryNode.EProperties)
      */
+    @Override
     public Object getProperties(EProperties key) {
         return properties.get(key);
     }
@@ -334,6 +344,7 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
      * 
      * @see org.talend.repository.model.RepositoryNode#isBin()
      */
+    @Override
     public boolean isBin() {
         return false;
     }
@@ -407,8 +418,9 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
         return true;
     }
 
+    @Override
     public IProjectRepositoryNode getRoot() {
-        return ProjectManager.getInstance().getProjectNode(this.projectTechnicalLabel);
+        return this.root;
     }
 
     /**
@@ -417,9 +429,7 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
      * @param root the root to set
      */
     public void setRoot(IProjectRepositoryNode root) {
-        if (root != null) {
-            this.projectTechnicalLabel = root.getProject().getTechnicalLabel();
-        }
+        this.root = root;
     }
 
     /**
@@ -427,6 +437,7 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
      * delete elements; if withDeleted is false,will not catain some logical delete elements.
      * 
      */
+    @Override
     public List<IRepositoryNode> getChildren(boolean withDeleted) {
         return getChildren();
     }
@@ -444,6 +455,7 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
      * 
      * @see org.eclipse.ui.IActionFilter#testAttribute(java.lang.Object, java.lang.String, java.lang.String)
      */
+    @Override
     public boolean testAttribute(Object target, String name, String value) {
         RepositoryNode node = (RepositoryNode) target;
         // The 2 following declarations are used by TDQ-3800:
@@ -471,6 +483,7 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
         this.enableDisposed = enableDisposed;
     }
 
+    @Override
     public void dispose() {
         /*
          * FIXME, if later, can dispose all children, the flag enableDisposed will be not useful. So far, because many
@@ -484,7 +497,7 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
         }
         if (doDispose) {
             this.id = null;
-            this.projectTechnicalLabel = null;
+            this.root = null;
             this.parent = null;
             this.object = null;
 
@@ -512,6 +525,7 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
         }
     }
 
+    @Override
     public boolean isDisposed() {
         return this.isDisposed;
     }

@@ -181,7 +181,6 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
     public static ProjectRepositoryNode getInstance() {
         if (defaultProjRepoNode == null) {
             defaultProjRepoNode = new ProjectRepositoryNode(null, null, ENodeType.STABLE_SYSTEM_FOLDER);
-            ProjectManager.getInstance().updateViewProjectNode(defaultProjRepoNode);
             defaultProjRepoNode.initialize(null);
         }
         return defaultProjRepoNode;
@@ -1197,7 +1196,8 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                     referencedProjectNode.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.REFERENCED_PROJECTS);
                     parent.getChildren().add(referencedProjectNode);
                     // fix the bug for Ref-project
-                    ProjectManager.getInstance().updateViewProjectNode(referencedProjectNode);
+                    // TDI-23358, revert to before
+                    // ProjectManager.getInstance().updateViewProjectNode(referencedProjectNode);
 
                     referencedProjectNode.initialize(currentPerspective);
                 }
