@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.repository.utils;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -352,10 +353,22 @@ public class XmiResourceManager {
     public Resource getScreenshotResource(Item item, boolean createIfNotExist) {
         URI itemResourceURI = null;
         itemResourceURI = getScreenshotResourceURI(getItemURI(item));
-        IPath path = URIHelper.convert(itemResourceURI);
-        IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
+        boolean fileExist = false;
+        if (itemResourceURI.isFile()) {
+            fileExist = new File(itemResourceURI.toFileString()).exists();
+        } else {
+            IPath path = URIHelper.convert(itemResourceURI);
+            if (path != null) {
+                IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
+                if (file.exists()) {
+                    fileExist = true;
+                }
+            } else {
+                fileExist = false;
+            }
+        }
         Resource itemResource = null;
-        if (file.exists()) {
+        if (fileExist) {
             try {
                 // judge whether the physical file exists or not
                 itemResource = resourceSet.getResource(itemResourceURI, true);
