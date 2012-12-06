@@ -198,6 +198,8 @@ public class DatabaseTableForm extends AbstractForm {
 
     private Map<String, Map<String, String>> labelChanged;
 
+    private List<MetadataTable> initTables;
+
     /**
      * TableForm Constructor to use by RCP Wizard.
      * 
@@ -281,15 +283,15 @@ public class DatabaseTableForm extends AbstractForm {
      * DOC ocarbone Comment method "initTreeNodes".
      */
     private void initTreeNavigatorNodes() {
-        List<MetadataTable> tables = ConnectionHelper.getTablesWithOrders(getConnection());
+        initTables = ConnectionHelper.getTablesWithOrders(getConnection());
 
-        if (metadataTable == null || tables != null && tables.isEmpty()) {
+        if (metadataTable == null || initTables != null && initTables.isEmpty()) {
 
-            if (tables != null && !tables.isEmpty()) {
+            if (initTables != null && !initTables.isEmpty()) {
                 boolean isAllDeleted = true;
-                for (int i = 0; i < tables.size(); i++) {
-                    if (!TableHelper.isDeleted((MetadataTable) tables.toArray()[i])) {
-                        metadataTable = (MetadataTable) tables.toArray()[i];
+                for (int i = 0; i < initTables.size(); i++) {
+                    if (!TableHelper.isDeleted((MetadataTable) initTables.toArray()[i])) {
+                        metadataTable = (MetadataTable) initTables.toArray()[i];
                         isAllDeleted = false;
                     }
                 }
@@ -304,11 +306,34 @@ public class DatabaseTableForm extends AbstractForm {
         tableNavigator.removeAll();
 
         List<String> tablenames = new ArrayList<String>();
-        for (MetadataTable t : tables) {
+        for (MetadataTable t : initTables) {
             tablenames.add(t.getLabel());
         }
+
         String[] allTableLabel = tablenames.toArray(new String[0]);
         Arrays.sort(allTableLabel);
+
+        // update metadataTable
+        if (metadataTable != null && initTables != null && !initTables.isEmpty()
+                && !tablenames.contains(metadataTable.getLabel())) {
+            int size = initTables.size();
+            if (size >= 1) {
+                String tableName = null;
+                for (MetadataTable t : initTables) {
+                    if (t.getLabel().equals(allTableLabel[0])) {
+                        tableName = t.getLabel();
+                        break;
+                    }
+                }
+                for (Object obj : ConnectionHelper.getTables(getConnection())) {
+                    if (obj instanceof MetadataTable) {
+                        if (((MetadataTable) obj).getLabel().equals(tableName)) {
+                            metadataTable = (MetadataTable) obj;
+                        }
+                    }
+                }
+            }
+        }
 
         for (String element : allTableLabel) {
             if (element.equals(metadataTable.getLabel())) {
