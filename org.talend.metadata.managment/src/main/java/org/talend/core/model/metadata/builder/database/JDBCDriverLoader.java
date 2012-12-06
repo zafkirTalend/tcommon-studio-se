@@ -134,9 +134,9 @@ public class JDBCDriverLoader {
         Connection connection = null;
         try {
             Class<?> driver = Class.forName(driverClassName, true, loader);
-            // Object driver = loader.loadClass(driverClassName).newInstance();
             wapperDriver = new DriverShim((Driver) (driver.newInstance()));
-
+            // Object driver = loader.loadClass(driverClassName).newInstance();
+            // wapperDriver = new DriverShim((Driver) (driver));
             Properties info = new Properties();
 
             // to avoid NPE
@@ -166,12 +166,12 @@ public class JDBCDriverLoader {
                 // connection = ConnectionUtils.createConnection(url, (Driver) (driver.newInstance()), info);
                 // } else {
                 // we need to change later when TDQ supports hive embedded mode.
-                if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbType) && "EMBEDDED".equalsIgnoreCase(dbVersion)) {
+                // Changed by Marvin Wang on Oct. 6, 2012 for bug TDI-24027, because for hive standalone mode, it also
+                // need get a class loader from the current thread.
+                if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbType)) {
                     Thread.currentThread().setContextClassLoader(loader);
                 }
-                // ClassLoader currentContextCL = Thread.currentThread().getContextClassLoader();
                 connection = wapperDriver.connect(url, info);
-                // Thread.currentThread().setContextClassLoader(currentContextCL);
             }
             // }
             // DriverManager.deregisterDriver(wapperDriver);

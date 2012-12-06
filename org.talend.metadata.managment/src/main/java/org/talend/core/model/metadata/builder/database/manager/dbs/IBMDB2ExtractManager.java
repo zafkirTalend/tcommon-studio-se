@@ -148,8 +148,7 @@ public class IBMDB2ExtractManager extends ExtractManager {
                     column.setLabel(label);
                     column.setOriginalField(label2);
 
-                    if (!ExtractMetaDataUtils.needFakeDatabaseMetaData(metadataConnection.getDbType(),
-                            metadataConnection.isSqlMode())) {
+                    if (!ExtractMetaDataUtils.needFakeDatabaseMetaData(metadataConnection)) {
                         // dataType = columns.getInt(GetColumn.DATA_TYPE.name());
                         typeName = columns.getString("TYPENAME");
                     }

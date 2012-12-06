@@ -26,6 +26,7 @@ Export-Package: metadata.managment.i18n,
  org.talend.core.model.metadata.builder.database,
  org.talend.core.model.metadata.builder.database.dburl,
  org.talend.core.model.metadata.builder.database.extractots,
+ org.talend.core.model.metadata.builder.database.hive,
  org.talend.core.model.metadata.builder.util,
  org.talend.mdm.webservice
 Bundle-ClassPath: .,

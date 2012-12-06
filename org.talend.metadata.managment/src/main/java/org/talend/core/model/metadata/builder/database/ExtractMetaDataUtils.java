@@ -13,6 +13,7 @@
 package org.talend.core.model.metadata.builder.database;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -172,12 +173,8 @@ public class ExtractMetaDataUtils {
      */
     public static DatabaseMetaData getDatabaseMetaData(Connection conn, String dbType, boolean isSqlMode, String database) {
         DatabaseMetaData dbMetaData = null;
-        // FIXME, maybe, it's not good way, need check later.
-        final boolean isHiveEmbedded = Boolean.parseBoolean(System
-                .getProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_TALEND_HIVE_MODE.getKey()));
         if (conn != null) {
             try {
-
                 // MOD sizhaoliu 2012-5-21 TDQ-4884
                 if (MSSQL_CONN_CLASS.equals(conn.getClass().getName())) {
                     dbMetaData = createJtdsDatabaseMetaData(conn);
@@ -193,7 +190,7 @@ public class ExtractMetaDataUtils {
                 } else if (EDatabaseTypeName.SYBASEASE.getDisplayName().equals(dbType)
                         || SYBASE_DATABASE_PRODUCT_NAME.equals(dbType)) {
                     dbMetaData = createSybaseFakeDatabaseMetaData(conn);
-                } else if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbType) && isHiveEmbedded) {
+                } else if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbType) && isHiveEmbeddedConn(conn)) {
                     dbMetaData = new EmbeddedHiveDataBaseMetadata(conn);
                 } else {
                     dbMetaData = conn.getMetaData();
@@ -205,17 +202,66 @@ public class ExtractMetaDataUtils {
                 log.error(e.toString());
                 throw new RuntimeException(e);
             }
-        } else {
-            // Added by Marvin Wang on Dec.4, 2012. For Hive Embedded mode, in fact, sometimes there is no connenction
-            // for Hive DatabaseMetadata.
-            // Refer to EmbeddedHiveDataBaseMetadata that is a "fake" class.
-            if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbType) && isHiveEmbedded) {
-                dbMetaData = new EmbeddedHiveDataBaseMetadata(null);
-            }
         }
         return dbMetaData;
     }
 
+    public static boolean isHiveEmbeddedConn(Connection hiveConn) {
+        if (hiveConn != null) {
+            Class<?> clazz = hiveConn.getClass();
+            if ("HiveConnection".equals(clazz.getSimpleName())) {
+                try {
+                    Field clientField = clazz.getDeclaredField("client");
+                    clientField.setAccessible(true);
+                    Object clientObj = clientField.get(hiveConn);
+                    if (clientObj != null) {
+                        Class<?> clientClass = clientObj.getClass();
+                        if ("HiveServerHandler".equals(clientClass.getSimpleName())) {
+                            return true;
+                        }
+                    }
+                } catch (Exception e) {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 
+     * Added by Marvin Wang on Dec 6, 2012.
+     * 
+     * @param metadataConnection
+     * @return
+     */
+    public static boolean needFakeDatabaseMetaData(IMetadataConnection metadataConnection) {
+        String dbType = metadataConnection.getDbType();
+        boolean isSqlMode = metadataConnection.isSqlMode();
+        String dbVersion = metadataConnection.getDbVersionString();
+        if (EDatabaseTypeName.IBMDB2ZOS.getXmlName().equals(dbType)) {
+            return true;
+        } else if (EDatabaseTypeName.TERADATA.getXmlName().equals(dbType) && isSqlMode) {
+            return true;
+        } else if (EDatabaseTypeName.SAS.getXmlName().equals(dbType)) {
+            return true;
+        } else if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbType)
+                && EDatabaseVersion4Drivers.HIVE_EMBEDDED.getVersionDisplay().equals(dbVersion)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Added by Marvin Wang on Dec 6, 2012.
+     * 
+     * @param dbType
+     * @param isSqlMode
+     * @return
+     * @deprecated
+     */
+    @Deprecated
     public static boolean needFakeDatabaseMetaData(String dbType, boolean isSqlMode) {
         // FIXME, maybe, it's not good way, need check later.
         final boolean isHiveEmbedded = Boolean.parseBoolean(System
