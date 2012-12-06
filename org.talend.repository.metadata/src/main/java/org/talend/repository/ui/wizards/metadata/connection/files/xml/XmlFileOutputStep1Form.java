@@ -151,7 +151,7 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
                 initFileContent();
                 xmlXsdPath = tempXmlXsdPath;
             }
-            if (XmlUtil.isXSDFile(xmlXsdPath) || xmlXsdPath.endsWith(".zip")) {
+            if (xmlXsdPath != null && !"".equals(xmlXsdPath) && (XmlUtil.isXSDFile(xmlXsdPath) || xmlXsdPath.endsWith(".zip"))) {
                 try {
                     XSDSchema xsdSchema = TreeUtil.getXSDSchema(xmlXsdPath);
                     List<ATreeNode> rootNodes = new XSDPopulationUtil2().getAllRootNodes(xsdSchema);
@@ -314,6 +314,7 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
     protected void addFieldsListeners() {
         xmlXsdFilePath.addSelectionListener(new SelectionListener() {
 
+            @Override
             public void widgetSelected(SelectionEvent event) {
                 if (xmlXsdFilePath.getResult() == null) {
                     return;
@@ -358,6 +359,7 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
 
             }
 
+            @Override
             public void widgetDefaultSelected(SelectionEvent e) {
 
             }
@@ -365,6 +367,7 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
 
         xmlXsdFilePath.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent event) {
                 String text = xmlXsdFilePath.getText();
                 if (isContextMode()) {
@@ -494,6 +497,7 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
 
         encodingCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 getConnection().setEncoding(encodingCombo.getText());
                 checkFieldsValue();
@@ -502,6 +506,7 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
 
         commonNodesLimitation.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 String str = commonNodesLimitation.getText();
                 if ((!str.matches("\\d+")) || (Integer.valueOf(str) < 0)) {
@@ -515,10 +520,12 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
         });
         commonNodesLimitation.addFocusListener(new FocusListener() {
 
+            @Override
             public void focusGained(FocusEvent e) {
 
             }
 
+            @Override
             public void focusLost(FocusEvent e) {
                 commonNodesLimitation.setText(String.valueOf(TreePopulator.getLimit()));
             }
@@ -527,6 +534,7 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
 
         outputFilePath.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 getConnection().setOutputFilePath(PathUtils.getPortablePath(outputFilePath.getText()));
                 checkFieldsValue();
