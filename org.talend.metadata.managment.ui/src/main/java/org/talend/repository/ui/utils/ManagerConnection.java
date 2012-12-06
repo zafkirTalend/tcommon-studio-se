@@ -35,6 +35,7 @@ import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.JDBCDriverLoader;
+import org.talend.core.model.metadata.builder.database.hive.EmbeddedHiveDataBaseMetadata;
 import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
 import org.talend.core.repository.ConnectionStatus;
 import org.talend.core.repository.IDBMetadataProvider;
@@ -170,12 +171,12 @@ public class ManagerConnection {
 
             if (list != null) {
                 Connection conn = (Connection) list.get(0);
-                return checkHiveEmbeddedConnFromMetaDataDatabase(conn);
+                return checkHiveEmbeddedConnFromMetaDataDatabase(conn, metadataConn);
             } else {
-                return checkHiveEmbeddedConnFromMetaDataDatabase(null);
+                return checkHiveEmbeddedConnFromMetaDataDatabase(null, metadataConn);
             }
         } catch (Exception e) {
-            return checkHiveEmbeddedConnFromMetaDataDatabase(null);
+            return checkHiveEmbeddedConnFromMetaDataDatabase(null, metadataConn);
         }
     }
 
@@ -184,10 +185,25 @@ public class ManagerConnection {
      * Dec 4, 2012.
      * 
      * @param conn
+     * @param metadataConn
      * @return
      */
-    private boolean checkHiveEmbeddedConnFromMetaDataDatabase(Connection conn) {
-        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(conn, dbTypeString);
+    private boolean checkHiveEmbeddedConnFromMetaDataDatabase(Connection conn, IMetadataConnection metadataConn) {
+        DatabaseMetaData dbMetaData = null;
+        if (conn == null) {
+            // Added by Marvin Wang on Dec.4, 2012. For Hive Embedded mode, in fact, sometimes there is no connenction
+            // for Hive DatabaseMetadata.
+            // Refer to EmbeddedHiveDataBaseMetadata that is a "fake" class.
+            if (EDatabaseTypeName.HIVE.getDisplayName().equals(metadataConn.getDbType())
+                    && EDatabaseVersion4Drivers.HIVE_EMBEDDED.getVersionDisplay().equals(metadataConn.getDbVersionString())) {
+                dbMetaData = new EmbeddedHiveDataBaseMetadata(null);
+            }
+        } else {
+            dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(conn, dbTypeString);
+        }
+        if (dbMetaData == null) {
+            return false;
+        }
         try {
             dbMetaData.getTables(null, null, "%", new String[] { "TABLE", "VIEW", "SYSTEM_TABLE" }); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
             isValide = true;

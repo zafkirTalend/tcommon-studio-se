@@ -30,7 +30,6 @@ import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlStore;
 import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlType;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
-import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SwitchHelpers;
@@ -389,12 +388,12 @@ public final class JavaSqlFactory {
                     dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL));
 
             // hive mode for talend
-            String hiveMode = dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
-            if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(hiveMode)) {
-                System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_TALEND_HIVE_MODE.getKey(), "true"); //$NON-NLS-1$
-            } else {
-                System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_TALEND_HIVE_MODE.getKey(), "false"); //$NON-NLS-1$
-            }
+            // String hiveMode = dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
+            // if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(hiveMode)) {
+            //                System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_TALEND_HIVE_MODE.getKey(), "true"); //$NON-NLS-1$
+            // } else {
+            //                System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_TALEND_HIVE_MODE.getKey(), "false"); //$NON-NLS-1$
+            // }
             // For metastore infos.
             // url
             // System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_URL.getKey(),
@@ -421,6 +420,7 @@ public final class JavaSqlFactory {
         System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_EXECUTE_SETUGI.getKey());
         System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_FS_DEFAULT_NAME.getKey());
         System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_MAPRED_JOB_TRACKER.getKey());
+        // System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_TALEND_HIVE_MODE.getKey());
         // System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_URL.getKey());
         // System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_USERNAME.getKey());
         // System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_PASSWORD.getKey());

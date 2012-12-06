@@ -492,6 +492,10 @@ public class MetadataConnectionUtils {
         // exist then get a new instance.
         if (driverClassName.equals("org.apache.derby.jdbc.EmbeddedDriver")) { //$NON-NLS-1$
             DRIVER_CACHE.remove(driverClassName);
+        } else if (EDatabase4DriverClassName.HIVE.getDriverClass().equals(driverClassName)) {
+            // Added by Marvin Wang on Dec. 6, 2012 for bug TDI-24027, for hive it should load all driver jars each time
+            // no matter embedded or standalone.
+            DRIVER_CACHE.remove(driverClassName);
         }
         Driver driver = DRIVER_CACHE.get(driverClassName);
         // The case for generalJDBC
