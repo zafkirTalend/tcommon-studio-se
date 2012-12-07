@@ -865,7 +865,14 @@ public class TreeUtil {
     }
 
     public static XSDSchema getXSDSchema(String fileName) {
+        return getXSDSchema(null, fileName);
+    }
+
+    public static XSDSchema getXSDSchema(XSDPopulationUtil2 popUtil, String fileName) {
         XSDSchema schema = null;
+        if (popUtil == null) {
+            popUtil = new XSDPopulationUtil2();
+        }
         try {
             if (fileName.endsWith(".zip")) {
                 Project project = ProjectManager.getInstance().getCurrentProject();
@@ -887,7 +894,6 @@ public class TreeUtil {
                     }
                 }
                 File unzipFile = new File(unzipPath);
-                XSDPopulationUtil2 popUtil = new XSDPopulationUtil2();
                 if (unzipFile.exists() && unzipFile.isDirectory()) {
                     File[] tempXSDFiles = unzipFile.listFiles();
                     for (File tempXSDFile : tempXSDFiles) {
@@ -902,7 +908,7 @@ public class TreeUtil {
                 } catch (PersistenceException e1) {
                     newFilePath = fileName;
                 }
-                schema = new XSDPopulationUtil2().getXSDSchema(newFilePath);
+                schema = popUtil.getXSDSchema(newFilePath);
             }
         } catch (Exception e) {
             ExceptionHandler.process(e);

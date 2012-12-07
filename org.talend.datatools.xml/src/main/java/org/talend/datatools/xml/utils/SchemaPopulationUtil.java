@@ -97,7 +97,15 @@ public class SchemaPopulationUtil {
 
     public static ATreeNode getSchemaTree(XSDSchema schema, ATreeNode selectedNode) throws OdaException, URISyntaxException,
             IOException {
-        return new XSDPopulationUtil2().getSchemaTree(schema, selectedNode);
+        return getSchemaTree(null, schema, selectedNode);
+    }
+
+    public static ATreeNode getSchemaTree(XSDPopulationUtil2 popUtil, XSDSchema schema, ATreeNode selectedNode)
+            throws OdaException, URISyntaxException, IOException {
+        if (popUtil == null) {
+            popUtil = new XSDPopulationUtil2();
+        }
+        return popUtil.getSchemaTree(schema, selectedNode);
     }
 
     public static ATreeNode getSchemaTree(XSDSchema schema, ATreeNode selectedNode, boolean supportChoice,
@@ -148,6 +156,7 @@ final class XMLFileSchemaTreePopulator implements ISaxParserConsumer {
      * @see org.eclipse.datatools.enablement.oda.xml.util.ISaxParserConsumer#manipulateData(java.lang.String,
      * java.lang.String)
      */
+    @Override
     public void manipulateData(String path, String value) {
     }
 
@@ -157,6 +166,7 @@ final class XMLFileSchemaTreePopulator implements ISaxParserConsumer {
      * @see org.eclipse.datatools.enablement.oda.xml.util.ISaxParserConsumer#detectNewRow(java.lang.String,
      * java.lang.String, java.lang.String, boolean)
      */
+    @Override
     public void detectNewRow(String path, String prefix, String uri, boolean start) {
         String treamedPath = path.replaceAll("\\Q[\\E\\d+\\Q]\\E", "").trim();
         this.insertNode(treamedPath, prefix, uri);
@@ -189,6 +199,7 @@ final class XMLFileSchemaTreePopulator implements ISaxParserConsumer {
      * 
      * @see org.eclipse.datatools.enablement.oda.xml.util.ISaxParserConsumer#wakeup()
      */
+    @Override
     public synchronized void wakeup() {
         notify();
     }
@@ -330,13 +341,13 @@ final class XSDFileSchemaTreePopulator {
      */
     private static void populateRoot(ATreeNode root) {
         Object[] toBeIterated = root.getChildren();
-        for (int i = 0; i < toBeIterated.length; i++) {
-            Object value = ((ATreeNode) toBeIterated[i]).getDataType();
+        for (Object element : toBeIterated) {
+            Object value = ((ATreeNode) element).getDataType();
             List container = new ArrayList();
             findNodeWithValue(root, value.toString(), container, new VisitingRecorder());
             for (int j = 0; j < container.size(); j++) {
                 if (((ATreeNode) container.get(j)).getChildren().length == 0) {
-                    Object[] os = ((ATreeNode) toBeIterated[i]).getChildren();
+                    Object[] os = ((ATreeNode) element).getChildren();
                     for (int k = 0; k < os.length; k++) {
                         if (os[k] instanceof ATreeNode) {
                             if (!(((ATreeNode) os[k]).getDataType() != null && ((ATreeNode) os[k]).getDataType().equals(
@@ -353,8 +364,8 @@ final class XSDFileSchemaTreePopulator {
 
     private static void populateRoot(ATreeNode root, ATreeNode selectedNode) {
         Object[] toBeIterated = root.getChildren();
-        for (int i = 0; i < toBeIterated.length; i++) {
-            ATreeNode node = ((ATreeNode) toBeIterated[i]);
+        for (Object element : toBeIterated) {
+            ATreeNode node = ((ATreeNode) element);
             Object nodeValue = node.getValue();
             if (nodeValue != null && !nodeValue.equals(selectedNode.getValue()) && !nodeValue.equals(selectedNode.getDataType())) {
                 continue;
@@ -364,7 +375,7 @@ final class XSDFileSchemaTreePopulator {
             findNodeWithValue(root, value.toString(), container, new VisitingRecorder());
             for (int j = 0; j < container.size(); j++) {
                 if (((ATreeNode) container.get(j)).getChildren().length == 0) {
-                    Object[] os = ((ATreeNode) toBeIterated[i]).getChildren();
+                    Object[] os = ((ATreeNode) element).getChildren();
                     for (int k = 0; k < os.length; k++) {
                         if (os[k] instanceof ATreeNode) {
                             if (!(((ATreeNode) os[k]).getDataType() != null && ((ATreeNode) os[k]).getDataType().equals(
@@ -396,9 +407,9 @@ final class XSDFileSchemaTreePopulator {
             container.add(root);
         }
         Object[] children = root.getChildren();
-        for (int i = 0; i < children.length; i++) {
-            if (children[i] instanceof ATreeNode) {
-                findNodeWithValue((ATreeNode) children[i], value, container, vr);
+        for (Object element : children) {
+            if (element instanceof ATreeNode) {
+                findNodeWithValue((ATreeNode) element, value, container, vr);
             }
 
         }
@@ -470,7 +481,7 @@ final class XSDFileSchemaTreePopulator {
                 for (int j = 0; j < fieldStrs.getLength(); j++) {
                     uniqueName = fieldStrs.item(j);
                     if (uniqueName != null && !"".equals(uniqueName)) {
-                        uniqueName = uniqueName.replace("/", "").replace(".", ""); //$NON-NLS-N$
+                        uniqueName = uniqueName.replace("/", "").replace(".", "");
                         node.getUniqueNames().add(uniqueName);
                     }
                 }
@@ -601,7 +612,7 @@ final class XSDFileSchemaTreePopulator {
                 for (int j = 0; j < fieldStrs.getLength(); j++) {
                     uniqueName = fieldStrs.item(j);
                     if (uniqueName != null && !"".equals(uniqueName)) {
-                        uniqueName = uniqueName.replace("/", "").replace(".", ""); //$NON-NLS-N$
+                        uniqueName = uniqueName.replace("/", "").replace(".", "");
                         node.getUniqueNames().add(uniqueName);
                     }
                 }
@@ -872,9 +883,9 @@ final class XSDFileSchemaTreePopulator {
      */
     private static ATreeNode findComplexElement(ATreeNode root, String value) {
         Object[] os = root.getChildren();
-        for (int i = 0; i < os.length; i++) {
-            if (((ATreeNode) os[i]).getValue().equals(value)) {
-                return (ATreeNode) os[i];
+        for (Object element : os) {
+            if (((ATreeNode) element).getValue().equals(value)) {
+                return (ATreeNode) element;
             }
         }
         return null;

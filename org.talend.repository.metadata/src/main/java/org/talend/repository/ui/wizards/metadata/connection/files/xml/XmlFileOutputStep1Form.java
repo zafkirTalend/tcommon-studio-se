@@ -155,8 +155,9 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
 
             if (xmlXsdPath != null && !"".equals(xmlXsdPath) && (XmlUtil.isXSDFile(xmlXsdPath) || xmlXsdPath.endsWith(".zip"))) {
                 try {
-                    XSDSchema xsdSchema = TreeUtil.getXSDSchema(xmlXsdPath);
-                    getTreeNode(xsdSchema);
+                    XSDPopulationUtil2 xsdPopulationUtil = new XSDPopulationUtil2();
+                    XSDSchema xsdSchema = TreeUtil.getXSDSchema(xsdPopulationUtil, xmlXsdPath);
+                    getTreeNode(xsdPopulationUtil, xsdSchema);
                 } catch (Exception e) {
                     ExceptionHandler.process(e);
                 }
@@ -177,17 +178,17 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
         adaptFormToEditable();
     }
 
-    private void getTreeNode(XSDSchema xsdSchema) {
+    private void getTreeNode(XSDPopulationUtil2 xsdPopulationUtil, XSDSchema xsdSchema) {
         List<ATreeNode> rootNodes;
         try {
-            rootNodes = new XSDPopulationUtil2().getAllRootNodes(xsdSchema);
+            rootNodes = xsdPopulationUtil.getAllRootNodes(xsdSchema);
             if (rootNodes.size() > 0) {
                 ATreeNode rootNode = getDefaultRootNode(rootNodes);
                 List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
                 if (rootNode == null) {
-                    valid = treePopulator.populateTree(xsdSchema, rootNodes.get(0), treeNodes);
+                    valid = treePopulator.populateTree(xsdPopulationUtil, xsdSchema, rootNodes.get(0), treeNodes);
                 } else {
-                    valid = treePopulator.populateTree(xsdSchema, rootNode, treeNodes);
+                    valid = treePopulator.populateTree(xsdPopulationUtil, xsdSchema, rootNode, treeNodes);
                     if (treeNodes.size() > 0) {
                         treeNode = treeNodes.get(0);
                     }
