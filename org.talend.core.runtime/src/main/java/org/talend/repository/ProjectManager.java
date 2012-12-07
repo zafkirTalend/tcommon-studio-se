@@ -444,4 +444,55 @@ public final class ProjectManager {
         }
         return null;
     }
+
+    /**
+     * DOC ggu Comment method "getRepositoryContextFields".
+     * 
+     * @return
+     */
+    private Map<String, String> getRepositoryContextFields() {
+        Context ctx = CoreRuntimePlugin.getInstance().getContext();
+        if (ctx == null) {
+            return null;
+        }
+        RepositoryContext repContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+        if (repContext == null) {
+            return null;
+        }
+        Map<String, String> fields = repContext.getFields();
+        return fields;
+    }
+    public void setMainProjectBranch(Project project, String branchValue) {
+        if (project != null) {
+            setMainProjectBranch(project.getEmfProject(), branchValue);
+        }
+    }
+
+    public void setMainProjectBranch(org.talend.core.model.properties.Project project, String branchValue) {
+        if (project != null) {
+            setMainProjectBranch(project.getTechnicalLabel(), branchValue);
+        }
+    }
+
+    /**
+     * 
+     * DOC ggu Comment method "setMainProjectBranch".
+     * 
+     * When use this method to set the branch value, make sure that have set the RepositoryContext object in context
+     * "ctx.putProperty(Context.REPOSITORY_CONTEXT_KEY, repositoryContext)"
+     * 
+     * @param technicalLabel
+     * @param branchValue
+     */
+    public void setMainProjectBranch(String technicalLabel, String branchValue) {
+        Map<String, String> fields = getRepositoryContextFields();
+        if (fields == null || technicalLabel == null) {
+            return;
+        }
+        String key = IProxyRepositoryFactory.BRANCH_SELECTION + SVNConstant.UNDER_LINE_CHAR + technicalLabel;
+        // TDI-23291:when branchValue is null,should not set "" to the branchkey.
+        if (branchValue != null) {
+            fields.put(key, branchValue);
+        }
+    }
 }
