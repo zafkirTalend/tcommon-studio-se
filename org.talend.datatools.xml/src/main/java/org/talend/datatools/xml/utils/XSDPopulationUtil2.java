@@ -218,7 +218,17 @@ public class XSDPopulationUtil2 {
                 }
                 xsdElementDeclarationParticle = schemaFromNamespace.resolveElementDeclarationURI(xsdElementDeclarationParticle
                         .getURI());
-                typeDef = xsdElementDeclarationParticle.getType();
+                typeDef = xsdElementDeclarationParticle.getTypeDefinition();
+            }
+            String typeNamespace = typeDef.getTargetNamespace();
+            if (typeNamespace != null && !typeNamespace.equals(namespace)) {
+                XSDSchema schemaOfType = getXSDSchemaFromNamespace(typeNamespace);
+                if (schemaOfType != null) {
+                    XSDTypeDefinition typeDefinition = schemaOfType.resolveComplexTypeDefinitionURI(typeDef.getURI());
+                    if (typeDefinition != null && typeDefinition.getContainer() != null) {
+                        typeDef = typeDefinition;
+                    }
+                }
             }
             if (namespace != null) {
                 prefix = namespaceToPrefix.get(namespace);
@@ -259,14 +269,15 @@ public class XSDPopulationUtil2 {
             if (typeDef instanceof XSDComplexTypeDefinition) {
                 if (!currentPath.contains("/" + elementName + "/")) {
                     String path = currentPath + elementName + "/";
-                    XSDTypeDefinition xsdTypeDefinition = xsdElementDeclarationParticle.getTypeDefinition();
-                    if (xsdTypeDefinition == null) {
-                        XSDComplexTypeDefinition generalType = xsdSchema
-                                .resolveComplexTypeDefinitionURI(xsdElementDeclarationParticle.getURI());
-                        if (generalType.getContainer() != null) {
-                            xsdTypeDefinition = generalType;
-                        }
-                    }
+                    // XSDTypeDefinition xsdTypeDefinition = xsdElementDeclarationParticle.getTypeDefinition();
+                    // if (xsdTypeDefinition == null) {
+                    // XSDComplexTypeDefinition generalType = xsdSchema
+                    // .resolveComplexTypeDefinitionURI(xsdElementDeclarationParticle.getURI());
+                    // if (generalType.getContainer() != null) {
+                    // xsdTypeDefinition = generalType;
+                    // }
+                    // }
+                    XSDTypeDefinition xsdTypeDefinition = typeDef;
                     if (xsdTypeDefinition != null && xsdTypeDefinition.getName() != null) {
                         partNode.setDataType(xsdTypeDefinition.getQName());
                     }
