@@ -28,6 +28,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ITDQRepositoryService;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
@@ -187,6 +188,13 @@ public abstract class CheckLastVersionRepositoryWizard extends RepositoryWizard 
                         IDesignerCoreService.class);
                 if (service != null) {
                     service.refreshComponentView(connectionItem);
+                }
+            }
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+                ITDQRepositoryService tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
+                        ITDQRepositoryService.class);
+                if (tdqRepService != null) {
+                    tdqRepService.updateImpactOnAnalysis(connectionItem);
                 }
             }
         }
