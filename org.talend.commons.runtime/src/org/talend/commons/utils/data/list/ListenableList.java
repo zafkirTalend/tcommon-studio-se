@@ -55,6 +55,7 @@ public class ListenableList<T> implements IExtendedList<T> {
      * 
      * @see java.util.List#add(java.lang.Object)
      */
+    @Override
     public boolean add(T o) {
         int index = this.list.size();
         fireAddedEvent(index, o, true);
@@ -84,6 +85,7 @@ public class ListenableList<T> implements IExtendedList<T> {
      * 
      * @see java.util.List#add(int, java.lang.Object)
      */
+    @Override
     public void add(int index, T element) {
         fireAddedEvent(index, element, true);
         this.list.add(index, element);
@@ -95,11 +97,18 @@ public class ListenableList<T> implements IExtendedList<T> {
      * 
      * @see java.util.List#addAll(java.util.Collection)
      */
+    @Override
     @SuppressWarnings("unchecked")
     public boolean addAll(Collection<? extends T> c) {
-        fireAddedEvent(this.list.size(), (Collection<T>) c, null, true);
+        return addAll(c, true, true);
+    }
+
+    public boolean addAll(Collection<? extends T> c, boolean fireBefore, boolean fireAfter) {
+        if (fireBefore) {
+            fireAddedEvent(this.list.size(), (Collection<T>) c, null, true);
+        }
         boolean returnValue = this.list.addAll(c);
-        if (returnValue) {
+        if (returnValue && fireAfter) {
             fireAddedEvent(this.list.size() - c.size(), (Collection<T>) c, null, false);
         }
         return returnValue;
@@ -110,11 +119,18 @@ public class ListenableList<T> implements IExtendedList<T> {
      * 
      * @see java.util.List#addAll(int, java.util.Collection)
      */
+    @Override
     @SuppressWarnings("unchecked")
     public boolean addAll(int index, Collection<? extends T> c) {
-        fireAddedEvent(index, (Collection<T>) c, null, true);
+        return addAll(index, c, true, true);
+    }
+
+    public boolean addAll(int index, Collection<? extends T> c, boolean fireBefore, boolean fireAfter) {
+        if (fireBefore) {
+            fireAddedEvent(index, (Collection<T>) c, null, true);
+        }
         boolean returnValue = this.list.addAll(index, c);
-        if (returnValue) {
+        if (returnValue && fireAfter) {
             fireAddedEvent(index, (Collection<T>) c, null, false);
         }
         return returnValue;
@@ -124,6 +140,7 @@ public class ListenableList<T> implements IExtendedList<T> {
      * 
      * 
      */
+    @Override
     @SuppressWarnings("unchecked")
     public void addAll(List<Integer> indices, Collection<? extends T> c) {
 
@@ -149,6 +166,7 @@ public class ListenableList<T> implements IExtendedList<T> {
      * 
      * @see java.util.List#clear()
      */
+    @Override
     public void clear() {
         fireClearedEvent(true);
         this.list.clear();
@@ -172,6 +190,7 @@ public class ListenableList<T> implements IExtendedList<T> {
      * @return whether the list contains the object.
      * @see #useEquals
      */
+    @Override
     public boolean contains(Object object) {
 
         int size = list.size();
@@ -205,6 +224,7 @@ public class ListenableList<T> implements IExtendedList<T> {
      * @param object the object in question.
      * @return the position of the first occurrence of the object in the list.
      */
+    @Override
     public int indexOf(Object object) {
         int size = list.size();
         if (useEquals && object != null) {
@@ -228,6 +248,7 @@ public class ListenableList<T> implements IExtendedList<T> {
      * 
      * @see java.util.List#containsAll(java.util.Collection)
      */
+    @Override
     public boolean containsAll(Collection<?> c) {
         return this.list.containsAll(c);
     }
@@ -237,6 +258,7 @@ public class ListenableList<T> implements IExtendedList<T> {
      * 
      * @see java.util.List#get(int)
      */
+    @Override
     public T get(int index) {
         return this.list.get(index);
     }
@@ -246,6 +268,7 @@ public class ListenableList<T> implements IExtendedList<T> {
      * 
      * @see java.util.List#isEmpty()
      */
+    @Override
     public boolean isEmpty() {
         return this.list.isEmpty();
     }
@@ -255,6 +278,7 @@ public class ListenableList<T> implements IExtendedList<T> {
      * 
      * @see java.util.List#iterator()
      */
+    @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
 
@@ -262,15 +286,18 @@ public class ListenableList<T> implements IExtendedList<T> {
 
             private T current = null;
 
+            @Override
             public boolean hasNext() {
                 return internalIterator.hasNext();
             }
 
+            @Override
             public T next() {
                 current = internalIterator.next();
                 return current;
             }
 
+            @Override
             public void remove() {
                 Integer indexBeforeRemove = indexOf(current);
                 fireBeforeRemovedEvent(indexBeforeRemove);
@@ -286,6 +313,7 @@ public class ListenableList<T> implements IExtendedList<T> {
      * 
      * @see java.util.List#lastIndexOf(java.lang.Object)
      */
+    @Override
     public int lastIndexOf(Object o) {
         return this.list.lastIndexOf(o);
     }
@@ -295,6 +323,7 @@ public class ListenableList<T> implements IExtendedList<T> {
      * 
      * @see java.util.List#listIterator()
      */
+    @Override
     public ListIterator<T> listIterator() {
         return new ListIterator<T>() {
 
@@ -302,43 +331,52 @@ public class ListenableList<T> implements IExtendedList<T> {
 
             private T current = null;
 
+            @Override
             public void add(T o) {
                 internalListIterator.add(o);
                 fireAddedEvent(internalListIterator.previousIndex(), o, false);
             }
 
+            @Override
             public boolean hasPrevious() {
                 return internalListIterator.hasPrevious();
             }
 
+            @Override
             public int nextIndex() {
                 return internalListIterator.nextIndex();
             }
 
+            @Override
             public T previous() {
                 current = internalListIterator.previous();
                 return current;
             }
 
+            @Override
             public int previousIndex() {
                 return internalListIterator.previousIndex();
             }
 
+            @Override
             public void set(T o) {
                 fireReplacedEvent(internalListIterator.previousIndex() + 1, current, o, true);
                 internalListIterator.set(o);
                 fireReplacedEvent(internalListIterator.previousIndex() + 1, current, o, false);
             }
 
+            @Override
             public boolean hasNext() {
                 return internalListIterator.hasNext();
             }
 
+            @Override
             public T next() {
                 current = internalListIterator.next();
                 return current;
             }
 
+            @Override
             public void remove() {
                 Integer indexBeforeRemove = internalListIterator.previousIndex() + 1;
                 fireBeforeRemovedEvent(indexBeforeRemove);
@@ -354,6 +392,7 @@ public class ListenableList<T> implements IExtendedList<T> {
      * 
      * @see java.util.List#listIterator(int)
      */
+    @Override
     public ListIterator<T> listIterator(int index) {
         return this.list.listIterator(index);
     }
@@ -363,6 +402,7 @@ public class ListenableList<T> implements IExtendedList<T> {
      * 
      * @see java.util.List#remove(java.lang.Object)
      */
+    @Override
     @SuppressWarnings("unchecked")
     public boolean remove(Object o) {
         int index = indexOf(o);
@@ -378,6 +418,7 @@ public class ListenableList<T> implements IExtendedList<T> {
      * 
      * @see java.util.List#remove(int)
      */
+    @Override
     public T remove(int index) {
         fireBeforeRemovedEvent(index);
         T removedObject = this.list.remove(index);
@@ -394,7 +435,7 @@ public class ListenableList<T> implements IExtendedList<T> {
     private void fireRemovedEvent(int index, T removedObject) {
         if (afterListeners.size() != 0) {
             List<T> currentList = new ArrayList<T>(1);
-            currentList.add((T) removedObject);
+            currentList.add(removedObject);
             fireRemovedEvent(index, currentList, null, false);
         }
     }
@@ -403,7 +444,7 @@ public class ListenableList<T> implements IExtendedList<T> {
         if (beforeListeners.size() != 0) {
             T removingObject = this.list.get(index);
             List<T> currentList = new ArrayList<T>(1);
-            currentList.add((T) removingObject);
+            currentList.add(removingObject);
             fireRemovedEvent(index, currentList, null, true);
         }
     }
@@ -415,12 +456,19 @@ public class ListenableList<T> implements IExtendedList<T> {
      * @param collection the collection of objects to be removed.
      * @return whether any object was actually contained by the list.
      */
+    @Override
     @SuppressWarnings("unchecked")
     public boolean removeAll(Collection<?> collection) {
+        return removeAll(collection, true, true);
+    }
+
+    public boolean removeAll(Collection<?> collection, boolean fireBefore, boolean fireAfter) {
 
         List<Integer> indices = getIndices(collection);
 
-        fireRemovedEvent(null, new ArrayList(collection), indices, true);
+        if (fireBefore) {
+            fireRemovedEvent(null, new ArrayList(collection), indices, true);
+        }
         if (this.list == null) {
             return false;
         }
@@ -429,7 +477,7 @@ public class ListenableList<T> implements IExtendedList<T> {
             this.list.remove((int) indices.get(i));
             modified = true;
         }
-        if (modified) {
+        if (modified && fireAfter) {
             fireRemovedEvent(null, new ArrayList(collection), indices, false);
         }
         return modified;
@@ -458,6 +506,7 @@ public class ListenableList<T> implements IExtendedList<T> {
      * 
      * @see java.util.List#retainAll(java.util.Collection)
      */
+    @Override
     public boolean retainAll(Collection<?> c) {
         List<T> all = new ArrayList<T>();
         all.addAll(this.list);
@@ -481,6 +530,7 @@ public class ListenableList<T> implements IExtendedList<T> {
      * 
      * @see java.util.List#set(int, java.lang.Object)
      */
+    @Override
     public T set(int index, T element) {
         fireReplacedEvent(index, null, element, true);
         T replacedObject = this.list.set(index, element);
@@ -493,6 +543,7 @@ public class ListenableList<T> implements IExtendedList<T> {
      * 
      * @see java.util.List#size()
      */
+    @Override
     public int size() {
         if (this.list != null) {
             return this.list.size();
@@ -507,6 +558,7 @@ public class ListenableList<T> implements IExtendedList<T> {
      * 
      * @see java.util.List#subList(int, int)
      */
+    @Override
     public List<T> subList(int fromIndex, int toIndex) {
         if (this.list != null) {
             return this.list.subList(fromIndex, toIndex);
@@ -520,6 +572,7 @@ public class ListenableList<T> implements IExtendedList<T> {
      * 
      * @see java.util.List#toArray()
      */
+    @Override
     public Object[] toArray() {
         if (this.list != null) {
             return this.list.toArray();
@@ -533,6 +586,7 @@ public class ListenableList<T> implements IExtendedList<T> {
      * 
      * @see java.util.List#toArray(T[])
      */
+    @Override
     @SuppressWarnings("hiding")
     public <T> T[] toArray(T[] a) {
         if (this.list != null) {
@@ -542,6 +596,7 @@ public class ListenableList<T> implements IExtendedList<T> {
         }
     }
 
+    @Override
     public void swap(int index1, int index2) {
 
         ArrayList<Integer> indexList1 = new ArrayList<Integer>(1);
@@ -579,6 +634,7 @@ public class ListenableList<T> implements IExtendedList<T> {
         }
     }
 
+    @Override
     public void swapElements(List<Integer> indicesOrigin, List<Integer> indicesTarget) {
         if (indicesOrigin.size() != indicesTarget.size()) {
             throw new IllegalArgumentException(Messages.getString("ListenableList.IndexSameLength.Error")); //$NON-NLS-1$
@@ -596,6 +652,7 @@ public class ListenableList<T> implements IExtendedList<T> {
         fireSwapedEvent(indicesOrigin, indicesTarget, swapedObjects.toArray(), false);
     }
 
+    @Override
     public void swapElement(T object1, T object2) {
         swap(indexOf(object1), indexOf(object2));
     }
@@ -825,6 +882,7 @@ public class ListenableList<T> implements IExtendedList<T> {
      * 
      * @return the useEquals
      */
+    @Override
     public boolean isUseEquals() {
         return this.useEquals;
     }
@@ -834,6 +892,7 @@ public class ListenableList<T> implements IExtendedList<T> {
      * 
      * @param useEquals the useEquals to set
      */
+    @Override
     public void setUseEquals(boolean useEquals) {
         this.useEquals = useEquals;
     }

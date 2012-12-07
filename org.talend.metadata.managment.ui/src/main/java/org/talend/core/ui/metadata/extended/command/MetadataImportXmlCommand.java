@@ -34,13 +34,13 @@ import org.xml.sax.SAXException;
  */
 public class MetadataImportXmlCommand extends Command {
 
-    private File file;
+    protected File file;
 
-    private ExtendedTableModel extendedTableModel;
+    protected ExtendedTableModel extendedTableModel;
 
-    private List<IMetadataColumn> removed;
+    protected List<IMetadataColumn> removed;
 
-    private List<IMetadataColumn> added;
+    protected List<IMetadataColumn> added;
 
     /**
      * DOC amaumont MetadataPasteCommand constructor comment.
