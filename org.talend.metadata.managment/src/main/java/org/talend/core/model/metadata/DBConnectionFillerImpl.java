@@ -47,6 +47,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase.ETableTypes;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
+import org.talend.core.model.metadata.builder.database.PluginConstant;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.metadata.builder.database.hive.EmbeddedHiveDataBaseMetadata;
 import org.talend.core.model.metadata.builder.util.DatabaseConstant;
@@ -140,8 +141,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             DatabaseMetaData dbMetadata = ExtractMetaDataUtils.getDatabaseMetaData(sqlConnection, dbconn, false);
 
             // MOD sizhaoliu TDQ-6316 The 2 tagged values should be added for all database including Hive
-            String productName = dbMetadata.getDatabaseProductName();
-            String productVersion = dbMetadata.getDatabaseProductVersion();
+            String productName = dbMetadata.getDatabaseProductName() == null ? PluginConstant.EMPTY_STRING : dbMetadata
+                    .getDatabaseProductName();
+            String productVersion = dbMetadata.getDatabaseProductVersion() == null ? PluginConstant.EMPTY_STRING : dbMetadata
+                    .getDatabaseProductVersion();
             TaggedValueHelper.setTaggedValue(dbconn, TaggedValueHelper.DB_PRODUCT_NAME, productName);
             TaggedValueHelper.setTaggedValue(dbconn, TaggedValueHelper.DB_PRODUCT_VERSION, productVersion);
 
