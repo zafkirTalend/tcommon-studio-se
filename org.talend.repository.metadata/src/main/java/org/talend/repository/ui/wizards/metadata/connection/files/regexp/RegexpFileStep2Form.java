@@ -475,7 +475,8 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
             RegexpFileConnection originalValueConnection = null;
             if (isContextMode()) {
                 boolean found = false;
-                ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(getShell(), getConnection());
+                ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(getShell(), getConnection(),
+                        getConnection().getContextName(), false);
                 if (contextType != null) {
                     if (getContextModeManager() != null) {
                         getContextModeManager().setSelectedContextType(contextType);

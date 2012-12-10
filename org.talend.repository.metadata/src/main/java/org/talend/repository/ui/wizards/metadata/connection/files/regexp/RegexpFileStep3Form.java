@@ -244,6 +244,9 @@ public class RegexpFileStep3Form extends AbstractRegexpFileStepForm {
             public void widgetSelected(final SelectionEvent e) {
                 // changed by hqzhang for TDI-13613, old code is strange, maybe caused by duplicated
                 // addUtilsButtonListeners() in addFields() method
+                if (connectionItem.getConnection().isContextMode()) {
+                    connectionItem.getConnection().setContextName(null);
+                }
                 initGuessSchema();
                 RegexpFileConnection originalValueConnection = getOriginalValueConnection();
                 // if no file, the process don't be executed
@@ -572,8 +575,7 @@ public class RegexpFileStep3Form extends AbstractRegexpFileStepForm {
         if (super.isVisible()) {
             RegexpFileConnection originalValueConnection = getOriginalValueConnection();
             if (originalValueConnection.getFilePath() != null && (!originalValueConnection.getFilePath().equals("")) //$NON-NLS-1$
-                    && new File(originalValueConnection.getFilePath()).exists())
-            {
+                    && new File(originalValueConnection.getFilePath()).exists()) {
                 runShadowProcess();
             }
 
