@@ -238,6 +238,9 @@ public class DelimitedFileStep3Form extends AbstractDelimitedFileStepForm {
             public void widgetSelected(final SelectionEvent e) {
                 // changed by hqzhang for TDI-13613, old code is strange, maybe caused by duplicated
                 // addUtilsButtonListeners() in addFields() method
+                if (connectionItem.getConnection().isContextMode()) {
+                    connectionItem.getConnection().setContextName(null);
+                }
                 initGuessSchema();
                 // if no file, the process don't be executed
                 DelimitedFileConnection originalValueConnection = getOriginalValueConnection();
