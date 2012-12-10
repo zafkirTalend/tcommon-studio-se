@@ -77,6 +77,9 @@ public class IteratePerformance extends CommonPerformance {
     }
 
     private int parseSize(String numStr) {
+        if (numStr.contains("exec.")) {
+            return new Integer(numStr.substring(5)).intValue();
+        }
         return new Integer(numStr.substring(4)).intValue();
     }
 
