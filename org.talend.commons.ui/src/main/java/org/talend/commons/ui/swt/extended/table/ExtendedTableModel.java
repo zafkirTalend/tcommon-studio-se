@@ -115,11 +115,15 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
      * @param index can be null
      */
     public void addAll(final Integer index, List<B> beans) {
+        addAll(index, beans, true, true);
+    }
+
+    public void addAll(final Integer index, List<B> beans, boolean fireBefore, boolean fireAfter) {
         if (index == null || index < 0 || index > this.beansList.size() - 1) {
             if (tableViewer != null && !tableViewer.getTable().isDisposed()) {
                 tableViewer.add(beans.toArray(new Object[beans.size()]));
             }
-            this.beansList.addAll(beans);
+            this.beansList.addAll(beans, fireBefore, fireAfter);
         } else {
             if (tableViewer != null && !tableViewer.getTable().isDisposed()) {
                 int localIndex = index;
@@ -128,7 +132,7 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
                     tableViewer.insert(beans.get(i), localIndex++);
                 }
             }
-            this.beansList.addAll(index, beans);
+            this.beansList.addAll(index, beans, fireBefore, fireAfter);
         }
     }
 
@@ -152,6 +156,10 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
         addAll((Integer) null, beans);
     }
 
+    public void addAll(List<B> beans, boolean fireBefore, boolean fireAfter) {
+        addAll((Integer) null, beans, fireBefore, fireAfter);
+    }
+
     public void registerDataList(List<B> list) {
         this.beansList.registerList(list);
     }
@@ -162,8 +170,9 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
 
     public void addBeans(B b) {
         if (this.beansList.contains(b)) {
-        } else
+        } else {
             this.beansList.add(b);
+        }
     }
 
     public void setUseEquals(boolean useEquals) {
@@ -200,10 +209,14 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
      * @see org.talend.commons.utils.data.list.ListenableList#removeAll(java.util.Collection)
      */
     public boolean removeAll(Collection<B> c) {
+        return removeAll(c, true, true);
+    }
+
+    public boolean removeAll(Collection<B> c, boolean fireBefor, boolean fireAfter) {
         if (tableViewer != null && !tableViewer.getTable().isDisposed()) {
             tableViewer.remove(c.toArray(new Object[c.size()]));
         }
-        return this.beansList.removeAll(c);
+        return this.beansList.removeAll(c, fireBefor, fireAfter);
     }
 
     public void removeAll() {
@@ -277,8 +290,8 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
      */
     public List<B> remove(int[] indexArray) {
         ArrayList<B> objectsToRemove = new ArrayList<B>(indexArray.length);
-        for (int i = 0; i < indexArray.length; i++) {
-            objectsToRemove.add(beansList.get(indexArray[i]));
+        for (int element : indexArray) {
+            objectsToRemove.add(beansList.get(element));
         }
         removeAll(objectsToRemove);
         return objectsToRemove;
@@ -344,6 +357,7 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
         this.modifiedBeanListenable = modifiedBeanListenable;
     }
 
+    @Override
     public boolean isDataRegistered() {
         return beansList.isListRegistered();
     }
