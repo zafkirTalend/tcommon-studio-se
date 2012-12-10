@@ -13,6 +13,8 @@
 package org.talend.core.model.metadata;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
@@ -216,7 +218,12 @@ public class QueryUtil {
             String columnName = quoteStringValue(metaDataColumn.getOriginalDbColumnName(), dbType);
 
             String columnStr = columnName;
-
+            // Remove special symbols for mssql column
+            if (dbType != null && dbType.equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
+                Pattern pattern = Pattern.compile("[^\\w.]");
+                Matcher matcher = pattern.matcher(columnStr);
+                columnStr = TalendTextUtils.addQuotes(matcher.replaceAll(""));
+            }
             if (i != index - 1) {
                 columnStr = checkAndConcatString(columnStr, TalendTextUtils.declareString("," + SPACE)); //$NON-NLS-1$
             }
