@@ -23,6 +23,8 @@ import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.utils.VersionUtils;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ITDQRepositoryService;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
@@ -344,12 +346,23 @@ public class DelimitedFileWizard extends CheckLastVersionRepositoryWizard implem
                     connectionItem.getProperty().setLabel(connectionItem.getProperty().getDisplayName());
                     // update
                     RepositoryUpdateManager.updateFileConnection(connectionItem);
-                    refreshInFinish(delimitedFileWizardPage0.isNameModifiedByUser());
-                    updateConnectionItem();
+                    boolean nameModifiedByUser = delimitedFileWizardPage0.isNameModifiedByUser();
+                    refreshInFinish(nameModifiedByUser);
 
+                    ITDQRepositoryService tdqRepService = null;
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+                        tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
+                                ITDQRepositoryService.class);
+                    }
+                    if (nameModifiedByUser && tdqRepService != null) {
+                        tdqRepService.saveConnectionWithDependency(connectionItem);
+                        closeLockStrategy();
+                        tdqRepService.refreshCurrentAnalysisEditor();
+                    } else {
+                        updateConnectionItem();
+                    }
                 }
                 ProxyRepositoryFactory.getInstance().saveProject(ProjectManager.getInstance().getCurrentProject());
-
             } catch (Exception e) {
                 String detailError = e.toString();
                 new ErrorDialogWidthDetailArea(getShell(), PID, Messages.getString("CommonWizard.persistenceException"), //$NON-NLS-1$
