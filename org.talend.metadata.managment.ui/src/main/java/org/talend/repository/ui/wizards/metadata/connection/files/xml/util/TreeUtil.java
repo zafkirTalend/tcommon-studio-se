@@ -498,6 +498,7 @@ public class TreeUtil {
             return list;
         }
         try {
+            XSDPopulationUtil2 popUtil = new XSDPopulationUtil2();
             if (filePath.endsWith(".zip")) {
                 // unzip the file than add all treenode from unzip file
                 Project project = ProjectManager.getInstance().getCurrentProject();
@@ -524,13 +525,12 @@ public class TreeUtil {
                 Map<XSDSchema, List<ATreeNode>> schemaTreeNodeMap = new HashMap<XSDSchema, List<ATreeNode>>();
                 if (unzipFile.exists() && unzipFile.isDirectory()) {
                     File[] tempXSDFiles = unzipFile.listFiles();
+                    for (File tempXSDFile1 : tempXSDFiles) {
+                        popUtil.addSchema(tempXSDFile1.getAbsolutePath());
+                    }
                     for (File tempXSDFile : tempXSDFiles) {
-                        XSDPopulationUtil2 popUtil = new XSDPopulationUtil2();
-                        for (File tempXSDFile1 : tempXSDFiles) {
-                            popUtil.addSchema(tempXSDFile1.getAbsolutePath());
-                        }
-                        XSDSchema tempXSD = popUtil.getXSDSchema(tempXSDFile.getAbsolutePath());
-                        List<ATreeNode> tempTreeNodes = new XSDPopulationUtil2().getAllRootNodes(tempXSD);
+                        XSDSchema tempXSD = popUtil.getXSDSchema(tempXSDFile.getAbsolutePath(), true);
+                        List<ATreeNode> tempTreeNodes = popUtil.getAllRootNodes(tempXSD);
                         schemaTreeNodeMap.put(tempXSD, tempTreeNodes);
                         allTreeNodes.addAll(tempTreeNodes);
                     }
@@ -579,10 +579,10 @@ public class TreeUtil {
                     } else {
                         selectedTreeNode = allTreeNodes.get(0);
                     }
-                    list = getFoxTreeNodesByRootNode(xsModel, selectedTreeNode, false, true, true);
+                    list = getFoxTreeNodesByRootNode(popUtil, xsModel, selectedTreeNode, false, true, true);
                 }
             } else if (XmlUtil.isXSDFile(filePath)) {
-                XSDSchema xsModel = getXSDSchema(filePath);
+                XSDSchema xsModel = getXSDSchema(popUtil, filePath);
                 List<ATreeNode> allTreeNodes = new XSDPopulationUtil2().getAllRootNodes(xsModel);
                 ATreeNode selectedTreeNode = null;
                 if (allTreeNodes != null && !allTreeNodes.isEmpty()) {
@@ -619,7 +619,9 @@ public class TreeUtil {
                     } else {
                         selectedTreeNode = allTreeNodes.get(0);
                     }
-                    list = getFoxTreeNodesByRootNode(xsModel, selectedTreeNode, false, true, true);
+
+                    // list = getFoxTreeNodesByRootNode(xsModel, selectedTreeNode);
+                    list = getFoxTreeNodesByRootNode(popUtil, xsModel, selectedTreeNode, false, true, true);
                 }
             } else {
                 getFoxTreeNodesForXmlMap(filePath, list);
@@ -813,8 +815,8 @@ public class TreeUtil {
         return getFoxTreeNodesByRootNode(xsdSchema, selectedRootNode, resolved, false, false);
     }
 
-    public static List<FOXTreeNode> getFoxTreeNodesByRootNode(XSDSchema xsdSchema, ATreeNode selectedRootNode, boolean resolved,
-            boolean supportChoice, boolean supportSubstitution) {
+    public static List<FOXTreeNode> getFoxTreeNodesByRootNode(XSDPopulationUtil2 populator, XSDSchema xsdSchema,
+            ATreeNode selectedRootNode, boolean resolved, boolean supportChoice, boolean supportSubstitution) {
         List<FOXTreeNode> list = new ArrayList<FOXTreeNode>();
         if (xsdSchema == null || selectedRootNode == null) {
             return list;
@@ -825,7 +827,8 @@ public class TreeUtil {
             if (resolved) {
                 treeNode = selectedRootNode;
             } else {
-                treeNode = SchemaPopulationUtil.getSchemaTree(xsdSchema, selectedRootNode, supportChoice, supportSubstitution);
+                treeNode = SchemaPopulationUtil.getSchemaTree(populator, xsdSchema, selectedRootNode, supportChoice,
+                        supportSubstitution);
             }
 
             if (treeNode == null) {
@@ -846,6 +849,12 @@ public class TreeUtil {
         }
 
         return list;
+
+    }
+
+    public static List<FOXTreeNode> getFoxTreeNodesByRootNode(XSDSchema xsdSchema, ATreeNode selectedRootNode, boolean resolved,
+            boolean supportChoice, boolean supportSubstitution) {
+        return getFoxTreeNodesByRootNode(null, xsdSchema, selectedRootNode, resolved, supportChoice, supportSubstitution);
     }
 
     public static XSModel getXSModel(String fileName) {
