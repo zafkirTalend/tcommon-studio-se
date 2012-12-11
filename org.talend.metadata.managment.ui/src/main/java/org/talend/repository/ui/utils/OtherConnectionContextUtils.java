@@ -830,7 +830,7 @@ public final class OtherConnectionContextUtils {
             boolean isContextMode, boolean defaultContext) {
         if (isContextMode) {
             ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection(),
-                    defaultContext);
+                    connectionItem.getConnection().getContextName(), defaultContext);
             return (XmlFileConnection) OtherConnectionContextUtils.cloneOriginalValueXmlFileConnection(connection, contextType);
         }
         return connection;
