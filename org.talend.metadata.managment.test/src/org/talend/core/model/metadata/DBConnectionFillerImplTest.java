@@ -28,6 +28,8 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -37,10 +39,13 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.rule.PowerMockRule;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
+import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
+import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
+import org.talend.core.model.metadata.builder.database.PluginConstant;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
@@ -49,12 +54,16 @@ import org.talend.cwm.helper.ColumnSetHelper;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.cwm.helper.SchemaHelper;
+import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sql.metadata.constants.GetColumn;
 import org.talend.utils.sql.metadata.constants.GetTable;
 import org.talend.utils.sql.metadata.constants.TableType;
+import org.talend.utils.sugars.ReturnCode;
+import org.talend.utils.sugars.TypedReturnCode;
+import orgomg.cwm.objectmodel.core.TaggedValue;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.ColumnSet;
 import orgomg.cwm.resource.relational.Schema;
@@ -65,7 +74,7 @@ import orgomg.cwm.resource.relational.Schema;
 
 @PrepareForTest({ StringUtils.class, ExtractMetaDataFromDataBase.class, MetadataConnectionUtils.class, PackageHelper.class,
         ConnectionHelper.class, ProxyRepositoryFactory.class, ExtensionImplementationProvider.class, CatalogHelper.class,
-        SchemaHelper.class, ConnectionUtils.class, ColumnSetHelper.class })
+        SchemaHelper.class, ConnectionUtils.class, ColumnSetHelper.class, ExtractMetaDataUtils.class })
 public class DBConnectionFillerImplTest {
 
     @Rule
@@ -337,4 +346,47 @@ public class DBConnectionFillerImplTest {
         stub(method(ProxyRepositoryFactory.class, "getInstance")).toReturn(proxFactory);//$NON-NLS-1$
     }
 
+    /**
+     * 
+     * test TDQ-6569, it should be empty String even
+     * dbMetadata.getDatabaseProductName()/dbMetadata.getDatabaseProductName() is null .
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void testfillUIConnParams_DB2ZOS() throws Exception {
+        java.sql.Connection sqlConnection = mock(java.sql.Connection.class);
+        IMetadataConnection metadataBean = mock(IMetadataConnection.class);
+        DatabaseConnection connection = mock(DatabaseConnection.class);
+        EList<TaggedValue> taggedValues = new BasicEList<TaggedValue>();
+        when(connection.getTaggedValue()).thenReturn(taggedValues);
+        when(connection.getDatabaseType()).thenReturn("IBMDB2ZOS"); //$NON-NLS-1$
+        when(connection.getDriverClass()).thenReturn(EDatabase4DriverClassName.IBMDB2ZOS.getDriverClass());
+        when(connection.isContextMode()).thenReturn(Boolean.FALSE);
+
+        TypedReturnCode<java.sql.Connection> rc = new TypedReturnCode<java.sql.Connection>();
+        rc.setOk(true);
+        PowerMockito.mockStatic(MetadataConnectionUtils.class);
+        when(MetadataConnectionUtils.checkConnection(metadataBean)).thenReturn(rc);
+        when(MetadataConnectionUtils.isDerbyRelatedDb(anyString(), anyString())).thenReturn(false);
+        DatabaseMetaData dbMetadata = mock(DatabaseMetaData.class);
+        when(dbMetadata.getDatabaseProductName()).thenReturn(null);
+        when(dbMetadata.getDatabaseProductName()).thenReturn(null);
+        PowerMockito.mockStatic(ExtractMetaDataUtils.class);
+        when(ExtractMetaDataUtils.getDatabaseMetaData(sqlConnection, connection, false)).thenReturn(dbMetadata);
+        when(ExtractMetaDataUtils.getDatabaseMetaData(null, connection, false)).thenReturn(dbMetadata);
+        PowerMockito.mockStatic(ConnectionUtils.class);
+        ReturnCode ret = new ReturnCode();
+        ret.setOk(true);
+        when(ConnectionUtils.closeConnection(sqlConnection)).thenReturn(ret);
+        DBConnectionFillerImpl dBConnectionFillerImp_mock = PowerMockito.spy(dBConnectionFillerImpl);
+        PowerMockito.doNothing().when(dBConnectionFillerImp_mock, "fillMetadataParams", metadataBean, connection); //$NON-NLS-1$
+        dBConnectionFillerImp_mock.fillUIConnParams(metadataBean, connection);
+        String producetName = TaggedValueHelper.getValueString(TaggedValueHelper.DB_PRODUCT_NAME, connection);
+        String version = TaggedValueHelper.getValueString(TaggedValueHelper.DB_PRODUCT_VERSION, connection);
+        assertNotNull(producetName);
+        assertNotNull(version);
+        assertEquals(producetName, PluginConstant.EMPTY_STRING);
+        assertEquals(version, PluginConstant.EMPTY_STRING);
+    }
 }
