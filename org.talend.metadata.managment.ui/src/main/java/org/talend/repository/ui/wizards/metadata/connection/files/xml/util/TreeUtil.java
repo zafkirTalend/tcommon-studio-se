@@ -529,7 +529,7 @@ public class TreeUtil {
                         popUtil.addSchema(tempXSDFile1.getAbsolutePath());
                     }
                     for (File tempXSDFile : tempXSDFiles) {
-                        XSDSchema tempXSD = popUtil.getXSDSchema(tempXSDFile.getAbsolutePath());
+                        XSDSchema tempXSD = popUtil.getXSDSchema(tempXSDFile.getAbsolutePath(), true);
                         List<ATreeNode> tempTreeNodes = popUtil.getAllRootNodes(tempXSD);
                         schemaTreeNodeMap.put(tempXSD, tempTreeNodes);
                         allTreeNodes.addAll(tempTreeNodes);

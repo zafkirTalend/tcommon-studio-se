@@ -74,9 +74,12 @@ public class XSDPopulationUtil2 {
     public XSDPopulationUtil2() {
     }
 
-    public XSDSchema getXSDSchema(String fileName) throws URISyntaxException, MalformedURLException {
+   public XSDSchema getXSDSchema(String fileName) throws URISyntaxException, MalformedURLException {
+        return getXSDSchema(fileName, false);
+    }
+
+    public XSDSchema getXSDSchema(String fileName, boolean forceReload) throws URISyntaxException, MalformedURLException {
         // Create a resource set and load the main schema file into it.
-        //
         XSDResourceImpl mainXsdResource = (XSDResourceImpl) resourceSet.getResource(URI.createFileURI(fileName), true);
 
         boolean haveExternalDependenciesWithoutLocation = false;
@@ -106,12 +109,13 @@ public class XSDPopulationUtil2 {
         }
 
         XSDSchema xsdSchema = mainXsdResource.getSchema();
-        if (haveExternalDependenciesWithoutLocation) {
+        if (forceReload || haveExternalDependenciesWithoutLocation) {
             // force to set the element again, it will set automatically the dependencies
             xsdSchema.setElement(xsdSchema.getDocument().getDocumentElement());
         }
         return xsdSchema;
     }
+
 
     public void addSchema(String fileName) throws IOException {
         resourceSet.getResource(URI.createFileURI(fileName), true);
