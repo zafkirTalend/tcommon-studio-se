@@ -516,7 +516,7 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
                 String text = fileFieldXml.getText();
                 if (isContextMode()) {
                     ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(
-                            connectionItem.getConnection(), true);
+                            connectionItem.getConnection(), connectionItem.getConnection().getContextName());
                     text = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, text));
                 }
                 if (getConnection().getXmlFilePath() != null && !getConnection().getXmlFilePath().equals(text)) {
@@ -697,7 +697,8 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
             }
 
             if (isContextMode()) {
-                ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection());
+                ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection(),
+                        connectionItem.getConnection().getContextName());
                 xmlFilePath = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, xmlFilePath));
             }
             if (!creation && XmlUtil.isXSDFile(xmlFilePath)) {
