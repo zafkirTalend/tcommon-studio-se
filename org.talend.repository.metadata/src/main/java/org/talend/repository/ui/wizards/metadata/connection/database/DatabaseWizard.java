@@ -425,7 +425,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                             }
                         } else {
                             DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
-                            if (dbConn != null && dbConn instanceof DatabaseConnection) {
+                            if (dbConn != null) {
                                 updateConnectionInformation(dbConn, metadataConnection);
                             }
                         }
