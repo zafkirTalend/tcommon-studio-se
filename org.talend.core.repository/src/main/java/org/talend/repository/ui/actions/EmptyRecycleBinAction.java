@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.repository.ui.actions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -38,6 +41,8 @@ import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.ISubRepositoryObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.repository.utils.AbstractResourceChangesService;
+import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ERepositoryStatus;
@@ -72,7 +77,18 @@ public class EmptyRecycleBinAction extends AContextualAction {
         String message = null;
         if (node.getChildren().size() == 0) {
             return;
-        } else if (node.getChildren().size() > 1) {
+        }
+        AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
+                AbstractResourceChangesService.class);
+        if (resChangeService != null) {
+            List<IRepositoryNode> dependentNodes = resChangeService
+                    .getDependentConnNodesInRecycleBin(new ArrayList<IRepositoryNode>(node.getChildren()));
+            if (dependentNodes != null && !dependentNodes.isEmpty()) {
+                resChangeService.openDependcesDialog(dependentNodes);
+                return;
+            }
+        }
+        if (node.getChildren().size() > 1) {
             message = Messages.getString("DeleteAction.dialog.messageAllElements") + "\n" + //$NON-NLS-1$ //$NON-NLS-2$
                     Messages.getString("DeleteAction.dialog.message2"); //$NON-NLS-1$;
         } else {
