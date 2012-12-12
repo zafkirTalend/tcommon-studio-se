@@ -106,4 +106,6 @@ public interface ITDQRepositoryService extends IService {
     // Add yyin 2012-11-15 TDQ-6395
     public void saveConnectionWithDependency(ConnectionItem connectionItem);
 
+    // Add xqliu 2012-12-11 TDQ-5750
+    public void refreshCurrentAnalysisEditor();
 }

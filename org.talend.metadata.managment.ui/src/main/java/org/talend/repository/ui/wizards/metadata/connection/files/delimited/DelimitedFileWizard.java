@@ -24,10 +24,11 @@ import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.utils.VersionUtils;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ITDQRepositoryService;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
-import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
 import org.talend.core.model.metadata.builder.connection.FileConnection;
@@ -89,7 +90,7 @@ public class DelimitedFileWizard extends CheckLastVersionRepositoryWizard implem
     private String originalDescription;
 
     private String originalStatus;
-    
+
     private FileConnection originalConn;
 
     /**
@@ -108,7 +109,7 @@ public class DelimitedFileWizard extends CheckLastVersionRepositoryWizard implem
      * @param selection
      * @param strings
      */
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public DelimitedFileWizard(IWorkbench workbench, boolean creation, ISelection selection, String[] existingNames) {
         super(workbench, creation);
         this.selection = selection;
@@ -136,8 +137,7 @@ public class DelimitedFileWizard extends CheckLastVersionRepositoryWizard implem
             MetadataTable metadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             metadataTable.setId(factory.getNextId());
-            RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
-                    RecordFile.class);
+            RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), connection, RecordFile.class);
             if (record != null) { // hywang
                 PackageHelper.addMetadataTable(metadataTable, record);
             } else {
@@ -173,7 +173,7 @@ public class DelimitedFileWizard extends CheckLastVersionRepositoryWizard implem
             this.originalDescription = this.connectionItem.getProperty().getDescription();
             this.originalPurpose = this.connectionItem.getProperty().getPurpose();
             this.originalStatus = this.connectionItem.getProperty().getStatusCode();
-            originalConn = FileConnectionContextUtils.cloneOriginalValueConnection(connection); 
+            originalConn = FileConnectionContextUtils.cloneOriginalValueConnection(connection);
         }
         initConnection();
     }
@@ -201,8 +201,7 @@ public class DelimitedFileWizard extends CheckLastVersionRepositoryWizard implem
             MetadataTable metadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             metadataTable.setId(factory.getNextId());
-            RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
-                    RecordFile.class);
+            RecordFile record = (RecordFile) ConnectionHelper.getPackage(connection.getName(), connection, RecordFile.class);
             if (record != null) { // hywang
                 PackageHelper.addMetadataTable(metadataTable, record);
             } else {
@@ -238,7 +237,7 @@ public class DelimitedFileWizard extends CheckLastVersionRepositoryWizard implem
             this.originalDescription = this.connectionItem.getProperty().getDescription();
             this.originalPurpose = this.connectionItem.getProperty().getPurpose();
             this.originalStatus = this.connectionItem.getProperty().getStatusCode();
-            originalConn = FileConnectionContextUtils.cloneOriginalValueConnection(connection); 
+            originalConn = FileConnectionContextUtils.cloneOriginalValueConnection(connection);
         }
         initConnection();
     }
@@ -256,6 +255,7 @@ public class DelimitedFileWizard extends CheckLastVersionRepositoryWizard implem
     /**
      * Adding the page to the wizard.
      */
+    @Override
     public void addPages() {
         if (isToolbar) {
             pathToSave = null;
@@ -324,6 +324,7 @@ public class DelimitedFileWizard extends CheckLastVersionRepositoryWizard implem
      * This method determine if the 'Finish' button is enable This method is called when 'Finish' button is pressed in
      * the wizard. We will create an operation and run it using wizard as execution context.
      */
+    @Override
     public boolean performFinish() {
 
         boolean formIsPerformed;
@@ -344,9 +345,20 @@ public class DelimitedFileWizard extends CheckLastVersionRepositoryWizard implem
                     // update
                     RepositoryUpdateManager.updateFileConnection(connectionItem);
 
-                    factory.save(connectionItem);
-                    closeLockStrategy();
-
+                    boolean nameModifiedByUser = delimitedFileWizardPage0.isNameModifiedByUser();
+                    ITDQRepositoryService tdqRepService = null;
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+                        tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
+                                ITDQRepositoryService.class);
+                    }
+                    if (nameModifiedByUser && tdqRepService != null) {
+                        tdqRepService.saveConnectionWithDependency(connectionItem);
+                        closeLockStrategy();
+                        tdqRepService.refreshCurrentAnalysisEditor();
+                    } else {
+                        factory.save(connectionItem);
+                        closeLockStrategy();
+                    }
                 }
                 ProxyRepositoryFactory.getInstance().saveProject(ProjectManager.getInstance().getCurrentProject());
 
@@ -390,6 +402,7 @@ public class DelimitedFileWizard extends CheckLastVersionRepositoryWizard implem
      * 
      * @see org.talend.repository.ui.wizards.RepositoryWizard#getConnectionItem()
      */
+    @Override
     public ConnectionItem getConnectionItem() {
         return this.connectionItem;
     }
