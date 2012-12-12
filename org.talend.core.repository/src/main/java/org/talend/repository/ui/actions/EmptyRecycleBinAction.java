@@ -48,7 +48,9 @@ import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.ISubRepositoryObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.repository.utils.AbstractResourceChangesService;
 import org.talend.core.repository.utils.RepositoryNodeDeleteManager;
+import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ERepositoryStatus;
@@ -86,9 +88,21 @@ public class EmptyRecycleBinAction extends AContextualAction {
         // TDI-20542
         List<IRepositoryNode> originalChildren = node.getChildren();
         final List<IRepositoryNode> children = new ArrayList<IRepositoryNode>(originalChildren);
+        // MOD qiongli 2012-12-12 TUP-273 if a connection in recycle bin which depended by DQ analysis,should give a
+        // warning then return.
         if (children.size() == 0) {
             return;
-        } else if (children.size() > 1) {
+        }
+        AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
+                AbstractResourceChangesService.class);
+        if (resChangeService != null) {
+            List<IRepositoryNode> dependentNodes = resChangeService.getDependentConnNodesInRecycleBin(children);
+            if (dependentNodes != null && !dependentNodes.isEmpty()) {
+                resChangeService.openDependcesDialog(dependentNodes);
+                return;
+            }
+        }
+        if (children.size() > 1) {
             message = Messages.getString("DeleteAction.dialog.messageAllElements") + "\n" + //$NON-NLS-1$ //$NON-NLS-2$
                     Messages.getString("DeleteAction.dialog.message2"); //$NON-NLS-1$;
         } else {

@@ -21,8 +21,6 @@ import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
-import org.talend.core.model.properties.ConnectionItem;
-import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryManager;
@@ -34,6 +32,7 @@ import org.talend.core.repository.utils.AbstractResourceChangesService;
 import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.JobletReferenceBean;
@@ -291,11 +290,10 @@ public class MoveObjectAction {
                                 || repositoryObjectType == ERepositoryObjectType.METADATA_MDMCONNECTION) {
                             AbstractResourceChangesService resourceChangeService = TDQServiceRegister.getInstance()
                                     .getResourceChangeService(AbstractResourceChangesService.class);
-                            Item item = objectToMove.getProperty() == null ? null : objectToMove.getProperty().getItem();
-                            if (null != resourceChangeService && null != item) {
-                                boolean handleResourceChange = resourceChangeService.handleResourceChange(((ConnectionItem) item)
-                                        .getConnection());
-                                if (!handleResourceChange) {
+                            if (null != resourceChangeService) {
+                                List<IRepositoryNode> dependentNodes = resourceChangeService.getDependentNodes(sourceNode);
+                                if (dependentNodes != null && !dependentNodes.isEmpty()) {
+                                    resourceChangeService.openDependcesDialog(dependentNodes);
                                     return;
                                 }
                             }

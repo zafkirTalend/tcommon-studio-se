@@ -38,7 +38,6 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.business.BusinessType;
-import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
@@ -150,10 +149,10 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
                 // iRepositoryNode.getObject().getProperty().getItem().eResource().unload();
                 Item item = repositoryNode.getObject() == null ? null : repositoryNode.getObject().getProperty().getItem();
                 if (resourceChangeService != null && null != item) {
-                    boolean handleResourceChange = resourceChangeService.handleResourceChange(((ConnectionItem) item)
-                            .getConnection());
-                    if (!handleResourceChange) {
-                        return handleResourceChange;
+                    List<IRepositoryNode> dependentNodes = resourceChangeService.getDependentNodes(repositoryNode);
+                    if (dependentNodes != null && !dependentNodes.isEmpty()) {
+                        resourceChangeService.openDependcesDialog(dependentNodes);
+                        return false;
                     }
                 }
             }

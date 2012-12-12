@@ -52,6 +52,7 @@ import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.RepositoryConstants;
@@ -128,7 +129,11 @@ public class DeleteTableAction extends AContextualAction {
                         AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance()
                                 .getResourceChangeService(AbstractResourceChangesService.class);
                         if (resChangeService != null) {
-                            isSave = resChangeService.handleResourceChange(((ConnectionItem) item).getConnection());
+                            List<IRepositoryNode> dependentNodes = resChangeService.getDependentNodes(node);
+                            if (dependentNodes != null && !dependentNodes.isEmpty()) {
+                                resChangeService.openDependcesDialog(dependentNodes);
+                                isSave = false;
+                            }
                         }
                     }
                     if (isSave) {
@@ -180,6 +185,7 @@ public class DeleteTableAction extends AContextualAction {
         }
         Display.getCurrent().syncExec(new Runnable() {
 
+            @Override
             public void run() {
                 RepositoryManager.refreshDeletedNode(types);
             }
@@ -205,6 +211,7 @@ public class DeleteTableAction extends AContextualAction {
      * @see org.talend.repository.ui.actions.ITreeContextualAction#init(org.eclipse.jface.viewers.TreeViewer,
      * org.eclipse.jface.viewers.IStructuredSelection)
      */
+    @Override
     public void init(TreeViewer viewer, IStructuredSelection selection) {
         boolean canWork = false;
         setText(null);
