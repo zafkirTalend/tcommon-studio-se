@@ -79,6 +79,17 @@ public final class ReponsitoryContextBridge {
     }
 
     /**
+     * 
+     * find the spcial project which name is projectName
+     * 
+     * @param projectName the name of project which you finding
+     * @return
+     */
+    public static IProject findProject(String projectName) {
+        return ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+    }
+
+    /**
      * DOC bZhou Comment method "initialized".
      * 
      * @param proj
