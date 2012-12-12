@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import metadata.managment.i18n.Messages;
 
@@ -266,8 +267,7 @@ public final class DqRepositoryViewService {
                 // Added yyin 20121211 TDQ-6099, for Teradata type, SQLMODE should be true, default is false
                 ((DatabaseConnection) dataProvider).setSQLMode(true);
                 // ~
-                DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(connection,
- (DatabaseConnection) dataProvider);
+                DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(connection, (DatabaseConnection) dataProvider);
                 columnList = MetadataFillFactory.getDBInstance().fillColumns(columnSet, dm, null, null);
             } finally {
                 ConnectionUtils.closeConnection(connection);
@@ -379,8 +379,7 @@ public final class DqRepositoryViewService {
 
         java.sql.Connection connection = rcConn.getObject();
         DatabaseConnection databaseConnection = (DatabaseConnection) dataProvider;
-        DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(connection,
- databaseConnection, false);
+        DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(connection, databaseConnection, false);
         try {
             // MOD msjian 2011-10-9 TDQ-3566: do not fill views after existing
             // MOD gdbu 2011-10-25 TDQ-3816 : If views exists, will no longer be added.(compare with views , not all
@@ -417,9 +416,10 @@ public final class DqRepositoryViewService {
      * 
      * @param file the file to read
      * @return the Data provider if found.
-     * @deprecated use repository API
+     * @deprecated use repository API or use resourceFileMap instead it
      */
-    public static TypedReturnCode<Connection> readFromFile(IFile file) {
+    @Deprecated
+    public static TypedReturnCode<Connection> readFromFile(IFile file) throws NoSuchElementException {
         TypedReturnCode<Connection> rc = new TypedReturnCode<Connection>();
         URI uri = URI.createPlatformResourceURI(file.getFullPath().toString(), false);
         Resource r = ProxyRepositoryFactory.getInstance().getRepositoryFactoryFromProvider().getResourceManager().resourceSet
@@ -428,13 +428,13 @@ public final class DqRepositoryViewService {
         if (tdDataProviders.isEmpty()) {
             rc.setReturnCode(
                     Messages.getString("DqRepositoryViewService.NoDataProviderFound", file.getFullPath().toString()), false); //$NON-NLS-1$
-        }
-        if (tdDataProviders.size() > 1) {
+        } else if (tdDataProviders.size() > 1) {
             rc.setReturnCode(Messages.getString("DqRepositoryViewService.FoundTooManyDataProvider", tdDataProviders.size(), //$NON-NLS-1$
                     file.getFullPath().toString()), false);
+        } else {
+            Connection prov = tdDataProviders.iterator().next();
+            rc.setObject(prov);
         }
-        Connection prov = tdDataProviders.iterator().next();
-        rc.setObject(prov);
         return rc;
     }
 

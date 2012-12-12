@@ -22,7 +22,7 @@ import org.talend.core.model.properties.User;
  */
 public final class ReponsitoryContextBridge {
 
-    private static String PROJECT_DEFAULT_NAME = "TOP_DEFAULT_PRJ";
+    private static String PROJECT_DEFAULT_NAME = "TOP_DEFAULT_PRJ"; //$NON-NLS-1$
 
     private static Project project;
 
@@ -76,6 +76,17 @@ public final class ReponsitoryContextBridge {
      */
     public static IProject getRootProject() {
         return ResourcesPlugin.getWorkspace().getRoot().getProject(getProjectName());
+    }
+
+    /**
+     * 
+     * find the spcial project which name is projectName
+     * 
+     * @param projectName the name of project which you finding
+     * @return
+     */
+    public static IProject findProject(String projectName) {
+        return ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
     }
 
     /**
