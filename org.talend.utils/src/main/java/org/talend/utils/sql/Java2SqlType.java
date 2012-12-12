@@ -35,6 +35,11 @@ public final class Java2SqlType {
 
     public static final int VARBINARY = 2004;
 
+    // Added yyin 20121212 TDQ-6099
+    public static final int TERADATA_INTERVAL = 1000;
+
+    public static final int TERADATA_INTERVAL_TO = 1001;
+
     // ~11875
     private Java2SqlType() {
     }
@@ -163,6 +168,10 @@ public final class Java2SqlType {
     /**
      * In case of teradata connection is on SQL mode, the datatype must be converted by this method.
      * 
+     * About INTERVAL types: inter_year, YR, inter_month, MO, inter_day, DY, inter_hour, HR, inter_sec, SC, inter_mini,
+     * MI, inter_year_to_month, YM, inter_day_to_hour, DH, inter_day_to_mini, DM, inter_day_to_sec, DS,
+     * inter_hour_to_mini, HM, inter_hour_to_sec, HS, inter_min_to_sec, MS,
+     * 
      * @param sqlType
      * @return
      */
@@ -171,22 +180,30 @@ public final class Java2SqlType {
             return Types.DATE;
         } else if (sqlType.trim().equals("I")) { //$NON-NLS-1$
             return Types.INTEGER;
-        } else if (sqlType.trim().equals("I2") || sqlType.trim().equals("I1")) { //$NON-NLS-1$//$NON-NLS-2$
+        } else if (sqlType.trim().equals("I2") || sqlType.trim().equals("I1")) { //$NON-NLS-1$ //$NON-NLS-2$
             return Types.SMALLINT;
         } else if (sqlType.trim().equals("F")) { //$NON-NLS-1$
             return Types.FLOAT;
-        } else if (sqlType.trim().equals("CF") || sqlType.trim().equals("BF")) { //$NON-NLS-1$//$NON-NLS-2$
+        } else if (sqlType.trim().equals("CF") || sqlType.trim().equals("BF")) { //$NON-NLS-1$ //$NON-NLS-2$
             return Types.CHAR;
-        } else if (sqlType.trim().equals("CV") || sqlType.trim().equals("BV") || sqlType.trim().equals("DM")) { //$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
+        } else if (sqlType.trim().equals("CV") || sqlType.trim().equals("BV")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             return Types.VARCHAR;
         } else if (sqlType.trim().equals("D")) { //$NON-NLS-1$
             return Types.DECIMAL;
-        } else if (sqlType.trim().equals("TS") || sqlType.trim().equals("SZ")) { //$NON-NLS-1$//$NON-NLS-2$
+        } else if (sqlType.trim().equals("TS") || sqlType.trim().equals("SZ")) { //$NON-NLS-1$ //$NON-NLS-2$
             return Types.TIMESTAMP;
         } else if (sqlType.trim().equals("BO")) { //$NON-NLS-1$
             return Types.BLOB;
         } else if (sqlType.trim().equals("CO")) { //$NON-NLS-1$
             return Types.CLOB;
+        } else if (sqlType.trim().equals("YR") || sqlType.trim().equals("MO") || sqlType.trim().equals("DY") //$NON-NLS-1$
+                || sqlType.trim().equals("HR") || sqlType.trim().equals("SC") || sqlType.trim().equals("MI")) { //$NON-NLS-1$
+            // Added yyin 20121211, TDQ-6099 :for type: INTERVAL_XXX(can be cast to REAL)
+            return Types.REAL;
+        } else if (sqlType.trim().equals("YM") || sqlType.trim().equals("DM") || sqlType.trim().equals("DH")//$NON-NLS-1$
+                || sqlType.trim().equals("DS") || sqlType.trim().equals("HM") || sqlType.trim().equals("HS") || sqlType.trim().equals("MS")) { //$NON-NLS-1$
+            // Added yyin 20121211, TDQ-6099 :for type: INTERVAL_XXX_to_XXX (canNOT be cast to REAL)
+            return Types.NVARCHAR;
         }
         return 0;
     }
@@ -198,27 +215,70 @@ public final class Java2SqlType {
      * @return
      */
     public static String getTeradataJavaTypeBySqlTypeAsString(String sqlType) {
-        if (sqlType.trim().equals("DA'")) { //$NON-NLS-1$
-            return "DATE";//$NON-NLS-1$
+        if (sqlType.trim().equals("DA")) { //$NON-NLS-1$
+            return "DATE"; //$NON-NLS-1$
         } else if (sqlType.trim().equals("I")) { //$NON-NLS-1$
-            return "INTEGER";//$NON-NLS-1$
-        } else if (sqlType.trim().equals("I2") || sqlType.trim().equals("I1")) { //$NON-NLS-1$//$NON-NLS-2$
-            return "SMALLINT";//$NON-NLS-1$
+            return "INTEGER"; //$NON-NLS-1$
+        } else if (sqlType.trim().equals("I2") || sqlType.trim().equals("I1")) { //$NON-NLS-1$ //$NON-NLS-2$
+            return "SMALLINT"; //$NON-NLS-1$
         } else if (sqlType.trim().equals("F")) { //$NON-NLS-1$
-            return "FLOAT";//$NON-NLS-1$
-        } else if (sqlType.trim().equals("CF") || sqlType.trim().equals("BF")) { //$NON-NLS-1$//$NON-NLS-2$
-            return "CHAR";//$NON-NLS-1$
-        } else if (sqlType.trim().equals("CV") || sqlType.trim().equals("BV") || sqlType.trim().equals("DM")) { //$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
-            return "VARCHAR";//$NON-NLS-1$
-        } else if (sqlType.trim().equals("D")) { //$NON-NLS-1$
-            return "DECIMAL";//$NON-NLS-1$
-        } else if (sqlType.trim().equals("TS") || sqlType.trim().equals("SZ")) { //$NON-NLS-1$//$NON-NLS-2$
-            return "TIMESTAMP";//$NON-NLS-1$
+            return "FLOAT"; //$NON-NLS-1$
+        } else if (sqlType.trim().equals("CF") || sqlType.trim().equals("BF")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            return "CHAR"; //$NON-NLS-1$
+        } else if (sqlType.trim().equals("CV") || sqlType.trim().equals("BV")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            return "VARCHAR"; //$NON-NLS-1$
+        } else if (sqlType.trim().equals("D")) { //$NON-NLS-1$ //$NON-NLS-2$
+            return "DECIMAL"; //$NON-NLS-1$
+        } else if (sqlType.trim().equals("TS") || sqlType.trim().equals("SZ")) { //$NON-NLS-1$ //$NON-NLS-2$
+            return "TIMESTAMP"; //$NON-NLS-1$
         } else if (sqlType.trim().equals("BO")) { //$NON-NLS-1$
-            return "BLOB";//$NON-NLS-1$
+            return "BLOB"; //$NON-NLS-1$
         } else if (sqlType.trim().equals("CO")) { //$NON-NLS-1$
-            return "CLOB";//$NON-NLS-1$
+            return "CLOB"; //$NON-NLS-1$
+        } else if (sqlType.trim().equals("YR")) { //$NON-NLS-1$
+            // Added yyin 20121211, TDQ-6099 :for type: INTERVAL_XXX
+            return "INTERVAL YEAR";//$NON-NLS-1$
+        } else if (sqlType.trim().equals("DH")) { //$NON-NLS-1$
+            return "INTERVAL DAY TO HOUR";//$NON-NLS-1$
+        } else if (sqlType.trim().equals("DM")) { //$NON-NLS-1$
+            return "INTERVAL DAY TO MINUTE";//$NON-NLS-1$
+        } else if (sqlType.trim().equals("DS")) { //$NON-NLS-1$ 
+            return "INTERVAL DAY TO SECOND";//$NON-NLS-1$
+        } else if (sqlType.trim().equals("DY")) { //$NON-NLS-1$
+            return "INTERVAL DAY";//$NON-NLS-1$
+        } else if (sqlType.trim().equals("HM")) { //$NON-NLS-1$
+            return "INTERVAL HOUR TO MINUTE";//$NON-NLS-1$
+        } else if (sqlType.trim().equals("HR")) { //$NON-NLS-1$
+            return "INTERVAL HOUR";//$NON-NLS-1$
+        } else if (sqlType.trim().equals("HS")) { //$NON-NLS-1$
+            return "INTERVAL HOUR TO SECOND";//$NON-NLS-1$
+        } else if (sqlType.trim().equals("MI")) { //$NON-NLS-1$
+            return "INTERVAL MINUTE";//$NON-NLS-1$
+        } else if (sqlType.trim().equals("MO")) { //$NON-NLS-1$
+            return "INTERVAL MONTH";//$NON-NLS-1$
+        } else if (sqlType.trim().equals("MS")) { //$NON-NLS-1$
+            return "INTERVAL MINUTE TO SECOND";//$NON-NLS-1$
+        } else if (sqlType.trim().equals("SC")) { //$NON-NLS-1$
+            return "INTERVAL SECOND";//$NON-NLS-1$
+        } else if (sqlType.trim().equals("YM")) { //$NON-NLS-1$
+            return "INTERVAL YEAR TO MONTH";//$NON-NLS-1$
+        } // ~
+        return ""; //$NON-NLS-1$
+    }
+
+    /**
+     * Added yyin 20121211, TDQ-6099 :judge if it is the type: INTERVAL_XXX, or : INTERVAL_XX_TO_XX
+     * 
+     * @param typeName
+     * @return 0: not INTERVAL; TERADATA_INTERVAL: INTERVAL_XX; TERADATA_INTERVAL_TO: INTERVAL_XX_TO_XX
+     */
+    public static int isTeradataIntervalType(String typeName) {
+        if (typeName != null && typeName.startsWith("INTERVAL")) {//$NON-NLS-1$
+            if (typeName.contains("TO")) {//INTERVAL_XX_TO_XX //$NON-NLS-1$
+                return TERADATA_INTERVAL_TO;
+            }
+            return TERADATA_INTERVAL;// INTERVAL_XX
         }
-        return "";//$NON-NLS-1$
+        return 0;
     }
 }
