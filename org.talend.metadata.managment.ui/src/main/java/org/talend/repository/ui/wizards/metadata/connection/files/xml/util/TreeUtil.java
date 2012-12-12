@@ -462,172 +462,164 @@ public class TreeUtil {
         return list;
     }
 
-    public static boolean getFoxTreeNodesForXmlMap(String filePath, Shell shell, List<FOXTreeNode> nodeList) {
-        try {
-            if (XmlUtil.isXSDFile(filePath)) {
-                XSDSchema xsdSchema = getXSDSchema(filePath);
-                List<ATreeNode> allTreeNodes = new XSDPopulationUtil2().getAllRootNodes(xsdSchema);
-                ATreeNode selectedTreeNode = null;
-                if (allTreeNodes != null && !allTreeNodes.isEmpty()) {
-                    if (allTreeNodes.size() > 1) {
-                        RootNodeSelectDialog dialog = new RootNodeSelectDialog(shell, allTreeNodes);
-                        if (dialog.open() == IDialogConstants.OK_ID) {
-                            selectedTreeNode = dialog.getSelectedNode();
-                        } else {
-                            return false;
-                        }
+    public static boolean getFoxTreeNodesForXmlMap(String filePath, Shell shell, List<FOXTreeNode> nodeList) throws Exception {
+        if (XmlUtil.isXSDFile(filePath)) {
+            XSDSchema xsdSchema = getXSDSchema(filePath);
+            List<ATreeNode> allTreeNodes = new XSDPopulationUtil2().getAllRootNodes(xsdSchema);
+            ATreeNode selectedTreeNode = null;
+            if (allTreeNodes != null && !allTreeNodes.isEmpty()) {
+                if (allTreeNodes.size() > 1) {
+                    RootNodeSelectDialog dialog = new RootNodeSelectDialog(shell, allTreeNodes);
+                    if (dialog.open() == IDialogConstants.OK_ID) {
+                        selectedTreeNode = dialog.getSelectedNode();
                     } else {
-                        selectedTreeNode = allTreeNodes.get(0);
+                        return false;
                     }
-                    // nodeList.addAll(getFoxTreeNodesByRootNode(xsdSchema, selectedTreeNode));
-                    nodeList.addAll(getFoxTreeNodesByRootNode(xsdSchema, selectedTreeNode, false, true, true));
+                } else {
+                    selectedTreeNode = allTreeNodes.get(0);
                 }
-            } else {
-                getFoxTreeNodesForXmlMap(filePath, nodeList);
+                // nodeList.addAll(getFoxTreeNodesByRootNode(xsdSchema, selectedTreeNode));
+                nodeList.addAll(getFoxTreeNodesByRootNode(xsdSchema, selectedTreeNode, false, true, true));
             }
-        } catch (Exception e) {
-            ExceptionHandler.process(e);
+        } else {
+            getFoxTreeNodesForXmlMap(filePath, nodeList);
         }
         return true;
 
     }
 
-    public static List<FOXTreeNode> getFoxTreeNodesForXmlMap(String filePath, String absoluteXPathQuery) {
+    public static List<FOXTreeNode> getFoxTreeNodesForXmlMap(String filePath, String absoluteXPathQuery) throws Exception {
         List<FOXTreeNode> list = new ArrayList<FOXTreeNode>();
         if (filePath == null) {
             return list;
         }
-        try {
-            XSDPopulationUtil2 popUtil = new XSDPopulationUtil2();
-            if (filePath.endsWith(".zip")) {
-                // unzip the file than add all treenode from unzip file
-                Project project = ProjectManager.getInstance().getCurrentProject();
-                IProject fsProject = null;
-                try {
-                    fsProject = ResourceModelUtils.getProject(project);
-                } catch (PersistenceException e2) {
-                    ExceptionHandler.process(e2);
-                }
-                IPath path = new Path(fsProject.getLocationURI().getPath());
-                path = path.append("temp").append("unzip_" + new Path(filePath).lastSegment());
-                String unzipPath = path.toPortableString();
-                File zip = new File(filePath);
-                if (zip.exists()) {
-                    try {
-                        FilesUtils.unzip(zip.getAbsolutePath(), unzipPath);
-                    } catch (Exception e) {
-                        ExceptionHandler.process(e);
-                    }
-                }
-                File unzipFile = new File(unzipPath);
-                List<ATreeNode> allTreeNodes = new ArrayList<ATreeNode>();
-                XSDSchema xsModel = null;
-                Map<XSDSchema, List<ATreeNode>> schemaTreeNodeMap = new HashMap<XSDSchema, List<ATreeNode>>();
-                if (unzipFile.exists() && unzipFile.isDirectory()) {
-                    File[] tempXSDFiles = unzipFile.listFiles();
-                    for (File tempXSDFile1 : tempXSDFiles) {
-                        popUtil.addSchema(tempXSDFile1.getAbsolutePath());
-                    }
-                    for (File tempXSDFile : tempXSDFiles) {
-                        XSDSchema tempXSD = popUtil.getXSDSchema(tempXSDFile.getAbsolutePath(), true);
-                        List<ATreeNode> tempTreeNodes = popUtil.getAllRootNodes(tempXSD);
-                        schemaTreeNodeMap.put(tempXSD, tempTreeNodes);
-                        allTreeNodes.addAll(tempTreeNodes);
-                    }
-                }
-                ATreeNode selectedTreeNode = null;
-                if (allTreeNodes != null && !allTreeNodes.isEmpty()) {
-                    if (allTreeNodes.size() > 1) {
-                        String[] split = absoluteXPathQuery.split("/");
-                        if (split.length > 1) {
-                            boolean found = false;
-                            for (int i = 0; i < allTreeNodes.size(); i++) {
-                                if (split[1] != null && split[1].equals(allTreeNodes.get(i).getValue())) {
-                                    selectedTreeNode = allTreeNodes.get(i);
-                                    found = true;
-                                    Set set = schemaTreeNodeMap.keySet();
-                                    Iterator it = set.iterator();
-                                    while (it.hasNext()) {
-                                        XSDSchema tempSchema = (XSDSchema) it.next();
-                                        List<ATreeNode> tempTreeNodes = schemaTreeNodeMap.get(tempSchema);
-                                        if (tempTreeNodes.contains(selectedTreeNode)) {
-                                            xsModel = tempSchema;
-                                        }
-                                    }
-                                    break;
-                                }
-                            }
-                            if (!found) {
-                                for (int i = 0; i < allTreeNodes.size(); i++) {
-                                    ATreeNode node = allTreeNodes.get(i);
-                                    String[] nodeValue = ((String) node.getValue()).split(":");
-                                    if (nodeValue.length > 1) {
-                                        if (split[1].equals(nodeValue[1])) {
-                                            List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
-                                            selectedTreeNode = allTreeNodes.get(i);
-                                            found = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        if (selectedTreeNode == null) {
-                            selectedTreeNode = allTreeNodes.get(0);
-                        }
-                    } else {
-                        selectedTreeNode = allTreeNodes.get(0);
-                    }
-                    list = getFoxTreeNodesByRootNode(popUtil, xsModel, selectedTreeNode, false, true, true);
-                }
-            } else if (XmlUtil.isXSDFile(filePath)) {
-                XSDSchema xsModel = getXSDSchema(popUtil, filePath);
-                List<ATreeNode> allTreeNodes = new XSDPopulationUtil2().getAllRootNodes(xsModel);
-                ATreeNode selectedTreeNode = null;
-                if (allTreeNodes != null && !allTreeNodes.isEmpty()) {
-                    if (allTreeNodes.size() > 1) {
-                        String[] split = absoluteXPathQuery.split("/");
-                        if (split.length > 1) {
-                            boolean found = false;
-                            for (int i = 0; i < allTreeNodes.size(); i++) {
-                                if (split[1] != null && split[1].equals(allTreeNodes.get(i).getValue())) {
-                                    selectedTreeNode = allTreeNodes.get(i);
-                                    found = true;
-                                    break;
-                                }
-                            }
-                            if (!found) {
-                                for (int i = 0; i < allTreeNodes.size(); i++) {
-                                    ATreeNode node = allTreeNodes.get(i);
-                                    String[] nodeValue = ((String) node.getValue()).split(":");
-                                    if (nodeValue.length > 1) {
-                                        if (split[1].equals(nodeValue[1])) {
-                                            List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
-                                            selectedTreeNode = allTreeNodes.get(i);
-                                            found = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        if (selectedTreeNode == null) {
-                            selectedTreeNode = allTreeNodes.get(0);
-                        }
-                    } else {
-                        selectedTreeNode = allTreeNodes.get(0);
-                    }
-
-                    // list = getFoxTreeNodesByRootNode(xsModel, selectedTreeNode);
-                    list = getFoxTreeNodesByRootNode(popUtil, xsModel, selectedTreeNode, false, true, true);
-                }
-            } else {
-                getFoxTreeNodesForXmlMap(filePath, list);
+        XSDPopulationUtil2 popUtil = new XSDPopulationUtil2();
+        if (filePath.endsWith(".zip")) {
+            // unzip the file than add all treenode from unzip file
+            Project project = ProjectManager.getInstance().getCurrentProject();
+            IProject fsProject = null;
+            try {
+                fsProject = ResourceModelUtils.getProject(project);
+            } catch (PersistenceException e2) {
+                ExceptionHandler.process(e2);
             }
-        } catch (Exception e) {
-            ExceptionHandler.process(e);
+            IPath path = new Path(fsProject.getLocationURI().getPath());
+            path = path.append("temp").append("unzip_" + new Path(filePath).lastSegment());
+            String unzipPath = path.toPortableString();
+            File zip = new File(filePath);
+            if (zip.exists()) {
+                try {
+                    FilesUtils.unzip(zip.getAbsolutePath(), unzipPath);
+                } catch (Exception e) {
+                    ExceptionHandler.process(e);
+                }
+            }
+            File unzipFile = new File(unzipPath);
+            List<ATreeNode> allTreeNodes = new ArrayList<ATreeNode>();
+            XSDSchema xsModel = null;
+            Map<XSDSchema, List<ATreeNode>> schemaTreeNodeMap = new HashMap<XSDSchema, List<ATreeNode>>();
+            if (unzipFile.exists() && unzipFile.isDirectory()) {
+                File[] tempXSDFiles = unzipFile.listFiles();
+                for (File tempXSDFile1 : tempXSDFiles) {
+                    popUtil.addSchema(tempXSDFile1.getAbsolutePath());
+                }
+                for (File tempXSDFile : tempXSDFiles) {
+                    XSDSchema tempXSD = popUtil.getXSDSchema(tempXSDFile.getAbsolutePath(), true);
+                    List<ATreeNode> tempTreeNodes = popUtil.getAllRootNodes(tempXSD);
+                    schemaTreeNodeMap.put(tempXSD, tempTreeNodes);
+                    allTreeNodes.addAll(tempTreeNodes);
+                }
+            }
+            ATreeNode selectedTreeNode = null;
+            if (allTreeNodes != null && !allTreeNodes.isEmpty()) {
+                if (allTreeNodes.size() > 1) {
+                    String[] split = absoluteXPathQuery.split("/");
+                    if (split.length > 1) {
+                        boolean found = false;
+                        for (int i = 0; i < allTreeNodes.size(); i++) {
+                            if (split[1] != null && split[1].equals(allTreeNodes.get(i).getValue())) {
+                                selectedTreeNode = allTreeNodes.get(i);
+                                found = true;
+                                Set set = schemaTreeNodeMap.keySet();
+                                Iterator it = set.iterator();
+                                while (it.hasNext()) {
+                                    XSDSchema tempSchema = (XSDSchema) it.next();
+                                    List<ATreeNode> tempTreeNodes = schemaTreeNodeMap.get(tempSchema);
+                                    if (tempTreeNodes.contains(selectedTreeNode)) {
+                                        xsModel = tempSchema;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            for (int i = 0; i < allTreeNodes.size(); i++) {
+                                ATreeNode node = allTreeNodes.get(i);
+                                String[] nodeValue = ((String) node.getValue()).split(":");
+                                if (nodeValue.length > 1) {
+                                    if (split[1].equals(nodeValue[1])) {
+                                        List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
+                                        selectedTreeNode = allTreeNodes.get(i);
+                                        found = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    if (selectedTreeNode == null) {
+                        selectedTreeNode = allTreeNodes.get(0);
+                    }
+                } else {
+                    selectedTreeNode = allTreeNodes.get(0);
+                }
+                list = getFoxTreeNodesByRootNode(popUtil, xsModel, selectedTreeNode, false, true, true);
+            }
+        } else if (XmlUtil.isXSDFile(filePath)) {
+            XSDSchema xsModel = getXSDSchema(filePath);
+            List<ATreeNode> allTreeNodes = new XSDPopulationUtil2().getAllRootNodes(xsModel);
+            ATreeNode selectedTreeNode = null;
+            if (allTreeNodes != null && !allTreeNodes.isEmpty()) {
+                if (allTreeNodes.size() > 1) {
+                    String[] split = absoluteXPathQuery.split("/");
+                    if (split.length > 1) {
+                        boolean found = false;
+                        for (int i = 0; i < allTreeNodes.size(); i++) {
+                            if (split[1] != null && split[1].equals(allTreeNodes.get(i).getValue())) {
+                                selectedTreeNode = allTreeNodes.get(i);
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            for (int i = 0; i < allTreeNodes.size(); i++) {
+                                ATreeNode node = allTreeNodes.get(i);
+                                String[] nodeValue = ((String) node.getValue()).split(":");
+                                if (nodeValue.length > 1) {
+                                    if (split[1].equals(nodeValue[1])) {
+                                        List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
+                                        selectedTreeNode = allTreeNodes.get(i);
+                                        found = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    if (selectedTreeNode == null) {
+                        selectedTreeNode = allTreeNodes.get(0);
+                    }
+                } else {
+                    selectedTreeNode = allTreeNodes.get(0);
+                }
+
+                // list = getFoxTreeNodesByRootNode(xsModel, selectedTreeNode);
+                list = getFoxTreeNodesByRootNode(xsModel, selectedTreeNode, false, true, true);
+            }
+        } else {
+            getFoxTreeNodesForXmlMap(filePath, list);
         }
         return list;
     }
