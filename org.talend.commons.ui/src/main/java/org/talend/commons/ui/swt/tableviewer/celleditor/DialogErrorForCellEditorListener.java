@@ -115,7 +115,7 @@ public abstract class DialogErrorForCellEditorListener implements ICellEditorLis
                                     Messages.getString("DialogErrorForCellEditorListener.Error.MsgDialogTitle"), errorMessage); //$NON-NLS-1$
                             final int columnPosition = tableViewerCreator.getColumns().indexOf(column);
                             tableViewerCreator.getTableViewer().editElement(currentModifiedBean, columnPosition);
-                            text.setText(newValue);
+                            text.setText("");
                             text.setSelection(selection.x, selection.y);
                         }
                     }
