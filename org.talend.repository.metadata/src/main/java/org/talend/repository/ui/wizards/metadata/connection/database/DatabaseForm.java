@@ -2219,8 +2219,15 @@ public class DatabaseForm extends AbstractForm {
                 EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(dbVersionCombo.getText());
                 s = template.getUrlTemplate(version);
             }
-            if (isHbase) {
-                urlConnectionStringText.setVisible(false);
+            if (isHbase || isDBTypeSelected(EDatabaseConnTemplate.ORACLE_RAC)) {
+                urlConnectionStringText.hide();
+            } else {
+                urlConnectionStringText.show();
+            }
+            if (isDBTypeSelected(EDatabaseConnTemplate.ORACLE_RAC)) {
+                serverText.setLabelText(Messages.getString("DatabaseForm.stringConnection")); //$NON-NLS-1$
+            } else {
+                serverText.setLabelText(Messages.getString("DatabaseForm.server")); //$NON-NLS-1$
             }
             urlConnectionStringText.setEditable(!visible);
             // schemaText.hide();
@@ -2401,6 +2408,14 @@ public class DatabaseForm extends AbstractForm {
         newParent.layout();
         databaseSettingGroup.layout();
         compositeGroupDbSettings.layout();
+    }
+
+    private boolean isDBTypeSelected(EDatabaseConnTemplate dbTemplate) {
+        if (dbTypeCombo == null) {
+            return false;
+        }
+        EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(dbTypeCombo.getText());
+        return template != null && template == dbTemplate;
     }
 
     /**
