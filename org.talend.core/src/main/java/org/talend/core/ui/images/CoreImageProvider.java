@@ -59,8 +59,10 @@ public class CoreImageProvider {
                 switch (iconSize) {
                 case ICON_16:
                     icon = component.getIcon16();
+                    break;
                 case ICON_24:
                     icon = component.getIcon24();
+                    break;
                 case ICON_32:
                 default:
                     icon = component.getIcon32();
