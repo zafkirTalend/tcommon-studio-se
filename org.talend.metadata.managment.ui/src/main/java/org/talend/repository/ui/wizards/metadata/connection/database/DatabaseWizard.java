@@ -404,7 +404,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                             }
                         } else {
                             DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
-                            if (dbConn != null && dbConn instanceof DatabaseConnection) {
+                            if (dbConn != null) {
                                 updateConnectionInformation(dbConn);
                             }
                         }
@@ -512,6 +512,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
      * 
      * @see org.talend.repository.ui.wizards.RepositoryWizard#getConnectionItem()
      */
+    @Override
     public ConnectionItem getConnectionItem() {
         return this.connectionItem;
     }
@@ -528,7 +529,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
         try {
             IMetadataConnection metaConnection = MetadataFillFactory.getDBInstance().fillUIParams(dbConn);
             dbConn = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(metaConnection, dbConn);
-            sqlConn = (java.sql.Connection) MetadataConnectionUtils.checkConnection(metaConnection).getObject();
+            sqlConn = MetadataConnectionUtils.checkConnection(metaConnection).getObject();
 
             dbType = metaConnection.getDbType();
             if (sqlConn != null) {
@@ -545,7 +546,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 ExtractMetaDataUtils.closeConnection();
             }
             Driver driver = MetadataConnectionUtils.getDerbyDriver();
