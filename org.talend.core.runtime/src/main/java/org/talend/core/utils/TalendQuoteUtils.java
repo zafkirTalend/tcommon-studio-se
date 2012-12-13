@@ -147,6 +147,16 @@ public final class TalendQuoteUtils {
         return str.replace("'", "\\'"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
+    /**
+     * For job script. it needs to transfer <code>\"</code> to <code>\\"</code>. Added by Marvin Wang on Dec 13, 2012.
+     */
+    public static String checkSlashQuotationMarks(String str) {
+        if (str == null) {
+            return ""; //$NON-NLS-1$
+        }
+        return str.replace("\\\"", "\\\\\""); //$NON-NLS-1$ //$NON-NLS-2$
+    }
+
     public static String checkStringQuotationMarks(String str) {
         if (str == null) {
             return ""; //$NON-NLS-1$
@@ -176,15 +186,17 @@ public final class TalendQuoteUtils {
 
         switch (language) {
         case JAVA:
-            if (text.startsWith(QUOTATION_MARK))
+            if (text.startsWith(QUOTATION_MARK)) {
                 return removeQuotes(text, QUOTATION_MARK);
-            else
+            } else {
                 return text;
+            }
         default: // PERL
-            if (text.startsWith(SINGLE_QUOTE))
+            if (text.startsWith(SINGLE_QUOTE)) {
                 return removeQuotes(text, SINGLE_QUOTE);
-            else
+            } else {
                 return text;
+            }
         }
     }
 
