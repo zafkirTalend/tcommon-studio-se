@@ -11,7 +11,6 @@ Export-Package:
  org.talend.utils.collections,
  org.talend.utils.color,
  org.talend.utils.dates,
- org.talend.utils.eclipse,
  org.talend.utils.files,
  org.talend.utils.format,
  org.talend.utils.io,

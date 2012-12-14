@@ -50,10 +50,8 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
-import org.eclipse.core.runtime.Path;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.i18n.internal.Messages;
@@ -166,6 +164,7 @@ public class FilesUtils {
 
         FileFilter folderFilter = new FileFilter() {
 
+            @Override
             public boolean accept(File pathname) {
                 return pathname.isDirectory() && (sourceFolderFilter == null || sourceFolderFilter.accept(pathname));
             }
@@ -173,6 +172,7 @@ public class FilesUtils {
         };
         FileFilter fileFilter = new FileFilter() {
 
+            @Override
             public boolean accept(File pathname) {
                 return !pathname.isDirectory() && (sourceFileFilter == null || sourceFileFilter.accept(pathname));
             }
@@ -475,6 +475,7 @@ public class FilesUtils {
     public static FileFilter getExcludeSystemFilesFilter() {
         FileFilter filter = new FileFilter() {
 
+            @Override
             public boolean accept(File pathname) {
                 return !isSVNFolder(pathname) && !pathname.toString().endsWith(".dummy"); //$NON-NLS-1$ 
             }
@@ -486,6 +487,7 @@ public class FilesUtils {
     public static FileFilter getAcceptJARFilesFilter() {
         FileFilter filter = new FileFilter() {
 
+            @Override
             public boolean accept(File pathname) {
                 return pathname.toString().toLowerCase().endsWith(".jar") || pathname.toString().toLowerCase().endsWith(".zip") || pathname.toString().toLowerCase().endsWith(".bar");//$NON-NLS-1$ //$NON-NLS-2$
             }
@@ -497,6 +499,7 @@ public class FilesUtils {
     public static FileFilter getAcceptModuleFilesFilter() {
         FileFilter filter = new FileFilter() {
 
+            @Override
             public boolean accept(File pathname) {
                 return pathname.toString().toLowerCase().endsWith(".jar") || pathname.toString().toLowerCase().endsWith(".zip") || pathname.toString().toLowerCase().endsWith(".bar") || pathname.toString().toLowerCase().endsWith(".properties");//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             }
@@ -512,6 +515,7 @@ public class FilesUtils {
     public static FileFilter getAcceptPMFilesFilter() {
         FileFilter filter = new FileFilter() {
 
+            @Override
             public boolean accept(File pathname) {
                 return pathname.toString().endsWith(".pm"); //$NON-NLS-1$
             }
@@ -545,26 +549,18 @@ public class FilesUtils {
      * @param path
      * @param pathIsFilePath if true the given path has a filename at last segment so this segment is not processed
      * @throws IOException
+     * @deprecated use instead {@link org.talend.utils.io.FilesUtils#createFoldersIfNotExists(String, boolean)}
      */
+    @Deprecated
     public static void createFoldersIfNotExists(String path, boolean pathIsFilePath) throws IOException {
-        Path completePath = new Path(path);
-        IPath pathFolder = null;
+        File filePath = new File(path);
+        File fileFolder = filePath;
         if (pathIsFilePath) {
-            pathFolder = completePath.removeLastSegments(1);
-        } else {
-            pathFolder = completePath;
+            fileFolder = filePath.getParentFile();
         }
 
-        File folder = new File(pathFolder.toOSString());
-        if (!folder.exists()) {
-
-            int size = pathFolder.segmentCount();
-            for (int i = 0; i < size; i++) {
-                folder = new File(pathFolder.uptoSegment(i + 1).toOSString());
-                if (!folder.exists()) {
-                    folder.mkdir();
-                }
-            }
+        if (!fileFolder.exists()) {
+            fileFolder.mkdirs();
         }
     }
 
@@ -629,9 +625,18 @@ public class FilesUtils {
         }
     }
 
+    /**
+     * 
+     * Method "extractPathFolderFromFilePath".
+     * 
+     * @param filePath
+     * @return
+     * @deprecated use instead {@link org.talend.utils.io.FilesUtils#extractPathFolderFromFilePath(String)}
+     */
+    @Deprecated
     public static String extractPathFolderFromFilePath(String filePath) {
-        Path completePath = new Path(filePath);
-        return completePath.removeLastSegments(1).toOSString();
+        File completePath = new File(filePath);
+        return completePath.getParent();
     }
 
     /**
@@ -719,6 +724,7 @@ public class FilesUtils {
         }
         File[] allFolders = aFolder.listFiles(new FileFilter() {
 
+            @Override
             public boolean accept(File arg0) {
                 return arg0.isDirectory();
             }
@@ -746,6 +752,7 @@ public class FilesUtils {
         ArrayList<File> fileList = new ArrayList<File>();
         getAllFilesFromFolder(migFolder, fileList, new FilenameFilter() {
 
+            @Override
             public boolean accept(File dir, String name) {
                 for (String extName : acceptFileExtentionNames) {
                     if (name.endsWith(extName)) {

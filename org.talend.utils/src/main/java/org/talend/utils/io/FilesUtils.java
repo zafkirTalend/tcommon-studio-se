@@ -37,8 +37,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
-import org.talend.utils.eclipse.IPath;
-import org.talend.utils.eclipse.Path;
 import org.talend.utils.sugars.ReturnCode;
 
 /**
@@ -312,7 +310,7 @@ public final class FilesUtils {
      * message.
      * @throws IOException
      */
-    public static ReturnCode createFoldersIfNotExists(String path) throws IOException {
+    public static ReturnCode createFoldersIfNotExists(String path) {
         return createFoldersIfNotExists(path, false);
     }
 
@@ -325,29 +323,18 @@ public final class FilesUtils {
      * message.
      * @throws IOException
      */
-    public static ReturnCode createFoldersIfNotExists(String path, boolean pathIsFilePath) throws IOException {
+    public static ReturnCode createFoldersIfNotExists(String path, boolean pathIsFilePath) {
         ReturnCode rc = new ReturnCode();
-        Path completePath = new Path(path);
-        IPath pathFolder = null;
+        File filePath = new File(path);
+        File fileFolder = filePath;
         if (pathIsFilePath) {
-            pathFolder = completePath.removeLastSegments(1);
-        } else {
-            pathFolder = completePath;
+            fileFolder = filePath.getParentFile();
         }
 
-        File folder = new File(pathFolder.toOSString());
-
-        if (!folder.exists()) {
-            int size = pathFolder.segmentCount();
-            for (int i = 0; i < size; i++) {
-                folder = new File(pathFolder.uptoSegment(i + 1).toOSString());
-                if (!folder.exists()) {
-                    if (!folder.mkdir()) {
-                        rc.setOk(false);
-                        rc.setMessage("Failed to create the directory: " + folder.getAbsolutePath());
-                        break;
-                    }
-                }
+        if (!fileFolder.exists()) {
+            if (!fileFolder.mkdirs()) {
+                rc.setOk(false);
+                rc.setMessage("Failed to create the directory: " + fileFolder.getAbsolutePath());
             }
         }
         return rc;
@@ -380,18 +367,6 @@ public final class FilesUtils {
                 out.write(b);
             }
             in.close();
-        }
-    }
-
-    public static void main(String[] args) {
-        try {
-            ReturnCode rc = createFoldersIfNotExists("/c:\\test\\test1/test2", false);
-            printFailure(rc);
-            rc = createFoldersIfNotExists("c:\\test10\\test11/test20/test.pl", true);
-            printFailure(rc);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         }
     }
 
@@ -428,8 +403,8 @@ public final class FilesUtils {
     }
 
     public static String extractPathFolderFromFilePath(String filePath) {
-        Path completePath = new Path(filePath);
-        return completePath.removeLastSegments(1).toOSString();
+        File completePath = new File(filePath);
+        return completePath.getParent();
     }
 
     public static long getChecksumAlder32(File file) throws IOException {
