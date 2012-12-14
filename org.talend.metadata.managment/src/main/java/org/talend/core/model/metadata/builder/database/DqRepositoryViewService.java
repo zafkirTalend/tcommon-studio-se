@@ -263,6 +263,9 @@ public final class DqRepositoryViewService {
             }
             java.sql.Connection connection = rcConn.getObject();
             try {
+                // Added yyin 20121211 TDQ-6099, for Teradata type, SQLMODE should be true, default is false
+                ((DatabaseConnection) dataProvider).setSQLMode(true);
+                // ~
                 DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(connection,
  (DatabaseConnection) dataProvider);
                 columnList = MetadataFillFactory.getDBInstance().fillColumns(columnSet, dm, null, null);
@@ -609,14 +612,6 @@ public final class DqRepositoryViewService {
         String[] tableType = new String[] { TableType.VIEW.toString() };
         DatabaseMetaData dbJDBCMetadata = null;
         if (dataProvider instanceof DatabaseConnection) {
-            // String databaseType = ((DatabaseConnection) dataProvider).getDatabaseType();
-            // EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(databaseType);
-            // if (dbType == EDatabaseTypeName.TERADATA) {
-            // IMetadataConnection metadataConnection = ConvertionHelper.convert(dataProvider);
-            // //MOD by zshen use sql mode to get table is slow so avoid it.
-            // metadataConnection.setSqlMode(false);
-            // ExtractMetaDataUtils.metadataCon = metadataConnection;
-            // }
             dbJDBCMetadata = ExtractMetaDataUtils.getDatabaseMetaData(connection, (DatabaseConnection) dataProvider, false);
         } else {
             TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.DBTYPE, dataProvider.getTaggedValue());
