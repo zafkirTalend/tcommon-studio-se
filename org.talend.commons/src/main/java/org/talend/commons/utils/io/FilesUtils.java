@@ -548,11 +548,10 @@ public class FilesUtils {
      * 
      * @param path
      * @param pathIsFilePath if true the given path has a filename at last segment so this segment is not processed
-     * @throws IOException
      * @deprecated use instead {@link org.talend.utils.io.FilesUtils#createFoldersIfNotExists(String, boolean)}
      */
     @Deprecated
-    public static void createFoldersIfNotExists(String path, boolean pathIsFilePath) throws IOException {
+    public static void createFoldersIfNotExists(String path, boolean pathIsFilePath) {
         File filePath = new File(path);
         File fileFolder = filePath;
         if (pathIsFilePath) {

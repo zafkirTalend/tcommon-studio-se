@@ -308,7 +308,6 @@ public final class FilesUtils {
      * @param path
      * @return the return code with a non null error message if the state is false. When the state is ok, there is no
      * message.
-     * @throws IOException
      */
     public static ReturnCode createFoldersIfNotExists(String path) {
         return createFoldersIfNotExists(path, false);
@@ -321,7 +320,6 @@ public final class FilesUtils {
      * @param pathIsFilePath if true the given path has a filename at last segment so this segment is not processed
      * @return the return code with a non null error message if the state is false. When the state is ok, there is no
      * message.
-     * @throws IOException
      */
     public static ReturnCode createFoldersIfNotExists(String path, boolean pathIsFilePath) {
         ReturnCode rc = new ReturnCode();
