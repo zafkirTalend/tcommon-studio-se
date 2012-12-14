@@ -978,10 +978,12 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     protected void evaluateFields() {
         evaluateTextField();
-
     }
 
     protected void evaluateTextField() {
+        if (readOnly) {
+            return;
+        }
         if (nameText == null || nameText.isDisposed()) {
             return;
         }
