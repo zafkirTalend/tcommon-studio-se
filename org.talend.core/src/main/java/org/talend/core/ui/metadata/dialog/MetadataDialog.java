@@ -75,8 +75,6 @@ public class MetadataDialog extends Dialog {
 
     private static final String DATABASE_LABEL = "Database"; //$NON-NLS-1$
 
-    private static final String ELT_LABEL = "ELT"; //$NON-NLS-1$
-
     @Override
     protected void setShellStyle(int newShellStyle) {
         newShellStyle = newShellStyle | SWT.RESIZE;
@@ -188,7 +186,7 @@ public class MetadataDialog extends Dialog {
         boolean hasRepositoryDbSchema = false;
         boolean isEBCDIC = false;
         if (node != null && node.getComponent() != null) {
-            eltComponent = node.getComponent().getOriginalFamilyName().startsWith(ELT_LABEL);
+            eltComponent = node.isELTComponent();
             isEBCDIC = node.getComponent().getName().contains("EBCDIC");
             if (node.getComponent().getOriginalFamilyName().startsWith(DATABASE_LABEL) || eltComponent || isEBCDIC) {
                 dbComponent = true && !isEBCDIC;
@@ -266,7 +264,7 @@ public class MetadataDialog extends Dialog {
 
         metaView.setShowDbTypeColumn(hasMappingType || eltComponent, false, hasMappingType
                 || (dbComponent && !hasRepositoryDbSchema));
-        metaView.setShowDbColumnName(dbComponent && (!eltComponent), hasMappingType || (dbComponent && !hasRepositoryDbSchema));
+        metaView.setShowDbColumnName(dbComponent, hasMappingType || (dbComponent && !hasRepositoryDbSchema));
 
         // hide the talend type for ELT components
         metaView.setShowTalendTypeColumn(!eltComponent);
