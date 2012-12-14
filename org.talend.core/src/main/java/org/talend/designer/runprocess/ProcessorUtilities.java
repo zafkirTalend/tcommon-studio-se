@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -33,7 +32,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.ui.IEditorPart;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.PersistenceException;
@@ -98,6 +96,8 @@ public class ProcessorUtilities {
     private static List<IEditorPart> openedEditors = new ArrayList<IEditorPart>();
 
     private static boolean codeModified;
+
+    private static boolean needContextInCurrentGeneration = true;
 
     private static IDesignerCoreService designerCoreService = (IDesignerCoreService) GlobalServiceRegister.getDefault()
             .getService(IDesignerCoreService.class);
@@ -295,8 +295,9 @@ public class ProcessorUtilities {
     }
 
     private static IProcessor generateCode(IProcessor processor2, JobInfo jobInfo, String selectedContextName,
-            boolean statistics, boolean trace, boolean properties, int option, IProgressMonitor progressMonitor)
+            boolean statistics, boolean trace, boolean needContext, int option, IProgressMonitor progressMonitor)
             throws ProcessorException {
+        needContextInCurrentGeneration = needContext;
         if (progressMonitor == null) {
             progressMonitor = new NullProgressMonitor();
         }
@@ -377,7 +378,7 @@ public class ProcessorUtilities {
         }
         resetRunJobComponentParameterForContextApply(jobInfo, currentProcess, selectedContextName);
 
-        generateNodeInfo(jobInfo, selectedContextName, statistics, option, progressMonitor, currentProcess);
+        generateNodeInfo(jobInfo, selectedContextName, statistics, needContext, option, progressMonitor, currentProcess);
 
         IProcessor processor = null;
         if (processor2 != null) {
@@ -393,7 +394,7 @@ public class ProcessorUtilities {
         // generate the code of the father after the childrens
         // so the code won't have any error during the check, and it will help to check
         // if the generation is really needed.
-        generateContextInfo(jobInfo, selectedContextName, statistics, trace, properties, progressMonitor, currentProcess,
+        generateContextInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
                 currentJobName, processor);
 
         /*
@@ -454,18 +455,19 @@ public class ProcessorUtilities {
             CorePlugin.getDefault().getRunProcessService().updateLibraries(jarList, currentProcess);
             if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA && codeModified) {
                 try {
-                    ((IJavaProject) CorePlugin.getDefault().getRunProcessService().getJavaProject()).getProject().build(
-                            IncrementalProjectBuilder.AUTO_BUILD, null);
+                    CorePlugin.getDefault().getRunProcessService().getJavaProject().getProject()
+                            .build(IncrementalProjectBuilder.AUTO_BUILD, null);
                 } catch (CoreException e) {
                     throw new ProcessorException(e);
                 }
             }
+            needContextInCurrentGeneration = true;
             codeModified = false;
         }
     }
 
     private static void generateContextInfo(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean trace,
-            boolean properties, IProgressMonitor progressMonitor, IProcess currentProcess, String currentJobName,
+            boolean needContext, IProgressMonitor progressMonitor, IProcess currentProcess, String currentJobName,
             IProcessor processor) throws ProcessorException {
         if (isCodeGenerationNeeded(jobInfo, statistics, trace)) {
             codeModified = true;
@@ -483,25 +485,27 @@ public class ProcessorUtilities {
             }
 
             // always generate all context files.
-            List<IContext> list = currentProcess.getContextManager().getListContext();
-            for (IContext context : list) {
-                if (context.getName().equals(currentContext.getName())) {
-                    processor.setContext(currentContext); // generate current context.
-                } else {
-                    processor.setContext(context);
-                }
-                LastGenerationInfo.getInstance().getContextPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
-                        .add(context.getName());
-                try {
-                    processor.generateContextCode();
-                } catch (ProcessorException pe) {
-                    ExceptionHandler.process(pe);
+            if (needContext) {
+                List<IContext> list = currentProcess.getContextManager().getListContext();
+                for (IContext context : list) {
+                    if (context.getName().equals(currentContext.getName())) {
+                        processor.setContext(currentContext); // generate current context.
+                    } else {
+                        processor.setContext(context);
+                    }
+                    LastGenerationInfo.getInstance().getContextPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
+                            .add(context.getName());
+                    try {
+                        processor.generateContextCode();
+                    } catch (ProcessorException pe) {
+                        ExceptionHandler.process(pe);
+                    }
                 }
             }
 
             processor.setContext(currentContext);
             // main job will use stats / traces
-            processor.generateCode(statistics, trace, properties, exportAsOSGI);
+            processor.generateCode(statistics, trace, true, exportAsOSGI);
             if (currentProcess instanceof IProcess2 && ((IProcess2) currentProcess).getProperty() != null) {
                 designerCoreService.getLastGeneratedJobsDateMap().put(currentProcess.getId(),
                         ((IProcess2) currentProcess).getProperty().getModificationDate());
@@ -520,7 +524,8 @@ public class ProcessorUtilities {
     }
 
     private static IProcessor generateCode(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean trace,
-            boolean properties, int option, IProgressMonitor progressMonitor) throws ProcessorException {
+            boolean needContext, int option, IProgressMonitor progressMonitor) throws ProcessorException {
+        needContextInCurrentGeneration = needContext;
         TimeMeasure.display = CommonsPlugin.isDebugMode();
         TimeMeasure.displaySteps = CommonsPlugin.isDebugMode();
         TimeMeasure.measureActive = CommonsPlugin.isDebugMode();
@@ -623,7 +628,7 @@ public class ProcessorUtilities {
             }
             resetRunJobComponentParameterForContextApply(jobInfo, currentProcess, selectedContextName);
 
-            generateNodeInfo(jobInfo, selectedContextName, statistics, option, progressMonitor, currentProcess);
+            generateNodeInfo(jobInfo, selectedContextName, statistics, needContext, option, progressMonitor, currentProcess);
             TimeMeasure.step(idTimer, "generateNodeInfo");
 
             IProcessor processor = null;
@@ -633,7 +638,7 @@ public class ProcessorUtilities {
                 processor = getProcessor(currentProcess, selectedProcessItem.getProperty());
             }
 
-            generateContextInfo(jobInfo, selectedContextName, statistics, trace, properties, progressMonitor, currentProcess,
+            generateContextInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
                     currentJobName, processor);
             TimeMeasure.step(idTimer, "generateContextInfo");
 
@@ -684,8 +689,8 @@ public class ProcessorUtilities {
         }
     }
 
-    private static void generateNodeInfo(JobInfo jobInfo, String selectedContextName, boolean statistics, int option,
-            IProgressMonitor progressMonitor, IProcess currentProcess) throws ProcessorException {
+    private static void generateNodeInfo(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean properties,
+            int option, IProgressMonitor progressMonitor, IProcess currentProcess) throws ProcessorException {
         if (option != GENERATE_MAIN_ONLY) {
             // handle subjob in joblet. see bug 004937: tRunJob in a Joblet
             List<? extends INode> graphicalNodes = currentProcess.getGeneratingNodes();
@@ -741,11 +746,11 @@ public class ProcessorUtilities {
                             if (!jobList.contains(subJobInfo)) {
                                 // children won't have stats / traces
                                 if (option == GENERATE_WITH_FIRST_CHILD) {
-                                    generateCode(subJobInfo, selectedContextName, statistics, false, true, GENERATE_MAIN_ONLY,
-                                            progressMonitor);
+                                    generateCode(subJobInfo, selectedContextName, statistics, false, properties,
+                                            GENERATE_MAIN_ONLY, progressMonitor);
                                 } else {
-                                    generateCode(subJobInfo, selectedContextName, statistics, false, true, GENERATE_ALL_CHILDS,
-                                            progressMonitor);
+                                    generateCode(subJobInfo, selectedContextName, statistics, false, properties,
+                                            GENERATE_ALL_CHILDS, progressMonitor);
                                     currentProcess.setNeedRegenerateCode(true);
                                 }
                                 LastGenerationInfo
@@ -815,8 +820,7 @@ public class ProcessorUtilities {
             String selectedContextName) {
 
         if (jobInfo.isApplyContextToChildren()) {
-            for (Iterator<? extends INode> iter = currentProcess.getGeneratingNodes().iterator(); iter.hasNext();) {
-                INode node = iter.next();
+            for (INode node : currentProcess.getGeneratingNodes()) {
                 if ((node != null) && node.getComponent().getName().equals("tRunJob")) { //$NON-NLS-1$
                     // the corresponding parameter is
                     // EParameterName.PROCESS_TYPE_CONTEXT
@@ -888,16 +892,8 @@ public class ProcessorUtilities {
     }
 
     public static IProcessor generateCode(ProcessItem process, String contextName, String version, boolean statistics,
-            boolean trace, boolean applyContextToChildren, boolean isExportedAsOSGI, IProgressMonitor... monitors)
+            boolean trace, boolean applyContextToChildren, boolean needContext, IProgressMonitor... monitors)
             throws ProcessorException {
-        exportAsOSGI = isExportedAsOSGI;
-        IProcessor result = generateCode(process, contextName, version, statistics, trace, applyContextToChildren, monitors);
-        exportAsOSGI = false;
-        return result;
-    }
-
-    public static IProcessor generateCode(ProcessItem process, String contextName, String version, boolean statistics,
-            boolean trace, boolean applyContextToChildren, IProgressMonitor... monitors) throws ProcessorException {
         IProgressMonitor monitor = null;
         if (monitors == null) {
             monitor = new NullProgressMonitor();
@@ -907,7 +903,7 @@ public class ProcessorUtilities {
         JobInfo jobInfo = new JobInfo(process, contextName, version);
         jobInfo.setApplyContextToChildren(applyContextToChildren);
         jobList.clear();
-        IProcessor result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS, monitor);
+        IProcessor result = generateCode(jobInfo, contextName, statistics, trace, needContext, GENERATE_ALL_CHILDS, monitor);
         jobList.clear();
         return result;
     }
@@ -1131,14 +1127,13 @@ public class ProcessorUtilities {
         IProcessor processor = getProcessor(currentProcess, selectedProcessItem.getProperty(), currentContext);
         String[] cmd = new String[] { processor.getCodePath().removeFirstSegments(1).toString().replace("/", ".") }; //$NON-NLS-1$ //$NON-NLS-2$
         if (codeOptions != null) {
-            for (int i = 0; i < codeOptions.length; i++) {
-                String string = codeOptions[i];
+            for (String string : codeOptions) {
                 if (string != null) {
                     cmd = (String[]) ArrayUtils.add(cmd, string);
                 }
             }
         }
-        if (contextName != null && !contextName.equals("")) {
+        if (needContextInCurrentGeneration && contextName != null && !contextName.equals("")) {
             cmd = (String[]) ArrayUtils.add(cmd, "--context=" + contextName); //$NON-NLS-1$
         }
         if (statisticPort != -1) {
@@ -1290,12 +1285,30 @@ public class ProcessorUtilities {
         sb.append(""); //$NON-NLS-1$
         if (cmd != null && cmd.length > 0) {
             for (String s : cmd) {
-                sb.append(s).append(' '); //$NON-NLS-1$
+                sb.append(s).append(' ');
             }
         }
         String commandStr = CorePlugin.getDefault().getPreferenceStore().getString(ITalendCorePrefConstants.COMMAND_STR);
         String finalCommand = commandStr.replace(ITalendCorePrefConstants.DEFAULT_COMMAND_STR, sb.toString());
         return finalCommand;
+    }
+
+    /**
+     * Getter for exportAsOSGI.
+     * 
+     * @return the exportAsOSGI
+     */
+    public static boolean isExportAsOSGI() {
+        return exportAsOSGI;
+    }
+
+    /**
+     * Sets the exportAsOSGI.
+     * 
+     * @param exportAsOSGI the exportAsOSGI to set
+     */
+    public static void setExportAsOSGI(boolean exportAsOSGI) {
+        ProcessorUtilities.exportAsOSGI = exportAsOSGI;
     }
 
 }
