@@ -159,10 +159,8 @@ public final class TaggedValueHelper {
 
     public static final String JAR_FILE_PATH = "JAR_FILE_PATH";//$NON-NLS-1$
 
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // This attribute is for the purpose of comparing URL from the connection's URL when reloading the connection
-    // manually only.
-    public static final String USING_URL = "Using URL";//$NON-NLS-1$
+    // Added yyin 20121203 TDQ-6497 use "IS_DB_NEED_RELOAD" to replace "USING_URL"
+    public static final String IS_CONN_NEED_RELOAD = "Is Conn Need Reload";//$NON-NLS-1$
 
     private TaggedValueHelper() {
     }

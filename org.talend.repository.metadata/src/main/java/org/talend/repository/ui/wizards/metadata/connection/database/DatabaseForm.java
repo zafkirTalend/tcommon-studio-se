@@ -301,7 +301,8 @@ public class DatabaseForm extends AbstractForm {
         // Changed by Marvin Wang on Oct. 29, 2012.
         this.metadataconnection = ConvertionHelper.convert(getConnection(), true);
 
-        originalUischema = metadataconnection.getUiSchema();
+        originalUischema = metadataconnection.getUiSchema() == null ? "" : metadataconnection.getUiSchema();
+//        originalUischema = metadataconnection.getUiSchema();
         originalURL = metadataconnection.getUrl();
 
         this.typeName = EDatabaseTypeName.getTypeFromDbType(metadataconnection.getDbType());
@@ -1517,7 +1518,9 @@ public class DatabaseForm extends AbstractForm {
             }
 
         });
-        // MOD yyin 20121130 TDQ-6485 check setURL only when the schema is changed.
+        // MOD yyin 20121203 TDQ-6485: when the url or schema changed, will need reload db. if neither of them changed,
+        // doNOT popup the reload dialog(no need to reload)
+        // check setURL only when the schema is changed.
         schemaText.addFocusListener(new FocusListener() {
 
             public void focusGained(FocusEvent e) {
@@ -1528,9 +1531,28 @@ public class DatabaseForm extends AbstractForm {
                 if (!isContextMode()) {
                     if (originalUischema != null) {
                         if (!originalUischema.equalsIgnoreCase(schemaText.getText())) {
-                            ConnectionHelper.setUsingURL(getConnection(), getConnection().getURL() + "change Schema"); //$NON-NLS-1$
-                        } else if (originalURL.equalsIgnoreCase(getConnection().getURL().replace("change Schema", ""))) {
-                            ConnectionHelper.setUsingURL(getConnection(), originalURL);
+                            ConnectionHelper.setIsConnNeedReload(getConnection(), Boolean.TRUE);
+                        } else if (originalURL.equalsIgnoreCase(getConnection().getURL())) {
+                            ConnectionHelper.setIsConnNeedReload(getConnection(), Boolean.FALSE);
+                        }
+                    }
+                }
+            }
+        });
+        // when the url is changed,need to reload db.
+        sidOrDatabaseText.addFocusListener(new FocusListener() {
+
+            public void focusGained(FocusEvent e) {
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (!isContextMode()) {
+                    if (originalURL != null) {
+                        if (!originalURL.equalsIgnoreCase(getConnection().getURL())) {
+                            ConnectionHelper.setIsConnNeedReload(getConnection(), Boolean.TRUE);
+                        } else if (originalUischema.equalsIgnoreCase(schemaText.getText())) {
+                            ConnectionHelper.setIsConnNeedReload(getConnection(), Boolean.FALSE);
                         }
                     }
                 }
@@ -1859,27 +1881,6 @@ public class DatabaseForm extends AbstractForm {
 
         // Registers all listeners of hive widgets.
         regHiveRelatedWidgetsListeners();
-
-        // urlConnectionStringText : Event modifyText
-        // urlConnectionStringText.addModifyListener(new ModifyListener() {
-        //
-        // public void modifyText(final ModifyEvent e) {
-        // if (!isContextMode()) {
-        // getConnection().setURL(urlConnectionStringText.getText());
-        // getConnection().setServerName(serverText.getText());
-        // getConnection().setPort(portText.getText());
-        // getConnection().setUsername(usernameText.getText());
-        // getConnection().setPassword(passwordText.getText());
-        // getConnection().setSID(sidOrDatabaseText.getText());
-        // getConnection().setDatasourceName(datasourceText.getText());
-        // getConnection().setSchema(schemaText.getText());
-        // getConnection().setDatabaseType(dbTypeCombo.getText());
-        // getConnection().setFileFieldName(fileField.getText());
-        // getConnection().setDBRootPath(directoryField.getText());
-        // getConnection().setAdditionalParams(additionParamText.getText());
-        // }
-        // }
-        // });
 
     }
 
