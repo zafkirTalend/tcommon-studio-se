@@ -15,7 +15,6 @@ package org.talend.repository;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -69,8 +68,6 @@ public final class ProjectManager {
     private Project currentProject;
 
     private List<Project> referencedprojects = new ArrayList<Project>();
-
-    private List<IProjectRepositoryNode> viewProjectNodes = new ArrayList<IProjectRepositoryNode>();
 
     private List<Project> allReferencedprojects = new ArrayList<Project>();
 
@@ -390,45 +387,6 @@ public final class ProjectManager {
             foldersMap.put(project.getTechnicalLabel(), new ArrayList<FolderItem>());
         }
         return foldersMap.get(project.getTechnicalLabel());
-    }
-
-    public synchronized void updateViewProjectNode(IProjectRepositoryNode projectRepNode) {
-        if (projectRepNode != null) {
-            final Iterator<IProjectRepositoryNode> iterator = viewProjectNodes.iterator();
-            while (iterator.hasNext()) {
-                IProjectRepositoryNode tmpProjectNode = iterator.next();
-                // remove the old one.
-                if (tmpProjectNode.getProject().getTechnicalLabel().equals(projectRepNode.getProject().getTechnicalLabel())) {
-                    iterator.remove();
-                    // FIXME, later will check this to make sure work well. just now, disable on trunk only.
-                    // if (tmpProjectNode instanceof RepositoryNode) {
-                    // ((RepositoryNode) tmpProjectNode).setEnableDisposed(true);
-                    // }
-                    //
-                    // tmpProjectNode.dispose();
-                }
-            }
-            viewProjectNodes.add(projectRepNode);
-        }
-    }
-
-    public synchronized IProjectRepositoryNode getProjectNode(String projectName) {
-        if (projectName != null) {
-            final Iterator<IProjectRepositoryNode> iterator = viewProjectNodes.iterator();
-            while (iterator.hasNext()) {
-                final IProjectRepositoryNode tmpProjectNode = iterator.next();
-                if (tmpProjectNode.getProject().getTechnicalLabel().equals(projectName)) {
-                    return tmpProjectNode;
-                }
-            }
-        }
-        return null;
-    }
-
-    public synchronized void cleanupViewProjects() {
-        if (viewProjectNodes != null) {
-            viewProjectNodes.clear();
-        }
     }
 
     public static boolean enableSpecialTechnicalProjectName() {
