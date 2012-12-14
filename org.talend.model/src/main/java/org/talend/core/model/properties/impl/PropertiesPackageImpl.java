@@ -5938,6 +5938,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getReferenceItem_ReloadFromFile() {
+        return (EAttribute)referenceItemEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getExchangeUser() {
         return exchangeUserEClass;
     }
@@ -6821,6 +6830,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         referenceItemEClass = createEClass(REFERENCE_ITEM);
         createEReference(referenceItemEClass, REFERENCE_ITEM__STATE);
         createEReference(referenceItemEClass, REFERENCE_ITEM__PARENT);
+        createEAttribute(referenceItemEClass, REFERENCE_ITEM__RELOAD_FROM_FILE);
 
         exchangeUserEClass = createEClass(EXCHANGE_USER);
         createEAttribute(exchangeUserEClass, EXCHANGE_USER__USERNAME);
@@ -7585,6 +7595,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(referenceItemEClass, ReferenceItem.class, "ReferenceItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getReferenceItem_State(), this.getItemState(), null, "state", null, 0, 1, ReferenceItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getReferenceItem_Parent(), theEcorePackage.getEObject(), null, "parent", null, 0, 1, ReferenceItem.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getReferenceItem_ReloadFromFile(), theEcorePackage.getEBoolean(), "reloadFromFile", "true", 0, 1, ReferenceItem.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(exchangeUserEClass, ExchangeUser.class, "ExchangeUser", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getExchangeUser_Username(), ecorePackage.getEString(), "username", null, 0, 1, ExchangeUser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

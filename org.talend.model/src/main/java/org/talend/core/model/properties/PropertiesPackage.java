@@ -8757,13 +8757,22 @@ public interface PropertiesPackage extends EPackage {
     int REFERENCE_ITEM__PARENT = 1;
 
     /**
+     * The feature id for the '<em><b>Reload From File</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REFERENCE_ITEM__RELOAD_FROM_FILE = 2;
+
+    /**
      * The number of structural features of the '<em>Reference Item</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int REFERENCE_ITEM_FEATURE_COUNT = 2;
+    int REFERENCE_ITEM_FEATURE_COUNT = 3;
 
     /**
      * The feature id for the '<em><b>State</b></em>' reference.
@@ -8782,6 +8791,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int REFERENCE_FILE_ITEM__PARENT = REFERENCE_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reload From File</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REFERENCE_FILE_ITEM__RELOAD_FROM_FILE = REFERENCE_ITEM__RELOAD_FROM_FILE;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -13840,6 +13858,17 @@ public interface PropertiesPackage extends EPackage {
     EReference getReferenceItem_Parent();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ReferenceItem#isReloadFromFile <em>Reload From File</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Reload From File</em>'.
+     * @see org.talend.core.model.properties.ReferenceItem#isReloadFromFile()
+     * @see #getReferenceItem()
+     * @generated
+     */
+    EAttribute getReferenceItem_ReloadFromFile();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExchangeUser <em>Exchange User</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -18874,6 +18903,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference REFERENCE_ITEM__PARENT = eINSTANCE.getReferenceItem_Parent();
+
+        /**
+         * The meta object literal for the '<em><b>Reload From File</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute REFERENCE_ITEM__RELOAD_FROM_FILE = eINSTANCE.getReferenceItem_ReloadFromFile();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExchangeUserImpl <em>Exchange User</em>}' class.
