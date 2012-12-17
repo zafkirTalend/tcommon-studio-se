@@ -269,7 +269,9 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
                 // addUtilsButtonListeners() in addFields() method
 
                 XmlFileConnection connection2 = getConnection();
-                connection2.setContextName(null);
+                if (connection2.isContextMode()) {
+                    connection2.setContextName(null);
+                }
                 String tempXmlFilePath = getContextXmlPath(connection2);
 
                 if (connection2.getXmlFilePath() == null || connection2.getXmlFilePath().equals("")) { //$NON-NLS-1$
