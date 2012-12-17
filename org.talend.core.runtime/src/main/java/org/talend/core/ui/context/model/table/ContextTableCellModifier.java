@@ -127,7 +127,7 @@ public class ContextTableCellModifier extends AbstractContextCellModifier {
                 }
             } else if (element instanceof ContextTableTabChildModel) {
                 ContextTableTabChildModel child = (ContextTableTabChildModel) element;
-                para = child.getContextParameter();
+                para = context.getContextParameter(child.getContextParameter().getName());
             }
         }
         return para;
