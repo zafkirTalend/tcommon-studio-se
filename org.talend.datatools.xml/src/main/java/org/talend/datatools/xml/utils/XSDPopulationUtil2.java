@@ -75,8 +75,11 @@ public class XSDPopulationUtil2 {
     }
 
     public XSDSchema getXSDSchema(String fileName) throws URISyntaxException, MalformedURLException {
+        return getXSDSchema(fileName, false);
+    }
+
+    public XSDSchema getXSDSchema(String fileName, boolean forceReload) throws URISyntaxException, MalformedURLException {
         // Create a resource set and load the main schema file into it.
-        //
         XSDResourceImpl mainXsdResource = (XSDResourceImpl) resourceSet.getResource(URI.createFileURI(fileName), true);
 
         boolean haveExternalDependenciesWithoutLocation = false;
@@ -106,7 +109,7 @@ public class XSDPopulationUtil2 {
         }
 
         XSDSchema xsdSchema = mainXsdResource.getSchema();
-        if (haveExternalDependenciesWithoutLocation) {
+        if (forceReload || haveExternalDependenciesWithoutLocation) {
             // force to set the element again, it will set automatically the dependencies
             xsdSchema.setElement(xsdSchema.getDocument().getDocumentElement());
         }
@@ -318,8 +321,8 @@ public class XSDPopulationUtil2 {
             XSDModelGroup xsdModelGroup = (XSDModelGroup) xsdTerm;
             ATreeNode node = addChoiceDetails(parentNode, xsdModelGroup);
             handleOptionalAttribute(node, xsdParticle);
-            for (Iterator j = xsdModelGroup.getParticles().iterator(); j.hasNext();) {
-                XSDParticle childParticle = (XSDParticle) j.next();
+            for (Object element : xsdModelGroup.getParticles()) {
+                XSDParticle childParticle = (XSDParticle) element;
                 addParticleDetail(xsdSchema, childParticle, node, currentPath);
             }
         }
@@ -690,8 +693,8 @@ public class XSDPopulationUtil2 {
         if (xsdComplexTypeDefinition.getContentType() instanceof XSDParticle) {
             addParticleDetail(xsdSchema, (XSDParticle) xsdComplexTypeDefinition.getContentType(), node, currentPath);
         }
-        for (Iterator attributeUses = xsdComplexTypeDefinition.getAttributeUses().iterator(); attributeUses.hasNext();) {
-            XSDAttributeUse xsdAttributeUse = (XSDAttributeUse) attributeUses.next();
+        for (Object element : xsdComplexTypeDefinition.getAttributeUses()) {
+            XSDAttributeUse xsdAttributeUse = (XSDAttributeUse) element;
             XSDAttributeDeclaration xsdAttributeDeclaration = xsdAttributeUse.getAttributeDeclaration();
             String attributeDeclarationName = xsdAttributeDeclaration.getName();
             ATreeNode childNode = new ATreeNode();
