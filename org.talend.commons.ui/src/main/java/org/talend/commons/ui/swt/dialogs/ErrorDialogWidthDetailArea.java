@@ -47,17 +47,20 @@ public class ErrorDialogWidthDetailArea {
      * @param detailMessage (\n an \t are interpreted ; \r are deleted)
      */
     public ErrorDialogWidthDetailArea(Shell shell, String pid, String mainMessage, String detailMessage) {
+        this(shell, pid, mainMessage, detailMessage, IStatus.INFO);
+    }
+
+    public ErrorDialogWidthDetailArea(Shell shell, String pid, String mainMessage, String detailMessage, int status) {
         MultiStatus info = new MultiStatus(pid, 1, mainMessage, null);
         if (detailMessage != null) {
             String[] lines = detailMessage.split("\n"); //$NON-NLS-1$
-            for (int i = 0; i < lines.length; i++) {
-                info
-                        .add(new Status(IStatus.INFO, pid, 1, lines[i].replaceAll("\t", "    ").replaceAll("\r", ""), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-                                null));
+            for (String line : lines) {
+                info.add(new Status(status, pid, 1, line.replaceAll("\t", "    ").replaceAll("\r", ""), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+                        null));
             }
         }
         codeOfButton = ErrorDialog.openError(shell, Messages.getString("ErrorDialogWidthDetailArea.ErrorMessage.Text"), //$NON-NLS-1$
-                null, info); //$NON-NLS-1$
+                null, info);
     }
 
     public int getCodeOfButton() {
