@@ -97,7 +97,15 @@ public class SchemaPopulationUtil {
 
     public static ATreeNode getSchemaTree(XSDSchema schema, ATreeNode selectedNode) throws OdaException, URISyntaxException,
             IOException {
-        return new XSDPopulationUtil2().getSchemaTree(schema, selectedNode);
+        return getSchemaTree(null, schema, selectedNode);
+    }
+
+    public static ATreeNode getSchemaTree(XSDPopulationUtil2 popUtil, XSDSchema schema, ATreeNode selectedNode)
+            throws OdaException, URISyntaxException, IOException {
+        if (popUtil == null) {
+            popUtil = new XSDPopulationUtil2();
+        }
+        return popUtil.getSchemaTree(schema, selectedNode);
     }
 
     public static ATreeNode getSchemaTree(XSDSchema schema, ATreeNode selectedNode, boolean supportChoice,

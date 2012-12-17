@@ -32,6 +32,7 @@ import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.datatools.xml.utils.ATreeNode;
 import org.talend.datatools.xml.utils.OdaException;
 import org.talend.datatools.xml.utils.SchemaPopulationUtil;
+import org.talend.datatools.xml.utils.XSDPopulationUtil2;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.CopyDeleteFileUtilForWizard;
 
 /**
@@ -161,12 +162,20 @@ public class TreePopulator {
     }
 
     public boolean populateTree(XSDSchema schema, ATreeNode selectedNode, List<ATreeNode> treeNodes) {
+        return populateTree(null, schema, selectedNode, treeNodes);
+    }
+
+    public boolean populateTree(XSDPopulationUtil2 popUtil, XSDSchema schema, ATreeNode selectedNode, List<ATreeNode> treeNodes) {
         availableXmlTree.removeAll();
         xPathToTreeItem.clear();
         ATreeNode treeNode = null;
         if (schema != null) {
             try {
-                treeNode = SchemaPopulationUtil.getSchemaTree(schema, selectedNode);
+                if (popUtil == null) {
+                    treeNode = SchemaPopulationUtil.getSchemaTree(schema, selectedNode);
+                } else {
+                    treeNode = SchemaPopulationUtil.getSchemaTree(popUtil, schema, selectedNode);
+                }
                 if (treeNodes != null) {
                     treeNodes.add(treeNode);
                 }
