@@ -273,6 +273,9 @@ public class FileStep3Form extends AbstractPositionalFileStepForm {
             public void widgetSelected(final SelectionEvent e) {
                 // changed by hqzhang for TDI-13613, old code is strange, maybe caused by duplicated
                 // addUtilsButtonListeners() in addFields() method
+                if (connectionItem.getConnection().isContextMode()) {
+                    connectionItem.getConnection().setContextName(null);
+                }
                 initGuessSchema();
                 // if no file, the process don't be executed
                 PositionalFileConnection originalValueConnection = getOriginalValueConnection();
@@ -587,8 +590,7 @@ public class FileStep3Form extends AbstractPositionalFileStepForm {
             PositionalFileConnection originalValueConnection = getOriginalValueConnection();
             // TDI-12846:let it always update the latest schema when click the next button to the last step
             if (originalValueConnection.getFilePath() != null && (!originalValueConnection.getFilePath().equals("")) //$NON-NLS-1$
-                    && new File(originalValueConnection.getFilePath()).exists())
-            {
+                    && new File(originalValueConnection.getFilePath()).exists()) {
                 runShadowProcess();
             }
 
