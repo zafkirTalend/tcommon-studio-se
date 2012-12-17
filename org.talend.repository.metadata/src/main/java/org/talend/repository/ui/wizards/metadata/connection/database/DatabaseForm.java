@@ -302,7 +302,7 @@ public class DatabaseForm extends AbstractForm {
         this.metadataconnection = ConvertionHelper.convert(getConnection(), true);
 
         originalUischema = metadataconnection.getUiSchema() == null ? "" : metadataconnection.getUiSchema();
-//        originalUischema = metadataconnection.getUiSchema();
+        // originalUischema = metadataconnection.getUiSchema();
         originalURL = metadataconnection.getUrl();
 
         this.typeName = EDatabaseTypeName.getTypeFromDbType(metadataconnection.getDbType());
@@ -2632,8 +2632,15 @@ public class DatabaseForm extends AbstractForm {
                     s = template.getUrlTemplate(version);
                 }
             }
-            if (isHbase) {
-                urlConnectionStringText.setVisible(false);
+            if (isHbase || isDBTypeSelected(EDatabaseConnTemplate.ORACLE_RAC)) {
+                urlConnectionStringText.hide();
+            } else {
+                urlConnectionStringText.show();
+            }
+            if (isDBTypeSelected(EDatabaseConnTemplate.ORACLE_RAC)) {
+                serverText.setLabelText(Messages.getString("DatabaseForm.stringConnection"));
+            } else {
+                serverText.setLabelText(Messages.getString("DatabaseForm.server"));
             }
             hideHBaseSettings(!isHbase);
             urlConnectionStringText.setEditable(!visible);
