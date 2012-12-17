@@ -230,6 +230,7 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
             }
         });
     }
+
     /**
      * getContextXmlPath.
      * 
@@ -237,10 +238,11 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
      */
     private String getContextXmlPath(XmlFileConnection connection) {
         String contextXmlPath = "";
-        if (ConnectionContextHelper.getContextTypeForContextMode(connection) == null) {
+        if (ConnectionContextHelper.getContextTypeForContextMode(connection, connection.getContextName()) == null) {
             return null;
         }
-        EList eList = ConnectionContextHelper.getContextTypeForContextMode(connection).getContextParameter();
+        EList eList = ConnectionContextHelper.getContextTypeForContextMode(connection, connection.getContextName())
+                .getContextParameter();
         for (int i = 0; i < eList.size(); i++) {
             ContextParameterType parameterType = (ContextParameterType) eList.get(i);
             if (parameterType.getPrompt().contains("XmlFilePath")) {
@@ -267,7 +269,7 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
                 // addUtilsButtonListeners() in addFields() method
 
                 XmlFileConnection connection2 = getConnection();
-
+                connection2.setContextName(null);
                 String tempXmlFilePath = getContextXmlPath(connection2);
 
                 if (connection2.getXmlFilePath() == null || connection2.getXmlFilePath().equals("")) { //$NON-NLS-1$
@@ -345,7 +347,7 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
         try {
             informationLabel.setText("   " + Messages.getString("FileStep3.guessProgress")); //$NON-NLS-1$ //$NON-NLS-2$
 
-            CsvArray csvArray = ShadowProcessHelper.getCsvArray(getProcessDescription(true), "FILE_XML"); //$NON-NLS-1$
+            CsvArray csvArray = ShadowProcessHelper.getCsvArray(getProcessDescription(false), "FILE_XML"); //$NON-NLS-1$
             if (csvArray == null) {
                 informationLabel.setText("   " + Messages.getString("FileStep3.guessFailure")); //$NON-NLS-1$ //$NON-NLS-2$
 
@@ -451,7 +453,8 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
 
         String file = ((XmlFileConnection) this.connectionItem.getConnection()).getXmlFilePath();
         if (isContextMode()) {
-            ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection(), true);
+            ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection(),
+                    connectionItem.getConnection().getContextName());
             file = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, file));
         }
 
