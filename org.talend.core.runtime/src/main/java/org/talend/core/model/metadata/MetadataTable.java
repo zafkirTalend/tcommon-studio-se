@@ -13,6 +13,7 @@
 package org.talend.core.model.metadata;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +46,7 @@ public class MetadataTable implements IMetadataTable, Cloneable {
 
     private String comment;
 
-    private Map<String, String> additionalProperties;
+    private Map<String, String> additionalProperties = new HashMap<String, String>();
 
     public String getReadOnlyColumnPosition() {
         return this.readOnlyColumnPosition;
@@ -137,6 +138,7 @@ public class MetadataTable implements IMetadataTable, Cloneable {
             }
             clonedMetadata.setTableName(this.getTableName());
             clonedMetadata.setLabel(this.getLabel());
+            clonedMetadata.setAdditionalProperties(new HashMap<String, String>(additionalProperties));
         } catch (CloneNotSupportedException e) {
             // nothing
         } catch (Exception e) {
@@ -345,5 +347,9 @@ public class MetadataTable implements IMetadataTable, Cloneable {
 
     public Map<String, String> getAdditionalProperties() {
         return this.additionalProperties;
+    }
+
+    public void setAdditionalProperties(Map<String, String> additionalProperties) {
+        this.additionalProperties = additionalProperties;
     }
 }

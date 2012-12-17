@@ -15,13 +15,17 @@ package org.talend.core.model.metadata;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.Vector;
 import java.util.regex.Pattern;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.events.KeyEvent;
@@ -1229,6 +1233,12 @@ public final class MetadataToolHelper {
             // columns.add(convertToIMetaDataColumn(column));
         }
         result.setListColumns(columns);
+        Map<String, String> newProperties = result.getAdditionalProperties();
+        EMap<String, String> oldProperties = old.getAdditionalProperties();
+        for (Iterator<Entry<String, String>> iterator = oldProperties.iterator(); iterator.hasNext();) {
+            Entry<String, String> entry = iterator.next();
+            newProperties.put(entry.getKey(), entry.getValue());
+        }
         return result;
     }
 
