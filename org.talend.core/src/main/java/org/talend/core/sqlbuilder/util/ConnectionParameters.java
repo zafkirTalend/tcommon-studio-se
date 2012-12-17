@@ -343,7 +343,7 @@ public class ConnectionParameters {
      * @param dbType the dbType to set
      */
     public void setDbType(String dbType) {
-        if (dbType != null) {
+        if (dbType != null && !"".equals(dbType)) { //$NON-NLS-1$
             this.dbType = TextUtil.removeQuots(EDatabaseTypeName.getTypeFromDbType(dbType).getDisplayName());
         } else {
             this.dbType = ""; //$NON-NLS-1$
