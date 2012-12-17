@@ -16,6 +16,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
@@ -99,7 +100,7 @@ public class TableToTreeLinker<D1, D2> extends BgDrawableComposite implements IB
         LinkableTree linkableTree = new LinkableTree(this, backgroundRefresher, targetTree, this, false);
         targetTree.removeSelectionListener(linkableTree.getSelectionListener());
 
-        new LinkableTable(this, backgroundRefresher, sourceTable, (BgDrawableComposite) this, true);
+        new LinkableTable(this, backgroundRefresher, sourceTable, this, true);
         this.target = targetTree;
         this.source = sourceTable;
 
@@ -227,7 +228,7 @@ public class TableToTreeLinker<D1, D2> extends BgDrawableComposite implements IB
             IExtremityLink<Tree, D2> extremity2 = link.getExtremity2();
             // see bug 7360
             dataToTableItemCache.clear();
-            TableItem tableItem = dataToTableItemCache.getTableItem((Object) extremity1.getDataItem());
+            TableItem tableItem = dataToTableItemCache.getTableItem(extremity1.getDataItem());
             TableItem firstExpandedAscTableItem = tableItem;
 
             Rectangle tableItemBounds = firstExpandedAscTableItem.getBounds();
@@ -302,6 +303,13 @@ public class TableToTreeLinker<D1, D2> extends BgDrawableComposite implements IB
                 pointEndCentralCurve.x += offset.x - 6;
                 pointEndCentralCurve.y += offset.y;
 
+                // Added by Marvin Wang on Dec. 17, 2012 for bug TDI-23378(see backport). This is not the best way to
+                // fix this issue,
+                // but till now I have not found the root cause.
+                if (Platform.OS_LINUX.equals(Platform.getOS())) {
+                    pointEndCentralCurve.y = pointEndCentralCurve.y - tableItem.getBounds().height;
+                }
+
                 drawableLink.setPoint1(pointEndStraight);
                 drawableLink.setPoint2(pointEndCentralCurve);
 
@@ -326,8 +334,8 @@ public class TableToTreeLinker<D1, D2> extends BgDrawableComposite implements IB
      * @return
      */
     private int findXRightStartBezierLink(TableItem[] items, int maxWidth) {
-        for (int i = 0; i < items.length; i++) {
-            TableItem item = items[i];
+        for (TableItem item2 : items) {
+            TableItem item = item2;
             if (!item.isDisposed()) {
                 Rectangle bounds = item.getBounds();
                 maxWidth = Math.max(maxWidth, bounds.x + bounds.width);
@@ -353,8 +361,7 @@ public class TableToTreeLinker<D1, D2> extends BgDrawableComposite implements IB
             getTarget().deselectAll();
 
             TreeItem[] selection = getTarget().getSelection();
-            for (int i = 0; i < selection.length; i++) {
-                TreeItem tableItem = selection[i];
+            for (TreeItem tableItem : selection) {
                 selectedItems.add(tableItem.getData());
             }
 
@@ -362,8 +369,7 @@ public class TableToTreeLinker<D1, D2> extends BgDrawableComposite implements IB
             getSource().deselectAll();
 
             TableItem[] selection = getSource().getSelection();
-            for (int i = 0; i < selection.length; i++) {
-                TableItem treeItem = selection[i];
+            for (TableItem treeItem : selection) {
                 selectedItems.add(treeItem.getData());
             }
 
