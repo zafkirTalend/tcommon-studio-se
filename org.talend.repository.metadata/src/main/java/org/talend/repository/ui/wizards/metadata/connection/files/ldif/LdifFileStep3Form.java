@@ -244,6 +244,9 @@ public class LdifFileStep3Form extends AbstractLdifFileStepForm {
             public void widgetSelected(final SelectionEvent e) {
                 // changed by hqzhang for TDI-13613, old code is strange, maybe caused by duplicated
                 // addUtilsButtonListeners() in addFields() method
+            	if (connectionItem.getConnection().isContextMode()) { 
+            	 	connectionItem.getConnection().setContextName(null); 
+            	} 
                 initGuessSchema();
                 LdifFileConnection originalValueConnection = getOriginalValueConnection();
                 // if no file, the process don't be executed
@@ -592,7 +595,7 @@ public class LdifFileStep3Form extends AbstractLdifFileStepForm {
             }
             if (connectionItem.getConnection().isContextMode()) {
                 ContextType contextTypeForContextMode = ConnectionContextHelper.getContextTypeForContextMode(getShell(),
-                        connectionItem.getConnection());
+                        connectionItem.getConnection(), connectionItem.getConnection().getContextName(), false);
                 getContextModeManager().setSelectedContextType(contextTypeForContextMode);
             }
 
