@@ -84,6 +84,7 @@ import org.talend.rcp.i18n.Messages;
 import org.talend.rcp.intro.starting.StartingEditorInput;
 import org.talend.rcp.intro.starting.StartingHelper;
 import org.talend.rcp.util.ApplicationDeletionUtil;
+import org.talend.repository.ui.login.connections.ConnectionUserPerReader;
 import org.talend.repository.ui.views.IRepositoryView;
 
 /**
@@ -168,13 +169,13 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                     .setTitle(appName
                             + buildIdField
                             + " | " + project.getLabel() + " (" //$NON-NLS-1$ //$NON-NLS-2$ 
-                            + Messages.getString("ApplicationWorkbenchWindowAdvisor.repositoryConnection") + ": " + prefManipulator.getLastConnection() + ")"); //$NON-NLS-1$ //$NON-NLS-2$
+                            + Messages.getString("ApplicationWorkbenchWindowAdvisor.repositoryConnection") + ": " + ConnectionUserPerReader.getInstance().readLastConncetion() + ")"); //$NON-NLS-1$ //$NON-NLS-2$
         } else {
             configurer
                     .setTitle(appName
                             + buildIdField
                             + " | " + repositoryContext.getUser() + " | " + project.getLabel() + " (" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
-                            + Messages.getString("ApplicationWorkbenchWindowAdvisor.repositoryConnection") + ": " + prefManipulator.getLastConnection() + ")"); //$NON-NLS-1$ //$NON-NLS-2$
+                            + Messages.getString("ApplicationWorkbenchWindowAdvisor.repositoryConnection") + ": " + ConnectionUserPerReader.getInstance().readLastConncetion() + ")"); //$NON-NLS-1$ //$NON-NLS-2$
         }
         ActionBarBuildHelper helper = (ActionBarBuildHelper) brandingConfiguration.getHelper();
         if (helper == null) {
