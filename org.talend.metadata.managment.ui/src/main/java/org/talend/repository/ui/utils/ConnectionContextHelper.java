@@ -1139,6 +1139,7 @@ public final class ConnectionContextHelper {
                                 }
                             });
                     selectedContext = setsDialog.getSelectedContext();
+                    connection.setContextName(selectedContext);
                 } else {
                     selectedContext = contextItem.getDefaultContext();
                 }
