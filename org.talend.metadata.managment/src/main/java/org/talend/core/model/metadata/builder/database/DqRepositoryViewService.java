@@ -264,9 +264,6 @@ public final class DqRepositoryViewService {
             }
             java.sql.Connection connection = rcConn.getObject();
             try {
-                // Added yyin 20121211 TDQ-6099, for Teradata type, SQLMODE should be true, default is false
-                ((DatabaseConnection) dataProvider).setSQLMode(true);
-                // ~
                 DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(connection, (DatabaseConnection) dataProvider);
                 columnList = MetadataFillFactory.getDBInstance().fillColumns(columnSet, dm, null, null);
             } finally {
