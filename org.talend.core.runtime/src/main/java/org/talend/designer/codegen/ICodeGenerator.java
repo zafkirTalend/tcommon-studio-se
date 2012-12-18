@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.designer.codegen;
 
+import org.eclipse.core.runtime.CoreException;
 import org.talend.commons.exception.SystemException;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.INode;
@@ -60,5 +61,8 @@ public interface ICodeGenerator {
     public String generateComponentCodeWithRows(String nodeName, IAloneProcessNodeConfigurer nodeConfigurer);
 
     public void setContextName(String contextName);
+    
+    //ADDED for TESB-7887 By GangLiu
+    public String generateSpringContent() throws SystemException ;
 
 }

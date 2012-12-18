@@ -126,5 +126,10 @@ public interface IProcess2 extends IRepositoryObject, IProcess {
     boolean isSubjobEnabled();
 
     void removeProblems4ProcessDeleted();
+    
+    //ADDED for TESB-7887 By GangLiu
+    boolean needsSpring();
+    String getSpringContent();
+    //END TESB-7887
 
 }

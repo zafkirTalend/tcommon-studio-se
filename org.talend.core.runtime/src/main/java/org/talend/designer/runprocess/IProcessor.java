@@ -69,6 +69,14 @@ public interface IProcessor {
      * @throws ProcessorException
      */
     public void generateContextCode() throws ProcessorException;
+    
+    /**
+     * ADDED for TESB-7887 By GangLiu
+     * Only generate spring content, not main code.
+     * 
+     * @throws ProcessorException
+     */
+    public void generateSpringContent() throws ProcessorException;
 
     /**
      * Run the process.
