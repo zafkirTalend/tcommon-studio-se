@@ -22,12 +22,15 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.MultiPageEditorPart;
 import org.talend.core.IService;
 import org.talend.core.model.components.IComponent;
+import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.IConnection;
 import org.talend.core.model.process.IElement;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.INodeConnector;
+import org.talend.core.model.process.IProcess;
+import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
@@ -99,6 +102,9 @@ public interface IJobletProviderService extends IService {
     public void unlockJoblet(INode node, boolean needAsk);
 
     public List<INode> checkAddNodes(IElement jobletContainer);
+
+    public void updateRelationShip(final IProcess curJobletProcess, final IProcess2 currentProcess,
+            final List<IMetadataTable> oldInputMetadata, final List<IMetadataTable> oldOutputMetadata, final boolean updateContext);
 
     public List<INode> checkDeleteNodes(IElement jobletContainer);
 
