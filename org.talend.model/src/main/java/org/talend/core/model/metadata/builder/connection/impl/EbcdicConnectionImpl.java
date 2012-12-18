@@ -21,6 +21,7 @@ import org.talend.core.model.metadata.builder.connection.EbcdicConnection;
  * <ul>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.EbcdicConnectionImpl#getMidFile <em>Mid File</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.EbcdicConnectionImpl#getDataFile <em>Data File</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.EbcdicConnectionImpl#getCodePage <em>Code Page</em>}</li>
  * </ul>
  * </p>
  *
@@ -67,6 +68,26 @@ public class EbcdicConnectionImpl extends FileConnectionImpl implements EbcdicCo
      * @ordered
      */
     protected String dataFile = DATA_FILE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getCodePage() <em>Code Page</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCodePage()
+     * @generated
+     * @ordered
+     */
+    protected static final String CODE_PAGE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getCodePage() <em>Code Page</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCodePage()
+     * @generated
+     * @ordered
+     */
+    protected String codePage = CODE_PAGE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -136,6 +157,28 @@ public class EbcdicConnectionImpl extends FileConnectionImpl implements EbcdicCo
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getCodePage() {
+        return codePage;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setCodePage(String newCodePage) {
+        String oldCodePage = codePage;
+        codePage = newCodePage;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.EBCDIC_CONNECTION__CODE_PAGE, oldCodePage,
+                    codePage));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
@@ -143,6 +186,8 @@ public class EbcdicConnectionImpl extends FileConnectionImpl implements EbcdicCo
             return getMidFile();
         case ConnectionPackage.EBCDIC_CONNECTION__DATA_FILE:
             return getDataFile();
+        case ConnectionPackage.EBCDIC_CONNECTION__CODE_PAGE:
+            return getCodePage();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -160,6 +205,9 @@ public class EbcdicConnectionImpl extends FileConnectionImpl implements EbcdicCo
             return;
         case ConnectionPackage.EBCDIC_CONNECTION__DATA_FILE:
             setDataFile((String) newValue);
+            return;
+        case ConnectionPackage.EBCDIC_CONNECTION__CODE_PAGE:
+            setCodePage((String) newValue);
             return;
         }
         super.eSet(featureID, newValue);
@@ -179,6 +227,9 @@ public class EbcdicConnectionImpl extends FileConnectionImpl implements EbcdicCo
         case ConnectionPackage.EBCDIC_CONNECTION__DATA_FILE:
             setDataFile(DATA_FILE_EDEFAULT);
             return;
+        case ConnectionPackage.EBCDIC_CONNECTION__CODE_PAGE:
+            setCodePage(CODE_PAGE_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -195,6 +246,8 @@ public class EbcdicConnectionImpl extends FileConnectionImpl implements EbcdicCo
             return MID_FILE_EDEFAULT == null ? midFile != null : !MID_FILE_EDEFAULT.equals(midFile);
         case ConnectionPackage.EBCDIC_CONNECTION__DATA_FILE:
             return DATA_FILE_EDEFAULT == null ? dataFile != null : !DATA_FILE_EDEFAULT.equals(dataFile);
+        case ConnectionPackage.EBCDIC_CONNECTION__CODE_PAGE:
+            return CODE_PAGE_EDEFAULT == null ? codePage != null : !CODE_PAGE_EDEFAULT.equals(codePage);
         }
         return super.eIsSet(featureID);
     }
@@ -214,6 +267,8 @@ public class EbcdicConnectionImpl extends FileConnectionImpl implements EbcdicCo
         result.append(midFile);
         result.append(", DataFile: ");
         result.append(dataFile);
+        result.append(", CodePage: ");
+        result.append(codePage);
         result.append(')');
         return result.toString();
     }

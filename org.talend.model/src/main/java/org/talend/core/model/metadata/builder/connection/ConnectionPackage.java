@@ -4054,13 +4054,22 @@ public interface ConnectionPackage extends EPackage {
     int EBCDIC_CONNECTION__DATA_FILE = FILE_CONNECTION_FEATURE_COUNT + 1;
 
     /**
+     * The feature id for the '<em><b>Code Page</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__CODE_PAGE = FILE_CONNECTION_FEATURE_COUNT + 2;
+
+    /**
      * The number of structural features of the '<em>Ebcdic Connection</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int EBCDIC_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 2;
+    int EBCDIC_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 3;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl <em>MDM Connection</em>}' class.
@@ -18456,6 +18465,17 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getEbcdicConnection_DataFile();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.EbcdicConnection#getCodePage <em>Code Page</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Code Page</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.EbcdicConnection#getCodePage()
+     * @see #getEbcdicConnection()
+     * @generated
+     */
+    EAttribute getEbcdicConnection_CodePage();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.MDMConnection <em>MDM Connection</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>MDM Connection</em>'.
@@ -22453,6 +22473,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute EBCDIC_CONNECTION__DATA_FILE = eINSTANCE.getEbcdicConnection_DataFile();
+
+        /**
+         * The meta object literal for the '<em><b>Code Page</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EBCDIC_CONNECTION__CODE_PAGE = eINSTANCE.getEbcdicConnection_CodePage();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl <em>MDM Connection</em>}' class.

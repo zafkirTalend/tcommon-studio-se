@@ -141,6 +141,7 @@
     <genClasses ecoreClass="metadata.ecore#//EbcdicConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//EbcdicConnection/MidFile"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//EbcdicConnection/DataFile"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//EbcdicConnection/CodePage"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//MDMConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MDMConnection/Username"/>
