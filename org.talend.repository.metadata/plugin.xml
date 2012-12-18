@@ -135,6 +135,14 @@
             isReadAction="true"
             level="10"
             name="Metadata/Create Salesforce Schemas"/>
+      <Action
+           class="org.talend.repository.ui.actions.metadata.ImportSchemaFileAction"
+           id="org.talend.repository.actions.ImportSchemaFileAction"
+           isEditAction="true"
+           isPropertiesAction="false"
+           isReadAction="true"
+           level="10"
+           name="Metadata/Create generic schema from xml"/>
    </extension>
    <extension
          point="org.eclipse.ui.actionSets">
