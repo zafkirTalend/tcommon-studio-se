@@ -1261,6 +1261,20 @@ public class RepositoryToComponentProperty {
                 return TalendQuoteUtils.addQuotes(p.toPortableString());
             }
         }
+        if ("CODE_PAGE".equals(value)) { //$NON-NLS-1$
+            if (connection.getCodePage() == null) {
+                return null;
+            }
+            if (isContextMode(connection, connection.getCodePage())) {
+                return connection.getCodePage();
+            } else {
+                Path p = new Path(""); //$NON-NLS-1$
+                if (connection.getCodePage() != null) {
+                    p = new Path(connection.getCodePage());
+                }
+                return TalendQuoteUtils.addQuotes(p.toPortableString());
+            }
+        }
         return null;
     }
 

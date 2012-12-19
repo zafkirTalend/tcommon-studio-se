@@ -1143,6 +1143,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getEbcdicConnection_CodePage() {
+        return (EAttribute) ebcdicConnectionEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -3896,6 +3905,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         ebcdicConnectionEClass = createEClass(EBCDIC_CONNECTION);
         createEAttribute(ebcdicConnectionEClass, EBCDIC_CONNECTION__MID_FILE);
         createEAttribute(ebcdicConnectionEClass, EBCDIC_CONNECTION__DATA_FILE);
+        createEAttribute(ebcdicConnectionEClass, EBCDIC_CONNECTION__CODE_PAGE);
 
         mdmConnectionEClass = createEClass(MDM_CONNECTION);
         createEAttribute(mdmConnectionEClass, MDM_CONNECTION__USERNAME);
@@ -4533,6 +4543,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getEbcdicConnection_MidFile(), ecorePackage.getEString(), "MidFile", null, 0, 1, EbcdicConnection.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getEbcdicConnection_DataFile(), ecorePackage.getEString(), "DataFile", null, 0, 1, EbcdicConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getEbcdicConnection_CodePage(), ecorePackage.getEString(), "CodePage", null, 0, 1, EbcdicConnection.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(mdmConnectionEClass, MDMConnection.class, "MDMConnection", !IS_ABSTRACT, !IS_INTERFACE,

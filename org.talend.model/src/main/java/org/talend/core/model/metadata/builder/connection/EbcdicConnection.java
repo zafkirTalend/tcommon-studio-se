@@ -15,6 +15,7 @@ package org.talend.core.model.metadata.builder.connection;
  * <ul>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.EbcdicConnection#getMidFile <em>Mid File</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.EbcdicConnection#getDataFile <em>Data File</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.EbcdicConnection#getCodePage <em>Code Page</em>}</li>
  * </ul>
  * </p>
  *
@@ -75,4 +76,30 @@ public interface EbcdicConnection extends FileConnection {
      * @generated
      */
     void setDataFile(String value);
+
+    /**
+     * Returns the value of the '<em><b>Code Page</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Code Page</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Code Page</em>' attribute.
+     * @see #setCodePage(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getEbcdicConnection_CodePage()
+     * @model
+     * @generated
+     */
+    String getCodePage();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.EbcdicConnection#getCodePage <em>Code Page</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Code Page</em>' attribute.
+     * @see #getCodePage()
+     * @generated
+     */
+    void setCodePage(String value);
 } // EbcdicConnection
