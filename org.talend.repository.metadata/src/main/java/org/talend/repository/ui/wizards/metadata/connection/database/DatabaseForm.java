@@ -1539,25 +1539,6 @@ public class DatabaseForm extends AbstractForm {
                 }
             }
         });
-        // when the url is changed,need to reload db.
-        sidOrDatabaseText.addFocusListener(new FocusListener() {
-
-            public void focusGained(FocusEvent e) {
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (!isContextMode()) {
-                    if (originalURL != null) {
-                        if (!originalURL.equalsIgnoreCase(getConnection().getURL())) {
-                            ConnectionHelper.setIsConnNeedReload(getConnection(), Boolean.TRUE);
-                        } else if (originalUischema.equalsIgnoreCase(schemaText.getText())) {
-                            ConnectionHelper.setIsConnNeedReload(getConnection(), Boolean.FALSE);
-                        }
-                    }
-                }
-            }
-        });// ~
 
         // Db version
         dbVersionCombo.addModifyListener(new ModifyListener() {
@@ -2284,6 +2265,7 @@ public class DatabaseForm extends AbstractForm {
         }
         databaseSettingIsValide = false;
         urlConnectionStringText.setText(getStringConnection());
+        isURLChanged();
         EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(getConnection().getDatabaseType());
         if (template != null) {
             EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersion(getConnection().getDbVersionString());
@@ -2339,6 +2321,17 @@ public class DatabaseForm extends AbstractForm {
         updateStatus(IStatus.OK, null);
         return true;
     }
+
+    // Added yyin 20121219 TDQ-6485, check if the url is changed, if yes ,need reload
+    private void isURLChanged() {
+        if (originalURL != null) {
+            if (originalURL.equalsIgnoreCase(urlConnectionStringText.getText())) {
+                ConnectionHelper.setIsConnNeedReload(getConnection(), Boolean.FALSE);
+            } else {
+                ConnectionHelper.setIsConnNeedReload(getConnection(), Boolean.TRUE);
+            }
+        }
+    }// ~
 
     /**
      * DOC bZhou Comment method "isSupportByTDQ" for feature 17159.

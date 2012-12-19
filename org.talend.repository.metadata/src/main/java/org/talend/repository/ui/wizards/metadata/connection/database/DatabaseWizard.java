@@ -373,7 +373,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     factory.create(connectionItem, propertiesWizardPage.getDestinationPath());
 
                     // MOD yyi 2011-04-14:20362 reload connection
-                    ConnectionHelper.setIsConnNeedReload(connection, Boolean.TRUE);
+                    ConnectionHelper.setIsConnNeedReload(connection, Boolean.FALSE);
                     // MOD klliu 2012-02-08 TDQ-4645 add package filter for connection
                     ConnectionHelper.setPackageFilter(connection, "");//$NON-NLS-1$
 
