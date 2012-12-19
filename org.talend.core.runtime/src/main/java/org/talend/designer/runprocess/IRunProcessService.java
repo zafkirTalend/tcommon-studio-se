@@ -126,4 +126,32 @@ public interface IRunProcessService extends IService {
     public IProcess getActiveProcess();
 
     public boolean checkExportProcess(IStructuredSelection selection, boolean isJob);
+
+    /**
+     * DOC ycbai Comment method "getResourceFilePath".
+     * 
+     * get the absolute path of file which under resource folder by relative path.
+     * 
+     * @param filePath the path relative resource folder.
+     * @return
+     */
+    public String getResourceFilePath(String filePath);
+
+    /**
+     * DOC ycbai Comment method "getTemplateStrFromPreferenceStore".
+     * 
+     * @param templateType
+     * @return
+     */
+    public String getTemplateStrFromPreferenceStore(String templateType);
+
+    /**
+     * DOC ycbai Comment method "updateLogFiles".
+     * 
+     * Create or update common-logging.properties and log4j.properties files under the project.
+     * 
+     * @param project
+     */
+    public void updateLogFiles(IProject project);
+
 }
