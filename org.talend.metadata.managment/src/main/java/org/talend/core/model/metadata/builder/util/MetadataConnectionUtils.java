@@ -505,24 +505,16 @@ public class MetadataConnectionUtils {
             }
         }
 
-        // IExtension extension = Platform.getExtensionRegistry().getExtension(DRIVER_EXTENSION_POINT_ID,
-        // TOP_DRIVER_EXTENSION_ID);
         if (GlobalServiceRegister.getDefault().isDQDriverServiceRegistered(IDriverService.class)) {
             // top
             if (PluginChecker.isOnlyTopLoaded()) {
-                // IConfigurationElement[] configurationElement = extension.getConfigurationElements();
-                // for (IConfigurationElement ele : configurationElement) {
                 try {
-                    // if (GlobalServiceRegister.getDefault().isDQDriverServiceRegistered(IDriverService.class)) {
                     IDriverService driverService = (IDriverService) GlobalServiceRegister.getDefault().getDQDriverService(
                             IDriverService.class);
-                    //                        IDriverService driverService = (IDriverService) ele.createExecutableExtension("class"); //$NON-NLS-1$
                     driver = driverService.getDriver(metadataBean);
-                    // }
                 } catch (Exception e) {
                     log.error(e, e);
                 }
-                // }
             } else {
                 // tdq
                 driver = getDriver(metadataBean);
@@ -592,25 +584,16 @@ public class MetadataConnectionUtils {
      */
     public static List<String> getTDQSupportDBTemplate() {
 
-        // IExtension extension = Platform.getExtensionRegistry().getExtension(DRIVER_EXTENSION_POINT_ID,
-        // TOP_DRIVER_EXTENSION_ID);
-        // if (extension != null) {
-        // IConfigurationElement[] configurationElement = extension.getConfigurationElements();
-        // for (IConfigurationElement ele : configurationElement) {
         try {
             if (GlobalServiceRegister.getDefault().isDQDriverServiceRegistered(IDriverService.class)) {
                 IDriverService driverService = (IDriverService) GlobalServiceRegister.getDefault().getDQDriverService(
                         IDriverService.class);
 
-                //                    IDriverService driverService = (IDriverService) ele.createExecutableExtension("class"); //$NON-NLS-1$
                 return driverService.getTDQSupportDBTemplate();
             }
         } catch (Exception e) {
             log.error(e, e);
         }
-        // }
-        // }
-
         return new ArrayList<String>();
     }
 
