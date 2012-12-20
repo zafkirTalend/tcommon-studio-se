@@ -34,9 +34,6 @@ public class GlobalServiceRegister {
     // The shared instance
     private static GlobalServiceRegister instance = new GlobalServiceRegister();
 
-
-
-
     public static GlobalServiceRegister getDefault() {
         return instance;
     }
@@ -44,6 +41,8 @@ public class GlobalServiceRegister {
     private Map<Class, IService> services = new HashMap<Class, IService>();
 
     private Map<Class<?>, AbstractDQModelService> dqModelServices = new HashMap<Class<?>, AbstractDQModelService>();
+
+    private static IConfigurationElement[] configurationDQDriverElements = null;
 
     private static IExtensionRegistry registry = Platform.getExtensionRegistry();
 
@@ -76,6 +75,38 @@ public class GlobalServiceRegister {
         return true;
     }
 
+    private IConfigurationElement[] getConfigurationDQDriverElements() {
+        if (configurationDQDriverElements == null) {
+            IExtensionRegistry registry = Platform.getExtensionRegistry();
+            configurationDQDriverElements = (registry == null ? null : registry
+                    .getConfigurationElementsFor("org.talend.metadata.managment.DBDriver_extension")); //$NON-NLS-1$
+        }
+        return configurationDQDriverElements;
+    }
+
+    public IService getDQDriverService(Class<?> klass) {
+        IService dqModelserviceInst = services.get(klass);
+        if (dqModelserviceInst == null) {
+            dqModelserviceInst = findDQModelService(klass);
+            if (dqModelserviceInst != null) {
+                services.put(klass, dqModelserviceInst);
+            }
+        }
+        return dqModelserviceInst;
+    }
+
+    public boolean isDQDriverServiceRegistered(Class klass) {
+        IService service = services.get(klass);
+        if (service == null) {
+            service = findDQDriverService(klass);
+            if (service == null) {
+                return false;
+            }
+            services.put(klass, service);
+        }
+        return true;
+    }
+
     public boolean isServiceRegistered(Class klass) {
         IService service = services.get(klass);
         if (service == null) {
@@ -100,7 +131,7 @@ public class GlobalServiceRegister {
             service = findService(klass);
             if (service == null) {
 
-                throw new RuntimeException(Messages.getString("GlobalServiceRegister.ServiceNotRegistered", klass.getName())); //$NON-NLS-1$ //$NON-NLS-2$
+                throw new RuntimeException(Messages.getString("GlobalServiceRegister.ServiceNotRegistered", klass.getName())); //$NON-NLS-1$ 
             }
             services.put(klass, service);
         }
@@ -115,8 +146,7 @@ public class GlobalServiceRegister {
      */
     private IService findService(Class klass) {
         String key = klass.getName();
-        for (int i = 0; i < configurationElements.length; i++) {
-            IConfigurationElement element = configurationElements[i];
+        for (IConfigurationElement element : configurationElements) {
             if (element.isValid()) {
                 String id = element.getAttribute("serviceId"); //$NON-NLS-1$
                 if (!key.endsWith(id)) {
@@ -144,8 +174,7 @@ public class GlobalServiceRegister {
      * @return IService
      */
     public IProviderService findService(String key) {
-        for (int i = 0; i < configurationElements.length; i++) {
-            IConfigurationElement element = configurationElements[i];
+        for (IConfigurationElement element : configurationElements) {
             if (element.isValid()) {
                 String id = element.getAttribute("serviceId"); //$NON-NLS-1$
                 if (!key.equals(id)) {
@@ -165,8 +194,7 @@ public class GlobalServiceRegister {
     }
 
     private AbstractDQModelService findDQModelService(Class<?> klass) {
-        for (int i = 0; i < configurationDQModelElements.length; i++) {
-            IConfigurationElement element = configurationDQModelElements[i];
+        for (IConfigurationElement element : configurationDQModelElements) {
             try {
                 Object service = element.createExecutableExtension("class"); //$NON-NLS-1$
                 if (klass.isInstance(service)) {
@@ -174,6 +202,23 @@ public class GlobalServiceRegister {
                 }
             } catch (CoreException e) {
                 ExceptionHandler.process(e);
+            }
+        }
+        return null;
+    }
+
+    private IService findDQDriverService(Class<?> klass) {
+        IConfigurationElement[] configDQModelElements = getConfigurationDQDriverElements();
+        if (configDQModelElements != null) {
+            for (IConfigurationElement element : configDQModelElements) {
+                try {
+                    Object service = element.createExecutableExtension("class"); //$NON-NLS-1$
+                    if (klass.isInstance(service)) {
+                        return (IService) service;
+                    }
+                } catch (CoreException e) {
+                    ExceptionHandler.process(e);
+                }
             }
         }
         return null;
