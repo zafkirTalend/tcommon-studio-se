@@ -15,13 +15,14 @@ package org.talend.core.model.metadata.builder.database;
 import java.sql.Driver;
 import java.util.List;
 
+import org.talend.core.IService;
 import org.talend.core.model.metadata.IMetadataConnection;
 
 /**
  * @author zshen
  * 
  */
-public interface IDriverService {
+public interface IDriverService extends IService {
 
     /**
      * get driver by metadataConnection information.
