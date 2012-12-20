@@ -424,7 +424,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                         // bug 20700
                         if (reloadCheck.isOk()) {
                             if (needReload(reloadCheck.getMessage())) {
-                                if (tdqRepService != null) {
+                                if (tdqCompareService != null) {
                                     ReturnCode retCode = tdqCompareService.reloadDatabase(connectionItem);
                                     if (!retCode.isOk()) {
                                         return Boolean.FALSE;
