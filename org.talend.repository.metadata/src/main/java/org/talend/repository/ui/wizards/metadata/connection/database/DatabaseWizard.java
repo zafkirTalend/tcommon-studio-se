@@ -34,6 +34,7 @@ import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ITDQCompareService;
 import org.talend.core.ITDQRepositoryService;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
@@ -399,7 +400,14 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     if (connectionItem.getConnection() instanceof DatabaseConnection) {
                         DatabaseConnection conn = (DatabaseConnection) connectionItem.getConnection();
                         ReturnCode reloadCheck = new ReturnCode(false);
-                        if (tdqRepService != null && ConnectionHelper.isUrlChanged(conn)) {
+                        ITDQCompareService tdqCompareService = null;
+
+                        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQCompareService.class)) {
+                            tdqCompareService = (ITDQCompareService) GlobalServiceRegister.getDefault().getService(
+                                    ITDQCompareService.class);
+                        }
+                        if (tdqCompareService != null && ConnectionHelper.isUrlChanged(conn)
+                                && MetadataConnectionUtils.isTDQSupportDBTemplate(conn)) {
                             reloadCheck = openConfirmReloadConnectionDialog(Display.getCurrent().getActiveShell());
                             if (!reloadCheck.isOk()) {
                                 return false;
@@ -417,7 +425,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                         if (reloadCheck.isOk()) {
                             if (needReload(reloadCheck.getMessage())) {
                                 if (tdqRepService != null) {
-                                    ReturnCode retCode = tdqRepService.reloadDatabase(connectionItem);
+                                    ReturnCode retCode = tdqCompareService.reloadDatabase(connectionItem);
                                     if (!retCode.isOk()) {
                                         return Boolean.FALSE;
                                     }

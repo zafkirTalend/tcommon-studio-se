@@ -30,14 +30,12 @@ import javax.xml.rpc.ServiceException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExtension;
-import org.eclipse.core.runtime.Platform;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.database.SybaseDatabaseMetaData;
 import org.talend.commons.utils.encoding.CharsetToolkit;
 import org.talend.commons.utils.platform.PluginChecker;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.DBConnectionFillerImpl;
@@ -507,19 +505,24 @@ public class MetadataConnectionUtils {
             }
         }
 
-        IExtension extension = Platform.getExtensionRegistry().getExtension(DRIVER_EXTENSION_POINT_ID, TOP_DRIVER_EXTENSION_ID);
-        if (extension != null) {
+        // IExtension extension = Platform.getExtensionRegistry().getExtension(DRIVER_EXTENSION_POINT_ID,
+        // TOP_DRIVER_EXTENSION_ID);
+        if (GlobalServiceRegister.getDefault().isDQDriverServiceRegistered(IDriverService.class)) {
             // top
             if (PluginChecker.isOnlyTopLoaded()) {
-                IConfigurationElement[] configurationElement = extension.getConfigurationElements();
-                for (IConfigurationElement ele : configurationElement) {
-                    try {
-                        IDriverService driverService = (IDriverService) ele.createExecutableExtension("class"); //$NON-NLS-1$
-                        driver = driverService.getDriver(metadataBean);
-                    } catch (Exception e) {
-                        log.error(e, e);
-                    }
+                // IConfigurationElement[] configurationElement = extension.getConfigurationElements();
+                // for (IConfigurationElement ele : configurationElement) {
+                try {
+                    // if (GlobalServiceRegister.getDefault().isDQDriverServiceRegistered(IDriverService.class)) {
+                    IDriverService driverService = (IDriverService) GlobalServiceRegister.getDefault().getDQDriverService(
+                            IDriverService.class);
+                    //                        IDriverService driverService = (IDriverService) ele.createExecutableExtension("class"); //$NON-NLS-1$
+                    driver = driverService.getDriver(metadataBean);
+                    // }
+                } catch (Exception e) {
+                    log.error(e, e);
                 }
+                // }
             } else {
                 // tdq
                 driver = getDriver(metadataBean);
@@ -588,20 +591,52 @@ public class MetadataConnectionUtils {
      * @return
      */
     public static List<String> getTDQSupportDBTemplate() {
-        IExtension extension = Platform.getExtensionRegistry().getExtension(DRIVER_EXTENSION_POINT_ID, TOP_DRIVER_EXTENSION_ID);
-        if (extension != null) {
-            IConfigurationElement[] configurationElement = extension.getConfigurationElements();
-            for (IConfigurationElement ele : configurationElement) {
-                try {
-                    IDriverService driverService = (IDriverService) ele.createExecutableExtension("class"); //$NON-NLS-1$
-                    return driverService.getTDQSupportDBTemplate();
-                } catch (Exception e) {
-                    log.error(e, e);
-                }
+
+        // IExtension extension = Platform.getExtensionRegistry().getExtension(DRIVER_EXTENSION_POINT_ID,
+        // TOP_DRIVER_EXTENSION_ID);
+        // if (extension != null) {
+        // IConfigurationElement[] configurationElement = extension.getConfigurationElements();
+        // for (IConfigurationElement ele : configurationElement) {
+        try {
+            if (GlobalServiceRegister.getDefault().isDQDriverServiceRegistered(IDriverService.class)) {
+                IDriverService driverService = (IDriverService) GlobalServiceRegister.getDefault().getDQDriverService(
+                        IDriverService.class);
+
+                //                    IDriverService driverService = (IDriverService) ele.createExecutableExtension("class"); //$NON-NLS-1$
+                return driverService.getTDQSupportDBTemplate();
             }
+        } catch (Exception e) {
+            log.error(e, e);
         }
+        // }
+        // }
 
         return new ArrayList<String>();
+    }
+
+    /**
+     * This method try to return whether the conn is supported by TDQ.
+     * 
+     * @return
+     */
+    public static boolean isTDQSupportDBTemplate(Connection conn) {
+        if (conn == null) {
+            return false;
+        }
+        try {
+            if (GlobalServiceRegister.getDefault().isDQDriverServiceRegistered(IDriverService.class)) {
+                IDriverService driverService = (IDriverService) GlobalServiceRegister.getDefault().getDQDriverService(
+                        IDriverService.class);
+                if (conn instanceof DatabaseConnection) {
+                    String databaseType = ((DatabaseConnection) conn).getDatabaseType();
+                    return driverService.getTDQSupportDBTemplate().contains(databaseType);
+                }
+            }
+        } catch (Exception e) {
+            log.error(e, e);
+        }
+
+        return false;
     }
 
     /**
