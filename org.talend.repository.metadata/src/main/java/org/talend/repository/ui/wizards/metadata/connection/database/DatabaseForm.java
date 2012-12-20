@@ -1532,7 +1532,7 @@ public class DatabaseForm extends AbstractForm {
                     if (originalUischema != null) {
                         if (!originalUischema.equalsIgnoreCase(schemaText.getText())) {
                             ConnectionHelper.setIsConnNeedReload(getConnection(), Boolean.TRUE);
-                        } else if (originalURL.equalsIgnoreCase(getConnection().getURL())) {
+                        } else if (originalURL != null && originalURL.equalsIgnoreCase(getConnection().getURL())) {
                             ConnectionHelper.setIsConnNeedReload(getConnection(), Boolean.FALSE);
                         }
                     }
