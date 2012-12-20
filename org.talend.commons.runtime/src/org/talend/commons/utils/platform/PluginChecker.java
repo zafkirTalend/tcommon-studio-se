@@ -26,8 +26,6 @@ public final class PluginChecker {
 
     private static final String TOP_BRANDING = "org.talend.rcp.branding.top"; //$NON-NLS-1$
 
-    private static final String AMCRAP_PLUGIN_ID = "org.talend.amc.rap"; //$NON-NLS-1$ 
-
     private PluginChecker() {
     }
 
@@ -75,13 +73,4 @@ public final class PluginChecker {
     public static boolean isOnlyTopLoaded() {
         return isPluginLoaded(TOP_BRANDING) && !isTDCPLoaded() && !isTDQLoaded();
     }
-
-    /**
-     * Method "isAMCRAPLoaded"
-     * 
-     */
-    public static boolean isAMCRAPLoaded() {
-        return isPluginLoaded(AMCRAP_PLUGIN_ID);
-    }
-
 }
