@@ -97,7 +97,6 @@ public class SwitchContextGroupNameImpl implements ISwitchContext {
                 DatabaseConnection dbConn = (DatabaseConnection) connItem.getConnection();
                 String newURL = getChangedURL(dbConn, selectedContext);
                 dbConn.setURL(newURL);
-                ConnectionHelper.setIsConnNeedReload(dbConn, Boolean.TRUE);
                 updateConnectionForSidOrUiSchema(dbConn, oldContextName);
             }
 
