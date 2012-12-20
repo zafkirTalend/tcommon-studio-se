@@ -28,7 +28,6 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
-import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -87,7 +86,6 @@ public class SwitchContextGroupNameImpl implements ISwitchContext {
                 DatabaseConnection dbConn = (DatabaseConnection) connItem.getConnection();
                 String newURL = getChangedURL(dbConn, selectedContext);
                 dbConn.setURL(newURL);
-                ConnectionHelper.setIsConnNeedReload(dbConn, Boolean.TRUE);
             }
 
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();

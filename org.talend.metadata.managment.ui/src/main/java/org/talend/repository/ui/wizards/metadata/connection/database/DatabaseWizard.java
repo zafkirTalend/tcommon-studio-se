@@ -355,7 +355,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
                     // MOD yyi 2011-04-14:20362 reload connection
                     // MOD yyin 20121203 TDQ-6497
-                    ConnectionHelper.setIsConnNeedReload(connection, Boolean.TRUE);
+                    ConnectionHelper.setIsConnNeedReload(connection, Boolean.FALSE);
 
                     MetadataConnectionUtils.fillConnectionInformation(connectionItem);
 
