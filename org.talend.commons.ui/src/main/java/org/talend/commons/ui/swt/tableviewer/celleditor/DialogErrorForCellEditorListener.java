@@ -82,7 +82,7 @@ public abstract class DialogErrorForCellEditorListener implements ICellEditorLis
             CELL_EDITOR_STATE state) {
         final Text text = (Text) cellEditor.getControl();
         final ModifiedObjectInfo modifiedObjectInfo = tableViewerCreator.getModifiedObjectInfo();
-        Object originalValue = modifiedObjectInfo.getOriginalPropertyBeanValue();
+        final Object originalValue = modifiedObjectInfo.getOriginalPropertyBeanValue();
         lastValidValue = lastValidValue != null && state == CELL_EDITOR_STATE.EDITING ? lastValidValue : originalValue;
 
         int beanPosition = tableViewerCreator.getInputList().indexOf(currentModifiedBean);
@@ -101,14 +101,15 @@ public abstract class DialogErrorForCellEditorListener implements ICellEditorLis
 
                     public void run() {
                         if (errorMessage.equals("")) {
-                            MessageDialog.openError(
-                                    text.getShell(),
-                                    Messages.getString("DialogErrorForCellEditorListener.Error.MsgDialogTitle"), Messages.getString("ErrorDialogWidthDetailArea.ErrorMessage.ColumnText")); //$NON-NLS-1$
+                            MessageDialog.openError(text.getShell(),
+                                    Messages.getString("DialogErrorForCellEditorListener.Error.MsgDialogTitle"), //$NON-NLS-1$
+                                    Messages.getString("ErrorDialogWidthDetailArea.ErrorMessage.ColumnText.NotValid", //$NON-NLS-1$
+                                            newValue, originalValue == null ? "" : originalValue.toString())); //$NON-NLS-1$
                             final int columnPosition = tableViewerCreator.getColumns().indexOf(column);
                             tableViewerCreator.getTableViewer().editElement(currentModifiedBean, columnPosition);
-                            if (!("").equals(newValue)) {
-                                text.setText(newValue);
-                            }
+                            // Added by Marvin Wang on Dec. 12, 2012 for bug TDI-24174 and it also replaces the bug
+                            // TDI-23253.
+                            text.setText(originalValue == null ? "" : originalValue.toString()); //$NON-NLS-1$
                             text.setSelection(selection.x, selection.y);
                         } else {
                             MessageDialog.openError(text.getShell(),
