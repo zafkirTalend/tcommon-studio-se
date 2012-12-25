@@ -463,6 +463,8 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             refProject.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.REFERENCED_PROJECTS);
             nodes.add(refProject);
         }
+        // delete the hidden nodes
+        deleteHiddenNodes(nodes);
         // *init the repository node from extension
         initExtensionRepositoryNodes(curParentNode);
 
@@ -473,6 +475,31 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         }
 
         collectRepositoryNodes(curParentNode);
+    }
+
+    private void deleteHiddenNodes(List<IRepositoryNode> nodes) {
+
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IBrandingService.class)) {
+            IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
+            List<IRepositoryNode> hiddens = service.getBrandingConfiguration().getHiddenRepositoryCategory(this, "DI");
+            for (IRepositoryNode node : hiddens) {
+                Iterator<IRepositoryNode> it = nodes.iterator();
+                while (it.hasNext()) {
+                    IRepositoryNode curNode = it.next();
+                    if (curNode.getContentType() != null && curNode.getContentType().equals(ERepositoryObjectType.METADATA)) {
+                        for (IRepositoryNode curNode2 : curNode.getChildren()) {
+                            if (curNode2.equals(node)) {
+                                curNode.getChildren().remove(curNode2);
+                                break;
+                            }
+                        }
+                    }
+                    if (curNode.equals(node)) {
+                        it.remove();
+                    }
+                }
+            }
+        }
     }
 
     private void collectRepositoryNodes(IRepositoryNode curParentNode) {
