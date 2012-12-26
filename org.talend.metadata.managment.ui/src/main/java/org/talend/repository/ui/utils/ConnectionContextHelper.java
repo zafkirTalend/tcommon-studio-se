@@ -752,6 +752,13 @@ public final class ConnectionContextHelper {
                             }
                         }
                     }
+                } else if ("ELT_SCHEMA_NAME".equals(param.getName()) && connection.isContextMode()
+                        && param.getValue() instanceof String) {
+                    // TDI-20184
+                    var = ContextParameterUtils.getVariableFromCode((String) param.getValue());
+                    if (var != null) {
+                        addedVars.add(var);
+                    }
                 }
             }
         }
