@@ -221,6 +221,9 @@ public class DatabaseForm extends AbstractForm {
     private String originalUischema;
 
     private String originalURL;
+
+    private Boolean originalIsNeedReload;
+
     /**
      * Constructor to use by a Wizard to create a new database connection.
      * 
@@ -239,6 +242,7 @@ public class DatabaseForm extends AbstractForm {
 
         originalUischema = metadataconnection.getUiSchema() == null ? "" : metadataconnection.getUiSchema();
         originalURL = metadataconnection.getUrl();
+        originalIsNeedReload = ConnectionHelper.getIsConnNeedReload(getConnection());
 
         this.typeName = EDatabaseTypeName.getTypeFromDbType(metadataconnection.getDbType());
         /* use provider for the databse didn't use JDBC,for example: HBase */
@@ -1193,8 +1197,8 @@ public class DatabaseForm extends AbstractForm {
                     if (originalUischema != null) {
                         if (!originalUischema.equalsIgnoreCase(schemaText.getText())) {
                             ConnectionHelper.setIsConnNeedReload(getConnection(), Boolean.TRUE);
-                        } else if (originalURL != null && originalURL.equalsIgnoreCase(getConnection().getURL())) {
-                            ConnectionHelper.setIsConnNeedReload(getConnection(), Boolean.FALSE);
+                        } else {
+                            checkURLIsChanged();
                         }
                     }
                 }
@@ -1839,7 +1843,7 @@ public class DatabaseForm extends AbstractForm {
         }
         databaseSettingIsValide = false;
         urlConnectionStringText.setText(getStringConnection());
-        isURLChanged();
+        checkURLIsChanged();
         EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(getConnection().getDatabaseType());
         if (template != null) {
             EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersion(getConnection().getDbVersionString());
@@ -1893,12 +1897,12 @@ public class DatabaseForm extends AbstractForm {
     }
 
     // Added yyin 20121219 TDQ-6485, check if the url is changed, if yes ,need reload
-    private void isURLChanged() {
+    private void checkURLIsChanged() {
         if (originalURL != null) {
-            if (originalURL.equalsIgnoreCase(urlConnectionStringText.getText())) {
-                ConnectionHelper.setIsConnNeedReload(getConnection(), Boolean.FALSE);
-            } else {
+            if (!originalURL.equalsIgnoreCase(urlConnectionStringText.getText())) {
                 ConnectionHelper.setIsConnNeedReload(getConnection(), Boolean.TRUE);
+            } else {
+                ConnectionHelper.setIsConnNeedReload(getConnection(), this.originalIsNeedReload);
             }
         }
     }// ~
