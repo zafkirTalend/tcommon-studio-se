@@ -12,9 +12,14 @@
 // ============================================================================
 package org.talend.repository.viewer.handler.demo;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.components.IComponent;
+import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.process.IElement;
@@ -23,7 +28,9 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.utils.IComponentName;
 import org.talend.core.model.utils.IDragAndDropServiceHandler;
+import org.talend.core.repository.RepositoryComponentSetting;
 import org.talend.repository.example.model.demo.ExampleDemoConnection;
+import org.talend.repository.example.model.demo.ExampleDemoConnectionItem;
 import org.talend.repository.model.ExampleDemoRepositoryNodeType;
 import org.talend.repository.model.RepositoryNode;
 
@@ -62,13 +69,13 @@ public class ExampleDemoDragAndDropHandler implements IDragAndDropServiceHandler
      * .connection.Connection, java.lang.String, org.talend.core.model.metadata.IMetadataTable)
      */
     @Override
-    public String getComponentValue(Connection connection, String value, IMetadataTable table) {
+    public Object getComponentValue(Connection connection, String value, IMetadataTable table) {
         if (value != null && canHandle(connection)) {
             ExampleDemoConnection demoConn = (ExampleDemoConnection) connection;
-            if ("TYPE".equals(value)) { //$NON-NLS-1$
-                return demoConn.getType();
-            } else if ("VALID".equals(value)) { //$NON-NLS-1$
-                return Boolean.toString(demoConn.isValid());
+            if ("USE_FILE_AMBIGUOUS".equals(value)) { //$NON-NLS-1$
+                return Boolean.TRUE;
+            } else if ("FILE_AMBIGUOUS".equals(value)) { //$NON-NLS-1$
+                return "foo/bar";
             }
         }
         return null;
@@ -83,8 +90,19 @@ public class ExampleDemoDragAndDropHandler implements IDragAndDropServiceHandler
      */
     @Override
     public List<IComponent> filterNeededComponents(Item item, RepositoryNode seletetedNode, ERepositoryObjectType type) {
-        // PTODO find the matched components with the item.
-        return null;
+        List<IComponent> neededComponents = new ArrayList<IComponent>();
+        if (!(item instanceof ExampleDemoConnectionItem)) {
+            return neededComponents;
+        }
+        IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(IComponentsService.class);
+        Set<IComponent> components = service.getComponentsFactory().getComponents();
+        for (IComponent component : components) {
+            if ("tExampleComponent".equals(component.getName())) {
+                neededComponents.add(component);
+            }
+        }
+
+        return neededComponents;
     }
 
     /*
@@ -96,8 +114,26 @@ public class ExampleDemoDragAndDropHandler implements IDragAndDropServiceHandler
      */
     @Override
     public IComponentName getCorrespondingComponentName(Item item, ERepositoryObjectType type) {
-        // PTODO return the default component
-        return null;
+        RepositoryComponentSetting setting = null;
+        if (item instanceof ExampleDemoConnectionItem) {
+            setting = new RepositoryComponentSetting();
+            setting.setName("my.metadata");
+            setting.setRepositoryType("my.metadata");
+            // setting.setWithSchema(true);
+            // setting.setInputComponent(INPUT);
+            // setting.setOutputComponent(OUTPUT);
+            List<Class<Item>> list = new ArrayList<Class<Item>>();
+            Class clazz = null;
+            try {
+                clazz = getClass().forName(ExampleDemoConnectionItem.class.getName());
+            } catch (ClassNotFoundException e) {
+                ExceptionHandler.process(e);
+            }
+            list.add(clazz);
+            setting.setClasses(list.toArray(new Class[0]));
+        }
+
+        return setting;
     }
 
     /*

@@ -75,6 +75,7 @@
          </possibleChildren>
       </navigatorContent>
       <navigatorContent
+            appearsBefore="org.talend.repository.viewer.root.jobletDesigns"
             contentProvider="org.talend.repository.viewer.content.example.JobWithoutAnAContentProvider"
             id="org.talend.repository.viewer.root.example.jobs.withoutAnA"
             labelProvider="org.talend.repository.viewer.label.example.JobWithoutAnALabelProvider"
@@ -96,6 +97,7 @@
          </possibleChildren>
       </navigatorContent>
       <navigatorContent
+            appearsBefore="org.talend.repository.viewer.root.jobletDesigns"
             contentProvider="org.talend.repository.viewer.content.example.JobOnlyWithAnAContentProvider"
             id="org.talend.repository.viewer.root.example.jobs.only.withAnA"
             labelProvider="org.talend.repository.viewer.label.example.JobOnlyWithAnALabelProvider"
@@ -249,7 +251,7 @@
             class="org.talend.repository.model.ExampleDemoRepositoryNode"
             folder="metadata/exmple_demo"
             isResouce="true"
-            label="%Example_Demo_Name"
+            label="my.metadata"
             parentNodeType="METADATA"
             products="DI"
             type="EXAMPLE_DEMO">
@@ -285,5 +287,22 @@
             class="org.talend.repository.example.model.demo.DemoPackage"
             uri="http://www.talend.com/exampleDemo">
       </package>
+   </extension>
+   <extension
+         point="org.talend.core.components_provider">
+      <ComponentsProvider
+            class="org.talend.repository.components.ExampleComponentsProvider"
+            id="org.talend.repository.view.example.ComponentsProvider1">
+      </ComponentsProvider>
+   </extension>
+   <extension
+         point="org.talend.core.runtime.repositoryComponent_provider">
+      <RepositoryComponent
+            default="tExampleComponent"
+            name="org.talend.repository.view.example.RepositoryComponent2">
+         <Item
+               clazz="org.talend.repository.components.ExamplePropertiesItem">
+         </Item>
+      </RepositoryComponent>
    </extension>
 </plugin>

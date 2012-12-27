@@ -18,6 +18,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.swt.widgets.Display;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.tester.example.ExampleTester;
 
@@ -88,7 +89,13 @@ public class JobWithoutAnAContentProvider extends org.talend.repository.view.di.
     protected void resetTopLevelNode(RepositoryNode aTopLevelNode) {
         super.resetTopLevelNode(aTopLevelNode);
         if (viewer != null && !viewer.getTree().isDisposed()) {
-            viewer.refresh(ROOT);
+            Display.getDefault().asyncExec(new Runnable() {
+
+                @Override
+                public void run() {
+                    viewer.refresh(ROOT);
+                }
+            });
         }
     }
 }
