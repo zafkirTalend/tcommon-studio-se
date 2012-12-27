@@ -852,7 +852,11 @@ public class ExtractMetaDataUtils {
                         }
                     } else {
                         Path path = new Path(driverJarPathArg);
-                        if (jarsAvailable.contains(path.lastSegment())) {
+                        File driverFile = new File(driverJarPathArg);
+                        boolean isExist = driverFile.exists();
+                        if (!isExist || !driverJarPathArg.contains(":")) {
+                            jarPathList.add("");
+                        } else if (jarsAvailable.contains(path.lastSegment())) {
                             String jarUnderLib = getJavaLibPath() + path.lastSegment();
                             File file = new File(jarUnderLib);
                             if (!file.exists()) {
