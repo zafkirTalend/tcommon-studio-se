@@ -401,9 +401,6 @@ public class ProcessorUtilities {
         generateSpringInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
                 currentJobName, processor);
 
-        generateWsdlFiles(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
-                currentJobName, processor);
-
         /*
          * Set classpath for current job. If current job include some child-jobs, the child job SHARE farther job
          * libraries.
@@ -494,21 +491,6 @@ public class ProcessorUtilities {
         processor.generateSpringContent();
     }
 
-    /*
-     * used to generate WSDL files on classpath for jobs with tESBConsumer components
-     */
-    private static void generateWsdlFiles(JobInfo jobInfo, String selectedContextName,
-            boolean statistics, boolean trace, boolean needContext,
-            IProgressMonitor progressMonitor, IProcess currentProcess, String currentJobName,
-            IProcessor processor) throws ProcessorException {
-
-        if(!(currentProcess instanceof IProcess2)){
-            return;
-        }
-        processor.generateWsdlFiles();
-    }
-
-
     private static void generateContextInfo(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean trace,
             boolean needContext, IProgressMonitor progressMonitor, IProcess currentProcess, String currentJobName,
             IProcessor processor) throws ProcessorException {
@@ -559,6 +541,7 @@ public class ProcessorUtilities {
             lastGeneratedWithStatsOrTrace.put(jobInfo.getJobId(), infos);
 
             if (currentProcess instanceof IProcess2) {
+                processor.generateWsdlFiles();
                 ((IProcess2) currentProcess).setNeedRegenerateCode(false);
             }
         } else {
@@ -688,8 +671,6 @@ public class ProcessorUtilities {
             generateSpringInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
                     currentJobName, processor);
 
-            generateWsdlFiles(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
-                    currentJobName, processor);
             TimeMeasure.step(idTimer, "generateContextInfo");
 
             /*
