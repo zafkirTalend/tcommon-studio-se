@@ -67,7 +67,7 @@ public class MetadataManager {
         if (!components.isEmpty()) {
             itemResource.getContents().addAll(components);
         }
-        if(!dependencies.isEmpty()){
+        if (!dependencies.isEmpty()) {
             itemResource.getContents().addAll(dependencies);
         }
     }
@@ -123,6 +123,11 @@ public class MetadataManager {
             for (int i = 0; i < item.getConnection().getDataPackage().size(); i++) {
                 if (item.getConnection().getDataPackage().get(i) instanceof RecordFile) {
                     RecordFile rf = (RecordFile) item.getConnection().getDataPackage().get(i);
+                    // add for TDI-22857
+                    item.getConnection().setName(item.getProperty().getDisplayName());
+                    if (rf != null) {
+                        rf.setName("default");
+                    }
                     returnlist.add(rf);
                 }
             }
@@ -142,8 +147,8 @@ public class MetadataManager {
             }
             break;
         case Dependency:
-                List<Dependency> dependencies = item.getConnection().getSupplierDependency();
-                returnlist.addAll(dependencies);
+            List<Dependency> dependencies = item.getConnection().getSupplierDependency();
+            returnlist.addAll(dependencies);
             break;
         default:
         }
