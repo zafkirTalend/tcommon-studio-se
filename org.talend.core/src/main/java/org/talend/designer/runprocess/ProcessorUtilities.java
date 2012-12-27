@@ -77,9 +77,9 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
- * 
+ *
  * $Id: talend-code-templates.xml 1 2006-09-29 17:06:40 +0000 (ven., 29 sept. 2006) nrousseau $
- * 
+ *
  */
 public class ProcessorUtilities {
 
@@ -129,7 +129,7 @@ public class ProcessorUtilities {
 
     /**
      * Process need to be loaded to use this function.
-     * 
+     *
      * @param process
      * @param selectedContext
      * @return
@@ -170,7 +170,7 @@ public class ProcessorUtilities {
 
     /**
      * Process need to be loaded first to use this function.
-     * 
+     *
      * @param process
      * @param context
      * @return
@@ -183,7 +183,7 @@ public class ProcessorUtilities {
 
     /**
      * Process need to be loaded first to use this function.
-     * 
+     *
      * @param process
      * @param context
      * @return
@@ -396,10 +396,13 @@ public class ProcessorUtilities {
         // if the generation is really needed.
         generateContextInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
                 currentJobName, processor);
-        
+
         //ADDED for TESB-7887 By GangLiu
         generateSpringInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
-        		currentJobName, processor);
+                currentJobName, processor);
+
+        generateWsdlFiles(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
+                currentJobName, processor);
 
         /*
          * Set classpath for current job. If current job include some child-jobs, the child job SHARE farther job
@@ -411,7 +414,7 @@ public class ProcessorUtilities {
     }
 
     /**
-     * 
+     *
      * This method is used when export job , check if one of the database component node use dynamic metadata
      */
     private static void checkMetadataDynamic(ProcessItem selectedProcessItem, JobInfo jobInfo) {
@@ -469,7 +472,7 @@ public class ProcessorUtilities {
             codeModified = false;
         }
     }
-    
+
     /*
      * used to generate spring file for RouteBuilder
      * ADDED for TESB-7887 By GangLiu
@@ -477,19 +480,34 @@ public class ProcessorUtilities {
     private static void generateSpringInfo(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean trace,
             boolean needContext, IProgressMonitor progressMonitor, IProcess currentProcess, String currentJobName,
             IProcessor processor) throws ProcessorException{
-    	if(!(currentProcess instanceof IProcess2)){
-    		return;
-    	}
-    	IProcess2 p = (IProcess2) currentProcess;
-    	if(!p.needsSpring()){
-    		return;
-    	}
-    	String springContent = p.getSpringContent();
-    	if(springContent == null){
-    		return;
-    	}
-    	processor.generateSpringContent();
+        if(!(currentProcess instanceof IProcess2)){
+            return;
+        }
+        IProcess2 p = (IProcess2) currentProcess;
+        if(!p.needsSpring()){
+            return;
+        }
+        String springContent = p.getSpringContent();
+        if(springContent == null){
+            return;
+        }
+        processor.generateSpringContent();
     }
+
+    /*
+     * used to generate WSDL files on classpath for jobs with tESBConsumer components
+     */
+    private static void generateWsdlFiles(JobInfo jobInfo, String selectedContextName,
+            boolean statistics, boolean trace, boolean needContext,
+            IProgressMonitor progressMonitor, IProcess currentProcess, String currentJobName,
+            IProcessor processor) throws ProcessorException {
+
+        if(!(currentProcess instanceof IProcess2)){
+            return;
+        }
+        processor.generateWsdlFiles();
+    }
+
 
     private static void generateContextInfo(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean trace,
             boolean needContext, IProgressMonitor progressMonitor, IProcess currentProcess, String currentJobName,
@@ -665,9 +683,12 @@ public class ProcessorUtilities {
 
             generateContextInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
                     currentJobName, processor);
-            
+
             //ADDED for TESB-7887 By GangLiu
             generateSpringInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
+                    currentJobName, processor);
+
+            generateWsdlFiles(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
                     currentJobName, processor);
             TimeMeasure.step(idTimer, "generateContextInfo");
 
@@ -821,7 +842,7 @@ public class ProcessorUtilities {
     /**
      * Return true if we can find a context name from the child job that matches the selected context name. see bug
      * 0003862: Export job with the flag "Apply to children" if the child don't have the same context fails.
-     * 
+     *
      * @param processItem
      * @param selectedContextName
      * @return
@@ -840,7 +861,7 @@ public class ProcessorUtilities {
 
     /**
      * This method is used to reset the tRunJob component's context,see feature 1625.
-     * 
+     *
      * @param jobInfo
      * @param currentProcess
      * @param selectedContextName
@@ -865,7 +886,7 @@ public class ProcessorUtilities {
 
     /**
      * This function will generate the code of the process and all of this sub process.
-     * 
+     *
      * @param processName
      * @param contextName
      * @param version null if no specific version required
@@ -886,7 +907,7 @@ public class ProcessorUtilities {
 
     /**
      * This function will generate the code of the process and all of this sub process.
-     * 
+     *
      * @param processName
      * @param contextName
      * @param version null if no specific version required
@@ -1055,9 +1076,9 @@ public class ProcessorUtilities {
     }
 
     /**
-     * 
+     *
      * Get the command line to launch the job.
-     * 
+     *
      * @param externalUse if true, will add "" around path and change \ to /
      * @param processName
      * @param contextName
@@ -1077,7 +1098,7 @@ public class ProcessorUtilities {
 
     /**
      * Get the command line to launch the job.
-     * 
+     *
      * @param targetPlatform for example Platform.OS_WIN32 / Platform.OS_LINUX
      * @param externalUse
      * @param processName
@@ -1175,9 +1196,9 @@ public class ProcessorUtilities {
     }
 
     /**
-     * 
+     *
      * ggu Comment method "getAllVersionProcessList".
-     * 
+     *
      * @param processId
      * @return
      */
@@ -1275,7 +1296,7 @@ public class ProcessorUtilities {
 
     /**
      * DOC xtan. for bug:15299
-     * 
+     *
      * @param jobId
      * @return
      */
@@ -1293,7 +1314,7 @@ public class ProcessorUtilities {
 
     /**
      * DOC xtan. for bug:15299
-     * 
+     *
      * @param jobId
      * @return
      */
@@ -1324,7 +1345,7 @@ public class ProcessorUtilities {
 
     /**
      * Getter for exportAsOSGI.
-     * 
+     *
      * @return the exportAsOSGI
      */
     public static boolean isExportAsOSGI() {
@@ -1333,7 +1354,7 @@ public class ProcessorUtilities {
 
     /**
      * Sets the exportAsOSGI.
-     * 
+     *
      * @param exportAsOSGI the exportAsOSGI to set
      */
     public static void setExportAsOSGI(boolean exportAsOSGI) {
