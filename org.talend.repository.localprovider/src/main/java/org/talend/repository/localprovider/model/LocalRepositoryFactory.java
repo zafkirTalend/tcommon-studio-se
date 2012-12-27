@@ -52,6 +52,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
@@ -84,7 +85,14 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.general.TalendNature;
 import org.talend.core.model.metadata.MetadataManager;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.connection.QueriesConnection;
+import org.talend.core.model.metadata.builder.connection.Query;
+import org.talend.core.model.metadata.builder.connection.SAPConnection;
+import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
+import org.talend.core.model.metadata.builder.connection.SAPIDocUnit;
 import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.core.model.properties.BRMSConnectionItem;
 import org.talend.core.model.properties.BusinessProcessItem;
@@ -143,6 +151,8 @@ import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.core.repository.utils.URIHelper;
 import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.core.service.ICorePerlService;
+import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.cwm.helper.SubItemHelper;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.localprovider.exceptions.IncorrectFileException;
@@ -2631,145 +2641,145 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public void unloadUnlockedResources() {
-        // if (!ProxyRepositoryFactory.getInstance().isFullLogonFinished()) {
-        // // don't unload anything while logon
-        // return;
-        // }
-        // List<Resource> resourceToUnload = new ArrayList<Resource>();
-        // List<URI> possibleItemsURItoUnload = new ArrayList<URI>();
-        // EList<Resource> kaka = xmiResourceManager.resourceSet.getResources();
-        // for (int i = 0; i < kaka.size(); i++) {
-        // Resource resource = xmiResourceManager.resourceSet.getResources().get(i);
-        // if (resource == null) {
-        // // only in case of bug from some items in the repository, to keep the repository stable even if a
-        // // problem happens
-        // continue;
-        // }
-        // final EList<EObject> contents = resource.getContents();
-        // for (int j = 0; j < contents.size(); j++) {
-        // EObject object = contents.get(j);
-        // if (object instanceof Property) {
-        // if (((Property) object).getItem() instanceof FolderItem) {
-        // continue;
-        // }
-        // if (((Property) object).getItem() instanceof RoutineItem) {
-        // RoutineItem item = (RoutineItem) ((Property) object).getItem();
-        // if (item.isBuiltIn()) {
-        // continue;
-        // }
-        // }
-        // if (((Property) object).getItem() instanceof SQLPatternItem) {
-        // SQLPatternItem item = (SQLPatternItem) ((Property) object).getItem();
-        // if (item.isSystem()) {
-        // continue;
-        // }
-        // }
-        //
-        // ERepositoryStatus status = getStatus(((Property) object).getItem());
-        // if ((status == ERepositoryStatus.LOCK_BY_USER) || (status == ERepositoryStatus.NOT_UP_TO_DATE)) {
-        // // System.out.println("locked (don't unload):" + ((Property) object).getLabel());
-        // continue;
-        // }
-        // resourceToUnload.add(resource);
-        // if (((Property) object).getItem() != null && ((Property) object).getItem().getParent() != null
-        // && (((Property) object).getItem().getParent()) instanceof FolderItem) {
-        //
-        // // bug 17768 :
-        // boolean toKeepInMemorySinceDeleted = false;
-        //
-        // if (((Property) object).getItem().getState().isDeleted()) {
-        // toKeepInMemorySinceDeleted = true;
-        // } else if (((Property) object).getItem() instanceof ConnectionItem) {
-        // // should check if item is ConnectionItem, then check if any of the table is deleted.
-        // // if yes, then don't unload all.
-        // Connection connection = ((ConnectionItem) ((Property) object).getItem()).getConnection();
-        //
-        // boolean haveTableDeleted = false;
-        //
-        // for (MetadataTable table : ConnectionHelper.getTables(connection)) {
-        // if (SubItemHelper.isDeleted(table)) {
-        // haveTableDeleted = true;
-        // break;
-        // }
-        // }
-        // if (!haveTableDeleted && connection != null) {
-        // QueriesConnection queriesConnection = connection.getQueries();
-        // if (queriesConnection != null) {
-        // for (Query query : queriesConnection.getQuery()) {
-        // if (SubItemHelper.isDeleted(query)) {
-        // haveTableDeleted = true;
-        // break;
-        // }
-        // }
-        // }
-        //
-        // if (connection instanceof SAPConnection) {
-        // SAPConnection sapConn = (SAPConnection) connection;
-        // if (!haveTableDeleted) {
-        // EList<SAPFunctionUnit> funtions = sapConn.getFuntions();
-        // for (SAPFunctionUnit unit : funtions) {
-        // if (SubItemHelper.isDeleted(unit)) {
-        // haveTableDeleted = true;
-        // break;
-        // }
-        // }
-        // }
-        // if (!haveTableDeleted) {
-        // EList<SAPIDocUnit> iDocs = sapConn.getIDocs();
-        // for (SAPIDocUnit iDoc : iDocs) {
-        // if (SubItemHelper.isDeleted(iDoc)) {
-        // haveTableDeleted = true;
-        // break;
-        // }
-        // }
-        // }
-        //
-        // }
-        // }
-        //
-        // if (haveTableDeleted) {
-        // toKeepInMemorySinceDeleted = true;
-        // }
-        // }
-        //
-        // // to free memory or parent will still hold the item
-        // if (!toKeepInMemorySinceDeleted) {
-        // ((FolderItem) ((Property) object).getItem().getParent()).getChildren().remove(
-        // ((Property) object).getItem());
-        // ((Property) object).getItem().setParent(null);
-        // }
-        // }
-        // possibleItemsURItoUnload.add(xmiResourceManager.getItemResourceURI(resource.getURI()));
-        // }
-        // }
-        // }
-        // kaka = xmiResourceManager.resourceSet.getResources();
-        // for (int i = 0; i < kaka.size(); i++) {
-        // Resource resource = kaka.get(i);
-        // final EList<EObject> contents = resource.getContents();
-        // for (int j = 0; j < contents.size(); j++) {
-        // EObject object = contents.get(j);
-        // if (!(object instanceof Property)) {
-        // if (possibleItemsURItoUnload.contains(resource.getURI()) && !resourceToUnload.contains(resource)) {
-        // resourceToUnload.add(resource);
-        // }
-        // }
-        // }
-        // }
-        //
-        // // MOD mzhao resource change listener so that TOP can react the changes.
-        // AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
-        // AbstractResourceChangesService.class);
-        // for (int i = 0; i < resourceToUnload.size(); i++) {
-        // Resource resource = resourceToUnload.get(i);
-        // if (resource.isLoaded()) {
-        // if (resChangeService != null) {
-        // resChangeService.handleUnload(resource);
-        // }
-        // resource.unload();
-        // }
-        // // xmiResourceManager.resourceSet.getResources().remove(resource);
-        // }
+        if (!ProxyRepositoryFactory.getInstance().isFullLogonFinished()) {
+            // don't unload anything while logon
+            return;
+        }
+        List<Resource> resourceToUnload = new ArrayList<Resource>();
+        List<URI> possibleItemsURItoUnload = new ArrayList<URI>();
+        EList<Resource> kaka = xmiResourceManager.resourceSet.getResources();
+        for (int i = 0; i < kaka.size(); i++) {
+            Resource resource = xmiResourceManager.resourceSet.getResources().get(i);
+            if (resource == null) {
+                // only in case of bug from some items in the repository, to keep the repository stable even if a
+                // problem happens
+                continue;
+            }
+            final EList<EObject> contents = resource.getContents();
+            for (int j = 0; j < contents.size(); j++) {
+                EObject object = contents.get(j);
+                if (object instanceof Property) {
+                    if (((Property) object).getItem() instanceof FolderItem) {
+                        continue;
+                    }
+                    if (((Property) object).getItem() instanceof RoutineItem) {
+                        RoutineItem item = (RoutineItem) ((Property) object).getItem();
+                        if (item.isBuiltIn()) {
+                            continue;
+                        }
+                    }
+                    if (((Property) object).getItem() instanceof SQLPatternItem) {
+                        SQLPatternItem item = (SQLPatternItem) ((Property) object).getItem();
+                        if (item.isSystem()) {
+                            continue;
+                        }
+                    }
+
+                    ERepositoryStatus status = getStatus(((Property) object).getItem());
+                    if ((status == ERepositoryStatus.LOCK_BY_USER) || (status == ERepositoryStatus.NOT_UP_TO_DATE)) {
+                        // System.out.println("locked (don't unload):" + ((Property) object).getLabel());
+                        continue;
+                    }
+                    resourceToUnload.add(resource);
+                    if (((Property) object).getItem() != null && ((Property) object).getItem().getParent() != null
+                            && (((Property) object).getItem().getParent()) instanceof FolderItem) {
+
+                        // bug 17768 :
+                        boolean toKeepInMemorySinceDeleted = false;
+
+                        if (((Property) object).getItem().getState().isDeleted()) {
+                            toKeepInMemorySinceDeleted = true;
+                        } else if (((Property) object).getItem() instanceof ConnectionItem) {
+                            // should check if item is ConnectionItem, then check if any of the table is deleted.
+                            // if yes, then don't unload all.
+                            Connection connection = ((ConnectionItem) ((Property) object).getItem()).getConnection();
+
+                            boolean haveTableDeleted = false;
+
+                            for (MetadataTable table : ConnectionHelper.getTables(connection)) {
+                                if (SubItemHelper.isDeleted(table)) {
+                                    haveTableDeleted = true;
+                                    break;
+                                }
+                            }
+                            if (!haveTableDeleted && connection != null) {
+                                QueriesConnection queriesConnection = connection.getQueries();
+                                if (queriesConnection != null) {
+                                    for (Query query : queriesConnection.getQuery()) {
+                                        if (SubItemHelper.isDeleted(query)) {
+                                            haveTableDeleted = true;
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                if (connection instanceof SAPConnection) {
+                                    SAPConnection sapConn = (SAPConnection) connection;
+                                    if (!haveTableDeleted) {
+                                        EList<SAPFunctionUnit> funtions = sapConn.getFuntions();
+                                        for (SAPFunctionUnit unit : funtions) {
+                                            if (SubItemHelper.isDeleted(unit)) {
+                                                haveTableDeleted = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if (!haveTableDeleted) {
+                                        EList<SAPIDocUnit> iDocs = sapConn.getIDocs();
+                                        for (SAPIDocUnit iDoc : iDocs) {
+                                            if (SubItemHelper.isDeleted(iDoc)) {
+                                                haveTableDeleted = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+
+                            if (haveTableDeleted) {
+                                toKeepInMemorySinceDeleted = true;
+                            }
+                        }
+
+                        // to free memory or parent will still hold the item
+                        if (!toKeepInMemorySinceDeleted) {
+                            ((FolderItem) ((Property) object).getItem().getParent()).getChildren().remove(
+                                    ((Property) object).getItem());
+                            ((Property) object).getItem().setParent(null);
+                        }
+                    }
+                    possibleItemsURItoUnload.add(xmiResourceManager.getItemResourceURI(resource.getURI()));
+                }
+            }
+        }
+        kaka = xmiResourceManager.resourceSet.getResources();
+        for (int i = 0; i < kaka.size(); i++) {
+            Resource resource = kaka.get(i);
+            final EList<EObject> contents = resource.getContents();
+            for (int j = 0; j < contents.size(); j++) {
+                EObject object = contents.get(j);
+                if (!(object instanceof Property)) {
+                    if (possibleItemsURItoUnload.contains(resource.getURI()) && !resourceToUnload.contains(resource)) {
+                        resourceToUnload.add(resource);
+                    }
+                }
+            }
+        }
+
+        // MOD mzhao resource change listener so that TOP can react the changes.
+        AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
+                AbstractResourceChangesService.class);
+        for (int i = 0; i < resourceToUnload.size(); i++) {
+            Resource resource = resourceToUnload.get(i);
+            if (resource.isLoaded()) {
+                if (resChangeService != null) {
+                    resChangeService.handleUnload(resource);
+                }
+                resource.unload();
+            }
+            // xmiResourceManager.resourceSet.getResources().remove(resource);
+        }
     }
 
     @Override
