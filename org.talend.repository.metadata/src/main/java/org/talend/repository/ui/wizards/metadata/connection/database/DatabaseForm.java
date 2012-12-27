@@ -1956,6 +1956,8 @@ public class DatabaseForm extends AbstractForm {
         if (originalURL != null) {
             if (!originalURL.equalsIgnoreCase(urlConnectionStringText.getText())) {
                 ConnectionHelper.setIsConnNeedReload(getConnection(), Boolean.TRUE);
+            } else if (!originalUischema.equalsIgnoreCase(schemaText.getText())) {
+                ConnectionHelper.setIsConnNeedReload(getConnection(), Boolean.TRUE);
             } else {
                 ConnectionHelper.setIsConnNeedReload(getConnection(), this.originalIsNeedReload);
             }
