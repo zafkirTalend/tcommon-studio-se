@@ -215,12 +215,16 @@
                   name="org.eclipse.ui.navigator.hideAvailableCustomizationsDialog"
                   value="true">
             </property>
-            <property
-                  name="org.eclipse.ui.navigator.hideLinkWithEditorAction"
-                  value="true">
-            </property>
          </options>
       </viewer>
+      <viewerContentBinding
+            viewerId="org.talend.repository.cnf.view">
+         <includes>
+            <contentExtension
+                  pattern="org.talend.repository.navigator.link.repoView">
+            </contentExtension>
+         </includes>
+      </viewerContentBinding>
    </extension>
    <extension
          point="org.eclipse.core.expressions.propertyTesters">
@@ -274,5 +278,22 @@
       <initializer
             class="org.talend.repository.viewer.preference.RepoViewPreferenceInitializer">
       </initializer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.linkHelper">
+      <linkHelper
+            class="org.talend.repository.navigator.link.RepoViewLinkHelper"
+            id="org.talend.repository.navigator.link.repoView">
+         <editorInputEnablement>
+            <adapt
+                  type="org.eclipse.ui.IEditorInput">
+            </adapt>
+         </editorInputEnablement>
+         <selectionEnablement>
+            <instanceof
+                  value="org.talend.repository.model.RepositoryNode">
+            </instanceof>
+         </selectionEnablement>
+      </linkHelper>
    </extension>
 </plugin>
