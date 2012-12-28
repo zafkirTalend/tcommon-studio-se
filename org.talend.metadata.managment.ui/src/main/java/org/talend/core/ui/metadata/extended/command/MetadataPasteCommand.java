@@ -102,6 +102,7 @@ public class MetadataPasteCommand extends ExtendedTablePasteCommand {
                 }
                 labelsExisted.add(nextGeneratedColumnName);
                 copy.setLabel(nextGeneratedColumnName);
+                copy.setOriginalDbColumnName(nextGeneratedColumnName);
                 addItemList.add(copy);
             }
             // Add a new statement to fix the MetadataColumn type.
