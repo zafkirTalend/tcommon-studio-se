@@ -317,6 +317,7 @@ public class SelectorTableForm extends AbstractForm {
         gc.dispose();
 
         metadataEditor = new MetadataEmfTableEditor(""); //$NON-NLS-1$
+        parentWizardPage.setPageComplete(false);
         // addUtilsButtonListeners();
     }
 
@@ -737,7 +738,7 @@ public class SelectorTableForm extends AbstractForm {
             } else {
                 list.addAll(tables);
             }
-            if (forTemplate && list.size() <= 0) {
+            if (forTemplate || list.size() <= 0) {
                 return true;
             }
         }
@@ -1095,7 +1096,7 @@ public class SelectorTableForm extends AbstractForm {
                     && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
-                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))
                     || EDatabaseTypeName.HIVE.getDisplayName().equalsIgnoreCase(dbType)) {
                 ExtractMetaDataUtils.closeConnection();
             }
