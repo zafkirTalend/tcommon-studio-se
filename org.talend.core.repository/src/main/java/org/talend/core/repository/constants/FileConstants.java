@@ -75,6 +75,8 @@ public class FileConstants {
 
     public static final String XLS_FILE_SUFFIX = ".xls"; //$NON-NLS-1$
 
+    public static final String WSDL_FILE_SUFFIX = ".wsdl"; //$NON-NLS-1$
+
     /*
      * file names
      */
