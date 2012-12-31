@@ -911,17 +911,22 @@ public class RepositoryToComponentProperty {
 
         if (value.equals("DB_VERSION")) { //$NON-NLS-1$
             String dbVersionString = connection.getDbVersionString();
-            if (EDatabaseConnTemplate.ACCESS.getDBDisplayName().equals(databaseType)
-                    || EDatabaseConnTemplate.MYSQL.getDBDisplayName().equals(databaseType)) {
+            if (EDatabaseConnTemplate.ACCESS.getDBDisplayName().equals(databaseType)) {
                 // @Deprecated: see bug 7262 this bug is Deprecated
                 return dbVersionString;
+            } else if (EDatabaseConnTemplate.MYSQL.getDBDisplayName().equals(databaseType)) {
+                if (dbVersionString != null) {
+                    return dbVersionString.toUpperCase();
+                }
             } else {
                 String driverValue = EDatabaseVersion4Drivers.getDriversStr(databaseType, dbVersionString);
                 if (EDatabaseConnTemplate.ORACLE_OCI.getDBDisplayName().equals(databaseType)
                         || EDatabaseConnTemplate.ORACLE_RAC.getDBDisplayName().equals(databaseType)
                         || EDatabaseConnTemplate.ORACLEFORSID.getDBDisplayName().equals(databaseType)
                         || EDatabaseConnTemplate.ORACLESN.getDBDisplayName().equals(databaseType)) {
-                    driverValue = dbVersionString;
+                    if (dbVersionString != null) {
+                        driverValue = dbVersionString.toUpperCase();
+                    }
                 }
                 if (isContextMode(connection, dbVersionString)) {
                     return dbVersionString;
