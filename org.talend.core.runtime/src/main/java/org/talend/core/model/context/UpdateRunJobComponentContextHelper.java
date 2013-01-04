@@ -94,14 +94,18 @@ public final class UpdateRunJobComponentContextHelper {
                                     }
                                 }
                             }
-                            // bug 9424
-                            obj = valueMap.get(PARAM_VALUE_COLUMN);
-                            if (obj != null && obj instanceof String) {
-                                String oldValue = (String) obj;
-                                String newValue = checkAndUpdateValue(nameMap, oldValue);
-                                if (newValue != null) { // update
-                                    valueMap.put(PARAM_VALUE_COLUMN, newValue);
-                                    changed = true;
+                            // Change value only for the job which context variable is changed. Changed by Marvin Wang
+                            // on Dec. 28, 2012 for bug TDI-24255.
+                            if (process.getId().equals(refJobId)) {
+                                // bug 9424
+                                obj = valueMap.get(PARAM_VALUE_COLUMN);
+                                if (obj != null && obj instanceof String) {
+                                    String oldValue = (String) obj;
+                                    String newValue = checkAndUpdateValue(nameMap, oldValue);
+                                    if (newValue != null) { // update
+                                        valueMap.put(PARAM_VALUE_COLUMN, newValue);
+                                        changed = true;
+                                    }
                                 }
                             }
                         }
@@ -116,7 +120,7 @@ public final class UpdateRunJobComponentContextHelper {
             }
             // update the job state
             if (changed && process instanceof IProcess2) {
-                CommandStack commandStack = ((IProcess2) process).getCommandStack();
+                CommandStack commandStack = process.getCommandStack();
                 if (commandStack != null) {
                     commandStack.execute(new Command() {
                     });
@@ -321,7 +325,7 @@ public final class UpdateRunJobComponentContextHelper {
                         boolean exist = false;
                         for (IContext con : listContext) {
                             String name = con.getName();
-                            if (((String) value).equals(name)) {
+                            if (value.equals(name)) {
                                 exist = true;
                                 break;
                             }
