@@ -127,7 +127,7 @@ public class XmiResourceManager {
         }
     }
 
-    public Property loadProperty(IResource iResource) {
+    public synchronized Property loadProperty(IResource iResource) {
         // force unload old version, or the UI won't be synchronized all the time to the current file.
         // this is only if a user update itself a .item or .properties, or for SVN repository.
         //
@@ -374,7 +374,7 @@ public class XmiResourceManager {
                 // do nothing, consider the file don't exist
                 itemResource = null;
             }
-        } 
+        }
         if (itemResource == null && createIfNotExist) {
             itemResource = resourceSet.createResource(itemResourceURI);
         }
