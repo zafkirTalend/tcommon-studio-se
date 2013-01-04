@@ -20,6 +20,7 @@ import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
@@ -642,7 +643,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         column.setWeight(25);
         column.setModifiable(!isReadOnly());
         column.setMinimumWidth(45);
-        final TextCellEditor cellEditor = new TextCellEditor(tableViewerCreator.getTable());
+        final TextCellEditor cellEditor = new TextCellEditorExtendTab(tableViewerCreator.getTable());
         cellEditor.addListener(new DialogErrorForCellEditorListener(cellEditor, column) {
 
             @Override
@@ -656,6 +657,23 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
         });
         column.setCellEditor(cellEditor);
+    }
+    
+    public class TextCellEditorExtendTab extends TextCellEditor {
+
+        public TextCellEditorExtendTab(Composite parent) {
+            super(parent);
+        }
+
+        @Override
+        protected void keyReleaseOccured(KeyEvent keyEvent) {
+            super.keyReleaseOccured(keyEvent);
+            if (keyEvent.character == '\t') {
+                fireApplyEditorValue();
+                deactivate();
+            }
+        }
+
     }
 
     /**

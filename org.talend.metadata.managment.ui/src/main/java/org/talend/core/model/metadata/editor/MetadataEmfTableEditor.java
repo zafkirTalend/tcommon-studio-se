@@ -110,7 +110,7 @@ public class MetadataEmfTableEditor extends ExtendedTableModel<MetadataColumn> {
         }
 
         if (!MetadataToolHelper.isValidColumnName(columnName)) {
-            return Messages.getString(("MetadataEmfTableEditor.ColumnInvalid"), columnName); //$NON-NLS-1$ //$NON-NLS-2$
+            return ""; //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         int lstSize = metadataColumns.size();
