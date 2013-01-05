@@ -283,9 +283,15 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
         list.add(repositoryObject);
 
         if (tdqRepService != null) {
+            // MOD qiongli 2012-11-23 TDQ-6287
+            if (creation) {
+                tdqRepService.openConnectionEditor(connectionItem);
+            } else {
+                // refresh the opened connection editor whatever is in DI or DQ perspective.
+                tdqRepService.refreshConnectionEditor(connectionItem);
+            }
             if (CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {
-                tdqRepService.openEditor(connectionItem);
-                tdqRepService.refresh(node);
+                tdqRepService.refresh(node.getParent());
             }
         }
 

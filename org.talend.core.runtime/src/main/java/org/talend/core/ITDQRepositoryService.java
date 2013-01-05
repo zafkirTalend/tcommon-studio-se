@@ -41,7 +41,7 @@ public interface ITDQRepositoryService extends IService {
 
     public IViewPart getTDQRespositoryView();
 
-    public void openEditor(Item item);
+    public void openConnectionEditor(Item item);
 
     public void notifySQLExplorer(Item... items);
 
@@ -107,4 +107,6 @@ public interface ITDQRepositoryService extends IService {
 
     // Add xqliu 2012-12-11 TDQ-5750
     public void refreshCurrentAnalysisEditor();
+
+    public void refreshConnectionEditor(Item item);
 }
