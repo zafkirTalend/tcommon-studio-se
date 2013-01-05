@@ -4063,13 +4063,31 @@ public interface ConnectionPackage extends EPackage {
     int EBCDIC_CONNECTION__CODE_PAGE = FILE_CONNECTION_FEATURE_COUNT + 2;
 
     /**
+     * The feature id for the '<em><b>Source File Start</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__SOURCE_FILE_START = FILE_CONNECTION_FEATURE_COUNT + 3;
+
+    /**
+     * The feature id for the '<em><b>Source File End</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__SOURCE_FILE_END = FILE_CONNECTION_FEATURE_COUNT + 4;
+
+    /**
      * The number of structural features of the '<em>Ebcdic Connection</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int EBCDIC_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 3;
+    int EBCDIC_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 5;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl <em>MDM Connection</em>}' class.
@@ -18476,6 +18494,28 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getEbcdicConnection_CodePage();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.EbcdicConnection#getSourceFileStart <em>Source File Start</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Source File Start</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.EbcdicConnection#getSourceFileStart()
+     * @see #getEbcdicConnection()
+     * @generated
+     */
+    EAttribute getEbcdicConnection_SourceFileStart();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.EbcdicConnection#getSourceFileEnd <em>Source File End</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Source File End</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.EbcdicConnection#getSourceFileEnd()
+     * @see #getEbcdicConnection()
+     * @generated
+     */
+    EAttribute getEbcdicConnection_SourceFileEnd();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.MDMConnection <em>MDM Connection</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>MDM Connection</em>'.
@@ -22481,6 +22521,22 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute EBCDIC_CONNECTION__CODE_PAGE = eINSTANCE.getEbcdicConnection_CodePage();
+
+        /**
+         * The meta object literal for the '<em><b>Source File Start</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EBCDIC_CONNECTION__SOURCE_FILE_START = eINSTANCE.getEbcdicConnection_SourceFileStart();
+
+        /**
+         * The meta object literal for the '<em><b>Source File End</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EBCDIC_CONNECTION__SOURCE_FILE_END = eINSTANCE.getEbcdicConnection_SourceFileEnd();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl <em>MDM Connection</em>}' class.

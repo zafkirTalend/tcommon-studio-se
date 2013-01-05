@@ -22,6 +22,8 @@ import org.talend.core.model.metadata.builder.connection.EbcdicConnection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.EbcdicConnectionImpl#getMidFile <em>Mid File</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.EbcdicConnectionImpl#getDataFile <em>Data File</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.EbcdicConnectionImpl#getCodePage <em>Code Page</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.EbcdicConnectionImpl#getSourceFileStart <em>Source File Start</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.EbcdicConnectionImpl#getSourceFileEnd <em>Source File End</em>}</li>
  * </ul>
  * </p>
  *
@@ -88,6 +90,46 @@ public class EbcdicConnectionImpl extends FileConnectionImpl implements EbcdicCo
      * @ordered
      */
     protected String codePage = CODE_PAGE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getSourceFileStart() <em>Source File Start</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSourceFileStart()
+     * @generated
+     * @ordered
+     */
+    protected static final String SOURCE_FILE_START_EDEFAULT = "6";
+
+    /**
+     * The cached value of the '{@link #getSourceFileStart() <em>Source File Start</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSourceFileStart()
+     * @generated
+     * @ordered
+     */
+    protected String sourceFileStart = SOURCE_FILE_START_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getSourceFileEnd() <em>Source File End</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSourceFileEnd()
+     * @generated
+     * @ordered
+     */
+    protected static final String SOURCE_FILE_END_EDEFAULT = "72";
+
+    /**
+     * The cached value of the '{@link #getSourceFileEnd() <em>Source File End</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSourceFileEnd()
+     * @generated
+     * @ordered
+     */
+    protected String sourceFileEnd = SOURCE_FILE_END_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -179,6 +221,50 @@ public class EbcdicConnectionImpl extends FileConnectionImpl implements EbcdicCo
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getSourceFileStart() {
+        return sourceFileStart;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSourceFileStart(String newSourceFileStart) {
+        String oldSourceFileStart = sourceFileStart;
+        sourceFileStart = newSourceFileStart;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.EBCDIC_CONNECTION__SOURCE_FILE_START,
+                    oldSourceFileStart, sourceFileStart));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getSourceFileEnd() {
+        return sourceFileEnd;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSourceFileEnd(String newSourceFileEnd) {
+        String oldSourceFileEnd = sourceFileEnd;
+        sourceFileEnd = newSourceFileEnd;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.EBCDIC_CONNECTION__SOURCE_FILE_END,
+                    oldSourceFileEnd, sourceFileEnd));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
@@ -188,6 +274,10 @@ public class EbcdicConnectionImpl extends FileConnectionImpl implements EbcdicCo
             return getDataFile();
         case ConnectionPackage.EBCDIC_CONNECTION__CODE_PAGE:
             return getCodePage();
+        case ConnectionPackage.EBCDIC_CONNECTION__SOURCE_FILE_START:
+            return getSourceFileStart();
+        case ConnectionPackage.EBCDIC_CONNECTION__SOURCE_FILE_END:
+            return getSourceFileEnd();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -208,6 +298,12 @@ public class EbcdicConnectionImpl extends FileConnectionImpl implements EbcdicCo
             return;
         case ConnectionPackage.EBCDIC_CONNECTION__CODE_PAGE:
             setCodePage((String) newValue);
+            return;
+        case ConnectionPackage.EBCDIC_CONNECTION__SOURCE_FILE_START:
+            setSourceFileStart((String) newValue);
+            return;
+        case ConnectionPackage.EBCDIC_CONNECTION__SOURCE_FILE_END:
+            setSourceFileEnd((String) newValue);
             return;
         }
         super.eSet(featureID, newValue);
@@ -230,6 +326,12 @@ public class EbcdicConnectionImpl extends FileConnectionImpl implements EbcdicCo
         case ConnectionPackage.EBCDIC_CONNECTION__CODE_PAGE:
             setCodePage(CODE_PAGE_EDEFAULT);
             return;
+        case ConnectionPackage.EBCDIC_CONNECTION__SOURCE_FILE_START:
+            setSourceFileStart(SOURCE_FILE_START_EDEFAULT);
+            return;
+        case ConnectionPackage.EBCDIC_CONNECTION__SOURCE_FILE_END:
+            setSourceFileEnd(SOURCE_FILE_END_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -248,6 +350,11 @@ public class EbcdicConnectionImpl extends FileConnectionImpl implements EbcdicCo
             return DATA_FILE_EDEFAULT == null ? dataFile != null : !DATA_FILE_EDEFAULT.equals(dataFile);
         case ConnectionPackage.EBCDIC_CONNECTION__CODE_PAGE:
             return CODE_PAGE_EDEFAULT == null ? codePage != null : !CODE_PAGE_EDEFAULT.equals(codePage);
+        case ConnectionPackage.EBCDIC_CONNECTION__SOURCE_FILE_START:
+            return SOURCE_FILE_START_EDEFAULT == null ? sourceFileStart != null : !SOURCE_FILE_START_EDEFAULT
+                    .equals(sourceFileStart);
+        case ConnectionPackage.EBCDIC_CONNECTION__SOURCE_FILE_END:
+            return SOURCE_FILE_END_EDEFAULT == null ? sourceFileEnd != null : !SOURCE_FILE_END_EDEFAULT.equals(sourceFileEnd);
         }
         return super.eIsSet(featureID);
     }
@@ -269,6 +376,10 @@ public class EbcdicConnectionImpl extends FileConnectionImpl implements EbcdicCo
         result.append(dataFile);
         result.append(", CodePage: ");
         result.append(codePage);
+        result.append(", SourceFileStart: ");
+        result.append(sourceFileStart);
+        result.append(", SourceFileEnd: ");
+        result.append(sourceFileEnd);
         result.append(')');
         return result.toString();
     }
