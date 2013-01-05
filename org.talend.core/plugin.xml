@@ -59,6 +59,11 @@
             class="org.talend.core.prefs.InitConnectionsMigrationTask"
             id="org.talend.core.InitConnectionsMigrationTask"
             name="Init connections preferences"/>
+      <workspacetask
+            class="org.talend.core.prefs.EmptyConnectionsMigrationTask"
+            id="org.talend.core.EmptyConnectionsMigrationTask"
+            name="Empty connection from preference">
+      </workspacetask>
    </extension>
    <extension
          point="org.eclipse.ui.startup">
