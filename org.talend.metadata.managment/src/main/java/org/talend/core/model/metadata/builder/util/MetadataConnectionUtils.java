@@ -204,7 +204,13 @@ public class MetadataConnectionUtils {
                     }
                 } else {
                     driver = getClassDriver(metadataBean);
-                    sqlConn = ConnectionUtils.createConnection(dbUrl, driver, props);
+                    TypedReturnCode<java.sql.Connection> connReturnCode = ConnectionUtils
+                            .createConnectionRC(dbUrl, driver, props);
+                    sqlConn = connReturnCode.getObject();
+                    if (sqlConn == null) {
+                        rc.setOk(false);
+                        rc.setMessage(connReturnCode.getMessage());
+                    }
                 }
 
                 ReturnCode varc = ConnectionUtils.isValid(sqlConn);

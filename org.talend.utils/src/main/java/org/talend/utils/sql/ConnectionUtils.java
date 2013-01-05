@@ -24,6 +24,7 @@ import java.util.Properties;
 
 import org.apache.log4j.Logger;
 import org.talend.utils.sugars.ReturnCode;
+import org.talend.utils.sugars.TypedReturnCode;
 
 /**
  * Utility class for database connection handling.
@@ -86,7 +87,26 @@ public final class ConnectionUtils {
      */
     public static Connection createConnection(String url, Driver driver, Properties props) throws SQLException,
             InstantiationException, IllegalAccessException, ClassNotFoundException {
+        return createConnectionRC(url, driver, props).getObject();
+    }
+
+    /**
+     * DOC xqliu Comment method "createConnectionRC".
+     * 
+     * @param url
+     * @param driver
+     * @param props
+     * @return
+     * @throws SQLException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws ClassNotFoundException
+     */
+    public static TypedReturnCode<Connection> createConnectionRC(String url, Driver driver, Properties props)
+            throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+        TypedReturnCode<Connection> rc = new TypedReturnCode<Connection>();
         Connection connection = null;
+
         if (driver != null) {
             try {
                 DriverManager.registerDriver(driver);
@@ -97,6 +117,7 @@ public final class ConnectionUtils {
                     connection = driver.connect(url, props);
                 } catch (Exception exception) {
                     log.info(exception);
+                    rc.setMessage(exception.getMessage());
                 }
             } catch (SQLException e) {// MOD xqliu for sybase
                 if (url != null && url.toLowerCase().indexOf("sybase") > -1) { //$NON-NLS-1$
@@ -104,14 +125,22 @@ public final class ConnectionUtils {
                         connection = driver.connect(url, props);
                     } catch (Exception exception) {
                         log.info(exception);
+                        rc.setMessage(exception.getMessage());
                     }
+                } else {
+                    rc.setMessage(e.getMessage());
                 }
             }
         }
+
         if (isAccess(url)) {
             connection = DriverManager.getConnection(url, props);
         }
-        return connection;
+
+        rc.setObject(connection);
+        rc.setOk(connection != null);
+
+        return rc;
     }
 
     /**
