@@ -108,5 +108,9 @@ public interface ITDQRepositoryService extends IService {
     // Add xqliu 2012-12-11 TDQ-5750
     public void refreshCurrentAnalysisEditor();
 
+    // Add zshen 2013-01-05
+    public void refreshCurrentAnalysisAndConnectionEditor();
+
     public void refreshConnectionEditor(Item item);
+
 }

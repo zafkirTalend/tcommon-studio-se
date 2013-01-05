@@ -438,13 +438,16 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     // Modified by Marvin Wang on Apr. 40, 2012 for bug TDI-20744
                     // factory.save(connectionItem);
                     boolean isNameModified = propertiesWizardPage.isNameModifiedByUser();
-
+                    updateTdqDependencies();
                     // MOD yyin 20121115 TDQ-6395, save all dependency of the connection when the name is changed.
                     if (isNameModified && tdqRepService != null) {
                         tdqRepService.saveConnectionWithDependency(connectionItem);
                         closeLockStrategy();
                     } else {
                         updateConnectionItem();
+                    }
+                    if ((isNameModified || IsVersionChange()) && tdqRepService != null) {
+                        tdqRepService.refreshCurrentAnalysisAndConnectionEditor();
                     }
                     // ~
                     if (isNameModified) {
@@ -490,11 +493,19 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     tdqRepService.refresh(node.getParent());
                 }
             }
-            updateTdqDependencies();
             return true;
         } else {
             return false;
         }
+    }
+
+    private boolean IsVersionChange() {
+        String oldVersion = this.originalVersion;
+        String newVersioin = connectionItem.getProperty().getVersion();
+        if (oldVersion != null && newVersioin != null && !newVersioin.equals(oldVersion)) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -502,13 +513,12 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
      */
     private void updateTdqDependencies() {
         if (connectionItem != null) {
-            String oldVersion = this.originalVersion;
-            String newVersioin = connectionItem.getProperty().getVersion();
-            if (oldVersion != null && newVersioin != null && !newVersioin.equals(oldVersion)) {
+            if (IsVersionChange()) {
                 AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
                         AbstractResourceChangesService.class);
                 if (resChangeService != null) {
-                    resChangeService.updateDependeciesWhenVersionChange(connectionItem, oldVersion, newVersioin);
+                    resChangeService.updateDependeciesWhenVersionChange(connectionItem, this.originalVersion, connectionItem
+                            .getProperty().getVersion());
                 }
             }
         }
