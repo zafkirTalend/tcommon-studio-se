@@ -389,15 +389,20 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     assert catalogName != null && !isHive : Messages.getString("CatalogBuilder.CatalogNameNull",//$NON-NLS-1$
                             dbJDBCMetadata.getConnection().toString());
 
-                    if (!isNullSID(dbConn) && dbConn != null) {
-                        String databaseOnConnWizard = ((DatabaseConnection) dbConn).getSID();
-                        // If the SID on ui is not empty, the catalog name should be same to this SID name.
-                        CWMService cwmService = new TalendCWMService();
-                        postFillCatalog(metaConnection, catalogList, filterList,
-                                cwmService.getReadableName(dbConn, databaseOnConnWizard), dbConn);
-                        break;
-                    } else if (isCreateElement(catalogFilter, catalogName)) {
-                        postFillCatalog(metaConnection, catalogList, filterList, catalogName, dbConn);
+                    // Changed by Marvin Wang on Jan. 6, 2012 for bug TDI-24222. I haved discussed with Shen Ze about
+                    // the fix,it is okay for them. What we did is to avoid creating a new catalog when catalogName is
+                    // "null" for DB2.
+                    if (catalogName != null) {
+                        if (!isNullSID(dbConn) && dbConn != null) {
+                            String databaseOnConnWizard = ((DatabaseConnection) dbConn).getSID();
+                            // If the SID on ui is not empty, the catalog name should be same to this SID name.
+                            CWMService cwmService = new TalendCWMService();
+                            postFillCatalog(metaConnection, catalogList, filterList,
+                                    cwmService.getReadableName(dbConn, databaseOnConnWizard), dbConn);
+                            break;
+                        } else if (isCreateElement(catalogFilter, catalogName)) {
+                            postFillCatalog(metaConnection, catalogList, filterList, catalogName, dbConn);
+                        }
                     }
                     // ~11412
                 }
