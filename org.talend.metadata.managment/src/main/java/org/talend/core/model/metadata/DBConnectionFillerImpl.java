@@ -877,7 +877,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     }
                 }
             } else if (dbJDBCMetadata.getDatabaseProductName() != null
-                    && dbJDBCMetadata.getDatabaseProductName().equals("DB2/NT")) { //$NON-NLS-1$
+                    && dbJDBCMetadata.getDatabaseProductName().startsWith("DB2/NT")) { //$NON-NLS-1$
                 for (String element : tableType) {
                     if (element.equals("SYNONYM")) { //$NON-NLS-1$
                         Statement stmt = ExtractMetaDataUtils.conn.createStatement();
