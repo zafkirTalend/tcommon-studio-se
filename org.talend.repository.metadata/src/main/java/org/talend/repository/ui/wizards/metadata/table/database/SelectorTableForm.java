@@ -613,9 +613,9 @@ public class SelectorTableForm extends AbstractForm {
                         updateItem(catalogItem, false, false);
                     }
                 }
-                if (forTemplate) {
-                    parentWizardPage.setPageComplete(false);
-                }
+                // if (forTemplate) {
+                parentWizardPage.setPageComplete(false);
+                // }
             }
 
         });
