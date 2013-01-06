@@ -14,10 +14,6 @@ package org.talend.core.repository.link;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 import org.talend.repository.model.RepositoryNode;
 
@@ -27,7 +23,7 @@ import org.talend.repository.model.RepositoryNode;
  * $Id: talend.epf 55206 2011-02-15 17:32:14Z mhirt $
  * 
  */
-public abstract class AbstractFileEditorInputLinker implements IRepoViewLinker {
+public abstract class AbstractFileEditorInputLinker extends AbstractEditorInputWithItemIdLinker {
 
     /*
      * (non-Javadoc)
@@ -40,43 +36,14 @@ public abstract class AbstractFileEditorInputLinker implements IRepoViewLinker {
             FileEditorInput fileEditorInput = (FileEditorInput) editorInput;
             final IFile file = fileEditorInput.getFile();
             if (checkFileExtension(file)) {
-                IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-                if (activeWorkbenchWindow != null) {
-                    IWorkbenchPage activePage = activeWorkbenchWindow.getActivePage();
-                    if (activePage != null) {
-                        return getRepoNodeFromEditor(getEditor(activePage, fileEditorInput));
-                    }
-                }
+                return getRepoNodeFromEditor(getEditor(fileEditorInput));
             }
         }
         return null;
     }
 
-    protected IEditorPart getEditor(IWorkbenchPage activePage, IEditorInput editorInput) {
-        if (activePage != null && editorInput != null) {
-            return activePage.findEditor(editorInput);
-        }
-        return null;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.repository.link.IRepoViewLinker#isRelation(org.eclipse.ui.IEditorInput, java.lang.String)
-     */
-    @Override
-    public boolean isRelation(IEditorInput editorInput, String repoNodeId) {
-        RepositoryNode relationNode = getRelationNode(editorInput);
-        if (relationNode != null && repoNodeId != null && repoNodeId.equals(relationNode.getId())) {
-            return true;
-        }
-        return false;
-    }
-
     protected boolean checkFileExtension(IFile file) {
         return true; // ignore by default
     }
-
-    protected abstract RepositoryNode getRepoNodeFromEditor(IEditorPart editorPart);
 
 }
