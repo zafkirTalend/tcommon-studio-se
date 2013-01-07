@@ -195,6 +195,8 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
             public void set(MetadataColumn bean, Integer value) {
                 if (value != null) {
                     bean.setPrecision(value);
+                } else {
+                    bean.setPrecision(0);
                 }
             }
 
@@ -229,6 +231,8 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
                     if (Long.valueOf(bean.getOriginalLength()) == 0) {
                         bean.setOriginalLength(value);
                     }
+                } else {
+                    bean.setLength(0);
                 }
             }
 
