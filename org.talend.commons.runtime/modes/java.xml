@@ -113,6 +113,9 @@
 			<KEYWORD1>try</KEYWORD1>
 			<KEYWORD1>volatile</KEYWORD1>
 			<KEYWORD1>while</KEYWORD1>
+			<KEYWORD1>assert</KEYWORD1>
+			<KEYWORD1>enum</KEYWORD1>
+			<KEYWORD1>strictfp</KEYWORD1>
 
 			<KEYWORD2>package</KEYWORD2>
 			<KEYWORD2>import</KEYWORD2>
