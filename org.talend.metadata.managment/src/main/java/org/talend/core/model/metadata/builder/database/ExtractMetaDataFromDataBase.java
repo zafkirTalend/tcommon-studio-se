@@ -200,6 +200,7 @@ public class ExtractMetaDataFromDataBase {
      * @return Collection of MetadataColumn Object of a Table
      * @deprecated
      */
+    @Deprecated
     public static synchronized List<TdColumn> returnMetadataColumnsFormTable(IMetadataConnection iMetadataConnection,
             String tableLabel, boolean... dontCreateClose) {
         ExtractManager extractManager = ExtractManagerFactory.createByDisplayName(iMetadataConnection.getDbType());
@@ -228,7 +229,7 @@ public class ExtractMetaDataFromDataBase {
         Statement sta = null;
 
         try {
-            if (conn.getMetaData().getDatabaseProductName().equals(IBMDB2ExtractManager.DATABASE_PRODUCT_NAME)) {
+            if (conn.getMetaData().getDatabaseProductName().startsWith(IBMDB2ExtractManager.DATABASE_PRODUCT_NAME)) {
                 ExtractManager extractManager = ExtractManagerFactory.create(EDatabaseTypeName.IBMDB2);
                 if (extractManager != null) {
                     return extractManager.getTableNameBySynonyms(conn, name);
