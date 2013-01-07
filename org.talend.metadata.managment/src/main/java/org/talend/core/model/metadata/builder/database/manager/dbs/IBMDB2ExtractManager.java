@@ -70,7 +70,7 @@ public class IBMDB2ExtractManager extends ExtractManager {
         ResultSet resultSet = null;
 
         try {
-            if (conn != null && conn.getMetaData().getDatabaseProductName().equals(DATABASE_PRODUCT_NAME)) {
+            if (conn != null && conn.getMetaData().getDatabaseProductName().startsWith(DATABASE_PRODUCT_NAME)) {
                 String sql = "SELECT NAME,BASE_NAME FROM SYSIBM.SYSTABLES where TYPE='A' and  name ='" + tableName + "'";
                 sta = conn.createStatement();
                 ExtractMetaDataUtils.setQueryStatementTimeout(sta);
@@ -106,7 +106,7 @@ public class IBMDB2ExtractManager extends ExtractManager {
             return;
         }
         // bug TDI-19547
-        if (dbMetaData.getDatabaseProductName().equals(DATABASE_PRODUCT_NAME)) {
+        if (dbMetaData.getDatabaseProductName().startsWith(DATABASE_PRODUCT_NAME)) {
 
             // need to retrieve columns of synonym by useing sql rather than get them from jdbc metadata
             String synSQL = "SELECT a.*\n" + "FROM SYSCAT.COLUMNS a\n" + "LEFT OUTER JOIN SYSIBM.SYSTABLES b\n"
