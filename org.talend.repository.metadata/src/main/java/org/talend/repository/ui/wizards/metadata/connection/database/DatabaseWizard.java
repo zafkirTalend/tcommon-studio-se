@@ -459,7 +459,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     }
                     // ~
                     if ((isNameModified || IsVersionChange()) && tdqRepService != null) {
-                        tdqRepService.refreshCurrentAnalysisAndConnectionEditor();
+                        tdqRepService.refreshCurrentAnalysisEditor();
                     }
                     if (isNameModified) {
                         if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
