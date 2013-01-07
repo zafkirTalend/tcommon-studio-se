@@ -966,6 +966,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         stmt.close();
                     } catch (SQLException e) {
                         ExceptionHandler.process(e);
+                    } catch (java.lang.NullPointerException npe) {// Added yyin 20130107 TDQ-6413
+                        log.error(npe.getMessage(), npe);
                     }
                 }
             }
