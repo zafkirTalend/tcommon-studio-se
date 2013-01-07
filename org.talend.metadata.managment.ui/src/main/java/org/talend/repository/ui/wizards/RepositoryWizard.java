@@ -23,6 +23,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ITDQRepositoryService;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -106,6 +107,21 @@ public abstract class RepositoryWizard extends Wizard {
         // Backport by Marvin Wang on July 16, 2012 for TDI-21766.
         if (repositoryObject != null) {
             repositoryObject.getProperty().eResource().unload();
+            // MOD by zshen need to refresh connectionEditor after unload
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+                ITDQRepositoryService tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
+                        ITDQRepositoryService.class);
+                if (tdqRepService != null) {
+                    try {
+                        IRepositoryViewObject lastVersion = ProxyRepositoryFactory.getInstance().getLastVersion(
+                                repositoryObject.getProperty().getId());
+                        tdqRepService.refreshConnectionEditor(lastVersion.getProperty().getItem());
+                    } catch (PersistenceException e) {
+                        log.error(e, e);
+                    }
+
+                }
+            }
         }
         return true;
     }
