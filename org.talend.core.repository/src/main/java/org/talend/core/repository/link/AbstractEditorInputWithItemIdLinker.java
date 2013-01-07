@@ -14,12 +14,16 @@ package org.talend.core.repository.link;
 
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.EditorPart;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.core.repository.seeker.RepositorySeekerManager;
+import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
-import org.talend.repository.model.RepositoryNodeUtilities;
 
 /**
  * DOC ggu class global comment. Detailled comment <br/>
@@ -59,10 +63,33 @@ public abstract class AbstractEditorInputWithItemIdLinker implements IRepoViewLi
             if (activeWorkbenchWindow != null) {
                 IWorkbenchPage activePage = activeWorkbenchWindow.getActivePage();
                 if (activePage != null) {
-                    return activePage.findEditor(editorInput);
+                    /*
+                     * There is a warning
+                     * 
+                     * !MESSAGE Warning: Detected recursive attempt by part
+                     * org.talend.repository.services.utils.LocalWSDLEditor to create itself (this is probably, but not
+                     * necessarily, a bug)
+                     */
+                    // wsdlEditor = activePage.findEditor(editorInput);
+
+                    // iterator
+                    IEditorReference[] editorReferences = activePage.getEditorReferences();
+                    if (editorReferences != null) {
+                        for (IEditorReference er : editorReferences) {
+                            try {
+                                if (editorInput.equals(er.getEditorInput())) {
+                                    return er.getEditor(true);
+                                }
+                            } catch (PartInitException e) {
+                                ExceptionHandler.process(e);
+                            }
+                        }
+                    }
+
                 }
             }
         }
+
         return null;
     }
 
@@ -73,7 +100,10 @@ public abstract class AbstractEditorInputWithItemIdLinker implements IRepoViewLi
             if (partItemIdKey != null) {
                 String itemId = editor.getPartProperty(partItemIdKey);
                 if (itemId != null) {
-                    return RepositoryNodeUtilities.getRepositoryNode(itemId);
+                    IRepositoryNode searchedNode = RepositorySeekerManager.getInstance().searchRepoViewNode(itemId);
+                    if (searchedNode instanceof RepositoryNode) {
+                        return (RepositoryNode) searchedNode;
+                    }
                 }
             }
         }

@@ -862,5 +862,12 @@
             type="org.talend.repository.model.RepositoryNode">
       </propertyTester>
    </extension>
+   <extension
+         point="org.talend.core.repository.repositorySeeker">
+      <seeker
+            class="org.talend.repository.metadata.seeker.NormalMetadatasRepositorySeeker"
+            name="Normal Metadatas">
+      </seeker>
+   </extension>
 
 </plugin>

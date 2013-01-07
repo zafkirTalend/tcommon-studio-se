@@ -15,6 +15,8 @@ package org.talend.core.repository.link;
 import org.eclipse.ui.IEditorInput;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.IRepositoryEditorInput;
+import org.talend.core.repository.seeker.RepositorySeekerManager;
+import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -38,8 +40,13 @@ public abstract class AbstractRepositoryEditorInputLinker implements IRepoViewLi
             IRepositoryEditorInput repoEditorInput = (IRepositoryEditorInput) editorInput;
             repositoryNode = repoEditorInput.getRepositoryNode();
             if (repositoryNode == null) {
-                repoEditorInput.setRepositoryNode(null); // retrieve again
-                repositoryNode = repoEditorInput.getRepositoryNode();
+                IRepositoryNode searchedNode = RepositorySeekerManager.getInstance().searchRepoViewNode(repoEditorInput.getId());
+                if (searchedNode instanceof RepositoryNode) {
+                    repositoryNode = (RepositoryNode) searchedNode;
+                    // } else {// old way to retrive.
+                    // repoEditorInput.setRepositoryNode(null);
+                    // repositoryNode = repoEditorInput.getRepositoryNode();
+                }
             }
         }
         return repositoryNode;

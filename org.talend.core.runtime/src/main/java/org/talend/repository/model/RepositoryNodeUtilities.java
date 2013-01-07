@@ -182,11 +182,19 @@ public class RepositoryNodeUtilities {
      * 
      * @param id
      * @return the repository node by id
+     * @see RepositorySeekerManager.searchRepoViewNode
+     * @deprecated
      */
+    @Deprecated
     public static RepositoryNode getRepositoryNode(final String id) {
         return getRepositoryNode(id, true);
     }
 
+    /**
+     * @see RepositorySeekerManager.searchRepoViewNode
+     * @deprecated
+     */
+    @Deprecated
     public static RepositoryNode getRepositoryNode(final String id, boolean expanded) {
         if (id == null || "".equals(id) || RepositoryNode.NO_ID.equals(id)) { //$NON-NLS-1$
             return null;
@@ -250,7 +258,7 @@ public class RepositoryNodeUtilities {
 
             }
             for (IRepositoryNode folderNode : folderChild) {
-                final RepositoryNode repositoryNode = getRepositoryNode((RepositoryNode) folderNode, curNode, view, expanded);
+                final RepositoryNode repositoryNode = getRepositoryNode(folderNode, curNode, view, expanded);
                 if (repositoryNode != null) {
                     return repositoryNode;
                 }
@@ -676,8 +684,9 @@ public class RepositoryNodeUtilities {
     }
 
     public static IRepositoryViewObject getRoutineFromName(Project tempProject, String name, boolean includeSystem) {
-        if (name == null)
+        if (name == null) {
             return null;
+        }
 
         IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         try {

@@ -25,6 +25,10 @@ public interface IRepositoryEditorInput {
 
     public Item getItem();
 
+    public String getId();
+
+    public String getVersion();
+
     public void setReadOnly(boolean readOnly);
 
     public boolean isReadOnly();
