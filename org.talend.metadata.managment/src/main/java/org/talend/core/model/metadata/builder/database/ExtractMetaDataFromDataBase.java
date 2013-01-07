@@ -451,7 +451,7 @@ public class ExtractMetaDataFromDataBase {
                     tableName = tableName.replace("/", "");
                 }
                 // bug TDI-19547
-                if (ExtractMetaDataUtils.conn.getMetaData().getDatabaseProductName().equals("DB2/NT")) {
+                if (ExtractMetaDataUtils.conn.getMetaData().getDatabaseProductName().startsWith("DB2/NT")) { //$NON-NLS-1$
                     fillSynonmsForDB2(iMetadataConnection, metadataColumns, table, tableName);
                 } else if (ExtractMetaDataUtils.conn.getMetaData().getDatabaseProductName().equals("Microsoft SQL Server")) {
                     // TDI-19758
@@ -492,7 +492,7 @@ public class ExtractMetaDataFromDataBase {
                     && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 ExtractMetaDataUtils.closeConnection();
             }
             if (wapperDriver != null
@@ -500,7 +500,7 @@ public class ExtractMetaDataFromDataBase {
                             || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 try {
                     wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                 } catch (SQLException e) {
@@ -854,7 +854,7 @@ public class ExtractMetaDataFromDataBase {
                             || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 try {
                     wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                 } catch (SQLException e) {
@@ -882,7 +882,7 @@ public class ExtractMetaDataFromDataBase {
         ResultSet resultSet = null;
 
         try {
-            if (conn.getMetaData().getDatabaseProductName().equals("DB2/NT")) {
+            if (conn.getMetaData().getDatabaseProductName().startsWith("DB2/NT")) { //$NON-NLS-1$
                 String sql = "SELECT NAME,BASE_NAME FROM SYSIBM.SYSTABLES where TYPE='A' and  name ='" + name + "'";
                 sta = conn.createStatement();
                 ExtractMetaDataUtils.setQueryStatementTimeout(sta);
@@ -1986,7 +1986,7 @@ public class ExtractMetaDataFromDataBase {
                             || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 try {
                     wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                 } catch (SQLException e) {
@@ -2151,7 +2151,7 @@ public class ExtractMetaDataFromDataBase {
                         || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                        .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
             try {
                 wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
             } catch (SQLException e) {
@@ -2313,7 +2313,7 @@ public class ExtractMetaDataFromDataBase {
                         || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                        .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
             try {
                 wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
             } catch (SQLException e) {
