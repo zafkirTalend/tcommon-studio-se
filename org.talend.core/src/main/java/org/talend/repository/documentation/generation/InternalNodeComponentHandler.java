@@ -131,17 +131,17 @@ public class InternalNodeComponentHandler extends AbstractComponentHandler {
             for (int j = 0; j < elementParameterList.size(); j++) {
                 IElementParameter elemparameter = (IElementParameter) elementParameterList.get(j);
 
-                if ((istRunJob && elemparameter.getName().equals("PROCESS")) //$NON-NLS-1$
-                        || (!elemparameter.isShow(copyElementParameterList) && (!elemparameter.getName().equals(
-                                EParameterFieldType.SCHEMA_TYPE.getName())))
-                        || elemparameter.getCategory().equals(EComponentCategory.MAIN)
-                        || elemparameter.getCategory().equals(EComponentCategory.VIEW)
-                        || elemparameter.getName().equals(IHTMLDocConstants.REPOSITORY)
-                        || elemparameter.getName().equals("SCHEMA") || elemparameter.getName().equals("QUERYSTORE") //$NON-NLS-1$ //$NON-NLS-2$
-                        || elemparameter.getName().equals("PROPERTY") //$NON-NLS-1$
-                        || elemparameter.getName().equals(EParameterFieldType.ENCODING_TYPE.getName())) {
-                    continue;
-                }
+//                if ((istRunJob && elemparameter.getName().equals("PROCESS")) //$NON-NLS-1$
+//                        || (!elemparameter.isShow(copyElementParameterList) && (!elemparameter.getName().equals(
+//                                EParameterFieldType.SCHEMA_TYPE.getName())))
+//                        || elemparameter.getCategory().equals(EComponentCategory.MAIN)
+//                        || elemparameter.getCategory().equals(EComponentCategory.VIEW)
+//                        || elemparameter.getName().equals(IHTMLDocConstants.REPOSITORY)
+//                        || elemparameter.getName().equals("SCHEMA") || elemparameter.getName().equals("QUERYSTORE") //$NON-NLS-1$ //$NON-NLS-2$
+//                        || elemparameter.getName().equals("PROPERTY") //$NON-NLS-1$
+//                        || elemparameter.getName().equals(EParameterFieldType.ENCODING_TYPE.getName())) {
+//                    continue;
+//                }
                 // String value = HTMLDocUtils.checkString(elemparameter.getValue().toString());
                 Object eleObj = elemparameter.getValue();
                 String value = ""; //$NON-NLS-1$
