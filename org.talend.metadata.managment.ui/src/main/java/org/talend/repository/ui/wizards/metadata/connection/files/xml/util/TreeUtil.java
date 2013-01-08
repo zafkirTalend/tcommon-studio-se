@@ -450,7 +450,7 @@ public class TreeUtil {
             if (treeNode.getValue() instanceof String) {
                 rootName += "/" + treeNode.getValue();
             }
-            FOXTreeNode root = cloneATreeNode(treeNode, rootName);
+            FOXTreeNode root = cloneATreeNode(treeNode, rootName, XmlUtil.isXSDFile(filePath));
             if (root instanceof Element) {
                 root = ((Element) root).getElementChildren().get(0);
                 root.setParent(null);
@@ -631,7 +631,7 @@ public class TreeUtil {
         if (treeNode.getValue() instanceof String) {
             rootName += "/" + treeNode.getValue();
         }
-        FOXTreeNode root = cloneATreeNode(treeNode, rootName);
+        FOXTreeNode root = cloneATreeNode(treeNode, rootName, XmlUtil.isXSDFile(filePath));
         if (root instanceof Element) {
             if (root instanceof Element) {
                 root = ((Element) root).getElementChildren().get(0);
@@ -706,7 +706,7 @@ public class TreeUtil {
                         if (treeNode.getValue() instanceof String) {
                             rootName += "/" + treeNode.getValue();
                         }
-                        FOXTreeNode root = cloneATreeNode(treeNode, rootName);
+                        FOXTreeNode root = cloneATreeNode(treeNode, rootName, XmlUtil.isXSDFile(filePath));
                         if (root instanceof Element) {
                             root.setParent(null);
                             list.add(root);
@@ -745,7 +745,7 @@ public class TreeUtil {
             if (treeNode.getValue() instanceof String) {
                 rootName += "/" + treeNode.getValue();
             }
-            FOXTreeNode root = cloneATreeNode(treeNode, rootName);
+            FOXTreeNode root = cloneATreeNode(treeNode, rootName, true);
             if (root instanceof Element) {
                 root.setParent(null);
                 list.add(root);
@@ -787,7 +787,7 @@ public class TreeUtil {
             if (treeNode.getValue() instanceof String) {
                 rootName += "/" + treeNode.getValue();
             }
-            FOXTreeNode root = cloneATreeNode(treeNode, rootName);
+            FOXTreeNode root = cloneATreeNode(treeNode, rootName, true);
             if (root instanceof Element) {
                 root.setParent(null);
                 list.add(root);
@@ -831,7 +831,7 @@ public class TreeUtil {
             if (treeNode.getValue() instanceof String) {
                 rootName += "/" + treeNode.getValue();
             }
-            FOXTreeNode root = cloneATreeNode(treeNode, rootName);
+            FOXTreeNode root = cloneATreeNode(treeNode, rootName, true);
             if (root instanceof Element) {
                 root.setParent(null);
                 list.add(root);
@@ -917,7 +917,7 @@ public class TreeUtil {
         return schema;
     }
 
-    public static FOXTreeNode cloneATreeNode(ATreeNode treeNode, String currentPath) {
+    public static FOXTreeNode cloneATreeNode(ATreeNode treeNode, String currentPath, boolean isXsd) {
         FOXTreeNode node = null;
         if (treeNode.getType() == ATreeNode.ATTRIBUTE_TYPE) {
             node = new Attribute();
@@ -952,7 +952,7 @@ public class TreeUtil {
                     String newPath = currentPath + "/";
                     if (child.getValue() instanceof String) {
                         String elementName = (String) child.getValue();
-                        if (currentPath.contains("/" + elementName + "/")) {
+                        if (currentPath.contains("/" + elementName + "/") && isXsd) {
                             // ExceptionHandler.process(new Exception("XSD ERROR: loop found. Item: " + elementName
                             // + " is already in the currentPath (" + currentPath + ")."));
                             continue;
@@ -961,7 +961,7 @@ public class TreeUtil {
                     } else {
                         newPath += "unknownElement";
                     }
-                    FOXTreeNode foxChild = cloneATreeNode(child, newPath);
+                    FOXTreeNode foxChild = cloneATreeNode(child, newPath, isXsd);
                     // foxChild.setRow(schemaName);
                     node.addChild(foxChild);
                 }
