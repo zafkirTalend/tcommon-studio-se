@@ -447,7 +447,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                         updateConnectionItem();
                     }
                     if ((isNameModified || IsVersionChange()) && tdqRepService != null) {
-                        tdqRepService.refreshCurrentAnalysisAndConnectionEditor();
+                        tdqRepService.refreshCurrentAnalysisEditor();
                     }
                     // ~
                     if (isNameModified) {
