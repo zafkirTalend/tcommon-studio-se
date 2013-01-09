@@ -893,6 +893,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
                         if (property != null && nameStatus.getSeverity() == IStatus.OK) {
                             property.setDisplayName(StringUtils.trimToNull(nameText.getText()));
                             property.setLabel(StringUtils.trimToNull(nameText.getText()));
+                            property.setModificationDate(new Date());
                         }
 
                     } else {
@@ -922,6 +923,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
                     commentStatus = createStatus(IStatus.WARNING, Messages.getString("PropertiesWizardPage.EmptyDescWarning")); //$NON-NLS-1$
                 }
                 property.setPurpose(StringUtils.trimToNull(purposeText.getText()));
+                property.setModificationDate(new Date());
                 updatePageStatus();
             }
         });
@@ -935,6 +937,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
                     commentStatus = createOkStatus();
                 }
                 property.setDescription(StringUtils.trimToNull(descriptionText.getText()));
+                property.setModificationDate(new Date());
                 updatePageStatus();
             }
         });
@@ -952,6 +955,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
                     versionText.setText(version);
                     property.setVersion(version);
                     property.setCreationDate(new Date());
+                    property.setModificationDate(new Date());
                     updatePageStatus();
                 }
             });
@@ -968,6 +972,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
                     versionText.setText(version);
                     property.setVersion(version);
                     property.setCreationDate(new Date());
+                    property.setModificationDate(new Date());
                     updatePageStatus();
                 }
             });
@@ -977,6 +982,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
             public void modifyText(ModifyEvent e) {
                 property.setStatusCode(statusHelper.getStatusCode(statusText.getText()));
+                property.setModificationDate(new Date());
                 updatePageStatus();
             }
 
@@ -1017,6 +1023,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
         if (property != null && nameStatus.getSeverity() == IStatus.OK) {
             property.setLabel(StringUtils.trimToNull(nameText.getText()));
             property.setDisplayName(StringUtils.trimToNull(nameText.getText()));
+            property.setModificationDate(new Date());
         }
         updatePageStatus();
     }
