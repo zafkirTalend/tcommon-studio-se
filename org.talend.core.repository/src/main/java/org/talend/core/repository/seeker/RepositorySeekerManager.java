@@ -16,6 +16,9 @@ import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.repository.model.IRepositoryNode;
+import org.talend.repository.model.ProjectRepositoryNode;
+import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.model.RepositoryNodeUtilities;
 import org.talend.repository.ui.views.IRepositoryView;
 
 /**
@@ -45,28 +48,63 @@ public final class RepositorySeekerManager {
         return this.seekerReader;
     }
 
-    /**
-     * This work for the repository view of Integration and Mediation
-     */
-    public IRepositoryNode searchRepoViewNode(String itemId) {
+    public final TreeViewer getRepoTreeViewer() {
+        TreeViewer treeViewer = null;
         // find the repository view
         final IRepositoryView repositoryView = RepositoryManagerHelper.findRepositoryView();
-        TreeViewer treeViewer = null;
         if (repositoryView != null) {
             StructuredViewer viewer = repositoryView.getViewer();
             if (viewer instanceof TreeViewer) {
                 treeViewer = (TreeViewer) viewer;
             }
         }
+        return treeViewer;
+    }
 
-        // seek
+    public IRepositoryNode searchRepoViewNode(String itemId) {
+        return searchRepoViewNode(itemId, true);
+    }
+
+    public IRepositoryNode searchRepoViewNode(String itemId, boolean expand) {
+        return searchRepoViewNode(itemId, true, 1);
+    }
+
+    /**
+     * This work for the repository view of Integration and Mediation
+     */
+    public IRepositoryNode searchRepoViewNode(String itemId, boolean expand, int expandLevel) {
+        final TreeViewer repoTreeViewer = getRepoTreeViewer();
+
         IRepositorySeeker<IRepositoryNode>[] allSeeker = getSeekerReader().getAllSeeker();
         for (IRepositorySeeker<IRepositoryNode> seeker : allSeeker) {
-            IRepositoryNode searchedNode = seeker.searchNode(treeViewer, itemId);
+            IRepositoryNode searchedNode = seeker.searchNode(repoTreeViewer, itemId);
             if (searchedNode != null) {
+                if (seeker.neededExpand()) {
+                    seeker.expandNode(repoTreeViewer, searchedNode, expandLevel);
+                }
                 return searchedNode;
             }
         }
-        return null;
+        /*
+         * if not found, use the old one.
+         * 
+         * later, will use the seeker always.
+         */
+        return RepositoryNodeUtilities.getRepositoryNode(itemId, expand);
+    }
+
+    public void expandNode(TreeViewer viewer, IRepositoryNode repoNode, int expandLevel) {
+        if (repoNode != null) {
+            RepositoryNode parent = repoNode.getParent();
+            if (parent != null) { // when repoNode is ProjectRepositoryNode in main project, the parent will be null.
+                if (parent instanceof ProjectRepositoryNode && parent.getParent() == null) {
+                    // the parent is main project, nothing to do
+                } else {
+                    expandNode(viewer, parent, expandLevel);
+                }
+                viewer.expandToLevel(repoNode, expandLevel);
+            }
+        }
+
     }
 }

@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.model.IRepositoryNode;
+import org.talend.repository.model.RepositoryNode;
 
 /**
  * DOC nrousseau class global comment. Detailled comment
@@ -29,6 +30,8 @@ public interface IProjectRepositoryNode {
     public IRepositoryNode getRecBinNode();
 
     public IRepositoryNode getRootRepositoryNode(ERepositoryObjectType type);
+
+    public RepositoryNode getRootRepositoryNode(ERepositoryObjectType type, boolean tryInit);
 
     public void dispose();
 

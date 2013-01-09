@@ -69,10 +69,9 @@ public final class RecombineRepositoryNodeUtil {
 
     private void addSubReferencedProjectNodes(RepositoryNode contextNode, IProjectRepositoryNode parentRefProject) {
 
-        IRepositoryNode referenceProjectNode = parentRefProject.getRootRepositoryNode(ERepositoryObjectType.REFERENCED_PROJECTS);
+        IRepositoryNode referenceProjectNode = parentRefProject.getRootRepositoryNode(ERepositoryObjectType.REFERENCED_PROJECTS,
+                true);
         if (referenceProjectNode != null) {
-            initNode(referenceProjectNode);
-
             List<IRepositoryNode> refProjects = referenceProjectNode.getChildren();
             if (refProjects != null && !refProjects.isEmpty()) {
                 List<IRepositoryNode> nodesList = new ArrayList<IRepositoryNode>();
@@ -101,9 +100,8 @@ public final class RecombineRepositoryNodeUtil {
         List<ERepositoryObjectType> prcessTypes = getTypes();
         if (prcessTypes != null) {
             for (ERepositoryObjectType type : prcessTypes) {
-                RepositoryNode rootNode = ((ProjectRepositoryNode) projectRepoNode).getRootRepositoryNode(type);
+                RepositoryNode rootNode = ((ProjectRepositoryNode) projectRepoNode).getRootRepositoryNode(type, true);
                 if (rootNode != null) {
-                    initNode(rootNode);
                     rootNodes.add(rootNode);
                 }
             }
@@ -111,11 +109,4 @@ public final class RecombineRepositoryNodeUtil {
         return rootNodes;
     }
 
-    protected final void initNode(IRepositoryNode rootTypeNode) {
-        if (rootTypeNode.getParent() instanceof ProjectRepositoryNode && rootTypeNode instanceof RepositoryNode
-                && !((RepositoryNode) rootTypeNode).isInitialized()) {
-            ((ProjectRepositoryNode) rootTypeNode.getParent()).initializeChildren(rootTypeNode);
-            ((RepositoryNode) rootTypeNode).setInitialized(true);
-        }
-    }
 }

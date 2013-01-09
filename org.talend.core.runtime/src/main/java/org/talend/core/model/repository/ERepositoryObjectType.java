@@ -583,6 +583,15 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         return null;
     }
 
+    public static ERepositoryObjectType getType(String typeName) {
+        for (ERepositoryObjectType type : (ERepositoryObjectType[]) values()) {
+            if (type.getType().equals(typeName)) {
+                return type;
+            }
+        }
+        return null;
+    }
+
     public boolean hasFolder() {
         try {
             String folderName = getFolderName(this);

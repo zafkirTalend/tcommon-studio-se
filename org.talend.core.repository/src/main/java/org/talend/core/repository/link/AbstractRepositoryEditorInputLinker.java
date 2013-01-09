@@ -15,8 +15,6 @@ package org.talend.core.repository.link;
 import org.eclipse.ui.IEditorInput;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.IRepositoryEditorInput;
-import org.talend.core.repository.seeker.RepositorySeekerManager;
-import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -25,7 +23,7 @@ import org.talend.repository.model.RepositoryNode;
  * $Id: talend.epf 55206 2011-02-15 17:32:14Z mhirt $
  * 
  */
-public abstract class AbstractRepositoryEditorInputLinker implements IRepoViewLinker {
+public abstract class AbstractRepositoryEditorInputLinker extends AbstractRepoViewLinker {
 
     /*
      * (non-Javadoc)
@@ -38,16 +36,19 @@ public abstract class AbstractRepositoryEditorInputLinker implements IRepoViewLi
 
         if (isValidEditorInput(editorInput)) {
             IRepositoryEditorInput repoEditorInput = (IRepositoryEditorInput) editorInput;
-            repositoryNode = repoEditorInput.getRepositoryNode();
-            if (repositoryNode == null) {
-                IRepositoryNode searchedNode = RepositorySeekerManager.getInstance().searchRepoViewNode(repoEditorInput.getId());
-                if (searchedNode instanceof RepositoryNode) {
-                    repositoryNode = (RepositoryNode) searchedNode;
-                    // } else {// old way to retrive.
-                    // repoEditorInput.setRepositoryNode(null);
-                    // repositoryNode = repoEditorInput.getRepositoryNode();
-                }
-            }
+            // search always
+            repositoryNode = searchRepoViewNode(repoEditorInput.getId());
+
+            // repositoryNode = repoEditorInput.getRepositoryNode();
+            // if (repositoryNode == null) {
+            // // have done expand when search
+            // repositoryNode = searchRepoViewNode(repoEditorInput.getId());
+            // // } else {// old way to retrive.
+            // // repoEditorInput.setRepositoryNode(null);
+            // // repositoryNode = repoEditorInput.getRepositoryNode();
+            // } else {
+            // expandToRepoViewNode(repositoryNode);
+            // }
         }
         return repositoryNode;
     }

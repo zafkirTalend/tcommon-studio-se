@@ -15,8 +15,6 @@ package org.talend.core.repository.seeker;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.runtime.ISafeRunnable;
-import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
@@ -26,7 +24,6 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.ProjectRepositoryNode;
-import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 
 /**
@@ -46,10 +43,10 @@ public abstract class AbstractRepoViewSeeker implements IRepositorySeeker<IRepos
                 if (lastVersion != null) {
                     final ERepositoryObjectType itemType = lastVersion.getRepositoryObjectType();
                     if (validType(itemType)) {
-                        List<IRepositoryNode> rootTypeRepoNodes = getRootTypeRepositoryNodes(ProjectRepositoryNode.getInstance(),
-                                itemType);
+                        ProjectRepositoryNode projectRepositoryNode = ProjectRepositoryNode.getInstance();
+                        List<IRepositoryNode> rootTypeRepoNodes = getRootTypeRepositoryNodes(projectRepositoryNode, itemType);
                         for (IRepositoryNode rootNode : rootTypeRepoNodes) {
-                            initNode(rootNode);
+                            projectRepositoryNode.initNode(rootNode); // before search, init it
                             IRepositoryNode searchedRepoNode = searchRepositoryNode(rootNode, itemId, itemType);
                             // in fact, will search the main project first.
                             if (searchedRepoNode != null) {
@@ -97,9 +94,8 @@ public abstract class AbstractRepoViewSeeker implements IRepositorySeeker<IRepos
             if (rootTypeRepoNode != null) {
                 rootTypeNodes.add(rootTypeRepoNode);
             }
-            IRepositoryNode referenceProjectNode = root.getRootRepositoryNode(ERepositoryObjectType.REFERENCED_PROJECTS);
+            IRepositoryNode referenceProjectNode = root.getRootRepositoryNode(ERepositoryObjectType.REFERENCED_PROJECTS, true);
             if (referenceProjectNode != null) {
-                initNode(referenceProjectNode);
                 List<IRepositoryNode> refProjects = referenceProjectNode.getChildren();
                 if (refProjects != null && !refProjects.isEmpty()) {
                     for (IRepositoryNode repositoryNode : refProjects) {
@@ -113,27 +109,6 @@ public abstract class AbstractRepoViewSeeker implements IRepositorySeeker<IRepos
             }
         }
         return rootTypeNodes;
-    }
-
-    private final void initNode(final IRepositoryNode rootTypeNode) {
-        SafeRunner.run(new ISafeRunnable() {
-
-            @Override
-            public void handleException(Throwable exception) {
-                ExceptionHandler.process(exception);
-            }
-
-            @Override
-            public void run() throws Exception {
-                if (rootTypeNode.getParent() instanceof ProjectRepositoryNode && rootTypeNode instanceof RepositoryNode
-                        && !((RepositoryNode) rootTypeNode).isInitialized()) {
-                    ((ProjectRepositoryNode) rootTypeNode.getParent()).initializeChildren(rootTypeNode);
-                    ((RepositoryNode) rootTypeNode).setInitialized(true);
-                }
-            }
-
-        });
-
     }
 
     protected boolean isRepositoryFolder(IRepositoryNode node) {
@@ -152,12 +127,75 @@ public abstract class AbstractRepoViewSeeker implements IRepositorySeeker<IRepos
      * 
      * Eeach implement classes should do the current type
      */
-    protected abstract boolean validType(ERepositoryObjectType itemType);
+    protected boolean validType(ERepositoryObjectType itemType) {
+        if (itemType != null) {
+            List<ERepositoryObjectType> validationTypes = getValidationTypes();
+            if (validationTypes != null) {
+                return validationTypes.contains(itemType);
+            }
+        }
+        return false;
+    }
+
+    protected List<ERepositoryObjectType> getValidationTypes() {
+        List<ERepositoryObjectType> preExpandTypes = new ArrayList<ERepositoryObjectType>();
+        return preExpandTypes;
+    }
 
     protected boolean validNode(IRepositoryNode node, String itemId, ERepositoryObjectType itemType) {
         if (node != null && itemType != null && node.getId().equals(itemId) && itemType.equals(node.getObjectType())) {
             return true;
         }
         return false;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.repository.seeker.IRepositorySeeker#neededExpand()
+     */
+    @Override
+    public boolean neededExpand() {
+        return true; // by default
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.repository.seeker.IRepositorySeeker#expandNodes(org.eclipse.jface.viewers.TreeViewer,
+     * java.lang.Object, int)
+     */
+    @Override
+    public void expandNode(TreeViewer viewer, IRepositoryNode repoNode, int expandLevel) {
+        if (repoNode != null && validType(repoNode.getObjectType())) {
+            IProjectRepositoryNode root = repoNode.getRoot();
+            if (root != null) {
+                /*
+                 * expand some node before expand other nodes.
+                 * 
+                 * Because the parent of some root type node is not the real parent. like all metadatas
+                 */
+                List<ERepositoryObjectType> preExpandTypes = getPreExpandTypes();
+                if (preExpandTypes != null) {
+                    for (ERepositoryObjectType preExpandType : preExpandTypes) {
+                        IRepositoryNode preExpandNode = root.getRootRepositoryNode(preExpandType);
+                        if (preExpandNode != null) {
+                            viewer.expandToLevel(preExpandNode, expandLevel);
+                        }
+                    }
+                }
+            }
+        }
+        RepositorySeekerManager seekerManager = RepositorySeekerManager.getInstance();
+        seekerManager.expandNode(seekerManager.getRepoTreeViewer(), repoNode, 1);
+    }
+
+    /**
+     * 
+     * Make sure the order is needed for the expanding
+     */
+    protected List<ERepositoryObjectType> getPreExpandTypes() {
+        List<ERepositoryObjectType> preExpandTypes = new ArrayList<ERepositoryObjectType>();
+        return preExpandTypes;
     }
 }

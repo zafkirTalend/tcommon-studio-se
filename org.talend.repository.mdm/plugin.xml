@@ -54,6 +54,13 @@
             name="MDM Item filter">
       </DragAndDropFilter>
    </extension>
+   <extension
+         point="org.talend.core.repository.repositorySeeker">
+      <seeker
+            class="org.talend.repository.mdm.ui.viewer.seeker.MdmRepositorySeeker"
+            name="Talend MDM">
+      </seeker>
+   </extension>
    <!--
    <extension
          point="org.eclipse.ui.navigator.navigatorContent">

@@ -10,9 +10,11 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.repository.seeker;
+package org.talend.repository.metadata.seeker;
 
-import org.eclipse.jface.viewers.TreeViewer;
+import java.util.List;
+
+import org.talend.core.model.repository.ERepositoryObjectType;
 
 /**
  * DOC ggu class global comment. Detailled comment <br/>
@@ -20,11 +22,17 @@ import org.eclipse.jface.viewers.TreeViewer;
  * $Id: talend.epf 55206 2011-02-15 17:32:14Z mhirt $
  * 
  */
-public interface IRepositorySeeker<IRepositoryNode> {
+public abstract class AbstractRulesManagementRepoViewSeeker extends AbstractMetadataRepoViewSeeker {
 
-    IRepositoryNode searchNode(TreeViewer viewer, String itemId);
-
-    boolean neededExpand();
-
-    void expandNode(TreeViewer viewer, IRepositoryNode repoNode, int expandLevel);
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.repository.seeker.AbstractRepoViewSeeker#getPreExpandTypes()
+     */
+    @Override
+    protected List<ERepositoryObjectType> getPreExpandTypes() {
+        List<ERepositoryObjectType> preExpandTypes = super.getPreExpandTypes();
+        preExpandTypes.add(ERepositoryObjectType.METADATA_RULES_MANAGEMENT);
+        return preExpandTypes;
+    }
 }

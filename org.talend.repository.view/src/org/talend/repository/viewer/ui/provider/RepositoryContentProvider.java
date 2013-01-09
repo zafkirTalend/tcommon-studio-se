@@ -44,9 +44,11 @@ public class RepositoryContentProvider implements IStructuredContentProvider, IT
         this.view = view;
     }
 
+    @Override
     public void inputChanged(Viewer v, Object oldInput, Object newInput) {
     }
 
+    @Override
     public void dispose() {
     }
 
@@ -54,6 +56,7 @@ public class RepositoryContentProvider implements IStructuredContentProvider, IT
         return view;
     }
 
+    @Override
     public Object[] getElements(Object parent) {
         IRepositoryView view2 = getView();
         if (view2 == null || parent.equals(view2.getViewSite())) {
@@ -68,27 +71,26 @@ public class RepositoryContentProvider implements IStructuredContentProvider, IT
         return getChildren(parent);
     }
 
+    @Override
     public Object getParent(Object child) {
 
         return ((RepositoryNode) child).getParent();
     }
 
+    @Override
     public Object[] getChildren(Object parent) {
         if (parent == null) {
             return new RepositoryNode[0];
         }
         RepositoryNode repositoryNode = ((RepositoryNode) parent);
-        if (!repositoryNode.isInitialized()) {
-            if (repositoryNode.getParent() instanceof ProjectRepositoryNode) {
-                // initialize repository from main project
-                ((ProjectRepositoryNode) repositoryNode.getParent()).initializeChildren(parent);
-            }
-            repositoryNode.setInitialized(true);
+        if (repositoryNode.getRoot() instanceof ProjectRepositoryNode) {
+            ((ProjectRepositoryNode) repositoryNode.getRoot()).initNode(repositoryNode);
         }
 
         return repositoryNode.getChildren().toArray();
     }
 
+    @Override
     public boolean hasChildren(Object parent) {
         Boolean boolean1 = factory.hasChildren(parent);
         if (boolean1 != null) {

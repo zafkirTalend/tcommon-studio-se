@@ -18,6 +18,7 @@ import java.util.List;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
@@ -94,7 +95,11 @@ public class RepoViewLinkHelper implements ILinkHelper {
             try {
                 IEditorInput editorInput = er.getEditorInput();
                 if (isRelation(editorInput, repId)) {
-                    aPage.bringToTop(er.getPart(false));
+                    IEditorPart editor = null;
+                    // aPage.bringToTop(er.getPart(false));
+                    if ((editor = aPage.findEditor(editorInput)) != null) {
+                        aPage.bringToTop(editor);
+                    }
                     break;
                 }
             } catch (PartInitException e) {

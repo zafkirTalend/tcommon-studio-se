@@ -21,8 +21,6 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.EditorPart;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.core.repository.seeker.RepositorySeekerManager;
-import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -31,7 +29,7 @@ import org.talend.repository.model.RepositoryNode;
  * $Id: talend.epf 55206 2011-02-15 17:32:14Z mhirt $
  * 
  */
-public abstract class AbstractEditorInputWithItemIdLinker implements IRepoViewLinker {
+public abstract class AbstractEditorInputWithItemIdLinker extends AbstractRepoViewLinker {
 
     /*
      * (non-Javadoc)
@@ -99,12 +97,7 @@ public abstract class AbstractEditorInputWithItemIdLinker implements IRepoViewLi
             String partItemIdKey = getPartItemIdKey();
             if (partItemIdKey != null) {
                 String itemId = editor.getPartProperty(partItemIdKey);
-                if (itemId != null) {
-                    IRepositoryNode searchedNode = RepositorySeekerManager.getInstance().searchRepoViewNode(itemId);
-                    if (searchedNode instanceof RepositoryNode) {
-                        return (RepositoryNode) searchedNode;
-                    }
-                }
+                return searchRepoViewNode(itemId);
             }
         }
         return null;

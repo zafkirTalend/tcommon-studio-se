@@ -24,7 +24,9 @@ import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.ISafeRunnable;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -1819,14 +1821,44 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
 
     @Override
     public RepositoryNode getRootRepositoryNode(ERepositoryObjectType type) {
-        if (type == null) {
-            return null;
+        return getRootRepositoryNode(type, false);
+    }
+
+    @Override
+    public RepositoryNode getRootRepositoryNode(ERepositoryObjectType type, boolean tryInit) {
+        RepositoryNode rootTypeNode = null;
+        if (type != null) {
+            String typeName = type.name();
+            if (repositoryNodeMap.containsKey(typeName)) {
+                rootTypeNode = repositoryNodeMap.get(typeName);
+                if (tryInit) {
+                    initNode(rootTypeNode);
+                }
+
+            }
         }
-        String typeName = type.name();
-        if (repositoryNodeMap.containsKey(typeName)) {
-            return repositoryNodeMap.get(typeName);
-        }
-        return null;
+        return rootTypeNode;
+    }
+
+    public final void initNode(final IRepositoryNode rootTypeNode) {
+        SafeRunner.run(new ISafeRunnable() {
+
+            @Override
+            public void handleException(Throwable exception) {
+                ExceptionHandler.process(exception);
+            }
+
+            @Override
+            public void run() throws Exception {
+                if (rootTypeNode instanceof RepositoryNode && rootTypeNode.getParent() instanceof ProjectRepositoryNode
+                        && !((RepositoryNode) rootTypeNode).isInitialized()) {
+                    ((ProjectRepositoryNode) rootTypeNode.getParent()).initializeChildren(rootTypeNode);
+                    ((RepositoryNode) rootTypeNode).setInitialized(true);
+                }
+            }
+
+        });
+
     }
 
     /*
