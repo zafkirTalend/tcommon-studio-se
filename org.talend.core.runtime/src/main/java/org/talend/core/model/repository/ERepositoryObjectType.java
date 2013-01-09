@@ -95,6 +95,12 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     // "ROUTES", true,
     // 5, new String[] { "DI" });
 
+    /**
+     * Added by Marvin Wang on Jan. 9, 2012 for map-reduce process.
+     */
+    public final static ERepositoryObjectType PROCESS_MR = new ERepositoryObjectType("repository.process.mr", "process_mr", //$NON-NLS-1$ //$NON-NLS-2$
+            "PROCESS", true, 5, new String[] { "DI" }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
+
     public final static ERepositoryObjectType CONTEXT = new ERepositoryObjectType("repository.context", "context", "CONTEXT",
             true, 6, new String[] { "DI", "CAMEL" }, new String[] {});
 
