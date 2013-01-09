@@ -12,7 +12,9 @@
 // ============================================================================
 package org.talend.core.sqlbuilder.util;
 
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -173,6 +175,8 @@ public class ConnectionParameters {
     // mark first open Sql Builder
     private boolean isFirstOpenSqlBuilder = false;
 
+    private Map<String, String> parameters;
+
     /**
      * Sets the connectionComment.
      * 
@@ -278,6 +282,25 @@ public class ConnectionParameters {
      * ConnectionParameters constructor.
      */
     public ConnectionParameters() {
+        this.parameters = new HashMap<String, String>();
+    }
+
+    /**
+     * Getter for parameters.
+     * 
+     * @return the parameters
+     */
+    public Map<String, String> getParameters() {
+        return this.parameters;
+    }
+
+    /**
+     * Sets the parameters.
+     * 
+     * @param parameters the parameters to set
+     */
+    public void setParameters(Map<String, String> parameters) {
+        this.parameters = parameters;
     }
 
     /**

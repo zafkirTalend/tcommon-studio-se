@@ -44,6 +44,7 @@ import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.database.extractots.DBMetadataProviderObject;
 import org.talend.core.model.metadata.builder.database.extractots.IDBMetadataProviderObject;
+import org.talend.core.model.metadata.builder.database.hive.EmbeddedHiveDataBaseMetadata;
 import org.talend.core.model.metadata.builder.database.manager.ExtractManager;
 import org.talend.core.model.metadata.builder.database.manager.ExtractManagerFactory;
 import org.talend.core.model.metadata.builder.database.manager.dbs.IBMDB2ExtractManager;
@@ -427,6 +428,26 @@ public class ExtractMetaDataFromDataBase {
         }
 
         return itemTablesName;
+    }
+
+    /**
+     * For Hive embedded mode to fetch all tables by "Fake Database Metadata". Notice that you need to setup some
+     * configurations by
+     * {@link JavaSqlFactory#doHivePreSetup(org.talend.core.model.metadata.builder.connection.Connection)} and then
+     * remove these by {@link JavaSqlFactory#doHiveConfigurationClear()}. Added by Marvin Wang on Jan 8, 2013.
+     * 
+     * @param iMetadataConnection
+     * @return
+     * @throws SQLException
+     */
+    public static List<String> fetchAllTablesForHiveEmbeddedModel(IMetadataConnection iMetadataConnection) throws SQLException {
+        List<String> allTables = new ArrayList<String>();
+        DatabaseMetaData dbMetaData = new EmbeddedHiveDataBaseMetadata(null);
+        ResultSet results = dbMetaData.getTables(null, null, "%", new String[] { "TABLE" }); //$NON-NLS-1$//$NON-NLS-2$ 
+        while (results.next()) {
+            allTables.add(results.getString(3));
+        }
+        return allTables;
     }
 
     /**
