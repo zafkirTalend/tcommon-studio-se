@@ -46,6 +46,7 @@ import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
+import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.database.DriverShim;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.IDriverService;
@@ -56,7 +57,9 @@ import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.relational.RelationalFactory;
+import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdSqlDataType;
+import org.talend.cwm.xml.TdXmlElementType;
 import org.talend.mdm.webservice.XtentisBindingStub;
 import org.talend.mdm.webservice.XtentisPort;
 import org.talend.mdm.webservice.XtentisServiceLocator;
@@ -66,6 +69,7 @@ import org.talend.utils.string.AsciiUtils;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.foundation.softwaredeployment.DataProvider;
+import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.Schema;
@@ -1062,5 +1066,30 @@ public class MetadataConnectionUtils {
         return ExtractMetaDataUtils.getConnection(metadataBean.getDbType(), metadataBean.getUrl(), metadataBean.getUsername(),
                 metadataBean.getPassword(), metadataBean.getDatabase(), metadataBean.getSchema(), metadataBean.getDriverClass(),
                 metadataBean.getDriverJarPath(), metadataBean.getDbVersionString(), metadataBean.getAdditionalParams());
+    }
+
+    /**
+     * return the MetadataColumn's name, the input object should be MetadataColumn, TdColumn or TdXmlElementType, if
+     * not, return null.
+     * 
+     * @param element MetadataColumn, TdColumn or TdXmlElementType
+     * @return
+     */
+    public static String getMetadataColumnName(ModelElement element) {
+        String name = null;
+
+        MetadataColumn mdColumn = SwitchHelpers.METADATA_COLUMN_SWITCH.doSwitch(element);
+        TdColumn tdColumn = SwitchHelpers.COLUMN_SWITCH.doSwitch(element);
+        TdXmlElementType xmlElementType = SwitchHelpers.XMLELEMENTTYPE_SWITCH.doSwitch(element);
+
+        if (tdColumn != null) {
+            name = tdColumn.getName();
+        } else if (mdColumn != null) {
+            name = mdColumn.getId();
+        } else if (xmlElementType != null) {
+            name = xmlElementType.getName();
+        }
+
+        return name;
     }
 }
