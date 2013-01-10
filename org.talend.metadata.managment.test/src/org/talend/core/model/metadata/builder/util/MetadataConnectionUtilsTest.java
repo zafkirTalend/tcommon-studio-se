@@ -21,7 +21,11 @@ import java.sql.SQLException;
 import junit.framework.Assert;
 
 import org.junit.Test;
+import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
+import org.talend.core.model.metadata.builder.connection.MetadataColumn;
+import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdSqlDataType;
+import org.talend.cwm.xml.TdXmlElementType;
 
 /**
  * created by ggu on Jul 12, 2012 Detailled comment
@@ -151,4 +155,89 @@ public class MetadataConnectionUtilsTest {
         assertFalse(hive);
     }
 
+    /**
+     * Test method for
+     * {@link org.talend.core.model.metadata.builder.util.MetadataConnectionUtils#getMetadataColumnName(orgomg.cwm.objectmodel.core.ModelElement)}
+     * .
+     */
+    @Test
+    public void testGetMetadataColumnNameMetadataColumn() {
+        String name1 = "name1"; //$NON-NLS-1$
+        String name2 = "name2"; //$NON-NLS-1$
+
+        MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
+        metadataColumn.setId(name1);
+
+        String elementName = MetadataConnectionUtils.getMetadataColumnName(metadataColumn);
+        assertTrue(name1.equals(elementName));
+
+        metadataColumn.setId(name2);
+        elementName = MetadataConnectionUtils.getMetadataColumnName(metadataColumn);
+        assertFalse(name1.equals(elementName));
+        assertTrue(name2.equals(elementName));
+    }
+
+    /**
+     * Test method for
+     * {@link org.talend.core.model.metadata.builder.util.MetadataConnectionUtils#getMetadataColumnName(orgomg.cwm.objectmodel.core.ModelElement)}
+     * .
+     */
+    @Test
+    public void testGetMetadataColumnNameTdColumn() {
+        String name1 = "name1"; //$NON-NLS-1$
+        String name2 = "name2"; //$NON-NLS-1$
+
+        TdColumn tdColumn = org.talend.cwm.relational.RelationalFactory.eINSTANCE.createTdColumn();
+        tdColumn.setName(name1);
+
+        String elementName = MetadataConnectionUtils.getMetadataColumnName(tdColumn);
+        assertTrue(name1.equals(elementName));
+
+        tdColumn.setName(name2);
+        elementName = MetadataConnectionUtils.getMetadataColumnName(tdColumn);
+        assertFalse(name1.equals(elementName));
+        assertTrue(name2.equals(elementName));
+    }
+
+    /**
+     * Test method for
+     * {@link org.talend.core.model.metadata.builder.util.MetadataConnectionUtils#getMetadataColumnName(orgomg.cwm.objectmodel.core.ModelElement)}
+     * .
+     */
+    @Test
+    public void testGetMetadataColumnNameTdXmlElementType() {
+        String name1 = "name1"; //$NON-NLS-1$
+        String name2 = "name2"; //$NON-NLS-1$
+
+        TdXmlElementType tdXmlElementType = org.talend.cwm.xml.XmlFactory.eINSTANCE.createTdXmlElementType();
+        tdXmlElementType.setName(name1);
+
+        String elementName = MetadataConnectionUtils.getMetadataColumnName(tdXmlElementType);
+        assertTrue(name1.equals(elementName));
+
+        tdXmlElementType.setName(name2);
+        elementName = MetadataConnectionUtils.getMetadataColumnName(tdXmlElementType);
+        assertFalse(name1.equals(elementName));
+        assertTrue(name2.equals(elementName));
+    }
+
+    /**
+     * Test method for
+     * {@link org.talend.core.model.metadata.builder.util.MetadataConnectionUtils#getMetadataColumnName(orgomg.cwm.objectmodel.core.ModelElement)}
+     * .
+     */
+    @Test
+    public void testGetMetadataColumnNameNull() {
+        MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
+        String elementName = MetadataConnectionUtils.getMetadataColumnName(metadataColumn);
+        assertNull(elementName);
+
+        TdColumn tdColumn = org.talend.cwm.relational.RelationalFactory.eINSTANCE.createTdColumn();
+        elementName = MetadataConnectionUtils.getMetadataColumnName(tdColumn);
+        assertNull(elementName);
+
+        TdXmlElementType tdXmlElementType = org.talend.cwm.xml.XmlFactory.eINSTANCE.createTdXmlElementType();
+        elementName = MetadataConnectionUtils.getMetadataColumnName(tdXmlElementType);
+        assertNull(elementName);
+    }
 }
