@@ -68,6 +68,9 @@ public interface IConnection extends IElement {
     public EConnectionType getLineStyle();
 
     public String getRouteConnectionType();
+    
+    //TESB-8043
+    public String getEndChoice();
 
     public String getExceptionList();
 
