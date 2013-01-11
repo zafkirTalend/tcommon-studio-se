@@ -1705,14 +1705,14 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 LanguageManager.reset();
                 getRepositoryContext().setProject(project);
 
-                // Check project compatibility
-                checkProjectCompatibility(project);
-
                 currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
                 currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.initializeProjectConnection"), 1); //$NON-NLS-1$
                 this.repositoryFactoryFromProvider.beforeLogon(project);
                 // monitorWrap.worked(1);
                 TimeMeasure.step("logOnProject", "beforeLogon");
+
+                // Check project compatibility
+                checkProjectCompatibility(project);
 
                 currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
                 currentMonitor.beginTask("Execute before logon migrations tasks", 1); //$NON-NLS-1$
