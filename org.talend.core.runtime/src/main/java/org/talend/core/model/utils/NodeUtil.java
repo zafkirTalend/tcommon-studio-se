@@ -59,6 +59,15 @@ public class NodeUtil {
 
                 @Override
                 public int compare(IConnection o1, IConnection o2) {
+                	//TESB-8093
+                	if(o1.getLineStyle()==o2.getLineStyle()) {
+                		//same style, compare by original sequence .(It's better use original id,not has this parameter).
+                		//because of  ModifyOutputOrderAction sort the order and default order is according to instant sequence.
+                		
+                		//comes first bigger than comes after.
+                		return 1;
+                	}
+                	
                     if (EConnectionType.ROUTE_WHEN == o1.getLineStyle()) {
                         if (EConnectionType.ROUTE == o2.getLineStyle()) {
                             return 1;
