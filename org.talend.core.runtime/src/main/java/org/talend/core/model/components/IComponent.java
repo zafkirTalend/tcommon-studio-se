@@ -141,4 +141,21 @@ public interface IComponent {
     public void setPaletteType(String paletteType);
 
     public String getRepositoryType();
+
+    /**
+     * This is just added in <code>HEADER</code>, it is used to present the component belongs to common process, M/R
+     * process and etc. About the type please refer to the {@link ComponentCategory}. Added by Marvin Wang on Jan 11,
+     * 2013.
+     * 
+     * @return
+     */
+    String getType();
+
+    /**
+     * This is used to present if the current component includes reduce code or not. Added by Marvin Wang on Jan 11,
+     * 2013.
+     * 
+     * @return
+     */
+    boolean isReduce();
 }

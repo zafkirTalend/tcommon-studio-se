@@ -45,6 +45,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isTSTATCATCHERSTATS <em>TSTATCATCHERSTATS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getVERSION <em>VERSION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isVISIBLE <em>VISIBLE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getTYPE <em>TYPE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isREDUCE <em>REDUCE</em>}</li>
  * </ul>
  * </p>
  *
@@ -1120,6 +1122,58 @@ public interface HEADERType extends EObject {
      * @generated
      */
     boolean isSetVISIBLE();
+
+    /**
+     * Returns the value of the '<em><b>TYPE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>TYPE</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>TYPE</em>' attribute.
+     * @see #setTYPE(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_TYPE()
+     * @model
+     * @generated
+     */
+    String getTYPE();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getTYPE <em>TYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>TYPE</em>' attribute.
+     * @see #getTYPE()
+     * @generated
+     */
+    void setTYPE(String value);
+
+    /**
+     * Returns the value of the '<em><b>REDUCE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>REDUCE</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>REDUCE</em>' attribute.
+     * @see #setREDUCE(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_REDUCE()
+     * @model
+     * @generated
+     */
+    boolean isREDUCE();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isREDUCE <em>REDUCE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>REDUCE</em>' attribute.
+     * @see #isREDUCE()
+     * @generated
+     */
+    void setREDUCE(boolean value);
 
     /**
      * Returns the value of the '<em><b>COMBINE</b></em>' attribute.

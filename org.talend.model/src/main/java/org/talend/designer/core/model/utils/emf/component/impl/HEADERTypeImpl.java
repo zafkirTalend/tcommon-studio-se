@@ -52,6 +52,8 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isTSTATCATCHERSTATS <em>TSTATCATCHERSTATS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getVERSION <em>VERSION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isVISIBLE <em>VISIBLE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getTYPE <em>TYPE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isREDUCE <em>REDUCE</em>}</li>
  * </ul>
  * </p>
  *
@@ -704,6 +706,46 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @ordered
      */
     protected boolean vISIBLEESet;
+
+    /**
+     * The default value of the '{@link #getTYPE() <em>TYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getTYPE()
+     * @generated
+     * @ordered
+     */
+    protected static final String TYPE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getTYPE() <em>TYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getTYPE()
+     * @generated
+     * @ordered
+     */
+    protected String tYPE = TYPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isREDUCE() <em>REDUCE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isREDUCE()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean REDUCE_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isREDUCE() <em>REDUCE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isREDUCE()
+     * @generated
+     * @ordered
+     */
+    protected boolean rEDUCE = REDUCE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -1622,6 +1664,48 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getTYPE() {
+        return tYPE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setTYPE(String newTYPE) {
+        String oldTYPE = tYPE;
+        tYPE = newTYPE;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__TYPE, oldTYPE, tYPE));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isREDUCE() {
+        return rEDUCE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setREDUCE(boolean newREDUCE) {
+        boolean oldREDUCE = rEDUCE;
+        rEDUCE = newREDUCE;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__REDUCE, oldREDUCE, rEDUCE));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getCOMBINE() {
         return cOMBINE;
     }
@@ -1714,6 +1798,10 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return getVERSION();
             case ComponentPackage.HEADER_TYPE__VISIBLE:
                 return isVISIBLE() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.HEADER_TYPE__TYPE:
+                return getTYPE();
+            case ComponentPackage.HEADER_TYPE__REDUCE:
+                return isREDUCE() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1806,6 +1894,12 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__VISIBLE:
                 setVISIBLE(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.HEADER_TYPE__TYPE:
+                setTYPE((String)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__REDUCE:
+                setREDUCE(((Boolean)newValue).booleanValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -1900,6 +1994,12 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__VISIBLE:
                 unsetVISIBLE();
                 return;
+            case ComponentPackage.HEADER_TYPE__TYPE:
+                setTYPE(TYPE_EDEFAULT);
+                return;
+            case ComponentPackage.HEADER_TYPE__REDUCE:
+                setREDUCE(REDUCE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1966,6 +2066,10 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return VERSION_EDEFAULT == null ? vERSION != null : !VERSION_EDEFAULT.equals(vERSION);
             case ComponentPackage.HEADER_TYPE__VISIBLE:
                 return isSetVISIBLE();
+            case ComponentPackage.HEADER_TYPE__TYPE:
+                return TYPE_EDEFAULT == null ? tYPE != null : !TYPE_EDEFAULT.equals(tYPE);
+            case ComponentPackage.HEADER_TYPE__REDUCE:
+                return rEDUCE != REDUCE_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -2032,6 +2136,10 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         result.append(vERSION);
         result.append(", vISIBLE: ");
         if (vISIBLEESet) result.append(vISIBLE); else result.append("<unset>");
+        result.append(", tYPE: ");
+        result.append(tYPE);
+        result.append(", rEDUCE: ");
+        result.append(rEDUCE);
         result.append(')');
         return result.toString();
     }

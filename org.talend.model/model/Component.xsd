@@ -149,6 +149,8 @@
     <xsd:attribute default="false" ecore:name="tSTATCATCHERSTATS" name="TSTATCATCHER_STATS" type="xsd:boolean"/>
     <xsd:attribute ecore:name="vERSION" name="VERSION" type="xsd:decimal" use="required"/>
     <xsd:attribute default="true" ecore:name="vISIBLE" name="VISIBLE" type="xsd:boolean"/>
+    <xsd:attribute ecore:name="tYPE" name="TYPE" type="xsd:string"/>
+    <xsd:attribute default="false" ecore:name="rEDUCE" name="REDUCE" type="xsd:boolean"/>
   </xsd:complexType>
   <xsd:complexType ecore:name="IMPORTSType" name="IMPORTS_._type">
     <xsd:sequence>

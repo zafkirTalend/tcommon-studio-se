@@ -52,6 +52,10 @@ public interface IComponentsFactory {
 
     public List<IComponent> getCustomComponents();
 
+    TComponentsHandler getComponentsHandler();
+
+    void setComponentsHandler(TComponentsHandler componentsHandler);
+
     public IComponent get(String name);
 
     /**
@@ -61,6 +65,7 @@ public interface IComponentsFactory {
      * @throws IOException
      * @deprecated
      */
+    @Deprecated
     public URL getComponentPath() throws IOException;
 
     public List<String> getSkeletons();

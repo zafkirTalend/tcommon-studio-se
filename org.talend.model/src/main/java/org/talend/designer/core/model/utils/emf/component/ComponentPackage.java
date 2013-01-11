@@ -1154,13 +1154,31 @@ public interface ComponentPackage extends EPackage {
     int HEADER_TYPE__VISIBLE = 26;
 
     /**
+     * The feature id for the '<em><b>TYPE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_TYPE__TYPE = 27;
+
+    /**
+     * The feature id for the '<em><b>REDUCE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_TYPE__REDUCE = 28;
+
+    /**
      * The number of structural features of the '<em>HEADER Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int HEADER_TYPE_FEATURE_COUNT = 27;
+    int HEADER_TYPE_FEATURE_COUNT = 29;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTSTypeImpl <em>IMPORTS Type</em>}' class.
@@ -3535,6 +3553,28 @@ public interface ComponentPackage extends EPackage {
     EAttribute getHEADERType_VISIBLE();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getTYPE <em>TYPE</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>TYPE</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#getTYPE()
+     * @see #getHEADERType()
+     * @generated
+     */
+    EAttribute getHEADERType_TYPE();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isREDUCE <em>REDUCE</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>REDUCE</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#isREDUCE()
+     * @see #getHEADERType()
+     * @generated
+     */
+    EAttribute getHEADERType_REDUCE();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getCOMBINE <em>COMBINE</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5672,6 +5712,22 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute HEADER_TYPE__VISIBLE = eINSTANCE.getHEADERType_VISIBLE();
+
+        /**
+         * The meta object literal for the '<em><b>TYPE</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_TYPE__TYPE = eINSTANCE.getHEADERType_TYPE();
+
+        /**
+         * The meta object literal for the '<em><b>REDUCE</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_TYPE__REDUCE = eINSTANCE.getHEADERType_REDUCE();
 
         /**
          * The meta object literal for the '<em><b>COMBINE</b></em>' attribute feature.
