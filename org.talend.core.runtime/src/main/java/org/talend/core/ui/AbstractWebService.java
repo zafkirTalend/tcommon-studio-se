@@ -16,6 +16,6 @@ package org.talend.core.ui;
 /**
  * DOC Administrator  class global comment. Detailled comment
  */
-public abstract class AbstractWebService {
+public interface AbstractWebService {
 
 }
