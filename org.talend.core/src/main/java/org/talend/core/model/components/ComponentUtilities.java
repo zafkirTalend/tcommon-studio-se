@@ -188,8 +188,9 @@ public class ComponentUtilities {
         CorePlugin.getDefault().getDesignerCoreService().setPaletteFilter(filer);
         if (faState) {
             ComponentUtilities.updatePalette(true);
-        } else
+        } else {
             ComponentUtilities.updatePalette(false);
+        }
 
         markEmptyDrawer(paletteRoot);
         emptyEntry.clear();
@@ -426,8 +427,8 @@ public class ComponentUtilities {
             families.add(split[0]);
         }
         Collections.sort(families);
-        for (Iterator iter = families.iterator(); iter.hasNext();) {
-            String oraFam = (String) iter.next();
+        for (Object element : families) {
+            String oraFam = (String) element;
             String family = getTranslatedFamilyName(oraFam);
             PaletteDrawer componentsDrawer = ht.get(family);
             if (componentsDrawer == null) {
@@ -444,12 +445,12 @@ public class ComponentUtilities {
             }
             String family = getTranslatedFamilyName(split[0]);
             String[] strings = family.split(ComponentsFactoryProvider.FAMILY_SEPARATOR_REGEX);
-            for (int j = 0; j < strings.length; j++) {
+            for (String string : strings) {
                 ImageDescriptor imageDescriptor = ComponentsFactoryProvider.getInstance().getComponentsImageRegistry()
                         .get(allComponentsCanBeProvided.get(nameAndFamily));
                 CombinedTemplateCreationEntry component = new CombinedTemplateCreationEntry(split[1], split[1], null, null,
                         imageDescriptor, imageDescriptor);
-                PaletteDrawer componentsDrawer = ht.get(strings[j]);
+                PaletteDrawer componentsDrawer = ht.get(string);
                 component.setParent(componentsDrawer);
                 componentsDrawer.add(component);
             }
@@ -560,8 +561,8 @@ public class ComponentUtilities {
                     if (component != null) {
                         String originalFamilyName = component.getOriginalFamilyName();
                         String original[] = originalFamilyName.split(ComponentsFactoryProvider.FAMILY_SEPARATOR_REGEX);
-                        for (int i = 0; i < original.length; i++) {
-                            components.add(original[i] + FAMILY_SPEARATOR + component.getName());
+                        for (String element : original) {
+                            components.add(element + FAMILY_SPEARATOR + component.getName());
                         }
                     }
                 }

@@ -15,7 +15,6 @@ package org.talend.core.model.components;
 import java.util.List;
 import java.util.Set;
 
-
 /**
  * Created by Marvin Wang on Jan. 10, 2012 for Handling component drawer in palette.
  */

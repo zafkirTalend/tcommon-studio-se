@@ -3788,6 +3788,22 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "namespace", "##targetNamespace"
            });		
         addAnnotation
+          (getHEADERType_TYPE(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "TYPE",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getHEADERType_REDUCE(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "REDUCE",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
           (importsTypeEClass, 
            source, 
            new String[] {

@@ -1134,7 +1134,7 @@ public interface HEADERType extends EObject {
      * @return the value of the '<em>TYPE</em>' attribute.
      * @see #setTYPE(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_TYPE()
-     * @model
+     * @model extendedMetaData="kind='attribute' name='TYPE' namespace='##targetNamespace'"
      * @generated
      */
     String getTYPE();
@@ -1160,7 +1160,7 @@ public interface HEADERType extends EObject {
      * @return the value of the '<em>REDUCE</em>' attribute.
      * @see #setREDUCE(boolean)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_REDUCE()
-     * @model
+     * @model extendedMetaData="kind='attribute' name='REDUCE' namespace='##targetNamespace'"
      * @generated
      */
     boolean isREDUCE();
