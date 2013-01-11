@@ -52,8 +52,19 @@ public interface IComponentsFactory {
 
     public List<IComponent> getCustomComponents();
 
+    /**
+     * Added by Marvin Wang on Jan 11, 2013.
+     * 
+     * @return
+     */
     TComponentsHandler getComponentsHandler();
 
+    /**
+     * 
+     * Added by Marvin Wang on Jan 11, 2013.
+     * 
+     * @param componentsHandler
+     */
     void setComponentsHandler(TComponentsHandler componentsHandler);
 
     public IComponent get(String name);

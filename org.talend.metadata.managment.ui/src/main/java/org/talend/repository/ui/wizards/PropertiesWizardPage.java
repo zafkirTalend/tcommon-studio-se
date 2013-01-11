@@ -57,6 +57,7 @@ import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.dialogs.RepositoryFolderSelectionDialog;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.PluginChecker;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
@@ -159,6 +160,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
     private boolean isSaveAs = false;
 
     private boolean allowVerchange = true;
+
+    private Button convertBtn;// For convertation between M/R job and common job
 
     public void initializeSaveAs(String orignalName, String orignalVersion, boolean isSaveAs) {
         this.orignalName = orignalName;
@@ -438,6 +441,17 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
         }
 
+        // Added by Marvin Wang on Jan. 10 , 2012 for map-reduce, if M/R plugin is loaded, then diaplay the button,
+        // otherwise hide it.
+        convertBtn = new Button(parent, SWT.BORDER);
+        convertBtn.setText(Messages.getString("PropertiesWizardPage.button.name.conver")); //$NON-NLS-1$
+        if (PluginChecker.isMapReducePluginLoader()) {
+            convertBtn.setEnabled(true);
+            convertBtn.setVisible(true);
+        } else {
+            convertBtn.setEnabled(false);
+            convertBtn.setVisible(false);
+        }
     }
 
     /**
@@ -1207,4 +1221,23 @@ public abstract class PropertiesWizardPage extends WizardPage {
     public List<IRepositoryViewObject> getListExistingObjects() {
         return listExistingObjects;
     }
+
+    /**
+     * Getter for convertBtn.
+     * 
+     * @return the convertBtn
+     */
+    public Button getConvertBtn() {
+        return this.convertBtn;
+    }
+
+    /**
+     * Sets the convertBtn.
+     * 
+     * @param convertBtn the convertBtn to set
+     */
+    public void setConvertBtn(Button convertBtn) {
+        this.convertBtn = convertBtn;
+    }
+
 }

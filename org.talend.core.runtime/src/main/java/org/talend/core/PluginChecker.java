@@ -82,6 +82,8 @@ public class PluginChecker {
 
     private static final String METADATA_PLUGIN_ID = "org.talend.repository.metadata"; //$NON-NLS-1$ 
 
+    private static final String MAPREDUCE_PLUGIN_ID = "org.talend.designer.mapreduce"; //$NON-NLS-1$
+
     /**
      * Check if specific plug-in is loaded.
      * 
@@ -246,5 +248,14 @@ public class PluginChecker {
 
     public static boolean isMetadataPluginLoaded() {
         return isPluginLoaded(METADATA_PLUGIN_ID);
+    }
+
+    /**
+     * To check if the plugin is loaded for map-reduce. Added by Marvin Wang on Jan 10, 2013.
+     * 
+     * @return
+     */
+    public static boolean isMapReducePluginLoader() {
+        return isPluginLoaded(MAPREDUCE_PLUGIN_ID);
     }
 }
