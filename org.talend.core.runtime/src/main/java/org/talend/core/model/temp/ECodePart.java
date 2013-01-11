@@ -22,7 +22,11 @@ package org.talend.core.model.temp;
 public enum ECodePart {
     MAIN("main"), //$NON-NLS-1$
     BEGIN("begin"), //$NON-NLS-1$
-    END("end"); //$NON-NLS-1$
+    END("end"), //$NON-NLS-1$
+    MAP("map"), //$NON-NLS-1$
+    REDUCE("reduce"), //$NON-NLS-1$
+    CONFIG("config"), //$NON-NLS-1$
+    DF("df"); //$NON-NLS-1$
 
     private ECodePart(String name) {
         this.name = name;
