@@ -61,11 +61,13 @@ public class NodeUtil {
                 public int compare(IConnection o1, IConnection o2) {
                 	//TESB-8093
                 	if(o1.getLineStyle()==o2.getLineStyle()) {
-                		//same style, compare by original sequence .(It's better use original id,not has this parameter).
-                		//because of  ModifyOutputOrderAction sort the order and default order is according to instant sequence.
-                		
-                		//comes first bigger than comes after.
-                		return 1;
+                		//same style, compare by inputId
+//                		return o1.getInputId()-o2.getInputId();//not use this cause of probably overflow.
+                		if(o1.getInputId()>o2.getInputId()) {
+                			return 1;
+                		}else {
+							return -1;
+						}
                 	}
                 	
                     if (EConnectionType.ROUTE_WHEN == o1.getLineStyle()) {
