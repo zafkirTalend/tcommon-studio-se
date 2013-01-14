@@ -63,7 +63,7 @@ public class NodeUtil {
                 	if(o1.getLineStyle()==o2.getLineStyle()) {
                 		//same style, compare by inputId
 //                		return o1.getInputId()-o2.getInputId();//not use this cause of probably overflow.
-                		if(o1.getInputId()>o2.getInputId()) {
+                		if(o1.getOutputId()>o2.getOutputId()) {
                 			return 1;
                 		}else {
 							return -1;
@@ -126,7 +126,7 @@ public class NodeUtil {
             Collections.sort(conns, new Comparator<IConnection>() {
 
                 @Override
-                public int compare(IConnection connection1, IConnection connection2) {
+            public int compare(IConnection connection1, IConnection connection2) {
 
                     EConnectionType lineStyle = connection1.getLineStyle();
                     EConnectionType lineStyle2 = connection2.getLineStyle();
