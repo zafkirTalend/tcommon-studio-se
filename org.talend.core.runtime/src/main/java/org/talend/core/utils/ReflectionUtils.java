@@ -140,6 +140,7 @@ public class ReflectionUtils {
      * @param owner
      * @param methodName
      * @param args
+     * @param argTypes
      * @return
      * @throws NoSuchMethodException
      * @throws SecurityException
@@ -147,13 +148,18 @@ public class ReflectionUtils {
      * @throws IllegalAccessException
      * @throws IllegalArgumentException
      */
-    public static Object invokeMethod(Object owner, String methodName, Object[] args) throws SecurityException,
-            NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+    public static Object invokeMethod(Object owner, String methodName, Object[] args, Class... argTypes)
+            throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException,
+            InvocationTargetException {
         Object returnValue = null;
         Class ownerClass = owner.getClass();
         Class[] argsClass = new Class[args.length];
-        for (int i = 0, j = args.length; i < j; i++) {
-            argsClass[i] = args[i].getClass();
+        if (argTypes != null && argTypes.length == args.length) {
+            argsClass = argTypes;
+        } else {
+            for (int i = 0, j = args.length; i < j; i++) {
+                argsClass[i] = args[i].getClass();
+            }
         }
         Method method = ownerClass.getMethod(methodName, argsClass);
         returnValue = method.invoke(owner, args);
@@ -170,6 +176,7 @@ public class ReflectionUtils {
      * @param loader
      * @param methodName
      * @param args
+     * @param argTypes
      * @return
      * @throws ClassNotFoundException
      * @throws NoSuchMethodException
@@ -178,8 +185,8 @@ public class ReflectionUtils {
      * @throws IllegalAccessException
      * @throws IllegalArgumentException
      */
-    public static Object invokeStaticMethod(String className, ClassLoader loader, String methodName, Object[] args)
-            throws ClassNotFoundException, SecurityException, NoSuchMethodException, IllegalArgumentException,
+    public static Object invokeStaticMethod(String className, ClassLoader loader, String methodName, Object[] args,
+            Class... argTypes) throws ClassNotFoundException, SecurityException, NoSuchMethodException, IllegalArgumentException,
             IllegalAccessException, InvocationTargetException {
         Object returnValue = null;
         Class ownerClass = null;
@@ -189,8 +196,12 @@ public class ReflectionUtils {
             ownerClass = Class.forName(className);
         }
         Class[] argsClass = new Class[args.length];
-        for (int i = 0, j = args.length; i < j; i++) {
-            argsClass[i] = args[i].getClass();
+        if (argTypes != null && argTypes.length == args.length) {
+            argsClass = argTypes;
+        } else {
+            for (int i = 0, j = args.length; i < j; i++) {
+                argsClass[i] = args[i].getClass();
+            }
         }
         Method method = ownerClass.getMethod(methodName, argsClass);
         returnValue = method.invoke(null, args);
@@ -198,10 +209,10 @@ public class ReflectionUtils {
         return returnValue;
     }
 
-    public static Object invokeStaticMethod(String className, String methodName, Object[] args) throws SecurityException,
-            IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException,
-            InvocationTargetException {
-        return invokeStaticMethod(className, null, methodName, args);
+    public static Object invokeStaticMethod(String className, String methodName, Object[] args, Class... argTypes)
+            throws SecurityException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException,
+            IllegalAccessException, InvocationTargetException {
+        return invokeStaticMethod(className, null, methodName, args, argTypes);
     }
 
     /**
@@ -222,9 +233,9 @@ public class ReflectionUtils {
      * @throws InstantiationException
      * @throws IllegalArgumentException
      */
-    public static Object newInstance(String className, ClassLoader loader, Object[] args) throws ClassNotFoundException,
-            SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException, IllegalAccessException,
-            InvocationTargetException {
+    public static Object newInstance(String className, ClassLoader loader, Object[] args, Class... argTypes)
+            throws ClassNotFoundException, SecurityException, NoSuchMethodException, IllegalArgumentException,
+            InstantiationException, IllegalAccessException, InvocationTargetException {
         Object instance = null;
         Class newClass = null;
         if (loader != null) {
@@ -233,8 +244,12 @@ public class ReflectionUtils {
             newClass = Class.forName(className);
         }
         Class[] argsClass = new Class[args.length];
-        for (int i = 0, j = args.length; i < j; i++) {
-            argsClass[i] = args[i].getClass();
+        if (argTypes != null && argTypes.length == args.length) {
+            argsClass = argTypes;
+        } else {
+            for (int i = 0, j = args.length; i < j; i++) {
+                argsClass[i] = args[i].getClass();
+            }
         }
         Constructor cons = newClass.getConstructor(argsClass);
         instance = cons.newInstance(args);
@@ -242,10 +257,10 @@ public class ReflectionUtils {
         return instance;
     }
 
-    public static Object newInstance(String className, Object[] args) throws SecurityException, IllegalArgumentException,
-            ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException,
-            InvocationTargetException {
-        return newInstance(className, null, args);
+    public static Object newInstance(String className, Object[] args, Class... argTypes) throws SecurityException,
+            IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, InstantiationException,
+            IllegalAccessException, InvocationTargetException {
+        return newInstance(className, null, args, argTypes);
     }
 
     /**
