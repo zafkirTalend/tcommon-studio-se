@@ -566,6 +566,9 @@ public final class DBConnectionContextUtils {
             return;
         }
         ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(conn, conn.getContextName());
+        if (contextType == null) {
+            return;
+        }
 
         // driverPath
         metadataConnection.setDriverJarPath(ConnectionContextHelper.getOriginalValue(contextType, conn.getDriverJarPath()));
