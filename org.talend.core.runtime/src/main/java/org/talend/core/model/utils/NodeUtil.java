@@ -62,7 +62,7 @@ public class NodeUtil {
                 	//TESB-8093
                 	if(o1.getLineStyle()==o2.getLineStyle()) {
                 		//same style, compare by inputId
-//                		return o1.getInputId()-o2.getInputId();//not use this cause of probably overflow.
+//                		return o1.getOutputId()-o2.getOutputId();//not use this cause of probably overflow.
                 		if(o1.getOutputId()>o2.getOutputId()) {
                 			return 1;
                 		}else {
