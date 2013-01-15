@@ -57,7 +57,6 @@ import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.dialogs.RepositoryFolderSelectionDialog;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.PluginChecker;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
@@ -161,7 +160,9 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     private boolean allowVerchange = true;
 
-    private Button convertBtn;// For convertation between M/R job and common job
+    // private Button convertBtn;// For convertation between M/R job and common job
+
+    // private IProcessConverter processConverter;
 
     public void initializeSaveAs(String orignalName, String orignalVersion, boolean isSaveAs) {
         this.orignalName = orignalName;
@@ -441,17 +442,12 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
         }
 
-        // Added by Marvin Wang on Jan. 10 , 2012 for map-reduce, if M/R plugin is loaded, then diaplay the button,
-        // otherwise hide it.
-        convertBtn = new Button(parent, SWT.BORDER);
-        convertBtn.setText(Messages.getString("PropertiesWizardPage.button.name.conver")); //$NON-NLS-1$
-        if (PluginChecker.isMapReducePluginLoader()) {
-            convertBtn.setEnabled(true);
-            convertBtn.setVisible(true);
-        } else {
-            convertBtn.setEnabled(false);
-            convertBtn.setVisible(false);
-        }
+        // // Added by Marvin Wang on Jan. 10 , 2012 for map-reduce, if M/R plugin is loaded, then diaplay the button,
+        // // otherwise hide it.
+        // convertBtn = new Button(parent, SWT.BORDER);
+        //        convertBtn.setText(Messages.getString("PropertiesWizardPage.button.name.conver")); //$NON-NLS-1$
+        // convertBtn.setEnabled(false);
+        // convertBtn.setVisible(false);
     }
 
     /**
@@ -1001,7 +997,38 @@ public abstract class PropertiesWizardPage extends WizardPage {
             }
 
         });
+
+        // regConvertBtnListener();
     }
+
+    //
+    // /**
+    // * Registers a listener for convert button. Added by Marvin Wang on Jan 14, 2013.
+    // */
+    // protected void regConvertBtnListener() {
+    // convertBtn.addSelectionListener(new SelectionAdapter() {
+    //
+    // @Override
+    // public void widgetSelected(SelectionEvent e) {
+    // try {
+    // doConvert();
+    // } catch (PersistenceException e1) {
+    // e1.printStackTrace();
+    // // TODO Auto-generated catch block
+    // e1.printStackTrace();
+    // } catch (BusinessException e2) {
+    // e2.printStackTrace();
+    // }
+    // }
+    // });
+    // }
+    //
+    // protected void doConvert() throws PersistenceException, BusinessException {
+    // IWizard wizard = this.getWizard();
+    // if (wizard instanceof PropertiesWizard) {
+    // processConverter.doConvert(null);
+    // }
+    // }
 
     protected void evaluateFields() {
         evaluateTextField();
@@ -1222,22 +1249,51 @@ public abstract class PropertiesWizardPage extends WizardPage {
         return listExistingObjects;
     }
 
-    /**
-     * Getter for convertBtn.
-     * 
-     * @return the convertBtn
-     */
-    public Button getConvertBtn() {
-        return this.convertBtn;
-    }
-
-    /**
-     * Sets the convertBtn.
-     * 
-     * @param convertBtn the convertBtn to set
-     */
-    public void setConvertBtn(Button convertBtn) {
-        this.convertBtn = convertBtn;
-    }
+    // /**
+    // * Getter for convertBtn.
+    // *
+    // * @return the convertBtn
+    // */
+    // public Button getConvertBtn() {
+    // return this.convertBtn;
+    // }
+    //
+    // /**
+    // * Sets the convertBtn.
+    // *
+    // * @param convertBtn the convertBtn to set
+    // */
+    // public void setConvertBtn(Button convertBtn) {
+    // this.convertBtn = convertBtn;
+    // }
+    //
+    // /**
+    // * Getter for processConverter.
+    // *
+    // * @return the processConverter
+    // */
+    // public IProcessConverter getProcessConverter() {
+    // return this.processConverter;
+    // }
+    //
+    // /**
+    // * Sets the processConverter.
+    // *
+    // * @param processConverter the processConverter to set
+    // */
+    // public void setProcessConverter(IProcessConverter processConverter) {
+    // this.processConverter = processConverter;
+    // // fireConvertBtnStatusChange();
+    // }
+    //
+    // protected void fireConvertBtnStatusChange() {
+    // if (this.processConverter == null) {
+    // convertBtn.setEnabled(false);
+    // convertBtn.setVisible(false);
+    // } else {
+    // convertBtn.setEnabled(processConverter.isNeedConvert());
+    // convertBtn.setVisible(processConverter.isNeedConvert());
+    // }
+    // }
 
 }

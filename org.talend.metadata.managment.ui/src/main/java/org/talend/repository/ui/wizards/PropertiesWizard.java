@@ -86,6 +86,8 @@ public class PropertiesWizard extends Wizard {
 
     protected String lastVersionFound;
 
+    private IProcessConverter processConverter;
+
     public PropertiesWizard(IRepositoryViewObject repositoryViewObject, IPath path, boolean useLastVersion) {
         super();
 
@@ -376,4 +378,41 @@ public class PropertiesWizard extends Wizard {
         unlockObject();
         super.dispose();
     }
+
+    /**
+     * Getter for mainPage.
+     * 
+     * @return the mainPage
+     */
+    public PropertiesWizardPage getMainPage() {
+        return this.mainPage;
+    }
+
+    /**
+     * Sets the mainPage.
+     * 
+     * @param mainPage the mainPage to set
+     */
+    public void setMainPage(PropertiesWizardPage mainPage) {
+        this.mainPage = mainPage;
+    }
+
+    /**
+     * Getter for processConverter.
+     * 
+     * @return the processConverter
+     */
+    public IProcessConverter getProcessConverter() {
+        return this.processConverter;
+    }
+
+    /**
+     * Sets the processConverter.
+     * 
+     * @param processConverter the processConverter to set
+     */
+    public void setProcessConverter(IProcessConverter processConverter) {
+        this.processConverter = processConverter;
+    }
+
 }
