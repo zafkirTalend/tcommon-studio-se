@@ -57,7 +57,7 @@ public interface IComponentsFactory {
      * 
      * @return
      */
-    TComponentsHandler getComponentsHandler();
+    IComponentsHandler getComponentsHandler();
 
     /**
      * 
@@ -65,9 +65,18 @@ public interface IComponentsFactory {
      * 
      * @param componentsHandler
      */
-    void setComponentsHandler(TComponentsHandler componentsHandler);
+    void setComponentsHandler(IComponentsHandler componentsHandler);
 
+    /**
+     * This one by default will avoid the new possible type for M/R.<br>
+     * This method might be deprecated later.
+     * 
+     * @param name
+     * @return
+     */
     public IComponent get(String name);
+
+    public IComponent get(String name, String paletteType);
 
     /**
      * Shouldn't be used anymore.

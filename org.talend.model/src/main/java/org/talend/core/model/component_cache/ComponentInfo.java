@@ -33,6 +33,7 @@ import org.talend.designer.core.model.utils.emf.component.IMPORTType;
  *   <li>{@link org.talend.core.model.component_cache.ComponentInfo#getPathSource <em>Path Source</em>}</li>
  *   <li>{@link org.talend.core.model.component_cache.ComponentInfo#getRepositoryType <em>Repository Type</em>}</li>
  *   <li>{@link org.talend.core.model.component_cache.ComponentInfo#getSourceBundleName <em>Source Bundle Name</em>}</li>
+ *   <li>{@link org.talend.core.model.component_cache.ComponentInfo#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -351,5 +352,31 @@ public interface ComponentInfo extends EObject {
      * @generated
      */
     void setSourceBundleName(String value);
+
+    /**
+     * Returns the value of the '<em><b>Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Type</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Type</em>' attribute.
+     * @see #setType(String)
+     * @see org.talend.core.model.component_cache.ComponentCachePackage#getComponentInfo_Type()
+     * @model
+     * @generated
+     */
+    String getType();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.component_cache.ComponentInfo#getType <em>Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Type</em>' attribute.
+     * @see #getType()
+     * @generated
+     */
+    void setType(String value);
 
 } // ComponentInfo

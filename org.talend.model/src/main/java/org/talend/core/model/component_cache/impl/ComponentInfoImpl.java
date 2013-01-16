@@ -48,6 +48,7 @@ import org.talend.designer.core.model.utils.emf.component.IMPORTType;
  *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#getPathSource <em>Path Source</em>}</li>
  *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#getRepositoryType <em>Repository Type</em>}</li>
  *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#getSourceBundleName <em>Source Bundle Name</em>}</li>
+ *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -283,6 +284,26 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
      * @ordered
      */
     protected String sourceBundleName = SOURCE_BUNDLE_NAME_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getType()
+     * @generated
+     * @ordered
+     */
+    protected static final String TYPE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getType()
+     * @generated
+     * @ordered
+     */
+    protected String type = TYPE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -554,6 +575,27 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setType(String newType) {
+        String oldType = type;
+        type = newType;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentCachePackage.COMPONENT_INFO__TYPE, oldType, type));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
@@ -597,6 +639,8 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
                 return getRepositoryType();
             case ComponentCachePackage.COMPONENT_INFO__SOURCE_BUNDLE_NAME:
                 return getSourceBundleName();
+            case ComponentCachePackage.COMPONENT_INFO__TYPE:
+                return getType();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -652,6 +696,9 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
             case ComponentCachePackage.COMPONENT_INFO__SOURCE_BUNDLE_NAME:
                 setSourceBundleName((String)newValue);
                 return;
+            case ComponentCachePackage.COMPONENT_INFO__TYPE:
+                setType((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -703,6 +750,9 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
             case ComponentCachePackage.COMPONENT_INFO__SOURCE_BUNDLE_NAME:
                 setSourceBundleName(SOURCE_BUNDLE_NAME_EDEFAULT);
                 return;
+            case ComponentCachePackage.COMPONENT_INFO__TYPE:
+                setType(TYPE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -741,6 +791,8 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
                 return REPOSITORY_TYPE_EDEFAULT == null ? repositoryType != null : !REPOSITORY_TYPE_EDEFAULT.equals(repositoryType);
             case ComponentCachePackage.COMPONENT_INFO__SOURCE_BUNDLE_NAME:
                 return SOURCE_BUNDLE_NAME_EDEFAULT == null ? sourceBundleName != null : !SOURCE_BUNDLE_NAME_EDEFAULT.equals(sourceBundleName);
+            case ComponentCachePackage.COMPONENT_INFO__TYPE:
+                return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
         }
         return super.eIsSet(featureID);
     }
@@ -779,6 +831,8 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
         result.append(repositoryType);
         result.append(", sourceBundleName: ");
         result.append(sourceBundleName);
+        result.append(", type: ");
+        result.append(type);
         result.append(')');
         return result.toString();
     }

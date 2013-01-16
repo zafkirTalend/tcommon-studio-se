@@ -13,12 +13,11 @@
 package org.talend.core.model.components;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Marvin Wang on Jan. 10, 2012 for Handling component drawer in palette.
  */
-public interface TComponentsHandler {
+public interface IComponentsHandler {
 
     /**
      * Filters the components from the given components, returns the components that what you want to show in palette.
@@ -27,7 +26,7 @@ public interface TComponentsHandler {
      * @param allComponents
      * @return
      */
-    List<IComponent> filterComponents(Set<IComponent> allComponents);
+    List<IComponent> filterComponents(List<IComponent> allComponents);
 
     /**
      * Sorts the filtered components as you want, if you would not like to sort, just return the given components. Added

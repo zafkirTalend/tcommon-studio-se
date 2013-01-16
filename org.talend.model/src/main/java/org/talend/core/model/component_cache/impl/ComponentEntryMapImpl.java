@@ -6,10 +6,12 @@
  */
 package org.talend.core.model.component_cache.impl;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.BasicEMap;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 
 import org.eclipse.emf.ecore.EClass;
@@ -19,6 +21,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.component_cache.ComponentCachePackage;
 import org.talend.core.model.component_cache.ComponentInfo;
 
@@ -36,7 +40,7 @@ import org.talend.core.model.component_cache.ComponentInfo;
  *
  * @generated
  */
-public class ComponentEntryMapImpl extends EObjectImpl implements BasicEMap.Entry<String,ComponentInfo> {
+public class ComponentEntryMapImpl extends EObjectImpl implements BasicEMap.Entry<String,EList<ComponentInfo>> {
     /**
      * The default value of the '{@link #getTypedKey() <em>Key</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -58,14 +62,14 @@ public class ComponentEntryMapImpl extends EObjectImpl implements BasicEMap.Entr
     protected String key = KEY_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getTypedValue() <em>Value</em>}' containment reference.
+     * The cached value of the '{@link #getTypedValue() <em>Value</em>}' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getTypedValue()
      * @generated
      * @ordered
      */
-    protected ComponentInfo value;
+    protected EList<ComponentInfo> value;
 
     /**
      * <!-- begin-user-doc -->
@@ -112,42 +116,11 @@ public class ComponentEntryMapImpl extends EObjectImpl implements BasicEMap.Entr
      * <!-- end-user-doc -->
      * @generated
      */
-    public ComponentInfo getTypedValue() {
+    public EList<ComponentInfo> getTypedValue() {
+        if (value == null) {
+            value = new EObjectContainmentEList<ComponentInfo>(ComponentInfo.class, this, ComponentCachePackage.COMPONENT_ENTRY_MAP__VALUE);
+        }
         return value;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public NotificationChain basicSetTypedValue(ComponentInfo newValue, NotificationChain msgs) {
-        ComponentInfo oldValue = value;
-        value = newValue;
-        if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentCachePackage.COMPONENT_ENTRY_MAP__VALUE, oldValue, newValue);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
-        }
-        return msgs;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setTypedValue(ComponentInfo newValue) {
-        if (newValue != value) {
-            NotificationChain msgs = null;
-            if (value != null)
-                msgs = ((InternalEObject)value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComponentCachePackage.COMPONENT_ENTRY_MAP__VALUE, null, msgs);
-            if (newValue != null)
-                msgs = ((InternalEObject)newValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ComponentCachePackage.COMPONENT_ENTRY_MAP__VALUE, null, msgs);
-            msgs = basicSetTypedValue(newValue, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentCachePackage.COMPONENT_ENTRY_MAP__VALUE, newValue, newValue));
     }
 
     /**
@@ -159,7 +132,7 @@ public class ComponentEntryMapImpl extends EObjectImpl implements BasicEMap.Entr
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case ComponentCachePackage.COMPONENT_ENTRY_MAP__VALUE:
-                return basicSetTypedValue(null, msgs);
+                return ((InternalEList<?>)getTypedValue()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -185,6 +158,7 @@ public class ComponentEntryMapImpl extends EObjectImpl implements BasicEMap.Entr
      * <!-- end-user-doc -->
      * @generated
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
@@ -192,7 +166,8 @@ public class ComponentEntryMapImpl extends EObjectImpl implements BasicEMap.Entr
                 setTypedKey((String)newValue);
                 return;
             case ComponentCachePackage.COMPONENT_ENTRY_MAP__VALUE:
-                setTypedValue((ComponentInfo)newValue);
+                getTypedValue().clear();
+                getTypedValue().addAll((Collection<? extends ComponentInfo>)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -210,7 +185,7 @@ public class ComponentEntryMapImpl extends EObjectImpl implements BasicEMap.Entr
                 setTypedKey(KEY_EDEFAULT);
                 return;
             case ComponentCachePackage.COMPONENT_ENTRY_MAP__VALUE:
-                setTypedValue((ComponentInfo)null);
+                getTypedValue().clear();
                 return;
         }
         super.eUnset(featureID);
@@ -227,7 +202,7 @@ public class ComponentEntryMapImpl extends EObjectImpl implements BasicEMap.Entr
             case ComponentCachePackage.COMPONENT_ENTRY_MAP__KEY:
                 return KEY_EDEFAULT == null ? key != null : !KEY_EDEFAULT.equals(key);
             case ComponentCachePackage.COMPONENT_ENTRY_MAP__VALUE:
-                return value != null;
+                return value != null && !value.isEmpty();
         }
         return super.eIsSet(featureID);
     }
@@ -300,7 +275,7 @@ public class ComponentEntryMapImpl extends EObjectImpl implements BasicEMap.Entr
      * <!-- end-user-doc -->
      * @generated
      */
-    public ComponentInfo getValue() {
+    public EList<ComponentInfo> getValue() {
         return getTypedValue();
     }
 
@@ -309,9 +284,10 @@ public class ComponentEntryMapImpl extends EObjectImpl implements BasicEMap.Entr
      * <!-- end-user-doc -->
      * @generated
      */
-    public ComponentInfo setValue(ComponentInfo value) {
-        ComponentInfo oldValue = getValue();
-        setTypedValue(value);
+    public EList<ComponentInfo> setValue(EList<ComponentInfo> value) {
+        EList<ComponentInfo> oldValue = getValue();
+        getTypedValue().clear();
+        getTypedValue().addAll(value);
         return oldValue;
     }
 
@@ -321,9 +297,9 @@ public class ComponentEntryMapImpl extends EObjectImpl implements BasicEMap.Entr
      * @generated
      */
     @SuppressWarnings("unchecked")
-    public EMap<String, ComponentInfo> getEMap() {
+    public EMap<String, EList<ComponentInfo>> getEMap() {
         EObject container = eContainer();
-        return container == null ? null : (EMap<String, ComponentInfo>)container.eGet(eContainmentFeature());
+        return container == null ? null : (EMap<String, EList<ComponentInfo>>)container.eGet(eContainmentFeature());
     }
 
 } //ComponentEntryMapImpl

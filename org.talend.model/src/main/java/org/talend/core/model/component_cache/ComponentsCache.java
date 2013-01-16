@@ -6,6 +6,7 @@
  */
 package org.talend.core.model.component_cache;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 
 import org.eclipse.emf.ecore.EObject;
@@ -30,7 +31,7 @@ public interface ComponentsCache extends EObject {
     /**
      * Returns the value of the '<em><b>Component Entry Map</b></em>' map.
      * The key is of type {@link java.lang.String},
-     * and the value is of type {@link org.talend.core.model.component_cache.ComponentInfo},
+     * and the value is of type list of {@link org.talend.core.model.component_cache.ComponentInfo},
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Component Entry Map</em>' map isn't clear,
@@ -42,6 +43,6 @@ public interface ComponentsCache extends EObject {
      * @model mapType="org.talend.core.model.component_cache.ComponentEntryMap<org.eclipse.emf.ecore.EString, org.talend.core.model.component_cache.ComponentInfo>"
      * @generated
      */
-    EMap<String, ComponentInfo> getComponentEntryMap();
+    EMap<String, EList<ComponentInfo>> getComponentEntryMap();
 
 } // ComponentsCache

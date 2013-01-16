@@ -37,19 +37,19 @@ public interface IProcess extends IElement {
     public static final String DEFAULT_TABLE_CONNECTION_NAME = "table"; //$NON-NLS-1$
 
     public static final String DEFAULT_ITERATE_CONNECTION_NAME = "iterate"; //$NON-NLS-1$
-    
+
     public static final String DEFAULT_ROUTE_CONNECTION_NAME = "route"; //$NON-NLS-1$
-    
+
     public static final String DEFAULT_WHEN_CONNECTION_NAME = "when"; //$NON-NLS-1$
-    
+
     public static final String DEFAULT_CATCH_CONNECTION_NAME = "catch"; //$NON-NLS-1$
-    
+
     public static final String DEFAULT_OTHER_CONNECTION_NAME = "otherwise"; //$NON-NLS-1$
-    
+
     public static final String DEFAULT_TRY_CONNECTION_NAME = "try"; //$NON-NLS-1$
-    
+
     public static final String DEFAULT_FINALLY_CONNECTION_NAME = "finally"; //$NON-NLS-1$
-    
+
     public static final String DEFAULT_ENDBLOCK_CONNECTION_NAME = "route"; //$NON-NLS-1$
 
     public static final String SCREEN_OFFSET_X = "SCREEN_OFFSET_X"; //$NON-NLS-1$
@@ -126,4 +126,6 @@ public interface IProcess extends IElement {
     public void setContextManager(IContextManager contextManager);
 
     public void checkStartNodes();
+
+    public String getComponentsType();
 }
