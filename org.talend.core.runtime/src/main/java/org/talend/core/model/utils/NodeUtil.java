@@ -58,6 +58,14 @@ public class NodeUtil {
             Collections.sort(conns, new Comparator<IConnection>() {
 
                 public int compare(IConnection o1, IConnection o2) {
+                	if (o1.getLineStyle() == o2.getLineStyle()) {
+						// same style, compare by inputId
+						if (o1.getOutputId() > o2.getOutputId()) {
+							return 1;
+						} else {
+							return -1;
+						}
+					}
                     if (EConnectionType.ROUTE_WHEN == o1.getLineStyle()){
                     	if(EConnectionType.ROUTE == o2.getLineStyle()){
                     		return 1;
