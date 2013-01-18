@@ -45,7 +45,7 @@ public class ProcessItemTest {
 
         Assert.assertNotSame(clazz, ProcessItem.class);
 
-        Assert.assertEquals(clazz, ProcessItemImpl.class);
+        Assert.assertEquals(clazz, ProcessItemImpl.class);// OK
         Assert.assertEquals(clazz.getName(), ProcessItemImpl.class.getName());
     }
 
@@ -53,18 +53,27 @@ public class ProcessItemTest {
     public void testEClass() {
         EClass eClass = processItem.eClass();
 
+        Assert.assertTrue(eClass == PropertiesPackage.Literals.PROCESS_ITEM);// OK
+
         Assert.assertEquals(eClass.getName(), "ProcessItem");
-        Assert.assertEquals(eClass.getInstanceClass(), ProcessItem.class);
+        Assert.assertEquals(eClass.getInstanceClass(), ProcessItem.class);// OK
         Assert.assertEquals(eClass.getInstanceClassName(), ProcessItem.class.getName());
 
         Assert.assertEquals(eClass.eContainer(), PropertiesPackage.eINSTANCE);
         Assert.assertEquals(eClass.getClassifierID(), PropertiesPackage.PROCESS_ITEM);
     }
 
+    @Test
+    public void testInstance() {
+        Assert.assertTrue(PropertiesPackage.Literals.PROCESS_ITEM.isInstance(processItem));
+    }
+
     // @Test
     public void testExxxFeature() {
-        Assert.assertEquals(processItem.eContainmentFeature(), PropertiesPackage.Literals.PROCESS_ITEM);
-        Assert.assertEquals(processItem.eContainingFeature(), PropertiesPackage.eINSTANCE.getProcessItem_Process());
+        // can't use this way for talend, even used it from method "validateRoot" of class "XSDModelGroupImpl" in
+        // "org.eclipse.xsd"
+        Assert.assertTrue(processItem.eContainmentFeature() == PropertiesPackage.Literals.PROCESS_ITEM);
+        // Assert.assertEquals(processItem.eContainingFeature(), PropertiesPackage.eINSTANCE.getProcessItem_Process());
 
     }
 }
