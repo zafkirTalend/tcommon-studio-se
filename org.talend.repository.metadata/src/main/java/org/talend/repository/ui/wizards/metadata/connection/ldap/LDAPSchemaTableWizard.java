@@ -57,7 +57,7 @@ public class LDAPSchemaTableWizard extends CheckLastVersionRepositoryWizard impl
      * 
      * @param ISelection
      */
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public LDAPSchemaTableWizard(IWorkbench workbench, boolean creation, ConnectionItem connectionItem,
             MetadataTable metadataTable, boolean forceReadOnly) {
         super(workbench, creation, forceReadOnly);
@@ -78,6 +78,7 @@ public class LDAPSchemaTableWizard extends CheckLastVersionRepositoryWizard impl
      * Adding the page to the wizard.
      */
 
+    @Override
     public void addPages() {
         setWindowTitle(Messages.getString("SchemaWizard.windowTitle")); //$NON-NLS-1$
 
@@ -100,6 +101,7 @@ public class LDAPSchemaTableWizard extends CheckLastVersionRepositoryWizard impl
      * This method determine if the 'Finish' button is enable This method is called when 'Finish' button is pressed in
      * the wizard. We will create an operation and run it using wizard as execution context.
      */
+    @Override
     public boolean performFinish() {
         if (tableWizardpage.isPageComplete()) {
             // applyConnectionCopy();
@@ -130,6 +132,7 @@ public class LDAPSchemaTableWizard extends CheckLastVersionRepositoryWizard impl
      * 
      * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
      */
+    @Override
     public void init(final IWorkbench workbench, final IStructuredSelection selection) {
         this.selection = selection;
     }
@@ -139,6 +142,7 @@ public class LDAPSchemaTableWizard extends CheckLastVersionRepositoryWizard impl
         return this.connectionItem;
     }
 
+    @Override
     public boolean performCancel() {
         // Remove the metadata table that is added into data package, if created for the first time.
         // Caz the metadata table is added to GenericPackage when retrieve schema, refer to
@@ -148,6 +152,10 @@ public class LDAPSchemaTableWizard extends CheckLastVersionRepositoryWizard impl
             GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), connection,
                     GenericPackage.class);
             g.getOwnedElement().remove(metadataTable);
+        }
+        if (metadataTable != null && oldMetadataTable != null && metadataTable.getLabel() != null
+                && !metadataTable.getLabel().equals(oldMetadataTable.getLabel())) {
+            this.metadataTable.setLabel(oldMetadataTable.getLabel());
         }
         return super.performCancel();
     }

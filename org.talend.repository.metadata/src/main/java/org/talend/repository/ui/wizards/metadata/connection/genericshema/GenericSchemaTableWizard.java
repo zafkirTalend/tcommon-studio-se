@@ -51,7 +51,7 @@ public class GenericSchemaTableWizard extends AbstractRepositoryFileTableWizard 
      * 
      * @param ISelection
      */
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public GenericSchemaTableWizard(IWorkbench workbench, boolean creation, ConnectionItem connectionItem,
             MetadataTable metadataTable, boolean forceReadOnly) {
         super(workbench, creation, forceReadOnly);
@@ -72,6 +72,7 @@ public class GenericSchemaTableWizard extends AbstractRepositoryFileTableWizard 
      * Adding the page to the wizard.
      */
 
+    @Override
     public void addPages() {
         setWindowTitle(Messages.getString("SchemaWizard.windowTitle")); //$NON-NLS-1$
 
@@ -94,6 +95,7 @@ public class GenericSchemaTableWizard extends AbstractRepositoryFileTableWizard 
      * This method determine if the 'Finish' button is enable This method is called when 'Finish' button is pressed in
      * the wizard. We will create an operation and run it using wizard as execution context.
      */
+    @Override
     public boolean performFinish() {
         if (tableWizardpage.isPageComplete()) {
             // applyConnectionCopy();
@@ -119,11 +121,21 @@ public class GenericSchemaTableWizard extends AbstractRepositoryFileTableWizard 
 
     }
 
+    @Override
+    public boolean performCancel() {
+        if (metadataTable != null && oldMetadataTable != null && metadataTable.getLabel() != null
+                && !metadataTable.getLabel().equals(oldMetadataTable.getLabel())) {
+            this.metadataTable.setLabel(oldMetadataTable.getLabel());
+        }
+        return super.performCancel();
+    }
+
     /**
      * We will accept the selection in the workbench to see if we can initialize from it.
      * 
      * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
      */
+    @Override
     public void init(final IWorkbench workbench, final IStructuredSelection selection) {
         this.selection = selection;
     }
