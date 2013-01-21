@@ -84,6 +84,8 @@ public class PluginChecker {
 
     private static final String MAPREDUCE_PLUGIN_ID = "org.talend.designer.mapreduce"; //$NON-NLS-1$
 
+    private static final String GEF_MAP_PLUGIN_ID = "org.talend.designer.gefabstractmap";//$NON-NLS-1$
+
     /**
      * Check if specific plug-in is loaded.
      * 
@@ -257,5 +259,9 @@ public class PluginChecker {
      */
     public static boolean isMapReducePluginLoader() {
         return isPluginLoaded(MAPREDUCE_PLUGIN_ID);
+    }
+
+    public static boolean isGEFAbstractMapLoaded() {
+        return isPluginLoaded(GEF_MAP_PLUGIN_ID);
     }
 }
