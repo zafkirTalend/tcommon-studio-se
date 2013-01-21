@@ -118,6 +118,14 @@ public class WSDLSchemaTableWizard extends CheckLastVersionRepositoryWizard impl
 
     }
 
+    public boolean performCancel() {
+        if (metadataTable != null && oldMetadataTable != null && metadataTable.getLabel() != null
+                && !metadataTable.getLabel().equals(oldMetadataTable.getLabel())) {
+            this.metadataTable.setLabel(oldMetadataTable.getLabel());
+        }
+        return super.performCancel();
+    }
+
     /**
      * We will accept the selection in the workbench to see if we can initialize from it.
      * 

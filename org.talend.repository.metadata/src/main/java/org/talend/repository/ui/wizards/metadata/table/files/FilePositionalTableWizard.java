@@ -117,8 +117,11 @@ public class FilePositionalTableWizard extends AbstractRepositoryFileTableWizard
         return true;
     }
 
-    @Override
     public boolean performCancel() {
+        if (metadataTable != null && oldMetadataTable != null && metadataTable.getLabel() != null
+                && !metadataTable.getLabel().equals(oldMetadataTable.getLabel())) {
+            this.metadataTable.setLabel(oldMetadataTable.getLabel());
+        }
         return super.performCancel();
     }
 

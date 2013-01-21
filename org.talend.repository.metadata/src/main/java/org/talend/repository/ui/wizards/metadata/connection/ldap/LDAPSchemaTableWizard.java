@@ -149,6 +149,10 @@ public class LDAPSchemaTableWizard extends CheckLastVersionRepositoryWizard impl
                     GenericPackage.class);
             g.getOwnedElement().remove(metadataTable);
         }
+        if (metadataTable != null && oldMetadataTable != null && metadataTable.getLabel() != null
+                && !metadataTable.getLabel().equals(oldMetadataTable.getLabel())) {
+            this.metadataTable.setLabel(oldMetadataTable.getLabel());
+        }
         return super.performCancel();
     }
 
