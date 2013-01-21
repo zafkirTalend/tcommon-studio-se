@@ -127,6 +127,4 @@ public interface ITalendCorePrefConstants {
 
     String OOZIE_SCHEDULER_USER_NAME = "oozie_scheduler_user_name";
 
-	String PERSPECTIVE_LINK_WITH_EDITOR = "perspective_link_with_editor";
-
 }

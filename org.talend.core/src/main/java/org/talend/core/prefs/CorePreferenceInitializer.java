@@ -167,8 +167,6 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         CorePlugin.getDefault().getPreferenceStore()
                 .setDefault(ITalendCorePrefConstants.FORBIDDEN_MAPPING_LENGTH_PREC_LOGIC, false);
         
-        //add on-off for TESB-8061, default on.
-        CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.PERSPECTIVE_LINK_WITH_EDITOR, true);
     }
 
     // unused method : call remove for 2.3
