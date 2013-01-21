@@ -120,6 +120,15 @@ public class FileExcelTableWizard extends AbstractRepositoryFileTableWizard impl
     }
 
     @Override
+    public boolean performCancel() {
+        if (metadataTable != null && oldMetadataTable != null && metadataTable.getLabel() != null
+                && !metadataTable.getLabel().equals(oldMetadataTable.getLabel())) {
+            this.metadataTable.setLabel(oldMetadataTable.getLabel());
+        }
+        return super.performCancel();
+    }
+
+    @Override
     public void init(final IWorkbench workbench, final IStructuredSelection selection) {
         this.selection = selection;
     }
