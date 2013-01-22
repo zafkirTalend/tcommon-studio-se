@@ -58,21 +58,25 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
 
         @Override
         protected boolean visit(IResourceDelta delta, Collection<Runnable> runnables) {
+            boolean talendProChange = false;
             IResource resource = delta.getResource();
             IPath path = resource.getFullPath();
+            if(path != null && path.lastSegment() != null){
+                talendProChange = FileConstants.LOCAL_PROJECT_FILENAME.equals(path.lastSegment());
+            }
             Set<RepositoryNode> topLevelNodes = getTopLevelNodes();
             for (final RepositoryNode repoNode : topLevelNodes) {
                 IPath topLevelNodeWorkspaceRelativePath = topLevelNodeToPathMap.get(repoNode);
                 if (topLevelNodeWorkspaceRelativePath != null) {
                     int matchingFirstSegments = path.matchingFirstSegments(topLevelNodeWorkspaceRelativePath);
                     if (path.segmentCount() == matchingFirstSegments
-                            || matchingFirstSegments == topLevelNodeWorkspaceRelativePath.segmentCount()) {
+                            || matchingFirstSegments == topLevelNodeWorkspaceRelativePath.segmentCount() || talendProChange) {
                         // be sure we are the last path of the resources and then check for the right folder and then
                         // check
                         // for
-                        // file of type .properties or folder.
+                        // file of type .properties or folder or talend.project.
                         if ((delta.getAffectedChildren().length == 0)
-                                && (FileConstants.PROPERTIES_EXTENSION.equals(path.getFileExtension()) || (resource instanceof IContainer))) {
+                                && (FileConstants.PROPERTIES_EXTENSION.equals(path.getFileExtension()) || talendProChange ||(resource instanceof IContainer))) {
                             if (viewer instanceof RepoViewCommonViewer) {
                                 runnables.add(new Runnable() {
 
