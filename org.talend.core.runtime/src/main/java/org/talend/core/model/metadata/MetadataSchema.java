@@ -389,8 +389,7 @@ public class MetadataSchema {
                     metadataColumn.setPattern(pattern.getNodeValue());
                 }
                 if (originalField.getNodeValue() != null) {
-                    String originalFieldValue = MetadataToolHelper.validateColumnName(originalField.getNodeValue(), 0);
-                    metadataColumn.setOriginalField(originalFieldValue);
+                    metadataColumn.setOriginalField(originalField.getNodeValue());
                 } else {
                     metadataColumn.setOriginalField(metadataColumn.getLabel());
                 }
