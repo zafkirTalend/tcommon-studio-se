@@ -272,15 +272,19 @@ public final class UpdateRunJobComponentContextHelper {
                                 }
                             }
                         }
+
+                        // Change value only for the job which context variable is changed. Changed by Marvin Wang
+                        // on Jan. 24, for bug TDI-24255. Context value should not be changed, because the context
+                        // value is from the current job like "context.foo".
                         // bug 9424
-                        if (eleValueType.getElementRef().equals(PARAM_VALUE_COLUMN)) {
-                            String oldValue = eleValueType.getValue();
-                            String newValue = checkAndUpdateValue(nameMap, oldValue);
-                            if (newValue != null) { // update
-                                eleValueType.setValue(newValue);
-                                modified = true;
-                            }
-                        }
+                        // if (eleValueType.getElementRef().equals(PARAM_VALUE_COLUMN)) {
+                        // String oldValue = eleValueType.getValue();
+                        // String newValue = checkAndUpdateValue(nameMap, oldValue);
+                        // if (newValue != null) { // update
+                        // eleValueType.setValue(newValue);
+                        // modified = true;
+                        // }
+                        // }
                     }
                     if (!movedRecord.isEmpty()) {
                         for (ElementValueType eleValueType : movedRecord) {
