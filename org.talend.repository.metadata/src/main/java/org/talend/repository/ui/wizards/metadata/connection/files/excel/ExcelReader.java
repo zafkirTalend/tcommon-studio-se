@@ -77,8 +77,8 @@ public class ExcelReader {
         if (!isXlsx) {
             WorkbookSettings worksetting = new WorkbookSettings();
             //worksetting.setEncoding("ISO-8859-15"); //$NON-NLS-1$
-            worksetting.setCellValidationDisabled(true); //$NON-NLS-1$
-            worksetting.setSuppressWarnings(true); //$NON-NLS-1$
+            worksetting.setCellValidationDisabled(true);
+            worksetting.setSuppressWarnings(true);
             workbook = Workbook.getWorkbook(new File(excelPath), worksetting);
         } else {
             // modify for bug 12174.
@@ -87,7 +87,7 @@ public class ExcelReader {
             try {
                 FileInputStream in = new FileInputStream(file);
                 OPCPackage open = OPCPackage.open(in);
-                clone = PackageHelper.clone(open);
+                clone = PackageHelper.clone(open, PackageHelper.createTempFile());
                 open.close();
 
                 // Package createPackage = Package.openOrCreate(file);
