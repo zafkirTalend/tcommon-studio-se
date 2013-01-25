@@ -352,7 +352,9 @@ final class XSDFileSchemaTreePopulator {
         for (Object element : toBeIterated) {
             Object value = ((ATreeNode) element).getDataType();
             List container = new ArrayList();
-            findNodeWithValue(root, value.toString(), container, new VisitingRecorder());
+            if (value != null) {
+                findNodeWithValue(root, value.toString(), container, new VisitingRecorder());
+            }
             for (int j = 0; j < container.size(); j++) {
                 if (((ATreeNode) container.get(j)).getChildren().length == 0) {
                     Object[] os = ((ATreeNode) element).getChildren();
