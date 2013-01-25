@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.talend.core.runtime.service">
+      <Service
+            class="org.talend.librariesmanager.ui.LibraryManagerUIService"
+            serviceId="ILibraryManagerUIService">
+      </Service>
+   </extension>
+      <extension
+         point="org.talend.core.global_actions">
+      <GlobalAction class="org.talend.librariesmanager.ui.actions.ShowModulesViewAction"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.talend.designer.core.ui.preferences.SpecificSettingPreferencePage"
+            class="org.talend.librariesmanager.ui.prefs.LibrariesMainPreferencesPage"
+            id="org.talend.librariesmanager.mainpage"
+            name="%preferencespage.main"/>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer class="org.talend.librariesmanager.ui.prefs.PreferenceInitializer"/>
+   </extension>
+   <extension
+         point="org.talend.core.routines_provider">
+      <RoutinesProvider
+            class="org.talend.librariesmanager.ui.service.TosRoutinesProviderCreator">
+      </RoutinesProvider>
+   </extension>
+      <extension
+         point="org.eclipse.ui.views">
+     <view
+           category="org.talend.core.root"
+           class="org.talend.librariesmanager.ui.views.ModulesView"
+           icon="icons/modules_view.gif"
+           id="org.talend.designer.codegen.perlmodule.ModulesView"
+           name="Modules"/>
+   </extension>
+
+</plugin>
