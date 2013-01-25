@@ -87,7 +87,7 @@ public class ExcelReader {
             try {
                 FileInputStream in = new FileInputStream(file);
                 OPCPackage open = OPCPackage.open(in);
-                clone = PackageHelper.clone(open);
+                clone = PackageHelper.clone(open,PackageHelper.createTempFile());
                 open.close();
 
                 // Package createPackage = Package.openOrCreate(file);
