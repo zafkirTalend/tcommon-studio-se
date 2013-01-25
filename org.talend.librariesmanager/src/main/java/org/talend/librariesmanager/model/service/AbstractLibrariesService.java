@@ -32,7 +32,6 @@ import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
-import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
 import org.talend.core.PluginChecker;
@@ -52,6 +51,7 @@ import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.PreferencesUtilities;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
+import org.talend.repository.model.IRepositoryService;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -64,6 +64,9 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
     private static Logger log = Logger.getLogger(AbstractLibrariesService.class);
 
     private final List<IChangedLibrariesListener> listeners = new ArrayList<IChangedLibrariesListener>();
+
+    private ILibraryManagerService repositoryBundleService = (ILibraryManagerService) GlobalServiceRegister.getDefault()
+            .getService(ILibraryManagerService.class);
 
     // protected String LIBS = "libs";
 
@@ -90,7 +93,6 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
     }
 
     private void deployLibrary(URL source, boolean reset) throws IOException {
-        LocalLibraryManager repositoryBundleService = (LocalLibraryManager) CorePlugin.getDefault().getRepositoryBundleService();
 
         // fix for bug 0020953
         // if jdk is not 1.5, need decode %20 for space.
@@ -156,8 +158,11 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
                 }
             };
             repositoryWorkUnit.setAvoidUnloadResources(true);
-            CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory()
-                    .executeRepositoryWorkUnit(repositoryWorkUnit);
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
+                IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
+                        IRepositoryService.class);
+                service.getProxyRepositoryFactory().executeRepositoryWorkUnit(repositoryWorkUnit);
+            }
         }
 
     }

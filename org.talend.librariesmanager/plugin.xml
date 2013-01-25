@@ -15,15 +15,7 @@
             serviceId="ILibraryManagerService">
       </Service>
    </extension>
-   <extension
-         point="org.eclipse.ui.views">
-     <view
-           category="org.talend.core.root"
-           class="org.talend.librariesmanager.ui.views.ModulesView"
-           icon="icons/modules_view.gif"
-           id="org.talend.designer.codegen.perlmodule.ModulesView"
-           name="Modules"/>
-   </extension>
+
    <extension
          point="org.eclipse.ui.contexts">
       <context
@@ -54,28 +46,6 @@
          contextId="talend.global"
          schemeId="org.talend.core.scheme"
          sequence="CTRL+F2"/>
-   </extension>
-   <extension
-         point="org.talend.core.global_actions">
-      <GlobalAction class="org.talend.librariesmanager.ui.actions.ShowModulesViewAction"/>
-   </extension>
-   <extension
-         point="org.eclipse.ui.preferencePages">
-      <page
-            category="org.talend.designer.core.ui.preferences.SpecificSettingPreferencePage"
-            class="org.talend.librariesmanager.prefs.LibrariesMainPreferencesPage"
-            id="org.talend.librariesmanager.mainpage"
-            name="%preferencespage.main"/>
-   </extension>
-   <extension
-         point="org.eclipse.core.runtime.preferences">
-      <initializer class="org.talend.librariesmanager.prefs.PreferenceInitializer"/>
-   </extension>
-   <extension
-         point="org.talend.core.routines_provider">
-      <RoutinesProvider
-            class="org.talend.librariesmanager.model.service.TosRoutinesProviderCreator">
-      </RoutinesProvider>
    </extension>
    <extension
          point="org.talend.core.java_type">

@@ -26,7 +26,8 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
-import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ILibraryManagerUIService;
 import org.talend.core.PluginChecker;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
@@ -34,6 +35,7 @@ import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsFactory;
+import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.general.LibraryInfo;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
@@ -45,15 +47,14 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.core.model.routines.RoutineLibraryMananger;
-import org.talend.core.model.routines.RoutinesUtil;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.designer.core.model.utils.emf.component.IMPORTType;
 import org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType;
 import org.talend.librariesmanager.i18n.Messages;
 import org.talend.repository.ProjectManager;
-import org.talend.repository.model.ComponentsFactoryProvider;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IRepositoryService;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -66,6 +67,13 @@ public class ModulesNeededProvider {
     private static List<ModuleNeeded> componentImportNeedsList = new ArrayList<ModuleNeeded>();;
 
     private static List<ModuleNeeded> unUsedModules = new ArrayList<ModuleNeeded>();
+
+    private static IRepositoryService service = null;
+    static {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
+            service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
+        }
+    }
 
     public static List<ModuleNeeded> getModulesNeeded() {
         // TimeMeasure.measureActive = true;
@@ -184,16 +192,20 @@ public class ModulesNeededProvider {
 
     private static List<ModuleNeeded> getModulesNeededForComponents() {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
-        IComponentsFactory compFac = ComponentsFactoryProvider.getInstance();
-        Set<IComponent> componentList = compFac.getComponents();
-        for (IComponent comp : componentList.toArray(new IComponent[0])) {
-            importNeedsList.addAll(comp.getModulesNeeded());
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IComponentsService.class)) {
+            IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
+                    IComponentsService.class);
+            IComponentsFactory compFac = service.getComponentsFactory();
+            Set<IComponent> componentList = compFac.getComponents();
+            for (IComponent comp : componentList.toArray(new IComponent[0])) {
+                importNeedsList.addAll(comp.getModulesNeeded());
+            }
         }
         return importNeedsList;
     }
 
     public static List<ModuleNeeded> getModulesNeededForJobs() {
-        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
+        IProxyRepositoryFactory repositoryFactory = service.getProxyRepositoryFactory();
 
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
 
@@ -222,43 +234,48 @@ public class ModulesNeededProvider {
         if (processItems != null) {
             Set<String> systemRoutines = new HashSet<String>();
             Set<String> userRoutines = new HashSet<String>();
-            IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService()
-                    .getProxyRepositoryFactory();
+            if (service != null) {
+                IProxyRepositoryFactory repositoryFactory = service.getProxyRepositoryFactory();
 
-            try {
-                List<IRepositoryViewObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES, true);
+                try {
+                    List<IRepositoryViewObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES, true);
 
-                for (ProcessItem p : processItems) {
-                    if (p == null || p.getProcess() == null || p.getProcess().getParameters() == null
-                            || p.getProcess().getParameters().getRoutinesParameter() == null) {
-                        continue;
-                    }
-                    for (RoutinesParameterType infor : (List<RoutinesParameterType>) p.getProcess().getParameters()
-                            .getRoutinesParameter()) {
-
-                        Property property = findRoutinesPropery(infor.getId(), infor.getName(), routines);
-                        if (property != null) {
-                            if (((RoutineItem) property.getItem()).isBuiltIn()) {
-                                systemRoutines.add(infor.getId());
-                            } else {
-                                userRoutines.add(infor.getId());
-                            }
+                    for (ProcessItem p : processItems) {
+                        if (p == null || p.getProcess() == null || p.getProcess().getParameters() == null
+                                || p.getProcess().getParameters().getRoutinesParameter() == null) {
+                            continue;
                         }
+                        for (RoutinesParameterType infor : (List<RoutinesParameterType>) p.getProcess().getParameters()
+                                .getRoutinesParameter()) {
 
+                            Property property = findRoutinesPropery(infor.getId(), infor.getName(), routines);
+                            if (property != null) {
+                                if (((RoutineItem) property.getItem()).isBuiltIn()) {
+                                    systemRoutines.add(infor.getId());
+                                } else {
+                                    userRoutines.add(infor.getId());
+                                }
+                            }
+
+                        }
                     }
+                } catch (PersistenceException e) {
+                    ExceptionHandler.process(e);
                 }
-            } catch (PersistenceException e) {
-                ExceptionHandler.process(e);
             }
-
+            ILibraryManagerUIService libUiService = null;
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
+                libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault().getService(
+                        ILibraryManagerUIService.class);
+            }
             //
-            if (!systemRoutines.isEmpty()) {
-                List<IRepositoryViewObject> systemRoutineItems = RoutinesUtil.collectRelatedRoutines(systemRoutines, true);
+            if (!systemRoutines.isEmpty() && libUiService != null) {
+                List<IRepositoryViewObject> systemRoutineItems = libUiService.collectRelatedRoutines(systemRoutines, true);
                 importNeedsList.addAll(collectModuleNeeded(systemRoutineItems, systemRoutines, true));
             }
             //
-            if (!userRoutines.isEmpty()) {
-                List<IRepositoryViewObject> collectUserRoutines = RoutinesUtil.collectRelatedRoutines(userRoutines, false);
+            if (!userRoutines.isEmpty() && libUiService != null) {
+                List<IRepositoryViewObject> collectUserRoutines = libUiService.collectRelatedRoutines(userRoutines, false);
                 importNeedsList.addAll(collectModuleNeeded(collectUserRoutines, userRoutines, false));
             }
         }
@@ -267,15 +284,17 @@ public class ModulesNeededProvider {
     }
 
     private static Property findRoutinesPropery(String id, String name, List<IRepositoryViewObject> routines) {
-        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
-        getRefRoutines(routines, ProjectManager.getInstance().getCurrentProject().getEmfProject());
-        for (IRepositoryViewObject current : routines) {
-            if (repositoryFactory.getStatus(current) != ERepositoryStatus.DELETED) {
-                Item item = current.getProperty().getItem();
-                RoutineItem routine = (RoutineItem) item;
-                Property property = routine.getProperty();
-                if (property.getId().equals(id) || property.getLabel().equals(name)) {
-                    return property;
+        if (service != null) {
+            IProxyRepositoryFactory repositoryFactory = service.getProxyRepositoryFactory();
+            getRefRoutines(routines, ProjectManager.getInstance().getCurrentProject().getEmfProject());
+            for (IRepositoryViewObject current : routines) {
+                if (repositoryFactory.getStatus(current) != ERepositoryStatus.DELETED) {
+                    Item item = current.getProperty().getItem();
+                    RoutineItem routine = (RoutineItem) item;
+                    Property property = routine.getProperty();
+                    if (property.getId().equals(id) || property.getLabel().equals(name)) {
+                        return property;
+                    }
                 }
             }
         }
@@ -300,30 +319,34 @@ public class ModulesNeededProvider {
 
         // add modules which internal system routine(which under system folder and don't have item) need.
         if (system) {
-            Map<String, List<LibraryInfo>> routineAndJars = RoutineLibraryMananger.getInstance().getRoutineAndJars();
-            Iterator<Map.Entry<String, List<LibraryInfo>>> iter = routineAndJars.entrySet().iterator();
-            while (iter.hasNext()) {
-                Map.Entry<String, List<LibraryInfo>> entry = iter.next();
-                String routineName = entry.getKey();
-                List<LibraryInfo> needJars = entry.getValue();
-                for (LibraryInfo jar : needJars) {
-                    ModuleNeeded toAdd = new ModuleNeeded("Routine " + routineName, jar.getLibName(), //$NON-NLS-1$
-                            "", true);
-                    String bundleId = jar.getBundleId();
-                    if (bundleId != null) {
-                        String bundleName = null;
-                        String bundleVersion = null;
-                        if (bundleId.contains(":")) { //$NON-NLS-1$
-                            String[] nameAndVersion = bundleId.split(":"); //$NON-NLS-1$
-                            bundleName = nameAndVersion[0];
-                            bundleVersion = nameAndVersion[1];
-                        } else {
-                            bundleName = bundleId;
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
+                ILibraryManagerUIService libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault().getService(
+                        ILibraryManagerUIService.class);
+                Map<String, List<LibraryInfo>> routineAndJars = libUiService.getRoutineAndJars();
+                Iterator<Map.Entry<String, List<LibraryInfo>>> iter = routineAndJars.entrySet().iterator();
+                while (iter.hasNext()) {
+                    Map.Entry<String, List<LibraryInfo>> entry = iter.next();
+                    String routineName = entry.getKey();
+                    List<LibraryInfo> needJars = entry.getValue();
+                    for (LibraryInfo jar : needJars) {
+                        ModuleNeeded toAdd = new ModuleNeeded("Routine " + routineName, jar.getLibName(), //$NON-NLS-1$
+                                "", true);
+                        String bundleId = jar.getBundleId();
+                        if (bundleId != null) {
+                            String bundleName = null;
+                            String bundleVersion = null;
+                            if (bundleId.contains(":")) { //$NON-NLS-1$
+                                String[] nameAndVersion = bundleId.split(":"); //$NON-NLS-1$
+                                bundleName = nameAndVersion[0];
+                                bundleVersion = nameAndVersion[1];
+                            } else {
+                                bundleName = bundleId;
+                            }
+                            toAdd.setBundleName(bundleName);
+                            toAdd.setBundleVersion(bundleVersion);
                         }
-                        toAdd.setBundleName(bundleName);
-                        toAdd.setBundleVersion(bundleVersion);
+                        importNeedsList.add(toAdd);
                     }
-                    importNeedsList.add(toAdd);
                 }
             }
         }
@@ -349,33 +372,37 @@ public class ModulesNeededProvider {
 
     public static List<ModuleNeeded> getModulesNeededForRoutines() {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
-        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
-        try {
-            List<IRepositoryViewObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES, true);
-            getRefRoutines(routines, ProjectManager.getInstance().getCurrentProject().getEmfProject());
-            for (IRepositoryViewObject current : routines) {
-                if (!current.isDeleted()) {
-                    Item item = current.getProperty().getItem();
-                    RoutineItem routine = (RoutineItem) item;
-                    importNeedsList.addAll(createModuleNeededFromRoutine(routine));
+        if (service != null) {
+            IProxyRepositoryFactory repositoryFactory = service.getProxyRepositoryFactory();
+            try {
+                List<IRepositoryViewObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES, true);
+                getRefRoutines(routines, ProjectManager.getInstance().getCurrentProject().getEmfProject());
+                for (IRepositoryViewObject current : routines) {
+                    if (!current.isDeleted()) {
+                        Item item = current.getProperty().getItem();
+                        RoutineItem routine = (RoutineItem) item;
+                        importNeedsList.addAll(createModuleNeededFromRoutine(routine));
+                    }
                 }
+            } catch (PersistenceException e) {
+                ExceptionHandler.process(e);
             }
-        } catch (PersistenceException e) {
-            ExceptionHandler.process(e);
         }
         return importNeedsList;
     }
 
     private static void getRefRoutines(List<IRepositoryViewObject> routines, org.talend.core.model.properties.Project mainProject) {
-        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
-        try {
-            if (mainProject.getReferencedProjects() != null) {
-                for (Project referencedProject : ProjectManager.getInstance().getAllReferencedProjects()) {
-                    routines.addAll(repositoryFactory.getAll(referencedProject, ERepositoryObjectType.ROUTINES, true));
+        if (service != null) {
+            IProxyRepositoryFactory repositoryFactory = service.getProxyRepositoryFactory();
+            try {
+                if (mainProject.getReferencedProjects() != null) {
+                    for (Project referencedProject : ProjectManager.getInstance().getAllReferencedProjects()) {
+                        routines.addAll(repositoryFactory.getAll(referencedProject, ERepositoryObjectType.ROUTINES, true));
+                    }
                 }
+            } catch (PersistenceException e) {
+                ExceptionHandler.process(e);
             }
-        } catch (PersistenceException e) {
-            ExceptionHandler.process(e);
         }
     }
 
@@ -386,8 +413,8 @@ public class ModulesNeededProvider {
                 "org.talend.core.librariesNeeded", "libraryNeeded"); //$NON-NLS-1$ //$NON-NLS-2$
         List<IConfigurationElement> extension = ExtensionImplementationProvider.getInstanceV2(actionExtensionPoint);
 
-        ECodeLanguage projectLanguage = ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
-                .getProject().getLanguage();
+        ECodeLanguage projectLanguage = ((RepositoryContext) CoreRuntimePlugin.getInstance().getContext()
+                .getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage();
         for (IConfigurationElement current : extension) {
             ECodeLanguage lang = ECodeLanguage.getCodeLanguage(current.getAttribute("language")); //$NON-NLS-1$
             if (lang == projectLanguage) {
@@ -395,7 +422,10 @@ public class ModulesNeededProvider {
                 String name = current.getAttribute("name"); //$NON-NLS-1$
                 String message = current.getAttribute("message"); //$NON-NLS-1$
                 boolean required = new Boolean(current.getAttribute("required")); //$NON-NLS-1$
-                importNeedsList.add(new ModuleNeeded(context, name, message, required));
+                String uripath = current.getAttribute("uripath");
+                ModuleNeeded module = new ModuleNeeded(context, name, message, required);
+                module.setModuleLocaion(uripath);
+                importNeedsList.add(module);
             }
         }
 
@@ -422,8 +452,8 @@ public class ModulesNeededProvider {
                 "org.talend.core.systemRoutineLibrary", "libraryNeeded"); //$NON-NLS-1$ //$NON-NLS-2$
         List<IConfigurationElement> extension = ExtensionImplementationProvider.getInstanceV2(actionExtensionPoint);
 
-        ECodeLanguage projectLanguage = ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
-                .getProject().getLanguage();
+        ECodeLanguage projectLanguage = ((RepositoryContext) CoreRuntimePlugin.getInstance().getContext()
+                .getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage();
         for (IConfigurationElement current : extension) {
             ECodeLanguage lang = ECodeLanguage.getCodeLanguage(current.getAttribute("language")); //$NON-NLS-1$
             if (lang == projectLanguage) {

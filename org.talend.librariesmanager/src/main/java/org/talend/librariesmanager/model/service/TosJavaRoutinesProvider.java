@@ -19,7 +19,7 @@ import java.util.List;
 import org.eclipse.core.runtime.FileLocator;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.model.routines.IRoutinesProvider;
-import org.talend.librariesmanager.Activator;
+import org.talend.librariesmanager.LibManagerPlugin;
 
 /**
  * class global comment. Detailled comment
@@ -33,7 +33,7 @@ public class TosJavaRoutinesProvider implements IRoutinesProvider {
     }
 
     public List<URL> getSystemRoutines() {
-        List<URL> toReturn = FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/java/" //$NON-NLS-1$
+        List<URL> toReturn = FilesUtils.getFilesFromFolder(LibManagerPlugin.BUNDLE, "resources/java/" //$NON-NLS-1$
                 + JavaLibrariesService.SOURCE_JAVA_ROUTINES_FOLDER, ".java", false, false); //$NON-NLS-1$
         return toReturn;
     }
@@ -44,12 +44,12 @@ public class TosJavaRoutinesProvider implements IRoutinesProvider {
      * @see org.talend.core.model.routines.IRoutinesProvider#getTalendRoutinesFolder()
      */
     public URL getTalendRoutinesFolder() throws IOException {
-        URL url = Activator.BUNDLE.getEntry("resources/java/routines/system"); //$NON-NLS-1$
+        URL url = LibManagerPlugin.BUNDLE.getEntry("resources/java/routines/system"); //$NON-NLS-1$
         return FileLocator.resolve(url);
     }
 
     public List<URL> getTalendRoutines() {
-        List<URL> toReturn = FilesUtils.getFilesFromFolder(Activator.BUNDLE,
+        List<URL> toReturn = FilesUtils.getFilesFromFolder(LibManagerPlugin.BUNDLE,
                 "resources/java/routines/system", ".java", true, true); //$NON-NLS-1$ //$NON-NLS-2$
         //
         //        toReturn.addAll(FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/java/routines/system/api", ".java")); //$NON-NLS-1$ //$NON-NLS-2$

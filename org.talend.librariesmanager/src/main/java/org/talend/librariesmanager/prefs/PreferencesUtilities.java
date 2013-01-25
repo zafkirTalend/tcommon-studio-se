@@ -19,7 +19,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.language.ECodeLanguage;
-import org.talend.librariesmanager.Activator;
+import org.talend.librariesmanager.LibManagerPlugin;
 import org.talend.librariesmanager.i18n.Messages;
 
 /**
@@ -37,7 +37,7 @@ public class PreferencesUtilities {
     public static final String EXTERNAL_LIB_PATH_PERL = "externalLibPathPerl"; //$NON-NLS-1$
 
     public static IPreferenceStore getPreferenceStore() {
-        return Activator.getDefault().getPreferenceStore();
+        return LibManagerPlugin.getDefault().getPreferenceStore();
     }
 
     public static String getLibrariesPath(ECodeLanguage language) {

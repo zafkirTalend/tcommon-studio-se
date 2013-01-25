@@ -48,6 +48,8 @@ public class ModuleNeeded {
 
     List<String> installURL;
 
+    private String moduleLocaion;
+
     public static final String SINGLE_QUOTE = "'"; //$NON-NLS-1$
 
     public static final String QUOTATION_MARK = "\""; //$NON-NLS-1$
@@ -245,6 +247,14 @@ public class ModuleNeeded {
         }
     }
 
+    public String getModuleLocaion() {
+        return this.moduleLocaion;
+    }
+
+    public void setModuleLocaion(String moduleLocaion) {
+        this.moduleLocaion = moduleLocaion;
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -317,6 +327,20 @@ public class ModuleNeeded {
                 return false;
             }
         }
+
+        // Module Location
+        if (other.getModuleLocaion() == null) {
+            if (this.getModuleLocaion() != null) {
+                return false;
+            }
+        } else {
+            if (this.getModuleLocaion() == null) {
+                return false;
+            } else if (!other.getModuleLocaion().equals(this.getModuleLocaion())) {
+                return false;
+            }
+        }
+
         if (other.isRequired() != this.isRequired()) {
             return false;
         }

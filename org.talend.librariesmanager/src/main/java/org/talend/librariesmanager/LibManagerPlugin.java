@@ -8,7 +8,7 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle
  */
-public class Activator extends AbstractUIPlugin {
+public class LibManagerPlugin extends AbstractUIPlugin {
 
     // The plug-in ID
     public static final String PLUGIN_ID = "org.talend.librariesmanager"; //$NON-NLS-1$
@@ -16,12 +16,12 @@ public class Activator extends AbstractUIPlugin {
     public static final Bundle BUNDLE = Platform.getBundle(PLUGIN_ID);
 
     // The shared instance
-    private static Activator plugin;
+    private static LibManagerPlugin plugin;
 
     /**
      * The constructor
      */
-    public Activator() {
+    public LibManagerPlugin() {
         plugin = this;
     }
 
@@ -49,7 +49,7 @@ public class Activator extends AbstractUIPlugin {
      * 
      * @return the shared instance
      */
-    public static Activator getDefault() {
+    public static LibManagerPlugin getDefault() {
         return plugin;
     }
 

@@ -14,9 +14,12 @@ package org.talend.core;
 
 import java.net.URI;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.talend.core.model.components.IComponent;
+import org.talend.core.model.general.ModuleNeeded;
 
 /**
  * DOC ycbai class global comment. Detailled comment
@@ -34,6 +37,10 @@ public interface ILibraryManagerService extends IService {
     public boolean isInitialized();
 
     public void setInitialized();
+
+    public void deploy(Set<IComponent> componentList, IProgressMonitor... monitorWrap);
+
+    public void deploy(List<ModuleNeeded> modules, IProgressMonitor... monitorWrap);
 
     /**
      * DOC ycbai Comment method "deploy".

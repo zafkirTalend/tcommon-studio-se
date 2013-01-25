@@ -3,14 +3,15 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Librariesmanager Plug-in
 Bundle-SymbolicName: org.talend.librariesmanager;singleton:=true
 Bundle-Version: 2.2.0.qualifier
-Bundle-Activator: org.talend.librariesmanager.Activator
+Bundle-Activator: org.talend.librariesmanager.LibManagerPlugin
 Bundle-Vendor: .Talend SA.
 Bundle-Localization: plugin
 Require-Bundle: org.talend.model,
  org.eclipse.core.runtime,
- org.talend.core,
+ org.talend.core.runtime;visibility:=reexport,
  org.eclipse.jdt.core,
  org.talend.commons.ui,
+ org.talend.commons,
  org.eclipse.core.expressions,
  org.talend.metadata.managment,
  org.eclipse.swt,
@@ -20,12 +21,11 @@ Require-Bundle: org.talend.model,
  org.eclipse.emf.ecore.xmi
 Eclipse-LazyStart: true
 Bundle-ClassPath: .
-Export-Package: org.talend.librariesmanager.emf.librariesindex,
+Export-Package: org.talend.librariesmanager,
+ org.talend.librariesmanager.emf.librariesindex,
  org.talend.librariesmanager.model,
  org.talend.librariesmanager.model.service,
  org.talend.librariesmanager.prefs,
- org.talend.librariesmanager.ui.views,
- org.talend.librariesmanager.utils,
  routines,
  routines.system
 Import-Package: org.eclipse.emf.ecore.xmi.impl

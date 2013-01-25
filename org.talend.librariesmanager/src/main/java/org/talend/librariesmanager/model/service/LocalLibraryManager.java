@@ -16,6 +16,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -37,11 +39,13 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
+import org.talend.core.ILibraryManagerUIService;
 import org.talend.core.language.ECodeLanguage;
+import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsService;
+import org.talend.core.model.general.ModuleNeeded;
 import org.talend.librariesmanager.emf.librariesindex.LibrariesIndex;
 import org.talend.librariesmanager.prefs.PreferencesUtilities;
-import org.talend.librariesmanager.utils.ModulesInstaller;
 
 /**
  * DOC ycbai class global comment. Detailled comment
@@ -72,10 +76,8 @@ public class LocalLibraryManager implements ILibraryManagerService {
         LibrariesIndexManager.getInstance().saveResource();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.IRepositoryBundleService#deploy()
+    /**
+     * @param jarFileUri : file:/.....
      */
     @Override
     public void deploy(URI jarFileUri, IProgressMonitor... monitorWrap) {
@@ -225,22 +227,37 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 Set<String> contributeIdSet = componentsFolders.keySet();
                 boolean jarFound = false;
                 if (relativePath != null) {
-                    for (String contributor : contributeIdSet) {
-                        if (relativePath.contains(contributor)) {
-                            // caculate the the absolute path of the jar
-                            bundleLocation = componentsFolders.get(contributor).getAbsolutePath();
-                            int index = bundleLocation.indexOf(contributor);
-                            jarLocation = new Path(bundleLocation.substring(0, index)).append(relativePath).toPortableString();
+                    if (relativePath.startsWith("platform:/plugin")) {
+                        URI uri = new URI(relativePath);
+                        URL url = FileLocator.toFileURL(uri.toURL());
+                        File file = new File(url.toURI());
+                        if (file.exists()) {
+                            jarLocation = file.getAbsolutePath();
                             jarFound = true;
-                            break;
+                        }
+                    } else {
+                        for (String contributor : contributeIdSet) {
+                            if (relativePath.contains(contributor)) {
+                                // caculate the the absolute path of the jar
+                                bundleLocation = componentsFolders.get(contributor).getAbsolutePath();
+                                int index = bundleLocation.indexOf(contributor);
+                                jarLocation = new Path(bundleLocation.substring(0, index)).append(relativePath)
+                                        .toPortableString();
+                                jarFound = true;
+                                break;
+                            }
                         }
                     }
                 }
                 sourcePath = jarLocation;
 
                 if (!jarFound && popUp && !CommonsPlugin.isHeadless()) {
-                    Shell shell = Display.getCurrent().getActiveShell();
-                    ModulesInstaller.installModules(new Shell(shell), new String[] { jarNeeded });
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
+                        ILibraryManagerUIService libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault()
+                                .getService(ILibraryManagerUIService.class);
+                        Shell shell = Display.getCurrent().getActiveShell();
+                        libUiService.installModules(new Shell(shell), new String[] { jarNeeded });
+                    }
                     return false;
                 }
 
@@ -256,6 +273,8 @@ public class LocalLibraryManager implements ILibraryManagerService {
             ExceptionHandler.process(e);
         } catch (IOException e) {
             ExceptionHandler.process(new Exception("Can not copy: " + sourcePath + " to :" + targetPath, e));
+        } catch (URISyntaxException e) {
+            ExceptionHandler.process(e);
         }
         return false;
 
@@ -277,8 +296,12 @@ public class LocalLibraryManager implements ILibraryManagerService {
             }
         }
         if (showDialog && !jarNotFound.isEmpty() && !CommonsPlugin.isHeadless()) {
-            Shell shell = Display.getCurrent().getActiveShell();
-            ModulesInstaller.installModules(new Shell(shell), jarNotFound.toArray(new String[jarNotFound.size()]));
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
+                ILibraryManagerUIService libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault().getService(
+                        ILibraryManagerUIService.class);
+                Shell shell = Display.getCurrent().getActiveShell();
+                libUiService.installModules(new Shell(shell), jarNotFound.toArray(new String[jarNotFound.size()]));
+            }
         }
 
         return allIsOK;
@@ -393,6 +416,45 @@ public class LocalLibraryManager implements ILibraryManagerService {
         }
 
         return false;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ILibraryManagerService#deploy(java.util.Set, org.eclipse.core.runtime.IProgressMonitor[])
+     */
+    @Override
+    public void deploy(Set<IComponent> componentList, IProgressMonitor... monitorWrap) {
+        List<ModuleNeeded> modules = new ArrayList<ModuleNeeded>();
+
+        for (IComponent component : componentList) {
+            modules.addAll(component.getModulesNeeded());
+        }
+        deploy(modules, monitorWrap);
+    }
+
+    @Override
+    public void deploy(List<ModuleNeeded> modules, IProgressMonitor... monitorWrap) {
+        String installLocation = getStorageDirectory().getAbsolutePath();
+
+        File indexFile = new File(installLocation + JAR_INDEX);
+        if (indexFile.exists()) {
+            LibrariesIndexManager.getInstance().loadResource();
+        }
+        boolean modified = false;
+        LibrariesIndex index = LibrariesIndexManager.getInstance().getIndex();
+        EMap<String, String> jarsToRelativePath = index.getJarsToRelativePath();
+        for (ModuleNeeded module : modules) {
+            if (module.getModuleLocaion() != null && !"".equals(module.getModuleLocaion())) {
+                if (!jarsToRelativePath.keySet().contains(module.getModuleName())) {
+                    jarsToRelativePath.put(module.getModuleName(), module.getModuleLocaion());
+                    modified = true;
+                }
+            }
+        }
+        if (modified) {
+            LibrariesIndexManager.getInstance().saveResource();
+        }
     }
 
 }

@@ -18,7 +18,6 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.exception.BusinessException;
-import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
@@ -30,6 +29,7 @@ import org.talend.core.model.process.IElement;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.Problem;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.service.ILibrariesPerlService;
 import org.talend.librariesmanager.i18n.Messages;
 
@@ -59,7 +59,8 @@ public class LibrariesService implements ILibrariesService {
     private ILibrariesService getLibrariesService() {
         UnsupportedOperationException unsupportedOperationException = new UnsupportedOperationException(
                 Messages.getString("LibrariesService.unknowLanguage"));
-        RepositoryContext property = (RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY);
+        RepositoryContext property = (RepositoryContext) CoreRuntimePlugin.getInstance().getContext()
+                .getProperty(Context.REPOSITORY_CONTEXT_KEY);
         if (property == null) {
             throw unsupportedOperationException;
         }
@@ -235,5 +236,16 @@ public class LibrariesService implements ILibrariesService {
     @Override
     public void syncLibrariesFromLibs(IProgressMonitor... monitorWrap) {
         this.getLibrariesService().syncLibrariesFromLibs(monitorWrap);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.model.general.ILibrariesService#syncLibrariesFromApp(org.eclipse.core.runtime.IProgressMonitor[])
+     */
+    @Override
+    public void syncLibrariesFromApp(IProgressMonitor... monitorWrap) {
+        this.getLibrariesService().syncLibrariesFromApp(monitorWrap);
     }
 }
