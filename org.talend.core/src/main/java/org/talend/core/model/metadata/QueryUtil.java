@@ -219,7 +219,9 @@ public class QueryUtil {
 
             String columnStr = columnName;
             // Remove special symbols for mssql column
-            if (dbType != null && dbType.equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
+            if (dbType != null
+                    && (dbType.equals(EDatabaseTypeName.MSSQL.getDisplayName()) || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED
+                            .getDisplayName()))) {
                 Pattern pattern = Pattern.compile("[^\\w.]");
                 Matcher matcher = pattern.matcher(columnStr);
                 columnStr = TalendTextUtils.addQuotes(matcher.replaceAll(""));
@@ -351,6 +353,9 @@ public class QueryUtil {
         if (schema != null && schema.length() > 0) {
             // Quote is added to schema and table when call getSchemaName() method
             currentTableName = getSchemaName(schema, dbType, currentTableName);
+            if (dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())) {
+                currentTableName = quoteStringValue(currentTableName, dbType);
+            }
         } else {
             // If no schema, you also need to add quote to table name
             if (isContext(currentTableName)) {
