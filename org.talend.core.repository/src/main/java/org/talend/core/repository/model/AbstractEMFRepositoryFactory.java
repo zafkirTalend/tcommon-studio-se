@@ -347,29 +347,29 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
     }
 
     /**
-     * DOC smallet Comment method "getCopiedLabel".
+     * Method "setPropNewName". Try first the new name with "[PROPERTY_NAME]_Copy", then, if it already exists, try
+     * again with "[PROPERTY_NAME]_CopyN" where N is number between 1 and Integer.MAX.
      * 
      * @param copiedProperty
-     * @return
      * @throws PersistenceException
      * @throws BusinessException
      */
     private void setPropNewName(Property copiedProperty) throws PersistenceException, BusinessException {
         String originalLabel = copiedProperty.getLabel();
-        String add1 = "Copy_of_"; //$NON-NLS-1$
-        String initialTry = add1 + originalLabel;
+        String copy = "_Copy"; //$NON-NLS-1$
+        String initialTry = originalLabel + copy;
         copiedProperty.setLabel(initialTry);
         // changed by hqzhang for TDI-19965
         copiedProperty.setDisplayName(initialTry);
         if (isNameAvailable(getRepositoryContext().getProject(), copiedProperty.getItem(), null)) {
             return;
         } else {
-            char j = 'a';
+            long index = 1;
             while (!isNameAvailable(getRepositoryContext().getProject(), copiedProperty.getItem(), null)) {
-                if (j > 'z') {
+                if (index < 0) {
                     throw new BusinessException(Messages.getString("AbstractEMFRepositoryFactory.cannotGenerateItem")); //$NON-NLS-1$
                 }
-                String nextTry = initialTry + "_" + (j++) + ""; //$NON-NLS-1$ //$NON-NLS-2$
+                String nextTry = originalLabel + copy + (index++);
                 copiedProperty.setLabel(nextTry);
                 // changed by hqzhang for TDI-19965
                 copiedProperty.setDisplayName(nextTry);
