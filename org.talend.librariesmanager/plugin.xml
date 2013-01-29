@@ -15,7 +15,10 @@
             serviceId="ILibraryManagerService">
       </Service>
    </extension>
-
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer class="org.talend.librariesmanager.prefs.PreferenceInitializer"/>
+   </extension>
    <extension
          point="org.eclipse.ui.contexts">
       <context

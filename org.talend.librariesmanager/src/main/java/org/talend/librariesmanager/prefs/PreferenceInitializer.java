@@ -1,9 +1,8 @@
-package org.talend.librariesmanager.ui.prefs;
+package org.talend.librariesmanager.prefs;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.talend.librariesmanager.prefs.PreferencesUtilities;
 
 public class PreferenceInitializer extends AbstractPreferenceInitializer {
 
