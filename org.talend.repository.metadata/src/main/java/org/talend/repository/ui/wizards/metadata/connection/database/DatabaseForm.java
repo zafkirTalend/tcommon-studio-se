@@ -2082,7 +2082,7 @@ public class DatabaseForm extends AbstractForm {
             @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
-                    if (validText(generalJdbcPasswordText.getText())) {
+                    if (generalJdbcPasswordText.getText() != null) {
                         try {
                             String password = PasswordEncryptUtil.encryptPassword(generalJdbcPasswordText.getText());
                             getConnection().setPassword(password);
