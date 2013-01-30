@@ -3,4 +3,10 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Common
 Bundle-SymbolicName: org.talend.libraries.apache.common
 Bundle-Version: 1.0.0.qualifier
-
+Bundle-ClassPath: .,
+ lib/commons-cli-1.0.jar,
+ lib/commons-lang-2.6.jar
+Export-Package: org.apache.commons.cli,
+ org.apache.commons.lang,
+ org.apache.commons.lang.builder,
+ org.apache.commons.lang.exception
