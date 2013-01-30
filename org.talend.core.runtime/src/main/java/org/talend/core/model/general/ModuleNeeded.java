@@ -33,6 +33,8 @@ public class ModuleNeeded {
 
     private boolean required;
 
+    private boolean mrRequired = false;// That indicates if the module is required by M/R job.
+
     private String requiredIf;
 
     // bundleName and bundleVersion for osgi system,feature 0023460
@@ -234,6 +236,24 @@ public class ModuleNeeded {
 
     public void setBundleVersion(String bundleVersion) {
         this.bundleVersion = bundleVersion;
+    }
+
+    /**
+     * Getter for mrRequired.
+     * 
+     * @return the mrRequired
+     */
+    public boolean isMrRequired() {
+        return this.mrRequired;
+    }
+
+    /**
+     * Sets the mrRequired.
+     * 
+     * @param mrRequired the mrRequired to set
+     */
+    public void setMrRequired(boolean mrRequired) {
+        this.mrRequired = mrRequired;
     }
 
     @Override
