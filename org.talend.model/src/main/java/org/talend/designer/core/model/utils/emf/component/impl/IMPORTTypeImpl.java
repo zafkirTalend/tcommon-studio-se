@@ -44,6 +44,7 @@ import org.talend.designer.core.model.utils.emf.component.INSTALLType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#isSHOW <em>SHOW</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getUrlPath <em>Url Path</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getREQUIREDIF <em>REQUIREDIF</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#isMRREQUIRED <em>MRREQUIRED</em>}</li>
  * </ul>
  * </p>
  *
@@ -247,6 +248,26 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      * @ordered
      */
     protected String rEQUIREDIF = REQUIREDIF_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isMRREQUIRED() <em>MRREQUIRED</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isMRREQUIRED()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean MRREQUIRED_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isMRREQUIRED() <em>MRREQUIRED</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isMRREQUIRED()
+     * @generated
+     * @ordered
+     */
+    protected boolean mRREQUIRED = MRREQUIRED_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -493,6 +514,27 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isMRREQUIRED() {
+        return mRREQUIRED;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setMRREQUIRED(boolean newMRREQUIRED) {
+        boolean oldMRREQUIRED = mRREQUIRED;
+        mRREQUIRED = newMRREQUIRED;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.IMPORT_TYPE__MRREQUIRED, oldMRREQUIRED, mRREQUIRED));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getBundleID() {
         return bundleID;
     }
@@ -551,6 +593,8 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
                 return getUrlPath();
             case ComponentPackage.IMPORT_TYPE__REQUIREDIF:
                 return getREQUIREDIF();
+            case ComponentPackage.IMPORT_TYPE__MRREQUIRED:
+                return isMRREQUIRED() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -596,6 +640,9 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
             case ComponentPackage.IMPORT_TYPE__REQUIREDIF:
                 setREQUIREDIF((String)newValue);
                 return;
+            case ComponentPackage.IMPORT_TYPE__MRREQUIRED:
+                setMRREQUIRED(((Boolean)newValue).booleanValue());
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -638,6 +685,9 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
             case ComponentPackage.IMPORT_TYPE__REQUIREDIF:
                 setREQUIREDIF(REQUIREDIF_EDEFAULT);
                 return;
+            case ComponentPackage.IMPORT_TYPE__MRREQUIRED:
+                setMRREQUIRED(MRREQUIRED_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -670,6 +720,8 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
                 return URL_PATH_EDEFAULT == null ? urlPath != null : !URL_PATH_EDEFAULT.equals(urlPath);
             case ComponentPackage.IMPORT_TYPE__REQUIREDIF:
                 return REQUIREDIF_EDEFAULT == null ? rEQUIREDIF != null : !REQUIREDIF_EDEFAULT.equals(rEQUIREDIF);
+            case ComponentPackage.IMPORT_TYPE__MRREQUIRED:
+                return mRREQUIRED != MRREQUIRED_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -702,6 +754,8 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
         result.append(urlPath);
         result.append(", rEQUIREDIF: ");
         result.append(rEQUIREDIF);
+        result.append(", mRREQUIRED: ");
+        result.append(mRREQUIRED);
         result.append(')');
         return result.toString();
     }

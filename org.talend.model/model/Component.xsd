@@ -170,6 +170,7 @@
     <xsd:attribute default="true" ecore:name="sHOW" name="SHOW" type="xsd:boolean"/>
     <xsd:attribute ecore:name="urlPath" name="UrlPath" type="xsd:string"/>
     <xsd:attribute ecore:name="rEQUIREDIF" name="REQUIRED_IF" type="ecore:EString"/>
+    <xsd:attribute default="false" ecore:name="mRREQUIRED" name="MRREQUIRED" type="xsd:boolean"/>
   </xsd:complexType>
   <xsd:complexType ecore:name="INSTALLType" name="INSTALL_._type">
     <xsd:sequence>

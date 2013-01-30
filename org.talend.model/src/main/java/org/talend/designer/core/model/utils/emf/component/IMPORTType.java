@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isSHOW <em>SHOW</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getUrlPath <em>Url Path</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getREQUIREDIF <em>REQUIREDIF</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isMRREQUIRED <em>MRREQUIRED</em>}</li>
  * </ul>
  * </p>
  *
@@ -312,6 +313,33 @@ public interface IMPORTType extends EObject {
      * @generated
      */
     void setREQUIREDIF(String value);
+
+    /**
+     * Returns the value of the '<em><b>MRREQUIRED</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>MRREQUIRED</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>MRREQUIRED</em>' attribute.
+     * @see #setMRREQUIRED(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_MRREQUIRED()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='MRREQUIRED' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isMRREQUIRED();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isMRREQUIRED <em>MRREQUIRED</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>MRREQUIRED</em>' attribute.
+     * @see #isMRREQUIRED()
+     * @generated
+     */
+    void setMRREQUIRED(boolean value);
 
     /**
      * Returns the value of the '<em><b>Bundle ID</b></em>' attribute.
