@@ -53,6 +53,9 @@ import org.talend.repository.ui.wizards.folder.FolderWizard;
  */
 public class RenameFolderAction extends AContextualAction {
 
+    // MOD yyin 20130128 TDQ-5392, to get the new name of the folder
+    private FolderWizard processWizard;
+
     public RenameFolderAction() {
         super();
         this.setText(Messages.getString("RenameFolderAction.action.title")); //$NON-NLS-1$
@@ -97,7 +100,7 @@ public class RenameFolderAction extends AContextualAction {
 
     protected void openFolderWizard(RepositoryNode node, ERepositoryObjectType objectType, IPath path) {
         if (objectType != null) {
-            FolderWizard processWizard = new FolderWizard(path, objectType, node.getObject().getLabel());
+            processWizard = new FolderWizard(path, objectType, node.getObject().getLabel());
             Shell activeShell = Display.getCurrent().getActiveShell();
             WizardDialog dialog = new WizardDialog(activeShell, processWizard);
             dialog.setPageSize(400, 60);
@@ -178,6 +181,14 @@ public class RenameFolderAction extends AContextualAction {
                     }
                 }
             }
+        }
+        return null;
+    }
+
+    // Added yyin 20130128 TDQ-5392, to get the new name of the folder
+    public String getNewNameOfFolder() {
+        if (processWizard != null) {
+            return processWizard.getFolderNewName();
         }
         return null;
     }

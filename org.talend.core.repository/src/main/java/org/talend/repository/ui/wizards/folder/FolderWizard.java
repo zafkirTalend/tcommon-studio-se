@@ -63,6 +63,8 @@ public class FolderWizard extends Wizard {
 
     private final String defaultLabel;
 
+    private String folderName;
+
     /**
      * Constructs a new NewProjectWizard.
      * 
@@ -98,7 +100,7 @@ public class FolderWizard extends Wizard {
     @Override
     public boolean performFinish() {
 
-        final String folderName = mainPage.getName();
+        folderName = mainPage.getName();
         final IProxyRepositoryFactory repositoryFactory = ProxyRepositoryFactory.getInstance();
 
         if (defaultLabel == null) {
@@ -171,6 +173,10 @@ public class FolderWizard extends Wizard {
     @Override
     public boolean canFinish() {
         return super.canFinish() && !mainPage.getName().equals(defaultLabel);
+    }
+
+    public String getFolderNewName() {
+        return this.folderName;
     }
 
 }
