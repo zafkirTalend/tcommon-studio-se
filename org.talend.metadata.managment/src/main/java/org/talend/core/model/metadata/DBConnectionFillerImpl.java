@@ -404,7 +404,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     // "null" for DB2.
                     if (catalogName != null) {
                         // MOD xqliu 2010-03-03 feature 11412
-                        if (!isNullSID(dbConn) && dbConn != null) {
+                        if (!isNullSID(dbConn)
+                                && dbConn != null
+                                && !((DatabaseConnection) dbConn).getDatabaseType().equals(
+                                        EDatabaseTypeName.AS400.getDisplayName())) {
                             String databaseOnConnWizard = ((DatabaseConnection) dbConn).getSID();
                             // If the SID on ui is not empty, the catalog name should be same to this SID name.
                             postFillCatalog(metaConnection, catalogList, filterList,
