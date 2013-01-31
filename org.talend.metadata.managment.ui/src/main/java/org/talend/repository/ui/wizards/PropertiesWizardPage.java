@@ -71,6 +71,7 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.core.utils.KeywordsValidator;
+import org.talend.designer.core.IProcessConvertService;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -159,6 +160,10 @@ public abstract class PropertiesWizardPage extends WizardPage {
     private boolean isSaveAs = false;
 
     private boolean allowVerchange = true;
+
+    private Item item;
+
+    protected IProcessConvertService converter;// Just for the page which would like to convert self to another process.
 
     // private Button convertBtn;// For convertation between M/R job and common job
 
@@ -442,12 +447,17 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
         }
 
-        // // Added by Marvin Wang on Jan. 10 , 2012 for map-reduce, if M/R plugin is loaded, then diaplay the button,
-        // // otherwise hide it.
-        // convertBtn = new Button(parent, SWT.BORDER);
-        //        convertBtn.setText(Messages.getString("PropertiesWizardPage.button.name.conver")); //$NON-NLS-1$
-        // convertBtn.setEnabled(false);
-        // convertBtn.setVisible(false);
+        // Added by Marvin Wang on Jan. 29, 2013.
+        createBottomPart(parent);
+    }
+
+    /**
+     * This method is used to create the bottom part for any properties wizard page which extends this page. Added by
+     * Marvin Wang on Jan. 29, 2013.
+     * 
+     * @param parent
+     */
+    protected void createBottomPart(Composite parent) {
     }
 
     /**
@@ -999,6 +1009,17 @@ public abstract class PropertiesWizardPage extends WizardPage {
         });
 
         // regConvertBtnListener();
+        regListeners();
+    }
+
+    /**
+     * Registers all listeners for wizard page which extends this page, child could override this method to add the
+     * listener for widget. For example, it assumes that there is a button in child page, you need to add a listener for
+     * this button. You just need to add what you want in this method. This method is invoked by
+     * {@link PropertiesWizardPage#addListeners()} . Added by Marvin Wang on Jan 29, 2013.
+     */
+    protected void regListeners() {
+
     }
 
     //
@@ -1247,6 +1268,42 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     public List<IRepositoryViewObject> getListExistingObjects() {
         return listExistingObjects;
+    }
+
+    /**
+     * Getter for item.
+     * 
+     * @return the item
+     */
+    public Item getItem() {
+        return this.item;
+    }
+
+    /**
+     * Sets the item.
+     * 
+     * @param item the item to set
+     */
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    /**
+     * Getter for converter.
+     * 
+     * @return the converter
+     */
+    public IProcessConvertService getConverter() {
+        return this.converter;
+    }
+
+    /**
+     * Sets the converter.
+     * 
+     * @param converter the converter to set
+     */
+    public void setConverter(IProcessConvertService converter) {
+        this.converter = converter;
     }
 
     // /**

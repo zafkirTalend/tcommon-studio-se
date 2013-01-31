@@ -86,7 +86,8 @@ public class PropertiesWizard extends Wizard {
 
     protected String lastVersionFound;
 
-    private IProcessConverter processConverter;
+    private boolean unlockRequired = true;// A flag to indicate if the item which property is edit is required to
+                                          // unlock.
 
     public PropertiesWizard(IRepositoryViewObject repositoryViewObject, IPath path, boolean useLastVersion) {
         super();
@@ -375,8 +376,21 @@ public class PropertiesWizard extends Wizard {
 
     @Override
     public void dispose() {
-        unlockObject();
+        if (isUnlockRequired()) {
+            unlockObject();
+        }
         super.dispose();
+    }
+
+    /**
+     * This method is used to control if the item which property is edited is required to unlock after closing the
+     * wizard. It is invoked by {@link #dispose()} method. The wizard that extends {@link PropertiesWizard} could
+     * override this method. Added by Marvin Wang on Jan 31, 2013.
+     * 
+     * @return <code>true</code> as default to unlock the object. Otherwise, <code>false</code>.
+     */
+    protected boolean isUnlockRequired() {
+        return unlockRequired;
     }
 
     /**
@@ -398,21 +412,29 @@ public class PropertiesWizard extends Wizard {
     }
 
     /**
-     * Getter for processConverter.
+     * Getter for object.
      * 
-     * @return the processConverter
+     * @return the object
      */
-    public IProcessConverter getProcessConverter() {
-        return this.processConverter;
+    public IRepositoryObject getObject() {
+        return this.object;
     }
 
     /**
-     * Sets the processConverter.
+     * Sets the object.
      * 
-     * @param processConverter the processConverter to set
+     * @param object the object to set
      */
-    public void setProcessConverter(IProcessConverter processConverter) {
-        this.processConverter = processConverter;
+    public void setObject(IRepositoryObject object) {
+        this.object = object;
     }
 
+    /**
+     * Sets the unlockRequired.
+     * 
+     * @param unlockRequired the unlockRequired to set
+     */
+    public void setUnlockRequired(boolean unlockRequired) {
+        this.unlockRequired = unlockRequired;
+    }
 }
