@@ -74,6 +74,8 @@ public interface IConnection extends IElement {
     public IMetadataTable getMetadataTable();
 
     public boolean isActivate();
+    
+    public void setActivate(boolean activate);
 
     public void setTraceData(Map<String, String> traceData);
 
