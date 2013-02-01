@@ -212,7 +212,12 @@ public class Problem {
             /* nodeName should use uniqueName,see bug 20560 */
             nodeName = ((INode) element).getUniqueName();
             componentName = ((INode) element).getComponent().getName();
+        } else if (element instanceof IProcess) {
+            jobInfo = new BasicJobInfo(((IProcess) element).getId(), null, ((IProcess) element).getVersion());
+            jobInfo.setJobName(((IProcess) element).getName());
+            type = ProblemType.JOB;
         }
+
     }
 
     /**
