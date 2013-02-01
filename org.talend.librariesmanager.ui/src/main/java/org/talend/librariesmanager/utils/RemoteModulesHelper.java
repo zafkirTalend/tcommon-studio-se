@@ -13,6 +13,7 @@
 package org.talend.librariesmanager.utils;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -31,6 +32,7 @@ import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleToInstall;
 import org.talend.librariesmanager.ui.dialogs.IModulesListener;
@@ -247,6 +249,14 @@ public class RemoteModulesHelper {
         job.setUser(isUser);
         job.setPriority(Job.INTERACTIVE);
         job.schedule();
+        emptyLibs();
+    }
+
+    private void emptyLibs() {
+        File libsDir = org.eclipse.core.runtime.Platform.getLocation().append(".java/lib").toFile();
+        if (libsDir.exists() && libsDir.isDirectory()) {
+            FilesUtils.emptyFolder(libsDir);
+        }
     }
 
     private JSONObject readJsonFromUrl(String url) throws IOException {
