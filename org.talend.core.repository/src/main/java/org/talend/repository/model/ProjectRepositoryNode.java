@@ -598,8 +598,13 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             for (IConfigurationElement element : configurationElements) {
                 Object extensionNode = element.createExecutableExtension("class");
                 String type = element.getAttribute("type");
+                String isResouce = element.getAttribute("isResouce");
+                boolean isResource = false;
+                if (isResouce != null) {
+                    isResource = Boolean.parseBoolean(isResouce);
+                }
                 String parentNodeType = element.getAttribute("parentNodeType");
-                if (extensionNode instanceof IExtendRepositoryNode) {
+                if (isResource && extensionNode instanceof IExtendRepositoryNode) {
                     IExtendRepositoryNode diyNode = (IExtendRepositoryNode) extensionNode;
                     IImage icon = diyNode.getNodeImage();
 
