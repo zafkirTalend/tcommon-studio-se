@@ -393,7 +393,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     // the fix,it is okay for them. What we did is to avoid creating a new catalog when catalogName is
                     // "null" for DB2.
                     if (catalogName != null) {
-                        if (!isNullSID(dbConn) && dbConn != null) {
+                        if (!isNullSID(dbConn)
+                                && dbConn != null
+                                && !((DatabaseConnection) dbConn).getDatabaseType().equals(
+                                        EDatabaseTypeName.AS400.getDisplayName())) {
                             String databaseOnConnWizard = ((DatabaseConnection) dbConn).getSID();
                             // If the SID on ui is not empty, the catalog name should be same to this SID name.
                             CWMService cwmService = new TalendCWMService();
