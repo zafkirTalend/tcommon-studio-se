@@ -68,6 +68,7 @@ public class ImportExternalJarAction extends Action {
                     final File file = new File(path + File.separatorChar + fileNames[i]);
                     try {
                         CorePlugin.getDefault().getLibrariesService().deployLibrary(file.toURL());
+                        emptyLibs();
                     } catch (Exception e) {
                         ExceptionHandler.process(e);
                     }
@@ -75,4 +76,10 @@ public class ImportExternalJarAction extends Action {
             }
         });
     }
+    private void emptyLibs() { 
+        File libsDir = org.eclipse.core.runtime.Platform.getLocation().append(".java/lib").toFile(); 
+        if (libsDir.exists() && libsDir.isDirectory()) { 
+   	          FilesUtils.emptyFolder(libsDir); 
+	    } 
+    } 
 }
