@@ -48,13 +48,14 @@ Export-Package: org.talend.commons.bridge,
  org.talend.designer.joblet.model,
  org.talend.designer.joblet.model.impl,
  org.talend.designer.joblet.model.util
-Require-Bundle: org.eclipse.core.runtime;visibility:=reexport,
+Require-Bundle: org.apache.log4j,
+ org.eclipse.core.resources;visibility:=reexport,
+ org.eclipse.core.runtime;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
  org.eclipse.gmf.runtime.notation;visibility:=reexport,
- org.eclipse.core.resources;visibility:=reexport,
- org.talend.cwm.mip;visibility:=reexport,
- org.talend.commons,
  org.eclipse.xsd,
+ org.talend.commons.runtime,
+ org.talend.cwm.mip;visibility:=reexport,
  org.talend.utils
-Eclipse-LazyStart: true
 Bundle-Activator: org.talend.core.model.ModelPlugin
+Bundle-ActivationPolicy: lazy
