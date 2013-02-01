@@ -445,12 +445,8 @@ public class LDAPSchemaWizard extends CheckLastVersionRepositoryWizard implement
                 if (creation) {
                     String nextId = factory.getNextId();
                     connectionProperty.setId(nextId);
-                    // changed by hqzhang for TDI-19527, label=displayName
-                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     factory.create(connectionItem, ldapSchemaWizardPage0.getDestinationPath());
                 } else {
-                    // changed by hqzhang for TDI-19527, label=displayName
-                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     // update
                     RepositoryUpdateManager.updateMultiSchema(connectionItem, oldMetadataTable, oldTableMap);
                     refreshInFinish(ldapSchemaWizardPage0.isNameModifiedByUser());
@@ -486,6 +482,7 @@ public class LDAPSchemaWizard extends CheckLastVersionRepositoryWizard implement
      * 
      * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
      */
+    @Override
     public void init(final IWorkbench workbench, final IStructuredSelection selection2) {
         this.selection = selection2;
     }

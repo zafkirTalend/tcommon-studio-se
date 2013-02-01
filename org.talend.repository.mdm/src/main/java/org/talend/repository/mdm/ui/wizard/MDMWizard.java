@@ -227,7 +227,6 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
             if (creation) {
                 String nextId = factory.getNextId();
                 connectionProperty.setId(nextId);
-                connectionProperty.setLabel(connectionProperty.getDisplayName());
                 factory.create(connectionItem, propertiesWizardPage.getDestinationPath());
 
                 // feature 17159
@@ -235,8 +234,6 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
                     tdqRepService.fillMetadata(connectionItem);
                 }
             } else {
-                // changed by hqzhang for TDI-19527, label=displayName
-                connectionProperty.setLabel(connectionProperty.getDisplayName());
                 connectionItem.getConnection().setLabel(connectionProperty.getDisplayName());
                 connectionItem.getConnection().setName(connectionProperty.getDisplayName());
                 RepositoryUpdateManager.updateFileConnection(connectionItem);
@@ -256,20 +253,20 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
                     tdqRepService.saveConnectionWithDependency(connectionItem);
                     closeLockStrategy();
                 } else {
-                IWorkspace workspace = ResourcesPlugin.getWorkspace();
-                IWorkspaceRunnable operation = new IWorkspaceRunnable() {
+                    IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                    IWorkspaceRunnable operation = new IWorkspaceRunnable() {
 
-                    @Override
-                    public void run(IProgressMonitor monitor) throws CoreException {
-                        try {
-                            factory.save(connectionItem);
-                            closeLockStrategy();
-                        } catch (PersistenceException e) {
-                            throw new CoreException(new Status(IStatus.ERROR, "", "", e));
+                        @Override
+                        public void run(IProgressMonitor monitor) throws CoreException {
+                            try {
+                                factory.save(connectionItem);
+                                closeLockStrategy();
+                            } catch (PersistenceException e) {
+                                throw new CoreException(new Status(IStatus.ERROR, "", "", e));
+                            }
                         }
-                    }
-                };
-                workspace.run(operation, null);
+                    };
+                    workspace.run(operation, null);
                 }
             }
         } catch (Exception e) {

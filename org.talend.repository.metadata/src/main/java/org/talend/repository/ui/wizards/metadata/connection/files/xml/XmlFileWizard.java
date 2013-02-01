@@ -162,7 +162,7 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
      * @param selection
      * @param strings
      */
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public XmlFileWizard(IWorkbench workbench, boolean creation, ISelection selection, String[] existingNames) {
         super(workbench, creation);
         this.selection = selection;
@@ -433,6 +433,7 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
             final IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
+                @Override
                 public void run(IProgressMonitor monitor) throws CoreException {
                     PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 
@@ -441,8 +442,6 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
                             if (creation) {
                                 String nextId = factory.getNextId();
                                 connectionProperty.setId(nextId);
-                                // changed by hqzhang for TDI-19527, label=displayName
-                                connectionProperty.setLabel(connectionProperty.getDisplayName());
                                 final RepositoryWorkUnit<Object> workUnit = new RepositoryWorkUnit<Object>("", this) {
 
                                     @Override
@@ -454,8 +453,6 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
                                 workUnit.setAvoidUnloadResources(true);
                                 factory.executeRepositoryWorkUnit(workUnit);
                             } else {
-                                // changed by hqzhang for TDI-19527, label=displayName
-                                connectionProperty.setLabel(connectionProperty.getDisplayName());
                                 // update schemas
                                 Map<String, SchemaTarget> schemaTargetMap = new HashMap<String, SchemaTarget>();
                                 EList<XmlXPathLoopDescriptor> schema = connection.getSchema();
@@ -536,6 +533,7 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
             };
             IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
 
+                @Override
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                     IWorkspace workspace = ResourcesPlugin.getWorkspace();
                     try {
@@ -596,6 +594,7 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
      * 
      * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
      */
+    @Override
     public void init(final IWorkbench workbench, final IStructuredSelection selection2) {
         this.selection = selection2;
     }
@@ -643,7 +642,7 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
             // the first rows is used to define the label of any metadata
             String[] label = new String[numberOfCol];
             for (int i = 0; i < numberOfCol; i++) {
-                label[i] = DEFAULT_LABEL + i; //$NON-NLS-1$
+                label[i] = DEFAULT_LABEL + i;
 
                 if (firstRowToExtractMetadata == 0) {
                     if (schemaTarget.get(i).getTagName() != null && !schemaTarget.get(i).getTagName().equals("")) { //$NON-NLS-1$

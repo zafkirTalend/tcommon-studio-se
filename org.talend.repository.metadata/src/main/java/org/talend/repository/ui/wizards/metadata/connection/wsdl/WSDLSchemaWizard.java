@@ -467,6 +467,7 @@ public class WSDLSchemaWizard extends CheckLastVersionRepositoryWizard implement
      * 
      * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
      */
+    @Override
     public void init(final IWorkbench workbench, final IStructuredSelection selection2) {
         this.selection = selection2;
     }
@@ -526,12 +527,8 @@ public class WSDLSchemaWizard extends CheckLastVersionRepositoryWizard implement
                 if (creation) {
                     String nextId = factory.getNextId();
                     connectionProperty.setId(nextId);
-                    // changed by hqzhang for TDI-19527, label=displayName
-                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     factory.create(connectionItem, wsdlSchemaWizardPage0.getDestinationPath());
                 } else {
-                    // changed by hqzhang for TDI-19527, label=displayName
-                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     // update
                     RepositoryUpdateManager.updateWSDLConnection(connectionItem, false, false);
                     refreshInFinish(wsdlSchemaWizardPage0.isNameModifiedByUser());
@@ -622,7 +619,7 @@ public class WSDLSchemaWizard extends CheckLastVersionRepositoryWizard implement
     private void warningDialog(String title) {
         MessageBox box = new MessageBox(Display.getCurrent().getActiveShell(), SWT.ICON_WARNING | SWT.OK);
         box.setText("WARNING"); //$NON-NLS-1$
-        box.setMessage(title); //$NON-NLS-1$
+        box.setMessage(title);
         box.open();
     }
 

@@ -255,13 +255,8 @@ public class ExcelFileWizard extends CheckLastVersionRepositoryWizard implements
                 if (creation) {
                     String nextId = factory.getNextId();
                     connectionProperty.setId(nextId);
-                    // changed by hqzhang for TDI-19527, label=displayName
-                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     factory.create(connectionItem, excelFileWizardPage0.getDestinationPath());
                 } else {
-                    // update
-                    // changed by hqzhang for TDI-19527, label=displayName
-                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     RepositoryUpdateManager.updateFileConnection(connectionItem);
                     refreshInFinish(excelFileWizardPage0.isNameModifiedByUser());
                     updateConnectionItem();
@@ -300,6 +295,7 @@ public class ExcelFileWizard extends CheckLastVersionRepositoryWizard implements
      * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench,
      * org.eclipse.jface.viewers.IStructuredSelection)
      */
+    @Override
     public void init(IWorkbench workbench, IStructuredSelection selection) {
         this.selection = selection;
     }

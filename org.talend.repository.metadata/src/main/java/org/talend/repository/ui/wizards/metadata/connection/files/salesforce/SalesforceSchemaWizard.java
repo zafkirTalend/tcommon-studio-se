@@ -290,7 +290,7 @@ public class SalesforceSchemaWizard extends CheckLastVersionRepositoryWizard imp
                 ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA, !isRepositoryObjectEditable(), creation);
 
         salesforceSchemaWizardPage0.setTitle(Messages.getString("SalesforceWizardPage.titleCreate.Step") + " 1 " //$NON-NLS-1$ //$NON-NLS-2$
-                + Messages.getString("FileWizardPage.of") + ALL_STEPS); //$NON-NLS-1$ //$NON-NLS-2$
+                + Messages.getString("FileWizardPage.of") + ALL_STEPS); //$NON-NLS-1$ 
         salesforceSchemaWizardPage0.setDescription(Messages.getString("SalesforceWizardPage.descriptionCreate.Step1")); //$NON-NLS-1$
         addPage(salesforceSchemaWizardPage0);
         if (creation) {
@@ -301,7 +301,7 @@ public class SalesforceSchemaWizard extends CheckLastVersionRepositoryWizard imp
         page1 = new SalesforceWizardPage(1, connectionItem, isRepositoryObjectEditable(), existingNames, salesforceAPI,
                 contextModeManager);
         page1.setTitle(Messages.getString("SalesforceWizardPage.titleCreate.Step") + " 2 " //$NON-NLS-1$ //$NON-NLS-2$
-                + Messages.getString("FileWizardPage.of") + ALL_STEPS); //$NON-NLS-1$ //$NON-NLS-2$
+                + Messages.getString("FileWizardPage.of") + ALL_STEPS); //$NON-NLS-1$ 
         page1.setDescription(Messages.getString("SalesforceWizardPage.descriptionCreate.Step2")); //$NON-NLS-1$
         addPage(page1);
         page1.setPageComplete(false);
@@ -317,12 +317,8 @@ public class SalesforceSchemaWizard extends CheckLastVersionRepositoryWizard imp
                 if (creation) {
                     String nextId = factory.getNextId();
                     connectionProperty.setId(nextId);
-                    // changed by hqzhang for TDI-19527, label=displayName
-                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     factory.create(connectionItem, salesforceSchemaWizardPage0.getDestinationPath());
                 } else {
-                    // changed by hqzhang for TDI-19527, label=displayName
-                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     // update
                     RepositoryUpdateManager.updateFileConnection(connectionItem);
                     refreshInFinish(salesforceSchemaWizardPage0.isNameModifiedByUser());
@@ -356,6 +352,7 @@ public class SalesforceSchemaWizard extends CheckLastVersionRepositoryWizard imp
         return super.performCancel();
     }
 
+    @Override
     public void init(IWorkbench workbench, IStructuredSelection selection) {
         this.selection = selection;
     }

@@ -85,7 +85,10 @@ public class RepositoryConstants {
 
     public static final String MDM_ITEM_PATTERN = ".*"; //$NON-NLS-1$
 
-    public static final String METADATA_NAME_PATTERN = "^[^\\s\\\\~\\!\\`\\@\\#\\$\\%\\^\\&\\*\\(\\)\\-\\+\\=\\{\\[\\]\\}\\:\\;\\'\\|\\<\\,\\>\\.\\?\\/\"￥；：‘”、《，》。？……]{1,}$";
+    public static final String METADATA_NAME_PATTERN = ".*";
+
+    public static final String[] ITEM_FORBIDDEN_IN_LABEL = { "~", "!", "`", "#", "^", "&", "*", "\\", "/", "?", ":", ";", "\"",
+            ".", "(", ")", "，", "。", "'", "￥", "‘", "”", "、", "《", "，", "》" };
 
     public static String getPattern(ERepositoryObjectType type) {
         if (type == ERepositoryObjectType.FOLDER) {

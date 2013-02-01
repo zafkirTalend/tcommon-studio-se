@@ -30,7 +30,6 @@ import org.talend.commons.utils.VersionUtils;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.metadata.IMetadataTable;
-import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.GenericPackage;
 import org.talend.core.model.metadata.builder.connection.GenericSchemaConnection;
@@ -118,7 +117,7 @@ public class GenericSchemaWizard extends CheckLastVersionRepositoryWizard implem
             MetadataTable metadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             metadataTable.setId(factory.getNextId());
-            GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
+            GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), connection,
                     GenericPackage.class);
             if (g != null) { // hywang
                 g.getOwnedElement().add(metadataTable);
@@ -161,7 +160,7 @@ public class GenericSchemaWizard extends CheckLastVersionRepositoryWizard implem
             MetadataTable metadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             metadataTable.setId(factory.getNextId());
-            GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
+            GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), connection,
                     GenericPackage.class);
             if (g != null) { // hywang
                 g.getOwnedElement().add(metadataTable);
@@ -226,7 +225,7 @@ public class GenericSchemaWizard extends CheckLastVersionRepositoryWizard implem
             MetadataTable metadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             metadataTable.setId(factory.getNextId());
-            GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
+            GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), connection,
                     GenericPackage.class);
             if (g != null) { // hywang
                 g.getOwnedElement().add(metadataTable);
@@ -392,12 +391,8 @@ public class GenericSchemaWizard extends CheckLastVersionRepositoryWizard implem
                 if (creation) {
                     String nextId = factory.getNextId();
                     connectionProperty.setId(nextId);
-                    // changed by hqzhang for TDI-19527, label=displayName
-                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     factory.create(connectionItem, genericSchemaWizardPage0.getDestinationPath());
                 } else {
-                    // changed by hqzhang for TDI-19527, label=displayName
-                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     // update
                     RepositoryUpdateManager.updateMultiSchema(connectionItem, oldMetadataTable, oldTableMap);
                     updateConnectionItem();
@@ -425,6 +420,7 @@ public class GenericSchemaWizard extends CheckLastVersionRepositoryWizard implem
      * 
      * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
      */
+    @Override
     public void init(final IWorkbench workbench, final IStructuredSelection selection2) {
         this.selection = selection2;
     }
