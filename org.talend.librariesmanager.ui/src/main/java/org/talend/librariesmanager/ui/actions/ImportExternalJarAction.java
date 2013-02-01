@@ -23,6 +23,7 @@ import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
+import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
@@ -78,7 +79,8 @@ public class ImportExternalJarAction extends Action {
     }
 
     private void emptyLibs() {
-        File libsDir = org.eclipse.core.runtime.Platform.getLocation().append(".java/lib").toFile();
+        File libsDir = org.eclipse.core.runtime.Platform.getLocation().append(JavaUtils.JAVA_PROJECT_NAME).append("/lib")
+                .toFile();
         if (libsDir.exists() && libsDir.isDirectory()) {
             FilesUtils.emptyFolder(libsDir);
         }

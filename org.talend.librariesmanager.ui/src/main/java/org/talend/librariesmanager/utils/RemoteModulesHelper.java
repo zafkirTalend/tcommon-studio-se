@@ -32,6 +32,7 @@ import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleToInstall;
@@ -253,7 +254,8 @@ public class RemoteModulesHelper {
     }
 
     private void emptyLibs() {
-        File libsDir = org.eclipse.core.runtime.Platform.getLocation().append(".java/lib").toFile();
+        File libsDir = org.eclipse.core.runtime.Platform.getLocation().append(JavaUtils.JAVA_PROJECT_NAME).append("/lib")
+                .toFile();
         if (libsDir.exists() && libsDir.isDirectory()) {
             FilesUtils.emptyFolder(libsDir);
         }
