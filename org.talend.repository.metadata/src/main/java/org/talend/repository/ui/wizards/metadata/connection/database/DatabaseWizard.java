@@ -364,7 +364,6 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                                 .getDbType()));
                     }
                     String displayName = connectionProperty.getDisplayName();
-                    connectionProperty.setLabel(displayName);
                     this.connection.setName(displayName);
                     this.connection.setLabel(displayName);
 
@@ -440,8 +439,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                         // update
                         RepositoryUpdateManager.updateDBConnection(connectionItem);
                     }
-                    // changed by hqzhang for TDI-19527, label=displayName
-                    connectionProperty.setLabel(connectionProperty.getDisplayName());
+
                     this.connection.setName(connectionProperty.getDisplayName());
                     this.connection.setLabel(connectionProperty.getDisplayName());
 

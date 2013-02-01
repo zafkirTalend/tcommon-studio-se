@@ -892,7 +892,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
                         // assign value directly(because the old job name is valid).
                         if (property != null && nameStatus.getSeverity() == IStatus.OK) {
                             property.setDisplayName(StringUtils.trimToNull(nameText.getText()));
-                            property.setLabel(StringUtils.trimToNull(nameText.getText()));
+                            property.setLabel(getPropertyLabel(StringUtils.trimToNull(nameText.getText())));
                             property.setModificationDate(new Date());
                         }
 
@@ -1021,11 +1021,15 @@ public abstract class PropertiesWizardPage extends WizardPage {
             nameStatus = createOkStatus();
         }
         if (property != null && nameStatus.getSeverity() == IStatus.OK) {
-            property.setLabel(StringUtils.trimToNull(nameText.getText()));
+            property.setLabel(getPropertyLabel(StringUtils.trimToNull(nameText.getText())));
             property.setDisplayName(StringUtils.trimToNull(nameText.getText()));
             property.setModificationDate(new Date());
         }
         updatePageStatus();
+    }
+
+    protected String getPropertyLabel(String name) {
+        return name;
     }
 
     protected IStatus[] getStatuses() {
@@ -1080,7 +1084,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
         IProxyRepositoryFactory repositoryFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         try {
-            return repositoryFactory.isNameAvailable(property.getItem(), itemName, listExistingObjects);
+            return repositoryFactory.isNameAvailable(property.getItem(), getPropertyLabel(itemName), listExistingObjects);
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
             return false;

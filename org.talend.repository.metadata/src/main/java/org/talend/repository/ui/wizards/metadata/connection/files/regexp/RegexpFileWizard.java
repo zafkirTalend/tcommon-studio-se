@@ -92,7 +92,7 @@ public class RegexpFileWizard extends CheckLastVersionRepositoryWizard implement
      * @param selection
      * @param strings
      */
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public RegexpFileWizard(IWorkbench workbench, boolean creation, ISelection selection, String[] existingNames) {
         super(workbench, creation);
         this.selection = selection;
@@ -321,12 +321,8 @@ public class RegexpFileWizard extends CheckLastVersionRepositoryWizard implement
                 if (creation) {
                     String nextId = factory.getNextId();
                     connectionProperty.setId(nextId);
-                    // changed by hqzhang for TDI-19527, label=displayName
-                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     factory.create(connectionItem, regexpFileWizardPage0.getDestinationPath());
                 } else {
-                    // changed by hqzhang for TDI-19527, label=displayName
-                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     // update
                     RepositoryUpdateManager.updateFileConnection(connectionItem);
                     refreshInFinish(regexpFileWizardPage0.isNameModifiedByUser());
@@ -365,6 +361,7 @@ public class RegexpFileWizard extends CheckLastVersionRepositoryWizard implement
      * 
      * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
      */
+    @Override
     public void init(final IWorkbench workbench, final IStructuredSelection selection2) {
         this.selection = selection2;
     }

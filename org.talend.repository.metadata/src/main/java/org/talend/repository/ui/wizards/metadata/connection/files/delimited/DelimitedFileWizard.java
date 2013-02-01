@@ -341,11 +341,8 @@ public class DelimitedFileWizard extends CheckLastVersionRepositoryWizard implem
                 if (creation) {
                     String nextId = factory.getNextId();
                     connectionProperty.setId(nextId);
-                    connectionItem.getProperty().setLabel(connectionItem.getProperty().getDisplayName());
                     factory.create(connectionItem, delimitedFileWizardPage0.getDestinationPath());
                 } else {
-                    // changed by hqzhang for TDI-19527, label=displayName
-                    connectionItem.getProperty().setLabel(connectionItem.getProperty().getDisplayName());
                     // update
                     RepositoryUpdateManager.updateFileConnection(connectionItem);
                     boolean nameModifiedByUser = delimitedFileWizardPage0.isNameModifiedByUser();

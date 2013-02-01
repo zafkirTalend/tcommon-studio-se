@@ -102,7 +102,7 @@ public class FilePositionalWizard extends CheckLastVersionRepositoryWizard imple
      * @param selection
      * @param strings
      */
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public FilePositionalWizard(IWorkbench workbench, boolean creation, ISelection selection, String[] existingNames) {
         super(workbench, creation);
         this.selection = selection;
@@ -332,13 +332,9 @@ public class FilePositionalWizard extends CheckLastVersionRepositoryWizard imple
             try {
                 if (creation) {
                     String nextId = factory.getNextId();
-                    // changed by hqzhang for TDI-19527, label=displayName
-                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     connectionProperty.setId(nextId);
                     factory.create(connectionItem, fileWizardPage0.getDestinationPath());
                 } else {
-                    // changed by hqzhang for TDI-19527, label=displayName
-                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     // update
                     RepositoryUpdateManager.updateFileConnection(connectionItem);
                     refreshInFinish(fileWizardPage0.isNameModifiedByUser());
@@ -377,6 +373,7 @@ public class FilePositionalWizard extends CheckLastVersionRepositoryWizard imple
      * 
      * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
      */
+    @Override
     public void init(final IWorkbench workbench, final IStructuredSelection selection2) {
         this.selection = selection2;
     }

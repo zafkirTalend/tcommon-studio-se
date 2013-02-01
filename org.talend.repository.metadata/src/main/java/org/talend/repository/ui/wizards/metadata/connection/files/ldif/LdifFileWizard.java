@@ -102,7 +102,7 @@ public class LdifFileWizard extends CheckLastVersionRepositoryWizard implements 
      * @param selection
      * @param strings
      */
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public LdifFileWizard(IWorkbench workbench, boolean creation, ISelection selection, String[] existingNames) {
         super(workbench, creation);
         this.selection = selection;
@@ -332,12 +332,8 @@ public class LdifFileWizard extends CheckLastVersionRepositoryWizard implements 
                 if (creation) {
                     String nextId = factory.getNextId();
                     connectionProperty.setId(nextId);
-                    // changed by hqzhang for TDI-19527, label=displayName
-                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     factory.create(connectionItem, ldifFileWizardPage0.getDestinationPath());
                 } else {
-                    // changed by hqzhang for TDI-19527, label=displayName
-                    connectionProperty.setLabel(connectionProperty.getDisplayName());
                     // update
                     RepositoryUpdateManager.updateFileConnection(connectionItem);
                     refreshInFinish(ldifFileWizardPage0.isNameModifiedByUser());
@@ -376,6 +372,7 @@ public class LdifFileWizard extends CheckLastVersionRepositoryWizard implements 
      * 
      * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
      */
+    @Override
     public void init(final IWorkbench workbench, final IStructuredSelection selection2) {
         this.selection = selection2;
     }

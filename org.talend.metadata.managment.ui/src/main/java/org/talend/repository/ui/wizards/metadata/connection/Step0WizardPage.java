@@ -19,6 +19,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.metadata.managment.ui.i18n.Messages;
+import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.ui.wizards.PropertiesWizardPage;
 
 /**
@@ -75,10 +76,25 @@ public class Step0WizardPage extends PropertiesWizardPage {
     /*
      * @see WizardPage#becomesVisible
      */
+    @Override
     public void setVisible(boolean visible) {
         super.setVisible(visible);
         if (visible) {
             this.nameText.setFocus();
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.ui.wizards.PropertiesWizardPage#getPropertyLabel(java.lang.String)
+     */
+    @Override
+    protected String getPropertyLabel(String name) {
+        String label = name;
+        for (String toReplace : RepositoryConstants.ITEM_FORBIDDEN_IN_LABEL) {
+            label = label.replace(toReplace, "_"); //$NON-NLS-1$
+        }
+        return label;
     }
 }
