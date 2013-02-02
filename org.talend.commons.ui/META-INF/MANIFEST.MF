@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.talend.commons.ui;singleton:=true
 Bundle-Version: 2.2.0.qualifier
 Require-Bundle: org.eclipse.ui.ide,
  org.eclipse.core.runtime,
- org.talend.commons,
+ org.talend.commons.runtime,
  org.talend.common.ui.runtime;visibility:=reexport,
  org.eclipse.jface;visibility:=reexport,
  org.eclipse.ui.workbench;visibility:=reexport,
@@ -17,7 +17,8 @@ Require-Bundle: org.eclipse.ui.ide,
  org.eclipse.jface.text,
  org.eclipse.ui.forms,
  org.eclipse.gef,
- org.eclipse.ui.intro
+ org.eclipse.ui.intro,
+ org.talend.utils
 Eclipse-LazyStart: true
 Bundle-Vendor: .Talend SA.
 Export-Package: org.talend.commons.ui.command,

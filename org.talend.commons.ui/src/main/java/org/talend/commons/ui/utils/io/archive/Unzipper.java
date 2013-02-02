@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import org.talend.commons.utils.io.FilesUtils;
+import org.talend.utils.io.FilesUtils;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

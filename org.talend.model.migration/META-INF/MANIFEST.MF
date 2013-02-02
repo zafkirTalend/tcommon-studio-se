@@ -14,6 +14,6 @@ Require-Bundle: org.talend.model,
  org.eclipse.m2m.atl.core.ui.vm,
  org.eclipse.m2m.atl.engine.vm,
  org.eclipse.m2m.atl.drivers.emf4atl,
- org.talend.commons
+ org.talend.commons.runtime
 Bundle-ActivationPolicy: lazy
 Export-Package: org.talend.model.migration

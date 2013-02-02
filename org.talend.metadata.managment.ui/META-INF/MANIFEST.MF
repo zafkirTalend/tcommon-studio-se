@@ -5,27 +5,20 @@ Bundle-SymbolicName: org.talend.metadata.managment.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.talend.metadata.managment.ui.MetadataManagmentUiPlugin
 Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
- org.eclipse.ui.ide,
- org.eclipse.emf.ecore.xmi,
  org.eclipse.gef,
  org.eclipse.text,
  org.apache.xerces,
  org.apache.commons.lang,
- org.apache.axis,
- javax.xml.rpc,
  org.talend.model,
  org.talend.commons.ui,
  org.talend.core.runtime,
  org.talend.core.repository,
  org.talend.metadata.managment,
- org.talend.libraries.apache,
- org.talend.libraries.apache.axis2,
  org.talend.utils,
- org.talend.commons,
  org.talend.libraries.dom4j-jaxen,
  org.eclipse.xsd,
- org.talend.datatools.xml
+ org.talend.datatools.xml,
+ org.apache.log4j
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: .Talend SA.
 Export-Package: org.talend.core.model.metadata.editor,
