@@ -106,30 +106,22 @@ public class JDBCDriverLoader {
             loader = getHotClassLoaderFromCache(dbType, dbVersion);
             if (loader == null) {
                 loader = new HotClassLoader();
-                for (String element : jarPath) {
-                    loader.addPath(element);
-                }
                 classLoadersMap.put(dbType, dbVersion, loader);
-            } else {
-                for (String element : jarPath) {
-                    loader.addPath(element);
-                }
-            }
+            }// else loader gotten from cache
         } else {
             loader = new HotClassLoader();
-            for (String element : jarPath) {
-                // bug 17800 fixed: fix a problem of jdbc drivers used in the wizard.
-                if (element.contains(";")) {
-                    String[] splittedPath = element.split(";");
-                    for (String element2 : splittedPath) {
-                        loader.addPath(element2);
-                    }
-                } else {
-                    loader.addPath(element);
+        }
+        for (String element : jarPath) {
+            // bug 17800 fixed: fix a problem of jdbc drivers used in the wizard.
+            if (element.contains(";")) {
+                String[] splittedPath = element.split(";");
+                for (String element2 : splittedPath) {
+                    loader.addPath(element2);
                 }
+            } else {
+                loader.addPath(element);
             }
         }
-
         DriverShim wapperDriver = null;
         Connection connection = null;
         try {
