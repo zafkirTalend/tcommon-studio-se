@@ -18,4 +18,4 @@ Export-Package: jxl,
  jxl.read.biff,
  jxl.write,
  jxl.write.biff
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+

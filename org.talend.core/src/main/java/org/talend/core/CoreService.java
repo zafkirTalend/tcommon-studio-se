@@ -473,7 +473,7 @@ public class CoreService implements ICoreService {
 
         String jarNeeded = "uniserv.jar"; //$NON-NLS-1$
         if (libManager.contains(jarNeeded)) {
-            Bundle bundle = Platform.getBundle("org.talend.libraries.uniserv");
+            Bundle bundle = Platform.getBundle("org.talend.libraries.uniserv/lib");
             if (bundle instanceof BundleHost) {
                 BundleHost bundleHost = (BundleHost) bundle;
                 final BundleData bundleData = bundleHost.getBundleData();

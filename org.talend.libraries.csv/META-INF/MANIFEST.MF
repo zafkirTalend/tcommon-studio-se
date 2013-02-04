@@ -3,7 +3,8 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Csv
 Bundle-SymbolicName: org.talend.libraries.csv
 Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .,
- lib/csv-1.0.jar
-Export-Package: org.skife.csv
+ lib/csv-1.0.jar,
+ lib/talendcsv.jar
+Export-Package: com.talend.csv,
+ org.skife.csv
