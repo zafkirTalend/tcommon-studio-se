@@ -350,6 +350,9 @@ public class QueryUtil {
         if (schema != null && schema.length() > 0) {
             // Quote is added to schema and table when call getSchemaName() method
             currentTableName = getSchemaName(schema, dbType, currentTableName);
+            if (dbType != null && dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())) {
+                currentTableName = quoteStringValue(currentTableName, dbType);
+            }
         } else {
             // If no schema, you also need to add quote to table name
             if (isContext(currentTableName)) {
