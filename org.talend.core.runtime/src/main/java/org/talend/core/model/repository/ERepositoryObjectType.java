@@ -571,7 +571,10 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         if (alias == null) {
             return null;
         }
-        return Messages.getString(alias);
+        if (isStaticNode()) {
+            return Messages.getString(alias);
+        }
+        return alias;
     }
 
     public static ERepositoryObjectType getTypeFromKey(String key) {
