@@ -116,7 +116,7 @@ public class JDBCDriverLoader {
                 }
             }
         } else {
-            loader = HotClassLoader.getInstance();
+            loader = new HotClassLoader();
             for (String element : jarPath) {
                 // bug 17800 fixed: fix a problem of jdbc drivers used in the wizard.
                 if (element.contains(";")) {
