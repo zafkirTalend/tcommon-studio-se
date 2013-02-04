@@ -5,7 +5,10 @@ Bundle-SymbolicName: org.talend.core.runtime;singleton:=true
 Bundle-Version: 2.2.0.qualifier
 Bundle-Localization: plugin
 Bundle-Vendor: .Talend SA.
-Export-Package: org.talend.core,
+Export-Package: org.talend.commons.utils.generation,
+ org.talend.commons.utils.io,
+ org.talend.commons.utils.workbench.resources,
+ org.talend.core,
  org.talend.core.classloader,
  org.talend.core.context,
  org.talend.core.database,
@@ -81,8 +84,9 @@ Export-Package: org.talend.core,
 Require-Bundle: org.eclipse.gef,
  org.eclipse.emf.edit.ui,
  org.eclipse.jdt.core,
+ org.eclipse.jdt.launching,
  org.eclipse.jdt.ui,
- org.talend.commons;visibility:=reexport,
+ org.talend.commons.runtime;visibility:=reexport,
  org.talend.commons.ui,
  org.talend.model,
  org.talend.utils,
