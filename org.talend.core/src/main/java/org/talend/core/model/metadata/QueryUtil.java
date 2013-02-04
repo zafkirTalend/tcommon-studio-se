@@ -251,7 +251,7 @@ public class QueryUtil {
         } else if (dbType != null && dbType.equals(EDatabaseTypeName.INFORMIX.getDisplayName())) { // hywang add for
             // bug0007563
             String declareString = TalendTextUtils.getStringDeclare();
-            String end = ""; //$NON-NLS-N$ //$NON-NLS-1$
+            String end = ""; //$NON-NLS-1$
             if (!isCheck) { // hywang add isCheck for informix
                 end = checkAndConcatString(TalendTextUtils.declareString(" FROM "), declareString + realTableName[0] //$NON-NLS-1$
                         + declareString);
@@ -353,7 +353,7 @@ public class QueryUtil {
         if (schema != null && schema.length() > 0) {
             // Quote is added to schema and table when call getSchemaName() method
             currentTableName = getSchemaName(schema, dbType, currentTableName);
-            if (dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())) {
+            if (dbType != null && dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())) {
                 currentTableName = quoteStringValue(currentTableName, dbType);
             }
         } else {
