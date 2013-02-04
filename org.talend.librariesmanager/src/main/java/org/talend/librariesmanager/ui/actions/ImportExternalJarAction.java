@@ -80,8 +80,8 @@ public class ImportExternalJarAction extends Action {
     }
 
     private void emptyLibs() {
-        File libsDir = org.eclipse.core.runtime.Platform.getLocation().append(JavaUtils.JAVA_PROJECT_NAME).append("/lib")
-                .toFile();
+        File libsDir = org.eclipse.core.runtime.Platform.getLocation().append(JavaUtils.JAVA_PROJECT_NAME).append(File.separator)
+                .append(JavaUtils.JAVA_LIB_DIRECTORY).toFile();
         if (libsDir.exists() && libsDir.isDirectory()) {
             FilesUtils.emptyFolder(libsDir);
         }
