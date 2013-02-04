@@ -3,9 +3,11 @@ Bundle-ManifestVersion: 2
 Bundle-Name: runtime (low dependencies) for Talend common classes
 Bundle-SymbolicName: org.talend.commons.runtime
 Bundle-Version: 2.2.0.qualifier
-Require-Bundle: org.talend.libraries.apache,
+Require-Bundle: org.apache.log4j,
+ org.apache.commons.httpclient,
  org.eclipse.core.runtime,
- org.eclipse.emf.ecore.xmi
+ org.eclipse.emf.ecore.xmi,
+ org.talend.libraries.apache
 Export-Package: org.talend.commons,
  org.talend.commons.debug,
  org.talend.commons.emf,
@@ -47,15 +49,3 @@ Export-Package: org.talend.commons,
 Bundle-ClassPath: .,
  fakejdbc_driver.jar,
  lib/talend_file_enhanced_20070724.jar
-Import-Package: org.apache.commons.beanutils,
- org.apache.commons.codec.binary,
- org.apache.commons.collections,
- org.apache.commons.collections.bidimap,
- org.apache.commons.collections.list,
- org.apache.commons.httpclient,
- org.apache.commons.httpclient.methods,
- org.apache.commons.lang,
- org.apache.log4j,
- org.apache.oro.text.regex,
- org.codehaus.jackson,
- org.codehaus.jackson.map
