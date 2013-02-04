@@ -1985,15 +1985,15 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     private Resource saveScreenshots(Item item) {
         Resource itemResource = xmiResourceManager.getScreenshotResource(item, true);
-        if (itemResource.getContents().isEmpty()) {
-            EMap screenshots = null;
-            if (item instanceof ProcessItem) {
-                screenshots = ((ProcessItem) item).getProcess().getScreenshots();
-                itemResource.getContents().addAll(EcoreUtil.copyAll(screenshots));
-            } else if (item instanceof JobletProcessItem) {
-                screenshots = ((JobletProcessItem) item).getJobletProcess().getScreenshots();
-                itemResource.getContents().addAll(screenshots);
-            }
+        EMap screenshots = null;
+        if (item instanceof ProcessItem) {
+            screenshots = ((ProcessItem) item).getProcess().getScreenshots();
+        } else if (item instanceof JobletProcessItem) {
+            screenshots = ((JobletProcessItem) item).getJobletProcess().getScreenshots();
+        }
+        if (screenshots != null && !screenshots.isEmpty()) {
+            itemResource.getContents().clear();
+            itemResource.getContents().addAll(EcoreUtil.copyAll(screenshots));
         }
         return itemResource;
     }
@@ -2544,8 +2544,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         List referenceResources = item.getReferenceResources();
         for (ReferenceFileItem refFile : (List<ReferenceFileItem>) referenceResources) {
-            Resource referenceFileResource = xmiResourceManager.getReferenceFileResource(propertyResource,
-                    refFile, false);
+            Resource referenceFileResource = xmiResourceManager.getReferenceFileResource(propertyResource, refFile, false);
             referenceFileResource.getContents().add(refFile.getContent());
             xmiResourceManager.saveResource(referenceFileResource);
             propertyResource.getContents().add(refFile);
@@ -2563,8 +2562,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         List referenceResources = item.getReferenceResources();
         List<Resource> referenceFileReources = new ArrayList<Resource>();
         for (ReferenceFileItem refFile : (List<ReferenceFileItem>) referenceResources) {
-            Resource referenceFileReource = xmiResourceManager.getReferenceFileResource(propertyResource, refFile,
-                    true);
+            Resource referenceFileReource = xmiResourceManager.getReferenceFileResource(propertyResource, refFile, true);
             if (referenceFileReource.getContents() != null) {
                 refFile.setContent((ByteArray) referenceFileReource.getContents().get(0));
             }
