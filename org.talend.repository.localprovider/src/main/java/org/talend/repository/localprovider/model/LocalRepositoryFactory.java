@@ -1978,15 +1978,15 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     private Resource saveScreenshots(Item item) {
         Resource itemResource = xmiResourceManager.getScreenshotResource(item, true);
-        if (itemResource.getContents().isEmpty()) {
-            EMap screenshots = null;
-            if (item instanceof ProcessItem) {
-                screenshots = ((ProcessItem) item).getProcess().getScreenshots();
-                itemResource.getContents().addAll(EcoreUtil.copyAll(screenshots));
-            } else if (item instanceof JobletProcessItem) {
-                screenshots = ((JobletProcessItem) item).getJobletProcess().getScreenshots();
-                itemResource.getContents().addAll(screenshots);
-            }
+        EMap screenshots = null;
+        if (item instanceof ProcessItem) {
+            screenshots = ((ProcessItem) item).getProcess().getScreenshots();
+        } else if (item instanceof JobletProcessItem) {
+            screenshots = ((JobletProcessItem) item).getJobletProcess().getScreenshots();
+        }
+        if (screenshots != null && !screenshots.isEmpty()) {
+            itemResource.getContents().clear();
+            itemResource.getContents().addAll(EcoreUtil.copyAll(screenshots));
         }
         return itemResource;
     }
