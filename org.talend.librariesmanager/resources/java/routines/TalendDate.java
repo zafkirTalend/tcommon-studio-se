@@ -151,23 +151,39 @@ public class TalendDate {
         if (stringDate == null) {
             return false;
         }
+        boolean hasZone = false;
         if (pattern == null) {
             pattern = "yyyy-MM-dd HH:mm:ss";
+        } else {
+            boolean inQuote = false;
+            char[] ps = pattern.toCharArray();
+            for (char p : ps) {
+                if (p == '\'') {
+                    inQuote = !inQuote;
+                } else if (!inQuote && (p == 'Z' || p == 'z')) {
+                    hasZone = true;
+                    break;
+                }
+            }
         }
-
-        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(pattern);
         java.util.Date testDate = null;
-
-        try {
-            testDate = sdf.parse(stringDate);
-        } catch (ParseException e) {
-            return false;
+        if (hasZone) {
+            testDate = parseDate(pattern, stringDate);
+            if (!formatDate(pattern, testDate).equalsIgnoreCase(stringDate)) {
+                return false;
+            }
+        } else {
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(pattern);
+            sdf.setTimeZone(new java.util.SimpleTimeZone(0, sdf.getTimeZone().getID()));
+            try {
+                testDate = sdf.parse(stringDate);
+                if (!sdf.format(testDate).equalsIgnoreCase(stringDate)) {
+                    return false;
+                }
+            } catch (ParseException e) {
+                return false;
+            }
         }
-
-        if (!sdf.format(testDate).equalsIgnoreCase(stringDate)) {
-            return false;
-        }
-
         return true;
     }
 
